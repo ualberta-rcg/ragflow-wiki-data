@@ -4,45 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Comment j'initialise les variables d'environnement pour l'installation de MIKE 2025?",
-      "answer": "Pour MIKE 2025, il faut exporter les variables `MIKE_TGZ=\"$HOME/scratch/MIKE_TGZ\"` et `MIKE_HOME=\"$HOME/MIKE/2025\"`."
+      "question": "Comment procéder pour installer les différentes composantes du logiciel MIKE (versions 2022 à 2025) sur les grappes de calcul, une fois les archives extraites et les modules d'environnement chargés?",
+      "answer": "Après l'extraction des archives d'installation et le chargement des modules `StdEnv`, `intel` et `intelmpi` appropriés à la version de MIKE, il faut se rendre dans le répertoire de chaque composante (comme `MIKE_Zero_2024_rhel9_Update_1`) et exécuter le script `install.sh`. Ce script doit être lancé avec les options `--eula` et `--install-path \"$MIKE_HOME\"`. Pour certaines composantes, notamment celles comme `MIKE_Zero_2024_rhel9_Update_1`, l'option `--license-server 127.0.0.1` est aussi requise."
     },
     {
-      "question": "Quelles sont les archives d'installation spécifiques pour MIKE 2024 et comment je les décompresse?",
-      "answer": "Les archives pour MIKE 2024 sont `MIKE_Zero_2024_rhel9_Update_1.tgz`, `MIKE_Zero_2024_Tools_rhel9_Update_1.tgz` et `MIKE_Zero_2024_Examples_Update_1.tgz`. Vous les décompressez avec les commandes `tar -xzf` respectives après vous être placé dans le répertoire `$MIKE_TGZ`."
-    },
-    {
-      "question": "Avant d'exécuter `install.sh` pour MIKE 2025, quelle modification doit être faite au script?",
-      "answer": "Pour MIKE 2025, il faut exécuter `sed -i 's/ cp -rp / cp -r /' install.sh` avant de lancer le script `install.sh` pour chaque composant."
-    },
-    {
-      "question": "Quelle commande d'installation générale est utilisée pour les composants de MIKE 2023, une fois les archives décompressées?",
-      "answer": "Pour MIKE 2023, la commande générale d'installation est `sh install.sh --eula --install-path \"$MIKE_HOME\"`. Pour le premier composant, `MIKE_Zero_2023_rhel7_22.11.05`, il faut ajouter `--license-server 127.0.0.1`."
-    },
-    {
-      "question": "Quels modules d'environnement sont requis et doivent être chargés après l'installation de MIKE 2022?",
-      "answer": "Après l'installation de MIKE 2022, il faut charger les modules `StdEnv/2020`, `intel/2020.1.217` et `intelmpi/2019.7.217`."
-    },
-    {
-      "question": "Comment l'outil `setrpaths.sh` est-il utilisé pour MIKE 2024?",
-      "answer": "Pour MIKE 2024, `setrpaths.sh` est utilisé avec la commande `setrpaths.sh --path \"$MIKE_HOME/bin\" --add_origin --add_path=\"$EBROOTIMPI/mpi/latest/lib/release:$EBROOTIMPI/mpi/latest/lib\"` pour configurer les chemins des bibliothèques dynamiques."
-    },
-    {
-      "question": "Est-ce que la méthode de décompression des fichiers d'installation est la même pour MIKE 2025 et MIKE 2024?",
-      "answer": "Non, pour MIKE 2025, l'archive principale est décompressée avec `unzip -j MIKE_Zero_2025_rhel9.zip`, tandis que pour MIKE 2024 (et les versions antérieures), on utilise `tar -xzf` pour les fichiers `.tgz`."
-    },
-    {
-      "question": "Où sont installés les fichiers de MIKE 2022 par défaut, selon les variables d'environnement spécifiées?",
-      "answer": "Les fichiers de MIKE 2022 sont installés dans le répertoire `\"$HOME/MIKE/2022\"`, qui est défini par la variable `MIKE_INST_DIR`."
-    },
-    {
-      "question": "L'option `--license-server 127.0.0.1` est-elle nécessaire pour toutes les étapes d'installation des composants de MIKE 2024?",
-      "answer": "Non, l'option `--license-server 127.0.0.1` est spécifiquement utilisée lors de l'installation du composant `MIKE_Zero_2024_rhel9_Update_1`."
-    },
-    {
-      "question": "Quels sont les noms des fichiers d'archives à décompresser pour MIKE 2023?",
-      "answer": "Les fichiers d'archives pour MIKE 2023 sont `MIKE_Zero_2023_rhel7_22.11.05.tgz`, `MIKE_Zero_2023_Tools_rhel7_22.11.05.tgz` et `MIKE_Zero_2023_Examples.tgz`."
+      "question": "Quelles sont les particularités de l'installation pour les versions MIKE 2025 et 2024, et à quoi sert la commande `setrpaths.sh`?",
+      "answer": "Pour les versions MIKE 2025 et 2024, il est nécessaire de modifier le script `install.sh` avant de l'exécuter, en utilisant la commande `sed -i 's/ cp -rp / cp -r /' install.sh` dans le répertoire de chaque composante. Ensuite, pour toutes les versions de MIKE mentionnées, la commande `setrpaths.sh` est utilisée pour ajuster les chemins des binaires. Son rôle est de s'assurer que les exécutables MIKE peuvent trouver et utiliser correctement les bibliothèques dynamiques d'Intel MPI, qui sont essentielles au bon fonctionnement du logiciel sur les grappes."
     }
   ],
-  "generated_at": "2026-04-12T01:42:09.835121+00:00"
+  "generated_at": "2026-04-13T08:40:54.862458+00:00"
 }

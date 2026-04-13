@@ -3,97 +3,57 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the main requirement for establishing a client-server connection with VisIt?",
-      "answer": "The local client and remote host must have the same major version of VisIt."
+      "question": "What is the primary requirement for VisIt's client-server visualization to prevent connection incompatibilities?",
+      "answer": "VisIt requires that the local client and the remote host run the same major version of the software to avoid incompatibility issues, which often appear as a failed handshake during connection establishment."
     },
     {
-      "question": "What issue typically arises if there is a version mismatch between the client and server VisIt installations?",
-      "answer": "A failed handshake usually occurs when attempting to establish the client-server connection."
+      "question": "Where can users download the host profile XML file for connecting VisIt 3.2.1 to Fir, Nibi, or Rorqual clusters?",
+      "answer": "The host profile XML file for VisIt 3.2.1 connections to Fir, Nibi, or Rorqual can be downloaded from `https://nextcloud.computecanada.ca/index.php/s/aGeScGwF8RKJJji/download`."
     },
     {
-      "question": "Which major versions of VisIt are available on the Fir, Nibi, and Rorqual clusters?",
-      "answer": "VisIt versions 2.12.x, 2.13.x, and 3.2.x are available."
+      "question": "What are the correct file paths for copying the `host_fir.xml` configuration file on Linux/Mac and Windows systems to connect VisIt to Fir, Nibi, or Rorqual clusters?",
+      "answer": "On Linux/Mac, copy the file to `~/.visit/hosts/`. On Windows, copy it to `My Documents\\VisIt 3.2.1\\hosts` or a similar directory."
     },
     {
-      "question": "How can I view the installed VisIt versions on the clusters like Fir, Nibi, and Rorqual?",
-      "answer": "You can run the command `module spider visit`."
+      "question": "How should users configure the host profile in VisIt on their laptop for connecting to Fir or Nibi clusters?",
+      "answer": "Users should set the Host nickname to 'fir' (or 'nibi'), the Remote host name to `fir.alliancecan.ca` (or `nibi.alliancecan.ca`), and the Username to their CCDB username."
     },
     {
-      "question": "Where should the `host_fir.xml` configuration file be placed on a Linux or Mac system?",
-      "answer": "It should be copied to `~/.visit/hosts/`."
+      "question": "What are the two types of launch profiles available in VisIt for Fir, Nibi, and Rorqual clusters, and what is their recommended usage?",
+      "answer": "The 'login' profile runs the engine on a login node (not recommended for heavy visualizations), while the 'slurm' profile runs the engine inside an interactive job on a compute node, which is recommended for intensive tasks."
     },
     {
-      "question": "What specific settings are needed to connect VisIt to Nibi for remote rendering?",
-      "answer": "Set 'Host nickname' to `nibi` and 'Remote host name' to `nibi.alliancecan.ca`."
+      "question": "What specific modifications are required in the 'slurm' launch profile for VisIt on Fir, Nibi, or Rorqual clusters?",
+      "answer": "Users must replace `--account=def-someuser` with their default allocation in the 'Launcher arguments' field. For Fir only, they must also add the flag `--chdir=/scratch/username`, specifying their actual username."
     },
     {
-      "question": "What username should be used when configuring VisIt for Fir and Nibi?",
-      "answer": "You should use your CCDB username."
+      "question": "What configuration is necessary for VisIt client-server visualization if a user's Alliance account has multifactor authentication enabled?",
+      "answer": "If multifactor authentication is enabled, users need to configure their SSH client with `ControlMaster` and use the full host name (e.g., `fir.alliancecan.ca`) for both `Host` and `HostName` in their `~/.ssh/config` file."
     },
     {
-      "question": "What are the two types of launch profiles available for VisIt on Fir, Nibi, and Rorqual, and what are their purposes?",
-      "answer": "The `login` profile runs the engine on a login node, and the `slurm` profile runs it inside an interactive job on a compute node."
+      "question": "What are the two ways to configure VisIt for connecting to the Trillium cluster?",
+      "answer": "VisIt can be configured for Trillium by either downloading and placing a `host_trillium.xml` configuration file or by manually configuring the host profile within the VisIt application."
     },
     {
-      "question": "What modification is required for the `slurm` launch profile's 'Launcher arguments' field?",
-      "answer": "You need to replace `--account=def-someuser` with your default allocation."
+      "question": "When manually configuring a host profile for Trillium in VisIt, what key details must be entered?",
+      "answer": "Users need to enter 'trillium' as the Host nickname, `trillium.alliancecan.ca` as the Remote host name, their own username, and `/scinet/trillium/software/2018a/opt/base/visit/2.13.1` as the Path to VisIt installation. They must also enable 'Tunnel data connections through SSH'."
     },
     {
-      "question": "What additional flag should be added to the 'Launcher arguments' field when using the `slurm` profile on Fir?",
-      "answer": "Add `--chdir=/scratch/username`, replacing `username` with your actual username."
+      "question": "What are the prerequisites, specifically additional packages, for compiling ParaView or VisIt on a CentOS Cloud VM?",
+      "answer": "On a CentOS VM, users need to install several packages including `xauth`, `wget`, `gcc`, `gcc-c++`, `ncurses-devel`, `python-devel`, `libxcb-devel`, `patch`, `imake`, `libxml2-python`, `mesa-libGL`, `mesa-libGL-devel`, `mesa-libGLU`, `mesa-libGLU-devel`, `bzip2`, `bzip2-libs`, `libXt-devel`, `zlib-devel`, `flex`, and `byacc`."
     },
     {
-      "question": "What is necessary for VisIt connections if your account has multifactor authentication enabled?",
-      "answer": "You need to configure your SSH client with `ControlMaster` and use the full host name for Host."
+      "question": "What is the command sequence to compile VisIt with offscreen rendering support (OSMesa) on a Cloud VM?",
+      "answer": "Users should first download the build script (`wget http://portal.nersc.gov/project/visit/releases/2.12.1/build_visit2_12_1`), then make it executable (`chmod u+x build_visit2_12_1`), and finally run it with the necessary flags (`./build_visit2_12_1 --prefix /home/centos/visit --mesa --system-python --hdf4 --hdf5 --netcdf --silo --szip --xdmf --zlib`)."
     },
     {
-      "question": "How do you save your VisIt settings after making changes on your laptop?",
-      "answer": "Go to `Options -> Save Settings` and then exit VisIt for the changes to take effect."
+      "question": "How can a user verify if the VisIt installation on a Cloud VM was successful?",
+      "answer": "To test the installation, a user can run `~/visit/bin/visit -cli -nowin`, which should initiate a VisIt Python shell."
     },
     {
-      "question": "Where should the `host_trillium.xml` file be placed on a Windows machine?",
-      "answer": "It should be placed in `My Documents\\VisIt 2.13.0\\hosts\\`."
-    },
-    {
-      "question": "After placing the Trillium host configuration file, what should you do to ensure the profile is available?",
-      "answer": "Restart VisIt and check under `Options -> Host Profiles` to confirm the Trillium profile is visible."
-    },
-    {
-      "question": "What is the required 'Path to VisIt installation' for a manual configuration to connect to Trillium?",
-      "answer": "The path is `/scinet/trillium/software/2018a/opt/base/visit/2.13.1`."
-    },
-    {
-      "question": "Which option should be checked when manually configuring VisIt to connect to Trillium?",
-      "answer": "You should check 'Tunnel data connections through SSH'."
-    },
-    {
-      "question": "What settings need to be configured for the `slurm` profile on Trillium?",
-      "answer": "You need to set the parameters for the 'Launch parallel engine' under the `Parallel` tab."
-    },
-    {
-      "question": "What steps are involved in setting up a Cloud VM for VisIt client-server visualization?",
-      "answer": "First, launch a VM using the Cloud Quick Start Guide, then install additional packages on the VM."
-    },
-    {
-      "question": "What is the command to install prerequisite packages on a CentOS Cloud VM for compiling VisIt?",
-      "answer": "You need to install several additional packages using `sudo yum install` commands, such as `xauth`, `wget`, `gcc`, `ncurses-devel`, `libxcb-devel`, `mesa-libGL`, and `zlib-devel`, among others."
-    },
-    {
-      "question": "How can you copy your public SSH key to a Cloud VM to simplify logins?",
-      "answer": "On your laptop, use the command `cat ~/.ssh/id_rsa.pub | ssh -i ~/.ssh/cloudwestkey.pem centos@vm.ip.address 'cat >>.ssh/authorized_keys'`."
-    },
-    {
-      "question": "What script can be used to compile VisIt with offscreen rendering support (OSMesa) on a Cloud VM?",
-      "answer": "The `build_visit2_12_1` script can be downloaded and run with specific flags like `--prefix`, `--mesa`, and `--system-python`."
-    },
-    {
-      "question": "How do you test a VisIt installation after compiling it on a Cloud VM?",
-      "answer": "Run `~/visit/bin/visit -cli -nowin` to start a VisIt Python shell."
-    },
-    {
-      "question": "When running VisIt in client-server mode on a Cloud VM, where does the data processing and rendering occur?",
-      "answer": "Data processing and rendering are done on the VM itself, while the GUI controls are displayed on your laptop."
+      "question": "How is VisIt configured on a laptop to operate in client-server mode with a Cloud VM?",
+      "answer": "In VisIt's 'Options -> Host profiles', users need to edit the connection nickname, the VM host name, the path to the VisIt installation (`/home/centos/visit`), and their username on the VM. They must also enable tunneling through SSH and save their settings."
     }
   ],
-  "generated_at": "2026-04-12T11:07:00.073451+00:00"
+  "generated_at": "2026-04-13T16:01:59.348096+00:00"
 }

@@ -3,41 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is MrBayes used for?",
-      "answer": "MrBayes is a program used for Bayesian inference and model choice across a wide range of phylogenetic and evolutionary models."
+      "question": "What is the primary function of the MrBayes program?",
+      "answer": "MrBayes is a program designed for Bayesian inference and model choice across a wide range of phylogenetic and evolutionary models."
     },
     {
-      "question": "What computational method does MrBayes employ?",
+      "question": "How does MrBayes estimate the posterior distribution of model parameters?",
       "answer": "MrBayes uses Markov chain Monte Carlo (MCMC) methods to estimate the posterior distribution of model parameters."
     },
     {
-      "question": "How can one find available MrBayes modules?",
-      "answer": "You can find available MrBayes modules by running the command `module spider mrbayes`."
+      "question": "What command should be used to find available MrBayes modules on a system?",
+      "answer": "Users can find available MrBayes modules by running the command `module spider mrbayes`."
     },
     {
-      "question": "How do you submit a sequential MrBayes job script that uses only one CPU core?",
-      "answer": "A sequential MrBayes job script, configured with `--cpus-per-task=1`, can be submitted using the command `sbatch submit-mrbayes-seq.sh`."
+      "question": "How do you specify the number of CPU cores for a sequential MrBayes job in a Slurm script?",
+      "answer": "For a sequential MrBayes job, the Slurm script includes the parameter `#SBATCH --cpus-per-task=1` to allocate one CPU core."
     },
     {
-      "question": "What Slurm parameter is used to specify the total number of CPU cores for a parallel MrBayes job?",
-      "answer": "The `--ntasks` Slurm parameter is used to specify the total number of CPU cores, for example, `--ntasks=8` for eight cores."
+      "question": "What is the `primates.nex` file used for in the provided MrBayes examples?",
+      "answer": "The `primates.nex` file is an example input file that is distributed with MrBayes and used in the example job scripts."
     },
     {
-      "question": "Which modules need to be loaded to run MrBayes using a GPU?",
-      "answer": "To run MrBayes on a GPU, you need to load the `gcc` and `cuda/12` modules in addition to `mrbayes/3.2.7`."
+      "question": "How can MrBayes be run in parallel using multiple CPU cores via MPI?",
+      "answer": "MrBayes can be run on multiple CPU cores using MPI by setting the `#SBATCH --ntasks` parameter in the Slurm job script to the desired number of cores, such as `#SBATCH --ntasks=8`."
+    },
+    {
+      "question": "What Slurm parameters and modules are typically required to run MrBayes on a GPU?",
+      "answer": "To run MrBayes on a GPU, the Slurm script requires `#SBATCH --gpus=1` and the modules `gcc`, `cuda/12`, and `mrbayes/3.2.7` need to be loaded."
     },
     {
       "question": "Why is checkpointing recommended for very long MrBayes runs?",
-      "answer": "Checkpointing is recommended for very long MrBayes runs to save progress, allowing calculations to be continued in subsequent jobs and reducing the risk of interruption from hardware failure or maintenance outages."
+      "answer": "Checkpointing is recommended for very long MrBayes runs to save progress from one job and continue it in a subsequent job, reducing the risk of work loss due to hardware failure or maintenance outages."
     },
     {
-      "question": "How do you enable checkpointing in MrBayes when splitting a calculation into multiple jobs?",
-      "answer": "To enable checkpointing, split the calculation into several jobs and include the `append=yes` keyword in the `.nex` input file for the jobs that continue a previous run."
+      "question": "What is the key difference in the input `.nex` file for a MrBayes job that continues a checkpointed run?",
+      "answer": "The key difference is the inclusion of the `append=yes` keyword in the `mcmc` command within the `.nex` file for the subsequent job."
     },
     {
-      "question": "What input file is consistently used in the provided MrBayes example scripts?",
-      "answer": "The input file consistently used in the provided MrBayes example scripts is `primates.nex`, which is distributed with MrBayes."
+      "question": "How can multiple MrBayes jobs for a checkpointed calculation be launched efficiently using a single Slurm script?",
+      "answer": "Multiple MrBayes checkpointing jobs can be launched efficiently using a Slurm job array, which involves using the `#SBATCH --array` parameter in the job script."
+    },
+    {
+      "question": "What command is used to submit a Slurm job script for MrBayes?",
+      "answer": "A Slurm job script for MrBayes is submitted using the command `sbatch [script_name.sh]`."
+    },
+    {
+      "question": "What is the purpose of `cd $SCRATCH` in the example MrBayes job scripts?",
+      "answer": "The `cd $SCRATCH` command changes the current directory to the user's scratch space, typically used for temporary files and job output."
+    },
+    {
+      "question": "What is the command to execute the MrBayes program (`mb`) within a Slurm job script?",
+      "answer": "The command `srun mb [input_file.nex]` is used to execute the MrBayes program within a Slurm job script."
+    },
+    {
+      "question": "Which specific version of MrBayes is demonstrated in the provided examples?",
+      "answer": "The specific MrBayes version demonstrated in the provided examples is `mrbayes/3.2.7`."
+    },
+    {
+      "question": "What Slurm parameter is used to define the maximum execution time for a MrBayes job?",
+      "answer": "The Slurm parameter `--time` is used to define the maximum execution time for a MrBayes job, for example, `--time=1:00:00`."
     }
   ],
-  "generated_at": "2026-04-12T03:20:17.017431+00:00"
+  "generated_at": "2026-04-13T09:38:06.477085+00:00"
 }

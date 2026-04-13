@@ -3,49 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Quel est l'objectif principal de ce document?",
-      "answer": "L'objectif est d'expliquer comment effectuer un rendu avec le logiciel YT sur une grappe en utilisant le CPU."
+      "question": "Quel est le but principal de la section « Effectuer un rendu sur une grappe »?",
+      "answer": "La section vise à expliquer comment configurer l'environnement logiciel YT pour générer des images de rendu sur une grappe de calcul, puis comment les assembler en un film."
     },
     {
-      "question": "Quelles sont les premières étapes pour installer l'environnement Python nécessaire?",
-      "answer": "Il faut charger les modules `python` et `mpi4py`, puis créer un environnement virtuel nommé `astro` dans votre répertoire personnel."
+      "question": "Quel logiciel est spécifiquement couvert pour effectuer des rendus dans ce document?",
+      "answer": "Le logiciel principal abordé pour les rendus est YT, disponible à l'adresse yt-project.org."
     },
     {
-      "question": "Quels paquets Python doivent être installés dans l'environnement virtuel?",
-      "answer": "Il faut installer `cython`, `numpy` et `yt` en utilisant la commande `pip install`."
+      "question": "Quelles sont les premières étapes pour préparer l'environnement YT pour le rendu sur CPU dans un répertoire personnel?",
+      "answer": "Il faut charger les modules `python` et `mpi4py`, créer un environnement virtuel nommé `astro` dans le répertoire personnel, l'activer, puis installer les paquets Python `cython`, `numpy` et `yt` via pip."
     },
     {
-      "question": "Où peut-on se procurer l'ensemble de données Enzo_64 requis pour le rendu?",
-      "answer": "L'ensemble de données Enzo_64 est disponible au téléchargement sur le site web http://yt-project.org/data."
+      "question": "Pourquoi est-il recommandé de créer un environnement virtuel pour les outils Python, comme `astro`?",
+      "answer": "Créer un environnement virtuel permet d'installer les outils Python et leurs dépendances dans un espace isolé de votre répertoire personnel, évitant ainsi les conflits avec les installations Python du système."
     },
     {
-      "question": "À quoi sert le script Python `grids.py`?",
-      "answer": "Ce script charge l'ensemble de données Enzo_64, crée une scène de rendu, configure la résolution et les annotations, puis génère 90 images en rotation."
+      "question": "Comment le parallélisme MPI est-il activé dans le script Python de rendu `grids.py`?",
+      "answer": "Le parallélisme MPI est activé dans le script `grids.py` en appelant la fonction `yt.enable_parallelism()`."
     },
     {
-      "question": "Comment le parallélisme est-il activé dans le script Python de rendu?",
-      "answer": "Le parallélisme MPI est activé en incluant la commande `yt.enable_parallelism()` au début du script `grids.py`."
+      "question": "Quel ensemble de données est nécessaire pour reproduire l'exemple de rendu décrit dans la documentation?",
+      "answer": "L'exemple de rendu nécessite l'ensemble de données 'Enzo_64', qui peut être téléchargé depuis yt-project.org/data."
     },
     {
-      "question": "Quelle est la résolution de chaque image de rendu générée?",
-      "answer": "Chaque image est rendue avec une résolution de 1024 par 1024 pixels."
+      "question": "Quelle est la fonction principale du script Python `grids.py` dans le processus de rendu?",
+      "answer": "Le script `grids.py` est conçu pour charger l'ensemble de données Enzo_64, créer une scène avec la densité de gaz, définir une résolution de 1024x1024, et générer 90 images en faisant pivoter la scène sur 180 degrés le long de l'axe vertical."
     },
     {
-      "question": "Quel est le rôle du script `yt-mpi.sh`?",
-      "answer": "Le script `yt-mpi.sh` est un script SLURM qui sert à soumettre la tâche de rendu Python (`grids.py`) à la grappe, en définissant les ressources comme le temps et le nombre de processus MPI."
+      "question": "Quelle résolution est définie pour les images générées par le script `grids.py`?",
+      "answer": "Chaque image de rendu est générée avec une résolution de 1024 par 1024 pixels."
     },
     {
-      "question": "Comment soumettre la tâche de rendu à la grappe?",
-      "answer": "La tâche de rendu est soumise en exécutant la commande `sbatch yt-mpi.sh`."
+      "question": "Combien d'images le script `grids.py` génère-t-il lors de la rotation de la scène?",
+      "answer": "Le script génère un total de 90 images, chacune représentant une étape de la rotation de 180 degrés."
     },
     {
-      "question": "Comment créer un film à partir des images PNG générées une fois la tâche terminée?",
-      "answer": "Il faut utiliser la commande `ffmpeg -r 30 -i frame%04d.png -c:v libx264 -pix_fmt yuv420p -vf \"scale=trunc(iw/2)*2:trunc(ih/2)*2\" grids.mp4`."
+      "question": "Quel est le rôle du script `yt-mpi.sh` dans le processus de soumission de tâche sur une grappe de calcul?",
+      "answer": "Le script `yt-mpi.sh` est un script Slurm qui spécifie les paramètres de la tâche (temps alloué, nombre de processus MPI, mémoire par CPU, compte) et exécute le script Python `grids.py` en utilisant `srun`."
     },
     {
-      "question": "À quelle fréquence d'images le film final sera-t-il créé?",
-      "answer": "Le film sera créé à une fréquence de 30 images par seconde."
+      "question": "Comment soumet-on la tâche de rendu à la grappe après avoir configuré les scripts?",
+      "answer": "La tâche de rendu est soumise à la grappe en utilisant la commande Slurm `sbatch yt-mpi.sh`."
+    },
+    {
+      "question": "Quel outil est utilisé pour créer un film à partir des images PNG rendues une fois que la tâche sur la grappe est terminée?",
+      "answer": "L'outil utilisé pour assembler les images PNG en un film est `ffmpeg`."
+    },
+    {
+      "question": "Quelle est la commande spécifique pour générer un film nommé `grids.mp4` à partir des images PNG rendues à 30 images par seconde?",
+      "answer": "La commande est `ffmpeg -r 30 -i frame%04d.png -c:v libx264 -pix_fmt yuv420p -vf \"scale=trunc(iw/2)*2:trunc(ih/2)*2\" grids.mp4`."
+    },
+    {
+      "question": "Quelle est la fréquence d'images (FPS) configurée pour le film final `grids.mp4`?",
+      "answer": "Le film final `grids.mp4` est créé à une fréquence de 30 images par seconde (FPS)."
     }
   ],
-  "generated_at": "2026-04-12T12:11:36.944036+00:00"
+  "generated_at": "2026-04-13T16:30:02.365206+00:00"
 }

@@ -4,53 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `high_memory_beast_job.sh` script?",
-      "answer": "The `high_memory_beast_job.sh` script is designed to run a BEAST job with increased memory allocation."
+      "question": "How can a user increase the memory allocated to a BEAST job when using the high-memory job script?",
+      "answer": "To increase memory for a BEAST job using the high-memory job script, you must adjust both the SLURM `--mem-per-cpu` allocation (e.g., to `4000M`) and the `BEAST_MEM` Java argument (e.g., to `-Xmx3750M`). It's specified that the `BEAST_MEM` value needs to be 250M lower than the `--mem-per-cpu` value."
     },
     {
-      "question": "How much memory per CPU is requested in the SLURM jobscript for a high-memory BEAST job?",
-      "answer": "The SLURM jobscript requests 4000MB (`4000M`) of memory per CPU using `--mem-per-cpu=4000M`."
-    },
-    {
-      "question": "Which version of the BEAST module is loaded in this high-memory jobscript?",
-      "answer": "The `beast/2.6.3` module is loaded in the high-memory jobscript."
-    },
-    {
-      "question": "What is the recommended relationship between the `BEAST_MEM` variable and the `--mem-per-cpu` SLURM directive?",
-      "answer": "The `BEAST_MEM` variable needs to be 250MB lower than the value specified in the `--mem-per-cpu` SLURM directive."
-    },
-    {
-      "question": "What value is explicitly set for the `BEAST_MEM` variable in this jobscript?",
-      "answer": "The `BEAST_MEM` variable is set to `-Xmx3750M`."
-    },
-    {
-      "question": "How are the BEAST and BEAGLE-lib paths defined for the Java command?",
-      "answer": "The `BEAST_LIB` variable is set to `${EBROOTBEAST}/lib`, and `BEAST_EXTRA_LIBS` combines `BEAST_LIB` and `BEAGLE_LIB`. Additionally, `LD_LIBRARY_PATH` is exported to include `BEAGLE_LIB`."
-    },
-    {
-      "question": "What is the initial memory allocation (`-Xms`) set for the Java Virtual Machine in the command?",
-      "answer": "The initial memory allocation (`-Xms`) for the Java Virtual Machine is set to `256m`."
-    },
-    {
-      "question": "Which main Java class is executed when running BEAST through this jobscript?",
-      "answer": "The main Java class executed is `beast.app.beastapp.BeastLauncher`, specified with `-cp ${BEAST_LIB}/launcher.jar beast.app.beastapp.BeastLauncher`."
-    },
-    {
-      "question": "How does the script ensure the Java command can find its required libraries?",
-      "answer": "The script explicitly passes the Java library path using `-Djava.library.path=${BEAST_EXTRA_LIBS}` to the Java command."
-    },
-    {
-      "question": "What is the final command used to execute BEAST with Beagle support and an input file?",
-      "answer": "The final command used to run BEAST is `$CMD -beagle input_beast.xml`."
-    },
-    {
-      "question": "What SLURM account is specified in the high-memory BEAST jobscript?",
-      "answer": "The SLURM account `def-someuser` is specified in the jobscript."
-    },
-    {
-      "question": "What is the requested wall time for the high-memory BEAST job?",
-      "answer": "The requested wall time for the job is 3 hours (`3:00:00`)."
+      "question": "In the provided high-memory BEAST job script, how are the necessary libraries and the BEAST application configured for execution?",
+      "answer": "The high-memory BEAST job script configures necessary libraries and the BEAST application by defining `BEAST_LIB` (pointing to `${EBROOTBEAST}/lib`) and `BEAST_EXTRA_LIBS` (combining `BEAST_LIB` and `${BEAGLE_LIB}`). It also exports `LD_LIBRARY_PATH` to include `${BEAGLE_LIB}`. The BEAST application is then executed using a constructed Java command that specifies initial and maximum memory (`-Xms256m ${BEAST_MEM}`), points to the library paths (`-Djava.library.path=${BEAST_EXTRA_LIBS}`), and executes the main BEAST launcher class (`-cp ${BEAST_LIB}/launcher.jar beast.app.beastapp.BeastLauncher`) with the `-beagle` flag and `input_beast.xml`."
     }
   ],
-  "generated_at": "2026-04-11T18:18:57.450191+00:00"
+  "generated_at": "2026-04-13T02:47:35.313985+00:00"
 }

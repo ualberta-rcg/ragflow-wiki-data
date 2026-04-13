@@ -4,29 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "What is the formula for the total simulation time when utilizing solution restart scripts?",
-      "answer": "The total simulation time will be calculated as `1*Dt+2*Nrestart*Dt`, where `Dt` represents the time step size and `Nrestart` is the number of solution restarts specified in the script."
+      "question": "What is the primary purpose of using solution restart scripts for Fluent jobs on Alliance clusters?",
+      "answer": "Solution restart scripts are designed to automate the restarting of very large Fluent jobs that exceed the typical seven-day maximum runtime window available on most clusters, by continuing from the most recent saved time step files."
     },
     {
-      "question": "How many total time steps are generated in a simulation using the solution restart scripts?",
-      "answer": "The total number of time steps generated will be `1+2*Nrestart`, where `Nrestart` is the number of solution restarts specified in the script."
+      "question": "What is a fundamental requirement for the initial time step when configuring a Fluent solution restart job?",
+      "answer": "A fundamental requirement is that the first time step, when starting a simulation from an initialized solution field, must be able to complete within the requested job array time limit specified at the top of your Slurm script."
     },
     {
-      "question": "What is the recommended approach for setting the time resource request for solution restart jobs?",
-      "answer": "The value for the time resource request should be selected so that the initial time step and all subsequent time steps can complete comfortably within the Slurm time window, which has a maximum duration of \"07-00:00\" days."
-    },
-    {
-      "question": "Under what circumstances should `/solve/dual-time-iterate 1` be used in a restart journal file?",
-      "answer": "You should choose `1` if the first time step executed by `sample.jou` begins from a converged (previous) solution, as it's likely all time steps will require a similar amount of wall time to complete."
-    },
-    {
-      "question": "When is it appropriate to set `/solve/dual-time-iterate 2` in a restart journal file?",
-      "answer": "If your second and subsequent time steps are known to run twice as fast as the initial time step, you should choose `2`. This helps minimize the number of computationally expensive solution restarts."
-    },
-    {
-      "question": "What is the maximum time limit for a Slurm job using solution restart scripts?",
-      "answer": "The maximum time limit for a Slurm job is \"07-00:00\" days."
+      "question": "How do you calculate the total simulation time and total number of time steps for a Fluent job using solution restarts?",
+      "answer": "Assuming a standard fixed time step size (Dt) and that '2' is chosen for subsequent time steps (as an example), the total simulation time will be 1*Dt + 2*Nrestart*Dt, where 'Nrestart' is the number of solution restarts specified in the script. The total number of time steps generated will be 1 + 2*Nrestart."
     }
   ],
-  "generated_at": "2026-04-12T16:49:14.479402+00:00"
+  "generated_at": "2026-04-13T01:49:52.431638+00:00"
 }

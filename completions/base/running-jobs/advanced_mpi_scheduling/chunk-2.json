@@ -4,57 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What does requesting `{{#SBATCH --mem=0}}` in a Slurm job script signify?",
-      "answer": "Requesting `--mem=0` is interpreted by Slurm to mean that all available memory on each node assigned to the job should be reserved."
+      "question": "What does the `--mem=0` option signify in a Slurm job script when requesting whole nodes, and when should it be avoided?",
+      "answer": "When `--mem=0` is specified in a Slurm job script for whole-node requests, it instructs Slurm to reserve all available memory on each node assigned to the job. However, this option should be avoided if your job requires more memory per node than the smallest node type provides (e.g., over 748 GiB at Nibi) or if you need to explicitly request a specific amount due to memory reserved for the operating system. To determine the maximum amount your job can request while still qualifying for a given node type, consult the 'Available memory' column in the 'Node characteristics' table for each cluster."
     },
     {
-      "question": "Under what circumstances should I avoid using `{{#SBATCH --mem=0}}`?",
-      "answer": "You should not use `--mem=0` if your job requires more memory per node than the smallest node provides (e.g., more than 748 GiB at Nibi). In such cases, you should explicitly request the specific amount of memory needed."
+      "question": "How do you configure a Slurm job script for a hybrid application that uses both MPI processes and OpenMP or Posix threads?",
+      "answer": "For a hybrid job that utilizes both MPI processes and threads, you should specify the MPI process count using either `--ntasks` or `--ntasks-per-node`. The number of threads per MPI process is then set with `--cpus-per-task`. It is also a requirement (since Slurm 22.05) to explicitly include `--cpus-per-task=$SLURM_CPUS_PER_TASK` in the `srun` command itself."
     },
     {
-      "question": "How can I determine the maximum amount of memory my job can request while still qualifying for a given node type?",
-      "answer": "To find the largest amount of memory your job can request and still qualify for a given node type, you should consult the 'Available memory' column of the 'Node characteristics' table for each cluster."
-    },
-    {
-      "question": "How do I request a Slurm job for a specific number of cores, ensuring they are all on a single node, without necessarily using a full node?",
-      "answer": "If you need less than a full node but require all cores to be on the same node, you can request it by specifying `--nodes=1` along with `--ntasks-per-node` for the number of tasks and `--mem` for the total memory. For example: `#SBATCH --nodes=1 #SBATCH --ntasks-per-node=15 #SBATCH --mem=45G`."
-    },
-    {
-      "question": "What is the benefit of using `{{#SBATCH --mem=45G}}` instead of `{{#SBATCH --mem-per-cpu=3G}}` when requesting memory for a single-node job with multiple processes?",
-      "answer": "The advantage of `--mem=45G` is that the memory consumed by each individual process does not matter, as long as all of them together do not use more than 45GB. If you use `--mem-per-cpu=3G`, the job will be cancelled if any single process exceeds 3GB."
-    },
-    {
-      "question": "What trade-offs should be considered when choosing the number of cores for a large parallel job that does not align with a multiple of whole nodes?",
-      "answer": "Choosing the number of cores for such a job may involve a trade-off between 'running' time (or efficient use of the computer) and 'waiting' time (or efficient use of your time), as not every application runs with maximum efficiency on multiples of 32, 40, or 48 cores."
-    },
-    {
-      "question": "Who should I contact if I need help evaluating factors related to choosing the number of cores for a large parallel job?",
-      "answer": "If you need help evaluating these factors, you should contact Technical Support."
-    },
-    {
-      "question": "In Slurm, what do 'tasks' represent when setting up a job?",
-      "answer": "In Slurm, the number of 'tasks' requested corresponds to the number of processes that will be started by the `srun` command."
-    },
-    {
-      "question": "How are the MPI process count and thread count specified for a hybrid job (MPI and OpenMP, or MPI and Posix threads) in Slurm?",
-      "answer": "For a hybrid job, you should set the MPI process count with `--ntasks` or `--ntasks-per-node`, and set the thread count with `--cpus-per-task`."
-    },
-    {
-      "question": "What is the resource allocation breakdown for a Slurm hybrid job with the following parameters: `--ntasks=16 --cpus-per-task=4 --mem-per-cpu=3G`?",
-      "answer": "This configuration allocates a total of 64 cores. It will initialize 16 MPI processes (tasks), and if the application uses OpenMP, each process will spawn 4 threads (one per core). Each process will be allocated 12GB of memory. These tasks, with 4 cores each, could be allocated anywhere from 2 to 16 nodes."
-    },
-    {
-      "question": "Is it mandatory to specify `{{#srun --cpus-per-task=$SLURM_CPUS_PER_TASK application.exe}}` for the `srun` command in a hybrid job script?",
-      "answer": "Yes, it is mandatory to specify `--cpus-per-task=$SLURM_CPUS_PER_TASK` for `srun`. This has been a requirement since Slurm 22.05, and it does not negatively impact older versions."
-    },
-    {
-      "question": "Describe the resource allocation for a hybrid job defined by `--nodes=2 --ntasks-per-node=8 --cpus-per-task=4 --mem=96G`.",
-      "answer": "This job will be the same size as the previous example, with 16 tasks (16 MPI processes), each using 4 threads. The key difference is that this configuration guarantees exactly 2 whole nodes, with each node receiving 96GB of memory."
-    },
-    {
-      "question": "Why is `--mem=96G` used instead of `--mem-per-cpu` in the example `--nodes=2 --ntasks-per-node=8 --cpus-per-task=4 --mem=96G` for a hybrid job?",
-      "answer": "The `--mem` option is used because it requests memory *per node*. This is appropriate when requesting whole nodes, ensuring a specific memory amount (96GB in this case) is reserved for each node rather than allocating memory on a per-CPU basis, which aligns with how memory is managed for whole node allocations."
+      "question": "For a Slurm job running on a single node with few cores, what is the advantage of using `--mem=XG` over `--mem-per-cpu=YG` for memory allocation?",
+      "answer": "When running a Slurm job on a single node with fewer than a full node's worth of cores, using `--mem=XG` allocates a total amount of memory (X Gigabytes) for all processes combined on that node. The advantage is that the memory consumed by individual processes doesn't matter, as long as their cumulative usage remains within the 45GB limit. Conversely, with `--mem-per-cpu=YG`, the job will be cancelled if any single process exceeds its per-CPU memory limit (Y Gigabytes)."
     }
   ],
-  "generated_at": "2026-04-11T16:11:04.693879+00:00"
+  "generated_at": "2026-04-13T01:14:34.840278+00:00"
 }

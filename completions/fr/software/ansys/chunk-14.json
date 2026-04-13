@@ -4,49 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "Comment configurer les serveurs de licence Ansys pour une tâche sur la grappe Trillium, sans utiliser le fichier `~/.licenses/ansys.lic`?",
-      "answer": "Dans le script de soumission, on peut spécifier directement les variables `LICSERVER`, `FLEXPORT` et `VENDPORT`. Le script va ensuite configurer un transfert de port SSH local (`ssh tri-gw -fNL`) et exporter les variables d'environnement `ANSYSLMD_LICENSE_FILE` et `ANSYSLI_SERVERS` pour qu'elles pointent vers `localhost` avec les ports transférés, priorisant ainsi ces paramètres sur ceux du fichier `~/.licenses/ansys.lic`."
+      "question": "Comment configurer Ansys Fluent pour utiliser un serveur de licence local sur la grappe Trillium, sachant que le fichier `~/.licenses/ansys.lic` est ignoré dans ce cas précis?",
+      "answer": "Sur la grappe Trillium, pour Ansys Fluent, le script de soumission utilise des paramètres de serveur de licence (`LICSERVER`, `FLEXPORT`, `VENDPORT`) définis directement dans le script Slurm, par exemple `LICSERVER=license1.computecanada.ca`, `FLEXPORT=1055` et `VENDPORT=1793`. Le script met ensuite en place des tunnels SSH pour acheminer les requêtes de licence via `localhost`, remplaçant ainsi la configuration de `~/.licenses/ansys.lic`."
     },
     {
-      "question": "Quelles sont les valeurs par défaut ou suggérées pour `FLEXPORT` et `VENDPORT` dans le contexte du script de licence Trillium?",
-      "answer": "`FLEXPORT` est habituellement `1055` et `VENDPORT` est `1793`."
+      "question": "Quelles sont les exigences pour les répertoires `~/.ansys`, `~/.fluentconf` et le fichier `~/.flrecent` afin qu'Ansys Fluent puisse fonctionner correctement sur la grappe Trillium?",
+      "answer": "Pour qu'Ansys Fluent fonctionne sur Trillium, il faut s'assurer que des liens symboliques (soft links) vers des répertoires et fichiers inscriptibles existent pour `~/.ansys`, `~/.fluentconf` et `~/.flrecent`. Si ces liens n'existent pas, il faut les créer en exécutant des commandes comme `ln -s $SCRATCH/.ansys ~/.ansys` après avoir supprimé tout répertoire ou fichier existant avec le même nom, pour garantir que les répertoires nécessaires sont bien configurés et accessibles en écriture."
     },
     {
-      "question": "Que se passe-t-il si les liens symboliques `~/.ansys`, `~/.fluentconf` ou `~/.flrecent` n'existent pas ou ne sont pas configurés correctement avant de lancer une tâche Ansys sur Trillium?",
-      "answer": "Si un de ces liens symboliques n'existe pas ou n'est pas bon, le script affichera un message d'erreur et la tâche sera annulée. Il faut enlever le répertoire ou le fichier problématique s'il existe déjà, puis créer un lien symbolique vers un emplacement accessible en écriture dans `$SCRATCH` (par exemple, `ln -s $SCRATCH/.ansys ~/.ansys`)."
-    },
-    {
-      "question": "Quelles sont les commandes qui créent les répertoires et fichiers nécessaires dans `$SCRATCH` une fois que les vérifications des liens symboliques sont passées dans le script Trillium?",
-      "answer": "Les commandes sont `mkdir -pv $SCRATCH/.ansys`, `mkdir -pv $SCRATCH/.fluentconf` et `touch $SCRATCH/.flrecent`."
-    },
-    {
-      "question": "Quand faut-il utiliser les scripts de 'remise en file d'attente pour obtenir la licence' pour les tâches Fluent?",
-      "answer": "Ces scripts doivent être utilisés uniquement pour les tâches Fluent qui sont censées se terminer normalement sans générer d'erreurs, mais qui nécessitent souvent plusieurs tentatives pour obtenir une licence."
-    },
-    {
-      "question": "Pour quels types de tâches Fluent les scripts de remise en file d'attente ne sont-ils pas recommandés?",
-      "answer": "Ils ne sont pas recommandés pour les tâches Fluent qui peuvent s'exécuter longtemps avant de planter ou qui se terminent avec des avertissements dans le journal, car la simulation serait répétée inutilement, gaspillant du temps de calcul."
-    },
-    {
-      "question": "Comment le nombre maximal de tentatives de remise en file d'attente est-il spécifié dans un script Slurm?",
-      "answer": "Le nombre maximal de tentatives est spécifié avec la directive `#SBATCH --array=1-5%1`, où `5` représente le nombre de tentatives souhaitées."
-    },
-    {
-      "question": "Quelles versions de l'environnement standard et d'Ansys sont chargées par le script de remise en file d'attente Fluent?",
-      "answer": "Le script charge `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente)."
-    },
-    {
-      "question": "Comment le script de remise en file d'attente Fluent gère-t-il la fin réussie d'une tâche?",
-      "answer": "Si la tâche se termine avec succès (`$? -eq 0`), le script affiche un message de succès et annule l'ensemble du travail en file d'attente (`scancel $SLURM_ARRAY_JOB_ID`) pour éviter toute tentative de remise en file d'attente inutile."
-    },
-    {
-      "question": "Que se passe-t-il si une tâche Fluent échoue mais que d'autres tentatives de remise en file d'attente sont encore possibles?",
-      "answer": "Le script affichera un message indiquant l'échec de la tentative et que la tâche sera soumise de nouveau (`Resubmitting job now…`) si le nombre maximal de tentatives n'a pas encore été atteint."
-    },
-    {
-      "question": "Pourquoi le script de remise en file d'attente spécifie-t-il un comportement différent pour les clusters Narval et Nibi concernant les modules MPI et l'exportation de variables?",
-      "answer": "Si le cluster est Narval, le script charge `intel/2023 intelmpi` et exporte `INTELMPI_ROOT`. De plus, si la version d'Ansys est 2025 ou plus et que le cluster est Nibi ou Narval, `I_MPI_HYDRA_BOOTSTRAP` est exporté à `ssh`."
+      "question": "Dans quel contexte devrait-on utiliser les scripts de \"remise en file d'attente pour obtenir la licence\" pour les tâches Ansys Fluent sur les grappes de Calcul Canada, et quand faut-il les éviter?",
+      "answer": "Les scripts de \"remise en file d'attente pour obtenir la licence\" sont conçus pour les tâches Ansys Fluent qui se terminent normalement sans erreurs de simulation, mais qui nécessitent souvent plusieurs tentatives pour obtenir une licence disponible. Il faut les éviter pour les simulations qui ont tendance à planter pendant l'exécution ou à générer des avertissements, car cela entraînerait la répétition inutile de ces simulations défectueuses jusqu'à atteindre la limite du nombre de tentatives spécifié par le paramètre `#SBATCH --array`."
     }
   ],
-  "generated_at": "2026-04-12T16:58:50.760792+00:00"
+  "generated_at": "2026-04-13T01:56:43.995589+00:00"
 }

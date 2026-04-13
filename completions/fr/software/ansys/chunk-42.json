@@ -4,57 +4,17 @@
   "chunk_index": 42,
   "qa_pairs": [
     {
-      "question": "Comment faire pour copier les exemples d'Antennas de la version 2023R2 d'Ansys EDT dans mon compte sur une grappe?",
-      "answer": "Pour copier les exemples d'Antennas de 2023R2, il faut d'abord se connecter à une grappe (comme Graham), puis charger le module `ansysedt/2023R2`. Après ça, on crée le répertoire nécessaire avec `mkdir -p ~/Ansoft/$EBVERSIONANSYSEDT`, on y navigue avec `cd ~/Ansoft/$EBVERSIONANSYSEDT`, on nettoie les anciens fichiers avec `rm -rf Antennas` et finalement on copie les exemples avec `cp -a $EBROOTANSYSEDT/v232/Linux64/Examples/HFSS/Antennas ~/Ansoft/$EBVERSIONANSYSEDT`."
+      "question": "Comment faire pour copier et exécuter les exemples d'Antennas d'Ansys EDT sur une grappe, comme Graham?",
+      "answer": "Pour copier les exemples d'Antennas, vous devez vous connecter à une grappe (par exemple Graham), puis charger le module `ansysedt/2023R2`. Ensuite, créez les répertoires nécessaires et copiez les fichiers des exemples en utilisant les commandes suivantes: `mkdir -p ~/Ansoft/$EBVERSIONANSYSEDT; cd ~/Ansoft/$EBVERSIONANSYSEDT; rm -rf Antennas; cp -a $EBROOTANSYSEDT/v232/Linux64/Examples/HFSS/Antennas ~/Ansoft/$EBVERSIONANSYSEDT`. Pour exécuter un exemple, ouvrez un fichier `.aedt` dans l'interface graphique, effectuez une \"Validation Check\" puis \"Analyze All\". En cas de problème ou de plantage, vous pouvez tenter de relancer les processus avec `pkill -9 -u $USER -f \"ansys*|mono|mwrpcss|apip-standalone-service\"` et réinitialiser la configuration avec `rm -rf ~/.mw`."
     },
     {
-      "question": "Comment exécuter un exemple de simulation dans Ansys EDT?",
-      "answer": "Pour exécuter un exemple, on ouvre le fichier .aedt, puis on clique sur `HFSS -> Validation Check`. Si des erreurs de validation apparaissent, on ferme et on rouvre la simulation au besoin. Ensuite, pour lancer la simulation, on clique sur `Project -> Analyze All`. Pour quitter sans sauvegarder les résultats, on sélectionne `File -> Close -> No`."
+      "question": "Lorsque Fluent plante au démarrage avec une erreur Intel MPI et \"bstrap_proxy\" lors de l'utilisation d'une session de bureau Open OnDemand (OOD) sur la grappe Nibi, quelle est la cause et comment résoudre le problème?",
+      "answer": "Ce problème survient si la variable d'environnement `I_MPI_HYDRA_BOOTSTRAP=ssh` n'est pas configurée correctement sur Nibi lors du démarrage de Fluent avec Intel MPI à partir d'une session de bureau OOD. Pour le résoudre, il faut complètement quitter Fluent, éteindre Workbench, puis redémarrer la session en s'assurant que cette variable est correctement définie."
     },
     {
-      "question": "Que faire si Ansys EDT plante et ne redémarre pas correctement?",
-      "answer": "Si Ansys EDT plante et ne redémarre pas, on peut essayer d'arrêter tous les processus Ansys en utilisant la commande `pkill -9 -u $USER -f \"ansys*|mono|mwrpcss|apip-standalone-service\"`. On peut aussi supprimer le dossier de configuration avec `rm -rf ~/.mw` pour qu'ansysedt utilise sa configuration initiale au prochain démarrage."
-    },
-    {
-      "question": "Comment démarrer Ensight en mode graphique?",
-      "answer": "Pour démarrer Ensight en mode graphique, il faut charger le module `SnEnv` et le module `ansys/2024R2.04` (ou une version plus ancienne comme 2021R2), puis lancer la commande `ensight`."
-    },
-    {
-      "question": "Comment démarrer Mapdl en mode graphique?",
-      "answer": "Pour démarrer Mapdl en mode graphique, on charge les modules `CcEnv` et `StdEnv/2023`, suivi de `ansys/2024R2.04` (ou une version plus ancienne). Ensuite, on peut lancer l'interface graphique directement avec `mapdl -g` ou passer par le lanceur en tapant `unset SESSION_MANAGER; launcher` puis en cliquant sur le bouton `RUN`."
-    },
-    {
-      "question": "Qu'est-ce qui se passe si la variable `I_MPI_HYDRA_BOOTSTRAP=ssh` n'est pas configurée correctement sur la grappe Nibi lorsque Fluent est lancé via les sessions de bureau On Demand avec Intel MPI?",
-      "answer": "Si `I_MPI_HYDRA_BOOTSTRAP=ssh` n'est pas configurée correctement sur Nibi, Fluent va planter au démarrage, affichant des messages d'erreur comme «Error: Unable to run bstrap_proxy» ou «error waiting for event». Il faudra alors quitter Fluent et Workbench complètement et redémarrer la session."
-    },
-    {
-      "question": "Comment charger les modules Rocky dans un environnement de bureau Jupyter Lab?",
-      "answer": "Dans un environnement de bureau Jupyter Lab, on peut charger les modules Rocky avec l'une des commandes suivantes : `module load ansysrocky/2023R2 StdEnv/2020 ansys/2023R2`, `module load ansysrocky/2024R2.0 StdEnv/2023 ansys/2024R2.04` ou `module load StdEnv/2023 ansys/2025R1`."
-    },
-    {
-      "question": "Quelles sont les commandes pour lancer l'interface graphique de Rocky via Jupyter Lab Desktop?",
-      "answer": "Après avoir chargé le module approprié, la commande `Rocky` démarrera l'interface graphique en utilisant le fichier `~/licenses/ansys.lic`. On peut aussi utiliser `Rocky-gui` pour choisir un serveur CMC ou SHARCNET, si l'option est offerte par les modules ansysrocky locaux."
-    },
-    {
-      "question": "Quelle est la différence entre RockySolver et RockySchedular?",
-      "answer": "`RockySolver` lance le solveur directement depuis la ligne de commande (l'option `-h` pour l'aide n'est pas testée). `RockySchedular` est un gestionnaire de ressources pour soumettre plusieurs tâches sur le nœud courant (non testé non plus)."
-    },
-    {
-      "question": "Quelles sont les contraintes de disponibilité et de compatibilité des différentes versions de Rocky?",
-      "answer": "Les versions 2024R2 et antérieures de Rocky fonctionnent uniquement sur gra-vdi et sur les grappes Graham; leur installation sur les autres grappes est prévue pour juin. Les versions 2025R1 et plus récentes sont fournies dans le module Ansys sur toutes les grappes, mais elles ne sont pas encore prises en charge par le serveur de licence SHARCNET."
-    },
-    {
-      "question": "Est-ce que l'utilisation de Rocky est gratuite pour la recherche avec la licence SHARCNET?",
-      "answer": "Oui, le serveur de licence SHARCNET inclut Rocky, et son utilisation est gratuite pour la recherche académique."
-    },
-    {
-      "question": "Rocky prend-il en charge le calcul accéléré par GPU?",
-      "answer": "Oui, Rocky prend en charge le calcul accéléré par GPU, mais cette fonctionnalité n'est pas encore testée ni documentée."
-    },
-    {
-      "question": "Comment demander un nœud de calcul sur Graham pour utiliser Rocky de manière interactive avec des CPU et des GPU?",
-      "answer": "Pour demander un nœud de calcul sur Graham pour une utilisation interactive avec 4 CPU et 1 GPU pendant un maximum de 8 heures, on lance la commande `salloc --time=08:00:00 --nodes=1 --cpus-per-task=4 --gres=gpu:v100:1 --mem=32G --account=someaccount`."
+      "question": "Quelles sont les différentes manières de lancer Ansys Rocky en mode graphique sur les grappes de l'Alliance, et quelles sont les informations importantes concernant ses versions et la licence SHARCNET?",
+      "answer": "Pour lancer Ansys Rocky en mode graphique, vous devez d'abord charger un module approprié, comme `ansysrocky/2023R2` ou `ansys/2025R1`, puis exécuter `Rocky` pour que le module lise le fichier `~/licenses/ansys.lic`, ou `Rocky-gui` pour choisir entre un serveur CMC ou SHARCNET. Les versions 2024R2 et antérieures ne sont disponibles que sur gra-vdi et les grappes Graham. L'installation des versions 2025R1 et plus récentes est fournie par le module Ansys sur toutes les grappes, mais elles ne sont pas encore prises en charge par le serveur de licence SHARCNET. La licence SHARCNET inclut Rocky et son utilisation est gratuite pour la recherche."
     }
   ],
-  "generated_at": "2026-04-12T17:05:30.005251+00:00"
+  "generated_at": "2026-04-13T02:01:15.411492+00:00"
 }

@@ -4,133 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Comment faire pour trouver les modules LS-DYNA qui sont disponibles pour les tâches sur un nœud unique?",
-      "answer": "Pour trouver les modules LS-DYNA pour les tâches sur un nœud unique, vous devez utiliser la commande `module spider ls-dyna`."
+      "question": "Comment soumettre une tâche LS-DYNA qui utilise un seul nœud de calcul, et quel est l'impact de l'option `LSTC_MEMORY=AUTO` sur la gestion de la mémoire pour ce type de tâche?",
+      "answer": "Pour soumettre une tâche LS-DYNA sur un nœud unique, vous devez utiliser la commande `sbatch script-smp.sh`. L'option `LSTC_MEMORY=AUTO` permet d'étendre dynamiquement la mémoire au-delà de la valeur spécifiée (par exemple, `memory=1500M`) lorsqu'il s'agit d'une analyse explicite (comme les simulations de formage de métal), mais elle n'est pas adaptée aux analyses de collision. Pour un solveur à double précision, le paramètre 1500M équivaut soit à une quantité maximale de 12 Go de mémoire avant que LS-DYNA ne s'arrête automatiquement pour un problème implicite, soit à une quantité de départ de 12 Go de mémoire qui peut être étendue jusqu'à 25% si nécessaire pour un problème explicite. Il est recommandé de maintenir la mémoire totale du solveur à environ 75 % de la RAM totale réservée pour la tâche."
     },
     {
-      "question": "Comment puis-je soumettre des tâches LS-DYNA sur un nœud unique à la file d'attente?",
-      "answer": "Pour soumettre des tâches sur un nœud unique, vous utilisez la commande `sbatch script-smp.sh`."
-    },
-    {
-      "question": "À quoi sert l'option `AUTO` de la variable d'environnement `LSTC_MEMORY` dans un contexte de tâche à nœud unique?",
-      "answer": "Cette option permet d'étendre dynamiquement la mémoire au-delà du paramètre `memory=1500M` spécifié, mais seulement quand c'est adapté à une analyse explicite, comme les simulations de formage de métal, et non pour une analyse de collision."
-    },
-    {
-      "question": "Dans un script de tâche à nœud unique, que représente le paramètre `memory=1500M` pour un solveur à double précision?",
-      "answer": "Pour un solveur à double précision, `1500M` équivaut soit à une quantité maximale de 12 Go de mémoire avant que LS-DYNA ne s'arrête automatiquement lors de la résolution d'un problème implicite, soit à une quantité de départ de 12 Go de mémoire qui peut s'étendre (jusqu'à 25% si nécessaire) lors d'un problème explicite, à condition que `LSTC_MEMORY=AUTO` soit actif."
-    },
-    {
-      "question": "Combien de gigaoctets (Go) représente 1500 mégamots (Mw) pour un solveur à double précision (8 octets/mot)?",
-      "answer": "Cela représente 12 Go de mémoire (1500 Mw * 8 octets/mot = 12 Go)."
-    },
-    {
-      "question": "Quel pourcentage de la mémoire totale réservée pour une tâche (16 Go) est représenté par 12 Go?",
-      "answer": "12 Go représentent 75% du total de 16 Go de mémoire réservée pour la tâche."
-    },
-    {
-      "question": "Est-ce que 12 Go de mémoire sont considérés comme suffisants pour les travaux implicites sur un seul nœud?",
-      "answer": "Oui, 12 Go sont considérés comme parfaits pour les travaux implicites sur un seul nœud."
-    },
-    {
-      "question": "Comment déterminer le paramètre de mémoire totale pour l'ordonnanceur après avoir estimé la mémoire totale du solveur en Go, pour les analyses implicites et explicites?",
-      "answer": "Une fois l'estimation de la mémoire totale du solveur en Go faite, le paramètre de mémoire totale pour l'ordonnanceur peut être déterminé en multipliant cette valeur par 25%."
-    },
-    {
-      "question": "Comment calculer la valeur du paramètre de mémoire en mégamots pour une solution à double précision?",
-      "answer": "Le calcul se fait comme suit : (0,75 * memGB / 8 octets/mot) * 1000M."
-    },
-    {
-      "question": "Comment calculer la valeur du paramètre de mémoire en mégamots pour une solution à simple précision?",
-      "answer": "Le calcul se fait comme suit : (0,75 * memGB / 4 octets/mot) * 1000M."
-    },
-    {
-      "question": "Combien de cœurs sont demandés par défaut dans l'exemple de script `script-smp.sh` pour les tâches à nœud unique?",
-      "answer": "L'exemple de script `script-smp.sh` demande 8 cœurs par tâche (`#SBATCH --cpus-per-task=8`)."
-    },
-    {
-      "question": "Quelle est la quantité totale de mémoire demandée par défaut dans l'exemple de script `script-smp.sh` pour les tâches à nœud unique?",
-      "answer": "La quantité totale de mémoire demandée par défaut est de 16 Go (`#SBATCH --mem=16G`)."
-    },
-    {
-      "question": "Quelles versions de modules sont chargées dans l'exemple de script `script-smp.sh` pour les tâches sur nœud unique?",
-      "answer": "L'exemple de script charge `StdEnv/2023`, `intel/2023.2.1` et `ls-dyna/12.2.1`."
-    },
-    {
-      "question": "Que signifie `ls-dyna_s` quand on parle des solveurs SMP de LS-DYNA?",
-      "answer": "`ls-dyna_s` fait référence au solveur SMP à simple précision."
-    },
-    {
-      "question": "Que signifie `ls-dyna_d` quand on parle des solveurs SMP de LS-DYNA?",
-      "answer": "`ls-dyna_d` fait référence au solveur SMP à double précision."
-    },
-    {
-      "question": "Quelle version de LS-DYNA est utilisée pour les tâches sur plusieurs nœuds?",
-      "answer": "La version MPP (Message Passing Parallel) de LS-DYNA est utilisée pour les tâches sur plusieurs nœuds."
-    },
-    {
-      "question": "Sur quelle technologie est basée la méthode MPP de LS-DYNA?",
-      "answer": "La méthode MPP est basée sur MPI (Message Passing Interface)."
-    },
-    {
-      "question": "À combien de cœurs la méthode MPP peut-elle s'adapter?",
-      "answer": "La méthode MPP peut s'adapter à de très nombreux cœurs, soit 8 ou plus."
-    },
-    {
-      "question": "Comment puis-je répertorier les modules disponibles pour les tâches MPP multi-nœuds?",
-      "answer": "Vous pouvez répertorier les modules en exécutant la commande `module spider ls-dyna-mpi`."
-    },
-    {
-      "question": "Quelles sont les deux manières de soumettre des tâches multi-nœuds avec LS-DYNA?",
-      "answer": "Les tâches multi-nœuds peuvent être soumises en spécifiant un nombre de nœuds entiers à l'aide de `sbatch script-mpp-bynode.sh` ou un nombre total de cœurs à l'aide de `sbatch script-mpp-bycore.sh`."
-    },
-    {
-      "question": "Pourquoi la version MPP de LS-DYNA nécessite-t-elle une quantité de mémoire importante appelée `memory1`?",
-      "answer": "La version MPP nécessite une quantité de mémoire suffisamment importante (`memory1`) pour que le premier cœur (processeur 0) du nœud maître puisse décomposer et simuler le modèle."
-    },
-    {
-      "question": "Comment peut-on s'assurer que la quantité `memory1` requise par la version MPP est satisfaite?",
-      "answer": "Pour satisfaire `memory1`, il faut spécifier une valeur de mémoire par processeur (`mem-per-cpu`) légèrement supérieure à la mémoire (`memory2`) requise par cœur pour la simulation, puis placer suffisamment de cœurs sur le nœud principal pour que leur somme différentielle (`mem-per-cpu` moins `memory2`) soit supérieure ou égale à `memory1`."
-    },
-    {
-      "question": "Quel pourcentage de la RAM réservée sur un nœud est recommandé de ne pas dépasser pour la somme de toute la mémoire attendue par nœud dans les tâches MPP?",
-      "answer": "Il est recommandé de maintenir la somme de toute la mémoire attendue par nœud dans les 75% de la RAM réservée sur un nœud."
-    },
-    {
-      "question": "Dans l'exemple pour les tâches MPP, si un nœud de calcul a 128 Go de mémoire complète, quelles pourraient être les valeurs pour `memory1` et `memory2`?",
-      "answer": "`memory1` pourrait être de 6 000 Mo (48 Go) maximum et `memory2` de 200 Mo (48 Go/31 cœurs)."
-    },
-    {
-      "question": "Quel script est utilisé pour demander un nombre spécifique de nœuds de calcul entiers pour une tâche MPP?",
-      "answer": "Le script `script-mpp-bynode.sh` est utilisé pour cela."
-    },
-    {
-      "question": "Quel est le nombre de tâches par nœud (`ntasks-per-node`) spécifié pour les grappes Narval, Nibi, Fir et Trillium dans l'exemple de script MPP par nœud?",
-      "answer": "Le nombre spécifié est de 192 tâches par nœud (`#SBATCH --ntasks-per-node=192`)."
-    },
-    {
-      "question": "Quelles versions de modules sont chargées dans l'exemple de script `script-mpp-bynode.sh` pour les tâches multi-nœuds?",
-      "answer": "L'exemple de script charge `StdEnv/2023`, `intel/2023.2.1` et `ls-dyna-mpi/12.2.1`."
-    },
-    {
-      "question": "Que signifie `ls-dyna_s` dans le contexte des solveurs MPP?",
-      "answer": "`ls-dyna_s` fait référence au solveur MPP à simple précision."
-    },
-    {
-      "question": "Que signifie `ls-dyna_d` dans le contexte des solveurs MPP?",
-      "answer": "`ls-dyna_d` fait référence au solveur MPP à double précision."
-    },
-    {
-      "question": "Quel script est utilisé pour soumettre des tâches MPP en spécifiant un nombre total arbitraire de cœurs?",
-      "answer": "Le script `script-mpp-bycore.sh` est utilisé pour cela."
-    },
-    {
-      "question": "Pourquoi est-il important que la valeur de `mem-per-cpu` soit assez élevée lors de la soumission de tâches MPP en spécifiant le nombre de cœurs?",
-      "answer": "Il est important que la valeur de `mem-per-cpu` soit assez élevée pour permettre au processeur principal de bien décomposer et gérer les calculs."
-    },
-    {
-      "question": "Quelles versions de modules sont chargées dans l'exemple de script `script-mpp-bycore.sh`?",
-      "answer": "L'exemple de script charge `StdEnv/2023`, `intel/2023.2.1` et `ls-dyna-mpi/12.2.1`."
+      "question": "Quelles sont les méthodes pour soumettre des tâches LS-DYNA utilisant plusieurs nœuds de calcul avec la version MPP (Message Passing Parallel), et quelles sont les considérations importantes pour la gestion de la mémoire dans ce cas?",
+      "answer": "Pour soumettre des tâches LS-DYNA sur plusieurs nœuds avec la version MPP (Message Passing Parallel), vous pouvez utiliser soit `sbatch script-mpp-bynode.sh` pour spécifier un nombre de nœuds entiers, soit `sbatch script-mpp-bycore.sh` pour spécifier un nombre total de cœurs. La version MPP nécessite une quantité de mémoire suffisante (`memory1`) pour que le premier cœur du nœud maître puisse décomposer et simuler le modèle. De plus, il faut spécifier une valeur de mémoire par processeur (`memory2`) requise par cœur pour la simulation. Pour obtenir les meilleurs résultats, la somme de la mémoire attendue par nœud ne devrait pas dépasser 75 % de la RAM réservée sur ce nœud."
     }
   ],
-  "generated_at": "2026-04-12T00:55:37.073526+00:00"
+  "generated_at": "2026-04-13T08:03:49.004785+00:00"
 }

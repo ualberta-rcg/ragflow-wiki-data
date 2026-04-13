@@ -4,53 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce qu'on devrait éviter quand on demande des ressources CPU et de mémoire pour une tâche GPU avec GROMACS?",
-      "answer": "Il faut éviter d'utiliser une fraction de CPU et de mémoire qui serait plus grande que la fraction de GPU que vous demandez dans un nœud."
+      "question": "Pourquoi les simulations GROMACS classiques n'exploitent-elles pas toujours pleinement les modèles de GPU récents comme les Nvidia A100 et H100, et quelles sont les deux solutions recommandées pour optimiser l'utilisation de ces ressources?",
+      "answer": "Les simulations GROMACS classiques ne peuvent exploiter pleinement les modèles de GPU récents (comme les Nvidia A100 et H100) que si le système moléculaire est très volumineux (des millions d'atomes), sinon, une part importante des ressources de calcul allouées est gaspillée. Pour résoudre ce problème, deux solutions sont recommandées: la première est d'exécuter plusieurs simulations similaires sur un seul GPU à l'aide de l'option `mdrun -multidir`, et la deuxième est d'utiliser une instance MIG (une fraction de GPU) plutôt qu'un GPU complet."
     },
     {
-      "question": "Où est-ce que je peux trouver les résultats de performance pour GROMACS avec CUDA?",
-      "answer": "Vous pouvez consulter les résultats de performance sur le portail 'MOLECULAR DYNAMICS PERFORMANCE GUIDE'."
+      "question": "Dans quel contexte est-il conseillé d'utiliser l'option `mdrun -multidir` pour gérer plusieurs simulations GROMACS sur un seul GPU, et quelle est l'importance de la similarité entre ces simulations?",
+      "answer": "Il est conseillé d'utiliser l'option `mdrun -multidir` lorsque vous exécutez plusieurs simulations similaires, par exemple pour répéter la même simulation afin d'obtenir un échantillonnage plus précis de l'espace conformationnel, pour simuler plusieurs variants de protéines ou différents ligands, ou encore pour des simulations basées sur des ensembles comme l'échange de répliques. La similarité des simulations est cruciale pour assurer un équilibrage de charge adéquat; si les simulations sont dissemblables, certaines pourraient progresser et se terminer plus rapidement, ce qui entraînerait un gaspillage de ressources."
     },
     {
-      "question": "Pourquoi GROMACS et d'autres programmes de simulation MD ne peuvent-ils pas exploiter pleinement les GPU récents comme les Nvidia A100 et H100?",
-      "answer": "GROMACS et d'autres programmes de simulation MD ne peuvent pas exploiter pleinement les GPU récents (comme les Nvidia A100 et H100), à moins que le système moléculaire ne soit très volumineux (plusieurs millions d'atomes). Exécuter une simulation classique sur un tel GPU gaspille des ressources de calcul allouées."
-    },
-    {
-      "question": "Quelles sont les deux solutions recommandées pour gérer la sous-utilisation des GPU puissants avec GROMACS?",
-      "answer": "Les deux solutions recommandées sont d'exécuter plusieurs simulations sur un seul GPU en utilisant l'option `mdrun -multidir`, ou d'utiliser une instance MIG (une fraction de GPU) au lieu d'un GPU complet."
-    },
-    {
-      "question": "Dans quel cas est-il idéal d'utiliser l'option `mdrun -multidir` pour exécuter plusieurs simulations sur un seul GPU?",
-      "answer": "C'est la solution idéale si vous exécutez plusieurs simulations similaires, par exemple pour répéter une simulation afin d'obtenir un échantillonnage plus précis, simuler plusieurs variants de protéines ou de ligands, ou simuler sur la base d'ensembles comme l'échange de répliques."
-    },
-    {
-      "question": "Pourquoi est-ce important que les simulations soient semblables quand on utilise l'option `mdrun -multidir`?",
-      "answer": "Des simulations semblables sont nécessaires pour assurer un équilibrage de charge adéquat. Si les simulations sont dissemblables, certaines progresseront plus vite et se termineront plus tôt que d'autres, ce qui gaspillera des ressources."
-    },
-    {
-      "question": "Que fait le script d'exemple `gpu_gromacs_job_multidir.sh`?",
-      "answer": "Le script exécute trois simulations semblables dans des répertoires distincts (`sim1`, `sim2`, `sim3`) avec un seul GPU."
-    },
-    {
-      "question": "Quels paramètres Slurm devrait-on ajuster si le nombre de simulations change dans une tâche `mdrun -multidir`?",
-      "answer": "Si vous modifiez le nombre de simulations, il faut ajuster les paramètres `--ntasks-per-node` et `--cpus-per-task`. Une tâche par simulation doit être exécutée, et le nombre total de cœurs de processeur doit rester constant."
-    },
-    {
-      "question": "Quand est-ce qu'il est idéal d'utiliser une instance MIG (une fraction de GPU) pour les simulations GROMACS?",
-      "answer": "Ceci est idéal si vous n'avez qu'une seule simulation ou si vos simulations sont dissemblables, par exemple des systèmes de tailles différentes (plus de 10 % de différence dans le nombre d'atomes) ou des systèmes de formes ou de compositions différentes (comme une protéine membranaire et une protéine soluble)."
-    },
-    {
-      "question": "Est-ce qu'il faut utiliser Hyper-Q/MPS avec GROMACS?",
-      "answer": "Non, Hyper-Q/MPS ne doit jamais être utilisé avec GROMACS. L'option intégrée `-multidir` permet d'obtenir la même fonctionnalité de manière plus efficace."
-    },
-    {
-      "question": "Quel fichier d'entrée binaire est requis pour exécuter une simulation GROMACS?",
-      "answer": "L'exécution d'une simulation requiert un fichier d'entrée binaire 'tpr' ('portable binary run input file')."
-    },
-    {
-      "question": "Quelles informations sont contenues dans un fichier '.tpr' de GROMACS?",
-      "answer": "Un fichier '.tpr' contient la structure de simulation de départ, la topologie moléculaire et l'ensemble des paramètres de simulation."
+      "question": "Quand est-il préférable d'opter pour une instance MIG (une fraction de GPU) plutôt que d'utiliser un GPU complet pour les simulations GROMACS?",
+      "answer": "Il est préférable d'utiliser une instance MIG si vous n'avez qu'une seule simulation à exécuter ou si vos simulations sont dissemblables. Cela inclut des scénarios où les systèmes ont des tailles différentes (plus de 10% d'écart dans le nombre d'atomes) ou des formes et compositions variées, comme une protéine membranaire et une protéine soluble."
     }
   ],
-  "generated_at": "2026-04-11T22:41:57.416050+00:00"
+  "generated_at": "2026-04-13T06:16:27.497439+00:00"
 }

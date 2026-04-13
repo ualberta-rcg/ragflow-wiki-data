@@ -4,89 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How do you load and execute GATK versions earlier than GATK 4, such as GATK 3.8?",
-      "answer": "To load GATK 3.8, you would use `module load nixpkgs/16.09 gatk/3.8`. To execute it, you call the jar file directly using `java -jar \"${EBROOTGATK}\"/GenomeAnalysisTK.jar PROGRAM OPTIONS`."
+      "question": "How do I run earlier versions of GATK (prior to 4.0.0.0) on our systems?",
+      "answer": "For GATK versions earlier than 4.0.0.0, you need to call the Java archive (JAR) file directly. First, load the necessary modules, for example, `module load nixpkgs/16.09 gatk/3.8`. Then, use the command `java -jar \"${EBROOTGATK}\"/GenomeAnalysisTK.jar PROGRAM OPTIONS`. The `GATK3 guide` can provide specific usage details for these older versions."
     },
     {
-      "question": "Where can users find specific usage information for GATK versions earlier than GATK 4?",
-      "answer": "Specific usage information for GATK versions earlier than 4 can be found in the GATK3 guide, available at [https://github.com/broadinstitute/gatk-docs/tree/master/gatk3-tooldocs]."
+      "question": "What are the considerations for multicore usage with GATK 4 and newer tools?",
+      "answer": "Most GATK 4 (and newer) tools are not multicore by default, so you should generally request only one core. However, some tools, like `Mutect2`, use threads in specific computations (e.g., `--native-pair-hmm-threads`), allowing you to request more CPUs (typically up to 4 threads). For GATK tools that use Spark, you can request multiple CPUs. It is crucial to provide the exact number of CPUs to the `spark` command; for instance, if you requested 10 CPUs, use `--spark-master local[10]` instead of `--spark-master local[*]`. To scale a Spark cluster across multiple nodes, you must first deploy a Spark cluster and then set appropriate variables in your GATK command."
     },
     {
-      "question": "Are most GATK tools (version 4 and higher) multicore by default?",
-      "answer": "No, most GATK (>=4) tools are not multicore by default, meaning you should generally request only one core when calling them."
-    },
-    {
-      "question": "Do some GATK tools (version 4 and higher) utilize threads for computations?",
-      "answer": "Yes, some GATK (>=4) tools, like `Mutect2` with its `--native-pair-hmm-threads` option, use threads in some computations, allowing you to require more CPUs (typically up to 4 threads)."
-    },
-    {
-      "question": "Does GATK 4 provide Spark commands?",
-      "answer": "Yes, GATK 4 does provide some Spark commands."
-    },
-    {
-      "question": "How are Spark-capable versions of GATK tools often identified?",
-      "answer": "Spark-capable versions of GATK tools often have the suffix \"Spark\" at the end of their names."
-    },
-    {
-      "question": "If a GATK tool only exists in a Spark-capable version, does it have the \"Spark\" suffix?",
-      "answer": "No, if a GATK tool only exists in a Spark-capable version, it does not have the \"Spark\" suffix."
-    },
-    {
-      "question": "When using GATK commands that leverage Spark, how should the number of CPUs be specified?",
-      "answer": "When using GATK commands that leverage Spark, you should provide the exact number of CPUs to the `spark` command. For example, if you requested 10 CPUs, use `--spark-master local[10]` instead of `--spark-master local[*]`. "
-    },
-    {
-      "question": "What is the process for scaling a GATK Spark cluster across multiple nodes?",
-      "answer": "To scale a GATK Spark cluster across multiple nodes, you must first deploy an Apache Spark cluster and then set the appropriate variables in the GATK command."
-    },
-    {
-      "question": "When is it recommended to run GATK via Apptainer?",
-      "answer": "It is recommended to run GATK via Apptainer if you encounter errors such as `IllegalArgumentException` when using the installed modules on the clusters."
-    },
-    {
-      "question": "Where can a Docker image for GATK be found?",
-      "answer": "A Docker image of GATK can be found on Docker Hub at [https://hub.docker.com/r/broadinstitute/gatk], with other versions available on its tags page."
-    },
-    {
-      "question": "How do you build an Apptainer image for the latest version of GATK from a Docker image on the cluster?",
-      "answer": "To build an Apptainer image for the latest GATK version, you run `module load apptainer` followed by `apptainer build gatk.sif docker://broadinstitute/gatk`."
-    },
-    {
-      "question": "How do you build an Apptainer image for a specific version of GATK from a Docker image on the cluster?",
-      "answer": "To build an Apptainer image for a specific GATK version, you run `module load apptainer` followed by `apptainer build gatk_VERSION.sif docker://broadinstitute/gatk:VERSION`, replacing `VERSION` with the desired version number."
-    },
-    {
-      "question": "What is the general command structure for running GATK inside an Apptainer image within an SBATCH script?",
-      "answer": "The general command structure is `module load apptainer` followed by `apptainer exec -B /home -B /project -B /scratch -B /localscratch <path to the image>/gatk.sif gatk [--java-options \"-Xmx4G\"] ToolName [GATK args]`."
-    },
-    {
-      "question": "Where can users find more information about Apptainer?",
-      "answer": "More information about Apptainer can be found by watching the recorded Apptainer webinar at [https://www.youtube.com/watch?v=bpmrfVqBowY]."
-    },
-    {
-      "question": "How can a read group (RG) tag be added to a BAM file using GATK?",
-      "answer": "To add a read group (RG) tag to a BAM file, you can use the GATK/PICARD command `AddOrReplaceReadGroups`, specifying the input and output files, and various RG tags like `--RGLB`, `--RGPL`, `--RGPU`, and `--RGSM`."
-    },
-    {
-      "question": "What GATK/PICARD command is used to add or replace read groups in a BAM file?",
-      "answer": "The GATK/PICARD command used to add or replace read groups is `AddOrReplaceReadGroups`."
-    },
-    {
-      "question": "What assumption is made about the input file when using the `AddOrReplaceReadGroups` command as shown in the example?",
-      "answer": "The `AddOrReplaceReadGroups` command example assumes that your input file is sorted by coordinates due to the `--SORT_ORDER 'coordinate'` option."
-    },
-    {
-      "question": "What is the purpose of the `--CREATE_INDEX true` option in the `AddOrReplaceReadGroups` command?",
-      "answer": "The `--CREATE_INDEX true` option in the `AddOrReplaceReadGroups` command generates an index along with the annotated output BAM file."
-    },
-    {
-      "question": "What is a common cause of the `java.lang.OutOfMemoryError: Java heap space` error when running GATK subprograms?",
-      "answer": "The `java.lang.OutOfMemoryError: Java heap space` error often occurs because GATK subprograms require more memory to process files than allocated."
-    },
-    {
-      "question": "What is the initial recommendation to address a `java.lang.OutOfMemoryError: Java heap space` error in GATK?",
-      "answer": "The initial recommendation is to add the `-Xmx` command to the `--java-options` argument to increase the maximum heap memory, for example, `--java-options \"-Xmx8G DGATK_STACKTRACE_ON_USER_EXCEPTION=true\"`."
+      "question": "When and how should I run GATK using Apptainer on our clusters?",
+      "answer": "You should consider running GATK via Apptainer if you encounter errors like `IllegalArgumentException` when using the installed modules. To do this, first build an Apptainer image from a GATK Docker image. For example, to get the latest version, run `module load apptainer` followed by `apptainer build gatk.sif docker://broadinstitute/gatk`. For a specific version, use `apptainer build gatk_VERSION.sif docker://broadinstitute/gatk:VERSION`. In your SBATCH script, load Apptainer and execute the image with a command similar to `apptainer exec -B /home -B /project -B /scratch -B /localscratch <path to the image>/gatk.sif gatk [--java-options \"-Xmx4G\"] ToolName [GATK args]`."
     }
   ],
-  "generated_at": "2026-04-11T21:56:07.836452+00:00"
+  "generated_at": "2026-04-13T05:39:49.486634+00:00"
 }

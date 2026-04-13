@@ -4,33 +4,13 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "What command should be executed on the temporary Legacy Arbutus instance for large volume migration?",
-      "answer": "You should execute a `dd` command, typically piped with `pv` and `ssh`, on the temporary Legacy Arbutus instance, often within a `screen` session."
+      "question": "What is the recommended command for migrating a large volume from Legacy Arbutus to New Arbutus using the Linux 'dd' utility with an SSH connection?",
+      "answer": "On the temporary Legacy Arbutus instance, you should execute `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@xxx.xx.xx.xx \"sudo dd bs=16M of=/dev/vdb\"`. This command assumes the source volume on Legacy Arbutus is attached as `/dev/vdb`, the volume size is `96G`, `key.pem` is the SSH key, and the destination volume on New Arbutus is attached as `/dev/vdb` at the IP address `xxx.xx.xx.xx`."
     },
     {
-      "question": "What are the key assumptions made about the source volume in the `dd` command example for large volume migration?",
-      "answer": "The example assumes the source volume on Legacy Arbutus is attached to the temporary Legacy Arbutus instance as `/dev/vdb` and has a size of 96G."
-    },
-    {
-      "question": "What are the key assumptions made about the destination volume in the `dd` command example for large volume migration?",
-      "answer": "The example assumes the destination volume on New Arbutus Cloud is attached to the temporary New Arbutus Cloud instance as `/dev/vdb`."
-    },
-    {
-      "question": "What SSH key is used in the example command for connecting to the temporary New Arbutus instance?",
-      "answer": "The example command uses `key.pem` as the SSH private key (`-i key.pem`) for logging into the temporary New Arbutus instance."
-    },
-    {
-      "question": "What critical piece of information needs to be substituted in the example `dd` command before execution?",
-      "answer": "You must substitute the real IP address of the temporary New Arbutus instance you will be connecting to via SSH."
-    },
-    {
-      "question": "Why is the `screen` command recommended when performing a large volume migration using `dd` and SSH?",
-      "answer": "The `screen` command is recommended to maintain the SSH session in case of a disconnection during the long-running `dd` command execution."
-    },
-    {
-      "question": "Could you provide an example of the `dd` command used for migrating large volumes between Arbutus Clouds?",
-      "answer": "An example command is `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@xxx.xx.xx.xx \"sudo dd bs=16M of=/dev/vdb\"`, typically executed within a `screen` session."
+      "question": "When migrating a large volume from Legacy Arbutus to New Arbutus using the Linux 'dd' method, on which instance should the copy command be executed?",
+      "answer": "The `dd` command for migrating a large volume from Legacy Arbutus to New Arbutus should be executed on the temporary Legacy Arbutus instance."
     }
   ],
-  "generated_at": "2026-04-11T17:45:38.305699+00:00"
+  "generated_at": "2026-04-13T02:22:43.398383+00:00"
 }

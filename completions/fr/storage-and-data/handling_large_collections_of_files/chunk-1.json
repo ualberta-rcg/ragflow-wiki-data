@@ -4,65 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Quels genres de défis rencontre-t-on souvent en intelligence artificielle et en apprentissage machine concernant la gestion des fichiers?",
-      "answer": "Dans ces domaines, on doit souvent composer avec des centaines de milliers de fichiers, parfois de plusieurs centaines de kilo-octets, ce qui pose des problèmes importants liés aux limites d’objets des quotas des systèmes de fichiers."
+      "question": "Pourquoi est-ce que l'utilisation de centaines de milliers de fichiers de petite taille peut causer des problèmes sur les systèmes de fichiers des grappes de calcul, surtout en intelligence artificielle et apprentissage machine?",
+      "answer": "Dans des domaines comme l'intelligence artificielle et l'apprentissage machine, travailler avec un très grand nombre de fichiers, particulièrement s'ils sont de petite taille (par exemple, plusieurs centaines de kilo-octets chacun), peut entraîner d'importants problèmes de performance pour les systèmes de fichiers et nuire à la sauvegarde automatisée des répertoires comme `/home` et `/project`. Ça s'explique, entre autres, par les limites d'objets imposées par les quotas des systèmes de fichiers."
     },
     {
-      "question": "Quel est l'impact d'un grand nombre de petits fichiers sur la performance des systèmes de fichiers et la sauvegarde automatisée?",
-      "answer": "Un très grand nombre de fichiers, surtout s'ils sont de petite taille, cause d'importants problèmes à la performance des systèmes de fichiers et à la sauvegarde automatisée de /home et /project."
+      "question": "Comment le disque local relié aux nœuds de calcul des grappes de l'Alliance peut-il être utilisé pour améliorer la performance, et quelles sont ses caractéristiques principales sur certaines grappes?",
+      "answer": "Le disque local relié aux nœuds de calcul, souvent des SSD SATA ou plus performants, offre une performance de loin supérieure à celle des systèmes de fichiers partagés comme `/project` et `/scratch`. Sur Béluga, les nœuds CPU ont environ 370 Go de disque local, et les nœuds GPU disposent d'un disque NVMe de 1.6 To, particulièrement utile pour les jeux de données d'images en intelligence artificielle. Par contre, Niagara n'offre pas de stockage local. Pour l'utiliser, on accède au disque via la variable d'environnement `$SLURM_TMPDIR` et on peut y copier un fichier archive `tar` contenant les données au début d'une tâche, travailler sur le disque local, puis archiver et recopier les résultats dans `/project` à la fin."
     },
     {
-      "question": "Comment peut-on identifier les répertoires où des améliorations de performance sont possibles?",
-      "answer": "Pour optimiser la performance, il est toujours préférable d’identifier d'abord les répertoires qui contiennent un grand nombre de fichiers afin de cibler les gains potentiels."
-    },
-    {
-      "question": "Quelle est la commande pour compter récursivement les fichiers dans les sous-répertoires du répertoire courant?",
-      "answer": "On peut utiliser le code suivant : `for FOLDER in $(find . -maxdepth 1 -type d | tail -n +2); do echo -ne \"$FOLDER:\\t\"; find $FOLDER -type f | wc -l; done`."
-    },
-    {
-      "question": "Comment lister les 10 répertoires qui occupent le plus d'espace disque dans le répertoire courant?",
-      "answer": "La commande `du -sh * | sort -hr | head -10` liste les 10 répertoires les plus volumineux dans le répertoire courant."
-    },
-    {
-      "question": "Quelle est la performance des disques locaux par rapport aux systèmes de fichiers /project et /scratch?",
-      "answer": "Les disques locaux reliés aux nœuds de calcul (SSD SATA ou plus) offrent une performance de loin supérieure à celle des systèmes de fichiers /project et /scratch."
-    },
-    {
-      "question": "Qui gère l'utilisation du disque local sur un nœud de calcul?",
-      "answer": "L’ordonnanceur ne gère pas l'utilisation du disque local, car celui-ci est partagé par toutes les tâches exécutées simultanément sur le même nœud."
-    },
-    {
-      "question": "Quelle est la capacité de disque local sur la grappe Béluga pour les nœuds CPU et GPU?",
-      "answer": "Béluga offre environ 370 Go de disque local pour les nœuds CPU, et les nœuds GPU ont un disque NVMe de 1,6 To."
-    },
-    {
-      "question": "La grappe Niagara offre-t-elle du stockage local sur ses nœuds de calcul?",
-      "answer": "Non, Niagara n'offre pas de stockage local sur ses nœuds de calcul."
-    },
-    {
-      "question": "Quelle capacité minimale de disque local peut-on s'attendre sur les autres grappes?",
-      "answer": "Dans le cas des autres grappes, on peut supposer que l'espace disque disponible est d'au moins 190 Go."
-    },
-    {
-      "question": "Comment accède-t-on au disque local depuis l'intérieur d'une tâche?",
-      "answer": "On peut accéder au disque local de l'intérieur d'une tâche en utilisant la variable d'environnement `$SLURM_TMPDIR`."
-    },
-    {
-      "question": "Décrivez une stratégie pour utiliser le disque local avec de grands ensembles de données.",
-      "answer": "Une approche consiste à conserver un ensemble de données dans un seul fichier archive tar dans l'espace /project, le copier sur le disque local au début de la tâche, l'extraire et utiliser les données. S'il y a eu des changements, on peut archiver le contenu et le recopier dans /project."
-    },
-    {
-      "question": "Comment fonctionne le système de fichiers /tmp comme disque RAM sur les nœuds de calcul?",
-      "answer": "Le système de fichiers /tmp peut être utilisé comme disque RAM sur les nœuds de calcul; il est implémenté avec tmpfs."
-    },
-    {
-      "question": "Quelles sont les caractéristiques principales de /tmp sur les grappes?",
-      "answer": "/tmp est tmpfs sur toutes les grappes, il est vidé à la fin de la tâche, compte dans la limite imposée pour le cgroup associé à la requête sbatch, et sa capacité est fixée à 100% via les options mount."
-    },
-    {
-      "question": "Quel est l'impact de la capacité de tmpfs fixée à 100% sur MemTotal?",
-      "answer": "La capacité de tmpfs étant fixée à 100% via les options mount peut nuire à certains scripts, car MemTotal représente alors la capacité du RAM physique, ce qui ne correspond pas à la requête sbatch."
+      "question": "Qu'est-ce que le disque RAM `/tmp` sur les nœuds de calcul, et quelles sont ses particularités en termes d'utilisation et de capacité?",
+      "answer": "Le système de fichiers `/tmp` sur les nœuds de calcul peut être utilisé comme disque RAM. Il est implémenté avec `tmpfs` sur toutes les grappes, ce qui veut dire qu'il est vidé automatiquement à la fin de la tâche. Son utilisation est comptabilisée dans la limite de mémoire imposée par le `cgroup` de la requête `sbatch`. De plus, sa capacité est fixée à 100% via les options de montage, ce qui peut faire en sorte que `MemTotal` représente la capacité du RAM physique, et non la requête spécifique de `sbatch`."
     }
   ],
-  "generated_at": "2026-04-11T23:42:09.144152+00:00"
+  "generated_at": "2026-04-13T07:03:05.549388+00:00"
 }

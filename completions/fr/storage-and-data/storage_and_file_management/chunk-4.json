@@ -4,85 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Comment est-ce que je peux vérifier l'utilisation de l'espace et des inodes pour mes répertoires `home` et `scratch`?",
-      "answer": "Pour vos répertoires `home` et `scratch`, la commande `diskusage_report` va vous donner l'utilisation de l'espace et des inodes pour chaque utilisateur."
+      "question": "Comment un utilisateur peut-il estimer son utilisation d'espace disque et d'inodes dans l'espace de stockage `project` sur les grappes de calcul, étant donné que l'outil `diskusage_report` affiche le quota total du groupe?",
+      "answer": "Pour estimer l'utilisation de l'espace et des inodes par un utilisateur dans l'espace `project` total, il faut utiliser la commande `lfs quota -u $USER /project`. Si l'on veut une estimation du nombre de fichiers dans un répertoire spécifique (incluant ses sous-répertoires), la commande `lfs find <chemin_vers_le_répertoire> -type f | wc -l` peut être utilisée."
     },
     {
-      "question": "Que m'indique la commande `diskusage_report` concernant le répertoire `/project`?",
-      "answer": "Pour `/project`, la commande `diskusage_report` vous montre le quota total du groupe, ce qui inclut tous les fichiers de ses membres."
+      "question": "Quelles sont les meilleures pratiques pour gérer et supprimer des fichiers dans les espaces `project` et `scratch` afin d'éviter les problèmes et les suppressions accidentelles sur les grappes de calcul?",
+      "answer": "Il est important de nettoyer régulièrement ces espaces. Pour supprimer des fichiers, on devrait d'abord créer un répertoire temporaire, par exemple `toDelete`, y déplacer les fichiers à supprimer, en vérifier le contenu et ensuite seulement le supprimer récursivement. Il est aussi fortement conseillé d'éviter les caractères `*` et `/` dans les commandes `rm` et de toujours tester les commandes `rm` qui contiennent des variables d'environnement dans les scripts avant de les utiliser."
     },
     {
-      "question": "Est-ce qu'il est possible d'estimer l'utilisation de l'espace et des inodes par un utilisateur spécifique dans le répertoire `/project`? Si oui, comment?",
-      "answer": "Oui, une estimation de l'utilisation de l'espace et des inodes par un utilisateur dans l'espace `project` total peut être obtenue avec la commande `lfs quota -u $USER /project`."
-    },
-    {
-      "question": "Comment puis-je estimer la quantité de fichiers dans un répertoire et ses sous-répertoires?",
-      "answer": "Vous pouvez obtenir une estimation de la quantité de fichiers avec la commande `lfs find <chemin_du_répertoire> -type f | wc -l`."
-    },
-    {
-      "question": "C'est quoi la meilleure pratique pour faire le ménage dans les données des espaces `project` et `scratch`?",
-      "answer": "Faut nettoyer les données régulièrement dans les espaces `project` et `scratch` parce que ces systèmes de fichiers-là sont utilisés pour d'immenses collections de données."
-    },
-    {
-      "question": "Comment devrais-je procéder pour effacer des fichiers de façon sécuritaire?",
-      "answer": "La bonne méthode, c'est de créer un répertoire temporaire, par exemple `toDelete`, d'y déplacer les fichiers que vous voulez supprimer, de bien vérifier le contenu du répertoire `toDelete`, puis ensuite de le supprimer récursivement."
-    },
-    {
-      "question": "Pourquoi est-ce qu'on devrait éviter d'utiliser les caractères `*` et `/` dans les commandes `rm` si possible?",
-      "answer": "C'est pour prévenir des erreurs graves. Il est préférable de naviguer vers le répertoire parent qui contient les éléments à supprimer et de vérifier qu'il s'agit bien du bon répertoire avant d'exécuter la commande `rm`."
-    },
-    {
-      "question": "Quelles précautions faut-il prendre quand on utilise des commandes `rm` avec des variables d'environnement dans des scripts?",
-      "answer": "Chaque variable doit être testée avant utilisation. Les variables vides ou non définies peuvent causer des erreurs graves, et chaque valeur entrée doit être vérifiée pour éliminer la possibilité d'un usage malveillant ou erroné du script."
-    },
-    {
-      "question": "Quel format et quelle taille de fichiers sont recommandés pour le stockage?",
-      "answer": "On recommande d'utiliser uniquement des fichiers au format texte de moins de quelques mégaoctets."
-    },
-    {
-      "question": "Où est-ce que je devrais stocker les fichiers temporaires?",
-      "answer": "Autant que possible, faut réserver le stockage `scratch` et le stockage local pour les fichiers temporaires. Pour le stockage local, vous pouvez utiliser le répertoire temporaire `$SLURM_TMPDIR` créé par l'ordonnanceur."
-    },
-    {
-      "question": "Si un programme a besoin de chercher à l'intérieur d'un fichier, quelle est la méthode la plus rapide?",
-      "answer": "Si le programme doit chercher à l'intérieur d'un fichier, c'est plus rapide de lire le fichier au complet d'abord."
-    },
-    {
-      "question": "Si j'ai des fichiers que j'utilise pas, mais que je veux garder, qu'est-ce que je devrais faire?",
-      "answer": "Si certains fichiers non utilisés doivent être conservés, archivez-les et compressez-les, pis si possible, copiez-les ailleurs, par exemple dans le système de fichiers `nearline`."
-    },
-    {
-      "question": "Où est-ce que je peux trouver plus d'informations pour gérer un grand nombre de fichiers?",
-      "answer": "Pour plus de renseignements sur la gestion d'un grand nombre de fichiers, on vous recommande de lire la page dédiée à ce sujet, surtout si vous êtes limité par le quota sur le nombre de fichiers."
-    },
-    {
-      "question": "Si j'ai des problèmes d'accès parallèle en lecture à des fichiers dans `home`, `scratch` ou `project`, quelle solution est proposée?",
-      "answer": "Pour contrer les problèmes d'accès parallèle en lecture à des fichiers, il faudrait utiliser un outil spécialisé comme MPI-IO."
-    },
-    {
-      "question": "Si les solutions de stockage offertes ne conviennent pas à mes besoins, qui dois-je contacter?",
-      "answer": "Si les solutions de stockage offertes ne conviennent pas à vos besoins, vous devriez contacter le soutien technique."
-    },
-    {
-      "question": "Pourquoi est-ce qu'il y a des quotas et des politiques sur les systèmes de fichiers?",
-      "answer": "Les quotas et les politiques sont imposés pour que tous les utilisateurs puissent disposer de suffisamment d'espace, et ça inclut des politiques sur les copies de sauvegarde et la purge automatique de certains systèmes de fichiers."
-    },
-    {
-      "question": "À quels espaces de stockage est-ce que chaque utilisateur a accès par défaut?",
-      "answer": "Par défaut, chaque utilisateur a accès aux espaces `home` et `scratch`, pis chaque groupe dispose par défaut de 1To d'espace `project`."
-    },
-    {
-      "question": "Comment est-ce que je peux obtenir une petite augmentation de l'espace dans `project` ou `scratch`?",
-      "answer": "Pour une légère augmentation des espaces `project` et `scratch`, vous pouvez utiliser le service d'accès rapide."
-    },
-    {
-      "question": "Pis si j'ai besoin d'une grosse augmentation pour l'espace `project`?",
-      "answer": "Pour une augmentation importante de l'espace `project`, il faut faire une demande dans le cadre du concours pour l'allocation de ressources."
-    },
-    {
-      "question": "Quelle commande est-ce que je peux utiliser pour vérifier l'utilisation de mes quotas pour les systèmes de fichiers sur les grappes?",
-      "answer": "Vous pouvez utiliser la commande `diskusage_report` pour connaître votre utilisation des quotas pour les systèmes de fichiers sur nos grappes."
+      "question": "Pourquoi des quotas et des politiques spécifiques sont-ils mis en place sur les systèmes de fichiers des grappes de calcul?",
+      "answer": "Les quotas et les politiques sont imposés pour s'assurer que tous les utilisateurs disposent de suffisamment d'espace de stockage. Ils régissent également les copies de sauvegarde et la purge automatique de certains systèmes de fichiers, comme l'espace `scratch`, afin de maintenir l'équilibre et la performance pour tous les utilisateurs."
     }
   ],
-  "generated_at": "2026-04-12T08:28:01.250548+00:00"
+  "generated_at": "2026-04-13T13:53:57.591450+00:00"
 }

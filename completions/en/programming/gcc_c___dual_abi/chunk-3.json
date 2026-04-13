@@ -4,29 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How do you compile `main.cxx` using the C++11 standard while explicitly enabling the new C++11 ABI according to the Makefile snippet?",
-      "answer": "You would use the command `$(CXX) -c -o main-cxx11-newabi.o -std=c++11 -D_GLIBCXX_USE_CXX11_ABI=1 main.cxx` as shown for the `main-cxx11-newabi.o` target."
+      "question": "What compiler options are used to build the `main-cxx11.o` object file according to this Makefile snippet?",
+      "answer": "The `main-cxx11.o` object file is built using the command `$(CXX) -c -o $@ -std=c++11 $<`, which specifies compilation with the C++11 standard."
     },
     {
-      "question": "What is the command used to compile `main.cxx` with the C++11 standard and explicitly disable the C++11 ABI, forcing the use of the old ABI?",
-      "answer": "The command is `$(CXX) -c -o main-cxx11-oldabi.o -std=c++11 -D_GLIBCXX_USE_CXX11_ABI=0 main.cxx`, as defined for the `main-cxx11-oldabi.o` target."
+      "question": "How does the Makefile snippet demonstrate enabling the new C++11 Application Binary Interface (ABI) for a C++11 source file?",
+      "answer": "The `main-cxx11-newabi.o` target shows how to enable the new C++11 ABI by including the flag `-D_GLIBCXX_USE_CXX11_ABI=1` in the compilation command `$(CXX) -c -o $@ -std=c++11 -D_GLIBCXX_USE_CXX11_ABI=1 $<`."
     },
     {
-      "question": "After compiling `main.cxx` to `main-cxx11-newabi.o`, what subsequent command is executed to process its symbols?",
-      "answer": "The command `nm $@ {{!}} cut -c 20- >$@.symbols` is executed, which extracts symbols using `nm`, pipes them to `cut` to remove the first 19 characters, and redirects the output to `main-cxx11-newabi.o.symbols`."
-    },
-    {
-      "question": "What object files are listed as dependencies for the `diff-cxx98` target in the provided Makefile snippet?",
-      "answer": "The `diff-cxx98` target has `main-cxx98-newabi.o` and `main-cxx98-oldabi.o` as its dependencies."
-    },
-    {
-      "question": "Which specific flag in the `main-cxx11-oldabi.o` rule dictates the use of an older ABI for C++11 compilation?",
-      "answer": "The flag `-D_GLIBCXX_USE_CXX11_ABI=0` is used to explicitly dictate the use of the old ABI."
-    },
-    {
-      "question": "In the given Makefile rules, what is the role of `nm $@ {{!}} cut -c 20- >$@.symbols` following a compilation command?",
-      "answer": "This command extracts mangled symbol names from the compiled object file (`$@`), removes the first 19 characters of each symbol name, and saves the processed list to a `.symbols` file (e.g., `main-cxx11-newabi.o.symbols`)."
+      "question": "Based on this Makefile snippet, what specific compiler flag is used to force the old Application Binary Interface (ABI) when compiling a C++11 source file?",
+      "answer": "To force the use of the old ABI when compiling a C++11 source file, the Makefile snippet shows the flag `-D_GLIBCXX_USE_CXX11_ABI=0` being passed to the compiler, as seen in the `main-cxx11-oldabi.o` target's command."
     }
   ],
-  "generated_at": "2026-04-11T22:01:29.899672+00:00"
+  "generated_at": "2026-04-13T05:45:02.904919+00:00"
 }

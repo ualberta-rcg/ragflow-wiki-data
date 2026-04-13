@@ -4,53 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Dans le tableau de convergence d'une optimisation Gaussian, qu'est-ce que ça veut dire si les forces (Maximum Force, RMS Force) sont convergentes, mais les déplacements (Maximum Displacement, RMS Displacement) ne le sont pas?",
-      "answer": "Ça veut dire que les forces sont souvent convergentes, mais les incréments ne le sont pas, comme on peut le voir avec les statuts 'YES' pour les forces et 'NO' pour les déplacements dans le tableau."
+      "question": "Quand un calcul Gaussian affiche que la \"Maximum Force\" et la \"RMS Force\" sont \"YES\" (convergées) mais que la \"Maximum Displacement\" et la \"RMS Displacement\" sont \"NO\" (non-convergées), qu'est-ce que ça signifie et quelles solutions peuvent être appliquées?",
+      "answer": "Cela indique souvent une non-convergence de l'optimisation géométrique. Une cause possible est un problème avec le système de coordonnées, comme une Z-matrice où trois des quatre atomes définissant un angle dièdre sont presque colinéaires (angle près de 0 ou 180 degrés). Pour résoudre ça, on peut modifier la Z-matrice, utiliser les coordonnées internes redondantes par défaut, ou changer la méthode d'optimisation par défaut pour `opt=ef` (pour moins de 50 variables) ou `opt=gdiis` (pour des molécules souples)."
     },
     {
-      "question": "Si un problème de système de coordonnées survient durant une optimisation, surtout avec une Z-matrice, quelle en est la cause fréquente et comment peut-on le résoudre?",
-      "answer": "La cause fréquente est que trois des quatre atomes utilisés pour définir l’angle dièdre peuvent se retrouver colinéaires, c’est-à-dire que l’angle est près de 0 ou 180 degrés, ce qui peut faire échouer l’algorithme. Pour résoudre ça, on peut modifier notre Z-matrice ou utiliser les coordonnées internes redondantes définies par défaut."
+      "question": "Que signifie l'erreur \"angle Alpha is outside the valid range of 0 to 180\" dans Gaussian, et comment peut-on la corriger?",
+      "answer": "Cette erreur apparaît lorsque l'un des angles X de la Z-matrice d'une molécule se retrouve en dehors de la plage valide de 0 à 180 degrés, souvent suite à des modifications géométriques importantes. La solution est de redéfinir la Z-matrice ou d'utiliser un autre système de coordonnées."
     },
     {
-      "question": "Quelles méthodes d'optimisation peut-on utiliser en dernier recours si la méthode par défaut échoue dans Gaussian?",
-      "answer": "En dernier recours, on peut remplacer la méthode d’optimisation par défaut par un autre type de méthode, comme <code>opt=ef</code> (pour moins de 50 variables) ou <code>opt=gdiis</code> (pour des molécules souples)."
-    },
-    {
-      "question": "Comment se manifeste l'erreur 'angle Alpha is outside the valid range of 0 to 180' dans un fichier de sortie Gaussian?",
-      "answer": "À la fin du fichier de sortie, on peut lire une erreur de terminaison via Lnk1e (par exemple, <code>/disc30/g98/l716.exe</code>), et quelques lignes plus haut, un message comme 'Error on Z-matrix card number', 'angle Alpha is outside the valid range of 0 to 180', et 'Conversion from Z-matrix to cartesian coordinates failed'."
-    },
-    {
-      "question": "Quelle est la cause de l'erreur 'angle Alpha is outside the valid range of 0 to 180'?",
-      "answer": "Cette tâche s’est terminée de façon anormale parce qu’un des angles X de la Z-matrice s’est trouvé hors des limites permises de 0 à 180 degrés."
-    },
-    {
-      "question": "Comment peut-on résoudre le problème de l'erreur 'angle Alpha is outside the valid range of 0 to 180'?",
-      "answer": "Cette erreur peut se produire en cas de modifications géométriques importantes dans une molécule, surtout quand elle est composée de fragments en interaction. La solution est de redéfinir la Z-matrice ou d'utiliser un autre système de coordonnées."
-    },
-    {
-      "question": "Quelle est l'erreur indiquée par le message 'End of file reading basis center' dans un fichier de sortie Gaussian?",
-      "answer": "À la fin du fichier de sortie, on peut lire 'End of file reading basis center' et 'Error termination via Lnk1e in /disc30/g98/l301.exe', avec un temps CPU généralement très court."
-    },
-    {
-      "question": "Qu'est-ce qui cause l'erreur 'Reading basis center'?",
-      "answer": "Il s’agit d’une erreur de saisie. On veut lire une base générale, mais on a omis de l’indiquer dans le fichier d'entrée."
-    },
-    {
-      "question": "Comment corriger l'erreur 'Reading basis center'?",
-      "answer": "Pour la corriger, il faut entrer la base en question dans le fichier d'entrée, ou supprimer <code>gen</code> de la ligne pour la route et indiquer une base interne."
-    },
-    {
-      "question": "Quelle est la description de l'erreur 'Operation on file out of range' dans Gaussian?",
-      "answer": "À la fin du fichier de sortie, on peut lire 'Error termination in NtrErr: NtrErr Called from FileIO.', précédée de 'Operation on file out of range' et des informations détaillées sur l'opération de fichier."
-    },
-    {
-      "question": "Pourquoi l'erreur 'Operation on file out of range' se produit-elle dans Gaussian?",
-      "answer": "Ça se produit quand on utilise <code>Opt=ReadFC</code>, <code>guess=read</code> ou <code>geom=allcheck/modify</code> pour obtenir du fichier de point de contrôle ('checkpoint file') quelque chose qui n’est pas trouvé. C'est souvent parce que le calcul ne s’est pas fait ou que l’information est absente parce que la tâche précédente n’a pas été complétée par manque de temps ou d’espace disque."
-    },
-    {
-      "question": "Comment peut-on résoudre l'erreur 'Operation on file out of range'?",
-      "answer": "Il faut reprendre les calculs ou entrer l’information requise manuellement."
+      "question": "Quelle est la cause de l'erreur \"End of file reading basis center\" dans les résultats d'un calcul Gaussian, et comment y remédier?",
+      "answer": "Cette erreur signale une faute de saisie où l'utilisateur a omis d'indiquer qu'une base générale devait être lue. Pour la corriger, il faut soit spécifier la base manquante, soit supprimer l'option `gen` de la ligne de route si l'intention était d'utiliser une base interne."
     }
   ],
-  "generated_at": "2026-04-11T22:59:56.581422+00:00"
+  "generated_at": "2026-04-13T06:30:16.610659+00:00"
 }

@@ -4,85 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "When should MPI scripts be used for Abaqus jobs?",
-      "answer": "MPI scripts in the multiple node sections should be used for Abaqus jobs requiring large memory or compute resources beyond what a single compute node can provide, allowing distribution over arbitrary node ranges."
+      "question": "When should users utilize MPI scripts for Abaqus jobs on Alliance clusters?",
+      "answer": "Users should utilize MPI scripts for Abaqus jobs on Alliance clusters when their simulations demand substantial memory or extensive computing resources that a single compute node cannot adequately provide. These scripts facilitate the distribution of computing across an arbitrary range of nodes, which is automatically managed by the scheduler."
     },
     {
-      "question": "What type of jobs should be run to determine optimal resource allocation for long Abaqus jobs?",
-      "answer": "Short scaling test jobs should be run to determine wall-clock times and memory requirements as a function of the number of cores (e.g., 2, 4, 8) to find the optimal configuration before running any long jobs."
+      "question": "What preliminary steps are recommended to optimize Abaqus jobs on Alliance clusters before running long simulations?",
+      "answer": "Before initiating long Abaqus jobs on Alliance clusters, users should conduct short scaling test jobs. These tests are crucial for determining the optimal number of cores, as well as the appropriate wall-clock times and memory requirements, as a function of the number of cores (e.g., 2, 4, 8, etc.)."
     },
     {
-      "question": "What parallelization methods do Abaqus solvers support for Standard Analysis?",
-      "answer": "Abaqus solvers support both thread-based and MPI-based parallelization for Standard Analysis type jobs."
-    },
-    {
-      "question": "Are scripts for multiple node job restarts provided for Standard Analysis?",
-      "answer": "No, scripts to perform multiple node job restarts are not currently provided for Standard Analysis."
-    },
-    {
-      "question": "What is the purpose of the `scriptsp1.txt` example provided for Standard Analysis?",
-      "answer": "The `scriptsp1.txt` is a prototype Slurm script for submitting thread-based parallel simulations to a single compute node for Standard Analysis type jobs."
-    },
-    {
-      "question": "Which Abaqus module is loaded in the `scriptsp1.txt` example for Standard Analysis?",
-      "answer": "The `abaqus/2026` module, representing the latest version, is loaded in the `scriptsp1.txt` example."
-    },
-    {
-      "question": "How is memory specified in the Abaqus command within the `scriptsp1.txt` example?",
-      "answer": "The memory is specified as `memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`, which deducts 3072MB from the total node memory."
-    },
-    {
-      "question": "What is the `mp_mode` set to in the Abaqus command within `scriptsp1.txt`?",
-      "answer": "The `mp_mode` is set to `threads`, indicating thread-based parallelization."
-    },
-    {
-      "question": "How are GPU resources optionally specified in the `scriptsp1.txt` Slurm script?",
-      "answer": "GPU resources can be optionally specified by uncommenting the line `##SBATCH --gpus-per-node=h100:1` in the Slurm script."
-    },
-    {
-      "question": "What is the default `cpus-per-task` specified in the `scriptsp1.txt` Slurm script?",
-      "answer": "The default `cpus-per-task` specified in the `scriptsp1.txt` Slurm script is 4."
-    },
-    {
-      "question": "What is the default `time` limit specified in the `scriptsp1.txt` Slurm script?",
-      "answer": "The default `time` limit specified in the `scriptsp1.txt` Slurm script is 6 hours (00-06:00)."
-    },
-    {
-      "question": "How can users specify their account in the `scriptsp1.txt` Slurm script?",
-      "answer": "Users can specify their account using the line `#SBATCH --account=def-group` in the Slurm script."
-    },
-    {
-      "question": "How can restart data be written every N=12 time increments in an Abaqus input file?",
-      "answer": "To write restart data every N=12 time increments, users should specify `*RESTART, WRITE, OVERLAY, FREQUENCY=12` in the input file."
-    },
-    {
-      "question": "How can restart data be written for a total of 12 time increments in an Abaqus input file?",
-      "answer": "To write restart data for a total of 12 time increments, users should specify `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO` in the input file."
-    },
-    {
-      "question": "How can users check for completed restart information?",
-      "answer": "Users can check for completed restart information by running the command `egrep -i \"step|start\" testsp*.com testsp*.msg testsp*.sta`."
-    },
-    {
-      "question": "What additional command line argument can be added to the Abaqus command to benefit some simulations?",
-      "answer": "Some simulations may benefit from adding `order_parallel=OFF` to the Abaqus command at the bottom of the script."
-    },
-    {
-      "question": "What is the purpose of the `scriptsp2.txt` example for Standard Analysis?",
-      "answer": "The `scriptsp2.txt` is a prototype Slurm script for restarting thread-based parallel simulations on a single compute node for Standard Analysis type jobs."
-    },
-    {
-      "question": "How does the Abaqus command in `scriptsp2.txt` specify that it is a restart job?",
-      "answer": "The Abaqus command in `scriptsp2.txt` uses `oldjob=testsp1` and specifies a restart input file `input=mystd-sim-restart.inp` to indicate it is a restart job."
-    },
-    {
-      "question": "What files are removed at the start of the `scriptsp2.txt` script?",
-      "answer": "The `scriptsp2.txt` script removes `testsp2*` and `testsp1.lck` at the start."
-    },
-    {
-      "question": "What content should a restart input file contain for Standard Analysis jobs?",
-      "answer": "A restart input file for Standard Analysis jobs should contain `*HEADING` and `*RESTART, READ`."
+      "question": "What parallelization methods do Abaqus solvers support for Standard Analysis jobs on Alliance clusters?",
+      "answer": "Abaqus solvers support both thread-based and MPI-based parallelization for Standard Analysis type jobs on Alliance clusters. Corresponding scripts are available for running these jobs on either single or multiple nodes, though scripts for multiple node job restarts are not currently provided."
     }
   ],
-  "generated_at": "2026-04-11T15:26:40.192004+00:00"
+  "generated_at": "2026-04-13T00:43:31.879960+00:00"
 }

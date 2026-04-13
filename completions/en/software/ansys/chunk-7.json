@@ -4,101 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "What is the name of the Slurm script for running Fluent simulations on multiple nodes, configured by node, using Intel MPI?",
-      "answer": "The script is named `script-flu-bynode-intel.sh`."
+      "question": "How do users configure a Slurm script to run Ansys Fluent batch jobs on Alliance clusters using the provided \"Multinode (by node)\" Intel MPI script template?",
+      "answer": "To configure an Ansys Fluent multinode batch job using the Intel MPI \"by node\" script template, users must specify the account name (`#SBATCH --account`), the time limit (`#SBATCH --time`), the number of compute nodes (`#SBATCH --nodes`), and the maximum number of cores per node (`#SBATCH --ntasks-per-node`). Memory is typically set to `0` to allocate all available memory per node (`#SBATCH --mem=0`). The script also requires loading the `StdEnv/2023` and `ansys` modules, and defining the `MYJOURNALFILE` (e.g., `sample.jou`) and `MYVERSION` (e.g., `3d`)."
     },
     {
-      "question": "How is the account for the Slurm job specified in the `script-flu-bynode-intel.sh` script?",
-      "answer": "The account is specified using `#SBATCH --account=def-group`."
+      "question": "What are the key differences in configuring an Ansys Fluent Slurm script for a multinode job when using Open MPI on a cluster like Narval, as compared to using Intel MPI on other Alliance clusters?",
+      "answer": "When configuring an Ansys Fluent multinode Slurm job, the choice of MPI implementation affects the script. For Narval using Open MPI, the script needs to explicitly `export OPENMPI_ROOT=$EBROOTOPENMPI` and `export FI_PROVIDER=verbs` before executing Fluent, and the `fluent` command uses `-mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID`. In contrast, for most other Alliance clusters using Intel MPI, the script would handle Intel MPI environment variable setups (e.g., `export INTELMPI_ROOT=$I_MPI_ROOT` if running an Intel MPI script on Narval), and the `fluent` command would use `-mpi=intel` with either `-peth` (for Nibi) or `-pib` (for other clusters), along with `-cnf=/tmp/machinefile-$SLURM_JOB_ID`."
     },
     {
-      "question": "What is the default time limit for a Fluent job as set in the `script-flu-bynode-intel.sh` script?",
-      "answer": "The default time limit is 3 hours, set as `#SBATCH --time=00-03:00`."
-    },
-    {
-      "question": "What is the maximum number of compute nodes allowed for Narval in the `script-flu-bynode-intel.sh` script?",
-      "answer": "The maximum number of compute nodes is 1, specified by `#SBATCH --nodes=1` with a note 'narval 1 node max'."
-    },
-    {
-      "question": "How many cores per compute node are specified in the `script-flu-bynode-intel.sh` script?",
-      "answer": "Up to a maximum of 32 cores per compute node is specified by `#SBATCH --ntasks-per-node=32`."
-    },
-    {
-      "question": "How is memory allocated per compute node in the `script-flu-bynode-intel.sh` script?",
-      "answer": "All available memory per compute node is allocated by setting `#SBATCH --mem=0`."
-    },
-    {
-      "question": "Which modules must be loaded before running the `script-flu-bynode-intel.sh` script?",
-      "answer": "The `StdEnv/2023` and `ansys/2023R2` (or newer versions) modules must be loaded."
-    },
-    {
-      "question": "What user-defined variables are present in the `script-flu-bynode-intel.sh` script?",
-      "answer": "The user-defined variables are `MYJOURNALFILE` (for the journal file name) and `MYVERSION` (for Fluent's dimension, e.g., 2d, 2ddp, 3d, or 3ddp)."
-    },
-    {
-      "question": "What specific modules are loaded if the `CC_CLUSTER` environment variable is set to 'narval' in the Intel-based Fluent scripts?",
-      "answer": "The `intel/2023` and `intelmpi` modules are loaded, and `INTELMPI_ROOT` is exported while `I_MPI_ROOT` is unset."
-    },
-    {
-      "question": "What environment variable is exported for Ansys versions 2025 and newer on Nibi or Narval in the provided Fluent scripts?",
-      "answer": "The `I_MPI_HYDRA_BOOTSTRAP` environment variable is exported as `ssh`."
-    },
-    {
-      "question": "How is the machine file generated for Fluent jobs in the Intel-based Slurm scripts?",
-      "answer": "The `slurm_hl2hl.py --format ANSYS-FLUENT` command is used, and its output is redirected to `/tmp/machinefile-$SLURM_JOB_ID`."
-    },
-    {
-      "question": "What Fluent command is used for a single node job in the `script-flu-bynode-intel.sh` script?",
-      "answer": "The command is `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`."
-    },
-    {
-      "question": "How does the Fluent command differ for a multinode job on Nibi compared to other clusters (excluding Nibi) when using Intel MPI in the `script-flu-bynode-intel.sh` script?",
-      "answer": "On Nibi, it uses `-peth` (`fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`), while on other clusters, it uses `-pib` (`fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`)."
-    },
-    {
-      "question": "What is the purpose of the `script-flu-bycore-intel.sh` script?",
-      "answer": "This script is designed for running Fluent simulations in a multinode (by core) configuration using Intel MPI."
-    },
-    {
-      "question": "How is the total number of cores across all nodes specified in the `script-flu-bycore-intel.sh` script?",
-      "answer": "The total number of cores is specified by `#SBATCH --ntasks=16`."
-    },
-    {
-      "question": "How is memory allocated per CPU in the `script-flu-bycore-intel.sh` script?",
-      "answer": "Memory per core is specified by `#SBATCH --mem-per-cpu=4G`."
-    },
-    {
-      "question": "What is the name of the Slurm script for running Fluent on Narval in a multinode (by node) configuration using Open MPI?",
-      "answer": "The script is named `script-flu-bynode-openmpi.sh`."
-    },
-    {
-      "question": "What MPI implementation is used in the `script-flu-bynode-openmpi.sh` script?",
-      "answer": "Open MPI is used, as indicated by `-mpi=openmpi` in the Fluent command."
-    },
-    {
-      "question": "What is the maximum number of cores per node allowed for Narval in the `script-flu-bynode-openmpi.sh` script?",
-      "answer": "A maximum of 64 cores per node (or less) is specified by `#SBATCH --ntasks-per-node=64`."
-    },
-    {
-      "question": "How is the `OPENMPI_ROOT` environment variable configured in the `script-flu-bynode-openmpi.sh` script?",
-      "answer": "It is set by `export OPENMPI_ROOT=$EBROOTOPENMPI`."
-    },
-    {
-      "question": "How is the machine file for Open MPI Fluent jobs generated in the `script-flu-bynode-openmpi.sh` script?",
-      "answer": "It uses `slurm_hl2hl.py --format ANSYS-FLUENT` to create an intermediate file `/tmp/mf-$SLURM_JOB_ID`, then processes it with `uniq` and `grep` to create the final `/tmp/machinefile-$SLURM_JOB_ID` with hostnames and core counts."
-    },
-    {
-      "question": "What Fluent command is used for a multinode job in the `script-flu-bynode-openmpi.sh` script?",
-      "answer": "The command is `export FI_PROVIDER=verbs; fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
-    },
-    {
-      "question": "What is the significance of the `#SBATCH --cpus-per-task=1` directive in all the provided Fluent Slurm scripts?",
-      "answer": "It signifies that this directive should not be changed, as it's a required parameter for the job configuration."
-    },
-    {
-      "question": "What is the default Fluent version specified in the `module load ansys/2023R2` line across these Slurm scripts?",
-      "answer": "The default Fluent version is `ansys/2023R2`, but newer versions are also acceptable."
+      "question": "When running Ansys Fluent simulations on Alliance clusters, what considerations should guide the choice between \"by node\" and \"by core\" Slurm scripts, and what is the recommendation for optimal mesh partitioning efficiency?",
+      "answer": "\"By node\" Slurm scripts are generally preferred for most Ansys Fluent jobs to minimize solution latency and maximize performance over as few nodes as possible. However, \"by core\" scripts might lead to shorter queue wait times for very large jobs, though they can increase startup time and vulnerability to node failures. For optimal mesh partitioning efficiency, users should aim for at least 10,000 cells per core, ensuring the number of mesh partitions is an integral multiple of the total number of cores requested."
     }
   ],
-  "generated_at": "2026-04-12T16:47:40.177454+00:00"
+  "generated_at": "2026-04-13T01:48:51.171853+00:00"
 }

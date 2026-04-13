@@ -4,57 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What is GNU Parallel used for in the context of BLAST searches?",
-      "answer": "GNU Parallel is a tool used to pack many small jobs into a single job and parallelize it, which helps alleviate the issue of too many small files in a parallel filesystem by querying fixed-size chunks from a sequence file and running on one node with multiple cores."
+      "question": "What is GNU Parallel and how does it benefit BLAST searches?",
+      "answer": "GNU Parallel is a tool designed to consolidate many small jobs into a single larger job and parallelize its execution. For BLAST searches, it helps by addressing the issue of an excessive number of small files in a parallel filesystem. It does this by querying fixed-size chunks from a sequence file (e.g., `seq.fa`) and running these queries on a single node using multiple cores."
     },
     {
-      "question": "Why is block size important when using GNU Parallel?",
-      "answer": "The block size is important because an incorrect size could lead to wasting cores if, for instance, more cores are requested than jobs created by GNU Parallel."
+      "question": "Why is the block size a crucial consideration when running BLAST searches with GNU Parallel?",
+      "answer": "The block size is crucial because it directly influences how many jobs GNU Parallel creates and, consequently, the number of cores utilized. If the block size isn't chosen carefully, it can lead to inefficient resource usage, such as requesting more cores than needed for the given file size, resulting in wasted computational resources."
     },
     {
-      "question": "How can GNU Parallel determine the optimal block size?",
-      "answer": "GNU Parallel can be instructed to evaluate and adapt the block size itself by using the `--block -1` option."
-    },
-    {
-      "question": "Which specific arguments are used with the `parallel` command in the `blastn_gnu.sh` script?",
-      "answer": "The `parallel` command uses `--jobs $SLURM_CPUS_PER_TASK`, `--keep-order`, `--block -1`, `--recstart '>'`, and `--pipepart $cmd`."
-    },
-    {
-      "question": "What does `--recstart '>'` signify in the GNU Parallel command?",
-      "answer": "The `--recstart '>'` option specifies that the record start is identified by the sequence identifier `>`."
-    },
-    {
-      "question": "What is the advantage of using `--pipepart` over `--pipe` with GNU Parallel, according to Ole Tange?",
-      "answer": "According to Ole Tange, `--pipepart` is faster, capable of reaching 5GB/s, whereas `--pipe` is limited to 500MB/s."
-    },
-    {
-      "question": "What is a key requirement for the input file (`seq.fa`) when using GNU Parallel for BLAST searches?",
-      "answer": "The input file must not be compressed."
-    },
-    {
-      "question": "How is the `blastn_gnu.sh` job submitted to ensure it runs after the database has been created?",
-      "answer": "The job is submitted using `sbatch --dependency=afterok:$(sbatch makeblastdb.sh) blastn_gnu.sh`, making it dependent on the successful completion of the `makeblastdb.sh` script."
-    },
-    {
-      "question": "What are the SBATCH resource requests for the `blastn_gnu.sh` script?",
-      "answer": "The script requests `--time=00:02:00`, `--cpus-per-task=4`, and `--mem-per-cpu=512M`."
-    },
-    {
-      "question": "What modules are loaded in the `blastn_gnu.sh` script?",
-      "answer": "The `blastn_gnu.sh` script loads `gcc/7.3.0` and `blast+/2.9.0` modules."
-    },
-    {
-      "question": "What is an additional tip for improving BLAST performance if the FASTA database fits on local storage?",
-      "answer": "If the FASTA database fits into the node's local storage, it's recommended to copy it to the local scratch space (`$SLURM_TMPDIR`)."
-    },
-    {
-      "question": "How can researchers reduce the number of hits returned by a BLAST search?",
-      "answer": "Researchers can reduce the number of hits returned by using the `-max_target_seqs` or `-max_hsps` filters, if it is reasonable for their research."
-    },
-    {
-      "question": "Which filter can be used to limit a BLAST hit list to nearly identical matches?",
-      "answer": "The `-evalue` filter can be used to limit the hit list to nearly identical matches, if suitable for the research."
+      "question": "What are some additional tips for optimizing BLAST search performance?",
+      "answer": "To optimize BLAST search performance, consider copying your FASTA database to the node's local scratch space (`$SLURM_TMPDIR`) if it fits. You can also reduce the number of returned hits by using parameters like `-max_target_seqs` or `-max_hsps`, and limit your hit list to nearly identical matches with `-evalue` filters, provided these adjustments are suitable for your research."
     }
   ],
-  "generated_at": "2026-04-11T18:21:40.308273+00:00"
+  "generated_at": "2026-04-13T02:49:36.719987+00:00"
 }

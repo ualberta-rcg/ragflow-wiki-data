@@ -4,57 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How can one view the extended attributes assigned to each archived file when using `dar`?",
-      "answer": "To see which extended attributes are assigned to each archived file, use the `dar -l all -alist-ea` command."
+      "question": "What issues might arise when extracting files archived with `dar` from a Lustre filesystem to a non-Lustre location, and how can these be avoided?",
+      "answer": "When extracting files archived from a Lustre filesystem to a location not formatted in Lustre, such as node-local storage (represented by `$SLURM_TMPDIR`), `dar` may produce error messages like \"Error while adding EA lustre.lov : Operation not supported\". To prevent these errors, you can either exclude the Lustre extended attributes during extraction by using the `-u 'lustre*'` flag (e.g., `dar -R restore/ -O -w -x all -v -g test -u 'lustre*'`) or by excluding them when initially creating the archive (e.g., `dar -w -c all -g test -u 'lustre*'`)."
     },
     {
-      "question": "What happens if you try to extract files with `lustre.lov` extended attributes to node-local storage?",
-      "answer": "If one tries to extract files with the `lustre.lov` extended attribute to node local storage (also known as `$SLURM_TMPDIR`), the extraction will show error messages like `Error while adding EA lustre.lov : Operation not supported`."
+      "question": "How do you create an incremental backup using `dar` by referencing a previously created archive?",
+      "answer": "To create an incremental backup with `dar`, you need to specify the base name of a previous full or incremental archive using the `-A` flag. For instance, after making a full backup named `monday` (e.g., `dar -w -c monday -g test`), you can create an incremental backup named `tuesday` by referencing the `monday` archive with the command: `dar -w -A monday -c tuesday -g test`. This `tuesday` archive will then only contain files that were modified since the `monday` backup."
     },
     {
-      "question": "Which flag can be used to prevent error messages when extracting Lustre-formatted files to a non-Lustre location?",
-      "answer": "To avoid error messages when extracting files to a location not formatted in Lustre, the `-u` flag can be used to exclude a specific type of attribute, for example: `dar -R restore/ -O -w -x all -v -g test -u 'lustre*'`."
-    },
-    {
-      "question": "How can `lustre.lov` extended attributes be excluded while creating a `dar` archive?",
-      "answer": "To get rid of the `lustre.lov` attribute while creating the archive, use the `-u` flag, for example: `dar -w -c all -g test -u 'lustre*'`."
-    },
-    {
-      "question": "When is it necessary to exclude `lustre.lov` attributes when working with `dar` archives?",
-      "answer": "Excluding `lustre.lov` attributes is necessary only if you intend to extract files to a location not formatted in Lustre."
-    },
-    {
-      "question": "How do you create differential and incremental backups with `dar`?",
-      "answer": "You can create differential and incremental backups with `dar` by passing the base name of the reference archive with the `-A` flag."
-    },
-    {
-      "question": "Give an example of creating a full backup named `monday` for a directory `test`.",
-      "answer": "To create a full backup, you would use: `dar -w -c monday -g test`."
-    },
-    {
-      "question": "How would you create an incremental backup named `tuesday` based on a previous backup named `monday` for the `test` directory?",
-      "answer": "To create an incremental backup named `tuesday` using `monday` as a reference, you would use: `dar -w -A monday -c tuesday -g test`."
-    },
-    {
-      "question": "In an incremental backup scenario, if `monday.1.dar`, `tuesday.1.dar`, and `wednesday.1.dar` exist, what files does `wednesday.1.dar` contain?",
-      "answer": "The file `wednesday.1.dar` contains only the files that were modified on Wednesday, but not the files from Monday or Tuesday."
-    },
-    {
-      "question": "If you have a full backup from Monday and incremental backups from Tuesday and Wednesday, how do you restore all files using `dar`?",
-      "answer": "To restore everything, you have to go through all backups in chronological order: `dar -R restore -O -w -x monday`, then `dar -R restore -O -w -x tuesday`, and finally `dar -R restore -O -w -x wednesday`."
-    },
-    {
-      "question": "What `dar` flag is used to limit the maximum size of each slice in bytes?",
-      "answer": "To limit the maximum size of each slice in bytes, use the flag `-s` followed by a number and one of k/M/G/T (e.g., `100M`)."
-    },
-    {
-      "question": "If an archive is split into multiple slices, for instance, `monday.{1..14}.dar`, how do you extract from all of them?",
-      "answer": "To extract from all slices, use their base name, for example: `dar -O -x monday`."
-    },
-    {
-      "question": "Where can users find bash functions to help with `dar` usage?",
-      "answer": "Users can find bash functions written by a team member as inspiration for their own scripts on GitHub, at [https://github.com/razoumov/sharedSnippets here]."
+      "question": "If you have a series of `dar` incremental backups, how do you restore all the files from them?",
+      "answer": "To restore all files from a series of `dar` incremental backups, you must extract them in chronological order. First, restore the full backup, and then sequentially restore each subsequent incremental backup. For example, if you have full, first incremental, and second incremental backups named `monday`, `tuesday`, and `wednesday` respectively, you would restore them using the following commands: `dar -R restore -O -w -x monday`, followed by `dar -R restore -O -w -x tuesday`, and finally `dar -R restore -O -w -x wednesday`."
     }
   ],
-  "generated_at": "2026-04-11T20:45:59.903290+00:00"
+  "generated_at": "2026-04-13T04:44:08.851028+00:00"
 }

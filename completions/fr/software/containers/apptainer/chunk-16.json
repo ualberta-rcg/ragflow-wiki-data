@@ -4,69 +4,17 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "Est-ce que les commandes pour créer un conteneur Apptainer à partir d'un Dockerfile fonctionnent directement sur les grappes de calcul?",
-      "answer": "Non, les commandes présentées ici pour créer un conteneur Apptainer à partir d'un Dockerfile ne fonctionnent pas sur nos grappes de calcul."
+      "question": "Sur quel type d'ordinateur est-il possible de convertir un fichier Dockerfile en image Apptainer, et quelles sont les étapes à suivre?",
+      "answer": "Pour convertir un Dockerfile en image Apptainer (.sif), vous devez le faire sur un ordinateur où Docker et Apptainer sont installés, et où vous avez les permissions nécessaires (accès root, sudo, ou appartenance au groupe docker avec permission --fakeroot), car cette opération n'est pas possible directement sur nos grappes. Voici les étapes à suivre:\n\n1.  Construisez l'image Docker: `docker build -f Dockerfile -t votre-nom-balise`\n2.  Sauvegardez l'image Docker en format tarball: `docker save votre-nom-balise -o votre-fichier-tarball.tar`\n3.  Supprimez l'image Docker locale: `docker image rm votre-nom-balise`\n4.  Construisez l'image Apptainer à partir du tarball: `apptainer build --fakeroot votre-nom-sif.sif docker-archive://votre-fichier-tarball.tar`\n5.  Supprimez le fichier tarball: `rm votre-fichier-tarball.tar`\n\nN'oubliez pas de copier ensuite le fichier .sif obtenu sur la grappe de calcul haute performance."
     },
     {
-      "question": "Quelles sont les conditions préalables pour pouvoir créer un conteneur Apptainer à partir d'un Dockerfile?",
-      "answer": "Il faut d'abord installer Docker et Apptainer sur un ordinateur où on dispose des permissions nécessaires."
+      "question": "Comment faire pour gérer le répertoire cache d'Apptainer, notamment pour voir son contenu et le vider?",
+      "answer": "Pour gérer le répertoire cache d'Apptainer, vous pouvez utiliser deux commandes principales. Pour voir la liste des fichiers qui se trouvent dans le répertoire cache, lancez `apptainer cache list`. Si vous voulez supprimer ces fichiers et vider le cache, utilisez la commande `apptainer cache clean`."
     },
     {
-      "question": "Quelles sont les permissions requises sur son propre ordinateur pour créer une image Apptainer à partir d'un Dockerfile?",
-      "answer": "Il faut disposer de permissions suffisantes, comme l'accès *root*, `sudo`, ou l'appartenance au groupe `docker` avec la permission `--fakeroot`."
-    },
-    {
-      "question": "Que faut-il faire si on possède un Dockerfile et qu'on veut créer une image Apptainer?",
-      "answer": "On doit lancer une séquence de commandes sur un ordinateur où Docker et Apptainer sont installés et où on a les permissions nécessaires. Ces commandes sont `docker build`, `docker save`, `docker image rm`, `apptainer build` et `rm`."
-    },
-    {
-      "question": "Que représente `your-tag-name` dans le processus de création d'une image Apptainer à partir d'un Dockerfile?",
-      "answer": "`your-tag-name` est le nom à donner au conteneur Docker qu'on construit."
-    },
-    {
-      "question": "À quoi sert le paramètre `your-tarball-name.tar` lors de la création d'une image Apptainer à partir d'un Dockerfile?",
-      "answer": "`your-tarball-name.tar` est le nom du fichier où Docker sauvegardera le contenu généré pour le conteneur Docker."
-    },
-    {
-      "question": "Quand est-ce qu'on peut utiliser `sudo` au lieu de `--fakeroot` lors de la construction d'une image Apptainer à partir d'une archive Docker?",
-      "answer": "Si l'option `--fakeroot` est facultative, on peut l'omettre et ajouter `sudo` en préfixe à la ligne de commande `apptainer build`."
-    },
-    {
-      "question": "Quel est le résultat final de la procédure pour créer un conteneur Apptainer à partir d'un Dockerfile?",
-      "answer": "Le résultat final est un fichier SIF qui constitue un conteneur Apptainer correspondant aux instructions du Dockerfile."
-    },
-    {
-      "question": "Une fois le fichier SIF créé à partir d'un Dockerfile, que doit-on faire pour l'utiliser sur les grappes?",
-      "answer": "Il faut copier le fichier SIF sur la ou les grappes de calcul que l'on veut utiliser."
-    },
-    {
-      "question": "Comment peut-on nettoyer les couches Docker additionnelles qui pourraient être créées par un Dockerfile?",
-      "answer": "On peut les supprimer en utilisant `docker images` pour lister les images, puis `docker image rm ID` en spécifiant l'identifiant de l'image."
-    },
-    {
-      "question": "Quelle est la commande pour voir les fichiers qui se trouvent dans le répertoire cache d'Apptainer?",
-      "answer": "Il faut lancer la commande `apptainer cache list`."
-    },
-    {
-      "question": "Comment peut-on vider le répertoire cache d'Apptainer?",
-      "answer": "On supprime les fichiers en utilisant la commande `apptainer cache clean`."
-    },
-    {
-      "question": "Pourquoi devrait-on modifier les répertoires temporaires et de cache par défaut d'Apptainer?",
-      "answer": "On devrait les modifier pour utiliser d'autres répertoires temporaires et de cache que ceux désignés par défaut."
-    },
-    {
-      "question": "Quelle variable d'environnement permet de spécifier le répertoire où Apptainer télécharge et met les fichiers en cache?",
-      "answer": "C'est la variable d'environnement `APPTAINER_CACHEDIR`."
-    },
-    {
-      "question": "Quelle variable d'environnement faut-il configurer pour indiquer où Apptainer doit enregistrer les fichiers temporaires, y compris pour la création d'images `squashfs`?",
-      "answer": "Il faut configurer la variable d'environnement `APPTAINER_TMPDIR`."
-    },
-    {
-      "question": "Comment peut-on configurer Apptainer pour qu'il utilise l'espace `/scratch` pour ses répertoires de cache et temporaires?",
-      "answer": "Il faut créer les répertoires `/scratch/$USER/apptainer/cache` et `/scratch/$USER/apptainer/tmp`, puis exporter `APPTAINER_CACHEDIR` vers `/scratch/$USER/apptainer/cache` et `APPTAINER_TMPDIR` vers `/scratch/$USER/apptainer/tmp`."
+      "question": "Comment peut-on modifier les répertoires par défaut qu'Apptainer utilise pour la mise en cache et les fichiers temporaires?",
+      "answer": "Pour modifier les répertoires par défaut qu'Apptainer utilise pour la mise en cache et les fichiers temporaires, vous devez configurer les variables d'environnement `APPTAINER_CACHEDIR` et `APPTAINER_TMPDIR` avant de lancer Apptainer. Par exemple, pour utiliser des sous-répertoires dans votre espace `/scratch` (souvent recommandé), vous pourriez lancer:\n\n`$ mkdir -p /scratch/$USER/apptainer/{cache,tmp}`\n`$ export APPTAINER_CACHEDIR=\"/scratch/$USER/apptainer/cache\"`\n`$ export APPTAINER_TMPDIR=\"/scratch/$USER/apptainer/tmp\"`"
     }
   ],
-  "generated_at": "2026-04-11T17:37:58.973644+00:00"
+  "generated_at": "2026-04-13T02:18:04.738069+00:00"
 }

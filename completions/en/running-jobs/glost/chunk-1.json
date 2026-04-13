@@ -4,97 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is GLOST?",
-      "answer": "GLOST, which stands for the Greedy Launcher Of Small Tasks, is a tool designed for running many sequential jobs of short or variable duration, or for performing parameter sweeps."
+      "question": "What is GLOST, and what types of computational tasks is it designed to manage?",
+      "answer": "GLOST, which stands for the Greedy Launcher Of Small Tasks, is a tool specifically designed for running numerous sequential jobs that have short or variable durations, or for conducting parameter sweeps. It functions by bundling these serial jobs and executing them as a single MPI job, thereby reducing the load on the job scheduler and simplifying job management."
     },
     {
-      "question": "How does GLOST compare to GNU Parallel or job arrays?",
-      "answer": "GLOST functions similarly to GNU Parallel or job arrays but offers a simpler syntax."
+      "question": "What are the main advantages of using GLOST for submitting jobs on a high-performance computing system?",
+      "answer": "The primary advantages of using GLOST are its ability to significantly reduce the number of jobs in the queue and alleviate stress on the scheduler. By bundling many serial tasks into one or more MPI jobs, it helps prevent slow responses and timeouts from `sbatch` or `squeue` requests that can occur when a large number of serial jobs are submitted individually. This also means users manage fewer MPI jobs rather than hundreds or thousands of separate serial jobs."
     },
     {
-      "question": "Which wrapper does GLOST utilize?",
-      "answer": "GLOST uses a wrapper called `glost_launch`."
-    },
-    {
-      "question": "What MPI commands are used by GLOST?",
-      "answer": "GLOST utilizes the MPI commands `srun`, `mpiexec`, and `mpirun`."
-    },
-    {
-      "question": "How are jobs organized for submission with GLOST?",
-      "answer": "Jobs are grouped into a single text file, typically named `list_glost_tasks.txt`, which is then passed as an argument to `glost_launch`."
-    },
-    {
-      "question": "In what situations is GLOST particularly useful?",
-      "answer": "GLOST is useful for a large number of serial jobs with comparative runtime, a large number of short serial jobs, or serial jobs that involve different parameters (parameter sweeps)."
-    },
-    {
-      "question": "What is the fundamental concept behind using GLOST?",
-      "answer": "The core idea behind using GLOST is to bundle multiple serial jobs and execute them as a single MPI job, which can leverage multiple cores or nodes."
-    },
-    {
-      "question": "What is a key benefit of bundling serial jobs with GLOST?",
-      "answer": "Bundling serial jobs with GLOST significantly reduces the total number of jobs on the queue, thereby decreasing the stress on the scheduler."
-    },
-    {
-      "question": "Is there an alternative software package to GLOST for job farming?",
-      "answer": "Yes, the META software package, developed by our staff, is an alternative to GLOST for job farming."
-    },
-    {
-      "question": "What are the advantages of META over GLOST?",
-      "answer": "META offers several advantages over GLOST, including potentially shorter queue wait times, smaller overheads (fewer wasted CPU cycles), a convenient mechanism for re-submitting failed computations, and the ability to handle all types of jobs (serial, multi-threaded, MPI, GPU, or hybrid), unlike GLOST."
-    },
-    {
-      "question": "Who should users contact if their workflow might benefit from GLOST?",
-      "answer": "Users should contact Technical support to help them adapt their workflow if they believe it fits within the GLOST framework."
-    },
-    {
-      "question": "What common problem does GLOST help to solve when submitting many serial jobs?",
-      "answer": "GLOST helps to solve the problem of scheduler slowdown, slow responses, and frequent timeouts from `sbatch` or `squeue` requests that can occur when a large number of serial jobs are submitted at once."
-    },
-    {
-      "question": "How does GLOST simplify job management for users?",
-      "answer": "GLOST simplifies job management by allowing users to submit and handle a few MPI jobs instead of hundreds or thousands of individual serial jobs."
-    },
-    {
-      "question": "Which MPI implementation does GLOST use?",
-      "answer": "GLOST uses OpenMPI to run serial tasks as an MPI job."
-    },
-    {
-      "question": "What steps are required to use GLOST on a system?",
-      "answer": "To use GLOST, users must load both the OpenMPI and GLOST modules."
-    },
-    {
-      "question": "How can one view the currently installed GLOST modules?",
-      "answer": "You can see the current installed GLOST modules on our systems by using the command `module spider glost`."
-    },
-    {
-      "question": "What are the prerequisite modules for loading `glost/0.3.1`?",
-      "answer": "Before `glost/0.3.1` can be loaded, users need to load either `StdEnv/2023 gcc/12.3 openmpi/4.1.5` or `StdEnv/2023 intel/2023.2.1 openmpi/4.1.5`."
-    },
-    {
-      "question": "What is the homepage URL for GLOST?",
-      "answer": "The homepage for GLOST is https://github.com/cea-hpc/glost."
-    },
-    {
-      "question": "How do you activate GLOST if an OpenMPI module is already loaded in your environment?",
-      "answer": "If an OpenMPI module is already present in your environment, simply adding `module load glost` to your list of required modules is sufficient to activate GLOST."
-    },
-    {
-      "question": "How can a user confirm that the GLOST module is loaded before submitting a job?",
-      "answer": "A user can use the `module list` command to ensure that the GLOST module, along with any other necessary modules, is loaded before submitting their job."
-    },
-    {
-      "question": "What is the general syntax for running GLOST using `srun`?",
-      "answer": "The general syntax for running GLOST with `srun` is `srun glost_launch list_glost_tasks.txt`."
-    },
-    {
-      "question": "What is the general syntax for running GLOST using `mpiexec`?",
-      "answer": "The general syntax for running GLOST with `mpiexec` is `mpiexec glost_launch list_glost_tasks.txt`."
-    },
-    {
-      "question": "What is the general syntax for running GLOST using `mpirun`?",
-      "answer": "The general syntax for running GLOST with `mpirun` is `mpirun glost_launch list_glost_tasks.txt`."
+      "question": "How do you prepare your computing environment to use the GLOST software package?",
+      "answer": "To prepare your computing environment for GLOST, you must load the necessary modules. GLOST utilizes OpenMPI, so you need to ensure that both the OpenMPI module and the corresponding GLOST module are loaded. You can check for available GLOST modules using `module spider glost` and activate it with commands like `module load intel/2023.2.1 openmpi/4.1.5 glost/0.3.1` or simply `module load glost` if OpenMPI is already active in your environment."
     }
   ],
-  "generated_at": "2026-04-11T22:12:14.162491+00:00"
+  "generated_at": "2026-04-13T05:54:40.178997+00:00"
 }

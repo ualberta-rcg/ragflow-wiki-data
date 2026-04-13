@@ -4,137 +4,17 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "Où est-ce que mes applications devraient écrire leurs données de sortie sur Trillium?",
-      "answer": "Vos applications devraient écrire leurs données de sortie dans le répertoire `/scratch`."
+      "question": "Où est-ce que les tâches sur la grappe Trillium doivent écrire leurs fichiers de sortie et pourquoi?",
+      "answer": "Les tâches sur Trillium doivent écrire leurs fichiers de sortie dans le répertoire `/scratch` parce que les répertoires `/home` et `/project` sont en lecture seule sur les nœuds de calcul. Il est aussi recommandé de soumettre la tâche depuis le répertoire `$SCRATCH` pour que les fichiers de sortie de l'ordonnanceur y soient également écrits."
     },
     {
-      "question": "Pourquoi est-il important de soumettre mes tâches à partir de mon répertoire `$SCRATCH`?",
-      "answer": "Il est important de soumettre vos tâches depuis votre répertoire `$SCRATCH` parce que l'emplacement par défaut des fichiers de sortie de l'ordonnanceur se trouve dans le répertoire à partir duquel vous soumettez vos tâches. Si ce répertoire n'est pas dans `/scratch`, les fichiers de sortie ne seront pas écrits."
+      "question": "Comment fonctionne l'ordonnancement des tâches sur la grappe Trillium en ce qui concerne l'utilisation des nœuds CPU et des GPU?",
+      "answer": "Sur la sous-grappe de CPU, toutes les tâches doivent utiliser des nœuds entiers, ce qui correspond à un minimum de 192 cœurs, et ces cœurs doivent être utilisés efficacement, par exemple en regroupant plusieurs tâches indépendantes. Sur la sous-grappe de GPU, l'ordonnanceur permet de demander soit un nœud entier (4 GPU), soit un seul GPU (équivalent à un quart de nœud avec 24 cœurs et environ 188 GiB de RAM), et le partage de GPU via MIG n'est pas pris en charge, mais HyperQ / MPS peut être utilisé."
     },
     {
-      "question": "Puis-je utiliser les répertoires `/home` ou `/project` pour écrire des données de sortie lors de l'exécution des tâches sur les nœuds de calcul?",
-      "answer": "Non, `/home` et `/project` sont en lecture seulement sur les nœuds de calcul, donc les données de sortie ne peuvent pas y être écrites."
-    },
-    {
-      "question": "Comment l'allocation pour l'exécution des tâches est-elle déterminée sur Trillium?",
-      "answer": "Les tâches s'exécuteront avec l'allocation attribuée à votre groupe ou, à défaut, avec une allocation du service d'accès rapide."
-    },
-    {
-      "question": "Comment puis-je spécifier le compte SLURM à utiliser pour mes tâches?",
-      "answer": "Vous pouvez spécifier le compte explicitement en utilisant l'option `--account=ACCOUNT_NAME` dans votre script de tâche ou votre commande de soumission."
-    },
-    {
-      "question": "Si je dispose de plusieurs allocations, est-il recommandé de spécifier le nom du compte?",
-      "answer": "Oui, si vous disposez de plusieurs allocations, il est fortement recommandé de spécifier le nom du compte."
-    },
-    {
-      "question": "Est-ce que je peux soumettre des tâches depuis les nœuds de calcul ou les nœuds de copie sur Trillium?",
-      "answer": "Non, les tâches ne peuvent pas être soumises depuis les nœuds de calcul (ni depuis les nœuds de copie)."
-    },
-    {
-      "question": "Pourquoi la soumission de tâches depuis les nœuds de calcul ou de copie est-elle interdite?",
-      "answer": "Ceci évite de générer accidentellement de nombreuses tâches et de surcharger l'ordonnanceur et le processus de sauvegarde."
-    },
-    {
-      "question": "Est-il possible de demander un nombre précis de cœurs CPU sur Trillium?",
-      "answer": "Non, il n'est pas possible de demander un nombre particulier de cœurs sur Trillium."
-    },
-    {
-      "question": "Quelle est la taille minimale d'une tâche CPU sur la sous-grappe de CPU?",
-      "answer": "La taille minimale d'une tâche CPU est d'un nœud entier, ce qui correspond à 192 cœurs."
-    },
-    {
-      "question": "Comment devrais-je gérer les tâches séquentielles ou à faible nombre de cœurs sur la sous-grappe de CPU?",
-      "answer": "Vous devez utiliser efficacement les 192 cœurs du nœud en regroupant plusieurs tâches indépendantes dans un seul script."
-    },
-    {
-      "question": "Combien de GPU contient chaque nœud de la sous-grappe de GPU?",
-      "answer": "Chaque nœud de la sous-grappe de GPU contient 4 GPU."
-    },
-    {
-      "question": "Quelles sont les options pour demander des GPU à l'ordonnanceur sur Trillium?",
-      "answer": "L'ordonnanceur vous permet de demander soit un nombre entier de nœuds, soit un seul GPU."
-    },
-    {
-      "question": "À quoi équivaut la demande d'un seul GPU en termes de ressources CPU et de mémoire RAM?",
-      "answer": "Un seul GPU équivaut à un quart de nœud, avec 24 cœurs et environ 188 GiB de RAM."
-    },
-    {
-      "question": "Est-ce que Trillium prend en charge la technologie NVIDIA MIG pour planifier une fraction de GPU?",
-      "answer": "Non, Trillium ne prend pas en charge MIG comme sur les autres grappes."
-    },
-    {
-      "question": "Quelle technologie peut être utilisée pour partager un GPU entre les processus dans une tâche sur Trillium?",
-      "answer": "Vous pouvez utiliser HyperQ / MPS de NVIDIA dans vos tâches."
-    },
-    {
-      "question": "Dois-je indiquer la quantité de mémoire requise dans mes scripts de tâches sur Trillium?",
-      "answer": "Non, vous ne devez pas indiquer la quantité de mémoire requise."
-    },
-    {
-      "question": "Quelle quantité de RAM est allouée aux tâches CPU?",
-      "answer": "Les tâches CPU reçoivent toujours `N × 768GB` de RAM, où `N` est le nombre de nœuds."
-    },
-    {
-      "question": "Quelle est la quantité de mémoire allouée pour les tâches sur un nœud GPU entier?",
-      "answer": "Les tâches sur un nœud GPU entier obtiennent 768GiB de mémoire."
-    },
-    {
-      "question": "Quelle est la quantité de mémoire allouée pour les tâches sur un GPU unique?",
-      "answer": "Les tâches sur un GPU unique obtiennent 1/4 de la mémoire, soit 188 GiB."
-    },
-    {
-      "question": "À quoi sert l'option `--nodes` ou `-N` dans un script de tâche Slurm?",
-      "answer": "Cette option spécifie le nombre de nœuds. Il est recommandé de toujours l'inclure."
-    },
-    {
-      "question": "Quelle est la fonction de l'option `--ntasks-per-node`?",
-      "answer": "Elle indique le nombre de tâches à lancer par `srun`/`mpirun` par nœud."
-    },
-    {
-      "question": "Quelle option devrais-je privilégier entre `--ntasks-per-node` et `--ntasks`?",
-      "answer": "Il est préférable d'utiliser `--ntasks-per-node`."
-    },
-    {
-      "question": "Que représente l'option `--ntasks` ou `-n`?",
-      "answer": "Elle représente le nombre de tâches à lancer par `srun`/`mpirun`."
-    },
-    {
-      "question": "Dans quel cas utilise-t-on l'option `--cpus-per-task` ou `-c`?",
-      "answer": "Cette option est habituellement utilisée pour spécifier le nombre de cœurs par tâche, notamment pour les fils (OpenMP)."
-    },
-    {
-      "question": "Comment spécifie-t-on la durée d'une tâche dans un script Slurm?",
-      "answer": "On utilise l'option `--time` ou `-t` pour spécifier la durée de la tâche."
-    },
-    {
-      "question": "Comment nomme-t-on une tâche Slurm?",
-      "answer": "On utilise l'option `--job-name` ou `-J` pour donner un nom à la tâche."
-    },
-    {
-      "question": "Quelle option permet de définir le fichier de sortie d'une tâche?",
-      "answer": "L'option `--output` ou `-o` permet de spécifier le fichier de sortie, et elle peut être répétée."
-    },
-    {
-      "question": "Quand l'option `--mail-type` est-elle utilisée?",
-      "answer": "Elle est utilisée pour indiquer quand envoyer un courriel, par exemple au début (`BEGIN`), à la fin (`END`), en cas d'échec (`FAIL`), ou pour tous les événements (`ALL`)."
-    },
-    {
-      "question": "Quelles sont les valeurs valides pour l'option `--gpus-per-node` sur la sous-grappe de GPU?",
-      "answer": "Sur la sous-grappe de GPU, les valeurs valides pour `--gpus-per-node` sont 1 et 4."
-    },
-    {
-      "question": "À quoi sert l'option `--partition` ou `-p`?",
-      "answer": "Elle sert à spécifier la partition à laquelle soumettre la tâche."
-    },
-    {
-      "question": "Quelle est l'utilité de l'option `--account` ou `-A`?",
-      "answer": "Elle sert à spécifier le compte Slurm à utiliser, bien que cela soit automatique dans plusieurs cas sur Trillium."
-    },
-    {
-      "question": "Pourquoi l'option `--mem` n'est-elle pas pertinente sur Trillium?",
-      "answer": "L'option `--mem` ne s'applique pas, car vous obtenez toute la mémoire disponible par nœud ou par GPU alloué."
+      "question": "Est-ce que les utilisateurs doivent spécifier la quantité de mémoire (RAM) requise lorsqu'ils soumettent une tâche sur Trillium?",
+      "answer": "Non, les utilisateurs ne doivent pas indiquer la quantité de mémoire requise, car elle est allouée automatiquement. Les tâches CPU reçoivent toujours `N × 768 GiB` de RAM (où `N` est le nombre de nœuds), et les tâches sur un nœud GPU entier obtiennent la même quantité, tandis que celles sur un seul GPU reçoivent 1/4 de la mémoire, soit 188 GiB."
     }
   ],
-  "generated_at": "2026-04-12T09:50:06.429665+00:00"
+  "generated_at": "2026-04-13T14:59:16.537173+00:00"
 }

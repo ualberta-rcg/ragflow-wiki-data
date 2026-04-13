@@ -4,37 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What is one method to process multiple SAM files using multithreading with Samtools?",
-      "answer": "You can use the `samtools view` command with the `-@` flag to specify the number of CPUs per task, piping the output to `samtools sort`."
+      "question": "How can one enable multithreading for `samtools` when processing multiple SAM files in a job script?",
+      "answer": "To enable multithreading, `samtools` can utilize the `-@` flag to specify the number of threads. For example, within a job script, you can set the number of CPUs per task using `#SBATCH --cpus-per-task` and then pass `${SLURM_CPUS_PER_TASK}` to the `samtools view` or `samtools sort` command."
     },
     {
-      "question": "How do you specify the number of cores Samtools should use for multithreading?",
-      "answer": "You can use the `-@` flag with the `samtools view` command, for example, `samtools view -@ ${SLURM_CPUS_PER_TASK}`."
-    },
-    {
-      "question": "What SLURM resource requests are shown in the example script for Samtools multithreading?",
-      "answer": "The example script requests `--cpus-per-task 4`, `--mem-per-cpu=4G`, and `--time=3:00:00`."
-    },
-    {
-      "question": "What Samtools command sequence is used in the multithreading example loop to convert and sort files?",
-      "answer": "The sequence `time samtools view -@ ${SLURM_CPUS_PER_TASK} -b ${FILE} | samtools sort -o ${FILE%.*}_mt_sorted.bam` is used."
-    },
-    {
-      "question": "What is an alternative approach to using multiple cores for processing several files concurrently, aside from Samtools' built-in multithreading?",
-      "answer": "GNU parallel can be used to process multiple files concurrently."
-    },
-    {
-      "question": "What is the name of the example script that demonstrates using GNU parallel?",
-      "answer": "The example script is named `samtools_gnuparallel.sh`."
-    },
-    {
-      "question": "How are the output BAM files named in the provided multithreading script example?",
-      "answer": "The output BAM files are named by taking the input SAM file's base name (without extension) and appending `_mt_sorted.bam` (e.g., `${FILE%.*}_mt_sorted.bam`)."
-    },
-    {
-      "question": "Which version of Samtools is loaded in the example multithreading script?",
-      "answer": "Samtools version 1.20 is loaded using the command `module load samtools/1.20`."
+      "question": "What is an alternative method to `samtools`' built-in multithreading for processing multiple `samtools` files concurrently across several cores?",
+      "answer": "A different approach is to use GNU parallel. This tool allows for the concurrent processing of multiple input files, enabling commands like `samtools view` and `samtools sort` to run simultaneously on several SAM files."
     }
   ],
-  "generated_at": "2026-04-12T07:38:02.239658+00:00"
+  "generated_at": "2026-04-13T13:16:41.714940+00:00"
 }

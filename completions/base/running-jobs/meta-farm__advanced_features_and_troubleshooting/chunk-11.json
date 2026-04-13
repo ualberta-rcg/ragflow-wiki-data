@@ -4,61 +4,17 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "What does the error message \"Wrong job runtime in job_script.sh - nnn . Exiting\" indicate?",
-      "answer": "This error means that the run-time argument in your `job_script.sh` file was not formatted properly."
+      "question": "What should a user do if they encounter an error message like \"Something wrong with sbatch farm submission; jobid=XXX; aborting\" or \"Something wrong with a auto-resubmit job submission; jobid=XXX; aborting\" when using the META-Farm package?",
+      "answer": "These messages indicate an issue with submitting jobs via `sbatch`, suggesting that the cluster's scheduler might be misbehaving or is simply too busy. The recommended solution is to try submitting the jobs again at a later time."
     },
     {
-      "question": "What should I do if I encounter the error \"Something wrong with sbatch farm submission; jobid=XXX; aborting\"?",
-      "answer": "This message indicates an issue with submitting jobs using `sbatch`. The cluster's scheduler might be misbehaving or simply too busy. You should try again a bit later."
+      "question": "What common issues do the error messages \"Couldn't create subdirectories inside the farm directory ; exiting\", \"Couldn't create the temp directory XXX ; exiting\", or \"Couldn't create a file inside XXX ; exiting\" signify in the META-Farm package, and how can they be resolved?",
+      "answer": "These three messages indicate a problem with the file system, such as incorrect permissions or an exhausted storage quota. To resolve these issues, you must identify and fix the underlying file system problem, then attempt the operation again."
     },
     {
-      "question": "What does the message \"Something wrong with an auto-resubmit job submission; jobid=XXX; aborting\" signify?",
-      "answer": "This message means there was a problem submitting an auto-resubmit job via `sbatch`, possibly due to a misbehaving or busy cluster scheduler. It's recommended to try again later."
-    },
-    {
-      "question": "What causes the error \"Couldn't create subdirectories inside the farm directory ; exiting\"?",
-      "answer": "This error, along with others related to creating temporary directories or files, indicates a problem with the file system, such as incorrect permissions or an exhausted quota. You need to fix these issues before trying again."
-    },
-    {
-      "question": "What should I do if I see the error \"Couldn't create the temp directory XXX ; exiting\"?",
-      "answer": "This error suggests a file system problem, like incorrect permissions or a full quota. You must resolve these issues before retrying."
-    },
-    {
-      "question": "What does \"Couldn't create a file inside XXX ; exiting\" mean?",
-      "answer": "This error points to a file system issue, such as messed-up permissions or a quota being exhausted. You need to address the underlying file system problem, then try again."
-    },
-    {
-      "question": "Why can't I use `resubmit.run` if I receive the message \"Jobs are still running/queued; cannot resubmit\"?",
-      "answer": "You cannot use `resubmit.run` until all meta-jobs from this farm have finished running. Use `list.run` or `queue.run` to check the status of the farm."
-    },
-    {
-      "question": "What does \"No failed/unfinished jobs; nothing to resubmit\" indicate?",
-      "answer": "This message means that your farm was 100% processed. There are no more (failed or never-ran) cases to compute."
-    },
-    {
-      "question": "Why might I receive the error \"Too many failed (very short) cases - exiting\" and how can I resolve it?",
-      "answer": "This error occurs if the first `$N_failed_max` cases are very short (less than `$dt_failed` seconds in duration). To resolve it, you need to determine what is causing the cases to fail and fix that, or adjust the `$N_failed_max` and `$dt_failed` values in `config.h`."
-    },
-    {
-      "question": "What does \"lockfile is not on path on node XXX\" mean and how do I troubleshoot it?",
-      "answer": "This error indicates that the `lockfile` utility is somehow not in your `$PATH` on a specific node. You should use `which lockfile` to ensure that the utility is in your `$PATH`. If it is on your login node, then something might have gone wrong on that particular compute node, for example, a file system may have failed to mount."
-    },
-    {
-      "question": "Is \"Exiting after processing one case (-1 option)\" considered an error message?",
-      "answer": "No, this is not an error message. It simply tells you that you submitted the farm with `submit.run -1` (one case per job mode), so each meta-job is exiting after processing a single case."
-    },
-    {
-      "question": "What does the message \"Not enough runtime left; exiting.\" imply?",
-      "answer": "This message tells you that the meta-job would likely not have enough time left to process the next case (based on the analysis of run-times for all the cases processed so far), so it is exiting early."
-    },
-    {
-      "question": "Is \"No cases left; exiting.\" an error message?",
-      "answer": "No, this is not an error message. This is how each meta-job normally finishes when all cases have been computed."
-    },
-    {
-      "question": "What does \"Only failed cases left; cannot auto-resubmit; exiting\" mean, and what steps should I take?",
-      "answer": "This message can only happen if you used the `-auto` switch when submitting the farm. It means that only failed cases are left, preventing auto-resubmission. You should find the failed cases with `Status.run -f`, fix the issue(s) causing them to fail, and then run `resubmit.run`."
+      "question": "Why might a user receive the message \"Jobs are still running/queued; cannot resubmit\" when trying to use the `resubmit.run` command in the META-Farm package?",
+      "answer": "This message indicates that `resubmit.run` cannot be used while there are still meta-jobs from the farm running or queued. You must wait until all current meta-jobs have finished before attempting to resubmit. You can check the farm's status using `list.run` or `queue.run`."
     }
   ],
-  "generated_at": "2026-04-12T01:29:15.583081+00:00"
+  "generated_at": "2026-04-13T08:31:37.643540+00:00"
 }

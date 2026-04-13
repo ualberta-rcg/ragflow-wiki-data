@@ -4,60 +4,72 @@
   "qa_pairs": [
     {
       "question": "What is the primary function of the KeOps library?",
-      "answer": "The KeOps library computes reductions of large arrays whose entries are defined by a mathematical formula or a neural network."
+      "answer": "The KeOps library is designed to compute reductions of large arrays where entries are defined by a mathematical formula or a neural network."
     },
     {
-      "question": "What core technologies does the KeOps library integrate?",
-      "answer": "KeOps combines efficient C++ routines with an automatic differentiation engine."
+      "question": "Which programming languages and associated frameworks does the KeOps library support?",
+      "answer": "KeOps supports Python (with NumPy and PyTorch), MATLAB, and R."
     },
     {
-      "question": "Which programming interfaces does KeOps support?",
-      "answer": "KeOps can be used with Python (NumPy, PyTorch), MATLAB, and R."
+      "question": "How can users determine which versions of PyKeOps are available on Alliance clusters?",
+      "answer": "Users can list the available PyKeOps versions by running the command `avail_wheels pykeops`."
     },
     {
-      "question": "How can one check the available versions of PyKeOps on the clusters?",
-      "answer": "Users can list available versions using the command `avail_wheels pykeops`."
+      "question": "What are the required module dependencies to load before installing PyKeOps in a Python virtual environment?",
+      "answer": "The required module dependencies are `StdEnv/2023` and `python/3.11`."
     },
     {
-      "question": "What are the initial module dependencies required to set up PyKeOps in a Python virtual environment?",
-      "answer": "Users need to load `StdEnv/2023` and `python/3.11` modules."
+      "question": "What are the commands to create and activate a Python virtual environment for PyKeOps without downloading additional packages?",
+      "answer": "To create the environment, use `virtualenv --no-download ~/pykeops_env`, and to activate it, use `source ~/pykeops_env/bin/activate`."
     },
     {
-      "question": "What commands are used to create and activate a Python virtual environment for PyKeOps?",
-      "answer": "The commands are `virtualenv --no-download ~/pykeops_env` and `source ~/pykeops_env/bin/activate`."
+      "question": "How do you install a specific version of PyKeOps within an activated virtual environment on an Alliance cluster?",
+      "answer": "You can install a specific version using `pip install --no-index pykeops==X.Y.Z`, replacing `X.Y.Z` with the desired version, such as `2.2.3`."
     },
     {
-      "question": "How is a specific version of PyKeOps installed within an activated virtual environment?",
-      "answer": "A specific version, such as `2.2.3`, is installed using `pip install --no-index pykeops==2.2.3`."
+      "question": "What command is used to validate that PyKeOps has been successfully installed in a Python virtual environment?",
+      "answer": "To validate the installation, run `python -c 'import pykeops; pykeops.test_numpy_bindings()'`."
     },
     {
-      "question": "How can you install the latest available version of PyKeOps without specifying the exact version number?",
-      "answer": "To install the latest version, use `pip install --no-index pykeops`."
+      "question": "After installing PyKeOps, what is the process for freezing the environment and saving the list of installed requirements?",
+      "answer": "You can freeze the environment and save requirements to a file using `pip freeze --local > ~/pykeops-2.2.3-requirements.txt`."
     },
     {
-      "question": "How does one validate a PyKeOps installation within a virtual environment?",
-      "answer": "The installation can be validated by running `python -c 'import pykeops; pykeops.test_numpy_bindings()'`."
+      "question": "What are the steps to deactivate and remove a local PyKeOps virtual environment after its setup is complete?",
+      "answer": "To deactivate and remove the virtual environment, execute `deactivate && rm -r ~/pykeops_env`."
     },
     {
-      "question": "What is the purpose of freezing the environment and requirements set after installing PyKeOps?",
-      "answer": "Freezing the environment, using `pip freeze --local > ~/pykeops-2.2.3-requirements.txt`, creates a file listing all installed packages and their exact versions for reproducibility."
+      "question": "What two types of computing resources can PyKeOps be run on?",
+      "answer": "PyKeOps can be run on either CPU or GPU resources."
     },
     {
-      "question": "What is the main difference in module loading between CPU and GPU PyKeOps job submission scripts?",
-      "answer": "GPU job scripts require additional modules like `cuda/12` and `custom-ctypes`, whereas CPU scripts only need `StdEnv/2023` and `python/3.11`."
+      "question": "Which SLURM directives are essential to include in a job submission script for running PyKeOps on a CPU?",
+      "answer": "Essential SLURM directives for CPU jobs include `--account`, `--time`, `--cpus-per-task`, and `--mem-per-cpu`."
     },
     {
-      "question": "In a job submission script, where should the Python virtual environment for PyKeOps be created?",
-      "answer": "The virtual environment should be created in the `$SLURM_TMPDIR` directory on the compute node."
+      "question": "Which modules are necessary to load in a job submission script specifically for running PyKeOps on a GPU?",
+      "answer": "For GPU jobs, the necessary modules are `StdEnv/2023`, `python/3.11`, `cuda/12`, and `custom-ctypes`."
     },
     {
-      "question": "Before submitting a PyKeOps job to the scheduler, what is the recommended step to verify the submission script?",
-      "answer": "It is recommended to test the submission script in an interactive job to ensure it starts without errors."
+      "question": "Why is the `custom-ctypes` module particularly important when running PyKeOps jobs on a GPU?",
+      "answer": "The `custom-ctypes` module is critical for ensuring proper GPU functionality in PyKeOps jobs."
+    },
+    {
+      "question": "In a job submission script, where should the virtual environment for PyKeOps be created on the compute node?",
+      "answer": "The virtual environment should be created at `$SLURM_TMPDIR/env` on the compute node."
+    },
+    {
+      "question": "How are the PyKeOps dependencies installed on the compute node within a job submission script?",
+      "answer": "Dependencies are installed by referencing the requirements file: `pip install --no-index -r pykeops-2.2.3-requirements.txt`."
+    },
+    {
+      "question": "What is the recommended method to test a PyKeOps job submission script before submitting it to the scheduler?",
+      "answer": "It is recommended to perform a quick test in an interactive job to ensure the submission script starts without errors."
     },
     {
       "question": "What command is used to submit a PyKeOps job script to the scheduler?",
-      "answer": "The command to submit a job is `sbatch submit-keops.sh`."
+      "answer": "The command to submit a PyKeOps job script is `sbatch submit-keops.sh`."
     }
   ],
-  "generated_at": "2026-04-12T05:33:16.256624+00:00"
+  "generated_at": "2026-04-13T11:31:48.649070+00:00"
 }

@@ -3,53 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Intel VTune and what types of applications can it analyze?",
-      "answer": "Intel VTune is a Performance Analysis tool for applications and systems, capable of analyzing both OpenMP and MPI-based applications."
+      "question": "What is the primary purpose of Intel VTune Profiler on Alliance clusters?",
+      "answer": "Intel VTune Profiler is Intel's Performance Analysis tool designed for applications and systems, capable of analyzing both OpenMP and MPI-based applications on Alliance clusters."
     },
     {
-      "question": "How do you load the VTune software module on an Alliance cluster?",
-      "answer": "You can load the module by running the command `module load vtune`."
+      "question": "How do users load the Intel VTune Profiler software module on an Alliance cluster?",
+      "answer": "To load the Intel VTune Profiler module on any Alliance cluster, users need to run the command: `module load vtune`."
     },
     {
-      "question": "What were the legacy names for Intel® VTune™ Profiler and its command-line and graphical tools?",
-      "answer": "The legacy name was Intel® VTune™ Amplifier, with `amplxe-cl` for the command-line tool and `amplxe-gui` for the graphical tool."
+      "question": "What are the naming changes for Intel VTune Profiler and its command-line tools in newer versions compared to the legacy versions available on Alliance clusters?",
+      "answer": "The legacy Intel® VTune™ Amplifier has been renamed to Intel® VTune™ Profiler. Its command-line tools `amplxe-cl` and `amplxe-gui` have also been renamed to `vtune` and `vtune-gui`, respectively, in newer versions."
     },
     {
-      "question": "How is analysis information collected with VTune, and what is recommended for compiling an executable to get accurate results?",
-      "answer": "Analysis information is collected using `vtune -collect <analysis-type> <target_exe> <exe_arguments>`. It's recommended to compile the executable with the \"-g\" option and the same optimization level as normal."
+      "question": "What is the general command-line syntax for collecting analysis information for an executable using Intel VTune Profiler?",
+      "answer": "To collect analysis information with Intel VTune Profiler, the general command is `vtune -collect <analysis-type> <target_exe> <exe_arguments>`, where `<analysis-type>` is replaced by an available analysis (e.g., hotspots) and `<target_exe>` is the path to the executable."
     },
     {
-      "question": "How can users generate a report with VTune, and where can they find version-specific argument options?",
-      "answer": "Reports are generated using `vtune -report <report-type>`. Version-specific argument options and usage examples can be displayed by running `vtune -help`."
+      "question": "What are the recommended compilation practices for an executable to obtain accurate analysis results when using Intel VTune Profiler?",
+      "answer": "It is recommended to compile the executable with the \"-g\" option for debugging information and to use the same optimization level as normal to obtain accurate results during analysis with Intel VTune Profiler."
     },
     {
-      "question": "Outline the steps to analyze the Intel Matrix Sample Project for hotspots and generate a summary report from the command line.",
-      "answer": "First, allocate resources and load `StdEnv/2020` and `vtune`. Then, copy and build the matrix sample. Finally, collect hotspots with `vtune -collect hotspots ../matrix` and generate a summary report with `vtune -report summary`."
+      "question": "How can a user generate a report from collected analysis data using Intel VTune Profiler's command-line interface?",
+      "answer": "Users can generate a report from collected analysis data by running the command `vtune -report <report-type>`, where `<report-type>` is the type of report to generate, such as `hotspots`."
     },
     {
-      "question": "When is using VTune in graphical mode particularly useful?",
-      "answer": "Running VTune graphically can be useful for generating command-line configurations."
+      "question": "Can you outline the steps to analyze and generate a summary report for the Intel Matrix Sample Project using Intel VTune Profiler on an Alliance cluster?",
+      "answer": "The steps include: allocating resources with `salloc`, loading `StdEnv/2020` and `vtune` modules, copying the matrix sample project, compiling it, collecting hotspots data using `vtune -collect hotspots ../matrix`, and then generating a summary report with `vtune -report summary`."
     },
     {
-      "question": "How do you run VTune in GUI mode on Alliance cluster compute or login nodes?",
-      "answer": "Connect to a cluster node with TigerVNC, then load `module load StdEnv/2020 vtune` and run `vtune-gui`."
+      "question": "What is a key benefit of using Intel VTune Profiler in graphical mode, as opposed to its command-line interface?",
+      "answer": "Running Intel VTune Profiler in graphical mode can be useful for generating command-line configurations, which can then be used for subsequent command-line analyses."
     },
     {
-      "question": "What is the procedure for running VTune in GUI mode on VDI nodes?",
-      "answer": "Connect to gra-vdi.alliancecan.ca with TigerVNC, then load `module load CcEnv StdEnv/2020 vtune` and run `vtune-gui`."
+      "question": "How does one launch Intel VTune Profiler in graphical mode on an Alliance cluster compute or login node?",
+      "answer": "To launch Intel VTune Profiler graphically on a cluster node, one must first connect via TigerVNC, then load the `StdEnv/2020` and `vtune` modules, and finally execute the `vtune-gui` command."
     },
     {
-      "question": "What are the initial steps to profile an MPI program using VTune, and how is the program executed for profiling?",
-      "answer": "First, load `StdEnv/2020` and `vtune` modules. Then, run the compiled MPI program using `srun aps your_mpi_program.x` in a job or interactive session."
+      "question": "What is the procedure for running Intel VTune Profiler in graphical mode from an Alliance VDI node?",
+      "answer": "From an Alliance VDI node, users connect to gra-vdi.alliancecan.ca with TigerVNC, load the `CcEnv`, `StdEnv/2020`, and `vtune` modules, and then run the `vtune-gui` command."
     },
     {
-      "question": "After profiling an MPI program, where is the data stored, and how is a basic summary report generated?",
-      "answer": "The profiling data is stored in a directory named `aps_result_YYYYMMDD`. A basic summary report is generated using `aps-report -D aps_result_YYYYMMDD`."
+      "question": "Which modules are required to be loaded on an Alliance cluster before profiling an MPI program with Intel VTune Profiler?",
+      "answer": "Before profiling an MPI program with Intel VTune Profiler on an Alliance cluster, users need to load the `StdEnv/2020` and `vtune` modules."
     },
     {
-      "question": "What is the output format of the `aps-report` command for an MPI program, and how can it be viewed?",
-      "answer": "The `aps-report` command creates an HTML file, which can be copied to your own computer and viewed in a browser to identify performance issues."
+      "question": "How is an MPI program executed to collect profiling data using Intel VTune Profiler on an Alliance cluster?",
+      "answer": "After compiling the MPI program, it should be run inside a job or interactive session using the command `srun aps your_mpi_program.x` to collect profiling data."
+    },
+    {
+      "question": "Where is the profiling data for an MPI program stored after it is run with Intel VTune Profiler's `aps` utility on an Alliance cluster?",
+      "answer": "The profiling data for an MPI program is stored in a directory named `aps_result_YYYYMMDD`, where `YYYYMMDD` corresponds to the current date."
+    },
+    {
+      "question": "How can a user generate a basic summary report from the profiling data collected for an MPI program using Intel VTune Profiler's `aps` utility?",
+      "answer": "To generate a basic summary report for an MPI program, users run the command `aps-report -D aps_result_YYYYMMDD`, replacing `YYYYMMDD` with the actual directory name where the data is stored."
+    },
+    {
+      "question": "What is the output format of the summary report generated by `aps-report` for an MPI program, and what information does it provide?",
+      "answer": "The `aps-report` command generates an HTML file that can be copied to a local computer and viewed in a browser, clearly identifying performance issues affecting the MPI code."
+    },
+    {
+      "question": "How can users access more detailed help or comprehensive documentation for Intel VTune Profiler when working on Alliance clusters?",
+      "answer": "Users can display version-specific argument options and usage examples by running `vtune -help` on the command line, or access complete downloadable documentation for Intel Parallel Studio XE (including VTune) via links provided in the documentation."
     }
   ],
-  "generated_at": "2026-04-12T11:18:58.386876+00:00"
+  "generated_at": "2026-04-13T16:10:17.356576+00:00"
 }

@@ -4,73 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi, un RAP en informatique de calcul?",
-      "answer": "Un RAP, ou ''Resource Allocation Project'', est un projet d’allocation scientifique qui est associé à chaque tâche soumise à l'ordonnanceur de tâches Slurm."
+      "question": "Qu'est-ce qu'un projet d'allocation scientifique, ou RAP, et comment on fait pour le choisir quand on soumet une tâche?",
+      "answer": "Un projet d'allocation scientifique (RAP, pour Resource Allocation Project) est associé à chaque tâche qu'on soumet à l'ordonnanceur Slurm. On le sélectionne en utilisant l'option `--account` avec la commande `sbatch`."
     },
     {
-      "question": "Comment on sélectionne un RAP quand on soumet une tâche?",
-      "answer": "On sélectionne le RAP en utilisant l’option <code>--account</code> de la commande <code>sbatch</code>."
+      "question": "Comment l'utilisation des ressources par un membre d'un groupe de recherche affecte-t-elle la priorité des tâches des autres membres du même compte RAP?",
+      "answer": "Quand plusieurs membres d'un groupe utilisent le même compte RAP, toute l'utilisation des ressources est 'facturée' à ce compte. L'utilisation faite par chaque membre a donc un impact sur la priorité des tâches de tous les autres, pouvant la diminuer si le compte a récemment beaucoup consommé. Cela oblige les tâches de tous les utilisateurs du compte RAP à attendre que la juste part (LevelFS) du compte redescende à une valeur concurrentielle."
     },
     {
-      "question": "Qu'est-ce qui détermine la priorité d'une tâche?",
-      "answer": "La priorité d'une tâche est déterminée par la part cible du compte, comparée à l’utilisation récente, tel que c'est décrit dans la Politique d'ordonnancement des tâches."
-    },
-    {
-      "question": "Est-ce que plusieurs membres d'un même groupe de recherche peuvent utiliser le même compte RAP?",
-      "answer": "Oui, plusieurs membres d’un groupe de recherche peuvent utiliser le même compte RAP pour soumettre leurs tâches."
-    },
-    {
-      "question": "Comment l'utilisation des ressources par un membre du groupe affecte-t-elle la priorité des tâches des autres membres?",
-      "answer": "L’utilisation des ressources est ''facturée'' au même compte pour tous. L’utilisation faite par chaque membre du groupe a donc un effet sur la priorité des tâches de tous les membres du compte RAP."
-    },
-    {
-      "question": "Pourquoi est-ce une bonne idée de coordonner la soumission des tâches au sein d'un groupe?",
-      "answer": "C'est avantageux de coordonner la soumission des tâches pour améliorer le rendement global du projet, étant donné que l'utilisation par un membre affecte la priorité de tous."
-    },
-    {
-      "question": "Que se passe-t-il si un utilisateur soumet une tâche alors que les autres membres du groupe ont beaucoup utilisé les ressources?",
-      "answer": "Dans ce cas, la priorité de cette nouvelle tâche risque d'être très basse, car toutes les tâches du compte RAP devront attendre que la juste part (LevelFS) du compte redevienne concurrentielle."
-    },
-    {
-      "question": "Comment fonctionne le principe de juste part (LevelFS) avec les comptes RAP?",
-      "answer": "Le principe de juste part s’applique à la fois ''à l’intérieur'' d’un groupe de recherche et ''entre'' les différents groupes."
-    },
-    {
-      "question": "Qui obtient la priorité une fois que la juste part du compte RAP est rétablie?",
-      "answer": "Les tâches des utilisateurs qui ont moins consommé de ressources auront la priorité une fois que la juste part du compte sera rétablie."
-    },
-    {
-      "question": "Est-ce qu'une faible priorité pour un compte RAP s'applique toujours si les utilisateurs soumettent des tâches très différentes?",
-      "answer": "Non, cela pourrait ne pas se produire. Si un utilisateur exécute plusieurs petites tâches qui peuvent se glisser dans les trous d’ordonnancement (comme le ''backfilling'' ou le ''cycle scavenging''), la vitesse d'exécution pourrait être appréciable, même si la priorité générale du groupe est basse."
-    },
-    {
-      "question": "Si des petits travaux peuvent être exécutés rapidement même avec une faible priorité de groupe, quel est l'impact sur les tâches plus exigeantes?",
-      "answer": "Les autres utilisateurs du compte RAP auront plus de difficulté à faire exécuter des tâches plus exigeantes en ressources dans ce scénario."
-    },
-    {
-      "question": "Quelles sont les stratégies recommandées pour gérer l'utilisation dans un compte RAP?",
-      "answer": "Les stratégies incluent la planification des tâches pour éviter les interférences de priorité, l'utilisation de grappes différentes, l'utilisation de plusieurs comptes RAP, et, dans un contexte de collaboration, l'obtention de comptes séparés pour chaque chercheur principal."
-    },
-    {
-      "question": "Comment la planification peut-elle aider si plusieurs utilisateurs ont des dates d'échéance différentes pour des tâches en rafale?",
-      "answer": "Il est avantageux de planifier ces tâches pour éviter que leurs priorités n’interfèrent pas à des moments critiques, notamment quand il y a des projets qui requièrent des tâches en rafale (''burst'')."
-    },
-    {
-      "question": "Est-ce que l'utilisation d'une grappe différente a un impact sur la priorité des tâches d'un même groupe RAP?",
-      "answer": "Non. Nos grappes d’usage général ont une capacité quasi identique, et l’utilisation par chaque compte RAP est comptabilisée de manière distincte sur chacune. Un utilisateur sur une grappe n’a pas d’effet sur la priorité des tâches soumises par un autre utilisateur du même compte sur une autre grappe."
-    },
-    {
-      "question": "Quel est l'avantage d'utiliser plusieurs comptes pour des tâches différentes?",
-      "answer": "Les tâches exécutées dans un compte n’ont pas d’effet sur la juste part de l’autre compte, ce qui peut améliorer l'efficacité."
-    },
-    {
-      "question": "Dans un contexte de collaboration entre plusieurs groupes, comment les comptes RAP peuvent-ils être gérés efficacement?",
-      "answer": "Chaque chercheuse principale ou chercheur principal peut obtenir son propre compte, et les utilisateurs peuvent être répartis dans les différents RAP pour plus d’efficacité."
-    },
-    {
-      "question": "Si les stratégies de gestion des comptes RAP ne sont pas efficaces, qui doit-on contacter?",
-      "answer": "Il faut contacter le soutien technique et demander à l’analyste de consulter la documentation interne intitulée ''A group in conflict with itself''."
+      "question": "Quelles sont les stratégies recommandées pour gérer l'utilisation d'un compte RAP et améliorer le rendement des tâches, surtout quand il y a des conflits de priorité?",
+      "answer": "Pour optimiser l'utilisation et éviter les conflits, on peut planifier les tâches en rafale pour ne pas que leurs priorités interfèrent à des moments critiques. On peut aussi utiliser différentes grappes de calcul, puisque l'utilisation de chaque compte RAP est comptabilisée distinctement sur chacune. Une autre stratégie est d'utiliser plusieurs comptes, par exemple un pour les ressources allouées par concours et un autre pour celles par défaut. Enfin, dans un contexte de collaboration, on peut répartir les utilisateurs entre les différents comptes RAP des chercheurs principaux pour plus d'efficacité."
     }
   ],
-  "generated_at": "2026-04-12T02:12:35.695883+00:00"
+  "generated_at": "2026-04-13T09:05:28.140622+00:00"
 }

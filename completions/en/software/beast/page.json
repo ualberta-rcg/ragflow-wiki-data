@@ -3,45 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is BEAST used for?",
-      "answer": "BEAST is a cross-platform program for Bayesian MCMC analysis of molecular sequences, orientated towards rooted, time-measured phylogenies."
+      "question": "What is the primary function of the BEAST software?",
+      "answer": "BEAST is a cross-platform program designed for Bayesian MCMC analysis of molecular sequences, specifically oriented towards rooted, time-measured phylogenies inferred using molecular clock models."
     },
     {
-      "question": "What key analytical approach does BEAST use for phylogenies?",
-      "answer": "BEAST uses MCMC to average over tree space, weighting each tree proportional to its posterior probability, allowing for reconstruction and testing evolutionary hypotheses without conditioning on a single tree topology."
+      "question": "How does BEAST facilitate the testing of evolutionary hypotheses?",
+      "answer": "BEAST uses MCMC (Markov Chain Monte Carlo) to average over tree space, weighting each tree proportionally to its posterior probability, allowing for the testing of evolutionary hypotheses without conditioning on a single tree topology."
     },
     {
-      "question": "Which high-performance library can BEAST utilize for its core calculations?",
-      "answer": "BEAST can utilize the beagle-lib for performing core calculations in Bayesian and Maximum Likelihood phylogenetics packages."
+      "question": "What is `beagle-lib`, and what is its role when used with BEAST?",
+      "answer": "`beagle-lib` is a high-performance library that can perform the core calculations central to most Bayesian and Maximum Likelihood phylogenetics packages, which BEAST can utilize."
     },
     {
-      "question": "How do you load the BEAST module?",
-      "answer": "You load the BEAST module using the command `module load beast`."
+      "question": "How do users load the BEAST module on a system?",
+      "answer": "Users load the BEAST module by executing the command `module load beast`."
     },
     {
-      "question": "What dependencies are automatically loaded when the BEAST module is loaded?",
-      "answer": "When the BEAST module is loaded, it automatically loads the `beagle-lib` and `java` modules."
+      "question": "Which software dependencies are automatically loaded when the BEAST module is loaded?",
+      "answer": "When the BEAST module is loaded, its dependencies, namely the `beagle-lib` and `java` modules, are automatically loaded."
     },
     {
-      "question": "How are BEAST packages or add-ons managed?",
-      "answer": "BEAST packages are managed using the `packagemanager` command for v2.5.1 and newer, or `addonmanager` for older versions, to install them within your home directory."
+      "question": "How are BEAST packages (add-ons) installed, given they are not included in the default installation?",
+      "answer": "Users can install desired BEAST packages into their home directory using the `packagemanager` command for BEAST v2.5.1 and newer, or `addonmanager` for older versions (v2.4.x and earlier)."
     },
     {
-      "question": "Where are BEAST packages installed when added?",
-      "answer": "Installed BEAST packages are located in your `~/.beast/VERSION/PACKAGE` directory, such as `~/.beast/2.5/SNAPP`."
+      "question": "What command is used to list available and installed BEAST packages?",
+      "answer": "To list BEAST packages, users employ `packagemanager -list` for BEAST v2.5.1 and newer, or `addonmanager -list` for older versions."
     },
     {
-      "question": "What is the basic command to run a BEAST analysis with an input file in a job script?",
-      "answer": "The basic command is `beast input_beast.xml`."
+      "question": "Where are BEAST packages installed on the system after a user adds them?",
+      "answer": "When a user adds a BEAST package, it is installed in their home directory, typically under `~/.beast/<version>/<PackageName>`, for example, `~/.beast/2.5/SNAPP`."
     },
     {
-      "question": "How can you allocate more memory for a BEAST job in a Slurm script?",
-      "answer": "You can allocate more memory by setting the `#SBATCH --mem-per-cpu` parameter and configuring the Java `BEAST_MEM` variable (e.g., `-Xmx3750M`) in the job script."
+      "question": "What is a basic SLURM job script structure for running BEAST, including essential directives?",
+      "answer": "A basic SLURM job script includes directives like `#SBATCH --account=`, `#SBATCH --time=`, and `#SBATCH --mem-per-cpu=`, followed by `module load beast/<version>` and the `beast input_beast.xml` command."
     },
     {
-      "question": "What is the recommended memory setting for `BEAST_MEM` relative to the `--mem` or `--mem-per-cpu` Slurm parameter?",
-      "answer": "The `BEAST_MEM` setting should be 250M lower than the `--mem` or `--mem-per-cpu` Slurm parameter."
+      "question": "How can a user allocate more memory for a BEAST job when using a SLURM script?",
+      "answer": "To allocate more memory, users should set the `BEAST_MEM` environment variable (e.g., `-Xmx3750M`) and ensure the `--mem-per-cpu` SLURM directive is set appropriately higher (e.g., 4000M), then pass `BEAST_MEM` to the Java command."
+    },
+    {
+      "question": "What is the recommended memory relationship between the `--mem-per-cpu` SLURM directive and the `BEAST_MEM` Java argument?",
+      "answer": "The `BEAST_MEM` Java argument, specified with `-Xmx`, should generally be about 250MB lower than the `--mem-per-cpu` value defined in the SLURM script."
+    },
+    {
+      "question": "How are the necessary library paths configured in a BEAST SLURM job script when requesting increased memory and using `beagle-lib`?",
+      "answer": "The `BEAST_LIB` and `BEAST_EXTRA_LIBS` variables are defined to point to BEAST and `beagle-lib` directories, and `LD_LIBRARY_PATH` is exported to include `BEAGLE_LIB`."
+    },
+    {
+      "question": "What is the full Java command structure for executing BEAST with increased memory and `beagle-lib` support within a SLURM job script?",
+      "answer": "A constructed Java command, starting with `java -Xms256m ${BEAST_MEM}`, including library paths (`-Djava.library.path=${BEAST_EXTRA_LIBS}`) and the `beast.app.beastapp.BeastLauncher` class, is executed with the `-beagle` flag and the input XML file."
+    },
+    {
+      "question": "Where can a user find more detailed information on managing BEAST packages for server environments?",
+      "answer": "More detailed information on managing BEAST packages can be found in the 'Server machines' section on the official BEAST2 website at `http://www.beast2.org/managing-packages/`."
     }
   ],
-  "generated_at": "2026-04-11T18:18:33.890397+00:00"
+  "generated_at": "2026-04-13T02:47:17.555678+00:00"
 }

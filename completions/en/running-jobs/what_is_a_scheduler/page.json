@@ -3,53 +3,81 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is a 'job' in the context of servers with command line interfaces?",
-      "answer": "In these server environments, a job refers to a program that is placed on a waiting list and begins execution only when the necessary CPU cores are available, preventing interference and performance loss."
+      "question": "On high-performance computing clusters, what is the fundamental difference in how users interact with the system compared to typical computers with graphical user interfaces (GUIs)?",
+      "answer": "Users interact with high-performance computing clusters by typing commands in a command line interface (CLI) instead of clicking on graphical elements."
     },
     {
-      "question": "How do users prepare and submit a job on these systems?",
-      "answer": "Users prepare a small text file called a 'job script' specifying the program, input, and output. This job script is then submitted to a piece of software called the 'scheduler'."
+      "question": "In the context of server environments, what is a \"job\" and how does its execution typically differ from running a program directly on a personal computer?",
+      "answer": "A job is a program or calculation submitted to a scheduler that manages its execution on available CPU cores, often after a waiting period, to prevent interference and performance loss."
     },
     {
-      "question": "What is the primary role of the job scheduler?",
-      "answer": "The job scheduler is responsible for maintaining a database of jobs, enforcing limits and priorities, ensuring resources are not overloaded, deciding which jobs to run and where, launching them, and cleaning up after they finish."
+      "question": "What is a job script, and what is its primary role in submitting tasks on a cluster?",
+      "answer": "A job script is a small text file that specifies which program to run, where to get input, where to put output, and resource requests, which is then submitted to a scheduler."
     },
     {
-      "question": "Which specific job scheduler is used on these clusters?",
-      "answer": "The Slurm Workload Manager is used as the job scheduler on these clusters."
+      "question": "What is the purpose of the `#SBATCH` lines in a job script for a cluster environment?",
+      "answer": "`#SBATCH` lines are directives to the job scheduler, providing information about the resources and parameters required for the job to run, such as run time or number of processors."
     },
     {
-      "question": "How do you request resources for a job, such as time and number of processors?",
-      "answer": "Resources are requested using directives within the job script, like `#SBATCH --time=00:01:00`, or by specifying options on the command line during submission."
+      "question": "What are the main responsibilities of a job scheduler on high-performance computing clusters?",
+      "answer": "The job scheduler is responsible for maintaining a job database, enforcing policies, preventing resource overload, deciding where and when jobs run, launching them, and cleaning up afterward."
     },
     {
-      "question": "Why is it important to accurately specify resource parameters for a job?",
-      "answer": "Accurately specifying resources prevents jobs from being killed for exceeding limits and ensures the job doesn't wait longer than necessary or needlessly block resources for others."
+      "question": "Which specific job scheduler is used on the described clusters, and what does it manage?",
+      "answer": "The Slurm Workload Manager is used on these clusters to handle all job scheduling responsibilities, including resource allocation and job execution."
     },
     {
-      "question": "What command is used to submit a job script to Slurm?",
-      "answer": "The `sbatch` command is used to submit a job script, for example, `sbatch simple_job.sh`."
+      "question": "How do users request specific resources for their calculations when submitting a job on a Slurm cluster?",
+      "answer": "Users request resources such as time, number of processors, memory capacity, or special processors (like GPUs) by specifying them within the job script, typically using `#SBATCH` directives."
     },
     {
-      "question": "How can users monitor the status of their submitted jobs?",
-      "answer": "Users can monitor their jobs using the `sq` command, which displays the job's status (ST) as 'PD' for pending or 'R' for running."
+      "question": "Why is it important to accurately specify the required resources (like time and memory) for a job on a cluster?",
+      "answer": "Accurately specifying resources prevents jobs from being killed for exceeding limits and ensures they don't wait longer than necessary or needlessly prevent others from using resources."
     },
     {
-      "question": "What is a job ID and how does it relate to job output?",
-      "answer": "A job ID is a unique identification number assigned to each submitted job. By default, the job's output is placed in a file named using this ID, such as `slurm-1234.out`."
+      "question": "How is a job script typically submitted to the Slurm Workload Manager on these clusters, and what is the common command for this?",
+      "answer": "A job script is typically submitted using the `sbatch` command, for example, `sbatch simple_job.sh`."
     },
     {
-      "question": "How can the default output filename be customized for a job?",
-      "answer": "The output filename can be customized using the `--output` directive in the job script, often incorporating the job name and job ID, like `#SBATCH --output=test-%J.out`."
+      "question": "After submitting a job to a Slurm cluster, how can a user check its current status?",
+      "answer": "A user can check the status of their jobs using the `sq` command, which displays information including the job ID, user, and its current state (e.g., \"PD\" for pending, \"R\" for running)."
     },
     {
-      "question": "Is it possible to separate standard error output from standard output?",
-      "answer": "Yes, standard error output can be split from standard output by specifying a separate filename using the `-e` option."
+      "question": "What is a \"job ID\" on a Slurm cluster, and why is it important?",
+      "answer": "A job ID is a unique identification number assigned to each submitted job, used to distinguish between multiple jobs, even if they have the same name, and to reference associated output files."
     },
     {
-      "question": "Why must every job have an associated account name?",
-      "answer": "Every job must have an associated account name, corresponding to a resource allocation project, to monitor quality of service and report to funders on how their money is spent."
+      "question": "By default, where does the output of a submitted Slurm job go if no specific output file is designated in the job script?",
+      "answer": "By default, the output is placed in a file named `slurm-JOBID.out`, where `JOBID` is the unique identification number assigned to the job."
+    },
+    {
+      "question": "How can a user customize the name of the output file for a Slurm job instead of using the default naming convention?",
+      "answer": "Users can customize the output filename by including the `--output` option in their job script or with the `sbatch` command, often using `%J` as a placeholder for the job ID."
+    },
+    {
+      "question": "What is an \"account name\" in the context of submitting jobs on these clusters, and why is it required?",
+      "answer": "An account name corresponds to a resource allocation project and is required for every job so that the system can monitor quality of service and report resource usage to funders."
+    },
+    {
+      "question": "How does a user specify the account name for a job within their job script?",
+      "answer": "A user specifies the account name using the `#SBATCH --account=def-user-ab` directive within their job script, replacing `def-user-ab` with their actual account name."
+    },
+    {
+      "question": "Is it possible to change job parameters, like the time limit, when submitting a job via `sbatch` on the command line, even if they are already specified in the job script?",
+      "answer": "Yes, any option specified in the job script can be overridden by providing it directly on the command line when submitting the job with `sbatch`, for example, `sbatch --time=00:30:00 simple_job.sh`."
+    },
+    {
+      "question": "How can a user separate standard error (stderr) from standard output (stdout) into different files for a Slurm job?",
+      "answer": "Users can separate standard error from standard output by specifying a separate filename for standard error using the `-e` option in their job script or `sbatch` command."
+    },
+    {
+      "question": "What happens if a user tries to submit a Slurm job without providing a required account name?",
+      "answer": "If a user tries to submit a job without a required account name, they will be shown a list of valid account names to choose from."
+    },
+    {
+      "question": "Besides time and number of processors, what other types of resources can users request for their jobs on Slurm clusters?",
+      "answer": "Users can also request memory capacity and special processors such as GPUs for their jobs."
     }
   ],
-  "generated_at": "2026-04-12T11:27:17.822020+00:00"
+  "generated_at": "2026-04-13T16:18:06.107512+00:00"
 }

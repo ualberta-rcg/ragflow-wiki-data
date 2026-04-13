@@ -3,97 +3,81 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Cette page est-elle recommandée pour tous les utilisateurs?",
-      "answer": "Non, cette page s'adresse aux utilisateurs d'expérience; l'information qu'elle présente est rarement testée et n'est donc pas recommandée pour un usage général. Il est préférable d'utiliser [[JupyterLab/fr|JupyterLab]]."
+      "question": "Quelle est la fonction principale de la page « Configuration avancée de Jupyter » pour les grappes de l'Alliance?",
+      "answer": "Cette page explique comment configurer et soumettre une tâche JupyterLab sur les grappes nationales de l'Alliance, en détaillant l'installation et l'utilisation pour les utilisateurs d'expérience."
     },
     {
-      "question": "À quoi servent les notebooks JupyterLab?",
-      "answer": "Les notebooks JupyterLab sont faits pour tes tâches interactives brèves, comme tester, déboguer ou visualiser rapidement des données pendant quelques minutes."
+      "question": "Qu'est-ce que JupyterLab et à quoi sert-il dans le contexte des grappes de calcul?",
+      "answer": "JupyterLab est un environnement de développement web interactif et flexible, issu du Projet Jupyter, utilisé pour les notebooks, le code et les données dans la science des données interactives et le calcul scientifique."
     },
     {
-      "question": "Comment faire des analyses plus longues avec les notebooks?",
-      "answer": "Pour des analyses plus longues, il faut utiliser une tâche non interactive avec `sbatch`, plutôt que les notebooks JupyterLab interactifs."
+      "question": "Pour quel type de tâches JupyterLab est-il recommandé sur les grappes de l'Alliance, et quand est-il préférable d'utiliser une autre méthode?",
+      "answer": "JupyterLab est idéal pour les tâches interactives brèves (quelques minutes), comme les tests, le débogage ou la visualisation rapide des données. Pour des analyses plus longues, il faut soumettre une tâche non interactive avec `sbatch`."
     },
     {
-      "question": "Qu'est-ce que Project Jupyter?",
-      "answer": "C'est un projet open-source sans but lucratif issu en 2014 du IPython Project pour que tous les langages de programmation puissent être utilisés pour la science des données interactives et le calcul scientifique."
+      "question": "Pourquoi est-il déconseillé de lancer un serveur JupyterLab sur un nœud de connexion et où devrait-il être exécuté?",
+      "answer": "Les nœuds de connexion imposent des limites qui peuvent interrompre une application consommant trop de temps CPU ou de mémoire vive. Un serveur JupyterLab devrait toujours se trouver sur un nœud de calcul ou une instance infonuagique."
     },
     {
-      "question": "Où un serveur JupyterLab devrait-il rouler?",
-      "answer": "Un serveur JupyterLab devrait toujours se trouver sur un nœud de calcul ou sur une instance infonuagique, et jamais sur un nœud de connexion à cause de leurs limites."
+      "question": "Quelles sont les étapes initiales pour installer JupyterLab sur une grappe de l'Alliance à l'aide d'un environnement virtuel Python?",
+      "answer": "Il faut charger un module Python (ou rstudio-server si nécessaire), créer et activer un environnement virtuel Python, puis installer `pip` et `jupyterlab` à l'intérieur de cet environnement, et enfin créer un script enveloppeur exécutable."
     },
     {
-      "question": "Comment on fait pour obtenir un nœud de calcul pour JupyterLab?",
-      "answer": "Faut réserver des ressources en soumettant une tâche qui demande un nombre prédéterminé de CPU ou de GPU, une certaine quantité de mémoire et un temps limite d'exécution."
+      "question": "Comment installe-t-on l'extension Jupyter Lmod et à quoi sert-elle?",
+      "answer": "On installe Jupyter Lmod en chargeant le module `nodejs`, puis en utilisant `pip install jupyterlmod` et `jupyter labextension install jupyterlab-lmod`. Cette extension permet d'interagir avec les modules d'environnement avant de lancer les noyaux."
     },
     {
-      "question": "Comment on installe JupyterLab?",
-      "answer": "On installe JupyterLab avec la commande `pip` dans un environnement virtuel Python qu'on doit créer et activer au préalable."
+      "question": "Quelles sont les particularités de l'installation de RStudio Server pour qu'il soit disponible sous un onglet de JupyterLab?",
+      "answer": "Il faut charger le module `rstudio-server` *avant* le module `python` et la création de l'environnement virtuel. Une fois JupyterLab installé, on installe le serveur mandataire Jupyter RSession avec `pip install --no-index jupyter-rsession-proxy`."
     },
     {
-      "question": "Qu'est-ce qu'on doit faire si on compte utiliser RStudio Server *avant* d'installer JupyterLab?",
-      "answer": "Si tu as l'intention d'utiliser RStudio Server, il faut charger le module `rstudio-server` *avant* le module `python` et la création de ton environnement virtuel Python."
+      "question": "Comment démarre-t-on un serveur JupyterLab sur un nœud de calcul en utilisant `salloc`?",
+      "answer": "On soumet une tâche interactive avec la commande `salloc`, en spécifiant les ressources (temps, CPU, mémoire, compte), puis en exécutant le script `jupyterlab.sh` de l'environnement virtuel."
     },
     {
-      "question": "À quoi servent les modules d'extension dans JupyterLab?",
-      "answer": "Les modules d'extension ajoutent des fonctionnalités pis peuvent modifier l'interface utilisateur de JupyterLab."
+      "question": "Pourquoi est-il nécessaire d'établir un tunnel SSH pour se connecter à JupyterLab à partir de son poste local, et comment est-ce généralement accompli?",
+      "answer": "Un tunnel SSH est nécessaire car les nœuds de calcul ne sont pas directement accessibles depuis l'internet. Il permet d'accéder au serveur JupyterLab exécuté sur le nœud de calcul via un port local de votre ordinateur."
     },
     {
-      "question": "À quoi sert l'extension Jupyter Lmod?",
-      "answer": "Jupyter Lmod est un module d'extension qui permet d'interagir avec les modules d'environnement avant de lancer les noyaux."
+      "question": "Comment un utilisateur Linux ou macOS peut-il se connecter à une session JupyterLab active sur une grappe de l'Alliance?",
+      "answer": "Il est recommandé d'utiliser le paquet Python `sshuttle` en ouvrant un nouveau terminal et en exécutant `sshuttle --dns -Nr <username>@<cluster>.alliancecan.ca`, puis en copiant l'URL fournie par JupyterLab dans le navigateur web."
     },
     {
-      "question": "Comment on fait pour installer l'extension RStudio Server dans JupyterLab?",
-      "answer": "Une fois JupyterLab installé dans ton environnement virtuel, tu installes le serveur mandataire Jupyter RSession avec `pip install --no-index jupyter-rsession-proxy`."
+      "question": "Quelles sont les étapes pour se connecter à JupyterLab depuis Windows en utilisant MobaXTerm?",
+      "answer": "Après avoir lancé JupyterLab, il faut extraire le `hostname:port` et le `token` de l'URL fournie. Ensuite, dans un terminal MobaXTerm, on crée un tunnel SSH avec `ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca`, puis on accède à `http://localhost:8888/?token=<token>` dans le navigateur."
     },
     {
-      "question": "Comment on active l'environnement virtuel Python où JupyterLab est installé?",
-      "answer": "Il faut l'activer avec la commande `source $HOME/jupyter_py3/bin/activate` chaque fois que tu te connectes à la grappe."
+      "question": "Comment ferme-t-on correctement une session JupyterLab et le tunnel SSH associé?",
+      "answer": "Pour arrêter le serveur JupyterLab, on appuie deux fois sur **CTRL-C** dans le terminal où la tâche interactive a été lancée. Si un tunnel SSH a été créé avec MobaXterm, on appuie sur **Ctrl-D** pour le fermer."
     },
     {
-      "question": "Comment on démarre un serveur JupyterLab?",
-      "answer": "Pour démarrer un serveur JupyterLab, tu dois soumettre une tâche interactive avec `salloc`, puis exécuter le script `$VIRTUAL_ENV/bin/jupyterlab.sh` avec `srun`."
+      "question": "Quelles sont les deux étapes principales pour ajouter de nouveaux noyaux (kernels) à JupyterLab?",
+      "answer": "Les deux étapes sont : l'installation des paquets qui permettent à l'interpréteur du langage de communiquer avec l'interface Jupyter, et la création d'un fichier de spécifications du noyau (`kernel spec file`) indiquant à JupyterLab comment amorcer cette communication."
     },
     {
-      "question": "Comment on se connecte à JupyterLab depuis mon ordinateur?",
-      "answer": "Pour avoir accès au serveur JupyterLab dans un nœud de calcul, tu dois créer un tunnel SSH de ton ordinateur vers la grappe, car les nœuds de calcul ne sont pas accessibles directement de l'internet."
+      "question": "Quels sont les prérequis et les étapes pour installer un noyau Julia dans JupyterLab?",
+      "answer": "Il faut un environnement virtuel Python activé et un répertoire `kernels` créé. L'installation se fait sur un *nœud de connexion* en chargeant le module `julia`, puis en exécutant `using Pkg; Pkg.add(\"IJulia\")` dans Julia. Il est important de redémarrer JupyterLab après l'installation."
     },
     {
-      "question": "Comment on ferme JupyterLab?",
-      "answer": "Pour arrêter le serveur JupyterLab avant la fin de ton temps d'exécution, appuie deux fois sur CTRL-C dans le terminal où la tâche interactive a été lancée. Pour le tunnel SSH, appuie sur CTRL-D."
+      "question": "Comment configure-t-on un noyau Python dans JupyterLab à partir d'un environnement virtuel dédié?",
+      "answer": "Après avoir créé et activé un environnement virtuel Python, il faut créer le répertoire `~/.local/share/jupyter/kernels`, installer la bibliothèque `ipykernel` avec `pip`, puis générer le fichier de spécifications du noyau avec `python -m ipykernel install --user --name <unique_name>`. Un redémarrage de JupyterLab est requis."
     },
     {
-      "question": "Pourquoi ajouter des noyaux (kernels) à JupyterLab?",
-      "answer": "On peut ajouter des noyaux pour utiliser d'autres langages de programmation, une version différente de Python, ou un environnement virtuel persistant avec tous les paquets nécessaires à ton projet."
+      "question": "Quelles sont les conditions préalables et les étapes pour installer un noyau R dans JupyterLab?",
+      "answer": "Il faut un environnement virtuel Python activé et un répertoire `kernels` créé. L'installation se fait sur un *nœud de connexion* en chargeant un module R, puis en installant les dépendances (`crayon`, `pbdZMQ`, `devtools`) et le noyau IRkernel dans R, et enfin son fichier de spécifications. Un redémarrage de JupyterLab est nécessaire."
     },
     {
-      "question": "Quelles sont les deux étapes pour installer un nouveau noyau?",
-      "answer": "Les deux étapes sont d'installer les paquets qui permettent à l'interpréteur du langage de communiquer avec Jupyter, pis de créer un fichier de configuration du noyau."
+      "question": "Comment installer des paquets supplémentaires pour les noyaux Julia, Python ou R?",
+      "answer": "Pour Julia et R, l'installation se fait à partir d'un nœud de connexion en chargeant le module approprié et en utilisant les gestionnaires de paquets respectifs (`Pkg.add()` pour Julia, `install.packages()` pour R). Pour Python, on active l'environnement virtuel et on utilise `pip install --no-index`."
     },
     {
-      "question": "Quels sont les prérequis pour configurer un noyau Julia?",
-      "answer": "Il faut un environnement virtuel Python, un répertoire `kernels`, pis l'installation doit se faire à l'invite de commande sur un nœud de connexion parce qu'elle requiert un accès à l'internet."
+      "question": "Comment exécuter des notebooks Jupyter pour des analyses longues qui ne sont pas interactives?",
+      "answer": "Pour de longues analyses, il faut convertir le notebook en script Python avec `jupyter nbconvert --to python mynotebook.ipynb` (après avoir installé `nbconvert`), puis soumettre ce script Python (`python mynotebook.py`) comme une tâche non interactive via `sbatch`."
     },
     {
-      "question": "Comment on installe des paquets Julia additionnels?",
-      "answer": "Il faut installer les paquets Julia depuis un nœud de connexion, comme pour l'installation initiale, en utilisant l'interpréteur Julia (par exemple, `Pkg.add(\"Glob\")`)."
-    },
-    {
-      "question": "Où et comment installer des bibliothèques Python supplémentaires pour un noyau Python?",
-      "answer": "Dans ton environnement virtuel Python activé, tu utilises `pip install --no-index <nom_bibliothèque>`, par exemple `pip install --no-index numpy`."
-    },
-    {
-      "question": "Quels sont les prérequis pour configurer un noyau R?",
-      "answer": "Il faut un environnement virtuel Python et un répertoire `kernels`, pis l'installation doit se faire à l'invite de commande sur un nœud de connexion pour avoir accès à CRAN."
-    },
-    {
-      "question": "Comment on installe des paquets R additionnels?",
-      "answer": "Il faut installer les paquets R depuis un nœud de connexion en démarrant l'interpréteur R et en utilisant `install.packages('<nom_paquet>', repos='http://cran.us.r-project.org')`."
-    },
-    {
-      "question": "Comment on exécute des notebooks pour des tâches plus longues et non interactives?",
-      "answer": "Pour ça, faut convertir le notebook en script Python avec `jupyter nbconvert`, puis créer et soumettre une tâche `sbatch` qui exécutera ce script Python."
+      "question": "À quel type d'utilisateurs la page \"Configuration avancée de Jupyter\" est-elle spécifiquement destinée et pourquoi?",
+      "answer": "Cette page s'adresse aux utilisateurs d'expérience, car l'information qu'elle présente est rarement testée et n'est donc pas recommandée pour les utilisateurs standards. Pour eux, l'utilisation directe de JupyterLab est suggérée."
     }
   ],
-  "generated_at": "2026-04-11T16:07:49.742602+00:00"
+  "generated_at": "2026-04-13T01:12:39.558137+00:00"
 }

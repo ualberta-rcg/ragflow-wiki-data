@@ -4,61 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "C'est quoi un exemple de tag d'image Docker pour RAPIDS?",
-      "answer": "Un exemple de tag d'image Docker pour RAPIDS est `nvcr.io/nvidia/rapidsai/notebooks:25.04-cuda12.0-py3.12`."
+      "question": "Comment peut-on construire une image Apptainer pour RAPIDS, et de quoi faut-il s'assurer durant le processus?",
+      "answer": "Pour construire une image Apptainer, on peut se servir d'un tag d'image Docker fourni par NVIDIA, comme `nvcr.io/nvidia/rapidsai/notebooks:25.04-cuda12.0-py3.12`. La commande à utiliser est `apptainer build rapids.sif docker://[tag-de-l-image-Docker]`. Le processus prend généralement de 30 à 60 minutes, et il faut absolument s'assurer d'avoir assez de mémoire et d'espace disque disponible sur le serveur, car la taille de l'image est considérable."
     },
     {
-      "question": "Quelle commande faut utiliser pour bâtir une image Apptainer à partir d'une image Docker spécifique?",
-      "answer": "Pour bâtir une image Apptainer (par exemple, `rapids.sif`), on utilise la commande `apptainer build rapids.sif docker://nvcr.io/nvidia/rapidsai/notebooks:25.04-cuda12.0-py3.12`."
+      "question": "Après avoir une image Apptainer pour RAPIDS de type 'notebooks', comment fait-on pour démarrer un serveur Jupyter Notebook en mode interactif sur un nœud de calcul GPU?",
+      "answer": "Une fois que vous avez votre image Apptainer de type 'notebooks', il faut d'abord demander une session interactive sur un nœud de calcul GPU avec la commande `salloc --ntasks=1 --cpus-per-task=2 --mem=10G --gpus-per-node=1 --time=1:0:0 --account=def-someuser`. Lorsque la ressource est allouée, vous chargez le module `apptainer` et lancez l'interpréteur RAPIDS avec `apptainer shell --nv rapids.sif`. Ensuite, vous pouvez démarrer le serveur Jupyter Notebook en utilisant `jupyter-lab --ip $(hostname -f) --no-browser`."
     },
     {
-      "question": "Combien de temps ça prend d'habitude pour construire une image Apptainer?",
-      "answer": "Le processus de construction d'une image Apptainer prend d'habitude de 30 à 60 minutes."
-    },
-    {
-      "question": "Quelles ressources faut-il s'assurer d'avoir avant de bâtir une image Apptainer, vu sa taille?",
-      "answer": "Puisque la taille de l'image Apptainer est grosse, il faut s'assurer d'avoir assez de mémoire et d'espace disque sur le serveur."
-    },
-    {
-      "question": "Une fois qu'on a une image Apptainer RAPIDS sur une grappe, qu'est-ce qu'on peut faire avec?",
-      "answer": "On peut demander une session interactive sur un nœud GPU ou soumettre une tâche en lot à l'ordonnanceur quand notre code RAPIDS est prêt."
-    },
-    {
-      "question": "Quelle condition doit être remplie pour explorer RAPIDS interactivement avec un serveur Jupyter Notebook sur un nœud GPU?",
-      "answer": "L'image Apptainer doit avoir été construite avec une image Docker de type `notebooks` pour inclure un serveur Jupyter Notebook."
-    },
-    {
-      "question": "C'est quoi la commande pour demander une session interactive sur un nœud de calcul GPU?",
-      "answer": "Pour demander une session interactive sur un nœud de calcul GPU, on utilise la commande `salloc --ntasks=1 --cpus-per-task=2 --mem=10G --gpus-per-node=1 --time=1:0:0 --account=def-someuser`."
-    },
-    {
-      "question": "Quelles sont les étapes pour lancer l'interpréteur RAPIDS sur un nœud GPU une fois que la ressource est allouée?",
-      "answer": "D'abord, on charge le module Apptainer avec `module load apptainer`, puis on lance l'interpréteur RAPIDS avec `apptainer shell --nv rapids.sif`."
-    },
-    {
-      "question": "À quoi sert l'option `--nv` quand on lance l'interpréteur Apptainer shell?",
-      "answer": "L'option `--nv` fait le `bind mount` du périphérique GPU de l'hôte sur le conteneur pour que l'accès au GPU puisse se faire de l'intérieur du conteneur Apptainer."
-    },
-    {
-      "question": "Comment on fait pour vérifier qu'on a accès au GPU une fois dans l'interpréteur Apptainer?",
-      "answer": "Quand l'invite de l'interpréteur est `Apptainer>`, on peut consulter les statistiques du GPU avec la commande `nvidia-smi`."
-    },
-    {
-      "question": "Quelle commande faut utiliser pour lancer le serveur Jupyter Notebook dans l'environnement RAPIDS une fois dans le conteneur Apptainer?",
-      "answer": "Dans l'interpréteur Apptainer, on lance le serveur Jupyter Notebook avec la commande `jupyter-lab --ip $(hostname -f) --no-browser`."
-    },
-    {
-      "question": "Est-ce que RAPIDS a besoin d'être activé après que Conda ait démarré à partir de la version 23.08?",
-      "answer": "Non, à partir de la version 23.08, RAPIDS n'a pas besoin d'être activé après que Conda ait démarré parce que tous les paquets sont inclus et activés par défaut dans l'environnement Conda de base."
-    },
-    {
-      "question": "Que faut-il faire si un nœud de calcul n'est pas connecté directement à Internet pour se connecter à JupyterLab?",
-      "answer": "Il faut configurer un tunnel SSH pour faire la redirection de port entre votre ordinateur et le nœud GPU."
-    },
-    {
-      "question": "C'est quoi la bonne pratique quand on travaille avec un conteneur sur un nœud de calcul pour soumettre une tâche RAPIDS à l'ordonnanceur?",
-      "answer": "La bonne pratique est d'utiliser le disque local quand on travaille avec un conteneur sur un nœud de calcul."
+      "question": "À quoi sert l'option `--nv` lorsqu'on lance l'interpréteur RAPIDS dans un conteneur Apptainer sur un nœud GPU?",
+      "answer": "L'option `--nv` est cruciale, car elle permet de faire le 'bind mount' du périphérique GPU de l'hôte directement sur le conteneur. Cela assure que l'accès au GPU est possible de l'intérieur du conteneur Apptainer, ce qui est nécessaire pour que RAPIDS puisse utiliser l'accélération GPU."
     }
   ],
-  "generated_at": "2026-04-12T06:46:09.654022+00:00"
+  "generated_at": "2026-04-13T12:31:37.978375+00:00"
 }

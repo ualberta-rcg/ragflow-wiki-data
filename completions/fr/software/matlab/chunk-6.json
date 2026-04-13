@@ -4,101 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Quelle est la première étape pour configurer le module d'extension Slurm pour MATLAB Parallel Server, même si la procédure ne fonctionne pas présentement?",
-      "answer": "La première étape est d'installer MATLAB R2022a (ou une version plus récente), en s'assurant d'inclure le Parallel Computing Toolbox."
+      "question": "Quel est l'état actuel de l'utilisation de l'extension Slurm de MathWorks pour MATLAB Parallel Server sur les grappes de l'Alliance?",
+      "answer": "Actuellement, la procédure décrite pour l'extension Slurm de MathWorks n'est pas fonctionnelle. C'est dû au fait que l'extension n'est plus disponible et aussi à un problème avec la connexion SSH. La documentation est conservée pour une éventuelle solution future."
     },
     {
-      "question": "Après avoir installé MATLAB, comment télécharger le module d'extension Slurm de MathWorks?",
-      "answer": "Il faut se rendre sur la page MathWorks Slurm Plugin, puis télécharger et exécuter le fichier *.mlpkginstall en cliquant sur le bouton 'Download' à droite de la page, sous l'onglet 'Overview'."
+      "question": "Advenant que l'extension Slurm de MathWorks soit fonctionnelle, quels hôtes de grappe devrait-on spécifier lors de sa configuration pour Narval ou Rorqual?",
+      "answer": "Si l'extension était fonctionnelle, il faudrait spécifier 'narval.alliancecan.ca' pour la grappe Narval et 'rorqual.alliancecan.ca' pour la grappe Rorqual comme hôte de grappe."
     },
     {
-      "question": "Que faire si la configuration du module d'extension Slurm ne démarre pas automatiquement après l'installation?",
-      "answer": "Vous devez lancer la commande suivante dans MATLAB : `parallel.cluster.generic.runProfileWizard()`."
-    },
-    {
-      "question": "Quel système d'exploitation faut-il sélectionner lors de la configuration du profil pour le module d'extension Slurm?",
-      "answer": "Il faut sélectionner 'Unix', qui est habituellement la seule option offerte."
-    },
-    {
-      "question": "Dois-je activer l'option 'Shared location' durant la configuration?",
-      "answer": "Non, il faut indiquer 'No' pour l'option 'Shared location'."
-    },
-    {
-      "question": "Quels sont les hôtes de grappe à spécifier pour Narval et Rorqual lors de la configuration du profil?",
-      "answer": "Pour Narval, l'hôte est `narval.alliancecan.ca`, et pour Rorqual, c'est `rorqual.alliancecan.ca`."
-    },
-    {
-      "question": "Quel répertoire doit-on spécifier pour le stockage distant des tâches (`Remote job storage`)?",
-      "answer": "Le répertoire à spécifier est `/scratch`, et il faut cocher l'option 'Use unique subfolders'."
-    },
-    {
-      "question": "Quel est le nombre maximal de 'workers' qu'on peut spécifier pour le profil Slurm?",
-      "answer": "Le nombre maximal de 'workers' est de 960."
-    },
-    {
-      "question": "Quel est le chemin d'installation de MATLAB à indiquer pour les 'workers' si on utilise la version R2022a?",
-      "answer": "Pour R2022a, le chemin est `/cvmfs/restricted.computecanada.ca/easybuild/software/2020/Core/matlab/2022a`. Assurez-vous que la version locale et distante correspondent."
-    },
-    {
-      "question": "Quel type de licence faut-il choisir lors de la configuration du profil?",
-      "answer": "Il faut sélectionner 'Network license manager' comme type de licence."
-    },
-    {
-      "question": "Comment finaliser la configuration du profil après avoir entré tous les renseignements?",
-      "answer": "Il faut cliquer sur 'Create' puis sur 'Finish' pour compléter le profil."
-    },
-    {
-      "question": "Comment accéder au répertoire 'nonshared' dans le terminal MATLAB pour modifier l'extension après son installation?",
-      "answer": "Il faut lancer la commande `cd(fullfile(matlabshared.supportpkg.getSupportPackageRoot, 'parallel', 'slurm', 'nonshared'))` dans le terminal MATLAB."
-    },
-    {
-      "question": "Quelles modifications faut-il apporter au fichier `independentSubmitFcn.m`?",
-      "answer": "Il faut remplacer la ligne `additionalSubmitArgs = sprintf('--ntasks=1 --cpus-per-task=%d', cluster.NumThreads);` par `additionalSubmitArgs = ccSBATCH().getSubmitArgs();` aux environs de la ligne 117."
-    },
-    {
-      "question": "Quelles modifications faut-il apporter au fichier `communicatingSubmitFcn.m`?",
-      "answer": "Il faut remplacer la ligne `additionalSubmitArgs = sprintf('--ntasks=%d --cpus-per-task=%d', environmentProperties.NumberOfTasks, cluster.NumThreads);` par `additionalSubmitArgs = ccSBATCH().getSubmitArgs();` aux environs de la ligne 126."
-    },
-    {
-      "question": "Quelle commande doit être ajoutée au fichier `communicatingJobWrapper.sh` et où?",
-      "answer": "Il faut ajouter la commande `module load matlab/2022a` (en ajustant la version du module selon la version locale de MATLAB) aux environs de la ligne 20, après la déclaration du copyright."
-    },
-    {
-      "question": "Que faut-il faire après avoir modifié les fichiers de l'extension?",
-      "answer": "Il faut redémarrer MATLAB et retourner au répertoire `/home` en utilisant la commande `cd(getenv('HOME'))` (ou `cd(getenv('HOMEPATH'))` sous Windows)."
-    },
-    {
-      "question": "Quel outil de validation ne faut-il pas utiliser pour valider l'extension Slurm de MATLAB Parallel Server?",
-      "answer": "Il ne faut pas utiliser l'outil de validation `Cluster Profile Manager`."
-    },
-    {
-      "question": "Quelle est la méthode recommandée pour valider l'installation du module d'extension?",
-      "answer": "La méthode recommandée est d'exécuter l'exemple `TestParfor` avec un fichier de script `ccSBATCH.m` adéquatement configuré."
-    },
-    {
-      "question": "Comment accéder aux exemples de code pour la validation?",
-      "answer": "Il faut télécharger et extraire les exemples de code depuis `https://github.com/ComputeCanada/matlab-parallel-server-samples`."
-    },
-    {
-      "question": "Que doit-on faire après avoir extrait les exemples de code?",
-      "answer": "Dans MATLAB, il faut ouvrir le répertoire `TestParfor` qui vient d'être extrait, puis suivre les directives données dans le fichier `https://github.com/ComputeCanada/matlab-parallel-server-samples/blob/master/README.md`."
-    },
-    {
-      "question": "Existe-t-il des ressources externes pour la documentation MATLAB?",
-      "answer": "Oui, la documentation officielle de MathWorks est disponible à l'adresse `https://www.mathworks.com/help/matlab/`, avec certaines pages en français."
-    },
-    {
-      "question": "Où peut-on trouver des ressources d'auto-apprentissage pour MATLAB?",
-      "answer": "Des ressources d'auto-apprentissage sont offertes par MathWorks à `https://matlabacademy.mathworks.com/`, aussi disponibles en anglais, japonais, espagnol, coréen et chinois."
-    },
-    {
-      "question": "Est-ce que d'autres universités offrent de la documentation ou des exemples de scripts pour MATLAB?",
-      "answer": "Oui, par exemple, l'Université de Calgary propose des exemples de scripts à l'adresse `https://rcs.ucalgary.ca/MATLAB`."
-    },
-    {
-      "question": "Dans quelles conditions peut-on utiliser l'outil de validation Cluster Profile Manager pour les tests de l'extension Slurm?",
-      "answer": "L'outil de validation Cluster Profile Manager peut être utilisé pour les deux premiers tests seulement si `ccSBATCH.m` se trouve dans votre répertoire courant, car les autres tests ne sont pas encore pris en charge par cet outil."
+      "question": "Comment devrait-on procéder pour valider l'extension Slurm de MathWorks après son installation, dans l'hypothèse où elle serait opérationnelle?",
+      "answer": "Pour valider l'extension (si elle était opérationnelle), il faudrait éviter d'utiliser l'outil de validation 'Cluster Profile Manager'. Il est recommandé d'exécuter plutôt l'exemple 'TestParfor' avec un fichier de script 'ccSBATCH.m' configuré adéquatement. Ceci implique de télécharger et d'extraire les exemples de code depuis le dépôt GitHub fourni, puis d'ouvrir le répertoire 'TestParfor' dans MATLAB et de suivre les directives du fichier README.md."
     }
   ],
-  "generated_at": "2026-04-12T01:16:19.148875+00:00"
+  "generated_at": "2026-04-13T08:20:55.263006+00:00"
 }

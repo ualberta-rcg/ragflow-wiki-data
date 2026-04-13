@@ -4,85 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que QIIME, au juste?",
-      "answer": "QIIME, qui signifie *Quantitative Insights Into Microbial Ecology*, est un pipeline bioinformatique à code source ouvert conçu pour l'analyse des microbiomes."
+      "question": "C'est quoi QIIME, pis à quoi ça sert au juste?",
+      "answer": "QIIME (Quantitative Insights Into Microbial Ecology) est un pipeline bioinformatique open source qu'on utilise pour analyser les microbiomes. Ça prend des données de séquençage d'ADN brutes, comme celles d'Illumina, pis ça génère des graphiques pis des statistiques de haute qualité pour des affaires comme le démultiplexage, le filtrage de qualité, la sélection d'OTU, l'attribution taxonomique, la reconstruction phylogénétique et l'analyse de la diversité."
     },
     {
-      "question": "À quoi sert QIIME comme outil?",
-      "answer": "QIIME sert à analyser des microbiomes à partir de données brutes de séquençage d'ADN, générées par des plateformes comme Illumina, pour produire des graphiques et statistiques de haute qualité."
+      "question": "Comment on fait pour utiliser QIIME2 sur les grappes de calcul, surtout qu'on ne peut plus l'installer avec Conda?",
+      "answer": "Sur nos grappes, QIIME2 est disponible en chargeant un module qui enveloppe un conteneur. On peut voir les versions disponibles en tapant `module spider qiime2`. Après avoir chargé le module, on peut lancer la commande `qiime --help`. C'est important de savoir que depuis février 2020, c'est pu possible d'installer QIIME avec Anaconda ou Miniconda à cause de problèmes avec les environnements Conda."
     },
     {
-      "question": "Quels genres d'analyses est-ce que QIIME peut faire?",
-      "answer": "QIIME peut effectuer, entre autres, le démultiplexage, le filtrage de qualité, la sélection d'OTU, l'attribution taxonomique, la reconstruction phylogénétique et l'analyse de la diversité."
-    },
-    {
-      "question": "Quelle version de QIIME est supportée présentement?",
-      "answer": "C'est QIIME 2 qui est supporté, car il a remplacé QIIME 1 en janvier 2018, et la version 1 n'est plus maintenue."
-    },
-    {
-      "question": "Est-ce qu'on peut installer QIIME avec Anaconda ou Miniconda sur nos grappes?",
-      "answer": "Non, depuis février 2020, il n'est pas possible d'installer QIIME avec Anaconda ou Miniconda sur nos grappes à cause de plusieurs problèmes liés aux environnements Conda."
-    },
-    {
-      "question": "Comment puis-je accéder à QIIME2?",
-      "answer": "QIIME2 est accessible en chargeant un module qui enveloppe un conteneur."
-    },
-    {
-      "question": "Comment voir les versions disponibles du module QIIME2?",
-      "answer": "Pour connaître les versions disponibles, il faut lancer la commande `module spider qiime2`."
-    },
-    {
-      "question": "Comment obtenir de l'aide ou voir les options de QIIME après avoir chargé le module?",
-      "answer": "Une fois le module chargé, vous pouvez lancer `qiime --help`."
-    },
-    {
-      "question": "Si la commande `qiime` fait appel à un conteneur, que dois-je faire pour accéder à mes données?",
-      "answer": "Vous pourriez avoir à définir la variable d'environnement `APPTAINER_BIND` pour attacher des répertoires spécifiques dans ce conteneur, par exemple `APPTAINER_BIND=/home qiime ...`."
-    },
-    {
-      "question": "Quelles sont les options d'installation générales pour QIIME sur la plateforme?",
-      "answer": "L'installation peut se faire en utilisant Apptainer ou EasyBuild."
-    },
-    {
-      "question": "Quelle méthode d'installation est recommandée pour QIIME et pourquoi?",
-      "answer": "Il est préférable d'utiliser Apptainer pour éviter la génération de plusieurs milliers de fichiers dans votre répertoire `/home`, ce qui pourrait dépasser votre quota."
-    },
-    {
-      "question": "Où les développeurs de QIIME2 publient-ils leurs images pour Apptainer?",
-      "answer": "Les développeurs de QIIME2 publient leurs images sur Quay.io."
-    },
-    {
-      "question": "Comment créer une image Apptainer pour QIIME2 à partir de Quay.io?",
-      "answer": "Il faut d'abord charger le module Apptainer (`module load apptainer`), puis utiliser la commande `apptainer build qiime2-2021.11.sif docker://quay.io/qiime2/core:2021.11` (en ajustant la version si besoin)."
-    },
-    {
-      "question": "Combien de temps ça prend pour créer une image Apptainer pour QIIME2, et à quelle fréquence dois-je le faire?",
-      "answer": "Cette étape de construction peut prendre plus d'une heure, mais il ne faut l'effectuer qu'une seule fois. Il est important de sauvegarder le fichier image pour une réutilisation future."
-    },
-    {
-      "question": "Comment j'exécute une commande QIIME en utilisant une image Apptainer?",
-      "answer": "Généralement, chaque commande QIIME est exécutée avec un énoncé `apptainer exec qiime2-2021.11.sif <votre commande QIIME>`."
-    },
-    {
-      "question": "À quoi sert l'option `-B` quand on exécute QIIME avec Apptainer?",
-      "answer": "L'option `-B` (bind) est importante pour attacher (monter) les répertoires avec lesquels vous voulez travailler à l'intérieur du conteneur Apptainer."
-    },
-    {
-      "question": "Quelle erreur courante pourrais-je rencontrer en important des données QIIME pour la première fois, et comment la régler?",
-      "answer": "Vous pourriez recevoir un message concernant un décalage de fuseau horaire (`Timezone offset does not match...`). Pour contourner ça, il faut définir la variable d'environnement `TZ='UTC'` avant d'invoquer Apptainer."
-    },
-    {
-      "question": "Peux-tu donner un exemple de la définition du fuseau horaire avant de lancer une commande QIIME via Apptainer?",
-      "answer": "Oui, ça se fait comme suit : `export TZ='UTC'` suivi de `apptainer exec qiime2-2021.11.sif qiime tools import ...`."
-    },
-    {
-      "question": "Quel est le nom du script exemple fourni pour soumettre une tâche QIIME2?",
-      "answer": "Le script exemple est nommé `qiime2-example.sh`."
-    },
-    {
-      "question": "Quelle version de QIIME2 est utilisée dans le script SLURM exemple?",
-      "answer": "Le script SLURM exemple utilise la version `qiime2/2024.5`."
+      "question": "Quelle est la méthode d'installation recommandée pour QIIME2 sur les grappes, pis pourquoi celle-là en particulier?",
+      "answer": "Pour installer QIIME2, on peut utiliser Apptainer ou EasyBuild. Par contre, il est fortement recommandé d'utiliser Apptainer. La raison, c'est que ça évite de générer des milliers de fichiers dans votre répertoire /home, ce qui pourrait faire en sorte que vous dépassiez votre quota de fichiers."
     }
   ],
-  "generated_at": "2026-04-12T06:03:27.175256+00:00"
+  "generated_at": "2026-04-13T11:57:01.028361+00:00"
 }

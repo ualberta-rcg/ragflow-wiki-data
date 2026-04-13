@@ -4,53 +4,17 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "À quoi sert le script Python `pytorch-ddp-test.py`?",
-      "answer": "Ce script est conçu pour les tests de parallélisme de données distribué avec des modèles de classification CIFAR10."
+      "question": "Comment on lance une tâche PyTorch qui utilise le parallélisme des données avec plusieurs GPU sur une grappe de calcul?",
+      "answer": "Pour lancer une tâche PyTorch en utilisant le parallélisme des données avec plusieurs GPU, il faut utiliser un script SLURM comme `pytorch-ddp-test.sh`. Ce script configure l'environnement Python, exporte les variables d'environnement nécessaires comme `TORCH_NCCL_ASYNC_HANDLING` et `MASTER_ADDR`, puis utilise la commande `srun` pour installer les dépendances PyTorch dans un environnement virtuel et exécuter le script Python principal (`pytorch-ddp-test.py`) avec les paramètres `--init_method`, `--world_size` et `--batch_size` pour la communication distribuée."
     },
     {
-      "question": "Comment le script `pytorch-ddp-test.py` est-il lancé sur les grappes, tel qu'illustré dans l'exemple de soumission de tâche?",
-      "answer": "Il est lancé en utilisant la commande `srun` comme suit : `srun python pytorch-ddp-test.py --init_method tcp://$MASTER_ADDR:3456 --world_size $((SLURM_NTASKS_PER_NODE * SLURM_JOB_NUM_NODES)) --batch_size 256`."
+      "question": "Quelles sont les variables d'environnement clés et leurs rôles dans un script SLURM pour le parallélisme des données avec PyTorch et plusieurs GPU?",
+      "answer": "Dans un script SLURM pour le parallélisme des données avec PyTorch, les variables d'environnement clés sont `MASTER_ADDR` et `world_size`. `MASTER_ADDR` stocke l'adresse IP du nœud maître pour initier la communication TCP entre les processus distribués. `world_size` indique le nombre total de processus disponibles pour l'exécution, calculé en multipliant le nombre de tâches par nœud (`SLURM_NTASKS_PER_NODE`) par le nombre de nœuds (`SLURM_JOB_NUM_NODES`), ce qui correspond au nombre total de GPU utilisés pour l'entraînement distribué."
     },
     {
-      "question": "Que représente le paramètre `--world_size` lors de l'exécution du script `pytorch-ddp-test.py` via `srun`?",
-      "answer": "Le paramètre `--world_size` indique le nombre total de processus disponibles pour l'exécution, calculé par la variable `SLURM_NTASKS_PER_NODE * SLURM_JOB_NUM_NODES`."
-    },
-    {
-      "question": "Comment le script `pytorch-ddp-test.py` détermine-t-il le rang local et le rang global d'un processus?",
-      "answer": "Il récupère le rang local (`local_rank`) à partir de `os.environ.get(\"SLURM_LOCALID\")` et le rang global (`rank`) à partir de `os.environ.get(\"SLURM_PROCID\")`."
-    },
-    {
-      "question": "Comment le groupe de processus est-il initialisé pour la communication distribuée dans `pytorch-ddp-test.py`?",
-      "answer": "Le groupe de processus est initialisé en appelant `dist.init_process_group` avec des paramètres tels que `backend`, `init_method`, `world_size` et `rank`."
-    },
-    {
-      "question": "Comment le modèle de réseau neuronal est-il configuré pour le parallélisme de données distribué dans `pytorch-ddp-test.py`?",
-      "answer": "L'instance du modèle (`net`) est d'abord déplacée vers un GPU (`net.cuda()`), puis elle est enveloppée avec `torch.nn.parallel.DistributedDataParallel` en spécifiant les `device_ids`."
-    },
-    {
-      "question": "Quel jeu de données est utilisé dans l'exemple du script `pytorch-ddp-test.py`?",
-      "answer": "L'exemple utilise le jeu de données CIFAR10 de `torchvision.datasets.CIFAR10`."
-    },
-    {
-      "question": "Comment les données d'entraînement sont-elles distribuées entre les processus dans `pytorch-ddp-test.py`?",
-      "answer": "Les échantillons de données sont distribués en utilisant `torch.utils.data.distributed.DistributedSampler` en conjonction avec le `DataLoader`."
-    },
-    {
-      "question": "Quel est le rôle de la ligne `train_sampler.set_epoch(epoch)` dans la boucle d'entraînement du script `pytorch-ddp-test.py`?",
-      "answer": "Cette ligne assure une distribution appropriée et un rééchantillonnage des données pour chaque époque lorsque le `DistributedSampler` est utilisé, garantissant que chaque processus reçoit un ensemble différent d'échantillons de données à chaque époque."
-    },
-    {
-      "question": "Quelle est la valeur par défaut du paramètre `batch_size` si on ne la spécifie pas lors de l'exécution du script `pytorch-ddp-test.py`?",
-      "answer": "La valeur par défaut du `batch_size` est de `768`."
-    },
-    {
-      "question": "Quel est le nombre maximal d'époques par défaut (`max_epochs`) défini dans le script `pytorch-ddp-test.py`?",
-      "answer": "Le nombre maximal d'époques par défaut est de `4`."
-    },
-    {
-      "question": "Quel est le backend de communication distribuée par défaut utilisé dans `pytorch-ddp-test.py` si non spécifié en ligne de commande?",
-      "answer": "Le backend par défaut pour la communication distribuée est `nccl`."
+      "question": "Quel est le rôle de la commande `srun` dans l'exemple de script `pytorch-ddp-test.sh` pour la configuration et l'exécution d'une tâche PyTorch distribuée?",
+      "answer": "Dans le script `pytorch-ddp-test.sh`, la commande `srun` joue deux rôles importants. Premièrement, elle est utilisée pour exécuter la configuration de l'environnement virtuel et l'installation de `pip install torch torchvision --no-index` sur tous les nœuds et tâches demandés. Deuxièmement, `srun` lance le script Python `pytorch-ddp-test.py` lui-même. Elle exécute ce script un nombre de fois égal au produit de `<tasks-per-node * nodes>`, assurant ainsi que chaque instance du script s'exécute comme un processus distinct, ce qui est essentiel pour la gestion du parallélisme des données par PyTorch."
     }
   ],
-  "generated_at": "2026-04-12T05:46:51.646672+00:00"
+  "generated_at": "2026-04-13T11:42:52.083014+00:00"
 }

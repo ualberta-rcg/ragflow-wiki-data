@@ -4,125 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "What is the path for the Mgnify database when running AlphaFold 2.3 on a GPU?",
-      "answer": "The Mgnify database path for AlphaFold 2.3 on a GPU is `${DOWNLOAD_DIR}/mgnify/mgy_clusters_2022_05.fa`."
+      "question": "How do you submit an AlphaFold job on a cluster using a SLURM script?",
+      "answer": "To submit an AlphaFold job on a cluster, you need to use a SLURM job script. Examples like `alphafold-2.3-cpu.sh` or `alphafold-2.3-gpu.sh` are provided, which you should edit to match your specific needs, including setting input, output, and data directories. After preparing the script, you submit it to the scheduler using the command `sbatch --job-name alphafold-X alphafold-gpu.sh`. The script handles loading module dependencies, creating and activating a Python virtual environment, installing AlphaFold, and then executing `run_alphafold.py` with the appropriate arguments."
     },
     {
-      "question": "Where is the PDB70 database located for AlphaFold 2.3 GPU runs?",
-      "answer": "The PDB70 database path for AlphaFold 2.3 on a GPU is `${DOWNLOAD_DIR}/pdb70/pdb70`."
+      "question": "What are the recommended SLURM resource allocations for AlphaFold jobs on the cluster?",
+      "answer": "When configuring SLURM job scripts for AlphaFold, it is recommended to allocate a maximum of 8 CPU cores per task (`--cpus-per-task=8`) because AlphaFold is hardcoded not to benefit from more. A suggested memory allocation is 20GB (`--mem=20G`). For GPU acceleration, which helps with the inference part, you should include `--gres=gpu:1`. Additionally, you must adjust the job name, account, and walltime (`--time`) according to your specific job requirements."
     },
     {
-      "question": "What directory should be specified for template mmCIF files when using AlphaFold 2.3 with GPU?",
-      "answer": "The template mmCIF directory for AlphaFold 2.3 with GPU should be `${DOWNLOAD_DIR}/pdb_mmcif/mmcif_files`."
-    },
-    {
-      "question": "What is the path for obsolete PDBs in an AlphaFold 2.3 GPU job?",
-      "answer": "The obsolete PDBs path for AlphaFold 2.3 on a GPU is `${DOWNLOAD_DIR}/pdb_mmcif/obsolete.dat`."
-    },
-    {
-      "question": "What is the database path for PDB sequence resources for AlphaFold 2.3 GPU execution?",
-      "answer": "The PDB sequence resources database path for AlphaFold 2.3 on a GPU is `${DOWNLOAD_DIR}/pdb_seqres/pdb_seqres.txt`."
-    },
-    {
-      "question": "Where should the Uniprot database be located for AlphaFold 2.3 GPU jobs?",
-      "answer": "The Uniprot database path for AlphaFold 2.3 on a GPU is `${DOWNLOAD_DIR}/uniprot/uniprot.fasta`."
-    },
-    {
-      "question": "What is the path for the Uniref30 database when running AlphaFold 2.3 on a GPU?",
-      "answer": "The Uniref30 database path for AlphaFold 2.3 on a GPU is `${DOWNLOAD_DIR}/uniref30/UniRef30_2021_03`."
-    },
-    {
-      "question": "What is the Uniref90 database path for AlphaFold 2.3 GPU runs?",
-      "answer": "The Uniref90 database path for AlphaFold 2.3 on a GPU is `${DOWNLOAD_DIR}/uniref90/uniref90.fasta`."
-    },
-    {
-      "question": "What is the path to the hhblits binary for AlphaFold 2.3 GPU jobs?",
-      "answer": "The hhblits binary path for AlphaFold 2.3 on a GPU is `${EBROOTHHMINSUITE}/bin/hhblits`."
-    },
-    {
-      "question": "Where is the hhsearch binary located for AlphaFold 2.3 GPU execution?",
-      "answer": "The hhsearch binary path for AlphaFold 2.3 on a GPU is `${EBROOTHHMINSUITE}/bin/hhsearch`."
-    },
-    {
-      "question": "What is the path to the jackhmmer binary for AlphaFold 2.3 GPU jobs?",
-      "answer": "The jackhmmer binary path for AlphaFold 2.3 on a GPU is `${EBROOTHMMER}/bin/jackhmmer`."
-    },
-    {
-      "question": "What is the kalign binary path for AlphaFold 2.3 GPU runs?",
-      "answer": "The kalign binary path for AlphaFold 2.3 on a GPU is `${EBROOTKALIGN}/bin/kalign`."
-    },
-    {
-      "question": "What is the recommended maximum template date for AlphaFold 2.3 on a GPU?",
-      "answer": "The recommended maximum template date for AlphaFold 2.3 on a GPU is `2022-01-01`."
-    },
-    {
-      "question": "How is the `use_gpu_relax` option set for AlphaFold 2.3 when running on a GPU?",
-      "answer": "For AlphaFold 2.3 running on a GPU, the `use_gpu_relax` option is set to `True`."
-    },
-    {
-      "question": "What is the name of the submission script for AlphaFold 2.2 on CPU?",
-      "answer": "The submission script for AlphaFold 2.2 on CPU is named `alphafold-cpu.sh`."
-    },
-    {
-      "question": "What are the SLURM directives for an AlphaFold 2.2 CPU job?",
-      "answer": "For an AlphaFold 2.2 CPU job, the SLURM directives are:\n- `--job-name=alphafold_run`\n- `--account=def-someprof`\n- `--time=08:00:00`\n- `--cpus-per-task=8`\n- `--mem=20G`"
-    },
-    {
-      "question": "What module dependencies are required to run AlphaFold 2.2 on a CPU?",
-      "answer": "To run AlphaFold 2.2 on a CPU, the required module dependencies are `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cuda/11.4 cudnn/8.2.0 kalign/2.03 hmmer/3.2.1 openmm-alphafold/7.5.1 hh-suite/3.3.0 python/3.8`."
-    },
-    {
-      "question": "How are the DOWNLOAD_DIR, INPUT_DIR, and OUTPUT_DIR variables set in an AlphaFold 2.2 CPU job script?",
-      "answer": "In an AlphaFold 2.2 CPU job script, these variables are set as:\n- `DOWNLOAD_DIR=$SCRATCH/alphafold/data`\n- `INPUT_DIR=$SCRATCH/alphafold/input`\n- `OUTPUT_DIR=${SCRATCH}/alphafold/output`"
-    },
-    {
-      "question": "What are the steps to set up a Python virtual environment for AlphaFold 2.2 within a SLURM job?",
-      "answer": "To set up a Python virtual environment for AlphaFold 2.2 within a SLURM job, the steps are:\n1. `virtualenv --no-download ${SLURM_TMPDIR}/env`\n2. `source ${SLURM_TMPDIR}/env/bin/activate`"
-    },
-    {
-      "question": "How are AlphaFold and its Python dependencies installed in an AlphaFold 2.2 CPU job script?",
-      "answer": "AlphaFold and its Python dependencies are installed using these commands in an AlphaFold 2.2 CPU job script:\n1. `pip install --no-index --upgrade pip`\n2. `pip install --no-index --requirement ~/alphafold-requirements.txt`"
-    },
-    {
-      "question": "What is the model preset used for AlphaFold 2.2 on CPU?",
-      "answer": "The model preset used for AlphaFold 2.2 on CPU is `monomer_casp14`."
-    },
-    {
-      "question": "What is the path for the BFD database when running AlphaFold 2.2 on CPU?",
-      "answer": "The BFD database path for AlphaFold 2.2 on CPU is `${DOWNLOAD_DIR}/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt`."
-    },
-    {
-      "question": "What is the path for the Mgnify database when running AlphaFold 2.2 on CPU?",
-      "answer": "The Mgnify database path for AlphaFold 2.2 on CPU is `${DOWNLOAD_DIR}/mgnify/mgy_clusters_2018_12.fa`."
-    },
-    {
-      "question": "What directory is specified for Uniclust30 in AlphaFold 2.2 CPU jobs?",
-      "answer": "The Uniclust30 database path for AlphaFold 2.2 on CPU is `${DOWNLOAD_DIR}/uniclust30/uniclust30_2018_08/uniclust30_2018_08`."
-    },
-    {
-      "question": "What is the maximum template date used for AlphaFold 2.2 on CPU?",
-      "answer": "The maximum template date for AlphaFold 2.2 on CPU is `2020-05-14`."
-    },
-    {
-      "question": "How is the `use_gpu_relax` option set for AlphaFold 2.2 when running on a CPU?",
-      "answer": "For AlphaFold 2.2 running on a CPU, the `use_gpu_relax` option is set to `False`."
-    },
-    {
-      "question": "Which database path option changed name from AlphaFold 2.2 to 2.3?",
-      "answer": "The `--uniclust30_database_path` option used in AlphaFold 2.2 was renamed to `--uniref30_database_path` in version 2.3."
-    },
-    {
-      "question": "What is the name of the submission script for AlphaFold 2.2 on GPU?",
-      "answer": "The submission script for AlphaFold 2.2 on GPU is named `alphafold-gpu.sh`."
-    },
-    {
-      "question": "What is the SLURM directive for requesting a GPU for an AlphaFold 2.2 job?",
-      "answer": "For an AlphaFold 2.2 job on a GPU, the SLURM directive is `--gres=gpu:1`."
-    },
-    {
-      "question": "How is the `use_gpu_relax` option set for AlphaFold 2.2 when running on a GPU?",
-      "answer": "For AlphaFold 2.2 running on a GPU, the `use_gpu_relax` option is set to `True`."
+      "question": "Which database paths are essential to specify when running the `run_alphafold.py` command for protein folding predictions?",
+      "answer": "When executing the `run_alphafold.py` command, it is essential to specify several database paths. These include `--bfd_database_path`, `--mgnify_database_path`, `--pdb70_database_path`, `--template_mmcif_dir`, `--obsolete_pdbs_path`, `--pdb_seqres_database_path`, `--uniprot_database_path`, and `--uniref90_database_path`. For AlphaFold version 2.2, the `--uniclust30_database_path` option is used instead of `--uniref30_database_path`, which is specific to version 2.3. These paths are typically based on a `DOWNLOAD_DIR` variable, such as `$SCRATCH/alphafold/data`."
     }
   ],
-  "generated_at": "2026-04-11T16:32:28.031404+00:00"
+  "generated_at": "2026-04-13T01:30:17.055676+00:00"
 }

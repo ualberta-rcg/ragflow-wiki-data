@@ -3,45 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Who maintains the \"Subatomic and High Energy Physics Software\" page?",
-      "answer": "The Compute Canada Subatomic Physics National Team maintains the page."
+      "question": "Who maintains the Subatomic and High Energy Physics Software page for Compute Canada, and when was it last updated?",
+      "answer": "The Compute Canada Subatomic Physics National Team maintains this page, and it was last updated in July 2021."
     },
     {
-      "question": "What is the primary challenge for subatomic experimental physics groups regarding software setups on Compute Canada?",
-      "answer": "Many groups rely on CVMFS repositories from CERN or the Open Science Grid, and the standard Compute Canada environment (CCenv) can create conflicts with these setups."
+      "question": "What potential conflicts can arise when using Compute Canada's CCenv with CVMFS repositories for subatomic physics software?",
+      "answer": "Conflicts can arise because the CCenv provides standard libraries from the Compute Canada `soft.computecanada.ca` CVMFS repository using Nix and Easybuild, which may conflict with setups from other CVMFS repositories."
     },
     {
-      "question": "What is the recommended approach for ATLAS users on Compute Canada Tier-3 systems?",
-      "answer": "ATLAS users should use the recommended setups for Tier-3 described on the TRIUMF twiki pages rather than reinventing techniques."
+      "question": "Where should ATLAS users look for recommended setups for Tier-3 use on Compute Canada clusters?",
+      "answer": "ATLAS users should refer to the pages housed on the TRIUMF twiki for recommended setups for Tier-3 use, rather than reinventing techniques described elsewhere."
     },
     {
-      "question": "Why do many setups for subatomic physics software face issues on Compute Canada computing nodes?",
-      "answer": "Many setups assume the base nodes have the HEP_OSLibs packages installed, which is not true on Compute Canada computing nodes."
+      "question": "Do Compute Canada computing nodes have the `HEP_OSLibs` packages/rpms installed by default, as assumed by some subatomic physics setups?",
+      "answer": "No, Compute Canada computing nodes do not have the `HEP_OSLibs` packages/rpms installed by default."
     },
     {
-      "question": "What is the suggested method to run software requiring HEP_OSLibs on Compute Canada infrastructure?",
-      "answer": "The suggested approach is to use singularity containers which have the necessary RPMs installed."
+      "question": "What is the suggested approach for users when `HEP_OSLibs` packages are not available on Compute Canada computing nodes?",
+      "answer": "The suggested approach is to use Singularity containers that have the necessary `rpm`s installed, which also allows for the use of different OS bases like SL6 on the CentOS7-based Compute Canada infrastructure."
     },
     {
-      "question": "How can a CentOS7-based view with gcc8 be set up from the `sft.cern.ch` repository?",
-      "answer": "This can be done by sourcing `/cvmfs/sft.cern.ch/lcg/views/setupViews.sh LCG_95 x86_64-centos7-gcc8-opt`."
+      "question": "How can a user set up a CentOS7-based view from `sft.cern.ch`, for example, with `gcc8`, on Compute Canada clusters?",
+      "answer": "A user can set up a CentOS7-based view from `sft.cern.ch` with `gcc8` by executing: `source /cvmfs/sft.cern.ch/lcg/views/setupViews.sh LCG_95 x86_64-centos7-gcc8-opt`."
     },
     {
-      "question": "Name the two main CVMFS repositories for HEP-related container images mentioned in the document.",
-      "answer": "The two main repositories are from ATLAS and WLCG."
+      "question": "What types of software paths are included when a user sets up a view from `sft.cern.ch` using the provided setup script?",
+      "answer": "Setting up a view from `sft.cern.ch` using the setup script includes the necessary paths to compilers, geant4, ROOT, and other related software."
     },
     {
-      "question": "Where can users find ATLAS Singularity images on CVMFS?",
-      "answer": "ATLAS single file packed images are at `/cvmfs/atlas.cern.ch/repo/containers/images/singularity/` and unpacked images at `/cvmfs/atlas.cern.ch/repo/containers/fs/singularity/`."
+      "question": "What are the two main CVMFS repositories for HEP-related container images discussed in the document?",
+      "answer": "The two main CVMFS repositories for HEP-related container images discussed are from ATLAS and the WLCG unpacked repository."
     },
     {
-      "question": "What technology does the WLCG unpacked repository use to automate publishing container images from a Docker registry to CVMFS?",
-      "answer": "The WLCG unpacked repository uses DUCC (Docker Universal CVMFS Cache) to automate publishing container images."
+      "question": "Where can users find ATLAS Singularity container images on Compute Canada clusters?",
+      "answer": "ATLAS Singularity images are available under `/cvmfs/atlas.cern.ch/repo/containers/images/singularity/` for single-file packed images and `/cvmfs/atlas.cern.ch/repo/containers/fs/singularity/` for unpacked images."
     },
     {
-      "question": "How is the Singularity executable typically accessed on Compute Canada sites like Cedar and Graham?",
-      "answer": "On Cedar and Graham, Singularity is typically found at `/opt/software/singularity-x.x.x`."
+      "question": "What is the purpose of the WLCG unpacked repository in the context of container images for subatomic physics?",
+      "answer": "The WLCG unpacked repository uses DUCC to automate the publishing of container images from a Docker image registry to CVMFS, in a standard directory structure for Singularity and a layered format for Docker."
+    },
+    {
+      "question": "How can users add a new image to the list of those automatically published in the WLCG unpacked repository?",
+      "answer": "Users can add a new image to the list of automatically published images by submitting a merge request to the `recipe.yaml` file."
+    },
+    {
+      "question": "Why is the Singularity executable installed outside the usual Compute Canada CVMFS stack?",
+      "answer": "The Singularity executable is installed outside the usual Compute Canada CVMFS stack because it runs in a setuid environment by default."
+    },
+    {
+      "question": "What versions of Singularity are likely available on Compute Canada sites, and what is the best practice for invoking it?",
+      "answer": "Versions 2.6.1, 3.2.0, and 3.3.0 are the most likely candidates available on Compute Canada sites, and the best practice is to invoke the necessary specific version."
+    },
+    {
+      "question": "How do users invoke Singularity on Compute Canada clusters like Cedar, Graham, and Niagara?",
+      "answer": "On Cedar and Graham, Singularity is invoked via `/opt/software/singularity-x.x.x`. On Niagara, users first `module load singularity` then use `/opt/singularity/2`."
+    },
+    {
+      "question": "What are the two ways to invoke a container from a CVMFS repository, and what is a potential benefit of one method?",
+      "answer": "A container from a CVMFS repository can be invoked either directly, where the image will be cached, or by pulling and storing the image in your local area, which may offer some performance benefits depending on the system."
     }
   ],
-  "generated_at": "2026-04-12T08:37:43.609789+00:00"
+  "generated_at": "2026-04-13T14:00:37.385428+00:00"
 }

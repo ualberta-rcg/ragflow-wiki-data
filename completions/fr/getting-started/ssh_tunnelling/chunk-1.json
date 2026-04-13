@@ -4,97 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi un tunnel SSH?",
-      "answer": "Un tunnel SSH, ça permet d'utiliser un ordinateur passerelle pour connecter deux ordis qui ne peuvent pas être branchés directement un à l'autre."
+      "question": "Qu'est-ce qu'un tunnel SSH et pourquoi est-il nécessaire d'en utiliser un sur les grappes de calcul?",
+      "answer": "Un tunnel SSH permet de connecter deux ordinateurs qui ne peuvent pas communiquer directement entre eux, en utilisant un ordinateur passerelle. C'est souvent nécessaire sur les grappes de calcul parce que leurs nœuds de calcul n'ont généralement pas d'accès direct à l'Internet ou ne peuvent pas être contactés directement via l'Internet."
     },
     {
-      "question": "Pourquoi est-ce qu'on aurait besoin d'un tunnel SSH pour les nœuds de calcul de certaines grappes?",
-      "answer": "Parce que les nœuds de calcul de certaines grappes n'ont pas d'accès direct à l'Internet et ne peuvent pas être contactés directement via l'Internet."
+      "question": "Dans quels cas spécifiques est-ce qu'un tunnel SSH est requis lorsqu'on travaille avec des grappes de calcul?",
+      "answer": "Un tunnel SSH est requis pour trois raisons principales : pour utiliser une application commerciale qui doit contacter un serveur de licence via l'Internet, pour une application de visualisation sur un nœud de calcul qui requiert une connexion d'une application cliente sur l'ordinateur local de l'utilisateur, ou pour accéder à une base de données sur une grappe depuis un endroit autre que le nœud de connexion, comme votre ordinateur personnel."
     },
     {
-      "question": "Dans quels cas un tunnel SSH est-il nécessaire?",
-      "answer": "Un tunnel SSH sera requis pour utiliser une application du commerce qui doit se connecter à un serveur de licence via l'Internet; pour utiliser une application de visualisation sur un nœud de calcul avec laquelle une application cliente sur l'ordinateur local d'un utilisateur doit communiquer; ou pour accéder à une base de données sur une grappe à partir d'un endroit autre que le nœud de connexion, comme votre ordinateur personnel."
-    },
-    {
-      "question": "Où se trouve le serveur de licence dans le premier cas mentionné, et qui le contrôle?",
-      "answer": "Dans le premier cas, le serveur de licence est situé à l'extérieur de la grappe et est rarement contrôlé par l'utilisateur."
-    },
-    {
-      "question": "Où se trouvent les serveurs dans les autres cas mentionnés (visualisation, accès à une base de données)?",
-      "answer": "Dans les autres cas, le serveur se trouve directement dans le nœud de calcul."
-    },
-    {
-      "question": "Est-ce qu'il y a quelque chose qu'on devrait connaître, même si ce n'est pas essentiel pour utiliser les tunnels?",
-      "answer": "Même si ce n'est pas essentiel, vous pourriez vous familiariser avec les clés SSH."
-    },
-    {
-      "question": "Qu'est-ce qu'un port logiciel?",
-      "answer": "Un port logiciel, identifié par son numéro, ça permet de distinguer différents interlocuteurs. C'est un peu comme une fréquence radio ou un canal."
-    },
-    {
-      "question": "Pourquoi certaines applications du commerce nécessitent-elles un tunnel SSH pour se connecter à un serveur de licence?",
-      "answer": "Parce qu'elles doivent se connecter à un serveur de licence sur Internet via un port prédéterminé, et que le nœud où l'application est exécutée n'a souvent pas accès à Internet."
-    },
-    {
-      "question": "Quel est le but principal de mettre en place un tunnel SSH pour la connexion à un serveur de licence?",
-      "answer": "Le but est d'effectuer une redirection de port (port forwarding), en utilisant un serveur passerelle pour acheminer les communications du nœud de calcul vers le serveur de licence."
-    },
-    {
-      "question": "Quels renseignements sont nécessaires pour configurer un tunnel pour un serveur de licence?",
-      "answer": "Vous aurez besoin de l'adresse IP ou du nom du serveur de licence (LICSERVER) et du numéro du port du serveur de licence (LICPORT)."
-    },
-    {
-      "question": "Qui peut me donner les infos pour le serveur de licence?",
-      "answer": "Ces renseignements peuvent être obtenus de la personne qui gère le serveur de licence."
-    },
-    {
-      "question": "C'est quoi l'adresse IP externe pour Trillium en ce qui concerne la connexion au serveur de licence?",
-      "answer": "Pour Trillium, l'adresse IP vers l'extérieur est 142.150.188.58."
-    },
-    {
-      "question": "Y a-t-il une autre solution sur Nibi pour l'accès à un serveur de licence?",
-      "answer": "Oui, sur Nibi, une autre solution serait de demander une exception de pare-feu pour LICSERVER et son port LICPORT."
-    },
-    {
-      "question": "Quel est le serveur passerelle à utiliser sur Trillium?",
-      "answer": "Le serveur de passerelle (GATEWAY) sur Trillium est tri-gw."
-    },
-    {
-      "question": "Comment on choisit un serveur passerelle sur Nibi?",
-      "answer": "Sur Nibi, vous devez choisir l'un des nœuds de connexion, par exemple l1, l2, jusqu'à l5."
-    },
-    {
-      "question": "C'est quoi le 'COMPUTEPORT' quand on configure un tunnel pour un serveur de licence?",
-      "answer": "C'est le numéro de port que vous devez choisir d'utiliser sur le nœud de calcul."
-    },
-    {
-      "question": "Quelle est la commande SSH de base à exécuter dans le script de tâche pour un tunnel de licence?",
-      "answer": "La commande SSH est `ssh GATEWAY -L COMPUTEPORT:LICSERVER:LICPORT -N -f`."
-    },
-    {
-      "question": "Que fait le paramètre '-N' dans la commande SSH?",
-      "answer": "Le paramètre '-N' fait en sorte que SSH n'ouvre pas d'interpréteur sur le serveur passerelle (GATEWAY)."
-    },
-    {
-      "question": "À quoi servent les paramètres '-f' et '-N' ensemble?",
-      "answer": "Les paramètres '-f' et '-N' ensemble empêchent SSH de lire les données en entrée."
-    },
-    {
-      "question": "Que fait le paramètre '-f' seul dans la commande SSH?",
-      "answer": "Le paramètre '-f' fait en sorte que SSH soit exécuté en arrière-plan, ce qui permet aux commandes qui suivent d'être exécutées."
-    },
-    {
-      "question": "Pourquoi faut-il une autre commande après avoir mis en place le tunnel SSH pour un serveur de licence?",
-      "answer": "Une autre commande est nécessaire pour que l'application sache que le serveur de licence se trouve sur le port COMPUTEPORT du serveur 'localhost'."
-    },
-    {
-      "question": "À quoi fait référence le terme 'localhost'?",
-      "answer": "Le terme 'localhost' est le nom avec lequel un ordinateur réfère à lui-même; il ne doit pas être remplacé par le nom de votre ordinateur."
-    },
-    {
-      "question": "Comment est-ce qu'on indique souvent le serveur de licence à l'application?",
-      "answer": "On le fait souvent en définissant une variable d'environnement dans le script, par exemple `export MLM_LICENSE_FILE=COMPUTEPORT@localhost`."
+      "question": "Comment est-ce qu'on configure un tunnel SSH pour permettre à une application sur un nœud de calcul d'une grappe de se connecter à un serveur de licence externe sur l'Internet?",
+      "answer": "Pour ça, il faut connaître l'adresse IP ou le nom (LICSERVER) et le numéro de port (LICPORT) du serveur de licence. On utilise ensuite une commande SSH de redirection de port dans le script de la tâche, comme `ssh GATEWAY -L COMPUTEPORT:LICSERVER:LICPORT -N -f`, où `GATEWAY` est le serveur passerelle et `COMPUTEPORT` est le port local choisi sur le nœud de calcul. Après ça, on doit définir une variable d'environnement, par exemple `export MLM_LICENSE_FILE=COMPUTEPORT@localhost`, pour que l'application sache où trouver le serveur de licence."
     }
   ],
-  "generated_at": "2026-04-12T07:35:37.301554+00:00"
+  "generated_at": "2026-04-13T13:14:26.691413+00:00"
 }

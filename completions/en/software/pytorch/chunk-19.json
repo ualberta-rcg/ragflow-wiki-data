@@ -4,17 +4,17 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "What is LibTorch used for, and how does one set up the environment to use it on the clusters?",
-      "answer": "LibTorch is used for implementing C++ extensions to PyTorch and pure C++ machine learning applications; it includes all necessary headers, libraries, and CMake configuration files. To set up the environment, load the required modules (e.g., `StdEnv/2023`, `gcc`, `cuda/12.2`, `cmake`, `protobuf`, `cudnn`, `python/3.11`, `abseil`, `cusparselt`, `opencv/4.8.1`), create and activate a Python virtual environment, and then install `torch` and `numpy` using `pip install --no-index torch numpy`. Specific module versions for `abseil`, `cusparselt`, and `opencv` might need to be adjusted based on the PyTorch wheel version."
+      "question": "What does the error message \"CUDA error: no kernel image is available for execution on the device\" signify when using PyTorch, and what steps should be taken to resolve it?",
+      "answer": "This exception means that the current PyTorch (torch) installation does not support the compute architecture or the specific GPU device being used. To resolve this, you should either update `torch` to a more recent version or request a different GPU that is compatible with your current `torch` version."
     },
     {
-      "question": "What causes the \"CUDA error: no kernel image is available for execution on the device\" when using PyTorch, and what are the recommended solutions?",
-      "answer": "This CUDA error indicates that your current PyTorch (`torch`) installation does not support the compute architecture or the specific GPU device you are trying to use. To resolve this issue, you should either update your `torch` package to a more recent version or request a different GPU that is compatible with your current `torch` installation."
+      "question": "What is LibTorch, and what are its primary uses in the context of PyTorch?",
+      "answer": "LibTorch is a component that enables developers to implement C++ extensions for PyTorch and to create pure C++ machine learning applications. It includes all the necessary headers, libraries, and CMake configuration files needed to build applications that depend on PyTorch."
     },
     {
-      "question": "What are the steps to install rTorch on a cluster?",
-      "answer": "To install rTorch, first load the necessary modules, such as `r/4.5`, `cuda/12.6`, and `cudnn`. Next, create your installation directory and set the `R_LIBS` environment variable. Then, install the latest `torch` package using `R -e 'install.packages(\"torch\", repos=\"https://cloud.r-project.org/\")'` and its dependencies with `R -e 'torch::install_torch()'`. Finally, patch the downloaded shared library (`liblantern.so`) by running `setrpaths.sh --path $R_LIBS/torch/lib/liblantern.so --add_path $EBROOTCUDACORE/lib --any_interpreter`."
+      "question": "How do you set up the environment and compile a minimal C++ example using LibTorch with the `StdEnv/2023` module on the clusters?",
+      "answer": "To set up the environment, first load the required modules: `module load StdEnv/2023 gcc cuda/12.2 cmake protobuf cudnn python/3.11 abseil cusparselt opencv/4.8.1`. Then, create and activate a Python virtual environment with `virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate`, and install PyTorch and NumPy: `pip install --no-index torch numpy`. For compiling, create `example.cpp` and `CMakeLists.txt` files as described in the documentation. With the virtual environment active, configure the project using `cmake -B build -S . -DCMAKE_PREFIX_PATH=$VIRTUAL_ENV/lib/python3.11/site-packages -DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath=$VIRTUAL_ENV/lib/python3.11/site-packages/torch/lib,-L$EBROOTCUDA/extras/CUPTI/lib64 -DCMAKE_SKIP_RPATH=ON -DTORCH_CUDA_ARCH_LIST=\"6.0;7.0;7.5;8.0;9.0\"` and then compile with `cmake --build build`."
     }
   ],
-  "generated_at": "2026-04-12T21:32:09.202920+00:00"
+  "generated_at": "2026-04-13T11:40:41.008072+00:00"
 }

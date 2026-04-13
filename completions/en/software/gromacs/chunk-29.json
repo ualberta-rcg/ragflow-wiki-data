@@ -4,97 +4,17 @@
   "chunk_index": 29,
   "qa_pairs": [
     {
-      "question": "What are the `gromacs-cp2k` modules?",
-      "answer": "The `gromacs-cp2k` modules are versions of GROMACS that have been compiled with CP2K QM/MM support."
+      "question": "What are the `gromacs-cp2k` modules, what type of simulations do they enable, and what are their key limitations?",
+      "answer": "The `gromacs-cp2k` modules are versions of GROMACS compiled with CP2K Quantum Mechanics/Molecular Mechanics (QM/MM) support, which enables Hybrid Quantum-Classical simulations. A key limitation is that these modules are only available for CPU calculations and do not support GPUs (CUDA). Additionally, they exclusively contain MPI-enabled executables: `gmx_mpi` for mixed precision and `gmx_mpi_d` for double precision."
     },
     {
-      "question": "Do `gromacs-cp2k` modules support GPU calculations?",
-      "answer": "No, `gromacs-cp2k` modules are only available for CPU calculations and do not support GPUs (CUDA)."
+      "question": "If a user generates a simulation trajectory with a newer version of GROMACS (e.g., 2024), how can they create a compatible .tpr file for analysis with GROMACS-LS 2016.3?",
+      "answer": "To create a .tpr file compatible with GROMACS-LS 2016.3 for analysis of a trajectory generated with a newer GROMACS version, users should utilize `gmx_LS grompp` or `gmx grompp` from the `gromacs/2016.6` module. This process requires using the original input files (such as *.mdp, topol.top, *.itp, *.gro). If the original *.mdp files contain keywords or features not present in GROMACS 2016, these may need to be changed or removed (e.g., changing `pcouple = C-rescale` to `pcouple = Berendsen`)."
     },
     {
-      "question": "What types of executables are included in `gromacs-cp2k` modules?",
-      "answer": "`gromacs-cp2k` modules contain only MPI-enabled executables: `gmx_mpi` for mixed precision GROMACS with OpenMP and MPI, and `gmx_mpi_d` for double precision GROMACS with OpenMP and MPI."
-    },
-    {
-      "question": "Which GROMACS-CP2K version is available for CPU calculations under `StdEnv/2020`?",
-      "answer": "GROMACS-CP2K v2022.2 (with CP2K v9.1) is available for CPU calculations using the module `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs-cp2k/2022.2`."
-    },
-    {
-      "question": "What are the notes for the `gromacs-cp2k/2022.2` module?",
-      "answer": "The `gromacs-cp2k/2022.2` module uses GCC, FlexiBLAS, and FFTW."
-    },
-    {
-      "question": "Where can I find resources for running QM/MM simulations with GROMACS and CP2K?",
-      "answer": "Resources include the Hybrid Quantum-Classical simulations (QM/MM) with CP2K interface in the GROMACS manual, the CP2K QM/MM Best Practices Guide by BioExcel, BioExcel's QM/MM with GROMACS + CP2K workshop material, a GitHub Repository with example files for the BioExcel Tutorial, and the GROMACS-CP2K integration on the CP2K homepage."
-    },
-    {
-      "question": "What adjustments are needed to use the BioExcel QM/MM workshop material with local HPC systems?",
-      "answer": "When using the BioExcel QM/MM workshop material with local HPC systems, the command `gmx_cp2k` needs to be replaced with either `gmx_mpi` (for mixed precision) or `gmx_mpi_d` (for double precision), and the job scripts (using Slurm) also need adjustments."
-    },
-    {
-      "question": "What is the purpose of GROMACS-LS?",
-      "answer": "GROMACS-LS, along with the MDStress library, enables the calculation of local stress fields from molecular dynamics simulations."
-    },
-    {
-      "question": "Is the MDStress library included in the GROMACS-LS module?",
-      "answer": "Yes, the MDStress library is included in the GROMACS-LS module."
-    },
-    {
-      "question": "Where can I find the manual for GROMACS-LS?",
-      "answer": "The manual for GROMACS-LS can be found at [https://vanegaslab.org/files/Local_stress.pdf Local_stress.pdf]."
-    },
-    {
-      "question": "What file type is required when invoking `gmx_LS mdrun -rerun` or `gmx_LS trjconv` commands?",
-      "answer": "A `.tpr` file is required when invoking commands like `gmx_LS mdrun -rerun` or `gmx_LS trjconv`."
-    },
-    {
-      "question": "Why can't older GROMACS-LS versions read `.tpr` files from newer GROMACS simulations?",
-      "answer": "Older GROMACS-LS versions cannot read `.tpr` files from newer GROMACS simulations because new options are added to the format specification with every major GROMACS release (2018, 2019 ... 2024)."
-    },
-    {
-      "question": "How can I create a compatible `.tpr` file for GROMACS-LS 2016.3 if my simulation used a newer GROMACS version?",
-      "answer": "You can create a new `.tpr` file compatible with GROMACS-LS 2016.3 by using `gmx_LS grompp` or `gmx grompp` from the GROMACS 2016.6 version, along with the same input files (`.mdp`, `topol.top`, `.itp`, `.gro`, etc.) that were used for the original simulation."
-    },
-    {
-      "question": "What should I do if my original `.mdp` file for GROMACS-LS contains features not present in GROMACS 2016?",
-      "answer": "If your original `.mdp` file contains keywords or features not present in GROMACS 2016 (e.g., `pcouple = C-rescale`), you need to either change or remove them (e.g., change to `pcouple = Berendsen`)."
-    },
-    {
-      "question": "Why won't changing pressure coupling settings in the `.mdp` file affect the result when processing with GROMACS-LS ` -rerun`?",
-      "answer": "Changing pressure coupling settings in the `.mdp` file won't affect the result when processing with GROMACS-LS ` -rerun` because the trajectory is processed with the `-rerun` option, and pressure coupling does not occur in that scenario."
-    },
-    {
-      "question": "Should the `cutoff-scheme = group` setting be considered when using GROMACS-LS 2016.3?",
-      "answer": "No, the `cutoff-scheme = group` setting can be ignored because GROMACS 2016 already supports `cutoff-scheme = Verlet`, and the \"group\" scheme was removed for GROMACS 2020."
-    },
-    {
-      "question": "What command changes are necessary when using GROMACS-LS, given the older manual?",
-      "answer": "When using GROMACS-LS, you need to use commands like `gmx_LS mdrun` and `gmx_LS trjconv` instead of the older `mdrun_LS` and `trjconv_LS`, due to core GROMACS commands changing in version 5 and newer."
-    },
-    {
-      "question": "What are the performance limitations of GROMACS-LS?",
-      "answer": "GROMACS-LS is much slower than normal GROMACS because it requires double precision, does not support MPI, SIMD hardware acceleration, or GPUs, and can only use a single CPU core."
-    },
-    {
-      "question": "Does GROMACS-LS support MPI or GPUs?",
-      "answer": "No, GROMACS-LS does not support MPI, SIMD hardware acceleration, or GPUs/CUDA. It can only use a single CPU core."
-    },
-    {
-      "question": "Can `gromacs-ls/2016.3` and `gromacs/2016.6` modules be loaded simultaneously?",
-      "answer": "Yes, unlike other patched versions of GROMACS, the `gromacs-ls/2016.3` and `gromacs/2016.6` modules can be loaded at the same time."
-    },
-    {
-      "question": "How do I load `gromacs-ls/2016.3` for CPU calculations?",
-      "answer": "You can load `gromacs-ls/2016.3` for CPU calculations using the module command `StdEnv/2023 gcc/12.3 gromacs-ls/2016.3`."
-    },
-    {
-      "question": "What is the note associated with the `gromacs-ls/2016.3` module?",
-      "answer": "`gromacs-ls/2016.3` is a serial application and does not support MPI, OpenMP, or GPUs/CUDA."
-    },
-    {
-      "question": "Which GROMACS module can be used to prepare `.tpr` input files for GROMACS-LS?",
-      "answer": "The `gromacs/2016.6` module, loaded with `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2016.6`, can be used to prepare `.tpr` input files for GROMACS-LS."
+      "question": "What are the performance and hardware limitations of GROMACS-LS compared to standard GROMACS versions?",
+      "answer": "GROMACS-LS has significant performance and hardware limitations compared to standard GROMACS. It requires compilation in double precision and does not support MPI, SIMD hardware acceleration, or GPUs. Consequently, it is considerably slower than normal GROMACS and can only utilize a single CPU core."
     }
   ],
-  "generated_at": "2026-04-11T22:37:08.452776+00:00"
+  "generated_at": "2026-04-13T06:12:31.453616+00:00"
 }

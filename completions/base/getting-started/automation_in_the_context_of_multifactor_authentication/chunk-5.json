@@ -4,65 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How can I debug an SSH connection problem to an automation node, especially if I suspect an IPv4 vs. IPv6 issue?",
-      "answer": "You can use the test command `ssh -i ~/.ssh/automation_key -vvv username@robot.rorqual.alliancecan.ca \"ls -l\"`. The `-vvv` option provides verbose debug output, which can help diagnose the problem."
+      "question": "How can I determine whether my SSH connection to an automation node is using IPv4 or IPv6 when troubleshooting connection difficulties?",
+      "answer": "To determine this, use the command `ssh -i ~/.ssh/automation_key -vvv username@robot.rorqual.alliancecan.ca \"ls -l\"`. Observe the debug output for the \"Connecting to...\" message. If it displays an address like `[199.241.166.5]`, IPv4 is being used. If it shows an address similar to `[2620:123:7002:4::5]`, then IPv6 is being used."
     },
     {
-      "question": "What does the `ssh -i ~/.ssh/automation_key -vvv username@robot.rorqual.alliancecan.ca \"ls -l\"` command do?",
-      "answer": "This command attempts to connect to the automation node at Rorqual, execute the `ls -l` command, and print the list of files in your home directory on Rorqual to the screen, all while producing a lot of debug output."
+      "question": "What are the recommended solutions if my SSH client's IP version (IPv4 or IPv6) does not match the IP address mask specified in my automation node's SSH key?",
+      "answer": "To resolve this, you can explicitly force your SSH client to use either IPv4 or IPv6 by adding the `-4` or `-6` options, respectively, to your SSH command. Another option is to connect directly using the automation node's public IP address, for example, `ssh -i ~/.ssh/automation_key -vvv username@132.219.138.79 \"ls -l\"` to ensure IPv4 is used. Disabling IPv6 on your computer is a last resort and not generally recommended."
     },
     {
-      "question": "How can I tell if my SSH client is using IPv4 when connecting to an automation node based on the debug output?",
-      "answer": "In the debug output, look for a 'Connecting to...' message similar to `debug1: Connecting to robot.rorqual.alliancecan.ca [199.241.166.5] port 22.`. This indicates that IPv4 is being used."
-    },
-    {
-      "question": "How can I tell if my SSH client is using IPv6 when connecting to an automation node based on the debug output?",
-      "answer": "In the debug output, look for a 'Connecting to...' message similar to `debug1: Connecting to robot.rorqual.alliancecan.ca [2620:123:7002:4::5] port 22.`. This indicates that IPv6 is being used."
-    },
-    {
-      "question": "What are the possible solutions if my SSH key is not being accepted by an automation node due to an IPv4 vs. IPv6 mismatch?",
-      "answer": "You can explicitly use either IPv4 or IPv6 with the SSH client using the `-4` or `-6` options, respectively. You can also try using the automation node's IP address instead of its hostname, or as a last resort, disable IPv6 addressing on your computer."
-    },
-    {
-      "question": "How do I force my SSH client to use either IPv4 or IPv6 when connecting to an automation node?",
-      "answer": "You can use the `-4` option to explicitly use IPv4 or the `-6` option to explicitly use IPv6 with your SSH client command. This should match the IP address format specified in your CCDB key."
-    },
-    {
-      "question": "Can I use an IP address instead of the hostname to connect to an automation node to resolve IPv4/IPv6 issues?",
-      "answer": "Yes, you can try using an IP address. For instance, to force IPv4 for Rorqual, you could use `ssh -i ~/.ssh/automation_key -vvv username@132.219.138.79 \"ls -l\"`."
-    },
-    {
-      "question": "Is disabling IPv6 addressing on my computer a recommended solution for SSH connection problems to automation nodes?",
-      "answer": "No, disabling IPv6 is generally not recommended by Microsoft and should only be considered as a last resort if other solutions fail. The method for disabling it depends on your operating system."
-    },
-    {
-      "question": "How can I automate my workflow on automation nodes using Python?",
-      "answer": "You can use the Paramiko Python module. The provided code example demonstrates how to connect to an automation node, load an SSH key, execute a command, and print the output."
-    },
-    {
-      "question": "Which Python module is recommended for automating workflows with automation nodes, and how do I install it?",
-      "answer": "The Paramiko Python module is recommended. To ensure support for Ed25519 key types, install it using the command `pip install paramiko[all]`."
-    },
-    {
-      "question": "How do I load an Ed25519 SSH private key with Paramiko in Python?",
-      "answer": "You can load an Ed25519 private key from a file using `key = paramiko.Ed25519Key.from_private_key_file(\"/home/username/.ssh/cc_allowed\")`."
-    },
-    {
-      "question": "What is the purpose of `ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())` in a Paramiko script for automation nodes?",
-      "answer": "This line sets the policy for handling unknown host keys. `paramiko.AutoAddPolicy()` automatically adds the host key if it's not known, which can be convenient for automated workflows where manual host key verification is impractical."
-    },
-    {
-      "question": "How do I connect to an automation node using Paramiko in Python?",
-      "answer": "After initializing an `SSHClient` and optionally setting a host key policy, you connect using `ssh.connect(hostname=host, username=user, pkey=key)`, where `host` is the automation node's address, `user` is your username, and `pkey` is the loaded private key."
-    },
-    {
-      "question": "How do I execute a shell command on an automation node after connecting with Paramiko?",
-      "answer": "You can execute a command using `stdin, stdout, stderr = ssh.exec_command(cmd)`, where `cmd` is the string containing the command you want to run."
-    },
-    {
-      "question": "How should I close an SSH connection opened with Paramiko?",
-      "answer": "You should close the connection using `ssh.close()` after you have finished executing commands and processing output."
+      "question": "How can I implement an automated workflow using the Paramiko Python module to connect to an automation node and execute commands?",
+      "answer": "First, ensure Paramiko is installed with `pip install paramiko[all]` to support Ed25519 keys. In your Python script, load your SSH key using `paramiko.Ed25519Key.from_private_key_file(\"/home/username/.ssh/cc_allowed\")`. Then, create an `SSHClient` instance, set `ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())`, and connect using `ssh.connect(hostname=host, username=user, pkey=key)`. After establishing the connection, you can execute commands with `stdin, stdout, stderr = ssh.exec_command(cmd)`."
     }
   ],
-  "generated_at": "2026-04-11T18:08:23.739998+00:00"
+  "generated_at": "2026-04-13T02:39:28.975265+00:00"
 }

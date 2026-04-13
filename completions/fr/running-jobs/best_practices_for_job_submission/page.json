@@ -3,61 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Pourquoi est-ce important de bien choisir les paramètres quand on soumet une tâche sur une de nos grappes?",
-      "answer": "C'est important pour éviter le gaspillage des ressources, ne pas causer de problèmes aux autres usagers, assurer une exécution plus rapide et augmenter les chances de succès de la tâche."
+      "question": "Quel est l'objectif principal de bien choisir les paramètres d'une tâche soumise sur les grappes de l'Alliance?",
+      "answer": "L'objectif est d'éviter le gaspillage des ressources, de ne pas causer de problèmes aux autres utilisateurs et utilisatrices, et d'assurer que la tâche s'exécute plus rapidement, se termine avec succès et produise les résultats attendus pour la recherche."
     },
     {
-      "question": "Quels sont les problèmes communs si les paramètres de ressources ne sont pas bien choisis pour une tâche?",
-      "answer": "Une tâche peut rester longtemps en attente si elle demande trop de ressources, être arrêtée si elle n'en demande pas assez, ou encore gaspiller des ressources si le programme n'est pas scalable ou n'est pas conçu pour plusieurs nœuds."
+      "question": "Pourquoi est-il difficile d'estimer le temps et la quantité de mémoire nécessaires pour les premières tâches d'une simulation ou d'une analyse sur les grappes de l'Alliance?",
+      "answer": "Il est difficile d'estimer ces ressources car la performance d'un ordinateur local est trompeuse, et l'on ne connaît pas encore la durée et la mémoire requises pour l'analyse spécifique sur les grappes."
     },
     {
-      "question": "Comment devrais-je commencer à estimer le temps et la mémoire pour les premières tâches d'une simulation?",
-      "answer": "Il est suggéré de soumettre des tâches tests relativement brèves, d'une ou deux heures, avec une quantité de mémoire standard (comme `#SBATCH --mem-per-cpu=2G`)."
+      "question": "Qu'arrive-t-il si une tâche sur une grappe de l'Alliance demande trop de ressources (temps, mémoire, cœurs CPU) ou pas assez?",
+      "answer": "Si elle demande trop, elle restera plus longtemps en attente. Si elle ne demande pas assez, elle pourrait être arrêtée car elle excéderait les limites demandées."
     },
     {
-      "question": "Que dois-je faire si une tâche test est interrompue parce qu'elle excède la limite de temps ou de mémoire demandée?",
-      "answer": "Vous devriez doubler la limite de temps ou de mémoire demandée et répéter le test jusqu'à ce que la tâche s'exécute complètement."
+      "question": "Quelle est la stratégie recommandée pour estimer les ressources (temps et mémoire) pour une nouvelle tâche sur les grappes de l'Alliance?",
+      "answer": "Il est suggéré de soumettre d'abord quelques tâches tests relativement brèves (1 à 2 heures) avec une quantité de mémoire standard (<code>#SBATCH --mem-per-cpu=2G</code>), puis d'ajuster en doublant les limites si la tâche est interrompue."
     },
     {
-      "question": "Quelle est la durée minimale recommandée pour les tâches autres que les tests?",
-      "answer": "La durée des tâches devrait être d'au moins une heure. Si les calculs sont plus courts, il est suggéré de les regrouper avec des outils comme GLOST, META ou GNU Parallel."
+      "question": "Comment savoir si une tâche est interrompue parce qu'elle a dépassé la limite de mémoire demandée sur une grappe de l'Alliance?",
+      "answer": "Vous obtiendrez un message d'erreur 'OOM [out-of-memory] event'."
     },
     {
-      "question": "Comment puis-je connaître la durée réelle d'une tâche qui a déjà été exécutée?",
-      "answer": "Vous pouvez utiliser des outils de surveillance, comme la commande `seff`, et vérifier la valeur du champ `Job Wall-clock time`."
+      "question": "Quelle est la durée minimale recommandée pour les tâches autres que les tests sur les grappes de l'Alliance, et comment gérer les calculs plus courts?",
+      "answer": "La durée devrait être d'au moins une heure. Pour les calculs de moins d'une heure, il est suggéré d'utiliser des outils comme GLOST, META ou GNU Parallel pour grouper plusieurs calculs dans une même tâche."
     },
     {
-      "question": "Quelle est l'efficacité de mémoire recommandée (Memory Efficiency) pour une tâche?",
-      "answer": "L'efficacité de mémoire devrait être d'au moins 80 à 85 % dans la plupart des cas, avec une petite marge d'erreur ajoutée à la quantité de mémoire demandée."
+      "question": "Comment les utilisateurs peuvent-ils déterminer la durée réelle d'une tâche après son exécution sur une grappe de l'Alliance?",
+      "answer": "Ils peuvent utiliser des outils de surveillance comme la commande <code>seff</code> et vérifier la valeur du champ <code>Job Wall-clock time</code> dans le résultat."
     },
     {
-      "question": "Comment puis-je demander à utiliser toute la mémoire d'un nœud entier?",
-      "answer": "Vous pouvez utiliser la ligne `#SBATCH --mem=0` dans votre script de tâche."
+      "question": "Quand est-il recommandé d'utiliser des points de contrôle pour les tâches soumises sur les grappes de l'Alliance?",
+      "answer": "Pour les tâches d'une durée de plus de 48 heures, il est recommandé d'envisager l'utilisation de points de contrôle si le logiciel le permet, pour sauvegarder l'état du programme toutes les 6 ou 8 heures."
     },
     {
-      "question": "Comment puis-je savoir si le logiciel que j'utilise peut fonctionner en parallèle?",
-      "answer": "Le meilleur moyen est de consulter sa documentation. S'il n'y a pas de référence à l'exécution en parallèle, il est probable qu'il fonctionne séquentiellement. Vous pouvez aussi contacter l'équipe de développement."
+      "question": "Quelle devrait être l'efficacité de la mémoire ('Memory Efficiency') pour la plupart des tâches sur les grappes de l'Alliance, telle qu'indiquée par la commande <code>seff</code>?",
+      "answer": "Dans la plupart des cas, la valeur de <code>Memory Efficiency</code> devrait être d'au moins 80 à 85%."
     },
     {
-      "question": "Quand un programme peut-il utiliser plusieurs cœurs CPU sur un seul nœud?",
-      "answer": "Un programme peut utiliser plusieurs cœurs sur un seul nœud s'il est basé sur un environnement de mémoire partagé, ce qui signifie que les cœurs doivent être sur le même nœud."
+      "question": "Que doit savoir un utilisateur lorsqu'il demande un nœud de calcul à grande capacité de mémoire sur une grappe de l'Alliance?",
+      "answer": "Il y a peu de nœuds à grande capacité de mémoire, ce qui signifie que la tâche sera en attente plus longtemps. Il est crucial de vérifier que toute la mémoire demandée est vraiment nécessaire."
     },
     {
-      "question": "Comment un logiciel peut-il fonctionner avec plus d'un nœud?",
-      "answer": "Le logiciel doit supporter le parallélisme avec mémoire distribuée, ce qui est souvent basé sur le standard MPI. Les programmes MPI devraient être lancés avec `srun` plutôt qu'avec `mpirun`."
+      "question": "Un programme séquentiel bénéficie-t-il d'une demande accrue de cœurs CPU ou de nœuds sur une grappe de l'Alliance?",
+      "answer": "Non, demander plus de cœurs ou de nœuds n'augmentera pas la vitesse d'exécution d'un programme séquentiel. Le code source du programme doit d'abord être modifié pour être exécutable en parallèle."
     },
     {
-      "question": "Quel est l'objectif d'efficacité du CPU (CPU Efficiency) pour une tâche?",
-      "answer": "L'objectif est que l'efficacité du ou des CPU se rapproche le plus possible de 100 %. Une efficacité sous 90 % est considérée faible."
+      "question": "Comment un utilisateur peut-il déterminer si un logiciel peut fonctionner en parallèle sur les grappes de l'Alliance?",
+      "answer": "Le meilleur moyen est de consulter sa documentation. L'absence de référence à l'exécution parallèle indique une fonction séquentielle. On peut aussi contacter l'équipe de développement du programme."
     },
     {
-      "question": "Dans quelles conditions devrais-je utiliser des nœuds GPU pour mes tâches?",
-      "answer": "Vous devriez utiliser des nœuds GPU seulement si l'utilisation du GPU augmente significativement la performance de vos tâches, par exemple, si la tâche s'exécute beaucoup plus rapidement qu'avec un nœud CPU, et pas seulement 5 à 10 % plus vite."
+      "question": "Pour les programmes qui fonctionnent en parallèle avec mémoire distribuée sur plusieurs nœuds, quelle est la commande recommandée pour les lancer sur les grappes de l'Alliance?",
+      "answer": "Ces programmes devraient être lancés avec <code>srun</code> plutôt qu'avec <code>mpirun</code>, surtout s'ils se basent sur le standard MPI."
     },
     {
-      "question": "Quels sont les conseils pour économiser les ressources sur les grappes?",
-      "answer": "Il faut éviter d'utiliser la commande `sleep` et Conda (préférer les environnements virtuels Python ou Apptainer), et optimiser les opérations de lecture et d'écriture en utilisant le stockage local des nœuds."
+      "question": "Quelle est la meilleure pratique pour distribuer les processus parallèles sur les nœuds afin d'optimiser la performance sur les grappes de l'Alliance?",
+      "answer": "Il faut éviter d'éparpiller les processus et favoriser une distribution plus compacte. Idéalement, le nombre de processus parallèles devrait être un multiple intégral du nombre de cœurs par nœud."
+    },
+    {
+      "question": "Pourquoi est-il crucial de s'assurer d'utiliser efficacement les GPU sur les grappes de l'Alliance?",
+      "answer": "Les nœuds GPU étant peu nombreux, les tâches qui les requièrent attendent généralement longtemps. Il est important de vérifier que le GPU augmente réellement la performance de la tâche et de façon significative (plus de 5-10% de rapidité)."
+    },
+    {
+      "question": "Quelles sont les recommandations pour économiser les ressources sur les grappes de l'Alliance, notamment concernant les scripts et les environnements logiciels?",
+      "answer": "Il faut éviter la commande <code>sleep</code> dans un script de tâche, et il est fortement recommandé d'utiliser des solutions comme un environnement virtuel Python ou Apptainer plutôt que Conda et ses variantes."
     }
   ],
-  "generated_at": "2026-04-11T18:35:01.639117+00:00"
+  "generated_at": "2026-04-13T03:00:23.458101+00:00"
 }

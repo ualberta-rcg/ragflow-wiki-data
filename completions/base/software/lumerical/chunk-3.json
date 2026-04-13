@@ -4,57 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How do I configure the license file for the Lumerical module?",
-      "answer": "To configure the license file for the Lumerical module, you need to create a file at `$HOME/.licenses/lumerical.lic`. Inside this file, you should add the content `setenv(\"LUMERICAL_LICENSE_FILE\", \"27011@license01.example.com\")`, making sure to adjust `27011@license01.example.com` to your specific license server's port and hostname."
+      "question": "How is the license file for the Lumerical module configured?",
+      "answer": "The Lumerical module looks for the file `$HOME/.licenses/lumerical.lic` to determine how to contact the license server. You must create this file and include the content `setenv(\"LUMERICAL_LICENSE_FILE\", \"27011@license01.example.com\")`, ensuring you adjust the port and hostname to match your specific license server."
     },
     {
-      "question": "Where does the Lumerical module look for its license file?",
-      "answer": "The Lumerical module looks for the file `$HOME/.licenses/lumerical.lic` to determine how to contact the license server."
+      "question": "What is the command for installing FDTD Solutions on Linux, considering different versions?",
+      "answer": "To install FDTD Solutions, execute the command `eb FDTD_Solutions-8.19.1438.eb --sourcepath=<path> --disable-enforce-checksums`, where `<path>` is the directory containing your `.tar.gz` file. If you have a different version of FDTD Solutions, you can use the `--try-software-version` option; for example: `eb FDTD_Solutions-8.19.1438.eb --try-software-version=8.19.1466 --sourcepath=$HOME/Downloads --disable-enforce-checksums`."
     },
     {
-      "question": "What is the command to install FDTD Solutions if I have the `FDTD_Solutions-8.19.1438.tar.gz` file?",
-      "answer": "To install FDTD Solutions with the `FDTD_Solutions-8.19.1438.tar.gz` file, you should run the command `eb FDTD_Solutions-8.19.1438.eb --sourcepath=<path> --disable-enforce-checksums`, where `<path>` is the directory containing the `.tar.gz` file."
-    },
-    {
-      "question": "How do I install FDTD Solutions if I have a different version than `8.19.1438`?",
-      "answer": "If you have a version other than `8.19.1438`, for example `FDTD_Solutions-8.19.1466.tar`, you would use a command like `eb FDTD_Solutions-8.19.1438.eb --try-software-version=8.19.1466 --sourcepath=$HOME/Downloads --disable-enforce-checksums`. Remember to replace `8.19.1466` with your actual software version and `$HOME/Downloads` with the path to your downloaded `.tar.gz` file."
-    },
-    {
-      "question": "What should I do if the FDTD Solutions installation fails?",
-      "answer": "If the FDTD Solutions installation does not work, you should contact technical support, and they will adapt an installation script for your specific version."
-    },
-    {
-      "question": "What are the post-installation steps for FDTD Solutions?",
-      "answer": "Once FDTD Solutions is installed, you need to log out and back into the server. To load the FDTD module, use `module load fdtd_solutions`. Additionally, you must start the software on a login node first to set up your license server; this is a one-time process."
-    },
-    {
-      "question": "How do I load the FDTD Solutions module after installation?",
-      "answer": "To load the FDTD Solutions module after installation, use the command `module load fdtd_solutions`."
-    },
-    {
-      "question": "What is the main difference between the `fdtd_solutions` and `lumerical` modules?",
-      "answer": "The main difference is that the Lumerical module includes additional tools, and the environment variable containing the install location is `EBROOTFDTD_SOLUTIONS` for FDTD Solutions, and `EBROOTLUMERICAL` for Lumerical."
-    },
-    {
-      "question": "How should I modify scripts when switching between the `fdtd_solutions` and `lumerical` modules?",
-      "answer": "When switching between the `fdtd_solutions` and `lumerical` modules, you should adjust your scripts by replacing the name of the module in the `module load ...` line and swapping `EBROOTFDTD_SOLUTIONS` with `EBROOTLUMERICAL` or vice versa."
-    },
-    {
-      "question": "What Slurm options are recommended for submitting a Lumerical job?",
-      "answer": "When submitting a Lumerical job, it is recommended to use the Slurm options `--ntasks-per-node=1` and `--cpus-per-task=32` because the Lumerical MPI implementation is not tightly coupled with the scheduler."
-    },
-    {
-      "question": "Can I customize the time limit and node count in a Lumerical job submission script?",
-      "answer": "Yes, you can adjust the time limit and the node count in your Lumerical job submission script to fit your specific needs."
-    },
-    {
-      "question": "What Slurm directives are typically included in a Lumerical job submission script?",
-      "answer": "A typical Lumerical job submission script includes Slurm directives such as `#SBATCH --time=0:30:00` for the time limit, `#SBATCH --ntasks-per-node=1`, `#SBATCH --cpus-per-task=32`, `#SBATCH --ntasks=2` (matching the number of nodes), `#SBATCH --nodes=2`, and `#SBATCH --mem=0` to request all memory on a node."
-    },
-    {
-      "question": "What Slurm options are recommended for submitting an FDTD Solutions job?",
-      "answer": "When submitting an FDTD Solutions job, it is recommended to use the Slurm options `--ntasks-per-node=1` and `--cpus-per-task=32` because the FDTD MPI implementation is not tightly coupled with the scheduler."
+      "question": "When submitting jobs using either the Lumerical or FDTD Solutions module, what specific SLURM options should be used due to their MPI implementation?",
+      "answer": "For both the Lumerical and FDTD Solutions modules, you should use the SLURM options `--ntasks-per-node=1` and `--cpus-per-task=32` when submitting jobs. This is necessary because their MPI implementations are not tightly coupled with the scheduler."
     }
   ],
-  "generated_at": "2026-04-12T01:05:22.895730+00:00"
+  "generated_at": "2026-04-13T08:11:52.766403+00:00"
 }

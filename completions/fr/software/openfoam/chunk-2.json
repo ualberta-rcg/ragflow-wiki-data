@@ -4,57 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Quelles sont les étapes pour préparer la compilation du solveur `petscFoam`, incluant le téléchargement et l'extraction du paquet source?",
-      "answer": "Pour préparer la compilation, il faut charger les modules `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `openfoam/v2412` et `petsc/3.21.6`. Ensuite, il faut télécharger le paquet `external-solver-main.tar.gz` avec `wget https://develop.openfoam.com/modules/external-solver/-/archive/main/external-solver-main.tar.gz`, l'extraire avec `tar xvfz external-solver-main.tar.gz`, puis naviguer dans le répertoire avec `cd tar xvfz external-solver-main`."
+      "question": "Comment faire pour compiler le solveur petscFoam sur les grappes de calcul d'Alliance?",
+      "answer": "Pour compiler le solveur petscFoam, il faut d'abord charger les modules nécessaires, comme StdEnv/2023, gcc/12.3, openmpi/4.1.5, openfoam/v2412 et petsc/3.21.6. Ensuite, il faut télécharger et extraire le paquet `external-solver-main.tar.gz`. Après s'être rendu dans le répertoire extrait, on exécute la commande `./Allwmake`."
     },
     {
-      "question": "Quelle commande faut-il exécuter pour compiler le solveur `petscFoam` une fois que les fichiers sont prêts?",
-      "answer": "Il faut exécuter la commande `./Allwmake` pour compiler le solveur `petscFoam`."
+      "question": "Après avoir compilé le solveur petscFoam, quelles commandes peut-on utiliser pour s'assurer qu'il est fonctionnel?",
+      "answer": "Pour vérifier si le solveur petscFoam est fonctionnel, on peut utiliser `foamHasLibrary -verbose petscFoam` pour voir si OpenFOAM peut le charger. On peut aussi vérifier la présence de la bibliothèque dynamique `libpetscFoam.so` dans `$FOAM_USER_LIBBIN` avec `ls $FOAM_USER_LIBBIN`, et s'assurer que ses dépendances sont bien trouvées avec `ldd $FOAM_USER_LIBBIN/libpetscFoam.so | grep petsc`."
     },
     {
-      "question": "Comment vérifier si OpenFOAM est capable de charger le solveur `petscFoam` après sa compilation?",
-      "answer": "Pour vérifier qu'OpenFOAM peut charger `petscFoam`, il faut utiliser la commande `foamHasLibrary -verbose petscFoam`."
-    },
-    {
-      "question": "Où est-ce que la bibliothèque dynamique `libpetscFoam.so` devrait se trouver après une compilation réussie?",
-      "answer": "La bibliothèque dynamique `libpetscFoam.so` doit se trouver dans le répertoire désigné par la variable d'environnement `$FOAM_USER_LIBBIN`."
-    },
-    {
-      "question": "Quelle commande permet de confirmer la présence de `libpetscFoam.so` dans le répertoire prévu?",
-      "answer": "On peut utiliser la commande `ls $FOAM_USER_LIBBIN` pour s'assurer que `libpetscFoam.so` y est bien présente."
-    },
-    {
-      "question": "Comment s'assurer que la bibliothèque `libpetscFoam.so` peut trouver ses dépendances, surtout celles de PETSc?",
-      "answer": "On peut vérifier si `libpetscFoam.so` trouve ses dépendances en utilisant la commande `ldd $FOAM_USER_LIBBIN/libpetscFoam.so | grep petsc`."
-    },
-    {
-      "question": "Quel est l'impact de la fonction de débogage d'OpenFOAM sur la performance des systèmes de fichiers partagés?",
-      "answer": "La fonction de débogage peut générer des centaines d'opérations d'écriture par seconde, ce qui risque de ralentir considérablement les systèmes de fichiers partagés."
-    },
-    {
-      "question": "Comment peut-on désactiver ou réduire la fonction de débogage pour améliorer la performance en production?",
-      "answer": "Pour désactiver ou réduire la fonction de débogage, il faut créer un répertoire `mkdir -p $HOME/.OpenFOAM/$WM_PROJECT_VERSION` et y copier le fichier de configuration avec `cp $WM_PROJECT_DIR/etc/controlDict $HOME/.OpenFOAM/$WM_PROJECT_VERSION/`."
-    },
-    {
-      "question": "Quel paramètre dans `controlDict` peut-on modifier pour diminuer la quantité d'écritures sur disque liées au débogage?",
-      "answer": "Le dictionnaire `debugSwitches`, qui se trouve dans `$HOME/.OpenFOAM/$WM_PROJECT_VERSION/controlDict`, peut être modifié en mettant à zéro les valeurs des indicateurs qui sont plus grandes que zéro."
-    },
-    {
-      "question": "Où peut-on trouver de la documentation additionnelle sur les paramètres du fichier `controlDict`?",
-      "answer": "Il est possible de consulter la documentation pour la version 6 sur `https://cfd.direct/openfoam/user-guide/v6-controldict/` et pour la version 7 sur `https://cfd.direct/openfoam/user-guide/v7-controldict/`."
-    },
-    {
-      "question": "Quelle est une solution alternative pour réduire les écritures sur disque si votre flux de travail crée plusieurs petits fichiers?",
-      "answer": "Une solution alternative serait d'utiliser l'espace scratch local (`$SLURM_TMPDIR`), qui est un disque directement attaché au nœud de calcul."
-    },
-    {
-      "question": "Quand est-ce qu'il est préférable d'utiliser `$SLURM_TMPDIR` comme répertoire de travail?",
-      "answer": "Il est préférable d'utiliser `$SLURM_TMPDIR` comme répertoire de travail si votre flux de travail crée plusieurs petits fichiers."
-    },
-    {
-      "question": "Où puis-je obtenir plus de détails sur le stockage local sur les nœuds de calcul?",
-      "answer": "Pour plus d'informations, on peut consulter la page 'Stockage local sur les nœuds de calcul' ([[Using node-local storage/fr]])."
+      "question": "Qu'est-ce qui peut causer une baisse de performance avec OpenFOAM sur les systèmes de fichiers partagés, et comment peut-on y remédier?",
+      "answer": "La fonction de débogage d'OpenFOAM peut générer plusieurs centaines d'opérations d'écriture par seconde, ce qui ralentit les systèmes de fichiers partagés. Pour y remédier, on peut diminuer ou désactiver cette fonction en copiant et modifiant le fichier `controlDict` dans `$HOME/.OpenFOAM/$WM_PROJECT_VERSION`, en particulier le dictionnaire `debugSwitches`. Une autre solution est d'utiliser l'espace scratch local (`$SLURM_TMPDIR`) qui est un disque attaché directement au nœud de calcul."
     }
   ],
-  "generated_at": "2026-04-12T04:29:34.048709+00:00"
+  "generated_at": "2026-04-13T10:35:57.976092+00:00"
 }

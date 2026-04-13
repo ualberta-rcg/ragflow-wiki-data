@@ -4,57 +4,13 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi l'objectif principal de la section « Introduction » sur la visualisation à distance?",
-      "answer": "La section « Introduction » décrit comment visualiser à distance un ensemble de données qui se trouve sur une de nos grappes."
+      "question": "Quelles sont les différentes méthodes offertes pour la visualisation à distance de données avec ParaView sur les grappes de l'Alliance?",
+      "answer": "Pour la visualisation à distance avec ParaView sur les grappes de l'Alliance, il y a trois scénarios principaux. Premièrement, pour des ensembles de données de quelques gigaoctets, on peut utiliser une session interactive de bureau à distance via JupyterHub ou Open OnDemand avec un petit nombre de cœurs CPU. Deuxièmement, pour des ensembles de données plus volumineux (par exemple, entre 50 et 100 Go sur Trillium), une configuration client-serveur est recommandée, où le client ParaView est sur votre ordinateur et le serveur s'exécute en parallèle sur la grappe via une tâche Slurm. Finalement, pour les visualisations longues et automatisées, il est préférable de scripter la visualisation en Python et de l'exécuter en lots, hors écran, directement sur les grappes pour produire des fichiers de sortie sans interface interactive."
     },
     {
-      "question": "Comment visualiser de manière interactive un ensemble de données de quelques gigaoctets (Go)?",
-      "answer": "Pour visualiser un ensemble de données de quelques Go, il faut démarrer une session de bureau à distance via JupyterHub ou Open OnDemand, selon la grappe, et exécuter ParaView de manière interactive en utilisant un petit nombre de CPU. Les détails se trouvent sous l'onglet « Courtes tâches interactives »."
-    },
-    {
-      "question": "Quelle méthode est recommandée pour visualiser de manière interactive un ensemble de données plus gros?",
-      "answer": "Pour un ensemble de données plus gros, on recommande d'utiliser une configuration client-serveur où le client ParaView se trouve sur votre ordinateur et le serveur est en parallèle dans une tâche soumise à une grappe par Slurm. Les détails sont sous l'onglet « Longues tâches interactives »."
-    },
-    {
-      "question": "Quelles sont les exigences de taille d'ensemble de données pour la grappe Trillium dans une configuration client-serveur?",
-      "answer": "Sur Trillium, l'ensemble de données doit être entre 50 Go et 100 Go pour exploiter efficacement les 192 cœurs, car seules les tâches sur nœuds entiers par multiples de 192 cœurs sont autorisées."
-    },
-    {
-      "question": "Est-ce que les grappes Fir, Narval, Nibi et Rorqual ont les mêmes restrictions de taille de données que Trillium pour la visualisation client-serveur?",
-      "answer": "Non, sur Fir, Narval, Nibi et Rorqual, vous pouvez visualiser des ensembles de données beaucoup plus petits avec un seul cœur, même si l'utilisation de plusieurs cœurs en parallèle accélère le rendu."
-    },
-    {
-      "question": "Quand est-il généralement recommandé d'utiliser JupyterHub ou Open OnDemand avant une configuration client-serveur?",
-      "answer": "JupyterHub ou Open OnDemand est généralement recommandé pour les petits ensembles de données avant de tenter une configuration client-serveur, parce que cette dernière est plus complexe."
-    },
-    {
-      "question": "Comment devrait-on idéalement produire des visualisations, comme la génération de 1 000 images pour une vidéo?",
-      "answer": "Idéalement, toutes les visualisations produites devraient être scriptées et exécutées en lots, hors écran, sur les grappes, en effectuant le rendu directement dans des fichiers sans ouvrir de fenêtres interactives. Les détails se trouvent sous l'onglet « Production en lots »."
-    },
-    {
-      "question": "Quel est le rôle des onglets de tâches interactives pour la production en lots?",
-      "answer": "Les deux premiers onglets (Courtes et Longues tâches interactives) doivent être vus comme des étapes interactives pour configurer votre visualisation et l'enregistrer sous forme de script Python ParaView, qui peut ensuite être exécuté comme une tâche en lots sur la grappe."
-    },
-    {
-      "question": "Est-ce que les GPU H100 sont recommandés pour le rendu graphique?",
-      "answer": "Non, il ne faut pas utiliser les GPU H100 pour le rendu graphique, car ils ne sont pas optimisés pour ça."
-    },
-    {
-      "question": "Pourquoi l'utilisation des GPU H100 pour le rendu graphique est-elle déconseillée?",
-      "answer": "L'utilisation des GPU H100 est déconseillée parce qu'ils n'utilisent que 2 des 66 contrôleurs de fils d'exécution (environ 3 % d'utilisation du GPU), ce qui est une utilisation inacceptable de la grappe et produit des rendus à des vitesses comparables à celles d'un GPU d'ordinateur portable milieu de gamme."
-    },
-    {
-      "question": "Est-ce que les instances MIG peuvent exécuter des API graphiques comme OpenGL ou Vulkan?",
-      "answer": "Non, les instances MIG (partitions statiques de GPU) ne peuvent pas exécuter d'API graphiques telles qu'OpenGL ou Vulkan."
-    },
-    {
-      "question": "Quels GPU devraient être utilisés si un rendu GPU est absolument nécessaire?",
-      "answer": "Si un rendu GPU est absolument nécessaire, il faut utiliser les nœuds AMD MI300A de Nibi ou des GPU NVIDIA plus anciens (par exemple T4) lorsqu'ils sont disponibles."
-    },
-    {
-      "question": "Où seront documentées les options de rendu autres que sur les GPU H100?",
-      "answer": "Toutes les options de rendu autres que sur les GPU H100 seront documentées sur cette page."
+      "question": "Est-ce que les GPU H100 sont recommandés pour le rendu graphique avec ParaView sur les grappes de l'Alliance et pourquoi?",
+      "answer": "Non, les GPU H100 ne sont absolument pas recommandés pour le rendu graphique avec ParaView. Malgré leur capacité à exécuter des applications OpenGL ou Vulkan, ils n'utilisent qu'environ 3 % de leurs contrôleurs de fils d'exécution, ce qui mène à des performances de rendu comparables à celles d'un GPU d'ordinateur portable de milieu de gamme. Cette utilisation est jugée inacceptable pour les grappes. De plus, les instances MIG ne peuvent pas exécuter d'API graphiques. Si un rendu GPU est absolument nécessaire, il faut plutôt considérer les nœuds AMD MI300A de Nibi ou les GPU NVIDIA plus anciens comme les T4."
     }
   ],
-  "generated_at": "2026-04-12T04:56:23.564023+00:00"
+  "generated_at": "2026-04-13T10:59:24.035171+00:00"
 }

@@ -4,41 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How do threads within a CUDA block cooperate and exchange data?",
-      "answer": "Threads within a CUDA block cooperate by working on the same set of instructions (potentially with different data sets) and exchange data between each other via shared memory."
+      "question": "How are threads organized in the CUDA block-threading model, and how do they cooperate?",
+      "answer": "In CUDA, threads are structured into threading blocks, and these blocks are further organized into grids. Threads within a block can cooperate by exchanging data via shared memory. However, threads in different blocks are not able to cooperate with each other."
     },
     {
-      "question": "What IDs do each thread use in the CUDA block-threading model?",
-      "answer": "Each thread uses Block IDs and Thread IDs. Block IDs can be 1D or 2D (blockIdx.x, blockIdx.y), and Thread IDs can be 1D, 2D, or 3D (threadIdx.x, threadIdx.y, threadIdx.z)."
+      "question": "How do individual threads in a CUDA kernel identify the specific data they need to work on?",
+      "answer": "Each thread uses unique IDs to determine which data to process. These include Block IDs, which can be 1D or 2D (e.g., `blockIdx.x`, `blockIdx.y`), and Thread IDs, which can be 1D, 2D, or 3D (e.g., `threadIdx.x`, `threadIdx.y`, `threadIdx.z`). This model simplifies memory addressing, especially for multi-dimensional data."
     },
     {
-      "question": "What is the purpose of using Block IDs and Thread IDs in CUDA?",
-      "answer": "This model simplifies memory addressing, especially when processing multi-dimensional data."
-    },
-    {
-      "question": "How does a streaming microprocessor (SM) typically execute threading blocks?",
-      "answer": "A streaming microprocessor (SM) usually executes one threading block at a time."
-    },
-    {
-      "question": "In what groups is CUDA code executed by an SM?",
-      "answer": "The code is executed in groups of 32 threads, which are called warps."
-    },
-    {
-      "question": "What role does the hardware scheduler play in CUDA thread scheduling?",
-      "answer": "A hardware scheduler is free to assign blocks to any streaming multiprocessor (SM) at any time."
-    },
-    {
-      "question": "Under what conditions can the scheduler suspend the execution of a threading block?",
-      "answer": "The scheduler can postpone or suspend the execution of threading blocks under certain conditions, for example, when data becomes unavailable (as reading data from global GPU memory is time-consuming)."
-    },
-    {
-      "question": "What happens when a threading block's execution is suspended by the scheduler?",
-      "answer": "When a block's execution is suspended, the scheduler executes another threading block that is ready for execution."
-    },
-    {
-      "question": "What is 'zero-overhead scheduling' in CUDA, and what is its benefit?",
-      "answer": "Zero-overhead scheduling refers to the scheduler's ability to suspend and resume threading blocks to prevent SMs from being idle. This makes the execution more streamlined."
+      "question": "How does a streaming multiprocessor (SM) schedule the execution of threading blocks and threads in CUDA?",
+      "answer": "Typically, a streaming multiprocessor (SM) executes one threading block at a time, with the code running in groups of 32 threads called warps. A hardware scheduler is free to assign blocks to any SM at any time. Furthermore, if data becomes unavailable, the scheduler can postpone or suspend the execution of a block and then execute another threading block that is ready, a process known as zero-overhead scheduling, which helps keep SMs from being idle."
     }
   ],
-  "generated_at": "2026-04-11T19:17:57.047250+00:00"
+  "generated_at": "2026-04-13T03:34:38.193538+00:00"
 }

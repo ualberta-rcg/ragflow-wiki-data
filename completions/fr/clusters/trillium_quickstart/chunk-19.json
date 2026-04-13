@@ -4,81 +4,17 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "Quelles sont les limites pour les tâches de calcul avec GPU sur la grappe Trillium?",
-      "answer": "Pour les tâches de calcul avec GPU sur Trillium, la limite de tâches en cours est de 150 et la limite pour les tâches soumises et en cours est de 500. La plus petite taille de tâche est de 1/4 de nœud (24 cœurs / 1 GPU), et la plus grande taille peut aller jusqu'à 5 nœuds par défaut (480 cœurs / 20 GPU) ou 25 nœuds avec une allocation (2400 cœurs / 100 GPU). Le temps d'exécution maximal est de 24 heures."
+      "question": "Quelles sont les partitions disponibles et leurs limites spécifiques pour les tâches utilisant des GPU sur la grappe Trillium?",
+      "answer": "Sur Trillium, il y a deux partitions principales pour les tâches GPU: 'calcul' et 'débogage'. Pour la partition 'calcul avec GPU', les utilisateurs peuvent soumettre jusqu'à 150 tâches en cours et 500 tâches soumises et en cours. La taille minimale d'une tâche est d'un quart de nœud (24 cœurs / 1 GPU), et la plus grande taille recommandée est de 5 nœuds par défaut (480 cœurs / 20 GPU) ou 25 nœuds avec une allocation (2400 cœurs / 100 GPU), avec une durée maximale de 24 heures. Pour la partition 'test avec GPU' (débogage), la limite est d'une tâche en cours et d'une tâche soumise et en cours. La taille minimale est également d'un quart de nœud (24 cœurs / 1 GPU), et la taille maximale est de 2 nœuds (192 cœurs / 8 GPU), avec une durée maximale de 2 heures pour 1 GPU ou 30 minutes pour 8 GPU."
     },
     {
-      "question": "Quelles sont les limites pour les tâches de test ou de débogage avec GPU sur la grappe Trillium?",
-      "answer": "Pour les tâches de test ou de débogage avec GPU sur Trillium, la limite de tâches en cours est de 1 et la limite pour les tâches soumises et en cours est aussi de 1. La plus petite taille de tâche est de 1/4 de nœud (24 cœurs / 1 GPU), et la plus grande taille est de 2 nœuds (192 cœurs / 8 GPU). Le temps d'exécution maximal est de 2 heures pour 1 GPU et de 30 minutes pour 8 GPU."
+      "question": "Quelles sont les meilleures pratiques à suivre pour soumettre et optimiser des tâches qui utilisent des GPU sur la grappe Trillium?",
+      "answer": "Pour optimiser les tâches GPU sur Trillium, il est recommandé de ne pas spécifier l'option `--mem` dans vos scripts, car la mémoire est fixe (192 GiB par GPU ou 768 GiB par nœud). Il faut toujours indiquer le nombre de nœuds et utiliser `--gpus-per-node=4` pour les tâches sur un nœud entier ou sur plusieurs nœuds. Chargez seulement les modules logiciels nécessaires et soyez explicite quant aux versions (par exemple, `cuda/12.6` au lieu de `cuda` générique) pour assurer la reproductibilité. Il est aussi conseillé de tester votre code sur un seul GPU avant de l'étendre à plusieurs GPU ou nœuds, et de surveiller l'utilisation avec la commande `nvidia-smi` pour garantir une pleine utilisation des GPU."
     },
     {
-      "question": "Quels sont les facteurs qui peuvent influencer le temps d'attente d'une tâche dans la file d'attente GPU?",
-      "answer": "Le temps d'attente d'une tâche dans la file d'attente GPU dépend de plusieurs facteurs, comme la taille des ressources allouées pour votre groupe, la quantité d'allocation utilisée récemment, le nombre de nœuds et le temps d'exécution que vous avez demandés, ainsi que le nombre total de tâches en attente."
-    },
-    {
-      "question": "Comment peut-on demander un nombre spécifique de GPU sur la sous-grappe de GPU de Trillium?",
-      "answer": "Sur Trillium, on peut demander soit un seul GPU, soit un multiple de quatre GPU. On ne peut pas demander 2 ou 3 GPU par nœud."
-    },
-    {
-      "question": "Est-ce que la technologie NVIDIA MIG est supportée sur Trillium pour les GPU?",
-      "answer": "Non, Trillium ne supporte pas la technologie MIG de NVIDIA pour allouer une fraction d'un GPU."
-    },
-    {
-      "question": "Comment est-il possible de partager un GPU entre plusieurs processus sur Trillium?",
-      "answer": "On peut utiliser le service MPS (Multi-Process Service) de NVIDIA dans ses tâches pour partager un GPU entre les processus exécutés."
-    },
-    {
-      "question": "Quelle est la commande Slurm à utiliser pour demander un seul GPU dans un script de tâche?",
-      "answer": "Pour une tâche avec un seul GPU, on utilise la commande `--gpus-per-node=1` dans le script Slurm."
-    },
-    {
-      "question": "Quelle est la commande Slurm à utiliser pour demander un nœud GPU entier dans un script de tâche?",
-      "answer": "Pour une tâche avec un nœud GPU entier, on utilise la commande `--gpus-per-node=4` dans le script Slurm."
-    },
-    {
-      "question": "Comment spécifier le nom d'une tâche et le fichier de sortie dans un script de tâche GPU?",
-      "answer": "On utilise `#SBATCH --job-name=nom_de_la_tache` pour le nom de la tâche et `#SBATCH --output=fichier_de_sortie_%j.out` pour le fichier de sortie, où `%j` est l'identifiant de la tâche."
-    },
-    {
-      "question": "Pourquoi ne devrait-on pas utiliser l'option `--mem` dans les scripts de tâches GPU sur Trillium?",
-      "answer": "Il ne faut pas utiliser `--mem` parce que la mémoire est fixe sur Trillium : 192GB par GPU ou 768GB par nœud. L'ordonnanceur alloue automatiquement la mémoire."
-    },
-    {
-      "question": "Quelles sont les meilleures pratiques pour spécifier les ressources de nœud et de GPU dans un script de tâche GPU?",
-      "answer": "Il faut toujours indiquer le nombre de nœuds (`--nodes`) et utiliser `--gpus-per-node=4` pour les tâches sur un nœud entier ou sur plusieurs nœuds."
-    },
-    {
-      "question": "Comment assurer la reproductibilité des tâches GPU en ce qui concerne les versions de logiciels?",
-      "answer": "Pour une meilleure reproductibilité, il faut être explicite quant aux versions des logiciels, par exemple en utilisant `cuda/12.6` plutôt que simplement `cuda`."
-    },
-    {
-      "question": "Quelle est une bonne pratique avant de faire rouler des tâches sur plusieurs GPU ou nœuds?",
-      "answer": "Il est recommandé de tester le code sur un seul GPU avant de passer à des tâches avec plusieurs GPU ou nœuds."
-    },
-    {
-      "question": "Quelle commande peut-on utiliser pour surveiller l'utilisation d'un GPU sur un nœud GPU?",
-      "answer": "La commande `nvidia-smi` peut être utilisée pour vérifier l'état d'un GPU et surveiller son utilisation."
-    },
-    {
-      "question": "Comment voir toutes les tâches dans la file d'attente Slurm?",
-      "answer": "On utilise la commande `squeue` pour voir toutes les tâches dans la file. Pour voir seulement ses propres tâches, on peut utiliser `squeue -u $USER`."
-    },
-    {
-      "question": "Comment obtenir une estimation du temps de démarrage d'une tâche en attente?",
-      "answer": "La commande `squeue --start -j JOBID` donne une estimation du moment où une tâche en attente devrait démarrer. Il est important de noter que cette estimation est souvent inexacte et peut varier."
-    },
-    {
-      "question": "Comment annuler une tâche qui a déjà été soumise à l'ordonnanceur?",
-      "answer": "On peut annuler une tâche déjà soumise en utilisant la commande `scancel JOBID`."
-    },
-    {
-      "question": "Quelle commande permet de suivre l'utilisation en temps réel du CPU et de la mémoire pour une tâche en cours?",
-      "answer": "La commande `jobperf JOBID` permet de produire un instantané en temps réel de l'utilisation du CPU et de la mémoire pendant qu'une tâche est exécutée."
-    },
-    {
-      "question": "Comment afficher les informations sur les tâches passées, comme le temps de démarrage ou l'utilisation des nœuds?",
-      "answer": "La commande `sacct` affiche des informations sur les tâches passées, y compris l'heure de début, l'heure d'exécution, l'utilisation du nœud et l'état de sortie."
+      "question": "Comment un utilisateur peut-il surveiller l'état et les performances de ses tâches GPU après les avoir soumises à la file d'attente de Trillium?",
+      "answer": "Pour suivre l'état de vos tâches GPU sur Trillium, vous pouvez utiliser plusieurs commandes SLURM. `squeue` vous montre les tâches en file d'attente (ajoutez `-u $USER` pour voir les vôtres), tandis que `squeue -j JOBID` affiche le statut d'une tâche spécifique. Pour avoir une idée du temps de démarrage d'une tâche en attente, utilisez `squeue --start -j JOBID`. Pour annuler une tâche, c'est `scancel JOBID`. Pour un suivi en temps réel de l'utilisation du CPU et de la mémoire d'une tâche en cours, utilisez `jobperf JOBID`. Et pour vérifier spécifiquement l'état et l'utilisation des GPU sur un nœud GPU, la commande `nvidia-smi` est très utile. Finalement, `sacct` permet de consulter les informations sur les tâches terminées."
     }
   ],
-  "generated_at": "2026-04-12T09:51:40.415854+00:00"
+  "generated_at": "2026-04-13T15:00:35.733033+00:00"
 }

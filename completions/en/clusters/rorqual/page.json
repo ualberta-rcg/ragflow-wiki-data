@@ -3,93 +3,81 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Rorqual?",
-      "answer": "Rorqual is a heterogeneous and versatile cluster designed for a wide variety of scientific calculations, built by Dell Canada and CDW Canada."
+      "question": "What is the Rorqual cluster, and what is its primary purpose?",
+      "answer": "The Rorqual cluster is a heterogeneous and versatile system designed for a wide variety of scientific calculations."
     },
     {
-      "question": "Where is the Rorqual cluster located?",
-      "answer": "The Rorqual cluster is located at the École de technologie supérieure in Montreal."
+      "question": "Where is the Rorqual cluster located, and when was it made available?",
+      "answer": "The Rorqual cluster is located at the École de technologie supérieure in Montreal and became available on June 19, 2025."
     },
     {
-      "question": "When is Rorqual scheduled to be available?",
-      "answer": "Rorqual is available starting June 19, 2025."
+      "question": "How does a researcher request access to the Rorqual cluster?",
+      "answer": "Researchers must request access in CCDB by selecting 'Rorqual' from the list, choosing 'I request access,' and accepting the required agreements."
     },
     {
-      "question": "How do researchers request access to Rorqual?",
-      "answer": "Researchers must request access in CCDB via Resources--> Access Systems, select 'Rorqual' from the list, select 'I request access,' and accept the required agreements."
+      "question": "What agreements must a researcher accept when requesting access to the Rorqual cluster?",
+      "answer": "Researchers must accept the Calcul Québec Consent for the collection and use of personal information, the Rorqual Service Level Agreement, and the Calcul Québec Terms of Use."
     },
     {
-      "question": "What is the login node for Rorqual?",
-      "answer": "The login node for Rorqual is rorqual.alliancecan.ca."
+      "question": "How long does it typically take for access to the Rorqual cluster to be enabled after a request?",
+      "answer": "It can take up to one hour for access to the Rorqual cluster to be enabled."
     },
     {
-      "question": "What node should be used for data transfers like rsync or scp?",
-      "answer": "The data transfer node is rorqual.alliancecan.ca, which is also the login node."
-    },
-    {
-      "question": "What is the automation node for Rorqual?",
-      "answer": "The automation node for Rorqual is robot.rorqual.alliancecan.ca."
-    },
-    {
-      "question": "Are Rorqual's compute nodes able to access the internet?",
+      "question": "Can compute nodes on the Rorqual cluster access the internet?",
       "answer": "No, Rorqual's compute nodes cannot access the internet unless an exception is granted by technical support."
     },
     {
-      "question": "Is the `crontab` tool available on Rorqual?",
-      "answer": "No, the `crontab` tool is not offered on Rorqual."
+      "question": "What are the minimum and maximum duration limits for jobs on the Rorqual cluster, and how many jobs can a user have at once?",
+      "answer": "Each job should have a duration of at least one hour (five minutes for test jobs) and a maximum duration of 7 days (168 hours). Users cannot have more than 1000 jobs, running or queued, at any given moment."
     },
     {
-      "question": "What are the job duration limits on Rorqual?",
-      "answer": "Each job should have a duration of at least one hour (five minutes for test jobs), and the maximum duration is 7 days (168 hours)."
+      "question": "What are the three main storage types available on the Rorqual cluster, and what is each designed for?",
+      "answer": "The three main storage types are HOME (small personal space with daily backup), SCRATCH (large temporary space for computations with no backup and automatic purging), and PROJECT (large shared space for research groups with daily backup)."
     },
     {
-      "question": "What is the maximum number of jobs a user can have running or queued on Rorqual?",
-      "answer": "Users cannot have more than 1000 jobs, running or queued, at any given moment."
+      "question": "Which tools should be used for transferring data to and from the Rorqual cluster, and where should they be used?",
+      "answer": "For transferring data via Globus, use the specified Globus collection endpoint; for tools like rsync and scp, use the login node."
     },
     {
-      "question": "Describe the HOME storage space on Rorqual.",
-      "answer": "HOME is a 116 TB Lustre filesystem with small per-user quotas and daily automatic backups, designed for small storage needs."
+      "question": "How many cores do the main CPU nodes on the Rorqual cluster have, and which processor model is used?",
+      "answer": "The main CPU nodes on the Rorqual cluster have 192 cores and use two AMD EPYC 9654 (Zen 4) processors."
     },
     {
-      "question": "Describe the SCRATCH storage space on Rorqual.",
-      "answer": "SCRATCH is a 6.5 PB Lustre filesystem, accessible via `$HOME/links/scratch`, for temporary files during computations, with large per-user quotas but no backup system and automatic purging of older files."
+      "question": "What is recommended for optimizing performance for multithreaded parallel programs on Rorqual's CPU nodes, considering their topology?",
+      "answer": "To fully benefit from the CPU node topology, reserving full nodes (e.g., with `--ntasks-per-node=24 --cpus-per-task=8`) and explicitly controlling the placement of processes and threads is recommended."
     },
     {
-      "question": "Describe the PROJECT storage space on Rorqual.",
-      "answer": "PROJECT is a 62 PB Lustre filesystem, accessible via `$HOME/links/projects/nom-du-projet`, designed for sharing data among research group members and storing large amounts of data, with large, adjustable per-group quotas and daily backups."
+      "question": "What type and quantity of GPUs are available on the Rorqual cluster's GPU nodes?",
+      "answer": "The GPU nodes on the Rorqual cluster are equipped with four NVidia H100 SXM5 (80GB) accelerators per node, connected via NVLink."
     },
     {
-      "question": "What type of high-performance interconnect does Rorqual use?",
-      "answer": "Rorqual uses an InfiniBand interconnect with HDR 200Gb/s speeds."
+      "question": "How would a user request a single full H100-80gb GPU for a compute job on Rorqual using Slurm?",
+      "answer": "To request a single full H100-80gb GPU, a user would use the Slurm option `--gpus=h100:1` or `--gpus=h100_80gb:1`."
     },
     {
-      "question": "What CPUs are used in the main Rorqual compute nodes?",
-      "answer": "The main Rorqual compute nodes use 2 x AMD EPYC 9654 (Zen 4) @ 2.40 GHz processors."
+      "question": "Does the Rorqual cluster support Multi-Instance GPU (MIG) technology, and if so, what instance sizes are available for H100 GPUs?",
+      "answer": "Yes, approximately half of the GPU nodes support MIG technology, with available H100 instance sizes being H100-1g.10gb, H100-2g.20gb, and H100-3g.40gb."
     },
     {
-      "question": "What GPUs are available in the Rorqual GPU nodes?",
-      "answer": "The Rorqual GPU nodes are equipped with 4 x NVidia H100 SXM5 (80GB) GPUs, connected via NVLink."
+      "question": "What Slurm option would a user employ to request an H100-2g.20gb MIG instance for a job on Rorqual?",
+      "answer": "To request an H100-2g.20gb MIG instance, the Slurm option `--gpus=h100_2g.20gb:1` should be used."
     },
     {
-      "question": "How can one request a larger `$SLURM_TMPDIR` space for a job?",
-      "answer": "A larger `$SLURM_TMPDIR` space can be requested by submitting a job with `--tmp=xG`, where `x` is a value between 370 and 3360."
+      "question": "What is the URL for accessing JupyterHub on the Rorqual cluster?",
+      "answer": "JupyterHub on the Rorqual cluster can be accessed at jupyterhub.rorqual.alliancecan.ca."
     },
     {
-      "question": "What is the recommended Slurm option for running multithreaded parallel programs on CPU nodes to benefit from the topology?",
-      "answer": "For multithreaded parallel programs, it's recommended to use `--cpus-per-task=8` and to reserve full nodes with options like `--ntasks-per-node=24 --cpus-per-task=8`."
+      "question": "What is the address of the automation node for use in the context of multifactor authentication on the Rorqual cluster?",
+      "answer": "The automation node for multifactor authentication on the Rorqual cluster is robot.rorqual.alliancecan.ca."
     },
     {
-      "question": "Are Multi-Instance GPU (MIG) instances available on Rorqual?",
-      "answer": "Yes, approximately half of the GPU nodes are configured with MIG technology, offering H100-1g.10gb, H100-2g.20gb, and H100-3g.40gb instances."
+      "question": "What is the login node address for the Rorqual cluster?",
+      "answer": "The login node for the Rorqual cluster is rorqual.alliancecan.ca."
     },
     {
-      "question": "How do you request a single full H100 GPU using Slurm options?",
-      "answer": "You can request a single full H100 GPU using `--gpus=h100:1` or `--gpus=h100_80gb:1`."
-    },
-    {
-      "question": "How do you request a specific H100-2g.20gb MIG instance for a compute job?",
-      "answer": "You request a specific H100-2g.20gb MIG instance using the Slurm option `--gpus=h100_2g.20gb:1`."
+      "question": "How can a user request a larger `$SLURM_TMPDIR` space for a job on the Rorqual cluster?",
+      "answer": "A user can request a larger `$SLURM_TMPDIR` space by submitting a job with `--tmp=xG`, where `x` is a value between 370 and 3360."
     }
   ],
-  "generated_at": "2026-04-12T07:02:38.000160+00:00"
+  "generated_at": "2026-04-13T12:45:47.415599+00:00"
 }

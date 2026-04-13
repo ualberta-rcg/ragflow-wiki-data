@@ -4,65 +4,13 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "What are the required module loads for the Fluent multinode (by core) OpenMPI script on Narval?",
-      "answer": "The Fluent multinode (by core) OpenMPI script for Narval requires loading `StdEnv/2023` and `ansys/2023R2` (or newer versions)."
+      "question": "How do users launch a Fluent multinode job on the Narval cluster using OpenMPI?",
+      "answer": "To launch a Fluent multinode job on the Narval cluster with OpenMPI, users must load the `StdEnv/2023` and `ansys/2023R2` (or newer) modules. The `OPENMPI_ROOT` environment variable needs to be explicitly exported. The job script then generates a machine file using `slurm_hl2hl.py --format ANSYS-FLUENT`, which is subsequently passed to the `fluent` command via the `-mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID` options."
     },
     {
-      "question": "How is the `OPENMPI_ROOT` environment variable configured in the Fluent multinode (by core) script for Narval?",
-      "answer": "The `OPENMPI_ROOT` environment variable is configured by exporting `OPENMPI_ROOT=$EBROOTOPENMPI` in the Fluent multinode (by core) script for Narval."
-    },
-    {
-      "question": "How is the `machinefile` generated for a Fluent multinode (by core) OpenMPI job on Narval?",
-      "answer": "For a Fluent multinode (by core) OpenMPI job on Narval, the `machinefile` is generated in two steps: first, `slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/mf-$SLURM_JOB_ID` is run, and then `for i in `cat /tmp/mf-$SLURM_JOB_ID {{!}} uniq`; do echo \"${i}:$(cat /tmp/mf-$SLURM_JOB_ID {{!}} grep $i {{!}} wc -l)\" >> /tmp/machinefile-$SLURM_JOB_ID; done` processes the temporary file to create the final `machinefile`."
-    },
-    {
-      "question": "What Fluent command is used for a single-node run in the Fluent multinode (by core) OpenMPI script on Narval?",
-      "answer": "For a single-node run in the Fluent multinode (by core) OpenMPI script on Narval, the command used is `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pshmem -i $MYJOURNALFILE`."
-    },
-    {
-      "question": "What Fluent command is used for a multi-node run in the Fluent multinode (by core) OpenMPI script on Narval, and what environment variable is set?",
-      "answer": "For a multi-node run in the Fluent multinode (by core) OpenMPI script on Narval, `export FI_PROVIDER=verbs` is set, and the command used is `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
-    },
-    {
-      "question": "What is the recommended maximum number of cores per node for a Fluent multinode (by core) job on Narval?",
-      "answer": "The script specifies `#SBATCH --ntasks=16` as the total number of cores across all nodes, implying that Narval can handle a maximum of 64 cores per node."
-    },
-    {
-      "question": "What memory setting is suggested per CPU for a Fluent multinode (by core) job on Narval?",
-      "answer": "The script suggests `#SBATCH --mem-per-cpu=4G` to specify 4 gigabytes of memory per core."
-    },
-    {
-      "question": "Which Ansys module versions are compatible with Fluent multinode (by node) jobs on Trillium?",
-      "answer": "For Fluent multinode (by node) jobs on Trillium, only `ansys/2025R2.04` or newer versions are compatible."
-    },
-    {
-      "question": "How can license server details be specified directly within a Slurm script for a Fluent multinode (by node) job on Trillium, instead of using the `~/.licenses/ansys.lic` file?",
-      "answer": "License server details can be specified directly in the Slurm script using variables such as `LICSERVER=license1.computecanada.ca`, `FLEXPORT=1055`, and `VENDPORT=1793`."
-    },
-    {
-      "question": "What SSH tunnelling commands are used to establish a connection to the license server from Trillium for a Fluent job?",
-      "answer": "The SSH tunnelling commands used are `ssh tri-gw -fNL $FLEXPORT:$LICSERVER:$FLEXPORT` and `ssh tri-gw -fNL $VENDPORT:$LICSERVER:$VENDPORT`."
-    },
-    {
-      "question": "How are the `ANSYSLMD_LICENSE_FILE` and `ANSYSLI_SERVERS` environment variables exported for a Fluent job on Trillium when using SSH tunnelling?",
-      "answer": "They are exported as `export ANSYSLMD_LICENSE_FILE=$FLEXPORT@localhost` and `export ANSYSLI_SERVERS=$INTEPORT@localhost`."
-    },
-    {
-      "question": "What is the maximum number of cores per node specified as a comment for a Fluent multinode (by node) job on Trillium?",
-      "answer": "The script comment indicates that Trillium supports a maximum of 192 cores per node, although the example `#SBATCH --ntasks-per-node` value is set to 16."
-    },
-    {
-      "question": "How should the current directory be managed when submitting a Fluent multinode (by node) job on Trillium?",
-      "answer": "The script includes `cd $SLURM_SUBMIT_DIR` to ensure the job runs from the directory where it was submitted."
-    },
-    {
-      "question": "What is the purpose of the `#SBATCH --output=slurm-%j.out` directive in the Trillium Fluent script?",
-      "answer": "This directive writes the job's standard output to a file named `slurm-$SLURM_JOB_ID.out`."
-    },
-    {
-      "question": "Should `#SBATCH --mem=0` be uncommented in the Fluent multinode (by node) script for Trillium?",
-      "answer": "No, it should not be uncommented because Trillium uses all memory per node by default."
+      "question": "When submitting a Fluent multinode job on the Trillium cluster, how is the Ansys license server configured within the Slurm script?",
+      "answer": "For Fluent multinode jobs on the Trillium cluster, the Slurm script explicitly defines the `LICSERVER` (e.g., `license1.computecanada.ca`), `FLEXPORT` (e.g., `1055`), and `VENDPORT` (e.g., `1793`). SSH tunnelling is then established to forward these ports to `localhost` using `ssh tri-gw -fNL ...` commands. Finally, the `ANSYSLMD_LICENSE_FILE` and `ANSYSLI_SERVERS` environment variables are set to point to `localhost` with the respective `FLEXPORT` and `INTEPORT` values, ensuring compute nodes can reach the license server."
     }
   ],
-  "generated_at": "2026-04-12T16:36:01.609593+00:00"
+  "generated_at": "2026-04-13T01:41:34.202291+00:00"
 }

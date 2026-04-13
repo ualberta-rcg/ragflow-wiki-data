@@ -4,13 +4,13 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "How should a Python script be run across multiple nodes after activating the virtual environment?",
-      "answer": "To run your script across multiple nodes, you should use the `srun` command, for example: `srun python myscript.py;`."
+      "question": "How are Python virtual environments created and activated for running scripts across multiple nodes in a job submission script?",
+      "answer": "To set up Python virtual environments for multi-node jobs, you first create the virtual environment on each allocated node using an `srun` command that executes `virtualenv --no-download $SLURM_TMPDIR/env` and activates it. Next, you activate the virtual environment only on the main node using `source $SLURM_TMPDIR/env/bin/activate;`. Finally, you use `srun python myscript.py;` to run your Python script, as `srun` exports the current environment, including virtual environment variables."
     },
     {
-      "question": "Which modules are loaded in the provided example multi-node submission script `submit-nnodes-venv.sh`?",
-      "answer": "The example `submit-nnodes-venv.sh` script loads the `StdEnv/2023`, `python/3.11`, and `mpi4py/4.0.3` modules."
+      "question": "Could you provide an example of a Slurm submission script for a multi-node Python job that includes the setup of virtual environments?",
+      "answer": "A multi-node Slurm submission script for Python virtual environments would typically include Slurm directives, module loading, and specific `srun` blocks. An example looks like this: `#!/bin/bash #SBATCH --account=<your account> #SBATCH --time=00:30:00 #SBATCH --nodes=2 #SBATCH --ntasks=2 #SBATCH --mem-per-cpu=2000M module load StdEnv/2023 python/3.11 mpi4py/4.0.3 # create the virtual environment on each node: srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF virtualenv --no-download $SLURM_TMPDIR/env source $SLURM_TMPDIR/env/bin/activate pip install --no-index --upgrade pip pip install --no-index -r requirements.txt EOF # activate only on main node source $SLURM_TMPDIR/env/bin/activate; # srun exports the current env, which contains $VIRTUAL_ENV and $PATH variables srun python myscript-mpi.py;` This script demonstrates creating the virtual environment on each node, then activating it on the main node before running the Python script with `srun`."
     }
   ],
-  "generated_at": "2026-04-12T18:19:29.556199+00:00"
+  "generated_at": "2026-04-13T11:49:04.895042+00:00"
 }

@@ -3,57 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Pourquoi est-ce qu'on recommande fortement de faire des copies de sauvegarde de nos instances dans le nuage?",
-      "answer": "Il est fortement recommandé de créer des copies de sauvegarde à l’extérieur du nuage pour rétablir la situation en cas de problème, le choix de la stratégie dépend des exigences spécifiques de l'utilisateur."
+      "question": "Pourquoi est-il important de faire des copies de sauvegarde pour une instance dans le nuage et quelle est la règle du 3-2-1?",
+      "answer": "Il est fortement recommandé de créer des copies de sauvegarde à l’extérieur du nuage pour rétablir la situation en cas de problème. La règle du 3-2-1 suggère d'avoir trois copies de vos données sur au moins deux types de médias, avec une copie hors site."
     },
     {
-      "question": "C'est quoi la règle du 3-2-1 en matière de sauvegarde?",
-      "answer": "La règle du 3-2-1 veut que trois copies de vos données soient enregistrées sur au moins deux types de médias et qu’une de ces copies se trouve hors du site."
+      "question": "Quels outils de sauvegarde de fichiers sont mentionnés comme applicables aux instances virtuelles?",
+      "answer": "Plusieurs outils comme rsync, duplicity, borg et restic peuvent être utilisés pour sauvegarder à distance les données d'une instance virtuelle."
     },
     {
-      "question": "Quels outils peuvent être utilisés pour sauvegarder à distance les fichiers d'une instance virtuelle?",
-      "answer": "Des outils comme rsync, duplicity, borg et restic peuvent sauvegarder à distance les données de votre instance."
+      "question": "Comment les outils d'approvisionnement et d'orchestration peuvent-ils aider à automatiser la configuration et la recréation d'instances?",
+      "answer": "Des outils d’approvisionnement comme Ansible, Puppet, Chef et SaltStack peuvent automatiser la configuration des logiciels et du système d’exploitation. Avec Git pour les fichiers de spécification et des outils d'orchestration comme Heat ou Terraform, le processus complet de création et de configuration d'une instance peut être automatisé."
     },
     {
-      "question": "Comment les outils d'approvisionnement aident-ils à recréer une instance?",
-      "answer": "Des outils d’approvisionnement comme Ansible, Puppet, Chef et SaltStack permettent d'automatiser la configuration des logiciels et du système d’exploitation, ce qui facilite la recréation d'une instance avec les fichiers de spécification appropriés."
+      "question": "Quelles sont les deux options de stockage offertes par OpenStack et quand devraient-elles être utilisées?",
+      "answer": "OpenStack offre le stockage dans un volume avec triple réplication, qui protège contre les problèmes matériels mais pas les suppressions involontaires, et le stockage éphémère sur un nœud local, qui est temporaire et ne devrait pas être utilisé pour des données critiques."
     },
     {
-      "question": "Quelles sont les deux options de stockage offertes par OpenStack et leurs particularités?",
-      "answer": "OpenStack offre le stockage dans un volume avec triple réplication, qui protège contre les problèmes de matériel mais pas les suppressions, et le stockage éphémère sur un nœud local, aussi protégé contre les problèmes de matériel mais non recommandé pour les données critiques et utilisé temporairement."
+      "question": "Quelle est la méthode recommandée pour créer une copie de sauvegarde d'une instance persistante, et qu'est-ce que cela n'inclut pas?",
+      "answer": "La meilleure manière est de créer une image du ou des volumes associés à l’instance, car les instances persistantes sont conçues pour être démarrées depuis un volume. Cependant, ceci n'inclut pas le gabarit de l'instance, son IP publique et ses règles de sécurité."
     },
     {
-      "question": "Quelle est la meilleure façon de faire une copie de sauvegarde d'un volume pour une instance persistante?",
-      "answer": "La meilleure manière de créer une copie de sauvegarde d’un volume est de créer une image de ce volume."
+      "question": "Quelles sont les considérations importantes lorsqu'on crée une image depuis un volume racine pour une instance persistante?",
+      "answer": "Pour créer une image depuis un volume, celui-ci doit être détaché de l’instance. Si c'est le volume racine, l'instance doit être supprimée, en s'assurant de ne pas avoir coché 'Supprimer le volume lors de la suppression de l'instance', ou en créant un instantané du volume pour éviter sa suppression."
     },
     {
-      "question": "Quelles sont les conditions pour créer une image à partir d'un volume dans OpenStack?",
-      "answer": "Le volume doit être détaché de l’instance, et si c'est le volume racine, l'instance doit être supprimée (sans cocher 'Supprimer le volume lors de la suppression de l'instance') ou un instantané du volume doit être créé."
+      "question": "Quel format d'image est recommandé avec OpenStack et quels sont les autres formats utiles?",
+      "answer": "Le format QCOW2 est recommandé avec OpenStack car il est efficace et prend généralement moins d'espace. Les formats VMDK et VDI sont utiles pour travailler avec d'autres outils de visualisation comme VirtualBox."
     },
     {
-      "question": "Quel format d'image est recommandé pour OpenStack et pourquoi?",
-      "answer": "Le format QCOW2 est recommandé car il fonctionne bien avec OpenStack et prend typiquement moins d’espace que les images de format 'Raw'."
+      "question": "Qu'est-ce qu'un instantané de volume et pourquoi n'est-il pas considéré comme une solution de sauvegarde idéale?",
+      "answer": "Un instantané de volume permet de conserver son état actuel. Ce n'est pas une solution de sauvegarde idéale car il ne peut pas être téléchargé et dépend du volume original."
     },
     {
-      "question": "Est-ce qu'un instantané de volume est une solution de sauvegarde idéale? Pourquoi?",
-      "answer": "Non, ce n’est pas une solution de sauvegarde idéale parce que l'instantané dépend du volume original et ne peut pas être téléchargé."
+      "question": "Comment un instantané d'instance se comporte-t-il pour une instance persistante et comment peut-on l'utiliser?",
+      "answer": "Pour une instance persistante, un instantané d'instance crée une image quasi vide contenant des pointeurs vers les instantanés des volumes de démarrage et autres volumes. On peut ensuite créer une nouvelle instance à partir de cette image, ce qui génère de nouveaux volumes à partir de ces instantanés."
     },
     {
-      "question": "Comment crée-t-on une image du disque racine pour une instance de calcul?",
-      "answer": "Pour une instance de calcul, on doit cliquer sur 'Créer un instantané' dans l'onglet 'Vue d'ensemble' de l'instance, ce qui crée une image contenant une copie du disque racine."
+      "question": "Comment la procédure de création d'une image diffère-t-elle pour les instances de calcul par rapport aux instances persistantes?",
+      "answer": "Pour les instances de calcul, qui démarrent depuis des images de disque sur le nœud local, il n'y a pas de volume cliquable dans le tableau de bord OpenStack. Pour créer l'image du disque racine, il faut cliquer sur 'Créer un instantané' dans l'onglet 'Vue d'ensemble' de l'instance."
     },
     {
-      "question": "Que doit-on faire pour sauvegarder les données du disque <code>/mnt</code> d'une instance de calcul?",
-      "answer": "Ces données ne font pas partie de l’image de l’instance; il faut donc les copier du disque avant que l’instance ne soit terminée, par exemple, en utilisant une méthode de sauvegarde de fichiers."
+      "question": "Comment faut-il gérer la sauvegarde des données sur le disque de données supplémentaire monté sur <code>/mnt</code> pour les instances de calcul?",
+      "answer": "Les données du disque monté sur <code>/mnt</code> dans les instances de calcul ne font pas partie de l'image de l'instance. Il faut les sauvegarder autrement, par exemple en les copiant du disque avant que l'instance ne soit terminée."
     },
     {
-      "question": "C'est quoi une bonne stratégie de sauvegarde quand on gère de gros jeux de données?",
-      "answer": "Une bonne stratégie est d’isoler les grands jeux de données du système d’exploitation et des logiciels, en sauvegardant le système d'exploitation et les logiciels avec une image ou via une application d'approvisionnement, et en copiant les jeux de données vers un endroit distant."
+      "question": "Quelle est une bonne stratégie pour sauvegarder de grandes instances en isolant les jeux de données volumineux?",
+      "answer": "Une bonne stratégie consiste à isoler les grands jeux de données du système d'exploitation et des logiciels. Le système d'exploitation et les logiciels peuvent être sauvegardés via une image ou recréés automatiquement, tandis que les jeux de données sont copiés vers un emplacement distant."
     },
     {
-      "question": "Quelle étape est cruciale après la mise en place d'une stratégie de sauvegarde?",
-      "answer": "Il est crucial d'effectuer des tests pour vérifier si vos copies de sauvegarde ont bien restauré ce qui était requis."
+      "question": "Quelle précaution faut-il prendre lors de la sauvegarde de bases de données comme MySQL ou PostgreSQL?",
+      "answer": "Il est important de vider les bases de données (faire un dump) en y incluant la sauvegarde pour s'assurer de l'intégrité des données."
+    },
+    {
+      "question": "Pourquoi est-il essentiel d'effectuer des tests après avoir créé des copies de sauvegarde?",
+      "answer": "Il est essentiel d'effectuer des tests pour vérifier que les copies de sauvegarde peuvent restaurer correctement ce qui était requis, afin de garantir leur fiabilité en cas de besoin."
     }
   ],
-  "generated_at": "2026-04-11T18:31:17.531197+00:00"
+  "generated_at": "2026-04-13T02:57:32.149455+00:00"
 }

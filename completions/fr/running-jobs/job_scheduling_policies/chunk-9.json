@@ -4,49 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "Y a-t-il des tâches qui demandent un nœud de type « large » et une durée d'exécution de 3 heures ou moins qui sont présentement en attente ou en cours d'exécution?",
-      "answer": "Non, d'après les informations fournies dans l'exemple, aucune tâche en attente ou en cours d'exécution ne demande un nœud de type « large » avec une durée d'exécution de 3 heures ou moins."
+      "question": "Comment sont structurées les partitions sur les grappes de calcul en ce qui concerne la durée maximale des tâches ?",
+      "answer": "Les partitions sont organisées un peu comme des poupées russes. Cela signifie que la partition pour une durée de 3 heures contient un sous-ensemble de nœuds pour la partition de 12 heures, qui elle-même contient un sous-ensemble de nœuds pour la partition de 24 heures, et ainsi de suite. En somme, les tâches plus courtes ont accès à plus de ressources."
     },
     {
-      "question": "Combien de nœuds de type « base » (régulier) sont disponibles pour les tâches qui nécessitent des nœuds entiers et ont une durée d'exécution maximale de 3 heures ou moins?",
-      "answer": "Il y a 871 nœuds de type « base » (appelés ici « regular ») qui peuvent recevoir des tâches sur des nœuds entiers d'une durée de 3 heures ou moins."
+      "question": "Quelles informations l'utilitaire `partition-stats` fournit-il sur l'état des grappes, et quelles sont ses limitations ?",
+      "answer": "L'utilitaire `partition-stats` affiche le nombre de tâches en attente, en cours d'exécution, ainsi que le nombre de nœuds inactifs et le nombre total de nœuds, le tout classé par type de partition (par nœud ou par cœur) et par durée maximale d'exécution. Cependant, il ne donne pas de renseignements sur le nombre de cœurs utilisés ou libres, ni sur la mémoire disponible associée aux cœurs libres. Il exige aussi beaucoup de l'ordonnanceur, donc il ne faut pas l'utiliser de façon répétitive dans les scripts."
     },
     {
-      "question": "Parmi les 871 nœuds de type « base » qui acceptent des tâches sur nœuds entiers de moins de 3 heures, combien peuvent aussi prendre en charge des tâches « par cœur » de la même durée?",
-      "answer": "De ces 871 nœuds, 431 peuvent aussi recevoir des tâches « par cœur » d'une durée de 3 heures ou moins."
-    },
-    {
-      "question": "Combien de nœuds de type « base » peuvent accommoder des tâches sur nœuds entiers dont la durée d'exécution maximale est de 12 heures ou moins?",
-      "answer": "851 nœuds de type « base » peuvent recevoir des tâches sur nœuds entiers d'une durée de moins de 12 heures."
-    },
-    {
-      "question": "Comment les partitions de temps d'exécution sont-elles structurées sur les grappes?",
-      "answer": "Les partitions de temps d'exécution sont organisées un peu comme des poupées russes. La partition pour 3 heures contient un sous-ensemble de nœuds pour la partition pour 12 heures, qui elle-même contient un sous-ensemble de nœuds pour la partition pour 24 heures, et ainsi de suite."
-    },
-    {
-      "question": "Quels sont les types d'informations que l'utilitaire `partition-stats` ne fournit pas?",
-      "answer": "L'utilitaire `partition-stats` ne donne aucun renseignement sur le nombre de cœurs utilisés par les tâches en cours ou en attente, le nombre de cœurs libres dans les partitions par cœur des nœuds partiellement assignés, ni la mémoire disponible associée aux cœurs libres dans les partitions « par cœur »."
-    },
-    {
-      "question": "Y a-t-il des considérations importantes à prendre en compte lorsqu'on utilise l'utilitaire `partition-stats` de manière répétée?",
-      "answer": "Oui, l'exécution de `partition-stats` exige beaucoup de l'ordonnanceur. Il faut éviter de faire des appels automatiques de façon répétitive dans vos scripts. Si vous croyez qu'il serait avantageux de l'utiliser, contactez le soutien technique pour savoir comment procéder."
-    },
-    {
-      "question": "Sur les grappes Narval, Nibi et Rorqual, quelle est la limite du nombre de tâches qu'un compte normal peut avoir en exécution ou en attente en même temps?",
-      "answer": "Sur Narval, Nibi et Rorqual, un compte normal ne peut pas avoir plus de 1000 tâches en exécution ou en attente au même moment."
-    },
-    {
-      "question": "Comment les tâches d'un vecteur de tâches (`Job arrays`) sont-elles comptabilisées par rapport à la limite de tâches simultanées?",
-      "answer": "Dans un vecteur de tâches, chaque tâche individuelle compte pour une seule tâche dans la limite fixée."
-    },
-    {
-      "question": "Quel paramètre Slurm définit la limite maximale du nombre de tâches soumises?",
-      "answer": "Le paramètre Slurm `MaxSubmit` fixe la limite du nombre de tâches soumises."
-    },
-    {
-      "question": "Où peut-on trouver des informations sur les changements aux politiques d'ordonnancement qui pourraient affecter les scripts?",
-      "answer": "La page « Mise à jour de nos politiques d'ordonnancement » liste les changements susceptibles de modifier le résultat de vos scripts."
+      "question": "Y a-t-il une limite au nombre de tâches qu'un compte peut soumettre ou exécuter simultanément sur les grappes Narval, Nibi ou Rorqual ?",
+      "answer": "Oui, sur les grappes Narval, Nibi et Rorqual, un compte normal ne peut pas avoir plus de 1000 tâches en cours d'exécution ou en attente en même temps. Il est important de noter que dans un vecteur de tâches, chacune compte pour une tâche individuelle. Cette limite est fixée par le paramètre Slurm \"MaxSubmit\"."
     }
   ],
-  "generated_at": "2026-04-12T00:21:37.859190+00:00"
+  "generated_at": "2026-04-13T07:35:59.184895+00:00"
 }

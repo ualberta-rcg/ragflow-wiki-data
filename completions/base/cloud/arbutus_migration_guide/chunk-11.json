@@ -4,105 +4,17 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "Whom should I contact if I encounter issues when using Globus for data transfer?",
-      "answer": "If you encounter any issues during the Globus data transfer process, you should contact Technical Support at globus@tech.alliancecan.ca. It is also recommended to submit a support ticket in advance if you have very large volumes to move."
+      "question": "What is the recommended method for transferring small data volumes between a Legacy Arbutus instance and a New Arbutus instance, and what are the general steps involved?",
+      "answer": "For smaller data volumes, `rsync + ssh` is recommended for its transfer speeds and incremental capabilities. The process typically involves SSHing into the Legacy Arbutus instance, noting the absolute path you wish to copy, executing an `rsync` command over SSH (assuming password-less login via SSH keys has been set up), and then verifying the data has been successfully copied on the New Arbutus instance before deleting the data from the Legacy Arbutus Cloud. It's also recommended to consider using the IPv6 GUA network in OpenStack for potentially improved data transfer performance."
     },
     {
-      "question": "What is the recommended method for transferring small data volumes between instances?",
-      "answer": "For smaller volumes, `rsync + ssh` provides good transfer speeds and can work in an incremental way."
+      "question": "What post-transfer configuration activities might be necessary after migrating data to a new instance in the New Arbutus Cloud?",
+      "answer": "After transferring data to a new instance, several post-transfer configurations may be required. These include updating firewall rules for any new IP addresses and networks (if a host-based firewall is used), working with your DNS provider to update DNS entries for custom domains, updating IP addresses in various configuration files (e.g., `/etc/hosts`, `/etc/resolv.conf`, MySQL config), altering usernames in databases like MySQL, renewing Let’s Encrypt TLS certificates if they contain IP addresses, and thoroughly testing the new configuration."
     },
     {
-      "question": "How can I potentially improve data transfer performance when using rsync for migration?",
-      "answer": "When moving data with rsync, consider using the IPv6 GUA network in OpenStack. This network is a VLAN network that bypasses the OpenStack Neutron component, potentially offering improved data transfer performance."
-    },
-    {
-      "question": "What are the typical steps for using rsync over SSH to copy data during migration?",
-      "answer": "A typical use case involves SSHing to the Legacy Arbutus instance, noting the absolute path to copy to the New Arbutus Cloud instance, executing `rsync -avzP -e 'ssh -i ~/.ssh/key.pem' /local/path/ remoteuser@remotehost:/path/to/files/` (assuming password-less login via SSH Keys), verifying the data, and then deleting the data from the Legacy Arbutus Cloud."
-    },
-    {
-      "question": "What activities might be required after transferring data to a new instance?",
-      "answer": "Post-transfer configurations could include updating firewall rules for new IP addresses, working with your DNS provider to update DNS entries, updating IP addresses in configuration files (e.g., /etc/hosts), altering usernames in MySQL, renewing Let’s Encrypt Transport Layer Security (TLS) certificates, and testing the configuration."
-    },
-    {
-      "question": "What should I do once I have completed testing my migrated instance?",
-      "answer": "Once you have finished testing, you should inform your research team and users that the migration has been completed."
-    },
-    {
-      "question": "Is the New Arbutus Cloud CephFS Shared Filesystem automatically migrated?",
-      "answer": "No, the New Arbutus Cloud CephFS Shared Filesystem is a distinct and separate service, and any desired data must be intentionally migrated."
-    },
-    {
-      "question": "Where are legacy and new CephFS shares managed?",
-      "answer": "Share management for legacy shares is controlled through Legacy Arbutus Cloud, while creation and management for shares in New Arbutus Cloud is done exclusively in the new Arbutus Cloud environment."
-    },
-    {
-      "question": "Can both legacy and new CephFS shares be mounted on New Arbutus Cloud virtual machines?",
-      "answer": "Yes, both legacy shares and new shares are able to be mounted on New Arbutus Cloud virtual machines."
-    },
-    {
-      "question": "What is the recommended procedure for migrating data between legacy and new CephFS shares?",
-      "answer": "The recommended procedure is to create an equivalent share in New Arbutus for each legacy share, mount both shares to separate mount locations on the same virtual machine in New Arbutus Cloud, and then use a data copy tool such as `rsync` to transfer the data and ensure data integrity."
-    },
-    {
-      "question": "Where can I find the procedure for mounting legacy CephFS shares?",
-      "answer": "The procedure for mounting legacy shares is unchanged and can be found at: https://docs.alliancecan.ca/wiki/CephFS."
-    },
-    {
-      "question": "What are the key differences when creating an equivalent CephFS share in New Arbutus Cloud?",
-      "answer": "When creating an equivalent share in New Arbutus Cloud, you must use the new Arbutus Cloud web UI for creation and access keys, create a separate `ceph.conf` file (e.g., 'ceph-new.conf'), update the 'mon_host' config value in `ceph-new.conf` to `“134.87.15.61:6789,134.87.15.62:6789,134.87.15.63:6789”`, and include `conf=/etc/ceph/ceph-new.conf` in the mount command after the '-o' option."
-    },
-    {
-      "question": "What rsync command is recommended for transferring data between mounted old and new CephFS shares?",
-      "answer": "The recommended rsync command is `rsync -avp /mnt/old-share/ /mnt/new-share/`, using the `a`, `v`, and `P` flags."
-    },
-    {
-      "question": "What tools are advised for long CephFS data transfers to maintain the session?",
-      "answer": "For long CephFS data transfers, it is advised to use a tool such as `screen` or `tmux` to keep the session alive in case of a dropped connection."
-    },
-    {
-      "question": "Is it necessary to migrate data to the New Arbutus Cloud Object Storage?",
-      "answer": "Yes, New Arbutus Cloud Object Storage is a distinct and separate service from legacy, and any desired data must be intentionally migrated."
-    },
-    {
-      "question": "Where are legacy and new Object Storage buckets and objects managed?",
-      "answer": "The management for legacy buckets and objects is controlled through legacy Arbutus Cloud, while creation and management for buckets and objects in new Arbutus Cloud is done exclusively in the new Arbutus Cloud environment."
-    },
-    {
-      "question": "What is the endpoint for the New Arbutus Cloud Object Storage?",
-      "answer": "The New Arbutus Cloud Object Storage Endpoint is `https://object-arbutus.alliancecan.ca`."
-    },
-    {
-      "question": "What is the endpoint for the Legacy Arbutus Cloud Object Storage?",
-      "answer": "The Legacy Arbutus Cloud Object Storage Endpoint is `https://object-arbutus.cloud.computecanada.ca`."
-    },
-    {
-      "question": "What caution should be exercised regarding bucket ACLs when migrating Object Storage data?",
-      "answer": "You should be cautious if you’re using bucket ACLs that either the tool you use copies them correctly, or you recreate them in the new environment, as most tools do not preserve bucket ACLs. Additionally, any user or project UUIDs referenced will be different in New Arbutus Cloud."
-    },
-    {
-      "question": "How do tenants affect bucket naming in New Arbutus Cloud Object Storage?",
-      "answer": "New Arbutus Cloud Object Storage uses tenants, so bucket name collisions will only happen within an individual project instead of across all projects in Arbutus."
-    },
-    {
-      "question": "What is the format for the unauthenticated S3 access URL in New Arbutus Cloud Object Storage?",
-      "answer": "The URL for unauthenticated S3 access will be of the format `https://object-arbutus.alliancecan.ca/<tenant-id>:<bucket-name>/<object-name>`."
-    },
-    {
-      "question": "Which tool is recommended for migrating Object Storage data if I am unsure which to use?",
-      "answer": "If you are not sure which tool to use, `rclone` is recommended."
-    },
-    {
-      "question": "Does rclone preserve bucket ACLs during Object Storage migration?",
-      "answer": "No, `rclone` will not copy the bucket ACLs, so all access will initially be defaulted private in the new location."
-    },
-    {
-      "question": "Where is the rclone configuration file typically located on Linux/MacOS?",
-      "answer": "The `rclone` configuration file is typically located at `~/.config/rclone/rclone.conf` on Linux/MacOS."
-    },
-    {
-      "question": "What is the command to sync all buckets using rclone between legacy and new Arbutus Object Storage?",
-      "answer": "The command to sync all buckets with `rclone` is `rclone sync legacy: renewal:`, assuming `legacy` and `renewal` are configured in the `rclone.conf` file with the appropriate access keys and endpoints."
+      "question": "How do you migrate CephFS Shared Filesystem data from Legacy Arbutus Cloud to New Arbutus Cloud, and what are the specific considerations for creating new shares?",
+      "answer": "To migrate CephFS Shared Filesystem data, the recommended procedure involves creating an equivalent share in New Arbutus for each legacy share, mounting both shares to separate locations on the same virtual machine in New Arbutus Cloud, and then using a data copy tool like `rsync` (e.g., `rsync -avp /mnt/old-share/ /mnt/new-share/`) to transfer the data and ensure integrity. When creating new shares, you must use the New Arbutus Cloud web UI, create a separate `ceph.conf` file (e.g., `ceph-new.conf`), update the `mon_host` config value for the new share in this file, and include `conf=/etc/ceph/ceph-new.conf` as an extra value when mounting the new share. For large transfers, using `screen` or `tmux` is advised to maintain the session."
     }
   ],
-  "generated_at": "2026-04-11T17:43:04.730733+00:00"
+  "generated_at": "2026-04-13T02:21:14.039400+00:00"
 }

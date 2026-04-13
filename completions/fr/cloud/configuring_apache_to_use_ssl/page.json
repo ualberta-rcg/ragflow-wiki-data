@@ -3,61 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, le SSL et le TLS, pis à quoi ça sert?",
-      "answer": "Le SSL (Secure Sockets Layer) et le TLS (Transport Layer Security) sont des protocoles qui servent à chiffrer les données qui voyagent sur les réseaux, comme l'Internet, pour les protéger."
+      "question": "Qu'est-ce que le terme SSL représente et à quoi sert-il pour un serveur web?",
+      "answer": "Le terme SSL fait référence aux protocoles Transport Layer Security (TLS) et à son prédécesseur Secure Sockets Layer (SSL), qui servent au chiffrement des données communiquées sur les réseaux pour protéger les informations critiques et empêcher l'interception ou la modification de données."
     },
     {
-      "question": "Pourquoi c'est important de chiffrer les données sur Internet?",
-      "answer": "Le chiffrement protège les informations sensibles comme les mots de passe et empêche aussi une tierce partie d'intercepter ou de modifier des données avant qu'elles arrivent à destination, même si elles ne sont pas sensibles."
+      "question": "Pourquoi le chiffrement des données est-il important pour un serveur web, même pour des informations non sensibles?",
+      "answer": "Le chiffrement protège les données critiques comme les mots de passe. Même pour des informations non sensibles, il empêche une tierce partie d'intercepter et de modifier les données avant qu'elles n'atteignent leur destination."
     },
     {
       "question": "Quels sont les deux types de certificats SSL mentionnés dans le document?",
-      "answer": "Il y a les certificats signés par une tierce partie (une Autorité de certification) et les certificats autosignés."
+      "answer": "Il y a deux types de certificats SSL : les certificats signés par une tierce partie et les certificats autosignés."
     },
     {
-      "question": "Dans quel cas est-ce qu'on devrait utiliser un certificat signé par une tierce partie, pis c'est quoi l'avantage?",
-      "answer": "On devrait l'utiliser pour la plupart des sites ouverts au public. L'avantage, c'est qu'une Autorité de certification (CA) confirme l'identité du site, ce qui prévient les attaques de l'homme du milieu et inspire confiance aux utilisateurs."
+      "question": "Dans quel cas est-il préférable d'utiliser un certificat SSL signé par une tierce partie pour un serveur web?",
+      "answer": "Dans la plupart des cas, vous voudrez un certificat signé par une tierce partie, particulièrement si votre site est ouvert au public, car il assure la validité de votre serveur web."
     },
     {
-      "question": "Quelle Autorité de certification est gratuite et comment peut-on obtenir un certificat avec elle?",
-      "answer": "Let's Encrypt est une Autorité de certification gratuite. On peut créer et renouveler automatiquement ses certificats SSL avec l'outil Certbot, qui configure aussi le serveur web."
+      "question": "Quel est l'avantage principal d'un certificat signé par une Autorité de certification (CA) pour les utilisateurs d'un site web?",
+      "answer": "Un certificat signé par une Autorité de certification (CA) permet aux utilisateurs de s'assurer qu'un tiers confirme l'identité du site, prévenant ainsi les attaques de l'homme du milieu."
     },
     {
-      "question": "Quand est-ce qu'on peut se servir d'un certificat autosigné?",
-      "answer": "Les certificats autosignés sont appropriés pour les tests, pour la production sur des sites restreints à usage local, ou dans un environnement de test, mais pas pour un site de production d'importance ouvert au public."
+      "question": "Quelle organisation permet d'obtenir gratuitement des certificats SSL signés et de les renouveler automatiquement?",
+      "answer": "L'organisation Let's Encrypt permet d'obtenir gratuitement des certificats SSL signés, qui peuvent être créés et renouvelés automatiquement."
     },
     {
-      "question": "Une fois que le serveur web est configuré avec un certificat, quel outil est recommandé pour vérifier sa sécurité?",
-      "answer": "L'outil ssltest de ssllabs.com est recommandé pour suggérer des modifications afin de renforcer la sécurité de la configuration."
+      "question": "Quel est l'outil recommandé pour créer et renouveler automatiquement un certificat Let's Encrypt et configurer le serveur web?",
+      "answer": "L'outil Certbot est recommandé pour créer et renouveler automatiquement un certificat SSL Let's Encrypt et configurer aussi votre serveur web pour son utilisation."
     },
     {
-      "question": "Quelle est la première étape pour créer un certificat SSL autosigné et configurer Apache sous Ubuntu?",
-      "answer": "Il faut installer Apache si ce n'est pas déjà fait, puis activer le module SSL en utilisant les commandes `sudo a2enmod ssl` et `sudo service apache2 restart`."
+      "question": "Quel port TCP doit être ouvert pour que Certbot puisse se connecter au site si on le configure via Apache?",
+      "answer": "Le port 443 (TCP ingress) doit être ouvert pour que Certbot puisse se connecter au site lors d'une configuration via Apache."
     },
     {
-      "question": "Quelle commande est utilisée pour créer un certificat SSL autosigné sous Ubuntu?",
+      "question": "Dans quels contextes est-il approprié d'utiliser un certificat SSL autosigné pour un serveur web?",
+      "answer": "Les certificats autosignés conviennent à la production sur des sites restreints à usage local, ou encore dans un environnement de test, mais non sur un site de production d'importance ouvert au public."
+    },
+    {
+      "question": "Quel est l'inconvénient majeur d'un certificat SSL autosigné pour un site public?",
+      "answer": "Avec un certificat autosigné, aucune tierce partie ne confirme la validité de votre serveur web, et un avertissement sera affiché quand les utilisateurs voudront s'y connecter."
+    },
+    {
+      "question": "Quelle est la première étape pour configurer un certificat SSL autosigné avec Apache sur Ubuntu?",
+      "answer": "La première étape est d'activer le module SSL d'Apache en utilisant la commande `sudo a2enmod ssl`, suivie d'un redémarrage du service Apache."
+    },
+    {
+      "question": "Quelle commande OpenSSL est utilisée pour créer un certificat SSL autosigné d'une durée d'un an sur Ubuntu?",
       "answer": "La commande est `sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/server.key -out /etc/ssl/certs/server.crt`."
     },
     {
-      "question": "Quelles informations sont importantes à fournir quand on crée un certificat autosigné avec `openssl`?",
-      "answer": "Le 'Common Name' est le plus important; c'est le nom de domaine de votre serveur. Pour une machine virtuelle sur un nuage, il faut remplacer les X par l'adresse IP flottante associée à la machine virtuelle."
+      "question": "Quel est le champ le plus important à remplir lors de la création d'un certificat autosigné avec `openssl req`?",
+      "answer": "Le champ le plus important à remplir est le «Common Name» (nom commun), qui doit être le nom de domaine de votre serveur ou l'adresse IP flottante pour une machine virtuelle sur un nuage."
     },
     {
-      "question": "Comment on fait pour configurer Apache afin qu'il se serve du nouveau certificat autosigné?",
-      "answer": "Il faut modifier le fichier `/etc/apache2/sites-available/default-ssl.conf` et remplacer les lignes `SSLCertificateFile` et `SSLCertificateKeyFile` par les chemins de votre nouveau certificat (`/etc/ssl/certs/server.crt` et `/etc/ssl/private/server.key`), et ajouter `SSLCertificateChainFile /etc/ssl/certs/server.crt`."
+      "question": "Comment peut-on renforcer la sécurité d'un serveur web Apache après avoir configuré un certificat SSL, selon le document?",
+      "answer": "Pour renforcer la sécurité, on peut rediriger les requêtes HTTP vers HTTPS, exiger des versions plus à jour de SSL (`SSLProtocol all -SSLv2 -SSLv3`) et utiliser de meilleures options de chiffrement (`SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5:!SEED:!IDEA:!RC4`)."
     },
     {
-      "question": "C'est quoi les étapes pour renforcer la sécurité et rediriger le trafic HTTP vers HTTPS avec Apache?",
-      "answer": "Il faut modifier le fichier `/etc/apache2/sites-available/default-ssl.conf` pour définir `ServerName`, `SSLProtocol`, `SSLCipherSuite` et `SSLHonorCipherOrder`. Ensuite, on modifie `/etc/apache2/sites-available/000-default.conf` pour ajouter une redirection permanente de HTTP vers HTTPS."
+      "question": "Quelle commande permet d'activer le site sécurisé par défaut dans Apache et de redémarrer le service?",
+      "answer": "Les commandes sont `sudo a2ensite default-ssl.conf` suivies de `sudo service apache2 restart`."
     },
     {
-      "question": "Comment on fait pour activer le site sécurisé après avoir fait toutes les configurations?",
-      "answer": "On utilise les commandes `sudo a2ensite default-ssl.conf` et `sudo service apache2 restart`."
-    },
-    {
-      "question": "Quand on configure Certbot via Apache, quel port faut-il ouvrir?",
-      "answer": "Il faut ouvrir le port 443 (TCP ingress) pour que Certbot puisse se connecter au site."
+      "question": "Quel outil en ligne est recommandé pour évaluer la configuration SSL de son serveur web et identifier des améliorations?",
+      "answer": "L'outil ssltest de ssllabs est recommandé pour suggérer des modifications à votre configuration afin de renforcer la sécurité."
     }
   ],
-  "generated_at": "2026-04-11T20:20:28.198816+00:00"
+  "generated_at": "2026-04-13T04:23:50.066890+00:00"
 }

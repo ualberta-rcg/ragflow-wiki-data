@@ -3,45 +3,53 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Why are checkpoints recommended for long-running programs on clusters?",
-      "answer": "Checkpoints are recommended because program execution can be too long for submission system limits, system reliability is unpredictable, and they help minimize the loss of computational work by allowing programs to be restarted."
+      "question": "Why are checkpoints important for long-running programs on compute clusters?",
+      "answer": "Checkpoints are important for long-running programs on compute clusters to minimize the risk of losing weeks of computation time due to system interruptions and to allow for program restarts."
     },
     {
-      "question": "What is the suggested frequency for creating checkpoint files?",
-      "answer": "It is suggested to create checkpoint files periodically, with periods ranging from 2 to 24 hours."
+      "question": "What is the initial step when considering implementing checkpoints for an application?",
+      "answer": "The initial step is to determine if the application already has built-in checkpointing functionality and, if so, to consult its documentation."
     },
     {
-      "question": "What practices are recommended when writing a checkpoint file to ensure robustness?",
-      "answer": "It is preferable not to overwrite the previous checkpoint, to make the writing atomic, and optionally to delete old checkpoints once the atomic writing is complete."
+      "question": "If an application's source code is available, how frequently should checkpoint files ideally be created?",
+      "answer": "If an application's source code is available, checkpoint files should ideally be created periodically, with a suggested frequency of every 2 to 24 hours."
     },
     {
-      "question": "How can the atomic writing of a checkpoint file be achieved?",
-      "answer": "Atomic writing can be achieved by initially naming the file by date and time, then creating a symbolic link (e.g., 'derniere-version') to the new unique file, or by creating a second file with a hash sum to validate integrity."
+      "question": "What critical aspect should be kept in mind when writing a checkpoint file?",
+      "answer": "When writing a checkpoint file, it is critical to remember that the calculating task can be interrupted at any moment due to technical reasons."
     },
     {
-      "question": "What is DMTCP?",
-      "answer": "DMTCP (Distributed Multithreaded CheckPointing) is software that allows programs to create checkpoints without requiring recompilation."
+      "question": "What is a recommended practice to avoid overwriting the previous checkpoint file when creating a new one?",
+      "answer": "It is recommended not to overwrite the previous checkpoint file, but rather to create a new one to ensure the availability of a functional recovery point."
     },
     {
-      "question": "How do you initiate a program execution with DMTCP?",
-      "answer": "You initiate it using the `dmtcp_launch` command, specifying the time interval between saves."
+      "question": "How can the writing of a checkpoint file be made 'atomic' to confirm its completion and integrity?",
+      "answer": "To make checkpoint file writing 'atomic', one can initially name the file based on the date and time, then create a symbolic link (e.g., 'derniere-version') to the new unique file, or create a second file containing a hash sum to validate its integrity."
     },
     {
-      "question": "How is a program restarted from a DMTCP checkpoint?",
-      "answer": "A program is restarted by executing the `dmtcp_restart_script.sh` script."
+      "question": "What is DMTCP, and what is its primary benefit for managing long-running programs?",
+      "answer": "DMTCP (Distributed Multithreaded CheckPointing) is software that enables checkpointing of programs without requiring recompilation, which is its primary benefit."
     },
     {
-      "question": "Can the location for DMTCP checkpoint files be changed?",
-      "answer": "Yes, the location for DMTCP checkpoint files can be changed using the `--ckptdir <directory for saves>` option with `dmtcp_launch`."
+      "question": "How is a program initially launched when using DMTCP for checkpointing?",
+      "answer": "A program is initially launched using the `dmtcp_launch` command, where the time interval between saves must be specified."
     },
     {
-      "question": "What is a current limitation of DMTCP?",
-      "answer": "DMTCP currently does not work with programs parallelized using MPI."
+      "question": "How do you restart a program from a checkpoint file created by DMTCP?",
+      "answer": "To restart a program from a DMTCP checkpoint file, you execute the `dmtcp_restart_script.sh` script."
     },
     {
-      "question": "What are the two recommended methods for resubmitting long-duration jobs that are fragmented into multiple Slurm tasks?",
-      "answer": "The two recommended methods are using Slurm job arrays ('vecteurs de tâches') or resubmitting from the end of the script."
+      "question": "Where are DMTCP restart scripts and files saved by default, and how can their location be changed?",
+      "answer": "By default, DMTCP restart scripts and files are saved in the directory where the program was launched, but their location can be changed using the `--ckptdir <directory for saves>` option."
+    },
+    {
+      "question": "Does DMTCP support programs that are parallelized using MPI?",
+      "answer": "No, DMTCP does not currently work with programs that are parallelized using MPI."
+    },
+    {
+      "question": "What are the two recommended methods for resubmitting a long-duration computational job that is expected to be broken into multiple Slurm tasks on Alliance clusters?",
+      "answer": "The two recommended methods for resubmitting a long-duration computational job on Alliance clusters are the use of Slurm job arrays and resubmission from the end of the script itself."
     }
   ],
-  "generated_at": "2026-04-12T05:20:17.392714+00:00"
+  "generated_at": "2026-04-13T11:20:21.679957+00:00"
 }

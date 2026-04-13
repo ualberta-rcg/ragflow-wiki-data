@@ -4,25 +4,13 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Quelle est la bonne pratique recommandée lorsqu'on travaille avec un conteneur sur un nœud de calcul pour les tâches RAPIDS?",
-      "answer": "La bonne pratique est d'utiliser le disque local quand on travaille avec un conteneur sur un nœud de calcul."
+      "question": "Comment soumet-on une tâche RAPIDS à l'ordonnanceur d'une grappe de calcul en utilisant un script de soumission Apptainer?",
+      "answer": "Pour soumettre une tâche RAPIDS à l'ordonnanceur, il faut préparer un script de soumission (par exemple, `submit.sh`). Ce script devrait spécifier les ressources demandées (comme le nombre de GPU, de CPU et la mémoire), charger le module `apptainer`, copier l'image Apptainer ainsi que le code RAPIDS et les données sur le disque local du nœud de calcul via `$SLURM_TMPDIR`, puis exécuter le code Python avec `apptainer exec --nv rapids.sif python ./votre_code_rapids.py`. Il est aussi crucial de sauvegarder tous les résultats importants de `$SLURM_TMPDIR` vers votre répertoire de projet avant la fin de la tâche."
     },
     {
-      "question": "Quel est le nom du script de soumission d'exemple pour une tâche RAPIDS?",
-      "answer": "Le script de soumission d'exemple est nommé `submit.sh`."
-    },
-    {
-      "question": "Quelles directives SLURM sont définies dans le script de soumission d'exemple pour la demande de ressources?",
-      "answer": "Les directives SLURM spécifiées sont `--gpus-per-node=1`, `--cpus-per-task=2`, `--mem=10G`, `--time=dd:hh:mm` et `--account=def-someuser`."
-    },
-    {
-      "question": "Quelle commande doit être utilisée pour charger le module Apptainer au début du script de soumission?",
-      "answer": "Il faut utiliser la commande `module load apptainer` pour charger le module Apptainer."
-    },
-    {
-      "question": "Comment le script de soumission d'exemple suggère-t-il de gérer l'image du conteneur, le code RAPIDS et les données?",
-      "answer": "Le script suggère de copier l'image du conteneur, le code RAPIDS et les données sur le disque local d'un nœud de calcul via `$SLURM_TMPDIR`."
+      "question": "Quelle est la bonne pratique recommandée pour gérer les fichiers (image conteneur, code, données) lorsqu'on exécute une tâche RAPIDS sur un nœud de calcul?",
+      "answer": "La bonne pratique recommandée est d'utiliser le disque local du nœud de calcul. Cela signifie qu'il faut copier l'image du conteneur Apptainer, votre code RAPIDS et vos ensembles de données vers le répertoire temporaire local du nœud (`$SLURM_TMPDIR`) au début de la tâche. Après l'exécution, tous les résultats doivent être copiés de `$SLURM_TMPDIR` vers votre répertoire de projet avant que la tâche ne se termine."
     }
   ],
-  "generated_at": "2026-04-12T06:46:24.358958+00:00"
+  "generated_at": "2026-04-13T12:31:51.039595+00:00"
 }

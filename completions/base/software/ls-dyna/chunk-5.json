@@ -4,93 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How can you list available modules for single-node LS-DYNA jobs?",
-      "answer": "You can list available modules for single-node LS-DYNA jobs by running the command `module spider ls-dyna`."
+      "question": "What is a sample Slurm script for running a single-node LS-DYNA job on an Alliance cluster, and what are its key parameters?",
+      "answer": "A sample Slurm script for single-node LS-DYNA jobs, named `script-smp.sh`, includes directives such as `--account=def-account`, `--time=0-03:00`, `--cpus-per-task=8`, `--mem=16G`, and `--nodes=1`. It loads `StdEnv/2023`, `intel/2023.2.1`, and `ls-dyna/12.2.1` modules, and runs the `ls-dyna_d` (double precision) solver with parameters like `ncpu=$SLURM_CPUS_ON_NODE`, `i=airbag.deploy.k`, and `memory=1500M`."
     },
     {
-      "question": "How do you submit a single-node LS-DYNA job to the queue?",
-      "answer": "A single-node LS-DYNA job can be submitted to the queue using the command `sbatch script-smp.sh`."
+      "question": "When would a user choose to run a Multiple Message Passing Parallel (MPP) LS-DYNA job instead of a single-node Shared Memory Parallel (SMP) job on an Alliance cluster?",
+      "answer": "Users would choose to run a Multiple Message Passing Parallel (MPP) LS-DYNA job when their simulation requires scaling across multiple compute nodes, especially for problems that can efficiently utilize many cores (8 or more) via MPI. This is in contrast to single-node Shared Memory Parallel (SMP) jobs, which are confined to a single compute node."
     },
     {
-      "question": "What Slurm directives are used in the example script for a single-node LS-DYNA job?",
-      "answer": "The example script for a single-node LS-DYNA job uses the Slurm directives `#SBATCH --account=def-account`, `#SBATCH --time=0-03:00`, `#SBATCH --cpus-per-task=8`, `#SBATCH --mem=16G`, and `#SBATCH --nodes=1`."
-    },
-    {
-      "question": "Which modules are loaded for a single-node LS-DYNA job using `StdEnv/2023`?",
-      "answer": "For a single-node LS-DYNA job using `StdEnv/2023`, the `intel/2023.2.1` and `ls-dyna/12.2.1` modules are loaded."
-    },
-    {
-      "question": "How do you specify an Ansys license server in a single-node LS-DYNA job script?",
-      "answer": "You can specify an Ansys license server in a single-node LS-DYNA job script by uncommenting and setting the environment variables `export LSTC_LICENSE=ansys` and `export ANSYSLMD_LICENSE_FILE=<port>@<server>`."
-    },
-    {
-      "question": "What is the function of `LSTC_MEMORY=AUTO` in a single-node LS-DYNA job script?",
-      "answer": "`LSTC_MEMORY=AUTO` is an optional setting for explicit analysis only that allows memory to be dynamically extended beyond the specified word setting."
-    },
-    {
-      "question": "What command runs the double precision SMP LS-DYNA solver with specific input and memory settings?",
-      "answer": "The command `ls-dyna_d ncpu=$SLURM_CPUS_ON_NODE i=airbag.deploy.k memory=1500M` runs the double precision SMP LS-DYNA solver."
-    },
-    {
-      "question": "What are the two types of SMP solvers mentioned for LS-DYNA?",
-      "answer": "The two types of SMP solvers mentioned for LS-DYNA are `ls-dyna_s` for single precision and `ls-dyna_d` for double precision."
-    },
-    {
-      "question": "How much memory does 1500 megawords equate to for a double precision LS-DYNA solver?",
-      "answer": "For a double precision solver, 1500 megawords equates to 12 GB of memory (1500Mw * 8Bytes/w = 12GB)."
-    },
-    {
-      "question": "What percentage of the reserved RAM on a node is considered ideal for implicit single-node LS-DYNA jobs?",
-      "answer": "For implicit single-node LS-DYNA jobs, 75% of the total reserved RAM on a node is considered ideal for memory usage."
-    },
-    {
-      "question": "What does MPP stand for in the context of LS-DYNA jobs?",
-      "answer": "MPP stands for Message Passing Parallel, which is a method based on MPI for running LS-DYNA jobs across multiple compute nodes."
-    },
-    {
-      "question": "How do you find available modules for running multiple-node LS-DYNA jobs?",
-      "answer": "You can find available modules for running multiple-node LS-DYNA jobs by executing `module spider ls-dyna-mpi`."
-    },
-    {
-      "question": "What are the two ways to submit multiple-node LS-DYNA jobs using sample Slurm scripts?",
-      "answer": "Multiple-node LS-DYNA jobs can be submitted by specifying a number of whole nodes using `sbatch script-mpp-bynode.sh` or by specifying a total number of cores using `sbatch script-mpp-bycore.sh`."
-    },
-    {
-      "question": "What is `memory1` in the context of MPP LS-DYNA jobs?",
-      "answer": "`memory1` is the amount of memory required by the first core (processor 0) on the master node to decompose and simulate the model in MPP LS-DYNA jobs."
-    },
-    {
-      "question": "What is the general memory recommendation for multiple-node LS-DYNA jobs?",
-      "answer": "For best results, the sum of all expected memory per node should be kept within 75% of the reserved RAM on a node."
-    },
-    {
-      "question": "What Slurm directives are used in the example script for a multiple-node LS-DYNA job when specifying node count?",
-      "answer": "The example script for a multiple-node LS-DYNA job when specifying node count uses `#SBATCH --account=def-account`, `#SBATCH --time=0-03:00`, `#SBATCH --ntasks-per-node=192`, `#SBATCH --nodes=1`, and `#SBATCH --mem=0`."
-    },
-    {
-      "question": "Which modules are loaded for a multiple-node LS-DYNA job using `StdEnv/2023`?",
-      "answer": "For a multiple-node LS-DYNA job using `StdEnv/2023`, the `intel/2023.2.1` and `ls-dyna-mpi/12.2.1` modules are loaded."
-    },
-    {
-      "question": "How do you specify an Ansys license server in a multiple-node LS-DYNA job script?",
-      "answer": "You can specify an Ansys license server in a multiple-node LS-DYNA job script by uncommenting and setting the environment variables `export LSTC_LICENSE=ansys` and `export ANSYSLMD_LICENSE_FILE=<port>@<server>`."
-    },
-    {
-      "question": "How many tasks per node are specified for Narval, Nibi, Fir, or Trillium clusters in the `script-mpp-bynode.sh` example?",
-      "answer": "For Narval, Nibi, Fir, or Trillium clusters, the `script-mpp-bynode.sh` example specifies `#SBATCH --ntasks-per-node=192`."
-    },
-    {
-      "question": "What is the purpose of `#SBATCH --mem=0` in a multiple-node job script that specifies node count?",
-      "answer": "The `#SBATCH --mem=0` directive in a multiple-node job script that specifies node count is used to utilize all available memory per compute node and should not be changed."
-    },
-    {
-      "question": "What are the two types of MPP solvers mentioned for LS-DYNA?",
-      "answer": "The two types of MPP solvers mentioned for LS-DYNA are `ls-dyna_s` for single precision and `ls-dyna_d` for double precision."
-    },
-    {
-      "question": "How is a double precision MPP LS-DYNA solver executed when `EBVERSIONNIXPKGS` is not 16.09?",
-      "answer": "When `EBVERSIONNIXPKGS` is not 16.09, a double precision MPP LS-DYNA solver is executed using `srun ls-dyna_d i=airbag.deploy.k memory=200M`."
+      "question": "How is memory configured for Multiple Message Passing Parallel (MPP) LS-DYNA jobs, particularly concerning the master node and overall memory usage per node?",
+      "answer": "For MPP LS-DYNA jobs, the first core (processor 0) on the master node needs sufficient memory (`memory1`) to decompose and simulate the model. This is managed by specifying a `mem-per-cpu` value in Slurm slightly larger than the per-core simulation memory (`memory2`). Enough cores must be allocated on the master node so their differential sum (`mem-per-cpu` minus `memory2`) meets or exceeds `memory1`. For best results, the total expected memory per node should not exceed 75% of the reserved RAM on that node."
     }
   ],
-  "generated_at": "2026-04-12T00:51:37.577673+00:00"
+  "generated_at": "2026-04-13T07:59:58.742896+00:00"
 }

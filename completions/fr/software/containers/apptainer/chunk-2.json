@@ -4,61 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Est-ce que j'ai besoin d'installer tous les logiciels nécessaires pour travailler dans un conteneur Apptainer sur les grappes?",
-      "answer": "Non, plusieurs logiciels sont déjà installés sur nos grappes et vous pouvez les utiliser sans avoir à créer un conteneur."
+      "question": "Pourquoi est-ce que je ne peux pas utiliser la commande `sudo` sur les grappes de calcul pour obtenir des permissions de super-utilisateur, et quelles sont mes alternatives si j'en ai besoin pour construire une image Apptainer?",
+      "answer": "La commande `sudo` n'est pas disponible sur nos grappes de calcul pour des raisons de sécurité, car elle permettrait d'obtenir des permissions de super-utilisateur (root). Si vous devez absolument utiliser `sudo` pour construire une image Apptainer, vous avez quelques options : vous pouvez installer Linux, Apptainer et `sudo` dans une machine virtuelle sur un ordinateur que vous contrôlez, construire votre image là-bas, puis la téléverser sur nos grappes. Une autre solution est de contacter le soutien technique pour obtenir de l'aide. À partir de la version 1.1.x d'Apptainer, l'option `--fakeroot` permet aussi de construire certaines images sans avoir besoin de `sudo` ou des permissions root traditionnelles."
     },
     {
-      "question": "Est-ce que je peux utiliser la commande `sudo` pour obtenir des permissions de superutilisateur (root) sur les grappes de calcul?",
-      "answer": "Non, l'utilisation de `sudo` pour obtenir des permissions de superutilisateur (root) n'est pas possible sur nos grappes."
-    },
-    {
-      "question": "Si j'ai besoin de `sudo` pour construire une image, quelle est une solution quand je n'ai pas accès à cette commande sur les grappes?",
-      "answer": "Vous pouvez installer Linux, Apptainer et `sudo` dans une machine virtuelle sur un ordinateur que vous contrôlez, y construire vos images, puis les téléverser sur nos grappes."
-    },
-    {
-      "question": "Qui devrais-je contacter si j'ai besoin d'aide pour construire une image Apptainer nécessitant `sudo`?",
-      "answer": "Vous pouvez demander l'assistance du soutien technique; ils pourront peut-être vous aider à construire votre image ou vous proposer d'autres solutions."
-    },
-    {
-      "question": "Est-ce qu'Apptainer offre une alternative à `sudo` pour la construction d'images?",
-      "answer": "Oui, à partir de la version 1.1.x, le support de `--fakeroot` permet de construire des images, même à partir de fichiers de définition .def, sans avoir recours à `sudo`. Par contre, ce ne sont pas toutes les images qui peuvent être construites sans `sudo` ou sans les permissions root."
-    },
-    {
-      "question": "Quelles sont les restrictions quand je construis une image de bac à sable avec `--fakeroot`?",
-      "answer": "Vous ne devez pas construire une image de bac à sable avec `--fakeroot` dans un système de fichiers réseau."
-    },
-    {
-      "question": "Où dois-je configurer la variable `APPTAINER_CACHEDIR` lors de la construction d'images ou d'overlays?",
-      "answer": "Vous devez configurer `APPTAINER_CACHEDIR` pour qu'il pointe vers un endroit dans un système de fichiers qui n'est pas en réseau."
-    },
-    {
-      "question": "Quel type de système de fichiers est déconseillé pour la variable `APPTAINER_TMPDIR` lors de la construction d'images?",
-      "answer": "Vous devez configurer `APPTAINER_TMPDIR` pour qu'il ne pointe pas vers un endroit dans un système de fichiers de type Lustre/GPFS."
-    },
-    {
-      "question": "Pourquoi ne devrais-je pas utiliser les systèmes de fichiers de type Lustre/GPFS pour construire des conteneurs?",
-      "answer": "Les systèmes de fichiers de type Lustre/GPFS ne doivent pas être utilisés parce qu'ils n'offrent pas les fonctionnalités nécessaires pour la construction de conteneurs, en particulier pour l'option `--fakeroot`."
-    },
-    {
-      "question": "Comment puis-je charger la version par défaut du module Apptainer?",
-      "answer": "Pour utiliser la version disponible par défaut, lancez la commande `$ module load apptainer`."
-    },
-    {
-      "question": "Quelle commande me permet de voir toutes les versions d'Apptainer disponibles?",
-      "answer": "Pour connaître toutes les versions disponibles d'Apptainer, vous devez lancer la commande `$ module spider apptainer`."
-    },
-    {
-      "question": "Pourquoi est-il important que les programmes exécutés dans un conteneur n'utilisent pas de paramètres de configuration ou de logiciels définis en dehors du conteneur?",
-      "answer": "C'est important parce que les logiciels dans un conteneur se trouvent dans un environnement qui utilise des bibliothèques et outils différents de ceux installés dans le système hôte, et l'utilisation de paramètres ou logiciels externes peut causer des problèmes."
-    },
-    {
-      "question": "Quel est le comportement par défaut d'Apptainer concernant l'environnement de l'interpréteur, et quels problèmes cela peut-il occasionner?",
-      "answer": "Apptainer adopte par défaut l'environnement de l'interpréteur de l'hôte, ce qui peut causer des problèmes à l'exécution de certains programmes."
-    },
-    {
-      "question": "Quelles commandes Apptainer peuvent utiliser les options de ligne de commande pour éviter les problèmes liés à l'environnement hôte?",
-      "answer": "Les options peuvent être utilisées avec `apptainer run`, `apptainer shell`, `apptainer exec` et/ou `apptainer instance`."
+      "question": "Quelles sont les recommandations spécifiques concernant les systèmes de fichiers et les variables d'environnement à suivre lors de la construction d'images ou d'overlays Apptainer sur les grappes?",
+      "answer": "Pour construire vos propres images ou overlays Apptainer sur les grappes, il est recommandé de ne pas construire d'image de type bac à sable (sandbox) avec l'option `--fakeroot` sur un système de fichiers réseau. De plus, vous devriez configurer les variables d'environnement `APPTAINER_CACHEDIR` et `APPTAINER_TMPDIR` pour qu'elles pointent vers un emplacement sur un système de fichiers qui n'est pas en réseau et qui n'est pas de type Lustre/GPFS. Ces systèmes de fichiers ne sont pas compatibles avec certaines fonctionnalités nécessaires à la construction de conteneurs, notamment `--fakeroot`."
     }
   ],
-  "generated_at": "2026-04-11T17:34:43.573621+00:00"
+  "generated_at": "2026-04-13T02:16:04.861195+00:00"
 }

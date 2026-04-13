@@ -4,33 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Quels problèmes peuvent survenir si Apptainer utilise par défaut l'environnement de l'interpréteur de l'hôte?",
-      "answer": "Si Apptainer adopte par défaut l'environnement de l'interpréteur de l'hôte, cela peut causer des problèmes à l'exécution de certains programmes, car ils ne doivent pas utiliser de paramètres de configuration ou de logiciels définis hors du conteneur."
+      "question": "Pourquoi est-il important d'utiliser des options spécifiques en ligne de commande, comme `-C`, `-c`, `-e` ou `-W`, lorsqu'on exécute des programmes Apptainer sur les grappes de calcul de l'Alliance?",
+      "answer": "L'utilisation de ces options est cruciale parce que les programmes exécutés dans un conteneur ne devraient pas utiliser de paramètres de configuration ou de logiciels définis en dehors du conteneur. Par défaut, Apptainer adopte l'environnement de l'interpréteur de l'hôte, ce qui peut causer des problèmes. Ces options permettent d'isoler le conteneur et de prévenir ces conflits."
     },
     {
-      "question": "Comment éviter les problèmes liés à l'utilisation par défaut de l'environnement de l'hôte par Apptainer?",
-      "answer": "On peut éviter ces problèmes en utilisant des options spécifiques avec les commandes `apptainer run`, `apptainer shell`, `apptainer exec`, et/ou `apptainer instance`."
+      "question": "Quelles sont les fonctions principales des options `-C`, `-c` et `-e` lorsqu'elles sont utilisées avec les commandes Apptainer comme `apptainer run`?",
+      "answer": "L'option `-C` isole complètement le conteneur actif de tous les systèmes de fichiers, du PID parent, des IPC et de l'environnement; un accès externe nécessite des `bind mounts`. L'option `-c` isole le conteneur de la plupart des systèmes de fichiers, fournissant un répertoire `/dev` minimal, et des répertoires `/tmp` et `/home` vides; elle nécessite aussi des `bind mounts` pour l'accès externe. L'option `-e` supprime certaines variables de l'environnement de l'interpréteur avant le lancement des commandes et configure les paramètres pour une meilleure compatibilité OCI/Docker."
     },
     {
-      "question": "À quoi sert l'option `-C` quand on utilise Apptainer?",
-      "answer": "L'option `-C` isole le conteneur actif de tous les systèmes de fichiers, du PID parent, des IPC et de l'environnement."
-    },
-    {
-      "question": "Si l'option `-C` est activée, comment puis-je accéder aux systèmes de fichiers qui se trouvent à l'extérieur de mon conteneur?",
-      "answer": "Pour accéder aux systèmes de fichiers à l'extérieur du conteneur quand l'option `-C` est utilisée, il faut faire appel à des bind mounts."
-    },
-    {
-      "question": "Quelle est la fonction de l'option `-c` dans Apptainer?",
-      "answer": "L'option `-c` isole le conteneur actif de la plupart des systèmes de fichiers en n'utilisant qu'un répertoire `/dev` minimal, un répertoire `/tmp` vide et un répertoire `/home` vide."
-    },
-    {
-      "question": "Quand j'utilise l'option `-c` avec Apptainer, comment faire pour accéder aux systèmes de fichiers qui ne sont pas dans le conteneur?",
-      "answer": "Si l'option `-c` est activée, il faut utiliser des bind mounts pour pouvoir accéder aux systèmes de fichiers à l'extérieur du conteneur."
-    },
-    {
-      "question": "Que fait l'option `-e` lorsqu'elle est utilisée avec les commandes Apptainer?",
-      "answer": "L'option `-e` supprime certaines variables de l'environnement de l'interpréteur avant de lancer les commandes et configure les paramètres pour une meilleure compatibilité OCI/Docker. Cette option ajoute implicitement `--containall`, `--no-init`, `--no-umask` et `--writable-tmpfs`."
+      "question": "Pourquoi l'option `-W` ou `--workdir` est-elle essentielle quand on lance Apptainer sur les grappes de calcul de l'Alliance, et quel est le répertoire recommandé à utiliser avec cette option?",
+      "answer": "Sur nos grappes et la plupart des systèmes Linux, les systèmes de fichiers temporaires comme `/tmp` utilisent la mémoire RAM, laquelle est souvent limitée pour les tâches de calcul et peut entraîner l'annulation de la tâche si elle est dépassée. L'option `-W` permet à Apptainer d'utiliser un disque physique pour son répertoire de travail (workdir), évitant ainsi ce problème. Quand Apptainer est utilisé dans une tâche lancée avec `salloc`, `sbatch` ou `JupyterHub` sur nos grappes, le répertoire de travail doit être `${SLURM_TMPDIR}` (par exemple, `-W ${SLURM_TMPDIR}`)."
     }
   ],
-  "generated_at": "2026-04-11T17:35:00.293747+00:00"
+  "generated_at": "2026-04-13T02:16:22.198808+00:00"
 }

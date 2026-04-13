@@ -4,121 +4,17 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `gromacs_whole_node_narval.sh` script?",
-      "answer": "The `gromacs_whole_node_narval.sh` script is an example job script for running GROMACS simulations using a whole node on the Narval cluster."
+      "question": "What is an example Slurm job script configuration for running a GROMACS simulation on a whole node of the Narval cluster?",
+      "answer": "To run a GROMACS simulation on a whole node of the Narval cluster, an example Slurm job script specifies `--nodes=1`, `--ntasks-per-node=32`, `--cpus-per-task=2` (for a total of 64 CPUs per node), `--mem-per-cpu=2000M`, and `--time=0-01:00`. It loads the `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `gromacs/2025.4` modules, and executes `gmx_mpi mdrun` with `OMP_NUM_THREADS` exported from `SLURM_CPUS_PER_TASK`."
     },
     {
-      "question": "How many MPI tasks are requested per node on Narval for a whole-node GROMACS simulation, according to the example script?",
-      "answer": "The `gromacs_whole_node_narval.sh` script requests 32 MPI tasks per node (`#SBATCH --ntasks-per-node=32`)."
+      "question": "What is the general guideline for configuring the number of MPI tasks and OpenMP threads when running GROMACS on an entire compute node?",
+      "answer": "Generally, when running GROMACS on an entire compute node, the product of the `--ntasks-per-node` and `--cpus-per-task` parameters should be set to match the total number of CPU cores available on that specific cluster's compute node."
     },
     {
-      "question": "How many OpenMP threads are allocated per MPI task in the Narval whole-node GROMACS script?",
-      "answer": "The Narval whole-node GROMACS script allocates 2 OpenMP threads per MPI task (`#SBATCH --cpus-per-task=2`)."
-    },
-    {
-      "question": "What is the total number of CPUs used per node in the Narval whole-node GROMACS script?",
-      "answer": "The total number of CPUs used per node in the Narval whole-node GROMACS script is 64 (32 MPI tasks x 2 OpenMP threads = 64 CPUs/node)."
-    },
-    {
-      "question": "What is the memory limit per CPU in a whole-node GROMACS job on Narval, as specified in the example?",
-      "answer": "The memory limit per CPU in a whole-node GROMACS job on Narval is 2000 MB (`#SBATCH --mem-per-cpu=2000M`)."
-    },
-    {
-      "question": "What is the time limit for a whole-node GROMACS job on Narval, according to the sample script?",
-      "answer": "The time limit for a whole-node GROMACS job on Narval is 1 hour (`#SBATCH --time=0-01:00`)."
-    },
-    {
-      "question": "Which GROMACS version and environment modules are used in the Narval whole-node example script?",
-      "answer": "The Narval whole-node example script uses GROMACS version 2025.4 and loads the modules `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `gromacs/2025.4`."
-    },
-    {
-      "question": "How do the `gromacs_whole_node_rorqual.sh`, `gromacs_whole_node_fir.sh`, `gromacs_whole_node_nibi.sh`, and `gromacs_whole_node_trillium.sh` scripts compare to the Narval script regarding MPI tasks and total CPUs per node?",
-      "answer": "For Rorqual, Fir, Nibi, and Trillium, the scripts request 96 MPI tasks per node and 2 OpenMP threads per MPI task, resulting in a total of 192 CPUs per node, which is more than the Narval script's 32 MPI tasks and 64 total CPUs."
-    },
-    {
-      "question": "What general principle should be followed when setting `--ntasks-per-node` and `--cpus-per-task` for GROMACS whole-node simulations?",
-      "answer": "Generally, the product of `--ntasks-per-node` and `--cpus-per-task` should match the number of CPU cores of the cluster’s compute nodes."
-    },
-    {
-      "question": "What action should be taken if GROMACS reports an error due to domain decomposition being impossible given the system size?",
-      "answer": "If GROMACS reports a domain decomposition error, one should halve `--ntasks-per-node` and double `--cpus-per-task`."
-    },
-    {
-      "question": "What command is used to run GROMACS in the example whole-node job scripts?",
-      "answer": "The command used is `srun --cpus-per-task=$OMP_NUM_THREADS gmx_mpi mdrun -deffnm md`."
-    },
-    {
-      "question": "What is the purpose of the `gpu_gromacs_job.sh` script?",
-      "answer": "The `gpu_gromacs_job.sh` script is a sample job script for running GROMACS with GPU acceleration using 4 OpenMP threads and one GPU."
-    },
-    {
-      "question": "How many GPUs are requested per node in the example GPU job script?",
-      "answer": "The example GPU job script requests 1 GPU per node (`#SBATCH --gpus-per-node=1`)."
-    },
-    {
-      "question": "How many OpenMP threads are allocated per MPI process in the example GPU job script?",
-      "answer": "The example GPU job script allocates 4 OpenMP threads per MPI process (`#SBATCH --cpus-per-task=4`)."
-    },
-    {
-      "question": "What is the memory limit per CPU core in the example GPU job script?",
-      "answer": "The memory limit per CPU core in the example GPU job script is 2000 MB (`#SBATCH --mem-per-cpu=2000M`)."
-    },
-    {
-      "question": "What is the time limit for the example GPU GROMACS job?",
-      "answer": "The time limit for the example GPU GROMACS job is 30 minutes (`#SBATCH --time=0:30:00`)."
-    },
-    {
-      "question": "Which GROMACS version and environment modules are used for the example GPU job script?",
-      "answer": "The example GPU job script uses GROMACS version 2025.4 and loads the modules `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `gromacs/2025.4`."
-    },
-    {
-      "question": "What command is used to run GROMACS in the example GPU job script?",
-      "answer": "The command used is `gmx mdrun -ntomp ${SLURM_CPUS_PER_TASK:-1} -deffnm md`."
-    },
-    {
-      "question": "Is it generally efficient to use more than a single GPU for GROMACS simulations?",
-      "answer": "No, using more than a single GPU usually leads to poor efficiency, and users should carefully test and compare multi-GPU and single-GPU performance."
-    },
-    {
-      "question": "Which GROMACS versions have a known bug when using the `mdrun` option `-update gpu` on Volta or newer generation GPUs?",
-      "answer": "GROMACS versions 2020.0 up to and including 2021.5 contain a bug when used on GPUs of Volta or newer generations (V100, T4, A100, H100) with the `mdrun` option `-update gpu`."
-    },
-    {
-      "question": "What are the key constraints when choosing the number of GPUs, MPI tasks, and OpenMP threads for GROMACS GPU runs?",
-      "answer": "The number of `--tasks-per-node` must always be the same as, or a multiple of, the number of GPUs (`--gpus-per-node`), and GROMACS will not run GPU runs with only 1 OpenMP thread unless explicitly forced by setting the `-ntomp` option."
-    },
-    {
-      "question": "What is the recommended range for `--cpus-per-task` when running GPU jobs with GROMACS, according to its developers?",
-      "answer": "According to GROMACS developers, the optimum number of `--cpus-per-task` is between 2 and 6."
-    },
-    {
-      "question": "What are the two recommended approaches for running GROMACS simulations when recent GPU models are not fully utilized by single, smaller molecular systems?",
-      "answer": "The two recommended approaches are to run multiple simulations on a single GPU using `mdrun -multidir`, or to use a Multi-Instance GPU (MIG) instance, which is a fraction of a GPU."
-    },
-    {
-      "question": "When is the `mdrun -multidir` option the preferred solution for running multiple simulations on a single GPU?",
-      "answer": "The `mdrun -multidir` option is preferred for multiple similar simulations, such as repeating the same simulation, simulating multiple protein variants, different small ligands, various temperatures or ionic concentrations, or ensemble-based simulations like replica exchange."
-    },
-    {
-      "question": "How should the number of MPI tasks and CPU threads be adjusted when using `mdrun -multidir` for multiple simulations?",
-      "answer": "There should be one MPI task per simulation, while the total number of CPU cores requested should remain constant."
-    },
-    {
-      "question": "When is using a Multi-Instance GPU (MIG) instance a better solution than `mdrun -multidir`?",
-      "answer": "Using a MIG instance is preferred when you have a single simulation or when your simulations are dissimilar, for example, systems with significant differences in size, shape, or composition."
-    },
-    {
-      "question": "Should Hyper-Q / MPS be used with GROMACS?",
-      "answer": "No, Hyper-Q / MPS should never be used with GROMACS because the built-in `-multidir` option achieves the same functionality more efficiently."
-    },
-    {
-      "question": "What are the specifications for the `gromacs_whole_node_rorqual.sh` script?",
-      "answer": "The `gromacs_whole_node_rorqual.sh` script requests 1 node, 96 MPI tasks per node, 2 OpenMP threads per MPI task (for a total of 192 CPUs/node), 2000 MB memory per CPU, and a time limit of 1 hour, using GROMACS 2025.4 within the StdEnv/2023 environment."
-    },
-    {
-      "question": "What is the `srun` command for running three GROMACS simulations concurrently on a single GPU using the `mdrun -multidir` option, as shown in the example?",
-      "answer": "The `srun` command is `srun gmx_mpi mdrun -ntomp ${SLURM_CPUS_PER_TASK:-1} -deffnm md -multidir sim1 sim2 sim3`."
+      "question": "What troubleshooting step is recommended if GROMACS reports a domain decomposition error when running a whole-node simulation on clusters with numerous CPU cores?",
+      "answer": "If GROMACS reports an error indicating that domain decomposition is impossible given the system size and requested number of domains on clusters with a large number of CPU cores, it is recommended to halve the `--ntasks-per-node` value and double the `--cpus-per-task` value."
     }
   ],
-  "generated_at": "2026-04-11T22:33:30.141991+00:00"
+  "generated_at": "2026-04-13T06:09:44.217990+00:00"
 }

@@ -4,97 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is Apache Spark?",
-      "answer": "Apache Spark is an open-source distributed computing framework."
+      "question": "What is Apache Spark, and what makes it distinct from Hadoop's MapReduce?",
+      "answer": "Apache Spark is an open-source distributed computing framework that was initially developed by the AMPLab at Berkeley University and is now an Apache Foundation project. Unlike Hadoop's MapReduce algorithm, which uses disk storage, Spark utilizes in-memory primitives, allowing it to achieve performances up to 100 times faster for certain applications."
     },
     {
-      "question": "Who initially developed Apache Spark?",
-      "answer": "Apache Spark was initially developed by the AMPLab at the University of Berkeley."
+      "question": "For what types of applications is Apache Spark particularly well-suited?",
+      "answer": "Apache Spark is particularly well-suited for machine learning and interactive data analysis. Its ability to load data into memory for frequent querying makes it an ideal framework for these uses."
     },
     {
-      "question": "Which organization now maintains Apache Spark?",
-      "answer": "Apache Spark is now a project of the Apache Foundation."
-    },
-    {
-      "question": "How does Spark differ from Hadoop's MapReduce algorithm in terms of data storage?",
-      "answer": "Unlike the MapReduce algorithm implemented by Hadoop, which uses disk storage, Spark uses primitives kept in memory."
-    },
-    {
-      "question": "What performance advantage does Spark offer over MapReduce for certain applications?",
-      "answer": "Spark can achieve up to 100 times faster performance for certain applications by using in-memory primitives."
-    },
-    {
-      "question": "Why is Spark particularly suitable for machine learning and interactive data analysis?",
-      "answer": "Spark is particularly suitable for machine learning and interactive data analysis because loading data into memory allows for frequent querying."
-    },
-    {
-      "question": "What is the purpose of the `pyspark_submit.sh` script?",
-      "answer": "The `pyspark_submit.sh` script is an example of how to submit a PySpark application, specifically a Python example for calculating Pi."
-    },
-    {
-      "question": "What Spark module version is loaded in the `pyspark_submit.sh` script?",
-      "answer": "The `pyspark_submit.sh` script loads Spark version 2.3.0."
-    },
-    {
-      "question": "What Python module version is loaded in the `pyspark_submit.sh` script?",
-      "answer": "The `pyspark_submit.sh` script loads Python version 3.7."
-    },
-    {
-      "question": "How many nodes are requested in the `pyspark_submit.sh` SLURM script?",
-      "answer": "The `pyspark_submit.sh` script requests 4 nodes via SBATCH."
-    },
-    {
-      "question": "What is the memory requested per node in the `pyspark_submit.sh` script?",
-      "answer": "The `pyspark_submit.sh` script requests 4GB of memory per node."
-    },
-    {
-      "question": "How many CPUs per task are requested in the `pyspark_submit.sh` script?",
-      "answer": "The `pyspark_submit.sh` script requests 8 CPUs per task."
-    },
-    {
-      "question": "What is the `MKL_NUM_THREADS` environment variable set to in the `pyspark_submit.sh` script?",
-      "answer": "The `MKL_NUM_THREADS` environment variable is set to 1 in the `pyspark_submit.sh` script."
-    },
-    {
-      "question": "How is `SLURM_SPARK_MEM` calculated in the `pyspark_submit.sh` script?",
-      "answer": "`SLURM_SPARK_MEM` is calculated as 95% of the memory per node (`$((${SLURM_MEM_PER_NODE} *95/100))`)."
-    },
-    {
-      "question": "What is the first Spark command executed after starting the master in the `pyspark_submit.sh` script?",
-      "answer": "After starting the master, the script starts Spark slave workers using `start-slave.sh`."
-    },
-    {
-      "question": "How is the `MASTER_URL` determined in the `pyspark_submit.sh` script?",
-      "answer": "The `MASTER_URL` is determined by grepping for `spark://` in the Spark master log file."
-    },
-    {
-      "question": "What Python example is submitted using `spark-submit` in the `pyspark_submit.sh` script?",
-      "answer": "The `pyspark_submit.sh` script submits `pi.py` from `$SPARK_HOME/examples/src/main/python/`."
-    },
-    {
-      "question": "What happens after the `spark-submit` command completes in `pyspark_submit.sh`?",
-      "answer": "After `spark-submit` completes, the slave processes are killed, and the master is stopped using `kill $slaves_pid` and `stop-master.sh`."
-    },
-    {
-      "question": "What is the purpose of the `pyspark_java_submit.sh` script?",
-      "answer": "The `pyspark_java_submit.sh` script is an example of how to submit Java JAR applications to Spark, specifically the SparkPi and SparkLR examples."
-    },
-    {
-      "question": "What Spark module version is loaded in the `pyspark_java_submit.sh` script?",
-      "answer": "The `pyspark_java_submit.sh` script loads Spark version 2.3.0."
-    },
-    {
-      "question": "What Java examples are submitted in the `pyspark_java_submit.sh` script?",
-      "answer": "The `pyspark_java_submit.sh` script submits the `org.apache.spark.examples.SparkPi` and `org.apache.spark.examples.SparkLR` examples."
-    },
-    {
-      "question": "From which JAR file are the Java examples executed in `pyspark_java_submit.sh`?",
-      "answer": "The Java examples are executed from `$SPARK_HOME/examples/jars/spark-examples_2.11-2.3.0.jar`."
-    },
-    {
-      "question": "How is the `SLURM_SPARK_SUBMIT` variable defined in `pyspark_java_submit.sh`?",
-      "answer": "The `SLURM_SPARK_SUBMIT` variable is defined as \"srun -n 1 -N 1 spark-submit --master ${MASTER_URL} --executor-memory ${SLURM_SPARK_MEM}M\"."
+      "question": "How is a PySpark application typically submitted and executed within a SLURM environment, as shown in the provided script?",
+      "answer": "To submit a PySpark application in a SLURM environment, a batch script is used to define resource requirements such as account, time, nodes, memory, and CPUs per task. The script then loads the `spark` and `python` modules and sets environment variables like `MKL_NUM_THREADS`, `SPARK_IDENT_STRING`, `SPARK_WORKER_DIR`, and `SLURM_SPARK_MEM`. It then initiates a Spark master, followed by slave workers using `srun`. Finally, the PySpark application is submitted using `spark-submit`, specifying the master URL and executor memory, before the master and slaves are stopped."
     }
   ],
-  "generated_at": "2026-04-11T17:22:00.224141+00:00"
+  "generated_at": "2026-04-13T02:06:14.067317+00:00"
 }

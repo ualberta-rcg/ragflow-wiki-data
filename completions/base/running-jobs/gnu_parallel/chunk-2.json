@@ -4,85 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Can GNU Parallel distribute a workload across multiple nodes in a cluster?",
-      "answer": "Yes, GNU Parallel can distribute a workload across multiple nodes in a cluster, such as in the context of a job on our servers."
+      "question": "When using GNU Parallel, how can a workload be distributed across multiple nodes within a cluster?",
+      "answer": "To distribute a workload across multiple nodes, you first create a file listing the node hostnames (e.g., using `scontrol show hostname > ./node_list_${SLURM_JOB_ID}`). Then, you tell GNU Parallel to use this file with the `--sshloginfile` option. Additionally, you can use `--env` to transfer environment variables to all nodes and `--workdir` to ensure tasks start in the same directory as the main node. A `--sshdelay` of 30 seconds or more is recommended for multi-node operations."
     },
     {
-      "question": "How can I create a file containing a list of nodes for GNU Parallel to use when distributing tasks?",
-      "answer": "You can create a file containing the list of nodes by executing `scontrol show hostname > ./node_list_${SLURM_JOB_ID}`."
+      "question": "What options does GNU Parallel provide to keep track of completed commands and to resume tasks after an interruption or failure?",
+      "answer": "GNU Parallel offers the `--joblog JOBLOGFILE` argument to keep a record of completed commands, including their start times, durations, hosts, and exit values. If a `parallel` command is interrupted, you can use the `--resume` option with the job log file to pick up where it left off. If some subcommands failed (returned a non-zero exit code), you can use `--resume-failed` to re-run only those specific tasks."
     },
     {
-      "question": "What GNU Parallel options are used to distribute tasks across multiple nodes using a node list file?",
-      "answer": "The command includes `--jobs $SLURM_NTASKS_PER_NODE`, `--sshloginfile ./node_list_${SLURM_JOB_ID}`, `--env MY_VARIABLE`, `--workdir $PWD`, and `--sshdelay 30` to distribute tasks."
-    },
-    {
-      "question": "What is the purpose of the `--env` option when running GNU Parallel on multiple nodes?",
-      "answer": "The `--env` option allows for transferring a named environment variable to all the nodes."
-    },
-    {
-      "question": "What does the `--workdir` option ensure when GNU Parallel tasks are run on multiple nodes?",
-      "answer": "The `--workdir` option ensures that the GNU Parallel tasks will start in the same directory as the main node."
-    },
-    {
-      "question": "How can `OMP_NUM_THREADS` be set for OpenMP tasks using SLURM variables before running GNU Parallel?",
-      "answer": "You can set `OMP_NUM_THREADS` by executing `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`."
-    },
-    {
-      "question": "In a multi-node OpenMP example, how many OpenMP processes can run simultaneously if `N` nodes are used with `--ntasks-per-node=5`?",
-      "answer": "Up to `5*N` OpenMP processes can run simultaneously."
-    },
-    {
-      "question": "What is the potential CPU usage for each OpenMP process in the multi-node example where `--cpus-per-task=8` is used?",
-      "answer": "Each OpenMP process can have a CPU usage of up to 800%."
-    },
-    {
-      "question": "How can GNU Parallel keep track of completed commands?",
-      "answer": "You can tell GNU Parallel to keep track of completed commands by using the `--joblog JOBLOGFILE` argument."
-    },
-    {
-      "question": "What information does the `JOBLOGFILE` contain when created by GNU Parallel?",
-      "answer": "The `JOBLOGFILE` contains the list of completed commands, their start times, durations, hosts, and exit values."
-    },
-    {
-      "question": "How do you resume an interrupted GNU Parallel command from where it left off?",
-      "answer": "You can make an interrupted GNU Parallel command pick up where it left off by using the `--resume` option along with `--joblog`."
-    },
-    {
-      "question": "What happens to the job log file when the `--resume` option is used with GNU Parallel?",
-      "answer": "When `--resume` is used, the new jobs will be appended to the old log file."
-    },
-    {
-      "question": "How can you re-run only the subcommands that failed in GNU Parallel?",
-      "answer": "You can re-run only the failed subcommands by using the `--resume-failed` option with `--joblog`."
-    },
-    {
-      "question": "What is an additional effect of using the `--resume-failed` option in GNU Parallel?",
-      "answer": "Using `--resume-failed` will also start subjobs that were not considered before."
-    },
-    {
-      "question": "Which GNU Parallel arguments are necessary for efficiently handling chunks of large files, like a FASTA file?",
-      "answer": "You will have to use the GNU Parallel `--pipepart` and `--block` arguments to efficiently handle chunks of the file."
-    },
-    {
-      "question": "Why is selecting the appropriate block size important when processing large files with GNU Parallel?",
-      "answer": "Choosing the right block size has a real impact on the efficiency and the number of cores actually used."
-    },
-    {
-      "question": "What is the consequence if the block size is too small when processing large files with GNU Parallel?",
-      "answer": "If the block size is too small, it results in many jobs being dispatched over the available cores."
-    },
-    {
-      "question": "What indicates a good block size for processing large files in parallel?",
-      "answer": "A good block size results in a number of jobs close to the number of available cores."
-    },
-    {
-      "question": "What happens if the block size chosen for GNU Parallel is too large when handling big files?",
-      "answer": "If the block size is too big, only a limited number of cores might be used (e.g., 1 out of 8), leading to inefficient processing of chunks."
-    },
-    {
-      "question": "Is it always faster to manually specify the block size, or can GNU Parallel adapt?",
-      "answer": "In many cases, letting GNU Parallel adapt and decide on the block size (e.g., using `--block -1`) is often faster."
+      "question": "How can GNU Parallel be used to efficiently process large files in parallel, such as counting characters in a large FASTA file?",
+      "answer": "To efficiently process large files in parallel, GNU Parallel utilizes the `--pipepart` and `--block` arguments. `--pipepart` allows the input file to be split into parts and processed in parallel, while `--block` specifies the size of these chunks. For files like FASTA, `--recstart '>'` can define record boundaries. The optimal block size significantly impacts efficiency; often, letting GNU Parallel adapt with `--block -1` provides the fastest processing times."
     }
   ],
-  "generated_at": "2026-04-11T22:16:43.071345+00:00"
+  "generated_at": "2026-04-13T05:57:42.131795+00:00"
 }

@@ -4,97 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How do I obtain the OpenStack RC files for both Legacy and New Arbutus Clouds?",
-      "answer": "You can download the OpenStack RC file(s) by logging into the respective Horizon Web UIs, navigating to 'Project -> API Access', and then selecting 'Download OpenStack RC File'."
+      "question": "What specific modifications are required for the OpenStack RC file downloaded from the new Arbutus Cloud environment?",
+      "answer": "After downloading the new RC file from Arbutus Cloud, you must add the following lines: `export OS_AUTH_TYPE=v3websso`, `export OS_IDENTITY_PROVIDER=atmosphere`, `export OS_PROTOCOL=openid`, and `export OS_PROJECT_DOMAIN_NAME=default`. You also need to remove lines containing `export OS_USER_DOMAIN_NAME=\"atmosphere\"` and the prompt for entering your OpenStack password."
     },
     {
-      "question": "What is the purpose of the OpenStack RC files?",
-      "answer": "The OpenStack RC files are used to set environment variables that are required by the OpenStack command-line tools."
+      "question": "How can users migrate their SSH keys from the legacy Arbutus Cloud to the new Arbutus Cloud using the Horizon dashboard?",
+      "answer": "To migrate SSH keys via the Horizon dashboard, first, on the legacy Arbutus Cloud, navigate to \"Compute -> Key Pairs\", click on the key pair you wish to migrate, and copy its public key value. Then, on the new Arbutus Cloud's Horizon dashboard, go to \"Compute -> Key Pairs\", click \"Import Public Key\", give your Key Pair a name, and paste the public key copied from the legacy Arbutus Cloud. This process should be repeated for all necessary keys."
     },
     {
-      "question": "What should I do after copying the OpenStack RC files to my migration host?",
-      "answer": "After copying, you should follow the instructions provided in the 'New Arbutus RC File Modifications' section of the document."
-    },
-    {
-      "question": "How can I verify that my OpenStack RC file is working correctly?",
-      "answer": "To test your RC file, activate it in a shell session by sourcing it (e.g., `source opensrc.sh`), and then run a simple OpenStack command, such as `openstack volume list`."
-    },
-    {
-      "question": "Can I have multiple OpenStack RC files active simultaneously in one shell session?",
-      "answer": "No, only one OpenStack RC file can be active in a given shell session at a time."
-    },
-    {
-      "question": "How do I migrate SSH keys using the Horizon dashboard from Legacy Arbutus to New Arbutus Cloud?",
-      "answer": "On Legacy Arbutus, navigate to 'Compute -> Key Pairs', click the key pair name, and copy its public key value. On New Arbutus Cloud, go to 'Compute -> Key Pairs', click 'Import Public Key', provide a name, and paste the public key from Legacy Arbutus."
-    },
-    {
-      "question": "What is the command-line interface (CLI) method for importing an SSH key pair?",
-      "answer": "You can import an SSH key pair via the CLI using the command: `openstack keypair create --public-key <public-keyfile> <name>`."
-    },
-    {
-      "question": "Can I generate new SSH key pairs instead of migrating existing ones?",
-      "answer": "Yes, you have the option to generate new Key Pairs if you prefer."
-    },
-    {
-      "question": "How do I identify existing security groups and rules on Legacy Arbutus Cloud?",
-      "answer": "On Legacy Arbutus Cloud, you can find the existing security groups and their associated rules by navigating to 'Network -> Security Groups'."
-    },
-    {
-      "question": "How should I re-create security groups and rules on the New Arbutus Cloud?",
-      "answer": "On the New Arbutus Cloud, go to 'Network -> Security Groups' and re-create the security groups and their associated rules as needed."
-    },
-    {
-      "question": "Which security rules should I avoid deleting on the New Arbutus Cloud?",
-      "answer": "You must not delete any of the default Egress security rules for IPv4 and IPv6, as their removal can cause instances to fail in retrieving configuration data and lead to other issues."
-    },
-    {
-      "question": "What is the CLI command to create a new security group?",
-      "answer": "To create a new security group via the CLI, use: `openstack security group create <group-name>`."
-    },
-    {
-      "question": "How can I create a security group rule via the CLI, for example, to allow HTTP traffic on port 80?",
-      "answer": "You can create a security group rule via the CLI for HTTP port 80 using: `openstack security group rule create --proto tcp --remote-ip 0.0.0.0/0 --dst-port 80 <group-name>`."
-    },
-    {
-      "question": "How do I list available security groups using the CLI?",
-      "answer": "To list the available security groups via the CLI, use the command: `openstack security group list`."
-    },
-    {
-      "question": "How can I view the rules within a specific security group using the CLI?",
-      "answer": "To view the rules in a security group via the CLI, use the command: `openstack security group rule list`."
-    },
-    {
-      "question": "Why is it important to plan an outage window for cloud migration?",
-      "answer": "Planning an outage window is crucial to avoid corrupt or inconsistent data after the migration."
-    },
-    {
-      "question": "What is the recommended approach to prevent data corruption during migration?",
-      "answer": "The best way to avoid corrupt or inconsistent data is by shutting down services and then the instance before migration."
-    },
-    {
-      "question": "What is the estimated time for copying volumes of different sizes during migration?",
-      "answer": "Smaller volumes, like 10GB, can copy over in less than 5 minutes, while larger volumes, such as 100GB, may take 30 to 40 minutes."
-    },
-    {
-      "question": "What happens to floating IP addresses during migration, and what should be done about DNS records?",
-      "answer": "Floating IP addresses will change, so you should ensure the TTL (Time To Live) of your DNS records is set to a small value to allow changes to propagate quickly."
-    },
-    {
-      "question": "What lines must be added to a new Arbutus RC file after downloading it?",
-      "answer": "You must add the following lines: `export OS_AUTH_TYPE=v3websso`, `export OS_IDENTITY_PROVIDER=atmosphere`, `export OS_PROTOCOL=openid`, and `export OS_PROJECT_DOMAIN_NAME=default`."
-    },
-    {
-      "question": "What specific lines need to be removed from a new Arbutus RC file?",
-      "answer": "You need to remove the lines containing `export OS_USER_DOMAIN_NAME=\"atmosphere\"` and `if [ -z \"$OS_USER_DOMAIN_NAME\" ]; then unset OS_USER_DOMAIN_NAME; fi`, as well as the lines prompting for and exporting the OpenStack password (`echo \"Please enter your OpenStack Password...\"` and `export OS_PASSWORD=$OS_PASSWORD_INPUT`)."
-    },
-    {
-      "question": "How do I create a virtual environment for the OpenStack Client and necessary packages?",
-      "answer": "You can create a virtual environment by running `python3 -m venv openstack`, then activate it with `source openstack/bin/activate`, and finally install the packages using `pip install python-openstackclient keystoneauth-websso python-manilaclient`."
-    },
-    {
-      "question": "What packages are required for the OpenStack Client in the virtual environment for New Arbutus?",
-      "answer": "The necessary packages are `python-openstackclient`, `keystoneauth-websso`, and `python-manilaclient`."
+      "question": "What steps are involved in migrating security groups and their associated rules from the legacy Arbutus Cloud to the new Arbutus Cloud?",
+      "answer": "To migrate security groups, on the legacy Arbutus Cloud, navigate to \"Network -> Security Groups\" and note all existing security groups and their associated rules. Then, on the new Arbutus Cloud, re-create these security groups and their rules as needed under \"Network -> Security Groups\". It is crucial not to delete any default Egress security rules for IPv4 and IPv6, as doing so can cause issues with instances retrieving configuration data."
     }
   ],
-  "generated_at": "2026-04-11T17:44:23.498431+00:00"
+  "generated_at": "2026-04-13T02:22:11.484681+00:00"
 }

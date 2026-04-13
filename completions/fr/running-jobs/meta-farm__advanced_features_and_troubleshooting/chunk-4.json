@@ -4,25 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Pour les applications MPI, comment qu'on configure le nombre de cœurs de processeur dans le `job_script.sh`?",
-      "answer": "Pour configurer le nombre de cœurs de processeur, faut ajouter la ligne `#SBATCH --ntasks=N` dans le `job_script.sh`, où `N` représente le nombre de cœurs à utiliser."
+      "question": "Comment doit-on configurer le fichier `job_script.sh` pour qu'une application MPI s'exécute correctement sur un cluster d'Alliance, en spécifiant le nombre de cœurs CPU et la mémoire par cœur?",
+      "answer": "Pour une application MPI, il faut ajouter les lignes `#SBATCH --ntasks=N` et `#SBATCH --mem-per-cpu=M` dans `job_script.sh`. Ici, N représente le nombre de cœurs CPU à utiliser et M la mémoire à réserver pour chaque cœur, en mégaoctets."
     },
     {
-      "question": "Comment qu'on spécifie la mémoire à réserver pour chaque cœur dans un `job_script.sh` pour une application MPI?",
-      "answer": "Pour une application MPI, faut ajouter la ligne `#SBATCH --mem-per-cpu=M` dans le `job_script.sh`, où `M` est la mémoire à réserver par cœur, en mégaoctets."
+      "question": "De quelle manière peut-on s'assurer que l'application MPI est lancée avec `srun` via le package META-Farm?",
+      "answer": "Pour lancer l'application MPI avec `srun`, vous pouvez soit l'ajouter avant le chemin de votre code dans `single_case.sh` (par exemple, `srun $COMM`), soit préfixer chaque ligne de votre fichier `table.dat` avec `srun` (par exemple, `srun /chemin/vers/code_mpi arg1 arg2`)."
     },
     {
-      "question": "Est-ce qu'il y a une autre façon de passer les arguments `--ntasks` et `--mem-per-cpu` pour les applications MPI, à part de les mettre dans le `job_script.sh`?",
-      "answer": "Oui, on peut aussi fournir les arguments `--ntasks=N` et `--mem-per-cpu=M` directement à la commande `(re)submit.run`."
-    },
-    {
-      "question": "Comment qu'on lance le code d'une application MPI à l'intérieur du `single_case.sh`?",
-      "answer": "Faut ajouter `srun` avant le chemin d'accès à votre code dans `single_case.sh`. Par exemple : `srun $COMM`."
-    },
-    {
-      "question": "Est-ce qu'il y a une méthode alternative pour lancer une application MPI avec `srun` si on ne veut pas modifier `single_case.sh`?",
-      "answer": "Oui, on peut préfixer chaque ligne du fichier `table.dat` avec `srun`. Par exemple : `srun /chemin/vers/votre_code_mpi arg1 arg2`."
+      "question": "Est-ce qu'on peut spécifier les arguments `--ntasks` et `--mem-per-cpu` directement dans la commande `(re)submit.run` pour les applications MPI, au lieu de les mettre dans `job_script.sh`?",
+      "answer": "Oui, vous pouvez fournir les arguments `--ntasks=N` et `--mem-per-cpu=M` directement en tant qu'arguments aux commandes `(re)submit.run`."
     }
   ],
-  "generated_at": "2026-04-12T01:33:24.578693+00:00"
+  "generated_at": "2026-04-13T08:34:36.345397+00:00"
 }

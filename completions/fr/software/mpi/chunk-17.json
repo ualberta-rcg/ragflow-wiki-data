@@ -4,45 +4,13 @@
   "chunk_index": 17,
   "qa_pairs": [
     {
-      "question": "Quel est le problème principal que le programme `phello3` vise à résoudre?",
-      "answer": "Le programme `phello3` vise à éviter les interblocages (deadlocks) qui peuvent survenir avec les fonctions d'envoi et de réception bloquantes de MPI."
+      "question": "Pourquoi un programme MPI de communication cyclique utilisant seulement `MPI_Send` et `MPI_Recv`, comme l'exemple `phello2`, pourrait-il être à risque d'une impasse (deadlock), et comment le programme `phello3` résout-il cette problématique?",
+      "answer": "Un programme MPI comme `phello2` risquait une impasse parce que les fonctions `MPI_Send` et `MPI_Recv` sont des appels bloquants. Si la bibliothèque MPI n'utilise pas de mémoire tampon suffisante ou si celle-ci est saturée, tous les processus pourraient se retrouver en attente indéfinie d'une réception ou d'un envoi. Le programme `phello3` règle ça en employant une stratégie « pair-impair » : les processus de rang pair envoient d'abord, puis reçoivent, tandis que les processus de rang impair reçoivent d'abord, puis envoient. Ça assure qu'une réception est toujours prête pour un envoi, évitant ainsi l'interblocage."
     },
     {
-      "question": "Comment le code `phello3` parvient-il à prévenir les interblocages?",
-      "answer": "Le code `phello3` utilise une stratégie de communication pair-impair. Tous les processus pairs exécutent l'envoi suivi de la réception, tandis que tous les processus impairs exécutent la réception suivie de l'envoi, ce qui élimine la possibilité d'interblocage."
-    },
-    {
-      "question": "Qu'est-ce que les processus de rang pair font dans le code `phello3`?",
-      "answer": "Dans le code `phello3`, les processus de rang pair (`if (!(rank % 2))`) appellent d'abord `MPI_Send` pour envoyer un message, puis `MPI_Recv` pour en recevoir un."
-    },
-    {
-      "question": "Et les processus de rang impair, qu'est-ce qu'ils font dans le code `phello3`?",
-      "answer": "Les processus de rang impair (`else`) appellent d'abord `MPI_Recv` pour recevoir un message, puis `MPI_Send` pour en envoyer un."
-    },
-    {
-      "question": "Est-ce qu'il y a un risque d'interblocage si le nombre total de processus est impair dans l'exemple `phello3`?",
-      "answer": "Non, même avec un nombre impair de processus, il n'y a pas de risque d'interblocage. L'envoi fait par le processus 0 est correctement apparié à la réception lancée par le processus 1, assurant que la transaction sera complétée, même si un léger délai peut survenir."
-    },
-    {
-      "question": "Pourquoi le programme `phello2` est-il considéré \"à risque d'une impasse\" même s'il semble fonctionner correctement?",
-      "answer": "Le programme `phello2` est considéré \"à risque d'une impasse\" parce qu'il dépend de la mise en mémoire tampon des données par `MPI_Send` par la bibliothèque MPI. La norme MPI ne requiert pas l'usage de cette mémoire tampon, et si elle était absente ou saturée, le programme pourrait se bloquer."
-    },
-    {
-      "question": "Qu'est-ce qu'on entend par un \"code fiable\" dans le contexte de la prévention des interblocages avec MPI?",
-      "answer": "Un \"code fiable\" est un programme dont le bon fonctionnement ne requiert pas l'usage d'une mémoire tampon offerte par la bibliothèque MPI pour éviter les interblocages, assurant ainsi sa robustesse."
-    },
-    {
-      "question": "Que garantit la fonction `MPI_Send` selon la norme MPI, avant de retourner?",
-      "answer": "Selon la norme MPI, `MPI_Send` ne retourne pas tant qu'il n'est pas sécuritaire pour le module qui l'appelle de modifier le contenu de la mémoire tampon d'envoi."
-    },
-    {
-      "question": "Que garantit la fonction `MPI_Recv` selon la norme MPI, avant de retourner?",
-      "answer": "Selon la norme MPI, `MPI_Recv` ne retourne pas tant que tout le contenu du message ne se trouve pas dans la mémoire tampon de réception."
-    },
-    {
-      "question": "Comment les valeurs `sendto` et `recvfrom` sont-elles calculées dans le programme `phello3`?",
-      "answer": "Dans le programme `phello3`, la valeur de `sendto` (vers qui envoyer) est calculée comme `(rank + 1) % size`, et la valeur de `recvfrom` (de qui recevoir) est calculée comme `((rank + size) - 1) % size`."
+      "question": "Comment la stratégie « pair-impair » (odd-even) est-elle appliquée dans un programme MPI, tel que l'exemple `phello3`, pour garantir des communications fiables et éviter les interblocages entre les processus?",
+      "answer": "Dans l'exemple `phello3`, la stratégie « pair-impair » est appliquée pour éviter les impasses en variant l'ordre des opérations `MPI_Send` et `MPI_Recv` selon le rang du processus. Les processus de rang pair (ceux dont `rank % 2 == 0`) commencent par envoyer leur message au processus suivant (`sendto`), puis ils reçoivent un message du processus précédent (`recvfrom`). À l'inverse, les processus de rang impair (`rank % 2 != 0`) commencent par recevoir un message du processus précédent, puis ils envoient le leur au processus suivant. Cette séquence alternée garantit qu'il y a toujours un processus prêt à recevoir lorsqu'un autre envoie, ce qui élimine le risque d'interblocage."
     }
   ],
-  "generated_at": "2026-04-12T01:58:26.070241+00:00"
+  "generated_at": "2026-04-13T08:53:27.944118+00:00"
 }

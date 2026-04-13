@@ -3,73 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is OpenStack and what is its primary function on clouds?",
-      "answer": "OpenStack is a software suite used on clouds to control hardware resources such as computers, storage, and networking, allowing for the creation and management of virtual machines (VMs)."
+      "question": "What is OpenStack and its purpose on Alliance clouds?",
+      "answer": "OpenStack is a software suite used on Alliance clouds to manage hardware resources like computers, storage, and networking. Its primary purpose is to enable the creation and management of virtual machines (VMs) or instances, supporting diverse use cases from hosting websites to building virtual clusters."
     },
     {
-      "question": "What prior knowledge is assumed for users interacting with OpenStack documentation on common tasks?",
-      "answer": "It is assumed that users have already read the Cloud Quick Start documentation and understand the basic operations of launching and connecting to a VM."
+      "question": "What are the prerequisites for users working with OpenStack on Alliance clouds, as outlined in this documentation?",
+      "answer": "Users are expected to have already read the 'Cloud Quick Start' guide and understand the basic operations of launching and connecting to a virtual machine (VM)."
     },
     {
-      "question": "What are the common methods for performing tasks in OpenStack?",
-      "answer": "Most tasks can be performed using the dashboard, the OpenStack command-line clients, or Terraform, though some tasks specifically require command-line tools."
+      "question": "What is the OpenStack dashboard, and what is its relationship with Horizon?",
+      "answer": "The OpenStack dashboard is the web browser user interface used to manage cloud resources. It is developed under an OpenStack sub-project called Horizon, and the terms 'Horizon' and 'dashboard' are often used interchangeably."
     },
     {
-      "question": "What is the 'dashboard' in OpenStack documentation?",
-      "answer": "The 'dashboard' refers to the web browser user interface, developed under the OpenStack sub-project Horizon, used to manage cloud resources."
-    },
-    {
-      "question": "What is the purpose of OpenStack projects?",
-      "answer": "OpenStack projects group VMs and related resources together, providing a quota for their creation, and are unique to a particular cloud."
+      "question": "What is an OpenStack project, and how does it manage resources like virtual machines?",
+      "answer": "An OpenStack project groups virtual machines (VMs) and related resources together and provides a specific quota from which these resources can be created. All members of a project share the same level of permissions to create or delete VMs within that project."
     },
     {
       "question": "How can a user view or switch between active OpenStack projects?",
-      "answer": "Users can view the active project name in the top left of the dashboard after logging in, and switch between projects using the drop-down menu if they are members of more than one."
+      "answer": "After logging into an OpenStack dashboard, the active project name is displayed in the top left. If a user is a member of multiple projects, they can switch between them by clicking on the drop-down menu next to the cloud logo and selecting the desired project."
     },
     {
-      "question": "Who is responsible for requesting new OpenStack projects or quota adjustments?",
-      "answer": "New projects and quota adjustments can only be requested by primary investigators (PIs)."
+      "question": "Who is responsible for requesting new OpenStack projects or adjusting existing quotas?",
+      "answer": "OpenStack projects are considered to be owned by primary investigators (PIs), and only PIs can request new projects or adjustments to quotas."
     },
     {
-      "question": "What are availability zones in OpenStack?",
-      "answer": "Availability zones allow users to specify the group of physical hardware they want their VM to run on."
+      "question": "What are availability zones in OpenStack, and how do they differ across Alliance clouds like Beluga, Graham, and Arbutus?",
+      "answer": "Availability zones allow users to specify the group of physical hardware their virtual machine (VM) will run on. On Beluga and Graham clouds, there is only one zone ('nova'). On Arbutus, there are three zones: 'Compute', 'Persistent_01', and 'Persistent_02', with the 'Compute' zone running compute flavors and 'Persistent' zones running persistent flavors."
     },
     {
-      "question": "What is an advantage of using two persistent availability zones, such as on Arbutus cloud?",
-      "answer": "Using two persistent zones can ensure continuous availability for applications, such as running two instances of a website in different zones, in case one site goes down."
+      "question": "What is a security group in OpenStack, and what is its primary function?",
+      "answer": "A security group is a collection of rules designed to control network traffic flowing into and out of your virtual machines."
     },
     {
-      "question": "What is a security group in OpenStack?",
-      "answer": "A security group is a set of rules that controls network traffic into and out of your virtual machines."
+      "question": "What are the typical default rules included in an OpenStack security group?",
+      "answer": "The default security group typically contains two egress rules to allow outbound internet access for IPv4 and IPv6, and two ingress rules to permit communication among all VMs belonging to that same security group, for both IPv4 and IPv6."
     },
     {
-      "question": "How does a user manage security groups within the OpenStack dashboard?",
-      "answer": "Users can manage security groups by navigating to 'Project->Network->Security Groups' and then clicking 'Manage Rules' beside a specific group to add or remove rules."
-    },
-    {
-      "question": "What are the default rules of the default security group?",
-      "answer": "The default security group allows VMs to access the internet (two egress rules for IPv4 and IPv6) and allows communication between VMs belonging to the same default security group (two ingress rules for IPv4 and IPv6)."
-    },
-    {
-      "question": "What is recommended regarding modifying the default security group rules?",
-      "answer": "It is recommended not to remove rules from the default security group as this may cause problems when creating new VMs, but it is safe to add rules to it."
-    },
-    {
-      "question": "What does CIDR stand for and how is it used in OpenStack security rules?",
-      "answer": "CIDR stands for Classless Inter-Domain Routing and is used to define IP ranges for security rules, allowing users to specify allowed IP addresses or ranges like `192.168.1.1/24`."
+      "question": "What is CIDR, and how is it used in OpenStack security rules to specify IP ranges?",
+      "answer": "CIDR stands for Classless Inter-Domain Routing, a standardized method for defining IP ranges. In OpenStack security rules, it's used to specify allowed IP addresses or ranges (e.g., `192.168.1.1/24` would match any IP starting with `192.168.1`)."
     },
     {
       "question": "When and how can cloudInit be used to customize an OpenStack instance?",
-      "answer": "cloudInit can be used the first time an instance is launched, either via the OpenStack command-line interface or by pasting a cloudInit script into the 'Customization Script' field under the 'Configuration' option when launching an instance from the dashboard."
+      "answer": "CloudInit can be used to customize an OpenStack instance the first time it is launched. This can be done either via the OpenStack command-line interface or by pasting a cloudInit script into the 'Customization Script' field within the OpenStack dashboard during instance launch."
     },
     {
-      "question": "How can you add multiple users with different permissions to a VM using a cloudInit script?",
-      "answer": "You can add multiple users by including multiple `- name: username` sections in the cloudInit YAML script, specifying `sudo: ALL=(ALL) NOPASSWD:ALL` for users requiring sudo permissions and listing their SSH public keys."
+      "question": "How can a user add multiple users with specific permissions to a new virtual machine using a cloudInit script?",
+      "answer": "Users can add multiple users by including their names, shell, sudo permissions, and SSH authorized keys within a YAML-formatted cloudInit script pasted into the 'Customization Script' field when launching an instance."
     },
     {
-      "question": "What happens if a cloudInit script to add users is specified without including the 'default' user?",
-      "answer": "If the cloudInit script does not include `- default` in the users list, the users specified in the script will be the *only* users on the newly created VM, overwriting any distribution's default user."
+      "question": "What is a crucial consideration regarding the default user when adding new users via a cloudInit script?",
+      "answer": "If a cloudInit script is used to add new users without explicitly including '- default' in the users list, it will overwrite the distribution's default user. Therefore, it's vital to ensure at least one user listed in the script has sudo permissions."
+    },
+    {
+      "question": "Where can users find more detailed information about managing storage volumes, disk images, or virtual machine characteristics within OpenStack?",
+      "answer": "More information on these specific topics can be found on dedicated pages linked within the documentation, such as 'Working with volumes', 'Working with images', and 'Working with VMs'."
+    },
+    {
+      "question": "What common tasks in OpenStack might require the use of command-line tools instead of the dashboard or Terraform?",
+      "answer": "Some tasks, such as sharing an image with another project, specifically require the use of OpenStack command-line tools."
     }
   ],
-  "generated_at": "2026-04-12T02:15:00.072369+00:00"
+  "generated_at": "2026-04-13T09:07:38.591749+00:00"
 }

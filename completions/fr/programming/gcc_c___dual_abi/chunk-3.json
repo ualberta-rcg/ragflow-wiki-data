@@ -4,33 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Quels sont les paramètres de compilation employés pour la création du fichier `main-cxx98-oldabi.o`?",
-      "answer": "Pour générer `main-cxx98-oldabi.o` à partir de `main.cxx`, le compilateur `$(CXX)` est utilisé avec les paramètres `-c -o $@ -std=c++98 -D_GLIBCXX_USE_CXX11_ABI=0`."
+      "question": "Comment faire pour compiler du code C++ en utilisant l'ancienne ABI (Interface Binaire-Programme) avec GCC ?",
+      "answer": "Pour compiler du code C++ avec l'ancienne ABI à l'aide de GCC, même en utilisant la norme C++98, il faut ajouter l'option `-D_GLIBCXX_USE_CXX11_ABI=0` au compilateur. Par exemple, la commande serait `$(CXX) -c -o $@ -std=c++98 -D_GLIBCXX_USE_CXX11_ABI=0 $<`."
     },
     {
-      "question": "Comment les noms de symboles sont-ils extraits pour le fichier objet `main-cxx98-oldabi.o`?",
-      "answer": "Les noms de symboles de `main-cxx98-oldabi.o` sont extraits en exécutant la commande `nm $@ {{!}} cut -c 20-`, et le résultat est redirigé vers un fichier nommé `$@.symbols`."
+      "question": "Quelle est la commande de compilation pour un programme C++11 qui doit utiliser spécifiquement la nouvelle ABI ?",
+      "answer": "Pour qu'un programme C++11 utilise explicitement la nouvelle ABI, la commande de compilation à employer est `$(CXX) -c -o $@ -std=c++11 -D_GLIBCXX_USE_CXX11_ABI=1 $<`. Ça assure que la nouvelle ABI est appliquée durant la compilation."
     },
     {
-      "question": "Quels sont les arguments de compilation spécifiés pour la génération de `main-cxx11.o`?",
-      "answer": "Le fichier `main-cxx11.o` est compilé à partir de `main.cxx` en utilisant `$(CXX)` avec les arguments `-c -o $@ -std=c++11`."
-    },
-    {
-      "question": "De quelle manière les symboles sont-ils extraits et sauvegardés pour le fichier `main-cxx11.o`?",
-      "answer": "Pour `main-cxx11.o`, les symboles sont extraits avec la commande `nm $@ {{!}} cut -c 20-`, et ils sont ensuite sauvegardés dans `$@.symbols`."
-    },
-    {
-      "question": "Quelles sont les options de compilation utilisées pour créer `main-cxx11-newabi.o`?",
-      "answer": "La création de `main-cxx11-newabi.o` se fait en compilant `main.cxx` avec `$(CXX)` et les options `-c -o $@ -std=c++11 -D_GLIBCXX_USE_CXX11_ABI=1`."
-    },
-    {
-      "question": "Comment les symboles sont-ils extraits et enregistrés pour `main-cxx11-newabi.o`?",
-      "answer": "Pour `main-cxx11-newabi.o`, les symboles sont extraits au moyen de `nm $@ {{!}} cut -c 20-` et le résultat est enregistré dans le fichier `$@.symbols`."
-    },
-    {
-      "question": "Quel est le fichier source commun compilé pour les cibles `main-cxx98-oldabi.o`, `main-cxx11.o` et `main-cxx11-newabi.o`?",
-      "answer": "Dans tous les cas mentionnés, le fichier source compilé est `main.cxx`."
+      "question": "Comment peut-on compiler un programme C++11 en laissant le compilateur utiliser son comportement ABI par défaut, sans spécifier la macro `_GLIBCXX_USE_CXX11_ABI` ?",
+      "answer": "Pour compiler un programme C++11 et laisser le compilateur utiliser son comportement ABI par défaut, sans passer l'option `_GLIBCXX_USE_CXX11_ABI`, on utiliserait la commande `$(CXX) -c -o $@ -std=c++11 $<`. Dans ce cas, le compilateur appliquera l'ABI par défaut pour C++11."
     }
   ],
-  "generated_at": "2026-04-11T22:02:39.231251+00:00"
+  "generated_at": "2026-04-13T05:46:02.650087+00:00"
 }

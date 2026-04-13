@@ -3,61 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What are the two primary methods for using MATLAB on the clusters?",
+      "question": "What are the two main ways to use MATLAB on Alliance clusters?",
       "answer": "Users can either run MATLAB directly, which requires a license, or compile their MATLAB code using the `mcc` compiler and run the generated executable without license considerations."
     },
     {
-      "question": "Which specific clusters provide MATLAB licenses for students, professors, and academic researchers?",
-      "answer": "MATLAB licenses are available on Fir, Narval, Rorqual, and Trillium for students, professors, and academic researchers."
+      "question": "How can users check if they have access to an external MATLAB license on an Alliance cluster?",
+      "answer": "Users can load a MATLAB module (e.g., `matlab/2023b.2`) and then run `matlab -nojvm -nodisplay -batch license`. If a license number is printed, access is confirmed for that specific cluster."
     },
     {
-      "question": "How can a user verify if they have access to an external MATLAB license on a cluster?",
-      "answer": "Users can check by loading a MATLAB module and running `matlab -nojvm -nodisplay -batch license`. If a license number is printed, access is confirmed."
+      "question": "What steps are required if an institution's MATLAB license needs technical configuration to work on Alliance clusters?",
+      "answer": "Users must contact their institution's MATLAB administrator or MathWorks account manager to confirm usage, then create a `matlab.lic` file in `$HOME/.licenses/` with their campus license server's IP and port, and finally contact Alliance technical support to arrange connectivity."
     },
     {
-      "question": "What should a user do if they encounter a license version mismatch message, indicating the version is newer than the license file?",
-      "answer": "They should try using an older version of MATLAB in the `module load` line."
+      "question": "Why is it necessary to prepare the `.matlab` folder when using MATLAB on Alliance clusters?",
+      "answer": "The `/home` directory is read-only on some compute nodes, so a symbolic link is needed to redirect the MATLAB profile and job data to the `/scratch` space to ensure proper read/write access."
     },
     {
-      "question": "If an institution allows using its external MATLAB license, what configuration steps are required on the clusters?",
-      "answer": "Users must create a `matlab.lic` file in the `$HOME/.licenses/` directory with their campus license server's IP address and port, then contact technical support to ensure the license server is reachable by the compute nodes."
+      "question": "How can users see a list of available MATLAB toolboxes with their current license and cluster on Alliance clusters?",
+      "answer": "Users can load the MATLAB module and then execute `matlab -nojvm -batch \"ver\"` to display a list of available toolboxes."
     },
     {
-      "question": "Why is it necessary to prepare the `.matlab` folder on the clusters, and how is it done?",
-      "answer": "The `.matlab` folder needs to be prepared to ensure MATLAB profile and job data are written to the `/scratch` space instead of the read-only `/home` directory on some compute nodes. This involves moving or creating a symbolic link from `.matlab` to `scratch/.matlab`."
+      "question": "What is the best practice for running significant MATLAB calculations on Alliance clusters?",
+      "answer": "Any MATLAB calculation that takes more than approximately 5 minutes or 1 gigabyte of memory must be submitted to the scheduler using a Slurm script."
     },
     {
-      "question": "How can users view a list of available MATLAB toolboxes on a cluster?",
-      "answer": "Users can load the `matlab` module and then execute `matlab -nojvm -batch \"ver\"` to see the available toolboxes."
+      "question": "How can users avoid creating `java.log` files when running MATLAB on Alliance clusters?",
+      "answer": "Users can suppress the creation of these files by using the `-nojvm` option, but doing so might interfere with certain plotting functions."
     },
     {
-      "question": "When is it mandatory to submit a MATLAB calculation to the scheduler?",
-      "answer": "Any significant MATLAB calculation that takes more than approximately 5 minutes or uses more than one gigabyte of memory must be submitted to the scheduler."
+      "question": "What is the recommended approach for parallel MATLAB execution on a single node on Alliance clusters?",
+      "answer": "Most MATLAB users will find it sufficient to run MATLAB using a `Threads` parallel environment on a single compute node."
     },
     {
-      "question": "What is the recommended approach for running parallel MATLAB jobs for most users on the clusters?",
-      "answer": "Most users will find it sufficient to run MATLAB using a `Threads` parallel environment on a single node."
+      "question": "What problem can occur when multiple parallel MATLAB jobs using a `Cluster` parallel environment run simultaneously on Alliance clusters?",
+      "answer": "When two or more parallel MATLAB jobs call `parpool` concurrently, they may try to read and write to the same `.dat` file, which can corrupt the local parallel profile used by other jobs."
     },
     {
-      "question": "How can simultaneous parallel MATLAB jobs prevent corruption of local parallel profiles?",
-      "answer": "To prevent corruption, each job should create its own parallel profile in a unique location by setting the `JobStorageLocation` property of the `parallel.Cluster` object to `getenv('SLURM_TMPDIR')`."
+      "question": "How can users prevent parallel profile corruption when running simultaneous MATLAB jobs on Alliance clusters?",
+      "answer": "Users should ensure each job creates its own parallel profile in a unique location by setting the `JobStorageLocation` property of the `parallel.Cluster` object, for instance, to `$SLURM_TMPDIR`."
     },
     {
-      "question": "What is the main advantage of compiling MATLAB code using the MATLAB Compiler (`mcc`)?",
-      "answer": "The main advantage is that the compiled executable file can be run on any cluster without needing a MATLAB license."
+      "question": "What is the primary benefit of compiling MATLAB code using `mcc` on Alliance clusters?",
+      "answer": "Compiling MATLAB code allows users to create an executable file that can be run on any cluster without requiring a MATLAB license."
     },
     {
-      "question": "What are the necessary steps to run a compiled MATLAB binary created with `mcc` on the clusters?",
-      "answer": "Users must load an MCR module corresponding to the MATLAB version used for compilation, run `setrpaths.sh --path <binary_name>` once, and then use `run_mcr_binary.sh <binary_name>` within their submission script."
+      "question": "What is the recommended process for running a compiled MATLAB (MCR) binary on Alliance clusters?",
+      "answer": "Users need to load the corresponding MCR module, run `setrpaths.sh --path <binary_name>` once for each binary, and then execute the binary in their submission script using `run_mcr_binary.sh <binary_name>`."
     },
     {
-      "question": "What is the current status and primary limitation of using the MATLAB Parallel Server from a local computer on the clusters?",
-      "answer": "As of May 2023, job submission from a local computer is no longer possible due to mandatory security improvements on the clusters which disallow the SSH mode MATLAB uses. There is currently no workaround."
+      "question": "Under what specific condition is using the MATLAB Parallel Server worthwhile for users on Alliance clusters?",
+      "answer": "MATLAB Parallel Server is only beneficial if a parallel MATLAB job requires more workers than the available CPU cores on a single compute node."
     },
     {
-      "question": "Where can users find official online documentation and self-paced courses for MATLAB?",
-      "answer": "Official documentation is available at `https://www.mathworks.com/help/matlab/` and self-paced online courses are offered at `https://matlabacademy.mathworks.com/`."
+      "question": "Is it currently possible to submit MATLAB parallel jobs from a local computer to Alliance clusters using the MATLAB Parallel Server?",
+      "answer": "No, it is currently not possible. Due to mandatory security improvements implemented in May 2023, the SSH mode MATLAB uses for local job submission is no longer permitted, and there is no workaround at this time."
+    },
+    {
+      "question": "Are the previously described configuration steps for the Slurm plugin for MATLAB Parallel Server still valid on Alliance clusters?",
+      "answer": "No, the procedure for the Slurm plugin is no longer valid because the plugin is unavailable, and the SSH issue prevents local job submission."
+    },
+    {
+      "question": "Where can users find official documentation and self-paced online courses for MATLAB?",
+      "answer": "Official documentation is available on the MathWorks website at `mathworks.com/help/matlab/`, and self-paced online courses can be found at `matlabacademy.mathworks.com/`."
     }
   ],
-  "generated_at": "2026-04-12T01:11:59.071295+00:00"
+  "generated_at": "2026-04-13T08:17:18.105505+00:00"
 }

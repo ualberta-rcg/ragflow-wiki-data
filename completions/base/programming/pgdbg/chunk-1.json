@@ -4,109 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is PGDBG?",
-      "answer": "PGDBG is a powerful and simple tool designed for debugging both MPI-parallel and OpenMP thread-parallel Linux applications."
+      "question": "What is PGDBG, what types of applications is it designed to debug, and how does it compare to other debuggers like GDB?",
+      "answer": "PGDBG is a powerful and simple tool included in the PGI compiler package, specifically designed for debugging both MPI-parallel and OpenMP thread-parallel Linux applications. While a regular GNU debugger like GDB works well for C, C++, or Fortran 77 codes, PGDBG is better suited for Fortran 90/95 programs, which GDB doesn't handle effectively. PGDBG can operate in two modes: a graphical mode (requiring X11 forwarding) or a text mode."
     },
     {
-      "question": "What kind of applications can PGDBG debug?",
-      "answer": "PGDBG can debug both MPI-parallel and OpenMP thread-parallel Linux applications."
+      "question": "What are the essential steps to set up the environment and compile a program for debugging with PGDBG?",
+      "answer": "Before debugging with PGDBG, you need to load the appropriate PGI compiler module. You can see available versions by running `module avail pgi` or `module -r spider '.*pgi.*'`, then load a specific version using `module load pgi/version` (e.g., `module load pgi/17.3`). Once the module is loaded, you must compile your code with debugging information enabled by adding the `-g` flag to your compilation command, for example: `pgcc -g program.c -o program`."
     },
     {
-      "question": "Is PGDBG part of a larger software package?",
-      "answer": "Yes, PGDBG is included in the PGI compiler package."
-    },
-    {
-      "question": "What is PGDBG configured for by default?",
-      "answer": "PGDBG is configured for OpenMP thread-parallel debugging."
-    },
-    {
-      "question": "When is PGDBG a better choice than GNU debugger (GDB) for Fortran codes?",
-      "answer": "PGDBG is more suited for Fortran 90/95 programs, as regular GNU debuggers like GDB do not handle them very well."
-    },
-    {
-      "question": "For which programming languages can a regular GNU debugger like GDB typically be used?",
-      "answer": "A regular GNU debugger such as GDB can be used for most C, C++, or Fortran 77 codes."
-    },
-    {
-      "question": "How many operational modes does Pgdbg offer?",
-      "answer": "Pgdbg is provided in two modes: a graphical mode with enabled X11 forwarding or a text mode."
-    },
-    {
-      "question": "What are the two main steps for using PGDBG?",
-      "answer": "Using PGDBG usually consists of two steps: Compilation (compile the code with debugging enabled) and Execution and debugging (execute the code and analyze the results)."
-    },
-    {
-      "question": "In what modes can the actual debugging with PGDBG be accomplished?",
-      "answer": "The actual debugging can be accomplished in either command-line mode or graphical mode."
-    },
-    {
-      "question": "What needs to be loaded before starting profiling with PGDBG?",
-      "answer": "Before you start profiling with PGDBG, the appropriate module needs to be loaded."
-    },
-    {
-      "question": "How can you check the available versions of the PGI compiler package, which includes PGDBG?",
-      "answer": "You can run `module avail pgi` to see what versions are currently available with the compiler, MPI, and CUDA modules you have loaded."
-    },
-    {
-      "question": "How can one get a comprehensive list of PGI modules?",
-      "answer": "To get a comprehensive list of PGI modules, run `module -r spider '.*pgi.*'`."
-    },
-    {
-      "question": "What PGI versions were available as of December 2018?",
-      "answer": "As of December 2018, the available PGI versions were pgi/13.10 and pgi/17.3."
-    },
-    {
-      "question": "How do you select a specific PGI version to load?",
-      "answer": "Use `module load pgi/version` to select a version; for example, to load PGI compiler version 17.3, use `module load pgi/17.3`."
-    },
-    {
-      "question": "What must be done to your code before you can debug it with pgdbg?",
-      "answer": "To be able to debug with pgdbg, you first need to compile your code with debugging information enabled."
-    },
-    {
-      "question": "How do you enable debugging information when compiling code with pgdbg?",
-      "answer": "You enable debugging information by adding a debugging flag \"-g\" when compiling, for example: `pgcc -g program.c -o program`."
-    },
-    {
-      "question": "What is the default user interface for the PGDBG debugger?",
-      "answer": "The debugger's default user interface is a graphical user interface or GUI."
-    },
-    {
-      "question": "When would you choose to run pgdbg in text mode?",
-      "answer": "You can run pgdbg in text mode if you prefer not to use the GUI or if you do not have X11 forwarding enabled."
-    },
-    {
-      "question": "How do you run pgdbg in text mode?",
-      "answer": "To run pgdbg in text mode, add an extra option \"-text\", for example: `pgdbg -text program arg1 arg2`."
-    },
-    {
-      "question": "What prompt will you have access to after invoking PGDBG in command-line mode?",
-      "answer": "Once PGDBG is invoked in command-line mode, you will have access to the `pgdbg>` prompt."
-    },
-    {
-      "question": "What command must you execute in the pgdbg prompt before debugging can begin?",
-      "answer": "Before you can debug, you need to execute `run` in the prompt, for example: `pgdbg> run`."
-    },
-    {
-      "question": "How does PGDBG handle new threads during program execution?",
-      "answer": "PGDBG automatically attaches to new threads as they are created during program execution and describes when a new thread is created."
-    },
-    {
-      "question": "In the context of what does PGDBG operate during a debug session?",
-      "answer": "During a debug session, at any one time, PGDBG operates in the context of a single thread, which is the current thread."
-    },
-    {
-      "question": "How is the current thread chosen in PGDBG's command-line mode?",
-      "answer": "The current thread is chosen by using the `thread` command."
-    },
-    {
-      "question": "What command lists all threads currently employed by an active program in PGDBG's command-line mode?",
-      "answer": "The `threads` command lists all threads currently employed by an active program."
-    },
-    {
-      "question": "How do you switch the context to a different thread in PGDBG's command-line mode?",
-      "answer": "You use the `thread` command followed by the thread ID, for example: `pgdbg > thread 3`."
+      "question": "How do you start a debugging session in PGDBG's command-line mode and interact with program threads?",
+      "answer": "To start PGDBG in command-line (text) mode, you execute it with the `-text` option, like `pgdbg -text program arg1 arg2`. Once at the `pgdbg>` prompt, you must type `run` to begin executing your program and initiate the debugging session. To view all active threads, use the `threads` command. To switch the debugging context to a specific thread, use the `thread` command followed by the thread's ID, for instance: `thread 3`."
     }
   ],
-  "generated_at": "2026-04-12T05:18:26.137543+00:00"
+  "generated_at": "2026-04-13T11:18:29.200021+00:00"
 }

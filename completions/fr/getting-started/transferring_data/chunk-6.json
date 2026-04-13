@@ -4,73 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce qu'on doit faire si on se connecte en SFTP à un nouvel hôte et qu'on reçoit un avertissement concernant son authenticité?",
-      "answer": "Quand un avertissement apparaît pour un hôte inconnu, il faut taper « yes » pour confirmer qu'on veut continuer, ce qui ajoutera l'hôte à la liste des hôtes connus. Après ça, on doit entrer le mot de passe de l'utilisateur."
+      "question": "C'est quoi le protocole SCP (Secure Copy Protocol) et quelle est sa principale différence avec des outils comme Globus ou rsync?",
+      "answer": "SCP, qui veut dire \"Secure Copy Protocol\", utilise le protocole SSH pour chiffrer les données qu'on transfère. La grosse différence, c'est que SCP ne gère pas la synchronisation des données, contrairement à Globus ou rsync."
     },
     {
-      "question": "Comment peut-on s'authentifier en SFTP si on utilise une clé SSH?",
-      "answer": "Pour s'authentifier avec une clé SSH, il faut utiliser l'option `-i` suivie du chemin complet vers la clé privée, comme dans `sftp -i /home/name/.ssh/id_rsa USERNAME@ADDRESS`."
+      "question": "Est-ce qu'on peut utiliser la commande `scp -r` pour copier des répertoires vers l'espace `/project` sur les grappes de l'Alliance?",
+      "answer": "Non, ce n'est pas recommandé d'utiliser `scp -r` pour transférer des données vers l'espace `/project`. Ça désactive le bit `setGID` dans les répertoires qu'on crée, pis ça peut entraîner des erreurs comme \"Disk quota exceeded\" quand on essaie de créer d'autres fichiers plus tard."
     },
     {
-      "question": "Comment fait-on pour voir la liste des commandes SFTP disponibles une fois qu'on est connecté à l'invite `sftp>`?",
-      "answer": "À l'invite `sftp>`, on peut taper la commande `help` pour obtenir la liste des commandes disponibles."
-    },
-    {
-      "question": "Quels sont les logiciels graphiques recommandés pour les transferts SFTP sous Windows?",
-      "answer": "Sous Windows, on peut utiliser WinSCP, MobaXterm et FileZilla pour le transfert de fichiers SFTP."
-    },
-    {
-      "question": "Est-ce qu'il y a des applications graphiques pour SFTP qui marchent sur Mac OS X?",
-      "answer": "Oui, Cyberduck et FileZilla sont des applications graphiques SFTP qui fonctionnent sous Mac OS X."
-    },
-    {
-      "question": "Quel logiciel de transfert SFTP graphique est compatible avec Linux?",
-      "answer": "FileZilla est un logiciel graphique compatible avec Linux pour les transferts SFTP."
-    },
-    {
-      "question": "Que signifie SCP?",
-      "answer": "SCP est l'abréviation de « secure copy protocol »."
-    },
-    {
-      "question": "Quel est le protocole utilisé par SCP pour chiffrer les données transférées?",
-      "answer": "SCP utilise le protocole SSH (Secure Shell) pour chiffrer les données pendant le transfert."
-    },
-    {
-      "question": "Est-ce que SCP permet la synchronisation de fichiers entre des systèmes?",
-      "answer": "Non, SCP ne gère pas la synchronisation de fichiers, contrairement à d'autres outils comme Globus ou rsync."
-    },
-    {
-      "question": "Comment transférer un fichier nommé `foo.txt` depuis mon ordinateur local vers le répertoire `work` de mon dossier personnel sur la grappe Rorqual en utilisant SCP?",
-      "answer": "On peut utiliser la commande `scp foo.txt username@rorqual.alliancecan.ca:work/`."
-    },
-    {
-      "question": "Comment puis-je copier un fichier `output.dat` de mon espace `/project` sur la grappe Fir vers mon ordinateur local avec SCP?",
-      "answer": "Pour ça, on utilise une commande comme `scp username@fir.alliancecan.ca:projects/def-jdoe/username/results/output.dat .` (le point à la fin veut dire le répertoire courant sur votre machine locale)."
-    },
-    {
-      "question": "D'où faut-il toujours lancer la commande `scp`?",
-      "answer": "La commande `scp` doit toujours être lancée à partir de votre ordinateur local, jamais directement de la grappe, peu importe le sens du transfert."
-    },
-    {
-      "question": "Quelle est l'option de SCP qui permet de faire un transfert récursif de répertoires et de fichiers?",
-      "answer": "L'option `-r` permet de faire un transfert récursif de répertoires et de fichiers."
-    },
-    {
-      "question": "Pourquoi est-ce qu'on ne devrait pas utiliser `scp -r` pour transférer des données vers un système de fichiers `/project`?",
-      "answer": "Il n'est pas recommandé d'utiliser `scp -r` pour les transferts vers `/project` parce que le bit `setGID` est désactivé dans les répertoires créés, ce qui peut entraîner des erreurs de type « Disk quota exceeded » plus tard."
-    },
-    {
-      "question": "Que faut-il faire si on utilise une clé SSH avec un nom non standard pour une connexion SCP?",
-      "answer": "Si la clé SSH a un nom personnalisé (pas `id_dsa`, `id_ecdsa`, `id_ed25519` ou `id_rsa`), il faut spécifier son chemin avec l'option `-i`, par exemple: `scp -i /chemin/vers/ma_cle_privee foo.txt username@rorqual.alliancecan.ca:work/`."
-    },
-    {
-      "question": "Quelle est la première chose à vérifier avant de transférer des répertoires pour s'assurer qu'il n'y aura pas de problèmes de lecture?",
-      "answer": "Il faut s'assurer qu'on peut lire tout le contenu des répertoires avant de commencer le transfert."
-    },
-    {
-      "question": "Quelle commande Linux peut nous aider à identifier les fichiers ou répertoires qu'on n'a pas la permission de lire?",
-      "answer": "Sous Linux, la commande `find <nom_du_répertoire> ! -readable -ls` permet de lister les éléments qu'on n'a pas le droit de lire dans un répertoire donné."
+      "question": "Quelles sont les applications graphiques qu'on peut utiliser pour transférer des fichiers via SFTP sur les différents systèmes d'exploitation (Windows, Mac, Linux)?",
+      "answer": "Pour transférer des fichiers via SFTP, plusieurs applications graphiques sont disponibles. Sous Windows, tu peux utiliser WinSCP et MobaXterm. Filezilla fonctionne sur Windows, Mac et Linux. Puis, Cyberduck est une option pour Mac et Windows."
     }
   ],
-  "generated_at": "2026-04-12T09:23:57.361616+00:00"
+  "generated_at": "2026-04-13T14:38:57.666778+00:00"
 }

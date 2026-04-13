@@ -3,73 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of an automation node?",
-      "answer": "Automation nodes are designed for automated workflows that connect to a cluster without human intervention, specifically when a second authentication factor is a requirement but cannot be used."
+      "question": "Why are automation nodes necessary for automated workflows on Alliance clusters?",
+      "answer": "Automation nodes are necessary because automated workflows connecting to a cluster without human intervention cannot make use of a second authentication factor, which is now a Multi-Factor Authentication (MFA) requirement."
     },
     {
-      "question": "How do I request access to an automation node?",
-      "answer": "You must contact technical support and provide a detailed explanation of your intended automation, including the commands, tools, or libraries you plan to use."
+      "question": "How can a researcher gain access to an automation node on an Alliance cluster?",
+      "answer": "Researchers must contact Alliance technical support and request access to an automation node, providing a detailed explanation of the type of automation they intend to use, including commands, tools, and libraries."
     },
     {
-      "question": "What is the only accepted authentication method for automation nodes?",
-      "answer": "The only accepted authentication method is through SSH keys that have been uploaded to the CCDB."
+      "question": "What is the only accepted method of authentication for automation nodes on Alliance clusters?",
+      "answer": "The only accepted means of authentication for automation nodes is through SSH keys uploaded to the CCDB. SSH keys written in a user's `~/.ssh/authorized_keys` file are not accepted."
     },
     {
-      "question": "Should I use an existing SSH key for my automation workflow?",
-      "answer": "No, you should generate a new SSH key specifically for your automation workflow and not reuse keys intended for interactive login."
+      "question": "What is the recommended practice for using SSH keys with automation nodes on Alliance clusters?",
+      "answer": "It is recommended to follow the rule of 'one SSH key per use', meaning a new SSH key should be generated specifically for each automation workflow and not reused for interactive logins."
     },
     {
-      "question": "What does the `restrict` constraint on an automation node SSH key achieve?",
-      "answer": "The `restrict` constraint disables port, agent, and X11 forwarding, as well as the pseudo teletype (PTY), thereby blocking most interactive and long-running workloads."
+      "question": "What mandatory constraints must SSH keys obey when used with automation nodes on Alliance clusters?",
+      "answer": "SSH keys for automation nodes must obey three constraints: `restrict`, `from=\"pattern-list\"`, and `command=\"COMMAND\"`."
     },
     {
-      "question": "Why is the `from=\"pattern-list\"` constraint required for automation node SSH keys?",
-      "answer": "This constraint ensures that the SSH key can only be used from specific public IP addresses that match the provided patterns, preventing its use from unintended computers."
+      "question": "What is the purpose of the `restrict` constraint for SSH keys used with Alliance automation nodes?",
+      "answer": "The `restrict` constraint disables port forwarding, agent forwarding, X11 forwarding, and the pseudo teletype (PTY), which blocks most interactive workloads. This is because automation nodes are not intended for long-running or interactive processes."
     },
     {
-      "question": "What kind of IP addresses are accepted in the `from=\"pattern-list\"` constraint?",
-      "answer": "Only public IP addresses that fully specify at least the network class, network, and subnet (e.g., `x.y.z.*`) are accepted; private IP ranges are not allowed."
+      "question": "What is the purpose of the `from=\"pattern-list\"` constraint for SSH keys on Alliance automation nodes, and what kind of IP addresses are allowed?",
+      "answer": "This constraint ensures the key can only be used from specific public IP addresses that fully specify at least the network class, network, and subnet (e.g., `x.y.z.*`). Private IP addresses are not permitted."
     },
     {
-      "question": "What is the function of the `command=\"COMMAND\"` constraint for an automation node SSH key?",
-      "answer": "This constraint forces a specific command to be executed when the connection is established, allowing administrators to restrict which commands can be used with that particular key."
+      "question": "What is the purpose of the `command=\"COMMAND\"` constraint for SSH keys used with Alliance automation nodes?",
+      "answer": "This constraint forces a specific command to be executed when a connection is established, allowing users to restrict which commands can be used with that particular key."
     },
     {
-      "question": "Are there pre-built scripts available for common actions with the `command` constraint?",
-      "answer": "Yes, convenience wrapper scripts are provided for common actions like file transfers, archiving, file manipulation, Git commands, and Slurm commands."
+      "question": "What convenience wrapper scripts are available for the `command=` constraint on Alliance automation nodes, and what do they allow?",
+      "answer": "Alliance provides scripts like `transfer_commands.sh` (for `scp`, `sftp`), `archiving_commands.sh` (for `gzip`, `tar`), `file_commands.sh` (for `mv`, `cp`), `git_commands.sh` (for `git`), and `slurm_commands.sh` (for `squeue`, `sbatch`). `allowed_commands.sh` allows all of these."
     },
     {
-      "question": "Where should the SSH key constraints be placed when uploading the key?",
-      "answer": "The constraints must be added directly as text in front of your key string before you upload the complete string to your account in the CCDB."
+      "question": "Where should the full SSH key string, including constraints, be uploaded for use with Alliance automation nodes?",
+      "answer": "The constraints must be added directly as text in front of the key, and the complete string should then be uploaded in the user's account on the CCDB (ccdb.alliancecan.ca/ssh_authorized_keys)."
     },
     {
-      "question": "What is the hostname for the automation node on the Narval cluster?",
-      "answer": "The hostname for the Narval cluster's automation node is `robot.narval.alliancecan.ca`."
+      "question": "What are the hostnames for automation nodes on various Alliance clusters like Fir, Narval, and Rorqual?",
+      "answer": "The hostnames for automation nodes are `robot.fir.alliancecan.ca` for Fir, `robot.narval.alliancecan.ca` for Narval, `robot.nibi.alliancecan.ca` for Nibi, and `robot.rorqual.alliancecan.ca` for Rorqual, among others."
     },
     {
-      "question": "How can I specify a particular private key when using `ssh` or `scp` for an automation node connection?",
-      "answer": "You can specify the private key using the `-i` parameter, for example, `ssh -i .ssh/private_key_to_use ...`."
+      "question": "How can a user specify the correct private key when using `ssh`, `scp`, or `rsync` with Alliance automation nodes?",
+      "answer": "For `ssh` or `scp`, use the `-i` option followed by the private key path (e.g., `ssh -i .ssh/private_key_to_use ...`). For `rsync`, use `-e \"ssh -i .ssh/private_key_to_use\" ...`."
     },
     {
-      "question": "What is a convenient way to configure SSH client settings for automation nodes?",
-      "answer": "You can add specific parameters, such as hostname, user, and identity file, to your `~/.ssh/config` file, which simplifies subsequent SSH client invocations."
+      "question": "How can SSH commands to Alliance automation nodes be simplified for convenience?",
+      "answer": "Parameters can be added to the `~/.ssh/config` file, specifying the hostname, user, identity file, `identitiesonly yes`, and `requesttty no`, allowing for simpler commands like `ssh robot /usr/bin/ls`."
     },
     {
-      "question": "What common issue can occur if my SSH client connects to an automation node using IPv6, but my key specifies an IPv4 address?",
-      "answer": "If your SSH client uses IPv6 while the `restrict,from=` field in your SSH key specifies an IPv4 address mask, the source address will not match, and the key will be rejected."
+      "question": "What potential issue can arise with IPv4 and IPv6 addressing when connecting to Alliance automation nodes, especially for Windows users?",
+      "answer": "The SSH client may choose to use IPv6 addressing over IPv4. If the `from=` constraint in the CCDB SSH key specifies an IPv4 address mask, the connection will fail if the client uses IPv6 because the source address will not match."
     },
     {
-      "question": "How can I check if my SSH client is connecting using IPv4 or IPv6?",
-      "answer": "You can use `ssh -i ~/.ssh/automation_key -vvv username@robot.rorqual.alliancecan.ca \"ls -l\"` and look for the 'Connecting to...' message in the verbose output to see the IP address type being used."
+      "question": "How can a user diagnose if an IPv4 vs. IPv6 addressing issue is preventing an SSH connection to an Alliance automation node?",
+      "answer": "Users can run `ssh -i ~/.ssh/automation_key -vvv username@robot.rorqual.alliancecan.ca \"ls -l\"` and look for the \"Connecting to...\" message in the debug output to see whether IPv4 or IPv6 is being used."
     },
     {
-      "question": "What are the possible solutions if an IPv4/IPv6 mismatch prevents my SSH key from being accepted by an automation node?",
-      "answer": "You can explicitly tell the SSH client to use either IPv4 (`-4`) or IPv6 (`-6`), use an IP address instead of the hostname to force IPv4, or as a last resort, disable IPv6 on your computer."
+      "question": "What are the possible solutions if an IPv4/IPv6 addressing mismatch is preventing an SSH connection to an Alliance automation node?",
+      "answer": "Solutions include explicitly using IPv4 or IPv6 with the `-4` or `-6` SSH options, using an IP address instead of the hostname for the automation node, or, as a last resort, disabling IPv6 addressing on the computer."
     },
     {
-      "question": "What is important to ensure Paramiko supports Ed25519 key types?",
-      "answer": "It is important to install Paramiko using `$ pip install paramiko[all]` to ensure that support for the Ed25519 key type is also installed."
+      "question": "How can Python's Paramiko module be used to automate workflows with Alliance automation nodes?",
+      "answer": "Paramiko can be used by loading the Ed25519 private key, setting `paramiko.AutoAddPolicy()` for unknown hosts, connecting to the automation node hostname with the username and key, executing commands, and then closing the connection."
+    },
+    {
+      "question": "What specific command should be used to install the Paramiko Python module to ensure support for Ed25519 keys?",
+      "answer": "To ensure support for Ed25519 key types, Paramiko should be installed using the command `pip install paramiko[all]`."
     }
   ],
-  "generated_at": "2026-04-11T18:07:27.927881+00:00"
+  "generated_at": "2026-04-13T02:38:51.378208+00:00"
 }

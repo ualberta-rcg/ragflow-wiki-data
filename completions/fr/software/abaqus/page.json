@@ -3,113 +3,85 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, Abaqus FEA?",
-      "answer": "Abaqus FEA est un progiciel commercial qui sert à l'analyse par éléments finis et à l'ingénierie assistée par ordinateur."
+      "question": "Qu'est-ce qu'Abaqus FEA et à quoi sert-il sur les grappes de l'Alliance?",
+      "answer": "Abaqus FEA est un progiciel commercial utilisé pour l'analyse d'éléments finis et l'ingénierie assistée par ordinateur sur les grappes de l'Alliance."
     },
     {
-      "question": "Comment j'fais pour configurer ma licence Abaqus sur les grappes?",
-      "answer": "Faut se connecter à chaque grappe que vous voulez utiliser et créer un fichier <code>$HOME/.licenses/abaqus.lic</code>. Dedans, vous mettez <code>prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"port@server\")</code> en remplaçant <code>port@server</code> par l'info de votre serveur de licence."
+      "question": "Comment les utilisateurs peuvent-ils configurer leur propre licence Abaqus sur les grappes de l'Alliance?",
+      "answer": "Ils doivent se connecter à chaque grappe, puis créer un fichier `$HOME/.licenses/abaqus.lic` qui contient `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"port@server\")`, en remplaçant `port@server` par les détails de leur serveur de licence."
     },
     {
-      "question": "Quoi faire si ma licence Abaqus n'est pas configurée pour une grappe spécifique?",
-      "answer": "Il faut contacter le soutien technique pour que les administrateurs des systèmes des deux parties puissent ouvrir les pare-feu. Vous devrez fournir le numéro du port flexlm, le numéro du port statique, et l'adresse IP de votre serveur de licence Abaqus."
+      "question": "Quels renseignements faut-il fournir au soutien technique si une licence Abaqus n'est pas configurée pour une grappe en particulier?",
+      "answer": "Il faut fournir le numéro du port flexlm, le numéro du port statique et l'adresse IP du serveur de licence Abaqus."
     },
     {
-      "question": "C'est quoi la différence entre ABAQUSLM_LICENSE_FILE et LM_LICENSE_FILE pour la configuration de licence?",
-      "answer": "Pour la version 6.14.1 d'Abaqus, faut remplacer ABAQUSLM_LICENSE_FILE par LM_LICENSE_FILE dans le fichier de licence. Sinon, ABAQUSLM_LICENSE_FILE est la variable par défaut."
+      "question": "Comment configurer Abaqus pour utiliser un serveur de licence DSLS de son établissement plutôt que le serveur FLEXnet par défaut?",
+      "answer": "Il faut créer les fichiers `abaqus_v6.env` et `DSLicSrv.txt` dans le répertoire de soumission de la simulation, en spécifiant `license_server_type=DSLS` et l'hôte:port du serveur DSLS."
     },
     {
-      "question": "Comment utiliser un serveur de licence DSLS de mon établissement au lieu de FLEXnet?",
-      "answer": "Faut créer les fichiers <code>abaqus_v6.env</code> et <code>DSLicSrv.txt</code> dans le répertoire de soumission de votre simulation. <code>abaqus_v6.env</code> doit contenir <code>license_server_type=DSLS</code> et <code>dsls_license_config=\"DSLicSrv.txt\"</code>. <code>DSLicSrv.txt</code> doit contenir <code>YOUR-SERVER-HOSTNAME:PORT-NUMBER</code>."
+      "question": "Quelle est la dernière version du module Abaqus installée dans l'environnement par défaut StdEnv/2023 et quel problème majeur résout-elle?",
+      "answer": "Le module `abaqus/2026` est installé et résout l'erreur `*** buffer overflow detected ***` qui survenait avec `abaqus/2021`."
     },
     {
-      "question": "Quoi de neuf avec le module abaqus/2026?",
-      "answer": "Un nouveau module abaqus/2026 est installé dans l'environnement par défaut StdEnv/2023. Ça règle l'erreur 'buffer overflow detected' qui arrivait avec abaqus/2021. Le module abaqus/2026.2606 avec les mises à niveau FP.CFA.2606 sera installé bientôt."
+      "question": "Quelle est la méthode recommandée pour soumettre une tâche Abaqus standard sur un nœud simple d'une durée de moins de 24 heures?",
+      "answer": "Il est recommandé d'utiliser un des scripts Slurm du répertoire `/project` sous le premier onglet de la section 'Analyse standard - Scripts pour un nœud simple'."
     },
     {
-      "question": "Comment soumettre une tâche Abaqus en lots sur une grappe?",
-      "answer": "Il faut utiliser un script Slurm. Des prototypes sont fournis dans la documentation pour les simulations parallèles sur un ou plusieurs nœuds, avec des fils ou MPI."
+      "question": "Dans quels cas est-il conseillé d'utiliser un script de redémarrage pour les simulations Abaqus?",
+      "answer": "Les scripts de redémarrage sont utiles pour les tâches de longue durée qui dépassent le temps d'exécution maximal ou si le nœud de calcul plante inopinément."
     },
     {
-      "question": "Quand devrais-je utiliser un script de redémarrage pour une tâche Abaqus?",
-      "answer": "Il est préférable d'utiliser un script de redémarrage pour les tâches de longue durée ou celles qui créent des fichiers de redémarrage volumineux, pour pouvoir continuer une tâche interrompue prématurément."
+      "question": "Pourquoi est-il préférable que les tâches Abaqus qui créent des fichiers de redémarrage volumineux écrivent sur le disque local via SLURM_TMPDIR?",
+      "answer": "C'est préférable pour éviter les problèmes et optimiser la performance, car les fichiers temporaires peuvent devenir très grands."
     },
     {
-      "question": "Quand est-ce que je devrais écrire les données de ma tâche sur le disque temporaire local (SLURM_TMPDIR)?",
-      "answer": "Les tâches qui créent des fichiers de redémarrage volumineux devraient écrire sur le disque local via la variable d'environnement SLURM_TMPDIR. Ça aide à éviter des problèmes avec les systèmes de fichiers partagés."
+      "question": "Comment peut-on estimer la mémoire requise pour une simulation Abaqus en processus simple afin de minimiser les entrées/sorties?",
+      "answer": "On peut trouver l'estimation `MEMORY TO MINIMIZE I/O` dans le fichier de sortie `test.dat` ou en surveillant l'utilisation de la mémoire (VIRT et RES) avec `top` lors d'une exécution interactive."
     },
     {
-      "question": "Comment spécifier les paramètres de redémarrage dans le fichier d'entrée Abaqus?",
-      "answer": "Pour écrire les données de redémarrage en incréments de N=12, ajoutez <code>*RESTART, WRITE, OVERLAY, FREQUENCY=12</code>. Pour un total de 12 incréments, utilisez <code>*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO</code>."
+      "question": "Quelles sont les caractéristiques principales de la licence Abaqus SHARCNET?",
+      "answer": "C'est une licence académique gratuite et limitée avec 2 jetons de calcul et 35 jetons d'exécution, avec des limites de 10 jetons par utilisateur et 15 par groupe, destinée aux tests et à une utilisation légère sur le matériel SHARCNET."
     },
     {
-      "question": "Comment j'fais pour estimer le besoin en mémoire pour une simulation Abaqus à processus simple?",
-      "answer": "Vous pouvez trouver une estimation dans le fichier de sortie Abaqus <code>test.dat</code> sous la section 'MEMORY ESTIMATE', ou en surveillant la consommation de mémoire avec <code>ps</code> ou <code>top</code> sur un nœud de calcul en mode interactif."
+      "question": "Quelle procédure les utilisateurs doivent-ils suivre avant d'utiliser la licence SHARCNET Abaqus?",
+      "answer": "Ils doivent contacter le soutien technique, spécifier qu'il s'agit d'une demande pour les systèmes SHARCNET, et copier-coller un accord de licence en y inscrivant leurs nom, prénom et nom d'utilisateur."
     },
     {
-      "question": "C'est quoi la différence entre 'MINIMUM MEMORY REQUIRED' (MMR) et 'MEMORY TO MINIMIZE I/O' (MRMIO) pour l'estimation de la mémoire Abaqus?",
-      "answer": "MMR est la mémoire minimale requise pour qu'Abaqus ne plante pas. MRMIO est la mémoire nécessaire pour minimiser les entrées/sorties disque. Il est idéal d'allouer suffisamment de mémoire pour satisfaire MRMIO, mais ça peut être ajusté pour les temps d'attente."
+      "question": "Comment le fichier de licence Abaqus doit-il être configuré pour la licence SHARCNET sur les systèmes SHARCNET?",
+      "answer": "Le fichier `~/.licenses/abaqus.lic` doit contenir `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27050@license1.computecanada.ca\")`."
     },
     {
-      "question": "Comment j'peux estimer la mémoire pour les simulations Abaqus à processus multiples (MPI)?",
-      "answer": "Pour les tâches terminées, les estimations de mémoire par processus de calcul se trouvent dans le fichier .dat. La valeur <code>mem-per-cpu</code> pour Slurm peut être estimée en multipliant l'estimation de mémoire la plus élevée par le nombre de nœuds, puis en divisant par le nombre de tâches (ntasks)."
+      "question": "Comment un utilisateur peut-il vérifier l'état et l'utilisation des licences sur le serveur de licences SHARCNET?",
+      "answer": "En se connectant à Nibi, en chargeant le module Abaqus, puis en exécutant la commande `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"`."
     },
     {
-      "question": "Quelles sont les méthodes recommandées pour utiliser Abaqus en mode graphique?",
-      "answer": "On recommande d'utiliser Open OnDemand ou JupyterLab pour travailler avec des applications graphiques."
+      "question": "Si une tâche Abaqus est indiquée comme 'en file d'attente' par `lmstat` mais 'en cours d'exécution' par `squeue`, qu'est-ce que cela signifie?",
+      "answer": "Cela signifie que la tâche est inactive sur un nœud de calcul, en attente de licences Abaqus disponibles, ce qui a un impact sur la priorité du compte comme si elle consommait du temps CPU."
     },
     {
-      "question": "Comment lancer Abaqus CAE via Open OnDemand?",
-      "answer": "Il faut lancer une session OnDemand, ouvrir un terminal, charger le module <code>abaqus/2026</code>. Ensuite, lancez <code>abaqus cae -mesa</code> si vous êtes sur un nœud sans GPU ou sans support VirtualGL, sinon utilisez <code>abaqus cae</code> pour de meilleures performances graphiques sur un nœud GPU supporté."
+      "question": "Quelles sont les stratégies recommandées pour éviter les problèmes de pénurie de licences lors de la soumission de plusieurs tâches Abaqus?",
+      "answer": "Il est recommandé d'utiliser les dépendances de tâches Slurm, les vecteurs de tâches (job arrays) ou les notifications par courriel Slurm pour savoir quand une tâche est terminée avant d'en soumettre une autre."
     },
     {
-      "question": "Comment vérifier l'utilisation des licences Abaqus CAE?",
-      "answer": "Vous pouvez lancer la commande <code>abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | grep \"Users of cae\"</code> pour voir combien de licences sont en usage."
+      "question": "Comment peut-on optimiser la mémoire et le nombre de cœurs spécifiés dans un script Slurm pour une tâche Abaqus?",
+      "answer": "Pour les tâches terminées, utiliser `seff JobNumber` pour vérifier l'efficacité de la mémoire et du CPU. Pour les tâches en cours, utiliser `srun --overlap --jobid=JOBID --pty top -d 5 -u $USER` pour surveiller l'utilisation en temps réel."
     },
     {
-      "question": "Comment lancer Abaqus CAE via JupyterLab?",
-      "answer": "Lancez une session JupyterHub, sélectionnez un module COMSOL (le document donne un exemple avec COMSOL, mais le contexte implique Abaqus) et cliquez sur son icône pour le démarrer sur un bureau Jupyter à distance."
+      "question": "Quels sont les rapports entre les jetons Abaqus et le nombre de cœurs utilisés?",
+      "answer": "La relation est donnée par `TOKENS = floor[5 X CORES^0.422]`, avec chaque GPU nécessitant un jeton additionnel."
     },
     {
-      "question": "La licence SHARCNET pour Abaqus est-elle encore valide?",
-      "answer": "Oui, la licence SHARCNET a été renouvelée jusqu'au 17 janvier 2026. Elle offre des jetons gratuits limités pour des tests et une utilisation légère."
+      "question": "Quelles sont les méthodes recommandées pour utiliser Abaqus en mode graphique sur les grappes de l'Alliance?",
+      "answer": "Les méthodes recommandées sont Open OnDemand ou JupyterLab. L'approche via VncViewer est obsolète."
     },
     {
-      "question": "Quelles sont les conditions d'utilisation de la licence académique SHARCNET Abaqus?",
-      "answer": "Elle est pour l'utilisation sur le matériel SHARCNET, par des institutions académiques canadiennes, à des fins d'éducation, institutionnelles ou d'instruction (pas commerciales), et pour la recherche expérimentale, théorique ou numérique."
+      "question": "Quelle est la compatibilité des scripts Slurm pour les tâches MPI multinœuds avec les versions d'Abaqus?",
+      "answer": "Seules les versions `abaqus/2026` et plus récentes sont compatibles avec les scripts Slurm MPI multinœuds pour l'analyse standard et explicite."
     },
     {
-      "question": "Comment configurer le fichier de licence pour la licence SHARCNET?",
-      "answer": "Il faut modifier votre fichier <code>~/.licenses/abaqus.lic</code> pour qu'il contienne <code>prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27050@license1.computecanada.ca\")</code>."
-    },
-    {
-      "question": "Comment interroger le serveur de licences SHARCNET pour voir l'utilisation?",
-      "answer": "Après s'être connecté à Nibi et avoir chargé le module Abaqus, vous pouvez utiliser <code>abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"</code> pour voir les tâches lancées et en file d'attente."
-    },
-    {
-      "question": "Que signifie un message indiquant qu'une tâche est 'queued' par le serveur de licence?",
-      "answer": "Ça veut dire que la tâche a commencé à s'exécuter sur un nœud de calcul (état R), mais qu'elle attend une licence disponible. Elle consomme des ressources de priorité de compte même si elle ne calcule pas encore."
-    },
-    {
-      "question": "Comment éviter les problèmes de pénurie de licences quand on soumet plusieurs tâches avec des jetons Abaqus coûteux?",
-      "answer": "On peut utiliser une dépendance, un vecteur de tâches (job array), ou configurer une notification par courriel Slurm pour savoir quand une tâche est finie avant d'en soumettre une autre manuellement."
-    },
-    {
-      "question": "Comment optimiser l'utilisation des ressources (mémoire, CPU) pour mes tâches Abaqus?",
-      "answer": "Il faut spécifier précisément la mémoire et le nombre de cœurs dans le script Slurm. Utilisez <code>seff JobNumber</code> pour les tâches terminées ou <code>srun --overlap --jobid=JOBID --pty top -d 5 -u $USER</code> pour les tâches en cours afin de surveiller l'efficacité et l'utilisation, puis ajustez les paramètres <code>#SBATCH --mem=</code> et <code>#SBATCH --cpus-per-task=</code>."
-    },
-    {
-      "question": "Quel est le rapport entre les cœurs et les jetons pour la licence SHARCNET?",
-      "answer": "La formule est TOKENS = floor[5 X CORES^0.422]. Par exemple, 1 cœur = 5 jetons, 2 cœurs = 6 jetons, 4 cœurs = 8 jetons, 8 cœurs = 12 jetons. Chaque GPU nécessite un jeton additionnel."
-    },
-    {
-      "question": "Quel est le statut actuel de la licence Abaqus de Western?",
-      "answer": "La licence de Western n'est pas fonctionnelle pour l'instant car le serveur license4 est hors service. Un serveur de remplacement est en préparation. En attendant, on suggère d'utiliser la licence SHARCNET."
-    },
-    {
-      "question": "Qui contacter pour des questions sur la licence Abaqus de Western?",
-      "answer": "Il faut contacter l'administrateur du serveur de licences Abaqus de Western à l'adresse <code>jmilner@robarts.ca</code>."
+      "question": "Quel est le statut actuel de la licence Abaqus de Western pour une utilisation sur les grappes de l'Alliance?",
+      "answer": "La licence Abaqus de Western est actuellement indisponible car son serveur (`license4`) a été mis hors service. Un serveur de remplacement est en préparation."
     }
   ],
-  "generated_at": "2026-04-11T15:35:41.621648+00:00"
+  "generated_at": "2026-04-13T00:49:52.685395+00:00"
 }

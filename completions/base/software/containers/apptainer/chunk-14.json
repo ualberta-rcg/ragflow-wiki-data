@@ -4,37 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "How do you build a sandbox directory image from a Docker image using Apptainer?",
-      "answer": "You can build a sandbox directory image from a Docker image, such as `busybox`, using the command `apptainer build --sandbox bb.dir docker://busybox`, where `bb.dir` is the desired directory name for your sandbox."
+      "question": "What are the key differences between an Apptainer SIF file image and a sandbox directory image?",
+      "answer": "An Apptainer SIF file image is contained in a single, compressed, and read-only file, consuming minimal file count quotas and offering higher disk access speeds. In contrast, a sandbox directory image is placed in an uncompressed directory, can be read-write, may contain thousands of files, and will consume significant amounts of disk space and file count quotas."
     },
     {
-      "question": "What are the main differences between an Apptainer SIF file image and a sandbox directory image?",
-      "answer": "An Apptainer SIF file image is contained in a single file, is compressed, and is read-only. Conversely, a 'sandbox' image is placed in a directory, is uncompressed, may contain thousands of files, and will be read-write."
+      "question": "How do you build an Apptainer sandbox directory image from a Docker image?",
+      "answer": "To build an Apptainer sandbox directory image from a Docker image, you use the `apptainer build` command with the `--sandbox` option. For example, to create a sandbox directory named `bb.dir` from the `busybox` Docker image, you would run: `apptainer build --sandbox bb.dir docker://busybox`."
     },
     {
-      "question": "Why is an SIF file generally recommended over a sandbox directory for Apptainer images if read-write access isn't frequently needed?",
-      "answer": "Using an SIF file is recommended because a 'sandbox' directory will consume significant amounts of both disk space and file count quotas. Additionally, an SIF file will have higher disk access speeds to content contained within it compared to a sandbox directory."
-    },
-    {
-      "question": "What are the necessary prerequisites for creating an Apptainer container from a Dockerfile on a personal system?",
-      "answer": "To create an Apptainer container from a Dockerfile, you need to have both Docker and Apptainer installed on a system where you have appropriate privileges. This includes `sudo` or root access (or being in the `docker` group) for Docker, and `sudo`, root, or `--fakeroot` access for Apptainer. These instructions will not work on compute clusters."
-    },
-    {
-      "question": "What are the steps to create an Apptainer SIF image from a Dockerfile on a system with Docker and Apptainer installed?",
-      "answer": "First, build the Docker image with `docker build -f Dockerfile -t your-tag-name`. Then, save it as a tarball using `docker save your-tag-name -o your-tarball-name.tar`. Remove the Docker image with `docker image rm your-tag-name`. Next, build the Apptainer SIF file from the tarball with `apptainer build --fakeroot your-sif-name.sif docker-archive://your-tarball-name.tar`. Finally, remove the temporary tarball with `rm your-tarball-name.tar`."
-    },
-    {
-      "question": "What do the placeholders `your-tag-name`, `your-tarball-name.tar`, `your-sif-name.sif`, and the `--fakeroot` option represent when converting a Dockerfile to an Apptainer SIF image?",
-      "answer": "`your-tag-name` is a user-defined name to identify the container created in Docker. `your-tarball-name.tar` is the filename where Docker will save the generated content of the container. `--fakeroot` is possibly optional; if `sudo` is needed instead, omit `--fakeroot` and prefix the line with `sudo`. `your-sif-name.sif` is the desired name of the Apptainer SIF file for the container."
-    },
-    {
-      "question": "What should be done with the generated Apptainer SIF file after creating it from a Dockerfile?",
-      "answer": "After the Apptainer SIF file is created from a Dockerfile, it should be transferred to the appropriate cluster(s) for use."
-    },
-    {
-      "question": "How can you manually delete additional Docker image layers that might be pulled in during the Dockerfile conversion process?",
-      "answer": "To manually delete additional Docker image layers, you first run `docker images` to list them, and then use `docker image rm ID` (where `ID` is the image ID output from the `docker images` command) to free up the associated disk space."
+      "question": "What is the process for creating an Apptainer container (SIF file) from a Dockerfile when working on a computer where Docker and Apptainer are installed?",
+      "answer": "To create an Apptainer SIF file from a Dockerfile, you need to use a system where both Docker and Apptainer are installed and you have appropriate privileges. The steps involve: first building the Docker image from the Dockerfile (`docker build -f Dockerfile -t your-tag-name`), then saving the Docker image as a tarball (`docker save your-tag-name -o your-tarball-name.tar`), removing the temporary Docker image (`docker image rm your-tag-name`), and finally building the Apptainer SIF file from the Docker tarball (`apptainer build --fakeroot your-sif-name.sif docker-archive://your-tarball-name.tar`). The `--fakeroot` option might be optional or replaced with `sudo` if necessary. After the SIF file is created, the tarball can be removed (`rm your-tarball-name.tar`). This process is for local systems and will not work on compute clusters."
     }
   ],
-  "generated_at": "2026-04-11T17:29:52.991203+00:00"
+  "generated_at": "2026-04-13T02:12:34.883708+00:00"
 }

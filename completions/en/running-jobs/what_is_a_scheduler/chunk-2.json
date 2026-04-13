@@ -4,41 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How can I change a job's time limit when submitting it using `sbatch`?",
-      "answer": "You can change a job's time limit by using the `--time` option directly on the `sbatch` command line, for example, `sbatch --time=00:30:00 simple_job.sh`."
+      "question": "How can a user override specific job options defined within a Slurm job script when submitting the job?",
+      "answer": "A user can override options set in a Slurm job script by specifying new values directly on the command line when submitting the job with `sbatch`. For example, to change the time limit for `simple_job.sh` to 30 minutes, one would use `sbatch --time=00:30:00 simple_job.sh`."
     },
     {
-      "question": "Can options specified within a job script be overridden by command-line arguments?",
-      "answer": "Yes, any option set in a job script can be overridden by specifying it on the `sbatch` command line."
+      "question": "How can a user customize the name of the output file and assign a job name for a Slurm job?",
+      "answer": "To customize the output file, a user can use the `#SBATCH --output=` directive in their job script, often including `%J` as a placeholder for the job ID (e.g., `#SBATCH --output=test-%J.out`). To assign a job name that will appear in the `squeue` output, the `#SBATCH --job-name=` directive is used (e.g., `#SBATCH --job-name=test`). Optionally, error output can be split into a separate file using the `-e` option."
     },
     {
-      "question": "How do I specify a custom name for a job's output file?",
-      "answer": "You can use the `--output` option in your job script or on the `sbatch` command line to change the output file name from the default `slurm-1234.out`."
-    },
-    {
-      "question": "How do I set a job name and customize the output file to include the job ID in a Slurm script?",
-      "answer": "You can use `#SBATCH --job-name=test` to set the job name and `#SBATCH --output=test-%J.out` to send the output to a file prefixed with 'test-' and containing the job ID number, like `test-1234.out`."
-    },
-    {
-      "question": "Where does error output typically go for a job?",
-      "answer": "Error output will normally appear in the same file as the standard output, just as it would if you were typing commands interactively."
-    },
-    {
-      "question": "How can I separate standard error (stderr) from standard output (stdout) for my job?",
-      "answer": "You can split the standard error channel (stderr) from the standard output channel (stdout) by specifying a separate file name with the `-e` option."
-    },
-    {
-      "question": "Why is an account name required for every job?",
-      "answer": "Every job must have an associated account name, corresponding to a resource allocation project, so that information like wait time, run time, and core usage can be recorded for quality of service monitoring and reporting to funders."
-    },
-    {
-      "question": "How do I specify an account name in a job script?",
-      "answer": "You can specify an account name in your job script using a directive like `#SBATCH --account=def-user-ab`."
-    },
-    {
-      "question": "What happens if I submit a job with `sbatch` without providing a required account name?",
-      "answer": "If you try to submit a job with `sbatch` without supplying an account name when one is needed, you will be shown a list of valid account names to choose from."
+      "question": "What is the purpose of an account name for Slurm jobs, and how is it provided?",
+      "answer": "An account name is required for all Slurm jobs to record information about job resource usage, monitor quality of service, and facilitate reporting to funders. It must correspond to a resource allocation project and is specified in the job script using the `#SBATCH --account=` directive (e.g., `#SBATCH --account=def-user-ab`). If an account name is needed but not provided during submission, the system will display a list of valid account names for the user to choose from."
     }
   ],
-  "generated_at": "2026-04-12T11:27:34.109377+00:00"
+  "generated_at": "2026-04-13T16:18:21.756603+00:00"
 }

@@ -4,45 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Combien de CPUs sont attribués par tâche selon ce script?",
-      "answer": "Selon le script, trois (3) CPUs sont attribués par tâche (`#SBATCH --cpus-per-task=3`)."
+      "question": "Quelles sont les ressources Slurm qui sont demandées pour la tâche Dask dans cet exemple de script de soumission de tâche multi-nœuds?",
+      "answer": "Pour cette tâche Dask, le script demande 2 nœuds, 2 tâches par nœud, 16 Go de mémoire, 3 cœurs de CPU par tâche, et une limite de temps de 30 minutes. Le tout est configuré pour être enregistré dans un fichier de sortie et facturé à un compte spécifique."
     },
     {
-      "question": "Quelle est la limite de temps spécifiée pour l'exécution de cette tâche SLURM?",
-      "answer": "La limite de temps spécifiée pour cette tâche SLURM est de 30 minutes (`#SBATCH --time=0-00:30`)."
-    },
-    {
-      "question": "Quel est le format de nommage pour les fichiers de sortie de la tâche?",
-      "answer": "Le format de nommage pour les fichiers de sortie est `%N-%j.out`."
-    },
-    {
-      "question": "Quels modules sont ajoutés avant l'exécution du script principal?",
-      "answer": "Les modules `python` et `arrow` sont ajoutés."
-    },
-    {
-      "question": "Comment l'adresse de l'ordonnanceur Dask (DASK_SCHEDULER_ADDR) est-elle configurée?",
-      "answer": "L'adresse de l'ordonnanceur Dask est configurée pour utiliser le nom d'hôte (`export DASK_SCHEDULER_ADDR=$(hostname)`)."
-    },
-    {
-      "question": "Quel port est utilisé pour l'ordonnanceur Dask (DASK_SCHEDULER_PORT)?",
-      "answer": "Le port 34567 est utilisé pour l'ordonnanceur Dask."
-    },
-    {
-      "question": "Comment le script `config_virtualenv.sh` est-il lancé et sur combien de nœuds?",
-      "answer": "Le script `config_virtualenv.sh` est lancé sur deux nœuds (`-N 2`) avec deux tâches (`-n 2`) via la commande `srun -N 2 -n 2 config_virtualenv.sh`."
-    },
-    {
-      "question": "Quel est le rôle des options `-N` et `-n` dans la commande `srun -N 2 -n 2 config_virtualenv.sh`?",
-      "answer": "Les options `-N` et `-n` doivent être définies au même nombre que le nombre de nœuds utilisés."
-    },
-    {
-      "question": "Comment est démarré l'ordonnanceur Dask dans ce script?",
-      "answer": "L'ordonnanceur Dask est démarré en arrière-plan avec la commande `dask scheduler --host $DASK_SCHEDULER_ADDR --port $DASK_SCHEDULER_PORT &`."
-    },
-    {
-      "question": "Quel est le but de la commande `sleep 10` après le démarrage de l'ordonnanceur?",
-      "answer": "La commande `sleep 10` introduit une pause de 10 secondes, probablement pour laisser à l'ordonnanceur Dask le temps de s'initialiser."
+      "question": "Dans cet extrait de script Slurm, comment le planificateur (scheduler) Dask est-il configuré et démarré, et quelles variables d'environnement sont utilisées pour son adresse et son port?",
+      "answer": "L'adresse du planificateur Dask (DASK_SCHEDULER_ADDR) est définie comme le nom d'hôte de la machine actuelle (`$(hostname)`), et le port du planificateur Dask (DASK_SCHEDULER_PORT) est fixé à 34567. Le planificateur est ensuite démarré en arrière-plan avec la commande `dask scheduler --host $DASK_SCHEDULER_ADDR --port $DASK_SCHEDULER_PORT &`."
     }
   ],
-  "generated_at": "2026-04-11T20:51:07.693130+00:00"
+  "generated_at": "2026-04-13T04:47:34.129693+00:00"
 }

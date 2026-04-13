@@ -4,85 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Quelle est la signification d'un argument entier positif pour la commande `submit.run` quand le mode `WHOLE_NODE` est activé?",
-      "answer": "Quand le mode `WHOLE_NODE` est activé, un argument entier positif pour la commande `submit.run` indique le nombre de nœuds complets (whole nodes) à utiliser en mode `META`, plutôt que le nombre de méta-jobs."
+      "question": "En mode WHOLE_NODE, comment l'argument entier positif de la commande `submit.run` est-il interprété différemment, et pour quels types d'applications ce mode peut-il être utilisé?",
+      "answer": "En mode WHOLE_NODE, l'argument entier positif pour la commande `submit.run` représente le nombre de nœuds entiers à utiliser en mode META, plutôt que le nombre de méta-tâches. Par exemple, la commande `submit.run 2` allouera deux nœuds entiers, permettant d'exécuter jusqu'à 384 tâches sérielles concurrentes (192 tâches par nœud) en utilisant le mode META. Ce mode ne peut être utilisé que pour le 'serial farming' (tâches sérielles), et n'est pas compatible avec les applications multifils, MPI ou GPU."
     },
     {
-      "question": "Si le mode `WHOLE_NODE` est activé, que fait la commande `$ submit.run 2`?",
-      "answer": "Cette commande allouera 2 nœuds complets (whole nodes). Ces nœuds seront utilisés pour exécuter jusqu'à 384 tâches sérielles simultanées, avec 192 tâches par nœud, en utilisant le mode `META` (équilibrage dynamique de la charge de travail). Les tâches sont exécutées comme des fils d'exécution distincts au sein des jobs de nœuds complets."
+      "question": "Comment peut-on spécifier des arguments additionnels `sbatch` lorsqu'on utilise les commandes `submit.run` ou `resubmit.run` avec le paquet META-Farm?",
+      "answer": "Pour passer des arguments `sbatch` additionnels, il y a deux méthodes principales. On peut les ajouter au fichier `job_script.sh` sous forme de lignes `#SBATCH` séparées, par exemple `#SBATCH --mem 4G` ou `#SBATCH --gres=gpu:1`. Alternativement, on peut les ajouter à la fin de la commande `submit.run` ou `resubmit.run` (sauf pour le temps d'exécution), par exemple `$ submit.run -1 --mem 4G`."
     },
     {
-      "question": "Quelle est la signification de l'argument `-1` pour la commande `submit.run` quand le mode `WHOLE_NODE` est activé?",
-      "answer": "L'argument `-1` conserve sa signification originale et permet d'exécuter la ferme de jobs en utilisant le mode `SIMPLE`."
-    },
-    {
-      "question": "Comment est calculé le nombre réel de jobs (nœuds complets) quand le mode `WHOLE_NODE` est activé et qu'on utilise le mode `SIMPLE` avec l'argument `-1`?",
-      "answer": "Le nombre réel de jobs (nœuds complets) est calculé comme `Number_of_cases / NWHOLE`."
-    },
-    {
-      "question": "Quelles sont les exigences spécifiques pour que les fonctionnalités avancées de resoumission automatique et de post-traitement automatique fonctionnent sur le cluster Trillium avec le mode `WHOLE_NODE`?",
-      "answer": "Sur Trillium, vous devez ajouter la ligne `module load StdEnv` à la fin de votre fichier `~/.bashrc`."
-    },
-    {
-      "question": "Pour quel type de \"farming\" (exploitation de jobs) le mode `WHOLE_NODE` peut-il être utilisé?",
-      "answer": "Le mode `WHOLE_NODE` ne peut être utilisé que pour le \"serial farming\" (exploitation de jobs sériels). Il n'est pas compatible avec les applications multifils, MPI ou GPU."
-    },
-    {
-      "question": "Est-ce que le mode `WHOLE_NODE` est limité au cluster Trillium?",
-      "answer": "Non, le mode `WHOLE_NODE` peut également être utilisé sur d'autres grappes (clusters)."
-    },
-    {
-      "question": "Dans quelles situations l'utilisation du mode `WHOLE_NODE` sur d'autres grappes peut-elle être avantageuse?",
-      "answer": "Cela peut être avantageux lorsque le temps d'attente dans la file d'attente pour les jobs de nœuds complets (whole node jobs) est plus court que le temps d'attente pour les jobs sériels."
-    },
-    {
-      "question": "Comment puis-je utiliser le progiciel `META` sur une grappe où il n'est pas installé comme module?",
-      "answer": "Vous pouvez cloner le progiciel depuis le dépôt Git avec `$ git clone https://git.computecanada.ca/syam/meta-farm.git`, puis modifier votre variable `$PATH` pour qu'elle pointe vers le sous-répertoire `bin` du répertoire `meta-farm` nouvellement créé (par exemple, `$ export PATH=~/meta-farm/bin:$PATH`). Ensuite, vous pouvez procéder à partir de l'étape `farm_init.run`."
-    },
-    {
-      "question": "Comment puis-je ajouter des arguments `sbatch` supplémentaires, comme `--mem 4G` ou `--gres=gpu:1`, à mes jobs `META`?",
-      "answer": "Vous pouvez les ajouter directement au fichier `job_script.sh` sous forme de lignes `#SBATCH` distinctes."
-    },
-    {
-      "question": "Existe-t-il une autre façon de passer des arguments `sbatch` supplémentaires aux commandes `submit.run` ou `resubmit.run`?",
-      "answer": "Oui, vous pouvez les ajouter à la fin de la commande `submit.run` ou `resubmit.run`. Par exemple, `$ submit.run -1 --mem 4G`."
-    },
-    {
-      "question": "Quelles lignes dois-je ajouter à `job_script.sh` pour une application multifils (OpenMP) avec `META`?",
-      "answer": "Vous devez ajouter les lignes suivantes à `job_script.sh`:\n```bash\n#SBATCH --cpus-per-task=N\n#SBATCH --mem=M\nexport OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK\n```\noù `N` est le nombre de cœurs de CPU à utiliser et `M` est la mémoire totale à réserver en mégaoctets."
-    },
-    {
-      "question": "Est-il possible de spécifier le nombre de cœurs de CPU et la mémoire pour des applications multifils directement via la commande `(re)submit.run`?",
-      "answer": "Oui, vous pouvez fournir `--cpus-per-task=N` et `--mem=M` comme arguments aux commandes `(re)submit.run`."
-    },
-    {
-      "question": "Quelles lignes sont requises dans `job_script.sh` pour les applications `MPI` avec le progiciel `META`?",
-      "answer": "Pour les applications `MPI`, ajoutez les lignes suivantes à `job_script.sh`:\n```bash\n#SBATCH --ntasks=N\n#SBATCH --mem-per-cpu=M\n```\noù `N` est le nombre de cœurs de CPU à utiliser et `M` est la mémoire à réserver par cœur, en mégaoctets."
-    },
-    {
-      "question": "Peut-on spécifier les ressources (`ntasks`, `mem-per-cpu`) pour les applications `MPI` directement comme arguments des commandes `(re)submit.run`?",
-      "answer": "Oui, vous pouvez fournir `--ntasks=N` et `--mem-per-cpu=M` comme arguments aux commandes `(re)submit.run`."
-    },
-    {
-      "question": "Que faut-il ajouter à `single_case.sh` pour exécuter une application `MPI`?",
-      "answer": "Vous devez ajouter `srun` avant le chemin de votre code à l'intérieur de `single_case.sh`, par exemple: `srun $COMM`."
-    },
-    {
-      "question": "Est-il possible de lancer une application `MPI` en modifiant `table.dat` plutôt que `single_case.sh`?",
-      "answer": "Oui, alternativement, vous pouvez ajouter `srun` au début de chaque ligne de votre fichier `table.dat`."
-    },
-    {
-      "question": "Comment configurer `job_script.sh` pour les applications `GPU`?",
-      "answer": "Vous devez modifier `job_script.sh` en y ajoutant la ligne `#SBATCH --gres=gpu[[:type]:number]`, en suivant les directives pour l'utilisation des `GPU` avec `Slurm`."
-    },
-    {
-      "question": "Quel utilitaire peut être utilisé pour détecter si un `GPU` est indisponible et ainsi éviter des échecs de jobs inutiles?",
-      "answer": "Vous pouvez copier l'utilitaire `~syam/bin/gpu_test` dans votre répertoire `~/bin` (uniquement sur Nibi) et ajouter les lignes suivantes à `job_script.sh` juste avant la ligne `task.run`:\n```bash\n~/bin/gpu_test\nretVal=$?\nif [ $retVal -ne 0 ]; then\n    echo \"No GPU found - exiting...\"\n    exit 1\nfi\n```"
-    },
-    {
-      "question": "Que se passe-t-il si un méta-job ne détecte pas une défaillance de `GPU`?",
-      "answer": "Si un méta-job ne détecte pas une défaillance de `GPU`, il tentera (et échouera) d'exécuter toutes les tâches de votre `table.dat`, gaspillant ainsi des ressources."
+      "question": "Quelles sont les lignes de configuration essentielles à ajouter au fichier `job_script.sh` pour exécuter des applications multifils (comme celles utilisant OpenMP) avec le paquet META-Farm, et comment spécifier le nombre de cœurs CPU et la mémoire requise?",
+      "answer": "Pour les applications multifils, il faut ajouter les lignes suivantes au fichier `job_script.sh` : `#SBATCH --cpus-per-task=N`, `#SBATCH --mem=M` et `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`. Dans ces lignes, `N` représente le nombre de cœurs CPU à utiliser et `M` est la mémoire totale à réserver en mégaoctets. Il est aussi possible de fournir `--cpus-per-task=N` et `--mem=M` comme arguments aux commandes `(re)submit.run`."
     }
   ],
-  "generated_at": "2026-04-12T01:33:09.179030+00:00"
+  "generated_at": "2026-04-13T08:34:19.894803+00:00"
 }

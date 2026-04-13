@@ -4,33 +4,13 @@
   "chunk_index": 31,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que la valeur `MEMPAR=1` indique quand on configure Ansys Workbench?",
-      "answer": "La valeur `MEMPAR=1` indique que la mémoire parallèle distribuée (DMP) sera utilisée pour la simulation."
+      "question": "Comment puis-je configurer le parallélisme de la mémoire (SMP ou DMP) et le nombre de cœurs pour une tâche Ansys Workbench sur les grappes de calcul ?",
+      "answer": "Pour configurer le parallélisme de la mémoire, définissez la variable `MEMPAR` à 0 pour le parallélisme à mémoire partagée (SMP) ou à 1 pour le parallélisme à mémoire distribuée (DMP). Le nombre de cœurs est déterminé par la variable `SLURM_NTASKS`. Ces valeurs sont ensuite utilisées pour modifier le fichier `SolveHandlers.xml` d'Ansys, situé dans votre répertoire d'application Ansys, à l'aide de commandes `sed`."
     },
     {
-      "question": "À quoi sert la commande `rm -fv *_files/.lock` dans un script Slurm pour Ansys Workbench?",
-      "answer": "Cette commande est utilisée pour enlever tous les fichiers de verrouillage (`.lock`) qui se trouvent dans les répertoires de fichiers du projet (`*_files`)."
-    },
-    {
-      "question": "Quel fichier de configuration spécifique est modifié par les commandes `sed` dans le script Slurm pour Ansys Workbench?",
-      "answer": "Le fichier de configuration modifié est `SolveHandlers.xml`. Son chemin complet est `~/.mw/Application Data/Ansys/<version_ansys>/SolveHandlers.xml`."
-    },
-    {
-      "question": "Comment le script Slurm ajuste-t-il le paramètre de distribution de la solution dans Ansys Workbench?",
-      "answer": "Le script Slurm modifie le fichier `SolveHandlers.xml` pour ajuster le paramètre `Distribute` en utilisant la valeur de la variable `MEMPAR` (soit 0 pour la mémoire partagée, soit 1 pour la mémoire distribuée)."
-    },
-    {
-      "question": "Quelle est la méthode pour configurer le nombre maximal de processeurs pour une tâche Ansys Workbench soumise via un script Slurm?",
-      "answer": "Le nombre maximal de processeurs est configuré dans le fichier `SolveHandlers.xml` en remplaçant la valeur existante par celle de la variable `SLURM_NTASKS`."
-    },
-    {
-      "question": "Que signifie la modification de `UserConfigured` de \"0\" à \"1\" dans le fichier `SolveHandlers.xml`?",
-      "answer": "Cette modification indique que la configuration du fichier `SolveHandlers.xml` a été spécifiquement ajustée par l'utilisateur."
-    },
-    {
-      "question": "Quelle variable d'environnement est désactivée dans le script de soumission Ansys Workbench, et comment?",
-      "answer": "La variable d'environnement `KMP_AFFINITY` est désactivée en utilisant la commande `export KMP_AFFINITY=disabled`."
+      "question": "Quelles variables d'environnement sont importantes à définir lors de l'exécution d'Ansys Workbench ?",
+      "answer": "Il est important de définir `export KMP_AFFINITY=disabled` pour désactiver l'affinité KMP, et `export I_MPI_HYDRA_BOOTSTRAP=ssh` est nécessaire pour le démarrage du bootstrap MPI."
     }
   ],
-  "generated_at": "2026-04-12T17:03:03.894392+00:00"
+  "generated_at": "2026-04-13T01:59:31.621357+00:00"
 }

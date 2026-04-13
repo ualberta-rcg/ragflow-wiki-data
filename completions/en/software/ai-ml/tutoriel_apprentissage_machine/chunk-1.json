@@ -4,121 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is the purpose of this beginner's manual?",
-      "answer": "This manual provides guidance on how to port a machine learning job to one of our clusters."
+      "question": "Why should data sets for machine learning jobs on clusters be archived, and what are the consequences if they are not?",
+      "answer": "Shared storage on the clusters is optimized for very large files, not numerous small ones. Datasets should be archived into formats like `tar` to prevent a high volume of I/O operations on the shared filesystem, which could severely degrade performance for all users on the cluster."
     },
     {
-      "question": "What is the first step when porting a machine learning job to a cluster?",
-      "answer": "The first step is to edit your program so that it doesn't use a graphical display."
+      "question": "What is the primary purpose of using an interactive job (`salloc`) when porting a machine learning job to a cluster, and what crucial step should be verified regarding storage?",
+      "answer": "The primary purpose of using an interactive job (`salloc`) is to quickly diagnose problems and debug your machine learning program before submitting it as a scripted job. It is crucial to verify that the job reads and writes as much as possible on the compute node's local storage (`$SLURM_TMPDIR`) and as little as possible on shared filesystems (home, scratch, and project)."
     },
     {
-      "question": "How should graphical results be handled when running a job on the cluster?",
-      "answer": "All graphical results must be written to disk and visualized on your personal computer once the job is finished."
-    },
-    {
-      "question": "How should matplotlib plots be handled in a cluster environment?",
-      "answer": "You need to write the plots to image files instead of showing them on screen."
-    },
-    {
-      "question": "Why is it important to archive a data set for cluster use?",
-      "answer": "Shared storage on our clusters is optimized for very large files and not designed to handle many small files. Archiving prevents performance issues."
-    },
-    {
-      "question": "What format should a data set be in before transferring it to a job's compute node?",
-      "answer": "The data set should be in an archive format, such as `tar`."
-    },
-    {
-      "question": "What are the risks if a data set with many small files is not archived for cluster use?",
-      "answer": "If you do not archive your data set, you risk causing an enormous number of I/O operations on the shared filesystem, leading to performance issues on the cluster for all users."
-    },
-    {
-      "question": "How can I create a tar archive of a directory named `mydataset`?",
-      "answer": "You can use the command `$ tar cf mydataset.tar mydataset/*`."
-    },
-    {
-      "question": "How can I create a compressed tar archive of my data?",
-      "answer": "You can use the command `tar czf` to create a compressed tar archive."
-    },
-    {
-      "question": "What is Step 3 in the process of porting a machine learning job?",
-      "answer": "Step 3 involves preparing your virtual environment by creating one in your home space."
-    },
-    {
-      "question": "Where can I find documentation for installing and using machine learning frameworks like PyTorch and TensorFlow?",
-      "answer": "You can refer to our documentation specifically for PyTorch and TensorFlow."
-    },
-    {
-      "question": "What is recommended before submitting a machine learning job using a script?",
-      "answer": "It is recommended to first try running your job in an interactive job."
-    },
-    {
-      "question": "Why is it beneficial to use an interactive job for debugging?",
-      "answer": "You can diagnose problems more quickly using an interactive job."
-    },
-    {
-      "question": "Provide an example command for submitting an interactive job.",
-      "answer": "An example command is `$ salloc --account=def-someuser --gres=gpu:1 --cpus-per-task=3 --mem=32000M --time=1:00:00`."
-    },
-    {
-      "question": "What are the initial steps to take once an interactive job has started?",
-      "answer": "Once the job has started, you should activate your virtual environment, try to run your program, and install any missing modules if necessary."
-    },
-    {
-      "question": "How do I install missing modules if the compute nodes do not have internet access?",
-      "answer": "Since compute nodes don't have internet access, you will have to install missing modules from a login node, referring to our documentation on virtual environments."
-    },
-    {
-      "question": "Where should a job primarily read and write data for optimal performance on the cluster?",
-      "answer": "It's best to verify that your job reads and writes as much as possible on the compute node's local storage (`$SLURM_TMPDIR`) and as little as possible on the shared filesystems (home, scratch, and project)."
-    },
-    {
-      "question": "How are jobs submitted for automated batch processing on the cluster?",
-      "answer": "Jobs must be submitted using a script in conjunction with the `sbatch` command for automation as a batch process."
-    },
-    {
-      "question": "What is the main difference between interactive jobs and scripted jobs?",
-      "answer": "Interactive jobs are primarily for preparing and debugging, while scripted jobs (using `sbatch`) are for executing jobs fully and/or at scale as an automated batch process."
-    },
-    {
-      "question": "What are the important elements that an `sbatch` script should include?",
-      "answer": "An `sbatch` script should include the account for billing, required resources (CPUs, GPUs, memory, duration), and Bash commands for environment preparation, data transfer, and starting the executable."
-    },
-    {
-      "question": "What is the suggested number of GPUs for a machine learning job in an `sbatch` script?",
-      "answer": "The suggestion is 1 GPU, unless you are certain that your program can use several, as TensorFlow and PyTorch typically use just one GPU by default."
-    },
-    {
-      "question": "What is the suggested amount of memory for an `sbatch` job?",
-      "answer": "The suggested amount of memory is `32000M`."
-    },
-    {
-      "question": "What are the maximum job durations for Béluga, Graham, and Cedar clusters?",
-      "answer": "The maximum duration is 7 days for Béluga, and 28 days for Graham and Cedar."
-    },
-    {
-      "question": "What are the typical Bash commands found in an `sbatch` script for a machine learning job?",
-      "answer": "Typical Bash commands include preparing your environment (modules, virtualenv), transferring data to the compute node, and starting the executable."
-    },
-    {
-      "question": "How is the virtual environment activated in the example `ml-test.sh` script?",
-      "answer": "The virtual environment is activated by sourcing its `activate` script, e.g., `source ~/my_env/bin/activate`."
-    },
-    {
-      "question": "Which modules are loaded in the provided example `sbatch` script?",
-      "answer": "The example `sbatch` script loads `python/3.6`, `cuda`, and `cudnn` modules."
-    },
-    {
-      "question": "For better performance, where else could a virtual environment be created?",
-      "answer": "For better performance, a virtual environment could also be created on the compute node's local storage (`$SLURM_TMPDIR`)."
-    },
-    {
-      "question": "How is data transferred and prepared on the compute node in the example `sbatch` script?",
-      "answer": "The example script creates a data directory `$SLURM_TMPDIR/data` and then extracts a tar archive into it using `tar xf ~/projects/def-xxxx/data.tar -C $SLURM_TMPDIR/data`."
-    },
-    {
-      "question": "How is the training process initiated in the example `sbatch` script?",
-      "answer": "The training process is initiated by executing a Python script, for example, `python $SOURCEDIR/train.py $SLURM_TMPDIR/data`."
+      "question": "When configuring an `sbatch` script for a machine learning job on the clusters, what is the recommended approach for requesting GPUs, and why?",
+      "answer": "It is recommended to request one (1) single GPU, unless you are certain that your program can use several. This is because, by default, machine learning frameworks like TensorFlow and PyTorch typically utilize only one GPU."
     }
   ],
-  "generated_at": "2026-04-12T09:55:48.140445+00:00"
+  "generated_at": "2026-04-13T15:04:02.130804+00:00"
 }

@@ -4,69 +4,13 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "What must be available to Abaqus to fully satisfy the \"MEMORY TO OPERATIONS REQUIRED MINIMIZE I/O\" (MRMIO) value?",
-      "answer": "To fully satisfy the MRMIO value, at least the same amount of non-swapped physical memory (RES) must be available to Abaqus."
+      "question": "How can a user estimate the total Slurm node memory required for a single-node Abaqus simulation to ensure efficient operation and minimize I/O?",
+      "answer": "To estimate the necessary memory for a single-node Abaqus simulation, users should first obtain an allocation on a compute node and start their simulation. Then, they can SSH into the compute node and monitor memory usage using `top -u $USER`, observing the VIRT (virtual memory) and RES (resident memory) columns for steady peak values. To minimize I/O, the non-swapped physical memory (RES) should ideally match the \"MEMORY TO OPERATIONS REQUIRED MINIMIZE I/O\" (MRMIO) value. If MRMIO is high, users can adjust the `#SBATCH --mem=` setting in their Slurm script, noting that RES must not drop below the \"MINIMUM MEMORY REQUIRED\" (MMR) to prevent Out of Memory errors."
     },
     {
-      "question": "Why is it necessary to over-allocate the requested Slurm node memory (`-mem=`) for single-process Abaqus simulations?",
-      "answer": "It is necessary to slightly over-allocate the requested Slurm node memory because the physical memory (RES) will generally be less than the virtual memory (VIRT) by a relatively constant amount for a given simulation."
-    },
-    {
-      "question": "What is the hardcoded over-allocation value for Slurm node memory in the sample Abaqus script for standard solver testing?",
-      "answer": "The hardcoded over-allocation value for Slurm node memory is 3072MB, based on initial testing of the standard Abaqus solver."
-    },
-    {
-      "question": "How can one potentially reduce long queue wait times associated with large MRMIO values for Abaqus simulations?",
-      "answer": "To potentially reduce long queue wait times, one can investigate the simulation performance impact of reducing the RES memory available to Abaqus significantly below the MRMIO by lowering the `-mem=` value in the Slurm script."
-    },
-    {
-      "question": "What happens if the RES memory dips below the MINIMUM MEMORY REQUIRED (MMR) during an Abaqus simulation?",
-      "answer": "If the RES memory dips below the MINIMUM MEMORY REQUIRED (MMR), Abaqus will exit due to an Out of Memory (OOM) error."
-    },
-    {
-      "question": "What is the consequence of using smaller `-mem=` values for Abaqus simulations when trying to reduce memory allocation?",
-      "answer": "Smaller `-mem=` values will result in increasingly larger scratch space being used by temporary files."
-    },
-    {
-      "question": "Where can users find memory estimates for multi-node Abaqus simulations to determine required Slurm memory?",
-      "answer": "Memory estimates (per compute process) required to minimize I/O are given in the output `.dat` file of completed jobs for multi-node Slurm scripts."
-    },
-    {
-      "question": "How is the `mem-per-cpu` value estimated for multi-node Slurm scripts if `mp_host_split` is not specified or is set to 1?",
-      "answer": "The `mem-per-cpu` value can be roughly determined by multiplying the largest memory estimate by the number of nodes and then dividing by the number of tasks (`ntasks`)."
-    },
-    {
-      "question": "How is the `mem-per-cpu` value estimated for multi-node Slurm scripts if `mp_host_split` is specified and greater than 1?",
-      "answer": "The `mem-per-cpu` value can be roughly determined from the largest memory estimate times the number of nodes times the value of `mp_host_split` divided by the number of tasks (`ntasks`)."
-    },
-    {
-      "question": "What is the critical constraint on the `mp_host_split` value when configuring multi-node Abaqus jobs?",
-      "answer": "The `mp_host_split` value must be less than or equal to the number of cores per node assigned by Slurm at runtime; otherwise, Abaqus will terminate."
-    },
-    {
-      "question": "What factors determine the upper limit of memory that Abaqus can allocate?",
-      "answer": "The upper limit of memory that Abaqus can allocate generally depends on the value of the \"MEMORY\" parameter and the amount of physical memory available on the machine."
-    },
-    {
-      "question": "Under what condition will Abaqus's actual memory usage be close to the \"MEMORY TO MINIMIZE I/O\" value, with near-zero scratch disk usage?",
-      "answer": "If the memory upper limit is greater than the memory required to minimize I/O, then the actual memory usage will be close to the estimated \"MEMORY TO MINIMIZE I/O\" value, and the scratch disk usage will be close-to-zero."
-    },
-    {
-      "question": "When will Abaqus's actual memory usage be close to the specified memory limit, and scratch disk usage be roughly proportional to the difference with \"MEMORY TO MINIMIZE I/O\"?",
-      "answer": "If the memory upper limit is not greater than the memory required to minimize I/O, the actual memory used will be close to the specified memory limit, and the scratch disk usage will be roughly proportional to the difference between the estimated \"MEMORY TO MINIMIZE I/O\" and the memory upper limit."
-    },
-    {
-      "question": "Is it possible to accurately estimate the scratch disk space used by Abaqus?",
-      "answer": "No, an accurate estimate of the scratch disk space is not possible."
-    },
-    {
-      "question": "What are the recommended methods for running graphical Abaqus applications at the Alliance?",
-      "answer": "It is recommended to use OpenOnDemand or JupyterLab to run graphical applications at the Alliance."
-    },
-    {
-      "question": "How can a user start an OnDemand desktop session for Nibi?",
-      "answer": "A user can start an OnDemand desktop session for Nibi by clicking the link `https://ondemand.sharcnet.ca`."
+      "question": "How does one determine the `mem-per-cpu` value for multi-node Abaqus Slurm scripts, based on job output?",
+      "answer": "For multi-node Abaqus Slurm scripts, the `mem-per-cpu` value can be estimated using memory estimates (per compute process) provided in the `.dat` output file of completed jobs, specifically those required to minimize I/O. If `mp_host_split` is not specified or set to 1, the total number of compute processes equals the number of nodes. In this scenario, `mem-per-cpu` can be roughly determined by multiplying the largest memory estimate by the number of nodes and then dividing by the number of tasks (`ntasks`). If `mp_host_split` is greater than 1, the `mem-per-cpu` value is roughly determined from the largest memory estimate multiplied by the number of nodes and the `mp_host_split` value, then divided by the number of tasks."
     }
   ],
-  "generated_at": "2026-04-11T15:29:14.221739+00:00"
+  "generated_at": "2026-04-13T00:45:22.350961+00:00"
 }

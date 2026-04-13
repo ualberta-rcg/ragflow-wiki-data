@@ -4,117 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "Quelles sont les activités de configuration post-migration qui pourraient être requises?",
-      "answer": "Les activités pourraient inclure la modification des noms d'utilisateur (par exemple, 'root'@'192.168.65.%) dans MySQL, le renouvellement des certificats TLS Let’s Encrypt à l'aide de certbot ou d'autres utilitaires (par exemple s'il y a des adresses IP dans le Subject Alternate Name (SAM) du certificat), et la mise à l'essai de la configuration."
+      "question": "Quelle est la procédure recommandée pour migrer les données d'un système de fichiers partagé CephFS de l'ancien nuage Arbutus vers le nouveau nuage Arbutus?",
+      "answer": "Pour migrer les données d'un système de fichiers partagé CephFS, il est recommandé de créer d'abord une grappe de stockage équivalente dans le nouveau nuage Arbutus. Ensuite, montez les deux grappes (l'ancienne et la nouvelle) à des emplacements distincts sur la même machine virtuelle dans le nouveau nuage Arbutus. Finalement, utilisez un outil de copie de données comme `rsync` pour transférer les données de l'ancienne grappe vers la nouvelle, en vous assurant de l'intégrité des données."
     },
     {
-      "question": "Quand faut-il informer les membres de l'équipe que la migration est terminée?",
-      "answer": "Quand les tests auront été faits, il faut informer les membres de votre équipe que la migration est terminée."
+      "question": "Quelles sont les principales différences à considérer lors de la configuration d'une grappe de stockage CephFS dans le nouveau nuage Arbutus comparativement à l'ancienne version?",
+      "answer": "Lors de la configuration d'une grappe CephFS dans le nouveau nuage Arbutus, vous devez créer la grappe et les clés d'accès via l'interface web du nouveau nuage. Il faut aussi créer un fichier `ceph.conf` séparé, comme `ceph-new.conf`, et y mettre à jour la valeur de configuration `mon_host`. De plus, une valeur supplémentaire (`conf=/etc/ceph/ceph-new.conf`) est requise après l'option `-o` dans la commande de montage pour spécifier ce nouveau fichier de configuration."
     },
     {
-      "question": "Est-ce que le système de fichiers partagé CephFS du nouveau nuage Arbutus est un service identique à celui de l'ancien nuage?",
-      "answer": "Non, le nouveau système de fichiers partagé CephFS d'Arbutus est un service distinct et séparé, et toute donnée désirée doit être migrée intentionnellement."
-    },
-    {
-      "question": "Comment la gestion des partages (création, suppression, gestion des clés) est-elle effectuée pour les anciens et les nouveaux partages CephFS?",
-      "answer": "La gestion des partages pour les anciens systèmes, incluant les opérations de création, de suppression et de gestion des clés, est contrôlée par l'ancien nuage Arbutus. De même, la création et la gestion des partages dans le nouveau nuage Arbutus se font exclusivement dans l'environnement du nouveau nuage."
-    },
-    {
-      "question": "Peut-on monter les partages CephFS existants et nouveaux sur les machines virtuelles du nouveau nuage Arbutus?",
-      "answer": "Oui, les anciens partages et les nouveaux partages peuvent être montés sur les machines virtuelles du nouveau nuage Arbutus."
-    },
-    {
-      "question": "Quelle est la procédure recommandée pour migrer les données entre les anciens et les nouveaux partages CephFS?",
-      "answer": "La procédure recommandée est la suivante : pour chaque partage dans l'ancien nuage Arbutus, créer un partage équivalent dans le nouveau nuage Arbutus; monter les deux partages à des emplacements de montage séparés sur la même machine virtuelle dans le nouveau nuage Arbutus; et utiliser un outil de copie de données tel que 'rsync' pour transférer les données de l'ancien vers le nouveau partage et assurer l'intégrité des données."
-    },
-    {
-      "question": "Où peut-on trouver la procédure pour monter les anciens partages CephFS?",
-      "answer": "La procédure pour monter les anciens partages est inchangée et peut être trouvée ici : `https://docs.alliancecan.ca/wiki/CephFS`."
-    },
-    {
-      "question": "Quelles sont les différences essentielles lors de la création d'un partage équivalent dans le nouveau nuage Arbutus?",
-      "answer": "Vous devez créer le nouveau partage et les clés d'accès en utilisant l'interface web du nouveau nuage Arbutus. Vous devez créer un fichier `ceph.conf` séparé, avec un nom distinct tel que 'ceph-new.conf'. La valeur de configuration 'mon_host' devra être mise à jour pour le nouveau partage uniquement, dans le fichier 'ceph-new.conf'. Lors du montage du nouveau partage, une valeur supplémentaire dans la commande de montage est requise après le '-o' pour spécifier le nouveau fichier de configuration : 'conf=/etc/ceph/ceph-new.conf'."
-    },
-    {
-      "question": "Quelle est la nouvelle valeur à utiliser pour 'mon_host' dans le fichier 'ceph-new.conf'?",
-      "answer": "La nouvelle valeur est `“134.87.15.61:6789,134.87.15.62:6789,134.87.15.63:6789”`."
-    },
-    {
-      "question": "Comment transférer les données entre les partages une fois que les deux sont montés?",
-      "answer": "Une fois les deux partages montés, utilisez `rsync` pour transférer les données. Les drapeaux (flags) 'a', 'v' et 'P' pour `rsync` sont recommandés, par exemple : `rsync -avp /mnt/old-share/ /mnt/new-share/`."
-    },
-    {
-      "question": "Quel outil est conseillé pour maintenir la session active lors d'un transfert de données CephFS de longue durée pour éviter une déconnexion?",
-      "answer": "Il est conseillé d'utiliser un outil tel que 'screen' ou 'tmux' pour maintenir la session active en cas de perte de connexion."
-    },
-    {
-      "question": "Le service de stockage objet du nouveau nuage Arbutus est-il distinct de celui de l'ancien?",
-      "answer": "Oui, le stockage objet du nouveau nuage Arbutus est un service distinct et séparé de l'ancien, et toute donnée désirée doit être migrée intentionnellement."
-    },
-    {
-      "question": "Comment la gestion des 'buckets' et des objets est-elle effectuée pour les anciens et les nouveaux environnements de stockage objet?",
-      "answer": "La gestion des 'buckets' et des objets existants, incluant les opérations de création, de suppression, de manipulation d'objets et de gestion des clés, est contrôlée par l'ancien nuage Arbutus. De même, la création et la gestion des 'buckets' et des objets dans le nouveau nuage Arbutus se font exclusivement dans l'environnement du nouveau nuage."
-    },
-    {
-      "question": "Quel est le point de terminaison pour le stockage objet du nouveau nuage Arbutus?",
-      "answer": "Le point de terminaison pour le stockage objet du nouveau nuage Arbutus est `https://object-arbutus.alliancecan.ca`."
-    },
-    {
-      "question": "Quel est le point de terminaison pour le stockage objet de l'ancien nuage Arbutus?",
-      "answer": "Le point de terminaison pour le stockage objet de l'ancien nuage Arbutus est `https://object-arbutus.cloud.computecanada.ca`."
-    },
-    {
-      "question": "Quelles précautions faut-il prendre concernant les ACL (Access Control Lists) des 'buckets' lors de la migration du stockage objet?",
-      "answer": "Il faut être prudent si vous utilisez des ACL de 'buckets' et s'assurer que l'outil que vous utilisez les copie correctement, ou les recréer dans le nouvel environnement. La plupart des outils ne conservent pas les ACL des 'buckets'."
-    },
-    {
-      "question": "Les UUID des utilisateurs ou des projets seront-ils les mêmes dans le nouveau nuage Arbutus?",
-      "answer": "Non, si vous référencez des UUID d'utilisateurs ou de projets, ils seront différents dans le nouveau nuage Arbutus."
-    },
-    {
-      "question": "Comment les collisions de noms de 'buckets' sont-elles gérées dans le nouveau stockage objet Arbutus?",
-      "answer": "Le nouveau stockage objet Arbutus utilise des 'tenants', donc les collisions de noms de 'buckets' n'arriveront qu'à l'intérieur d'un projet individuel plutôt que sur tous les projets d'Arbutus."
-    },
-    {
-      "question": "Comment le 'tenant' est-il inféré lors de l'authentification avec l'API Swift ou S3?",
-      "answer": "Lors de l'authentification avec l'API Swift ou S3, le 'tenant' est inféré à partir de l'utilisateur/clé fourni."
-    },
-    {
-      "question": "Le 'tenant' doit-il être spécifié pour l'accès public non authentifié aux 'buckets'?",
-      "answer": "Oui, pour l'accès public aux 'buckets' sans authentification, le 'tenant' doit être spécifié."
-    },
-    {
-      "question": "Qu'est-ce que l'identifiant de 'tenant' dans le nouveau stockage objet Arbutus?",
-      "answer": "L'identifiant de 'tenant' est identique à l'identifiant de projet OpenStack (OpenStack Project ID)."
-    },
-    {
-      "question": "Quel est le format de l'URL pour l'accès S3 non authentifié?",
-      "answer": "L'URL pour l'accès S3 non authentifié sera du format suivant : `https://object-arbutus.alliancecan.ca/<tenant-id>:<bucket-name>/<object-name>`."
-    },
-    {
-      "question": "Quel outil est recommandé pour la migration de stockage objet si l'on n'est pas sûr de l'outil à utiliser?",
-      "answer": "Nous pouvons recommander d'utiliser `rclone`."
-    },
-    {
-      "question": "Est-ce que `rclone` copie les ACL des 'buckets'?",
-      "answer": "Non, `rclone` ne copiera pas les ACL des 'buckets', donc tout accès sera initialement privé par défaut dans le nouvel emplacement."
-    },
-    {
-      "question": "Où peut-on trouver les instructions pour installer `rclone`?",
-      "answer": "Les instructions pour installer `rclone` se trouvent à `https://rclone.org/install/`."
-    },
-    {
-      "question": "Comment créer les identifiants S3 pour les anciens et les nouveaux nuages Arbutus?",
-      "answer": "Il faut créer les identifiants S3 dans les deux nuages Arbutus en suivant les instructions à `https://docs.alliancecan.ca/wiki/Arbutus_object_storage`."
-    },
-    {
-      "question": "Où se trouve le fichier de configuration de `rclone` sur Linux/MacOS?",
-      "answer": "Le fichier de configuration de `rclone` se trouve à `~/.config/rclone/rclone.conf` sur Linux/MacOS."
-    },
-    {
-      "question": "Quelle commande utiliser avec `rclone` pour synchroniser tous les 'buckets' de l'ancien vers le nouveau nuage?",
-      "answer": "La commande à utiliser est `rclone sync legacy: renewal:`."
+      "question": "Quels sont les points d'accès (endpoints) pour le stockage objet de l'ancien et du nouveau nuage Arbutus, et y a-t-il des précautions à prendre concernant les listes de contrôle d'accès (ACLs) des buckets?",
+      "answer": "Le point d'accès pour le nouveau nuage Arbutus est `https://object-arbutus.alliancecan.ca`, et pour l'ancien nuage Arbutus, c'est `https://object-arbutus.cloud.computecanada.ca`. Il est important de faire preuve de prudence avec les ACLs des buckets, car la plupart des outils de migration ne les copient pas correctement. Vous devrez donc les recréer dans le nouvel environnement, ou les accès seront par défaut privés à l'initialisation."
     }
   ],
-  "generated_at": "2026-04-11T17:50:17.677918+00:00"
+  "generated_at": "2026-04-13T02:25:39.130324+00:00"
 }

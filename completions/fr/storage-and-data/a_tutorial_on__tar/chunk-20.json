@@ -4,73 +4,17 @@
   "chunk_index": 20,
   "qa_pairs": [
     {
-      "question": "Pourquoi utiliser l'option 'v' quand on liste le contenu d'une archive ?",
-      "answer": "L'option 'v' (pour 'verbosity') est utilisée pour faire afficher tous les détails des fichiers et répertoires dans l'archive, même si elle n'est pas obligatoire."
+      "question": "Comment est-ce qu'on peut vérifier la taille des fichiers, des répertoires ou des archives directement à partir d'un terminal Linux?",
+      "answer": "Pour vérifier la taille des fichiers, des répertoires et des archives, il faut utiliser la commande `du -sh [votre_fichier ...]` dans votre terminal. Par exemple, la commande `du -sh results.tar work tests` va afficher la taille de ces trois éléments."
     },
     {
-      "question": "Quelles commandes peuvent être combinées avec le trait vertical ( | ) pour analyser le contenu d'une archive ?",
-      "answer": "Les commandes 'wc' (pour 'word count' et 'lines') ou 'grep' peuvent être combinées avec le trait vertical ( | ) pour analyser le contenu d'une archive."
+      "question": "Si on a des gros fichiers ou des archives `.tar` qu'on veut diviser en plusieurs portions plus petites, quelle commande peut-on utiliser et comment faire pour reconstituer le fichier original après?",
+      "answer": "Pour diviser un gros fichier ou une archive `.tar` en plusieurs parties, on utilise la commande `split`. Par exemple, `split -b 100MB results.tar small-res` va diviser le fichier `results.tar` en portions de 100 Mo, avec des noms qui commencent par `small-resaa`, `small-resab`, etc. Pour retrouver le fichier original une fois que le transfert est fait, il faut utiliser la commande `cat` comme suit : `cat small_res* > votre_nom_archive.tar`."
     },
     {
-      "question": "Quelle commande me permet de vérifier la taille des fichiers, des répertoires et des archives directement depuis mon terminal ?",
-      "answer": "Pour vérifier la taille des fichiers, des répertoires et des archives, on utilise la commande `du -sh [your_file ...]`."
-    },
-    {
-      "question": "Pourquoi est-ce que quelqu'un voudrait fractionner des gros fichiers ou des archives ?",
-      "answer": "On voudrait fractionner des gros fichiers ou des archives pour ne pas avoir à travailler avec des fichiers de taille excessive."
-    },
-    {
-      "question": "Comment puis-je diviser un gros fichier ou une archive tar en plusieurs parties ?",
-      "answer": "On peut diviser un gros fichier ou une archive tar en utilisant la commande `split`, par exemple `split -b <Taille-en-Mo><nom-du-fichier-ou-de-l'archive-tar><nom-du-préfixe>`."
-    },
-    {
-      "question": "Si je divise le fichier 'results.tar' en portions de 100 Mo avec le préfixe 'small-res', comment seront nommés les petits fichiers générés ?",
-      "answer": "Les petits fichiers générés commenceront par 'small-resaa', 'small-resab', 'small-resac', 'small-resad', et ainsi de suite."
-    },
-    {
-      "question": "Quel est le rôle de l'option '-b' quand on utilise la commande 'split' ?",
-      "answer": "L'option '-b' sert à spécifier la taille des portions dans lesquelles le fichier sera divisé, en mégaoctets (Mo)."
-    },
-    {
-      "question": "Comment faire pour reconstituer le fichier original après l'avoir divisé en plusieurs parties avec la commande 'split' ?",
-      "answer": "Pour retrouver le fichier original, on utilise la commande `cat` en redirigeant la sortie vers un nouveau fichier, par exemple `cat small_res* > your_archive_name.tar`."
-    },
-    {
-      "question": "Si je veux que les noms des fichiers divisés par 'split' contiennent des chiffres au lieu des lettres, quelle option dois-je ajouter ?",
-      "answer": "Pour que les noms des portions créées par 'split' utilisent des chiffres plutôt que des lettres, on doit ajouter l'option '-d'."
-    },
-    {
-      "question": "À quoi sert la commande 'pwd' ?",
-      "answer": "La commande 'pwd' sert à afficher le chemin du répertoire de travail courant (pour 'present work directory')."
-    },
-    {
-      "question": "Que fait la commande 'ls' ?",
-      "answer": "La commande 'ls' liste les fichiers et sous-répertoires."
-    },
-    {
-      "question": "Que signifie l'acronyme 'du' dans la commande 'du -sh' ?",
-      "answer": "L'acronyme 'du' signifie 'disk usage' (utilisation de l'espace disque)."
-    },
-    {
-      "question": "Qu'arrive-t-il si j'essaie d'utiliser les commandes 'gzip', 'bzip2' ou 'tar' sans avoir assez d'espace disque disponible ?",
-      "answer": "Ces commandes échoueront s'il ne reste plus d'espace libre ou si votre quota est atteint."
-    },
-    {
-      "question": "Comment je peux vérifier si j'ai suffisamment d'espace disque ou si mon quota est atteint sur les grappes de calcul ?",
-      "answer": "Sur les grappes de calcul, on peut utiliser la commande `quota` ou `quota –s` à partir de votre terminal pour savoir si vous avez suffisamment d'espace pour des données additionnelles."
-    },
-    {
-      "question": "Comment créer une archive tar pour un répertoire spécifique, comme 'results' ?",
-      "answer": "Pour créer une archive tar d'un répertoire comme 'results', on utilise la commande `tar -cvf results.tar results`."
-    },
-    {
-      "question": "Quelle commande utiliser pour rassembler plusieurs fichiers et répertoires ('dir1', 'dir2', etc., et 'file1', 'file2', etc.) dans un seul fichier archive nommé 'your_archive.tar' ?",
-      "answer": "On utilise la commande `tar -cvf your_archive.tar dir1 dir2 dir3 dir4 dir5 file1 file2 file3 file4 file5` pour archiver plusieurs éléments."
-    },
-    {
-      "question": "Comment archiver tous les fichiers ou répertoires qui commencent par la lettre 'r' dans une archive nommée 'your_archive.tar' ?",
-      "answer": "Pour archiver tous les fichiers ou répertoires qui commencent par la lettre 'r', on utilise la commande `tar -cvf your_archive.tar r*`."
+      "question": "Quelles sont les considérations importantes concernant l'espace disque quand on utilise les commandes `gzip`, `bzip2` ou `tar` pour compresser ou créer des archives?",
+      "answer": "Il est important de savoir que les commandes `gzip`, `bzip2` ou `tar` demandent de l'espace libre sur le disque pour créer les fichiers compressés ou les archives résultantes. Ces commandes vont échouer s'il ne reste plus d'espace ou si votre quota est atteint. Sur les grappes de calcul, vous pouvez vérifier votre espace disponible avec les commandes `quota` ou `quota –s`."
     }
   ],
-  "generated_at": "2026-04-11T15:24:17.247076+00:00"
+  "generated_at": "2026-04-13T00:42:00.892376+00:00"
 }

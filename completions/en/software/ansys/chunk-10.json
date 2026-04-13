@@ -4,69 +4,17 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "What license server settings are used for Ansys Fluent jobs on the Trillium cluster?",
-      "answer": "For Ansys Fluent jobs on Trillium, the license server hostname is `license1.computecanada.ca`, the server flex port is `1055`, and the server vendor port is `1793`."
+      "question": "How are Ansys Fluent license server details configured for jobs running on the Trillium cluster, and does this configuration override the `~/.licenses/ansys.lic` file?",
+      "answer": "On the Trillium cluster, Ansys Fluent license server details (LICSERVER, FLEXPORT, VENDPORT) are specified directly within the Slurm script using dedicated variables and SSH tunnelling commands (`ssh tri-gw -fNL`). This configuration is used instead of the `~/.licenses/ansys.lic` file for those jobs."
     },
     {
-      "question": "How are the license server settings applied in a Trillium Fluent Slurm script?",
-      "answer": "In a Trillium Fluent Slurm script, `ssh tri-gw -fNL` commands are used to create tunnels for the FLEXPORT and VENDPORT to the license server. Environment variables `ANSYSLMD_LICENSE_FILE` and `ANSYSLI_SERVERS` are then exported to point to these local ports."
+      "question": "What are the requirements for writable directories for Ansys Fluent jobs on the Trillium cluster, and how can errors related to them be resolved?",
+      "answer": "For Ansys Fluent jobs on the Trillium cluster, writable `.ansys` and `.fluentconf` directories, along with a `.flrecent` file, are required. If these do not exist or are not writable symbolic links, the job will fail. To resolve this, users must remove any existing non-link directories or files and then create symbolic links from their `$HOME` directory to corresponding writable locations in `$SCRATCH` (e.g., `ln -s $SCRATCH/.ansys ~/.ansys`)."
     },
     {
-      "question": "What are the required symbolic links for Ansys configuration files in the home directory on Trillium?",
-      "answer": "On Trillium, the required symbolic links are `~/.ansys`, `~/.fluentconf`, and `~/.flrecent`, which should point to writable directories/files in your `$SCRATCH` space."
-    },
-    {
-      "question": "What error message will I see if the `~/.ansys` symbolic link is missing on Trillium?",
-      "answer": "If the `~/.ansys` symbolic link is missing, you will see the error message: \"ERROR: A link to a writable .ansys directory does not exist.\""
-    },
-    {
-      "question": "What command should I run if my `~/.ansys` symbolic link is missing on Trillium?",
-      "answer": "If your `~/.ansys` symbolic link is missing, you should run `ln -s $SCRATCH/.ansys ~/.ansys`."
-    },
-    {
-      "question": "What error message will I see if the `~/.fluentconf` symbolic link is missing on Trillium?",
-      "answer": "If the `~/.fluentconf` symbolic link is missing, you will see the error message: \"ERROR: A link to a writable .fluentconf directory does not exist.\""
-    },
-    {
-      "question": "What command should I run if my `~/.fluentconf` symbolic link is missing on Trillium?",
-      "answer": "If your `~/.fluentconf` symbolic link is missing, you should run `ln -s $SCRATCH/.fluentconf ~/.fluentconf`."
-    },
-    {
-      "question": "What error message will I see if the `~/.flrecent` symbolic link is missing on Trillium?",
-      "answer": "If the `~/.flrecent` symbolic link is missing, you will see the error message: \"ERROR: A link to a writable .flrecent file does not exist.\""
-    },
-    {
-      "question": "What command should I run if my `~/.flrecent` symbolic link is missing on Trillium?",
-      "answer": "If your `~/.flrecent` symbolic link is missing, you should run `ln -s $SCRATCH/.flrecent ~/.flrecent`."
-    },
-    {
-      "question": "When are license requeue scripts recommended for Fluent jobs?",
-      "answer": "License requeue scripts should only be used for Fluent jobs that are known to complete normally without errors but typically require multiple requeue attempts to acquire licenses."
-    },
-    {
-      "question": "When are license requeue scripts for Fluent jobs not recommended?",
-      "answer": "License requeue scripts are not recommended for Fluent jobs that may run for a long time before crashing or run to completion with unresolved journal file warnings, as this can lead to simulations being repeated unnecessarily."
-    },
-    {
-      "question": "What is the consequence of using license requeue scripts for jobs that fail due to non-license related issues?",
-      "answer": "If a job fails due to non-license related issues (such as divergence) while using a requeue script, the simulation will be repeated from the beginning until the maximum number of requeue attempts is reached, resulting in lost compute time."
-    },
-    {
-      "question": "How can I specify the number of requeue attempts in a Slurm script?",
-      "answer": "You can specify the number of requeue attempts using the `#SBATCH --array=1-5%1` directive in your Slurm script, where `5` indicates the number of attempts (e.g., 2 or more)."
-    },
-    {
-      "question": "What action should I take if a job using a requeue script fails due to a simulation issue, not a license issue?",
-      "answer": "If a job is requeued due to a simulation issue, you should immediately manually kill the job progression with `scancel jobid` and then correct the problem."
-    },
-    {
-      "question": "What happens if a Fluent job with a requeue script completes successfully?",
-      "answer": "If a Fluent job with a requeue script completes successfully, the script will output \"Job completed successfully! Exiting now.\" and then cancel the entire Slurm job array."
-    },
-    {
-      "question": "What happens if a Fluent job attempt with a requeue script fails?",
-      "answer": "If a Fluent job attempt with a requeue script fails, the script will output \"Job attempt X of Y failed due to license or simulation issue!\". If there are remaining attempts, it will say \"Resubmitting job now…\"; otherwise, \"All job attempts failed exiting now.\""
+      "question": "What is the primary purpose of the license requeue scripts for Ansys Fluent jobs, and when should they be used or avoided?",
+      "answer": "The license requeue scripts for Ansys Fluent jobs are intended for simulations that reliably complete without errors but frequently fail to start due to temporary license shortages, making manual resubmission inconvenient. They should be avoided for jobs that might crash after running for a long time or complete with unresolved journal file warnings, as this would result in repeated, unproductive simulations and wasted compute time."
     }
   ],
-  "generated_at": "2026-04-12T16:48:28.415487+00:00"
+  "generated_at": "2026-04-13T01:49:22.436991+00:00"
 }

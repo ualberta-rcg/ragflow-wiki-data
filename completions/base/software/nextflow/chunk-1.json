@@ -4,93 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is Nextflow?",
-      "answer": "Nextflow is software for running reproducible scientific workflows. The term Nextflow is used to describe both the domain-specific language (DSL) the pipelines are written in, and the software used to interpret those workflows."
+      "question": "What is Nextflow, and how is it accessed on Alliance systems?",
+      "answer": "Nextflow is software used for running reproducible scientific workflows, and the term also refers to the domain-specific language in which pipelines are written. On Alliance systems, you can access Nextflow by loading it as a module using the command `module load nextflow`."
     },
     {
-      "question": "How can I load Nextflow on our systems?",
-      "answer": "On our systems, Nextflow is provided as a module you can load with `module load nextflow`."
+      "question": "What is the process for setting up the configuration file for Nextflow on Alliance clusters, and what information does it contain?",
+      "answer": "To set up the Nextflow configuration file for Alliance clusters, you need to download it from the nf-core GitHub repository and place it in `~/.nextflow/config`. This configuration contains profiles for clusters such as Fir, Narval, Nibi, Rorqual, and Trillium, providing cluster-specific details like job limits (e.g., no more than 100 jobs in the Slurm queue) and hardware specifications (e.g., Rorqual machines have 192 cores, 750 GB of RAM, and a one-week time limit). You also need to set the `$SLURM_ACCOUNT` environment variable."
     },
     {
-      "question": "What are the options for creating workflows with Nextflow?",
-      "answer": "You can build your own workflows, or you can rely on the published nf-core pipelines."
-    },
-    {
-      "question": "What is the example pipeline used in this documentation?",
-      "answer": "Our example uses the `nf-core/rnaseq` pipeline."
-    },
-    {
-      "question": "What are the five steps for setting up and running the example nf-core pipeline?",
-      "answer": "The five steps are: Step 1: Set up the configuration file, Step 2: Install nf-core, Step 3: Download the container image and pipeline, Step 4: Prepare the inputs, and Step 5: Create a job script."
-    },
-    {
-      "question": "Where should the configuration file for Alliance clusters be placed?",
-      "answer": "The configuration file for Alliance clusters should be placed in `~/.nextflow/config`."
-    },
-    {
-      "question": "How do I obtain the Alliance clusters configuration file?",
-      "answer": "You can obtain the configuration file by running: `curl -o ~/.nextflow/config https://raw.githubusercontent.com/nf-core/configs/refs/heads/master/conf/alliance_canada.config`."
-    },
-    {
-      "question": "Which environment variable needs to be set for the Slurm account?",
-      "answer": "The `$SLURM_ACCOUNT` environment variable needs to be set to an account name you can use, such as \"`def-pname`\"."
-    },
-    {
-      "question": "How can I set the `$SLURM_ACCOUNT` environment variable for convenience?",
-      "answer": "You can set it using `export SLURM_ACCOUNT=def-pname` and may choose to set this in your `~/.bashrc` file."
-    },
-    {
-      "question": "Which cluster profiles are included in the Alliance configuration file?",
-      "answer": "This configuration contains profiles for Fir, Narval, Nibi, Rorqual, and Trillium."
-    },
-    {
-      "question": "How do I load the appropriate profile when using the configuration file at Fir?",
-      "answer": "If you use this configuration file at Fir, you must load the profile using the `-profile fir` flag to the `nextflow` command."
-    },
-    {
-      "question": "How are profiles selected at Alliance sites other than Fir?",
-      "answer": "At other sites, the appropriate profile is automatically selected based on the host name."
-    },
-    {
-      "question": "What are the Slurm queue limits enforced by this configuration?",
-      "answer": "It ensures that there are no more than 100 jobs in the Slurm queue and that no more than 60 jobs are submitted per minute."
-    },
-    {
-      "question": "What are some specific details about Rorqual machines provided by the configuration?",
-      "answer": "Rorqual machines have 192 cores and 750 GB of RAM with a maximum time limit of one week (168 hours)."
-    },
-    {
-      "question": "Is it recommended to run generic Nextflow pipelines on Trillium?",
-      "answer": "No, it is discouraged to run nf-core pipelines or any other generic Nextflow pipeline on Trillium. It is only recommended to run a pipeline on Trillium if it was designed specifically for it."
-    },
-    {
-      "question": "How can tweaking labels in a pipeline's configuration file affect its execution?",
-      "answer": "Tweaking labels in files like `nf-core-rnaseq_3.21.0/3_21_0/conf/base.config`, which identify steps with non-default configurations, could make a big difference in the queuing and execution time of your pipeline."
-    },
-    {
-      "question": "Why must nf-core pipelines be downloaded on a login node on an Alliance cluster?",
-      "answer": "To use nf-core pipelines on an Alliance cluster, the pipelines must be downloaded on a login node because some clusters do not allow internet access from the compute nodes."
-    },
-    {
-      "question": "What is the command sequence to install nf-core on a login node?",
-      "answer": "The command sequence to install nf-core on a login node is: `module purge`, `module load python/3.11`, `module load rust`, `module load postgresql`, `python -m venv nf-core-env`, `source nf-core-env/bin/activate`, and `python -m pip install nf_core==2.13`."
-    },
-    {
-      "question": "Why is the `rust` module loaded during nf-core installation?",
-      "answer": "The `rust` module is loaded because new nf-core installations will error out if rust hasn't been loaded."
-    },
-    {
-      "question": "Why is the `postgresql` module loaded during nf-core installation?",
-      "answer": "The `postgresql` module is loaded because Python modules which list `psycopg2` as a dependency may crash without `postgresql`."
-    },
-    {
-      "question": "How long might the nf-core installation take?",
-      "answer": "The nf-core tools can be slow to install, and this step may take several minutes."
-    },
-    {
-      "question": "What container utility integrates well with Nextflow and should be loaded in Step 3?",
-      "answer": "Apptainer is the container utility that integrates well with Nextflow and should be loaded in Step 3: Download the container images and the pipeline."
+      "question": "Why and how should nf-core pipelines be installed on an Alliance login node?",
+      "answer": "nf-core pipelines must be downloaded and installed on a login node on Alliance clusters because some compute nodes do not allow internet access. The installation involves loading modules like `python/3.11`, `rust`, and `postgresql`, then setting up a Python virtual environment, activating it, and finally using `pip` to install the `nf_core` package (e.g., `python -m pip install nf_core==2.13`)."
     }
   ],
-  "generated_at": "2026-04-12T03:48:24.145803+00:00"
+  "generated_at": "2026-04-13T10:01:33.677116+00:00"
 }

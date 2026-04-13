@@ -4,33 +4,17 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "How do I initiate a serial batch production visualization workflow using ParaView?",
-      "answer": "To initiate a serial batch production visualization workflow, first load the ParaView module using `module load paraview/6.0.0`, then submit your Slurm job script with `sbatch serial.sh`."
+      "question": "What is the recommended method for large-scale and automated ParaView visualization on the Alliance clusters?",
+      "answer": "For large-scale and automated visualization, it is strongly recommended to switch from interactive client-server to off-screen batch visualization, scripting your workflow in ParaView Python and submitting it as a regular, potentially parallel production job on a cluster."
     },
     {
-      "question": "What is an example of a Slurm job submission script for serial batch ParaView rendering?",
-      "answer": "A serial.sh Slurm job script for ParaView rendering might look like this:\n```bash\n#!/bin/bash\n#SBATCH --time=3:0:0\n#SBATCH --mem-per-cpu=3600\n#SBATCH --account=def-someuser\npvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py\n```"
+      "question": "What is the workflow for submitting a serial ParaView batch job on an Alliance cluster?",
+      "answer": "To submit a serial ParaView batch job, first load the `paraview/6.0.0` module, then submit a Slurm job using `sbatch serial.sh`. The `serial.sh` script should specify job parameters like time, memory per CPU, and account, and execute `pvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py`."
     },
     {
-      "question": "What command within a serial Slurm script executes a ParaView Python script for off-screen rendering?",
-      "answer": "Within a serial Slurm script, the command `pvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py` executes a ParaView Python script (`script.py`) for off-screen rendering using OSMesa as the OpenGL backend."
-    },
-    {
-      "question": "How do I initiate a parallel batch production visualization workflow using ParaView?",
-      "answer": "To initiate a parallel batch production visualization workflow, first load the ParaView module using `module load paraview/6.0.0`, then submit your Slurm job script with `sbatch distributed.sh`."
-    },
-    {
-      "question": "What is an example of a Slurm job submission script for parallel batch ParaView rendering?",
-      "answer": "A distributed.sh Slurm job script for parallel ParaView rendering might look like this:\n```bash\n#!/bin/bash\n#SBATCH --time=3:0:0\n#SBATCH --mem-per-cpu=3600\n#SBATCH --ntasks=4\n#SBATCH --account=def-someuser\nsrun pvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py\n```"
-    },
-    {
-      "question": "What Slurm directive is used to specify the number of tasks for a parallel ParaView batch job?",
-      "answer": "The Slurm directive `#SBATCH --ntasks=4` (or similar, with a different number) is used to specify the number of tasks for a parallel ParaView batch job."
-    },
-    {
-      "question": "What command within a parallel Slurm script executes a ParaView Python script in a distributed manner for off-screen rendering?",
-      "answer": "Within a parallel Slurm script, the command `srun pvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py` executes a ParaView Python script (`script.py`) in a distributed manner for off-screen rendering using OSMesa as the OpenGL backend."
+      "question": "How do you submit a parallel ParaView batch job on an Alliance cluster?",
+      "answer": "To submit a parallel ParaView batch job, first load the `paraview/6.0.0` module, then submit a Slurm job using `sbatch distributed.sh`. The `distributed.sh` script would typically specify the number of tasks (`--ntasks`) and use `srun` to execute `pvbatch` for parallel rendering, for example: `srun pvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py`."
     }
   ],
-  "generated_at": "2026-04-12T04:55:13.926125+00:00"
+  "generated_at": "2026-04-13T10:58:31.042635+00:00"
 }

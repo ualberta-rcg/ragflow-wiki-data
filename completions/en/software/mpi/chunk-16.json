@@ -4,49 +4,13 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "What communication strategy is used in the `phello3` program to ensure safe MPI communication?",
-      "answer": "The `phello3` program employs an odd-even pairing strategy where even-ranked processes perform a send followed by a receive, while odd-ranked processes perform a receive followed by a send."
+      "question": "What is the primary issue addressed by the `phello3` program compared to the `phello2` program in MPI?",
+      "answer": "The `phello3` program addresses the potential for deadlock in MPI communication. Unlike `phello2`, which could deadlock if the MPI library didn't provide message buffering or if buffers filled up, `phello3` implements a communication strategy that guarantees correct execution regardless of buffering behaviour, making it a 'safe' MPI program."
     },
     {
-      "question": "Why is an odd-even pairing communication strategy utilized in the `phello3` program?",
-      "answer": "This strategy ensures that the `MPI_Send` and `MPI_Recv` calls are properly matched between processes, preventing potential deadlocks that could occur if all processes attempted to send or receive simultaneously, especially in an unbuffered MPI implementation."
-    },
-    {
-      "question": "How do processes determine their communication partners for sending and receiving in the `phello3` example?",
-      "answer": "Each process `rank` sends to process `(rank + 1) % size` and receives from process `((rank + size) - 1) % size`, forming a communication ring."
-    },
-    {
-      "question": "Which MPI functions are specifically used for one-to-one message passing in the `phello3.c` example?",
-      "answer": "The `phello3.c` example uses `MPI_Send` for sending messages and `MPI_Recv` for receiving messages."
-    },
-    {
-      "question": "What is the role of the conditional `if (!(rank % 2))` statement in the `phello3` program?",
-      "answer": "This conditional statement controls the order of communication operations: even-ranked processes first send and then receive, while odd-ranked processes first receive and then send, to prevent deadlock."
-    },
-    {
-      "question": "What message content is sent by each process in the `phello3` program?",
-      "answer": "Each process constructs and sends a string in the format 'Hello, world! from process [rank] of [size]', where `[rank]` is its unique identifier and `[size]` is the total number of processes."
-    },
-    {
-      "question": "Does the `phello3` program deadlock if the number of processors is odd?",
-      "answer": "No, the `phello3` program is designed to be safe and will not deadlock even with an odd number of processors. The send from an even process (e.g., 0) to an odd process (e.g., 1) will complete, allowing the even process to then receive from the last process."
-    },
-    {
-      "question": "What are the arguments passed to `MPI_Send` in the C version of `phello3`?",
-      "answer": "The arguments for `MPI_Send` in `phello3.c` are `outbuf` (message buffer), `BUFMAX` (number of items), `MPI_CHAR` (datatype), `sendto` (destination rank), `0` (message tag), and `MPI_COMM_WORLD` (communicator)."
-    },
-    {
-      "question": "What are the arguments passed to `MPI_Recv` in the C version of `phello3`?",
-      "answer": "The arguments for `MPI_Recv` in `phello3.c` are `inbuf` (receive buffer), `BUFMAX` (number of items to receive), `MPI_CHAR` (datatype), `recvfrom` (source rank), `0` (message tag), `MPI_COMM_WORLD` (communicator), and `&status` (a reference to an `MPI_Status` structure)."
-    },
-    {
-      "question": "What is the value of the `BUFMAX` parameter in the C and Fortran `phello3` examples?",
-      "answer": "The `BUFMAX` parameter is set to `81` in both the C and Fortran `phello3` examples."
-    },
-    {
-      "question": "What is the purpose of `MPI_Finalize()` at the end of the `phello3` program?",
-      "answer": "`MPI_Finalize()` is called as the last statement of the program to perform any necessary clean-up operations required by the MPI environment before the program exits."
+      "question": "How does the `phello3` program prevent deadlocks in its communication pattern?",
+      "answer": "The `phello3` program prevents deadlocks by employing an odd-even pairing strategy for its communication. Even-ranked processes initiate a send operation followed by a receive, while odd-ranked processes execute a receive operation followed by a send. This ensures that every send operation has a matching receive, guaranteeing safe message exchange in the ring topology."
     }
   ],
-  "generated_at": "2026-04-12T01:53:58.323129+00:00"
+  "generated_at": "2026-04-13T08:49:54.274318+00:00"
 }

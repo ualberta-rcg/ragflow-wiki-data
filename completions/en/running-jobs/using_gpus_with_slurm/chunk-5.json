@@ -4,17 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How can I disable the NVIDIA Data Center GPU Manager (DCGM) to enable GPU profiling on Narval or Rorqual?",
-      "answer": "To disable the NVIDIA Data Center GPU Manager (DCGM) for GPU profiling on Narval or Rorqual, you must set the `DISABLE_DCGM` environment variable to `1` during job submission. An example command would be: `DISABLE_DCGM=1 salloc --account=def-someuser --gpus-per-node=a100:1 --mem=4000M --time=03:00`."
+      "question": "How can you run multiple single-GPU programs concurrently within a single SLURM job using GNU Parallel?",
+      "answer": "To run multiple single-GPU programs concurrently within one SLURM job, create a `params.input` file where each line lists a program's input parameters. Then, use GNU Parallel with the `-j` parameter to specify the maximum number of concurrent tasks (e.g., `-j4` for four tasks). Additionally, use `CUDA_VISIBLE_DEVICES=$(({%} - 1))` to assign a unique GPU to each task, ensuring they do not attempt to use the same GPU simultaneously."
     },
     {
-      "question": "After submitting a job with DCGM disabled for profiling, how do I confirm that DCGM is no longer running on the node?",
-      "answer": "After submitting your interactive job with DCGM disabled, you should wait until DCGM is no longer active on the node by using the command: `while [ ! -z \"$(dcgmi -v | grep 'Hostengine build info:')\" ]; do  sleep 5; done`. Once this command completes, you can proceed to launch your profiler."
-    },
-    {
-      "question": "On which clusters is GPU profiling, requiring the disabling of DCGM, currently available?",
-      "answer": "GPU profiling that requires disabling DCGM is currently possible only on Narval and Rorqual. It is not yet available on Fir and Nibi."
+      "question": "What steps are required to profile GPU tasks on the Narval and Rorqual clusters, and on which clusters is this method not currently available?",
+      "answer": "On Narval and Rorqual clusters, profiling GPU tasks requires disabling the NVIDIA Data Center GPU Manager (DCGM). This is accomplished by setting the `DISABLE_DCGM=1` environment variable during job submission (e.g., `DISABLE_DCGM=1 salloc --account=def-someuser --gpus-per-node=a100:1 --mem=4000M --time=03:00`). After job submission, you must wait until DCGM is fully disabled on the node by running `while [ ! -z \"$(dcgmi -v | grep 'Hostengine build info:')\" ]; do sleep 5; done` before launching your profiler. This specific GPU profiling technique is not yet available on the Fir and Nibi clusters."
     }
   ],
-  "generated_at": "2026-04-12T18:27:55.290186+00:00"
+  "generated_at": "2026-04-13T15:10:08.544778+00:00"
 }

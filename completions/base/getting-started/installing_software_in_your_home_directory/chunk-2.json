@@ -4,117 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Where can I find information about BLAS/LAPACK and MKL?",
-      "answer": "You can find information about BLAS/LAPACK and MKL on their dedicated page."
+      "question": "How should users go about installing Python, R, or Perl packages on Alliance systems?",
+      "answer": "For Python, R, and Perl packages, users should first consult the dedicated page for each language to check if the desired package is already available on the systems. If it is not, they can then use that language's package manager to install the extension into their own home directory."
     },
     {
-      "question": "Can I install software using `apt-get` or `yum` instructions on Alliance systems?",
-      "answer": "No, it is unlikely that you will be able to install software using `apt-get` or `yum` instructions on Alliance systems."
+      "question": "What is the function of the `setrpaths.sh` script when installing pre-compiled binary packages on Alliance clusters, and when is it typically used?",
+      "answer": "The `setrpaths.sh` script is used to patch pre-compiled binaries installed in a user's home directory that may encounter errors such as `/lib64/libc.so.6: version 'GLIBC_2.18' not found`. This script ensures that the binaries utilize the correct interpreter and locate their dynamically linked libraries in the appropriate folders. It can also add `$ORIGIN` to the RUNPATH using the `--add_origin` option, which can be helpful if a library cannot find other libraries within the same folder. This script also extracts and patches shared objects within archive files like Java `.jar` or Python `.whl` files."
     },
     {
-      "question": "What should I do if software instructions include `apt-get` or `yum`?",
-      "answer": "You should look for instructions that say \"to build from source\" or contact support@computecanada.ca for assistance."
-    },
-    {
-      "question": "How can I install Python, R, or Perl extension packages?",
-      "answer": "Python, R, and Perl have package managers that can easily install almost any desired extension in your home directory."
-    },
-    {
-      "question": "Where should I check if a Python, R, or Perl package is already available on the system?",
-      "answer": "You should see the dedicated page for each language to find out if the package you're looking for is already available on our systems."
-    },
-    {
-      "question": "What should I do if a Python, R, or Perl package is not available on the system?",
-      "answer": "If a Python, R, or Perl package is not available, you should find detailed guidance on that language's page on using its package manager to install it for yourself."
-    },
-    {
-      "question": "What kind of error might I encounter when installing pre-compiled binaries in my home directory?",
-      "answer": "You might encounter errors such as `/lib64/libc.so.6: version 'GLIBC_2.18' not found` when installing pre-compiled binaries in your home directory."
-    },
-    {
-      "question": "How can I fix issues with pre-compiled binaries installed in my home directory?",
-      "answer": "You can often patch such binaries using the `setrpaths.sh` script."
-    },
-    {
-      "question": "What is the syntax for using the `setrpaths.sh` script?",
-      "answer": "The syntax for using the `setrpaths.sh` script is `setrpaths.sh --path path [--add_origin]`, where `path` refers to the directory where you installed the software."
-    },
-    {
-      "question": "What does the `setrpaths.sh` script do?",
-      "answer": "The `setrpaths.sh` script makes sure that the binaries use the correct interpreter and search for the libraries they are dynamically linked to in the correct folder."
-    },
-    {
-      "question": "What is the purpose of the `--add_origin` option in `setrpaths.sh`?",
-      "answer": "The `--add_origin` option in `setrpaths.sh` adds `$ORIGIN` to the RUNPATH, which can be helpful if a library cannot find other libraries in the same folder as itself."
-    },
-    {
-      "question": "Can `setrpaths.sh` patch shared objects within archive files like Java `.jar` or Python `.whl` files?",
-      "answer": "Yes, the `setrpaths.sh` script can extract and patch shared objects within archive files, such as Java (`.jar`) or Python wheels (`.whl`), and then updates the archive."
-    },
-    {
-      "question": "Where is most software on the new Alliance clusters distributed from?",
-      "answer": "Most software on the new Alliance clusters is distributed centrally using the CVMFS file system."
-    },
-    {
-      "question": "What is the base directory for software installed on the new clusters?",
-      "answer": "The base directory for software installed on the new clusters is `/cvmfs/soft.computecanada.ca`."
-    },
-    {
-      "question": "Is the software stack consistent across all new Alliance clusters?",
-      "answer": "Yes, the software distributed under `/cvmfs/soft.computecanada.ca` is identical on all new clusters."
-    },
-    {
-      "question": "Which module provides the core of the Alliance software stack?",
-      "answer": "The `gentoo/2023` module provides the core of the Alliance software stack and is loaded by default."
-    },
-    {
-      "question": "Where is the `gentoo/2023` software stack located?",
-      "answer": "The `gentoo/2023` software stack is located at `/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr`."
-    },
-    {
-      "question": "What environment variable should be used to refer to the `gentoo/2023` software stack path?",
-      "answer": "The environment variable `$EBROOTGENTOO` should be used to refer to this path."
-    },
-    {
-      "question": "What kind of common packages can be found under the `gentoo/2023` stack?",
-      "answer": "Common packages such as `make`, `ls`, `cat`, and `grep` can be found under the `gentoo/2023` stack."
-    },
-    {
-      "question": "How do compilers and linkers typically find header files and libraries?",
-      "answer": "Compilers and linkers typically automatically look for header files and libraries in the right location via the environment variables `$CPATH` and `$LIBRARY_PATH`, respectively."
-    },
-    {
-      "question": "What should I do if software is hard-coded to look under `/usr` instead of the Alliance software stack location?",
-      "answer": "If software is hard-coded to look under `/usr`, the compilation will typically fail and needs to be explicitly told about `$EBROOTGENTOO`. This might involve adjusting a Makefile, specifying a `--with-` flag for the configure script, or editing a configuration file."
-    },
-    {
-      "question": "Who should I contact if I need help adjusting software to use `$EBROOTGENTOO`?",
-      "answer": "If you are not sure how to adjust software to use `$EBROOTGENTOO`, you should not hesitate to ask for help."
-    },
-    {
-      "question": "How do I find the installation path for a module like HDF5 after loading it?",
-      "answer": "After loading a module like HDF5 (e.g., `module load hdf5`), you can find its installation path using the environment variable `$EBROOTHDF5`."
-    },
-    {
-      "question": "What is the pattern for environment variables provided by modules to indicate their installation path?",
-      "answer": "The environment variables provided by modules to indicate their installation path start with `EBROOT` followed by the capitalized module name, such as `$EBROOTHDF5` for the HDF5 module."
-    },
-    {
-      "question": "Where would I typically find header files for a module like HDF5 after loading it?",
-      "answer": "You would typically find header files for a module like HDF5 in `$EBROOTHDF5/include` after loading it."
-    },
-    {
-      "question": "Where would I typically find library files for a module like HDF5 after loading it?",
-      "answer": "You would typically find library files for a module like HDF5 in `$EBROOTHDF5/lib` after loading it."
-    },
-    {
-      "question": "What should I do if a header file or library is missing from both the `gentoo` module and other loaded modules?",
-      "answer": "If a header file or library that would usually be provided by an RPM or other package manager in a typical Linux distribution is neither present via `gentoo` nor via another module, you should let Alliance staff know."
-    },
-    {
-      "question": "Is it likely that missing header files or libraries can be added to the Alliance software stack?",
-      "answer": "Yes, it is most likely that missing header files or libraries can be easily added to the existing Alliance software stack if reported."
+      "question": "How is software generally distributed and organized within the Alliance computing environment?",
+      "answer": "In the Alliance computing environment, almost all software used on the new clusters is centrally distributed through the CVMFS file system. This means software is located under `/cvmfs/soft.computecanada.ca` rather than standard Linux paths like `/usr/bin` or `/usr/include`, ensuring it is identical across all new clusters. The core of this software stack is provided by the `gentoo/2023` module, which is loaded by default, and can be referenced using the `$EBROOTGENTOO` environment variable."
     }
   ],
-  "generated_at": "2026-04-12T00:07:11.671383+00:00"
+  "generated_at": "2026-04-13T07:23:59.276757+00:00"
 }

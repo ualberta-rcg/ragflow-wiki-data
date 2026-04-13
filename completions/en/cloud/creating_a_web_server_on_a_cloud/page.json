@@ -3,65 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary goal of this document?",
-      "answer": "This document describes the simplest case of creating a web server on our clouds using Ubuntu Linux and the Apache web server."
+      "question": "What is the primary purpose of this document regarding web server creation on Alliance clouds?",
+      "answer": "This document describes the simplest case of creating a web server on Alliance clouds using Ubuntu Linux and the Apache web server."
     },
     {
-      "question": "Why are security considerations important when setting up a web server?",
-      "answer": "Security must be considered any time you make a computer accessible to the public, as services like SSH or HTTP could be exposed, leading to vulnerabilities like eavesdropping or data modification."
+      "question": "What is the main security consideration when making a computer, such as a web server, accessible to the public on an Alliance cloud?",
+      "answer": "Any time a computer is made accessible to the public, security must be considered seriously."
     },
     {
-      "question": "How can you restrict access to your virtual machine's ports using OpenStack?",
-      "answer": "With OpenStack, you can manage and restrict access to ports, including granting access only to a specific IP address or ranges of IP addresses, using Security groups."
+      "question": "How can users manage and restrict access to specific ports on their virtual machines using OpenStack?",
+      "answer": "With OpenStack, users can manage and restrict access to these ports, including granting access only to a specific IP address or ranges of IP addresses, by using Security groups."
     },
     {
-      "question": "What is the recommended way to encrypt data on a web server to prevent eavesdropping and modification?",
-      "answer": "Transport Layer Security (TLS) is the common way to encrypt data, and its use is recommended on your web server, especially for websites with logins, to prevent eavesdropping and data modification."
+      "question": "Why is it recommended to use encryption, like Transport Layer Security (TLS), for web servers, especially those handling logins?",
+      "answer": "Encryption is recommended because it prevents eavesdroppers from reading sensitive data like passwords and prevents third parties from modifying data transmitted from the web server to a client."
     },
     {
-      "question": "What are the prerequisites for installing Apache on a cloud virtual machine?",
-      "answer": "You must first create a persistent virtual machine running Ubuntu Linux and open port 80 to allow HTTP requests into your VM."
+      "question": "Who is ultimately responsible for the security of virtual machines created on Alliance clouds?",
+      "answer": "Users are responsible for the security of their virtual machines."
     },
     {
-      "question": "What command should be run to ensure your Ubuntu VM has the latest security patches before installing Apache?",
-      "answer": "You should run `sudo apt-get upgrade` to upgrade Ubuntu to its latest version, which ensures your VM has the latest security patches."
+      "question": "What is the initial step required before installing the Apache web server on an Alliance cloud VM?",
+      "answer": "Users must first create a persistent virtual machine running Ubuntu Linux by following the Cloud Quick Start instructions for booting from a volume."
     },
     {
-      "question": "What command is used to install the Apache web server on an Ubuntu virtual machine?",
-      "answer": "The command `sudo apt-get install apache2` is used to install the Apache web server."
+      "question": "Which port needs to be opened on the virtual machine to allow standard HTTP requests for the Apache web server?",
+      "answer": "Port 80 needs to be opened to allow HTTP requests into the VM."
     },
     {
-      "question": "How can you verify that Apache has been successfully installed on your VM?",
-      "answer": "You can verify Apache's installation by entering the floating IP address of your VM into your browser's address bar, which should display the Apache2 test page."
+      "question": "What commands should be executed within an Ubuntu VM to update the package repositories and upgrade the system before installing Apache?",
+      "answer": "Within the VM, users should run `sudo apt-get update` to update repositories and `sudo apt-get upgrade` to upgrade Ubuntu to the latest version."
     },
     {
-      "question": "Where are the website files typically stored by default for an Apache web server?",
-      "answer": "By default, the content of the website files is typically stored in `/var/www/html`, with `index.html` being the entry point."
+      "question": "What is the command to install the Apache web server on an Ubuntu Linux virtual machine?",
+      "answer": "The command to install the Apache web server is `sudo apt-get install apache2`."
     },
     {
-      "question": "Why might a user want to change the web server's root directory from its default location?",
-      "answer": "Users might want to change the web server's root directory to make it easier to manage website files, for instance, by allowing the user `ubuntu` to own and edit files in `/home/ubuntu/public_html` without `sudo`."
+      "question": "How can a user verify that the Apache web server has been successfully installed and is functioning on their VM?",
+      "answer": "Users can verify by entering the floating IP address of their VM into a browser's address bar, where they should see the Apache2 test page."
     },
     {
-      "question": "Which configuration files need to be modified to change Apache's document root to a new directory like `/home/ubuntu/public_html`?",
-      "answer": "To change Apache's document root, you need to modify `/etc/apache2/apache2.conf` and `/etc/apache2/sites-available/000-default.conf`."
+      "question": "Which directory and file should users modify to begin creating their website content after Apache installation?",
+      "answer": "Users should start modifying the content of the files in `/var/www/html`, specifically the `index.html` file, which is the entry point for the website."
+    },
+    {
+      "question": "Why would a user want to change the Apache web server's root directory from the default `/var/www/html` to a user-owned directory like `/home/ubuntu/public_html`?",
+      "answer": "It is often much easier to manage a website if the files are owned by the user connecting to the VM, such as the `ubuntu` user, instead of the default root ownership."
     },
     {
       "question": "What command is used to restart the Apache server after making configuration changes?",
-      "answer": "The command `sudo service apache2 restart` is used to restart the Apache server for changes to take effect."
+      "answer": "The Apache server can be restarted using the command `sudo service apache2 restart`."
     },
     {
-      "question": "How can you limit the bandwidth usage of your Apache web server?",
-      "answer": "You can limit the overall bandwidth usage of your Apache web server by using the `mod_bw` Apache bandwidth module."
+      "question": "What is the purpose of limiting bandwidth on an Apache web server?",
+      "answer": "Limiting bandwidth is useful if the web server is in high demand, as it may use considerable bandwidth resources."
     },
     {
-      "question": "What commands are required to install and enable the Apache bandwidth module?",
-      "answer": "To install the module, use `sudo apt install libapache2-mod-bw`, and to enable it, use `sudo a2enmod bw`."
+      "question": "How is the Apache bandwidth module (`mod_bw`) installed and enabled on an Ubuntu VM?",
+      "answer": "The module is installed with `sudo apt install libapache2-mod-bw` and then enabled with `sudo a2enmod bw`."
     },
     {
-      "question": "Where should the bandwidth configuration for an Apache site be placed?",
-      "answer": "The bandwidth configuration should be placed between the `<VirtualHost></VirtualHost>` tags for your site, typically in the default Apache site configuration file `/etc/apache2/sites-enabled/000-default.conf`."
+      "question": "Where should the configuration for the `mod_bw` module to limit Apache bandwidth be placed?",
+      "answer": "The configuration should be placed between the `<VirtualHost></VirtualHost>` tags for the site, typically in the `/etc/apache2/sites-enabled/000-default.conf` file."
+    },
+    {
+      "question": "What is a recommended next step for securing an Apache web server after initial setup?",
+      "answer": "A recommended next step is configuring Apache to use SSL for encryption."
     }
   ],
-  "generated_at": "2026-04-11T20:27:37.534328+00:00"
+  "generated_at": "2026-04-13T04:31:06.131770+00:00"
 }

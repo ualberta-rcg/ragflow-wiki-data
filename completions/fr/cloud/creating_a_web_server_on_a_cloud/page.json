@@ -3,81 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi le but principal de ce document-là?",
-      "answer": "Ce document décrit une méthode simple pour créer un serveur web avec Ubuntu et Apache dans l'environnement infonuagique de Compute Canada."
+      "question": "Quel est l'objectif principal de cette page dans la documentation d'Alliance?",
+      "answer": "Cette page décrit une méthode simple pour créer un serveur web dans l'environnement infonuagique d'Alliance en utilisant Ubuntu et le serveur web Apache."
     },
     {
-      "question": "Pourquoi est-ce que la sécurité est si importante pour un ordinateur accessible publiquement?",
-      "answer": "La sécurité est un aspect critique parce que ces ordinateurs permettent un accès public, ce qui peut prendre plusieurs formes comme les connexions SSH, l'affichage de code HTML via HTTP, ou l'offre de services tiers."
+      "question": "Pourquoi la sécurité est-elle un aspect crucial lors de la configuration d'un serveur web public sur les infrastructures d'Alliance?",
+      "answer": "La sécurité est essentielle pour tout ordinateur accessible publiquement, car elle protège contre les accès non autorisés via des services comme SSH ou HTTP, et assure l'intégrité et la confidentialité des données."
     },
     {
-      "question": "C'est quoi, des 'daemons', pis comment ça interagit avec la sécurité?",
-      "answer": "Les daemons sont des programmes qui soutiennent des services comme SSH ou HTTP. Ils sont toujours actifs et reçoivent les requêtes de l'extérieur via des ports spécifiques, qui doivent être sécurisés."
+      "question": "Comment les ports et l'accès aux services sont-ils gérés dans l'environnement infonuagique d'Alliance, notamment pour la sécurité?",
+      "answer": "OpenStack permet de gérer les ports et d'en restreindre l'accès en accordant l'accès à certaines adresses IP ou à des groupes d'adresses spécifiques, via ce qu'on appelle les 'Groupes de sécurité'."
     },
     {
-      "question": "Comment OpenStack permet-il de gérer la sécurité des accès aux ports?",
-      "answer": "OpenStack permet de gérer les ports et d'en restreindre l'accès en l'accordant à des adresses IP spécifiques ou à des groupes d'adresses, via les 'Groupes de sécurité'."
+      "question": "Pourquoi est-il recommandé d'utiliser le cryptage, tel que le protocole TLS, pour les sites web hébergés sur un serveur infonuagique?",
+      "answer": "Le cryptage est recommandé pour protéger les données échangées, surtout pour les sites web où des personnes de l'extérieur peuvent se connecter, afin d'éviter que des tiers ne puissent consulter ou modifier les informations transmises."
     },
     {
-      "question": "Quel protocole est recommandé pour le cryptage des données sensibles sur les sites web?",
-      "answer": "Le protocole Transport Layer Security (TLS) est recommandé pour le cryptage des données, surtout pour les sites web auxquels des personnes de l'extérieur peuvent se connecter."
+      "question": "Quelles sont les premières étapes à suivre pour préparer une instance infonuagique Ubuntu avant d'y installer Apache?",
+      "answer": "Il faut d'abord créer une instance persistante sous Linux Ubuntu en suivant le 'Guide de démarrage' d'Alliance, puis ouvrir le port 80 pour permettre l'accès HTTP à cette instance."
     },
     {
-      "question": "Qui est responsable de la sécurité des instances infonuagiques?",
-      "answer": "La sécurité des instances est la responsabilité de l'utilisateur et ne doit pas être négligée."
+      "question": "Quelles commandes doit-on exécuter sur une instance Ubuntu pour installer le serveur web Apache?",
+      "answer": "Après s'être connecté, il faut faire la mise à jour des répertoires apt-get avec `sudo apt-get update`, puis mettre à jour Ubuntu avec `sudo apt-get upgrade`, et enfin installer Apache avec `sudo apt-get install apache2`."
     },
     {
-      "question": "Quelle est la première étape pour installer un serveur web Apache sur notre nuage?",
-      "answer": "La première étape est de créer une instance persistante sous Linux Ubuntu en suivant les directives du 'Cloud : Guide de démarrage'."
+      "question": "Comment peut-on vérifier que l'installation d'Apache sur une instance infonuagique a réussi?",
+      "answer": "On peut vérifier l'installation en entrant l'adresse IP flottante de l'instance dans la barre d'adresses d'un fureteur; une page test Apache2 devrait s'afficher."
     },
     {
-      "question": "Comment on fait pour ouvrir le port 80 pis permettre l'accès HTTP à notre instance?",
-      "answer": "Il faut suivre les directives pour la connexion SSH, mais à partir du menu déroulant, on sélectionne HTTP au lieu de SSH pour ouvrir le port 80."
+      "question": "Pourquoi est-il suggéré de modifier le répertoire racine du serveur web Apache de `/var/www/html` à un répertoire dans le dossier personnel de l'utilisateur?",
+      "answer": "Cela facilite la gestion du site web, car l'utilisateur connecté à l'instance devient propriétaire des fichiers du site, permettant des modifications sans avoir besoin de droits `sudo`."
     },
     {
-      "question": "Quelles sont les premières commandes à exécuter après s'être connecté à l'instance pour installer Apache?",
-      "answer": "On doit faire la mise à jour des répertoires apt-get avec `sudo apt-get update` et ensuite la mise à jour d'Ubuntu avec `sudo apt-get upgrade`."
+      "question": "Quelles sont les deux modifications principales de fichiers de configuration Apache nécessaires pour changer le répertoire racine du serveur web vers `/home/ubuntu/public_html`?",
+      "answer": "Il faut modifier la ligne `<Directory /var/www/>` en `<Directory /home/ubuntu/public_html>` dans `/etc/apache2/apache2.conf` et la ligne `DocumentRoot /var/www/html` en `DocumentRoot /home/ubuntu/public_html` dans `/etc/apache2/sites-available/000-default.conf`."
     },
     {
-      "question": "Quelle commande sert à installer le serveur web Apache sur Ubuntu?",
-      "answer": "La commande pour installer Apache est `sudo apt-get install apache2`."
+      "question": "Quelle commande doit être utilisée pour redémarrer le serveur Apache après avoir effectué des modifications dans sa configuration?",
+      "answer": "Il faut utiliser la commande `sudo service apache2 restart` pour appliquer les modifications."
     },
     {
-      "question": "Comment on vérifie si Apache a été installé correctement?",
-      "answer": "On vérifie l'installation en entrant l'adresse IP flottante de l'instance dans la barre d'adresses d'un fureteur. Une page test Apache2 devrait s'afficher."
+      "question": "Quelle est la raison principale de vouloir limiter la bande passante sur un serveur web Apache?",
+      "answer": "Un serveur web très sollicité peut consommer beaucoup de ressources de bande passante, et la limitation permet de gérer cette utilisation efficacement."
     },
     {
-      "question": "Où est-ce qu'on modifie le contenu des fichiers pour créer notre site web?",
-      "answer": "On modifie le contenu des fichiers dans le répertoire `/var/www/html`, et surtout le fichier `index.html` qui est le point d'entrée."
+      "question": "Comment installe-t-on le module `mod_bw` pour limiter la bande passante sur un serveur Apache?",
+      "answer": "Pour installer le module `mod_bw`, on utilise la commande `sudo apt install libapache2-mod-bw`, puis on l'active avec `sudo a2enmod bw`."
     },
     {
-      "question": "Pourquoi est-il souvent plus facile de modifier le répertoire root du serveur web?",
-      "answer": "C'est souvent plus facile de gérer un site web si celui ou celle qui se connecte à l'instance est propriétaire des fichiers, comme l'utilisateur 'ubuntu' dans l'exemple."
+      "question": "Où doit-on placer la configuration du module `mod_bw` pour qu'elle s'applique à un site web Apache?",
+      "answer": "La configuration du `mod_bw` doit être placée entre les balises `<VirtualHost></VirtualHost>` du site, généralement dans le fichier de configuration par défaut `/etc/apache2/sites-enabled/000-default.conf`."
     },
     {
-      "question": "Quelles modifications faut-il faire dans les fichiers de configuration Apache pour changer le répertoire root?",
-      "answer": "Il faut modifier la ligne `<Directory /var/www/>` dans `/etc/apache2/apache2.conf` et la ligne `DocumentRoot /var/www/html` dans `/etc/apache2/sites-available/000-default.conf` pour pointer vers le nouveau répertoire, par exemple `/home/ubuntu/public_html`."
-    },
-    {
-      "question": "Quelles commandes faut-il exécuter après avoir changé le répertoire root pour que les modifications soient prises en compte?",
-      "answer": "Il faut créer le nouveau répertoire avec `mkdir public_html`, y copier la page par défaut avec `cp /var/www/html/index.html /home/ubuntu/public_html`, puis redémarrer le serveur Apache avec `sudo service apache2 restart`."
-    },
-    {
-      "question": "Pourquoi est-il utile de limiter la bande passante d'un serveur web?",
-      "answer": "C'est utile pour limiter l'utilisation des ressources de la bande passante si le serveur web est très sollicité."
-    },
-    {
-      "question": "Quel module Apache est utilisé pour limiter la bande passante?",
-      "answer": "Le module Apache `mod_bw` est utilisé pour limiter la bande passante."
-    },
-    {
-      "question": "Comment on installe et active le module `mod_bw` pour limiter la bande passante?",
-      "answer": "On utilise les commandes `sudo apt install libapache2-mod-bw` pour l'installation, puis `sudo a2enmod bw` pour l'activer."
-    },
-    {
-      "question": "Où est-ce qu'on doit placer la configuration de limitation de bande passante dans Apache?",
-      "answer": "La configuration devrait être placée entre les balises `<VirtualHost></VirtualHost>` pour votre site, souvent dans le fichier `/etc/apache2/sites-enabled/000-default.conf`."
+      "question": "Qui est responsable de la sécurité des instances infonuagiques déployées sur la plateforme d'Alliance?",
+      "answer": "La sécurité des instances est la responsabilité de l'utilisateur."
     }
   ],
-  "generated_at": "2026-04-11T20:28:34.332547+00:00"
+  "generated_at": "2026-04-13T04:31:51.629347+00:00"
 }

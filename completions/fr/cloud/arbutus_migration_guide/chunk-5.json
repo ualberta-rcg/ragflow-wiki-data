@@ -4,53 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Comment créer un groupe de sécurité et y ajouter une règle en utilisant la ligne de commande (CLI) sur le nuage Arbutus?",
-      "answer": "Pour créer un groupe de sécurité, utilisez la commande `openstack security group create <group-name>`. Ensuite, pour y ajouter une règle (par exemple, pour le port HTTP 80), utilisez `openstack security group rule create --proto tcp --remote-ip 0.0.0.0/0 --dst-port 80 <group-name>`."
+      "question": "Quels sont les trois principaux scénarios de migration offerts pour le transfert de ressources entre le nuage Ouest et le nouveau nuage Arbutus?",
+      "answer": "Pour la migration du nuage Ouest au nouveau nuage Arbutus, il y a trois scénarios généraux à considérer : la migration manuelle ou orchestrée, la migration d’instances associées à des volumes, et la migration d’instances éphémères. Le choix du scénario dépend de votre configuration actuelle."
     },
     {
-      "question": "Comment faire pour voir les groupes de sécurité et leurs règles via la ligne de commande (CLI)?",
-      "answer": "Pour voir les groupes de sécurité, utilisez la commande `openstack security group list`. Pour lister les règles d'un groupe spécifique, utilisez `openstack security group rule list`."
+      "question": "Quelles sont les étapes générales d'une migration manuelle ou orchestrée d'instances et de volumes vers le nouveau nuage Arbutus?",
+      "answer": "Les grandes lignes de la procédure pour une migration manuelle ou orchestrée sont : copier les images Glance personnalisées du nuage Ouest à Arbutus (ou commencer avec une nouvelle image de base), installer et configurer les services sur la ou les instances, copier les données des anciennes vers les nouvelles instances, assigner des adresses IP flottantes aux nouvelles instances et mettre à jour les DNS, et finalement mettre fin aux anciennes instances et supprimer les anciens volumes."
     },
     {
-      "question": "Quelle est la meilleure approche pour éviter que mes données soient corrompues ou non conformes après une migration?",
-      "answer": "De façon générale, le meilleur moyen d’éviter que les données soient corrompues ou non conformes après une migration, c'est de fermer les services, pis ensuite fermer l’instance avant de procéder."
-    },
-    {
-      "question": "Combien de temps ça prend pour copier des volumes de différentes tailles lors d'une migration?",
-      "answer": "Les petits volumes se copient relativement rapidement; par exemple, un volume de 10Go prendra moins de 5 minutes, mais un volume de 100Go peut prendre de 30 à 40 minutes."
-    },
-    {
-      "question": "Est-ce que les adresses IP flottantes seront modifiées durant la migration et qu'est-ce que je dois faire par rapport aux DNS?",
-      "answer": "Oui, les adresses IP flottantes seront modifiées. Il est important de vous assurer que le TTL (Time To Live) de vos enregistrements DNS est bas afin que les modifications soient propagées le plus rapidement possible."
-    },
-    {
-      "question": "Quels sont les trois principaux scénarios de migration disponibles pour passer du nuage Ouest au nouveau nuage Arbutus?",
-      "answer": "Les trois scénarios de migration possibles sont: la migration manuelle ou orchestrée, la migration d’instances associées à des volumes, pis la migration d’instances éphémères. Vous pouvez utiliser un ou plusieurs de ces scénarios selon votre configuration."
-    },
-    {
-      "question": "Quelles lignes spécifiques doivent être enlevées du fichier RC (Run Commands) pour la configuration du nouveau nuage Arbutus?",
-      "answer": "Vous devez supprimer les lignes qui contiennent `export OS_USER_DOMAIN_NAME=\"atmosphere\"` et `if [ -z \"$OS_USER_DOMAIN_NAME\" ]; then unset OS_USER_DOMAIN_NAME; fi`. Il faut aussi enlever les lignes qui demandent le mot de passe, comme `echo \"Please enter your OpenStack Password for project $OS_PROJECT_NAME as user $OS_USERNAME: \" read -sr OS_PASSWORD_INPUT export OS_PASSWORD=$OS_PASSWORD_INPUT`."
-    },
-    {
-      "question": "À quoi devrait ressembler le fichier RC final après les modifications pour le nouveau nuage Arbutus?",
-      "answer": "Le fichier RC final devrait contenir des lignes comme : `export OS_AUTH_URL=https://identity.arbutus.alliancecan.ca/`, `export OS_PROJECT_ID=xIDx`, `export OS_PROJECT_NAME=\" xIDx \"`, `export OS_PROJECT_DOMAIN_ID=\" xIDx \"`, `unset OS_TENANT_ID`, `unset OS_TENANT_NAME`, `export OS_USERNAME=\" xIDx \"`, `export OS_REGION_NAME=\"RegionOne\"`, `export OS_INTERFACE=public`, `export OS_IDENTITY_API_VERSION=3`, `export OS_AUTH_TYPE=v3websso`, `export OS_IDENTITY_PROVIDER=atmosphere`, `export OS_PROTOCOL=openid`, et `export OS_PROJECT_DOMAIN_NAME=default`."
-    },
-    {
-      "question": "Comment faire pour créer un environnement virtuel Python pour installer le client OpenStack et les autres paquets nécessaires?",
-      "answer": "Pour créer un environnement virtuel, utilisez la commande `$ python3 -m venv openstack`. Ensuite, activez-le avec `$ source openstack/bin/activate`. Finalement, installez le client OpenStack et les autres paquets avec `$ pip install python-openstackclient keystoneauth-websso python-manilaclient`."
-    },
-    {
-      "question": "Quelles sont les étapes générales pour une migration manuelle ou orchestrée d'instances et de volumes vers le nuage Arbutus?",
-      "answer": "Les grandes lignes de la procédure sont : copier les images Glance personnalisées du nuage Ouest à Arbutus (ou commencer avec une nouvelle image de base), installer et configurer les services sur les instances, copier les données des anciennes instances vers les nouvelles, assigner des adresses IP flottantes aux nouvelles instances et faire la mise à jour des DNS, pis mettre fin aux anciennes instances et supprimer les anciens volumes."
-    },
-    {
-      "question": "Quels outils je peux utiliser pour orchestrer la migration d'instances et de volumes?",
-      "answer": "Vous pouvez orchestrer la migration avec des outils comme Ansible, Terraform ou Heat."
-    },
-    {
-      "question": "Si j'utilise déjà Ansible ou Terraform sur le nuage Ouest, est-ce que ça va fonctionner pareil sur le nouveau nuage Arbutus?",
-      "answer": "Oui, si vous utilisez déjà des outils d'orchestration comme Ansible ou Terraform sur le nuage Ouest, ils devraient fonctionner de la même manière sur le nouveau nuage Arbutus."
+      "question": "Comment créer un groupe de sécurité et ajouter une règle pour le port HTTP 80 en utilisant l'interface en ligne de commande (CLI) d'OpenStack?",
+      "answer": "Pour créer un groupe de sécurité via le CLI, utilisez la commande `openstack security group create <nom-du-groupe>`. Ensuite, pour ajouter une règle autorisant le port HTTP 80, exécutez `openstack security group rule create --proto tcp --remote-ip 0.0.0.0/0 --dst-port 80 <nom-du-groupe>`."
     }
   ],
-  "generated_at": "2026-04-11T17:48:21.816192+00:00"
+  "generated_at": "2026-04-13T02:24:11.950232+00:00"
 }

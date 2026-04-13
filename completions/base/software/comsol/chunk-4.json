@@ -4,61 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of the sample submission script for COMSOL jobs on multiple compute nodes?",
-      "answer": "The script is designed to run a COMSOL job with eight cores distributed evenly over two compute nodes. It's ideal for very large simulations, supports restarting interrupted jobs, allocates large temporary files to `/scratch`, and uses default `comsolbatch.ini` settings."
+      "question": "What is the purpose of the `script-dis.sh` sample submission script for COMSOL, and what key features does it offer?",
+      "answer": "The `script-dis.sh` is a sample Slurm submission script designed to run COMSOL jobs across multiple compute nodes. It is ideal for very large simulations that exceed the capabilities of a single compute node. Key features include support for restarting interrupted jobs, allocating large temporary files to `/scratch`, utilizing default `comsolbatch.ini` file settings, and providing an option to modify Java heap memory."
     },
     {
-      "question": "How many cores per task and total nodes does the `script-dis.sh` example allocate for a COMSOL job?",
-      "answer": "The `script-dis.sh` example allocates four cores per task and uses two compute nodes for the job."
+      "question": "What steps should be taken if a COMSOL job running on multiple nodes encounters a Java segmentation fault on startup?",
+      "answer": "If a multiple node COMSOL job crashes on startup due to a Java segmentation fault, users should try increasing the Java heap. This can be done by adding the following two `sed` lines after the `cp -f` lines in the submission script: `sed -i 's/-Xmx2g/-Xmx4g/g' comsolbatch.ini` and `sed -i 's/-Xmx768m/-Xmx4g/g' java.opts`. If the problem persists, the `4g` values can be further increased to `8g`."
     },
     {
-      "question": "Which module versions are loaded for COMSOL 6.2 or newer in the provided multiple node submission script?",
-      "answer": "For COMSOL 6.2 or newer versions, the script loads `StdEnv/2023` and `comsol/6.4`."
-    },
-    {
-      "question": "How can you enable job restarting from the latest recovery files in the multiple node COMSOL submission script?",
-      "answer": "To enable job restarting, you need to uncomment the line `# -recover -continue` in the `comsol batch` command section of the script."
-    },
-    {
-      "question": "What steps should be taken if a multiple node COMSOL job crashes on startup with a Java segmentation fault?",
-      "answer": "If a multiple node job crashes on startup with a Java segmentation fault, you should try increasing the Java heap by adding these two `sed` lines after the `cp -f` lines in the script: `sed -i 's/-Xmx2g/-Xmx4g/g' comsolbatch.ini` and `sed -i 's/-Xmx768m/-Xmx4g/g' java.opts`. If the issue persists, try changing both `4g` values to `8g`."
-    },
-    {
-      "question": "Where can users find more information about 'Out of Memory' issues in COMSOL?",
-      "answer": "Users can find further information regarding 'Out of Memory' issues at the COMSOL knowledge base, specifically article [https://www.comsol.ch/support/knowledgebase/1243 Out of Memory]."
-    },
-    {
-      "question": "What is recommended if a COMSOL job submitted to a single node (`script-smp.sh`) runs slow or hangs during startup?",
-      "answer": "If a single node job runs slow or hangs during startup, try using the multiple node `script-dis.sh` script instead, but with `#SBATCH --nodes=1`. If the problem continues, open a ticket with technical support including the job number and cluster name."
-    },
-    {
-      "question": "How are users advised to run COMSOL in graphical mode?",
-      "answer": "Users are advised to run COMSOL in graphical mode by opening a remote desktop on an OnDemand or JupyterLab system via provided links."
-    },
-    {
-      "question": "Is using a TigerVNC client/server pair still a recommended method for graphical COMSOL use?",
-      "answer": "No, the old approach of using a TigerVNC client/server pair is no longer recommended or supported for graphical COMSOL use."
-    },
-    {
-      "question": "What is a mandatory configuration step before using COMSOL in graphical mode?",
-      "answer": "Before attempting to use COMSOL in graphical mode via OnDemand or JupyterLab, the `~/.licenses/comsol.lic` file must first be configured."
-    },
-    {
-      "question": "How can one check available COMSOL versions within the currently loaded standard environment?",
-      "answer": "You can check which COMSOL versions are available within the standard environment you currently have loaded (e.g., `StdEnv/2023`) by running the command `module avail comsol`."
-    },
-    {
-      "question": "What troubleshooting step is suggested if COMSOL's upper menu items are greyed out after starting in GUI mode?",
-      "answer": "If the upper menu items are greyed out and not clickable after starting COMSOL in GUI mode, it's suggested that your `~/.comsol` directory may be corrupted, and you should try deleting it."
-    },
-    {
-      "question": "What are the initial steps to launch COMSOL 6.2 (or newer) in graphical mode via OnDemand?",
-      "answer": "First, start an OnDemand desktop session using links like `https://ondemand.sharcnet.ca`. Then, open a new terminal, load `StdEnv/2023`, load `comsol/6.4`, and finally run `comsol`."
-    },
-    {
-      "question": "How do you start COMSOL 6.1 (or older) in graphical mode through an OnDemand desktop session?",
-      "answer": "After starting an OnDemand desktop session, open a new terminal, load `StdEnv/2020`, load `comsol/6.1`, and then execute `comsol`."
+      "question": "How does a user launch COMSOL in graphical mode on an OnDemand system?",
+      "answer": "To run COMSOL in graphical mode on an OnDemand system, first, start an OnDemand desktop session by clicking one of the provided links, such as `https://ondemand.sharcnet.ca` for Nibi or `https://ondemand.scinet.utoronto.ca` for Trillium. Once in the desktop, open a new terminal window. For COMSOL 6.2 or newer, load the modules using `module load StdEnv/2023` and `module load comsol/6.4`, then type `comsol`. For COMSOL 6.1 or older, use `module load StdEnv/2020` and `module load comsol/6.1`, then `comsol`. Ensure that the `~/.licenses/comsol.lic` file is configured beforehand."
     }
   ],
-  "generated_at": "2026-04-11T19:02:28.426756+00:00"
+  "generated_at": "2026-04-13T03:22:03.460190+00:00"
 }

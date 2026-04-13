@@ -3,61 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What are 'flavors' in OpenStack?",
-      "answer": "In OpenStack, 'flavors' are virtual hardware templates that define sizes for RAM, disk, and the number of cores for virtual machines, offering choices similar to purchasing a physical server."
+      "question": "What is a \"flavour\" in the context of OpenStack virtual hardware templates?",
+      "answer": "A flavour in OpenStack defines the sizes for RAM, disk, number of cores, and other parameters, allowing users to choose the type of virtual machine they want to run."
     },
     {
-      "question": "How can researchers view the flavors allocated to their project?",
-      "answer": "Researchers can view their allocated flavors in the Horizon Dashboard or via the OpenStack command line client using the command `openstack flavor list --sort-column RAM`."
+      "question": "How can researchers view the OpenStack virtual machine flavours allocated for their project?",
+      "answer": "Researchers can view their allocated flavours in the Horizon Dashboard or via the OpenStack command line client using the command `openstack flavour list --sort-column RAM`."
     },
     {
-      "question": "What is the process for requesting a new OpenStack flavor not currently allocated to a project?",
-      "answer": "If a project requires a flavor not currently allocated, users should email cloud@tech.alliancecan.ca."
+      "question": "What should a researcher do if their project requires an OpenStack virtual machine flavour that is not currently allocated?",
+      "answer": "If a project needs a flavour not currently allocated, researchers should email cloud@tech.alliancecan.ca."
     },
     {
-      "question": "What does the prefix 'c' signify in OpenStack virtual machine flavor names?",
-      "answer": "The prefix 'c' designates 'compute' in OpenStack virtual machine flavor names."
+      "question": "What do the prefixes \"c\", \"p\", and \"g\" signify in the naming convention for OpenStack virtual machine flavours?",
+      "answer": "The prefix \"c\" designates \"compute\", \"p\" designates \"persistent\", and \"g\" designates \"vGPU\"."
     },
     {
-      "question": "What does the prefix 'p' signify in OpenStack virtual machine flavor names?",
-      "answer": "The prefix 'p' designates 'persistent' in OpenStack virtual machine flavor names."
+      "question": "What information about an OpenStack virtual machine is typically indicated in its flavour name after the prefix?",
+      "answer": "After the prefix, the flavour name indicates the number of virtual vCPUs/vGPUs, followed by the amount of RAM. If a second dash is present, it's followed by the size of the secondary ephemeral disk in gigabytes, and for vGPUs, the compute flavour is included after the vGPU information."
     },
     {
-      "question": "What does the prefix 'g' signify in OpenStack virtual machine flavor names?",
-      "answer": "The prefix 'g' designates 'vGPU' in OpenStack virtual machine flavor names."
+      "question": "What is the intended purpose and typical lifetime of an OpenStack \"c\" flavour virtual machine?",
+      "answer": "An OpenStack \"c\" flavour virtual machine is intended for jobs of finite lifetime and for development and testing tasks."
     },
     {
-      "question": "How is the amount of RAM typically indicated in OpenStack flavor names?",
-      "answer": "The amount of RAM is indicated after the first dash in gigabytes, for example, '7.5gb' or '0.75gb'."
+      "question": "What are the storage characteristics of an OpenStack \"c\" flavour virtual machine, including disk location and redundancy?",
+      "answer": "The disks for a \"c\" flavour virtual machine reside on the local hardware running the VM and have no redundancy (RAID 0). The root disk is typically 20GB, and there's also a secondary ephemeral data disk, both created and destroyed with the instance."
     },
     {
-      "question": "What is the intended purpose of a 'c' flavor virtual machine?",
-      "answer": "A 'c' flavor virtual machine is intended for jobs of finite lifetime, as well as for development and testing tasks."
+      "question": "How does the Arbutus cloud specifically treat \"c\" flavour virtual machines, and for what tasks are they optimized?",
+      "answer": "The Arbutus cloud treats \"c\" flavours by having no over-commit on CPU, targeting them towards CPU-intensive tasks."
     },
     {
-      "question": "What are the characteristics of disks for 'c' flavor virtual machines?",
-      "answer": "For 'c' flavor VMs, disks reside on the local hardware running the VM, typically have a 20GB root disk, include a secondary ephemeral data disk, and have no redundancy (RAID0)."
+      "question": "What is the intended purpose and typical runtime of an OpenStack \"p\" flavour virtual machine?",
+      "answer": "An OpenStack \"p\" flavour virtual machine is intended to run for an indeterminate length of time."
     },
     {
-      "question": "How does the Arbutus cloud manage CPU for 'c' flavors?",
-      "answer": "The Arbutus cloud treats 'c' flavors with no CPU over-commit, targeting them specifically for CPU-intensive tasks."
+      "question": "How are OpenStack \"p\" flavour virtual machines typically booted, and what storage system supports their instances?",
+      "answer": "\"p\" flavour virtual machines are intended to be booted from a volume, which means the instance will be backed by the Ceph storage system."
     },
     {
-      "question": "What is the primary intended use for a 'p' flavor virtual machine?",
-      "answer": "A 'p' flavor virtual machine is intended to run for an indeterminate length of time and should be booted from a volume."
+      "question": "What are the benefits of booting an OpenStack \"p\" flavour virtual machine from a volume compared to a \"c\" instance?",
+      "answer": "Booting a \"p\" flavour virtual machine from a volume provides greater redundancy and resistance to failure than a \"c\" instance because it is backed by the Ceph storage system."
     },
     {
-      "question": "What type of storage and redundancy do 'p' flavor instances have when booted from a volume?",
-      "answer": "When booted from a volume, 'p' flavor instances are backed by the Ceph storage system, providing greater redundancy and resistance to failure than 'c' instances."
+      "question": "What is the recommended minimum volume size for the persistent VM root disk when booting a \"p\" flavour virtual machine?",
+      "answer": "The recommended minimum volume size for the persistent VM root disk for a \"p\" flavour virtual machine is at least 20GB."
     },
     {
-      "question": "What is the recommended minimum volume size for the root disk of a 'p' flavor VM?",
-      "answer": "A volume size of at least 20GB is recommended for the persistent VM root disk of a 'p' flavor."
+      "question": "How does the Arbutus cloud specifically handle \"p\" flavour virtual machines, and for what types of applications are they best suited?",
+      "answer": "The Arbutus cloud places \"p\" flavours on compute nodes with a higher level of redundancy (disk and network) and allows for CPU over-commit, making them geared towards web servers, database servers, and instances with lower or bursty CPU usage profiles."
     },
     {
-      "question": "How does the Arbutus cloud manage 'p' flavors regarding CPU over-commit and redundancy?",
-      "answer": "The Arbutus cloud places 'p' flavors on compute nodes with higher disk and network redundancy, over-commits the CPU, and gears them towards applications like web servers, database servers, or instances with lower or bursty CPU usage."
+      "question": "What is the typical size of the root disk for an OpenStack \"c\" flavour virtual machine?",
+      "answer": "The root disk for an OpenStack \"c\" flavour virtual machine is typically 20GB in size."
     }
   ],
-  "generated_at": "2026-04-12T11:04:49.655423+00:00"
+  "generated_at": "2026-04-13T15:59:48.940168+00:00"
 }

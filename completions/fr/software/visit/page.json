@@ -3,49 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Quelle est la principale exigence de compatibilité pour la visualisation client-serveur avec VisIt?",
-      "answer": "La même version majeure de VisIt doit être installée sur l'ordinateur local et sur l'ordinateur hôte distant afin d'éviter des incompatibilités."
+      "question": "Pour la visualisation client-serveur sur les grappes Alliance, quelle est l'exigence principale concernant la version de VisIt sur mon ordinateur et l'ordinateur hôte à distance?",
+      "answer": "La même version majeure de VisIt doit être installée sur votre client local et sur l'ordinateur hôte à distance, sinon des incompatibilités pourraient empêcher la connexion."
     },
     {
-      "question": "Comment configurer VisIt pour se connecter aux grappes Fir, Nibi ou Rorqual en mode client-serveur?",
-      "answer": "Il faut télécharger le fichier de profil XML `host_fir.xml` et le copier dans `~/.visit/hosts/` (Linux/Mac) ou `My Documents\\VisIt 3.2.1\\hosts` (Windows), puis démarrer VisIt."
+      "question": "Comment puis-je connaître les versions de VisIt disponibles sur les grappes Alliance comme Fir, Nibi et Rorqual, et quelles versions majeures sont requises pour une connexion client-serveur?",
+      "answer": "Vous pouvez lancer `module spider visit` pour connaître les numéros des versions installées. Pour le mode client-serveur, votre ordinateur doit avoir une version majeure 2.12.x, 2.13.x ou 3.2.x."
     },
     {
-      "question": "Quelles sont les versions majeures de VisIt compatibles sur les grappes Fir, Nibi et Rorqual?",
-      "answer": "Les versions 2.12.x, 2.13.x ou 3.2.x sont compatibles."
+      "question": "Comment configurer VisIt pour les grappes Fir, Nibi et Rorqual en utilisant un fichier de profil XML, et où devrais-je copier ce fichier?",
+      "answer": "Téléchargez le fichier de profil XML `host_fir.xml`. Copiez-le dans `~/.visit/hosts/` sous Linux et Mac, ou dans `My Documents\\VisIt 3.2.1\\hosts` (ou un répertoire similaire) sous Windows."
     },
     {
-      "question": "Quels sont les profils de lancement disponibles pour Fir et Nibi, et dans quel contexte les utiliser?",
-      "answer": "Les profils sont « login » (pour un nœud de connexion, non recommandé pour les visualisations intensives) et « slurm » (pour une tâche interactive sur un nœud de calcul)."
+      "question": "Quelles informations dois-je entrer pour le profil hôte de Nibi dans VisIt pour une connexion client-serveur?",
+      "answer": "Vous devez entrer 'Host nickname = nibi', 'Remote host name = nibi.alliancecan.ca' et votre nom d'utilisateur tel que défini dans CCDB (par exemple, 'Username = yourOwwUserName')."
     },
     {
-      "question": "Comment configurer le profil de lancement « slurm » pour Fir et Nibi?",
-      "answer": "Dans l'onglet « Parallel » puis « Advanced », il faut remplacer `--account=def-someuser` par votre allocation par défaut et, sur Fir seulement, ajouter `--chdir=/scratch/username` avec votre nom d'utilisateur."
+      "question": "Quels sont les profils de lancement disponibles pour la visualisation client-serveur sur les grappes Fir, Nibi et Rorqual, et à quoi servent-ils?",
+      "answer": "Les profils 'login' (pour un nœud de connexion, non recommandé pour les visualisations intensives) et 'slurm' (pour une tâche interactive sur un nœud de calcul) sont disponibles."
     },
     {
-      "question": "Comment gérer l'authentification multifacteur (AMF) pour se connecter à Fir ou Nibi avec VisIt?",
-      "answer": "Il faut configurer votre client SSH avec ControlMaster, vous connecter à la grappe dans une fenêtre de terminal, puis relancer VisIt et changer l'hôte pour « fir » ou « nibi » dans la boîte de dialogue d'ouverture de fichier."
+      "question": "Lorsque j'utilise le profil 'slurm' pour la visualisation client-serveur sur les grappes Fir, Nibi ou Rorqual, comment dois-je configurer les arguments du lanceur?",
+      "answer": "Dans l'onglet 'Parallel' puis 'Advanced', vous devez remplacer '--account=def-someuser' par votre allocation par défaut dans le champ 'Launcher arguments'."
     },
     {
-      "question": "Comment configurer VisIt pour la grappe Trillium?",
-      "answer": "Vous pouvez télécharger le fichier `host_trillium.xml` et le copier dans le répertoire des hôtes de VisIt, ou configurer manuellement un nouveau profil d'hôte dans VisIt en spécifiant le nom d'hôte, le nom d'utilisateur et le chemin d'installation."
+      "question": "Y a-t-il une configuration spécifique à ajouter pour le profil 'slurm' si j'utilise la grappe Fir pour la visualisation client-serveur?",
+      "answer": "Oui, sur Fir uniquement, ajoutez l'indicateur '--chdir=/scratch/username' avec votre nom d'utilisateur pour lancer votre tâche à partir de votre répertoire /scratch."
     },
     {
-      "question": "Quel est le chemin d'installation de VisIt sur la grappe Trillium pour une configuration manuelle?",
-      "answer": "Le chemin d'accès est `/scinet/trillium/software/2018a/opt/base/visit/2.13.1`."
+      "question": "Comment la configuration de l'authentification multifacteur (MFA) sur mon compte Alliance affecte-t-elle la connexion VisIt en mode client-serveur?",
+      "answer": "Si la MFA est activée, vous devez configurer votre client SSH avec ControlMaster, vous connecter à la grappe dans un terminal, puis relancer VisIt sur votre ordinateur."
     },
     {
-      "question": "Quels sont les prérequis logiciels pour compiler VisIt sur une instance cloud CentOS en vue de la visualisation client-serveur?",
-      "answer": "Il faut installer des paquets comme `xauth`, `wget`, `gcc`, `gcc-c++`, `ncurses-devel`, `python-devel`, `libxcb-devel`, `patch`, `imake`, `libxml2-python`, `mesa-libGL` et `mesa-libGL-devel`."
+      "question": "Après avoir configuré VisIt et le client SSH pour l'authentification multifacteur, quelles sont les étapes pour se connecter à une grappe comme Fir ou Nibi et lancer une visualisation?",
+      "answer": "Connectez-vous à la grappe dans un terminal, relancez VisIt, ouvrez la boîte de dialogue d'ouverture de fichier, changez l'hôte local, puis sélectionnez le profil (login ou slurm) et les paramètres requis."
     },
     {
-      "question": "Comment compiler VisIt avec OSMesa en mode non interactif sur le cloud?",
-      "answer": "Il faut télécharger et exécuter le script `build_visit2_12_1` avec les options `--prefix`, `--mesa`, `--system-python` et divers indicateurs pour les bibliothèques (`--hdf4`, `--hdf5`, `--netcdf`, `--silo`, `--szip`, `--xdmf`, `--zlib`)."
+      "question": "Comment configurer VisIt pour la grappe Trillium en utilisant un fichier de configuration, et où dois-je le placer?",
+      "answer": "Téléchargez et enregistrez le fichier `host_trillium.xml`. Copiez-le dans `~/.visit/hosts/` sous Linux et Mac, ou dans `My Documents\\VisIt 2.13.0\\hosts\\` sous Windows."
     },
     {
-      "question": "Une fois VisIt configuré en mode client-serveur sur le cloud, que se passe-t-il lors de l'ouverture d'un fichier?",
-      "answer": "Le traitement des données et le rendu s'effectuent sur l'instance cloud, tandis que le résultat et les contrôles de l'interface utilisateur sont affichés sur votre ordinateur local."
+      "question": "Si je configure manuellement VisIt pour la grappe Trillium, quelles informations spécifiques dois-je entrer pour le profil hôte et le chemin d'installation?",
+      "answer": "Vous devez entrer 'Host nickname = trillium', 'Remote host name = trillium.alliancecan.ca', votre nom d'utilisateur, et 'Path to VisIt installation = /scinet/trillium/software/2018a/opt/base/visit/2.13.1'. Vous devez aussi cocher 'Tunnel data connections through SSH'."
+    },
+    {
+      "question": "Quels sont les profils de lancement disponibles pour la grappe Trillium dans VisIt, et quelle est la différence entre eux?",
+      "answer": "Vous pouvez créer un profil 'login' pour utiliser un nœud de connexion afin d'accéder aux données, ou un profil 'slurm' pour utiliser un nœud de calcul comme moteur de rendu."
+    },
+    {
+      "question": "Avant d'effectuer de la visualisation client-serveur sur une instance cloud, quels sont les paquets essentiels que je dois installer, par exemple sur une instance CentOS?",
+      "answer": "Vous devrez installer des paquets comme xauth, wget, gcc, gcc-c++, ncurses-devel, python-devel, libxcb-devel, patch, imake, libxml2-python, mesa-libGL, mesa-libGL-devel, mesa-libGLU, mesa-libGLU-devel, bzip2, bzip2-libs, libXt-devel, zlib-devel, flex, et byacc."
+    },
+    {
+      "question": "Comment puis-je simplifier ma connexion SSH à une instance cloud si j'utilise ma propre paire de clés SSH plutôt que celle générée par OpenStack?",
+      "answer": "Vous pouvez copier votre clé publique dans l'instance en exécutant `cat ~/.ssh/id_rsa.pub | ssh -i ~/.ssh/cloudwestkey.pem centos@vm.ip.address 'cat >>.ssh/authorized_keys'` sur votre ordinateur local."
+    },
+    {
+      "question": "Comment peut-on compiler VisIt avec OSMesa sur une instance CentOS dans le cloud pour un rendu non interactif?",
+      "answer": "Téléchargez le script `build_visit2_12_1`, rendez-le exécutable, puis exécutez-le avec les options `--prefix /home/centos/visit --mesa --system-python --hdf4 --hdf5 --netcdf --silo --szip --xdmf --zlib`."
+    },
+    {
+      "question": "Après avoir compilé VisIt sur une instance cloud, comment configurer mon VisIt local pour me connecter à cette instance en mode client-serveur?",
+      "answer": "Dans VisIt, allez à 'Options -> Host profiles', modifiez les paramètres pour inclure le nom de la connexion, le nom de l'instance hôte, le chemin vers VisIt (`/home/centos/visit`), votre nom d'utilisateur et activez le lien SSH. N'oubliez pas de sauvegarder les paramètres."
     }
   ],
-  "generated_at": "2026-04-12T11:08:18.329635+00:00"
+  "generated_at": "2026-04-13T16:02:49.278971+00:00"
 }

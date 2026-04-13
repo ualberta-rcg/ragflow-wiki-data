@@ -4,129 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is Cellranger?",
-      "answer": "Cellranger is a suite of analysis pipelines designed to process Chromium single-cell data."
+      "question": "What is Cell Ranger used for?",
+      "answer": "Cell Ranger is a set of analysis pipelines designed to process Chromium single-cell data. It is used to align reads, generate feature-barcode matrices, and perform clustering and other secondary analyses."
     },
     {
-      "question": "What are the primary functions of Cellranger's analysis pipelines?",
-      "answer": "Cellranger's pipelines align reads, generate feature-barcode matrices, perform clustering, and conduct other secondary analyses."
+      "question": "How do you install and set up Cell Ranger?",
+      "answer": "To install Cell Ranger, users must first register and download the `cellranger-x.y.z.tar.gz` (or `.tar.xz`) file from the 10x Genomics website, then unpack it. After that, any required reference data files (e.g., `refdata-gex-GRCh38-2020-A.tar.gz`) need to be downloaded and unpacked. Finally, the Cell Ranger directory must be prepended to the system's `$PATH` environment variable to allow the `cellranger` command to be invoked."
     },
     {
-      "question": "Where can users find a comprehensive list of all Cellranger subtools?",
-      "answer": "A complete list of all Cellranger subtools is available in the official documentation at https://www.10xgenomics.com/support/software/cell-ranger/latest/analysis."
-    },
-    {
-      "question": "Is Cell Ranger free to use?",
-      "answer": "No, Cell Ranger is licensed software; users must register and download the file from the specified website."
-    },
-    {
-      "question": "How do users download Cell Ranger?",
-      "answer": "Users must register and download the Cell Ranger file from https://www.10xgenomics.com/support/software/cell-ranger/downloads/eula?closeUrl=%2Fsu."
-    },
-    {
-      "question": "What is the command to unpack a Cell Ranger tar file with .tar.gz extension?",
-      "answer": "To unpack a Cell Ranger .tar.gz file, use the command: `tar -xzvf cellranger-x.y.z.tar.gz`."
-    },
-    {
-      "question": "How do you unpack a Cell Ranger file downloaded in the .xz compression format?",
-      "answer": "If Cell Ranger is downloaded in the .xz compression format, use the command: `tar -xvf cellranger-x.y.z.tar.xz`."
-    },
-    {
-      "question": "What is created in the system after unpacking the Cell Ranger tar file?",
-      "answer": "Unpacking the Cell Ranger tar file creates a new directory named `cellranger-x.y.z`, which contains Cell Ranger, its dependencies, and the `cellranger` script."
-    },
-    {
-      "question": "How are reference data files downloaded and unpacked?",
-      "answer": "Reference data files are downloaded from the downloads page, then unpacked using a command like `tar -xzvf refdata-gex-GRCh38-2020-A.tar.gz` for a human reference transcriptome example."
-    },
-    {
-      "question": "What does unpacking a reference data file create and contain?",
-      "answer": "Unpacking a reference data file creates a new directory (e.g., `refdata-gex-GRCh38-2020-A`) containing a single reference, which includes pre-generated indices and other data required by Cell Ranger."
-    },
-    {
-      "question": "How do you enable the `cellranger` command to be invoked from any directory?",
-      "answer": "To allow invoking the `cellranger` command, prepend its directory to your `$PATH` using: `export PATH=/opt/cellranger-x.y.z:$PATH`."
-    },
-    {
-      "question": "What is the purpose of adding the Cell Ranger directory to the `$PATH`?",
-      "answer": "Adding the Cell Ranger directory to the `$PATH` allows users to invoke the `cellranger` command from any location in the terminal."
-    },
-    {
-      "question": "How can the `$PATH` export command be made persistent?",
-      "answer": "For convenience, the `export PATH=/opt/cellranger-x.y.z:$PATH` command can be added to the user's `.bashrc` file."
-    },
-    {
-      "question": "What command displays the basic usage information for Cell Ranger?",
-      "answer": "Running `cellranger` without any subcommands, like `[name@server ~]$ cellranger`, will display its basic usage and supported data types."
-    },
-    {
-      "question": "What types of data does the `cellranger` command process according to its usage message?",
-      "answer": "The `cellranger` command processes 10x Genomics Gene Expression, Feature Barcode, and Immune Profiling data."
-    },
-    {
-      "question": "What is the primary function of `cellranger mkfastq`?",
-      "answer": "`cellranger mkfastq` demultiplexes raw base call (BCL) files from Illumina sequencers into FASTQ files."
-    },
-    {
-      "question": "What tool does `cellranger mkfastq` wrap?",
-      "answer": "`cellranger mkfastq` is a wrapper around Illumina's `bcl2fastq`."
-    },
-    {
-      "question": "What additional features does `cellranger mkfastq` offer compared to `bcl2fastq`?",
-      "answer": "`cellranger mkfastq` includes features specific to 10x Genomics libraries and utilizes a simplified sample sheet format."
-    },
-    {
-      "question": "What sample sheet format is recommended for `cellranger mkfastq`?",
-      "answer": "A simple CSV sample sheet is recommended for most sequencing experiments when using `cellranger mkfastq`."
-    },
-    {
-      "question": "What columns are included in the simple CSV sample sheet format for `cellranger mkfastq`?",
-      "answer": "The simple CSV format for `cellranger mkfastq` has three columns: Lane, Sample, and Index."
-    },
-    {
-      "question": "How should a CSV sample sheet be formatted for demultiplexing multiple library types with the same indexing using `cellranger mkfastq`?",
-      "answer": "For multiple library types with the same indexing (e.g., dual-indexing), the CSV could be formatted with each library type (like GEX_sample, FB_sample, CMO_sample) listed with its respective index under the 'Lane', 'Sample', 'Index' columns."
-    },
-    {
-      "question": "What is the command to run the `mkfastq` pipeline?",
-      "answer": "The `mkfastq` pipeline can be run using: `cellranger mkfastq --id=$ID --run=/path/to/bcl --csv=test_sample.csv`."
-    },
-    {
-      "question": "What is the purpose of `cellranger count`?",
-      "answer": "`cellranger count` takes FASTQ files, performs alignment, filtering, barcode counting, and UMI counting, and generates feature-barcode matrices, determines clusters, and performs gene expression analysis."
-    },
-    {
-      "question": "What are the input files for `cellranger count`?",
-      "answer": "`cellranger count` takes FASTQ files, typically generated by `cellranger mkfastq`, as input."
-    },
-    {
-      "question": "Can `cellranger count` process data from multiple sequencing runs or Feature Barcode data?",
-      "answer": "Yes, `cellranger count` can take input from multiple sequencing runs on the same GEM well and also processes Feature Barcode data alongside Gene Expression reads."
-    },
-    {
-      "question": "What is an example command for running the `cellranger count` pipeline?",
-      "answer": "An example command is: `cellranger count --id=$ID --transcriptome=refdata-gex-GRCh38-2020-A --fastqs=$FASTQS --sample=mysample --create-bam=true --localcores=8 --localmem=64`."
-    },
-    {
-      "question": "Where can users find guidance on selecting the appropriate Cell Ranger pipeline?",
-      "answer": "Users should refer to the 'Choosing a pipeline' page, linked at https://www.10xgenomics.com/support/software/cell-ranger/latest/analysis/running-pipelines/cr-choosing-a-pipeline, for guidance."
-    },
-    {
-      "question": "What does `cellranger aggr` do?",
-      "answer": "`cellranger aggr` aggregates outputs from multiple `cellranger count` runs, normalizes them to the same sequencing depth, and then recomputes feature-barcode matrices and analysis on the combined data."
-    },
-    {
-      "question": "What is the benefit of using the `cellranger aggr` pipeline?",
-      "answer": "The `cellranger aggr` pipeline can combine data from multiple samples into an experiment-wide feature-barcode matrix and analysis."
-    },
-    {
-      "question": "What input is required to aggregate datasets using `cellranger aggr`?",
-      "answer": "To aggregate datasets, users need to create a CSV file containing `sample_id` and `molecule_h5` columns for each sample."
-    },
-    {
-      "question": "What is an example command to run the `aggr` pipeline?",
-      "answer": "An example command is: `cellranger aggr --id=$ID --csv=aggr.csv`."
+      "question": "What is the function of the `cellranger mkfastq` pipeline?",
+      "answer": "The `cellranger mkfastq` pipeline demultiplexes raw base call (BCL) files generated by Illumina sequencers, converting them into FASTQ files. It is a wrapper around Illumina's bcl2fastq, offering additional features specific to 10x Genomics libraries and supporting a simplified sample sheet format."
     }
   ],
-  "generated_at": "2026-04-11T19:28:46.759948+00:00"
+  "generated_at": "2026-04-13T03:43:21.306306+00:00"
 }

@@ -4,37 +4,17 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "Why might a user need to create a local wheel for a Python package?",
-      "answer": "A local wheel might be necessary if packages are only available from a remote repository without specific versioning (tags or releases), or if a user needs to modify the package's source code. This helps ensure the reproducibility of jobs."
+      "question": "Under what circumstances should a user create a local wheel for a Python package, and how is this done from a remote repository or modified source files?",
+      "answer": "Users should create a local wheel to ensure reproducibility of their jobs when packages are sourced from remote repositories without specific versions or tags, or when they need to modify the package's source code. From an activated virtual environment, a local wheel can be created from a remote repository using `pip wheel --no-deps -w $HOME git+https://git.example.com/MyProject.git@<commit id>`. If modifying source files, first clone the repository, make edits, then create the local wheel from the project directory using `pip wheel --no-deps -w $HOME .`."
     },
     {
-      "question": "How do you create a local wheel from a remote Git repository?",
-      "answer": "With an activated virtual environment, you can create a local wheel from a remote Git repository by using the command `pip wheel --no-deps -w $HOME git+https://git.example.com/MyProject.git@<commit id>`. This command clones the repository, checks out the specified reference, and builds a wheel in your home directory ($HOME)."
+      "question": "How does the Python `multiprocessing` module facilitate parallel programming, and what is the role of its `Pool` class?",
+      "answer": "The Python `multiprocessing` module enables parallel programming to expedite results. Its `Pool` class is particularly useful for controlling the number of parallel processes and applying a calculation to multiple data points. For example, to perform a parallel calculation like cubing a list of numbers, a `Pool` object can be initialized (e.g., `pool = mp.Pool(processes=4)`), and then methods like `pool.map(cube_function, data_list)` or `pool.apply_async` can be used to distribute the task across the processes."
     },
     {
-      "question": "What is the process for creating a local wheel if you need to modify the source files of a package from a remote repository?",
-      "answer": "To create a local wheel after modifying source files, first clone the remote repository (`git clone https://git.example.com/MyProject.git`), navigate into the project directory, check out a specific commit ID (`git checkout <commit id>`), make your edits, and then run `pip wheel --no-deps -w $HOME .` from within the project directory."
-    },
-    {
-      "question": "How can a locally built wheel be installed into a virtual environment?",
-      "answer": "A locally built wheel can be installed into a virtual environment using `pip install $HOME/MyProject-1.0.0-py3-none.whl` (replacing the filename with your actual wheel file). It can also be added to a `requirements.txt` file."
-    },
-    {
-      "question": "What is the procedure to generate a `requirements.txt` file that includes a locally installed wheel?",
-      "answer": "To generate a `requirements.txt` file, first install the local wheel using `pip install --no-index $HOME/MyProject-1.0.0-py3-none.whl` within an activated virtual environment. Then, freeze the state of your virtual environment by running `pip freeze --local > ~/requirements.txt`."
-    },
-    {
-      "question": "Which Python module is commonly used for parallel programming to achieve faster results?",
-      "answer": "The `multiprocessing` module is a common way to do parallel programming in Python to get results faster."
-    },
-    {
-      "question": "What class in the `multiprocessing` module is useful for controlling parallel processes and applying calculations to multiple data?",
-      "answer": "The `Pool` class within the `multiprocessing` module is of particular interest, as it allows one to control the number of processes started in parallel and apply the same calculation to multiple data."
-    },
-    {
-      "question": "Can you provide an example of how the `Pool` class is used for parallel execution in Python?",
-      "answer": "Yes, for example, to calculate the cube of a list of numbers in parallel, you would import `multiprocessing as mp`, create a `Pool` instance (e.g., `pool = mp.Pool(processes=4)`), and then use `pool.apply_async()` or `pool.map()` with your function and data."
+      "question": "What key factor must be considered to optimize performance when using Python's `multiprocessing` module for parallel programming on a cluster?",
+      "answer": "When using Python's `multiprocessing` module on a cluster, it is critical to ensure that the number of processes launched matches the number of CPU cores allocated to your job. Launching too many processes can lead to slowdowns and overload, while launching too few wastes resources. The appropriate number of cores can be retrieved dynamically within a job script from the `SLURM_CPUS_PER_TASK` environment variable."
     }
   ],
-  "generated_at": "2026-04-12T05:51:39.877663+00:00"
+  "generated_at": "2026-04-13T11:46:45.007319+00:00"
 }

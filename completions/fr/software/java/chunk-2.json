@@ -4,57 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Quels messages d'erreur peuvent apparaître si l'environnement d'exécution Java manque de mémoire?",
-      "answer": "Des messages comme « Could not reserve enough space for object heap » ou « There is insufficient memory for the Java Runtime Environment to continue » peuvent indiquer un manque de mémoire."
+      "question": "Comment ajuster la consommation de mémoire (heap) d'une application Java afin d'éviter les erreurs de mémoire insuffisante sur les grappes de l'Alliance?",
+      "answer": "Pour contrôler explicitement la taille du \"heap\" en Java et éviter les erreurs comme \"Could not reserve enough space for object heap\", vous pouvez utiliser les options de ligne de commande `-Xms` pour la taille initiale et `-Xmx` pour la taille maximale. Par exemple : `java -Xms256m -Xmx4g -version`. Une autre méthode consiste à configurer la variable d'environnement `JAVA_TOOL_OPTIONS` comme suit : `export JAVA_TOOL_OPTIONS=\"-Xms256m -Xmx2g\"`. Il est aussi recommandé de fixer la limite de mémoire par tâche à 1 ou 2 Go de plus que la valeur de l'option `-Xmx`."
     },
     {
-      "question": "Comment peut-on configurer explicitement la taille initiale et maximale du monceau (heap) en Java?",
-      "answer": "On peut utiliser des commandes comme `java -Xms256m -Xmx4g -version` ou `java -XX:InitialHeapSize=256m -XX:MaxHeapSize=4g -version` pour contrôler ces paramètres."
+      "question": "Comment le processus de \"Garbage Collection\" (GC) par défaut de Java fonctionne-t-il sur les grappes de l'Alliance, et comment peut-on l'optimiser pour les applications?",
+      "answer": "Par défaut, l'instance Java utilise un \"Garbage Collection\" parallèle qui détermine un nombre de fils GC égal au nombre de cœurs CPU du nœud. Cela peut consommer une quantité de mémoire proportionnelle à la mémoire physique disponible. Pour optimiser, il est fortement recommandé d'aligner le nombre de fils GC avec le nombre de cœurs CPU que vous demandez à l'ordonnanceur dans votre script de soumission, en utilisant l'option `-XX:ParallelGCThreads=N` (où N est le nombre de cœurs). Vous pouvez aussi opter pour le GC séquentiel avec l'option `-XX:+UseSerialGC`, que la tâche soit ou non parallèle."
     },
     {
-      "question": "Quel indicateur de ligne de commande permet de visualiser toutes les options qu'une instance Java va exécuter?",
-      "answer": "L'indicateur `-XX:+PrintCommandLineFlags` permet de voir toutes les options en ligne de commande que l'instance exécutera."
-    },
-    {
-      "question": "Pourquoi la variable d'environnement `JAVA_TOOL_OPTIONS` est-elle utile?",
-      "answer": "Elle est utile pour configurer les options d'exécution de Java sans les spécifier en ligne de commande, surtout quand plusieurs appels sont lancés ou qu'un programme est appelé par un autre programme Java."
-    },
-    {
-      "question": "Comment s'assurer que les options configurées via `JAVA_TOOL_OPTIONS` ont été prises en compte?",
-      "answer": "À l'exécution, le programme émettra un message de diagnostic comme « Picked up JAVA_TOOL_OPTIONS », ce qui indique que les options ont été prises en compte."
-    },
-    {
-      "question": "Quelle est la recommandation pour fixer la limite de mémoire par tâche par rapport à l'option `-Xmx`?",
-      "answer": "Il est recommandé de fixer la limite par tâche à 1 ou 2 Go de plus que la valeur de l'option `-Xmx`, car l'instance Java crée elle-même une réserve d'utilisation de la mémoire."
-    },
-    {
-      "question": "C'est quoi le « Garbage Collection » (GC) en Java?",
-      "answer": "Le « Garbage Collection » est un processus automatique utilisé par Java pour identifier les variables avec des valeurs non valides et retourner la mémoire qui leur est associée au système d'exploitation."
-    },
-    {
-      "question": "Comment l'instance Java détermine-t-elle le nombre de fils pour le « Garbage Collection » par défaut?",
-      "answer": "Par défaut, l'instance Java utilise un GC parallèle et détermine un nombre de fils GC égal au nombre de cœurs CPU du nœud, peu importe si la tâche Java est multifil ou non."
-    },
-    {
-      "question": "Pourquoi et comment recommande-t-on de configurer le nombre de fils du « Garbage Collection »?",
-      "answer": "On recommande fortement d'avoir un nombre de fils GC égal au nombre de cœurs CPU demandés à l'ordonnanceur dans le script de soumission, par exemple avec `-XX:ParallelGCThreads=12`, car chaque fil GC consomme de la mémoire proportionnellement à la mémoire physique."
-    },
-    {
-      "question": "Est-ce qu'on peut utiliser un « Garbage Collection » séquentiel en Java, et si oui, comment?",
-      "answer": "Oui, on peut utiliser le GC séquentiel avec l'option `-XX:+UseSerialGC`, que la tâche soit parallèle ou non."
-    },
-    {
-      "question": "Quelle est la signification du mot-clé `volatile` en Java et est-ce qu'il a le même sens qu'en C/C++?",
-      "answer": "Le sens de `volatile` en Java est très différent de celui en C/C++. En Java, la valeur d'une variable `volatile` est toujours lue et écrite directement de la mémoire principale, rendant toute modification visible par tous les autres fils."
-    },
-    {
-      "question": "Quand `volatile` n'est-il pas suffisant pour garantir la cohérence d'un programme Java et que faut-il utiliser à la place?",
-      "answer": "Dans certains contextes, `volatile` ne suffit pas à empêcher les situations de compétition (« race conditions »); `synchronized` est alors nécessaire pour maintenir la cohérence du programme."
-    },
-    {
-      "question": "Y a-t-il une référence suggérée pour l'apprentissage de la programmation concurrente en Java?",
-      "answer": "Oui, le livre « Java Threads: Understanding and Mastering Concurrent Programming, 3e édition » de Scott OAKS et Henry Wong, publié par O'Reilly en 2012, est une référence."
+      "question": "Quelle est la signification du mot-clé `volatile` en Java et dans quelles situations ne suffit-il pas pour assurer la cohérence des programmes concurrents?",
+      "answer": "En Java, le mot-clé `volatile` signifie que la valeur d'une variable est toujours lue directement de la mémoire principale et toujours écrite directement dans la mémoire principale. Ceci assure que toute modification à la variable est visible par tous les autres fils d'exécution. Cependant, `volatile` ne suffit pas toujours à empêcher les situations de compétition (\"race conditions\") dans certains contextes, et le mot-clé `synchronized` est alors nécessaire pour maintenir la cohérence du programme."
     }
   ],
-  "generated_at": "2026-04-12T00:12:51.749694+00:00"
+  "generated_at": "2026-04-13T07:28:59.983435+00:00"
 }

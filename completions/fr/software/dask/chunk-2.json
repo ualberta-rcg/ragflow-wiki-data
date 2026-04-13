@@ -4,69 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "À quoi sert le script `config_virtualenv.sh`?",
-      "answer": "Le script `config_virtualenv.sh` sert à installer un environnement virtuel et à y installer Dask, incluant ses composantes `distributed` et `dataframe`."
+      "question": "Quel est le rôle du script `config_virtualenv.sh` dans une configuration Dask sur plusieurs nœuds?",
+      "answer": "Le script `config_virtualenv.sh` est responsable d'installer un environnement virtuel Python sur chaque nœud, de charger les modules nécessaires (comme `python`, `gcc` et `arrow`), puis d'installer la bibliothèque Dask avec ses composantes distribuées et de dataframe à l'aide de `pip install --no-index dask[distributed,dataframe]`."
     },
     {
-      "question": "Quels modules sont chargés au début du script `config_virtualenv.sh`?",
-      "answer": "Les modules `python`, `gcc` et `arrow` sont chargés dans le script `config_virtualenv.sh`."
+      "question": "Dans le script `launch_dask_workers.sh`, comment les travailleurs Dask sont-ils configurés différemment selon leur rang SLURM?",
+      "answer": "Si c'est la tâche SLURM avec le rang 0 (où le planificateur Dask est déjà lancé), le travailleur obtient 40% de la mémoire allouée au job et un cœur CPU de moins que ce qui est attribué à la tâche pour laisser une ressource au planificateur. Pour toutes les autres tâches SLURM, chaque travailleur Dask reçoit 50% de la mémoire allouée au job et tous les cœurs CPU attribués à sa tâche."
     },
     {
-      "question": "Comment Dask est-il installé dans l'environnement virtuel avec `config_virtualenv.sh`?",
-      "answer": "Dask est installé en utilisant la commande `pip install --no-index dask[distributed,dataframe]`."
-    },
-    {
-      "question": "Quelle commande crée l'environnement virtuel dans `config_virtualenv.sh`?",
-      "answer": "La commande `virtualenv --no-download $SLURM_TMPDIR/env` est utilisée pour créer l'environnement virtuel."
-    },
-    {
-      "question": "Quel est le rôle du script `launch_dask_workers.sh`?",
-      "answer": "Le script `launch_dask_workers.sh` est responsable de lancer les processus de travail (workers) Dask et de configurer leurs ressources."
-    },
-    {
-      "question": "Comment la chaîne de connexion du planificateur Dask est-elle configurée dans `launch_dask_workers.sh`?",
-      "answer": "Elle est configurée en utilisant la variable `SCHEDULER_CONNECTION_STRING` définie comme `tcp://$DASK_SCHEDULER_ADDR:$DASK_SCHEDULER_PORT`."
-    },
-    {
-      "question": "Quelles sont les spécificités de la configuration d'un processus de travail Dask sur la tâche SLURM de rang 0, tel que défini dans `launch_dask_workers.sh`?",
-      "answer": "Sur la tâche SLURM de rang 0, un processus de travail Dask plus petit est lancé avec 40% de la mémoire allouée à la tâche et un cœur de moins (pour le planificateur)."
-    },
-    {
-      "question": "Combien de mémoire est allouée aux processus de travail Dask sur les tâches SLURM autres que le rang 0, selon `launch_dask_workers.sh`?",
-      "answer": "Sur les autres tâches SLURM, 50% (`0.5`) de la mémoire allouée à la tâche est attribuée à chaque processus de travail Dask."
-    },
-    {
-      "question": "Combien de fils d'exécution (threads) sont alloués aux processus de travail Dask sur les tâches SLURM autres que le rang 0?",
-      "answer": "Tous les cœurs alloués à sa tâche (`$SLURM_CPUS_PER_TASK`) sont alloués aux fils d'exécution des processus de travail Dask sur les tâches autres que le rang 0."
-    },
-    {
-      "question": "Quelle commande est utilisée pour démarrer un processus de travail Dask dans le script `launch_dask_workers.sh`?",
-      "answer": "La commande `dask worker \"tcp://$DASK_SCHEDULER_ADDR:$DASK_SCHEDULER_PORT\" --no-dashboard --nworkers=1 --nthreads=$DASK_WORKER_THREADS --memory-limit=$DASK_WORKER_MEM --local-directory=$SLURM_TMPDIR` est utilisée."
-    },
-    {
-      "question": "Quelle est la fonction principale du script Python `test_dask.py`?",
-      "answer": "Le script `test_dask.py` initialise un client Dask, crée un DataFrame Pandas, le convertit en DataFrame Dask avec 6 partitions, calcule la moyenne de la colonne 'a', et affiche le résultat."
-    },
-    {
-      "question": "Comment le script `test_dask.py` se connecte-t-il au planificateur Dask?",
-      "answer": "Il se connecte au planificateur Dask en créant un objet `Client` qui utilise les adresses et ports du planificateur définis dans les variables d'environnement `DASK_SCHEDULER_ADDR` et `DASK_SCHEDULER_PORT`."
-    },
-    {
-      "question": "En combien de partitions le DataFrame Pandas est-il divisé lors de sa conversion en DataFrame Dask dans `test_dask.py`?",
-      "answer": "Le DataFrame Pandas est divisé en 6 partitions lors de sa conversion en DataFrame Dask."
-    },
-    {
-      "question": "Quel calcul est effectué par le script `test_dask.py`?",
-      "answer": "Le script calcule la moyenne de la colonne 'a' du DataFrame Dask (`ddf.a.mean().compute()`)."
-    },
-    {
-      "question": "Quelle plage de dates est utilisée pour l'index du DataFrame Pandas dans `test_dask.py`?",
-      "answer": "L'index du DataFrame Pandas utilise une plage de dates qui commence le \"2021-09-01\" pour 2400 périodes, avec une fréquence d'une heure."
-    },
-    {
-      "question": "Comment les processus de travail Dask sont-ils arrêtés après l'exécution du script `test_dask.py` dans l'exemple de plusieurs nœuds?",
-      "answer": "Les processus de travail Dask sont arrêtés en utilisant la commande `kill $dask_cluster_pid`."
+      "question": "Quel calcul spécifique le script `test_dask.py` effectue-t-il dans l'exemple de grappe multi-nœuds?",
+      "answer": "Le script `test_dask.py` connecte un client Dask au planificateur, crée un `DataFrame` Pandas avec une colonne 'a' contenant une séquence numérique, le convertit en un `DataFrame` Dask divisé en 6 partitions, puis calcule la moyenne de la colonne 'a' de ce `DataFrame` de manière distribuée en utilisant Dask."
     }
   ],
-  "generated_at": "2026-04-11T20:50:57.352892+00:00"
+  "generated_at": "2026-04-13T04:47:21.563228+00:00"
 }

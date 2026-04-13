@@ -3,69 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What types of database servers are available to researchers through the Alliance?",
+      "question": "What types of database servers does the Alliance offer researchers on their Cedar and Graham clusters?",
       "answer": "The Alliance offers access to MySQL and Postgres database servers for researchers on both Cedar and Graham clusters."
     },
     {
-      "question": "What is the future availability of database servers on the Graham cluster?",
-      "answer": "As of January 13, 2025, no database server will be provided on Graham during its transition to the Nibi system, as the cluster will operate at approximately 25% capacity."
+      "question": "What is the status of database server availability on the Graham cluster as of January 13, 2025?",
+      "answer": "As of January 13, 2025, no database server will be provided on Graham during the transition to the new Nibi system, as the cluster will be operating at approximately 25% capacity."
     },
     {
-      "question": "Which Cedar database server includes the PostGIS extension for geocoding?",
-      "answer": "The Cedar Postgres server (cedar-pgsql-vm) includes the PostGIS version 3.3 extension."
+      "question": "What is the purpose of the Cedar MySQL server provided by the Alliance?",
+      "answer": "The Cedar MySQL server is a general-purpose server for researchers who want to set up SQL tables and issue SQL commands against them, offering MariaDB which is compatible with other flavours of MySQL."
     },
     {
-      "question": "What database software powers the MySQL servers on Cedar and Graham?",
-      "answer": "Both the Cedar and Graham MySQL servers use MariaDB version 11.5, which is compatible with other flavours of MySQL."
+      "question": "How can a researcher request a MySQL account on the Cedar cluster?",
+      "answer": "To get a MySQL account on the Cedar MySQL server, researchers need to send a request to Alliance Technical Support with their Alliance username and the amount of database space needed for their project."
     },
     {
-      "question": "How do researchers connect to the Cedar MySQL and PostgreSQL database servers?",
-      "answer": "Users can connect through the Cedar head node (cedar.computecanada.ca), Cedar compute nodes, and the Cedar Portal. Direct SSH connections to the database server are not permitted for security reasons."
+      "question": "What are the security protocols for connecting to the Cedar MySQL server?",
+      "answer": "Users can only connect through the Cedar head node, Cedar compute nodes, or the Cedar Portal, and for security, direct SSH connections to the database server are not allowed."
     },
     {
-      "question": "What information is needed to request a MySQL account on the Cedar server?",
-      "answer": "You need to send a request to Technical Support including your Alliance username and the amount of database space required for your project."
+      "question": "How should a researcher create a database on the Cedar MySQL server after obtaining an account?",
+      "answer": "To create a database, its name must start with 'username_' (where 'username' is the researcher's MySQL username), and commands like `CREATE DATABASE username_db1;` are used."
     },
     {
-      "question": "Where are the MySQL connection details stored for a Cedar MySQL account, and can it be changed?",
-      "answer": "The username, password, and server name are stored in a confidential `.my.cnf` file in your home directory. You cannot change its contents, but you can read or delete it (though deleting it will cause loss of database access)."
+      "question": "How can a user share a table from their MySQL database on the Cedar cluster with another user?",
+      "answer": "Users can share a table by connecting to MySQL, using the specific database, and then running the `GRANT 'priv_type' ON 'mytable' TO 'user'@'172.%';` command, specifying the privilege type, table, and recipient username."
     },
     {
-      "question": "What is the recommended way to load the `mariadb` client on Cedar?",
-      "answer": "It is recommended to use `module load mariadb` to access a more recent version of the client, rather than relying on an older version that might be available without a module."
+      "question": "What extensions are available with the Cedar PostgreSQL server?",
+      "answer": "The Cedar PostgreSQL server includes the PostGIS extension, which is useful for geocoding."
     },
     {
-      "question": "What is the naming convention for creating a new database on the Cedar MySQL server?",
-      "answer": "The database name must start with your MySQL username, followed by an underscore (e.g., `username_db1`)."
+      "question": "How does a researcher request an account on the Cedar PostgreSQL server?",
+      "answer": "Researchers should send a request to Alliance Technical Support with their Alliance username, the amount of database space needed, and whether they require the PostGIS extension."
     },
     {
-      "question": "How can a user share a table from their Cedar MySQL database with another user?",
-      "answer": "To share a table, run `mysql`, `USE database;`, and then `GRANT priv_type ON mytable TO 'user'@'172.%';` specifying the desired privilege type, table name, and recipient username."
+      "question": "What are the key differences in database creation and password usage for Cedar PostgreSQL compared to Cedar MySQL?",
+      "answer": "On Cedar PostgreSQL, users are assigned a database and cannot create one themselves (requiring a request for additional databases), and no password is required or used to access the PostgreSQL account."
     },
     {
-      "question": "What is unique about obtaining and managing databases on the Cedar PostgreSQL server compared to MySQL?",
-      "answer": "On the Cedar PostgreSQL server, users cannot create their own databases; they are assigned by Technical Support, typically named `username_db`. Additionally, a password is not required to access the PostgreSQL account, unlike MySQL."
+      "question": "How can a user share data from their PostgreSQL database on the Cedar cluster with another user?",
+      "answer": "To share data, the recipient must have a Postgres account. The owner grants `connect` access to their database and specific `select, update, insert`, or `delete` access to individual tables or views."
     },
     {
-      "question": "How do you connect to a specific PostgreSQL database on Cedar using the `psql` client?",
-      "answer": "You can connect using the command `psql -h cedar-pgsql-vm -d database_name`, for example, `psql -h cedar-pgsql-vm -d david_db`."
+      "question": "What is Database as a Service (DBaaS) and when should it be used?",
+      "answer": "DBaaS is a managed database offering for MySQL/MariaDB and Postgres on a physical system, used when a VM is not sufficient to run a database load."
     },
     {
-      "question": "What are the steps to share data from a Cedar PostgreSQL database?",
-      "answer": "The recipient must have a Postgres account. You then grant `connect` access to your database to the recipient, and for each shared table or view, grant specific access rights like `select`, `update`, `insert`, or `delete`."
+      "question": "What is the backup policy for DBaaS instances provided by the Alliance?",
+      "answer": "DBaaS instances and all databases are backed up once a day, and these backups are archived for three months."
     },
     {
-      "question": "When should researchers consider using the Cloud-based Database as a Service (DBaaS)?",
-      "answer": "Researchers should consider DBaaS if a VM is insufficient to handle their database load, as it provides a managed database service on a physical system."
+      "question": "What information is required when requesting access to a Cloud-based Database as a Service (DBaaS)?",
+      "answer": "When requesting access to DBaaS, users must provide the client network or IP address from which they will access the database."
     },
     {
-      "question": "What information must be provided when requesting access to a Cloud DBaaS instance?",
-      "answer": "When requesting access to a DBaaS instance, you must provide the client network or IP address from which you will access the database."
-    },
-    {
-      "question": "Is an SSL connection required for accessing Cloud-based DBaaS instances?",
-      "answer": "Yes, an SSL connection is enforced for both PostgreSQL and MariaDB/MySQL DBaaS instances, meaning plain text connections will fail."
+      "question": "Are SSL connections mandatory for PostgreSQL and MariaDB/MySQL DBaaS instances?",
+      "answer": "Yes, SSL connections are enforced for both PostgreSQL and MariaDB/MySQL DBaaS instances, and plain text connections will fail authentication."
     }
   ],
-  "generated_at": "2026-04-11T21:02:51.609413+00:00"
+  "generated_at": "2026-04-13T04:55:45.864640+00:00"
 }

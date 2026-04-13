@@ -4,57 +4,17 @@
   "chunk_index": 27,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `script-wbpj-2020.sh` Slurm script?",
-      "answer": "The `script-wbpj-2020.sh` Slurm script is used to submit Ansys Workbench jobs to the queue, specifically configured for `StdEnv/2020` and `ansys/2022R2` or older versions."
+      "question": "How can a user prevent an Ansys Workbench batch job from overwriting the solution file, which is useful for scaling tests on an Alliance cluster?",
+      "answer": "To prevent an Ansys Workbench batch job from overwriting the solution file upon successful completion, change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of your Slurm script. This modification is beneficial for scaling tests, as it allows you to easily evaluate how well the simulation performs when increasing the number of cores without having the initialized solution overwritten by each test job."
     },
     {
-      "question": "What modules are loaded by the `script-wbpj-2020.sh` script?",
-      "answer": "The `script-wbpj-2020.sh` script loads the `StdEnv/2020` and `ansys/2022R2` modules."
+      "question": "What is the procedure for generating an input file for an Ansys Mechanical (APDL) job on an Alliance cluster?",
+      "answer": "An Ansys Mechanical (APDL) input file can be generated from within an interactive Workbench Mechanical session. To do this, click on `Solution -> Tools -> Write Input Files`, then specify a `File name:` like `YOURAPDLFILE.inp` and choose `APDL Input Files (*.inp)` as the `Save as type:`. Once created, these APDL jobs can then be submitted to the queue using the `sbatch script-name.sh` command."
     },
     {
-      "question": "How many nodes are requested by default in the `script-wbpj-2020.sh`?",
-      "answer": "The `script-wbpj-2020.sh` requests one compute node by default (`#SBATCH --nodes=1`), and this setting should not be changed as multi-node is not supported."
-    },
-    {
-      "question": "What is the default time limit specified in the `script-wbpj-2020.sh`?",
-      "answer": "The default time limit specified in the `script-wbpj-2020.sh` is 3 hours (`00-03:00`)."
-    },
-    {
-      "question": "How much total memory is specified for a Workbench job using `script-wbpj-2020.sh`?",
-      "answer": "The `script-wbpj-2020.sh` specifies 16GB of total memory for a Workbench job."
-    },
-    {
-      "question": "How many cores are specified for a Workbench job using `script-wbpj-2020.sh`?",
-      "answer": "The `script-wbpj-2020.sh` specifies 4 cores for a Workbench job."
-    },
-    {
-      "question": "How can one enable shared memory parallel (SMP) for Ansys Workbench using this script?",
-      "answer": "Shared memory parallel (SMP) is enabled by setting `MEMPAR=0`, which happens automatically when `SLURM_NNODES` is 1, as configured in this script."
-    },
-    {
-      "question": "What environment variables are exported in the `script-wbpj-2020.sh`?",
-      "answer": "The `script-wbpj-2020.sh` exports `KMP_AFFINITY=disabled` and `I_MPI_HYDRA_BOOTSTRAP=ssh`."
-    },
-    {
-      "question": "How is the Ansys Workbench project updated and saved at the end of the script execution?",
-      "answer": "The Ansys Workbench project is updated and saved by the command `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj`."
-    },
-    {
-      "question": "How can one prevent the Workbench solution from being overwritten for scaling tests?",
-      "answer": "To prevent the Workbench solution from being overwritten, change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of the Slurm script."
-    },
-    {
-      "question": "How are input files for Ansys Mechanical (APDL) jobs generated?",
-      "answer": "Ansys Mechanical (APDL) input files can be generated from an interactive Workbench Mechanical session by clicking 'Solution -> Tools -> Write Input Files', then specifying the file name as `YOURAPDLFILE.inp` and selecting 'APDL Input Files (*.inp)' as the save type."
-    },
-    {
-      "question": "How are APDL jobs submitted to the queue?",
-      "answer": "APDL jobs can be submitted to the queue by running the `sbatch script-name.sh` command."
-    },
-    {
-      "question": "What do lines beginning with `##SBATCH` indicate in Slurm scripts?",
-      "answer": "Lines beginning with `##SBATCH` in Slurm scripts are commented out."
+      "question": "What are the key Slurm script settings and commands required to run a Shared Memory Parallel (SMP) Ansys Mechanical (APDL) job on an Alliance cluster's CPU nodes?",
+      "answer": "For a Shared Memory Parallel (SMP) Ansys Mechanical (APDL) job on an Alliance cluster's CPU nodes, the Slurm script should specify `--account` (your project account), `--time` (job time limit), `--mem` (total memory for all cores), `--nodes=1` (as SMP typically runs on a single node), and `--tasks` (the number of cores). After loading the `StdEnv/2023` and `ansys/2024R1.03` modules (or newer), the job is executed using the `mapdl` command with parameters such as `-smp`, `-b nolist`, `-np $SLURM_NTASKS`, `-dir outdir-$SLURM_JOBID`, and `-i YOURAPDLFILE.inp`. On the Cedar cluster, you may also need to set `export LD_LIBRARY_PATH=$EBROOTGCC/../lib/gcc`."
     }
   ],
-  "generated_at": "2026-04-12T16:51:48.973099+00:00"
+  "generated_at": "2026-04-13T01:51:59.429111+00:00"
 }

@@ -4,93 +4,13 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "À quoi sert le script `script-flu-bynode-openmpi.sh`?",
-      "answer": "Ce script est un exemple pour soumettre des tâches Ansys Fluent en lot sur nos grappes, spécifiquement sur Narval, en utilisant Open MPI et en allouant les ressources par nœud."
+      "question": "Comment faut-il configurer un script Slurm pour lancer une simulation Ansys Fluent en utilisant Open MPI sur plusieurs nœuds de calcul de la grappe Narval?",
+      "answer": "Pour la grappe Narval, un script Slurm pour Fluent avec Open MPI doit spécifier `#SBATCH --nodes=1` ou plus, `#SBATCH --ntasks-per-node=64` ou moins, et charger les modules `StdEnv/2023` et `ansys/2023R2`. Il est essentiel d'exporter `OPENMPI_ROOT=$EBROOTOPENMPI` et `FI_PROVIDER=verbs`, puis de lancer Fluent avec la commande `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
     },
     {
-      "question": "Comment puis-je indiquer mon nom de compte pour une tâche Slurm avec ce script?",
-      "answer": "Vous devez spécifier votre nom de compte en modifiant la ligne `#SBATCH --account=def-group` et en remplaçant 'def-group' par votre nom de compte."
-    },
-    {
-      "question": "Quelle est la limite de temps par défaut spécifiée dans ce script Fluent?",
-      "answer": "La limite de temps par défaut est de 3 heures, indiquée par `#SBATCH --time=00-03:00`."
-    },
-    {
-      "question": "Combien de nœuds de calcul peuvent être demandés avec le script `script-flu-bynode-openmpi.sh`?",
-      "answer": "La directive `#SBATCH --nodes=1` est définie, mais le commentaire suggère qu'il est possible de spécifier '1 ou plus' nœuds de calcul."
-    },
-    {
-      "question": "Quel est le nombre maximal de cœurs par nœud que je peux spécifier pour une tâche sur la grappe Narval avec ce script?",
-      "answer": "Vous pouvez spécifier jusqu'à 64 cœurs par nœud sur Narval, comme indiqué par `#SBATCH --ntasks-per-node=64`."
-    },
-    {
-      "question": "Comment la mémoire est-elle allouée par nœud de calcul par ce script?",
-      "answer": "La directive `#SBATCH --mem=0` est utilisée, ce qui signifie que toute la mémoire disponible par nœud de calcul sera allouée, et il est recommandé de ne pas modifier cette valeur."
-    },
-    {
-      "question": "Est-ce que la directive `#SBATCH --cpus-per-task` doit être modifiée dans le script?",
-      "answer": "Non, la directive `#SBATCH --cpus-per-task=1` ne doit pas être modifiée."
-    },
-    {
-      "question": "Quels modules d'environnement et d'Ansys doivent être chargés pour utiliser ce script?",
-      "answer": "Il faut charger les modules `StdEnv/2023` et `ansys/2023R2` (ou des versions plus récentes d'Ansys)."
-    },
-    {
-      "question": "Comment puis-je définir le nom de mon fichier journal pour Fluent dans ce script?",
-      "answer": "Vous pouvez spécifier le nom de votre fichier journal en modifiant la variable `MYJOURNALFILE=sample.jou`."
-    },
-    {
-      "question": "Comment choisir la version (2D, 3D, etc.) de Fluent pour la simulation avec ce script?",
-      "answer": "Vous pouvez spécifier la version de Fluent (comme '2d', '2ddp', '3d' ou '3ddp') en modifiant la variable `MYVERSION=3d`."
-    },
-    {
-      "question": "Quel est le rôle de la variable d'environnement `OPENMPI_ROOT` dans ce script?",
-      "answer": "La ligne `export OPENMPI_ROOT=$EBROOTOPENMPI` initialise le chemin d'accès à l'installation d'OpenMPI."
-    },
-    {
-      "question": "Comment le script prépare-t-il le fichier `machinefile` pour le calcul parallèle avec Fluent?",
-      "answer": "Le script utilise `slurm_hl2hl.py --format ANSYS-FLUENT` pour générer un fichier temporaire `/tmp/mf-$SLURM_JOB_ID` qui est ensuite traité par une boucle `for` pour créer `/tmp/machinefile-$SLURM_JOB_ID`."
-    },
-    {
-      "question": "Comment Fluent est-il lancé si la tâche est soumise sur un seul nœud?",
-      "answer": "Si la tâche utilise un seul nœud, Fluent est lancé avec `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pshmem -i $MYJOURNALFILE`, en utilisant Open MPI avec de la mémoire partagée."
-    },
-    {
-      "question": "Qu'est-ce qui est exporté comme `FI_PROVIDER` et comment Fluent est-il lancé si la tâche utilise plusieurs nœuds?",
-      "answer": "Si la tâche utilise plusieurs nœuds, `export FI_PROVIDER=verbs` est défini, puis Fluent est lancé avec `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`, en utilisant Open MPI avec une interconnexion InfiniBand."
-    },
-    {
-      "question": "Quelle est la principale différence entre le script `script-flu-bycore-openmpi.sh` et le script `script-flu-bynode-openmpi.sh` en termes de spécification des ressources Slurm?",
-      "answer": "Le script `script-flu-bycore-openmpi.sh` permet de spécifier le nombre total de cœurs à travers tous les nœuds (`#SBATCH --ntasks=16`) et la mémoire par cœur (`#SBATCH --mem-per-cpu=4G`), tandis que le script par nœud se concentre sur les ressources par nœud."
-    },
-    {
-      "question": "Comment spécifier le nombre de nœuds de calcul avec le script `script-flu-bycore-openmpi.sh`?",
-      "answer": "Pour spécifier le nombre de nœuds, vous devez décommenter la ligne `##SBATCH --nodes=1` et y inscrire le nombre de nœuds désiré (1 ou plus)."
-    },
-    {
-      "question": "Quel est le nombre total de cœurs spécifié par défaut dans le script `script-flu-bycore-openmpi.sh`?",
-      "answer": "Par défaut, le script spécifie un total de 16 cœurs (`#SBATCH --ntasks=16`) pour la tâche."
-    },
-    {
-      "question": "Combien de mémoire par cœur est allouée par défaut dans le script `script-flu-bycore-openmpi.sh`?",
-      "answer": "La directive `#SBATCH --mem-per-cpu=4G` alloue par défaut 4 Go de mémoire par cœur."
-    },
-    {
-      "question": "Quel est l'objectif du script `script-flu-bynode-intel-tri.sh` pour Trillium?",
-      "answer": "Ce script est un exemple pour soumettre des tâches Ansys Fluent en lot sur la grappe Trillium, en allouant les ressources par nœud."
-    },
-    {
-      "question": "Quel est le nombre maximal de cœurs par nœud que je peux spécifier sur Trillium, selon ce script?",
-      "answer": "La directive `#SBATCH --ntasks-per-node=16` est spécifiée, mais le commentaire indique que le maximum sur Trillium est de 192 cœurs par nœud."
-    },
-    {
-      "question": "Comment est gérée la mémoire par nœud de calcul sur Trillium avec ce script?",
-      "answer": "La ligne `##SBATCH --mem=0` est commentée avec la note 'Do not uncomment (be default trillium uses all memory per node)', ce qui signifie que Trillium alloue par défaut toute la mémoire disponible par nœud."
-    },
-    {
-      "question": "Quel module Ansys est requis pour fonctionner sur Trillium avec ce script?",
-      "answer": "Seul le module `ansys/2025R2.04` ou des versions plus récentes d'Ansys fonctionnent sur Trillium, comme spécifié dans le script."
+      "question": "Quelles sont les configurations spécifiques à apporter à un script Slurm pour faire rouler Ansys Fluent avec Intel MPI sur la grappe Trillium, particulièrement en ce qui concerne la gestion de la licence?",
+      "answer": "Sur la grappe Trillium, le script Slurm doit configurer `#SBATCH --nodes=1` ou plus, `#SBATCH --ntasks-per-node=16` (avec un maximum de 192 cœurs), et utiliser les modules `StdEnv/2023` ainsi que `ansys/2025R2.04` (ou une version plus récente). Pour la licence, il faut définir les variables `LICSERVER`, `FLEXPORT` et `VENDPORT`, établir des tunnels SSH vers `tri-gw` pour ces ports, puis exporter `ANSYSLMD_LICENSE_FILE` et `ANSYSLI_SERVERS` vers `localhost`. Le démarrage de Fluent se fait ensuite avec `fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=$SLURM_SUBMIT_DIR/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
     }
   ],
-  "generated_at": "2026-04-12T16:58:32.757695+00:00"
+  "generated_at": "2026-04-13T01:56:34.941199+00:00"
 }

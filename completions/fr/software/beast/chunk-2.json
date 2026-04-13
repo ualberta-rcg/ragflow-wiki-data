@@ -4,45 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Comment on lance un script BEAST simple?",
-      "answer": "Pour lancer un script BEAST simple, on charge le module `beast/2.6.3` puis on exécute la commande `beast input_beast.xml`."
+      "question": "Comment lancer une job BEAST simple à l'aide d'un script Slurm?",
+      "answer": "Pour lancer une job BEAST simple, vous pouvez créer un script Slurm qui inclut les directives comme `#SBATCH --account=def-someuser`, `#SBATCH --time=3:00:00` et `#SBATCH --mem-per-cpu=2000M`. Ensuite, le script devrait charger le module BEAST (par exemple, `module load beast/2.6.3`) et exécuter la commande `beast input_beast.xml`."
     },
     {
-      "question": "Quelles sont les directives SLURM de base pour un script BEAST simple?",
-      "answer": "Pour un script BEAST simple, les directives SLURM de base sont `--account=def-someuser`, `--time=3:00:00` et `--mem-per-cpu=2000M`."
+      "question": "Quelle est la procédure pour demander plus de mémoire pour une job BEAST dans un script Slurm, en particulier pour l'application Java?",
+      "answer": "Pour demander plus de mémoire pour une job BEAST, surtout quand le programme Java en a besoin, vous devez spécifier une valeur plus élevée pour `--mem-per-cpu` dans votre script Slurm (par exemple, `#SBATCH --mem-per-cpu=4000M`). Il est crucial de définir la variable `BEAST_MEM` pour la commande Java (par exemple, `BEAST_MEM=\"-Xmx3750M\"`) de sorte qu'elle soit toujours 250 Mégabytes inférieure à la valeur de `--mem-per-cpu`. Ensuite, le script doit construire une commande Java détaillée incluant ces paramètres de mémoire et les chemins vers les bibliothèques (par exemple, `-Djava.library.path` et `-cp`)."
     },
     {
-      "question": "Comment s'appelle le fichier pour le script BEAST qui a besoin de plus de mémoire?",
-      "answer": "Le fichier pour le script BEAST qui a besoin de plus de mémoire s'appelle `high_memory_beast_job.sh`."
-    },
-    {
-      "question": "C'est quoi la principale différence entre le script BEAST simple et celui qui demande plus de mémoire, en termes de ressources SLURM?",
-      "answer": "La principale différence, c'est que le script qui demande plus de mémoire alloue `--mem-per-cpu=4000M`, comparativement à 2000M pour le script simple."
-    },
-    {
-      "question": "Quelle valeur doit avoir la variable `BEAST_MEM` par rapport à la directive SLURM `--mem-per-cpu` dans un script BEAST pour plus de mémoire?",
-      "answer": "La variable `BEAST_MEM` doit être 250M plus basse que la directive SLURM `--mem-per-cpu`."
-    },
-    {
-      "question": "Si `--mem-per-cpu` est à 4000M, quelle valeur on devrait donner à `BEAST_MEM`?",
-      "answer": "Si `--mem-per-cpu` est à 4000M, `BEAST_MEM` devrait être `\"-Xmx3750M\"`."
-    },
-    {
-      "question": "Quelles variables d'environnement sont définies pour trouver les bibliothèques BEAST et BEAGLE-lib dans le script qui utilise plus de mémoire?",
-      "answer": "Les variables définies sont `BEAST_LIB`, `BEAST_EXTRA_LIBS` et `LD_LIBRARY_PATH`."
-    },
-    {
-      "question": "Comment est montée la commande Java pour rouler BEAST dans le script qui demande plus de mémoire?",
-      "answer": "La commande Java est montée en spécifiant la mémoire initiale et maximale, le chemin pour les bibliothèques Java, puis le classpath pour lancer le programme `beast.app.beastapp.BeastLauncher`."
-    },
-    {
-      "question": "Quel paramètre est utilisé avec la commande finale pour exécuter BEAST dans le script qui demande plus de mémoire?",
-      "answer": "Le paramètre `-beagle` est utilisé avec la commande finale."
-    },
-    {
-      "question": "Quel module BEAST est chargé dans les deux exemples de scripts présentés?",
-      "answer": "Le module `beast/2.6.3` est chargé dans les deux exemples de scripts."
+      "question": "Quelle est la règle pour l'allocation de mémoire entre la directive Slurm `--mem-per-cpu` et la variable Java `BEAST_MEM` pour les jobs BEAST?",
+      "answer": "La règle est que la variable Java `BEAST_MEM` doit être configurée pour être 250 Mégabytes inférieure à la mémoire totale allouée par la directive Slurm `--mem-per-cpu`. Par exemple, si vous allouez `--mem-per-cpu=4000M` dans Slurm, vous devriez définir `BEAST_MEM=\"-Xmx3750M\"` pour éviter des problèmes de mémoire lors de l'exécution de BEAST."
     }
   ],
-  "generated_at": "2026-04-11T18:19:56.568847+00:00"
+  "generated_at": "2026-04-13T02:48:20.162020+00:00"
 }

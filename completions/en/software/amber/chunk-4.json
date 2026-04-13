@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Which AMBER module and CUDA version are necessary for GPU-accelerated simulations on Narval with A100 GPUs?",
-      "answer": "For GPU-accelerated simulations on Narval's A100 GPUs, you must use an AMBER module compiled with CUDA version 11.4 or newer. While `amber/20.12-20.15` is mentioned for Narval, the provided single-GPU example utilizes `amber-pmemd/24.3` with `cuda/12.6`."
+      "question": "What AMBER module and CUDA version are recommended for performing GPU-accelerated simulations on Narval with A100 GPUs?",
+      "answer": "For GPU-accelerated simulations on Narval, it is recommended to use the `amber/20.12-20.15` module, and modules compiled with a CUDA version of 11.4 or higher are required for A100 GPUs. A provided example script for a single-GPU job on Narval uses `amber-pmemd/24.3` and `cuda/12.6`."
     },
     {
-      "question": "How would one submit a CPU-only parallel MPI job using AMBER on Narval?",
-      "answer": "You would submit a job using a SLURM script similar to this example for Narval:\n```bash\n#!/bin/bash\n#SBATCH --nodes=4\n#SBATCH --ntasks-per-node=64\n#SBATCH --mem-per-cpu=2000\n#SBATCH --time=1:00:00\n\nmodule purge\nmodule load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 amber-pmemd/24.3\n\nsrun pmemd.MPI -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7\n```\nThis script requests 4 nodes, with 64 tasks per node, and loads the `amber-pmemd/24.3` module."
+      "question": "How do you prepare a SLURM script for a CPU-only parallel MPI AMBER job on an Alliance cluster like Narval using `amber-pmemd/24.3`?",
+      "answer": "To prepare a CPU-only parallel MPI AMBER job on Narval, a SLURM script should include directives such as `#SBATCH --nodes=4`, `#SBATCH --ntasks-per-node=64`, and `#SBATCH --time=1:00:00`. The script must load `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `amber-pmemd/24.3` modules, then execute `srun pmemd.MPI` with the appropriate simulation inputs."
     },
     {
-      "question": "Could you provide an example SLURM script for running a QM/MM distributed multi-GPU job with AMBER?",
-      "answer": "Yes, here's an example SLURM script for a QM/MM distributed multi-GPU job requesting eight GPUs:\n```bash\n#!/bin/bash\n#SBATCH --ntasks=8\n#SBATCH --gpus-per-task=1 \n#SBATCH --mem-per-cpu=4000 \n#SBATCH --time=02:00:00\n\nmodule purge\nmodule load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 ambertools/25.0\n\nsrun sander.quick.cuda.MPI -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7\n```\nThis script utilizes the `ambertools/25.0` module and the `sander.quick.cuda.MPI` executable."
+      "question": "What are the module requirements and SLURM directives for running a QM/MM distributed multi-GPU job using AMBER's `sander.quick.cuda.MPI`?",
+      "answer": "For a QM/MM distributed multi-GPU job using `sander.quick.cuda.MPI`, the SLURM script should include directives such as `#SBATCH --ntasks=8` and `#SBATCH --gpus-per-task=1`. The required modules to load are `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `ambertools/25.0`."
     }
   ],
-  "generated_at": "2026-04-12T19:17:17.080273+00:00"
+  "generated_at": "2026-04-13T00:26:39.934582+00:00"
 }

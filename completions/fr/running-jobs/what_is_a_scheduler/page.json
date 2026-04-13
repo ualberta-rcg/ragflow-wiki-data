@@ -3,41 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Comment ça marche l'exécution de programmes sur les serveurs de l'Alliance, par rapport à un ordinateur habituel avec une interface graphique?",
-      "answer": "Contrairement à une interface graphique où on clique sur des icônes, sur les serveurs de l'Alliance, on utilise une interface en ligne de commande pour entrer les commandes et les programmes sont mis en file d'attente pour être exécutés quand les cœurs CPU sont disponibles."
+      "question": "Sur les grappes de l'Alliance, qu'est-ce qu'on entend par une \"tâche\" (job)?",
+      "answer": "Une tâche est un programme qui s'exécute sur les serveurs de l'Alliance via une interface en ligne de commande. Elle est placée dans une file d'attente pour être exécutée quand les ressources sont disponibles afin d'éviter les interférences et la baisse de performance."
     },
     {
-      "question": "C'est quoi, une tâche (job), quand on parle des serveurs de l'Alliance?",
-      "answer": "Une tâche, c'est l'exécution d'un programme qui est soumis à un logiciel ordonnanceur. On prépare un script, on le soumet, puis on récupère le résultat une fois terminé, sans interaction directe pendant l'exécution."
+      "question": "Comment les usagers interagissent-ils avec les serveurs de l'Alliance pour exécuter des programmes?",
+      "answer": "Les usagers interagissent via une interface en ligne de commande (console) en entrant des commandes, plutôt que d'utiliser des interfaces utilisateurs graphiques (GUI) avec des clics."
     },
     {
-      "question": "Quelles sont les étapes principales pour utiliser l'interface de commande des serveurs de l'Alliance?",
-      "answer": "Faut préparer un script qui décrit le programme à exécuter, la source des données et la destination des résultats, soumettre ce script à un ordonnanceur, puis récupérer le résultat quand la tâche est finie."
+      "question": "Quelles sont les principales étapes pour exécuter un programme en tant que tâche (job) sur les grappes de l'Alliance?",
+      "answer": "Les étapes consistent à préparer un script qui spécifie le programme, les données et la destination, à soumettre ce script à un logiciel ordonnanceur, puis à récupérer le résultat une fois la tâche terminée."
     },
     {
-      "question": "Quel est le rôle de l'ordonnanceur de tâches sur les grappes de l'Alliance et quel système est utilisé?",
-      "answer": "L'ordonnanceur gère les tâches en entretenant une base de données, en appliquant les règles de limites et de priorités, en empêchant la surcharge des ressources, en déterminant où et quand lancer les tâches, puis en faisant le nettoyage. L'Alliance utilise Slurm Workload Manager."
+      "question": "Quel est le rôle principal de l'ordonnanceur de tâches sur les grappes de l'Alliance?",
+      "answer": "L'ordonnanceur de tâches gère l'exécution des programmes en entretenant une base de données, en appliquant les règles de limites et de priorités, en empêchant la surcharge des ressources et en lançant les tâches sur les nœuds de calcul appropriés."
     },
     {
-      "question": "Comment on fait pour demander des ressources pour une tâche et quels sont les paramètres importants à spécifier?",
-      "answer": "On demande des ressources en utilisant un script de tâche. Les paramètres importants à spécifier sont le temps d'exécution et le nombre de processeurs. Il est crucial d'être précis pour éviter que la tâche soit arrêtée ou qu'elle attende trop longtemps."
+      "question": "Quel est le logiciel ordonnanceur de tâches spécifiquement utilisé sur les grappes de calcul de l'Alliance?",
+      "answer": "L'ordonnanceur de tâches adopté pour les grappes de l'Alliance est Slurm Workload Manager."
     },
     {
-      "question": "Quelle commande on utilise pour soumettre un script de tâche à Slurm?",
-      "answer": "On utilise la commande `sbatch` suivie du nom du script, comme `sbatch simple_job.sh`."
+      "question": "Comment peut-on demander des ressources spécifiques, comme du temps d'exécution ou des processeurs, pour une tâche sur les grappes de l'Alliance?",
+      "answer": "On demande les ressources nécessaires en utilisant des directives `#SBATCH` dans un script de tâche, ou directement via la ligne de commande avec la commande `sbatch`."
     },
     {
-      "question": "Comment on fait pour suivre l'état d'une tâche soumise, pis quels sont les statuts les plus courants?",
-      "answer": "On utilise la commande `sq` pour vérifier l'état de la tâche. Les statuts les plus courants sont `PD` (pending) pour 'en attente' et `R` (running) pour 'en cours'. Quand la colonne est vide, ça veut dire que la tâche est complétée."
+      "question": "Qu'arrive-t-il si les paramètres de ressources demandés pour une tâche (job) sont inférieurs ou supérieurs aux besoins réels sur les grappes de l'Alliance?",
+      "answer": "Si les valeurs sont inférieures, la tâche sera arrêtée. Si elles sont supérieures, la tâche pourrait rester plus longtemps en file d'attente et utiliser des ressources inutilement, les rendant indisponibles pour d'autres."
     },
     {
-      "question": "Comment on peut donner un nom plus clair au fichier de sortie d'une tâche Slurm?",
-      "answer": "On peut personnaliser le nom du fichier de sortie en utilisant la directive `#SBATCH --output` dans le script de tâche, par exemple `#SBATCH --output=test-%J.out` pour inclure le nom de la tâche et son identifiant."
+      "question": "Quelle commande est utilisée pour soumettre un script de tâche à l'ordonnanceur Slurm sur les systèmes de l'Alliance?",
+      "answer": "La commande utilisée pour soumettre un script de tâche à l'ordonnanceur Slurm est `sbatch`."
     },
     {
-      "question": "Pourquoi est-ce important d'associer chaque tâche à un compte de projet, pis comment on fait ça?",
-      "answer": "C'est important pour faire un suivi de l'utilisation des ressources et pour faire rapport aux organismes subventionnaires. On associe une tâche à un compte en ajoutant la directive `#SBATCH --account=nom_du_compte` dans le script."
+      "question": "Après avoir soumis une tâche sur les grappes de l'Alliance, comment peut-on vérifier son état d'exécution?",
+      "answer": "On peut vérifier l'état d'une tâche soumise en utilisant la commande `sq` qui affichera des informations telles que l'identifiant de la tâche, l'utilisateur et son état (par exemple, \"PD\" pour en attente, \"R\" pour en cours)."
+    },
+    {
+      "question": "Quelle est la convention de nommage par défaut pour les fichiers de sortie générés par les tâches Slurm sur les grappes de l'Alliance si aucun nom n'est spécifié?",
+      "answer": "Par défaut, le résultat d'une tâche Slurm est enregistré dans un fichier nommé `slurm-JOBID.out`, où `JOBID` est l'identifiant unique attribué à la tâche."
+    },
+    {
+      "question": "Comment un utilisateur peut-il spécifier un nom de fichier de sortie personnalisé pour une tâche Slurm sur les systèmes de l'Alliance?",
+      "answer": "Un utilisateur peut spécifier un nom de fichier de sortie personnalisé en utilisant la directive `#SBATCH --output=monfichier.out` dans son script de tâche ou l'option `--output` avec la commande `sbatch`."
+    },
+    {
+      "question": "Est-ce possible de séparer les flux de sortie standard (stdout) et d'erreur standard (stderr) pour une tâche Slurm sur les grappes de l'Alliance?",
+      "answer": "Oui, il est possible de séparer ces flux en utilisant l'option `-e` pour spécifier les noms des fichiers d'erreurs, en plus de l'option `--output` pour la sortie standard."
+    },
+    {
+      "question": "Pourquoi est-il important d'associer chaque tâche (job) à un nom de compte sur les grappes de l'Alliance?",
+      "answer": "Il est important d'associer chaque tâche à un nom de compte correspondant à un projet pour permettre le suivi de la qualité des services, rapporter l'utilisation des fonds aux organismes subventionnaires, et s'assurer que les ressources sont allouées correctement."
+    },
+    {
+      "question": "Quelles informations sont recueillies à propos des tâches (jobs) à des fins de suivi et de rapport sur les grappes de l'Alliance?",
+      "answer": "Des informations relatives aux tâches sont enregistrées, incluant le temps en file d'attente, la durée d'exécution et le nombre de cœurs CPU utilisés."
+    },
+    {
+      "question": "Qu'arrive-t-il si un utilisateur soumet une tâche (job) avec `sbatch` sans spécifier de nom de compte alors que c'est requis sur les grappes de l'Alliance?",
+      "answer": "Si un nom de compte est requis et n'est pas spécifié, l'utilisateur devra choisir parmi une liste de noms de comptes valides qui lui sera affichée."
+    },
+    {
+      "question": "Comment les interfaces utilisateurs graphiques (GUI) typiques diffèrent-elles de l'interface en ligne de commande (CLI) utilisée pour les tâches sur les serveurs de l'Alliance?",
+      "answer": "Les GUI permettent l'interaction par clics sur des fenêtres, des menus et des boutons, tandis que la CLI sur les serveurs de l'Alliance demande d'entrer des commandes dans une console et met les programmes en file d'attente pour exécution différée."
+    },
+    {
+      "question": "À quoi sert la directive `#SBATCH --time` dans un script de tâche Slurm pour les grappes de l'Alliance?",
+      "answer": "La directive `#SBATCH --time` sert à spécifier la durée maximale d'exécution qu'une tâche est autorisée à utiliser sur les grappes de l'Alliance."
     }
   ],
-  "generated_at": "2026-04-12T11:27:56.267217+00:00"
+  "generated_at": "2026-04-13T16:18:56.768754+00:00"
 }

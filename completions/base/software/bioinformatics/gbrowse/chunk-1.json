@@ -4,113 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is GBrowse?",
-      "answer": "GBrowse is a combination of database and interactive web pages for manipulating and displaying annotations on genomes."
+      "question": "What is GBrowse, what is its purpose, and where is it installed for users on the Compute Canada infrastructure?",
+      "answer": "GBrowse is a combination of a database and interactive web pages designed for manipulating and displaying annotations on genomes. It requires a web interface for display and is installed on the Cedar cluster, accessible at https://gateway.cedar.computecanada.ca."
     },
     {
-      "question": "Does GBrowse require a web interface for display?",
-      "answer": "Yes, GBrowse requires a web interface to display."
+      "question": "What are the requirements and security implications for a research group to request access to GBrowse on Cedar?",
+      "answer": "To request access to GBrowse on Cedar, a research group's Principal Investigator (PI) must agree to the creation of a shared account, which allows any group member to read GBrowse config and input files belonging to other members. The PI must write to technical support indicating their agreement and understanding of these shared account implications. Additionally, the group must have an existing database account on Cedar or set one up by consulting the 'Database servers' documentation."
     },
     {
-      "question": "Where is GBrowse installed?",
-      "answer": "GBrowse is installed on Cedar."
-    },
-    {
-      "question": "What is the web address for the GBrowse installation on Cedar?",
-      "answer": "The web address of the installation is https://gateway.cedar.computecanada.ca."
-    },
-    {
-      "question": "How does the Cedar GBrowse installation differ from the standard setup?",
-      "answer": "The Cedar GBrowse installation differs from the standard setup described at http://gmod.org/wiki/GBrowse, particularly with regard to authentication and authorization."
-    },
-    {
-      "question": "Where can I find information about the standard GBrowse setup?",
-      "answer": "Information about the standard GBrowse setup can be found at http://gmod.org/wiki/GBrowse."
-    },
-    {
-      "question": "What kind of account is created for research groups to access GBrowse?",
-      "answer": "Our staff will create a shared account for each research group that requests access to GBrowse."
-    },
-    {
-      "question": "What are the implications of a shared account for file access while using GBrowse?",
-      "answer": "While using GBrowse, any member of a research group can read GBrowse config files and input files belonging to any other member of that group."
-    },
-    {
-      "question": "Who must agree to the file security changes when requesting GBrowse access for a group?",
-      "answer": "The Principal Investigator (PI) of your group must agree to this change from the usual file security practices."
-    },
-    {
-      "question": "How should a Principal Investigator request a GBrowse account for their group?",
-      "answer": "The PI must write to our technical support, indicating that they want a GBrowse account created for the group and that they understand the implications of a shared account."
-    },
-    {
-      "question": "Is a database account required on Cedar to use GBrowse?",
-      "answer": "Yes, you must have a database account on Cedar."
-    },
-    {
-      "question": "What should I include in my email if I already have a database account when requesting GBrowse access?",
-      "answer": "If you already have a database account, please give the name of the database in your email."
-    },
-    {
-      "question": "What should I do if I don't already have a database account on Cedar?",
-      "answer": "If you do not already have a database account, you should read 'Database servers' carefully and answer the questions given there for setting up a database."
-    },
-    {
-      "question": "Where should GBrowse config files be placed?",
-      "answer": "GBrowse config files should be placed in the `/project/GROUPID/gbrowse/USERNAME/conf` directory."
-    },
-    {
-      "question": "What do `GROUPID` and `USERNAME` represent in the GBrowse config file path?",
-      "answer": "`GROUPID` is your group ID, and `USERNAME` is your user name."
-    },
-    {
-      "question": "Will a symbolic link be created for the GBrowse config directory?",
-      "answer": "Yes, a symbolic link from `${HOME}/gbrowse-config/` to this directory will be created for your convenience."
-    },
-    {
-      "question": "What are the required permissions for files in the GBrowse config directory?",
-      "answer": "Files in this directory should be readable by all members of the group, so do not change the group permission of files in this directory."
-    },
-    {
-      "question": "What configuration is needed for a MySQL database connection in GBrowse config files?",
-      "answer": "If you use MySQL, you need the following in your GBrowse config files: `[username_example_genome:database] db_adaptor = Bio::DB::SeqFeature::Store db_args = -adaptor DBI::mysql -dsn DATABASE;mysql_read_default_file=/home/SHARED/.my.cnf`."
-    },
-    {
-      "question": "What do `DATABASE` and `SHARED` refer to in the MySQL GBrowse configuration example?",
-      "answer": "`DATABASE` is the name of your database and `SHARED` is the shared account."
-    },
-    {
-      "question": "Who creates the `.my.cnf` file and what is its purpose?",
-      "answer": "The `.my.cnf` file is created by our staff and contains information required for the shared account to make a connection to MySQL."
-    },
-    {
-      "question": "What configuration is needed for a Postgres database connection in GBrowse config files?",
-      "answer": "If you use Postgres, you need the following in your GBrowse config files: `[username_example_genome:database] db_adaptor = Bio::DB::SeqFeature::Store db_args = -adaptor DBI::Pg -dsn = dbi:Pg:dbname=DATABASE`."
-    },
-    {
-      "question": "What does `DATABASE` refer to in the Postgres GBrowse configuration example?",
-      "answer": "`DATABASE` is the name of your database."
-    },
-    {
-      "question": "Can GBrowse read .bam files directly?",
-      "answer": "Yes, GBrowse is able to read .bam files directly, and you do not need to upload them to the database to display them."
-    },
-    {
-      "question": "What are the requirements for GBrowse to read .bam files directly?",
-      "answer": "For direct reading by GBrowse, .bam files need to be copied to your `/project` directory, be readable by the group, have the directory containing them setgid and group-execute bits turned on, and have their group ownership set to your group."
-    },
-    {
-      "question": "What specific permissions are required for the directory containing .bam files for direct GBrowse access?",
-      "answer": "The directory that contains the .bam files must have the `setgid` and `group-execute` bits turned on, so `ls –l` must show a small \"s\" in the group-execute field."
-    },
-    {
-      "question": "How should the group ownership of .bam files be set for direct GBrowse access?",
-      "answer": "The .bam file's group ownership must be set to your group (e.g., `jsmith:def-kjones`), not to your username (e.g., `jsmith:jsmith`)."
-    },
-    {
-      "question": "How do you specify the path to a .bam file in the GBrowse config file for direct reading?",
-      "answer": "You edit your config file to specify the path to the .bam file with an entry like: `[example_bam:database] db_adaptor = Bio::DB::Sam db_args = -bam /project/GROUPID/USERNAME/gbrowse_bam_files/example_file.bam search options = default`."
+      "question": "Where should GBrowse configuration files be placed for a research group on Cedar, and what are the associated file permission requirements?",
+      "answer": "GBrowse configuration files for a research group must be placed in the directory `/project/GROUPID/gbrowse/USERNAME/conf`, where `GROUPID` is the group's ID and `USERNAME` is the individual's username. For convenience, a symbolic link from `${HOME}/gbrowse-config/` will be created to this directory. It is crucial that files in this directory are readable by all members of the group, so group permissions should not be altered."
     }
   ],
-  "generated_at": "2026-04-11T21:57:59.370787+00:00"
+  "generated_at": "2026-04-13T05:41:45.715180+00:00"
 }

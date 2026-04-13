@@ -4,85 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Combien de nœuds CPU réguliers peut-on retrouver dans les cabinets de Narval?",
-      "answer": "Les cabinets de Narval contiennent des îlots de 48 ou 56 nœuds CPU réguliers."
+      "question": "Quels types de processeurs sont utilisés sur la grappe Narval et quel est le modèle de GPU disponible sur certains nœuds?",
+      "answer": "La grappe Narval est équipée de processeurs AMD EPYC de 2e génération (modèles 7532 et 7502, avec 64 cœurs chacun) et de 3e génération (modèle 7413, avec 48 cœurs chacun). Certains nœuds (159) sont également munis de quatre GPU NVidia A100SXM4 avec 40 Go de mémoire chacun, connectés via NVLink."
     },
     {
-      "question": "Combien de cœurs est-il possible d'utiliser pour des tâches parallèles avec une réseautique non bloquante sur Narval?",
-      "answer": "Il est possible d'exécuter des tâches parallèles utilisant jusqu’à 3584 cœurs avec une réseautique non bloquante sur Narval."
+      "question": "Quelles instructions vectorielles sont prises en charge par les processeurs AMD de la grappe Narval, et y a-t-il des considérations spéciales si j'utilise des compilateurs Intel?",
+      "answer": "Les processeurs AMD de Narval prennent en charge les instructions AVX2, mais ne prennent pas en charge les AVX512. Si vous utilisez des compilateurs Intel, il est recommandé d'utiliser l'option `-march=core-avx2` pour compiler des applications compatibles avec les processeurs Intel et AMD. Cependant, les options spécifiques aux processeurs Intel comme `-xCORE-AVX2`, ou les options génériques `-xHOST` et `-march=native` ne devraient pas être utilisées, car elles pourraient rendre vos applications incompatibles ou sous-optimisées sur Narval."
     },
     {
-      "question": "Quel est le facteur de blocage pour les tâches plus imposantes ou fragmentées sur le réseau de Narval?",
-      "answer": "Pour des tâches plus imposantes ou plus fragmentées sur le réseau, le facteur de blocage est de 4.7:1."
-    },
-    {
-      "question": "Quelles sont les caractéristiques principales des 1145 nœuds de calcul sur Narval?",
-      "answer": "Ces 1145 nœuds ont 64 cœurs, 250G ou 256000M de mémoire disponible, sont équipés de 2 processeurs AMD EPYC 7532 (Zen 2) à 2.40 GHz avec 256M de cache L3, et un SSD de 960G pour le stockage. Ils n'ont pas de GPU."
-    },
-    {
-      "question": "Quel type de processeur est utilisé dans la majorité des nœuds CPU (1145 et 33) de Narval?",
-      "answer": "La majorité des nœuds CPU (1145 et 33) sont équipés de 2 processeurs AMD EPYC 7532 (Zen 2) à 2.40 GHz avec 256M de cache L3."
-    },
-    {
-      "question": "Quelle est la quantité de mémoire disponible sur les 33 nœuds CPU de Narval?",
-      "answer": "Les 33 nœuds CPU de Narval ont 2009G ou 2057500M de mémoire disponible chacun."
-    },
-    {
-      "question": "Quels sont les processeurs et la mémoire disponible pour les 3 nœuds de Narval ayant le plus de mémoire?",
-      "answer": "Ces 3 nœuds ont 64 cœurs, 4000G ou 4096000M de mémoire disponible et sont munis de 2 processeurs AMD EPYC 7502 (Zen 2) à 2.50 GHz avec 128M de cache L3."
-    },
-    {
-      "question": "Combien de nœuds GPU sont disponibles sur Narval et quelles sont leurs caractéristiques?",
-      "answer": "Il y a 159 nœuds GPU. Chacun a 48 cœurs, 498G ou 510000M de mémoire, 2 processeurs AMD EPYC 7413 (Zen 3) à 2.65 GHz avec 128M de cache L3, un SSD de 3.84T et 4 NVidia A100SXM4 (40G de mémoire) connectés via NVLink."
-    },
-    {
-      "question": "Quels GPU sont présents sur les nœuds dédiés à cette fin sur Narval?",
-      "answer": "Les nœuds GPU sur Narval sont équipés de 4 NVidia A100SXM4, chacun avec 40G de mémoire, et sont connectés via NVLink."
-    },
-    {
-      "question": "Quelles générations de processeurs AMD EPYC sont utilisées sur la grappe Narval et quelles instructions prennent-elles en charge?",
-      "answer": "La grappe Narval est équipée de processeurs AMD EPYC de 2e et 3e génération qui prennent en charge les instructions AVX2."
-    },
-    {
-      "question": "Est-ce que Narval supporte les instructions AVX512?",
-      "answer": "Non, Narval ne prend pas en charge les instructions AVX512."
-    },
-    {
-      "question": "Peut-on utiliser des compilateurs Intel pour compiler des applications pour les processeurs AMD de Narval?",
-      "answer": "Oui, les compilateurs Intel peuvent très bien compiler des applications pour les processeurs AMD de Narval, tant que ça se limite aux ensembles d'instructions AVX2 et les plus anciens."
-    },
-    {
-      "question": "Quelle option du compilateur Intel faut-il employer pour assurer la compatibilité des exécutables avec les processeurs Intel et AMD sur Narval?",
-      "answer": "Il faut utiliser l'option `-march=core-avx2` du compilateur Intel pour obtenir des exécutables compatibles avec les processeurs Intel et AMD."
-    },
-    {
-      "question": "Pourquoi les applications compilées avec des options comme `-xCORE-AVX2` sur un système Intel ne fonctionneraient-elles pas sur Narval?",
-      "answer": "Ces applications ne fonctionneront pas sur Narval parce que les compilateurs Intel ajoutent des instructions supplémentaires pour vérifier que le processeur utilisé est un produit Intel."
-    },
-    {
-      "question": "Quelles options des compilateurs Intel ne devraient pas être utilisées sur Narval et pourquoi?",
-      "answer": "Sur Narval, les options `-xHOST` et `-march=native` ne devraient pas être utilisées. Elles sont équivalentes à `-march=pentium` (l'ancien Pentium de 1993)."
-    },
-    {
-      "question": "Quel est l'environnement logiciel standard par défaut sur Narval?",
-      "answer": "L'environnement logiciel standard par défaut sur Narval est `StdEnv/2023`."
-    },
-    {
-      "question": "Les anciennes versions de l'environnement logiciel standard sont-elles disponibles sur Narval?",
-      "answer": "Non, les anciennes versions de l'environnement standard (2016 et 2018) ont été volontairement bloquées sur Narval."
-    },
-    {
-      "question": "Que faire si j'ai besoin d'un logiciel seulement disponible dans une ancienne version de l'environnement standard sur Narval?",
-      "answer": "Si vous avez besoin d'un logiciel seulement disponible dans une ancienne version, vous êtes invité à envoyer une demande au soutien technique."
-    },
-    {
-      "question": "Est-ce que la bibliothèque Intel MKL est recommandée pour les processeurs AMD sur Narval?",
-      "answer": "La bibliothèque Intel MKL fonctionne sur les processeurs AMD, mais elle n'est pas optimale. L'utilisation de FlexiBLAS est dorénavant favorisée."
-    },
-    {
-      "question": "Quelle bibliothèque est maintenant préférée pour les opérations BLAS et LAPACK sur Narval?",
-      "answer": "L'utilisation de FlexiBLAS est dorénavant favorisée pour BLAS et LAPACK sur Narval."
+      "question": "Quel est l'environnement logiciel par défaut sur la grappe Narval, et comment puis-je obtenir un logiciel disponible uniquement dans une ancienne version de l'environnement standard?",
+      "answer": "L'environnement logiciel standard par défaut sur Narval est `StdEnv/2023`. Les versions antérieures (2016 et 2018) ont été volontairement bloquées. Si vous avez besoin d'un logiciel qui n'est disponible que sur une ancienne version de l'environnement standard, vous devez envoyer une demande au soutien technique en expliquant votre besoin."
     }
   ],
-  "generated_at": "2026-04-12T03:40:13.531112+00:00"
+  "generated_at": "2026-04-13T09:54:40.776345+00:00"
 }

@@ -4,65 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi, MPI-IO?",
-      "answer": "MPI-IO, c'est une partie du standard MPI-2, pis c'est une gang de routines MPI qui permettent l'enregistrement d'opérations parallèles de lecture pis d'écriture."
+      "question": "C'est quoi MPI-IO pis c'est quoi son principal avantage?",
+      "answer": "MPI-IO, c'est une gang de routines MPI qui permet d'enregistrer des opérations parallèles de lecture pis d'écriture. Son gros avantage, c'est de pouvoir lire pis écrire des données réparties sur plusieurs processus dans un seul fichier commun, pis ça, c'est simple pis efficace."
     },
     {
-      "question": "C'est quoi l'avantage principal de MPI-IO?",
-      "answer": "L'avantage principal de MPI-IO, c'est de pouvoir, de manière simple pis efficace, lire pis écrire des données réparties sur plusieurs processus dans un seul fichier commun à tous les processus."
+      "question": "Comment on fait pour lire pis écrire en parallèle en utilisant des déplacements (offsets) avec MPI-IO?",
+      "answer": "La façon la plus simple, c'est d'utiliser des déplacements, ou 'offsets'. Chaque processus peut lire ou écrire dans le fichier avec un déplacement précis. Ça peut se faire en deux étapes (avec MPI_File_seek suivi de MPI_File_read ou MPI_File_write) ou en une seule (avec MPI_File_read_at ou MPI_File_write_at). On calcule d'habitude ce déplacement en fonction du rang du processus."
     },
     {
-      "question": "Quand est-ce que MPI-IO est particulièrement utile?",
-      "answer": "C'est particulièrement utile quand les données qu'on manipule sont des vecteurs ou des matrices qui sont découpés de manière structurée entre les différents processus."
-    },
-    {
-      "question": "C'est quoi la manière la plus simple de faire des opérations de lecture pis d'écriture en parallèle?",
-      "answer": "La manière la plus simple, c'est d'utiliser des déplacements (on dit aussi des 'offsets')."
-    },
-    {
-      "question": "Comment est-ce qu'on peut faire des opérations de lecture ou d'écriture en parallèle avec des déplacements en deux étapes?",
-      "answer": "Ça peut se faire en deux opérations: `MPI_File_seek` suivie de `MPI_File_read` pour lire, ou de `MPI_File_write` pour écrire."
-    },
-    {
-      "question": "Quelles fonctions permettent de faire des opérations de lecture ou d'écriture avec des déplacements en une seule opération?",
-      "answer": "On peut utiliser `MPI_File_read_at` pour lire ou `MPI_File_write_at` pour écrire, tout ça en une seule opération."
-    },
-    {
-      "question": "Comment est-ce qu'on calcule le déplacement d'habitude?",
-      "answer": "D'habitude, le déplacement est calculé en fonction du rang du processus."
-    },
-    {
-      "question": "Dans l'exemple `mpi_rw_at.c`, c'est quoi la valeur définie pour `BLOCKSIZE`?",
-      "answer": "Dans l'exemple `mpi_rw_at.c`, la valeur définie pour `BLOCKSIZE` est de 80."
-    },
-    {
-      "question": "À quoi sert la ligne `MPI_File_seek(f, rank*BLOCKSIZE, MPI_SEEK_SET);` dans l'exemple `mpi_rw_at.c`?",
-      "answer": "Cette ligne sert à ce que chaque processus aille à sa position initiale d'écriture, qui est son rang multiplié par la taille de bloc (`BLOCKSIZE`), avant de commencer à écrire."
-    },
-    {
-      "question": "Dans l'exemple `mpi_rw_at.c`, comment est-ce que les processus avancent leur position dans le fichier après chaque écriture pour alterner les données?",
-      "answer": "Ils avancent leur position en utilisant `MPI_File_seek(f, (size-1)*BLOCKSIZE, MPI_SEEK_CUR);` pour passer à la position du prochain processus."
-    },
-    {
-      "question": "Comment sont lues les données dans l'exemple `mpi_rw_at.c` après l'écriture?",
-      "answer": "Les données sont lues de manière séquentielle pour chaque processus en utilisant `MPI_File_read_at` avec un déplacement calculé (`rank*i*NBRBLOCKS*BLOCKSIZE`). Chaque processus lit son propre bloc de données."
-    },
-    {
-      "question": "Qu'est-ce que les vues permettent de faire dans MPI-IO?",
-      "answer": "En utilisant les vues, chaque processus peut 'voir' juste une section du fichier, comme si c'était le fichier au complet."
-    },
-    {
-      "question": "C'est quoi l'avantage des vues par rapport aux calculs de déplacements manuels?",
-      "answer": "Avec les vues, il n'est plus nécessaire de calculer les déplacements dans le fichier en fonction du rang du processus, ce qui rend les opérations beaucoup plus simples pis évite les conflits."
-    },
-    {
-      "question": "C'est quoi la fonction qu'on utilise pour définir une vue dans MPI-IO?",
-      "answer": "On définit une vue à l'aide de la fonction `MPI_File_set_view`."
-    },
-    {
-      "question": "Quelle est la principale limitation de MPI-IO concernant les systèmes de fichiers qui ne supportent pas les verrous de fichiers?",
-      "answer": "Si un système de fichiers ne supporte pas les verrous de fichiers ('file locks'), certaines opérations sont pas possibles, surtout l'utilisation de vues sur des sections disjointes d'un fichier."
+      "question": "Quel est l'avantage d'utiliser les vues (views) pour les opérations de fichiers parallèles en MPI-IO, comparé aux déplacements?",
+      "answer": "En utilisant les vues, chaque processus peut 'voir' juste une section du fichier, comme si c'était le fichier au complet. L'avantage principal, c'est qu'on n'a plus besoin de calculer les déplacements dans le fichier en fonction du rang du processus. Une fois la vue définie avec la fonction MPI_File_set_view, c'est ben plus simple d'effectuer des opérations sans que ça entre en conflit avec les autres processus."
     }
   ],
-  "generated_at": "2026-04-12T01:50:05.377127+00:00"
+  "generated_at": "2026-04-13T08:47:30.792974+00:00"
 }

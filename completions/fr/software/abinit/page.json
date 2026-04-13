@@ -3,41 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Qu'est-ce qu'ABINIT et à quoi ça sert?",
-      "answer": "ABINIT est une suite logicielle qui permet de calculer les propriétés optiques, mécaniques et vibrationnelles, entre autres, des matériaux. Elle peut aussi gérer des applications plus avancées avec les théories des perturbations et les fonctions N-corps de Green (GW et DMFT), et ce, pour les molécules, les nanostructures et les solides."
+      "question": "Qu'est-ce que la suite logicielle ABINIT, et à quoi sert-elle pour les calculs de matériaux?",
+      "answer": "ABINIT est une suite logicielle utilisée pour calculer les propriétés optiques, mécaniques, vibrationnelles et autres propriétés observables des matériaux, incluant les molécules, les nanostructures et les solides."
     },
     {
-      "question": "Comment puis-je vérifier les versions d'ABINIT qui sont disponibles?",
-      "answer": "Vous pouvez utiliser la commande `module spider abinit` pour voir les versions disponibles."
+      "question": "Quelles théories sont utilisées par ABINIT pour effectuer ses calculs, au-delà de la théorie de la fonctionnelle de la densité (DFT)?",
+      "answer": "ABINIT utilise la théorie de la fonctionnelle de la densité (DFT) et peut évoluer vers des applications plus avancées avec les théories des perturbations basées sur la DGT et plusieurs fonctions N-corps de Green (GW et DMFT)."
     },
     {
-      "question": "Comment savoir si ma version d'ABINIT a des modules à charger au préalable?",
-      "answer": "Après avoir trouvé une version, vous pouvez exécuter `module spider abinit/NUMÉRO_DE_VERSION` (par exemple, `module spider abinit/8.4.4`) pour voir les dépendances."
+      "question": "Comment peut-on connaître les versions disponibles du logiciel ABINIT sur les systèmes où il est installé?",
+      "answer": "Pour connaître les versions disponibles d'ABINIT, il faut utiliser la commande `module spider abinit`."
     },
     {
-      "question": "Où puis-je trouver les fichiers de données atomiques dont j'ai besoin pour ABINIT?",
-      "answer": "Nous n'avons pas de collection de données atomiques. Vous devez les télécharger à partir du site web d'ABINIT, spécifiquement la section 'Atomic data files'."
+      "question": "Comment vérifier si d'autres modules doivent être chargés avant d'utiliser une version spécifique d'ABINIT, comme la 8.4.4?",
+      "answer": "Pour vérifier les prérequis d'une version spécifique d'ABINIT, on exécute la commande `module spider abinit/<numéro_de_version>`, par exemple `module spider abinit/8.4.4`."
     },
     {
-      "question": "Comment télécharger des fichiers de pseudopotentiels, comme celui pour l'hydrogène, vers un nœud de connexion?",
-      "answer": "Vous pouvez utiliser `wget` avec l'URL du fichier, par exemple : `wget http://www.pseudo-dojo.org/pseudos/nc-sr-04_pbe_standard/H.psp8.gz`."
+      "question": "Est-ce qu'une collection de données atomiques pour ABINIT est disponible directement sur le système?",
+      "answer": "Non, il n'y a pas de collection de données atomiques pour ABINIT disponible directement sur le système."
     },
     {
-      "question": "Où sont rangés les fichiers d'exemple et de tutoriels pour ABINIT?",
-      "answer": "Les fichiers de données pour les tests sont à `$EBROOTABINIT/share/abinit-test/Psps_for_tests/` et les fichiers pour les tutoriels sont à `$EBROOTABINIT/share/abinit-test/tutorial`."
+      "question": "Où peut-on se procurer les fichiers de données atomiques nécessaires pour ABINIT?",
+      "answer": "Les fichiers de données atomiques pour ABINIT peuvent être obtenus en se référant à la section 'Atomic data files' sur le site officiel d'ABINIT."
     },
     {
-      "question": "Comment devrais-je soumettre les calculs ABINIT plus importants?",
-      "answer": "Les calculs plus substantiels devraient être soumis à l'ordonnanceur Slurm."
+      "question": "Comment télécharger un fichier de données atomiques pour ABINIT directement sur un nœud de connexion, comme un pseudopotentiel d'hydrogène?",
+      "answer": "Puisque ces fichiers sont habituellement de moins de 1Mo, on peut les télécharger directement sur un nœud de connexion avec leur URL en utilisant la commande `wget`, par exemple `wget http://www.pseudo-dojo.org/pseudos/nc-sr-04_pbe_standard/H.psp8.gz`."
     },
     {
-      "question": "Quelles ressources sont demandées dans l'exemple de script Slurm pour ABINIT?",
-      "answer": "L'exemple de script demande 2 nœuds, 64 processus MPI, 1024 Mo de mémoire par cœur CPU, et un temps de calcul de 48 heures."
+      "question": "Où se trouvent les fichiers de données pour effectuer des tests et suivre les tutoriels ABINIT sur un système où le logiciel est installé?",
+      "answer": "Les fichiers de données pour les tests et les tutoriels ABINIT se trouvent aux chemins `$EBROOTABINIT/share/abinit-test/Psps_for_tests/` et `$EBROOTABINIT/share/abinit-test/tutorial`."
     },
     {
-      "question": "Quelle est la commande principale utilisée pour lancer ABINIT dans un script Slurm?",
-      "answer": "La commande est `srun abinit < parameters.txt >& output.log`."
+      "question": "Comment devrait-on soumettre des calculs ABINIT plus substantiels que de simples tests ou exercices sur les clusters?",
+      "answer": "Les calculs ABINIT plus substantiels que les tests ou les exercices du tutoriel devraient être soumis à l'ordonnanceur Slurm."
+    },
+    {
+      "question": "Dans un script de tâche Slurm pour ABINIT, comment spécifier l'utilisation de 64 cœurs CPU répartis sur deux nœuds?",
+      "answer": "On spécifie cela avec les directives `#SBATCH --nodes=2` pour le nombre de nœuds et `#SBATCH --ntasks=64` pour le nombre de processus MPI dans le script Slurm."
+    },
+    {
+      "question": "Quel est l'exemple de configuration de mémoire par cœur et de temps pour une tâche ABINIT Slurm qui nécessite 1024Mo par cœur et une durée de 48 heures?",
+      "answer": "L'exemple de configuration est `#SBATCH --mem-per-cpu=1024M` pour la mémoire par processus MPI et `#SBATCH --time=2-00:00` pour une durée de 48 heures (2 jours)."
+    },
+    {
+      "question": "Dans un script de tâche Slurm pour ABINIT, comment s'assurer que le bon module ABINIT est chargé avant d'exécuter le calcul?",
+      "answer": "Dans le script Slurm, il faut d'abord utiliser `module purge` pour nettoyer les modules chargés, puis `module load abinit/8.2.2` (ou la version désirée) pour charger le module ABINIT."
+    },
+    {
+      "question": "Quelle commande est utilisée dans un script Slurm pour lancer l'exécution d'ABINIT en utilisant un fichier de paramètres et en redirigeant la sortie vers un fichier log?",
+      "answer": "La commande utilisée est `srun abinit < parameters.txt >& output.log`."
+    },
+    {
+      "question": "Qu'est-ce que ABINIT offre en termes de données atomiques intégrées, selon la description initiale de la suite logicielle?",
+      "answer": "La suite logicielle ABINIT offre plusieurs tables complètes et fiables de potentiels atomiques."
     }
   ],
-  "generated_at": "2026-04-11T14:51:13.040132+00:00"
+  "generated_at": "2026-04-13T00:19:12.377665+00:00"
 }

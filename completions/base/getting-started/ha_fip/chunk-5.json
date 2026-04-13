@@ -4,61 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What happens to the Virtual IP (VIP) on the originally active system if 'keepalived' is stopped?",
-      "answer": "When 'keepalived' is stopped on the active system, the Virtual IP (192.168.27.251) will no longer be present on its 'ens3' network interface."
+      "question": "How can one confirm that the Virtual IP (VIP) has successfully transferred to the standby node after the active system fails in a high-availability setup?",
+      "answer": "To confirm that the Virtual IP (VIP) has transferred, stop the `keepalived` service on the active system. Then, check the network interfaces on both the active and passive systems using the command `ip a s dev ens3`. The VIP should no longer be present on the original active system and should appear on the passive system's `ens3` interface."
     },
     {
-      "question": "Which system takes ownership of the Virtual IP (192.168.27.251) when the active system stops 'keepalived'?",
-      "answer": "The passive system will take over and own the Virtual IP (192.168.27.251) in this scenario."
+      "question": "What happens to the Virtual IP (VIP) if the `keepalived` service is restarted on the original active system after it has failed over to the standby node, and how can this behaviour be modified?",
+      "answer": "If the `keepalived` service is restarted on the original active system after a failover, the Virtual IP (VIP) will be taken over by that system again because it typically has a higher priority configured. To prevent this automatic VIP takeover and have the VIP remain on the currently active system, the priority numbers in the `keepalived.conf` files on both systems should be set to equal values."
     },
     {
-      "question": "How can you visually confirm that the passive system has taken over the Virtual IP?",
-      "answer": "You can confirm this by running 'ip a s dev ens3' on the passive system, which will show 'inet 192.168.27.251/32 scope global ens3' in its output."
-    },
-    {
-      "question": "What occurs if 'keepalived' is restarted on the original active system after the passive system has taken over the VIP?",
-      "answer": "If 'keepalived' is restarted on the original active system, it will reclaim the Virtual IP from the passive system."
-    },
-    {
-      "question": "Why does the original active system reclaim the VIP upon restarting 'keepalived'?",
-      "answer": "The original active system reclaims the VIP because it has a higher configured priority (100) compared to the passive system (50), as shown in the VRRP advertisement logs."
-    },
-    {
-      "question": "What adjustment can be made to prevent the original active system from automatically reclaiming the VIP when it restarts?",
-      "answer": "To prevent the original active system from reclaiming the VIP, you should set the 'priority' numbers in the 'keepalived.conf' files of both systems to be equal."
-    },
-    {
-      "question": "What is the initial step required to bind a Floating IP (FIP) to the Virtual IP (VIP) address?",
-      "answer": "The first step is to allocate a port specifically for the Virtual IP address."
-    },
-    {
-      "question": "What is the navigation path to create a port for the VIP in the project's network settings?",
-      "answer": "You need to go to 'Network --> Networks --> your-projectname-network', and then click on 'Create Port' in the upper right corner."
-    },
-    {
-      "question": "When creating the port, what address should be specified as the fixed address?",
-      "answer": "The Virtual IP (VIP) should be specified as the fixed address when creating the port."
-    },
-    {
-      "question": "After creating the VIP port, what is the next action to associate the Floating IP?",
-      "answer": "The next action is to select the Floating IP in 'Network --> Floating IPs', then click on 'Associate'."
-    },
-    {
-      "question": "Which port should be selected when associating the Floating IP?",
-      "answer": "You should select the newly created port that uses the VIP as its fixed address."
-    },
-    {
-      "question": "How do you verify that the Floating IP has been successfully associated?",
-      "answer": "You verify it by checking if the 'Status' field for the Floating IP changes to 'Active'."
-    },
-    {
-      "question": "What is the benefit of having the Floating IP successfully associated with the VIP?",
-      "answer": "Once associated, your application and systems become reachable from anywhere in the world, assuming your 'Security Groups' are configured to allow the traffic."
-    },
-    {
-      "question": "What methods can be used to verify the functionality of the HA Floating IP setup?",
-      "answer": "To verify functionality, you can either shut down one of the systems or simply stop 'keepalived' on a single system."
+      "question": "What is the process for allocating and associating a Floating IP (FIP) with a Virtual IP (VIP) to make an application globally reachable?",
+      "answer": "To allocate and associate a Floating IP (FIP) with a Virtual IP (VIP), first navigate to 'Network --> Networks --> your-projectname-network' and create a new port, ensuring the VIP is set as its fixed address. Next, go to 'Network --> Floating IPs', select the FIP you wish to use, click 'Associate', and then choose the newly created VIP port to establish the association. The process is complete once the FIP's 'Status' field shows 'Active', making your application and systems reachable from anywhere, assuming security groups allow it."
     }
   ],
-  "generated_at": "2026-04-11T23:40:11.551348+00:00"
+  "generated_at": "2026-04-13T07:01:02.097692+00:00"
 }

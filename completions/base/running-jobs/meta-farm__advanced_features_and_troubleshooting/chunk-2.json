@@ -4,61 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "In WHOLE_NODE mode, what does a positive integer argument for the `submit.run` command signify?",
-      "answer": "In WHOLE_NODE mode, a positive integer argument for the `submit.run` command signifies the number of whole nodes to be used in META mode, instead of the number of meta-jobs."
+      "question": "How does the positive integer argument for the `submit.run` command change its meaning when the WHOLE_NODE mode is enabled?",
+      "answer": "In WHOLE_NODE mode, a positive integer argument for the `submit.run` command specifies the number of whole nodes to be utilized in META mode, instead of representing the number of meta-jobs. For example, `submit.run 2` would allocate two whole nodes."
     },
     {
-      "question": "What is the effect of running `submit.run 2` if WHOLE_NODE mode is enabled?",
-      "answer": "If WHOLE_NODE mode is enabled, the command `submit.run 2` will allocate 2 whole nodes, allowing up to 384 concurrent serial tasks (192 tasks on each node) to run using META mode with dynamic workload balancing. These tasks are executed as separate threads within whole-node jobs."
+      "question": "What are the specific conditions or limitations for using the WHOLE_NODE mode with the META-Farm package?",
+      "answer": "The WHOLE_NODE mode is exclusively for serial farming and cannot be used for multi-threaded, MPI, or GPU farming. Additionally, for the automatic job resubmission and post-processing features to function on Trillium while in WHOLE_NODE mode, users must add `module load StdEnv` to the end of their `~/.bashrc` file."
     },
     {
-      "question": "What is the function of the `-1` argument for `submit.run` when WHOLE_NODE mode is active?",
-      "answer": "When WHOLE_NODE mode is active, the `-1` argument for `submit.run` retains its original meaning: to run the farm using the SIMPLE mode."
-    },
-    {
-      "question": "How is the number of actual whole node jobs calculated in WHOLE_NODE mode when using the SIMPLE mode?",
-      "answer": "In WHOLE_NODE mode, when using the SIMPLE mode, the number of actual whole node jobs is calculated as `Number_of_cases / NWHOLE`."
-    },
-    {
-      "question": "What is required for automatic job resubmission and post-processing features to function with WHOLE_NODE mode on Trillium?",
-      "answer": "For the advanced features of automatic job resubmission and post-processing to work with WHOLE_NODE mode on Trillium, you must place the line `module load StdEnv` at the end of your `~/.bashrc` file."
-    },
-    {
-      "question": "What kind of farming applications can utilize the WHOLE_NODE mode?",
-      "answer": "The WHOLE_NODE mode can only be used for serial farming; it cannot be used for multi-threaded, MPI, or GPU farming applications."
-    },
-    {
-      "question": "Are there circumstances where using WHOLE_NODE mode on clusters other than Trillium would be beneficial?",
-      "answer": "Yes, WHOLE_NODE mode can be advantageous on other clusters in situations where the queue wait time for whole node jobs becomes shorter than the queue wait time for serial jobs."
-    },
-    {
-      "question": "How can one use the META package on a cluster where it's not installed as a module?",
-      "answer": "To use META on such a cluster, you can clone the package from its git repository (https://git.computecanada.ca/syam/meta-farm.git), then modify your `$PATH` variable to include the `bin` subdirectory of the newly created `meta-farm` directory (e.g., `export PATH=~/meta-farm/bin:$PATH`), and finally proceed from the `farm_init.run` step as described in the Quick start guide."
-    },
-    {
-      "question": "What are two ways to pass additional `sbatch` arguments to jobs?",
-      "answer": "You can pass additional `sbatch` arguments by adding them as separate `#SBATCH` lines to `job_script.sh`, or by appending them to the `submit.run` or `resubmit.run` command (e.g., `submit.run -1 --mem 4G`)."
-    },
-    {
-      "question": "What configuration is necessary in `job_script.sh` for multi-threaded applications?",
-      "answer": "For multi-threaded applications, you need to add the following lines to `job_script.sh`: `#SBATCH --cpus-per-task=N`, `#SBATCH --mem=M`, and `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`, where 'N' is the number of CPU cores and 'M' is the total memory in megabytes."
-    },
-    {
-      "question": "Can `sbatch` arguments for multi-threaded applications like `--cpus-per-task` and `--mem` be provided via the `(re)submit.run` command?",
-      "answer": "Yes, you may also supply `--cpus-per-task=N` and `--mem=M` as arguments to the `(re)submit.run` command for multi-threaded applications."
-    },
-    {
-      "question": "What lines should be added to `job_script.sh` for MPI applications?",
-      "answer": "For MPI applications, you should add `#SBATCH --ntasks=N` and `#SBATCH --mem-per-cpu=M` to `job_script.sh`, where 'N' specifies the number of CPU cores to use and 'M' is the memory to reserve for each core in megabytes."
-    },
-    {
-      "question": "Can `--ntasks` and `--mem-per-cpu` arguments for MPI applications be passed through `(re)submit.run`?",
-      "answer": "Yes, you may also supply `--ntasks=N` and `--mem-per-cpu=M` as arguments to `(re)submit.run` for MPI applications."
-    },
-    {
-      "question": "What modification is required in `single_case.sh` when using MPI applications?",
-      "answer": "For MPI applications, you must add `srun` before the path to your code inside `single_case.sh`, for example: `srun $COMM`."
+      "question": "What are the two methods for passing additional `sbatch` arguments to jobs submitted using the META-Farm package?",
+      "answer": "Users can pass additional `sbatch` arguments by adding them as separate `#SBATCH` lines within the `job_script.sh` file. Alternatively, these arguments can be appended directly to the `submit.run` or `resubmit.run` command, for example, `submit.run -1 --mem 4G`."
     }
   ],
-  "generated_at": "2026-04-12T01:27:42.836713+00:00"
+  "generated_at": "2026-04-13T08:30:18.888519+00:00"
 }

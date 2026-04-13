@@ -4,69 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What are the learning objectives outlined for this document?",
-      "answer": "The learning objectives include understanding the various levels of parallelism on a GPU, interpreting compiler messages regarding how parallelisation was performed, learning to get optimisation advice from the visual profiler, and learning how to specify parameters for parallelisation to the compiler."
+      "question": "What are the three levels of parallelism available in OpenACC, and how is each defined?",
+      "answer": "In OpenACC, the three levels of parallelism are `vector`, `worker`, and `gang`. `Vector` threads perform a single operation on multiple data (SIMD) in a single step. A `worker` computes one `vector`. A `gang` comprises one or multiple `worker`s, allowing them to share resources such as cache memory or the processor. Multiple `gang`s run completely independently."
     },
     {
-      "question": "What was the initial performance gain achieved by the compiler compared to CPU performance in the previous steps?",
-      "answer": "The compiler initially achieved a performance gain of about 3 times compared to the CPU performance."
+      "question": "When using OpenACC, why might a programmer need to provide specific parallelization parameters to the compiler, even if the compiler has already achieved initial performance gains?",
+      "answer": "A programmer might need to provide specific parallelization parameters to the OpenACC compiler because the compiler may generate instructions that waste computation. For instance, if the compiler uses a `vector` length of 128 for loops when the actual data chunks, such as matrix rows, only contain 27 elements, it wastes computation on 101 elements. A programmer, by understanding the data structure, can optimize this by specifying a more appropriate `vector` length."
     },
     {
-      "question": "What command line is used to obtain detailed compiler feedback, including information on parallelisation, for a C++ file named `main.cpp`?",
-      "answer": "The command line used is `pgc++ -fast -ta=tesla,lineinfo -Minfo=all,intensity,ccff -c -o main.o main.cpp`."
-    },
-    {
-      "question": "According to the compiler feedback, how were the loops in `initialize_vector`, `dot`, and `waxpby` functions parallelised?",
-      "answer": "The compiler feedback indicates that each loop in `initialize_vector`, `dot`, and `waxpby` was parallelised using `#pragma acc loop gang, vector(128)`."
-    },
-    {
-      "question": "What does `vector(128)` signify in the context of compiler-generated instructions for parallelisation?",
-      "answer": "`vector(128)` signifies that the compiler generated instructions for chunks of data with a length of 128."
-    },
-    {
-      "question": "Why did the compiler's default `vector(128)` parallelisation lead to wasted computation for matrix rows with 27 elements?",
-      "answer": "The compiler's default `vector(128)` parallelisation led to wasted computation because each row of the matrix had only 27 elements, meaning instructions were generated for 101 elements that were not present (128 - 27)."
-    },
-    {
-      "question": "What are the three levels of parallelism used in OpenACC?",
-      "answer": "The three levels of parallelism used in OpenACC are `vector`, `worker`, and `gang`."
-    },
-    {
-      "question": "Describe the function of `vector` threads in OpenACC.",
-      "answer": "`vector` threads in OpenACC perform a single operation on multiple data (SIMD) in a single step. If there are fewer data than the vector's length, the operation is still performed on null values, and the result is discarded."
-    },
-    {
-      "question": "What is the role of a `worker` in OpenACC parallelism?",
-      "answer": "In OpenACC, a `worker` is responsible for computing one `vector`."
-    },
-    {
-      "question": "How is an OpenACC `gang` structured, and what resources can its components share?",
-      "answer": "An OpenACC `gang` is comprised of one or multiple `worker`s. All `worker`s within a `gang` can share resources such as cache memory or the processor, while multiple `gang`s run completely independently."
-    },
-    {
-      "question": "Does OpenACC have a direct one-to-one mapping to CUDA's threads, blocks, and warps?",
-      "answer": "No, OpenACC does not have a direct one-to-one mapping to CUDA's threads, blocks, and warps because OpenACC is designed as a language for generic accelerators, and the mapping is left to the compiler."
-    },
-    {
-      "question": "According to OpenACC Standard Version 2.0, what are the specified outermost and innermost levels of parallelism?",
-      "answer": "Version 2.0 of the OpenACC standard states that `gang` must be the outermost level of parallelism, while `vector` must be the innermost level."
-    },
-    {
-      "question": "What are the general correspondences between OpenACC parallelism levels and CUDA concepts, acknowledging potential exceptions?",
-      "answer": "Generally, OpenACC `vector` corresponds to CUDA threads, OpenACC `worker` corresponds to CUDA warps, and OpenACC `gang` corresponds to CUDA thread blocks, though exceptions may exist."
-    },
-    {
-      "question": "Which OpenACC clause is used to apply `gang`-level parallelism to a loop?",
-      "answer": "The `gang` clause is used to apply `gang`-level parallelism to a loop."
-    },
-    {
-      "question": "What is the function of the `seq` clause when used with an OpenACC loop directive?",
-      "answer": "The `seq` clause will run the loop sequentially, meaning without parallelism."
-    },
-    {
-      "question": "In what order must multiple OpenACC parallelism clauses be specified for a given loop?",
-      "answer": "Multiple OpenACC parallelism clauses must be specified in a top-down order, with `gang` first and `vector` last."
+      "question": "How do the OpenACC parallelism levels (vector, worker, gang) generally correspond to CUDA concepts, and what is the required top-down order for applying these levels with OpenACC clauses?",
+      "answer": "In OpenACC, `vector` generally corresponds to CUDA threads, `worker` to CUDA warps, and `gang` to CUDA thread blocks, although the exact mapping is left to the compiler. When applying OpenACC clauses to control parallelism, they must be specified in a top-down order: `gang` first, `worker` second, and `vector` last."
     }
   ],
-  "generated_at": "2026-04-12T04:17:58.178960+00:00"
+  "generated_at": "2026-04-13T10:26:10.381514+00:00"
 }

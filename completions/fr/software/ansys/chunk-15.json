@@ -4,53 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "Quel est l'objectif principal du script `script-flu-bynode-intel-tri.sh`?",
-      "answer": "Ce script est conçu pour soumettre des tâches Ansys Fluent au système de gestion de tâches Slurm, en répartissant les ressources par nœud sur la grappe Trillium."
+      "question": "Quelles versions du logiciel Ansys sont prises en charge spécifiquement sur la grappe Trillium, selon l'exemple de script Slurm fourni?",
+      "answer": "Sur la grappe Trillium, seules les versions Ansys 2025R2 ou plus récentes sont compatibles pour l'utilisation avec les scripts Slurm."
     },
     {
-      "question": "Sur quelle grappe ce script Ansys Fluent est-il spécifiquement conçu pour être exécuté et avec quelles versions d'Ansys?",
-      "answer": "Le script est fait pour la grappe Trillium et ne fonctionne qu'avec Ansys 2025R2 ou les versions plus récentes."
+      "question": "Quel module d'environnement standard (StdEnv) faut-il charger pour exécuter Ansys sur la grappe Trillium avec le script d'exemple fourni?",
+      "answer": "Le module d'environnement standard requis est `StdEnv/2023`."
     },
     {
-      "question": "Comment puis-je indiquer le nom de mon fichier journal pour une tâche Fluent soumise via ce script?",
-      "answer": "Vous devez spécifier le nom de votre fichier journal en modifiant la ligne `MYJOURNALFILE=sample.jou` dans le script pour correspondre à votre fichier."
-    },
-    {
-      "question": "Comment le script gère-t-il la configuration des licences Ansys?",
-      "answer": "Le script établit des tunnels SSH via `tri-gw` pour les ports Flex (`FLEXPORT`) et Vendor (`VENDPORT`) du serveur de licence spécifié (`LICSERVER`), puis exporte les variables d'environnement `ANSYSLMD_LICENSE_FILE` et `ANSYSLI_SERVERS` pour utiliser ces tunnels localement."
-    },
-    {
-      "question": "Quels modules sont nécessaires pour exécuter ce script Ansys Fluent?",
-      "answer": "Il faut charger les modules `StdEnv/2023` et `ansys/2025R2.04` (ou une version plus récente et compatible d'Ansys)."
-    },
-    {
-      "question": "Comment la mémoire est-elle allouée par ce script sur les nœuds de calcul de Trillium?",
-      "answer": "Sur Trillium, il n'est pas nécessaire de spécifier la mémoire (`#SBATCH --mem=0` ne doit pas être décommenté), car la grappe alloue par défaut toute la mémoire disponible par nœud."
-    },
-    {
-      "question": "Est-ce que le script effectue des vérifications de répertoires avant de lancer Fluent, et si oui, lesquelles?",
-      "answer": "Oui, le script vérifie si les liens symboliques `~/.ansys`, `~/.fluentconf` et `~/.flrecent` existent et pointent vers un répertoire ou un fichier accessible en écriture dans `$SCRATCH`. Si ce n'est pas le cas, il tente de les créer, sinon il annule la tâche avec un message d'erreur."
-    },
-    {
-      "question": "Quelle est la commande utilisée pour lancer Fluent lorsque la tâche est exécutée sur un seul nœud avec ce script?",
-      "answer": "Pour une tâche sur un seul nœud (`$SLURM_NNODES == 1`), Fluent est lancé avec la commande `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`."
-    },
-    {
-      "question": "Comment lancer Fluent pour une tâche sur plusieurs nœuds en utilisant ce script?",
-      "answer": "Pour une tâche sur plusieurs nœuds, Fluent est démarré avec `fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=$SLURM_SUBMIT_DIR/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`, en utilisant un fichier de machinefile généré par le script."
-    },
-    {
-      "question": "Combien de cœurs au maximum peuvent être demandés par nœud sur Trillium avec ce script?",
-      "answer": "Le script peut demander jusqu'à 192 cœurs par nœud sur la grappe Trillium."
-    },
-    {
-      "question": "Comment le type de simulation Fluent (par exemple, 2D, 3D, double précision) est-il configuré dans le script?",
-      "answer": "Le type de simulation est configuré en définissant la variable `MYVERSION` avec une valeur comme `3d`, `2d`, `2ddp`, ou `3ddp`."
-    },
-    {
-      "question": "À partir de quel répertoire le script d'ordonnancement s'attend-il à être soumis?",
-      "answer": "Le script doit être soumis à partir du répertoire `$SCRATCH/some/dir`, tel qu'indiqué par la ligne `cd $SLURM_SUBMIT_DIR`."
+      "question": "Dans l'extrait de script Slurm pour Ansys Fluent sur Trillium, quelles sont les valeurs par défaut spécifiées pour le nom du fichier de journalisation et la version de simulation?",
+      "answer": "Les valeurs par défaut sont `sample.jou` pour le nom du fichier de journalisation (`MYJOURNALFILE`) et `3d` pour la version de simulation (`MYVERSION`)."
     }
   ],
-  "generated_at": "2026-04-12T16:59:05.784563+00:00"
+  "generated_at": "2026-04-13T01:56:51.930703+00:00"
 }

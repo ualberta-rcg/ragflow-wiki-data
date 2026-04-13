@@ -4,73 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi Abaqus FEA?",
-      "answer": "Abaqus FEA, c'est un progiciel commercial qui sert à faire de l'analyse par éléments finis et de l'ingénierie assistée par ordinateur."
+      "question": "Comment configurer mon fichier de licence Abaqus personnel sur les grappes de calcul pour pouvoir utiliser le logiciel?",
+      "answer": "Pour configurer votre compte Abaqus sur les grappes, vous devez créer un fichier nommé `$HOME/.licenses/abaqus.lic` dans votre répertoire personnel sur chaque grappe que vous comptez utiliser. Ce fichier doit contenir la ligne `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"port@server\")`. Il faut remplacer `port@server` par le numéro du port FlexLM et l'adresse IP (ou le nom de domaine complet) de votre serveur de licence Abaqus. Si vous utilisez la version 6.14.1, remplacez `ABAQUSLM_LICENSE_FILE` par `LM_LICENSE_FILE`."
     },
     {
-      "question": "Comment on fait pour configurer notre licence Abaqus sur les grappes?",
-      "answer": "Faut se connecter à chaque grappe qu'on veut utiliser, puis créer un fichier `$HOME/.licenses/abaqus.lic` qui contient la ligne `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"port@server\")`. Après, on remplace `port@server` par le numéro du port FlexLM et l'adresse IP (ou le nom complet du domaine) de votre serveur de licence Abaqus."
+      "question": "Quelles sont les nouveautés concernant le module Abaqus/2026 et qu'est-ce que ça implique pour les scripts Slurm existants?",
+      "answer": "Un nouveau module, `abaqus/2026`, est maintenant installé dans l'environnement par défaut `StdEnv/2023`. Cette nouvelle version corrige l'erreur de \"buffer overflow\" qui survenait avec Abaqus/2021 sur les grappes récentes. Par conséquent, il est essentiel de modifier tous les scripts Slurm que vous utilisez pour qu'ils soient adaptés à Abaqus/2026, puisque les prototypes de scripts fournis dans cette page ont été mis à jour pour cette version, ainsi que pour Abaqus/2021 lorsque possible."
     },
     {
-      "question": "Quelle est la différence de configuration de licence pour Abaqus version 6.14.1?",
-      "answer": "Si vous voulez utiliser la version 6.14.1, faut remplacer `ABAQUSLM_LICENSE_FILE` par `LM_LICENSE_FILE` dans votre fichier de licence."
-    },
-    {
-      "question": "Qu'est-ce qui arrive si ma licence Abaqus n'est pas configurée pour une grappe en particulier?",
-      "answer": "Si la licence n'est pas configurée pour une grappe en particulier, les administrateurs de systèmes des deux côtés (les vôtres et les nôtres) devront faire des modifications. C'est pour s'assurer que les ports FlexLM et TCP de votre serveur Abaqus soient accessibles par tous les nœuds de calcul quand vos tâches seront exécutées."
-    },
-    {
-      "question": "Quelles informations faut-il fournir au soutien technique pour configurer une licence Abaqus non configurée sur une grappe?",
-      "answer": "Pour qu'on puisse vous aider, il faut écrire au soutien technique en indiquant le numéro du port FlexLM, le numéro du port statique et l'adresse IP de votre serveur de licence Abaqus."
-    },
-    {
-      "question": "Est-ce qu'il y a une condition spéciale pour utiliser une licence Abaqus à distance avec le matériel de la grappe?",
-      "answer": "Oui, une entente spéciale doit habituellement être négociée et signée avec SIMULIA pour qu'une telle licence puisse être utilisée à distance avec notre matériel."
-    },
-    {
-      "question": "Quel est le serveur de licence par défaut pour le module `abaqus/2026`?",
-      "answer": "Par défaut, le module `abaqus/2026` est configuré pour fonctionner avec le serveur de licence Simulia `FLEXnet`, tout comme le serveur de licence gratuit de SHARCNET."
-    },
-    {
-      "question": "Comment je fais pour utiliser un serveur de licence DSLS de mon établissement avec Abaqus?",
-      "answer": "Pour utiliser un serveur de licence `DSLS` de votre établissement, vous devez créer les fichiers texte `abaqus_v6.env` et `DSLicSrv.txt` dans le répertoire utilisé pour soumettre votre simulation."
-    },
-    {
-      "question": "Quel est le contenu du fichier `abaqus_v6.env` pour utiliser un serveur DSLS?",
-      "answer": "Le fichier `abaqus_v6.env` doit contenir les lignes `license_server_type=DSLS` et `dsls_license_config=\"DSLicSrv.txt\"`."
-    },
-    {
-      "question": "Quel est le contenu du fichier `DSLicSrv.txt` pour un serveur DSLS?",
-      "answer": "Le fichier `DSLicSrv.txt` doit contenir le nom d'hôte et le numéro de port de votre serveur, sous le format `YOUR-SERVER-HOSTNAME:PORT-NUMBER`."
-    },
-    {
-      "question": "Quel est le nouveau module Abaqus installé dans l'environnement par défaut StdEnv/2023?",
-      "answer": "C'est un nouveau module pour `abaqus/2026` qui est installé dans l'environnement par défaut `StdEnv/2023`."
-    },
-    {
-      "question": "Quelle erreur la nouvelle version d'Abaqus (abaqus/2026) règle-t-elle?",
-      "answer": "La nouvelle version d'Abaqus (`abaqus/2026`) résout la source de l'erreur `*** buffer overflow detected ***` qui survenait sur toutes les récentes grappes avec `abaqus/2021`."
-    },
-    {
-      "question": "Est-ce que les scripts Slurm existants pour Abaqus doivent être mis à jour avec le nouveau module `abaqus/2026`?",
-      "answer": "Oui, tous les scripts Slurm que vous utilisez doivent être modifiés, car ceux présentés dans la page ont été adaptés pour fonctionner avec `abaqus/2026` et `abaqus/2021` lorsque possible."
-    },
-    {
-      "question": "Quelles versions du module `abaqus/2026` sont mentionnées?",
-      "answer": "Le module `abaqus/2026` contient la version initiale `Abaqus 2026 Golden`. Un autre module, `abaqus/2026.2606`, qui contient les mises à niveau `Abaqus 2026 FP.CFA.2606`, sera installé prochainement."
-    },
-    {
-      "question": "À quoi servent les scripts Slurm prototypes fournis dans la documentation?",
-      "answer": "Les scripts Slurm prototypes servent à soumettre des simulations parallèles sur un ou plusieurs nœuds de calcul en utilisant des fils (threads) et MPI."
-    },
-    {
-      "question": "Dans les scripts Slurm, l'argument `memory=` est-il obligatoire?",
-      "answer": "Non, l'argument `memory=` est optionnel. Il sert aux tâches qui demandent beaucoup de mémoire ou qui posent problème; la valeur de déplacement de 3072Mo pourrait nécessiter un ajustement."
-    },
-    {
-      "question": "Comment on peut voir la liste des arguments en ligne de commande pour Abaqus?",
-      "answer": "Pour obtenir la liste des arguments en ligne de commande, il faut charger un module Abaqus et lancer la commande `abaqus -help | less`."
+      "question": "Comment faire pour qu'Abaqus utilise un serveur de licence DSLS de mon établissement plutôt que le serveur FLEXnet par défaut?",
+      "answer": "Pour configurer Abaqus/2026 afin qu'il fonctionne avec un serveur de licence DSLS de votre établissement, vous devez créer deux fichiers texte : `abaqus_v6.env` et `DSLicSrv.txt`. Placez ces fichiers dans le répertoire où vous soumettez votre simulation. Le fichier `abaqus_v6.env` doit contenir `license_server_type=DSLS` et `dsls_license_config=\"DSLicSrv.txt\"`. Le fichier `DSLicSrv.txt` doit quant à lui spécifier l'hôte et le numéro de port de votre serveur de licence, par exemple `YOUR-SERVER-HOSTNAME:PORT-NUMBER`. Abaqus lira ces fichiers automatiquement au lancement pour se reconfigurer en conséquence."
     }
   ],
-  "generated_at": "2026-04-11T15:35:57.364473+00:00"
+  "generated_at": "2026-04-13T00:50:05.040245+00:00"
 }

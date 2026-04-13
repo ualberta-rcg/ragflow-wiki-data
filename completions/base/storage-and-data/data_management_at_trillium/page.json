@@ -3,177 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the main purpose of this document?",
-      "answer": "This document describes the various Niagara filesystems on SciNet and how to properly use them to optimize workflow and be a good SciNet citizen."
+      "question": "What is the main purpose of the Storage and File Management page on Alliance clusters?",
+      "answer": "The main purpose of the Storage and File Management page on Alliance clusters is to describe the various Niagara filesystems and how to use them properly to optimize workflow and be a good SciNet citizen."
     },
     {
-      "question": "What type of high-performance filesystem is predominantly used on SciNet?",
-      "answer": "SciNet predominantly uses GPFS (IBM General Parallel File System), with the exception of /archive."
+      "question": "How do the GPFS filesystems on SciNet perform when accessing data sets consisting of many small files?",
+      "answer": "The GPFS filesystems on SciNet perform quite poorly when accessing data sets consisting of many small files, as they are designed for rapid reads and writes to large datasets in parallel."
     },
     {
-      "question": "What is a key performance characteristic of GPFS on SciNet regarding file access?",
-      "answer": "GPFS performs quite poorly when accessing datasets that consist of many small files; it is significantly faster with fewer, larger files."
+      "question": "What are the recommended I/O solutions for multi-process jobs on SciNet to avoid performance issues and crashes?",
+      "answer": "For multi-process jobs on SciNet, recommended I/O solutions include using MPI-IO, which allows simultaneous file opening by different processes, or a dedicated I/O process that writes data from other processes to a single file."
     },
     {
-      "question": "Why are many small files inefficient on SciNet's scratch and project filesystems?",
-      "answer": "The blocksize for the scratch and project filesystems is 16MB, making many small files wasteful of space."
+      "question": "What is the primary intended use for the `/home` filesystem on SciNet's Trillium cluster?",
+      "answer": "The `/home` filesystem on SciNet's Trillium cluster is primarily intended for individual user files, common software, or small datasets used by group members, provided they do not exceed individual quotas. It is read-only on compute nodes."
     },
     {
-      "question": "What are some recommended I/O strategies for multi-process jobs to avoid performance issues with GPFS?",
-      "answer": "Consider using MPI-IO, which allows simultaneous file access by different processes, or a dedicated process for I/O that consolidates data into a single file."
+      "question": "What is the purpose of the `/scratch` filesystem on SciNet's Trillium cluster, and what is its purging policy?",
+      "answer": "The `/scratch` filesystem on SciNet's Trillium cluster is primarily for temporary or transient files, computation results, or easily recreatable material. Files on `/scratch` are automatically deleted if they haven't been accessed or modified for more than two months."
     },
     {
-      "question": "What is the primary use for the /home ($HOME) filesystem?",
-      "answer": "/home is intended primarily for individual user files, common software, or small datasets used by others in the same group, provided they don't exceed individual quotas."
+      "question": "What is the intended use for the `/project` filesystem on SciNet's Trillium cluster, and what is an important consideration for its use?",
+      "answer": "The `/project` filesystem on SciNet's Trillium cluster is intended for common group software, large static datasets, or material costly to reacquire or regenerate. Material on `/project` is expected to remain relatively immutable over time, and temporary files should be kept on `/scratch`."
     },
     {
-      "question": "What is a key limitation of /home on compute nodes?",
-      "answer": "/home is read-only on the compute nodes."
+      "question": "What is the Burst Buffer (`/bb`) on SciNet's Trillium cluster, and when should it be requested?",
+      "answer": "The Burst Buffer (`/bb`) on SciNet's Trillium cluster is a very fast, high-performance alternative to `/scratch` made of solid-state drives (SSDs). It should be requested if anticipating many I/O operations (IOPs) or when jobs experience I/O bottlenecks on `/scratch` or `/project`."
     },
     {
-      "question": "What is /scratch ($SCRATCH) intended for?",
-      "answer": "/scratch is for temporary or transient files, computation and simulation results, or any material that can be easily recreated or reacquired."
+      "question": "What is `/dev/shm` on Trillium nodes, and why is it useful?",
+      "answer": "`/dev/shm` on Trillium nodes is a RAMdisk, which is a temporary local filesystem using up to 70 percent of the node's RAM (202GB). It is much faster than real disk or Burst Buffer and is particularly useful for codes with high file I/O that are being migrated to a High-Performance Computing (HPC) platform."
     },
     {
-      "question": "What is the purging policy for /scratch?",
-      "answer": "/scratch is purged on a regular basis, with files not accessed or modified for over two months being deleted on the 15th of each month."
+      "question": "What do the environment variables `$SLURM_TMPDIR` and `$BB_JOB_DIR` refer to on Trillium compute jobs, and what are their primary uses?",
+      "answer": "On Trillium compute jobs, `$SLURM_TMPDIR` points to RAMdisk for temporary files that fit in memory, while `$BB_JOB_DIR` points to a temporary directory on the burst buffer for applications generating many small temporary files or frequently accessed files that don't fit in RAMdisk."
     },
     {
-      "question": "Does /scratch have backups?",
-      "answer": "No, /scratch does not have backups."
+      "question": "How can users check their disk space usage and quotas on SciNet's Trillium cluster?",
+      "answer": "Users can check their disk space usage and quotas on SciNet's Trillium cluster using the `diskUsage` command on login nodes and datamovers, which provides information on `/home`, `/scratch`, `/project`, and `/archive` filesystems."
     },
     {
-      "question": "What is the purpose of /project ($PROJECT)?",
-      "answer": "/project is for common group software, large static datasets, or material that is very costly for a group to reacquire or re-generate, and is expected to remain relatively immutable."
+      "question": "How are users notified if their files on `/scratch` are scheduled for deletion on SciNet's Trillium cluster?",
+      "answer": "Users are notified by email on the first and twelfth of each month if their `/scratch` files are scheduled for deletion, and they also receive a notification on the shell when logging into Trillium. A list of affected files is also available in `/scratch/t/todelete/current`."
     },
     {
-      "question": "Why should temporary files not be stored on /project?",
-      "answer": "High data turnover on /project induces stress and unnecessary consumption of tapes on the TSM backup system due to backup retention policies."
+      "question": "What is the recommended method for moving data amounts less than 10GB to or from SciNet's Trillium cluster?",
+      "answer": "For moving data amounts less than 10GB to or from SciNet's Trillium cluster, it is recommended to use `scp` or `rsync` directly to any of the login or datamover nodes (e.g., `tri-dm{2,3,4}.scinet.utoronto.ca`)."
     },
     {
-      "question": "What is /bb ($BBUFFER) and when should it be used?",
-      "answer": "/bb is a very fast, high-performance burst buffer made of solid-state drives (SSDs), recommended for jobs with high I/O operations (IOPs) or when I/O bottlenecks occur on scratch or project."
+      "question": "What is the recommended method for moving data amounts larger than 10GB to or from SciNet's Trillium cluster?",
+      "answer": "For moving data amounts larger than 10GB to or from SciNet's Trillium cluster, it is recommended to use `scp` or `rsync` through the datamover nodes (`nia-datamover1` or `nia-datamover2`), either by SSHing to them from a login node or directly connecting from outside. Using Globus is also recommended for frequent transfers."
     },
     {
-      "question": "What is /archive ($ARCHIVE) used for?",
-      "answer": "/archive is a nearline storage pool for temporarily offloading semi-active material from other filesystems, typically when managing quotas or as part of a regular workflow."
+      "question": "What are the Globus endpoints for Trillium and HPSS on Alliance clusters?",
+      "answer": "The Globus endpoint for Trillium is \"alliancecan#trillium\", and for HPSS, it is \"alliancecan#hpss\"."
     },
     {
-      "question": "What is the purpose of /dev/shm (RAM) on Trillium nodes?",
-      "answer": "/dev/shm provides a temporary local filesystem using up to 70% of the node's RAM (202GB), offering much faster performance than disk or burst buffer, particularly useful for I/O-intensive desktop-computing codes."
+      "question": "What is the purpose of Access Control Lists (ACLs) and the `mmputacl` command on SciNet's Trillium cluster?",
+      "answer": "ACLs and the `mmputacl` command on SciNet's Trillium cluster allow users to grant specific permissions (e.g., read, write, execute, control) to other users or groups, including supervisors, for managing files and directories, extending beyond default Unix permissions."
     },
     {
-      "question": "What does the $SLURM_TMPDIR environment variable point to on Trillium compute jobs?",
-      "answer": "On Trillium, $SLURM_TMPDIR points to RAMdisk, which is an in-memory temporary filesystem specific to the job, and its content is deleted after the job finishes."
-    },
-    {
-      "question": "What is the purpose of $BB_JOB_DIR?",
-      "answer": "$BB_JOB_DIR is a temporary directory created on the burst buffer for every job, intended for applications generating many small temporary files or files accessed very frequently (high IOPS) that do not fit in ramdisk."
-    },
-    {
-      "question": "Which temporary storage location is generally preferred if files fit there: $BB_JOB_DIR or ramdisk?",
-      "answer": "Ramdisk (via /dev/shm or $SLURM_TMPDIR) is generally preferred over $BB_JOB_DIR if temporary files fit, due to its superior bandwidth and IOPS."
-    },
-    {
-      "question": "What is the individual user quota for /home?",
-      "answer": "The individual user quota for /home is 100 GB."
-    },
-    {
-      "question": "What is the block size for /home?",
-      "answer": "The block size for /home is 1 MB."
-    },
-    {
-      "question": "Are files on /home backed up?",
-      "answer": "Yes, files on /home are backed up."
-    },
-    {
-      "question": "What is the individual user quota on /scratch?",
-      "answer": "The individual user quota on /scratch is 25 TB, provided the group quota is not reached."
-    },
-    {
-      "question": "What is the block size for /scratch and /project?",
-      "answer": "The block size for both /scratch and /project is 16 MB."
-    },
-    {
-      "question": "How long do files remain on /scratch before potential purging?",
-      "answer": "Files on /scratch expire after 2 months if they have not been accessed or modified."
-    },
-    {
-      "question": "What is the quota for /bb per user?",
-      "answer": "The quota for /bb is 10 TB per user."
-    },
-    {
-      "question": "What is the expiration time for files on /bb?",
-      "answer": "Files on /bb have a very short expiration time."
-    },
-    {
-      "question": "Is /bb backed up?",
-      "answer": "No, /bb is not backed up."
-    },
-    {
-      "question": "What is the backup status of /archive?",
-      "answer": "/archive uses dual-copy for backup."
-    },
-    {
-      "question": "Is /archive accessible on Trillium login or compute nodes?",
-      "answer": "No, /archive is not accessible on Trillium login, compute, or datamover nodes."
-    },
-    {
-      "question": "How can users check their disk usage on SciNet filesystems?",
-      "answer": "Users can use the `diskUsage` command on login nodes and datamovers, with options like `-a` for group usage or `-u` for another user."
-    },
-    {
-      "question": "How can users identify directories with many files or large amounts of data?",
-      "answer": "Users can use `/scinet/niagara/bin/topUserDirOver1000list` for directories with over 1000 files and `/scinet/niagara/bin/topUserDirOver1GBlist` for directories with over 1GB of material."
-    },
-    {
-      "question": "How often is disk usage and quota information updated?",
-      "answer": "Disk usage and quota information is updated every 3 hours."
-    },
-    {
-      "question": "What is the process for notifying users about files scheduled for deletion from /scratch?",
-      "answer": "A list of files scheduled for deletion is produced on the 1st of each month with email notifications, followed by a second scan and notification around the 12th, before automatic deletion on the 15th."
-    },
-    {
-      "question": "How can a user check if their files are scheduled for deletion from /scratch?",
-      "answer": "Users can check for a file named after their userid and groupid in `/scratch/t/todelete/current` using `ls -1 /scratch/t/todelete/current | grep <userid>`."
-    },
-    {
-      "question": "What is the recommended method for moving data amounts less than 10GB to or from Trillium?",
-      "answer": "For amounts less than 10GB, users should use `scp` or `rsync` through the login nodes (`tri-dm{2,3,4}.scinet.utoronto.ca`)."
-    },
-    {
-      "question": "What is the recommended method for moving data amounts larger than 10GB to or from Trillium?",
-      "answer": "For amounts larger than 10GB, users should `ssh` to `nia-datamover1` or `nia-datamover2` from a Trillium login node, or directly `login`/`scp`/`rsync` to them from outside."
-    },
-    {
-      "question": "What is Globus and what are the Trillium and HPSS endpoints?",
-      "answer": "Globus is a web-based tool for data transfer; the Trillium endpoint is \"alliancecan#trillium\" and the HPSS endpoint is \"alliancecan#hpss\"."
-    },
-    {
-      "question": "What is HPSS primarily used for?",
-      "answer": "HPSS is a tape-based storage solution used for long-term storage of data, serving as SciNet's nearline/archive facility."
-    },
-    {
-      "question": "What are the default file permissions for users within the same group on SciNet?",
-      "answer": "By default, users within the same group have read permission to each other's files, but not write permission."
-    },
-    {
-      "question": "What is the purpose of Access Control Lists (ACLs) on SciNet?",
-      "answer": "ACLs allow users to grant specific permissions (e.g., create, move, rename, delete) to other users or groups while still retaining their own access and permissions as the original owner."
-    },
-    {
-      "question": "Which commands are used for managing GPFS ACLs?",
-      "answer": "GPFS ACLs are managed using `mmputacl` (to set), `mmgetacl` (to determine current attributes), `mmdelacl` (to remove), and `mmeditacl` (to create or change)."
-    },
-    {
-      "question": "Can `mmputacl` recursively add or remove ACL attributes to existing files?",
-      "answer": "No, `mmputacl` does not have a built-in recursive option for existing files; it requires individual application or a custom script for recursive operations."
-    },
-    {
-      "question": "Why should users avoid giving write permissions to other users on their top-level home directory?",
-      "answer": "Giving write permission to the top-level home directory seriously compromises privacy and can disable SSH key authentication, among other issues."
+      "question": "What is strongly recommended against when setting ACLs on a user's `/home` directory on SciNet's Trillium cluster?",
+      "answer": "It is strongly recommended to never give write permission to other users on the top level of a user's `/home` directory (`/home/G/GROUP/[owner]`), as this compromises privacy and disables SSH key authentication. Specific sub-directories should be used instead if file manipulation by others is necessary."
     }
   ],
-  "generated_at": "2026-04-11T20:52:06.627140+00:00"
+  "generated_at": "2026-04-13T04:48:14.030819+00:00"
 }

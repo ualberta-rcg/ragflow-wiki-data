@@ -3,49 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, BLAST, pis à quoi ça sert?",
-      "answer": "BLAST, ou « Basic Local Alignment Search Tool », ça sert à trouver des régions similaires entre des séquences de nucléotides ou d'acides aminés, pis à faire un alignement de ces régions-là."
+      "question": "À quoi sert l'outil BLAST (Basic Local Alignment Search Tool)?",
+      "answer": "BLAST permet de trouver des régions similaires entre des séquences de nucléotides ou d'acides aminés et de réaliser un alignement de ces régions homologues."
     },
     {
-      "question": "Où est-ce que je peux trouver plus de détails sur les arguments de BLAST?",
-      "answer": "Tu peux consulter le manuel de l'utilisateur du NCBI en ligne ou lancer la commande `blastn -help`."
+      "question": "Où les utilisateurs peuvent-ils trouver plus d'informations sur les arguments de BLAST?",
+      "answer": "On peut trouver plus d'informations dans le manuel de l'utilisateur du NCBI ou en lançant la commande `blastn -help`."
     },
     {
-      "question": "Où sont stockées les bases de données de séquences fréquemment utilisées sur les grappes de Compute Canada?",
-      "answer": "Les bases de données se trouvent dans `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2022_03_23/` pour les versions plus anciennes, pis pour les plus récentes (`nr` et `nt`), dans `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2025_06_21/`."
+      "question": "Où sont situées les bases de données de séquences BLAST fréquemment utilisées sur les grappes d'Alliance?",
+      "answer": "Elles se trouvent dans `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2022_03_23/` et des versions plus récentes sont disponibles pour `nr` et `nt` dans des répertoires datés."
     },
     {
-      "question": "Quelle est la première étape à faire avant de lancer une recherche BLAST?",
-      "answer": "Il faut préparer la base de données de référence avec l'outil `makeblastdb` en tant que tâche de prétraitement."
+      "question": "Comment doit-on préparer une base de données personnalisée avant d'exécuter une recherche BLAST?",
+      "answer": "Il faut utiliser la commande `makeblastdb` pour prétraiter le fichier de référence et créer la base de données."
     },
     {
-      "question": "Comment on fait pour accélérer une recherche BLAST quand on a beaucoup de requêtes?",
-      "answer": "On peut accélérer ça en utilisant le parallélisme des données, c'est-à-dire en divisant le fichier de requêtes en plusieurs petites parts à interroger sur la base de données."
+      "question": "Quel est le but d'un script Slurm pour `makeblastdb`?",
+      "answer": "Un script Slurm pour `makeblastdb` charge les modules `gcc` et `blast+` et exécute la commande `makeblastdb` pour créer la base de données à partir d'un fichier de référence."
     },
     {
-      "question": "Si j'utilise un vecteur de tâches pour accélérer ma recherche, comment je devrais préparer mes requêtes?",
-      "answer": "Tu devrais diviser ton fichier de requêtes (`seq.fa`) en plusieurs petites parts d'au moins 1 Mo chacune avec l'utilitaire `faSplit`, comme `faSplit sequence seqs.fa 10 seq`."
+      "question": "Comment le parallélisme des données peut-il améliorer une recherche BLAST?",
+      "answer": "Le parallélisme des données peut grandement améliorer la recherche en divisant le fichier de requêtes en plusieurs petites requêtes à la base de données."
     },
     {
-      "question": "Comment on soumet un vecteur de tâches BLAST après avoir créé la base de données?",
-      "answer": "Tu peux soumettre le script du vecteur de tâches avec une dépendance sur la création de la base de données, comme ça: `sbatch --dependency=afterok:$(sbatch makeblastdb.sh) blastn_array.sh`."
+      "question": "Quel utilitaire peut-on utiliser pour diviser un fichier de requêtes en plusieurs petites parts pour un vecteur de tâches BLAST?",
+      "answer": "On peut utiliser l'utilitaire `faSplit` (du module `kentutils`) pour diviser le fichier de requêtes en plusieurs fichiers plus petits."
     },
     {
-      "question": "Une fois que toutes les tâches d'un vecteur sont finies, comment on rassemble les résultats?",
-      "answer": "Tu peux concaténer les fichiers de résultats avec la commande `cat seq.ref.{0..9} > seq.ref` à partir du nœud de connexion ou comme tâche indépendante."
+      "question": "Quelle est la taille minimale recommandée pour les parts de fichiers de requêtes divisés afin d'éviter de nuire au système de fichiers parallèle?",
+      "answer": "Les parts devraient être d'au moins 1 Mo; des parts plus petites pourraient nuire au système de fichiers parallèle."
     },
     {
-      "question": "Pourquoi j'utiliserais GNU Parallel pour mes recherches BLAST au lieu des vecteurs de tâches?",
-      "answer": "GNU Parallel est bon pour grouper plusieurs petites tâches pis les paralléliser, ce qui réduit les problèmes liés aux nombreux petits fichiers dans un système de fichiers parallèle."
+      "question": "Comment soumettre un vecteur de tâches (array job) BLAST sur les grappes d'Alliance après avoir divisé les requêtes?",
+      "answer": "On crée un script Slurm avec l'option `--array` et on le soumet avec `sbatch --dependency=afterok:$(sbatch makeblastdb.sh) blastn_array.sh` pour s'assurer que la base de données est prête."
     },
     {
-      "question": "Est-ce que la taille des blocs est importante quand on utilise GNU Parallel, pis comment on la gère?",
-      "answer": "Oui, la taille des blocs est très importante pour pas gaspiller des cœurs. Tu peux laisser GNU Parallel la décider en utilisant l'option `--block -1`."
+      "question": "Après l'exécution d'un vecteur de tâches BLAST, comment concaténer les résultats individuels?",
+      "answer": "On utilise la commande `cat seq.ref.{0..9} > seq.ref` pour concaténer tous les fichiers de résultats dans un seul fichier."
     },
     {
-      "question": "Quels sont les trucs pour optimiser mes recherches BLAST?",
-      "answer": "Tu peux copier ta base de données FASTA dans l'espace local du nœud (`$SLURM_TMPDIR`), réduire le nombre de réponses (`-max_target_seqs`, `-max_hsps`), pis limiter la liste des réponses avec des filtres `evalue`."
+      "question": "Quels sont les avantages d'utiliser GNU Parallel pour les recherches BLAST?",
+      "answer": "GNU Parallel permet de grouper plusieurs petites tâches en une seule et de la paralléliser, réduisant les problèmes avec de nombreux petits fichiers sur un système de fichiers parallèle."
+    },
+    {
+      "question": "Comment GNU Parallel gère-t-il la taille des blocs lors de la lecture d'un fichier de séquences pour BLAST?",
+      "answer": "On peut laisser GNU Parallel décider de la taille des blocs avec `--block -1` ou la spécifier manuellement, car la taille des blocs est importante pour l'efficacité."
+    },
+    {
+      "question": "Quelle est la particularité du fichier d'entrée lorsqu'on utilise GNU Parallel pour BLAST avec la méthode `pipepart`?",
+      "answer": "Le fichier d'entrée ne doit pas être compressé lorsqu'on l'utilise avec la méthode `pipepart` de GNU Parallel."
+    },
+    {
+      "question": "Comment soumettre une tâche BLAST utilisant GNU Parallel en s'assurant que la base de données est prête?",
+      "answer": "On utilise la commande `sbatch --dependency=afterok:$(sbatch makeblastdb.sh) blastn_gnu.sh`."
+    },
+    {
+      "question": "Quelle est une astuce pour améliorer les performances si le stockage local du nœud le permet lors d'une recherche BLAST?",
+      "answer": "On peut copier la base de données FASTA dans l'espace local `/scratch` (`$SLURM_TMPDIR`) du nœud."
+    },
+    {
+      "question": "Comment peut-on réduire le nombre de réponses dans une recherche BLAST pour améliorer les performances, si la recherche s'y prête?",
+      "answer": "On peut utiliser les arguments `-max_target_seqs` et `-max_hsps` pour limiter le nombre de réponses."
+    },
+    {
+      "question": "Comment filtrer les réponses d'une recherche BLAST pour ne conserver que les résultats quasi identiques?",
+      "answer": "On peut utiliser le filtre `-evalue` pour limiter la liste des réponses aux résultats quasi identiques."
     }
   ],
-  "generated_at": "2026-04-11T18:22:00.437786+00:00"
+  "generated_at": "2026-04-13T02:49:59.867378+00:00"
 }

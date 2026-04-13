@@ -4,137 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is Abaqus FEA?",
-      "answer": "Abaqus FEA is a software suite for finite element analysis and computer-aided engineering."
+      "question": "How do users configure their Abaqus license to run on Alliance clusters, and what additional steps are needed for remote server access?",
+      "answer": "Users must configure their Abaqus license by logging into a cluster and creating a file named `$HOME/.licenses/abaqus.lic`. This file should contain the line `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"port@server\")`, with `port@server` replaced by the flexlm port number and server IP address (or fully qualified hostname) of their Abaqus license server. For legacy version 6.14.1, `ABAQUSLM_LICENSE_FILE` should be replaced with `LM_LICENSE_FILE`. For remote server access, users need to contact technical support, providing their flexlm port number, static vendor port number, and the IP address of their Abaqus license server. This allows Alliance and local system administrators to make necessary configuration changes, including opening the local server firewall to connections from the cluster on both ports. Additionally, a special license agreement must generally be negotiated and signed by SIMULIA and the user's institution for remote use on Alliance hardware."
     },
     {
-      "question": "Do I need to provide my own Abaqus license to use the software modules on clusters?",
-      "answer": "Yes, you must provide your own license to use Abaqus software modules on our clusters."
+      "question": "What is the newest Abaqus module available in the StdEnv/2023 environment, and what are its key improvements and implications for users?",
+      "answer": "A new module for `abaqus/2026` is now installed into the default StdEnv/2023 environment. This version resolves the \"*** buffer overflow detected ***\" error previously experienced with `abaqus/2021` on recent clusters. All Slurm scripts provided on the wiki page have been updated to work with both `abaqus/2026` and `abaqus/2021` where possible, and researchers are advised to likewise update their personal Slurm scripts. The `abaqus/2026` module contains the initial \"Abaqus 2026 Golden\" release, with \"Abaqus 2026 FP.CFA.2606\" updates expected in a subsequent module named `abaqus/2026.2606`."
     },
     {
-      "question": "How do I configure my Abaqus account on a cluster for licensing?",
-      "answer": "To configure your account on a cluster, log in and create a file named `$HOME/.licenses/abaqus.lic`."
-    },
-    {
-      "question": "What content should be in the `$HOME/.licenses/abaqus.lic` file for Abaqus?",
-      "answer": "The file should contain `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"port@server\")`, where `port@server` is replaced with your flexlm port number and server IP address (or fully qualified hostname)."
-    },
-    {
-      "question": "What needs to be changed in the `abaqus.lic` file if I want to use legacy Abaqus version 6.14.1?",
-      "answer": "If you want to use legacy version 6.14.1, you should replace `ABAQUSLM_LICENSE_FILE` with `LM_LICENSE_FILE` in the `abaqus.lic` file."
-    },
-    {
-      "question": "What additional steps are required if my Abaqus license isn't set up for an Alliance cluster?",
-      "answer": "If your license has not been set up for use on an Alliance cluster, additional configuration changes by the Alliance system administrator and your local system administrator will need to be done."
-    },
-    {
-      "question": "Why are additional configuration changes needed for an Abaqus license on an Alliance cluster?",
-      "answer": "Such changes are necessary to ensure the flexlm and vendor TCP ports of your Abaqus server are reachable from all cluster compute nodes when jobs are run via the queue."
-    },
-    {
-      "question": "What three items should I include when writing to technical support for Abaqus license setup on an Alliance cluster?",
-      "answer": "You should include the flexlm port number, static vendor port number, and the IP address of your Abaqus license server."
-    },
-    {
-      "question": "What will be sent to my administrator after contacting technical support for Abaqus license setup?",
-      "answer": "You will then be sent a list of cluster IP addresses so that your administrator can open the local server firewall to allow connections from the cluster on both ports."
-    },
-    {
-      "question": "Is a special agreement required to use a local Abaqus license remotely on Alliance hardware?",
-      "answer": "Yes, a special license agreement must generally be negotiated and signed by SIMULIA and your institution before a local license may be used remotely on Alliance hardware."
-    },
-    {
-      "question": "How is the `abaqus/2026` module configured by default regarding license servers?",
-      "answer": "The `abaqus/2026` module is configured by default to work with Simulia `FLEXnet` license servers, such as the free SHARCNET license server."
-    },
-    {
-      "question": "How can I use a local DSLS-based institutional license server with Abaqus?",
-      "answer": "To use a local `DSLS` based institutional license server, two small text files `abaqus_v6.env` and `DSLicSrv.txt` should be created in your simulation submit directory."
-    },
-    {
-      "question": "What are the required contents of the `abaqus_v6.env` file for a DSLS license server?",
-      "answer": "The `abaqus_v6.env` file should contain `license_server_type=DSLS` and `dsls_license_config=\"DSLicSrv.txt\"`."
-    },
-    {
-      "question": "What should the `DSLicSrv.txt` file contain for a DSLS license server?",
-      "answer": "The `DSLicSrv.txt` file should contain `YOUR-SERVER-HOSTNAME:PORT-NUMBER`."
-    },
-    {
-      "question": "What is the default environment for the new `abaqus/2026` module?",
-      "answer": "A new module for `abaqus/2026` is now installed into the default `StdEnv/2023` environment."
-    },
-    {
-      "question": "What error does the new `abaqus/2026` module resolve?",
-      "answer": "This new version resolves the `*** buffer overflow detected ***` error with `abaqus/2021` on all recent clusters."
-    },
-    {
-      "question": "Do researchers need to update their personal Slurm scripts for `abaqus/2026`?",
-      "answer": "Yes, all personal Slurm scripts should likewise be updated by researchers to work with both `abaqus/2026` and `abaqus/2021` where possible."
-    },
-    {
-      "question": "What does the initial `Abaqus 2026 Golden` release module contain?",
-      "answer": "The `abaqus/2026` module contains the initial *Abaqus 2026 Golden* release."
-    },
-    {
-      "question": "What is the name of the next Abaqus module to be installed after `abaqus/2026`?",
-      "answer": "Another module named `abaqus/2026.2606` containing *Abaqus 2026 FP.CFA.2606* level updates will be installed next."
-    },
-    {
-      "question": "What are Slurm scripts used for in Abaqus?",
-      "answer": "Slurm scripts are used for submitting thread and MPI-based parallel simulations to single or multiple compute nodes."
-    },
-    {
-      "question": "Which Slurm scripts are generally sufficient for most users running Abaqus simulations?",
-      "answer": "Most users will find it sufficient to use one of the **project directory scripts** provided in the *Single node computing* sections."
-    },
-    {
-      "question": "What is the purpose of the optional `memory=` argument in Abaqus Slurm scripts?",
-      "answer": "The optional `memory=` argument found in the last line of the scripts is intended for larger memory or problematic jobs where the 3072MB offset value may require tuning."
-    },
-    {
-      "question": "How can users get a listing of all Abaqus command line arguments?",
-      "answer": "A listing of all Abaqus command line arguments can be obtained by loading an Abaqus module and running: `abaqus -help | less`."
-    },
-    {
-      "question": "Which type of Slurm scripts should be used for single-node Abaqus jobs running less than one day?",
-      "answer": "Single-node jobs that run less than one day should find the *project directory script* located in the first tab sufficient."
-    },
-    {
-      "question": "Which type of Slurm scripts are recommended for single-node Abaqus jobs running for more than a day?",
-      "answer": "Single-node jobs that run for more than a day should use one of the restart scripts."
-    },
-    {
-      "question": "How do jobs that create large restart files benefit from temporary directory scripts?",
-      "answer": "Jobs that create large restart files will benefit by writing to the local disk through the use of the `SLURM_TMPDIR` environment variable utilized in the **temporary directory scripts**."
-    },
-    {
-      "question": "What is the function of restart scripts in Abaqus job submission?",
-      "answer": "The restart scripts shown here will continue jobs that have been terminated early for some reason."
-    },
-    {
-      "question": "What are some reasons for job failures that restart scripts can address?",
-      "answer": "Such job failures can occur if a job reaches its maximum requested runtime before completing and is killed by the queue or if the compute node the job was running on crashed due to an unexpected hardware failure."
-    },
-    {
-      "question": "Are other restart types possible beyond those addressed by the provided scripts?",
-      "answer": "Yes, other restart types are possible by further tailoring of the input file (not shown here) to continue a job with additional steps or change the analysis."
-    },
-    {
-      "question": "Which scripts should be used for Abaqus jobs requiring large memory or compute resources beyond a single compute node?",
-      "answer": "Jobs that require large memory or larger compute resources (beyond that which a single compute node can provide) should use the MPI scripts in the **multiple node sections** below to distribute computing over arbitrary node ranges."
-    },
-    {
-      "question": "What should be done before running long multi-node Abaqus jobs?",
-      "answer": "Short scaling test jobs should be run to determine wall-clock times (and memory requirements) as a function of the number of cores (2, 4, 8, etc.) to determine the optimal number before running any long jobs."
-    },
-    {
-      "question": "What types of parallelization do Abaqus solvers support for Standard Analysis?",
-      "answer": "Abaqus solvers support thread-based and MPI-based parallelization for Standard Analysis."
-    },
-    {
-      "question": "Are restart scripts currently provided for multiple node Standard Analysis jobs?",
-      "answer": "No, scripts to perform multiple node job restarts are not currently provided for Standard Analysis."
+      "question": "What types of Slurm scripts are available for Abaqus job submission on Alliance clusters, and under what circumstances should a user opt for a 'restart script' or a 'temporary directory script'?",
+      "answer": "For Abaqus job submission on Alliance clusters, prototype Slurm scripts are available for thread-based and MPI-based parallel simulations, categorised as 'project directory scripts', 'restart scripts', and 'temporary directory scripts'. A user should opt for a 'restart script' to continue jobs that have been terminated prematurely, such as those killed by the queue for exceeding their maximum requested runtime or due to a compute node crash. 'Temporary directory scripts' are beneficial for single-node jobs that generate large restart files, as they utilize the `SLURM_TMPDIR` environment variable to write these files to the local disk, which can improve performance."
     }
   ],
-  "generated_at": "2026-04-11T15:31:06.075039+00:00"
+  "generated_at": "2026-04-13T00:46:56.758854+00:00"
 }

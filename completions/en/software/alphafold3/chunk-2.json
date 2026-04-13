@@ -4,101 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What is the filename for the AlphaFold3 data pipeline submission script?",
-      "answer": "The submission script for the AlphaFold3 data pipeline is named `alphafold3-data.sh`."
+      "question": "What are the two main stages for running AlphaFold3, and what are the typical computational resource allocations for each stage as outlined in the provided Slurm scripts?",
+      "answer": "AlphaFold3 is run in two main stages: the \"Data pipeline (CPU)\" and \"Model inference.\" The Data pipeline stage, which is CPU-only, typically requires a maximum of 8 CPUs per task and 64 GB of memory. The Model inference stage, which requires a GPU, typically uses 1 CPU per task, one A100 GPU (or greater), and 20 GB of memory."
     },
     {
-      "question": "What is the recommended maximum number of CPUs for the AlphaFold3 data pipeline stage?",
-      "answer": "A maximum of 8 CPUs is recommended for the AlphaFold3 data pipeline stage, as AlphaFold has no benefit from using more for this stage."
+      "question": "What specific GPU hardware is required to run AlphaFold3's model inference stage?",
+      "answer": "The AlphaFold3 model inference stage specifically requires GPUs with compute capability 8.0 or greater. This means it only supports A100 GPUs or more recent compatible models."
     },
     {
-      "question": "How much memory is typically allocated for the AlphaFold3 data pipeline job?",
-      "answer": "The AlphaFold3 data pipeline job is typically allocated 64 GB of memory (`#SBATCH --mem=64G`)."
-    },
-    {
-      "question": "Which modules need to be loaded for the AlphaFold3 data pipeline stage?",
-      "answer": "The modules to be loaded for the AlphaFold3 data pipeline stage are `StdEnv/2023`, `hmmer-alphafold3/3.4`, `rdkit/2024.03.5`, and `python/3.12`."
-    },
-    {
-      "question": "Where should the AlphaFold3 databases be located for the data pipeline stage?",
-      "answer": "The AlphaFold3 databases should be located in the `$SCRATCH/alphafold/dbs` directory, as defined by `DOWNLOAD_DIR`."
-    },
-    {
-      "question": "Where should the input data for the AlphaFold3 data pipeline be placed?",
-      "answer": "The input data for the AlphaFold3 data pipeline should be placed in the `$SCRATCH/alphafold/input` directory, as defined by `INPUT_DIR`."
-    },
-    {
-      "question": "Where does the AlphaFold3 data pipeline initially store its output?",
-      "answer": "The AlphaFold3 data pipeline initially stores its output in the `$SLURM_TMPDIR/alphafold/output` directory, as defined by `OUTPUT_DIR`."
-    },
-    {
-      "question": "How is a virtual environment generated for the AlphaFold3 data pipeline within the job script?",
-      "answer": "A virtual environment is generated in `$SLURM_TMPDIR` using the command `virtualenv --no-download $SLURM_TMPDIR/env`."
-    },
-    {
-      "question": "What command is used to run the AlphaFold3 data pipeline stage?",
-      "answer": "The command `python run_alphafold.py --db_dir=$DOWNLOAD_DIR --input_dir=$INPUT_DIR --output_dir=$OUTPUT_DIR --jax_compilation_cache_dir=$HOME/.cache --nhmmer_n_cpu=$SLURM_CPUS_PER_TASK --jackhmmer_n_cpu=$SLURM_CPUS_PER_TASK --norun_inference` is used to run the data stage."
-    },
-    {
-      "question": "How are the outputs from the AlphaFold3 data pipeline copied to a persistent location?",
-      "answer": "After the data stage, the outputs are copied from `$SLURM_TMPDIR/alphafold/output` to `$SCRATCH/alphafold/output` using `mkdir $SCRATCH/alphafold/output` and `cp -vr $OUTPUT_DIR $SCRATCH/alphafold/output`."
-    },
-    {
-      "question": "What is the filename for the AlphaFold3 model inference submission script?",
-      "answer": "The submission script for the AlphaFold3 model inference stage is named `alphafold3-inference.sh`."
-    },
-    {
-      "question": "What GPU compute capability is required for AlphaFold3 model inference?",
-      "answer": "AlphaFold3 model inference only supports compute capability 8.0 or greater."
-    },
-    {
-      "question": "Which specific GPUs are compatible with AlphaFold3 model inference?",
-      "answer": "AlphaFold3 model inference is compatible with A100s or greater GPUs."
-    },
-    {
-      "question": "How many CPUs should be allocated for the AlphaFold3 model inference stage?",
-      "answer": "Only 1 CPU (`#SBATCH --cpus-per-task=1`) should be allocated for the AlphaFold3 model inference stage, as AlphaFold has no benefit from using more for this stage."
-    },
-    {
-      "question": "How many GPUs are typically allocated for the AlphaFold3 model inference stage?",
-      "answer": "One A100 or greater GPU (`#SBATCH --gpus=a100:1`) is typically allocated for the AlphaFold3 model inference stage."
-    },
-    {
-      "question": "How much memory is typically allocated for the AlphaFold3 model inference job?",
-      "answer": "The AlphaFold3 model inference job is typically allocated 20 GB of memory (`#SBATCH --mem=20G`)."
-    },
-    {
-      "question": "Which modules need to be loaded for the AlphaFold3 model inference stage?",
-      "answer": "The modules to be loaded for the AlphaFold3 model inference stage are `StdEnv/2023`, `hmmer-alphafold3/3.4`, `rdkit/2024.03.5`, `python/3.12`, `cuda/12.2`, and `cudnn/9.2`."
-    },
-    {
-      "question": "Where should the AlphaFold3 input data be located for the model inference stage?",
-      "answer": "The input data for the AlphaFold3 model inference stage should be located in the `$SCRATCH/alphafold/input` directory, following the data stage, as defined by `INPUT_DIR`."
-    },
-    {
-      "question": "Where does the AlphaFold3 model inference stage store its output?",
-      "answer": "The AlphaFold3 model inference stage stores its output in the `$SCRATCH/alphafold/output` directory, as defined by `OUTPUT_DIR`."
-    },
-    {
-      "question": "What is the purpose of `export XLA_FLAGS=\"--xla_gpu_enable_triton_gemm=false\"` in both submission scripts?",
-      "answer": "This command is included as a compilation-time workaround related to XLA flags, as indicated in the AlphaFold3 documentation."
-    },
-    {
-      "question": "What environment variables are set to configure GPU memory usage for AlphaFold3 inference?",
-      "answer": "The environment variables `export XLA_PYTHON_CLIENT_PREALLOCATE=true` and `export XLA_CLIENT_MEM_FRACTION=0.95` are set to configure GPU memory usage for AlphaFold3 inference."
-    },
-    {
-      "question": "What command is used to run the AlphaFold3 model inference stage?",
-      "answer": "The command `python run_alphafold.py --db_dir=$DOWNLOAD_DIR --input_dir=$INPUT_DIR --output_dir=$OUTPUT_DIR --jax_compilation_cache_dir=$HOME/.cache --norun_data_pipeline` is used to run the inference stage."
-    },
-    {
-      "question": "What is the SLURM job name specified in the `alphafold3-data.sh` script?",
-      "answer": "The SLURM job name specified in the `alphafold3-data.sh` script is `alphafold3-data`."
-    },
-    {
-      "question": "What is the SLURM job name specified in the `alphafold3-inference.sh` script?",
-      "answer": "The SLURM job name specified in the `alphafold3-inference.sh` script is `alphafold3-inference`."
+      "question": "How are the input data, downloaded databases, and output results typically configured for the AlphaFold3 data pipeline and model inference stages on the clusters?",
+      "answer": "For the data pipeline stage, downloaded databases (`DOWNLOAD_DIR`) are set to `$SCRATCH/alphafold/dbs`, input data (`INPUT_DIR`) to `$SCRATCH/alphafold/input`, and output results (`OUTPUT_DIR`) are initially directed to `$SLURM_TMPDIR/alphafold/output` before being copied to `$SCRATCH/alphafold/output`. For the model inference stage, `DOWNLOAD_DIR` is `$SCRATCH/alphafold/dbs`, `INPUT_DIR` is `$SCRATCH/alphafold/input`, and `OUTPUT_DIR` is directly set to `$SCRATCH/alphafold/output`."
     }
   ],
-  "generated_at": "2026-04-12T16:31:27.298815+00:00"
+  "generated_at": "2026-04-13T01:35:24.000193+00:00"
 }

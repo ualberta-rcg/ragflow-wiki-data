@@ -4,21 +4,13 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "How do you exit an interactive Apptainer shell session?",
-      "answer": "To exit an interactive Apptainer shell session, you need to type `exit` and then hit the Enter/Return key."
+      "question": "How do you interactively run commands inside an Apptainer container, and what options are recommended when doing so on Alliance clusters?",
+      "answer": "To run commands interactively while remaining inside an Apptainer container, use the `apptainer shell` command, for example: `apptainer shell your-container-name.sif`. Once the container starts, you will see an `Apptainer>` prompt where you can run desired shell commands. To exit, type `exit`. On Alliance clusters, it is recommended to include options such as `-C`, `-c`, `-e`, `-W $SLURM_TMPDIR`, and various bind mount options (e.g., `-B /home:/cluster_home -B /project -B /scratch`) to ensure proper environment isolation and access to your disk space. An example command would be: `apptainer shell -C -W $SLURM_TMPDIR -B /home:/cluster_home -B /project -B /scratch your-container-name.sif`."
     },
     {
-      "question": "What command allows you to run commands interactively while remaining inside an Apptainer container?",
-      "answer": "To run commands interactively while remaining inside an Apptainer container, you should use the `apptainer shell` command."
-    },
-    {
-      "question": "What additional options are recommended when using `apptainer shell` on clusters?",
-      "answer": "When using `apptainer shell` on clusters, it's recommended to include options such as `-C`, `-c`, `-e`, `-W`, and various bind mount options."
-    },
-    {
-      "question": "Why are options like `-C`, `-c`, `-e`, `-W`, and bind mounts suggested for `apptainer shell` on clusters?",
-      "answer": "These options are suggested to make your disk space available to the programs running in your container on clusters."
+      "question": "What is the purpose of using the `-W $SLURM_TMPDIR` option with `apptainer shell` on Alliance clusters, and why are bind mounts important with isolation options?",
+      "answer": "The `-W` or `--workdir` option is used to specify a real disk location for Apptainer's working directory, such as `${SLURM_TMPDIR}`. This is crucial on Alliance clusters because `/tmp` and similar filesystems typically use RAM, and if a job consumes too much RAM, it risks being terminated. Directing temporary files to a disk location like `${SLURM_TMPDIR}` provides a suitable workaround. Bind mounts (e.g., `-B /project`, `-B /scratch`, `-B /home:/cluster_home`) are important when using container isolation options like `-C` or `-c`, which prevent access to filesystems outside the container by default. They explicitly make external disk spaces available inside the container, ensuring that your data files and project directories can be accessed by programs running within the container. Specifically, `-B /home:/cluster_home` is recommended for the `/home` filesystem to prevent host configuration files from interfering with the container's software."
     }
   ],
-  "generated_at": "2026-04-11T17:28:40.215403+00:00"
+  "generated_at": "2026-04-13T02:11:47.176220+00:00"
 }

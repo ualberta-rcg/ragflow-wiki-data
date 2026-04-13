@@ -4,45 +4,13 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on soumet un script de tâche hybride MPI/OpenMP sur Trillium?",
-      "answer": "Pour soumettre un script de tâche hybride MPI/OpenMP sur Trillium, vous devez le faire à partir de votre répertoire `$SCRATCH` sur un nœud de connexion en utilisant la commande `sbatch hybrid_job.sh`."
+      "question": "Comment soumettre une tâche hybride combinant MPI et OpenMP sur la grappe Trillium, et que se passe-t-il après la soumission de ce type de tâche?",
+      "answer": "Pour soumettre une tâche hybride MPI/OpenMP sur la grappe Trillium, on utilise la commande `sbatch` avec un script shell (par exemple, `sbatch hybrid_job.sh`) depuis son répertoire `$SCRATCH` sur un nœud de connexion. Une fois que l'ordonnanceur Slurm a alloué les nœuds requis, il exécute le script. Ce script change le répertoire de soumission, charge les modules nécessaires (comme StdEnv, gcc et OpenMPI), configure les variables d'environnement pour OpenMP (par exemple, `OMP_NUM_THREADS`), précharge une bibliothèque pour optimiser MPI-IO si nécessaire (avec `source /scinet/vast/etc/vastpreload-openmpi.bash`), puis exécute l'application hybride à l'aide de `mpirun` et d'options de mappage spécifiques pour bien distribuer les processus et les fils sur les cœurs."
     },
     {
-      "question": "Qu'est-ce qui arrive après avoir soumis le script `hybrid_job.sh` avec `sbatch`?",
-      "answer": "Après avoir soumis le script `hybrid_job.sh` avec `sbatch`, l'ordonnanceur Slurm lit les directives `#SBATCH` comme une requête de tâche nommée `hybrid_job`. Il recherche ensuite deux nœuds pour exécuter 48 tâches chacune avec 4 fils pendant une heure. Une fois les nœuds alloués, Slurm exécute le script."
-    },
-    {
-      "question": "Quelles sont les opérations que le script hybride effectue une fois qu'il est exécuté par Slurm?",
-      "answer": "Le script hybride effectue les opérations suivantes : il change le répertoire de soumission, charge les modules nécessaires (comme `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`), précharge une bibliothèque pour optimiser MPI-IO pour le système de fichiers VAST, puis exécute l'application `hybrid_example` en distribuant les processus et les fils sur l'ensemble des cœurs avec l'option `--map-by` de `mpirun`."
-    },
-    {
-      "question": "Pourquoi est-ce important d'utiliser `source /scinet/vast/etc/vastpreload-openmpi.bash` dans un script de tâche hybride?",
-      "answer": "Il est important d'utiliser `source /scinet/vast/etc/vastpreload-openmpi.bash` pour précharger une bibliothèque qui optimise MPI-IO pour le système de fichiers VAST. Si vous utilisez IntelMPI, il faudrait plutôt utiliser `source /scinet/vast/etc/vastpreload-intelmpi.bash`."
-    },
-    {
-      "question": "Est-ce qu'on doit utiliser `mpirun` ou `srun` pour que le préchargement de la bibliothèque VAST fonctionne?",
-      "answer": "Pour que le préchargement de la bibliothèque VAST fonctionne, il est impératif d'utiliser `mpirun` plutôt que `srun`."
-    },
-    {
-      "question": "Quand est-ce qu'on devrait changer l'option `--map-by l3cache` à `numa` ou `socket` pour l'application `hybrid_example`?",
-      "answer": "Pour l'application `hybrid_example`, si vous utilisez plus de 8 fils par processus (tâche ou rang MPI) mais au plus 24, il faut changer `--map-by l3cache` pour `--map-by numa`. Si vous utilisez plus de 24 fils par processus, il faut changer pour `--map-by socket`."
-    },
-    {
-      "question": "Quelles sont les options d'allocation de GPU sur la sous-grappe de GPU de Trillium?",
-      "answer": "Sur la sous-grappe de GPU de Trillium, vous pouvez demander un seul GPU en utilisant `--gpus-per-node=1` ou un multiple de quatre GPU (un nœud GPU entier) en utilisant `--gpus-per-node=4`."
-    },
-    {
-      "question": "Est-ce possible de demander 2 ou 3 GPU par nœud sur Trillium?",
-      "answer": "Non, il n'est pas possible de demander `--gpus-per-node=2` ou `3` sur Trillium."
-    },
-    {
-      "question": "Est-ce que la technologie NVIDIA MIG est supportée sur la sous-grappe de GPU de Trillium?",
-      "answer": "Non, la technologie MIG de NVIDIA n'est pas supportée sur la sous-grappe de GPU de Trillium pour allouer une fraction d'un GPU."
-    },
-    {
-      "question": "Quelle technologie peut-on utiliser pour partager un GPU entre les processus sur Trillium, étant donné que MIG n'est pas supporté?",
-      "answer": "Pour partager un GPU entre les processus exécutés dans une tâche sur Trillium, on peut utiliser le service MPS (Multi-Process Service) de NVIDIA."
+      "question": "Quelles sont les options et les restrictions spécifiques à la sous-grappe de GPU de Trillium pour demander des GPU?",
+      "answer": "Sur la sous-grappe de GPU de Trillium, on ne peut demander qu'un seul GPU ou un multiple de quatre GPU (ce qui correspond à un nœud complet). Il n'est pas possible de spécifier `--gpus-per-node=2` ou `--gpus-per-node=3`. De plus, Trillium ne prend pas en charge la technologie MIG de NVIDIA pour allouer une fraction de GPU. Pour une tâche avec un seul GPU, il faut utiliser `--gpus-per-node=1`, et pour une tâche utilisant un nœud GPU entier, il faut utiliser `--gpus-per-node=4`. Il est toutefois possible d'utiliser MPS (Multi-Process Service) de NVIDIA pour partager un GPU entre plusieurs processus au sein d'une même tâche."
     }
   ],
-  "generated_at": "2026-04-12T09:51:00.398022+00:00"
+  "generated_at": "2026-04-13T15:00:06.384620+00:00"
 }

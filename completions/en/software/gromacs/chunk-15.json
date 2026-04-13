@@ -4,97 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "What is one recommended solution for running multiple simulations efficiently on a single GPU with GROMACS?",
-      "answer": "One recommended solution is to run multiple simulations on a single GPU using the `mdrun -multidir` option."
+      "question": "How can a user run multiple similar GROMACS simulations concurrently on a single GPU on a cluster like Narval?",
+      "answer": "On a cluster like Narval, you can run multiple similar GROMACS simulations on a single GPU by using the `mdrun -multidir` option. This involves requesting one GPU per node (`#SBATCH --gpus-per-node=1`), setting the number of MPI tasks per node (`#SBATCH --ntasks-per-node`) equal to the number of simulations, and adjusting the number of OpenMP threads per MPI task (`#SBATCH --cpus-per-task`) to maintain a constant total number of CPU cores. An example would be `srun gmx_mpi mdrun -ntomp ${SLURM_CPUS_PER_TASK:-1} -deffnm md -multidir sim1 sim2 sim3`."
     },
     {
-      "question": "When is the `mdrun -multidir` option the preferred solution for running multiple GROMACS simulations on a single GPU?",
-      "answer": "The `mdrun -multidir` option is the preferred solution if you run multiple similar simulations, such as repeating the same simulation, simulating multiple protein variants, or conducting ensemble-based simulations like replica exchange."
+      "question": "When is it recommended to use a Multi-Instance GPU (MIG) instance instead of a full GPU for GROMACS simulations?",
+      "answer": "Using a Multi-Instance GPU (MIG) instance (a fraction of a GPU) is the preferred solution for GROMACS simulations when you have a single simulation or when your simulations are dissimilar. Examples of dissimilar simulations include systems with more than a 10% difference in the number of atoms, or systems with varying shapes or compositions, such as a membrane-bound versus a soluble protein."
     },
     {
-      "question": "What kinds of simulations are suitable for the `mdrun -multidir` approach?",
-      "answer": "Suitable simulations include repeating the same simulation for more conformational space sampling, simulating multiple protein variants or small ligands with the same protein, or ensemble-based simulations like replica exchange."
-    },
-    {
-      "question": "What adjustments are necessary in a job script when changing the number of simulations run with `mdrun -multidir`?",
-      "answer": "If you change the number of simulations, you must adjust `--ntasks-per-node` and `--cpus-per-task` so that there is one task per simulation, while the total number of CPU cores remains constant."
-    },
-    {
-      "question": "Provide the example job script for running three similar GROMACS simulations on a Narval GPU node using `mdrun -multidir`.",
-      "answer": "#!/bin/bash\n#SBATCH --gpus-per-node=1        # request 1 GPU per node\n#SBATCH --ntasks-per-node=3      # number of MPI processes and simulations\n#SBATCH --cpus-per-task=4        # number of OpenMP threads per MPI process\n#SBATCH --mem-per-cpu=2000M      # memory limit per CPU core (megabytes)\n#SBATCH --time=0:30:00           # time limit (D-HH:MM:ss)\n\nmodule load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 gromacs/2025.4\n\nexport OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"\n\nsrun gmx_mpi mdrun -ntomp ${SLURM_CPUS_PER_TASK:-1} -deffnm md \\\n    -multidir sim1 sim2 sim3"
-    },
-    {
-      "question": "What is the second recommended solution for addressing inefficient GPU usage in GROMACS simulations, particularly for specific scenarios?",
-      "answer": "The second recommended solution is to use a Multi-Instance GPU (MIG) instance, which is a fraction of a GPU, rather than a full GPU."
-    },
-    {
-      "question": "When is using a Multi-Instance GPU (MIG) instance the preferred solution for GROMACS simulations?",
-      "answer": "Using a MIG instance is preferred if you have a single simulation or if your simulations are dissimilar, such as systems with different sizes, shapes, or compositions."
-    },
-    {
-      "question": "Should Hyper-Q / MPS be used with GROMACS?",
-      "answer": "No, Hyper-Q / MPS should never be used with GROMACS."
-    },
-    {
-      "question": "Why should Hyper-Q / MPS not be used with GROMACS?",
-      "answer": "The built-in `-multidir` option achieves the same functionality as Hyper-Q / MPS more efficiently."
-    },
-    {
-      "question": "What is a `tpr` file in GROMACS simulations?",
-      "answer": "A `tpr` file is a portable binary run input file that contains the starting structure of the simulation, the molecular topology, and all the simulation parameters."
-    },
-    {
-      "question": "What command is used to create `tpr` files in GROMACS?",
-      "answer": "The `gmx grompp` command, or simply `grompp` for versions older than 5.0, is used to create `tpr` files."
-    },
-    {
-      "question": "What essential files are needed to create a `tpr` file using `gmx grompp`?",
-      "answer": "To create a `tpr` file, you need the coordinate file with the starting structure, the system topology (`.top`) file, and the run parameter (`.mdp`) file."
-    },
-    {
-      "question": "What file formats can GROMACS read for the starting structure of a simulation?",
-      "answer": "GROMACS can read starting structures from various file formats, including `.gro`, `.pdb`, or `.cpt` (checkpoint)."
-    },
-    {
-      "question": "What information does the system topology (`.top`) file define?",
-      "answer": "The system topology (`.top`) file defines which force field is used and how the force field parameters are applied to the simulated system."
-    },
-    {
-      "question": "Where are topologies for individual parts of the simulated system often placed?",
-      "answer": "Topologies for individual parts of the simulated system (e.g., molecules) are often placed in separate `.itp` files and included in the `.top` file using a `#include` directive."
-    },
-    {
-      "question": "What is an `.mdp` file in GROMACS?",
-      "answer": "An `.mdp` file is the run parameter file, which contains a detailed description of the options for the simulation."
-    },
-    {
-      "question": "Are `tpr` files portable across different machines or versions of GROMACS?",
-      "answer": "`Tpr` files are portable, meaning they can be `grompp`'ed on one machine, copied to a different machine, and used as an input file for `mdrun`."
-    },
-    {
-      "question": "What is the recommendation regarding the GROMACS versions used for `grompp` and `mdrun`?",
-      "answer": "One should always use the same version for both `grompp` and `mdrun` to avoid unexpected simulation results, even though `mdrun` can use `tpr` files created with older versions of `grompp`."
-    },
-    {
-      "question": "Why should users aim for shorter running times for MD simulations?",
-      "answer": "Users should choose shorter running times to minimize the time a job needs to wait before it starts, as this can maximize access to compute nodes."
-    },
-    {
-      "question": "What are common recommended walltime requests that balance waiting and running time for GROMACS jobs?",
-      "answer": "Requesting a walltime of 24 hours or 72 hours (three days) is often a good trade-off between waiting time and running time."
-    },
-    {
-      "question": "Which `mdrun` parameter should be used to ensure a GROMACS simulation gracefully finishes within the requested walltime?",
-      "answer": "The `mdrun` parameter `-maxh` should be used to tell the program the requested walltime so it gracefully finishes the current timestep when reaching 99% of this walltime."
-    },
-    {
-      "question": "How does the `-maxh` parameter benefit a GROMACS simulation's completion?",
-      "answer": "The `-maxh` parameter causes `mdrun` to create a new checkpoint file at the final timestep and allows it to properly close all output files (trajectories, energy- and log-files, etc.) when approaching the walltime limit."
-    },
-    {
-      "question": "How would you specify a 24-hour walltime using Slurm's `--time` and GROMACS's `-maxh` parameter?",
-      "answer": "You would use `#SBATCH --time=24:00` along with `gmx mdrun -maxh 24 ...`."
+      "question": "What types of files are necessary to create a portable binary run input (`.tpr`) file for a GROMACS simulation?",
+      "answer": "To create a `.tpr` file using the `gmx grompp` command for a GROMACS simulation, you need three essential file types: a coordinate file containing the starting structure (e.g., `.gro`, `.pdb`, or `.cpt`), a system topology (`.top`) file that defines the force field parameters (often including individual molecule topologies from `.itp` files), and a run parameter (`.mdp`) file which specifies the simulation options."
     }
   ],
-  "generated_at": "2026-04-11T22:34:30.653860+00:00"
+  "generated_at": "2026-04-13T06:10:37.545728+00:00"
 }

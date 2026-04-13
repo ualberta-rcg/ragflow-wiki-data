@@ -4,73 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Comment créer le répertoire d'installation pour Materials Studio dans un projet de groupe?",
-      "answer": "Pour créer le répertoire d'installation dans un projet de groupe, vous devez utiliser la commande `mkdir $PI_PROJECT_DIR/MatStudio2018`."
+      "question": "Quelles sont les étapes essentielles pour initialiser l'environnement et lancer Materials Studio 2018 une fois que l'installation pour un groupe est complétée dans un répertoire `/project` sur les grappes de l'Alliance?",
+      "answer": "Après avoir installé Materials Studio 2018 pour un groupe dans un répertoire `/project`, il faut d'abord lancer la commande `module use $PI_PROJECT_DIR/MatStudio2018/modules/2017/Core/`. Les membres de l'équipe peuvent ajouter cette commande à leur fichier `~/.bashrc` pour qu'elle soit exécutée automatiquement. Ensuite, il faut charger le module avec `module load materialsstudio`."
     },
     {
-      "question": "Quelle commande faut-il exécuter pour installer l'application Materials Studio pour un groupe?",
-      "answer": "Vous devez lancer la commande suivante: `MS_LICENSE_SERVER=<port>@<server> eb MaterialsStudio-2018-dummy-dummy.eb --installpath=$PI_PROJECT_DIR/MatStudio2018 --sourcepath=$HOME`."
+      "question": "Lorsqu'on prépare un script Slurm pour exécuter une application Materials Studio, comme `RunDMol3.sh` ou `RunCASTEP.sh`, quelles sont les commandes standards à inclure pour s'assurer que l'environnement est configuré correctement sur les grappes de l'Alliance ?",
+      "answer": "Dans un script Slurm pour Materials Studio, on doit d'abord charger le module avec `module load materialsstudio/2018`. Ensuite, pour créer la liste des nœuds à utiliser pour la tâche, il faut exécuter une commande comme `slurm_hl2hl.py --format HP-MPI > $DSD_MachineList` (ou `--format MPIHOSTLIST` selon la commande Materials Studio utilisée) et exporter la variable `DSD_MachineList`."
     },
     {
-      "question": "Que doit-on faire avant de lancer Materials Studio après une installation pour un groupe?",
-      "answer": "Avant de lancer l'application, vous devez exécuter la commande `module use $PI_PROJECT_DIR/MatStudio2018/modules/2017/Core/`."
-    },
-    {
-      "question": "Où les membres d'une équipe peuvent-ils ajouter la commande `module use` pour qu'elle soit appliquée automatiquement?",
-      "answer": "Les membres de l'équipe peuvent ajouter cette commande à leur fichier `~/.bashrc`."
-    },
-    {
-      "question": "Comment charger le module Materials Studio après une installation de groupe?",
-      "answer": "Pour charger le module Materials Studio, utilisez la commande `module load materialsstudio`."
-    },
-    {
-      "question": "Quelle est la note importante concernant les variables PI_GROUP et PI_PROJECT_DIR lors d'une installation de groupe?",
-      "answer": "Il faut s'assurer de toujours remplacer les variables `PI_GROUP` et `PI_PROJECT_DIR` par les valeurs appropriées."
-    },
-    {
-      "question": "À quoi servent les exemples de scripts fournis dans le document?",
-      "answer": "Les exemples de scripts sont valides pour l'ordonnanceur Slurm, à condition que vous ayez suivi les directives d'installation de Materials Studio."
-    },
-    {
-      "question": "Quel est un exemple de script Slurm pour utiliser Materials Studio 2018 avec RunDMol3.sh?",
-      "answer": "```bash\n#!/bin/bash\n#SBATCH --nodes=1\n#SBATCH --ntasks-per-node=1\n#SBATCH --cpus-per-task=32\n#SBATCH --time=12:00:00\n\nmodule load materialsstudio/2018\n\n# Create a list of nodes to be used for the job\nDSD_MachineList=\"machines.LINUX\"\nslurm_hl2hl.py --format HP-MPI > $DSD_MachineList\nexport DSD_MachineList\n\n# Job to run\nRunDMol3.sh -np $SLURM_CPUS_PER_TASK Brucite001f\n```"
-    },
-    {
-      "question": "Combien de nœuds et de cœurs par tâche sont demandés dans le premier exemple de script Slurm pour Materials Studio?",
-      "answer": "Le script demande 1 nœud et 32 cœurs par tâche."
-    },
-    {
-      "question": "Comment la liste de machines (DSD_MachineList) est-elle générée dans le premier script Slurm pour Materials Studio?",
-      "answer": "La liste de machines est générée avec la commande `slurm_hl2hl.py --format HP-MPI > $DSD_MachineList`."
-    },
-    {
-      "question": "Quel est un exemple de script Slurm pour utiliser Materials Studio 2018 avec RunCASTEP.sh?",
-      "answer": "```bash\n#!/bin/bash\n#SBATCH --nodes=1\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=2\n#SBATCH --mem-per-cpu=1M\n#SBATCH --time=0-12:00\n\nmodule load materialsstudio/2018\n\nDSD_MachineList=\"mpd.hosts\"\nslurm_hl2hl.py --format MPIHOSTLIST >$DSD_MachineList\nexport DSD_MachineList\n\nRunCASTEP.sh -np $SLURM_CPUS_PER_TASK castepjob\n\nif [ -f castepjob_NMR.param ]; then\n  cp castepjob.check castepjob_NMR.check\n  RunCASTEP.sh -np $SLURM_CPUS_PER_TASK castepjob_NMR\nfi\n```"
-    },
-    {
-      "question": "Quelle quantité de mémoire est demandée par cœur dans le deuxième exemple de script Slurm?",
-      "answer": "Le script demande 1 Mo de mémoire par cœur (`--mem-per-cpu=1M`)."
-    },
-    {
-      "question": "Que se passe-t-il dans le deuxième script Slurm si le fichier 'castepjob_NMR.param' existe?",
-      "answer": "Si le fichier `castepjob_NMR.param` existe, le script copie `castepjob.check` en `castepjob_NMR.check` puis exécute `RunCASTEP.sh` avec `castepjob_NMR`."
-    },
-    {
-      "question": "Comment doit-on installer une version de Materials Studio plus vieille que 2018?",
-      "answer": "Pour utiliser une version de Materials Studio antérieure à 2018, il faut l'installer dans un conteneur Apptainer."
-    },
-    {
-      "question": "Quelles sont les étapes pour installer une version plus ancienne de Materials Studio dans un conteneur Apptainer?",
-      "answer": "Les étapes sont:\n1. Créer un conteneur Apptainer avec une distribution Linux compatible.\n2. Installer Materials Studio dans ce conteneur.\n3. Téléverser le conteneur Apptainer vers votre compte."
-    },
-    {
-      "question": "Que faut-il faire pour permettre à une version antérieure de Materials Studio dans un conteneur Apptainer d'accéder au serveur de licence à partir d'un nœud de calcul?",
-      "answer": "Il faut contacter le soutien technique pour que les pare-feu soient configurés en conséquence."
-    },
-    {
-      "question": "Quelle est une limitation possible de l'utilisation de MPI avec une version antérieure de Materials Studio installée dans un conteneur Apptainer?",
-      "answer": "Il est possible que la version de MPI dans le conteneur ne puisse pas être utilisée sur plusieurs nœuds, ce qui limiterait vos tâches à des nœuds entiers (nœud unique)."
+      "question": "Si on souhaite utiliser une version de Materials Studio plus ancienne que 2018 sur les grappes de l'Alliance, quelle approche d'installation est recommandée et quelles sont les principales étapes à suivre ?",
+      "answer": "Pour les versions de Materials Studio antérieures à 2018, il faut l'installer dans un conteneur Apptainer. Les étapes sont de créer un conteneur Apptainer avec une distribution Linux compatible, d'y installer Materials Studio, puis de téléverser le conteneur dans votre compte. Il est aussi important de noter qu'il faudra contacter le soutien technique pour configurer les pare-feu afin d'accéder au serveur de licence depuis un nœud de calcul."
     }
   ],
-  "generated_at": "2026-04-12T02:19:59.845443+00:00"
+  "generated_at": "2026-04-13T09:12:12.211041+00:00"
 }

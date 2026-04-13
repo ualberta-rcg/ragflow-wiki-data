@@ -3,117 +3,81 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, COMSOL?",
-      "answer": "COMSOL est un logiciel d'usage général pour la modélisation en ingénierie."
+      "question": "Qu'est-ce que COMSOL et à quoi sert-il sur les grappes de l'Alliance?",
+      "answer": "COMSOL est un logiciel d'usage général pour la modélisation en ingénierie qui est hébergé sur les grappes de l'Alliance."
     },
     {
-      "question": "Où est-ce que je peux trouver de l'aide pour COMSOL?",
-      "answer": "Vous pouvez consulter l'aide sous File -> Help -> Documentation dans le logiciel, le blogue de COMSOL, la base de connaissances, le soutien technique, la documentation sur leur page d'accueil ou en ligne."
+      "question": "Où peut-on trouver de l'aide et de la documentation pour COMSOL?",
+      "answer": "On peut consulter l'aide sous 'File -> Help -> Documentation' dans le logiciel, la documentation en ligne sur doc.comsol.com, ou les liens vers le blogue, la base de connaissances et le soutien technique sur la page d'accueil de COMSOL."
     },
     {
-      "question": "Est-ce que l'organisation fournit une licence COMSOL générique?",
-      "answer": "Non, l'organisation héberge le logiciel sur ses grappes, mais ne fournit pas de licence générique."
+      "question": "Comment la licence de COMSOL fonctionne-t-elle sur les grappes de l'Alliance?",
+      "answer": "L'Alliance héberge COMSOL, mais ne fournit pas de licence générique. Les utilisateurs doivent utiliser une licence possédée par leur établissement ou en acheter une auprès de CMC."
     },
     {
-      "question": "Comment puis-je obtenir une licence COMSOL pour l'utiliser sur les grappes?",
-      "answer": "Vous pouvez utiliser une licence que votre établissement, faculté ou département possède déjà, ou en acheter une auprès de CMC pour une utilisation au Canada."
+      "question": "Quelle est la première étape technique pour utiliser une licence COMSOL sur les grappes de l'Alliance après l'avoir acquise?",
+      "answer": "L'équipe technique de l'Alliance doit communiquer avec le gestionnaire de licence pour configurer l'accès des nœuds de calcul au serveur de licence. Si la licence provient de CMC, cette étape est déjà réglée."
     },
     {
-      "question": "Qu'est-ce que je dois faire après avoir réglé l'aspect légal de ma licence?",
-      "answer": "Notre équipe technique communiquera avec votre gestionnaire de licence pour configurer l'accès au serveur de licence. Ensuite, vous devrez créer le fichier ~/.licenses/comsol.lic."
+      "question": "Comment configurer un fichier de licence COMSOL (`~/.licenses/comsol.lic`) pour un serveur de licence local?",
+      "answer": "Il faut créer le fichier `$HOME/.licenses/comsol.lic` avec les informations `SERVER <server> ANY <port>` et `USE_SERVER`, où `<server>` est l'adresse de votre serveur et `<port>` son numéro de port."
     },
     {
-      "question": "Comment configurer le fichier comsol.lic pour mon propre serveur de licence?",
-      "answer": "Créez le fichier $HOME/.licenses/comsol.lic avec les lignes SERVER <server> ANY <port> et USE_SERVER, en remplaçant <server> par l'adresse de votre serveur et <port> par son numéro de port."
+      "question": "Quelles informations doit-on fournir au soutien technique de l'Alliance pour configurer un nouveau serveur de licence COMSOL de son établissement?",
+      "answer": "Il faut fournir le numéro du port flex TCP lmgrd de COMSOL (habituellement 1718), le numéro du port statique TCP LMCOMSOL (habituellement 1719) et le nom d'hôte pleinement qualifié de votre serveur de licence COMSOL."
     },
     {
-      "question": "Quelles informations dois-je fournir au soutien technique pour une nouvelle licence locale?",
-      "answer": "Vous devez fournir le numéro du port flex TCP lmgrd de COMSOL (souvent 1718), le numéro du port statique TCP LMCOMSOL (souvent 1719) et le nom d'hôte pleinement qualifié de votre serveur de licence COMSOL."
+      "question": "Comment configurer un fichier de licence `comsol.lic` pour une licence CMC sur la grappe Nibi?",
+      "answer": "Pour la grappe Nibi, le fichier `~/.licenses/comsol.lic` doit contenir la ligne `SERVER 10.25.1.56 ANY 6601`."
     },
     {
-      "question": "Quels sont les paramètres de licence CMC pour les différentes grappes?",
-      "answer": "Fir: SERVER 172.26.0.101 ANY 6601, Nibi: SERVER 10.25.1.56 ANY 6601, Narval/Rorqual: SERVER 10.100.64.10 ANY 6601, Trillium: SERVER scinet-cmc ANY 6601."
+      "question": "Comment peut-on vérifier le nombre de licences COMSOL utilisées par ses tâches sur les grappes de l'Alliance?",
+      "answer": "Il faut charger le module Ansys le plus récent, puis exécuter une commande `lmutil lmstat` spécifique en utilisant le fichier `~/.licenses/comsol.lic` sur un nœud de connexion."
     },
     {
-      "question": "Que dois-je faire si je n'arrive pas à obtenir ma licence CMC?",
-      "answer": "Demandez de l'assistance en cliquant sur https://www.cmc.ca/fr/soutien/."
+      "question": "Comment vérifier les modules et produits COMSOL installés et licenciés sur les grappes?",
+      "answer": "Il faut lancer COMSOL en mode graphique et cliquer sur 'Options -> Licensed and Used Products' dans le menu déroulant du haut."
     },
     {
-      "question": "Comment vérifier le nombre de licences COMSOL utilisées?",
-      "answer": "Interrogez le serveur de licences à l'aide de la commande lmutil lmstat -c ~/.licenses/comsol.lic -a, exécutée via le module Ansys le plus récent sur n'importe quel nœud de connexion."
+      "question": "Comment déterminer le numéro de version complet d'un module COMSOL chargé sur une grappe?",
+      "answer": "On peut se connecter à une grappe, charger le module COMSOL souhaité (par exemple `comsol/6.2`) et exécuter la commande `comsol batch -version`."
     },
     {
-      "question": "Comment puis-je voir les modules et produits COMSOL installés?",
-      "answer": "Lancez COMSOL en mode graphique, puis cliquez sur Options -> Licensed and Used Products dans le menu déroulant du haut."
+      "question": "Comment lister les versions de COMSOL disponibles dans l'environnement standard que j'ai chargé ou dans tous les environnements standards?",
+      "answer": "Pour l'environnement standard chargé, utilisez `module avail comsol`. Pour tous les environnements standards, utilisez `module spider comsol`."
     },
     {
-      "question": "Que faire si un module COMSOL est manquant ou que la licence n'existe pas?",
-      "answer": "Contactez le soutien technique, car vous pourriez devoir réinstaller le module CVMFS que vous utilisez."
+      "question": "Quel est l'environnement standard recommandé pour les versions de COMSOL 6.2 et plus récentes?",
+      "answer": "L'environnement standard recommandé est `StdEnv/2023`."
     },
     {
-      "question": "Comment vérifier le numéro de version complet de COMSOL?",
-      "answer": "Démarrez COMSOL en mode graphique et regardez dans le coin inférieur droit de la fenêtre de messages, ou exécutez 'comsol batch -version' en mode batch après avoir chargé le module."
+      "question": "Comment soumettre une tâche COMSOL utilisant plusieurs cœurs sur un seul nœud de calcul avec SLURM?",
+      "answer": "Il faut créer un script SLURM comme l'exemple `mysub1.sh`, en spécifiant `--nodes=1`, `--cpus-per-task` (par exemple 8), et en exécutant `comsol batch -inputfile ... -outputfile ... -np $SLURM_CPUS_ON_NODE`."
     },
     {
-      "question": "Quelle est la version de COMSOL recommandée?",
-      "answer": "Il est recommandé d'utiliser la plus récente version pour profiter de la dernière mise à jour."
+      "question": "Dans quel cas est-il recommandé d'exécuter une tâche COMSOL sur plusieurs nœuds de calcul?",
+      "answer": "C'est recommandé pour les très grosses simulations qui dépassent les capacités d'un seul nœud, ou si l'accélération de la simulation est presque linéaire avec tous les cœurs d'un nœud."
     },
     {
-      "question": "Comment voir les versions de COMSOL disponibles dans mon environnement standard?",
-      "answer": "Lancez la commande 'module avail comsol'."
+      "question": "Que faire si une tâche COMSOL plante au démarrage en raison d'une erreur de segmentation Java?",
+      "answer": "Il faut augmenter la taille du monceau (heap) Java en ajoutant des lignes `sed` spécifiques au script SLURM, après les commandes `cp -f`, pour modifier les valeurs `-Xmx` dans `comsolbatch.ini` et `java.opts`."
     },
     {
-      "question": "Comment voir TOUTES les versions de COMSOL disponibles dans tous les environnements standards?",
-      "answer": "Lancez la commande 'module spider comsol'."
+      "question": "Quelles sont les méthodes recommandées pour exécuter COMSOL en mode graphique sur les grappes de l'Alliance?",
+      "answer": "Les méthodes recommandées sont d'ouvrir un bureau distant via OnDemand ou JupyterLab."
     },
     {
-      "question": "Quel est l'environnement standard à charger pour les versions de COMSOL 6.2 et plus récentes?",
-      "answer": "Vous devez charger le module StdEnv/2023."
+      "question": "Quel est un prérequis essentiel avant de lancer COMSOL en mode graphique via OnDemand ou JupyterLab?",
+      "answer": "Le fichier `~/.licenses/comsol.lic` doit être configuré au préalable."
     },
     {
-      "question": "Quel est l'environnement standard à charger pour les versions de COMSOL 6.1 et moins récentes?",
-      "answer": "Vous devez charger le module StdEnv/2020."
+      "question": "Que doit faire un utilisateur si les éléments de menu supérieurs de l'interface graphique de COMSOL sont grisés et non cliquables après le démarrage?",
+      "answer": "L'utilisateur devrait essayer de supprimer le fichier `~/.comsol`, car il pourrait être corrompu."
     },
     {
-      "question": "Quand est-il suggéré d'exécuter une tâche COMSOL sur plusieurs nœuds entiers?",
-      "answer": "Si la simulation montre une accélération presque linéaire avec tous les cœurs d'un seul nœud, considérez l'exécution de la tâche avec plusieurs nœuds entiers."
-    },
-    {
-      "question": "Comment augmenter la taille du monceau (heap) Java si une tâche COMSOL plante au démarrage sur plusieurs nœuds?",
-      "answer": "Ajoutez les lignes 'sed -i 's/-Xmx2g/-Xmx4g/g' comsolbatch.ini' et 'sed -i 's/-Xmx768m/-Xmx4g/g' java.opts' immédiatement après les commandes cp -f dans le script, ou remplacez 4G par 8G si le problème persiste."
-    },
-    {
-      "question": "Quelle est la méthode recommandée pour exécuter COMSOL en mode graphique?",
-      "answer": "Ouvrir un bureau distant sur un système OnDemand ou JupyterLab."
-    },
-    {
-      "question": "Que dois-je faire avant de démarrer COMSOL en mode graphique?",
-      "answer": "Le fichier ~/.licenses/comsol.lic doit être configuré au préalable."
-    },
-    {
-      "question": "Que faire si les éléments du menu supérieur de COMSOL sont grisés en mode GUI?",
-      "answer": "Votre fichier ~/.comsol est peut-être corrompu; essayez donc de le supprimer."
-    },
-    {
-      "question": "Quelles commandes sont nécessaires pour lancer COMSOL 6.2 ou plus récent via OnDemand?",
-      "answer": "Vous devez lancer 'module load StdEnv/2023', puis 'module load comsol/6.4', et enfin 'comsol'."
-    },
-    {
-      "question": "Comment lancer COMSOL via JupyterLab?",
-      "answer": "Lancez une session JupyterHub, sélectionnez un module COMSOL dans la section 'Available Module', cliquez sur 'Load' pour afficher l'icône 'Comsol (VNC)', puis cliquez sur l'icône."
-    },
-    {
-      "question": "Comment réaliser une exploration de paramètres en mode interactif avec l'interface graphique de COMSOL?",
-      "answer": "Utilisez l'approche 'Batch Sweep'."
-    },
-    {
-      "question": "Est-ce que la fonctionnalité 'Cluster Sweep' de COMSOL est offerte présentement via l'interface graphique sur les grappes?",
-      "answer": "Non, la fonctionnalité 'Cluster Sweep' n'est pas offerte présentement à partir de l'interface graphique de COMSOL sur les grappes."
-    },
-    {
-      "question": "Comment faire une exploration de grappe pour les paramètres COMSOL?",
-      "answer": "Une tâche doit être soumise en ligne de commande à l'ordonnanceur avec 'sbatch slurmscript', en consultant les pages de documentation pour les arguments additionnels requis."
+      "question": "La fonctionnalité 'Cluster Sweep' pour soumettre des simulations de paramètres à partir de l'interface graphique de COMSOL est-elle disponible?",
+      "answer": "Non, la fonctionnalité permettant de soumettre des simulations de paramètres à la queue d'une grappe à partir de l'interface graphique de COMSOL avec le nœud 'Cluster Sweep' n'est pas offerte présentement."
     }
   ],
-  "generated_at": "2026-04-11T19:04:38.635281+00:00"
+  "generated_at": "2026-04-13T03:23:55.224831+00:00"
 }

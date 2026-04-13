@@ -4,89 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "What Nix expression is used to create a Python composition that enables a given set of Python libraries?",
-      "answer": "You can use the following Nix expression: `with import <nixpkgs> {}; python.withPackages (packages: with packages; [ ... list of python packages ... ])`."
+      "question": "How can a user create a custom R environment to enable a specific set of R libraries within Nixpkgs?",
+      "answer": "To create a custom R environment with specific R libraries, a user must override the `rWrapper` in a `.nix` file. This involves using `rWrapper.override { packages = with rPackages; [ ... list of R packages ... ]; }`, which creates a composition that provides an `R` command with access to the specified libraries."
     },
     {
-      "question": "What are the aliases for default Python versions in Nixpkgs?",
-      "answer": "The aliases `python` and `python<major>` are provided for default `python<major><minor>` versions."
+      "question": "What functions does Nixpkgs provide for users who need to build their own custom Python or R packages?",
+      "answer": "For Python, users can build their own custom packages using the `python<major><minor>.pkgs.buildPythonPackage` function. For R, the `rPackages.buildRPackage` function is available for building custom R packages within Nixpkgs."
     },
     {
-      "question": "How can one refer to `python<major><minor>.pkgs` using a shorter alias in Nixpkgs?",
-      "answer": "The alias `pythonPackages<major><minor>` is a short form for `python<major><minor>.pkgs`."
-    },
-    {
-      "question": "Which function allows users to build their own Python packages in Nixpkgs?",
-      "answer": "The function `python<major><minor>.pkgs.buildPythonPackage` can be used to build custom Python packages."
-    },
-    {
-      "question": "What Nixpkgs attribute provides R?",
-      "answer": "`R` is a composition that provides the R programming language."
-    },
-    {
-      "question": "What Nixpkgs attribute provides RStudio?",
-      "answer": "`rstudio` is a composition that provides RStudio."
-    },
-    {
-      "question": "Which Nixpkgs attribute refers to the set of available R packages?",
-      "answer": "`rPackages` refers to the set of R packages."
-    },
-    {
-      "question": "How can one examine the content of R packages using Nix?",
-      "answer": "You can use the `nix build` command, for example: `nix build rPackages.exams -o exams` followed by `cat exams/library/exams/NEWS`."
-    },
-    {
-      "question": "How can you create a Nix composition that wraps R to enable a given set of R libraries?",
-      "answer": "You can override `rWrapper` in a `.nix` file like this: `with import <nixpkgs> {}; rWrapper.override { packages = with rPackages; [ ... list of R packages ... ]; }`."
-    },
-    {
-      "question": "How can users build their own R packages with Nixpkgs?",
-      "answer": "The function `rPackages.buildRPackage` can be used to build custom R packages."
-    },
-    {
-      "question": "What Nixpkgs attribute provides a specific GHC compiler version?",
-      "answer": "`haskell.compiler.ghc<major><minor><patch>` provides a composition for the given GHC compiler version."
-    },
-    {
-      "question": "How can one use programs provided by Haskell packages directly with Nix?",
-      "answer": "You can use the `nix run` command, for example: `nix run haskell.packages.ghc864.pandoc`."
-    },
-    {
-      "question": "What Nix expression is used to create a GHC environment that enables a given set of Haskell packages?",
-      "answer": "You can use the following Nix expression in a `.nix` file: `with import <nixpkgs> {}; haskell.packages.ghc864.ghc.withPackages (packages: with packages; [ ... list of Haskell packages ... ]; }`."
-    },
-    {
-      "question": "Is there an alias for `haskell.packages.ghc<major><minor><patch>`?",
-      "answer": "Yes, the alias `haskellPackages` provides a default `haskell.packages.ghc<major><minor><patch>`."
-    },
-    {
-      "question": "Where can users find useful attributes for tweaking Haskell packages in Nixpkgs?",
-      "answer": "The attributes in `haskell.lib` contain a variety of useful attributes for tweaking Haskell packages, such as enabling profiling."
-    },
-    {
-      "question": "Which Nixpkgs attribute provides a specific Emacs editor version?",
-      "answer": "`emacs<major><minor>` provides a composition for the given Emacs editor."
-    },
-    {
-      "question": "What attribute in Nixpkgs represents the set of Emacs packages for a given Emacs editor version?",
-      "answer": "`emacs<major><minor>Packages` represents the set of Emacs packages for the given Emacs editor."
-    },
-    {
-      "question": "How can one examine the content of Emacs packages using Nix?",
-      "answer": "You can use `nix build`, for example: `nix build nixpkgs.emacs25Packages.magit -o magit` followed by `cat magit/share/emacs/site-lisp/elpa/magit*/AUTHORS.md`."
-    },
-    {
-      "question": "How can you create an Emacs composition that enables a given set of Emacs packages?",
-      "answer": "You can use a `.nix` file with an expression like: `with import <nixpkgs> {}; emacs25Packages.emacsWithPackages (packages: with packages; [ ... list of emacs packages ... ]; }`."
-    },
-    {
-      "question": "What are the aliases for default Emacs versions and package sets in Nixpkgs?",
-      "answer": "The aliases `emacs` and `emacsPackages` provide default `emacs<major><minor>` and `emacsPackages<major><minor>` versions, respectively."
-    },
-    {
-      "question": "Is there a shorter way to refer to `emacs<major><minor>Packages.emacsWithPackages`?",
-      "answer": "Yes, `emacs<major><minor>WithPackages` is a short form for `emacs<major><minor>Packages.emacsWithPackages`."
+      "question": "How can one create a custom Haskell environment using Nixpkgs that includes a specific set of Haskell packages?",
+      "answer": "A custom Haskell environment can be created by using `haskell.packages.ghc<major><minor><patch>.ghc.withPackages` within a `.nix` file. This function wraps GHC to enable a given set of Haskell packages, allowing a user to run commands like `ghci` and access those packages."
     }
   ],
-  "generated_at": "2026-04-12T10:06:48.701890+00:00"
+  "generated_at": "2026-04-13T15:12:03.653687+00:00"
 }

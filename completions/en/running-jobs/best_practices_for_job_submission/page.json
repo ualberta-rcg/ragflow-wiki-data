@@ -3,117 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Why is it important to choose appropriate parameters when submitting a job on the clusters?",
-      "answer": "Choosing appropriate parameters ensures your job doesn't waste resources, avoids problems for other users, starts more quickly, and finishes correctly to help your research."
+      "question": "Why is it important to choose appropriate parameter values when submitting a job on Alliance clusters?",
+      "answer": "Choosing appropriate parameter values ensures that your job doesn't waste resources, prevents problems for other users, helps your job start more quickly, and increases the likelihood of it finishing correctly."
     },
     {
-      "question": "What is the recommended approach for new users to estimate job resource needs?",
-      "answer": "New users should begin by submitting a few relatively small test jobs, requesting a standard amount of memory (e.g., `#SBATCH --mem-per-cpu=2G`) and time (e.g., one or two hours)."
+      "question": "What is the best approach for users submitting their first jobs on an Alliance cluster when estimating resource needs?",
+      "answer": "The best approach is to begin by submitting a few relatively small test jobs, requesting standard memory (e.g., `#SBATCH --mem-per-cpu=2G`) and time (e.g., one or two hours)."
     },
     {
-      "question": "What are the consequences of requesting too many resources for a job?",
-      "answer": "Requesting too many resources, such as time, memory, CPU cores, or GPUs, makes it harder for the scheduler to find them, resulting in a longer wait in the queue."
+      "question": "What are some typical problems that can occur if job resource requests on a cluster are not properly estimated?",
+      "answer": "Requesting too many resources can lead to longer queue times, while requesting too few can cause jobs to stop due to time or memory limits. Programs may also not scale well or processors might wait after read-write operations."
     },
     {
-      "question": "What happens if a job requests insufficient resources?",
-      "answer": "If insufficient resources are requested, the job can be stopped if it exceeds its allocated time limit or memory limit."
+      "question": "What should a user do if their job on an Alliance cluster ends with an 'OOM event' message?",
+      "answer": "If a job ends with an 'OOM event' message, indicating it ran out of memory, the user should try doubling the requested memory."
     },
     {
-      "question": "What should be done if a test job finishes prematurely?",
-      "answer": "If a test job ends before the computation is finished, you should increase its duration by doubling it until it's sufficient."
+      "question": "What is the recommended minimum duration for non-test jobs submitted to Alliance clusters, and what should be done for shorter computations?",
+      "answer": "For non-test jobs, the duration should be at least one hour. If computations require less than an hour, users should regroup several into a single Slurm job using tools like GLOST, META, or GNU Parallel."
     },
     {
-      "question": "How should I address a job that runs out of memory?",
-      "answer": "If your job ends with an \"OOM event\" (out of memory), you should try doubling the memory you've requested."
+      "question": "How can users monitor the actual wall-clock time their completed jobs took on Alliance clusters?",
+      "answer": "Users can use monitoring tools like the `seff` command and check the `Job Wall-clock time` field in its output."
     },
     {
-      "question": "What is the minimum recommended duration for non-test jobs?",
-      "answer": "For jobs that are not tests, the duration should be at least one hour."
+      "question": "Why should long jobs on Alliance clusters, exceeding 48 hours, consider using checkpoints?",
+      "answer": "Checkpoints allow programs to save a snapshot of their state to a diskfile, enabling them to be restarted from that precise point, which prevents significant loss of work if there's an interruption."
     },
     {
-      "question": "How should short computations (less than an hour) be handled on the cluster?",
-      "answer": "For computations requiring less than an hour, you should consider using tools like GLOST, META, or GNU Parallel to regroup several computations into a single Slurm job of at least an hour's duration."
+      "question": "What is the target memory efficiency for jobs on Alliance clusters, as reported by the `seff` command?",
+      "answer": "The `Memory Efficiency` in the `seff` command output should be at least 80% to 85% in most cases."
     },
     {
-      "question": "Why is an accurate job duration estimate important?",
-      "answer": "An accurate job duration estimate is important because overestimating, such as asking for five days for a 16-hour job, leads to much longer waiting times before the job starts."
+      "question": "How can a user request all available memory on a whole node for a job on an Alliance cluster, and what is a potential consequence?",
+      "answer": "A user can request all available memory using `#SBATCH --mem=0` in their job script. However, this approach may assign the job to a node with less memory because clusters offer nodes with variable memory amounts."
     },
     {
-      "question": "How can users check the actual run time of their completed jobs?",
-      "answer": "Users can check the actual run time of completed jobs using monitoring tools like the `seff` command and looking at the `Job Wall-clock time` field in its output."
+      "question": "By default, how many CPU cores does a job get on an Alliance cluster, and why is this sensible for most software?",
+      "answer": "By default, a job gets one core on one node, which is sensible because most software is serial and can only utilize a single core; asking for more cores won't make it run faster."
     },
     {
-      "question": "What strategy is suggested for jobs exceeding 48 hours?",
-      "answer": "For jobs exceeding 48 hours, it's suggested to consider using checkpoints if the software permits, allowing the program to save its state and restart from a specific point."
+      "question": "How can a user determine if the software they are using can run in parallel on Alliance clusters?",
+      "answer": "The best approach is to check the software's documentation for a section on parallel execution; if nothing is found, it usually indicates the program is serial. Users can also contact the development team."
     },
     {
-      "question": "What is the recommended `Memory Efficiency` target for jobs?",
-      "answer": "Your `Memory Efficiency` in the `seff` command output should ideally be at least 80% to 85% in most cases."
+      "question": "What type of parallelism must software support to run over multiple nodes on Alliance clusters, and which standard is commonly used?",
+      "answer": "Software must support distributed memory parallelism, and the MPI standard is most commonly used for this."
     },
     {
-      "question": "How can I request all available memory on an entire node?",
-      "answer": "To request all available memory on an entire node, you can include the line `#SBATCH --mem=0` in your job submission script."
+      "question": "How should users aim to distribute their parallel processes across nodes to optimize performance on Alliance clusters?",
+      "answer": "Users should avoid scattering processes and aim for a compact distribution, submitting jobs where the number of parallel processes is an integral multiple of the number of cores per node."
     },
     {
-      "question": "What is the implication of requesting a large memory node?",
-      "answer": "Requesting a large memory node means your job will wait much longer to run, as these nodes are relatively few, so ensure your job truly requires the extra memory."
+      "question": "What is the target CPU efficiency for jobs on Alliance clusters, as reported by the `seff` command?",
+      "answer": "The CPU efficiency of jobs should be very close to 100%, and any value less than 90% indicates that the software usage needs to be improved."
     },
     {
-      "question": "What is the default core allocation for jobs, and why?",
-      "answer": "By default, your job will get one core on one node because most software is serial and can only utilize a single core."
+      "question": "How can a user determine if using a GPU is truly beneficial for their job on Alliance clusters, given the longer wait times for GPU nodes?",
+      "answer": "Users should first test a small sample calculation both with and without a GPU to see what kind of speed-up is obtained. A small improvement (e.g., 5-10%) likely doesn't justify the effort of waiting for a GPU node."
     },
     {
-      "question": "How can I determine if software can run in parallel?",
-      "answer": "You can determine if software can run in parallel by looking for a section on parallel execution in its documentation or by contacting the development team."
+      "question": "What tools are available for monitoring the efficiency of GPU-based jobs on Alliance clusters?",
+      "answer": "Tools like `nvidia-smi`, `nvtop`, and, for TensorFlow-based software, the TensorBoard utility are available for monitoring GPU job efficiency."
     },
     {
-      "question": "What considerations are important when choosing the number of cores for a parallel job?",
-      "answer": "You need to consider if the software uses a shared memory environment (requiring cores on the same node) and study its scalability, as excessive cores can slow down a program."
-    },
-    {
-      "question": "What standard is commonly used for software designed to run across multiple nodes?",
-      "answer": "Most software capable of running over more than one node uses the MPI standard."
-    },
-    {
-      "question": "Which command should be used to start programs parallelized to run across multiple nodes?",
-      "answer": "Programs that have been parallelized to run across multiple nodes should be started using `srun` rather than `mpirun`."
-    },
-    {
-      "question": "Why is it advisable to avoid scattering parallel processes across more nodes than necessary?",
-      "answer": "Avoiding scattered processes across many nodes leads to better job performance and simplifies the scheduler's task, as highly fragmented parallel jobs often exhibit poor performance."
-    },
-    {
-      "question": "What is the target `CPU Efficiency` for jobs?",
-      "answer": "The ultimate goal is for the `CPU Efficiency` of your jobs, as measured by the `seff` command, to be very close to 100%."
-    },
-    {
-      "question": "What is a key consideration when requesting a GPU for a job?",
-      "answer": "A key consideration is to ensure that the GPU is being used as efficiently as possible and genuinely contributes to improved performance, given that GPU nodes are uncommon and lead to longer wait times."
-    },
-    {
-      "question": "How can one assess if using a GPU is beneficial for a specific job?",
-      "answer": "It is wiser to first test a small sample calculation both with and without a GPU to determine the actual speed-up obtained from its use."
-    },
-    {
-      "question": "When might it not be worth waiting for a GPU node?",
-      "answer": "If your job only finishes 5% or 10% more quickly with a GPU, it's likely not worth the effort of waiting for a GPU node, as the GPU will be idle for much of the job's execution."
-    },
-    {
-      "question": "What tools are available for monitoring the efficiency of GPU-based jobs?",
-      "answer": "Tools for monitoring GPU efficiency include `nvidia-smi`, `nvtop`, and, for TensorFlow-based software, the `TensorBoard` utility."
-    },
-    {
-      "question": "What command should generally not be included in job scripts?",
-      "answer": "Your jobs should generally never contain the command `sleep`."
-    },
-    {
-      "question": "What alternatives are recommended over Conda on the clusters?",
-      "answer": "It is strongly recommended against using Conda and its variants on the clusters, in favour of solutions like a Python virtual environment or Apptainer."
-    },
-    {
-      "question": "How can read and write operations be optimized on the clusters?",
-      "answer": "Read and write operations should be optimized by using node-local storage."
+      "question": "What are some general practices users should avoid to prevent wasting resources on Alliance clusters?",
+      "answer": "Users should avoid the `sleep` command, strongly consider alternatives to Conda (like Python virtual environments or Apptainer), and optimize read/write operations by using node-local storage."
     }
   ],
-  "generated_at": "2026-04-11T18:34:05.325260+00:00"
+  "generated_at": "2026-04-13T02:59:28.079199+00:00"
 }

@@ -4,121 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is the recommended approach for creating backups in a cloud environment?",
-      "answer": "Creating backups in locations outside the cloud is strongly encouraged."
+      "question": "What is the 3-2-1 backup rule, and why is it strongly encouraged for virtual machines?",
+      "answer": "The 3-2-1 backup rule states that you should have three copies of your data stored on at least two different types of media, with one of those copies being offsite. Creating backups in locations outside the cloud is strongly encouraged for virtual machines to enhance disaster recovery and resilience."
     },
     {
-      "question": "What is the 3-2-1 backup rule?",
-      "answer": "The 3-2-1 backup rule states that you should have three copies of your data stored on at least two different types of media, and one of those copies should be offsite."
+      "question": "What are the two distinct storage options available within OpenStack, and what are their primary characteristics regarding data protection?",
+      "answer": "OpenStack provides two storage options: Volumes and ephemeral storage. Volumes are protected by three times replication, which safeguards against hardware failure but not against accidental deletion or data loss from malicious intent. Ephemeral storage is local to the VM and is prone to data loss due to hardware failure, making it unsuitable for critical data and best suited for temporary or working data."
     },
     {
-      "question": "Which tools can be used for file backups within a virtual machine to remote locations?",
-      "answer": "Tools such as rsync, duplicity, borg, or restic can be used to perform backups of the data within your VM to remote locations."
-    },
-    {
-      "question": "What is the purpose of provisioning tools in a virtual machine backup strategy?",
-      "answer": "Provisioning tools like Ansible, Puppet, Chef, and SaltStack can be used to automate the setup and configuration of software and operating systems, making VM recreation a trivial matter with the right specification files."
-    },
-    {
-      "question": "How can specification files for provisioning tools be managed?",
-      "answer": "These specification files can be managed with version control tools like Git."
-    },
-    {
-      "question": "Can provisioning tools be combined with other automation tools?",
-      "answer": "Yes, provisioning tools can be combined with orchestration tools such as heat and terraform to automate the entire process of virtual machine creation and software configuration."
-    },
-    {
-      "question": "How should data generated outside of setup automation be backed up?",
-      "answer": "Any data which is generated or created outside this automation would then need to be backed up using one of the file backup methods."
-    },
-    {
-      "question": "What are the two storage options available in OpenStack?",
-      "answer": "OpenStack has two different storage options: Volumes, which are protected by 3 times replication, and ephemeral storage local to the VM."
-    },
-    {
-      "question": "What does the 3 times replication for OpenStack Volumes protect against?",
-      "answer": "The 3 times replication of Volumes is to protect against hardware failure."
-    },
-    {
-      "question": "What does the 3 times replication for OpenStack Volumes not protect against?",
-      "answer": "It does not protect against accidental deletion or data loss from malicious intent."
-    },
-    {
-      "question": "What are the characteristics of OpenStack's ephemeral storage?",
-      "answer": "Data stored on node local ephemeral storage can suffer data loss due to hardware failure, should not be relied upon for any critical data, and is best suited to temporary or working data."
-    },
-    {
-      "question": "What tools does OpenStack provide for virtual machines?",
-      "answer": "OpenStack provides tools to create disk images and snapshots of your virtual machines."
-    },
-    {
-      "question": "What are the two main VM flavours in OpenStack and how do they impact backup procedures?",
-      "answer": "The two main VM flavours are persistent (p) and compute (c), and they have different behaviours, so different procedures are recommended for backing up each flavour."
-    },
-    {
-      "question": "How are Persistent VMs designed to boot?",
-      "answer": "Persistent VMs are designed to boot from volumes."
-    },
-    {
-      "question": "What is the best way to create a copy of a volume for backup purposes for Persistent VMs?",
-      "answer": "The best way to create a copy of a volume for backup purposes is to create an image from that volume."
-    },
-    {
-      "question": "What aspects of a VM are not preserved when simply copying a volume for backup?",
-      "answer": "Simply creating a copy of the volume(s) attached to a VM would not preserve things like VM flavour, public IP, and security rules."
-    },
-    {
-      "question": "What are the benefits of creating an image from a volume for Persistent VMs?",
-      "answer": "An image can be downloaded and reused to create multiple new VMs, can be accessed by VirtualBox on your desktop or laptop, and uploaded to other clouds."
-    },
-    {
-      "question": "What is a prerequisite for creating an image from a volume?",
-      "answer": "To be able to create an image from a volume, that volume must be detached from the VM."
-    },
-    {
-      "question": "When can a root volume of a Persistent VM be detached?",
-      "answer": "If the volume is the root volume of the VM, it cannot be detached unless the VM is deleted."
-    },
-    {
-      "question": "What is the issue regarding the 'Delete Volume on Instance Delete' checkbox in OpenStack?",
-      "answer": "OpenStack unfortunately doesn't tell you if the 'Delete Volume on Instance Delete' checkbox was checked when you created a VM, which makes it hard to know if deleting the VM will also delete its root volume."
-    },
-    {
-      "question": "What trick can be used to prevent a root volume from being deleted when a VM is deleted, even if 'Delete Volume on Instance Delete' was checked?",
-      "answer": "One trick is to create a snapshot of the volume, provided you have a storage quota that allows it, since snapshots count towards your storage quota. As volumes cannot be deleted if there is a volume snapshot created from them, the volume will not be deleted even if the box was checked."
-    },
-    {
-      "question": "What state must volumes be in to create an image from them?",
-      "answer": "All the volumes you wish to create images of should be in the 'Available' state."
-    },
-    {
-      "question": "How do you create an image from a volume in OpenStack?",
-      "answer": "To create an image from a volume, select 'Upload to Image' from the drop-down menu for the volume, select the 'QCOW2' disk format, and give your image a name."
-    },
-    {
-      "question": "Which disk format is recommended for OpenStack images and why?",
-      "answer": "QCOW2 is recommended because it works well with OpenStack and typically does not take up as much space as 'Raw' images."
-    },
-    {
-      "question": "What other disk formats are mentioned as useful for different virtualization tools?",
-      "answer": "Other formats 'vmdk' and 'vdi' can be useful when working with other virtualization tools such as VirtualBox."
-    },
-    {
-      "question": "What is the process for recreating a Persistent VM after creating images of its volumes?",
-      "answer": "Once you have created images of all the volumes you wish to backup, you can then re-create your VM by booting from the original VM's root volume and attaching any additional volumes you may have had attached to the original VM."
-    },
-    {
-      "question": "Are volume snapshots ideal for backups?",
-      "answer": "No, volume snapshots are not ideal for backups because they depend on the original volume remaining intact."
-    },
-    {
-      "question": "Can volume snapshots be downloaded?",
-      "answer": "No, it is not possible to download volume snapshots as they depend on the original volume."
-    },
-    {
-      "question": "What is a potential use case for creating a new volume from a volume snapshot?",
-      "answer": "A new volume can be created from a snapshot of a volume, for example, if there were file changes since the last volume snapshot you would like to revert, or if there were file changes specific to that VM which should not be included in other VMs."
+      "question": "What is the recommended method for backing up a Persistent OpenStack virtual machine, and what are the key steps involved?",
+      "answer": "The recommended method for backing up a Persistent OpenStack virtual machine is to create an image from its volumes. To do this, the volume must be detached from the VM. If it's a root volume, the VM must be deleted first; if unsure about the 'Delete Volume on Instance Delete' setting, create a snapshot of the volume to prevent its deletion. Once volumes are 'Available', select 'Upload to Image' from the volume's menu, typically using the 'QCOW2' disk format, to create the image. These images can then be used to recreate the VM or accessed by other virtualization tools."
     }
   ],
-  "generated_at": "2026-04-11T18:30:43.372753+00:00"
+  "generated_at": "2026-04-13T02:56:58.488077+00:00"
 }

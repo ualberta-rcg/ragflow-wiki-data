@@ -4,81 +4,13 @@
   "chunk_index": 33,
   "qa_pairs": [
     {
-      "question": "Quelles sont les allocations mémoire par défaut pour les tâches APDL dans Ansys, et comment peut-on les modifier?",
-      "answer": "Par défaut, Ansys alloue aux tâches APDL 1024Mo de mémoire totale et 1024Mo de mémoire pour les bases de données. Ces valeurs peuvent être définies manuellement (ou modifiées) avec l'ajout des arguments `-m 1024` et/ou `-db 1024` sur la dernière ligne de commande mapdl des scripts ci-dessus."
+      "question": "Comment soumettre une tâche Ansys Mechanical (APDL) sur les grappes et quelle est la meilleure stratégie de parallélisation pour optimiser la performance?",
+      "answer": "Pour soumettre une tâche Ansys Mechanical (APDL) sur une grappe, il faut utiliser la commande `sbatch` avec un script approprié. Les scripts sont disponibles pour la mémoire parallèle partagée (SMP) et la mémoire parallèle distribuée (DMP). Les scripts SMP sur un seul nœud offrent généralement une meilleure performance que les scripts DMP sur plusieurs nœuds et devraient être privilégiés autant que possible."
     },
     {
-      "question": "Quelle est la recommandation concernant les tests de mise à l'échelle pour les tâches APDL?",
-      "answer": "Comme d'habitude, effectuez des tests détaillés de mise à l'échelle avant de lancer des tâches en production pour vous assurer que vous utilisez le nombre optimal de cœurs et la bonne quantité minimale de mémoire."
-    },
-    {
-      "question": "Quel type de scripts parallèles est généralement préféré pour les tâches Ansys Mechanical (APDL) pour une meilleure performance?",
-      "answer": "Les scripts pour nœud simple avec mémoire parallèle partagée (SMP pour *Shared Memory Parallel*) offriront une meilleure performance que les scripts pour plusieurs nœuds avec mémoire parallèle distribuée (DMP pour *Distributed Memory Parallel*) et devraient être utilisés autant que possible."
-    },
-    {
-      "question": "Quel est l'aspect important à considérer pour la compatibilité des versions de modules lors de l'exécution de tâches APDL?",
-      "answer": "Pour prévenir les problèmes de compatibilité, le module qui est chargé dans votre script devrait idéalement correspondre à la version employée pour générer le fichier en entrée."
-    },
-    {
-      "question": "Quels arguments supplémentaires pourraient être nécessaires pour l'utilisation des licences Ansys APDL si j'utilise un serveur de licence distant de mon établissement?",
-      "answer": "Si vous utilisez à distance un serveur de licence de votre établissement qui a plusieurs licences Ansys, il pourrait être nécessaire d'ajouter des arguments comme `-p aa_r` ou `-ppf anshpc`, selon le module que vous utilisez."
-    },
-    {
-      "question": "Comment spécifier le nombre de GPU par nœud pour une tâche SMP GPU dans Ansys Mechanical?",
-      "answer": "Dans le script, la directive `#SBATCH --gpus-per-node=1` est utilisée pour spécifier un GPU par nœud. On peut aussi spécifier le type de GPU, comme `#SBATCH --gpus-per-node=h100:1`."
-    },
-    {
-      "question": "Quels modules sont chargés pour le script de tâches APDL en mémoire parallèle distribuée (DMP) avec CPU?",
-      "answer": "Le script DMP avec CPU charge `StdEnv/2023` et `ansys/2024R1.03`."
-    },
-    {
-      "question": "Comment le `LD_LIBRARY_PATH` est-il géré pour les tâches APDL en mémoire parallèle distribuée (DMP) avec CPU sur le cluster Cedar?",
-      "answer": "Sur le cluster Cedar, le script crée un lien symbolique vers `$EBROOTGCC/../lib/gcc/libstdc++.so.6.0.29` dans le répertoire de sortie (`$PWD/outdir-$SLURM_JOBID`) et exporte `LD_LIBRARY_PATH` pour inclure ce répertoire."
-    },
-    {
-      "question": "Quelle implémentation MPI est utilisée pour les tâches DMP CPU sur le cluster Beluga?",
-      "answer": "Sur le cluster Beluga, l'implémentation MPI `intelmpi` est utilisée, et `KMP_AFFINITY` est désactivé (`export KMP_AFFINITY=none`)."
-    },
-    {
-      "question": "Quelle implémentation MPI est utilisée pour les tâches DMP CPU sur les clusters autres que Beluga?",
-      "answer": "Pour les clusters autres que Beluga, l'implémentation MPI `openmpi` est utilisée."
-    },
-    {
-      "question": "Comment activer l'accélération GPU pour une tâche SMP (Shared Memory Parallel) dans Ansys Mechanical?",
-      "answer": "Pour activer l'accélération GPU, il faut inclure `#SBATCH --gpus-per-node=1` (ou plus, avec le type de GPU si nécessaire) et exporter `ANSGPU_PRINTDEVICES=1`. La commande `mapdl` doit également utiliser les arguments `-acc nvidia` et `-na $SLURM_GPUS_ON_NODE`."
-    },
-    {
-      "question": "Quelle version du module Ansys est spécifiquement chargée dans les exemples de scripts APDL (CPU et GPU)?",
-      "answer": "Les scripts fournis chargent le module `ansys/2024R1.03` après `module load StdEnv/2023`."
-    },
-    {
-      "question": "Quels sont les paramètres `#SBATCH` principaux pour la mémoire et les cœurs dans un script de tâche APDL en mémoire parallèle distribuée (DMP) avec CPU?",
-      "answer": "Les paramètres principaux sont `#SBATCH --mem-per-cpu=4G` pour la mémoire par cœur et `#SBATCH --ntasks=8` pour le nombre total de cœurs. Le nombre de nœuds (`--nodes`) et de cœurs par nœud (`--ntasks-per-node`) sont facultatifs."
-    },
-    {
-      "question": "Quelle directive `#SBATCH` est utilisée pour spécifier la mémoire totale pour toutes les cœurs dans un script SMP GPU pour Ansys Mechanical?",
-      "answer": "La directive `#SBATCH --mem=32G` est utilisée pour spécifier la mémoire totale pour toutes les cœurs dans un script SMP GPU."
-    },
-    {
-      "question": "Le nombre de nœuds peut-il être modifié pour un script SMP GPU dans Ansys Mechanical?",
-      "answer": "Non, le nombre de nœuds est fixé à 1 (`#SBATCH --nodes=1`) et il est indiqué de ne pas le modifier (`# Do not change`)."
-    },
-    {
-      "question": "Quel est le rôle de la variable d'environnement `ANSGPU_PRINTDEVICES` dans les scripts Ansys Mechanical utilisant des GPU?",
-      "answer": "La variable `export ANSGPU_PRINTDEVICES=1` est utilisée pour activer l'affichage des périphériques GPU, ce qui est nécessaire lorsque l'accélération GPU est employée."
-    },
-    {
-      "question": "Comment une tâche SMP (Shared Memory Parallel) avec accélération GPU est-elle lancée via la commande `mapdl`?",
-      "answer": "Une tâche SMP GPU est lancée avec la commande `mapdl -smp -acc nvidia -na $SLURM_GPUS_ON_NODE -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
-    },
-    {
-      "question": "Comment lancer une tâche DMP (Distributed Memory Parallel) avec accélération GPU sur un cluster autre que Beluga?",
-      "answer": "Sur les clusters autres que Beluga, on utilise la commande `mapdl -dis -acc nvidia -na $SLURM_GPUS_ON_NODE -mpi openmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
-    },
-    {
-      "question": "À quoi sert le répertoire `outdir-$SLURM_JOBID` qui est créé dans les scripts APDL?",
-      "answer": "Le répertoire `outdir-$SLURM_JOBID` est créé avec `mkdir` pour y stocker les fichiers de sortie de la tâche Ansys Mechanical APDL."
+      "question": "Quels sont les paramètres de mémoire par défaut pour les tâches Ansys APDL, comment les ajuster, et faut-il considérer des arguments de licence additionnels avec un serveur de licence institutionnel?",
+      "answer": "Par défaut, Ansys alloue 1024 Mo de mémoire totale et 1024 Mo pour les bases de données aux tâches APDL. Pour ajuster ces valeurs, vous pouvez ajouter les arguments `-m` (pour la mémoire totale) et/ou `-db` (pour la mémoire des bases de données) à la ligne de commande `mapdl` dans vos scripts (par exemple, `-m 4096 -db 2048`). Si vous utilisez un serveur de licence de votre établissement qui offre plusieurs licences Ansys, il pourrait être nécessaire d'ajouter des arguments comme `-p aa_r` ou `-ppf anshpc`, selon le module que vous utilisez."
     }
   ],
-  "generated_at": "2026-04-12T17:03:41.997648+00:00"
+  "generated_at": "2026-04-13T01:59:50.954472+00:00"
 }

@@ -3,105 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Why should users understand job scheduling policies on the clusters?",
-      "answer": "Understanding job scheduling policies can improve productivity, especially for users submitting large numbers of jobs or jobs requiring significant resources."
+      "question": "What is the main purpose of understanding job scheduling policies on Alliance clusters?",
+      "answer": "Understanding job scheduling policies can improve a user's productivity when submitting large numbers of jobs or jobs that require significant amounts of resources on Alliance clusters."
     },
     {
-      "question": "How is the order in which jobs are considered for scheduling determined?",
-      "answer": "The order is determined by 'priority,' which is calculated using the 'fair tree' algorithm."
+      "question": "How is job priority determined on Alliance high-performance computing systems?",
+      "answer": "Job priority on Alliance systems is determined using the 'fair tree' algorithm, which considers factors such as the Resource Allocation Project (RAP) a job is charged to, and the project's target usage level relative to its actual resource consumption."
     },
     {
-      "question": "What `sbatch` argument is used to specify the Resource Allocation Project (RAP) for a job?",
-      "answer": "The `--account` argument is used with `sbatch` to specify the Resource Allocation Project (RAP)."
+      "question": "What is a Resource Allocation Project (RAP) on Alliance clusters, and how is it specified?",
+      "answer": "A Resource Allocation Project (RAP) is an account to which a job is charged. It is specified using the `--account` argument with `sbatch`, and can be a grant-based project (e.g., `rrg-` or `rpp-`) or a Rapid Access Service project (e.g., `def-`)."
     },
     {
-      "question": "What prefixes typically identify account codes for Resource Allocation Competition (RAC) projects?",
-      "answer": "Account codes for RAC projects usually begin with `rrg-` or `rpp-`."
+      "question": "What is the difference in target usage levels between RAC projects and non-RAC projects on Alliance clusters?",
+      "answer": "RAC projects have target usage levels determined by the number of CPU-years or GPU-years granted, while non-RAC projects (like `def-` accounts) all have equal target levels that are adjusted dynamically based on active projects."
     },
     {
-      "question": "How are non-RAC projects, also known as Rapid Access Service projects, typically identified by their account codes?",
-      "answer": "Non-RAC projects, or Rapid Access Service projects, typically have account codes that begin with `def-`."
+      "question": "What does the `LevelFS` value indicate in the `sshare` output for an Alliance cluster project?",
+      "answer": "`LevelFS` indicates an association's fairshare value compared to its siblings. A value near 1.0 means consistent target usage, below 1.0 means the project is over-served (lower priority), and above 1.0 means it is under-served (higher priority)."
     },
     {
-      "question": "How are target usage levels determined for RAC projects compared to non-RAC projects?",
-      "answer": "RAC projects have target levels based on granted CPU-years or GPU-years, while non-RAC projects (def- accounts) all have equal target levels adjusted dynamically."
+      "question": "How is past resource usage factored into job priority calculations on Alliance clusters?",
+      "answer": "Past resource usage (CPU time, GPU time, and memory) is discounted with a half-life of one week, meaning usage from more than a few weeks ago will have only a small effect on current job priority."
     },
     {
-      "question": "Which command allows users to examine a research group's usage and share information?",
-      "answer": "The `sshare` command is used to examine a group's usage and share information."
+      "question": "When might a job benefit from requesting whole nodes on Alliance clusters?",
+      "answer": "Applications that can efficiently use more cores than are available in a single node may benefit from being scheduled on whole nodes, and some clusters reserve nodes specifically for such requests."
     },
     {
-      "question": "When using the `sshare` command, what must be appended to the account code?",
-      "answer": "When using `sshare`, `_cpu` or `_gpu` must be appended to the account code, as appropriate, since CPU and GPU use are tracked separately."
+      "question": "What are the maximum run-time limits for jobs on various Alliance clusters like Trillium, Fir, Narval, Nibi, and Rorqual?",
+      "answer": "Trillium accepts jobs up to 24 hours, while Fir, Narval, Nibi, and Rorqual accept jobs up to 7 days. These limits are subject to change by each site's sysadmin team."
     },
     {
-      "question": "What does a `LevelFS` value greater than 1.0 indicate for a project?",
-      "answer": "A `LevelFS` value greater than 1.0 indicates that the project is under-served, meaning it has used less than its target usage, and new jobs from this project will enjoy high priority."
+      "question": "How do job time limits affect scheduling opportunities on general-purpose Alliance clusters?",
+      "answer": "Shorter jobs have more scheduling opportunities than longer jobs because they can run in partitions with their specific time limit, as well as in partitions designed for longer time limits."
     },
     {
-      "question": "What does a `LevelFS` value between 0 and 1 indicate for a project?",
-      "answer": "A `LevelFS` value between 0 and 1 indicates that the project is over-served, meaning it has used more than its target usage, and new jobs from this project will have low priority."
+      "question": "What is backfilling in the context of Alliance cluster job scheduling, and which types of jobs primarily benefit from it?",
+      "answer": "Backfilling is a scheduling mechanism that allows lower priority jobs to start if doing so does not delay the expected start time of any higher priority jobs, improving overall system utilization. It primarily benefits jobs with short time limits, typically under 3 hours."
     },
     {
-      "question": "How is `RawUsage` calculated, and how does past usage influence it?",
-      "answer": "`RawUsage` is calculated from the total resource-seconds charged to an account, with past usage discounted using a one-week half-life."
+      "question": "How are nodes on general-purpose Alliance clusters initially categorized for job submission?",
+      "answer": "Nodes on general-purpose Alliance clusters are initially partitioned into three categories: Base nodes (4 or 8 GB memory per core), Large memory nodes (16 to 96 GB memory per core), and GPU nodes, based on requested resources."
     },
     {
-      "question": "What type of applications may benefit from being scheduled on whole nodes?",
-      "answer": "Applications that can efficiently use more cores than found in a single node, or those with huge amounts of serial work that can be packed onto a single node, may benefit from whole-node scheduling."
+      "question": "What further partitioning exists within node categories on general-purpose Alliance clusters beyond memory and GPU types?",
+      "answer": "Within each node category, nodes are further partitioned into 'by-node' for jobs requesting entire nodes and 'by-core' for jobs using a subset of a node's resources. They are also partitioned based on the job's requested walltime."
     },
     {
-      "question": "What is considered an abuse of the system regarding whole-node scheduling?",
-      "answer": "Requesting an inefficient number of processors just to take advantage of whole-node scheduling is considered abuse of the system."
+      "question": "What information does the `partition-stats` utility provide on Alliance clusters?",
+      "answer": "The `partition-stats` utility shows the number of queued and running jobs, idle nodes, and total nodes for each partition type, categorized by node type (Regular, Large Mem, GPU), whether they accept whole-node or by-core jobs, and by maximum walltime."
     },
     {
-      "question": "What are the maximum runtime limits for jobs on Trillium?",
-      "answer": "Trillium accepts jobs of up to 24 hours run-time."
+      "question": "Why should users avoid repeatedly calling the `partition-stats` utility in a script on Alliance clusters?",
+      "answer": "Running `partition-stats` repeatedly is somewhat costly to the scheduler, so users should avoid scripting repeated calls and instead contact technical support for guidance if their workflow requires automated parsing of this information."
     },
     {
-      "question": "What are the maximum runtime limits for jobs on Fir, Narval, Nibi, and Rorqual?",
-      "answer": "Fir, Narval, Nibi, and Rorqual accept jobs of up to 7 days run-time."
-    },
-    {
-      "question": "Why do shorter jobs generally have more scheduling opportunities on general-purpose clusters?",
-      "answer": "Shorter jobs can run in partitions with longer time limits, meaning they have more scheduling opportunities than otherwise-identical longer jobs."
-    },
-    {
-      "question": "What is the primary goal of backfilling in the job scheduler?",
-      "answer": "Backfilling aims to improve overall system utilization and responsiveness by starting lower priority jobs if they do not delay the expected start time of any higher priority jobs."
-    },
-    {
-      "question": "Which types of jobs primarily benefit from backfilling?",
-      "answer": "Backfilling primarily benefits jobs with short time limits, typically under 3 hours."
-    },
-    {
-      "question": "What are the three categories into which nodes on general-purpose clusters are partitioned?",
-      "answer": "The nodes are partitioned into Base nodes (4 or 8 GB/core), Large memory nodes (16 to 96 GB/core), and GPU nodes."
-    },
-    {
-      "question": "What is the difference between 'by-node' and 'by-core' partitions?",
-      "answer": "'By-node' partitions are reserved for jobs requesting one or more entire nodes, while 'by-core' partitions allow jobs to use only a subset of the resources on individual nodes."
-    },
-    {
-      "question": "What utility can users run to see statistics about job queues, running jobs, and idle nodes in different partitions?",
-      "answer": "The `partition-stats` utility shows information such as queued jobs, running jobs, idle nodes, and total nodes by partition type and walltime."
-    },
-    {
-      "question": "Why should users avoid writing scripts that repeatedly call `partition-stats`?",
-      "answer": "Running `partition-stats` is costly to the scheduler, and repeated calls can impact its performance."
-    },
-    {
-      "question": "What is the job limit for normal accounts on Narval, Nibi, and Rorqual?",
-      "answer": "Normal accounts on Narval, Nibi, and Rorqual can have no more than 1000 jobs in a pending or running state at any time."
-    },
-    {
-      "question": "How are tasks within a job array counted towards the system's job limit?",
-      "answer": "Each task of a job array counts as one job against the system's job limit."
-    },
-    {
-      "question": "Where can users find information about recent changes to scheduling policies?",
-      "answer": "Users can find information about recent changes to scheduling policies on the 'Scheduling policy updates' page."
+      "question": "Is there a limit on the number of jobs a user can have in the system simultaneously on specific Alliance clusters like Narval, Nibi, and Rorqual?",
+      "answer": "Yes, on Narval, Nibi, and Rorqual, normal accounts are limited to no more than 1000 jobs in a pending or running state at any time, with each task of a job array counting as one job."
     }
   ],
-  "generated_at": "2026-04-12T00:18:16.064387+00:00"
+  "generated_at": "2026-04-13T07:33:06.919696+00:00"
 }

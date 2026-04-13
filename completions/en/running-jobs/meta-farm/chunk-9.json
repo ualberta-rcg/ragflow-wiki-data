@@ -4,77 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "How can I check for the presence of an NVidia GPU in my `job_script.sh` to prevent failures on defective nodes?",
-      "answer": "You can add a script snippet using `nvidia-smi` before `task.run` in your `job_script.sh`. If `nvidia-smi` returns a non-zero exit code, indicating no GPU is found, the metajob will exit."
+      "question": "How can a user prevent a META metajob from failing prematurely if it's assigned to a defective node, such as one with a malfunctioning GPU?",
+      "answer": "Users can add pre-checks to their `job_script.sh` file before the `task.run` line. For instance, they can use commands like `nvidia-smi` to verify the presence of a functional GPU and, if a defect is detected, force the metajob to exit before processing any cases. A `gpu_test` utility is also available on the Nibi cluster for similar checks."
     },
     {
-      "question": "Is there a specific utility for GPU testing available on Nibi?",
-      "answer": "Yes, on Nibi, there is a utility called `gpu_test` that does a similar job to `nvidia-smi`. You can copy it to your `~/bin` directory using `cp ~syam/bin/gpu_test ~/bin`."
+      "question": "What is the function of the `resubmit.run` command within the META package?",
+      "answer": "The `resubmit.run` command manages failed or uncompleted cases in a farm. It analyzes the `status.*` files to determine which cases need reprocessing, then generates a secondary `table.dat_` file containing only those cases, and subsequently launches a new farm to execute them. It can also be used with the `-auto` argument for automatic, continuous resubmission."
     },
     {
-      "question": "What built-in mechanism does the META package use to detect and kill metajobs that fail too quickly?",
-      "answer": "The META package has a built-in mechanism that detects problems by checking if the first `N_failed_max` cases finish in less than `dt_failed` seconds, and if so, it kills the metajob."
-    },
-    {
-      "question": "Where are the parameters for META's protective mechanism, `N_failed_max` and `dt_failed`, defined?",
-      "answer": "The parameters `N_failed_max` and `dt_failed` for META's protection mechanism are set in the `config.h` file."
-    },
-    {
-      "question": "What are the default values for `N_failed_max` and `dt_failed`?",
-      "answer": "The default values for both `N_failed_max` and `dt_failed` are 5."
-    },
-    {
-      "question": "How can I adjust META's protection mechanism if my normal cases have runtimes shorter than `dt_failed` and cause false triggering?",
-      "answer": "If you experience false triggering because some of your normal cases have a runtime shorter than `dt_failed`, you should reduce the value of `dt_failed` in `config.h`."
-    },
-    {
-      "question": "What files are created in the farm directory when metajobs are running, relating to output and status?",
-      "answer": "When metajobs are running, `OUTPUT/slurm-$JOBID.out` (containing standard output) and `STATUSES/status.$JOBID` (containing the status of each processed case) are created in the farm directory."
-    },
-    {
-      "question": "What is the purpose of the `MISC` directory created within the farm directory?",
-      "answer": "The `MISC` directory, created inside the root farm directory, contains some auxiliary data."
-    },
-    {
-      "question": "Where does `submit.run` create unique subdirectories for small scratch files?",
-      "answer": "Every time `submit.run` is executed, it creates a unique subdirectory inside `/home/$USER/tmp` for small scratch files, such as those used by `lockfile`."
-    },
-    {
-      "question": "How are the scratch subdirectories in `/home/$USER/tmp` named?",
-      "answer": "These subdirectories are named `$NODE.$PID`, where `$NODE` is the name of the current node (typically a login node) and `$PID` is the unique process ID for the script."
-    },
-    {
-      "question": "Is it safe to delete the scratch subdirectories in `/home/$USER/tmp` after farm execution?",
-      "answer": "Yes, once the farm execution is done, you can safely erase these subdirectories."
-    },
-    {
-      "question": "What is the consequence of running `clean.run` on a farm directory?",
-      "answer": "Running `clean.run` automatically deletes the scratch files in `/home/$USER/tmp` associated with the farm, but it also deletes all the results produced by your farm, so extreme caution is advised."
-    },
-    {
-      "question": "What command is used to resubmit cases that failed or never ran in a META farm?",
-      "answer": "The `resubmit.run` command is used to resubmit failed or unrun cases in a META farm."
-    },
-    {
-      "question": "What arguments does the `resubmit.run` command accept?",
-      "answer": "The `resubmit.run` command accepts the same arguments as `submit.run`: an obligatory argument `N` (number of jobs), an optional `-auto` switch, and optional `sbatch` arguments."
-    },
-    {
-      "question": "How does `resubmit.run` identify which cases need to be re-run?",
-      "answer": "`resubmit.run` analyzes all the `status.*` files, identifies cases that failed or never ran, and then creates or overwrites a secondary `table.dat_` file listing only those cases to launch a new farm for them."
-    },
-    {
-      "question": "When can I execute the `resubmit.run` command?",
-      "answer": "You cannot run `resubmit.run` until all the jobs from the original farm run are either done or have been killed."
-    },
-    {
-      "question": "What should I do if certain cases repeatedly fail even after using `resubmit.run`?",
-      "answer": "If cases repeatedly fail, it indicates a problem with your program or its input. You should use the `Status.run` command, optionally with `-f`, to display sorted statuses and identify cases with non-zero exit codes more easily."
-    },
-    {
-      "question": "What is the function of the `-auto` switch when used with `resubmit.run`?",
-      "answer": "The `-auto` switch, when present with `resubmit.run`, will cause the farm to resubmit itself automatically at the end, as many times as necessary, until all cases from `table.dat` have been processed."
+      "question": "When META metajobs are active, what types of output and temporary files are generated, and where are they located?",
+      "answer": "When metajobs are running, the META package creates `OUTPUT/slurm-$JOBID.out` files (for standard output) and `STATUSES/status.$JOBID` files (for individual case statuses) within the farm directory. An additional `MISC` directory holds auxiliary data. Furthermore, small scratch files, utilized for operations like `lockfile`, are generated in unique subdirectories under `/home/$USER/tmp`, named after the node and process ID (`$NODE.$PID`). These temporary subdirectories can be safely erased once farm execution is complete, or automatically deleted by `clean.run` (though `clean.run` also deletes all farm results)."
     }
   ],
-  "generated_at": "2026-04-12T01:21:48.796833+00:00"
+  "generated_at": "2026-04-13T08:25:33.869627+00:00"
 }

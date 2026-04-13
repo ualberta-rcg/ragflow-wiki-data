@@ -4,109 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is the latest version of META and when was it released?",
-      "answer": "Version 1.0.3 was released in March 2025."
+      "question": "What is META (META-Farm) and what is its primary function within the SHARCNET environment?",
+      "answer": "META (short for META-Farm) is a suite of scripts designed in SHARCNET to automate high-throughput computing. Its primary function is to facilitate running a large number of related calculations, a practice also known as farming, serial farming, or task farming. It works on all Alliance national systems and other clusters using the Slurm scheduler."
     },
     {
-      "question": "What new feature was introduced in META version 1.0.3?",
-      "answer": "Version 1.0.3 adds support for the Trillium cluster via the introduction of the new WHOLE_NODE mode."
+      "question": "What are the key features offered by the META package for managing high-throughput computing tasks?",
+      "answer": "The META package provides several key features, including two modes of operation (SIMPLE mode for one case per job and META mode for many cases per job), dynamic workload balancing in META mode, capture of the exit status for all individual cases, automatic resubmission of cases that failed or never ran, the ability to submit and independently operate multiple 'farms' on the same cluster, and automatic execution of a post-processing job once all cases are successfully completed."
     },
     {
-      "question": "How is the WHOLE_NODE mode enabled and what is its default state?",
-      "answer": "The WHOLE_NODE mode can be set in `config.h` and is disabled by default."
-    },
-    {
-      "question": "How does the WHOLE_NODE mode function?",
-      "answer": "The Whole Node mode operates by packaging serial farm jobs into whole node jobs."
-    },
-    {
-      "question": "Where can one find detailed information about the WHOLE_NODE mode?",
-      "answer": "The WHOLE_NODE mode is discussed in detail in the 'META-Farm: Advanced features and troubleshooting' document."
-    },
-    {
-      "question": "What does META stand for and what is its primary purpose?",
-      "answer": "META, short for META-Farm, is a suite of scripts designed in SHARCNET to automate high-throughput computing, which means running a large number of related calculations."
-    },
-    {
-      "question": "What are other terms used to describe the practice of high-throughput computing?",
-      "answer": "This practice is sometimes called farming, serial farming, or task farming."
-    },
-    {
-      "question": "On which systems does META operate?",
-      "answer": "META works on all Alliance national systems and can also be used on other clusters that use the same setup, most importantly those that use the Slurm scheduler."
-    },
-    {
-      "question": "What is defined as a 'case' in the context of this document?",
-      "answer": "The term 'case' is used for one independent computation, which may involve the execution of a serial, parallel, or GPU-using program."
-    },
-    {
-      "question": "What is defined as a 'job' in this article?",
-      "answer": "The term 'job' is an invocation of the Slurm job scheduler, which may handle several cases."
-    },
-    {
-      "question": "What are the two modes of operation offered by META?",
-      "answer": "META has two modes of operation: SIMPLE mode, which handles one case per job, and META mode, which handles many cases per job."
-    },
-    {
-      "question": "What are some key features of the META package?",
-      "answer": "META features include two operational modes (SIMPLE and META), dynamic workload balancing in META mode, capturing the exit status of all individual cases, automatically resubmitting failed or unrun cases, submitting and independently operating multiple farms on the same cluster, and automatically running a post-processing job once all cases are successfully processed."
-    },
-    {
-      "question": "What are the technical requirements for managing cases within a META farm?",
-      "answer": "For each farm, every case to be computed must be described as a separate line in a `table.dat` file. Additionally, each farm must have its own directory, allowing multiple farms to run independently."
-    },
-    {
-      "question": "How does META mode manage jobs in relation to cases?",
-      "answer": "In META mode, the number of actual jobs (called metajobs) submitted by the package is usually much smaller than the number of cases to process, as each metajob can process multiple cases from `table.dat`."
-    },
-    {
-      "question": "How does META mode ensure dynamic workload balancing between metajobs?",
-      "answer": "A collection of metajobs will read lines from `table.dat` in a serialized manner using a `lockfile` mechanism to prevent a race condition, ensuring a good dynamic workload balance where metajobs handling shorter cases process more of them."
-    },
-    {
-      "question": "Is it possible for a single metajob to process all cases in META mode?",
-      "answer": "Yes, if the runtime of an individual metajob is long enough, all the cases might be processed with just a single metajob."
-    },
-    {
-      "question": "What is a significant advantage of META over GLOST concerning queue wait times?",
-      "answer": "The queue wait time can be dramatically shorter with the META package than with GLOST because the scheduler has full flexibility to start individual metajobs when it wants, allowing first results within minutes, unlike GLOST's potentially weeks-long waits for large MPI jobs."
-    },
-    {
-      "question": "How does META compare to GLOST regarding idle CPU ranks at the end of computations?",
-      "answer": "With META, there is no waste at the end of the farm computations as individual metajobs exit earlier if they have no more workload to process, unlike GLOST where some MPI ranks may sit idle."
-    },
-    {
-      "question": "Does META support automated resubmission of failed cases, unlike GLOST?",
-      "answer": "Yes, META supports automated resubmission of cases that failed or never ran, a feature not present in GLOST and other similar packages."
-    },
-    {
-      "question": "When was the META webinar recorded and where can it be viewed?",
-      "answer": "A webinar describing the META package was recorded on October 6th, 2021, and can be viewed at [https://youtu.be/GcYbaPClwGE](https://youtu.be/GcYbaPClwGE)."
-    },
-    {
-      "question": "What are the initial steps to use META after logging into a cluster?",
-      "answer": "After logging into a cluster, you need to load the `meta-farm` module using `$ module load meta-farm`, then choose and create a farm directory with `$ farm_init.run Farm_name`."
-    },
-    {
-      "question": "What is the purpose of the `farm_init.run` command?",
-      "answer": "The `farm_init.run` command is used to initialize a farm directory, which also creates a few important files inside that directory that may need customization."
-    },
-    {
-      "question": "What file needs to be edited to describe the individual computations for a farm?",
-      "answer": "The `table.dat` file inside the farm directory needs to be edited; it's a text file where each line describes one case (one independent computation)."
-    },
-    {
-      "question": "How do you submit a farm for one case per job (SIMPLE) mode?",
-      "answer": "To submit a farm in SIMPLE mode, execute `$ submit.run -1` inside the farm directory."
-    },
-    {
-      "question": "How do you submit a farm for many cases per job (META) mode?",
-      "answer": "To submit a farm in META mode, execute `$ submit.run N` inside the farm directory, where `N` is the desired number of metajobs, which should be significantly smaller than the total number of cases."
-    },
-    {
-      "question": "How can you run multiple META farms simultaneously?",
-      "answer": "To run multiple farms concurrently, you must run `farm_init.run` again with a different farm name, then customize the `single_case.sh` and `job_script.sh` files within the new farm directory, create a new `table.dat` file there, copy necessary executables and input files, and finally execute `submit.run` inside the second farm directory."
+      "question": "What new feature was introduced in version 1.0.3 of the META package, released in March 2025?",
+      "answer": "Version 1.0.3 of the META package, released in March 2025, added support for the Trillium cluster. This was achieved through the introduction of the new WHOLE_NODE mode, which can be set in `config.h` (and is disabled by default). The Whole Node mode operates by packaging serial farm jobs into whole node jobs."
     }
   ],
-  "generated_at": "2026-04-12T01:20:05.070794+00:00"
+  "generated_at": "2026-04-13T08:24:21.483009+00:00"
 }

@@ -4,56 +4,60 @@
   "qa_pairs": [
     {
       "question": "What is the `dar` utility and what was its original purpose?",
-      "answer": "`dar` (Disk ARchive) is an open-source utility first released in 2002, designed as a modern replacement for the classical Unix `tar` tool."
+      "answer": "The `dar` (Disk ARchive) utility is an open-source tool, first released in 2002, that was developed as a modern replacement for the classical Unix `tar` tool."
     },
     {
-      "question": "What are some key features that differentiate `dar` from `tar`?",
-      "answer": "Unlike `tar`, `dar` includes a file index for fast file access and restore, has built-in file-by-file compression for resilience against data corruption, supports strong encryption, can split archives at 1-byte resolution, and can detect/recover from data corruption."
+      "question": "How does `dar` improve upon the traditional `tar` utility?",
+      "answer": "`dar` improves upon `tar` by including a file index for fast access, built-in per-file compression for resilience against data corruption, strong encryption, the ability to split archives at 1-byte resolution, support for extended file attributes, and detection/recovery from data corruption."
     },
     {
-      "question": "Where can users find `dar` on Compute Canada clusters?",
-      "answer": "On Compute Canada clusters, `dar` is available on `/cvmfs` and requires the `StdEnv/2020` software environment."
+      "question": "Where can users find the `dar` utility on Alliance clusters?",
+      "answer": "On Alliance clusters, `dar` is available on `/cvmfs` and can be accessed by loading the `StdEnv/2020` environment."
     },
     {
-      "question": "How do I create a basic archive of a directory named `test` using `dar`?",
-      "answer": "To pack a subdirectory named `test` into an archive, you can use the command `dar -w -c all -g test`, which will create a file named `all.1.dar`."
+      "question": "What is the basic command to create an archive of a directory named `test` using `dar`?",
+      "answer": "To create a basic archive of a subdirectory named `test`, you can use the command `dar -w -c all -g test`, which will create an archive file named `all.1.dar`."
     },
     {
-      "question": "How can I list the contents of a `dar` archive?",
-      "answer": "To list the contents of an archive, use the command `dar -l <base_name_of_archive>`, for example, `dar -l all`."
+      "question": "How do you include multiple directories and files when creating a `dar` archive?",
+      "answer": "You can include multiple directories and files by using the `-g` flag for each item, such as `dar -w -c all -g testDir1 -g testDir2 -g file1 -g file2`."
     },
     {
-      "question": "What command should I use to extract a specific file from a `dar` archive into a `restore` subdirectory, ignoring file ownership and warnings?",
-      "answer": "You can extract a specific file using `dar -R restore/ -O -w -x all -v -g test/filename`. The `-O` flag ignores file ownership, and `-w` disables warnings if the restore directory already exists."
+      "question": "How can you list the contents of a `dar` archive?",
+      "answer": "To list the contents of a `dar` archive, use the command `dar -l` followed by the base name of the archive, for example, `dar -l all`."
     },
     {
-      "question": "When creating or extracting an archive, do paths need to be relative to the current directory?",
-      "answer": "Yes, all paths specified with the `-g` flag for including or excluding files/directories should be relative to the current directory."
+      "question": "What is the purpose of the `-O` flag when extracting files with `dar`?",
+      "answer": "The `-O` flag tells `dar` to ignore file ownership during extraction. This is useful if you are restoring someone else's files or if you are not running as root."
     },
     {
-      "question": "How do I create an incremental backup with `dar`, referencing a previous archive?",
-      "answer": "To create an incremental backup (e.g., `tuesday`) based on a previous archive (e.g., `monday`), use the command `dar -w -A monday -c tuesday -g test`."
+      "question": "What issue can occur when extracting `dar` archived files from a Lustre filesystem to node-local storage?",
+      "answer": "When extracting files archived from a Lustre filesystem to node-local storage (like `$SLURM_TMPDIR`), `dar` might show error messages such as `Error while adding EA lustre.lov : Operation not supported` because Lustre-specific extended attributes are not supported on non-Lustre filesystems."
     },
     {
-      "question": "What is the correct order to restore a full backup and subsequent incremental backups?",
-      "answer": "To restore everything, you must restore all backups in chronological order, starting with the full backup, followed by each incremental backup sequentially."
+      "question": "How can users avoid errors related to Lustre extended attributes when extracting files with `dar` to non-Lustre locations?",
+      "answer": "To avoid these errors, users can use the `-u 'lustre*'` flag during extraction to exclude specific types of attributes, or they can use the same flag when creating the archive to prevent these attributes from being saved initially."
     },
     {
-      "question": "How can I limit the maximum size of individual archive slices when using `dar`?",
-      "answer": "You can limit the size of each slice using the `-s` flag followed by a number and a unit (e.g., `k`, `M`, `G`, `T`), for example: `dar -s 100M -w -c monday -g test`."
+      "question": "How do you create an incremental backup with `dar` using a previous full backup as a reference?",
+      "answer": "To create an incremental backup, you use the `-A` flag followed by the base name of the reference archive. For example, `dar -w -A monday -c tuesday -g test` creates an incremental backup named `tuesday` using `monday` as the reference."
     },
     {
-      "question": "What problem might occur when extracting files from a Lustre filesystem-created `dar` archive to a non-Lustre location?",
-      "answer": "When extracting to a non-Lustre formatted location like `$SLURM_TMPDIR`, `dar` may show error messages such as 'Error while adding EA lustre.lov : Operation not supported' due to extended Lustre attributes being saved automatically."
+      "question": "What is the correct procedure for restoring a full backup and subsequent incremental backups made with `dar`?",
+      "answer": "To restore everything from a full backup and its incremental backups, you must restore them in chronological order, starting with the full backup and then each incremental backup sequentially."
     },
     {
-      "question": "How can I prevent or resolve issues with Lustre extended attributes during `dar` extraction?",
-      "answer": "You can either exclude specific attributes during extraction (e.g., `dar -u 'lustre*'`) or prevent them from being saved during archive creation by using the same `-u 'lustre*'` flag."
+      "question": "How can the maximum size of individual archive slices be specified when creating a `dar` archive?",
+      "answer": "The maximum size of each slice can be limited using the `-s` flag followed by a number and a unit (e.g., k/M/G/T), such as `dar -s 100M -w -c monday -g test` to create 100 MB slices."
     },
     {
-      "question": "Does `dar` support Unix wildcards when specifying files or directories with the `-g` flag?",
-      "answer": "No, `dar` does not accept Unix wild masks after the `-g` flag."
+      "question": "How do you extract files from a `dar` archive that has been split into multiple slices?",
+      "answer": "To extract files from a multi-slice `dar` archive, simply use the base name of the archive with the extraction command, for example, `dar -O -x monday`."
+    },
+    {
+      "question": "Are there any external resources available to help users with `dar` scripting?",
+      "answer": "Yes, there are bash functions written by a team member available on GitHub (github.com/razoumov/sharedSnippets) that users can use as inspiration for writing their own `dar` scripts."
     }
   ],
-  "generated_at": "2026-04-11T20:44:38.421780+00:00"
+  "generated_at": "2026-04-13T04:43:01.864807+00:00"
 }

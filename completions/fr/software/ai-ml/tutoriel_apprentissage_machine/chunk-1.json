@@ -4,93 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Quel est le but de cette page?",
-      "answer": "Cette page constitue un guide de démarrage servant à porter une tâche d'apprentissage automatique (Machine Learning) sur une de nos grappes."
+      "question": "Comment doit-on gérer l'affichage graphique quand on porte une tâche d'apprentissage automatique sur les grappes?",
+      "answer": "Il faut modifier le programme pour qu'il n'utilise pas d'affichage graphique. Tout résultat graphique doit être écrit sur le disque dans un fichier et visualisé sur votre ordinateur personnel une fois la tâche terminée, par exemple en enregistrant les graphiques sous forme de fichiers avec matplotlib."
     },
     {
-      "question": "Quelle est la première étape pour porter une tâche d'apprentissage automatique sur une grappe?",
-      "answer": "La première étape est de modifier votre programme afin qu'il n'utilise pas d'affichage graphique."
+      "question": "Pourquoi est-il important d'archiver un ensemble de données avec la commande `tar` avant de le transférer sur un nœud de calcul, et comment cela peut-il être fait?",
+      "answer": "Les stockages partagés sur nos grappes ne sont pas optimisés pour gérer un grand nombre de petits fichiers. Ne pas archiver l'ensemble de données peut causer des lectures de fichiers à haute fréquence, nuisant ainsi à la performance globale du système. Pour archiver un dossier nommé `mydataset`, on peut utiliser la commande `tar cf mydataset.tar mydataset/*`. Si on souhaite compresser les données en même temps, on peut utiliser `tar czf`."
     },
     {
-      "question": "Comment devrais-je gérer les résultats graphiques de mon programme sur la grappe?",
-      "answer": "Tout résultat graphique devra être écrit sur le disque dans un fichier, et visualisé sur votre ordinateur personnel, une fois la tâche terminée."
-    },
-    {
-      "question": "Donnez un exemple de bibliothèque graphique et ce qu'il faut faire avec elle.",
-      "answer": "Par exemple, si vous affichez des graphiques avec Matplotlib, vous devez enregistrer les graphiques sous forme de fichiers, au lieu de les afficher à l'écran."
-    },
-    {
-      "question": "Quelle est la deuxième étape importante pour le traitement des données sur les grappes?",
-      "answer": "La deuxième étape est l'archivage d'un ensemble de données."
-    },
-    {
-      "question": "Pourquoi les ensembles de données devraient-ils être archivés sur nos grappes?",
-      "answer": "Les stockages partagés sur nos grappes ne sont pas optimisés pour gérer un grand nombre de petits fichiers; ils sont plutôt optimisés pour les très gros fichiers."
-    },
-    {
-      "question": "Que se passe-t-il si un ensemble de données n'est pas archivé et contient un grand nombre de petits fichiers?",
-      "answer": "Si vous n'archivez pas votre ensemble de données, vous risquez de causer des lectures de fichiers à haute fréquence du nœud de stockage vers votre nœud de calcul, nuisant ainsi à la performance globale du système."
-    },
-    {
-      "question": "Quelle commande peut être utilisée pour archiver un dossier nommé `mydataset` sans compression?",
-      "answer": "Vous pouvez utiliser la commande `$ tar cf mydataset.tar mydataset/*`."
-    },
-    {
-      "question": "Comment puis-je archiver et compresser un ensemble de données en même temps?",
-      "answer": "Si vous croyez que ce serait approprié, vous pouvez utiliser la commande `tar czf`."
-    },
-    {
-      "question": "Où peut-on trouver plus d'informations sur la gestion des grands ensembles de fichiers?",
-      "answer": "On vous recommande la lecture de la page 'Handling large collections of files' sur la documentation de l'Alliance."
-    },
-    {
-      "question": "Quelle est la troisième étape pour préparer une tâche d'apprentissage automatique?",
-      "answer": "La troisième étape est la préparation de l'environnement virtuel."
-    },
-    {
-      "question": "Où doit-on créer un environnement virtuel?",
-      "answer": "Vous devez créer un environnement virtuel dans votre espace home."
-    },
-    {
-      "question": "Où puis-je trouver des détails sur l'installation et l'utilisation de PyTorch ou TensorFlow?",
-      "answer": "Pour les détails d'installation et d'utilisation de ces frameworks, vous devez vous référer à notre documentation spécifique sur PyTorch et TensorFlow."
-    },
-    {
-      "question": "Quelle est la quatrième étape recommandée avant de soumettre une tâche avec un script?",
-      "answer": "La quatrième étape est d'essayer votre tâche dans une tâche interactive (`salloc`)."
-    },
-    {
-      "question": "Pourquoi est-il conseillé d'utiliser une tâche interactive avant une tâche scriptée?",
-      "answer": "Nous vous recommandons d'essayer votre tâche dans une tâche interactive avant de la soumettre avec un script pour pouvoir diagnostiquer plus rapidement les problèmes."
-    },
-    {
-      "question": "Donnez un exemple de commande pour soumettre une tâche interactive.",
-      "answer": "Un exemple de commande est: `$ salloc --account=def-someuser --gres=gpu:1 --cpus-per-task=3 --mem=32000M --time=1:00:00`."
-    },
-    {
-      "question": "Quelles sont les premières actions à entreprendre une fois qu'on est connecté à une tâche interactive?",
-      "answer": "Une fois dans la tâche, vous devez activer votre environnement virtuel Python, tenter d'exécuter votre programme et installer les paquets manquants s'il y a lieu."
-    },
-    {
-      "question": "Comment installer des paquets manquants si les nœuds de calcul n'ont pas d'accès à Internet?",
-      "answer": "Les nœuds de calcul n'ayant pas d'accès à Internet, vous devrez faire l'installation à partir d'un nœud de connexion. Référez-vous à notre documentation sur les environnements virtuels Python pour plus de détails."
-    },
-    {
-      "question": "Quelle vérification importante doit être faite concernant le stockage pendant une tâche interactive?",
-      "answer": "C'est un bon moment pour vérifier que votre tâche lit et écrit le plus possible dans le stockage local au nœud de calcul (`$SLURM_TMPDIR`), et le moins possible sur les systèmes de fichiers partagés (home, scratch, project)."
-    },
-    {
-      "question": "Quelle est la cinquième étape pour l'exécution des tâches d'apprentissage automatique?",
-      "answer": "La cinquième étape est la tâche scriptée (`sbatch`)."
-    },
-    {
-      "question": "Comment doit-on soumettre les tâches pour qu'elles soient entièrement automatisées?",
-      "answer": "Vous devez soumettre vos tâches à l'aide de scripts `sbatch`."
-    },
-    {
-      "question": "Quel est le but des tâches interactives par rapport aux tâches scriptées avec `sbatch`?",
-      "answer": "Les tâches interactives servent uniquement à préparer et à déboguer des tâches qui seront ensuite exécutées entièrement et/ou à grande échelle en utilisant `sbatch`."
+      "question": "Quelle est l'utilité principale des tâches interactives (`salloc`) par rapport aux tâches scriptées (`sbatch`) pour les travaux d'apprentissage automatique sur les grappes, et quelle est une recommandation clé concernant les entrées-sorties (I/O) de fichiers?",
+      "answer": "Les tâches interactives (`salloc`) sont recommandées pour essayer et diagnostiquer rapidement les problèmes avant de soumettre une tâche avec un script (`sbatch`), qui sert à l'automatisation et à l'exécution à grande échelle. Une recommandation clé est de s'assurer que la tâche lit et écrit le plus possible dans le stockage local au nœud de calcul (`$SLURM_TMPDIR`), et le moins possible sur les systèmes de fichiers partagés (home, scratch, project)."
     }
   ],
-  "generated_at": "2026-04-12T09:56:47.754362+00:00"
+  "generated_at": "2026-04-13T15:04:52.643684+00:00"
 }

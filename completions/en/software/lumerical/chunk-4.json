@@ -4,81 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "In the `fdtd_solutions.sh` job script example, what does `--mem=0` signify?",
-      "answer": "In the `fdtd_solutions.sh` job script example, `--mem=0` is a special value that requests all available memory on the node."
-    },
-    {
-      "question": "What is the default input file specified in the `fdtd_solutions.sh` job script example?",
-      "answer": "The default input file specified in the `fdtd_solutions.sh` job script example is `benchmark2.fsp`."
-    },
-    {
-      "question": "What are the paths to the MPI executable and the FDTD program specified in the `fdtd_solutions.sh` job script example?",
-      "answer": "The MPI executable is `$EBROOTFDTD_SOLUTIONS/mpich2/nemesis/bin/mpiexec`, and the FDTD program is `$EBROOTFDTD_SOLUTIONS/bin/fdtd-engine-mpich2nem`."
-    },
-    {
       "question": "What is the purpose of using template submission scripts for FDTD Solutions?",
-      "answer": "Template submission scripts help improve efficiency when performing many simulations, as it can be inefficient to edit the job submission script for each simulation individually."
+      "answer": "Template submission scripts for FDTD Solutions are designed to make it more efficient to perform numerous simulations by reducing the need to manually edit job submission scripts for each individual simulation. This functionality is specifically for the `fdtd_solutions` module."
     },
     {
-      "question": "Which module is the \"Templates\" section specifically intended for?",
-      "answer": "The \"Templates\" section is intended for use with the \"fdtd_solutions\" module and has not been adapted for \"lumerical\"."
+      "question": "How does one set up and use FDTD Solutions template submission scripts to submit a job?",
+      "answer": "To set up the template submission scripts, you need to create a directory `$HOME/bin` for the `fdtd-run.sh` script and a `$HOME/bin/templates` directory for the `fdtd-mpi-template.sh` and `fdtd-process-template.sh` scripts. To submit a job, you run `fdtd-run.sh` followed by the FDTD Solutions project file(s), for example, `fdtd-run.sh fsp1.fsp`. To specify multiple nodes, you can use the `-nn` option, such as `fdtd-run.sh -nn 2 fsp1.fsp`."
     },
     {
-      "question": "How should I set up directories for using FDTD Solutions template submission scripts?",
-      "answer": "You should create a directory `$HOME/bin` and put the main script `fdtd-run.sh` there, and create a directory `$HOME/bin/templates` for the job submission template script `fdtd-mpi-template.sh` and the process template script `fdtd-process-template.sh`."
-    },
-    {
-      "question": "What is the `fdtd-run.sh` script used for?",
-      "answer": "The `fdtd-run.sh` script is used to create Slurm-style job submission scripts for FDTD Solutions project files using a template and then submit them with `sbatch`."
-    },
-    {
-      "question": "How do I submit an FDTD Solutions job using the `fdtd-run.sh` script for one or more FSP files?",
-      "answer": "To submit a job using the `fdtd-run.sh` script, you would run `fdtd-run.sh fsp1 [fsp2 ...]`, where `fsp1` and any subsequent `fsp` arguments are your FDTD Solutions project files."
-    },
-    {
-      "question": "How many cores does `fdtd-run.sh` use by default when submitting a job?",
-      "answer": "By default, `fdtd-run.sh` uses 32 cores on a single standard node."
-    },
-    {
-      "question": "How can I request multiple nodes or more cores when submitting an FDTD Solutions job with `fdtd-run.sh`?",
-      "answer": "You can request multiple nodes by using the `-nn` option, for example: `fdtd-run.sh -nn <nodes> fsp1 [fsp2 ...]`, where `<nodes>` is the desired number of nodes."
-    },
-    {
-      "question": "What is the role of `fdtd-mpi-template.sh`?",
-      "answer": "`fdtd-mpi-template.sh` is essentially a shell of the `fdtd_solutions.sh` script, serving as a template for job submissions."
-    },
-    {
-      "question": "What is the function of `fdtd-process-template.sh`?",
-      "answer": "`fdtd-process-template.sh` is used to replace tags in a submission script template with actual values from an FDTD Solutions project file, and to determine the computing resources needed for the simulation."
-    },
-    {
-      "question": "What is the calling convention for `fdtd-process-template.sh`?",
-      "answer": "The script is called with the following arguments: `fdtd-process-template.sh [options] <fsp file> <template file> <#processes>`."
-    },
-    {
-      "question": "What is the default simulation rate used by `fdtd-process-template.sh` for time estimates if not specified?",
-      "answer": "If no option is given, the default simulation rate used by `fdtd-process-template.sh` is 4 MNodes/s/process, which is considered very conservative."
-    },
-    {
-      "question": "What is the default minimum time in seconds that a simulation can take, as set by `fdtd-process-template.sh`?",
-      "answer": "The default minimum time that a simulation can take is 600 seconds if no `-tm` option is provided."
-    },
-    {
-      "question": "How does `fdtd-process-template.sh` apply a safety factor to memory estimates?",
-      "answer": "`fdtd-process-template.sh` applies a default multiplicative factor of 110% to the memory estimate, or a different percentage if specified using the `-ms` option."
-    },
-    {
-      "question": "What is the default minimum memory usage per process in `fdtd-process-template.sh`?",
-      "answer": "The default minimum memory that a process can use is 20MB."
-    },
-    {
-      "question": "What options are available to customize `fdtd-process-template.sh`?",
-      "answer": "Valid options include: `-r <rate>` for the simulation rate, `-tm <min_time>` for the minimum simulation time, `-ms <memory_safety>` for a memory safety factor, and `-mm <memory_min>` for the minimum memory a process can use."
-    },
-    {
-      "question": "Which tokens are replaced by `fdtd-process-template.sh` in the template file?",
-      "answer": "`fdtd-process-template.sh` replaces the following tokens in the template file: `<total_memory>`, `<processor_memory>`, `<hours>`, `<minutes>`, `<seconds>`, `<n>`, `<dir_fsp>`, and `<filename>`."
+      "question": "What role does the `fdtd-run.sh` script play within the FDTD Solutions template system?",
+      "answer": "The `fdtd-run.sh` script is the main script that manages job submissions using FDTD Solutions templates. It generates Slurm-style job submission scripts by replacing specific tokens in the `fdtd-mpi-template.sh` template file with values extracted from the FDTD Solutions project file, and then submits these generated scripts to the scheduler using the `sbatch` command."
     }
   ],
-  "generated_at": "2026-04-12T01:07:45.033450+00:00"
+  "generated_at": "2026-04-13T08:13:29.444527+00:00"
 }

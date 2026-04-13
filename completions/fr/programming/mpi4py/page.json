@@ -3,37 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, mpi4py, pis à quoi ça sert exactement?",
-      "answer": "mpi4py offre une interface Python pour la norme de communication MPI (Message Passing Interface), permettant aux applications Python d'exploiter plusieurs processeurs sur des postes de travail, des grappes et des supercalculateurs."
+      "question": "À quoi sert la bibliothèque mpi4py dans un environnement de calcul haute performance?",
+      "answer": "mpi4py (MPI for Python) offre une interface Python pour la norme de communication MPI, permettant aux applications Python d'utiliser plusieurs processeurs sur des postes de travail, des grappes et des supercalculateurs pour le calcul parallèle."
     },
     {
-      "question": "Comment on fait pour trouver les versions d'mpi4py disponibles dans notre environnement?",
-      "answer": "Faut utiliser la commande `module spider mpi4py` pour voir les versions disponibles."
+      "question": "Comment faire pour trouver les versions disponibles du module mpi4py dans l'environnement d'une grappe de calcul?",
+      "answer": "Pour trouver les versions disponibles du module mpi4py, il faut utiliser la commande `module spider mpi4py`."
     },
     {
-      "question": "Quelles sont les étapes pour faire rouler un petit test de type 'Hello World' avec mpi4py?",
-      "answer": "D'abord, démarrez une tâche interactive, puis chargez les modules `mpi4py/4.0.0` et `python/3.12`. Après ça, exécutez `srun python -m mpi4py.bench helloworld`."
+      "question": "Comment obtenir des informations détaillées sur une version spécifique de mpi4py, par exemple la version 4.0.0, dans l'environnement?",
+      "answer": "Il faut utiliser la commande `module spider mpi4py/4.0.0` pour obtenir des informations sur une version spécifique de mpi4py."
     },
     {
-      "question": "Quand mpi4py est une dépendance pour un autre paquet, comment on gère ça avec les environnements virtuels?",
-      "answer": "Il faut désactiver tout environnement virtuel Python actif, charger le module `mpi4py`, et seulement après, réactiver votre environnement virtuel avant de créer et d'installer les paquets."
+      "question": "Quelle est la première étape pour exécuter un exemple 'Hello World' avec mpi4py dans un environnement de calcul?",
+      "answer": "La première étape consiste à démarrer une courte tâche interactive avec une commande comme `salloc --account=<votre compte> --ntasks=5`."
     },
     {
-      "question": "Comment on s'assure que le module mpi4py est bien visible par pip et accessible par Python après l'avoir chargé?",
-      "answer": "Pour vérifier, on peut utiliser `pip list | grep mpi4py` pour voir s'il est listé, pis `python -c 'import mpi4py'` pour s'assurer qu'il s'importe sans erreur."
+      "question": "Quels modules doivent être chargés pour faire un test 'Hello World' avec mpi4py?",
+      "answer": "Il faut charger les modules `mpi4py/4.0.0` et `python/3.12` (ou les versions appropriées) pour un test 'Hello World'."
     },
     {
-      "question": "Quelles sont les étapes pour soumettre une tâche mpi4py qui distribue un tableau NumPy sur des CPU?",
-      "answer": "Faut préparer un script Python (`mpi4py-np-bc.py`), puis un script de soumission Slurm (`submit-mpi4py-distributed.sh` ou `submit-mpi4py-whole-nodes.sh`) qui charge les modules, crée un environnement virtuel sur chaque nœud alloué, pis l'active, avant de soumettre la tâche avec `sbatch`."
+      "question": "Comment exécuter un test 'Hello World' avec mpi4py après avoir chargé les modules nécessaires?",
+      "answer": "Après avoir chargé les modules, exécutez la commande `srun python -m mpi4py.bench helloworld`."
     },
     {
-      "question": "Comment on fait pour préparer pis soumettre une tâche mpi4py qui utilise les GPU?",
-      "answer": "Sur un nœud de connexion, on télécharge un exemple comme `use_cupy.py`. Ensuite, on prépare un script de soumission Slurm (`submit-mpi4py-gpu.sh`) qui charge les modules (incluant `cuda`), crée un environnement virtuel, installe `cupy` et `numba`, pis exécute le script Python, avant de soumettre avec `sbatch`."
+      "question": "Quand mpi4py est une dépendance d'un autre paquet Python, quelle est la bonne pratique concernant les environnements virtuels?",
+      "answer": "Il est important de désactiver tout environnement virtuel Python actif avant de charger le module mpi4py, puis de réactiver l'environnement virtuel une fois le module chargé."
     },
     {
-      "question": "Si j'ai l'erreur 'ModuleNotFoundError: No module named 'mpi4py'', c'est quoi les solutions possibles?",
-      "answer": "Ça veut dire que mpi4py est pas accessible. Faut vérifier la compatibilité des versions de Python avec le module mpi4py chargé (avec `module spider mpi4py/X.Y.Z`) pis s'assurer de charger le module avant d'activer votre environnement virtuel."
+      "question": "Comment vérifier que mpi4py est visible par pip et que le module Python chargé y a accès après l'avoir chargé en tant que dépendance?",
+      "answer": "Pour vérifier, utilisez `pip list | grep mpi4py` pour voir si mpi4py est listé, puis `python -c 'import mpi4py'` pour s'assurer qu'il peut être importé sans erreur."
+    },
+    {
+      "question": "Où peut-on trouver plus d'informations sur l'exécution de tâches MPI sur les grappes de calcul, en particulier pour des scénarios avancés?",
+      "answer": "On peut trouver plus d'informations dans les sections 'MPI job' de 'Running jobs' et 'Advanced MPI scheduling' de la documentation."
+    },
+    {
+      "question": "Quel est l'objectif du code Python 'mpi4py-np-bc.py' fourni dans l'exemple d'exécution sur CPU?",
+      "answer": "Ce code Python vise à distribuer un tableau NumPy entre plusieurs processus MPI en utilisant la fonction `comm.Bcast`."
+    },
+    {
+      "question": "Quels modules sont généralement chargés dans un script SLURM pour exécuter une tâche mpi4py distribuée sur des CPU?",
+      "answer": "Les modules `StdEnv/2023`, `gcc`, `mpi4py/4.0.0` et `python/3.12` sont couramment chargés pour une tâche mpi4py distribuée sur CPU."
+    },
+    {
+      "question": "Comment les environnements virtuels sont-ils créés et activés pour les tâches mpi4py distribuées sur CPU, selon l'exemple de script?",
+      "answer": "L'environnement virtuel est créé sans téléchargement sur chaque nœud alloué (`$SLURM_TMPDIR/env`) via `srun`, et activé ensuite seulement sur le nœud principal."
+    },
+    {
+      "question": "Comment soumettre un script de tâche mpi4py pour exécution sur des CPU, tel que 'submit-mpi4py-distributed.sh'?",
+      "answer": "Il faut soumettre le script en utilisant la commande `sbatch submit-mpi4py-distributed.sh`."
+    },
+    {
+      "question": "Quel est le but du fichier 'use_cupy.py' utilisé dans l'exemple d'exécution de mpi4py sur GPU?",
+      "answer": "Le fichier 'use_cupy.py' est un exemple de démo de mpi4py qui montre comment utiliser la bibliothèque cupy avec MPI, ce qui permet des communications GPU-aware MPI."
+    },
+    {
+      "question": "Quels modules et paquets Python sont nécessaires pour exécuter une tâche mpi4py sur GPU, d'après l'exemple de script?",
+      "answer": "Il faut les modules `StdEnv/2023`, `gcc`, `cuda/12`, `mpi4py/4.0.0`, `python/3.11`, et les paquets Python `cupy` et `numba` installés dans un environnement virtuel."
+    },
+    {
+      "question": "Avant de soumettre une tâche mpi4py, que devrait-on faire pour détecter les erreurs potentielles?",
+      "answer": "Il est important de tester le script pour des erreurs possibles en faisant un test rapide avec une tâche interactive avant de le soumettre."
+    },
+    {
+      "question": "Que signifie le message d'erreur 'ModuleNotFoundError: No module named 'mpi4py'' et quelles sont les solutions suggérées?",
+      "answer": "Ce message indique que mpi4py n'est pas accessible. Les solutions incluent la vérification des versions de Python compatibles avec mpi4py chargées, et le chargement du module mpi4py avant d'activer un environnement virtuel."
     }
   ],
-  "generated_at": "2026-04-12T02:02:15.985395+00:00"
+  "generated_at": "2026-04-13T08:56:26.583576+00:00"
 }

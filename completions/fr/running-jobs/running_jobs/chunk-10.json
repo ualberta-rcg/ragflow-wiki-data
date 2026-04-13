@@ -4,61 +4,17 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "Comment fonctionne la resoumission d'une tâche Slurm à partir de son propre script?",
-      "answer": "Une tâche peut exécuter une première partie de son calcul, enregistrer un point de contrôle, puis, si le calcul n'est pas encore terminé, se resoumettre elle-même en utilisant `sbatch ${BASH_SOURCE[0]}` avant que son temps d'exécution alloué ne soit écoulé."
+      "question": "Comment peut-on mettre en place la resoumission automatique d'une tâche Slurm à partir de son propre script, et quelle est la meilleure pratique à suivre pour la condition de poursuite du travail?",
+      "answer": "Pour resoumettre une tâche Slurm à partir de son propre script, on doit inclure la commande `sbatch ${BASH_SOURCE[0]}` à la fin du script. Avant d'appeler cette commande, il est crucial de définir un test positif, comme une fonction `work_should_continue()`, pour déterminer si le calcul n'est pas terminé et doit être poursuivi. Ce test doit être positif pour éviter qu'une chaîne de tâches ne se poursuive indéfiniment si une erreur inattendue empêche la détection d'une condition d'arrêt."
     },
     {
-      "question": "Quelle est l'importance de faire un 'test positif' pour déterminer si une tâche doit être resoumise?",
-      "answer": "Le test qui détermine la resoumission doit être un 'test positif' pour éviter qu'une tâche se resoumette indéfiniment. Si on testait l'absence d'une condition d'arrêt, une erreur inattendue pourrait empêcher cette condition d'être détectée, menant à une boucle de soumissions infinie."
+      "question": "Quels outils sont disponibles sur les grappes de calcul pour automatiser la soumission et améliorer l'efficacité d'un grand nombre de petites tâches séquentielles ou parallèles?",
+      "answer": "Pour automatiser la soumission et améliorer l'efficacité d'un grand nombre de petites tâches de calcul, on peut utiliser les lots de tâches (ou <i>job arrays</i>) Slurm. De plus, les grappes offrent des outils spécialisés qui appliquent la technique de <i>farming</i>, ou <i>ferme de calcul</i>, tels que META-Farm, GNU Parallel et GLOST. Ces outils permettent de regrouper plusieurs petites tâches pour créer moins de tâches, mais avec des durées plus longues, ce qui optimise le traitement."
     },
     {
-      "question": "Quelles directives Slurm (`#SBATCH`) sont utilisées dans l'exemple de script pour la resoumission de tâches?",
-      "answer": "L'exemple de script utilise les directives `#SBATCH --job-name=job_chain`, `#SBATCH --account=def-someuser`, `#SBATCH --cpus-per-task=1`, `#SBATCH --time=0-10:00` et `#SBATCH --mem=100M`."
-    },
-    {
-      "question": "Quelles sont les méthodes recommandées pour automatiser la soumission de nombreuses tâches?",
-      "answer": "Les méthodes recommandées incluent l'utilisation de 'lots de tâches' (job arrays) Slurm ou des outils plus avancés qui appliquent des techniques de 'farming' (grappe de serveurs, ferme de calcul)."
-    },
-    {
-      "question": "Quels sont les avantages des techniques de 'farming' pour gérer les tâches sur les grappes?",
-      "answer": "Les outils de 'farming' permettent d'automatiser le flux de travail et d'améliorer l'efficacité du traitement. Ils regroupent plusieurs petites tâches de calcul pour créer moins de tâches, mais avec des durées plus longues."
-    },
-    {
-      "question": "Nommez quelques outils de 'farming' disponibles sur les grappes.",
-      "answer": "Les outils de 'farming' disponibles sur les grappes incluent META-Farm, GNU Parallel et GLOST."
-    },
-    {
-      "question": "Pourquoi est-il généralement recommandé de ne pas spécifier de partition lors de la soumission de tâches Slurm?",
-      "answer": "Il est recommandé de ne pas spécifier de partition pour laisser l'ordonnanceur Slurm assigner les tâches de lui-même, en fonction des ressources requises, ce qui correspond aux meilleures pratiques."
-    },
-    {
-      "question": "Comment gérer un logiciel, comme Masurca, qui s'attend à ce qu'une partition soit spécifiée alors que ce n'est pas la meilleure pratique?",
-      "answer": "Pour de tels logiciels, vous pouvez le configurer pour qu'il utilise `--partition=default`, ce qui permettra au script d'interpréter que vous n'avez pas spécifié de partition."
-    },
-    {
-      "question": "Quelles sont les particularités d'ordonnancement pour les grappes Béluga, Fir, Narval, Nibi et Rorqual?",
-      "answer": "Sur ces grappes, la durée maximale d'une tâche est de 168 heures (7 jours), le nombre maximum de tâches en exécution ou en attente par utilisateur est de 1000, et la durée d'une tâche en production devrait être d'au moins une heure."
-    },
-    {
-      "question": "Où peut-on trouver les restrictions spécifiques à la grappe Trillium?",
-      "answer": "Les restrictions spécifiques à la grappe Trillium sont détaillées sur la page 'Restrictions particulières à Trillium'."
-    },
-    {
-      "question": "Pourquoi est-ce une mauvaise idée d'utiliser un logiciel de traitement de texte pour créer des scripts pour la grappe?",
-      "answer": "L'utilisation d'un logiciel de traitement de texte peut introduire des caractères cachés dans les scripts, ce qui peut causer des problèmes lors de leur exécution sur la grappe."
-    },
-    {
-      "question": "Quels types d'éditeurs de texte sont recommandés pour travailler directement sur une grappe?",
-      "answer": "Il est préférable d'utiliser des éditeurs de texte comme nano, vim ou emacs directement sur la grappe."
-    },
-    {
-      "question": "Comment préparer un script hors ligne sous Windows pour s'assurer qu'il fonctionne correctement sur la grappe?",
-      "answer": "Sous Windows, il faut utiliser un éditeur de texte simple comme Notepad ou Notepad++. Après avoir téléversé le script, il est nécessaire de changer les codes de fin de ligne Windows pour des codes de fin de ligne Linux en utilisant la commande `dos2unix`."
-    },
-    {
-      "question": "Quelle est la meilleure façon de préparer un script hors ligne sous Mac pour l'utiliser sur la grappe?",
-      "answer": "Sous Mac, il est recommandé d'utiliser un éditeur de texte comme nano, vim ou emacs directement dans une fenêtre de terminal pour préparer les scripts."
+      "question": "Est-il recommandé de spécifier une partition pour les tâches Slurm sur les grappes, et quelles sont les limites courantes de durée et de nombre de tâches pour des grappes comme Béluga ou Narval?",
+      "answer": "Nos meilleures pratiques recommandent de ne pas spécifier de partition pour les tâches Slurm, afin que l'ordonnanceur assigne les ressources de lui-même. Si un logiciel exige une partition, il faut le configurer pour qu'il utilise `--partition=default`. Pour les grappes comme Béluga, Fir, Narval, Nibi et Rorqual, la durée maximale d'une tâche est de 168 heures (7 jours), et un utilisateur peut avoir jusqu'à 1000 tâches en exécution ou en attente dans la queue."
     }
   ],
-  "generated_at": "2026-04-12T07:11:58.710037+00:00"
+  "generated_at": "2026-04-13T12:53:10.582499+00:00"
 }

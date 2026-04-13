@@ -3,105 +3,85 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the Distributed Debugging Tool (DDT) and its primary purpose?",
-      "answer": "DDT is a powerful commercial debugger with a graphical user interface (GUI), primarily intended for debugging parallel MPI codes, but also usable for serial, threaded (OpenMP / pthreads), and GPU (CUDA) programs."
+      "question": "What is the primary function of the Distributed Debugging Tool (DDT) on the Graham cluster?",
+      "answer": "DDT is a powerful commercial debugger with a graphical user interface (GUI) primarily intended for debugging parallel MPI codes, though it also supports serial, threaded (OpenMP / pthreads), and GPU (CUDA) programs."
     },
     {
-      "question": "Which programming languages does DDT support?",
+      "question": "Which programming languages are supported by the Distributed Debugging Tool (DDT)?",
       "answer": "DDT supports C, C++, and Fortran 77 / 90 / 95 / 2003."
     },
     {
-      "question": "Where is DDT installed and where can its detailed documentation be found on Graham?",
-      "answer": "DDT is installed on the Graham cluster, and detailed documentation (the User Guide) is available as a PDF file in `${EBROOTALLINEA}/doc` after loading the corresponding module."
+      "question": "What essential compilation flag is required to prepare a program for debugging with DDT, and what is the general recommendation for optimizations?",
+      "answer": "Programs must be compiled with the `-g` switch to generate symbolic information, and normally, all optimizations should be turned off (e.g., `-O0`)."
     },
     {
-      "question": "What compilation switch is required to prepare a program for debugging with DDT, and should optimizations be enabled?",
-      "answer": "The code must be compiled with the `-g` switch to generate symbolic information, and normally all optimizations should be turned off (e.g., `-O0`)."
+      "question": "How should users set up their environment to run the graphical user interface (GUI) of DDT on Graham from different operating systems?",
+      "answer": "Microsoft Windows users should use MobaXterm, Mac users need to install XQuartz, and Linux/Unix users require no additional installation; in all cases, add `-Y` to SSH commands for X11 tunnelling."
     },
     {
-      "question": "How do you compile CUDA code for debugging with DDT?",
-      "answer": "First, compile the CUDA part (`.cu` files) using `nvcc -g -G -c cuda_code.cu`, then link with the non-CUDA part using `cc -g main.c cuda_code.o -lcudart` for serial, or `mpicc -g main.c cuda_code.o -lcudart` for mixed MPI/CUDA code."
+      "question": "What `salloc` command options are necessary to allocate compute resources for debugging CPU-only programs with DDT, including X11 forwarding?",
+      "answer": "Users should use `salloc -A account_name --x11 --time=0-3:00 --mem-per-cpu=4G --ntasks=4` (adjusting account, time, memory, and tasks as needed)."
     },
     {
-      "question": "What are the environment setup requirements for running DDT, a GUI application, on Graham for Microsoft Windows, Linux/Unix, and Mac users?",
-      "answer": "Microsoft Windows users need MobaXTerm, Linux/Unix users need nothing extra, and Mac users need to install XQuartz. All users must add `-Y` to their SSH commands for X11 tunnelling."
+      "question": "What `salloc` command options are necessary to allocate compute resources for debugging GPU programs with DDT, including X11 forwarding?",
+      "answer": "Users should use `salloc -A account_name --x11 --time=0-3:00 --mem-per-cpu=4G --ntasks=1 --gres=gpu:1` (adjusting account, time, memory, and tasks as needed)."
     },
     {
-      "question": "How do you allocate compute nodes for CPU and GPU codes using `salloc` before launching DDT?",
-      "answer": "For CPU codes, use `salloc -A account_name --x11 --time=0-3:00 --mem-per-cpu=4G --ntasks=4`. For GPU codes, use `salloc -A account_name --x11 --time=0-3:00 --mem-per-cpu=4G --ntasks=1 --gres=gpu:1`."
+      "question": "Which DDT module should be loaded for debugging CPU-based programs, and which for GPU-based programs, after allocating resources on Graham?",
+      "answer": "For CPU codes, load `module load allinea-cpu`; for GPU codes, load `module load allinea-gpu`."
     },
     {
-      "question": "Which DDT modules are available and how are they loaded?",
-      "answer": "The available modules are `allinea-cpu` and `allinea-gpu`, loaded using `module load allinea-cpu` or `module load allinea-gpu` respectively."
+      "question": "What environment variable needs to be set for MPI codes before launching DDT on Graham to ensure the Message queue display feature works correctly?",
+      "answer": "Users must execute `export OMPI_MCA_pml=ob1`."
     },
     {
-      "question": "What command is required for MPI codes to ensure the Message queue display feature works in DDT?",
-      "answer": "You must execute `export OMPI_MCA_pml=ob1` before running DDT."
+      "question": "What are some of the key program execution control features available in the Distributed Debugging Tool (DDT)?",
+      "answer": "Key features include process control and groups, starting/stopping/restarting programs, stepping (Into, Over, Out), setting conditional breakpoints, synchronizing processes, focusing on individual processes/threads, setting watches, and working with stacks."
     },
     {
-      "question": "How do you launch DDT after setting up the environment?",
-      "answer": "Simply type `ddt program [optional arguments]`."
+      "question": "How does DDT assist users in finding code locations within source files?",
+      "answer": "DDT provides 'Find' for the current source file, 'Find In Files' to search all associated source/header files, and a 'Goto line' function (Ctrl-G)."
     },
     {
-      "question": "How can users save and load session options in DDT?",
-      "answer": "User-modified parameters and windows can be saved by right-clicking and selecting a save option in the corresponding window. DDT also allows loading and saving all options concurrently to minimize inconvenience in restarting sessions."
+      "question": "What options does DDT provide for viewing and analyzing multi-dimensional arrays?",
+      "answer": "Multi-dimensional arrays can be viewed in the Variable View and through a Multi-Dimensional Array viewer that visualizes a 2-D slice using OpenGL."
     },
     {
-      "question": "How do the 'Find' and 'Find In Files' dialogs work in DDT?",
-      "answer": "The 'Find' dialog searches the currently visible source file, while 'Find In Files' searches all source and header files associated with the program, listing matches in a result box."
+      "question": "What functionality does DDT offer for comparing variable values across multiple processes or threads?",
+      "answer": "DDT provides 'Cross-Process/Thread Comparison' with three modes: Compare, Statistics, and Visualize, accessible by right-clicking a variable or via the View menu."
     },
     {
-      "question": "What are process groups in DDT, and what are the predefined groups?",
-      "answer": "Process groups allow grouping many processes for one-click access. Predefined groups include All, Root, and Workers (newer versions may only have 'All')."
+      "question": "What is the primary purpose of the Message Queues feature in DDT, and what is its prerequisite on Graham?",
+      "answer": "The Message Queues feature produces graphical and table views of active MPI communications to help debug problems like deadlocks; its prerequisite on Graham is executing `export OMPI_MCA_pml=ob1` before running DDT."
     },
     {
-      "question": "What are the basic controls for stepping through a program in DDT?",
-      "answer": "Basic controls include Play/Continue, Pause, Step Into, Step Over, and Step Out."
+      "question": "How can memory debugging be enabled and configured in DDT, and what levels are available?",
+      "answer": "Memory debugging is off by default but can be turned on in Advanced settings before a debugging session, offering different levels from minimal to high."
     },
     {
-      "question": "How are breakpoints managed in DDT?",
-      "answer": "All breakpoints are listed under the breakpoints tab, where they can be suspended, jumped to, deleted, loaded, saved, or made conditional."
+      "question": "What features does DDT provide to help users detect and analyze memory leaks?",
+      "answer": "The 'View->Current Memory Usage' window shows current memory usage across processes, allowing users to get allocation details and view a 'Table View' for more information, while 'View->Overall Memory Stats' provides statistics."
     },
     {
-      "question": "How does DDT allow viewing stacks for parallel codes?",
-      "answer": "The Stacks tab shows a tree of functions merged from every process in the group, allowing users to click on branches to see locations, hover for process ranks, and automatically group processes at a function."
+      "question": "What capabilities does the Distributed Debugging Tool (DDT) offer for debugging OpenMP programs?",
+      "answer": "DDT offers almost the same functionality for OpenMP as for MPI, including single-click access to threads, viewing stacks in parallel, setting thread-specific breakpoints, and comparing expressions across threads."
     },
     {
-      "question": "What signals will DDT stop on by default?",
-      "answer": "DDT will stop on SIGSEGV (segmentation fault), SIGFPE (Floating Point Exception), SIGPIPE (Broken Pipe), and SIGILL (Illegal Instruction)."
+      "question": "What are the specific limitations when debugging mixed MPI/CUDA GPU programs with DDT regarding CPU, GPU, and node usage?",
+      "answer": "Mixed MPI/CUDA programs can only use one CPU and one GPU per node, with a maximum of up to 8 nodes."
     },
     {
-      "question": "How can variables for the current line(s), local variables, and arbitrary expressions be viewed in DDT?",
-      "answer": "Variables for the current line(s) are seen in the 'Current Line' tab, local variables in the 'Locals' tab, and arbitrary expressions/global variables in the 'Evaluate' window."
+      "question": "Where can users find the detailed User Guide documentation for the Distributed Debugging Tool (DDT) on the Graham cluster?",
+      "answer": "The detailed User Guide is available as a PDF file on Graham in the `${EBROOTALLINEA}/doc` directory, after loading the corresponding module."
     },
     {
-      "question": "How does DDT support viewing multi-dimensional arrays?",
-      "answer": "Multi-dimensional arrays can be viewed in the 'Variable View' and visualized as a 2-D slice using OpenGL in the 'Multi-Dimensional Array viewer'."
+      "question": "When debugging GPU code, what specific `nvcc` command is used for compiling `.cu` files, and how is it then linked with non-CUDA parts for serial or MPI/CUDA codes?",
+      "answer": "CUDA parts are compiled with `nvcc -g -G -c cuda_code.cu`; for serial code, link with `cc -g main.c cuda_code.o -lcudart`, or for mixed MPI/CUDA, link with `mpicc -g main.c cuda_code.o -lcudart`."
     },
     {
-      "question": "What is 'Cross-Process Comparison' in DDT, and what modes does it offer?",
-      "answer": "Cross-Process Comparison allows comparing expressions across processes or threads. It offers three modes: Compare, Statistics, and Visualize."
-    },
-    {
-      "question": "What is the function of the Message Queues feature in DDT, and what problems can it help debug?",
-      "answer": "The Message Queues feature provides a graphical view and table of active communications, helping to debug MPI problems like deadlocks."
-    },
-    {
-      "question": "What is memory debugging in DDT, and how is it enabled?",
-      "answer": "Memory debugging intercepts memory allocation/de-allocation calls and performs heap/bounds checking. It's off by default but can be turned on with different levels (minimal to high) in 'Advanced settings' before starting a session."
-    },
-    {
-      "question": "How can DDT help detect memory leaks?",
-      "answer": "The 'View->Current Memory Usage' (or 'Tools->Current Memory Usage') window shows memory usage across processes. Clicking a colour bar reveals allocation details, with a 'Table View' for more specifics. 'View->Overall Memory Stats' (or 'Tools->Overall Memory Stats') provides overall statistics."
-    },
-    {
-      "question": "What OpenMP functionalities does the current version of DDT provide?",
-      "answer": "The current DDT version offers almost the same OpenMP functionality as for MPI, including single-click access to threads, viewing stacks in parallel, setting thread-specific breakpoints, and comparing expressions across threads."
-    },
-    {
-      "question": "What are the limitations for debugging mixed MPI/CUDA programs with DDT?",
-      "answer": "Mixed MPI/CUDA debugging with DDT can only use one CPU and one GPU per node, up to 8 nodes."
+      "question": "Which specific signals does DDT typically stop on during program execution to alert users to potential issues?",
+      "answer": "DDT will stop on SIGSEGV (segmentation fault), SIGFPE (Floating Point Exception), SIGPIPE (Broken Pipe), and SIGILL (Illegal Instruction) signals."
     }
   ],
-  "generated_at": "2026-04-12T04:59:48.044609+00:00"
+  "generated_at": "2026-04-13T11:02:53.647925+00:00"
 }

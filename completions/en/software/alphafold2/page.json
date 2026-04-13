@@ -3,137 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of AlphaFold?",
-      "answer": "AlphaFold is a machine learning model used for predicting protein folding."
+      "question": "What is AlphaFold?",
+      "answer": "AlphaFold is a machine learning model designed for the prediction of protein folding."
     },
     {
-      "question": "Which specific AlphaFold version is highlighted as having been entered in CASP14 and published in Nature?",
-      "answer": "AlphaFold v2.0, the version entered in CASP14 and published in Nature, is discussed."
-    },
-    {
-      "question": "How can users list the available AlphaFold versions on the clusters?",
-      "answer": "Users can list available versions with the command `avail_wheels alphafold --all-versions`."
+      "question": "Which specific version of AlphaFold is discussed in this documentation?",
+      "answer": "This documentation discusses AlphaFold v2.0, the version that was entered in CASP14 and published in Nature."
     },
     {
       "question": "Where can users find the source code and documentation for AlphaFold?",
       "answer": "The source code and documentation for AlphaFold are available on its GitHub page."
     },
     {
-      "question": "What is required for publications disclosing findings from AlphaFold's source code or model parameters?",
-      "answer": "Any such publication should cite the AlphaFold paper."
+      "question": "How should users cite AlphaFold if they publish findings arising from its use?",
+      "answer": "Any publication disclosing findings from using AlphaFold's source code or model parameters should cite the official AlphaFold paper."
     },
     {
-      "question": "What specific module dependencies must be loaded before installing AlphaFold?",
-      "answer": "Users must load StdEnv/2020, gcc/9.3.0, openmpi/4.0.3, cuda/11.4, cudnn/8.2.0, kalign/2.03, hmmer/3.2.1, openmm-alphafold/7.5.1, hh-suite/3.3.0, and python/3.8."
+      "question": "How is AlphaFold made available on Alliance clusters?",
+      "answer": "AlphaFold is available on Alliance clusters as prebuilt Python packages (wheels)."
     },
     {
-      "question": "As of July 2022, which Python versions does AlphaFold support?",
-      "answer": "As of July 2022, AlphaFold supports Python 3.7 and 3.8."
+      "question": "Which Python versions are supported for AlphaFold as of July 2022?",
+      "answer": "As of July 2022, only Python 3.7 and 3.8 are supported for AlphaFold."
     },
     {
-      "question": "How do you create and activate a Python virtual environment for AlphaFold?",
-      "answer": "Users create the environment with `virtualenv --no-download ~/alphafold_env` and activate it with `source ~/alphafold_env/bin/activate`."
+      "question": "What module dependencies are required to set up AlphaFold in a Python virtual environment?",
+      "answer": "The required module dependencies include StdEnv/2020, gcc/9.3.0, openmpi/4.0.3, cuda/11.4, cudnn/8.2.0, kalign/2.03, hmmer/3.2.1, openmm-alphafold/7.5.1, hh-suite/3.3.0, and python/3.8."
     },
     {
-      "question": "How does one install a specific version of AlphaFold within a virtual environment?",
-      "answer": "To install a specific version, use `pip install --no-index alphafold==X.Y.Z`, replacing `X.Y.Z` with the desired version."
+      "question": "What is the recommended method for installing a specific version of AlphaFold within a virtual environment?",
+      "answer": "After activating a virtual environment, users can install a specific AlphaFold version using `pip install --no-index alphafold==X.Y.Z`, where X.Y.Z is the desired version."
     },
     {
-      "question": "How can the latest available version of AlphaFold be installed using `pip`?",
-      "answer": "The latest version can be installed by omitting the version specification in the `pip install` command."
-    },
-    {
-      "question": "How do you validate an AlphaFold installation?",
-      "answer": "An AlphaFold installation is validated by running `run_alphafold.py --help` in the activated virtual environment."
-    },
-    {
-      "question": "How can users freeze the AlphaFold environment and its requirements?",
-      "answer": "Users can freeze the environment and requirements by running `pip freeze > ~/alphafold-requirements.txt`."
-    },
-    {
-      "question": "Are databases required to run AlphaFold?",
-      "answer": "Yes, AlphaFold requires a set of databases."
-    },
-    {
-      "question": "What is the CVMFS path for AlphaFold databases?",
-      "answer": "The AlphaFold databases are available at `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/`."
+      "question": "Where are the AlphaFold databases located on Compute Canada clusters by default?",
+      "answer": "The AlphaFold databases are located in `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/`."
     },
     {
       "question": "How often are the AlphaFold databases on CVMFS updated?",
       "answer": "AlphaFold databases on CVMFS undergo yearly updates."
     },
     {
-      "question": "How do you set the `DOWNLOAD_DIR` environment variable to use the CVMFS AlphaFold databases?",
-      "answer": "Set it using `export DOWNLOAD_DIR=/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2024_01/` (or the current year's folder)."
+      "question": "If downloading AlphaFold databases locally, in which directory must they be stored?",
+      "answer": "The databases must live in the `$SCRATCH` directory if downloaded locally."
     },
     {
-      "question": "Where must users download AlphaFold databases if they choose to store them locally?",
-      "answer": "Locally downloaded databases must reside in the `$SCRATCH` directory."
+      "question": "On which type of node should local AlphaFold database downloads be performed?",
+      "answer": "Local AlphaFold database downloads should be performed on a data transfer node (DTN) or a login node, but not on a compute node."
     },
     {
-      "question": "What command creates the local data folder for AlphaFold databases?",
-      "answer": "The command `export DOWNLOAD_DIR=$SCRATCH/alphafold/data` followed by `mkdir -p $DOWNLOAD_DIR` creates the local data folder."
+      "question": "What is the recommended maximum number of CPU cores for running AlphaFold?",
+      "answer": "Users can request a maximum of 8 CPU cores when running AlphaFold, as it is hardcoded not to use more and doesn't benefit from additional cores."
     },
     {
-      "question": "Which script is used to download all AlphaFold database data locally?",
-      "answer": "The script `download_all_data.sh $DOWNLOAD_DIR` is used to download all data."
+      "question": "Does using a GPU accelerate AlphaFold processing?",
+      "answer": "Yes, a GPU helps to accelerate only the inference part of AlphaFold processing."
     },
     {
-      "question": "What type of node should be used for downloading AlphaFold databases locally?",
-      "answer": "Downloads should be performed on a data transfer node (DTN) or a login node if no DTN is available."
+      "question": "What is the purpose of freezing the AlphaFold environment and requirements set?",
+      "answer": "Freezing the environment and requirements set using `pip freeze > ~/alphafold-requirements.txt` helps in documenting and reproducing the exact installed packages."
     },
     {
-      "question": "What tool is suggested for long database download sessions to avoid disconnections?",
-      "answer": "A terminal multiplexer is suggested for long database download sessions."
+      "question": "What does the 'Client_loop: send disconnect: Broken pipe' error message indicate during database download, and what are potential solutions?",
+      "answer": "This error message can indicate an unusually high number of users on the login node. Solutions include using a terminal multiplexer, using the pre-existing database on the cluster, or downloading the full database in sections."
     },
     {
-      "question": "What is the `DOWNLOAD_DIR` for AlphaFold databases specifically on Graham?",
-      "answer": "On Graham, the `DOWNLOAD_DIR` is set to `/datashare/alphafold`."
+      "question": "What is the approximate total size of the AlphaFold 2.3 database?",
+      "answer": "The AlphaFold 2.3 database is approximately 2.6 TB in total."
     },
     {
-      "question": "What is the approximate total size of the AlphaFold 2.3 databases?",
-      "answer": "The AlphaFold 2.3 databases are approximately 2.6 TB in total."
-    },
-    {
-      "question": "What is the approximate total size of the AlphaFold 2.2 databases?",
-      "answer": "The AlphaFold 2.2 databases are approximately 2.2 TB in total (with a download size of 428 GB)."
-    },
-    {
-      "question": "What is the maximum number of CPU cores AlphaFold is recommended to use for performance?",
-      "answer": "AlphaFold benefits from a maximum of 8 CPU cores and does not benefit from using more."
-    },
-    {
-      "question": "What is the general command to execute an AlphaFold run with specified input and output directories?",
-      "answer": "The general command is `run_alphafold.py --fasta_paths=${INPUT_DIR}/YourSequence.fasta --output_dir=${OUTPUT_DIR} --data_dir=${DOWNLOAD_DIR}` along with other database path arguments."
-    },
-    {
-      "question": "How can GPU acceleration be enabled for AlphaFold predictions?",
-      "answer": "GPU acceleration is enabled by setting `--use_gpu_relax=True` and requesting a GPU resource in the Slurm script (`#SBATCH --gres=gpu:1`)."
-    },
-    {
-      "question": "How do you submit an AlphaFold job to the scheduler?",
-      "answer": "An AlphaFold job is submitted using the `sbatch` command, for example, `sbatch --job-name alphafold-X alphafold-gpu.sh`."
-    },
-    {
-      "question": "What is a possible cause for the \"Client_loop: send disconnect: Broken pipe\" error during database download?",
-      "answer": "A possible cause is an unusually high number of users on the login node."
-    },
-    {
-      "question": "What is one solution to mitigate the \"Broken pipe\" error during database download?",
-      "answer": "One solution is to use a terminal multiplexer."
-    },
-    {
-      "question": "What is an alternative solution to downloading databases locally if encountering \"Broken pipe\" errors?",
-      "answer": "Another solution is to use the databases already present on the cluster at `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2023_07/`."
-    },
-    {
-      "question": "How can users download AlphaFold databases in sections instead of all at once?",
-      "answer": "Users can type `download_` and press `tab` twice in the terminal to see available scripts, then use specific scripts like `download_pdb.sh` to download sections."
-    },
-    {
-      "question": "What is a notable difference in database path parameters between AlphaFold 2.2 and 2.3?",
-      "answer": "The `--uniclust30_database_path` option in AlphaFold 2.2 was renamed to `--uniref30_database_path` in version 2.3."
+      "question": "What specific AlphaFold version is currently updated on the CVMFS database as of January 2024?",
+      "answer": "As of January 2024, the AlphaFold database for CVMFS is updated and accessible in the `2024_01` folder."
     }
   ],
-  "generated_at": "2026-04-11T16:33:51.305123+00:00"
+  "generated_at": "2026-04-13T01:31:06.957993+00:00"
 }

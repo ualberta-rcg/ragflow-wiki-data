@@ -3,69 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is FreeSurfer?",
-      "answer": "FreeSurfer is a suite of tools for the analysis and visualization of structural and functional brain imaging data, including a fully automatic structural imaging stream for both cross-sectional and longitudinal data."
+      "question": "What is FreeSurfer, and what kind of data does it analyze?",
+      "answer": "FreeSurfer is a set of tools designed for the analysis and visualization of structural and functional brain imaging data, including a fully automatic structural imaging stream for processing cross-sectional and longitudinal data."
     },
     {
-      "question": "How do users load FreeSurfer 5.3.0 in the software stack?",
-      "answer": "Users load the `freesurfer/5.3.0` module and then source the `FreeSurferEnv.sh` script to properly set up environment variables."
+      "question": "Why are FreeSurfer 6.0 and newer versions no longer installed as central modules on Alliance clusters?",
+      "answer": "Due to a change in the license terms, FreeSurfer 6.0 and newer versions are no longer installed as central modules."
     },
     {
-      "question": "Why are FreeSurfer 6.0 and newer versions no longer provided as central modules?",
-      "answer": "Due to a change in the license terms, FreeSurfer 6.0 and subsequent versions are no longer installed as central modules."
+      "question": "Where can users download FreeSurfer 6.0 or newer versions for installation on Alliance clusters?",
+      "answer": "Users can select and download a version (6.0.0 or newer) from the FreeSurfer download repository."
     },
     {
-      "question": "Where should users install FreeSurfer 6.0 or newer if it's not a central module?",
-      "answer": "Users should install it in their `/home` directory or `/project` space using EasyBuild."
+      "question": "What is the recommended approach to install FreeSurfer 6.0.0 in a user's `/home` directory using EasyBuild on Alliance clusters?",
+      "answer": "Users should download the `freesurfer-Linux-centos6_x86_64-stable-pub-v6.0.0.tar.gz` archive, unload all modules with `module purge`, and then install it using `eb FreeSurfer-6.0.0-centos6_x86_64.eb --disable-enforce-checksums`."
     },
     {
-      "question": "Where can users download the FreeSurfer 6.0.0 or newer software archives?",
-      "answer": "Users can download the corresponding `freesurfer-Linux*vX.Y.Z.tar.gz` archive from the FreeSurfer download repository."
+      "question": "What issue might arise when installing FreeSurfer on a login node, and how can it be resolved?",
+      "answer": "Installation on login nodes may fail due to memory restrictions; this can be resolved by using an interactive job and requesting enough memory (e.g., 8 GB)."
     },
     {
-      "question": "What is the recommended memory for installing FreeSurfer in the `/home` directory, and why?",
-      "answer": "Approximately 8 GB of memory is recommended, often requiring an interactive job, to avoid installation failures caused by memory restrictions on login nodes."
+      "question": "After installing FreeSurfer, what is required to enable its use?",
+      "answer": "Users must register for a FreeSurfer license key and store the license text in a file named `/home/$USER/.license`."
     },
     {
-      "question": "What is the primary EasyBuild command for installing FreeSurfer 6.0.0 in a user's `/home` directory?",
-      "answer": "After navigating to the archive's folder and unloading all modules, the command is `eb FreeSurfer-6.0.0-centos6_x86_64.eb --disable-enforce-checksums`."
+      "question": "How do users create and store their FreeSurfer license key file after installation?",
+      "answer": "Users should create a file `/home/$USER/.license` using a text editor (like nano) and add the license text provided after registration."
     },
     {
-      "question": "How do users obtain and install a FreeSurfer license key?",
-      "answer": "Users must register for a license key on the FreeSurfer website, then create a file named `.license` in their `/home/$USER` directory and add the license text to it."
+      "question": "What command should users use to load the `freesurfer/5.3.0` module and set up its environment variables on Alliance clusters?",
+      "answer": "Users should run `module load freesurfer/5.3.0` followed by `source $EBROOTFREESURFER/FreeSurferEnv.sh`."
     },
     {
-      "question": "How can users check for existing FreeSurfer EasyBuild recipes?",
-      "answer": "Users can check online on GitHub or by using the command `eb -S FreeSurfer` from any of the clusters."
+      "question": "What are the general steps to install FreeSurfer in a shared folder, such as `/project`, for use by a group on Alliance clusters?",
+      "answer": "Users can use EasyBuild with specific `--installpath-modules`, `--prefix`, and `--sourcepath` options to install FreeSurfer into a shared location like `/home/$USER/projects/def-someuser/$USER`."
     },
     {
-      "question": "What should a user do if a specific FreeSurfer version is not listed in the EasyBuild recipes?",
-      "answer": "Users can try installing with the `--try-software-version=<the new version>` option, or contact technical support if that attempt fails."
+      "question": "What two additional steps are needed to make a FreeSurfer installation in a shared folder accessible to all members of a group on Alliance clusters?",
+      "answer": "Users need to give all group members read and execute access to the installation directory and each member must copy the module file (`6.0.1.lua`) into their own `/home/$USER/.local/easybuild/modules/2020/Core/freesurfer` directory."
     },
     {
-      "question": "How is FreeSurfer installed in a shared folder for group access using EasyBuild?",
-      "answer": "It is installed using EasyBuild with specific parameters for module path, installation prefix, and source path, such as `eb FreeSurfer-6.0.1-centos6_x86_64.eb --installpath-modules=${moduledir} --prefix=${installdir} --sourcepath=${pathtosrc}`."
+      "question": "What is the typical SLURM `walltime` recommendation for a `recon-all -all` command in a FreeSurfer batch script?",
+      "answer": "The typical SLURM `walltime` recommendation for `recon-all -all` is `08:00:00` (8 hours)."
     },
     {
-      "question": "What steps are necessary to enable all group members to access a FreeSurfer installation in a shared folder?",
-      "answer": "The installer must grant read and execute access to the installation directory for all group members, and each member must copy the module file (`6.0.1.lua`) to their own `/home/$USER/.local/easybuild/modules/2020/Core/freesurfer` directory."
+      "question": "What additional software is required to perform hippocampus and brainstem processing with FreeSurfer?",
+      "answer": "To perform hippocampus and brainstem processing, users need to download and install MATLAB runtime 2012b from the FreeSurfer website."
     },
     {
-      "question": "What prerequisite software is needed for hippocampus and brainstem processing with FreeSurfer?",
-      "answer": "MATLAB runtime 2012b must be downloaded and installed from the FreeSurfer website."
+      "question": "How can users check for available FreeSurfer EasyBuild recipes or specific versions on Alliance clusters?",
+      "answer": "Users can check EasyBuild recipes online on GitHub or via the command line `eb -S FreeSurfer` from any Alliance cluster."
     },
     {
-      "question": "What are the essential components of a working batch script for FreeSurfer version 6.0.0 or newer?",
-      "answer": "The script should load the FreeSurfer module, define the `SUBJECTS_DIR` environment variable, source `$EBROOTFREESURFER/FreeSurferEnv.sh`, and include the desired `recon-all` command."
-    },
-    {
-      "question": "What is the estimated walltime for running the `recon-all -all` command?",
-      "answer": "The estimated walltime for `recon-all -all` is 8 hours (`08:00:00`)."
-    },
-    {
-      "question": "What is the estimated walltime for running the `recon-all -hippocampal-subfields-T1` command?",
-      "answer": "The estimated walltime for `recon-all -hippocampal-subfields-T1` is 40 minutes (`00:40:00`)."
+      "question": "What should users do if a specific FreeSurfer version they require is not listed in the EasyBuild recipes on Alliance clusters?",
+      "answer": "Users can try to install the program with the option `--try-software-version=<the new version>`, and if that doesn't work, they should contact technical support for assistance."
     }
   ],
-  "generated_at": "2026-04-11T21:43:11.976436+00:00"
+  "generated_at": "2026-04-13T05:29:00.265268+00:00"
 }

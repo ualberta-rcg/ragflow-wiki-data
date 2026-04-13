@@ -4,133 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What is a 'job' in the context of a batch system?",
-      "answer": "A job is the basic execution object managed by the batch system, representing a collection of one or more related computing processes managed as a whole."
+      "question": "What is a 'job' in a batch system, and what are the differences between serial and parallel jobs?",
+      "answer": "In a batch system, a 'job' is the fundamental execution object, encompassing one or more related computing processes managed as a whole. Users specify resource requirements like memory, duration, and the number of compute cores when submitting a job. Jobs can be 'serial,' meaning they require a single CPU core to run, or 'parallel,' which run simultaneously on multiple CPU cores. Parallel jobs can be further categorized as threaded/SMP jobs on a single compute node or distributed memory jobs spanning several compute nodes."
     },
     {
-      "question": "What resource requirements do users define for a job?",
-      "answer": "Users define resource requirements for a job, which include the amount of required memory, the duration of the job, and how many compute cores the job will require."
-    },
-    {
-      "question": "What are the two main types of jobs?",
-      "answer": "Jobs can be either serial (running on one compute core) or parallel (running on multiple compute cores)."
-    },
-    {
-      "question": "What is a 'parallel job'?",
-      "answer": "A parallel job is a job that runs simultaneously on multiple CPU cores."
-    },
-    {
-      "question": "How are parallel jobs generally classified?",
-      "answer": "Parallel jobs can be roughly classified as threaded/SMP jobs running on a single compute node and sharing the same memory space, or distributed memory jobs that can run across several compute nodes."
-    },
-    {
-      "question": "What defines a 'serial job'?",
-      "answer": "A serial job is a job that requires one compute CPU core to run."
-    },
-    {
-      "question": "What is 'uneven usage' in terms of workloads?",
-      "answer": "Uneven usage refers to users having very inconsistent workloads, with significant peaks and valleys in their usage, rather than the relatively consistent usage most schedulers are tuned for."
-    },
-    {
-      "question": "What should users do if they anticipate having bursty workloads or variable usage?",
-      "answer": "If users anticipate having bursty workloads or variable usage, they should indicate that in their RAC application."
-    },
-    {
-      "question": "Who should users contact if they are having problems running jobs?",
-      "answer": "If users are having problems running jobs, they should contact Technical support."
-    },
-    {
-      "question": "How is 'memory per core' defined?",
-      "answer": "Memory per core is defined as the amount of memory (RAM) per CPU core."
-    },
-    {
-      "question": "Can you provide an example of calculating memory per core?",
-      "answer": "If a compute node has 2 CPUs, each having 6 cores and 24GB of installed RAM, then that compute node will have 2GB of memory per core."
-    },
-    {
-      "question": "What is 'memory per node'?",
-      "answer": "Memory per node refers to the total amount of installed RAM in a compute node."
-    },
-    {
-      "question": "How is 'system memory per core' calculated?",
-      "answer": "System memory per core is calculated as the amount of system memory requested by a job in GB divided by the number of CPU cores requested by the job."
-    },
-    {
-      "question": "How is 'system memory per GPU' calculated?",
-      "answer": "System memory per GPU is calculated as the amount of system memory requested by a job in GB divided by the number of GPUs requested by the job."
-    },
-    {
-      "question": "What is a 'disk' in the context of computer storage?",
-      "answer": "A disk, hard drive, or solid-state drive is permanent storage, compared to a computer’s main memory or RAM, that holds programs, input files, output results, and other data."
-    },
-    {
-      "question": "What are 'filesystems' in a cluster environment?",
-      "answer": "Filesystems are directory structures made available for use by systems in a cluster."
-    },
-    {
-      "question": "What characteristics can vary between different filesystems?",
-      "answer": "Each filesystem may have different performance characteristics, available space, and intended use."
-    },
-    {
-      "question": "What is the 'Scratch' filesystem used for?",
-      "answer": "The Scratch filesystem is composed of high-performance storage used during computational jobs, intended primarily for temporary or transient files, bulk results, or any material that can be easily recreated or reacquired."
-    },
-    {
-      "question": "Where is the Scratch filesystem available?",
-      "answer": "The Scratch filesystem is available on compute nodes."
-    },
-    {
-      "question": "Is Scratch storage formally allocated?",
-      "answer": "No, Scratch storage is not formally allocated, but it is limited by generous quotas."
-    },
-    {
-      "question": "What happens to data on the Scratch filesystem periodically?",
-      "answer": "Scratch storage is subject to periodic 'cleaning' (or purging) according to local system policies."
-    },
-    {
-      "question": "What is the 'Home' filesystem commonly used for?",
-      "answer": "The Home filesystem is commonly used for storage of a user’s personal files, executable programs, job execution scripts, and relatively small input datasets."
-    },
-    {
-      "question": "What is a 'home directory'?",
-      "answer": "Each user has a folder in the home filesystem called a 'home directory'."
-    },
-    {
-      "question": "Is the home directory persistent and backed up?",
-      "answer": "Yes, the home directory is persistent and, in most systems, backed up regularly."
-    },
-    {
-      "question": "What are the characteristics of the 'Project' filesystem?",
-      "answer": "The Project filesystem is a medium to high-performance disk, larger in available storage than home, available on compute nodes, and in most systems, backed up regularly. It is generally used to store frequently-used project data with minimum data churning."
-    },
-    {
-      "question": "How is the Project filesystem allocated?",
-      "answer": "The Project filesystem is allocated through the RAC process."
-    },
-    {
-      "question": "What is the 'Nearline' filesystem?",
-      "answer": "The Nearline filesystem is a disk-tape hybrid storage system where data above a certain size threshold is automatically migrated from disk to tape and back again upon read operations."
-    },
-    {
-      "question": "How do users access Nearline storage resources?",
-      "answer": "Access to Nearline storage resources requires deliberate actions by users, such as using Linux command-line tools like cp, mv, or rsync, to place files into the designated Nearline location or transfer them from another filesystem."
-    },
-    {
-      "question": "What are the characteristics of the tape subsystem in Nearline storage?",
-      "answer": "The tape subsystem in Nearline storage has very high capacity but adds latency when files need to be accessed again."
-    },
-    {
-      "question": "When should the Nearline storage system be used?",
-      "answer": "This storage system should be used for datasets that are infrequently accessed and need to be retained for long periods of time."
-    },
-    {
-      "question": "Is Nearline considered true archival storage?",
-      "answer": "No, Nearline is not true 'archival' storage in that the datasets must be part of an 'active' project."
-    },
-    {
-      "question": "How is Nearline capacity managed and allocated?",
-      "answer": "Nearline capacity is managed by quotas and allocations are made via the RAC process."
+      "question": "Could you describe the main filesystems typically available on clustered systems and their recommended uses?",
+      "answer": "Clustered systems generally offer several filesystems, each with distinct characteristics. The 'Scratch' filesystem provides high-performance storage on compute nodes for temporary or transient files, like bulk computation results, and is subject to periodic cleaning. The 'Home' filesystem is persistent, smaller, and regularly backed up, ideal for personal files, executables, and small input datasets. The 'Project' filesystem is a medium-to-high performance disk, larger than home, also regularly backed up, and used for frequently accessed project data. Finally, the 'Nearline' filesystem is a disk-tape hybrid for infrequently accessed datasets that need long-term retention within an active project, offering high capacity with added latency for retrieval."
     }
   ],
-  "generated_at": "2026-04-12T08:50:41.808186+00:00"
+  "generated_at": "2026-04-13T14:10:40.932500+00:00"
 }

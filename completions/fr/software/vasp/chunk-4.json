@@ -4,89 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "C'est quoi la signification de <ACCOUNT> dans un script de tâche Slurm?",
-      "answer": "<ACCOUNT> représente le nom du compte Slurm. Pour trouver cette information, vous pouvez consulter la section « Comptes et projets » dans « Exécuter des tâches »."
+      "question": "Comment est-ce qu'on peut installer VASP soi-même sur les grappes, si on a une licence et le code source?",
+      "answer": "Si vous disposez d'une licence VASP et que vous avez accès à son code source, vous pouvez installer plusieurs versions dans votre répertoire /home sur toutes les grappes en utilisant la commande EasyBuild suivante : `eb -f [NOM DE LA RECETTE] --sourcepath=[CHEMIN DU CODE SOURCE]`. Le [CHEMIN DU CODE SOURCE] doit être le répertoire où se trouve le code source de VASP. Une fois l'opération terminée, ce qui peut prendre plus d'une heure, vous pourrez charger et exécuter VASP avec les commandes `module`."
     },
     {
-      "question": "Quelles versions de VASP peut-on utiliser pour l'élément <VERSION> dans un script de tâche?",
-      "answer": "Pour l'élément <VERSION>, vous pouvez utiliser les versions de VASP 4.6, 5.4.1, 5.4.4 ou 6.1.0."
+      "question": "Quels sont les fichiers d'entrée obligatoires pour une tâche VASP et comment devrait-on les organiser?",
+      "answer": "VASP utilise quatre fichiers d'entrée principaux : INCAR, KPOINTS, POSCAR et POTCAR. Pour une bonne organisation, il est recommandé de préparer ces fichiers dans un répertoire distinct pour chaque tâche que vous soumettez."
     },
     {
-      "question": "Où est-ce que je peux trouver les noms des exécutables valides pour l'élément <VASP> dans mon script?",
-      "answer": "Les noms des exécutables disponibles pour l'élément <VASP> sont listés dans la section « Programmes exécutables »."
-    },
-    {
-      "question": "Quelle quantité de mémoire le script `vasp_gpu_job.sh` demande-t-il?",
-      "answer": "Le script `vasp_gpu_job.sh` demande un (1) cœur CPU et 3GB de mémoire."
-    },
-    {
-      "question": "Quel type de GPU est demandé par le script `vasp_gpu_job.sh` et où est-il disponible?",
-      "answer": "Ce script demande un (1) GPU de type p100, qui est seulement disponible sur Cedar. Pour les autres superordinateurs, il faut consulter les nœuds disponibles pour connaître les types de GPU."
-    },
-    {
-      "question": "Quelle commande est utilisée pour exécuter VASP dans le script `vasp_gpu_job.sh`, selon la description?",
-      "answer": "Selon la description, la tâche utilise la commande `srun` pour faire exécuter VASP."
-    },
-    {
-      "question": "Quels sont les quatre fichiers d'entrée que VASP utilise?",
-      "answer": "VASP utilise quatre fichiers d'entrée : INCAR, KPOINTS, POSCAR et POTCAR."
-    },
-    {
-      "question": "Quelle est la meilleure pratique pour préparer les fichiers d'entrée de VASP pour une tâche?",
-      "answer": "Il est préférable de préparer les fichiers d'entrée dans un répertoire différent pour chaque tâche."
-    },
-    {
-      "question": "Comment on soumet une tâche VASP à partir de son répertoire?",
-      "answer": "Pour soumettre une tâche à partir du répertoire, vous utilisez la commande `sbatch vasp_job.sh`."
-    },
-    {
-      "question": "Quoi faire si je ne sais pas la quantité de mémoire requise pour ma tâche VASP?",
-      "answer": "Si vous ignorez la quantité de mémoire nécessaire, il faut préparer tous vos fichiers d’entrée et exécuter `makeparam` dans une tâche interactive."
-    },
-    {
-      "question": "Comment obtenir une meilleure estimation de la mémoire pour les futures tâches VASP?",
-      "answer": "Pour une meilleure estimation, vérifiez la taille maximale de la pile de mémoire pour les tâches complétées et utilisez cette valeur pour demander la quantité de mémoire par processeur."
-    },
-    {
-      "question": "Où chercher des informations si je veux utiliser 32 cœurs ou plus pour une tâche VASP?",
-      "answer": "Si vous voulez utiliser 32 cœurs ou plus, il faut consulter la politique d'ordonnancement des tâches, dans la section « Nœuds entiers ou cœurs »."
-    },
-    {
-      "question": "Quels sont les prérequis pour construire VASP soi-même?",
-      "answer": "Pour construire VASP vous-même, vous devez avoir une licence VASP et un accès au code source VASP."
-    },
-    {
-      "question": "Quel outil est utilisé pour installer plusieurs versions de VASP dans son répertoire /home sur les grappes?",
-      "answer": "Vous pouvez utiliser les commandes EasyBuild pour installer plusieurs versions de VASP dans votre répertoire /home sur toutes les grappes."
-    },
-    {
-      "question": "Quelle est la commande EasyBuild pour installer VASP à partir du code source?",
-      "answer": "La commande EasyBuild est `eb -f [RECIPE NAME] --sourcepath=[SOURCEPATH]`."
-    },
-    {
-      "question": "Que représentent [SOURCEPATH] et [RECIPE NAME] dans la commande EasyBuild?",
-      "answer": "[SOURCEPATH] est le répertoire qui contient le code source de VASP, et [RECIPE NAME] est le nom de la recette EasyBuild."
-    },
-    {
-      "question": "Où puis-je trouver la liste des recettes VASP disponibles, y compris les informations sur VTSTtools et VASPsol?",
-      "answer": "Le premier onglet du tableau sous la section « Construire VASP par vous-même » affiche la liste des recettes disponibles, les fichiers sources requis, ainsi que la présence des extensions VTSTtools et VASPsol."
-    },
-    {
-      "question": "Où peut-on télécharger le code source de VASP?",
-      "answer": "Vous pouvez télécharger le code source directement depuis le site web de VASP à l'adresse `https://www.vasp.at/`."
-    },
-    {
-      "question": "Combien de temps l'exécution de la commande EasyBuild pour VASP prend-elle généralement?",
-      "answer": "L'exécution de la commande EasyBuild peut prendre plus d'une heure."
-    },
-    {
-      "question": "Comment utiliser VASP après l'avoir construit soi-même avec EasyBuild?",
-      "answer": "Une fois l'opération terminée, vous pourrez charger et exécuter VASP à l'aide des commandes `module`, comme expliqué dans la section « Utilisation des modules VASP »."
-    },
-    {
-      "question": "Où puis-je trouver d'autres ressources pour construire une version personnalisée de VASP?",
-      "answer": "Pour construire une version personnalisée de VASP, vous pouvez consulter « Installation de logiciels dans votre répertoire /home », « Installing VASP 5 » ou « Installing VASP 6 » sur le wiki de VASP."
+      "question": "Comment faire pour estimer la quantité de mémoire nécessaire pour une tâche VASP si on ne la connaît pas d'avance?",
+      "answer": "Si vous ne savez pas combien de mémoire votre tâche VASP nécessite, vous pouvez préparer tous vos fichiers d’entrée et lancer la commande `makeparam` dans une tâche interactive. Ensuite, utilisez la quantité de mémoire obtenue comme base pour votre prochaine exécution. Pour obtenir une estimation encore plus précise pour les tâches futures, vous pouvez vérifier la taille maximale de la pile de mémoire pour les tâches déjà complétées et utiliser cette valeur pour votre demande de mémoire par processeur."
     }
   ],
-  "generated_at": "2026-04-12T10:42:22.192800+00:00"
+  "generated_at": "2026-04-13T15:40:11.625596+00:00"
 }

@@ -3,89 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is GLOST and what is its primary function?",
-      "answer": "GLOST, the Greedy Launcher Of Small Tasks, is a tool for running many sequential jobs of short or variable duration, or for doing parameter sweeps, similar to GNU parallel or job arrays but with simpler syntax."
+      "question": "What is GLOST, the Greedy Launcher Of Small Tasks, used for in high-performance computing?",
+      "answer": "GLOST is a tool designed for running many sequential jobs of short or variable duration, or for performing parameter sweeps, offering a simpler syntax than GNU Parallel or job arrays."
     },
     {
-      "question": "In what situations is GLOST particularly useful?",
-      "answer": "GLOST is useful for a large number of serial jobs with comparative runtime, a large number of short serial jobs, or serial jobs with different parameters (parameter sweeps)."
+      "question": "What is the primary function of GLOST in managing computational tasks?",
+      "answer": "GLOST's primary function is to bundle numerous serial jobs into one or more MPI jobs, significantly reducing the total number of jobs on the queue and decreasing stress on the scheduler."
     },
     {
-      "question": "How does GLOST conceptually operate?",
-      "answer": "GLOST works by bundling serial jobs and running them as a single MPI job, which can use multiple cores across one or more nodes."
+      "question": "For which types of computational workflows is GLOST particularly useful?",
+      "answer": "GLOST is useful for a large number of serial jobs with comparative runtimes, many short serial jobs, or serial jobs involving different parameters (parameter sweeps)."
     },
     {
-      "question": "What are the main advantages of using GLOST?",
-      "answer": "GLOST reduces the number of jobs on the queue, significantly lowering stress on the scheduler and leading to less frequent timeouts from `sbatch` or `squeue` requests. It also allows users to submit and handle fewer MPI jobs instead of hundreds or thousands of serial jobs."
+      "question": "What are the key advantages of using the META software package compared to GLOST?",
+      "answer": "META offers potentially shorter queue wait times, smaller overheads, a convenient mechanism for re-submitting failed computations, and can handle all job types (serial, multi-threaded, MPI, GPU, hybrid), unlike GLOST."
     },
     {
-      "question": "What alternative software is available and what are its benefits compared to GLOST?",
-      "answer": "The META software package is an alternative, offering potentially shorter queue wait times, smaller overheads (fewer wasted CPU cycles), a convenient mechanism for re-submitting failed computations, and support for all kinds of jobs (serial, multi-threaded, MPI, GPU, or hybrid) unlike GLOST."
+      "question": "What modules must be loaded in the environment to use GLOST?",
+      "answer": "To use GLOST, users must load an OpenMPI module along with the corresponding GLOST module for their application."
     },
     {
-      "question": "What should users do if their workflow fits within the GLOST framework?",
-      "answer": "Users should contact technical support for assistance in changing their workflow to utilize GLOST."
+      "question": "How can a user find out which GLOST modules are installed on the system?",
+      "answer": "Users can use the command `module spider glost` to see the currently installed GLOST modules and their dependencies on the system."
     },
     {
-      "question": "What modules are required to use GLOST?",
-      "answer": "To use GLOST, you need to load both the OpenMPI module and the corresponding GLOST module."
+      "question": "What is the general syntax for launching a GLOST job?",
+      "answer": "GLOST jobs are typically launched using commands like `srun glost_launch list_glost_tasks.txt`, `mpiexec glost_launch list_glost_tasks.txt`, or `mpirun glost_launch list_glost_tasks.txt`."
     },
     {
-      "question": "How can I view the currently installed GLOST modules?",
-      "answer": "You can use the command `module spider glost` to see the currently installed GLOST modules."
+      "question": "What is the required input file for the `glost_launch` wrapper?",
+      "answer": "The `glost_launch` wrapper requires a text file, typically named `list_glost_tasks.txt`, which contains all the commands for the serial jobs, with one job command per line."
     },
     {
-      "question": "How do I load the GLOST module if OpenMPI is already loaded in my environment?",
-      "answer": "If an OpenMPI module is already in your environment, adding `module load glost` to your list of modules is sufficient to activate GLOST."
+      "question": "How does GLOST distribute serial jobs among the available cores?",
+      "answer": "GLOST uses a cyclic distribution, assigning initial tasks from the list to available processors and then reassigning subsequent tasks as processors complete their current jobs."
     },
     {
-      "question": "What are the general syntax forms for running GLOST?",
-      "answer": "The general syntax forms for GLOST are `srun glost_launch list_glost_tasks.txt`, `mpiexec glost_launch list_glost_tasks.txt`, or `mpirun glost_launch list_glost_tasks.txt`."
+      "question": "How can a user estimate the wall time needed for a GLOST job?",
+      "answer": "The wall time (`wt`) for a GLOST job can be estimated as `wt = t0 * Njobs / Ncores`, where `t0` is the runtime of a single serial job, `Njobs` is the total number of jobs, and `Ncores` is the number of cores used."
     },
     {
-      "question": "What file is used to provide the list of tasks to GLOST?",
-      "answer": "Jobs are grouped into a text file named `list_glost_tasks.txt`, which is used as an argument for `glost_launch`."
+      "question": "Which Slurm parameter should be used for memory allocation when submitting a GLOST job?",
+      "answer": "Users should use `--mem-per-cpu` instead of `--mem` in their Slurm script, ensuring that the memory per core matches the requirement of a single serial job."
     },
     {
-      "question": "How does GLOST distribute serial jobs among available cores?",
-      "answer": "GLOST uses a cyclic distribution, assigning one processor to each job from the list until a processor finishes a task, then it assigns the next available job."
+      "question": "How are multiple commands included in a single job entry within the `list_glost_tasks.txt` file?",
+      "answer": "Multiple commands for a single job should be separated by `&&` on the same line in the `list_glost_tasks.txt` file."
     },
     {
-      "question": "How can one optimize resource usage when bundling serial jobs with GLOST based on their runtimes?",
-      "answer": "To optimize resource usage, it's beneficial for serial jobs to have similar runtimes so they can be distributed evenly among the requested cores."
+      "question": "When running GLOST jobs in a single directory, how can users prevent output files from overlapping?",
+      "answer": "To prevent output overlap, users must ensure different jobs do not use the same temporary or output files, often by redirecting standard output to files with variable names that differentiate the jobs."
     },
     {
-      "question": "How do I estimate the wall time for a GLOST job?",
-      "answer": "If you have `Njobs` of similar jobs each taking `t0` runtime with 1 processor and you use `Ncores` for your GLOST job, the estimated wall time (`wt`) is `t0 * Njobs / Ncores`."
+      "question": "How can GLOST be configured to run each serial job in its own dedicated directory?",
+      "answer": "Users can include commands like `mkdir -p RUN_${nargument} && cd RUN_${nargument}` within each line of the task list to create and navigate into a unique directory for each job."
     },
     {
-      "question": "How should memory be specified for a GLOST job in a Slurm script?",
-      "answer": "You should use `--mem-per-cpu` instead of `--mem` in your Slurm script, setting the memory per core to match the memory required for a single serial job running separately."
+      "question": "What steps should be taken if a GLOST job needs to be restarted because its estimated wall time was too short?",
+      "answer": "Users should identify and remove or create a new list containing only the jobs that were not completed, then resubmit the script using this updated list as an argument for the `glost_launch` wrapper."
     },
     {
-      "question": "What should the `list_glost_tasks.txt` file contain?",
-      "answer": "The `list_glost_tasks.txt` file should contain all the commands needed to run the serial jobs, with one job per line."
-    },
-    {
-      "question": "How can a single job entry in the GLOST task list execute multiple commands?",
-      "answer": "Multiple commands within a single job entry should be separated by `&&`."
-    },
-    {
-      "question": "What precautions should be taken when running GLOST jobs in a single directory to prevent output overlap?",
-      "answer": "To prevent output overlap, ensure that different jobs do not use the same temporary or output files, possibly by redirecting standard output to files named with variables or arguments specific to each job."
-    },
-    {
-      "question": "How can GLOST be used to run jobs in their own dedicated directories?",
-      "answer": "You can create a dedicated directory for each job and change into it within the command line for that specific task in `list_glost_tasks.txt` (e.g., `mkdir -p RUN_${nargument} && cd RUN_${nargument}`)."
-    },
-    {
-      "question": "What steps should be taken if a GLOST job needs to be restarted due to underestimated wall time?",
-      "answer": "Identify the jobs that were already completed, remove their corresponding lines from the `list_glost_tasks.txt` file (or create a new list with remaining jobs), and resubmit your script using the updated list."
-    },
-    {
-      "question": "Where can advanced users find more GLOST examples?",
-      "answer": "After loading the GLOST module, advanced users can copy examples to their local directory by running `cp -r $EBROOTGLOST/examples Glost_Examples`."
+      "question": "Where can advanced users find more examples for using GLOST?",
+      "answer": "After loading the GLOST module, users can copy the original example scripts to their local directory by running `cp -r $EBROOTGLOST/examples Glost_Examples`."
     }
   ],
-  "generated_at": "2026-04-11T22:12:01.506001+00:00"
+  "generated_at": "2026-04-13T05:54:30.833748+00:00"
 }

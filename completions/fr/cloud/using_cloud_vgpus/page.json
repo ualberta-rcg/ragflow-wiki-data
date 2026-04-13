@@ -3,49 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "À quoi sert cette page de documentation?",
-      "answer": "Cette page décrit comment allouer des ressources de GPU virtuel (vGPU) à une machine virtuelle (VM), installer les pilotes nécessaires et vérifier si le vGPU peut être utilisé."
+      "question": "Quel est l'objectif principal de la documentation sur les GPU virtuels (vGPU) pour les machines virtuelles (VM) sur les grappes Alliance?",
+      "answer": "La documentation décrit comment allouer des ressources de vGPU à une VM, installer les pilotes nécessaires et vérifier si le vGPU peut être utilisé."
     },
     {
-      "question": "Où peut-on utiliser les vGPU et accéder aux dépôts de données?",
-      "answer": "L'accès aux dépôts de données et aux vGPU est actuellement disponible seulement sur le nuage Arbutus."
+      "question": "Sur quelle plateforme les GPU virtuels (vGPU) et l'accès aux dépôts de données sont-ils présentement disponibles sur Alliance?",
+      "answer": "L'accès aux vGPU et aux dépôts de données est présentement disponible uniquement sur le nuage Arbutus."
     },
     {
-      "question": "Est-ce que la boîte à outils CUDA est préinstallée, et si non, comment peut-on l'installer?",
-      "answer": "La boîte à outils CUDA n'est pas préinstallée. On peut l'installer directement à partir de NVIDIA ou la charger de la pile logicielle dans CVMFS."
+      "question": "La boîte à outils CUDA est-elle préinstallée lors de l'utilisation d'un GPU virtuel (vGPU) sur le nuage Arbutus?",
+      "answer": "Non, la boîte à outils CUDA n'est pas préinstallée. On peut l'installer directement de NVIDIA ou la charger de la pile logicielle dans CVMFS."
     },
     {
-      "question": "Quels sont les gabarits de machines virtuelles pris en charge pour l'utilisation d'un vGPU?",
-      "answer": "Les gabarits pris en charge sont g1-12gb-c3-35gb-125 et g1-24gb-c6-70gb-250."
+      "question": "Si l'on choisit d'installer la boîte à outils CUDA directement de NVIDIA, quelle précaution doit-on prendre concernant le pilote vGPU?",
+      "answer": "Il faut s'assurer que le pilote vGPU n'est pas écrasé par le pilote inclus dans la boîte à outils CUDA."
     },
     {
-      "question": "Quelles sont les premières étapes pour préparer une machine virtuelle à l'utilisation d'un vGPU?",
-      "answer": "Il faut s'assurer de mettre à jour le système d'exploitation avec la dernière version disponible, incluant le noyau, puis redémarrer la machine virtuelle."
+      "question": "Quels sont les gabarits spécifiques qu'une machine virtuelle (VM) doit utiliser pour pouvoir bénéficier d'un GPU virtuel (vGPU) sur le nuage Arbutus?",
+      "answer": "Pour utiliser un vGPU, l'instance doit être déployée sur l'un des gabarits suivants : g1-12gb-c3-35gb-125 ou g1-24gb-c6-70gb-250."
     },
     {
-      "question": "Quel outil est recommandé pour la gestion des modules du noyau et que faire s'il ne gère pas le paquet 'kernel-header'?",
-      "answer": "Il est recommandé d'installer DKMS. Si DKMS n'installe pas automatiquement le paquet `kernel-header`, il faudra l'installer manuellement avec le gestionnaire de paquets de votre distribution."
+      "question": "Quelle est la première étape cruciale pour préparer une machine virtuelle (VM) avant d'installer un pilote de GPU virtuel (vGPU)?",
+      "answer": "Il faut s'assurer de mettre à jour le système d'exploitation avec la dernière version disponible, incluant le noyau (kernel), puis redémarrer la VM."
     },
     {
-      "question": "Quels sont les deux fichiers requis à télécharger pour l'installation du vGPU et du jeton de licence?",
-      "answer": "Les deux fichiers requis sont NVIDIA-Linux-x86_64-580.105.08-grid.run et kalpa-prod.tok."
+      "question": "Pourquoi est-il recommandé d'installer DKMS (Dynamic Kernel Module Support) lors de la préparation d'une machine virtuelle pour un GPU virtuel (vGPU)?",
+      "answer": "DKMS est recommandé car il est disponible par défaut dans toutes les distributions notables et aide à gérer les modules du noyau, comme le pilote vGPU."
     },
     {
-      "question": "Quelle est la commande pour installer le pilote vGPU de NVIDIA après l'avoir téléchargé?",
+      "question": "Que doit-on faire si DKMS n'installe pas automatiquement le paquet `kernel-header` nécessaire pour l'installation d'un pilote vGPU?",
+      "answer": "Il faudra installer manuellement le paquet `kernel-header` en utilisant le gestionnaire de paquets de la distribution."
+    },
+    {
+      "question": "Quels sont les deux fichiers essentiels à télécharger pour procéder à l'installation du pilote de GPU virtuel (vGPU) et à sa licence?",
+      "answer": "Il faut télécharger les fichiers `NVIDIA-Linux-x86_64-580.105.08-grid.run` (le pilote) et `kalpa-prod.tok` (le jeton de licence)."
+    },
+    {
+      "question": "Quelle est la commande à utiliser pour installer le pilote de GPU virtuel (vGPU) de NVIDIA après l'avoir téléchargé?",
       "answer": "La commande est `chmod 755 NVIDIA-Linux-x86_64-580.105.08-grid.run && ./NVIDIA-Linux-x86_64-580.105.08-grid.run`."
     },
     {
-      "question": "Comment vérifier si le système d'exploitation a bien accès au vGPU après l'installation du pilote?",
-      "answer": "Après un redémarrage, on peut utiliser la commande `nvidia-smi` pour vérifier l'accès au vGPU."
+      "question": "Quelles options d'installation sont recommandées lors de l'exécution du pilote vGPU de NVIDIA?",
+      "answer": "Les options d'installation recommandées sont \"NVIDIA Proprietary\" et \"DKMS\"."
     },
     {
-      "question": "Quelles sont les étapes pour licenser le vGPU une fois qu'il est accessible?",
-      "answer": "Il faut copier le jeton `kalpa-prod.tok` vers `/etc/nvidia/ClientConfigToken/`, configurer `nvidia-gridd` avec `echo \"FeatureType=4\" >/etc/nvidia/gridd.conf`, puis activer et vérifier son statut avec `systemctl enable --now nvidia-gridd`."
+      "question": "Après l'installation du pilote vGPU et un redémarrage de la VM, quelle commande doit-on utiliser pour vérifier que le système d'exploitation a bien accès au vGPU?",
+      "answer": "Il faut utiliser la commande `nvidia-smi` pour vérifier l'accès au vGPU et voir ses informations."
     },
     {
-      "question": "Comment les licences vGPU sont-elles gérées après la configuration initiale de `nvidia-gridd`?",
-      "answer": "Le renouvellement des licences est géré automatiquement par `nvidia-gridd`."
+      "question": "Quel est le premier pas pour activer la licence d'un GPU virtuel (vGPU) une fois qu'il est accessible?",
+      "answer": "Il faut copier le jeton `kalpa-prod.tok` vers le répertoire `/etc/nvidia/ClientConfigToken/`."
+    },
+    {
+      "question": "Quelle commande est utilisée pour configurer le daemon `nvidia-gridd` en vue de la licence du GPU virtuel (vGPU)?",
+      "answer": "On utilise la commande `echo \"FeatureType=4\" >/etc/nvidia/gridd.conf`."
+    },
+    {
+      "question": "Comment activer le service `nvidia-gridd` et vérifier son statut après la configuration pour la licence du vGPU?",
+      "answer": "Il faut exécuter la commande `systemctl enable --now nvidia-gridd` et ensuite vérifier son statut."
+    },
+    {
+      "question": "Comment le renouvellement des licences pour les GPU virtuels (vGPU) est-il géré sur les grappes Alliance?",
+      "answer": "Le renouvellement des licences est géré automatiquement par le service `nvidia-gridd`."
     }
   ],
-  "generated_at": "2026-04-12T10:21:42.979305+00:00"
+  "generated_at": "2026-04-13T15:24:03.536715+00:00"
 }

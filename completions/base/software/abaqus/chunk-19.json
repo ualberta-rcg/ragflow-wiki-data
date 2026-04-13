@@ -4,73 +4,17 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "What is the Abaqus license file path that needs to be configured for use on a SHARCNET system?",
-      "answer": "The Abaqus license file should be located at `~/.licenses/abaqus.lic`."
+      "question": "How do Canadian researchers configure their `abaqus.lic` file to use the free SHARCNET license for Abaqus?",
+      "answer": "Researchers must configure their `abaqus.lic` file on SHARCNET systems, such as Nibi and Dusky clusters or the SHARCNET OOD desktop system. The file, located at `~/.licenses/abaqus.lic`, must contain the line `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27050@license1.computecanada.ca\")` to connect to the current SHARCNET license server."
     },
     {
-      "question": "What content should my `abaqus.lic` file contain to use the free SHARCNET license?",
-      "answer": "Your `abaqus.lic` file should contain the line: `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27050@license1.computecanada.ca\")`."
+      "question": "What are common error messages encountered when using Abaqus licenses on Alliance clusters, and how can they be resolved?",
+      "answer": "If an Abaqus job fails with the error message \"[*** ABAQUS/eliT_CheckLicense rank 0 terminated by signal 11 (Segmentation fault)]\" when using `abaqus/202X` modules, verify that your `abaqus.lic` file contains `ABAQUSLM_LICENSE_FILE`. If your Abaqus job fails with \"[License server machine is down or not responding, etc.]\" and you are using `abaqus/6.14.1`, you should replace `ABAQUSLM_LICENSE_FILE` with `LM_LICENSE_FILE` in your `abaqus.lic` file."
     },
     {
-      "question": "Which SHARCNET systems support the use of this Abaqus license file?",
-      "answer": "The license file is usable on SHARCNET systems such as Nibi and Dusky clusters or the SHARCNET OpenOnDemand desktop system."
-    },
-    {
-      "question": "Which old SHARCNET license server for Abaqus has been permanently shut down?",
-      "answer": "The old `license3.sharcnet.ca` server has been permanently shut down."
-    },
-    {
-      "question": "What should I do if my Abaqus job fails with a 'Segmentation fault' error when using abaqus/202X modules?",
-      "answer": "If your Abaqus job fails with the error message `[*** ABAQUS/eliT_CheckLicense rank 0 terminated by signal 11 (Segmentation fault)]`, you should verify that your `abaqus.lic` file contains `ABAQUSLM_LICENSE_FILE`."
-    },
-    {
-      "question": "What action should I take if my Abaqus job fails with a 'License server machine is down or not responding' error when using Abaqus version 6.14.1?",
-      "answer": "If your Abaqus job fails with the error message `[License server machine is down or not responding, etc.]` and you are using abaqus/6.14.1, you should replace `ABAQUSLM_LICENSE_FILE` with `LM_LICENSE_FILE` in your license file."
-    },
-    {
-      "question": "How do I log into the Nibi cluster and load Abaqus before querying the license server?",
-      "answer": "You can log into the Nibi cluster by running `ssh nibi.alliancecan.ca`, then load the required modules with `module load StdEnv/2020` and `module load abaqus`."
-    },
-    {
-      "question": "What command can I use to check the SHARCNET license server for started and queued jobs?",
-      "answer": "You can use the command: `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"`."
-    },
-    {
-      "question": "How can I check the SHARCNET license server for started and queued jobs, including any reservations by purchasing groups?",
-      "answer": "You can use the command: `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued|RESERVATION\"`."
-    },
-    {
-      "question": "Which command allows me to check the SHARCNET license server for the availability of only CAE, Standard, and Explicit Abaqus products?",
-      "answer": "You can use the command: `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | grep \"Users of\" | egrep \"cae|standard|explicit\"`."
-    },
-    {
-      "question": "What does it signify if the output of the license query indicates that a job for a particular username is 'queued'?",
-      "answer": "If a job is indicated as 'queued' by the license server, it means the job has entered the 'Running' state from the perspective of `squeue -j jobid` or `sacct -j jobid`, but is idle on a compute node waiting for a licence."
-    },
-    {
-      "question": "What impact does a queued job waiting for a license have on my account priority?",
-      "answer": "A queued job waiting for a licence will have the same impact on your account priority as if the job were performing computations and consuming CPU time."
-    },
-    {
-      "question": "When will a queued job eventually start?",
-      "answer": "A queued job will start when sufficient licenses become available."
-    },
-    {
-      "question": "In the example provided, how many Abaqus compute tokens did the user 'roberpj' have?",
-      "answer": "The user 'roberpj' had 10 Abaqus compute tokens."
-    },
-    {
-      "question": "How many tokens did each of the two 6-core jobs submitted by 'roberpj' require in the example?",
-      "answer": "Each of the two 6-core jobs required 12 tokens."
-    },
-    {
-      "question": "What was the job ID of the first job that acquired licenses for 'roberpj' in the example?",
-      "answer": "The job ID of the first job was 27530366."
-    },
-    {
-      "question": "What was the job ID of the second job that was queued due to lack of licenses for 'roberpj' in the example?",
-      "answer": "The job ID of the second job that was queued was 27530407."
+      "question": "How can a user check the status of Abaqus jobs and license availability on the SHARCNET license server?",
+      "answer": "To check the SHARCNET license server, first log into the Nibi cluster using `ssh nibi.alliancecan.ca`. Then, load the necessary modules with `module load StdEnv/2020` and `module load abaqus`. You can then run `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"` to view started and queued jobs, or `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued|RESERVATION\"` to also include reservations by purchasing groups. To check specific product availability (cae, standard, explicit), use `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | grep \"Users of\" | egrep \"cae|standard|explicit\"`."
     }
   ],
-  "generated_at": "2026-04-11T15:29:47.560126+00:00"
+  "generated_at": "2026-04-13T00:45:57.330480+00:00"
 }

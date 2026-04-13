@@ -5,16 +5,16 @@
   "qa_pairs": [
     {
       "question": "What special configuration is required to run MPI programs within an Apptainer container across multiple cluster nodes?",
-      "answer": "Running MPI programs within an Apptainer container across nodes likely requires special configuration because MPI exploits cluster interconnection hardware to communicate amongst nodes much more efficiently. If the program is not set up properly and the scheduler runs it over multiple nodes (without explicitly setting the maximum number of cluster nodes to `1`), it is possible it will fail to run."
+      "answer": "Running MPI programs within an Apptainer container across multiple cluster nodes likely requires special configuration because MPI needs to efficiently communicate among nodes using cluster interconnection hardware. While this is typically handled automatically, it becomes a concern when MPI programs are run across cluster nodes from within an Apptainer container. If the maximum number of cluster nodes is not explicitly set to 1 (e.g., using `--nodes=1` in an `sbatch` script), the scheduler might choose to run the MPI program over multiple nodes, potentially leading to failure if the container is not properly configured for such a scenario."
     },
     {
-      "question": "When using Apptainer with isolation options like `-C` or `-c`, how can users access their external disk space?",
-      "answer": "When Apptainer is used with the `-C` or `-c` options, users cannot access their disk space from inside the container. The remedy for this is to explicitly bind mount the disk space they wish to access using the `-B` option, such as `-B .` to bind mount the current directory, or `-B /project -B /scratch` for top-level filesystems."
+      "question": "Why are bind mounts necessary when running Apptainer containers with the `-C` or `-c` options, and how are they typically used?",
+      "answer": "Bind mounts are necessary when using Apptainer with the `-C` or `-c` options because these options isolate the running container from most or all filesystems, preventing access to disk space originating outside the container. To remedy this, users must explicitly bind mount the disk space they wish to access. For example, to access a file in the current directory on the host, one would use `apptainer run -C -B . -W $SLURM_TMPDIR a-container.sif wc -l ./my_data_file.txt`. On clusters, it's often easier to bind mount top-level filesystems like `/project` and `/scratch` using options such as `-B /project -B /scratch` to access various files and directories, including those that might be symlinks."
     },
     {
-      "question": "What is the recommended method for bind-mounting the `/home` filesystem into an Apptainer container, and what is its purpose?",
-      "answer": "If you need to bind-mount the `/home` filesystem in your container, use an alternate destination directory, such as `-B /home:/cluster_home`. This ensures that configuration files and programs in your host home directory do not interfere with the software in your container."
+      "question": "How can a user bind mount a host file or directory to a different path inside an Apptainer container, and why is `/home:/cluster_home` recommended for the home directory?",
+      "answer": "A user can bind mount a host file or directory to a different location inside an Apptainer container using the format `-B <host_path>:<container_path>`. For instance, `apptainer run -C -B ./my_data_file.txt:/special/input.dat -W $SLURM_TMPDIR a-container.sif wc -l /special/input.dat` maps the host file `./my_data_file.txt` to `/special/input.dat` within the container. When bind-mounting the `/home` filesystem, it is recommended to use an alternate destination directory like `-B /home:/cluster_home`. This prevents configuration files and programs in the host's home directory (e.g., `$HOME/bin` or Python packages in `$HOME/.local/lib/python3.x`) from interfering with the software inside the container."
     }
   ],
-  "generated_at": "2026-04-12T19:20:30.702524+00:00"
+  "generated_at": "2026-04-13T02:14:34.395822+00:00"
 }

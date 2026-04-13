@@ -3,57 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, l'utilitaire `dar` et à quoi ça sert?",
-      "answer": "L'utilitaire `dar` (pour ''Disk ARchive'') est un outil open source conçu pour remplacer `tar`. Il permet de créer des sauvegardes complètes, différentielles et incrémentales sur les systèmes de type Unix."
+      "question": "Qu'est-ce que l'utilitaire `dar` et pourquoi a-t-il été conçu?",
+      "answer": "L'utilitaire `dar` (Disk ARchive) est un outil open source, activement maintenu depuis 2002, conçu comme un remplacement de `tar` pour les systèmes de type Unix afin de gérer les sauvegardes."
     },
     {
-      "question": "Quels sont les avantages principaux de `dar` par rapport à `tar`?",
-      "answer": "`dar` offre un accès et une restauration plus rapides grâce à un index intégré dans chaque archive, une meilleure résilience aux corruptions de données en compressant chaque fichier séparément, et des fonctionnalités comme le chiffrement robuste et la gestion des attributs étendus."
+      "question": "Quels sont les principaux avantages de `dar` par rapport à `tar` pour la gestion des archives, surtout les plus volumineuses?",
+      "answer": "`dar` offre un accès aux fichiers et une restauration plus rapides que `tar` grâce à un index intégré dans chaque archive. Il compresse chaque fichier séparément pour une meilleure résilience en cas de corruption de données et permet d'éviter la compression de fichiers déjà très compressés."
     },
     {
-      "question": "Où est-ce qu'on peut trouver l'utilitaire `dar` sur les grappes de calcul?",
-      "answer": "Sur nos grappes, `dar` est disponible sous `/cvmfs` et accessible via l'environnement `StdEnv/2020`."
+      "question": "Quelles sont les fonctionnalités avancées offertes par l'utilitaire `dar` pour la gestion des archives?",
+      "answer": "`dar` propose le chiffrement robuste, le découpage d'archives en tranches, la gestion d'attributs étendus, de fichiers épars, de liens physiques et symboliques, ainsi que la détection et la récupération de corruption de données dans les fichiers d'en-tête."
     },
     {
-      "question": "Comment créer une archive de base pour un sous-répertoire nommé `test` avec `dar`?",
-      "answer": "Pour archiver un sous-répertoire `test`, la commande est `dar -w -c all -g test`. Ça crée un fichier d'archive nommé `all.1.dar`."
+      "question": "Où peut-on trouver l'utilitaire `dar` sur les grappes de calcul d'Alliance?",
+      "answer": "Sur les grappes d'Alliance, `dar` est disponible sous `/cvmfs`. Avec l'environnement `StdEnv/2020`, il se trouve à `/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/dar`."
     },
     {
-      "question": "Quelle commande faut utiliser pour lister le contenu d'une archive `dar`?",
-      "answer": "Pour lister le contenu d'une archive, on utilise la commande `dar -l all`, où `all` est le nom de base de l'archive."
+      "question": "Comment créer une archive de base avec `dar` pour un sous-répertoire nommé `test`?",
+      "answer": "Pour créer une archive de base d'un sous-répertoire `test`, la commande à utiliser est `dar -w -c all -g test`. Le fichier créé sera nommé `all.1.dar`."
     },
     {
-      "question": "Comment extraire un fichier spécifique d'une archive `all` vers un sous-répertoire `restore`?",
-      "answer": "Pour extraire un fichier comme `test/filename`, utilisez la commande `dar -R restore/ -O -w -x all -v -g test/filename`."
+      "question": "Est-il possible d'inclure plusieurs répertoires ou fichiers dans une même archive `dar`?",
+      "answer": "Oui, on peut inclure plusieurs répertoires et fichiers dans une même archive en spécifiant plusieurs indicateurs `-g`, comme dans `dar -w -c all -g testDir1 -g testDir2 -g file1 -g file2`."
     },
     {
-      "question": "À quoi sert l'indicateur `-O` lors de l'extraction de fichiers avec `dar`?",
-      "answer": "L'indicateur `-O` permet d'ignorer la propriété des fichiers, ce qui est utile pour restaurer des fichiers d'une autre personne sans être administrateur ou pour éviter les messages de confirmation si vous restaurez vos propres fichiers."
+      "question": "Comment lister le contenu d'une archive `dar`?",
+      "answer": "Pour lister le contenu d'une archive `dar`, on utilise la commande `dar -l <nom_de_base_de_l'archive>`, par exemple `dar -l all`."
     },
     {
-      "question": "Quel problème peut arriver quand on extrait des fichiers d'un système Lustre vers un emplacement qui n'est pas Lustre?",
-      "answer": "Des erreurs comme ''Operation not supported'' peuvent survenir lors de l'extraction vers un emplacement non-Lustre (comme `$SLURM_TMPDIR`) à cause de l'attribut étendu `lustre.lov` sauvegardé automatiquement."
+      "question": "Comment extraire un fichier spécifique d'une archive `dar` vers un sous-répertoire de restauration?",
+      "answer": "Pour extraire un fichier spécifique vers un sous-répertoire `restore/`, on utilise la commande `dar -R restore/ -O -w -x all -v -g test/filename`."
     },
     {
-      "question": "Comment éviter les erreurs liées aux attributs Lustre lors de l'extraction ou de la création d'archives?",
-      "answer": "Pour éviter ces erreurs, on peut utiliser l'indicateur `-u 'lustre*'` pour exclure l'attribut `lustre.lov` soit au moment de l'extraction, soit au moment de la création de l'archive."
+      "question": "Que fait l'indicateur `-O` lors de l'extraction de fichiers avec `dar`?",
+      "answer": "L'indicateur `-O` permet de faire abstraction de la propriété des fichiers, évitant ainsi des problèmes d'attribution de propriété lors de la restauration de fichiers d'une autre personne ou des messages de confirmation si vous restaurez vos propres fichiers sans être administrateur."
     },
     {
-      "question": "Comment créer une sauvegarde incrémentale avec `dar` en se basant sur une sauvegarde antérieure?",
-      "answer": "Pour créer une sauvegarde incrémentale, on utilise l'indicateur `-A` suivi du nom de base de l'archive de référence, par exemple `dar -w -A monday -c tuesday -g test` pour une sauvegarde du mardi basée sur celle du lundi."
+      "question": "Comment extraire un répertoire entier d'une archive `dar`?",
+      "answer": "Pour extraire un répertoire entier comme `test` vers un sous-répertoire `restore/`, on utilise la commande `dar -R restore/ -O -w -x all -v -g test`."
     },
     {
-      "question": "Quelle est la procédure pour restaurer complètement un ensemble de sauvegardes incrémentales faites avec `dar`?",
-      "answer": "Il faut restaurer toutes les sauvegardes dans l'ordre chronologique: d'abord la sauvegarde complète, puis chaque sauvegarde incrémentale subséquente."
+      "question": "Comment l'utilitaire `dar` gère-t-il les attributs étendus des fichiers provenant d'un système de fichiers Lustre?",
+      "answer": "`dar` sauvegarde automatiquement certains attributs étendus (comme `lustre.lov`) des fichiers provenant d'un système de fichiers Lustre. On peut les lister avec l'indicateur `-alist-ea`."
     },
     {
-      "question": "Comment peut-on limiter la taille des tranches d'une archive `dar`?",
-      "answer": "On utilise l'indicateur `-s` suivi d'une taille et d'une unité (k, M, G ou T), par exemple `dar -s 100M -w -c monday -g test` pour des tranches de 100 mégaoctets."
+      "question": "Quelles précautions faut-il prendre lors de l'extraction de fichiers provenant d'un système Lustre vers un emplacement qui n'est pas au format Lustre?",
+      "answer": "Pour éviter des erreurs comme «Operation not supported» lors de l'extraction de fichiers Lustre vers un endroit non-Lustre (ex: `$SLURM_TMPDIR`), il faut utiliser l'indicateur `-u 'lustre*'` pour exclure les attributs Lustre."
     },
     {
-      "question": "Est-ce qu'il y a des ressources pour aider à l'automatisation de `dar` avec des scripts?",
-      "answer": "Oui, il existe des fonctions bash créées par un membre de l'équipe pour faciliter l'utilisation de `dar`, disponibles sur GitHub pour vous inspirer dans la préparation de vos propres scripts."
+      "question": "Comment créer une sauvegarde incrémentale avec `dar` en se basant sur une archive précédente?",
+      "answer": "Pour créer une sauvegarde incrémentale, on joint l'indicateur `-A` avec le nom de base de l'archive de référence, par exemple `dar -w -A monday -c tuesday -g test` pour créer une archive `tuesday` basée sur `monday`."
+    },
+    {
+      "question": "Comment restaurer une série de sauvegardes incrémentales créées avec `dar`?",
+      "answer": "Pour restaurer une série de sauvegardes incrémentales, il faut restaurer toutes les archives en ordre chronologique, en commençant par la sauvegarde complète, puis chaque sauvegarde incrémentale subséquente."
+    },
+    {
+      "question": "Comment peut-on limiter la taille maximale des tranches (''slices'') lors de la création d'une archive `dar`?",
+      "answer": "On peut limiter la taille des tranches en utilisant l'indicateur `-s` suivi d'une valeur numérique et d'une unité de mesure (k, M, G ou T), par exemple `dar -s 100M -w -c monday -g test` pour des tranches de 100 mégaoctets."
+    },
+    {
+      "question": "Où peut-on trouver des exemples de scripts pour faciliter l'utilisation de `dar` sur les grappes d'Alliance?",
+      "answer": "Des exemples de fonctions bash pour faciliter l'utilisation de `dar` sont disponibles sur GitHub à l'adresse [https://github.com/razoumov/sharedSnippets]."
     }
   ],
-  "generated_at": "2026-04-11T20:46:25.950697+00:00"
+  "generated_at": "2026-04-13T04:44:35.055716+00:00"
 }

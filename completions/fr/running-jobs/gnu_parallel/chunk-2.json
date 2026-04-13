@@ -4,41 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Quel est le but de l'exemple Slurm présenté dans la documentation?",
-      "answer": "L'exemple Slurm montre comment faire exécuter une liste de commandes (sous-tâches) contenues dans un fichier (`my_commands.txt`) par GNU Parallel. Il assure que 4 commandes s'exécutent en parallèle, et qu'une nouvelle est lancée dès qu'une autre se termine, jusqu'à la fin de la liste."
+      "question": "Comment faire exécuter une liste de commandes en parallèle par GNU Parallel à l'intérieur d'un script Slurm?",
+      "answer": "Pour exécuter une liste de commandes en parallèle avec GNU Parallel dans un script Slurm, on crée un fichier texte, comme `my_commands.txt`, où chaque sous-tâche ou commande est sur une ligne distincte. Ensuite, dans le script Slurm, on utilise la commande `parallel < ./my_commands.txt` pour lancer l'exécution de ces commandes."
     },
     {
-      "question": "Quel est le nom du fichier qui contient la liste des sous-tâches à exécuter avec GNU Parallel dans l'exemple Slurm?",
-      "answer": "Le fichier qui contient la liste des sous-tâches s'appelle `my_commands.txt`."
+      "question": "Quelles ressources Slurm sont demandées pour l'exécution de tâches GNU Parallel dans l'exemple de script `run_gnuparallel_test.sh`?",
+      "answer": "Le script Slurm `run_gnuparallel_test.sh` demande 4 cœurs (CPUs) par tâche (`#SBATCH --cpus-per-task=4`), une durée maximale de 2 heures (`#SBATCH --time=00-02:00`), et une mémoire totale de 4000 Mo (`#SBATCH --mem=4000M`) pour toutes les tâches."
     },
     {
-      "question": "Combien de CPUs sont demandés par tâche Slurm dans le script `run_gnuparallel_test.sh`?",
-      "answer": "Quatre CPUs sont demandés par tâche Slurm, comme spécifié par `#SBATCH --cpus-per-task=4`."
-    },
-    {
-      "question": "Quelle est la durée maximale allouée à la tâche Slurm dans l'exemple `run_gnuparallel_test.sh`?",
-      "answer": "La durée maximale allouée est de 2 heures (`00-02:00`)."
-    },
-    {
-      "question": "Quelle quantité de mémoire est demandée pour toutes les tâches dans le script Slurm `run_gnuparallel_test.sh`?",
-      "answer": "Une mémoire totale de 4000M est demandée pour toutes les tâches."
-    },
-    {
-      "question": "Quel compte Slurm est utilisé dans le script `run_gnuparallel_test.sh`?",
-      "answer": "Le compte Slurm utilisé est `def-someuser`."
-    },
-    {
-      "question": "Quelle option de GNU Parallel est utilisée dans l'exemple Slurm pour créer un journal des commandes exécutées?",
-      "answer": "L'option `--joblog parallel.log` est utilisée pour créer un journal des commandes exécutées."
-    },
-    {
-      "question": "Comment GNU Parallel gère-t-il l'exécution des commandes quand une commande de la liste se termine?",
-      "answer": "Dès qu'une commande est terminée, GNU Parallel lance automatiquement une nouvelle commande de la liste pour maintenir le nombre maximum de commandes en marche (ici, 4) jusqu'à ce que toutes les commandes soient traitées."
-    },
-    {
-      "question": "Donnez quelques exemples de commandes qui pourraient être trouvées dans le fichier `my_commands.txt`.",
-      "answer": "Le fichier `my_commands.txt` contient des commandes comme `command1`, `command2`, `command3`, `command4`, `command5`, `command6`, `command7`, `command8` et `command9`."
+      "question": "Quel est le comportement de GNU Parallel quand il exécute une liste de commandes à partir d'un fichier avec une allocation de 4 cœurs dans l'exemple Slurm?",
+      "answer": "Dans l'exemple Slurm donné, quand GNU Parallel exécute les commandes de `my_commands.txt` avec 4 cœurs alloués, il maintient toujours 4 commandes actives simultanément. Dès qu'une commande est terminée, une nouvelle commande est lancée afin de toujours avoir 4 commandes en marche à la fois, et ce, jusqu'à la fin de la liste."
     }
   ],
-  "generated_at": "2026-04-11T22:19:41.291149+00:00"
+  "generated_at": "2026-04-13T05:59:44.164824+00:00"
 }

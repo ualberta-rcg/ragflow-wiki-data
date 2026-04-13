@@ -4,49 +4,13 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "What does 'known after apply' mean in a Terraform plan output?",
-      "answer": "Anything marked 'known after apply' will be determined from the state of newly created resources queried from OpenStack after the plan is applied."
+      "question": "What is the purpose of the `terraform plan` command, and what key information should a user carefully review in its output?",
+      "answer": "The `terraform plan` command compiles the Terraform definition and attempts to determine how to reconcile the desired state with the actual state on the cloud, producing a plan of the actions it would take if the changes were applied. Users should thoroughly review this output to ensure there are no surprises before applying changes. Key information includes the summary line (e.g., \"Plan: 1 to add, 0 to change, 0 to destroy\") which indicates the number of resources to be added, changed, or destroyed. Values marked \"known after apply\" signify attributes that will only be determined once the resources are created or modified on OpenStack."
     },
     {
-      "question": "What should I check before applying Terraform changes?",
-      "answer": "It's definitely required to check the Terraform plan output for any surprises before applying changes."
-    },
-    {
-      "question": "What does the last line of the Terraform plan indicate?",
-      "answer": "The last line of the plan, such as 'Plan: 1 to add, 0 to change, 0 to destroy', indicates the number of resources that will be added, changed, or destroyed."
-    },
-    {
-      "question": "What command is used to apply the changes described in a Terraform plan?",
-      "answer": "The `terraform apply` command is used to actually effect the changes described in the plan."
-    },
-    {
-      "question": "How does Terraform interact with existing OpenStack resources?",
-      "answer": "Terraform has no knowledge of resources already defined in an OpenStack project and does not attempt to determine their existing state. It bases its actions only on the given configuration and previously determined state relevant to that configuration."
-    },
-    {
-      "question": "Are existing OpenStack resources safe from accidental changes by Terraform?",
-      "answer": "Yes, any existing resources in your OpenStack project are safe from inadvertent mangling from Terraform, as it only acts on resources defined in its configuration and state file."
-    },
-    {
-      "question": "Why did the `terraform apply` command fail in the example given for creating a VM?",
-      "answer": "The `terraform apply` command failed because OpenStack projects typically have at least two networks (private and public), and Terraform needed to know which one to use for the VM."
-    },
-    {
-      "question": "How can I find the name of my project's private network in OpenStack?",
-      "answer": "You can find the name of your project's private network using the OpenStack CLI with `network list` or on Horizon under 'Network -> Networks'. Private networks are typically on a 192.168.X.Y network."
-    },
-    {
-      "question": "How do you specify a network for a VM in a Terraform configuration?",
-      "answer": "You add a `network` resource sub-block to your VM definition, specifying the network name, like `network { name = \"my-tenant-net\" }`."
-    },
-    {
-      "question": "What should be done if you encounter an 'incomplete credentials' error when using Terraform with OpenStack?",
-      "answer": "If you get an 'incomplete credentials' error, you may have forgotten to define `OS_CLOUD` or source the RC file, or your `clouds.yaml` file may be missing."
-    },
-    {
-      "question": "Can existing OpenStack resources be imported into Terraform?",
-      "answer": "Yes, it is possible to import previously defined OpenStack resources into Terraform, but it is not a trivial amount of work and is outside the scope of this tutorial."
+      "question": "When first attempting to create an OpenStack virtual machine (VM) using `terraform apply`, what common error might occur if network details are not explicitly provided, and how can this issue be addressed?",
+      "answer": "When applying a Terraform configuration to create an OpenStack VM, a common error without explicit network details is: \"Error creating OpenStack server: [...] 'Multiple possible networks found, use a Network ID to be more specific.'\" This occurs because OpenStack projects typically have both private and public networks, and Terraform needs to know which one to use. To resolve this, a `network` resource sub-block must be added to the VM definition, specifying the private network's name (e.g., `name = \"my-tenant-net\"`), which can be found using the OpenStack CLI's `network list` command or via Horizon under 'Network -> Networks'."
     }
   ],
-  "generated_at": "2026-04-12T09:07:21.872622+00:00"
+  "generated_at": "2026-04-13T14:23:56.413399+00:00"
 }

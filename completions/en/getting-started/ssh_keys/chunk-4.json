@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How can I install an SSH public key on a specific system if I don't want to use the CCDB method?",
-      "answer": "You can install an SSH public key on a specific system by adding it to the `~/.ssh/authorized_keys` file in your home directory on that system. The `ssh-copy-id` command is the most convenient way to do this, for example: `ssh-copy-id -i alliance-key username@fir.alliancecan.ca`. Be aware that SSH is very particular about the permissions on the `authorized_keys` file, your `/home` directory, and the `.ssh` subdirectory."
+      "question": "Why is it recommended to use an SSH key agent?",
+      "answer": "An SSH key agent is highly recommended because it offers both convenience and enhanced security. Instead of repeatedly entering your private key's passphrase for every connection, you only enter it once when starting the agent. The agent then supplies the private key for subsequent connections, avoiding the need to store the unencrypted private key on permanent storage, which makes it less vulnerable to theft or copying."
     },
     {
-      "question": "What is the benefit of using an SSH key agent?",
-      "answer": "An SSH key agent improves convenience and security by allowing you to enter your private key's passphrase only once when starting the agent. After that, the agent supplies the private key for new connections, eliminating the need to repeatedly enter the passphrase and avoiding the storage of an unencrypted private key on permanent storage, which could be vulnerable to theft or copying."
+      "question": "What are some common options for customizing the generation of an SSH key pair?",
+      "answer": "When generating an SSH key pair, you have several customization options. You can add a comment to the key for easier identification (e.g., `ssh-keygen -C 'Alliance systems'`), specify a custom file name for the key files (e.g., `ssh-keygen -f alliance-key`), choose a different key type than the default RSA (e.g., `ssh-keygen -t ed25519`), or strengthen certain key types like RSA by setting a longer key length (e.g., `ssh-keygen -t rsa-sha2-512 -b 4096`). These operations should always be performed on your own secure computer, not on a shared cluster."
     },
     {
-      "question": "What are SSH key constraints and how do they enhance security?",
-      "answer": "SSH key constraints are options that can be applied to a public key to limit its capabilities. For instance, a key can be restricted to execute only specific commands (e.g., `squeue --me` or for SFTP-only access) or to allow connections only from particular hosts. This significantly reduces the danger posed if a key is compromised, as its scope of use is minimized."
+      "question": "How can SSH key constraints be utilized to limit a public key's capabilities or access points?",
+      "answer": "SSH key constraints offer a powerful way to limit what a public key can do, enhancing security. By default, an unconstrained public key can perform any action. However, you can add constraints to restrict it to specific commands (e.g., `restrict,command=\"squeue --me\"` or for SFTP using `restrict,command=\"/usr/libexec/openssh/sftp-server\"`). Additionally, you can limit the key to only be used when connecting from specific hosts (e.g., `restrict,from=\"d24-141-114-17.home.cgocable.net\"`). These constraints minimize the risk if a key is ever compromised."
     }
   ],
-  "generated_at": "2026-04-12T18:25:27.872446+00:00"
+  "generated_at": "2026-04-13T13:02:55.895602+00:00"
 }

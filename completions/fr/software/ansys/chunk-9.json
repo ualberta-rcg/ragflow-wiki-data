@@ -4,85 +4,13 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "C'est quoi la procédure générale pour exécuter Fluent sur nos grappes de calcul?",
-      "answer": "La procédure habituelle inclut de préparer la tâche dans Ansys Workbench, exporter les fichiers de cas et de données, les transférer sur la grappe dans le système de fichiers /project ou /scratch, créer un fichier de journalisation, et télécharger les résultats une fois la tâche terminée."
+      "question": "Quelles sont les étapes habituelles pour exécuter une simulation Ansys Fluent sur l'une de nos grappes ?",
+      "answer": "La procédure typique comprend sept étapes : d'abord, préparez votre tâche avec Fluent dans Ansys Workbench jusqu'à la phase d'exécution des calculs. Ensuite, exportez le fichier de cas (et le fichier de données si pertinent) et transférez-les vers les systèmes de fichiers /project ou /scratch de la grappe, en utilisant des noms de fichiers faciles à identifier. Créez un fichier de journalisation pour charger les fichiers, lancer le solveur et enregistrer les résultats. Si des problèmes de licence empêchent le démarrage des tâches, vous pouvez modifier votre script pour les remettre en file d'attente jusqu'à quatre fois. Une fois la tâche complétée, téléchargez le fichier de données pour le réimporter dans Fluent."
     },
     {
-      "question": "Comment préparer une tâche Fluent sur mon ordinateur avant de la soumettre sur la grappe?",
-      "answer": "Il faut préparer votre tâche avec Fluent, via Ansys Workbench, jusqu'au point où les calculs seraient exécutés."
-    },
-    {
-      "question": "Comment j'exporte un fichier de cas depuis Ansys Fluent?",
-      "answer": "Vous pouvez exporter le fichier de cas en utilisant l'option 'File > Export > Case…' dans Fluent, ou en localisant le répertoire où Fluent enregistre les fichiers de votre projet. Les noms de fichiers de cas sont souvent au format 'FFF-1.cas.gz'."
-    },
-    {
-      "question": "Quel est le format typique des fichiers de cas Fluent?",
-      "answer": "Les fichiers de cas Fluent ont souvent un format comme 'FFF-1.cas.gz'."
-    },
-    {
-      "question": "Si je veux continuer un calcul Fluent précédent, qu'est-ce que je dois faire?",
-      "answer": "Vous devez aussi exporter un fichier de données avec 'File > Export > Data…' ou le trouver dans le même répertoire /project (par exemple, 'FFF-1.dat.gz')."
-    },
-    {
-      "question": "Où est-ce que je devrais transférer mes fichiers de cas et de données Fluent sur la grappe?",
-      "answer": "Vous devez transférer le fichier de cas (et le fichier de données, s'il y a lieu) dans le système de fichiers /project ou /scratch de la grappe."
-    },
-    {
-      "question": "Comment je gère les noms de fichiers lors de l'exportation et du téléversement de fichiers Fluent?",
-      "answer": "Quand les fichiers sont exportés, sauvegardez-les avec des noms plus faciles à repérer que 'FFF-1.*' ou renommez-les au téléversement."
-    },
-    {
-      "question": "Pourquoi est-ce important de créer un fichier de journalisation pour les tâches Fluent?",
-      "answer": "Il faut créer un fichier de journalisation dont le but est de charger les fichiers de cas (et de données, s'il y a lieu), lancer le solveur et enregistrer les résultats."
-    },
-    {
-      "question": "Quelles sont les choses importantes à ajuster dans un fichier de journalisation Fluent?",
-      "answer": "N'oubliez pas d'ajuster les noms des fichiers et le nombre d'itérations dans votre fichier de journalisation."
-    },
-    {
-      "question": "Qu'est-ce que je peux faire si mes tâches Fluent ne démarrent pas souvent à cause d'un manque de licence?",
-      "answer": "Vous pouvez modifier votre script pour que votre tâche soit remise en file d'attente (au plus 4 fois), comme c'est le cas pour le script sous l'onglet 'Plusieurs nœuds (par cœur + remise en attente)'."
-    },
-    {
-      "question": "Quel est le problème potentiel de remettre automatiquement une tâche Fluent en file d'attente pour des problèmes de licence?",
-      "answer": "Ceci peut remettre en attente des simulations qui ont échoué pour d'autres raisons que l'absence de licence (comme la divergence), gaspillant ainsi du temps de calcul."
-    },
-    {
-      "question": "Comment éviter de gaspiller du temps de calcul quand j'utilise la remise en file d'attente pour des problèmes de licence avec Fluent?",
-      "answer": "Il est fortement recommandé de vérifier les fichiers de sortie de l'ordonnanceur pour savoir si chaque tentative de remise en attente est due à un problème de licence. Si ce n'est pas le cas, annulez immédiatement la tâche avec `scancel jobid` et corrigez le problème."
-    },
-    {
-      "question": "Une fois ma tâche Fluent terminée, que devrais-je faire avec les données?",
-      "answer": "Vous pouvez télécharger le fichier de données et le retourner dans Fluent avec 'File > Import > Data…'."
-    },
-    {
-      "question": "Quel type de script Slurm est généralement recommandé pour les tâches Fluent et pourquoi?",
-      "answer": "La plupart des tâches Fluent devraient utiliser le script 'par nœud' pour minimiser le temps d'attente et maximiser la performance en utilisant le moins de nœuds possible."
-    },
-    {
-      "question": "Dans quel cas un script 'par cœur' peut être utile pour les tâches Fluent?",
-      "answer": "Les tâches demandant beaucoup de cœurs CPU pourraient attendre moins longtemps dans la queue avec le script 'par cœur', mais le démarrage d’une tâche utilisant plusieurs nœuds peut prendre beaucoup plus de temps."
-    },
-    {
-      "question": "Quel est le risque si j'exécute des tâches Fluent intensives sur un très grand nombre de nœuds?",
-      "answer": "Ces tâches seront beaucoup plus susceptibles de planter si un des nœuds de calcul fait défaut pendant la simulation."
-    },
-    {
-      "question": "Comment les scripts Fluent standards gèrent-ils la mémoire pour les tâches à nœud simple versus multi-nœuds?",
-      "answer": "Les scripts standards utilisent la mémoire partagée pour les tâches à nœud unique et la mémoire distribuée (avec MPI et l’interconnexion CHP appropriée) pour les tâches utilisant plusieurs nœuds."
-    },
-    {
-      "question": "Y a-t-il une solution de rechange pour les problèmes de partitionnement de maillage Fluent sur Narval?",
-      "answer": "Oui, les deux onglets pour Narval (scripts OpenMPI) peuvent fournir une alternative plus robuste si Fluent plante pendant la phase initiale de partitionnement automatique du maillage lors de l'utilisation des scripts Intel standards avec le solveur parallèle."
-    },
-    {
-      "question": "Quelle autre option existe si Fluent plante pendant le partitionnement automatique du maillage?",
-      "answer": "Une autre option serait d'effectuer manuellement le partitionnement du maillage dans l'interface graphique de Fluent, puis d'essayer d'exécuter à nouveau la tâche sur la grappe avec les scripts Intel."
-    },
-    {
-      "question": "Quelles sont les recommandations pour le nombre de partitions de maillage et le nombre de cellules par cœur pour une efficacité optimale avec Fluent?",
-      "answer": "Le nombre de partitions de maillage doit être un multiple entier du nombre de cœurs, et pour une efficacité optimale, assurez-vous d'avoir au moins 10 000 cellules par cœur."
+      "question": "Quelles sont les recommandations générales pour choisir les scripts Slurm pour les tâches Ansys Fluent sur les grappes ?",
+      "answer": "Pour la plupart des tâches Fluent, il est recommandé d'utiliser le script 'par nœud' afin de minimiser le temps d'attente et d'optimiser la performance en employant le moins de nœuds possible. Bien que les scripts 'par cœur' puissent réduire le temps d'attente pour les tâches gourmandes en CPU, le démarrage multi-nœuds peut être considérablement plus long. Si Fluent plante lors du partitionnement automatique du maillage, surtout avec les scripts Intel standards, une option plus robuste est d'utiliser les onglets spécifiques à Narval ou d'effectuer manuellement le partitionnement du maillage via l'interface graphique de Fluent pour un contrôle optimal."
     }
   ],
-  "generated_at": "2026-04-12T16:57:33.681543+00:00"
+  "generated_at": "2026-04-13T01:55:54.400220+00:00"
 }

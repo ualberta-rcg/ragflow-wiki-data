@@ -3,193 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Ansys?",
-      "answer": "Ansys is an engineering simulation and 3-D design software suite that includes packages such as Ansys Fluent and Ansys CFX."
+      "question": "What is Ansys, as available on Alliance clusters?",
+      "answer": "Ansys is an engineering simulation and 3-D design software suite, including packages like Ansys Fluent and Ansys CFX, which is installed on Alliance clusters."
     },
     {
-      "question": "What is the hosting provider's role concerning Ansys software?",
-      "answer": "The hosting provider installs Ansys on their clusters but does not provide a generic license for everyone. Users must have existing institutional, faculty, or departmental licenses."
+      "question": "How is Ansys licensed on Alliance clusters?",
+      "answer": "Alliance provides hosting for Ansys software, but users must bring their own licenses, often available from their institutions, faculties, or departments."
     },
     {
-      "question": "What technical arrangements are necessary for a user's Ansys license server to be used on the hosting provider's compute nodes?",
-      "answer": "The user's license server must be reachable by the compute nodes, requiring the hosting provider's technical team to coordinate with the user's technical people managing the license software."
+      "question": "How do users configure their Ansys license file on Alliance clusters?",
+      "answer": "Users can specify their license server by creating a file named `~/.licenses/ansys.lic` in their home folder, containing `setenv(\"ANSYSLMD_LICENSE_FILE\", \"FLEXPORT@LICSERVER\")` with the appropriate values."
     },
     {
-      "question": "How do you configure your Ansys license file in your home directory?",
-      "answer": "You create a file named `~/.licenses/ansys.lic` in your `/home` folder, consisting of two lines that specify `FLEXPORT@LICSERVER` with the appropriate values for your server."
+      "question": "Which preconfigured license servers are available for Ansys on Alliance clusters, and what are their details?",
+      "answer": "Established license servers include CMC (on fir, narval/rorqual, nibi, trillium) and SHARCNET (on nibi/fir/narval/rorqual, trillium), each with specific LICSERVER hostnames and FLEXPORT port numbers."
     },
     {
-      "question": "Where can users find established license server values for CMC and SHARCNET?",
-      "answer": "The document provides a table listing established `LICSERVER` and `FLEXPORT` values for CMC and SHARCNET license servers across various clusters like fir, narval/rorqual, nibi, and trillium."
+      "question": "What are the initial steps required to set up a local institutional Ansys license server for use with an Alliance cluster?",
+      "answer": "Firewall changes are needed on both the server and cluster sides. Users must contact their license administrator for FLEXPORT, LICSERVER, and VENDPORT values, then email Alliance technical support with this information and the cluster name."
     },
     {
-      "question": "What must researchers do after purchasing a new CMC license subscription to ensure license checkouts work?",
-      "answer": "They must submit their Alliance account username to CMC, otherwise license checkouts will fail."
+      "question": "How can users verify if their Ansys license is properly configured and functioning on an Alliance cluster?",
+      "answer": "Users can test their `ansys.lic` configuration by running `module load StdEnv/2023; module load ansys/2025R2.04; $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\"` on a compute node."
     },
     {
-      "question": "What additional information is required to set up a local Ansys license server that has never been used with an Alliance cluster?",
-      "answer": "You need the configured Ansys flex port (FLEXPORT), the fully qualified hostname (LICSERVER), the statically configured vendor port (VENDPORT), and confirmation that `<servername>` resolves to the same IP as `LICSERVER` on the cluster."
+      "question": "What is the compatibility policy for Ansys simulation files between different versions on Alliance clusters?",
+      "answer": "Ansys simulations are typically forward compatible, meaning older versions can run with newer software, but not backward compatible; using an older version to run a newer simulation may cause errors or crashes."
     },
     {
-      "question": "How can I test if my `ansys.lic` file is configured and working correctly with my license server?",
-      "answer": "On the target cluster, get a compute node using `salloc`, load the Ansys module, and run `lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\"`. 'Success' indicates it's working."
+      "question": "What are the general steps to prepare and run an Ansys Fluent batch job on an Alliance cluster?",
+      "answer": "Users should prepare their Fluent job on a desktop, export case and data files, transfer them to `/project` or `/scratch` on the cluster, create a journal file, and then submit the job using a Slurm script."
     },
     {
-      "question": "Are Ansys simulations typically forward or backward compatible?",
-      "answer": "Ansys simulations are typically forward compatible, meaning older versions can run on newer versions, but they are generally not backwards compatible."
+      "question": "What is the role of a journal file in an Ansys Fluent simulation on Alliance clusters?",
+      "answer": "A journal file automates the Fluent Text-User-Interface commands, allowing users to load case/data files, run the solver, write results, and change simulation parameters programmatically."
     },
     {
-      "question": "How can I find out which Ansys Fluent version was used to create a `.cas` or `.cas.h5` file?",
-      "answer": "You can `grep -ia fluent` the `.cas` or `.cas.h5` file to look for version clues within its contents."
+      "question": "What are the considerations for using Ansys Fluent Slurm scripts for 'by node' versus 'by core' job submissions on Alliance clusters?",
+      "answer": "The 'by node' script minimizes solution latency and maximizes performance over fewer nodes, while the 'by core' script might lead to shorter queue wait times for very large jobs, though startup can be longer."
     },
     {
-      "question": "Where can users find detailed platform support information for Ansys?",
-      "answer": "Ansys provides detailed platform support information for current and previous releases on their IT solutions page, including a 'Platform Support by Application / Product' PDF."
+      "question": "How can users prepare an Ansys Workbench project for batch submission on an Alliance cluster?",
+      "answer": "Users must first initialize the Workbench project in an OnDemand desktop GUI session by resetting the model, saving, and then quitting, before submitting with a Slurm script."
     },
     {
-      "question": "How are Ansys service packs integrated into module loading on the clusters?",
-      "answer": "Starting with Ansys 2024, a separate module appears for each service pack (e.g., `ansys/2024R1.03` for Service Pack 3). `module load ansys` will typically load the latest service pack."
+      "question": "How do users access Ansys programs in graphical mode on Alliance clusters?",
+      "answer": "Users can launch Ansys programs graphically via OnDemand or Jupyterhub desktop links, then load the Ansys module and set specific environment variables (e.g., `HOOPS_PICTURE`) depending on whether a GPU was requested."
     },
     {
-      "question": "Why are special instructions needed for running parallel Ansys jobs on the clusters?",
-      "answer": "Ansys includes multiple MPI implementations, none of which directly support the Slurm scheduler used on the clusters, necessitating specific instructions for each Ansys package."
+      "question": "What are the usage policies and limitations for the SHARCNET Ansys license on Alliance clusters?",
+      "answer": "The SHARCNET Ansys license is free for academic use by any Alliance researcher on any system, supports publishable academic research, has no solver/geometry limits, and permits a maximum of 16 simultaneous jobs using up to 512 `anshpc` cores per researcher."
     },
     {
-      "question": "What is the general procedure for running a Fluent job on the clusters?",
-      "answer": "Prepare the job using Fluent Workbench on a desktop, export case and optionally data files, transfer them to `/project` or `/scratch`, create a journal file, and then run the job using a Slurm script."
+      "question": "How can users check the current usage of SHARCNET Ansys licenses on an Alliance cluster by their username?",
+      "answer": "After SSHing into a login node and loading the Ansys module, users can run `lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\" | grep -v \" Total of 0 licenses in use\"`."
     },
     {
-      "question": "What types of Slurm scripts are available for Fluent jobs, and when should each be considered?",
-      "answer": "General purpose 'by node' scripts are for minimizing solution latency, while 'by core' scripts can reduce queue wait times for very large jobs. Narval and Trillium also have specific scripts."
+      "question": "What action should be taken if Ansys licenses are unexpectedly tied up by rogue processes on an Alliance cluster?",
+      "answer": "Users should close the desktop, scancel the `salloc` session, or use the command `pkill -9 -e -u $USER -f \"ansys\"` on the affected node to kill any lingering Ansys processes and release the licenses."
     },
     {
-      "question": "When should Fluent 'license requeue' Slurm scripts be used?",
-      "answer": "These scripts should only be used for Fluent jobs that are known to complete normally but frequently fail to start due to license shortages, requiring multiple attempts."
+      "question": "How are Ansys service packs managed in module versions 2024 and newer on Alliance clusters?",
+      "answer": "Starting with Ansys 2024, a separate module appears for each service pack (e.g., `ansys/2024R1.03`), allowing users to choose specific versions or load the latest service pack with `module load ansys`."
     },
     {
-      "question": "What is a significant drawback of using Fluent 'license requeue' scripts?",
-      "answer": "They will also requeue simulations that fail due to non-license issues (like divergence), leading to lost compute time. Monitoring and manually killing such jobs is strongly recommended."
+      "question": "What is the process for enabling the Ansys Additive Manufacturing ACT extension within an Ansys Workbench project on an Alliance cluster?",
+      "answer": "Users must download the `AdditiveWizard.wbex` file, upload it to the cluster, start Workbench graphically, open the Extension Manager, install the extension, and then load it for current and future sessions."
     },
     {
-      "question": "What are the key prerequisites for using Fluent solution restart scripts for long-running jobs?",
-      "answer": "The first time step must complete within the job array time limit, and working `sample.cas`, `sample.dat`, and `sample.jou` files must be present, with specific modifications in the journal files for auto-saving and restart commands."
-    },
-    {
-      "question": "How are Fluent journal files configured to use legacy versus more efficient file formats?",
-      "answer": "For Ansys versions 2019R3 or older, `/file/cff-files no` uses legacy `.cas/.dat`. For 2020R1 or newer, `/file/cff-files yes` uses the more efficient `.cas.h5/.dat.h5` format."
-    },
-    {
-      "question": "What is the first step when implementing a User-Defined Function (UDF) for Fluent on a cluster?",
-      "answer": "Transfer the UDF source file (e.g., `sampleudf.c`) and any dependency files to the cluster, ensuring text mode is used during transfer from Windows machines."
-    },
-    {
-      "question": "How do you configure a journal file to use an interpreted UDF in Fluent?",
-      "answer": "Add the command `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no` into your journal file before reading or initializing the cas/dat files."
-    },
-    {
-      "question": "Why can't a compiled UDF's `libudf` directory simply be copied from a local system to an Alliance cluster?",
-      "answer": "The shared library's dependencies will not be satisfied, causing Fluent to crash. The UDF must be compiled on an Alliance cluster first."
-    },
-    {
-      "question": "What is required for a UDF to work with a Fluent parallel job?",
-      "answer": "The UDF needs to be parallelized by adding compiler directives, predicates, and reduction macros as described in the Ansys Fluent Customization Manual."
-    },
-    {
-      "question": "How can Discrete Phase Model (DPM) injection properties be specified in Fluent?",
-      "answer": "They can be defined in the GUI via the 'Injections' dialog box by setting 'Point Properties', or by reading an injection text file (e.g., with a `.inj` extension)."
-    },
-    {
-      "question": "How can users view command-line options for `cfx5solve`, and what are some notable options?",
-      "answer": "Run `cfx5solve -help` after loading the Ansys module. Notable options include `-double` for double precision (doubles memory) and `-large` for very large meshes."
-    },
-    {
-      "question": "What initialization steps are required for a Workbench job before submitting it to the queue?",
-      "answer": "On an OnDemand desktop, navigate to the project directory, remove `_ProjectScratch`, load the Ansys module, open the Workbench GUI (`runwb2 -f YOURPROJECT.wbpj`), reset the 'Model', save, and then exit Workbench without saving modifications when prompted."
-    },
-    {
-      "question": "How is an input file for Mechanical APDL jobs generated from within a Workbench Mechanical session?",
-      "answer": "In Workbench Mechanical, click 'Solution -> Tools -> Write Input Files', then specify a filename like `YOURAPDLFILE.inp` and select 'APDL Input Files (*.inp)' as the type."
-    },
-    {
-      "question": "What are the default memory allocations for APDL jobs, and how can they be adjusted?",
-      "answer": "Ansys defaults to 1024 MB total memory and 1024 MB database memory. These can be adjusted by adding `-m <value>` and/or `-db <value>` to the `mapdl` command line in the Slurm scripts."
-    },
-    {
-      "question": "Which Ansys module version should be used for Ansys Rocky simulations on the clusters?",
-      "answer": "Users should transition from `ansysrocky/2024R2.0` to the Rocky version included within the `ansys/2025R1` module (and future versions), which is available on all clusters."
-    },
-    {
-      "question": "What are the licensing implications when running Ansys Rocky with GPUs and multiple CPUs?",
-      "answer": "Running Rocky with >= 4 CPUs requires `rocky_hpc` licenses. For coupled problems, maximize CPUs until scalability limit; for uncoupled, request minimal CPUs (e.g., 2-3)."
-    },
-    {
-      "question": "How do you access Ansys programs in graphical mode on the clusters?",
-      "answer": "You can access them through OnDemand or Jupyterhub desktop links specific to clusters like Nibi, Fir, Rorqual, Narval, or Trillium, configuring GPU resources if necessary."
-    },
-    {
-      "question": "What environment variables are needed for Fluent's graphical launcher on a compute node without a GPU?",
-      "answer": "Set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on nibi) and `HOOPS_PICTURE=opengl2-mesa` (for 2025R1+) or `HOOPS_PICTURE=null` (for 2024R2 or older) in the Environment Tab."
-    },
-    {
-      "question": "What environment variables are needed for Fluent's graphical launcher on a compute node with a GPU?",
-      "answer": "Set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on nibi only) and `HOOPS_PICTURE=opengl2` (for 2025R1+) or `HOOPS_PICTURE=opengl` (for 2024R2 or older) in the Environment Tab."
-    },
-    {
-      "question": "How do you start Workbench graphically on an OnDemand Desktop without a GPU?",
-      "answer": "Load the appropriate Ansys module (e.g., `module load StdEnv/2023 ansys/2025R1`) and then execute `runwb2 -oglmesa` in a terminal window."
-    },
-    {
-      "question": "Who can use the SHARCNET Ansys license and for what purpose?",
-      "answer": "The SHARCNET Ansys license is free for academic use by any Alliance researcher on any Alliance system for publishable academic research, but private/commercial use is strictly prohibited."
-    },
-    {
-      "question": "What Ansys products are covered by the SHARCNET Multiphysics Campus Solution license?",
-      "answer": "It includes products such as HF, EM, Electronics HPC, Mechanical, CFD, ROCKY, and LS-DYNA. Lumerical and SpaceClaim are not covered or installed."
-    },
-    {
-      "question": "What are the maximum job limits for a researcher using the SHARCNET Ansys license?",
-      "answer": "Each researcher can run a maximum of 16 simultaneous jobs, utilizing a total of up to 512 `anshpc` cores across all clusters."
-    },
-    {
-      "question": "What happens if the SHARCNET Ansys license pool becomes oversubscribed?",
-      "answer": "Jobs may fail to start due to license shortages, requiring manual resubmission. The total `anshpc` core limit per researcher may be reduced if shortages increase."
-    },
-    {
-      "question": "How should the `ansys.lic` file be configured to use the SHARCNET Ansys license?",
-      "answer": "The `ansys.lic` file should contain `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license1.computecanada.ca\")`."
-    },
-    {
-      "question": "How can a user query their Ansys license usage and the total licenses in use?",
-      "answer": "SSH into a cluster (e.g., `nibi.alliancecan.ca`), load the Ansys module, and then run `lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\" | grep -v \" Total of 0 licenses in use\"`."
-    },
-    {
-      "question": "How can rogue Ansys processes tying up licenses be terminated?",
-      "answer": "Close the desktop, `scancel` the `salloc` session, or on the affected node, use `pkill -9 -e -u $USER -f \"ansys\"`."
-    },
-    {
-      "question": "What is the primary prerequisite for using Ansys Additive Manufacturing?",
-      "answer": "You must configure your `~/.licenses/ansys.lic` file to point to a license server that has a valid Ansys Mechanical License."
-    },
-    {
-      "question": "How is the Ansys Additive Manufacturing ACT extension enabled in a project?",
-      "answer": "Download `AdditiveWizard.wbex`, upload it to the cluster, start Workbench, open the Extension Manager, then install and load the extension."
-    },
-    {
-      "question": "What preparations are required before submitting a newly uploaded Additive project to a cluster queue?",
-      "answer": "Open and save the project with the Workbench GUI in the job submission directory (using the same Ansys module version), and then create a Slurm script based on the Workbench batch job submission guidelines."
-    },
-    {
-      "question": "How are parametric studies performed with Ansys Additive Manufacturing on a cluster?",
-      "answer": "By changing `Update()` to `UpdateAllDesignPoints()` in the Slurm script."
-    },
-    {
-      "question": "Where can users find the official full documentation for recent Ansys versions?",
-      "answer": "The official full documentation for Ansys 2024R1/2025R2 is available online at ansyshelp.ansys.com, while older versions may require a login."
-    },
-    {
-      "question": "What are the limitations of using X over SSH for running Ansys GUI programs?",
-      "answer": "It is untested, unsupported, and typically results in unacceptably slow interactive response times and very long startup times for GUI programs, especially for graphics rendering."
+      "question": "What help resources are available for Ansys users on Alliance clusters?",
+      "answer": "Available resources include official Ansys documentation, the Ansys Developer Portal, Ansys HowTo videos, the Ansys Educator Hub, and the Ansys Webinar series."
     }
   ],
-  "generated_at": "2026-04-12T16:34:06.037925+00:00"
+  "generated_at": "2026-04-13T01:40:01.665574+00:00"
 }

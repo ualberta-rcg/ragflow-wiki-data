@@ -4,41 +4,13 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "Comment faire pour compiler Mesa avec OSMesa sur une machine virtuelle?",
-      "answer": "Pour compiler Mesa avec OSMesa, il faut d'abord télécharger l'archive (par exemple, `mesa-25.2.3.tar.xz`), la décompresser, puis configurer avec `./configure --enable-opengl --disable-gles1 --disable-gles2 --disable-va --disable-xvmc --disable-vdpau --enable-shared-glapi --disable-texture-float --enable-gallium-llvm --enable-llvm-shared-libs --with-gallium-drivers=swrast,swr --disable-dri --disable-egl --disable-gbm --disable-glx --disable-osmesa --enable-gallium-osmesa`. Ensuite, lancez `make` puis `sudo make install`."
+      "question": "Dans le contexte de la compilation de ParaView sur une machine virtuelle, pourquoi est-il nécessaire de compiler Mesa avec OSMesa?",
+      "answer": "Sur une machine virtuelle, il faut compiler Mesa avec OSMesa parce que les machines virtuelles n'ont généralement pas accès à un GPU. OSMesa permet le rendu hors écran et active OpenSWR, une librairie logicielle de tramage (rasterization) d'Intel qui permet d'opérer OpenGL en utilisant le CPU avec des pilotes comme `llvmpipe` et SWR, qui sont plus récents et plus rapides."
     },
     {
-      "question": "Pourquoi est-ce qu'on doit compiler Mesa avec OSMesa pour les machines virtuelles sans GPU?",
-      "answer": "Puisque la plupart des machines virtuelles (comme celles d'Arbutus) n'ont pas accès à un GPU, il est nécessaire de compiler ParaView avec OSMesa pour obtenir un rendu hors écran (offscreen rendering). Cette configuration active aussi OpenSWR, la librairie logicielle de tramage d'Intel qui permet à OpenGL de fonctionner, résultant en un serveur ParaView utilisant OSMesa avec les pilotes `llvmpipe` et `SWR` plus récents et rapides."
-    },
-    {
-      "question": "Quels pilotes sont recommandés pour le rendu logiciel après la compilation de Mesa avec OSMesa?",
-      "answer": "Après la compilation de Mesa avec OSMesa, les pilotes `llvmpipe` et `SWR` sont disponibles, et SWR est spécifiquement recommandé pour le rendu logiciel."
-    },
-    {
-      "question": "Comment compiler le serveur ParaView sur une machine virtuelle après avoir compilé Mesa?",
-      "answer": "Pour compiler le serveur ParaView, téléchargez l'archive (par exemple, `ParaView-v6.0.0.tar.gz`), décompressez-la, créez un répertoire `build`, puis exécutez `cmake` avec les options `-DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/home/centos/paraview -DPARAVIEW_USE_MPI=OFF -DPARAVIEW_ENABLE_PYTHON=ON -DPARAVIEW_BUILD_QT_GUI=OFF -DVTK_OPENGL_HAS_OSMESA=ON -DVTK_USE_OFFSCREEN=ON -DVTK_USE_X=OFF`. Finalement, lancez `make` puis `make install`."
-    },
-    {
-      "question": "Quel est le chemin d'installation par défaut du serveur ParaView quand on le compile avec l'option `-DCMAKE_INSTALL_PREFIX` spécifiée pour la VM?",
-      "answer": "Le chemin d'installation par défaut du serveur ParaView, avec l'option `-DCMAKE_INSTALL_PREFIX` spécifiée, est `/home/centos/paraview`."
-    },
-    {
-      "question": "Comment démarrer le serveur ParaView sur la machine virtuelle après l'avoir compilé avec SWR?",
-      "answer": "Pour démarrer le serveur ParaView sur la machine virtuelle avec SWR, utilisez la commande `./paraview/bin/pvserver --force-offscreen-rendering --opengl-window-backend OSMesa`."
-    },
-    {
-      "question": "Comment créer un tunnel SSH pour connecter un client ParaView local à un serveur ParaView sur une machine virtuelle?",
-      "answer": "Sur votre ordinateur local, créez un tunnel SSH en utilisant la commande `ssh centos@vm.ip.address -L 11111:localhost:11111`. Ça va rediriger le port local 11111 vers le port 11111 de la machine virtuelle."
-    },
-    {
-      "question": "Comment connecter le client ParaView local au serveur ParaView qui roule sur la machine virtuelle?",
-      "answer": "Une fois le tunnel SSH établi, lancez le client ParaView sur votre ordinateur local et connectez-vous à `localhost:11111`."
-    },
-    {
-      "question": "Quel message apparaît dans la console pour confirmer que SWR est utilisé pour le rendu?",
-      "answer": "Lorsque l'opération de rendu s'effectue avec SWR, le message `SWR detected AVX2` devrait s'afficher sur la console."
+      "question": "Quelles sont les étapes pour configurer et utiliser ParaView en mode client-serveur à partir d'une machine virtuelle?",
+      "answer": "Pour configurer ParaView en mode client-serveur à partir d'une machine virtuelle, il faut d'abord lancer le serveur ParaView sur la machine virtuelle en utilisant la commande `./paraview/bin/pvserver --force-offscreen-rendering --opengl-window-backend OSMesa`. Ensuite, à partir de votre ordinateur local, vous devez créer un tunnel SSH qui redirige le port local 11111 vers le port 11111 de la machine virtuelle avec la commande `ssh centos@vm.ip.address -L 11111:localhost:11111`. Finalement, lancez le client ParaView sur votre ordinateur et connectez-vous à `localhost:11111`."
     }
   ],
-  "generated_at": "2026-04-12T04:58:13.373605+00:00"
+  "generated_at": "2026-04-13T11:01:14.320952+00:00"
 }

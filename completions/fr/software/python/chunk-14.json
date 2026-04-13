@@ -4,17 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "À quoi sert le module `multiprocessing` en Python pour la programmation parallèle sur nos grappes?",
-      "answer": "Le module `multiprocessing` en Python, et plus précisément sa classe `Pool`, est utilisé pour faire de la programmation parallèle. Il permet de contrôler le nombre de processus lancés en parallèle pour exécuter le même calcul avec différentes données, ce qui aide à obtenir des résultats plus rapidement."
+      "question": "À quoi sert le module `multiprocessing` en Python, pis comment ça aide pour la programmation parallèle?",
+      "answer": "Le module `multiprocessing` en Python est utilisé pour la programmation parallèle, ce qui permet d'obtenir des résultats plus rapidement. La classe `Pool` de ce module est particulièrement intéressante parce qu'elle permet de contrôler le nombre de processus lancés en parallèle pour exécuter le même calcul avec des données multiples."
     },
     {
-      "question": "Pourquoi est-il crucial de s'assurer que le nombre de processus correspond aux ressources allouées lorsqu'on utilise `multiprocessing` sur une grappe?",
-      "answer": "C'est essentiel pour optimiser la performance et l'utilisation des ressources. Si le nombre de processus exécutés dépasse le nombre de cœurs alloués (comme indiqué par `SLURM_CPUS_PER_TASK`), les calculs s'effectuent plus lentement et le nœud peut être surchargé. Inversement, si le nombre de processus est inférieur aux cœurs alloués, des cœurs restent inactifs et les ressources ne sont pas utilisées de façon optimale."
+      "question": "Comment j'fais pour m'assurer que mon script Python qui utilise `multiprocessing` exploite à fond tous les cœurs CPU alloués à ma tâche sur une grappe de calcul?",
+      "answer": "Pour t'assurer que ton script utilise efficacement tous les cœurs CPU alloués à ta tâche sur une grappe, tu devrais faire appel à autant de cœurs que la quantité de ressources demandées à l'ordonnanceur. Tu peux récupérer cette information via la variable d'environnement `SLURM_CPUS_PER_TASK`, puis l'utiliser pour définir le nombre de processus de ton `Pool`, par exemple `ncpus = int(os.environ.get('SLURM_CPUS_PER_TASK',default=1))` et `pool = mp.Pool(processes=ncpus)`."
     },
     {
-      "question": "Quelles sont les limitations du module `multiprocessing` pour la programmation parallèle, et quelles solutions sont offertes pour travailler sur plusieurs nœuds?",
-      "answer": "Le module `multiprocessing` ne peut utiliser qu'un seul nœud de calcul. Si vous avez besoin de dépasser cette limite et de travailler sur plusieurs nœuds, vous devriez considérer d'autres options comme `mpi4py` ou `PySpark`."
+      "question": "Quelles sont les limites du module `multiprocessing` de Python pour la programmation parallèle sur les grappes de calcul, pis c'est quoi les alternatives si j'veux utiliser plusieurs nœuds?",
+      "answer": "Le module `multiprocessing` ne peut utiliser qu'un seul nœud de calcul, donc le gain en performance est limité au nombre de cœurs CPU de ce nœud. Si tu veux dépasser cette limite et utiliser plusieurs nœuds, tu devrais considérer des alternatives comme `mpi4py` ou `PySpark`."
     }
   ],
-  "generated_at": "2026-04-12T18:22:46.041823+00:00"
+  "generated_at": "2026-04-13T11:53:17.868111+00:00"
 }

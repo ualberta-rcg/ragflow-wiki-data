@@ -4,61 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What is the file name for the simple BEAST job script example?",
-      "answer": "The file name for the simple BEAST job script example is `simple_beast_job.sh`."
+      "question": "What is a basic SLURM job script for running BEAST with standard memory settings?",
+      "answer": "A basic SLURM job script for BEAST, named `simple_beast_job.sh`, includes `#!/bin/bash`, sets `--account=def-someuser`, `--time=3:00:00`, `--mem-per-cpu=2000M`, loads the BEAST module (e.g., `module load beast/2.6.3`), and then executes the `beast input_beast.xml` command."
     },
     {
-      "question": "How do you load the BEAST module in a simple job script?",
-      "answer": "You load the BEAST module by including `module load beast/2.6.3` in the script."
-    },
-    {
-      "question": "What is the requested time limit for the simple BEAST job script?",
-      "answer": "The requested time limit for the simple BEAST job script is 3 hours (`--time=3:00:00`)."
-    },
-    {
-      "question": "What is the memory allocation per CPU in the simple BEAST job script?",
-      "answer": "The memory allocation per CPU in the simple BEAST job script is 2000M (`--mem-per-cpu=2000M`)."
-    },
-    {
-      "question": "What command executes BEAST with an input file in the simple job script?",
-      "answer": "The command `beast input_beast.xml` executes BEAST with an input file in the simple job script."
-    },
-    {
-      "question": "What is the file name for the BEAST job script designed for more memory?",
-      "answer": "The file name for the BEAST job script designed for more memory is `high_memory_beast_job.sh`."
-    },
-    {
-      "question": "How much memory per CPU is requested in the high memory BEAST job script example?",
-      "answer": "The high memory BEAST job script example requests 4000M (`--mem-per-cpu=4000M`) of memory per CPU."
-    },
-    {
-      "question": "How should the `BEAST_MEM` variable relate to the `--mem=` SBATCH directive for optimal memory usage?",
-      "answer": "The `BEAST_MEM` variable needs to be 250M lower than the `--mem=` SBATCH directive."
-    },
-    {
-      "question": "What value is typically set for the `BEAST_MEM` variable when `--mem-per-cpu` is 4000M?",
-      "answer": "When `--mem-per-cpu` is 4000M, `BEAST_MEM` is typically set to `-Xmx3750M`."
-    },
-    {
-      "question": "How are the BEAST and BEAGLE-lib paths handled in the high memory job script?",
-      "answer": "The paths are defined using `BEAST_LIB=\"${EBROOTBEAST}/lib\"` and `BEAST_EXTRA_LIBS=\"${BEAST_LIB}:${BEAGLE_LIB}\"`, and `LD_LIBRARY_PATH` is exported as `export LD_LIBRARY_PATH=\"${BEAGLE_LIB}:${LD_LIBRARY_PATH}\"`."
-    },
-    {
-      "question": "What is the initial memory allocation for the Java command in the high memory BEAST script?",
-      "answer": "The initial memory allocation for the Java command is set to 256m (`-Xms256m`)."
-    },
-    {
-      "question": "Which Java class is used to launch the BEAST application in the high memory job script?",
-      "answer": "The `beast.app.beastapp.BeastLauncher` class is used to launch the BEAST application."
-    },
-    {
-      "question": "What command runs BEAST using the BEAGLE library in the high memory job script?",
-      "answer": "The command `$CMD -beagle input_beast.xml` runs BEAST using the BEAGLE library."
-    },
-    {
-      "question": "Where can users find more information on managing BEAST packages?",
-      "answer": "Users can find more information on managing BEAST packages by reading the section \"Server machines\" at `http://www.beast2.org/managing-packages/`."
+      "question": "How can a user configure an SLURM job script to run BEAST with increased memory and specific library paths?",
+      "answer": "To run BEAST with increased memory, an SLURM job script (like `high_memory_beast_job.sh`) should set `--mem-per-cpu` (e.g., `4000M`), define a `BEAST_MEM` variable (e.g., `-Xmx3750M`), load the BEAST module, define `BEAST_LIB` and `BEAST_EXTRA_LIBS`, export `LD_LIBRARY_PATH` to include `${BEAGLE_LIB}`, and then construct and execute a `java` command including `-Xms256m`, `${BEAST_MEM}`, `-Djava.library.path=${BEAST_EXTRA_LIBS}`, and `-cp ${BEAST_LIB}/launcher.jar beast.app.beastapp.BeastLauncher`, followed by `-beagle` and the input XML file."
     }
   ],
-  "generated_at": "2026-04-11T18:19:09.546754+00:00"
+  "generated_at": "2026-04-13T02:47:46.869383+00:00"
 }

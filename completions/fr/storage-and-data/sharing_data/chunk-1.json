@@ -4,101 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Quelle commande est-ce qu'on ne devrait jamais utiliser dans nos répertoires, surtout pas dans `/home`, sur les grappes de calcul partagées, et pourquoi?",
-      "answer": "Faut jamais utiliser la commande `chmod -R 777` dans vos répertoires, pis surtout pas dans votre répertoire `/home`. Ça représente un ÉNORME risque à la sécurité de vos données, c'est inacceptable sur des systèmes partagés comme nos grappes de calcul, pis cette commande-là est jamais vraiment nécessaire."
+      "question": "Pourquoi ne devrait-on jamais utiliser la commande `chmod -R 777` sur les grappes de calcul de l'Alliance, et surtout pas dans le répertoire `/home`?",
+      "answer": "Il ne faut jamais utiliser la commande `chmod -R 777` sur les grappes de calcul de l'Alliance, et surtout pas dans votre répertoire `/home`, parce que ça représente un ÉNORME risque à la sécurité de vos données. C'est inacceptable sur des systèmes partagés et cette commande n'est jamais vraiment nécessaire."
     },
     {
-      "question": "Dans quelles situations est-ce fréquent de devoir partager ses données sur nos grappes?",
-      "answer": "Il est fréquent de devoir partager ses données avec un collègue ou avec un autre groupe de recherche."
+      "question": "Quels sont les différents moyens offerts sur les grappes de calcul de l'Alliance pour partager des données avec d'autres utilisateurs ou groupes de recherche, en fonction de leur statut?",
+      "answer": "Sur les grappes de calcul de l'Alliance, il existe plusieurs façons de partager des données selon la personne ou le groupe: \n* Pour un membre d'un groupe de recherche dont vous faites partie, la meilleure approche est d'utiliser l'espace `/project` disponible aux membres du groupe. Pour créer un groupe, il faut communiquer avec le soutien technique.\n* Pour une personne qui n'a pas de compte sur la grappe, on peut créer un point de chute commun dans Globus.\n* Pour un autre utilisateur qui a un compte sur la même grappe, mais qui n'est pas dans le même groupe que vous, la méthode la plus simple est de se servir des permissions du système de fichiers."
     },
     {
-      "question": "Pour partager des données avec un membre de votre groupe de recherche, quelle est la meilleure approche sur nos grappes?",
-      "answer": "La meilleure approche est d'utiliser l'espace `/project` qui est disponible aux membres du groupe."
-    },
-    {
-      "question": "Si vous devez créer un groupe pour utiliser une des grappes nationales, avec qui faut-il communiquer?",
-      "answer": "Faut communiquer avec le soutien technique, parce que les utilisateurs ne peuvent pas créer leurs propres groupes."
-    },
-    {
-      "question": "Comment peut-on partager des données avec une personne qui n'a pas de compte sur la grappe qu'on utilise?",
-      "answer": "Vous pouvez créer un point de chute commun dans Globus."
-    },
-    {
-      "question": "Quel est le moyen le plus simple pour partager des données avec un autre utilisateur qui a un compte sur la même grappe, mais qui ne fait pas partie du même groupe que vous?",
-      "answer": "Le moyen le plus simple, c'est de vous servir des permissions du système de fichiers en question."
-    },
-    {
-      "question": "Pour qu'une personne puisse accéder aux données que vous voulez partager, quelles permissions doit-elle avoir sur les répertoires du chemin d'accès?",
-      "answer": "La personne doit pouvoir accéder à tous les répertoires à partir des espaces `/scratch` ou `/project`, jusqu'au répertoire qui contient le fichier. Ça signifie accorder à l'autre utilisateur une permission d'exécution à tous les répertoires entre le répertoire racine (par exemple `/scratch` ou `/project`) et le répertoire du fichier."
-    },
-    {
-      "question": "Quelles sont les fonctionnalités principales que les systèmes de fichiers de nos grappes offrent pour interagir avec les fichiers et les répertoires?",
-      "answer": "Nos systèmes de fichiers possèdent des fonctionnalités permettant de lire, d'écrire et d'exécuter des fichiers et des répertoires."
-    },
-    {
-      "question": "Quand un utilisateur tente une action comme lire, modifier ou supprimer un fichier, ou accéder à un répertoire, qui vérifie les permissions?",
-      "answer": "Le noyau Linux (le *kernel*) vérifie d'abord les permissions. Si l'action est impossible, un message annonce que la permission n’est pas accordée."
-    },
-    {
-      "question": "Quelles sont les trois catégories d'utilisateurs qu'on retrouve pour les objets (fichiers ou répertoires) dans un système de fichiers?",
-      "answer": "Il y a le propriétaire de l'objet (habituellement l'utilisateur qui l'a créé), les membres du groupe de l'objet (habituellement les mêmes que les membres du groupe par défaut du propriétaire), et tous les autres."
-    },
-    {
-      "question": "Combien de permissions différentes peuvent être associées à chaque objet, en tenant compte des catégories d'utilisateurs et des types de permissions?",
-      "answer": "Avec trois catégories d'utilisateurs et trois types de permissions (lecture, écriture, exécution), il y a une possibilité de neuf permissions pouvant être associées à chaque objet."
-    },
-    {
-      "question": "Quelle commande est-ce qu'on utilise pour connaître les permissions associées à un objet spécifique?",
-      "answer": "Pour connaître les permissions associées à un objet, vous utilisez la commande `ls -l name_of_object`."
-    },
-    {
-      "question": "Si la commande `ls -l` affiche `‑rw‑r‑‑r‑‑`, qu'est-ce que ça veut dire en termes de permissions pour le propriétaire, le groupe et les autres?",
-      "answer": "Ça indique que le propriétaire a seulement les permissions de lecture et d'écriture, tandis que les membres du groupe et tous les autres utilisateurs ont la permission de lecture. Le résultat montre aussi le nom du propriétaire de l'objet et le groupe."
-    },
-    {
-      "question": "Pour modifier les permissions associées à un fichier ou à un répertoire, quelle commande est-ce qu'on doit utiliser?",
-      "answer": "Vous utilisez la commande `chmod`."
-    },
-    {
-      "question": "Comment on spécifie les catégories d'utilisateurs (propriétaire, groupe, autres, tous) quand on utilise la commande `chmod`?",
-      "answer": "On utilise `u` (pour *user*) pour le propriétaire, `g` pour le groupe, `o` (pour *others*) pour tous les autres utilisateurs de la grappe, et `a` (pour *all*) pour signifier tous."
-    },
-    {
-      "question": "Quelles lettres sont utilisées pour représenter les permissions de lecture, d'écriture et d'exécution dans la commande `chmod`?",
-      "answer": "On utilise `r` (pour *read*) pour la lecture, `w` (pour *write*) pour l'écriture et `x` (pour *execute*) pour l'exécution."
-    },
-    {
-      "question": "Quelle commande `chmod` accorderait la permission de lecture à tous les membres du groupe auquel appartient le fichier `file.txt`?",
-      "answer": "La commande serait `chmod g+r file.txt`."
-    },
-    {
-      "question": "Comment on retirerait la permission d'exécuter le fichier `script.py` à tous les utilisateurs, à l'exception du propriétaire et du groupe?",
-      "answer": "On utiliserait la commande `chmod o-x script.py`."
-    },
-    {
-      "question": "Pour que tous les utilisateurs de la grappe puissent lire un fichier nommé `file.txt`, quelle commande `chmod` faut-il employer?",
-      "answer": "Vous utiliseriez la commande `chmod a+r file.txt`."
-    },
-    {
-      "question": "Comment sont représentées les permissions pour une catégorie d'utilisateur avec la notation octale?",
-      "answer": "Les permissions sont représentées par trois bits qui sont interprétés comme un chiffre de 0 à 7, en utilisant la formule (bit de lecture)*4 + (bit d'écriture)*2 + (bit d'exécution)*1."
-    },
-    {
-      "question": "Si les permissions d'un fichier sont `rw-r--r--`, quelle serait la valeur octale correspondante?",
-      "answer": "La représentation octale serait 6 pour le propriétaire (4+2+0), 4 pour le groupe (4+0+0) et 4 pour les autres (4+0+0), soit la valeur 644."
-    },
-    {
-      "question": "Quelles permissions sont nécessaires sur un répertoire pour pouvoir avoir accès aux fichiers qu'il contient?",
-      "answer": "Pour avoir vos permissions reliées à un fichier, vous devez avoir accès au répertoire qui contient ce fichier; vous devrez donc avoir les permissions en lecture et en exécution (5 et 7 en notation octale) pour ce répertoire."
-    },
-    {
-      "question": "Qui a le droit de modifier les permissions associées à un fichier ou à un répertoire?",
-      "answer": "Bien entendu, vous pouvez seulement modifier les permissions associées à un fichier ou à un répertoire dont vous êtes propriétaire."
-    },
-    {
-      "question": "Quelle commande est-ce qu'on utilise pour modifier le groupe d'un fichier ou d'un répertoire?",
-      "answer": "On utilise la commande `chgrp`."
+      "question": "Comment peut-on modifier les permissions d'un fichier ou d'un répertoire pour différentes catégories d'utilisateurs avec la commande `chmod` sur les grappes de calcul de l'Alliance?",
+      "answer": "Pour modifier les permissions d'un fichier ou d'un répertoire, on utilise la commande `chmod`. Il faut spécifier la catégorie d'utilisateur (`u` pour le propriétaire, `g` pour le groupe, `o` pour les autres ou `a` pour tous), suivie d'un signe plus `+` pour allouer une permission ou moins `-` pour la retirer, et finalement la nature de la permission (`r` pour lire, `w` pour écrire ou `x` pour exécuter). Par exemple, `chmod g+r file.txt` accorde la permission de lecture à tous les membres du groupe du fichier."
     }
   ],
-  "generated_at": "2026-04-12T08:00:32.855385+00:00"
+  "generated_at": "2026-04-13T13:35:04.535671+00:00"
 }

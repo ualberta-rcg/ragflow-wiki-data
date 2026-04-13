@@ -4,65 +4,13 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "How do you submit a job script named `job_makecluster.sh`?",
-      "answer": "You submit the job using the command `sbatch job_makecluster.sh`."
+      "question": "What is the Rmpi package, and what are the steps to install it on a cluster?",
+      "answer": "The Rmpi package is an R interface (wrapper) to MPI routines that enables R to run in parallel. To install it, you must first load the `gcc/12.3`, `openmpi/4.1.5`, and `r/4.5.0` modules. Next, download the desired Rmpi version, such as `Rmpi_0.7-3.3.tar.gz`, using `wget`. Then, create a local R library directory (e.g., `~/local/R_libs/`) and export it as the `R_LIBS` environment variable. Finally, run the installation command: `R CMD INSTALL --configure-args=\"--with-Rmpi-include=$EBROOTOPENMPI/include --with-Rmpi-libpath=$EBROOTOPENMPI/lib --with-Rmpi-type='OPENMPI' \" Rmpi_0.7-3.3.tar.gz`."
     },
     {
-      "question": "What is Rmpi?",
-      "answer": "Rmpi is an interface (wrapper) to MPI routines that allows R to run in parallel."
-    },
-    {
-      "question": "What is the initial step to check available R modules before installing Rmpi?",
-      "answer": "The initial step is to run the command `module spider r` to see available R modules."
-    },
-    {
-      "question": "Which modules should be loaded before proceeding with the Rmpi installation?",
-      "answer": "You should load `gcc/12.3`, `openmpi/4.1.5`, and `r/4.5.0` modules."
-    },
-    {
-      "question": "How do you download the Rmpi package source?",
-      "answer": "You can download the Rmpi package using `wget https://cran.r-project.org/src/contrib/Rmpi_0.7-3.3.tar.gz`, adjusting the version number as desired."
-    },
-    {
-      "question": "What is the recommended approach to specify the installation directory for Rmpi package files?",
-      "answer": "You should create a directory like `~/local/R_libs/` and then set the `R_LIBS` environment variable to this path using `export R_LIBS=~/local/R_libs/`. You must have write permission for this directory."
-    },
-    {
-      "question": "What is the command to install Rmpi after downloading the tarball and setting up the library path?",
-      "answer": "The install command is `R CMD INSTALL --configure-args=\"--with-Rmpi-include=$EBROOTOPENMPI/include   --with-Rmpi-libpath=$EBROOTOPENMPI/lib --with-Rmpi-type='OPENMPI' \" Rmpi_0.7-3.3.tar.gz`."
-    },
-    {
-      "question": "What should be done if an Rmpi package installation fails?",
-      "answer": "If an Rmpi package installation fails, you should carefully read any error messages and load any required additional modules to ensure all packages are successfully installed."
-    },
-    {
-      "question": "What is the name of the R script file used in the Rmpi running example?",
-      "answer": "The R code is placed in a script file named `test.R`."
-    },
-    {
-      "question": "Which Rmpi functions are used in the `test.R` example script?",
-      "answer": "The `test.R` script uses functions like `library(\"Rmpi\")`, `mpi.universe.size()`, `mpi.spawn.Rslaves()`, `mpi.remote.exec()`, `mpi.close.Rslaves()`, and `mpi.quit()`."
-    },
-    {
-      "question": "What are the SBATCH directives for the `job.sh` script when running an Rmpi job?",
-      "answer": "The `job.sh` script specifies `#SBATCH --account=def-someacct`, `#SBATCH --ntasks=5`, `#SBATCH --mem-per-cpu=2048M`, and `#SBATCH --time=0-00:15`."
-    },
-    {
-      "question": "Which modules are loaded in the `job.sh` script for the Rmpi execution?",
-      "answer": "The `job.sh` script loads `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `r/4.5.0`."
-    },
-    {
-      "question": "How is the Rmpi R script executed within the `job.sh` submission script?",
-      "answer": "The Rmpi R script is executed using `mpirun -np 1 R CMD BATCH test.R test.txt`."
-    },
-    {
-      "question": "How do you submit the `job.sh` script to run an Rmpi job?",
-      "answer": "You submit the `job.sh` script using the command `sbatch job.sh`."
-    },
-    {
-      "question": "What environment variable needs to be set in the `job.sh` script for Rmpi to find custom installed R libraries?",
-      "answer": "The `R_LIBS` environment variable needs to be set to `~/local/R_libs/`."
+      "question": "How do I execute an Rmpi script on a cluster using the SLURM job scheduler?",
+      "answer": "To execute an Rmpi script on a cluster via SLURM, you need to prepare an R script (e.g., `test.R`) and a job submission script (e.g., `job.sh`). The job script should include SLURM directives such as `--account`, `--ntasks=5` (for 5 MPI processes), `--mem-per-cpu=2048M`, and `--time=0-00:15`. Crucially, it must load the `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `r/4.5.0` modules, export `R_LIBS` to your local library (`~/local/R_libs/`), and then execute the Rmpi script using `mpirun -np 1 R CMD BATCH test.R test.txt`. Finally, submit the job using `sbatch job.sh`."
     }
   ],
-  "generated_at": "2026-04-12T06:11:12.448467+00:00"
+  "generated_at": "2026-04-13T12:03:36.379658+00:00"
 }

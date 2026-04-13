@@ -3,69 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is VirSorter2 used for?",
+      "question": "What is the primary function of VirSorter2?",
       "answer": "VirSorter2 is a tool designed to identify new viral sequences."
     },
     {
-      "question": "Which specific version of VirSorter2 is covered by the instructions on this page?",
+      "question": "What version of VirSorter2 does this documentation cover?",
       "answer": "This page discusses how to install and use VirSorter2 v2.2.4."
     },
     {
-      "question": "Where can users find the source code and official documentation for VirSorter2?",
-      "answer": "The source code and documentation for VirSorter2 are available on its GitHub page."
+      "question": "Where can users find the source code and additional documentation for VirSorter2?",
+      "answer": "Users can find the source code and documentation for VirSorter2 on its GitHub page."
     },
     {
-      "question": "What is the recommended method for installing VirSorter2?",
-      "answer": "VirSorter2 should be installed in a Python virtual environment using Alliance's prebuilt Python wheels with the `pip` command."
+      "question": "Why is it important to cite VirSorter2 when used for analyses?",
+      "answer": "Users should remember to cite VirSorter2 if they use it for their analyses, as indicated in its publication."
     },
     {
-      "question": "What modules must be loaded before installing VirSorter2?",
-      "answer": "Users need to load `StdEnv/2020`, `python/3.8`, `hmmer/3.3.2`, and `prodigal/2.6.3`."
+      "question": "What is the recommended method for installing VirSorter2 on Alliance clusters?",
+      "answer": "The recommended method is to install VirSorter2 in a Python virtual environment using Alliance's prebuilt Python wheels."
     },
     {
-      "question": "How do you create and activate a Python virtual environment for VirSorter2?",
-      "answer": "A virtual environment is created with `virtualenv --no-download ~/ENV_virsorter` and activated with `source ~/ENV_virsorter/bin/activate`."
+      "question": "Which modules need to be loaded as prerequisites before installing VirSorter2?",
+      "answer": "The necessary modules to load are `StdEnv/2020`, `python/3.8`, `hmmer/3.3.2`, and `prodigal/2.6.3`."
     },
     {
-      "question": "What command is used to install VirSorter2 v2.2.4 within a virtual environment?",
-      "answer": "VirSorter2 v2.2.4 is installed using `pip install --no-index virsorter==2.2.4`."
+      "question": "How does one create and activate a Python virtual environment for VirSorter2 installation?",
+      "answer": "A virtual environment is created with `virtualenv --no-download ~/ENV_virsorter` and activated using `source ~/ENV_virsorter/bin/activate`."
     },
     {
-      "question": "How can you validate that VirSorter2 has been installed correctly?",
-      "answer": "The installation can be validated by running the command `virsorter -h`."
+      "question": "What is the command to install VirSorter2 v2.2.4 within the activated virtual environment?",
+      "answer": "VirSorter2 v2.2.4 is installed using `pip install --no-index virsorter==2.2.4` after upgrading pip."
     },
     {
-      "question": "How do you download the VirSorter2 database, and where should it be stored?",
-      "answer": "The database is downloaded to `$SCRATCH/db` using `virsorter setup --db-dir $SCRATCH/db -j 4 --skip-deps-install`."
+      "question": "How do users download the required database for VirSorter2?",
+      "answer": "Users download the database into `$SCRATCH/db` using the command `virsorter setup --db-dir $SCRATCH/db -j 4 --skip-deps-install`."
     },
     {
-      "question": "What is the initial step to prepare for testing VirSorter2 after its installation and database setup?",
-      "answer": "The first step to prepare for testing is to deactivate the current virtual environment."
+      "question": "How can the VirSorter2 installation be validated?",
+      "answer": "The installation can be validated by running `virsorter -h` in the activated virtual environment."
     },
     {
-      "question": "Where can the test dataset for VirSorter2 be downloaded from?",
-      "answer": "The test dataset, `8seq.fa`, can be downloaded from `https://raw.githubusercontent.com/jiarong/VirSorter2/master/test/8seq.fa` into `$SCRATCH`."
+      "question": "What is the purpose of freezing the Python virtual environment after installing VirSorter2?",
+      "answer": "Freezing the environment with `pip freeze > ~/virsorter-2.2.4-requirements.txt` allows for recording the exact installed package versions, which is useful for reproducibility."
     },
     {
-      "question": "What is the purpose of the `test-virsorter.sh` script?",
-      "answer": "The `test-virsorter.sh` script is a submission script designed to run VirSorter2 with a test dataset within a job environment, handling module loading and virtual environment setup."
+      "question": "How is the test dataset for VirSorter2 obtained?",
+      "answer": "The test dataset is downloaded into `$SCRATCH` using `wget -O $SCRATCH/test.fa https://raw.githubusercontent.com/jiarong/VirSorter2/master/test/8seq.fa`."
     },
     {
-      "question": "How is the Python virtual environment handled within the `test-virsorter.sh` script?",
-      "answer": "The script generates a virtual environment in `$SLURM_TMPDIR`, activates it, and then installs VirSorter2 and its dependencies using the previously frozen requirements file."
+      "question": "What resources does the example `test-virsorter.sh` submission script request for a job?",
+      "answer": "The example `test-virsorter.sh` script requests 30 minutes of time, 2GB of memory per CPU, and 2 CPUs per task."
     },
     {
-      "question": "How do you execute the `test-virsorter.sh` script as an interactive job?",
-      "answer": "You start an interactive job using `salloc` specifying resources, then run `bash test-virsorter.sh`, and finally `exit` the allocation."
+      "question": "How does the `test-virsorter.sh` submission script handle the VirSorter2 installation within a job?",
+      "answer": "The script generates a new virtual environment in `$SLURM_TMPDIR` and installs VirSorter2 using the previously frozen requirements file (`~/virsorter-2.2.4-requirements.txt`)."
     },
     {
-      "question": "What action should users take after a successful VirSorter2 test run?",
-      "answer": "Upon a successful test run, users can submit a non-interactive job with their own dataset using `sbatch`."
+      "question": "What is the command used to execute VirSorter2 on the test dataset within the provided submission script?",
+      "answer": "The command is `virsorter run -w $SCRATCH/test.out -i $SCRATCH/test.fa --min-length 1500 -j $SLURM_CPUS_PER_TASK --verbose --use-conda-off --db-dir $SCRATCH/db all`."
     },
     {
-      "question": "What is important to remember when using VirSorter2 for analyses?",
-      "answer": "It is important to cite VirSorter2 if you use it for your analyses."
+      "question": "After a successful test run, how can users submit VirSorter2 jobs with their own data?",
+      "answer": "After a successful test run, users can submit non-interactive jobs with their own datasets using the `sbatch` command."
+    },
+    {
+      "question": "Where are custom Python wheels for Alliance systems typically stored?",
+      "answer": "Custom Python wheels are stored in `/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/`."
     }
   ],
-  "generated_at": "2026-04-12T11:02:09.919983+00:00"
+  "generated_at": "2026-04-13T15:57:21.730737+00:00"
 }

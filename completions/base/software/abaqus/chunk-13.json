@@ -4,73 +4,17 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "Are input file modifications necessary to restart an explicit analysis using the temporary directory restart script?",
-      "answer": "No, input file modifications are not required to restart an explicit analysis when using the temporary directory restart script."
+      "question": "What are the requirements and limitations for performing multi-node explicit analysis computations with Abaqus on Alliance clusters?",
+      "answer": "Users with significant memory or compute requirements and corresponding access to large licenses can perform multi-node explicit analysis using MPI-based computing, where the scheduler automatically determines the node ranges. This functionality is exclusively available with Abaqus/2026 or newer. Currently, companion template scripts for restarting multi-node jobs are not provided due to additional limitations."
     },
     {
-      "question": "For which types of users is the multiple node computing script for explicit analysis intended?",
-      "answer": "The multiple node computing script for explicit analysis is intended for users with large memory or compute needs, and who have access to large licenses."
+      "question": "How can users estimate the total Slurm node memory required for a single-process Abaqus simulation to run efficiently on an Alliance cluster?",
+      "answer": "Users can estimate the total Slurm node memory (`--mem=`) needed for a simulation to run fully in RAM by either examining the Abaqus output `test.dat` file for the 'MEMORY TO MINIMIZE I/O' value, or by running the simulation interactively on a compute node and monitoring memory usage (VIRT and RES columns) with the `top` or `ps` command until steady peak memory values are observed."
     },
     {
-      "question": "Why is a template script for restarting multi-node explicit analysis jobs not provided?",
-      "answer": "A template script for restarting multi-node explicit analysis jobs is not provided due to additional limitations on how they can be used."
-    },
-    {
-      "question": "Which Abaqus versions are compatible with the multiple node computing script for explicit analysis?",
-      "answer": "Only Abaqus/2026 or newer versions may be used with this script."
-    },
-    {
-      "question": "What is the purpose of the `scriptep1-mpi.txt` script?",
-      "answer": "The `scriptep1-mpi.txt` script is used to perform MPI-based computing for explicit analysis over an arbitrary range of nodes, which the scheduler automatically determines."
-    },
-    {
-      "question": "How can I obtain an estimate for the total Slurm node memory required for a simulation to run fully in RAM?",
-      "answer": "An estimate for the total Slurm node memory (--mem=) required for a simulation to run fully in RAM can be obtained by examining the Abaqus output `test.dat` file."
-    },
-    {
-      "question": "What information does the `MEMORY ESTIMATE` section in the Abaqus `test.dat` file provide?",
-      "answer": "The `MEMORY ESTIMATE` section in the Abaqus `test.dat` file provides the 'MINIMUM MEMORY REQUIRED (MB)' and 'MEMORY TO MINIMIZE I/O (MB)' for a process."
-    },
-    {
-      "question": "How can one alternatively estimate total memory for a single node threaded Abaqus process?",
-      "answer": "Alternatively, a total memory estimate for a single node threaded process can be obtained by running the simulation interactively on a compute node and monitoring memory use with the `top` or `ps` command."
-    },
-    {
-      "question": "What are the initial steps to interactively monitor memory usage for an Abaqus simulation?",
-      "answer": "First, obtain an allocation on a compute node using `salloc`, load the `StdEnv/2020` and `abaqus/2021` modules, unset `SLURM_GTIDS`, and then start your Abaqus simulation with the specified command, including `interactive` mode."
-    },
-    {
-      "question": "After starting an interactive Abaqus simulation, how do I monitor its memory usage on the compute node?",
-      "answer": "After starting the simulation, SSH into the compute node (e.g., `ssh c50`) and then run `top -u $USER`."
-    },
-    {
-      "question": "Which `top` command columns should be watched to observe steady peak memory values?",
-      "answer": "You should watch the `VIRT` and `RES` columns in the `top` command output until steady peak memory values are observed."
-    },
-    {
-      "question": "What is required to fully satisfy the 'MEMORY TO MINIMIZE I/O' (MRMIO) value in Abaqus?",
-      "answer": "To completely satisfy the recommended 'MEMORY TO MINIMIZE I/O' (MRMIO) value, at least the same amount of non-swapped physical memory (RES) must be available to Abaqus."
-    },
-    {
-      "question": "Why is it necessary to slightly over-allocate the requested Slurm node memory (`--mem=`) for Abaqus simulations?",
-      "answer": "It is necessary to slightly over-allocate the requested Slurm node memory (`--mem=`) because the Resident Set Size (RES) will generally be less than the Virtual Memory (VIRT) by a relatively constant amount for a given simulation."
-    },
-    {
-      "question": "What is the conservative memory over-allocation value hardcoded in the sample Slurm scripts for Abaqus?",
-      "answer": "The conservative memory over-allocation value hardcoded in the sample Slurm scripts is 3072MB, based on initial testing of the standard Abaqus solver."
-    },
-    {
-      "question": "How can one investigate the performance impact of reducing RES memory below MRMIO to avoid long queue wait times?",
-      "answer": "You can investigate this by lowering the `--mem=` value in your Slurm script, which will set an artificially low `memory=` value in the Abaqus command."
-    },
-    {
-      "question": "What happens if the RES memory dips below the 'MINIMUM MEMORY REQUIRED' (MMR) during an Abaqus simulation?",
-      "answer": "If the RES memory dips below the 'MINIMUM MEMORY REQUIRED' (MMR), Abaqus will exit due to an Out of Memory (OOM) error."
-    },
-    {
-      "question": "If my MRMIO is 96GB, how should I test for an acceptable minimal performance impact by adjusting memory?",
-      "answer": "You should try running a series of short test jobs with `#SBATCH --mem=8G, 16G, 32G, 64G` until an acceptable minimal performance impact is found."
+      "question": "When optimizing memory allocation for Abaqus jobs on an Alliance cluster, what are the key memory metrics and how should they be considered?",
+      "answer": "The key memory metrics are 'MINIMUM MEMORY REQUIRED (MMR)' and 'MEMORY TO MINIMIZE I/O (MRMIO)'. To minimize I/O, the non-swapped physical memory (RES) available to Abaqus should ideally be at least the MRMIO. A slight over-allocation of the requested Slurm node memory (`--mem=`) is often necessary, typically by around 3072MB. While reducing `--mem=` below MRMIO can help shorten queue wait times, the RES must never fall below the MMR, as this would cause Abaqus to terminate due to an Out of Memory error."
     }
   ],
-  "generated_at": "2026-04-11T15:28:57.441579+00:00"
+  "generated_at": "2026-04-13T00:45:11.112172+00:00"
 }

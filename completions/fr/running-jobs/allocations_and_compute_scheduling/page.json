@@ -3,57 +3,81 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi une allocation pour le calcul haute performance?",
-      "answer": "Une allocation, c'est l'attribution d'une quantité de ressources, comme du stockage ou des cœurs de calcul, à un groupe de recherche pour une période donnée, habituellement un an."
+      "question": "Dans le contexte du calcul haute performance de l'Alliance, qu'est-ce qu'une allocation?",
+      "answer": "Une allocation est l’attribution d’une quantité de ressources (comme le stockage ou les cœurs de calcul) à un groupe de recherche pour une période donnée, habituellement un an, que ce soit un maximum ou une moyenne d'utilisation."
     },
     {
-      "question": "Comment l'ordonnanceur de tâches calcule-t-il la priorité des tâches sur les ressources de calcul partagées?",
-      "answer": "L'ordonnanceur utilise des algorithmes spécialisés pour comparer la consommation récente d'un groupe à l'utilisation qui lui était allouée, en se basant sur les cibles et le facteur le plus déterminant étant la consommation (ou non-consommation) récente."
+      "question": "Quelles sont les deux catégories principales de ressources pour lesquelles des allocations sont attribuées aux groupes de recherche de l'Alliance?",
+      "answer": "Les deux catégories sont les ressources de stockage (maximum déterminé d’espace) et les ressources partagées comme les cœurs-année et les GPU-année (utilisation moyenne cible)."
     },
     {
-      "question": "Qu'arrive-t-il si mon groupe dépasse son allocation cible de cœurs ou de GPU?",
-      "answer": "Si la demande en ressources est basse, l'ordonnanceur pourrait quand même exécuter vos tâches. Les tâches futures pourraient se voir attribuer une priorité plus basse, mais aucune tâche n'est refusée pour surutilisation, et votre utilisation moyenne devrait se rapprocher de la cible."
+      "question": "Comment l'ordonnanceur de tâches détermine-t-il la priorité des travaux soumis sur les grappes de calcul de l'Alliance?",
+      "answer": "L'ordonnanceur calcule la priorité de chaque tâche en tenant compte des cibles d'allocation de chaque groupe et compare la consommation récente du groupe à l’utilisation qui lui était allouée, le facteur le plus lourd étant la consommation récente."
     },
     {
-      "question": "Qu'est-ce que l'Unité GPU de Référence (UGR) et pourquoi a-t-elle été introduite?",
-      "answer": "L'UGR est une unité de mesure créée en 2024 pour classer et comparer la performance de tous les modèles de GPU en production, afin de régler les problèmes d'attribution et d'exécution des tâches qui survenaient lorsque tous les GPU étaient considérés comme équivalents."
+      "question": "Quelles sont les conséquences si un groupe de recherche dépasse la quantité cible de son allocation CPU ou GPU sur les grappes de l'Alliance?",
+      "answer": "Si la demande est basse, les tâches peuvent s'exécuter même en dépassant l'allocation. Les prochaines tâches soumises pourraient avoir une priorité plus basse, mais aucune tâche n'est refusée pour surutilisation."
     },
     {
-      "question": "Quels sont les critères utilisés pour classer les modèles de GPU et calculer leur valeur UGR?",
-      "answer": "Les critères d'évaluation avec leurs poids correspondants sont le score FP32 (40%), le score FP16 (40%) et le score mémoire GPU (20%). Le GPU A100-40gb est le modèle de référence avec une valeur UGR de 4."
+      "question": "Pourquoi l'Alliance a-t-elle introduit l'unité GPU de référence (UGR) pour les allocations GPU?",
+      "answer": "L'UGR a été introduite en 2024 pour classer tous les modèles de GPU en production, car leurs performances variaient considérablement, ce qui posait des problèmes d'attribution et d'exécution des tâches."
     },
     {
-      "question": "Comment les allocations de GPU sont-elles gérées dans le cadre d'un concours d'attribution de ressources?",
-      "answer": "Toute demande de GPU doit spécifier le modèle préféré. La quantité d'UGR est automatiquement calculée à partir des GPU-année demandés, et le comité d’allocation attribue des UGR, en conservant cette quantité même si l'allocation est déplacée vers une autre grappe."
+      "question": "Quels sont les critères d'évaluation et leurs poids respectifs pour calculer le score d'une Unité GPU de Référence (UGR) sur les grappes de l'Alliance?",
+      "answer": "Les critères sont le score FP32 (40%), le score FP16 (40%) et le score mémoire GPU (20%)."
     },
     {
-      "question": "Quel est le principe fondamental derrière la détermination de la priorité des tâches de calcul?",
-      "answer": "Le principe est basé sur les ressources qu'une tâche rend non disponibles aux autres utilisateurs, plutôt que sur les ressources effectivement utilisées par la tâche."
+      "question": "Quel modèle de GPU est utilisé comme référence et quelle valeur UGR lui est attribuée pour les calculs d'allocation de l'Alliance?",
+      "answer": "Le GPU NVidia A100-40gb est utilisé comme modèle de référence, auquel est assignée une valeur UGR de 4."
     },
     {
-      "question": "Qu'est-ce qu'un « équivalent-cœur » ou « bundle » et comment est-il utilisé par l'ordonnanceur?",
-      "answer": "Un équivalent-cœur est une unité composée d'un cœur simple et d'une certaine quantité de mémoire (généralement 4Go par cœur). L'ordonnanceur comptabilise l'utilisation en se basant sur le plus grand des ratios entre les cœurs demandés et la mémoire demandée par rapport au bundle standard."
+      "question": "Comment la technologie des GPU multi-instances (MIG) impacte-t-elle l'utilisation et l'allocation des GPU sur les grappes de l'Alliance?",
+      "answer": "À partir de 2025, la technologie MIG permet de planifier une fraction d'un GPU (une instance GPU) afin que différents travaux de potentiellement différents utilisateurs puissent s'exécuter simultanément sur le même GPU."
     },
     {
-      "question": "Comment l'utilisation des GPU est-elle comptabilisée par l'ordonnanceur avec les « équivalents-UGR »?",
-      "answer": "L'utilisation des GPU suit des principes similaires, où un équivalent-UGR est un bundle incluant une UGR, des cœurs et de la mémoire. L'ordonnanceur évalue la demande en fonction du nombre maximum de bundles UGR-cœurs-mémoire requis pour la tâche."
+      "question": "Comment les Unités GPU de Référence (UGR) sont-elles gérées lors du concours pour l'allocation des ressources de calcul de l'Alliance si un projet est déplacé vers une autre grappe?",
+      "answer": "La quantité d'UGR attribuée reste constante. Si l'allocation doit être déplacée vers une autre grappe, le comité attribuera des GPU-année à cette autre ressource tout en conservant la même quantité en UGR."
     },
     {
-      "question": "Où peut-on consulter l'utilisation des ressources de calcul pour nos projets?",
-      "answer": "On peut visionner l'utilisation des ressources soit via le portail Slurm (portal.alliancecan.ca/slurm) pour des données détaillées, soit via la base de données CCDB en sélectionnant 'Mon compte --> Utilisation par le groupe'."
+      "question": "Sur les grappes de l'Alliance, qu'est-ce qui a le plus d'incidence sur la priorisation des futures tâches : les cœurs effectivement utilisés ou les ressources bloquées par une tâche soumise?",
+      "answer": "C'est le nombre de cœurs demandés ou la quantité de mémoire requise qui a une incidence sur la priorisation, car cela bloque des ressources non disponibles aux autres utilisateurs, même si elles ne sont pas entièrement utilisées par la tâche."
     },
     {
-      "question": "Quelles informations trouve-t-on dans le portail Slurm pour le suivi de l'utilisation des ressources?",
-      "answer": "Le portail montre l'utilisation des jours CPU (ou équivalents-CPU/UGR/équivalents-UGR) par projet et par grappe. On peut filtrer par compte Slurm, système, période, afficher les parts brutes Slurm, l'allocation CCDB, les ressources en attente, et des projections."
+      "question": "Qu'est-ce qu'un « équivalent-cœur » ou « bundle » et comment est-il utilisé par l'ordonnanceur de l'Alliance pour comptabiliser l'utilisation des ressources CPU?",
+      "answer": "Un équivalent-cœur (ou 'bundle') se compose d’un cœur simple et d’une certaine quantité de mémoire (souvent 4Go). L'ordonnanceur comptabilise l'utilisation en fonction du plus grand entre le nombre de cœurs demandés et les bundles de mémoire qu'ils bloquent."
     },
     {
-      "question": "Qu'est-ce que représentent les « SLURM Raw Shares » et « SLURM Raw Usage » dans le portail Slurm?",
-      "answer": "Les \"SLURM Raw Shares\" (parts brutes Slurm) représentent l'allocation cible du compte sur la grappe. L'\"SLURM Raw Usage\" (utilisation brute Slurm) est la somme cumulée de l'utilisation du compte avec une période de décroissance, utilisée par l'ordonnanceur pour déterminer la priorité."
+      "question": "Comment les \"équivalents-UGR\" sont-ils calculés par l'ordonnanceur de l'Alliance pour les tâches utilisant des GPU?",
+      "answer": "Le calcul de priorité se fait en fonction du nombre maximum de bundles UGR-cœurs-mémoire demandés. L'ordonnanceur évalue la demande selon le plus grand ratio entre les UGR, les cœurs et la mémoire requise par rapport aux ratios des bundles définis pour chaque grappe."
     },
     {
-      "question": "Quelles vues sont offertes pour le suivi de l'utilisation des ressources dans CCDB?",
-      "answer": "CCDB offre des vues 'Par ressource de calcul' (par grappe), 'Par projet (RAPI)', 'Par utilisateur' et 'Utilisation du stockage'. Les détails d'utilisation des GPU sont aussi donnés en GPU-années et UGR-années."
+      "question": "Où les utilisateurs de l'Alliance peuvent-ils visionner l'utilisation de leurs ressources sur les grappes nationales et quelles informations de base y sont affichées par défaut?",
+      "answer": "Les utilisateurs peuvent visionner l'utilisation via le portail portal.alliancecan.ca/slurm. Par défaut, la page d'accueil affiche les jours CPU utilisés par tous les projets de l'utilisateur sur une grappe quelconque."
+    },
+    {
+      "question": "Quelles sont les différentes options offertes par le portail SLURM de l'Alliance pour affiner la visualisation de l'utilisation des ressources par un groupe de recherche?",
+      "answer": "Le portail permet de sélectionner le système (grappe), les dates, les paramètres (métrique comme CPU, équivalent-CPU, UGR, mémoire), la sommation (totale ou cumulée), et d'inclure ou non les tâches en cours d'exécution, ainsi que de filtrer par compte SLURM spécifique."
+    },
+    {
+      "question": "Dans le portail d'utilisation de l'Alliance, quelle est la distinction entre \"SLURM Raw Usage\" et \"SLURM Raw Shares\"?",
+      "answer": "\"SLURM Raw Shares\" représente l'allocation de ressources du compte sur la grappe, tandis que \"SLURM Raw Usage\" est la somme cumulée de l'utilisation du compte en unités de facturation, incluant une période de décroissance, utilisée par l'ordonnanceur pour déterminer la priorité."
+    },
+    {
+      "question": "Comment un utilisateur de l'Alliance peut-il accéder aux données d'utilisation de son groupe via la base de données CCDB?",
+      "answer": "L'utilisateur peut accéder à ces données en se connectant à CCDB et en sélectionnant l'onglet 'Mon compte', puis l'option 'Utilisation par le groupe'."
+    },
+    {
+      "question": "Les valeurs d'utilisation des CPU et GPU affichées dans CCDB sont-elles identiques à celles représentées par l'ordonnanceur de la grappe dans le portail Slurm de l'Alliance?",
+      "answer": "Non, les valeurs dans CCDB sont calculées selon la quantité des ressources allouées aux tâches exécutées, mais ne représentent pas les équivalents-cœur ou équivalents-UGR que l'ordonnanceur utilise pour le calcul de priorité, ce qui peut entraîner des différences."
+    },
+    {
+      "question": "Quelles sont les différentes manières de visualiser l'utilisation des ressources dans CCDB pour un groupe de recherche de l'Alliance?",
+      "answer": "Les différentes vues disponibles sont : 'Par ressource de calcul' (par grappe), 'Par projet (RAPI)', 'Par utilisateur' (ayant soumis les tâches), et 'Utilisation du stockage'."
+    },
+    {
+      "question": "Est-il possible de voir une répartition mensuelle de l'utilisation des ressources dans CCDB pour les grappes de l'Alliance?",
+      "answer": "Oui, dans la vue 'Utilisation par ressource de calcul', il est possible de cliquer sur 'Utilisation sur une base mensuelle' pour obtenir la répartition mensuelle de l'utilisation pour la ressource correspondante."
     }
   ],
-  "generated_at": "2026-04-11T16:27:02.446627+00:00"
+  "generated_at": "2026-04-13T01:26:31.617145+00:00"
 }

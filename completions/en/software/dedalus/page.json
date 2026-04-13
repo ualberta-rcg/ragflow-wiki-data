@@ -3,69 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Dedalus?",
-      "answer": "Dedalus is a flexible framework for solving partial differential equations using modern spectral methods."
+      "question": "What is Dedalus used for in computational science?",
+      "answer": "Dedalus is a flexible framework designed for solving partial differential equations by employing modern spectral methods."
     },
     {
-      "question": "How can I list the available prebuilt Python package versions of Dedalus on the clusters?",
-      "answer": "You can list available Dedalus versions using the `avail_wheels dedalus` command."
+      "question": "How can users find the available versions of Dedalus on Alliance clusters?",
+      "answer": "Users can list the available versions of Dedalus by running the command `avail_wheels dedalus`."
     },
     {
-      "question": "What module dependencies must be loaded before installing Dedalus in a Python virtual environment?",
-      "answer": "You need to load `StdEnv/2023`, `gcc`, `openmpi`, `mpi4py/3.1.4`, `fftw-mpi/3.3.10`, `hdf5-mpi/1.14.2`, and `python/3.11`."
+      "question": "What is the recommended method for installing Dedalus on the clusters?",
+      "answer": "The recommended method is to install Dedalus as prebuilt Python packages (wheels) within a Python virtual environment."
     },
     {
-      "question": "How do you create and activate a Python virtual environment for Dedalus?",
-      "answer": "Create it with `virtualenv --no-download ~/dedalus_env` and activate it with `source ~/dedalus_env/bin/activate`."
+      "question": "What are the necessary module dependencies to load before installing Dedalus in a Python virtual environment?",
+      "answer": "Before installing Dedalus, users need to load `StdEnv/2023`, `gcc`, `openmpi`, `mpi4py/3.1.4`, `fftw-mpi/3.3.10`, `hdf5-mpi/1.14.2`, and `python/3.11`."
     },
     {
-      "question": "What command is used to install a specific version of Dedalus within an activated virtual environment?",
-      "answer": "Use `pip install --no-index dedalus==X.Y.Z`, replacing `X.Y.Z` with the exact desired version."
+      "question": "How do you create and activate a Python virtual environment for Dedalus without downloading packages?",
+      "answer": "You can create and activate a virtual environment by executing `virtualenv --no-download ~/dedalus_env` followed by `source ~/dedalus_env/bin/activate`."
     },
     {
-      "question": "How can I install the latest available version of Dedalus using pip?",
-      "answer": "Omit the version specification from the pip install command, using `pip install --no-index dedalus`."
+      "question": "How do you install a specific version of Dedalus, such as 3.0.2, within an active virtual environment?",
+      "answer": "To install a specific version like 3.0.2, use the command `pip install --no-index dedalus==3.0.2` within the active virtual environment."
     },
     {
-      "question": "How can one validate that Dedalus has been successfully installed in the virtual environment?",
-      "answer": "You can validate it by running `python -c 'import dedalus'`."
+      "question": "What command should be used to validate a Dedalus installation after setting it up in a virtual environment?",
+      "answer": "To validate the installation, run `python -c 'import dedalus'` within the activated virtual environment."
     },
     {
-      "question": "What is the command to freeze the installed packages and their versions to a requirements file?",
-      "answer": "Use `pip freeze --local > ~/dedalus-3.0.2-requirements.txt` to create a requirements file."
+      "question": "Why is it important to freeze the environment and requirements set after installing Dedalus?",
+      "answer": "Freezing the environment and requirements set, for example using `pip freeze --local > ~/dedalus-3.0.2-requirements.txt`, allows for easy reinstallation and reproducibility of the exact environment."
     },
     {
-      "question": "How do you remove a local Python virtual environment for Dedalus?",
-      "answer": "Deactivate the environment with `deactivate` and then remove its directory with `rm -r ~/dedalus_env`."
+      "question": "How can a user safely remove a local Dedalus virtual environment after they are finished with it?",
+      "answer": "To remove a local virtual environment, first deactivate it with `deactivate`, then remove its directory using `rm -r ~/dedalus_env`."
     },
     {
-      "question": "How can Dedalus be run on the clusters?",
-      "answer": "Dedalus can be run distributed across multiple nodes or cores."
+      "question": "What considerations are important for efficient MPI scheduling when running Dedalus distributed across multiple nodes or cores?",
+      "answer": "For efficient MPI scheduling when running Dedalus, users should refer to the 'MPI job' and 'Advanced MPI scheduling' documentation on the Alliance clusters."
     },
     {
-      "question": "What resources are recommended for efficient MPI scheduling when running Dedalus?",
-      "answer": "For efficient MPI scheduling, users should consult the 'MPI job' and 'Advanced MPI scheduling' documentation."
+      "question": "In a Slurm job script for Dedalus, how is the Python virtual environment created and populated on each allocated node?",
+      "answer": "The virtual environment is created on each allocated node in `$SLURM_TMPDIR` using an `srun` command block, which installs `pip` and Dedalus from a requirements file."
     },
     {
-      "question": "In the provided job submission scripts, where is the Python virtual environment typically created and installed?",
-      "answer": "The virtual environment is created within `$SLURM_TMPDIR` on each allocated node."
+      "question": "What are the key Slurm directives used to configure a distributed Dedalus job running on cores across the system?",
+      "answer": "Key Slurm directives for a distributed Dedalus job include `--account`, `--time`, `--ntasks`, and `--mem-per-cpu`."
     },
     {
-      "question": "What are the main module dependencies loaded in the Dedalus job submission scripts?",
-      "answer": "The scripts load `StdEnv/2023`, `gcc`, `openmpi`, `mpi4py/3.1.4`, `fftw-mpi/3.3.10`, `hdf5-mpi/1.14.2`, and `python/3.11`."
+      "question": "What are the key Slurm directives used to configure a Dedalus job running on a specified number of whole nodes?",
+      "answer": "Key Slurm directives for a whole-node Dedalus job include `--account`, `--time`, `--nodes`, `--ntasks-per-node`, and `--mem-per-cpu`."
     },
     {
-      "question": "What is the typical value of `OMP_NUM_THREADS` set to in the Dedalus job submission scripts?",
-      "answer": "`OMP_NUM_THREADS` is typically exported as `1` in the job submission scripts."
+      "question": "How is the Dedalus Python script executed across the allocated resources within a Slurm job script?",
+      "answer": "After activating the virtual environment on the main node and setting `OMP_NUM_THREADS=1`, the Python script is executed using `srun python $SCRATCH/myscript.py`."
     },
     {
-      "question": "How do you submit a Dedalus job script to the scheduler?",
-      "answer": "You submit the job using the `sbatch` command, for example, `sbatch submit-dedalus.sh`."
+      "question": "What is the command to submit a Dedalus job script, named `submit-dedalus.sh`, to the Slurm scheduler?",
+      "answer": "To submit the job script, use the command `sbatch submit-dedalus.sh`."
     },
     {
-      "question": "What is recommended before submitting a Dedalus job to the scheduler?",
-      "answer": "It is important to test the submission script in an interactive job to ensure it starts without errors."
+      "question": "What is a recommended practice before submitting a Dedalus job script to the scheduler?",
+      "answer": "It is recommended to test that the submission script will start without errors by running a quick test in an interactive job."
     }
   ],
-  "generated_at": "2026-04-11T21:07:43.302757+00:00"
+  "generated_at": "2026-04-13T04:59:44.681618+00:00"
 }

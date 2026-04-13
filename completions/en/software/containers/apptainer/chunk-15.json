@@ -4,17 +4,13 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "What is the process for creating an Apptainer image from a Dockerfile?",
-      "answer": "To create an Apptainer image from a Dockerfile, you first build a Docker image using the Dockerfile, then save that Docker image as a tarball. After saving, the temporary Docker image is removed. Finally, an Apptainer SIF file is built from the Docker tarball, and the tarball itself is removed. This process requires Docker and Apptainer to be installed on a system where you have appropriate privileges, and it cannot be performed on Alliance compute clusters."
+      "question": "How does one create an Apptainer SIF file from a Dockerfile?",
+      "answer": "To create an Apptainer SIF file from a Dockerfile, you need to execute a series of commands on a system with both Docker and Apptainer installed, and with appropriate permissions. First, build the Docker image using `docker build -f Dockerfile -t your-tag-name`. Next, save this Docker image to a tarball with `docker save your-tag-name -o your-tarball-name.tar`. Optionally, remove the Docker image from local storage using `docker image rm your-tag-name`. Then, build the Apptainer SIF file from the Docker tarball using `apptainer build --fakeroot your-sif-name.sif docker-archive://your-tarball-name.tar`. Finally, remove the temporary tarball file with `rm your-tarball-name.tar`. The `your-tag-name` is a user-defined identifier for the container in Docker, and `your-tarball-name.tar` is the specified filename for saving the Docker content."
     },
     {
-      "question": "What are the system and permission requirements for converting a Dockerfile into an Apptainer image?",
-      "answer": "You need a system with both Docker and Apptainer installed to convert a Dockerfile into an Apptainer image. Additionally, you must have sufficient access to Docker (e.g., `sudo` or root access, or be in the `docker` group) and Apptainer (e.g., `sudo`, root access, or `--fakeroot` access). It's important to note that these instructions will not work on Alliance compute clusters."
-    },
-    {
-      "question": "What are the specific command-line steps to build an Apptainer SIF image from a Dockerfile?",
-      "answer": "The specific command-line steps to build an Apptainer SIF image from a Dockerfile are:\n1. `docker build -f Dockerfile -t your-tag-name`\n2. `docker save your-tag-name -o your-tarball-name.tar`\n3. `docker image rm your-tag-name`\n4. `apptainer build --fakeroot your-sif-name.sif docker-archive://your-tarball-name.tar` (note: `--fakeroot` might be optional or `sudo` might be needed)\n5. `rm your-tarball-name.tar`\nThese commands should be executed on a computer with Docker and Apptainer installed, where you possess the necessary permissions."
+      "question": "What are the prerequisites for creating an Apptainer SIF file from a Dockerfile using the specified procedure?",
+      "answer": "To create an Apptainer SIF file from a Dockerfile using this method, you must have Docker and Apptainer installed on the system where you are performing the operation. This process also requires sufficient access to Docker (e.g., `sudo`, root access, or membership in the `docker` group) and, if necessary, appropriate permissions for Apptainer (e.g., `sudo`, root access, or `--fakeroot` access). It's important to note that these instructions are not applicable on the Alliance compute clusters."
     }
   ],
-  "generated_at": "2026-04-12T19:21:09.267238+00:00"
+  "generated_at": "2026-04-13T02:15:27.652605+00:00"
 }

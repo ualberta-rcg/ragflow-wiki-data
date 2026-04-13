@@ -4,113 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Dans les nœuds GPU, combien y'a-t-il de nœuds NUMA par socket?",
-      "answer": "Y'a 4 nœuds NUMA par socket, pis chaque nœud NUMA a 2 CCD."
+      "question": "Quelle est la configuration de base d'un nœud GPU sur la grappe Fir, notamment en ce qui concerne les nœuds NUMA, les CCD et les accélérateurs GPU?",
+      "answer": "Chaque nœud GPU sur la grappe Fir est configuré avec un seul socket en mode NPS=4, ce qui donne 4 nœuds NUMA. Chaque nœud NUMA contient 2 CCD (Core Complex Dies), chacun avec 6 cœurs et une cache L3 partagée de 32 MiB, ainsi que 3 canaux de mémoire. Chaque cœur dispose aussi d'une cache L2 de 1 MiB et de caches L1 de 32 KiB pour les instructions et les données. De plus, chaque nœud comprend 2 accélérateurs NVidia H100 80GB, et les 4 accélérateurs du nœud sont connectés via SXM5."
     },
     {
-      "question": "Combien de cœurs se retrouvent dans chaque CCD des nœuds GPU?",
-      "answer": "Chaque CCD des nœuds GPU contient 6 cœurs."
+      "question": "Quelles sont les recommandations pour optimiser la performance des tâches sur les nœuds GPU de la grappe Fir, en particulier pour la localité CPU et GPU, en tenant compte de l'architecture du processeur AMD EPYC 9454?",
+      "answer": "Pour tirer le meilleur parti de l'architecture EPYC 9454 CPU et obtenir une localité optimale, il est recommandé de lier les fils d'exécution à des CCD. Chaque CCD contient 6 cœurs intimement liés et une cache L3 de 32 MiB; utilisez `#SBATCH --cpus-per-task=6` pour que les fils restent dans le même CCD. De plus, il faut associer les tâches aux nœuds NUMA en lançant 4 tâches par nœud (ou un multiple de 4) en utilisant `#SBATCH --ntasks-per-node=4` et `#SBATCH --cpus-per-task=12` pour un accès local à la mémoire et au GPU."
     },
     {
-      "question": "Quelle est la taille de la cache L3 partagée pour chaque CCD dans les nœuds GPU?",
-      "answer": "Chaque CCD dans les nœuds GPU a une cache L3 partagée de 32 MiB."
-    },
-    {
-      "question": "Combien de canaux de mémoire sont associés à chaque nœud NUMA dans les nœuds GPU?",
-      "answer": "Chaque nœud NUMA a 3 canaux de mémoire."
-    },
-    {
-      "question": "Quelle est la taille de la cache L2 pour chaque cœur dans les nœuds GPU?",
-      "answer": "Chaque cœur dans les nœuds GPU a 1 MiB de cache L2."
-    },
-    {
-      "question": "Quelle est la taille de la cache L1 pour les instructions pour chaque cœur dans les nœuds GPU?",
-      "answer": "Chaque cœur a 32 KiB de cache L1 pour les instructions."
-    },
-    {
-      "question": "Quelle est la taille de la cache L1 pour les données pour chaque cœur dans les nœuds GPU?",
-      "answer": "Chaque cœur a 32 KiB de cache L1 pour les données."
-    },
-    {
-      "question": "Combien de canaux de mémoire DDR5 sont partagés par la puce d'entrée-sortie dans les nœuds GPU?",
-      "answer": "Y'a 12 canaux de mémoire DDR5 partagés par la puce d'entrée-sortie."
-    },
-    {
-      "question": "Comment sont connectés les accélérateurs NVidia H100 dans les nœuds GPU?",
-      "answer": "Les 4 accélérateurs de nœud sont connectés via SXM5."
-    },
-    {
-      "question": "C'est quoi la première recommandation pour optimiser la performance des nœuds GPU avec l'architecture EPYC 9454 CPU?",
-      "answer": "La première recommandation, c'est de lier les fils aux CCD."
-    },
-    {
-      "question": "Pourquoi est-ce avantageux de lier les fils à des CCD sur les nœuds GPU?",
-      "answer": "Ça diminue la latence entre les CCD pis ça améliore l'utilisation de la cache, parce que chaque CCD a 6 cœurs intimement liés pis une cache L3 de 32 MiB."
-    },
-    {
-      "question": "Quelle option Slurm faut utiliser pour garder les fils d'exécution dans un seul CCD sur les nœuds GPU?",
-      "answer": "Faut utiliser `#SBATCH --cpus-per-task=6`."
-    },
-    {
-      "question": "C'est quoi la deuxième recommandation pour optimiser la performance des nœuds GPU?",
-      "answer": "La deuxième recommandation, c'est d'associer les tâches aux nœuds NUMA."
-    },
-    {
-      "question": "Pour une performance optimale, combien de tâches par nœud faudrait lancer en associant les tâches aux nœuds NUMA, vu qu'il y a 4 nœuds NUMA par socket (NPS=4)?",
-      "answer": "Faut lancer 4 tâches par nœud, ou un multiple de 4, pour la meilleure performance."
-    },
-    {
-      "question": "Quelles options Slurm faut utiliser pour bien associer les tâches aux nœuds NUMA sur les nœuds GPU?",
-      "answer": "Faut utiliser `#SBATCH --ntasks-per-node=4` et `#SBATCH --cpus-per-task=12`."
-    },
-    {
-      "question": "Qu'est-ce que ça apporte d'associer les tâches aux nœuds NUMA sur les nœuds GPU?",
-      "answer": "Ça garde chaque tâche dans un domaine NUMA, pis ça permet un accès local à la mémoire et au GPU."
-    },
-    {
-      "question": "Quelle est l'option Slurm pour demander une seule instance H100-80gb?",
-      "answer": "L'option c'est `--gpus=h100:1`."
-    },
-    {
-      "question": "Comment on demande plusieurs instances H100-80gb par nœud en utilisant Slurm?",
-      "answer": "On peut utiliser `--gpus-per-node=h100:2`, `--gpus-per-node=h100:3` ou `--gpus-per-node=h100:4` selon le nombre voulu."
-    },
-    {
-      "question": "C'est quoi l'option Slurm pour demander plusieurs instances H100 qui sont réparties?",
-      "answer": "C'est `--gpus=h100:n`, où 'n' représente le nombre de GPU demandés."
-    },
-    {
-      "question": "Est-ce que tous les nœuds GPU utilisent la technologie MIG?",
-      "answer": "Non, c'est juste environ la moitié des nœuds GPU qui utilisent la technologie MIG."
-    },
-    {
-      "question": "C'est quoi les trois tailles d'instances disponibles pour la technologie MIG sur les nœuds GPU?",
-      "answer": "Y'a les instances 1g.10gb, 2g.20gb et 3g.40gb."
-    },
-    {
-      "question": "Qu'est-ce que l'instance MIG 1g.10gb offre comme capacités?",
-      "answer": "L'instance 1g.10gb offre 1/8e de la puissance de calcul avec 10GB de mémoire GPU."
-    },
-    {
-      "question": "Qu'est-ce que l'instance MIG 2g.20gb offre comme capacités?",
-      "answer": "L'instance 2g.20gb offre 2/8e de la puissance de calcul avec 20GB de mémoire GPU."
-    },
-    {
-      "question": "Qu'est-ce que l'instance MIG 3g.40gb offre comme capacités?",
-      "answer": "L'instance 3g.40gb offre 3/8e de la puissance de calcul avec 40GB de mémoire GPU."
-    },
-    {
-      "question": "C'est quoi l'option Slurm pour demander une seule instance GPU de type 1g.10gb?",
-      "answer": "Faut utiliser `--gpus=nvidia_h100_80gb_hbm3_1g.10gb:1`."
-    },
-    {
-      "question": "C'est quoi l'option Slurm pour demander une seule instance GPU de type 2g.20gb?",
-      "answer": "Faut utiliser `--gpus=nvidia_h100_80gb_hbm3_2g.20gb:1`."
-    },
-    {
-      "question": "C'est quoi l'option Slurm pour demander une seule instance GPU de type 3g.40gb?",
-      "answer": "Faut utiliser `--gpus=nvidia_h100_80gb_hbm3_3g.40gb:1`."
+      "question": "Comment un utilisateur peut-il demander différentes instances de GPU, y compris les instances MIG, sur la grappe Fir en utilisant les options Slurm?",
+      "answer": "Pour demander une instance H100-80gb, utilisez `--gpus=h100:1`. Pour plusieurs H100-80gb par nœud, vous pouvez spécifier `--gpus-per-node=h100:2`, `h100:3`, ou `h100:4`. Pour plusieurs instances H100 réparties, utilisez `--gpus=h100:n` (où 'n' est le nombre de GPU demandé). Si vous voulez une instance MIG spécifique, les options sont : pour 1g.10gb, `--gpus=nvidia_h100_80gb_hbm3_1g.10gb:1`; pour 2g.20gb, `--gpus=nvidia_h100_80gb_hbm3_2g.20gb:1`; et pour 3g.40gb, `--gpus=nvidia_h100_80gb_hbm3_3g.40gb:1`."
     }
   ],
-  "generated_at": "2026-04-11T21:36:52.806700+00:00"
+  "generated_at": "2026-04-13T05:23:32.023791+00:00"
 }

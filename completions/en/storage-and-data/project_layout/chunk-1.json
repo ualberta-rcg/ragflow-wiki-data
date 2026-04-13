@@ -4,97 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "How is the project filesystem structured on compute clusters?",
-      "answer": "The project filesystem on our compute clusters is organized on the basis of groups."
+      "question": "What is the default quota for project space on compute clusters, and how can it be increased?",
+      "answer": "The project space is subject to a default quota of 1 TB and 500,000 files per group and which can be increased up to 40 TB of space upon request to Technical support. Certain groups may have been awarded significantly higher quotas through the annual Resource Allocation Competition."
     },
     {
-      "question": "What is the normal method to access project space?",
-      "answer": "The normal method to access the project space is by means of symbolic links which exist in your home directory."
+      "question": "How do users typically access the project filesystem on compute clusters?",
+      "answer": "The normal method to access the project space is by means of symbolic links which exist in your home directory. These will have the form $HOME/projects/group_name apart from the clusters Rorqual and Trillium where the path will take the form $HOME/links/projects/group_name."
     },
     {
-      "question": "What is the typical path for symbolic links to project space?",
-      "answer": "The typical path for symbolic links to project space is `$HOME/projects/group_name`."
-    },
-    {
-      "question": "Are there any exceptions to the typical symbolic link path for project space?",
-      "answer": "Yes, on the Rorqual and Trillium clusters, the path will take the form `$HOME/links/projects/group_name`."
-    },
-    {
-      "question": "Who owns the group space on the project filesystem?",
-      "answer": "The group space is owned by the principal investigator (PI) for that group."
-    },
-    {
-      "question": "What permissions do group members have on the group space directory?",
-      "answer": "Members have read and write permission on the group space directory."
-    },
-    {
-      "question": "What are the default permissions for a newly created file in group space?",
-      "answer": "By default, a newly created file will only be readable by group members."
-    },
-    {
-      "question": "How can a group create files that are writeable by all group members?",
-      "answer": "The best approach is to create a special directory, for example, `mkdir $HOME/projects/def-profname/group_writable`, and then apply `setfacl -d -m g::rwx $HOME/projects/def-profname/group_writable` to it."
-    },
-    {
-      "question": "What is the default quota for project space per group?",
-      "answer": "The project space is subject to a default quota of 1 TB and 500,000 files per group."
-    },
-    {
-      "question": "Can the project space quota be increased?",
-      "answer": "Yes, the quota can be increased up to 40 TB of space upon request to Technical support."
-    },
-    {
-      "question": "How can groups obtain significantly higher project space quotas?",
-      "answer": "Certain groups may have been awarded significantly higher quotas through the annual Resource Allocation Competition."
-    },
-    {
-      "question": "Is project storage allocation transferable between different clusters?",
-      "answer": "No, this storage allocation is specific to a particular cluster and cannot normally be transferred to another cluster."
-    },
-    {
-      "question": "How can users check their current disk usage and available space in project space?",
-      "answer": "To check current usage and available disk space, use the command `diskusage_report`."
-    },
-    {
-      "question": "Why is it useful to set the `setgid` bit on a project directory?",
-      "answer": "It is useful to set the `setgid` bit on a directory to ensure that files copied or moved to it acquire the appropriate group membership and are counted against the expected quota."
-    },
-    {
-      "question": "What is the effect of setting the `setgid` bit on a directory?",
-      "answer": "Setting the `setgid` bit ensures that every new file and subdirectory created below the directory will inherit the same group as the ambient directory; equally so, new subdirectories will also possess this same `setgid` bit."
-    },
-    {
-      "question": "Does setting the `setgid` bit change the group membership of existing files or files moved into a directory?",
-      "answer": "No, existing files and subdirectories will not have their group membership changed, and any files moved to the directory will continue to retain their existing group membership."
-    },
-    {
-      "question": "What command is used to set the `setgid` bit on a directory?",
-      "answer": "You can set the `setgid` bit on a directory with the command `chmod g+s <directory name>`."
-    },
-    {
-      "question": "How can a user apply the `setgid` bit to existing subdirectories of a directory?",
-      "answer": "If you want to apply this command to the existing subdirectories of a directory, you can use the command `find <directory name> -type d -print0 | xargs -0 chmod g+s`."
-    },
-    {
-      "question": "How can a user temporarily modify their default group during an interactive session?",
-      "answer": "You can use the command `newgrp` to modify your default group during an interactive session, for example `newgrp rrg-profname-ab`."
-    },
-    {
-      "question": "Is the change made by the `newgrp` command permanent?",
-      "answer": "No, the `newgrp` command will only change your default group for the particular session; at your next login you will need to reuse the command if you wish to change the default group again."
-    },
-    {
-      "question": "What is a common reason for receiving 'disk quota exceeded' error messages?",
-      "answer": "A common reason for 'disk quota exceeded' error messages is files being associated with the wrong group, notably your personal group, which has a quota of only 2 MB."
-    },
-    {
-      "question": "What is the quota for a user's personal group?",
-      "answer": "A user's personal group, which has the same name as their username, has a quota of only 2 MB."
-    },
-    {
-      "question": "How can a user find and fix the group membership of files causing 'disk quota exceeded' errors?",
-      "answer": "To find and fix the group membership of such files, you can use the command `find <directory name> -group $USER -print0 | xargs -0 chgrp -h <group>`, replacing `<group>` with an appropriate group like `def-profname`."
+      "question": "How can a user ensure that newly created files and subdirectories within a project space automatically acquire the correct group membership for quota purposes?",
+      "answer": "In order to ensure that files which are copied or moved to a given project space acquire the appropriate group membership - and thus are counted against the expected quota - it can be useful to set the `setgid` bit on the directory in question. This will have the effect of ensuring that every new file and subdirectory created below the directory will inherit the same group as the ambient directory; equally so, new subdirectories will also possess this same `setgid` bit. You can set the `setgid` bit on a directory with the command `chmod g+s <directory name>`."
     }
   ],
-  "generated_at": "2026-04-12T05:24:39.773639+00:00"
+  "generated_at": "2026-04-13T11:24:31.143468+00:00"
 }

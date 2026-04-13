@@ -4,61 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How do you submit a BLAST search using a task array script, ensuring it runs after the database has been created?",
-      "answer": "You can submit the search using the command `sbatch --dependency=afterok:$(sbatch makeblastdb.sh) blastn_array.sh`. This ensures the job runs only after the `makeblastdb.sh` job has successfully completed."
+      "question": "How do you combine the output files from a BLAST array job once all tasks are complete?",
+      "answer": "After all tasks in a BLAST array job are done, the individual result files, such as `seq.ref.{0..9}`, can be concatenated into a single file, like `seq.ref`, using the `cat` command. This can be executed from the login node or as a dependent job upon the completion of all array tasks."
     },
     {
-      "question": "How are the results from a BLAST task array concatenated once all tasks are complete?",
-      "answer": "Once all tasks from the array are done, the results can be concatenated using the command `cat seq.ref.{0..9} > seq.ref`, which will combine the 10 `seq.ref.N` files into a single `seq.ref` file."
+      "question": "What is GNU Parallel, and what are its main benefits when running BLAST searches?",
+      "answer": "GNU Parallel is a tool designed to consolidate many small jobs into a single larger job and then parallelize it. For BLAST searches, it helps to mitigate issues caused by too many small files in a parallel filesystem by querying fixed-size chunks from the `seq.fa` file and running these operations on a single node using multiple cores, which enhances efficiency."
     },
     {
-      "question": "Where can the concatenation of results from a BLAST task array be performed?",
-      "answer": "The concatenation of results can be done either from the login node or as a dependent job upon completion of all the tasks from the array."
-    },
-    {
-      "question": "What is GNU Parallel used for?",
-      "answer": "GNU Parallel is a tool used to pack many small jobs into a single job and parallelize them."
-    },
-    {
-      "question": "How does GNU Parallel help with parallel filesystems?",
-      "answer": "GNU Parallel helps alleviate the issue of too many small files in a parallel filesystem by querying fixed-size chunks from a sequence file (like `seq.fa`) and running them on one node with multiple cores."
-    },
-    {
-      "question": "Why is block size important when using GNU Parallel for BLAST searches?",
-      "answer": "Block size is important because it dictates how many jobs GNU Parallel creates and, consequently, how many cores are utilized. For example, if a 3MB file is read in 1MB blocks, it creates 3 jobs using 3 cores. Requesting more cores than jobs (e.g., 10 cores for 3 jobs) would waste resources."
-    },
-    {
-      "question": "Can GNU Parallel automatically determine the block size?",
-      "answer": "Yes, you can let GNU Parallel decide the block size automatically by using the `--block -1` option in your command."
-    },
-    {
-      "question": "Where can I find more information about handling large files with GNU Parallel?",
-      "answer": "You can find more information about handling large files with GNU Parallel on the GNU Parallel page, specifically in the \"Handling large files\" section."
-    },
-    {
-      "question": "What is a requirement for the input file when using GNU Parallel for BLAST searches?",
-      "answer": "The input file used with GNU Parallel for BLAST searches must not be compressed."
-    },
-    {
-      "question": "How do you submit a BLAST search using the GNU Parallel script, ensuring it runs after the database has been created?",
-      "answer": "You submit the search using the command `sbatch --dependency=afterok:$(sbatch makeblastdb.sh) blastn_gnu.sh`, which ensures the job runs only after the `makeblastdb.sh` job has completed successfully."
-    },
-    {
-      "question": "What is a tip for improving performance if your FASTA database fits into the node's local storage?",
-      "answer": "If your FASTA database fits into the node's local storage, it's recommended to copy it to the local scratch space (`$SLURM_TMPDIR`) to improve performance."
-    },
-    {
-      "question": "How can you reduce the number of hits returned in a BLAST search?",
-      "answer": "You can reduce the number of hits returned by using the `-max_target_seqs` and `-max_hsps` options, provided it is reasonable for your research."
-    },
-    {
-      "question": "How can you limit a BLAST hit list to nearly identical hits?",
-      "answer": "You can limit your hit list to nearly identical hits by using `-evalue` filters, if this is appropriate for your research."
-    },
-    {
-      "question": "What is the command to run a BLAST search with GNU Parallel using multiple cores on a single node?",
-      "answer": "You can use an SBATCH script like `blastn_gnu.sh` which includes `module load gcc/7.3.0 blast+/2.9.0` and executes `parallel --jobs $SLURM_CPUS_PER_TASK --keep-order --block -1 --recstart '>' --pipepart 'blastn -db ref.fa -query - ' :::: seq.fa > seq.ref`, requesting multiple cores with `#SBATCH --cpus-per-task=4`."
+      "question": "When using GNU Parallel for BLAST searches, why is the block size important, and how can it be configured?",
+      "answer": "The block size is important when using GNU Parallel for BLAST because it dictates how many jobs are created and, consequently, how many cores are utilized. An inappropriate block size can lead to wasted cores. Users can specify a block size or allow GNU Parallel to automatically evaluate and adapt the block size by using the `--block -1` option in the command, as demonstrated in the provided example script."
     }
   ],
-  "generated_at": "2026-04-11T18:20:51.670536+00:00"
+  "generated_at": "2026-04-13T02:49:00.235436+00:00"
 }

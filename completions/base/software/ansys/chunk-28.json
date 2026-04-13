@@ -4,37 +4,13 @@
   "chunk_index": 28,
   "qa_pairs": [
     {
-      "question": "What Ansys module versions are compatible with the provided script for Workbench jobs?",
-      "answer": "The script is compatible with `ansys/2023R2` or newer Ansys module versions."
+      "question": "In an Ansys Workbench Slurm script, how is the type of parallelization (Shared Memory Parallel or Distributed Memory Parallel) determined and configured?",
+      "answer": "The Slurm script determines the parallelization type by checking the `$SLURM_NNODES` environment variable. If `$SLURM_NNODES` is 1, it configures for Shared Memory Parallel (SMP). Otherwise, for more than one node, it configures for Distributed Memory Parallel (DMP). This setting is then applied to the Ansys Workbench configuration."
     },
     {
-      "question": "How is the `MEMPAR` variable set in the script?",
-      "answer": "The `MEMPAR` variable is set to 0 if `$SLURM_NNODES` is 1 (for shared memory parallel, SMP), otherwise it's set to 1 (for distributed memory parallel, DMP)."
-    },
-    {
-      "question": "What does `MEMPAR=0` represent in this script?",
-      "answer": "`MEMPAR=0` represents Shared Memory Parallel (SMP) execution."
-    },
-    {
-      "question": "What does `MEMPAR=1` represent in this script?",
-      "answer": "`MEMPAR=1` represents Distributed Memory Parallel (DMP) execution."
-    },
-    {
-      "question": "What is the purpose of the `rm -fv *_files/.lock` command?",
-      "answer": "The `rm -fv *_files/.lock` command is used to remove any lock files from previous runs."
-    },
-    {
-      "question": "Which file does the `sed` command modify in this script?",
-      "answer": "The `sed` command modifies the `SolveHandlers.xml` file."
-    },
-    {
-      "question": "What is the typical path to the `SolveHandlers.xml` file that is modified by the script?",
-      "answer": "The path to the `SolveHandlers.xml` file is typically `~/.mw/Application\\ Data/Ansys/<Ansys_version_directory>/SolveHandlers.xml`."
-    },
-    {
-      "question": "How does the script dynamically configure Ansys for shared memory or distributed memory parallelization?",
-      "answer": "The script sets the `MEMPAR` variable to 0 for shared memory parallel (if `SLURM_NNODES` is 1) or 1 for distributed memory parallel (if `SLURM_NNODES` is greater than 1), and then uses a `sed` command to update the `SolveHandlers.xml` file with this `MEMPAR` value."
+      "question": "What Ansys Workbench configuration file is modified by the Slurm script to set parallelization parameters, and what information is updated within it?",
+      "answer": "The Slurm script modifies the `SolveHandlers.xml` file, typically located at `~/.mw/Application\\ Data/Ansys/[version_directory]/SolveHandlers.xml`. Within this file, the script updates the `<Distribute>` parameter to specify either Shared Memory Parallel (0) or Distributed Memory Parallel (1) based on the number of requested nodes, and also sets the `<MaxNumber>` of processors to the value of `$SLURM_NTASKS`."
     }
   ],
-  "generated_at": "2026-04-12T16:39:26.186553+00:00"
+  "generated_at": "2026-04-13T01:44:02.675146+00:00"
 }

@@ -4,73 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on insère les directives OpenMP dans un programme écrit en C ou C++?",
-      "answer": "Dans un programme C ou C++, les directives OpenMP sont insérées en utilisant un pragma, comme `#pragma omp directive`."
+      "question": "Comment les directives OpenMP sont-elles intégrées dans les programmes écrits en Fortran, versus ceux écrits en C ou C++?",
+      "answer": "Pour les programmes Fortran, les directives OpenMP sont insérées en utilisant des sentinelles, qui sont des mots-clés comme `!$OMP` ou `C$OMP` placés tout de suite après le symbole de commentaire. Pour les programmes en C ou C++, les directives sont insérées à l'aide d'un pragma, spécifié comme `#pragma omp directive`."
     },
     {
-      "question": "Quelle est la directive OpenMP en Fortran qui est l'équivalent de `#pragma omp parallel` en C/C++?",
-      "answer": "L'équivalent en Fortran pour `#pragma omp parallel` est `!$OMP PARALLEL [clause, clause,…]` pour le début d'un bloc, et `!$OMP END PARALLEL` pour la fin."
+      "question": "À quoi servent les variables d'environnement `OMP_NUM_THREADS` et `OMP_SCHEDULE` dans un programme OpenMP?",
+      "answer": "La variable `OMP_NUM_THREADS` sert à spécifier le nombre de cœurs (ou de fils d'exécution) qui seront réservés pour l'exécution d'un programme OpenMP. La variable `OMP_SCHEDULE`, quant à elle, contrôle comment les boucles et les sections parallèles sont distribuées parmi les fils d'exécution."
     },
     {
-      "question": "Quelle directive OpenMP est utilisée pour paralléliser des boucles en C/C++?",
-      "answer": "Pour paralléliser des boucles en C/C++, on utilise la directive `#pragma omp for [clause, clause,…]`."
-    },
-    {
-      "question": "Comment définit-on une section critique en OpenMP pour un programme Fortran?",
-      "answer": "Pour définir une section critique en Fortran, on utilise la directive `!$OMP CRITICAL [(name)]` avant le bloc de code et `!$OMP END CRITICAL [(name)]` après."
-    },
-    {
-      "question": "Nommez quelques-unes des clauses courantes qu'on peut utiliser avec les directives OpenMP.",
-      "answer": "Parmi les clauses courantes, on retrouve `PRIVATE`, `SHARED`, `DEFAULT`, `FIRSTPRIVATE`, `LASTPRIVATE`, `REDUCTION`, `IF`, `COPYIN` et `NOWAIT`."
-    },
-    {
-      "question": "La clause `PRIVATE` sert à quoi en OpenMP?",
-      "answer": "La clause `PRIVATE` (ou `private` en C/C++) est utilisée pour déclarer des variables qui sont locales à chaque fil d'exécution."
-    },
-    {
-      "question": "Quelles sont les principales variables d'environnement qui peuvent affecter l'exécution d'un programme OpenMP?",
-      "answer": "Les variables d'environnement qui peuvent avoir un effet sur l'exécution d'un programme OpenMP sont `OMP_NUM_THREADS`, `OMP_SCHEDULE`, `OMP_DYNAMIC`, `OMP_STACKSIZE` et `OMP_NESTED`."
-    },
-    {
-      "question": "À quoi sert la variable d'environnement `OMP_NUM_THREADS`?",
-      "answer": "Dans la plupart des cas, la variable `OMP_NUM_THREADS` sert à spécifier le nombre de cœurs (ou de fils d'exécution) réservés par machine."
-    },
-    {
-      "question": "Quelle est la fonction de la variable d'environnement `OMP_SCHEDULE`?",
-      "answer": "La variable `OMP_SCHEDULE` contrôle comment les boucles (et plus généralement les sections parallèles) sont distribuées entre les fils d'exécution."
-    },
-    {
-      "question": "Quelles sont les valeurs possibles qu'on peut assigner à la variable `OMP_SCHEDULE`?",
-      "answer": "Les valeurs possibles pour `OMP_SCHEDULE` sont `static,n`, `dynamic,n`, `guided,n` et `auto`, où `n` indique le nombre d'itérations gérées par chaque fil."
-    },
-    {
-      "question": "Expliquez le mode de planification `static` pour `OMP_SCHEDULE`.",
-      "answer": "En mode `static`, le nombre d'itérations est fixe et elles sont distribuées dès le début de la section parallèle."
-    },
-    {
-      "question": "Comment fonctionne le mode de planification `dynamic` pour `OMP_SCHEDULE`?",
-      "answer": "En mode `dynamic`, le nombre d'itérations est fixe, mais elles sont distribuées pendant l'exécution selon le temps requis par chaque fil pour compléter ses itérations."
-    },
-    {
-      "question": "Décrivez le mode de planification `guided` pour `OMP_SCHEDULE`.",
-      "answer": "En mode `guided`, `n` représente le nombre minimal d'itérations. Le nombre d'itérations choisi est initialement grand, puis il diminue dynamiquement à mesure que le nombre restant d'itérations diminue."
-    },
-    {
-      "question": "Qu'est-ce que le mode de planification `auto` implique pour `OMP_SCHEDULE`?",
-      "answer": "Le mode `auto` donne la liberté au compilateur et à la bibliothèque de choisir la meilleure méthode de distribution des itérations."
-    },
-    {
-      "question": "Quel est l'avantage d'utiliser les modes de planification `dynamic`, `guided` et `auto`?",
-      "answer": "L'avantage de ces modes est qu'ils permettent, en théorie, de mieux balancer la charge de travail entre les fils d'exécution, puisqu'ils s'ajustent dynamiquement en fonction du temps nécessaire à chaque fil."
-    },
-    {
-      "question": "Quel est le désavantage des planifications `dynamic`, `guided` et `auto`, surtout dans une architecture NUMA?",
-      "answer": "Le désavantage est qu'on ne peut pas savoir à l'avance quel processeur exécutera quel fil ni à quelle mémoire il doit accéder, ce qui rend impossible de prévoir l'affinité entre la mémoire et le processeur, surtout problématique dans une architecture NUMA."
-    },
-    {
-      "question": "Comment peut-on définir ou modifier une variable d'environnement OpenMP dans un système Unix?",
-      "answer": "On peut définir ou modifier une variable d'environnement OpenMP avec une commande Unix telle que `export OMP_NUM_THREADS=12`."
+      "question": "Quelles sont les valeurs possibles pour la variable d'environnement `OMP_SCHEDULE` et comment affectent-elles la distribution du travail?",
+      "answer": "Les valeurs possibles pour `OMP_SCHEDULE` sont `static,n`, `dynamic,n`, `guided,n` et `auto`. Avec `static,n`, les itérations sont distribuées de façon fixe au début. `dynamic,n` distribue les itérations de manière fixe, mais pendant l'exécution, selon le temps requis par chaque fil. `guided,n` débute avec un grand nombre d'itérations qui diminue dynamiquement. Finalement, `auto` laisse le compilateur et la bibliothèque choisir la méthode de distribution. Les modes `dynamic`, `guided` et `auto` peuvent mieux balancer les fils, mais rendent difficile de prévoir l'affinité entre la mémoire et le processeur."
     }
   ],
-  "generated_at": "2026-04-12T04:36:26.211988+00:00"
+  "generated_at": "2026-04-13T10:41:28.946509+00:00"
 }

@@ -3,57 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What does the acronym GDB stand for?",
-      "answer": "GDB stands for \"GDB: The GNU Project Debugger\"."
+      "question": "What is GDB, and what does its acronym represent?",
+      "answer": "GDB is a debugger used to investigate software problems, and its acronym stands for \"The GNU Project Debugger\"."
     },
     {
-      "question": "What is the primary purpose of GDB?",
-      "answer": "GDB is a debugger used to investigate software problems and quickly find their causes."
+      "question": "What is the primary goal of using the GDB debugger?",
+      "answer": "The primary goal of using GDB is to quickly identify the cause of problems in software, especially issues like segmentation faults."
     },
     {
-      "question": "For what common software problem is GDB often used?",
-      "answer": "GDB is often used to resolve segmentation faults."
+      "question": "When is Valgrind recommended over GDB for debugging software issues?",
+      "answer": "Valgrind is recommended for resolving problems specifically related to memory, such as memory leaks, while GDB is a general-purpose debugger."
     },
     {
-      "question": "Which tool is recommended for debugging memory-related issues, such as memory leaks, instead of GDB?",
-      "answer": "For memory-related issues like memory leaks, Valgrind is recommended."
+      "question": "What crucial compilation option is required when preparing a program to be debugged with GDB?",
+      "answer": "When preparing a program for GDB debugging, the `-g` option must be used during compilation to embed debugging symbols within the binary, which allows GDB to provide more detailed information about errors."
     },
     {
-      "question": "What compilation option is necessary to include debugging symbols in a binary so GDB can provide more information?",
-      "answer": "The program must be compiled using the `-g` option to include debugging symbols within the binary."
+      "question": "How does one typically start a debugging session for a program directly using GDB?",
+      "answer": "To start a direct debugging session, you first compile the program with the `-g` option, then execute `gdb ./program` from the command line, and finally type `run` at the GDB prompt."
     },
     {
-      "question": "How do you typically start a program within the GDB debugger?",
-      "answer": "You start by typing `gdb ./program` and then `run` at the `(gdb)` prompt."
+      "question": "Which GDB command is essential for identifying the source of a segmentation fault by examining the call stack?",
+      "answer": "The `backtrace` (or `bt`) command in GDB is essential for displaying the program's call stack, which helps pinpoint the specific line of code that caused a segmentation fault."
     },
     {
-      "question": "What is a `core` file and when is it particularly useful for debugging?",
-      "answer": "A `core` file is a dump of a program's state when it crashes, which is useful for debugging bugs that occur a long time after the program has started, without needing to run it directly in the debugger."
+      "question": "What preliminary command is necessary to enable the generation of a `core` file when a program crashes?",
+      "answer": "To enable the generation of a `core` file when a program crashes, the command `ulimit -c unlimited` must be executed."
     },
     {
-      "question": "What command must be executed to enable the generation of `core` files?",
-      "answer": "To enable the creation of `core` files, you must activate it using the command `ulimit -c unlimited`."
+      "question": "If a program has already crashed and created a `core` file, how can GDB be used to analyse the incident?",
+      "answer": "If a program has crashed and created a `core` file, GDB can be used for analysis by running `gdb -q ./program` and then, within the GDB prompt, using the command `core-file <core_filename>` to load the core dump."
     },
     {
-      "question": "How do you use GDB to analyse a program crash using a `core` file?",
-      "answer": "You start GDB with the program binary (e.g., `gdb -q ./program`) and then load the `core` file using the `core-file` command (e.g., `core-file core.18246`)."
+      "question": "How can a GDB debugger be attached to a process that is already executing, such as a job on a compute node?",
+      "answer": "To attach GDB to an already running process, you first need to determine its process ID (PID) using a command like `ps aux`, and then use the GDB command `gdb attach <PID>`."
     },
     {
-      "question": "What is the initial step to attach GDB to a process that is already running?",
-      "answer": "The first step is to obtain the process ID (PID) of the running process, for example, by using `ps aux | grep <program_name>`."
+      "question": "List three common interactive commands available within GDB for controlling program execution or examining its state.",
+      "answer": "Three common interactive commands in GDB are `run` (r) to begin or restart execution, `break` (b) to set breakpoints, and `print` (p) to display the content of variables."
     },
     {
-      "question": "What GDB command is used to display the current call stack?",
-      "answer": "The `backtrace` (or `bt`) command is used to display the current call stack."
+      "question": "What is the purpose of the `watch` command in GDB during a debugging session?",
+      "answer": "In GDB, the `watch` command is used to halt the program's execution specifically when the value of a designated variable is modified."
     },
     {
-      "question": "Name three common GDB commands used for interactive debugging, besides `run` and `backtrace`.",
-      "answer": "Three common GDB commands for interactive debugging are `break` (to set a breakpoint), `print` (to display variable content), and `step` (to execute the next operation)."
+      "question": "How can a user improve the way C++ Standard Template Library (STL) structures are displayed within GDB?",
+      "answer": "To improve the display of C++ STL structures in GDB, users can copy the `dbinit_stl_views-1.03.txt` file into their home directory and rename it to `~/.gdbinit`."
     },
     {
-      "question": "What is a common issue when GDB displays C++ STL structures, and what is a simple solution?",
-      "answer": "By default, GDB does not display C++ STL structures very well. A simple solution is to copy the `dbinit_stl_views-1.03.txt` file into your home folder, renaming it to `~/.gdbinit`."
+      "question": "Which GDB command allows you to view specific lines of the source code during a debugging session?",
+      "answer": "The `list` (or `l`) command in GDB allows you to display specific lines of the source code, usually by providing `src.c:number` as an argument."
+    },
+    {
+      "question": "What is the function of the `step` command in GDB?",
+      "answer": "The `step` (or `s`) command in GDB is used to execute the next single operation of the program, moving one line of code at a time."
+    },
+    {
+      "question": "How can one resume the execution of a program after it has been paused by a breakpoint in GDB?",
+      "answer": "To resume the execution of a program after it has been paused by a breakpoint in GDB, the `continue` (or `c`) command is used."
     }
   ],
-  "generated_at": "2026-04-11T22:07:11.947609+00:00"
+  "generated_at": "2026-04-13T05:49:41.263401+00:00"
 }

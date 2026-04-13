@@ -3,129 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What are the initial requirements to access a cloud project?",
-      "answer": "You need to have a cloud project associated with your account and a compatible web browser like Firefox or Chrome."
+      "question": "What is a prerequisite for accessing a cloud project on Alliance clusters?",
+      "answer": "You must first have a cloud project associated with your account, and you will receive a confirmation email with important access details after it's set up."
     },
     {
-      "question": "Which web browsers are recommended for accessing the cloud interface?",
-      "answer": "Firefox and Chrome web browsers are recommended."
+      "question": "Which web browsers are recommended for accessing the cloud interface for Alliance clusters, and why?",
+      "answer": "Firefox and Chrome are recommended because other browsers, like certain versions of Safari, may not be fully supported and can cause submission errors."
     },
     {
-      "question": "What platform is used for the cloud interface dashboard?",
-      "answer": "The platform is called OpenStack."
+      "question": "How do users log in to their cloud project interface on Alliance clusters?",
+      "answer": "Users log in using the link provided in their confirmation email, entering their username (not email address) and password."
     },
     {
-      "question": "When creating a virtual machine, what is the key difference between the VM's operating system and the physical computer's operating system?",
-      "answer": "The operating system you select is for the virtual machine (instance), not for the physical computer you are using to connect."
+      "question": "When creating a virtual machine on Alliance clusters, what is an important distinction to remember regarding the operating system choice?",
+      "answer": "Users should remember that the chosen operating system is for the virtual machine (instance), not the physical computer they are using to connect."
     },
     {
-      "question": "Why is password authentication disabled for new Linux virtual machines?",
-      "answer": "Password authentication is disabled for security reasons; SSH key pairs are used instead."
+      "question": "How is authentication handled for Linux virtual machines created on Alliance clusters?",
+      "answer": "Password authentication is disabled for security reasons; users must log in using an SSH (Secure Shell) key pair."
     },
     {
-      "question": "What is the recommended way to create SSH key pairs for security when launching a Linux VM?",
-      "answer": "It is not advised to create key pairs in OpenStack because they are not created with a passphrase, which creates security issues. You should create them on another machine."
+      "question": "What is the recommended method for handling SSH key pairs for Linux VMs in OpenStack on Alliance clusters?",
+      "answer": "It is recommended to either import an existing SSH public key or create a new key pair outside of OpenStack, as creating key pairs within OpenStack is not advised due to security concerns (no passphrase)."
     },
     {
-      "question": "What type of SSH public key is currently supported for importing into OpenStack?",
-      "answer": "Only RSA type SSH keys are currently supported."
+      "question": "What are the critical configuration steps when launching a Linux VM instance in OpenStack on Alliance clusters?",
+      "answer": "Key steps include defining the instance name, selecting 'Image' as the boot source with 'Create New Volume' set to 'Yes', choosing an image like Ubuntu, selecting a compatible 'Flavor', ensuring the 'default' Security Group is allocated, and selecting an SSH 'Key Pair'."
     },
     {
-      "question": "What should be avoided when entering a name for your virtual machine instance?",
-      "answer": "Do not include spaces or special characters in your instance name."
+      "question": "How do users assign a public IP address to their Linux VM on Alliance clusters?",
+      "answer": "From the 'Instances' list, select 'Associate Floating IP' from the VM's drop-down menu, then click 'Allocate IP' and 'Associate'."
     },
     {
-      "question": "What is a reasonable volume size for a Linux VM's operating system and modest data needs?",
-      "answer": "30 GB is a reasonable volume size."
+      "question": "How do users configure the firewall to allow SSH access to their Linux VM from their personal computer on Alliance clusters?",
+      "answer": "In OpenStack, navigate to Network->Security Groups, click 'Manage Rules' for the 'default' group, add an SSH rule, and replace '0.0.0.0/0' with 'your-ip/32' (your physical computer's IP address) in the CIDR text box."
     },
     {
-      "question": "What does the 'Flavor' option determine when launching a VM?",
-      "answer": "The flavor determines the type of hardware used for your VM, including its memory and processing capabilities."
+      "question": "What is the command to connect to a Linux VM from a Linux or Mac machine using SSH on Alliance clusters?",
+      "answer": "The command is `ssh -i /path/where/your/private/key/is/my_key.key <user name>@<public IP of your server>`, where `<user name>` depends on the image (e.g., 'ubuntu' for Ubuntu)."
     },
     {
-      "question": "Which Linux image is recommended for beginners when creating a VM?",
-      "answer": "The most recent Ubuntu image is recommended for beginners."
+      "question": "What is the recommended tool and general steps for connecting to a Linux VM from a Windows machine on Alliance clusters?",
+      "answer": "MobaXterm is recommended. Users open a new SSH session, enter the VM's public IP and username, and specify their private key file under 'Advanced SSH settings'."
     },
     {
-      "question": "What is the purpose of security groups in OpenStack?",
-      "answer": "Security groups define firewall rules for your virtual machines."
+      "question": "What is the initial step required to create a Windows VM on Alliance clouds?",
+      "answer": "Users must first request access to a Windows image by emailing technical support."
     },
     {
-      "question": "What is the difference between a private IP address and a public IP address for a VM?",
-      "answer": "Private IPs allow inter-VM networking within the project, while public IPs allow outside services and tools to initiate contact with your VM."
+      "question": "What is the purpose of an SSH key pair when creating a Windows VM on Alliance clusters?",
+      "answer": "SSH key pairs are used to encrypt the administrative account password, with the matching private key decrypting it."
     },
     {
-      "question": "How do you assign a public IP address to your Linux VM?",
-      "answer": "On the 'Instances' page, click the drop-down arrow for your VM and select 'Associate Floating IP', then click 'Allocate IP' and 'Associate'."
+      "question": "What are key considerations for \"Flavor\" and \"Device Size\" when launching a Windows VM on Alliance clusters?",
+      "answer": "The 'p2-3gb' flavor is recommended due to the Windows image's size and performance needs, and the 'Device Size' for the root drive should be 30GB or more to accommodate the operating system."
     },
     {
-      "question": "How can you allow SSH access to your Linux VM from your personal computer?",
-      "answer": "Go to 'Network->Security Groups', select 'Manage Rules' for the 'default' group, add an 'SSH' rule, and replace '0.0.0.0/0' with your computer's IP address followed by '/32'."
+      "question": "How do users configure the firewall to allow Remote Desktop Protocol (RDP) access to their Windows VM on Alliance clusters?",
+      "answer": "In OpenStack, navigate to 'Security Groups', manage rules for the 'default' group, add an RDP rule, and replace '0.0.0.0/0' with 'your-ip/32' in the CIDR text box to restrict access, as leaving it open is a significant security risk."
     },
     {
-      "question": "What should you do if your physical computer's IP address changes and you can no longer connect to your VM?",
-      "answer": "You need to add a new security rule for your new IP address, or consider using a CIDR range if your IP changes frequently but partially."
-    },
-    {
-      "question": "What information is needed to connect to your Linux VM via SSH?",
-      "answer": "You need the private key you saved, the type of image you used (e.g., Ubuntu), and the public IP address associated with your VM."
-    },
-    {
-      "question": "What is the command to connect to a Linux VM from a Linux or Mac machine?",
-      "answer": "`ssh -i /path/where/your/private/key/is/my_key.key <user name>@<public IP of your server>`"
-    },
-    {
-      "question": "What are the default usernames for connecting to Ubuntu, Fedora, and CentOS VMs?",
-      "answer": "The default username is 'ubuntu' for Ubuntu, 'fedora' for Fedora, and 'centos' for CentOS."
-    },
-    {
-      "question": "Which application is recommended for connecting to a Linux VM from a Windows machine?",
-      "answer": "MobaXTerm is recommended."
-    },
-    {
-      "question": "What is the first step to create a Windows VM on the cloud?",
-      "answer": "You must first request access to a Windows image by emailing technical support."
-    },
-    {
-      "question": "Why are SSH key pairs used for Windows VMs?",
-      "answer": "Windows VMs encrypt the administrative account password with a public key, and the matching private key is needed to decrypt it."
-    },
-    {
-      "question": "What is the recommended way to create an SSH key pair for a Windows VM?",
-      "answer": "It is recommended to create a new key pair directly within the OpenStack dashboard."
-    },
-    {
-      "question": "What 'Flavor' is recommended for a Windows VM and why?",
-      "answer": "The 'p2-3gb' flavor is recommended because it provides sufficient RAM and a larger root volume for Windows to run well."
-    },
-    {
-      "question": "What is the recommended minimum device size for the root drive of a Windows VM?",
-      "answer": "30GB or more is recommended for the root drive of a Windows VM."
-    },
-    {
-      "question": "What actions are required in the console when a Windows VM first boots?",
-      "answer": "You must select location, language, and keyboard settings, and agree to the license terms and conditions."
-    },
-    {
-      "question": "What protocol needs to be allowed through the firewall to connect to a Windows VM using a remote desktop client?",
-      "answer": "Remote Desktop Protocol (RDP) needs to be allowed."
-    },
-    {
-      "question": "What is the security risk of leaving RDP access open to '0.0.0.0/0'?",
-      "answer": "Leaving RDP open to '0.0.0.0/0' makes your VM susceptible to brute-force attacks, and cloud administrators may revoke access."
-    },
-    {
-      "question": "How do you retrieve the administrative password for a Windows VM?",
-      "answer": "From the 'Instances' menu, select 'Retrieve Password' for your instance, then use your private key file to decrypt the password."
-    },
-    {
-      "question": "Which Linux client is recommended for connecting to a Windows VM via RDP?",
-      "answer": "The Remmina client is recommended for RDP connections from Linux."
-    },
-    {
-      "question": "What format and passphrase requirement does the private key for Windows VMs have?",
-      "answer": "The private key must be in OpenSSH format and must not have a passphrase."
+      "question": "How do users retrieve the administrative password for a Windows VM on Alliance clusters?",
+      "answer": "Go to 'Instances', select 'Retrieve Password' from the VM's drop-down menu, choose the private key file, and click 'Decrypt Password'."
     }
   ],
-  "generated_at": "2026-04-11T19:44:51.906035+00:00"
+  "generated_at": "2026-04-13T03:57:23.090323+00:00"
 }

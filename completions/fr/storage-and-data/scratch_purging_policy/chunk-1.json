@@ -4,97 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "À quoi sert le système de fichiers /scratch sur les grappes?",
-      "answer": "Le système de fichiers /scratch sert au stockage rapide et temporaire des données utilisées en cours d'exécution."
+      "question": "À quoi sert le système de fichiers /scratch sur les grappes de calcul, et qu'arrive-t-il aux fichiers qui y sont stockés après un certain temps?",
+      "answer": "Sur nos grappes, le système de fichiers /scratch est conçu pour le stockage rapide et temporaire des données utilisées pendant l'exécution des tâches. Pour maintenir un espace suffisant, les fichiers qui ont plus de 60 jours sont supprimés périodiquement en fonction de leur âge, et non pas de leur emplacement spécifique dans /scratch."
     },
     {
-      "question": "Où est-ce qu'on doit stocker les données à long terme et les données de référence?",
-      "answer": "Les données qui doivent être stockées à long terme et les données de référence sont enregistrées dans l'espace /project ou dans une des zones d'archivage."
+      "question": "Comment la procédure de suppression automatique des fichiers sur le système /scratch fonctionne-t-elle pour les grappes Fir, Narval, Rorqual et Trillium?",
+      "answer": "Pour les grappes Fir, Narval, Rorqual et Trillium, à la fin de chaque mois, les fichiers qui sont susceptibles d'être supprimés le 15 du mois suivant sont identifiés. Les utilisateurs reçoivent un message d'avertissement et un courriel avec la liste des fichiers au début du mois, leur donnant deux semaines pour les déplacer. Un dernier courriel est envoyé le 12 du mois, offrant 72 heures additionnelles. Le 15 au soir, tous les fichiers dans /scratch dont les valeurs `ctime` et `atime` datent de plus de 60 jours sont supprimés."
     },
     {
-      "question": "Qu'arrive-t-il aux fichiers de plus de 60 jours dans l'espace /scratch?",
-      "answer": "Les fichiers de plus de 60 jours sont supprimés périodiquement en fonction de leur âge pour toujours garder suffisamment d'espace."
-    },
-    {
-      "question": "Est-ce que l'emplacement d'un fichier dans /scratch peut l'empêcher d'être supprimé s'il est vieux?",
-      "answer": "Non, c'est l'âge d'un fichier qui détermine s'il sera purgé et non l'endroit où il se trouve dans /scratch. Le fait de déplacer un fichier dans un autre répertoire de /scratch ne l'empêchera pas d'être supprimé."
-    },
-    {
-      "question": "Est-ce que la grappe Nibi purge les fichiers de la même manière que les autres grappes?",
-      "answer": "Non, Nibi ne purge pas les fichiers comme les autres grappes."
-    },
-    {
-      "question": "Quel est l'avantage du mécanisme basé sur les quotas pour le stockage de fichiers?",
-      "answer": "L'avantage du mécanisme basé sur les quotas est de laisser le plein contrôle aux utilisateurs et d'empêcher que certains fichiers particuliers d'une collection disparaissent en raison d'un âge quelque peu différent."
-    },
-    {
-      "question": "Comment se déroule la procédure de suppression de fichiers sur les grappes Fir, Narval, Rorqual et Trillium?",
-      "answer": "À la fin de chaque mois, les fichiers susceptibles d'être supprimés le 15 du mois suivant sont repérés. Un avis par courriel est envoyé au début du mois et un autre le 12 du mois, donnant un délai pour déplacer les fichiers."
-    },
-    {
-      "question": "Combien de temps ai-je pour copier mes fichiers après le premier avis d'avertissement sur Fir, Narval, Rorqual ou Trillium?",
-      "answer": "Vous avez deux semaines pour copier vers /project ou un autre emplacement tous les fichiers que vous voulez conserver."
-    },
-    {
-      "question": "Quand les fichiers sont-ils finalement supprimés sur Fir, Narval, Rorqual et Trillium?",
-      "answer": "Le 15 au soir, tous les fichiers qui restent dans /scratch dont les valeurs pour `ctime` et `atime` datent de plus de 60 jours sont supprimés."
-    },
-    {
-      "question": "Suis-je responsable de mes fichiers dans /scratch même si des notifications sont envoyées?",
-      "answer": "Oui, les notifications sont un service offert, mais vous êtes responsable de veiller à ce que les fichiers de plus de 60 jours ne se trouvent pas dans l'espace /scratch."
-    },
-    {
-      "question": "Que dois-je faire une fois que j'ai déplacé mes données de /scratch?",
-      "answer": "Une fois vos données déplacées, veuillez supprimer les fichiers et répertoires d'origine dans /scratch au lieu de les laisser en attente de la purge automatique."
-    },
-    {
-      "question": "Que se passe-t-il si j'utilise moins de 1To sur la grappe Nibi?",
-      "answer": "Si vous utilisez moins de 1To (limite souple) sur Nibi, vous n'avez rien à faire et aucun fichier ne sera automatiquement supprimé."
-    },
-    {
-      "question": "Qu'arrive-t-il si je dépasse la limite souple de 1To sur Nibi?",
-      "answer": "Lorsque vous dépassez cette limite souple, une condition de dépassement de quota est déclenchée, qui inclut un délai de grâce de 60 jours."
-    },
-    {
-      "question": "Mes fichiers sont-ils toujours accessibles sur Nibi après l'expiration du délai de grâce suite à un dépassement de quota?",
-      "answer": "Oui, vos fichiers sont toujours accessibles, mais l'ajout ou l'augmentation de la taille des fichiers échouera et générera une erreur."
-    },
-    {
-      "question": "Comment puis-je résoudre un problème de dépassement de quota sur Nibi?",
-      "answer": "Pour résoudre ce problème, votre utilisation doit être modifiée et être sous la limite souple de 1To, ce qui remet le compteur du délai de grâce à zéro."
-    },
-    {
-      "question": "Quelle est la limite ferme de stockage sur Nibi?",
-      "answer": "Il existe également un quota ferme de 20To, ce qui signifie que vous ne pouvez pas dépasser 20To dans /scratch, même avec un délai de grâce de 60 jours."
-    },
-    {
-      "question": "Comment puis-je vérifier quels fichiers sont susceptibles d'être purgés sur Fir et Narval?",
-      "answer": "Sur Fir et Narval, allez à `/scratch/to_delete/` et localisez le fichier à votre nom."
-    },
-    {
-      "question": "Comment puis-je vérifier quels fichiers sont susceptibles d'être purgés sur Trillium?",
-      "answer": "Sur Trillium, allez à `/scratch/t/to_delete/` ou établissez un lien symbolique (`symlink`) vers `/scratch/t/todelete/current`."
-    },
-    {
-      "question": "Quel type d'informations contient le fichier qui liste les fichiers à purger?",
-      "answer": "Ce fichier contient la liste des noms de fichiers avec le chemin complet et possiblement d'autres renseignements comme la taille, atime, ctime, size, etc."
-    },
-    {
-      "question": "Quand le fichier des fichiers à purger est-il mis à jour?",
-      "answer": "Ce fichier est seulement mis à jour le 1er et le 12e jour de chaque mois."
-    },
-    {
-      "question": "Si j'accède à des fichiers entre le 1er et le 11 du mois, est-ce que la liste des fichiers à purger est modifiée?",
-      "answer": "Non, si vous accédez à un ou plusieurs fichiers ou les lisez, les déplacez ou les supprimez entre le 1er et le 11 du mois, aucune modification ne sera faite à la liste avant le 12."
-    },
-    {
-      "question": "Si un fichier à mon nom existe le 11 mais pas le 12 du mois, qu'est-ce que ça signifie?",
-      "answer": "Si un fichier avec votre nom existe avant le 11 mais pas le 12, aucun de vos fichiers n'est susceptible d'être purgé."
-    },
-    {
-      "question": "Que dois-je faire si je modifie des fichiers après le 12 du mois, alors qu'ils étaient sur la liste de purge?",
-      "answer": "Vous devrez confirmer si les fichiers peuvent ou non être purgés le 15."
+      "question": "Quelle est la politique de purge des fichiers pour le système /scratch sur la grappe Nibi, et comment se distingue-t-elle des autres grappes?",
+      "answer": "La grappe Nibi ne purge pas les fichiers en fonction de leur âge comme les autres grappes, mais plutôt avec un mécanisme basé sur des quotas. Si l'utilisation est sous 1 To (limite souple), aucun fichier n'est supprimé. Au-delà de cette limite, un délai de grâce de 60 jours est déclenché. Une fois ce délai expiré, aucune nouvelle allocation de stockage n'est permise, bien que les fichiers existants restent accessibles. Il y a aussi un quota ferme de 20 To qui ne peut être dépassé, même avec le délai de grâce."
     }
   ],
-  "generated_at": "2026-04-12T07:45:49.738607+00:00"
+  "generated_at": "2026-04-13T13:23:31.026395+00:00"
 }

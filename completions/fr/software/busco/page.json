@@ -3,89 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "À quoi sert BUSCO?",
-      "answer": "BUSCO est une application qui permet d'évaluer la complétude de l'assemblage et de l'annotation de génomes."
+      "question": "Qu'est-ce que l'application BUSCO et à quoi sert-elle dans le contexte de l'évaluation des génomes?",
+      "answer": "BUSCO (Benchmarking Universal Single-Copy Orthologs) est une application qui permet d'évaluer la complétude de l'assemblage et de l'annotation de génomes."
     },
     {
-      "question": "Comment puis-je connaître la dernière version de BUSCO disponible?",
-      "answer": "Pour connaître la dernière version disponible, vous pouvez lancer la commande `avail_wheels busco`."
+      "question": "Quelle est la méthode recommandée pour obtenir les versions récentes de BUSCO sur les systèmes de l'Alliance?",
+      "answer": "Les versions récentes de BUSCO sont disponibles via des 'wheels' Python, ce qui est la méthode recommandée. L'utilisation des modules est considérée comme obsolète."
     },
     {
-      "question": "Quels modules doivent être chargés avant d'installer le wheel Python de BUSCO?",
-      "answer": "Il faut charger les modules `StdEnv/2023`, `gcc`, `python/3.11`, `augustus/3.5.0`, `hmmer/3.4`, `blast+/2.15`, `metaeuk/7`, `prodigal/2.6.3`, `r` et `bbmap/39.06`."
+      "question": "Comment puis-je vérifier la dernière version de BUSCO disponible pour l'installation sur les grappes de l'Alliance?",
+      "answer": "Pour connaître la dernière version disponible de BUSCO, vous pouvez lancer la commande `avail_wheels busco`."
     },
     {
-      "question": "Comment créer et activer un environnement virtuel pour BUSCO?",
-      "answer": "Vous devez d'abord créer l'environnement avec `virtualenv ~/busco_env` et ensuite l'activer avec `source ~/busco_env/bin/activate`."
+      "question": "Quels sont les modules prérequis que je dois charger pour installer BUSCO à l'aide des 'wheels' Python sur les systèmes de l'Alliance?",
+      "answer": "Vous devez charger les modules `StdEnv/2023`, `gcc`, `python/3.11`, `augustus/3.5.0`, `hmmer/3.4`, `blast+/2.15`, `metaeuk/7`, `prodigal/2.6.3`, `r` et `bbmap/39.06`."
     },
     {
-      "question": "Comment installer le wheel de BUSCO et ses dépendances dans un environnement virtuel?",
-      "answer": "Une fois l'environnement virtuel activé, utilisez la commande `pip install --no-index busco==6.0.0`."
+      "question": "Comment crée-t-on et active-t-on un environnement virtuel Python pour installer BUSCO sur les systèmes de l'Alliance?",
+      "answer": "Pour créer l'environnement virtuel, utilisez `virtualenv ~/busco_env`, puis activez-le avec `source ~/busco_env/bin/activate`."
     },
     {
-      "question": "Quelle est l'étape essentielle concernant les ensembles de données avant de soumettre une tâche BUSCO?",
-      "answer": "Avant de soumettre une tâche, tous les ensembles de données requis doivent être téléchargés depuis le site BUSCO data."
+      "question": "Après avoir activé un environnement virtuel pour BUSCO, comment installe-t-on l'application et ses dépendances?",
+      "answer": "Dans l'environnement virtuel activé, vous pouvez installer BUSCO et ses dépendances avec la commande `pip install --no-index busco==6.0.0`."
     },
     {
-      "question": "Comment puis-je voir la liste des ensembles de données BUSCO disponibles?",
-      "answer": "Entrez la commande `busco --list-datasets` dans votre terminal pour voir les ensembles de données disponibles."
+      "question": "Comment télécharger les ensembles de données (datasets) nécessaires pour BUSCO, et quelle est la méthode recommandée?",
+      "answer": "La méthode recommandée est d'utiliser la commande `busco --download`, par exemple `busco --download bacteria_odb10`. Cette option crée une hiérarchie, télécharge et décompresse les fichiers automatiquement."
     },
     {
-      "question": "Quelle est la méthode recommandée pour télécharger un ensemble de données BUSCO?",
-      "answer": "La méthode recommandée est d'utiliser la commande `busco --download`, par exemple `busco --download bacteria_odb10`."
+      "question": "Comment peut-on lister les ensembles de données BUSCO disponibles pour le téléchargement?",
+      "answer": "Vous pouvez lister les ensembles de données disponibles en entrant `busco --list-datasets` dans votre terminal."
     },
     {
-      "question": "Est-il possible de télécharger plusieurs ensembles de données BUSCO en une seule opération avec la commande `busco`?",
-      "answer": "Oui, il est possible de télécharger plusieurs ensembles de données en ajoutant les arguments `all`, `prokaryota`, `eukaryota` ou `virus` à la commande `busco --download`."
+      "question": "Comment exécuter un test BUSCO pour un seul génome en utilisant les 'wheels' Python et en mode hors ligne?",
+      "answer": "Après avoir téléchargé un fichier de génome test, exécutez `busco --offline --in genome.fna --out TEST --lineage_dataset bacteria_odb10 --mode genome --cpu ${SLURM_CPUS_PER_TASK:-1} --download_path busco_download/`."
     },
     {
-      "question": "Que fait la commande `busco --download` après avoir téléchargé les fichiers?",
-      "answer": "Elle crée une hiérarchie pour les ensembles de données, les télécharge, les décompresse et, si plusieurs fichiers sont téléchargés, les ajoute automatiquement au répertoire des lignées."
+      "question": "Quels sont les conseils importants pour utiliser BUSCO avec l'ordonnanceur de tâches Slurm?",
+      "answer": "Utilisez `--offline` pour éviter l'accès internet, `--cpu` avec `${SLURM_CPUS_PER_TASK}` pour les CPU alloués, et `--restart` pour reprendre une tâche interrompue."
     },
     {
-      "question": "Comment puis-je télécharger un fichier de génome pour un test BUSCO?",
-      "answer": "Vous pouvez télécharger un fichier de génome de test avec la commande `wget https://gitlab.com/ezlab/busco/-/raw/master/test_data/bacteria/genome.fna`."
+      "question": "Quels éléments essentiels doit contenir un script Slurm (`sbatch`) pour soumettre une tâche BUSCO?",
+      "answer": "Un script Slurm doit inclure les directives SBATCH (nom du travail, compte, temps, cpus-per-task, mémoire), le chargement des modules, la création et l'activation d'un environnement virtuel dans `$SLURM_TMPDIR`, l'installation de BUSCO via `requirements.txt`, et la commande BUSCO elle-même."
     },
     {
-      "question": "Donnez un exemple de commande pour exécuter BUSCO sur un seul fichier de génome.",
-      "answer": "Voici un exemple : `busco --offline --in genome.fna --out TEST --lineage_dataset bacteria_odb10 --mode genome --cpu ${SLURM_CPUS_PER_TASK:-1} --download_path busco_download/`."
+      "question": "Comment configure-t-on les paramètres Augustus pour une utilisation avancée avec BUSCO?",
+      "answer": "Il faut copier le répertoire `config` d'Augustus à un endroit accessible (ex: `cp -r $EBROOTAUGUSTUS/config $HOME/augustus_config`) et définir la variable d'environnement `AUGUSTUS_CONFIG_PATH` (ex: `export AUGUSTUS_CONFIG_PATH=$HOME/augustus_config`)."
     },
     {
-      "question": "Comment exécuter BUSCO pour analyser plusieurs génomes situés dans un répertoire?",
-      "answer": "Utilisez l'option `--in` en spécifiant le chemin du répertoire, par exemple `busco --offline --in genome/ --out TEST --lineage_dataset bacteria_odb10 --mode genome --cpu ${SLURM_CPUS_PER_TASK:-1} --download_path busco_download/`."
+      "question": "Quelles sont les étapes pour installer localement SEPP dans un environnement virtuel BUSCO?",
+      "answer": "Il faut d'abord activer l'environnement virtuel BUSCO, puis installer DendroPy (`pip install 'dendropy<4.6'`), cloner le dépôt Git de SEPP, naviguer dans le répertoire `sepp` et exécuter `python setup.py config` suivi de `python setup.py install`."
     },
     {
-      "question": "Quel argument faut-il utiliser avec BUSCO pour éviter l'utilisation d'Internet lors d'une tâche Slurm?",
-      "answer": "Utilisez l'argument `--offline` pour éviter l'utilisation de l'Internet."
+      "question": "Quel est un problème courant de dépannage lors de l'utilisation de BUSCO avec Augustus et comment le résoudre?",
+      "answer": "Si vous rencontrez l'erreur \"Cannot write to Augustus config path\", assurez-vous d'avoir copié le répertoire `config` d'Augustus à un endroit accessible en écriture et d'avoir exporté correctement la variable d'environnement `AUGUSTUS_CONFIG_PATH`."
     },
     {
-      "question": "Comment s'assurer que BUSCO utilise le nombre de CPU alloué par Slurm dans un script de tâche?",
-      "answer": "Intégrez `--cpu ${SLURM_CPUS_PER_TASK}` dans votre commande BUSCO pour utiliser le nombre alloué de CPU."
+      "question": "Comment s'assurer que l'environnement virtuel BUSCO est bien activé dans un script Slurm lorsque SEPP est installé localement?",
+      "answer": "Lorsque SEPP est installé localement, vous ne pouvez pas recréer l'environnement virtuel. Il faut ajouter la commande `source ~/busco_env/bin/activate` après le chargement des modules dans votre script Slurm pour activer l'environnement existant."
     },
     {
-      "question": "Que dois-je faire si une tâche BUSCO est interrompue et que je souhaite la reprendre?",
-      "answer": "Utilisez l'argument `--restart` dans votre commande BUSCO pour reprendre une tâche interrompue."
-    },
-    {
-      "question": "Comment soumettre un script de tâche BUSCO à l'ordonnanceur Slurm?",
-      "answer": "Vous pouvez soumettre un script Bash, par exemple `run_busco.sh`, avec la commande `sbatch run_busco.sh`."
-    },
-    {
-      "question": "Comment puis-je utiliser des paramètres Augustus avancés avec BUSCO?",
-      "answer": "Copiez le répertoire `config` d'Augustus chez vous (`cp -r $EBROOTAUGUSTUS/config $HOME/augustus_config`) et définissez la variable `AUGUSTUS_CONFIG_PATH` (`export AUGUSTUS_CONFIG_PATH=$HOME/augustus_config`). Ensuite, utilisez `--augustus_parameters=\"--yourAugustusParameter\"`."
-    },
-    {
-      "question": "Quelles sont les conditions pour utiliser les paramètres SEPP avec BUSCO?",
-      "answer": "SEPP doit être installé localement dans votre environnement virtuel, et cette installation doit être effectuée à partir du nœud de connexion."
-    },
-    {
-      "question": "Pourquoi la section \"Modules\" concernant BUSCO n'est-elle plus pertinente?",
-      "answer": "La section \"Modules\" est obsolète; il est recommandé d'utiliser les wheels Python qui sont disponibles pour les versions récentes."
-    },
-    {
-      "question": "Comment résoudre l'erreur \"Cannot write to Augustus config path\"?",
-      "answer": "Vous devez vous assurer d'avoir copié le répertoire `config` d'Augustus à un endroit où la lecture est possible et d'avoir exporté la variable `AUGUSTUS_CONFIG_PATH`."
+      "question": "Comment gèle-t-on un environnement virtuel BUSCO et génère-t-on un fichier `requirements.txt` pour en faciliter la reproduction?",
+      "answer": "Dans l'environnement virtuel activé, exécutez la commande `pip freeze > ~/busco-requirements.txt` pour générer le fichier `requirements.txt`."
     }
   ],
-  "generated_at": "2026-04-11T18:28:04.183035+00:00"
+  "generated_at": "2026-04-13T02:54:56.353991+00:00"
 }

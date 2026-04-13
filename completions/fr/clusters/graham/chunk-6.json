@@ -4,37 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "C'est quoi les paramètres Slurm essentiels pour soumettre une tâche qui demande un seul GPU V100, trois cœurs CPU pis 12 Go de mémoire, avec un temps maximum d'une journée sur Graham?",
-      "answer": "Pour soumettre une tâche comme ça, vous devriez utiliser les paramètres Slurm suivants dans votre script: `#SBATCH --gres=gpu:v100:1`, `#SBATCH --cpus-per-task=3`, `#SBATCH --mem=12G`, pis `#SBATCH --time=1-00:00`. Il faut aussi charger les modules `arch/avx512` et `StdEnv/2018.3`."
+      "question": "Comment faire pour utiliser le disque local rapide sur les nœuds GPU Volta du cluster Graham, surtout pour les tâches qui demandent beaucoup d'opérations d'entrée-sortie?",
+      "answer": "Pour les tâches gourmandes en E/S sur les nœuds GPU Volta de Graham, on devrait utiliser le disque local rapide. La variable d'environnement `$SLURM_TMPDIR` indique le répertoire temporaire sur ce disque. Vous pouvez y copier vos fichiers de données au début de votre script et y déplacer vos résultats à la fin. L'avantage, c'est que tout le contenu de `$SLURM_TMPDIR` est automatiquement supprimé à la fin de la tâche, et on peut même y créer des environnements virtuels Python pour une meilleure efficacité."
     },
     {
-      "question": "Quels sont les paramètres Slurm requis pour réserver un nœud entier avec huit GPU V100, 28 cœurs CPU pis 150 Go de mémoire pour une tâche exclusive sur Graham?",
-      "answer": "Les paramètres Slurm requis incluent `#SBATCH --nodes=1`, `#SBATCH --gres=gpu:v100:8`, `#SBATCH --exclusive`, `#SBATCH --cpus-per-task=28`, `#SBATCH --mem=150G`, pis `#SBATCH --time=1-00:00`. Pensez à charger le module `StdEnv/2023`."
+      "question": "Comment doit-on spécifier la demande de GPU Turing ou Ampere lorsqu'on soumet une tâche sur le cluster Graham?",
+      "answer": "Pour demander des GPU Turing, il faut utiliser l'option `--gres=gpu:t4:2` dans votre script de soumission Slurm, demandant deux cartes T4 par nœud. Si vous travaillez avec des GPU Ampere, les options sont `--gres=gpu:a100:2` ou `--gres=gpu:a5000:2`, spécifiant deux cartes Ampere par nœud, selon le modèle dont vous avez besoin."
     },
     {
-      "question": "Pourquoi utiliser le disque local des nœuds Volta de Graham pis comment on fait pour y accéder?",
-      "answer": "Les nœuds Volta de Graham ont un disque local rapide qu'on devrait utiliser si la tâche exige beaucoup d'opérations d'entrée-sortie (I/O). Pour y accéder, la variable d'environnement `$SLURM_TMPDIR` donne la localisation du répertoire temporaire sur le disque."
-    },
-    {
-      "question": "Est-ce qu'on doit effacer manuellement les fichiers qu'on met dans le `$SLURM_TMPDIR` des nœuds Volta une fois que la tâche est finie?",
-      "answer": "Non, vous n'avez pas à effacer manuellement les fichiers du `$SLURM_TMPDIR` parce que tous les fichiers contenus dans ce répertoire sont supprimés automatiquement quand la tâche est terminée."
-    },
-    {
-      "question": "On peut tu créer des environnements virtuels Python dans l'espace temporaire des nœuds Volta?",
-      "answer": "Oui, on peut même créer des environnements virtuels Python dans cet espace temporaire (défini par `$SLURM_TMPDIR`) pour améliorer l'efficacité de vos tâches."
-    },
-    {
-      "question": "Comment on fait pour demander des nœuds GPU Turing sur Graham?",
-      "answer": "Pour demander des nœuds GPU Turing, on les utilise comme les nœuds Volta, sauf qu'on devrait les demander en spécifiant `--gres=gpu:t4:2` dans le script de soumission, par exemple, pour obtenir deux cartes T4 par nœud."
-    },
-    {
-      "question": "Quels sont les paramètres pour demander des nœuds GPU Ampere sur Graham?",
-      "answer": "L'utilisation de ces nœuds est semblable à celle des nœuds Volta, sauf que pour les obtenir, il faut spécifier `--gres=gpu:a100:2` ou `--gres=gpu:a5000:2` dans le script, pour demander deux cartes Ampere par nœud par exemple."
-    },
-    {
-      "question": "Quand est-ce que la capacité de Graham a été réduite pis pourquoi?",
-      "answer": "À compter du 13 janvier 2025, la capacité de Graham sera limitée à environ 25% jusqu'à ce que le nouveau système Nibi soit disponible."
+      "question": "Quelle est la situation actuelle concernant la capacité du cluster Graham, et pour combien de temps cela va-t-il durer?",
+      "answer": "À compter du 13 janvier 2025, la capacité du cluster Graham est réduite à environ 25% de sa capacité normale. Cette limitation restera en place jusqu'à ce que le nouveau système, Nibi, soit entièrement disponible et opérationnel."
     }
   ],
-  "generated_at": "2026-04-11T23:27:44.512550+00:00"
+  "generated_at": "2026-04-13T06:50:54.061183+00:00"
 }

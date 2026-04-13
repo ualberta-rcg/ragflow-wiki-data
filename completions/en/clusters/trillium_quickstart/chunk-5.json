@@ -4,121 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is the abbreviation for the `module list` command on Trillium?",
-      "answer": "The abbreviation for the `module list` command is `ml`."
+      "question": "What are the recommended best practices for managing software environments and loading modules on Trillium to ensure reproducibility and avoid conflicts?",
+      "answer": "To manage software environments on Trillium effectively, it is recommended to avoid loading modules in your `.bashrc` file. Instead, load modules manually, from a separate script, or within your job script. Always specify explicit module versions (e.g., `gcc/13.3` instead of `gcc`) for reproducibility, and use `module spider <module-name>` to discover and resolve module dependencies."
     },
     {
-      "question": "How can I use the `ml` abbreviation to load a software module on Trillium?",
-      "answer": "You can load a module using the abbreviation by typing `ml <module-name>`."
+      "question": "How can a user request an interactive debugging session on Trillium for tests that exceed login node limits, and what are some of the available options for CPU and GPU subclusters?",
+      "answer": "For tests exceeding login node limits or requiring dedicated resources, users can request an interactive debug job using the `debugjob` command on a login node. Running `debugjob` from a CPU login node provides a 1-hour session on a CPU compute node (192 cores, 755 GiB). From a GPU login node, `debugjob` (or `debugjob -g 1`) provides a 2-hour session with 1 GPU, 24 cores, and 188 GiB of memory. Variations like `debugjob 2` (for 2 CPU nodes) or `debugjob -g 4` (for 4 GPUs on one node) are available for more resources, though with shorter walltime limits."
     },
     {
-      "question": "Which modules are automatically loaded when I first log in to Trillium?",
-      "answer": "When you first log in, only the `CCconfig`, `gentoo/2023`, and `mii` modules are loaded."
-    },
-    {
-      "question": "What is the primary function of the modules loaded by default upon login to Trillium?",
-      "answer": "The default modules (`CCconfig`, `gentoo/2023`, and `mii`) provide basic OS-level functionality."
-    },
-    {
-      "question": "How do I load a standard set of compilers and libraries, similar to other Alliance compute clusters, on Trillium?",
-      "answer": "To load a standard set of compilers and libraries, you should load the `StdEnv/2023` module."
-    },
-    {
-      "question": "Why is it recommended to avoid loading modules in the `.bashrc` file on Trillium?",
-      "answer": "Loading modules in your `.bashrc` file can lead to unexpected behaviour, especially in non-interactive environments like batch jobs or remote shells."
-    },
-    {
-      "question": "What are the recommended methods for loading modules, other than in the `.bashrc` file?",
-      "answer": "It is recommended to load modules manually, from a separate script, or by using module collections."
-    },
-    {
-      "question": "Where should I load required modules to ensure my job runs with the correct software environment?",
-      "answer": "You should load required modules inside your job script to ensure your job runs with the expected software environment, regardless of your interactive shell settings."
-    },
-    {
-      "question": "Why is it important to specify full module versions (e.g., `gcc/13.3`) instead of short names (e.g., `gcc`)?",
-      "answer": "Specifying full module versions ensures long-term reproducibility, as short names might load a system default that could change in the future."
-    },
-    {
-      "question": "How can I discover module dependencies and the correct loading order on Trillium?",
-      "answer": "You can use the `module spider <module-name>` command to discover module dependencies and their correct loading order."
-    },
-    {
-      "question": "Do I need to provide my own license to use commercial software on Trillium?",
-      "answer": "Yes, you can use commercial software on Trillium only if you have a valid license."
-    },
-    {
-      "question": "How can I securely connect to a license server for commercial software on Trillium?",
-      "answer": "You can connect to a license server securely using SSH tunnelling."
-    },
-    {
-      "question": "Does Trillium provide user-specific licenses for commercial software packages?",
-      "answer": "No, Trillium does not provide licenses for individual or specialized commercial packages due to its large and diverse user base."
-    },
-    {
-      "question": "Are there any widely used commercial tools available system-wide on Trillium?",
-      "answer": "Yes, some widely useful commercial tools available system-wide include compilers (Intel), math libraries (MKL), and debuggers (DDT)."
-    },
-    {
-      "question": "Who should I contact if I have a valid license and need assistance installing commercial software on Trillium?",
-      "answer": "If you have a valid license and need help installing commercial software, you can contact the support team for assistance."
-    },
-    {
-      "question": "What is the main goal of testing code before submitting jobs to the Trillium cluster?",
-      "answer": "The main goal of testing code is to ensure its correctness and to determine the resources it requires before submission to the cluster."
-    },
-    {
-      "question": "What are the recommended limits for 'lightweight tests' run directly on the login nodes?",
-      "answer": "Lightweight tests on login nodes should run in under a few minutes, use no more than 1–2 GB of memory, use only 1–4 CPU cores, and use at most 1 GPU."
-    },
-    {
-      "question": "How do I load the ARM DDT debugger on the Trillium login nodes?",
-      "answer": "You can load the ARM DDT debugger on the login nodes by using `module load ddt-cpu` or `module load ddt-gpu`."
-    },
-    {
-      "question": "What command should I use to request an interactive debug job on Trillium?",
-      "answer": "You should use the `debugjob` command on a login node to request an interactive debug job."
-    },
-    {
-      "question": "What resources and walltime are provided when `debugjob` is run from a CPU login node?",
-      "answer": "Running `debugjob` from a CPU login node provides an interactive shell on a CPU compute session for 1 hour, with 1 node, 192 cores, and 755 GiB of memory."
-    },
-    {
-      "question": "What resources and walltime are provided when `debugjob` is run from a GPU login node to request 1 GPU?",
-      "answer": "Running `debugjob` or `debugjob -g 1` from a GPU login node provides an interactive session with 1 GPU on a (shared) GPU compute node for two hours, utilizing 1/4 node, 24 cores, and 188 GiB of memory."
-    },
-    {
-      "question": "How can I request an interactive debug session with two CPU nodes on Trillium?",
-      "answer": "You can request an interactive debug session with two CPU nodes by using the command `debugjob 2`."
-    },
-    {
-      "question": "What resources are allocated by the `debugjob 2` command for a CPU debug session?",
-      "answer": "The `debugjob 2` command allocates 2 CPU nodes, 384 CPU cores, 2x755 GiB of memory, and has a walltime limit of 30 minutes."
-    },
-    {
-      "question": "How can I request an interactive debug session with 4 GPUs on Trillium?",
-      "answer": "You can request an interactive debug session with 4 GPUs by using either `debugjob 1` or `debugjob -g 4`."
-    },
-    {
-      "question": "What resources are allocated by the `debugjob -g 4` command for a GPU debug session?",
-      "answer": "The `debugjob -g 4` command allocates 1 GPU node, 96 CPU cores, 4 GPUs, 755 GiB of memory, and has a walltime limit of 30 minutes."
-    },
-    {
-      "question": "How can I request an interactive debug session with 8 GPUs on Trillium?",
-      "answer": "You can request an interactive debug session with 8 GPUs by using either `debugjob 2` or `debugjob -g 8`."
-    },
-    {
-      "question": "What resources are allocated by the `debugjob -g 8` command for a GPU debug session?",
-      "answer": "The `debugjob -g 8` command allocates 2 GPU nodes, 192 CPU cores, 8 GPUs, 2x755 GiB of memory, and has a walltime limit of 15 minutes."
-    },
-    {
-      "question": "How can I ensure that an interactive debug job inherits the modules I had loaded in my shell?",
-      "answer": "To make an interactive debug job inherit your loaded modules, add `--export=ALL` as the first option to the `debugjob` command."
-    },
-    {
-      "question": "What are the limitations of the shell environment within a `debugjob` session?",
-      "answer": "Within a `debugjob` session, the environment is similar to a fresh login: only standard modules are loaded, there's no internet access, no write access to home and project file systems, and job submissions are not allowed."
+      "question": "What is the policy regarding the use of commercial software on the Trillium cluster?",
+      "answer": "Users can utilize commercial software on Trillium if they have a valid license, and they are responsible for bringing their own. The system does not provide user-specific licenses, although some widely useful commercial tools like Intel compilers, MKL libraries, and DDT debuggers are available system-wide. Users can contact the support team for assistance with installing commercial software if they have a valid license."
     }
   ],
-  "generated_at": "2026-04-12T09:45:24.117166+00:00"
+  "generated_at": "2026-04-13T14:55:21.414094+00:00"
 }

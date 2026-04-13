@@ -3,49 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, parasail?",
-      "answer": "parasail est une bibliothèque SIMD C (C99) qui fournit des implémentations d'algorithmes d'alignement de séquences par paires, comme Smith-Waterman (local), Needleman-Wunsch (global) et d'autres alignements semi-globaux."
+      "question": "Qu'est-ce que la bibliothèque parasail et à quoi sert-elle sur les grappes d'Alliance?",
+      "answer": "La bibliothèque parasail est une bibliothèque SIMD C (C99) qui contient des implémentations d'algorithmes d'alignement de séquences par paires, comme Smith-Waterman (alignement local) et Needleman-Wunsch (alignement global)."
     },
     {
-      "question": "Comment l'extension parasail-python fonctionne-t-elle avec les différentes versions de StdEnv?",
-      "answer": "Avec StdEnv/2023, l'extension parasail-python est intégrée directement au module parasail. Pour StdEnv/2020, il faut charger le module pour que l'extension Python puisse s'installer dans un environnement virtuel."
+      "question": "Comment l'extension parasail-python est-elle gérée avec les différentes versions de StdEnv sur les grappes d'Alliance?",
+      "answer": "Depuis StdEnv/2023, l'extension parasail-python fait partie du module parasail. Cependant, avec StdEnv/2020, le module doit être chargé pour que l'extension Python soit installée dans un environnement virtuel."
     },
     {
-      "question": "Comment savoir quelle version de parasail est disponible sur le système?",
-      "answer": "On peut utiliser la commande `module spider parasail` pour connaître la version disponible."
+      "question": "Comment faire pour connaître les versions disponibles du module parasail sur les systèmes d'Alliance?",
+      "answer": "Pour connaître la version disponible du module parasail, vous pouvez utiliser la commande `module spider parasail`."
     },
     {
-      "question": "Quelle commande faut utiliser pour charger la bibliothèque parasail?",
-      "answer": "Il faut utiliser `module load parasail/2.6.2` (ou la version spécifique que vous souhaitez utiliser)."
+      "question": "Quelle est la commande à utiliser pour charger une version spécifique du module parasail, comme la 2.6.2, sur les grappes d'Alliance?",
+      "answer": "Pour charger la version 2.6.2 du module parasail, la commande est `module load parasail/2.6.2`."
     },
     {
-      "question": "Quand j'utilise le binaire `parasail_aligner`, qu'est-ce qui est important à configurer?",
-      "answer": "Il est important de définir le nombre de fils (`-t`) pour qu'il corresponde au nombre de cœurs alloués à votre tâche, par exemple en utilisant `${SLURM_CPUS_PER_TASK:-1}`."
+      "question": "Lors de l'utilisation du binaire `parasail_aligner`, comment doit-on définir le nombre de fils pour optimiser les performances sur les grappes d'Alliance?",
+      "answer": "Il est important de définir le nombre de fils (`-t`) selon le nombre de cœurs alloués à votre tâche Slurm, par exemple avec `${SLURM_CPUS_PER_TASK:-1}`."
     },
     {
-      "question": "Comment vérifier les versions de Python compatibles avec l'extension parasail?",
-      "answer": "On peut lancer la commande `module spider parasail/1.3.4` (ou la version de parasail qui vous intéresse) pour voir les versions de Python compatibles."
+      "question": "Comment peut-on trouver les versions de Python compatibles avec une version spécifique de l'extension parasail (par exemple, 1.3.4) sur les systèmes d'Alliance?",
+      "answer": "Pour connaître les versions compatibles de Python avec l'extension parasail 1.3.4, vous pouvez lancer la commande `module spider parasail/1.3.4`."
     },
     {
-      "question": "Quels modules faut-il charger pour utiliser l'extension Python de parasail?",
+      "question": "Quels sont les modules essentiels à charger pour utiliser l'extension parasail avec Python 3.11 sur les grappes d'Alliance (StdEnv par défaut)?",
       "answer": "Il faut charger les modules `parasail/2.6.2`, `python/3.11` et `scipy-stack/2023b`."
     },
     {
-      "question": "Quelles sont les grandes étapes pour exécuter un script Python avec parasail sur Slurm avec StdEnv par défaut?",
-      "answer": "Faut préparer un script Python, créer un script de soumission Slurm qui charge les modules requis, crée un environnement virtuel, installe les dépendances comme Biopython, puis soumettre la tâche avec `sbatch`."
+      "question": "Comment vérifier si l'importation de la bibliothèque parasail a réussi dans un script Python?",
+      "answer": "L'importation est réussie quand la commande `python -c \"import parasail\"` ne retourne rien."
     },
     {
-      "question": "Y a-t-il des particularités pour utiliser l'extension Python de parasail avec StdEnv/2020?",
-      "answer": "Oui, avec StdEnv/2020, il faut d'abord identifier les \"wheels\" disponibles avec `avail_wheel parasail` et ensuite installer la version spécifique de parasail (ex: `parasail==1.2.4`) dans l'environnement virtuel."
+      "question": "Quel est l'objectif de l'exemple de script Python fourni pour parasail sur les grappes d'Alliance?",
+      "answer": "L'exemple de script vise à comparer les résultats d'un alignement local effectué avec la bibliothèque parasail et avec la bibliothèque BioPython."
     },
     {
-      "question": "Comment vérifier les résultats d'une tâche Slurm une fois qu'elle est terminée?",
-      "answer": "Faut consulter le fichier de sortie de l'ordonnanceur Slurm, par exemple avec la commande `less slurm-*.out`."
+      "question": "Comment installe-t-on Biopython et parasail dans un environnement virtuel Python pour une tâche Slurm sous StdEnv/2020 sur les grappes d'Alliance?",
+      "answer": "Après avoir activé l'environnement virtuel, on utilise `pip install --no-index biopython==1.83` et `pip install --no-index parasail==1.2.4` (après avoir identifié la version disponible avec `avail_wheel parasail`)."
     },
     {
-      "question": "Comment lister les paquets Python installés qui sont liés à parasail?",
-      "answer": "Après avoir chargé le module parasail, on peut utiliser la commande `pip list | grep parasail` pour lister les paquets."
+      "question": "Quels sont les principaux paramètres Slurm à configurer dans un script de soumission pour une tâche parasail utilisant l'extension Python sur les grappes d'Alliance?",
+      "answer": "Les principaux paramètres sont l'account (`--account`), le nombre de CPU par tâche (`--cpus-per-task`), la mémoire par CPU (`--mem-per-cpu`) et le temps alloué (`--time`)."
+    },
+    {
+      "question": "Quelle commande faut-il utiliser pour soumettre le script de tâche Slurm `submit-parasail.sh` sur les grappes d'Alliance?",
+      "answer": "Il faut utiliser la commande `sbatch submit-parasail.sh`."
+    },
+    {
+      "question": "Comment peut-on vérifier les résultats d'une tâche Slurm après son exécution avec parasail sur les grappes d'Alliance?",
+      "answer": "On peut vérifier les résultats dans le fichier de sortie de l'ordonnanceur Slurm, par exemple en utilisant la commande `less slurm-*.out`."
+    },
+    {
+      "question": "Comment l'utilisation du module parasail simplifie-t-elle la gestion des dépendances Python pour les paquets qui en dépendent sur les grappes d'Alliance?",
+      "answer": "En chargeant le module parasail, les exigences des paquets Python qui dépendent de parasail seront automatiquement satisfaites."
+    },
+    {
+      "question": "Comment vérifier la version de parasail installée dans l'environnement Python d'une tâche Slurm sur les grappes d'Alliance?",
+      "answer": "On peut utiliser la commande `pip list | grep parasail`."
     }
   ],
-  "generated_at": "2026-04-12T05:12:51.886938+00:00"
+  "generated_at": "2026-04-13T11:13:13.568468+00:00"
 }

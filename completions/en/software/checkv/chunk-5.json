@@ -4,105 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is the recommended starting memory for an interactive job?",
-      "answer": "You can start with 2G, with the objective to start low and increase if needed."
+      "question": "What are the steps to execute the `checkv end_to_end` command in an interactive session on the clusters, after allocating resources?",
+      "answer": "First, load the necessary modules, such as `gcc hmmer/3.3.2 prodigal-gv/2.6.3 diamond/2.0.4 python/3.10`. Next, activate your virtual environment using `source ~/CheckV_env/bin/activate`. Finally, execute your command, for example: `checkv end_to_end test_sequences.fna $SCRATCH/checkv_output -t ${SLURM_CPUS_PER_TASK:-1} -d $SCRATCH/checkv-db-v1.5`."
     },
     {
-      "question": "How many CPUs per task should I initially request for CheckV, as suggested by the software?",
-      "answer": "You can initially ask for 16 tasks (CPUs per task) for CheckV, following the software's suggestion."
+      "question": "How do you set up and submit a CheckV job to a compute node using a Slurm bash submission script?",
+      "answer": "To submit a CheckV job to a compute node, you must create a bash script (e.g., `run_CheckV.sh`). This script needs to include SBATCH directives for job name, account, time (e.g., `--time=00:20:00`), CPUs per task (e.g., `--cpus-per-task=16`), and memory (e.g., `--mem=2G`). Within the script, load the necessary modules, generate and activate a virtual environment in `$SLURM_TMPDIR`, install CheckV and its dependencies using `pip install --no-index --requirement ~/checkv-1.0.1-requirements.txt`, and then execute the `checkv end_to_end` command. The script can then be submitted using `sbatch run_CheckV.sh`."
     },
     {
-      "question": "When should modules be loaded relative to activating a virtual environment?",
-      "answer": "It is important to load the appropriate modules before activating your virtual environment."
-    },
-    {
-      "question": "Which modules are necessary to load for running CheckV?",
-      "answer": "The necessary modules to load for CheckV are `gcc`, `hmmer/3.3.2`, `prodigal-gv/2.6.3`, `diamond/2.0.4`, and `python/3.10`."
-    },
-    {
-      "question": "How do I activate my CheckV virtual environment?",
-      "answer": "You can activate your CheckV virtual environment using the command `source ~/CheckV_env/bin/activate`."
-    },
-    {
-      "question": "What is the command to execute CheckV's `end_to_end` pipeline with a test dataset?",
-      "answer": "To execute CheckV's `end_to_end` pipeline with a test dataset, use the command `checkv end_to_end test_sequences.fna $SCRATCH/checkv_output -t ${SLURM_CPUS_PER_TASK:-1} -d $SCRATCH/checkv-db-v1.5`."
-    },
-    {
-      "question": "Why is it recommended to use a test dataset when running software for the first time?",
-      "answer": "It is a good habit to look for and use available data tests from the git repository or web in your first attempts to run the software."
-    },
-    {
-      "question": "What information should be gathered after an interactive CheckV run, and why is it important?",
-      "answer": "You should gather information about the execution time and peak memory usage. This information is important for setting time and memory parameters in the bash submission script for compute node jobs."
-    },
-    {
-      "question": "What was the observed execution time and peak memory usage for the `checkv end_to_end` test run?",
-      "answer": "The `checkv end_to_end` test run had an execution time of less than a minute for all sections combined and a peak memory usage of just under 2GB."
-    },
-    {
-      "question": "How do you submit a bash script to a compute node?",
-      "answer": "You can submit a bash script to a compute node using the command `sbatch [script_name]`, for example, `sbatch run_CheckV.sh`."
-    },
-    {
-      "question": "What is the purpose of `#SBATCH --job-name` in a submission script?",
-      "answer": "The `#SBATCH --job-name` parameter specifies the name for your job, such as `CheckV_run`."
-    },
-    {
-      "question": "What is the `#SBATCH --account` parameter used for in a job submission script?",
-      "answer": "The `#SBATCH --account` parameter is used to specify and adjust the accounting group for your job, for example, `def-someprof`."
-    },
-    {
-      "question": "How should the `#SBATCH --time` parameter be set in a CheckV submission script?",
-      "answer": "The `#SBATCH --time` parameter should be adjusted to match the walltime required for your job, for example, `00:20:00`."
-    },
-    {
-      "question": "How should the `#SBATCH --cpus-per-task` parameter be set for CheckV in a submission script?",
-      "answer": "The `#SBATCH --cpus-per-task` parameter should be adjusted based on Prodigal and DIAMOND usage, with `16` being an example."
-    },
-    {
-      "question": "What is the purpose of `#SBATCH --mem` in a submission script, and what is an example value for CheckV?",
-      "answer": "The `#SBATCH --mem` parameter is used to specify the memory required for your job, and an example value for CheckV is `2G`."
-    },
-    {
-      "question": "Which modules are loaded in the example CheckV bash submission script?",
-      "answer": "The example CheckV bash submission script loads `gcc`, `hmmer/3.3.2`, `prodigal-gv/2.6.3`, `diamond/2.0.4`, and `python/3.10` modules."
-    },
-    {
-      "question": "How is a virtual environment created and activated within the example bash submission script?",
-      "answer": "In the example bash submission script, a virtual environment is created using `virtualenv --no-download ${SLURM_TMPDIR}/env` and activated with `source ${SLURM_TMPDIR}/env/bin/activate`."
-    },
-    {
-      "question": "How are pip and CheckV installed within the example bash submission script?",
-      "answer": "Within the example bash submission script, pip is upgraded using `pip install --no-index --upgrade pip`, and CheckV is installed from a requirements file using `pip install --no-index --requirement ~/checkv-1.0.1-requirements.txt`."
-    },
-    {
-      "question": "What CheckV command is executed in the example bash submission script?",
-      "answer": "The command `checkv end_to_end test_sequences.fna $SCRATCH/checkv_output -t ${SLURM_CPUS_PER_TASK:-1} -d $SCRATCH/checkv-db-v1.5` is executed in the example bash submission script."
-    },
-    {
-      "question": "Where can I find more information about job monitoring commands?",
-      "answer": "You can find more information about job monitoring commands on the wiki page titled 'Monitoring jobs'."
-    },
-    {
-      "question": "What is the `seff` command used for?",
-      "answer": "The `seff` command is a post-run command used to view time, CPU efficiency, and memory efficiency for a completed Slurm job, helping to adjust resources for future runs."
-    },
-    {
-      "question": "How do you use the `seff` command?",
-      "answer": "You use the `seff` command by providing the Slurm job number as a parameter, for example, `seff 42760046`."
-    },
-    {
-      "question": "What information does the `seff` command provide?",
-      "answer": "The `seff` command provides information on the execution time, CPU efficiency, and memory efficiency of a Slurm job."
-    },
-    {
-      "question": "What is the name of the Slurm output file, and what information does it contain?",
-      "answer": "The Slurm output file is named `slurm-[job_number].out`, and it contains useful information about the job run."
-    },
-    {
-      "question": "How can I view the contents of a Slurm output file?",
-      "answer": "You can view the contents of a Slurm output file using the `less` command, for example, `less slurm-[job_number].out`."
+      "question": "Which commands can be used to monitor resource usage and efficiency for CheckV jobs after they have completed execution on the clusters?",
+      "answer": "After a job has finished, you can use the `seff` command with the Slurm job number (e.g., `seff 42760046`) to check the time, CPU efficiency, and memory efficiency. This information helps in adjusting resources for future runs to avoid waste. Additionally, the Slurm output file, named `slurm-[job_number].out`, contains useful information about the run and can be viewed using `less slurm-[job_number].out`."
     }
   ],
-  "generated_at": "2026-04-11T19:39:01.664051+00:00"
+  "generated_at": "2026-04-13T03:51:39.112959+00:00"
 }

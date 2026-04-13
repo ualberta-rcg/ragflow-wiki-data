@@ -4,89 +4,17 @@
   "chunk_index": 41,
   "qa_pairs": [
     {
-      "question": "Quels modules faut-il charger pour utiliser les applications Ansys Fluids comme Fluent, CFX ou IcemCFD en mode graphique?",
-      "answer": "Pour utiliser les applications Ansys Fluids comme Fluent, CFX ou IcemCFD, vous devez charger les modules <code>CcEnv StdEnv/2023</code> et <code>ansys/2024R2.04</code> (ou des versions antérieures)."
+      "question": "Comment faire pour lancer Ansys Fluent, CFX ou IcemCFD en mode graphique, et comment régler les problèmes d'affichage courants?",
+      "answer": "Pour lancer ces applications en mode graphique, vous devez d'abord charger les modules `CcEnv StdEnv/2023` et `ansys/2024R2.04` (ou une version plus ancienne). Ensuite, exécutez `unset SESSION_MANAGER` pour éviter une erreur de gestion de session Qt. Si `icemcfd` affiche une erreur de \"segmentation violation\", vous devez sélectionner `Settings Tab -> Display -> tick X11 -> Apply -> OK -> File -> Exit` une seule fois, puis le redémarrer."
     },
     {
-      "question": "Quelle commande permet de lancer Fluent, CFX ou IcemCFD une fois les modules chargés?",
-      "answer": "Une fois les modules chargés, vous pouvez lancer Fluent, CFX ou IcemCFD en utilisant la commande <code>fluent | cfx5 | icemcfd</code>."
+      "question": "Quelles sont les étapes pour utiliser Ansys Rocky en mode graphique sur les grappes de l'Alliance, et quels sont les détails importants concernant sa licence et sa disponibilité?",
+      "answer": "Pour utiliser Ansys Rocky en mode graphique, chargez les modules comme `clumod ansysrocky/2024R2.0 CcEnv StdEnv/2023 ansys/2024R2.04` (pour Rocky 2024R2 ou moins récente) ou `CcEnv StdEnv/2023 ansys/2025R1` (pour Rocky 2025R1 ou plus récente). Lancez ensuite `Rocky` ou `Rocky-gui` pour sélectionner les serveurs de licences. La licence SHARCNET inclut Rocky, et son utilisation est gratuite pour la recherche académique. Les versions 2024R2 et moins récentes sont disponibles sur gra-vdi et les grappes Graham, et l'installation sur toutes les grappes est prévue pour juin. Les versions 2025R1 et plus récentes sont fournies via le module Ansys sur toutes les grappes, mais ne sont pas encore prises en charge par le serveur de licence SHARCNET."
     },
     {
-      "question": "Pourquoi doit-on utiliser la commande <code>unset SESSION_MANAGER</code> avant de lancer Fluent?",
-      "answer": "La commande <code>unset SESSION_MANAGER</code> est nécessaire pour éviter le message d'erreur 'Qt: Session management error: None of the authentication protocols specified are supported' lors du lancement de Fluent."
-    },
-    {
-      "question": "Comment puis-je résoudre l'erreur de violation de segmentation 'Error segmentation violation - exiting after doing an emergency save' lors du démarrage d'IcemCFD?",
-      "answer": "Si vous voyez 'Error segmentation violation - exiting after doing an emergency save' au démarrage d'IcemCFD, ne cliquez pas sur OK. Allez plutôt dans <i>Settings Tab -> Display</i>, cochez <i>X11</i>, cliquez sur <i>Apply</i>, puis sur <i>OK</i>, et enfin sur <i>File -> Exit</i>. L'erreur ne devrait plus se produire au prochain démarrage."
-    },
-    {
-      "question": "Comment charger les modules requis pour utiliser Ansys Rocky?",
-      "answer": "Pour utiliser Ansys Rocky, vous pouvez charger les modules de différentes façons : <code>module load clumod ansysrocky/2023R2 CcEnv StdEnv/2020 ansys/2023R2</code>, ou <code>module load clumod ansysrocky/2024R2.0 CcEnv StdEnv/2023 ansys/2024R2.04</code>, ou <code>module load CcEnv StdEnv/2023 ansys/2025R1</code>."
-    },
-    {
-      "question": "À quoi sert la commande <code>Rocky</code> dans Ansys Rocky?",
-      "answer": "La commande <code>Rocky</code> lance le module Ansys qui lit le fichier de licence <code>~/licenses/ansys.lic</code>."
-    },
-    {
-      "question": "Que fait la commande <code>Rocky-gui</code> dans Ansys Rocky?",
-      "answer": "La commande <code>Rocky-gui</code>, fournie par les modules ansysrocky locaux, permet de sélectionner les serveurs de licence CMC ou SHARCNET."
-    },
-    {
-      "question": "Quel est l'objectif de la commande <code>RockySolver</code>?",
-      "answer": "<code>RockySolver</code> est utilisé pour exécuter le solveur Rocky directement depuis la ligne de commande (l'ajout de -h pour l'aide n'est pas testé)."
-    },
-    {
-      "question": "À quoi sert la commande <code>RockySchedular</code>?",
-      "answer": "<code>RockySchedular</code> lance l'interface graphique pour soumettre et exécuter des tâches sur le nœud courant (cette fonctionnalité n'est pas encore testée)."
-    },
-    {
-      "question": "Sur quelles grappes les versions de Rocky 2024R2 et antérieures sont-elles disponibles?",
-      "answer": "Rocky pour les versions 2024R2 et moins récentes est disponible uniquement sur gra-vdi et les grappes Graham. L'installation sur toutes les grappes est prévue pour juin."
-    },
-    {
-      "question": "Qu'en est-il de la disponibilité des versions de Rocky 2025R1 et plus récentes?",
-      "answer": "Rocky pour les versions 2025R1 et plus récentes est fourni par le module Ansys sur toutes les grappes, mais n'est pas encore pris en charge par le serveur de licence SHARCNET."
-    },
-    {
-      "question": "Rocky peut-il utiliser des CPU et des GPU sur gra-vdi?",
-      "answer": "Rocky ne peut utiliser que des CPU sur gra-vdi, car il n'y a présentement qu'un seul GPU dédié aux graphiques sur cette plateforme."
-    },
-    {
-      "question": "Est-ce que la licence SHARCNET inclut l'utilisation de Rocky et est-ce payant?",
-      "answer": "Oui, la licence SHARCNET inclut maintenant Rocky, et son utilisation est gratuite pour la recherche."
-    },
-    {
-      "question": "Où peut-on trouver plus d'informations sur Ansys Rocky?",
-      "answer": "Pour plus de détails, vous pouvez consulter la page 'Rocky Innovation Space' ou les 'Ansys Rocky 2024 R2 Release Highlights' et 'Ansys Rocky 2025 R1 Release Highlights'."
-    },
-    {
-      "question": "Comment charger les modules pour Ansys EDT?",
-      "answer": "Pour Ansys EDT, ouvrez une fenêtre de terminal et chargez les modules avec <code>module load SnEnv ansysedt/2023R2</code> ou <code>module load SnEnv ansysedt/2021R2</code>."
-    },
-    {
-      "question": "Comment démarrer l'interface graphique d'Ansys EDT?",
-      "answer": "Dans le terminal, une fois les modules chargés, entrez <code>ansysedt</code> et attendez que l'interface s'affiche."
-    },
-    {
-      "question": "Comment configurer l'option de licence HPC pour utiliser plus de 4 cœurs dans Ansys EDT?",
-      "answer": "Pour utiliser plus de 4 cœurs, vous devez faire ceci une seule fois : sélectionnez <i>Tools -> Options -> HPC and Analysis Options -> Options</i>, puis, dans le menu déroulant, changez <i>HPC License</i> pour <i><b>Pool</b></i>, et cliquez sur <i>OK</i>."
-    },
-    {
-      "question": "Comment copier les exemples d'Antennas de la version 2023R2 dans mon compte pour Ansys EDT?",
-      "answer": "Pour copier les exemples Antennas de 2023R2, connectez-vous à une grappe (par exemple Graham), chargez <code>module load ansysedt/2023R2</code>, créez le répertoire <code>mkdir -p ~/Ansoft/$EBVERSIONANSYSEDT; cd ~/Ansoft/$EBVERSIONANSYSEDT; rm -rf Antennas</code>, puis exécutez <code>cp -a $EBROOTANSYSEDT/v232/Linux64/Examples/HFSS/Antennas ~/Ansoft/$EBVERSIONANSYSEDT</code>."
-    },
-    {
-      "question": "Comment exécuter une simulation d'exemple dans Ansys EDT?",
-      "answer": "Pour exécuter un exemple, ouvrez un fichier .aedt et cliquez sur <i>HFSS -> Validation Check</i>. Si la validation produit une erreur, fermez et ouvrez de nouveau la simulation autant de fois que nécessaire. Pour lancer la simulation, cliquez sur <i>Project -> Analyze All</i>."
-    },
-    {
-      "question": "Comment quitter Ansys EDT sans sauvegarder la solution?",
-      "answer": "Pour quitter Ansys EDT sans sauvegarder la solution, cliquez sur <i>File -> Close -> No</i>."
-    },
-    {
-      "question": "Que faire si Ansys EDT plante et ne redémarre pas?",
-      "answer": "Si Ansys EDT plante et ne redémarre pas, essayez les commandes suivantes : <code>pkill -9 -u $USER -f \"ansys*|mono|mwrpcss|apip-standalone-service\"</code>, et si le problème persiste, <code>rm -rf ~/.mw</code> (ce qui réinitialisera la configuration d'Ansys EDT au prochain lancement)."
+      "question": "Comment puis-je démarrer Ansys EDT sur une grappe et configurer l'option de licence HPC pour pouvoir utiliser plus de quatre cœurs?",
+      "answer": "Pour démarrer Ansys EDT, ouvrez une fenêtre de terminal et chargez le module approprié, par exemple `SnEnv ansysedt/2023R2`. Ensuite, tapez `ansysedt` et attendez que l'interface graphique apparaisse. Pour configurer la licence HPC afin d'utiliser plus de quatre cœurs, allez dans `Tools -> Options -> HPC and Analysis Options -> Options`, puis changez l'option `HPC License` pour `Pool` dans le menu déroulant, et cliquez sur `OK`."
     }
   ],
-  "generated_at": "2026-04-12T17:05:17.097373+00:00"
+  "generated_at": "2026-04-13T02:01:01.798974+00:00"
 }

@@ -4,109 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the default security group?",
-      "answer": "The default security group contains rules that allow a VM access out to the internet (e.g., for operating system upgrades or package installations), but it does not allow another machine to access the VM, except for other VMs belonging to the same default security group."
+      "question": "What is the purpose of the default security group in OpenStack, and what network rules does it typically include?",
+      "answer": "The default security group enables a virtual machine (VM) to access the internet for activities like downloading operating system upgrades or installing packages. However, it prevents other external machines from accessing the VM, except for other VMs that also belong to the same default security group. This group typically includes two Egress rules (for IPv4 and IPv6) to allow unrestricted outbound network access and two Ingress rules (for IPv4 and IPv6) to facilitate communication among VMs within that security group."
     },
     {
-      "question": "Are there any recommendations regarding modifying the default security group rules?",
-      "answer": "Yes, it is recommended not to remove rules from the default security group as this may cause problems when creating new VMs. However, it is safe to add rules to it."
+      "question": "When managing security groups for OpenStack virtual machines, what are some key considerations for network access control, and how are CIDR rules utilized?",
+      "answer": "When managing security groups, it's essential to carefully consider which resources need access and who requires it, striving to minimize the IP addresses and ports specified in Ingress rules. For example, if you consistently connect to your VM via SSH from a fixed IP address, it's wise to limit SSH access to only that specific IP. CIDR (Classless Inter-Domain Routing) rules are a standardized method for defining IP ranges. An example like `192.168.1.1/24` means the rule will match the first 24 bits of an IP address (e.g., any IP starting with `192.168.1`). A `/32` appended to an IP requires an exact match of all 32 bits, while `/0` means no bits must match, thus allowing any IP address."
     },
     {
-      "question": "What Egress rules are typically included in the default security group?",
-      "answer": "The default security group typically includes two Egress rules, one for IPv4 and one for IPv6, to allow your instance to access an outside network without any limitation."
-    },
-    {
-      "question": "What Ingress rules are typically included in the default security group?",
-      "answer": "The default security group typically includes two Ingress rules, one for IPv4 and one for IPv6, to allow communication for all VMs that belong to that specific security group."
-    },
-    {
-      "question": "How can users add SSH or RDP security rules to the default security group?",
-      "answer": "Users can add security rules for SSH or RDP to their default security group, as was done in the Cloud Quick Start guide, to enable connection to their VM."
-    },
-    {
-      "question": "Can a virtual machine (VM) belong to more than one security group?",
-      "answer": "Yes, a VM can belong to more than one security group."
-    },
-    {
-      "question": "What is important to consider when managing security groups and their rules?",
-      "answer": "When managing security groups and rules, it is important to carefully consider what needs to be accessed and who needs to access it, striving to minimize the IP addresses and ports specified in Ingress rules."
-    },
-    {
-      "question": "How can SSH access to a VM be restricted to a specific computer with a static IP?",
-      "answer": "If you will always be connecting to your VM via SSH from the same computer with a static IP, you can configure an Ingress rule to allow SSH access only from that specific IP address."
-    },
-    {
-      "question": "What does CIDR stand for?",
-      "answer": "CIDR stands for Classless Inter-Domain Routing."
-    },
-    {
-      "question": "What is the purpose of the CIDR box when managing security rules?",
-      "answer": "The CIDR box is used to specify allowed IP addresses or IP ranges when defining security rules."
-    },
-    {
-      "question": "Where can one find a tool to convert IP ranges to CIDR rules?",
-      "answer": "A web-based tool for converting IP ranges to CIDR rules can be found at http://www.ipaddressguide.com/cidr."
-    },
-    {
-      "question": "How can security rules be configured to allow a VM to act as a gateway for other cloud VMs?",
-      "answer": "If you only need to connect to one VM via SSH from the outside and then use that as a gateway to other cloud VMs, you can put the SSH rule in a separate security group and add that group only to the gateway VM. However, you will also need to ensure your SSH keys are configured correctly to allow SSH between VMs."
-    },
-    {
-      "question": "How can security rules be limited within a project using security groups?",
-      "answer": "Security rules can be limited within a project using security groups. For instance, a security rule for a VM running a MySQL Database can be configured to be accessible only from other VMs in the default security group within the same project."
-    },
-    {
-      "question": "When can the security groups for a VM be chosen?",
-      "answer": "The security groups a VM belongs to can be chosen either when the VM is created, using the 'Security Groups' option during 'Launch Instance', or after the VM has been launched by selecting 'Edit Security Groups' from the drop-down menu of actions on the 'Project->Compute->Instances' page."
-    },
-    {
-      "question": "Describe an example of a CIDR rule.",
-      "answer": "An example of a CIDR rule is `192.168.1.1/24`, which looks like a normal IP address with `/24` appended."
-    },
-    {
-      "question": "How are IP addresses structured in the context of CIDR rules?",
-      "answer": "IP addresses are made up of four 1-byte (8 bits) numbers, each ranging from 0 to 255."
-    },
-    {
-      "question": "What does `/24` signify in a CIDR rule?",
-      "answer": "In a CIDR rule, `/24` means that the rule will match the first 24 bits (3 bytes) from the left of an IP address. For example, any IP address starting with `192.168.1` will match `192.168.1.1/24`."
-    },
-    {
-      "question": "What do `/32` and `/0` signify in CIDR rules?",
-      "answer": "If `/32` is appended to a CIDR rule, the full 32 bits of the IP address must match exactly. If `/0` is appended, no bits must match, meaning any IP address will match it."
-    },
-    {
-      "question": "When can cloudInit be used to customize an instance?",
-      "answer": "cloudInit can be used to customize an instance the first time it is launched."
-    },
-    {
-      "question": "What are the two methods for using cloudInit to customize an instance?",
-      "answer": "Customization with cloudInit can be done either via the OpenStack command-line interface or by pasting your cloudInit script into the 'Customization Script' field of the OpenStack dashboard."
-    },
-    {
-      "question": "Where is the 'Customization Script' field located in the OpenStack dashboard for cloudInit?",
-      "answer": "The 'Customization Script' field is found under the 'Configuration' option when clicking the 'Launch instance' button (Project-->Compute-->Instances) in the OpenStack dashboard."
-    },
-    {
-      "question": "Provide an example of a cloudInit script that adds two users, 'gretzky' and 'lemieux', with and without sudo permissions, respectively.",
-      "answer": "A cloudInit script to add these users would look like this:\n```yaml\n#cloud-config\nusers:\n  - name: gretzky\n    shell: /bin/bash\n    sudo: ALL=(ALL) NOPASSWD:ALL\n    ssh_authorized_keys:\n      - <Gretzky's public key goes here>\n  - name: lemieux\n    shell: /bin/bash\n    ssh_authorized_keys:\n      - <Lemieux's public key goes here>\n```"
-    },
-    {
-      "question": "What is a crucial formatting aspect to remember for YAML used by cloudInit, especially for SSH keys?",
-      "answer": "YAML is very picky about white space formatting; there must be a space after the '-' before your public key string when specifying `ssh_authorized_keys`."
-    },
-    {
-      "question": "What happens to the default user if a cloudInit script (without `default`) is used to add new users?",
-      "answer": "If a cloudInit script does not explicitly include `default` in its user list, it will overwrite the default user created by the distribution, making the users listed in the script the *only* users on the newly created VM."
-    },
-    {
-      "question": "Why is it important to ensure at least one user has sudo permission when overwriting default users with a cloudInit script?",
-      "answer": "It is vital to have at least one user with sudo permission when using a cloudInit script that overwrites default users to maintain administrative control over the VM."
-    },
-    {
-      "question": "How can the default user (e.g., debian, centos, ubuntu) be preserved while adding new users with cloudInit?",
-      "answer": "To preserve the default user while adding new users, include `- default` as the first item under the `users:` section in your cloudInit script."
+      "question": "How can users customize an OpenStack virtual machine during its initial launch using cloudInit?",
+      "answer": "During an OpenStack instance's first launch, customization can be performed using cloudInit. This is accomplished either through the OpenStack command-line interface or by pasting a cloudInit script into the 'Customization Script' field. This field is located within the 'Configuration' option when initiating a new instance from the OpenStack dashboard, accessible via `Project-->Compute-->Instances-->Launch instance`."
     }
   ],
-  "generated_at": "2026-04-12T02:14:31.473674+00:00"
+  "generated_at": "2026-04-13T09:07:00.308193+00:00"
 }

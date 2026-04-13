@@ -4,65 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Quels sont les outils disponibles pour soumettre plusieurs tâches de calcul ou gérer des combinaisons de paramètres (parameter sweep)?",
-      "answer": "Les outils utiles pour soumettre plusieurs tâches de calcul ou gérer des combinaisons de paramètres (parameter sweep) sont les tableaux de tâches (Job Arrays), GNU Parallel, GLOST et META."
+      "question": "Quels outils sont disponibles pour la gestion de l'exécution de nombreuses tâches de calcul ou de balayages de paramètres avec Slurm, et dans quelles situations est-ce qu'on les utilise généralement?",
+      "answer": "Pour gérer de multiples tâches de calcul ou des balayages de paramètres, plusieurs outils sont utiles : les **Job Arrays** sont idéaux pour soumettre plusieurs tâches similaires dans un seul script, surtout quand chaque tâche dépasse une heure et qu'il y en a moins de mille. **GNU Parallel** permet d'exécuter et de gérer plusieurs calculs courts sur un seul nœud. **GLOST** utilise MPI pour exécuter progressivement une longue liste de tâches sérielles sur les cœurs de CPU réservés par une tâche parallèle. Enfin, **META** est une suite de scripts qui automatise le calcul à haut débit pour un grand nombre de calculs reliés, qu'ils soient sériels, parallèles ou GPU."
     },
     {
-      "question": "Quand est-ce qu'on devrait utiliser les tableaux de tâches (Job Arrays) pour soumettre des calculs?",
-      "answer": "Les tableaux de tâches sont la méthode idéale pour soumettre plusieurs tâches similaires dans un seul script, surtout si chaque tâche dépasse une heure et que le nombre de tâches est inférieur à mille."
+      "question": "Avec Slurm, comment est-ce qu'on fait pour qu'une tâche démarre seulement après qu'une autre tâche spécifique ait fini avec succès?",
+      "answer": "Pour s'assurer qu'une tâche Slurm ne démarre qu'après qu'une autre ait terminé avec succès, on utilise les dépendances inter-tâches. La méthode courante consiste à soumettre la première tâche et à en sauvegarder l'identifiant (JOBID). Ensuite, on soumet la deuxième tâche en utilisant l'option `--dependency=afterok:$JOBID1`, où `$JOBID1` est l'identifiant de la première tâche. Ça garantit que la deuxième tâche attendra que la première ait terminé sans erreur avant de commencer."
     },
     {
-      "question": "À quoi sert GNU Parallel dans le contexte de la soumission de tâches de calcul?",
-      "answer": "GNU Parallel permet d'exécuter et de gérer plusieurs calculs courts, incluant les balayages de paramètres (parameter sweeps), sur un nœud unique réservé via une tâche parallèle."
-    },
-    {
-      "question": "Comment fonctionne GLOST pour les tâches sérielles?",
-      "answer": "GLOST (Greedy Launcher Of Small Tasks) utilise MPI et une architecture gestionnaire-travailleur pour exécuter progressivement une longue liste de tâches sérielles sur les noyaux de CPU réservés par une tâche parallèle."
-    },
-    {
-      "question": "Qu'est-ce que META et à quoi sert-il?",
-      "answer": "META est une suite de scripts conçue par SHARCNET pour automatiser le calcul à haut débit, c'est-à-dire l'exécution d'un grand nombre de calculs sériels, parallèles ou sur GPU qui sont liés."
-    },
-    {
-      "question": "Qu'est-ce qu'une dépendance entre tâches (inter-job dependency) dans Slurm?",
-      "answer": "Les dépendances entre tâches sont les liens et les relations entre les étapes d'un pipeline de calcul, permettant de s'assurer que des tâches s'exécutent les unes après les autres, par exemple."
-    },
-    {
-      "question": "Donnez un exemple d'utilisation d'une dépendance entre tâches.",
-      "answer": "Par exemple, si deux tâches doivent s'exécuter l'une après l'autre, la deuxième tâche dépend de la première. On souhaite typiquement que la deuxième tâche démarre seulement après que la première tâche ait réussi."
-    },
-    {
-      "question": "Comment puis-je faire en sorte qu'une deuxième tâche dépende du succès d'une première tâche avec Slurm?",
-      "answer": "Vous pouvez enregistrer l'identifiant de la première tâche (par exemple, `JOBID1=$(sbatch --parsable job1.sh)`) et ensuite soumettre la deuxième tâche avec `--dependency=afterok:$JOBID1` (par exemple, `sbatch --dependency=afterok:$JOBID1 job2.sh`)."
-    },
-    {
-      "question": "Est-il possible que plusieurs tâches dépendent d'une seule tâche?",
-      "answer": "Oui, plusieurs tâches peuvent avoir la même dépendance, ce qui signifie qu'elles attendent toutes après la même tâche."
-    },
-    {
-      "question": "Est-ce qu'une seule tâche peut dépendre de plusieurs autres tâches?",
-      "answer": "Oui, une tâche peut avoir plusieurs dépendances, ce qui signifie qu'elle attendra que plusieurs tâches précédentes soient complétées."
-    },
-    {
-      "question": "Quels sont les différents types de dépendances disponibles avec l'option `--dependency` de `sbatch`?",
-      "answer": "Il existe plusieurs types de dépendances, notamment `after`, `afterany`, `afterok`, et `afternotok`. Pour plus de détails, il faut consulter la documentation officielle de `sbatch`."
-    },
-    {
-      "question": "Qu'est-ce qu'une tâche hétérogène (heterogeneous job) dans Slurm?",
-      "answer": "Une tâche hétérogène est une fonctionnalité du planificateur Slurm qui permet de spécifier des exigences différentes en matière de ressources (comme les noyaux de CPU et la mémoire) pour les différents processus au sein d'une même tâche."
-    },
-    {
-      "question": "Quand est-ce qu'une tâche hétérogène serait particulièrement utile?",
-      "answer": "C'est très utile si vous savez d'avance que votre application MPI nécessitera plus de noyaux de CPU et plus de mémoire pour le processus principal que pour les autres processus."
-    },
-    {
-      "question": "Comment spécifier des exigences de ressources différentes pour les processus dans un script de tâche hétérogène?",
-      "answer": "Dans un script, vous pouvez utiliser des lignes `#SBATCH` distinctes pour chaque ensemble de ressources, en insérant `#SBATCH hetjob` entre les définitions. Par exemple, `--ntasks=1 --cpus-per-task=8 --mem-per-cpu=4000M` pour le processus principal, suivi de `#SBATCH hetjob` et `--ntasks=15 --cpus-per-task=1 --mem-per-cpu=1000M` pour les autres."
-    },
-    {
-      "question": "Peut-on spécifier les exigences de ressources pour une tâche hétérogène directement sur la ligne de commande `sbatch`?",
-      "answer": "Oui, on peut séparer les demandes de ressources pour les différents groupes de processus avec un deux-points (:) sur la ligne de commande `sbatch`. Par exemple, `sbatch --ntasks=1 --cpus-per-task=8 --mem-per-cpu=4000M : --ntasks=15 --cpus-per-task=1 --mem-per-cpu=1000M mpi_job.sh`."
+      "question": "C'est quoi, au juste, une tâche hétérogène dans Slurm, et pourquoi ça pourrait être avantageux pour certaines applications?",
+      "answer": "Une tâche hétérogène dans Slurm, c'est une tâche qui permet de spécifier des exigences en ressources différentes (comme le nombre de cœurs de CPU et la mémoire) pour les divers composants au sein de la même tâche. C'est super avantageux si vous savez d'avance, par exemple, qu'une application MPI nécessitera plus de cœurs et de mémoire pour son processus principal que pour les autres processus. Ça permet d'optimiser l'allocation des ressources en attribuant précisément ce dont chaque partie de l'application a besoin, évitant ainsi le gaspillage."
     }
   ],
-  "generated_at": "2026-04-11T16:03:19.947721+00:00"
+  "generated_at": "2026-04-13T01:09:14.264001+00:00"
 }

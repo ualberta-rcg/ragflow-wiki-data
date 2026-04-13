@@ -4,61 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Quelle est la différence entre l'option `--progress` et `--info=progress2` quand on utilise `rsync` pour un transfert?",
-      "answer": "L'option `--progress` affiche la progression du transfert de chaque fichier individuellement. Par contre, pour le transfert de plusieurs petits fichiers, il est préférable d'utiliser `--info=progress2` qui affiche la progression du transfert de l'ensemble des fichiers."
+      "question": "Qu'est-ce que le protocole SFTP et comment fonctionne-t-il pour le transfert sécurisé de fichiers?",
+      "answer": "SFTP, ou Secure File Transfer Protocol, est un protocole qui utilise SSH pour chiffrer les données transférées. Cela garantit un transfert sécuritaire de vos fichiers entre un ordinateur et les équipements de l'Alliance."
     },
     {
-      "question": "Comment transférer des fichiers d'un système distant vers un répertoire local `/project` en utilisant `rsync`?",
-      "answer": "Pour ce type de transfert, vous utiliseriez une commande comme `rsync -avzh --no-g --no-p someuser@nibi.alliancecan.ca:REMOTENAME ~/projects/def-professor/someuser/somedir/`, où REMOTENAME est le chemin distant."
+      "question": "Si Globus ou rsync sont trop lents pour synchroniser des données, quelle méthode alternative peut être employée pour comparer l'intégrité des fichiers entre deux systèmes?",
+      "answer": "Lorsque Globus n'est pas utilisable et que rsync est trop lent pour la synchronisation, on peut comparer les deux systèmes en utilisant un utilitaire de somme de contrôle (checksum) comme `sha1sum`. On peut générer un fichier de sommes de contrôle pour chaque système, puis les comparer avec la commande `diff` pour identifier les fichiers non concordants."
     },
     {
-      "question": "Comment faire un transfert local de fichiers, par exemple de `/home` ou `/scratch` vers `/project` dans le même système, avec `rsync`?",
-      "answer": "Pour un transfert local, vous n'avez pas besoin d'indiquer le nom de la grappe. La commande serait `rsync -avh --no-g --no-p LOCALNAME ~/projects/def-professor/someuser/somedir/`."
-    },
-    {
-      "question": "Est-ce que `rsync` crée automatiquement le répertoire de destination s'il n'existe pas?",
-      "answer": "Oui, le répertoire de destination (par exemple, `somedir` dans les exemples) sera créé s'il n'existe pas déjà."
-    },
-    {
-      "question": "Quelle est la particularité de la commande `cp` par rapport à `rsync` si on copie un répertoire et que le répertoire de destination n'existe pas?",
-      "answer": "Contrairement à `rsync`, si `LOCALNAME` est un répertoire et que `somedir` n'existe pas, `cp` (avec l'option `-rv`) renommera `LOCALNAME` en `somedir`."
-    },
-    {
-      "question": "Quand est-ce qu'on devrait considérer l'utilisation d'un utilitaire de 'checksum' pour synchroniser des données, si Globus et `rsync` ne sont pas efficaces?",
-      "answer": "Vous devriez utiliser un utilitaire de `checksum` si vous ne pouvez pas utiliser Globus pour synchroniser deux systèmes et que `rsync` est jugé trop lent."
-    },
-    {
-      "question": "Comment puis-je créer un fichier de sommes de contrôle pour tous les fichiers d'un répertoire spécifique en utilisant `sha1sum`?",
-      "answer": "Vous pouvez utiliser la commande `find /home/username/ -type f -print0 | xargs -0 sha1sum | tee checksum-result.log`. Ça va créer un fichier 'checksum-result.log' dans le répertoire courant avec toutes les sommes de contrôle."
-    },
-    {
-      "question": "Peut-on faire tourner `rsync` en arrière-plan pour des transferts de gros fichiers afin de gérer les bris de connexion SSH?",
-      "answer": "Oui, `rsync` peut travailler en arrière-plan en mode `screen`, `tmux` ou par tout autre moyen lui permettant d'opérer malgré un bris de la connexion SSH."
-    },
-    {
-      "question": "Après avoir généré des fichiers de sommes de contrôle, comment trouver les fichiers qui ne concordent pas entre deux systèmes?",
-      "answer": "Une fois l'opération terminée, l'utilitaire `diff` peut être utilisé, comme dans l'exemple `diff checksum-result-silo.log checksum-dtn.log`."
-    },
-    {
-      "question": "Comment éviter les fausses différences rapportées par `diff` à cause d'un ordre de fichiers différent généré par la commande `find`?",
-      "answer": "Pour contrer ce problème, vous devriez lancer la commande `sort -k2` sur les deux fichiers de sommes de contrôle avant d'exécuter `diff`. Par exemple, `sort -k2 checksum-result-silo.log -o checksum-result-silo.log`."
-    },
-    {
-      "question": "Que signifie SFTP?",
-      "answer": "SFTP est l'abréviation de 'Secure File Transfer Protocol'."
-    },
-    {
-      "question": "Quel protocole SFTP utilise-t-il pour le chiffrement des données transférées?",
-      "answer": "SFTP utilise le protocole SSH pour chiffrer les données transférées."
-    },
-    {
-      "question": "Comment puis-je m'authentifier avec SFTP en utilisant une clé SSH plutôt qu'un mot de passe?",
-      "answer": "Vous pouvez vous authentifier en utilisant l'option `-i` suivie du chemin vers votre clé SSH privée, comme ceci: `sftp -i /home/name/.ssh/id_rsa USERNAME@ADDRESS`."
-    },
-    {
-      "question": "Comment consulter la liste des commandes de transfert disponibles une fois connecté à l'invite `sftp>`?",
-      "answer": "À l'invite `sftp>`, vous pouvez taper la commande `help` pour obtenir la liste des commandes disponibles."
+      "question": "Comment peut-on afficher la progression globale du transfert pour plusieurs petits fichiers avec rsync, plutôt que la progression de chaque fichier individuel?",
+      "answer": "Pour afficher la progression du transfert de l'ensemble des fichiers lorsqu'on transfère plusieurs petits fichiers avec rsync, il est préférable d'utiliser l'option `--info=progress2`."
     }
   ],
-  "generated_at": "2026-04-12T09:23:40.345171+00:00"
+  "generated_at": "2026-04-13T14:38:45.711247+00:00"
 }

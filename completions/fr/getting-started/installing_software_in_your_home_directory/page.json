@@ -3,77 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Comment puis-je demander l'installation d'un logiciel sur les systèmes?",
-      "answer": "Vous pouvez envoyer un courriel à support@tech.alliancecan.ca en joignant l'adresse URL pour l'installation du logiciel."
+      "question": "Comment les utilisateurs peuvent-ils installer des logiciels sur les grappes d'Alliance?",
+      "answer": "Les utilisateurs peuvent demander à l'équipe de soutien d'Alliance d'installer des logiciels ou les installer eux-mêmes dans leur espace /project ou /home."
     },
     {
-      "question": "Est-ce que j'ai le droit d'installer des logiciels moi-même?",
-      "answer": "Oui, vous avez le droit d'installer des logiciels dans votre espace /project ou /home, par exemple pour modifier le code ou évaluer le logiciel rapidement."
+      "question": "Pour quelles raisons un utilisateur pourrait-il choisir d'installer lui-même un logiciel dans son espace /project ou /home sur une grappe d'Alliance?",
+      "answer": "Les raisons incluent la possibilité d'apporter des modifications au code du logiciel ou d'évaluer le logiciel rapidement."
     },
     {
-      "question": "Quelle est une méthode courante pour installer des logiciels à partir du code source?",
-      "answer": "Une méthode fréquemment utilisée est d'exécuter les commandes `./configure`, `make`, puis `make install`."
+      "question": "Comment peut-on demander à l'équipe de soutien d'Alliance d'installer un logiciel pour une utilisation générale sur les grappes?",
+      "answer": "Il faut envoyer un courriel à support@tech.alliancecan.ca en joignant l'adresse URL pour l'installation du logiciel."
     },
     {
-      "question": "Quels problèmes peuvent survenir avec la commande `make install` et comment les résoudre?",
-      "answer": "La commande `make install` peut échouer si le logiciel tente d'écrire dans des espaces partagés comme `/usr/local`. La solution est d'utiliser l'indicateur `--prefix` avec `./configure` pour diriger l'installation vers un répertoire de votre choix."
+      "question": "Quelle est une syntaxe de commande fréquemment utilisée pour installer des logiciels à partir du code source sur les grappes d'Alliance?",
+      "answer": "La syntaxe est souvent <code>./configure</code>, suivie de <code>make</code>, puis de <code>make install</code>."
     },
     {
-      "question": "Pourquoi la commande `sudo make install` ne fonctionnera-t-elle pas?",
-      "answer": "La commande `sudo make install` échouera toujours parce qu'elle exige des permissions d'administrateur (root), que vous n'avez pas sur ces systèmes."
+      "question": "Quel obstacle peut survenir lors de l'utilisation de <code>make install</code> pour installer un logiciel sur une grappe d'Alliance, et quelle est la solution?",
+      "answer": "<code>make install</code> peut échouer si le logiciel tente d'écrire dans <code>/usr/local</code> ou si <code>sudo make install</code> est utilisé. La solution est d'ajouter l'indicateur <code>--prefix</code> à l'étape <code>configure</code> pour diriger l'installation vers un répertoire de votre choix."
     },
     {
-      "question": "Comment puis-je utiliser une bibliothèque existante après son installation?",
-      "answer": "Le plus simple est de charger le module correspondant avec la commande `module load library_name/x.y.z`."
+      "question": "Comment peut-on charger une bibliothèque pour l'utiliser avec un logiciel compilé sur les grappes d'Alliance?",
+      "answer": "Le moyen le plus simple est de charger d'abord le module correspondant avec la commande <code>module load nom_de_la_bibliothèque/x.y.z</code>."
     },
     {
-      "question": "Comment les modules de bibliothèque simplifient-ils la compilation?",
-      "answer": "Le chargement d'un module configure les variables d'environnement CPATH et LIBRARY_PATH, permettant aux compilateurs comme Intel et GCC de trouver automatiquement les fichiers d'en-tête et les bibliothèques."
+      "question": "Quel est le rôle des variables d'environnement <code>CPATH</code> et <code>LIBRARY_PATH</code> lorsqu'une bibliothèque est chargée sur les grappes d'Alliance?",
+      "answer": "Ces variables sont configurées pour pointer vers la bibliothèque et ses fichiers d'en-tête, permettant aux compilateurs de les trouver automatiquement aux étapes de compilation et de liaison."
     },
     {
-      "question": "Comment faire le lien avec une bibliothèque lors de la compilation d'un programme C avec `gcc`?",
-      "answer": "Après avoir chargé le module, vous pouvez utiliser l'option `-l` suivie du nom de la bibliothèque (par exemple, `gcc -o my_prog file1.o file2.o -lnetcdf`)."
+      "question": "Comment peut-on spécifier explicitement la localisation d'une bibliothèque fournie par un module pour <code>cmake</code> sur les grappes d'Alliance?",
+      "answer": "La solution préférée est d'utiliser la variable d'environnement EasyBuild <code>EBROOT...</code>, par exemple <code>-DGSL_DIR=$EBROOTGSL</code> pour la bibliothèque GSL."
     },
     {
-      "question": "Qu'est-ce que les variables d'environnement `EBROOT...` et quand les utiliser?",
-      "answer": "Les variables `EBROOT...` (ex. `EBROOTGSL`) indiquent le chemin d'installation d'un paquet fourni par EasyBuild. Elles sont utiles, surtout avec `cmake`, pour spécifier la localisation des bibliothèques de manière robuste."
+      "question": "Que doit-on faire si un logiciel sur les grappes d'Alliance fait appel à <code>apt-get</code> ou <code>yum</code> pour son installation?",
+      "answer": "Il faut plutôt chercher les instructions pour compiler à partir du code source (''to build from source'') ou contacter le soutien technique."
     },
     {
-      "question": "Que dois-je faire si le logiciel requiert `apt-get` ou `yum`?",
-      "answer": "Il est peu probable que vous puissiez l'installer directement. Il faut plutôt chercher les instructions pour la compilation à partir du code source (build from source) ou contacter le soutien technique."
+      "question": "Où peut-on trouver des informations sur l'installation de paquets Python, R et Perl sur les grappes d'Alliance?",
+      "answer": "Il faut consulter les pages wiki dédiées à Python, R et Perl pour savoir si le paquet est disponible ou comment l'installer soi-même."
     },
     {
-      "question": "Où puis-je trouver de l'information sur l'installation de paquets Python, R ou Perl?",
-      "answer": "Vous pouvez consulter les pages dédiées à Python, R et Perl pour vérifier la disponibilité ou les instructions d'installation des paquets."
+      "question": "Quelle est la cause fréquente d'erreurs comme <code>/lib64/libc.so.6: version 'GLIBC_2.18' not found</code> lors de l'installation de binaires précompilés sur les grappes d'Alliance, et comment y remédier?",
+      "answer": "L'erreur survient lorsque le binaire ne trouve pas la bonne version de GLIBC. Le script <code>setrpaths.sh --path chemin</code> peut souvent éliminer ce problème en s'assurant que les binaires utilisent le bon interpréteur et les bonnes bibliothèques."
     },
     {
-      "question": "Comment résoudre les erreurs de version `GLIBC` lors de l'installation de paquets binaires dans mon espace /home?",
-      "answer": "Le script `setrpaths.sh` peut souvent régler ce problème en ajustant les chemins des bibliothèques d'exécution pour que les binaires trouvent les bonnes dépendances."
+      "question": "Qu'est-ce que le système de fichiers CVMFS et comment est-il utilisé sur les grappes d'Alliance?",
+      "answer": "CVMFS (<i>shared software distribution system</i>) rend presque tous les logiciels disponibles sur les nouvelles grappes, installés de manière identique sous <code>/cvmfs/soft.computecanada.ca</code>."
     },
     {
-      "question": "Qu'est-ce que le système de fichiers CVMFS et quel module est chargé par défaut?",
-      "answer": "CVMFS est un système de distribution de logiciels partagé qui rend la plupart des logiciels disponibles sur les grappes. Le module `gentoo/2023` est chargé par défaut et sert de cœur à cette pile logicielle."
+      "question": "Quel est le rôle du module <code>gentoo/2023</code> dans l'environnement logiciel par défaut sur les grappes d'Alliance?",
+      "answer": "Il est chargé par défaut et agit comme le cœur de la pile logicielle, offrant tous les paquets usuels d'un environnement Linux via le gestionnaire de paquets Gentoo situé sous <code>/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr</code>."
     },
     {
-      "question": "Comment peut-on faire référence au chemin d'installation de Gentoo dans l'environnement CVMFS?",
-      "answer": "On utilise la variable d'environnement `$EBROOTGENTOO` pour référer au chemin `/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr`."
+      "question": "Quand est-il nécessaire d'utiliser la variable d'environnement <code>$EBROOTGENTOO</code> lors de la compilation de logiciels sur les grappes d'Alliance?",
+      "answer": "Il faut l'utiliser lorsque certains logiciels indiquent explicitement <code>/usr</code> dans leur configuration, ce qui interromprait la compilation, pour spécifier le bon chemin."
     },
     {
-      "question": "Est-il nécessaire d'utiliser la variable `LD_LIBRARY_PATH` pour les binaires sous CVMFS?",
-      "answer": "Non, ce n'est pas nécessaire. Tous les binaires sous `/cvmfs/soft.computecanada.ca` utilisent un RUNPATH, ce qui signifie que les répertoires des bibliothèques d'exécution sont déjà intégrés au binaire."
+      "question": "Pourquoi ne devrait-on pas utiliser la variable d'environnement <code>$LD_LIBRARY_PATH</code> avec les binaires sous <code>/cvmfs/soft.computecanada.ca</code> sur les grappes d'Alliance?",
+      "answer": "Ces binaires utilisent un RUNPATH intégré. <code>$LD_LIBRARY_PATH</code> a préséance sur le RUNPATH et pourrait empêcher plusieurs binaires de fonctionner correctement s'il pointe vers des répertoires comme <code>/usr/lib64</code> ou <code>$EBROOTGENTOO/lib</code>."
     },
     {
-      "question": "Quand devrais-je compiler un code sur un nœud de calcul plutôt que sur un nœud de connexion?",
-      "answer": "Vous devriez compiler sur un nœud de calcul si le développement du code nécessite un GPU ou un CPU Skylake, en démarrant une tâche interactive sur un serveur avec le matériel approprié."
+      "question": "Dans quels cas spéciaux peut-on utiliser la commande <code>module --force purge</code> sur les grappes d'Alliance?",
+      "answer": "Elle peut être utilisée en dernier recours pour éliminer l'environnement CVMFS et obtenir une installation AlmaLinux-9 brute sans modules, par exemple pour compiler GCC soi-même ou utiliser des chaînes d'outils de compilation spécifiques."
     },
     {
-      "question": "Que faire si je rencontre d'autres erreurs lors de l'installation ou de la compilation?",
-      "answer": "Vous pouvez contacter le soutien technique à support@computecanada.ca pour obtenir de l'aide."
-    },
-    {
-      "question": "Dans quel cas extrême peut-on utiliser `module --force purge`?",
-      "answer": "En dernier recours, `module --force purge` peut être utilisé pour éliminer l'environnement CVMFS et obtenir une installation AlmaLinux-9 brute, utile pour des cas spéciaux comme la compilation de GCC par soi-même ou l'utilisation de chaînes d'outils spécifiques."
+      "question": "Dans quelles situations est-il recommandé de compiler un logiciel sur un nœud de calcul plutôt que sur un nœud de connexion sur les grappes d'Alliance?",
+      "answer": "Il est recommandé de le faire si le code doit être développé à l'aide d'un nœud avec un GPU ou un CPU Skylake, en démarrant une tâche interactive sur un serveur doté du matériel approprié."
     }
   ],
-  "generated_at": "2026-04-12T00:09:00.121949+00:00"
+  "generated_at": "2026-04-13T07:25:38.283260+00:00"
 }

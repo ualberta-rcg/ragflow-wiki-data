@@ -4,61 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Quels modèles de GPU et leurs identifiants Slurm sont disponibles sur les grappes Rorqual, TamIA et Vulcan, selon le tableau des GPU disponibles?",
-      "answer": "Sur Rorqual, on retrouve le modèle L40S-48gb avec l'identifiant Slurm `l40s`. Sur TamIA, il y a le H100-80gb (identifiant `h100`) et le H200 (identifiant `h200`). Finalement, la grappe Vulcan offre le L40S-48gb, dont l'identifiant est `l40s`."
+      "question": "Comment peut-on connaître les identifiants de GPU (et de MIG) disponibles sur les grappes, au cas où le tableau de documentation ne serait pas à jour?",
+      "answer": "Pour obtenir la liste des identifiants de GPU et de MIG disponibles sur chacune des grappes, vous pouvez utiliser la commande suivante : `sinfo -o \"%G\" | grep gpu | sed 's/gpu://g' | sed 's/),/\\n/g' | cut -d: -f1 | sort | uniq`. Il est à noter que cette commande ne fournira pas les identifiants courts pour certains modèles de MIG."
     },
     {
-      "question": "Quelle commande Slurm peut-on utiliser pour lister les identifiants de GPU et de MIG disponibles sur chaque grappe, surtout si le tableau n'est pas à jour?",
-      "answer": "Vous pouvez utiliser la commande `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\n/g'|cut -d: -f1|sort|uniq` pour voir les identifiants de GPU (et MIG) disponibles."
+      "question": "Pourquoi est-il fortement recommandé de toujours spécifier un identifiant de modèle de GPU dans les scripts de tâches soumises via Slurm?",
+      "answer": "Il est fortement recommandé de toujours spécifier un identifiant de modèle de GPU dans vos scripts de tâches, car si vous ne le faites pas, votre tâche risque d'être rejetée ou acheminée vers une instance de GPU arbitraire. Très peu de programmes sont capables d'utiliser efficacement un modèle arbitraire, d'où l'importance de cette spécification."
     },
     {
-      "question": "Est-ce que la commande `sinfo` qui liste les identifiants de GPU fournit aussi les identifiants courts pour tous les modèles MIG?",
-      "answer": "Non, cette commande ne fournit pas les identifiants courts qui existent pour certains modèles de MIG sur certaines grappes."
-    },
-    {
-      "question": "Est-ce que la simple présence d'un modèle de GPU garantit qu'on peut l'utiliser?",
-      "answer": "Non, la présence d'un modèle de GPU ne garantit pas que vous pouvez utiliser l'identifiant correspondant. Des restrictions supplémentaires peuvent s'appliquer, dépendant notamment de votre groupe de recherche."
-    },
-    {
-      "question": "Que se passe-t-il si je ne spécifie pas un modèle de GPU pour ma tâche Slurm?",
-      "answer": "Si vous ne spécifiez pas de modèle, votre tâche risque d'être rejetée ou acheminée vers une instance de GPU arbitraire."
-    },
-    {
-      "question": "Pourquoi est-il fortement recommandé de toujours spécifier un identifiant de modèle dans les scripts de tâches Slurm?",
-      "answer": "C'est parce que très peu de programmes sont capables d'utiliser efficacement un modèle arbitraire, et ne pas spécifier un modèle peut entraîner le rejet de votre tâche ou son exécution sur un GPU non optimal."
-    },
-    {
-      "question": "Est-ce qu'il est possible de soumettre des tâches Slurm pour utiliser les GPU sur Arbutus?",
-      "answer": "Non, les GPU sont disponibles sur Arbutus, mais il n'est pas possible de soumettre des tâches via Slurm puisque c'est une ressource infonuagique."
-    },
-    {
-      "question": "C'est quoi la technologie GPU multi-instances (MIG)?",
-      "answer": "La technologie MIG permet de partitionner un GPU en plusieurs instances, ce qui signifie que vos tâches peuvent utiliser une partie d'un GPU (un MIG) plutôt qu'un GPU entier."
-    },
-    {
-      "question": "Est-ce qu'une tâche utilisant un GPU doit aussi demander des cœurs CPU et de la mémoire système?",
-      "answer": "Oui, avec chaque instance GPU, une tâche doit avoir un nombre de cœurs CPU (1 par défaut) et une certaine quantité de mémoire système."
-    },
-    {
-      "question": "Où puis-je trouver les informations sur le maximum de cœurs CPU et de mémoire système à demander avec un GPU?",
-      "answer": "Pour le maximum de cœurs CPU et de mémoire système, vous pouvez consulter le tableau des ratios dans la section sur les allocations et l'ordonnancement des calculs (`Allocations_and_compute_scheduling/fr#Ratios_dans_les_bundles`)."
-    },
-    {
-      "question": "Quel est un exemple de script Slurm pour une tâche avec un seul cœur CPU qui demande un GPU A100 et 4000 Mo de mémoire par nœud?",
-      "answer": "Un script Slurm pour une tâche avec un seul cœur CPU et un GPU A100 devrait inclure les directives `#SBATCH --gpus-per-node=a100:1` et `#SBATCH --mem=4000M`."
-    },
-    {
-      "question": "Comment configurer un script Slurm pour une tâche GPU multifils qui nécessite un GPU A100, six cœurs CPU par tâche et 4000 Mo de mémoire par nœud?",
-      "answer": "Pour une tâche multifils, vous devriez inclure dans votre script Slurm : `#SBATCH --gpus-per-node=a100:1`, `#SBATCH --cpus-per-task=6`, et `#SBATCH --mem=4000M`. Il est aussi recommandé d'ajouter `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`."
-    },
-    {
-      "question": "Quel est le nombre maximum de cœurs CPU recommandé pour chaque GPU complet sur les grappes Fir, Narval, Nibi et Rorqual?",
-      "answer": "Pour Fir et Narval, un maximum de 12 cœurs CPU est recommandé. Pour Nibi, c'est 14 cœurs CPU, et pour Rorqual, 16 cœurs CPU sont recommandés pour chaque GPU complet."
-    },
-    {
-      "question": "Quelles directives Slurm utiliser pour une tâche MPI qui demande 8 GPU A100 au total, avec un processus MPI par GPU, six cœurs CPU par processus MPI et 5 Go de mémoire hôte par cœur CPU?",
-      "answer": "Vous devriez utiliser les directives Slurm suivantes : `#SBATCH --gpus=a100:8`, `#SBATCH --ntasks-per-gpu=1`, `#SBATCH --cpus-per-task=6`, et `#SBATCH --mem-per-cpu=5G`."
+      "question": "Quels sont les nombres maximums de cœurs CPU recommandés par GPU complet pour les tâches multifils sur les grappes Fir, Narval, Nibi et Rorqual?",
+      "answer": "Pour chaque GPU complet demandé dans une tâche multifils, nous recommandons un maximum de 12 cœurs CPU sur Fir, 12 cœurs CPU sur Narval, 14 cœurs CPU sur Nibi et 16 cœurs CPU sur Rorqual."
     }
   ],
-  "generated_at": "2026-04-12T10:05:14.498436+00:00"
+  "generated_at": "2026-04-13T15:10:48.789630+00:00"
 }

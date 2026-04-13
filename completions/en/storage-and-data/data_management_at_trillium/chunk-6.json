@@ -4,101 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "How should I transfer data amounts less than 10GB to or from Trillium?",
-      "answer": "You should move data amounts less than 10GB through the login nodes. Use `scp` or `rsync` to connect to any of `tri-dm{2,3,4}.scinet.utoronto.ca`."
+      "question": "How do I transfer large files (over 10GB) to or from Trillium?",
+      "answer": "For transfers exceeding 10GB, you can use the datamover nodes by SSHing to `nia-datamover1` or `nia-datamover2` from a Trillium login node. Alternatively, you can directly connect to `nia-datamover1.scinet.utoronto.ca` or `nia-datamover2.scinet.utoronto.ca` from outside SciNet using `scp` or `rsync`. Globus is also recommended for frequent large data transfers, with 'alliancecan#trillium' as the Trillium endpoint."
     },
     {
-      "question": "What is the recommended method for transferring data amounts larger than 10GB to or from Trillium?",
-      "answer": "For amounts larger than 10GB, you should move them through the datamover nodes. From a Trillium login node, SSH to `nia-datamover1` or `nia-datamover2`. Alternatively, you can log in, `scp`, or `rsync` directly to `nia-datamover1.scinet.utoronto.ca` or `nia-datamover2.scinet.utoronto.ca` from outside."
+      "question": "What are Access Control Lists (ACLs) used for on SciNet systems?",
+      "answer": "Access Control Lists (ACLs) at SciNet are used for file ownership management and access control. They allow users to grant their supervisor or other members within their group permissions to manage files (create, move, rename, delete), while retaining original ownership. ACLs can also be used to provide read or execute access to files for users in different groups."
     },
     {
-      "question": "What tool should I consider if I frequently transfer large datasets?",
-      "answer": "If you transfer data often, you should consider using Globus, which is a web-based tool for data transfer."
-    },
-    {
-      "question": "What is the Globus endpoint for Trillium?",
-      "answer": "The Trillium endpoint for Globus is \"alliancecan#trillium\"."
-    },
-    {
-      "question": "What is the Globus endpoint for HPSS?",
-      "answer": "The HPSS endpoint for Globus is \"alliancecan#hpss\"."
-    },
-    {
-      "question": "What is the primary purpose of HPSS?",
-      "answer": "HPSS is designed for the long-term storage of data."
-    },
-    {
-      "question": "What kind of storage solution is HPSS?",
-      "answer": "HPSS is a tape-based storage solution, also known as SciNet's nearline or archive facility."
-    },
-    {
-      "question": "How is storage space on HPSS allocated?",
-      "answer": "Storage space on HPSS is allocated through the annual Resource Allocation Competition."
-    },
-    {
-      "question": "What are the default file permissions for users within the same group at SciNet?",
-      "answer": "By default, users within the same group at SciNet already have read permission to each other's files, but not write permission."
-    },
-    {
-      "question": "How can an Access Control List (ACL) be used to manage file permissions?",
-      "answer": "An ACL can be used to allow your supervisor or another user within your group to manage files for you (e.g., create, move, rename, delete) while you retain original ownership. It can also grant access (read, execute) to users in other groups."
-    },
-    {
-      "question": "What are the native GPFS commands for managing Access Control Lists?",
-      "answer": "The native GPFS commands for managing Access Control Lists are `mmputacl` and `mmgetacl`."
-    },
-    {
-      "question": "What advantages do `mmputacl` and `mmgetacl` offer?",
-      "answer": "The advantages of using `mmputacl` and `mmgetacl` are that you can set \"control\" permission, and they support POSIX or NFS v4 style ACLs."
-    },
-    {
-      "question": "What preparatory step is required before using `mmputacl`?",
-      "answer": "Before using `mmputacl`, you will first need to create a `/tmp/supervisor.acl` file with specific content defining the desired permissions."
-    },
-    {
-      "question": "How do you apply an ACL from a file to a directory?",
-      "answer": "You apply an ACL by issuing the command: `$ mmputacl -i /tmp/supervisor.acl /project/g/group/[owner]`."
-    },
-    {
-      "question": "How can new files within a directory inherit a supervisor's ownership by default using ACLs?",
-      "answer": "You can use the command `$ mmputacl -d -i /tmp/supervisor.acl /project/g/group/[owner]` so that every new file or directory inside the owner's directory will inherit the supervisor's ownership by default."
-    },
-    {
-      "question": "Which command is used to determine the current ACL attributes of a directory?",
-      "answer": "The command `$ mmgetacl /project/g/group/[owner]` is used to determine the current ACL attributes."
-    },
-    {
-      "question": "How do you remove a previously set ACL?",
-      "answer": "To remove any previously set ACL, use the command `$ mmdelacl -d /project/g/group/[owner]`."
-    },
-    {
-      "question": "What command allows you to create or change a GPFS access control list, and what is a prerequisite for it to work?",
-      "answer": "The command `mmeditacl /project/g/group/[owner]` is used to create or change a GPFS access control list. For this command to work, you must set the `EDITOR` environment variable, for example, `export EDITOR=/usr/bin/vi`."
-    },
-    {
-      "question": "Is there a built-in GPFS command to recursively add or remove ACL attributes to existing files?",
-      "answer": "No, there is no built-in GPFS command to recursively add or remove ACL attributes to existing files. You need to use the `-i` option for each file or directory individually, or use a sample bash script for this purpose."
-    },
-    {
-      "question": "What happens if `mmputacl` is used on a directory when copying it to another directory that already has ACLs?",
-      "answer": "`mmputacl` will not overwrite the original Linux group permissions for a directory when it is copied to another directory already with ACLs."
-    },
-    {
-      "question": "What is the proper way to give rwx permissions to everyone in your group?",
-      "answer": "To give rwx permissions to everyone in your group, you should simply rely on the plain Unix `chmod g+rwx` command."
-    },
-    {
-      "question": "Who is responsible for setting proper ACLs on `/project` for users from other groups to access files?",
-      "answer": "In the case of `/project`, your group's supervisor will need to set proper ACLs at the `/project/G/GROUP` level."
-    },
-    {
-      "question": "Can ACLs be used to grant permissions to files or directories that you do not own?",
-      "answer": "No, ACLs will not let you give away permissions to files or directories that do not belong to you."
-    },
-    {
-      "question": "What is strongly recommended regarding giving write permission on your home directory to other users?",
-      "answer": "It is highly recommended that you never give write permission to other users on the top level of your home directory (`/home/G/GROUP/[owner]`), as this can compromise your privacy and disable SSH key authentication. Instead, create specific sub-directories for sharing."
+      "question": "Which GPFS commands are used to manage Access Control Lists (ACLs) at SciNet?",
+      "answer": "SciNet users can manage GPFS ACLs using the native commands: `mmputacl` to set ACLs, `mmgetacl` to determine current ACL attributes, `mmdelacl` to remove previously set ACLs, and `mmeditacl` to create or change an ACL. These commands support POSIX or NFS v4 style ACLs and allow setting 'control' permission."
     }
   ],
-  "generated_at": "2026-04-11T20:56:09.937581+00:00"
+  "generated_at": "2026-04-13T04:50:35.032975+00:00"
 }

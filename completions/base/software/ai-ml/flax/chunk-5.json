@@ -4,85 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is the name of the SLURM batch script provided for multi-GPU training on a single node?",
-      "answer": "The SLURM batch script for multi-GPU training on a single node is named `flax-example-multigpu.sh`."
+      "question": "What are the steps to install Flax and its dependencies within a virtual environment for a multi-GPU job on a single node, as shown in the `flax-example-multigpu.sh` script?",
+      "answer": "To install Flax and its dependencies for a multi-GPU job on a single node, the `flax-example-multigpu.sh` script outlines these steps: first, load the `python` and `cuda` modules. Second, create a virtual environment in `$SLURM_TMPDIR` using `virtualenv --no-download $SLURM_TMPDIR/env`. Third, activate the created virtual environment with `source $SLURM_TMPDIR/env/bin/activate`. Finally, install `flax`, `tensorflow`, and `torchvision` into the virtual environment using `pip install --no-index`."
     },
     {
-      "question": "What is the wall time limit set for the `flax-example-multigpu.sh` job?",
-      "answer": "The wall time limit for the `flax-example-multigpu.sh` job is 5 minutes (0:05:00)."
-    },
-    {
-      "question": "What is the expected output file name format for the `flax-example-multigpu.sh` script?",
-      "answer": "The output file name format for the `flax-example-multigpu.sh` script is `%N-%j.out`, which typically resolves to the node name and job ID."
-    },
-    {
-      "question": "How is Python loaded in the `flax-example-multigpu.sh` script?",
-      "answer": "Python is loaded using `module load python`."
-    },
-    {
-      "question": "How is the CUDA module loaded in the `flax-example-multigpu.sh` script?",
-      "answer": "The CUDA module is loaded using `module load cuda`."
-    },
-    {
-      "question": "How are `flax`, `tensorflow`, and `torchvision` installed within the virtual environment in the `flax-example-multigpu.sh` script?",
-      "answer": "These packages are installed using `pip install flax tensorflow torchvision --no-index` after activating a virtual environment located in `$SLURM_TMPDIR/env`."
-    },
-    {
-      "question": "What Python script is executed by the `flax-example-multigpu.sh` batch job?",
-      "answer": "The `flax-example-multigpu.py` Python script is executed by the batch job."
-    },
-    {
-      "question": "Which Flax module is used to define the neural network layers in `flax-example-multigpu.py`?",
-      "answer": "The `flax.linen` module, aliased as `nn`, is used to define the neural network layers."
-    },
-    {
-      "question": "How does the `flax-example-multigpu.py` script determine the number of GPUs available to the job?",
-      "answer": "The script determines the number of available GPUs using `jax.local_device_count()`."
-    },
-    {
-      "question": "Describe the architecture of the `Net` neural network defined in `flax-example-multigpu.py`.",
-      "answer": "The `Net` network consists of two convolutional layers (`nn.Conv`) followed by ReLU activation (`nn.relu`) and max pooling (`nn.max_pool`), then flattens the output, and finally uses three dense layers (`nn.Dense`) with ReLU activations between the first two."
-    },
-    {
-      "question": "What is the purpose of the `CastToJnp` class in `flax-example-multigpu.py`?",
-      "answer": "The `CastToJnp` class is a helper to cast NumPy arrays to JAX arrays with a `float32` data type."
-    },
-    {
-      "question": "How is the model's initial state created and then prepared for multi-GPU training in `flax-example-multigpu.py`?",
-      "answer": "The model's initial parameters are created with `model.init(seed, jnp.ones([3,32,32]))['params']`, an `optax.sgd` optimizer is used, and the `train_state.TrainState` is created. This state is then replicated across all GPUs using `jax_utils.replicate(state)`."
-    },
-    {
-      "question": "Which libraries are used for data pre-processing and loading in `flax-example-multigpu.py`?",
-      "answer": "PyTorch's `torchvision.transforms` and `torch.utils.data.DataLoader` are used for data pre-processing and loading, as Flax and JAX do not provide these functionalities directly."
-    },
-    {
-      "question": "What dataset is used for training in the `flax-example-multigpu.py` script?",
-      "answer": "The CIFAR10 dataset is used for training, loaded from `./data`."
-    },
-    {
-      "question": "How are input batches split across multiple devices within the training loop in `flax-example-multigpu.py`?",
-      "answer": "Input batches are split by reshaping them into `n_devices` sub-batches, where `n_devices` is the number of GPUs, using `inputs.reshape(n_devices, inputs.shape[0] // n_devices, *inputs.shape[1:])`."
-    },
-    {
-      "question": "What is the role of `jax.pmap` in the `train_step` function in `flax-example-multigpu.py`?",
-      "answer": "`jax.pmap` parallelizes inputs, function evaluation, and outputs over a given axis (which is the first dimension of the inputs by default, representing the number of GPUs in this case). It also JIT compiles the function."
-    },
-    {
-      "question": "How are gradients and loss values synchronized or aggregated across model replicas in `flax-example-multigpu.py`?",
-      "answer": "Gradients and loss values are averaged across all model replicas using `jax.lax.pmean(grads, axis_name='gpus')` and `jax.lax.pmean(loss, axis_name='gpus')`."
-    },
-    {
-      "question": "What is the default learning rate (`--lr`) specified for the `flax-example-multigpu.py` script?",
-      "answer": "The default learning rate (`--lr`) for the script is 0.1."
-    },
-    {
-      "question": "What is the default batch size (`--batch_size`) used in `flax-example-multigpu.py`?",
-      "answer": "The default batch size (`--batch_size`) used in the script is 512."
-    },
-    {
-      "question": "What is the default number of workers (`--num_workers`) for data loading in `flax-example-multigpu.py`?",
-      "answer": "The default number of workers (`--num_workers`) for data loading is 0."
+      "question": "How does the `flax-example-multigpu.py` script implement data parallelism for training a Flax model across multiple GPUs on a single node?",
+      "answer": "The `flax-example-multigpu.py` script implements data parallelism by first broadcasting model replicas to all available GPUs using `jax_utils.replicate`. Then, it splits each training batch into sub-batches, assigning one to each GPU (`n_devices`). The `train_step` function is parallelized across these GPUs using `jax.pmap`. Within this parallelized step, gradients and loss from each model replica are averaged across all GPUs using `jax.lax.pmean` before updating the model's weights."
     }
   ],
-  "generated_at": "2026-04-11T21:38:37.299673+00:00"
+  "generated_at": "2026-04-13T05:24:56.148777+00:00"
 }

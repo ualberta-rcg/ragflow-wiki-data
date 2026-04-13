@@ -4,53 +4,13 @@
   "chunk_index": 34,
   "qa_pairs": [
     {
-      "question": "What type of Ansys Rocky simulation does this Slurm script run?",
-      "answer": "This Slurm script is designed to run Ansys Rocky simulations exclusively with CPUs."
+      "question": "What is the command-line execution for an Ansys Rocky CPU-only simulation within a Slurm script, and what do its parameters signify?",
+      "answer": "The command for an Ansys Rocky CPU-only simulation is `Rocky --simulate “mysim.rocky” --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=0`. Here, `--simulate` specifies the Rocky project file (e.g., \"mysim.rocky\"), `--resume=1` indicates resuming the simulation, `--ncpus=$SLURM_CPUS_PER_TASK` dynamically sets the number of CPUs based on the Slurm allocation, and `--use-gpu=0` explicitly disables GPU usage for a CPU-only run."
     },
     {
-      "question": "Which modules need to be loaded to use this Ansys Rocky script?",
-      "answer": "You need to load `StdEnv/2023` and `ansys/2025R1` modules, or newer versions, as specified in the script."
-    },
-    {
-      "question": "What is the command used to start the Rocky simulation in this script?",
-      "answer": "The Rocky simulation is started with the command `Rocky --simulate “mysim.rocky” --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=0`."
-    },
-    {
-      "question": "How do you specify your account for a job using this Rocky CPU-only Slurm script?",
-      "answer": "Your account (e.g., `def` or `rrg`) should be specified using the `#SBATCH --account` directive at the beginning of the script."
-    },
-    {
-      "question": "What is the default time limit set for an Ansys Rocky CPU-only job in this script?",
-      "answer": "The script sets a default time limit of 2 hours (`00-02:00`) for the job."
-    },
-    {
-      "question": "What is the default memory allocation requested for a Rocky CPU-only job according to this script?",
-      "answer": "The script requests 24GB of total memory for the cores by default (`#SBATCH --mem=24G`)."
-    },
-    {
-      "question": "How many CPU cores per task are requested by default in this Ansys Rocky CPU-only script?",
-      "answer": "By default, the script requests 6 CPU cores per task (`#SBATCH --cpus-per-task=6`)."
-    },
-    {
-      "question": "How many nodes does this Rocky CPU-only Slurm script request for the job?",
-      "answer": "This script requests one compute node (`#SBATCH --nodes=1`)."
-    },
-    {
-      "question": "What is the function of the `export PATH=$EBROOTANSYS/v251/rocky:$PATH` line in the script?",
-      "answer": "This line adds the specific Rocky executable directory for version `v251` to the system's `PATH` environment variable, allowing the `Rocky` command to be found and executed."
-    },
-    {
-      "question": "What does the `--use-gpu=0` argument in the `Rocky` command indicate?",
-      "answer": "The `--use-gpu=0` argument specifies that the simulation should not utilize GPUs, confirming it's a CPU-only run."
-    },
-    {
-      "question": "How is the number of CPUs dynamically passed to the `Rocky` command in this Slurm script?",
-      "answer": "The number of CPUs is passed using `--ncpus=$SLURM_CPUS_PER_TASK`, which uses the value of the `SLURM_CPUS_PER_TASK` environment variable automatically set by Slurm based on the `#SBATCH` directive."
-    },
-    {
-      "question": "Can I use an Ansys module older than 2025R1 with this script?",
-      "answer": "The script specifically loads `ansys/2025R1` or newer versions, so an older module might not be compatible without modifications."
+      "question": "What are the required Slurm directives and environmental setup steps for running an Ansys Rocky CPU-only simulation job on the Alliance clusters?",
+      "answer": "To run an Ansys Rocky CPU-only simulation, the Slurm script must include directives such as `#SBATCH --account=account` (e.g., `def-account` or `rrg-account`), `#SBATCH --time=00-02:00` (time limit), `#SBATCH --mem=24G` (total memory for cores), `#SBATCH --cpus-per-task=6` (number of cores), and `#SBATCH --nodes=1` (requesting a single node). Additionally, it's necessary to load the `StdEnv/2023` and `ansys/2025R1` modules (or newer versions) and export the Rocky path using `export PATH=$EBROOTANSYS/v251/rocky:$PATH`."
     }
   ],
-  "generated_at": "2026-04-12T16:40:48.536386+00:00"
+  "generated_at": "2026-04-13T01:45:06.267681+00:00"
 }

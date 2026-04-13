@@ -4,57 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Quel script doit-on utiliser pour une tâche Abaqus sur un nœud simple qui dure moins de 24 heures?",
-      "answer": "Pour une tâche sur un nœud simple d'une durée de moins de 24 heures, on doit utiliser le script du répertoire `/project` sous le premier onglet."
+      "question": "Comment soumettre une tâche Abaqus standard qui dure moins de 24 heures sur un seul nœud de calcul?",
+      "answer": "Pour une tâche Abaqus standard de courte durée (moins de 24 heures) sur un nœud simple, il faut utiliser le « script pour le répertoire /project » que l'on trouve sous le premier onglet des sections d'analyse standard."
     },
     {
-      "question": "Qu'est-ce qu'on doit utiliser pour une tâche de plus longue durée sur un nœud simple?",
-      "answer": "Pour une tâche de plus longue durée, il faut utiliser un script de redémarrage."
+      "question": "Comment doit-on gérer les tâches Abaqus de longue durée ou celles qui génèrent d'importants fichiers de redémarrage sur un nœud simple?",
+      "answer": "Pour les tâches de longue durée, il est recommandé d'utiliser un script de redémarrage. Si la tâche crée des fichiers de redémarrage volumineux, il est préférable qu'elle écrive sur le disque local en utilisant la variable d'environnement <code>SLURM_TMPDIR</code>. Pour ce faire, il faut se servir des « scripts de répertoire temporaire » disponibles sous les onglets les plus à droite des sections d'analyse standard et explicite à nœud unique, lesquels permettent de reprendre les tâches interrompues prématurément."
     },
     {
-      "question": "Quand est-il préférable d'utiliser les scripts de répertoire temporaire avec la variable d'environnement `SLURM_TMPDIR`?",
-      "answer": "Il est préférable d'utiliser les scripts de répertoire temporaire avec la variable d'environnement `SLURM_TMPDIR` pour les tâches qui créent des fichiers de redémarrage volumineux, afin qu'elles écrivent sur le disque local."
-    },
-    {
-      "question": "À quoi servent les scripts de redémarrage qui sont présentés?",
-      "answer": "Les scripts de redémarrage présentés ici servent à poursuivre les tâches qui ont été interrompues prématurément pour une raison quelconque."
-    },
-    {
-      "question": "Quelles sont les raisons possibles pour qu'une tâche soit interrompue prématurément?",
-      "answer": "Une tâche peut être interrompue prématurément si elle atteint son temps d'exécution maximal demandé et est arrêtée par la file d'attente, ou si le nœud de calcul sur lequel la tâche était exécutée plante à cause d'une défaillance matérielle inattendue."
-    },
-    {
-      "question": "Comment peut-on effectuer d'autres types de redémarrage pour une tâche Abaqus?",
-      "answer": "D'autres types de redémarrage sont possibles en modifiant davantage le fichier d'entrée pour continuer une tâche avec des étapes supplémentaires ou modifier l'analyse."
-    },
-    {
-      "question": "Quels scripts faut-il utiliser pour les tâches qui exigent beaucoup de mémoire ou de ressources de calcul, au-delà de la capacité d'un seul nœud?",
-      "answer": "Pour les tâches qui exigent beaucoup de mémoire ou de ressources de calcul (plus que la capacité d'un nœud simple), il faut utiliser les scripts MPI dans les sections pour nœuds multiples afin de distribuer le calcul sur un ensemble de nœuds arbitraires."
-    },
-    {
-      "question": "Que recommande-t-on de faire avant de lancer des tâches de longue durée pour estimer les besoins en ressources?",
-      "answer": "Avant de lancer des tâches de longue durée, il est recommandé d'exécuter de courts tests présentant peu de scalabilité pour déterminer la durée réelle d'exécution et les exigences en mémoire, en fonction du nombre optimal de cœurs (2, 4, 8, etc.)."
-    },
-    {
-      "question": "Quels modes de parallélisation les solveurs d'analyse standard prennent-ils en charge?",
-      "answer": "Les solveurs d'analyse standard prennent en charge la parallélisation avec fils (threads) et avec MPI."
-    },
-    {
-      "question": "Y a-t-il des scripts de redémarrage disponibles pour les tâches Abaqus qui utilisent des nœuds multiples?",
-      "answer": "Non, des scripts pour redémarrer une tâche qui utilise des nœuds multiples ne sont pas présentés pour l'instant."
-    },
-    {
-      "question": "Quelle est la version d'Abaqus chargée par défaut dans l'exemple de script `scriptsp1.txt` pour un nœud simple?",
-      "answer": "La version `abaqus/2026` est chargée par défaut, c'est la plus récente."
-    },
-    {
-      "question": "Quel mode de parallélisation est utilisé dans l'exemple de commande Abaqus pour la version 2026 dans `scriptsp1.txt`?",
-      "answer": "Le mode de parallélisation utilisé est `mp_mode=threads`."
-    },
-    {
-      "question": "Comment la mémoire est-elle configurée pour la commande Abaqus dans le script `scriptsp1.txt`?",
-      "answer": "La mémoire est configurée avec `memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`, ce qui soustrait 3072 Mo de la mémoire totale par nœud."
+      "question": "Dans quelles circonstances est-il recommandé d'utiliser les scripts MPI pour les simulations Abaqus?",
+      "answer": "Les scripts MPI devraient être utilisés pour les tâches Abaqus qui exigent beaucoup de mémoire ou qui demandent plus de ressources de calcul que la capacité d'un nœud simple. Ces scripts sont conçus pour distribuer le calcul sur un ensemble de nœuds arbitraires, déterminés automatiquement par l'ordonnanceur, et se trouvent dans les sections pour nœuds multiples."
     }
   ],
-  "generated_at": "2026-04-11T15:36:18.295772+00:00"
+  "generated_at": "2026-04-13T00:50:18.585033+00:00"
 }

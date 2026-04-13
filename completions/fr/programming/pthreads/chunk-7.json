@@ -4,29 +4,13 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "Selon le code, qu'est-ce que le fil d'exécution avec l'identifiant (tnumber) 0 fait quand la charge de travail (workload) est égale ou plus petite que 25?",
-      "answer": "Le fil d'exécution 0 verrouille le mutex et attend que la charge de travail devienne plus grande que 25 en utilisant la fonction `pthread_cond_wait`."
+      "question": "Dans l'extrait de code C fourni, comment est-ce que le premier fil d'exécution (identifiant 0) gère l'attente d'une condition spécifique avant de continuer son exécution?",
+      "answer": "Le premier fil d'exécution, celui avec l'identifiant 0, utilise la fonction `pthread_cond_wait` conjointement avec le mutex `mutex` et la variable-condition `ticker`. Il attend tant que la variable `workload` est plus petite ou égale à 25. Pendant qu'il attend, il relâche le mutex, ce qui permet à d'autres fils de modifier `workload`. Une fois que `workload` dépasse 25, la condition est satisfaite, le fil est réveillé, reprend l'exécution et réacquiert le mutex pour ensuite incrémenter `workload` de 15."
     },
     {
-      "question": "De combien la charge de travail (workload) est-elle augmentée par le fil d'exécution dont l'identifiant (tnumber) n'est pas 0?",
-      "answer": "Le fil d'exécution, si son identifiant n'est pas 0, augmente la charge de travail de 3 à chaque itération de sa boucle."
-    },
-    {
-      "question": "Quand est-ce que la fonction `pthread_cond_signal(&ticker)` est appelée par les fils d'exécution avec un tnumber différent de 0?",
-      "answer": "La fonction `pthread_cond_signal(&ticker)` est appelée quand la charge de travail (workload) dépasse 25."
-    },
-    {
-      "question": "Quelle est l'action du fil d'exécution 0 après que la charge de travail (workload) dépasse 25 et qu'il est réveillé?",
-      "answer": "Une fois réveillé, le fil d'exécution 0 incrémente la charge de travail de 15 et déverrouille le mutex."
-    },
-    {
-      "question": "Dans le bloc 'else', qu'est-ce que les fils font avant d'incrémenter la charge de travail?",
-      "answer": "Avant d'incrémenter la charge de travail, les fils verrouillent le mutex en appelant `pthread_mutex_lock(&mutex)`."
-    },
-    {
-      "question": "Quel est l'objectif principal de l'appel à `pthread_cond_signal(&ticker)` dans le code?",
-      "answer": "L'objectif est de signaler au fil d'exécution qui est en attente (celui qui a appelé `pthread_cond_wait`) que la condition pour laquelle il attendait est maintenant satisfaite, le 'réveillant' ainsi."
+      "question": "À quoi sert la fonction `pthread_cond_signal` dans l'exemple de code `thread_condition.c` pour le deuxième fil d'exécution?",
+      "answer": "Dans l'exemple de code `thread_condition.c`, le deuxième fil d'exécution (celui représenté par la branche `else`) appelle `pthread_cond_signal(&ticker)` quand la valeur de la variable `workload` dépasse 25. Le but est d'avertir un autre fil d'exécution, dans ce cas le premier fil qui est en attente avec `pthread_cond_wait` sur la variable-condition `ticker`, que la condition attendue est maintenant remplie et qu'il peut reprendre son exécution."
     }
   ],
-  "generated_at": "2026-04-12T05:32:58.550796+00:00"
+  "generated_at": "2026-04-13T11:31:31.767596+00:00"
 }

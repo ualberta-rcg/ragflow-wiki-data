@@ -3,53 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the `dar` utility and what is its primary purpose?",
-      "answer": "`dar` (Disk ARchive) is an open-source utility designed as a modern replacement for the classical Unix `tar` tool, actively maintained since its first release in 2002."
+      "question": "What is the `dar` utility and how does it compare to the classical `tar` tool for archiving on Alliance clusters?",
+      "answer": "The `dar` (Disk ARchive) utility is a modern, open-source replacement for the Unix `tar` tool, supporting full, differential, and incremental backups. Unlike `tar`, `dar` includes a file index for fast access and restore, offers built-in file-by-file compression, strong encryption, data corruption detection, and can split archives at 1-byte resolution."
     },
     {
-      "question": "What are some key advantages `dar` offers over `tar` for managing large archives?",
-      "answer": "`dar` includes a file index in each archive for fast file access and restore, supports built-in file-by-file compression for resilience against corruption, strong encryption, and the ability to split archives at 1-byte resolution."
+      "question": "What are some key features that distinguish the `dar` utility from `tar`?",
+      "answer": "`dar` features an integrated file index for fast file access and restore, built-in compression on a file-by-file basis for resilience against data corruption, optional skipping of compression for already highly compressed files, strong encryption, support for extended file attributes, sparse files, hard and symbolic links, and detection/recovery from data corruption."
     },
     {
-      "question": "Where can `dar` be accessed on compute clusters with `StdEnv/2020`?",
-      "answer": "On compute clusters, `dar` is available on `/cvmfs` when using `StdEnv/2020`, typically at `/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/dar`."
+      "question": "How can users access the `dar` utility on Alliance compute clusters?",
+      "answer": "On Alliance compute clusters, `dar` is available on `/cvmfs`. Users can access it by loading the `StdEnv/2020` environment."
     },
     {
-      "question": "How do you create a basic `dar` archive named 'all' from a subdirectory called 'test'?",
-      "answer": "To create a basic archive, you would use the command: `dar -w -c all -g test`."
+      "question": "What is the basic command to create an archive of a subdirectory named `test` using `dar`?",
+      "answer": "To create a basic archive of a subdirectory named `test`, users can execute `dar -w -c all -g test`. This will create an archive file named `all.1.dar`."
     },
     {
-      "question": "What command is used to list the contents of a `dar` archive?",
-      "answer": "To list an archive's contents, use the `dar -l` command followed by the archive's base name, for example: `dar -l all`."
+      "question": "When creating an archive with `dar`, what is an important consideration regarding file paths?",
+      "answer": "When creating an archive with `dar`, all included file and directory paths (specified with the `-g` flag) should be relative to the current working directory."
     },
     {
-      "question": "Which flags are recommended when extracting files with `dar` to ignore file ownership and disable warnings about existing directories?",
-      "answer": "The `-O` flag is used to ignore file ownership, and the `-w` flag disables warnings if the destination directory already exists."
+      "question": "How does one list the contents of a `dar` archive, such as `all.1.dar`?",
+      "answer": "To list the contents of a `dar` archive, users should use the `-l` flag followed by the archive's base name (e.g., `dar -l all`)."
     },
     {
-      "question": "How do `dar` archives handle extended attributes from Lustre filesystems, and what issues can arise during extraction?",
-      "answer": "`dar` automatically saves extended attributes, like `lustre.lov`, from Lustre filesystems. Extracting these files to non-Lustre locations (e.g., node local storage) can cause \"Operation not supported\" error messages because the attributes are incompatible."
+      "question": "What `dar` commands are used to extract a single file and an entire directory from an archive to a subdirectory called `restore`?",
+      "answer": "To extract a single file, use `dar -R restore/ -O -w -x all -v -g test/filename`. To extract an entire directory, use `dar -R restore/ -O -w -x all -v -g test`."
     },
     {
-      "question": "What is the solution for preventing `lustre.lov` extended attribute errors when extracting files to a non-Lustre location?",
-      "answer": "To prevent these errors, you can use the `-u 'lustre*'` flag during extraction, or when creating the archive, to exclude Lustre-specific attributes."
+      "question": "What is the purpose of the `-O` and `-w` flags when extracting files with `dar`?",
+      "answer": "The `-O` flag tells `dar` to ignore file ownership, which is useful when restoring files as a non-root user or restoring someone else's files. The `-w` flag disables warnings if the target extraction subdirectory already exists."
     },
     {
-      "question": "How is an incremental backup created using `dar`, referencing a previous archive?",
-      "answer": "An incremental backup is created by passing the base name of the reference archive using the `-A` flag, for example: `dar -w -A monday -c tuesday -g test`."
+      "question": "What issue might arise when extracting `dar` archives containing files from a Lustre filesystem to node local storage on Alliance clusters?",
+      "answer": "When extracting files archived from a Lustre filesystem (e.g., `/home`, `/project`, `/scratch`) to node local storage (`$SLURM_TMPDIR`), `dar` may show error messages like 'Error while adding EA lustre.lov : Operation not supported' because the target filesystem does not support Lustre extended attributes."
     },
     {
-      "question": "In what order must a series of full and incremental `dar` backups be restored to recover all data?",
-      "answer": "To restore everything, all backups must be restored in chronological order, starting with the full backup, followed by each subsequent incremental backup."
+      "question": "How can users prevent `lustre.lov` extended attribute errors when extracting `dar` archives to non-Lustre storage?",
+      "answer": "Users can prevent these errors by using the `-u 'lustre*'` flag during extraction (e.g., `dar -R restore/ -O -w -x all -v -g test -u 'lustre*'`) or by using the same flag during archive creation to prevent the `lustre.lov` attribute from being saved initially."
     },
     {
-      "question": "How can you limit the maximum size of each slice when creating a `dar` archive?",
-      "answer": "You can limit the maximum size of each slice using the `-s` flag, followed by a number and a unit (e.g., `100M`), as in `dar -s 100M -w -c monday -g test`."
+      "question": "How does one create an incremental backup with `dar` based on a previously made full backup?",
+      "answer": "To create an incremental backup, users first make a full backup (e.g., `dar -w -c monday -g test`). Subsequent incremental backups reference the base name of the previous archive using the `-A` flag, for example, `dar -w -A monday -c tuesday -g test`."
     },
     {
-      "question": "How do you extract files from a `dar` archive that has been split into multiple slices?",
-      "answer": "To extract from a sliced archive, you only need to specify the base name of the archive; `dar` will automatically handle all associated slices, e.g., `dar -O -x monday`."
+      "question": "If multiple incremental backups have been created with `dar`, what is the correct sequence to restore all files?",
+      "answer": "To restore all files from a series of incremental backups, users must restore each archive sequentially in chronological order, starting with the full backup, followed by each incremental backup. For example: `dar -R restore -O -w -x monday`, then `dar -R restore -O -w -x tuesday`, then `dar -R restore -O -w -x wednesday`."
+    },
+    {
+      "question": "How can a user limit the maximum size of individual slices when creating a `dar` archive?",
+      "answer": "To limit the maximum size of each slice in bytes, users can use the `-s` flag followed by a number and a size unit (k/M/G/T). For example, `dar -s 100M -w -c monday -g test` will create slices with a maximum size of 100 megabytes."
+    },
+    {
+      "question": "How are files extracted from a `dar` archive that has been split into multiple slices?",
+      "answer": "To extract files from a `dar` archive that has been split into multiple slices, users only need to provide the base name of the archive (e.g., `dar -O -x monday`), and `dar` will automatically find and use all associated slices."
+    },
+    {
+      "question": "Are there any external resources or scripts available to help users with `dar` on Alliance clusters?",
+      "answer": "Yes, a team member has written bash functions that can facilitate the use of `dar`, and these functions are available as inspiration in a GitHub repository."
     }
   ],
-  "generated_at": "2026-04-11T20:45:34.195655+00:00"
+  "generated_at": "2026-04-13T04:43:54.176447+00:00"
 }

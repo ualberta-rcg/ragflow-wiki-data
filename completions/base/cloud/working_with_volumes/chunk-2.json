@@ -4,129 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What needs to be substituted in the `/etc/fstab` line for auto-mounting a volume?",
-      "answer": "The UUID of the device you wish to auto-mount needs to be substituted for 'anananan-anan-anana-anan-ananananana'."
+      "question": "Why is booting a virtual machine (VM) from a volume considered a safer approach than booting from an image, and what options are available for initiating a VM from a volume?",
+      "answer": "Booting a VM from a volume is safer because volume storage includes redundancy, which protects the VM from hardware failure. In contrast, when booting from an image, the VM is stored on the local disk of the physical machine, making it vulnerable to loss if that machine or its disk fails. There are three ways to boot from a volume: booting from an image (which creates a new volume), booting from a pre-existing volume, or booting from a volume snapshot (which also creates a new volume). When creating a volume as part of the VM launch process, it's important to ensure the 'Delete on Terminate' box is not checked if you want the volume to persist beyond the VM's termination."
     },
     {
-      "question": "Where can I find more details about editing the `/etc/fstab` file?",
-      "answer": "You can find more details about how to edit this file on the Ubuntu community help page concerning Fstab."
-    },
-    {
-      "question": "Why is it safer to boot a persistent virtual machine (VM) from a volume?",
-      "answer": "Booting from a volume is safer because volume storage has redundancy, which protects the VM from hardware failure. If something goes wrong with the local disk of the machine running a VM booted from an image, the VM may be lost."
-    },
-    {
-      "question": "What happens if a VM is booted from an image rather than a volume?",
-      "answer": "If a VM is booted from an image, it is stored on the local disk of the actual machine running the VM. If that machine or its disk fails, the VM may be lost."
-    },
-    {
-      "question": "What kind of VM flavours are typically used when booting from a volume?",
-      "answer": "Typically, VM flavours starting with the letter 'p' are used when booting from a volume."
-    },
-    {
-      "question": "What are the different ways to boot a VM from a volume?",
-      "answer": "You can boot from an image (creating a new volume), boot from a pre-existing volume, or boot from a volume snapshot (creating a new volume)."
-    },
-    {
-      "question": "Which volume booting option is available if I haven't done it before?",
-      "answer": "If you have not booted from a volume before, booting from an image and creating a new volume is your only option."
-    },
-    {
-      "question": "What are the prerequisites for booting from a pre-existing volume or a volume snapshot?",
-      "answer": "Booting from a pre-existing volume or a volume snapshot is only possible if you have already created a bootable volume or a volume snapshot, respectively."
-    },
-    {
-      "question": "What steps should I follow when creating a volume as part of launching a VM?",
-      "answer": "You should select 'Boot from image (creates a new volume)', select the image to use, and specify the size of the volume."
-    },
-    {
-      "question": "What should I do if I want a newly created volume to remain longer than the VM it's associated with?",
-      "answer": "You should ensure that the 'Delete on Terminate' box is not checked."
-    },
-    {
-      "question": "What is the recommendation if I am unsure about the 'Delete on Terminate' option when creating a volume with a VM?",
-      "answer": "If you are unsure, it is better to leave the 'Delete on Terminate' box unchecked, as you can manually delete the volume later."
-    },
-    {
-      "question": "What is the primary purpose of creating an image from a volume?",
-      "answer": "Creating an image from a volume allows you to download the image, save it as a backup, or spin up a VM on a different cloud (e.g., with VirtualBox)."
-    },
-    {
-      "question": "When should I consider creating an image from a volume to download it?",
-      "answer": "You should do this if you want to save it as a backup or to use it to create a VM on a different cloud, such as with VirtualBox."
-    },
-    {
-      "question": "What is the recommended method for copying a volume to a new volume within the same cloud?",
-      "answer": "Cloning a volume is the recommended method for copying a volume to a new volume within the same cloud."
-    },
-    {
-      "question": "What must be done to a volume before creating an image of it?",
-      "answer": "To create an image of a volume, it must first be detached from a VM."
-    },
-    {
-      "question": "Under what specific condition can a boot (root) volume be detached for image creation?",
-      "answer": "A boot (root) volume can only be detached from a VM if the VM is terminated/deleted, provided you had not checked 'Delete Volume on Instance Delete' when creating the VM."
-    },
-    {
-      "question": "What potential issues are associated with large images (more than 10-20GB)?",
-      "answer": "Large images may be very slow to create, upload, and otherwise manage."
-    },
-    {
-      "question": "What is a suggested strategy for managing large images?",
-      "answer": "You may want to consider separating data if possible."
-    },
-    {
-      "question": "What are the steps to create an image from a volume using the OpenStack dashboard?",
-      "answer": "First, click on the 'Volumes' left-hand menu. Then, under the desired volume, click the 'Actions' drop-down menu and select 'Upload to Image'. Next, choose a name and disk format for your new image, and finally, click 'Upload'."
-    },
-    {
-      "question": "Which disk format is recommended for use within the OpenStack cloud?",
-      "answer": "QCOW2 is recommended for use within the OpenStack cloud as it is relatively compact compared to 'Raw' and works well with OpenStack."
-    },
-    {
-      "question": "Which disk formats are better suited if I want to use an image with VirtualBox?",
-      "answer": "If you wish to use the image with VirtualBox, the 'vmdk' or 'vdi' image formats might be better suited."
-    },
-    {
-      "question": "How do I create an image from a volume using the command line client?",
-      "answer": "You can use the command: `openstack image create --disk-format <format> --volume <volume_name> <image_name>`."
-    },
-    {
-      "question": "What are two possible values for the `<format>` parameter when creating an image via the command line?",
-      "answer": "Two possible values for the `<format>` parameter are qcow2 and vmdk."
-    },
-    {
-      "question": "How can I find the `<volume_name>` needed for the command line client to create an image?",
-      "answer": "The `<volume_name>` can be found from the OpenStack dashboard by clicking on the volume name."
-    },
-    {
-      "question": "What is the recommended method for copying volumes?",
-      "answer": "Cloning is the recommended method for copying volumes."
-    },
-    {
-      "question": "Why is cloning a volume generally preferred over creating an image and then a new volume from that image?",
-      "answer": "Cloning is much faster and requires less movement of data behind the scenes compared to making an image of an existing volume and using it to create a new one."
-    },
-    {
-      "question": "When is cloning a volume particularly useful?",
-      "answer": "Cloning is handy if you have a persistent VM and want to test something out before doing it on your production site."
-    },
-    {
-      "question": "What is highly recommended to do before creating a clone of a volume?",
-      "answer": "It is highly recommended to shut down your VM before creating a clone of the volume."
-    },
-    {
-      "question": "Why should a VM be shut down before cloning its volume?",
-      "answer": "Shutting down the VM before cloning prevents the newly created volume from being left in an inconsistent state, which could happen if there was writing to the source volume during the clone creation."
-    },
-    {
-      "question": "Which tool must be used to create a clone of a volume?",
-      "answer": "You must use the OpenStack command line client to create a clone."
-    },
-    {
-      "question": "What is the command to create a clone of a volume using the command line client?",
-      "answer": "The command is: `openstack volume create --source <source-volume-id> --size <size-of-new-volume> <name-of-new-volume>`."
+      "question": "What is volume cloning, and what are the key benefits and recommended practices for copying volumes within the same cloud environment?",
+      "answer": "Volume cloning is the recommended method for copying volumes within the same cloud, as it is significantly faster and requires less data movement compared to creating an image and then a new volume. This method is particularly useful for testing changes on a persistent VM before implementing them on a production site. To prevent the newly created volume from being in an inconsistent state, it is highly recommended to shut down your virtual machine before cloning its volume. Cloning is performed using the OpenStack command-line client with the command `openstack volume create --source <source-volume-id> --size <size-of-new-volume> <name-of-new-volume>`."
     }
   ],
-  "generated_at": "2026-04-12T12:07:12.646970+00:00"
+  "generated_at": "2026-04-13T16:26:27.005975+00:00"
 }

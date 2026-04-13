@@ -4,13 +4,13 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "When is GNU Parallel recommended for packing single-GPU jobs, and what is its primary benefit in this context?",
-      "answer": "GNU Parallel is recommended if you need to run four single-GPU programs or two 2-GPU programs for longer than 24 hours within one Slurm job. Its primary benefit is enabling the execution of multiple concurrent tasks from a single submission."
+      "question": "When is it recommended to use GNU Parallel for packing single-GPU jobs within a single Slurm job?",
+      "answer": "GNU Parallel is recommended when you need to run four single-GPU programs or two 2-GPU programs for longer than 24 hours."
     },
     {
-      "question": "Can you provide a basic example of using GNU Parallel for single-GPU jobs and explain how it ensures tasks don't try to use the same GPU?",
-      "answer": "A basic example is `cat params.input | parallel -j4 'CUDA_VISIBLE_DEVICES=$(({%} - 1)) python {} &> {#}.out'`. This command uses `CUDA_VISIBLE_DEVICES=$(({%} - 1))` to calculate a unique GPU ID for each task by subtracting 1 from the slot ID, ensuring that tasks do not try to use the same GPU concurrently. The `-j4` parameter specifies a maximum of four concurrent tasks."
+      "question": "How can multiple single-GPU jobs be packed into one Slurm job using GNU Parallel to prevent tasks from using the same GPU?",
+      "answer": "You can use a command such as `cat params.input | parallel -j4 'CUDA_VISIBLE_DEVICES=$(({%} - 1)) python {} &> {#}.out'`. The `-j4` parameter allows up to four concurrent tasks, and `CUDA_VISIBLE_DEVICES` calculates a unique GPU ID based on the slot ID `{%}` to ensure that tasks do not try to use the same GPU simultaneously."
     }
   ],
-  "generated_at": "2026-04-12T18:27:50.240448+00:00"
+  "generated_at": "2026-04-13T15:09:59.789869+00:00"
 }

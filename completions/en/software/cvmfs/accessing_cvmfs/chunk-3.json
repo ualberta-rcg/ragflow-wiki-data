@@ -4,105 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What is the recommendation for synchronizing the `cvmfs` service account identity on multiple CVMFS clients?",
-      "answer": "It is recommended to synchronize the identity of the `cvmfs` service account across all client nodes (e.g., using LDAP or other means) before CVMFS is installed."
+      "question": "What are the minimal operating system and CPU requirements for using the software environment provided via CVMFS?",
+      "answer": "To use the CVMFS software environment, a Linux system requires a Kernel 2.6.32 or newer (or 3.2 or newer for the 2020 environment). Windows users need Windows Subsystem for Linux version 2 with a compatible Linux distribution, and Mac OS is supported only through a virtual machine. Additionally, the system must have an x86 CPU that supports at least one of SSE3, AVX, AVX2, or AVX512 instruction sets."
     },
     {
-      "question": "Why should the `cvmfs` service account identity be synchronized before CVMFS installation?",
-      "answer": "Synchronizing the `cvmfs` service account identity facilitates the use of an alien cache and is easier to do initially than to potentially change later, even if an alien cache is not immediately anticipated."
+      "question": "What is a key pre-installation recommendation regarding the local cache when preparing to install CVMFS?",
+      "answer": "Before installing CVMFS, it is recommended to provision a dedicated file system for the local CVMFS cache, which by default is located at `/var/lib/cvmfs`. This ensures that the storage usage of CVMFS is not shared with other applications."
     },
     {
-      "question": "What are the minimal Linux kernel requirements for CVMFS environments?",
-      "answer": "For the 2016 and 2018 CVMFS environments, a Linux Kernel 2.6.32 or newer is required. For the 2020 environment, Kernel 3.2 or newer is needed."
-    },
-    {
-      "question": "What are the minimal Windows operating system requirements for CVMFS?",
-      "answer": "Windows requires Windows Subsystem for Linux version 2, with a Linux distribution that meets the specified kernel requirements."
-    },
-    {
-      "question": "How can CVMFS be used on Mac OS?",
-      "answer": "On Mac OS, CVMFS can only be accessed through a virtual machine."
-    },
-    {
-      "question": "What CPU instruction sets are minimally required for CVMFS?",
-      "answer": "An x86 CPU supporting at least one of SSE3, AVX, AVX2, or AVX512 instruction sets is minimally required."
-    },
-    {
-      "question": "What schedulers are optimally supported for CVMFS with OpenMPI applications?",
-      "answer": "Slurm or Torque schedulers are optimally supported for tight integration with OpenMPI applications."
-    },
-    {
-      "question": "What network interconnects are recommended for CVMFS parallel applications?",
-      "answer": "Ethernet, InfiniBand, or OmniPath are recommended network interconnects for parallel applications."
-    },
-    {
-      "question": "What GPU requirements are optimal for CUDA-enabled CVMFS applications?",
-      "answer": "An NVidia GPU with CUDA drivers (version 7.5 or newer) installed is optimal for CUDA-enabled applications."
-    },
-    {
-      "question": "What is an optimal recommendation regarding Linux packages for CVMFS?",
-      "answer": "It is optimal to have as few Linux packages installed as possible to reduce the odds of conflicts."
-    },
-    {
-      "question": "Can Ansible be used for CVMFS client configuration?",
-      "answer": "Yes, a CVMFS client role for Ansible is provided for basic configuration of a CVMFS client on an RPM-based system."
-    },
-    {
-      "question": "Are there scripts available to help install CVMFS on cloud instances?",
-      "answer": "Yes, there are scripts that can be used to facilitate installing CVMFS on cloud instances."
-    },
-    {
-      "question": "Where is the local CVMFS cache located by default?",
-      "answer": "The local CVMFS cache is located at `/var/lib/cvmfs` by default, though it can be configured via the `CVMFS_CACHE_BASE` setting."
-    },
-    {
-      "question": "What is the recommendation for the CVMFS cache file system?",
-      "answer": "It is recommended that the local CVMFS cache be on a dedicated file system to prevent its storage usage from being shared with other applications."
-    },
-    {
-      "question": "When should the dedicated file system for the CVMFS cache be provisioned?",
-      "answer": "The dedicated file system for the CVMFS cache should be provisioned before installing CVMFS."
-    },
-    {
-      "question": "Where can I find CVMFS installation instructions?",
-      "answer": "CVMFS installation instructions can be found by referring to 'Getting the Software' in the CVMFS documentation."
-    },
-    {
-      "question": "Where can I find information for standard CVMFS client configuration?",
-      "answer": "For standard client configuration, refer to 'Setting up the Software' and 'Client parameters' in the CVMFS documentation."
-    },
-    {
-      "question": "Is the `soft.computecanada.ca` repository accessible by default after installation?",
-      "answer": "Yes, the `soft.computecanada.ca` repository is provided by the default configuration, requiring no additional steps for access."
-    },
-    {
-      "question": "How do I validate the CVMFS configuration?",
-      "answer": "To validate the CVMFS configuration, you can run the command `sudo cvmfs_config chksetup`."
-    },
-    {
-      "question": "How do I check if CVMFS repositories are working correctly?",
-      "answer": "You can check if the repositories are OK by running the command `cvmfs_config probe`."
-    },
-    {
-      "question": "What should I do if I encounter problems during CVMFS testing?",
-      "answer": "If you encounter problems during CVMFS testing, a debugging guide is available in the CVMFS documentation."
-    },
-    {
-      "question": "How do I enable the software environment in my session after mounting a CVMFS repository?",
-      "answer": "You can enable the software environment by running the bash script `/cvmfs/soft.computecanada.ca/config/profile/bash.sh` in your session."
-    },
-    {
-      "question": "How can I mimic a specific cluster's environment using CVMFS?",
-      "answer": "To mimic a specific cluster, define the environment variable `CC_CLUSTER` to `fir`, `nibi`, or `rorqual` (e.g., `export CC_CLUSTER=rorqual`) before sourcing the environment script."
-    },
-    {
-      "question": "What prevents the CVMFS environment script from running for certain users?",
-      "answer": "The environment script will not run if your user ID is below 1000, as this is a safeguard against relying on the software environment for privileged operations."
-    },
-    {
-      "question": "How can I force the CVMFS environment to enable if my user ID is below 1000?",
-      "answer": "You can force the CVMFS environment to enable by first defining the environment variable `FORCE_CC_CVMFS=1` (e.g., `export FORCE_CC_CVMFS=1`)."
+      "question": "How can a user enable the Alliance software environment within a session after the CVMFS repository is mounted, and how can they configure it to mimic a specific cluster like Rorqual?",
+      "answer": "To enable the Alliance software environment once the CVMFS repository is mounted, a user needs to run the bash script `/cvmfs/soft.computecanada.ca/config/profile/bash.sh`. To mimic a specific cluster, such as Rorqual, the user should define the environment variable `CC_CLUSTER` to `rorqual` before sourcing the script. For example, `export CC_CLUSTER=rorqual` followed by `source /cvmfs/soft.computecanada.ca/config/profile/bash.sh`."
     }
   ],
-  "generated_at": "2026-04-11T15:47:49.537524+00:00"
+  "generated_at": "2026-04-13T00:56:59.784106+00:00"
 }

@@ -3,53 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Dask?",
-      "answer": "Dask is a flexible Python library designed for parallel computing, offering distributed NumPy arrays, Pandas DataFrames, and enabling distributed computing within the PyData stack."
+      "question": "What is Dask used for in Python?",
+      "answer": "Dask is a flexible Python library for parallel computing, offering distributed NumPy array and Pandas DataFrame objects, and enabling distributed computing in pure Python with access to the PyData stack."
     },
     {
-      "question": "What is the preferred method for installing Dask?",
-      "answer": "The preferred method for installing Dask is by using its provided Python wheel."
+      "question": "What is the preferred method for installing Dask using its provided Python wheel?",
+      "answer": "The preferred method involves loading a Python module, creating and starting a virtual environment, and then using `pip install --no-index dask distributed` within that environment."
     },
     {
-      "question": "What are the required steps to install Dask using its Python wheel?",
-      "answer": "To install Dask, one must first load a Python module, then create and activate a virtual environment, and finally use `pip install` to install `dask` and optionally `dask-distributed` within that environment."
+      "question": "What Python modules must be loaded as a prerequisite for installing Dask from a wheel?",
+      "answer": "A specific Python module, such as `python/3.11`, needs to be loaded before proceeding with the installation."
     },
     {
-      "question": "What command is used to install `dask` and `dask-distributed` in a virtual environment without accessing external package indices?",
-      "answer": "The command used is `pip install --no-index dask distributed`."
+      "question": "How do you install Dask and dask-distributed within a virtual environment using pip, as recommended?",
+      "answer": "You install them by running `pip install --no-index dask distributed` within your activated virtual environment."
     },
     {
-      "question": "What does the single-node Dask job example demonstrate?",
-      "answer": "It demonstrates how to submit a job that spawns a single-node Dask cluster with six CPUs and computes the mean of a column from a parallelized DataFrame."
+      "question": "What are the essential SLURM directives for a single-node Dask job submission script?",
+      "answer": "Essential SLURM directives for a single-node Dask job include `--account`, `--ntasks=1`, `--cpus-per-task`, `--mem`, `--time`, and `--output`."
     },
     {
-      "question": "How are the Dask scheduler's address and port determined in the single-node example script?",
-      "answer": "The scheduler's address is set to the hostname, and the port is assigned a random value between 30000 and 39999 (30000 + a random number modulo 10000)."
+      "question": "In a single-node Dask job script, how are the scheduler's address and port typically configured?",
+      "answer": "The scheduler's address is typically set using `export DASK_SCHEDULER_ADDR=$(hostname)`, and the port is assigned a random value between 30000 and 39999."
     },
     {
-      "question": "How does the `dask-example.py` script determine the number of partitions for the Dask DataFrame in the single-node setup?",
-      "answer": "The script sets the number of partitions (`npartitions`) to the value of the `SLURM_CPUS_PER_TASK` environment variable, which corresponds to the number of allocated cores."
+      "question": "How many Dask workers and threads per worker are configured in the provided single-node job example?",
+      "answer": "The single-node example configures six Dask workers, with each worker spawning one CPU thread, matching the `cpus-per-task` SLURM directive."
     },
     {
-      "question": "Where can users find more detailed information regarding the configuration of Dask worker processes and threads?",
-      "answer": "Users can find a complete discussion on reasoning about the number of worker processes and threads per worker in the official Dask documentation on efficiency."
+      "question": "What is the function of the `dask-example.py` script in the single-node Dask cluster example?",
+      "answer": "The `dask-example.py` script connects to the Dask cluster, creates a Dask DataFrame from a Pandas DataFrame, partitioning it based on the number of workers, and then computes the mean of a column."
     },
     {
-      "question": "What is the primary difference in resource allocation for the multiple-node Dask job example compared to the single-node example?",
-      "answer": "The multiple-node example uses a two-node Dask cluster with six CPUs per node, spawning two workers per node, each with three cores, whereas the single-node example uses six CPUs on a single node."
+      "question": "How does the `npartitions` parameter relate to Dask workers in the single-node Python example script?",
+      "answer": "In the single-node Python example, the `npartitions` parameter for `dd.from_pandas` is set to `n_workers`, which corresponds to `SLURM_CPUS_PER_TASK`, allowing each worker to process a specific part of the data frame."
     },
     {
-      "question": "Which script is responsible for configuring the virtual environment across all nodes in the multi-node Dask setup?",
-      "answer": "The `config_virtualenv.sh` script is responsible for loading Python modules, creating a virtual environment, and installing Dask components on each node."
+      "question": "What SLURM directives are required to request a two-node Dask cluster for a job?",
+      "answer": "To request a two-node Dask cluster, the SLURM directives `--nodes 2` and `--tasks-per-node=2` are used."
     },
     {
-      "question": "How do memory and thread allocations for Dask workers vary based on `SLURM_PROCID` in the `launch_dask_workers.sh` script for the multi-node example?",
-      "answer": "On the node with `SLURM_PROCID` 0, the worker gets 40% of the job's memory and `SLURM_CPUS_PER_TASK - 1` threads. On all other nodes, workers receive 50% of the job's memory and all `SLURM_CPUS_PER_TASK` threads."
+      "question": "What role does the `config_virtualenv.sh` script play in setting up a multi-node Dask job?",
+      "answer": "The `config_virtualenv.sh` script is responsible for loading necessary modules, creating a virtual environment, and installing Dask with its distributed and dataframe components on each allocated node for the multi-node job."
+    },
+    {
+      "question": "How are Dask workers initiated across multiple nodes in the provided multi-node example?",
+      "answer": "Dask workers are initiated across multiple nodes using `srun launch_dask_workers.sh &`, after the Dask scheduler has been launched on one of the nodes."
+    },
+    {
+      "question": "How are memory and CPU threads allocated to Dask workers based on their SLURM task rank in the multi-node `launch_dask_workers.sh` script?",
+      "answer": "On the SLURM task with Rank 0 (where the scheduler is), a worker gets 40% of the job's memory and `SLURM_CPUS_PER_TASK-1` threads. On all other SLURM tasks, workers get 50% of the job's memory and all allocated `SLURM_CPUS_PER_TASK` cores."
     },
     {
       "question": "What is the purpose of the `kill $dask_cluster_pid` command in the multi-node Dask job submission script?",
-      "answer": "This command ensures that the Dask workers are properly shut down after the main Python process (`test_dask.py`) has finished executing."
+      "answer": "The `kill $dask_cluster_pid` command is used to gracefully shut down the Dask workers and the scheduler processes after the main Python script has completed its execution."
+    },
+    {
+      "question": "Where can users find more detailed guidance on optimizing Dask's worker processes and threads?",
+      "answer": "Users can find detailed guidance on adjusting the number of worker processes and threads per worker in the official Dask documentation on efficiency."
+    },
+    {
+      "question": "What programming languages and libraries are involved in the Dask job examples provided?",
+      "answer": "The Dask job examples involve Bash for scripting, Python for Dask and Pandas operations, and use libraries like NumPy for numerical computations."
     }
   ],
-  "generated_at": "2026-04-11T20:48:35.336715+00:00"
+  "generated_at": "2026-04-13T04:46:19.900038+00:00"
 }

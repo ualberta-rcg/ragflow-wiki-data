@@ -4,41 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "How does GLOST assign tasks if there are fewer cores than jobs in the list?",
-      "answer": "GLOST assigns the first jobs in the list to the available processors. When a processor finishes a task, GLOST will assign it the next available job from the list until all tasks are completed or the job runs out of time."
+      "question": "How can GLOST be configured to run multiple serial jobs, with each job executing within its own dedicated directory?",
+      "answer": "GLOST can execute multiple serial jobs in separate directories, which is beneficial for avoiding file conflicts or result overlaps when programs use files with identical names. This setup can be achieved by incorporating commands directly into the `list_glost_tasks.txt` file that create a unique directory for each job (e.g., `mkdir -p RUN_${nargument}`) and then navigate into that directory (e.g., `cd RUN_${nargument}`) before running the job's specific commands."
     },
     {
-      "question": "Why would someone use GLOST to run serial jobs in separate directories?",
-      "answer": "Running serial jobs in separate directories with GLOST helps avoid job crashes or overlapping results, especially when programs use files (temporary, input, or output) with the same names."
+      "question": "What steps should be taken if a GLOST job needs to be restarted because its estimated wall time was insufficient to complete all tasks?",
+      "answer": "If a GLOST job requires restarting due to an underestimated wall time, you must first identify which tasks have already been successfully completed. After identifying these tasks, remove their corresponding lines from the original `list_glost_tasks.txt` file, or create a new task list containing only the jobs that still need to be run. Then, resubmit your GLOST script, providing this updated list as the argument for the `glost_launch` wrapper."
     },
     {
-      "question": "What is the recommended approach to run jobs in separate directories using GLOST?",
-      "answer": "One should ensure that input files and a dedicated directory for each job are created before running GLOST, or include these steps (like `mkdir -p RUN_${nargument} && cd RUN_${nargument}`) within the line commands in the list of tasks."
-    },
-    {
-      "question": "What are the Slurm settings specified in the example script for running GLOST jobs in separate directories?",
-      "answer": "The example script specifies `--nodes=1`, `--ntasks-per-node=3`, `--time=00-03:00`, and `--mem-per-cpu=4000M`."
-    },
-    {
-      "question": "Which modules are loaded in the example script for running GLOST jobs in separate directories?",
-      "answer": "The script loads `intel/2023.2.1`, `openmpi/4.1.5`, and `glost/0.3.1` modules."
-    },
-    {
-      "question": "What is the command used to launch GLOST jobs in the example script for separate directories?",
-      "answer": "The command used is `srun glost_launch list_glost_tasks.txt`."
-    },
-    {
-      "question": "What kind of commands are included in each line of the `list_glost_tasks.txt` file when running jobs in separate directories?",
-      "answer": "Each line typically includes commands to define a variable (`nargument`), create and change into a directory (`mkdir -p RUN_${nargument} && cd RUN_${nargument}`), run the main task (e.g., `sleep 360`), and output information to a unique log file (e.g., `echo ${nargument}.`hostname` > log_run.txt`)."
-    },
-    {
-      "question": "What should a user do if they underestimate the wall time for their GLOST job?",
-      "answer": "If the wall time is underestimated, the job may need to be restarted. The user should identify and remove the lines corresponding to already completed jobs from the list of tasks, or create a new list with only the remaining jobs, and then resubmit the script using the updated list as an argument for `glost_launch`."
-    },
-    {
-      "question": "How can advanced users find and copy GLOST examples?",
-      "answer": "After loading the GLOST module, advanced users can copy the examples to their local directory by running the command `cp -r $EBROOTGLOST/examples Glost_Examples`. The examples will be saved under the `Glost_Examples` directory."
+      "question": "How can an advanced user access and copy GLOST examples to their local directory for review and adaptation?",
+      "answer": "Advanced users can access GLOST examples by copying them from the `$EBROOTGLOST/examples` directory. To do this, execute the command `cp -r $EBROOTGLOST/examples Glost_Examples` in their terminal. This action will create a new directory named `Glost_Examples` in their current location, containing all the example scripts."
     }
   ],
-  "generated_at": "2026-04-11T22:13:06.835535+00:00"
+  "generated_at": "2026-04-13T05:55:18.932057+00:00"
 }

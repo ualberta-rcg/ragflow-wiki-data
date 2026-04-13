@@ -4,17 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Quand on travaille avec TensorFlow, quelle est la principale stratégie à employer pour utiliser des GPU distribués sur plusieurs nœuds, et quels sont les composants clés de cette approche?",
-      "answer": "Pour utiliser des GPU distribués sur plusieurs nœuds avec TensorFlow, la principale stratégie est d'employer `MultiWorkerMirroredStrategy()`. Cette approche utilise `SlurmClusterResolver()` pour que TensorFlow obtienne l'information sur la tâche directement de Slurm, évitant ainsi l'assignation manuelle d'un nœud principal et de nœuds secondaires. De plus, il est nécessaire d'ajouter `CommunicationImplementation.NCCL` à la stratégie de distribution pour gérer les communications entre les GPU."
+      "question": "Quelle est la principale différence dans la syntaxe Python pour utiliser TensorFlow avec des GPU distribués sur plusieurs nœuds par rapport à un nœud simple?",
+      "answer": "La principale différence est l'emploi de la fonction `MultiWorkerMirroredStrategy()` pour les nœuds multiples. Pour les configurations multi-nœuds, il faut aussi utiliser `SlurmClusterResolver()` pour obtenir les informations sur la tâche de Slurm et ajouter explicitement `CommunicationImplementation.NCCL` à la stratégie de distribution pour les communications entre GPU, ce qui n'est pas nécessaire pour un nœud simple où NCCL est par défaut."
     },
     {
-      "question": "Dans le contexte de l'utilisation de TensorFlow avec des GPU distribués sur plusieurs nœuds, quel est le rôle de `SlurmClusterResolver()`?",
-      "answer": "`SlurmClusterResolver()` est utilisé pour dire à TensorFlow d'obtenir l'information sur la tâche directement de Slurm. Ça évite d'avoir à assigner manuellement un nœud principal et des nœuds secondaires (workers), ce qui simplifie la configuration des tâches distribuées."
+      "question": "Dans le contexte de TensorFlow utilisant plusieurs GPU sur plusieurs nœuds, à quoi sert `SlurmClusterResolver()`?",
+      "answer": "La fonction `SlurmClusterResolver()` est utilisée pour indiquer à TensorFlow d'obtenir l'information sur la tâche directement de Slurm, plutôt que d'assigner manuellement un nœud principal et des nœuds secondaires ('workers')."
     },
     {
-      "question": "Pourquoi est-il nécessaire d'ajouter explicitement `CommunicationImplementation.NCCL` à la stratégie de distribution quand on utilise TensorFlow sur plusieurs nœuds, contrairement à une configuration sur nœud unique?",
-      "answer": "Il est nécessaire d'ajouter explicitement `CommunicationImplementation.NCCL` à la stratégie de distribution quand on utilise TensorFlow sur plusieurs nœuds pour indiquer qu'on veut utiliser la bibliothèque NCCL de NVIDIA pour les communications entre les GPU. Ce n'était pas nécessairement le cas pour une stratégie miroir sur un nœud simple (`MirroredStrategy()`), où NCCL est utilisé par défaut."
+      "question": "Pourquoi doit-on ajouter explicitement `CommunicationImplementation.NCCL` à la stratégie de distribution quand on utilise TensorFlow sur plusieurs nœuds avec des GPU?",
+      "answer": "On doit ajouter explicitement `CommunicationImplementation.NCCL` pour indiquer que l'on souhaite utiliser la bibliothèque NCCL de NVIDIA pour les communications entre les GPU. Pour un nœud simple, NCCL est incluse par défaut avec `MirroredStrategy()`."
     }
   ],
-  "generated_at": "2026-04-12T21:35:00.375535+00:00"
+  "generated_at": "2026-04-13T14:20:39.376649+00:00"
 }

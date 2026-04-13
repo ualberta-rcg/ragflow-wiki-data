@@ -4,41 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Quel module doit être chargé pour faire fonctionner Lumerical selon le script d'exemple?",
-      "answer": "Pour faire fonctionner Lumerical, il faut charger le module `lumerical`."
+      "question": "Pourquoi doit-on utiliser des options `sbatch` spécifiques lors de la soumission d'une tâche Lumerical qui utilise MPI?",
+      "answer": "L'implémentation MPI fournie par Lumerical ne fonctionne pas de façon optimale avec l'ordonnanceur. C'est pourquoi il est recommandé d'utiliser les options `--ntasks-per-node=1` et `--cpus-per-task=32` quand vous soumettez une tâche pour assurer une bonne compatibilité."
     },
     {
-      "question": "Où est situé l'exécutable MPI pour Lumerical dans l'exemple de script fourni?",
-      "answer": "L'exécutable MPI pour Lumerical est situé au chemin `$EBROOTLUMERICAL/mpich2/nemesis/bin/mpiexec`."
+      "question": "Comment configurer un script Slurm pour exécuter une tâche Lumerical qui demande deux nœuds pour 30 minutes?",
+      "answer": "Pour configurer un script Slurm, vous devez spécifier le temps (`#SBATCH --time=0:30:00`), le nombre de nœuds (`#SBATCH --nodes=2`), et surtout les options `--ntasks-per-node=1` et `--cpus-per-task=32`. Après avoir chargé le module Lumerical (`module load lumerical`), l'exécution du programme se fait via `mpiexec` en utilisant le binaire `$EBROOTLUMERICAL/bin/fdtd-engine-mpich2nem` avec le nombre de cœurs calculé `NCORE`."
     },
     {
-      "question": "Quel est le programme Lumerical principal que le script d'exemple exécute?",
-      "answer": "Le script d'exemple exécute le programme `$EBROOTLUMERICAL/bin/fdtd-engine-mpich2nem`."
-    },
-    {
-      "question": "Quel est le nom du fichier d'entrée utilisé comme exemple pour une simulation Lumerical?",
-      "answer": "Le fichier d'entrée utilisé comme exemple pour la simulation Lumerical est `avalanche_photodetector_optical.fsp`."
-    },
-    {
-      "question": "Comment le nombre total de cœurs (NCORE) est-il calculé dans le script d'exemple pour Lumerical?",
-      "answer": "Le nombre total de cœurs (NCORE) est calculé en multipliant `SLURM_NTASKS` par `SLURM_CPUS_PER_TASK`."
-    },
-    {
-      "question": "Quelle est la commande complète utilisée pour lancer la simulation Lumerical avec MPI dans l'exemple?",
-      "answer": "La commande complète pour lancer la simulation est `$MPI -n $NCORE $MY_PROG ./${INPUT}`."
-    },
-    {
-      "question": "Combien de nœuds sont demandés pour la tâche Lumerical dans l'exemple de script?",
-      "answer": "Deux nœuds sont demandés pour la tâche Lumerical dans l'exemple de script, comme l'indiquent les options `#SBATCH --nodes=2` et `#SBATCH --ntasks=2`."
-    },
-    {
-      "question": "Quel paramètre SLURM est utilisé pour la gestion de la mémoire dans l'exemple de script Lumerical?",
-      "answer": "Le paramètre utilisé est `#SBATCH --mem=0`, ce qui est une valeur spéciale qui demande toute la mémoire disponible sur le nœud."
-    },
-    {
-      "question": "Quelle est la durée de la tâche spécifiée pour l'exemple de script Lumerical?",
-      "answer": "La durée de la tâche spécifiée est de 30 minutes."
+      "question": "Est-ce que les modules Lumerical et FDTD Solutions ont les mêmes exigences concernant l'implémentation MPI et l'ordonnanceur?",
+      "answer": "Oui, tant pour le module Lumerical que pour le module FDTD Solutions, l'implémentation MPI fournie ne fonctionne pas étroitement avec l'ordonnanceur. Pour cette raison, il faut utiliser les mêmes options `--ntasks-per-node=1` et `--cpus-per-task=32` quand vous soumettez une tâche."
     }
   ],
-  "generated_at": "2026-04-12T01:09:16.189503+00:00"
+  "generated_at": "2026-04-13T08:14:45.730208+00:00"
 }

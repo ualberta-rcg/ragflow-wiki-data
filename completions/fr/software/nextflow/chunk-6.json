@@ -4,53 +4,13 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Comment on fait pour lancer un script de tâche Nextflow pour un test?",
-      "answer": "Pour lancer un test, on doit enregistrer le script de tâche dans `~/scratch/nf-test/nextflow_test.sh`, puis le soumettre avec la commande `sbatch nextflow_test.sh`."
+      "question": "Une fois le script de tâche Nextflow sauvegardé, comment est-ce qu'on le soumet pour exécution et comment on suit sa progression sur les grappes de calcul?",
+      "answer": "Pour soumettre un script de tâche Nextflow, comme `nextflow_test.sh`, il faut utiliser la commande `sbatch nextflow_test.sh`. Une fois lancé, Nextflow démarre sur le nœud de calcul et achemine les tâches à l'ordonnanceur Slurm. La progression peut être suivie dans le fichier journal `nextflow_test.<job_ID>.out`, ou en examinant les tâches dans la file d'attente Slurm avec `sq` ou `squeue -u $USER`."
     },
     {
-      "question": "Où est-ce que Nextflow commence à rouler les tâches après qu'on a soumis le script?",
-      "answer": "Une fois le script soumis, Nextflow démarre sur le nœud de calcul, puis il envoie les tâches à l'ordonnanceur Slurm dès qu'elles sont prêtes à être traitées."
-    },
-    {
-      "question": "Comment on peut suivre le progrès d'un pipeline Nextflow qui est en train de rouler?",
-      "answer": "On peut suivre le progrès du pipeline dans le fichier journal `nextflow_test.<job_ID>.out`. On peut aussi vérifier l'état des tâches dans la file d'attente Slurm avec les commandes `sq` ou `squeue -u $USER`."
-    },
-    {
-      "question": "Où est-ce qu'on peut trouver plus d'informations sur les configurations et les profils Nextflow?",
-      "answer": "Pour plus d'infos sur les configurations et les profils, on peut consulter la documentation sur nextflow.io pour la configuration générale et sur nf-co.re pour la configuration des pipelines."
-    },
-    {
-      "question": "Pourquoi Nextflow, étant écrit en Java, peut causer des problèmes sur certaines grappes?",
-      "answer": "Comme Nextflow est principalement écrit en Java, un langage qui consomme pas mal de mémoire virtuelle, ça peut poser des problèmes sur certaines grappes si on l'exécute à partir d'un nœud de connexion."
-    },
-    {
-      "question": "Est-ce qu'avoir une configuration AWS peut nuire au fonctionnement de Nextflow?",
-      "answer": "Oui, si on a un fichier de configuration AWS dans `~/.aws`, Nextflow pourrait ne pas réussir à télécharger l'ensemble de données de test du pipeline avec notre identifiant par défaut."
-    },
-    {
-      "question": "Quel est le message d'erreur qu'on a vu pour le problème d'impossibilité de créer un fil natif?",
-      "answer": "Le message d'erreur était le suivant: `java.lang.OutOfMemoryError: unable to create native thread: possibly out of memory or process/resource limits reached [error][gc,task] GC Failed to create worker thread`."
-    },
-    {
-      "question": "Pourquoi cette erreur de fil natif (`unable to create native thread`) survient-elle avec Nextflow?",
-      "answer": "On pense que cette erreur arrive quand Java essaie de créer autant de fils d'exécution que le nombre de cœurs physiques de l'ordinateur, ce qui peut dépasser les limites."
-    },
-    {
-      "question": "Quelle est la solution pour régler le problème d'erreur `unable to create native thread` avec Nextflow?",
-      "answer": "Il semble que l'erreur se règle en exécutant `nextflow` avec la variable d'environnement `export NXF_OPTS='-XX:ActiveProcessorCount=1'`."
-    },
-    {
-      "question": "Quelles erreurs ont été rapportées concernant le processus principal de Nextflow?",
-      "answer": "Des erreurs `SIGBUS` du processus principal de Nextflow ont été rapportées."
-    },
-    {
-      "question": "Quelle est la cause soupçonnée des erreurs `SIGBUS` avec Nextflow?",
-      "answer": "On soupçonne que les erreurs `SIGBUS` sont liées à des problèmes spécifiques de Nextflow, répertoriés sur GitHub sous les numéros 842 et 2774."
-    },
-    {
-      "question": "Comment on peut résoudre les erreurs `SIGBUS` lors de l'exécution de Nextflow?",
-      "answer": "Il semble que définir la variable d'environnement `NXF_OPTS=\"-Dleveldb.mmap=false\"` au moment d'exécuter `nextflow` règle le problème des erreurs `SIGBUS`."
+      "question": "Quelles sont les erreurs courantes avec Nextflow qui sont liées à la mémoire ou aux threads, et quelles sont les solutions pour ces problèmes?",
+      "answer": "Deux erreurs courantes ont été identifiées. Si un message `java.lang.OutOfMemoryError: unable to create native thread` apparaît, cela est souvent dû au fait que Java tente de créer trop de fils. La solution est d'exécuter `nextflow` avec la variable d'environnement `export NXF_OPTS='-XX:ActiveProcessorCount=1'`. Des erreurs `SIGBUS` du processus principal de Nextflow ont aussi été signalées et sont généralement résolues en définissant la variable d'environnement `NXF_OPTS=\"-Dleveldb.mmap=false\"` lors de l'exécution de `nextflow`."
     }
   ],
-  "generated_at": "2026-04-12T03:52:41.866237+00:00"
+  "generated_at": "2026-04-13T10:04:48.830343+00:00"
 }

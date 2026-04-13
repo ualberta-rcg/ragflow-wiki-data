@@ -4,77 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi Hyper-Q, aussi connu sous le nom de MPS?",
-      "answer": "Hyper-Q, ou MPS pour *Multi-Process Service*, est une fonctionnalité des GPU de NVIDIA."
+      "question": "Qu'est-ce que la fonctionnalité Hyper-Q, aussi connue sous le nom de MPS (Multi-Process Service), et à quoi sert-elle avec les GPU de NVIDIA?",
+      "answer": "Hyper-Q, ou MPS, est une fonctionnalité des GPU de NVIDIA qui sont compatibles avec les versions 3.5 et plus récentes de CUDA. Ça permet aux noyaux CUDA d'être traités en simultané sur un même GPU, ce qui améliore la performance quand la capacité de calcul du GPU est sous-utilisée par un seul processus. C'est particulièrement utile pour les applications CUDA dont la taille est relativement petite et qui ne parviennent pas à occuper pleinement les GPU modernes, et ça peut augmenter le nombre d'opérations en virgule flottante par seconde (flops)."
     },
     {
-      "question": "Quelles versions de CUDA sont compatibles avec Hyper-Q (ou MPS)?",
-      "answer": "Hyper-Q est compatible avec les versions 3.5 et plus récentes de CUDA."
+      "question": "Comment faire pour activer la fonctionnalité MPS (Multi-Process Service) de NVIDIA avant de lancer une application CUDA?",
+      "answer": "La fonctionnalité MPS n'est pas activée par défaut. Pour la mettre en marche, il faut lancer les commandes suivantes avant de démarrer votre application CUDA : `export CUDA_MPS_PIPE_DIRECTORY=/tmp/nvidia-mps`, `export CUDA_MPS_LOG_DIRECTORY=/tmp/nvidia-log`, et `nvidia-cuda-mps-control -d`. Une fois activé, vous pouvez l'utiliser si vous avez plus d'un fil CPU qui a accès au GPU, comme dans le cas d'applications hybrides MPI/CUDA, OpenMP/CUDA ou du GPU farming."
     },
     {
-      "question": "Où peut-on consulter un tableau des modèles, architectures et capacités de calcul CUDA?",
-      "answer": "On peut voir ce tableau dans l'article Wikipédia sur Nvidia Tesla."
-    },
-    {
-      "question": "Selon la documentation de NVIDIA, c'est quoi le but de l'architecture d'exécution MPS?",
-      "answer": "Selon la documentation de NVIDIA, l'architecture d'exécution MPS est conçue pour permettre de façon transparente l'utilisation d'applications CUDA parallèles et coopératives en tirant avantage des fonctionnalités Hyper-Q des derniers GPU de NVIDIA (Kepler et suivants)."
-    },
-    {
-      "question": "Comment est-ce que Hyper-Q améliore la performance des GPU?",
-      "answer": "Hyper-Q permet aux noyaux CUDA d'être traités en simultané sur un même GPU, ce qui améliore la performance quand la capacité de calcul du GPU est sous-utilisée par un seul processus."
-    },
-    {
-      "question": "Qu'est-ce que nos tests ont démontré concernant MPS?",
-      "answer": "Nos tests ont démontré que MPS peut augmenter le nombre d'opérations en virgule flottante effectuées par seconde (flops) même quand le GPU est partagé entre des processus CPU qui ne sont pas reliés."
-    },
-    {
-      "question": "Pour quelles genres d'applications CUDA MPS est-elle la fonctionnalité idéale?",
-      "answer": "MPS est la fonctionnalité idéale pour des applications CUDA qui traitent des problèmes dont leur taille relativement petite les rend incapables de bien occuper les GPU modernes dotés de milliers de cœurs."
-    },
-    {
-      "question": "Est-ce que MPS est activée par défaut?",
-      "answer": "Non, MPS n'est pas activée par défaut."
-    },
-    {
-      "question": "Comment on active MPS avant de démarrer une application CUDA?",
-      "answer": "Il suffit de lancer les commandes `export CUDA_MPS_PIPE_DIRECTORY=/tmp/nvidia-mps`, `export CUDA_MPS_LOG_DIRECTORY=/tmp/nvidia-log`, et `nvidia-cuda-mps-control -d` avant de démarrer votre application CUDA."
-    },
-    {
-      "question": "Dans quels scénarios peut-on utiliser MPS avec plus d'un fil CPU ayant accès au GPU?",
-      "answer": "On peut utiliser MPS quand on exécute une application hybride MPI/CUDA, une application hybride OpenMP/CUDA ou plusieurs applications séquentielles CUDA (ce qu'on appelle *GPU farming*)."
-    },
-    {
-      "question": "Où peut-on trouver plus d'information sur MPS?",
-      "answer": "Pour plus d'information sur MPS, on peut consulter la documentation de NVIDIA."
-    },
-    {
-      "question": "Dans quel cas la fonctionnalité MPS est-elle très utile pour le *GPU farming*?",
-      "answer": "La fonctionnalité MPS est très utile pour exécuter plusieurs instances d'une même application CUDA quand celle-ci est trop petite pour occuper entièrement un GPU moderne."
-    },
-    {
-      "question": "Qu'est-ce que MPS permet de faire en *GPU farming*?",
-      "answer": "MPS permet d'exécuter plusieurs instances d'une même application CUDA, pourvu que la mémoire du GPU soit suffisante."
-    },
-    {
-      "question": "Quel est le bénéfice potentiel de l'utilisation de MPS pour le *GPU farming*?",
-      "answer": "Dans plusieurs cas, la production de résultats pourrait être grandement augmentée grâce à MPS."
-    },
-    {
-      "question": "Dans l'exemple de script fourni pour le *GPU farming*, quel type de GPU est partagé et combien d'instances sont exécutées?",
-      "answer": "Dans l'exemple, un GPU de type V100 est partagé par 8 instances de `my_code`."
-    },
-    {
-      "question": "Combien de cœurs CPU sont demandés par tâche dans l'exemple de script de *GPU farming* et comment sont-ils alloués?",
-      "answer": "Dans l'exemple, 8 cœurs CPU sont demandés (#SBATCH --cpus-per-task=8), ce qui fait un cœur CPU pour chacune des 8 instances de l'application."
-    },
-    {
-      "question": "À quoi sert le caractère `&` sur la ligne d'exécution du code dans le script d'exemple de *GPU farming*?",
-      "answer": "Le `&` sur la ligne d'exécution du code déplace les processus à l'arrière-plan."
-    },
-    {
-      "question": "Quel est le rôle de la commande `wait` à la fin du script d'exemple de *GPU farming*?",
-      "answer": "La commande `wait` à la fin du script fait en sorte que la ferme de GPU se poursuive jusqu'à ce que tous les processus en arrière-plan soient terminés."
+      "question": "Expliquez ce qu'est le \"GPU farming\" en utilisant la fonctionnalité MPS (Multi-Process Service) et ses avantages.",
+      "answer": "Le \"GPU farming\" est une méthode qui consiste à exécuter plusieurs instances d'une même application CUDA, surtout quand cette application est trop petite pour occuper entièrement un GPU moderne. La fonctionnalité MPS est très avantageuse pour ça, car elle permet d'exécuter toutes ces instances en parallèle sur le même GPU, à condition que la mémoire du GPU soit suffisante. Cette approche peut grandement augmenter la production de résultats pour des tâches qui, individuellement, sous-utiliseraient le GPU."
     }
   ],
-  "generated_at": "2026-04-11T23:48:39.840970+00:00"
+  "generated_at": "2026-04-13T07:08:47.760172+00:00"
 }

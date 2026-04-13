@@ -4,73 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What is the filename for the single node batch script that uses an options file?",
-      "answer": "The script is named `script-local-opt.sh`."
+      "question": "How can users submit AnsysEDT batch jobs to an Alliance cluster queue using a Slurm script?",
+      "answer": "Users can submit AnsysEDT batch jobs to a cluster queue by using the `sbatch script-name.sh` command. Before submission, the Slurm script must be configured by specifying resource requests such as the account, simulation time, memory, and number of cores (e.g., using `#SBATCH` directives). It also requires loading the appropriate AnsysEDT module (e.g., `module load ansysedt/2024R2.1`) and defining the input file name (e.g., `YOUR_AEDT_FILE=\"TransientGeoRadar.aedt\"`). The script then executes the `ansysedt` command with various batch options to solve the specified input file."
     },
     {
-      "question": "What SLURM directives are included in the `script-local-opt.sh` batch script?",
-      "answer": "The `script-local-opt.sh` batch script includes SBATCH directives for `--account`, `--time`, `--mem`, `--ntasks`, and `--nodes`."
-    },
-    {
-      "question": "Which modules should be loaded before running AnsysEDT from the `script-local-opt.sh` batch script?",
-      "answer": "You should load `StdEnv/2023` and then `ansysedt/2024R2.1` (or `ansysedt/2023R2`)."
-    },
-    {
-      "question": "How is an example HFSS Antennas project copied in the `script-local-opt.sh` script?",
-      "answer": "An example HFSS Antennas project for 2024R2.1 is copied using the command: `cp -f $EBROOTANSYSEDT/v242/Linux64/Examples/HFSS/Antennas/TransientGeoRadar.aedt .`"
-    },
-    {
-      "question": "How do you specify the input AnsysEDT file in the `script-local-opt.sh` batch script?",
-      "answer": "The input file is specified by setting the `YOUR_AEDT_FILE` variable, for example: `YOUR_AEDT_FILE=\"TransientGeoRadar.aedt\"`."
-    },
-    {
-      "question": "How does the `script-local-opt.sh` script ensure that previous output is removed before a new run?",
-      "answer": "It uses the command `rm -rf $YOUR_AEDT_FILE.* ${YOUR_AEDT_FILE}results` to remove any previously generated output and results files."
-    },
-    {
-      "question": "How is a sample options file created for the `ansysedt` command in `script-local-opt.sh`?",
-      "answer": "A sample options file named `Options.txt` is created using a `cat` command with a here-document, defining `TempDirectory`, `HPCLicenseType`, and `HFSS/EnableGPU` settings within a `Config` block."
-    },
-    {
-      "question": "What environment variables are echoed for debugging purposes in the `script-local-opt.sh` script?",
-      "answer": "The script echoes `ANSYSLI_SERVERS`, `ANSYSLMD_LICENSE_FILE`, and `SLURM_TMPDIR`."
-    },
-    {
-      "question": "What is the full `ansysedt` command used for batch submission with an options file in `script-local-opt.sh`?",
-      "answer": "The command is: `ansysedt -monitor -UseElectronicsPPE -ng -distributed -machinelist list=localhost:1:$SLURM_NTASKS -batchoptions $OPTIONS_TXT -batchsolve \"$YOUR_AEDT_FILE\"`."
-    },
-    {
-      "question": "What systems can be used to run AnsysEDT in graphical mode?",
-      "answer": "AnsysEDT can be run in graphical mode using an OnDemand or JupyterLab system to start a remote desktop."
-    },
-    {
-      "question": "What are the URLs to connect to OnDemand systems for Alliance users?",
-      "answer": "You can connect to NIBI at `https://ondemand.sharcnet.ca`, FIR at `https://jupyterhub.fir.alliancecan.ca`, NARVAL at `https://portail.narval.calculquebec.ca/`, RORQUAL at `https://jupyterhub.rorqual.alliancecan.ca`, and TRILLIUM at `https://ondemand.scinet.utoronto.ca`."
-    },
-    {
-      "question": "What commands should be run in a terminal window on an OnDemand desktop to start AnsysEDT graphically?",
-      "answer": "First, run `module load StdEnv/2023`, then `module load ansysedt/2024R2.1` (or `ansysedt/2023R2`), and finally type `ansysedt`."
-    },
-    {
-      "question": "What AnsysEDT settings need to be verified in graphical mode after initial startup?",
-      "answer": "You need to go to `Tools -> Options -> HPC and Analysis Options -> Edit`, untick `Use Automatic Settings`, and ensure the `Machine` tab settings (like Tasks, Cores, GPUs, RAM) correspond to your requested desktop resources, then click OK to save changes."
-    },
-    {
-      "question": "How can one retrieve the 2024R2.1 Antennas examples for AnsysEDT in graphical mode?",
-      "answer": "First, load the module `ansysedt/2024R2.1`. Then, use the commands `mkdir -p ~/Ansoft/$EBVERSIONANSYSEDT; rm -rf ~/Ansoft/$EBVERSIONANSYSEDT/Antennas` and `cp -a $EBROOTANSYSEDT/v242/Linux64/Examples/HFSS/Antennas ~/Ansoft/$EBVERSIONANSYSEDT`."
-    },
-    {
-      "question": "What steps are involved in running an Antennas example in graphical mode?",
-      "answer": "Open one of the Antennas examples `.aedt` files, click `HFSS -> Validation Check`, then `simulation -> setup -> advanced -> Mesh/Solution options -> Use Defaults`, and finally `Simulation -> Analyze All`."
-    },
-    {
-      "question": "How do you quit AnsysEDT without saving a converged solution?",
-      "answer": "To quit without saving the converged solution, click `File -> Close -> No`."
-    },
-    {
-      "question": "What steps should be taken if AnsysEDT crashes and won't restart in graphical mode?",
-      "answer": "If AnsysEDT crashes, try running `pkill -9 -u $USER -f \"ansys*|mono|mwrpcss|apip-standalone-service\"` to kill related processes, and then `rm -rf ~/.mw` to remove configuration files, which will trigger a first-time configuration on next startup."
+      "question": "What are the steps to run AnsysEDT in graphical mode on an Alliance cluster using an OnDemand system?",
+      "answer": "To run AnsysEDT in graphical mode, first connect to an OnDemand system (e.g., `https://ondemand.sharcnet.ca` for NIBI) via your laptop browser to start a remote desktop. Within a new terminal window on the remote desktop, load the necessary modules by running `module load StdEnv/2023` and `module load ansysedt/2024R2.1`. Then, type `ansysedt` in the terminal and wait for the graphical user interface to start. For initial setup, users should verify settings by clicking `Tools -> Options -> HPC and Analysis Options -> Edit`, unticking `Use Automatic Settings`, and ensuring the settings in the `Machine` tab correspond to the requested desktop resources."
     }
   ],
-  "generated_at": "2026-04-11T17:18:08.772130+00:00"
+  "generated_at": "2026-04-13T02:03:17.431760+00:00"
 }

@@ -4,36 +4,60 @@
   "qa_pairs": [
     {
       "question": "What is Hyper-Q, also known as MPS, in the context of NVIDIA GPUs?",
-      "answer": "Hyper-Q (or MPS) is an NVIDIA GPU feature designed to transparently enable co-operative multi-process CUDA applications to utilize concurrent kernel processing on the same GPU."
+      "answer": "Hyper-Q, or MPS (Multi-Process Service), is an NVIDIA GPU feature designed to transparently enable co-operative multi-process CUDA applications, typically MPI jobs, to utilize Hyper-Q capabilities and process CUDA kernels concurrently on the same GPU."
     },
     {
-      "question": "Which NVIDIA GPUs are compatible with the Hyper-Q (MPS) feature?",
-      "answer": "Hyper-Q (MPS) is available in NVIDIA GPUs with CUDA compute capability 3.5 and higher, including Kepler and later architectures."
+      "question": "Which NVIDIA GPUs support the Hyper-Q (MPS) feature?",
+      "answer": "The Hyper-Q (MPS) feature is available in NVIDIA GPUs with CUDA compute capability 3.5 and higher."
     },
     {
-      "question": "What is the primary performance benefit of using MPS for CUDA applications?",
-      "answer": "MPS can increase the total GPU flop rate and benefit performance for CUDA applications with relatively small problem sizes that might otherwise underutilize the GPU's compute capacity."
+      "question": "What is the primary benefit of using NVIDIA's MPS (Multi-Process Service) feature?",
+      "answer": "The primary benefit of using NVIDIA's MPS feature is to increase performance by allowing CUDA kernels to be processed concurrently on the same GPU, especially when the GPU compute capacity is underutilized by a single application process or for CUDA applications with relatively small problem sizes."
     },
     {
-      "question": "Is NVIDIA MPS enabled by default, and if not, how can it be activated?",
-      "answer": "MPS is not enabled by default. It can be activated by setting `CUDA_MPS_PIPE_DIRECTORY` and `CUDA_MPS_LOG_DIRECTORY` environment variables, then executing `nvidia-cuda-mps-control -d`."
+      "question": "Is NVIDIA's MPS feature enabled by default?",
+      "answer": "No, the NVIDIA MPS feature is not enabled by default."
     },
     {
-      "question": "In what scenarios can the MPS feature be effectively utilized?",
-      "answer": "MPS can be used when more than one CPU thread accesses the GPU, such as with hybrid MPI/CUDA or OpenMP/CUDA applications, or multiple instances of a serial CUDA application (GPU farming)."
+      "question": "How does one enable the NVIDIA MPS feature before running a CUDA application?",
+      "answer": "To enable the NVIDIA MPS feature, one must execute commands to set `CUDA_MPS_PIPE_DIRECTORY` and `CUDA_MPS_LOG_DIRECTORY` environment variables, then run `nvidia-cuda-mps-control -d`."
     },
     {
-      "question": "What is 'GPU farming,' and when is MPS particularly advantageous for it?",
-      "answer": "GPU farming involves running multiple instances of a CUDA application on a single GPU. MPS is particularly useful when individual applications are too small to saturate a modern GPU, allowing for significantly increased throughput."
+      "question": "What types of CUDA applications can benefit from using the MPS feature?",
+      "answer": "Applications with more than one CPU thread accessing the GPU can benefit, such as hybrid MPI/CUDA applications, hybrid OpenMP/CUDA applications, or multiple instances of a serial CUDA application (GPU farming)."
     },
     {
-      "question": "What is a crucial prerequisite for successfully setting up GPU farming with MPS?",
-      "answer": "A crucial prerequisite is ensuring there is enough GPU memory available to accommodate all instances of the application being run concurrently."
+      "question": "What does 'GPU farming' refer to in the context of NVIDIA's MPS feature?",
+      "answer": "GPU farming refers to running multiple instances of a CUDA application on a single GPU using the MPS feature, particularly when individual applications are too small to saturate a modern GPU, which can significantly increase throughput."
     },
     {
-      "question": "What are the two essential shell commands used in the provided GPU farming job script example to manage multiple application instances concurrently?",
-      "answer": "The `&` symbol sends application processes to the background, allowing them to run concurrently, and the `wait` command ensures the job script continues running until all background processes have completed."
+      "question": "What is a key requirement for successful GPU farming using the MPS feature?",
+      "answer": "A key requirement for successful GPU farming using the MPS feature is that there must be enough GPU memory available for all instances of the application being run concurrently."
+    },
+    {
+      "question": "In a Slurm job script for GPU farming, what is the purpose of the ampersand (`&`) symbol after executing a program?",
+      "answer": "In a Slurm job script for GPU farming, the ampersand (`&`) symbol on the code execution line sends the code processes to the background, allowing multiple instances to run concurrently."
+    },
+    {
+      "question": "Why is the `wait` command important at the end of a GPU farming job script?",
+      "answer": "The `wait` command at the end of a GPU farming job script is important because it ensures that the job runs until all background processes that were launched have completed."
+    },
+    {
+      "question": "According to NVIDIA, what kind of applications does the MPS runtime architecture primarily support?",
+      "answer": "According to NVIDIA, the MPS runtime architecture is designed to transparently enable co-operative multi-process CUDA applications, typically MPI jobs."
+    },
+    {
+      "question": "When might the MPS feature be particularly useful for CUDA applications on modern GPUs?",
+      "answer": "The MPS feature might be particularly useful for CUDA applications with relatively small problem sizes that cannot efficiently saturate modern GPUs with thousands of cores on their own."
+    },
+    {
+      "question": "What is the typical directory specified for MPS logs when setting up the feature?",
+      "answer": "The typical directory specified for MPS logs when setting up the feature is `/tmp/nvidia-log`."
+    },
+    {
+      "question": "What is the typical directory specified for the MPS pipe when setting up the feature?",
+      "answer": "The typical directory specified for the MPS pipe when setting up the feature is `/tmp/nvidia-mps`."
     }
   ],
-  "generated_at": "2026-04-11T23:47:29.793644+00:00"
+  "generated_at": "2026-04-13T07:07:58.915758+00:00"
 }

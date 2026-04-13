@@ -3,69 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is OpenFOAM?",
-      "answer": "OpenFOAM (Open Field Operation and Manipulation) is a free, open source software package for computational fluid dynamics (CFD)."
+      "question": "What is OpenFOAM and what is its primary purpose?",
+      "answer": "OpenFOAM (Open Field Operation and Manipulation) CFD Toolbox is a free, open source software package for computational fluid dynamics, used to solve complex fluid flows, chemical reactions, turbulence, heat transfer, solid dynamics, and electromagnetism."
     },
     {
-      "question": "What types of problems can OpenFOAM solve?",
-      "answer": "OpenFOAM can solve complex fluid flows involving chemical reactions, turbulence, heat transfer, solid dynamics, and electromagnetics."
+      "question": "How do users load the most recent version of OpenFOAM on Alliance clusters?",
+      "answer": "To load the most recent version of OpenFOAM, users should run the command `module load openfoam`."
     },
     {
-      "question": "How do you load the recent version of OpenFOAM?",
-      "answer": "You load the recent version by running the command `module load openfoam`."
+      "question": "What are the two main development branches of OpenFOAM, and how are their module names distinguished on Alliance clusters?",
+      "answer": "The two main development branches are from OpenFOAM Foundation Ltd. (openfoam.org, cfd.direct) and OpenCFD Ltd. (openfoam.com). Module names derived from the .com branch begin with 'v' (e.g., `openfoam/v1706`), while those from the .org branch begin with a digit (e.g., `openfoam/4.1`)."
     },
     {
-      "question": "What are the two main development communities associated with OpenFOAM?",
-      "answer": "The two main development communities are The OpenFOAM Foundation Ltd. (openfoam.org, cfd.direct) and OpenCFD Ltd. (openfoam.com)."
+      "question": "Where can users find official documentation for OpenFOAM?",
+      "answer": "Official documentation for OpenFOAM is available on OpenFOAM.com documentation and the CFD Direct user guide."
     },
     {
-      "question": "How are OpenFOAM module names distinguished on clusters for versions released after 2.3.1?",
-      "answer": "Module names beginning with 'v' (e.g., `openfoam/v1706`) are from the .com branch, while those beginning with a digit (e.g., `openfoam/4.1`) are from the .org branch."
+      "question": "What is a prerequisite for running OpenFOAM commands such as `paraFoam` or `blockMesh`?",
+      "answer": "Users must load a module file to prepare their environment before they can run OpenFOAM commands."
     },
     {
-      "question": "Where can users find documentation for OpenFOAM?",
-      "answer": "Documentation is available on OpenFOAM.com and through the CFD Direct user guide."
+      "question": "Can you describe a typical serial submission script for OpenFOAM?",
+      "answer": "A typical serial submission script for OpenFOAM involves loading the appropriate OpenFOAM module (e.g., `openfoam/12`) and then executing commands like `blockMesh` and `icoFoam` within a Slurm job."
     },
     {
-      "question": "What is a prerequisite for running OpenFOAM commands?",
-      "answer": "You must load a module file for OpenFOAM to run its commands."
+      "question": "What are the key components of a parallel submission script for OpenFOAM?",
+      "answer": "A parallel submission script for OpenFOAM includes specifying the number of MPI tasks (`--ntasks`), loading an OpenFOAM module (e.g., `openfoam/12`), and using `srun` to execute the solver in parallel (e.g., `srun interFoam -parallel`)."
     },
     {
-      "question": "What is the purpose of `blockMesh` in an OpenFOAM workflow?",
-      "answer": "`blockMesh` is used for mesh preparation."
+      "question": "Which OpenFOAM tasks are typically suitable for running at the command line, and which should be submitted as a Slurm job?",
+      "answer": "Mesh preparation tasks like `blockMesh` may be fast enough to be done at the command line, but the solver steps (e.g., `icoFoam`) are usually the most expensive and should always be submitted as a Slurm job, except for very small test cases."
     },
     {
-      "question": "When should OpenFOAM solvers like `icoFoam` be submitted as Slurm jobs?",
-      "answer": "Solvers should always be submitted as Slurm jobs, except for very small test cases or tutorials."
+      "question": "What is the petscFoam solver, and is it pre-included in the standard OpenFOAM modules on Alliance clusters?",
+      "answer": "The petscFoam solver is an external solver that OpenFOAM can be compiled with. It is not included in the standard OpenFOAM modules but can be compiled by users on any of the clusters."
     },
     {
-      "question": "Is the `petscFoam` solver included by default in OpenFOAM modules?",
-      "answer": "No, `petscFoam` is not included in the standard OpenFOAM modules, but it can be compiled on clusters."
+      "question": "How do users determine the compatible PETSc version for a specific OpenFOAM module when compiling petscFoam?",
+      "answer": "Users can determine the compatible PETSc version by loading the desired OpenFOAM module (e.g., `openfoam/v2412`) and then running `grep \"^petsc_version\" $EBROOTOPENFOAM/OpenFOAM*/etc/config.sh/petsc`."
     },
     {
-      "question": "How can you determine compatible PETSc versions for a specific OpenFOAM module when compiling `petscFoam`?",
-      "answer": "Load the desired OpenFOAM module and run `grep \"^petsc_version\" $EBROOTOPENFOAM/OpenFOAM*/etc/config.sh/petsc`."
+      "question": "What are the essential steps to compile the petscFoam solver on Alliance clusters?",
+      "answer": "To compile petscFoam, users need to load specific modules (`StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `openfoam/v2412`, `petsc/3.21.6`), download and extract the `external-solver-main.tar.gz` package, navigate into the extracted directory, and then execute `./Allwmake`."
     },
     {
-      "question": "What is the main command used to compile the `petscFoam` solver after setting up the environment and extracting its package?",
-      "answer": "The main command to compile the `petscFoam` solver is `./Allwmake`."
+      "question": "How can users confirm that the compiled petscFoam solver is functioning correctly?",
+      "answer": "Users can confirm functionality by checking if OpenFOAM can load the library with `foamHasLibrary -verbose petscFoam`, verifying `libpetscFoam.so` is in `$FOAM_USER_LIBBIN`, and checking its dependencies using `ldd $FOAM_USER_LIBBIN/libpetscFoam.so | grep petsc`."
     },
     {
-      "question": "How can you confirm that OpenFOAM can load the `petscFoam` library?",
-      "answer": "You can confirm by running `foamHasLibrary -verbose petscFoam`."
+      "question": "What is a common performance issue with OpenFOAM on shared filesystems, and what is a general strategy to address it?",
+      "answer": "OpenFOAM can cause poor performance on shared filesystems by emitting frequent, small writes of debugging information. This can be mitigated by reducing or disabling debug output or by using the node-local scratch directory (`$SLURM_TMPDIR`)."
     },
     {
-      "question": "What common performance issue can OpenFOAM encounter on shared filesystems?",
-      "answer": "OpenFOAM can experience poor performance due to emitting a lot of debugging information through very frequent small writes."
+      "question": "How can users modify OpenFOAM's `controlDict` file to reduce disk output and improve performance?",
+      "answer": "Users can copy `$WM_PROJECT_DIR/etc/controlDict` to `$HOME/.OpenFOAM/$WM_PROJECT_VERSION/` and then modify the `debugSwitches` dictionary within their copied `controlDict` file by changing flag values from greater than zero to zero."
     },
     {
-      "question": "How can users mitigate performance issues related to frequent debugging output in OpenFOAM?",
-      "answer": "Users can copy `controlDict` to `$HOME/.OpenFOAM/$WM_PROJECT_VERSION/` and modify its `debugSwitches` dictionary, or use the node-local scratch (`$SLURM_TMPDIR`)."
-    },
-    {
-      "question": "When is it beneficial to use `$SLURM_TMPDIR` as your working directory for OpenFOAM?",
-      "answer": "It is beneficial if your workflow involves the creation of many small files."
+      "question": "When is it advisable to use `$SLURM_TMPDIR` for an OpenFOAM workflow?",
+      "answer": "It is advisable to use `$SLURM_TMPDIR` (node-local scratch) as the working directory if the OpenFOAM workflow generates many small files, as this can significantly improve performance."
     }
   ],
-  "generated_at": "2026-04-12T04:27:42.907977+00:00"
+  "generated_at": "2026-04-13T10:34:53.315410+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "When submitting a job, what is the order of precedence for specifying the account name if both environment variables and job script directives are used?",
-      "answer": "If you set environment variables like `SLURM_ACCOUNT`, `SBATCH_ACCOUNT`, or `SALLOC_ACCOUNT`, these will take priority over the `--account` directive provided within the job script. To override the environment variable, you must supply the account name as a command-line argument directly to the `sbatch` command."
+      "question": "How can I set a default account for my Slurm jobs using environment variables, and what is the precedence if multiple account specifications exist?",
+      "answer": "You can set `SLURM_ACCOUNT`, `SBATCH_ACCOUNT`, and `SALLOC_ACCOUNT` environment variables (e.g., `export SLURM_ACCOUNT=def-someuser`) in your `~/.bashrc` file to establish a default account. These environment variables take priority over the `--account` directive specified within a job script. To override an environment variable, you must explicitly supply the account name as a command-line argument to `sbatch`."
     },
     {
-      "question": "What are interactive jobs used for, and how can a user initiate one on a compute node?",
-      "answer": "Interactive jobs are useful for tasks such as data exploration at the command line, using interactive console tools like R and iPython, and for significant software development or debugging. A user can start an interactive session on a compute node using the `salloc` command, for example: `$ salloc --time=1:0:0 --mem-per-cpu=3G --ntasks=1 --account=def-someuser`."
+      "question": "What is an array job in Slurm, and how is it used to submit multiple related tasks?",
+      "answer": "An array job, also known as a task array, allows you to submit a collection of identical jobs with a single command. Each individual job within the array is distinguished by the `$SLURM_ARRAY_TASK_ID` environment variable, which is assigned a unique value for each instance. For example, `#SBATCH --array=1-10` in a job script would create 10 tasks, with `$SLURM_ARRAY_TASK_ID` ranging from 1 to 10, enabling `./myapplication $SLURM_ARRAY_TASK_ID` to run a different task for each array instance."
     },
     {
-      "question": "What is an array job and how are the individual jobs within the array distinguished?",
-      "answer": "An array job, also known as a task array, is a method to submit a whole set of related jobs with a single command. The individual jobs in the array are distinguished by the `$SLURM_ARRAY_TASK_ID` environment variable, which is set to a different value for each instance of the job."
+      "question": "How can I start an interactive job session on a compute node using Slurm, and what are the typical use cases for interactive jobs?",
+      "answer": "You can start an interactive session on a compute node using the `salloc` command. For example, `salloc --time=1:0:0 --mem-per-cpu=3G --ntasks=1 --account=def-someuser` requests one CPU core and 3 GB of memory for one hour. Interactive jobs are useful for tasks such as data exploration at the command line, using interactive console tools like R and iPython, and for significant software development, debugging, or compiling."
     }
   ],
-  "generated_at": "2026-04-12T18:24:12.332943+00:00"
+  "generated_at": "2026-04-13T12:50:44.942437+00:00"
 }

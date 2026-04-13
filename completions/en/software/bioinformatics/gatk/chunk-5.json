@@ -4,29 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How can I resolve a `java.lang.OutOfMemoryError: Java heap space` error when running GATK subprograms?",
-      "answer": "If you encounter a `java.lang.OutOfMemoryError: Java heap space` error, you should add the `-Xmx` command to the `--java-options` argument. For instance, to allocate 8GB of memory, you would use `--java-options \"-Xmx8G DGATK_STACKTRACE_ON_USER_EXCEPTION=true\"`. If the error persists, continue increasing the memory until the required amount for your dataset is met, and remember to request sufficient memory from your system."
+      "question": "How can I resolve the `java.lang.OutOfMemoryError: Java heap space` error when running GATK applications?",
+      "answer": "This error often occurs because GATK subprograms require more memory than allocated. To address this, you should increase the maximum heap memory by adding the `--java-options \"-Xmx<AMOUNT>G\"` argument to your GATK command (e.g., `-Xmx8G` for 8 GB). If you're using a system that allocates computing resources, ensure you request enough memory for the job."
     },
     {
-      "question": "What is the recommended approach if increasing Java heap memory doesn't resolve a `java.lang.OutOfMemoryError: Java heap space` error in GATK?",
-      "answer": "If increasing Java heap memory doesn't resolve the `java.lang.OutOfMemoryError: Java heap space`, especially with non-model organisms and many scaffolds in your reference, it's recommended to remove small scaffolds and create subsets of your reference. This involves mapping multiple times and running pipelines on each subset. However, carefully review your results as this approach doesn't work for all pipelines, and GATK is designed with the human genome in mind, often requiring adjustments for other organisms."
-    },
-    {
-      "question": "Why might GATK/JAVA applications use more memory or CPUs than requested, and how can I control this?",
-      "answer": "GATK/JAVA applications may sometimes use more memory or CPUs/threads than requested due to the Java garbage collection process. To control this, you can add `-XX:ConcGCThreads=1` to the `--java-options` argument."
-    },
-    {
-      "question": "Where can I find additional frequently asked questions and troubleshooting information for GATK?",
-      "answer": "You can find more GATK FAQs and troubleshooting information on their website, specifically in their Troubleshooting GATK4 Issues section at [https://gatk.broadinstitute.org/hc/en-us/sections/360007226791-Troubleshooting-GATK4-Issues]."
-    },
-    {
-      "question": "Can you provide an example of how to run `gatk MarkDuplicates` with a specified amount of heap memory?",
-      "answer": "To run `gatk MarkDuplicates` with 8GB of heap memory and detailed stack trace on user exception, you would use the following command: `gatk MarkDuplicates --java-options \"-Xmx8G DGATK_STACKTRACE_ON_USER_EXCEPTION=true\" -I input.bam -O marked_duplicates.bam -M marked_dup_metrics.txt`."
-    },
-    {
-      "question": "What general advice is given for GATK usage with non-human organisms?",
-      "answer": "GATK is primarily designed with the human genome in mind. For non-human organisms, adjustments to many parameters and pipelines will likely be required."
+      "question": "What steps should I take if increasing the Java heap memory does not resolve the `java.lang.OutOfMemoryError: Java heap space` issue in GATK?",
+      "answer": "If increasing heap memory doesn't fix the issue, especially for non-model organisms with numerous scaffolds in their reference, it's recommended to remove smaller scaffolds and create subsets of your reference. This involves running mapping and pipelines multiple times on each subset. However, this approach isn't suitable for all pipelines, so results should be reviewed carefully. GATK is primarily designed for the human genome, meaning other organisms may require adjustments to parameters and pipelines."
     }
   ],
-  "generated_at": "2026-04-11T21:56:26.937428+00:00"
+  "generated_at": "2026-04-13T05:40:12.041932+00:00"
 }

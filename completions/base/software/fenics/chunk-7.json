@@ -4,29 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "What command is used to create a writable sandbox directory from an Apptainer SIF file?",
-      "answer": "You can create a writable sandbox directory using the command: `apptainer build --sandbox fenics-legacy.sandbox fenics-legacy.sif`."
+      "question": "What is the primary function of the `apptainer build --sandbox` command in the context of FEniCS Legacy installation?",
+      "answer": "The `apptainer build --sandbox` command is used to create a writable directory tree from an Apptainer SIF (Singularity Image Format) file. This allows users to modify the image or install extra packages within the created sandbox directory, such as `fenics-legacy.sandbox`."
     },
     {
-      "question": "What does `fenics-legacy.sandbox` refer to in the Apptainer build command?",
-      "answer": "`fenics-legacy.sandbox` is just a directory name that the command will create."
+      "question": "Do I need to follow a specific naming convention when creating a writable sandbox directory using Apptainer?",
+      "answer": "No, you do not need to follow a specific naming convention. The name, like `fenics-legacy.sandbox`, is just a directory name the command creates. You can call it something else, such as `fenics-dev/` or `my_rw_image/`, as the `.sandbox` suffix is merely a convention, not a requirement."
     },
     {
-      "question": "Can I use a different name for the sandbox directory instead of `fenics-legacy.sandbox`?",
-      "answer": "Yes, you can call the sandbox directory something else, such as `fenics-dev/` or `my_rw_image/`."
-    },
-    {
-      "question": "Is the `.sandbox` suffix mandatory when naming the sandbox directory?",
-      "answer": "No, the `.sandbox` suffix is just a convention and is not required."
-    },
-    {
-      "question": "What is the third step for setting up and testing the FEniCS Legacy container after creating a writable sandbox?",
-      "answer": "The third step is to fix the pip certificate bundle path."
-    },
-    {
-      "question": "Why is it necessary to fix the pip certificate bundle path inside the sandbox?",
-      "answer": "This step is necessary to create a certs folder and symlink the CA bundle, ensuring that pip/SSL trusts HTTPS."
+      "question": "How can I fix the pip certificate bundle path inside an Apptainer sandbox to ensure pip/SSL trusts HTTPS connections?",
+      "answer": "To fix the pip certificate bundle path inside the sandbox, you need to create a `certs` folder and symlink the CA bundle. This can be done by running the command: `apptainer exec --writable fenics-legacy.sandbox sh -c \"mkdir -p /etc/pki/tls/certs && ln -s /etc/ssl/certs/ca-certificates.crt /etc/pki/tls/certs/ca-bundle.crt\"`."
     }
   ],
-  "generated_at": "2026-04-11T21:23:15.030538+00:00"
+  "generated_at": "2026-04-13T05:12:28.590818+00:00"
 }

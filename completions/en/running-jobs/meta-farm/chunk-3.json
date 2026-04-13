@@ -4,109 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What does the `farm_init.run` command create within the farm directory?",
-      "answer": "The `farm_init.run` command creates a few important files inside the farm directory, some of which may require user customization."
+      "question": "How does one initiate a META farm, and what are the essential files that typically require customization after creation?",
+      "answer": "A META farm is initiated by running the `farm_init.run` command followed by a chosen farm name (e.g., `farm_init.run Farm_name`). After creation, essential files that often require customization include `table.dat` (describing each computation case), `single_case.sh` (which launches your code for one case), and `job_script.sh` (the SLURM job script for all metajobs, requiring account name and runtime adjustments)."
     },
     {
-      "question": "Where should users copy their executable and input files when setting up a META farm?",
-      "answer": "Users should copy their executable and input files to the farm directory. This step can be skipped if full paths are planned for use everywhere."
+      "question": "What are the two primary modes for submitting a META farm, and what command is used for this purpose?",
+      "answer": "The `submit.run` command is used to submit a META farm to the scheduler. The two primary modes are SIMPLE mode, invoked by `submit.run -1`, which processes one case per job, and META mode, invoked by `submit.run N` (where `N` is the number of metajobs), which processes multiple cases per job."
     },
     {
-      "question": "What is the primary function of the `table.dat` file in a META farm?",
-      "answer": "The `table.dat` file, found inside the farm directory, is a text file that describes one independent computation (or case) per line."
-    },
-    {
-      "question": "Is it always necessary to modify the `single_case.sh` script?",
-      "answer": "No, in many instances, users do not have to make any changes to the `single_case.sh` script."
-    },
-    {
-      "question": "What are the essential modifications required for the `job_script.sh` file?",
-      "answer": "Users must modify the `job_script.sh` file to include a correct account name and an appropriate job runtime."
-    },
-    {
-      "question": "How does one submit a farm using the SIMPLE mode?",
-      "answer": "To submit a farm in SIMPLE mode, users should execute `submit.run -1` inside the farm directory."
-    },
-    {
-      "question": "How does one submit a farm using the META mode?",
-      "answer": "To submit a farm in META mode, users should execute `submit.run N` inside the farm directory, where `N` is the desired number of metajobs."
-    },
-    {
-      "question": "What is the recommended relationship between the number of metajobs (`N`) and the total number of cases in META mode?",
-      "answer": "In META mode, the number of metajobs (`N`) should be significantly smaller than the total number of cases."
-    },
-    {
-      "question": "How can multiple farms be run concurrently using META?",
-      "answer": "To run another farm concurrently, users must run `farm_init.run` again with a different farm name, customize `single_case.sh` and `job_script.sh` in the new farm directory, create a new `table.dat` file there, copy executables and input files as needed, and then execute `submit.run` inside the second farm directory."
-    },
-    {
-      "question": "What is the command `farm_init.run` used for?",
-      "answer": "`farm_init.run` is used to initialize a farm."
-    },
-    {
-      "question": "What is the function of the `submit.run` command?",
-      "answer": "The `submit.run` command submits the farm to the scheduler."
-    },
-    {
-      "question": "What does the `resubmit.run` command accomplish?",
-      "answer": "`resubmit.run` resubmits all computations that failed or never ran as a new farm."
-    },
-    {
-      "question": "How can one view the current state of all jobs for a farm?",
-      "answer": "The `list.run` command can be used to list all the jobs with their current state for the farm."
-    },
-    {
-      "question": "What kind of summary does the `query.run` command provide?",
-      "answer": "`query.run` provides a short summary of the farm's state, showing the number of queued, running, and completed jobs, as well as the progress (processed cases versus total cases) for both the current run and globally."
-    },
-    {
-      "question": "When is `query.run` preferred over `list.run`?",
-      "answer": "`query.run` is more convenient than `list.run` when the number of jobs is large."
-    },
-    {
-      "question": "Which command is used to terminate all running and queued jobs in a farm?",
-      "answer": "The `kill.run` command is used to kill all the running and queued jobs in the farm."
-    },
-    {
-      "question": "What does the `prune.run` command do?",
-      "answer": "`prune.run` removes only queued jobs."
-    },
-    {
-      "question": "What information does the `Status.run` command (with a capital 'S') provide?",
-      "answer": "`Status.run` lists the statuses of all processed cases."
-    },
-    {
-      "question": "How can a user make `Status.run` display non-zero status lines at the end?",
-      "answer": "By using the optional `-f` argument with `Status.run`, any non-zero status lines will be listed at the end of the output."
-    },
-    {
-      "question": "What files and directories are deleted by the `clean.run` command?",
-      "answer": "The `clean.run` command deletes all files and subdirectories within the farm directory (except for `job_script.sh`, `single_case.sh`, `final.sh`, `resubmit_script.sh`, `config.h`, and `table.dat`), and also all files associated with the farm in the `/home/$USER/tmp` directory."
-    },
-    {
-      "question": "Which files are explicitly not deleted by the `clean.run` command?",
-      "answer": "The `clean.run` command does not delete `job_script.sh`, `single_case.sh`, `final.sh`, `resubmit_script.sh`, `config.h`, and `table.dat`."
-    },
-    {
-      "question": "Why should users exercise caution when using the `clean.run` script?",
-      "answer": "Users should be very careful with `clean.run` because it deletes all files in the farm directory (including subdirectories) and all associated files in the `/home/$USER/tmp` directory."
-    },
-    {
-      "question": "Where must META commands (excluding `farm_init.run`) be executed?",
-      "answer": "All META commands, except for `farm_init.run` itself, must be executed inside a farm directory, which is a directory created by `farm_init.run`."
-    },
-    {
-      "question": "In the context of META, what does the term 'case' signify?",
-      "answer": "In the context of META, a 'case' refers to one independent computation or a single execution of your code."
-    },
-    {
-      "question": "What is a 'job' in META farming terminology?",
-      "answer": "A 'job' in META farming terminology is an invocation of the Slurm scheduler."
-    },
-    {
-      "question": "Under what specific conditions is it reasonable to use the SIMPLE mode?",
-      "answer": "It is reasonable to use the SIMPLE mode if the total number of cases is fairly small (e.g., less than 500) and each case runs for at least 20 minutes."
+      "question": "Which utility commands are available in the META package for managing a farm, and where must most of these commands be executed?",
+      "answer": "The META package provides several utility commands for managing a farm, including `farm_init.run` (to initialize), `submit.run` (to submit), `resubmit.run` (to resubmit failed cases), `list.run` (to list job states), `query.run` (for a farm summary), `kill.run` (to kill all jobs), `prune.run` (to remove queued jobs), `Status.run` (to list case statuses), and `clean.run` (to delete farm files). All of these commands, except for `farm_init.run` itself, must be executed inside the farm directory created by `farm_init.run`."
     }
   ],
-  "generated_at": "2026-04-12T01:20:41.413376+00:00"
+  "generated_at": "2026-04-13T08:24:39.072261+00:00"
 }

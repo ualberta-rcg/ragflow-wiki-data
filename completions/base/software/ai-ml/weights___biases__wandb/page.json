@@ -3,73 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Weights & Biases (wandb)?",
-      "answer": "Weights & Biases (wandb) is a meta machine learning platform designed to help AI practitioners and teams build reliable machine learning models for real-world applications by streamlining the machine learning model lifecycle."
+      "question": "What is Weights & Biases (wandb) and what is its primary purpose on Alliance clusters?",
+      "answer": "Weights & Biases (wandb) is a meta machine learning platform designed to help AI practitioners and teams build reliable machine learning models for real-world applications by streamlining the machine learning model lifecycle, allowing users to track, compare, explain, and reproduce machine learning experiments."
     },
     {
-      "question": "What functionalities does wandb offer to users?",
-      "answer": "Users can track, compare, explain, and reproduce machine learning experiments with wandb."
+      "question": "What are the general prerequisites for full usage of Weights & Biases (wandb) on Alliance compute nodes?",
+      "answer": "Full usage of Weights & Biases (wandb) on Alliance compute nodes requires both internet access and access to Google Cloud Storage."
     },
     {
-      "question": "What are the prerequisites for full usage of wandb on Alliance compute nodes?",
-      "answer": "Full usage of wandb on compute nodes requires both internet access and access to Google Cloud Storage."
+      "question": "Which Alliance clusters offer full Weights & Biases (wandb) availability without requiring `httpproxy`?",
+      "answer": "The Fir, Nibi, Vulcan, and Killarney clusters offer full Weights & Biases (wandb) availability without requiring `httpproxy`."
     },
     {
-      "question": "Which Alliance clusters have limited wandb availability and are restricted to users from MILA and other eligible groups?",
-      "answer": "Narval, Rorqual, and TamIA have limited wandb availability for users from MILA and other eligible groups, requiring `httpproxy`."
+      "question": "On which Alliance clusters is Weights & Biases (wandb) usage limited, and for which specific user groups?",
+      "answer": "Weights & Biases (wandb) usage is limited on Narval, Rorqual, and TamIA clusters for users from MILA and other eligible groups only, via `httpproxy`."
     },
     {
-      "question": "Which Alliance clusters offer full wandb availability without needing `httpproxy`?",
-      "answer": "Fir, Nibi, Vulcan, and Killarney offer full wandb availability without requiring `httpproxy`."
+      "question": "Why is Weights & Biases (wandb) not available on the Trillium cluster?",
+      "answer": "Weights & Biases (wandb) is not available on the Trillium cluster because internet access is disabled on its compute nodes."
     },
     {
-      "question": "On which Alliance cluster is wandb unavailable due to disabled internet access?",
-      "answer": "Wandb is unavailable on the Trillium cluster because internet access is disabled on its compute nodes."
+      "question": "What specific account type is required for members of the MILA Québec AI Institute to use wandb on Alliance clusters with internet access?",
+      "answer": "Members of the MILA Québec AI Institute must use a valid 'Mila-org' Weights & Biases account to log into wandb."
     },
     {
-      "question": "How can members of the MILA Québec AI Institute use wandb on Alliance clusters?",
-      "answer": "MILA members can use wandb on any Alliance clusters with internet access, provided they log in with a valid 'Mila-org' Weights & Biases account."
+      "question": "What causes Weights & Biases (wandb) jobs to crash or freeze when run in online mode on Narval, Rorqual, and TamIA clusters?",
+      "answer": "The `wandb` package automatically attempts to upload environment information and artifacts to a Google Cloud Storage bucket, which is not allowed on the compute nodes of Narval, Rorqual, and TamIA, causing jobs to crash or freeze."
     },
     {
-      "question": "What issue can occur when using wandb on Narval, Rorqual, and TamIA compute nodes, and why?",
-      "answer": "Using wandb on Narval, Rorqual, and TamIA compute nodes can cause jobs to crash or freeze because the package attempts to upload environment information to a Google Cloud Storage bucket, which is not permitted on these clusters."
+      "question": "How can users work around the online mode limitations of Weights & Biases (wandb) on Narval, Rorqual, and TamIA clusters?",
+      "answer": "Users can enable the `offline` mode, which writes all metrics, logs, and artifacts to the local disk without syncing to the internet service during the job run."
     },
     {
-      "question": "How can users bypass the Google Cloud Storage issue and use wandb on Narval, Rorqual, and TamIA?",
-      "answer": "Users can enable `offline` mode, which writes all metrics, logs, and artifacts to local disk without syncing to the internet during the job."
+      "question": "After running a Weights & Biases (wandb) job in offline mode on Alliance clusters, how can the collected data be transferred to the online service?",
+      "answer": "After an offline job finishes, users can sync the `wandb` content to the online service by running the command `wandb sync` on the login node."
     },
     {
-      "question": "How do users synchronize their wandb content to the online service after running jobs in `offline` mode?",
-      "answer": "After jobs finish, users can sync their wandb content to the online service by running `wandb sync` on the login node."
+      "question": "What is the recommended CPU allocation for a Weights & Biases (wandb) job according to the example script?",
+      "answer": "At least two CPUs per task are recommended for a Weights & Biases (wandb) job, with one for the main process and one for the `wandb` process."
     },
     {
-      "question": "Is there an alternative to Weights & Biases that works on Narval, Rorqual, and TamIA?",
-      "answer": "Yes, Comet.ml is a product very similar to Weights & Biases and works on Narval, Rorqual, and TamIA."
+      "question": "In the provided example script for Alliance clusters, how is the `wandb` Python package installed?",
+      "answer": "The `wandb` Python package is installed using `pip install --no-index wandb` within a virtual environment created in `$SLURM_TMPDIR/env`."
     },
     {
-      "question": "In the provided example, how is the Python environment set up for wandb?",
-      "answer": "The example uses `module load python`, creates a virtual environment with `virtualenv --no-download $SLURM_TMPDIR/env`, activates it, and then installs wandb using `pip install --no-index wandb`."
+      "question": "How does a user toggle between offline and online mode for Weights & Biases (wandb) within the example `wandb-test.sh` script?",
+      "answer": "To switch, the user should uncomment `wandb login $API_KEY` (replacing `$API_KEY` with their actual key) and comment out `wandb offline` in the `wandb-test.sh` script."
     },
     {
-      "question": "How is offline mode enabled within the example bash script?",
-      "answer": "Offline mode is enabled in the bash script by the command `wandb offline`."
+      "question": "What alternative product, similar to Weights & Biases, is mentioned as working on Narval, Rorqual, and TamIA clusters?",
+      "answer": "Comet.ml is mentioned as a product very similar to Weights & Biases that works on Narval, Rorqual, and TamIA."
     },
     {
-      "question": "How are metrics logged within the `wandb-test.py` example script?",
-      "answer": "Metrics are logged using `wandb.log({'my_metric': my_metric})` within a loop."
+      "question": "What is the function of `wandb.init` in the Python example for Weights & Biases (wandb) logging?",
+      "answer": "`wandb.init` initializes a new Weights & Biases run, specifying the project name and configuration settings like the `start_method`."
     },
     {
-      "question": "Where should a user's wandb API key be saved for online mode?",
-      "answer": "A user's wandb API key should be saved in their `.bash_profile` or replaced directly in the script for online mode."
-    },
-    {
-      "question": "After a training run in offline mode, where is the data stored locally?",
-      "answer": "After an offline run, the data is stored in a new folder named `./wandb/offline-run*`."
-    },
-    {
-      "question": "How can a user synchronize all their offline wandb runs to the server?",
-      "answer": "A user can synchronize all offline runs using the command `wandb sync ./wandb/offline-run*`."
+      "question": "What is the name of the folder created after a Weights & Biases (wandb) training run in offline mode, containing the run data?",
+      "answer": "After a training run in offline mode, a new folder named `./wandb/offline-run*` will be created."
     }
   ],
-  "generated_at": "2026-04-12T11:24:16.151184+00:00"
+  "generated_at": "2026-04-13T16:15:23.274355+00:00"
 }

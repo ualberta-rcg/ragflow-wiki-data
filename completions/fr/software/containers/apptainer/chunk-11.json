@@ -4,89 +4,17 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "Est-ce que les programmes MPI qui roulent dans un conteneur Apptainer demandent une configuration spéciale?",
-      "answer": "Oui, l'exécution de programmes MPI sur des nœuds dans un conteneur Apptainer requiert une configuration particulière."
+      "question": "Pourquoi faut-il faire attention quand on exécute des programmes MPI sur plusieurs nœuds avec Apptainer sur les grappes de calcul?",
+      "answer": "Quand des programmes MPI sont exécutés dans un conteneur Apptainer sur les grappes de calcul, une configuration particulière est requise. Si le nombre de nœuds n'est pas explicitement défini comme étant un seul nœud (par exemple, en utilisant l'option `--nodes=1` dans un script sbatch), l'ordonnanceur pourrait décider d'exécuter le programme sur plusieurs nœuds. Dans ce cas, la tâche pourrait ne pas s'exécuter correctement."
     },
     {
-      "question": "Pourquoi la communication MPI est-elle plus efficace entre les nœuds?",
-      "answer": "La communication entre les nœuds est beaucoup plus efficace avec MPI à cause de sa bonne utilisation du matériel d’interconnexion."
+      "question": "À quoi servent les 'bind mounts' et les 'persistent overlays' dans Apptainer?",
+      "answer": "Apptainer offre deux fonctionnalités importantes : les 'bind mounts' et les 'persistent overlays'. Les 'bind mounts' sont utilisés pour permettre au conteneur d'accéder à l'espace disque qui se trouve à l'extérieur de celui-ci. Les 'persistent overlays' servent à superposer un système de fichiers en lecture/écriture à un conteneur qui est normalement en lecture seule, le rendant ainsi modifiable."
     },
     {
-      "question": "Quand est-ce que les programmes MPI peuvent causer des soucis?",
-      "answer": "Ça peut causer des soucis quand le programme utilise plusieurs nœuds dans une grappe."
-    },
-    {
-      "question": "Est-ce qu'un programme MPI sur un seul nœud Apptainer pose problème?",
-      "answer": "Non, il n'y a pas de problème quand tous les processus MPI roulent dans un conteneur Apptainer sur un seul nœud à mémoire partagée, surtout avec l'option `--nodes=1` dans un script `sbatch`, car le matériel d'interconnexion n’est pas sollicité."
-    },
-    {
-      "question": "Qu'arrive-t-il si je ne définis pas explicitement `--nodes=1` pour un programme MPI sur Apptainer?",
-      "answer": "Si le nombre de nœuds n'est pas explicitement défini comme étant `1`, l’ordonnanceur peut choisir de faire rouler le programme MPI sur plusieurs nœuds et il est possible que la tâche ne puisse pas s'exécuter."
-    },
-    {
-      "question": "Quelles sont les fonctionnalités qu'Apptainer offre pour gérer l'accès aux fichiers et les systèmes de fichiers?",
-      "answer": "Apptainer offre les \"bind mounts\" pour avoir accès à l’espace disque à l’extérieur du conteneur et les \"persistent overlays\" pour superposer un système de fichiers en lecture/écriture à un conteneur immuable (lecture seulement)."
-    },
-    {
-      "question": "Qu'est-ce qui se passe si j'utilise les options `-C` ou `-c` avec un conteneur Apptainer?",
-      "answer": "L'utilisation des options `-C` ou `-c` avec un conteneur bloque l'accès à votre espace disque à partir du conteneur."
-    },
-    {
-      "question": "Comment puis-je accéder à mon espace disque même si j'utilise les options `-C` ou `-c`?",
-      "answer": "Pour y pallier, il faut explicitement demander un \"bind mount\" pour cet espace."
-    },
-    {
-      "question": "Si je roule `apptainer run -C ... wc -l ./my_data_file.txt` et que `./my_data_file.txt` est un fichier sur l'hôte, qu'est-ce qui va arriver?",
-      "answer": "Le programme `wc` dans le conteneur n'aura pas accès au fichier et une erreur d’accès va survenir, à cause de l'option `-C`."
-    },
-    {
-      "question": "Comment est-ce que je peux éviter les erreurs d'accès aux fichiers externes avec l'option `-C`?",
-      "answer": "Pour éviter ça, il faut faire un \"bind mount\" du répertoire courant en ajoutant l'option `-B .` à votre commande, par exemple: `apptainer run -C -B . -W $SLURM_TMPDIR a-container.sif wc -l ./my_data_file.txt`."
-    },
-    {
-      "question": "Est-ce que c'est possible de faire plusieurs \"bind mounts\"?",
-      "answer": "Oui, c'est possible de créer plusieurs \"bind mounts\", mais c'est souvent plus simple de faire le \"bind mount\" du répertoire de niveau supérieur sous lequel les répertoires sont situés."
-    },
-    {
-      "question": "Comment faire un \"bind mount\" pour les systèmes de fichiers `/project` et `/scratch` sur nos grappes?",
-      "answer": "Sur nos grappes, vous pouvez utiliser les options `-B /project -B /scratch` dans votre commande, comme ceci: `apptainer run -C -B /project -B /scratch -W $SLURM_TMPDIR a-container.sif wc -l ./my_data_file.txt`."
-    },
-    {
-      "question": "Dans quelles situations est-ce utile de faire un \"bind mount\" d'un répertoire de niveau supérieur?",
-      "answer": "C'est particulièrement utile pour avoir accès aux fichiers des autres membres de votre équipe, ou pour avoir accès aux fichiers et répertoires dont certains sont des liens symboliques (`symlinks`) vers différents endroits et qui pourraient être inaccessibles si le \"bind mount\" du système de fichiers au complet n’est pas fait."
-    },
-    {
-      "question": "Si les \"bind mounts\" ne fonctionnent pas sur ma grappe, qu'est-ce que je devrais faire?",
-      "answer": "Vous devriez lancer le script `/home/preney/public/apptainer-scripts/get-apptainer-options.sh` pour obtenir les options à passer à Apptainer."
-    },
-    {
-      "question": "Est-ce que je peux faire un \"bind mount\" d'un fichier ou d'un répertoire à un emplacement différent dans le conteneur?",
-      "answer": "Oui, vous pouvez faire le \"bind mount\" d’un fichier ou d’un répertoire ailleurs, par exemple `-B ./my_data_file.txt:/special/input.dat` va associer le fichier `./my_data_file.txt` de l'hôte au fichier `/special/input.dat` dans le conteneur."
-    },
-    {
-      "question": "Quand est-il avantageux de mapper un \"bind mount\" vers un chemin différent à l'intérieur du conteneur?",
-      "answer": "C'est utile quand des programmes ou des scripts dans un conteneur contiennent des chemins \"hard coded\" vers des fichiers ou des répertoires qui sont situés ailleurs."
-    },
-    {
-      "question": "Comment faire un \"bind mount\" du système de fichiers `/home` sans créer d'interférence avec les logiciels du conteneur?",
-      "answer": "Utilisez un autre répertoire de destination, comme `-B /home:/cluster_home`. Ça va faire en sorte que les fichiers de configuration et les programmes de votre répertoire `/home` n'interféreront pas avec les logiciels dans votre conteneur."
-    },
-    {
-      "question": "Pourquoi ne devrais-je pas faire de \"bind mount\" direct de `/home` dans mon conteneur avec `-B /home`?",
-      "answer": "Si vous utilisez `-B /home`, les programmes dans `$HOME/bin` et les paquets Python dans `$HOME/.local/lib/python3.x` pourraient être utilisés plutôt que les fichiers correspondants du conteneur, ce qui peut causer des interférences."
-    },
-    {
-      "question": "Est-ce que je devrais faire un \"bind mount\" de CVMFS dans mes conteneurs?",
-      "answer": "Non, il faut éviter de faire le \"bind mount\" de CVMFS dans vos conteneurs parce que les programmes fournis par CVMFS peuvent être incompatibles avec vos conteneurs."
-    },
-    {
-      "question": "Quel est l'objectif principal d'un conteneur Apptainer?",
-      "answer": "L’objectif d’un conteneur est de fournir un environnement complet qui ne dépend pas de logiciels externes. Les programmes exécutés dans un conteneur devraient s’y trouver en entier et ceux qui ne sont pas nécessaires ne devraient pas y être ajoutés."
-    },
-    {
-      "question": "Où puis-je trouver plus d'informations sur les \"overlays persistants\" d'Apptainer?",
-      "answer": "Les détails se trouvent dans la documentation officielle d'Apptainer, à la section \"Persistent Overlays\"."
+      "question": "Comment faire pour qu'un conteneur Apptainer accède à mes fichiers sur les systèmes de fichiers partagés comme /project ou /scratch sur les grappes, surtout si j'utilise des options d'isolation comme `-C`?",
+      "answer": "Si vous utilisez les options `-C` ou `-c` avec un conteneur Apptainer, l'accès à votre espace disque est bloqué par défaut. Pour y remédier et accéder aux répertoires comme `/project` et `/scratch` sur nos grappes, vous devez utiliser des 'bind mounts' en ajoutant les options `-B /project` et `-B /scratch` à votre commande Apptainer. Par exemple: `apptainer run -C -B /project -B /scratch -W $SLURM_TMPDIR a-container.sif wc -l ./mon_fichier_de_donnees.txt`."
     }
   ],
-  "generated_at": "2026-04-11T17:36:48.530818+00:00"
+  "generated_at": "2026-04-13T02:17:20.041741+00:00"
 }

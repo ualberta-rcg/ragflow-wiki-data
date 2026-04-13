@@ -4,17 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How should users configure PyCall.jl to interface with Python code on Alliance clusters, and what common pitfalls should be avoided?",
-      "answer": "When using PyCall.jl on Alliance clusters, users should set the `PYTHON` environment variable to the Python executable in their virtual Python environment. After activating the virtual environment, they should set `ENV[\"PYTHON\"] = joinpath(ENV[\"VIRTUAL_ENV\"], \"bin\", \"python\")` within Julia and then run `Pkg.build(\"PyCall\")`. It's strongly advised to avoid PyCall.jl's default behaviour of using a Miniconda distribution, as Anaconda and similar distributions are not suitable on Alliance clusters and can lead to performance and quota issues if installed in the default `JULIA_DEPOT_PATH`."
+      "question": "How should users configure PyCall.jl to interface with Python code on Alliance clusters, and what practices should they avoid?",
+      "answer": "To configure PyCall.jl, users should activate a virtual Python environment and set the `PYTHON` environment variable to the path of the Python executable within that environment. It is strongly advised against using PyCall.jl's default behaviour, which involves a Miniconda distribution inside the Julia environment, as well as any Anaconda-like distributions, due to incompatibilities with the cluster's software stack and potential performance or quota issues from creating numerous small files."
     },
     {
-      "question": "What are the advantages of using an Apptainer image for Julia packages, especially when compared to simply redirecting the `JULIA_DEPOT_PATH`?",
-      "answer": "Using an Apptainer image for Julia packages offers several advantages: it contains potentially very large sets of small files within a single `.sif` container file, which can improve IO performance. It also enhances reproducibility, as the container runs consistently anywhere. Furthermore, it provides complete control over bundled dependencies and allows users to test Julia nightly builds or specific dependencies without altering their local Julia installation, although it means losing the benefits of optimized Julia modules."
+      "question": "What are the advantages and disadvantages of using an Apptainer image for Julia projects on Alliance clusters?",
+      "answer": "Using an Apptainer image for Julia projects offers several advantages, including improved I/O performance by consolidating many small files into a single .sif container, enhanced reproducibility, the ability to test Julia nightly builds without altering local installations, and complete control over bundling specific dependencies. However, a disadvantage is that users will lose the benefits of the optimized Julia modules provided by the clusters."
     },
     {
-      "question": "How can a user run a parallel Julia program with multiple processes across nodes on a cluster using a SLURM job script?",
-      "answer": "To run a parallel Julia program with multiple processes across nodes on a cluster, a SLURM job script is used. The script should first generate a `hostfile` listing the allocated node names with the command `srun hostname -s > hostfile`. Following this, the Julia program can be launched in parallel by using `julia --machine-file ./hostfile ./your_program.jl`, where `your_program.jl` is the Julia script. The SLURM script should specify the number of tasks using `#SBATCH --ntasks=X`."
+      "question": "How can a user run a parallel Julia program using multiple processes across nodes on an Alliance cluster?",
+      "answer": "To run a parallel Julia program with multiple processes across nodes, a user must first generate a hostfile containing a list of allocated node names using `srun hostname -s > hostfile`. Following this, the Julia program can be executed in parallel by starting one main Julia process and worker processes on the nodes specified in the hostfile with the command `julia --machine-file ./hostfile ./your_program.jl`."
     }
   ],
-  "generated_at": "2026-04-12T20:46:39.237357+00:00"
+  "generated_at": "2026-04-13T07:37:49.427440+00:00"
 }

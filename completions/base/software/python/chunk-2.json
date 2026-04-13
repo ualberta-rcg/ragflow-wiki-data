@@ -4,69 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How do I activate a Python virtual environment once it has been created?",
-      "answer": "You must activate the virtual environment using the command `source ENV/bin/activate`, where `ENV` is the name of the directory for your new environment."
+      "question": "After creating a Python virtual environment on the clusters, how do users activate and deactivate it, and what are the steps to reuse it for subsequent sessions?",
+      "answer": "To activate a newly created virtual environment, use the command `source ENV/bin/activate`. To exit it, simply enter `deactivate`. For subsequent use, you must first load the same environment modules that were used when the virtual environment was created (e.g., `module load python scipy-stack`), and then activate the environment again using `source ENV/bin/activate`."
     },
     {
-      "question": "What command should I use to upgrade `pip` in an activated virtual environment?",
-      "answer": "You should upgrade `pip` in the environment by running the command `pip install --no-index --upgrade pip`."
+      "question": "When installing Python packages within a virtual environment on the clusters, what is the recommended installation method using `pip`, and what is the significance of the `--no-index` option?",
+      "answer": "The recommended method for installing Python packages within an activated virtual environment is to use the `pip install` command with the `--no-index` option, for example, `pip install numpy --no-index`. The `--no-index` option instructs `pip` to install packages exclusively from locally available prebuilt Python wheels provided by staff, rather than searching PyPI. This is strongly recommended because staff-compiled wheels are optimized for the clusters' hardware and libraries, and help prevent issues with missing or conflicting dependencies. If `--no-index` is omitted, `pip` will search both local wheels and PyPI, potentially installing a newer version from PyPI that could cause compatibility issues."
     },
     {
-      "question": "How do I exit a Python virtual environment?",
-      "answer": "To exit a virtual environment, simply enter the command `deactivate`."
-    },
-    {
-      "question": "What steps are needed to use an existing virtual environment again?",
-      "answer": "Each time you want to use an existing virtual environment, you need to load the same environment modules that you loaded when it was created (e.g., `module load python scipy-stack`), and then activate the environment using `source ENV/bin/activate`."
-    },
-    {
-      "question": "What is the purpose of the `pip` command in a virtual environment?",
-      "answer": "The `pip` command handles compiling and installing most Python packages and their dependencies once a virtual environment is loaded."
-    },
-    {
-      "question": "Where can I find a comprehensive index of Python packages?",
-      "answer": "A comprehensive index of Python packages can be found at PyPI (Python Package Index)."
-    },
-    {
-      "question": "What is the recommended way to install the latest stable version of Numpy within a virtual environment?",
-      "answer": "First, load the Python interpreter (e.g., `module load python/X.Y`), then activate the virtual environment (e.g., `source ENV/bin/activate`), and finally install Numpy with `pip install numpy --no-index`."
-    },
-    {
-      "question": "What does the `--no-index` option signify when using the `pip` command for installation?",
-      "answer": "The `--no-index` option tells `pip` to install packages only from locally available sources, such as our prebuilt Python wheels, rather than from PyPI."
-    },
-    {
-      "question": "Why is it strongly recommended to use the `--no-index` option when installing a package for which a wheel is provided?",
-      "answer": "Using the `--no-index` option for provided wheels is strongly recommended because staff-compiled wheels can prevent issues with missing or conflicting dependencies and are optimized for our clusters' hardware and libraries."
-    },
-    {
-      "question": "What happens if I omit the `--no-index` option when installing a package with `pip`?",
-      "answer": "If you omit the `--no-index` option, `pip` will search both PyPI and local packages, installing the latest version available, which might be a newer PyPI version that could cause issues."
-    },
-    {
-      "question": "How can I instruct `pip` to ignore prebuilt packages entirely and compile from source?",
-      "answer": "You can use the `--no-binary` option with `pip` to tell it to ignore prebuilt packages completely, including wheels distributed through PyPI, and always compile the package from source."
-    },
-    {
-      "question": "How can I make the `pip` command more verbose to diagnose installation issues?",
-      "answer": "You can use the `-vvv` option with the `pip` command to make it more verbose, which helps in diagnosing installation issues by showing where it's installing a Python package from."
-    },
-    {
-      "question": "What is the best practice when installing multiple Python packages using `pip`?",
-      "answer": "When installing multiple packages, it is advisable to install them with one command, as this helps `pip` resolve dependencies more effectively."
-    },
-    {
-      "question": "Why can launching Python and loading a virtual environment be slow on parallel filesystems?",
-      "answer": "Parallel filesystems, like those on our clusters, are efficient for reading or writing large chunks of data but perform poorly with intensive use of many small files, which is typical when starting Python and loading a virtual environment."
-    },
-    {
-      "question": "What is a recommended workaround for slow virtual environment loading in single-node Python jobs?",
-      "answer": "For single-node Python jobs, a workaround for slow loading is to create your virtual environment inside of your job, using the compute node's local disk, which can be faster than running from the parallel filesystem."
-    },
-    {
-      "question": "Where is it recommended to create virtual environments on Trillium?",
-      "answer": "On Trillium, it is recommended to create virtual environments from a login node in your `HOME` directory and then source them in your job script."
+      "question": "Why is it recommended to create Python virtual environments inside a job on the compute node's local disk for single-node Python jobs on the clusters, and how does this approach work?",
+      "answer": "Creating virtual environments inside a job on the compute node's local disk is recommended for single-node Python jobs as a workaround for the slow performance of parallel filesystems when handling intensive use of small files, such as loading software and libraries. This approach uses the compute node's local disk (typically `$SLURM_TMPDIR`), which can be faster than running from the parallel filesystem and offers protection against filesystem performance issues. While it may seem counter-intuitive to recreate the environment for every job, it can lead to faster execution times. For Trillium clusters, however, it is recommended to create virtual environments from a login node in `HOME` and source it in your job script."
     }
   ],
-  "generated_at": "2026-04-12T05:50:22.439244+00:00"
+  "generated_at": "2026-04-13T11:45:21.344613+00:00"
 }

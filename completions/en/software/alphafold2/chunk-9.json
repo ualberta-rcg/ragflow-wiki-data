@@ -4,57 +4,13 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "How do I generate a Python virtual environment in my SLURM temporary directory for an AlphaFold job?",
-      "answer": "You can generate a Python virtual environment in your `$SLURM_TMPDIR` using the command `virtualenv --no-download ${SLURM_TMPDIR}/env` and then activate it with `source ${SLURM_TMPDIR}/env/bin/activate`."
+      "question": "How do you submit an AlphaFold job using a Slurm script on an Alliance cluster?",
+      "answer": "To submit an AlphaFold job, you would first prepare a Slurm submission script, such as `alphafold-gpu.sh` for GPU usage. This script typically includes steps to load module dependencies, generate and activate a Python virtual environment in `$SLURM_TMPDIR`, install AlphaFold and its dependencies using `pip`, and then execute the `run_alphafold.py` command with appropriate arguments for input, output, and database paths. Once the script is ready, you submit it to the scheduler using the command `sbatch --job-name alphafold-X alphafold-gpu.sh`."
     },
     {
-      "question": "After creating a virtual environment, how do I install AlphaFold and its dependencies within a job script?",
-      "answer": "First, upgrade pip with `pip install --no-index --upgrade pip`, then install AlphaFold and its dependencies using `pip install --no-index --requirement ~/alphafold-requirements.txt`."
-    },
-    {
-      "question": "What `model_preset` is used when running AlphaFold 2.2 on a GPU?",
-      "answer": "When running AlphaFold 2.2 on a GPU, the `model_preset` used is `monomer_casp14`."
-    },
-    {
-      "question": "Which database path argument in AlphaFold 2.2 was renamed in version 2.3?",
-      "answer": "The `--uniclust30_database_path` option used in AlphaFold 2.2 was renamed to `--uniref30_database_path` in AlphaFold 2.3."
-    },
-    {
-      "question": "What command is used to submit an AlphaFold job to the scheduler, assuming the job script is named `alphafold-gpu.sh`?",
-      "answer": "To submit an AlphaFold job named `alphafold-X` using the `alphafold-gpu.sh` script, you would use the command `sbatch --job-name alphafold-X alphafold-gpu.sh`."
-    },
-    {
-      "question": "What is a common error message encountered when downloading AlphaFold databases, and what might cause it?",
-      "answer": "A common error message is `Client_loop: send disconnect: Broken pipe`. The exact cause is hard to determine but could be due to an unusually high number of users working on the login node, leaving less space for data upload."
-    },
-    {
-      "question": "What are some solutions for the 'Broken pipe' error encountered during AlphaFold database download?",
-      "answer": "Solutions include using a terminal multiplexer, utilizing the pre-existing database on the cluster, or downloading the full database in sections."
-    },
-    {
-      "question": "Where can I find an existing AlphaFold database on the cluster to avoid downloading it myself?",
-      "answer": "An existing AlphaFold database is available on the cluster at `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2023_07/`."
-    },
-    {
-      "question": "How can I download AlphaFold databases in sections instead of all at once?",
-      "answer": "After loading the module and activating your virtual environment, type `download_` in your terminal and press the `tab` key twice. This will display all available scripts, such as `download_pdb.sh`, for downloading specific sections of the database."
-    },
-    {
-      "question": "What are the required binary paths for AlphaFold 2.2 when running the `run_alphafold.py` script?",
-      "answer": "The required binary paths include `hhblits_binary_path`, `hhsearch_binary_path`, `jackhmmer_binary_path`, and `kalign_binary_path`."
-    },
-    {
-      "question": "What is the argument to enable GPU relaxation when running AlphaFold 2.2?",
-      "answer": "To enable GPU relaxation when running AlphaFold 2.2, you should set `--use_gpu_relax=True`."
-    },
-    {
-      "question": "How do you specify the input FASTA files for AlphaFold 2.2?",
-      "answer": "You specify input FASTA files using the `--fasta_paths` argument, providing a comma-separated list of paths, for example: `--fasta_paths=${INPUT_DIR}/YourSequence.fasta,${INPUT_DIR}/AnotherSequence.fasta`."
-    },
-    {
-      "question": "What is the purpose of the `--max_template_date` argument in AlphaFold 2.2?",
-      "answer": "The `--max_template_date` argument specifies the maximum date for templates to be used, such as `2020-05-14` for AlphaFold 2.2."
+      "question": "What are some solutions if you encounter a 'Client_loop: send disconnect: Broken pipe' error when downloading AlphaFold databases on an Alliance cluster?",
+      "answer": "If you encounter a `Client_loop: send disconnect: Broken pipe` error while downloading AlphaFold databases, there are several solutions: you can use a terminal multiplexer to maintain your session, utilize the database already present on the cluster at `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2023_07/`, or download the full database in sections by using available download scripts (which can be listed by typing `download_` and pressing `tab` twice in your terminal after loading modules and activating your virtual environment, e.g., `download_pdb.sh`)."
     }
   ],
-  "generated_at": "2026-04-11T16:35:30.886990+00:00"
+  "generated_at": "2026-04-13T01:32:23.881812+00:00"
 }

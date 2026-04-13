@@ -3,53 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of JupyterHub?",
-      "answer": "JupyterHub is designed to serve Jupyter Notebook and JupyterLab for multiple users within environments like student classes, corporate data science groups, or scientific research groups."
+      "question": "What is the main purpose of JupyterHub on Alliance clusters?",
+      "answer": "JupyterHub is designed to serve Jupyter Notebook for multiple users, such as students in a class, a corporate data science group, or a scientific research group."
     },
     {
-      "question": "What types of tasks are Jupyter Lab and notebooks best suited for on JupyterHub?",
-      "answer": "They are meant for short, interactive tasks such as testing, debugging, or quickly visualizing data, typically lasting only a few minutes."
+      "question": "Where can users find more configuration options for JupyterLab and Jupyter Notebook beyond what JupyterHub provides on Alliance clusters?",
+      "answer": "Users can find more configuration options on the dedicated Jupyter page."
     },
     {
-      "question": "How should users handle longer analysis tasks that require more compute time?",
-      "answer": "Longer analysis tasks must be performed as non-interactive jobs, submitted using `sbatch`."
+      "question": "What is the recommended usage for Jupyter Lab and notebooks on Alliance clusters, and what should be used for longer analyses?",
+      "answer": "Jupyter Lab and notebooks are meant for short interactive tasks like testing, debugging, or quick data visualization. Longer analyses must be done in a non-interactive job using `sbatch`."
     },
     {
-      "question": "Which Alliance clusters offer direct access to JupyterHub, and what credentials are required?",
-      "answer": "Fir, Narval, and Rorqual clusters provide JupyterHub access, requiring an Alliance username and password for connection."
+      "question": "Which specific Alliance clusters offer direct access to JupyterHub?",
+      "answer": "Fir, Narval, and Rorqual clusters provide direct access to JupyterHub."
     },
     {
-      "question": "What significant limitation exists regarding internet access for JupyterHub sessions on compute nodes?",
-      "answer": "JupyterHub compute nodes do not have internet access, meaning users cannot download code or data directly from the internet (e.g., `git clone`, `pip install` for non-cached wheels, or in-code data downloads)."
+      "question": "What credentials are required to connect to JupyterHub on Alliance clusters?",
+      "answer": "Users need to use their Alliance username and password to connect to JupyterHub."
     },
     {
-      "question": "How does the Alliance support universities and schools with JupyterHub?",
-      "answer": "The Pacific Institute for the Mathematical Sciences (PIMS), in collaboration with the Alliance and Cybera, offers cloud-based hubs on Alliance clouds for training purposes, allowing institutions to have their own hubs with institutional authentication."
+      "question": "What is a significant limitation regarding internet access for compute nodes running Jupyter kernels via JupyterHub on Alliance clusters?",
+      "answer": "The compute nodes running Jupyter kernels do not have internet access, meaning users cannot download code or data directly from the internet (e.g., `git clone`, `pip install` without a wheelhouse) or perform downloads/uploads within their code."
     },
     {
-      "question": "What are the typical options presented to a user after logging into JupyterHub to start a server?",
-      "answer": "Users may be redirected to a previously launched server, a new server with default options, or a form allowing them to configure options like account, time, CPU cores, memory, GPU, and user interface before starting their server."
+      "question": "What initiative allows universities and schools to obtain their own cloud-based JupyterHub instances for training purposes?",
+      "answer": "The Pacific Institute for the Mathematical Sciences (PIMS), in collaboration with the Alliance and Cybera, offers cloud-based hubs to universities and schools through Syzygy."
     },
     {
-      "question": "Why might a new Jupyter session fail to start if a user already has another interactive job running on the same cluster?",
-      "answer": "Only one interactive job per user receives a priority increase on a cluster. If another interactive job is active, the new Jupyter session will wait in the queue and may time out within five minutes."
+      "question": "What type of job on an Alliance cluster is equivalent to accessing requested resources via JupyterHub server options?",
+      "answer": "Accessing requested resources via JupyterHub server options is equivalent to accessing them via an interactive job on the corresponding cluster."
     },
     {
-      "question": "Which user interface is recommended for JupyterHub, and what are its advantages?",
-      "answer": "JupyterLab is the most recommended user interface due to its modern platform and extensive features for interactive prototyping and data visualization."
+      "question": "What is an important consideration regarding interactive job priority on an Alliance cluster when trying to start a JupyterHub session?",
+      "answer": "Only one interactive job at a time gets a priority increase to start quickly. If a user already has another interactive job running on the cluster hosting JupyterHub, their new Jupyter session may not start within the 5-minute time limit."
     },
     {
-      "question": "What are common causes for a 'Spawn failed: Timeout' error in JupyterHub?",
-      "answer": "This error is typically caused by the job scheduler being unresponsive or unable to allocate resources, often due to requesting too many resources, having another interactive job running, or a general lack of available resources on the cluster."
+      "question": "What are some common server options that users can configure for their Jupyter session on Alliance clusters, such as on Béluga's JupyterHub?",
+      "answer": "Common server options include the account to be used, time required for the session, number of CPU cores, memory limit, optional GPU configuration, and the user interface."
     },
     {
-      "question": "What should a user do if they encounter an 'Authentication error: Error 403'?",
-      "answer": "Users should verify that their Alliance account has been renewed and that their access to the specific cluster is currently enabled."
+      "question": "Which user interface is most recommended for interactive prototyping and data visualization when using JupyterHub on Alliance clusters?",
+      "answer": "JupyterLab, the modern interface, is the most recommended Jupyter user interface."
     },
     {
-      "question": "What troubleshooting steps are recommended if a JupyterHub session hangs indefinitely on 'Your server is starting up'?",
-      "answer": "Users should first check for timeout issues. If those don't apply, they should log in via SSH to the cluster, use `sq` to find and `scancel` the Slurm job for their session, and then delete hidden Jupyter files (`.local/share/jupyter` and `.jupyter`) before attempting to start the session again."
+      "question": "What are common causes for a 'Spawn failed: Timeout' error when starting a new JupyterHub session on Alliance clusters?",
+      "answer": "This error is often caused by the underlying job scheduler being unresponsive or unable to find resources, a job not starting within five minutes, longer requested time, requesting too many resources (like GPUs or CPU cores), or having another interactive job running on the same cluster."
+    },
+    {
+      "question": "What does an 'Authentication error: Error 403' typically indicate when trying to use JupyterHub on Alliance clusters?",
+      "answer": "An 'Authentication error: Error 403' indicates that the user's account or their access to the cluster is currently inactive, requiring them to ensure their account has been renewed and cluster access is enabled."
+    },
+    {
+      "question": "If a JupyterHub session hangs during startup, displaying 'Your server is starting up...', what steps can a user take to troubleshoot and potentially resolve the issue?",
+      "answer": "Users can check for 'Spawn failed: Timeout' issues, log into the cluster via SSH, use `sq` to identify and `scancel` the corresponding Slurm job, delete hidden Jupyter files (`~/.local/share/jupyter` and `~/.jupyter`), and then try again."
+    },
+    {
+      "question": "Besides direct JupyterHub connections, how else can some Alliance clusters provide access to JupyterLab?",
+      "answer": "Some Alliance clusters also provide access to JupyterLab through Open OnDemand."
     }
   ],
-  "generated_at": "2026-04-12T00:27:21.472699+00:00"
+  "generated_at": "2026-04-13T07:40:58.049574+00:00"
 }

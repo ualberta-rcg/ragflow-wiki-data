@@ -4,69 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi, un 'Dummy Wheel'?",
-      "answer": "Un 'Dummy Wheel' est un paquet de substitution qui sert de marqueur pour des paquets Python populaires disponibles sur PyPI, mais qui sont plutôt des modules sur notre infrastructure."
+      "question": "C'est quoi, un \"Dummy Wheel\", dans le contexte de l'infrastructure de Calcul Canada?",
+      "answer": "Un \"Dummy Wheel\", c'est un genre de substitut qui sert de marqueur de position pour des paquets Python populaires. Ces paquets-là sont disponibles sur PyPI, mais chez nous, ils sont plutôt offerts comme des modules. Ils sont tous identifiés avec une version locale \"+dummy\", comme dans `pyarrow-23.0.1+dummy.computecanada-py3-none-any.whl`."
     },
     {
-      "question": "Comment les 'Dummy Wheels' sont-ils identifiés?",
-      "answer": "Ils sont tous identifiés avec une version locale taguée 'dummy', par exemple: `pyarrow-23.0.1+dummy.computecanada-py3-none-any.whl`."
+      "question": "Si pip sélectionne un \"Dummy Wheel\", pourquoi ça cause une erreur, et est-ce que c'est un comportement normal?",
+      "answer": "Ça cause une erreur parce que pip ne trouve pas de correspondance pour l'exigence du paquet. Le \"Dummy Wheel\" est juste là pour signaler que le paquet existe comme module. Oui, c'est tout à fait normal comme erreur, ça veut juste dire que la dépendance au module (comme `pyarrow`) n'a pas été satisfaite."
     },
     {
-      "question": "Pouvez-vous me donner des exemples de 'Dummy Wheels'?",
-      "answer": "Oui, des exemples incluent `pyarrow (Arrow)`, `opencv_python (OpenCV)` et `MPI4py`."
-    },
-    {
-      "question": "Qu'est-ce qui se passe quand pip sélectionne un 'Dummy Wheel'?",
-      "answer": "Quand pip sélectionne un 'Dummy Wheel', ça va générer une erreur parce que pip ne trouvera pas de correspondance pour la dépendance requise."
-    },
-    {
-      "question": "Est-ce qu'une erreur causée par un 'Dummy Wheel' est normale?",
-      "answer": "Oui, c'est une erreur normale générée par ce type de paquet (Dummy Wheel)."
-    },
-    {
-      "question": "Pourquoi une erreur est-elle soulevée quand la dépendance `pyarrow` n'est pas rencontrée?",
-      "answer": "Une erreur est soulevée parce que le 'Dummy Wheel' est sélectionné, ce qui est un comportement normal. Cela peut arriver si le module Arrow n'est pas chargé, si la version du module Arrow ne répond pas aux exigences, ou si le module Arrow ne supporte pas la version de Python utilisée."
-    },
-    {
-      "question": "Quelles sont les raisons possibles pour lesquelles un 'Dummy Wheel' pourrait être sélectionné et causer une erreur?",
-      "answer": "Les raisons possibles sont: le module Arrow n'était pas chargé, la version du module Arrow chargé ne correspond pas à la version demandée par le paquet dépendant, ou le module Arrow chargé ne prend pas en charge la version de Python utilisée."
-    },
-    {
-      "question": "Comment régler le problème si le module Arrow n'est pas chargé?",
-      "answer": "Pour régler ça, il faut désactiver l'environnement virtuel Python, charger le module nécessaire, réactiver l'environnement virtuel, puis relancer la commande d'installation de pip."
-    },
-    {
-      "question": "Quelle est la première étape pour corriger un module non chargé?",
-      "answer": "La première étape est de désactiver votre environnement virtuel Python en utilisant la commande `test $VIRTUAL_ENV && deactivate`."
-    },
-    {
-      "question": "Comment dois-je charger le module Arrow si ce n'est pas déjà fait?",
-      "answer": "Vous pouvez le charger avec la commande `module load gcc arrow/x.y.z python/x.y.z`, en remplaçant `x.y.z` par les versions appropriées."
-    },
-    {
-      "question": "Après avoir chargé le module, que faire pour réactiver mon environnement virtuel?",
-      "answer": "Vous devez réactiver votre environnement virtuel précédemment créé en exécutant `source <env>/bin/activate`."
-    },
-    {
-      "question": "Une fois que tout est réactivé, quelle est la dernière étape pour l'installation?",
-      "answer": "La dernière étape est de relancer votre commande `pip install <package>`."
-    },
-    {
-      "question": "C'est quoi un problème de 'Package/module version'?",
-      "answer": "Un problème de 'Package/module version' signifie que le module Arrow chargé ne satisfait pas l'exigence de version. Par exemple, si un paquet comme 'datasets' requiert `pyarrow` en version 21.0.0 ou plus, mais une version antérieure est chargée."
-    },
-    {
-      "question": "Comment trouver la version requise d'un paquet quand un 'Dummy Wheel' est installé à cause d'un problème de version?",
-      "answer": "Vous pouvez trouver la version requise en installant le paquet avec `--no-index`, comme `pip install --no-index datasets`, et en regardant la ligne de traitement qui indique la version demandée, par exemple `(from pyarrow>=21.0.0->datasets)`."
-    },
-    {
-      "question": "Comment puis-je vérifier rapidement si le module chargé a les 'Python bindings' pour `pyarrow`?",
-      "answer": "Vous pouvez le vérifier en exécutant `python -c \"import pyarrow\"`. Si la commande n'affiche rien, l'importation a fonctionné et le module fournit `pyarrow`."
-    },
-    {
-      "question": "Y a-t-il une autre façon de vérifier si `pip` voit `pyarrow`?",
-      "answer": "Oui, vous pouvez vérifier si `pip` voit `pyarrow` en utilisant la commande `pip list | grep pyarrow`. S'il y a une entrée, `pyarrow` est disponible et reconnu par `pip`."
+      "question": "Comment faire pour corriger une erreur quand un \"Dummy Wheel\" est sélectionné parce que le module requis n'a pas été chargé?",
+      "answer": "Pour arranger ça, vous devez premièrement désactiver votre environnement virtuel Python, puis charger le module que vous avez besoin (par exemple, `module load gcc arrow/x.y.z python/x.y.z`). Après ça, réactivez votre environnement virtuel et relancez votre commande `pip install`."
     }
   ],
-  "generated_at": "2026-04-11T21:15:05.483450+00:00"
+  "generated_at": "2026-04-13T05:05:31.425388+00:00"
 }

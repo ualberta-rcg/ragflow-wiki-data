@@ -4,57 +4,13 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What are the initial steps required before executing the 'dd' command for large volume migration?",
-      "answer": "First, copy the SSH private key you use to log in as the user on the temporary New Arbutus instance to the temporary Legacy Arbutus Cloud instance. Then, make sure SSH security rules allow the temporary Legacy Arbutus instance to SSH into the temporary New Arbutus instance."
+      "question": "What is the recommended method for migrating very large data volumes (e.g., greater than 5TB) between Arbutus Cloud instances, and what is the initial step to set it up?",
+      "answer": "For very large data volumes, Globus is the recommended migration method. The initial step is to request a Globus Connect Personal Plus subscription by sending an email with your information to globus@tech.alliancecan.ca and following the instructions in the invitation you receive."
     },
     {
-      "question": "How should volumes be prepared when migrating them from Legacy Arbutus to New Arbutus using the 'dd' command?",
-      "answer": "For each volume you wish to move, create an empty volume of the same size on New Arbutus, marking it bootable if it's a boot volume. Attach this new volume to the temporary instance on New Arbutus. Next, attach the volume you want to copy from Legacy Arbutus to the temporary Legacy Arbutus instance. Note that you may need to delete the instance it's currently attached to, but do NOT delete the volume itself."
-    },
-    {
-      "question": "What is the specific 'dd' command to execute on the temporary Legacy Arbutus instance for volume migration?",
-      "answer": "The command to execute is `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@xxx.xx.xx.xx \"sudo dd bs=16M of=/dev/vdb\"`. This command assumes the source volume on Legacy Arbutus is `/dev/vdb`, the volume size is 96G, the SSH key is `key.pem`, and the destination volume on New Arbutus is `/dev/vdb`."
-    },
-    {
-      "question": "Why is the `screen` command recommended when executing the 'dd' command for volume migration?",
-      "answer": "The `screen` command is used in case you get disconnected from your SSH session, helping to keep the process alive."
-    },
-    {
-      "question": "What is the result of completing the 'dd' migration process for a volume?",
-      "answer": "Once the process is complete, you will have an exact copy of the volume from Legacy Arbutus on New Arbutus which you can then use to launch instances on New Arbutus."
-    },
-    {
-      "question": "What is an ephemeral instance?",
-      "answer": "An ephemeral instance is an instance without a backing volume."
-    },
-    {
-      "question": "What methods are available for migrating ephemeral instances?",
-      "answer": "Ephemeral instances can be migrated using Glance images and volume snapshots, or by using the alternative method: Migrating a volume-backed instance using Linux 'dd'."
-    },
-    {
-      "question": "What are the two recommended approaches for copying data between instances in the two clouds?",
-      "answer": "The two recommended approaches for copying data are Globus for very large data volumes and rsync + ssh for smaller data volumes. The most appropriate method depends upon the size of the data volumes in your tenant."
-    },
-    {
-      "question": "For what size of data volumes is Globus recommended for migration?",
-      "answer": "Globus is recommended for very large volumes, such as those greater than 5TB."
-    },
-    {
-      "question": "How can I request a Globus Connect Personal Plus subscription?",
-      "answer": "To request a Globus Connect Personal Plus subscription, you should send an email to globus@tech.alliancecan.ca with your information and ask to be added to the Globus Plus subscription."
-    },
-    {
-      "question": "What steps are involved in enabling Globus Connect Personal on cloud instances for data transfer?",
-      "answer": "On each cloud instance involved in the data transfer, you need to read the relevant guides for Globus Connect Personal, install it, adjust the instance's configuration to enable communication with the Globus Service, run Globus Connect Personal as a background process in user space, and create a shared endpoint as a Globus Connect Personal Plus subscriber."
-    },
-    {
-      "question": "What specific configuration adjustments are needed for firewall rules to enable communication with the Globus Service?",
-      "answer": "You must ensure firewall rules on your VMs permit communication on the necessary ports for the Globus Service."
-    },
-    {
-      "question": "What access does the user running Globus Connect Personal require on the instances?",
-      "answer": "The user running Globus Connect Personal must have access to data on the instances' storage systems."
+      "question": "When migrating large bootable volumes from Legacy Arbutus to New Arbutus Cloud using the Linux 'dd' command, what command is executed on the temporary Legacy Arbutus instance to perform the data transfer?",
+      "answer": "To perform the data transfer using the Linux 'dd' command, after setting up temporary instances, SSH keys, and attaching volumes, you execute the following command on the temporary Legacy Arbutus instance: `screen sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@xxx.xx.xx.xx \"sudo dd bs=16M of=/dev/vdb\"`. This command assumes the source volume on Legacy Arbutus is `/dev/vdb`, the volume size is 96G, the SSH key is `key.pem`, and `xxx.xx.xx.xx` is the IP address of the temporary New Arbutus instance where the destination volume is attached as `/dev/vdb`."
     }
   ],
-  "generated_at": "2026-04-11T17:42:31.770341+00:00"
+  "generated_at": "2026-04-13T02:20:59.895720+00:00"
 }

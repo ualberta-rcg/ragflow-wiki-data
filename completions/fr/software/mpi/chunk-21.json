@@ -4,33 +4,17 @@
   "chunk_index": 21,
   "qa_pairs": [
     {
-      "question": "D'après le message affiché par le processus P_13, quel est le numéro du processus qui a envoyé le message?",
-      "answer": "Le processus qui a envoyé le message est le numéro 12."
+      "question": "Comment peut-on s'assurer qu'un programme MPI utilisant `MPI_Send` et `MPI_Recv` n'aura pas d'interblocage, surtout si la bibliothèque ne fournit pas de mémoire tampon implicite?",
+      "answer": "Une solution fiable pour éviter les interblocages est d'utiliser une stratégie pair-impair. Les processus de rang pair exécutent d'abord la fonction `MPI_Send` suivie de `MPI_Recv`, tandis que les processus de rang impair exécutent `MPI_Recv` en premier, puis `MPI_Send`. Cette approche garantit que les transactions sont correctement appariées et élimine les risques d'interblocage, même sans mémoire tampon offerte par la bibliothèque."
     },
     {
-      "question": "Combien de processus au total ont été exécutés pour générer ces messages, d'après les informations disponibles?",
-      "answer": "Il y a 16 processus au total."
+      "question": "À quoi servent les enveloppes de compilateurs, comme `mpicc` ou `mpifort`, dans le développement de programmes MPI?",
+      "answer": "Les enveloppes de compilateurs, comme `mpicc` pour C ou `mpifort` pour Fortran, ne sont pas des compilateurs en soi. Elles appellent d'autres compilateurs en s'assurant que ces derniers reçoivent les indicateurs spécifiques à MPI nécessaires pour la compilation et la liaison des programmes, simplifiant ainsi le processus pour le développeur."
     },
     {
-      "question": "Quel message exact le processus P_4 a-t-il reçu et affiché?",
-      "answer": "Le processus P_4 a reçu et affiché le message: \"Hello, world! from process 3 of 16\"."
-    },
-    {
-      "question": "Le processus P_14 a reçu un message de quel autre processus?",
-      "answer": "Le processus P_14 a reçu un message du processus 13."
-    },
-    {
-      "question": "Si on se fie aux sorties, quel processus a reçu le message provenant du processus 7?",
-      "answer": "C'est le processus P_8 qui a reçu le message du processus 7."
-    },
-    {
-      "question": "Quel est le contenu du message que le processus P_10 a reçu?",
-      "answer": "Le processus P_10 a reçu le message: \"Hello, world! from process 9 of 16\"."
-    },
-    {
-      "question": "Quel processus a envoyé le message que le processus P_7 a reçu?",
-      "answer": "Le processus P_7 a reçu un message du processus 6."
+      "question": "Comment les enveloppes de compilateurs Open MPI, comme `mpicc`, se comportent-elles lorsqu'on utilise différents modules de compilateurs chargés via la commande `module load`?",
+      "answer": "Les enveloppes de compilateurs Open MPI utiliseront toujours le compilateur et la version du compilateur que l'utilisateur a chargés avec la commande `module load`. Par exemple, si vous chargez `intel/2020.1.217` et `openmpi/4.0.3`, `mpicc` appellera `icc` avec les options spécifiques à cette configuration, comme le montre l'option `--showme`."
     }
   ],
-  "generated_at": "2026-04-12T01:59:48.576042+00:00"
+  "generated_at": "2026-04-13T08:54:23.818877+00:00"
 }

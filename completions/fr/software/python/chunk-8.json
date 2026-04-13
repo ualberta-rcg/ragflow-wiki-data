@@ -4,17 +4,17 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "Comment puis-je lister les versions disponibles d'un paquet Python spécifique, comme `numpy`, avec la commande `avail_wheels`?",
-      "answer": "Pour lister les versions disponibles d'un paquet, comme `numpy`, vous pouvez utiliser la commande `avail_wheels numpy`. Le résultat affichera le nom, la version, la version Python compatible (`cp39` pour cpython 3.9, par exemple) et l'architecture."
+      "question": "À quoi sert la commande `avail_wheels` et comment l'utiliser pour trouver un paquet Python spécifique sur les grappes?",
+      "answer": "La commande `avail_wheels` permet de lister les *wheels* Python disponibles sur nos grappes. Pour trouver un paquet en particulier, comme `numpy`, on lance simplement `avail_wheels numpy`. Si on veut lister tous les *wheels* qui contiennent un certain texte, par exemple `cdf` (insensible à la casse), on utilise des guillemets et un astérisque, comme `avail_wheels \"*cdf*\"`."
     },
     {
-      "question": "Comment faire pour lister toutes les versions d'un wheel disponible, et non juste la plus récente?",
-      "answer": "Pour lister toutes les versions disponibles d'un wheel, vous devez utiliser l'option `--all-version` avec la commande `avail_wheels`. Par exemple, pour voir toutes les versions des wheels qui contiennent `cdf` dans leur nom, vous lanceriez `avail_wheels \"*cdf*\" --all-version`."
+      "question": "Comment peut-on filtrer la liste des *wheels* Python disponibles en utilisant la commande `avail_wheels` pour une version de paquet précise, une version de Python ou un fichier `requirements.txt`?",
+      "answer": "Pour filtrer les *wheels* par version d'un paquet, on peut employer des opérateurs comme `==`, `<`, `>` directement après le nom du paquet (par exemple, `avail_wheels 'numpy<1.23'`) ou l'option `--version` (ex: `avail_wheels numpy --version 1.23`). Pour cibler une version spécifique de Python, on ajoute `--python` (ex: `avail_wheels 'numpy<1.23' --python 3.9`). On peut aussi vérifier quels *wheels* listés dans un `requirements.txt` sont disponibles avec `avail_wheels -r requirements.txt`, et même lister ceux qui ne le sont pas avec l'option `--not-available`."
     },
     {
-      "question": "Quelle est la procédure pour prétélécharger un paquet Python sur un nœud de connexion avant de l'installer sur un nœud de calcul?",
-      "answer": "Pour prétélécharger un paquet Python sur un nœud de connexion, utilisez la commande `pip download --no-deps <nom_du_paquet>`. Par exemple, pour `tensorboardX`, vous lanceriez `pip download --no-deps tensorboardX`. Ceci télécharge le fichier `.whl` (comme `tensorboardX-1.9-py2.py3-none-any.whl`) dans votre répertoire de travail, que vous pourrez ensuite installer sur un nœud de calcul."
+      "question": "Quelle est la marche à suivre pour prétélécharger un paquet Python, tel que `tensorboardX`, sur un nœud de connexion afin de pouvoir l'installer ultérieurement sur un nœud de calcul?",
+      "answer": "Pour prétélécharger un paquet, on utilise la commande `pip download --no-deps <nom_du_paquet>` (par exemple, `pip download --no-deps tensorboardX`) sur un nœud de connexion. Ceci télécharge le fichier *wheel* (`.whl`) dans le répertoire de travail. Ensuite, pour l'installer sur un nœud de calcul, on utilise `pip install` en spécifiant le chemin complet du fichier, comme `pip install tensorboardX-1.9-py2.py3-none-any.whl`."
     }
   ],
-  "generated_at": "2026-04-12T18:21:59.173263+00:00"
+  "generated_at": "2026-04-13T11:52:15.543594+00:00"
 }

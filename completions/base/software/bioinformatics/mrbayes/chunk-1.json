@@ -4,105 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is MrBayes used for?",
-      "answer": "MrBayes is a program for Bayesian inference and model choice across a wide range of phylogenetic and evolutionary models."
+      "question": "What is the primary function of MrBayes, and what computational method does it employ?",
+      "answer": "MrBayes is a program used for Bayesian inference and model choice across a wide range of phylogenetic and evolutionary models. It utilizes Markov chain Monte Carlo (MCMC) methods to estimate the posterior distribution of model parameters."
     },
     {
-      "question": "What methods does MrBayes employ to estimate model parameters?",
-      "answer": "MrBayes uses Markov chain Monte Carlo (MCMC) methods to estimate the posterior distribution of model parameters."
+      "question": "What are the various ways MrBayes can be executed on a computing system?",
+      "answer": "MrBayes can be run sequentially using only one CPU core, in parallel across multiple CPU cores on one or more nodes (using MPI), or by leveraging a GPU."
     },
     {
-      "question": "How can I find available MrBayes modules on the system?",
-      "answer": "You can find available MrBayes modules by using the command `module spider mrbayes`."
-    },
-    {
-      "question": "What is the CPU core configuration for a sequential MrBayes job?",
-      "answer": "A sequential MrBayes job uses only one CPU core, specified by `--cpus-per-task=1`."
-    },
-    {
-      "question": "Which input file is used in the sequential MrBayes example?",
-      "answer": "The input file used in the sequential MrBayes example is `primates.nex`, which is distributed with MrBayes."
-    },
-    {
-      "question": "What is the name of the job script for a sequential MrBayes run?",
-      "answer": "The job script for a sequential MrBayes run is named `submit-mrbayes-seq.sh`."
-    },
-    {
-      "question": "How do you submit a sequential MrBayes job script?",
-      "answer": "You submit a sequential MrBayes job script using the command `sbatch submit-mrbayes-seq.sh`."
-    },
-    {
-      "question": "Can MrBayes be executed in parallel?",
-      "answer": "Yes, MrBayes can be run on multiple cores, on multiple nodes, and on GPUs."
-    },
-    {
-      "question": "How many CPU cores are utilized in the MPI parallel MrBayes job script?",
-      "answer": "The MPI parallel MrBayes job script is configured to use 8 CPU cores in total, specified by `--ntasks=8`."
-    },
-    {
-      "question": "What is the name of the job script for an MPI parallel MrBayes run?",
-      "answer": "The job script for an MPI parallel MrBayes run is named `submit-mrbayes-parallel.sh`."
-    },
-    {
-      "question": "How do you submit an MPI parallel MrBayes job script?",
-      "answer": "You submit an MPI parallel MrBayes job script using the command `sbatch submit-mrbayes-parallel.sh`."
-    },
-    {
-      "question": "What parameter is used in the job script to request a GPU for MrBayes?",
-      "answer": "A GPU is requested in the MrBayes job script using the `--gpus=1` parameter."
-    },
-    {
-      "question": "Which modules are loaded for a MrBayes run on a GPU?",
-      "answer": "For a MrBayes run on a GPU, the `gcc`, `cuda/12`, and `mrbayes/3.2.7` modules are loaded."
-    },
-    {
-      "question": "What is the name of the job script for a GPU MrBayes run?",
-      "answer": "The job script for a GPU MrBayes run is named `submit-mrbayes-gpu.sh`."
-    },
-    {
-      "question": "How do you submit a GPU MrBayes job script?",
-      "answer": "You submit a GPU MrBayes job script using the command `sbatch submit-mrbayes-gpu.sh`."
-    },
-    {
-      "question": "Why is it recommended to split very long MrBayes runs into multiple smaller jobs?",
-      "answer": "It is recommended to split very long MrBayes runs into multiple smaller jobs because long jobs are more likely to be interrupted by hardware failure or maintenance outages."
-    },
-    {
-      "question": "Does MrBayes support checkpointing to save and resume progress?",
-      "answer": "Yes, MrBayes has a mechanism for creating checkpoints, allowing progress to be saved from one job and continued in a subsequent job."
-    },
-    {
-      "question": "What is the key difference between the `job1.nex` and `job2.nex` input files for checkpointing?",
-      "answer": "The key difference between `job1.nex` and `job2.nex` is the presence of the `append=yes` keyword in `job2.nex`."
-    },
-    {
-      "question": "How many generations (`ngen`) are specified in the `mcmc` command within `job1.nex`?",
-      "answer": "`job1.nex` specifies `ngen=10000000` for the MCMC calculation."
-    },
-    {
-      "question": "What Slurm feature is used in the checkpointing example to launch two sequential jobs with one command?",
-      "answer": "A job array, utilizing the `--array` parameter and the `$SLURM_ARRAY_TASK_ID` variable, is used in the checkpointing example to launch two Slurm jobs with a single `sbatch` command."
-    },
-    {
-      "question": "What is the name of the job script for the MrBayes checkpointing example?",
-      "answer": "The job script for the MrBayes checkpointing example is named `submit-mrbayes-cp.sh`."
-    },
-    {
-      "question": "How do you submit the checkpointing MrBayes job array script?",
-      "answer": "You submit the checkpointing MrBayes job array script using the command `sbatch submit-mrbayes-cp.sh`."
-    },
-    {
-      "question": "What is the default memory per CPU requested in the example job scripts?",
-      "answer": "The example job scripts request `3G` of memory per CPU, specified by `--mem-per-cpu=3G`."
-    },
-    {
-      "question": "What is the purpose of `checkfreq=1000` in the MrBayes commands in `job1.nex` and `job2.nex`?",
-      "answer": "The `checkfreq=1000` parameter indicates that checkpoint files should be created every 1000 generations."
-    },
-    {
-      "question": "What does `relburnin=yes burninfrac=0.1` signify in the MrBayes MCMC command?",
-      "answer": "`relburnin=yes burninfrac=0.1` signifies that a relative burn-in is used, discarding the first 10% of samples."
+      "question": "Why is it advisable to use checkpointing for extended MrBayes calculations, and what benefit does it provide?",
+      "answer": "Checkpointing is recommended for very long MrBayes runs because such jobs are more prone to interruptions due to hardware failures or maintenance outages. This mechanism allows progress to be saved from one job and subsequently continued in a new job, preventing the loss of computational work."
     }
   ],
-  "generated_at": "2026-04-12T03:19:47.308426+00:00"
+  "generated_at": "2026-04-13T09:37:35.126467+00:00"
 }

@@ -3,57 +3,53 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi le but principal de ce document?",
-      "answer": "Ce document explique comment partitionner, formater et monter un nouveau volume sur un système Linux."
+      "question": "Quel est le but principal des instructions fournies pour les environnements Linux?",
+      "answer": "Les instructions visent à expliquer comment partitionner, formater et monter un nouveau volume dans un environnement Linux."
     },
     {
-      "question": "Quel est l'avertissement crucial avant de partitionner ou formater un volume?",
-      "answer": "Si c'est un volume déjà existant, il ne faut pas le partitionner ni le formater pour éviter de perdre des données; il faut seulement le monter."
+      "question": "Quelle mise en garde importante faut-il prendre en compte avant de partitionner ou formater un volume existant dans un environnement Linux?",
+      "answer": "Il est crucial de ne pas partitionner ou formater un volume s'il ne s'agit pas d'un nouveau volume, car cela entraînerait la perte de données. Dans ce cas, il faut uniquement procéder au montage."
     },
     {
-      "question": "Quelle commande est utilisée pour initialiser le partitionnement d'un volume?",
-      "answer": "Il faut utiliser `sudo fdisk /dev/vdb`."
+      "question": "Comment procède-t-on pour partitionner un nouveau volume en utilisant la commande `fdisk` dans un environnement Linux?",
+      "answer": "Pour partitionner un nouveau volume, on utilise la commande `sudo fdisk /dev/vdb` et on suit les étapes pour créer une nouvelle partition primaire."
     },
     {
-      "question": "Quelles sont les étapes pour créer une nouvelle partition primaire avec `fdisk`?",
-      "answer": "Il faut entrer `n`, `p`, `1`, puis deux fois `retour` pour les valeurs par défaut et `w` pour écrire la table de partition."
+      "question": "Quels caractères doit-on entrer dans `fdisk` pour créer une nouvelle partition primaire, accepter les valeurs par défaut et écrire la table de partition sur le disque?",
+      "answer": "On entre 'n' pour une nouvelle partition, 'p' pour primaire, '1' pour le numéro de partition, on appuie deux fois sur la touche Entrée pour les secteurs par défaut, et 'w' pour écrire la table et quitter."
     },
     {
-      "question": "Comment formater une nouvelle partition en système de fichiers `ext4`?",
-      "answer": "On utilise la commande `sudo mkfs -t ext4 /dev/vdb1`."
+      "question": "Après avoir partitionné un nouveau volume, quelle commande doit-on utiliser pour formater la nouvelle partition en `ext4`?",
+      "answer": "Il faut utiliser la commande `sudo mkfs -t ext4 /dev/vdb1` pour formater la nouvelle partition en `ext4`."
     },
     {
-      "question": "Quelle commande sert à créer le dossier qui servira de point de montage?",
-      "answer": "La commande est `sudo mkdir /media/data`."
+      "question": "Quelle est la commande nécessaire pour créer un répertoire servant de point de montage pour un nouveau périphérique de stockage?",
+      "answer": "On utilise la commande `sudo mkdir /media/data` pour créer un répertoire qui servira de point de montage."
     },
     {
-      "question": "Comment monter le volume sur son point de montage une fois que tout est prêt?",
-      "answer": "On utilise `sudo mount /dev/vdb1 /media/data`."
+      "question": "Une fois le volume partitionné, formaté et le point de montage créé, quelle commande permet de monter le volume sur ce point?",
+      "answer": "La commande `sudo mount /dev/vdb1 /media/data` est utilisée pour monter le volume sur le point de montage spécifié."
     },
     {
-      "question": "Qu'arrive-t-il si l'instance est redémarrée après un montage manuel du volume?",
-      "answer": "Le volume devra être monté à nouveau manuellement."
+      "question": "Comment peut-on s'assurer qu'un volume sera monté automatiquement après une réinitialisation de l'instance dans un système Linux?",
+      "answer": "Pour un montage automatique après une réinitialisation, il faut modifier le fichier `/etc/fstab` en y ajoutant une ligne comme `/dev/vdb1 /media/data ext4 defaults 0 2`."
     },
     {
-      "question": "Comment faire pour que le volume se monte automatiquement après chaque redémarrage?",
-      "answer": "Il faut ajouter la ligne `/dev/vdb1 /media/data ext4 defaults 0 2` au fichier `/etc/fstab`."
+      "question": "Si des périphériques sont ajoutés au fichier `/etc/fstab` mais que l'instance n'a pas été réinitialisée, quelle commande peut-on utiliser pour monter ces nouveaux périphériques immédiatement?",
+      "answer": "On peut utiliser la commande `sudo mount -a` pour monter tous les périphériques listés dans `/etc/fstab` sans avoir à redémarrer l'instance."
     },
     {
-      "question": "Comment monter les périphériques configurés dans `/etc/fstab` sans avoir à redémarrer l'instance?",
-      "answer": "On peut utiliser la commande `sudo mount -a`."
+      "question": "Pourquoi est-il recommandé de démonter un volume ou un périphérique avant de, par exemple, en créer une image ou de l'attacher à une autre instance?",
+      "answer": "Il est préférable de démonter un volume pour éviter la corruption des données lors d'opérations comme la création d'une image ou l'attachement à une autre instance."
     },
     {
-      "question": "Pourquoi est-il recommandé de démonter un volume avant de le manipuler, par exemple pour créer une image?",
-      "answer": "Pour éviter la corruption des données sur le volume."
+      "question": "Quelle commande est utilisée pour démonter un volume monté sur `/media/data` dans un environnement Linux?",
+      "answer": "La commande `sudo umount /media/data` est utilisée pour démonter le volume."
     },
     {
-      "question": "Quelle est la commande pour démonter le volume monté dans l'exemple?",
-      "answer": "Il faut utiliser `sudo umount /media/data`."
-    },
-    {
-      "question": "Qu'est-ce qui peut empêcher de démonter un volume, et quel message est affiché dans ce cas?",
-      "answer": "Si des fichiers sur le volume sont en cours d'utilisation, la commande échouera et affichera un message indiquant que le volume est occupé."
+      "question": "Quelle condition doit être respectée pour que la commande `umount` fonctionne correctement et ne retourne pas de message d'erreur?",
+      "answer": "Pour que la commande `umount` réussisse, aucun fichier du volume ne doit être utilisé en lecture ou en écriture par le système d'exploitation ou par une autre application active."
     }
   ],
-  "generated_at": "2026-04-12T10:13:40.950183+00:00"
+  "generated_at": "2026-04-13T15:17:57.521549+00:00"
 }

@@ -4,81 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What do the messages \"Nodes required for job are DOWN, DRAINED or RESERVED for jobs in higher priority partitions\" or \"ReqNodeNotAvailable\" mean in <tt>squeue</tt> output?",
-      "answer": "These messages indicate that one or more nodes Slurm considered for the job are down, deliberately taken offline, or reserved for other jobs. These messages effectively mean the same thing as the reason \"Resources\" that appeared in Slurm version 17.11."
+      "question": "What do the messages \"Nodes required for job are DOWN, DRAINED or RESERVED for jobs in higher priority partitions\" or \"ReqNodeNotAvailable\" mean in the \"Reason\" field of Slurm's `squeue` output?",
+      "answer": "These messages, which are new to Slurm 19.05, indicate that one or more of the nodes Slurm considered for your job are currently unavailable, either because they are down, deliberately taken offline, or reserved for other jobs. These are not error messages; your job is actually in the queue and will eventually be processed. They effectively convey the same information as the \"Resources\" reason in Slurm version 17.11."
     },
     {
-      "question": "Are \"Nodes required for job are DOWN, DRAINED or RESERVED for jobs in higher priority partitions\" or \"ReqNodeNotAvailable\" considered error messages?",
-      "answer": "No, these are not error messages. Jobs submitted with these reasons are actually in the queue and will eventually be processed."
+      "question": "How accurate is the `START_TIME` displayed in the `squeue` command's output for pending jobs on Alliance clusters?",
+      "answer": "The `START_TIME` that Slurm forecasts for high-priority pending jobs is often not very useful because it depends on rapidly changing conditions. Slurm computes these expected start times based on available resources and higher-priority jobs, but frequently invalidates and recomputes its future plans if jobs end early or if prioritization changes. On general-purpose clusters, new jobs are submitted about every five seconds, and 30-50% of jobs end early, leading to frequent recomputations. Most waiting jobs will show \"N/A\" (not available) for `START_TIME`, meaning Slurm is not attempting to project a start time for them. However, for jobs that are already running, the start time reported by `squeue` is perfectly accurate."
     },
     {
-      "question": "Which version of Slurm introduced the \"Nodes required for job are DOWN, DRAINED or RESERVED for jobs in higher priority partitions\" and \"ReqNodeNotAvailable\" messages?",
-      "answer": "These messages are new to Slurm version 19.05."
-    },
-    {
-      "question": "Is the START_TIME displayed in <tt>squeue</tt> output accurate?",
-      "answer": "The start times Slurm forecasts for high-priority pending jobs depend on rapidly changing conditions and are therefore not very useful. However, for jobs which are already running, the start time reported by <tt>squeue</tt> is perfectly accurate."
-    },
-    {
-      "question": "Is START_TIME shown by default when using the <tt>squeue</tt> command?",
-      "answer": "No, the start time is not shown by default with <tt>squeue</tt>, but it can be printed with an option."
-    },
-    {
-      "question": "How does Slurm calculate START_TIME for high-priority pending jobs?",
-      "answer": "Slurm computes START_TIME based on currently available information, including what resources will be freed by running jobs that complete and what resources will be needed by other, higher-priority jobs waiting to run."
-    },
-    {
-      "question": "What factors can cause Slurm to invalidate its projected job start times?",
-      "answer": "Slurm invalidates its future plans if jobs end early, which changes which resources become available, or if prioritization changes due to the submission of higher-priority jobs or the cancellation of queued jobs."
-    },
-    {
-      "question": "Why does Slurm frequently recompute its future plans for job start times on general-purpose clusters?",
-      "answer": "On general-purpose clusters, new jobs are submitted about every five seconds, and 30-50% of jobs end early, causing Slurm to often discard and recompute its future plans."
-    },
-    {
-      "question": "What does \"N/A\" mean for START_TIME in <tt>squeue</tt> output?",
-      "answer": "\"N/A\" stands for \"not available\", meaning Slurm is not attempting to project a start time for that particular job."
-    },
-    {
-      "question": "What are .core files?",
-      "answer": "Core files are binary files containing a snapshot of a program's state at the moment it crashed or exited abnormally, typically with the extension \".core\"."
-    },
-    {
-      "question": "When are .core files created?",
-      "answer": ".Core files are created when a program crashes or otherwise exits abnormally."
-    },
-    {
-      "question": "Are .core files useful for regular users?",
-      "answer": "While .core files can be useful for programmers debugging software, they are normally of no interest to regular users beyond indicating that something went wrong with the software's execution."
-    },
-    {
-      "question": "How can I prevent .core files from being created in my directory?",
-      "answer": "You can prevent .core files from being created by adding the line <tt>ulimit -c 0</tt> to the end of your $HOME/.bashrc file."
-    },
-    {
-      "question": "What should I do if I encounter a \"library not found\" error when installing precompiled binary packages?",
-      "answer": "If you encounter a \"library not found\" error, such as <tt>/lib64/libc.so.6: version 'GLIBC_2.18' not found</tt>, you should refer to the \"Installing binary packages\" section under [[Installing_software_in_your_home_directory]] for how to fix this issue."
-    },
-    {
-      "question": "Does the Alliance provide clusters specifically for handling sensitive research data?",
-      "answer": "No, the Alliance does not operate any cluster specifically designated for handling personal, private, or sensitive data, such as human clinical research data."
-    },
-    {
-      "question": "How are Alliance resources managed regarding data integrity, confidentiality, and availability?",
-      "answer": "Alliance resources are administered following best practices for shared research systems, with considerable effort devoted to ensuring data integrity, confidentiality, and availability."
-    },
-    {
-      "question": "Are Alliance resources certified to specific security assurance levels for sensitive datasets?",
-      "answer": "No, none of the Alliance resources are certified as meeting specific security assurance levels that may be required for certain sensitive datasets."
-    },
-    {
-      "question": "Who is ultimately responsible for data protection and data privacy when using Alliance resources?",
-      "answer": "Responsibility for data protection and data privacy rests ultimately with the researcher."
-    },
-    {
-      "question": "Where can I find more information about the Alliance's Privacy and Data Protection Policy?",
-      "answer": "You can find more information in Privacy and Data Protection Policy section 5.2 and Terms of Use paragraph 3.12, available at your [https://ccdb.computecanada.ca/agreements/user_index Agreements page], and also in [[Data protection, privacy, and confidentiality]]."
+      "question": "Are Alliance national clusters suitable for handling sensitive research data, such as human clinical research data?",
+      "answer": "No, the Alliance does not operate any cluster specifically designated for handling personal, private, or sensitive data, such as human clinical research data. While Alliance resources are administered following best practices for shared research systems and considerable effort is made to ensure data integrity, confidentiality, and availability, none of the resources are certified as meeting specific security assurance levels that may be required for certain datasets. The responsibility for data protection and data privacy ultimately rests with the researcher, as outlined in Privacy and Data Protection Policy section 5.2 and Terms of Use paragraph 3.12 on your Agreements page."
     }
   ],
-  "generated_at": "2026-04-11T21:46:07.818228+00:00"
+  "generated_at": "2026-04-13T05:31:36.160548+00:00"
 }

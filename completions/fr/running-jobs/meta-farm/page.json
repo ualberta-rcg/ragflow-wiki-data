@@ -3,93 +3,85 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi META-Farm, pis à quoi ça sert?",
-      "answer": "META-Farm est une suite de scripts développée par l'équipe SHARCNET pour automatiser l'exécution d'un grand nombre de calculs connexes, souvent appelée 'farming' ou 'task farming'."
+      "question": "Qu'est-ce que META-Farm sur les grappes de calcul de l'Alliance et quel est son but principal?",
+      "answer": "META-Farm (pour META) est une suite de scripts développée par l’équipe SHARCNET pour automatiser l’exécution d’un grand nombre de calculs connexes, souvent appelés 'farming', sur les systèmes nationaux de l'Alliance et d'autres grappes qui utilisent l'ordonnanceur Slurm."
     },
     {
-      "question": "Quelles sont les principales nouveautés de la version 1.0.3 de META-Farm, publiée en mars 2025?",
-      "answer": "La version 1.0.3 fonctionne maintenant sur la grappe Trillium grâce à l'ajout du mode WHOLE_NODE (inactif par défaut, mais configurable) et d'autres ajustements. Ce mode regroupe les calculs séquentiels en tâches demandant des nœuds complets."
+      "question": "Quelle est la nouveauté majeure de la version 1.0.3 de META-Farm, publiée en mars 2025, pour les grappes de calcul?",
+      "answer": "La version 1.0.3 de META-Farm, publiée en mars 2025, est maintenant fonctionnelle sur la grappe Trillium grâce à l'ajout du nouveau mode WHOLE_NODE, qui regroupe les calculs séquentiels dans des tâches demandant des nœuds complets."
     },
     {
-      "question": "Sur quels systèmes est-ce que META-Farm peut être utilisée?",
-      "answer": "META-Farm fonctionne sur tous les systèmes nationaux de l'Alliance et sur d'autres grappes avec une configuration similaire qui utilisent l'ordonnanceur Slurm."
+      "question": "Dans le contexte de META-Farm, quelle est la distinction entre un 'cas' et une 'tâche'?",
+      "answer": "Un 'cas' désigne un calcul distinct (qu'il soit en série, parallèle ou utilisant un GPU), tandis qu'une 'tâche' est une invocation à l’ordonnanceur qui peut regrouper plusieurs cas."
     },
     {
-      "question": "En jargon META-Farm, c'est quoi la différence entre un 'cas' pis une 'tâche'?",
-      "answer": "Un 'cas' désigne un calcul distinct, comme l'exécution d'un programme. Une 'tâche' est une invocation à l'ordonnanceur de tâches et peut regrouper plusieurs cas."
+      "question": "Quelles sont les principales fonctionnalités offertes par META-Farm pour la gestion des calculs?",
+      "answer": "META-Farm propose deux modes (SIMPLE et META), un équilibrage dynamique de la charge de travail en mode META, la capture du statut de sortie des cas, la resoumission automatique des cas échoués ou non exécutés, et l'exécution automatique d’une tâche de post-traitement."
     },
     {
-      "question": "Quelles sont les fonctionnalités clés que META-Farm offre à ses utilisateurs?",
-      "answer": "META-Farm propose deux modes de fonctionnement (SIMPLE et META), un équilibrage dynamique de la charge de travail en mode META, la capture du statut de sortie des cas, la resoumission automatique des cas échoués et l'exécution automatique d'une tâche de post-traitement."
+      "question": "Quels sont les avantages de META-Farm par rapport à d'autres approches comme GLOST pour la gestion de groupes de calculs?",
+      "answer": "META-Farm offre des temps en file d'attente potentiellement plus courts, aucune perte de temps CPU à la fin du traitement (les métatâches se terminent lorsqu'elles n'ont plus de travail), et la resoumission automatisée des cas échoués, contrairement à GLOST."
     },
     {
-      "question": "Quelles sont les exigences techniques de base pour utiliser META-Farm?",
-      "answer": "Pour chaque groupe de cas, chaque calcul doit être décrit sur une ligne distincte dans un fichier 'table.dat', et chaque groupe de cas indépendant doit avoir son propre répertoire."
+      "question": "Quelles sont les étapes de démarrage rapide pour utiliser META-Farm sur une grappe de calcul de l'Alliance?",
+      "answer": "Il faut se connecter à une grappe, charger le module `meta-farm`, créer un répertoire pour le groupe de cas avec `farm_init.run`, personnaliser les fichiers `table.dat`, `single_case.sh` et `job_script.sh`, puis soumettre les tâches avec `submit.run -1` (mode SIMPLE) ou `submit.run N` (mode META)."
     },
     {
-      "question": "Quel est l'avantage principal de META par rapport à des approches comme GLOST en termes de temps d'attente et d'efficacité?",
-      "answer": "Avec META, le temps en file d'attente est souvent beaucoup plus court car l'ordonnanceur peut démarrer les métatâches individuelles plus rapidement. De plus, il n'y a pas de perte de performance à la fin du traitement, car les métatâches se terminent lorsqu'elles n'ont plus de travail."
+      "question": "Comment soumettre des groupes de cas avec META-Farm en mode SIMPLE et en mode META?",
+      "answer": "Pour le mode SIMPLE (un cas par tâche), on utilise la commande `submit.run -1`. Pour le mode META (plusieurs cas par tâche), on utilise `submit.run N`, où N représente le nombre de métatâches à soumettre."
     },
     {
-      "question": "Comment puis-je débuter rapidement avec META-Farm?",
-      "answer": "Il faut se connecter à une grappe, charger le module `meta-farm`, créer un répertoire avec `farm_init.run`, personnaliser les fichiers `table.dat`, `single_case.sh` et `job_script.sh`, copier vos fichiers, puis lancer `submit.run`."
+      "question": "Quel est le rôle du script `single_case.sh` dans META-Farm et comment peut-il être adapté?",
+      "answer": "Le script `single_case.sh` est responsable de la lecture et de l'analyse d'une ligne de `table.dat` pour lancer le code d'un cas spécifique. Il peut être adapté pour inclure des commandes communes ou pour extraire des arguments et des redirections de `table.dat`."
     },
     {
-      "question": "Comment faire pour exécuter plusieurs groupes de cas indépendamment?",
-      "answer": "Lancez `farm_init.run` avec un nom de groupe différent, personnalisez les scripts `single_case.sh` et `job_script.sh` dans le nouveau répertoire, créez un nouveau `table.dat` et copiez les exécutables, puis soumettez avec `submit.run` dans ce deuxième répertoire."
+      "question": "Pourquoi la variable `STATUS` est-elle si importante dans le script `single_case.sh` de META-Farm?",
+      "answer": "La variable `STATUS` doit être 0 si le cas a été traité correctement et positive sinon. Sa valeur est cruciale pour la commande `resubmit.run` qui l'utilise pour identifier les cas qui ont échoué et doivent être exécutés de nouveau."
     },
     {
-      "question": "Nommez quelques commandes importantes de META-Farm et leur fonction.",
-      "answer": "`farm_init.run` initialise un groupe de cas, `submit.run` le soumet à l'ordonnanceur, `resubmit.run` resoumet les cas échoués, `query.run` fournit un sommaire de l'état du groupe de cas, et `clean.run` supprime la plupart des fichiers du répertoire."
+      "question": "Quelles sont les modifications essentielles à apporter au fichier `job_script.sh` de META-Farm et pourquoi?",
+      "answer": "Il est essentiel de configurer le nom du compte de calcul (option `-A`) et la durée d’exécution (option `-t` ou `--time`) de la métatâche. Des tests peuvent aussi être ajoutés avant `task.run` pour détecter et gérer les problèmes avec les nœuds alloués, comme l'absence de GPU fonctionnel."
     },
     {
-      "question": "Dans quelles circonstances est-il recommandé d'utiliser le mode SIMPLE de META-Farm?",
-      "answer": "Le mode SIMPLE est recommandé si vous avez un petit nombre de cas (moins de 500) et que chaque cas prend au moins 20 minutes à s'exécuter."
+      "question": "Quels types de fichiers de sortie sont générés par META-Farm pendant l'exécution des métatâches?",
+      "answer": "META-Farm génère des fichiers de sortie standard par métatâche dans `OUTPUT/slurm-$JOBID.out` et des fichiers d'état par métatâche dans `STATUSES/status.$JOBID`, en plus d'un répertoire `MISC` pour des fichiers de travail temporaires."
     },
     {
-      "question": "Comment fait-on pour soumettre des tâches en mode SIMPLE versus en mode META avec la commande `submit.run`?",
-      "answer": "Pour le mode SIMPLE, utilisez `submit.run -1`. Pour le mode META, utilisez `submit.run N` où `N` est le nombre désiré de métatâches."
+      "question": "Comment faire pour resoumettre les cas qui ont échoué ou qui n'ont jamais été exécutés dans un groupe de cas META-Farm?",
+      "answer": "La commande `resubmit.run N` permet d'analyser les fichiers d'état, d'identifier les cas non terminés ou échoués, de créer un nouveau fichier `table.dat_` avec ces cas, puis de soumettre un nouveau groupe de tâches pour les traiter. L'option `-auto` permet une resoumission automatique."
     },
     {
-      "question": "À quoi sert le script `single_case.sh` et comment peut-il être personnalisé?",
-      "answer": "Le script `single_case.sh` lit une ligne de `table.dat`, l'analyse et lance votre code pour un cas. Vous pouvez l'adapter pour inclure des commandes communes ou utiliser les arguments `$COMM` et `$ID` pour des paramètres spécifiques à chaque cas."
+      "question": "Quand est-il préférable d'utiliser le mode META de META-Farm plutôt que le mode SIMPLE?",
+      "answer": "Le mode META est recommandé lorsque le nombre total de cas est élevé (plus de 500) et que chaque cas prend moins de 20 minutes, afin de réduire la surcharge d'ordonnancement et les limites sur le nombre de tâches soumises simultanément."
     },
     {
-      "question": "Pourquoi la variable `STATUS` est-elle importante dans `single_case.sh`?",
-      "answer": "La variable `STATUS` indique si un cas a été traité correctement (0 pour succès, positif pour échec). `resubmit.run` l'utilise pour identifier les cas à retraiter. Vous pouvez la personnaliser, par exemple, pour vérifier l'existence de fichiers de sortie."
+      "question": "Comment le mode META de META-Farm assure-t-il l'équilibrage dynamique de la charge de travail entre les métatâches?",
+      "answer": "Les métatâches en mode META utilisent un mécanisme `lockfile` pour obtenir séquentiellement le prochain cas à traiter dans `table.dat`. Cela assure un équilibrage dynamique, car les métatâches traitant des cas plus courts peuvent en prendre plus, et toutes tendent à se terminer au même moment."
     },
     {
-      "question": "Quelles informations essentielles doivent être configurées dans le fichier `job_script.sh`?",
-      "answer": "Vous devez configurer le nom du compte de calcul (option `-A`) et la durée d'exécution (option `-t` ou `--time`) de la métatâche. Il est crucial d'inclure l'option de durée d'exécution directement dans le script."
+      "question": "Comment estimer le temps d'exécution et le nombre optimal de métatâches pour un grand groupe de cas avec META-Farm?",
+      "answer": "Estimez d'abord le temps moyen d'un cas individuel (`dt_case`). Multipliez `dt_case` par le nombre total de cas pour obtenir le temps CPU total. Divisez ce total par une durée d'exécution choisie pour les métatâches (idéalement 12-24 heures) pour obtenir le nombre requis de métatâches."
     },
     {
-      "question": "Quels sont les fichiers de sortie créés par META-Farm lors de l'exécution de métatâches?",
-      "answer": "META-Farm crée `OUTPUT/slurm-$JOBID.out` (sortie standard par métatâche) et `STATUSES/status.$JOBID` (état de chaque cas traité par métatâche). Un répertoire `MISC` est aussi créé."
+      "question": "Quelles précautions importantes doit-on prendre lors de l'exécution d'un très grand nombre de cas (plus de 10 000) avec META-Farm?",
+      "answer": "Pour un grand nombre de cas, il faut minimiser la création de fichiers et de répertoires (si possible, éviter un sous-répertoire par cas). Il est aussi recommandé que le code écrive les résultats en mode ajout (append) dans des fichiers de sortie, un par métatâche, plutôt que de créer un fichier distinct pour chaque cas."
     },
     {
-      "question": "Comment la commande `resubmit.run` permet-elle de gérer les cas qui ont échoué ou n'ont jamais été exécutés?",
-      "answer": "`resubmit.run` analyse les fichiers `status.*`, identifie les cas non terminés ou échoués, crée un nouveau fichier `table.dat_` avec ces cas, puis lance un nouveau groupe de cas pour les retraiter. L'option `-auto` peut automatiser ce processus."
+      "question": "À quoi sert la commande `query.run` dans META-Farm et pourquoi est-elle utile?",
+      "answer": "La commande `query.run` fournit un sommaire de l'état du groupe de cas, incluant le nombre de tâches en file, en cours d'exécution et terminées. Elle est plus pratique que `list.run` pour un grand nombre de tâches et donne aussi l'information sur la progression générale des cas."
     },
     {
-      "question": "Dans quelles situations est-il préférable d'utiliser le mode META de META-Farm?",
-      "answer": "Le mode META est préférable quand le nombre de cas est très grand (largement supérieur à 500) et que chaque cas a une durée d'exécution généralement courte."
+      "question": "Quelle est la fonction de la commande `clean.run` dans META-Farm, et quelles sont les mises en garde concernant son utilisation?",
+      "answer": "La commande `clean.run` supprime la plupart des fichiers et sous-répertoires créés par META-Farm dans le répertoire du groupe de cas et dans `/home/$USER/tmp`, à l'exception des fichiers de configuration essentiels. Il faut l'utiliser avec beaucoup de prudence car elle supprime tous les résultats obtenus."
     },
     {
-      "question": "Comment fonctionne l'équilibrage dynamique de la charge de travail en mode META?",
-      "answer": "Chaque métatâche exécute une boucle qui obtient le cas suivant à traiter dans `table.dat` via une zone critique (protégée par un 'lockfile'). Ceci assure que les métatâches traitant des cas plus courts peuvent en traiter davantage, équilibrant la charge."
+      "question": "Peut-on passer des arguments optionnels de `sbatch` lors de la soumission de tâches avec `submit.run` dans META-Farm?",
+      "answer": "Oui, tous les arguments supplémentaires fournis à `submit.run` (après le nombre de tâches) seront transmis directement à la commande `sbatch` de l’ordonnanceur, à l'exception des options de durée d'exécution (`-t` ou `--time`) qui doivent être spécifiées dans `job_script.sh`."
     },
     {
-      "question": "Comment estimer le temps d'exécution moyen d'un cas individuel pour le mode META?",
-      "answer": "Réservez un seul cœur CPU avec `salloc`, puis exécutez `single_case.sh` pour quelques cas différents à l'aide d'une boucle `for` et divisez le temps réel total obtenu par le nombre de cas testés."
-    },
-    {
-      "question": "Quels sont quelques conseils de prudence à suivre avant de soumettre un grand groupe de cas avec META-Farm?",
-      "answer": "Toujours commencer par un petit test interactif pour s'assurer que tout fonctionne. Pour plus de 10 000 cas, minimiser la création de fichiers et de répertoires, et si possible, faire en sorte que le code ajoute les résultats à des fichiers existants (un par métatâche) plutôt que d'en créer un par cas."
-    },
-    {
-      "question": "Où peut-on obtenir de l'aide supplémentaire pour META-Farm et ses fonctionnalités avancées?",
-      "answer": "Pour des détails sur les fonctionnalités avancées et le dépannage, consultez la page 'META-Farm : Fonctions avancées et dépannage'. Pour plus d'assistance, contactez le soutien technique en mentionnant l'outil META et son développeur, Sergey Mashchenko."
+      "question": "Où peut-on trouver de l'assistance supplémentaire pour META-Farm et à qui s'adresser en cas de besoin?",
+      "answer": "Pour des détails sur les fonctionnalités avancées et le dépannage, il faut consulter la page 'META-Farm : Fonctions avancées et dépannage'. En cas de besoin d'assistance, on peut contacter le soutien technique en mentionnant META et son développeur, Sergey Mashchenko."
     }
   ],
-  "generated_at": "2026-04-12T01:23:02.378585+00:00"
+  "generated_at": "2026-04-13T08:26:53.328242+00:00"
 }

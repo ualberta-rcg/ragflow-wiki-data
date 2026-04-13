@@ -3,77 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the main purpose of this guide?",
-      "answer": "This guide provides a getting started guide for porting a machine learning task to one of our clusters."
+      "question": "What is the primary purpose of this guide regarding Alliance clusters?",
+      "answer": "This guide provides a start-up guide for porting a Machine Learning task to one of Alliance's clusters."
     },
     {
-      "question": "What is the first step when preparing a machine learning program for the cluster, concerning graphical output?",
-      "answer": "The first step is to modify your program to avoid using graphical displays; any graphical results should be written to disk as files and viewed on your personal computer later."
+      "question": "What is the recommendation for handling graphical output when running Machine Learning tasks on Alliance clusters?",
+      "answer": "You should modify your program so it does not use graphical displays. Any graphical results must be written to disk in a file and viewed on your personal computer after the task is complete."
     },
     {
-      "question": "Why is it recommended to archive datasets for training on the clusters?",
-      "answer": "Shared storage on the clusters is not optimized for handling many small files, and not archiving can cause high-frequency file reads from the storage node, negatively impacting system performance."
+      "question": "Why is it recommended to archive datasets for Machine Learning tasks on Alliance clusters, and what is the preferred format?",
+      "answer": "Shared storage on Alliance clusters is not optimized for a large number of small files. Datasets should be in an archive file (such as 'tar') to prevent high-frequency file reads from the storage node, which can harm overall system performance."
     },
     {
-      "question": "How can you create a tar archive of a directory named `mydataset` without compression?",
+      "question": "What is an example command to archive a dataset named 'mydataset' without compression on Alliance clusters?",
       "answer": "You can use the command `tar cf mydataset.tar mydataset/*`."
     },
     {
-      "question": "What is the third step for preparing an ML task, regarding the software environment?",
-      "answer": "The third step is to prepare a virtual environment by creating one in your home space, with further details available in the Python documentation for creating and using virtual environments."
+      "question": "What is the initial step for preparing the virtual environment for a Machine Learning task on Alliance clusters?",
+      "answer": "You should create a virtual environment in your home directory."
     },
     {
-      "question": "Which machine learning frameworks have dedicated documentation available?",
-      "answer": "Documentation is available for PyTorch and TensorFlow."
+      "question": "What is the purpose of using an interactive task (`salloc`) when developing a Machine Learning program on Alliance clusters?",
+      "answer": "Interactive tasks are recommended for trying out your task and quickly diagnosing problems before submitting it with a script."
     },
     {
-      "question": "What is the purpose of using an interactive job (`salloc`) before submitting a task with a script?",
-      "answer": "Interactive jobs allow for quicker diagnosis of problems before submitting the task as a script."
+      "question": "What is an example `salloc` command to request resources for an interactive Machine Learning task on Alliance clusters?",
+      "answer": "An example command is `$ salloc --account=def-someuser --gres=gpu:1 --cpus-per-task=3 --mem=32000M --time=1:00:00`."
     },
     {
-      "question": "What are some key actions to perform within an interactive job?",
-      "answer": "You should activate your Python virtual environment, attempt to run your program, install any missing packages from a login node, and note the necessary steps to make your program run."
+      "question": "After an interactive task has started on an Alliance cluster, what key steps should a user take?",
+      "answer": "You should activate your Python virtual environment, attempt to run your program, install any missing packages from a login node, and note the necessary steps."
     },
     {
-      "question": "Where should a task primarily read and write data during execution on a compute node?",
-      "answer": "Tasks should read and write as much as possible to the local storage on the compute node (`$SLURM_TMPDIR`) and as little as possible to shared file systems (home, scratch, project)."
+      "question": "During an interactive Machine Learning task on an Alliance cluster, what storage optimization is crucial to verify?",
+      "answer": "It is crucial to verify that your task reads and writes as much as possible to the compute node's local storage (`$SLURM_TMPDIR`) and as little as possible to shared file systems (home, scratch, project)."
     },
     {
-      "question": "Why should tasks eventually be submitted using `sbatch` scripts?",
-      "answer": "`sbatch` scripts enable tasks to be fully automated, as interactive tasks are solely for preparation and debugging."
+      "question": "Why should Machine Learning tasks on Alliance clusters ultimately be submitted using `sbatch` scripts?",
+      "answer": "`sbatch` scripts allow tasks to be fully automated, making them suitable for full-scale or large-scale execution after preparation and debugging with interactive tasks."
     },
     {
-      "question": "What are the suggested resource requests for an `sbatch` script concerning CPU, GPU, and memory?",
-      "answer": "Suggestions are 6 CPUs, 1 GPU (unless multiple are confirmed used), and 32000M of memory."
+      "question": "What are the essential elements to include in an `sbatch` script for Machine Learning tasks on Alliance clusters?",
+      "answer": "Key elements include the account for billing, requested resources (CPU, GPU, memory, duration), and bash commands for environment preparation (modules, virtualenv), data transfer to the compute node, and launching the executable."
     },
     {
-      "question": "What is the maximum job duration on Béluga, Graham, and Cedar clusters?",
-      "answer": "The maximum duration is 7 days on Béluga and 28 days on Graham and Cedar."
+      "question": "What are the suggested resource requests for a typical `sbatch` script for a Machine Learning task using one GPU on Alliance clusters?",
+      "answer": "Suggestions include 6 CPUs, 1 GPU (unless multiple are certainly used), 32000M of memory, and a duration based on cluster limits (e.g., 7 days for Béluga, 28 days for Graham and Cedar)."
     },
     {
-      "question": "How is the virtual environment typically activated in an example `sbatch` script?",
-      "answer": "The virtual environment is activated using `source ~/my_env/bin/activate`."
+      "question": "How should data be transferred and accessed within an `sbatch` script for a Machine Learning task on Alliance clusters to ensure optimal performance?",
+      "answer": "Data should be transferred to the compute node's local storage (`$SLURM_TMPDIR`) using commands like `tar xf ~/projects/def-xxxx/data.tar -C $SLURM_TMPDIR/data` for archived datasets."
     },
     {
-      "question": "How are archived datasets typically handled and placed for use in an example `sbatch` script?",
-      "answer": "The dataset is extracted from a tar file in shared storage (`~/projects/def-xxxx/data.tar`) into the local compute node storage (`$SLURM_TMPDIR/data`) using `tar xf`."
+      "question": "Why is it recommended to split long Machine Learning tasks into 24-hour blocks on Alliance clusters?",
+      "answer": "Splitting tasks into shorter blocks improves job priority and allows tasks to exceed the 7-day limit on Béluga by chaining them."
     },
     {
-      "question": "What is the benefit of fragmenting long tasks into shorter blocks?",
-      "answer": "Requesting shorter tasks improves job priority, and chaining them allows exceeding the 7-day limit on Béluga."
+      "question": "How can a long Machine Learning task be split and chained using `sbatch` on Alliance clusters?",
+      "answer": "The task program or submission script should be modified to be interruptible and resumable using checkpoints. Then, calculate the number of 24-hour blocks needed and use the `--array 1-<n_blocks>%1` argument in the `sbatch` script to create a chain of tasks."
     },
     {
-      "question": "What needs to be done to allow a long task to be fragmented and resumed?",
-      "answer": "The submission script or program must be modified to allow the task to be interrupted and continued, requiring the program to access the most recent checkpoint."
-    },
-    {
-      "question": "How can you run a chain of `n_blocs` tasks using `sbatch` for fragmented jobs?",
-      "answer": "You can use the `sbatch` argument `--array 1-<n_blocs>%1`."
-    },
-    {
-      "question": "How does the example script for chained jobs handle resuming training from a checkpoint?",
-      "answer": "It checks if a `LAST_CHECKPOINT` exists in `~/scratch/checkpoints/ml-test`; if so, it loads it; otherwise, it starts training from scratch, writing new checkpoints to the specified directory."
+      "question": "How does the example `sbatch` script for chained tasks handle checkpoints on Alliance clusters?",
+      "answer": "The script finds the most recent checkpoint file (e.g., '.h5' or '.pt') in a specified directory, and then starts training either from scratch if no checkpoint is found, or by loading the latest checkpoint and writing new ones."
     }
   ],
-  "generated_at": "2026-04-12T09:54:31.054340+00:00"
+  "generated_at": "2026-04-13T15:03:13.126689+00:00"
 }

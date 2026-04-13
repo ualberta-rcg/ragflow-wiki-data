@@ -3,53 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Quel est l'objectif principal de ce tutoriel?",
-      "answer": "L'objectif est d'expliquer comment installer un logiciel dans un conteneur Apptainer en utilisant Conda, plus précisément micromamba, pour créer une image en lecture seule."
+      "question": "Quelle est la principale recommandation concernant l'installation de logiciels sur les grappes Alliance, même dans un conteneur, en dehors de Conda?",
+      "answer": "Il est recommandé de privilégier les modules de la pile logicielle et les wheels Python disponibles, car ils sont optimisés pour les systèmes et offrent un meilleur soutien."
     },
     {
-      "question": "Quelle est la méthode préférée pour installer des logiciels selon le document, avant de considérer Conda?",
-      "answer": "Il est recommandé d'utiliser les modules de la pile logicielle disponible et les wheels Python, car ils sont optimisés pour les systèmes et bénéficient d'une meilleure assistance."
+      "question": "Pourquoi le tutoriel suggère-t-il d'utiliser micromamba plutôt que Conda directement pour la gestion de paquets?",
+      "answer": "Le tutoriel utilise micromamba pour éviter les conditions d'utilisation d'Anaconda, qui pourraient nécessiter une licence commerciale si Conda était utilisé directement."
     },
     {
-      "question": "Pourquoi le tutoriel utilise-t-il micromamba plutôt que Conda directement?",
-      "answer": "Micromamba est utilisé pour éviter les conditions d'utilisation d'Anaconda, qui pourraient exiger une licence commerciale pour Conda."
+      "question": "Quel type d'image est créé dans ce tutoriel en ce qui concerne les permissions d'écriture et d'installation interactive?",
+      "answer": "Le tutoriel crée une image pour lecture seule (.sif) et déconseille fortement l'installation interactive de logiciels dans un conteneur avec Conda."
     },
     {
-      "question": "Quel type d'image est créé dans ce tutoriel?",
-      "answer": "Ce tutoriel crée une image Apptainer en lecture seule, c'est-à-dire un fichier .sif qui contient un environnement Conda."
+      "question": "Quelles sont les trois étapes principales pour créer une image Apptainer et y installer un logiciel avec Conda?",
+      "answer": "Les trois étapes sont : créer un fichier .yml décrivant l'environnement Conda, créer un fichier de définition d'image pour Apptainer, puis construire l'image Apptainer."
     },
     {
-      "question": "Qu'est-il fortement déconseillé de faire avec Conda dans un conteneur?",
-      "answer": "Il est fortement déconseillé d'installer interactivement un logiciel dans un conteneur avec Conda."
+      "question": "À quoi sert le fichier `environment.yml` dans le processus de création d'une image Apptainer?",
+      "answer": "Le fichier `environment.yml` décrit l'environnement Conda à créer dans le conteneur, incluant le nom de l'environnement, la liste des paquets et les canaux de recherche."
     },
     {
-      "question": "Quelle est la première étape du processus de création d'une image Apptainer avec Conda?",
-      "answer": "La première étape est de créer un fichier .yml (par exemple, `environment.yml`) qui décrit l'environnement Conda à créer dans le conteneur."
+      "question": "Quels sont les éléments typiques qu'on retrouve dans un fichier `environment.yml`?",
+      "answer": "On y retrouve le nom de l'environnement, la liste des canaux (comme conda-forge, bioconda) et les dépendances (paquets à installer, comme python, pip, multiqc)."
     },
     {
-      "question": "Qu'est-ce que le fichier `environment.yml` doit contenir?",
-      "answer": "Le fichier `environment.yml` doit spécifier le nom de l'environnement, les canaux (channels) et la liste des paquets (dependencies) à installer."
+      "question": "Quel est le rôle du fichier de définition d'image (`image.def`) dans la création d'une image Apptainer?",
+      "answer": "Le fichier `image.def` décrit les étapes nécessaires pour construire l'image Apptainer, comme le téléchargement de l'image de base, la copie de fichiers et l'exécution de commandes d'installation."
     },
     {
-      "question": "Quelle est la deuxième étape du processus pour installer un logiciel dans un conteneur Apptainer?",
-      "answer": "La deuxième étape est de créer un fichier de définition pour l'image (par exemple, `image.def`) qui décrit les étapes pour construire l'image avec Apptainer."
+      "question": "Quelles sont les trois actions principales exécutées lors de la création d'une image Apptainer, telles que définies dans le fichier `image.def`?",
+      "answer": "Les trois actions sont : télécharger une image Docker avec micromamba, copier le fichier `environment.yml` dans le conteneur, et exécuter micromamba pour configurer l'environnement."
     },
     {
-      "question": "Quelles sont les actions principales décrites dans le fichier `image.def`?",
-      "answer": "Le fichier `image.def` indique de télécharger une image Docker avec micromamba, de copier `environment.yml` dans le conteneur et d'exécuter micromamba pour installer l'environnement."
+      "question": "Quelle commande est utilisée pour construire l'image Apptainer une fois que les fichiers `environment.yml` et `image.def` sont prêts?",
+      "answer": "On utilise la commande `module load apptainer; APPTAINER_BIND=' ' apptainer build image.sif image.def` pour construire l'image."
     },
     {
-      "question": "Comment construit-on l'image Apptainer après avoir créé les fichiers de configuration?",
-      "answer": "On construit l'image en chargeant le module apptainer, puis en exécutant la commande `APPTAINER_BIND=' ' apptainer build image.sif image.def`."
+      "question": "Comment peut-on vérifier si un logiciel, comme `multiqc`, est correctement installé et fonctionnel dans une image Apptainer fraîchement construite?",
+      "answer": "On peut le tester en exécutant la commande `apptainer run image.sif multiqc --help`."
     },
     {
-      "question": "Comment peut-on vérifier si le logiciel est disponible dans l'image Apptainer créée?",
-      "answer": "On peut le vérifier en exécutant une commande comme `apptainer run image.sif multiqc --help`."
+      "question": "Quel gestionnaire de paquets préinstallé est inclus dans l'image Docker de base utilisée pour ce tutoriel?",
+      "answer": "Le gestionnaire de paquets micromamba est préinstallé dans l'image Docker de base (mambaorg/micromamba:latest)."
     },
     {
-      "question": "Qui contacter pour demander l'ajout d'un module ou d'un paquet logiciel?",
-      "answer": "Il faut contacter le soutien technique pour faire ajouter un module ou un paquet."
+      "question": "Dans le fichier de définition `image.def`, à quoi sert la section `%post`?",
+      "answer": "La section `%post` est utilisée pour exécuter des commandes à l'intérieur du conteneur après le téléchargement de l'image de base, comme l'installation de paquets avec micromamba et le nettoyage."
+    },
+    {
+      "question": "Quelle est la procédure pour demander l'ajout d'un nouveau module ou paquet à la pile logicielle des grappes Alliance?",
+      "answer": "Pour demander l'ajout d'un module ou d'un paquet, il faut contacter le soutien technique."
+    },
+    {
+      "question": "Quel est le format du fichier image final créé par Apptainer dans ce tutoriel?",
+      "answer": "Le fichier image final est un fichier au format `.sif`."
+    },
+    {
+      "question": "Quel est l'avantage principal des modules et des wheels Python par rapport à Conda sur les systèmes Alliance?",
+      "answer": "Les modules et wheels Python sont optimisés spécifiquement pour les systèmes d'Alliance, ce qui permet de fournir une meilleure assistance technique."
     }
   ],
-  "generated_at": "2026-04-12T10:00:13.679962+00:00"
+  "generated_at": "2026-04-13T15:07:58.529261+00:00"
 }

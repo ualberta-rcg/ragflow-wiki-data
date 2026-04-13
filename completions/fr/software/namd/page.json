@@ -3,73 +3,57 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que NAMD et à quoi sert-il?",
-      "answer": "NAMD est un logiciel de dynamique moléculaire orienté-objet, conçu spécifiquement pour simuler de très gros systèmes biomoléculaires."
+      "question": "À quoi sert le logiciel NAMD sur les grappes de calcul de l'Alliance?",
+      "answer": "NAMD est un logiciel de dynamique moléculaire orienté-objet conçu pour la simulation de gros systèmes biomoléculaires, et les simulations sont préparées et analysées avec le logiciel de visualisation VMD."
     },
     {
-      "question": "Quel autre logiciel est utilisé avec NAMD pour la préparation et l'analyse des simulations?",
-      "answer": "Le logiciel de visualisation VMD est utilisé pour préparer et analyser les simulations faites avec NAMD."
+      "question": "Comment le logiciel NAMD est-il mis à la disposition des utilisateurs sur les grappes de calcul de l'Alliance?",
+      "answer": "Le logiciel NAMD est installé par l'équipe technique et est accessible via des modules d'environnement. Pour des versions plus récentes, une installation personnalisée ou des questions, il faut contacter le soutien technique."
     },
     {
-      "question": "Comment NAMD est-il rendu disponible pour les utilisateurs?",
-      "answer": "Le logiciel est installé par notre équipe technique et est accessible via des modules d'environnement sur nos grappes."
+      "question": "Quelles sont les versions de NAMD disponibles via les modules d'environnement sur les grappes de l'Alliance, et quelles sont les particularités de chacune?",
+      "answer": "La version la plus récente, 3.0.2 (datée du 27 août 2025), est installée sur toutes les grappes. La version 2.14 est aussi disponible, mais elle ne peut pas être utilisée avec des GPU H100 et sa version GPU est limitée à la grappe Narval."
     },
     {
-      "question": "Quelle est la version la plus récente de NAMD disponible via les modules, et y a-t-il des versions antérieures?",
-      "answer": "La plus récente version disponible est la 3.0.2 (datée du 27 août 2025). La version 2.14 est également disponible, mais elle ne peut pas être utilisée avec les GPU H100."
+      "question": "Comment peut-on soumettre une tâche NAMD multifil utilisant uniquement des CPU sur une grappe de calcul de l'Alliance?",
+      "answer": "On doit utiliser un script de soumission Slurm spécifiant le nombre de cœurs par tâche avec `--cpus-per-task`, la mémoire, le temps et le compte, puis charger le module `namd-multicore` et lancer `namd3` avec `+p$SLURM_CPUS_PER_TASK`."
     },
     {
-      "question": "Comment puis-je obtenir de l'aide ou demander une version plus récente de NAMD?",
-      "answer": "Vous devez contacter le soutien technique si vous avez besoin d'une version plus récente, si vous devez l'installer vous-même, ou si vous avez des questions."
+      "question": "Quand devrait-on utiliser les tâches UCX pour NAMD sur plusieurs nœuds avec CPU, et comment doit-on configurer un script de soumission pour cela?",
+      "answer": "Les tâches UCX devraient être utilisées si la version multicœurs de NAMD ne convient pas et que plusieurs nœuds sont nécessaires. Pour une meilleure performance, il faut utiliser des nœuds entiers en configurant `--ntasks-per-node` pour qu'il soit égal au nombre de cœurs disponibles sur le nœud et en chargeant le module `namd-ucx`."
     },
     {
-      "question": "Quel module devrais-je utiliser pour les tâches NAMD exécutées sur plusieurs nœuds?",
-      "answer": "Pour les tâches exécutées sur plusieurs nœuds, vous devriez utiliser UCX."
+      "question": "Quel est le paramètre d'entrée important à ajouter pour améliorer la performance des tâches NAMD 3 utilisant un GPU?",
+      "answer": "Pour une meilleure performance avec NAMD 3 sur un GPU, il est fortement recommandé d'ajouter la ligne `GPUresident on;` au fichier en entrée, si la configuration le permet."
     },
     {
-      "question": "Où puis-je trouver des informations sur l'ordonnanceur Slurm pour la soumission de tâches?",
-      "answer": "L'information sur l'ordonnanceur Slurm se trouve à la page « Exécuter des tâches »."
+      "question": "Comment un utilisateur peut-il soumettre une tâche NAMD multifil qui utilise un ou plusieurs GPU sur un seul nœud?",
+      "answer": "L'utilisateur doit configurer le script Slurm avec `--cpus-per-task` pour les cœurs CPU, `--gpus-per-node` pour le nombre et le type de GPU, la mémoire, le temps et le compte, puis charger les modules `cuda` et `namd-multicore`."
     },
     {
-      "question": "Quel paramètre doit-on augmenter dans le script Slurm pour utiliser plus de cœurs CPU dans une tâche multifil avec NAMD?",
-      "answer": "Il faut augmenter la valeur de `--cpus-per-task` dans le script Slurm, sans dépasser le nombre de cœurs disponibles sur le nœud."
+      "question": "Pourquoi l'utilisation de plusieurs nœuds GPU est-elle justifiée pour les tâches NAMD sur les grappes de l'Alliance, et quelles sont les considérations spécifiques à Narval?",
+      "answer": "L'utilisation de plusieurs nœuds GPU est justifiée uniquement lorsque la tâche peut les utiliser à leur plein potentiel, car un seul nœud GPU offre déjà une bonne puissance. Sur Narval, il est recommandé d'utiliser des nœuds entiers pour une meilleure performance, en ajustant les options `--cpus-per-task` et `--gpus-per-node` selon les caractéristiques du nœud."
     },
     {
-      "question": "Quand est-il recommandé d'utiliser la version UCX de NAMD pour des tâches sur plusieurs nœuds CPU?",
-      "answer": "Il est recommandé d'utiliser la version UCX de NAMD si la version multicœurs ne convient pas à vos besoins et que vous avez absolument besoin d'utiliser plusieurs nœuds."
+      "question": "Quel est l'objectif du guide de performance et d'étalonnage pour la dynamique moléculaire (benchmarking) sur les grappes de l'Alliance?",
+      "answer": "L'objectif est de décrire les conditions optimales pour exécuter des tâches NAMD (ainsi que AMBER, GROMACS et OpenMM) sur les grappes, en fournissant des exemples d'étalonnage pour optimiser les ressources et documenter les demandes d'allocation."
     },
     {
-      "question": "Quelle est une recommandation importante pour améliorer la performance de NAMD 3 sur les GPU?",
-      "answer": "Pour améliorer considérablement la performance, il est fortement recommandé d'ajouter la ligne `GPUresident on;` à votre fichier d'entrée NAMD 3 si votre configuration le permet."
+      "question": "Quelle est l'importance de l'étalonnage (benchmarking) pour les simulations NAMD à longue durée?",
+      "answer": "Il est très utile d'effectuer un étalonnage pour les simulations de longue durée afin de déterminer le nombre optimal de cœurs ou de GPU à utiliser. Cela permet d'obtenir des résultats pertinents, d'éviter d'attendre plus longtemps si trop de cœurs sont demandés inutilement, et de mieux documenter les demandes d'allocation de ressources."
     },
     {
-      "question": "Sur quel type de grappe l'exemple de tâche multi-nœuds GPU est-il basé, et quelles sont les caractéristiques des nœuds?",
-      "answer": "L'exemple est basé sur Narval, où les nœuds GPU ont 48 cœurs et 4 GPU chacun."
+      "question": "Selon les résultats d'étalonnage sur la grappe Graham, est-il plus économique d'utiliser des GPU pour les simulations NAMD?",
+      "answer": "Oui, les résultats d'étalonnage indiquent que l'utilisation d'un nœud GPU (2 GPU/32 cœurs) sur Graham traite la tâche plus rapidement que sur 4 nœuds CPU, et puisque le coût d'un nœud GPU est près de deux fois plus que celui d'un nœud CPU, il est plus économique d'utiliser les GPU."
     },
     {
-      "question": "Pourquoi est-il important de faire de l'étalonnage (benchmarking) pour les simulations NAMD?",
-      "answer": "L'étalonnage est très utile pour déterminer les conditions optimales d'exécution des tâches, surtout pour les simulations de longue durée, et pour documenter les demandes d'allocation de ressources."
+      "question": "Comment peut-on installer et utiliser manuellement une version binaire de NAMD 3 téléchargée depuis le site web sur les systèmes de l'Alliance?",
+      "answer": "Après avoir téléchargé et extrait le binaire NAMD 3, il faut naviguer dans le répertoire extrait et exécuter la commande `setrpaths.sh --path .` pour lier l'exécutable `namd3` aux bibliothèques appropriées, permettant ensuite sa soumission comme une tâche régulière."
     },
     {
-      "question": "Quelle est la principale conclusion de l'étalonnage CPU présenté dans le document concernant le nombre de cœurs?",
-      "answer": "L'étalonnage CPU montre qu'il est acceptable d'utiliser jusqu'à 256 cœurs pour le système testé, mais demander plus de cœurs que nécessaire prolonge le temps d'attente des tâches et affecte la performance globale."
-    },
-    {
-      "question": "Qu'indique l'étalonnage GPU concernant l'utilisation de plusieurs nœuds?",
-      "answer": "L'étalonnage GPU indique qu'il est inutile d'utiliser plus d'un nœud, car la performance décroît avec l'ajout de nœuds supplémentaires."
-    },
-    {
-      "question": "Selon l'étalonnage GPU sur Graham, est-il plus économique d'utiliser les GPU ou seulement les CPU?",
-      "answer": "Bien que le coût d'un nœud GPU soit plus élevé, l'étalonnage indique qu'il est plus économique d'utiliser les GPU, car ils traitent la tâche beaucoup plus rapidement."
-    },
-    {
-      "question": "Comment puis-je essayer NAMD 3 manuellement si je veux l'utiliser avant qu'il ne soit officiellement installé dans certaines configurations?",
-      "answer": "Vous pouvez télécharger le binaire depuis le site web de NAMD, puis le configurer pour nos systèmes en utilisant les commandes `tar`, `cd` et `setrpaths.sh --path .`."
-    },
-    {
-      "question": "Où peut-on télécharger NAMD et consulter les guides d'utilisation?",
-      "answer": "On peut télécharger NAMD sur le site de l'Université de l'Illinois (avec inscription) et consulter les guides d'utilisation et notes de version pour les versions 2.14 et 3.0.1 sur le même site."
+      "question": "Où peut-on télécharger NAMD et trouver des guides d'utilisation ainsi que des tutoriels?",
+      "answer": "NAMD peut être téléchargé à l'adresse http://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD (avec inscription requise), les guides d'utilisation sont disponibles pour les versions 2.14 et 3.0.1, et des tutoriels se trouvent à http://www.ks.uiuc.edu/Training/Tutorials/."
     }
   ],
-  "generated_at": "2026-04-12T03:33:19.858974+00:00"
+  "generated_at": "2026-04-13T09:49:01.959633+00:00"
 }

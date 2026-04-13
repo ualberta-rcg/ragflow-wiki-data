@@ -4,97 +4,13 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is scalability in the context of parallel programming?",
-      "answer": "In the context of parallel programming, scalability refers to the capacity of a program to efficiently use added computing resources, such as CPU cores."
+      "question": "In the context of parallel programming, what does scalability refer to, and why is it important to conduct a scalability analysis?",
+      "answer": "Scalability, in parallel programming, refers to a program's capacity to efficiently use added computing resources, such as CPU cores. It's important to conduct a scalability analysis because simply doubling CPU cores rarely halves the calculation duration; performance gains depend on the problem, algorithm, hardware, and the number of cores used. This analysis helps determine the optimal number of CPU cores for a given problem and cluster, as increasing cores beyond a certain point can actually cause the program's duration to increase due to overheads."
     },
     {
-      "question": "What is a common misconception about adding more CPU cores in parallel programming?",
-      "answer": "A common misconception is that doubling the number of CPU cores devoted to a calculation will halve the duration of the calculation."
-    },
-    {
-      "question": "Does doubling the number of CPU cores typically halve the duration of a calculation?",
-      "answer": "No, doubling the number of CPU cores rarely halves the duration of a calculation."
-    },
-    {
-      "question": "What factors influence the performance gain observed when using more CPU cores?",
-      "answer": "The gain in performance depends on the nature of the problem, the algorithm or program used to solve it, the underlying hardware (notably memory and network), and the number of CPU cores being used."
-    },
-    {
-      "question": "Why is it recommended to conduct a scalability analysis when planning to use a parallel program on a cluster?",
-      "answer": "A scalability analysis is recommended to understand how the software performs with varying numbers of CPU cores and to determine the optimal choice for the number of cores on a particular cluster for a specific problem."
-    },
-    {
-      "question": "How does one typically conduct a scalability analysis?",
-      "answer": "A scalability analysis is conducted by testing the software using a fixed problem while varying the number of CPU cores (e.g., 2, 4, 8, 16, 32, 64 cores), obtaining the run time for each core count, and then plotting the resulting curve."
-    },
-    {
-      "question": "What are the two major reasons why scalability is usually worse than hoped for?",
-      "answer": "The two major reasons are that a percentage of the program's execution remains serial (cannot be parallelized), and parallelization normally requires communication and synchronization among parallel processes, leading to 'parallel overhead'."
-    },
-    {
-      "question": "Explain the first major reason for suboptimal scalability in parallel programs.",
-      "answer": "The first major reason is that not every operation in the parallelization of the code can be done in parallel, so some percentage of the program's execution remains serial, setting an ultimate limit for parallel efficiency."
-    },
-    {
-      "question": "If 10% of a program's execution is serial, what is the fastest it can run, even with infinite cores?",
-      "answer": "If 10% of a program's execution is serial, meaning six minutes of an hour-long calculation, even with an infinite number of cores, the program's duration could not sink below six minutes."
-    },
-    {
-      "question": "What is the best outcome one can hope for regarding the 'serial percentage' in a parallel program?",
-      "answer": "The best we can hope for is that this 'serial percentage' shrinks as we increase the size of the problem the software is working on."
-    },
-    {
-      "question": "Explain the second major reason for suboptimal scalability.",
-      "answer": "The second major reason is that parallelization normally requires a certain amount of communication and synchronization among the parallel processes, and the cost of this 'parallel overhead' will increase with the number of processes working together."
-    },
-    {
-      "question": "How does 'parallel overhead' typically increase with the number of processes?",
-      "answer": "The cost of 'parallel overhead' typically increases as a power of the number of cores (<math>T_c \\propto n^\\alpha</math> where <math>\\alpha > 1</math>)."
-    },
-    {
-      "question": "What happens to the total program duration as the number of cores approaches infinity due to parallel overhead?",
-      "answer": "As the number of cores approaches infinity, the total duration of the program will ultimately be dominated by the parallel overhead factor."
-    },
-    {
-      "question": "What pattern is observed when plotting run time versus the number of CPU cores for a parallel program?",
-      "answer": "While for smaller numbers of cores the run time falls, at a certain number of cores a minimum is reached, and after that, the program duration starts to increase as more processes are added."
-    },
-    {
-      "question": "Why is it crucial to conduct a scalability analysis for a parallel program?",
-      "answer": "It's crucial to carry out such a scalability analysis to determine the optimal choice of the number of CPU cores (e.g., 4, 128, 1024) for the specific nature and size of the problem and the cluster being used."
-    },
-    {
-      "question": "What are the general guidelines for choosing a test problem for scalability analysis?",
-      "answer": "A test problem should be relatively small for quick testing but not so small as to be unrepresentative of a production run, ideally taking 30 to 60 minutes to finish on one or two cores."
-    },
-    {
-      "question": "What duration is considered a good choice for a test problem on one or two cores?",
-      "answer": "A test problem that requires 30 to 60 minutes to finish on one or two cores is probably a good choice."
-    },
-    {
-      "question": "When is a test problem considered too short to be valuable for scalability analysis?",
-      "answer": "A test problem which runs in under ten minutes is almost certainly too short to be of value."
-    },
-    {
-      "question": "What specific characteristic is desired for a test problem when analysing weak scaling?",
-      "answer": "For analysing weak scaling, you want to have a test problem whose size can be easily increased, ideally in a fairly continuous manner."
-    },
-    {
-      "question": "What term describes problems with virtually no parallel overhead?",
-      "answer": "Problems for which the factor 'C' (representing parallel overhead) is for all practical purposes zero are called 'embarrassingly parallel'."
-    },
-    {
-      "question": "Provide an example of an 'embarrassingly parallel' problem.",
-      "answer": "A good example is running an analysis on 500 different files, where the analysis of an individual file is independent of any others and simply generates a single number."
-    },
-    {
-      "question": "Why do 'embarrassingly parallel' problems achieve perfect scaling?",
-      "answer": "They achieve perfect scaling because there is no need to synchronize operations or communicate among the various processes analysing the files, thus eliminating parallel overhead."
-    },
-    {
-      "question": "What is the only limitation to scaling for 'embarrassingly parallel' problems?",
-      "answer": "The only limitation to scaling for 'embarrassingly parallel' problems is the number of independent tasks available, such as the number of files to be analysed."
+      "question": "What are the two primary reasons why the actual performance gain from parallel programs often falls short of ideal expectations?",
+      "answer": "The two primary reasons are, firstly, that not every operation in the code can be parallelized, meaning a 'serial percentage' of the program's execution remains and sets an ultimate limit on efficiency. Secondly, parallelization introduces 'parallel overhead' from communication and synchronization among processes, which increases with the number of cores and can eventually dominate the program's total duration, leading to diminishing or even negative returns in performance."
     }
   ],
-  "generated_at": "2026-04-12T07:40:56.662024+00:00"
+  "generated_at": "2026-04-13T13:18:48.164578+00:00"
 }

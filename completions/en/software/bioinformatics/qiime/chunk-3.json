@@ -4,29 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How do you typically execute a QIIME command using an Apptainer image?",
-      "answer": "You typically run each QIIME command within an `apptainer exec` statement, for example: `apptainer exec qiime2-2021.11.sif <your QIIME command>`."
+      "question": "How are QIIME2 commands executed when using an Apptainer image on a cluster?",
+      "answer": "Once an Apptainer image, such as `qiime2-2021.11.sif`, has been built, QIIME2 commands can be run using the `apptainer exec` statement. For example, `apptainer exec qiime2-2021.11.sif <your QIIME command>`."
     },
     {
-      "question": "Can you provide an example of an SBATCH script for running QIIME commands with Apptainer?",
-      "answer": "Yes, an example SBATCH script would start with `#!/bin/bash` and include directives like `#SBATCH --time=15:00:00` and `#SBATCH --account=def-someuser`, followed by an `apptainer exec` command that specifies bind mounts and the QIIME command, such as: `apptainer exec -B $PWD:/home -B /scratch/someuser:/outputs -B /project/def-somePI/someuser/path/to/inputs:/inputs qiime2-2021.11.sif qiime tools import --type 'FeatureData[Sequence]' --input-path /inputs/some_fastafile.fa`."
+      "question": "What is the purpose of the `-B` option when running QIIME2 commands via Apptainer?",
+      "answer": "The `-B` (bind) option is used to mount specific directories from the host system into the Apptainer container. This is essential for QIIME2 commands to access input data and write output files to desired locations, such as your current working directory (`$PWD:/home`), scratch space (`/scratch/someuser:/outputs`), or project input directories (`/project/def-somePI/someuser/path/to/inputs:/inputs`)."
     },
     {
-      "question": "What are some of the SBATCH directives included in the provided example script?",
-      "answer": "The example script includes `#SBATCH --time=15:00:00` to set the walltime and `#SBATCH --account=def-someuser` to specify the accounting group."
-    },
-    {
-      "question": "How are input, output, and home directories bound to the container in the example SBATCH script?",
-      "answer": "In the example SBATCH script, directories are bound using the `-B` option: `-B $PWD:/home` binds the current working directory to `/home`, `-B /scratch/someuser:/outputs` binds a scratch directory to `/outputs`, and `-B /project/def-somePI/someuser/path/to/inputs:/inputs` binds a project input directory to `/inputs` within the container."
-    },
-    {
-      "question": "Which specific Apptainer image is utilized in the SBATCH script example?",
-      "answer": "The specific Apptainer image utilized in the SBATCH script example is `qiime2-2021.11.sif`."
-    },
-    {
-      "question": "What is the first QIIME command demonstrated in the example SBATCH script for importing data?",
-      "answer": "The first QIIME command demonstrated is `qiime tools import`, used with arguments like `--type 'FeatureData[Sequence]'` and `--input-path /inputs/some_fastafile.fa`."
+      "question": "Could you provide an example of how to structure an SBATCH script for executing QIIME2 commands with Apptainer?",
+      "answer": "An SBATCH script would typically include resource requests (e.g., `#SBATCH --time=15:00:00`, `#SBATCH --account=def-someuser`) and then use `apptainer exec` for each QIIME command. Crucially, the `-B` option should be used with `apptainer exec` to bind host directories to locations within the container for data access. For instance:\n```bash\n#!/bin/bash\n#SBATCH --time=15:00:00\n#SBATCH --account=def-someuser\n\napptainer exec -B $PWD:/home -B /scratch/someuser:/outputs \\\n  -B /project/def-somePI/someuser/path/to/inputs:/inputs qiime2-2021.11.sif \\\n  qiime tools import --type 'FeatureData[Sequence]' \\\n  --input-path /inputs/some_fastafile.fa \\\n  --output-path /outputs/some_output_feature.qza\n```"
     }
   ],
-  "generated_at": "2026-04-12T06:02:54.683289+00:00"
+  "generated_at": "2026-04-13T11:56:36.301370+00:00"
 }

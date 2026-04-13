@@ -4,137 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What are BLAS and LAPACK?",
-      "answer": "BLAS (Basic Linear Algebra Subprogram) and LAPACK (Linear Algebra PACK) are two of the most commonly used libraries in advanced research computing."
+      "question": "What are BLAS and LAPACK, and what are their primary functions in advanced research computing?",
+      "answer": "BLAS (Basic Linear Algebra Subprogram) and LAPACK (Linear Algebra PACK) are two commonly used libraries in advanced research computing. They define a standard programming interface for performing various vector and matrix operations, such as calculating the dot product of two vectors or the matrix product of two hermitian matrices."
     },
     {
-      "question": "What are BLAS and LAPACK used for?",
-      "answer": "They are used for vector and matrix operations commonly found in a plethora of algorithms. They also define a standard programming interface."
+      "question": "What is FlexiBLAS, and why is it recommended for managing BLAS and LAPACK implementations on computing clusters?",
+      "answer": "FlexiBLAS is an abstraction layer that allows users to swap between different BLAS and LAPACK implementations at runtime, rather than requiring recompilation at compile time. This addresses the problem of varying performance across implementations and hardware, enabling the creation of portable software environments. It is recommended because it can be configured to automatically use the optimal implementation, such as Intel MKL for Intel processors and BLIS for AMD processors (like on Narval), ensuring optimal performance."
     },
     {
-      "question": "What is a programming interface in the context of BLAS and LAPACK?",
-      "answer": "A programming interface is a set of function definitions that can be called to accomplish specific computations, such as the dot product of two vectors or the matrix product of two hermitian matrices."
-    },
-    {
-      "question": "Are there multiple implementations of BLAS and LAPACK?",
-      "answer": "Yes, beside the reference implementation by Netlib, there are a large number of other implementations of these two standards."
-    },
-    {
-      "question": "How does the performance of BLAS and LAPACK implementations vary?",
-      "answer": "The performance of these implementations can vary widely depending on the hardware that is running them."
-    },
-    {
-      "question": "Which BLAS/LAPACK implementation typically performs best on Intel processors?",
-      "answer": "The implementation provided by the Intel Math Kernel Library (Intel MKL) performs best in most situations on Intel processors."
-    },
-    {
-      "question": "Is Intel MKL an open-source implementation?",
-      "answer": "No, Intel MKL is a proprietary implementation."
-    },
-    {
-      "question": "What open-source BLAS/LAPACK implementation is often preferred?",
-      "answer": "OpenBLAS is a commonly preferred open-source implementation."
-    },
-    {
-      "question": "Which BLAS/LAPACK implementation performs better on AMD processors?",
-      "answer": "BLIS is an open-source implementation that performs better on AMD processors."
-    },
-    {
-      "question": "Are gotoblas and ATLAS BLAS still maintained?",
-      "answer": "No, gotoblas and ATLAS BLAS are no longer maintained projects."
-    },
-    {
-      "question": "What is the problem with testing different BLAS/LAPACK implementations for optimal performance?",
-      "answer": "Testing which implementation performs best for a given code and hardware usually requires recompiling software, which is problematic for creating a portable software environment across multiple clusters."
-    },
-    {
-      "question": "How does FlexiBLAS solve the recompilation problem?",
-      "answer": "FlexiBLAS is an abstraction layer that allows one to swap which implementation of BLAS and LAPACK is used at runtime, rather than at compile time, thus fixing the recompilation problem."
-    },
-    {
-      "question": "What was the previous recommendation for BLAS/LAPACK implementation?",
-      "answer": "For the past few years, the recommendation was to use Intel MKL as a reference implementation due to Intel processors being exclusively in the clusters."
-    },
-    {
-      "question": "Why did the recommendation for BLAS/LAPACK implementations change?",
-      "answer": "The recommendation changed with the arrival of Narval, which is built with AMD processors."
-    },
-    {
-      "question": "What is the current recommendation when compiling code that uses BLAS/LAPACK?",
-      "answer": "The current recommendation is to use FlexiBLAS when compiling code."
-    },
-    {
-      "question": "How is the FlexiBLAS module typically configured for optimal performance?",
-      "answer": "The FlexiBLAS module is configured such that Intel MKL will be used except when using AMD processors, in which case BLIS will be used."
-    },
-    {
-      "question": "Is FlexiBLAS automatically recognized by all build systems?",
-      "answer": "No, FlexiBLAS is relatively new, and not all build systems will recognize it by default."
-    },
-    {
-      "question": "How can one fix a build system that doesn't recognize FlexiBLAS?",
-      "answer": "This can generally be fixed by setting the linking options to use `-lflexiblas` for BLAS and for LAPACK."
-    },
-    {
-      "question": "Where can linking options for FlexiBLAS typically be found?",
-      "answer": "You will typically find these options in your Makefile, or be able to pass them as parameters to `configure` or `cmake`."
-    },
-    {
-      "question": "Which versions of CMake can automatically find FlexiBLAS?",
-      "answer": "Versions 3.19 and higher of CMake can find FlexiBLAS automatically."
-    },
-    {
-      "question": "What CMake modules are needed to use CMake versions that automatically find FlexiBLAS?",
-      "answer": "You must load one of the `cmake/3.20.1` or `cmake/3.21.4` modules to use such a version."
-    },
-    {
-      "question": "What is the main benefit of using FlexiBLAS?",
-      "answer": "The main benefit of using FlexiBLAS is the ability to change the implementation backend at run time."
-    },
-    {
-      "question": "How can the BLAS/LAPACK implementation backend be changed at runtime when using FlexiBLAS?",
-      "answer": "The implementation backend can be changed at run time by setting the environment variable `FLEXIBLAS`."
-    },
-    {
-      "question": "What are some of the available FlexiBLAS implementations?",
-      "answer": "At the time of writing, `netlib`, `blis`, `imkl`, and `openblas` are available as FlexiBLAS implementations."
-    },
-    {
-      "question": "How can one get a full list of available FlexiBLAS implementations?",
-      "answer": "The full list of available implementations can be obtained by running the command `flexiblas list`."
-    },
-    {
-      "question": "What is the default FlexiBLAS setting on Narval?",
-      "answer": "On Narval, `FLEXIBLAS=blis` is set to use BLIS by default."
-    },
-    {
-      "question": "What is the default FlexiBLAS setting on clusters other than Narval?",
-      "answer": "On other clusters, `FLEXIBLAS` is left undefined, which defaults to using Intel MKL."
-    },
-    {
-      "question": "Is it possible to use Intel MKL directly instead of FlexiBLAS?",
-      "answer": "Yes, although using FlexiBLAS is recommended, it is still possible to use Intel MKL directly."
-    },
-    {
-      "question": "How do I use Intel MKL directly with Intel compilers?",
-      "answer": "If using Intel compilers (e.g., `ifort`, `icc`, `icpc`), replace `-lblas` and `-llapack` in compiler and linker options with either `-mkl=sequential` (no internal threading) or `-mkl` (uses internal threading)."
-    },
-    {
-      "question": "What is the difference between using `-mkl=sequential` and `-mkl` with Intel compilers?",
-      "answer": "`-mkl=sequential` will not use internal threading, while `-mkl` will use internal threading for the MKL implementation."
-    },
-    {
-      "question": "How do I use Intel MKL directly with non-Intel compilers like the GNU Compiler Collection?",
-      "answer": "You will need to explicitly list the necessary MKL libraries during the link phase when using non-Intel compilers."
-    },
-    {
-      "question": "What tool can help find the correct compiler and linker options for Intel MKL with non-Intel compilers?",
-      "answer": "Intel provides a tool called the MKL Link Advisor to help find the correct compiler and linker options."
-    },
-    {
-      "question": "When else is the MKL Link Advisor useful?",
-      "answer": "The MKL Link Advisor is also useful if you receive 'undefined reference' errors while using Intel compilers and `-mkl`."
+      "question": "How do you compile software to use FlexiBLAS, and what specific linking options are generally required?",
+      "answer": "To compile software against FlexiBLAS, you typically need to set the linking options to use `-lflexiblas` for both BLAS and LAPACK. These options are often found in a Makefile or can be passed as parameters to `configure` or `cmake`. For CMake versions 3.19 and higher, FlexiBLAS can be found automatically, but you may need to load a `cmake/3.20.1` or `cmake/3.21.4` module."
     }
   ],
-  "generated_at": "2026-04-11T18:23:57.327070+00:00"
+  "generated_at": "2026-04-13T02:51:31.563221+00:00"
 }

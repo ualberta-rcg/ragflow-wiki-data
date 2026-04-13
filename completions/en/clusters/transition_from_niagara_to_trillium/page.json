@@ -3,145 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "How do I gain access to the Trillium cluster?",
-      "answer": "Users must opt-in on the CCDB webpage at https://ccdb.alliancecan.ca/me/access_systems."
+      "question": "What is the initial step for users to gain access to the Trillium cluster and its HPSS nearline system?",
+      "answer": "Users must opt-in via the CCDB webpage at https://ccdb.alliancecan.ca/me/access_systems for both the Trillium cluster and its HPSS nearline system."
     },
     {
-      "question": "Who was automatically opted-in to the Trillium cluster?",
-      "answer": "Users who had opted into Niagara/Mist on August 5, 2025, were automatically opted-in to Trillium."
+      "question": "How can users log in to the CPU and GPU subclusters of Trillium, respectively?",
+      "answer": "To access the CPU subcluster, users should `ssh USERNAME@trillium.alliancecan.ca`. For the GPU subcluster, `ssh USERNAME@trillium-gpu.alliancecan.ca` is used. Both require SSH keys and MFA."
     },
     {
-      "question": "Does opting into Trillium give me access to both CPU and GPU resources?",
-      "answer": "Yes, opting into Trillium grants access to both the CPU and GPU subclusters."
+      "question": "What command should users run after their first login to Trillium to set up their environment?",
+      "answer": "Users should run the `trisetup` command, which populates essential configuration files like `.bashrc` and creates directories and symbolic links to scratch and project directories in their home directory."
     },
     {
-      "question": "How do I get access to HPSS, Trillium's nearline system?",
-      "answer": "There is a separate opt-in for HPSS on the CCDB access systems page, and users with Niagara HPSS access before August 5th were automatically opted-in."
+      "question": "What are the key hardware specifications for the Trillium CPU subcluster compute nodes?",
+      "answer": "Each compute node in the CPU subcluster has 192 AMD Zen 5 (Turin) cores and 755 GB of available memory."
     },
     {
-      "question": "Is HPSS fully integrated with Trillium currently?",
-      "answer": "No, HPSS has not yet been integrated into Trillium."
+      "question": "What are the key hardware specifications for the Trillium GPU subcluster compute nodes?",
+      "answer": "Each compute node in the GPU subcluster has 96 AMD Zen 4 (Genoa) cores, 755 GB of available memory, and 4 NVIDIA H100 GPUs."
     },
     {
-      "question": "What is the SSH command to log in to the Trillium CPU subcluster?",
-      "answer": "You can log in by using SSH to `USERNAME@trillium.alliancecan.ca`."
+      "question": "How was user data from Niagara migrated to Trillium, and what data might users need to copy manually?",
+      "answer": "Data on home, scratch, and project directories on Niagara as of July 31st, 2025, that was not changed afterwards, was automatically copied. Users need to manually copy any data added or modified on Niagara after that date."
     },
     {
-      "question": "What is the SSH command to log in to the Trillium GPU subcluster?",
-      "answer": "You can log in by using SSH to `USERNAME@trillium-gpu.alliancecan.ca`."
+      "question": "What is the new directory layout for home, scratch, and project directories on Trillium?",
+      "answer": "Home directories are at `/home/USERNAME`, scratch at `/scratch/USERNAME`, RRG project directories at `/project/RRG-NAME`, and default project directories at `/project/def-PINAME`."
     },
     {
-      "question": "What are the login requirements for Trillium?",
-      "answer": "You need to use SSH Keys and have MFA enabled on your CCDB account."
+      "question": "What are the default storage quotas for home and scratch directories on Trillium?",
+      "answer": "The default quota is 100 GB for home directories and 25 TB for scratch directories."
     },
     {
-      "question": "What should I do the first time I log in to Trillium to ensure security?",
-      "answer": "You should check if the login node SSH host key fingerprint matches the one specified in the SSH security improvements documentation."
+      "question": "What is the backup policy for the different file systems on Trillium?",
+      "answer": "Home and project directories are backed up, but the scratch directory is not backed up."
     },
     {
-      "question": "What command should I run after logging in for the first time on Trillium to set up my environment?",
-      "answer": "You should run the command `trisetup`, which populates initialization files, creates directories, and sets up symbolic links."
+      "question": "How do file and directory permissions for home and scratch directories differ on Trillium compared to Niagara, particularly for sharing?",
+      "answer": "On Trillium, new files in home and scratch have group-ownership set to the user's private group. Sharing files requires using ACLs or changing group ownership. Project directories are configured for sharing with research group ownership."
     },
     {
-      "question": "Will there be a web-based access option for Trillium?",
-      "answer": "Yes, the SciNet OnDemand website will eventually offer a way to log into Trillium and run web-based applications like Jupyter."
+      "question": "Where should compute jobs write their output on Trillium, and why?",
+      "answer": "Compute jobs must write their output to the scratch directory because the home and project file systems are read-only on Trillium compute nodes."
     },
     {
-      "question": "What are the key specifications of a Trillium CPU compute node?",
-      "answer": "Each CPU compute node has 192 AMD Zen 5 (Turin) cores and 755 GB of available memory."
+      "question": "What software stack is used on Trillium, and what modules are loaded by default?",
+      "answer": "Trillium uses the CVMFS software stack. By default, only the `gentoo/2023` and `CCconfig` modules are loaded. Users can load `StdEnv/2023` for a broader set of common modules."
     },
     {
-      "question": "How many total CPU cores are available in the Trillium CPU subcluster?",
-      "answer": "There are 1224 compute nodes, providing a total of 235,008 cores."
+      "question": "Are existing binaries and virtual Python environments from Niagara expected to work on Trillium?",
+      "answer": "No, most codes, especially those not using the CVMFS stack or absolute paths, will require recompilation. Virtual Python environments also need to be recreated due to directory changes, and Anaconda is no longer supported."
     },
     {
-      "question": "What are the key specifications of a Trillium GPU compute node?",
-      "answer": "Each GPU compute node has 96 AMD Zen 4 (Genoa) cores, 755 GB of available memory, and 4 NVIDIA H100 GPUs."
+      "question": "How do users load the necessary modules for compiling GPU code with CUDA on Trillium?",
+      "answer": "On the GPU login or compute nodes, users need to load `StdEnv/2023` and then the appropriate `cuda` module, for example: `module load StdEnv/2023 cuda/12.6`."
     },
     {
-      "question": "How many total GPUs does the Trillium cluster have?",
-      "answer": "There are 61 GPU compute nodes, totaling 244 GPUs."
-    },
-    {
-      "question": "What are the recommended math libraries for CPU code compilation on Trillium if I previously used Intel MKL?",
-      "answer": "You should switch to Flexiblas or use the AMD AOCL libraries (`aocl-blas` and `aocl-lapack` modules) directly."
-    },
-    {
-      "question": "What happened to my data from Niagara?",
-      "answer": "Any data in your home, scratch, and project directories on Niagara on July 31st, 2025, that was unchanged afterward, was automatically copied to Trillium."
-    },
-    {
-      "question": "How can I manually copy data from Niagara that was changed after the automatic migration date?",
-      "answer": "You can SSH to `nia-datamover1.scinet.utoronto.ca` and copy files locally between the mounted Niagara and Trillium file systems."
-    },
-    {
-      "question": "What are the default quotas for home and scratch directories on Trillium?",
-      "answer": "The default quotas are 100 GB for home and 25 TB for scratch."
-    },
-    {
-      "question": "What are the new directory paths for my home and scratch directories on Trillium?",
-      "answer": "Your home directory is at `/home/USERNAME` and your scratch directory is at `/scratch/USERNAME`."
-    },
-    {
-      "question": "Where can I find my group's project directory on Trillium?",
-      "answer": "Your group's project directory is at `/project/RRG-NAME`, and all groups also have a default `/project/def-PINAME`."
-    },
-    {
-      "question": "Which Trillium directories are backed up?",
-      "answer": "Home and project directories are backed up, but scratch is not."
-    },
-    {
-      "question": "How do home directory permissions differ on Trillium compared to Niagara for sharing files?",
-      "answer": "On Trillium, your home directory files have group-ownership of your own private group, requiring ACLs or group ownership changes for sharing."
-    },
-    {
-      "question": "Where should compute jobs write data on Trillium?",
-      "answer": "Compute jobs must write to the scratch directory because home and project file systems are read-only on compute nodes."
-    },
-    {
-      "question": "Which software stacks from Niagara and Mist are no longer available on Trillium?",
-      "answer": "The NiaEnv and MistEnv software stacks have been retired and are not available on Trillium."
-    },
-    {
-      "question": "What is the primary software stack used on Trillium?",
-      "answer": "The CVMFS software stack, available on other national clusters, is used on Trillium."
-    },
-    {
-      "question": "Which modules are loaded by default on Trillium?",
-      "answer": "Only the `gentoo/2023` and `CCconfig` modules are loaded by default."
-    },
-    {
-      "question": "How do I load the standard set of modules, including a default compiler, on Trillium?",
-      "answer": "You should load the `StdEnv/2023` module using `module load StdEnv/2023`."
-    },
-    {
-      "question": "How do I load the CUDA module for GPU code compilation on Trillium?",
-      "answer": "You need to load `StdEnv/2023` and then `cuda/12.6` using `module load StdEnv/2023 cuda/12.6`."
-    },
-    {
-      "question": "Is recompilation of my code required on Trillium?",
-      "answer": "Yes, it is highly recommended to recompile all code, especially if it didn't use the CVMFS software stack or used absolute paths."
-    },
-    {
-      "question": "Do I need to recreate my Python virtual environments on Trillium?",
-      "answer": "Yes, Python virtual environments must be recreated due to changes in user directory paths."
-    },
-    {
-      "question": "Is Anaconda available on Trillium?",
-      "answer": "No, there is no Anaconda module; users should switch to using virtual environments instead."
-    },
-    {
-      "question": "Where can I find a quickstart guide for Trillium?",
-      "answer": "A new quickstart guide is available at Trillium Quickstart."
-    },
-    {
-      "question": "What is the support email address for Trillium?",
-      "answer": "The support email is `trillium@tech.alliancecan.ca`."
-    },
-    {
-      "question": "Is there a self-guided introductory course for Trillium?",
-      "answer": "Yes, there is an 'Intro to SciNet and Trillium' self-guided course available at https://education.scinet.utoronto.ca/course/view.php?id=1389."
+      "question": "Where can users find support and documentation for the Trillium cluster?",
+      "answer": "Users can find support via the `Trillium Quickstart` documentation, by emailing trillium@tech.alliancecan.ca, or through the self-guided \"Intro to SciNet and Trillium\" course."
     }
   ],
-  "generated_at": "2026-04-12T09:27:35.923449+00:00"
+  "generated_at": "2026-04-13T14:41:55.652050+00:00"
 }

@@ -3,65 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is `parasail`?",
-      "answer": "`parasail` is a SIMD C (C99) library that offers implementations of the Smith-Waterman (local), Needleman-Wunsch (global), and various semi-global pairwise sequence alignment algorithms."
+      "question": "What is the parasail library primarily used for?",
+      "answer": "parasail is a SIMD C (C99) library that provides implementations for various pairwise sequence alignment algorithms, including Smith-Waterman (local), Needleman-Wunsch (global), and semi-global alignments."
     },
     {
-      "question": "How can users find the required versions of the `parasail` library?",
-      "answer": "Users can find the required versions by executing the command `module spider parasail`."
+      "question": "How does the bundling of the parasail-python extension differ between StdEnv/2023 and StdEnv/2020?",
+      "answer": "From StdEnv/2023 onwards, the parasail-python extension is bundled within the parasail module. However, with StdEnv/2020, the parasail module needs to be explicitly loaded for the Python extension to be installed in a virtual environment."
     },
     {
-      "question": "What is the command to load a specific version of the `parasail` library, for example, version 2.6.2?",
-      "answer": "To load `parasail/2.6.2`, users would use the command `module load parasail/2.6.2`."
+      "question": "How can a user determine the available versions of the parasail library on a system?",
+      "answer": "A user can find the required versions by running the command `module spider parasail`."
     },
     {
-      "question": "How should the number of threads be set when using the `parasail_aligner` binary?",
-      "answer": "The number of threads should be set according to the number of cores allocated in the job, typically using `-t ${SLURM_CPUS_PER_TASK:-1}`."
+      "question": "What is the command to load a specific version of the parasail library, such as version 2.6.2?",
+      "answer": "To load the library, a user should use the command `module load parasail/2.6.2`."
     },
     {
-      "question": "What is the distinction regarding the `parasail-python` extension between `StdEnv/2023` and `StdEnv/2020`?",
-      "answer": "From `StdEnv/2023` onwards, the `parasail-python` extension is bundled in the `parasail` module. With `StdEnv/2020`, the `parasail` module needs to be loaded for the Python extension to be installed in a virtual environment."
+      "question": "When using the `parasail_aligner` binary, how should the number of threads be configured?",
+      "answer": "It is important to set the number of threads according to the allocated cores in the job by using the option `-t ${SLURM_CPUS_PER_TASK:-1}` with the `parasail_aligner` command."
     },
     {
-      "question": "How can one discover which Python versions are compatible with a specific `parasail` module version like `parasail/1.3.4`?",
-      "answer": "To discover compatible Python versions, one should run `module spider parasail/1.3.4`."
+      "question": "How can a user discover compatible Python versions for a specific parasail module version?",
+      "answer": "To discover compatible Python versions, a user can run the command `module spider parasail/1.3.4`."
     },
     {
-      "question": "Which modules are required to use the `parasail` Python extension with Python 3.11 in the default `StdEnv`?",
-      "answer": "The required modules are `parasail/2.6.2`, `python/3.11`, and `scipy-stack/2023b`."
+      "question": "What modules are required to be loaded before using the parasail Python extension with Python 3.11?",
+      "answer": "The required modules to load are `parasail/2.6.2`, `python/3.11`, and `scipy-stack/2023b`."
     },
     {
-      "question": "How can a user confirm if the `parasail` Python module was successfully imported?",
-      "answer": "If the command `python -c \"import parasail\"` displays nothing, the import was successful."
+      "question": "How can a user verify if the parasail Python extension has been successfully imported into a Python environment?",
+      "answer": "A user can verify successful import by running `python -c \"import parasail\"`. If no output is displayed, the import was successful."
     },
     {
-      "question": "What command is used to install Biopython in a virtual environment for the `Default StdEnv` example job submission script?",
-      "answer": "`pip install --no-index biopython==1.83` is used after activating the virtual environment."
+      "question": "What is the primary function of the `parasail-sw.py` example script provided in the documentation?",
+      "answer": "The `parasail-sw.py` script runs a quick local alignment score comparison between the BioPython library's aligner and the parasail Python extension."
     },
     {
-      "question": "How does one identify available `parasail` wheels when using `StdEnv/2020`?",
-      "answer": "The `avail_wheel parasail` command is used to identify available wheels for `StdEnv/2020`."
+      "question": "When submitting a job using the parasail Python extension with the Default StdEnv, what are the steps to set up the virtual environment and install dependencies?",
+      "answer": "The job submission script should load `parasail/2.6.2`, `python/3.11`, and `scipy-stack/2023b`. Then, a virtual environment is created with `virtualenv --no-download $SLURM_TMPDIR/env`, activated, and pip is upgraded, followed by installing Biopython with `pip install --no-index biopython==1.83`."
     },
     {
-      "question": "Which modules are loaded in the `StdEnv/2020` job submission script for the Python example?",
-      "answer": "The modules loaded are `StdEnv/2020`, `gcc`, `parasail/2.5`, and `python/3.10`."
+      "question": "How does installing the parasail Python extension differ when using StdEnv/2020 compared to the Default StdEnv?",
+      "answer": "With StdEnv/2020, a user must first identify available wheels using `avail_wheel parasail` and then explicitly install the desired parasail version (e.g., `parasail==1.2.4`) within the virtual environment using `pip install --no-index`."
     },
     {
-      "question": "How is the `parasail` Python package installed in a virtual environment for the `StdEnv/2020` example?",
-      "answer": "It is installed using `pip install --no-index parasail==1.2.4 biopython==1.83` after loading the necessary modules and activating the virtual environment."
+      "question": "What command is used to submit a job script that utilizes the parasail library?",
+      "answer": "A job script that uses the parasail library can be submitted using the command `sbatch submit-parasail.sh`."
     },
     {
-      "question": "What is the command to submit the job script `submit-parasail.sh`?",
-      "answer": "The job is submitted using the command `sbatch submit-parasail.sh`."
+      "question": "Where can a user find the output generated by a submitted parasail job?",
+      "answer": "The output of the job will be located in the Slurm output file, which can be viewed using a command like `less slurm-*.out`."
     },
     {
-      "question": "How can the output of the `parasail` example job be viewed?",
-      "answer": "The output of the job can be viewed in the Slurm output file by using `less slurm-*.out`."
-    },
-    {
-      "question": "How can a user list installed Python packages and check for the `parasail` package?",
-      "answer": "A user can list installed Python packages and check for `parasail` by running `pip list | grep parasail`."
+      "question": "How does loading the parasail module affect other Python packages that have parasail as a dependency?",
+      "answer": "Loading the parasail module will satisfy the requirement for other Python packages that depend on parasail."
     }
   ],
-  "generated_at": "2026-04-12T05:11:27.457174+00:00"
+  "generated_at": "2026-04-13T11:12:05.222086+00:00"
 }

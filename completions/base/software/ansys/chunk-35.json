@@ -4,69 +4,17 @@
   "chunk_index": 35,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `script-rocky-gpu.sh` script?",
-      "answer": "The `script-rocky-gpu.sh` script is used to submit Ansys Rocky simulations that leverage GPU acceleration in a non-GUI mode."
+      "question": "How do I submit an Ansys Rocky simulation job to a Slurm queue that utilizes GPU acceleration?",
+      "answer": "To submit an Ansys Rocky GPU-based simulation job to a Slurm queue, you should use a script that specifies your account, time limit (e.g., `00-01:00`), total memory for cores (e.g., `24G`), number of CPUs per task (e.g., `6`), the GPU type and quantity (e.g., `--gres=gpu:v100:2`), and requests a single node (`--nodes=1`). Inside the script, you must load the `StdEnv/2023` and `ansys/2025R1` modules (or newer versions) and export the Rocky path (`export PATH=$EBROOTANSYS/v251/rocky:$PATH`). The simulation is then launched using the `Rocky` command with parameters such as `--simulate \"mysim.rocky\" --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=1 --gpu-num=$SLURM_GPUS_ON_NODE`."
     },
     {
-      "question": "What SBATCH directives are specified in the `script-rocky-gpu.sh` for a GPU-based Rocky simulation?",
-      "answer": "The SBATCH directives are:\n- `--account=account` (e.g., def or reg)\n- `--time=00-01:00` (time limit)\n- `--mem=24G` (total memory for cores)\n- `--cpus-per-task=6` (number of cores to use)\n- `--gres=gpu:v100:2` (GPU type and quantity)\n- `--nodes=1` (request one node)."
+      "question": "How can Alliance researchers access Ansys programs in a graphical user interface (GUI) mode on the clusters, and what are the initial setup steps?",
+      "answer": "Alliance researchers can access Ansys programs in graphical mode by using specific OnDemand or Jupyterhub desktop links for each cluster, such as `https://ondemand.sharcnet.ca` for NIBI or `https://jupyterhub.rorqual.alliancecan.ca` for RORQUAL. After navigating to the job submission web page, you configure the required resources for your interactive desktop session (including a GPU if accelerated graphics or computations are planned) and click 'Launch' or 'Start'. Once the desktop loads, you must load an Ansys module; this can be done via the left-hand menu for Jupyter Lab, or by manually typing `module load ansys/version` in a terminal for an OnDemand desktop. Subsequent steps for launching specific Ansys programs, such as Fluent or Workbench, involve setting environment variables or arguments tailored to whether a GPU was requested for your session."
     },
     {
-      "question": "Which modules need to be loaded for a GPU-based Ansys Rocky simulation?",
-      "answer": "You need to load `StdEnv/2023` and `ansys/2025R1` (or newer versions)."
-    },
-    {
-      "question": "How is the PATH set for Rocky in the GPU-based script?",
-      "answer": "The PATH is set by `export PATH=$EBROOTANSYS/v251/rocky:$PATH`."
-    },
-    {
-      "question": "What is the command to run a Rocky GPU-based simulation using the script?",
-      "answer": "The command is `Rocky --simulate “mysim.rocky” --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=1 --gpu-num=$SLURM_GPUS_ON_NODE`."
-    },
-    {
-      "question": "Where can I find Slurm scripts for Ansys Electronics Desktop (AnsysEDT)?",
-      "answer": "Slurm scripts for using AnsysEDT are provided in a separate wiki page available at `https://docs.alliancecan.ca/wiki/AnsysEDT`."
-    },
-    {
-      "question": "How do I run Ansys programs in graphical mode?",
-      "answer": "You can run Ansys programs in graphical mode by clicking on one of the provided OnDemand or Jupyterhub desktop links for specific clusters."
-    },
-    {
-      "question": "What are the OnDemand or Jupyterhub desktop links for NIBI, FIR, RORQUAL, NARVAL, and TRILLIUM?",
-      "answer": "The links are:\n- NIBI: `https://ondemand.sharcnet.ca`\n- FIR: `https://jupyterhub.fir.alliancecan.ca`\n- RORQUAL: `https://jupyterhub.rorqual.alliancecan.ca`\n- NARVAL: `https://jupyterhub.narval.alliancecan.ca/`\n- TRILLIUM: `https://ondemand.scinet.utoronto.ca`"
-    },
-    {
-      "question": "What should I do after a desktop session loads to use Ansys programs graphically?",
-      "answer": "After the desktop loads, you should load an Ansys module. For a Jupyter Lab desktop, click the left-hand menu. For an OnDemand desktop, manually type `module load ansys/version` on the command line."
-    },
-    {
-      "question": "How do I start Ansys Fluent from the command line of an On Demand Desktop?",
-      "answer": "First, open a terminal window and run `module load StdEnv/2023 ansys/2025R1`, then execute the command `fluent`."
-    },
-    {
-      "question": "What environment variables are recommended for Ansys Fluent on a Compute Node without a GPU (version 2025R1 or newer)?",
-      "answer": "The recommended environment variables are `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on NIBI) and `HOOPS_PICTURE=opengl2-mesa`."
-    },
-    {
-      "question": "What `HOOPS_PICTURE` setting should be used for Ansys Fluent 2024R2 or older on a Compute Node without a GPU?",
-      "answer": "For Fluent 2024R2 or older, the `HOOPS_PICTURE` setting should be `HOOPS_PICTURE=null`."
-    },
-    {
-      "question": "What environment variables are recommended for Ansys Fluent on a Compute Node with a GPU (version 2025R1 or newer)?",
-      "answer": "The recommended environment variables are `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on NIBI) and `HOOPS_PICTURE=opengl2`."
-    },
-    {
-      "question": "What `HOOPS_PICTURE` setting should be used for Ansys Fluent 2024R2 or older on a Compute Node with a GPU?",
-      "answer": "For Fluent 2024R2 or older, the `HOOPS_PICTURE` setting should be `HOOPS_PICTURE=opengl`."
-    },
-    {
-      "question": "When starting an OnDemand Desktop on NIBI that requests a GPU for Fluent, what specific GPU must be chosen?",
-      "answer": "You must currently choose a full `h100 (80GB)` GPU to ensure the required VirtualGL environment variables are automatically set up for OpenGL graphics acceleration."
-    },
-    {
-      "question": "What is the purpose of setting `I_MPI_HYDRA_BOOTSTRAP=ssh` when starting Fluent on NIBI OnDemand Desktop sessions?",
-      "answer": "Setting `I_MPI_HYDRA_BOOTSTRAP=ssh` is required on NIBI to prevent Fluent from crashing on startup when Intel MPI is used."
+      "question": "When launching Ansys Fluent graphically on an OnDemand desktop, what specific environment variable settings are required, both with and without a GPU requested for the session?",
+      "answer": "When launching Ansys Fluent from the command line of an OnDemand desktop (after loading `StdEnv/2023` and `ansys/2025R1` or newer), you need to configure specific environment variables in the Fluent Launcher's Environment Tab:\n*   **For a Compute Node with no GPU requested:** Set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on NIBI) and `HOOPS_PICTURE=opengl2-mesa` for Ansys 2025R1 (or newer), or `HOOPS_PICTURE=null` for Ansys 2024R2 (or older).\n*   **For a Compute Node with a GPU requested:** On NIBI, you must select a full `h100 (80GB)` GPU when configuring your OnDemand session to enable automatic VirtualGL setup. Then, set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on NIBI) and `HOOPS_PICTURE=opengl2` for Ansys 2025R1 (or newer), or `HOOPS_PICTURE=opengl` for Ansys 2024R2 (or older). After setting these, click the 'Start' button in the launcher."
     }
   ],
-  "generated_at": "2026-04-12T16:40:58.934046+00:00"
+  "generated_at": "2026-04-13T01:45:18.968023+00:00"
 }

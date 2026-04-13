@@ -4,21 +4,13 @@
   "chunk_index": 18,
   "qa_pairs": [
     {
-      "question": "How do I create checkpoints during distributed training with PyTorch Lightning?",
+      "question": "How is checkpointing handled during distributed training when using PyTorch Lightning?",
       "answer": "When using PyTorch Lightning for distributed training, no extra code is required for checkpointing beyond using the standard checkpoint callback."
     },
     {
-      "question": "When performing distributed training with DistributedDataParallel or Horovod, which process should handle checkpointing?",
-      "answer": "During distributed training with DistributedDataParallel or Horovod, checkpointing should only be performed by one process (specifically, rank 0) of your program."
-    },
-    {
-      "question": "Why should only one process create checkpoints during distributed training with DistributedDataParallel or Horovod?",
-      "answer": "Only one process should create checkpoints because all ranks will have the same state at the end of each iteration in a DistributedDataParallel or Horovod program."
-    },
-    {
-      "question": "Could you provide an example of how to create a checkpoint using the first process (rank 0) in a distributed training program?",
-      "answer": "Yes, an example for creating a checkpoint using the first process (rank 0) is: `if global_rank == 0: torch.save(ddp_model.state_dict(), \"./checkpoint_path\")`."
+      "question": "What is the recommended approach for checkpointing in a distributed training program if you are using DistributedDataParallel or Horovod?",
+      "answer": "If you are using DistributedDataParallel or Horovod in a distributed training program, checkpointing should only be performed by one process (one of the ranks). This is because all ranks will have the same state at the end of each iteration. The example provided uses the first process (rank 0) to create a checkpoint."
     }
   ],
-  "generated_at": "2026-04-12T05:39:23.757549+00:00"
+  "generated_at": "2026-04-13T11:37:21.029171+00:00"
 }

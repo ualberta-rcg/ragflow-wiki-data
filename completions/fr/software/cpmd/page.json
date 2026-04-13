@@ -3,49 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi CPMD?",
-      "answer": "CPMD est un programme de simulation *ab initio* en dynamique moléculaire qui utilise la théorie de la fonctionnelle de la densité (DFT) pour les ondes planes et les pseudo-potentiels."
+      "question": "À quoi sert le programme CPMD sur les grappes d'Alliance?",
+      "answer": "CPMD est un programme de simulation ab initio en dynamique moléculaire basé sur la théorie de la fonctionnelle de la densité (DFT) pour les ondes planes/pseudo-potentiels."
     },
     {
-      "question": "Comment faire pour utiliser CPMD sur nos grappes de calcul?",
-      "answer": "Pour utiliser CPMD sur nos grappes, il faut contacter le soutien technique pour être ajouté au groupe POSIX, car l'enregistrement n'est plus nécessaire."
+      "question": "Est-ce qu'un enregistrement est requis pour utiliser CPMD sur les grappes d'Alliance?",
+      "answer": "Non, l'enregistrement n'est plus nécessaire, mais les modules installés sur les grappes sont protégés par un groupe POSIX."
     },
     {
-      "question": "Quelles commandes doit-on utiliser pour charger le module CPMD?",
-      "answer": "Il faut charger l'environnement standard avec `module load StdEnv/2020` et ensuite les modules spécifiques avec `module load intel/2020.1.217 openmpi/4.0.3 cpmd/4.3`."
+      "question": "Comment un utilisateur peut-il obtenir l'accès pour utiliser CPMD sur les grappes d'Alliance?",
+      "answer": "Pour pouvoir utiliser CPMD sur les grappes d'Alliance, il faut écrire au soutien technique afin d'être ajouté au groupe POSIX."
     },
     {
-      "question": "Pourquoi voudrait-on installer CPMD localement dans son répertoire /home?",
-      "answer": "Une installation locale permet d'éviter les délais d'attente (qui peuvent prendre des semaines, voire des mois) pour que les administrateurs de CPMD installent l'application de façon centrale."
+      "question": "Quelles commandes faut-il utiliser pour charger le module CPMD sur les grappes d'Alliance?",
+      "answer": "Il faut lancer `module load StdEnv/2020` suivi de `module load intel/2020.1.217 openmpi/4.0.3 cpmd/4.3`."
     },
     {
-      "question": "Quelles sont les étapes pour installer CPMD 4.3 localement avec EasyBuild sur une de nos grappes?",
-      "answer": "Il faut d'abord créer un répertoire `~/.local/easybuild/sources/c/CPMD`, y placer les tarballs et rustines (patches), puis lancer la commande `eb CPMD-4.3-iomkl-2020a.eb --rebuild`."
+      "question": "Pourquoi un utilisateur pourrait-il vouloir installer CPMD localement dans son répertoire personnel sur une grappe d'Alliance?",
+      "answer": "Un utilisateur pourrait vouloir installer CPMD localement car la réponse des administrateurs de CPMD pour une installation centrale peut prendre plusieurs semaines, voire des mois."
     },
     {
-      "question": "À quoi sert l'option `--rebuild` quand on utilise EasyBuild pour une installation locale?",
-      "answer": "L'option `--rebuild` force EasyBuild à utiliser l'installation située dans votre répertoire /home plutôt qu'une installation centrale."
+      "question": "Quelles sont les étapes initiales pour préparer l'installation locale de CPMD version 4.3 sur une grappe d'Alliance?",
+      "answer": "Il faut d'abord créer un répertoire local avec la commande `mkdir -p ~/.local/easybuild/sources/c/CPMD` et ensuite y placer les tarballs et les rustines (patches) nécessaires."
     },
     {
-      "question": "Comment s'assurer que le système utilise l'installation locale de CPMD après l'avoir installée?",
-      "answer": "Après l'installation, vous devez vous déconnecter de la grappe et vous reconnecter. Ensuite, la commande `module load cpmd` trouvera l'application dans votre répertoire /home."
+      "question": "Quels fichiers sources (tarballs et rustines) sont nécessaires pour une installation locale de CPMD 4.3 avec EasyBuild?",
+      "answer": "Les fichiers nécessaires sont `cpmd2cube.tar.gz`, `cpmd2xyz-scripts.tar.gz`, `cpmd-v4.3.tar.gz`, `fourier.tar.gz`, ainsi que les rustines `patch.to.4612`, `patch.to.4615`, `patch.to.4616`, `patch.to.4621`, `patch.to.4624` et `patch.to.4627`."
     },
     {
-      "question": "Quels sont les deux éléments essentiels pour exécuter une tâche CPMD?",
-      "answer": "Vous devez configurer un fichier d'entrée et avoir accès aux pseudo-potentiels nécessaires."
+      "question": "Quelle commande EasyBuild permet d'installer CPMD 4.3 localement dans le répertoire personnel de l'utilisateur sur une grappe d'Alliance?",
+      "answer": "La commande est `eb CPMD-4.3-iomkl-2020a.eb --rebuild`."
     },
     {
-      "question": "Comment exécuter le programme CPMD en parallèle si le fichier d'entrée et les pseudo-potentiels sont dans le même répertoire?",
-      "answer": "La commande à utiliser est `srun cpmd.x <fichiers d'entrée> > <fichier de sortie>`."
+      "question": "Que signifie l'option `--rebuild` lors de l'installation locale de CPMD avec EasyBuild sur une grappe d'Alliance?",
+      "answer": "L'option `--rebuild` fait en sorte qu'EasyBuild utilise l'installation située dans le répertoire personnel de l'utilisateur plutôt que celle de l'endroit central."
     },
     {
-      "question": "Comment exécuter CPMD si les pseudo-potentiels se trouvent dans un répertoire différent du fichier d'entrée?",
+      "question": "Après avoir installé CPMD localement, comment s'assurer que l'application est bien détectée lors du chargement du module?",
+      "answer": "Après l'installation, il faut se déconnecter de la grappe et se reconnecter; la commande `module load cpmd` trouvera alors l'application dans le répertoire personnel."
+    },
+    {
+      "question": "Quels sont les prérequis pour faire exécuter une tâche avec CPMD?",
+      "answer": "Pour faire exécuter une tâche avec CPMD, il faut configurer un fichier d'entrée et avoir accès aux pseudo-potentiels."
+    },
+    {
+      "question": "Quelle est la commande `srun` pour exécuter CPMD en parallèle si le fichier d'entrée et les pseudo-potentiels sont dans le même répertoire?",
+      "answer": "La commande est `srun cpmd.x <fichiers d'entrée> > <fichier de sortie>`."
+    },
+    {
+      "question": "Quelle est la commande `srun` pour exécuter CPMD en parallèle si les pseudo-potentiels sont dans un répertoire différent de celui du fichier d'entrée?",
       "answer": "La commande est `srun cpmd.x <fichiers d'entrée> <chemin vers l'emplacement des pseudo-potentiels> > <fichier de sortie>`."
     },
     {
-      "question": "Quel type de calcul est effectué dans le fichier d'entrée `1-h2-wave.inp` fourni en exemple?",
-      "answer": "Le fichier d'entrée `1-h2-wave.inp` configure une simulation pour une molécule d'hydrogène isolée avec un calcul de point unique, demandant l'optimisation de la fonction d'onde et la convergence des orbitales."
+      "question": "Quelles sont les directives SLURM typiques (`#SBATCH`) à inclure dans un script de soumission de tâche pour CPMD sur une grappe d'Alliance?",
+      "answer": "Les directives typiques incluent `#SBATCH --account=def-someacct`, `#SBATCH --nodes=1`, `#SBATCH --ntasks-per-node=4`, `#SBATCH --mem-per-cpu=2500M`, et `#SBATCH --time=0-1:00`."
+    },
+    {
+      "question": "Quel est un exemple de configuration de la section &SYSTEM dans un fichier d'entrée CPMD pour une simulation de dynamique moléculaire?",
+      "answer": "La section &SYSTEM peut inclure `SYMMETRY 1`, `ANGSTROM`, `CELL` avec les dimensions (ex: `8.00 1.0 1.0 0.0 0.0 0.0`), et `CUTOFF` pour l'énergie (ex: `70.0`)."
     }
   ],
-  "generated_at": "2026-04-11T19:14:03.112859+00:00"
+  "generated_at": "2026-04-13T03:31:37.883007+00:00"
 }

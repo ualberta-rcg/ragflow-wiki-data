@@ -4,37 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "What does the error message 'Convergence failure -- run terminated' in Gaussian indicate?",
-      "answer": "This error signifies that the SCF (self-consistent field) procedure in your Gaussian job has failed to converge."
+      "question": "What does \"Convergence failure -- run terminated\" indicate in a Gaussian job output, and how can it be resolved?",
+      "answer": "In Gaussian, \"Convergence failure -- run terminated\" indicates that the Self-Consistent Field (SCF) procedure has failed to converge. To resolve this, you can try using a better initial guess for the molecular orbitals, such as by running an SCF calculation at a lower level of theory (e.g., HF/STO-3G) and then using `guess=read`. Alternatively, you can try alternate SCF convergers like `SCF=QC` or `SCF=XQC`. If the initial geometry is poor, fixing it may resolve the issue. In cases where the optimizer takes a bad step, resubmitting the job with the penultimate (or an earlier) geometry and a newly evaluated Hessian can also fix the problem."
     },
     {
-      "question": "How can I resolve a 'Convergence failure -- run terminated' error in Gaussian?",
-      "answer": "To fix this, you can try providing a better initial guess for the molecular orbitals, perhaps by running an SCF at a lower level of theory (e.g., HF/STO-3G) and using 'guess=read'. Alternatively, use an alternate SCF converger like 'SCF=QC' or 'SCF=XQC'. A poor initial geometry can also cause this, so fixing the geometry might help. If the optimizer took a bad step, resubmitting the job with an earlier geometry and a newly evaluated Hessian could resolve it."
+      "question": "What causes the \"FOPT requested but NVar= XX while NDOF= YY\" error in Gaussian, and what are the steps to fix it?",
+      "answer": "The \"FOPT requested but NVar= XX while NDOF= YY\" error in Gaussian occurs when a full optimization (FOpt) is requested, but a check reveals an inconsistency between the number of variables (NVar) and the degrees of freedom (NDOF). If NDOF is less than NVar, it often means the molecule is being run in lower symmetry than it possesses, suggesting that higher symmetry should be considered. If NVar is less than NDOF, it usually indicates that the z-matrix has too many constraints inappropriate for the actual symmetry. While it's possible to bypass this check using `Opt` instead of `FOpt`, this approach is not recommended."
     },
     {
-      "question": "What is the meaning of the Gaussian error 'FOPT requested but NVar= XX while NDOF= YY'?",
-      "answer": "This error occurs when a full optimization (FOpt) is requested, and the system performs a check on the number of variables (NVar) versus the number of degrees of freedom (NDOF). The discrepancy between these two values indicates an error in the setup."
-    },
-    {
-      "question": "How do I fix the 'FOPT requested but NVar= XX while NDOF= YY' error in Gaussian?",
-      "answer": "If NDOF is less than NVar, it suggests the molecule is being run with lower symmetry than it possesses, and you should consider running it with higher symmetry. If NVar is less than NDOF, it usually means your Z-matrix has too many constraints for the actual symmetry. While you can bypass the check using 'Opt' instead of 'FOpt', this is generally not recommended."
-    },
-    {
-      "question": "What causes the 'Unable to project read-in occupied orbitals.' error in Gaussian?",
-      "answer": "This error arises when you attempt to read a molecular-orbital guess from a checkpoint file, but the projection from the old basis set to the new one fails. This can happen with certain pseudopotential basis sets, such as CEP-121G*, if they are used with polarization functions that don't actually exist, or where Gaussian uses placeholder functions with a zero exponent."
-    },
-    {
-      "question": "What are the solutions for the 'Unable to project read-in occupied orbitals.' error in Gaussian?",
-      "answer": "To fix this, avoid using CEP-121G* and use CEP-121G instead for the elements in question, as they are often identical for many elements. Another workaround is to simply not use the guess from the checkpoint file."
-    },
-    {
-      "question": "What does the 'KLT.ge.NIJTC in GetRSB' error in Gaussian signify?",
-      "answer": "This error indicates that an MP2 calculation has failed. It may be related to the pseudopotential problem discussed in the 'Unable to project read-in occupied orbitals' error."
-    },
-    {
-      "question": "How can I fix the 'KLT.ge.NIJTC in GetRSB' error in Gaussian?",
-      "answer": "The suggested fix for this error is to avoid using CEP-121G* and instead use CEP-121G for the relevant elements, as these basis sets are often the same for many elements."
+      "question": "What does the Gaussian error \"Unable to project read-in occupied orbitals\" mean, and how can it be fixed?",
+      "answer": "The \"Unable to project read-in occupied orbitals\" error in Gaussian signifies that the program failed to project a molecular-orbital guess from an old to a new basis set when reading from a checkpoint file. This commonly happens when using certain pseudopotential basis sets like CEP-121G* with polarization functions where none exist, causing Gaussian to use placeholder functions. To fix this, it's recommended to use CEP-121G instead of CEP-121G* for the relevant elements, as they are often identical. Another workaround is to simply not use the guess at all."
     }
   ],
-  "generated_at": "2026-04-11T22:57:49.850341+00:00"
+  "generated_at": "2026-04-13T06:28:35.923569+00:00"
 }

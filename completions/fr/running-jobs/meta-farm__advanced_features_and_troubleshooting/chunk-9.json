@@ -4,81 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "À quelle fréquence le paramètre `dt_cutoff` est-il recalculé pour améliorer la précision?",
-      "answer": "Le `dt_cutoff` est recalculé à chaque puissance de deux du nombre de cas traités (soit à 8, puis 16, 32, et ainsi de suite)."
+      "question": "Comment le système améliore-t-il la précision du `dt_cutoff` et quels sont les avantages de ce mécanisme pour les tâches META-Farm?",
+      "answer": "Le `dt_cutoff` est recalculé à chaque puissance de deux du nombre de cas traités (8, 16, 32, et ainsi de suite) pour améliorer sa précision. Ce mécanisme réduit en moyenne de 8 fois le gaspillage de cycles CPU causé par les tâches qui atteignent leur limite de temps d'exécution."
     },
     {
-      "question": "Pourquoi le recalcul du `dt_cutoff` se fait-il spécifiquement aux puissances de deux?",
-      "answer": "L'utilisation des puissances de deux pour le recalcul du `dt_cutoff` permet de minimiser la surcharge associée à son calcul, rendant l'algorithme efficace pour un nombre de cas allant de quelques dizaines à plusieurs milliers."
+      "question": "Que signifie le message d'erreur « Non-farm directory, or no farm has been submitted; exiting » avec le paquet META-Farm et comment le résoudre?",
+      "answer": "Ce message indique que le répertoire actuel n'est pas un répertoire de ferme de calcul, ou que la commande `submit.run` n'a jamais été exécutée pour cette ferme. Pour le résoudre, assurez-vous d'être dans le bon répertoire de ferme et que `submit.run` a été lancé."
     },
     {
-      "question": "Quel est l'avantage moyen de cet algorithme en termes de gaspillage de cycles de CPU?",
-      "answer": "En moyenne, cet algorithme réduit d'un facteur 8 le gaspillage de cycles de CPU causé par les tâches qui atteignent leur limite de temps d'exécution."
-    },
-    {
-      "question": "Quel fichier contient les temps d'exécution individuels de tous les cas après l'exécution d'une ferme de tâches?",
-      "answer": "Les temps d'exécution individuels de tous les cas sont stockés dans le fichier `/home/$USER/tmp/$NODE.$PID/times`."
-    },
-    {
-      "question": "À quoi peut servir le fichier `times` qui contient les durées d'exécution des cas?",
-      "answer": "Ce fichier peut être analysé pour affiner la configuration de votre ferme de tâches ou pour profiler votre code."
-    },
-    {
-      "question": "Que signifie le message d'erreur \"Non-farm directory, or no farm has been submitted; exiting\"?",
-      "answer": "Ce message indique que le répertoire courant n'est pas un répertoire de ferme, ou que vous n'avez jamais soumis de ferme en utilisant `submit.run` pour ce répertoire."
-    },
-    {
-      "question": "Comment corriger l'erreur \"Wrong first argument: XXX (should be a positive integer or -1) ; exiting\" lors de l'utilisation de `submit.run`?",
-      "answer": "Il faut utiliser le bon premier argument: `-1` pour le mode SIMPLE, ou un entier positif `N` (qui représente le nombre de méta-tâches demandées) pour le mode META."
-    },
-    {
-      "question": "Quelle est l'importance de l'utilitaire `lockfile` pour le bon fonctionnement du package META-Farm?",
-      "answer": "L'utilitaire `lockfile` est essentiel, car il assure un accès sérialisé des méta-tâches au fichier `table.dat`, garantissant ainsi que deux méta-tâches ne lisent pas la même ligne simultanément."
-    },
-    {
-      "question": "Que dois-je vérifier si je reçois le message d'erreur \"lockfile is not on path; exiting\"?",
-      "answer": "Vous devez vous assurer que l'utilitaire `lockfile` est bien présent dans votre variable d'environnement `$PATH`."
-    },
-    {
-      "question": "Que faire si je vois l'erreur \"Non-farm directory (config.h, job_script.sh, single_case.sh, and/or table.dat are missing); exiting\"?",
-      "answer": "Vous devez soit vous rendre dans le bon répertoire de ferme, soit créer les fichiers importants manquants (`config.h`, `job_script.sh`, `single_case.sh`, et/ou `table.dat`) dans le répertoire courant."
-    },
-    {
-      "question": "J'ai activé l'option `-auto` mais j'ai une erreur \"-auto option requires resubmit_script.sh file in the root farm directory; exiting\". Qu'est-ce qui manque?",
-      "answer": "Il vous manque le fichier `resubmit_script.sh` dans le répertoire racine de la ferme. Un exemple de ce fichier est normalement copié automatiquement lorsque vous utilisez `farm_init.run`."
-    },
-    {
-      "question": "Que signifie le message d'erreur \"File table.dat doesn't exist. Exiting\"?",
-      "answer": "Cela signifie que le fichier `table.dat` n'existe pas dans le répertoire courant, ou que vous exécutez `submit.run` à l'extérieur d'un sous-répertoire de votre ferme."
-    },
-    {
-      "question": "Pourquoi l'erreur \"Job runtime sbatch argument (-t or --time) is missing in job_script.sh. Exiting\" apparaît-elle?",
-      "answer": "Cette erreur survient parce que vous n'avez pas spécifié de limite de temps d'exécution pour toutes les méta-tâches en tant qu'argument `#SBATCH` dans votre fichier `job_script.sh`. C'est le seul argument qui ne peut pas être passé en option à `submit.run`."
-    },
-    {
-      "question": "Que faire si je reçois le message \"Wrong job runtime in job_script.sh - nnn . Exiting\"?",
-      "answer": "Ce message indique que vous n'avez pas correctement formaté l'argument de temps d'exécution dans votre fichier `job_script.sh`."
-    },
-    {
-      "question": "Que faut-il faire si une erreur de soumission de tâche `sbatch` se produit, comme \"Something wrong with sbatch farm submission; jobid=XXX; aborting\" ou \"Something wrong with a auto-resubmit job submission; jobid=XXX; aborting\"?",
-      "answer": "Ces messages suggèrent un problème avec la soumission des tâches `sbatch`. L'ordonnanceur du cluster pourrait ne pas fonctionner correctement ou être trop occupé. Il est conseillé de réessayer plus tard."
-    },
-    {
-      "question": "Comment résoudre les erreurs liées à la création de répertoires ou de fichiers, comme \"Couldn't create subdirectories inside the farm directory ; exiting\" ou \"Couldn't create a file inside XXX ; exiting\"?",
-      "answer": "Ces erreurs indiquent un problème avec le système de fichiers, comme des permissions incorrectes ou un quota dépassé. Vous devez corriger le(s) problème(s) avant de réessayer."
-    },
-    {
-      "question": "Pourquoi ne puis-je pas utiliser `resubmit.run` si les tâches sont toujours en cours d'exécution ou en attente (\"Jobs are still running/queued; cannot resubmit\")?",
-      "answer": "Vous ne pouvez pas utiliser `resubmit.run` tant que toutes les méta-tâches de la ferme n'ont pas terminé leur exécution. Vous pouvez vérifier l'état de la ferme avec les commandes `list.run` ou `queue.run`."
-    },
-    {
-      "question": "Que signifie le message \"No failed/unfinished jobs; nothing to resubmit\"?",
-      "answer": "Ce message indique que votre ferme a été traitée à 100% et qu'il n'y a plus aucun cas (ni échoué, ni non exécuté) à calculer."
-    },
-    {
-      "question": "Pourquoi l'erreur \"Too many failed (very short) cases - exiting\" peut-elle se produire lors de l'exécution de tâches?",
-      "answer": "Cette erreur survient si un nombre excessif des premiers cas échouent très rapidement (en moins de `dt_failed` secondes). Pour la résoudre, il faut identifier et corriger la cause des échecs, ou ajuster les valeurs de `$N_failed_max` et `$dt_failed` dans le fichier `config.h`."
+      "question": "Qu'est-ce qui cause l'erreur « lockfile is not on path; exiting » avec le paquet META-Farm, et pourquoi cet utilitaire est-il important?",
+      "answer": "Cette erreur se produit si l'utilitaire `lockfile` n'est pas présent dans votre `$PATH`. Il est crucial car il garantit l'accès sérialisé au fichier `table.dat`, empêchant ainsi plusieurs tâches META de lire simultanément la même ligne."
     }
   ],
-  "generated_at": "2026-04-12T01:34:23.035272+00:00"
+  "generated_at": "2026-04-13T08:35:27.822395+00:00"
 }

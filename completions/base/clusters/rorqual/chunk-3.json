@@ -4,149 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How can I access the SCRATCH storage space on Rorqual?",
-      "answer": "You can access the SCRATCH storage space via the symbolic link `$HOME/links/scratch`."
+      "question": "What are the main characteristics of the `SCRATCH` and `PROJECT` storage spaces available on the Rorqual cluster?",
+      "answer": "The `SCRATCH` space on Rorqual is a large Lustre file system with 6.5 petabytes of total space, designed for temporary files during calculations. It's accessible via `$HOME/links/scratch`, has large fixed user quotas, but no automatic backup system and old files are automatically purged. In contrast, the `PROJECT` space is a 62 petabyte Lustre file system, designed for data sharing among group members and storing large amounts of data. It's accessible via `$HOME/links/projects/nom-du-projet`, features large adjustable quotas per project, and includes automatic daily backups."
     },
     {
-      "question": "What is the primary use for the SCRATCH storage space?",
-      "answer": "The SCRATCH storage space is a large area for storing temporary files during computations."
+      "question": "When transferring data to the Rorqual cluster, which connection addresses should be used for Globus transfers versus rsync, scp, or sftp?",
+      "answer": "For data transfers using Globus, users should utilize the 'Globus Drop Point'. However, for tools like rsync, scp, or sftp, the 'Copy Node' address, `rorqual.alliancecan.ca`, should be used."
     },
     {
-      "question": "Does the SCRATCH storage include an automatic backup system?",
-      "answer": "No, the SCRATCH storage does not have an automatic backup system."
-    },
-    {
-      "question": "What type of quotas apply to the SCRATCH storage space?",
-      "answer": "The SCRATCH storage space has large, fixed quotas per user."
-    },
-    {
-      "question": "Is there a policy for managing old files in the SCRATCH storage area?",
-      "answer": "Yes, there is an automatic purging policy for old files in the SCRATCH storage space."
-    },
-    {
-      "question": "What is the total capacity of the PROJECT file system on Rorqual?",
-      "answer": "The PROJECT file system has a total space of 62 PB (PetaBytes) and uses a Lustre file system."
-    },
-    {
-      "question": "How do I access the PROJECT storage space?",
-      "answer": "You can access the PROJECT storage space via the symbolic link `$HOME/links/projects/nom-du-projet` (or `project-name`)."
-    },
-    {
-      "question": "What is the intended purpose of the PROJECT storage space?",
-      "answer": "The PROJECT storage space is designed for sharing data among group members and for storing large volumes of data."
-    },
-    {
-      "question": "Are the quotas for the PROJECT storage space adjustable?",
-      "answer": "Yes, the PROJECT storage space has large, adjustable quotas per project."
-    },
-    {
-      "question": "Does the PROJECT storage space offer automatic backups?",
-      "answer": "Yes, the PROJECT storage space has an automatic backup once per day."
-    },
-    {
-      "question": "Which connection address should be used for data transfers via Globus?",
-      "answer": "For data transfers using Globus, users should use the 'Globus Drop Point'."
-    },
-    {
-      "question": "Which address should I use for data transfers with tools like rsync or scp?",
-      "answer": "For tools like rsync and scp, users should use the address of the 'Copy Node'."
-    },
-    {
-      "question": "What type of high-performance networking is implemented on Rorqual?",
-      "answer": "Rorqual features InfiniBand networking."
-    },
-    {
-      "question": "What is the data transfer speed of Rorqual's InfiniBand networking?",
-      "answer": "The InfiniBand networking on Rorqual operates at HDR 200 Gbit/s."
-    },
-    {
-      "question": "What is the maximum blocking factor for Rorqual's high-performance networking?",
-      "answer": "The maximum blocking factor for Rorqual's high-performance networking is 34:6 or 5.667:1."
-    },
-    {
-      "question": "How many CPU nodes can communicate without blocking in an island on Rorqual?",
-      "answer": "Up to 31 CPU nodes, each with 192 cores, can communicate without blocking within an island."
-    },
-    {
-      "question": "What kind of CPUs are installed in the 670 nodes with 192 cores?",
-      "answer": "The 670 nodes with 192 cores are equipped with 2 x AMD EPYC 9654 (Zen 4) CPUs running at 2.40 GHz, each having a 384MB L3 cache."
-    },
-    {
-      "question": "How much available memory do the 670 general-purpose nodes typically have?",
-      "answer": "The 670 general-purpose nodes have 750GB or 768000MB of available memory."
-    },
-    {
-      "question": "What storage option is available on the majority of the 192-core nodes?",
-      "answer": "The majority of the 192-core nodes (670 nodes) have 1 x 480GB SATA SSD (6Gbit/s) for storage."
-    },
-    {
-      "question": "Are there any 192-core nodes equipped with NVMe SSD storage?",
-      "answer": "Yes, there are 8 nodes with 192 cores that feature 1 x 3.84TB NVMe SSD storage."
-    },
-    {
-      "question": "What is the maximum available memory on some 192-core nodes?",
-      "answer": "Some 192-core nodes (8 nodes) offer 3013GB or 3086250MB of available memory."
-    },
-    {
-      "question": "What CPUs are used in the 93 GPU nodes?",
-      "answer": "The 93 GPU nodes are powered by 2 x Intel Xeon Gold 6448Y CPUs @ 2.10 GHz, with a 60MB L3 cache."
-    },
-    {
-      "question": "How many cores are available on each GPU node?",
-      "answer": "Each GPU node has 64 cores."
-    },
-    {
-      "question": "What is the available memory on the GPU nodes?",
-      "answer": "The GPU nodes have 498GB or 510000MB of available memory."
-    },
-    {
-      "question": "What storage devices are present on the GPU nodes?",
-      "answer": "The GPU nodes are equipped with 1 x 3.84TB NVMe SSD for storage."
-    },
-    {
-      "question": "What GPUs are installed in the 93 GPU nodes?",
-      "answer": "The 93 GPU nodes have 4 x NVidia H100 SXM5 GPUs, each with 80GB memory, connected via NVLink."
-    },
-    {
-      "question": "How can I request a larger `$SLURM_TMPDIR` space for my jobs?",
-      "answer": "To obtain a larger `$SLURM_TMPDIR` space, you must specify `--tmp=xG` in your Slurm request, where `x` is a value between 370 and 3360."
-    },
-    {
-      "question": "What is a key characteristic of the CPU node topology regarding data access?",
-      "answer": "In a CPU node, the 192 cores and different memory spaces are not equidistant, leading to variable data access delays in the nanosecond range."
-    },
-    {
-      "question": "Describe the CPU socket configuration within a CPU node.",
-      "answer": "Each CPU node contains two (2) CPU sockets, and each socket has 12 system memory channels."
-    },
-    {
-      "question": "How are NUMA nodes configured within each CPU socket?",
-      "answer": "Each CPU socket has four (4) NUMA nodes, with each NUMA node connected to three (3) system memory channels."
-    },
-    {
-      "question": "What is the structure of chiplets within a NUMA node?",
-      "answer": "There are three (3) chiplets per NUMA node, and each chiplet has its own 32 MiB L3 cache."
-    },
-    {
-      "question": "How many cores are in each chiplet, and what caches do they have?",
-      "answer": "Each chiplet contains eight (8) cores, and each core has its own 1 MiB L2 cache and 32+32 KiB L1 cache."
-    },
-    {
-      "question": "What CPU configuration is ideal for multi-threaded parallel programs on Rorqual?",
-      "answer": "Groups of 8 closely-located cores sharing the same L3 cache are ideal for multi-threaded parallel programs, for example, by using the Slurm option `--cpus-per-task=8`."
-    },
-    {
-      "question": "How many cores are in a NUMA node and what memory resources do they share?",
-      "answer": "A NUMA node consists of 24 cores (3x8) that share a trio of system memory channels."
-    },
-    {
-      "question": "What is the total count of cores per CPU node on Rorqual?",
-      "answer": "Each CPU node has a total of 192 cores (2 sockets x 4 NUMA nodes x 3 chiplets x 8 cores)."
-    },
-    {
-      "question": "What Slurm options are recommended to fully utilize the CPU node topology?",
-      "answer": "To fully leverage the CPU node topology, it is recommended to reserve complete nodes using options like `--ntasks-per-node=24 --cpus-per-task=8` and explicitly control the placement of processes and execution threads."
+      "question": "What are the key specifications for the GPU nodes on the Rorqual cluster?",
+      "answer": "The Rorqual cluster includes 93 GPU nodes. Each of these nodes features 64 cores, 498 GB (or 510000 MB) of available memory, and 1 x 3.84 TB NVMe SSD for storage. They are powered by 2 x Intel Xeon Gold 6448Y CPUs @ 2.10 GHz with a 60 MB L3 cache, and are equipped with 4 x NVIDIA H100 SXM5 GPUs, each with 80 GB of memory, connected via NVLink."
     }
   ],
-  "generated_at": "2026-04-12T07:01:53.566035+00:00"
+  "generated_at": "2026-04-13T12:44:40.702736+00:00"
 }

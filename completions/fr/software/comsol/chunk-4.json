@@ -4,85 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Quelle version de StdEnv doit-on charger pour utiliser COMSOL 6.2 ou plus récent?",
-      "answer": "Pour les versions de COMSOL 6.2 et plus, il faut charger le module `StdEnv/2023`."
+      "question": "Comment peut-on lancer une simulation COMSOL qui nécessite l'utilisation de plusieurs nœuds de calcul sur les grappes de l'Alliance?",
+      "answer": "Pour lancer des simulations COMSOL très gourmandes qui dépassent les capacités d'un seul nœud, on utilise un script adapté pour les nœuds multiples, comme le `script-dis.sh`. Ce script permet de répartir les cœurs sur plusieurs nœuds, de redémarrer des tâches interrompues, d'allouer de gros fichiers temporaires dans l'espace /scratch, et d'utiliser les paramètres par défaut du fichier `comsolbatch.ini`. Il faut notamment spécifier le nombre de nœuds (`#SBATCH --nodes=`) et le nombre de cœurs par tâche (`#SBATCH --cpus-per-task=`) dans le script de soumission."
     },
     {
-      "question": "Comment peut-on vérifier si COMSOL utilise bien tous les cœurs disponibles lors d'une simulation sur un seul nœud?",
-      "answer": "Pour vérifier l'efficacité de l'utilisation des cœurs, il est suggéré d'augmenter graduellement le nombre de cœurs et d'observer la scalabilité de la simulation."
+      "question": "Si ma tâche COMSOL plante dès le démarrage à cause d'une erreur de segmentation Java sur une grappe, quelle est la solution recommandée?",
+      "answer": "En cas d'erreur de segmentation Java au démarrage d'une tâche COMSOL, il est conseillé d'augmenter la taille du monceau (heap) Java. Pour ce faire, il faut ajouter des commandes `sed` dans votre script de soumission, juste après les commandes `cp -f`, afin de modifier les fichiers `comsolbatch.ini` et `java.opts`. Les lignes à ajouter sont `sed -i 's/-Xmx2g/-Xmx4g/g' comsolbatch.ini` et `sed -i 's/-Xmx768m/-Xmx4g/g' java.opts`. Si le problème persiste, vous pouvez remplacer 4G par 8G."
     },
     {
-      "question": "Quand est-il recommandé d'exécuter une tâche COMSOL sur plusieurs nœuds plutôt que sur un seul?",
-      "answer": "Si l'accélération de la simulation est presque linéaire avec tous les cœurs d'un nœud, il est bon de considérer l'exécution de la tâche sur plusieurs nœuds entiers."
-    },
-    {
-      "question": "Quels sont les objectifs principaux du script d'exécution sur plusieurs nœuds (script-dis.sh) pour COMSOL?",
-      "answer": "Le script `script-dis.sh` est idéal pour les très grosses simulations (qui dépassent les capacités d'un simple nœud), il permet de redémarrer des tâches interrompues, d'allouer de gros fichiers temporaires dans l'espace `/scratch` et d'utiliser les paramètres par défaut du fichier `comsolbatch.ini`."
-    },
-    {
-      "question": "Combien de cœurs et de nœuds sont alloués par défaut dans l'exemple de script `script-dis.sh` pour COMSOL?",
-      "answer": "L'exemple de script `script-dis.sh` utilise 8 cœurs distribués également sur 2 nœuds."
-    },
-    {
-      "question": "Quelle est la quantité de mémoire spécifiée par nœud dans l'exemple de script `script-dis.sh` pour l'exécution sur plusieurs nœuds?",
-      "answer": "La mémoire spécifiée par nœud dans l'exemple de script `script-dis.sh` est de 16G (`--mem=16G`)."
-    },
-    {
-      "question": "Quelles sont les commandes de module à charger dans le script `script-dis.sh` avant de lancer COMSOL?",
-      "answer": "Il faut charger les modules `StdEnv/2023` et `comsol/6.4`."
-    },
-    {
-      "question": "Comment le script `script-dis.sh` gère-t-il les répertoires de récupération et les fichiers temporaires?",
-      "answer": "Le script crée un répertoire de récupération (`$SCRATCH/comsol/recoverydir`) et alloue les fichiers temporaires dans `$SLURM_TMPDIR`."
-    },
-    {
-      "question": "Que faut-il faire si une tâche COMSOL plante au démarrage en raison d'une erreur de segmentation Java?",
-      "answer": "Il faut augmenter le monceau (heap) en ajoutant des lignes `sed` pour modifier les valeurs de mémoire (`-Xmx`) dans les fichiers `comsolbatch.ini` et `java.opts`."
-    },
-    {
-      "question": "Quelles commandes `sed` doit-on ajouter pour augmenter le monceau Java dans les fichiers de configuration de COMSOL si la tâche plante?",
-      "answer": "Il faut ajouter les lignes `sed -i 's/-Xmx2g/-Xmx4g/g' comsolbatch.ini` et `sed -i 's/-Xmx768m/-Xmx4g/g' java.opts` après les commandes `cp -f`."
-    },
-    {
-      "question": "Si l'augmentation du monceau Java à 4G ne résout pas le problème d'erreur de segmentation, quelle est la prochaine étape?",
-      "answer": "Si le problème persiste, il faut remplacer 4G par 8G dans les deux lignes `sed`."
-    },
-    {
-      "question": "Que doit-on faire si une tâche COMSOL lancée avec `script-smp.sh` sur un seul nœud est lente ou gèle?",
-      "answer": "Dans ce cas, on devrait utiliser le script pour nœuds multiples (`script-dis.sh`), y ajouter `#SBATCH --nodes=1`, puis créer un billet d'assistance en indiquant le numéro de la tâche et le nom de la grappe."
-    },
-    {
-      "question": "Quelles sont les méthodes recommandées pour exécuter COMSOL en mode graphique?",
-      "answer": "Pour exécuter COMSOL en mode graphique, on doit ouvrir un bureau distant via un système OnDemand ou JupyterLab."
-    },
-    {
-      "question": "L'ancienne méthode d'utilisation de TigerVNC pour COMSOL en mode graphique est-elle toujours supportée?",
-      "answer": "Non, l'ancienne méthode avec TigerVNC n'est plus recommandée ni prise en charge, même si elle devrait toujours fonctionner."
-    },
-    {
-      "question": "Quel fichier doit être configuré avant toute utilisation de COMSOL en mode graphique?",
-      "answer": "Le fichier `~/.licenses/comsol.lic` doit être configuré au préalable."
-    },
-    {
-      "question": "Que faire si les éléments du menu supérieur de COMSOL sont grisés et inaccessibles en mode graphique?",
-      "answer": "Si les éléments du menu supérieur sont grisés, le fichier `~/.comsol` est peut-être corrompu; il faut alors essayer de le supprimer."
-    },
-    {
-      "question": "Comment connaître les versions de COMSOL disponibles pour l'environnement StdEnv chargé?",
-      "answer": "La commande `module avail comsol` affichera les versions de COMSOL disponibles pour la version de StdEnv actuellement chargée."
-    },
-    {
-      "question": "Quel est le but de la ligne commentée `-recover -continue` dans le script `script-dis.sh`?",
-      "answer": "Cette ligne, une fois décommentée, permet de redémarrer une tâche COMSOL à partir du dernier fichier récupéré."
-    },
-    {
-      "question": "Quel est le nom du fichier de configuration par défaut pour COMSOL qui est copié dans le script `script-dis.sh`?",
-      "answer": "Le fichier de configuration par défaut est `comsolbatch.ini`."
-    },
-    {
-      "question": "Quel est le fichier lié à Java qui est copié au démarrage dans le script `script-dis.sh`?",
-      "answer": "Le fichier lié à Java qui est copié est `java.opts`."
+      "question": "Quelles sont les méthodes privilégiées pour exécuter COMSOL en mode graphique sur les grappes de calcul de l'Alliance?",
+      "answer": "Pour exécuter COMSOL en mode graphique, les méthodes privilégiées sont d'ouvrir un bureau distant via un système OnDemand ou JupyterLab. Pour OnDemand, il faut lancer une session sur l'URL correspondante (par exemple `https://ondemand.sharcnet.ca`), puis charger les modules `StdEnv/2023` (ou `StdEnv/2020` pour les versions antérieures à 6.2) et `comsol/6.4` (ou la version désirée) avant de lancer la commande `comsol`. Pour JupyterLab, après avoir lancé une session sur l'URL de la grappe (par exemple `https://jupyterhub.fir.alliancecan.ca`), il faut sélectionner le module COMSOL désiré, le charger, puis cliquer sur l'icône `Comsol (VNC)`. Dans tous les cas, le fichier `~/.licenses/comsol.lic` doit être configuré au préalable."
     }
   ],
-  "generated_at": "2026-04-11T19:05:43.277381+00:00"
+  "generated_at": "2026-04-13T03:24:38.156654+00:00"
 }

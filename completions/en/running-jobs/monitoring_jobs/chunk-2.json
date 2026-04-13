@@ -4,45 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What is the purpose of attaching to a running job?",
-      "answer": "You might want to attach to a running job for troubleshooting or to monitor its progress."
+      "question": "What is the primary reason for attaching to a running job on a cluster?",
+      "answer": "Attaching to a node running a job allows users to execute new processes there, which can be done for troubleshooting or to monitor the progress of the job."
     },
     {
-      "question": "How can one monitor GPU usage on a node where a job is running?",
-      "answer": "You can monitor GPU usage by running the `nvidia-smi` utility on the node. For example, using the command `$ srun --jobid 123456 --overlap --pty watch -n 30 nvidia-smi` will run `nvidia-smi` every 30 seconds."
+      "question": "How can a user monitor GPU usage for an `sbatch` job on a cluster, and what command would they use?",
+      "answer": "To monitor GPU usage for an `sbatch` job, a user can connect to the job's node and run the `nvidia-smi` utility. An example command to run `nvidia-smi` every 30 seconds is `$ srun --jobid 123456 --overlap --pty watch -n 30 nvidia-smi`."
     },
     {
-      "question": "Which utility is used to monitor GPU usage according to the document?",
-      "answer": "The `nvidia-smi` utility is used to monitor GPU usage."
-    },
-    {
-      "question": "What command allows you to run `nvidia-smi` every 30 seconds on a specific job's node?",
-      "answer": "The command `$ srun --jobid 123456 --overlap --pty watch -n 30 nvidia-smi` runs `watch` on the assigned node, which in turn runs `nvidia-smi` every 30 seconds."
-    },
-    {
-      "question": "How can multiple monitoring commands be launched for a running job?",
-      "answer": "Multiple monitoring commands can be launched using `tmux` in separate panes."
-    },
-    {
-      "question": "Provide an example command for launching `htop` and `nvidia-smi` in separate panes to monitor a running job.",
-      "answer": "You can use the command: `$ srun --jobid 123456 --overlap --pty tmux new-session -d 'htop -u $USER' \\; split-window -h 'watch nvidia-smi' \\; attach`."
-    },
-    {
-      "question": "What is a crucial consideration when launching new processes with `srun` on a node where a job is running?",
-      "answer": "Processes launched with `srun` share resources with the specified job. You must be careful not to launch processes that would use a significant portion of these allocated resources, as this could lead to the job being killed (due to excessive memory) or slowed down (due to excessive CPU cycles)."
-    },
-    {
-      "question": "Do the `srun` commands for monitoring work for all types of jobs?",
-      "answer": "No, the `srun` commands shown for monitoring only work for jobs submitted with `sbatch`."
-    },
-    {
-      "question": "How can an interactive job be monitored?",
-      "answer": "To monitor an interactive job, you need to create multiple panes with `tmux` and start each monitoring process in its own pane."
-    },
-    {
-      "question": "Where can more information about monitoring GPU jobs be found?",
-      "answer": "More information about monitoring GPU jobs can be found under the 'Monitor GPU usage' section, potentially referencing NVTOP."
+      "question": "What precautions should be taken when launching processes on a node where a job is running, and how does monitoring differ for interactive jobs versus `sbatch` jobs?",
+      "answer": "When launching processes on a node where a job is running, users must be careful not to consume a significant portion of the allocated resources, as this could lead to the job being killed or slowed down. The `srun` commands for monitoring described only work for jobs submitted with `sbatch`. For interactive jobs, users should create multiple panes with `tmux` and start each monitoring process in its own pane."
     }
   ],
-  "generated_at": "2026-04-12T03:14:24.372398+00:00"
+  "generated_at": "2026-04-13T09:32:48.781533+00:00"
 }

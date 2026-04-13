@@ -3,61 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is GPAW?",
+      "question": "What is GPAW in the context of scientific computing?",
       "answer": "GPAW is a density-functional theory (DFT) Python code based on the projector-augmented wave (PAW) method and the atomic simulation environment (ASE)."
     },
     {
-      "question": "How is GPAW typically installed from the provided source?",
-      "answer": "GPAW can be installed using precompiled Python wheels into a virtual Python environment."
+      "question": "What is the recommended method for installing GPAW on Alliance clusters?",
+      "answer": "The recommended method is to install precompiled Python wheels for GPAW into a virtual Python environment."
     },
     {
-      "question": "Before installing GPAW, how can one check the available versions?",
-      "answer": "You can check available GPAW versions by running the `avail_wheels gpaw` command."
+      "question": "What is the first step when preparing to create a GPAW virtual environment?",
+      "answer": "The first step is to check which versions of GPAW Python wheels are available using the `avail_wheels gpaw` command."
     },
     {
-      "question": "What command is used to create a new virtual Python environment for GPAW without downloading packages during creation?",
-      "answer": "The command `virtualenv --no-download venv_gpaw` is used to create a new virtual Python environment."
+      "question": "Which type of module should be loaded before creating a new virtual environment for GPAW?",
+      "answer": "A Python module, such as `python/3.10`, should be loaded."
     },
     {
-      "question": "How do you activate the GPAW virtual Python environment after it has been created?",
-      "answer": "The virtual Python environment can be activated using the command `source venv_gpaw/bin/activate`."
+      "question": "What command is used to create a new virtual Python environment named `venv_gpaw` without downloading packages?",
+      "answer": "The command `virtualenv --no-download venv_gpaw` is used to create the virtual environment."
     },
     {
-      "question": "How is GPAW installed into an activated virtual Python environment?",
-      "answer": "GPAW is installed into the virtual Python environment using the command `pip install --no-index gpaw`."
+      "question": "How does one activate a Python virtual environment named `venv_gpaw`?",
+      "answer": "The command `source venv_gpaw/bin/activate` is used to activate the virtual environment."
     },
     {
-      "question": "Where should the GPAW data (setups and pseudopotentials) be downloaded and installed?",
-      "answer": "The GPAW data should be downloaded and installed into the `$SCRATCH` filesystem using `gpaw install-data $SCRATCH`."
+      "question": "Once a virtual environment is active, how is GPAW installed into it using precompiled wheels?",
+      "answer": "GPAW is installed using the command `pip install --no-index gpaw` within the activated virtual environment."
     },
     {
-      "question": "Which environment variable needs to be set to point GPAW to the installed data directory?",
-      "answer": "The `GPAW_SETUP_PATH` environment variable must be set to the data directory's path, for example, `export GPAW_SETUP_PATH=$SCRATCH/gpaw-setups-0.9.20000`."
+      "question": "Where should GPAW data, such as setups and pseudopotentials, be installed, and what command is used for this?",
+      "answer": "The GPAW data should be downloaded and installed into the SCRATCH filesystem using the command `gpaw install-data $SCRATCH`."
     },
     {
-      "question": "How can users verify their GPAW installation?",
-      "answer": "Users can run `gpaw test` for a single-core test or `gpaw -P 4 test` for a parallel test with four cores."
+      "question": "After installing GPAW data, what environment variable needs to be set to point to the data directory, and how is it set?",
+      "answer": "The `GPAW_SETUP_PATH` environment variable needs to be set, for example, using `export GPAW_SETUP_PATH=$SCRATCH/gpaw-setups-0.9.20000`."
     },
     {
-      "question": "What type of parallelization is demonstrated in the example GPAW jobscript?",
-      "answer": "The example jobscript demonstrates hybrid (OpenMP and MPI) parallelization."
+      "question": "How can a user verify if the GPAW installation is working correctly?",
+      "answer": "Users can run tests using the `gpaw test` command for a single core test or `gpaw -P 4 test` for a parallel test."
     },
     {
-      "question": "In a GPAW jobscript, how are the total number of CPUs calculated based on SLURM parameters?",
-      "answer": "The total number of CPUs is calculated by multiplying the `--ntasks` (MPI ranks) by the `--cpus-per-task` (OpenMP threads per MPI rank)."
+      "question": "What is the purpose of the provided example job script for GPAW?",
+      "answer": "The example job script demonstrates how to run GPAW calculations using hybrid (OpenMP and MPI) parallelization on Alliance clusters."
     },
     {
-      "question": "Why is `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"` included in the jobscript?",
-      "answer": "It ensures `OMP_NUM_THREADS` matches `cpus-per-task` or defaults to 1 if `cpus-per-task` isn't set."
+      "question": "In the example GPAW job script, how are the number of MPI ranks and OpenMP threads per MPI rank specified?",
+      "answer": "MPI ranks are specified by `#SBATCH --ntasks` and OpenMP threads per MPI rank by `#SBATCH --cpus-per-task`."
     },
     {
-      "question": "Which modules are loaded in the example jobscript and why are they important?",
-      "answer": "The `gcc/9.3.0` and `openmpi/4.0.3` modules are loaded to ensure the exact MPI library used for building GPAW wheels is also used for the job."
+      "question": "Why is `OMP_NUM_THREADS` explicitly set in the GPAW example job script?",
+      "answer": "Setting `OMP_NUM_THREADS` ensures it matches the value of `cpus-per-task` or defaults to 1 if `cpus-per-task` is not set, which is crucial for OpenMP parallelization."
     },
     {
-      "question": "What is recommended when adjusting the `--ntasks` and `--cpus-per-task` values in a GPAW jobscript?",
-      "answer": "It is recommended to adjust these numbers so that their product matches the total number of cores available on a whole computational node."
+      "question": "Which specific modules are loaded in the example GPAW job script to ensure compatibility with the installed wheels?",
+      "answer": "The modules `gcc/9.3.0` and `openmpi/4.0.3` are loaded to ensure the exact MPI library used for building the wheels is utilized."
+    },
+    {
+      "question": "Where is the GPAW virtual environment assumed to be located when sourced in the example job script?",
+      "answer": "The virtual environment is assumed to be in the user's HOME directory, sourced via `source ~/venv_gpaw/bin/activate`."
+    },
+    {
+      "question": "Where are the GPAW PAW-datasets assumed to be located for a job script as per the example?",
+      "answer": "The PAW-datasets are assumed to be in the user's SCRATCH directory, specified by `export GPAW_SETUP_PATH=/scratch/$USER/gpaw-setups-0.9.20000`."
     }
   ],
-  "generated_at": "2026-04-11T22:20:57.259791+00:00"
+  "generated_at": "2026-04-13T06:00:48.812368+00:00"
 }

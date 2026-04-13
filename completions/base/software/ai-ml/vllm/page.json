@@ -3,77 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of vLLM?",
-      "answer": "vLLM is a community-driven project that provides high-throughput and memory-efficient inference and serving for large language models (LLMs)."
+      "question": "What is the primary purpose of the vLLM project?",
+      "answer": "The vLLM project is a community-driven initiative that provides high-throughput and memory-efficient inference and serving for large language models (LLMs)."
     },
     {
-      "question": "What types of features and models does vLLM support?",
+      "question": "What key features does vLLM support for large language model inference?",
       "answer": "vLLM supports various decoding algorithms, quantizations, parallelism, and models from Hugging Face and other sources."
     },
     {
-      "question": "How can one check the latest available vLLM wheels?",
-      "answer": "You can check the latest available vLLM wheels by using the command `avail_wheels \"vllm\"`."
+      "question": "How can a user check the latest available wheel version of vLLM?",
+      "answer": "Users can check the latest available vLLM wheel version by executing the command `avail_wheels \"vllm\"`."
     },
     {
-      "question": "What is the preferred installation method for vLLM?",
-      "answer": "The preferred installation method for vLLM is using its Python wheel."
+      "question": "What is the preferred method for installing vLLM according to its documentation?",
+      "answer": "The preferred method for installing vLLM is to use its Python wheel in a virtual environment."
     },
     {
-      "question": "Which Python and OpenCV modules need to be loaded as dependencies for vLLM installation?",
-      "answer": "You need to load `opencv/4.11` and `python/3.12` modules."
+      "question": "What are the initial module loading and virtual environment setup steps required before installing vLLM?",
+      "answer": "Users must first load the `opencv/4.11` and `python/3.12` modules, then create and activate a temporary virtual environment using `virtualenv --no-download ~/vllm_env` and `source ~/vllm_env/bin/activate`."
     },
     {
-      "question": "What commands are used to create and activate a temporary virtual environment for vLLM?",
-      "answer": "You use `virtualenv --no-download ~/vllm_env` to create it and `source ~/vllm_env/bin/activate` to activate it."
+      "question": "How do you install vLLM within a virtual environment, specifying a particular version?",
+      "answer": "After activating the virtual environment, vLLM is installed using `pip install --no-index vllm==X.Y.Z`, where `X.Y.Z` represents the exact desired version."
     },
     {
-      "question": "How do you install vLLM and its Python dependencies within a virtual environment, specifying a version?",
-      "answer": "You use `pip install --no-index --upgrade pip` followed by `pip install --no-index vllm==X.Y.Z`, where `X.Y.Z` is the exact desired version."
+      "question": "What actions should be taken after installing vLLM in a virtual environment to manage dependencies and clean up?",
+      "answer": "After installation, it's recommended to freeze the environment's requirements using `pip freeze > ~/vllm-requirements.txt`, then deactivate and optionally remove the virtual environment."
     },
     {
-      "question": "What is the command to freeze the environment and record the requirements after installing vLLM?",
-      "answer": "You can freeze the environment using `pip freeze > ~/vllm-requirements.txt`."
+      "question": "Where do models loaded for inference with vLLM typically come from, and what command-line tool is used to download them?",
+      "answer": "Models for vLLM inference typically come from the Hugging Face Hub, and the `huggingface-cli` command-line tool is used for downloading them."
     },
     {
-      "question": "Where are models typically sourced from for inference on vLLM?",
-      "answer": "Models loaded for inference on vLLM will typically come from the Hugging Face Hub."
+      "question": "What is an important consideration regarding where Hugging Face models should be downloaded for vLLM inference, and what is their default cache location?",
+      "answer": "Hugging Face models must be downloaded on a login node to avoid idle compute time, and they are cached by default at `$HOME/.cache/huggingface/hub`."
     },
     {
-      "question": "On which type of node should models be downloaded to avoid idle compute time?",
-      "answer": "Models must be downloaded on a login node to avoid idle compute while waiting for resources."
+      "question": "How should the Python script for a single-node vLLM job be adjusted if the model fits entirely within one GPU?",
+      "answer": "If a model fits entirely within one GPU, the Python script should call `LLM(<model name>)` without the `tensor_parallel_size` argument."
     },
     {
-      "question": "What is the default cache location for Hugging Face models?",
-      "answer": "The default cache location for Hugging Face models is `$HOME/.cache/huggingface/hub`."
+      "question": "What resources are requested in the example SLURM script for a single-node vLLM job performing inference on a model split across two GPUs?",
+      "answer": "The example SLURM script requests 1 task, 2 GPUs per task, 2 CPUs per task, 32GB of memory, and a 5-minute time limit."
     },
     {
-      "question": "What is required for the single-node vLLM job example to run successfully regarding models?",
-      "answer": "The example assumes you have pre-downloaded the model `facebook/opt-125m`."
+      "question": "What technology does vLLM rely on to manage splitting models across multiple nodes?",
+      "answer": "vLLM currently relies on Ray to manage splitting models over multiple nodes."
     },
     {
-      "question": "How is the `tensor_parallel_size` set in a single-node vLLM Python script when using multiple GPUs?",
-      "answer": "It should be set to the number of GPUs in your job, for example, `llm = LLM(model=\"facebook/opt-125m\", tensor_parallel_size=2)`."
+      "question": "What environment variables are set to configure Hugging Face libraries in offline mode for multi-node vLLM jobs?",
+      "answer": "The environment variables `HF_HUB_OFFLINE` and `TRANSFORMERS_OFFLINE` are set to `1` (true) to enable offline mode for Hugging Face libraries."
     },
     {
-      "question": "What should be done if a model fits entirely within one GPU in a single-node vLLM job?",
-      "answer": "Change the Python script to call `LLM(<model name>)` without extra arguments."
+      "question": "How should the `tensor_parallel_size` parameter be configured in the Python script for a multi-node vLLM job?",
+      "answer": "For a multi-node vLLM job, `tensor_parallel_size` must be set to the *total* number of GPUs available across all nodes."
     },
     {
-      "question": "What technology does vLLM use to manage splitting models over multiple nodes?",
-      "answer": "vLLM relies on Ray to manage splitting models over multiple nodes."
+      "question": "What resources does the example SLURM script for a multi-node vLLM job request for distributing a model across 4 GPUs over 2 nodes?",
+      "answer": "The example multi-node SLURM script requests 2 nodes, 1 task per node, 2 GPUs per task, 6 CPUs per task, 32GB of memory, and a 10-minute time limit."
     },
     {
-      "question": "How should the `tensor_parallel_size` parameter be configured for a multi-node vLLM job?",
-      "answer": "It should be set to the *total* number of GPUs on all nodes, for example, `tensor_parallel_size=4` for 4 GPUs across 2 nodes."
-    },
-    {
-      "question": "How are Hugging Face libraries put into offline mode for a multi-node vLLM job?",
-      "answer": "You set the environment variables `export HF_HUB_OFFLINE=1` and `export TRANSFORMERS_OFFLINE=1`."
-    },
-    {
-      "question": "What is the purpose of the `config_env.sh` script in a multi-node vLLM setup?",
-      "answer": "The `config_env.sh` script loads necessary modules, creates a virtual environment, and installs `ray` and other requirements on all nodes."
+      "question": "What is the role of the `config_env.sh` script in a multi-node vLLM job setup?",
+      "answer": "The `config_env.sh` script is responsible for loading necessary modules, creating a virtual environment, and installing Ray and other vLLM-related dependencies on all nodes."
     }
   ],
-  "generated_at": "2026-04-12T10:43:15.624336+00:00"
+  "generated_at": "2026-04-13T15:40:54.058133+00:00"
 }

@@ -4,9 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "Dans quelle catégorie est classé ce document?",
-      "answer": "Ce document est classé dans la catégorie « Cloud »."
+      "question": "Qu'est-ce que le système de fichiers CephFS en contexte OpenStack et comment peut-on en faire la demande d'accès pour les instances?",
+      "answer": "Le CephFS est un système de fichiers partagé qui peut être utilisé par plusieurs hôtes d'instances OpenStack. Pour en bénéficier, il faut envoyer une demande par courriel à nuage@tech.alliancecan.ca. La demande doit inclure le nom du projet OpenStack, la capacité du quota requis (en Go) et le nombre de points de partage nécessaires."
+    },
+    {
+      "question": "Une fois qu'un quota est obtenu pour CephFS, quelles sont les étapes principales pour créer et configurer un point de partage via l'interface OpenStack (Horizon)?",
+      "answer": "Après avoir obtenu un quota, vous devez d'abord créer un point de partage dans l'interface OpenStack en allant à 'Project --> Share --> Shares' et en cliquant sur '+Create Share'. Il faut y spécifier un nom, le protocole CephFS, la taille, le type de partage (cephfs ou cephfs-ec42 pour SD4H/Juno) et la zone de disponibilité 'nova'. Ensuite, pour ce point de partage, accédez à 'Manage Rules' pour ajouter une règle, en sélectionnant 'cephx' comme type d'accès, le niveau d'accès (lecture-écriture ou lecture seule) et un nom significatif pour la clé. Il est crucial de noter le chemin d'accès ('Path'), le nom du client ('Access to') et la clé d'accès ('Access Key') pour la configuration ultérieure du client."
+    },
+    {
+      "question": "Comment prépare-t-on une instance de machine virtuelle pour qu'elle puisse se connecter à un point de partage CephFS, incluant l'attachement réseau et l'installation des paquets clients requis sur une distribution de type Red Hat?",
+      "answer": "Sur Arbutus, le réseau CephFS est déjà disponible pour vos instances. Par contre, sur SD4H/Juno, il faut attacher le 'CephFS-Network' à l'instance, soit via l'interface web (Instance --> Action --> Attach interface) sans cocher la case pour l'adresse IP fixe, soit via la ligne de commande OpenStack. Après cela, pour une instance fonctionnant sous un système d'exploitation de la famille Red Hat (comme RHEL, CentOS, Rocky Linux ou AlmaLinux), vous devez configurer le dépôt de paquets Ceph (par exemple pour la version 'quincy' et 'el8' ou 'el9') dans `/etc/yum.repos.d/ceph.repo`, puis installer les paquets clients nécessaires à l'aide de la commande `sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
     }
   ],
-  "generated_at": "2026-04-11T19:34:25.127142+00:00"
+  "generated_at": "2026-04-13T03:48:05.440780+00:00"
 }

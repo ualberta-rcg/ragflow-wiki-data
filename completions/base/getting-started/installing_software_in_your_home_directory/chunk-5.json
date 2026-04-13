@@ -4,37 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is a RUNPATH in the context of binaries located under `/cvmfs/soft.computecanada.ca`?",
-      "answer": "A RUNPATH means that the directories for the runtime libraries these binaries depend on are embedded directly inside the binary itself."
+      "question": "Why is it generally not recommended to set the `$LD_LIBRARY_PATH` environment variable when working with binaries under `/cvmfs/soft.computecanada.ca` on an Alliance system?",
+      "answer": "Binaries under `/cvmfs/soft.computecanada.ca` use a RUNPATH, which already embeds the directories for their runtime libraries. Setting `$LD_LIBRARY_PATH`, especially to locations like `/usr/lib64` or `$EBROOTGENTOO/lib64`, overrides this runpath and can cause many binaries to stop working."
     },
     {
-      "question": "Is it generally necessary to use the `$LD_LIBRARY_PATH` environment variable for binaries under `/cvmfs/soft.computecanada.ca`?",
-      "answer": "No, it is generally not necessary to use the `$LD_LIBRARY_PATH` environment variable for binaries under `/cvmfs/soft.computecanada.ca` because they utilize a RUNPATH."
+      "question": "When might a user need to use the `module --force purge` command on an Alliance system, and what are its implications?",
+      "answer": "The `module --force purge` command may be necessary in special situations, such as when compiling GCC or using custom toolchains like the MESA SDK. This command removes the CVMFS environment, leaving a bare-bones AlmaLinux-9 installation without modules. It should only be used during the compilation phase, and modules can be reloaded when running the software."
     },
     {
-      "question": "Why should users avoid setting `$LD_LIBRARY_PATH` to locations such as `/usr/lib64` or `$EBROOTGENTOO/lib64`?",
-      "answer": "Setting `$LD_LIBRARY_PATH` to these specific locations is discouraged because it overrides the existing RUNPATH, which can lead to many binaries failing to work correctly."
-    },
-    {
-      "question": "How can a user remove the CVMFS environment and what is the resulting system state?",
-      "answer": "A user can remove the CVMFS environment by using the command `module --force purge`. This action leaves the user with a bare-bones AlmaLinux-9 installation that has no modules loaded."
-    },
-    {
-      "question": "For what special situations might purging the CVMFS environment be beneficial?",
-      "answer": "Purging the CVMFS environment can be beneficial for special situations such as compiling GCC yourself or when using custom toolchains like the MESA SDK."
-    },
-    {
-      "question": "When is it necessary to purge modules when working with special software or custom toolchains, and can they be reloaded?",
-      "answer": "Purging modules is only necessary during the compilation phase of such software; the modules can be reloaded again when the software is run."
-    },
-    {
-      "question": "In most scenarios, where should users compile their code?",
-      "answer": "In most situations, users can compile their code on the login nodes."
-    },
-    {
-      "question": "When should code compilation be moved from login nodes to a compute node, and how is this done?",
-      "answer": "Code compilation should be performed on a compute node if the code requires building on hardware such as a GPU or a Skylake CPU. To do this, you need to start an interactive job on a host that provides the necessary hardware, and then compile the code from within that job."
+      "question": "Under what circumstances should a user compile code on a compute node rather than a login node on an Alliance system?",
+      "answer": "While compiling on login nodes is suitable in most situations, if the code requires specific hardware, such as a GPU or a Skylake CPU, it should be built on a compute node. Users should start an interactive job on a host with the necessary hardware and compile from there."
     }
   ],
-  "generated_at": "2026-04-12T00:07:39.878250+00:00"
+  "generated_at": "2026-04-13T07:24:18.183392+00:00"
 }

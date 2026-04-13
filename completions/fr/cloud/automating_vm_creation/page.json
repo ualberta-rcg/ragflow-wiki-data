@@ -3,61 +3,53 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Quels outils peut-on utiliser pour automatiser la création d'instances infonuagiques, de volumes, et d'autres ressources?",
-      "answer": "Pour l'automatisation, on peut utiliser OpenStack CLI, Heat, Terraform ou l'API Python pour OpenStack."
+      "question": "Quels outils sont disponibles sur les grappes de Calcul Canada pour automatiser la création et la gestion d'instances infonuagiques ainsi que leurs ressources associées?",
+      "answer": "Pour automatiser la création d'instances infonuagiques, de volumes et d'autres ressources, on peut utiliser OpenStack CLI, Heat, Terraform ou l'API Python pour OpenStack. Pour la configuration des instances elles-mêmes, cloud-init est employé."
     },
     {
-      "question": "Quelle est la principale différence entre OpenStack CLI/Terraform et Heat en ce qui concerne leur interface?",
-      "answer": "OpenStack CLI et Terraform sont des outils de ligne de commande, alors que Heat s'utilise via le tableau de bord Web OpenStack Horizon."
+      "question": "Qu'est-ce que CVMFS et quelle est son utilité dans l'environnement de Calcul Canada pour la recherche?",
+      "answer": "CVMFS est un système de fichiers HTTP qui fournit un service évolutif et fiable pour la distribution de logiciels de recherche. Il permet aux utilisateurs de monter et d'utiliser directement des logiciels et des bibliothèques précompilés via des modules, sans avoir à les compiler."
     },
     {
-      "question": "À quoi sert cloud-init?",
-      "answer": "Cloud-init est utilisé pour initialiser une instance et pour exécuter des tâches de configuration à l'intérieur de celle-ci, comme mettre à jour le système d'exploitation, installer des applications ou créer des utilisateurs."
+      "question": "Sur quelles grappes de Calcul Canada CVMFS est-il installé, et où peut-on trouver les directives pour son installation sur un nuage?",
+      "answer": "CVMFS est installé sur les grappes Cedar, Graham et Béluga. Les directives pour l'installer sur un nuage sont disponibles via un lien GitHub spécifique."
     },
     {
-      "question": "Quel format de fichier est utilisé pour la configuration de cloud-init?",
-      "answer": "La configuration de cloud-init est spécifiée en texte brut en format YAML."
+      "question": "À quoi servent les fichiers cloud-init pour les instances infonuagiques sur OpenStack?",
+      "answer": "Les fichiers cloud-init servent à initialiser et automatiser des tâches à l'intérieur d'une instance infonuagique, telles que la mise à jour du système d'exploitation, l'installation et la configuration d'applications, la création de fichiers, l'exécution de commandes et la gestion des utilisateurs et des groupes."
     },
     {
-      "question": "Avec quels outils les fichiers cloud-init peuvent-ils être utilisés?",
-      "answer": "Ces fichiers peuvent être utilisés avec Terraform, le CLI, l'API Python et le tableau de bord Horizon d'OpenStack."
+      "question": "Sous quel format les configurations cloud-init sont-elles spécifiées et avec quels outils peuvent-elles être utilisées dans OpenStack?",
+      "answer": "Les configurations cloud-init sont spécifiées en texte brut au format YAML. Elles peuvent être utilisées avec Terraform, le CLI OpenStack, l'API Python et le tableau de bord Horizon d'OpenStack."
     },
     {
-      "question": "Qu'est-ce que CVMFS?",
-      "answer": "CVMFS est un système de fichiers HTTP qui offre un service évolutif et fiable pour la distribution de logiciels de recherche."
+      "question": "Comment spécifier un fichier cloud-init lors du démarrage d'une nouvelle instance via le tableau de bord OpenStack Horizon?",
+      "answer": "Lors du démarrage d'une instance via le tableau de bord Horizon, il faut configurer l'instance, puis sélectionner l'onglet 'Post-création' et entrer le fichier YAML cloud-init dans le champ 'Source du script de personnalisation', soit en le copiant-collant, soit en le téléversant."
     },
     {
-      "question": "Où CVMFS est-il installé?",
-      "answer": "CVMFS est installé sur les grappes Cedar, Graham et Béluga et peut être installé sur un nuage."
+      "question": "Comment suivre la progression de l'exécution d'un fichier cloud-init sur une instance OpenStack déjà lancée?",
+      "answer": "Pour suivre la progression, il faut cliquer sur le nom de l'instance, puis consulter l'onglet 'Journal'. Les lignes contenant 'cloud-init' décrivent les phases, et un message de fin indique l'achèvement de l'opération."
     },
     {
-      "question": "Que permettent les gabarits Heat?",
-      "answer": "Les gabarits Heat peuvent automatiser des tâches faites dans le tableau de bord OpenStack, comme créer plusieurs instances, configurer des groupes de sécurité, des réseaux ou des volumes."
+      "question": "Quelle est l'utilité principale des gabarits Heat comparés aux fichiers cloud-init pour l'automatisation des tâches dans OpenStack?",
+      "answer": "Les gabarits Heat sont plus puissants que cloud-init; ils automatisent des tâches faites dans le tableau de bord OpenStack, comme créer plusieurs instances, configurer des groupes de sécurité, des réseaux ou des volumes, et peuvent même intégrer des fichiers cloud-init en leur passant des informations dynamiques."
     },
     {
-      "question": "Est-ce que les gabarits Heat peuvent interagir avec les fichiers cloud-init?",
-      "answer": "Oui, les gabarits Heat peuvent être utilisés avec des fichiers cloud-init pour exécuter des tâches de configuration et inclure dynamiquement de l'information sur d'autres ressources."
+      "question": "Comment les gabarits Heat et les fichiers cloud-init peuvent-ils interagir pour la configuration d'instances sur OpenStack?",
+      "answer": "Une fois qu'un gabarit Heat a créé une instance, il peut lui passer un fichier cloud-init pour exécuter des tâches de configuration, et il peut même inclure dynamiquement des informations sur d'autres ressources, comme des adresses IP flottantes, dans le fichier cloud-init."
     },
     {
-      "question": "Comment spécifier un fichier cloud-init lors du démarrage d'une instance via OpenStack Horizon?",
-      "answer": "Avant de démarrer l'instance, il faut sélectionner l'onglet 'Post-création' et entrer le fichier YAML cloud-init dans le champ 'Source du script de personnalisation'."
+      "question": "Quelles sont les étapes générales pour créer une pile (stack) à l'aide d'un gabarit Heat (fichier HOT) via le tableau de bord OpenStack Horizon?",
+      "answer": "Il faut sélectionner 'Projet->Ochestration->Piles', cliquer sur 'Lancer la pile', choisir 'URL' comme 'Source du modèle', coller l'adresse URL du fichier HOT, configurer les paramètres (nom de la pile, délai d'attente, etc.), puis cliquer sur 'Démarrer'."
     },
     {
-      "question": "Comment suivre la progression de l'exécution de cloud-init sur une instance?",
-      "answer": "Pour suivre la progression, il faut examiner le journal de la console de l'instance sous l'onglet 'Journal'; les lignes contenant 'cloud-init' décrivent les phases."
+      "question": "Comment vérifier l'état et la progression de la création d'une pile Heat une fois qu'elle a été lancée?",
+      "answer": "Pour vérifier l'état, il faut cliquer sur le nom de la pile et sélectionner l'onglet 'Topologie'. Les nœuds gris indiquent une création en cours, les verts une pile créée, et les rouges un échec. L'onglet 'Vue d'ensemble' fournit des informations détaillées sur la pile après sa création."
     },
     {
-      "question": "Quelle est la bonne pratique à suivre concernant les ressources utilisées par les gabarits Heat?",
-      "answer": "Il est de bonne pratique de supprimer les ressources qui ne sont pas utilisées, car les gabarits Heat consomment des ressources et s'arrêteront si le quota est dépassé."
-    },
-    {
-      "question": "Comment créer une pile avec un gabarit Heat dans OpenStack Horizon?",
-      "answer": "Il faut sélectionner 'Projet->Ochestration->Piles', cliquer sur 'Lancer la pile', choisir 'URL' pour la 'Source du modèle', coller l'adresse URL du gabarit, configurer les paramètres et cliquer sur 'Démarrer'."
-    },
-    {
-      "question": "Comment suivre la progression de la création d'une pile Heat?",
-      "answer": "Pour une image de la progression, il faut cliquer sur le nom de la pile et sélectionner l'onglet 'Topologie', où les nœuds gris indiquent la création en cours, les verts la création réussie, et les rouges un échec."
+      "question": "Pourquoi est-il considéré comme une bonne pratique de supprimer les ressources inutilisées créées par des gabarits Heat?",
+      "answer": "Il est de bonne pratique de supprimer les ressources inutilisées car les gabarits Heat consomment des ressources, et le processus peut s'arrêter si le quota alloué est dépassé."
     }
   ],
-  "generated_at": "2026-04-11T18:06:27.549251+00:00"
+  "generated_at": "2026-04-13T02:38:01.343696+00:00"
 }

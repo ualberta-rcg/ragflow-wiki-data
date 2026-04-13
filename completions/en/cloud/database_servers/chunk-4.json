@@ -4,101 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How can I connect to my PostgreSQL database on Cedar from the head node?",
-      "answer": "You can connect using the command: `psql -h cedar-pgsql-vm -d david_db` (replacing 'david_db' with your actual database name)."
+      "question": "How can a user on the Cedar cluster share their PostgreSQL database or specific tables with another user?",
+      "answer": "To share PostgreSQL data on Cedar, the person receiving access must first have their own Postgres account on the system. The database owner then needs to grant `connect` access to their database to the other user, and for each specific table or view they wish to share, they must grant one or more privileges such as `select`, `update`, `insert`, or `delete` access. Access can also be revoked when no longer needed."
     },
     {
-      "question": "How do I list the names of tables within my PostgreSQL database?",
-      "answer": "Once connected to your PostgreSQL database, you can list tables by typing `\\dt` at the `david_db=>` prompt."
+      "question": "What is the primary purpose and what are the key features of the Alliance's Cloud-based Database as a Service (DBaaS)?",
+      "answer": "The primary purpose of the Cloud-based Database as a Service (DBaaS) is to provide a managed database solution for researchers whose database loads are too demanding for a virtual machine. Key features include offering MySQL/MariaDB and Postgres on a physical system, daily backups of all databases archived for three months, and requiring users to provide their client network or IP address when requesting access from Technical Support."
     },
     {
-      "question": "How do I exit or quit the PostgreSQL client?",
-      "answer": "You can quit the PostgreSQL client by typing `\\q` at the `david_db=>` prompt."
-    },
-    {
-      "question": "Where can I find resources and documentation for using PostgreSQL?",
-      "answer": "You can find resources such as PostgreSQL tutorials, manuals, and release notes on the official PostgreSQL website."
-    },
-    {
-      "question": "What are the requirements for sharing my PostgreSQL data with another user?",
-      "answer": "The person you want to share data with must have their own Postgres account on the system. You will then need to grant them `connect` access to your database and specific permissions (like `select`, `update`, `insert`, or `delete`) for each table or view you wish to share."
-    },
-    {
-      "question": "How can I grant connect access to my PostgreSQL database to another user named 'kim'?",
-      "answer": "To grant 'kim' connect access to your database named 'david_db', use the command: `grant connect on database david_db to kim;`"
-    },
-    {
-      "question": "How do I grant 'select-only' access to a specific table called 'mytable' within my PostgreSQL database to a user named 'kim'?",
-      "answer": "To grant 'kim' 'select-only' access to 'mytable' in 'david_db', use the command: `grant select on mytable to kim;`"
-    },
-    {
-      "question": "If user 'david' has shared a table from 'david_db' with user 'kim', how can 'kim' access that shared table?",
-      "answer": "User 'kim' would first connect to their own database (e.g., `psql -h cedar-pgsql-vm -d kim_db`), then connect to 'david_db' using `\\c david_db`, and finally query the table, for example: `select * from mytable;`."
-    },
-    {
-      "question": "How can I revoke 'select' access for a table named 'mytable' from a user named 'kim' in my PostgreSQL database?",
-      "answer": "To revoke 'select' access from 'kim' for 'mytable' in 'david_db', use the command: `revoke select on mytable from kim;`"
-    },
-    {
-      "question": "How can I revoke 'connect' access to my PostgreSQL database from a user named 'kim'?",
-      "answer": "To revoke 'connect' access from 'kim' for your database 'david_db', use the command: `revoke connect on database david_db from kim;`"
-    },
-    {
-      "question": "Are the steps for obtaining and using an account on the Graham MySQL server different from Cedar's?",
-      "answer": "The steps are similar to those described for Cedar, but you need to load a different module for Graham."
-    },
-    {
-      "question": "What module should I load to use the MySQL server on Graham?",
-      "answer": "You should load the `mysql` module using the command: `module load mysql`."
-    },
-    {
-      "question": "When should I consider using a Cloud-based Database as a Service (DBaaS)?",
-      "answer": "You should consider using a managed DBaaS if a Virtual Machine (VM) is not sufficient to handle your database load."
-    },
-    {
-      "question": "What types of databases are currently offered as part of the DBaaS?",
-      "answer": "The current DBaaS offering includes MySQL/MariaDB and Postgres on a physical system."
-    },
-    {
-      "question": "What is the backup policy for DBaaS databases?",
-      "answer": "DBaaS databases are backed up once a day, and the backups are archived for 3 months."
-    },
-    {
-      "question": "How do I request access to the DBaaS?",
-      "answer": "To request access to the DBaaS, you need to contact Technical support."
-    },
-    {
-      "question": "What specific information must I include in my request for DBaaS access?",
-      "answer": "You must provide the client network or IP address from which you will access the database in your request."
-    },
-    {
-      "question": "What is the hostname and TCP port for the MySQL DBaaS?",
-      "answer": "The hostname for MySQL DBaaS is `dbaas101.arbutus.cloud.computecanada.ca` and the TCP port is `3306`."
-    },
-    {
-      "question": "What is the hostname and TCP port for the PostgreSQL DBaaS?",
-      "answer": "The hostname for PostgreSQL DBaaS is `dbaas101.arbutus.cloud.computecanada.ca` and the TCP port is `5432`."
-    },
-    {
-      "question": "Where can I download the CA certificate for the DBaaS host certificate?",
-      "answer": "The CA certificate is available for download at `https://docs.computecanada.ca/mediawiki/images/5/58/Dbaas-ca.pem.zip`."
-    },
-    {
-      "question": "How do I connect to a DBaaS PostgreSQL instance using an SSL connection?",
-      "answer": "You can connect using the command: `psql --set \"sslmode=require\" -h dbaas101.arbutus.cloud.computecanada.ca -U user01 -d dbinstance` (replacing user01 and dbinstance with your credentials)."
-    },
-    {
-      "question": "Is an SSL connection required for DBaaS PostgreSQL instances?",
-      "answer": "Yes, an SSL connection is enforced, and plain text connections will fail."
-    },
-    {
-      "question": "How do I connect to a DBaaS MariaDB/MySQL instance using an SSL connection?",
-      "answer": "You can connect using the command: `mysql --ssl -h dbaas101.arbutus.cloud.computecanada.ca -u user01 -p dbinstance` (replacing user01 and dbinstance with your credentials)."
-    },
-    {
-      "question": "What happens if I attempt to use a plain text connection for a DBaaS MariaDB/MySQL instance?",
-      "answer": "If you attempt a plain text connection, your authentication will fail, resulting in an 'Access denied' error."
+      "question": "What is the required method for connecting to PostgreSQL and MariaDB/MySQL instances provided by the Alliance's Cloud-based Database as a Service (DBaaS), and why is it important?",
+      "answer": "When connecting to PostgreSQL or MariaDB/MySQL instances on the Alliance's DBaaS, an SSL connection is strictly required and enforced. For PostgreSQL, this means using `psql --set \"sslmode=require\"`, and for MariaDB/MySQL, `--ssl` is required. This is important because plain text connections will fail authentication, ensuring a secure communication channel for database access."
     }
   ],
-  "generated_at": "2026-04-11T21:03:30.196963+00:00"
+  "generated_at": "2026-04-13T04:56:16.137559+00:00"
 }

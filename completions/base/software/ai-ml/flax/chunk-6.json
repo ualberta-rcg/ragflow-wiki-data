@@ -4,65 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "How is the loss averaged across GPUs in a single-node, multi-GPU Flax setup?",
-      "answer": "The loss is averaged across all model replicas on the GPUs using `jax.lax.pmean(loss, axis_name='gpus')`."
+      "question": "How do you initialize a distributed training job for Flax and JAX across multiple nodes?",
+      "answer": "To initialize a distributed training job for Flax and JAX across multiple nodes, you must call `jax.distributed.initialize()` within your Python script. This function requires parameters such as the `coordinator_address` (e.g., `MASTER_ADDR:34567`), `num_processes` (representing the total number of nodes, often derived from `SLURM_NNODES`), and `process_id` (the current node's rank, typically from `SLURM_NODEID`). This setup informs JAX about the multi-node environment."
     },
     {
-      "question": "How are weight updates calculated using averaged gradients in a single-node, multi-GPU Flax training?",
-      "answer": "Weight updates are computed with averaged gradients from all replicas using `state.apply_gradients(grads=grads)`."
+      "question": "In a multi-node Flax and JAX distributed training environment, how is the dataset distributed to ensure each node processes unique data?",
+      "answer": "In a multi-node Flax and JAX distributed training environment, data loading and preprocessing, which are not provided directly by Flax or JAX, are handled using PyTorch components. To ensure each node processes a unique portion of the dataset, a `torch.utils.data.distributed.DistributedSampler` is employed. This sampler is initialized with `num_replicas` set to the total number of nodes (`world_size`) and `rank` set to the current node's ID, and is then passed to the `DataLoader`."
     },
     {
-      "question": "What is the purpose of the `collate_jax` function in the provided Flax examples?",
-      "answer": "The `collate_jax` function is used to stack NumPy arrays or process nested tuples/lists within a batch, preparing data for JAX."
-    },
-    {
-      "question": "What is the name of the example SLURM script for multi-node distributed Flax training?",
-      "answer": "The script is named `flax-example-distributed.sh`."
-    },
-    {
-      "question": "How many nodes are requested in the `flax-example-distributed.sh` SLURM script?",
-      "answer": "Two nodes are requested using `#SBATCH --nodes 2`."
-    },
-    {
-      "question": "How many GPUs per node are requested in the `flax-example-distributed.sh` SLURM script?",
-      "answer": "Two GPUs per node are requested using `#SBATCH --gres=gpu:2`."
-    },
-    {
-      "question": "What is the recommended adjustment for `--cpus-per-task` in `flax-example-distributed.sh` if `num_workers > 0`?",
-      "answer": "It is recommended to increase `cpus-per-task` if `num_workers > 0` to load data in parallel."
-    },
-    {
-      "question": "How is the virtual environment prepared for the distributed training job in `flax-example-distributed.sh`?",
-      "answer": "The `cuda` module is loaded, and then a pre-installed virtual environment is activated by sourcing `env/bin/activate`."
-    },
-    {
-      "question": "How is the coordinator address (`MASTER_ADDR`) set for distributed training in `flax-example-distributed.sh`?",
-      "answer": "The `MASTER_ADDR` is set to the hostname of the node where the script is run (`MASTER_ADDR=$(hostname)`)."
-    },
-    {
-      "question": "How is the Python script `flax-example-distributed.py` launched across multiple nodes in the example SLURM script?",
-      "answer": "It is launched using `srun python flax-example-distributed.py --coord_addr $MASTER_ADDR:34567`."
-    },
-    {
-      "question": "How does the `flax-example-distributed.py` script obtain the total number of processes (`world_size`) and the current process's identifier (`rank`)?",
-      "answer": "The `world_size` is obtained from the `SLURM_NNODES` environment variable, and the `rank` is obtained from the `SLURM_NODEID` environment variable."
-    },
-    {
-      "question": "What function is used to initialize JAX for distributed execution across multiple nodes?",
-      "answer": "`jax.distributed.initialize` is used, taking `coordinator_address`, `num_processes`, and `process_id` as arguments."
-    },
-    {
-      "question": "How is the neural network model broadcast to all GPUs on all nodes in the multi-node distributed training setup?",
-      "answer": "The model's training state (`state`) is broadcast using `jax_utils.replicate(state)`."
-    },
-    {
-      "question": "Which PyTorch class is employed in `flax-example-distributed.py` to ensure each node processes a unique subset of the dataset in a distributed manner?",
-      "answer": "`torch.utils.data.distributed.DistributedSampler` is used, initialized with `num_replicas=world_size` and `rank=rank`."
-    },
-    {
-      "question": "How are batches split for individual GPUs within a node in the multi-node distributed Flax training example?",
-      "answer": "Input and target batches are reshaped into `n_devices` sub-batches, where `n_devices` represents the number of GPUs available per node."
+      "question": "When performing distributed training with Flax and JAX across multiple nodes and GPUs, how are gradients and loss values aggregated?",
+      "answer": "When performing distributed training with Flax and JAX across multiple nodes and GPUs, gradients and loss values are aggregated using `jax.lax.pmean(..., axis_name='gpus')`. This function computes the average of gradients and loss across all model replicas, including those distributed across different nodes and local GPUs. The `jax.pmap` decorator, when combined with `jax.distributed.initialize()`, ensures that computations are parallelized over both local GPUs and across nodes, and `pmean` facilitates the synchronization of these values."
     }
   ],
-  "generated_at": "2026-04-11T21:38:54.916042+00:00"
+  "generated_at": "2026-04-13T05:25:05.199739+00:00"
 }

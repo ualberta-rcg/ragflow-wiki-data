@@ -4,45 +4,17 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "What is the outcome after applying the `openstack_compute_floatingip_associate_v2` resource with Terraform?",
-      "answer": "After applying this resource, a floating IP is successfully associated with the VM, allowing for immediate SSH access to the new VM."
+      "question": "After using `terraform apply` to associate a floating IP with an OpenStack virtual machine (VM), what is the immediate effect on the VM's accessibility?",
+      "answer": "Following a successful `terraform apply` operation that associates a floating IP, the virtual machine becomes directly accessible. Users can typically connect to it via SSH, although it might be necessary to add the workstation's IP address to the project's default security group if access fails."
     },
     {
-      "question": "How can I verify SSH access to a newly created OpenStack VM with a floating IP?",
-      "answer": "You can verify SSH access by using the command `ssh centos@X.Y.Z.W hostname`, replacing `X.Y.Z.W` with your VM's floating IP address."
+      "question": "When using Terraform to add a root volume to an existing OpenStack virtual machine (VM), what is an important consideration regarding the operation's nature, and why should users be cautious?",
+      "answer": "Adding a root volume to an existing OpenStack VM via Terraform is a destructive operation because it replaces the VM's current boot disk. Users should be cautious and carefully review `terraform plan` output before applying changes, as this can lead to rebuilding existing virtual machines."
     },
     {
-      "question": "What troubleshooting step should I take if I cannot SSH into my new VM after associating a floating IP?",
-      "answer": "If SSH access fails, it might be necessary to add your workstation's IP address to the project's default security group."
-    },
-    {
-      "question": "What is the purpose of adding a `block_device` subblock to an `openstack_compute_instance_v2` resource in Terraform?",
-      "answer": "Adding a `block_device` subblock allows you to configure and attach a root volume to the VM, which replaces its default boot disk."
-    },
-    {
-      "question": "Why is adding a root volume to an OpenStack VM using Terraform considered a destructive operation?",
-      "answer": "Adding a root volume is a destructive operation because it replaces the VM's existing boot disk, which Terraform will interpret as a change requiring the VM to be rebuilt."
-    },
-    {
-      "question": "What are some key attributes to configure within the `block_device` subblock when adding a root volume to an OpenStack VM in Terraform?",
-      "answer": "Key attributes include `uuid` (for the image), `source_type` (e.g., \"image\"), `destination_type` (e.g., \"volume\"), `volume_size`, `boot_index`, and `delete_on_termination`."
-    },
-    {
-      "question": "What does setting `destination_type = \"volume\"` in a `block_device` configuration achieve?",
-      "answer": "Setting `destination_type = \"volume\"` ensures that the boot disk is stored using an OpenStack-provided volume rather than directly on the hypervisor's disk."
-    },
-    {
-      "question": "What is the recommended setting for `delete_on_termination` for a `block_device` in a production environment versus for testing?",
-      "answer": "For testing, `delete_on_termination = true` is useful for automatic cleanup. However, for real-world use, setting it to `false` is recommended to prevent accidental deletion of resources."
-    },
-    {
-      "question": "What happens if both `image_id` and a `block_device` subblock are defined in an `openstack_compute_instance_v2` resource?",
-      "answer": "If both are defined, Terraform will continuously detect a conflict between \"boot from volume\" and \"boot directly from image,\" leading to repeated attempts to rebuild the instance on every run."
-    },
-    {
-      "question": "How does Terraform's execution plan indicate that a resource will be destroyed and recreated?",
-      "answer": "The execution plan indicates this with the symbol `-/+ destroy and then create replacement` next to the resource, and the plan summary will show a non-zero number for resources to destroy and add."
+      "question": "If an OpenStack virtual machine (VM) is configured in Terraform to boot from a new root volume using a `block_device` subblock, what specific attribute from the outer compute instance definition must be removed to prevent unintended rebuilds?",
+      "answer": "When configuring an OpenStack VM to boot from a root volume using a `block_device` subblock, the `image_id` attribute must be removed from the outer `openstack_compute_instance_v2` block definition. Failing to do so will cause Terraform to continuously detect a change from \"boot from volume\" to \"boot directly from image\" on every run, prompting constant attempts to rebuild the instance."
     }
   ],
-  "generated_at": "2026-04-12T09:08:17.899699+00:00"
+  "generated_at": "2026-04-13T14:24:39.874153+00:00"
 }

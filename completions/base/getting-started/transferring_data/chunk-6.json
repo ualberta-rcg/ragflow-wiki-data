@@ -4,61 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "What does SCP stand for?",
-      "answer": "SCP stands for Secure Copy Protocol."
+      "question": "What is SCP (Secure Copy Protocol) and how does it facilitate file transfers?",
+      "answer": "SCP, which stands for Secure Copy Protocol, uses the SSH protocol to encrypt data transferred between machines. It allows users to copy files, for instance, from a local computer to a remote cluster (e.g., `scp foo.txt username@rorqual.alliancecan.ca:work/`) or from a remote cluster to a local computer (e.g., `scp username@fir.alliancecan.ca:projects/def-jdoe/username/results/output.dat .`). The `scp` command should always be initiated from your local computer."
     },
     {
-      "question": "What protocol does SCP use for transferring data?",
-      "answer": "SCP uses the SSH protocol to encrypt data being transferred."
+      "question": "Are there any specific warnings or recommendations when using `scp -r` to transfer data into `/project` file systems on Alliance clusters?",
+      "answer": "Yes, while SCP supports the `-r` option for recursively transferring directories and files, it is strongly recommended against using `scp -r` when transferring data into `/project` file systems. This is because the setgid bit is turned off in the created directories, which can lead to 'Disk quota exceeded' or similar errors if files are subsequently created there."
     },
     {
-      "question": "Does SCP support data synchronization like Globus or rsync?",
-      "answer": "No, SCP does not support synchronization."
-    },
-    {
-      "question": "How do I copy a file from my local computer to a remote cluster using SCP?",
-      "answer": "To copy a file like `foo.txt` from your current local directory to the `$HOME/work` directory on a cluster like Rorqual, you would use the command: `scp foo.txt username@rorqual.alliancecan.ca:work/`."
-    },
-    {
-      "question": "How do I copy a file from a remote cluster to my local computer using SCP?",
-      "answer": "To copy a file like `output.dat` from your project space on a cluster like Fir to your local computer, you would use a command similar to: `scp username@fir.alliancecan.ca:projects/def-jdoe/username/results/output.dat .`"
-    },
-    {
-      "question": "From which computer should an SCP command always be initiated?",
-      "answer": "The `scp` command should always be executed on your local computer, not the remote cluster. The SCP connection, whether transferring data to or from the remote cluster, must always be initiated from your local computer."
-    },
-    {
-      "question": "Does SCP support recursive transfers for directories and files?",
-      "answer": "Yes, SCP supports the option `-r` to recursively transfer a set of directories and files."
-    },
-    {
-      "question": "Why is it not recommended to use `scp -r` when transferring data into the `/project` filesystem?",
-      "answer": "It is not recommended to use `scp -r` for transferring data into `/project` because the setgid bit is turned off in the created directories. This can lead to `Disk quota exceeded` or similar errors if files are later created in those directories."
-    },
-    {
-      "question": "What should I do if I use a custom SSH key name with SCP?",
-      "answer": "If you chose a custom SSH key name (i.e., not the default `id_dsa`, `id_ecdsa`, `id_ed25519`, or `id_rsa`), you need to use the `-i` option of scp and specify the path to your private key before the file paths. For example: `scp -i /path/to/key foo.txt username@rorqual.alliancecan.ca:work/`."
-    },
-    {
-      "question": "What is an important step to take before initiating any data transfer to prevent issues?",
-      "answer": "Before initiating any transfer, you should ensure you can read all the contents of the directories you wish to transfer."
-    },
-    {
-      "question": "How can I identify items that are not readable in a directory on a Linux system?",
-      "answer": "On a Linux system, you can use the command `find <directory_name> ! -readable -ls` to list all items that are not readable to you."
-    },
-    {
-      "question": "What should I check if I'm unable to write new data during a transfer?",
-      "answer": "If you're unable to write new data, you should double-check the storage usage to ensure enough space and files are available, and double-check the filesystem permissions to ensure you have write permission at the target location."
-    },
-    {
-      "question": "How can filesystem compression affect reported space usage across different clusters?",
-      "answer": "On some clusters, the filesystem automatically compresses your files and reports space usage based on the compressed data. On other clusters, space usage is reported by the apparent size of your files. This means 1 TB of compressed data on one cluster might appear as 2 TB of data on another."
-    },
-    {
-      "question": "How can I find the apparent size of a dataset before transferring it?",
-      "answer": "You can determine the apparent size of a dataset using the `du` command with the `-b` option. For example: `du -b dataset`."
+      "question": "What steps should a user take to troubleshoot issues when they are unable to write new data during a file transfer?",
+      "answer": "If you are unable to write new data during a file transfer, you should first double-check your storage usage to ensure there is enough space and that sufficient files are available. You can use the `du -b <dataset>` command to determine the apparent size of a dataset. Secondly, double-check your filesystem permissions to confirm you have write permission at the location where you are attempting to transfer new files."
     }
   ],
-  "generated_at": "2026-04-12T09:20:48.076822+00:00"
+  "generated_at": "2026-04-13T14:36:05.377062+00:00"
 }

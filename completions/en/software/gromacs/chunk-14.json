@@ -4,25 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "What is a recommended solution for fully utilizing modern GPU models with GROMACS when the molecular system is not very large?",
-      "answer": "If the molecular system is not very large (millions of atoms), a recommended solution to fully utilize recent GPU models like Nvidia A100 and H100 with GROMACS is to run multiple simulations on a single GPU using `mdrun -multidir`."
+      "question": "What is the primary purpose of the `mdrun -multidir` option in GROMACS when running simulations on a GPU?",
+      "answer": "The `mdrun -multidir` option in GROMACS allows for running multiple similar simulations concurrently on a single GPU, which is particularly useful when a single simulation cannot fully utilize recent GPU models like the Nvidia A100 or H100."
     },
     {
-      "question": "When is running multiple simulations on a single GPU using `mdrun -multidir` the preferred solution?",
-      "answer": "This method is preferred when you are running multiple similar simulations, such as repeating the same simulation for more conformational space sampling, simulating multiple protein variants, small ligands, temperatures, or ionic concentrations, or performing ensemble-based simulations like replica exchange."
+      "question": "For what specific types of GROMACS simulations is the `mdrun -multidir` option recommended?",
+      "answer": "The `mdrun -multidir` option is recommended for multiple similar simulations, such as repeating the same simulation to gain more conformational space sampling, simulating various protein variants, multiple small ligands with the same protein, different temperatures or ionic concentrations, or for ensemble-based simulations like replica exchange."
     },
     {
-      "question": "Why are similar simulations required when using `mdrun -multidir` for multiple simulations on a GPU?",
-      "answer": "Similar simulations are needed to ensure proper load balancing. If simulations are dissimilar, some will finish faster than others, leading to idle computational resources."
-    },
-    {
-      "question": "What are some examples of 'similar' simulations that benefit from the `mdrun -multidir` approach?",
-      "answer": "Examples of similar simulations include repeating the same simulation to acquire more conformational space sampling, simulating multiple protein variants, various small ligands in complex with the same protein, different temperatures or ionic concentrations, or conducting ensemble-based simulations like replica exchange."
-    },
-    {
-      "question": "What is a consequence of running dissimilar simulations on a single GPU using `mdrun -multidir`?",
-      "answer": "Running dissimilar simulations with `mdrun -multidir` can lead to some simulations progressing faster and finishing earlier than others, resulting in idle computational resources."
+      "question": "What is the recommended approach for running GROMACS simulations on a GPU if the simulations are dissimilar or if only a single simulation is being run?",
+      "answer": "If simulations are dissimilar (e.g., differing by more than 10% in atom count or having different shapes/compositions) or if only a single simulation is being run, using a Multi-Instance GPU (MIG) instance (a fraction of a GPU) is the preferred solution, rather than the `mdrun -multidir` option."
     }
   ],
-  "generated_at": "2026-04-11T22:34:16.229454+00:00"
+  "generated_at": "2026-04-13T06:10:26.751803+00:00"
 }

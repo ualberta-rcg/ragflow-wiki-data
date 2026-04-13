@@ -4,77 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How can one start VMD for small visualizations on login nodes like Rorqual, Fir, Nibi, or Narval using X11-forwarding?",
-      "answer": "To start VMD for small visualizations on these login nodes, connect to the cluster with the `-X/-Y` flag for X11-forwarding, then execute `module load vmd` followed by `vmd`."
+      "question": "How can users perform interactive visualization sessions using X11-forwarding on Alliance clusters like Rorqual, Fir, Nibi, Narval, or Trillium?",
+      "answer": "On clusters such as Rorqual, Fir, Nibi, or Narval, users can connect with `ssh -X/-Y` and then either start a graphical application like VMD directly on the login node for small visualizations, or request interactive compute resources for larger visualizations using `salloc --time=1:00:0 --ntasks=1 --mem=3500 --account=def-someprof --x11`, and then run the application within that job. For Trillium, users should `ssh` into `trillium.alliancecan.ca` with the `-X/-Y` flag, request a testing job using the `debugjob` command, and then run their visualization program, such as VMD, inside the allocated node."
     },
     {
-      "question": "What steps are required to request interactive resources on a compute node for large visualizations on Rorqual, Fir, Nibi, or Narval using X11-forwarding?",
-      "answer": "To request interactive resources for large visualizations on a compute node, use the command `salloc --time=1:00:0 --ntasks=1 --mem=3500 --account=def-someprof --x11`. Once the job is running, load the module and start the graphical application, for example, `module load vmd` and `vmd`."
+      "question": "What is Xvfb, and how is it used for remote off-screen rendering on Alliance systems?",
+      "answer": "Xvfb (X virtual frame buffer) is utilized for applications that insist on displaying graphical output but where the results are intended to be saved to a file rather than viewed interactively. To enable off-screen rendering, a job can run as a regular batch job, employing either the CPU or GPU for 3D rendering. Users can run their application with Xvfb in a job script by using `xvfb-run <name-of-application>` for CPU rendering, or `xvfb-run vglrun -d egl <name-of-application>` for GPU rendering (which necessitates reserving a GPU with Slurm)."
     },
     {
-      "question": "Why might a user request a testing job on Trillium for visualization purposes?",
-      "answer": "A user might request a testing job on Trillium because runtime is limited on the login nodes, and a testing job provides more time for exploring and visualizing data, along with access to 40 cores on each requested node."
-    },
-    {
-      "question": "What are the steps to perform an interactive visualization session on Trillium?",
-      "answer": "First, SSH into `trillium.alliancecan.ca` with the `-X/-Y` flag for X11-forwarding. Next, request an interactive job using `debugjob`. Once connected to a node, run your visualization program, such as `module load vmd` followed by `vmd`, and then exit the debug session."
-    },
-    {
-      "question": "What is the purpose of remote off-screen windows via Xvfb?",
-      "answer": "Remote off-screen windows via Xvfb are used for applications that require graphical output but where the user doesn't need to actually see it because the results are saved in a file."
-    },
-    {
-      "question": "How can off-screen rendering jobs be executed using Xvfb?",
-      "answer": "Off-screen rendering jobs can be executed as regular batch jobs. For CPU rendering, use `xvfb-run <name-of-application>`. For GPU rendering, use `xvfb-run vglrun -d egl <name-of-application>`, provided a GPU is reserved with Slurm."
-    },
-    {
-      "question": "When using Xvfb for GPU-based off-screen rendering, what additional step is necessary?",
-      "answer": "When using Xvfb for GPU-based off-screen rendering, you need to reserve one GPU with Slurm."
-    },
-    {
-      "question": "Why is it important to benchmark before choosing between CPU and GPU for off-screen rendering with Xvfb?",
-      "answer": "It is important to benchmark because, depending on the workload, the GPU may not necessarily be faster than the CPU, and GPUs are generally more expensive resources."
-    },
-    {
-      "question": "When is it recommended to use VNC instead of X11-forwarding?",
-      "answer": "VNC is recommended when starting graphical user interfaces for various software packages like Matlab, as X11-forwarding can result in a very slow connection to the server for such tasks."
-    },
-    {
-      "question": "Where can users find more information about VNC for remote desktop connections?",
-      "answer": "More information about VNC can be found in the dedicated article on VNC."
-    },
-    {
-      "question": "How can institutions request a visualization workshop?",
-      "answer": "Institutions can request a visualization workshop by contacting `support@tech.alliancecan.ca`."
-    },
-    {
-      "question": "Are there workshop slides available for VisIt, and who presented them?",
-      "answer": "Yes, VisIt workshop slides from HPCS'2016 in Edmonton are available, presented by Marcelo Ponce and Alex Razoumov."
-    },
-    {
-      "question": "Who presented the ParaView workshop slides from July 2017?",
-      "answer": "The ParaView workshop slides from July 2017 were presented by Alex Razoumov."
-    },
-    {
-      "question": "Which visualization tools and topics were covered in the slides by Marcelo Ponce from the Ontario HPC Summer School 2016?",
-      "answer": "Marcelo Ponce's slides from the Ontario HPC Summer School 2016 covered Gnuplot, xmgrace, remote visualization tools (X-forwarding and VNC), and Python's matplotlib."
-    },
-    {
-      "question": "Where can one find slides providing a brief overview of ParaView and VisIt?",
-      "answer": "A brief overview of ParaView and VisIt can be found in slides by Marcelo Ponce (SciNet/UofT) from the Ontario HPC Summer School 2016."
-    },
-    {
-      "question": "Where can users find video recordings and slides from visualization webinars in Western Canada?",
-      "answer": "Users can find video recordings and slides from many visualization webinars on the Western Canada visualization training materials page, located at `https://training.westdri.ca/tools/visualization`."
-    },
-    {
-      "question": "What are the topics of the two-part YT series webinars available through Western Canada's visualization training materials page?",
-      "answer": "The YT series webinars include \"Using YT for analysis and visualization of volumetric data\" (Part 1) and \"Working with data objects in YT\" (Part 2)."
-    },
-    {
-      "question": "What is one of the visualization webinar topics focused on scientific visualization with a specific library?",
-      "answer": "One of the visualization webinar topics is \"Scientific visualization with Plotly\"."
+      "question": "Where can users find visualization training materials, such as workshop slides and webinar recordings, provided by AllianceCan?",
+      "answer": "Users can find a variety of visualization training materials, including full- or half-day workshop slides (e.g., for VisIt and ParaView) and numerous webinar recordings and slides, on the Western Canada visualization training materials page. These resources cover topics such as using YT for volumetric data analysis, scientific visualization with Plotly, client-server ParaView on CPU and GPU, and advanced scripting in VisIt."
     }
   ],
-  "generated_at": "2026-04-12T11:15:20.379459+00:00"
+  "generated_at": "2026-04-13T16:07:14.478986+00:00"
 }

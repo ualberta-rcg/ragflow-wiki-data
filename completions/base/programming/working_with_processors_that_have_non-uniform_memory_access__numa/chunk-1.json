@@ -4,85 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What does NUMA stand for?",
-      "answer": "NUMA stands for Non-uniform memory access."
+      "question": "What is Non-uniform memory access (NUMA) and why is it beneficial for optimizing program performance?",
+      "answer": "Non-uniform memory access (NUMA) is a memory design feature found on most modern processors with a large number of cores, where CPU cores and memory are divided into subsets called NUMA nodes. Cores belonging to a particular NUMA node can access the memory belonging to that node faster than memory in other nodes. It is beneficial for optimizing program performance by reducing memory access latency, especially for programs where performance depends on this latency, by placing all cores and memory used by the program within a single NUMA node."
     },
     {
-      "question": "What is Non-uniform memory access (NUMA)?",
-      "answer": "Non-uniform memory access (NUMA) is a feature of memory design found on most modern processors that have a large number of cores."
+      "question": "How can users leverage Non-uniform memory access (NUMA) features when using the Slurm scheduler, given its current limitations?",
+      "answer": "While the Slurm scheduler does not currently support submitting a job to run on a specific NUMA node, users can submit a job that requests and utilizes an entire node (e.g., using `--nodes=1 --exclusive`). Once a full node is allocated, users gain full control to manage and apply various NUMA features when launching their programs within that job."
     },
     {
-      "question": "When would you need to control the execution of your program to use NUMA features?",
-      "answer": "You would only need to control the execution of your program to use NUMA features if you want to optimize your program to achieve the best possible performance."
-    },
-    {
-      "question": "What is the fundamental concept behind NUMA?",
-      "answer": "The fundamental concept of NUMA is that CPU cores and memory are divided into subsets, which are called NUMA nodes."
-    },
-    {
-      "question": "How do cores access memory in a NUMA architecture?",
-      "answer": "Cores belonging to a specific NUMA node can access the memory associated with that node faster than they can access memory belonging to other nodes."
-    },
-    {
-      "question": "When is it advantageous to place all program cores and memory within a single NUMA node?",
-      "answer": "It is beneficial to place all cores and memory used by a program within a single NUMA node for programs where performance is significantly affected by memory access latency."
-    },
-    {
-      "question": "Does the Slurm scheduler directly support submitting jobs to specific NUMA nodes?",
-      "answer": "No, NUMA features are not directly supported by the Slurm scheduler at present, meaning you cannot submit a job to run on a particular NUMA node."
-    },
-    {
-      "question": "How can one utilize NUMA features when using the Slurm scheduler?",
-      "answer": "You can utilize NUMA features by submitting a job that occupies a full node. This allows you to have complete control over various NUMA features when you launch your programs."
-    },
-    {
-      "question": "Does the NUMA layout remain consistent across all processor types?",
-      "answer": "No, the NUMA layout is typically different for each type of processor."
-    },
-    {
-      "question": "What consideration should be made when using NUMA features in job scripts?",
-      "answer": "If you intend to use NUMA features in your job scripts, they should be targeted for a particular type of processor."
-    },
-    {
-      "question": "How many NUMA nodes does the example Graham Broadwell processor have?",
-      "answer": "The example Graham Broadwell processor has two NUMA nodes (0 and 1)."
-    },
-    {
-      "question": "How many CPU cores are associated with Node 0 on the example Graham Broadwell processor?",
-      "answer": "Node 0 on the example Graham Broadwell processor has 16 CPU cores (0 through 15)."
-    },
-    {
-      "question": "What is the approximate size of memory for Node 1 on the example Graham Broadwell processor?",
-      "answer": "Node 1 on the example Graham Broadwell processor has approximately 64 GB (64508 MB) of memory."
-    },
-    {
-      "question": "What does a node distance of '10' indicate in the `numactl --hardware` output?",
-      "answer": "A node distance of '10' typically indicates the latency or cost of accessing memory within the same NUMA node (e.g., node 0 accessing node 0's memory)."
-    },
-    {
-      "question": "What does a node distance of '21' indicate in the `numactl --hardware` output for the example Broadwell node?",
-      "answer": "A node distance of '21' indicates the latency or cost of accessing memory on a different NUMA node (e.g., node 0 accessing node 1's memory or vice versa)."
-    },
-    {
-      "question": "What is the purpose of the provided `array_job.sh` script?",
-      "answer": "The provided `array_job.sh` script submits a job that requests a specific type of node (broadwell) and sets up two multi-threaded OpenMP tasks, with each task utilizing one NUMA node."
-    },
-    {
-      "question": "Which Slurm directive in the script ensures the job has exclusive access to the node?",
-      "answer": "The `#SBATCH --exclusive` directive in the script ensures the job has exclusive access to the node."
-    },
-    {
-      "question": "How many tasks and CPU cores per task are requested by the example job script?",
-      "answer": "The example job script requests 2 tasks (`#SBATCH --ntasks=2`) and 16 CPU cores per task (`#SBATCH --cpus-per-task=16`)."
-    },
-    {
-      "question": "How does the example script bind the first `test.x` program to a specific NUMA node?",
-      "answer": "The script uses `numactl --cpunodebind=0 --membind=0 ./test.x &` to bind the first `test.x` program to CPU node 0 and memory node 0."
-    },
-    {
-      "question": "How is the `OMP_NUM_THREADS` environment variable set in the example job script?",
-      "answer": "The `OMP_NUM_THREADS` environment variable is set using `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`, which assigns it the value of the number of CPUs per task requested from Slurm."
+      "question": "What command is used to inspect the NUMA layout of a processor, and what information does its output provide?",
+      "answer": "The `numactl --hardware` command is used to inspect the NUMA layout of a processor. Its output typically provides details such as the number of available NUMA nodes, the specific CPU cores assigned to each node, the amount of memory available within each node, and the 'node distances' which indicate the relative speed of memory access between different NUMA nodes. For example, a Graham Broadwell node shows two NUMA nodes, each with 16 processor cores and approximately 64 GB of memory."
     }
   ],
-  "generated_at": "2026-04-12T12:06:21.765552+00:00"
+  "generated_at": "2026-04-13T16:25:55.618849+00:00"
 }

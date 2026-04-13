@@ -3,121 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary objective when porting code to a GPU regarding memory?",
-      "answer": "The primary objective is to manage data transfers between the host and the GPU, as they do not share the same memory."
+      "question": "What is 'offloading' in the context of porting code to a GPU on Alliance clusters?",
+      "answer": "Offloading refers to the process of transferring data and code from the main program (host) to the GPU (device) for execution, due to the CPU and GPU not sharing the same memory."
     },
     {
-      "question": "What is 'offloading' in the context of GPU programming?",
-      "answer": "Offloading is the process of transferring data and code from the main program onto the GPU device."
+      "question": "Why is managing data transfers crucial when working with GPUs on Alliance clusters?",
+      "answer": "Managing data transfers is of paramount importance because the host and GPU do not share the same memory, and data must be transferred between them via the PCI bus, which has significantly lower bandwidth than either memory."
     },
     {
-      "question": "How do host and GPU memories differ?",
-      "answer": "Host memory is generally larger but slower than GPU memory, and a GPU does not have direct access to host memory."
+      "question": "What are OpenACC directives, and how are they typically expressed in C/C++ and Fortran code?",
+      "answer": "OpenACC directives are instructions for the compiler. They take the form of `pragma` statements in C/C++ and comments in Fortran."
     },
     {
-      "question": "In C/C++ and Fortran, what form do OpenACC directives take?",
-      "answer": "In C/C++, they are `pragma` statements, and in Fortran, they are comments."
+      "question": "What are the key advantages of using OpenACC directives for code acceleration?",
+      "answer": "Advantages include allowing incremental code modifications, enabling a single source code to compile both accelerated and normal versions, and offloading work to the compiler which supports various accelerator types and new generations of devices with only a compiler update."
     },
     {
-      "question": "What are the advantages of using OpenACC directives?",
-      "answer": "Advantages include incremental code modifications, the ability to disable OpenACC support at compile time, and compiler-managed offloading for various accelerator types."
+      "question": "What happens when a compiler encounters an OpenACC `kernels` directive in code?",
+      "answer": "When the compiler encounters an OpenACC `kernels` directive, it analyses the code to identify parallelizable sections, determines which data needs transferring, creates a kernel function, and offloads it to the GPU, using its own optimal strategy."
     },
     {
-      "question": "When using the `kernels` directive in C/C++, how are OpenACC blocks delimited?",
-      "answer": "OpenACC blocks in C/C++ are delimited using curly brackets."
+      "question": "What is the difference between a 'descriptive' and a 'prescriptive' OpenACC directive?",
+      "answer": "Descriptive directives, such as `kernels`, allow the compiler freedom to optimize the code as it deems best for the target architecture, potentially even running it sequentially. Prescriptive directives, like `parallel loop` or OpenMP directives, mandate that the compiler perform the requested parallelization."
     },
     {
-      "question": "What happens when the compiler encounters an OpenACC `kernels` directive?",
-      "answer": "The compiler analyzes the code to identify parallelizable sections, wraps the body of a parallelizable loop into a 'kernel' function, and compiles it to run on an accelerator."
+      "question": "How do you build a C/C++ program with OpenACC support using NVidia compilers on Alliance clusters?",
+      "answer": "You build a C/C++ program with OpenACC support using NVidia compilers by using the `-acc` option, `-gpu=managed` for managed memory, `-fast` for optimizations, and `-Minfo=accel` to get compiler feedback."
     },
     {
-      "question": "How does a kernel execute on an accelerator?",
-      "answer": "Each of the hundreds of cores on the accelerator can run the kernel function for one specific index in parallel, as each call is independent."
+      "question": "What is pointer aliasing in C/C++ and how does it affect parallelization by OpenACC?",
+      "answer": "Pointer aliasing occurs when two or more pointers refer to the same memory location. In OpenACC, if the compiler cannot confirm that pointers are not aliased, it must assume they are, which can create false dependencies between loop iterations and prevent parallelization."
     },
     {
-      "question": "What type of directive is `kernels`?",
-      "answer": "The `kernels` directive is a 'descriptive' directive."
+      "question": "How can false aliasing dependencies be resolved in C/C++ code when using OpenACC directives?",
+      "answer": "False aliasing dependencies can be resolved by using the `__restrict` keyword (for NVidia compilers) with pointers to guarantee they are not aliased, or by explicitly using the `loop` directive with the `independent` clause."
     },
     {
-      "question": "What is the role of the compiler when given a `kernels` directive?",
-      "answer": "The compiler analyzes the code to identify parallelism, identifies data for transfer, creates a kernel, and offloads it to the GPU, with the freedom to choose the best strategy, including sequential execution."
+      "question": "What is the purpose of the `__restrict` keyword in C/C++ for OpenACC programming?",
+      "answer": "The `__restrict` keyword is a programmer's guarantee to the compiler that, for the pointer's lifetime, only that pointer or a value derived from it will access the object it points to, allowing the compiler to perform more aggressive optimizations and parallelization."
     },
     {
-      "question": "What is the key difference between OpenMP and OpenACC directives?",
-      "answer": "OpenMP directives are 'prescriptive', requiring the compiler to perform requested parallelization, while many OpenACC directives are 'descriptive', allowing the compiler freedom to optimize for the target architecture."
+      "question": "What tool can be used to profile OpenACC applications graphically on Alliance clusters, and what does it typically reveal initially?",
+      "answer": "The NVIDIA Visual Profiler (NVVP) can be used for graphical profiling. It often reveals that a significant portion of the run time is spent transferring data between the host and the device when first porting code to a GPU."
     },
     {
-      "question": "What does a 'descriptive' directive mean for OpenACC?",
-      "answer": "It means the compiler is free to compile the code in the way it deems best for the target architecture, which might include not parallelizing it, and can result in different binary code or performance across compilers and hardware generations."
+      "question": "What is the OpenACC `parallel loop` directive, and is it descriptive or prescriptive?",
+      "answer": "The OpenACC `parallel loop` directive combines `parallel` and `loop` directives and is prescriptive, forcing the compiler to parallelize the loop. It implicitly includes the `independent` clause."
     },
     {
-      "question": "Which compiler option is used to enable OpenACC for NVidia compilers?",
-      "answer": "The `–acc` option is used to enable compilation for an accelerator."
+      "question": "When using the OpenACC `parallel loop` directive, what are `private` and `reduction` clauses used for?",
+      "answer": "The `private` clause ensures a copy of a variable is made for each loop iteration, making its value independent. The `reduction` clause combines values of a variable from each iteration into a single result using a specified operation like addition or multiplication."
     },
     {
-      "question": "What is the purpose of the `-gpu=managed` sub-option when building with OpenACC?",
-      "answer": "It tells the compiler to use 'managed memory', which simplifies the process of transferring data to and from the device."
+      "question": "What is a key difference in programmer responsibility when using the `parallel loop` directive compared to the `kernels` directive in OpenACC?",
+      "answer": "With `parallel loop`, it is the programmer's responsibility to ensure parallelism is safe and to manage data scope explicitly using clauses like `private` and `reduction`. In contrast, the `kernels` directive delegates this analysis and data management to the compiler."
     },
     {
-      "question": "How can one get compiler feedback about OpenACC parallelization?",
-      "answer": "By using the `-Minfo=accel` option during compilation."
+      "question": "What was the initial performance impact of porting a matrix-vector product with the `kernels` directive and `managed memory`?",
+      "answer": "The initial porting of a matrix-vector product using the `kernels` directive and `managed memory` resulted in a slowdown by a factor of almost 4, primarily due to the substantial time spent transferring data between the host and the device."
     },
     {
-      "question": "What is 'pointer aliasing' in C/C++?",
-      "answer": "Pointer aliasing occurs when two pointers refer to the same memory location, and it can prevent compilers from parallelizing loops due to assumed data dependencies."
-    },
-    {
-      "question": "How can a programmer tell the C compiler that pointers are not aliased?",
-      "answer": "By using the `restrict` keyword, introduced in C99."
-    },
-    {
-      "question": "What keyword is used for non-aliased pointers with Portland Group and NVidia C++ compilers?",
-      "answer": "The keyword `__restrict` is used."
-    },
-    {
-      "question": "What does declaring a pointer as `restrict` formally mean?",
-      "answer": "It's a programmer's guarantee to the compiler that, for the lifetime of the pointer, only it or a value derived from it will be used to access the object it points to."
-    },
-    {
-      "question": "What is another way to tell the compiler that loop iterations are independent, besides using `restrict`?",
-      "answer": "By explicitly specifying it with the `loop` directive combined with the `independent` clause (`#pragma acc loop independent`)."
-    },
-    {
-      "question": "What was the initial performance impact of porting the matrix-vector product example to OpenACC using the `kernels` directive and `__restrict`?",
-      "answer": "The code ran slower, by a factor of almost 4, despite yielding correct results."
-    },
-    {
-      "question": "What did profiling with NVIDIA Visual Profiler (NVVP) reveal as the bottleneck for the initially ported OpenACC code?",
-      "answer": "Almost all of the run time was spent transferring data between the host and the device."
-    },
-    {
-      "question": "What is the NVIDIA Visual Profiler (NVVP) used for?",
-      "answer": "It's a cross-platform analyzing tool for codes written with OpenACC and CUDA C/C++ instructions, used to visualize execution timelines and identify bottlenecks."
-    },
-    {
-      "question": "What is the `parallel loop` directive?",
-      "answer": "It's a 'prescriptive' OpenACC directive that forces the compiler to parallelize a loop."
-    },
-    {
-      "question": "Why are `private` and `reduction` clauses often required with `parallel loop` but not `kernels`?",
-      "answer": "With `parallel loop`, the programmer is responsible for managing data scope, whereas the `kernels` directive handles this automatically."
-    },
-    {
-      "question": "What does the `private` clause do in a `parallel loop` directive?",
-      "answer": "It creates a copy of the variable for each loop iteration, ensuring its value is independent from other iterations."
-    },
-    {
-      "question": "What is the function of the `reduction` clause in a `parallel loop` directive?",
-      "answer": "It combines the values of a variable from each loop iteration into a single value using operations like addition, multiplication, maximum, or minimum."
-    },
-    {
-      "question": "What is the programmer's main responsibility when using the `parallel loop` directive?",
-      "answer": "It is the programmer's responsibility to ensure that parallelism is safe."
-    },
-    {
-      "question": "What is the main advantage of using the `kernels` directive over `parallel loop`?",
-      "answer": "With `kernels`, the compiler is responsible for analyzing the code and determining safe parallelization, giving it more room to optimize a larger area of code."
+      "question": "How do C/C++ and Fortran delimit an OpenACC block when using the `kernels` directive?",
+      "answer": "In C/C++, the OpenACC block is delimited using curly brackets `{}`. In Fortran, the `!$acc kernels` comment needs to be repeated with an `end` keyword, e.g., `!$acc end kernels`."
     }
   ],
-  "generated_at": "2026-04-12T04:04:03.671857+00:00"
+  "generated_at": "2026-04-13T10:13:58.740408+00:00"
 }

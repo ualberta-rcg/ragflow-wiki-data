@@ -4,21 +4,17 @@
   "chunk_index": 18,
   "qa_pairs": [
     {
-      "question": "Dans le cas d'une simulation Fluent où le premier pas de `sample.jou` est basé sur une solution précédente, quelle valeur doit-on choisir pour le nombre d'itérations (`/solve/dual-time-iterate`) et pourquoi ?",
-      "answer": "Si le premier pas de `sample.jou` provient d'une solution antérieure, on devrait choisir 1 pour le nombre d'itérations (`/solve/dual-time-iterate`) au lieu de 2, parce que tous les pas nécessiteront vraisemblablement le même temps d'exécution."
+      "question": "Quelle est la raison principale d'utiliser les scripts de 'redémarrage' pour les simulations Fluent?",
+      "answer": "La raison principale est d'automatiser le redémarrage de tâches Fluent intensives qui nécessitent plus que le maximum de sept jours d'exécution permis sur la plupart des grappes."
     },
     {
-      "question": "Comment calcule-t-on la durée totale d'une simulation Fluent qui utilise la fonctionnalité de redémarrage, en supposant qu'on choisit 2 pour le nombre d'itérations par pas ?",
-      "answer": "En choisissant 2 pour le nombre d'itérations, la durée totale de la simulation est calculée comme suit : `1*Dt + 2*Nrestart*Dt`, où `Dt` représente la durée d'un pas de temps et `Nrestart` est le nombre de redémarrages spécifié dans le script Slurm."
+      "question": "Comment la durée totale d'une simulation Fluent est-elle calculée lorsqu'on utilise la fonction de redémarrage avec un nombre 'Nrestart' de redémarrages et une durée de pas de temps 'Dt'?",
+      "answer": "La durée totale de la simulation est calculée selon la formule `1*Dt + 2*Nrestart*Dt`. Cette formule inclut la durée du premier pas (`1*Dt`) et la durée des pas suivants (`2*Nrestart*Dt`), en supposant que chaque pas de redémarrage peut s'exécuter deux fois plus vite que le pas initial."
     },
     {
-      "question": "Quel est le calcul pour déterminer le nombre total de pas et de fichiers de résultats générés dans une simulation Fluent qui utilise des redémarrages, avec 2 itérations par pas ?",
-      "answer": "Le nombre total de pas, qui correspond aussi au nombre de fichiers de résultats générés, sera `1 + 2*Nrestart`, où `Nrestart` est le nombre de redémarrages."
-    },
-    {
-      "question": "Quelle est la durée maximale pour une tâche Slurm et à quoi faut-il veiller lors de la définition du temps demandé pour une simulation Fluent avec redémarrage ?",
-      "answer": "La durée maximale pour une tâche Slurm peut aller jusqu'à 7 jours (spécifié par `#SBATCH --time=07-00:00`). Il faut s'assurer que le pas initial et les pas subséquents se terminent dans cette fenêtre de temps allouée par Slurm."
+      "question": "Quelle est la durée maximale qui peut être spécifiée pour une tâche Slurm à l'aide de la directive `#SBATCH --time`?",
+      "answer": "La durée maximale qui peut être spécifiée pour une tâche Slurm avec la directive `#SBATCH --time` est de `07-00:00` jours."
     }
   ],
-  "generated_at": "2026-04-12T16:59:45.055931+00:00"
+  "generated_at": "2026-04-13T01:57:21.487152+00:00"
 }

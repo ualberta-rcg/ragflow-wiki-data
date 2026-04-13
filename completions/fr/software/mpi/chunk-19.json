@@ -4,37 +4,13 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "Quelle est la problématique que la stratégie pair-impair tente de résoudre en programmation parallèle avec MPI?",
-      "answer": "La stratégie pair-impair vise à éviter les situations d'interblocage (deadlock) qui peuvent survenir lorsque les fonctions bloquantes comme `MPI_Send` et `MPI_Recv` sont utilisées sans garantie de mémoire tampon ou lorsque la mémoire tampon est saturée, menant à une attente indéfinie entre les processus."
+      "question": "Pourquoi une séquence simple d'appels `MPI_Send` puis `MPI_Recv` par tous les processus est-elle considérée comme non fiable en programmation MPI, et quel problème ça peut poser?",
+      "answer": "Une séquence où tous les processus appellent `MPI_Send` en premier, suivie de `MPI_Recv`, est considérée comme non fiable parce que si la bibliothèque MPI n'offre pas d'accès à une mémoire tampon ou si cette dernière est saturée, l'appel `MPI_Send` pourrait bloquer. Chaque processus attendrait alors que son voisin appelle `MPI_Recv`, ce qui provoquerait un interblocage généralisé où personne ne peut avancer."
     },
     {
-      "question": "Comment la méthode pair-impair garantit-elle un code fiable pour la communication entre processus MPI?",
-      "answer": "Elle assure que les appels d'envoi et de réception sont correctement appariés. Les processus de rang pair exécutent d'abord un envoi, puis une réception, tandis que les processus de rang impair exécutent d'abord une réception, puis un envoi. Ça élimine ainsi les interblocages."
-    },
-    {
-      "question": "Dans le cadre de la stratégie pair-impair, quelle est la séquence d'opérations pour un processus de rang pair?",
-      "answer": "Un processus de rang pair (`rank % 2 == 0`) va d'abord appeler la fonction `MPI_Send` pour envoyer son message, puis il appellera `MPI_Recv` pour recevoir un message."
-    },
-    {
-      "question": "Quelle est la séquence d'opérations pour un processus de rang impair en utilisant le modèle pair-impair?",
-      "answer": "Un processus de rang impair va d'abord appeler la fonction `MPI_Recv` pour recevoir un message, puis il appellera `MPI_Send` pour envoyer son message."
-    },
-    {
-      "question": "Est-ce qu'un nombre impair de processus pose problème avec la stratégie pair-impair dans l'exemple `phello3`?",
-      "answer": "Non, ça ne pose pas de problème. L'envoi fait par le processus 0 (pair) est correctement apparié à la réception lancée par le processus 1 (impair), qui commence par une réception, assurant que la transaction est complétée sans risque d'interblocage."
-    },
-    {
-      "question": "Que signifie la sortie d'exécution de `phello3` avec 16 processus, comme dans l'exemple `[P_1] process 0 said: \"Hello, world! from process 0 of 16\"]`?",
-      "answer": "Cette sortie indique que le processus de rang 1 (`P_1`) a reçu un message du processus de rang 0 (`process 0 said:`). Ça confirme que la communication circulaire entre les processus, où chaque processus reçoit un message du processus qui le précède dans la boucle (modulo le nombre total de processus), fonctionne comme prévu. L'ordre des messages affichés n'est pas garanti."
-    },
-    {
-      "question": "Quelles fonctions MPI sont utilisées pour l'initialisation et la finalisation dans l'exemple Fortran 2008 du code fiable `phello3.f90`?",
-      "answer": "Les fonctions `MPI_Init()` sont utilisées pour l'initialisation du programme MPI, et `MPI_Finalize()` est utilisée pour le nettoyage avant la fin du programme."
-    },
-    {
-      "question": "Comment calcule-t-on le destinataire et l'expéditeur d'un message dans l'exemple `phello3`?",
-      "answer": "Le destinataire (`sendto`) est calculé comme `mod((rank + 1), num_procs)`, et l'expéditeur (`recvfrom`) est calculé comme `mod(((rank + num_procs) - 1), num_procs)`."
+      "question": "Pour éviter les impasses (deadlocks) dans la communication entre processus MPI, comme illustré dans l'exemple de code `phello3`, quelle stratégie de coordination est recommandée pour les fonctions `MPI_Send` et `MPI_Recv`?",
+      "answer": "Pour éviter les impasses et s'assurer que le code est fiable, la stratégie recommandée est de coordonner les processus selon leur rang (pair ou impair). Les processus de rang pair exécutent `MPI_Send` suivi de `MPI_Recv`, tandis que les processus de rang impair exécutent `MPI_Recv` suivi de `MPI_Send`. Cette méthode garantit que chaque envoi est apparié à une réception, même avec un nombre impair de processus, éliminant ainsi le risque d'interblocage."
     }
   ],
-  "generated_at": "2026-04-12T01:59:17.913342+00:00"
+  "generated_at": "2026-04-13T08:53:52.090292+00:00"
 }

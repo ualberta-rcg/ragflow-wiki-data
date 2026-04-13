@@ -4,17 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "How can I cancel a specific job or multiple jobs on the cluster?",
-      "answer": "You can cancel a specific job by using `scancel` followed by its job ID (e.g., `scancel <jobid>`). To cancel all your jobs, use `scancel -u $USER`. If you only want to cancel your pending jobs, you can use `scancel -t PENDING -u $USER`."
+      "question": "How can a user cancel their jobs on a Slurm cluster?",
+      "answer": "A user can cancel a specific job by using `scancel <jobid>`. To cancel all of their jobs, they can use `scancel -u $USER`, or to cancel only their pending jobs, they can use `scancel -t PENDING -u $USER`."
     },
     {
-      "question": "What is required for an application to support long-running computations that might exceed system time limits?",
-      "answer": "For an application to support long-running computations that exceed system time limits, it must support checkpointing. This means the application should be able to save its state to a checkpoint file and then restart from that saved state to continue the computation."
+      "question": "Why is resubmitting jobs important for long computations on a Slurm cluster, and what are the two recommended methods for automating this process?",
+      "answer": "Resubmitting jobs is crucial for computations that are expected to exceed the system's time limits. This requires the application to support checkpointing, allowing it to save its state and restart from a checkpoint file. The two recommended methods for automating resubmission are using SLURM job arrays or by having the job script resubmit itself."
     },
     {
-      "question": "What are the two recommended methods for automating the restart of long-running computations on our clusters?",
-      "answer": "The two recommended methods for automating restarts are using SLURM job arrays and implementing resubmission directly from the end of the job script. Both approaches rely on the application's ability to checkpoint its progress."
+      "question": "When a job script is designed to resubmit itself, what critical precaution should be observed regarding the condition that triggers the resubmission?",
+      "answer": "When a job script resubmits itself, the condition to determine whether to submit a follow-up job (e.g., `work_should_continue`) must be a *positive test*. This means it should explicitly check if more work is required, rather than testing for a stopping condition. This practice prevents an indefinite chain of jobs from running if an unforeseen error occurs and the stopping condition is never met."
     }
   ],
-  "generated_at": "2026-04-12T18:24:17.935159+00:00"
+  "generated_at": "2026-04-13T12:50:51.892723+00:00"
 }

@@ -4,65 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Is it possible to use `sudo` to obtain superuser/root permissions on Alliance clusters?",
-      "answer": "No, the ability to use `sudo` to obtain superuser/root permissions is not available on Alliance clusters."
+      "question": "What options are available for users who require `sudo` or superuser permissions when working with Apptainer on Alliance clusters, considering that `sudo` is not generally available?",
+      "answer": "On Alliance clusters, the ability to use `sudo` to obtain superuser/root permissions is not available. Should you require `sudo`, you can install Linux, Apptainer, and `sudo` in a virtual machine on a system you control to build your images, then upload them to Alliance systems. Alternatively, you can submit a ticket to Alliance staff asking for help to build the required image(s). Additionally, Apptainer version 1.1.x and newer has improved support for `--fakeroot`, which may allow building some images from `.def` definition files without needing `sudo` or superuser/root, though this is not applicable to all images."
     },
     {
-      "question": "What are the recommended options if `sudo` access is required when working with Apptainer on Alliance systems?",
-      "answer": "If `sudo` access is required, you can install Linux, Apptainer, and `sudo` in a virtual machine on a system you control to build images and then upload them to Alliance systems. Alternatively, you can submit a ticket to Alliance staff to inquire about assistance with building images that require `sudo`, or leverage Apptainer version 1.1.x and newer's improved support for `--fakeroot`."
+      "question": "What are the recommended practices for building Apptainer container images or overlays on Alliance clusters?",
+      "answer": "When building Apptainer container images or overlays, it is important to: avoid building sandbox images using `--fakeroot` on networked filesystem(s); explicitly set the `APPTAINER_CACHEDIR` environment variable to a non-networked filesystem location; explicitly set the `APPTAINER_TMPDIR` environment variable to a non-Lustre/GPFS filesystem location; and avoid using Lustre/GPFS filesystems altogether as they do not have the required feature set to properly support building Apptainer containers, including those using `--fakeroot`."
     },
     {
-      "question": "Has Apptainer's support for `--fakeroot` changed over different versions?",
-      "answer": "Yes, Apptainer version 1.1.x and newer has improved support for users using `--fakeroot` implicitly and explicitly. This makes it possible to build some images from `.def` definition files and build some images without needing `sudo`, which was not always the case with Apptainer version 1.0 and Singularity."
-    },
-    {
-      "question": "Can all Apptainer images be built without needing `sudo` or superuser/root permissions, even with `--fakeroot`?",
-      "answer": "No, not all Apptainer images will be able to be built without needing `sudo` or superuser/root permissions, despite the improved `--fakeroot` support in Apptainer version 1.1.x and newer."
-    },
-    {
-      "question": "What specific warnings should be considered when building Apptainer container images or overlays?",
-      "answer": "When building Apptainer container images or overlays, users should avoid building a sandbox image using `--fakeroot` on networked filesystems, explicitly set `APPTAINER_CACHEDIR` to a non-networked filesystem location, explicitly set `APPTAINER_TMPDIR` to a non-Lustre/GPFS filesystem location, and avoid using Lustre/GPFS filesystems altogether as they lack the necessary feature set for proper support."
-    },
-    {
-      "question": "Why should Lustre/GPFS filesystems be avoided when building Apptainer containers?",
-      "answer": "Lustre/GPFS filesystems should be avoided because they do not have the feature set required to properly support building Apptainer containers, including functionality related to `--fakeroot`."
-    },
-    {
-      "question": "What environment variable should be set for the Apptainer cache directory when building images?",
-      "answer": "When building Apptainer images or overlays, `APPTAINER_CACHEDIR` should be explicitly set to a non-networked filesystem location before using Apptainer."
-    },
-    {
-      "question": "What environment variable should be set for the Apptainer temporary directory when building images?",
-      "answer": "When building Apptainer images or overlays, `APPTAINER_TMPDIR` should be explicitly set to a non-Lustre/GPFS filesystem location before using Apptainer."
-    },
-    {
-      "question": "How do I load the default version of Apptainer?",
-      "answer": "To load the default version of Apptainer, you need to run the command `$ module load apptainer`."
-    },
-    {
-      "question": "How can I check which versions of Apptainer are available to load?",
-      "answer": "To see the available versions of Apptainer that can be loaded, run the command `$ module spider apptainer`."
-    },
-    {
-      "question": "Why is it important to run programs inside containers without host environment settings?",
-      "answer": "It is important because software run inside a container operates in an environment with different libraries and tools than the host system. By default, Apptainer adopts the host's shell environment, which can lead to issues, so isolating the environment prevents these conflicts."
-    },
-    {
-      "question": "What command-line options are available to isolate a running Apptainer container from the host's environment settings?",
-      "answer": "To avoid issues when running Apptainer commands (`apptainer run`, `apptainer shell`, `apptainer exec`, `apptainer instance`) due to the host's environment, you can use the `-C` or `-c` options."
-    },
-    {
-      "question": "What does the `-C` option do when running an Apptainer container?",
-      "answer": "The `-C` option isolates the running container from all filesystems, as well as the parent PID, IPC, and environment. If access to filesystems outside of the container is needed, bind mounts will be required."
-    },
-    {
-      "question": "What does the `-c` option do when running an Apptainer container?",
-      "answer": "The `-c` option isolates the running container from most filesystems, providing only a minimal `/dev`, an empty `/tmp` directory, and an empty `/home` directory. If access to filesystems outside of the container is needed, bind mounts will be required."
-    },
-    {
-      "question": "When using the `-C` or `-c` options, why are bind mounts often necessary with Apptainer?",
-      "answer": "Bind mounts are often necessary when using the `-C` or `-c` options because these options isolate the container from the host's filesystems, and bind mounts are required to explicitly access disk space or filesystems that originate outside the container."
+      "question": "Why is it important to use specific command-line options for environment isolation when running Apptainer programs, and what do the `-C`, `-c`, and `-e` options achieve?",
+      "answer": "It is important to use specific command-line options because, by default, Apptainer adopts the host's shell environment, which can cause issues with programs using different libraries and tools than those installed on the host. To avoid these issues when using commands like `apptainer run`, `apptainer shell`, `apptainer exec`, or `apptainer instance`, you can use the following options:\n*   `-C`: Isolates the running container from all filesystems, parent PID, IPC, and environment. Access to external filesystems will require bind mounts.\n*   `-c`: Isolates the running container from most filesystems, providing only a minimal `/dev`, an empty `/tmp`, and an empty `/home` directory. Access to external filesystems will also require bind mounts.\n*   `-e`: Cleans some shell environment variables before running container commands and applies settings for increased OCI/Docker compatibility. This option also implies the use of `--containall`, `--no-init`, `--no-umask`, and `--writable-tmpfs`."
     }
   ],
-  "generated_at": "2026-04-11T17:27:51.452722+00:00"
+  "generated_at": "2026-04-13T02:11:06.951003+00:00"
 }

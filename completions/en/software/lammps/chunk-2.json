@@ -4,81 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How can one determine which packages are enabled for a LAMMPS module if the `list-packages.txt` file is not available?",
-      "answer": "If `list-packages.txt` is not found, you can examine the EasyBuild recipe file, ` nefarious${EBROOTLAMMPS}/easybuild/LAMMPS*.eb`, to determine which packages are available."
+      "question": "If the `list-packages.txt` file is not available for a LAMMPS module, how can a user determine which packages are enabled?",
+      "answer": "If `list-packages.txt` is not found, users can examine the EasyBuild recipe file, located at `$EBROOTLAMMPS/easybuild/LAMMPS*.eb`. The list of enabled packages will be found in the `general_packages` block within this file."
     },
     {
-      "question": "Where in the EasyBuild recipe file can the list of enabled LAMMPS packages be found?",
-      "answer": "The list of enabled packages will appear in the block labelled `general_packages` within the EasyBuild recipe file."
+      "question": "What type of simulation is described in the example LAMMPS input file (`lammps.in`) provided in the documentation?",
+      "answer": "The example LAMMPS input file (`lammps.in`) describes a 3D Lennard-Jones melt simulation."
     },
     {
-      "question": "What is the purpose of the `lammps.in` file provided in the example?",
-      "answer": "The `lammps.in` file is an input file that describes the parameters and commands for a LAMMPS simulation."
-    },
-    {
-      "question": "What type of simulation is described in the `lammps.in` example file?",
-      "answer": "The `lammps.in` example file describes a '3d Lennard-Jones melt' simulation."
-    },
-    {
-      "question": "What units are specified in the `lammps.in` example?",
-      "answer": "The `lammps.in` example specifies 'lj' (Lennard-Jones) units."
-    },
-    {
-      "question": "What atom style is used in the example LAMMPS input file?",
-      "answer": "The `lammps.in` example file uses an 'atomic' atom style."
-    },
-    {
-      "question": "What is the function of the `run_lmp_serial.sh` and `run_lmp_mpi.sh` scripts?",
-      "answer": "These scripts are examples of job scripts used to run LAMMPS simulations, either in serial or parallel (MPI) mode."
-    },
-    {
-      "question": "What is the key difference in how LAMMPS is executed between the serial (`run_lmp_serial.sh`) and MPI (`run_lmp_mpi.sh`) job scripts?",
-      "answer": "The serial script executes LAMMPS directly with `lmp`, while the MPI script uses `srun lmp` to launch the parallel job across multiple tasks."
-    },
-    {
-      "question": "What Slurm directive specifies the number of tasks for the serial LAMMPS job?",
-      "answer": "The serial job script uses `#SBATCH --ntasks=1` to specify one task."
-    },
-    {
-      "question": "How much memory per CPU is requested for both the serial and MPI LAMMPS example jobs?",
-      "answer": "Both example job scripts request `--mem-per-cpu=2500M`."
-    },
-    {
-      "question": "What is the time limit set for the example LAMMPS job scripts?",
-      "answer": "Both example job scripts have a time limit of `--time=0-00:30`, which is 30 minutes."
-    },
-    {
-      "question": "Which modules are loaded before running LAMMPS in the example job scripts?",
-      "answer": "The example job scripts load `StdEnv/2020`, `intel/2020.1.217`, `openmpi/4.0.3`, and `lammps-omp/20210929`."
-    },
-    {
-      "question": "What is the primary factor that consumes most of the CPU time in molecular dynamics simulations?",
-      "answer": "Most of the CPU time for molecular dynamics simulations is spent computing the pair interactions between particles."
-    },
-    {
-      "question": "How does LAMMPS distribute computational work among available processors?",
-      "answer": "LAMMPS uses domain decomposition, assigning a part of the simulation box to each processor to split the work."
-    },
-    {
-      "question": "Why does communication time tend to increase with a greater number of processors for a fixed number of particles?",
-      "answer": "With more processors, the simulation box is divided into more parts, requiring more data exchange (communication) between processors, which increases communication time."
-    },
-    {
-      "question": "What recommendation is given before running extensive LAMMPS simulations?",
-      "answer": "Before running extensive simulations, you should run short tests using different numbers of cores to find a suitable number that will approximately maximize the simulation's efficiency."
-    },
-    {
-      "question": "What led to low efficiency in the example simulation with 4000 particles using 12 MPI tasks?",
-      "answer": "The low efficiency was due to the system of 4000 atoms being divided into 12 small boxes, resulting in a large fraction of time spent in communication because of the small system size relative to the number of tasks."
-    },
-    {
-      "question": "In the low-efficiency example of 4000 particles with 12 MPI tasks, what percentage of time was spent on pair interactions and communications, respectively?",
-      "answer": "In that example, 46.45% of the time was spent computing pair interactions and 44.50% was spent in communications between processors."
-    },
-    {
-      "question": "What was the overall CPU utilization in the example low-efficiency simulation with 12 MPI tasks?",
-      "answer": "The example showed 90.2% CPU use with 12 MPI tasks and 1 OpenMP thread."
+      "question": "Why does increasing the number of processors for a fixed system size in a LAMMPS simulation eventually lead to lower CPU efficiency?",
+      "answer": "Increasing the number of processors for a fixed system size with domain decomposition means the simulation box is divided into more parts. This increases the communication time required between processors for exchanging data during particle interaction computations, which ultimately leads to lower CPU efficiency."
     }
   ],
-  "generated_at": "2026-04-12T00:48:01.876535+00:00"
+  "generated_at": "2026-04-13T07:57:07.853154+00:00"
 }

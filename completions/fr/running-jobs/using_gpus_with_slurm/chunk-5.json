@@ -4,61 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Pourquoi est-ce qu'il peut être avantageux de demander un nœud entier pour une tâche Slurm avec des GPU?",
-      "answer": "Si votre application peut utiliser efficacement un nœud entier et ses GPU associés, vous pouvez probablement réduire le temps d'attente en demandant un nœud entier."
+      "question": "Comment faire pour regrouper plusieurs tâches qui utilisent un seul GPU pour les exécuter sur une longue période, par exemple plus de 24 heures?",
+      "answer": "Pour exécuter plusieurs programmes qui utilisent un seul GPU pendant plus de 24 heures, comme quatre programmes utilisant un seul GPU ou deux programmes utilisant deux GPU, on recommande d'utiliser GNU Parallel. Pour éviter que des tâches concurrentes ne se disputent le même GPU, il faut utiliser la variable d'environnement `CUDA_VISIBLE_DEVICES` pour attribuer un GPU spécifique à chaque tâche. Par exemple, avec un fichier `params.input` listant les programmes, vous pouvez utiliser la commande `cat params.input | parallel -j4 'CUDA_VISIBLE_DEVICES=$(({%} - 1)) python {} &> {#}.out'`."
     },
     {
-      "question": "Quel outil est recommandé pour regrouper plusieurs tâches à un seul GPU qui doivent s'exécuter pendant plus de 24 heures?",
-      "answer": "On recommande d'utiliser GNU Parallel pour regrouper des tâches à un seul GPU qui durent plus de 24 heures."
-    },
-    {
-      "question": "Dans l'exemple de GNU Parallel pour regrouper des tâches, comment l'identifiant du GPU est-il calculé?",
-      "answer": "L'identifiant du GPU est calculé en soustrayant 1 de l'identifiant de la fente (slot), qui est représenté par `{%}`."
-    },
-    {
-      "question": "À quoi sert le symbole `{#}` dans les scripts GNU Parallel pour le regroupement de tâches?",
-      "answer": "Le symbole `{#}` représente l'identifiant de la tâche, avec des valeurs qui commencent à 1."
-    },
-    {
-      "question": "Comment le fichier `params.input` devrait-il être formaté pour être utilisé avec GNU Parallel?",
-      "answer": "Le fichier `params.input` devrait contenir les paramètres sur des lignes distinctes, par exemple `code1.py` sur une ligne, `code2.py` sur la suivante, et ainsi de suite."
-    },
-    {
-      "question": "Quelle est la fonction du paramètre `-j4` dans une commande GNU Parallel?",
-      "answer": "Le paramètre `-j4` fait en sorte que GNU Parallel exécutera quatre tâches concurremment, en lançant une tâche aussitôt que la précédente est terminée."
-    },
-    {
-      "question": "Comment peut-on éviter que plusieurs tâches GNU Parallel ne se disputent le même GPU?",
-      "answer": "Pour éviter que deux tâches ne se disputent le même GPU, il faut utiliser la variable d'environnement `CUDA_VISIBLE_DEVICES`."
-    },
-    {
-      "question": "Sur quelles grappes de calcul le profilage des tâches avec GPU est-il possible, à condition de désactiver DCGM?",
-      "answer": "Le profilage des tâches avec GPU est possible sur les grappes Narval et Rorqual, mais il faut désactiver DCGM (NVIDIA Data Center GPU Manager)."
-    },
-    {
-      "question": "Qu'est-ce qui doit être désactivé pour effectuer le profilage de GPU sur Narval et Rorqual?",
-      "answer": "Pour effectuer le profilage de GPU sur Narval et Rorqual, le DCGM (NVIDIA Data Center GPU Manager) doit être désactivé."
-    },
-    {
-      "question": "Comment désactiver le DCGM (NVIDIA Data Center GPU Manager) quand on soumet une tâche Slurm?",
-      "answer": "Pour désactiver le DCGM, vous devez configurer la variable d'environnement `DISABLE_DCGM` à `1` lorsque vous soumettez la tâche, par exemple `DISABLE_DCGM=1 salloc ...`."
-    },
-    {
-      "question": "Après avoir demandé la désactivation de DCGM, comment vérifier qu'il est bien désactivé dans une tâche interactive?",
-      "answer": "Dans votre tâche interactive, vous pouvez utiliser la commande `while [ ! -z \"$(dcgmi -v | grep 'Hostengine build info:')\" ]; do sleep 5; done` pour attendre que DCGM soit désactivé."
-    },
-    {
-      "question": "Une fois que DCGM est désactivé et confirmé, quelle est la prochaine étape pour le profilage GPU?",
-      "answer": "Une fois que DCGM est désactivé, vous pouvez lancer le profileur."
-    },
-    {
-      "question": "Sur quelles grappes de calcul le profilage de GPU décrit dans la documentation n'est-il pas encore disponible?",
-      "answer": "Le profilage de GPU tel que décrit n'est pas encore disponible sur les grappes Fir et Nibi."
-    },
-    {
-      "question": "Quelles sont quelques-unes des ressources connexes mentionnées pour plus d'informations sur l'utilisation des GPU avec Slurm?",
-      "answer": "Pour plus d'informations, vous pouvez consulter les pages sur CUDA, les GPU multi-instances, l'exécution de tâches, le portail Metrix, NVTOP pour le suivi de l'utilisation des GPU et Cuda Multi-Process Service (MPS)."
+      "question": "Comment puis-je faire le profilage des tâches GPU sur les grappes Narval et Rorqual?",
+      "answer": "Le profilage des tâches GPU est possible sur les grappes Narval et Rorqual, à condition de désactiver DCGM (NVIDIA Data Center GPU Manager). Pour ce faire, il faut configurer la variable d'environnement `DISABLE_DCGM=1` lors de la soumission de la tâche, par exemple avec `DISABLE_DCGM=1 salloc --account=def-someuser --gpus-per-node=a100:1 --mem=4000M --time=03:00`. Ensuite, dans la tâche interactive, vous devez attendre que DCGM soit désactivé sur le nœud en utilisant la commande `while [ ! -z \"$(dcgmi -v | grep 'Hostengine build info:')\" ]; do sleep 5; done` avant de lancer le profileur. Il est important de noter que cette méthode de profilage n'est pas encore disponible sur Fir et Nibi."
     }
   ],
-  "generated_at": "2026-04-12T10:05:50.030146+00:00"
+  "generated_at": "2026-04-13T15:11:08.061728+00:00"
 }

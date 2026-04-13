@@ -4,57 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Quels sont les aspects particuliers des grappes qu'il faut connaître pour bien utiliser les applications d'apprentissage machine?",
-      "answer": "Pour tirer le maximum de vos applications d'apprentissage machine, il faut savoir que nos grappes sont beaucoup plus complexes qu'un ordinateur local. Elles ont des systèmes de fichiers distribués qui gèrent le stockage de façon transparente. L'accès à un fichier dans <code>/project</code> peut sembler le même qu'un fichier local, mais la performance est bien différente. C'est important de lire la section sur la gestion des ensembles de données."
+      "question": "Pourquoi est-il important de comprendre les particularités des grappes de calcul, surtout en ce qui concerne le stockage de fichiers, lorsqu'on développe des applications d'apprentissage machine sur l'Alliance?",
+      "answer": "Les grappes de calcul sont beaucoup plus complexes que les ordinateurs locaux et utilisent des systèmes de fichiers distribués. Même si l'accès à un fichier dans <code>/project</code> peut donner l'impression d'être similaire à un fichier local, sous le capot, les effets sur la performance sont bien différents. C'est pourquoi il est crucial de bien comprendre la section sur la gestion des ensembles de données pour optimiser vos applications."
     },
     {
-      "question": "Où est-ce que je peux trouver des tutoriels sur l'apprentissage machine?",
-      "answer": "Y'a plusieurs tutoriels disponibles. SHARCNET offre un tutoriel de formation autonome intitulé «Introduction to Machine Learning». On a aussi notre propre tutoriel si votre programme est prêt à être exécuté sur nos grappes. Pis un utilisateur a préparé un tutoriel qui décrit comment configurer votre environnement Python avec l'Alliance."
+      "question": "Quelle approche est recommandée pour gérer les environnements Python sur les grappes de calcul de l'Alliance pour les applications d'apprentissage machine, et pourquoi?",
+      "answer": "Il est recommandé d'utiliser <code>virtualenv</code> plutôt qu'Anaconda pour éviter certains problèmes. Le passage à <code>virtualenv</code> est généralement facile; il suffit d'installer les mêmes paquets, à l'exception de CUDA, CuDNN et d'autres bibliothèques de bas niveau qui sont déjà installées sur les grappes."
     },
     {
-      "question": "Python est-il un logiciel populaire pour l'apprentissage machine?",
-      "answer": "Oui, Python est un logiciel populaire en apprentissage machine."
-    },
-    {
-      "question": "Où puis-je trouver des informations détaillées sur Python et son utilisation sur les grappes?",
-      "answer": "Vous pouvez consulter notre page wiki sur Python pour des renseignements importants concernant les versions, les environnements virtuels, les nœuds de connexion et de calcul, le <code>multiprocessing</code>, Anaconda, Jupyter, pis d'autres choses."
-    },
-    {
-      "question": "Est-ce qu'on recommande d'utiliser Anaconda pour l'apprentissage machine sur les grappes?",
-      "answer": "Non, on vous recommande d'utiliser <code>virtualenv</code> pour éviter les problèmes causés par Anaconda qui sont mentionnés sur une autre page."
-    },
-    {
-      "question": "Est-ce facile de passer d'Anaconda à <code>virtualenv</code>?",
-      "answer": "Dans la plupart des cas, c'est facile de passer à <code>virtualenv</code>. Vous avez juste à installer les mêmes paquets, à part CUDA, CuDNN pis les autres bibliothèques de bas niveau qui sont déjà sur nos grappes."
-    },
-    {
-      "question": "Quels sont les paquets logiciels disponibles pour l'apprentissage machine et où trouver plus d'infos?",
-      "answer": "Y'a plusieurs paquets comme TensorFlow, PyTorch, Keras, Torch, SpaCy, Scikit-Learn et SnapML. Pour des renseignements sur l'installation et les problèmes fréquents, consultez la page wiki de chaque paquet."
-    },
-    {
-      "question": "Quelles sont les solutions de stockage offertes pour la gestion des fichiers?",
-      "answer": "On offre plusieurs solutions qui vont du stockage local temporaire haute vitesse au stockage à long terme sur différents supports, pour répondre aux besoins variés de la recherche. Pour plus de détails, vous devriez consulter la page 'Stockage et gestion de fichiers'."
-    },
-    {
-      "question": "Comment choisir le type de stockage si mon ensemble de données fait environ 10 Go ou moins?",
-      "answer": "Si votre ensemble de données fait environ 10 Go ou moins, il devrait probablement rentrer dans la mémoire de votre tâche. Vos tâches d'apprentissage machine ne devraient donc pas avoir à lire de données sur disque."
-    },
-    {
-      "question": "Quelle est la meilleure approche de stockage pour un ensemble de données d'environ 100 Go ou moins?",
-      "answer": "Si votre ensemble de données est d'environ 100 Go ou moins, il peut rentrer dans l'espace de stockage local du nœud de calcul. C'est mieux de le transférer là au début de la tâche, vu que c'est pas mal plus rapide et fiable que les espaces partagés comme /home, /project ou /scratch. Un répertoire temporaire est disponible à $SLURM_TMPDIR."
-    },
-    {
-      "question": "Est-ce qu'il y a un risque que l'espace de stockage local du nœud de calcul soit occupé par d'autres utilisateurs?",
-      "answer": "Oui, c'est possible qu'une tâche d'un autre utilisateur prenne tout l'espace de stockage du nœud, vous laissant sans place. Mais, si c'est votre jour de chance, vous pourriez avoir un téraoctet juste pour vous. On cherche une solution à ce problème."
-    },
-    {
-      "question": "Comment gérer un ensemble de données plus grand que 100 Go?",
-      "answer": "Si votre ensemble de données est plus grand que 100 Go, vous pourriez devoir le laisser dans un espace partagé. L'espace /project peut servir à stocker des données de façon permanente. L'espace /scratch est parfois plus rapide, mais c'est pas fait pour du stockage permanent."
-    },
-    {
-      "question": "Pour quel type d'accès aux données sont conçus les espaces de stockage partagés (/home, /project, /scratch)?",
-      "answer": "Tous les espaces de stockage partagés (/home, /project et /scratch) sont conçus pour lire et stocker des données à faible fréquence, par exemple, un gros bloc aux 10 secondes, plutôt que 10 petits blocs par seconde."
+      "question": "Comment devrais-je choisir le type de stockage pour mon ensemble de données d'apprentissage machine sur les grappes de l'Alliance, en fonction de sa taille?",
+      "answer": "Si votre ensemble de données fait environ 10 Go ou moins, il devrait tenir en mémoire. Pour des ensembles de 100 Go ou moins, transférez-les dans l'espace de stockage local du nœud de calcul (disponible via <code>$SLURM_TMPDIR</code>) au début de la tâche, car c'est beaucoup plus rapide et fiable que les espaces partagés comme <code>/home</code>, <code>/project</code> ou <code>/scratch</code>. Pour les ensembles plus grands, il pourrait être nécessaire de les laisser dans un espace partagé tel que <code>/project</code> pour le stockage permanent, ou <code>/scratch</code> qui est parfois plus rapide mais non permanent, sachant que ces espaces sont conçus pour une lecture/écriture à faible fréquence."
     }
   ],
-  "generated_at": "2026-04-11T14:58:04.764420+00:00"
+  "generated_at": "2026-04-13T00:23:51.745642+00:00"
 }

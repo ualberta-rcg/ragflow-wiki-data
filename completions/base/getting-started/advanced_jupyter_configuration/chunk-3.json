@@ -4,89 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How do I install the Jupyter Lmod extension?",
-      "answer": "To install the Jupyter Lmod extension, you first need to load the `nodejs` module, then run `pip install jupyterlmod`, and finally execute `jupyter labextension install jupyterlab-lmod`."
+      "question": "How does one start a JupyterLab server on a compute node within a national cluster environment?",
+      "answer": "To start a JupyterLab server, you must submit an interactive job using the `salloc` command. You need to adjust parameters such as `time`, `ntasks`, `cpus-per-task`, `mem-per-cpu`, and `account` according to your requirements. Once the job is allocated, run the wrapper script for JupyterLab, which is typically located at `$VIRTUAL_ENV/bin/jupyterlab.sh`."
     },
     {
-      "question": "What is the purpose of the Jupyter Lmod extension?",
-      "answer": "The Jupyter Lmod extension allows users to interact with environment modules, performing tasks like loading, unloading, or saving collections, before launching kernels. It achieves this using Lmod's Python interface."
+      "question": "What is the recommended method for connecting to a JupyterLab instance running on a compute node from a local Linux or macOS system?",
+      "answer": "From a Linux or macOS computer, it is recommended to create an SSH tunnel using the `sshuttle` Python package. In a new terminal window on your local machine, execute the command `sshuttle --dns -Nr <username>@<cluster>.alliancecan.ca`, replacing `<username>` with your Alliance account username and `<cluster>` with the cluster name. After the tunnel is established, copy and paste the first provided HTTP address from the JupyterLab server's output into your web browser."
     },
     {
-      "question": "Where can I find instructions for managing software modules in the JupyterLab interface?",
-      "answer": "Instructions for managing loaded software modules within the JupyterLab interface are provided on the JupyterHub page."
-    },
-    {
-      "question": "What is RStudio Server in the context of JupyterLab?",
-      "answer": "RStudio Server enables you to develop R code within an RStudio environment that appears as a separate tab in your web browser."
-    },
-    {
-      "question": "What are the key differences when installing RStudio Server compared to the standard JupyterLab installation procedure?",
-      "answer": "When installing RStudio Server, you must load the `rstudio-server` module before the `python` module and before creating a new virtual environment. Additionally, after JupyterLab is installed in the virtual environment, you need to install the `jupyter-rsession-proxy`."
-    },
-    {
-      "question": "How do I load the necessary modules for RStudio Server installation?",
-      "answer": "You load the necessary modules for RStudio Server by executing `module load rstudio-server python`. This step must be completed before creating a new Python virtual environment."
-    },
-    {
-      "question": "Which package should I install for RStudio Server after JupyterLab is set up in a virtual environment?",
-      "answer": "After JupyterLab is installed in the new virtual environment, you should install the `jupyter-rsession-proxy` package using `pip install --no-index jupyter-rsession-proxy`."
-    },
-    {
-      "question": "How can I tell if RStudio Server is successfully configured in JupyterLab?",
-      "answer": "If RStudio Server is successfully configured, you should see an RStudio application listed in the 'Launcher' tab within JupyterLab."
-    },
-    {
-      "question": "How do I activate my Python virtual environment for JupyterLab after logging into the cluster?",
-      "answer": "To activate your Python virtual environment for JupyterLab after logging onto the cluster, you must run `source $HOME/jupyter_py3/bin/activate`."
-    },
-    {
-      "question": "How can I verify that my JupyterLab environment is properly set up?",
-      "answer": "You can verify that your JupyterLab environment is ready by running `pip freeze | grep jupyter` to get a list of installed `jupyter*` packages."
-    },
-    {
-      "question": "How do I start a JupyterLab server on a national cluster?",
-      "answer": "To start a JupyterLab server, you submit an interactive job using `salloc`. An example command is `salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=def-yourpi srun $VIRTUAL_ENV/bin/jupyterlab.sh`. Remember to adjust the parameters as needed."
-    },
-    {
-      "question": "Why is an SSH tunnel required to connect to JupyterLab running on a compute node?",
-      "answer": "An SSH tunnel is required because compute nodes are not directly accessible from the internet. The tunnel allows you to access JupyterLab running on a compute node from your web browser through the cluster."
-    },
-    {
-      "question": "What tool is recommended for creating an SSH tunnel from Linux or macOS to connect to JupyterLab?",
-      "answer": "On a Linux or macOS system, the `sshuttle` Python package is recommended for creating an SSH tunnel."
-    },
-    {
-      "question": "How do I create an SSH tunnel from a Linux or macOS system using `sshuttle`?",
-      "answer": "From a new terminal window on your local computer, create the SSH tunnel with the command `sshuttle --dns -Nr <username>@<cluster>.alliancecan.ca`, replacing `<username>` with your Alliance account username and `<cluster>` with the cluster you're using."
-    },
-    {
-      "question": "After setting up an SSH tunnel with `sshuttle`, how do I access JupyterLab in my web browser?",
-      "answer": "After creating the SSH tunnel, copy and paste the first provided HTTP address (e.g., `http://node_name.int.cluster.computecanada.ca:8888/lab?token=...`) into your web browser."
-    },
-    {
-      "question": "What application is suggested for creating an SSH tunnel from Windows?",
-      "answer": "MobaXTerm is suggested for creating an SSH tunnel from Windows, though any terminal that supports the `ssh` command can be used."
-    },
-    {
-      "question": "What information do I need to extract to create an SSH tunnel from Windows for JupyterLab?",
-      "answer": "You need to extract the `hostname:port` and the `token` from the first provided HTTP address that appears when JupyterLab is launched."
-    },
-    {
-      "question": "How do I create an SSH tunnel from a Windows system using MobaXTerm's terminal?",
-      "answer": "After extracting the `hostname:port` and `token`, open a new Terminal tab in MobaXTerm and run `ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca`, replacing the placeholders with your specific values."
-    },
-    {
-      "question": "What URL should I navigate to in my web browser to access JupyterLab after setting up an SSH tunnel from Windows?",
-      "answer": "You should go to `http://localhost:8888/?token=<token>`, replacing `<token>` with the alphanumerical value extracted from the JupyterLab server's output."
-    },
-    {
-      "question": "How do I shut down the JupyterLab server before its allocated walltime expires?",
-      "answer": "You can shut down the JupyterLab server by pressing `Ctrl-C` twice in the terminal where you launched the interactive job."
-    },
-    {
-      "question": "How do I shut down an SSH tunnel created with MobaXterm?",
-      "answer": "To shut down an SSH tunnel created with MobaXterm, press `Ctrl-D` in the MobaXterm terminal where the tunnel was established."
+      "question": "What are the distinct installation steps for setting up RStudio Server within an existing JupyterLab environment, compared to a standard JupyterLab installation?",
+      "answer": "When setting up RStudio Server, you must first load the `rstudio-server` module *before* loading the `python` module and creating a new Python virtual environment. Once JupyterLab is installed within the new virtual environment, the next step is to install the `jupyter-rsession-proxy` by running `pip install --no-index jupyter-rsession-proxy` in the activated virtual environment. All other configuration and usage steps remain the same, and an RStudio application should appear in the JupyterLab *Launcher* tab."
     }
   ],
-  "generated_at": "2026-04-11T16:04:23.879756+00:00"
+  "generated_at": "2026-04-13T01:09:51.407714+00:00"
 }

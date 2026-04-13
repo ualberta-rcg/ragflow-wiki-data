@@ -4,97 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is the purpose of Floating IP High Availability?",
-      "answer": "Floating IP (FIP) High Availability aims to prevent application inaccessibility when a single VM hosting an application fails and goes offline, by ensuring the application remains reachable."
+      "question": "What is the primary purpose of implementing Floating IP High Availability in a technical environment?",
+      "answer": "The primary purpose of implementing Floating IP (FIP) High Availability is to prevent an application from becoming inaccessible if the single Virtual Machine (VM) hosting it fails. By making the FIP highly available, the application itself can maintain continuous availability."
     },
     {
-      "question": "What is the public IP address mentioned in the setup diagram for world connections?",
-      "answer": "The public IP address the world connects to is 206.12.93.117."
+      "question": "How do systems in an active-passive Floating IP High Availability setup manage failover to ensure an application remains reachable?",
+      "answer": "In an active-passive setup, two systems communicate using the Virtual Router Redundancy Protocol (VRRP). One system is designated as the 'MASTER' and owns the internal Virtual IP (VIP), receiving all network traffic, while the other remains in 'BACKUP' mode. If the 'MASTER' system stops responding, the 'BACKUP' system automatically transitions to 'MASTER' state, brings up the internal VIP, and takes over traffic routing, ensuring the application remains reachable via the public IP address."
     },
     {
-      "question": "Which IP address is designated as the Internal Virtual IP (VIP) owned by the active system?",
-      "answer": "The Internal Virtual IP (VIP) owned by the current active system is 192.168.27.251."
-    },
-    {
-      "question": "What does VRRP stand for and what is its function?",
-      "answer": "VRRP stands for Virtual Router Redundancy Protocol, and it determines the status of the systems in a high-availability setup."
-    },
-    {
-      "question": "How do the two systems determine which one is active in a VRRP setup?",
-      "answer": "The two systems communicate via VRRP; as long as the MASTER system responds, the other system will remain in BACKUP mode."
-    },
-    {
-      "question": "What happens if the MASTER system stops responding in a VRRP setup?",
-      "answer": "If the MASTER system stops responding, the BACKUP system will transition into MASTER mode and bring up the internal IP address 192.168.27.251, making it reachable."
-    },
-    {
-      "question": "How is traffic handled by the public IP in a high-availability setup?",
-      "answer": "The public IP, 206.12.93.117, will always forward any traffic to the VIP, ensuring the application is reachable as long as a system is reachable via the VIP."
-    },
-    {
-      "question": "Describe an active-passive high-availability system as per the document.",
-      "answer": "An active-passive system, as described, involves one system owning the VIP and receiving all network traffic for that IP address, while the other system acts as a standby backup in case the active one fails or becomes unreachable."
-    },
-    {
-      "question": "What aspect of availability does the described setup primarily address?",
-      "answer": "The setup primarily ensures that a system is reachable via IP; it does not handle the availability of application data, such as files, or its services, like running web server software."
-    },
-    {
-      "question": "What components are used in this example active-passive setup?",
-      "answer": "This example setup uses two VMs hosting the application, one shared VIP (RFC1918) from within the project, and one HA Floating IP."
-    },
-    {
-      "question": "What application is used in this example to demonstrate reachability?",
-      "answer": "In this example, nginx is used to display the default index page and demonstrate that the application is reachable."
-    },
-    {
-      "question": "What software needs to be installed on both VMs after they are built?",
-      "answer": "After successfully building the two VMs, nginx and keepalived need to be installed on both systems."
-    },
-    {
-      "question": "What is the command to install nginx and keepalived on the VMs?",
-      "answer": "The command to install nginx and keepalived is `apt-get update && apt-get -y dist-upgrade && apt-get install -y nginx keepalived`."
-    },
-    {
-      "question": "Why is it important to select a unique VIP when allocating an internal VIP?",
-      "answer": "It is important to select a unique VIP because IP addresses are unique identifiers, even within an internal, private network, to avoid conflicts."
-    },
-    {
-      "question": "How do you check for already allocated IP addresses in your project network?",
-      "answer": "To check for already allocated IP addresses, navigate to `Network --> Networks --> your-projectname-network` in the left menu, then select the `Ports` tab."
-    },
-    {
-      "question": "How do you add the chosen VIP to a VM's allowed address pair?",
-      "answer": "After choosing an unused VIP, go to `Compute --> Instances`, select the VM, navigate to the `Interfaces` tab, then the `Allowed Address Pair` tab, and enter the VIP using the `Add Allowed Address Pair` button. This must be repeated for both servers."
-    },
-    {
-      "question": "What is the filename and path for the keepalived configuration on the VMs?",
-      "answer": "The keepalived configuration file is `/etc/keepalived/keepalived.conf`."
-    },
-    {
-      "question": "What `state` is configured for the active system in its `keepalived.conf`?",
-      "answer": "The active system's `keepalived.conf` is configured with `state MASTER`."
-    },
-    {
-      "question": "What is the priority setting for the active system in the `keepalived.conf` and what does it signify?",
-      "answer": "The active system has a `priority 100`, which signifies it as the leading node because a higher priority means it takes precedence."
-    },
-    {
-      "question": "What `state` is configured for the passive system in its `keepalived.conf`?",
-      "answer": "The passive system's `keepalived.conf` is configured with `state BACKUP`."
-    },
-    {
-      "question": "What is the priority setting for the passive system in the `keepalived.conf`?",
-      "answer": "The passive system has a `priority 50`."
-    },
-    {
-      "question": "Which network interface is specified in the `keepalived.conf` for the internal network?",
-      "answer": "The network interface specified in the `keepalived.conf` for the internal network is `ens3`."
-    },
-    {
-      "question": "What security measure must be taken to allow VRRP traffic between the systems?",
-      "answer": "You must allow VRRP traffic between the systems in your `Security Groups` and ensure it is attached to your systems."
+      "question": "What are the main components required for setting up the example active-passive Floating IP High Availability system described in this document?",
+      "answer": "The example active-passive Floating IP High Availability setup requires two Virtual Machines (VMs) to host the application, one internal Virtual IP (VIP) (RFC1918 from within your project), and one High Availability (HA) Floating IP. Additionally, software such as nginx and keepalived needs to be installed on both VMs."
     }
   ],
-  "generated_at": "2026-04-11T23:39:35.068721+00:00"
+  "generated_at": "2026-04-13T07:00:28.371830+00:00"
 }

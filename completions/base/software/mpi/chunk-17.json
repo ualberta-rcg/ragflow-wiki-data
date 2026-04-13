@@ -4,21 +4,13 @@
   "chunk_index": 17,
   "qa_pairs": [
     {
-      "question": "What strategy is suggested to make the \"Hello, World!\" program safe from deadlocks?",
-      "answer": "To create a safe program, an odd-even pairing communication strategy is suggested. This involves performing communication in two steps."
+      "question": "What communication strategy can be employed to create a \"safe\" MPI program that avoids deadlocks during point-to-point messaging, particularly in a circular communication pattern like the \"Hello, World!\" example?",
+      "answer": "To create a \"safe\" MPI program and prevent deadlocks during point-to-point messaging in a circular pattern, an odd-even pairing communication strategy is used. In this approach, all even-ranked processes first execute a send operation and then a receive operation, while all odd-ranked processes execute a receive operation followed by a send operation. This ensures that every send is properly paired with a receive, eliminating the possibility of a deadlock."
     },
     {
-      "question": "What actions do even-ranked processes perform when implementing the safe odd-even pairing communication strategy?",
-      "answer": "All even-ranked processes execute a send operation followed by a receive operation."
-    },
-    {
-      "question": "What actions do odd-ranked processes perform when implementing the safe odd-even pairing communication strategy?",
-      "answer": "All odd-ranked processes execute a receive operation followed by a send operation."
-    },
-    {
-      "question": "What is the benefit of using an odd-even pairing communication strategy in parallel programs?",
-      "answer": "The odd-even pairing strategy ensures that sends and receives are properly paired, which helps avoid any possibility of deadlock in the program."
+      "question": "Does the odd-even pairing communication strategy effectively prevent deadlocks in an MPI program even when there is an odd number of processes involved?",
+      "answer": "Yes, the odd-even pairing strategy effectively prevents deadlocks even with an odd number of processes. For example, if process 0 (even) sends to process 1 (odd), and process N-1 (also even) sends to process 0, the transaction between process 0 and process 1 is guaranteed to complete because process 1, being odd, begins with a receive. Once that transaction is finished, process 0 will then receive the message from process N-1. While there might be a minor delay, this structured pairing avoids any potential for deadlock."
     }
   ],
-  "generated_at": "2026-04-12T01:47:22.182792+00:00"
+  "generated_at": "2026-04-13T08:45:07.945859+00:00"
 }

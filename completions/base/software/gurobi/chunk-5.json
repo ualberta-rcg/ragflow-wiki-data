@@ -4,77 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What Gurobi version is loaded in the provided data example Slurm script?",
-      "answer": "The data example Slurm script loads `gurobi/9.5.0`."
+      "question": "Why is it necessary to use a Python virtual environment when working with Gurobi on the clusters?",
+      "answer": "Gurobi includes its own version of Python, which does not contain any third-party Python packages like NumPy, Matplotlib, or Pandas. To use Gurobi alongside these popular packages, you need to create a virtual Python environment where both `gurobipy` and the other desired packages can be installed."
     },
     {
-      "question": "Which Standard Environment module is recommended for Gurobi versions greater than 9.0.2 in the data example Slurm script?",
-      "answer": "For Gurobi versions greater than 9.0.2, the data example Slurm script recommends `module load StdEnv/2020`."
+      "question": "When running a Gurobi Python job on a cluster, why should users explicitly set the number of threads, and how can this be done in a Slurm script?",
+      "answer": "Users should explicitly set the number of threads to prevent Gurobi from defaulting to using as many execute threads as there are physical cores on the compute node. This default behaviour can slow down the job and negatively impact other user jobs running on the same node. In a Slurm script, this is achieved by dynamically generating a `gurobi.env` file in the working directory that sets the `Threads` parameter to match the number of cores allocated to the job, for example, by including the line `echo \"Threads ${SLURM_CPUS_ON_NODE:-1}\" > gurobi.env`."
     },
     {
-      "question": "How are threads specified in the `gurobi_cl` command within the data example Slurm script?",
-      "answer": "Threads are specified using `Threads=$SLURM_CPUS_ON_NODE` in the `gurobi_cl` command."
-    },
-    {
-      "question": "What is the primary purpose of the data example Slurm script?",
-      "answer": "The data example Slurm script is used to solve a simple coin production model using the Gurobi command-line interface."
-    },
-    {
-      "question": "What kind of problem does the Python example Slurm script address?",
-      "answer": "The Python example Slurm script is designed for solving a simple facility location model using Gurobi Python."
-    },
-    {
-      "question": "Why is it important to dynamically generate a `gurobi.env` file to set threads for each submitted Gurobi Python job?",
-      "answer": "It's important because Gurobi, by default, will start as many execute threads as there are physical cores on the compute node, which can slow down the job and negatively impact other user jobs on the same node. Dynamically generating a `gurobi.env` file ensures Gurobi uses the allocated number of cores."
-    },
-    {
-      "question": "What is the default behaviour of Gurobi regarding thread allocation if a `gurobi.env` file is not used to specify them?",
-      "answer": "By default, Gurobi will start as many execute threads as there are physical cores on the compute node if a `gurobi.env` file isn't used to specify them."
-    },
-    {
-      "question": "Which Standard Environment module is recommended for Gurobi versions greater than 10.0.3 in the Python example Slurm script?",
-      "answer": "For Gurobi versions greater than 10.0.3, the Python example Slurm script recommends `module load StdEnv/2023`."
-    },
-    {
-      "question": "What Gurobi version is loaded in the Python example Slurm script provided?",
-      "answer": "The Python example Slurm script loads `gurobi/11.0.1`."
-    },
-    {
-      "question": "How does the Python example Slurm script configure Gurobi to use the allocated number of CPUs as threads?",
-      "answer": "It configures Gurobi to use the allocated number of CPUs by dynamically generating a `gurobi.env` file with the line `echo \"Threads ${SLURM_CPUS_ON_NODE:-1}\" > gurobi.env`."
-    },
-    {
-      "question": "What command is used to run the Gurobi Python facility example in the provided Slurm script?",
-      "answer": "The command used is `gurobi.sh ${GUROBI_HOME}/examples/python/facility.py`."
-    },
-    {
-      "question": "How many CPUs are requested per task in the Python example Slurm script?",
-      "answer": "The Python example Slurm script requests 4 CPUs per task (`#SBATCH --cpus-per-task=4`)."
-    },
-    {
-      "question": "What is the specified memory limit in the Python example Slurm script?",
-      "answer": "The memory limit specified in the Python example Slurm script is 4GB (`#SBATCH --mem=4G`)."
-    },
-    {
-      "question": "Why is it necessary to create a virtual Python environment when using Gurobi with other popular Python packages?",
-      "answer": "It is necessary because Gurobi's own Python version does not include 3rd-party Python packages like NumPy, Matplotlib, or Pandas. A virtual environment allows installing both `gurobipy` and these other packages."
-    },
-    {
-      "question": "Which Python versions are supported when using Gurobi 8.1.1 with `StdEnv/2016`?",
-      "answer": "With Gurobi 8.1.1 and `StdEnv/2016`, supported Python versions include 2.7, 2.7_utf16, 2.7_utf32, 3.5_utf32, 3.6_utf32, and 3.7_utf32."
-    },
-    {
-      "question": "What Python versions are available when loading `StdEnv/2020` and Gurobi 9.5.2?",
-      "answer": "When loading `StdEnv/2020` and Gurobi 9.5.2, the available Python versions are 2.7_utf16, 2.7_utf32, 3.10_utf32, 3.7, 3.7_utf32, 3.8_utf32, and 3.9_utf32."
-    },
-    {
-      "question": "What Python versions are supported with `StdEnv/2023` and Gurobi 10.0.3?",
-      "answer": "Supported Python versions with `StdEnv/2023` and Gurobi 10.0.3 are 3.10_utf32, 3.11_utf32, 3.7, 3.7_utf32, 3.8_utf32, and 3.9_utf32."
-    },
-    {
-      "question": "Which Python version is supported when using `StdEnv/2023` and Gurobi 11.0.1?",
-      "answer": "With `StdEnv/2023` and Gurobi 11.0.1, Python 3.11 is supported."
+      "question": "What are the different installation methods for `gurobipy` within a Python virtual environment for Gurobi versions 10 (and older) versus Gurobi versions 11 (and newer) on the clusters?",
+      "answer": "For Gurobi versions 10 (and older), the installation involves copying the Gurobi `lib` and `setup.py` files to a temporary location (e.g., `/tmp/$USER`) and then running `python setup.py install` from that location within the activated virtual environment. For Gurobi versions 11 (and newer), the `setup.py` method is deprecated. Instead, users must download a compatible binary wheel from `pypi.org`, use a provided script like `unmanylinuxize.sh` to convert the wheel into a usable format, and then install it with `python -m pip install --find-links $PWD --no-index gurobipy` within the activated virtual environment."
     }
   ],
-  "generated_at": "2026-04-11T23:29:13.829623+00:00"
+  "generated_at": "2026-04-13T06:52:07.024812+00:00"
 }

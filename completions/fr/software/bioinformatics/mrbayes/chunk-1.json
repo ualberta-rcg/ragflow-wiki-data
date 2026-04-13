@@ -4,101 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi MrBayes?",
-      "answer": "MrBayes, c'est un programme d'inférence bayésienne pis de choix de modèles pour une vaste gamme de modèles phylogénétiques pis évolutifs."
+      "question": "Qu'est-ce que le programme MrBayes, et à quoi sert-il concrètement?",
+      "answer": "MrBayes est un programme d'inférence bayésienne et de choix de modèles conçu pour une vaste gamme de modèles phylogénétiques et évolutifs. Il se base sur les méthodes de Monte Carlo par chaîne de Markov (MCMC) pour estimer la distribution a posteriori des paramètres de ces modèles."
     },
     {
-      "question": "Quelles méthodes est-ce que MrBayes utilise pour estimer les paramètres du modèle?",
-      "answer": "MrBayes utilise les méthodes de Monte Carlo par chaîne de Markov (MCMC) pour estimer la distribution a posteriori des paramètres du modèle."
+      "question": "Comment fait-on pour exécuter MrBayes en mode parallèle en utilisant plusieurs cœurs de processeur (CPU)?",
+      "answer": "Pour exécuter MrBayes en parallèle avec plusieurs cœurs de processeur via MPI, il faut créer un script SLURM qui spécifie le nombre total de cœurs désirés avec l'option `#SBATCH --ntasks`. Par exemple, pour utiliser huit cœurs, on écrirait `#SBATCH --ntasks=8` dans le script `submit-mrbayes-parallel.sh`, puis on le soumettrait avec la commande `sbatch submit-mrbayes-parallel.sh`."
     },
     {
-      "question": "Comment est-ce qu'on fait pour trouver les modules MrBayes disponibles?",
-      "answer": "Pour trouver les modules disponibles, on peut utiliser la commande `module spider mrbayes`."
-    },
-    {
-      "question": "Où est-ce qu'on peut trouver plus d'informations sur comment utiliser les commandes `module` pour MrBayes?",
-      "answer": "Pour savoir comment trouver pis sélectionner une version de MrBayes avec les commandes `module`, on peut consulter [[Utiliser_des_modules]]."
-    },
-    {
-      "question": "Combien de cœurs CPU sont demandés pour une tâche MrBayes qui roule en séquentiel, selon l'exemple fourni?",
-      "answer": "Pour une tâche séquentielle, l'exemple demande un (1) seul cœur CPU avec le paramètre `--cpus-per-task=1`."
-    },
-    {
-      "question": "Quel fichier en entrée est utilisé dans l'exemple de tâche séquentielle de MrBayes?",
-      "answer": "Dans l'exemple de tâche séquentielle, le fichier en entrée utilisé est `primates.nex`, qui est fourni avec MrBayes."
-    },
-    {
-      "question": "C'est quoi le nom du script de soumission pour l'exemple de tâche séquentielle de MrBayes?",
-      "answer": "Le script de soumission pour la tâche séquentielle s'appelle `submit-mrbayes-seq.sh`."
-    },
-    {
-      "question": "Comment est-ce qu'on soumet le script `submit-mrbayes-seq.sh`?",
-      "answer": "On peut soumettre le script de la tâche avec la commande `sbatch submit-mrbayes-seq.sh`."
-    },
-    {
-      "question": "Est-ce que MrBayes supporte le travail en parallèle?",
-      "answer": "Oui, MrBayes permet d'utiliser des GPU pis plusieurs cœurs sur plusieurs nœuds pour le travail en parallèle."
-    },
-    {
-      "question": "Combien de cœurs CPU sont demandés pour l'exemple de tâche parallèle avec MPI?",
-      "answer": "L'exemple de tâche parallèle avec MPI demande un total de huit (8) cœurs CPU (`--ntasks=8`), sur un ou plusieurs nœuds."
-    },
-    {
-      "question": "Quel fichier en entrée est utilisé pour l'exemple de tâche parallèle avec MPI?",
-      "answer": "Pour l'exemple de tâche parallèle avec MPI, le fichier en entrée utilisé est `primates.nex`, fourni avec MrBayes."
-    },
-    {
-      "question": "Quel est le nom du script de soumission pour l'exemple de tâche parallèle avec MPI?",
-      "answer": "Le script de soumission pour l'exemple de tâche parallèle avec MPI s'appelle `submit-mrbayes-parallel.sh`."
-    },
-    {
-      "question": "Comment est-ce qu'on soumet le script `submit-mrbayes-parallel.sh`?",
-      "answer": "Le script pour la tâche peut être soumis avec la commande `sbatch submit-mrbayes-parallel.sh`."
-    },
-    {
-      "question": "Combien de GPU sont demandés pour l'exemple de tâche MrBayes utilisant un GPU?",
-      "answer": "L'exemple de tâche utilisant un GPU demande un (1) GPU avec le paramètre `--gpus=1`."
-    },
-    {
-      "question": "Quels modules faut-il charger pour exécuter MrBayes avec un GPU?",
-      "answer": "Pour exécuter MrBayes avec un GPU, il faut charger les modules `gcc`, `cuda/12` pis `mrbayes/3.2.7`."
-    },
-    {
-      "question": "Quel est le fichier en entrée utilisé dans l'exemple de tâche MrBayes avec un GPU?",
-      "answer": "L'exemple de tâche avec un GPU utilise le fichier en entrée `primates.nex`, fourni par MrBayes."
-    },
-    {
-      "question": "C'est quoi le nom du script de soumission pour l'exemple de tâche MrBayes avec un GPU?",
-      "answer": "Le script de soumission pour l'exemple de tâche MrBayes avec un GPU s'appelle `submit-mrbayes-gpu.sh`."
-    },
-    {
-      "question": "Comment est-ce qu'on soumet le script `submit-mrbayes-gpu.sh`?",
-      "answer": "On peut soumettre le script de la tâche avec la commande `sbatch submit-mrbayes-gpu.sh`."
-    },
-    {
-      "question": "Pourquoi est-ce qu'il est recommandé de répartir les tâches MrBayes qui prennent beaucoup de temps d'exécution en plusieurs petites tâches?",
-      "answer": "C'est recommandé parce que les tâches de longue durée sont plus susceptibles d'être interrompues par une panne de matériel ou des travaux de maintenance."
-    },
-    {
-      "question": "Quel mécanisme est-ce que MrBayes offre pour gérer les tâches de longue durée?",
-      "answer": "MrBayes offre un mécanisme pour créer des points de contrôle, ce qui permet d'enregistrer le résultat d'une tâche pis de poursuivre le travail avec une autre tâche."
-    },
-    {
-      "question": "Quelle est la principale différence entre les fichiers `job1.nex` pis `job2.nex` dans l'exemple des points de contrôle?",
-      "answer": "Les fichiers `job1.nex` pis `job2.nex` sont identiques, sauf pour la commande `append=yes` sur la dernière ligne du fichier `job2.nex`."
-    },
-    {
-      "question": "C'est quoi le nom du script pour la tâche qui utilise des points de contrôle avec MrBayes?",
-      "answer": "Le script pour la tâche qui utilise des points de contrôle s'appelle `submit-mrbayes-cp.sh`."
-    },
-    {
-      "question": "Quel paramètre SBATCH est utilisé dans le script `submit-mrbayes-cp.sh` pour lancer plusieurs tâches?",
-      "answer": "Le paramètre `--array=1-2%1` est utilisé pour lancer les deux tâches sous forme de vecteur de tâches."
-    },
-    {
-      "question": "Comment est-ce qu'on soumet l'exemple des points de contrôle avec MrBayes?",
-      "answer": "On peut soumettre l'exemple avec la commande `sbatch submit-mrbayes-cp.sh`."
+      "question": "C'est quoi l'utilité des points de contrôle (checkpoints) dans MrBayes, surtout pour les tâches qui prennent beaucoup de temps?",
+      "answer": "Les points de contrôle dans MrBayes, c'est un mécanisme qui permet d'enregistrer les progrès d'une tâche en cours pour pouvoir ensuite la reprendre à partir de ce même point avec une autre tâche. C'est super utile pour les tâches de longue durée, car ça diminue les risques de perdre tout le travail si jamais la tâche est interrompue à cause d'une panne de matériel ou de maintenance."
     }
   ],
-  "generated_at": "2026-04-12T03:21:31.192364+00:00"
+  "generated_at": "2026-04-13T09:39:13.492258+00:00"
 }

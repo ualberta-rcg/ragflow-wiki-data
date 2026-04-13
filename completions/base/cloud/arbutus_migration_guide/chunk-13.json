@@ -4,101 +4,17 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "What is the legacy `mon_host` configuration value for CephFS shares?",
-      "answer": "The legacy `mon_host` value is `“10.30.201.3:6789,10.30.202.3:6789,10.30.203.3:6789”`."
+      "question": "What is the recommended procedure for migrating data between legacy and new CephFS shares in Arbutus Cloud?",
+      "answer": "To migrate data, first create an equivalent share in the New Arbutus Cloud for each legacy share. Mount both the legacy and new shares to separate locations on the same virtual machine in New Arbutus Cloud. Then, use a data copy tool like `rsync` with the `-avp` flags (e.g., `rsync -avp /mnt/old-share/ /mnt/new-share/`) to transfer data from the old share to the new one. For potentially long transfers, it's advised to use `screen` or `tmux` to maintain the session."
     },
     {
-      "question": "What is the new `mon_host` configuration value for CephFS shares in New Arbutus Cloud?",
-      "answer": "The new `mon_host` value is `“134.87.15.61:6789,134.87.15.62:6789,134.87.15.63:6789”`."
+      "question": "How can users migrate data to the New Arbutus Cloud Object Storage, and what tool is recommended for this process?",
+      "answer": "Data migration to New Arbutus Cloud Object Storage can be done using various methods and tools, but `rclone` is recommended if you're unsure which tool to use. When using `rclone`, be aware that it will not copy bucket Access Control Lists (ACLs), meaning all access will initially be defaulted to private in the new location. You will need to create S3 credentials for both legacy and new Arbutus Cloud, configure `rclone` with their respective endpoints (legacy: `https://object-arbutus.cloud.computecanada.ca`, new: `https://object-arbutus.alliancecan.ca`), and then use the `rclone sync legacy: renewal:` command to sync buckets."
     },
     {
-      "question": "What extra value is required in the mount command when mounting a new CephFS share?",
-      "answer": "When mounting a new share, `“conf=/etc/ceph/ceph-new.conf”` is required after the “-o” to specify the new configuration file."
-    },
-    {
-      "question": "Which tool is recommended for transferring data between old and new CephFS shares?",
-      "answer": "Rsync is recommended for transferring data between old and new CephFS shares."
-    },
-    {
-      "question": "What are the recommended `rsync` flags for data transfer between CephFS shares?",
-      "answer": "The `a`, `v`, and `p` flags for rsync are recommended, for example: `rsync -avp /mnt/old-share/ /mnt/new-share/`."
-    },
-    {
-      "question": "What should be used for long data transfers between CephFS shares to prevent session loss?",
-      "answer": "For long data transfers, it is advised to use a tool such as `screen` or `tmux` to keep the session alive in case of a dropped connection."
-    },
-    {
-      "question": "Is New Arbutus Cloud Object Storage integrated with the legacy service?",
-      "answer": "No, New Arbutus Cloud Object Storage is a distinct and separate service from legacy, and any desired data must be intentionally migrated."
-    },
-    {
-      "question": "Where is the management for legacy object storage buckets and objects handled?",
-      "answer": "The management for legacy buckets and objects, including creation, deletion, object manipulation, and key management, is controlled through legacy Arbutus Cloud."
-    },
-    {
-      "question": "Where is the management for new object storage buckets and objects handled?",
-      "answer": "Creation and management for buckets and objects in New Arbutus Cloud is done exclusively in the New Arbutus Cloud environment."
-    },
-    {
-      "question": "What is the endpoint for New Arbutus Cloud Object Storage?",
-      "answer": "The New Arbutus Cloud Object Storage Endpoint is `https://object-arbutus.alliancecan.ca`."
-    },
-    {
-      "question": "What is the endpoint for Legacy Arbutus Cloud Object Storage?",
-      "answer": "The Legacy Arbutus Cloud Object Storage Endpoint is `https://object-arbutus.cloud.computecanada.ca`."
-    },
-    {
-      "question": "What should users be cautious about when migrating bucket ACLs?",
-      "answer": "Users should be cautious that most migration tools do not preserve bucket ACLs, so they may need to be recreated in the new environment."
-    },
-    {
-      "question": "Will user and project UUIDs remain the same in New Arbutus Cloud Object Storage?",
-      "answer": "No, if you reference any user or project UUIDs, they will be different in New Arbutus Cloud."
-    },
-    {
-      "question": "How does New Arbutus Cloud Object Storage handle bucket name collisions?",
-      "answer": "New Arbutus Cloud Object Storage uses tenants, so bucket name collisions will only happen within an individual project instead of across all projects in Arbutus."
-    },
-    {
-      "question": "How is the tenant inferred when authenticating with the Swift or S3 API in New Arbutus Cloud Object Storage?",
-      "answer": "When authenticating with either the Swift or S3 API, the tenant is inferred from the user/key provided."
-    },
-    {
-      "question": "What is required for public access to buckets without authentication in New Arbutus Cloud Object Storage?",
-      "answer": "For public access to buckets with no authentication, the tenant must be specified."
-    },
-    {
-      "question": "What is the format for the URL for unauthenticated S3 access in New Arbutus Cloud Object Storage?",
-      "answer": "The URL for unauthenticated S3 access will be of the format `https://object-arbutus.alliancecan.ca/<tenant-id>:<bucket-name>/<object-name>`."
-    },
-    {
-      "question": "What tool is recommended for migrating data to New Arbutus Cloud Object Storage if users are unsure which tool to use?",
-      "answer": "If you are not sure which tool to use, rclone is recommended."
-    },
-    {
-      "question": "Does `rclone` preserve bucket ACLs during object storage migration?",
-      "answer": "No, rclone will not copy the bucket ACLs, so all access will initially be defaulted private in the new location."
-    },
-    {
-      "question": "What is the first step when using `rclone` for object storage migration?",
-      "answer": "The first step is to install rclone, following the instructions at `https://rclone.org/install/`."
-    },
-    {
-      "question": "What S3 credentials are needed for `rclone` migration?",
-      "answer": "S3 credentials need to be created in both the legacy and new Arbutus Cloud environments."
-    },
-    {
-      "question": "Where should the `rclone` configuration file be located on Linux/macOS?",
-      "answer": "The `rclone` configuration file should be located at `~/.config/rclone/rclone.conf` on Linux/macOS."
-    },
-    {
-      "question": "What command is used to sync all buckets with `rclone` from legacy to new Arbutus Cloud?",
-      "answer": "The command to sync all buckets is `rclone sync legacy: renewal:`."
-    },
-    {
-      "question": "Where can support requests be sent for Cloud-related issues?",
-      "answer": "Support requests can be sent to the usual Cloud support address at `cloud@tech.alliancecan.ca`."
+      "question": "Where should users send support requests for Arbutus Cloud services?",
+      "answer": "Users should send support requests for Arbutus Cloud services to `cloud@tech.alliancecan.ca`."
     }
   ],
-  "generated_at": "2026-04-11T17:43:31.679559+00:00"
+  "generated_at": "2026-04-13T02:21:33.002766+00:00"
 }

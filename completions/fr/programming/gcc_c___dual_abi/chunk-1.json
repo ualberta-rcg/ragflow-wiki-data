@@ -4,61 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi la modification importante qui est arrivée à l'interface binaire-programme (ABI) de GCC?",
-      "answer": "Une modification importante a été introduite à l'interface binaire-programme (ABI) entre les versions 4.9 et 5.1 de GCC."
+      "question": "Pourquoi l'utilisation de différentes versions du compilateur GCC peut-elle poser problème avec l'interface binaire-programme (ABI) après la modification entre les versions 4.9 et 5.1?",
+      "answer": "Après la modification importante de l'ABI entre les versions 4.9 et 5.1 de GCC, l'utilisation de versions différentes du compilateur peut empêcher l'édition des liens de se faire correctement. Ce problème est particulièrement présent si les liens se font vers des bibliothèques précompilées provenant de fournisseurs externes."
     },
     {
-      "question": "Est-ce qu'on peut avoir des problèmes si tout notre code, incluant les bibliothèques, est compilé avec la même version de GCC?",
-      "answer": "Non, aucun problème ne survient si tout le code source incluant les bibliothèques dépendantes est compilé avec la même version du compilateur."
+      "question": "Quelle est la solution pour corriger les erreurs d'édition des liens qui surviennent à cause de l'incompatibilité de l'interface binaire-programme (ABI) lorsque des versions de compilateur GCC différentes sont utilisées?",
+      "answer": "Pour corriger les erreurs d'édition des liens dues à des versions de compilateur GCC différentes, il faut utiliser la fonction Dual ABI. Concrètement, si vous utilisez une version de GCC supérieure à 5.1 et que vous avez besoin de lier avec une ancienne interface ABI, vous devriez passer l'option `-D_GLIBCXX_USE_CXX11_ABI=0` à GCC lors de la compilation de votre code C++."
     },
     {
-      "question": "Quand est-ce qu'on risque d'avoir des problèmes avec l'édition des liens à cause de l'ABI de GCC?",
-      "answer": "Des problèmes peuvent survenir si on utilise des versions différentes du compilateur, surtout si les liens se font vers des bibliothèques précompilées qui viennent de fournisseurs externes."
-    },
-    {
-      "question": "C'est quoi la solution si on doit lier notre code avec une ancienne interface ABI?",
-      "answer": "Dans un tel cas, il faut utiliser la fonction Dual ABI pour que l'édition des liens se fasse de façon appropriée avec l'ancienne interface ABI."
-    },
-    {
-      "question": "Quel paramètre faut passer à GCC si on utilise une version supérieure à 5.1 et qu'on veut l'ancienne interface ABI?",
-      "answer": "Il faudrait passer le paramètre `-D_GLIBCXX_USE_CXX11_ABI=0` à GCC."
-    },
-    {
-      "question": "Ça peut régler quel genre d'erreurs, le paramètre `-D_GLIBCXX_USE_CXX11_ABI=0`?",
-      "answer": "Ce paramètre peut résoudre des erreurs comme `.../extensions.hpp(38): error: “std::list” is ambiguous`."
-    },
-    {
-      "question": "Comment les compilateurs composent-ils les noms uniques et exportent-ils les noms de symboles `extern \"C++\"` par défaut?",
-      "answer": "Par défaut, les compilateurs utilisent chacun un algorithme particulier pour composer des noms uniques et exporter les noms de symboles `extern \"C++\"`."
-    },
-    {
-      "question": "À quoi servent les noms de symboles dans le contexte de l'interface binaire-programme (ABI)?",
-      "answer": "Ces noms de symboles constituent une partie de l'ABI utilisée pour lier le code compilé avec les bibliothèques."
-    },
-    {
-      "question": "Qu'est-ce qui arrive si l'ABI d'un compilateur est modifiée?",
-      "answer": "Toute modification à l'ABI d'un compilateur peut empêcher l'édition des liens de se faire."
-    },
-    {
-      "question": "C'est quoi le but de l'exemple donné dans le document?",
-      "answer": "L'exemple sert à montrer l'effet des options passées à GCC (versions 5.1 ou plus) sur l'ABI utilisée par les binaires générés."
-    },
-    {
-      "question": "Quelle condition faut-il respecter pour que l'édition des liens se fasse correctement pour un programme ou une bibliothèque?",
-      "answer": "Pour que l'édition des liens s'effectue correctement, tous les noms de symboles doivent concorder, autrement l'édition échouera."
-    },
-    {
-      "question": "Pourquoi les noms de symboles générés par le compilateur peuvent-ils différer?",
-      "answer": "Les noms de symboles générés par le compilateur diffèrent selon la configuration du compilateur."
-    },
-    {
-      "question": "Quel est le but du programme C++ `main.cxx` dans l'exemple?",
-      "answer": "Le programme C++ `main.cxx` est compilé pour générer les noms de symboles ABI qu'il contient."
-    },
-    {
-      "question": "Quel est le rôle du `Makefile` fourni dans l'exemple?",
-      "answer": "Le `Makefile` compile le programme `main.cxx` avec différents paramètres pour montrer la différence des appels à l'ABI."
+      "question": "Comment les compilateurs gèrent-ils l'interface binaire-programme (ABI) et pourquoi est-elle cruciale pour le processus d'édition des liens?",
+      "answer": "Par défaut, les compilateurs utilisent un algorithme spécifique pour créer des noms uniques et exporter les noms de symboles `extern \"C++\"`. Ces noms de symboles font partie de l'ABI et sont essentiels pour lier le code compilé avec les bibliothèques. Une modification à l'ABI d'un compilateur peut empêcher l'édition des liens de se faire correctement, car tous les noms de symboles doivent concorder pour qu'une liaison réussisse."
     }
   ],
-  "generated_at": "2026-04-11T22:02:13.589751+00:00"
+  "generated_at": "2026-04-13T05:45:44.034449+00:00"
 }

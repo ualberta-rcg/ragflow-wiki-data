@@ -4,49 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "How do I set up an SSH tunnel to a VNC server on a Nibi compute node?",
-      "answer": "To set up an SSH tunnel to a VNC server on a Nibi compute node (e.g., c48) from your laptop, use the command: `ssh -J username@nibi.alliancecan.ca -L 5905:localhost:5901 c48`. This forwards local port 5905 to the VNC server's listening port 5901 on the compute node."
+      "question": "How do I establish a secure SSH tunnel to a VNC server running on a compute node on the Nibi cluster?",
+      "answer": "For Nibi, the tunnel command requires using `-J username@nibi.alliancecan.ca` and specifying `localhost` for the remote host. The format is `ssh -J username@nibi.alliancecan.ca -L localforwardedport:localhost:remotelisteningport computenode`. For example, if your VNC server is on compute node `c48` listening on port `5901`, and you want to forward local port `5905`, the command would be `ssh -J username@nibi.alliancecan.ca -L 5905:localhost:5901 c48`. This approach also requires an SSH key pair to be created on your laptop, with the public key added to your `~/.ssh/authorized_keys` file on Nibi."
     },
     {
-      "question": "What happens if I exit the compute node while my VNC server is running and a tunnel is active?",
-      "answer": "If you exit the compute node that your SSH tunnel is connected to, you will no longer be able to connect to the VNC server with `vncviewer`. However, your VNC server will continue to run, so you can regain access by simply starting a new tunnel."
+      "question": "Once an SSH tunnel is established, how do I connect to the VNC server from my local desktop using TigerVNC Viewer, and what kind of desktop environment will I experience?",
+      "answer": "If you are on a Linux desktop, open a new local terminal window and use the command `vncviewer localhost:port`, for example, `vncviewer localhost:5905`. For Mac or Windows desktops, click the TigerVNC Viewer application icon and enter `localhost:port` in the \"VNC viewer: Connection details\" dialogue box that appears. After successfully connecting, you will be presented with a Linux MATE desktop. From this desktop, you can launch a terminal by navigating to \"Applications -> System Tools -> MATE Terminal\" and then invoke programs like `xclock` or MATLAB (after loading its module)."
     },
     {
-      "question": "How do I connect to a VNC server from a Linux desktop after setting up an SSH tunnel?",
-      "answer": "From a Linux desktop, open a new local terminal window and use the `vncviewer` command to connect, specifying `localhost:port`. For example, if your local forwarded port is 5905, you would run `vncviewer localhost:5905`. You will then be prompted for the VNC authentication password you set earlier."
-    },
-    {
-      "question": "How do Mac or Windows users connect to a VNC server after setting up an SSH tunnel?",
-      "answer": "Mac or Windows users should click the `TigerVNC Viewer` application icon and enter their `localhost:port` information (e.g., `localhost:5905`) in the `VNC viewer: Connection details` popup dialogue box that appears."
-    },
-    {
-      "question": "What is the default VNC port assumed by the TigerVNC Viewer?",
-      "answer": "The `TigerVNC Viewer` assumes a default VNC port of 5900. If you specify 5900 as the local port to be forwarded when starting your SSH tunnel, you can simply enter `localhost` in the viewer's connection details."
-    },
-    {
-      "question": "Are there any known issues for Windows users regarding VNC port 5900?",
-      "answer": "Yes, Windows users may find they cannot set up an SSH tunnel on local port 5900 in the first place."
-    },
-    {
-      "question": "What kind of desktop is presented after connecting with vncviewer, and how do I launch programs?",
-      "answer": "Once `vncviewer` connects, you will be presented with a Linux MATE desktop. To launch a terminal, click on the top menu on \"Applications -> System Tools -> MATE Terminal.\" Programs can be launched by invoking their command within a `bash` session, such as `xclock` or `matlab` (after loading its module)."
-    },
-    {
-      "question": "How can I reset my VNC server password?",
-      "answer": "To reset your VNC server password, use the `vncpasswd` command from a terminal on the cluster node where the VNC server is running. You will be prompted to enter and verify a new password."
-    },
-    {
-      "question": "How can I completely remove my VNC configuration and password?",
-      "answer": "You can completely remove your VNC configuration, including your password, by deleting your `~/.vnc` directory. The next time you run `vncserver`, you will be prompted to set a new password."
-    },
-    {
-      "question": "How do I terminate a running VNC server if it's no longer needed?",
-      "answer": "To terminate a running VNC server that is no longer needed, use the command `vncserver -kill :DISPLAY#`, where `DISPLAY#` is the display number of the VNC server you wish to kill (e.g., `vncserver -kill :44`). You can find the display number using `vncserver -list`."
-    },
-    {
-      "question": "How can I kill all VNC servers running under my username on a node instantly?",
-      "answer": "To instantly kill all VNC servers running under your username on a specific node, use the command `pkill Xvnc -u $USER`."
+      "question": "What are the methods for managing the VNC server password and terminating a running VNC server on an Alliance cluster?",
+      "answer": "To reset your VNC server password, use the `vncpasswd` command, which will prompt you to enter and verify a new password. Optionally, you can completely remove your VNC configuration, including the password, by deleting your `~/.vnc` directory; the next time you run `vncserver`, you will be prompted to set a new password. To terminate a specific running VNC server, use `vncserver -kill :DISPLAY#`, replacing `DISPLAY#` with the session's display number (e.g., `vncserver -kill :44`). To instantly terminate all VNC servers running under your username on a node, you can use the command `pkill Xvnc -u $USER`."
     }
   ],
-  "generated_at": "2026-04-12T10:50:24.348088+00:00"
+  "generated_at": "2026-04-13T15:47:35.112839+00:00"
 }

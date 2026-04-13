@@ -2,6 +2,19 @@
   "doc_key": "base/glost",
   "level": "chunk",
   "chunk_index": 6,
-  "qa_pairs": [],
-  "generated_at": "2026-04-11T22:11:18.908078+00:00"
+  "qa_pairs": [
+    {
+      "question": "How does GLOST distribute serial jobs among the available cores in an MPI job?",
+      "answer": "GLOST employs a cyclic distribution strategy. It assigns the initial jobs from the task list to the available processors. As soon as a processor finishes its current task, GLOST provides it with the next job from the list, continuing this process until all tasks are completed or the allocated job time expires."
+    },
+    {
+      "question": "When would a user benefit from running GLOST serial jobs in separate directories?",
+      "answer": "Running GLOST serial jobs in separate directories is advantageous when individual jobs might utilize files (such as temporary, input, or output files) that share identical names. This practice helps prevent job failures or the overwriting of results that could occur if all jobs were executed within the same shared directory."
+    },
+    {
+      "question": "How can GLOST be configured to run each serial job in its own dedicated directory?",
+      "answer": "To configure GLOST to run each serial job in a dedicated directory, you have two primary methods: either ensure that input files and a distinct directory are created for each job prior to running GLOST, or embed directory creation and navigation commands directly into each line of the `list_glost_tasks.txt` file. An example of an embedded command would be `nargument=XX && mkdir -p RUN_${nargument} && cd RUN_${nargument} && ...`."
+    }
+  ],
+  "generated_at": "2026-04-13T05:53:45.574599+00:00"
 }

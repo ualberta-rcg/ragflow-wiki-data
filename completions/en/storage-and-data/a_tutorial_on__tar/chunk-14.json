@@ -4,45 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "How can I extract multiple specific files from an uncompressed tar archive into a different directory?",
-      "answer": "To extract multiple specific files from an uncompressed tar archive, use the `tar` command with the `-C` option for the destination directory, `--extract`, `--file=archive_name.tar`, and then list the full paths to each file. For example: `tar -C ./new_results/ --extract --file=results.tar \"results/Res-01/log.15Feb16.4\" \"file2\" \"file3\"`."
+      "question": "How do you list the contents of a tar file without extracting it?",
+      "answer": "To list the content of a tar file without unpacking it, you can use the `tar -t` command. For example, `tar -tf results.tar` will show the file names, and `tar -tvf results.tar` will display additional metadata such as permissions, date of last change, and owner, similar to what you'd see with `ls -l`."
     },
     {
-      "question": "How do I extract a specific file from a gzipped tar archive into a different directory?",
-      "answer": "You can extract a specific file from a gzipped tar archive using `tar -C ./destination_directory/ --extract -z --file=archive_name.tar.gz path/to/your/file`. For instance: `tar -C ./new_results/ --extract -z --file=results.tar.gz results/Res-01/log.15Feb16.4`."
+      "question": "How can I extract multiple files from a tar archive using a wildcard pattern?",
+      "answer": "To extract multiple files from a tar archive using wildcards, you can use a command like `tar -C ./new_results/ -xvf results.tar --wildcards \"results/*.dat\"`. This command extracts all files ending with `.dat` within the `results` directory of `results.tar` into the `new_results` directory. This approach also works for compressed archives by adding the appropriate `z` (for `gzip`) or `j` (for `bzip2`) option."
     },
     {
-      "question": "What command should I use to extract a specific file from a bzip2 compressed tar archive to a particular directory?",
-      "answer": "To extract a specific file from a bzip2 compressed tar archive, use `tar -C ./destination_directory/ --extract -j --file=archive_name.tar.bz2 path/to/your/file`. An example command is: `tar -C ./new_results/ --extract -j --file=results.tar.bz2 results/Res-01/log.15Feb16.4`."
-    },
-    {
-      "question": "How do I extract multiple files from an uncompressed tar archive using wildcards, specifying a destination directory?",
-      "answer": "To extract multiple files from an uncompressed tar archive using wildcards, you can use `tar -C ./destination_directory/ -xvf archive_name.tar --wildcards \"path/to/files/*.extension\"`. For example, `tar -C ./new_results/ -xvf results.tar --wildcards \"results/*.dat\"` will extract all files ending with `.dat` from the `results` directory within the `results.tar` archive to `new_results/results/`."
-    },
-    {
-      "question": "Can wildcards be used when extracting files from compressed tar archives?",
-      "answer": "Yes, you can use wildcards when extracting files from compressed tar archives by adding the appropriate compression option: `-j` for `bzip2` compressed archives (`.bz2`) or `-z` for `gzip` compressed archives (`.gz`)."
-    },
-    {
-      "question": "How can I extract files that start with a particular string, such as 'log', from an uncompressed tar archive to a specified directory?",
-      "answer": "You can extract files starting with a specific string using wildcards with the `tar` command. For instance, to extract files starting with 'log', use: `tar -C ./destination_directory/ -xvf archive_name.tar --wildcards \"path/to/files/log*\"`. An example is `tar -C ./new_results/ -xvf results.tar --wildcards \"results/log*\"`."
-    },
-    {
-      "question": "What is the command to list the contents of an uncompressed tar file without extracting it?",
-      "answer": "To list the contents of an uncompressed tar file without extracting it, use the command `tar -tf your_archive.tar`. For example: `tar -tf results.tar`."
-    },
-    {
-      "question": "How do I list the contents of an uncompressed tar file, including metadata like permissions and modification dates?",
-      "answer": "You can list the contents of an uncompressed tar file along with file metadata (permissions, date of last change, owner) using the command `tar -tvf your_archive.tar`. This is similar to what `ls -l` shows for unarchived files. For example: `tar -tvf results.tar`."
-    },
-    {
-      "question": "How can I count the number of entries (files and directories) within an uncompressed tar file?",
-      "answer": "To count the number of entries within an uncompressed tar file, you can pipe the output of `tar -tf your_archive.tar` or `tar -tvf your_archive.tar` to the `wc -l` command. For example: `tar -tvf results.tar | wc -l` or `tar -tf results.tar | wc -l`."
-    },
-    {
-      "question": "When counting entries in a tar file using `wc -l` with the verbose option (`-v`), will the file details be included in the final count?",
-      "answer": "No, when counting entries with `wc -l`, the verbose option (`-v`) will not affect the final count. The `wc -l` command only counts the number of lines in the output, so while `tar -tvf` shows details, `wc -l` simply counts each entry as one line."
+      "question": "How do you determine the total number of files and sub-directories within a tar archive?",
+      "answer": "You can count the number of entries in a tar file by combining the list command with the `wc -l` utility. For example, running `tar -tvf results.tar | wc -l` or `tar -tf results.tar | wc -l` will output the total count of files and sub-directories, including the main directory itself."
     }
   ],
-  "generated_at": "2026-04-11T15:18:28.824809+00:00"
+  "generated_at": "2026-04-13T00:37:59.113825+00:00"
 }

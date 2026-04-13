@@ -4,77 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que Dask?",
-      "answer": "Dask est une bibliothèque polyvalente pour Python. Elle fournit des tableaux NumPy et des DataFrames Pandas, permettant le calcul distribué en Python pur avec accès à la pile PyData."
+      "question": "Qu'est-ce que Dask, et à quoi sert cette bibliothèque dans un environnement Python?",
+      "answer": "Dask est une bibliothèque polyvalente pour Python. Elle sert à faire du calcul distribué en Python pur en fournissant des tableaux NumPy et des DataFrames Pandas, tout en donnant accès à la pile PyData."
     },
     {
-      "question": "Quelle est la méthode recommandée pour installer Dask?",
-      "answer": "La meilleure option est d'installer Dask en utilisant les Python wheels."
+      "question": "Comment peut-on installer la bibliothèque Dask à l'aide de `pip install` dans un environnement virtuel?",
+      "answer": "Pour installer Dask avec `pip install` dans un environnement virtuel, il faut d'abord charger un module Python avec `module load python`. Ensuite, on doit créer et démarrer un environnement virtuel. Finalement, dans cet environnement virtuel, on utilise la commande `pip install` pour installer `dask` et, si nécessaire, `dask-distributed`."
     },
     {
-      "question": "Quelles sont les étapes pour installer Dask avec les Python wheels?",
-      "answer": "Premièrement, il faut charger un module Python avec `module load python`. Deuxièmement, on crée et démarre un environnement virtuel. Finalement, dans l'environnement virtuel, on utilise `pip install` pour installer `dask` et, si désiré, `dask-distributed`."
-    },
-    {
-      "question": "Comment installer Dask et dask-distributed dans un environnement virtuel avec pip, sans index?",
-      "answer": "Pour ce faire, on utilise la commande suivante: `pip install --no-index dask distributed`."
-    },
-    {
-      "question": "Que fait l'exemple de soumission de tâche pour un nœud simple?",
-      "answer": "L'exemple démarre une grappe Dask avec un seul nœud de 6 CPU et calcule la moyenne d'une colonne pour l'ensemble des données."
-    },
-    {
-      "question": "Combien de cœurs CPU sont demandés par tâche dans le script SLURM `dask-example.sh` pour un nœud simple?",
-      "answer": "Le script demande 6 cœurs CPU par tâche (`#SBATCH --cpus-per-task=6`)."
-    },
-    {
-      "question": "Quels modules Python sont chargés dans le script `dask-example.sh` pour l'exemple à nœud simple?",
-      "answer": "Les modules `python`, `gcc` et `arrow` sont chargés."
-    },
-    {
-      "question": "Comment le script à nœud simple installe-t-il les dépendances Dask et Pandas dans l'environnement virtuel?",
-      "answer": "Il utilise la commande `pip install dask distributed pandas --no-index`."
-    },
-    {
-      "question": "Comment le script `dask-example.sh` configure-t-il l'adresse et le port du planificateur Dask pour un nœud simple?",
-      "answer": "L'adresse du planificateur est définie comme le nom d'hôte (`export DASK_SCHEDULER_ADDR=$(hostname)`) et le port est un nombre aléatoire entre 30000 et 39999 (`export DASK_SCHEDULER_PORT=$((30000 + $RANDOM % 10000))`)."
-    },
-    {
-      "question": "Combien de processus de travail et de fils d'exécution sont configurés pour les travailleurs Dask dans l'exemple à nœud simple?",
-      "answer": "Le script configure 6 travailleurs (`--nworkers=6`) et 1 fil d'exécution par travailleur (`--nthreads=1`)."
-    },
-    {
-      "question": "Comment le DataFrame Pandas est-il divisé dans l'exemple à nœud simple?",
-      "answer": "Le DataFrame Pandas est divisé en 6 parts, et chaque processus de travail en traite une avec un CPU."
-    },
-    {
-      "question": "Où peut-on trouver des informations pour ajuster le nombre de processus et de fils dans Dask?",
-      "answer": "Il faut consulter la documentation officielle de Dask, notamment la section sur l'efficacité."
-    },
-    {
-      "question": "Que fait le script Python `dask-example.py` pour une tâche à nœud simple?",
-      "answer": "Il crée un DataFrame Pandas, le convertit en Dask DataFrame en le divisant en un nombre de partitions égal au nombre de travailleurs (CPU), puis calcule la moyenne d'une colonne et l'affiche."
-    },
-    {
-      "question": "Quelle est la principale différence entre l'exemple à nœud simple et celui à plusieurs nœuds?",
-      "answer": "L'exemple à plusieurs nœuds utilise une grappe Dask de deux nœuds comportant 6 CPU chacun, tandis que l'exemple à nœud simple n'en utilise qu'un."
-    },
-    {
-      "question": "Comment les processus et cœurs sont-ils configurés par nœud dans l'exemple à plusieurs nœuds?",
-      "answer": "On crée deux processus par nœud, chacun comportant trois cœurs."
-    },
-    {
-      "question": "Combien de nœuds sont requis pour l'exemple de soumission de tâche à plusieurs nœuds?",
-      "answer": "Deux nœuds (`#SBATCH --nodes 2`) sont requis."
-    },
-    {
-      "question": "Quel est le nombre de tâches par nœud et de CPU par tâche dans le script SLURM pour l'exemple à plusieurs nœuds?",
-      "answer": "Il y a deux tâches par nœud (`#SBATCH --tasks-per-node=2`) et trois CPU par tâche (`#SBATCH --cpus-per-task=3`)."
-    },
-    {
-      "question": "Quel port est défini pour le planificateur Dask dans l'exemple à plusieurs nœuds?",
-      "answer": "Le port du planificateur Dask est fixé à 34567."
+      "question": "Comment soumettre une tâche pour démarrer une grappe Dask sur un nœud simple avec 6 CPU et calculer la moyenne d'une colonne de données?",
+      "answer": "Pour soumettre une tâche sur un nœud simple, il faut un script SLURM comme l'exemple `dask-example.sh`. Ce script charge les modules nécessaires, crée et active un environnement virtuel, installe Dask et ses dépendances, puis démarre un ordonnanceur Dask et six processus de travail Dask. Enfin, il exécute un script Python, tel que `dask-example.py`, qui se connecte à la grappe Dask pour calculer la moyenne d'une colonne pour l'ensemble des données."
     }
   ],
-  "generated_at": "2026-04-11T20:50:35.259632+00:00"
+  "generated_at": "2026-04-13T04:47:14.393237+00:00"
 }

@@ -4,113 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How do I create an SSH tunnel from Windows for Jupyter Notebook using MobaXTerm?",
-      "answer": "Open a second Terminal tab in MobaXTerm (Session 2) and run the command `ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca`, substituting `<hostname:port>` by its corresponding value from the URL you obtained in Session 1, `<username>` by your username, and `<cluster>` by the cluster you connected to in Session 1."
+      "question": "How do users connect to a Jupyter Notebook instance running on a compute node from a Windows machine using MobaXTerm?",
+      "answer": "To connect from Windows using MobaXTerm, first, a user must open a new Terminal tab (Session 1) to connect to a cluster and start Jupyter Notebook, noting the `hostname:port` and `token` from the resulting URL. Then, in a second Terminal tab (Session 2), they should run `ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca`. Finally, they can open their browser and go to `http://localhost:8888/?token=<token>`, replacing `<token>` with the value obtained from Session 1."
     },
     {
-      "question": "After creating an SSH tunnel with MobaXTerm, what URL should I use in my browser to access Jupyter Notebook?",
-      "answer": "Open your browser and go to `http://localhost:8888/?token=<token>`, replacing `<token>` with its value from Session 1."
+      "question": "What are the two general steps required to add a new kernel for a different programming language or Python version to Jupyter Notebook?",
+      "answer": "The two general steps are: first, installing the packages that will enable the language interpreter to communicate with Jupyter Notebook, and second, creating a 'kernel spec file'. This file is responsible for indicating to Jupyter Notebook how to initiate a communication channel with that specific language interpreter."
     },
     {
-      "question": "How do I shut down the Jupyter Notebook server before the walltime limit?",
-      "answer": "You can shut down the Jupyter Notebook server by pressing Ctrl-C twice in the terminal that launched the interactive job."
-    },
-    {
-      "question": "How do I shut down an SSH tunnel created with MobaXterm?",
-      "answer": "If you used MobaXterm to create a tunnel, press Ctrl-D in Session 2 to shut down the tunnel."
-    },
-    {
-      "question": "Why would I want to add kernels to Jupyter Notebook?",
-      "answer": "It is possible to add kernels for other programming languages or Python versions different than the one running the Jupyter Notebook."
-    },
-    {
-      "question": "Where can I find more information about making kernels for Jupyter?",
-      "answer": "You can refer to 'Making kernels for Jupyter' at http://jupyter-client.readthedocs.io/en/latest/kernels.html."
-    },
-    {
-      "question": "What are the two main steps for installing a new kernel in Jupyter Notebook?",
-      "answer": "The installation of a new kernel is done in two steps: first, the installation of the packages that will allow the language interpreter to communicate with Jupyter Notebook, and second, the creation of a file called a 'kernel spec file'."
-    },
-    {
-      "question": "What is a kernel spec file and what does it do?",
-      "answer": "A kernel spec file is a file that will indicate to Jupyter Notebook how to initiate a communication channel with the language interpreter."
-    },
-    {
-      "question": "Where should kernel spec files be created?",
-      "answer": "Each kernel spec file has to be created in its own subfolder inside a folder in your home directory with the path `~/.local/share/jupyter/kernels`."
-    },
-    {
-      "question": "What command should I use to create the necessary directory for Jupyter kernel spec files?",
-      "answer": "You can use the command `mkdir -p ~/.local/share/jupyter/kernels` to create the folder if it doesn't exist."
-    },
-    {
-      "question": "What is the first step to install a Julia kernel in Jupyter Notebook?",
-      "answer": "The first step is to load the Julia module using `module load julia`."
-    },
-    {
-      "question": "What is the second step to install a Julia kernel in Jupyter Notebook?",
-      "answer": "The second step is to activate the Jupyter Notebook virtual environment using `source $HOME/jupyter_py3/bin/activate`."
-    },
-    {
-      "question": "What is the final step to install the IJulia package for a Julia kernel in Jupyter Notebook?",
-      "answer": "The final step is to install IJulia using the command `echo 'Pkg.add(\"IJulia\")' | julia`."
-    },
-    {
-      "question": "Where can I find more information about IJulia?",
-      "answer": "For more information, see the IJulia documentation at https://github.com/JuliaLang/IJulia.jl."
-    },
-    {
-      "question": "What is the first step to add a Python 3.5 kernel to Jupyter Notebook?",
-      "answer": "The first step is to load the Python module using `module load python/3.5`."
-    },
-    {
-      "question": "How do I create a new Python virtual environment for a Python 3.5 kernel?",
-      "answer": "Create a new Python virtual environment using `virtualenv $HOME/jupyter_py3.5`."
-    },
-    {
-      "question": "How do I activate the new Python virtual environment for a Python 3.5 kernel?",
-      "answer": "Activate your newly created Python virtual environment using `source $HOME/jupyter_py3.5/bin/activate`."
-    },
-    {
-      "question": "What library needs to be installed for a Python 3.5 kernel?",
-      "answer": "Install the `ipykernel` library using `pip install ipykernel`."
-    },
-    {
-      "question": "How do I generate the kernel spec file for a Python 3.5 kernel?",
-      "answer": "Generate the kernel spec file using `python -m ipykernel install --user --name <unique_name> --display-name \"Python 3.5 Kernel\"`, substituting `<unique_name>` by a name that will uniquely identify your kernel."
-    },
-    {
-      "question": "What is the last step after generating the kernel spec file for a Python 3.5 kernel?",
-      "answer": "Deactivate the virtual environment using `deactivate`."
-    },
-    {
-      "question": "Where can I find more information about `ipykernel`?",
-      "answer": "For more information, see the ipykernel documentation at http://ipython.readthedocs.io/en/stable/install/kernel_install.html."
-    },
-    {
-      "question": "What is the initial step to install an R kernel in Jupyter Notebook?",
-      "answer": "The initial step is to load the R module using `module load r`."
-    },
-    {
-      "question": "How do I activate the Jupyter Notebook virtual environment for R kernel installation?",
-      "answer": "Activate the Jupyter Notebook virtual environment using `source $HOME/jupyter_py3/bin/activate`."
-    },
-    {
-      "question": "What R kernel dependencies need to be installed?",
-      "answer": "Install the R kernel dependencies using `R -e \"install.packages(c('crayon', 'pbdZMQ', 'devtools'), repos='http://cran.us.r-project.org')\"`."
-    },
-    {
-      "question": "How do I install the R kernel itself?",
-      "answer": "Install the R kernel using `R -e \"devtools::install_github(paste0('IRkernel/', c('repr', 'IRdisplay', 'IRkernel')))\"`."
-    },
-    {
-      "question": "What command is used to install the R kernel spec file?",
-      "answer": "Install the R kernel spec file using `R -e \"IRkernel::installspec()\"`."
-    },
-    {
-      "question": "Where can I find additional documentation for the R kernel?",
-      "answer": "For more information, see the IRKernel documentation at https://irkernel.github.io/docs/."
+      "question": "What are the steps to install a Python 3.5 kernel within an existing Jupyter Notebook environment?",
+      "answer": "To install a Python 3.5 kernel, first load the Python 3.5 module. Then, create and activate a new Python virtual environment, for example, `$HOME/jupyter_py3.5`. Next, install the `ipykernel` library using `pip install ipykernel` within this active virtual environment. Finally, generate the kernel spec file using `python -m ipykernel install --user --name <unique_name> --display-name \"Python 3.5 Kernel\"` and then deactivate the virtual environment."
     }
   ],
-  "generated_at": "2026-04-12T00:39:36.995931+00:00"
+  "generated_at": "2026-04-13T07:50:15.060120+00:00"
 }

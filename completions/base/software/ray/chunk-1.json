@@ -4,105 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is Ray?",
-      "answer": "Ray is a unified framework for scaling AI and Python applications."
+      "question": "What is Ray and what is its primary purpose in AI and Python applications?",
+      "answer": "Ray is a unified framework designed for scaling AI and Python applications. Its primary purpose is to provide a core distributed runtime and a toolkit of libraries that simplify running parallel and distributed workloads, particularly for Machine Learning jobs."
     },
     {
-      "question": "What does Ray consist of?",
-      "answer": "Ray consists of a core distributed runtime and a toolkit of libraries for simplifying running parallel/distributed workloads."
+      "question": "What is the preferred method for installing Ray, and what are the steps involved?",
+      "answer": "The preferred method for installing Ray is to use a Python wheel. The steps include: 1. Loading a Python module using `module load python`. 2. Creating and starting a virtual environment. 3. Installing Ray within the virtual environment using `pip install --no-index ray`."
     },
     {
-      "question": "What type of workloads does Ray primarily simplify?",
-      "answer": "Ray primarily simplifies Machine Learning jobs, which are a type of parallel/distributed workload."
-    },
-    {
-      "question": "How can I see the latest available version of Ray that has been built?",
-      "answer": "You can see the latest version of Ray by using the command `avail_wheels \"ray\"`."
-    },
-    {
-      "question": "What is the preferred method for installing Ray?",
-      "answer": "The preferred option is to install Ray using a Python wheel."
-    },
-    {
-      "question": "What are the steps to install Ray using a Python wheel?",
-      "answer": "The steps are: 1. Load a Python module with `module load python`. 2. Create and start a virtual environment. 3. Install Ray in the virtual environment with `pip install --no-index ray`."
-    },
-    {
-      "question": "What command is used to load a Python module during the Ray installation process?",
-      "answer": "The command `module load python` is used to load a Python module."
-    },
-    {
-      "question": "How do you install Ray within a virtual environment using pip?",
-      "answer": "You install Ray with `pip install --no-index ray` in the virtual environment."
-    },
-    {
-      "question": "What kind of Ray cluster is demonstrated in the job submission example?",
-      "answer": "The example demonstrates submitting a job that spawns a single-node Ray cluster."
-    },
-    {
-      "question": "What default resources are allocated to the single-node Ray cluster in the example job script?",
-      "answer": "The single-node Ray cluster is allocated 200GB RAM, 48 CPU cores, and 4 H100 GPUs per node."
-    },
-    {
-      "question": "How can the `ray-example.sh` script be adapted for multi-node Ray clusters?",
-      "answer": "The script can be adapted by changing the default value of `#SBATCH --nodes=1` or by overriding it with `sbatch`'s `--nodes=` command-line argument."
-    },
-    {
-      "question": "What are the SLURM directives specified at the beginning of the `ray-example.sh` script?",
-      "answer": "The SLURM directives are: `--nodes=1`, `--ntasks-per-node=1`, `--gpus-per-task=h100:4`, `--cpus-per-task=48`, `--mem=200G`, `--time=0-00:10`, and `--output=%N-%j.out`."
-    },
-    {
-      "question": "How does the `ray-example.sh` script load necessary modules?",
-      "answer": "The script loads modules by executing `module load python`."
-    },
-    {
-      "question": "How are a virtual environment created and Ray installed on all nodes in the job submission script?",
-      "answer": "A virtual environment is created and Ray is installed on all nodes by running the `config_env.sh` script using `srun -N $SLURM_NNODES -n $SLURM_NNODES config_env.sh`."
-    },
-    {
-      "question": "How is the Ray head node address and a free port defined in the `ray-example.sh` script?",
-      "answer": "The head node address is set using `export HEAD_NODE=$(hostname)`, and a free port is determined by a Python script that uses `socket` to find an available port."
-    },
-    {
-      "question": "What is the purpose of the `ray_multiprog_config` in the `ray-example.sh` script?",
-      "answer": "The `ray_multiprog_config` is used to craft the `--multi-prog` configuration for Ray, defining how the head and worker nodes should be started."
-    },
-    {
-      "question": "What configuration is set for the Ray head node and worker nodes in the `ray_multiprog_config` file?",
-      "answer": "The head node is configured to start with `ray start --block --head --node-ip-address=$HEAD_NODE --port=$RAY_PORT`, and worker nodes with `ray start --block --address=${HEAD_NODE}:${RAY_PORT}`."
-    },
-    {
-      "question": "What command is used to launch the Ray head and worker nodes across all allocated nodes in the job script?",
-      "answer": "The `srun` command is used with `--multi-prog \"$ray_multiprog_config\"` to launch the head and worker nodes."
-    },
-    {
-      "question": "What is the `ray_cluster_pid` used for in the `ray-example.sh` script?",
-      "answer": "The `ray_cluster_pid` stores the process ID of the Ray cluster launch command, which is later used to shut down the cluster."
-    },
-    {
-      "question": "How does the `ray-example.sh` script execute the user's Python script?",
-      "answer": "The script executes the user's Python script using `python test_ray.py \"$@\"`."
-    },
-    {
-      "question": "How are Ray worker nodes shut down after the Python script exits in the example?",
-      "answer": "After the Python script exits, Ray worker nodes are shut down by killing the process associated with `ray_cluster_pid` and waiting for its termination using `kill $ray_cluster_pid` and `wait`."
-    },
-    {
-      "question": "What are the contents of the `config_env.sh` script?",
-      "answer": "The `config_env.sh` script loads the Python module, creates a virtual environment named `ENV` in `$SLURM_TMPDIR` without downloading packages, activates it, then upgrades pip and installs Ray, both without indexing."
-    },
-    {
-      "question": "What is the purpose of the `test_ray.py` script?",
-      "answer": "The `test_ray.py` script connects to the launched Ray cluster and checks that Ray can see the resources allocated to the job."
-    },
-    {
-      "question": "How does the `test_ray.py` script connect to the Ray cluster?",
-      "answer": "It connects using `ray.init(address=f\"{os.environ['HEAD_NODE']}:{os.environ['RAY_PORT']}\", _node_ip_address=os.environ['HEAD_NODE'])`, utilizing environment variables for the head node's address and port."
-    },
-    {
-      "question": "What information does `test_ray.py` output about the Ray cluster?",
-      "answer": "The `test_ray.py` script outputs the list of nodes in the Ray cluster and the available resources it detects."
+      "question": "How can a Ray job be submitted, and what resources are allocated for a single-node cluster in the provided example script?",
+      "answer": "A Ray job can be submitted using a job submission script, such as the `ray-example.sh` provided. In the example, a single-node Ray cluster is configured to use 200GB RAM, 48 CPU cores, and 4 H100 GPUs per node. This script can be adapted for multi-node clusters by modifying or overriding the `#SBATCH --nodes=1` line."
     }
   ],
-  "generated_at": "2026-04-12T06:54:21.492201+00:00"
+  "generated_at": "2026-04-13T12:38:53.975450+00:00"
 }

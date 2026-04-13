@@ -3,53 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Apache Spark and where did it originate?",
-      "answer": "Apache Spark is an open-source distributed computing framework initially developed by the AMPLab at Berkeley University, and it is now a project of the Apache Foundation."
+      "question": "What is Apache Spark?",
+      "answer": "Apache Spark is an open-source distributed computing framework, initially developed by AMPLab at the University of Berkeley, and now an Apache Foundation project."
     },
     {
-      "question": "How does Apache Spark's performance compare to Hadoop's MapReduce, and what enables this difference?",
-      "answer": "Unlike Hadoop's MapReduce, which uses disk storage, Spark uses in-memory primitives, allowing it to achieve up to 100 times faster performance for certain applications."
+      "question": "How does Apache Spark differ from Hadoop MapReduce in terms of performance?",
+      "answer": "Unlike Hadoop MapReduce, which uses disk storage, Apache Spark uses in-memory primitives, allowing it to achieve up to 100 times faster performance for certain applications."
     },
     {
-      "question": "For which applications is Apache Spark particularly well-suited due to its data handling approach?",
-      "answer": "Spark is particularly appropriate for machine learning and interactive data analysis because loading data into memory allows for frequent querying."
+      "question": "What types of applications is Apache Spark particularly well-suited for?",
+      "answer": "Apache Spark is particularly well-suited for machine learning and interactive data analysis because it enables frequent querying of data loaded into memory."
     },
     {
-      "question": "What are the two primary methods for utilizing Apache Spark described in the document's usage section?",
-      "answer": "The document describes using Apache Spark with PySpark and Java Jars."
+      "question": "What programming interfaces are provided with examples for using Apache Spark in the document?",
+      "answer": "The document provides examples for using Apache Spark with PySpark (Python) and Java Jars."
     },
     {
-      "question": "What is the purpose of the monitoring section for Spark applications?",
-      "answer": "The monitoring section explains how to save activity logs of executed Spark applications and subsequently view them using a web application provided with Spark."
+      "question": "What modules need to be loaded to run a PySpark application on Alliance clusters?",
+      "answer": "To run a PySpark application, you need to load the `spark/2.3.0` and `python/3.7` modules."
     },
     {
-      "question": "What configuration steps are required to enable saving Spark application logs?",
-      "answer": "One must first create an event log directory, then a Spark configuration directory (if it doesn't exist), and finally create or add content to `spark-defaults.conf` to enable logging and specify log directories."
+      "question": "What are the recommended SLURM parameters for a Spark job submission script?",
+      "answer": "Recommended SLURM parameters include `--account`, `--time`, `--nodes`, `--mem`, `--cpus-per-task`, and `--ntasks-per-node`."
     },
     {
-      "question": "What is a prerequisite for visualizing Spark application logs using the web application?",
-      "answer": "A necessary prerequisite is to create an SSH tunnel between your computer and the compute cluster."
+      "question": "What environment variables are recommended for Intel MKL routines and Spark worker directories in an Apache Spark job script?",
+      "answer": "`MKL_NUM_THREADS=1` is recommended for Intel MKL routines, and `SPARK_WORKER_DIR` should be set to `$SLURM_TMPDIR` for Spark worker directories."
     },
     {
-      "question": "How do you launch the web application for visualizing Spark logs after the necessary setup?",
-      "answer": "After loading the Spark module, you launch the web application by running the command `SPARK_NO_DAEMONIZE=1 start-history-server.sh`."
+      "question": "What command is used to start the Spark master node within a job submission script?",
+      "answer": "The `start-master.sh` command is used to start the Spark master node."
     },
     {
-      "question": "How does a user access the Spark history server web application once it's running?",
-      "answer": "The user needs to copy the URL displayed in the terminal and paste it into their web browser."
+      "question": "How do you submit a Python Spark application using `spark-submit` after setting up the master and worker nodes?",
+      "answer": "After setting up the master and worker nodes, you can submit a Python Spark application using `srun -n 1 -N 1 spark-submit --master ${MASTER_URL} --executor-memory ${SLURM_SPARK_MEM}M <your_script.py>`."
     },
     {
-      "question": "What command is used in the provided scripts to submit an application to a Spark cluster?",
-      "answer": "The `spark-submit` command is used to launch applications on the Spark cluster."
+      "question": "What modules need to be loaded to run a Java-based Spark application on Alliance clusters?",
+      "answer": "To run a Java-based Spark application, you need to load the `spark/2.3.0` module."
     },
     {
-      "question": "According to the provided PySpark example, what modules should be loaded before running an application?",
-      "answer": "The example shows that `spark/2.3.0` and `python/3.7` modules should be loaded."
+      "question": "How do you submit Java Archive (JAR) Spark applications, such as `SparkPi` or `SparkLR`?",
+      "answer": "Java JAR Spark applications are submitted using a command like `spark-submit --class <your_class> <your_jar_file>` with master and executor memory specified."
     },
     {
-      "question": "What environment variable in the SLURM scripts is used to set the memory for Spark executors?",
-      "answer": "The `SLURM_SPARK_MEM` environment variable, calculated as 95% of the memory per node, is used to set the executor memory."
+      "question": "What is the purpose of the monitoring section for Apache Spark applications?",
+      "answer": "The monitoring section explains how to save and later view activity logs of executed Spark applications using a web application provided with Spark."
+    },
+    {
+      "question": "What directories must be created to enable Spark application event logging?",
+      "answer": "You must create `~/.spark/<spark version>/eventlog` for event logs and `~/.spark/<spark version>/conf` for Spark configuration parameters."
+    },
+    {
+      "question": "What configuration settings are required in the `spark-defaults.conf` file to enable Spark event logging and specify log directories?",
+      "answer": "The `spark-defaults.conf` file needs `spark.eventLog.enabled true`, `spark.eventLog.dir /home/<userid>/.spark/<spark version>/eventlog`, and `spark.history.fs.logDirectory /home/<userid>/.spark/<spark version>/eventlog`."
+    },
+    {
+      "question": "What is a prerequisite for visualizing Spark application logs from your local computer?",
+      "answer": "A prerequisite for visualizing Spark application logs from your local computer is creating an SSH tunnel between your computer and the compute cluster."
+    },
+    {
+      "question": "How do you launch the web application for visualizing Spark activity logs?",
+      "answer": "You launch the web application by loading the Spark module (`module load spark/2.3.0`) and then running `SPARK_NO_DAEMONIZE=1 start-history-server.sh`."
+    },
+    {
+      "question": "On what port does the Apache Spark history server typically start?",
+      "answer": "The Apache Spark history server typically starts on port 18080."
+    },
+    {
+      "question": "How do you stop the Apache Spark log visualization application after it has been launched?",
+      "answer": "To stop the log visualization application, you enter the Ctrl-C key combination in the terminal where the application was launched."
     }
   ],
-  "generated_at": "2026-04-11T17:21:49.959176+00:00"
+  "generated_at": "2026-04-13T02:06:06.304121+00:00"
 }

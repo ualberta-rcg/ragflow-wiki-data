@@ -3,49 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is MAFFT primarily used for?",
-      "answer": "MAFFT is a multiple sequence alignment program for unix-like operating systems."
+      "question": "What is MAFFT?",
+      "answer": "MAFFT is a multiple sequence alignment program designed for Unix-like operating systems."
     },
     {
-      "question": "Which operating systems are compatible with MAFFT?",
-      "answer": "MAFFT is designed for unix-like operating systems."
+      "question": "What operating systems does the MAFFT program support?",
+      "answer": "MAFFT supports Unix-like operating systems."
     },
     {
-      "question": "What are some of the multiple alignment methods offered by MAFFT, and what are their general characteristics?",
-      "answer": "MAFFT offers methods like L-INS-i, which is accurate for up to ~200 sequences, and FFT-NS-2, which is fast for up to ~30,000 sequences."
+      "question": "What are the recommended MAFFT methods for aligning a small number of sequences (e.g., under 200) versus a large number (e.g., under 30,000)?",
+      "answer": "L-INS-i is recommended for accurate alignment of up to approximately 200 sequences, while FFT-NS-2 is recommended for faster alignment of up to approximately 30,000 sequences."
     },
     {
-      "question": "Can MAFFT utilize multiple cores on a single machine?",
-      "answer": "Yes, MAFFT can benefit from multiple cores on a single node."
+      "question": "Can MAFFT utilize multiple CPU cores when running on a single computing node?",
+      "answer": "Yes, MAFFT can benefit from multiple cores when run on a single computing node."
     },
     {
-      "question": "Where is the `MAFFT_TMPDIR` set when the MAFFT module is loaded for single-node use?",
-      "answer": "For single-node use, `MAFFT_TMPDIR` is set to `$SLURM_TMPDIR/maffttmp` upon module loading."
+      "question": "For single-node MAFFT usage, what environment variable is set for the temporary directory when the MAFFT module is loaded?",
+      "answer": "For single-node MAFFT usage, the `MAFFT_TMPDIR` environment variable is set to `$SLURM_TMPDIR/maffttmp` when the module is loaded."
     },
     {
-      "question": "Which modules need to be loaded to run MAFFT on a single node, as shown in the example?",
-      "answer": "To run MAFFT on a single node, you need to load `gcc/9.3.0` and `mafft`."
+      "question": "What Slurm directive is used to request the number of CPU cores per task for a single-node MAFFT job?",
+      "answer": "The `#SBATCH --cpus-per-task` directive is used to request the number of CPU cores per task for a single-node MAFFT job."
     },
     {
-      "question": "How is MAFFT typically invoked for a single-node, multi-threaded alignment in the provided example script?",
-      "answer": "It is invoked with `mafft --globalpair --thread $SLURM_CPUS_PER_TASK input > output`."
+      "question": "What `module load` commands are shown in the example script for running MAFFT on a single node?",
+      "answer": "The example script for single-node MAFFT shows `module load gcc/9.3.0 mafft`."
     },
     {
-      "question": "Can MAFFT be used across multiple nodes for alignment?",
-      "answer": "Yes, MAFFT can use MPI to align a large number of sequences across multiple nodes."
+      "question": "How is the number of threads passed to the MAFFT command in a single-node Slurm job script?",
+      "answer": "The number of threads is passed using the `--thread $SLURM_CPUS_PER_TASK` option to the `mafft` command in a single-node Slurm job script."
     },
     {
-      "question": "What is the default `MAFFT_TMPDIR` for multi-node MPI jobs, and what is a crucial requirement if it's changed?",
-      "answer": "The default `MAFFT_TMPDIR` is `$SCRATCH/maffttmp` when the `mafft-mpi` module is loaded. If this directory is changed, it must be shared by all participating hosts."
+      "question": "Can MAFFT be used with MPI across multiple computing nodes for sequence alignment?",
+      "answer": "Yes, MAFFT can use MPI to align a large number of sequences across multiple computing nodes."
     },
     {
-      "question": "Which modules are required for running MAFFT in an MPI environment, according to the example?",
-      "answer": "For an MPI environment, `gcc/9.3.0` and `mafft-mpi` modules need to be loaded."
+      "question": "What environment variable is set for the temporary directory when the `mafft-mpi` module is loaded for multi-node MAFFT usage?",
+      "answer": "When the `mafft-mpi` module is loaded for multi-node usage, the `MAFFT_TMPDIR` environment variable is set to `$SCRATCH/maffttmp`."
     },
     {
-      "question": "How is the MAFFT MPI command typically executed in a Slurm environment, as shown in the example script?",
-      "answer": "It's executed using `srun mafft --mpi --large --globalpair --thread $SLURM_CPUS_PER_TASK input > output`."
+      "question": "If the temporary directory for an MPI MAFFT job is changed, what is a critical requirement?",
+      "answer": "If the temporary directory for an MPI MAFFT job is changed, it must be shared by all hosts involved in the job."
+    },
+    {
+      "question": "What `module load` commands are shown in the example script for running MAFFT with MPI on multiple nodes?",
+      "answer": "The example script for multi-node MAFFT with MPI shows `module load gcc/9.3.0 mafft-mpi`."
+    },
+    {
+      "question": "What Slurm directive specifies the number of nodes to use for a multi-node MPI MAFFT job?",
+      "answer": "The `#SBATCH --nodes` directive specifies the number of nodes for a multi-node MPI MAFFT job."
+    },
+    {
+      "question": "What Slurm directive specifies the number of tasks per node for a multi-node MPI MAFFT job?",
+      "answer": "The `#SBATCH --ntasks-per-node` directive specifies the number of tasks per node for a multi-node MPI MAFFT job."
+    },
+    {
+      "question": "How is the MAFFT command executed when running an MPI job across multiple nodes in a Slurm script?",
+      "answer": "The MAFFT command is executed using `srun mafft --mpi --large --globalpair --thread $SLURM_CPUS_PER_TASK` for an MPI job across multiple nodes in a Slurm script."
     }
   ],
-  "generated_at": "2026-04-12T01:11:02.567169+00:00"
+  "generated_at": "2026-04-13T08:16:24.030106+00:00"
 }

@@ -4,45 +4,17 @@
   "chunk_index": 29,
   "qa_pairs": [
     {
-      "question": "Quels modules sont requis pour lancer une tâche CFX en parallèle distribué sur plusieurs nœuds?",
-      "answer": "Pour lancer une tâche CFX en parallèle distribué sur plusieurs nœuds, il faut charger les modules `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente du module Ansys)."
+      "question": "Comment configurer et soumettre une tâche Ansys CFX sur plusieurs nœuds de calcul en utilisant un script Slurm sur les grappes de l'Alliance?",
+      "answer": "Pour configurer et soumettre une tâche Ansys CFX sur plusieurs nœuds de calcul, vous devez utiliser un script Slurm. Ce script doit spécifier l'accouplement (`--account`), la limite de temps (`--time`), le nombre de nœuds (`--nodes`), le nombre de tâches par nœud (`--ntasks-per-node`) et l'utilisation de toute la mémoire par nœud (`--mem=0`). Il doit ensuite charger les modules `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente). Pour exécuter la tâche, vous utilisez `cfx5solve -def VOTREFICHIER.def` et, si la grappe est Narval, la méthode de démarrage \"Open MPI Distributed Parallel\" (`-start-method \"Open MPI Distributed Parallel\"`) avec le paramètre `-par-dist $NNODES`. Pour les autres grappes, utilisez la méthode \"Intel MPI Distributed Parallel\" (`-start-method \"Intel MPI Distributed Parallel\"`) et exportez `I_MPI_HYDRA_BOOTSTRAP=ssh`."
     },
     {
-      "question": "Est-ce que je dois spécifier la mémoire pour une tâche CFX quand j'utilise plusieurs nœuds?",
-      "answer": "Non, pour une tâche CFX sur plusieurs nœuds, le script indique de ne pas modifier le paramètre `#SBATCH --mem=0`, ce qui alloue toute la mémoire par nœud de calcul par défaut."
+      "question": "Quelles étapes faut-il suivre pour initialiser un fichier de projet Ansys Workbench avant de le soumettre pour la première fois en mode batch sur une grappe de calcul?",
+      "answer": "Avant de soumettre un fichier de projet Ansys Workbench en mode batch pour la première fois, vous devez l'initialiser. D'abord, connectez-vous à la grappe avec TigerVNC. Ensuite, dans le répertoire où se trouve votre fichier de projet (par exemple, `VOTREPROJET.wbpj`), lancez Workbench en utilisant la même version du module Ansys que celle utilisée pour créer le projet. Ouvrez votre projet via `Fichier -> Ouvrir`. Dans la fenêtre principale de Workbench, faites un clic droit sur `Setup` et sélectionnez `Effacer toutes les données générées` (`Clear All Generated Data`). Enfin, quittez Workbench en cliquant sur `Fichier -> Quitter` et, quand on vous demande si vous voulez sauvegarder le projet modifié, cliquez sur `Non`. Une fois Workbench fermé, vous pouvez soumettre la tâche avec un script Slurm."
     },
     {
-      "question": "Quel `start-method` utiliser pour CFX en parallèle distribué sur la grappe Narval?",
-      "answer": "Sur la grappe Narval, il faut utiliser `\"Open MPI Distributed Parallel\"` comme `start-method` pour CFX en parallèle distribué."
-    },
-    {
-      "question": "Quel `start-method` faut-il utiliser pour CFX en parallèle distribué sur les grappes autres que Narval?",
-      "answer": "Pour les grappes autres que Narval, il faut utiliser `\"Intel MPI Distributed Parallel\"` comme `start-method` pour CFX en parallèle distribué."
-    },
-    {
-      "question": "Comment initialiser un fichier de projet Workbench avant de le soumettre pour la première fois?",
-      "answer": "Pour initialiser un fichier de projet Workbench, connectez-vous à la grappe avec TigerVNC, lancez Workbench dans le répertoire du projet avec la même version d'Ansys, ouvrez le projet via `File -> Open`, faites un clic droit sur `Setup` dans la fenêtre principale et sélectionnez `Clear All Generated Data`. Ensuite, quittez Workbench en cliquant sur `File -> Exit` et répondez `No` à la question de sauvegarde. Finalement, quittez Workbench et soumettez la tâche."
-    },
-    {
-      "question": "Est-il possible d'exécuter les simulations Workbench directement à partir de l'interface graphique plutôt que via un script Slurm?",
-      "answer": "Oui, il est désormais possible de réserver un nœud de calcul avec jusqu'à 96 cœurs, 768 Go de mémoire et 8 heures de temps d'exécution pour une session de bureau OnDemand. C'est une option plus intuitive pour exécuter directement vos simulations Workbench via l'interface graphique native."
-    },
-    {
-      "question": "Comment soumettre un fichier de projet Workbench à la file d'attente Slurm?",
-      "answer": "Pour soumettre un fichier de projet Workbench à la file d'attente Slurm, vous devez personnaliser les scripts fournis pour l'ordonnanceur et lancer la commande `sbatch script-wbpj-202X.sh`."
-    },
-    {
-      "question": "Quels modules Ansys charger pour une tâche Workbench sur un nœud simple avec `StdEnv/2023`?",
-      "answer": "Pour une tâche Workbench sur un nœud simple avec `StdEnv/2023`, il faut charger les modules `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente d'Ansys)."
-    },
-    {
-      "question": "Comment le script Slurm pour Workbench configure-t-il les paramètres de parallélisme et le nombre de processeurs?",
-      "answer": "Le script modifie le fichier `SolveHandlers.xml` pour définir le type de parallélisme (`MEMPAR`, 0 pour SMP sur un nœud unique et 1 pour DMP sur plusieurs nœuds) et le nombre maximum de processeurs (`SLURM_NTASKS`). Il s'assure également que la configuration est identifiée comme `UserConfigured`."
-    },
-    {
-      "question": "Quelle commande sert à lancer une simulation Workbench en mode batch?",
-      "answer": "La commande utilisée pour exécuter une simulation Workbench en mode batch est `runwb2 -B -E \"Update()\" -F YOURPROJECT.wbpj`."
+      "question": "Est-ce qu'on peut exécuter des simulations Ansys Workbench directement à partir de l'interface graphique sur un nœud de calcul, et si oui, quels sont les avantages?",
+      "answer": "Oui, il est possible d'exécuter des simulations Ansys Workbench directement à partir de l'interface graphique native d'une session de bureau OnDemand sur un nœud de calcul. C'est une option plus intuitive comparativement à la soumission d'une tâche via un script Slurm. Ces sessions de bureau OnDemand peuvent réserver un nœud de calcul avec jusqu'à 96 cœurs, 768 Go de mémoire et une durée d'exécution de 8 heures, offrant ainsi une flexibilité considérable pour les simulations interactives."
     }
   ],
-  "generated_at": "2026-04-12T17:02:25.981615+00:00"
+  "generated_at": "2026-04-13T01:59:15.983723+00:00"
 }

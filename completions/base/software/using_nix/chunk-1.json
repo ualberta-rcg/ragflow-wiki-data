@@ -4,125 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is Nix?",
-      "answer": "Nix is a software building and composition system that enables users to manage their persistent software environments."
+      "question": "What is Nix and where is this software building and composition system available?",
+      "answer": "Nix is a software building and composition system that allows users to manage their own persistent software environments. It is exclusively available on SHARCNET systems, specifically graham and legacy."
     },
     {
-      "question": "Where is Nix available?",
-      "answer": "Nix is exclusively available on SHARCNET systems, specifically graham and legacy."
+      "question": "How can a user enable and disable the Nix environment on SHARCNET systems?",
+      "answer": "To enable the Nix environment, a user needs to load the `nix` module by running `module load nix`. To disable it, the `nix` module can be unloaded by running `module unload nix`."
     },
     {
-      "question": "What types of usage does Nix support for compositions?",
-      "answer": "Nix supports one-off, per-project, and per-user usage of compositions."
-    },
-    {
-      "question": "What actions can a user perform with Nix compositions?",
-      "answer": "Users can build, install, upgrade, downgrade, and remove compositions."
-    },
-    {
-      "question": "Are operations in Nix atomic?",
-      "answer": "Yes, Nix operations are atomic, meaning they either succeed or fail while leaving everything intact."
-    },
-    {
-      "question": "Is it easy to manage compositions with Nix?",
-      "answer": "Yes, it is extremely easy to add and share compositions using Nix."
-    },
-    {
-      "question": "What is a current limitation of Nix software builds?",
-      "answer": "Currently, Nix builds software in a generic manner, often without support for AVX2 or AVX512 vector instructions."
-    },
-    {
-      "question": "When should module-loaded software be preferred over Nix-built software?",
-      "answer": "Module-loaded software should be preferred for longer running simulations if it exists, due to Nix's generic builds lacking vector instruction support like AVX2 or AVX512."
-    },
-    {
-      "question": "What does the warning message \"failed to lock thread to CPU XX\" mean in Nix?",
-      "answer": "The message \"failed to lock thread to CPU XX\" is a harmless warning and can be ignored."
-    },
-    {
-      "question": "How do I enable the Nix environment?",
-      "answer": "You enable the Nix environment by loading the Nix module using the command `module load nix`."
-    },
-    {
-      "question": "What happens when the Nix module is loaded?",
-      "answer": "Loading the Nix module creates some '.nix*' files and sets certain environment variables."
-    },
-    {
-      "question": "How do I disable the Nix environment?",
-      "answer": "You disable the Nix environment by unloading the Nix module using the command `module unload nix`."
-    },
-    {
-      "question": "What happens when the Nix module is unloaded?",
-      "answer": "Unloading the Nix module unsets the environment variables but leaves the '.nix*' files untouched."
-    },
-    {
-      "question": "How can most per-user Nix operations be undone?",
-      "answer": "Most per-user Nix operations can be undone using the `--rollback` option, such as `nix-env --rollback` or `nix-channel --rollback`."
-    },
-    {
-      "question": "How do I completely reset the Nix environment?",
-      "answer": "To completely reset the Nix environment, unload the module (`module unload nix`), erase all user-related Nix files, and then reload the module (`module load nix`). The files to remove include `~/.nix-profile`, `~/.nix-defexpr`, `~/.nix-channels`, `~/.config/nixpkgs`, `/nix/var/nix/profiles/per-user/$USER`, and `/nix/var/nix/gcroots/per-user/$USER`."
-    },
-    {
-      "question": "What command is used to locate already available Nix compositions?",
-      "answer": "The `nix search` command is used to locate available Nix compositions."
-    },
-    {
-      "question": "What is a pro tip for using `nix search` after upgrading a channel?",
-      "answer": "After upgrading your channel, you need to specify `-u` with `nix search` for it to work correctly, which may take some time."
-    },
-    {
-      "question": "How do regular expressions work with the `nix search` command?",
-      "answer": "The search string in `nix search` is actually a regular expression, and multiple search strings are ANDed together."
-    },
-    {
-      "question": "How can I use a Nix composition just once (one-off)?",
-      "answer": "The easiest way to use a composition once is with the `nix run` command, which starts a shell with the composition added to `PATH`."
-    },
-    {
-      "question": "Is a composition used with `nix run` permanently protected from garbage collection?",
-      "answer": "No, a composition used with `nix run` is only guaranteed to be around temporarily until sometime in the wee-morning hours and is not protected from overnight garbage collection."
-    },
-    {
-      "question": "Can I specify multiple compositions with the `nix run` command?",
-      "answer": "Yes, you can specify more than one composition in the same `nix run` command."
-    },
-    {
-      "question": "How can I run a specific command instead of starting a shell with `nix run`?",
-      "answer": "You can specify a command instead of a shell with `nix run` by using the `-c <cmd> <args> ...` option."
-    },
-    {
-      "question": "How do I use a Nix program for a specific project?",
-      "answer": "For a specific project, the easiest way is to use the `nix build` command, which creates a symbolic link to access the program's 'bin' directory."
-    },
-    {
-      "question": "What is the default name for the symbolic link created by `nix build`?",
-      "answer": "By default, the `nix build` command creates a symbolic link named `result`."
-    },
-    {
-      "question": "How can a composition built with `nix build` be protected from overnight garbage collection?",
-      "answer": "Currently, a composition built with `nix build` will only be protected from overnight garbage collection if you output the symlink into your 'home' directory and do not rename or move it."
-    },
-    {
-      "question": "How can I specify a custom output symlink name with `nix build`?",
-      "answer": "You can specify the output symlink name with the `-o <name>` option, for example `nix build -o my-program nixpkgs.git`."
-    },
-    {
-      "question": "What is a pro tip for easily accessing programs built with `nix build`?",
-      "answer": "A pro tip is to add the 'bin' directory of the build result to your `PATH` environment variable to avoid typing the full path every time."
-    },
-    {
-      "question": "How does loading the `nix` module impact per-user environments?",
-      "answer": "Loading the `nix` module adds the per-user common `~/.nix-profile/bin` directory to your `PATH`."
-    },
-    {
-      "question": "What command is used to manage per-user compositions?",
-      "answer": "The `nix-env` command is used to add and remove compositions from the `~/.nix-profile/bin` directory for per-user usage."
-    },
-    {
-      "question": "How do I install a composition for per-user usage?",
-      "answer": "You can install a composition for per-user usage with the command `nix-env --install --attr nixpkgs.git` (replacing `nixpkgs.git` with your desired package)."
+      "question": "What are the primary methods for using software compositions with Nix?",
+      "answer": "Nix supports three main ways to use software compositions: one-off usage with the `nix run` command, per-project usage with the `nix build` command, and per-user usage by installing compositions into the `~/.nix-profile/bin` directory with the `nix-env` command."
     }
   ],
-  "generated_at": "2026-04-12T10:06:16.813188+00:00"
+  "generated_at": "2026-04-13T15:11:37.909173+00:00"
 }

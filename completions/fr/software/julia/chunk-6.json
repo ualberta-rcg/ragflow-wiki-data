@@ -4,17 +4,13 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Comment fait-on pour installer le paquet `CUDA.jl` afin d'utiliser les GPU sur une grappe de calcul?",
-      "answer": "Pour installer `CUDA.jl`, il faut d'abord se connecter à un nœud de connexion, charger les modules `cuda` et `julia` (par exemple, `module load cuda/12.9 julia/1.11.3`), puis lancer Julia et exécuter les commandes `ENV[\"JULIA_PKG_PRECOMPILE_AUTO\"]=0` et `import Pkg; Pkg.add(\"CUDA\")`."
+      "question": "Comment installer le paquet CUDA.jl pour travailler avec des GPU et comment le configurer correctement sur un nœud de calcul?",
+      "answer": "Pour installer le paquet CUDA.jl, il faut d'abord charger les modules `cuda` et `julia` sur un nœud de connexion, puis démarrer Julia et exécuter `ENV[\"JULIA_PKG_PRECOMPILE_AUTO\"]=0` et `Pkg.add(\"CUDA\")`. Ensuite, sur un nœud de calcul GPU, si la boîte à outils CUDA téléchargée ne concorde pas avec le pilote installé, il est nécessaire de configurer Julia pour qu'il utilise la boîte à outils CUDA locale. Cela se fait en lançant `using CUDA` et `CUDA.set_runtime_version!(v\"version_of_cuda\", local_toolkit=true)`, en remplaçant `version_of_cuda` par la version de CUDA que vous avez chargée, par exemple `12.2` si vous avez chargé `cuda/12.2`."
     },
     {
-      "question": "Après l'installation de `CUDA.jl`, quelle est la procédure pour configurer Julia afin qu'il utilise la boîte à outils CUDA locale sur un nœud de calcul GPU et éviter les problèmes de compatibilité?",
-      "answer": "Une fois le paquet `CUDA.jl` installé (ce qui est fait sur un nœud de connexion), toutes les configurations subséquentes doivent être faites sur un nœud de calcul GPU. Pour configurer Julia afin qu'il utilise la boîte à outils CUDA locale et éviter les problèmes de compatibilité avec le pilote installé, il faut lancer Julia sur le nœud de calcul GPU et exécuter `using CUDA` puis `CUDA.set_runtime_version!(v\"version_of_cuda\", local_toolkit=true)`, en remplaçant `version_of_cuda` par la version du module CUDA chargé (par exemple, `12.2` si `cuda/12.2` est chargé)."
-    },
-    {
-      "question": "Comment peut-on vérifier et tester si le paquet `CUDA.jl` est bien installé et configuré pour utiliser la boîte à outils CUDA locale sur une grappe de calcul?",
-      "answer": "Pour vérifier la version de CUDA après avoir redémarré Julia, on utilise la commande `CUDA.versioninfo()`. Ensuite, pour tester l'installation, on peut créer un tableau sur GPU avec `a = CuArray([1,2,3])` et effectuer une opération dessus, comme `a.+=1`."
+      "question": "Après avoir installé et configuré CUDA.jl, comment peut-on s'assurer que la bonne version est active et que l'installation fonctionne?",
+      "answer": "Pour s'assurer que la bonne version de CUDA est active après l'installation et la configuration, redémarrez Julia sur un nœud de calcul GPU et exécutez `CUDA.versioninfo()`. Pour tester l'installation, vous pouvez lancer des commandes simples comme `a = CuArray([1,2,3])` et ensuite `a.+=1` pour vérifier que les opérations sur GPU fonctionnent correctement."
     }
   ],
-  "generated_at": "2026-04-12T20:48:19.815557+00:00"
+  "generated_at": "2026-04-13T07:39:27.176714+00:00"
 }

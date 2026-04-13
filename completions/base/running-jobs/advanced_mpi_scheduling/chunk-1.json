@@ -4,77 +4,13 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "How should most users submit MPI or distributed memory parallel jobs?",
-      "answer": "Most users should submit MPI or distributed memory parallel jobs by following the example given at \"Running jobs\" and requesting a number of processes with `--ntasks` or `-n`."
+      "question": "When submitting a basic MPI job on Slurm, what are the primary Slurm options required to specify the number of processes and memory per core?",
+      "answer": "For a basic MPI job, you must specify the number of MPI processes using `--ntasks`. Additionally, it is often recommended to specify the memory per CPU using `--mem-per-cpu`, as the default memory allocation of 256MB per core is typically insufficient."
     },
     {
-      "question": "How does the scheduler allocate processes for MPI or distributed memory parallel jobs?",
-      "answer": "The scheduler allocates processes in a way that balances the efficiency of your job with the overall efficiency of the cluster."
-    },
-    {
-      "question": "Where can users find more information about controlling job allocation?",
-      "answer": "Users can find more information about controlling job allocation on SchedMD's page on multicore support, which describes how `sbatch` command options interact to constrain process placement."
-    },
-    {
-      "question": "Is there a resource available to understand what is considered a CPU in Slurm?",
-      "answer": "Yes, the discussion on \"What exactly is considered a CPU?\" in the Slurm FAQ can be useful."
-    },
-    {
-      "question": "What is a key requirement for an MPI job, in addition to a time limit?",
-      "answer": "An MPI job requires specifying how many MPI processes Slurm should start."
-    },
-    {
-      "question": "What is the simplest way to specify the number of MPI processes for a Slurm job?",
-      "answer": "The simplest way to specify the number of MPI processes for a Slurm job is by using `--ntasks`."
-    },
-    {
-      "question": "What is the default memory allocation per core, and why might it be insufficient for an MPI job?",
-      "answer": "The default memory allocation is 256MB per core, which is often insufficient for MPI jobs."
-    },
-    {
-      "question": "When using `--ntasks` for an MPI job, how should users request memory?",
-      "answer": "When using `--ntasks`, users should request memory with `--mem-per-cpu` because the number of cores per node is not known in advance."
-    },
-    {
-      "question": "Could you provide an example of a basic MPI job script that requests 15 tasks and 3GB of memory per CPU, and describe its execution?",
-      "answer": "A basic MPI job script would look like this: `#!/bin/bash #SBATCH --ntasks=15 #SBATCH --mem-per-cpu=3G srun application.exe`. This script will run 15 MPI processes, and the cores could be allocated on one node, 15 nodes, or any number in between."
-    },
-    {
-      "question": "When should users consider requesting whole nodes for a parallel job?",
-      "answer": "Users should probably request whole nodes for a large parallel job that can efficiently use 64 cores or more."
-    },
-    {
-      "question": "What information is helpful to know before requesting whole nodes?",
-      "answer": "It helps to know what node types are available at the cluster being used."
-    },
-    {
-      "question": "What are the typical CPU and memory configurations for nodes in the Fir, Narval, Nibi, Rorqual, and Trillium clusters?",
-      "answer": "The typical configurations are:\n*   **Fir:** 192 cores, 750 GiB usable memory. Some nodes are reserved for whole-node jobs.\n*   **Narval:** 64 cores, 249 GiB usable memory. Some nodes are reserved for whole-node jobs.\n*   **Nibi:** 192 cores, 748 GiB usable memory. No node specifically reserved for whole-node jobs.\n*   **Rorqual:** 192 cores, 750 GiB usable memory. Some nodes are reserved for whole-node jobs.\n*   **Trillium:** 192 cores, 749 GiB usable memory. Only whole-node jobs are possible at Trillium."
-    },
-    {
-      "question": "What does it mean when a cluster's notes state \"Some are reserved for whole-node jobs\"?",
-      "answer": "It indicates that there are nodes on which by-core jobs are forbidden."
-    },
-    {
-      "question": "Where are whole-node jobs allowed to run?",
-      "answer": "Whole-node jobs are allowed to run on any node."
-    },
-    {
-      "question": "How would a job script request 2 whole nodes on the Fir cluster?",
-      "answer": "A job script for the Fir cluster requesting two whole nodes would include: `#!/bin/bash #SBATCH --nodes=2 #SBATCH --ntasks-per-node=192 #SBATCH --mem=0 srun application.exe`."
-    },
-    {
-      "question": "How would a job script request 2 whole nodes on the Narval cluster?",
-      "answer": "A job script for the Narval cluster requesting two whole nodes would include: `#!/bin/bash #SBATCH --nodes=2 #SBATCH --ntasks-per-node=64 #SBATCH --mem=0 srun application.exe`."
-    },
-    {
-      "question": "How would a job script request 2 whole nodes on the Nibi cluster?",
-      "answer": "A job script for the Nibi cluster requesting two whole nodes would include: `#!/bin/bash #SBATCH --nodes=2 #SBATCH --ntasks-per-node=192 #SBATCH --mem=0 srun application.exe`."
-    },
-    {
-      "question": "How would a job script request 2 whole nodes on the Rorqual cluster?",
-      "answer": "A job script for the Rorqual cluster requesting two whole nodes would include: `#!/bin/bash #SBATCH --nodes=2 #SBATCH --ntasks-per-node=192 #SBATCH --mem=0 srun application.exe`."
+      "question": "Under what conditions should a user request whole nodes for a parallel job, and what are the general Slurm parameters for configuring a whole-node job script?",
+      "answer": "Users should request whole nodes when running a large parallel job that can efficiently utilize 64 cores or more. A whole-node job script typically includes `--nodes` to specify the number of nodes, `--ntasks-per-node` to indicate the number of tasks per node, and `--mem=0` to reserve all available memory on each assigned node."
     }
   ],
-  "generated_at": "2026-04-11T16:10:47.903362+00:00"
+  "generated_at": "2026-04-13T01:14:26.040435+00:00"
 }

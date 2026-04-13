@@ -4,81 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What package needs to be downloaded and extracted to compile the `petscFoam` solver?",
-      "answer": "You need to download and extract the `external-solver-main.tar.gz` package."
+      "question": "What are the steps to compile the petscFoam solver for OpenFOAM?",
+      "answer": "To compile the petscFoam solver, you must first load the required modules: `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `openfoam/v2412`, and `petsc/3.21.6`. Next, download the `external-solver-main.tar.gz` package using `wget https://develop.openfoam.com/modules/external-solver/-/archive/main/external-solver-main.tar.gz`, then extract it with `tar xvfz external-solver-main.tar.gz`. After changing into the extracted directory (e.g., `cd external-solver-main`), execute `./Allwmake` to compile the solver."
     },
     {
-      "question": "What modules should be loaded before downloading and compiling the `petscFoam` solver?",
-      "answer": "You should load `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `openfoam/v2412`, and `petsc/3.21.6`."
+      "question": "How can a user verify that the petscFoam solver is functional after compilation?",
+      "answer": "To confirm the petscFoam solver's functionality, perform three checks: First, verify OpenFOAM can load it by running `foamHasLibrary -verbose petscFoam`, which should output \"Can load 'petscFoam'\". Second, check if the dynamic library `libpetscFoam.so` is located in `$FOAM_USER_LIBBIN` using `ls $FOAM_USER_LIBBIN`. Third, ensure `libpetscFoam.so` can find its dependencies by executing `ldd $FOAM_USER_LIBBIN/libpetscFoam.so | grep petsc`, which should list the necessary PETSc libraries."
     },
     {
-      "question": "What is the command to download the `external-solver-main.tar.gz` package?",
-      "answer": "The command is `wget https://develop.openfoam.com/modules/external-solver/-/archive/main/external-solver-main.tar.gz`."
-    },
-    {
-      "question": "How do you extract the `external-solver-main.tar.gz` package?",
-      "answer": "You extract it using the command `tar xvfz external-solver-main.tar.gz`."
-    },
-    {
-      "question": "What command is used to compile the `petscFoam` solver after extraction?",
-      "answer": "You compile the `petscFoam` solver by running `./Allwmake`."
-    },
-    {
-      "question": "How can you confirm that the `petscFoam` solver is functional?",
-      "answer": "You can confirm it by checking if OpenFOAM can load `petscFoam`, if the dynamic library is in `$FOAM_USER_LIBBIN`, and if the dynamic library can find its dependencies."
-    },
-    {
-      "question": "How do you check if OpenFOAM can load `petscFoam`?",
-      "answer": "You use the command `foamHasLibrary -verbose petscFoam`."
-    },
-    {
-      "question": "What is the expected output when checking if OpenFOAM can load `petscFoam`?",
-      "answer": "The expected output is `Can load \"petscFoam\"`."
-    },
-    {
-      "question": "Where should the dynamic library for `petscFoam` (`libpetscFoam.so`) be located?",
-      "answer": "The dynamic library `libpetscFoam.so` should be located in `$FOAM_USER_LIBBIN`."
-    },
-    {
-      "question": "How do you check if `libpetscFoam.so` is in `$FOAM_USER_LIBBIN`?",
-      "answer": "You use the command `ls $FOAM_USER_LIBBIN`."
-    },
-    {
-      "question": "What command checks the dependencies of `libpetscFoam.so`?",
-      "answer": "You check the dependencies using `ldd $FOAM_USER_LIBBIN/libpetscFoam.so | grep petsc`."
-    },
-    {
-      "question": "What causes poor OpenFOAM performance on shared filesystems?",
-      "answer": "OpenFOAM can emit a lot of debugging information through very frequent small writes, which may lead to poor performance on shared filesystems."
-    },
-    {
-      "question": "How can users reduce or disable debug output to improve OpenFOAM performance?",
-      "answer": "Users can reduce or disable debug output by copying `$WM_PROJECT_DIR/etc/controlDict` to `$HOME/.OpenFOAM/$WM_PROJECT_VERSION/` and then altering parameters within it."
-    },
-    {
-      "question": "What specific part of the `controlDict` file can be altered to change debug flags?",
-      "answer": "The `debugSwitches` dictionary in `$HOME/.OpenFOAM/$WM_PROJECT_VERSION/controlDict` can be altered to change flags from values greater than zero to zero."
-    },
-    {
-      "question": "Where can users find documentation for run-time parameters to reduce OpenFOAM output?",
-      "answer": "Run-time parameters are documented for OpenFOAM version 6 at `https://cfd.direct/openfoam/user-guide/v6-controldict/` and for version 7 at `https://cfd.direct/openfoam/user-guide/v7-controldict/`."
-    },
-    {
-      "question": "What is an alternative solution for OpenFOAM workflows that create many small files to improve performance?",
-      "answer": "Another solution is to make use of the local scratch (`$SLURM_TMPDIR`), a disk attached directly to the compute node."
-    },
-    {
-      "question": "What is `$SLURM_TMPDIR`?",
-      "answer": "`$SLURM_TMPDIR` is a local scratch disk attached directly to the compute node."
-    },
-    {
-      "question": "When might making `$SLURM_TMPDIR` your working directory be beneficial?",
-      "answer": "It may be beneficial if your workflow involves the creation of many small files."
-    },
-    {
-      "question": "Where can users find more information about using node-local storage?",
-      "answer": "Users can find more information about using node-local storage in the 'Using node-local storage' documentation."
+      "question": "How can poor performance, caused by OpenFOAM's frequent small writes on shared filesystems, be mitigated?",
+      "answer": "To mitigate poor performance due to OpenFOAM's frequent small writes, you can reduce or disable debug output. This involves creating a local `controlDict` file by running `mkdir -p $HOME/.OpenFOAM/$WM_PROJECT_VERSION` and `cp $WM_PROJECT_DIR/etc/controlDict $HOME/.OpenFOAM/$WM_PROJECT_VERSION/`. Then, edit the `debugSwitches` dictionary in `$HOME/.OpenFOAM/$WM_PROJECT_VERSION/controlDict` to change flag values from greater than zero to zero. Another effective solution is to utilize the node-local scratch directory (`$SLURM_TMPDIR`) as your working directory, especially if your workflow generates many small files."
     }
   ],
-  "generated_at": "2026-04-12T04:27:25.448785+00:00"
+  "generated_at": "2026-04-13T10:34:27.507873+00:00"
 }

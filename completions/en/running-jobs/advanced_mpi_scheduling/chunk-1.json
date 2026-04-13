@@ -4,93 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "How should most users submit MPI or distributed memory parallel jobs?",
-      "answer": "Most users should submit MPI or distributed memory parallel jobs by following the example given at 'Running jobs' and simply requesting a number of processes with `--ntasks` or `-n`."
+      "question": "How do most users submit MPI or distributed memory parallel jobs on the clusters, and how do they specify the number of processes?",
+      "answer": "Most users should submit MPI or distributed memory parallel jobs by requesting a number of processes using `--ntasks` or `-n`. The scheduler then allocates these processes to balance the efficiency of the job with the overall efficiency of the cluster."
     },
     {
-      "question": "Where can users find information if they want more control over how their job is allocated in Slurm?",
-      "answer": "Users can begin by consulting SchedMD's page on multicore support, which describes how options to the `sbatch` command interact to constrain process placement."
+      "question": "When submitting an MPI job with an unspecified number of cores per node, how should a user request memory, especially if the default allocation is insufficient?",
+      "answer": "If a user is submitting an MPI job with `--ntasks` and cannot know in advance how many cores will reside on each node, they should request memory using `--mem-per-cpu`. This is important because the default memory allocation of 256MB per core is often insufficient."
     },
     {
-      "question": "Where can I find a useful discussion about what is considered a CPU in Slurm?",
-      "answer": "A useful discussion on what exactly is considered a CPU in Slurm can be found in the Slurm FAQ."
-    },
-    {
-      "question": "How do you specify the number of MPI processes Slurm should start for a job with few cores and potentially any number of nodes?",
-      "answer": "The simplest way to specify the number of MPI processes Slurm should start for such a job is with `--ntasks`."
-    },
-    {
-      "question": "What is the default memory allocation per core, and is it usually sufficient?",
-      "answer": "The default memory allocation is 256MB per core, which is often insufficient."
-    },
-    {
-      "question": "When using `--ntasks` for an MPI job, how should you request memory?",
-      "answer": "When using `--ntasks`, you should request memory with `--mem-per-cpu` because you cannot know in advance how many cores will reside on each node."
-    },
-    {
-      "question": "Provide an example of a basic Slurm job script for an MPI application requesting 15 tasks.",
-      "answer": "A basic Slurm job script (`basic_mpi_job.sh`) would include `#SBATCH --ntasks=15`, `#SBATCH --mem-per-cpu=3G`, and `srun application.exe`."
-    },
-    {
-      "question": "If a job requests `--ntasks=15` and `--mem-per-cpu=3G`, how will the cores be allocated?",
-      "answer": "This will run 15 MPI processes. The cores could be allocated on one node, on 15 nodes, or on any number in between."
-    },
-    {
-      "question": "When should a user consider requesting whole nodes for a parallel job?",
-      "answer": "A user should probably request whole nodes if they have a large parallel job that can efficiently use 64 cores or more."
-    },
-    {
-      "question": "What information is helpful to know when requesting whole nodes?",
-      "answer": "It helps to know what node types are available at the cluster you are using."
-    },
-    {
-      "question": "What are the CPU and usable memory configurations for typical nodes in the Fir cluster?",
-      "answer": "Typical Fir nodes have 192 cores and 750 GiB of usable memory, with some nodes reserved for whole-node jobs."
-    },
-    {
-      "question": "What are the CPU and usable memory configurations for typical nodes in the Narval cluster?",
-      "answer": "Typical Narval nodes have 64 cores and 249 GiB of usable memory, with some nodes reserved for whole-node jobs."
-    },
-    {
-      "question": "What are the CPU and usable memory configurations for typical nodes in the Nibi cluster?",
-      "answer": "Typical Nibi nodes have 192 cores and 748 GiB of usable memory, with no nodes specifically reserved for whole-node jobs."
-    },
-    {
-      "question": "What are the CPU and usable memory configurations for typical nodes in the Rorqual cluster?",
-      "answer": "Typical Rorqual nodes have 192 cores and 750 GiB of usable memory, with some nodes reserved for whole-node jobs."
-    },
-    {
-      "question": "What are the CPU and usable memory configurations for typical nodes in the Trillium cluster?",
-      "answer": "Typical Trillium nodes have 192 cores and 749 GiB of usable memory, and only whole-node jobs are possible at Trillium."
-    },
-    {
-      "question": "What does the note 'Some are reserved for whole-node jobs' mean in the context of cluster node configurations?",
-      "answer": "It indicates that there are nodes on which by-core jobs are forbidden."
-    },
-    {
-      "question": "Are whole-node jobs restricted to specific nodes?",
-      "answer": "No, whole-node jobs are allowed to run on any node."
-    },
-    {
-      "question": "How would you write a Slurm job script to request two whole nodes on the Fir cluster?",
-      "answer": "A job script for Fir would include `#SBATCH --nodes=2`, `#SBATCH --ntasks-per-node=192`, `#SBATCH --mem=0`, and `srun application.exe`."
-    },
-    {
-      "question": "How would you write a Slurm job script to request two whole nodes on the Narval cluster?",
-      "answer": "A job script for Narval would include `#SBATCH --nodes=2`, `#SBATCH --ntasks-per-node=64`, `#SBATCH --mem=0`, and `srun application.exe`."
-    },
-    {
-      "question": "What does requesting `--mem=0` mean to Slurm?",
-      "answer": "Requesting `--mem=0` is interpreted by Slurm to mean 'reserve all the available memory on each node assigned to the job'."
-    },
-    {
-      "question": "When should you avoid using `--mem=0` for memory allocation?",
-      "answer": "You should not use `--mem=0` if you need more memory per node than the smallest node provides (e.g., more than 748 GiB at Nibi)."
-    },
-    {
-      "question": "How can a user find the largest amount of memory their job can request to still qualify for a given node type?",
-      "answer": "Users should see the 'Available memory' column of the 'Node characteristics' table for each cluster."
+      "question": "For large parallel jobs that can efficiently use 64 cores or more, what is the recommended approach for resource allocation, and what does the `--mem=0` option signify in such a job script?",
+      "answer": "For large parallel jobs efficiently using 64 cores or more, it is recommended to request whole nodes. In a whole node job script, `--mem=0` instructs Slurm to reserve all available memory on each node assigned to the job."
     }
   ],
-  "generated_at": "2026-04-11T16:12:12.003680+00:00"
+  "generated_at": "2026-04-13T01:15:20.704067+00:00"
 }

@@ -4,53 +4,17 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "Que se passe-t-il si l'option `-auto` est utilisée avec la commande `resubmit.run`?",
-      "answer": "Si l'option `-auto` est présente avec `resubmit.run`, le groupe de cas sera automatiquement soumis de nouveau à la fin, et ce, plus d'une fois si nécessaire, jusqu'à ce que tous les cas dans `table.dat` aient été traités."
+      "question": "Quand devrait-on privilégier le mode META plutôt que le mode SIMPLE pour gérer des calculs avec META-Farm?",
+      "answer": "Le mode META est préférable au mode SIMPLE quand on a un grand nombre de cas, typiquement plus de 500, et que chaque cas prend moins de 20 minutes. Ça permet de contourner les limites de tâches par grappe et d'éviter le gaspillage de cycles CPU lié à l'ordonnancement de nombreux petits cas."
     },
     {
-      "question": "Quand est-ce qu'on devrait privilégier le mode SIMPLE de META-Farm?",
-      "answer": "Le mode SIMPLE est approprié lorsque le nombre total de cas est assez bas, disons moins de 500."
+      "question": "Comment le mode META de META-Farm s'y prend-il pour répartir dynamiquement la charge de travail entre les métatâches?",
+      "answer": "En mode META, un nombre plus restreint de métatâches sont soumises. Chaque métatâche exécute le script `task.run` qui contient une boucle. À chaque itération, le script accède à une zone critique pour récupérer le prochain cas à traiter dans le fichier `table.dat`, puis exécute le script `single_case.sh` pour ce cas. Cette méthode assure un équilibrage dynamique, faisant en sorte que toutes les métatâches terminent à peu près en même temps, peu importe les durées des cas ou la vitesse des nœuds."
     },
     {
-      "question": "Dans quel genre de situation devrait-on opter pour le mode META?",
-      "answer": "Le mode META est la solution lorsque le nombre de cas est largement supérieur à 500."
-    },
-    {
-      "question": "Quels sont les inconvénients du mode SIMPLE si on a un très grand nombre de cas?",
-      "answer": "Avec un très grand nombre de cas, le mode SIMPLE peut entraîner des problèmes comme la limite du nombre de tâches par grappe et le gaspillage de cycles CPU dû à un ordonnancement non nécessaire si chaque cas prend moins de 20 minutes."
-    },
-    {
-      "question": "Comment active-t-on le mode META quand on soumet des cas?",
-      "answer": "Pour activer le mode META, le premier argument de la commande `submit.run` doit être le nombre souhaité de métatâches, par exemple `submit.run 32`."
-    },
-    {
-      "question": "Quel est le mécanisme clé utilisé par le mode META pour gérer les cas ayant des durées de traitement différentes?",
-      "answer": "Le mode META utilise un schéma d'équilibrage dynamique de la charge de travail pour s'adapter aux cas qui peuvent prendre des temps de traitement différents."
-    },
-    {
-      "question": "Comment l'équilibrage dynamique de la charge de travail est-il implémenté en mode META?",
-      "answer": "Chaque tâche exécute le script `task.run`, qui contient une boucle `while` pour les cas. Chaque itération de la boucle passe par une zone critique pour obtenir le cas suivant de `table.dat`, puis le script `single_case.sh` est exécuté pour ce cas."
-    },
-    {
-      "question": "Quels sont les avantages de l'équilibrage dynamique de la charge de travail du mode META?",
-      "answer": "Les métatâches se terminent toutes à peu près au même moment, peu importe les différences de durées d'exécution des cas individuels, la vitesse des processeurs ou le moment de démarrage des métatâches. De plus, il n'est pas nécessaire que toutes les métatâches démarrent pour que tous les cas soient traités."
-    },
-    {
-      "question": "Si une métatâche est interrompue en cours de calcul, par exemple à cause d'une panne de nœud, que se passe-t-il?",
-      "answer": "Si une métatâche est interrompue, au plus un cas sera perdu, et ce cas peut être facilement repris avec la commande `resubmit.run`."
-    },
-    {
-      "question": "Est-ce que toutes les métatâches demandées sont garanties de s'exécuter en mode META?",
-      "answer": "Non, toutes les métatâches demandées ne s'exécuteront pas nécessairement; cela dépend de la disponibilité de la grappe."
-    },
-    {
-      "question": "Quelle est la première étape pour estimer le temps d'exécution optimal et le nombre de métatâches à utiliser en mode META?",
-      "answer": "La première étape est de déterminer le temps d'exécution moyen pour un cas individuel, c'est-à-dire une seule ligne dans le fichier `table.dat`."
-    },
-    {
-      "question": "Comment peut-on estimer le temps moyen d'exécution d'un cas (`dt_case`)?",
-      "answer": "On peut estimer le temps moyen en allouant un seul cœur CPU avec `salloc`, puis en exécutant `single_case.sh` pour quelques cas différents dans une boucle `for`, en mesurant la durée totale et en la divisant par le nombre de cas exécutés."
+      "question": "Quelles sont les étapes pour estimer la durée d'exécution et le nombre de métatâches optimales à configurer pour un groupe de cas en mode META?",
+      "answer": "Premièrement, déterminez le temps d'exécution moyen d'un cas individuel (`dt_case`) en exécutant `single_case.sh` pour quelques cas avec `salloc`. Ensuite, estimez le temps CPU total en multipliant `dt_case` par le nombre total de cas, en y ajoutant une marge de sécurité (ex. 1,1 ou 1,3). Choisissez une durée d'exécution raisonnable pour les métatâches (idéalement 12 ou 24 heures, mais pas plus de 3 jours). Finalement, divisez le temps CPU total par la durée d'exécution choisie pour obtenir le nombre requis de métatâches, arrondi à l'entier supérieur."
     }
   ],
-  "generated_at": "2026-04-12T01:25:39.705280+00:00"
+  "generated_at": "2026-04-13T08:28:42.208273+00:00"
 }

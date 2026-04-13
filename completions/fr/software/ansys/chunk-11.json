@@ -4,85 +4,17 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "C'est quoi le but du script Slurm `script-flu-bynode-intel.sh` pour Ansys Fluent?",
-      "answer": "Ce script est fait pour rouler Ansys Fluent sur plusieurs nœuds de calcul en se basant sur la configuration par nœud, en utilisant MPI Intel."
+      "question": "Quelles sont les principales différences dans les directives Slurm entre les scripts de soumission Ansys Fluent configurés 'par nœud' et 'par cœur'?",
+      "answer": "Pour les scripts 'par nœud', on spécifie le nombre de nœuds (`#SBATCH --nodes`) et le nombre de tâches par nœud (`#SBATCH --ntasks-per-node`), souvent en allouant toute la mémoire du nœud (`#SBATCH --mem=0`). Pour les scripts 'par cœur', on spécifie le nombre total de cœurs à travers tous les nœuds (`#SBATCH --ntasks`) et la mémoire par cœur (`#SBATCH --mem-per-cpu`), avec la possibilité de ne pas spécifier le nombre de nœuds (`##SBATCH --nodes=1` est commenté) pour laisser Slurm l'optimiser."
     },
     {
-      "question": "Quelles versions de modules faut charger avant d'exécuter le script `script-flu-bynode-intel.sh`?",
-      "answer": "Faut charger le module `StdEnv/2023` pis `ansys/2023R2` ou une version plus récente."
+      "question": "Comment le script Slurm pour Ansys Fluent sur la grappe Trillium gère-t-il les informations de licence, et en quoi est-ce différent des autres grappes?",
+      "answer": "Sur la grappe Trillium, le script configure des tunnels SSH via `tri-gw` pour rediriger les ports Flex (FLEXPORT) et Vendor (VENDPORT) du serveur de licence local vers `localhost`. Il définit ensuite les variables d'environnement `ANSYSLMD_LICENSE_FILE` et `ANSYSLI_SERVERS` pour qu'elles pointent vers `localhost`. Ceci est spécifique à Trillium, tandis que d'autres grappes s'appuient généralement sur un fichier `~/.licenses/ansys.lic` configuré directement avec l'adresse du serveur de licence."
     },
     {
-      "question": "Comment j'alloue la mémoire par nœud de calcul avec le script `script-flu-bynode-intel.sh`?",
-      "answer": "Tu peux spécifier `0` pour l'option `#SBATCH --mem` pour allouer toute la mémoire disponible par nœud de calcul."
-    },
-    {
-      "question": "C'est quoi le nombre maximal de nœuds de calcul qu'on peut spécifier pour le script `script-flu-bynode-intel.sh` si on roule sur la grappe Narval?",
-      "answer": "Sur Narval, tu peux spécifier un maximum de `1` nœud de calcul (`#SBATCH --nodes=1`)."
-    },
-    {
-      "question": "Quelles sont les variables que je dois absolument configurer dans le script `script-flu-bynode-intel.sh`?",
-      "answer": "Tu dois spécifier le nom de ton fichier journal (`MYJOURNALFILE`) pis la version de ta simulation (`MYVERSION`), qui peut être `2d`, `2ddp`, `3d` ou `3ddp`."
-    },
-    {
-      "question": "Quelle est la méthode MPI utilisée par défaut dans le script `script-flu-bynode-intel.sh`?",
-      "answer": "Le script utilise Intel MPI (`-mpi=intel`)."
-    },
-    {
-      "question": "C'est quoi la commande Fluent utilisée pour une exécution sur un seul nœud avec le script `script-flu-bynode-intel.sh`?",
-      "answer": "Pour un seul nœud, la commande est `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`."
-    },
-    {
-      "question": "Comment le script `script-flu-bynode-intel.sh` gère-t-il les interconnexions pour Fluent sur plusieurs nœuds?",
-      "answer": "Pour la grappe Nibi, ça utilise `-peth`, pis pour les autres grappes, ça utilise `-pib`."
-    },
-    {
-      "question": "C'est quoi le but du script Slurm `script-flu-bycore-intel.sh` pour Ansys Fluent?",
-      "answer": "Ce script est fait pour rouler Ansys Fluent sur plusieurs nœuds de calcul en se basant sur la configuration par cœur, en utilisant MPI Intel."
-    },
-    {
-      "question": "Comment je gère l'allocation de mémoire par cœur de processeur avec le script `script-flu-bycore-intel.sh`?",
-      "answer": "Tu peux spécifier la mémoire par cœur en utilisant `#SBATCH --mem-per-cpu=4G`, par exemple, pour allouer 4 gigaoctets par cœur."
-    },
-    {
-      "question": "Combien de cœurs par tâche sont spécifiés par défaut dans le script `script-flu-bycore-intel.sh`?",
-      "answer": "Le script spécifie `1` cœur par tâche (`#SBATCH --cpus-per-task=1`)."
-    },
-    {
-      "question": "Y a-t-il une limite de nœuds suggérée pour Narval quand on utilise le script `script-flu-bycore-intel.sh`?",
-      "answer": "Oui, il est suggéré de ne pas dépasser 1 nœud pour Narval (`##SBATCH --nodes=1`)."
-    },
-    {
-      "question": "C'est quoi le but du script Slurm `script-flu-bynode-openmpi.sh`?",
-      "answer": "Ce script est conçu pour faire rouler Ansys Fluent sur plusieurs nœuds, spécifiquement sur la grappe Narval, en utilisant Open MPI et une allocation par nœud."
-    },
-    {
-      "question": "Quelles versions de modules Ansys sont supportées par le script `script-flu-bynode-openmpi.sh`?",
-      "answer": "Il supporte `ansys/2023R2` ou des versions plus récentes, en plus de `StdEnv/2023`."
-    },
-    {
-      "question": "Comment est gérée l'allocation de mémoire par nœud de calcul dans le script `script-flu-bynode-openmpi.sh`?",
-      "answer": "Tu dois laisser `#SBATCH --mem=0` tel quel pour allouer toute la mémoire disponible par nœud de calcul."
-    },
-    {
-      "question": "Quel est le nombre maximal de cœurs par nœud qu'on peut utiliser avec le script `script-flu-bynode-openmpi.sh` sur Narval?",
-      "answer": "Sur Narval, tu peux spécifier jusqu'à `64` cœurs par nœud (`#SBATCH --ntasks-per-node=64`)."
-    },
-    {
-      "question": "Quelle est la méthode MPI utilisée par le script `script-flu-bynode-openmpi.sh`?",
-      "answer": "Ce script utilise Open MPI (`-mpi=openmpi`)."
-    },
-    {
-      "question": "Comment le script `script-flu-bynode-openmpi.sh` configure-t-il l'environnement pour Open MPI?",
-      "answer": "Il exporte la variable `OPENMPI_ROOT=$EBROOTOPENMPI`."
-    },
-    {
-      "question": "Comment les fichiers machinefile sont-ils générés dans les scripts Fluent?",
-      "answer": "Le script utilise `slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/machinefile-$SLURM_JOB_ID` pour générer le fichier machinefile."
-    },
-    {
-      "question": "C'est quoi le temps limite par défaut pour les tâches spécifiées dans ces scripts Fluent?",
-      "answer": "Le temps limite par défaut est de 3 heures (`#SBATCH --time=00-03:00`)."
+      "question": "Quel est l'exemple de commande Fluent utilisée pour lancer une simulation en parallèle sur un seul nœud de calcul en utilisant Intel MPI dans un script Slurm?",
+      "answer": "Pour lancer Fluent en parallèle sur un seul nœud de calcul avec Intel MPI, le script utilise la commande `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`. `$MYVERSION` spécifie le type de simulation (par exemple, 3d), `$NCORES` correspond au nombre de cœurs alloués, `-mpi=intel` indique l'utilisation d'Intel MPI, `-pshmem` active la mémoire partagée et `-i $MYJOURNALFILE` référence le fichier de journalisation de la simulation."
     }
   ],
-  "generated_at": "2026-04-12T16:57:56.136796+00:00"
+  "generated_at": "2026-04-13T01:56:12.792752+00:00"
 }

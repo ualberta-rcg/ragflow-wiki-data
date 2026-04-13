@@ -4,37 +4,17 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "Comment faire pour écrire les données de redémarrage pour un total de 12 incréments quand on utilise le script pour le répertoire temporaire pour une analyse explicite?",
-      "answer": "Pour ça, faut que le fichier en entrée contienne la ligne `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
+      "question": "Est-ce qu'il faut modifier le fichier d'entrée pour relancer une analyse explicite Abaqus?",
+      "answer": "Non, le fichier d'entrée ne requiert aucune modification pour le redémarrage d'une analyse explicite Abaqus."
     },
     {
-      "question": "Comment est-ce qu'on peut vérifier toute l'information sur le redémarrage pour une analyse explicite en utilisant le répertoire temporaire?",
-      "answer": "Pour vérifier l'information complète, on lance la commande `egrep -i \"step|restart\" testet*.com testet*.msg testet*.sta`."
+      "question": "Comment configure-t-on une tâche de redémarrage pour une analyse explicite Abaqus lorsqu'on utilise un répertoire temporaire (`SLURM_TMPDIR`)?",
+      "answer": "Pour configurer une tâche de redémarrage pour une analyse explicite Abaqus avec un répertoire temporaire, il faut un script Slurm (comme `scriptet2.txt`). Ce script va copier les fichiers de la tâche précédente vers `$SLURM_TMPDIR`, se positionner dans ce répertoire, puis lancer Abaqus avec l'option `recover` en spécifiant le nom de l'ancienne tâche (`oldjob`) et le nom de la nouvelle (`job`). Le script inclut également un mécanisme de sauvegarde périodique des données vers `$SLURM_SUBMIT_DIR`."
     },
     {
-      "question": "C'est quoi le but du script `scriptet2.txt` qu'on trouve sous l'onglet 'script de redémarrage pour le répertoire temporaire'?",
-      "answer": "Ce script-là est fait pour redémarrer une tâche d'analyse explicite sur un nœud simple, en utilisant le répertoire temporaire."
-    },
-    {
-      "question": "Est-ce qu'on doit modifier le fichier en entrée pour redémarrer une analyse explicite avec le script `scriptet2.txt`?",
-      "answer": "Non, le fichier en entrée ne requiert aucune modification pour le redémarrage de l'analyse quand on utilise ce script."
-    },
-    {
-      "question": "Quelles versions d'Abaqus sont compatibles avec le script pour nœuds multiples en analyse explicite?",
-      "answer": "Avec ce script, on peut utiliser seulement Abaqus/2026 et les versions plus récentes."
-    },
-    {
-      "question": "Est-ce qu'il y a un script fourni pour redémarrer des tâches d'analyse explicite sur plusieurs nœuds?",
-      "answer": "Non, un script modèle pour redémarrer des tâches sur nœuds multiples n'est pas fourni parce que son utilisation présente des limitations supplémentaires."
-    },
-    {
-      "question": "Dans quelles conditions est-ce que je devrais utiliser le script d'analyse explicite pour nœuds multiples?",
-      "answer": "Si vous avez une licence qui vous permet de rouler des tâches qui demandent beaucoup de mémoire et de calcul, ce script-là peut faire le calcul avec MPI en utilisant un ensemble de nœuds que l'ordonnanceur détermine automatiquement."
-    },
-    {
-      "question": "Quelles sont les directives SBATCH importantes dans le script `scriptep1-mpi.txt` pour une analyse explicite multi-nœuds?",
-      "answer": "Les directives importantes sont `--account` pour le compte, `--time` pour la durée, `--ntasks` pour le nombre de cœurs, et `--mem-per-cpu` pour la mémoire par cœur. Le `--cpus-per-task=1` ne doit pas être changé."
+      "question": "Quelles sont les conditions requises et les versions d'Abaqus prises en charge pour exécuter une analyse explicite sur plusieurs nœuds via MPI?",
+      "answer": "Pour exécuter une analyse explicite Abaqus sur plusieurs nœuds avec MPI, vous devez avoir une licence qui permet de lancer des tâches gourmandes en mémoire et en calcul. Le script modèle fourni (`scriptep1-mpi.txt`) utilise MPI pour distribuer le calcul sur plusieurs nœuds. Seules les versions Abaqus/2026 et plus récentes sont compatibles avec ce script, et les scripts de redémarrage pour les tâches multinœuds ne sont pas offerts actuellement en raison de limitations."
     }
   ],
-  "generated_at": "2026-04-11T15:39:38.794494+00:00"
+  "generated_at": "2026-04-13T00:51:58.736559+00:00"
 }

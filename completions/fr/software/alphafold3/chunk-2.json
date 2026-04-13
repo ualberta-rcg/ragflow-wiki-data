@@ -4,65 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Pourquoi est-ce qu'on suggère d'exécuter AlphaFold3 par étapes?",
-      "answer": "On suggère d'exécuter AlphaFold3 par étapes pour deux raisons principales : séparer le pipeline de données (CPU) du modèle d'inférence (GPU) afin d'optimiser les coûts et l'utilisation des ressources, et cacher les résultats de la recherche de MSA/modèle pour ensuite réutiliser le JSON augmenté pour plusieurs inférences ou variations."
+      "question": "Pour optimiser les coûts et l'utilisation des ressources, quelles sont les deux étapes principales pour exécuter le pipeline d'AlphaFold3?",
+      "answer": "Pour optimiser les coûts et l'utilisation des ressources, le pipeline d'AlphaFold3 doit être exécuté en deux étapes distinctes: le pipeline de données, qui est conçu pour les processeurs (CPU), et le modèle d'inférence, qui requiert un processeur graphique (GPU)."
     },
     {
-      "question": "Quel est le nom du script d'exemple pour l'étape du pipeline de données CPU dans AlphaFold3?",
-      "answer": "Le nom du script d'exemple pour l'étape du pipeline de données CPU est `alphafold3-data.sh`."
+      "question": "Quelles sont les exigences minimales en matière de processeur graphique (GPU) pour l'étape d'inférence du modèle AlphaFold3?",
+      "answer": "Pour l'étape d'inférence du modèle, AlphaFold3 est compatible uniquement avec les GPU ayant une capacité de calcul de version 8.0 ou plus récente, ce qui signifie des cartes A100 ou des modèles plus performants."
     },
     {
-      "question": "Quel est le nombre maximal de cœurs CPU recommandé pour l'étape du pipeline de données AlphaFold3?",
-      "answer": "Un maximum de 8 cœurs CPU sont recommandés pour l'étape du pipeline de données, car AlphaFold n'a pas d'avantage à utiliser plus de cœurs pour cette tâche."
-    },
-    {
-      "question": "Quelle quantité de mémoire est suggérée pour la tâche du pipeline de données AlphaFold3 selon l'exemple?",
-      "answer": "La quantité de mémoire suggérée est de 64 Go (`#SBATCH --mem=64G`)."
-    },
-    {
-      "question": "Quels modules doivent être chargés pour l'étape du pipeline de données AlphaFold3?",
-      "answer": "Les modules à charger sont `StdEnv/2023`, `hmmer/3.4`, `rdkit/2024.03.5` et `python/3.12`."
-    },
-    {
-      "question": "Où sont stockés les fichiers de sortie du pipeline de données AlphaFold3 pendant son exécution?",
-      "answer": "Les fichiers de sortie sont stockés temporairement dans le répertoire `$SLURM_TMPDIR/alphafold/output`."
-    },
-    {
-      "question": "Quelle commande permet d'installer AlphaFold et ses dépendances dans un environnement virtuel pour l'exécution par étapes?",
-      "answer": "Il faut utiliser `pip install --no-index --upgrade pip` et `pip install --no-index --requirement ~/alphafold3-requirements.txt`."
-    },
-    {
-      "question": "Quel argument doit-on utiliser avec `run_alphafold.py` pour indiquer qu'on exécute seulement l'étape du pipeline de données?",
-      "answer": "Il faut utiliser l'argument `--norun_inference`."
-    },
-    {
-      "question": "Quel est le nom du script d'exemple pour l'étape d'inférence de modèle d'AlphaFold3?",
-      "answer": "Le nom du script d'exemple pour l'étape d'inférence de modèle est `alphafold3-inference.sh`."
-    },
-    {
-      "question": "Quelles sont les exigences de compatibilité GPU pour l'inférence de modèle avec AlphaFold3?",
-      "answer": "AlphaFold3 prend en charge seulement les GPUs avec une capacité de calcul de version 8.0 et plus récentes, comme les cartes A100s et plus performantes."
-    },
-    {
-      "question": "Combien de GPUs et de cœurs CPU sont recommandés pour l'étape d'inférence de modèle AlphaFold3?",
-      "answer": "Un seul GPU A100 (ou plus performant) est requis (`#SBATCH --gpus=a100:1`), et un seul cœur CPU (`#SBATCH --cpus-per-task=1`) est suffisant, car AlphaFold n'a pas d'avantage à en utiliser plus pour cette étape."
-    },
-    {
-      "question": "Quels modules supplémentaires sont requis pour l'étape d'inférence de modèle par rapport au pipeline de données?",
-      "answer": "En plus des modules du pipeline de données, il faut charger `cuda/12.2` et `cudnn/9.2`."
-    },
-    {
-      "question": "Quelles variables d'environnement sont définies pour optimiser la mémoire GPU durant l'étape d'inférence de modèle?",
-      "answer": "Les variables d'environnement `export XLA_PYTHON_CLIENT_PREALLOCATE=true` et `export XLA_CLIENT_MEM_FRACTION=0.95` sont définies pour l'optimisation de la mémoire GPU."
-    },
-    {
-      "question": "Quel argument doit-on utiliser avec `run_alphafold.py` pour indiquer qu'on exécute seulement l'étape d'inférence du modèle?",
-      "answer": "Il faut utiliser l'argument `--norun_data_pipeline`."
-    },
-    {
-      "question": "Où est le répertoire des bases de données (`db_dir`) spécifié dans les scripts d'exécution par étapes?",
-      "answer": "Le répertoire des bases de données est spécifié par la variable `DOWNLOAD_DIR`, qui est réglée à `$SCRATCH/alphafold/dbs` dans les scripts."
+      "question": "Quelles sont les grandes lignes pour configurer et lancer l'étape du pipeline de données (CPU) pour AlphaFold3 sur les grappes de calcul, et quelles sont les ressources typiques nécessaires?",
+      "answer": "Pour configurer et lancer l'étape du pipeline de données sur CPU pour AlphaFold3, il faut charger les modules StdEnv/2023, hmmer/3.4, rdkit/2024.03.5 et python/3.12, créer et activer un environnement virtuel Python, y installer AlphaFold et ses dépendances, compiler les données nécessaires, puis exécuter le script `run_alphafold.py` en spécifiant `--norun_inference`. Généralement, cette étape utilise un maximum de 8 cœurs CPU et 64 Go de mémoire."
     }
   ],
-  "generated_at": "2026-04-12T16:32:42.496113+00:00"
+  "generated_at": "2026-04-13T01:36:21.672693+00:00"
 }

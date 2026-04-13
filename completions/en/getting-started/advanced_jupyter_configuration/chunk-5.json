@@ -4,121 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "When connecting to JupyterLab from Windows, how do you extract the `hostname:port` and `token` values?",
-      "answer": "You can extract the `hostname:port` and the `token` from the first provided HTTP address, which looks like `http://node_name.int.cluster.alliancecan.ca:8888/lab?token=101c368829...2728fad4eb`."
+      "question": "How can a user connect to a JupyterLab server running on a compute node from a Windows machine?",
+      "answer": "To connect to a JupyterLab server running on a compute node from a Windows machine, you need to create an SSH tunnel using MobaXTerm. First, extract the `hostname:port` and `token` from the HTTP address provided by the JupyterLab server. Then, open a new Terminal tab in MobaXTerm and execute the command `ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca`, replacing the bracketed placeholders with your specific values. Finally, open your web browser and navigate to `http://localhost:8888/?token=<token>`, substituting `<token>` with the extracted alphanumerical value."
     },
     {
-      "question": "How do you create an SSH tunnel from a Windows machine using MobaXTerm to access JupyterLab on a compute node?",
-      "answer": "After extracting the `hostname:port` and `token` from the JupyterLab URL, open a new Terminal tab in MobaXTerm and run the command: `ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca`. Replace `<hostname:port>`, `<username>`, and `<cluster>` with your specific values."
+      "question": "What is the two-step process for adding a new kernel for a programming language or a different Python version to JupyterLab?",
+      "answer": "The installation of a new kernel in JupyterLab is accomplished in two main steps. First, you must install the packages that enable the language interpreter to communicate with the Jupyter interface. Second, you need to create a kernel spec file, which informs JupyterLab on how to initiate a communication channel with the language interpreter, and save this file in a subfolder of `~/.local/share/jupyter/kernels`."
     },
     {
-      "question": "Once an SSH tunnel is established via MobaXTerm, how do you access JupyterLab in your web browser?",
-      "answer": "Open your web browser and navigate to `http://localhost:8888/?token=<token>`, replacing `<token>` with the alphanumerical value extracted from the original JupyterLab URL."
-    },
-    {
-      "question": "How do you shut down the JupyterLab server before its allocated walltime limit?",
-      "answer": "You can shut down the JupyterLab server by pressing **Ctrl-C twice** in the terminal where the interactive job was launched."
-    },
-    {
-      "question": "How do you shut down an SSH tunnel created with MobaXTerm?",
-      "answer": "If you have used MobaXterm to create an SSH tunnel, press **Ctrl-D** to shut down the tunnel."
-    },
-    {
-      "question": "What is the purpose of adding kernels in JupyterLab?",
-      "answer": "Adding kernels allows you to use other programming languages, different Python versions, or persistent virtual environments with all the required packages and libraries for your project."
-    },
-    {
-      "question": "What are the two main steps involved in installing a new kernel in JupyterLab?",
-      "answer": "The two main steps are: 1) The installation of the packages that will allow the language interpreter to communicate with the Jupyter interface, and 2) The creation of a kernel spec file that will indicate to JupyterLab how to initiate a communication channel with the language interpreter."
-    },
-    {
-      "question": "Where are kernel spec files saved after installation?",
-      "answer": "Kernel spec files are saved in a subfolder of `~/.local/share/jupyter/kernels`."
-    },
-    {
-      "question": "What are the prerequisites for configuring a Julia kernel in JupyterLab?",
-      "answer": "The prerequisites for a Julia kernel are a Python virtual environment and a `kernels` folder. Additionally, the configuration must be done in a remote shell session on a login node because installing Julia packages requires internet access."
-    },
-    {
-      "question": "How do you load the Julia module when configuring a Julia kernel?",
-      "answer": "You load the Julia module using the command `module load julia` within an activated Python virtual environment."
-    },
-    {
-      "question": "How do you install IJulia for the Julia kernel?",
-      "answer": "After loading the Julia module, you install IJulia by executing the command `echo -e 'using Pkg\nPkg.add(\"IJulia\")' | julia`."
-    },
-    {
-      "question": "What important step should be taken after installing IJulia for the Julia kernel?",
-      "answer": "It is important to start or restart a new JupyterLab session before using the Julia kernel."
-    },
-    {
-      "question": "How do you install additional Julia packages once the Julia kernel is configured?",
-      "answer": "To install more Julia packages, ensure the same Julia module is loaded and then run `echo -e 'using Pkg\nPkg.add(\"Glob\")' | julia` (replacing `Glob` with your desired package) from a login node."
-    },
-    {
-      "question": "What are the initial steps for configuring a Python kernel in a new virtual environment for JupyterLab?",
-      "answer": "The initial steps include: starting from a clean Bash environment (if using the Jupyter Terminal via JupyterHub), loading a Python module, creating a new Python virtual environment, activating it, and then creating the common `kernels` folder."
-    },
-    {
-      "question": "Why might you need to start from a clean Bash environment when configuring a Python kernel, and how is it done?",
-      "answer": "Starting from a clean Bash environment is only required if you are using the Jupyter `Terminal` via JupyterHub for the creation and configuration of the Python kernel. This is done with the command `env -i HOME=$HOME bash -l`."
-    },
-    {
-      "question": "How do you create the common `kernels` folder required for all kernels?",
-      "answer": "You create the common `kernels` folder by running the command `mkdir -p ~/.local/share/jupyter/kernels`."
-    },
-    {
-      "question": "How do you install the `ipykernel` library for the Python kernel?",
-      "answer": "You install the `ipykernel` library using the command `pip install --no-index ipykernel` within your activated Python virtual environment."
-    },
-    {
-      "question": "How do you generate the kernel spec file for a Python kernel?",
-      "answer": "You generate the kernel spec file by running `python -m ipykernel install --user --name <unique_name> --display-name \"Python 3.x Kernel\"`, where `<unique_name>` should be replaced with a name that uniquely identifies your kernel."
-    },
-    {
-      "question": "What important step should be taken after installing the Python kernel?",
-      "answer": "It is important to start or restart a new JupyterLab session before using the Python kernel."
-    },
-    {
-      "question": "How do you install additional Python libraries for a Python kernel?",
-      "answer": "Ensure that the activated Python virtual environment is running in a clean Bash environment (if applicable), then install any required library using `pip install --no-index <package_name>`, for example, `pip install --no-index numpy`."
-    },
-    {
-      "question": "What are the prerequisites for configuring an R kernel in JupyterLab?",
-      "answer": "The prerequisites for an R kernel are a Python virtual environment and a `kernels` folder. Additionally, the configuration must be done in a remote shell session on a login node because installing R packages requires internet access to CRAN."
-    },
-    {
-      "question": "How do you load an R module when configuring an R kernel?",
-      "answer": "You load an R module using the command `module load r/4.1` (or a specific R version) within an activated Python virtual environment."
-    },
-    {
-      "question": "How do you install the R kernel dependencies `crayon`, `pbdZMQ`, and `devtools`?",
-      "answer": "In the R shell, you install these dependencies by running `install.packages(c('crayon', 'pbdZMQ', 'devtools'), repos='http://cran.us.r-project.org')`. This process can take up to 10 minutes."
-    },
-    {
-      "question": "Where should R packages be installed during the R kernel dependency installation?",
-      "answer": "R packages should be installed in a local directory like `~/R/x86_64-pc-linux-gnu-library/4.1`."
-    },
-    {
-      "question": "How do you install the R kernel itself?",
-      "answer": "After installing the dependencies, you install the R kernel in the R shell by running `devtools::install_github(paste0('IRkernel/', c('repr', 'IRdisplay', 'IRkernel')))`."
-    },
-    {
-      "question": "How do you install the R kernel spec file?",
-      "answer": "You install the R kernel spec file by running `IRkernel::installspec()` in the R shell."
-    },
-    {
-      "question": "What important step should be taken after installing the R kernel?",
-      "answer": "It is important to start or restart a new JupyterLab session before using the R kernel."
-    },
-    {
-      "question": "How do you install additional R packages once the R kernel is configured?",
-      "answer": "Ensure the same R module is loaded, then from a login node, start the R shell (`R --no-save`) and run `install.packages('<package_name>', repos='http://cran.us.r-project.org')`, for example, `install.packages('doParallel', repos='http://cran.us.r-project.org')`."
-    },
-    {
-      "question": "Why can't R packages be installed from notebooks?",
-      "answer": "R packages cannot be installed directly from notebooks because there is no access to CRAN from the notebooks."
+      "question": "What are the initial steps to configure a custom Python kernel for JupyterLab in a new Python virtual environment?",
+      "answer": "To configure a custom Python kernel for JupyterLab, begin by creating and activating a Python virtual environment. This involves loading a Python module, creating the environment (e.g., using `virtualenv --no-download $HOME/jupyter_py3`), and then activating it with `source $HOME/jupyter_py3/bin/activate`. Next, create the common `kernels` folder using `mkdir -p ~/.local/share/jupyter/kernels`. Finally, install the `ipykernel` library with `pip install --no-index ipykernel` and generate the kernel spec file by running `python -m ipykernel install --user --name <unique_name> --display-name \"Python 3.x Kernel\"`, replacing `<unique_name>` with a unique identifier for your kernel. It is important to start or restart a new JupyterLab session before using the new Python kernel."
     }
   ],
-  "generated_at": "2026-04-11T16:06:45.257775+00:00"
+  "generated_at": "2026-04-13T01:11:36.118201+00:00"
 }

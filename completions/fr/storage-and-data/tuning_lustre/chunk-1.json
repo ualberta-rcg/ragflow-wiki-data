@@ -4,81 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que Lustre?",
-      "answer": "Lustre est un système de fichiers distribué de haute performance."
+      "question": "C'est quoi, le système de fichiers Lustre?",
+      "answer": "Le système de fichiers Lustre est un système de fichiers distribué de haute performance qui permet de réaliser des opérations d'entrée-sortie en parallèle avec un fort débit."
     },
     {
-      "question": "Quel est le rôle principal du système de fichiers Lustre?",
-      "answer": "Il permet de réaliser des opérations d'entrée-sortie en parallèle avec un fort débit."
+      "question": "Qu'est-ce que ça veut dire, les paramètres <tt>stripe_count</tt> pis <tt>stripe_size</tt>, dans le contexte d'un fichier ou d'un répertoire Lustre?",
+      "answer": "Pour un fichier ou un répertoire dans le système de fichiers Lustre, <tt>stripe_count</tt> représente le nombre de disques sur lesquels les données sont réparties, tandis que <tt>stripe_size</tt> est la taille du plus petit bloc de données qui est alloué."
     },
     {
-      "question": "À qui s'adressent les conseils pour optimiser le rendement du système de fichiers Lustre?",
-      "answer": "Les conseils s'adressent aux utilisateurs expérimentés."
-    },
-    {
-      "question": "Que faut-il faire avant d'appliquer des modifications basées sur les conseils pour Lustre?",
-      "answer": "Il faut s'assurer d'effectuer des tests pour vérifier la validité scientifique des résultats et que les modifications entraînent une réelle amélioration de la performance."
-    },
-    {
-      "question": "Quels sont les deux paramètres importants qu'on peut modifier pour un fichier ou un répertoire dans Lustre?",
-      "answer": "Les paramètres sont `stripe_count` et `stripe_size`."
-    },
-    {
-      "question": "Que représente le paramètre `stripe_count`?",
-      "answer": "`stripe_count` est le nombre de disques sur lesquels les données sont réparties."
-    },
-    {
-      "question": "Que signifie le paramètre `stripe_size`?",
-      "answer": "`stripe_size` est la taille du plus petit bloc de données alloué dans le système de fichiers."
-    },
-    {
-      "question": "Comment peut-on connaître la valeur de ces paramètres pour un fichier ou un répertoire donné?",
-      "answer": "On peut utiliser la commande `lfs getstripe /path/to/file`."
-    },
-    {
-      "question": "Quelle commande utilise-t-on pour modifier les paramètres de segmentation pour un répertoire?",
-      "answer": "On utilise la commande `lfs setstripe -c count /path/to/dir`."
-    },
-    {
-      "question": "Si on exécute la commande `lfs setstripe -c 8 /home/user/newdir`, qu'est-ce que ça implique?",
-      "answer": "Le fichier sera réparti sur huit disques RAID et chaque Mo sera écrit séquentiellement sur jusqu'à 8 serveurs."
-    },
-    {
-      "question": "Est-ce que la modification des paramètres `stripe_count` et `stripe_size` affecte un fichier existant?",
-      "answer": "Non, le fait de changer ces paramètres ne modifiera pas un fichier existant."
-    },
-    {
-      "question": "Comment faire pour que les nouveaux paramètres `stripe_count` et `stripe_size` s'appliquent à un fichier existant?",
-      "answer": "Pour les changer, il faut migrer le fichier ou le copier (et non le déplacer) vers un répertoire ayant des paramètres différents."
-    },
-    {
-      "question": "Comment créer un fichier vide avec des valeurs particulières pour `stripe_count` et `stripe_size` sans modifier les paramètres du répertoire?",
-      "answer": "Vous pouvez exécuter `lfs setstripe` sur le nom du fichier que vous voulez créer, le fichier sera créé vide avec les paramètres spécifiés."
-    },
-    {
-      "question": "Dans l'exemple, quelle était la valeur de `stripe_count` pour le répertoire `striping_example/` avant sa modification?",
-      "answer": "La valeur de `stripe_count` était 1."
-    },
-    {
-      "question": "Comment a-t-on modifié la segmentation du répertoire `striping_example` pour qu'il utilise 2 disques?",
-      "answer": "On a utilisé la commande `$ lfs setstripe -c 2 striping_example`."
-    },
-    {
-      "question": "Après avoir modifié le `stripe_count` du répertoire `striping_example` à 2, quelle était la valeur de `lmm_stripe_count` pour le fichier `example_file` déjà existant?",
-      "answer": "Le `lmm_stripe_count` pour `example_file` est resté à 1, car la modification des paramètres du répertoire n'affecte pas les fichiers existants."
-    },
-    {
-      "question": "Comment s'assurer qu'un nouveau fichier créé dans un répertoire modifié, comme `new_file` dans `striping_example`, utilise le nouveau `stripe_count` du répertoire?",
-      "answer": "Il suffit de créer le nouveau fichier après que les paramètres du répertoire aient été modifiés, comme avec `$ dd if=/dev/urandom of=striping_example/new_file bs=1M count=10`."
-    },
-    {
-      "question": "Quelle commande faut-il utiliser pour resegmenter un fichier existant, comme `example_file`, pour qu'il ait un `stripe_count` de 2?",
-      "answer": "Il faut utiliser la commande `lfs migrate -c 2 striping_example/example_file`."
-    },
-    {
-      "question": "Après avoir resegmenté `striping_example/example_file` avec `lfs migrate -c 2`, quelle est la nouvelle valeur de `lmm_stripe_count` pour ce fichier?",
-      "answer": "Le `lmm_stripe_count` est maintenant de 2."
+      "question": "Comment faire pour changer les paramètres de segmentation, comme <tt>stripe_count</tt> et <tt>stripe_size</tt>, pour des fichiers pis des répertoires dans le système Lustre?",
+      "answer": "Pour connaître les paramètres actuels, on utilise la commande `lfs getstripe /chemin/vers/fichier`. Pour modifier les paramètres d'un répertoire, on utilise `lfs setstripe -c nombre /chemin/vers/répertoire`. Si on veut changer les paramètres d'un fichier déjà existant, il faut le migrer avec `lfs migrate` ou le copier (pis non le déplacer) vers un répertoire qui a des paramètres différents. Pour créer un fichier vide avec des valeurs spécifiques de <tt>stripe_count</tt> et <tt>stripe_size</tt>, on peut exécuter `lfs setstripe` directement sur le nom du fichier qu'on est en train de créer."
     }
   ],
-  "generated_at": "2026-04-12T09:53:59.319870+00:00"
+  "generated_at": "2026-04-13T15:02:34.227592+00:00"
 }

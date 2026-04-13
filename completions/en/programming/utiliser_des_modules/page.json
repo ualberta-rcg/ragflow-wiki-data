@@ -3,173 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What kind of software can be executed on the servers?",
-      "answer": "The servers can execute all software that runs under Linux."
+      "question": "What are modules on Linux servers, and why are they used?",
+      "answer": "Modules are configuration files that modify a software environment on Linux servers, allowing multiple versions of the same application to be installed and accessible without conflict."
     },
     {
-      "question": "If software is already installed on a compute server, how is it typically accessed?",
-      "answer": "It will be accessible in the form of a 'module'."
+      "question": "What tool manages modules on new Alliance servers, and what older system does it replace?",
+      "answer": "On new Alliance servers, modules are managed using the Lmod tool, which replaces the 'Environment Modules' system used on most legacy servers."
     },
     {
-      "question": "What options are available if needed software isn't already installed?",
-      "answer": "Users can either ask the staff to install it or install it themselves."
+      "question": "What kind of information does a \"modulefile\" typically contain to make software available?",
+      "answer": "A \"modulefile\" typically contains instructions that modify or initialize environment variables, such as `PATH` and `LD_LIBRARY_PATH`, to make an application or library available in a user's login session."
     },
     {
-      "question": "What is the purpose of modules?",
-      "answer": "Modules are configuration files that contain instructions for modifying a software environment."
+      "question": "How can a user view a list of all available sub-commands for the `module` command?",
+      "answer": "A user can view a list of all available sub-commands for the `module` command by executing `module help`."
     },
     {
-      "question": "What is the key benefit of the modular architecture?",
-      "answer": "It allows multiple versions of the same application to be installed without conflict."
+      "question": "How can a user find all available versions of a specific application, like 'openmpi', within the module system?",
+      "answer": "A user can find all available versions of a specific application, such as 'openmpi', by using the `module spider openmpi` command, which searches the complete module tree."
     },
     {
-      "question": "Which tool is used to manage modules on new servers?",
-      "answer": "Lmod, developed at TACC, is used to manage modules on new servers."
+      "question": "What is the primary function of the `module avail` command, and why might it not show all modules?",
+      "answer": "The `module avail` command lists modules that can be loaded. It might not show all modules because it only displays those compatible with modules already loaded; for a complete list, `module spider` should be used."
     },
     {
-      "question": "What predecessor system does Lmod replace, and how similar is it?",
-      "answer": "Lmod replaces 'Environment Modules' and was designed to be very similar to it."
+      "question": "Which command allows a user to see which modules are currently loaded in their environment?",
+      "answer": "The `module list` command allows a user to see which modules are currently loaded in their environment."
     },
     {
-      "question": "What does a 'modulefile' contain?",
-      "answer": "A modulefile contains the information needed to make an application or library available in the user's login session."
+      "question": "How does a user load specific versions of software, such as GCC 9.3 and Open MPI 4.0, using the module system?",
+      "answer": "A user can load specific versions of software, like GCC 9.3 and Open MPI 4.0, with a single command such as `module load gcc/9.3 openmpi/4.0`."
     },
     {
-      "question": "Which environment variables do module files typically modify?",
-      "answer": "Module files typically modify or initialize environment variables such as `PATH` and `LD_LIBRARY_PATH`."
+      "question": "What happens when a user loads a module that is incompatible with one already present in their environment?",
+      "answer": "When a user loads an incompatible module, Lmod will automatically replace the original module with the new one. If the replaced module is part of a hierarchy, dependent modules will either reload if compatible versions exist or be deactivated."
     },
     {
-      "question": "Does loading a module automatically execute the software?",
-      "answer": "No, the simple fact of loading a module doesn't execute the software in question."
+      "question": "Is there a command to remove all loaded modules from a user's environment at once?",
+      "answer": "Yes, the `module purge` command allows a user to remove all currently loaded modules from their environment with a single command."
     },
     {
-      "question": "How can a user view details about a module, including its exact location or path?",
-      "answer": "By using the command `module show <module-name>`."
+      "question": "What information do the `module show`, `module help`, and `module whatis` sub-commands provide about a module?",
+      "answer": "The `module show` sub-command displays the entire module, `module help` displays a help message, and `module whatis` shows a description, all offering additional information about a given module."
     },
     {
-      "question": "What is the general syntax for using `module` commands?",
-      "answer": "The normal syntax is `module command [other options]`."
+      "question": "What is the recommended practice for loading modules, and what action is advised against?",
+      "answer": "It is recommended to load modules only when required, typically in job scripts, and it is advised against loading them automatically in a user's `.bashrc` file."
     },
     {
-      "question": "How can a user see a list of available `module` sub-commands?",
-      "answer": "Users can use the command `module help`."
+      "question": "How can a user create and later restore a collection of frequently used modules?",
+      "answer": "A user can create a module collection by first loading the desired modules and then using `module save <collection-name>`. To restore it later, they use `module restore <collection-name>`."
     },
     {
-      "question": "What does the `module spider` sub-command do?",
-      "answer": "It searches the complete tree of all modules in the current standard software environment and displays it."
+      "question": "What is the main advantage of using a module hierarchy on HPC clusters?",
+      "answer": "The main advantage of using a module hierarchy on HPC clusters is to simplify module loading by allowing users to load modules like `fftw/3.8` without explicitly specifying compiler or MPI dependencies, as the correct version is automatically selected based on previously loaded 'parent' modules."
     },
     {
-      "question": "How can `module spider` be used to find all available versions of a specific application like 'openmpi'?",
-      "answer": "By specifying the application's name, for example, `module spider openmpi`."
+      "question": "Where can a user find documentation or instructions on how to create their own custom modules?",
+      "answer": "A user can find instructions for creating custom modules by referring to the official Lmod documentation."
     },
     {
-      "question": "What information does `module spider openmpi/4.0.3` display?",
-      "answer": "It displays a list of the modules a user must load to access that specific version."
-    },
-    {
-      "question": "How does a user list the modules they can load?",
-      "answer": "By using the `module avail` command."
-    },
-    {
-      "question": "Can `module avail` be used to list modules for a particular library or tool?",
-      "answer": "Yes, by specifying the name, for example, `module avail openmpi`."
-    },
-    {
-      "question": "Why might `module avail` not list all available modules?",
-      "answer": "It may not list some modules that are incompatible with the modules a user currently has loaded."
-    },
-    {
-      "question": "Which command should be used to see a list of all modules, including those incompatible with currently loaded ones?",
-      "answer": "The `spider` sub-command should be used."
-    },
-    {
-      "question": "How can a user list the modules currently loaded in their environment?",
-      "answer": "By using the `module list` sub-command."
-    },
-    {
-      "question": "How does a user load a specific module, such as GCC version 9.3?",
-      "answer": "By using the command `module load gcc/9.3`."
-    },
-    {
-      "question": "Is it possible to load multiple modules with a single command?",
-      "answer": "Yes, users can load more than one module with a single command, for example, `module load gcc/9.3 openmpi/4.0`."
-    },
-    {
-      "question": "What happens if a user loads a module that is incompatible with one already loaded?",
-      "answer": "Lmod will indicate that it has replaced the old module with the new one."
-    },
-    {
-      "question": "How can a module be removed from a user's environment?",
-      "answer": "By using the `module unload` sub-command, for example, `module unload gcc/9.3`."
-    },
-    {
-      "question": "What occurs if a user unloads a module that other loaded modules depend on?",
-      "answer": "Lmod will indicate that the dependent modules have been disabled."
-    },
-    {
-      "question": "How does a user remove all loaded modules with a single command?",
-      "answer": "By using the `module purge` sub-command."
-    },
-    {
-      "question": "Are there any modules that `module purge` will not unload?",
-      "answer": "Yes, some modules marked 'sticky' (permanent) by system administrators will not be unloaded."
-    },
-    {
-      "question": "What do the `module show`, `module help`, and `module whatis` sub-commands provide?",
-      "answer": "`module show` displays the entire module, `module help` displays a help message, and `module whatis` shows a description of the module."
-    },
-    {
-      "question": "How can a user search for modules by keyword or description?",
-      "answer": "By using the `module apropos` or `module keyword` sub-commands."
-    },
-    {
-      "question": "Is it recommended to load modules automatically in a user's `.bashrc` file?",
-      "answer": "No, it is advised against; instead, modules should be loaded only when required, such as in job scripts."
-    },
-    {
-      "question": "What is the recommended method for repeatedly loading a large number of modules?",
-      "answer": "Using a module collection is recommended."
-    },
-    {
-      "question": "How does a user create a module collection?",
-      "answer": "First, load the desired modules, then use the `save` sub-command, for example, `module save my_modules`."
-    },
-    {
-      "question": "How can a user restore a saved module collection in a later session or job?",
-      "answer": "By using the command `module restore <collection-name>`, for example, `module restore my_modules`."
-    },
-    {
-      "question": "What are hidden modules?",
-      "answer": "Hidden modules are typically modules that users don't have to load manually because they are loaded automatically based on other modules."
-    },
-    {
-      "question": "What problem does a module hierarchy solve?",
-      "answer": "It solves the problem of needing long, descriptive module names for combinations of versions by allowing simpler names for interdependent modules."
-    },
-    {
-      "question": "What is a disadvantage of using a module hierarchy regarding the `module avail` command?",
-      "answer": "`module avail` will only display modules compatible with loaded 'parent' modules, potentially hiding others."
-    },
-    {
-      "question": "Which command allows a user to scan the entire module hierarchy and display all modules, overcoming the limitation of `module avail`?",
-      "answer": "The `module spider` command."
-    },
-    {
-      "question": "What happens when the module system detects two modules of the same family or version during a `module load` command?",
-      "answer": "The `module load` command will automatically replace the original module with the one being loaded."
-    },
-    {
-      "question": "What happens to dependent modules if a replaced module was a node in the module hierarchy?",
-      "answer": "Dependent modules will be reloaded if compatible versions exist, or deactivated otherwise."
-    },
-    {
-      "question": "Where can users find instructions for creating modules?",
-      "answer": "Users should refer to the official Lmod documentation."
-    },
-    {
-      "question": "What commands should be executed to use modules with ZSH or KSH shells?",
-      "answer": "For ZSH, `zsh -l`; for KSH, `ksh -l`."
+      "question": "What commands are necessary to use modules with the ZSH or KSH shells?",
+      "answer": "To use modules with ZSH or KSH shells, a user needs to execute `zsh -l` for ZSH or `ksh -l` for KSH."
     }
   ],
-  "generated_at": "2026-04-12T10:33:56.211985+00:00"
+  "generated_at": "2026-04-13T15:33:59.676319+00:00"
 }

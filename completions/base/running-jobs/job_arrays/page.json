@@ -3,45 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of a SLURM job array?",
-      "answer": "A SLURM job array allows you to conveniently submit a large number of tasks that differ only in some parameter, processing them as individual tasks within a single job submission."
+      "question": "What is a job array (or task array) in Slurm used for?",
+      "answer": "In Slurm, a job array is used to conveniently submit a large number of tasks that differ only in some parameter, allowing many tasks to run at once."
     },
     {
-      "question": "How are individual tasks within a job array distinguished from each other?",
-      "answer": "Individual tasks are distinguished by the environment variable `$SLURM_ARRAY_TASK_ID`, which Slurm sets to a different value for each task."
+      "question": "What are other names for a Slurm job array?",
+      "answer": "A Slurm job array is also known as a task array or an array job."
     },
     {
-      "question": "How do you specify the range of values for `$SLURM_ARRAY_TASK_ID` when submitting a job array?",
-      "answer": "You specify the range of values using the `--array` parameter with `sbatch`, for example, `--array=0-7` for a range from 0 to 7."
+      "question": "How are individual tasks within a Slurm job array distinguished from each other?",
+      "answer": "Individual tasks in a Slurm job array are distinguished by the environment variable `$SLURM_ARRAY_TASK_ID`, which Slurm sets to a different value for each task."
     },
     {
-      "question": "Can you provide examples of how to use the `--array` parameter?",
-      "answer": "Examples include `--array=0-7` for a sequential range, `--array=1,3,5,7` for specific values, `--array=1-7:2` for a step size, and `--array=1-100%10` to limit concurrency."
+      "question": "What Slurm parameter is used to set the range of values for `$SLURM_ARRAY_TASK_ID` in a job array?",
+      "answer": "The `--array` parameter is used to set the range of values for `$SLURM_ARRAY_TASK_ID` in a Slurm job array."
     },
     {
-      "question": "Are tasks within a SLURM job array run dependently or independently?",
-      "answer": "Tasks within a job array are scheduled as independent tasks, each with its own time limit, and each may start at a different time on a different host."
+      "question": "Can you provide examples of how to use the `--array` parameter in Slurm to specify task IDs and concurrency?",
+      "answer": "Examples include `sbatch --array=0-7` (IDs 0 to 7), `sbatch --array=1,3,5,7` (specific IDs), `sbatch --array=1-7:2` (step size of 2), and `sbatch --array=1-100%10` (no more than 10 simultaneous jobs)."
     },
     {
-      "question": "What are the advantages of using a job array over submitting many separate serial jobs?",
-      "answer": "Job arrays produce a single line of output in `squeue`, making it easier to read, and the scheduler can run more efficiently as it doesn't have to analyze job requirements for each task separately at the initial submission step."
+      "question": "What are the advantages of using a Slurm job array compared to submitting many separate serial jobs?",
+      "answer": "Using a Slurm job array makes it easier to read `squeue` output (one line per array), and the scheduler runs more efficiently as it doesn't analyze job requirements for each task separately."
     },
     {
-      "question": "When should one avoid using a job array, and what alternatives are suggested for such cases?",
-      "answer": "You should avoid using job arrays for tasks with very short run times (much less than an hour) because the scheduler load for dispatching each task is the same as for a non-array job. Alternatives include grouping short tasks into longer jobs using tools like META, GLOST, GNU Parallel, or a shell loop."
+      "question": "When should Slurm job arrays generally not be used, and what are the recommended alternatives for those scenarios?",
+      "answer": "Slurm job arrays should not be used for tasks with very short run times (e.g., much less than an hour). For tasks running only a few minutes, it's recommended to group them into longer jobs using tools like META, GLOST, GNU Parallel, or a shell loop within a single job."
     },
     {
-      "question": "How can a job array be used to run the same script in multiple directories with non-systematic names?",
-      "answer": "You can create a file (e.g., `case_list`) listing the directory names, and then use `sed -n \"${SLURM_ARRAY_TASK_ID}p\" case_list` within your script to select the correct directory for each task ID."
+      "question": "In a Slurm job array, how are the individual tasks scheduled regarding time limits, start times, and hosts?",
+      "answer": "Each task in a Slurm job array is scheduled as an independent task, meaning each has a separate time limit, and each may start at a different time on a different host."
     },
     {
-      "question": "What cautions should be considered when using a job array with a file to select parameters or directories?",
-      "answer": "Ensure the number of tasks requested matches the number of entries in the file, and do not change the parameter/directory list file until all tasks in the array have completed, as it's read each time a new task starts."
+      "question": "How is the `$SLURM_ARRAY_TASK_ID` environment variable typically used within a script submitted as part of a Slurm job array?",
+      "answer": "The `$SLURM_ARRAY_TASK_ID` variable is typically referenced within the script to select input files or to set command-line arguments for the application being run."
     },
     {
-      "question": "How can `$SLURM_ARRAY_TASK_ID` be passed to a Python script for parallel processing of multiple parameters?",
-      "answer": "You can pass `$SLURM_ARRAY_TASK_ID` as a command-line argument to the Python script, and within the Python script, retrieve its value using `sys.argv[1]` to select the appropriate parameter (e.g., from a NumPy array)."
+      "question": "How can a Slurm job array be used to run the same script across multiple directories with non-systematic names?",
+      "answer": "You can create a file listing the directory names (e.g., `case_list`), then use `sed` within the array script along with `$SLURM_ARRAY_TASK_ID` to select a specific directory from the file and change into it."
+    },
+    {
+      "question": "What are the important cautions to consider when using a Slurm job array to process multiple directories based on a list file?",
+      "answer": "Ensure the number of tasks requested matches the number of entries in the list file, and do not change the list file until all tasks in the array have completed."
+    },
+    {
+      "question": "How can a Python script designed to iterate through parameters be adapted to run in parallel using a Slurm job array?",
+      "answer": "The Python script can be adapted to accept `$SLURM_ARRAY_TASK_ID` as a command-line argument (e.g., `sys.argv[1]`), which is then used to directly access the specific parameter value for that task from a pre-defined list or NumPy array."
+    },
+    {
+      "question": "Why does the `--array` parameter in the Slurm job submission script for the Python example use a range of `0-99`?",
+      "answer": "The `--array` parameter uses `0-99` because it matches the 0-based indexing of the NumPy array (`betas`) in the Python script, which contains 100 values to be processed."
+    },
+    {
+      "question": "What is the typical scheduling behaviour of individual tasks within a Slurm job array regarding resource limits?",
+      "answer": "Each task in a Slurm job array usually has its own separate resource limits, such as a time limit, as demonstrated in the examples where each task has a 3-hour limit."
+    },
+    {
+      "question": "What is the significance of the `#!/bin/bash` line at the beginning of the example Slurm job array scripts?",
+      "answer": "The `#!/bin/bash` line is a shebang that specifies the interpreter, in this case Bash, to execute the script. It's standard practice for shell scripts."
+    },
+    {
+      "question": "How would a Python script typically access the value of `$SLURM_ARRAY_TASK_ID` when it's passed as a command-line argument in a Slurm array job?",
+      "answer": "A Python script would typically access the value of `$SLURM_ARRAY_TASK_ID` using `sys.argv[1]` (since `sys.argv[0]` is the script name) after converting it to an integer."
+    },
+    {
+      "question": "In the multiple parameters example using a Python script, what Slurm command is used to run the Python script within the array job?",
+      "answer": "The Python script within the Slurm array job is run using the command `python my_script_parallel.py $SLURM_ARRAY_TASK_ID`."
     }
   ],
-  "generated_at": "2026-04-12T00:13:09.880781+00:00"
+  "generated_at": "2026-04-13T07:29:35.196223+00:00"
 }

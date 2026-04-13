@@ -4,13 +4,13 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How can a Python virtual environment be set up and utilized within a SLURM job script?",
-      "answer": "A Python virtual environment can be established and used inside a SLURM job by first loading a Python module (e.g., `module load python/3.11`), then creating the environment in the job's local scratch directory (`$SLURM_TMPDIR`) using `virtualenv --no-download $SLURM_TMPDIR/env`. After creation, it must be activated with `source $SLURM_TMPDIR/env/bin/activate`. Finally, pip is upgraded and packages are installed from a `requirements.txt` file using `pip install --no-index -r requirements.txt`."
+      "question": "What are the essential steps to configure and use a Python virtual environment and install packages within a SLURM job script?",
+      "answer": "To configure and use a Python virtual environment and install packages within a SLURM job script, you typically need to: first, load the necessary Python module (e.g., `module load python/3.11`); second, create a virtual environment in the job's temporary directory (e.g., `virtualenv --no-download $SLURM_TMPDIR/env`); third, activate the virtual environment (e.g., `source $SLURM_TMPDIR/env/bin/activate`); fourth, upgrade pip (e.g., `pip install --no-index --upgrade pip`); fifth, install desired packages from a `requirements.txt` file, ensuring to use local prebuilt wheels with `--no-index` (e.g., `pip install --no-index -r requirements.txt`); and finally, execute your Python application."
     },
     {
-      "question": "What is the recommended procedure for generating a `requirements.txt` file for a Python project, specifically when working with packages like TensorFlow?",
-      "answer": "To generate a `requirements.txt` file for a Python project such as TensorFlow, you should perform the following steps on a login node: load the required Python module (e.g., `module load python/3.11`), create a temporary virtual environment (e.g., `virtualenv --no-download $ENVDIR`), activate it, upgrade pip, install the desired packages (e.g., `pip install --no-index tensorflow`), then use `pip freeze --local > requirements.txt` to capture the dependencies. Afterwards, deactivate and remove the temporary virtual environment."
+      "question": "How do you generate a `requirements.txt` file for a Python virtual environment, particularly for an application like TensorFlow, to be used in a SLURM job script?",
+      "answer": "To generate a `requirements.txt` file for a Python virtual environment, such as for TensorFlow, that will be used in a SLURM job script, you should first create and configure a temporary test environment on a login node. This involves loading the Python module (e.g., `module load python/3.11`), creating a virtual environment in a temporary directory (e.g., `virtualenv --no-download /tmp/$RANDOM`), activating it (`source /tmp/$RANDOM/bin/activate`), upgrading pip (`pip install --no-index --upgrade pip`), installing your required packages (e.g., `pip install --no-index tensorflow`), then using `pip freeze --local > requirements.txt` to capture the exact versions of all installed packages, and finally, deactivating and removing the temporary environment."
     }
   ],
-  "generated_at": "2026-04-12T18:19:13.816846+00:00"
+  "generated_at": "2026-04-13T11:48:44.956696+00:00"
 }

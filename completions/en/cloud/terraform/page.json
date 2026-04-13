@@ -3,73 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Terraform and how is it used within the Alliance Federation?",
-      "answer": "Terraform is a tool for defining and provisioning data centre infrastructure, including virtual machines. Within the Alliance Federation, it allows maintaining OpenStack resources as infrastructure-as-code, enabling easy updates, sharing among groups, and storage in version control."
+      "question": "What is the primary purpose of Terraform on Alliance clusters?",
+      "answer": "Terraform is used for defining and provisioning data centre infrastructure, including virtual machines, on OpenStack clouds within the Alliance Federation, utilizing an infrastructure-as-code model."
     },
     {
-      "question": "What are the main prerequisites before starting to use Terraform for OpenStack?",
-      "answer": "Before starting with Terraform, you need access to an OpenStack tenant with available resources, the Terraform client itself, and a few things configured on your workstation or laptop, including an SSH key pair."
+      "question": "What are the key advantages of using Terraform's infrastructure-as-code model for managing OpenStack resources?",
+      "answer": "The infrastructure-as-code model allows users to maintain OpenStack resources as easily updateable definitions using text editors, share them among groups, and store them in version control."
     },
     {
-      "question": "What should I do if I'm new to OpenStack before using this Terraform tutorial?",
-      "answer": "If you've never used OpenStack before, you should familiarize yourself with it first by creating a VM, attaching a volume, associating a floating IP, and ensuring you can log in, potentially using the Cloud Quick Start guide."
+      "question": "What are the necessary prerequisites for starting to use Terraform with OpenStack clouds?",
+      "answer": "Users need access to an OpenStack tenant with available resources, the Terraform client (version 0.12 or later), and a properly configured workstation with OpenStack credentials and an SSH key pair."
     },
     {
-      "question": "How can OpenStack credentials be provided for use with Terraform in a command-line environment?",
-      "answer": "OpenStack credentials can be provided either via environment variables or in a configuration file like `clouds.yaml` or an RC file sourced from your shell session."
+      "question": "Why is it recommended to be familiar with OpenStack basics before using Terraform with it?",
+      "answer": "Familiarity with creating VMs, attaching volumes, and associating floating IPs through the OpenStack web interface (Horizon) builds a foundational understanding of what Terraform automates and its value."
     },
     {
-      "question": "Where can I download my OpenStack credentials from the web interface?",
-      "answer": "Once logged into the OpenStack web interface, click on 'API Access' in the navigation bar, and then use the 'Download OpenStack RC File' drop-down menu to get a `clouds.yaml` file or an RC file."
+      "question": "What are the two main methods for providing OpenStack credentials to Terraform in a command-line environment?",
+      "answer": "OpenStack credentials can be provided either via environment variables by sourcing an RC file or through a `clouds.yaml` configuration file."
     },
     {
-      "question": "Why is it helpful to have an OpenStack CLI terminal window open when working with Terraform?",
-      "answer": "It provides a handy reference for looking up flavour and image IDs, and is useful for verifying the actions performed by Terraform."
+      "question": "What is a key security consideration when configuring OpenStack credentials for Terraform?",
+      "answer": "It is strongly recommended to avoid storing passwords and sensitive credentials directly within Terraform configuration files, even on a personal workstation, to prevent security risks."
     },
     {
-      "question": "What is the purpose of defining a 'provider' in Terraform?",
-      "answer": "Defining a provider tells Terraform which cloud platform to use (e.g., OpenStack) and how to connect to it, including connection and credential information."
+      "question": "What is the command to initialize a Terraform workspace and what does it achieve?",
+      "answer": "The command `terraform init` initializes the workspace, downloads the required provider plugins (e.g., OpenStack provider), and prepares the directory for Terraform operations, but it does not test credentials."
     },
     {
-      "question": "What happens during the `terraform init` command?",
-      "answer": "`terraform init` initializes Terraform, downloads the necessary provider plugins (like the OpenStack provider) into the working directory, and sets up the backend."
+      "question": "When defining an OpenStack virtual machine (VM) in Terraform, why is it important to use image and flavour IDs instead of names?",
+      "answer": "Using IDs ensures consistency because IDs never change, preventing accidental destructive operations like rebuilding or resizing a VM if an image or flavour name is updated or reused."
     },
     {
-      "question": "Why is it recommended to specify OpenStack flavours and images using their IDs rather than names in Terraform configurations?",
-      "answer": "Using IDs ensures that Terraform always targets the exact resource because IDs never change, preventing accidental rebuilding or resizing of resources if a name is reused for a different flavour or image."
+      "question": "Before applying changes to OpenStack infrastructure with Terraform, what command should be run, and why is it important to review its output?",
+      "answer": "The `terraform plan` command should be run to generate an execution plan, which details the changes Terraform intends to make. Reviewing this plan is crucial to avoid unintended modifications, destructions, or rebuilds of resources."
     },
     {
-      "question": "What does the `terraform plan` command do?",
-      "answer": "`terraform plan` compiles the Terraform definition, determines how to reconcile the desired state with the actual cloud state, and produces a plan outlining what actions (add, change, destroy) it would perform if applied."
+      "question": "Does Terraform automatically detect and manage existing OpenStack resources that were not created using Terraform?",
+      "answer": "No, Terraform does not have knowledge of or automatically manage existing OpenStack resources unless they have been explicitly imported into Terraform's state. Existing resources are safe from inadvertent changes by Terraform."
     },
     {
-      "question": "How does Terraform interact with existing OpenStack resources that were not created by Terraform?",
-      "answer": "Terraform has no knowledge of resources already defined in the project that it didn't create; it bases its actions only on the given configuration and previously determined state, making existing resources invisible to it."
+      "question": "If Terraform returns an \"Error creating OpenStack server: Multiple possible networks found\" when provisioning a VM, what action should be taken?",
+      "answer": "To resolve this, a `network` resource sub-block must be added to the VM definition in the Terraform configuration, explicitly specifying the name of the private network to use."
     },
     {
-      "question": "What is the `terraform.tfstate` file and why is it important?",
-      "answer": "The `terraform.tfstate` file contains details about the managed resources Terraform uses to determine how to arrive at a new state. Without it, Terraform cannot properly manage resources, and if deleted, it must be restored or recreated."
+      "question": "What is the significance of the `terraform.tfstate` file created in a Terraform workspace?",
+      "answer": "The `terraform.tfstate` file stores details about the managed resources, allowing Terraform to track the current state of the infrastructure and determine how to reconcile configuration updates with the actual cloud state."
     },
     {
-      "question": "How do you associate a floating IP with a VM in Terraform?",
-      "answer": "You first declare an `openstack_networking_floatingip_v2` resource to allocate the IP from a pool, then define an `openstack_compute_floatingip_associate_v2` resource to associate that floating IP's address with the VM's instance ID."
+      "question": "How do you allocate a floating IP and associate it with an OpenStack virtual machine (VM) using Terraform?",
+      "answer": "First, declare an `openstack_networking_floatingip_v2` resource, specifying the `pool` from which to allocate the IP. Then, declare an `openstack_compute_floatingip_associate_v2` resource, referencing the allocated floating IP's address and the VM's instance ID."
     },
     {
-      "question": "What is a key consideration when adding a root volume to a VM in Terraform that replaces its boot disk?",
-      "answer": "Adding a root volume that replaces the boot disk is a destructive operation, meaning the VM will be rebuilt. It's crucial to read the `terraform plan` carefully to understand the impact."
+      "question": "What are the key considerations and steps for adding a root volume to an OpenStack VM using Terraform, especially regarding its boot disk?",
+      "answer": "Adding a root volume involves a destructive operation that replaces the VM's boot disk. This is done by adding a `block_device` sub-block to the `openstack_compute_instance_v2` resource, specifying the image `uuid`, setting `destination_type` to `volume`, and importantly, removing the `image_id` attribute from the outer VM definition."
     },
     {
-      "question": "When defining a block device for a VM, why should the `image_id` attribute be removed from the outer compute instance definition?",
-      "answer": "If `image_id` remains defined alongside a `block_device` sub-block, Terraform will repeatedly detect a change from 'boot from volume' to 'boot directly from image' on every run, leading to constant attempts to rebuild the instance."
-    },
-    {
-      "question": "Where can I find an image's UUID in the OpenStack Horizon web interface?",
-      "answer": "In Horizon, navigate to the 'Images' menu item under 'Compute' to view a list of images, then click on the desired image to reveal its ID."
-    },
-    {
-      "question": "Why is finding a flavour's UUID more difficult in OpenStack Horizon compared to an image's UUID?",
-      "answer": "Horizon only shows the name of the flavour when launching an instance; it does not directly display the UUID. To get the ID, you typically need to use the OpenStack CLI or infer it from a Terraform state file after a run."
+      "question": "What is a limitation when using the OpenStack Horizon web interface to find flavour IDs for Terraform configurations?",
+      "answer": "Horizon allows users to find flavour *names*, but it does not directly display the numerical flavour IDs, making the OpenStack CLI generally more recommended for retrieving these IDs."
     }
   ],
-  "generated_at": "2026-04-12T09:09:20.585058+00:00"
+  "generated_at": "2026-04-13T14:25:37.944331+00:00"
 }

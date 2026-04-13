@@ -4,37 +4,17 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "What considerations should be made if a task runs longer on a CPU but uses a GPU?",
-      "answer": "Even if the execution time is longer on a CPU, the use of a GPU may not be justified due to its high cost. It's also possible that the task runs faster on a GPU node not because of GPU acceleration, but because the CPUs on those nodes are more performant."
+      "question": "How can you determine if a submitted job is wasting GPU resources by requesting a GPU but not using it?",
+      "answer": "You can determine this by checking the GPU usage graphs, specifically the 'GPU - Cycle de calcul GPU utilisé' (GPU Compute Cycle Used) graph. If the GPU remains unused, it will show no activity or data recorded for metrics like SM Active or SM Occupancy."
     },
     {
-      "question": "How can one determine if a requested GPU is not being utilized at all?",
-      "answer": "As indicated by the GPU 'Cycle de calcul GPU utilisé' graph, if the GPU remains unused, it suggests it brings no gain in that context."
+      "question": "What indicates that a job has requested multiple GPUs but is only utilizing one, leading to resource wastage?",
+      "answer": "When a job requests multiple GPUs but only uses one, the GPU usage graphs for Compute Cycle, GPU Power, and GPU Memory will show activity for only one GPU (e.g., GPU 0). The other requested GPUs (e.g., GPU 1) will display no values for metrics like SM Active, SM Occupancy, power consumption, or memory usage, indicating they are idle."
     },
     {
-      "question": "What common error occurs when requesting multiple GPUs for a task?",
-      "answer": "A common error is when a user requests multiple GPUs, such as two, but only one is actually necessary for the task."
-    },
-    {
-      "question": "How can you tell if only one GPU is being used when multiple GPUs were requested?",
-      "answer": "The GPU 'Cycle de calcul' graph will show no values recorded for metrics like SM Active or SM Occupancy for the unused GPUs (e.g., GPU 1). This absence of activity is also visible in the GPU power and memory graphs, which will show no data for the unused GPUs."
-    },
-    {
-      "question": "What steps can be taken to correct the situation where multiple GPUs are requested but only one is utilized?",
-      "answer": "To correct this situation, you can either adapt your code so that it effectively utilizes two GPUs, or simply request only one GPU when submitting your task."
-    },
-    {
-      "question": "What happens if a user requests a full 4-GPU node but only uses one GPU?",
-      "answer": "If a user reserves a complete 4-GPU node but only one GPU is needed, the other GPUs (e.g., GPU 1, 2, and 3) will remain unused, leading to wasted resources."
-    },
-    {
-      "question": "How can you verify from the portal graphs that specific GPUs (e.g., GPU 1, 2, and 3) are not being used in a 4-GPU node setup?",
-      "answer": "The GPU 'Cycle de calcul' graph will clearly show no data recorded for metrics such as SM Active or SM Occupancy for GPUs 1, 2, and 3. This lack of activity will also be evident in the GPU power graph, where only GPU 0 presents values, and in the GPU memory graph, which confirms the other GPUs remained inactive."
-    },
-    {
-      "question": "What is the recommended solution if a task using a 4-GPU node only utilizes a single GPU?",
-      "answer": "To correct this situation, you can either adapt your code so that it genuinely exploits all four GPUs, or simply request only one GPU when submitting your task."
+      "question": "If a user reserves an entire 4-GPU node but only needs one GPU, how can this inefficiency be identified through the monitoring portal?",
+      "answer": "This inefficiency can be identified by examining the GPU usage graphs. The 'GPU - Cycle de calcul GPU utilisé' (GPU Compute Cycle Used), 'GPU - Power', and 'GPU - Mémoire' (GPU Memory) graphs will only display activity and metrics for a single GPU (e.g., GPU 0), while GPUs 1, 2, and 3 will show no recorded data for metrics such as SM Active, SM Occupancy, power, or memory usage, confirming they are unused."
     }
   ],
-  "generated_at": "2026-04-11T21:20:37.852806+00:00"
+  "generated_at": "2026-04-13T05:09:59.456011+00:00"
 }

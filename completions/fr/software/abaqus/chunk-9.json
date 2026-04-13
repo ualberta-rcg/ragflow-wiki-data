@@ -4,45 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "Pour quelles versions d'Abaqus est-ce que le script pour nœuds multiples (`scriptsp1-mpi.txt`) est conçu?",
-      "answer": "Le script `scriptsp1-mpi.txt` est conçu pour Abaqus/2026 et les versions plus récentes."
+      "question": "Comment soumettre une tâche d'analyse standard Abaqus sur plusieurs nœuds via MPI?",
+      "answer": "Pour soumettre une tâche d'analyse standard Abaqus sur plusieurs nœuds en utilisant MPI, vous devez disposer d'une licence qui permet de gérer des tâches à forte consommation de mémoire et de calcul. Il faut utiliser la version `abaqus/2026` ou une version plus récente. Un script modèle comme `scriptsp1-mpi.txt` configure l'environnement pour les calculs parallèles en définissant des paramètres Slurm tels que `--ntasks` pour le nombre de cœurs et `--mem-per-cpu` pour la mémoire par cœur, et utilise l'option `mp_mode=mpi` dans la commande `abaqus`."
     },
     {
-      "question": "Est-ce qu'un script de redémarrage pour les tâches Abaqus sur nœuds multiples est fourni dans la section d'analyse standard?",
-      "answer": "Non, un script modèle pour redémarrer des tâches sur nœuds multiples n'est pas fourni dans la section d'analyse standard, car son utilisation présente des limitations supplémentaires."
+      "question": "Est-il possible de redémarrer une tâche Abaqus sur plusieurs nœuds, que ce soit pour une analyse standard ou explicite?",
+      "answer": "Non, pour l'instant, il n'y a pas de scripts modèles fournis pour redémarrer des tâches Abaqus qui utilisent plusieurs nœuds, que ce soit pour une analyse standard ou explicite. Cette fonctionnalité présente des limitations additionnelles et requiert davantage de tests avant d'être proposée."
     },
     {
-      "question": "Quels sont les modes de parallélisation supportés par les solveurs pour l'analyse explicite?",
-      "answer": "Pour l'analyse explicite, les solveurs prennent en charge la parallélisation avec fils (threads) et avec MPI."
-    },
-    {
-      "question": "Est-ce qu'on peut utiliser un script de redémarrage pour les tâches d'analyse explicite qui utilisent plusieurs nœuds?",
-      "answer": "Non, des modèles de scripts pour redémarrer une tâche qui utilise des nœuds multiples en analyse explicite nécessitent plus de tests et ne sont pas présentés pour l'instant."
-    },
-    {
-      "question": "Si je veux soumettre une tâche d'analyse standard sur plusieurs nœuds avec Abaqus/2026, quel est le nom du script recommandé?",
-      "answer": "Le script recommandé pour soumettre une tâche d'analyse standard sur plusieurs nœuds avec Abaqus/2026 est `scriptsp1-mpi.txt`."
-    },
-    {
-      "question": "Quelles directives SLURM sont définies par défaut dans le script `scriptsp1-mpi.txt` pour une tâche d'analyse standard sur nœuds multiples?",
-      "answer": "Les directives SLURM par défaut sont `--account=def-group`, `--time=00-06:00`, `--ntasks=8`, `--mem-per-cpu=4G` et `--cpus-per-task=1`."
-    },
-    {
-      "question": "Quelle est la commande Abaqus utilisée dans le script `scriptsp1-mpi.txt` pour lancer une tâche d'analyse standard sur plusieurs nœuds?",
-      "answer": "La commande Abaqus utilisée est `abaqus job=testsp1-mpi input=mystd-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_NTASKS interactive mp_mode=mpi`."
-    },
-    {
-      "question": "Dans un script d'analyse explicite pour un nœud simple (`scriptep1.txt`), quelle est la directive SLURM pour la mémoire totale?",
-      "answer": "La directive SLURM pour la mémoire totale est `--mem=8000M`."
-    },
-    {
-      "question": "Est-ce que le script `scriptep1.txt` pour l'analyse explicite sur un nœud simple peut être utilisé avec Abaqus/2021?",
-      "answer": "Oui, le script `scriptep1.txt` contient une condition pour supporter Abaqus/2021 et les versions plus récentes comme Abaqus/2026."
-    },
-    {
-      "question": "Comment le script `scriptsp1-mpi.txt` gère-t-il la liste des hôtes pour la parallélisation MPI?",
-      "answer": "Le script utilise `slurm_hl2hl.py` pour générer une liste d'hôtes MPI, la formate en `mp_host_list=[...]`, l'exporte comme variable d'environnement et l'écrit aussi dans `abaqus_v6.env`."
+      "question": "Comment exécuter une analyse explicite d'Abaqus sur un seul nœud en utilisant un script Slurm?",
+      "answer": "Pour exécuter une analyse explicite d'Abaqus sur un seul nœud, vous devez utiliser un script Slurm, tel que le modèle `scriptep1.txt`. Ce script doit charger le module `abaqus/2026` et définir les ressources nécessaires, notamment `#SBATCH --mem` pour la mémoire totale, `#SBATCH --cpus-per-task` pour le nombre de cœurs, et s'assurer que `#SBATCH --nodes=1`. L'exécution de la commande `abaqus` se fera avec l'option `mp_mode=threads`."
     }
   ],
-  "generated_at": "2026-04-11T15:38:10.596172+00:00"
+  "generated_at": "2026-04-13T00:51:22.433058+00:00"
 }

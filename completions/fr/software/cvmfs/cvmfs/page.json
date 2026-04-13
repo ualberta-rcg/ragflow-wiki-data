@@ -3,41 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que CVMFS et à quoi sert-il principalement?",
-      "answer": "CVMFS, ou CERN Virtual Machine File System, est un système de distribution de logiciels distribué en lecture seule, utilisé pour distribuer des logiciels, des données et d'autres contenus."
+      "question": "Qu'est-ce que le système de fichiers CVMFS (CERN Virtual Machine File System)?",
+      "answer": "CVMFS est un système de distribution de logiciels distribué en lecture seule, implémenté comme un système de fichiers POSIX dans l'espace utilisateur (FUSE) qui utilise le transport HTTP."
     },
     {
-      "question": "Où peut-on trouver l'information pour configurer un client CVMFS?",
-      "answer": "Pour configurer un client CVMFS, il faut consulter la page wiki intitulée 'Accès à CVMFS'."
+      "question": "Pourquoi la plateforme Alliance utilise-t-elle CVMFS (CERN Virtual Machine File System) pour ses grappes de calcul?",
+      "answer": "Alliance utilise CVMFS pour distribuer des logiciels, des données et d'autres contenus sur ses grappes de calcul, facilitant la gestion et l'accès aux ressources logicielles."
     },
     {
-      "question": "Quelle est l'origine du développement de CVMFS?",
-      "answer": "CVMFS a été développé à l'origine pour les expériences du grand collisionneur de hadrons au CERN, dans le but de fournir des logiciels aux machines virtuelles."
+      "question": "Où peut-on trouver des informations spécifiques sur la configuration d'un client CVMFS?",
+      "answer": "Pour savoir comment configurer un client CVMFS, les utilisateurs peuvent consulter la page wiki 'Accès à CVMFS'."
     },
     {
-      "question": "Comment CVMFS aide-t-il à la gestion des logiciels par rapport aux systèmes d'exploitation des clients?",
-      "answer": "Il permet aux applications logicielles et à leurs prérequis d'être exécutés directement à partir de CVMFS, découplant ainsi la pile logicielle du projet du système d'exploitation, sans exiger un type spécifique de distribution Linux ou de version sur le nœud client."
+      "question": "Comment CVMFS aide-t-il à minimiser la gestion des logiciels à distance sur plusieurs sites?",
+      "answer": "Avec CVMFS, une seule copie du logiciel doit être conservée et peut être propagée et utilisée sur plusieurs sites, ce qui minimise la gestion des logiciels à distance."
     },
     {
-      "question": "Comment les mises à jour et la gestion des versions du contenu sont-elles gérées dans CVMFS?",
-      "answer": "La gestion des versions se fait par les révisions du catalogue du référentiel. Les mises à jour sont validées dans des transactions et peuvent être restaurer à un état antérieur. Elles sont propagées aux clients de manière automatique et atomique."
+      "question": "Comment CVMFS permet-il de découpler la pile logicielle du projet et le système d'exploitation sur les nœuds clients?",
+      "answer": "CVMFS permet d'exécuter des applications logicielles et leurs prérequis sans dépendre du type de distribution Linux ou du niveau de version d'un nœud client, découplant ainsi la pile logicielle et le système d'exploitation."
     },
     {
-      "question": "Quel protocole est utilisé pour récupérer les fichiers dans CVMFS et quel type d'accès les clients ont-ils?",
-      "answer": "Les fichiers sont récupérés à l'aide du protocole HTTP standard, et les clients CVMFS ont un accès en lecture seule au système de fichiers."
+      "question": "Comment les mises à jour de contenu sont-elles gérées et propagées aux clients dans CVMFS?",
+      "answer": "Les mises à jour sont validées dans des transactions, peuvent être restaurées à un état antérieur et sont propagées aux clients de manière automatique et atomique, avec la gestion des versions via les révisions du catalogue du référentiel."
     },
     {
-      "question": "Décrivez la hiérarchie de diffusion et de mise en cache du contenu dans CVMFS.",
-      "answer": "La hiérarchie comporte une strate 0 (copie principale), des serveurs de strate 1 (réplication de la strate 0), des serveurs proxy HTTP (mise en cache des requêtes des clients) et des caches client locaux sur les nœuds clients."
+      "question": "Quel protocole CVMFS utilise-t-il pour récupérer les fichiers, et quelles sont les implications pour la connectivité des nœuds clients?",
+      "answer": "Les fichiers sont récupérés à l'aide du protocole HTTP standard, ce qui signifie que les nœuds clients ne nécessitent pas l'ouverture de ports ou de pare-feu."
     },
     {
-      "question": "Comment CVMFS assure-t-il l'intégrité et l'authenticité des fichiers?",
-      "answer": "L'intégrité et l'authenticité des fichiers sont vérifiées à l'aide de hachages cryptographiques signés, ce qui prévient la corruption ou la falsification des données."
+      "question": "Comment CVMFS assure-t-il la tolérance aux pannes et la fiabilité pour la distribution de logiciels?",
+      "answer": "La tolérance aux pannes et la fiabilité sont obtenues en utilisant plusieurs serveurs proxy et serveurs de strates redondants, permettant aux clients de basculer de manière transparente vers le prochain proxy ou serveur disponible."
     },
     {
-      "question": "Quelles stratégies CVMFS utilise-t-il pour minimiser l'utilisation du stockage?",
+      "question": "Quels sont les différents niveaux de la hiérarchie de diffusion et de mise en cache du contenu dans CVMFS?",
+      "answer": "La hiérarchie de mise en cache comprend la strate 0 (copie principale), les serveurs de strate 1 (répliques), les serveurs proxy HTTP (cache pour les requêtes des clients) et le ou les caches clients locaux."
+    },
+    {
+      "question": "Quel type d'accès les clients CVMFS ont-ils au système de fichiers distribué?",
+      "answer": "Les clients CVMFS ont un accès uniquement en lecture au système de fichiers distribué."
+    },
+    {
+      "question": "Comment CVMFS vérifie-t-il l'intégrité et l'authenticité des fichiers distribués?",
+      "answer": "L'intégrité et l'authenticité des fichiers sont vérifiées à l'aide de hachages cryptographiques signés, évitant ainsi la corruption ou la falsification des données."
+    },
+    {
+      "question": "Quelles techniques CVMFS utilise-t-il pour minimiser l'utilisation du stockage, tant côté serveur que côté client?",
       "answer": "Côté serveur, CVMFS utilise la déduplication et la compression automatiques. Côté client, il minimise l'utilisation du stockage par la segmentation des fichiers et l'accès à la demande."
+    },
+    {
+      "question": "Quels types de cache local peuvent être configurés pour un client CVMFS?",
+      "answer": "Un client CVMFS peut utiliser deux niveaux de cache local, comme un cache SSD rapide et un grand cache HDD, ou un système de fichiers d’une grappe comme cache partagé pour tous les nœuds."
+    },
+    {
+      "question": "Pour quelle raison CVMFS a-t-il été développé à l'origine au CERN?",
+      "answer": "CVMFS a été développé à l'origine pour les expériences du grand collisionneur de hadrons au CERN afin de fournir des logiciels aux machines virtuelles et de remplacer diverses zones d'installation de logiciels partagés."
+    },
+    {
+      "question": "Les clients CVMFS peuvent-ils accéder aux versions historiques du contenu d'un référentiel?",
+      "answer": "Oui, les clients CVMFS peuvent voir les versions historiques du contenu du référentiel."
     }
   ],
-  "generated_at": "2026-04-11T19:23:12.735543+00:00"
+  "generated_at": "2026-04-13T03:39:09.442845+00:00"
 }

@@ -4,77 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What is the recommended number of compute nodes for a Fluent job using the \"Multinode (by node, narval)\" script?",
-      "answer": "The script recommends specifying \"1 or more\" compute nodes."
+      "question": "In the provided example Slurm script for running a multi-node Fluent job on Narval, what are the default Slurm directives for allocating compute nodes and cores per node?",
+      "answer": "The default Slurm directives in the provided example script for a Fluent job on Narval are `--nodes=1` (though the comment specifies '1 or more') and `--ntasks-per-node=64` (for Narval). The script also includes `--mem=0` to allocate all memory per compute node and `--cpus-per-task=1`."
     },
     {
-      "question": "What is the maximum number of cores per node allowed on Narval for a Fluent job when using the \"Multinode (by node, narval)\" script?",
-      "answer": "Users can specify up to 64 cores per node on Narval."
+      "question": "How is Ansys Fluent executed in a multi-node parallel environment using Open MPI on the Narval cluster, according to the provided script's logic for more than one node?",
+      "answer": "According to the provided script's logic for executing on more than one node, Ansys Fluent is run with the command `export FI_PROVIDER=verbs fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`. This command leverages Open MPI, utilizes an InfiniBand interconnect (`-pib`), and references a dynamically generated machine file."
     },
     {
-      "question": "How should memory be allocated per compute node for a Fluent job on Narval using the \"Multinode (by node, narval)\" script?",
-      "answer": "Users should set `#SBATCH --mem=0`, which allocates all memory per compute node, and this setting should not be changed."
-    },
-    {
-      "question": "Which `StdEnv` module is required for Fluent jobs running on Narval using the provided scripts?",
-      "answer": "The `StdEnv/2023` module is required and should not be changed."
-    },
-    {
-      "question": "What Ansys module version is recommended for Fluent jobs on Narval according to the provided scripts?",
-      "answer": "Users should load `ansys/2023R2` or newer versions."
-    },
-    {
-      "question": "How does one specify the journal file name in the Fluent Slurm scripts for Narval?",
-      "answer": "The journal file name is specified using the `MYJOURNALFILE` variable, for example, `MYJOURNALFILE=sample.jou`."
-    },
-    {
-      "question": "How does one specify the Fluent version (e.g., 2d, 3d) in the Fluent Slurm scripts for Narval?",
-      "answer": "The Fluent version is specified using the `MYVERSION` variable, for example, `MYVERSION=3d`. Other options include `2d`, `2ddp`, or `3ddp`."
-    },
-    {
-      "question": "What MPI implementation is utilized by the provided Fluent scripts for Narval?",
-      "answer": "The scripts utilize OpenMPI (`-mpi=openmpi`)."
-    },
-    {
-      "question": "What value is required for `cpus-per-task` in the Fluent Slurm scripts for Narval, and should it be modified?",
-      "answer": "The value for `cpus-per-task` must be `1` and should not be changed."
-    },
-    {
-      "question": "What environment variable is exported when running a multinode Fluent job on Narval using OpenMPI?",
-      "answer": "`FI_PROVIDER=verbs` is exported for multinode OpenMPI jobs."
-    },
-    {
-      "question": "What is the purpose of `#SBATCH --ntasks=16` in the \"Multinode (by core, narval)\" script?",
-      "answer": "This line specifies the total number of cores to be used across all nodes for the job."
-    },
-    {
-      "question": "How should memory per core be specified for a Fluent job using the \"Multinode (by core, narval)\" script?",
-      "answer": "Users should specify memory per core using `#SBATCH --mem-per-cpu=4G`, for example, 4GB."
-    },
-    {
-      "question": "What is the recommended number of compute nodes for a Fluent job using the \"Multinode (by node, trillium)\" script?",
-      "answer": "The script recommends specifying \"1 or more\" compute nodes."
-    },
-    {
-      "question": "What is the maximum number of cores per node that can be specified for a Fluent job on Trillium?",
-      "answer": "Users can specify up to 16 cores per node, with a maximum of 192 cores on Trillium."
-    },
-    {
-      "question": "How is memory handled by default for a Fluent job on Trillium using the \"Multinode (by node, trillium)\" script?",
-      "answer": "By default, Trillium uses all memory per node, so the memory allocation line (`##SBATCH --mem=0`) should not be uncommented."
-    },
-    {
-      "question": "What Ansys module version is compatible with Trillium for Fluent jobs?",
-      "answer": "Only `ansys/2025R2.04` or newer versions work on Trillium."
-    },
-    {
-      "question": "How are Slurm output files named for jobs submitted with the \"Multinode (by node, trillium)\" script?",
-      "answer": "Output files are named `slurm-%j.out`, where `%j` is replaced by the job ID."
-    },
-    {
-      "question": "From which directory should jobs be submitted when using the \"Multinode (by node, trillium)\" script?",
-      "answer": "Jobs should be submitted from the `$SCRATCH/some/dir` directory, indicated by `cd $SLURM_SUBMIT_DIR`."
+      "question": "What Ansys Fluent module versions are specified as compatible with the provided Slurm script for running multi-node jobs on Narval?",
+      "answer": "The provided Slurm script for running multi-node Fluent jobs on Narval loads `StdEnv/2023` and `ansys/2023R2`, specifying that newer versions of the Ansys module are also compatible."
     }
   ],
-  "generated_at": "2026-04-12T16:48:17.833333+00:00"
+  "generated_at": "2026-04-13T01:49:14.829769+00:00"
 }

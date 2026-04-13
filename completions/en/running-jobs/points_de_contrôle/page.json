@@ -3,37 +3,45 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of using checkpoints for long-running programs on clusters?",
-      "answer": "Checkpoints minimise the risk of losing significant computation time due to job scheduler limits, system instability from power outages, or hardware defects."
+      "question": "Why are checkpoints used for long-running programs on Alliance clusters?",
+      "answer": "Checkpoints are used to minimize the risk of losing several days' worth of computation due to maximum job duration limits, power outages, or hardware defects that can affect long-running programs."
     },
     {
-      "question": "What form do checkpoints typically take?",
-      "answer": "Checkpoints are binary disk files from which a program can be restarted at the point in computation where the file was created."
+      "question": "What is a checkpoint in the context of program execution on Alliance clusters?",
+      "answer": "A checkpoint is a binary disk file that allows a program to be restarted from the exact point in the computation where the checkpoint file was initially created."
     },
     {
-      "question": "What are the two main approaches for creating and loading checkpoints?",
-      "answer": "One can use functionality already provided by the application, or implement the checkpoint/restart functionality oneself if access to the source code is available."
+      "question": "How can users enable checkpoint functionality for their programs?",
+      "answer": "Users can either leverage checkpoint functionality already built into their application by consulting its documentation, or they can implement the checkpoint/restart functionality themselves if they have access to the source code."
     },
     {
-      "question": "What is the suggested frequency for creating a checkpoint file when implementing the functionality manually?",
-      "answer": "A checkpoint file should be created periodically, with a suggested frequency of every 2 to 24 hours."
+      "question": "What is a suggested frequency for creating checkpoint files when implementing the functionality yourself?",
+      "answer": "A suggested frequency for creating a checkpoint file is every 2 to 24 hours."
     },
     {
-      "question": "What is a crucial consideration regarding older checkpoints when a new one is being written?",
-      "answer": "It is preferable not to delete the preceding checkpoint when creating a new one, in case the program is interrupted."
+      "question": "What crucial consideration should be kept in mind when writing a checkpoint file to ensure data integrity?",
+      "answer": "It is crucial to remember that the program could be interrupted at any moment while writing the checkpoint file, so measures must be taken to ensure the checkpoint process is robust."
     },
     {
-      "question": "How can the creation of a checkpoint file be made 'atomic'?",
-      "answer": "One method is to initially name the checkpoint file based on date and time, and as a final step, point a symbolic link named 'latest-version' to this new file. Another method is to create a hash file to verify integrity upon loading."
+      "question": "How can the creation of a checkpoint file be made 'atomic' using symbolic links?",
+      "answer": "The checkpoint file can be initially named based on the date and time, and then, as the final step, a symbolic link named 'latest-version' is pointed to this new checkpoint file, confirming the end of the checkpoint process."
     },
     {
-      "question": "When is it appropriate to delete older checkpoint files?",
-      "answer": "Older checkpoints can be deleted once the atomic write of the new checkpoint has been successfully completed."
+      "question": "What is an advanced method to verify the integrity of a checkpoint file when it is loaded?",
+      "answer": "An advanced method involves creating a second file that contains a hash of the checkpoint file's content, allowing the restart function to verify its integrity upon loading."
     },
     {
-      "question": "What are the two recommended methods for resubmitting a job for long-running computations when breaking them into several Slurm jobs?",
-      "answer": "The two recommended methods are using Slurm job arrays or resubmission from the end of the job script."
+      "question": "Should a preceding checkpoint file be deleted immediately when creating a new one?",
+      "answer": "It is preferable not to delete the preceding checkpoint file when creating a new one, as this provides a fallback in case of an interruption during the creation of the new checkpoint."
+    },
+    {
+      "question": "When is it appropriate to delete older checkpoint files after a new one has been created?",
+      "answer": "Older checkpoint files can be deleted only once the atomic write operation for the new checkpoint has been successfully completed."
+    },
+    {
+      "question": "What are the two recommended methods for breaking up a lengthy computation into several Slurm jobs on Alliance clusters?",
+      "answer": "The two recommended methods are using Slurm job arrays or implementing resubmission from the end of the job script."
     }
   ],
-  "generated_at": "2026-04-12T05:20:51.476019+00:00"
+  "generated_at": "2026-04-13T11:21:01.038834+00:00"
 }

@@ -4,53 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "Pourquoi un utilisateur régulier ne peut-il pas construire d'images Apptainer sur nos grappes de calcul en utilisant les anciennes versions d'Apptainer ou de Singularity?",
-      "answer": "Les permissions de superutilisateur (root) sont requises pour utiliser les gestionnaires de paquets des distributions Linux. Sans ces permissions, un simple utilisateur ne peut pas construire d'images sur nos grappes avec Apptainer 1.0.x et les versions Singularity précédentes."
+      "question": "Est-ce qu'un utilisateur régulier peut construire des images Apptainer sur les grappes de calcul de l'Alliance, considérant que des permissions *root* sont souvent nécessaires?",
+      "answer": "En général, un utilisateur régulier ne peut pas construire d'images Apptainer sur les grappes de calcul de l'Alliance parce que les permissions *root* sont requises pour utiliser les gestionnaires de paquets des distributions Linux. Il est recommandé de contacter le soutien technique pour de l'aide ou de construire l'image sur un ordinateur personnel où vous avez les permissions *root*."
     },
     {
-      "question": "Quelles sont les solutions proposées si un utilisateur ne peut pas construire une image Apptainer sur nos grappes de calcul par manque de permissions root?",
-      "answer": "L'utilisateur peut contacter le soutien technique pour obtenir de l'assistance dans la création de son image, ou utiliser un ordinateur personnel où Apptainer est installé et où il dispose des permissions root."
+      "question": "Comment l'option `--fakeroot` d'Apptainer permet-elle de contourner la nécessité des permissions *root* pour la création et la manipulation d'images?",
+      "answer": "L'option `--fakeroot` d'Apptainer est conçue pour permettre aux utilisateurs de créer et de manipuler des images sans avoir directement les permissions *root*. Pour les versions 1.1 et plus d'Apptainer, cette option peut être utilisée sans approbation additionnelle, tandis que pour les versions antérieures (avant 1.1), il fallait obtenir la permission d'un administrateur de la grappe."
     },
     {
-      "question": "À quoi sert l'option `--fakeroot` d'Apptainer?",
-      "answer": "L'option `--fakeroot` d'Apptainer est utilisée pour créer et manipuler des images."
-    },
-    {
-      "question": "Y a-t-il des différences concernant l'utilisation de l'option `--fakeroot` entre les versions d'Apptainer?",
-      "answer": "Oui, avec les versions antérieures à la 1.1, il fallait contacter le soutien technique pour qu'un administrateur accorde la permission d'utiliser `--fakeroot` sur la grappe, ce qui n'était pas toujours possible. Avec Apptainer version 1.1, `--fakeroot` peut être utilisée sans permission supplémentaire."
-    },
-    {
-      "question": "Peut-on construire tous les types de conteneurs sur nos grappes de calcul, même ceux qui exigent les permissions root?",
-      "answer": "Non, certains conteneurs ne peuvent pas être créés si vous n'avez pas les permissions root, et de tels conteneurs ne peuvent pas être construits sur nos grappes."
-    },
-    {
-      "question": "Est-il possible de construire et d'exécuter une image Docker telle quelle avec Apptainer sans avoir les permissions root ou utiliser `--fakeroot`?",
-      "answer": "Oui, souvent, une image Docker telle quelle peut être construite et exécutée facilement sans les permissions root et sans l'utilisation de `--fakeroot`."
-    },
-    {
-      "question": "Si j'ai construit une image Docker telle quelle sans permissions root et que je veux la modifier plus tard, est-ce que j'aurai besoin des permissions root?",
-      "answer": "Oui, si vous devez modifier l'image par la suite, par exemple pour utiliser un gestionnaire de paquets, vous devrez peut-être avoir les permissions root."
-    },
-    {
-      "question": "Comment faire pour construire une image SIF en utilisant la plus récente image busybox de Docker?",
-      "answer": "Pour construire l'image d'un fichier SIF avec la plus récente image busybox de Docker, vous devez lancer la commande suivante : `apptainer build bb.sif docker://busybox`."
-    },
-    {
-      "question": "Quelle commande utiliser pour construire un bac à sable plutôt qu'un fichier SIF à partir d'une image Docker?",
-      "answer": "Pour construire un bac à sable plutôt qu'un fichier SIF, vous remplacez le nom du fichier SIF par `--sandbox DIR_NAME` ou `-s DIR_NAME`. Par exemple: `apptainer build --sandbox bb.dir docker://busybox`."
-    },
-    {
-      "question": "Quelles sont les différences principales entre un fichier SIF et un répertoire servant de bac à sable pour une image Apptainer?",
-      "answer": "Un fichier SIF contient l'image du conteneur dans un seul fichier compressé en lecture seule, tandis qu'un bac à sable est un répertoire où les fichiers individuels de l'image sont placés, ils ne sont pas compressés, sont accessibles en lecture-écriture et peuvent être nombreux."
-    },
-    {
-      "question": "Pourquoi est-il recommandé d'utiliser un fichier SIF plutôt qu'un bac à sable si on n'a pas besoin d'un accès fréquent en lecture-écriture à l'image du conteneur?",
-      "answer": "L'utilisation d'un fichier SIF est recommandée parce qu'il offre une performance plus rapide et qu'un bac à sable peut entamer significativement vos quotas d'espace disque et de nombre de fichiers."
-    },
-    {
-      "question": "L'utilisation d'un bac à sable pour mon image Apptainer peut-elle avoir un impact sur mes quotas de stockage?",
-      "answer": "Oui, l'utilisation d'un bac à sable entame significativement vos quotas d'espace disque et de nombre de fichiers, car certaines images peuvent contenir des milliers de fichiers et de répertoires non compressés."
+      "question": "Quelles sont les différences principales entre une image Apptainer au format SIF et une image sous forme de répertoire bac à sable (sandbox)?",
+      "answer": "Une image SIF est contenue dans un seul fichier compressé et en lecture seule, offrant une performance de lecture rapide et un impact minimal sur les quotas de fichiers. Un répertoire bac à sable, quant à lui, est un dossier composé de nombreux fichiers individuels non compressés, accessible en lecture-écriture, ce qui peut consommer beaucoup d'espace disque et de quotas de fichiers. Il est généralement recommandé d'utiliser un fichier SIF pour une meilleure performance, à moins d'avoir besoin d'un accès fréquent en lecture-écriture à l'image du conteneur."
     }
   ],
-  "generated_at": "2026-04-11T17:37:38.597600+00:00"
+  "generated_at": "2026-04-13T02:17:54.033574+00:00"
 }

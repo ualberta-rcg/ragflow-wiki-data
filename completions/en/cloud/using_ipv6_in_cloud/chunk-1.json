@@ -4,81 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What types of IPv6 addresses are generally available within the Arbutus cloud environment?",
-      "answer": "Both IPv6 Link-Local (LLA) and Global Unicast Addresses (GUA) are generally available within the Arbutus cloud environment."
+      "question": "What types of IPv6 addresses are generally available within the Arbutus cloud environment, and what is the method used for setting up IP addresses on a Virtual Machine (VM) interface?",
+      "answer": "Within the Arbutus cloud, IPv6 Link-Local Addresses (LLA) and Global Unicast Addresses (GUA) are generally available. IP addresses are automatically set up on the VM interface using Stateless Address Auto Configuration (SLAAC)."
     },
     {
-      "question": "How are Global Unicast Addresses (GUA) typically set up and handled in the Arbutus cloud?",
-      "answer": "GUA can be set up via a separate interface, which in turn also handles only the IPv6 traffic."
+      "question": "In the Arbutus cloud, what are the default security group rules for IPv6 Global Unicast Addresses (GUA), and what steps are required to allow traffic originating from outside a Virtual Machine?",
+      "answer": "By default, the security group rules in the Arbutus cloud allow all outbound traffic from a Virtual Machine (VM) via the IPv6 GUA. However, no traffic originating from outside the VM will be allowed until specific security group rules have been defined, which mirrors the behaviour of IPv4."
     },
     {
-      "question": "What method is used to set up IPv6 addresses on a VM interface in the Arbutus cloud?",
-      "answer": "IPv6 addresses are being set up using 'Stateless Address Auto Configuration' (SLAAC), which automatically sets up the IP on the VM interface."
-    },
-    {
-      "question": "What is the default behaviour of security group rules for outbound IPv6 traffic from a VM in the Arbutus cloud?",
-      "answer": "By default, the security group rules will allow all outbound traffic from the VM via the IPv6 GUA."
-    },
-    {
-      "question": "What is the default behaviour of security group rules for inbound IPv6 traffic to a VM in the Arbutus cloud?",
-      "answer": "No traffic that originates from outside the VM will be allowed until specific security group rules have been defined."
-    },
-    {
-      "question": "How does the default security group rule behaviour for IPv6 compare to IPv4 in the Arbutus cloud?",
-      "answer": "This is the same behaviour as IPv4."
-    },
-    {
-      "question": "Which `openstack cli` command is used to list virtual machines and retrieve their IDs?",
-      "answer": "The `openstack server list` command is used to get the ID of the VM."
-    },
-    {
-      "question": "What OpenStack CLI command would you use to assign a new network interface named 'IPv6-GUA' to a VM with the ID '74be352d-19ca-46cc-9661-7088d2652e34'?",
-      "answer": "You would use the command `openstack server add network 74be352d-19ca-46cc-9661-7088d2652e34 IPv6-GUA`."
-    },
-    {
-      "question": "After logging into the OpenStack dashboard, which menu should you navigate to for attaching an interface?",
-      "answer": "After logging in to the dashboard, you should go to the 'Instances' menu, then click on 'Attach Interface'."
-    },
-    {
-      "question": "What happens to an IPv6 GUA when its associated interface is detached?",
-      "answer": "Every time the interface is detached, the GUA is released and put back into the pool and thus, can be used by anyone else."
-    },
-    {
-      "question": "Does rebuilding or restarting a VM release its assigned IPv6 GUA?",
-      "answer": "No, rebuilding or restarting the VM will not release the GUA."
-    },
-    {
-      "question": "How can access from any IPv6 GUA be granted in OpenStack?",
-      "answer": "Access from any IPv6 GUA can be granted via 'Security Groups' in OpenStack."
-    },
-    {
-      "question": "What is the main difference when configuring security group rules for IPv6 compared to IPv4?",
-      "answer": "The only difference is the CIDR, which automatically detects the address type."
-    },
-    {
-      "question": "In a Linux environment, what command can be used to check if IPv6 is enabled?",
-      "answer": "You can check if IPv6 is enabled with the command `sudo sysctl -a | grep ipv6.*disable`."
-    },
-    {
-      "question": "What output signifies that IPv6 is enabled when running `sudo sysctl -a | grep ipv6.*disable`?",
-      "answer": "The output should all end in zeros."
-    },
-    {
-      "question": "Where should kernel parameters be added if they need to be changed to zero for IPv6 configuration?",
-      "answer": "Any kernel parameters that need to be changed to zero should be added to `/etc/sysctl.conf`."
-    },
-    {
-      "question": "What two kernel parameters should be added to `/etc/sysctl.conf` for an IPv6-enabled interface like `eth1`?",
-      "answer": "The following kernel parameters should be added to `/etc/sysctl.conf`: `net.ipv6.conf.eth1.forwarding=0` and `net.ipv6.conf.eth1.accept_ra=1`."
-    },
-    {
-      "question": "After configuring kernel parameters in `/etc/sysctl.conf`, what is the next step to ensure the new IPv6 device is recognized?",
-      "answer": "You should reboot your system and confirm IPv6 is enabled and that `/dev/eth1` exists."
-    },
-    {
-      "question": "Which configuration file is used to define IPv6 settings for the `eth1` interface in Linux?",
-      "answer": "Configurations should be added to `/etc/sysconfig/network-scripts/ifcfg-eth1`."
+      "question": "How does one use the OpenStack command-line interface (CLI) to assign a new IPv6 network interface to an existing Virtual Machine in the Arbutus cloud?",
+      "answer": "To assign a new IPv6 network interface using the OpenStack CLI, first identify the Virtual Machine's ID by executing `openstack server list`. Once the ID is obtained, use the command `openstack server add network [VM_ID] IPv6-GUA`, replacing `[VM_ID]` with the specific ID of your Virtual Machine."
     }
   ],
-  "generated_at": "2026-04-12T10:23:50.989522+00:00"
+  "generated_at": "2026-04-13T15:25:43.124215+00:00"
 }

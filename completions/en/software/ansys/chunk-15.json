@@ -4,73 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `script-flu-bynode+restart.sh` script?",
-      "answer": "The `script-flu-bynode+restart.sh` script is a Slurm batch script designed to run Ansys Fluent simulations in a multinode (by node) configuration, with built-in functionality for managing solution restarts for long-running jobs."
+      "question": "What is the primary purpose of the Ansys Fluent Solution Restart scripts on Alliance clusters?",
+      "answer": "These scripts are provided to automate the restarting of very large Ansys Fluent jobs that require more than the typical seven-day maximum runtime window available on most clusters."
     },
     {
-      "question": "What is the default time limit set for the `script-flu-bynode+restart.sh` Slurm script?",
-      "answer": "The default time limit set in the Slurm script is 07-00:00, which means 7 days and 0 hours."
+      "question": "What are the fundamental requirements and initial setup steps for using the Ansys Fluent Solution Restart scripts?",
+      "answer": "A fundamental requirement is that the first time step of the simulation must be able to complete within the requested job array time limit. To begin, a working set of `sample.cas`, `sample.dat`, and `sample.jou` files must be present."
     },
     {
-      "question": "How many compute nodes does the `script-flu-bynode+restart.sh` script request by default?",
-      "answer": "The `script-flu-bynode+restart.sh` script requests 1 compute node by default. It also notes that 1 node is the maximum for Narval."
-    },
-    {
-      "question": "What is the maximum number of cores per compute node specified in this script?",
-      "answer": "The script specifies `--ntasks-per-node=32`, indicating up to 32 cores per compute node."
-    },
-    {
-      "question": "How does the script allocate memory per compute node?",
-      "answer": "The script uses `--mem=0`, which allocates all available memory on the compute node."
-    },
-    {
-      "question": "What is the purpose of the `--array=1-5%1` directive in the Slurm script?",
-      "answer": "The `--array=1-5%1` directive specifies the number of solution restarts, with a setting of 5 shown, meaning the job can attempt up to 5 restarts."
-    },
-    {
-      "question": "Which standard environment module and Ansys version are loaded by the script?",
-      "answer": "The script loads `StdEnv/2023` and `ansys/2023R2` (or a newer version)."
-    },
-    {
-      "question": "What are the default filenames for the journal, restart journal, restart case, and restart data files used in the script?",
-      "answer": "The default filenames are `sample.jou` for the initial journal file, `sample-restart.jou` for the restart journal file, `sample-restart.cas.h5` for the restart case file, and `sample-restart.dat.h5` for the restart data file."
-    },
-    {
-      "question": "How is Intel MPI configured if the cluster is 'narval'?",
-      "answer": "If the cluster is 'narval', the script loads `intel/2023 intelmpi`, exports `INTELMPI_ROOT` from `I_MPI_ROOT`, and then unsets `I_MPI_ROOT`."
-    },
-    {
-      "question": "When does the script set the `I_MPI_HYDRA_BOOTSTRAP` environment variable to `ssh`?",
-      "answer": "The script sets `I_MPI_HYDRA_BOOTSTRAP=ssh` if the Ansys version is 2025 or newer and the cluster is 'nibi', or if the cluster is 'narval' regardless of the Ansys version."
-    },
-    {
-      "question": "How does the script handle the first run versus subsequent restarts when running Fluent on a single node?",
-      "answer": "For the first run (`SLURM_ARRAY_TASK_ID == 1`), it uses `fluent -g 2ddp -t $NCORES -mpi=intel -pshmem -i $MYJOUFILE`. For subsequent restarts, it uses `fluent -g 2ddp -t $NCORES -mpi=intel -pshmem -i $MYJOUFILERES`."
-    },
-    {
-      "question": "What command is used to start Fluent for multinode simulations on 'nibi' for the first run?",
-      "answer": "For the first run on 'nibi', the command is `fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -ssh -i $MYJOUFILE`."
-    },
-    {
-      "question": "What command is used to start Fluent for multinode simulations on clusters other than 'nibi' for subsequent restarts?",
-      "answer": "For subsequent restarts on clusters other than 'nibi', the command is `fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -ssh -i $MYJOUFILERES`."
-    },
-    {
-      "question": "What happens if a job completes successfully and it's not the last restart attempt?",
-      "answer": "If a job completes successfully and it's not the last restart attempt, the script will print 'Restarting job with the most recent output dat file …' and create symbolic links for the restart case and data files to the latest output."
-    },
-    {
-      "question": "What action does the script take if the simulation fails?",
-      "answer": "If the simulation fails, the script will print 'Simulation failed. Exiting …'."
-    },
-    {
-      "question": "What does the `slurm_hl2hl.py --format ANSYS-FLUENT` command do in the script?",
-      "answer": "This command generates a machinefile specific for Ansys Fluent, which is then redirected to `/tmp/machinefile-$SLURM_JOB_ID`."
-    },
-    {
-      "question": "How can a user specify the Fluent version type (e.g., 2d, 3d) in the script?",
-      "answer": "The user can specify the Fluent version type by changing the `MYVERSION` variable, for example, `MYVERSION=3d`."
+      "question": "How should journal files be modified to prepare for both the initial and restart phases of an Ansys Fluent solution restart job?",
+      "answer": "For the initial run, the `sample.jou` file should be edited to contain `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`. For subsequent restarts, a `sample-restart.jou` file should be created by copying `sample.jou`. This restart journal file needs to be edited to contain `/file/read-cas-data sample-restart` instead of `/file/read-cas-data sample`, and any initialization line should be commented out (e.g., with a semicolon). Additionally, the `/solve/dual-time-iterate` value in `sample-restart.jou` can be adjusted, for example to `2`, to minimize computationally expensive solution restarts, ensuring that the specified number of steps fits within the job array time limit."
     }
   ],
-  "generated_at": "2026-04-12T16:49:27.614155+00:00"
+  "generated_at": "2026-04-13T01:50:06.099613+00:00"
 }

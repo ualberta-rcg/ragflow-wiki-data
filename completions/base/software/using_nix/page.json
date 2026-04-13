@@ -3,85 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Nix and where is it available?",
-      "answer": "Nix is a software building and composition system that allows users to manage their own persistent software environments. It is only available on SHARCNET systems, such as graham and legacy."
+      "question": "What is Nix, and where is it available on Alliance clusters?",
+      "answer": "Nix is a software building and composition system that allows users to manage their own persistent software environments. On Alliance clusters, it is currently only available on SHARCNET systems like graham and legacy systems."
     },
     {
-      "question": "What are the key features of Nix?",
-      "answer": "Nix supports one-off, per-project, and per-user compositions; allows users to build, install, upgrade, downgrade, and remove compositions; ensures operations are atomic (succeed or fail leaving everything intact); and makes adding and sharing compositions easy."
+      "question": "What are the key advantages of using Nix for software management on Alliance clusters?",
+      "answer": "Nix supports one-off, per-project, and per-user compositions; allows users to build, install, upgrade, downgrade, and remove compositions atomically (succeed or fail, leaving everything intact); and makes adding and sharing compositions extremely easy."
     },
     {
-      "question": "Are there any limitations to Nix software building on SHARCNET?",
-      "answer": "Currently, Nix builds software generically, without AVX2 or AVX512 vector instruction support. For longer running simulations, module-loaded software should be preferred if available."
+      "question": "Are there any performance considerations users should be aware of when running simulations with Nix-built software?",
+      "answer": "Yes, Nix currently builds software generically without advanced vector instructions (e.g., AVX2 or AVX512). For longer running simulations, users should prefer module-loaded software if it exists, as it may offer better performance."
     },
     {
-      "question": "What does the warning message 'failed to lock thread to CPU XX' mean?",
-      "answer": "The message 'failed to lock thread to CPU XX' is a harmless warning and can be ignored."
+      "question": "How does a user enable their Nix environment on SHARCNET systems?",
+      "answer": "A user enables their Nix environment by loading the `nix` module, which creates `~/.nix*` files and sets relevant environment variables. The command is `module load nix`."
     },
     {
-      "question": "How do I enable the Nix environment?",
-      "answer": "To enable your current Nix environment, load the nix module using the command `module load nix`."
+      "question": "What is the procedure for completely resetting a user's Nix environment?",
+      "answer": "To completely reset the Nix environment, a user must unload the `nix` module, remove specific user-related Nix files and directories (e.g., `~/.nix-profile`, `~/.nix-defexpr`, `/nix/var/nix/profiles/per-user/$USER`), and then reload the `nix` module."
     },
     {
-      "question": "How do I disable the Nix environment?",
-      "answer": "To disable the Nix environment, unload the nix module using the command `module unload nix`."
+      "question": "How can users find already available software compositions within the Nix system?",
+      "answer": "Users can locate existing software compositions by using the `nix search` command, for example, `nix search git`."
     },
     {
-      "question": "How can I completely reset my Nix environment?",
-      "answer": "To completely reset your Nix environment, unload the module, erase all user-related Nix files with `rm -fr ~/.nix-profile ~/.nix-defexpr ~/.nix-channels ~/.config/nixpkgs /nix/var/nix/profiles/per-user/$USER /nix/var/nix/gcroots/per-user/$USER`, and then reload the module."
+      "question": "How can a user temporarily use a software composition for a single task without a permanent installation using Nix?",
+      "answer": "For a one-off use, the `nix run` command is used. This command starts a shell where the specified composition is added to the `PATH`, or it can directly execute a command using the `-c` option."
     },
     {
-      "question": "How do I search for existing software compositions in Nix?",
-      "answer": "You can use the `nix search` command, for example, `nix search git`."
+      "question": "How does a user incorporate a software composition for a specific project with Nix?",
+      "answer": "For per-project use, the `nix build` command creates a symbolic link (by default named `result`) to the composition's `bin` directory, allowing project-specific access to its programs."
     },
     {
-      "question": "How can I use a Nix composition for a one-off task?",
-      "answer": "For one-off usage, use the `nix run` command, which starts a shell with the composition's `PATH` extended, e.g., `nix run nixpkgs.git`."
+      "question": "How can per-project software compositions created with `nix build` be protected from overnight garbage collection?",
+      "answer": "Currently, to protect a per-project composition from overnight garbage collection, the output symbolic link (e.g., `result`) must be created in the user's `home` directory and should not be renamed or moved."
     },
     {
-      "question": "What is the garbage collection policy for one-off Nix compositions?",
-      "answer": "One-off compositions created with `nix run` are only guaranteed to be around temporarily and may be garbage collected overnight."
+      "question": "What is the process for installing software compositions for persistent, per-user access with Nix?",
+      "answer": "Users can add compositions to their persistent environment, which is accessible via `~/.nix-profile/bin`, using the `nix-env --install --attr <composition>` command and remove them with `nix-env --uninstall <composition>`."
     },
     {
-      "question": "How do I use a Nix composition for a specific project?",
-      "answer": "For per-project usage, use the `nix build` command, which creates a symbolic link (default `result`) to access the composition's `bin` directory, e.g., `nix build nixpkgs.git`."
+      "question": "How does Nix's `nix-env` command support managing different versions or 'generations' of a user's installed software?",
+      "answer": "Each `nix-env` operation creates a new version, or 'generation,' of the environment. Users can list these generations with `nix-env --list-generations` and switch between them using `nix-env --switch-generation <number>`, facilitating easy rollbacks."
     },
     {
-      "question": "How can I protect a per-project Nix composition from garbage collection?",
-      "answer": "Currently, a per-project composition is protected from overnight garbage collection only if you output the symlink into your home directory and do not rename or move it."
+      "question": "What is the general approach for users to create their own unique software compositions in Nix?",
+      "answer": "Users create custom compositions by writing a Nix expression in a `.nix` file that combines existing compositions, and then tell Nix commands to use that file with the `-f <nix file>` option."
     },
     {
-      "question": "How do I install and manage Nix compositions for my user account?",
-      "answer": "You can add and remove compositions from your `~/.nix-profile/bin` directory using the `nix-env` command, for example, `nix-env --install --attr nixpkgs.git`."
+      "question": "How can a user combine multiple existing compositions into a single custom environment using a `.nix` file?",
+      "answer": "A generic method to combine compositions is by using the `buildEnv` function in a `.nix` file, specifying a list of packages to include. This combines their respective `bin`, `lib`, etc., directories."
     },
     {
-      "question": "Can I revert to previous versions of my per-user Nix environment?",
-      "answer": "Yes, `nix-env` creates new versions (generations) with each command. You can list generations with `nix-env --list-generations` and switch between them using `nix-env --switch-generation <number>`."
+      "question": "How does Nix support creating custom Python environments with specific libraries?",
+      "answer": "Nixpkgs provides the `python<major><minor>.withPackages` function, which can be used in a `.nix` file to create a Python composition that wraps the Python executable and sets `PYTHON_PATH` to include a specified list of Python packages."
     },
     {
-      "question": "What is the general process for creating custom Nix compositions?",
-      "answer": "You write a Nix expression in a `.nix` file that combines existing compositions, and then tell commands like `nix build` to use that file with the `-f <nix file>` option."
+      "question": "How does Nix support creating custom R environments with specific packages?",
+      "answer": "Nixpkgs offers `rWrapper.override` (or `rstudioWrapper.override`), which, when used in a `.nix` file, creates an R or RStudio composition with `R_LIBS` set to enable a specified list of R packages."
     },
     {
-      "question": "How do I create a generic custom environment bundling multiple binaries?",
-      "answer": "You can use the `buildEnv` function in a `.nix` file, listing the desired compositions in the `paths` attribute, for example: `buildEnv { name = \"my environment\"; paths = [ git make ]; }`."
+      "question": "How does Nix support creating custom Haskell environments with specific packages?",
+      "answer": "Nixpkgs provides `haskell.packages.ghc<major><minor><patch>.ghc.withPackages`, which can be used in a `.nix` file to create a GHC environment that enables a given set of Haskell packages."
     },
     {
-      "question": "How can I create a Python composition with specific libraries?",
-      "answer": "In a `.nix` file, use `python.withPackages` to wrap Python, setting `PYTHON_PATH` for a given set of Python packages, such as `python.withPackages (packages: with packages; [ numpy scipy ])`."
-    },
-    {
-      "question": "How do I create an R environment with specific R packages?",
-      "answer": "You can override `rWrapper` in a `.nix` file, specifying the desired R packages in the `packages` attribute, for example: `rWrapper.override { packages = with rPackages; [ tidyverse dplyr ]; }`."
-    },
-    {
-      "question": "How do I create a Haskell environment with specific packages for a given GHC compiler?",
-      "answer": "In a `.nix` file, use `haskell.packages.ghc<major><minor><patch>.ghc.withPackages`, listing the desired Haskell packages, for example: `haskell.packages.ghc864.ghc.withPackages (packages: with packages; [ pandoc hlint ]);`."
-    },
-    {
-      "question": "How can I create an Emacs environment with custom packages?",
-      "answer": "In a `.nix` file, use `emacs<major><minor>Packages.emacsWithPackages` to wrap Emacs and enable a given set of packages, such as `emacs25Packages.emacsWithPackages (packages: with packages; [ magit company ]);`."
+      "question": "How does Nix support creating custom Emacs environments with specific packages?",
+      "answer": "Nixpkgs provides `emacs<major><minor>Packages.emacsWithPackages`, which, when used in a `.nix` file, creates an Emacs composition that includes and enables a specified list of Emacs packages."
     }
   ],
-  "generated_at": "2026-04-12T10:06:05.409034+00:00"
+  "generated_at": "2026-04-13T15:11:31.755606+00:00"
 }

@@ -4,69 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How can multiple ADF or BAND calculations be combined into a single job?",
-      "answer": "Multiple calculations can be combined into a single job by creating an input file, such as `GO_H2O.run`, which includes all the calculations. This input file is then executed by a Slurm job script."
+      "question": "How can users submit multiple ADF or BAND calculations as a single job on Compute Canada's Graham cluster?",
+      "answer": "To combine multiple ADF or BAND calculations into a single job on Graham, users should create a shell script (e.g., `GO_H2O.run`) that contains all the individual calculations. A Slurm script (e.g., `GO_H2O.sh`), which is similar to the one used for a single run, can then be used to call this combined shell script after loading the `adf` module."
     },
     {
-      "question": "What is the purpose of the `GO_H2O.run` script?",
-      "answer": "The `GO_H2O.run` script executes a series of ADF geometry optimizations for a water molecule using various coordinate systems and optimization methods, including a partial specification of Hessian."
+      "question": "What is the recommended method for running SCM-GUI applications, such as ADF-GUI, on Compute Canada clusters, and why?",
+      "answer": "It is recommended to use VNC, specifically TigerVNC, for running SCM-GUI applications like ADF-GUI on Compute Canada clusters. This is because rendering over an SSH connection with X11 forwarding is very slow for GUI applications."
     },
     {
-      "question": "What Slurm directives are used in the `GO_H2O.sh` script?",
-      "answer": "The `GO_H2O.sh` script requests 1 node with 32 CPUs (`--nodes=1 --ntasks-per-node=32`), all memory on the node (`--mem=0`), a time limit of 3 hours (`--time=00-03:00`), and directs output to `GO_H2O_%j.log`."
-    },
-    {
-      "question": "Which modules must be loaded to run the `GO_H2O.sh` script?",
-      "answer": "The `openmpi` module must be unloaded, and the `adf/2019.305` module must be loaded."
-    },
-    {
-      "question": "How is the `GO_H2O.run` script executed within the `GO_H2O.sh` Slurm job script?",
-      "answer": "The `GO_H2O.run` script is executed using the command `bash GO_H2O.run` within the Slurm job script."
-    },
-    {
-      "question": "What happens to the `TAPE21` file at the end of the `GO_H2O.run` script?",
-      "answer": "At the end of the `GO_H2O.run` script, the `TAPE21` file is renamed to `H2O.t21`."
-    },
-    {
-      "question": "Where can users find example input and output files for ADF on Graham?",
-      "answer": "Example input/output for ADF can be found on Graham under `/home/jemmyhu/tests/test_ADF/2019.305/test_adf/`."
-    },
-    {
-      "question": "Where can users find example input and output files for BAND jobs on Graham?",
-      "answer": "Example input/output for BAND jobs, including `band_test.inp` and `band_test.sh` examples, can be found on Graham under `/home/jemmyhu/tests/test_ADF/2019.305/test_band/`."
-    },
-    {
-      "question": "Why is VNC recommended for SCM-GUI applications like ADF-GUI?",
-      "answer": "VNC is recommended for SCM-GUI applications because rendering over an SSH connection with X11 forwarding is very slow for graphical user interface applications."
-    },
-    {
-      "question": "What are the steps to run ADF interactively in graphical mode on a Graham compute node?",
-      "answer": "To run ADF interactively in graphical mode on a Graham compute node, you need to: 1. Install a TigerVNC client on your desktop, 2. Connect to a compute node with `vncviewer`, 3. Load the `adf` module (`module load adf`), and 4. Run `adfinput`."
-    },
-    {
-      "question": "What is the time limit for running ADF-GUI on a Graham compute node?",
-      "answer": "There is a 3-hour time limit for running ADF-GUI on a Graham compute node."
-    },
-    {
-      "question": "What are the steps to run ADF interactively in graphical mode on gra-vdi?",
-      "answer": "To run ADF interactively in graphical mode on gra-vdi, you need to: 1. Install a TigerVNC client on your desktop, 2. Connect to `gra-vdi.computecanada.ca` with `vncviewer`, 3. Load the `clumod` module, 4. Load the `adf` module, and 5. Run `adfinput`."
-    },
-    {
-      "question": "Is there a connection time limit for ADF-GUI sessions on gra-vdi?",
-      "answer": "No, there is no connection time limit when running ADF-GUI on gra-vdi."
-    },
-    {
-      "question": "Where can I find a tutorial PDF for running ADF-GUI using TigerVNC on gra-vdi?",
-      "answer": "A tutorial PDF is available at `https://www.sharcnet.ca/~jemmyhu/TigerVNC-for-ADF-GUI.pdf`."
-    },
-    {
-      "question": "Can ADF-GUI be run on a local desktop machine?",
-      "answer": "Yes, ADF-GUI can be run on a local desktop machine, but SCM requires a separate license for this."
-    },
-    {
-      "question": "Who should be contacted to purchase a license for running ADF-GUI locally?",
-      "answer": "To purchase a license for running ADF-GUI on a local desktop machine, you should contact `license@scm.com`."
+      "question": "What are the steps to run ADF-GUI interactively in graphical mode on a Graham compute node?",
+      "answer": "To run ADF-GUI interactively on a Graham compute node, users should first install a TigerVNC client on their desktop. Then, they need to connect to a compute node with `vncviewer`, load the `adf` module, and finally execute the `adfinput` command. This interactive session has a 3-hour time limit."
     }
   ],
-  "generated_at": "2026-04-11T14:53:39.763592+00:00"
+  "generated_at": "2026-04-13T00:20:46.617369+00:00"
 }

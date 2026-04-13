@@ -4,65 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Comment s'appelle l'exemple de script pour une tâche séquentielle de CFOUR?",
-      "answer": "L'exemple de script pour une tâche séquentielle s'appelle `run_cfour_serial.sh`."
+      "question": "Comment lance-t-on une tâche CFOUR séquentielle sur les grappes de l'Alliance?",
+      "answer": "Pour lancer une tâche CFOUR séquentielle, il faut d'abord charger le module `intel/2023.2.1 cfour/2.1`. Ensuite, la commande `xcfour` est utilisée pour exécuter le programme, en redirigeant idéalement la sortie vers un fichier, par exemple `xcfour > cfour-output.txt`. Il est également recommandé de définir le nombre de cœurs avec `export CFOUR_NUM_CORES=1`."
     },
     {
-      "question": "Quel est le nom de l'exemple de script pour une tâche MPI de CFOUR?",
-      "answer": "L'exemple de script pour une tâche MPI s'appelle `run-cfour-mpi.sh`."
+      "question": "Comment configure-t-on un script pour exécuter une tâche CFOUR parallèle (MPI) sur les grappes?",
+      "answer": "Pour une tâche CFOUR parallèle (MPI), les modules `intel/2023.2.1 openmpi/4.1.5 cfour-mpi/2.1` doivent être chargés. Le nombre de tâches par nœud est généralement spécifié via la directive SLURM `--ntasks-per-node=4`. Le nombre de cœurs utilisés par CFOUR est défini en exportant la variable d'environnement `CFOUR_NUM_CORES` à la valeur de `SLURM_NTASKS`, par exemple `export CFOUR_NUM_CORES=${SLURM_NTASKS}`."
     },
     {
-      "question": "Quel est le compte SLURM par défaut utilisé dans les exemples de scripts?",
-      "answer": "Les exemples de scripts utilisent `def-someacct` comme compte SLURM par défaut, qu'il faut remplacer par le sien."
-    },
-    {
-      "question": "Quelle est la quantité de mémoire par CPU allouée par défaut dans les scripts d'exemple?",
-      "answer": "Par défaut, la quantité de mémoire par CPU allouée est de 2500M (mégabytes)."
-    },
-    {
-      "question": "Quel est le temps limite par défaut pour les tâches dans les scripts SLURM fournis?",
-      "answer": "Le temps limite par défaut est de 30 minutes (0-00:30)."
-    },
-    {
-      "question": "Quels modules doit-on charger pour exécuter la version séquentielle de CFOUR?",
-      "answer": "Il faut charger les modules `intel/2023.2.1` et `cfour/2.1`."
-    },
-    {
-      "question": "Quels modules doit-on charger pour exécuter la version MPI de CFOUR?",
-      "answer": "Il faut charger les modules `intel/2023.2.1`, `openmpi/4.1.5` et `cfour-mpi/2.1`."
-    },
-    {
-      "question": "Quel est le nom du fichier de sortie pour les résultats de CFOUR dans les scripts d'exemple?",
-      "answer": "Le fichier de sortie pour les résultats de CFOUR est nommé `cfour-output.txt`."
-    },
-    {
-      "question": "Comment le nombre de cœurs est-il spécifié pour une tâche séquentielle de CFOUR?",
-      "answer": "Pour une tâche séquentielle, la variable d'environnement `CFOUR_NUM_CORES` est exportée avec la valeur 1."
-    },
-    {
-      "question": "Comment le nombre de cœurs est-il spécifié pour une tâche MPI de CFOUR?",
-      "answer": "Pour une tâche MPI, la variable d'environnement `CFOUR_NUM_CORES` est exportée avec la valeur de `${SLURM_NTASKS}`, qui est dérivée du nombre de tâches SLURM."
-    },
-    {
-      "question": "Quelle est la commande pour lancer l'exécution de CFOUR et rediriger sa sortie?",
-      "answer": "La commande pour lancer l'exécution est `xcfour > ${CFOUROUTPUT}`."
-    },
-    {
-      "question": "Que fait le script avec le symlink `GENBAS` à la fin de l'exécution?",
-      "answer": "Si un symlink `GENBAS` existe, le script le supprime (`unlink GENBAS`) après l'exécution du programme."
-    },
-    {
-      "question": "Où peut-on trouver le manuel de CFOUR?",
-      "answer": "Le manuel de CFOUR peut être trouvé en ligne via un lien fourni dans la section Références."
-    },
-    {
-      "question": "Où peut-on consulter les fonctionnalités de CFOUR?",
-      "answer": "Les fonctionnalités de CFOUR sont disponibles via un lien fourni dans la section Références."
-    },
-    {
-      "question": "Quelles sont les principales différences entre les scripts de tâche séquentielle et MPI en termes de paramètres SLURM et de modules?",
-      "answer": "Le script séquentiel utilise `--ntasks=1` et charge `cfour/2.1`, tandis que le script MPI utilise `--ntasks-per-node=4` et charge `openmpi/4.1.5` et `cfour-mpi/2.1`."
+      "question": "Quel est le but de la commande `if [[ -L \"GENBAS\" ]]; then unlink GENBAS; fi` présente à la fin des scripts d'exemple pour CFOUR?",
+      "answer": "Cette commande est utilisée pour nettoyer le lien symbolique (`symlink`) nommé `GENBAS` si CFOUR en a créé un au début de la tâche. Si le fichier `GENBAS` n'est pas trouvé dans le répertoire de travail, CFOUR en crée un pointant vers le fichier système disponible dans le module, et cette ligne s'assure de le supprimer après l'exécution pour éviter de laisser des fichiers temporaires derrière."
     }
   ],
-  "generated_at": "2026-04-11T18:56:46.362144+00:00"
+  "generated_at": "2026-04-13T03:17:59.694546+00:00"
 }

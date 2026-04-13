@@ -4,77 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What is the primary use of SSH tunnelling when connecting to a program running on a compute node?",
-      "answer": "SSH tunnelling allows a user's computer to connect to a compute node on a cluster through an encrypted tunnel that is routed via the login node of that cluster. This enables graphical output from applications like Jupyter Notebooks or visualization software to be displayed transparently on the user's local workstation."
+      "question": "What is the main purpose of using SSH tunnelling when running a program on a compute node within an Alliance cluster, and what types of applications benefit from it?",
+      "answer": "SSH tunnelling allows a user's local computer to connect to a compute node on a cluster through an encrypted tunnel, which is routed via the cluster's login node. This technique primarily enables the transparent display of graphical output from applications like Jupyter Notebooks or visualization software on the user's local workstation, even while these applications are running on a cluster's compute node. It can also be used to connect to database servers when the connection is only possible through the head node."
     },
     {
-      "question": "Can SSH tunnelling facilitate connections to a database server on a cluster?",
-      "answer": "Yes, when a connection to a database server is only possible through the head node of a cluster, SSH tunnelling can be used to bind an external port to the database server."
+      "question": "What is the process for setting up an SSH tunnel from a Windows system to connect to a program running on an Alliance cluster's compute node, for instance, a Jupyter Notebook?",
+      "answer": "From Windows, an SSH tunnel can be created using MobaXTerm. First, open a MobaXTerm session to the cluster and start your application (e.g., Jupyter Notebook) to obtain its URL, including a host name and port. Then, in a second MobaXTerm local terminal session, run the command `ssh -L local_port:remote_host:remote_port someuser@cluster.alliancecan.ca`, replacing `remote_host` with the specific host from your application's URL and `someuser` with your account username. Finally, modify the application's URL by replacing its original host name with `localhost` before pasting it into a web browser."
     },
     {
-      "question": "Do compute nodes on Nibi and Fir have direct access to the Internet?",
-      "answer": "Yes, there is Network Address Translation (NAT) on both Nibi and Fir, which allows users to access the Internet from their compute nodes."
-    },
-    {
-      "question": "Which Python package is recommended for creating SSH tunnels on Linux or MacOS X systems?",
-      "answer": "On a Linux or MacOS X system, the `sshuttle` Python package is recommended for creating SSH tunnels."
-    },
-    {
-      "question": "What command is used to create an SSH tunnel with `sshuttle` on Linux or MacOS X?",
-      "answer": "To create the tunnel using `sshuttle`, you open a new terminal window on your computer and run the command: `sshuttle --dns -Nr userid@machine_name`."
-    },
-    {
-      "question": "After setting up an SSH tunnel with `sshuttle`, how do you access the application (e.g., a Jupyter Notebook)?",
-      "answer": "You should copy and paste the application's URL, such as a Jupyter Notebook URL with a token, into your browser."
-    },
-    {
-      "question": "What software is used to create an SSH tunnel from Windows?",
-      "answer": "An SSH tunnel can be created from Windows using MobaXTerm."
-    },
-    {
-      "question": "What are the first two steps to set up an SSH tunnel for an application on a compute node using MobaXTerm?",
-      "answer": "First, open two sessions in MobaXTerm. In Session 1, connect to a cluster, start your job (e.g., Jupyter Notebook), and obtain the application's URL (including host name and port). In Session 2, you will set up the SSH tunnel in a local terminal."
-    },
-    {
-      "question": "What is an example command to set up an SSH tunnel in MobaXTerm for an application like Jupyter Notebook?",
-      "answer": "In the local terminal (MobaXTerm Session 2), you would run a command such as: `ssh -L 8888:fc3281.int.fir.alliancecan.ca:8888 someuser@fir.alliancecan.ca`. You replace the example host name with the one from the URL received in Session 1."
-    },
-    {
-      "question": "When creating an SSH tunnel in MobaXTerm, must the local port number match the remote port number?",
-      "answer": "No, the local port number (the first one) does not strictly need to match the remote port number (the second one), but it is conventional and reduces confusion."
-    },
-    {
-      "question": "How do you access an application running on a compute node via an SSH tunnel created with MobaXTerm once the tunnel is active?",
-      "answer": "You modify the URL you were given in Session 1 by replacing the host name with `localhost`, then paste this modified URL into your browser."
-    },
-    {
-      "question": "What is the SSH command to create a tunnel from your desktop to a PostgreSQL database server on Fir?",
-      "answer": "To create a tunnel to a PostgreSQL database server, use the command: `ssh -L PORT:cedar-pgsql-vm.int.cedar.computecanada.ca:5432 someuser@fir.alliancecan.ca`."
-    },
-    {
-      "question": "What command is used to set up an SSH tunnel from a desktop to a MySQL database server on Fir?",
-      "answer": "For a MySQL database server, the command is: `ssh -L PORT:cedar-mysql-vm.int.cedar.computecanada.ca:3306 someuser@fir.alliancecan.ca`."
-    },
-    {
-      "question": "What is the recommended range for the port number (`PORT`) when connecting to a database server via an SSH tunnel?",
-      "answer": "The port number you choose (`PORT`) should not be bigger than 32768 (2^15)."
-    },
-    {
-      "question": "How do you connect to a PostgreSQL database server from your desktop after establishing an SSH tunnel?",
-      "answer": "On your desktop, run the command: `psql -h 127.0.0.1 -p PORT -U <your username> -d <your database>`."
-    },
-    {
-      "question": "What command is used to connect to a MySQL database server from your desktop once an SSH tunnel is active?",
-      "answer": "On your desktop, run the command: `mysql -h 127.0.0.1 -P PORT -u <your username> --protocol=TCP -p`."
-    },
-    {
-      "question": "Where is the MySQL password stored for connections to a database server on Fir?",
-      "answer": "The MySQL password is stored in your `.my.cnf` file, which is located in your home directory on Fir."
-    },
-    {
-      "question": "How long does a database connection established through an SSH tunnel remain active?",
-      "answer": "The database connection will remain open as long as the SSH connection itself remains open."
+      "question": "How can a user establish an SSH tunnel from their desktop to connect to a PostgreSQL or MySQL database server hosted on the Fir cluster?",
+      "answer": "To connect to a PostgreSQL or MySQL database server on Fir from your desktop, establish an SSH tunnel using a command such as `ssh -L PORT:cedar-pgsql-vm.int.cedar.computecanada.ca:5432 someuser@fir.alliancecan.ca` for PostgreSQL, or `ssh -L PORT:cedar-mysql-vm.int.cedar.computecanada.ca:3306 someuser@fir.alliancecan.ca` for MySQL. In these commands, `PORT` is a chosen local port (which should not exceed 32768) and `someuser` is your account username. Once the SSH connection is active, you can then connect to the database from another local terminal using `psql -h 127.0.0.1 -p PORT -U <your username> -d <your database>` for PostgreSQL, or `mysql -h 127.0.0.1 -P PORT -u <your username> --protocol=TCP -p` for MySQL."
     }
   ],
-  "generated_at": "2026-04-12T07:34:48.706351+00:00"
+  "generated_at": "2026-04-13T13:13:34.441821+00:00"
 }

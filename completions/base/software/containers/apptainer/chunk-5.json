@@ -4,69 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What does the `-e` option do when running Apptainer container commands?",
-      "answer": "The `-e` option cleans some shell environment variables before running container commands and applies settings for increased OCI/Docker compatibility."
+      "question": "Why is it important to use the `-W` or `--workdir` option when running Apptainer on HPC clusters, and what is a recommended value for it?",
+      "answer": "On HPC clusters and most Linux systems, `/tmp` and similar filesystems use RAM, not disk space. When Apptainer jobs consume too much RAM through temporary files, they can be killed. To prevent this, the `-W` or `--workdir` option should be used to specify a real disk location for Apptainer's working directory, such as `${SLURM_TMPDIR}` when running in an `salloc` or `sbatch` job, or with JupyterHub."
     },
     {
-      "question": "What other options are implicitly used when the `-e` option is specified in Apptainer?",
-      "answer": "When the `-e` option is used, it implicitly applies the `--containall`, `--no-init`, `--no-umask`, and `--writable-tmpfs` options."
+      "question": "What Apptainer command-line options are necessary for enabling GPU usage within a container, and what other requirements must be met?",
+      "answer": "To enable GPU usage in an Apptainer container, you must pass `--nv` for NVIDIA hardware or `--rocm` for AMD hardware to Apptainer commands. These options bind mount the appropriate `/dev` entries and configure `LD_LIBRARY_PATH` for GPU-related libraries from the host. Additionally, if OpenCL is required, the bind mount `-B /etc/OpenCL` should be used. It is also crucial that the application running inside the container was properly compiled to utilize the GPU and its libraries."
     },
     {
-      "question": "What is the purpose of the `-W` or `--workdir` option in Apptainer?",
-      "answer": "The `-W` or `--workdir` option is used to specify a real disk location for Apptainer's working directory. This helps prevent jobs from being terminated due to consuming too much RAM, as `/tmp` and similar filesystems often use RAM instead of disk space on clusters."
-    },
-    {
-      "question": "How can a user specify a working directory for Apptainer temporary files?",
-      "answer": "A user can specify a working directory by passing the `-W` option followed by a path to a disk location where Apptainer can read/write temporary files. For example, `apptainer run -C -B /project -W /path/to/a/workdir myimage.sif myprogram`."
-    },
-    {
-      "question": "What is the recommended working directory location for Apptainer jobs run via `salloc`, `sbatch`, or JupyterHub on clusters?",
-      "answer": "When using Apptainer in an `salloc`, `sbatch` job, or with JupyterHub on clusters, it is recommended to use `${SLURM_TMPDIR}` for the working directory's location, for example, `-W ${SLURM_TMPDIR}`."
-    },
-    {
-      "question": "Should Apptainer programs be run on login nodes?",
-      "answer": "No, programs (including Apptainer) should not be run on a login node. Users should use an interactive `salloc` job instead."
-    },
-    {
-      "question": "When can a specified `workdir` be safely removed?",
-      "answer": "A `workdir` can be removed if there are no live containers actively using it."
-    },
-    {
-      "question": "What options are essential for running software that requires GPUs inside an Apptainer container?",
-      "answer": "When running GPU-dependent software, it is essential to pass `--nv` for NVIDIA hardware and `--rocm` for AMD hardware to Apptainer commands."
-    },
-    {
-      "question": "What do the `--nv` and `--rocm` options accomplish for GPU usage in Apptainer?",
-      "answer": "These options ensure that the appropriate `/dev` entries are bind mounted inside the container, and they locate, bind, and set the `LD_LIBRARY_PATH` environment variable for GPU-related libraries on the host to function within the container."
-    },
-    {
-      "question": "What is required for an application inside a container to properly use a GPU?",
-      "answer": "The application using the GPU inside the container must have been properly compiled to use the GPU and its libraries."
-    },
-    {
-      "question": "What bind mount is required when using OpenCL inside an Apptainer container with GPUs?",
-      "answer": "When using OpenCL inside an Apptainer container, in addition to the GPU options, the bind mount `-B /etc/OpenCL` is required."
-    },
-    {
-      "question": "What special considerations are there for running MPI programs within an Apptainer container across multiple cluster nodes?",
-      "answer": "Running MPI programs within an Apptainer container across multiple cluster nodes typically requires special configuration and setup in the host environment to ensure proper communication via cluster interconnection hardware."
-    },
-    {
-      "question": "Are there any issues running MPI programs within an Apptainer container if all MPI processes are on a single shared-memory node?",
-      "answer": "No, there are no issues running MPI programs within an Apptainer container when all MPI processes run on a single shared-memory node, as interconnection hardware is not necessary in this scenario (e.g., when using the Slurm option `--nodes=1`)."
-    },
-    {
-      "question": "How can a user view the help section of an Apptainer container built from a Definition file?",
-      "answer": "To view the help section of an Apptainer container, a user can run `apptainer run-help your-container-name.sif`, replacing `your-container-name.sif` with the actual container name."
-    },
-    {
-      "question": "How can a user get help for a specific 'app' defined within an Apptainer container?",
-      "answer": "To get help for a specific 'app' within an Apptainer container, a user can run `apptainer run-help --app appname your-container-name.sif`, replacing `appname` with the name of the app and `your-container-name.sif` with the container's name."
-    },
-    {
-      "question": "How can a user list the 'apps' installed in an Apptainer container?",
-      "answer": "To see a list of 'apps' installed in an Apptainer container, a user can run the command `apptainer inspect --list-apps your-container-name.sif`, where `your-container-name.sif` is the name of the container."
+      "question": "How can users access the built-in help documentation or list available applications for a specific Apptainer container?",
+      "answer": "To access the general help section (often `%help`) of an Apptainer container, use the command `apptainer run-help your-container-name.sif`. If the container defines specific 'apps,' you can obtain help for a particular app by running `apptainer run-help --app appname your-container-name.sif`. To see a list of all applications installed within your container, use `apptainer inspect --list-apps your-container-name.sif`."
     }
   ],
-  "generated_at": "2026-04-11T17:28:24.669703+00:00"
+  "generated_at": "2026-04-13T02:11:26.304798+00:00"
 }

@@ -4,69 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Où est-ce que les erreurs apparaissent normalement pour une tâche ?",
-      "answer": "Les erreurs paraissent normalement dans le même fichier que le résultat standard en sortie."
+      "question": "Comment spécifier à quel compte de projet (RAP) une tâche Slurm devrait être attribuée quand on est associé à plusieurs comptes?",
+      "answer": "Si vous recevez un message indiquant que vous avez plusieurs allocations de CPU ou GPU, vous devez utiliser la directive `--account` dans votre script ou comme argument de ligne de commande avec `sbatch`, en spécifiant un des comptes listés dans le message d'erreur. Vous pouvez trouver le nom du groupe (qui correspond au compte) dans le CCDB en allant sous \"Mes projets --> Mes ressources et allocations\"."
     },
     {
-      "question": "Comment est-ce que je peux diriger les erreurs vers un fichier différent du fichier de sortie standard ?",
-      "answer": "Pour diriger le canal standard d'erreurs (stderr) vers un autre fichier, vous devez utiliser l'option `--error`."
+      "question": "En cas de conflit, quelle est la priorité pour la spécification d'un compte de projet (RAP) entre un nom de compte défini dans le script, une variable d'environnement (comme `SBATCH_ACCOUNT`) ou un argument de ligne de commande `sbatch`?",
+      "answer": "L'argument de ligne de commande `sbatch --account` a la plus haute priorité. Si ce n'est pas spécifié, la variable d'environnement (`SBATCH_ACCOUNT` pour `sbatch`, `SLURM_ACCOUNT` pour `srun`, ou `SALLOC_ACCOUNT` pour `salloc`) prend le dessus. Finalement, si aucune des deux n'est présente, la directive `#SBATCH --account` dans le script sera utilisée, bien que la variable d'environnement ait priorité sur celle-ci si elle est définie."
     },
     {
-      "question": "À quoi chaque tâche doit-elle être associée ?",
-      "answer": "Chaque tâche doit être associée à un nom de compte correspondant à un RAP (pour Resource Allocation Project)."
-    },
-    {
-      "question": "Que se passe-t-il si je suis membre d'un seul compte ?",
-      "answer": "Si vous êtes membre d'un seul compte, l'ordonnanceur associera automatiquement vos tâches à ce compte."
-    },
-    {
-      "question": "Que signifient les messages \"You are associated with multiple _cpu allocations...\" ou \"You are associated with multiple _gpu allocations...\" quand on soumet une tâche ?",
-      "answer": "Si vous recevez un de ces messages en soumettant une tâche, cela indique que vous avez accès à plus d'un compte."
-    },
-    {
-      "question": "Comment est-ce que je dois procéder si j'ai accès à plusieurs comptes et que je reçois un message d'erreur me demandant de spécifier un compte ?",
-      "answer": "Dans ce cas, il faut utiliser la directive `--account` pour spécifier un des comptes listés dans le message d'erreur, par exemple `#SBATCH --account=def-user-ab`."
-    },
-    {
-      "question": "Où est-ce que je peux trouver le nom du compte qui correspond à mon projet ?",
-      "answer": "Vous pouvez trouver le nom du compte en vous connectant à CCDB et en cliquant sur « Mes projets --> Mes ressources et allocations ». Le deuxième champ, « Nom du groupe », contient la chaîne de caractères à utiliser avec la directive `--account`."
-    },
-    {
-      "question": "Est-ce qu'un projet d'allocation de ressources peut être transféré d'une grappe à une autre ?",
-      "answer": "Un projet qui a reçu une allocation de ressources peut être associé à une grappe en particulier (ou à un groupe de grappes), et il se peut qu'il ne puisse pas être transféré de cette grappe à une autre."
-    },
-    {
-      "question": "Quelles variables d'environnement devrais-je définir dans mon fichier `~/.bashrc` si je veux toujours utiliser le même compte pour toutes mes tâches ?",
-      "answer": "Si vous prévoyez utiliser toujours le même compte pour toutes les tâches, vous trouverez utile de définir les variables d'environnement `SLURM_ACCOUNT`, `SBATCH_ACCOUNT` et `SALLOC_ACCOUNT` dans votre fichier `~/.bashrc`."
-    },
-    {
-      "question": "Entre la variable d'environnement `SBATCH_ACCOUNT` et la directive `--account` dans un script, laquelle est prioritaire ?",
-      "answer": "La variable d'environnement a priorité. Slurm utilisera la valeur de `SBATCH_ACCOUNT` plutôt que la directive `--account` dans le script."
-    },
-    {
-      "question": "Comment est-ce que je peux remplacer une variable d'environnement de compte Slurm ?",
-      "answer": "Pour remplacer la variable d'environnement, il faut fournir un nom de compte comme argument en ligne de commande avec `sbatch`."
-    },
-    {
-      "question": "À quoi servent les variables d'environnement `SLURM_ACCOUNT` et `SALLOC_ACCOUNT` ?",
-      "answer": "`SLURM_ACCOUNT` joue le même rôle que `SBATCH_ACCOUNT`, mais pour la commande `srun` plutôt que `sbatch`. Il en est de même pour `SALLOC_ACCOUNT`."
-    },
-    {
-      "question": "Qu'est-ce qu'une tâche séquentielle ?",
-      "answer": "Une tâche séquentielle est une tâche qui ne nécessite qu'un seul cœur."
-    },
-    {
-      "question": "À quoi sert un lot de tâches (task array) ?",
-      "answer": "Un lot de tâches (ou 'task array' ou 'array job') sert à soumettre un ensemble de tâches à l'aide d'une seule commande."
-    },
-    {
-      "question": "Comment est-ce que les tâches d'un lot se distinguent-elles les unes des autres ?",
-      "answer": "Chacune des tâches du lot se distingue par la variable d'environnement `$SLURM_ARRAY_TASK_ID` qui comporte une valeur distincte pour chaque instance de la tâche."
-    },
-    {
-      "question": "Comment puis-je créer 10 tâches dans un lot de tâches où `$SLURM_ARRAY_TASK_ID` prend des valeurs de 1 à 10 ?",
-      "answer": "Vous pouvez utiliser la directive `#SBATCH --array=1-10` dans votre script Slurm pour créer 10 tâches où la variable `$SLURM_ARRAY_TASK_ID` aura des valeurs de 1 à 10."
+      "question": "Comment puis-je faire pour rediriger les erreurs standards (stderr) générées par ma tâche Slurm vers un fichier différent du fichier de sortie standard?",
+      "answer": "Pour diriger le canal standard d'erreurs (stderr) vers un fichier différent de la sortie standard, vous devez utiliser la directive `--error` dans votre script Slurm ou comme argument avec la commande `sbatch`."
     }
   ],
-  "generated_at": "2026-04-12T07:11:09.691549+00:00"
+  "generated_at": "2026-04-13T12:52:21.522116+00:00"
 }

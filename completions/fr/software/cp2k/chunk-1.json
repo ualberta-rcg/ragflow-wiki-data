@@ -4,133 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi CP2K?",
-      "answer": "CP2K est un paquet logiciel pour la chimie quantique pis la physique des solides qui permet de faire des simulations atomistiques de systèmes solides, liquides, moléculaires, périodiques, matériels, cristallins et biologiques."
+      "question": "C'est quoi, CP2K, pis comment je le charge sur les grappes de calcul?",
+      "answer": "CP2K est un paquet logiciel pour la chimie quantique et la physique des solides. Il sert à faire des simulations atomistiques de systèmes solides, liquides, moléculaires, périodiques, matériels, cristallins et biologiques. Pour charger la version 8.2 compilée avec GCC, tu peux lancer la commande `module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cp2k/8.2`. Y'a aussi une version compilée avec Intel, mais elle est moins stable."
     },
     {
-      "question": "Quels types de simulations est-ce que CP2K permet de faire?",
-      "answer": "CP2K permet de faire des simulations atomistiques de systèmes solides, liquides, moléculaires, périodiques, matériels, cristallins et biologiques."
+      "question": "Comment je soumets une job CP2K MPI de base sur une grappe?",
+      "answer": "Pour soumettre une job CP2K MPI, tu dois d'abord te connecter à une grappe et télécharger les fichiers requis. Ensuite, tu crées un script de tâche SLURM (par exemple, `mpi_job.sh`) où tu spécifies les ressources comme ton compte, le nombre de processus MPI, la mémoire par cœur pis le temps. Dans ce script, tu charges le module CP2K (comme la version compilée avec GCC) pis tu lances l'exécutable `cp2k.popt` avec `srun`. Finalement, tu soumets ta job en utilisant `sbatch mpi_job.sh`."
     },
     {
-      "question": "C'est quoi la version de CP2K la plus récente qui est installée?",
-      "answer": "La version la plus récente installée de CP2K est la 8.2."
-    },
-    {
-      "question": "Comment je fais pour charger le module de CP2K 8.2 compilé avec GCC?",
-      "answer": "Pour charger le module compilé avec GCC, vous devez lancer la commande suivante: `module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cp2k/8.2`."
-    },
-    {
-      "question": "Est-ce que je peux utiliser une version de CP2K compilée avec Intel?",
-      "answer": "Oui, vous pouvez utiliser la version compilée avec Intel, mais elle semble moins stable car elle plante à l'occasion pour des raisons inconnues."
-    },
-    {
-      "question": "Pourquoi la version de CP2K compilée avec Intel est moins stable?",
-      "answer": "La version compilée avec Intel semble moins stable parce qu'elle plante à l'occasion pour des raisons inconnues."
-    },
-    {
-      "question": "Comment je fais pour charger la version de CP2K 8.2 compilée avec Intel?",
-      "answer": "Pour charger la version compilée avec Intel, vous devez lancer la commande suivante: `module load StdEnv/2020 intel/2020.1.217 openmpi/4.0.3 cp2k/8.2`."
-    },
-    {
-      "question": "D'où vient l'exemple de calcul statique qu'on utilise?",
-      "answer": "L'exemple de calcul statique qu'on utilise vient du site web de CP2K."
-    },
-    {
-      "question": "Comment je fais pour télécharger les fichiers nécessaires pour l'exemple de calcul statique?",
-      "answer": "Vous devez vous connecter à une grappe et télécharger les fichiers requis avec les commandes suivantes: `wget https://www.cp2k.org/_media/static_calculation.tgz`, `tar xvfz static_calculation.tgz`, puis `cd static_calculation/sample_output_no_smearing`."
-    },
-    {
-      "question": "C'est quoi le nom du script de tâche pour l'exemple de calcul statique?",
-      "answer": "Le nom du script de tâche pour l'exemple de calcul statique est `mpi_job.sh`."
-    },
-    {
-      "question": "Combien de processus MPI sont demandés dans le script `mpi_job.sh`?",
-      "answer": "Quatre (4) processus MPI sont demandés dans le script `mpi_job.sh`."
-    },
-    {
-      "question": "Combien de mémoire par CPU est demandée dans le script `mpi_job.sh`?",
-      "answer": "Quatre (4) gigaoctets (4G) de mémoire par CPU sont demandés dans le script `mpi_job.sh`."
-    },
-    {
-      "question": "C'est quoi le temps maximal demandé pour la tâche dans le script `mpi_job.sh`?",
-      "answer": "Le temps maximal demandé pour la tâche dans le script `mpi_job.sh` est de 15 minutes (0-00:15)."
-    },
-    {
-      "question": "Quel exécutable de CP2K est utilisé dans le script `mpi_job.sh` pour le calcul statique?",
-      "answer": "L'exécutable `cp2k.popt` est utilisé dans le script `mpi_job.sh`."
-    },
-    {
-      "question": "C'est quoi les fichiers d'entrée et de sortie spécifiés dans le script `mpi_job.sh`?",
-      "answer": "Le fichier d'entrée est `Si_bulk8.inp` pis le fichier de sortie est `Si_bulk8.out`."
-    },
-    {
-      "question": "Comment je fais pour soumettre la tâche `mpi_job.sh`?",
-      "answer": "Pour soumettre la tâche, vous devez lancer la commande: `sbatch mpi_job.sh`."
-    },
-    {
-      "question": "Comment je fais pour vérifier si ma tâche est terminée?",
-      "answer": "Vous pouvez lancer la commande `sq` pour vérifier si votre tâche est terminée."
-    },
-    {
-      "question": "Comment je sais si ma tâche est terminée quand je vérifie son statut avec `sq`?",
-      "answer": "Votre tâche est terminée si elle ne paraît pas dans la liste affichée par la commande `sq`."
-    },
-    {
-      "question": "Où est-ce que je vais trouver les résultats de CP2K pour l'exemple de calcul statique?",
-      "answer": "Les résultats de CP2K se trouveront dans le fichier `Si_bulk8.out`."
-    },
-    {
-      "question": "C'est quoi le but du fichier de résultats `slurm-*.out`?",
-      "answer": "Le fichier de résultats nommé `slurm-*.out` sera vide si le calcul s'est effectué sans erreurs."
-    },
-    {
-      "question": "Quels nouveaux exécutables est-ce que CP2K 8.2 fournit?",
-      "answer": "À partir de la version 8.2, l'installation de CP2K fournit l'exécutable `cp2k.popt` pis l'exécutable OpenMP/MPI `cp2k.psmp`."
-    },
-    {
-      "question": "Quelle amélioration de performance a été observée avec `cp2k.psmp` en utilisant 2 fils par processus MPI?",
-      "answer": "Une amélioration de 10% a été observée avec l'essai QS/H2O-512.inp en utilisant 2 fils par processus MPI avec `cp2k.psmp`, comparé à l'exécution de `cp2k.popt` en MPI seul."
-    },
-    {
-      "question": "Est-ce que l'utilisation de fils améliore toujours la performance avec CP2K?",
-      "answer": "Non, la différence en performance avec l'utilisation de fils dépend du problème traité. Dans certains cas, l'exécutable `cp2k.psmp` peut prendre plus de temps."
-    },
-    {
-      "question": "Qu'est-ce que les utilisateurs devraient faire pour choisir la meilleure option entre `cp2k.popt` et `cp2k.psmp`?",
-      "answer": "Les utilisateurs devraient faire des essais avec leur code pour pouvoir choisir la meilleure option, car la performance dépend du problème traité."
-    },
-    {
-      "question": "C'est quoi le nom de l'exemple de script de tâche OpenMP/MPI pour Béluga?",
-      "answer": "Le nom de l'exemple de script de tâche OpenMP/MPI est `openmp_mpi_job.sh`."
-    },
-    {
-      "question": "Combien de nœuds sont demandés dans le script `openmp_mpi_job.sh` pour Béluga?",
-      "answer": "Deux (2) nœuds sont demandés dans le script `openmp_mpi_job.sh`."
-    },
-    {
-      "question": "Combien de processus MPI sont demandés dans le script `openmp_mpi_job.sh`?",
-      "answer": "Quarante (40) processus MPI sont demandés dans le script `openmp_mpi_job.sh`."
-    },
-    {
-      "question": "Combien de cœurs par tâche sont demandés dans le script `openmp_mpi_job.sh`?",
-      "answer": "Deux (2) cœurs par tâche sont demandés dans le script `openmp_mpi_job.sh` (`-cpus-per-task=2`)."
-    },
-    {
-      "question": "Combien de mémoire par CPU est demandée dans le script `openmp_mpi_job.sh`?",
-      "answer": "Trois (3) gigaoctets (3G) de mémoire par CPU sont demandés dans le script `openmp_mpi_job.sh`."
-    },
-    {
-      "question": "C'est quoi le temps maximal pour la tâche dans le script `openmp_mpi_job.sh`?",
-      "answer": "Le temps maximal pour la tâche dans le script `openmp_mpi_job.sh` est de 59 minutes (0-00:59)."
-    },
-    {
-      "question": "Quelle variable d'environnement est configurée pour OpenMP dans le script `openmp_mpi_job.sh`?",
-      "answer": "La variable d'environnement `OMP_NUM_THREADS` est configurée à la valeur de `$SLURM_CPUS_PER_TASK`."
-    },
-    {
-      "question": "C'est quoi les fichiers d'entrée et de sortie pour l'exemple du script `openmp_mpi_job.sh`?",
-      "answer": "Le fichier d'entrée est `H2O-512.inp` pis le fichier de sortie est `H2O-512.out`."
+      "question": "Quand est-ce que c'est avantageux d'utiliser l'exécutable `cp2k.psmp` pour CP2K, pis comment je le configure pour une job?",
+      "answer": "L'exécutable `cp2k.psmp` (OpenMP/MPI), disponible à partir de la version 8.2, peut améliorer la performance de certains calculs en utilisant des fils par processus MPI. Par exemple, des tests ont montré une amélioration de 10% avec 2 fils par processus MPI. Pour le configurer, il faut ajouter `#SBATCH --cpus-per-task=` pis exporter `OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK` dans ton script SLURM, puis lancer `srun --cpus-per-task=$OMP_NUM_THREADS cp2k.psmp`. Par contre, la performance dépend du problème traité, donc c'est important de faire des essais pour choisir la meilleure option."
     }
   ],
-  "generated_at": "2026-04-11T19:08:58.063873+00:00"
+  "generated_at": "2026-04-13T03:27:42.502684+00:00"
 }

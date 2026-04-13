@@ -4,53 +4,13 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "Comment l'utilisation des GPU est-elle comptabilisée par rapport aux équivalents-cœurs?",
-      "answer": "L'utilisation des GPU et leurs ressources associées est comptabilisée selon les mêmes principes que pour les équivalents-cœurs, mais une Unité GPU de Référence (UGR) est ajoutée au bundle, avec de la mémoire et plusieurs cœurs."
+      "question": "Qu'est-ce qu'un équivalent-UGR et comment l'ordonnanceur l'utilise-t-il pour déterminer la priorité des tâches qui demandent des ressources GPU?",
+      "answer": "Un équivalent-UGR est une mesure qui étend le concept d'équivalent-cœur aux ressources GPU. Il est composé d'une Unité GPU de Référence (UGR), d'une quantité de mémoire et d'un certain nombre de cœurs. L'ordonnanceur calcule la priorité d'une tâche en se basant sur le nombre maximal de bundles UGR-cœurs-mémoire demandés. Cela signifie qu'il comptabilise le facteur qui est le plus sollicité par rapport aux ratios établis dans le bundle : soit l'UGR, soit les cœurs, soit la mémoire."
     },
     {
-      "question": "Est-ce que les UGR doivent être incluses dans la comptabilisation de l'utilisation cible pour les allocations de GPU?",
-      "answer": "Oui, la comptabilisation de l'utilisation de la cible pour l'allocation de GPU doit absolument inclure les Unités GPU de Référence (UGR)."
-    },
-    {
-      "question": "Utilise-t-on un système de points pour les équivalents-UGR, à l'image de celui des équivalents-cœurs?",
-      "answer": "Oui, un système de points est aussi utilisé pour les équivalents-UGR, de la même manière que celui employé pour exprimer l'utilisation des ressources en équivalents-cœurs."
-    },
-    {
-      "question": "Comment l'ordonnanceur calcule-t-il la priorité des tâches qui demandent des équivalents-UGR?",
-      "answer": "Le calcul de la priorité se fait en fonction du nombre maximum de bundles UGR-cœurs-mémoire demandés par la tâche."
-    },
-    {
-      "question": "Dans quelles conditions les Unités GPU de Référence (UGR) sont-elles comptabilisées par l'ordonnanceur?",
-      "answer": "Les UGR sont comptabilisées si un groupe de recherche utilise plus d'UGR que de cœurs OU de mémoire par bundle."
-    },
-    {
-      "question": "Si un utilisateur demande 2 GPU (d'1 UGR chacun), 3 cœurs et 4 Go de mémoire, comment l'ordonnanceur évalue-t-il la demande en équivalents-UGR?",
-      "answer": "Pour cet exemple, l'ordonnanceur évalue la demande à 2 équivalents-UGR, parce que la tâche exige l'équivalent de 2 bundles pour les GPU, même si un seul bundle est requis pour les cœurs et la mémoire."
-    },
-    {
-      "question": "Quand est-ce que les cœurs sont comptabilisés par l'ordonnanceur pour les tâches utilisant des GPU?",
-      "answer": "Les cœurs sont comptabilisés si un groupe utilise plus de cœurs que d'UGR OU plus de mémoire par bundle avec GPU."
-    },
-    {
-      "question": "Si une tâche requiert 1 GPU (d'1 UGR), 5 cœurs et 5 Go de mémoire, comment l'ordonnanceur évalue-t-il la demande en équivalents-UGR en se basant sur un bundle de 1 UGR, 3 cœurs et 4Go de mémoire?",
-      "answer": "La demande est évaluée à 1.66 équivalents-UGR. C'est parce que la requête exige 1.66 bundles avec GPU pour les cœurs (5 cœurs / 3 cœurs par bundle), ce qui est plus élevé que les bundles pour le GPU (1) ou la mémoire (1.25)."
-    },
-    {
-      "question": "Dans quel scénario la mémoire est-elle comptabilisée pour déterminer les équivalents-UGR?",
-      "answer": "La mémoire est comptabilisée si un groupe utilise plus de mémoire que d'UGR OU de cœurs par bundle avec GPU."
-    },
-    {
-      "question": "Si une tâche demande 1 GPU (d'1 UGR), 2 cœurs et 6 Go de mémoire, comment l'ordonnanceur évalue-t-il la priorité en équivalents-GPU, en considérant un bundle de 1 UGR, 3 cœurs et 4Go de mémoire?",
-      "answer": "La demande est évaluée à 1.5 équivalents-GPU. C'est parce que la requête exige 1.5 bundle avec GPU pour la mémoire (6 Go / 4 Go par bundle), ce qui est supérieur aux bundles pour les GPU (1) et les cœurs (0.66)."
-    },
-    {
-      "question": "Sur une grappe fictive, combien d'équivalents-UGR vaudrait un bundle qui contient un GPU V100-32gb, 7.8 cœurs et 10.4 Go de mémoire?",
-      "answer": "Sur une grappe fictive, un tel bundle vaudrait 2.6 équivalents-UGR."
-    },
-    {
-      "question": "Combien d'équivalents-UGR un bundle composé d'un GPU A100-40gb, 12 cœurs et 16 Go de mémoire vaudrait-il sur une grappe fictive?",
-      "answer": "Sur une grappe fictive, un bundle avec un GPU A100-40gb, 12 cœurs et 16 Go de mémoire vaudrait 4.0 équivalents-UGR."
+      "question": "Comment l'ordonnanceur calcule-t-il la valeur des équivalents-UGR pour une tâche qui demande des GPU, des cœurs et de la mémoire, et ce, en fonction des ratios d'un bundle de référence?",
+      "answer": "Pour calculer la valeur des équivalents-UGR, l'ordonnanceur utilise un bundle de référence (par exemple, 1 UGR, 3 cœurs et 4Go de mémoire) et détermine quel composant de la demande (GPU, cœurs ou mémoire) représente le facteur limitant. Par exemple :\n*   Si une tâche demande 2 GPU (1 UGR chacun), 3 cœurs et 4Go de mémoire, l'ordonnanceur l'évaluera à 2 équivalents-UGR, car les GPU sont le facteur dominant (2 bundles requis pour les GPU, contre 1 pour les cœurs et la mémoire).\n*   Si une tâche demande 1 GPU (1 UGR), 5 cœurs et 5Go de mémoire, l'ordonnanceur l'évaluera à 1.66 équivalents-UGR. Ceci est calculé en fonction des cœurs (5 cœurs demandés / 3 cœurs par bundle = 1.66), puisque cette proportion est plus élevée que celle des GPU (1/1 = 1) ou de la mémoire (5Go / 4Go par bundle = 1.25).\n*   Si une tâche demande 1 GPU (1 UGR), 2 cœurs et 6Go de mémoire, l'ordonnanceur l'évaluera à 1.5 équivalents-UGR. Ici, c'est la mémoire qui est le facteur dominant (6Go demandés / 4Go par bundle = 1.5), dépassant la proportion des GPU (1) et des cœurs (2 cœurs / 3 cœurs par bundle = 0.66)."
     }
   ],
-  "generated_at": "2026-04-11T16:28:46.364116+00:00"
+  "generated_at": "2026-04-13T01:27:42.390825+00:00"
 }

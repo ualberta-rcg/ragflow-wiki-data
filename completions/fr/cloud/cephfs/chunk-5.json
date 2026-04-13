@@ -4,61 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Comment configurer les dépôts de paquets pour un client Ceph sur Enterprise Linux 8 (EL8) ?",
-      "answer": "Faut créer un fichier `/etc/yum.repos.d/ceph.repo` qui contient les configurations pour les paquets Ceph (baseurl vers `http://download.ceph.com/rpm-quincy/el8/$basearch`), les paquets `noarch` (baseurl vers `http://download.ceph.com/rpm-quincy/el8/noarch`) et les paquets source (baseurl vers `http://download.ceph.com/rpm-quincy/el8/SRPMS`), tout en s'assurant que `enabled=1`, `gpgcheck=1` et que la `gpgkey` pointe vers `https://download.ceph.com/keys/release.asc`."
+      "question": "Comment faire pour installer les paquets du client CephFS sur une instance OpenStack, que ce soit une distribution de la famille Red Hat ou Debian?",
+      "answer": "Pour une distribution de la famille Red Hat (comme RHEL, CentOS, Fedora, Rocky ou Alma), il faut d'abord configurer les dépôts en créant le fichier `/etc/yum.repos.d/ceph.repo` avec les informations pour les paquets Ceph (version Quincy) et s'assurer que le répertoire `epel` est présent avec `sudo dnf install epel-release`. Ensuite, vous pouvez installer les dépendances avec `sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`.\n\nPour une distribution de la famille Debian (comme Debian, Ubuntu ou Mint), il faut ajouter le dépôt de paquets Ceph en utilisant `sudo apt-add-repository 'deb https://download.ceph.com/debian-quincy/ {codename} main'` ou, en cas d'erreur, `sudo add-apt-repository -r 'deb https://download.ceph.com/debian-quincy/ {codename} main'`. Après cela, installez les paquets requis avec `sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
     },
     {
-      "question": "Quel est le prérequis pour l'installation des paquets du client Ceph sur Enterprise Linux 9 (EL9) ?",
-      "answer": "Sur Enterprise Linux 9, le répertoire `epel` doit être présent. On l'installe avec la commande `sudo dnf install epel-release`."
+      "question": "Quelles sont les étapes pour configurer le fichier `ceph.conf` d'un client Ceph, et comment la valeur de `mon host` varie-t-elle selon le nuage (Arbutus ou SD4H/Juno)?",
+      "answer": "Une fois le client CephFS installé, vous devez créer le fichier `/etc/ceph/ceph.conf`. La valeur de `mon host` dans la section `[global]` dépend du nuage utilisé :\n- Pour le nuage **Arbutus**, la ligne `mon host` doit être `10.30.201.3:6789,10.30.202.3:6789,10.30.203.3:6789`.\n- Pour le nuage **SD4H/Juno**, la ligne `mon host` doit être `10.65.0.10:6789,10.65.0.12:6789,10.65.0.11:6789`.\n\nAssurez-vous également que la section `[client]` contient `quota = true`."
     },
     {
-      "question": "Quelle commande utiliser pour installer les librairies et les dépendances du client Ceph sur une distribution de la famille Red Hat (comme EL8 ou EL9) ?",
-      "answer": "Après avoir configuré les dépôts, on peut installer les paquets nécessaires avec la commande `sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
-    },
-    {
-      "question": "Comment trouver le `codename` de ma distribution si j'utilise un système de la famille Debian (comme Ubuntu ou Mint) pour configurer Ceph ?",
-      "answer": "Pour trouver le `codename` de votre distribution, on peut utiliser la commande `lsb_release -sc`."
-    },
-    {
-      "question": "Quelle commande sert à ajouter le dépôt de paquets Ceph pour une distribution de la famille Debian ?",
-      "answer": "Faut utiliser `sudo apt-add-repository 'deb https://download.ceph.com/debian-quincy/ {codename} main'`, en remplaçant `{codename}` par celui que vous avez trouvé pour votre distribution."
-    },
-    {
-      "question": "Que faire si l'ajout du dépôt Ceph avec `apt-add-repository` produit une erreur sur un système Debian ?",
-      "answer": "Si la première commande ne fonctionne pas, on peut essayer la commande alternative `sudo add-apt-repository -r 'deb https://download.ceph.com/debian-quincy/ {codename} main'`."
-    },
-    {
-      "question": "Comment installer les paquets essentiels du client Ceph sur une distribution de la famille Debian (par exemple Ubuntu ou Mint) ?",
-      "answer": "Une fois le dépôt ajouté, on installe les paquets avec la commande `sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
-    },
-    {
-      "question": "Quel est le nom du fichier de configuration à créer pour le client Ceph après son installation ?",
-      "answer": "Faut créer le fichier `ceph.conf`."
-    },
-    {
-      "question": "Où peut-on trouver la valeur du paramètre `mon host` pour la configuration `ceph.conf` sur Arbutus ?",
-      "answer": "Pour le nuage Arbutus, la valeur de `mon host` à inscrire est `10.30.201.3:6789,10.30.202.3:6789,10.30.203.3:6789`."
-    },
-    {
-      "question": "Où peut-on trouver la valeur du paramètre `mon host` pour la configuration `ceph.conf` sur SD4H/Juno ?",
-      "answer": "Pour le nuage SD4H/Juno, la valeur de `mon host` à inscrire est `10.65.0.10:6789,10.65.0.12:6789,10.65.0.11:6789`."
-    },
-    {
-      "question": "Quel fichier est utilisé pour stocker le nom du client et sa clé secrète pour le client Ceph ?",
-      "answer": "Le nom du client et le secret sont entrés dans le fichier `ceph.keyring`."
-    },
-    {
-      "question": "Quel est le format d'une entrée typique dans le fichier `ceph.keyring` pour un client Ceph, comme par exemple `MyCephFS-RW` ?",
-      "answer": "L'entrée ressemble à ceci : `[client.MyCephFS-RW]` sur une ligne, suivi de `key = <Access Key>` sur la ligne d'après, où `<Access Key>` est la clé secrète."
-    },
-    {
-      "question": "Comment récupérer la clé d'accès et le nom du client (ex: `MyCephFS-RW`) nécessaires pour configurer `ceph.keyring` ?",
-      "answer": "Ces informations se trouvent sous les règles d'accès dans l'interface web de votre projet OpenStack. Faut aller dans `Project --> Share --> Shares`, puis cliquer sur le nom du point de partage pour voir les détails."
-    },
-    {
-      "question": "Comment récupérer la partie du `Path` d'un point de partage CephFS pour la connexion ?",
-      "answer": "Dans l'interface OpenStack, sous `Project --> Share --> Shares`, on clique sur le nom du point de partage. Dans la section `Share Overview` ou les détails du partage, on copie la partie du `Path` qui contient le signe deux-points (`:`) – par exemple, `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c`."
+      "question": "Comment configurer le fichier `ceph.keyring` pour un client Ceph, et où peut-on trouver le nom du client et la clé d'accès (Access Key) nécessaires?",
+      "answer": "Pour configurer le fichier `ceph.keyring`, vous devez le créer sous `/etc/ceph/ceph.keyring` avec le contenu suivant :\n```ini\n[client.NomDuClient]\n    key = <Clé d'Accès>\n```\nLe `NomDuClient` (par exemple, `MyCephFS-RW`) et la `<Clé d'Accès>` sont des informations que vous pouvez récupérer à partir de l'interface OpenStack. Pour les trouver, allez dans `Project --> Share --> Shares`, cliquez sur le nom du point de partage concerné, puis consultez les règles d'accès dans le `Share Overview`."
     }
   ],
-  "generated_at": "2026-04-11T19:33:43.220568+00:00"
+  "generated_at": "2026-04-13T03:47:29.153100+00:00"
 }

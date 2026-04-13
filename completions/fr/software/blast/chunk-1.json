@@ -4,89 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi, BLAST, pis à quoi ça sert?",
-      "answer": "BLAST, qui veut dire ''Basic Local Alignment Search Tool'', ça permet de trouver des régions semblables entre deux ou plusieurs séquences de nucléotides ou d'acides aminés, pis ça fait l'alignement de ces régions-là qui sont homologues."
+      "question": "Qu'est-ce que l'outil BLAST et quelle est sa fonction principale?",
+      "answer": "BLAST, pour « Basic Local Alignment Search Tool », est un outil qui permet de trouver les régions similaires entre deux ou plusieurs séquences de nucléotides ou d'acides aminés, puis de réaliser un alignement de ces régions homologues."
     },
     {
-      "question": "Que signifie l'acronyme BLAST au complet?",
-      "answer": "BLAST, ça veut dire ''Basic Local Alignment Search Tool''."
+      "question": "Où est-ce qu'on peut trouver les bases de données de séquences BLAST les plus souvent utilisées sur les grappes?",
+      "answer": "Les bases de données de séquences fréquemment utilisées se trouvent sur nos grappes dans le répertoire <code>/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2022_03_23/</code>. Les versions les plus récentes pour les bases de données <code>nr</code> (protéines) et <code>nt</code> (nucléotides) sont situées respectivement dans <code>/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2025_06_21/nr/nr</code> et <code>/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2025_06_21/nt/nt</code>."
     },
     {
-      "question": "Où est-ce que je peux trouver plus d'informations sur les arguments de BLAST?",
-      "answer": "Vous pouvez consulter le [manuel de l'utilisateur](https://www.ncbi.nlm.nih.gov/books/NBK279684/) ou lancer la commande `blastn -help`."
-    },
-    {
-      "question": "Où sont situées les bases de données de séquences de BLAST fréquemment utilisées sur nos grappes?",
-      "answer": "Elles se trouvent dans le répertoire `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2022_03_23/`."
-    },
-    {
-      "question": "Quel est le chemin d'accès pour la version la plus récente de la base de données 'nr' (NCBI non-redundant protein)?",
-      "answer": "La version la plus récente de la base de données `nr` (''NCBI non-redundant protein'') se trouve dans `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2025_06_21/nr/nr`."
-    },
-    {
-      "question": "Que représente la base de données 'nr'?",
-      "answer": "La base de données `nr` représente les protéines non-redondantes de NCBI (''NCBI non-redundant protein'')."
-    },
-    {
-      "question": "Quel est le chemin d'accès pour la version la plus récente de la base de données 'nt' (non-redundant nucleotide)?",
-      "answer": "La version la plus récente de la base de données `nt` (''non-redundant nucleotide'') se trouve dans `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2025_06_21/nt/nt`."
-    },
-    {
-      "question": "Que représente la base de données 'nt'?",
-      "answer": "La base de données `nt` représente les nucléotides non-redondants (''non-redundant nucleotide'')."
-    },
-    {
-      "question": "C'est quoi le but de la commande makeblastdb avant une recherche BLAST?",
-      "answer": "Avant d'exécuter une recherche BLAST, il faut préparer la base de données, et c'est ça que `makeblastdb` fait, comme une tâche de prétraitement."
-    },
-    {
-      "question": "Quel est un exemple de script de soumission pour créer une base de données avec makeblastdb?",
-      "answer": "Voici un exemple de script de soumission:\n```bash\n#!/bin/bash\n\n#SBATCH --account=def-<user>\n#SBATCH --time=00:02:00\n#SBATCH --cpus-per-task=1\n#SBATCH --mem=512M\n\nmodule load gcc/7.3.0 blast+/2.9.0\n\n# Create the nucleotide database based on `ref.fa`.\nmakeblastdb -in ref.fa -title reference -dbtype nucl -out ref.fa\n```"
-    },
-    {
-      "question": "Quels modules faut-il charger dans le script `makeblastdb.sh`?",
-      "answer": "Dans le script `makeblastdb.sh`, il faut charger les modules `gcc/7.3.0` et `blast+/2.9.0`."
-    },
-    {
-      "question": "Comment le parallélisme des données peut-il rendre une recherche BLAST plus rapide?",
-      "answer": "Le parallélisme des données peut grandement améliorer la recherche; il s'agit de diviser le fichier de requêtes en plusieurs requêtes à la base de données."
-    },
-    {
-      "question": "Quelle est la taille minimale recommandée pour les petites parts du fichier de requêtes quand on le divise pour accélérer la recherche?",
-      "answer": "Ces parts devraient être d'au moins `1Mo`; des parts plus petites pourraient nuire au système de fichiers parallèle."
-    },
-    {
-      "question": "Quel utilitaire doit-on utiliser pour diviser le fichier `seq.fa` en plusieurs petites parts pour le parallélisme?",
-      "answer": "On utilise l'utilitaire `faSplit`."
-    },
-    {
-      "question": "Comment est-ce que je charge l'utilitaire faSplit?",
-      "answer": "Vous chargez l'utilitaire `faSplit` avec la commande `module load kentutils/20180716`."
-    },
-    {
-      "question": "Comment on fait pour diviser un fichier `seqs.fa` en 10 parties avec `faSplit`?",
-      "answer": "Pour diviser un fichier `seqs.fa` en 10 parties, on lance la commande `faSplit sequence seqs.fa 10 seq`."
-    },
-    {
-      "question": "Quand on utilise `faSplit sequence seqs.fa 10 seq`, quels fichiers sont créés?",
-      "answer": "Cette commande crée 10 fichiers nommés `seqN.fa`, où `N` représente `[0..9]` pour les 10 requêtes (séquences)."
-    },
-    {
-      "question": "Comment un vecteur de tâches aide-t-il à gérer les requêtes BLAST parallèles?",
-      "answer": "Avec cette solution, l'ordonnanceur peut utiliser les ressources de la grappe qui sont disponibles pour exécuter les plus petites tâches, une pour chaque fichier `seq.fa.N`."
-    },
-    {
-      "question": "Donnez un exemple de script de soumission pour une recherche BLAST avec un vecteur de tâches.",
-      "answer": "Voici un exemple de script:\n```bash\n#!/bin/bash\n\n#SBATCH --account=def-<user>\n#SBATCH --time=00:02:00\n#SBATCH --cpus-per-task=1\n#SBATCH --mem-per-cpu=512M\n#SBATCH --array=0-9\n\nmodule load gcc/7.3.0 blast+/2.9.0\n\n# Using the index of the current task, given by `$SLURM_ARRAY_TASK_ID`, run the corresponding query and write the result\nblastn -db ref.fa -query seq.fa.${SLURM_ARRAY_TASK_ID} > seq.ref.${SLURM_ARRAY_TASK_ID}\n```"
-    },
-    {
-      "question": "Quelle directive SLURM est utilisée pour spécifier le nombre de tâches dans un vecteur de tâches?",
-      "answer": "La directive SLURM utilisée pour spécifier le nombre de tâches est `--array` (par exemple, `--array=0-9` pour 10 tâches)."
-    },
-    {
-      "question": "Dans un script avec un vecteur de tâches SLURM, quelle variable représente l'identifiant de la tâche courante?",
-      "answer": "C'est la variable `$SLURM_ARRAY_TASK_ID` qui représente l'identifiant de la tâche courante dans un script avec un vecteur de tâches SLURM."
+      "question": "Comment est-ce qu'on prépare une base de données pour une recherche BLAST en utilisant la commande <code>makeblastdb</code>?",
+      "answer": "Pour préparer une base de données avant d'exécuter une recherche BLAST, il faut utiliser la commande <code>makeblastdb</code>. Par exemple, pour créer une base de données de nucléotides à partir d'un fichier <code>ref.fa</code>, la commande serait <code>makeblastdb -in ref.fa -title reference -dbtype nucl -out ref.fa</code>. Cette étape de prétraitement est nécessaire avant de lancer une recherche."
     }
   ],
-  "generated_at": "2026-04-11T18:22:21.629762+00:00"
+  "generated_at": "2026-04-13T02:50:09.468986+00:00"
 }

@@ -4,29 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "What specific ABI difference is highlighted in this output section?",
-      "answer": "This output section highlights the \"Difference between the old and new C++ ABIs with -std=c++11...\"."
+      "question": "What happens to C++ ABI symbols when compiling with `-std=c++11` using different ABI settings (old versus new)?",
+      "answer": "The `diff` output illustrates that when C++ code is compiled with `-std=c++11` using different ABI settings (old versus new), the exported ABI symbol names change significantly. For example, old ABI symbols like `_ZNSsC1EPKcRKSaIcE` for `std::string` constructors become `_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1EPKcRKS3_` in the new ABI."
     },
     {
-      "question": "What `diff` command was executed to show the C++11 ABI differences?",
-      "answer": "The `diff` command executed was `diff --suppress-common-lines main-cxx11-oldabi.o.symbols main-cxx11-newabi.o.symbols`."
+      "question": "How can one manage Application Binary Interface (ABI) differences, like those shown when compiling C++ code with `-std=c++11`, especially when linking to libraries built with an older ABI using GCC v5.1 or higher?",
+      "answer": "To successfully link to binaries compiled using an older ABI when working with GCC v5.1 or higher, one must specify `-D_GLIBCXX_USE_CXX11_ABI=0` during the compilation of the C++ code. This flag instructs GCC to utilize the old ABI for compatibility, thereby resolving potential linking failures caused by ABI changes."
     },
     {
-      "question": "When using `-std=c++11` with the old ABI, what are two of the symbol names shown as being removed or different?",
-      "answer": "Two symbol names shown as being removed or different in the old ABI are `_ZNSsC1EPKcRKSaIcE` and `_ZNSsD1Ev`."
-    },
-    {
-      "question": "When using `-std=c++11` with the new ABI, what are two of the symbol names shown as being added or different?",
-      "answer": "Two symbol names shown as being added or different in the new ABI are `_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1EPKcRKS3_` and `_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev`."
-    },
-    {
-      "question": "What is the complete differing stream operator symbol for the old C++11 ABI shown in the output?",
-      "answer": "The complete differing stream operator symbol for the old C++11 ABI is `_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKSbIS4_S5_T1_E`."
-    },
-    {
-      "question": "What is the complete differing stream operator symbol for the new C++11 ABI shown in the output?",
-      "answer": "The complete differing stream operator symbol for the new C++11 ABI is `_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE`."
+      "question": "What constitutes an Application Binary Interface (ABI) in the context of C++ compilers, and what is the impact of its changes?",
+      "answer": "An Application Binary Interface (ABI) for C++ compilers involves the compiler-specific algorithm used to mangle and export `extern \"C++\"` symbol names. These mangled names are fundamental for linking compiled code with libraries. A change to a compiler's ABI can lead to programs failing to link, especially when attempting to link with precompiled libraries from a vendor that uses a different ABI."
     }
   ],
-  "generated_at": "2026-04-11T22:00:33.495274+00:00"
+  "generated_at": "2026-04-13T05:44:19.824812+00:00"
 }

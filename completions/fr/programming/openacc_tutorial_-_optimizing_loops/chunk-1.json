@@ -4,69 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Quels sont les objectifs d'apprentissage de cette section du document?",
-      "answer": "Les objectifs sont de comprendre les différents niveaux de parallélisme dans un GPU, les messages du compilateur au sujet de la parallélisation, comment obtenir des suggestions d'optimisation par le profileur visuel, et comment indiquer au compilateur les paramètres de parallélisation."
+      "question": "Quels sont les objectifs d'apprentissage couverts par ce module sur OpenACC?",
+      "answer": "Ce module vise à vous permettre de comprendre les différents niveaux de parallélisme dans un GPU, d'interpréter les messages du compilateur au sujet de la parallélisation, de savoir comment obtenir des suggestions d'optimisation via le profileur visuel, et de savoir indiquer les paramètres de parallélisation au compilateur."
     },
     {
-      "question": "Quel gain de performance a été observé par rapport au CPU dans les étapes précédentes?",
-      "answer": "Le gain de performance a triplé en comparaison de celle du CPU."
+      "question": "Quels sont les trois niveaux de parallélisme qu'on peut utiliser avec OpenACC et comment fonctionnent-ils?",
+      "answer": "Les trois niveaux de parallélisme possibles avec OpenACC sont `vector`, `worker` et `gang`. Les fils `vector` exécutent une seule opération sur plusieurs données (SIMD) en une seule étape. La clause `worker` calcule un `vector`. Le niveau `gang` comprend un ou plusieurs `worker`s qui partagent des ressources, comme la mémoire cache ou le processeur, chaque `gang` travaillant de manière complètement indépendante."
     },
     {
-      "question": "Pourquoi est-il important de comprendre les différents niveaux de parallélisme avec OpenACC?",
-      "answer": "Il est important de comprendre les différents niveaux de parallélisme avec OpenACC, surtout avec un GPU NVIDIA, pour pouvoir donner un coup de main au compilateur et optimiser le code."
-    },
-    {
-      "question": "Quelle commande de compilation est utilisée pour obtenir la rétroaction détaillée du compilateur sur la parallélisation?",
-      "answer": "La commande utilisée est `pgc++ -fast -ta=tesla,lineinfo -Minfo=all,intensity,ccff -c -o main.o main.cpp`."
-    },
-    {
-      "question": "Que nous dit le compilateur à propos des boucles `initialize_vector`, `dot` et `waxpby`?",
-      "answer": "Pour ces boucles, le compilateur indique qu'elles sont parallélisables, qu'un noyau d'accélérateur a été généré, et qu'il a produit du code Tesla, parallélisant chaque boucle avec `#pragma acc loop gang, vector(128)`."
-    },
-    {
-      "question": "Que signifie la mention `vector(128)` dans la rétroaction du compilateur?",
-      "answer": "Cela signifie que le compilateur a généré des instructions pour un bloc de code d'une longueur de 128 éléments."
-    },
-    {
-      "question": "Quel problème a été identifié concernant la longueur de `vector` fixée par le compilateur et la structure des données?",
-      "answer": "Le compilateur a fixé la longueur de `vector` à 128, mais chaque rangée de la matrice ne possède que 27 éléments. Cela entraîne le calcul inutile de 101 éléments."
-    },
-    {
-      "question": "Quels sont les trois niveaux de parallélisme possibles avec OpenACC?",
-      "answer": "Les trois niveaux de parallélisme possibles avec OpenACC sont `vector`, `worker` et `gang`."
-    },
-    {
-      "question": "Décrivez le fonctionnement des fils `vector` dans OpenACC.",
-      "answer": "Les fils `vector` exécutent une seule opération sur plusieurs données (SIMD) en une seule étape. Si le nombre de données est inférieur à la longueur du vecteur, l'opération est quand même exécutée sur des valeurs NULL, et le résultat est rejeté."
-    },
-    {
-      "question": "Quel est le rôle de la clause `worker` dans OpenACC?",
-      "answer": "La clause `worker` calcule un `vector`."
-    },
-    {
-      "question": "Décrivez le niveau de parallélisme `gang` dans OpenACC.",
-      "answer": "Le niveau `gang` comprend un `worker` ou plus, et ces `worker`s partagent des ressources comme la mémoire cache ou le processeur. Chaque `gang` travaille de manière complètement indépendante."
-    },
-    {
-      "question": "Pourquoi n'y a-t-il pas de correspondance directe entre les niveaux OpenACC et les éléments CUDA comme les fils, blocs et warps?",
-      "answer": "Il n'y a pas de correspondance directe parce qu'OpenACC est conçu pour des accélérateurs génériques."
-    },
-    {
-      "question": "Qui établit la correspondance entre les niveaux OpenACC et les éléments CUDA?",
-      "answer": "C'est le compilateur qui établit la correspondance entre les niveaux OpenACC et les éléments CUDA."
-    },
-    {
-      "question": "Quelle est la correspondance généralement valide entre les niveaux OpenACC et les éléments CUDA?",
-      "answer": "Généralement, `vector` OpenACC correspond aux fils CUDA, `worker` OpenACC correspond aux warps CUDA, et `gang` OpenACC correspond aux blocs de fils CUDA."
-    },
-    {
-      "question": "Quelle directive OpenACC est utilisée pour contrôler le niveau de parallélisme qu'un compilateur doit produire pour une boucle?",
-      "answer": "On utilise la directive `loop` avec certaines clauses pour contrôler le niveau de parallélisme."
-    },
-    {
-      "question": "Quelles sont les clauses que l'on peut utiliser avec la directive `loop` pour contrôler le parallélisme?",
-      "answer": "Les clauses disponibles sont `gang`, `worker`, `vector` et `seq`."
+      "question": "Quelle est la correspondance générale entre les niveaux de parallélisme OpenACC et la terminologie CUDA pour les GPU NVIDIA?",
+      "answer": "Bien qu'OpenACC soit conçu pour des accélérateurs génériques, la correspondance généralement valide pour les GPU NVIDIA est la suivante : un `vector` OpenACC équivaut à un fil CUDA, un `worker` OpenACC correspond à un warp CUDA, et un `gang` OpenACC se traduit par un bloc de fils CUDA."
     }
   ],
-  "generated_at": "2026-04-12T04:19:11.348039+00:00"
+  "generated_at": "2026-04-13T10:27:19.973170+00:00"
 }

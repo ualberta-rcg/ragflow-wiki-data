@@ -3,125 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is an allocation in high-performance computing?",
-      "answer": "An allocation is a specific amount of resources that a research group is granted for a set period, typically a year, either as a maximum limit (for storage) or an average usage amount (for shared resources like computation cores)."
+      "question": "What is an allocation in the context of high-performance computing on Alliance clusters?",
+      "answer": "An allocation is a specific amount of resources, such as storage, computation cores, or GPU years, that a research group can aim to use over a set period, typically one year."
     },
     {
-      "question": "How are core year and GPU year allocations different from storage allocations?",
-      "answer": "Storage allocations provide a maximum exclusive amount, while core year and GPU year allocations are more complex, representing an average usage target over the period on resources shared with other groups."
+      "question": "What are the main types of resource allocations provided to research groups on Alliance clusters?",
+      "answer": "Research groups primarily receive allocations in terms of core years, GPU years, or storage space."
     },
     {
-      "question": "Does system downtime extend an allocation period?",
-      "answer": "No, the time period of an allocation is a reference value for calculating averages; system downtime for maintenance does not entitle a research group to additional resource usage time."
+      "question": "How do storage allocations differ from compute (core year and GPU year) allocations on Alliance clusters?",
+      "answer": "Storage allocations represent a maximum amount a group can use exclusively, while compute allocations represent an average amount of usage targeted over the allocation period on shared resources."
     },
     {
-      "question": "How does using resources evenly over the allocation period affect meeting targets for core year and GPU year allocations?",
-      "answer": "A research group is more likely to meet or exceed its targets if resources are used evenly over the allocation period, rather than in bursts or delayed usage."
+      "question": "What is the purpose of the job scheduler for compute-related resources on Alliance clusters?",
+      "answer": "The scheduler calculates the priority of submitted jobs and provides necessary resources based on priority and availability, aiming to meet the allocation targets of all research groups."
     },
     {
-      "question": "What is a 'job' in the context of compute allocations?",
-      "answer": "A job is a combination of a computer program (application) and a list of resources that the application is expected to use, which is submitted to a scheduler."
+      "question": "What happens if a research group overuses its CPU or GPU allocation on Alliance clusters?",
+      "answer": "While not prevented from submitting new jobs, succeeding jobs may temporarily have lower priority as the scheduler prioritizes groups below their target. The average usage over time should still align with the allocation."
     },
     {
-      "question": "How does the scheduler determine job priority?",
-      "answer": "The scheduler uses prioritization algorithms based on a research group's recent usage compared to their allocated usage, giving more weight to recent activity to help groups maintain continuous usage at their target level."
+      "question": "Why were Reference GPU Units (RGUs) introduced for GPU allocations on Alliance clusters starting in the 2024 RAC year?",
+      "answer": "RGUs were introduced to rank different GPU models, address performance differences, and alleviate problems encountered in the allocation process and job execution due to varying GPU capabilities."
     },
     {
-      "question": "What are the consequences if a research group overuses its CPU or GPU allocation?",
-      "answer": "The main consequence is that subsequent jobs from that group may receive lower priority for a time, allowing the scheduler to prioritize other groups below their target. The group is not prevented from submitting new jobs, and overall usage should still approximate the target."
+      "question": "What are the primary evaluation criteria and their respective weights used to rank GPU models for Reference GPU Units (RGUs) on Alliance clusters?",
+      "answer": "The evaluation criteria are FP32 score (40%), FP16 score (40%), and GPU memory score (20%)."
     },
     {
-      "question": "Why were Reference GPU Units (RGUs) introduced in 2024?",
-      "answer": "RGUs were introduced to rank different GPU models, addressing problems in the allocation process and job execution that arose from treating all GPUs as equivalent, especially with increasing GPU performance and new complexities like multi-instance GPU technology."
+      "question": "Which GPU model is used as the reference model for Reference GPU Unit (RGU) calculations on Alliance clusters, and what is its assigned RGU value?",
+      "answer": "The NVIDIA A100-40gb GPU is the reference model, assigned an RGU value of 4.0."
     },
     {
-      "question": "What are the main evaluation criteria and their weights for ranking GPU models for RGU calculations?",
-      "answer": "The main evaluation criteria are FP32 score (40%), FP16 score (40%), and GPU memory score (20%), chosen because users vary in their primary use of single-precision or half-precision operations and are often constrained by GPU memory."
+      "question": "When choosing GPU models for a project on Alliance clusters, how does the type of application (e.g., FP32 vs. FP16) impact the effective computation-to-RGU ratio?",
+      "answer": "Applications primarily using FP32 operations might find older GPUs offer more computations per RGU, while FP16-heavy (AI-related) applications benefit significantly from newer GPUs like the A100-40gb, completing many more calculations for the same RGU usage."
     },
     {
-      "question": "Which GPU model is used as the reference for RGU values, and what is its assigned RGU value?",
-      "answer": "The NVidia A100-40gb GPU is the reference model, assigned an RGU value of 4.0 for historical reasons."
+      "question": "How are Reference GPU Units (RGUs) handled during the Resource Allocation Competition (RAC) process for GPU proposals on Alliance clusters?",
+      "answer": "Proposals must specify a preferred GPU model, and the requested gpu-years are automatically converted into RGUs for allocation. The allocated RGU amount remains constant even if the project is moved to a different cluster."
     },
     {
-      "question": "How are RGU values determined for GPU instances with multi-instance GPU technology?",
-      "answer": "RGU values for GPU instances are estimated from whole-GPU performance numbers and the fraction of the GPU that comprises the instance."
+      "question": "What is a 'core equivalent' as defined by the Alliance for job scheduling on national clusters?",
+      "answer": "A core equivalent is a bundle consisting of a single CPU core and a specific amount of associated memory, typically 4GB per core on most Alliance clusters."
     },
     {
-      "question": "How does selecting different GPU models affect computation for an equal amount of RGUs?",
-      "answer": "For an equal amount of RGUs, some GPUs might allow double the computations for FP32 operations (e.g., P100-12gb over A100-40gb), while others might allow significantly more computations for FP16 operations (e.g., A100-40gb over P100-12gb)."
+      "question": "What is the guiding principle for calculating the priority of compute-based jobs on Alliance national clusters?",
+      "answer": "Priority is calculated based on the resources that other users are prevented from using by a job, rather than just the resources actually consumed by the application."
     },
     {
-      "question": "How are RGUs incorporated into Resource Allocation Competition (RAC) awards?",
-      "answer": "During RAC, proposals for GPUs must specify a preferred model, and the corresponding RGU amount is automatically calculated. The RAC committee allocates RGUs, and if moved to a different cluster, GPU-years are adjusted to maintain the same RGU value."
+      "question": "How does requesting more cores than used or more memory than typically associated with requested cores affect the 'core equivalents' charged for a job on Alliance clusters?",
+      "answer": "If a job requests multiple cores but uses fewer, it's charged for the requested cores. If it requests memory beyond the typical core-to-memory ratio, it's charged for the higher of the two equivalent amounts (cores or memory) to reflect the resources unavailable to others."
     },
     {
-      "question": "What is the overarching principle for calculating job priority on national clusters?",
-      "answer": "The overarching principle is that compute-based jobs are considered based on the resources that others are prevented from using, not solely on the resources actually utilized."
+      "question": "What information can users view on the Alliance portal (portal.alliancecan.ca/slurm) regarding their resource usage on national clusters?",
+      "answer": "Users can explore time-series data about jobs, including CPU, CPU-equivalent, RGU, Memory usage, queued jobs, allocation targets, and SLURM Raw Usage/Shares, across various clusters and time periods."
     },
     {
-      "question": "How does requesting more cores than used affect job priority?",
-      "answer": "If a job requests multiple cores but uses fewer, the usage that impacts future job priority is the number of cores requested, because the unused requested cores were unavailable to others."
+      "question": "What is the difference between 'SLURM Raw Shares' and 'SLURM Raw Usage' shown in the Alliance portal for resource usage?",
+      "answer": "'SLURM Raw Shares' represents the account's allocation target on a cluster, while 'SLURM Raw Usage' is a cumulative sum of the account's usage with a half-life decay, which the scheduler uses to determine job priority."
     },
     {
-      "question": "What is a 'core equivalent' as defined on most Alliance clusters?",
-      "answer": "A core equivalent is a bundle consisting of a single core and 4GB of associated memory, representing the memory-to-core ratio in the most common node type."
+      "question": "How can users view their GPU usage and Reference GPU Unit (RGU) breakdown within the CCDB (Compute Canada Database) portal?",
+      "answer": "By logging into CCDB and navigating to 'My Account > View Group Usage,' users can find detailed GPU usage information broken down by various GPU models and measured in RGUs for their resource allocation projects."
     },
     {
-      "question": "How are research groups charged for core equivalents when they request more cores than memory, or more memory than cores?",
-      "answer": "Research groups are charged for the maximum number of core equivalents they take. If more cores are requested than the 1 core/4GB memory ratio, they are charged by cores. If more memory is requested, they are charged by memory."
+      "question": "What does the 'Projection' feature show when viewing resource usage over an extended future time period in the Alliance portal?",
+      "answer": "The 'Projection' shows a theoretical future usage based on currently running and pending jobs completing their requested duration, assuming pending jobs start immediately. It is not an actual forecast."
     },
     {
-      "question": "How does the scheduler account for GPU usage with RGUs?",
-      "answer": "GPU usage accounting includes the RGU, and research groups are charged for the maximum number of RGU-core-memory bundles they use, similar to core equivalents."
-    },
-    {
-      "question": "Where can users view time-series data about their jobs on national clusters?",
-      "answer": "Users can view time-series data about jobs on national clusters through the Slurm portal at portal.alliancecan.ca/slurm."
-    },
-    {
-      "question": "What information does the Slurm portal display initially upon login?",
-      "answer": "When first logging in, the Slurm portal displays CPU days on an arbitrary cluster across all project accounts the user has access to."
-    },
-    {
-      "question": "How can users view usage for a specific Slurm account in the portal?",
-      "answer": "Users can select a specific project account from the 'Select user’s account' pull-down menu in the 'SLURM account' panel to display its usage in the figure window."
-    },
-    {
-      "question": "What do 'SLURM Raw Shares' and 'SLURM Raw Usage' represent in the Slurm portal?",
-      "answer": "'SLURM Raw Shares' is the account's resource allocation on the cluster, shown as a straight line. 'SLURM Raw Usage' is a cumulative sum of the account's usage in billing units plus a half-life decay, which the scheduler uses to determine priority."
-    },
-    {
-      "question": "What does a 'SLURM Raw Usage' at 10 times the 'SLURM Raw Shares' indicate?",
-      "answer": "It indicates that the account's usage is at par with its target share, meaning it's using resources at the rate the scheduler aims to maintain for that account."
-    },
-    {
-      "question": "What happens if an end date in the future is selected in the Slurm portal?",
-      "answer": "If an end date in the future is selected, the figure will display a 'Projection' as a transparent red area, assuming currently running and pending jobs run for their requested duration. This is not a forecast of actual future events."
-    },
-    {
-      "question": "What options are available under the 'Metric' pull-down control in the Slurm portal's 'Parameters' panel?",
-      "answer": "The 'Metric' pull-down allows selecting from CPU, CPU-equivalent, RGU, RGU-equivalent, Memory, Billing, GPU, and all specific GPU models available on the selected cluster."
-    },
-    {
-      "question": "How can users view a cumulative sum of their usage over time in the Slurm portal?",
-      "answer": "By selecting 'Running total' from the 'Summation' pull-down in the 'Parameters' panel, each bar in the histogram represents the sum of that day's usage and all previous days back to the start of the time interval."
-    },
-    {
-      "question": "Where can users find information on the usage of compute resources by their groups in the CCDB?",
-      "answer": "Users can find this information by logging into the CCDB and navigating to 'My Account > View Group Usage'."
-    },
-    {
-      "question": "Do CPU and GPU core year values in CCDB's 'View Group Usage' represent core-equivalent measures?",
-      "answer": "No, the values summarized in CCDB do not represent core-equivalent measures, so they may not match the cluster scheduler’s representation of account usage, especially for large memory jobs."
-    },
-    {
-      "question": "What viewing options are available in the CCDB 'View Group Usage' section?",
-      "answer": "The first tab bar offers options to view usage 'By Compute Resource,' 'By Resource Allocation Project,' and 'By Submitter,' with 'Storage usage' being a separate topic."
-    },
-    {
-      "question": "How is GPU usage displayed in CCDB for resource allocation projects?",
-      "answer": "For projects with GPU usage, the table is broken down into usage on various GPU models and measured in Reference GPU Units (RGUs)."
+      "question": "Do Alliance systems have consistent core-to-memory ratios across all clusters for RGU-core-memory bundles?",
+      "answer": "No, Alliance systems have different RGU-core-memory bundle characteristics, meaning the cores per RGU and memory per RGU (GB) ratios vary by cluster (e.g., Fir, Narval, Nibi, Rorqual, Trillium)."
     }
   ],
-  "generated_at": "2026-04-11T16:23:29.879049+00:00"
+  "generated_at": "2026-04-13T01:24:05.743932+00:00"
 }

@@ -4,93 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "De quoi est-ce que ce document-là parle?",
-      "answer": "Ce document décrit comment utiliser AlphaFold v3.0."
+      "question": "Comment peut-on préparer l'environnement pour utiliser AlphaFold3 sur les grappes d'Alliance, en incluant l'installation des dépendances et la création d'un fichier de requis?",
+      "answer": "Pour préparer l'environnement AlphaFold3, on doit d'abord charger des modules essentiels comme `StdEnv/2023`, `hmmer/3.4`, `rdkit/2024.03.5` et `python/3.12`. Ensuite, il faut télécharger le script d'exécution `run_alphafold.py` depuis la page GitHub de AlphaFold3. Après, on crée et active un environnement virtuel Python avec `virtualenv --no-download ~/alphafold3_env` et `source ~/alphafold3_env/bin/activate`. Dans cet environnement, installez AlphaFold3 et ses dépendances Python en utilisant `pip install --no-index alphafold3==X.Y.Z` (où `X.Y.Z` est la version spécifique, ou omise pour la plus récente). Finalement, compilez les données nécessaires avec `build_data`, validez l'installation, puis 'gelez' l'environnement en créant un fichier `alphafold3-requirements.txt` via `pip freeze` pour une réutilisation future."
     },
     {
-      "question": "Où est-ce que je peux trouver le code source pis la documentation d'AlphaFold3?",
-      "answer": "Le code source pis la documentation sont disponibles sur la page GitHub de Google DeepMind."
+      "question": "Où faut-il stocker les bases de données nécessaires à AlphaFold3 sur les grappes d'Alliance, et comment peut-on les télécharger?",
+      "answer": "Il est crucial que les bases de données nécessaires à AlphaFold3 résident dans le répertoire `$SCRATCH`. Pour les télécharger, commencez par télécharger le script `fetch_databases.sh` depuis le répertoire principal (main) de la page GitHub de AlphaFold3. Ensuite, créez le répertoire de destination avec `mkdir -p $SCRATCH/alphafold/dbs`, puis exécutez le script téléchargé en lui passant ce chemin : `bash fetch_databases.sh $SCRATCH/alphafold/dbs`."
     },
     {
-      "question": "Si j'utilise le code source ou les paramètres du modèle AlphaFold3 pis que je publie des résultats, qu'est-ce que je dois faire?",
-      "answer": "Toute publication qui dévoile des résultats découlant de l'utilisation de ce code source ou des paramètres du modèle doit citer le document AlphaFold3."
-    },
-    {
-      "question": "Comment est-ce qu'AlphaFold3 est disponible sur nos grappes de calcul?",
-      "answer": "Sur nos grappes, AlphaFold3 est disponible sous forme de paquets préconstruits, aussi appelés *wheels*."
-    },
-    {
-      "question": "Quelle commande est-ce que je devrais utiliser pour voir la liste des versions d'AlphaFold3 disponibles?",
-      "answer": "Pour lister les versions d'AlphaFold3, vous devez utiliser la commande `avail_wheels alphafold3`."
-    },
-    {
-      "question": "Est-ce qu'AlphaFold2 est encore accessible?",
-      "answer": "Oui, AlphaFold2 est encore disponible; vous pouvez consulter sa documentation."
-    },
-    {
-      "question": "Quelles dépendances est-ce que je dois charger pour commencer à créer un fichier des dépendances requises pour AlphaFold3?",
-      "answer": "Il faut charger les dépendances suivantes: `StdEnv/2023`, `hmmer/3.4`, `rdkit/2024.03.5` et `python/3.12` en utilisant la commande `module load`."
-    },
-    {
-      "question": "Comment est-ce que je télécharge le script d'exécution `run_alphafold.py` pour la version 3.0.1?",
-      "answer": "Vous pouvez le télécharger avec la commande `wget https://raw.githubusercontent.com/google-deepmind/alphafold3/refs/tags/v3.0.1/run_alphafold.py`."
-    },
-    {
-      "question": "Quelles sont les étapes pour créer pis activer un environnement virtuel Python pour AlphaFold3?",
-      "answer": "Vous devez d'abord lancer `virtualenv --no-download ~/alphafold3_env` pour le créer, pis ensuite `source ~/alphafold3_env/bin/activate` pour l'activer."
-    },
-    {
-      "question": "Comment est-ce que j'installe une version spécifique d'AlphaFold3, comme la 3.0.0, ainsi que ses dépendances Python?",
-      "answer": "Après avoir mis à jour pip avec `pip install --no-index --upgrade pip`, vous pouvez installer la version spécifique avec `pip install --no-index alphafold3==3.0.0`."
-    },
-    {
-      "question": "Qu'est-ce que je dois faire si je veux installer la version la plus récente d'AlphaFold3 sans spécifier de numéro de version?",
-      "answer": "Vous n'avez pas besoin d'entrer le numéro de la version; lancez `pip install --no-index alphafold3`."
-    },
-    {
-      "question": "Quelle commande permet de compiler les données nécessaires dans l'environnement virtuel?",
-      "answer": "Il faut utiliser la commande `build_data`."
-    },
-    {
-      "question": "Comment est-ce que je peux valider mon installation d'AlphaFold3 une fois que tout est configuré?",
-      "answer": "Pour valider l'installation, vous pouvez exécuter `python run_alphafold.py --help`."
-    },
-    {
-      "question": "Comment est-ce que je 'gèle' l'environnement virtuel pis que je crée un fichier des dépendances (requirements.txt)?",
-      "answer": "Pour ça, utilisez la commande `pip freeze > ~/alphafold3-requirements.txt`."
-    },
-    {
-      "question": "Quelle est la commande pour désactiver l'environnement virtuel AlphaFold3?",
-      "answer": "Vous pouvez désactiver l'environnement en tapant `deactivate`."
-    },
-    {
-      "question": "Comment est-ce que je nettoie pis supprime l'environnement virtuel d'AlphaFold3 au complet?",
-      "answer": "Pour supprimer l'environnement virtuel, il faut utiliser la commande `rm -r ~/alphafold3_env`."
-    },
-    {
-      "question": "Où est-ce que je peux obtenir le modèle d'AlphaFold3 de Google, pis c'est quoi le délai habituel pour une réponse?",
-      "answer": "Vous pouvez obtenir le modèle de Google, pis ils répondent d'habitude dans les 2 ou 3 jours ouvrables. Vous pouvez voir 'Obtaining Model Parameters' sur leur page GitHub."
-    },
-    {
-      "question": "C'est quoi la condition importante pour l'emplacement des bases de données d'AlphaFold3?",
-      "answer": "Les bases de données doivent résider impérativement dans le répertoire `$SCRATCH`."
-    },
-    {
-      "question": "Comment est-ce que je télécharge le script pour le téléchargement des bases de données d'AlphaFold3?",
-      "answer": "Il faut utiliser la commande `wget https://raw.githubusercontent.com/google-deepmind/alphafold3/refs/heads/main/fetch_databases.sh`."
-    },
-    {
-      "question": "Quelles sont les étapes pour télécharger les bases de données d'AlphaFold3?",
-      "answer": "Vous devez d'abord créer le répertoire avec `mkdir -p $SCRATCH/alphafold/dbs`, pis ensuite lancer le script de téléchargement avec `bash fetch_databases.sh $SCRATCH/alphafold/dbs`."
-    },
-    {
-      "question": "Pourquoi est-ce qu'AlphaFold3 doit être exécuté par étapes?",
-      "answer": "AlphaFold3 doit être exécuté par étapes pour optimiser les coûts pis l'utilisation des ressources, en séparant le pipeline de données (pour CPU seulement) du modèle d'inférence (qui demande un GPU)."
-    },
-    {
-      "question": "Quels sont les avantages d'une exécution par étapes pour AlphaFold3?",
-      "answer": "Les avantages sont de séparer le pipeline de données pour CPU seulement et le modèle d'inférence (GPU) pour optimiser les coûts, pis de cacher les résultats de la recherche de MSA/modèle pour les réutiliser."
+      "question": "Pourquoi est-ce qu'AlphaFold3 doit être exécuté par étapes séparées, notamment en distinguant le pipeline de données et l'inférence de modèle, sur les grappes d'Alliance?",
+      "answer": "AlphaFold3 doit être exécuté par étapes pour plusieurs raisons importantes. Premièrement, cela permet de séparer le pipeline de données (qui ne requiert que des CPU) du modèle d'inférence (qui a besoin d'un GPU), ce qui optimise les coûts et l'utilisation des ressources. Deuxièmement, cette approche permet de 'cacher' les résultats de la recherche de MSA (Multiple Sequence Alignment) ou du modèle et de réutiliser le fichier JSON augmenté pour plusieurs inférences subséquentes ou pour explorer des variations de fonctionnalités, comme la présence d'un ligand."
     }
   ],
-  "generated_at": "2026-04-12T16:32:22.902036+00:00"
+  "generated_at": "2026-04-13T01:36:13.337130+00:00"
 }

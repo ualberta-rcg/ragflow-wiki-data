@@ -4,17 +4,13 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "What happens if the resident memory (RES) available to Abaqus drops below the Minimum Memory Required (MMR)?",
-      "answer": "If the resident memory (RES) dips below the Minimum Memory Required (MMR), Abaqus will exit due to an Out of Memory (OOM) error."
+      "question": "What is the purpose of adjusting the `#SBATCH --mem=` value in a Slurm script for Abaqus simulations?",
+      "answer": "Adjusting the `#SBATCH --mem=` value in a Slurm script for Abaqus simulations helps balance queue wait times and I/O performance. While it's ideal to allocate enough memory to meet the \"MEMORY TO MINIMIZE I/O\" (MRMIO) value to prevent writing to scratch disk, reducing `--mem=` can lead to shorter wait times. However, the resident memory (RES) must not dip below the \"MINIMUM MEMORY REQUIRED\" (MMR) value, or Abaqus will encounter an Out of Memory (OOM) error and terminate."
     },
     {
-      "question": "How can one investigate the performance impact of reducing the requested memory for an Abaqus simulation, especially when the Memory Required to Minimize I/O (MRMIO) is large?",
-      "answer": "To investigate the performance impact, you can lower the `#SBATCH --mem=` value in your Slurm script, which in turn sets an artificially low value for the `memory=` parameter in the Abaqus command. For example, if your MRMIO is 96GB, you could try running a series of short test jobs with `#SBATCH --mem=8G, 16G, 32G, 64G` until an acceptable minimal performance impact is found."
-    },
-    {
-      "question": "What is the relationship between reduced resident memory (RES) and scratch space usage in Abaqus simulations?",
-      "answer": "When the resident memory (RES) available to Abaqus is significantly reduced below the Memory Required to Minimize I/O (MRMIO), smaller RES values will result in increasingly larger scratch space being used by temporary files."
+      "question": "How can researchers experimentally determine the optimal `#SBATCH --mem=` setting for an Abaqus simulation that has a large \"MEMORY TO MINIMIZE I/O\" (MRMIO) value?",
+      "answer": "If an Abaqus simulation has a large \"MEMORY TO MINIMIZE I/O\" (MRMIO) value, researchers can determine the optimal `#SBATCH --mem=` setting by running a series of short test jobs with progressively lower memory allocations, such as `#SBATCH --mem=8G, 16G, 32G, 64G`. This process aims to find an acceptable minimal performance impact while still avoiding long queue wait times, ensuring that the resident memory (RES) does not fall below the \"MINIMUM MEMORY REQUIRED\" (MMR) to prevent Out of Memory (OOM) errors."
     }
   ],
-  "generated_at": "2026-04-11T15:34:03.179068+00:00"
+  "generated_at": "2026-04-13T00:48:42.963441+00:00"
 }

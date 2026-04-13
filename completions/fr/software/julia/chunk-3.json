@@ -4,13 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Pourquoi est-il conseillé de modifier le chemin par défaut du dépôt Julia et comment peut-on le faire sur les grappes de calcul ?",
-      "answer": "Il est conseillé de modifier le chemin par défaut du dépôt Julia (situé dans `~/.julia`) pour éviter de dépasser votre quota de fichiers, car l'installation de plusieurs paquets peut créer un très grand nombre de fichiers. Pour ce faire, vous pouvez enregistrer votre dépôt Julia personnel dans un autre emplacement, comme votre espace `/project`. Par exemple, ajoutez la ligne `export JULIA_DEPOT_PATH=\"/project/def-bob/alice/julia:$JULIA_DEPOT_PATH\"` à votre fichier `~/.bashrc`. Il est aussi recommandé de supprimer le dépôt `~/.julia` existant avant de le déplacer, si nécessaire, avec la commande `rm -rf $HOME/.julia`."
+      "question": "Pourquoi devrais-je changer le chemin par défaut de mon dépôt Julia sur les grappes, et comment puis-je le configurer?",
+      "answer": "Le dépôt Julia par défaut (`~/.julia`) peut causer des problèmes de quota et de performance sur les grappes, surtout si vous installez plusieurs paquets, car ça crée un très grand nombre de petits fichiers. Pour éviter ça, vous pouvez déplacer votre dépôt personnel (incluant les paquets, les bases de registres et les fichiers précompilés) vers un autre emplacement, comme votre espace `/project`. Pour ce faire, ajoutez la ligne suivante à votre fichier `~/.bashrc` (en remplaçant par les infos de votre projet et utilisateur) : `export JULIA_DEPOT_PATH=\"/project/def-bob/alice/julia:$JULIA_DEPOT_PATH\"`. Il est aussi préférable de supprimer le dépôt `~/.julia` existant avec la commande `rm -rf $HOME/.julia` avant de faire ce changement."
     },
     {
-      "question": "Comment utiliser le paquet PyCall.jl pour interagir avec Python à partir de Julia sur les grappes, et quelles sont les pratiques à éviter ?",
-      "answer": "Pour utiliser PyCall.jl, vous devez configurer la variable d'environnement `PYTHON` afin qu'elle pointe vers l'exécutable Python de votre environnement virtuel. Une fois votre environnement virtuel activé (`source \"$HOME/myenv/bin/activate\"`), dans Julia, vous définissez `ENV[\"PYTHON\"] = joinpath(ENV[\"VIRTUAL_ENV\"], \"bin\", \"python\")` et ensuite exécutez `Pkg.build(\"PyCall\")`. Il est fortement recommandé d'éviter le comportement par défaut de PyCall.jl qui consiste à utiliser une distribution Miniconda à l'intérieur de votre environnement Julia, car celles-ci ne sont pas adaptées à nos grappes et peuvent causer des problèmes de quota et de performance si le chemin par défaut `~/.julia` est utilisé."
+      "question": "Comment dois-je configurer PyCall.jl pour qu'il utilise un environnement Python avec Julia sur les grappes, et quels sont les comportements à éviter?",
+      "answer": "Pour utiliser PyCall.jl avec Python sur nos grappes, il faut s'assurer que PyCall.jl pointe vers l'exécutable Python de votre environnement virtuel activé. Vous devez d'abord activer votre environnement virtuel Python, par exemple avec `source \"$HOME/myenv/bin/activate\"`. Ensuite, dans Julia, définissez la variable d'environnement `PYTHON` comme suit : `ENV[\"PYTHON\"] = joinpath(ENV[\"VIRTUAL_ENV\"], \"bin\", \"python\")`, puis exécutez `Pkg.build(\"PyCall\")`. Il est fortement déconseillé de laisser PyCall.jl utiliser une distribution Miniconda par défaut à l'intérieur de votre environnement Julia, car Anaconda et les distributions similaires ne sont pas appropriées sur nos grappes et peuvent causer des problèmes de quota et de performance."
     }
   ],
-  "generated_at": "2026-04-12T20:47:53.633193+00:00"
+  "generated_at": "2026-04-13T07:39:06.041194+00:00"
 }

@@ -4,25 +4,13 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "How do I configure `table.dat` if my application, `fcode`, reads from separate, numbered input files (e.g., `data.1`, `data.2`) located in `/home/user/IC`?",
-      "answer": "Each line in your `table.dat` file should specify the `fcode` application and redirect input from the corresponding numbered file, for example: `fcode < /home/user/IC/data.1`, `fcode < /home/user/IC/data.2`, and so on."
+      "question": "How do I prepare the `table.dat` file for a META-Farm application named `fcode` that needs to read from a series of numbered input files like `data.1`, `data.2`, etc., stored in `/home/user/IC`?",
+      "answer": "To prepare `table.dat` for an application like `fcode` that reads from numbered input files (e.g., `data.X` from `/home/user/IC`), each line in `table.dat` should specify the application and redirect the corresponding input file. For example:\n`fcode < /home/user/IC/data.1`\n`fcode < /home/user/IC/data.2`\n... \nYou can use a shell loop to create this file, such as: `for ((i=1; i<=100; i++)); do echo \"fcode < /home/user/IC/data.$i\"; done >table.dat`."
     },
     {
-      "question": "Is there a way to automatically generate `table.dat` for a large number of numbered input files using a shell script?",
-      "answer": "Yes, you can use a shell loop to generate `table.dat`. For example, to create 100 entries for `fcode` reading `data.1` to `data.100`, you can use: `for ((i=1; i<=100; i++)); do echo \"fcode < /home/user/IC/data.$i\"; done >table.dat`."
-    },
-    {
-      "question": "What is the strategy for handling applications that require their input file to have a specific, unchangeable name (e.g., `INPUT`)?",
-      "answer": "To handle this, each case must run in its own subdirectory. You'll need to create an input file with the prescribed name (e.g., `INPUT`) within each case's subdirectory."
-    },
-    {
-      "question": "If an application requires a fixed input file name, what should the content of `table.dat` look like?",
-      "answer": "In this scenario, `table.dat` should simply contain the application name or its full path on each line, repeated for every case, such as: `/path/to/code`."
-    },
-    {
-      "question": "How should `single_case.sh` be modified to copy case-specific input files into a subdirectory when the application expects a fixed input file name?",
-      "answer": "You need to add a line to `single_case.sh` that copies the appropriate input file for each case into its farm subdirectory, renaming it to the prescribed input name. For example, `cp /path/to/data.$ID INPUT` should be added before the `$COMM` command."
+      "question": "What is the process for configuring META-Farm when an application requires an input file with a prescribed and unchangeable name (e.g., `INPUT`)?",
+      "answer": "If an application expects an input file with a fixed name (e.g., `INPUT`), each case must run in its own subdirectory. You should prepare your distinct input files (e.g., `/path/to/data.X`) and store them separately. Your `table.dat` file will then simply contain the application name repeatedly (e.g., `/path/to/code`). You must also add a line to `single_case.sh` to copy the appropriate input file for each case into its farm subdirectory, renaming it to the prescribed name. For example, add `cp /path/to/data.$ID INPUT` before the `$COMM` line in `single_case.sh`."
     }
   ],
-  "generated_at": "2026-04-12T01:28:35.515580+00:00"
+  "generated_at": "2026-04-13T08:31:04.411507+00:00"
 }

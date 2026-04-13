@@ -3,77 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, NetCDF?",
-      "answer": "NetCDF est une interface pour accéder aux données orientée tableaux pis une bibliothèque qui fournit une implémentation de cette interface. Son format de données autodocumenté pis indépendant de l'architecture matérielle sert à créer, accéder pis partager des données scientifiques."
+      "question": "Qu'est-ce que NetCDF et à quoi sert-il pour les données scientifiques?",
+      "answer": "NetCDF (Network Common Data Form) est une interface et une bibliothèque qui permettent la création, l'accès et le partage de données scientifiques dans un format autodocumenté et indépendant de l'architecture matérielle, particulièrement pour les données orientées tableaux."
     },
     {
-      "question": "Qu'est-ce qu'il faut savoir sur NetCDF 4.x?",
-      "answer": "NetCDF 4.x, mis en production en 2008, est rétrocompatible, mais les versions antérieures peuvent pas utiliser les nouveaux fichiers. On parle pas des versions précédentes ici."
+      "question": "Comment la version NetCDF 4.x se compare-t-elle aux versions antérieures en matière de compatibilité de fichiers?",
+      "answer": "NetCDF 4.x est rétrocompatible, ce qui signifie qu'elle peut lire les fichiers créés par les versions précédentes. Cependant, les versions antérieures ne peuvent pas utiliser les nouveaux fichiers générés avec NetCDF 4.x."
     },
     {
-      "question": "Où est-ce qu'on peut trouver des ressources officielles pour NetCDF?",
-      "answer": "Les ressources incluent le site web du projet, la documentation, les fichiers à télécharger pis la FAQ, toutes disponibles sur le site de Unidata."
+      "question": "Quels sont les principaux points forts de l'utilisation de NetCDF pour la gestion des données scientifiques?",
+      "answer": "NetCDF offre plusieurs points forts, notamment l'indépendance de l'architecture matérielle des données, le suivi de l'information pertinente grâce aux données structurées, la capacité de lire et d'écrire en parallèle (si construit avec HDF5), la compression des données à l'écriture, une interface plus simple que HDF5 et sa gratuité pour la plupart des plateformes."
     },
     {
-      "question": "C'est quoi, les gros avantages de NetCDF?",
-      "answer": "Ses gros avantages incluent l'indépendance des données par rapport à l'architecture matérielle, la possibilité de suivre l'information pertinente avec des données structurées, la lecture et l'écriture en parallèle avec HDF5, la compression des données à l'écriture, une interface plus simple que HDF5 pis c'est gratuit sur la plupart des plateformes."
+      "question": "Quelles sont les limitations ou points faibles connus de la bibliothèque NetCDF?",
+      "answer": "Les limitations incluent l'interface Python (version 1.0.5) qui ne permet pas la parallélisation et l'incapacité de NetCDF à lire certains fichiers produits avec HDF5."
     },
     {
-      "question": "Quels sont les points faibles de NetCDF?",
-      "answer": "Les points faibles comprennent l'absence de parallélisation dans l'interface Python (v. 1.0.5) pis le fait que certains fichiers HDF5 peuvent pas être lus par NetCDF."
+      "question": "Quels types de modules d'environnement NetCDF sont offerts pour le développement en C, C++ et Fortran sur les grappes qui utilisent CVMFS?",
+      "answer": "Des modules comme 'netcdf' (pour C), 'netcdf-c++' (pour C et C++) et 'netcdf-fortran' (pour Fortran) sont disponibles. Des versions avec MPI, telles que 'netcdf-mpi', 'netcdf-c++-mpi' et 'netcdf-fortran-mpi', sont également offertes pour les entrées/sorties parallèles."
     },
     {
-      "question": "Comment on fait pour configurer l'environnement NetCDF?",
-      "answer": "On utilise des modules d'environnement comme `netcdf` pour le C, `netcdf-c++` pour le C++, pis `netcdf-fortran` pour le Fortran. Y'a aussi des modules avec MPI pour le parallèle."
+      "question": "Comment peut-on connaître les versions disponibles des modules NetCDF sur un système?",
+      "answer": "On peut utiliser la commande `module avail netcdf` pour voir les versions disponibles pour les compilateurs et modules MPI chargés, ou `module -r spider '.*netcdf.*'` pour une liste complète de tous les modules NetCDF."
     },
     {
-      "question": "Comment on fait pour voir les versions NetCDF disponibles?",
-      "answer": "Pour voir les versions disponibles pour le compilateur pis les modules MPI chargés, on utilise `module avail netcdf`. Pour la liste complète, c'est `module -r spider '.*netcdf.*'`."
+      "question": "Comment un programme en C peut-il être lié à une bibliothèque NetCDF en mode séquentiel?",
+      "answer": "Après avoir chargé le module NetCDF approprié, par exemple `module load netcdf/4.4.1`, on peut lier un programme C avec la commande `gcc example.c -lnetcdf`."
     },
     {
-      "question": "Comment on charge une version spécifique de NetCDF?",
-      "answer": "On utilise la commande `module load netcdf/version`, par exemple `module load netcdf/4.1.3` pour charger la version 4.1.3 pour C."
+      "question": "Comment un programme en Fortran est-il lié aux bibliothèques NetCDF en mode séquentiel?",
+      "answer": "Pour lier un programme Fortran en mode séquentiel, il faut charger les modules `gcc` et `netcdf-fortran`, puis compiler avec `gfortran example.f90 -I$EBROOTNETCDFMINFORTRAN/include -lnetcdf -lnetcdff`, en s'assurant de spécifier les deux bibliothèques dans l'ordre approprié."
     },
     {
-      "question": "Qu'est-ce qu'on recommande quand on soumet un script qui utilise NetCDF?",
-      "answer": "On recommande d'inclure la commande `module load ...` directement dans le script soumis à l'ordonnanceur Slurm."
+      "question": "Quelle est la procédure pour lier un programme C qui utilise MPI à la bibliothèque NetCDF pour des opérations parallèles?",
+      "answer": "Il faut d'abord charger le module `netcdf-mpi`, puis compiler le programme C avec la commande `gcc example.c -lnetcdf`."
     },
     {
-      "question": "Comment on lie un programme C à NetCDF en série?",
-      "answer": "Après avoir chargé le module `netcdf/4.4.1`, on compile avec `gcc example.c -lnetcdf`."
+      "question": "À quoi sert l'utilitaire `ncdump` dans l'écosystème NetCDF?",
+      "answer": "`ncdump` génère une représentation texte CDL (Common Data Language) d'un ensemble de données NetCDF, permettant de visualiser le contenu d'un fichier binaire NetCDF ou de le convertir en texte pour une utilisation potentielle avec `ncgen`."
     },
     {
-      "question": "Comment on lie un programme Fortran à NetCDF en série?",
-      "answer": "On charge `gcc netcdf-fortran`, pis on compile avec `gfortran example.f90 -I$EBROOTNETCDFMINFORTRAN/include -lnetcdf -lnetcdff`."
+      "question": "Quel est l'objectif de l'utilitaire `ncgen`?",
+      "answer": "`ncgen` est l'inverse de `ncdump`; il génère un fichier binaire NetCDF à partir d'une représentation texte CDL."
     },
     {
-      "question": "Comment on lie un programme C avec MPI à NetCDF en parallèle?",
-      "answer": "On charge le module `netcdf-mpi`, pis on compile avec `gcc example.c -lnetcdf`."
+      "question": "Que permet de faire l'utilitaire `nccopy` avec les fichiers NetCDF?",
+      "answer": "`nccopy` permet de copier un fichier NetCDF tout en offrant la possibilité de modifier son format binaire, la taille des blocs, la compression et d'autres paramètres de stockage."
     },
     {
-      "question": "Comment on compile l'exemple de création d'un fichier NetCDF avec une variable bidimensionnelle?",
-      "answer": "On charge le module `netcdf`, pis on compile avec `gcc ex_netcdf4.c -lnetcdf`."
+      "question": "Comment les utilitaires `nf-config` et `nc-config` peuvent-ils aider les développeurs?",
+      "answer": "Ces utilitaires sont conçus pour aider les développeurs à trouver les commandes et les options de configuration nécessaires pour lier et compiler leurs programmes avec les bibliothèques NetCDF."
     },
     {
-      "question": "À quoi ça sert, l'utilitaire `ncdump`?",
-      "answer": "`ncdump` sert à générer une représentation texte CDL d'un ensemble de données NetCDF, pis peut être utilisé pour convertir du binaire en texte."
-    },
-    {
-      "question": "C'est quoi le rôle de `ncgen`?",
-      "answer": "`ncgen` fait l'inverse de `ncdump`: il génère un fichier binaire NetCDF à partir d'une représentation texte."
-    },
-    {
-      "question": "À quoi sert `nccopy`?",
-      "answer": "`nccopy` copie un fichier NetCDF pis peut modifier son format binaire, la taille des blocs, la compression pis d'autres paramètres de stockage."
-    },
-    {
-      "question": "Quels sont les utilitaires pour trouver les commandes de compilation et de liaison?",
-      "answer": "On peut utiliser `nf-config` pis `nc-config` pour trouver les commandes nécessaires à la liaison et la compilation."
-    },
-    {
-      "question": "Qu'est-ce que c'est, PnetCDF?",
-      "answer": "PnetCDF, c'est une autre bibliothèque pour lire pis écrire des fichiers au format NetCDF. Ses procédures ont des noms différents pis elle offre aussi des procédures non-blocantes."
+      "question": "Qu'est-ce que PnetCDF et en quoi se différencie-t-il de la bibliothèque NetCDF standard?",
+      "answer": "PnetCDF est une autre bibliothèque pour la lecture et l'écriture de fichiers au format NetCDF. Elle se distingue par des noms de procédures différents et l'offre de procédures non-blocantes, contrairement à la bibliothèque NetCDF standard."
     }
   ],
-  "generated_at": "2026-04-12T03:44:09.989323+00:00"
+  "generated_at": "2026-04-13T09:58:13.263583+00:00"
 }

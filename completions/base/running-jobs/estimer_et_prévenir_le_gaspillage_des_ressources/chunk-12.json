@@ -4,33 +4,13 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "What is the problem when a user requests a 4-GPU node but only utilizes a single GPU?",
-      "answer": "The problem is that GPUs 1, 2, and 3 remain unused, as indicated by the absence of data for metrics like SM Active and SM Occupancy in the GPU Cycles graph, no power data for these GPUs, and inactive GPU memory. This results in wasted resources."
+      "question": "How can a user determine if they are requesting a 4-GPU node but only utilizing a single GPU for their task?",
+      "answer": "This can be determined by observing the GPU utilization graphs in the portal. For instance, in the 'GPU - Cycle de calcul GPU utilisé' graph, only GPU 0 will show activity (e.g., SM Active, SM Occupancy metrics), while GPUs 1, 2, and 3 will remain inactive with no data recorded. Similar inactivity for the unused GPUs will also be visible in the 'GPU - Power' and 'GPU - Mémoire' graphs."
     },
     {
-      "question": "How can I identify if I am only using one GPU out of four requested on a node?",
-      "answer": "You can identify this by observing the GPU Cycles graph, where GPUs 1, 2, and 3 will show no activity (e.g., no data for SM Active, SM Occupancy). The GPU Power graph will also show no data for the unused GPUs, and the GPU Memory graph will confirm their inactivity."
-    },
-    {
-      "question": "What does the GPU Cycles graph reveal when a task only uses one GPU on a 4-GPU node?",
-      "answer": "The GPU Cycles graph clearly shows that GPUs 1, 2, and 3 are not being utilized, as there is no recorded data for metrics such as SM Active or SM Occupancy for those GPUs."
-    },
-    {
-      "question": "What do the GPU Power and Memory graphs indicate when only one GPU is used on a node with four requested GPUs?",
-      "answer": "The GPU Power graph will only display values for the active GPU (e.g., GPU 0), with no data recorded for the other unused GPUs. Similarly, the GPU Memory graph will confirm that the other GPUs remain inactive."
-    },
-    {
-      "question": "What are the corrective actions if I've requested a 4-GPU node but am only using one GPU?",
-      "answer": "To correct this situation, you can either modify your code to effectively utilize all four GPUs or adjust your job submission script to request only one GPU."
-    },
-    {
-      "question": "Could you provide an example of a job submission script that requests a full 4-GPU node but only uses one GPU, illustrating resource wastage?",
-      "answer": "An example script demonstrating this issue would be:\n```bash\n#!/bin/bash\n#SBATCH --nodes=1\n#SBATCH --gpu-per-node=4\n#SBATCH --cpus-per-task=10\n#SBATCH --mem=14G\n#SBATCH --time=3-00:00:00\n#SBATCH --account=def-someuser\n\nmodule load python/3.11\n\npython3 mon_script.py\n```\nThis script requests 4 GPUs per node, while the task implicitly only uses one, leading to unused GPUs."
-    },
-    {
-      "question": "How should I modify a job script to correctly request resources if my task truly only requires one GPU on a node, instead of a full 4-GPU node?",
-      "answer": "To correct the script and request only the necessary single GPU, you would modify the `--gpu-per-node` option as follows:\n```bash\n#!/bin/bash\n#SBATCH --gpu-per-node=1\n#SBATCH --cpus-per-task=10\n#SBATCH --mem=14G\n#SBATCH --time=3-00:00:00\n#SBATCH --account=def-someuser\n\nmodule load python/3.11\n\npython3 mon_script.py\n```"
+      "question": "What is the recommended approach to optimize resource allocation when a task only utilizes one GPU on a node equipped with four GPUs?",
+      "answer": "To optimize resource allocation in this situation, users should either adapt their code to effectively utilize all four GPUs available on the node, or, if the task genuinely only requires one GPU, they should adjust their submission script to request only a single GPU by setting `--gpu-per-node=1`."
     }
   ],
-  "generated_at": "2026-04-11T21:20:57.022998+00:00"
+  "generated_at": "2026-04-13T05:10:16.581576+00:00"
 }

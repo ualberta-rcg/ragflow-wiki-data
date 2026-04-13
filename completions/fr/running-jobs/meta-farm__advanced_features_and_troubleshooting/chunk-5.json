@@ -4,45 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Comment j'fais pour configurer `job_script.sh` afin d'utiliser des GPU avec les applications?",
-      "answer": "Pour les applications qui utilisent des GPU, vous devez modifier `job_script.sh` en ajoutant la ligne `#SBATCH --gres=gpu[[:type]:number]` en suivant les directives de « Using GPUs with Slurm »."
+      "question": "Comment faire pour qu'une application du paquet META utilise des GPU sur un cluster, et existe-t-il un moyen de s'assurer que les GPU sont disponibles avant de lancer les calculs?",
+      "answer": "Pour qu'une application utilise des GPU, il faut modifier le fichier `job_script.sh` en y ajoutant la ligne `#SBATCH --gres=gpu[[:type]:number]`. De plus, sur le cluster Nibi, on peut copier l'utilitaire `~syam/bin/gpu_test` dans son répertoire `~/bin` et insérer les lignes nécessaires dans `job_script.sh` avant `task.run`. Cela permet de vérifier la disponibilité du GPU et d'arrêter le job s'il y a un problème, évitant ainsi que le job essaie de rouler tous les cas de `table.dat` sans GPU."
     },
     {
-      "question": "C'est quoi l'utilitaire `gpu_test` pis comment je l'utilise?",
-      "answer": "L'utilitaire `gpu_test` peut être copié dans votre répertoire `~/bin` (seulement sur Nibi) et vous pouvez ajouter des lignes à votre `job_script.sh` juste avant `task.run` pour détecter si une GPU est disponible. Si `gpu_test` retourne une erreur, le script va sortir."
+      "question": "Comment peut-on passer des variables d'environnement personnalisées à l'ensemble des jobs d'une ferme META, y compris les jobs relancés automatiquement ou de post-traitement, sans affecter le comportement par défaut de la gestion de l'environnement?",
+      "answer": "Pour passer des variables d'environnement personnalisées à tous les jobs de la ferme, incluant ceux relancés automatiquement et ceux de post-traitement, il ne faut pas utiliser l'option `--export`. Il est plutôt recommandé de définir ces variables directement sur la ligne de commande avant d'exécuter `submit.run`, par exemple : `$ VAR1=1 VAR2=5 VAR3=3.1416 submit.run ...`. Les jobs hériteront ainsi de ces variables."
     },
     {
-      "question": "Pourquoi c'est important d'utiliser l'utilitaire `gpu_test` dans `job_script.sh`?",
-      "answer": "C'est important pour attraper les situations rares où y'a un problème avec le nœud et la GPU n'est pas disponible. Ça évite que votre job essaie de rouler toutes vos tâches de `table.dat` et qu'elles échouent."
-    },
-    {
-      "question": "Est-ce que les jobs META gardent l'environnement quand ils roulent?",
-      "answer": "Oui, tous les jobs générés par le package META héritent de l'environnement présent quand vous lancez `submit.run` ou `resubmit.run`. Ça inclut tous les modules chargés pis les variables d'environnement."
-    },
-    {
-      "question": "Faut-il être prudent avec l'option `--export` quand on utilise META?",
-      "answer": "Oui, faut être prudent pour pas briser le comportement par défaut de META. Si vous utilisez l'option `--export`, assurez-vous que `ALL` est un des arguments, comme dans `--export=ALL,X=1,Y=2`."
-    },
-    {
-      "question": "Comment je passe des variables d'environnement personnalisées à tous mes jobs de ferme, incluant ceux qui sont soumis automatiquement ou de post-traitement?",
-      "answer": "Pour passer des variables d'environnement personnalisées, ne pas utiliser `--export`. À la place, définissez les variables directement sur la ligne de commande, par exemple: `$ VAR1=1 VAR2=5 VAR3=3.1416 submit.run ...`"
-    },
-    {
-      "question": "Comment préparer le fichier `table.dat` si mon application `fcode` lit des fichiers d'entrée numérotés, comme `data.1`, `data.2`, etc.?",
-      "answer": "Vous pouvez créer `table.dat` en listant chaque appel de l'application avec son fichier d'entrée, comme ça: `fcode < /home/user/IC/data.1`, `fcode < /home/user/IC/data.2`, etc. Assurez-vous que `fcode` est dans votre `$PATH` ou utilisez le chemin complet."
-    },
-    {
-      "question": "Y'a-tu une façon facile de créer un `table.dat` pour plein de fichiers d'entrée numérotés?",
-      "answer": "Oui, vous pouvez utiliser une boucle shell, par exemple: `$ for ((i=1; i<=100; i++)); do echo \"fcode < /home/user/IC/data.$i\"; done >table.dat` pour générer le fichier."
-    },
-    {
-      "question": "Comment je gère une application qui s'attend à lire un fichier d'entrée avec un nom spécifique pis qui peut pas être changé, comme `INPUT`?",
-      "answer": "Pour gérer ça, chaque cas doit rouler dans son propre sous-répertoire. Vous devez copier le fichier d'entrée spécifique à ce cas, nommé par exemple `/path/to/data.X`, vers le nom attendu, `INPUT`, dans le sous-répertoire."
-    },
-    {
-      "question": "Comment je modifie `table.dat` et `single_case.sh` pour qu'une application lise un fichier d'entrée avec un nom fixe?",
-      "answer": "Votre `table.dat` devrait contenir seulement le nom de l'application, répété pour chaque cas, comme `/path/to/code`. Ensuite, ajoutez la ligne `cp /path/to/data.$ID INPUT` au début de `single_case.sh`, juste avant `$COMM`, pour copier le fichier d'entrée correspondant à chaque cas dans son sous-répertoire."
+      "question": "Si mon application s'appelle `fcode` et qu'elle doit lire un fichier d'entrée différent et numéroté pour chaque cas (par exemple, `data.1`, `data.2`, etc., tous situés dans `/home/user/IC`), comment dois-je configurer le fichier `table.dat` pour ma ferme META?",
+      "answer": "Pour configurer `table.dat` avec des fichiers d'entrée numérotés, chaque ligne de `table.dat` doit spécifier la commande `fcode` et rediriger l'entrée depuis le fichier correspondant, comme ceci : `fcode < /home/user/IC/data.1`, `fcode < /home/user/IC/data.2`, etc. Ce fichier `table.dat` peut être généré facilement à l'aide d'une boucle shell, par exemple : `for ((i=1; i<=100; i++)); do echo \"fcode < /home/user/IC/data.$i\"; done >table.dat`."
     }
   ],
-  "generated_at": "2026-04-12T01:33:33.928737+00:00"
+  "generated_at": "2026-04-13T08:34:47.510267+00:00"
 }

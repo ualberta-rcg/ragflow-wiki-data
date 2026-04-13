@@ -4,49 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Comment configurer un script SLURM pour exécuter une tâche `mpi4py` distribuée sur des cœurs CPU ?",
-      "answer": "Pour configurer un script SLURM pour une tâche `mpi4py` distribuée sur des cœurs CPU, chargez les modules `StdEnv/2023`, `gcc`, `mpi4py/4.0.0` et `python/3.12`. Ensuite, créez un environnement virtuel sur chaque nœud alloué, installez `numpy==2.1.1` dedans, activez l'environnement sur le nœud principal et exécutez votre script Python avec `srun python mpi4py-np-bc.py`."
+      "question": "Comment est-ce qu'on peut exécuter une tâche `mpi4py` sur des cœurs de CPU répartis sur plusieurs nœuds du système?",
+      "answer": "Pour lancer une tâche `mpi4py` sur des cœurs de CPU répartis sur le système, vous devez créer un script de soumission Slurm. Ce script doit spécifier l'allocation de ressources (compte, temps, nombre de tâches avec `--ntasks`, et mémoire par CPU avec `--mem-per-cpu`). Ensuite, il faut charger les modules `StdEnv/2023`, `gcc`, `mpi4py/4.0.0` et `python/3.12`. Un environnement virtuel doit être créé sur chaque nœud alloué avec une commande `srun` qui exécute `virtualenv --no-download $SLURM_TMPDIR/env` et installe les dépendances comme `numpy==2.1.1` avec `pip`. Enfin, activez cet environnement virtuel sur le nœud principal et exécutez votre script Python `mpi4py-np-bc.py` via `srun`."
     },
     {
-      "question": "Quels sont les paramètres `SBATCH` typiques pour un script de soumission `mpi4py` qui s'exécute sur des cœurs distribués ?",
-      "answer": "Les paramètres `SBATCH` typiques pour un script de soumission `mpi4py` sur des cœurs distribués sont : `--account=def-someprof`, `--time=08:00:00`, `--ntasks=4` et `--mem-per-cpu=4G`."
+      "question": "Quelles sont les étapes pour préparer et exécuter une tâche `mpi4py` qui utilise des GPU?",
+      "answer": "Pour exécuter une tâche `mpi4py` sur des GPU, vous devez d'abord télécharger un exemple de démonstration comme `use_cupy.py` depuis les démos de `mpi4py`. Ensuite, préparez un script de soumission Slurm (`submit-mpi4py-gpu.sh`) qui inclut le paramètre `#SBATCH --gpus=1`. Ce script doit charger les modules `StdEnv/2023`, `gcc`, `cuda/12`, `mpi4py/4.0.0` et `python/3.11`. Un environnement virtuel doit être créé (`virtualenv --no-download $SLURM_TMPDIR/env`), puis les paquets `cupy` et `numba` y sont installés avec `pip install --no-index cupy numba` avant d'exécuter votre script Python, comme `srun python use_cupy.py`."
     },
     {
-      "question": "Comment s'assurer que `numpy` est disponible dans l'environnement virtuel pour une tâche `mpi4py` distribuée sur des cœurs CPU ?",
-      "answer": "Pour s'assurer que `numpy` est disponible, vous devez l'installer dans l'environnement virtuel créé sur chaque nœud alloué en utilisant la commande `pip install --no-index numpy==2.1.1`."
-    },
-    {
-      "question": "Quels modules sont nécessaires pour lancer une tâche `mpi4py` sur des nœuds entiers ?",
-      "answer": "Pour lancer une tâche `mpi4py` sur des nœuds entiers, vous devez charger les modules `StdEnv/2023`, `gcc`, `openmpi`, `mpi4py/4.0.0` et `python/3.12`."
-    },
-    {
-      "question": "Quels sont les paramètres `SBATCH` à utiliser pour une tâche `mpi4py` qui requiert des nœuds entiers ?",
-      "answer": "Pour une tâche `mpi4py` qui requiert des nœuds entiers, les paramètres `SBATCH` sont : `--account=def-someprof`, `--time=01:00:00`, `--nodes=2`, `--ntasks-per-node=40` et `--mem-per-cpu=1G`."
-    },
-    {
-      "question": "Quelle étape importante doit être faite avant de soumettre un script de tâche `mpi4py` ?",
-      "answer": "Avant de soumettre un script de tâche `mpi4py`, il est important de tester le script pour des erreurs possibles en faisant un test rapide avec une tâche interactive."
-    },
-    {
-      "question": "Comment télécharger l'exemple `cuda-aware-mpi/use_cupy.py` pour une tâche `mpi4py` sur GPU ?",
-      "answer": "Pour télécharger l'exemple, utilisez la commande `wget https://raw.githubusercontent.com/mpi4py/mpi4py/refs/heads/master/demo/cuda-aware-mpi/use_cupy.py` sur un nœud de connexion."
-    },
-    {
-      "question": "Quelles sont les dépendances de modules pour exécuter une tâche `mpi4py` sur GPU ?",
-      "answer": "Les dépendances de modules pour une tâche `mpi4py` sur GPU sont : `StdEnv/2023`, `gcc`, `cuda/12`, `mpi4py/4.0.0` et `python/3.11`."
-    },
-    {
-      "question": "Quels paquets Python faut-il installer dans l'environnement virtuel pour une tâche `mpi4py` sur GPU ?",
-      "answer": "Pour une tâche `mpi4py` sur GPU, vous devez installer les paquets `cupy` et `numba` en utilisant `pip install --no-index cupy numba` dans votre environnement virtuel."
-    },
-    {
-      "question": "Quels paramètres `SBATCH` sont utilisés pour soumettre une tâche `mpi4py` qui utilise un GPU ?",
-      "answer": "Les paramètres `SBATCH` pour soumettre une tâche `mpi4py` qui utilise un GPU incluent : `--account=def-someprof`, `--time=08:00:00`, `--ntasks=2`, `--mem-per-cpu=2G` et `--gpus=1`."
-    },
-    {
-      "question": "Que signifie le message d'erreur `ModuleNotFoundError: No module named 'mpi4py'` et comment le régler ?",
-      "answer": "Ce message indique que `mpi4py` n'est pas accessible lors de l'importation. Pour le régler, vous pouvez vérifier la compatibilité entre les versions de Python et de `mpi4py` avec `module spider mpi4py/X.Y.Z` et tester `python -c 'import mpi4py'`. Une autre solution est de charger le module `mpi4py` avant d'activer votre environnement virtuel."
+      "question": "Quelle est la cause du message d'erreur `ModuleNotFoundError: No module named 'mpi4py'` et comment y remédier?",
+      "answer": "Le message d'erreur `ModuleNotFoundError: No module named 'mpi4py'` survient généralement lorsque le module `mpi4py` n'est pas accessible par l'interpréteur Python. Pour résoudre ce problème, il est suggéré de vérifier la compatibilité des versions de Python avec le module `mpi4py` que vous avez chargé, en utilisant `module spider mpi4py/X.Y.Z`, puis de confirmer son accessibilité avec `python -c 'import mpi4py'`. Il est également important de charger le module `mpi4py` avant d'activer votre environnement virtuel Python, surtout si `mpi4py` est une dépendance d'un autre paquet."
     }
   ],
-  "generated_at": "2026-04-12T02:02:54.700469+00:00"
+  "generated_at": "2026-04-13T08:56:46.850547+00:00"
 }

@@ -4,65 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "C'est quoi l'avantage d'utiliser des nœuds entiers pour des applications sur les grappes de calcul?",
-      "answer": "Les applications qui peuvent utiliser efficacement plus de cœurs qu'il n'y en a dans un seul nœud pourraient être mieux servies avec des nœuds entiers. Certaines grappes réservent même des nœuds pour ce genre de tâches."
+      "question": "Quand on soumet une tâche sur les grappes de calcul, comment devrait-on spécifier le nombre de cœurs ou de nœuds pour ne pas abuser des ressources?",
+      "answer": "Pour ne pas abuser des ressources, il faut demander le nombre de cœurs qui correspond le plus efficacement aux besoins de l'application. Par exemple, si un programme a un temps d'exécution similaire sur 192 cœurs et 64 cœurs, il faut demander 64 cœurs. Demander un nombre inefficace de processeurs juste pour profiter d'un avantage lié à l'ordonnancement d'un nœud entier est considéré comme un abus."
     },
     {
-      "question": "Où est-ce que je peux trouver plus d'infos pis des exemples de scripts pour l'utilisation des nœuds entiers?",
-      "answer": "Pour plus d'infos pis des exemples de scripts, vous pouvez consulter la section \"Nœuds entiers\" de la page \"Contrôle de l'ordonnancement avec MPI\"."
+      "question": "Quelles sont les durées maximales d'exécution pour les tâches sur les différentes grappes de calcul comme Trillium, Fir, Narval, Nibi et Rorqual, et comment la durée demandée influence-t-elle l'ordonnancement?",
+      "answer": "Sur la grappe Trillium, les tâches peuvent s'exécuter jusqu'à 24 heures. Sur Fir, Narval, Nibi et Rorqual, la durée maximale est de 7 jours. Les grappes d'usage général sont partitionnées pour des durées de 3 heures ou moins, 12 heures ou moins, 24 heures ou moins, 72 heures ou moins, et 7 jours ou moins. Une tâche plus courte a de meilleures chances d'être ordonnancée plus rapidement qu'une tâche plus longue avec des caractéristiques similaires, car elle peut être exécutée dans un plus grand nombre de partitions."
     },
     {
-      "question": "C'est quoi qui est considéré comme un abus des ressources quand on demande des nœuds entiers?",
-      "answer": "Demander un nombre inefficace de processeurs juste pour profiter des avantages d'ordonnancement d'un nœud entier est considéré comme un abus injustifié des ressources. Par exemple, si un programme roule aussi vite sur 64 cœurs que sur 192 cœurs, on devrait demander 64 cœurs, pas 192."
-    },
-    {
-      "question": "Si j'ai plein de tâches en série, est-ce qu'il y a des outils ou des techniques pour les regrouper sur un seul nœud?",
-      "answer": "Oui, si vous avez une grande quantité de tâches en série, vous êtes invité à utiliser des outils comme META-Farm, GNU Parallel, GLOST ou d'autres techniques pour les rassembler sur un seul nœud."
-    },
-    {
-      "question": "C'est quoi la durée maximale d'exécution pour une tâche sur la grappe Trillium?",
-      "answer": "Sur Trillium, une tâche peut rouler jusqu'à 24 heures."
-    },
-    {
-      "question": "C'est quoi la durée maximale d'exécution pour des tâches sur les grappes Fir, Narval, Nibi et Rorqual?",
-      "answer": "La durée maximale d'exécution sur les grappes Fir, Narval, Nibi et Rorqual est de 7 jours."
-    },
-    {
-      "question": "Qui décide des durées maximales d'exécution des tâches sur les grappes et est-ce que ça peut changer?",
-      "answer": "Ces durées sont à la discrétion des administrateurs de systèmes et elles peuvent changer."
-    },
-    {
-      "question": "Quelles sont les différentes partitions basées sur la durée maximale d'exécution disponibles pour les tâches sur les grappes d'usage général?",
-      "answer": "Les partitions sont établies pour des tâches ayant des temps d'exécution de 3 heures ou moins, 12 heures ou moins, 24 heures ou moins, 72 heures ou moins, et 7 jours ou moins."
-    },
-    {
-      "question": "Est-ce qu'une tâche plus courte a un avantage au niveau de l'ordonnancement par rapport à une tâche plus longue?",
-      "answer": "Oui, une tâche plus courte sera probablement ordonnancée plus rapidement qu'une tâche plus longue avec les mêmes caractéristiques, parce qu'elle peut s'exécuter dans toutes les partitions qui acceptent des durées maximales plus grandes."
-    },
-    {
-      "question": "C'est quoi le \"backfilling\" (remplissage) dans le contexte de l'ordonnancement des ressources?",
-      "answer": "Le \"backfilling\" est une technique que l'ordonnanceur utilise pour optimiser l'utilisation des ressources. Ça permet de lancer des tâches de basse priorité sans retarder celles de plus haute priorité."
-    },
-    {
-      "question": "Pourquoi le \"backfilling\" est avantageux pour les tâches avec une durée maximale plus courte?",
-      "answer": "Le \"backfilling\" avantage les tâches dont la durée maximale est plus courte (moins de 3 heures), parce qu'elles peuvent plus facilement être insérées dans les créneaux libres sans gêner les tâches de haute priorité."
-    },
-    {
-      "question": "Quelles sont les grappes considérées comme des grappes d'usage général?",
-      "answer": "Les grappes d'usage général sont Fir, Narval, Nibi et Rorqual."
-    },
-    {
-      "question": "Quelles sont les quatre catégories de nœuds disponibles sur les grappes d'usage général?",
-      "answer": "Les quatre catégories de nœuds sont: les nœuds de type \"base\" (4 à 8 Go de mémoire par cœur), les nœuds de type \"large\" (16 à 96 Go de mémoire par cœur), et les nœuds de type \"GPU base\"."
-    },
-    {
-      "question": "C'est quoi la différence entre les partitions \"par nœud\" et \"par cœur\"?",
-      "answer": "Les partitions \"par nœud\" (by-node) sont réservées aux tâches qui utilisent des nœuds entiers, c'est-à-dire toutes les ressources disponibles sur les nœuds alloués. Les partitions \"par cœur\" (by-core) sont pour les tâches qui utilisent seulement un sous-ensemble des nœuds, comme peu de cœurs ou un seul sur un nœud."
-    },
-    {
-      "question": "Comment le temps réel d'exécution d'une tâche influence-t-il l'accès aux nœuds?",
-      "answer": "Le temps réel d'exécution joue un rôle important; les tâches plus courtes ont accès à plus de ressources. Par exemple, une tâche qui demande moins de 3 heures peut rouler sur n'importe quel nœud qui permet des temps réels de 12 heures, mais certains nœuds de la partition de 3 heures n'accepteront pas de tâches de 12 heures."
+      "question": "Qu'est-ce que le 'remplissage' (backfilling) dans le contexte de l'ordonnancement des tâches sur les grappes de calcul, et quels types de tâches en bénéficient?",
+      "answer": "Le 'remplissage' est une technique d'ordonnancement qui optimise l'utilisation des ressources en lançant des tâches de basse priorité, à condition que cela ne retarde pas les tâches de plus haute priorité. Pour que cette technique fonctionne bien, il est essentiel que les durées d'exécution maximales demandées soient raisonnablement exactes. Les tâches qui bénéficient le plus du remplissage sont celles dont la durée maximale est plus courte, soit moins de 3 heures."
     }
   ],
-  "generated_at": "2026-04-12T00:20:47.023762+00:00"
+  "generated_at": "2026-04-13T07:35:17.155264+00:00"
 }

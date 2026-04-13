@@ -4,45 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How is the age of a file determined for purging on the clusters?",
-      "answer": "A file's age is determined by the younger of its access time (`atime`) or change time (`ctime`)."
+      "question": "What timestamps are used to determine a file's age for purging on the clusters, and how can a user check these timestamps?",
+      "answer": "A file's age is determined by the younger of its access time (`atime`) or change time (`ctime`). The latest modification time (`mtime`) is not used because it can be backdated by users or programs. Users can check both `atime` and `ctime` by running `stat <filename>` in the terminal."
     },
     {
-      "question": "Which timestamps are considered when calculating a file's age for the /scratch purging policy?",
-      "answer": "The access time (`atime`) and change time (`ctime`) are considered, with the younger of the two determining the file's age."
+      "question": "What are the consequences if a user attempts to circumvent the file purging policy on /scratch by artificially altering file timestamps?",
+      "answer": "If a user attempts to circumvent the purging policy by periodically running a recursive `touch` command or similar tactics to prevent files from expiring, staff have methods to detect this. Users found employing such techniques will be asked to move the offending data from `/scratch` to another location."
     },
     {
-      "question": "Why is the modification time (`mtime`) not used to assess a file's age for purging?",
-      "answer": "The modification time (`mtime`) is not used because it can be backdated by users or by programs such as version-control or build-system software like Git or Make."
-    },
-    {
-      "question": "How can I check the `atime` and `ctime` timestamps of a file?",
-      "answer": "You can print both the `atime` and `ctime` timestamps of a file by using the `stat <filename>` command."
-    },
-    {
-      "question": "What kind of actions are considered abuse of the file purging policy?",
-      "answer": "Periodically running a recursive `touch` command on files to prevent them from being flagged for expiration is considered an abuse of the file purging policy."
-    },
-    {
-      "question": "How do staff detect users trying to circumvent the file purging policy?",
-      "answer": "Our staff have methods for detecting tactics like periodically running a recursive `touch` command and similar techniques aimed at circumventing the purging policy."
-    },
-    {
-      "question": "What are the consequences for users who attempt to abuse or circumvent the file purging policy?",
-      "answer": "Users who employ such techniques will be asked to move the offending data from /scratch to another location."
-    },
-    {
-      "question": "When is it problematic to use `cp` or `rsync` to copy data from /scratch to /project?",
-      "answer": "It is problematic if you have symbolic links in /scratch, as copying them with `cp` or `rsync` will result in the symlinks still pointing back to /scratch."
-    },
-    {
-      "question": "What is the recommended method to safely copy a directory that contains symbolic links from /scratch to /project?",
-      "answer": "To avoid issues with symbolic links, you can use `tar` to create an archive of your files on /scratch and then extract this archive in /project."
-    },
-    {
-      "question": "Could you provide a bash command example for safely copying a directory with symlinks using `tar`?",
-      "answer": "An example command sequence to safely copy a directory with symbolic links is:\n`cd /scratch/.../your_data\nmkdir project/.../your_data\ntar -cf - ./* | tar -C /project/.../your_data -xf -`"
+      "question": "When copying a directory containing symbolic links from `/scratch` to `/project`, what is the recommended method to ensure the symlinks do not still point back to the original `/scratch` location?",
+      "answer": "When copying a directory with symbolic links from `/scratch` to `/project`, `cp` or `rsync` can cause problems as symlinks might still point to `/scratch`. To avoid this, it is recommended to use `tar`. You can navigate to the source directory, create the destination directory on `/project`, and then use a `tar` command like `tar -cf - ./* | tar -C /project/.../your_data -xf -` to archive and extract the files, ensuring symlinks are handled correctly."
     }
   ],
-  "generated_at": "2026-04-12T07:44:01.070742+00:00"
+  "generated_at": "2026-04-13T13:22:04.149013+00:00"
 }

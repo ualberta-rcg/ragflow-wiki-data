@@ -4,17 +4,17 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "How does PyTorch Lightning simplify multi-GPU training compared to directly using `DistributedDataParallel`?",
-      "answer": "PyTorch Lightning streamlines multi-GPU training by abstracting away much of the boilerplate code. For instance, the provided example initializes a `pl.Trainer` with parameters like `accelerator=\"gpu\"`, `devices=2`, `num_nodes=1`, and `strategy='ddp'`, which automatically configures the distributed data parallel setup, whereas using `DistributedDataParallel` directly requires more explicit setup of process groups and environment variables."
+      "question": "Under what specific conditions is it recommended to use Single GPU Data Parallelism for PyTorch models on HPC clusters, and what are its main benefits?",
+      "answer": "Single GPU Data Parallelism is recommended when a model is fairly small (doesn't use a large portion of GPU memory or compute capacity) but needs to be trained with a very large dataset and a small batch size. Its main benefits are increasing resource utilization and achieving a speed-up by fitting several model replicas on a single GPU."
     },
     {
-      "question": "When is it advisable to use Single GPU Data Parallelism on HPC clusters for training, especially for smaller models?",
-      "answer": "For smaller models that don't fully utilize a GPU's compute capacity or memory, it's generally not advisable to use a GPU on HPC clusters. However, Single GPU Data Parallelism becomes a viable option when you have such a model but need to train it with a very large dataset and a small batch size. This approach allows fitting multiple replicas of the model on a single GPU, thereby increasing resource utilization and achieving a speed-up."
+      "question": "How do you activate Nvidia's Multi-Process Service (MPS) when running a PyTorch job with Single GPU Data Parallelism on a cluster using a SLURM batch script?",
+      "answer": "To activate Nvidia's Multi-Process Service (MPS) in a SLURM batch script, you need to export the `CUDA_MPS_PIPE_DIRECTORY` and `CUDA_MPS_LOG_DIRECTORY` environment variables, and then run the `nvidia-cuda-mps-control -d` command. This starts the MPS daemon in the background."
     },
     {
-      "question": "What technologies are employed to achieve Single GPU Data Parallelism by placing multiple model replicas on one GPU?",
-      "answer": "To efficiently place multiple model replicas on a single GPU for Single GPU Data Parallelism, the process utilizes Nvidia's Multi-Process Service (MPS) along with MPI (Message Passing Interface). MPS helps manage concurrent kernel execution on the GPU, while MPI facilitates communication and synchronization among the multiple model replicas."
+      "question": "How is the `pl.Trainer` configured in the provided PyTorch Lightning example (`pytorch-ddp-test-pl.py`) for multi-GPU distributed data parallel training?",
+      "answer": "In the `pytorch-ddp-test-pl.py` example, the `pl.Trainer` is initialized with `accelerator=\"gpu\"`, `devices=2` (for two GPUs), `num_nodes=1`, and `strategy='ddp'`. Additionally, `enable_progress_bar=False` is set to prevent issues with frequent log updates."
     }
   ],
-  "generated_at": "2026-04-12T21:31:11.937193+00:00"
+  "generated_at": "2026-04-13T11:39:44.413649+00:00"
 }

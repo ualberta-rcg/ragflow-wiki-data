@@ -4,37 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How can I define the OpenStack provider in Terraform with connection and credential information?",
-      "answer": "You can define the OpenStack provider using a `provider \"openstack\"` block within your Terraform configuration, specifying details such as `tenant_name`, `tenant_id`, `auth_url`, `user_name`, `password`, and `user_domain_name`."
+      "question": "How can one configure Terraform to use an OpenStack provider, and what are the various methods for supplying credentials?",
+      "answer": "To configure the OpenStack provider, you can specify full connection and credential information directly within the `provider` block in your Terraform configuration. Alternatively, you can refer to a `clouds.yaml` file by specifying the `cloud` name in the provider stanza. It's also acceptable to leave the provider definition empty, in which case Terraform will rely on environment variables like `$OS_CLOUD` or values set by sourcing an appropriate RC file."
     },
     {
-      "question": "Does Terraform support using partial credentials for OpenStack?",
-      "answer": "Yes, Terraform supports partial credentials, allowing you to omit some values from the Terraform configuration (like the password) and supply them via environment variables, such as `$OS_PASSWORD`."
+      "question": "What is the most important security consideration when managing OpenStack credentials within Terraform configurations?",
+      "answer": "The most important security consideration is to avoid storing sensitive credentials, such as passwords, directly in your Terraform configuration files. This practice minimizes the risk of unauthorized access or exposure, even on personal workstations, and aligns with general security best practices."
     },
     {
-      "question": "How can I configure the OpenStack provider in Terraform if I prefer to use a `clouds.yaml` file?",
-      "answer": "If you prefer to use `clouds.yaml`, you can specify the `cloud` attribute within the `provider \"openstack\"` stanza, for example: `cloud = \"my_cloud\"`."
-    },
-    {
-      "question": "Is it acceptable to leave the OpenStack provider definition completely empty in Terraform?",
-      "answer": "Yes, it is acceptable to leave the provider definition completely empty. In this scenario, either the `$OS_CLOUD` environment variable or variables set by an appropriate RC file must be present in the executing environment for Terraform to proceed."
-    },
-    {
-      "question": "What is the most important security consideration when including credential information in a Terraform configuration?",
-      "answer": "The most important consideration is security. It is strongly recommended to avoid storing credentials like passwords directly in Terraform configuration files, even if they are on a private workstation, to prevent potential security risks and accidental exposure."
-    },
-    {
-      "question": "What command is used to initialize Terraform and set up the provider plugins?",
-      "answer": "The command `terraform init` is used to initialize Terraform, which includes initializing the backend and downloading the necessary provider plugins, such as the OpenStack provider plugin."
-    },
-    {
-      "question": "Does `terraform init` test the OpenStack credentials?",
-      "answer": "No, `terraform init` does not test the credentials because this operation only sets up the provider and does not attempt to connect to the defined provider."
-    },
-    {
-      "question": "Why is it important to always specify flavour and image IDs instead of names when defining VMs in Terraform?",
-      "answer": "It is important to always specify flavours and images using their IDs because the ID permanently defines the resource's state and will never change. If a name changes (e.g., an image is retired and replaced with another with the same name), Terraform might detect this as a need to rebuild or resize the associated resource, which is a destructive operation."
+      "question": "When defining a virtual machine (VM) in Terraform for OpenStack, why is it crucial to use image and flavour IDs instead of their names?",
+      "answer": "It is crucial to always use image and flavour IDs because they are permanent identifiers that precisely define the resource's state. Unlike names, which can change (e.g., if an image is retired and replaced by another with the same name), IDs ensure that Terraform doesn't misinterpret a name change as a need to rebuild or resize the associated VM, which is a destructive operation."
     }
   ],
-  "generated_at": "2026-04-12T09:09:49.777586+00:00"
+  "generated_at": "2026-04-13T14:25:53.641221+00:00"
 }

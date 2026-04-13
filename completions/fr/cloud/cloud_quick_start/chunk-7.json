@@ -4,97 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "Quel type d'adresses IP devrait-on voir après avoir associé une adresse IP flottante?",
-      "answer": "Vous devriez voir deux adresses IP : une au format `192.168.X.Y` (privée) et votre adresse IP publique."
+      "question": "Comment configurer le pare-feu dans OpenStack pour permettre une connexion SSH à mon instance?",
+      "answer": "Pour configurer le pare-feu, accédez à la page des \"Groupes de sécurité\" via le menu \"Réseau\" dans OpenStack. Sur la ligne du groupe par défaut, cliquez sur \"Gérer les Règles\", puis sur le bouton \"+Ajouter une règle\". Dans le menu déroulant \"Règles\", sélectionnez \"SSH\". Laissez \"CIDR\" dans le champ \"Distant\" et remplacez le contenu du champ \"CIDR\" par l'adresse IP de votre ordinateur physique, suivie de \"/32\" (par exemple, `votre-ip/32`). Enfin, cliquez sur \"Ajouter\"."
     },
     {
-      "question": "Où peut-on trouver la liste des adresses IP publiques et des projets associés?",
-      "answer": "La liste de vos adresses publiques et des projets associés se trouve sous `Réseau->IP flottantes`."
+      "question": "Quelles sont les précautions importantes à prendre concernant les règles de sécurité du pare-feu, surtout si mon adresse IP change fréquemment?",
+      "answer": "Il est crucial de ne pas supprimer ni modifier les règles de sécurité par défaut, car cela pourrait compromettre le fonctionnement de votre instance. Si votre adresse IP change, par exemple en changeant de lieu de travail, vous devez ajouter une nouvelle règle pour cette nouvelle adresse. Si votre adresse IP n'est pas statique et qu'elle change souvent, il pourrait être plus judicieux d'ajouter une plage d'adresses IP (notation CIDR) pour éviter de devoir modifier fréquemment les règles de sécurité. Il est aussi suggéré d'ajouter une description à vos règles de sécurité, comme \"bureau\" ou \"maison\", pour mieux les identifier."
     },
     {
-      "question": "Est-ce que l'adresse IP publique est nécessaire pour se connecter à l'instance?",
-      "answer": "Oui, vous aurez besoin de votre adresse IP publique pour vous connecter à votre instance."
-    },
-    {
-      "question": "Comment configurer le pare-feu pour une instance?",
-      "answer": "Il faut afficher la page `Groupes de sécurité` en allant dans `Réseau->Groupes de sécurité`."
-    },
-    {
-      "question": "Où doit-on cliquer pour gérer les règles d'un groupe de sécurité?",
-      "answer": "Sur la ligne du groupe par défaut, il faut cliquer sur le bouton `Gérer les Règles` à droite."
-    },
-    {
-      "question": "Comment ajouter une nouvelle règle de sécurité?",
-      "answer": "Sur la page de gestion des règles, il faut cliquer sur le bouton `+Ajouter une règle`."
-    },
-    {
-      "question": "Quelle règle doit-on sélectionner pour la connexion SSH?",
-      "answer": "Dans le menu déroulant `Règles`, il faut sélectionner `SSH`."
-    },
-    {
-      "question": "Que faut-il laisser dans le champ `Distant` lors de la création d'une règle SSH?",
-      "answer": "Il faut laisser `CIDR` dans le champ `Distant`."
-    },
-    {
-      "question": "Par quoi doit-on remplacer le contenu du champ `CIDR` pour se connecter à son instance?",
-      "answer": "Il faut le remplacer par `votre-ip/32`, qui est l'adresse IP de l'ordinateur physique que vous utilisez pour vous connecter à votre instance."
-    },
-    {
-      "question": "Comment peut-on trouver son adresse IP courante?",
-      "answer": "On peut connaître son adresse IP courante en entrant [http://ipv4.icanhazip.com ipv4.icanhazip.com] dans son navigateur."
-    },
-    {
-      "question": "Que doit-on faire pour accéder à l'instance à partir de plusieurs adresses IP différentes?",
-      "answer": "Pour avoir accès à votre instance à partir d'une autre adresse IP, vous pouvez ajouter d'autres règles pour chacune des adresses."
-    },
-    {
-      "question": "Quel outil peut être utilisé pour calculer une règle CIDR pour une série d'adresses IP?",
-      "answer": "Il est recommandé d'utiliser [https://www.ipaddressguide.com/cidr cet outil] pour calculer votre règle CIDR si vous voulez indiquer une série d'adresses IP."
-    },
-    {
-      "question": "Est-il permis de supprimer les règles de sécurité par défaut?",
-      "answer": "Non, il ne faut pas supprimer les règles de sécurité par défaut, car le fonctionnement de votre instance serait compromis."
-    },
-    {
-      "question": "Comment doit-on procéder si on veut modifier une règle de sécurité existante?",
-      "answer": "Il ne faut pas modifier les règles de sécurité directement; il faut les supprimer et les ajouter une fois modifiées."
-    },
-    {
-      "question": "Que faut-il faire si son adresse IP change, par exemple en travaillant d'un autre endroit?",
-      "answer": "Si vous changez d'endroit et que votre adresse IP change, vous devez ajouter la règle de sécurité appropriée pour la nouvelle adresse."
-    },
-    {
-      "question": "Quel est l'impact de changer de lieu de travail physique sur la connexion à l'instance?",
-      "answer": "Changer de lieu de travail physique, par exemple de la maison plutôt que du travail, implique un changement de réseau, et par le fait même, de votre adresse IP."
-    },
-    {
-      "question": "Qu'est-ce qui peut arriver si on n'a pas d'adresse IP statique?",
-      "answer": "Si vous n'avez pas d'adresse IP statique pour le réseau que vous utilisez, celle-ci peut changer."
-    },
-    {
-      "question": "Que faire si on n'arrive plus à se connecter à son instance après un certain temps?",
-      "answer": "Si vous ne pouvez plus vous connecter à votre instance, vérifiez si votre adresse IP a changé en entrant [http://ipv4.icanhazip.com ipv4.icanhazip.com] dans votre navigateur, puis vérifiez si elle correspond à votre règle de sécurité."
-    },
-    {
-      "question": "Quelle solution est suggérée si l'adresse IP change fréquemment?",
-      "answer": "Si votre adresse IP change souvent, il pourrait être plus raisonnable d'ajouter une plage d'adresses IP en utilisant la notation CIDR, plutôt que de modifier fréquemment les règles de sécurité."
-    },
-    {
-      "question": "Est-il recommandé de décrire les règles de sécurité?",
-      "answer": "Oui, il pourrait être utile de fournir une description pour vos règles de sécurité, par exemple 'bureau' ou 'maison'."
-    },
-    {
-      "question": "À quoi sert de décrire les règles de sécurité?",
-      "answer": "Décrire les règles de sécurité vous permettra de savoir si une règle n'est plus nécessaire, par exemple quand vous voulez ajouter une nouvelle règle pour une connexion depuis un autre lieu."
-    },
-    {
-      "question": "Quel élément crucial est nécessaire pour se connecter à l'instance par SSH?",
-      "answer": "Vous avez besoin de la clé privée que vous avez sauvegardée sur votre ordinateur pour vous connecter à votre instance par SSH."
-    },
-    {
-      "question": "Quelles informations supplémentaires sont nécessaires pour se connecter à son instance par SSH?",
-      "answer": "Vous devez aussi vous souvenir du type d'image que vous avez sélectionnée (Ubuntu, Fedora, etc.) et de l'adresse IP publique associée à votre instance."
+      "question": "Quels sont les éléments essentiels dont j'ai besoin pour établir une connexion SSH à mon instance cloud?",
+      "answer": "Pour vous connecter à votre instance via SSH, vous devez absolument savoir où se trouve la clé privée que vous avez sauvegardée sur votre ordinateur. De plus, il est important de vous souvenir du type d'image (comme Ubuntu, Fedora, etc.) que vous avez sélectionnée lors de la création de l'instance, ainsi que l'adresse IP publique qui lui est associée."
     }
   ],
-  "generated_at": "2026-04-11T19:52:42.957168+00:00"
+  "generated_at": "2026-04-13T04:03:14.157675+00:00"
 }

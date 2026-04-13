@@ -4,93 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How can I use Gaussian 09 or Gaussian 03 instead of Gaussian 16?",
-      "answer": "To use Gaussian 09 or Gaussian 03, you need to modify the 'module load' command in your job script from `gaussian/g16.c01` to `gaussian/g09.e01` or `gaussian/g03.d01`, respectively, and change the executable command from `G16` to `G09` or `G03`."
+      "question": "What are the characteristics and considerations when using the `g16` (lowercase) option for running Gaussian jobs on national clusters?",
+      "answer": "The `g16` option saves default runtime files (such as .rwf, .inp, .d2e, .int, .skr) temporarily in $SLURM_TMPDIR (e.g., /localscratch/username.jobid.0/) on the compute node, which can result in faster job execution. These files are automatically removed by the scheduler upon job completion. If a user intends to restart a job later, they must explicitly specify and name their own .rwf file in the Gaussian input. Users should also note that /localscratch is approximately 3TB and shared among all jobs on the same node; if job files approach or exceed this size, the `G16` (uppercase) option, which saves files to /scratch/username/jobid/, should be used instead."
     },
     {
-      "question": "What parameters can be adjusted in a Gaussian job script to match specific compute resource requirements?",
-      "answer": "You can modify the `--mem`, `--time`, and `--cpus-per-task` parameters in your job script to match your job's requirements for memory, expected run time, and number of CPUs."
+      "question": "How do users restart a Gaussian job from a previous run on the national clusters?",
+      "answer": "Gaussian jobs can always be restarted from the previous .rwf file, or from the .chk file for geometry optimization. To restart, users need to know the location of the previous .rwf file. The restart input requires specifying the `%rwf` path to this file, changing the keywords line to `#p restart`, and including a blank line at the end of the input file."
     },
     {
-      "question": "Where are default runtime files saved when using the 'g16' (lowercase) option for Gaussian jobs?",
-      "answer": "With the 'g16' (lowercase) option, default runtime files (unnamed .rwf, .inp, .d2e, .int, .skr files) are saved temporarily in `$SLURM_TMPDIR` (specifically `/localscratch/username.jobid.0/`) on the compute node where the job is scheduled."
-    },
-    {
-      "question": "What is the benefit of running Gaussian jobs using the `/localscratch` directory?",
-      "answer": "Gaussian jobs will run faster when using the `/localscratch` directory because it's a temporary, local storage on the compute node."
-    },
-    {
-      "question": "What happens to the default runtime files when a 'g16' (lowercase) job finishes?",
-      "answer": "The default runtime files saved in `$SLURM_TMPDIR` (on `/localscratch`) will be automatically removed by the scheduler when the 'g16' job finishes, regardless of whether it was successful or not."
-    },
-    {
-      "question": "If I need to restart a 'g16' (lowercase) job using the .rwf file, what extra step is required?",
-      "answer": "If you plan to restart a 'g16' job using the .rwf file at a later time, you must explicitly specify and name your own .rwf file in the Gaussian input file, as the default ones are automatically removed."
-    },
-    {
-      "question": "What is the shared capacity of `/localscratch` on a compute node?",
-      "answer": "`/localscratch` has approximately 3TB of storage, which is shared by all jobs running on the same node."
-    },
-    {
-      "question": "When should I choose the 'G16' (uppercase) option over the 'g16' (lowercase) option for Gaussian jobs?",
-      "answer": "You should use the 'G16' (uppercase) option if your job's files would be bigger than or close to the 3TB capacity of `/localscratch`, as the 'g16' option saves files temporarily there."
-    },
-    {
-      "question": "How do you submit a Gaussian job script named `mysub.sh`?",
-      "answer": "To submit a Gaussian job script named `mysub.sh`, you use the command `sbatch mysub.sh`."
-    },
-    {
-      "question": "Is it recommended to run interactive Gaussian jobs on a login node?",
-      "answer": "No, it is not considered good practice to run interactive Gaussian jobs on a login node."
-    },
-    {
-      "question": "How do you start an interactive Gaussian session on a compute node?",
-      "answer": "You can start an interactive session on a compute node using the `salloc` command, for example: `salloc --time=1:0:0 --cpus-per-task=8 --mem=10g`."
-    },
-    {
-      "question": "What command sequence is used to run an interactive 'G16' job and where are its runtime files saved?",
-      "answer": "To run an interactive 'G16' job, you'd use: `module load gaussian/g16.c01` followed by `G16 g16_test2.com`. The runtime files (.rwf etc.) are saved to `/scratch/yourid/jobid/`."
-    },
-    {
-      "question": "What command sequence is used to run an interactive 'g16' job and where are its runtime files saved?",
-      "answer": "To run an interactive 'g16' job, you'd use: `module load gaussian/g16.c01` followed by `g16 < g16_test2.com >& g16_test2.log &`. The runtime files are saved to `/localscratch/yourid/`."
-    },
-    {
-      "question": "Can Gaussian jobs be restarted?",
-      "answer": "Yes, Gaussian jobs can always be restarted from a previous `.rwf` file."
-    },
-    {
-      "question": "What file is typically used to restart a geometry optimization calculation?",
-      "answer": "Geometry optimization can be restarted from the `.chk` file."
-    },
-    {
-      "question": "Which types of one-step Gaussian computations can be restarted from an `.rwf` file?",
-      "answer": "One-step computations such as Analytic frequency calculations (including properties like ROA and VCD with ONIOM), CCSD and EOM-CCSD calculations, NMR, Polar=OptRot, CID, CISD, CCD, QCISD, and BD energies can be restarted from the `.rwf` file."
-    },
-    {
-      "question": "What information is needed to restart a Gaussian job from a previous `.rwf` file?",
-      "answer": "To restart a job from a previous `.rwf` file, you need to know the exact location (path) of that `.rwf` file from the previous run."
-    },
-    {
-      "question": "How do you structure the input file for a Gaussian job restart?",
-      "answer": "For a Gaussian job restart, the input needs to specify the `%rwf` path to the previous `.rwf` file, change the keywords line to `#p restart`, and then leave a blank line at the end."
-    },
-    {
-      "question": "What does `--mem=32G` specify in a Gaussian job script like the `g16` example?",
-      "answer": "`--mem=32G` specifies the amount of memory allocated for the job, which is roughly two times the `%mem` defined in the input `.com` file."
-    },
-    {
-      "question": "What does `--time=02-00:00` specify in a Gaussian job script?",
-      "answer": "`--time=02-00:00` specifies the expected run time for the job in the format DD-HH:MM (2 days and no hours/minutes in this example)."
-    },
-    {
-      "question": "What does `--cpus-per-task=32` specify in a Gaussian job script?",
-      "answer": "`--cpus-per-task=32` specifies the number of CPUs allocated for the job, as defined by `%nprocs` in the `.com` input file."
-    },
-    {
-      "question": "What is the command to run a 'g16' job with `name.com` as input and `name.log` as output?",
-      "answer": "The command to run a 'g16' job with `name.com` as input and `name.log` as output is `g16 < name.com >& name.log`."
+      "question": "How can a user run an interactive Gaussian job on the national clusters for testing purposes?",
+      "answer": "For testing purposes, users can run interactive Gaussian jobs on a compute node by first navigating to their input file directory and then using the `salloc` command to start an interactive session. An example command for an hour-long job with 8 CPUs and 10GB of memory is `salloc --time=1:0:0 --cpus-per-task=8 --mem=10g`. After the session starts, the Gaussian module is loaded (e.g., `module load gaussian/g16.c01`), and then the job is run using either the `G16` command (which saves runtime files to /scratch/yourid/) or the `g16` command (which saves runtime files to /localscratch/yourid/)."
     }
   ],
-  "generated_at": "2026-04-11T22:50:01.509808+00:00"
+  "generated_at": "2026-04-13T06:22:35.770401+00:00"
 }

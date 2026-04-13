@@ -4,73 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Que se passe-t-il si aucune bibliothèque CUDA n'est trouvée dans le répertoire `/usr/lib64/nvidia`?",
-      "answer": "Si aucune bibliothèque n'est présente dans `/usr/lib64/nvidia`, notre système suppose que les versions du pilote sont suffisantes pour CUDA 10.2, afin d'assurer la compatibilité avec les versions antérieures."
+      "question": "Comment puis-je installer des logiciels localement sur ma grappe de calcul et m'assurer qu'ils sont reconnus par l'environnement de modules central?",
+      "answer": "Pour installer des modules additionnels reconnus par notre hiérarchie centrale, vous devez d'abord identifier un chemin d'installation comme `/opt/software/easybuild` et vous assurer que ce dossier existe. Ensuite, exportez la variable d'environnement `RSNT_LOCAL_MODULEPATHS` en lui donnant comme valeur le chemin de vos modules (par exemple, `export RSNT_LOCAL_MODULEPATHS=/opt/software/easybuild/modules`). Puis, installez vos paquets logiciels avec EasyBuild en utilisant la commande `eb --installpath /opt/software/easybuild <votre recette easyconfig>`. Il est important de noter que cette variable doit être utilisée uniquement avec des arbres de modules hiérarchiques installés via EasyBuild pour que leur structure corresponde à celle de nos modules."
     },
     {
-      "question": "Comment faire pour masquer toutes les versions de CUDA disponibles?",
-      "answer": "Pour masquer toutes les versions de CUDA, il faut définir la variable d'environnement `RSNT_CUDA_DRIVER_VERSION` à `0.0`."
+      "question": "À quoi sert la variable d'environnement `RSNT_CUDA_DRIVER_VERSION` et comment influence-t-elle la visibilité des modules CUDA?",
+      "answer": "La variable `RSNT_CUDA_DRIVER_VERSION` est utilisée pour masquer ou afficher des versions de nos modules CUDA en fonction des exigences de version des pilotes NVidia. Si cette variable n'est pas définie, les fichiers présents dans `/usr/lib64/nvidia` déterminent quelles versions sont affichées ou cachées. S'il n'y a aucune bibliothèque à cet endroit, on suppose que les versions de pilotes sont suffisantes pour CUDA 10.2, afin d'assurer la compatibilité avec les versions antérieures (une fonctionnalité introduite avec CUDA 11.0). Si vous définissez `RSNT_CUDA_DRIVER_VERSION=0.0`, toutes les versions de CUDA seront masquées."
     },
     {
-      "question": "À quoi sert la variable d'environnement `RSNT_LOCAL_MODULEPATHS`?",
-      "answer": "La variable `RSNT_LOCAL_MODULEPATHS` sert à identifier les emplacements des arbres de modules locaux et à les intégrer à l'arborescence centrale de modules."
-    },
-    {
-      "question": "Quelles sont les conditions pour utiliser la variable `RSNT_LOCAL_MODULEPATHS` avec des arbres de modules?",
-      "answer": "Cette variable doit être utilisée seulement avec des arbres de modules hiérarchiques installés via EasyBuild qui respectent la même structure que nos modules."
-    },
-    {
-      "question": "Comment ajouter un chemin local pour un arbre de modules plat de manière à ce qu'il ait priorité sur l'arborescence centrale?",
-      "answer": "Pour ajouter un chemin local à un arbre de modules plat, il faut utiliser la commande `module use --priority 1 /chemin/vers/votre/arbre/de/modules/plat` *après* l'appel du script d'environnement."
-    },
-    {
-      "question": "Comment configurer `RSNT_LOCAL_MODULEPATHS` pour l'installation de logiciels additionnels?",
-      "answer": "Il faut d'abord exporter la variable d'environnement avec la commande `export RSNT_LOCAL_MODULEPATHS=/opt/software/easybuild/modules`, en remplaçant le chemin par celui de votre choix."
-    },
-    {
-      "question": "Comment installer une recette EasyBuild pour qu'elle utilise la nomenclature de modules locale?",
-      "answer": "Une fois que `RSNT_LOCAL_MODULEPATHS` est définie, installez la recette EasyBuild avec la commande `eb --installpath /opt/software/easybuild <votre recette>.eb`."
-    },
-    {
-      "question": "Quand est-ce qu'un module local installé avec la chaîne de compilation `iompi,2018.3` sera disponible aux utilisateurs?",
-      "answer": "Le module sera disponible après que les modules `intel/2018.3` et `openmpi/3.1.2` auront été chargés."
-    },
-    {
-      "question": "Quelle est la fonction de la variable d'environnement `LMOD_SYSTEM_DEFAULT_MODULES`?",
-      "answer": "Cette variable identifie les modules qui doivent être chargés par défaut lors du démarrage de l'environnement."
-    },
-    {
-      "question": "Quels modules sont chargés par défaut si la variable `LMOD_SYSTEM_DEFAULT_MODULES` n'est pas définie?",
-      "answer": "Si elle n'est pas définie, l'environnement charge par défaut le module `StdEnv`, qui à son tour charge une version par défaut du compilateur Intel et d'OpenMPI."
-    },
-    {
-      "question": "À quoi sert la variable `MODULERCFILE` et comment peut-on l'utiliser pour personnaliser l'environnement?",
-      "answer": "La variable `MODULERCFILE` est utilisée par Lmod pour définir les versions par défaut des modules et les alias. On peut créer son propre fichier `modulerc` et l'ajouter à cette variable, ce qui lui donnera préséance sur les définitions de l'environnement central."
-    },
-    {
-      "question": "Quels chemins de fichiers sont automatiquement ajoutés au `MODULEPATH` par défaut pour les modules installés localement?",
-      "answer": "Le chemin `/opt/software/modulefiles` est automatiquement ajouté au `MODULEPATH` par défaut s'il existe, ce qui permet d'utiliser l'environnement tout en conservant les modules installés localement."
-    },
-    {
-      "question": "Quel chemin est automatiquement ajouté au `MODULEPATH` pour les modules installés dans le répertoire personnel?",
-      "answer": "Le chemin `$HOME/modulefiles` est automatiquement ajouté au `MODULEPATH` par défaut s'il existe, ce qui permet l'installation de modules dans les répertoires `/home`."
-    },
-    {
-      "question": "Quels chemins sont ajoutés automatiquement au `PATH` par défaut pour l'ajout d'exécutables?",
-      "answer": "Les chemins `/opt/software/slurm/bin`, `/opt/software/bin` et `/opt/slurm/bin` sont automatiquement ajoutés au `PATH` par défaut."
-    },
-    {
-      "question": "Depuis quand est-il possible d'installer des modules additionnels sur une grappe de calcul et qu'ils soient reconnus par la hiérarchie centrale?",
-      "answer": "Depuis juin 2020, il est possible d'installer des modules additionnels sur votre grappe de calcul qui seront par la suite reconnus par notre hiérarchie centrale."
-    },
-    {
-      "question": "Quelle est la recommandation pour que les utilisateurs puissent trouver une branche de logiciels installés localement?",
-      "answer": "Il est recommandé de définir la variable d'environnement `RSNT_LOCAL_MODULEPATHS` dans le profil commun de la grappe pour que les utilisateurs puissent trouver cette branche."
-    },
-    {
-      "question": "Comment les logiciels installés localement avec EasyBuild sont-ils présentés aux utilisateurs?",
-      "answer": "Les logiciels sont installés localement selon la nomenclature de modules de l'Alliance et sont automatiquement présentés aux utilisateurs lorsqu'ils chargent notre compilateur, MPI et CUDA."
+      "question": "Comment les modules sont-ils chargés par défaut dans l'environnement logiciel et comment peut-on les personnaliser?",
+      "answer": "Par défaut, si la variable `LMOD_SYSTEM_DEFAULT_MODULES` n'est pas définie, notre environnement charge le module `StdEnv`, qui à son tour charge une version du compilateur Intel et une version d'OpenMPI par défaut. Pour personnaliser les versions par défaut des modules et les alias, vous pouvez définir votre propre fichier `modulerc` et l'ajouter à la variable `MODULERCFILE`; ce fichier aura préséance sur les définitions de notre environnement."
     }
   ],
-  "generated_at": "2026-04-11T15:50:40.438227+00:00"
+  "generated_at": "2026-04-13T00:58:53.603878+00:00"
 }

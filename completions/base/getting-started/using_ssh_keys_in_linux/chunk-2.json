@@ -4,73 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How can I install my SSH public key to a remote system using the simplest and safest method?",
-      "answer": "The simplest, safest way to install a key to a remote system is by using the `ssh-copy-id` command."
+      "question": "What are the recommended methods for installing the public part of an SSH key on a remote system?",
+      "answer": "The recommended methods for installing the public part of an SSH key are by leveraging the CCDB feature, which makes the key available to all clusters, or by using the `ssh-copy-id` command. The `ssh-copy-id` command is considered the simplest and safest way, as it automatically places the public key into the remote system's `~/.ssh/authorized_keys` file, creates necessary directories, and ensures correct permissions. Manual installation involves copying the public key file to the remote server, creating the `~/.ssh` directory, appending the public key to `~/.ssh/authorized_keys`, and setting specific permissions (e.g., `chmod --recursive go-rwx ~/.ssh`, `chmod go-w ~`, `chmod go-rwx id_rsa`) as SSH is particular about file permissions."
     },
     {
-      "question": "Provide an example of how to use the `ssh-copy-id` command to install a public key.",
-      "answer": "An example is `ssh-copy-id -i ~/.ssh/mynewkey.pub graham.computecanada.ca`."
+      "question": "How do you test an SSH connection to a remote machine using a specific private key?",
+      "answer": "To test an SSH connection using a specific private key, you use the `ssh` command with the `-i` option. The command syntax is `ssh -i /path/to/your/privatekey USERNAME@ADDRESS`. Here, `/path/to/your/privatekey` should be replaced with the full path to your private key file (e.g., `/home/ubuntu/.ssh/id_rsa`), `USERNAME` is your user name on the remote machine, and `ADDRESS` is the address of the remote machine you wish to connect to."
     },
     {
-      "question": "What does the `ssh-copy-id` command assume about the keypair name and your username?",
-      "answer": "The `ssh-copy-id` command assumes that the new keypair is named \"mynewkey\" (for `mynewkey.pub`) and that your username on the remote machine is the same as your local username."
-    },
-    {
-      "question": "What is the main benefit of using `ssh-copy-id` for installing a public key?",
-      "answer": "The main benefit from using `ssh-copy-id` is that it will create files and directories if necessary, and will ensure that the permissions on them are correct."
-    },
-    {
-      "question": "What are the manual steps to install a public key on a remote server?",
-      "answer": "You can manually install a public key by copying the public key file to the remote server, then executing the following commands: `mkdir ~/.ssh`, `cat id_rsa.pub >> ~/.ssh/authorized_keys`, `chmod --recursive go-rwx ~/.ssh`, and `chmod go-w ~`."
-    },
-    {
-      "question": "What permission requirement applies to the private key file for SSH to work?",
-      "answer": "The private key file must not be accessible to others. This can be ensured by running `chmod go-rwx id_rsa`."
-    },
-    {
-      "question": "What permission requirement applies to your remote /home directory for SSH to work?",
-      "answer": "Your remote /home directory must not be writable by others. This can be ensured by running `chmod go-w ~`."
-    },
-    {
-      "question": "What permission requirement applies to your remote ~/.ssh and ~/.ssh/authorized_keys directories/files for SSH to work?",
-      "answer": "Your remote ~/.ssh and ~/.ssh/authorized_keys must not be writable by others. This can be ensured by running `chmod --recursive go-rwx ~/.ssh`."
-    },
-    {
-      "question": "How do you test a new key after installation by SSHing to a remote machine?",
-      "answer": "You test the new key by SSHing to the remote machine from the local machine with `ssh -i /path/to/your/privatekey USERNAME@ADDRESS`."
-    },
-    {
-      "question": "In the SSH connection command, what does `/path/to/your/privatekey` specify?",
-      "answer": "`/path/to/your/privatekey` specifies your private key file, for example, `/home/ubuntu/.ssh/id_rsa`."
-    },
-    {
-      "question": "What is the purpose of the `ssh-agent` program?",
-      "answer": "The `ssh-agent` program stores your private key in memory on your local computer and provides it whenever another program on this computer needs it for authentification, meaning you only need to unlock the private key once."
-    },
-    {
-      "question": "How do you start the `ssh-agent` program?",
-      "answer": "You can start the `ssh-agent` program using the command `eval `ssh-agent``."
-    },
-    {
-      "question": "After starting `ssh-agent`, how do you add your key pair to it?",
-      "answer": "You can add your key pair to those managed by the agent using the command `ssh-add`."
-    },
-    {
-      "question": "What command allows you to view which private keys are currently accessible to the `ssh-agent`?",
-      "answer": "Using the `ssh-add -l` option will show which private keys are currently accessible to the `ssh-agent`."
-    },
-    {
-      "question": "When is it necessary to enable 'agent forwarding' with `ssh-agent`?",
-      "answer": "You will need to enable 'agent forwarding' if you need to use your private key on the cluster itself, for example, when interacting with a remote GitHub repository."
-    },
-    {
-      "question": "How can you enable agent forwarding for the Béluga cluster?",
-      "answer": "To enable agent forwarding on the Béluga cluster, you can add the following lines to your `$HOME/.ssh/config` file on your personal computer:\n```\nHost beluga.computecanada.ca\n    ForwardAgent yes\n```"
-    },
-    {
-      "question": "What specific `Host` configuration should you never use for agent forwarding in your SSH configuration file?",
-      "answer": "You should never use the line `Host *` for agent forwarding in your SSH configuration file."
+      "question": "What is the purpose of `ssh-agent` and how do you use it to manage SSH key passphrases?",
+      "answer": "The `ssh-agent` program is used to store your private SSH key in memory on your local computer, providing it to other programs that need it for authentication. This eliminates the need to repeatedly type your passphrase every time you log in to a cluster. To use it, you first start `ssh-agent` by executing `eval `ssh-agent``, and then add your key pair to the agent using the `ssh-add` command. If your key pair is not in a standard location, you can explicitly provide the full path to your private key as an argument to `ssh-add`."
     }
   ],
-  "generated_at": "2026-04-12T10:09:11.629761+00:00"
+  "generated_at": "2026-04-13T15:13:54.297651+00:00"
 }

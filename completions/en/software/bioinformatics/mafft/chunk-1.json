@@ -4,97 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is MAFFT?",
-      "answer": "MAFFT is a multiple sequence alignment program for unix-like operating systems."
+      "question": "What is MAFFT, and what different multiple sequence alignment methods does it offer?",
+      "answer": "MAFFT is a multiple sequence alignment program designed for unix-like operating systems. It offers a range of multiple alignment methods, including L-INS-i for accurate alignment of up to approximately 200 sequences, and FFT-NS-2 for fast alignment of up to about 30,000 sequences."
     },
     {
-      "question": "What kind of operating systems does MAFFT run on?",
-      "answer": "MAFFT runs on unix-like operating systems."
+      "question": "How is the temporary directory configured when using MAFFT on a single node versus multiple nodes with MPI?",
+      "answer": "When using MAFFT on a single node, the `MAFFT_TMPDIR` is set to `$SLURM_TMPDIR/maffttmp` when the module is loaded. For multiple nodes with MPI, the `MAFFT_TMPDIR` is set to `$SCRATCH/maffttmp` when the module is loaded. If this temporary directory is changed for MPI runs, it must be shared by all hosts."
     },
     {
-      "question": "Can you name some multiple alignment methods offered by MAFFT?",
-      "answer": "MAFFT offers a range of multiple alignment methods, including L-INS-i and FFT-NS-2."
-    },
-    {
-      "question": "What is the L-INS-i method in MAFFT known for and how many sequences can it align?",
-      "answer": "The L-INS-i method is accurate and is designed for the alignment of up to approximately 200 sequences."
-    },
-    {
-      "question": "What is the FFT-NS-2 method in MAFFT known for and how many sequences can it align?",
-      "answer": "The FFT-NS-2 method is fast and is designed for the alignment of up to approximately 30,000 sequences."
-    },
-    {
-      "question": "Can MAFFT utilize multiple cores on a single node?",
-      "answer": "Yes, MAFFT can benefit from multiple cores on a single node."
-    },
-    {
-      "question": "Where can I find more information about MAFFT's multithreading capabilities?",
-      "answer": "More information about MAFFT's multithreading capabilities can be found at https://mafft.cbrc.jp/alignment/software/multithreading.html."
-    },
-    {
-      "question": "What is the default setting for the MAFFT_TMPDIR environment variable when the MAFFT module is loaded for a single node job?",
-      "answer": "When the MAFFT module is loaded for a single node, the MAFFT_TMPDIR is set to $SLURM_TMPDIR/maffttmp."
-    },
-    {
-      "question": "What is the requested time for the `mafft_submit.sh` script?",
-      "answer": "The `mafft_submit.sh` script requests 24 hours (24:00:00)."
-    },
-    {
-      "question": "How many nodes are requested in the `mafft_submit.sh` script?",
-      "answer": "The `mafft_submit.sh` script requests 1 node."
-    },
-    {
-      "question": "How many CPUs per task are requested in the `mafft_submit.sh` script?",
-      "answer": "The `mafft_submit.sh` script requests 32 CPUs per task."
-    },
-    {
-      "question": "Which modules need to be loaded to run MAFFT on a single node according to the example script?",
-      "answer": "According to the example script, `gcc/9.3.0` and `mafft` modules need to be loaded."
-    },
-    {
-      "question": "What is the command used to execute MAFFT with multithreading in the `mafft_submit.sh` script?",
-      "answer": "The command used is `mafft --globalpair --thread $SLURM_CPUS_PER_TASK input > output`."
-    },
-    {
-      "question": "Can MAFFT be used with MPI for aligning a large number of sequences?",
-      "answer": "Yes, MAFFT can use MPI to align a large number of sequences."
-    },
-    {
-      "question": "Where can I find more information about MAFFT's MPI support?",
-      "answer": "More information about MAFFT's MPI support can be found at https://mafft.cbrc.jp/alignment/software/mpi.html."
-    },
-    {
-      "question": "What is the default setting for the MAFFT_TMPDIR environment variable when the `mafft-mpi` module is loaded?",
-      "answer": "When the `mafft-mpi` module is loaded, the MAFFT_TMPDIR is set to $SCRATCH/maffttmp."
-    },
-    {
-      "question": "What is a requirement for the temporary directory if it is changed when using MAFFT with MPI?",
-      "answer": "If you change the temporary directory when using MAFFT with MPI, it must be shared by all hosts."
-    },
-    {
-      "question": "What is the requested time for the `mafft_mpi_submit.sh` script?",
-      "answer": "The `mafft_mpi_submit.sh` script requests 4 hours (04:00:00)."
-    },
-    {
-      "question": "How many nodes are requested in the `mafft_mpi_submit.sh` script?",
-      "answer": "The `mafft_mpi_submit.sh` script requests 2 nodes."
-    },
-    {
-      "question": "How many tasks per node are requested in the `mafft_mpi_submit.sh` script?",
-      "answer": "The `mafft_mpi_submit.sh` script requests 4 tasks per node."
-    },
-    {
-      "question": "How much memory is requested in the `mafft_mpi_submit.sh` script?",
-      "answer": "The `mafft_mpi_submit.sh` script requests 12GB of memory."
-    },
-    {
-      "question": "Which modules need to be loaded to run MAFFT with MPI according to the example script?",
-      "answer": "According to the example script, `gcc/9.3.0` and `mafft-mpi` modules need to be loaded."
-    },
-    {
-      "question": "What is the command used to execute MAFFT with MPI in the `mafft_mpi_submit.sh` script?",
-      "answer": "The command used is `srun mafft --mpi --large --globalpair --thread $SLURM_CPUS_PER_TASK input > output`."
+      "question": "Can MAFFT utilize multiple cores on a single node, or can it also be used across multiple nodes with MPI, and what are the typical module loads for each scenario?",
+      "answer": "Yes, MAFFT can benefit from multiple cores on a single node. It can also use MPI to align a large number of sequences across multiple nodes. For single-node usage, the `mafft` module is loaded (e.g., `module load gcc/9.3.0 mafft`). For multiple-node MPI usage, the `mafft-mpi` module is typically loaded (e.g., `module load gcc/9.3.0 mafft-mpi`)."
     }
   ],
-  "generated_at": "2026-04-12T01:11:17.478267+00:00"
+  "generated_at": "2026-04-13T08:16:31.013061+00:00"
 }

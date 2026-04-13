@@ -3,45 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is SSH tunnelling and why is it necessary within the Alliance environment?",
-      "answer": "SSH tunnelling is a method to use a gateway computer to connect two computers that cannot connect directly. It's necessary in the Alliance because compute nodes on some clusters lack direct access to the Internet or cannot be contacted directly from the Internet."
+      "question": "What is SSH tunnelling, and why is it required for some operations on Alliance clusters?",
+      "answer": "SSH tunnelling is a method to use a gateway computer to connect two computers that cannot connect directly. It is necessary on Alliance clusters because compute nodes on some clusters do not have direct access to the Internet, nor can they be contacted directly from the Internet."
     },
     {
-      "question": "What are some common use cases that require SSH tunnels in the Alliance context?",
-      "answer": "Common use cases include running commercial software that needs to contact a license server over the Internet, using visualization software that requires connection from a user's local computer, and connecting to a database hosted on a cluster from outside its head node."
+      "question": "What are the common use cases that necessitate the use of SSH tunnels on Alliance clusters?",
+      "answer": "SSH tunnels are needed for running commercial software that contacts a license server over the Internet, displaying visualization software on a user's local computer from a compute node, and connecting to a database hosted on a cluster from outside its head node."
     },
     {
-      "question": "What is a 'port' in the context of network communication?",
-      "answer": "A port is a number used to distinguish different streams of communication, analogous to a radio frequency or channel. Many port numbers are reserved by rule or convention for specific types of network traffic."
+      "question": "What optional familiarity might be beneficial for users considering SSH tunnelling on Alliance clusters?",
+      "answer": "While not strictly required, users may wish to be familiar with SSH key pairs when using SSH tunnelling on Alliance clusters."
     },
     {
-      "question": "What information is needed to set up an SSH tunnel for contacting a license server from a compute node?",
-      "answer": "You will need the IP address or name of the license server (LICSERVER) and the specific port number of the license service (LICPORT). This information should be obtained from the license server's maintainer."
+      "question": "In the context of computing, how is a port defined?",
+      "answer": "A port is a number used to distinguish streams of communication from one another. It can be thought of as analogous to a radio frequency or a channel, with many port numbers reserved by rule or convention for specific types of traffic."
     },
     {
-      "question": "What is the typical SSH command structure used in a job script to set up a tunnel for a license server, and what do its main parameters mean?",
-      "answer": "The command is `ssh GATEWAY -L COMPUTEPORT:LICSERVER:LICPORT -N -f`. The `-L` parameter specifies port forwarding, `-N` tells SSH not to open a shell, and `-f` along with `-N` runs SSH in the background, allowing the job script to continue."
+      "question": "Why might an SSH tunnel be necessary when a program on an Alliance compute node needs to contact a license server?",
+      "answer": "An SSH tunnel is necessary when a program on an Alliance compute node needs to contact a license server because the compute node might not have direct access to the Internet. A gateway server with Internet access is then used to forward communications on the predetermined port from the compute node to the license server."
     },
     {
-      "question": "How does the software on a compute node typically connect to the license server through an SSH tunnel?",
-      "answer": "The software is usually configured by setting an environment variable in the job script, informing it that the license server is on `localhost` at the chosen `COMPUTEPORT`, for example, `export MLM_LICENSE_FILE=COMPUTEPORT@localhost`."
+      "question": "What essential information is required to establish an SSH tunnel for contacting a license server from a compute node on an Alliance cluster?",
+      "answer": "To set up an SSH tunnel for a license server, users need the IP address or name of the license server (LICSERVER) and the port number of the license service (LICPORT), which should be obtained from whoever maintains the license server."
     },
     {
-      "question": "What is the main purpose of using SSH tunnelling to connect to a program running on a compute node?",
-      "answer": "The main purpose is to allow a user's local computer to connect to a compute node on a cluster through an encrypted tunnel, enabling transparent display of graphical output from applications like Jupyter Notebooks or visualization software, or connecting to a database."
+      "question": "Which gateway servers are used for setting up SSH tunnels to license servers on Alliance clusters like Trillium and Nibi?",
+      "answer": "The gateway server for Trillium is `tri-gw`, while for Nibi, users would pick one of the login nodes (e.g., `l1`, `l2`, ... `l5`) as the gateway."
     },
     {
-      "question": "How can users on Linux or MacOS X set up an SSH tunnel to connect to a program running on a compute node?",
-      "answer": "Users on Linux or MacOS X are recommended to use the `sshuttle` Python package. They should open a new terminal and run the command `sshuttle --dns -Nr userid@machine_name`."
+      "question": "What is the basic SSH command structure used in a job script to create a tunnel for a license server on an Alliance cluster?",
+      "answer": "The basic SSH command to issue in a job script is `ssh GATEWAY -L COMPUTEPORT:LICSERVER:LICPORT -N -f`, where `GATEWAY` is the chosen gateway server, `COMPUTEPORT` is a chosen port on the compute node, `LICSERVER` is the license server's address, and `LICPORT` is the license service port."
     },
     {
-      "question": "What are the steps to create an SSH tunnel from Windows using MobaXTerm to access an application on a compute node?",
-      "answer": "First, start your application on the cluster in MobaXTerm Session 1 to get its URL. Then, in a local terminal (Session 2), run `ssh -L local_port:remote_hostname:remote_port someuser@cluster.alliancecan.ca`. Finally, modify the application's URL by replacing the hostname with `localhost` and paste it into your browser."
+      "question": "What is the function of the `-N` and `-f` parameters in the SSH command used for setting up a license server tunnel on Alliance clusters?",
+      "answer": "The `-N` parameter tells SSH not to open a shell on the `GATEWAY`, and `-f` combined with `-N` tells SSH not to open a shell and to run in the background, allowing the job script to continue."
     },
     {
-      "question": "How can one establish an SSH tunnel from a desktop to a database server (like PostgreSQL or MySQL) on a cluster?",
-      "answer": "You can use `ssh -L PORT:database_server_address:database_port someuser@cluster.alliancecan.ca`. Afterward, you connect to the database locally from your desktop using commands like `psql -h 127.0.0.1 -p PORT -U <username> -d <database>` or `mysql -h 127.0.0.1 -P PORT -u <username> --protocol=TCP -p`."
+      "question": "After establishing an SSH tunnel for a license server on an Alliance cluster, how is the software typically configured to use this tunnel?",
+      "answer": "The software is typically configured by setting an environment variable in the job script, such as `export MLM_LICENSE_FILE=COMPUTEPORT@localhost`, to inform it that the license server is on the specified port on `localhost` (the computer itself)."
+    },
+    {
+      "question": "What is the primary application of SSH tunnelling when connecting to a program that is running on a compute node of an Alliance cluster?",
+      "answer": "The primary application is to allow a user's local computer to connect to a compute node through an encrypted tunnel, enabling graphical output from applications like Jupyter Notebooks or visualization software to be displayed on the user's workstation."
+    },
+    {
+      "question": "Which tool is recommended for setting up an SSH tunnel on Linux or MacOS X systems to connect to a program running on an Alliance compute node?",
+      "answer": "On Linux or MacOS X systems, the `sshuttle` Python package is recommended for creating an SSH tunnel to connect to a program running on an Alliance compute node."
+    },
+    {
+      "question": "How do users on Windows set up an SSH tunnel using MobaXTerm to connect to an application running on an Alliance cluster's compute node?",
+      "answer": "On Windows, users open two MobaXTerm sessions: one for the cluster job to get the application's URL (e.g., `fc3281.int.fir.alliancecan.ca:8888`), and a second local terminal to run an SSH command like `ssh -L 8888:fc3281.int.fir.alliancecan.ca:8888 someuser@fir.alliancecan.ca`."
+    },
+    {
+      "question": "When connecting to an application on an Alliance cluster from Windows via an SSH tunnel, such as a Jupyter Notebook, how should the provided URL be modified for local access?",
+      "answer": "The host name in the application's URL should be replaced with `localhost` (e.g., `http://localhost:8888/?token=...`) to access it through the locally configured SSH tunnel."
+    },
+    {
+      "question": "How can SSH tunnelling be utilized to connect to a database server, such as PostgreSQL or MySQL, hosted on an Alliance cluster from a user's desktop?",
+      "answer": "SSH tunnelling can be used by running a command like `ssh -L PORT:database_server_address someuser@fir.alliancecan.ca` from the desktop, which connects a specified local port (PORT) to the remote database server."
+    },
+    {
+      "question": "What is a recommended guideline for choosing the port number (PORT) when setting up an SSH tunnel to a database server on an Alliance cluster from a user's desktop?",
+      "answer": "When setting up an SSH tunnel to a database server, it is recommended that the chosen local port number (PORT) not be larger than 32768."
+    },
+    {
+      "question": "After establishing an SSH tunnel to a database server on an Alliance cluster, what commands are used from a desktop to connect to PostgreSQL or MySQL, respectively?",
+      "answer": "For PostgreSQL, the command is `psql -h 127.0.0.1 -p PORT -U <your username> -d <your database>`. For MySQL, it is `mysql -h 127.0.0.1 -P PORT -u <your username> --protocol=TCP -p`."
     }
   ],
-  "generated_at": "2026-04-12T07:34:19.310673+00:00"
+  "generated_at": "2026-04-13T13:13:14.896515+00:00"
 }

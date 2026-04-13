@@ -4,113 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What does the `/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/allowed_commands.sh` script allow?",
-      "answer": "This script allows all the commands covered by `transfer_commands.sh`, `archiving_commands.sh`, `file_commands.sh`, `git_commands.sh`, and `slurm_commands.sh`."
+      "question": "What are the hostnames for automation nodes on the Fir, Narval, Nibi, Rorqual, tamIA, and Trillium clusters?",
+      "answer": "The hostnames for automation nodes are: Fir: `robot.fir.alliancecan.ca`, Narval: `robot.narval.alliancecan.ca`, Nibi: `robot.nibi.alliancecan.ca`, Rorqual: `robot.rorqual.alliancecan.ca`, tamIA: `robot.tamia.ecpia.ca`, and Trillium: `robot2.scinet.utoronto.ca`."
     },
     {
-      "question": "How many constraints must an SSH key include to be accepted for automation nodes?",
-      "answer": "Accepted SSH keys must include all three of the specified constraints to be accepted."
+      "question": "How can a user specify a particular SSH private key when connecting to an automation node using `ssh` or `scp` commands?",
+      "answer": "To specify a specific SSH private key, use the `-i` option with `ssh` or `scp`, for example, `ssh -i .ssh/private_key_to_use ...` or `scp -i .ssh/private_key_to_use ...`. For `rsync`, the command is `rsync -e \"ssh -i .ssh/private_key_to_use\" ...`. Alternatively, these parameters can be conveniently configured in the `~/.ssh/config` file."
     },
     {
-      "question": "Can you provide an example of an accepted SSH key configured solely for transferring files?",
-      "answer": "An example of such a key is: `restrict,from=\"216.18.209.*\",command=\"/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/transfer_commands.sh\" ssh-ed25519 AAAAC3NzaC1lZDI1NTE6AACAIExK9iTTDGsyqKKzduA46DvIJ9oFKZ/WN5memqG9Invw`."
-    },
-    {
-      "question": "Can you provide an example of an accepted SSH key configured to only allow Slurm commands?",
-      "answer": "An example of such a key is: `restrict,from=\"216.18.209.*\",command=\"/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/slurm_commands.sh\" ssh-ed25519 AAAAC3NzaC1lZDI1NTE6AACAIExK9iTTDGsyqKKzduA46DvIJ9oFKZ/WN5memqG9Invw`."
-    },
-    {
-      "question": "Where must the constraints be added when creating an SSH key for automation nodes?",
-      "answer": "The constraints must be added directly as text in front of your key, before uploading the complete string to your account in the CCDB."
-    },
-    {
-      "question": "What is the hostname for the Fir cluster's automation node?",
-      "answer": "The hostname for the Fir cluster's automation node is `robot.fir.alliancecan.ca`."
-    },
-    {
-      "question": "What is the hostname for the Narval cluster's automation node?",
-      "answer": "The hostname for the Narval cluster's automation node is `robot.narval.alliancecan.ca`."
-    },
-    {
-      "question": "What is the hostname for the Nibi cluster's automation node?",
-      "answer": "The hostname for the Nibi cluster's automation node is `robot.nibi.alliancecan.ca`."
-    },
-    {
-      "question": "What is the hostname for the Rorqual cluster's automation node?",
-      "answer": "The hostname for the Rorqual cluster's automation node is `robot.rorqual.alliancecan.ca`."
-    },
-    {
-      "question": "What is the hostname for the tamIA cluster's automation node?",
-      "answer": "The hostname for the tamIA cluster's automation node is `robot.tamia.ecpia.ca`."
-    },
-    {
-      "question": "What is the hostname for the Trillium cluster's automation node?",
-      "answer": "The hostname for the Trillium cluster's automation node is `robot2.scinet.utoronto.ca`."
-    },
-    {
-      "question": "How do you typically ensure the correct SSH key is used when you have multiple keys on your computer?",
-      "answer": "This is typically done by passing parameters to the command you are using."
-    },
-    {
-      "question": "How can you specify a private key for `ssh` or `scp` commands?",
-      "answer": "You can specify a private key using the `-i` flag, for example: `ssh -i .ssh/private_key_to_use ...` or `scp -i .ssh/private_key_to_use ...`."
-    },
-    {
-      "question": "How can you specify a private key for `rsync` commands?",
-      "answer": "You can specify a private key for `rsync` using the `-e \"ssh -i .ssh/private_key_to_use\"` parameter, for example: `rsync -e \"ssh -i .ssh/private_key_to_use\" ...`."
-    },
-    {
-      "question": "Where is a convenient place to put SSH parameters so they are automatically picked up by SSH client invocations?",
-      "answer": "It's often much more convenient to put these parameters into your `~/.ssh/config` file."
-    },
-    {
-      "question": "What is an example of a `~/.ssh/config` entry for an automation node?",
-      "answer": "An example entry is: `host robot` `hostname robot.cluster.alliancecan.ca` `user myrobot` `identityfile ~/.ssh/my-robot-key` `identitiesonly yes` `requesttty no`."
-    },
-    {
-      "question": "What is a potential issue when connecting to an automation node regarding IP addressing?",
-      "answer": "When connecting to an automation node, the SSH client on your computer may choose to use IPv6 addressing over the older IPv4, which seems to be more probable in a Windows environment."
-    },
-    {
-      "question": "What should you ensure about the `restrict,from=` field in your SSH key due to IPv4 vs. IPv6 issues?",
-      "answer": "You must ensure that the IP address mask you put in the `restrict,from=` field of the key matches the type your computer will be using (IPv4 or IPv6) when connecting to the node."
-    },
-    {
-      "question": "How can you check your computer's IPv4 and IPv6 addresses?",
-      "answer": "You can check your addresses using the website `https://test-ipv6.com/`."
-    },
-    {
-      "question": "What is an example of an IPv4 address?",
-      "answer": "An IPv4 address could look like `199.241.166.5`."
-    },
-    {
-      "question": "What is an example of an IPv6 address?",
-      "answer": "An IPv6 address could look like `2620:123:7002:4::5`."
-    },
-    {
-      "question": "What problem occurs if an IPv4 address mask is used in the CCDB SSH key, but the client connects via IPv6?",
-      "answer": "The source address will not match the IPv4 mask in the key, and thus the key will not be accepted by the automation node."
-    },
-    {
-      "question": "What command can be used to diagnose SSH connection difficulties to an automation node, specifically regarding IPv4/IPv6 issues?",
-      "answer": "You can try the test command: `ssh -i ~/.ssh/automation_key -vvv username@robot.rorqual.alliancecan.ca \"ls -l\"`."
-    },
-    {
-      "question": "What does the `-vvv` option do in the SSH test command?",
-      "answer": "The `-vvv` option enables \"Very Very Verbose\" debug output for the SSH command."
-    },
-    {
-      "question": "What message in the SSH debug output indicates which IP version is being used?",
-      "answer": "You should look for the `Connecting to...` message in the debug output."
-    },
-    {
-      "question": "How can you tell from the SSH debug output if IPv4 is being used for the connection?",
-      "answer": "If the debug output contains `debug1: Connecting to robot.rorqual.alliancecan.ca [199.241.166.5] port 22.`, it indicates that IPv4 is being used."
-    },
-    {
-      "question": "How can you tell from the SSH debug output if IPv6 is being used for the connection?",
-      "answer": "If the debug output contains `debug1: Connecting to robot.rorqual.alliancecan.ca [2620:123:7002:4::5] port 22.`, then IPv6 is being used to make the connection."
+      "question": "What common connection problem might arise when using an automation node related to IP addressing, and how can one diagnose it?",
+      "answer": "A common connection problem is an IPv4 vs IPv6 issue, where the SSH client on your computer might use IPv6 while the `restrict,from=` constraint in your uploaded SSH key expects an IPv4 address, causing the key to be rejected. To diagnose this, you can run a test command like `ssh -i ~/.ssh/automation_key -vvv username@robot.rorqual.alliancecan.ca \"ls -l\"` and look for the 'Connecting to...' message in the verbose output. This message will indicate whether IPv4 (e.g., `[199.241.166.5]`) or IPv6 (e.g., `[2620:123:7002:4::5]`) is being used for the connection."
     }
   ],
-  "generated_at": "2026-04-11T18:09:19.816598+00:00"
+  "generated_at": "2026-04-13T02:40:04.337357+00:00"
 }

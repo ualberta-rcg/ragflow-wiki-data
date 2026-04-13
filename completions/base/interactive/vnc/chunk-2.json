@@ -4,57 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How do you initiate a VNC server on a login node, including a timeout option?",
-      "answer": "You can start your vncserver on a login node by running `vncserver -idletimeout 86400`, which will set an idle timeout of 86400 seconds."
+      "question": "How do you start a VNC server on a cluster login node, and what is the purpose of the `-idletimeout` option?",
+      "answer": "To start a VNC server on a login node, use the command `vncserver -idletimeout seconds` (e.g., `vncserver -idletimeout 86400`). The `-idletimeout seconds` option ensures that your VNC server automatically terminates after the specified number of seconds if there are no active VNC viewer connections. This is useful if you forget to manually log out of your VNC desktop session. The first time you start a VNC server, you will also be prompted to set a password for remote connections."
     },
     {
-      "question": "What is the purpose of the `-idletimeout` option when starting a vncserver on a login node?",
-      "answer": "The `-idletimeout seconds` option ensures that your `vncserver` eventually terminates (once the specified seconds have elapsed with no VNC viewer connections) if you forget to terminate your vncviewer session by clicking `System -> Log out` in the VNC desktop."
+      "question": "What is the process for connecting to a VNC server running on a cluster login node from your local desktop?",
+      "answer": "First, determine the TCP port your VNC server is listening on by running `grep -iE \"\\sport|kill\" /home/yourusername/.vnc/l4.nibi.sharcnet:1.log` on the login node (e.g., port 5901). Then, on your local desktop, establish an SSH tunnel to forward an arbitrary local port (e.g., 5905) to the VNC server's listening port on the login node (e.g., `ssh nibi.computecanada.ca -L 5905:l4:5901`). Finally, connect using the TigerVNC Viewer application by entering `localhost:5905` in the connection details, or via the command line with `vncviewer localhost:5905`. You will be prompted for the VNC authentication password you set up earlier."
     },
     {
-      "question": "Which software is the `vncserver` command provided by StdEnv/2023 based on?",
-      "answer": "The `vncserver` command provided by StdEnv/2023 is based on TurboVNC."
-    },
-    {
-      "question": "What is required the first time you launch a vncserver?",
-      "answer": "The first time you start vncserver, you will be required to set a password."
-    },
-    {
-      "question": "For what purposes is the VNC server password necessary?",
-      "answer": "The password will be required to remotely connect to your desktop with a VNC client (such as vncviewer). The same password will be required when making multiple connections if you started your vncserver by appending the additional `-alwaysshared` option."
-    },
-    {
-      "question": "How can you determine the TCP port your vncserver is listening on?",
-      "answer": "You can determine the TCP port your vncserver is listening on by running `grep -iE \"\\sport|kill\"` on the log file, for example: `grep -iE \"\\sport|kill\" /home/yourusername/.vnc/l4.nibi.sharcnet:1.log`. This will show the port, such as 5901."
-    },
-    {
-      "question": "Will the vncserver continue to run after you exit the login node?",
-      "answer": "Yes, the vncserver you started will continue running until the time limit you specified (with the `-idletimeout` option) is reached, even after you exit the login node."
-    },
-    {
-      "question": "How do you establish an SSH tunnel from your desktop to the VNC server on a login node?",
-      "answer": "You can start an SSH tunnel from your desktop by using a command like `ssh nibi.computecanada.ca -L 5905:l4:5901`, which forwards an arbitrary local port (e.g., 5905) to the VNC server's listening port (e.g., 5901) on the login node (e.g., l4)."
-    },
-    {
-      "question": "What are the two ways to connect to the VNC server from your desktop once an SSH tunnel is established?",
-      "answer": "You can connect either by clicking the `TigerVNC Viewer` application icon and entering `localhost:5905` in the `VNC viewer: Connection details` popup window, or by opening another terminal and running the command `vncviewer localhost:5905`."
-    },
-    {
-      "question": "What happens after you successfully enter the VNC authentication password?",
-      "answer": "After successfully entering the password, your remote desktop should immediately appear."
-    },
-    {
-      "question": "Are there limitations for applications run on cluster login nodes?",
-      "answer": "Yes, although there are no system time limits on the login nodes for processes, any applications you run in your remote desktop will be subject to memory and cputime limits."
-    },
-    {
-      "question": "When is it advisable to start a VNC server on a cluster compute node instead of a login node?",
-      "answer": "It is advisable to start a VNC server on a cluster compute node if you require more memory, CPU resources, or GPU access for applications in your desktop, or for graphics acceleration, as these can be requested accordingly using the `salloc` command."
-    },
-    {
-      "question": "Does starting a VNC server on a compute node automatically provide hardware-accelerated OpenGL capabilities?",
-      "answer": "No, while starting a VNC server on a compute node gives you dedicated access to a full graphical desktop, by default, it will not have hardware-accelerated OpenGL capabilities."
+      "question": "Under what circumstances should a VNC server be started on a compute node instead of a login node?",
+      "answer": "A VNC server should be started on a compute node if your program requires more memory, CPU resources, or GPU access than what is available on a login node. Login nodes have system-imposed memory and CPU time limits for applications. Using a compute node with the `salloc` command allows you to request dedicated resources, including graphics acceleration capabilities, which are not typically available by default on login nodes."
     }
   ],
-  "generated_at": "2026-04-12T10:49:55.716383+00:00"
+  "generated_at": "2026-04-13T15:47:05.810632+00:00"
 }

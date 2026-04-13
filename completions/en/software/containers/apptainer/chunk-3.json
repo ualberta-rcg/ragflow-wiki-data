@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What options are available if I need `sudo` permissions to build an Apptainer image on Alliance clusters?",
-      "answer": "If `sudo` permissions are required, you can install Linux, Apptainer, and `sudo` in a virtual machine on a system you control, build your images there, and then upload them to Alliance systems. Alternatively, you may submit a ticket to Alliance staff for assistance. Apptainer version 1.1.x and newer also has improved support for `--fakeroot`, which allows building some images without needing explicit `sudo` or superuser/root privileges."
+      "question": "What are the recommended options for users who need `sudo` or root permissions to build Apptainer images on Alliance clusters?",
+      "answer": "Users can install Linux, Apptainer, and `sudo` in a virtual machine they control to build images and then upload them to Alliance systems. Alternatively, they can submit a technical support ticket to ask Alliance staff for help building the required images. Apptainer version 1.1.x and newer also offers improved support for `--fakeroot`, which may allow some images to be built without needing `sudo`."
     },
     {
-      "question": "What filesystem considerations should I keep in mind when building Apptainer images or overlays?",
-      "answer": "When building Apptainer images or overlays, you should avoid building sandbox images using `--fakeroot` on networked filesystems. It is important to explicitly set `APPTAINER_CACHEDIR` to a non-networked filesystem location and `APPTAINER_TMPDIR` to a non-Lustre/GPFS filesystem location before using Apptainer. Additionally, Lustre/GPFS filesystems should be avoided for building Apptainer containers, including with `--fakeroot`, as they lack the necessary feature set."
+      "question": "What are the key considerations and recommendations when building Apptainer container images or overlays on Alliance systems?",
+      "answer": "Users should avoid building sandbox images using `--fakeroot` on networked filesystems. It is important to explicitly set `APPTAINER_CACHEDIR` to a non-networked filesystem location and `APPTAINER_TMPDIR` to a non-Lustre/GPFS filesystem location before using Apptainer. Additionally, users should avoid using Lustre/GPFS filesystems for building, as they lack the necessary feature set."
     },
     {
-      "question": "Why are isolation options like `-C`, `-c`, `-e`, and the `--workdir` option important when running Apptainer containers?",
-      "answer": "Isolation options such as `-C`, `-c`, and `-e` are important because Apptainer, by default, can adopt the host's shell environment, which might lead to issues. `-C` isolates from all filesystems, PID, IPC, and environment, while `-c` isolates from most filesystems, providing minimal `/dev`, `/tmp`, and `/home`. `-e` cleans some shell environment variables for OCI/Docker compatibility. The `-W` or `--workdir` option is crucial on clusters because `/tmp` often uses RAM, which can lead to jobs being killed if they exceed requested memory. Using `-W` allows you to specify a real disk location for Apptainer's temporary files, preventing such issues."
+      "question": "When running programs within an Apptainer container, what command line options can be used to isolate the container's environment from the host system?",
+      "answer": "The `-C` option isolates the running container from all filesystems, as well as the parent PID, IPC, and environment. The `-c` option isolates the container from most filesystems, only using a minimal `/dev`, an empty `/tmp` directory, and an empty `/home` directory. The `-e` option cleans some shell environment variables before running container commands and applies settings for increased OCI/Docker compatibility."
     }
   ],
-  "generated_at": "2026-04-12T19:19:43.562880+00:00"
+  "generated_at": "2026-04-13T02:13:42.436749+00:00"
 }

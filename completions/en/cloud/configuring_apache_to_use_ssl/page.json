@@ -3,77 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What are TLS and SSL, and what is their primary function?",
-      "answer": "TLS (Transport Layer Security) and its predecessor SSL (Secure Sockets Layer) are protocols that allow encrypted communications over computer networks."
+      "question": "What is the main purpose of using Transport Layer Security (TLS) or Secure Sockets Layer (SSL) for web servers?",
+      "answer": "The main purpose is to allow encrypted communications over computer networks, preventing third parties from intercepting or modifying data, especially sensitive information like passwords."
     },
     {
-      "question": "Why is it important to use encryption, such as SSL certificates, for web servers?",
-      "answer": "Using encryption prevents third parties from intercepting and modifying data transmitted between a web server and a client, especially sensitive information like passwords."
+      "question": "Why is it important to encrypt data sent from a web server, even if it's not sensitive information?",
+      "answer": "Encrypting data prevents third parties from intercepting and modifying the information before it reaches the client."
     },
     {
-      "question": "What are the two main types of SSL certificates mentioned in the document?",
+      "question": "What are the two main types of SSL certificates discussed for use with web servers?",
       "answer": "The two main types are certificates signed by a third-party signing authority and self-signed certificates."
     },
     {
-      "question": "Which type of certificate is generally recommended for public-facing websites and why?",
-      "answer": "A certificate signed by a third party is recommended because the third party vouches for the web server's validity, preventing security warnings for visitors."
+      "question": "When should someone avoid using a self-signed SSL certificate for a public-facing website?",
+      "answer": "Self-signed certificates should be avoided for public-facing sites because visitors will receive a security warning, as no third party vouches for the site's validity."
     },
     {
-      "question": "What is a significant drawback of using a self-signed certificate for a public-facing site?",
-      "answer": "Visitors to a site using a self-signed certificate will receive a warning about the site's security because there is no third party to vouch for its validity."
+      "question": "What is a recommended free Certificate Authority for obtaining a signed SSL certificate for a web server?",
+      "answer": "Let's Encrypt is a recommended free Certificate Authority for obtaining signed SSL certificates."
     },
     {
-      "question": "Under what circumstances might a self-signed SSL certificate be appropriate?",
-      "answer": "Self-signed certificates may be useful for testing or for small, locally used sites, though they should not be used for production sites."
+      "question": "What tool is used to automatically create or renew an SSL certificate signed by the Let's Encrypt CA and configure a web server?",
+      "answer": "Certbot is the tool that automates the creation, renewal, and configuration of SSL certificates from Let's Encrypt."
     },
     {
-      "question": "Which free Certificate Authority (CA) is recommended for obtaining a signed certificate?",
-      "answer": "Let's Encrypt is recommended as a free Certificate Authority that does not require a yearly fee."
-    },
-    {
-      "question": "What tool automatically creates or renews an SSL certificate signed by Let's Encrypt and configures the web server?",
-      "answer": "Certbot is the tool that automates the process of obtaining and configuring Let's Encrypt SSL certificates."
-    },
-    {
-      "question": "When configuring Certbot via Apache, what specific port must be opened for Certbot to connect to the site?",
+      "question": "When configuring Certbot via Apache for a web server, what specific port must be opened?",
       "answer": "Port 443 (TCP ingress) must be opened for Certbot to connect to the site when configured via Apache."
     },
     {
-      "question": "What tool is recommended for checking a web server's security settings after configuration and suggesting improvements?",
-      "answer": "The ssllabs' ssltest tool is recommended for checking security settings."
+      "question": "For what specific purposes might a self-signed SSL certificate be suitable for a web server?",
+      "answer": "Self-signed certificates may be useful for small, locally used sites and for testing purposes."
     },
     {
-      "question": "What operating system does the document assume for the procedure of creating a self-signed certificate?",
-      "answer": "The procedure for creating a self-signed certificate assumes the use of the Ubuntu operating system."
+      "question": "Which operating system is assumed for the detailed procedure of creating a self-signed SSL certificate for Apache in the document?",
+      "answer": "The procedure for creating a self-signed SSL certificate assumes the use of the Ubuntu operating system."
     },
     {
-      "question": "What is the first step to enable the SSL module after Apache has been installed on Ubuntu?",
-      "answer": "The SSL module must be enabled using `sudo a2enmod ssl`, followed by restarting the Apache service with `sudo service apache2 restart`."
+      "question": "What is the first step to enable the SSL module on an Apache web server on Ubuntu before creating a self-signed certificate?",
+      "answer": "The SSL module must be enabled using the command `sudo a2enmod ssl`, followed by restarting the Apache service."
     },
     {
-      "question": "What OpenSSL command is used to generate a self-signed SSL certificate with a 2048-bit RSA key valid for 365 days?",
+      "question": "Which `openssl` command is used to create a self-signed SSL certificate on an Ubuntu server?",
       "answer": "The command `sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/server.key -out /etc/ssl/certs/server.crt` is used."
     },
     {
-      "question": "Which specific question is most important to answer correctly when generating a self-signed certificate using `openssl req`?",
-      "answer": "The 'Common Name' question, which should be the domain name of your server or its floating IP, is the most important to answer."
+      "question": "What crucial information should be provided for the 'Common Name' when creating a self-signed SSL certificate for a virtual machine on Alliance clouds?",
+      "answer": "The 'Common Name' should be the domain name of the server, typically in the format `XXX-XXX-XXX-XXX.cloud.computecanada.ca`, with the Xs replaced by the virtual machine's floating IP."
     },
     {
-      "question": "How are the correct ownership and permissions applied to the self-signed private key file on Ubuntu?",
-      "answer": "The commands `sudo chown root:ssl-cert /etc/ssl/private/server.key` and `sudo chmod 640 /etc/ssl/private/server.key` are used."
+      "question": "After configuring an SSL certificate on a web server, what online tool is recommended to check its security settings and suggest improvements?",
+      "answer": "The ssllabs ssltest tool is recommended to check security settings and suggest configuration changes for improvement."
     },
     {
-      "question": "Which Apache configuration file needs to be edited to specify the paths for the self-signed certificate and key?",
-      "answer": "The `/etc/apache2/sites-available/default-ssl.conf` file needs to be edited to specify the paths for the certificate (`SSLCertificateFile`) and key (`SSLCertificateKeyFile`)."
+      "question": "Which Apache configuration file needs to be edited to point to the new self-signed SSL certificate files on an Ubuntu server?",
+      "answer": "The `default-ssl.conf` file, located at `/etc/apache2/sites-available/default-ssl.conf`, needs to be edited."
     },
     {
-      "question": "How can one force all HTTP traffic to HTTPS and tighten SSL security settings in Apache?",
-      "answer": "This is achieved by adding `ServerName`, `SSLProtocol`, `SSLCipherSuite`, and `SSLHonorCipherOrder` directives to `default-ssl.conf` and a permanent redirect to `000-default.conf`."
+      "question": "How can an Apache web server be configured to force all HTTP traffic to redirect to HTTPS, after setting up an SSL certificate?",
+      "answer": "A redirect directive `Redirect permanent / https://XXX-XXX-XXX-XXX.cloud.computecanada.ca` should be added inside the `<VirtualHost>` tag in the `000-default.conf` file."
     },
     {
-      "question": "What commands are used to enable the SSL-enabled website configuration and restart Apache after making changes?",
-      "answer": "The commands `sudo a2ensite default-ssl.conf` followed by `sudo service apache2 restart` are used to enable the site and restart Apache."
+      "question": "What Apache configuration directives can be added to tighten security by requiring modern SSL versions and using better cipher options for a self-signed certificate?",
+      "answer": "Directives such as `SSLProtocol all -SSLv2 -SSLv3`, `SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5:!SEED:!IDEA:!RC4`, and `SSLHonorCipherOrder on` can be added within the `<VirtualHost>` tag of `default-ssl.conf`."
+    },
+    {
+      "question": "What commands are used to enable the SSL-enabled website configuration and restart Apache after configuring a self-signed certificate?",
+      "answer": "The commands are `sudo a2ensite default-ssl.conf` followed by `sudo service apache2 restart`."
+    },
+    {
+      "question": "Why might a user still get a warning about the security of a website even if it uses a self-signed certificate and encrypts data?",
+      "answer": "Visitors will receive a warning because there is no third party involved to vouch for the validity of the web server."
     }
   ],
-  "generated_at": "2026-04-11T20:19:46.868720+00:00"
+  "generated_at": "2026-04-13T04:23:14.811232+00:00"
 }

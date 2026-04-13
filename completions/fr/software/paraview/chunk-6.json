@@ -4,25 +4,13 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Comment peut-on visualiser avec plusieurs cœurs via Open OnDemand?",
-      "answer": "Pour la visualisation avec plusieurs cœurs via Open OnDemand, il faut suivre les mêmes étapes que pour le mode séquentiel, mais en demandant plus de ressources (mémoire et cœurs). Ensuite, il faut lancer le serveur ParaView en parallèle via `mpirun` et y connecter un client ParaView, tous deux depuis des terminaux dans le bureau virtuel."
+      "question": "Comment configurer ParaView pour de la visualisation avec plusieurs cœurs en utilisant Open OnDemand sur les grappes Nibi ou Trillium?",
+      "answer": "Pour configurer ParaView en mode multi-cœur via Open OnDemand sur Nibi ou Trillium, il faut d'abord lancer une instance Open OnDemand à partir du portail web. En spécifiant les ressources, on peut demander jusqu'à 128 Go de mémoire et 8 cœurs sur Nibi. Une fois dans la session Open OnDemand, sur le bureau virtuel, on doit ouvrir un terminal, charger le module ParaView avec `module load paraview/6.0.0`, puis démarrer le serveur ParaView parallèle avec `mpirun --oversubscribe -np <nombre_de_cœurs> pvserver`. Dans un second terminal, on lance le client ParaView en tapant `paraview`. Ensuite, dans l'interface du client ParaView, on clique sur 'Connect', puis 'Add Server'. On configure la connexion en choisissant 'Client/Server' pour le type de serveur, 'localhost' pour l'hôte et '11111' pour le port, puis 'Manual' pour le type de démarrage, avant de cliquer sur 'Connect' pour lier le client au serveur."
     },
     {
-      "question": "Quelles sont les limites de ressources pour la visualisation multi-cœurs via Open OnDemand sur la grappe Nibi?",
-      "answer": "Sur la grappe Nibi, Open OnDemand permet de demander jusqu'à 128 Go de mémoire et jusqu'à 8 cœurs pour la visualisation multi-cœurs."
-    },
-    {
-      "question": "Une fois qu'une session Open OnDemand avec plusieurs cœurs est démarrée, quelles sont les commandes à utiliser pour lancer le serveur ParaView?",
-      "answer": "Dans un terminal de votre bureau virtuel Open OnDemand, vous devez d'abord charger le module ParaView avec la commande `module load paraview/6.0.0`. Ensuite, lancez le serveur ParaView avec la commande `mpirun --oversubscribe -np 4 pvserver` (en ajustant le nombre de cœurs avec `-np` selon votre besoin)."
-    },
-    {
-      "question": "Comment connecter le client ParaView au serveur parallèle dans une session Open OnDemand avec plusieurs cœurs?",
-      "answer": "Après avoir lancé le serveur, ouvrez un autre terminal dans le bureau virtuel, chargez le module ParaView (`module load paraview/6.0.0`) et démarrez le client (`paraview`). Dans l'interface de ParaView, cliquez sur le bouton 'Connect', puis 'Add Server'. Configurez la connexion en définissant 'Server Type' à 'Client/Server', 'Host' à 'localhost', 'Port' à '11111' et 'Startup Type' à 'Manual'. Cliquez ensuite sur 'Connect' pour établir la liaison."
-    },
-    {
-      "question": "Comment peut-on vérifier que le rendu parallèle est bien actif lors d'une session Open OnDemand?",
-      "answer": "Pour vérifier que le rendu s'effectue bien en parallèle, vous pouvez colorer votre ensemble de données avec la variable 'Process Id'. Cette variable n'est pas disponible lorsque vous travaillez en mode séquentiel."
+      "question": "Comment vérifier si une visualisation ParaView est bien exécutée en parallèle sur plusieurs cœurs dans une session Open OnDemand?",
+      "answer": "Pour vérifier si votre visualisation ParaView est effectivement en rendu parallèle, vous pouvez colorer votre ensemble de données avec la variable interne de ParaView nommée 'Process Id'. Si cette variable est disponible et peut être utilisée pour la coloration, cela indique que le rendu s'effectue bien en parallèle, car cette variable n'est pas disponible en mode séquentiel."
     }
   ],
-  "generated_at": "2026-04-12T04:57:04.021159+00:00"
+  "generated_at": "2026-04-13T11:00:11.415269+00:00"
 }

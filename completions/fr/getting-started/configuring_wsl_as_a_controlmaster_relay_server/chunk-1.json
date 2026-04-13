@@ -4,133 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi le but de cette procédure-là?",
-      "answer": "Cette procédure permet d'utiliser ControlMaster de WSL pour vous connecter aux grappes avec plusieurs applications Windows natives pour une certaine durée, sans avoir à vous authentifier pour chaque session."
+      "question": "À quoi sert la procédure décrite sur cette page concernant l'utilisation de ControlMaster avec WSL?",
+      "answer": "Cette procédure permet aux utilisateurs de se brancher aux grappes de calcul, comme Cedar, à partir de diverses applications natives de Windows en utilisant ControlMaster de WSL. Le but est de ne pas avoir à s'authentifier à répétition pour chaque nouvelle session pendant une certaine période."
     },
     {
-      "question": "La page où on se trouve, est-ce que c'est une version finale?",
-      "answer": "Non, cette page est une ébauche; l'équipe travaille à sa version finale."
+      "question": "Quelle est l'architecture de la connexion pour se relier à une grappe de calcul, telle que Cedar, en utilisant ControlMaster de WSL?",
+      "answer": "L'architecture de connexion utilise un système en trois étapes : l'ordinateur Windows de l'utilisateur (nommé `smart` dans l'exemple) se connecte d'abord à une machine virtuelle Ubuntu (nommée `ubuntu`) qui agit comme un serveur relais SSH, et cette VM Ubuntu se connecte ensuite au serveur cible, soit la grappe de calcul Cedar."
     },
     {
-      "question": "À qui est-ce qu'on peut écrire si on a des suggestions pour cette procédure?",
-      "answer": "Vous pouvez écrire au soutien technique pour vos suggestions."
-    },
-    {
-      "question": "Quelle est la distribution Linux utilisée dans les fichiers de configuration?",
-      "answer": "La distribution utilisée est Ubuntu."
-    },
-    {
-      "question": "C'est quoi le nom d'hôte pour l'instance WSL?",
-      "answer": "Le nom d'hôte pour l'instance WSL est \"ubuntu\"."
-    },
-    {
-      "question": "Quel est le contenu du fichier /etc/hostname et /etc/hosts pour l'instance WSL?",
-      "answer": "Le fichier /etc/hostname contient \"ubuntu\" et /etc/hosts contient \"127.0.0.1 localhost ubuntu\"."
-    },
-    {
-      "question": "Comment s'appelle le système Windows dans cette configuration?",
-      "answer": "Le système Windows s'appelle \"smart\"."
-    },
-    {
-      "question": "Quel est le nom de l'utilisateur Windows qui fait la connexion?",
-      "answer": "L'utilisateur Windows s'appelle \"jaime\"."
-    },
-    {
-      "question": "C'est quoi le nom de l'utilisateur pour la machine virtuelle Ubuntu?",
-      "answer": "Le nom de l'utilisateur pour la VM Ubuntu est aussi \"jaime\"."
-    },
-    {
-      "question": "Quel est le nom de l'utilisateur pour l'Alliance et à quelle grappe veut-on se connecter?",
-      "answer": "Le nom de l'utilisateur pour l'Alliance est \"pinto\" et on veut se connecter à Cedar."
-    },
-    {
-      "question": "Quelles commandes faut-il lancer pour installer les logiciels nécessaires?",
-      "answer": "Il faut lancer les commandes `sudo apt update && sudo apt upgrade -y` et `sudo apt install openssh-server -y`."
-    },
-    {
-      "question": "Comment se connecter à Ubuntu à partir de Windows une fois OpenSSH installé?",
-      "answer": "Vous pouvez vous connecter à Ubuntu à partir de Windows avec la commande `ssh localhost`."
-    },
-    {
-      "question": "Quel est le rôle du système Windows dans la configuration de connexion SSH?",
-      "answer": "Le système Windows (\"smart\") agit comme le client SSH (`ssh client`)."
-    },
-    {
-      "question": "Quel est le rôle de la VM Ubuntu dans la configuration de connexion SSH?",
-      "answer": "La VM Ubuntu agit comme le serveur relais SSH (`ssh relay server`)."
-    },
-    {
-      "question": "Quelle est la grappe cible dans l'exemple de configuration?",
-      "answer": "La grappe cible est Cedar."
-    },
-    {
-      "question": "Quel port est configuré pour le serveur SSH personnalisé dans custom_ssh/sshd_config?",
-      "answer": "Le port configuré est 2222."
-    },
-    {
-      "question": "Où est-ce que les clés d'hôte (HostKey) personnalisées sont-elles stockées pour le serveur SSH?",
-      "answer": "Elles sont stockées dans `/home/jaime/custom_ssh/ssh_host_ed25519_key` et `/home/jaime/custom_ssh/ssh_host_rsa_key`."
-    },
-    {
-      "question": "Quel est le chemin du fichier des clés autorisées (AuthorizedKeysFile) pour le serveur SSH personnalisé?",
-      "answer": "Le chemin est `/home/jaime/custom_ssh/authorized_keys`."
-    },
-    {
-      "question": "Comment copier une clé ssh_host du dossier /etc/ssh vers le répertoire custom_ssh?",
-      "answer": "Utilisez la commande `sudo cp /etc/ssh/ssh_host_ed25519_key /home/jaime/custom_ssh/`."
-    },
-    {
-      "question": "Quelle est la configuration de ControlMaster spécifiée pour l'hôte Cedar dans le fichier ~/.ssh/config sur Ubuntu?",
-      "answer": "La configuration est `ControlPath ~/.ssh/cm-%r@%h:%p`, `ControlMaster auto` et `ControlPersist 10m`."
-    },
-    {
-      "question": "Quel est le nom d'hôte complet pour Cedar spécifié dans la configuration SSH sur Ubuntu?",
-      "answer": "Le nom d'hôte complet est `cedar.alliancecan.ca`."
-    },
-    {
-      "question": "Quel utilisateur est spécifié pour se connecter à Cedar dans le fichier ~/.ssh/config sur Ubuntu?",
-      "answer": "L'utilisateur spécifié est \"pinto\"."
-    },
-    {
-      "question": "Quelle est la source des clés publiques SSH à utiliser pour modifier les clés permises?",
-      "answer": "Il faut utiliser la clé publique SSH que vous avez téléchargée dans CCDB."
-    },
-    {
-      "question": "Comment lancer le serveur sshd avec le fichier de configuration personnalisé sur Ubuntu?",
-      "answer": "Il faut utiliser la commande `/usr/sbin/sshd -f ${HOME}/custom_ssh/sshd_config`."
-    },
-    {
-      "question": "Quand faut-il relancer le serveur sshd sur Ubuntu?",
-      "answer": "Vous devrez lancer le serveur sshd à chaque fois que vous redémarrez votre ordinateur ou que WSL est fermé ou lancé de nouveau."
-    },
-    {
-      "question": "Avec quel profil doit être lancé le serveur sshd?",
-      "answer": "Le serveur doit être lancé avec votre profil d'utilisateur et non avec le profil racine (root)."
-    },
-    {
-      "question": "Quelle est la configuration du fichier ~/.ssh/config sur le système Windows (smart) pour l'hôte 'ubuntu'?",
-      "answer": "La configuration est `Hostname localhost` et `RemoteCommand ssh cedar`."
-    },
-    {
-      "question": "Quelle commande faut-il utiliser pour se connecter à Cedar à partir du système Windows?",
-      "answer": "Il faut utiliser la commande `ssh -t ubuntu -p 2222`."
-    },
-    {
-      "question": "Après s'être connecté à Cedar, quel utilisateur est affiché sur le shell distant?",
-      "answer": "L'utilisateur affiché est \"pinto\"."
-    },
-    {
-      "question": "Dans l'option de configuration alternative, comment peut-on personnaliser les clés permises pour les applications graphiques comme WinSCP?",
-      "answer": "On peut spécifier `command=\"ssh cedar\"` devant la clé publique SSH dans le fichier `/home/jaime/custom_ssh/authorized_keys`."
-    },
-    {
-      "question": "Si on utilise l'option de configuration alternative pour les applications graphiques, faut-il encore indiquer `RemoteCommand` dans le fichier ~/.ssh/config de Windows?",
-      "answer": "Non, dans ce cas, `RemoteCommand` peut être commenté ou omis du fichier ~/.ssh/config de Windows."
-    },
-    {
-      "question": "Même avec l'option de configuration alternative, est-ce qu'on peut encore se connecter à Ubuntu à partir d'un interpréteur Windows?",
-      "answer": "Oui, vous pouvez encore utiliser `ssh ubuntu -p 2222` à partir d'un interpréteur Windows."
+      "question": "Quel logiciel est nécessaire d'installer sur la machine virtuelle Ubuntu de WSL pour que cette procédure de connexion fonctionne, et comment peut-on vérifier la connexion de base?",
+      "answer": "Pour que la procédure fonctionne, il faut installer `openssh-server` sur la machine virtuelle Ubuntu de WSL. Pour ce faire, on peut exécuter les commandes `sudo apt update && sudo apt upgrade -y` puis `sudo apt install openssh-server -y`. Une fois installé, il est possible de se connecter à Ubuntu à partir de Windows avec la commande `ssh localhost`."
     }
   ],
-  "generated_at": "2026-04-11T20:23:06.476506+00:00"
+  "generated_at": "2026-04-13T04:25:55.496120+00:00"
 }

@@ -4,53 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "Quelles commandes est-ce qu'on peut utiliser pour gérer les listes de contrôle d'accès (ACL)?",
-      "answer": "On utilise la commande `getfacl` pour voir les permissions définies dans la liste ACL et `setfacl` pour les modifier."
+      "question": "Comment puis-je accorder la permission de lecture et d'exécution pour un seul fichier à un utilisateur spécifique en utilisant les listes de contrôle d'accès (ACL)?",
+      "answer": "Pour accorder la permission de lire et d'exécuter un fichier à un utilisateur spécifique, comme 'smithj' pour le fichier 'my_script.py', vous devez utiliser la commande `setfacl` de la façon suivante : `$ setfacl -m u:smithj:rx my_script.py`."
     },
     {
-      "question": "Comment puis-je donner à un utilisateur spécifique, comme `smithj`, la permission de lire et d'exécuter un seul fichier, par exemple `my_script.py`, en utilisant les listes de contrôle d'accès (ACL)?",
-      "answer": "Pour accorder à l'utilisateur `smithj` la permission de lire et exécuter le fichier `my_script.py` en utilisant les listes de contrôle d'accès (ACL), la commande serait `$ setfacl -m u:smithj:rx my_script.py`."
+      "question": "Quelles sont les commandes à utiliser pour partager un sous-répertoire avec un accès en lecture et écriture pour un utilisateur en particulier, incluant les fichiers existants et ceux qui seront créés, et quelles conditions doivent être remplies pour que ça fonctionne?",
+      "answer": "Pour accorder un accès en lecture et écriture à un seul utilisateur (par exemple, 'smithj') dans un sous-répertoire (comme `/home/<user>/projects/def-<PI>/shared_data`), incluant les nouveaux fichiers, utilisez ces deux commandes :\n1. `$ setfacl -d -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data` (pour les nouvelles données).\n2. `$ setfacl -R -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data` (pour le contenu existant).\n\nPour que cette méthode fonctionne, il faut que vous soyez propriétaire du répertoire, que les répertoires parents (incluant `/projects/def-<PI>`) accordent la permission d'exécution à l'utilisateur ciblé, et que vous partagiez le chemin débutant par `/project` (et non `/home/<user>/projects`) avec vos collaborateurs pour éviter les problèmes de liens symboliques."
     },
     {
-      "question": "Comment faire pour qu'un utilisateur ait un accès en lecture et en écriture à un sous-répertoire, incluant les nouveaux fichiers qui vont être créés dedans?",
-      "answer": "Pour donner un accès en lecture et en écriture à un seul utilisateur dans un sous-répertoire, y compris pour les nouveaux fichiers, il faut utiliser deux commandes `setfacl`: une avec l'option `-d` pour les nouvelles données, et une autre avec l'option `-R` pour les données existantes. Par exemple, `$ setfacl -d -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data` et `$ setfacl -R -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data`."
-    },
-    {
-      "question": "C'est quoi la signification de l'attribut `X` (majuscule) quand on configure les permissions ACL?",
-      "answer": "L'attribut `X` (majuscule) accorde la permission d'exécution seulement si le répertoire ou le fichier a déjà cette permission. Pour qu'un répertoire soit visible, il doit avoir la permission d'exécution."
-    },
-    {
-      "question": "Quelle est la différence entre les deux commandes `setfacl` quand on partage un sous-répertoire, une avec `-d` et l'autre avec `-R`?",
-      "answer": "La première commande `setfacl` avec `-d` (défaut) détermine les règles d'accès que les nouveaux fichiers et répertoires hériteront dans le sous-répertoire partagé. La deuxième commande `setfacl` avec `-R` (récursif) applique les règles ACL à toutes les données existantes dans le sous-répertoire."
-    },
-    {
-      "question": "Quelles sont les conditions essentielles pour que le partage d'un sous-répertoire avec les listes de contrôle d'accès (ACL) fonctionne correctement?",
-      "answer": "Pour que le partage d'un sous-répertoire via les ACL fonctionne, il faut être propriétaire du répertoire à partager et s'assurer que tous les répertoires parents du chemin accordent la permission d'exécution à l'utilisateur cible. On peut faire ça avec `setfacl -m u:smithj:X ...` ou `chmod o+x ...`. Il faut aussi accorder une permission d'exécution pour le répertoire (`/projects/def-<PI>`) soit à tous les utilisateurs, soit à chaque utilisateur spécifique."
-    },
-    {
-      "question": "Quand je veux partager un répertoire qui se trouve dans `/project`, quel chemin devrais-je donner à mes collaborateurs et pourquoi?",
-      "answer": "Quand vous partagez un répertoire du système de fichiers `/project`, vous devriez donner à vos collaborateurs un chemin qui commence par `/project`, et non par `/home/<user>/projects`. La raison est que le chemin `/home/<user>/projects` contient des liens symboliques (simlinks ou raccourcis) vers les répertoires physiques de `/project`, et d'autres utilisateurs pourraient ne pas pouvoir accéder à votre répertoire `/home`."
-    },
-    {
-      "question": "À quoi sert la commande `realpath` dans le contexte du partage de répertoires sur `/project`?",
-      "answer": "La commande `realpath` est utile pour obtenir le chemin physique exact auquel pointe un lien symbolique (simlink). C'est important pour le partage de répertoires sur `/project` car les chemins `/home/<user>/projects` sont des liens symboliques et ne sont pas toujours accessibles directement par d'autres utilisateurs."
-    },
-    {
-      "question": "Si je partage un répertoire `/project` sur plusieurs grappes, y a-t-il une précaution à prendre?",
-      "answer": "Oui, si votre répertoire `/project` doit être partagé sur plus d'une grappe, il faut vérifier le chemin physique sur chaque grappe avec la commande `realpath`, parce que le chemin physique n'est pas toujours le même d'une grappe à l'autre."
-    },
-    {
-      "question": "Comment supprimer de façon récursive toutes les listes de contrôle d'accès (ACL) d'un répertoire spécifique?",
-      "answer": "Pour supprimer de façon récursive tous les attributs des listes de contrôle d'accès (ACL) d'un répertoire, il faut utiliser la commande `$ setfacl -bR /home/<user>/projects/def-<PI>/shared_data`."
-    },
-    {
-      "question": "Dans quelles situations est-ce qu'il peut être utile de créer un \"groupe de partage\" pour les données?",
-      "answer": "Dans les cas de partage de données plus complexes, comme avec plusieurs utilisateurs sur plusieurs grappes, il est possible et utile de créer un groupe de partage. Ce groupe spécial permet de gérer les permissions d'accès via les listes de contrôle d'accès (ACL)."
-    },
-    {
-      "question": "C'est quoi un \"groupe de partage\" de données?",
-      "answer": "Un groupe de partage est un groupe spécial qui est composé des utilisateurs avec lesquels des données doivent être partagées, surtout pour des scénarios de partage complexes. Ce groupe obtient ses permissions d'accès via des listes de contrôle d'accès (ACL)."
+      "question": "Comment peut-on retirer tous les attributs des listes de contrôle d'accès (ACL) d'un répertoire de manière récursive?",
+      "answer": "Pour supprimer de façon récursive tous les attributs des listes de contrôle d'accès (ACL) d'un répertoire et de son contenu, vous devez utiliser la commande `setfacl -bR` suivie du chemin du répertoire, comme dans cet exemple : `setfacl -bR /home/<user>/projects/def-<PI>/shared_data`."
     }
   ],
-  "generated_at": "2026-04-12T08:02:33.658823+00:00"
+  "generated_at": "2026-04-13T13:36:13.895759+00:00"
 }

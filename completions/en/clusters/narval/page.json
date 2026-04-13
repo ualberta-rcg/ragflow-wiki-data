@@ -3,93 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Narval and where is it located?",
-      "answer": "Narval is a general-purpose cluster designed for a variety of workloads, built by Dell Canada and CDW Canada, and located at the École de technologie supérieure in Montreal."
+      "question": "What is the Narval cluster on Alliance and where is it physically located?",
+      "answer": "Narval is a general-purpose cluster built by Dell Canada and CDW Canada, located at the École de technologie supérieure in Montreal."
     },
     {
-      "question": "When did the Narval cluster become available?",
+      "question": "When did the Narval cluster become available for use by researchers?",
       "answer": "The Narval cluster has been available since October 2021."
     },
     {
-      "question": "What is the login node for the Narval cluster?",
-      "answer": "The login node for the Narval cluster is narval.alliancecan.ca."
+      "question": "What is the login node for accessing the Narval cluster, and what node is used for data transfer tools like rsync and scp?",
+      "answer": "The login node for Narval is narval.alliancecan.ca, which also serves as the data transfer node for tools like rsync, scp, and sftp."
     },
     {
-      "question": "How can I transfer data to and from Narval?",
-      "answer": "You can transfer data using the Globus collection 'Compute Canada - Narval' or use tools like rsync, scp, and sftp via the data transfer node narval.alliancecan.ca."
+      "question": "What are the specific policies regarding internet access and the use of crontab on Narval's compute nodes?",
+      "answer": "Narval's compute nodes cannot access the internet without an exception granted by technical support, and the crontab service is not offered on the cluster."
     },
     {
-      "question": "What is the policy regarding internet access for Narval's compute nodes?",
-      "answer": "By policy, Narval's compute nodes cannot access the internet; exceptions require contacting technical support."
+      "question": "What are the minimum and maximum duration limits for jobs on Narval, and how many jobs can a user have running or queued at one time?",
+      "answer": "Jobs on Narval should have a minimum duration of one hour (or five minutes for test jobs) and a maximum duration of 7 days (168 hours). Users are limited to 1000 running or queued jobs at any given moment."
     },
     {
-      "question": "Is Crontab available on Narval?",
-      "answer": "No, Crontab is not offered on Narval."
+      "question": "Describe the three main filesystems on Narval (HOME, SCRATCH, PROJECT), including their purpose, typical quota size, and backup status.",
+      "answer": "HOME (64 TB Lustre) is for home directories with small fixed per-user quotas and daily backups. SCRATCH (5.7 PB Lustre) is for temporary computation files with large per-user quotas and no backups, subject to automated purging. PROJECT (35 PB Lustre) is for sharing large amounts of data among research groups, has large adjustable per-group quotas, and daily backups."
     },
     {
-      "question": "What are the minimum and maximum durations for jobs on Narval?",
-      "answer": "Each job should have a duration of at least one hour (five minutes for test jobs), and the maximum duration is 7 days (168 hours)."
+      "question": "What is the recommended method for transferring data using Globus to the Narval cluster?",
+      "answer": "For transferring data via Globus, users should utilize the specific 'Compute Canada - Narval' Globus collection endpoint."
     },
     {
-      "question": "What is the limit on concurrent jobs on Narval?",
-      "answer": "You cannot have more than 1000 jobs, running or queued, at any given moment on Narval."
+      "question": "What high-performance interconnect technology does Narval use to link its nodes?",
+      "answer": "Narval uses a Mellanox HDR InfiniBand network to link all of its nodes."
     },
     {
-      "question": "Describe the different storage types available on Narval.",
-      "answer": "Narval offers HOME (small fixed quota, daily backup), SCRATCH (large temporary space, no backup, automated purge), and PROJECT (large adjustable group quota, daily backup, for shared and large data)."
+      "question": "Which instruction sets are supported by Narval's AMD EPYC processors, and which common instruction set is not supported?",
+      "answer": "Narval's AMD EPYC processors support the AVX2 instruction set but do not support the AVX512 instruction set."
     },
     {
-      "question": "Which storage space should be used for larger storage needs beyond home directories?",
-      "answer": "You should use the project space for larger storage needs, as home directories have a small fixed quota."
+      "question": "When compiling applications with Intel compilers for Narval's AMD processors, what option should be used to ensure compatibility?",
+      "answer": "When using Intel compilers, the `-march=core-avx2` option should be used to produce executables compatible with both Intel and AMD processors on Narval."
     },
     {
-      "question": "What are the characteristics of the SCRATCH filesystem on Narval?",
-      "answer": "SCRATCH is a Lustre filesystem with 5.7 PB of space for temporary files, a large per-user quota, no backup system, and an automated purge of older files."
+      "question": "What is the standard software environment on Narval, and what should be done if an application requires an older environment?",
+      "answer": "StdEnv/2023 is the standard software environment on Narval. If an application requires an older standard environment, users should contact technical support."
     },
     {
-      "question": "What high-performance interconnect technology is used in the Narval cluster?",
-      "answer": "The Narval cluster uses an InfiniBand Mellanox HDR network to link all of its nodes."
+      "question": "How can a user request a single full A100 GPU with 40 GB memory for a job on Narval using Slurm options?",
+      "answer": "To request one A100-40gb GPU, the Slurm option `--gpus=a100:1` should be used."
     },
     {
-      "question": "What type of processors are used in Narval's compute nodes?",
-      "answer": "Narval is equipped with 2nd and 3rd generation AMD EPYC processors (Zen 2 and Zen 3)."
+      "question": "What are the available sizes for Multi-Instance GPU (MIG) technology on Narval, and how would a user request a '2g.10gb' instance?",
+      "answer": "The available MIG sizes are 1g.5gb, 2g.10gb, 3g.20gb, and 4g.20gb. To request a '2g.10gb' instance, the Slurm option `--gpus=a100_2g.10gb:1` should be used."
     },
     {
-      "question": "Which instruction sets are supported and not supported by Narval's processors?",
-      "answer": "Narval's AMD processors support the AVX2 instruction set but do not support AVX512."
+      "question": "What functionality does the Narval portal offer for monitoring jobs?",
+      "answer": "The Narval portal allows users to monitor their CPU, memory, and GPU usage in real time or review past jobs, helping to optimize resource usage and shorten queue wait times."
     },
     {
-      "question": "How should Intel compilers be used on Narval for compatibility with AMD processors?",
-      "answer": "Use the `-march=core-avx2` option; do not use options like `-xXXXX`, `-xHOST`, or `-march=native` as they may cause compatibility issues."
+      "question": "Why is it important for users to monitor their resource usage and adjust their job requests on Narval?",
+      "answer": "It is important to monitor usage and adjust requests to ensure that allocated resources are used effectively, and to correct requests when resources are underused or not used at all, which helps optimize cluster efficiency and reduce wait times."
     },
     {
-      "question": "What is the standard software environment on Narval?",
-      "answer": "StdEnv/2023 is the standard software environment on Narval."
+      "question": "What are the key specifications of the compute nodes on Narval, particularly regarding cores and memory?",
+      "answer": "Narval has 1145 nodes with 64 cores and 250G memory, 33 nodes with 64 cores and 2009G memory, and 3 nodes with 64 cores and 4000G memory (all with AMD EPYC CPUs). Additionally, there are 159 nodes with 48 cores, 498G memory, and 4 NVidia A100SXM4 GPUs."
     },
     {
-      "question": "Which BLAS and LAPACK library is recommended for use on Narval?",
-      "answer": "The use of the FlexiBLAS library is favoured, as the Intel MKL library does not work optimally with AMD processors."
+      "question": "What type of storage is available on the compute nodes of Narval?",
+      "answer": "Most Narval compute nodes are equipped with 1 x 960G SSD storage, while the 159 GPU nodes feature 1 x 3.84 TB SSD storage."
     },
     {
-      "question": "What are the key specifications of the GPU nodes on Narval?",
-      "answer": "Narval has 159 GPU nodes, each with 48 cores, 498G of memory, 2 x AMD EPYC 7413 CPUs, a 3.84 TB SSD, and 4 x NVidia A100SXM4 (40 GB memory) GPUs connected via NVLink."
-    },
-    {
-      "question": "How do I request a full A100 GPU using Slurm on Narval?",
-      "answer": "To request one A100-40gb, use `--gpus=a100:1`; for multiple A100-40gb per node, use `--gpus-per-node=a100:X`; and for multiple A100 GPUs spread anywhere, use `--gpus=a100:n` (where 'n' is the number of GPUs)."
-    },
-    {
-      "question": "Does Narval support Multi-Instance GPU (MIG) technology, and what sizes are available?",
-      "answer": "Yes, Narval supports Multi-Instance GPU technology with four available sizes: 1g.5gb, 2g.10gb, 3g.20gb, and 4g.20gb."
-    },
-    {
-      "question": "How can I monitor my jobs and resource usage on Narval?",
-      "answer": "You can monitor your jobs using CPUs and GPUs in real-time or examine past jobs through the Narval portal at https://portail.narval.calculquebec.ca/."
-    },
-    {
-      "question": "Why is it important to monitor and adjust resource requests for jobs on Narval?",
-      "answer": "Monitoring resource usage helps you optimize resource allocation, shorten wait times in the queue, and correct your requests when compute resources are less used or not used at all."
+      "question": "What BLAS and LAPACK libraries are recommended for use with Narval's AMD processors?",
+      "answer": "While the Intel MKL library works, the use of the FlexiBLAS library is now favoured for BLAS and LAPACK on Narval's AMD processors."
     }
   ],
-  "generated_at": "2026-04-12T03:37:53.193894+00:00"
+  "generated_at": "2026-04-13T09:53:05.933916+00:00"
 }

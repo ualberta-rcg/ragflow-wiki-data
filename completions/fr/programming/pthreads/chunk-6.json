@@ -4,41 +4,13 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Quel est l'objectif principal de l'exemple de code `thread_condition.c`?",
-      "answer": "L'exemple démontre comment deux fils esclaves modifient la valeur d'un entier partagé (`workload`) en utilisant un mutex et une variable-condition pour synchroniser leurs actions, notamment en montrant comment un fil attend qu'une condition soit remplie par l'autre."
+      "question": "Dans l'exemple du fichier ''thread_condition.c'', comment les deux fils esclaves interagissent-ils pour modifier la variable <tt>workload</tt> et synchroniser leurs actions en utilisant une variable-condition?",
+      "answer": "Dans cet exemple, le premier fil (thread 0) verrouille un mutex et attend que la variable <tt>workload</tt> devienne supérieure à 25 en appelant <tt>pthread_cond_wait</tt>. Pendant ce temps, le deuxième fil (thread 1) incrémente la valeur de <tt>workload</tt> par 3 de manière répétée. Dès que <tt>workload</tt> dépasse 25, le deuxième fil appelle <tt>pthread_cond_signal</tt> pour 'réveiller' le premier fil. Une fois réveillé, le premier fil incrémente <tt>workload</tt> de 15, puis tous les fils sont réintégrés par le fil maître qui affiche la valeur finale de <tt>workload</tt>."
     },
     {
-      "question": "Quelle est la valeur initiale requise pour la variable `workload` dans le programme `thread_condition.c`?",
-      "answer": "La valeur initiale de `workload` doit être plus petite ou égale à 25. Si elle est plus grande que 25, le programme affiche un message d'erreur et se termine."
-    },
-    {
-      "question": "Que fait le premier fil (celui avec `tnumber == 0`) dans la fonction `task` de l'exemple `thread_condition.c`?",
-      "answer": "Le premier fil verrouille le mutex, puis attend si `workload` est inférieur ou égal à 25, en utilisant la fonction `pthread_cond_wait`. Une fois réveillé, il incrémente `workload` de 15 et déverrouille le mutex."
-    },
-    {
-      "question": "Que fait le deuxième fil (celui où `tnumber` n'est pas zéro) dans la fonction `task` de l'exemple `thread_condition.c`?",
-      "answer": "Le deuxième fil exécute une boucle où il verrouille le mutex, incrémente `workload` de trois, affiche la valeur courante, et vérifie si `workload` est plus grande que 25. Si c'est le cas, il signale au fil en attente avec `pthread_cond_signal` avant de déverrouiller le mutex."
-    },
-    {
-      "question": "Quand le deuxième fil appelle-t-il la fonction `pthread_cond_signal`?",
-      "answer": "Le deuxième fil appelle `pthread_cond_signal` lorsque la valeur de `workload` devient plus grande que 25. Ceci est fait pour signaler au premier fil que la condition qu'il attendait est satisfaite."
-    },
-    {
-      "question": "Qu'arrive-t-il au premier fil après la réception du signal de `pthread_cond_signal`?",
-      "answer": "Une fois que le signal est reçu par le premier fil (le ''réveillant''), celui-ci incrémente de 15 la valeur de `workload` et quitte la fonction `task`."
-    },
-    {
-      "question": "Quelle est l'action du mutex quand un fil appelle `pthread_cond_wait` dans l'exemple donné?",
-      "answer": "Quand un fil appelle `pthread_cond_wait`, le mutex est détruit ''atomiquement'' en même temps que la création de la variable-condition que le fil attend. Cela permet aux autres fils de pouvoir alors verrouiller le mutex."
-    },
-    {
-      "question": "Quelle est la différence générale entre `pthread_cond_signal` et `pthread_cond_broadcast`?",
-      "answer": "Dans un programme réel où plusieurs fils sont en attente d'une variable-condition, `pthread_cond_broadcast` signale à *tous* les fils en attente que la condition est satisfaite. À l'inverse, `pthread_cond_signal` avertirait un *seul* fil au hasard, laissant les autres fils en attente."
-    },
-    {
-      "question": "Que se passe-t-il à la fin du programme `thread_condition.c` après que tous les fils esclaves sont réintégrés?",
-      "answer": "Une fois tous les fils esclaves réintégrés, le fil maître imprime la valeur finale de `workload`. Ensuite, la variable-condition (`ticker`) et le mutex sont détruits, puis le programme se termine."
+      "question": "Quelle est la différence entre les fonctions <tt>pthread_cond_signal</tt> et <tt>pthread_cond_broadcast</tt> lorsqu'on utilise des variables-conditions dans un programme pthreads?",
+      "answer": "Dans le contexte des variables-conditions en pthreads, la fonction <tt>pthread_cond_signal</tt> réveille un seul fil en attente (choisi au hasard) lorsque la condition est satisfaite. Par contre, la fonction <tt>pthread_cond_broadcast</tt> signale à *tous* les fils qui sont en attente de cette même variable-condition que la condition est maintenant remplie, ce qui les réveille tous."
     }
   ],
-  "generated_at": "2026-04-12T05:32:50.299802+00:00"
+  "generated_at": "2026-04-13T11:31:20.409027+00:00"
 }

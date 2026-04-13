@@ -4,73 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What environment module should be loaded for Gurobi versions greater than 9.0.2 when running the Gurobi command-line interface?",
-      "answer": "For Gurobi versions greater than 9.0.2, you should load the `StdEnv/2020` module."
+      "question": "Why is it important to explicitly set the number of threads for Gurobi Python jobs run on the clusters, rather than relying on the default behaviour?",
+      "answer": "It is important to set the number of threads for Gurobi Python jobs because, by default, Gurobi will utilize as many execute threads as there are physical cores on the compute node. This can potentially slow down the job and negatively impact other user jobs running on the same node. To prevent this, users should dynamically generate a `gurobi.env` file to set the threads parameter equal to the number of cores allocated to their job."
     },
     {
-      "question": "What is the purpose of the `rm -f coins.sol` command in the data example script?",
-      "answer": "The `rm -f coins.sol` command is used to remove any existing `coins.sol` file before running the Gurobi optimization."
+      "question": "Why would a user create a Python virtual environment to use Gurobi on Digital Research Alliance of Canada systems?",
+      "answer": "A user would create a Python virtual environment to use Gurobi because Gurobi's own Python version does not contain any third-party Python packages (except Gurobi itself). To use Gurobi together with popular Python packages like NumPy, Matplotlib, or Pandas, a virtual Python environment is needed where both `gurobipy` and other desired packages can be installed."
     },
     {
-      "question": "How are parameters like `Threads` and `Method` passed to the `gurobi_cl` command-line tool in the data example?",
-      "answer": "Parameters are passed directly as simple command-line arguments to `gurobi_cl`, such as `Threads=$SLURM_CPUS_ON_NODE` and `Method=2`."
-    },
-    {
-      "question": "What type of problem does the provided data example Slurm script solve using the Gurobi command-line interface?",
-      "answer": "The data example Slurm script solves a simple coin production model written in LP format."
-    },
-    {
-      "question": "What is the main goal of the Python example Slurm script provided?",
-      "answer": "The Python example Slurm script aims to solve a simple facility location model using Gurobi Python."
-    },
-    {
-      "question": "How does the Python example script set the number of threads for a Gurobi job?",
-      "answer": "The Python example script dynamically generates a `gurobi.env` file in the working directory with the line `echo \"Threads ${SLURM_CPUS_ON_NODE:-1}\" > gurobi.env`, which sets the threads parameter equal to the number of cores allocated to the job."
-    },
-    {
-      "question": "Why is it important to explicitly set the number of threads for Gurobi Python jobs?",
-      "answer": "Explicitly setting the number of threads prevents Gurobi from (by default) starting as many threads as there are physical cores on the compute node, which could slow down the job and negatively impact other users."
-    },
-    {
-      "question": "What Gurobi and StdEnv modules are loaded in the `script-facility.sh` example for a Gurobi Python job?",
-      "answer": "The `script-facility.sh` example loads `StdEnv/2023` for Gurobi versions greater than 10.0.3, and `gurobi/11.0.1`."
-    },
-    {
-      "question": "What Slurm directives are used to request resources in the `script-facility.sh` example?",
-      "answer": "The `script-facility.sh` example uses the following Slurm directives: `--account=def-group`, `--time=0-00:30`, `--cpus-per-task=4`, `--mem=4G`, and `--nodes=1`."
-    },
-    {
-      "question": "Why would a user need to create a Python virtual environment when using Gurobi?",
-      "answer": "A user needs to create a Python virtual environment to use Gurobi alongside popular third-party Python packages like NumPy, Matplotlib, and Pandas, as Gurobi's own Python version only includes Gurobi packages."
-    },
-    {
-      "question": "What Python versions are supported by Gurobi 8.1.1 when `StdEnv/2016` is loaded?",
-      "answer": "Gurobi 8.1.1 with `StdEnv/2016` supports `python2.7`, `python2.7_utf16`, `python2.7_utf32`, `python3.5_utf32`, `python3.6_utf32`, and `python3.7_utf32`."
-    },
-    {
-      "question": "Which Python versions are available for Gurobi 9.5.2 under `StdEnv/2020`?",
-      "answer": "For Gurobi 9.5.2 under `StdEnv/2020`, the available Python versions are `python2.7_utf16`, `python2.7_utf32`, `python3.10_utf32`, `python3.7`, `python3.7_utf32`, `python3.8_utf32`, and `python3.9_utf32`."
-    },
-    {
-      "question": "What Python versions are supported by Gurobi 10.0.3 with `StdEnv/2023`?",
-      "answer": "Gurobi 10.0.3 with `StdEnv/2023` supports `python3.10_utf32`, `python3.11_utf32`, `python3.7`, `python3.7_utf32`, `python3.8_utf32`, and `python3.9_utf32`."
-    },
-    {
-      "question": "Which Python version is supported by Gurobi 11.0.1 with `StdEnv/2023`?",
-      "answer": "Gurobi 11.0.1 with `StdEnv/2023` supports `python3.11`."
-    },
-    {
-      "question": "What was the previously recommended method for installing Gurobi for Python?",
-      "answer": "The previously recommended method for installing Gurobi for Python was using `setup.py`."
-    },
-    {
-      "question": "For which Gurobi versions is the `setup.py` installation method still usable?",
-      "answer": "The `setup.py` installation method is only usable with Gurobi 10 versions and older."
-    },
-    {
-      "question": "How should Gurobi versions 11 and newer be installed for Python?",
-      "answer": "For Gurobi versions 11 and newer, users should download a compatible binary wheel from pypi.org and convert it into a format usable with the newly recommended command for installation."
+      "question": "What is the recommended installation method for the Gurobi Python interface for Gurobi versions 11.0.0 and newer on these systems?",
+      "answer": "For Gurobi versions 11.0.0 and newer, the previously recommended `setup.py` method for installing Gurobi for Python is deprecated. The new recommended approach involves downloading a compatible binary wheel from pypi.org, converting it into a format usable with `pip`, and then installing `gurobipy` using `python -m pip install --find-links <wheel-dir> --no-index gurobipy` within a Python virtual environment."
     }
   ],
-  "generated_at": "2026-04-11T23:32:02.605222+00:00"
+  "generated_at": "2026-04-13T06:53:49.629551+00:00"
 }

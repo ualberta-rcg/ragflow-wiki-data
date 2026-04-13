@@ -3,133 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Quel est le but principal de CVMFS tel que décrit ici?",
-      "answer": "CVMFS (CERN Virtual Machine File System) permet d'accéder aux répertoires de logiciels et de données offerts par l'Alliance de recherche numérique du Canada."
+      "question": "Qu'est-ce que le système de fichiers CVMFS (CERN Virtual Machine File System) sur les grappes de l'Alliance et pourquoi voudrait-on l'installer sur son propre ordinateur?",
+      "answer": "CVMFS est un système de fichiers qui donne accès aux répertoires de logiciels et de données préconfigurés sur les grappes de l'Alliance. L'installer sur votre propre ordinateur ou grappe vous permet d'accéder aux mêmes répertoires et environnements logiciels que ceux de nos systèmes."
     },
     {
-      "question": "Quel est l'objectif de ce document?",
-      "answer": "Ce document explique comment installer et configurer CVMFS sur votre propre ordinateur ou grappe, pour avoir accès aux mêmes répertoires et environnements logiciels que sur les systèmes de l'Alliance."
+      "question": "Quelles sont les étapes importantes à suivre avant de commencer l'installation et la configuration de CVMFS sur son propre système pour accéder aux ressources de l'Alliance?",
+      "answer": "Avant de commencer, il est essentiel de s'abonner au service d'annonces cvmfs-announce@gw.alliancecan.ca, de remplir le formulaire d'enregistrement de l'Alliance et de s'assurer de reconnaître la contribution de l'Alliance si l'environnement logiciel est utilisé dans votre recherche."
     },
     {
-      "question": "Où puis-je trouver plus d'informations sur l'environnement logiciel de l'Alliance?",
-      "answer": "Vous pouvez consulter les pages wiki 'Logiciels disponibles', 'Utiliser des modules', 'Python', 'R' et 'Installation de logiciels dans votre répertoire /home'."
+      "question": "Quelles sont les conditions d'utilisation et le niveau de soutien technique pour les répertoires CVMFS fournis par l'Alliance?",
+      "answer": "Les répertoires CVMFS sont offerts sans aucune forme de garantie. L'accès peut être limité ou bloqué si vous contrevenez aux conditions d'utilisation, ou à la discrétion de l'Alliance. Le logiciel client CVMFS est fourni par le CERN."
     },
     {
-      "question": "Quelles sont les étapes importantes avant de commencer l'installation de CVMFS?",
-      "answer": "Il faut s'abonner au service d'annonces cvmfs-announce, remplir un formulaire d'enregistrement et reconnaître la contribution de l'Alliance selon leurs directives."
+      "question": "Quelles sont les exigences techniques minimales pour installer CVMFS sur un seul ordinateur personnel?",
+      "answer": "Pour un seul système, les exigences sont un système d'exploitation compatible (Linux kernel 2.6.32+, Windows WSL2 avec Linux kernel 2.6.32+, Mac OS par instance virtuelle), le logiciel libre FUSE, environ 50 Go d'espace de stockage local pour la cache (5 à 10 Go pour une utilisation restreinte) et l'accès HTTP à l'Internet ou à des serveurs proxies locaux."
     },
     {
-      "question": "Pourquoi devrais-je m'abonner au service d'annonces CVMFS?",
-      "answer": "Pour recevoir les annonces importantes concernant les modifications au CVMFS, aux logiciels ou au contenu des répertoires qui pourraient affecter les utilisateurs ou nécessiter une intervention administrative."
+      "question": "Quelles sont les considérations supplémentaires pour déployer CVMFS sur plusieurs systèmes, comme une grappe de calcul ou un laboratoire?",
+      "answer": "Pour plusieurs systèmes, il est recommandé de déployer des serveurs proxies HTTP avec cache externe (idéalement au moins deux) pour améliorer la performance, et de synchroniser l'identité du compte de service `cvmfs` de tous les nœuds clients, préférablement avant l'installation de CVMFS."
     },
     {
-      "question": "Quelles sont les conditions d'utilisation et de soutien technique pour CVMFS?",
-      "answer": "Les répertoires CVMFS sont offerts sans aucune forme de garantie et l'accès peut être limité ou bloqué si les conditions d'utilisation ne sont pas respectées ou à la discrétion de l'Alliance."
+      "question": "Quelles sont les exigences de l'environnement logiciel de base en termes de système d'exploitation et de CPU pour CVMFS?",
+      "answer": "Les exigences de base incluent Linux avec un noyau 2.6.32 ou plus (3.2+ pour l'environnement 2020), Windows avec WSL2 et une distribution Linux compatible, ou Mac OS par instance virtuelle. Pour le CPU, il faut un x86, pour les jeux d'instructions SSE3, AVX, AVX2 ou AVX512."
     },
     {
-      "question": "Quelles sont les exigences techniques pour installer CVMFS sur un seul ordinateur?",
-      "answer": "Un système d'exploitation compatible (Linux, Windows WSL2, Mac OS via instance virtuelle), le logiciel FUSE, environ 50Go d'espace de stockage local pour la cache (5-10Go peuvent suffire pour un usage restreint) et un accès HTTP vers l'internet ou des serveurs proxies locaux."
+      "question": "Comment s'assurer que la cache locale CVMFS est correctement configurée avant de procéder à l'installation?",
+      "answer": "Il est recommandé que la cache locale CVMFS (située par défaut dans `/var/lib/cvmfs` et configurable avec `CVMFS_CACHE_BASE`) soit localisée dans un système de fichiers dédié pour ne pas partager le stockage avec d'autres applications. Ce système de fichiers devrait être prêt avant l'installation de CVMFS."
     },
     {
-      "question": "Quelles sont les recommandations pour déployer CVMFS sur plusieurs systèmes (une grappe, par exemple)?",
-      "answer": "Chaque système doit satisfaire aux exigences individuelles, et il est recommandé de déployer des serveurs proxies HTTP locaux avec cache externe (au moins deux pour la redondance) et de synchroniser l'identité du compte de service `cvmfs` de tous les nœuds clients avant l'installation."
+      "question": "Comment valider la configuration et vérifier les répertoires CVMFS après l'installation sur son système?",
+      "answer": "Pour valider la configuration, utilisez la commande `sudo cvmfs_config chksetup`. Ensuite, pour vérifier les répertoires, utilisez `cvmfs_config probe`. Assurez-vous de régler tout avertissement ou erreur qui pourrait survenir."
     },
     {
-      "question": "Quelles sont les exigences de base pour le système d'exploitation et le CPU afin d'utiliser l'environnement logiciel?",
-      "answer": "Un noyau Linux 2.6.32+ (ou 3.2+ pour l'environnement 2020), Windows avec WSL2 et une distribution Linux compatible, ou Mac OS par instance virtuelle. Le CPU doit être x86, compatible SSE3, AVX, AVX2 ou AVX512."
+      "question": "Comment activer l'environnement logiciel de l'Alliance dans une session shell après que le répertoire CVMFS est monté?",
+      "answer": "Pour activer l'environnement, sourcez le script `/cvmfs/soft.computecanada.ca/config/profile/bash.sh`. Pour obtenir les modules par défaut d'une grappe spécifique, définissez la variable `CC_CLUSTER` (par exemple, `export CC_CLUSTER=rorqual`) avant de sourcer le script."
     },
     {
-      "question": "Quelles sont les recommandations pour une utilisation optimale de l'environnement logiciel?",
-      "answer": "Utiliser un ordonnanceur (Slurm ou Torque), une interconnexion réseau (Ethernet, InfiniBand ou OmniPath), un GPU NVidia avec pilotes CUDA 7.5+ et un minimum de paquets Linux."
+      "question": "Comment un administrateur peut-il personnaliser l'environnement logiciel de l'Alliance, notamment pour le jeu d'instructions CPU ou le type d'interconnexion réseau?",
+      "answer": "L'environnement peut être personnalisé via des variables d'environnement. Par exemple, `RSNT_ARCH` peut être défini à `sse3`, `avx`, `avx2` ou `avx512` pour le jeu d'instructions CPU, et `RSNT_INTERCONNECT` à `omnipath`, `infiniband` ou `ethernet` pour le type d'interconnexion réseau."
     },
     {
-      "question": "Existe-t-il des méthodes automatisées pour installer CVMFS?",
-      "answer": "Oui, il existe un rôle client CVMFS pour Ansible et des scripts sont disponibles pour installer CVMFS sur une instance infonuagique."
+      "question": "Comment installer des modules additionnels localement sur sa grappe de calcul et les faire reconnaître par la hiérarchie centrale de modules de l'Alliance?",
+      "answer": "Pour installer des modules additionnels localement, identifiez un chemin d'installation (par ex. `/opt/software/easybuild`), exportez la variable d'environnement `RSNT_LOCAL_MODULEPATHS` vers le sous-répertoire des modules (par ex. `/opt/software/easybuild/modules`), puis utilisez EasyBuild avec `eb --installpath /opt/software/easybuild <votre_recette_easyconfig>`."
     },
     {
-      "question": "Quelle est la recommandation concernant la cache locale CVMFS avant l'installation?",
-      "answer": "Il est recommandé que la cache locale CVMFS (par défaut dans `/var/lib/cvmfs`) soit localisée dans un système de fichiers dédié pour ne pas partager le stockage avec d'autres applications."
+      "question": "Quelles sont les mises en garde importantes concernant l'utilisation de l'environnement logiciel de l'Alliance par un administrateur système?",
+      "answer": "Si vous effectuez des opérations de système avec des privilèges ou des opérations liées à CVMFS, assurez-vous que votre session ne dépend pas de l'environnement logiciel de l'Alliance pour éviter des dépendances circulaires qui pourraient bloquer les mises à jour ou les reconfigurations de CVMFS."
     },
     {
-      "question": "Où puis-je trouver les directives détaillées pour l'installation et la configuration de CVMFS?",
-      "answer": "Vous pouvez trouver les directives dans les sections 'Getting the Software', 'Setting up the Software' et 'Client parameters' de la documentation CVMFS."
+      "question": "Est-ce que tous les logiciels disponibles sur les ressources de l'Alliance via CVMFS sont accessibles sur un système personnel avec CVMFS?",
+      "answer": "Non, certains logiciels du commerce soumis à licence ne sont pas disponibles en dehors des ressources de l'Alliance. Par exemple, bien que les modules pour les compilateurs Intel ou Portland Group puissent être visibles, seuls les objets partagés redistribuables sont accessibles, permettant d'exécuter des applications compilées mais pas de compiler de nouvelles."
     },
     {
-      "question": "Comment puis-je vérifier que ma configuration CVMFS fonctionne correctement?",
-      "answer": "Vous devez d'abord vous assurer que les répertoires à tester sont dans `CVMFS_REPOSITORIES`, puis valider la configuration avec `sudo cvmfs_config chksetup` et vérifier les répertoires avec `cvmfs_config probe`."
+      "question": "Quels sont les problèmes potentiels liés à la localisation des bibliothèques CUDA avec CVMFS sur certaines plateformes?",
+      "answer": "Sur certaines plateformes, les pilotes NVidia récents peuvent installer les bibliothèques CUDA dans `/usr/lib64` sans emprunter toutes les bibliothèques du système, ce qui peut créer des incompatibilités. Il est recommandé de créer des liens symboliques dans `/usr/lib64/nvidia` pour rediriger vers les bibliothèques NVidia installées."
     },
     {
-      "question": "Comment activer l'environnement logiciel de l'Alliance dans ma session après le montage de CVMFS?",
-      "answer": "Vous devez exécuter le script `/cvmfs/soft.computecanada.ca/config/profile/bash.sh`. Pour une grappe spécifique, définissez `export CC_CLUSTER=nom_de_la_grappe` (ex: `rorqual`) avant de sourcer le script."
-    },
-    {
-      "question": "Que faire si mon identifiant d'utilisateur est inférieur à 1000 et que l'environnement ne s'active pas?",
-      "answer": "Vous pouvez définir la variable `FORCE_CC_CVMFS=1` ou créer le fichier `$HOME/.force_cc_cvmfs` pour forcer l'activation de l'environnement."
-    },
-    {
-      "question": "Comment désactiver l'activation automatique de l'environnement logiciel de l'Alliance?",
-      "answer": "Vous pouvez définir `SKIP_CC_CVMFS=1` ou créer le fichier `$HOME/.skip_cc_cvmfs` dans votre répertoire /home."
-    },
-    {
-      "question": "À quoi sert la variable d'environnement `CC_CLUSTER`?",
-      "answer": "Elle identifie la grappe, achemine des renseignements au journal du système et définit le comportement selon la licence du logiciel. Sa valeur par défaut est `computecanada`."
-    },
-    {
-      "question": "Comment puis-je spécifier manuellement le jeu d'instructions CPU si la détection automatique n'est pas souhaitée?",
-      "answer": "En définissant la variable d'environnement `RSNT_ARCH` (ex: `sse3`, `avx`, `avx2`, `avx512`) avant d'activer l'environnement."
-    },
-    {
-      "question": "Comment la variable `RSNT_INTERCONNECT` affecte-t-elle l'environnement?",
-      "answer": "Elle identifie le type d'interconnexion réseau (omnipath, infiniband, ethernet) et déclenche des options différentes du protocole de transport pour OpenMPI."
-    },
-    {
-      "question": "Comment puis-je gérer la visibilité des modules CUDA en fonction des versions des pilotes NVidia?",
-      "answer": "La variable `RSNT_CUDA_DRIVER_VERSION` permet de cacher ou montrer les versions des modules CUDA. Définir `RSNT_CUDA_DRIVER_VERSION=0.0` cache toutes les versions."
-    },
-    {
-      "question": "Comment intégrer des arbres de modules locaux à l'arborescence centrale de l'Alliance?",
-      "answer": "Définissez la variable `RSNT_LOCAL_MODULEPATHS` avec le chemin de vos modules EasyBuild locaux (ex: `/opt/software/easybuild/modules`), puis installez vos recettes EasyBuild avec `eb --installpath /opt/software/easybuild <recette>`."
-    },
-    {
-      "question": "Comment puis-je définir les modules à charger par défaut au lieu de `StdEnv`?",
-      "answer": "Vous pouvez définir la variable d'environnement `LMOD_SYSTEM_DEFAULT_MODULES` avec les modules que vous souhaitez charger par défaut."
-    },
-    {
-      "question": "Est-il possible d'utiliser un fichier `modulerc` personnalisé pour définir les versions par défaut des modules?",
-      "answer": "Oui, en définissant la variable `MODULERCFILE` pour qu'elle pointe vers votre propre fichier `modulerc`, ce qui aura préséance sur les définitions de l'environnement."
-    },
-    {
-      "question": "Quels chemins de fichiers sont automatiquement reconnus et ajoutés au `MODULEPATH` ou `PATH` par l'environnement logiciel?",
-      "answer": "`/opt/software/modulefiles` et `$HOME/modulefiles` sont ajoutés au `MODULEPATH`. `/opt/software/slurm/bin`, `/opt/software/bin` et `/opt/slurm/bin` sont ajoutés au `PATH`."
-    },
-    {
-      "question": "Comment installer des modules additionnels localement pour qu'ils s'intègrent à la hiérarchie centrale de modules?",
-      "answer": "Identifiez un chemin d'installation (ex: `/opt/software/easybuild`), exportez `RSNT_LOCAL_MODULEPATHS` vers le sous-répertoire `/modules` de ce chemin, puis installez les paquets avec EasyBuild (`eb --installpath /opt/software/easybuild <recette>`)."
-    },
-    {
-      "question": "Quelle est la mise en garde pour les administrateurs qui utilisent l'environnement logiciel de l'Alliance?",
-      "answer": "Lors d'opérations système avec privilèges ou en rapport avec CVMFS, il faut s'assurer que la session ne dépend pas de l'environnement logiciel pour éviter les blocages ou interruptions de service."
-    },
-    {
-      "question": "Tous les logiciels du commerce sont-ils disponibles via CVMFS sur mon système personnel?",
-      "answer": "Non, certains logiciels sous licence ne sont disponibles qu'avec les ressources de l'Alliance et vous n'y aurez pas accès sur votre propre système, même si les modules sont visibles (ex: compilateurs Intel ou Portland Group)."
-    },
-    {
-      "question": "Quel est le problème avec la localisation des bibliothèques CUDA et comment le corriger?",
-      "answer": "Les récents pilotes NVidia peuvent installer des bibliothèques CUDA dans `/usr/lib64` sans les rendre complètement compatibles. Il est recommandé de créer des liens symboliques dans `/usr/lib64/nvidia` pointant vers ces bibliothèques installées. Des scripts sont fournis pour RedHat et Ubuntu."
-    },
-    {
-      "question": "Pourquoi n'est-il pas recommandé d'utiliser `LD_LIBRARY_PATH`?",
-      "answer": "Il n'est pas recommandé d'utiliser `LD_LIBRARY_PATH` car cela pourrait nuire au fonctionnement de l'environnement logiciel."
-    },
-    {
-      "question": "Que faire si des paquets binaires comme Anaconda ont de la difficulté à trouver les bibliothèques requises?",
-      "answer": "Puisque `LD_LIBRARY_PATH` n'est pas défini et que les bibliothèques ne sont pas aux emplacements Linux par défaut, il faut consulter la documentation de l'Alliance sur l'installation de paquets binaires."
-    },
-    {
-      "question": "Faut-il installer `dbus` localement?",
-      "answer": "Oui, pour certaines applications, `dbus` doit être installé localement sur le système d'exploitation hôte."
+      "question": "Pourquoi l'utilisation de `LD_LIBRARY_PATH` est-elle déconseillée avec l'environnement CVMFS de l'Alliance?",
+      "answer": "L'utilisation de `LD_LIBRARY_PATH` n'est pas recommandée car elle pourrait nuire au bon fonctionnement de l'environnement logiciel de l'Alliance, potentiellement en causant des conflits de bibliothèques ou des comportements inattendus."
     }
   ],
-  "generated_at": "2026-04-11T15:49:24.002565+00:00"
+  "generated_at": "2026-04-13T00:58:03.026612+00:00"
 }

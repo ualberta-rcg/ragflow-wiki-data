@@ -3,65 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, GLOST? À quoi ça sert?",
-      "answer": "GLOST (Greedy Launcher Of Small Tasks) est un outil qui permet d'exécuter un grand nombre de tâches séquentielles de courte durée ou de durée variable, ou encore avec des jeux de paramètres, tout ça avec une syntaxe simplifiée."
+      "question": "Qu'est-ce que l'outil GLOST (Greedy Launcher Of Small Tasks) et à quoi sert-il sur les clusters d'Alliance?",
+      "answer": "GLOST est un outil conçu pour exécuter un grand nombre de tâches séquentielles de courte durée, de durée variable ou avec des jeux de paramètres (parameter sweep), en offrant une syntaxe simplifiée pour leur gestion."
     },
     {
-      "question": "Comment GLOST fonctionne-t-il pour exécuter des tâches?",
-      "answer": "GLOST utilise l'enveloppe `glost_launch` et les commandes MPI comme `srun`, `mpiexec` ou `mpirun`. Un fichier texte nommé `list_glost_tasks.txt` regroupe les tâches et sert d'argument à `glost_launch`."
+      "question": "Quel est le principe de fonctionnement de GLOST pour gérer les tâches sur les clusters d'Alliance et réduire la charge de l'ordonnanceur?",
+      "answer": "GLOST regroupe plusieurs tâches séquentielles dans un fichier texte nommé `list_glost_tasks.txt` et les fait exécuter au sein d'une seule tâche MPI. Cela diminue grandement le nombre de tâches individuelles soumises à l'ordonnanceur, réduisant ainsi sa sollicitation."
     },
     {
-      "question": "Dans quelles situations GLOST est-il le plus utile?",
-      "answer": "GLOST est particulièrement utile pour plusieurs tâches séquentielles de durée comparable ou de courte durée, ainsi que pour des tâches séquentielles avec des paramètres variables (parameter sweep)."
+      "question": "Quels sont les éléments clés (enveloppe et commandes) utilisés par GLOST pour lancer des tâches?",
+      "answer": "GLOST utilise l'enveloppe `glost_launch` et s'appuie sur les commandes MPI `srun`, `mpiexec` ou `mpirun` pour lancer les tâches définies dans le fichier `list_glost_tasks.txt`."
     },
     {
-      "question": "Quel est l'avantage principal d'utiliser GLOST par rapport à soumettre des tâches individuellement?",
-      "answer": "L'avantage principal est de grouper plusieurs tâches séquentielles dans une seule tâche MPI, ce qui diminue de beaucoup le nombre de tâches dans la file d'attente et réduit le fardeau de l'ordonnanceur Slurm, évitant ainsi des délais et des interruptions."
+      "question": "Dans quelles situations GLOST est-il particulièrement utile pour l'exécution de calculs?",
+      "answer": "GLOST est particulièrement utile pour gérer plusieurs tâches séquentielles de durée comparable ou courte, ou encore pour des tâches séquentielles avec des paramètres variables (parameter sweep)."
     },
     {
-      "question": "Y a-t-il des alternatives à GLOST, et quels sont leurs avantages?",
-      "answer": "Oui, le paquet logiciel META-Farm est une bonne alternative. Il offre des avantages importants comme un temps d'attente total plus court, moins de surcharge CPU, un mécanisme pour resoumettre les calculs échoués et la capacité de traiter des tâches séquentielles, multifils, MPI, GPU et hybrides."
+      "question": "Quels modules dois-je charger sur les clusters d'Alliance pour pouvoir utiliser GLOST?",
+      "answer": "Pour utiliser GLOST, vous devez charger le module OpenMPI et le module GLOST correspondant. Par exemple, si OpenMPI est déjà chargé dans votre environnement par défaut, un simple `module load glost` peut suffire."
     },
     {
-      "question": "Quels modules dois-je charger pour utiliser GLOST?",
-      "answer": "Vous devez charger le module OpenMPI et le module GLOST correspondant. Par exemple, si OpenMPI est déjà dans votre environnement, un simple `module load glost` peut suffire."
+      "question": "Quelle est la syntaxe de base pour lancer une tâche GLOST sur les systèmes d'Alliance?",
+      "answer": "La syntaxe de base pour lancer une tâche GLOST est d'utiliser l'une des commandes MPI avec l'enveloppe `glost_launch` et le nom de votre fichier de liste de tâches, comme `srun glost_launch list_glost_tasks.txt`."
     },
     {
-      "question": "C'est quoi la syntaxe de base pour lancer GLOST?",
-      "answer": "Les formes possibles sont `srun glost_launch list_glost_tasks.txt`, `mpiexec glost_launch list_glost_tasks.txt` ou `mpirun glost_launch list_glost_tasks.txt`."
+      "question": "Comment GLOST attribue-t-il les tâches séquentielles aux cœurs disponibles lors de l'exécution?",
+      "answer": "GLOST attribue les tâches aux cœurs disponibles par une distribution cyclique, en commençant par la première tâche de la liste et en l'assignant à un processeur, puis en répétant ce processus jusqu'à la fin de la liste."
     },
     {
-      "question": "Comment GLOST distribue-t-il les tâches sur les cœurs disponibles?",
-      "answer": "Les tâches séquentielles sont attribuées aux cœurs disponibles par une distribution cyclique. Pour optimiser les ressources, assurez-vous que les tâches ont une durée d'exécution similaire."
+      "question": "Comment peut-on optimiser l'utilisation des ressources quand on lance des tâches avec GLOST?",
+      "answer": "Pour optimiser les ressources, il est recommandé de s'assurer que les tâches ont une durée d'exécution similaire et qu'elles peuvent être distribuées équitablement sur le nombre de cœurs demandés."
     },
     {
-      "question": "Comment j'estime le temps d'exécution d'une tâche GLOST?",
-      "answer": "Si vous avez `Njobs` tâches similaires, chacune prenant `t0` sur un processeur, et que vous utilisez `Ncores`, la durée estimée sera `wt = t0 * Njobs / Ncores`."
+      "question": "Comment estimer le temps d'exécution d'une tâche GLOST si on connaît la durée des tâches individuelles?",
+      "answer": "Si votre tâche GLOST comprend `Njobs` tâches similaires, chacune prenant `t0` sur un processeur, la durée totale estimée avec `Ncores` sera `wt = t0 * Njobs / Ncores`."
     },
     {
-      "question": "Quelle est la spécification de mémoire à utiliser dans un script Slurm avec GLOST?",
-      "answer": "Dans votre script Slurm, vous devriez utiliser `--mem-per-cpu` plutôt que `--mem`, car la mémoire par cœur devrait être la même que celle utilisée par les tâches exécutées séparément."
+      "question": "Quelle directive Slurm est recommandée pour la gestion de la mémoire avec GLOST?",
+      "answer": "Pour la gestion de la mémoire avec GLOST, il est recommandé d'utiliser la directive Slurm `--mem-per-cpu` dans votre script, en spécifiant la même quantité de mémoire que celle utilisée par les tâches exécutées séparément."
     },
     {
-      "question": "Comment je crée le fichier `list_glost_tasks.txt`?",
-      "answer": "C'est un fichier texte où chaque ligne représente une tâche, avec les commandes à exécuter pour cette tâche. Si une tâche contient plusieurs commandes, elles doivent être séparées par `&&`."
+      "question": "Quelles sont les règles pour créer le fichier `list_glost_tasks.txt` pour GLOST?",
+      "answer": "Le fichier `list_glost_tasks.txt` doit contenir une tâche par ligne. Si une tâche comprend plusieurs commandes, celles-ci doivent être séparées par `&&`."
     },
     {
-      "question": "Comment éviter les conflits de fichiers quand plusieurs tâches sont dans le même répertoire?",
-      "answer": "Pour éviter que les résultats utilisent les mêmes fichiers, vous pouvez rediriger les sorties vers des fichiers uniques en utilisant des variables dans les noms (ex: `log_${nargument}.txt`), ou créer un répertoire distinct pour chaque tâche."
+      "question": "Comment éviter les conflits de fichiers temporaires ou de sortie lorsque des tâches GLOST sont exécutées dans le même répertoire?",
+      "answer": "Pour éviter les conflits, il faut ajouter des arguments aux commandes des tâches afin de différencier les fichiers temporaires ou de sortie, par exemple en redirigeant les résultats vers des fichiers nommés avec une variable propre à chaque tâche."
     },
     {
-      "question": "Comment gérer les tâches qui nécessitent des répertoires distincts pour éviter les chevauchements de résultats?",
-      "answer": "Vous pouvez inclure les commandes `mkdir -p RUN_${nargument} && cd RUN_${nargument}` directement dans la ligne de tâche de votre fichier `list_glost_tasks.txt` pour créer et naviguer vers un répertoire unique pour chaque tâche."
+      "question": "Quand est-il préférable de placer les tâches GLOST dans des répertoires différents, et comment faire?",
+      "answer": "C'est préférable quand un programme utilise des fichiers temporaires ou d'entrée/sortie avec des noms identiques. Pour ce faire, chaque tâche doit créer et se déplacer dans un répertoire distinct, par exemple en utilisant `mkdir -p RUN_${nargument} && cd RUN_${nargument}` dans la liste des tâches."
     },
     {
-      "question": "Que faire si ma tâche GLOST est arrêtée avant que toutes les tâches soient complétées?",
-      "answer": "Vous devez identifier les tâches non exécutées, les conserver dans une nouvelle liste ou supprimer les tâches complétées de l'ancienne liste, puis soumettre à nouveau le script avec la liste mise à jour."
+      "question": "Comment faire pour redémarrer une tâche GLOST qui n'a pas pu s'exécuter jusqu'au bout, par exemple à cause d'un temps d'exécution mal estimé?",
+      "answer": "Vous devez identifier les tâches qui ont déjà été exécutées, supprimer les lignes correspondantes dans le fichier `list_glost_tasks.txt` (ou créer une nouvelle liste avec les tâches restantes), puis soumettre à nouveau le script GLOST avec cette liste modifiée."
     },
     {
-      "question": "Où est-ce que je peux trouver des exemples de scripts GLOST?",
-      "answer": "Après avoir chargé le module GLOST, vous pouvez copier les exemples fournis dans votre répertoire personnel en utilisant la commande `cp -r $EBROOTGLOST/examples Glost_Examples`."
+      "question": "Où peut-on trouver des exemples de scripts et de listes de tâches pour GLOST sur les clusters d'Alliance?",
+      "answer": "Vous pouvez copier les exemples de GLOST dans votre répertoire de travail en utilisant la commande `cp -r $EBROOTGLOST/examples Glost_Examples`."
+    },
+    {
+      "question": "GLOST est-il la seule option pour gérer des tâches séquentielles sur les clusters d'Alliance, ou existe-t-il des alternatives recommandées?",
+      "answer": "Non, le paquet logiciel META, développé par une des équipes d'Alliance, est une alternative souvent recommandée car il offre d'importants avantages, notamment une meilleure gestion du temps d'attente, une surcharge réduite et la capacité de gérer des tâches variées (séquentielles, multifils, MPI, GPU, hybrides)."
     }
   ],
-  "generated_at": "2026-04-11T22:13:50.278429+00:00"
+  "generated_at": "2026-04-13T05:56:04.617987+00:00"
 }

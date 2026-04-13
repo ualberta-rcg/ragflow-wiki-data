@@ -4,125 +4,13 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What does GAMESS stand for?",
-      "answer": "GAMESS stands for The General Atomic and Molecular Electronic Structure System."
+      "question": "What is the General Atomic and Molecular Electronic Structure System (GAMESS), and what are the initial steps to prepare and submit a GAMESS job on Compute Canada clusters?",
+      "answer": "GAMESS is a general ''ab initio'' quantum chemistry package. To prepare a job for submission on Compute Canada clusters, users must first create a GAMESS input file detailing the molecular geometry and calculation specifications. Additionally, a job script needs to be prepared to define the required compute resources, ensuring both files are in the same directory. The job is then submitted to the Slurm scheduler using a command such as `sbatch gamess_job.sh`."
     },
     {
-      "question": "What type of software package is GAMESS?",
-      "answer": "GAMESS is a general ab initio quantum chemistry package."
-    },
-    {
-      "question": "Which scheduler do Compute Canada clusters utilize?",
-      "answer": "Compute Canada clusters use the Slurm scheduler."
-    },
-    {
-      "question": "Where can users find more information about submitting and monitoring jobs on Compute Canada?",
-      "answer": "Users can find more information about submitting and monitoring jobs by seeing the [[Running jobs]] documentation."
-    },
-    {
-      "question": "What is the first step in running a GAMESS calculation?",
-      "answer": "The first step is to prepare a GAMESS input file containing the molecular geometry and a specification of the calculation to be carried out."
-    },
-    {
-      "question": "Where can I find documentation for the GAMESS input file format and keywords?",
-      "answer": "You can refer to the GAMESS Documentation, particularly Chapter 2 \"Input Description\", for a description of the file format and keywords."
-    },
-    {
-      "question": "Besides the input file, what other file is required to define compute resources for a GAMESS job?",
-      "answer": "You have to prepare a job script to define the compute resources for the job."
-    },
-    {
-      "question": "What is the required location for the input file and job script?",
-      "answer": "The input file and job script must be in the same directory."
-    },
-    {
-      "question": "What is the default number of CPUs requested per task in the example GAMESS job script?",
-      "answer": "The default number of CPUs requested per task in the example GAMESS job script is 1."
-    },
-    {
-      "question": "What is the default memory requested per CPU in the example GAMESS job script?",
-      "answer": "The default memory requested per CPU in the example GAMESS job script is 4000M (4 GB)."
-    },
-    {
-      "question": "What is the default time limit specified in the example GAMESS job script?",
-      "answer": "The default time limit specified in the example GAMESS job script is 30 minutes (0-00:30)."
-    },
-    {
-      "question": "How do you load the GAMESS module in the example job script?",
-      "answer": "You load the GAMESS module using `module load gamess-us/20170420-R1`."
-    },
-    {
-      "question": "What command is used to submit a GAMESS job to the scheduler?",
-      "answer": "The command `sbatch gamess_job.sh` is used to submit the job to the scheduler."
-    },
-    {
-      "question": "Where are GAMESS temporary binary files (scratch files) written by default?",
-      "answer": "By default, temporary binary files (scratch files) are written to local disk on the compute node (`$SLURM_TMPDIR`)."
-    },
-    {
-      "question": "What happens to the data in `$SLURM_TMPDIR` after a job finishes?",
-      "answer": "The data in `$SLURM_TMPDIR` will be deleted after the job finishes."
-    },
-    {
-      "question": "How can one use `/scratch` for temporary binary files if local disk space is insufficient?",
-      "answer": "You can use `/scratch` instead by setting the `SCR` environment variable, as shown in the comments in the example job script."
-    },
-    {
-      "question": "What is the environment variable for GAMESS temporary binary files?",
-      "answer": "The environment variable for GAMESS temporary binary files is `SCR`."
-    },
-    {
-      "question": "Where are GAMESS supplementary output files written?",
-      "answer": "Supplementary output files are written to a location defined by the `USERSCR` environment variable."
-    },
-    {
-      "question": "What is the default location for GAMESS supplementary output files?",
-      "answer": "By default, GAMESS supplementary output files are written to the user's `$SCRATCH` directory."
-    },
-    {
-      "question": "Can GAMESS calculations utilize more than one CPU?",
-      "answer": "Yes, GAMESS calculations can make use of more than one CPU."
-    },
-    {
-      "question": "How is the number of CPUs available for a GAMESS calculation determined?",
-      "answer": "The number of CPUs available for a calculation is determined by the `--cpus-per-task` setting in the job script."
-    },
-    {
-      "question": "Why can GAMESS only use CPU cores located on the same compute node for parallelization?",
-      "answer": "GAMESS has been built using sockets for parallelization, which means it can only use CPU cores that are located on the same compute node."
-    },
-    {
-      "question": "What dictates the maximum number of CPU cores that can be used for a GAMESS job?",
-      "answer": "The maximum number of CPU cores that can be used for a job is dictated by the size of the nodes in the cluster."
-    },
-    {
-      "question": "What is an example of the maximum number of CPU cores per node on the Graham cluster?",
-      "answer": "On the Graham cluster, there are 32 CPU cores per node."
-    },
-    {
-      "question": "Do quantum chemistry calculations scale well to a large number of CPUs?",
-      "answer": "Quantum chemistry calculations are known to not scale well to large numbers of CPUs."
-    },
-    {
-      "question": "What factors determine how many CPUs can be used efficiently for quantum chemistry calculations?",
-      "answer": "Exactly how many CPUs can be used efficiently depends on the number of atoms, the number of basis functions, and the level of theory."
-    },
-    {
-      "question": "What method is recommended to determine a reasonable number of CPUs for a GAMESS calculation?",
-      "answer": "To determine a reasonable number of CPUs to use, one needs to run a scaling test."
-    },
-    {
-      "question": "What does a scaling test involve?",
-      "answer": "A scaling test involves running the same input file using different numbers of CPUs and comparing the execution times."
-    },
-    {
-      "question": "What is the ideal outcome of a scaling test?",
-      "answer": "Ideally, the execution time should be half as long when using twice as many CPUs."
-    },
-    {
-      "question": "Is it always efficient to double the number of CPUs for a calculation?",
-      "answer": "No, it is not always efficient; a calculation might run only 30% faster when CPUs are doubled, or even slower in certain cases."
+      "question": "Where are GAMESS temporary binary files and supplementary output files stored by default on Compute Canada clusters, and what are the implications of these storage locations?",
+      "answer": "By default, GAMESS temporary binary files (scratch files) are written to the local disk on the compute node (`$SLURM_TMPDIR`), which offers optimal performance but means the data will be deleted after the job concludes. Supplementary output files are directed to the user's `$SCRATCH` directory, as defined by the `USERSCR` environment variable. If there's insufficient local disk space, users can configure the `SCR` environment variable to use `/scratch` for temporary binary files instead."
     }
   ],
-  "generated_at": "2026-04-11T21:51:55.835128+00:00"
+  "generated_at": "2026-04-13T05:36:33.469833+00:00"
 }

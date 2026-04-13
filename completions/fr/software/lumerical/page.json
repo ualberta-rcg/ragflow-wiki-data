@@ -3,61 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi Lumerical?",
-      "answer": "Lumerical est une suite logicielle qui sert à la modélisation d'appareils nanophotoniques, incluant des applications comme FDTD Solutions."
+      "question": "Qu'est-ce que Lumerical, tel que décrit dans la documentation pour les clusters Alliance?",
+      "answer": "Lumerical est une suite logicielle conçue pour la modélisation d'appareils nanophotoniques, incluant des applications comme FDTD Solutions."
     },
     {
-      "question": "Est-ce que Lumerical est installé de façon centralisée sur l'infrastructure nationale?",
-      "answer": "Non, il n'y a pas d'installation centrale de Lumerical ou FDTD Solutions, mais vous pouvez les installer si vous disposez d'une licence."
+      "question": "Lumerical est-il installé de façon centralisée sur l'infrastructure nationale des clusters Alliance, ou dois-je l'installer moi-même?",
+      "answer": "Non, il n'y a pas d'installation centrale de Lumerical sur l'infrastructure nationale. Si vous possédez une licence, vous devez l'installer vous-même."
     },
     {
-      "question": "Que faut-il faire pour installer la suite Lumerical si la version de l'installateur correspond à celle de la recette?",
-      "answer": "Il faut lancer la commande `eb Lumerical-2020a-r1-d316eeda68.eb --sourcepath=<chemin> --disable-enforce-checksums`, en ajustant le chemin d'accès au fichier .tar.gz."
+      "question": "Quels sont les prérequis pour installer Lumerical ou FDTD Solutions sur les clusters Alliance?",
+      "answer": "Vous devez disposer d'une licence pour le logiciel et avoir téléchargé le fichier .tar.gz correspondant à la suite Lumerical complète ou à FDTD Solutions uniquement."
     },
     {
-      "question": "Comment faire si la version de l'installateur Lumerical ne correspond pas exactement à celle de la recette?",
-      "answer": "Utilisez la commande `eb Lumerical-2020a-r1-d316eeda68.eb --try-software-version=<version> --sourcepath=<chemin> --disable-enforce-checksums`, en spécifiant la version de votre installateur et le chemin."
+      "question": "Comment puis-je installer la suite logicielle Lumerical si la version de mon installateur correspond exactement à une recette d'installation disponible?",
+      "answer": "Pour installer la suite Lumerical, vous devez utiliser la commande `eb Lumerical-2020a-r1-d316eeda68.eb --sourcepath=<path> --disable-enforce-checksums`, en remplaçant `<path>` par le chemin de votre fichier .tar.gz et en ajustant le nom de la recette à votre version."
     },
     {
-      "question": "Que dois-je faire si l'année ou la lettre de la recette diffère de celle de l'installateur (ex: recette 2020a et installateur 2020b)?",
-      "answer": "Dans ce cas, il faut contacter le soutien technique pour qu'il adapte un script d'installation pour votre version."
+      "question": "Que dois-je faire si la version de mon installateur Lumerical ne correspond pas exactement à la recette d'installation, par exemple une version 2020a différente de 2020a-r1?",
+      "answer": "Dans ce cas, utilisez la commande `eb Lumerical-2020a-r1-d316eeda68.eb --try-software-version=<version> --sourcepath=<path> --disable-enforce-checksums`, en spécifiant la version exacte de votre installateur avec `--try-software-version` et le chemin vers votre fichier .tar.gz."
     },
     {
-      "question": "Comment configurer le fichier de licence pour Lumerical après l'installation?",
-      "answer": "Créez le fichier `$HOME/.licenses/lumerical.lic` avec le contenu `setenv(\"LUMERICAL_LICENSE_FILE\", \"27011@license01.example.com\")`, en remplaçant le port et le hostname de votre serveur de licence."
+      "question": "Après avoir installé Lumerical ou FDTD Solutions, quelles sont les étapes essentielles pour commencer à utiliser le logiciel sur les clusters Alliance?",
+      "answer": "Après l'installation, vous devez vous déconnecter et vous reconnecter au serveur, puis charger le module approprié avec `module load lumerical` ou `module load fdtd_solutions`."
     },
     {
-      "question": "Comment installer FDTD Solutions si la version correspond à la recette?",
-      "answer": "Lancez la commande `eb FDTD_Solutions-8.19.1438.eb --sourcepath=<chemin> --disable-enforce-checksums`, en indiquant le chemin de votre fichier .tar.gz."
+      "question": "Comment configure-t-on le fichier de licence pour Lumerical sur les clusters Alliance?",
+      "answer": "Vous devez créer le fichier `$HOME/.licenses/lumerical.lic` et y copier la ligne `setenv(\"LUMERICAL_LICENSE_FILE\", \"27011@license01.example.com\")`, en ajustant le port et le hostname de votre serveur de licence."
     },
     {
-      "question": "Comment configurer FDTD Solutions pour utiliser un serveur de licence?",
-      "answer": "Après l'installation, démarrez l'application sur un nœud de connexion; elle vous demandera les informations sur votre serveur de licence, et cette étape n'aura pas besoin d'être répétée."
+      "question": "Quelle est la principale différence entre l'utilisation du module `lumerical` et du module `fdtd_solutions` sur les clusters Alliance?",
+      "answer": "La principale différence est que le module `lumerical` offre plus d'outils et utilise la variable d'environnement `EBROOTLUMERICAL`, tandis que `fdtd_solutions` utilise `EBROOTFDTD_SOLUTIONS`. Les scripts doivent être ajustés en conséquence."
     },
     {
-      "question": "Quelle est la principale différence entre le module `lumerical` et le module `fdtd_solutions` pour l'écriture de scripts?",
-      "answer": "La principale différence est la variable d'environnement qui contient l'emplacement d'installation : `EBROOTLUMERICAL` pour le module `lumerical` et `EBROOTFDTD_SOLUTIONS` pour le module `fdtd_solutions`."
+      "question": "Quelles sont les options SLURM recommandées pour soumettre une tâche Lumerical ou FDTD Solutions en raison de l'implémentation MPI?",
+      "answer": "En raison de l'implémentation MPI, il est recommandé d'utiliser les options `--ntasks-per-node=1` et `--cpus-per-task=32` lors de la soumission d'une tâche SLURM pour Lumerical ou FDTD Solutions."
     },
     {
-      "question": "Quelles options `sbatch` sont recommandées pour les tâches MPI avec Lumerical ou FDTD Solutions sur l'ordonnanceur?",
-      "answer": "Il est recommandé d'utiliser les options `--ntasks-per-node=1` et `--cpus-per-task=32` parce que l'implémentation MPI fournie ne fonctionne pas étroitement avec l'ordonnanceur."
+      "question": "Comment puis-je soumettre un travail Lumerical sur un cluster Alliance avec SLURM?",
+      "answer": "Vous pouvez utiliser un script SLURM tel que l'exemple fourni, qui demande des nœuds et des cœurs spécifiques, charge le module Lumerical, et exécute `fdtd-engine-mpich2nem` via `mpiexec`."
     },
     {
-      "question": "Pour quelle raison les gabarits de scripts sont-ils utiles avec FDTD Solutions?",
-      "answer": "Les gabarits de scripts sont utiles pour soumettre plusieurs simulations de manière efficace sans devoir modifier le script pour chaque simulation."
+      "question": "Comment puis-je soumettre un travail FDTD Solutions sur un cluster Alliance avec SLURM?",
+      "answer": "Vous pouvez utiliser un script SLURM similaire à l'exemple fourni, qui demande des ressources, charge le module `fdtd_solutions`, et lance `fdtd-engine-mpich2nem` via `mpiexec`."
     },
     {
-      "question": "Comment soumettre une tâche FDTD Solutions en utilisant le script `fdtd-run.sh` et les gabarits?",
-      "answer": "Après avoir configuré les répertoires, vous utilisez `fdtd-run.sh fsp1 [fsp2 ...]` pour soumettre des tâches avec un seul nœud, ou `fdtd-run.sh -nn <nœuds> fsp1 [fsp2 ...]` pour utiliser plusieurs nœuds."
+      "question": "Comment puis-je exécuter plusieurs simulations FDTD Solutions de manière efficace sans modifier manuellement les scripts pour chaque simulation?",
+      "answer": "Vous pouvez utiliser le script `fdtd-run.sh` et les gabarits de scripts (`fdtd-mpi-template.sh`, `fdtd-process-template.sh`) fournis. Cela permet de soumettre plusieurs tâches avec la commande `fdtd-run.sh fsp1 [fsp2 ...]`, qui génère automatiquement les scripts de soumission."
     },
     {
-      "question": "Quel est le rôle du script `fdtd-process-template.sh`?",
-      "answer": "Ce script remplace les marqueurs dans un gabarit de script de soumission Slurm par des valeurs réelles (comme la mémoire et le temps estimés) extraites du fichier de projet FDTD Solutions."
+      "question": "Quelle est la fonction du script `fdtd-process-template.sh` utilisé avec les gabarits de scripts pour FDTD Solutions?",
+      "answer": "Le script `fdtd-process-template.sh` extrait des statistiques d'un fichier de projet FDTD Solutions (.fsp) pour estimer les besoins en mémoire et en temps, puis remplace les marqueurs dans un gabarit de script de soumission SLURM par ces valeurs calculées."
     },
     {
-      "question": "Quelles options peuvent être ajustées avec `fdtd-process-template.sh` pour affiner les estimations?",
-      "answer": "On peut ajuster le taux de simulation (`-r`), le temps minimum (`-tm`), le facteur multiplicatif de sécurité pour la mémoire (`-ms`), et la mémoire minimale par processus (`-mm`)."
+      "question": "Quelles options peuvent être utilisées avec `fdtd-process-template.sh` pour ajuster les estimations de ressources pour les simulations FDTD Solutions?",
+      "answer": "Vous pouvez utiliser les options `-r <rate>` pour le taux de simulation, `-tm <min_time>` pour le temps minimum, `-ms <memory_safety>` pour un facteur de sécurité de la mémoire, et `-mm <memory_min>` pour la mémoire minimale par processus."
     }
   ],
-  "generated_at": "2026-04-12T01:08:36.849234+00:00"
+  "generated_at": "2026-04-13T08:14:10.768234+00:00"
 }

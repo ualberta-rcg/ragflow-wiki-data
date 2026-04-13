@@ -4,93 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What two pieces of information are required from a local Ansys license server administrator to use a 'ready to use' institutional license server on an Alliance cluster?",
-      "answer": "You need the configured Ansys flex port (FLEXPORT) number and the fully qualified hostname (LICSERVER) of the license server."
+      "question": "How do I configure my local institutional Ansys license server for use on an Alliance cluster?",
+      "answer": "There are two main scenarios. If your license server's network/firewall connections are already set up for an Alliance cluster (\"Ready to use\"), you'll need the configured Ansys flex port (FLEXPORT, often 1055) and the fully qualified hostname (LICSERVER) from your administrator. Use these to update your `~/.licenses/ansys.lic` file. If it's a new setup (\"Setup required\"), in addition to FLEXPORT and LICSERVER, you'll need the statically configured vendor port (VENDPORT) and confirmation that your <servername> resolves to the same IP as LICSERVER on the cluster. You must then email [[technical support]] with FLEXPORT, LICSERVER, VENDPORT, and the desired Alliance cluster. An Alliance administrator will then open the outbound firewall and provide an IP range for your local network administrator to configure inbound firewall access for FLEXPORT and VENDPORT."
     },
     {
-      "question": "How do you configure your `~/.licenses/ansys.lic` file for an Ansys license server that is already set up for use on an Alliance cluster?",
-      "answer": "You simply plug the FLEXPORT and LICSERVER values, obtained from your local Ansys license server administrator, into the `FILE: ansys.lic` template."
+      "question": "How can I verify if my Ansys license configuration is correctly set up and working on an Alliance cluster?",
+      "answer": "To test your `ansys.lic` file and license server, run a specific sequence of commands on the cluster where you intend to submit jobs. First, change directory to `/tmp`. Then, allocate a compute node using `salloc --time=1:0:0 --mem=1000M --account=def-YOURUSERID`. Once on the compute node, load the necessary modules: `module load StdEnv/2023; module load ansys/2025R2.04`. Finally, execute the command: `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\" 1> /dev/null && echo Success || echo Fail`. A \"Success\" output indicates that licence checkouts should work, while \"Fail\" suggests a problem. Alternatively, if Fluent jobs fail to start, a \"Connected License Server List: <Shared_Web_License_Server>\" message may appear."
     },
     {
-      "question": "What additional information is required from a local Ansys license server administrator if the server has never been used with an Alliance cluster?",
-      "answer": "You will need the statically configured vendor port (VENDPORT) of the license server and confirmation that the `<servername>` will resolve to the same IP address as LICSERVER on the cluster."
-    },
-    {
-      "question": "Where can the `<servername>` be found in the Ansys license file?",
-      "answer": "The `<servername>` is located in the first line of the license file with the format 'SERVER <servername> <host id> <lmgrd port>'."
-    },
-    {
-      "question": "Who should be contacted with the license server information (FLEXPORT, LICSERVER, VENDPORT) for a new Ansys license server setup on an Alliance cluster, and what other detail should be included?",
-      "answer": "You should send these items by email to technical support and mention which Alliance cluster you want to run Ansys jobs on."
-    },
-    {
-      "question": "What steps will an Alliance system administrator take after receiving the necessary information for a new Ansys license server setup?",
-      "answer": "An Alliance system administrator will open the outbound cluster firewall so license checkout requests can reach your license server from the cluster compute nodes, and then send back a range of IP addresses to you."
-    },
-    {
-      "question": "What should be requested from the local network administrator to complete the setup of a new Ansys license server on an Alliance cluster?",
-      "answer": "You should request that the firewall into your local license server be opened so that Ansys license connection (checkout requests) can reach your servers FLEXPORT and VENDPORT ports across the provided IP range."
-    },
-    {
-      "question": "How can you test if your `ansys.lic` file is correctly configured and working with your license server?",
-      "answer": "You can test it by running a specific sequence of commands on the same cluster where you will submit jobs, which includes using `salloc`, loading the Ansys module, and executing `lmutil lmstat`."
-    },
-    {
-      "question": "What does a 'Success' output indicate when checking your Ansys license?",
-      "answer": "A 'Success' output indicates that license checkouts should work when jobs are submitted to the queue."
-    },
-    {
-      "question": "What does a 'Fail' output indicate when checking your Ansys license?",
-      "answer": "A 'Fail' output indicates a problem with the licensing setup somewhere, and jobs will likely fail."
-    },
-    {
-      "question": "What message will appear in Slurm output files if there is an Ansys license server checkout problem when Fluent jobs are started?",
-      "answer": "The message 'Connected License Server List: <Shared_Web_License_Server> Hit return to exit.' will appear."
-    },
-    {
-      "question": "Are Ansys simulations typically forward or backward compatible?",
-      "answer": "Ansys simulations are typically forward compatible but NOT backwards compatible."
-    },
-    {
-      "question": "What does it mean for Ansys simulations to be forward compatible?",
-      "answer": "It means that simulations created using an older version of Ansys can be expected to load and run fine with any newer version."
-    },
-    {
-      "question": "What can happen if a simulation created with a newer Ansys version is run with an older version?",
-      "answer": "While it may be possible to start, random error messages or crashing will likely occur."
-    },
-    {
-      "question": "How can you check which version of Fluent was used to create a `.cas` file?",
-      "answer": "You can try grepping the `.cas` file for clues, for example, using `$ grep -ia fluent combustor.cas`."
-    },
-    {
-      "question": "Where can detailed platform support information for Ansys software/hardware compatibility be found?",
-      "answer": "Detailed platform support information is available on the Ansys website for the Current Release and Previous Releases."
-    },
-    {
-      "question": "Which specific document is important for Alliance users regarding Ansys platform support?",
-      "answer": "The 'Platform Support by Application / Product' PDF is of special interest because it shows which packages are supported under Windows but not under Linux, and therefore not on the Alliance (e.g., Spaceclaim)."
-    },
-    {
-      "question": "Where does Ansys post information about product releases and updates?",
-      "answer": "Ansys posts this information on their 'Product Release and Updates' page, blog, and through the 'Press Release' search bar."
-    },
-    {
-      "question": "How can one find the latest GPU support information for Ansys Fluent?",
-      "answer": "You can find it by searching the Ansys blog page using filters, for example, by searching for 'What’s New Fluent 2024 gpu'."
-    },
-    {
-      "question": "Which Ansys module version was recently installed, and what is required to use it?",
-      "answer": "A module for `ansys/2025R1.02` was recently installed, but using it requires a suitably updated license server, such as CMC's."
-    },
-    {
-      "question": "What is the current status of the SHARCNET license server regarding the latest Ansys module versions?",
-      "answer": "The upgrade of the SHARCNET license server is underway, but until it is complete, it will only support jobs run with `ansys/2024R2.04` or older."
-    },
-    {
-      "question": "How can a user request a new Ansys version installation or report a problem with an existing module?",
-      "answer": "Users should submit a ticket to technical support for such requests or issues."
+      "question": "What are the compatibility guidelines for Ansys simulation files between different software versions?",
+      "answer": "Ansys simulations are generally forward compatible but not backwards compatible. This means that a simulation created with an older Ansys version (e.g., ansys/2022R2) should load and run correctly with any newer version (e.g., ansys/2023R2). However, running a simulation created with a newer version on an older version is not supported and is likely to result in random errors or crashes. If you need to determine the Ansys version used to create a Fluent case file, you can use `grep -ia fluent` on the `.cas` or `.cas.h5` file to look for clues."
     }
   ],
-  "generated_at": "2026-04-12T16:46:58.746887+00:00"
+  "generated_at": "2026-04-13T01:48:14.817841+00:00"
 }

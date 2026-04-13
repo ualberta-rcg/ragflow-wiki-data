@@ -4,77 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "How can users generally submit jobs to the clusters?",
-      "answer": "Users can generally submit jobs to the clusters by specifying only the number of cores and a runtime limit."
+      "question": "How is job scheduling priority determined on the clusters, and what is a Resource Allocation Project (RAP)?",
+      "answer": "Job scheduling priority on the clusters is determined using the \"fair tree\" algorithm. Each job is charged to a Resource Allocation Project (RAP), which is specified with the `--account` argument when submitting a job using `sbatch`. RAPs are essential for managing and tracking resource usage."
     },
     {
-      "question": "Why is it beneficial for users to understand job scheduling policies?",
-      "answer": "Understanding job scheduling policies can improve user productivity, especially when submitting large numbers of jobs or jobs that require significant resources."
+      "question": "What are the two main types of Resource Allocation Project (RAP) account codes used on the clusters, and how do their target usage levels differ?",
+      "answer": "There are two main types of RAP account codes: those beginning with `rrg-` or `rpp-` are for projects granted CPU or GPU time through a Resource Allocation Competition (RAC), and their target usage levels are determined by the awarded CPU-years or GPU-years. Accounts beginning with `def-` are for non-RAC or Rapid Access Service projects, which all have equal target usage levels that are adjusted dynamically based on the number of active projects on the cluster."
     },
     {
-      "question": "What factor determines the order in which jobs are considered for scheduling?",
-      "answer": "The order in which jobs are considered for scheduling is determined by their priority."
-    },
-    {
-      "question": "Which algorithm is used to determine job priority on the systems?",
-      "answer": "Job priority on the systems is determined using the 'fair tree' algorithm."
-    },
-    {
-      "question": "To what entity is each job charged?",
-      "answer": "Each job is charged to a Resource Allocation Project (RAP)."
-    },
-    {
-      "question": "How do users specify the project for a job when using `sbatch`?",
-      "answer": "Users specify the project for a job using the `--account` argument to `sbatch`."
-    },
-    {
-      "question": "What are the typical prefixes for account codes obtained from a Resource Allocation Competition (RAC)?",
-      "answer": "Account codes from a Resource Allocation Competition (RAC) will probably begin with `rrg-` or `rpp-`."
-    },
-    {
-      "question": "How are non-RAC projects identified by their account codes?",
-      "answer": "Non-RAC projects, also known as Rapid Access Service projects, typically have account codes that begin with `def-`."
-    },
-    {
-      "question": "Do all projects have a target usage level?",
-      "answer": "Yes, every project has a target usage level."
-    },
-    {
-      "question": "How are target usage levels determined for RAC projects?",
-      "answer": "For RAC projects, target usage levels are determined by the number of CPU-years or GPU-years granted with each RAC award."
-    },
-    {
-      "question": "How are target usage levels adjusted for non-RAC projects (def- accounts)?",
-      "answer": "Non-RAC projects (def- accounts) all have equal target usage levels, which are adjusted every few minutes based on the number of projects active on the cluster."
-    },
-    {
-      "question": "What command can be used to examine a research group's usage and share information?",
-      "answer": "The `sshare` command can be used to examine a research group's usage and share information."
-    },
-    {
-      "question": "Why is it necessary to append `_cpu` or `_gpu` to the account code when using the `sshare` command?",
-      "answer": "It is necessary to append `_cpu` or `_gpu` to the account code when using the `sshare` command because CPU and GPU use are tracked separately."
-    },
-    {
-      "question": "Which line in the `sshare` output is most crucial for scheduling decisions?",
-      "answer": "The first line of the `sshare` output, which describes the status of the project relative to all other projects using the cluster, is the most crucial for scheduling."
-    },
-    {
-      "question": "If a research group's LevelFS is 37 and they have used a small fraction of their allocated resources, what priority would their jobs likely receive?",
-      "answer": "If a research group's LevelFS is 37 and they have used a small fraction of their allocated resources, their jobs would be expected to have a fairly high priority."
-    },
-    {
-      "question": "What information do the successive lines in the `sshare` output provide?",
-      "answer": "Successive lines in the `sshare` output describe the status of each user relative to other users within the same project."
-    },
-    {
-      "question": "How does a user's LevelFS within a group impact their job priority compared to other users in that group?",
-      "answer": "A user with a higher than average LevelFS within their group, due to using a smaller fraction of the group's recent resource use, would have slightly more priority than users with lower LevelFS values in that same group."
-    },
-    {
-      "question": "What solely determines the priority of a group's jobs compared to jobs from other research groups?",
-      "answer": "The priority of jobs belonging to a group compared to jobs from other research groups is determined solely by the group’s fairshare, and not by the individual users' fairshare within the group."
+      "question": "How does a project's LevelFS value, as shown by the `sshare` command, indicate its job scheduling priority?",
+      "answer": "A project's `LevelFS` value, derived from the `sshare` command, indicates its job scheduling priority relative to other projects. A `LevelFS` greater than 1.0 suggests the project is under-served (has used less than its target share), resulting in high priority for new jobs. Conversely, a `LevelFS` below 1.0 indicates the project is over-served (has used more than its target), leading to lower priority for new jobs. A `LevelFS` near 1.0 signifies that the project is consistently using its target allocation."
     }
   ],
-  "generated_at": "2026-04-12T00:16:16.665820+00:00"
+  "generated_at": "2026-04-13T07:31:52.776173+00:00"
 }

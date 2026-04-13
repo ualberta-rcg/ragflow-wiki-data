@@ -4,65 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Quels sont les avantages de META par rapport à GLOST en ce qui concerne le temps d'attente?",
-      "answer": "Avec META, certaines métatâches démarrent et produisent les premiers résultats en quelques minutes. Par contre, avec GLOST, le temps en file d'attente pour une tâche MPI avec 10 000 cœurs CPU peut être long et prendre des semaines avant d’obtenir votre tout premier résultat."
+      "question": "Quels sont les avantages de l'outil META par rapport à d'autres approches, comme GLOST, pour la gestion de calculs sur les grappes de l'Alliance?",
+      "answer": "L'outil META offre des avantages significatifs par rapport à GLOST. Premièrement, le temps d'attente en file d'attente est souvent beaucoup plus court avec META, permettant d'obtenir les premiers résultats en quelques minutes. Deuxièmement, à la fin du traitement, il n'y a pas de perte de ressources avec META, puisque les métatâches individuelles sortent plus tôt si elles n'ont plus de charge de travail, contrairement à GLOST où certains rangs MPI peuvent rester inactifs. Finalement, META prend en charge la resoumission automatisée des cas qui ont échoué ou n'ont jamais été exécutés, une fonctionnalité que GLOST et d'autres outils similaires n'offrent pas."
     },
     {
-      "question": "Comment META optimise-t-il l'utilisation des ressources à la fin du traitement d'un groupe de cas, comparativement à GLOST?",
-      "answer": "Avec META, il n'y a pas de perte de ressources à la fin du traitement; les métatâches individuelles sortent plus tôt si elles n'ont plus de charge de travail. En revanche, avec GLOST, certains rangs MPI se terminent plus tôt et restent inactifs jusqu'à la fin du tout dernier rang MPI, le plus lent."
+      "question": "Quelles sont les premières étapes pour démarrer rapidement avec l'outil META sur une grappe et préparer un groupe de cas?",
+      "answer": "Pour commencer rapidement avec META, il faut d'abord se connecter à une grappe. Ensuite, chargez le module `meta-farm` en utilisant la commande `module load meta-farm`. Après cela, choisissez un nom pour votre répertoire de groupe de cas (par exemple, `Farm_name`) et créez-le avec la commande `farm_init.run Farm_name`. Cette commande générera des fichiers importants, dont `table.dat`, `single_case.sh` et `job_script.sh`, qui devront être personnalisés pour vos calculs."
     },
     {
-      "question": "La resoumission automatisée des cas qui ont échoué est-elle prise en charge par GLOST?",
-      "answer": "Non, GLOST et d'autres outils similaires ne prennent pas en charge la resoumission automatisée des cas qui ont échoué ou qui n'ont jamais été exécutés. META, par contre, possède cette fonctionnalité, et elle est très facile à utiliser."
-    },
-    {
-      "question": "Où puis-je consulter le webinaire sur META?",
-      "answer": "Vous pouvez visionner le webinaire enregistré le 6 octobre 2021 via ce lien : [https://youtu.be/GcYbaPClwGE]."
-    },
-    {
-      "question": "Quelle est la toute première étape pour débuter avec META?",
-      "answer": "La première étape est de vous connecter à une grappe."
-    },
-    {
-      "question": "Quel module dois-je charger pour commencer à utiliser META?",
-      "answer": "Il faut charger le module <code>meta-farm</code> avec la commande <code>module load meta-farm</code>."
-    },
-    {
-      "question": "Comment créer un répertoire pour mon groupe de cas META?",
-      "answer": "Vous devez choisir un nom pour le répertoire du groupe de cas, par exemple <code>Farm_name</code>, et le créer avec la commande <code>farm_init.run Farm_name</code>."
-    },
-    {
-      "question": "Après avoir créé le répertoire de groupe de cas, quels fichiers sont générés et lesquels doivent être personnalisés?",
-      "answer": "La commande <code>farm_init.run</code> créera quelques fichiers importants dans le répertoire, et certains d'entre eux devront être personnalisés."
-    },
-    {
-      "question": "Est-il nécessaire de copier les fichiers exécutables et d'entrée dans le répertoire du groupe de cas?",
-      "answer": "Oui, il faut copier vos fichiers exécutables et vos fichiers d'entrée dans le répertoire du groupe de cas, à moins que vous prévoyiez d'utiliser des chemins complets partout."
-    },
-    {
-      "question": "Quel est le rôle du fichier <code>table.dat</code> dans un groupe de cas META?",
-      "answer": "Le fichier <code>table.dat</code> est un fichier texte qui décrit un cas (un calcul distinct) par ligne."
-    },
-    {
-      "question": "Dois-je toujours modifier le script <code>single_case.sh</code>?",
-      "answer": "Le script <code>single_case.sh</code> peut être modifié au besoin, mais souvent, aucune modification n'est requise."
-    },
-    {
-      "question": "Quelles sont les modifications essentielles à apporter au fichier <code>job_script.sh</code>?",
-      "answer": "Vous devez modifier le fichier <code>job_script.sh</code> pour y inclure un nom de compte de calcul valide et une durée d'exécution appropriée."
-    },
-    {
-      "question": "Comment lance-t-on un groupe de cas en mode SIMPLE?",
-      "answer": "Dans le répertoire des cas, lancez la commande <code>submit.run -1</code> pour le mode SIMPLE, où chaque cas est traité par une tâche distincte."
-    },
-    {
-      "question": "Comment soumettre un groupe de cas en mode META?",
-      "answer": "Dans le répertoire des cas, lancez la commande <code>submit.run N</code>, où <code>N</code> est le nombre de métatâches à utiliser, lequel doit être de beaucoup inférieur au nombre total de cas."
-    },
-    {
-      "question": "Comment puis-je exécuter plusieurs groupes de cas en même temps?",
-      "answer": "Pour exécuter un autre groupe de cas simultanément, lancez de nouveau <code>farm_init.run</code> avec un nom de groupe différent, personnalisez les fichiers <code>single_case.sh</code> et <code>job_script.sh</code> dans le nouveau répertoire, créez un nouveau fichier <code>table.dat</code>, copiez l'exécutable et tous les fichiers d'entrée nécessaires, puis lancez <code>submit.run</code> dans ce deuxième répertoire."
+      "question": "Comment soumettre un groupe de cas en utilisant la commande `submit.run` de META, que ce soit en mode SIMPLE ou en mode META?",
+      "answer": "Pour soumettre un groupe de cas, vous utilisez la commande `submit.run`. Si vous voulez opter pour le mode SIMPLE, où chaque cas correspond à une tâche distincte, vous devez utiliser la commande `submit.run -1`. Si vous préférez le mode META, qui regroupe plusieurs cas par métatâche pour les grands nombres de calculs, vous devez indiquer le nombre de métatâches souhaitées, par exemple `submit.run N`, où N doit être un entier positif et bien inférieur au nombre total de cas."
     }
   ],
-  "generated_at": "2026-04-12T01:23:40.995138+00:00"
+  "generated_at": "2026-04-13T08:27:14.105517+00:00"
 }

@@ -3,61 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi GPAW?",
-      "answer": "GPAW est un code de théorie de la fonctionnelle de la densité (DFT) basé sur Python, qui utilise la méthode des ondes augmentées par projecteur (PAW) et l'environnement de simulation atomique (ASE)."
+      "question": "Qu'est-ce que GPAW et sur quoi est-il basé sur les grappes de calcul de l'Alliance?",
+      "answer": "GPAW est un code de théorie de la fonctionnelle de la densité (DFT) Python qui est basé sur la méthode des ondes augmentées par projecteur (PAW) et l'environnement de simulation atomique (ASE)."
     },
     {
-      "question": "Comment peut-on installer GPAW?",
-      "answer": "On peut installer GPAW à l'aide de wheels Python précompilés dans un environnement virtuel Python."
+      "question": "Comment peut-on installer GPAW sur les systèmes de l'Alliance?",
+      "answer": "GPAW peut être installé en utilisant des wheels Python précompilés dans un environnement virtuel Python."
     },
     {
-      "question": "Comment savoir quelles versions de GPAW sont disponibles sur le système?",
-      "answer": "Il faut utiliser la commande `avail_wheels gpaw` pour voir les versions disponibles, incluant la version de Python et l'architecture."
+      "question": "Comment vérifier les versions des wheels GPAW disponibles pour l'installation?",
+      "answer": "Pour vérifier les versions disponibles, vous devez utiliser la commande `avail_wheels gpaw` dans votre terminal."
     },
     {
-      "question": "Quelle est la première étape pour préparer l'environnement avant de créer un environnement virtuel pour GPAW?",
-      "answer": "Il faut charger un module Python, par exemple `module load python/3.10`."
+      "question": "Quel module Python faut-il charger avant de créer un environnement virtuel pour GPAW?",
+      "answer": "Il faut charger un module Python spécifique, par exemple `python/3.10`, à l'aide de la commande `module load python/3.10`."
     },
     {
-      "question": "Comment créer un nouvel environnement virtuel pour GPAW?",
-      "answer": "On le crée avec la commande `virtualenv --no-download venv_gpaw`."
+      "question": "Comment créer un nouvel environnement virtuel Python pour GPAW?",
+      "answer": "Un nouvel environnement virtuel pour GPAW peut être créé avec la commande `virtualenv --no-download venv_gpaw`."
     },
     {
-      "question": "Comment activer l'environnement virtuel GPAW une fois qu'il est créé?",
-      "answer": "On utilise la commande `source venv_gpaw/bin/activate`."
+      "question": "Une fois l'environnement virtuel créé, comment l'activer pour installer et utiliser GPAW?",
+      "answer": "Pour activer l'environnement virtuel, il faut exécuter la commande `source venv_gpaw/bin/activate`."
     },
     {
-      "question": "Quelle commande est utilisée pour installer GPAW dans l'environnement virtuel activé?",
-      "answer": "On utilise `pip install --no-index gpaw`."
+      "question": "Quelle commande utilise-t-on pour installer GPAW dans un environnement virtuel Python activé?",
+      "answer": "On utilise la commande `pip install --no-index gpaw` pour installer GPAW dans l'environnement virtuel activé."
     },
     {
-      "question": "Où faut-il télécharger et installer les données nécessaires à GPAW, et quelle commande utiliser?",
-      "answer": "Il faut les télécharger et les installer dans le système de fichiers SCRATCH en utilisant la commande `gpaw install-data $SCRATCH`."
+      "question": "Où faut-il télécharger et installer les données nécessaires (setups et pseudopotentiels) pour GPAW, et quelle commande utiliser?",
+      "answer": "Les données doivent être téléchargées et installées dans le système de fichiers `SCRATCH` en utilisant la commande `gpaw install-data $SCRATCH`."
     },
     {
-      "question": "Comment doit-on configurer le chemin d'accès aux données PAW (GPAW_SETUP_PATH)?",
-      "answer": "Il faut l'exporter en utilisant `export GPAW_SETUP_PATH=$SCRATCH/nom_utilisateur/gpaw-setups-0.9.20000`, en remplaçant 'nom_utilisateur' par le vôtre."
+      "question": "Comment configurer le chemin vers les données GPAW une fois qu'elles sont installées dans le répertoire SCRATCH?",
+      "answer": "Il faut configurer la variable d'environnement `GPAW_SETUP_PATH` en utilisant la commande `export GPAW_SETUP_PATH=$SCRATCH/gpaw-setups-0.9.20000`."
     },
     {
-      "question": "Comment vérifier que l'installation de GPAW fonctionne correctement?",
-      "answer": "On peut lancer les tests avec la commande `gpaw test` et, pour un test parallèle, `gpaw -P 4 test`."
+      "question": "Comment exécuter les tests de GPAW pour vérifier l'installation?",
+      "answer": "Pour exécuter les tests de GPAW, on peut utiliser la commande `gpaw test` pour un test séquentiel ou `gpaw -P 4 test` pour un test parallèle avec 4 cœurs."
     },
     {
-      "question": "À quoi sert l'exemple de script fourni dans la documentation?",
-      "answer": "L'exemple de script fourni démontre comment configurer la parallélisation hybride avec OpenMP et MPI pour les tâches GPAW."
+      "question": "Où trouve-t-on les résultats des tests de GPAW après leur exécution?",
+      "answer": "Les résultats du dernier test se trouvent dans le fichier `test.txt` qui est créé dans le répertoire courant."
     },
     {
-      "question": "Comment le script de travail configure-t-il la parallélisation hybride OpenMP et MPI?",
-      "answer": "Le script utilise `--ntasks` pour définir le nombre de rangs MPI et `--cpus-per-task` pour le nombre de fils OpenMP par rang, et il exporte `OMP_NUM_THREADS` selon `SLURM_CPUS_PER_TASK`."
+      "question": "Quel est le but de l'exemple de script fourni pour GPAW sur les grappes de l'Alliance?",
+      "answer": "L'exemple de script vise à démontrer la parallélisation hybride OpenMP et MPI pour les calculs GPAW sur les grappes de calcul."
     },
     {
-      "question": "Quels modules doivent être chargés dans le script de travail pour assurer la bonne bibliothèque MPI?",
-      "answer": "Il faut charger les modules `gcc/9.3.0` et `openmpi/4.0.3`."
+      "question": "Quels modules doivent être chargés dans un script de tâche Slurm pour utiliser GPAW avec MPI?",
+      "answer": "Les modules `gcc` (par exemple `gcc/9.3.0`) et `openmpi` (par exemple `openmpi/4.0.3`) doivent être chargés pour assurer l'utilisation de la bonne bibliothèque MPI."
     },
     {
-      "question": "Comment adapter l'exemple de script pour différents serveurs (clusters) comme Graham, Béluga ou Narval?",
-      "answer": "Il faut modifier les valeurs de `--ntasks` et `--cpus-per-task` afin que leur produit corresponde au nombre total de cœurs d'un nœud entier sur le serveur utilisé (par exemple, 32 sur Graham, 64 sur Narval)."
+      "question": "Comment active-t-on l'environnement virtuel GPAW dans un script de tâche Slurm?",
+      "answer": "L'environnement virtuel est activé en utilisant la commande `source ~/venv_gpaw/bin/activate` dans le script, en supposant qu'il est dans le répertoire `HOME` de l'utilisateur."
+    },
+    {
+      "question": "Comment la parallélisation hybride est-elle configurée dans l'exemple de script de tâche Slurm pour GPAW?",
+      "answer": "Elle est configurée en utilisant `SBATCH --ntasks` pour les rangs MPI et `SBATCH --cpus-per-task` pour les fils OpenMP par rang, et en exportant `OMP_NUM_THREADS` à la valeur de `SLURM_CPUS_PER_TASK`."
+    },
+    {
+      "question": "Comment le nombre total de CPU est-il calculé pour un travail GPAW avec parallélisation hybride?",
+      "answer": "Le nombre total de CPU est le produit du nombre de rangs MPI (`ntasks`) et du nombre de fils OpenMP par rang (`cpus-per-task`)."
+    },
+    {
+      "question": "Sur les grappes de l'Alliance, quel est le nombre de cœurs recommandé pour un nœud entier sur Graham, Béluga, Niagara, Cedar et Narval?",
+      "answer": "Il est recommandé d'adapter les valeurs `ntasks` et `cpus-per-task` pour que leur produit corresponde aux cœurs d'un nœud entier, soit 32 sur Graham, 40 sur Béluga et Niagara, 48 sur Cedar ou 64 sur Narval."
     }
   ],
-  "generated_at": "2026-04-11T22:22:28.668084+00:00"
+  "generated_at": "2026-04-13T06:02:14.067275+00:00"
 }

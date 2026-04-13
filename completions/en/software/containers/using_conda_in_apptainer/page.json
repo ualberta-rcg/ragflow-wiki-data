@@ -3,45 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary objective of this tutorial regarding Conda and containers?",
-      "answer": "The main objective is to demonstrate how to use Conda, specifically through micromamba, to install software within an Apptainer container to create a read-only image."
+      "question": "What is the purpose of the 'Conda inside a container' tutorial on Alliance clusters?",
+      "answer": "The tutorial explains how to use Conda, specifically micromamba, inside an Apptainer container to create a read-only image containing a Conda environment for running applications."
     },
     {
-      "question": "What are the preferred methods for obtaining software on the system, instead of using Conda inside a container?",
-      "answer": "The preferred methods are to use modules from the available software stack and wheels from the Python wheelhouse, as these are optimized for the systems and better supported."
+      "question": "What are the preferred software solutions recommended before using Conda inside a container on Alliance clusters?",
+      "answer": "Priority should always be given to using modules from the software stack and wheels from the Python wheelhouse, as they are optimized for Alliance systems and better supported."
     },
     {
-      "question": "Why does this tutorial use micromamba instead of Conda?",
-      "answer": "Micromamba is used instead of Conda to avoid potential commercial licence requirements and adherence to Anaconda's Terms of Service."
+      "question": "Why does the tutorial recommend using micromamba instead of Conda directly when building Apptainer images?",
+      "answer": "The tutorial recommends micromamba because using Conda is subject to Anaconda's Terms of Service and might require a commercial licence."
     },
     {
-      "question": "What kind of Apptainer image does this tutorial focus on creating?",
-      "answer": "This tutorial focuses on creating a read-only Apptainer image, which is a one-off `.sif` file containing a Conda environment."
+      "question": "What kind of Apptainer image does this tutorial show how to create when using Conda environments?",
+      "answer": "This tutorial shows how to create a read-only Apptainer image, which is a one-off `.sif` file containing a Conda environment."
     },
     {
-      "question": "What practice related to Conda within containers is strongly discouraged by the tutorial?",
-      "answer": "Installing software interactively with Conda inside a container is strongly discouraged and not covered in this tutorial."
+      "question": "What practice related to installing software with Conda inside an Apptainer container is strongly discouraged by the tutorial?",
+      "answer": "The tutorial strongly discourages installing software interactively with Conda inside a container."
     },
     {
-      "question": "What is the first step in creating an Apptainer image with Conda-installed software?",
-      "answer": "The first step is to create an `environment.yml` file that defines the Conda environment, including its name, desired packages, and channels."
+      "question": "What is the first step when creating an Apptainer image and installing software with Conda inside it, according to the tutorial?",
+      "answer": "The first step is to create a `.yml` file, such as `environment.yml`, which describes the Conda environment to be created inside the container."
     },
     {
-      "question": "What is the second step in the process of building an Apptainer image with Conda environments?",
-      "answer": "The second step is to create an Apptainer image definition file (e.g., `image.def`), which outlines the sequence of steps Apptainer should follow to build the image."
+      "question": "What information does the `environment.yml` file contain for creating a Conda environment within an Apptainer container?",
+      "answer": "The `environment.yml` file contains the environment's name, a list of packages to be installed, and the channels where Conda should look for them."
     },
     {
-      "question": "What key actions are specified within the Apptainer image definition file to configure the Conda environment?",
-      "answer": "The `image.def` file pulls a Docker image with micromamba pre-installed, copies the `environment.yml` file into the container, and then uses micromamba to install the packages defined in that environment."
+      "question": "What is the second step in building an Apptainer image with a Conda environment, as described in the tutorial?",
+      "answer": "The second step is to create an Apptainer image definition file, such as `image.def`, which describes the steps Apptainer should take to create the image."
     },
     {
-      "question": "What is the final command-line step to build the Apptainer image from the definition file?",
-      "answer": "The final step is to build the image using the command: `module load apptainer; APPTAINER_BIND=' ' apptainer build image.sif image.def`."
+      "question": "What are the key actions that Apptainer performs when building an image based on the `image.def` file provided in the tutorial for a Conda environment?",
+      "answer": "Apptainer pulls a Docker image with the micromamba package manager, copies the `environment.yml` file into the container, and then calls micromamba to configure the environment defined in the `environment.yml` file."
     },
     {
-      "question": "How can one verify that the software, such as `multiqc`, is correctly installed and available within the newly built Apptainer image?",
-      "answer": "You can verify the installation by running a command like `apptainer run image.sif multiqc --help` to check if the software executes as expected."
+      "question": "From which Docker image is micromamba pulled in the `image.def` file example provided in the tutorial?",
+      "answer": "Micromamba is pulled from the `mambaorg/micromamba:latest` Docker image."
+    },
+    {
+      "question": "What is the final step to build an Apptainer image using a definition file, according to the tutorial?",
+      "answer": "The final step is to load the Apptainer module and then run the command `APPTAINER_BIND=' ' apptainer build image.sif image.def`."
+    },
+    {
+      "question": "How can one test if an Apptainer image built with micromamba correctly provides a tool like `multiqc`?",
+      "answer": "One can test it by running `apptainer run image.sif multiqc --help`."
+    },
+    {
+      "question": "What is the purpose of the `channels` section in the `environment.yml` file when defining a Conda environment for an Apptainer image?",
+      "answer": "The `channels` section tells Conda where to look for the packages listed under `dependencies`."
+    },
+    {
+      "question": "What is the function of the `%files` section within the `image.def` Apptainer definition file when creating a Conda environment?",
+      "answer": "The `%files` section copies specified files from the host system into the container during the Apptainer build process."
+    },
+    {
+      "question": "What commands are typically executed in the `%post` section of an Apptainer definition file when building a container with micromamba?",
+      "answer": "In the `%post` section, micromamba is typically called to install packages from the `environment.yml` file and then perform a cleanup (`micromamba clean --all --yes`)."
+    },
+    {
+      "question": "When should users contact technical support regarding software availability on Alliance systems?",
+      "answer": "Users should contact technical support if they need a module or a Python package that is not currently available on the Alliance systems."
     }
   ],
-  "generated_at": "2026-04-12T09:59:45.264463+00:00"
+  "generated_at": "2026-04-13T15:07:34.127644+00:00"
 }

@@ -4,97 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "Quelle commande dois-je utiliser pour créer le répertoire commun 'kernels' pour les noyaux Jupyter?",
-      "answer": "Pour créer le répertoire commun 'kernels', tu dois exécuter la commande `mkdir -p ~/.local/share/jupyter/kernels`."
+      "question": "Comment configure-t-on un noyau Python spécifique pour l'utiliser avec JupyterLab sur les grappes nationales?",
+      "answer": "Pour configurer un noyau Python, il faut d'abord s'assurer qu'un environnement virtuel Python est créé et activé. Ensuite, créez le répertoire `~/.local/share/jupyter/kernels` si ce n'est pas déjà fait. Installez la bibliothèque `ipykernel` avec la commande `pip install --no-index ipykernel`, puis générez le fichier de spécifications du noyau en utilisant `python -m ipykernel install --user --name <nom_unique> --display-name \"Python 3.x Kernel\"`. Il est important de redémarrer votre session JupyterLab après l'installation pour que le noyau soit pris en compte."
     },
     {
-      "question": "Comment j'installe la bibliothèque `ipykernel` pour mon noyau Python?",
-      "answer": "Tu installes la bibliothèque `ipykernel` en utilisant `pip install --no-index ipykernel`."
+      "question": "Quelles sont les étapes pour installer un noyau R dans JupyterLab et quelles conditions préalables doivent être respectées?",
+      "answer": "Avant de commencer, assurez-vous qu'un environnement virtuel Python est disponible et activé, et que le répertoire `~/.local/share/jupyter/kernels` existe (comme expliqué pour le noyau Python). L'installation des paquets R nécessite un accès à l'internet (CRAN), donc cette configuration doit impérativement se faire à l'invite de commande sur un nœud de connexion. Les étapes incluent le chargement du module R (ex: `module load r/4.1`), l'installation des dépendances `crayon`, `pbdZMQ` et `devtools` via l'interpréteur R, puis l'installation du noyau R et de son fichier de spécifications avec les commandes `devtools::install_github()` et `IRkernel::installspec()`. Une fois cela fait, il faut démarrer ou redémarrer une nouvelle session JupyterLab."
     },
     {
-      "question": "Comment je fais pour générer le fichier de spécifications pour un noyau Python?",
-      "answer": "Pour générer le fichier de spécifications du noyau, tu dois exécuter la commande `python -m ipykernel install --user --name <unique_name> --display-name \"Python 3.x Kernel\"`, en remplaçant `<unique_name>` par un nom unique pour ton noyau."
-    },
-    {
-      "question": "Qu'est-ce qui est important à faire avant d'utiliser un noyau Python nouvellement installé dans JupyterLab?",
-      "answer": "C'est important de démarrer ou de redémarrer une nouvelle session JupyterLab avant d'utiliser le noyau Python."
-    },
-    {
-      "question": "Où puis-je trouver plus d'informations sur le noyau IPython?",
-      "answer": "Tu peux consulter la documentation officielle du noyau IPython à l'adresse `http://ipython.readthedocs.io/en/stable/install/kernel_install.html`."
-    },
-    {
-      "question": "Quelles sont les conditions préalables pour installer d'autres bibliothèques Python?",
-      "answer": "Tu dois t'assurer que ton environnement virtuel Python est activé et que tu te trouves dans un environnement Bash vierge, surtout si tu utilises le Terminal Jupyter via JupyterHub."
-    },
-    {
-      "question": "Comment j'installe une bibliothèque Python additionnelle, comme `numpy`?",
-      "answer": "Tu peux installer une bibliothèque comme `numpy` en exécutant `pip install --no-index numpy` dans ton environnement virtuel activé."
-    },
-    {
-      "question": "Une fois que j'ai installé de nouvelles bibliothèques Python, comment je peux les utiliser?",
-      "answer": "Tu peux les importer directement dans un notebook qui est exécuté par le noyau `Python 3.x Kernel`."
-    },
-    {
-      "question": "Quels sont les prérequis pour configurer un noyau R dans JupyterLab?",
-      "answer": "La configuration d'un noyau R dépend d'un environnement virtuel Python et d'un répertoire `kernels`. Puisque l'installation de paquets R nécessite un accès à CRAN, la configuration doit se faire à l'invite de commande sur un nœud de connexion."
-    },
-    {
-      "question": "Pourquoi la configuration du noyau R doit-elle se faire sur un nœud de connexion?",
-      "answer": "La configuration du noyau R doit se faire sur un nœud de connexion parce que l'installation des paquets R a besoin d'un accès à CRAN."
-    },
-    {
-      "question": "Comment je charge un module R avant de configurer le noyau R?",
-      "answer": "Tu charges un module R en utilisant la commande `module load r/4.1`."
-    },
-    {
-      "question": "Quels paquets sont des dépendances du noyau R et comment je les installe?",
-      "answer": "Les dépendances sont `crayon`, `pbdZMQ` et `devtools`. Tu les installes en démarrant une session R (`R --no-save`) et en exécutant `install.packages(c('crayon', 'pbdZMQ', 'devtools'), repos='http://cran.us.r-project.org')`."
-    },
-    {
-      "question": "Combien de temps l'installation des dépendances du noyau R peut-elle prendre?",
-      "answer": "L'installation des dépendances du noyau R peut prendre jusqu'à 10 minutes."
-    },
-    {
-      "question": "Où les paquets R sont-ils généralement installés localement?",
-      "answer": "Les paquets R devraient être installés dans un répertoire local comme `~/R/x86_64-pc-linux-gnu-library/4.1`."
-    },
-    {
-      "question": "Comment j'installe le noyau R lui-même?",
-      "answer": "Une fois dans une session R, tu installes le noyau R en utilisant `devtools::install_github(paste0('IRkernel/', c('repr', 'IRdisplay', 'IRkernel')))`."
-    },
-    {
-      "question": "Comment j'installe le fichier de spécifications du noyau R?",
-      "answer": "Après avoir installé le noyau R, tu installes son fichier de spécifications en exécutant `IRkernel::installspec()` dans ta session R."
-    },
-    {
-      "question": "Qu'est-ce qui est crucial après l'installation du noyau R et avant de l'utiliser?",
-      "answer": "C'est important de démarrer ou de redémarrer une nouvelle session JupyterLab avant d'utiliser le noyau R."
-    },
-    {
-      "question": "Où puis-je consulter la documentation pour le noyau R (IRkernel)?",
-      "answer": "Tu peux consulter la documentation du IRkernel à l'adresse `https://irkernel.github.io/docs/`."
-    },
-    {
-      "question": "Pourquoi ne puis-je pas installer des paquets R directement depuis un notebook Jupyter?",
-      "answer": "Tu ne peux pas installer des paquets R directement depuis les notebooks parce qu'il n'y a pas d'accès à CRAN depuis cet environnement."
-    },
-    {
-      "question": "Où est-ce que je dois installer d'autres paquets R si ce n'est pas possible depuis un notebook?",
-      "answer": "Tu dois installer les paquets R supplémentaires dans un nœud de connexion."
-    },
-    {
-      "question": "Est-ce que l'environnement virtuel Python doit être activé lorsque j'installe d'autres paquets R?",
-      "answer": "Non, l'environnement virtuel Python peut rester désactivé pendant l'installation de paquets R supplémentaires."
-    },
-    {
-      "question": "Comment j'installe un paquet R comme `doParallel`?",
-      "answer": "Après avoir chargé le module R, tu démarres l'interpréteur R (`R --no-save`) et tu exécutes `install.packages('doParallel', repos='http://cran.us.r-project.org')`."
-    },
-    {
-      "question": "Quand est-ce que les nouveaux paquets R installés peuvent être utilisés dans un notebook?",
-      "answer": "Les paquets R nouvellement installés devraient être utilisables immédiatement dans un notebook qui tourne avec le noyau R."
+      "question": "Comment installer des bibliothèques Python additionnelles, comme `numpy`, dans un environnement virtuel Python déjà configuré pour JupyterLab?",
+      "answer": "Pour installer des bibliothèques Python additionnelles, il faut d'abord s'assurer que l'environnement virtuel Python est activé. Ensuite, dans le terminal, utilisez la commande `pip install --no-index numpy` pour installer la bibliothèque requise. Après l'installation, ces bibliothèques seront disponibles pour être importées et utilisées dans vos notebooks exécutés par le noyau Python correspondant."
     }
   ],
-  "generated_at": "2026-04-11T16:09:33.803396+00:00"
+  "generated_at": "2026-04-13T01:13:49.327433+00:00"
 }

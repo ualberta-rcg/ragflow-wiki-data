@@ -4,9 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Où puis-je trouver des informations sur Open MPI en lien avec Slurm?",
-      "answer": "Vous pouvez consulter la foire aux questions d'Open MPI spécifiquement pour la catégorie Slurm, disponible à l'adresse [https://www.open-mpi.org/faq/?category=slurm]."
+      "question": "Comment faut-il spécifier le nombre de processus et la mémoire pour soumettre une tâche MPI de base sur les grappes Alliance?",
+      "answer": "Pour une tâche MPI de base, il faut utiliser l'option `--ntasks` pour indiquer le nombre de processus que Slurm doit démarrer. Puisque l'allocation par défaut de 256 Mo de mémoire est souvent insuffisante, il est recommandé de spécifier la quantité nécessaire avec `--mem-per-cpu`, car l'allocation des cœurs peut se faire sur un nombre variable de nœuds."
+    },
+    {
+      "question": "Quelles sont les considérations et les commandes Slurm à utiliser lorsqu'on veut demander des nœuds entiers pour une tâche parallèle intensive sur une grappe Alliance?",
+      "answer": "Pour demander des nœuds entiers pour une tâche parallèle intensive, il est utile de connaître les types de nœuds disponibles sur la grappe. On utilise `--nodes` pour spécifier le nombre de nœuds et `--ntasks-per-node` pour le nombre de processus par nœud. L'option `--mem=0` indique à Slurm qu'il doit réserver toute la mémoire disponible de chacun des nœuds assignés. Cependant, si la tâche requiert plus de mémoire que ce que le plus petit nœud peut offrir, il ne faut pas utiliser `--mem=0`, mais plutôt demander une quantité explicite de mémoire."
+    },
+    {
+      "question": "Pourquoi est-il préférable d'utiliser la commande `srun` plutôt que `mpiexec` ou `mpirun` pour lancer des tâches sur les grappes Slurm d'Alliance?",
+      "answer": "La commande `srun` est l'outil privilégié avec Slurm parce qu'elle distribue automatiquement les processus aux ressources précises allouées par l'ordonnanceur et gère l'affinité des tâches. Elle est plus polyvalente que `mpirun` et peut lancer tous les types de calculs (MPI, OpenMP, hybrides, etc.). De plus, `srun` est parfaitement adapté à Slurm, initialisant correctement les variables d'environnement (`SLURM_STEP_ID`, `SLURM_PROCID`) et fournissant des renseignements de suivi appropriés, tout en diminuant les risques de conflit entre les ressources allouées par Slurm et celles utilisées par OpenMPI."
     }
   ],
-  "generated_at": "2026-04-11T16:14:29.356390+00:00"
+  "generated_at": "2026-04-13T01:17:00.538629+00:00"
 }

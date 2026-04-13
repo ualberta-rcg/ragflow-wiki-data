@@ -3,125 +3,85 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of this document regarding VNC usage?",
-      "answer": "This document provides instructions for advanced usage of VNC to remotely start graphical user interfaces (GUIs) of programs, offering better performance for complex graphics than X11 forwarding."
+      "question": "What is the main advantage of using VNC compared to X11 forwarding for remote graphical interfaces on Alliance clusters?",
+      "answer": "VNC offers significantly better performance for smooth complex graphics rotations compared to X11 forwarding over SSH, which is often too slow."
     },
     {
-      "question": "What is the simpler and recommended alternative to the advanced VNC usage described here?",
-      "answer": "The simpler and recommended alternative is to use VNC through your browser, specifically via JupyterLab's Desktop feature."
+      "question": "What is the initial requirement for a user's desktop to connect to a remote VNC desktop on Alliance clusters?",
+      "answer": "A VNC client, such as TigerVNC, must first be installed on the user's desktop computer."
     },
     {
-      "question": "Why is VNC a better alternative to X11 forwarding for remote GUIs?",
-      "answer": "VNC offers significantly better performance for smooth complex graphics rotations compared to X11 forwarding, which is often too slow."
+      "question": "Which specific TigerVNC package should Windows users download for client installation on their desktop?",
+      "answer": "Windows users should download and run the latest stable `vncviewer64-x.y.z.exe` version package installer from the official TigerVNC download page."
     },
     {
-      "question": "What VNC client is recommended for installation on your desktop?",
-      "answer": "TigerVNC is the recommended VNC client, with packages available for Windows, MacOS, and most Linux distributions."
+      "question": "What is the process for installing TigerVNC Viewer on a macOS system?",
+      "answer": "On macOS, users download the latest stable DMG package, double-click it, then drag the TigerVNC icon into the Applications folder and/or the app dock."
     },
     {
-      "question": "How do you install TigerVNC Viewer on Windows?",
-      "answer": "Download and run the latest stable vncviewer64-x.y.z.exe package installer from the official TigerVNC download page, ensuring you download the viewer and not the server."
+      "question": "What commands are used to install the TigerVNC viewer on different Linux distributions?",
+      "answer": "For Debian/Ubuntu, use `sudo apt-get install tigervnc-viewer`; for Fedora/CentOS/RHEL, use `sudo yum install tigervnc`; and for Gentoo, use `emerge -av net-misc/tigervnc`."
     },
     {
-      "question": "What are the steps to install TigerVNC Viewer on MacOS?",
-      "answer": "Download the latest stable DMG package from the official download page, double click it, then drag the TigerVNC Viewer icon into the Applications folder and/or app dock. Afterwards, unmount the DMG file."
+      "question": "What are the limitations of running lightweight applications within a remote VNC desktop on an Alliance cluster login node?",
+      "answer": "Applications run on login nodes are subject to memory and cputime limits, and they cannot utilize GPUs or advanced graphics acceleration."
     },
     {
-      "question": "How do you install TigerVNC Viewer on Debian or Ubuntu Linux?",
-      "answer": "You can install TigerVNC Viewer using the command: `sudo apt-get install tigervnc-viewer`."
+      "question": "What is the command to start a VNC server on an Alliance cluster login node, and what important option should be included?",
+      "answer": "To start a VNC server on a login node, use `vncserver -idletimeout seconds` to ensure it terminates automatically after a specified idle period if VNC viewer connections are lost."
     },
     {
-      "question": "How do you install TigerVNC Viewer on Fedora, CentOS, or RHEL Linux?",
-      "answer": "You can install TigerVNC Viewer using the command: `sudo yum install tigervnc`."
+      "question": "How does a user establish a secure SSH tunnel from their desktop to a VNC server running on an Alliance cluster login node?",
+      "answer": "Users create an SSH tunnel from their laptop by forwarding an arbitrary local port to the VNC server's listening port on the login node using `ssh nibi.computecanada.ca -L localport:login_node_name:remoteport`."
     },
     {
-      "question": "What is the first step to connect to a cluster login node for VNC?",
-      "answer": "You must first connect to a cluster login node using SSH, for example: `ssh nibi.alliancecan.ca`."
+      "question": "After setting up an SSH tunnel, how does a user connect to the VNC server using the TigerVNC Viewer on their desktop?",
+      "answer": "Users open TigerVNC Viewer and enter `localhost:forwarded_port` (e.g., `localhost:5905`) in the connection details, then provide the VNC authentication password."
     },
     {
-      "question": "How do you check for and kill old, unused VNC servers on a login node?",
-      "answer": "Run `vncserver -list` to check, then use `pkill Xvnc -u $USER` to kill all running VNC servers for your user on that node."
+      "question": "When should a user consider starting a VNC server on an Alliance cluster compute node instead of a login node?",
+      "answer": "Users should use a compute node if their program requires more memory, CPU resources, GPU access, or graphics acceleration than available on a login node."
     },
     {
-      "question": "How do you start a VNC server on a login node, ensuring it eventually terminates?",
-      "answer": "Run `vncserver -idletimeout 86400`, which ensures the server terminates after 86400 seconds of no VNC viewer connections if you forget to log out."
+      "question": "What `salloc` command parameters are typically used to request specific CPU and memory resources for an interactive job on an Alliance cluster compute node for VNC?",
+      "answer": "An example `salloc` command is `salloc --time=1:00:00 --cpus-per-task=4 --mem=16000 --account=def-piusername` to request 4 CPUs and 16GB of memory for one hour."
     },
     {
-      "question": "How do you determine the TCP port your VNC server is listening on after starting it?",
-      "answer": "Run `grep -iE \"\\sport|kill\" /home/yourusername/.vnc/l4.nibi.sharcnet:1.log` (adjust log file name) to find the port, typically 5901."
+      "question": "What are the two different SSH tunnel command forms for connecting to a VNC server on a compute node, specifically for Nibi versus other Alliance clusters?",
+      "answer": "For Nibi, use `ssh -J username@nibi.alliancecan.ca -L localport:localhost:remoteport compute_node_name`. For all other clusters, use `ssh username@clustername -L localport:compute_node_name:remoteport`."
     },
     {
-      "question": "What command is used to set up an SSH tunnel from your desktop to a VNC server on a login node?",
-      "answer": "Use `ssh nibi.computecanada.ca -L 5905:l4:5901` (replacing 5905 with your local port, l4 with the login node name, and 5901 with the VNC server's port)."
+      "question": "How can a user reset their VNC server password on an Alliance cluster, or completely remove their VNC configuration?",
+      "answer": "To reset the password, use the `vncpasswd` command. To remove the configuration entirely, delete the `~/.vnc` directory."
     },
     {
-      "question": "How do you connect to the remote VNC desktop using TigerVNC Viewer after establishing an SSH tunnel?",
-      "answer": "Either click the TigerVNC Viewer icon and enter `localhost:5905` in the connection details, or run `vncviewer localhost:5905` in a terminal window (using your forwarded local port)."
+      "question": "How can a user terminate a specific running VNC server session on an Alliance cluster, or kill all their VNC servers instantly?",
+      "answer": "To kill a specific session, use `vncserver -kill :DISPLAY#`. To kill all of a user's VNC servers on a node, use `pkill Xvnc -u $USER`."
     },
     {
-      "question": "What are the limitations of running applications within a remote VNC desktop on login nodes?",
-      "answer": "Applications on login nodes are subject to system memory and cputime limits, and they do not provide GPU access or hardware-accelerated OpenGL."
+      "question": "What additional option must be included when starting a VNC server on an Alliance cluster to allow multiple VNC viewer connections to the same desktop?",
+      "answer": "The `-AlwaysShared` option must be included when starting the `vncserver` command (e.g., `vncserver -idletimeout 86400 -alwaysshared`)."
     },
     {
-      "question": "When should you start a VNC server on a cluster compute node instead of a login node?",
-      "answer": "You should use a compute node if your program requires more memory, CPU resources, GPU access, or graphics acceleration than available on login nodes."
+      "question": "What is a common cause of repeated VNC connection failures from a user's desktop, and how can they diagnose and resolve it?",
+      "answer": "Connection failures can be caused by an old SSH tunnel tying up ports. Users can identify and kill such tunnels by running `ps ux | grep ssh` followed by `kill PID` in a desktop terminal."
     },
     {
-      "question": "How do you allocate a compute node for an interactive job suitable for VNC?",
-      "answer": "Use the `salloc` command, specifying resources like time, CPUs, memory, and account, e.g., `salloc --time=1:00:00 --cpus-per-task=4 --mem=16000 --account=def-piusername`."
+      "question": "What two main steps are required to enable hardware-accelerated OpenGL graphics for a program running in a VNC desktop on an Alliance cluster compute node?",
+      "answer": "First, the `salloc` command must request a GPU node (e.g., `--gpus-per-node=1`). Second, `vglrun -d egl PROGRAM` should be added before the program name in the VNC desktop terminal, unless the program is already patched for the current cvmfs standard environment."
     },
     {
-      "question": "What environment variable should be set on a compute node before starting a VNC server?",
-      "answer": "Set `export XDG_RUNTIME_DIR=${SLURM_TMPDIR}` to avoid repetitive desktop errors."
+      "question": "What are some recommended portal alternatives on Alliance clusters for users experiencing graphics issues with VNC, or who prefer an automated web interface?",
+      "answer": "Users can try OpenOnDemand on the Nibi cluster or JupyterHub on the Rorqual cluster, which offer automated modern desktop VDI web interface GUI experiences."
     },
     {
-      "question": "What is the command to set up an SSH tunnel to a VNC server on a compute node for all clusters except Nibi?",
-      "answer": "The command is `ssh username@clustername -L localforwardedport:computenode:remotelisteningport`, e.g., `ssh username@rorqual.alliancecan.ca -L 5905:rc12509:5901`."
+      "question": "What is the primary recommendation for users on Alliance clusters seeking a simpler way to use VNC through their browser before attempting the advanced instructions described on this page?",
+      "answer": "Users are strongly advised to try VNC through their browser using JupyterLab's Desktop feature first, as it is often simpler and sufficient for many cases."
     },
     {
-      "question": "What is the specific SSH tunnel command for a Nibi cluster compute node?",
-      "answer": "For Nibi, use `ssh -J username@nibi.alliancecan.ca -L localforwardedport:localhost:remotelisteningport computenode`, e.g., `ssh -J username@nibi.alliancecan.ca -L 5905:localhost:5901 c48`."
-    },
-    {
-      "question": "What Linux desktop environment is presented when `vncviewer` connects?",
-      "answer": "Upon connection, a Linux MATE desktop is presented."
-    },
-    {
-      "question": "How can you reset your VNC server password?",
-      "answer": "Use the `vncpasswd` command from a terminal on the cluster, or delete your `~/.vnc` directory to completely remove the configuration."
-    },
-    {
-      "question": "How do you terminate a specific running VNC server session?",
-      "answer": "First, list sessions with `vncserver -list`, then terminate a specific one using its display number, e.g., `vncserver -kill :44`."
-    },
-    {
-      "question": "How can you kill all VNC server sessions for your user on a node?",
-      "answer": "Run `pkill Xvnc -u $USER` on the node where the servers are running."
-    },
-    {
-      "question": "How can multiple connections be made to the same VNC desktop simultaneously?",
-      "answer": "The VNC server must be started with the `-alwaysshared` option, e.g., `vncserver -idletimeout 86400 -alwaysshared`."
-    },
-    {
-      "question": "What should you do if you repeatedly fail to establish a new VNC connection?",
-      "answer": "Check for and kill any old SSH tunnels still running on your desktop by running `ps ux | grep ssh` and then `kill PID` for the relevant processes."
-    },
-    {
-      "question": "What password is required if the VNC screensaver times out?",
-      "answer": "If the VNC screensaver times out, you should enter your cluster account password to unlock it, not your VNC server password. (Note: The VNC screensaver has been disabled on current clusters to prevent this issue)."
-    },
-    {
-      "question": "How do you request a GPU node for hardware-accelerated OpenGL graphics?",
-      "answer": "Modify the `salloc` command to include `--gpus-per-node=1` for any GPU node, or `--gpus-per-node=t4:1` for a specific GPU type like T4."
-    },
-    {
-      "question": "What command might be needed to run a graphics-based program that uses hardware-based accelerated OpenGL in a VNC desktop?",
-      "answer": "You might need to add `vglrun -d egl` before your program's command, e.g., `vglrun -d egl PROGRAM`, unless the program is already patched for the current cvmfs standard environment."
-    },
-    {
-      "question": "What are some alternative portals if you experience graphics issues with VNC?",
-      "answer": "Consider using OpenOnDemand on the Nibi cluster or JupyterHub on the Rorqual cluster, as they offer automated VDI web interfaces designed for ease of use and improved performance."
+      "question": "What Linux desktop environment is typically presented once `vncviewer` connects to an Alliance cluster VNC server?",
+      "answer": "Once `vncviewer` connects, users will be presented with a Linux MATE desktop."
     }
   ],
-  "generated_at": "2026-04-12T10:49:26.554803+00:00"
+  "generated_at": "2026-04-13T15:46:51.626723+00:00"
 }

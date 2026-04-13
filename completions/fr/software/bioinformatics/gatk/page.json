@@ -3,61 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, GATK, pis à quoi ça sert?",
-      "answer": "GATK (Genome Analysis Toolkit) est une boîte d'outils bioinformatiques pour l'analyse des données de séquençage haut débit et du format Variant Call (VCF), surtout pour la découverte de variantes courtes des lignées germinales."
+      "question": "À quoi sert la boîte d'outils Genome Analysis Toolkit (GATK) sur les grappes Alliance?",
+      "answer": "La boîte d'outils GATK est conçue pour l'analyse bioinformatique des données de séquençage haut débit (HTS) et du format Variant Call (VCF), et est souvent employée pour la découverte des variantes courtes des lignées germinales."
     },
     {
-      "question": "Comment je fais pour voir les versions de GATK disponibles sur les grappes?",
-      "answer": "Pour obtenir l'information sur les versions disponibles, il faut lancer la commande `module spider gatk`."
+      "question": "Comment puis-je obtenir des informations sur les versions disponibles de GATK sur les grappes Alliance?",
+      "answer": "Pour obtenir des informations sur les versions de GATK, vous devez lancer la commande `module spider gatk`."
     },
     {
-      "question": "C'est quoi les prérequis pour charger un module GATK?",
-      "answer": "Le seul module prérequis est `StdEnv/2020`, qui est chargé par défaut, donc vous pouvez simplement lancer `module load gatk/version`."
+      "question": "Comment puis-je obtenir des informations détaillées sur une version spécifique de GATK, comme la version 4.1.8.1, sur les grappes Alliance?",
+      "answer": "Pour plus d'informations sur une version particulière de GATK, utilisez la commande `module spider gatk/4.1.8.1`."
     },
     {
-      "question": "Comment j'utilise GATK pour les versions 4.0.0.0 et plus?",
-      "answer": "Pour ces versions, un enveloppeur est fourni; la commande de base est `gatk [--java-options \"-Xmx4G\"] ToolName [GATK args]`."
+      "question": "Quel est le prérequis et comment charger un module GATK, par exemple la version 4.1.8.1, sur les grappes Alliance?",
+      "answer": "Seul le module `StdEnv/2020` est prérequis, et il est chargé par défaut. Vous pouvez charger GATK 4.1.8.1 en utilisant simplement la commande `module load gatk/4.1.8.1`."
     },
     {
-      "question": "C'est quoi les options Java importantes à considérer quand j'utilise GATK?",
-      "answer": "Il faut toujours utiliser `--java-options` pour définir la mémoire maximale du tas (par exemple, `-Xmx8G`) et ajouter `-DGATK_STACKTRACE_ON_USER_EXCEPTION=true` pour obtenir plus d'information pour le débogage."
+      "question": "Quelle est la syntaxe d'utilisation de base pour les versions récentes de GATK (>=4.0.0.0) sur les grappes Alliance?",
+      "answer": "La syntaxe est `gatk [--java-options \"-Xmx4G\"] ToolName [GATK args]`."
     },
     {
-      "question": "Quelles sont les recommandations pour les tâches `sbatch` avec GATK sur nos grappes?",
-      "answer": "On recommande l'option `--tmp-dir ${SLURM_TMPDIR}` pour rediriger les fichiers temporaires et, avec `GenomicsDBImport`, d'activer `--genomicsdb-shared-posixfs-optimizations` ou de copier la base de données dans `${SLURM_TMPDIR}`."
+      "question": "Comment passe-t-on des arguments à Java, comme la mémoire maximale du tas (heap memory), lorsqu'on utilise GATK sur les grappes Alliance?",
+      "answer": "Les arguments Java sont passés avec les `--java-options`, par exemple `gatk --java-options \"-Xmx8G\" HaplotypeCaller -R reference.fasta -I input.bam -O output.vcf`."
     },
     {
-      "question": "Comment on fait pour utiliser les versions de GATK antérieures à la 4?",
-      "answer": "Pour les versions antérieures, il faut invoquer directement le fichier `jar` avec `java -jar \"${EBROOTGATK}\"/GenomeAnalysisTK.jar PROGRAM OPTIONS` après avoir chargé le module approprié, comme `nixpkgs/16.09 gatk/3.8`."
+      "question": "Quelle option est recommandée pour obtenir plus d'informations de débogage en cas d'échec du programme GATK sur les grappes Alliance?",
+      "answer": "Il est recommandé d'utiliser `-DGATK_STACKTRACE_ON_USER_EXCEPTION=true` avec les `--java-options` pour le débogage."
     },
     {
-      "question": "Est-ce que les outils GATK utilisent plusieurs cœurs par défaut?",
-      "answer": "La plupart des outils GATK (>=4) n'utilisent pas plusieurs cœurs par défaut. Vous devriez demander un seul cœur, sauf pour quelques outils qui utilisent des fils (comme `Mutect2` avec `--native-pair-hmm-threads`) ou les commandes Spark."
+      "question": "Quelle option est recommandée pour les tâches GATK `sbatch` sur les grappes Alliance afin de gérer les fichiers temporaires?",
+      "answer": "Pour les tâches `sbatch`, il est recommandé d'utiliser l'option `--tmp-dir` avec la configuration `${SLURM_TMPDIR}` pour rediriger les fichiers temporaires vers le stockage local."
     },
     {
-      "question": "Quand devrais-je utiliser Apptainer pour GATK, pis comment je construis une image?",
-      "answer": "On recommande Apptainer si vous obtenez des erreurs comme `IllegalArgumentException` avec les modules installés. Pour construire une image, utilisez `apptainer build gatk.sif docker://broadinstitute/gatk`."
+      "question": "Quelles sont les optimisations recommandées pour l'utilisation de `GenomicsDBImport` avec GATK sur les systèmes de fichiers partagés Posix des grappes Alliance?",
+      "answer": "Il faut s'assurer que l'option `--genomicsdb-shared-posixfs-optimizations` est activée, ou copier la base de données dans `${SLURM_TMPDIR}` et lancer l'exécution à partir de là pour éviter les perturbations du système de fichiers."
     },
     {
-      "question": "Comment j'exécute GATK avec une image Apptainer dans un script SBATCH?",
-      "answer": "Dans votre script SBATCH, après avoir chargé le module `apptainer`, utilisez `apptainer exec -B /home -B /project -B /scratch -B /localscratch <chemin_image>/gatk.sif gatk [--java-options \"-Xmx4G\"] ToolName [GATK args]`."
+      "question": "Comment appelle-t-on GATK pour les versions antérieures à la 4 sur les grappes Alliance, puisqu'elles n'offrent pas la commande `gatk`?",
+      "answer": "Pour les versions antérieures à GATK 4, il faut invoquer directement le fichier `jar` en utilisant `java -jar \"${EBROOTGATK}\"/GenomeAnalysisTK.jar PROGRAM OPTIONS`."
     },
     {
-      "question": "Comment j'ajoute une étiquette de groupe de lecture (RG tag) à un fichier BAM avec GATK?",
-      "answer": "Vous pouvez utiliser la commande `gatk AddOrReplaceReadGroups` avec les options `-I` (input), `-O` (output), `--RGLB`, `--RGPL`, `--RGPU`, `--RGSM`, `--SORT_ORDER 'coordinate'` et `--CREATE_INDEX true`."
+      "question": "La plupart des outils GATK (>=4) utilisent-ils plusieurs cœurs par défaut, et comment gérer cela sur les grappes Alliance?",
+      "answer": "La plupart des outils GATK (>=4) ne peuvent pas utiliser plusieurs cœurs par défaut; il est donc recommandé de demander un seul cœur, sauf pour certains outils qui utilisent des fils (par exemple `Mutect2` avec `--native-pair-hmm-threads`) ou des commandes Spark."
     },
     {
-      "question": "J'ai l'erreur `java.lang.OutOfMemoryError: Java heap space`, qu'est-ce que je fais?",
-      "answer": "Il faut augmenter la mémoire allouée au tas Java en ajoutant ou en augmentant l'option `-Xmx` (par exemple, `-Xmx8G`) à l'argument `--java-options` dans votre commande GATK."
+      "question": "Comment utiliser GATK avec des commandes Spark sur les grappes Alliance et comment spécifier le nombre de CPU?",
+      "answer": "Avec les commandes qui utilisent Spark, on peut demander plusieurs CPU en indiquant le nombre exact dans la commande Spark; par exemple, `--spark-master local[10]` pour 10 CPU au lieu de `local[*]`. Pour le multinœuds, il faut déployer une grappe Spark."
     },
     {
-      "question": "J'ai augmenté la mémoire, mais l'erreur `java.lang.OutOfMemoryError: Java heap space` persiste, pourquoi?",
-      "answer": "Cela arrive souvent avec des organismes qui ne sont pas des modèles ou quand les références sont trop échafaudées. Il est recommandé de supprimer les niveaux moins importants et de créer des sous-ensembles pour vos références, puis d'exécuter les pipelines sur chaque sous-ensemble."
+      "question": "Quand devrais-je envisager d'utiliser Apptainer pour GATK sur les grappes Alliance?",
+      "answer": "Il est recommandé d'utiliser Apptainer si vous obtenez des erreurs comme `IllegalArgumentException` avec les modules GATK installés sur les grappes."
     },
     {
-      "question": "Pourquoi GATK/JAVA utilise plus de mémoire ou de CPU que ce que j'ai demandé, pis comment je règle ça?",
-      "answer": "C'est souvent dû au processus de Garbage Collection de Java. Pour contourner ça, vous pouvez ajouter `-XX:ConcGCThreads=1` à l'argument `--java-options`."
+      "question": "Comment construire une image Apptainer pour GATK à partir d'une image Docker sur les grappes Alliance?",
+      "answer": "Pour construire une image Apptainer, chargez le module `apptainer` puis lancez `apptainer build gatk.sif docker://broadinstitute/gatk` pour la dernière version ou `apptainer build gatk_VERSION.sif docker://broadinstitute/gatk:VERSION` pour une version spécifique."
+    },
+    {
+      "question": "Comment ajouter une étiquette (read group tag) à un fichier BAM en utilisant GATK/PICARD sur les grappes Alliance?",
+      "answer": "Vous pouvez utiliser la commande GATK/PICARD `AddOrReplaceReadGroups`, par exemple `gatk AddOrReplaceReadGroups -I input.bam -O output.bam --RGLB tag --RGPL ILLUMINA --RGPU tag --RGSM tag --SORT_ORDER 'coordinate' --CREATE_INDEX true`."
+    },
+    {
+      "question": "Que faire si je reçois le message d'erreur `java.lang.OutOfMemoryError: Java heap space` lors de l'utilisation de GATK sur les grappes Alliance?",
+      "answer": "Il faut augmenter la mémoire allouée au tas Java en ajoutant `--java-options \"-Xmx8G DGATK_STACKTRACE_ON_USER_EXCEPTION=true\"` (ou une valeur plus grande) à votre commande GATK."
+    },
+    {
+      "question": "Que faire si l'augmentation de la mémoire pour le tas ne résout pas l'erreur `java.lang.OutOfMemoryError: Java heap space` avec GATK sur les grappes Alliance?",
+      "answer": "Dans ce cas, il est recommandé de supprimer les niveaux moins importants et de créer des sous-ensembles pour vos références, puis d'exécuter les pipelines dans chacun des sous-ensembles, en tenant compte que GATK est conçu pour le génome humain."
+    },
+    {
+      "question": "Pourquoi les applications GATK/JAVA utilisent-elles parfois plus de mémoire ou de CPU que ce qui a été demandé sur les grappes Alliance, et comment y remédier?",
+      "answer": "Ceci est souvent dû au processus de 'Garbage Collection' de Java. Pour y remédier, vous pouvez ajouter `-XX:ConcGCThreads=1` à l'argument `--java-options`."
     }
   ],
-  "generated_at": "2026-04-11T21:56:44.697824+00:00"
+  "generated_at": "2026-04-13T05:40:38.751886+00:00"
 }

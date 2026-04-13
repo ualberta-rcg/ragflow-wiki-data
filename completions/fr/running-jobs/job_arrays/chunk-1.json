@@ -4,73 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Quand est-il approprié d'utiliser un vecteur de tâches (job array)?",
-      "answer": "C'est approprié d'utiliser un vecteur de tâches lorsqu'on a plusieurs tâches qui diffèrent par un seul paramètre."
+      "question": "Dans le contexte de SLURM, qu'est-ce qu'un vecteur de tâches, aussi appelé 'job array', et quelle est sa fonction principale?",
+      "answer": "Un vecteur de tâches sert à gérer plusieurs tâches qui diffèrent par un paramètre. Il utilise la variable d'environnement `$SLURM_ARRAY_TASK_ID` pour distinguer chaque tâche, et l'ordonnanceur leur assigne une valeur spécifique, définie par le paramètre `--array`."
     },
     {
-      "question": "Quelle variable d'environnement aide à distinguer chaque tâche dans un vecteur de tâches?",
-      "answer": "La variable d'environnement `$SLURM_ARRAY_TASK_ID` est utilisée pour différencier chaque tâche dans un vecteur de tâches."
+      "question": "Quels sont les avantages d'utiliser un vecteur de tâches (job array) par rapport à la soumission individuelle de plusieurs tâches séquentielles?",
+      "answer": "Utiliser un vecteur de tâches présente plusieurs avantages. Il simplifie la consultation des résultats en n'affichant qu'une seule ligne dans `squeue` pour les tâches en attente. De plus, cela améliore la performance de l'ordonnanceur, car il n'a pas à analyser les besoins de chaque tâche séparément, sauf pour l'étape initiale de `sbatch`."
     },
     {
-      "question": "Par quel paramètre les valeurs pour la variable `$SLURM_ARRAY_TASK_ID` sont-elles définies?",
-      "answer": "Les valeurs pour la variable `$SLURM_ARRAY_TASK_ID` sont définies par le paramètre `--array`."
-    },
-    {
-      "question": "Où peut-on trouver de la documentation additionnelle sur les vecteurs de tâches SLURM?",
-      "answer": "On peut consulter la documentation de SchedMD à l'adresse [https://slurm.schedmd.com/job_array.html](https://slurm.schedmd.com/job_array.html)."
-    },
-    {
-      "question": "Comment spécifier un éventail de valeurs pour `$SLURM_ARRAY_TASK_ID` allant de 0 à 7 inclusivement avec `--array`?",
-      "answer": "On utilise `sbatch --array=0-7` pour que `$SLURM_ARRAY_TASK_ID` prenne les valeurs de 0 à 7, toutes incluses."
-    },
-    {
-      "question": "Est-il possible de spécifier une liste non-séquentielle de valeurs pour `$SLURM_ARRAY_TASK_ID`? Si oui, comment?",
-      "answer": "Oui, on peut spécifier une liste non-séquentielle en énumérant les valeurs, par exemple `sbatch --array=1,3,5,7`."
-    },
-    {
-      "question": "Comment peut-on définir un incrément (un pas) pour les valeurs d'un vecteur de tâches?",
-      "answer": "On peut définir un incrément en utilisant la syntaxe `sbatch --array=1-7:2`, où `:2` indique un pas de 2."
-    },
-    {
-      "question": "Comment limiter le nombre de tâches exécutées en même temps dans un vecteur de tâches?",
-      "answer": "On peut limiter le nombre de tâches simultanées en ajoutant `%` et le nombre désiré après la plage, comme dans `sbatch --array=1-100%10` pour 10 tâches à la fois."
-    },
-    {
-      "question": "Que fait le script `simple_array.sh` comme présenté dans l'exemple?",
-      "answer": "Le script `simple_array.sh` crée 10 tâches indépendantes, chacune ayant une durée maximale de 3 heures et pouvant s'exécuter sur des nœuds différents à des moments différents."
-    },
-    {
-      "question": "Dans l'exemple `simple_array.sh`, à quoi sert la variable `$SLURM_ARRAY_TASK_ID`?",
-      "answer": "Dans cet exemple, `$SLURM_ARRAY_TASK_ID` est utilisé pour indiquer le fichier d'entrée pour `program_x` ou comme argument de ligne de commande pour `program_y`."
-    },
-    {
-      "question": "Pourquoi est-ce avantageux d'utiliser un vecteur de tâches plutôt que de soumettre plusieurs tâches séparément?",
-      "answer": "C'est avantageux parce qu'un vecteur de tâches n'affiche qu'une seule ligne dans `squeue`, ce qui facilite le suivi, et l'ordonnanceur analyse moins de choses, ce qui améliore la performance."
-    },
-    {
-      "question": "Les vecteurs de tâches permettent-ils à l'ordonnanceur d'être plus efficace?",
-      "answer": "Oui, l'ordonnanceur n'a pas besoin d'analyser les besoins de chaque tâche séparément, ce qui entraîne un gain de performance."
-    },
-    {
-      "question": "Pour quel type de tâches n'est-il pas conseillé d'utiliser un vecteur de tâches?",
-      "answer": "Il n'est pas recommandé d'utiliser un vecteur de tâches pour des tâches dont la durée est de beaucoup moins d'une heure."
-    },
-    {
-      "question": "Quelles sont les options pour grouper des tâches de très courte durée (quelques minutes)?",
-      "answer": "Pour des tâches de quelques minutes, il est recommandé de les grouper avec META, GLOST, GNU Parallel, ou de les exécuter dans une boucle de l'interpréteur à l'intérieur d'une seule tâche."
-    },
-    {
-      "question": "Comment gérer l'exécution d'un script dans des répertoires multiples dont les noms ne sont pas séquentiels?",
-      "answer": "On peut créer un fichier, comme `case_list`, qui contient la liste des noms de répertoires, puis utiliser une méthode pour sélectionner chaque ligne, comme `sed`."
-    },
-    {
-      "question": "Dans l'exemple de répertoires multiples, quel outil est utilisé pour extraire une ligne spécifique du fichier `case_list`?",
-      "answer": "L'outil `sed` est utilisé dans cet exemple pour sélectionner une ligne particulière du fichier `case_list` basée sur le `$SLURM_ARRAY_TASK_ID`."
-    },
-    {
-      "question": "Quelles sont les deux mises en garde importantes à considérer lors de l'utilisation d'un fichier de liste (comme `case_list`) avec un vecteur de tâches?",
-      "answer": "Il faut s'assurer que le nombre de tâches demandées correspond au nombre de lignes du fichier et que le fichier `case_list` ne soit pas modifié tant que toutes les tâches du vecteur n'ont pas terminé, car il est lu à chaque nouvelle tâche."
+      "question": "Dans quelles situations n'est-il pas recommandé de recourir à un vecteur de tâches, et quelles méthodes alternatives sont suggérées pour optimiser l'exécution de tâches de très courte durée?",
+      "answer": "Il n'est pas recommandé d'utiliser un vecteur de tâches pour soumettre des tâches qui durent beaucoup moins d'une heure. Pour les tâches de quelques minutes seulement, il est préférable de les regrouper en utilisant des outils comme META, GLOST, GNU Parallel, ou de les intégrer dans une boucle de l'interpréteur à l'intérieur d'une seule tâche."
     }
   ],
-  "generated_at": "2026-04-12T00:15:20.339380+00:00"
+  "generated_at": "2026-04-13T07:31:10.270714+00:00"
 }

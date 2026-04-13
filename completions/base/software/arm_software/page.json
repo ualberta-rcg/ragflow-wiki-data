@@ -3,97 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Linaro DDT used for?",
-      "answer": "Linaro DDT is a powerful commercial parallel debugger with a graphical user interface used to debug serial, MPI, multi-threaded, and CUDA programs written in C, C++, and FORTRAN."
+      "question": "What are Linaro DDT and MAP used for on Alliance clusters?",
+      "answer": "Linaro DDT is a powerful commercial parallel debugger used for debugging serial, MPI, multi-threaded, and CUDA programs written in C, C++, and FORTRAN. MAP is an efficient parallel profiler."
     },
     {
-      "question": "What is Linaro MAP?",
-      "answer": "Linaro MAP is an efficient parallel profiler, another useful tool from Linaro."
+      "question": "Which modules are available for Linaro DDT and MAP on Nibi and Trillium clusters, and what do they do?",
+      "answer": "The available modules are `ddt-cpu` for CPU debugging and profiling, and `ddt-gpu` for GPU or mixed CPU/GPU debugging. They require the `StdEnv` module to be loaded."
     },
     {
-      "question": "Which Linaro modules are available on Nibi and Trillium clusters?",
-      "answer": "The `ddt-cpu` module for CPU debugging and profiling, and the `ddt-gpu` module for GPU or mixed CPU/GPU debugging are available, requiring the `StdEnv` module to be loaded."
+      "question": "What is required to use the graphical user interface for Linaro DDT and MAP on Alliance clusters?",
+      "answer": "Users must log in using `ssh -Y` and use an SSH client like MobaXTerm (Windows) or XQuartz (Mac) to ensure proper X11 tunnelling for the GUI application."
     },
     {
-      "question": "How do you connect to use the Linaro DDT GUI application?",
-      "answer": "Log in using `ssh -Y` and an SSH client like MobaXTerm (Windows) or XQuartz (Mac) to ensure proper X11 tunnelling."
+      "question": "How are Linaro DDT and MAP typically used interactively on Alliance clusters, and can MAP be used differently?",
+      "answer": "Both DDT and MAP are normally used interactively through their GUI, which is accomplished using the `salloc` command. MAP can also be used non-interactively by submitting it to the scheduler with the `sbatch` command."
     },
     {
-      "question": "How are DDT and MAP typically used?",
-      "answer": "They are normally used interactively through their GUI, typically accomplished using the `salloc` command, though MAP can also be used non-interactively with `sbatch`."
+      "question": "What are the license limitations for using Linaro DDT and MAP on Alliance clusters?",
+      "answer": "The current license limits the use of DDT/MAP to a maximum of 64 CPU cores across all users at any given time, while DDT-GPU is limited to 8 GPUs."
     },
     {
-      "question": "What are the current license limits for Linaro DDT/MAP and DDT-GPU?",
-      "answer": "DDT/MAP is limited to a maximum of 64 CPU cores across all users, while DDT-GPU is limited to 8 GPUs at any given time."
+      "question": "What is the initial `salloc` command for interactively debugging CPU-only code with Linaro DDT or MAP?",
+      "answer": "The initial `salloc` command to allocate nodes for CPU-only debugging is typically `salloc --x11 --time=0-1:00 --mem-per-cpu=4G --ntasks=4`."
     },
     {
-      "question": "What is the first step to debug CPU-only code using DDT?",
-      "answer": "Allocate the node or nodes for debugging or profiling using the `salloc` command, which opens a shell session on the allocated node."
+      "question": "What important configuration step needs to be performed within the Linaro DDT/MAP application window before running an MPI program?",
+      "answer": "Before pressing the 'Run' button, users must ensure the MPI implementation is set to the default OpenMPI and specify the desired number of CPU cores."
     },
     {
-      "question": "Provide an example `salloc` command for CPU-only debugging.",
-      "answer": "`salloc --x11 --time=0-1:00 --mem-per-cpu=4G --ntasks=4`"
+      "question": "What is the workaround for the compatibility issue between current versions of Linaro DDT and OpenMPI regarding message queues, and what's its drawback?",
+      "answer": "To fix the message queue display issue, execute `export OMPI_MCA_pml=ob1` before running DDT. The drawback is that this workaround can make MPI code run slower, so it should only be used when debugging."
     },
     {
-      "question": "Which module needs to be loaded for CPU-only debugging with DDT?",
-      "answer": "The `ddt-cpu` module should be loaded, for example, by running `module load ddt-cpu`."
+      "question": "How do users allocate resources for debugging CUDA code with Linaro DDT on Alliance clusters?",
+      "answer": "Users allocate nodes with `salloc` using a command such as `salloc --x11 --time=0-1:00 --mem-per-cpu=4G --ntasks=1 --gres=gpu:1`."
     },
     {
-      "question": "How do you launch DDT or MAP for a CPU-only program after allocation and module loading?",
-      "answer": "Run `ddt path/to/code` or `map path/to/code`."
+      "question": "What specific modules need to be loaded to debug CUDA code using Linaro DDT, and what should be done if the `ddt-gpu` module fails to load initially?",
+      "answer": "Users need to load `ddt-gpu` and `cuda` modules. If `ddt-gpu` fails, an older version of OpenMPI might need to be loaded first, for example, `module load openmpi/2.0.2` followed by `module load ddt-gpu`."
     },
     {
-      "question": "What important settings should be verified in the DDT/MAP application window for CPU-only code?",
-      "answer": "Ensure the MPI implementation is the default OpenMPI and specify the desired number of CPU cores before pressing the 'Run' button."
+      "question": "What command can be used if Linaro DDT complains about a mismatch between the CUDA driver and toolkit versions?",
+      "answer": "If there's a CUDA version mismatch, users can execute `export ALLINEA_FORCE_CUDA_VERSION=X.X` (replacing X.X with the appropriate version) before running DDT again."
     },
     {
-      "question": "What is the workaround for the compatibility issue between DDT and OpenMPI that affects message queue display?",
-      "answer": "Execute `export OMPI_MCA_pml=ob1` before running DDT, but be aware this may slow down MPI code and should only be used for debugging."
+      "question": "Why might the Linaro DDT graphical interface be laggy when using X11 forwarding, and what is the recommended solution?",
+      "answer": "The DDT GUI might be laggy due to X11's sensitivity to packet latency, especially if not on the same campus as the cluster. The recommended solution is to run DDT under VNC."
     },
     {
-      "question": "What is the first step to debug CUDA code using DDT?",
-      "answer": "Allocate the node or nodes on which to do the debugging or profiling with `salloc`, specifying GPU resources."
+      "question": "How do users manually launch a job from the Linaro DDT startup screen when using a VNC session on a login node or VDI node?",
+      "answer": "From the DDT startup screen, users must select 'manually launch backend yourself', enter job information, press 'listen', then press the 'help' button to get the specific command to run on the allocated cluster node, such as `forge-client --ddtsessionfile /home/$USER/.allinea/session/gra-vdi3-1 $PROGRAM ...`."
     },
     {
-      "question": "Provide an example `salloc` command for CUDA debugging with one GPU.",
-      "answer": "`salloc --x11 --time=0-1:00 --mem-per-cpu=4G --ntasks=1 --gres=gpu:1`"
+      "question": "What is a common cause for issues with X11 forwarding when using Linaro DDT, and how can it be resolved?",
+      "answer": "Issues with X11 forwarding can often be caused by incorrect permissions on the home directory. This can be resolved by changing permissions so that only the user has access."
     },
     {
-      "question": "Which module needs to be loaded for CUDA debugging with DDT?",
-      "answer": "The `ddt-gpu` module should be loaded, for example, by running `module load ddt-gpu`."
+      "question": "How can a user check the permissions of their home directory to troubleshoot X11 issues on an Alliance cluster?",
+      "answer": "To check home directory permissions, a user can execute the command `ls -ld /home/$USER`. The output should ideally begin with `drwx------`."
     },
     {
-      "question": "What steps should be taken if loading `ddt-gpu` suggests loading an older OpenMPI version first?",
-      "answer": "Reload the OpenMPI module with the suggested older version (e.g., `module load openmpi/2.0.2`), and then reload the `ddt-gpu` module."
-    },
-    {
-      "question": "What other module is required for CUDA debugging in addition to `ddt-gpu`?",
-      "answer": "A `cuda` module must be loaded, for example, by running `module load cuda`."
-    },
-    {
-      "question": "What should be done if DDT reports a mismatch between the CUDA driver and toolkit version?",
-      "answer": "Execute `export ALLINEA_FORCE_CUDA_VERSION=10.1` (using the correct version number) and then rerun DDT."
-    },
-    {
-      "question": "Why would someone use VNC to fix lag when using DDT?",
-      "answer": "X11 forwarding is sensitive to packet latency, causing the DDT interface to be laggy, and VNC can fix this by running DDT in a VNC session."
-    },
-    {
-      "question": "How do you manually launch a job from the DDT startup screen if your VNC session is on a login or VDI node?",
-      "answer": "Pick the 'manually launch backend yourself' option, enter job information, press 'listen,' and then use the command provided by the 'help' button to start your program on the allocated cluster job."
-    },
-    {
-      "question": "What is a common issue that can prevent X11 from working with DDT, and how is it resolved?",
-      "answer": "Incorrect permissions on the home directory can cause X11 issues. It can be resolved by changing permissions so only the user has access, for example, with `chmod go-rx /home/$USER`."
-    },
-    {
-      "question": "How can a user check the current permissions of their home directory?",
-      "answer": "By executing the command `ls -ld /home/$USER`."
-    },
-    {
-      "question": "Where can users find additional resources for learning about DDT?",
-      "answer": "A video titled 'Debugging your code with DDT' and a short DDT tutorial page are available."
+      "question": "What command can be used to remove read and execute permissions for group and other users from a home directory, which might fix X11 forwarding issues?",
+      "answer": "To remove read and execute permissions for group and other users from the home directory, the command `chmod go-rx /home/$USER` can be used."
     }
   ],
-  "generated_at": "2026-04-11T15:08:40.218791+00:00"
+  "generated_at": "2026-04-13T00:30:31.570010+00:00"
 }

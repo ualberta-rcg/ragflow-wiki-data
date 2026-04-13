@@ -4,65 +4,17 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `-maxh` parameter when running GROMACS simulations?",
-      "answer": "The `-maxh` parameter tells the program the requested walltime, allowing it to gracefully finish the current timestep when reaching 99% of this walltime. This ensures a new checkpoint file is created and all output files (trajectories, energy- and log-files, etc.) are properly closed."
+      "question": "How can a GROMACS molecular dynamics simulation be configured to gracefully shut down and create a checkpoint file before reaching its allocated time limit?",
+      "answer": "To ensure a GROMACS simulation gracefully finishes and creates a checkpoint file before its walltime, you should use the `mdrun` parameter `-maxh` to specify the requested walltime. This should be used in conjunction with the Slurm `#SBATCH --time` directive, for example, `#SBATCH --time=24:00` with `gmx mdrun -maxh 24`."
     },
     {
-      "question": "How should the `sbatch --time` parameter be used in conjunction with the `gmx mdrun -maxh` parameter?",
-      "answer": "You should use matching values, for example, `#SBATCH --time=24:00` with `gmx mdrun -maxh 24`, or `#SBATCH --time=3-00:00` with `gmx mdrun -maxh 72`."
+      "question": "What command-line option is used to restart an existing GROMACS simulation from a checkpoint file?",
+      "answer": "To restart an existing GROMACS simulation, use the `mdrun` command with the `-cpi state.cpt` parameter, where `state.cpt` is the filename of the most recent checkpoint file. By default, `mdrun` will attempt to append to existing output files and verify their consistency."
     },
     {
-      "question": "What is considered a good trade-off for walltime when requesting a job to minimize waiting time?",
-      "answer": "Requesting a walltime of 24 hours or 72 hours (three days) is often a good trade-off between waiting time and running time."
-    },
-    {
-      "question": "Which modules are loaded in the example `gromacs_job.sh` script for running a GROMACS simulation?",
-      "answer": "The example `gromacs_job.sh` script loads `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `gromacs/2024.4`."
-    },
-    {
-      "question": "How can a GROMACS simulation be restarted?",
-      "answer": "A GROMACS simulation can be restarted by using the same `mdrun` command as the original simulation and adding the `-cpi state.cpt` parameter, where `state.cpt` is the filename of the most recent checkpoint file."
-    },
-    {
-      "question": "What does GROMACS `mdrun` do with existing output files when a simulation is restarted using a checkpoint file?",
-      "answer": "By default, since version 4.5, `mdrun` will attempt to append to the existing files (trajectories, energy- and log-files, etc.). GROMACS will also check the consistency of the output files and discard any timesteps that are newer than that of the checkpoint file if needed."
-    },
-    {
-      "question": "Why is the `-maxh` parameter important for ensuring data consistency when restarting simulations?",
-      "answer": "The `-maxh` parameter ensures that the checkpoint and output files are written in a consistent state when the simulation reaches its time limit, which is crucial for a clean restart."
-    },
-    {
-      "question": "Where can users find more detailed information on managing long GROMACS simulations and the `gmx mdrun` command?",
-      "answer": "More detailed information can be found in the GROMACS User Guide: Managing long simulations and the GROMACS Manual page for `gmx mdrun`."
-    },
-    {
-      "question": "What are the SBATCH parameters specified in the `gromacs_job_restart.sh` example script?",
-      "answer": "The `gromacs_job_restart.sh` example script specifies `--nodes=1`, `--tasks-per-node=32`, `--mem-per-cpu=4000` (megabytes), and `--time=24:00:00`."
-    },
-    {
-      "question": "How does the example `gromacs_job_restart.sh` script execute the GROMACS `mdrun` command for a restart?",
-      "answer": "It uses `srun gmx_mpi mdrun -deffnm md -maxh 24.0 -cpi md.cpt`."
-    },
-    {
-      "question": "What is the primary benefit of splitting a long GROMACS simulation into multiple short jobs using checkpointing?",
-      "answer": "Splitting a long simulation into multiple short jobs reduces the time a job needs to wait in the queue, as shorter jobs (3 hours or less) are eligible for backfill scheduling."
-    },
-    {
-      "question": "How can checkpointing be automated for GROMACS simulations?",
-      "answer": "Checkpointing can be automated by using a job array with an array job script, where a single `sbatch` call submits multiple short jobs, and as one completes, the next becomes eligible to start and resume the simulation."
-    },
-    {
-      "question": "What happens to pending jobs in an automated checkpointing array if the simulation finishes early or exits with an error?",
-      "answer": "If the simulation finishes early or exits with an error, any remaining pending jobs in the array are automatically cancelled."
-    },
-    {
-      "question": "What modules are loaded in the `gromacs_job_checkpoint.sh` script example for whole nodes on Narval?",
-      "answer": "The example script loads `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `gromacs/2024.4`."
-    },
-    {
-      "question": "What is the purpose of the `#SBATCH --array=1-20%1` line in the checkpointing script?",
-      "answer": "This line defines a job array with a range from 1 to 20, but it limits the number of simultaneously running jobs to 1, ensuring only one part of the checkpointed simulation runs at a time."
+      "question": "What is the advantage of using Slurm job arrays for checkpointing GROMACS simulations?",
+      "answer": "Using Slurm job arrays for checkpointing GROMACS simulations allows for the automation of splitting long simulations into multiple shorter jobs. This reduces the wait time in the queue, especially for jobs requesting three hours or less which are eligible for backfill scheduling, and enables the simulation to resume automatically from a checkpoint file with sequential jobs."
     }
   ],
-  "generated_at": "2026-04-11T22:34:41.922434+00:00"
+  "generated_at": "2026-04-13T06:10:43.276006+00:00"
 }

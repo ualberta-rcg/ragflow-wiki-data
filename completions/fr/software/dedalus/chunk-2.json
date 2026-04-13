@@ -4,41 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Dans un script SLURM pour Dedalus, comment j'spécifie la mémoire que chaque processus a besoin?",
-      "answer": "Pour spécifier la mémoire par processus, tu dois utiliser `#SBATCH --mem-per-cpu=4G` et ajuster la valeur selon tes besoins."
+      "question": "Quels modules doivent être chargés et comment configure-t-on l'environnement virtuel pour une tâche Dedalus distribuée sur les grappes de l'Alliance?",
+      "answer": "Pour une tâche Dedalus distribuée, il faut charger les modules `StdEnv/2023`, `gcc`, `openmpi`, `mpi4py/3.1.4`, `fftw-mpi/3.3.10`, `hdf5-mpi/1.14.2` et `python/3.11`. L'environnement virtuel doit être créé sur chaque nœud alloué en utilisant une commande comme `srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF virtualenv --no-download $SLURM_TMPDIR/env ... EOF`, puis activé sur le nœud principal avec `source $SLURM_TMPDIR/env/bin/activate;`."
     },
     {
-      "question": "C'est quoi les modules que j'ai besoin de charger pour faire rouler Dedalus?",
-      "answer": "T'as besoin de charger `StdEnv/2023`, `gcc`, `openmpi`, `mpi4py/3.1.4`, `fftw-mpi/3.3.10`, `hdf5-mpi/1.14.2` et `python/3.11`."
-    },
-    {
-      "question": "Comment l'environnement virtuel s'crée sur chaque nœud alloué quand je roule Dedalus en mode distribué?",
-      "answer": "Ça s'crée avec une commande `srun` qui exécute `virtualenv --no-download $SLURM_TMPDIR/env`, active l'environnement, pis installe ou met à jour `pip` et les dépendances de Dedalus à partir du fichier `dedalus-3.0.2-requirements.txt`."
-    },
-    {
-      "question": "Après la création, l'environnement virtuel, où est-ce qu'il est activé?",
-      "answer": "Il est activé juste sur le nœud principal avec la commande `source $SLURM_TMPDIR/env/bin/activate;`."
-    },
-    {
-      "question": "Y'a-t-il une variable d'environnement que j'devrais exporter avant de faire rouler Dedalus?",
-      "answer": "Oui, tu dois exporter la variable `OMP_NUM_THREADS` à la valeur `1` avec `export OMP_NUM_THREADS=1`."
-    },
-    {
-      "question": "Quelle est la commande pour lancer mon script Python avec Dedalus?",
-      "answer": "Pour lancer ton script, tu utilises `srun python $SCRATCH/myscript.py;`."
-    },
-    {
-      "question": "Avant de soumettre ma tâche, qu'est-ce que j'devrais faire pour éviter les erreurs?",
-      "answer": "Avant de la soumettre, c'est super important de tester ton script pour voir s'il y a des erreurs possibles. Fais un test vite avec une tâche interactive."
-    },
-    {
-      "question": "C'est quoi la commande pour soumettre mon script Dedalus à l'ordonnanceur?",
-      "answer": "Tu soumets ton script à l'ordonnanceur avec `sbatch submit-dedalus.sh`."
-    },
-    {
-      "question": "Où est-ce que je peux trouver plus de détails sur l'exécution sur des nœuds entiers?",
-      "answer": "Tu peux aller voir `https://docs.alliancecan.ca/wiki/Advanced_MPI_scheduling#Whole_nodes` pour plus de détails."
+      "question": "Comment soumet-on un script de tâche Dedalus à l'ordonnanceur sur les grappes de l'Alliance, et y a-t-il des précautions à prendre?",
+      "answer": "Pour soumettre un script de tâche Dedalus à l'ordonnanceur, utilisez la commande `sbatch submit-dedalus.sh`. Avant de le soumettre, il est fortement recommandé de tester le script pour des erreurs possibles en faisant un test rapide avec une tâche interactive."
     }
   ],
-  "generated_at": "2026-04-11T21:09:14.800770+00:00"
+  "generated_at": "2026-04-13T05:00:39.879887+00:00"
 }

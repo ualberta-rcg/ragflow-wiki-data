@@ -4,13 +4,13 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "How can one dynamically determine the number of processes for a Python `multiprocessing` Pool when running a job on a cluster with SLURM?",
-      "answer": "To dynamically determine the number of processes for a Python `multiprocessing` Pool on a SLURM-managed cluster, you should retrieve the value from the `SLURM_CPUS_PER_TASK` environment variable. This can be done using `os.environ.get('SLURM_CPUS_PER_TASK', default=1)` to set the `processes` argument for the `mp.Pool` constructor. This ensures the application uses the allocated CPU cores efficiently."
+      "question": "In the provided Python code for parallel processing on a cluster, what is the role of the `ncpus = int(os.environ.get('SLURM_CPUS_PER_TASK',default=1))` line?",
+      "answer": "This line retrieves the number of CPU cores allocated to the job from the `SLURM_CPUS_PER_TASK` environment variable. If this variable is not set, it defaults to 1. This value is then used to initialize the `multiprocessing.Pool`, ensuring the number of processes matches the resources requested from the cluster's scheduler."
     },
     {
-      "question": "What Python module and class are recommended for parallel programming within a single compute node, and how should the number of processes be configured?",
-      "answer": "The `multiprocessing` module, specifically the `Pool` class, is recommended for parallel programming within a single compute node. The number of processes for the `Pool` should be configured based on the number of CPU cores allocated to your job. On a SLURM cluster, this count can be obtained from the `SLURM_CPUS_PER_TASK` environment variable (e.g., `ncpus = int(os.environ.get('SLURM_CPUS_PER_TASK', default=1))`)."
+      "question": "How is the `multiprocessing.Pool` configured to utilize cluster resources effectively in the provided parallel Python examples?",
+      "answer": "The `multiprocessing.Pool` is configured by setting its `processes` argument to `ncpus`. The `ncpus` variable dynamically retrieves the number of CPU cores allocated to the job from the `SLURM_CPUS_PER_TASK` environment variable, defaulting to 1 if not explicitly set by the job scheduler. This approach ensures the Python program efficiently uses the exact number of cores assigned to it."
     }
   ],
-  "generated_at": "2026-04-12T18:20:08.747599+00:00"
+  "generated_at": "2026-04-13T11:49:50.526658+00:00"
 }

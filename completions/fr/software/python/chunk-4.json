@@ -4,13 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce qui arrive si j'oublie l'option `--no-index` quand j'installe un paquet avec `pip`?",
-      "answer": "Si vous omettez l'option `--no-index`, `pip` va chercher les paquets autant localement que sur PyPI et il va installer la version la plus récente. Si cette dernière vient de PyPI, c'est elle qui sera installée plutôt que la nôtre, ce qui pourrait vous créer des problèmes."
+      "question": "Quand on installe un paquet Python, comment `pip` choisit-il entre une version locale et une version de PyPI s'il en trouve plusieurs, et quels sont les problèmes potentiels si `pip` installe la version de PyPI?",
+      "answer": "Si `pip` trouve un paquet autant en version locale qu'en version sur PyPI, il va toujours choisir d'installer la version la plus récente. Par contre, si la version la plus récente vient de PyPI, elle sera installée à la place de la nôtre, ce qui risque de causer des problèmes, car nos wheels locaux sont optimisés pour les grappes et gèrent mieux les dépendances."
     },
     {
-      "question": "Comment puis-je faire pour que `pip` télécharge un paquet de PyPI plutôt que d'utiliser un wheel local?",
-      "answer": "Si vous préférez télécharger un paquet de PyPI au lieu d'utiliser un wheel, vous devez employer l'option `--no-binary`. Ça demande à `pip` de ne pas considérer les paquets préconstruits; ainsi, les wheels distribués via PyPI ne seront pas pris en compte et le paquet sera toujours compilé à partir de la source."
+      "question": "Si on préfère installer un paquet Python directement de PyPI et le compiler à partir des sources, même si un wheel préconstruit est disponible, quelle option de `pip` devrait-on utiliser?",
+      "answer": "Si vous voulez que `pip` télécharge un paquet de PyPI et le compile à partir du code source, sans tenir compte des paquets préconstruits (les wheels distribués via PyPI ou nos wheels locaux), vous devez utiliser l'option `--no-binary`."
+    },
+    {
+      "question": "Comment puis-je m'assurer que `pip` installe un paquet Python uniquement à partir des wheels locaux disponibles sur les grappes, sans chercher sur PyPI?",
+      "answer": "Pour demander à `pip` de ne pas installer les paquets à partir de PyPI et de se concentrer seulement sur les paquets de source locale (comme nos wheels), vous devez utiliser l'option `--no-index` avec la commande `pip install`."
     }
   ],
-  "generated_at": "2026-04-12T18:21:27.115878+00:00"
+  "generated_at": "2026-04-13T11:51:33.312016+00:00"
 }

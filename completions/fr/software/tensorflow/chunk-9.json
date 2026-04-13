@@ -4,13 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce qu'un point de contrôle lors de l'entraînement d'un modèle TensorFlow et pourquoi est-ce utile?",
-      "answer": "Un point de contrôle, c'est comme une photo de votre modèle à un moment précis de l'entraînement (par exemple, après un certain nombre d'itérations ou d'époques). C'est pratique parce que ça vous permet de ne pas perdre votre travail en cas de problèmes imprévus ou de panne de matériel, et ça peut aussi aider à diviser des tâches d'exécution longues en plus petites, ce qui peut faciliter leur allocation sur une grappe."
+      "question": "C'est quoi un point de contrôle en TensorFlow pis pourquoi en créer un?",
+      "answer": "Un point de contrôle, c'est une image de votre modèle à un moment précis durant l'entraînement (par exemple, après un certain nombre d'itérations ou d'époques). Ça sert à diviser les grosses tâches en plus petites pour qu'elles s'allouent plus vite sur les grappes, pis ça aide à pas perdre votre travail si y'a des pannes ou des erreurs imprévues."
     },
     {
-      "question": "Quelle est l'erreur fréquente que l'on peut rencontrer quand la bibliothèque scikit-image est utilisée avec TensorFlow, et comment peut-on la corriger?",
-      "answer": "Une erreur fréquente est 'OMP: Error #15: Initializing libiomp5.so, but found libiomp5.so already initialized.' qui survient quand TensorFlow essaie de charger une version d'OMP incompatible. Pour la contourner, il faut se placer dans le répertoire de votre environnement virtuel (ex: `cd tf_skimage_venv`) et exécuter les commandes suivantes : `export LIBIOMP_PATH=$(strace python -c 'from skimage.transform import AffineTransform' 2>&1 | grep -v ENOENT | grep -ohP -e '(?<=\")[^\"]+libiomp5.so(?=\")' | xargs realpath)` puis `find -path '*_solib_local*' -name libiomp5.so -exec ln -sf $LIBIOMP_PATH {} \\;`."
+      "question": "Comment on fait pour créer des points de contrôle dans un entraînement avec Keras en TensorFlow?",
+      "answer": "Pour créer un point de contrôle avec Keras, il faut utiliser le paramètre `callbacks` de la méthode `model.fit()`. Par exemple, vous pouvez configurer les `callbacks` pour créer un point de contrôle à la fin de chaque époque d'entraînement en utilisant `callbacks = [tf.keras.callbacks.ModelCheckpoint(filepath=\"./ckpt\", save_freq=\"epoch\")]`."
+    },
+    {
+      "question": "Quelle est la marche à suivre si on rencontre l'erreur « Couldn't open CUDA library libcupti.so » quand on utilise TensorFlow?",
+      "answer": "Si vous voyez cette erreur, ça veut dire que la bibliothèque `libcupti.so` n'est pas dispo. Pour la régler, il faut charger le bon module CUDA (par exemple, `module load cuda/9.0.xxx` en remplaçant 'xxx' par la version adéquate) pis ensuite ajouter le chemin `$CUDA_HOME/extras/CUPTI/lib64/` à votre variable d'environnement `LD_LIBRARY_PATH` avant de lancer votre script."
     }
   ],
-  "generated_at": "2026-04-12T21:35:26.242501+00:00"
+  "generated_at": "2026-04-13T14:21:05.559428+00:00"
 }

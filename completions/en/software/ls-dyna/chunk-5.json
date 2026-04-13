@@ -4,69 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `script-smp.sh` file?",
-      "answer": "The `script-smp.sh` file is a Slurm script used for running LS-DYNA jobs on a single compute node (SMP - Shared Memory Parallel using OpenMP)."
+      "question": "How can users submit an LS-DYNA job to run on a single compute node?",
+      "answer": "Users can submit single node LS-DYNA jobs to the queue using `sbatch script-smp.sh`. This script allows specifying parameters like the number of cores, total memory, and whether to use the `ls-dyna_s` single precision or `ls-dyna_d` double precision SMP solver."
     },
     {
-      "question": "How many CPU cores does the `script-smp.sh` example request for an LS-DYNA job?",
-      "answer": "The `script-smp.sh` example requests 8 CPU cores per task, as specified by `#SBATCH --cpus-per-task=8`."
+      "question": "How can users submit an LS-DYNA job to run across multiple compute nodes by specifying the node count?",
+      "answer": "Jobs can be submitted to a specified number of whole compute nodes using the `sbatch script-mpp-bynode.sh` command. This approach uses the MPP (Message Passing Parallel) version of LS-DYNA and allows specifying the number of compute nodes and tasks per node."
     },
     {
-      "question": "What is the total memory requested for the job in the `script-smp.sh` example?",
-      "answer": "The `script-smp.sh` example requests a total of 16GB of memory, indicated by `#SBATCH --mem=16G`."
-    },
-    {
-      "question": "Which LS-DYNA solver version is loaded in the `script-smp.sh` example for single-node jobs?",
-      "answer": "The `script-smp.sh` example loads LS-DYNA version 12.2.1, using `module load ls-dyna/12.2.1`."
-    },
-    {
-      "question": "What command is used to execute the LS-DYNA job in the `script-smp.sh` example?",
-      "answer": "The LS-DYNA job is executed using the command `ls-dyna_d ncpu=$SLURM_CPUS_ON_NODE i=airbag.deploy.k memory=1500M`."
-    },
-    {
-      "question": "What do `ls-dyna_s` and `ls-dyna_d` refer to in the context of single node jobs?",
-      "answer": "`ls-dyna_s` refers to the single precision SMP solver, and `ls-dyna_d` refers to the double precision SMP solver."
-    },
-    {
-      "question": "What does MPP stand for in the context of LS-DYNA jobs, and what technology does it use?",
-      "answer": "MPP stands for Message Passing Parallel, and it uses MPI (Message Passing Interface) for running jobs across multiple compute nodes."
-    },
-    {
-      "question": "How can one list the available modules for running multiple node (MPP) LS-DYNA jobs?",
-      "answer": "One can list the available modules for running multiple node (MPP) LS-DYNA jobs by running the command `module spider ls-dyna-mpi`."
-    },
-    {
-      "question": "What are the two main ways to submit MPP LS-DYNA jobs using Slurm scripts?",
-      "answer": "MPP LS-DYNA jobs can be submitted by specifying a number of whole nodes using `sbatch script-mpp-bynode.sh` or by specifying a total number of cores using `sbatch script-mpp-bycore.sh`."
-    },
-    {
-      "question": "What is the memory recommendation for MPP jobs concerning 'memory1' and 'memory2'?",
-      "answer": "The MPP version requires a sufficiently large amount of memory (memory1) for the first core (processor 0) on the master node for model decomposition. This can be met by setting `mem-per-cpu` in Slurm slightly larger than the memory (memory2) required per core for simulation, and then allocating enough cores on the master node so their differential sum (mem-per-cpu less memory2) is greater than or equal to memory1. For best results, the sum of all expected memory per node should be kept within 75% of the reserved RAM on a node."
-    },
-    {
-      "question": "What is the purpose of the `script-mpp-bynode.sh` file?",
-      "answer": "The `script-mpp-bynode.sh` file is a Slurm script used for submitting LS-DYNA jobs to a specified number of whole compute nodes."
-    },
-    {
-      "question": "How many tasks per node does the `script-mpp-bynode.sh` example specify for clusters like Narval, Nibi, Fir, or Trillium?",
-      "answer": "The `script-mpp-bynode.sh` example specifies 192 tasks per node for clusters like Narval, Nibi, Fir, or Trillium, as indicated by `#SBATCH --ntasks-per-node=192`."
-    },
-    {
-      "question": "How much memory is requested per compute node in the `script-mpp-bynode.sh` example?",
-      "answer": "The `script-mpp-bynode.sh` example requests to use all memory per compute node by setting `#SBATCH --mem=0`."
-    },
-    {
-      "question": "Which LS-DYNA solver module version is loaded for MPP jobs in the `script-mpp-bynode.sh` example?",
-      "answer": "The `script-mpp-bynode.sh` example loads LS-DYNA-MPI version 12.2.1, using `module load ls-dyna-mpi/12.2.1`."
-    },
-    {
-      "question": "What is the general syntax for specifying an Ansys license server in the provided Slurm scripts?",
-      "answer": "To specify an Ansys license server, one would uncomment and set the environment variables `export LSTC_LICENSE=ansys` and `export ANSYSLMD_LICENSE_FILE=<port>@<server>` in the Slurm scripts."
-    },
-    {
-      "question": "What does `LSTC_MEMORY=AUTO` do, and when is it recommended?",
-      "answer": "`LSTC_MEMORY=AUTO` is an optional setting for explicit analyses only, allowing memory to be dynamically extended beyond a specified word setting, suitable for simulations like metal forming but not crash analysis."
+      "question": "What are the two types of LS-DYNA solvers available for both single and multiple node jobs?",
+      "answer": "The two types of LS-DYNA solvers available are `ls-dyna_s`, which is the single precision solver, and `ls-dyna_d`, which is the double precision solver."
     }
   ],
-  "generated_at": "2026-04-12T00:53:25.114767+00:00"
+  "generated_at": "2026-04-13T08:01:49.875504+00:00"
 }

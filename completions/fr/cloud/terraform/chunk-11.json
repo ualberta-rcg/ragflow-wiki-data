@@ -4,53 +4,17 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "Après avoir ajouté un réseau à la définition de la VM et exécuté `terraform apply`, quel est le résultat de l'opération?",
-      "answer": "L'opération a été complétée avec succès après 32 secondes, avec 1 ressource ajoutée, 0 modifiée et 0 détruite, créant ainsi la machine virtuelle."
+      "question": "Qu'est-ce qui se passe après avoir appliqué une configuration Terraform pour créer une machine virtuelle OpenStack?",
+      "answer": "Après avoir exécuté la commande `terraform apply` et validé les changements, Terraform crée la machine virtuelle spécifiée. Vous pouvez ensuite vérifier que la VM a été créée avec succès soit sur l'interface Horizon d'OpenStack, soit en utilisant la commande `server list` dans votre terminal OpenStack."
     },
     {
-      "question": "Comment peut-on vérifier si la nouvelle machine virtuelle créée par Terraform est bien opérationnelle?",
-      "answer": "Vous devriez voir votre nouvelle machine virtuelle sur Horizon ou dans la sortie de `server list` dans votre fenêtre de terminal OpenStack."
+      "question": "Quel est le rôle du fichier `terraform.tfstate` qui est généré après l'application d'une configuration Terraform?",
+      "answer": "Le fichier `terraform.tfstate` est un élément essentiel dans Terraform. Il contient les détails des ressources qui sont gérées par Terraform, ce qui lui permet de déterminer comment concilier l'état actuel de l'infrastructure avec l'état désiré spécifié dans les configurations. Si ce fichier est supprimé, Terraform ne peut plus gérer correctement les ressources, et il faudrait le restaurer ou recréer son contenu."
     },
     {
-      "question": "Est-ce que Terraform affecte les machines virtuelles OpenStack qui existaient déjà avant l'exécution de la configuration?",
-      "answer": "Non, Terraform ne connaît pas les ressources qui sont déjà définies pour le projet et n'essaie pas d'en déterminer l'état. Les ressources existantes ne sont pas représentées dans Terraform et lui sont invisibles."
-    },
-    {
-      "question": "Quel fichier important est créé par Terraform après l'application réussie d'une nouvelle configuration?",
-      "answer": "Il existe un fichier dans votre espace de travail appelé `terraform.tfstate`. Il a été créé par Terraform lors de l'application de la nouvelle configuration et de la confirmation de sa réussite."
-    },
-    {
-      "question": "À quoi sert le fichier `terraform.tfstate`?",
-      "answer": "Le fichier d'état contient des détails sur les ressources gérées que Terraform utilise pour déterminer comment arriver à un nouvel état décrit par les mises à jour de configuration."
-    },
-    {
-      "question": "Que se passe-t-il si le fichier `terraform.tfstate` est supprimé?",
-      "answer": "Sans le fichier `terraform.tfstate`, Terraform ne peut pas gérer correctement les ressources. Si vous le supprimez, vous devrez le restaurer ou le recréer, ou gérer ces ressources sans Terraform."
-    },
-    {
-      "question": "La machine virtuelle nouvellement créée, qui se trouve sur le réseau privé, est-elle directement accessible depuis l'extérieur du locataire?",
-      "answer": "Non, vous ne pouvez pas vous y connecter et la consulter, car vous n'avez pas attribué d'adresse IP flottante à cet hôte. Elle n'est donc pas directement accessible depuis l'extérieur du locataire."
-    },
-    {
-      "question": "Quelle stratégie peut-on utiliser pour accéder à une VM sur un réseau privé sans lui attribuer directement une adresse IP flottante?",
-      "answer": "Si vous aviez un autre hôte dans ce locataire avec une adresse IP flottante, vous pourriez l'utiliser comme bastion (bastion host) pour la nouvelle machine virtuelle, car ils seront tous deux sur le même réseau privé."
-    },
-    {
-      "question": "Pourquoi utiliser un hôte bastion pour les VM sur un réseau privé?",
-      "answer": "Il s'agit d'une bonne stratégie à utiliser pour les nœuds qui n'ont pas besoin d'être directement accessibles depuis Internet, comme un serveur de base de données, ou simplement pour préserver les ressources limitées que sont les adresses IP flottantes."
-    },
-    {
-      "question": "Comment une adresse IP flottante est-elle créée et associée à une VM OpenStack?",
-      "answer": "Une IP flottante n'est pas créée directement sur une VM OpenStack, mais est allouée au projet à partir d'un groupe d'IP et associée à l'interface du réseau privé de l'IP."
-    },
-    {
-      "question": "Quelle est la syntaxe Terraform pour déclarer une ressource IP flottante?",
-      "answer": "Pour déclarer une ressource IP flottante, on utilise l'exemple suivant: `resource \"openstack_networking_floatingip_v2\" \"myvm_fip\" { pool = \"ext_net\" }`."
-    },
-    {
-      "question": "Quel est le nom du pool d'adresses IP flottantes généralement utilisé sur les nuages mentionnés dans ce document?",
-      "answer": "Sur nos nuages, le pool à partir duquel allouer l'IP flottante est le réseau externe (`ext_net` dans cet exemple)."
+      "question": "Pourquoi une machine virtuelle (VM) nouvellement déployée avec Terraform sur un réseau privé OpenStack n'est-elle pas immédiatement accessible de l'extérieur, et comment peut-on la rendre accessible?",
+      "answer": "Une VM déployée sur un réseau privé n'est pas directement accessible de l'extérieur du locataire parce qu'elle n'a pas d'adresse IP flottante. Pour la rendre accessible, il faut lui ajouter une adresse IP flottante. Cette IP est allouée au projet à partir d'un pool d'adresses (souvent `ext_net` sur nos nuages) et est ensuite associée à l'interface du réseau privé de la VM."
     }
   ],
-  "generated_at": "2026-04-12T09:14:36.929639+00:00"
+  "generated_at": "2026-04-13T14:29:50.884779+00:00"
 }

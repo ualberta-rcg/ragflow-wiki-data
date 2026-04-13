@@ -3,45 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Dask and what capabilities does it offer?",
-      "answer": "Dask is a flexible Python library designed for parallel computing, providing distributed NumPy array and Pandas DataFrame objects, and enabling distributed computing within the PyData stack."
+      "question": "What is Dask and what is its primary function in Python?",
+      "answer": "Dask is a flexible Python library for parallel computing. It provides distributed NumPy array and Pandas DataFrame objects, enabling distributed computing within the PyData stack."
     },
     {
-      "question": "What is the preferred way to install Dask?",
-      "answer": "The preferred method for installing Dask is by utilizing its provided Python wheel."
+      "question": "What is the preferred method for installing Dask on Alliance clusters?",
+      "answer": "The preferred option for installing Dask on Alliance clusters is by using the provided Python wheel."
     },
     {
-      "question": "What steps are required to install Dask using a virtual environment?",
-      "answer": "To install Dask using a virtual environment, one must first load a Python module, then create and start a virtual environment, and finally, install `dask` (and optionally `dask-distributed`) within that virtual environment using `pip install`."
+      "question": "What are the necessary steps to prepare an environment before installing Dask using pip on Alliance clusters?",
+      "answer": "Before installing Dask, users must load a Python module (e.g., `python/3.11`) and then create and start a virtual environment."
     },
     {
-      "question": "What does the `dask-example.sh` script achieve in the single-node job submission example?",
-      "answer": "The `dask-example.sh` script in the single-node example spawns a single-node Dask cluster with 6 CPUs, configures a virtual environment, installs Dask, launches a scheduler and workers, and then executes a Python script to compute the mean of a DataFrame column."
+      "question": "What is the recommended pip command to install Dask and optionally `dask-distributed` within a virtual environment on Alliance clusters?",
+      "answer": "The recommended command is `pip install --no-index dask distributed`."
     },
     {
-      "question": "How are Dask workers and threads configured in the single-node example's Python script?",
-      "answer": "In the single-node example, the Dask cluster launches as many worker processes as there are cores in the job (6 workers), with each worker spawning at most one CPU thread."
+      "question": "What is the objective of the single-node Dask job example provided in the document?",
+      "answer": "The single-node Dask job example aims to demonstrate how to spawn a single-node Dask cluster with 6 CPUs to compute the mean of a column of a parallelized dataframe."
     },
     {
-      "question": "What is demonstrated by the `dask-example.py` script in the single-node setup?",
-      "answer": "The `dask-example.py` script demonstrates connecting to a Dask cluster, creating a Pandas DataFrame, converting it into a Dask DataFrame partitioned by the number of workers, and then computing the mean of a specific column."
+      "question": "In the single-node Dask job script described in the document, how are the Dask scheduler and workers initiated?",
+      "answer": "The Dask scheduler is initiated with `dask scheduler --host $DASK_SCHEDULER_ADDR --port $DASK_SCHEDULER_PORT &`, and then workers connect to it using `dask worker \"tcp://$DASK_SCHEDULER_ADDR:$DASK_SCHEDULER_PORT\"`."
     },
     {
-      "question": "What is the main difference between the multiple-node Dask cluster example and the single-node one?",
-      "answer": "The multiple-node Dask cluster example reproduces the single-node example but utilizes a two-node Dask cluster, with 6 CPUs on each node, and spawns 2 workers per node, each with 3 cores."
+      "question": "How many worker processes and CPU threads per worker are launched in the single-node Dask example script presented in the document?",
+      "answer": "The single-node Dask example script launches 6 worker processes, with each worker spawning at most one CPU thread."
     },
     {
-      "question": "What is the function of the `config_virtualenv.sh` script in the multi-node setup?",
-      "answer": "The `config_virtualenv.sh` script is responsible for setting up the virtual environment on each node, including loading necessary modules (python, gcc, arrow), creating and activating the virtual environment, and installing `dask[distributed,dataframe]`."
+      "question": "What does the `dask-example.py` script accomplish in the single-node Dask job submission example provided?",
+      "answer": "The `dask-example.py` script connects to the Dask cluster, splits a pandas DataFrame into chunks based on the number of workers, and then computes the mean of a specified column."
     },
     {
-      "question": "How does `launch_dask_workers.sh` configure Dask workers differently based on their SLURM process ID?",
-      "answer": "On the SLURM task with Rank 0 (where the scheduler is), `launch_dask_workers.sh` launches a worker with 40% of the job's memory and one less core. On all other SLURM tasks, each worker receives 50% of the job's allocated memory and all the cores allocated to its task."
+      "question": "What is the goal of the multiple-node Dask job submission example presented in the document?",
+      "answer": "The goal is to reproduce the single-node example but on a two-node Dask cluster, allocating 6 CPUs per node and spawning 2 workers per node, each with 3 cores."
     },
     {
-      "question": "What purpose does the `test_dask.py` script serve in the multi-node example?",
-      "answer": "The `test_dask.py` script in the multi-node example connects to the Dask cluster, creates a Pandas DataFrame, converts it to a Dask DataFrame with 6 partitions, and computes the mean of a column, similar to the single-node Python script."
+      "question": "What are the key SLURM directives used to request resources for a two-node Dask cluster in the multiple-node example detailed in the document?",
+      "answer": "Key SLURM directives include `--nodes 2`, `--tasks-per-node=2`, `--cpus-per-task=3`, `--mem=16000M`, and `--time=0-00:30`."
+    },
+    {
+      "question": "What is the purpose of the `config_virtualenv.sh` script within the multiple-node Dask cluster setup described in the document?",
+      "answer": "The `config_virtualenv.sh` script is responsible for setting up a virtual environment on each node and installing Dask with its distributed and dataframe components."
+    },
+    {
+      "question": "How does the `launch_dask_workers.sh` script, as used in the multiple-node Dask example, distinguish its worker configuration between the scheduler node and other nodes?",
+      "answer": "On the SLURM task with Rank 0 (where the scheduler is), it launches a smaller worker with 40% of the job's memory and one fewer core. On all other SLURM tasks, each worker gets 50% of the allocated memory and all the cores allocated to its task."
+    },
+    {
+      "question": "How is the Dask scheduler initiated in the multiple-node Dask job submission script outlined in the document?",
+      "answer": "The Dask scheduler is initiated on the main node using the command `dask scheduler --host $DASK_SCHEDULER_ADDR --port $DASK_SCHEDULER_PORT &`."
+    },
+    {
+      "question": "How are Dask workers distributed and launched across multiple nodes in the Dask example provided in the document?",
+      "answer": "Workers are launched across all nodes using `srun launch_dask_workers.sh &`, connecting to the central scheduler address defined by `DASK_SCHEDULER_ADDR` and `DASK_SCHEDULER_PORT`."
+    },
+    {
+      "question": "Where can users find more detailed information on reasoning about the number of worker processes and threads per worker in Dask, according to the document?",
+      "answer": "Users can find more detailed information in the official Dask documentation, specifically in the 'Adjust between threads and processes' section for efficiency."
     }
   ],
-  "generated_at": "2026-04-11T20:47:35.611551+00:00"
+  "generated_at": "2026-04-13T04:45:32.243399+00:00"
 }

@@ -4,49 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Comment faire pour demander deux nœuds entiers pour une application sur la grappe Fir avec Slurm?",
-      "answer": "Pour la grappe Fir, vous utiliseriez un script comme celui-ci pour demander deux nœuds entiers :\n```\n#!/bin/bash \n#SBATCH --nodes=2\n#SBATCH --ntasks-per-node=192\n#SBATCH --mem=0\nsrun application.exe\n```"
+      "question": "Qu'est-ce que l'option `--mem=0` fait exactement quand on soumet une tâche Slurm, et dans quelles situations est-il préférable de ne pas l'utiliser?",
+      "answer": "L'option `--mem=0` demande à Slurm de réserver toute la mémoire disponible sur chacun des nœuds assignés à la tâche. Cependant, il ne faudrait pas l'utiliser si votre tâche a besoin de plus de mémoire par nœud que ce que le plus petit nœud peut offrir (par exemple, plus de 748 Gio sur Nibi). Dans ces cas-là, il est conseillé de spécifier une quantité de mémoire explicite, car une partie de la mémoire de chaque nœud est réservée au système d'exploitation."
     },
     {
-      "question": "Quel script Slurm utiliseriez-vous pour demander deux nœuds entiers sur la grappe Narval?",
-      "answer": "Pour la grappe Narval, un script similaire serait :\n```\n#!/bin/bash \n#SBATCH --nodes=2\n#SBATCH --ntasks-per-node=64\n#SBATCH --mem=0\nsrun application.exe\n```"
+      "question": "Pour une tâche Slurm qui roule sur un seul nœud, quelle est la distinction entre spécifier la mémoire avec `--mem` et avec `--mem-per-cpu`? Laquelle est généralement préférable et pourquoi?",
+      "answer": "Quand vous utilisez `--mem=45G` (par exemple), vous allouez un total de 45 Go de mémoire pour l'ensemble du nœud, et la mémoire consommée par chaque processus importe peu, pourvu que le total ne dépasse pas 45 Go. Par contre, avec `--mem-per-cpu=3G`, chaque processus est limité à 3 Go, et la tâche serait annulée si un des processus excède cette limite. L'option `--mem` est généralement préférée car elle offre plus de flexibilité quant à la répartition de la mémoire entre les processus sur le nœud."
     },
     {
-      "question": "Qu'est-ce que l'option `--mem=0` signifie dans un script de tâche Slurm?",
-      "answer": "L'option `--mem=0` indique à Slurm de réserver toute la mémoire disponible de chacun des nœuds assignés à votre tâche."
-    },
-    {
-      "question": "Quand est-ce que je ne devrais pas utiliser l'option `--mem=0` dans mes demandes Slurm?",
-      "answer": "Faut pas utiliser `--mem=0` si vous avez besoin de plus de mémoire par nœud que ce que le plus petit nœud peut offrir (par exemple plus de 748 Gio sur Nibi). Dans ce cas, vous devriez demander une quantité explicite de mémoire."
-    },
-    {
-      "question": "Pourquoi une partie de la mémoire des nœuds n'est-elle pas disponible pour mes tâches Slurm?",
-      "answer": "Une partie de la mémoire de chaque nœud est réservée au système d'exploitation. La colonne 'Mémoire disponible' dans la section 'Caractéristiques des nœuds' indique la plus grande quantité de mémoire qu'une tâche peut demander."
-    },
-    {
-      "question": "Où puis-je trouver les informations sur la mémoire utilisable par nœud pour les grappes comme Fir, Narval, Nibi et Rorqual?",
-      "answer": "Vous pouvez trouver la mémoire disponible par nœud dans la section 'Caractéristiques des nœuds' des pages spécifiques de chaque grappe, comme Fir, Narval, Nibi et Rorqual."
-    },
-    {
-      "question": "Comment puis-je demander un nombre spécifique de cœurs sur un seul nœud si je n'ai pas besoin d'un nœud entier?",
-      "answer": "Si vous avez besoin de moins d'un nœud entier, mais que tous les cœurs doivent être du même nœud, vous pouvez demander, par exemple :\n```\n#!/bin/bash \n#SBATCH --nodes=1\n#SBATCH --ntasks-per-node=15\n#SBATCH --mem=45G\nsrun application.exe\n```"
-    },
-    {
-      "question": "Quel est l'avantage d'utiliser `--mem=45G` plutôt que `--mem-per-cpu=3G` pour une tâche de 15 processus sur un seul nœud?",
-      "answer": "L'avantage avec `--mem=45G` est que la mémoire consommée par chaque processus n'importe pas, pourvu que dans l'ensemble ils ne dépassent pas 45 Go. Par contre, avec `--mem-per-cpu=3G`, la tâche serait annulée si un des processus dépasse 3 Go."
-    },
-    {
-      "question": "Que dois-je faire si ma tâche parallèle n'est pas optimisée pour des multiples de cœurs comme 32, 40 ou 48?",
-      "answer": "Si votre tâche n'est pas effectuée de façon optimale sur des cœurs en multiples de 32, 40 ou 48, vous devriez communiquer avec le soutien technique pour évaluer comment ces facteurs peuvent influencer le temps d'exécution ou le temps d'attente."
-    },
-    {
-      "question": "Dans le cadre de tâches hybrides qui utilisent MPI et OpenMP ou des fils Posix, comment je spécifie le nombre de processus MPI et le nombre de fils à Slurm?",
-      "answer": "Pour les tâches hybrides, il faut indiquer le nombre de processus MPI avec `--ntasks` ou `--ntasks-per-node`, et le nombre de fils avec `--cpus-per-task`."
-    },
-    {
-      "question": "Qu'est-ce que le nombre de 'tâches Slurm' représente exactement quand je démarre mon application avec `srun`?",
-      "answer": "Il est important de bien comprendre que le nombre de 'tâches Slurm' demandées représente le nombre de processus qui seront démarrés avec `srun`."
+      "question": "Comment doit-on configurer les ressources dans un script Slurm pour une tâche hybride qui combine des processus MPI et des fils OpenMP ou Posix?",
+      "answer": "Pour une tâche hybride, le nombre de processus MPI doit être indiqué avec l'option `--ntasks` ou `--ntasks-per-node`. Le nombre de fils (OpenMP ou Posix) par processus doit être spécifié avec l'option `--cpus-per-task`. De plus, il est crucial d'inclure `--cpus-per-task=$SLURM_CPUS_PER_TASK` dans la commande `srun` pour assurer la compatibilité avec Slurm 22.05 et les versions subséquentes."
     }
   ],
-  "generated_at": "2026-04-11T16:13:56.284380+00:00"
+  "generated_at": "2026-04-13T01:16:33.921547+00:00"
 }

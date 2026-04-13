@@ -3,53 +3,53 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, CMake?",
-      "answer": "CMake (pour *cross-platform make*) est un outil de compilation libre, multiplateforme et multilangage."
+      "question": "Qu'est-ce que CMake et quel est son rôle principal dans la compilation de logiciels?",
+      "answer": "CMake, pour *cross-platform make*, est un outil de compilation libre, multiplateforme et multilangage qui sert à automatiser le processus de construction de projets logiciels."
     },
     {
-      "question": "Pourquoi certains projets, comme KDE et MySQL, ont-ils délaissé Autotools pour CMake?",
-      "answer": "Selon KDE, la compilation est beaucoup plus rapide avec CMake et les fichiers de construction sont beaucoup plus faciles à écrire."
+      "question": "Pourquoi certains projets majeurs ont-ils choisi de passer d'Autotools à CMake pour leurs besoins de compilation?",
+      "answer": "Des projets comme KDE et MySQL ont opté pour CMake parce qu'il offre une compilation beaucoup plus rapide et des fichiers de construction plus faciles à écrire, contrairement à Autotools."
     },
     {
-      "question": "Comment on configure une application avec CMake dans le répertoire courant?",
-      "answer": "On exécute la commande `cmake .`."
+      "question": "Quelle est la séquence de commandes la plus simple pour configurer, compiler et installer une application ou une bibliothèque en utilisant CMake?",
+      "answer": "La façon la plus simple est d'utiliser la commande `cmake . && make && make install` dans le répertoire de construction de l'application."
     },
     {
-      "question": "Quelle est la façon la plus simple de configurer, construire et installer une application ou une bibliothèque avec CMake?",
-      "answer": "La façon la plus simple est avec la commande `cmake . && make && make install`."
+      "question": "Sur les grappes de calcul, quelle option CMake est recommandée d'ajouter en ligne de commande pour éviter les conflits avec le mécanisme `RUNPATH` (ou `RPATH`) lors de la compilation?",
+      "answer": "Pour éviter les conflits avec `RUNPATH` ou `RPATH` sur les grappes, il est recommandé d'ajouter l'option `-DCMAKE_SKIP_INSTALL_RPATH=ON` en ligne de commande."
     },
     {
-      "question": "Quelle option doit-on ajouter à CMake pour éviter les conflits liés au mécanisme `RUNPATH` (ou `RPATH`) sur les grappes?",
-      "answer": "Il faut ajouter l'option `-DCMAKE_SKIP_INSTALL_RPATH=ON` en ligne de commande."
+      "question": "Comment peut-on aider CMake à trouver les bibliothèques installées dans des emplacements non standards sur les grappes de calcul?",
+      "answer": "Il est souvent utile d'ajouter l'option `-DCMAKE_SYSTEM_PREFIX_PATH=$EBROOTGENTOO` sur la ligne de commande pour que CMake puisse localiser les bibliothèques dans des emplacements non standards sur les grappes."
     },
     {
-      "question": "Comment peut-on aider CMake à trouver les bibliothèques installées dans des endroits non standards sur les grappes?",
-      "answer": "Il peut être utile d'ajouter l'option `-DCMAKE_SYSTEM_PREFIX_PATH=$EBROOTGENTOO` en ligne de commande."
+      "question": "Si l'option `-DCMAKE_SYSTEM_PREFIX_PATH` ne suffit pas, comment peut-on spécifier des chemins d'inclusion ou de bibliothèque plus précis pour des dépendances spécifiques comme *libcurl* ou *libpng* avec CMake?",
+      "answer": "On peut spécifier les chemins directement, par exemple : `-DCURL_LIBRARY=$EBROOTGENTOO/lib/libcurl.so -DCURL_INCLUDE_DIR=$EBROOTGENTOO/include` ou `-DPNG_PNG_INCLUDE_DIR=$EBROOTGENTOO/include -DPNG_LIBRARY=$EBROOTGENTOO/lib/libpng.so`."
     },
     {
-      "question": "Quelle commande permet de personnaliser la configuration d'une application ou d'une bibliothèque via une interface texte après avoir appelé `cmake`?",
-      "answer": "La commande `ccmake` permet de le faire."
+      "question": "Comment peut-on personnaliser la configuration d'une application ou d'une bibliothèque CMake via une interface texte interactive?",
+      "answer": "On peut utiliser la commande `ccmake` qui offre une interface texte interactive. Il faut l'appeler après `cmake`, par exemple `cmake . && ccmake .`."
     },
     {
-      "question": "Dans `ccmake`, comment active-t-on le mode avancé pour voir une liste complète de variables?",
-      "answer": "On active le mode avancé en appuyant sur la touche `t`."
+      "question": "Quelles sont les actions principales qu'un utilisateur peut effectuer dans l'interface `ccmake` pour affiner la configuration d'un projet CMake?",
+      "answer": "Dans `ccmake`, l'utilisateur peut éditer les options en appuyant sur `Enter`, tester la configuration avec `c`, générer le `Makefile` avec `g` ou basculer en mode avancé avec `t` pour afficher une liste plus complète de variables."
     },
     {
-      "question": "Comment spécifie-t-on l'emplacement d'installation d'un projet avec CMake en ligne de commande?",
-      "answer": "On utilise la syntaxe `cmake . -DCMAKE_INSTALL_PREFIX=/home/user/mon_repertoire`."
+      "question": "Comment les options de configuration de CMake peuvent-elles être modifiées directement en ligne de commande, et quel est un exemple courant d'utilisation?",
+      "answer": "Les options peuvent être modifiées en ligne de commande avec la syntaxe `cmake . -DVARIABLE=VALEUR`. Par exemple, `-DCMAKE_INSTALL_PREFIX=/home/user/mon_repertoire` permet de spécifier l'emplacement d'installation."
     },
     {
-      "question": "Nommez deux options en ligne de commande que l'on peut changer pour configurer les compilateurs avec CMake.",
-      "answer": "On peut utiliser `CMAKE_C_COMPILER` pour le compilateur C et `CMAKE_CXX_COMPILER` pour le compilateur C++."
+      "question": "Quelles sont les options de configuration CMake importantes pour changer le compilateur C ou C++ et leurs drapeaux en ligne de commande?",
+      "answer": "Les options importantes sont `CMAKE_C_COMPILER` et `CMAKE_CXX_COMPILER` pour changer les compilateurs, et `CMAKE_C_FLAGS` et `CMAKE_CXX_FLAGS` pour modifier les options passées à ces compilateurs."
     },
     {
-      "question": "Quelle option simple CMake permet de définir le type de compilation à utiliser, comme le débogage ou l'optimisation?",
-      "answer": "C'est l'option `CMAKE_BUILD_TYPE`."
+      "question": "Quelle est la fonction de l'option `CMAKE_BUILD_TYPE` dans CMake, et comment simplifie-t-elle la gestion des drapeaux de compilation?",
+      "answer": "L'option `CMAKE_BUILD_TYPE` définit le type de compilation à utiliser (par exemple, `Debug` ou `Release`). Elle simplifie la gestion des drapeaux en appliquant automatiquement un ensemble prédéfini d'options de compilateur sans avoir à les spécifier manuellement."
     },
     {
-      "question": "Décrivez l'effet de la valeur `Release` pour l'option `CMAKE_BUILD_TYPE`.",
-      "answer": "La valeur `Release` désactive les options de débogage et active les optimisations typiques."
+      "question": "Quelles sont les différentes valeurs possibles pour l'option `CMAKE_BUILD_TYPE` et leurs effets sur la compilation d'un projet CMake?",
+      "answer": "Les valeurs possibles sont `Debug` (débogage activé, optimisation désactivée), `Release` (débogage désactivé, optimisations activées), `MinSizeRel` (débogage désactivé, optimisations pour la taille) et `RelWithDebInfo` (débogage activé, optimisations typiques)."
     }
   ],
-  "generated_at": "2026-04-11T18:59:39.184539+00:00"
+  "generated_at": "2026-04-13T03:20:22.076058+00:00"
 }

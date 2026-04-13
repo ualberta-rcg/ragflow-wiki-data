@@ -4,85 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How can a virtual machine be re-created after creating images of its volumes?",
-      "answer": "Once images of all desired volumes have been created, you can re-create your virtual machine by booting from the original VM's root volume and attaching any additional volumes that were originally connected."
+      "question": "Why are OpenStack volume snapshots generally not ideal for backup purposes, and what are their primary uses?",
+      "answer": "OpenStack volume snapshots are not ideal for backups because they depend on the original volume remaining intact and cannot be downloaded. However, they are useful for creating a new volume from a previous state, for example, to revert specific file changes or to create a new volume that excludes changes specific to a particular VM."
     },
     {
-      "question": "What is the primary function of a volume snapshot?",
-      "answer": "A volume snapshot saves the state of a volume at the time the snapshot was created."
+      "question": "In OpenStack, how does backing up a Compute VM differ from a Persistent VM, and what type of data is not automatically captured in a Compute VM's image?",
+      "answer": "Unlike Persistent VMs, Compute VMs are designed to boot from local disk images. To back up a Compute VM, you click \"Create Snapshot\" on its drop-down menu on the \"Instances\" tab, which creates an image containing a copy of the VM's root drive. However, data on the extra data drive mounted at `/mnt` is not included in this image and requires separate arrangements for saving."
     },
     {
-      "question": "Why are volume snapshots not considered ideal for comprehensive backups?",
-      "answer": "Volume snapshots depend on the original volume remaining intact and cannot be downloaded, making them less ideal for backups."
-    },
-    {
-      "question": "In what scenarios might volume snapshots be a useful alternative?",
-      "answer": "Volume snapshots can be useful for creating a new volume to revert file changes since the last snapshot, or to preserve file changes specific to a VM that should not be included in other VMs."
-    },
-    {
-      "question": "How does OpenStack distinguish between different types of 'snapshots'?",
-      "answer": "OpenStack uses the word 'snapshot' to refer to two different things: volume snapshots and snapshots of VMs."
-    },
-    {
-      "question": "What is produced when a snapshot of a persistent VM is created?",
-      "answer": "When a snapshot of a persistent VM is created, OpenStack creates a nearly empty image containing pointers to volume snapshots of the persistent VM's boot volume and any attached volumes."
-    },
-    {
-      "question": "How can a new VM be created using a snapshot of a persistent VM?",
-      "answer": "You can create a new VM by booting from the image created by the persistent VM snapshot, which will generate new volumes from the previously taken volume snapshots, boot a new VM from the root volume, and attach any other duplicated volumes."
-    },
-    {
-      "question": "What is the main goal when creating backups of compute VMs?",
-      "answer": "The main goal when creating backups of compute VMs is to create an image of at least the root drive, and possibly other attached volumes if needed."
-    },
-    {
-      "question": "How do compute VMs boot differently from persistent VMs?",
-      "answer": "Compute VMs are designed to boot from disk images residing locally on the computer running the VM, whereas persistent VMs boot from volumes accessed over the network."
-    },
-    {
-      "question": "How do you create an image of a compute VM's root disk in OpenStack?",
-      "answer": "You can create an image of a compute VM's root disk by clicking 'Create Snapshot' on your VM's drop-down menu on the 'Instances' tab."
-    },
-    {
-      "question": "What does the image created from a compute VM snapshot contain?",
-      "answer": "The image created from a compute VM snapshot contains a copy of the VM's root drive, unlike the nearly empty images produced by persistent VM snapshots."
-    },
-    {
-      "question": "Where is the extra data drive typically mounted on compute VMs?",
-      "answer": "Compute VMs typically come with an extra data drive mounted at `/mnt`."
-    },
-    {
-      "question": "Is data stored on a compute VM's `/mnt` drive captured in its image?",
-      "answer": "No, the data on the extra data drive mounted at `/mnt` on a compute VM is not captured in the image created of that compute VM."
-    },
-    {
-      "question": "What arrangements are necessary to save data from a compute VM's `/mnt` drive?",
-      "answer": "Other arrangements, such as copying the data off the disk before the VM is terminated, must be made to save data from a compute VM's `/mnt` drive."
-    },
-    {
-      "question": "What challenges are associated with managing very large disk images?",
-      "answer": "Very large disk images (larger than 10-20 GB) can be difficult to manage due to relatively long upload times and long VM creation times."
-    },
-    {
-      "question": "What is a good basic backup strategy for virtual machines with large data sets?",
-      "answer": "A good basic strategy is to separate large data sets from your operating system and software stack."
-    },
-    {
-      "question": "How should the operating system and software stack be backed up in the recommended strategy?",
-      "answer": "The operating system and software stack can be backed up either using a disk image or recreated using provisioning software."
-    },
-    {
-      "question": "How should separated data sets be backed up according to the example strategy?",
-      "answer": "The data sets can then be backed up using normal file backup methods to a remote location."
-    },
-    {
-      "question": "What specific backup recommendation is provided for database software like MySQL or PostgreSQL?",
-      "answer": "If you are using database software such as MySQL or PostgreSQL, you should create dumps of the databases to include in your backups."
-    },
-    {
-      "question": "What is the most crucial final step in any backup strategy?",
-      "answer": "The most important final step for any backup strategy is to test restoring from your backup, as an untested backup isn't very useful."
+      "question": "What are the key components of a good basic backup strategy for virtual machines with large disk images in OpenStack, and what is the most important final step in any backup plan?",
+      "answer": "For virtual machines with large disk images, a good basic strategy involves separating large datasets from the operating system and software stack. The OS and software can be backed up using a disk image or recreated with provisioning software, while datasets are backed up using file backup methods to a remote location. If using databases, dumps should be included. The most important final step is to test restoring from your backup to confirm its usefulness."
     }
   ],
-  "generated_at": "2026-04-11T18:30:04.604797+00:00"
+  "generated_at": "2026-04-13T02:56:25.881859+00:00"
 }

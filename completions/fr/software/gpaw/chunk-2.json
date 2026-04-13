@@ -4,77 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que la commande `gpaw -P 4 test` fait?",
-      "answer": "La commande `gpaw -P 4 test` exécute un calcul de test avec 4 cœurs."
+      "question": "Comment lance-t-on un test GPAW en parallèle et où est-ce que les résultats de ce test sont sauvegardés?",
+      "answer": "Pour lancer un test GPAW en parallèle avec 4 cœurs, on utilise la commande `gpaw -P 4 test`. Les résultats de ce test se retrouvent dans le fichier `test.txt` qui est créé dans le répertoire courant."
     },
     {
-      "question": "Où sont sauvegardés les résultats du dernier test GPAW?",
-      "answer": "Les résultats du dernier test se trouvent dans le fichier `test.txt` qui est créé dans le répertoire courant."
-    },
-    {
-      "question": "Quelle version de Python est utilisée pour le test GPAW selon les informations affichées?",
-      "answer": "La version de Python utilisée est `python-3.10.2`."
-    },
-    {
-      "question": "Est-ce que l'interface MPI est activée pour GPAW dans cet environnement?",
-      "answer": "Oui, MPI est activé (\"MPI enabled: yes\")."
-    },
-    {
-      "question": "Est-ce que l'interface OpenMP est activée pour GPAW dans cet environnement?",
-      "answer": "Oui, OpenMP est activé (\"OpenMP enabled: yes\")."
-    },
-    {
-      "question": "Quel est le chemin d'accès aux ensembles de données PAW utilisés pour le test?",
-      "answer": "Le chemin d'accès aux ensembles de données PAW est `/scratch/name/gpaw-setups-0.9.20000`."
-    },
-    {
-      "question": "À quoi sert le script `job_gpaw.sh`?",
-      "answer": "Le script `job_gpaw.sh` est un exemple de parallélisation hybride utilisant OpenMP et MPI pour GPAW."
-    },
-    {
-      "question": "Où devraient être situés l'environnement virtuel et les ensembles de données pour le script `job_gpaw.sh`?",
-      "answer": "L'environnement virtuel devrait être dans votre répertoire `$HOME` et les ensembles de données dans `$SCRATCH`."
-    },
-    {
-      "question": "Quelles sont les directives SLURM définies dans l'exemple de script `job_gpaw.sh`?",
-      "answer": "Les directives SLURM sont `--ntasks=8`, `--cpus-per-task=4`, `--mem-per-cpu=4000M` et `--time=0-01:00`."
-    },
-    {
-      "question": "Quels modules sont chargés au début du script `job_gpaw.sh`?",
-      "answer": "Les modules chargés sont `gcc/9.3.0` et `openmpi/4.0.3`."
-    },
-    {
-      "question": "Comment la variable d'environnement `OMP_NUM_THREADS` est-elle configurée dans le script d'exemple?",
-      "answer": "La variable `OMP_NUM_THREADS` est exportée avec la valeur de `${SLURM_CPUS_PER_TASK:-1}`."
-    },
-    {
-      "question": "Comment la variable `GPAW_SETUP_PATH` est-elle définie dans le script `job_gpaw.sh`?",
-      "answer": "La variable `GPAW_SETUP_PATH` est définie à `/scratch/$USER/gpaw-setups-0.9.20000`."
-    },
-    {
-      "question": "Combien de rangs MPI sont utilisés par le script d'exemple `job_gpaw.sh`?",
-      "answer": "Le script utilise 8 rangs MPI (`--ntasks=8`)."
-    },
-    {
-      "question": "Combien de fils OpenMP par rang MPI le script d'exemple `job_gpaw.sh` utilise-t-il?",
-      "answer": "Il utilise 4 fils OpenMP par rang MPI (`--cpus-per-task=4`)."
-    },
-    {
-      "question": "Quel est le nombre total de CPU qu'utilise le script `job_gpaw.sh` avec sa configuration par défaut?",
-      "answer": "Le script utilise un total de 32 CPU (8 rangs MPI x 4 fils OpenMP par rang)."
-    },
-    {
-      "question": "Pourquoi est-il recommandé de modifier les valeurs de `ntasks` et `cpus-per-task` dans un script SLURM pour GPAW?",
-      "answer": "Il est recommandé de modifier ces valeurs pour que leur produit corresponde au nombre de cœurs d'un nœud entier sur la plateforme utilisée (par exemple, 32 sur Graham, 40 sur Béluga et Niagara, 48 sur Cedar, ou 64 sur Narval)."
-    },
-    {
-      "question": "Que signifie la configuration `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"`?",
-      "answer": "Cette configuration fait en sorte que `OMP_NUM_THREADS` prend toujours la même valeur que `cpus-per-task`, ou 1 si `cpus-per-task` n'est pas défini."
-    },
-    {
-      "question": "Pourquoi faut-il charger les modules `gcc/9.3.0` et `openmpi/4.0.3` dans le script `job_gpaw.sh`?",
-      "answer": "Ces modules sont chargés pour s'assurer que la bonne bibliothèque MPI est utilisée pour la tâche, soit la même que celle qui a été utilisée pour construire les 'wheels' de GPAW."
+      "question": "Quel est l'objectif du script d'exemple `job_gpaw.sh` et comment est-ce qu'il configure la parallélisation hybride pour GPAW?",
+      "answer": "Le script `job_gpaw.sh` est un exemple pour faire de la parallélisation hybride avec OpenMP et MPI pour GPAW. Il configure 8 rangs MPI (`--ntasks=8`) et 4 fils OpenMP par rang MPI (`--cpus-per-task=4`), ce qui donne un total de 32 CPU. Il active aussi l'environnement virtuel GPAW et charge les modules `gcc` et `openmpi` nécessaires."
     }
   ],
-  "generated_at": "2026-04-11T22:22:57.892574+00:00"
+  "generated_at": "2026-04-13T06:02:31.863862+00:00"
 }

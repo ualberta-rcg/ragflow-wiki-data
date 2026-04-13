@@ -4,45 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "Pourquoi ne devrait-on pas entraîner le modèle d'exemple, qui utilise un lot de 512 images et occupe environ 1 Go de mémoire GPU, sur un seul GPU de nos grappes?",
-      "answer": "Ce modèle ne devrait pas être entraîné sur un seul GPU parce qu'il n'utilise qu'environ 6% de la capacité de calcul du GPU, ce qui n'est pas une utilisation optimale des ressources."
+      "question": "C'est quoi le principe derrière le « Parallélisme des données avec un seul GPU » pis dans quelles situations c'est utile sur nos grappes?",
+      "answer": "Le principe du parallélisme des données avec un seul GPU, c'est d'optimiser l'utilisation des ressources pis d'obtenir un gain de vitesse appréciable. C'est surtout utile quand on a un modèle relativement petit, qui utiliserait peu la mémoire ou la capacité de calcul d'un GPU seul, mais qu'on a un très gros jeu de données pis qu'on veut faire l'entraînement avec des petits lots. Autrement, pour les petits modèles, c'est mieux d'utiliser un ou plusieurs CPU."
     },
     {
-      "question": "Comment peut-on optimiser l'utilisation des ressources et accélérer l'entraînement d'un petit modèle sur un seul GPU, selon le document?",
-      "answer": "Pour optimiser l'utilisation des ressources et obtenir un gain de vitesse appréciable, on peut exécuter plusieurs copies (replicas) du modèle sur un seul GPU en utilisant le parallélisme des données."
+      "question": "Quelles technologies sont utilisées pour déployer efficacement plusieurs copies d'un modèle PyTorch sur un seul GPU pour faire du parallélisme de données?",
+      "answer": "Pour déployer efficacement plusieurs copies (des 'replicas') d'un modèle PyTorch sur un seul GPU dans un contexte de parallélisme des données, on utilise le service Multi-Process (MPS) de Nvidia pis MPI."
     },
     {
-      "question": "Quels services sont utilisés pour déployer efficacement plusieurs copies d'un modèle sur un seul GPU?",
-      "answer": "Le service Multi-Process (MPS) de Nvidia et MPI sont utilisés pour déployer efficacement plusieurs copies du modèle sur un seul GPU."
-    },
-    {
-      "question": "Quel est le rôle du paramètre `--tasks-per-node` dans le script `pytorch-gpu-mps.sh` pour l'entraînement sur un seul GPU?",
-      "answer": "Le paramètre `--tasks-per-node` indique le nombre de copies (replicas) du modèle qui seront placées sur le GPU."
-    },
-    {
-      "question": "Comment le service Nvidia Multi-Process (MPS) est-il activé dans le script `pytorch-gpu-mps.sh`?",
-      "answer": "Nvidia MPS est activé en exportant les variables `CUDA_MPS_PIPE_DIRECTORY` et `CUDA_MPS_LOG_DIRECTORY`, puis en exécutant la commande `nvidia-cuda-mps-control -d`."
-    },
-    {
-      "question": "Quels sont les paquets Python qui sont installés dans l'environnement virtuel pour l'exemple d'entraînement avec MPS sur un seul GPU?",
-      "answer": "Les paquets Python `torch` et `torchvision` sont installés dans l'environnement virtuel."
-    },
-    {
-      "question": "Quel backend est spécifié pour `dist.init_process_group` dans le script Python `cifar10-gpu-mps.py` pour le parallélisme des données sur un seul GPU?",
-      "answer": "Le backend spécifié est `mpi` (`backend=\"mpi\"`)."
-    },
-    {
-      "question": "Pourquoi NCCL n'est-il pas compatible comme backend pour `dist.init_process_group` lors de l'utilisation d'un seul GPU?",
-      "answer": "NCCL ne fonctionne pas sur un seul GPU à cause d'une vérification de topologie multi-GPU codée en dur. Il faut utiliser MPI ou Gloo."
-    },
-    {
-      "question": "Comment le modèle `Net` est-il configuré pour le parallélisme des données distribuées dans le script Python `cifar10-gpu-mps.py`?",
-      "answer": "Le modèle `Net` est enveloppé avec `torch.nn.parallel.DistributedDataParallel(net, device_ids=[current_device])`."
-    },
-    {
-      "question": "Quel type de chargeur de données (DataLoader) est utilisé pour l'entraînement distribué dans `cifar10-gpu-mps.py`?",
-      "answer": "Un `DataLoader` est utilisé avec un `torch.utils.data.distributed.DistributedSampler`."
+      "question": "Dans quels cas précis est-ce qu'on ne devrait pas entraîner un modèle PyTorch sur un seul GPU sur les grappes, même si on en a un à notre disposition?",
+      "answer": "On ne devrait pas entraîner un modèle sur un seul GPU si c'est un modèle de taille relativement petite qui n'utilise pas une grande part de la mémoire du GPU pis une part raisonnable de sa capacité de calcul. Dans ces situations, il est recommandé d'utiliser un ou plusieurs CPU à la place."
     }
   ],
-  "generated_at": "2026-04-12T05:47:33.427953+00:00"
+  "generated_at": "2026-04-13T11:43:25.842976+00:00"
 }

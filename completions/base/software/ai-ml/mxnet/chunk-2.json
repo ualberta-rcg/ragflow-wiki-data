@@ -4,61 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How do I load the Python 3.10 module for an MXNet GPU job?",
-      "answer": "You can load the Python 3.10 module by using the command `module load python/3.10`."
+      "question": "What is the recommended approach for utilizing GPUs with MXNet when training small-scale deep learning models on shared high-performance computing (HPC) clusters, and what are the reasons behind this advice?",
+      "answer": "When training small-scale models or with small datasets, it is strongly recommended to use multiple CPUs instead of a GPU. Although GPUs might offer faster training, for small models, the speed-up may not be significant, leading to underutilization of the GPU's compute capabilities. This practice unnecessarily blocks resources for other users who need them for large-scale computations and uses up your group's allocation, affecting job priorities. Therefore, a GPU should only be requested if the code can make reasonable use of its compute capacity."
     },
     {
-      "question": "What are the steps to create and activate a Python virtual environment for an MXNet GPU job?",
-      "answer": "First, load the Python 3.10 module. Then, generate your virtual environment in `$SLURM_TMPDIR` using `virtualenv --no-download ${SLURM_TMPDIR}/env`, and activate it with `source ${SLURM_TMPDIR}/env/bin/activate`."
-    },
-    {
-      "question": "How do I install MXNet version 1.9.1 and its dependencies in a virtual environment for a GPU job?",
-      "answer": "After activating your virtual environment, install MXNet version 1.9.1 using `pip install --no-index mxnet==1.9.1`."
-    },
-    {
-      "question": "What command is used to submit an MXNet GPU job to the scheduler?",
-      "answer": "You submit the job to the scheduler using the command `sbatch mxnet-conv.sh`."
-    },
-    {
-      "question": "What parallel implementations does MXNet use for CPU-based operations?",
-      "answer": "MXNet uses OpenMP and MKLDNN for CPU-based parallel implementations of operators like matrix multiplication and convolution."
-    },
-    {
-      "question": "What parallel implementations does MXNet use for GPU-based operations?",
-      "answer": "MXNet uses CUDA and CUDNN for GPU-based parallel implementations of operators like matrix multiplication and convolution."
-    },
-    {
-      "question": "When training small-scale models with MXNet, what is the recommended approach?",
-      "answer": "When training small-scale models with MXNet, it is strongly recommended to use multiple CPUs instead of a GPU."
-    },
-    {
-      "question": "Why should a user avoid requesting a GPU for small-scale models in a shared HPC environment?",
-      "answer": "In a shared HPC environment, requesting a GPU for a small model can result in negligible speed-up, underutilization of the GPU's compute capabilities, blocking resources for other users, unnecessarily consuming your group's allocation, and negatively affecting the priority of colleagues' jobs."
-    },
-    {
-      "question": "Under what condition should a user not request a GPU?",
-      "answer": "You should not ask for a GPU if your code is not capable of making reasonable use of its compute capacity."
-    },
-    {
-      "question": "Which SBATCH parameter in `mxnet-example.sh` controls the number of CPU cores for a job?",
-      "answer": "The `#SBATCH --cpus-per-task=1` parameter in `mxnet-example.sh` can be changed (e.g., to 2, 4, 6) to adjust the number of CPU cores."
-    },
-    {
-      "question": "How can the `mxnet-example.sh` script be modified to run an MXNet job using only the CPU?",
-      "answer": "To run the `mxnet-example.sh` script using only the CPU, you should remove the line `#SBATCH --gres=gpu:1`."
-    },
-    {
-      "question": "How does the `mxnet-example.py` script determine whether to use a GPU or CPU?",
-      "answer": "The `mxnet-example.py` script determines the execution context (`ctx`) by checking if `context.num_gpus() > 0`; if true, it uses `gpu()`, otherwise it defaults to `cpu()`."
-    },
-    {
-      "question": "What type of neural network architecture is defined in `mxnet-example.py`?",
-      "answer": "The `mxnet-example.py` script defines a sequential convolutional neural network (`nn.Sequential`) that includes `Conv2D`, `MaxPool2D`, `Flatten`, and `Dense` layers."
-    },
-    {
-      "question": "What command-line arguments can be parsed by `mxnet-example.py`?",
-      "answer": "The `mxnet-example.py` script can parse command-line arguments for `lr` (learning rate, default 0.1), `batch_size` (default 512), and `num_workers` (default 0)."
+      "question": "How is an MXNet job configured and submitted to run on a GPU within a high-performance computing (HPC) cluster, including the setup of a Python virtual environment?",
+      "answer": "To configure an MXNet job for a GPU on an HPC cluster, first load the `python/3.10` module. Next, create and activate a Python virtual environment in `$SLURM_TMPDIR` and install `mxnet==1.9.1` using `pip install --no-index`. The job script, such as `mxnet-conv.sh`, must include the `#SBATCH --gres=gpu:1` directive to request a GPU, alongside other resource specifications. The job is then submitted to the scheduler using the command `sbatch mxnet-conv.sh`."
     }
   ],
-  "generated_at": "2026-04-12T02:05:42.551224+00:00"
+  "generated_at": "2026-04-13T08:59:00.181548+00:00"
 }

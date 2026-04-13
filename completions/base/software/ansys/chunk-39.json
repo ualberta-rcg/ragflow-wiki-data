@@ -4,57 +4,17 @@
   "chunk_index": 39,
   "qa_pairs": [
     {
-      "question": "What environment variables are required for Ansys Fluent when launched from an OnDemand Desktop with a GPU on Nibi, specifically for Ansys version 2025R1 or newer?",
-      "answer": "When launching Fluent from an OnDemand Desktop on Nibi with a GPU, for Ansys version 2025R1 or newer, you must set `I_MPI_HYDRA_BOOTSTRAP=ssh` and `HOOPS_PICTURE=opengl2` in the Fluent Launcher's Environment Tab before clicking the `Start` button."
+      "question": "What is the SHARCNET Ansys license, who is eligible to use it, and what are its key features and restrictions on Alliance systems?",
+      "answer": "The SHARCNET Ansys license is a Multiphysics Campus Solution that is free for academic use by any Alliance researcher on any Alliance system. It is specifically intended for publishable academic research, and commercial purposes are strictly prohibited. The license covers products such as HF, EM, Electronics HPC, Mechanical, CFD, ROCKY, and LS-DYNA. However, it does not cover Lumerical software, and while SpaceClaim is technically covered, a Linux version is not installed."
     },
     {
-      "question": "What environment variables are required for Ansys Fluent when launched from an OnDemand Desktop with a GPU on Nibi, specifically for Ansys version 2024R2 or older?",
-      "answer": "When launching Fluent from an OnDemand Desktop on Nibi with a GPU, for Ansys version 2024R2 or older, you must set `I_MPI_HYDRA_BOOTSTRAP=ssh` and `HOOPS_PICTURE=opengl` in the Fluent Launcher's Environment Tab before clicking the `Start` button."
+      "question": "What are the usage limitations for the SHARCNET Ansys license, and how can users configure their environment to access it?",
+      "answer": "Researchers using the SHARCNET Ansys license are permitted to run a maximum of 16 simultaneous jobs, utilizing a total of up to 512 HPC cores across all clusters. However, the license is oversubscribed, so jobs may occasionally fail due to license shortages. To access the SHARCNET Ansys license, users must configure their `~/.licenses/ansys.lic` file by adding the line `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license1.computecanada.ca\")`."
     },
     {
-      "question": "What error occurs if `I_MPI_HYDRA_BOOTSTRAP=ssh` is not correctly configured on Nibi when launching Fluent from an OOD Compute Desktop session using Intel MPI?",
-      "answer": "If `I_MPI_HYDRA_BOOTSTRAP=ssh` is not properly set on Nibi when Fluent is started from within an OOD Compute Desktop session using Intel MPI, Fluent will crash on startup, producing an error message such as \"Error: Unable to run bstrap_proxy\" and \"Error setting up the bootstrap proxies.\""
-    },
-    {
-      "question": "How can a Fluent crash related to `I_MPI_HYDRA_BOOTSTRAP=ssh` on Nibi be resolved?",
-      "answer": "To resolve a Fluent crash related to `I_MPI_HYDRA_BOOTSTRAP=ssh` on Nibi, you must completely exit Fluent, cleanly shut down Workbench, and then start over, ensuring the `I_MPI_HYDRA_BOOTSTRAP=ssh` variable is correctly set."
-    },
-    {
-      "question": "How do I start Ansys Workbench in Mesa mode on a Jupyter Lab Desktop when no GPU is requested?",
-      "answer": "First, load the `ansys/2025R1` (or newer) module. Then, click the \"Workbench (VNC)\" icon. Since the default is configured for a GPU node, you must exit Workbench, open a terminal, copy the default `workbench.desktop` to `workbench-mesa.desktop` in `~/Desktop`, edit `workbench-mesa.desktop` to change `runwb2` to `runwb2 -oglmesa`, save, and then click the new icon."
-    },
-    {
-      "question": "Will the customized Workbench icon created on a Jupyter Lab Desktop persist for future sessions?",
-      "answer": "Yes, the customized Workbench icon you create on a Jupyter Lab Desktop will persist for future sessions until it is manually deleted with `rm -f ~/Desktop/workbench-mesa.desktop`."
-    },
-    {
-      "question": "How do I start Ansys Workbench on a Jupyter Lab Desktop when a GPU is requested?",
-      "answer": "To start Ansys Workbench on a Jupyter Lab Desktop with a GPU requested, you need to click to load `ansys/2025R1` (or newer) in the Desktop left-hand side menu, and then click the \"Workbench (VNC)\" icon located in the Jupyter Lab desktop centre window."
-    },
-    {
-      "question": "How do I launch Ansys Ensight graphically from the command line?",
-      "answer": "To launch Ansys Ensight graphically, first load `StdEnv/2023` and `ansys/2022R2`. Then, set the `LD_LIBRARY_PATH` environment variable: `export LD_LIBRARY_PATH=$EBROOTANSYS/v222/CEI/apex222/machines/linux_2.6_64/qt-5.12.6/lib`. Finally, run the command `ensight -X`."
-    },
-    {
-      "question": "How do I start Ansys Rocky in graphical mode?",
-      "answer": "To start Ansys Rocky in graphical mode, first load `StdEnv/2023` and `ansys/2025R1` (or newer versions). Then, export the path: `export PATH=$EBROOTANSYS/v251/rocky:$PATH`. After these steps, you can run the command `Rocky`."
-    },
-    {
-      "question": "Does the SHARCNET licence cover Ansys Rocky, and is it free for Alliance researchers?",
-      "answer": "Yes, the SHARCNET licence includes Rocky and is free for all Alliance researchers to use."
-    },
-    {
-      "question": "Does Ansys Rocky support GPU-accelerated computing?",
-      "answer": "Yes, Ansys Rocky supports GPU-accelerated computing, but this capability has not yet been tested or documented."
-    },
-    {
-      "question": "Are the `RockySolver` and `RockyScheduler` commands tested or documented for graphical use?",
-      "answer": "No, the `RockySolver` and `RockyScheduler` commands for running the solver or starting the scheduler GUI are currently untested."
-    },
-    {
-      "question": "Where can I find information on how to run Ansys Electronics Desktop (AnsysEDT) in graphical mode?",
-      "answer": "Information describing how to run AnsysEDT in graphical mode can be found on a separate wiki page, accessible via a provided link."
+      "question": "What specific environment variables must be configured when starting Ansys Fluent in graphical mode from an On Demand Desktop on the Nibi cluster, and what error can occur if they are not set correctly?",
+      "answer": "When starting Ansys Fluent from an On Demand Desktop on the Nibi cluster, `I_MPI_HYDRA_BOOTSTRAP=ssh` is required. For Ansys 2025R1 or newer, `HOOPS_PICTURE` should be set to `opengl2` (with GPU) or `opengl2-mesa` (without GPU). For Ansys 2024R2 or older, it should be `opengl` (with GPU) or `null` (without GPU). If `I_MPI_HYDRA_BOOTSTRAP=ssh` is not set properly on Nibi when using Intel MPI, Fluent will crash on startup, producing an error indicating an inability to run `bstrap_proxy`."
     }
   ],
-  "generated_at": "2026-04-12T16:41:43.262421+00:00"
+  "generated_at": "2026-04-13T01:46:06.632288+00:00"
 }

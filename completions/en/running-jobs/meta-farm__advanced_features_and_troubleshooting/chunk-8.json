@@ -4,25 +4,13 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "Why do meta-jobs exit early when managing case run-times?",
-      "answer": "Meta-jobs will exit early to minimize the chance of a case aborting half-way due to the job's run-time limit."
+      "question": "How does the META-Farm package mitigate the waste of CPU cycles caused by jobs hitting their run-time limits while processing multiple cases?",
+      "answer": "The META-Farm package mitigates waste by estimating if a meta-job has sufficient time to complete the next case it's about to start. If the estimated time remaining (`t_finish - t_now`) is less than the conservative estimate of the case run-time (`dt_cutoff`), the job will exit early, minimizing the chance of a case aborting halfway through due to the job's run-time limit."
     },
     {
-      "question": "What is `dt_cutoff` and when is it recomputed?",
-      "answer": "`dt_cutoff` is a conservative estimate of the run-time for individual cases. It is recomputed at every subsequent power of two number of computed cases (e.g., 8, 16, 32, and so on)."
-    },
-    {
-      "question": "What is the purpose of recomputing `dt_cutoff`?",
-      "answer": "The purpose of recomputing `dt_cutoff` is to make its estimate more and more accurate over time."
-    },
-    {
-      "question": "Why does the algorithm use powers of two for recomputing `dt_cutoff`?",
-      "answer": "Powers of two are used to minimize the overheads related to computing `dt_cutoff`."
-    },
-    {
-      "question": "Is the `dt_cutoff` recomputation algorithm efficient for different scales of farms?",
-      "answer": "Yes, the `dt_cutoff` recomputation algorithm is equally efficient for both very small (tens) and very large (many thousands) numbers of cases."
+      "question": "How often is the `dt_cutoff` estimate, which represents a conservative run-time for individual cases, recomputed by the META-Farm package?",
+      "answer": "The `dt_cutoff` estimate is initially computed after the first eight cases are completed, and then it is recomputed at every subsequent power of two number of computed cases (e.g., 8, 16, 32). This process makes the `dt_cutoff` estimate progressively more accurate."
     }
   ],
-  "generated_at": "2026-04-12T01:31:12.713139+00:00"
+  "generated_at": "2026-04-13T08:33:01.446603+00:00"
 }

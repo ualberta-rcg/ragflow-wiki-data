@@ -4,65 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What tools are recommended for managing numerous compute tasks, especially when dealing with multiple files or parameter sweeps?",
-      "answer": "The recommended tools include Job Arrays, GNU Parallel, GLOST (Greedy Launcher Of Small Tasks), and META (META-Farm)."
+      "question": "What tools are available for managing numerous compute tasks, and for what specific scenarios is each tool best suited?",
+      "answer": "When managing numerous compute tasks, several tools are available: Job Arrays are ideal for submitting several similar jobs (each over an hour, under 1000 jobs) in one script. GNU Parallel is used for running and managing short calculations or parameter sweeps on a single reserved node. GLOST (Greedy Launcher Of Small Tasks) utilizes MPI and a manager-worker architecture to progressively run a long list of serial jobs on reserved CPU cores. META is a SHARCNET-designed suite of scripts for automating high-throughput computing of many related serial, parallel, or GPU calculations."
     },
     {
-      "question": "When is Job Arrays considered an ideal method for submitting several similar jobs?",
-      "answer": "Job Arrays are an ideal method when each job exceeds one hour and the number of jobs is under one thousand."
+      "question": "How can one establish a dependency between Slurm jobs so that a subsequent job only begins after a preceding job has successfully completed?",
+      "answer": "To establish an inter-job dependency where a second Slurm job starts only after a first job has successfully completed, you can use the `--dependency=afterok:` option with `sbatch`. First, save the Job ID of the initial job (e.g., `JOBID1=$(sbatch --parsable job1.sh)`), then submit the second job with the dependency specified as `sbatch --dependency=afterok:$JOBID1 job2.sh`."
     },
     {
-      "question": "What is the primary function of GNU Parallel?",
-      "answer": "GNU Parallel is used to run and manage several short calculations, including parameter sweeps, on a single node reserved via a parallel job."
-    },
-    {
-      "question": "What does GLOST stand for, and what architecture does it use to run serial jobs?",
-      "answer": "GLOST stands for Greedy Launcher Of Small Tasks. It uses MPI and a manager-worker architecture to progressively run a long list of serial jobs on CPU cores reserved via a parallel job."
-    },
-    {
-      "question": "What is META, and what specific type of computing does it automate?",
-      "answer": "META is a suite of scripts designed in SHARCNET to automate high-throughput computing, which involves running a large number of related serial, parallel, or GPU calculations."
-    },
-    {
-      "question": "In the context of compute pipelines, what do inter-job dependencies represent?",
-      "answer": "Inter-job dependencies represent the links and relationships between the steps of a pipeline, with Slurm jobs serving as the building blocks."
-    },
-    {
-      "question": "If two different jobs need to run sequentially, what is the typical desired dependency behaviour?",
-      "answer": "Typically, we want the second job to be started only once the first job has succeeded."
-    },
-    {
-      "question": "What aspects of a first job can a second job depend on?",
-      "answer": "A second job could depend on the start time, the end time, or the final status of the first job."
-    },
-    {
-      "question": "Is it possible for multiple jobs to have the same dependency, or for one job to have multiple dependencies?",
-      "answer": "Yes, multiple jobs can have the same dependency (multiple jobs waiting after one job), and a job can also have multiple dependencies (one job waiting after multiple jobs)."
-    },
-    {
-      "question": "Where can one find more detailed information about the various types of job dependencies like `after`, `afterany`, `afterok`, and `afternotok`?",
-      "answer": "More details can be found by consulting the `--dependency` option on the official `sbatch` documentation page."
-    },
-    {
-      "question": "How would you specify that `job2.sh` should only run after `job1.sh` has successfully completed using `sbatch` commands?",
-      "answer": "You would first save the first job ID using `JOBID1=$(sbatch --parsable job1.sh)` and then submit the second job with `sbatch --dependency=afterok:$JOBID1 job2.sh`."
-    },
-    {
-      "question": "What is the significance of the Slurm scheduler supporting 'heterogeneous jobs'?",
-      "answer": "The Slurm scheduler supporting heterogeneous jobs is very useful if an MPI application requires more CPU cores and more memory for its main process than for its other processes."
-    },
-    {
-      "question": "How are resource requirements for heterogeneous jobs typically separated in an `sbatch` command line or within a job script?",
-      "answer": "Resource requests for heterogeneous jobs are typically separated by a colon (:) on the `sbatch` command line or by using `#SBATCH hetjob` directives within a job script."
-    },
-    {
-      "question": "Provide an example of how to specify different CPU and memory requirements for a main process and other processes within a heterogeneous MPI job script using `#SBATCH` directives.",
-      "answer": "An example would be:\n`#SBATCH --ntasks=1 --cpus-per-task=8 --mem-per-cpu=4000M`\n`#SBATCH hetjob`\n`#SBATCH --ntasks=15 --cpus-per-task=1 --mem-per-cpu=1000M`"
-    },
-    {
-      "question": "How would you write an `srun` command for an application where the main process needs 8 cores and other processes need 1 core in a heterogeneous job?",
-      "answer": "The `srun` command would be: `srun --cpus-per-task=8 : --cpus-per-task=1 application.exe`."
+      "question": "What are heterogeneous jobs in the context of Slurm, and how can resource requirements be specified for different processes within such a job?",
+      "answer": "Heterogeneous jobs in Slurm refer to applications, such as MPI applications, where different processes (e.g., a main process versus other processes) require varying amounts of CPU cores and memory. Resource requirements can be specified within a job script by separating different resource requests with `#SBATCH hetjob` directives. For instance, one can define `#SBATCH --ntasks=1 --cpus-per-task=8 --mem-per-cpu=4000M` for the main process, followed by `#SBATCH hetjob` and then `#SBATCH --ntasks=15 --cpus-per-task=1 --mem-per-cpu=1000M` for other processes. Alternatively, these resource requests can be separated by a colon (':') on the `sbatch` command line."
     }
   ],
-  "generated_at": "2026-04-11T16:02:23.316849+00:00"
+  "generated_at": "2026-04-13T01:08:24.423881+00:00"
 }

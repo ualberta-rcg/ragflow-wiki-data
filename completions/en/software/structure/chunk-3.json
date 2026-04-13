@@ -4,69 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What is the primary function of StrAuto and StructureHarvester in the context of population structure analysis?",
-      "answer": "StrAuto and StructureHarvester were developed to automate the process of setting up multiple Structure runs and aggregating their results, respectively, especially for population structure inference using the Evanno method."
+      "question": "What is the purpose of StrAuto and StructureHarvester when working with the Structure software?",
+      "answer": "The Structure software itself is not capable of running in parallel. However, population structure inference, particularly when using the Evanno-method, often involves multiple Structure runs. StrAuto and StructureHarvester were developed to automate the process of setting up these numerous runs and aggregating their results, respectively."
     },
     {
-      "question": "What is a practical consideration for running StrAuto jobs on HPC clusters to ensure efficient use of computing resources?",
-      "answer": "For optimal efficiency and to avoid wasting computing resources, it is best when the total number of Structure runs is a multiple of the number of requested tasks."
+      "question": "What are the practical considerations for running StrAuto jobs efficiently on High-Performance Computing (HPC) clusters?",
+      "answer": "For optimal efficiency, it's best if the total number of Structure runs is a multiple of the number of requested tasks to avoid idle CPUs. Furthermore, while grouping relatively short runs can be effective, if individual Structure runs are anticipated to take more than a few hours, it's recommended to submit each Structure run as an individual job to Slurm to prevent longer waits due to job scheduling policies for jobs with extended walltimes."
     },
     {
-      "question": "Why is it important to set a sufficiently large maximum job time when running multiple Structure runs sequentially?",
-      "answer": "The requested maximum job time needs to be sufficiently large to accommodate multiple subsequent Structure runs."
-    },
-    {
-      "question": "What is a potential downside of setting a very long maximum job time for Structure jobs?",
-      "answer": "Jobs with long walltimes will typically have to wait longer until they are dispatched due to job scheduling policies."
-    },
-    {
-      "question": "What is the recommended approach for individual Structure runs that are expected to take more than a few hours?",
-      "answer": "For individual Structure runs that take more than just a few hours to finish, it is recommended to submit each Structure run as an individual job to Slurm."
-    },
-    {
-      "question": "What is the purpose of the `create_strauto_slurm_scripts.py` script?",
-      "answer": "The `create_strauto_slurm_scripts.py` script is designed to help users run Structure jobs on Compute Canada HPC clusters that use the Slurm Workload manager."
-    },
-    {
-      "question": "What files and software are required to use the `create_strauto_slurm_scripts.py` script?",
-      "answer": "The script requires Structure, StrAuto (specifically `strauto_1.py` and `input.py`), StructureHarvester (specifically `structureHarvester.py` and `harvesterCore.py`), and the file with the Structure dataset (e.g., `my_dataset.str`)."
-    },
-    {
-      "question": "How should the `create_strauto_slurm_scripts.py` script be made executable?",
-      "answer": "You should make `create_strauto_slurm_scripts.py` executable using the command: `chmod u+x create_strauto_slurm_scripts.py`."
-    },
-    {
-      "question": "Which option in the `input.py` file must be set to `True` when using `create_strauto_slurm_scripts.py`?",
-      "answer": "The `parallel = True` option (question 23) in the `input.py` file must be set to `True`."
-    },
-    {
-      "question": "What are the key parameters that can be adjusted in the `create_strauto_slurm_scripts.py` file?",
-      "answer": "The `max_jobtime`, `slurm_account`, and `submit_delay` parameters can be adjusted in the `create_strauto_slurm_scripts.py` file (around lines 65-70)."
-    },
-    {
-      "question": "How should the `max_jobtime` parameter be configured in `create_strauto_slurm_scripts.py`?",
-      "answer": "The `max_jobtime` should be set to a duration where you can be reasonably sure that no individual Structure run takes longer than this."
-    },
-    {
-      "question": "What is the role of the `slurm_account` parameter in `create_strauto_slurm_scripts.py`?",
-      "answer": "The `slurm_account` parameter can be used to specify under which Slurm account to submit jobs, especially if a user can submit under multiple accounts."
-    },
-    {
-      "question": "Why does the `create_strauto_slurm_scripts.py` script include a `submit_delay` parameter?",
-      "answer": "The `submit_delay` parameter defines a pause between each job submission to avoid overloading the Scheduler."
-    },
-    {
-      "question": "What is the sequence of commands to run after preparing the files and editing `input.py` for a set of longer Structure runs using `create_strauto_slurm_scripts.py`?",
-      "answer": "First, load the Python module (`module load python/2.7`), then run `./strauto_1.py`, and finally execute `./create_strauto_slurm_scripts.py`."
-    },
-    {
-      "question": "How are the generated Slurm jobs submitted after running `create_strauto_slurm_scripts.py`?",
-      "answer": "The generated jobs are submitted by running the command `bash submit_strauto_jobs.sh`."
-    },
-    {
-      "question": "What command should be executed after all StrAuto jobs have completed to aggregate results and run StructureHarvester?",
-      "answer": "After all jobs have completed, you should run `bash post_strauto.sh` to aggregate the results and run StructureHarvester."
+      "question": "How do you use the `create_strauto_slurm_scripts.py` script to run multiple Structure jobs on Compute Canada HPC clusters?",
+      "answer": "To use the `create_strauto_slurm_scripts.py` script, you must first place it in a directory along with `strauto_1.py` and `input.py` from StrAuto, `structureHarvester.py` and `harvesterCore.py` from StructureHarvester, and your Structure dataset file (e.g., `my_dataset.str`). Then, make `create_strauto_slurm_scripts.py` executable, edit `input.py` to set `parallel = True`, and adjust parameters within `create_strauto_slurm_scripts.py` such as `max_jobtime`, `slurm_account`, and `submit_delay`. Finally, run `./strauto_1.py`, followed by `./create_strauto_slurm_scripts.py` to generate job scripts, submit these jobs using `bash submit_strauto_jobs.sh`, and after all jobs are complete, run `bash post_strauto.sh` to aggregate the results and run StructureHarvester."
     }
   ],
-  "generated_at": "2026-04-12T08:33:29.912549+00:00"
+  "generated_at": "2026-04-13T13:57:30.873796+00:00"
 }

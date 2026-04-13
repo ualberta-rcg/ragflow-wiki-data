@@ -4,73 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How can I transfer a directory or file locally within a single system to a project directory using rsync?",
-      "answer": "You can use the rsync command: `rsync -avh --no-g --no-p LOCALNAME ~/projects/def-professor/someuser/somedir/` where `LOCALNAME` is the directory or file, and `somedir` is the target project directory."
+      "question": "How can `rsync` be used to transfer a directory or file locally within a single system, specifically from a home or scratch directory to a project directory?",
+      "answer": "To transfer a directory or file locally (e.g., from a home or scratch directory to a project directory), you can use the `rsync` command without specifying a cluster name. An example command is `rsync -avh --no-g --no-p LOCALNAME ~/projects/def-professor/someuser/somedir/`. In this command, `somedir` will be created if it doesn't already exist before `LOCALNAME` is copied into it."
     },
     {
-      "question": "What happens if the target project directory ('somedir') does not exist when using rsync for a local transfer?",
-      "answer": "If `somedir` does not exist, rsync will create it before copying `LOCALNAME` into it."
+      "question": "What is SFTP, and how can a user connect to a remote machine using SFTP, either with a password or an SSH key?",
+      "answer": "SFTP (Secure File Transfer Protocol) uses the SSH protocol to transfer files between machines, encrypting the data during transfer. To connect to a remote machine with SFTP using a password, you would typically use `sftp USERNAME@ADDRESS`. If you're using an SSH key for authentication, you can specify the path to your private key with the `-i` option, for example: `sftp -i /home/name/.ssh/id_rsa USERNAME@ADDRESS`. Once connected, an `sftp>` prompt appears where file transfer commands can be issued, and `help` provides a list of available commands."
     },
     {
-      "question": "How do I transfer a directory or file locally from home or scratch to a project directory using the 'cp' command?",
-      "answer": "You can use the command: `cp -rv --preserve=\"mode,timestamps\" LOCALNAME ~/projects/def-professor/someuser/somedir/`."
-    },
-    {
-      "question": "What is a key difference between rsync and cp when transferring a directory locally to a non-existent target directory?",
-      "answer": "Unlike rsync, if `LOCALNAME` is a directory and `somedir` does not exist, `cp` will rename `LOCALNAME` to `somedir`."
-    },
-    {
-      "question": "When should I consider using checksums to check if files match between two systems?",
-      "answer": "You should use checksums if Globus is unavailable between the two systems being synchronized and rsync is taking too long."
-    },
-    {
-      "question": "What checksum utility is recommended in the example for determining if files match?",
-      "answer": "The `sha1sum` utility is used in the example to determine if files match."
-    },
-    {
-      "question": "What command can I use to generate checksums for files in a directory and save them to a log file?",
-      "answer": "You can use the command: `find /home/username/ -type f -print0 | xargs -0 sha1sum | tee checksum-result.log`."
-    },
-    {
-      "question": "What does the `find ... sha1sum ... tee checksum-result.log` command do?",
-      "answer": "This command creates a new file called `checksum-result.log` in the current directory, containing all checksums for files in `/home/username/`, and also prints the checksums to the screen as it processes them."
-    },
-    {
-      "question": "Why might I want to run the checksum generation command in the background or in a screen/tmux session?",
-      "answer": "You might want to run it in the background, a screen, or tmux session, especially for many or very large files, to allow it to continue running even if your SSH connection times out."
-    },
-    {
-      "question": "After generating checksum logs on two systems, how can I find files that do not match?",
-      "answer": "You can use the `diff` utility to find files that don't match, for example: `diff checksum-result-silo.log checksum-dtn.log`."
-    },
-    {
-      "question": "Why might the `diff` command show false differences when comparing checksum logs, and how can this be resolved?",
-      "answer": "The `find` command might crawl through directories in a different order, causing false differences. To resolve this, you should sort both checksum files by the second field (the checksum) before running `diff`, using commands like: `sort -k2 checksum-result-silo.log -o checksum-result-silo.log` and `sort -k2 checksum-dtn.log -o checksum-dtn.log`."
-    },
-    {
-      "question": "What is SFTP?",
-      "answer": "SFTP stands for Secure File Transfer Protocol, and it uses the SSH protocol to transfer files between machines, encrypting the data during transfer."
-    },
-    {
-      "question": "How do I connect to a remote machine using SFTP with a username and address?",
-      "answer": "You can connect using the command: `sftp USERNAME@ADDRESS`."
-    },
-    {
-      "question": "How can I connect to a remote machine using SFTP with an SSH Key for authentication?",
-      "answer": "You can use the `-i` option with the path to your private key: `sftp -i /home/name/.ssh/id_rsa USERNAME@ADDRESS`."
-    },
-    {
-      "question": "What prompt will appear after successfully connecting to a remote machine via SFTP?",
-      "answer": "The `sftp>` prompt will appear, allowing you to issue commands for file transfer."
-    },
-    {
-      "question": "How do I get a list of available commands at the `sftp>` prompt?",
-      "answer": "You can enter the `help` command at the `sftp>` prompt to get a list of available commands."
-    },
-    {
-      "question": "What are some graphical SFTP programs available for Windows, Linux, and Mac OS?",
-      "answer": "Graphical programs include WinSCP and MobaXterm (Windows), FileZilla (Windows, Mac, and Linux), and Cyberduck (Mac and Windows)."
+      "question": "What is an alternative method to check if files match between two systems if Globus is unavailable or Rsync is taking too long for synchronization?",
+      "answer": "If Globus is unavailable or Rsync is too slow, you can use a checksum utility like `sha1sum` on both systems to determine if files match. First, generate checksums for files in a directory (e.g., `/home/username/`) and save them to a log file on each system using a command like `find /home/username/ -type f -print0 | xargs -0 sha1sum | tee checksum-result.log`. After running this on both systems, you can use the `diff` utility to compare the two checksum log files (e.g., `diff checksum-result-silo.log checksum-dtn.log`). To avoid false differences caused by directories being crawled in a different order, it's recommended to sort both checksum files by the second field (the filename) before running `diff`, using commands such as `sort -k2 checksum-result-silo.log -o checksum-result-silo.log`."
     }
   ],
-  "generated_at": "2026-04-12T09:20:33.783015+00:00"
+  "generated_at": "2026-04-13T14:35:52.362301+00:00"
 }

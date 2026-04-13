@@ -4,149 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the automatic resubmission feature in META-Farm?",
-      "answer": "The automatic resubmission feature is designed for large farms that may require more resources than `NJOBS_MAX x job_run_time`, allowing `resubmit.run` to be executed automatically after the initial farm computations finish."
+      "question": "How do I enable the automatic resubmission of failed farm cases in the META-Farm package?",
+      "answer": "To enable automatic resubmission of failed cases in META-Farm, add the `-auto` switch to your `submit.run` or `resubmit.run` command. This submits an additional serial job that automatically runs `resubmit.run` after the current farm finishes. You must ensure the `resubmit_script.sh` file is present in your farm directory with the correct account name in its `#SBATCH -A` line. Also, the `NJOBS_MAX` parameter in your `config.h` file should be set to at least one less than the maximum number of jobs you can submit on the cluster, to account for this additional job."
     },
     {
-      "question": "How do you enable the automatic resubmission feature?",
-      "answer": "To enable this feature, add the `-auto` switch to your `submit.run` or `resubmit.run` command, for example: `$ submit.run N -auto`."
+      "question": "How can I configure the META-Farm package to run a post-processing job automatically after all cases are successfully completed?",
+      "answer": "To configure an automatic post-processing job, create a script named `final.sh` inside your farm directory. This job will only run automatically if all cases from `table.dat` have been successfully processed (i.e., had a zero exit status). This feature also utilizes the `resubmit_script.sh` script, so ensure it has the correct account name in the `#SBATCH -A` line. You should adjust the `NJOBS_MAX` parameter in `config.h` accordingly; if both auto-resubmission and auto-post-processing are enabled, they will together only submit one additional job."
     },
     {
-      "question": "Can the `-auto` switch be added to `resubmit.run` if it wasn't used with the initial `submit.run` command?",
-      "answer": "Yes, if your original `submit.run` command did not include the `-auto` switch, you can add it to `resubmit.run` after the original farm finishes running to achieve the same effect."
-    },
-    {
-      "question": "What does the `-auto` switch do when added to `(re)submit.run`?",
-      "answer": "When `-auto` is added, `(re)submit.run` submits an additional serial job whose purpose is to automatically run the `resubmit.run` command right after the current farm completes."
-    },
-    {
-      "question": "What is the job script used for the additional job submitted by the `-auto` feature?",
-      "answer": "The job script for this additional job is `resubmit_script.sh`, which must be present in the farm directory."
-    },
-    {
-      "question": "How is the `resubmit_script.sh` file typically created?",
-      "answer": "A sample `resubmit_script.sh` file is automatically copied to the farm directory when you run `farm_init.run`."
-    },
-    {
-      "question": "What customization is required for the `resubmit_script.sh` file?",
-      "answer": "The only customization needed is to correct the account name in the `#SBATCH -A` line within the `resubmit_script.sh` file."
-    },
-    {
-      "question": "How should the `NJOBS_MAX` parameter in `config.h` be adjusted when using the `-auto` feature?",
-      "answer": "When using `-auto`, the `NJOBS_MAX` parameter in the `config.h` file should be set to at least one smaller than the largest number of jobs you can submit on the cluster (e.g., 998 if the limit is 999)."
-    },
-    {
-      "question": "How can I determine the maximum number of jobs I can submit on a specific cluster?",
-      "answer": "To find out the maximum number of submitted jobs limit (MaxSubmit) associated with your account on a specific cluster, run the command: `$ sacctmgr list user $USER withassoc`."
-    },
-    {
-      "question": "When does auto-resubmission stop?",
-      "answer": "Auto-resubmission will stop, and farm computations will end, if at some point the only cases remaining to be processed are those that failed earlier."
-    },
-    {
-      "question": "Why does auto-resubmission stop when only failed cases are left?",
-      "answer": "This mechanism is in place to prevent an infinite loop on badly-formed cases that would perpetually fail."
-    },
-    {
-      "question": "What action should be taken if auto-resubmission stops due to only failed cases remaining?",
-      "answer": "If this occurs, you must address the reasons for those cases failing before attempting to resubmit the farm."
-    },
-    {
-      "question": "Where can I find messages related to auto-resubmission issues?",
-      "answer": "Relevant messages can be found in the `farm.log` file, which is created in the farm directory."
-    },
-    {
-      "question": "What is the purpose of the automatic post-processing job feature?",
-      "answer": "This advanced feature allows a post-processing job to run automatically once all cases from `table.dat` have been successfully processed."
-    },
-    {
-      "question": "Will the automatic post-processing job run if some cases failed?",
-      "answer": "No, if any cases failed (i.e., had a non-zero exit status), the post-processing job will not run."
-    },
-    {
-      "question": "How do you enable the automatic post-processing feature?",
-      "answer": "To enable this feature, simply create a script for the post-processing job with the name `final.sh` inside the farm directory."
-    },
-    {
-      "question": "What types of jobs can `final.sh` be for automatic post-processing?",
-      "answer": "The `final.sh` job can be of any kind: serial, parallel, or an array job."
-    },
-    {
-      "question": "Which script does the automatic post-processing feature utilize?",
-      "answer": "This feature uses the same `resubmit_script.sh` script described for the auto-resubmission feature."
-    },
-    {
-      "question": "What should be checked in `resubmit_script.sh` when using the automatic post-processing feature?",
-      "answer": "You need to ensure that `resubmit_script.sh` has the correct account name in the `#SBATCH -A` line."
-    },
-    {
-      "question": "How should `NJOBS_MAX` be adjusted for the automatic post-processing feature alone?",
-      "answer": "The `NJOBS_MAX` parameter in `config.h` should be adjusted accordingly, typically by setting it to one less than the cluster's job limit (e.g., 998 if the limit is 999)."
-    },
-    {
-      "question": "If both auto-resubmit and auto-post-processing features are used, how many additional jobs are submitted?",
-      "answer": "If both auto-resubmit and auto-post-processing features are used concurrently, they will together only submit one additional job, so you do not need to subtract 2 from `NJOBS_MAX`."
-    },
-    {
-      "question": "Where are system messages from the auto-resubmit feature logged?",
-      "answer": "System messages from the auto-resubmit feature are logged in `farm.log`, located in the root farm directory."
-    },
-    {
-      "question": "Which version of meta-farm introduced the WHOLE_NODE mode?",
-      "answer": "The WHOLE_NODE mode was introduced starting from version 1.0.3 of meta-farm."
-    },
-    {
-      "question": "What does the WHOLE_NODE mode accomplish?",
-      "answer": "The WHOLE_NODE mode supports packaging individual serial farming jobs into whole node jobs."
-    },
-    {
-      "question": "Was WHOLE_NODE mode enabled by default?",
-      "answer": "No, WHOLE_NODE mode is off by default."
-    },
-    {
-      "question": "How do you enable WHOLE_NODE mode?",
-      "answer": "To enable WHOLE_NODE mode, you need to edit the `config.h` file within your farm directory, setting `WHOLE_NODE=1` and `NWHOLE` to the number of CPU cores per node."
-    },
-    {
-      "question": "What is the value for `NWHOLE` when using WHOLE_NODE mode on Trillium?",
-      "answer": "For Trillium, the variable `NWHOLE` should be set to 192, as it has 192 CPU cores per node."
-    },
-    {
-      "question": "How does the positive integer argument for `submit.run` change in WHOLE_NODE mode?",
-      "answer": "In WHOLE_NODE mode, the positive integer argument for the `submit.run` command changes its meaning from the number of meta-jobs to the number of whole nodes to be used in META mode."
-    },
-    {
-      "question": "If WHOLE_NODE mode is enabled, what does the command `$ submit.run 2` do?",
-      "answer": "With WHOLE_NODE mode enabled, the command `$ submit.run 2` will allocate 2 whole nodes, which will be used to run up to 384 concurrent serial tasks (192 tasks on each node) using META mode for dynamic workload balancing."
-    },
-    {
-      "question": "How are tasks executed within whole-node jobs when WHOLE_NODE mode is enabled?",
-      "answer": "These tasks are executed as separate threads within whole-node jobs."
-    },
-    {
-      "question": "Does the `-1` argument for `submit.run` change its meaning in WHOLE_NODE mode?",
-      "answer": "No, the `-1` argument for `submit.run` preserves its original meaning in WHOLE_NODE mode, which is to run the farm using the SIMPLE mode."
-    },
-    {
-      "question": "How is the number of actual whole node jobs calculated in SIMPLE mode with WHOLE_NODE enabled?",
-      "answer": "In SIMPLE mode with WHOLE_NODE enabled, the number of actual (whole node) jobs is computed as `Number_of_cases / NWHOLE`."
-    },
-    {
-      "question": "What is required for advanced features like 'Automatic job resubmission' and 'Automatic post-processing job' to work on Trillium with WHOLE_NODE mode?",
-      "answer": "For these advanced features to work on Trillium with WHOLE_NODE mode, you must place the line `module load StdEnv` at the end of your `~/.bashrc` file."
-    },
-    {
-      "question": "What kind of farming can WHOLE_NODE mode be used for?",
-      "answer": "The WHOLE_NODE mode can only be used for serial farming; it cannot be used for multi-threaded, MPI, or GPU farming."
-    },
-    {
-      "question": "Can WHOLE_NODE mode be utilized on clusters other than Trillium?",
-      "answer": "Yes, WHOLE_NODE mode can also be used on other clusters, not just on Trillium."
-    },
-    {
-      "question": "When might it be beneficial to use WHOLE_NODE mode on other clusters?",
-      "answer": "It may be advantageous to use WHOLE_NODE mode when the queue wait time for whole node jobs becomes shorter than the queue wait time for serial jobs."
+      "question": "What is the `WHOLE_NODE` mode in the META-Farm package, and how is it enabled?",
+      "answer": "The `WHOLE_NODE` mode in META-Farm allows individual serial farming jobs to be packaged into whole node jobs, making it suitable for clusters like Trillium. This mode is off by default. To enable it, edit the `config.h` file in your farm directory, setting `WHOLE_NODE=1` and `NWHOLE` to the number of CPU cores per node (e.g., 192 for Trillium). When `WHOLE_NODE` mode is enabled, the positive integer argument for the `submit.run` command changes its meaning from the number of meta-jobs to the number of whole nodes to be used."
     }
   ],
-  "generated_at": "2026-04-12T01:29:53.067685+00:00"
+  "generated_at": "2026-04-13T08:32:04.298566+00:00"
 }

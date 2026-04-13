@@ -4,45 +4,17 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "Comment définir une ressource d'adresse IP flottante avec Terraform pour un environnement OpenStack?",
-      "answer": "Pour définir une ressource d'adresse IP flottante, on utilise le bloc `resource \"openstack_networking_floatingip_v2\" \"nom_de_l'ip_flottante\"` et on spécifie le `pool` d'où l'IP flottante est allouée, comme `\"ext_net\"`."
+      "question": "Comment peut-on allouer une adresse IP flottante pour une instance OpenStack en utilisant Terraform, et quel est le nom du pool habituellement utilisé sur les nuages de l'Alliance?",
+      "answer": "Pour allouer une adresse IP flottante avec Terraform, il faut définir une ressource de type `openstack_networking_floatingip_v2`. Le pool à spécifier est généralement `ext_net` (le réseau externe) sur les nuages de l'Alliance, comme dans l'exemple `pool = \"ext_net\"`."
     },
     {
-      "question": "Quelle commande Terraform permet de prévisualiser les changements avant de les appliquer?",
-      "answer": "Pour voir les changements qui se produiraient avant de les accepter, on peut utiliser la commande `terraform plan`."
+      "question": "Une fois qu'une adresse IP flottante est allouée avec Terraform, comment l'associe-t-on à une machine virtuelle OpenStack spécifique?",
+      "answer": "Pour associer une adresse IP flottante allouée à une instance de machine virtuelle, il faut ajouter une ressource de type `openstack_compute_floatingip_associate_v2`. Les attributs `floating_ip` et `instance_id` de cette ressource sont définis par des références aux adresses et identifiants des ressources d'IP flottante et d'instance de machine virtuelle déjà définies."
     },
     {
-      "question": "Selon l'exemple fourni, combien de ressources sont ajoutées, modifiées ou détruites lors de la création d'une IP flottante?",
-      "answer": "Le plan indique qu'il y a 1 ressource à ajouter, 0 à modifier et 0 à détruire."
-    },
-    {
-      "question": "Une fois qu'une IP flottante est allouée avec Terraform, est-elle automatiquement associée à l'instance OpenStack?",
-      "answer": "Non, une fois l'IP flottante allouée, elle n'est pas encore associée à votre instance. Il faut ajouter une définition additionnelle pour créer l'association."
-    },
-    {
-      "question": "Quelle est la structure d'une référence aux attributs d'autres ressources dans les fichiers de configuration Terraform?",
-      "answer": "Les références comme celles-là sont généralement écrites sous la forme `<type_de_ressource>.<nom_de_la_ressource>.<attribut>`. On peut aussi voir `var.<nom_de_la_variable>` pour les variables."
-    },
-    {
-      "question": "Quel est le but de la ressource `openstack_compute_floatingip_associate_v2` dans une configuration Terraform?",
-      "answer": "Cette ressource sert à créer une association entre l'instance de calcul précédemment créée et l'IP flottante qui a été allouée."
-    },
-    {
-      "question": "Quel pool est utilisé dans l'exemple pour allouer une IP flottante?",
-      "answer": "Dans l'exemple, le pool utilisé pour allouer l'IP flottante est `\"ext_net\"`."
-    },
-    {
-      "question": "Combien de temps a pris la création de l'adresse IP flottante dans l'exemple donné?",
-      "answer": "Selon l'exemple, la création de l'adresse IP flottante a pris 9 secondes."
-    },
-    {
-      "question": "Combien de temps a pris l'association de l'adresse IP flottante à l'instance dans l'exemple donné?",
-      "answer": "L'association de l'adresse IP flottante à l'instance a été complétée après 5 secondes, selon l'exemple."
-    },
-    {
-      "question": "Quelle est la note importante concernant la documentation du fournisseur OpenStack par rapport à Terraform v.12?",
-      "answer": "Il est important de noter que la documentation actuelle du fournisseur OpenStack utilise une syntaxe différente de celle présentée dans le tutoriel, car elle n'a pas encore été mise à jour pour les modifications apportées à Terraform v.12. Cependant, la syntaxe du tutoriel devrait fonctionner sans problème sous la v.12."
+      "question": "Comment Terraform fait-il référence aux attributs d'autres ressources dans sa configuration, par exemple lors de l'association d'une adresse IP flottante à une machine virtuelle?",
+      "answer": "Terraform utilise des références de la forme `<type_de_ressource>.<nom_de_ressource>.<attribut>` pour faire référence aux attributs d'autres ressources. Par exemple, pour obtenir l'adresse d'une IP flottante nommée `myvm_fip`, on utiliserait `openstack_networking_floatingip_v2.myvm_fip.address`."
     }
   ],
-  "generated_at": "2026-04-12T09:15:00.611418+00:00"
+  "generated_at": "2026-04-13T14:30:07.459055+00:00"
 }

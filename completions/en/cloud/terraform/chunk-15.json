@@ -4,33 +4,13 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "What type of resource configuration is detailed in this Terraform plan snippet?",
-      "answer": "This snippet details the configuration for a `block_device` that will be added to an OpenStack compute instance."
+      "question": "When defining an OpenStack virtual machine (VM) in Terraform, what is the purpose of the `block_device` sub-block, and what are its essential attributes?",
+      "answer": "The `block_device` sub-block is used to add a root volume to the VM. Essential attributes include `uuid` (identifying the image to use), `source_type` (e.g., \"image\"), `destination_type` (e.g., \"volume\" for OpenStack-provided storage), `volume_size` (the size of the volume), `boot_index` (set to 0 for a boot disk), and `delete_on_termination` (to specify if the volume should be deleted when the VM is terminated)."
     },
     {
-      "question": "What is the boot index specified for this block device?",
-      "answer": "The `boot_index` for this block device is `0`."
-    },
-    {
-      "question": "Will the block device be deleted when its associated instance is terminated?",
-      "answer": "Yes, the `delete_on_termination` attribute is set to `true`, indicating it will be deleted upon instance termination."
-    },
-    {
-      "question": "What is the `destination_type` defined for this block device?",
-      "answer": "The `destination_type` for this block device is `volume`."
-    },
-    {
-      "question": "What is the `source_type` for creating this block device?",
-      "answer": "The `source_type` for this block device is `image`."
-    },
-    {
-      "question": "What is the UUID of the image that will be used for this block device?",
-      "answer": "The UUID of the image is `80ceebef-f9aa-462e-a793-d3c1cf96123b`."
-    },
-    {
-      "question": "What is the specified `volume_size` for this block device?",
-      "answer": "The `volume_size` is `10`."
+      "question": "What critical configuration detail must be remembered when using a `block_device` sub-block to define a root volume for an OpenStack VM in Terraform to prevent unintended rebuilds?",
+      "answer": "When defining a root volume using a `block_device` sub-block, it is crucial to remove the `image_id` attribute from the outer `openstack_compute_instance_v2` block definition. If `image_id` remains defined, Terraform will continuously perceive a configuration change between booting from a volume and booting directly from an image, causing it to attempt to rebuild the instance on every `terraform apply`."
     }
   ],
-  "generated_at": "2026-04-12T09:11:59.325728+00:00"
+  "generated_at": "2026-04-13T14:27:29.204480+00:00"
 }

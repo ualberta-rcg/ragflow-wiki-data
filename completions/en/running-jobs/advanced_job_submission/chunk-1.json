@@ -4,65 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What tools are recommended for managing numerous compute tasks or processing multiple files with various parameter combinations?",
-      "answer": "Job Arrays, GNU Parallel, GLOST, and META are helpful tools for managing numerous compute tasks or parameter sweeps."
+      "question": "What tools are recommended for managing numerous compute tasks or processing multiple files with various parameter combinations, and what is the ideal use case for Slurm Job Arrays?",
+      "answer": "For managing numerous compute tasks or processing multiple files with parameter sweeps, tools such as Job Arrays, GNU Parallel, GLOST (Greedy Launcher Of Small Tasks), and META are available. Slurm Job Arrays are an ideal method for submitting several similar jobs in one single script, especially when each job is expected to exceed one hour and the total number of jobs is under one thousand."
     },
     {
-      "question": "When is it ideal to use Job Arrays for submitting jobs?",
-      "answer": "Job Arrays are an ideal method when each job exceeds one hour and the total number of jobs is under one thousand, allowing you to submit several similar jobs in one single script."
+      "question": "In Slurm, how are inter-job dependencies used to create compute pipelines, and what specific command is used to ensure a job starts only after a preceding job has successfully completed?",
+      "answer": "Inter-job dependencies in Slurm define the links and relationships between steps in a compute pipeline, allowing jobs to run sequentially. To ensure a second job starts only after a preceding job has successfully completed, the `sbatch --dependency=afterok:$JOBID` command is used, where `$JOBID` is the ID of the first job."
     },
     {
-      "question": "What is the primary function of GNU Parallel?",
-      "answer": "GNU Parallel is used to run and manage several short calculations, including parameter sweeps, on a single node reserved via a parallel job."
-    },
-    {
-      "question": "How does GLOST (Greedy Launcher Of Small Tasks) operate?",
-      "answer": "GLOST uses MPI and a manager-worker architecture to progressively run a long list of serial jobs on the CPU cores reserved via a parallel job."
-    },
-    {
-      "question": "What is META-Farm, and what kind of computing does it automate?",
-      "answer": "META is a suite of scripts designed in SHARCNET to automate high-throughput computing, which involves running a large number of related serial, parallel, or GPU calculations."
-    },
-    {
-      "question": "What do inter-job dependencies represent in the context of Slurm compute pipelines?",
-      "answer": "Inter-job dependencies represent the links and relationships between the steps of a compute pipeline, where one job's execution relies on another's."
-    },
-    {
-      "question": "What types of conditions can a second job depend on from a first job?",
-      "answer": "The second job could depend on the start time, the end time, or the final status of the first job."
-    },
-    {
-      "question": "How can one configure a Slurm job (job2.sh) to start only after a previous job (job1.sh) has successfully completed?",
-      "answer": "You can save the first job ID using `JOBID1=$(sbatch --parsable job1.sh)` and then submit the second job with `sbatch --dependency=afterok:$JOBID1 job2.sh`."
-    },
-    {
-      "question": "Is it possible for multiple jobs to share the same dependency in Slurm?",
-      "answer": "Yes, multiple jobs can have the same dependency, meaning several jobs can wait for one specific job to complete."
-    },
-    {
-      "question": "Can a single Slurm job have multiple dependencies?",
-      "answer": "Yes, a job can have multiple dependencies, meaning it waits for several other jobs to complete before starting."
-    },
-    {
-      "question": "What are some examples of dependency types available in Slurm?",
-      "answer": "There are multiple types of dependencies, including `after`, `afterany`, `afterok`, and `afternotok`."
-    },
-    {
-      "question": "What are heterogeneous jobs in the Slurm scheduler?",
-      "answer": "Heterogeneous jobs are a feature supported by the Slurm scheduler that allows for specifying different resource requirements for different components or processes within a single job."
-    },
-    {
-      "question": "When are heterogeneous jobs particularly useful for an MPI application?",
-      "answer": "They are very useful if an MPI application requires more CPU cores and memory for its main process than for its other processes."
-    },
-    {
-      "question": "How can resource requirements for different parts of a heterogeneous job be specified within a job script?",
-      "answer": "Resource requirements can be specified using multiple `#SBATCH` directives, with `#SBATCH hetjob` separating the resource requests for different components. For example, `#SBATCH --ntasks=1 --cpus-per-task=8 --mem-per-cpu=4000M` followed by `#SBATCH hetjob` and then additional `#SBATCH` directives for other processes."
-    },
-    {
-      "question": "How can resource requests for a heterogeneous job be defined directly on the `sbatch` command line?",
-      "answer": "Resource requests can be separated with a colon (`:`) on the `sbatch` command line. For instance, `sbatch --ntasks=1 --cpus-per-task=8 --mem-per-cpu=4000M : --ntasks=15 --cpus-per-task=1 --mem-per-cpu=1000M mpi_job.sh`."
+      "question": "What are heterogeneous jobs supported by the Slurm scheduler, and when might they be particularly useful for an MPI application?",
+      "answer": "Heterogeneous jobs supported by the Slurm scheduler allow for specifying different resource requirements for distinct processes within the same job. They are particularly useful for MPI applications when, for instance, the main process requires significantly more CPU cores and memory than the other processes, enabling more efficient and precise resource allocation."
     }
   ],
-  "generated_at": "2026-04-11T16:02:48.531174+00:00"
+  "generated_at": "2026-04-13T01:08:45.546422+00:00"
 }

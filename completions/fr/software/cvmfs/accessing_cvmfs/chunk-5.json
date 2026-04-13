@@ -4,109 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on fait pour tester la configuration de CVMFS ?",
-      "answer": "Pour valider la configuration CVMFS, il faut utiliser la commande `sudo cvmfs_config chksetup`."
+      "question": "Comment activer l'environnement logiciel une fois que le répertoire CVMFS est monté, et que doit-on faire si notre identifiant d'utilisateur est sous 1000?",
+      "answer": "Pour activer l'environnement, on utilise le script <code>/cvmfs/soft.computecanada.ca/config/profile/bash.sh</code>. Si votre identifiant d'utilisateur est sous 1000, vous pouvez forcer l'activation en définissant la variable <code>FORCE_CC_CVMFS=1</code> avec la commande <code>export FORCE_CC_CVMFS=1</code>, ou en créant le fichier <code>$HOME/.force_cc_cvmfs</code> dans votre répertoire <code>/home</code>."
     },
     {
-      "question": "Qu'est-ce qu'on doit faire si des avertissements ou des erreurs surviennent après la validation de la configuration CVMFS ?",
-      "answer": "Il faut s'assurer de régler tous les avertissements ou les erreurs qui pourraient survenir pour garantir le bon fonctionnement."
+      "question": "Après avoir installé CVMFS sur son propre ordinateur ou sa grappe, quelles commandes faut-il utiliser pour valider la configuration et vérifier les répertoires?",
+      "answer": "Pour valider la configuration CVMFS, on utilise la commande <code>sudo cvmfs_config chksetup</code>. Pour vérifier les répertoires, on utilise ensuite <code>cvmfs_config probe</code>. Il est important de s'assurer que les répertoires à tester se trouvent dans <code>CVMFS_REPOSITORIES</code> et de régler tout avertissement ou erreur qui pourrait survenir."
     },
     {
-      "question": "Comment peut-on vérifier les répertoires CVMFS après la configuration ?",
-      "answer": "On peut vérifier les répertoires en utilisant la commande `cvmfs_config probe`."
-    },
-    {
-      "question": "Où est-ce qu'on peut trouver de l'aide si on rencontre des problèmes pendant les tests CVMFS ?",
-      "answer": "En cas de problème, un guide de débogage est disponible à l'adresse [https://cvmfs.readthedocs.io/en/stable/cpt-quickstart.html#troubleshooting]."
-    },
-    {
-      "question": "Avant de commencer les tests CVMFS, de quoi doit-on s'assurer ?",
-      "answer": "Il faut d'abord s'assurer que les répertoires qu'on veut tester se trouvent bien dans la variable `CVMFS_REPOSITORIES`."
-    },
-    {
-      "question": "Comment est-ce qu'on active l'environnement logiciel de Compute Canada dans notre session une fois le répertoire CVMFS monté ?",
-      "answer": "L'environnement est activé en utilisant le script `/cvmfs/soft.computecanada.ca/config/profile/bash.sh`."
-    },
-    {
-      "question": "Qu'est-ce que le script `/cvmfs/soft.computecanada.ca/config/profile/bash.sh` fait par défaut ?",
-      "answer": "Ce script va charger des modules par défaut pour l'environnement logiciel."
-    },
-    {
-      "question": "Si on veut que les modules par défaut d'une grappe de calcul spécifique soient chargés, qu'est-ce qu'on doit faire avant d'utiliser le script ?",
-      "answer": "Il faut définir la variable `CC_CLUSTER` en choisissant une des valeurs comme `fir`, `nibi` ou `rorqual` avant de sourcer le script."
-    },
-    {
-      "question": "Quel est l'exemple de commande pour définir la grappe à 'rorqual' avant d'activer l'environnement ?",
-      "answer": "On ferait `export CC_CLUSTER=rorqual` puis `source /cvmfs/soft.computecanada.ca/config/profile/bash.sh`."
-    },
-    {
-      "question": "Dans quel cas est-ce que la commande d'activation de l'environnement ne s'exécutera pas ?",
-      "answer": "La commande ne s'exécutera pas si l'identifiant d'utilisateur est inférieur à 1000."
-    },
-    {
-      "question": "Pourquoi la commande d'activation ne s'exécute-t-elle pas pour les utilisateurs dont l'identifiant est sous 1000 ?",
-      "answer": "C'est une mesure de sécurité, car on ne devrait pas s'attendre à ce que l'environnement logiciel procure des privilèges de fonctionnement."
-    },
-    {
-      "question": "Comment peut-on forcer l'activation de l'environnement temporairement si notre identifiant d'utilisateur est sous 1000 ?",
-      "answer": "On peut définir la variable `FORCE_CC_CVMFS=1` avec la commande `export FORCE_CC_CVMFS=1`."
-    },
-    {
-      "question": "Comment peut-on rendre l'activation de l'environnement permanente, même si notre identifiant d'utilisateur est sous 1000 ?",
-      "answer": "On peut créer le fichier `$HOME/.force_cc_cvmfs` dans notre répertoire `/home` avec la commande `touch $HOME/.force_cc_cvmfs`."
-    },
-    {
-      "question": "Si on ne veut pas que l'environnement soit activé, comment peut-on faire ?",
-      "answer": "On peut définir la variable `SKIP_CC_CVMFS=1` ou créer le fichier `$HOME/.skip_cc_cvmfs` pour empêcher l'activation."
-    },
-    {
-      "question": "Qu'est-ce que la variable d'environnement `CC_CLUSTER` permet de personnaliser dans notre environnement ?",
-      "answer": "Cette variable identifie la grappe, achemine des renseignements au journal du système et définit le comportement à adopter selon la licence du logiciel."
-    },
-    {
-      "question": "Quelle est la valeur par défaut de la variable `CC_CLUSTER` ?",
-      "answer": "La valeur par défaut de `CC_CLUSTER` est `computecanada`."
-    },
-    {
-      "question": "À quoi sert la variable d'environnement `RSNT_ARCH` ?",
-      "answer": "Cette variable identifie le jeu d'instructions CPU pour le système, comme sse3, avx, avx2 ou avx512."
-    },
-    {
-      "question": "Comment la variable `RSNT_ARCH` est-elle détectée par défaut ?",
-      "answer": "Par défaut, elle est détectée automatiquement à partir des informations trouvées dans `/proc/cpuinfo`."
-    },
-    {
-      "question": "Quels sont les jeux d'instructions CPU possibles qu'on peut utiliser avec la variable `RSNT_ARCH` ?",
-      "answer": "Les jeux d'instructions possibles sont `sse3`, `avx`, `avx2` et `avx512`."
-    },
-    {
-      "question": "Quel est le but de la variable d'environnement `RSNT_INTERCONNECT` ?",
-      "answer": "Cette variable identifie le type d'interconnexion réseau du système, comme OmniPath, InfiniBand ou Ethernet."
-    },
-    {
-      "question": "Comment `RSNT_INTERCONNECT` est-elle détectée automatiquement ?",
-      "answer": "Elle est détectée automatiquement selon la présence de `/sys/module/opa_vnic` pour OmniPath ou de `/sys/module/ib_core` pour InfiniBand."
-    },
-    {
-      "question": "Quelle est la valeur par défaut de `RSNT_INTERCONNECT` si elle n'est pas détectée automatiquement ?",
-      "answer": "La valeur de remplacement par défaut est `ethernet`."
-    },
-    {
-      "question": "Quelles sont les valeurs possibles qu'on peut assigner à la variable `RSNT_INTERCONNECT` ?",
-      "answer": "Les valeurs possibles sont `omnipath`, `infiniband` et `ethernet`."
-    },
-    {
-      "question": "Quel est l'effet de la variable `RSNT_INTERCONNECT` sur les applications parallèles ?",
-      "answer": "La valeur de cette variable déclenche des options différentes du protocole de transport pour OpenMPI."
-    },
-    {
-      "question": "À quoi sert la variable d'environnement `RSNT_CUDA_DRIVER_VERSION` ?",
-      "answer": "Cette variable est utilisée pour cacher ou montrer des versions de nos modules CUDA selon la version requise pour les pilotes NVidia."
-    },
-    {
-      "question": "Comment les versions des modules CUDA sont-elles déterminées si la variable `RSNT_CUDA_DRIVER_VERSION` n'est pas définie ?",
-      "answer": "Si la variable n'est pas définie, les fichiers dans `/usr/lib64/nvidia` déterminent quelles versions de modules CUDA doivent être cachées ou montrées."
+      "question": "Comment peut-on personnaliser l'environnement logiciel activé par CVMFS pour qu'il utilise les modules par défaut d'une grappe de calcul spécifique, comme 'rorqual'?",
+      "answer": "Pour que l'environnement utilise les modules par défaut d'une grappe de calcul particulière, il faut définir la variable <code>CC_CLUSTER</code> avec le nom de la grappe désirée (par exemple, <code>fir</code>, <code>nibi</code> ou <code>rorqual</code>) avant d'exécuter le script d'activation. Par exemple, on ferait <code>export CC_CLUSTER=rorqual</code>, puis <code>source /cvmfs/soft.computecanada.ca/config/profile/bash.sh</code>."
     }
   ],
-  "generated_at": "2026-04-11T15:50:28.038463+00:00"
+  "generated_at": "2026-04-13T00:58:42.244235+00:00"
 }

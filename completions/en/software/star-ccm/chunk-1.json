@@ -4,129 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is STAR-CCM+?",
-      "answer": "STAR-CCM+ is a multidisciplinary engineering simulation suite."
+      "question": "What is STAR-CCM+ and what are the available licensing options for using it on Alliance clusters?",
+      "answer": "STAR-CCM+ is a multidisciplinary engineering simulation suite developed by Siemens, used for modelling acoustics, fluid dynamics, heat transfer, rheology, multiphase flows, and other related fields. To use it on Alliance clusters, users must purchase a licence directly from Siemens. The two main licensing options are a remotely hosted Power-on-Demand (PoD) licence, which requires a licence key, or a locally hosted licence server managed at the user's institution."
     },
     {
-      "question": "What types of engineering phenomena can STAR-CCM+ model?",
-      "answer": "STAR-CCM+ can model acoustics, fluid dynamics, heat transfer, rheology, multiphase flows, particle flows, solid mechanics, reacting flows, electrochemistry, and electromagnetics."
+      "question": "How do users configure their Alliance account to enable STAR-CCM+ licensing for both Power-on-Demand (PoD) and local institutional servers?",
+      "answer": "To configure their account for a local institutional licence server, users need to create a file named `$HOME/.licenses/starccm.lic` with the content `SERVER <server> ANY <port>`, replacing `<server>` and `<port>` with their server's hostname/IP and static vendor port. For a Power-on-Demand (PoD) licence, users must also create a `~/.licenses/starccm.lic` file with `SERVER flex.cd-adapco.com ANY 1999` and manually set the `LM_PROJECT` environment variable to their 22-digit PoD Licence Key before running jobs."
     },
     {
-      "question": "Who develops STAR-CCM+?",
-      "answer": "STAR-CCM+ is developed by Siemens."
-    },
-    {
-      "question": "Is the Alliance authorized to host STAR-CCM+ binaries?",
-      "answer": "Yes, the Alliance has the authorization to host STAR-CCM+ binaries on the clusters."
-    },
-    {
-      "question": "Do users need to purchase a license to use STAR-CCM+ on Alliance clusters?",
-      "answer": "Yes, users will need to purchase a license from Siemens in order to use this software."
-    },
-    {
-      "question": "What are the two main options for obtaining a STAR-CCM+ license?",
-      "answer": "The two main options are a remotely hosted Power-on-Demand (PoD) license or a locally hosted license server."
-    },
-    {
-      "question": "Which type of STAR-CCM+ license is most commonly purchased by research groups?",
-      "answer": "Most research groups purchase a remotely hosted Power-on-Demand (PoD) license."
-    },
-    {
-      "question": "What is required to use a Power-on-Demand (PoD) license for STAR-CCM+?",
-      "answer": "A Power-on-Demand (PoD) license simply requires a license key to use."
-    },
-    {
-      "question": "What condition must be met for a locally hosted STAR-CCM+ license server to be used?",
-      "answer": "A locally hosted license server must be accessible through the firewall from the cluster where jobs will be run."
-    },
-    {
-      "question": "How do you configure an account to use a license server with the Star-CCM+ module?",
-      "answer": "To configure your account, create a license file named `$HOME/.licenses/starccm.lic`."
-    },
-    {
-      "question": "What is the required layout for the `starccm.lic` file when configuring a license server?",
-      "answer": "The required layout is `SERVER <server> ANY <port>\\nUSE_SERVER`."
-    },
-    {
-      "question": "What information should replace `<server>` and `<port>` in the `starccm.lic` file?",
-      "answer": "`<server>` should be changed to specify the hostname (or IP address) and `<port>` to specify the static vendor port of the license server."
-    },
-    {
-      "question": "Is it necessary to manually set `CDLMD_LICENSE_FILE` in a Slurm script for Star-CCM+?",
-      "answer": "No, manually setting `CDLMD_LICENSE_FILE` in your Slurm script is not required."
-    },
-    {
-      "question": "How is the `CDLMD_LICENSE_FILE` variable set when a Star-CCM+ module is loaded?",
-      "answer": "When a Star-CCM+ module is loaded, this variable is automatically set to your `$HOME/.licenses/starccm.lic` file."
-    },
-    {
-      "question": "What environment variable must be manually set for researchers running jobs with a Power-on-Demand (PoD) license?",
-      "answer": "Researchers with a Power-on-Demand (PoD) license must manually set the `LM_PROJECT` environment variable."
-    },
-    {
-      "question": "What value should be assigned to the `LM_PROJECT` environment variable for a PoD license?",
-      "answer": "The `LM_PROJECT` environment variable should be set to your 22-digit PoD License Key."
-    },
-    {
-      "question": "What should the `~/.licenses/starccm.lic` file contain for a Power-on-Demand (PoD) license?",
-      "answer": "For a PoD license, the `~/.licenses/starccm.lic` file should contain `SERVER flex.cd-adapco.com ANY 1999\\nUSE_SERVER`."
-    },
-    {
-      "question": "Where must the `~/.licenses/starccm.lic` file be set up before submitting jobs on a cluster?",
-      "answer": "Before submitting jobs on a cluster, you must set up a `~/.licenses/starccm.lic` file on each cluster where you will run jobs."
-    },
-    {
-      "question": "Are firewall changes necessary for PoD licenses on Alliance clusters?",
-      "answer": "No, if you have a PoD license, the required firewall changes have already been done on all of the Alliance clusters."
-    },
-    {
-      "question": "What should be done if an institutional license server requires firewall changes for cluster access?",
-      "answer": "You will need to submit a problem ticket to technical support to request the one-time network firewall changes between the cluster(s) and your local license server."
-    },
-    {
-      "question": "What troubleshooting step is recommended if there are problems getting STAR-CCM+ licensing to work?",
-      "answer": "If you have problems getting the licensing to work, try removing or renaming the file `~/.flexlmrc`."
-    },
-    {
-      "question": "Why might removing or renaming `~/.flexlmrc` resolve STAR-CCM+ licensing issues?",
-      "answer": "Removing or renaming `~/.flexlmrc` might help because previous search paths and/or license server settings may be stored in it."
-    },
-    {
-      "question": "Where can temporary output files from STAR-CCM+ job runs accumulate?",
-      "answer": "Temporary output files from STAR-CCM+ job runs may accumulate in hidden directories named `~/.star-version_number`."
-    },
-    {
-      "question": "How can temporary STAR-CCM+ output files be removed to free up quota space?",
-      "answer": "These files can be removed by periodically running `rm -ri ~/.starccm*` and replying yes when prompted."
-    },
-    {
-      "question": "What Slurm parameter is used to specify the account for a job?",
-      "answer": "The Slurm parameter `#SBATCH --account=def-group` is used to specify some account."
-    },
-    {
-      "question": "How do you specify the time limit for a Slurm job?",
-      "answer": "You specify the time limit for a Slurm job using `#SBATCH --time=dd-hh:mm`, for example, `#SBATCH --time=00-01:00`."
-    },
-    {
-      "question": "Which Slurm parameter is used to specify the number of nodes?",
-      "answer": "The Slurm parameter `#SBATCH --nodes=1` (or more) is used to specify the number of nodes."
-    },
-    {
-      "question": "How is the number of CPU cores per task specified in a Slurm script?",
-      "answer": "The number of CPU cores per task is specified using `#SBATCH --cpus-per-task=<number>`, for example, `#SBATCH --cpus-per-task=16`."
-    },
-    {
-      "question": "What is the purpose of the `SIM_FILE` variable in a STAR-CCM+ Slurm script?",
-      "answer": "The `SIM_FILE` variable is used to specify your input simulation filename, for example, `SIM_FILE='mySample.sim'`."
-    },
-    {
-      "question": "How can Java macros or batch commands be specified in a STAR-CCM+ Slurm script?",
-      "answer": "Java macros or batch commands can be specified by uncommenting and setting `BATCH_CMD='myMacro.java,run'`."
-    },
-    {
-      "question": "What is the purpose of `export STARCCM_TMP=\"$SLURM_TMPDIR\"` in the Slurm script?",
-      "answer": "This command is used to redirect temporary files from `~/.star-VERSION#` to `$SLURM_TMPDIR`."
+      "question": "What firewall considerations and file setup are necessary when submitting STAR-CCM+ batch jobs on Alliance clusters?",
+      "answer": "Before submitting jobs, users must set up a `~/.licenses/starccm.lic` file on each cluster where jobs will be run. If using a Power-on-Demand (PoD) licence, the required firewall changes are already in place on all Alliance clusters. However, for a local institutional licence server, users must submit a problem ticket to technical support to request one-time network firewall changes between the cluster(s) and their local licence server."
     }
   ],
-  "generated_at": "2026-04-12T08:14:46.463020+00:00"
+  "generated_at": "2026-04-13T13:46:08.799739+00:00"
 }

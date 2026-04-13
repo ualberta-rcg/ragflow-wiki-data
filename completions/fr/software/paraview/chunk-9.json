@@ -4,73 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "Sur la grappe Trillium, quel est le nombre minimal de cœurs CPU qu'il faut demander pour une tâche de visualisation?",
-      "answer": "Sur Trillium, vous devez demander des nœuds entiers, ce qui signifie un minimum de 192 cœurs, étant donné que les demandes se font par multiples de 192 cœurs."
+      "question": "Quelles sont les exigences spécifiques pour demander des ressources CPU sur la grappe Trillium lors de l'utilisation de ParaView pour la visualisation?",
+      "answer": "Sur la grappe Trillium, vous devez demander des nœuds entiers, c'est-à-dire par multiples de 192 cœurs, pour la visualisation avec ParaView. L'exemple minimal requiert donc 192 cœurs."
     },
     {
-      "question": "Quelle est la première chose à faire sur votre poste de travail pour commencer une configuration client-serveur de ParaView sur une grappe?",
-      "answer": "Sur votre poste de travail, vous devez installer la même version de ParaView que celle qui sera utilisée sur la grappe, puis vous connecter à la grappe et lancer une tâche interactive parallèle avec plusieurs cœurs CPU."
+      "question": "Quelles sont les étapes générales pour établir une connexion client-serveur interactive avec ParaView entre votre ordinateur local et une grappe de calcul de l'Alliance?",
+      "answer": "Pour établir une connexion client-serveur interactive avec ParaView, il faut d'abord installer la même version de ParaView sur votre poste de travail que celle sur la grappe. Ensuite, vous vous connectez à la grappe et lancez une tâche interactive parallèle avec `salloc`, puis vous chargez le module ParaView et démarrez le serveur (`pvserver`). Après, vous créez un tunnel SSH depuis votre ordinateur vers le nœud de calcul de la grappe. Finalement, vous démarrez le client ParaView sur votre poste de travail et le connectez au serveur via `localhost:11111`."
     },
     {
-      "question": "Quelle commande peut-on utiliser pour lancer une tâche interactive parallèle sur une grappe?",
-      "answer": "Vous pouvez utiliser une commande `salloc` de ce type : `salloc --time=1:00:0 --ntasks=... --mem-per-cpu=3600 --account=def-someprof`."
-    },
-    {
-      "question": "Comment spécifier une tâche interactive pour la visualisation sur un seul nœud de Trillium?",
-      "answer": "Pour Trillium, si vous utilisez un seul nœud pour la visualisation, la commande est `salloc --time=1:00:0 --ntasks=192 --account=def-someprof`."
-    },
-    {
-      "question": "Quelles étapes faut-il suivre à l'invite de commande dans votre tâche interactive pour démarrer le serveur ParaView?",
-      "answer": "À l'invite de commande, vous devez d'abord charger le module ParaView avec `module load paraview/6.0.0`, puis démarrer le serveur avec `srun pvserver --force-offscreen-rendering --opengl-window-backend OSMesa`."
-    },
-    {
-      "question": "Y a-t-il une particularité pour charger le module ParaView sur la grappe Trillium?",
-      "answer": "Oui, sur Trillium, il faut charger `StdEnv/2023` avant de tenter de charger `paraview/6.0.0`."
-    },
-    {
-      "question": "Quels sont les informations importantes à noter quand le serveur ParaView est démarré et qu'il attend un client?",
-      "answer": "Il faut noter le nom du nœud de calcul (par exemple `fc30669`) et le port de connexion (habituellement `11111`), qui sont affichés dans le message 'Connection URL'."
-    },
-    {
-      "question": "Comment créer un tunnel SSH pour connecter un client ParaView local à un serveur distant sur les grappes comme Rorqual, Fir, Trillium ou Narval?",
-      "answer": "Dans un terminal sur votre ordinateur, vous devez utiliser une commande SSH pour lier le port 11111 de votre ordinateur au même port sur le nœud de calcul distant, comme `ssh <username>@fir.alliancecan.ca -L 11111:fc30669:11111`."
-    },
-    {
-      "question": "Quelle commande SSH faut-il utiliser pour la grappe Nibi, étant donné ses restrictions de communication?",
-      "answer": "Pour Nibi, il faut utiliser la commande `ssh -T -J <username>@nibi.alliancecan.ca -L 11111:localhost:11111 <username>@<nibi_compute_node>` pour rediriger le port SSH en deux étapes."
-    },
-    {
-      "question": "Pourquoi l'indicateur `-T` est-il important dans la commande SSH pour Nibi?",
-      "answer": "L'indicateur `-T` désactive l'allocation du pseudo-terminal et joue un rôle important dans la connexion initiale, bien qu'il désactive également les invites interactives dans l'interpréteur."
-    },
-    {
-      "question": "Comment configurer le client ParaView sur votre ordinateur pour établir la connexion après avoir créé le tunnel SSH?",
-      "answer": "Sur votre ordinateur, démarrez ParaView, allez à 'File -> Connect', cliquez sur 'Add Server', configurez la connexion avec 'name = '''[nom_grappe]'''', 'server type = '''Client/Server''', 'host = '''localhost''', 'port = '''11111''''', puis cliquez sur 'Configure', sélectionnez 'Manual' et 'Save'."
-    },
-    {
-      "question": "Comment s'assurer que la connexion entre le client ParaView local et le serveur distant est bien établie?",
-      "answer": "Une fois que le serveur est configuré et sélectionné dans la liste, cliquez sur 'Connect'. Dans la fenêtre de terminal du serveur, les messages 'Accepting connection ...' et 'Client connected' confirmeront la connexion."
-    },
-    {
-      "question": "Comment peut-on vérifier si un rendu ParaView est effectué en parallèle?",
-      "answer": "Pour vérifier que vous effectuez un rendu parallèle, vous pouvez colorer votre jeu de données avec la variable 'Process Id', qui n'est pas disponible en mode séquentiel."
-    },
-    {
-      "question": "Quand est-il recommandé de passer à une visualisation par lots hors écran avec ParaView?",
-      "answer": "Il est fortement recommandé de passer à une visualisation par lots hors écran pour les tâches de visualisation longues, intensives et automatisées."
-    },
-    {
-      "question": "Comment ParaView permet-il d'automatiser les flux de travail de visualisation pour les tâches par lots?",
-      "answer": "ParaView prend en charge les scripts Python en entrée, ce qui permet de programmer le flux de travail de visualisation et de le soumettre via une tâche de calcul standard, qu'elle soit séquentielle ou parallèle, sur une grappe."
-    },
-    {
-      "question": "Décrivez la procédure pour effectuer un rendu séquentiel par lots avec ParaView.",
-      "answer": "Pour un rendu séquentiel, vous devez d'abord charger le module `paraview/6.0.0`, puis soumettre le script `serial.sh` (qui contient la commande `pvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py`) avec `sbatch serial.sh`."
-    },
-    {
-      "question": "Décrivez la procédure pour effectuer un rendu parallèle par lots avec ParaView.",
-      "answer": "Pour un rendu parallèle, vous devez d'abord charger le module `paraview/6.0.0`, puis soumettre le script `distributed.sh` (qui contient la commande `srun pvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py`) avec `sbatch distributed.sh`."
+      "question": "Y a-t-il une procédure spéciale pour configurer le tunnel SSH pour la visualisation ParaView en mode client-serveur sur la grappe Nibi?",
+      "answer": "Oui, pour la grappe Nibi, en raison de restrictions de communication entre les nœuds, il faut utiliser une commande SSH spécifique pour le tunnel: `ssh -T -J <username>@nibi.alliancecan.ca -L 11111:localhost:11111 <username>@<nibi_compute_node>`. L'indicateur `-T` est crucial car il désactive l'allocation du pseudo-terminal, ce qui joue un rôle important dans la connexion initiale."
     }
   ],
-  "generated_at": "2026-04-12T04:57:41.278819+00:00"
+  "generated_at": "2026-04-13T11:00:37.173241+00:00"
 }

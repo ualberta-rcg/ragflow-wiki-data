@@ -4,69 +4,17 @@
   "chunk_index": 43,
   "qa_pairs": [
     {
-      "question": "What is the total number of `anshpc` licenses issued, according to the example output?",
-      "answer": "The total number of `anshpc` licenses issued is 1986."
+      "question": "How can an Alliance researcher check the Ansys license usage on a cluster, including their own and total licenses in use?",
+      "answer": "To check Ansys license usage on an Alliance cluster, first log in to the cluster (e.g., `ssh nibi.alliancecan.ca`), then load the Ansys module (`module load ansys`). After that, run the command: `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\" | grep -v \" Total of 0 licenses in use\"`. This command will display the number of licenses in use by your username and the total licenses currently active across all users."
     },
     {
-      "question": "How many `anshpc` licenses are currently in use by all users in the provided example?",
-      "answer": "Currently, 1600 `anshpc` licenses are in use."
+      "question": "How are `anshpc` licenses calculated for Ansys Fluent jobs submitted to Alliance clusters?",
+      "answer": "For Ansys Fluent jobs submitted to Alliance clusters, `anshpc` licenses are calculated based on the number of requested cores. Specifically, a job consumes `N-4` `anshpc` licenses, where `N` is the total number of cores the job is using. For example, an 8-core Fluent job uses 4 `anshpc` licenses (8-4=4), and a 32-core job uses 28 `anshpc` licenses (32-4=28)."
     },
     {
-      "question": "How many `anshpc` licenses are remaining for additional jobs in the given scenario?",
-      "answer": "There are 386 `anshpc` licenses remaining available (1986 total - 1600 in use)."
-    },
-    {
-      "question": "What are the two Fluent jobs user `roberpj` is running, as shown in the example's `sq` output?",
-      "answer": "User `roberpj` is running an 8-core Fluent job (JOBID 10161023) and a 32-core Fluent job (JOBID 10161033)."
-    },
-    {
-      "question": "How many `anshpc` licenses is `roberpj` using for their 8-core Fluent job?",
-      "answer": "`roberpj` is using 4 `anshpc` licenses for their 8-core Fluent job."
-    },
-    {
-      "question": "How many `anshpc` licenses is `roberpj` using for their 32-core Fluent job?",
-      "answer": "`roberpj` is using 28 `anshpc` licenses for their 32-core Fluent job."
-    },
-    {
-      "question": "How many total `anshpc` licenses is `roberpj` consuming across their two jobs in the example?",
-      "answer": "`roberpj` is consuming a total of 32 `anshpc` licenses (4 from the 8-core job and 28 from the 32-core job)."
-    },
-    {
-      "question": "How are `anshpc` licenses calculated from the number of cores used by a job, based on the example?",
-      "answer": "`anshpc` licenses are calculated as a baseline of 4 licenses for any job, plus additional licenses per core. For example, an 8-core job uses (8-4)=4 licenses, and a 32-core job uses (32-4)=28 licenses."
-    },
-    {
-      "question": "If a 400-core parallel job attempts to start at this moment, will it succeed, and why?",
-      "answer": "No, a 400-core parallel job would require (400-4) = 396 `anshpc` licenses. Since only 386 `anshpc` licenses remain available, the job would fail to start."
-    },
-    {
-      "question": "What options does a user have if their job fails to start due to an `anshpc` license shortage?",
-      "answer": "The user has two options: wait for a sufficient number of `anshpc` licenses to become available, or reduce the job size to 390 cores or less and resubmit immediately."
-    },
-    {
-      "question": "What is the total number of `cfd_base` licenses issued, and how many are currently in use?",
-      "answer": "There are 275 `cfd_base` licenses issued, with 19 currently in use."
-    },
-    {
-      "question": "How many `cfd_base` licenses is user `roberpj` utilizing for their current jobs?",
-      "answer": "User `roberpj` is utilizing 2 `cfd_base` licenses (one for each job)."
-    },
-    {
-      "question": "What are some reasons Ansys licenses might remain unexpectedly in use by a username?",
-      "answer": "Ansys licenses might remain unexpectedly in use if a GUI program run on a remote desktop was not shut down cleanly, or if an Ansys program crashed on a cluster compute node in an interactive `salloc` session, leaving rogue processes running."
-    },
-    {
-      "question": "How can a user terminate rogue Ansys processes that might be holding licenses on an affected node?",
-      "answer": "A user can terminate rogue Ansys processes by issuing the command `pkill -9 -e -u $USER -f \"ansys\"` on the affected node, or by closing the desktop or `scancel`-ing the `salloc` session."
-    },
-    {
-      "question": "What is the primary goal of generously overcommitting the `anshpc` license?",
-      "answer": "The primary goal of generously overcommitting the `anshpc` license is to allow any user to submit the largest job possible, even though the actual number of available licenses might sometimes be less than the per-user limit suggests."
-    },
-    {
-      "question": "What information does the `lmutil lmstat` command provide when querying the Ansys license server?",
-      "answer": "The `lmutil lmstat` command provides the total number of licenses issued, the total number of licenses in use, and details about which user on which node is using how many licenses for specific Ansys features like `anshpc`, `cfd_base`, `cfd_solve_level1`, etc."
+      "question": "What are Ansys 'rogue processes' on Alliance clusters, and what is the recommended way to terminate them?",
+      "answer": "Ansys 'rogue processes' are Ansys programs that have not shut down cleanly, such as GUI sessions on a remote desktop that were not properly exited, or Ansys programs that crashed within an interactive Slurm session. These lingering processes can unexpectedly tie up licenses or cause unusual errors when trying to start new GUI programs. To terminate all potentially responsible rogue Ansys processes, users should close the desktop, scancel the Slurm session, or run the command `pkill -9 -e -u $USER -f \"ansys\"` on the affected node."
     }
   ],
-  "generated_at": "2026-04-12T16:42:37.211009+00:00"
+  "generated_at": "2026-04-13T01:46:36.605474+00:00"
 }

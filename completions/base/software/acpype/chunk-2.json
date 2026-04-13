@@ -4,121 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What quantum chemistry programs can ACPYPE use for AM1-BCC calculations?",
-      "answer": "ACPYPE can use `sqm` (default), `divcon`, or `mopac` for AM1-BCC calculations, specified by the `--qprog` option."
+      "question": "What are the essential module loads and environment setup steps required before executing the ACPYPE command?",
+      "answer": "Before executing ACPYPE, users must load the `python` and `openbabel` modules, then activate their ACPYPE virtual environment using `source ~/venv_acpype/bin/activate`."
     },
     {
-      "question": "How can a user specify a keyword for MOPAC or SQM in ACPYPE?",
-      "answer": "A user can specify a keyword for MOPAC or SQM using the `--keyword` or `-k` option, followed by the keyword in quotes."
+      "question": "How can ACPYPE be run on a login node, and what considerations should be taken into account regarding resource usage?",
+      "answer": "For small molecules, ACPYPE can be run on a login node if the QM calculation takes less than two minutes. However, the number of threads must be limited by running ACPYPE with `OMP_NUM_THREADS=2 acpype ...`. For larger molecules or generating topologies for several molecules, a non-interactive job should be submitted."
     },
     {
-      "question": "Which command-line option in ACPYPE allows for the recalculation of topologies anew?",
-      "answer": "The `--force` or `-f` command-line option allows for the recalculation of topologies anew."
-    },
-    {
-      "question": "What is the purpose of the `--debug` option in ACPYPE?",
-      "answer": "The `--debug` or `-d` option is used for debugging purposes, making ACPYPE keep any temporary files created. It cannot be used with the `--verboseless` option."
-    },
-    {
-      "question": "What does the `--verboseless` option do in ACPYPE, and what is its limitation?",
-      "answer": "The `--verboseless` or `-w` option makes ACPYPE print nothing. It cannot be used in conjunction with the `--debug` option."
-    },
-    {
-      "question": "What are the available options for output topologies in ACPYPE, and which is the default?",
-      "answer": "ACPYPE can output topologies for `all` (default), `gmx`, `cns`, or `charmm`, specified by the `--outtop` or `-o` option."
-    },
-    {
-      "question": "How can one instruct ACPYPE to write RB dihedrals for old GMX 4.0?",
-      "answer": "To write RB dihedrals for old GMX 4.0, you can use the `--gmx4` or `-z` option."
-    },
-    {
-      "question": "Is there an experimental option to generate CNS topology with allhdg-like parameters?",
-      "answer": "Yes, there is an experimental option, `--cnstop` or `-t`, to write CNS topology with allhdg-like parameters."
-    },
-    {
-      "question": "What is the default maximum time tolerance for SQM/MOPAC calculations in ACPYPE, and how can it be changed?",
-      "answer": "The default maximum time tolerance for SQM/MOPAC calculations is 3 hours. It can be changed using the `--max_time` or `-s` option, followed by the time in seconds."
-    },
-    {
-      "question": "Which ACPYPE option allows a user to start an iPython interpreter?",
-      "answer": "The `--ipython` or `-y` option can be used to start an iPython interpreter."
-    },
-    {
-      "question": "What does the `--merge` option achieve in the context of GMX top files?",
-      "answer": "The `--merge` or `-g` option merges lower and uppercase atom types in the GMX top file if their parameters are identical."
-    },
-    {
-      "question": "Describe the function of the `--direct` option when ACPYPE is used in 'amb2gmx' mode.",
-      "answer": "In 'amb2gmx' mode, the `--direct` or `-u` option performs a direct conversion for any solvent. This is an experimental feature."
-    },
-    {
-      "question": "How can atoms be sorted for GMX ordering when using ACPYPE?",
-      "answer": "Atoms can be sorted for GMX ordering by using the `--sorted` or `-l` option."
-    },
-    {
-      "question": "What option is used to create improper dihedral parameters for chiral atoms in CNS?",
-      "answer": "The `--chiral` or `-j` option is used to create improper dihedral parameters for chiral atoms in CNS."
-    },
-    {
-      "question": "How can a user display the version of ACPYPE?",
-      "answer": "A user can display the ACPYPE version by using the `--version` or `-v` option."
-    },
-    {
-      "question": "What computational step does ACPYPE perform as part of topology generation to optimize structure and determine charges?",
-      "answer": "As part of topology generation, ACPYPE runs a short QM calculation to optimize the structure and determine the partial charges."
-    },
-    {
-      "question": "Under what conditions can ACPYPE be run on a login node, and what precaution should be taken?",
-      "answer": "ACPYPE can be run on a login node for small molecules because the QM calculation typically takes less than two minutes. However, the number of threads should be limited by running ACPYPE with `OMP_NUM_THREADS=2 acpype ...`."
-    },
-    {
-      "question": "When should ACPYPE jobs be submitted as non-interactive jobs instead of run on a login node?",
-      "answer": "For larger molecules or when generating topologies for several molecules, ACPYPE jobs should be submitted as non-interactive jobs."
-    },
-    {
-      "question": "Which software modules must be loaded before running ACPYPE?",
-      "answer": "Before running ACPYPE, both the `python` and `openbabel` modules need to be loaded."
-    },
-    {
-      "question": "What is the purpose of the `obabel` command in the example `job_acpype_ADP.sh` script?",
-      "answer": "In the example `job_acpype_ADP.sh` script, the `obabel` command is used to generate an `adp.mol2` file from a SMILES string, including generating 3D coordinates."
-    },
-    {
-      "question": "What environment variable is set in the example job script `job_acpype_ADP.sh` to control thread usage?",
-      "answer": "The `OMP_NUM_THREADS` environment variable is set in the example job script `job_acpype_ADP.sh` using `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"` to control thread usage, defaulting to the number of requested CPUs or 1."
-    },
-    {
-      "question": "From where can a test structure file for Adenosine triphosphate (ATP) be downloaded for use with ACPYPE, as shown in the example?",
-      "answer": "A test structure file for Adenosine triphosphate (ATP) can be downloaded from PubChem using the `wget` command as shown in the example: `wget \"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/CID/5957/record/SDF?record_type=3d&response_type=save&response_basename=ATP\" -O atp.sdf`."
-    },
-    {
-      "question": "What happens if a charge value is not explicitly provided when running ACPYPE?",
-      "answer": "If a charge value is not explicitly provided, ACPYPE attempts to guess one, as indicated by the output 'WARNING: no charge value given, trying to guess one... ==> ... charge set to 0'."
-    },
-    {
-      "question": "What is the name of the directory created by ACPYPE after processing the `atp.sdf` file in the example?",
-      "answer": "After ACPYPE processes the `atp.sdf` file, a directory named `atp.acpype` is created."
-    },
-    {
-      "question": "List some of the GROMACS-related files generated by ACPYPE in the output directory.",
-      "answer": "Some GROMACS-related files generated by ACPYPE in the output directory include `atp_GMX.gro`, `atp_GMX.top`, `atp_GMX.itp`, `atp_GMX_OPLS.itp`, `em.mdp`, and `md.mdp`."
-    },
-    {
-      "question": "List some of the CHARMM-related files generated by ACPYPE in the output directory.",
-      "answer": "Some CHARMM-related files generated by ACPYPE in the output directory include `atp_CHARMM.inp`, `atp_CHARMM.prm`, and `atp_CHARMM.rtf`."
-    },
-    {
-      "question": "List some of the CNS/XPLOR-related files generated by ACPYPE in the output directory.",
-      "answer": "Some CNS/XPLOR-related files generated by ACPYPE in the output directory include `atp_CNS.inp`, `atp_CNS.par`, and `atp_CNS.top`."
-    },
-    {
-      "question": "What was the total execution time for the example ACPYPE run on `atp.sdf`?",
-      "answer": "The total time of execution for the example ACPYPE run on `atp.sdf` was 1 minute and 32 seconds."
-    },
-    {
-      "question": "Which charge method is used by default in ACPYPE if not specified?",
-      "answer": "The default charge method used by ACPYPE is 'bcc'."
+      "question": "Which quantum mechanics programs can ACPYPE utilize for its AM1-BCC calculations, and what are the available output topology formats it can generate?",
+      "answer": "ACPYPE can utilize `sqm` (default), `divcon`, or `mopac` for its AM1-BCC calculations. For output topologies, it can generate `all` (default), `gmx` (GROMACS), `cns` (CNS/XPLOR), or `charmm` (CHARMM) formats."
     }
   ],
-  "generated_at": "2026-04-11T14:52:28.929944+00:00"
+  "generated_at": "2026-04-13T00:19:56.704069+00:00"
 }

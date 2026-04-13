@@ -3,53 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "À quoi sert le logiciel `make`?",
-      "answer": "`make` est un logiciel qui construit automatiquement des bibliothèques ou des fichiers exécutables à partir de code source, en exécutant les commandes seulement si elles sont nécessaires."
+      "question": "Qu'est-ce que le logiciel `make`?",
+      "answer": "`make` est un logiciel qui automatise la construction de bibliothèques ou de fichiers souvent exécutables à partir d'éléments de base comme du code source."
     },
     {
-      "question": "Quel est le rôle du fichier `makefile` dans l'utilisation de `make`?",
-      "answer": "Le fichier `makefile` contient les instructions et les informations sur les dépendances que la commande `make` interprète et exécute."
+      "question": "Comment la commande `make` diffère-t-elle d'un simple script, et quel est son avantage principal?",
+      "answer": "Contrairement à un script simple, `make` exécute les commandes seulement si elles sont nécessaires. Le but est d'arriver à un résultat sans nécessairement refaire toutes les étapes de compilation."
     },
     {
-      "question": "Comment `make` détermine-t-il ce qui doit être recompiler ou réassembler?",
-      "answer": "`make` utilise les informations de dépendances spécifiées dans le `makefile` pour recompiler et réassembler uniquement les éléments nécessaires, comme les fichiers source modifiés."
+      "question": "Quelles informations essentielles doivent être incluses dans un fichier `makefile` pour que `make` fonctionne efficacement?",
+      "answer": "Le fichier `makefile` doit inclure des informations sur les dépendances, par exemple, qu'un exécutable dépend de ses fichiers source ou qu'un fichier objet dépend de son fichier source associé."
     },
     {
-      "question": "Quelle est la cible par défaut si l'on tape juste `make` sans spécifier d'argument?",
-      "answer": "Le comportement typique est de tout construire, ce qui équivaut à exécuter la cible `all`."
+      "question": "Quel est l'argument principal généralement fourni à la commande `make` pour indiquer ce qu'il doit construire?",
+      "answer": "Le principal argument de la commande `make` est généralement la cible, qui est la composante que `make` doit construire."
     },
     {
-      "question": "Dans le contexte de `make`, à quoi servent les cibles `test` ou `check`?",
-      "answer": "Les cibles `test` ou `check` sont utilisées pour exécuter des tests et valider le bon fonctionnement de l'application ou de la bibliothèque compilée."
+      "question": "Que se passe-t-il lorsque la commande `make` est exécutée sans spécifier de cible particulière?",
+      "answer": "Lorsque `make` est exécuté sans cible spécifiée, son comportement typique est de tout construire, ce qui est l'équivalent de `make all`."
     },
     {
-      "question": "Que fait la commande `make clean`?",
-      "answer": "La commande `make clean` efface tous les fichiers binaires compilés précédemment afin de permettre de reprendre la compilation de zéro."
+      "question": "Quelles sont quelques-unes des cibles communes utilisées avec la commande `make` et à quoi servent-elles?",
+      "answer": "Des cibles communes incluent `all` (pour tout construire), `test` ou `check` (pour exécuter des tests), `clean` (pour effacer les fichiers compilés) et `install` (pour installer l'application ou la bibliothèque)."
     },
     {
-      "question": "Quelle est la différence entre les cibles `clean` et `distclean`?",
-      "answer": "`clean` efface les fichiers créés par `make`, tandis que `distclean` efface aussi les fichiers créés lors de l'opération de configuration par `configure` ou `cmake`."
+      "question": "Quelle est la différence entre les cibles `clean` et `distclean` lorsqu'on les utilise avec la commande `make`?",
+      "answer": "La cible `clean` efface tous les fichiers binaires compilés. La cible `distclean` efface non seulement ces fichiers, mais aussi ceux créés lors de l'opération de configuration par `configure` ou `cmake`."
     },
     {
-      "question": "Comment peut-on spécifier un répertoire d'installation précis avec la cible `install`?",
-      "answer": "On peut souvent modifier l'emplacement d'installation en utilisant le paramètre additionnel `prefix`, par exemple `make install prefix=$HOME/PROGRAM`."
+      "question": "Comment peut-on spécifier un répertoire d'installation personnalisé lors de l'utilisation de la commande `make install`?",
+      "answer": "On peut spécifier un répertoire d'installation personnalisé en utilisant le paramètre `prefix` comme suit : `make install prefix=$HOME/PROGRAM`."
     },
     {
-      "question": "Quels types de variables ou «macros» sont définies dans la section d'exemple du `makefile`?",
-      "answer": "Les variables définies sont le `NomCompilateur`, les `OptionsDeCompilation`, les `FichiersObjets` (liste des routines à compiler) et le `ProgrammeOut` (nom du programme exécutable)."
+      "question": "Les cibles courantes comme `all`, `clean` et `install` sont-elles obligatoires dans un `makefile`?",
+      "answer": "Non, ces cibles sont des conventions. L'auteur d'un `makefile` est libre de choisir d'autres noms pour ses cibles."
     },
     {
-      "question": "Dans un `makefile` d'exemple, comment est définie une règle pour construire un fichier objet (.o) à partir d'un fichier source Fortran (.f)?",
-      "answer": "Elle est définie par une règle implicite comme `.f.o:` suivie de la commande de compilation, par exemple `$(NomCompilateur) $(OptionsDeCompilation) -c $<`."
+      "question": "Quel est l'objectif principal du `Makefile` fourni en exemple dans la documentation?",
+      "answer": "L'objectif principal du `Makefile` en exemple est de permettre de mettre à jour facilement la compilation d'un programme comprenant plusieurs routines séparées."
     },
     {
-      "question": "Si l'on veut mettre à jour seulement une routine spécifique dans un programme, quelle commande `make` faut-il utiliser?",
-      "answer": "Pour mettre à jour une routine spécifique, il faut taper `make NomRoutine` où `NomRoutine` est le nom de la routine à mettre à jour."
+      "question": "Comment le `Makefile` d'exemple détermine-t-il quelles parties du programme doivent être recompilées?",
+      "answer": "Le `Makefile` d'exemple indique que la commande `make` vérifie les dates des différents fichiers et ne recompilera sous forme objet que les routines ayant été modifiées depuis la dernière compilation du programme final."
     },
     {
-      "question": "À quoi correspond le symbole `$<` dans les règles de compilation d'un `makefile`?",
-      "answer": "Le symbole `$<` est remplacé par le nom du fichier source à compiler lors de l'exécution de la règle."
+      "question": "Comment peut-on utiliser la commande `make` pour mettre à jour une seule routine spécifique avec le `Makefile` d'exemple?",
+      "answer": "Pour mettre à jour seulement une routine spécifique avec le `Makefile` d'exemple, on peut taper `make NomRoutine`."
+    },
+    {
+      "question": "Quelles sont les principales variables (ou macros) que l'on doit adapter dans le `Makefile` d'exemple pour l'utiliser avec son propre programme?",
+      "answer": "Il faut modifier les variables `NomCompilateur` (nom du compilateur), `OptionsDeCompilation` (options pour la compilation), `FichiersObjets` (liste des routines à compiler sous forme objet) et `ProgrammeOut` (nom du programme exécutable final)."
+    },
+    {
+      "question": "Dans le `Makefile` d'exemple, comment sont définies les règles pour créer des fichiers objets (.o) à partir de fichiers source (.f, .c, .C)?",
+      "answer": "Des règles sont définies comme `.f.o`, `.c.o` et `.C.o`, chacune spécifiant la commande de compilation à utiliser, qui inclut le `NomCompilateur` et les `OptionsDeCompilation`."
+    },
+    {
+      "question": "Quelle est la fonction de la ligne `$(ProgrammeOut): $(FichiersObjets)` dans l'exemple de `Makefile`?",
+      "answer": "Cette ligne définit la dépendance du programme exécutable final (`$(ProgrammeOut)`) envers tous les fichiers objets (`$(FichiersObjets)`) qui le composent, et indique ensuite la commande de liaison pour créer le programme final à partir de ces fichiers objets."
     }
   ],
-  "generated_at": "2026-04-12T02:10:06.374180+00:00"
+  "generated_at": "2026-04-13T09:03:29.843970+00:00"
 }

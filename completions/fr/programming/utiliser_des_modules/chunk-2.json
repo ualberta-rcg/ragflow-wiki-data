@@ -4,73 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce qui se passe si je charge un module qui est incompatible avec un module déjà actif?",
-      "answer": "Si vous chargez un module qui n'est pas compatible avec un autre déjà actif, Lmod va vous indiquer qu'il a remplacé l'ancien module par le nouveau. Ça arrive souvent avec les compilateurs et les implémentations MPI."
+      "question": "Comment peut-on sauvegarder une collection de modules sur le système pour la réutiliser plus tard?",
+      "answer": "Pour sauvegarder une collection de modules, vous devez d'abord charger les modules désirés (par exemple, `module load gcc/9.3 openmpi/4.0.3 mkl`), puis utiliser la commande `module save [nom_de_collection]`. Le nom `[nom_de_collection]` est celui que vous choisissez pour identifier cette collection, que vous pourrez ensuite restaurer dans une session ultérieure avec la commande `module restore [nom_de_collection]`."
     },
     {
-      "question": "Comment je fais pour enlever un module de mon environnement?",
-      "answer": "Pour enlever un module, vous utilisez la sous-commande `unload`. Par exemple, `module unload gcc/9.3` enlèverait le compilateur GCC 9.3 de votre environnement."
+      "question": "Pourquoi le système de gestion de modules utilise-t-il une hiérarchie plutôt qu'une structure plate pour organiser les modules?",
+      "answer": "Le système utilise une hiérarchie de modules pour éviter la complexité des noms de modules lorsque plusieurs versions d'applications et de leurs dépendances sont disponibles. Ça permet de simplifier les commandes de chargement (par exemple, `module load gcc/9.3 openmpi/4.0 fftw/3.8` au lieu de noms longs et spécifiques comme `fftw/3.8_gcc9.3_openmpi4.0`), en s'assurant que le bon module dépendant est chargé selon les modules parents déjà activés."
     },
     {
-      "question": "Qu'arrive-t-il si j'enlève un module dont d'autres dépendent avec `unload`?",
-      "answer": "Si d'autres modules dépendent de celui que vous avez enlevé, Lmod vous dira qu'ils ont été désactivés."
-    },
-    {
-      "question": "Quelle commande permet d'enlever d'un coup tous les modules que j'ai chargés?",
-      "answer": "La sous-commande `purge` (`module purge`) permet d'enlever tous les modules que vous avez chargés d'un seul coup."
-    },
-    {
-      "question": "Est-ce que la commande `module purge` enlève vraiment tous les modules?",
-      "answer": "Non, certains modules que les administrateurs ont marqués comme 'sticky' (permanents) ne seront pas enlevés par `module purge`."
-    },
-    {
-      "question": "Quelles commandes je peux utiliser pour avoir plus d'infos sur un module?",
-      "answer": "Les sous-commandes `show`, `help` et `whatis` sont là pour vous donner de l'information supplémentaire sur un module donné."
-    },
-    {
-      "question": "À quoi sert la commande `module show`?",
-      "answer": "La commande `module show` affiche l'intégralité du module."
-    },
-    {
-      "question": "Comment j'obtiens un message d'aide pour un module en particulier?",
-      "answer": "Vous pouvez utiliser la sous-commande `help`, par exemple `module help gcc/9.3`."
-    },
-    {
-      "question": "Quelle commande affiche juste une description d'un module?",
-      "answer": "La sous-commande `whatis` vous montrera une description du module."
-    },
-    {
-      "question": "Si je ne connais pas le nom exact d'un module, comment je peux le trouver?",
-      "answer": "Vous pouvez utiliser les sous-commandes `apropos` ou `keyword` pour chercher un mot-clé dans les descriptions de tous les modules, ça vous aidera à trouver ce qui convient pour votre calcul."
-    },
-    {
-      "question": "C'est une bonne idée de charger mes modules automatiquement dans mon .bashrc?",
-      "answer": "Non, on vous déconseille fortement de charger les modules automatiquement dans votre .bashrc. On vous suggère plutôt de les charger juste quand vous en avez besoin, comme dans vos scripts de tâches."
-    },
-    {
-      "question": "Pour gérer le chargement de plein de modules, c'est quoi la meilleure approche?",
-      "answer": "Pour faciliter le chargement d'un grand nombre de modules, c'est mieux d'utiliser une collection de modules."
-    },
-    {
-      "question": "Comment je peux créer une collection de modules avec Lmod?",
-      "answer": "Pour créer une collection de modules, vous chargez d'abord les modules que vous voulez (par exemple `module load gcc/9.3 openmpi/4.0.3 mkl`), puis vous utilisez la commande `module save` avec un nom pour votre collection, comme `module save mes_modules`."
-    },
-    {
-      "question": "Une fois une collection de modules sauvegardée, comment je la restaure?",
-      "answer": "Pour restaurer une collection de modules, vous utilisez la commande `module restore` suivie du nom que vous lui avez donné, par exemple `module restore mes_modules`."
-    },
-    {
-      "question": "C'est quoi les modules cachés, et est-ce que je devrais m'en préoccuper?",
-      "answer": "Les modules cachés, c'est généralement des modules que vous n'avez pas à charger vous-même; ils se chargent tout seuls au besoin. Vous pouvez les ignorer."
-    },
-    {
-      "question": "Pourquoi utilise-t-on une hiérarchie de modules?",
-      "answer": "On utilise une hiérarchie de modules pour éviter le casse-tête des noms de modules compliqués quand il y a plein de versions différentes qui dépendent les unes des autres. Ça rend les choses plus pratiques et élégantes."
-    },
-    {
-      "question": "Quel est l'avantage principal d'avoir une hiérarchie de modules?",
-      "answer": "L'avantage, c'est que vous pouvez charger des modules de façon plus simple (ex: `module load gcc/9.3 openmpi/4.0 fftw/3.8`) parce que le système va charger la bonne version de `fftw/3.8` en fonction du compilateur que vous avez déjà chargé, comme Intel ou GCC."
+      "question": "Est-ce une bonne pratique de charger automatiquement des modules dans votre fichier `.bashrc`?",
+      "answer": "Non, il est fortement déconseillé de charger des modules automatiquement dans votre fichier `.bashrc`. Il est plutôt recommandé de les charger au besoin, par exemple dans vos scripts de tâches, ou d'utiliser une collection de modules pour faciliter le chargement d'un grand nombre d'entre eux."
     }
   ],
-  "generated_at": "2026-04-12T10:35:40.336352+00:00"
+  "generated_at": "2026-04-13T15:35:03.304078+00:00"
 }

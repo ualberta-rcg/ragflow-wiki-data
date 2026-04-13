@@ -4,41 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Comment faire pour lancer l'étape d'inférence de AlphaFold3?",
-      "answer": "Pour lancer l'étape d'inférence de AlphaFold3, il faut utiliser la commande `python run_alphafold.py` avec l'argument `--norun_data_pipeline` dans votre script."
+      "question": "Comment peut-on soumettre les deux étapes d'exécution d'AlphaFold3 à l'ordonnanceur, soit de manière indépendante, soit avec des dépendances?",
+      "answer": "Pour soumettre les tâches d'AlphaFold3, vous devez d'abord lancer l'étape de pipeline de données (CPU) et ensuite l'étape d'inférence de modèle (GPU). Si vous souhaitez soumettre les tâches indépendamment, vous lancez d'abord `sbatch alphafold3-data.sh`, attendez la fin de cette tâche, puis soumettez `sbatch alphafold3-inference.sh`. Pour des tâches dépendantes, vous pouvez capturer l'ID de la première tâche avec `jid1=$(sbatch alphafold3-data.sh)` et ensuite soumettre la deuxième tâche avec `jid2=$(sbatch --dependency=afterok:$jid1 alphafold3-inference.sh)`. Advenant un échec de la première étape, il faudra annuler manuellement la deuxième étape avec `scancel -u $USER -n alphafold3-inference`."
     },
     {
-      "question": "Comment soumettre les tâches AlphaFold3 de manière indépendante à l'ordonnanceur?",
-      "answer": "Il faut d'abord soumettre la tâche de pipeline de données avec `sbatch alphafold3-data.sh`, puis attendre qu'elle soit terminée avant de soumettre la tâche d'inférence avec `sbatch alphafold3-inference.sh`."
-    },
-    {
-      "question": "Comment soumettre les tâches AlphaFold3 de manière dépendante à l'ordonnanceur?",
-      "answer": "On soumet la tâche d'étape de données en capturant son ID (`jid1=$(sbatch alphafold3-data.sh)`), puis on soumet la tâche d'inférence avec une dépendance sur la première en utilisant `jid2=$(sbatch --dependency=afterok:$jid1 alphafold3-inference.sh)`."
-    },
-    {
-      "question": "Que dois-je faire si la première étape d'une série de tâches dépendantes AlphaFold3 échoue?",
-      "answer": "Si la première étape échoue, vous devez annuler manuellement la deuxième étape d'inférence en utilisant la commande `scancel -u $USER -n alphafold3-inference`."
-    },
-    {
-      "question": "Comment résoudre les problèmes de mémoire insuffisante du GPU avec AlphaFold3, surtout avec de nombreux jetons ou moins de mémoire?",
-      "answer": "Pour résoudre les problèmes de mémoire insuffisante du GPU, surtout si vous utilisez plus de 5120 jetons ou un GPU avec moins de mémoire (comme un A100 de 40Go), vous pouvez activer la fonctionnalité de mémoire unifiée. Il faut ajouter les variables d'environnement `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true` et `export XLA_CLIENT_MEM_FRACTION=2.0` (ou une autre valeur) dans le script de soumission de l'étape d'inférence, et ajuster la mémoire allouée à la tâche (`#SBATCH --mem=80G`) en conséquence."
-    },
-    {
-      "question": "Quelles variables d'environnement faut-il définir pour activer la mémoire unifiée pour AlphaFold3 lors de l'inférence?",
-      "answer": "Il faut définir les variables d'environnement suivantes dans le script de soumission de l'étape d'inférence: `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true`, et `export XLA_CLIENT_MEM_FRACTION` à une valeur appropriée, comme `2.0`."
-    },
-    {
-      "question": "Quelle commande est utilisée pour construire les données dans l'environnement virtuel pour l'étape d'inférence?",
-      "answer": "La commande `build_data` est utilisée pour construire les données dans l'environnement virtuel pour l'étape d'inférence."
-    },
-    {
-      "question": "Quelle variable d'environnement peut être utilisée pour une solution de contournement liée au temps de compilation avec les drapeaux XLA dans AlphaFold3?",
-      "answer": "La variable d'environnement `XLA_FLAGS` doit être définie à `\"--xla_gpu_enable_triton_gemm=false\"` pour une solution de contournement liée au temps de compilation avec les drapeaux XLA."
-    },
-    {
-      "question": "Quel est le comportement par défaut de la préallocation de mémoire GPU pour l'inférence dans AlphaFold3?",
-      "answer": "Par défaut, la préallocation de mémoire GPU est activée avec `export XLA_PYTHON_CLIENT_PREALLOCATE=true` et `export XLA_CLIENT_MEM_FRACTION=0.95` pour l'étape d'inférence."
+      "question": "Que faut-il faire si on rencontre des problèmes de mémoire insuffisante sur le GPU lors de l'exécution d'AlphaFold3, notamment avec un grand nombre de jetons ou sur un GPU avec une mémoire plus limitée?",
+      "answer": "Si AlphaFold3 manque de mémoire GPU, par exemple avec plus de 5120 jetons ou sur un A100 de 40Go, vous pouvez activer la fonctionnalité de mémoire unifiée. Pour ce faire, vous devez ajouter les variables d'environnement suivantes dans le script de soumission de l'étape d'inférence (`alphafold3-inference.sh`): `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true` et `export XLA_CLIENT_MEM_FRACTION=2.0` (ou une valeur plus élevée si nécessaire). Il est aussi crucial d'ajuster la quantité de mémoire allouée à la tâche en conséquence dans les paramètres Slurm, par exemple en utilisant `#SBATCH --mem=80G`."
     }
   ],
-  "generated_at": "2026-04-12T16:33:22.774068+00:00"
+  "generated_at": "2026-04-13T01:36:45.951028+00:00"
 }

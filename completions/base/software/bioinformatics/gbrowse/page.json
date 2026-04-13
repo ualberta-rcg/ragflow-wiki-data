@@ -3,85 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is GBrowse?",
+      "question": "What is GBrowse and what is its purpose on Alliance clusters?",
       "answer": "GBrowse is a combination of database and interactive web pages designed for manipulating and displaying annotations on genomes, requiring a web interface to display."
     },
     {
-      "question": "Where is GBrowse installed on Cedar, and what is its web address?",
+      "question": "Where is GBrowse installed on Alliance clusters and what is its web address?",
       "answer": "GBrowse is installed on Cedar, and its web address is https://gateway.cedar.computecanada.ca."
     },
     {
-      "question": "How does the Cedar GBrowse installation differ from the standard setup?",
-      "answer": "The Cedar installation differs from the standard GBrowse setup, particularly regarding authentication and authorization."
+      "question": "How does the Cedar installation of GBrowse differ from the standard setup described on the official website?",
+      "answer": "The Cedar installation differs from the standard GBrowse setup, particularly with regard to authentication and authorization."
     },
     {
-      "question": "What is required for GBrowse to access a research group's files and directories?",
-      "answer": "Our staff will create a shared account for each research group that requests access to GBrowse."
+      "question": "What is the initial step for a research group to request access to GBrowse on Cedar?",
+      "answer": "The Principal Investigator (PI) of the group must write to technical support, indicating a desire for a GBrowse account and acknowledging the implications of a shared account."
     },
     {
-      "question": "What is the security implication of using a shared GBrowse account?",
-      "answer": "Any member of a research group can read GBrowse config files and input files belonging to any other member of that group."
+      "question": "Why does the Principal Investigator need to agree to specific terms when requesting GBrowse access?",
+      "answer": "The PI must agree to a change from usual file security practices because a shared account is created, allowing any group member to read GBrowse config and input files belonging to any other member."
     },
     {
-      "question": "Who must approve the use of a shared GBrowse account, and how do they do it?",
-      "answer": "The Principal Investigator (PI) of the group must agree to the shared account implications and write to technical support indicating they want a GBrowse account for the group."
-    },
-    {
-      "question": "What other account is a prerequisite for using GBrowse?",
+      "question": "What type of account is required on Cedar in addition to the GBrowse shared account?",
       "answer": "Users must also have a database account on Cedar."
     },
     {
-      "question": "Where should GBrowse config files be placed for a research group?",
-      "answer": "GBrowse config files should be placed in the directory: /project/GROUPID/gbrowse/USERNAME/conf."
+      "question": "Where should GBrowse configuration files be placed for a research group on Alliance clusters?",
+      "answer": "GBrowse config files should be placed in `/project/GROUPID/gbrowse/USERNAME/conf`, where `GROUPID` is the group ID and `USERNAME` is the user's name."
     },
     {
-      "question": "What convenience is provided for accessing the GBrowse config directory?",
-      "answer": "A symbolic link from ${HOME}/gbrowse-config/ to the config directory is created for user convenience."
+      "question": "What are the required permissions for GBrowse configuration files within a group?",
+      "answer": "Files in the GBrowse config directory should be readable by all members of the group, and their group permission should not be changed."
     },
     {
-      "question": "What permission is required for GBrowse config files within the group directory?",
-      "answer": "Files in the config directory should be readable by all members of the group, and group permissions should not be changed."
+      "question": "How do you configure a MySQL database connection in GBrowse config files on Alliance clusters?",
+      "answer": "The configuration requires `db_adaptor = Bio::DB::SeqFeature::Store` and `db_args = -adaptor DBI::mysql -dsn DATABASE;mysql_read_default_file=/home/SHARED/.my.cnf`, replacing `DATABASE` and `SHARED` appropriately."
     },
     {
-      "question": "How do you configure a MySQL database connection in GBrowse config files?",
-      "answer": "You need to specify 'db_adaptor = Bio::DB::SeqFeature::Store', 'db_args = -adaptor DBI::mysql' and '-dsn DATABASE;mysql_read_default_file=/home/SHARED/.my.cnf' in your config file."
+      "question": "How do you configure a Postgres database connection in GBrowse config files on Alliance clusters?",
+      "answer": "The configuration requires `db_adaptor = Bio::DB::SeqFeature::Store` and `db_args = -adaptor DBI::Pg -dsn = dbi:Pg:dbname=DATABASE`, replacing `DATABASE` with the database name."
     },
     {
-      "question": "What is the purpose of the `.my.cnf` file?",
-      "answer": "The `.my.cnf` file is a text file created by staff containing information required for the shared account to connect to MySQL."
+      "question": "Can GBrowse directly read .bam files, and if so, where should they be located?",
+      "answer": "Yes, GBrowse can read .bam files directly. They need to be copied to the `/project` directory and be readable by the group."
     },
     {
-      "question": "How do you configure a Postgres database connection in GBrowse config files?",
-      "answer": "You need to specify 'db_adaptor = Bio::DB::SeqFeature::Store', 'db_args = -adaptor DBI::Pg', and '-dsn = dbi:Pg:dbname=DATABASE' in your config file."
+      "question": "What specific directory and file permissions are required for GBrowse to directly read .bam files?",
+      "answer": "The directory containing the .bam files must have the `setgid` and `group-execute` bits turned on (showing a small 's' in `ls -l` output), and the .bam file's group ownership must be set to the user's group, not their username."
     },
     {
-      "question": "Can GBrowse directly read .bam files?",
-      "answer": "Yes, GBrowse is able to read .bam files directly without needing to upload them to the database."
+      "question": "What BioPerl command is used to upload genomic sequence data to a database for GBrowse?",
+      "answer": "The command is `bp_seqfeature_load.pl -c –d DATABASE:mysql_read_default_file=/home/USERNAME/.my.cnf example_genomic_sequence.fa header_file`."
     },
     {
-      "question": "What are the requirements for GBrowse to directly read .bam files?",
-      "answer": "Files must be copied to your /project directory and be group-readable, the containing directory needs 'setgid' and 'group-execute' bits on, the .bam file's group ownership must be set to your group, and the path specified in the config file."
+      "question": "What does the `header_file` contain when uploading genomic sequence data for GBrowse visualization?",
+      "answer": "The `header_file` contains details about the length of the chromosomes."
     },
     {
-      "question": "What tool is used for uploading files to the database for GBrowse visualization?",
-      "answer": "Files can be uploaded to the database using BioPerl."
-    },
-    {
-      "question": "What is the command to upload a FASTA file and header file to a MySQL database using BioPerl?",
-      "answer": "The command is 'module load bioperl/1.7.1' followed by 'bp_seqfeature_load.pl -c –d DATABASE:mysql_read_default_file=/home/USERNAME/.my.cnf example_genomic_sequence.fa header_file'."
-    },
-    {
-      "question": "What do the `example_genomic_sequence.fa` and `header_file` represent in the upload command?",
-      "answer": "`example_genomic_sequence.fa` is the FASTA file containing the entire genome, and `header_file` contains details about the length of the chromosomes."
-    },
-    {
-      "question": "Where should data upload commands for GBrowse be executed?",
+      "question": "On Alliance clusters, where should commands for uploading data to a database for GBrowse be executed?",
       "answer": "These commands should be run via the job scheduler, not on the head node."
     },
     {
-      "question": "What must be done after uploading data to the database for GBrowse to access it?",
-      "answer": "After uploading, you need to grant view access to the 'SHARED' account so GBrowse can read your database."
+      "question": "What additional step is required after uploading data to a database so that GBrowse can access it for reading?",
+      "answer": "View access must be granted to the shared account so that GBrowse is able to access the database for reading."
     }
   ],
-  "generated_at": "2026-04-11T21:57:42.179382+00:00"
+  "generated_at": "2026-04-13T05:41:38.953935+00:00"
 }

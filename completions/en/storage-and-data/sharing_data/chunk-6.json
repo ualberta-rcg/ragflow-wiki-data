@@ -4,45 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "How can I change the permissions of existing files to match new default permissions?",
-      "answer": "You can use the `chmod` command. For files, use `chmod g-w,o-rx <file>`. For a whole directory recursively, use `chmod -R g-w,o-rx <directory>`."
+      "question": "What are Access Control Lists (ACLs) and how do they enhance file sharing on the clusters?",
+      "answer": "Access Control Lists (ACLs) are a feature on our national systems that provide more granular control over file permissions compared to traditional Unix-like operating system permissions. They allow you to set permissions for specific users on a case-by-case basis, eliminating the need to make a file readable by everyone if you only wish to share it with an individual who isn't part of your default group."
     },
     {
-      "question": "What are Access Control Lists (ACLs) and why are they used?",
-      "answer": "Access Control Lists (ACLs) are a feature of our national systems that allow permissions to be set on a user-by-user basis, rather than being limited to the owner, group, and everyone else. They are useful when you want to allow a specific individual, who isn't in your group, to access a file without making it readable by everyone."
+      "question": "How do you use Access Control Lists (ACLs) to grant a specific individual read and execute permissions for a single file on the clusters?",
+      "answer": "To grant a single person, such as a user with the username `smithj`, read and execute permissions on a file named `my_script.py` using Access Control Lists (ACLs), you would use the `setfacl` command as follows: `$ setfacl -m u:smithj:rx my_script.py`."
     },
     {
-      "question": "What commands are used to manage ACL permissions?",
-      "answer": "The two commands needed to manipulate extended ACL permissions are `getfacl` to view them and `setfacl` to alter them."
-    },
-    {
-      "question": "How do I grant read and execute permission to a specific user for a single file using ACLs?",
-      "answer": "To allow a user, for example `smithj`, to have read and execute permission on a file named `my_script.py`, use the command: `setfacl -m u:smithj:rx my_script.py`."
-    },
-    {
-      "question": "How can I share a whole subdirectory with read and write access for a single user, including any new files created within it?",
-      "answer": "To allow read and write access to a single user (e.g., `smithj`) in a whole subdirectory (e.g., `/home/<user>/projects/def-<PI>/shared_data`), you need to run two commands:\n1. `setfacl -d -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data` (sets default access rules for new data).\n2. `setfacl -R -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data` (applies rules to existing data)."
-    },
-    {
-      "question": "What does the 'X' attribute mean when used in ACL commands like `rwX`?",
-      "answer": "The 'X' attribute, when compared to 'x', sets the execute permission only when the item is already executable. This means it will apply execute permission to directories (which need it to be browsed) and files that already have execute permission, but not to regular files that are not executable."
-    },
-    {
-      "question": "What are the prerequisites for sharing a subdirectory using ACLs?",
-      "answer": "For this method to work:\n1. The shared directory must be owned by you.\n2. Parent directories leading up to the shared directory must grant execute permission to the user you are sharing with. This can be done with `setfacl -m u:smithj:X ...` or `chmod o+x ...`.\n3. When sharing a project directory, provide collaborators with a path starting with `/project`, not `/home/<user>/projects`, as the latter uses symbolic links that may not be reachable by others."
-    },
-    {
-      "question": "Why should collaborators use the `/project` path instead of `/home/<user>/projects` when accessing shared project directories?",
-      "answer": "Collaborators should use the path starting with `/project` because `/home/<user>/projects` contains symbolic links (symlinks) to the physical directories. These symlinks will not be reachable by your collaborators unless they also have access to your home directory."
-    },
-    {
-      "question": "How can I find the physical path that a symbolic link points to?",
-      "answer": "You can use the `realpath` command to find the physical path a symlink points to. For example, `realpath /home/smithj/projects/def-smithj/shared_data` might return `/project/9041430/shared_data`."
-    },
-    {
-      "question": "Does the physical path to a project directory remain constant across all clusters?",
-      "answer": "No, the physical path to a project directory is not the same on all clusters. If you plan to share a project directory across multiple clusters, you should check its physical path using `realpath` on each cluster."
+      "question": "What are the important prerequisites and path considerations when sharing a subdirectory with an individual using Access Control Lists (ACLs) on the clusters?",
+      "answer": "When sharing a subdirectory using Access Control Lists (ACLs), the directory must be owned by you. Furthermore, all parent directories in the path leading to the shared subdirectory must grant execute permission to the user you are sharing with. Critically, when sharing a project directory, you must provide your collaborators with the physical path that begins with `/project`, not `/home/<user>/projects`. This is because `/home/<user>/projects` contains symbolic links that collaborators may not be able to access. The `realpath` command can be used to find the physical `/project` path, which may vary across clusters."
     }
   ],
-  "generated_at": "2026-04-12T07:59:11.688715+00:00"
+  "generated_at": "2026-04-13T13:34:09.948750+00:00"
 }

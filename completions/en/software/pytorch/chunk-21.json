@@ -4,13 +4,17 @@
   "chunk_index": 21,
   "qa_pairs": [
     {
-      "question": "What are the steps to install the rTorch package on a login node?",
-      "answer": "To install rTorch, first load the `r/4.5`, `cuda/12.6`, and `cudnn` modules. Then, create an R installation directory (e.g., `~/.local/R/$EBVERSIONR/`) and set the `R_LIBS` environment variable. Next, install the `torch` package by running `R -e 'install.packages(\"torch\", repos=\"https://cloud.r-project.org/\")'`, followed by installing its dependencies using `torch::install_torch()`. Finally, patch the downloaded `liblantern.so` shared library by executing `setrpaths.sh --path $R_LIBS/torch/lib/liblantern.so --add_path $EBROOTCUDACORE/lib --any_interpreter`."
+      "question": "What are the steps to install the `rTorch` package on a login node?",
+      "answer": "To install `rTorch`, first load the required modules `r/4.5`, `cuda/12.6`, and `cudnn`. Next, create an R installation directory (e.g., `~/.local/R/$EBVERSIONR/`) and export `R_LIBS` to that path. Then, install the latest `torch` package from CRAN using `R -e 'install.packages(\"torch\", repos=\"https://cloud.r-project.org/\")'` and its dependencies with `R -e 'torch::install_torch()'`. Finally, patch the downloaded shared library (`liblantern.so`) by running `setrpaths.sh --path $R_LIBS/torch/lib/liblantern.so --add_path $EBROOTCUDACORE/lib --any_interpreter`."
     },
     {
-      "question": "How can I test if rTorch is correctly installed for both CPU and GPU usage?",
-      "answer": "To perform a quick CPU test, run `R -e 'torch::torch_tensor(1)'` from your terminal. For a GPU test, you must request an interactive job with a GPU. An example command for a GPU test is `srun --mem=3500M --gpus=h100_1g.10gb:1 -- R -e 'torch::torch_tensor(1)$cuda()'`. If successful, the output should indicate the tensor is on the CUDA device."
+      "question": "How can a user verify that `rTorch` is working correctly with a GPU on a cluster?",
+      "answer": "To verify `rTorch` is working with a GPU, you need to submit an interactive job requesting a GPU. For example, you can use the command `srun --mem=3500M --gpus=h100_1g.10gb:1 -- R -e 'torch::torch_tensor(1)$cuda()'`. A successful execution will output `torch_tensor 1 [ CUDAFloatType{1} ]`, indicating that the tensor was created on the GPU."
+    },
+    {
+      "question": "What is required to test a compiled LibTorch application that uses CUDA on a cluster?",
+      "answer": "To test a compiled LibTorch application that utilizes CUDA, you must request an interactive job with a GPU. Once the job is allocated, you can then run your compiled program, for instance, by executing `build/example`."
     }
   ],
-  "generated_at": "2026-04-12T21:32:27.312353+00:00"
+  "generated_at": "2026-04-13T11:41:00.786823+00:00"
 }

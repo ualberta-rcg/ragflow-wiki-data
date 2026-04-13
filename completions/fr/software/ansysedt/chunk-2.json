@@ -4,61 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "C'est quoi la valeur par défaut pour le fichier d'entrée AnsysEDT dans les scripts?",
-      "answer": "La valeur par défaut spécifiée pour le fichier d'entrée AnsysEDT est « TransientGeoRadar.aedt »."
+      "question": "Comment puis-je lancer une tâche AnsysEDT en mode batch sur un nœud simple en utilisant un script Slurm sur les grappes Alliance?",
+      "answer": "Pour lancer une tâche AnsysEDT en mode batch sur un nœud simple, vous devez d'abord spécifier le nom de votre fichier d'entrée avec `YOUR_AEDT_FILE=\"NomDuFichier.aedt\"`. Ensuite, il faut charger les modules d'environnement standard (`module load StdEnv/2023`) et la version d'AnsysEDT désirée (`module load ansysedt/2023R2` ou plus récente). Finalement, la commande `ansysedt` doit être exécutée avec les options nécessaires, notamment le fichier d'entrée (`-batchsolve \"$YOUR_AEDT_FILE\"`), et des paramètres pour le calcul distribué et les options de batch."
     },
     {
-      "question": "Qu'est-ce qui est fait aux fichiers de sortie précédents avant d'exécuter une nouvelle simulation?",
-      "answer": "Les fichiers de sortie précédents sont effacés avec la commande `rm -rf $YOUR_AEDT_FILE.* ${YOUR_AEDT_FILE}results`."
-    },
-    {
-      "question": "Quelles variables d'environnement sont affichées dans les scripts avant de lancer AnsysEDT?",
-      "answer": "Les variables d'environnement affichées sont `ANSYSLI_SERVERS`, `ANSYSLMD_LICENSE_FILE` et `SLURM_TMPDIR`."
-    },
-    {
-      "question": "Quelle option est utilisée pour désactiver l'affinité du noyau (KMP_AFFINITY)?",
-      "answer": "L'option `export KMP_AFFINITY=disabled` est utilisée pour désactiver l'affinité du noyau."
-    },
-    {
-      "question": "Comment les options de traitement par lots sont-elles spécifiées directement dans la ligne de commande AnsysEDT?",
-      "answer": "Elles sont spécifiées avec l'option `-batchoptions \"TempDirectory=$SLURM_TMPDIR HPCLicenseType=pool HFSS/EnableGPU=0\"`."
-    },
-    {
-      "question": "Comment AnsysEDT est-il lancé en mode batch avec des options définies directement dans la commande?",
-      "answer": "Il est lancé avec la commande `ansysedt -monitor -UseElectronicsPPE -ng -distributed -machinelist list=localhost:1:$SLURM_NTASKS -batchoptions \"TempDirectory=$SLURM_TMPDIR HPCLicenseType=pool HFSS/EnableGPU=0\" -batchsolve \"$YOUR_AEDT_FILE\"`."
-    },
-    {
-      "question": "Quelle est la valeur de `HFSS/EnableGPU` quand on utilise les scripts fournis?",
-      "answer": "La valeur est `0`, ce qui désactive l'utilisation du GPU pour HFSS."
-    },
-    {
-      "question": "Comment les options de traitement par lots peuvent-elles être fournies à AnsysEDT à l'aide d'un fichier séparé?",
-      "answer": "Elles peuvent être fournies via un fichier texte, par exemple `Options.txt`, qui est ensuite passé avec l'option `-batchoptions $OPTIONS_TXT`."
-    },
-    {
-      "question": "Quels sont les paramètres de configuration inclus dans le fichier d'options d'exemple (`Options.txt`)?",
-      "answer": "Les paramètres de configuration incluent `TempDirectory` (réglé à `$SLURM_TMPDIR`), `HPCLicenseType` (réglé à `'pool'`) et `HFSS/EnableGPU` (réglé à `0`)."
-    },
-    {
-      "question": "Comment les programmes Ansys fonctionnent-ils en mode graphique?",
-      "answer": "Les programmes Ansys fonctionnent interactivement en mode graphique sur les nœuds de calcul des grappes ou sur les nœuds VDI de Graham."
-    },
-    {
-      "question": "C'est quoi la première étape pour se connecter à un système OnDemand pour utiliser les nœuds VDI?",
-      "answer": "La première étape est de se connecter à un système OnDemand en utilisant une des URL fournies dans un navigateur web de votre portable."
-    },
-    {
-      "question": "Donnez un exemple d'URL pour se connecter au système OnDemand NIBI.",
-      "answer": "L'URL pour NIBI est `https://ondemand.sharcnet.ca`."
-    },
-    {
-      "question": "Quels modules faut-il charger dans un terminal pour utiliser AnsysEDT en mode graphique sur les nœuds VDI?",
-      "answer": "Il faut charger les modules `StdEnv/2023` et `ansysedt/2024R2.1` ou `ansysedt/2023R2`."
-    },
-    {
-      "question": "Quelle commande permet de démarrer l'interface graphique d'AnsysEDT après avoir chargé les modules nécessaires?",
-      "answer": "Il faut taper la commande `ansysedt` dans le terminal et attendre que l'interface graphique démarre."
+      "question": "Comment accéder et utiliser AnsysEDT en mode graphique sur les grappes Alliance via les nœuds VDI?",
+      "answer": "Pour utiliser AnsysEDT en mode graphique, vous devez d'abord vous connecter à un système OnDemand en utilisant l'une des URL fournies (par exemple, `https://ondemand.sharcnet.ca` pour NIBI ou `https://portail.narval.calculquebec.ca/` pour Narval). Une fois connecté, ouvrez une nouvelle fenêtre de terminal. Chargez ensuite les modules nécessaires, soit `module load StdEnv/2023` et `module load ansysedt/2024R2.1` (ou `ansysedt/2023R2`). Enfin, tapez simplement `ansysedt` dans le terminal et attendez que l'interface graphique démarre."
     }
   ],
-  "generated_at": "2026-04-11T17:20:59.313998+00:00"
+  "generated_at": "2026-04-13T02:05:20.388378+00:00"
 }

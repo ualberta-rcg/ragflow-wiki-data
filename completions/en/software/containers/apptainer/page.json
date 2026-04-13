@@ -3,69 +3,89 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of this Apptainer documentation page?",
-      "answer": "This page summarizes basic Apptainer use, documents its application on Alliance systems, and provides relevant examples, but it is not intended to replace Apptainer's official documentation."
+      "question": "What is the primary purpose of the Apptainer documentation page on Alliance systems?",
+      "answer": "This page summarizes basic use, documents aspects of using Apptainer on Alliance systems, and provides relevant examples, without replacing the official Apptainer documentation."
     },
     {
-      "question": "What are the major changes for users transitioning from Singularity to Apptainer?",
-      "answer": "All executable names, paths, and environment variables previously containing 'singularity' have been renamed to contain 'apptainer' instead, such as using the `apptainer` command and `~/.apptainer` directory."
+      "question": "What are the key differences users should be aware of when migrating from Singularity to Apptainer on Alliance clusters?",
+      "answer": "Apptainer adds DMTCP checkpointing, removes `--nvccli` and `apptainer build --remote`, replaces the SylabsCloud remote endpoint, and renames all `singularity` related executables, paths, and environment variables to `apptainer`."
     },
     {
-      "question": "Why is Docker not available for use on Alliance HPC clusters?",
-      "answer": "Docker is not available on Alliance HPC clusters because its use on a multiuser cluster creates significant security risks."
+      "question": "Why is Docker not available on Alliance HPC clusters, and what alternative is suggested?",
+      "answer": "Docker is not available on Alliance HPC clusters due to security risks in a multi-user environment. Apptainer is the suggested alternative, and users can often build Apptainer images from Docker images."
     },
     {
-      "question": "What is a prerequisite for using Apptainer on Alliance systems?",
-      "answer": "To use Apptainer, you must have a container image, such as a `.sif` file or a 'sandbox' directory, created previously."
+      "question": "What is a fundamental prerequisite for using Apptainer on Alliance clusters?",
+      "answer": "Users must have a container image, such as a `.sif` file or a \"sandbox\" directory, before using Apptainer."
     },
     {
-      "question": "Is `sudo` access available for users on Alliance clusters to manage Apptainer images?",
-      "answer": "No, the ability to use `sudo` for superuser/root permissions is not available on Alliance clusters."
+      "question": "Why can't users directly use `sudo` to obtain root permissions on Alliance HPC clusters for Apptainer?",
+      "answer": "The ability to use `sudo` for superuser/root permissions is not available on Alliance clusters."
     },
     {
-      "question": "What important advice should be followed when building Apptainer images or overlays on Alliance systems?",
-      "answer": "Users should avoid building sandbox images with `--fakeroot` on networked filesystems, explicitly set `APPTAINER_CACHEDIR` and `APPTAINER_TMPDIR` to non-networked locations, and avoid using Lustre/GPFS filesystems for building."
+      "question": "What are the recommended options for building Apptainer images that require `sudo` permissions when working on Alliance clusters?",
+      "answer": "Users can install Linux, Apptainer, and `sudo` in a virtual machine they control, submit a ticket to Alliance staff for assistance, or utilize Apptainer's `--fakeroot` feature (especially with version 1.1 or newer)."
     },
     {
-      "question": "How can one load the default version of Apptainer on Alliance systems?",
-      "answer": "To load the default version of Apptainer, execute the command `$ module load apptainer`."
+      "question": "What are important considerations for users when building Apptainer container images or overlays on Alliance clusters, especially concerning filesystems?",
+      "answer": "Avoid building sandbox images with `--fakeroot` on networked filesystems, explicitly set `APPTAINER_CACHEDIR` to a non-networked location, and `APPTAINER_TMPDIR` to a non-Lustre/GPFS location, and avoid using Lustre/GPFS filesystems for building."
     },
     {
-      "question": "Why are environment isolation options, such as `-C`, `-c`, or `-e`, important when running programs in Apptainer containers?",
-      "answer": "These options are crucial because Apptainer defaults to adopting the host's shell environment, which can lead to issues if programs require different libraries and tools than what is installed on the host system."
+      "question": "How do users load the default version of Apptainer on Alliance clusters?",
+      "answer": "Users can load the default version by running `$ module load apptainer`."
     },
     {
-      "question": "What is the recommended practice for setting the working directory for temporary files when running Apptainer on Alliance clusters, especially in Slurm jobs?",
-      "answer": "It is recommended to use the `-W` or `--workdir` option to specify a real disk location for temporary files, such as `${SLURM_TMPDIR}`, to prevent jobs from being killed due to limited RAM."
+      "question": "What are some key command-line options in Apptainer to isolate a running container from the host environment on Alliance clusters?",
+      "answer": "The `-C` option isolates from all filesystems, parent PID, IPC, and environment; the `-c` option isolates from most filesystems; and the `-e` option cleans some shell environment variables and applies OCI/Docker compatibility settings."
     },
     {
-      "question": "What options are necessary when running software that requires NVIDIA or AMD GPUs inside an Apptainer container?",
-      "answer": "For NVIDIA hardware, use `--nv`, and for AMD hardware, use `--rocm`. These options ensure appropriate `/dev` entries are bind-mounted and GPU-related libraries are configured."
+      "question": "Why is it important to use the `-W` or `--workdir` option when running Apptainer on Alliance clusters, and what should be used for its value in Slurm jobs?",
+      "answer": "It's important because `/tmp` and similar filesystems use RAM, potentially causing jobs to be killed for excessive RAM use. For Slurm jobs, `${SLURM_TMPDIR}` should be used for the working directory's location."
     },
     {
-      "question": "How can users interactively run commands inside an Apptainer container and ensure any changes are saved?",
-      "answer": "Users can use the `apptainer shell` command for interactive sessions. To save changes when using a persistent overlay, the `--writable` or `-w` option must also be passed to the container."
+      "question": "What command-line options are essential for running Apptainer containers that require NVIDIA or AMD GPUs on Alliance clusters?",
+      "answer": "For NVIDIA hardware, use `--nv`, and for AMD hardware, use `--rocm`. Additionally, for OpenCL, include the bind mount `-B /etc/OpenCL`."
     },
     {
-      "question": "What is the main purpose of bind mounts in Apptainer containers?",
-      "answer": "Bind mounts allow programs running inside a container to access disk space that originates outside the container, which is often necessary when using isolation options like `-C` or `-c`."
+      "question": "What special consideration applies to running MPI programs within an Apptainer container across multiple nodes on Alliance clusters?",
+      "answer": "Running MPI programs across multiple nodes will likely require special configuration to properly use cluster interconnection hardware, which is not needed if all MPI processes run on a single node."
     },
     {
-      "question": "When bind-mounting the `/home` filesystem, what is the recommended practice to avoid conflicts with container software?",
-      "answer": "It is recommended to use an alternate destination directory, such as `-B /home:/cluster_home`, to prevent configuration files or programs in your host home directory from interfering with the container's software."
+      "question": "How can users access container-specific help documentation or list available applications within an Apptainer container?",
+      "answer": "Use `apptainer run-help your-container-name.sif` for general help, `apptainer run-help --app appname your-container-name.sif` for app-specific help, and `apptainer inspect --list-apps your-container-name.sif` to list applications."
     },
     {
-      "question": "What are the key differences between Apptainer SIF files and sandbox directories?",
-      "answer": "SIF files are single, compressed, read-only files with higher disk access speeds and minimal quota usage, whereas sandbox directories are uncompressed, read-write directories that consume more disk space and file count quotas."
+      "question": "What is the main difference between `apptainer run` and `apptainer exec` commands, and which is generally recommended on Alliance clusters?",
+      "answer": "`apptainer run` first executes the container's `%runscript` (if defined), then the specified command, whereas `apptainer exec` bypasses the `%runscript`. `apptainer run` is generally suggested."
     },
     {
-      "question": "How can an Apptainer SIF file be created from a Dockerfile on a system where both Docker and Apptainer are installed?",
-      "answer": "The process involves using `docker build` to create a Docker image, `docker save` to export it as a tarball, and then `apptainer build --fakeroot your-sif-name.sif docker-archive://your-tarball-name.tar` to convert it to an Apptainer SIF file. This process cannot be done on compute clusters."
+      "question": "How do users start an interactive shell session within an Apptainer container, and what option is crucial to save changes to a persistent overlay?",
+      "answer": "Users start an interactive session with `apptainer shell your-container-name.sif`. The `-w` or `--writable` option is crucial for saving changes to a persistent overlay image."
     },
     {
-      "question": "How can users manage Apptainer's cache directory and change its default location?",
-      "answer": "Users can list cached files with `apptainer cache list` and remove them with `apptainer cache clean`. The default cache directory can be overridden by setting the `APPTAINER_CACHEDIR` environment variable."
+      "question": "What is the main purpose of bind mounts when using Apptainer containers, especially with isolation options on Alliance clusters?",
+      "answer": "Bind mounts allow users to explicitly access disk space and filesystems originating outside of the container when isolation options like `-C` or `-c` are used."
+    },
+    {
+      "question": "When bind-mounting the `/home` filesystem in an Apptainer container on Alliance clusters, what specific option should be used to prevent interference with container software?",
+      "answer": "Use `-B /home:/cluster_home` to ensure configuration files and programs in the host home directory do not interfere with the software inside the container."
+    },
+    {
+      "question": "What are the main advantages of using an SIF file over a sandbox directory for Apptainer images on Alliance clusters?",
+      "answer": "SIF files are contained in a single, compressed, read-only file, offer faster disk access speeds, and consume less disk quota compared to sandbox directories which can contain thousands of uncompressed files."
+    },
+    {
+      "question": "What is the process for converting a Dockerfile into an Apptainer SIF image, assuming Docker and Apptainer are installed on a separate system with appropriate privileges?",
+      "answer": "The process involves using `docker build` to create a Docker image, `docker save` to export it as a tarball, and then `apptainer build --fakeroot your-sif-name.sif docker-archive://your-tarball-name.tar` to create the Apptainer SIF file from the tarball."
+    },
+    {
+      "question": "How can users manage Apptainer's cache directory on Alliance clusters?",
+      "answer": "Users can list the contents of Apptainer's cache directory with `apptainer cache list` and remove cached files using `apptainer cache clean`."
+    },
+    {
+      "question": "How can users override Apptainer's default temporary and cache directories to use scratch space on Alliance clusters?",
+      "answer": "Users can set the `APPTAINER_CACHEDIR` and `APPTAINER_TMPDIR` environment variables to desired locations, such as `/scratch/$USER/apptainer/cache` and `/scratch/$USER/apptainer/tmp`, before running Apptainer commands."
     }
   ],
-  "generated_at": "2026-04-12T19:19:20.912466+00:00"
+  "generated_at": "2026-04-13T02:13:16.711941+00:00"
 }

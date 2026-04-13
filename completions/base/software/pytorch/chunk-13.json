@@ -4,21 +4,13 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "How do I install PyTorch Lightning within a Python virtual environment when setting up a SLURM batch job?",
-      "answer": "You can install PyTorch Lightning along with torchvision in your virtual environment using `pip install torchvision pytorch-lightning --no-index` after activating the environment."
+      "question": "How do I install `torchvision` and `pytorch-lightning` into a Python virtual environment on a system that uses SLURM?",
+      "answer": "To install `torchvision` and `pytorch-lightning`, first load a Python module using `module load python`. Next, create a virtual environment in a temporary directory such as `$SLURM_TMPDIR/env` with `virtualenv --no-download $SLURM_TMPDIR/env`. Then, activate the environment using `source $SLURM_TMPDIR/env/bin/activate`. Finally, install the packages with `pip install --no-index torchvision pytorch-lightning`."
     },
     {
-      "question": "What environment variable should be exported for PyTorch Lightning when running a SLURM batch job?",
-      "answer": "You should export the `TORCH_NCCL_ASYNC_HANDLING` environment variable by setting it to `1`."
-    },
-    {
-      "question": "What is PyTorch Lightning's expectation regarding tasks per GPU when running inside a SLURM batch job?",
-      "answer": "If PyTorch Lightning detects it's running in a SLURM batch job, it expects the user to have requested one task per GPU."
-    },
-    {
-      "question": "What happens if I don't request one task per GPU or don't use 'srun' when running a PyTorch Lightning script in a SLURM batch job?",
-      "answer": "If you do not request one task per GPU and do not run your script with `srun`, your job will fail."
+      "question": "What are the specific requirements for allocating tasks and GPUs when running a PyTorch Lightning script in a SLURM batch job?",
+      "answer": "When running a PyTorch Lightning script within a SLURM batch job, it is expected that the user requests one task per GPU. Failure to request one task per GPU or not running the script with `srun` will cause the job to fail."
     }
   ],
-  "generated_at": "2026-04-12T05:38:43.818286+00:00"
+  "generated_at": "2026-04-13T11:36:38.703237+00:00"
 }

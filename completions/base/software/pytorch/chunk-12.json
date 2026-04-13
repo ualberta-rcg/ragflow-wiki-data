@@ -4,45 +4,13 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `pytorch-ddp-test-pl.py` script?",
-      "answer": "The `pytorch-ddp-test-pl.py` script is designed for CIFAR10 classification models and demonstrates parallel training using PyTorch Lightning."
+      "question": "What is PyTorch Lightning used for in distributed training environments?",
+      "answer": "PyTorch Lightning simplifies common, code-heavy tasks in PyTorch, including training on multiple GPUs. It provides interfaces that make it more straightforward to manage aspects of distributed data parallelism compared to explicitly using classes like `DistributedDataParallel`."
     },
     {
-      "question": "What PyTorch Lightning class is used to define the neural network in the `pytorch-ddp-test-pl.py` script?",
-      "answer": "The neural network in the `pytorch-ddp-test-pl.py` script is defined within the `Net` class, which inherits from `pl.LightningModule`."
-    },
-    {
-      "question": "How is the PyTorch Lightning `Trainer` configured in the `pytorch-ddp-test-pl.py` script?",
-      "answer": "The `Trainer` is initialized with `accelerator=\"gpu\"`, `devices=2` (for 2 GPUs), `num_nodes=1`, `strategy='ddp'`, `max_epochs` set by arguments, and `enable_progress_bar=False`."
-    },
-    {
-      "question": "Why is `enable_progress_bar=False` set in the PyTorch Lightning `Trainer` configuration?",
-      "answer": "The `enable_progress_bar=False` setting is used to avoid writing a progress bar to the logs, which can cause issues due to updating logs too frequently in a cluster environment."
-    },
-    {
-      "question": "What optimizer is configured for the `Net` model in the PyTorch Lightning example?",
-      "answer": "The `Net` model in the PyTorch Lightning example uses `torch.optim.Adam` as its optimizer, with the learning rate (`lr`) passed as an argument."
-    },
-    {
-      "question": "What dataset is used for training in the PyTorch Lightning example?",
-      "answer": "The CIFAR10 dataset is used for training in the PyTorch Lightning example."
-    },
-    {
-      "question": "When is it generally not recommended to use a GPU for model training?",
-      "answer": "It is generally not advisable to use a GPU for model training when the model is fairly small, not taking up a large portion of GPU memory, and cannot use a reasonable amount of its compute capacity. In such cases, using one or more CPUs is recommended instead."
-    },
-    {
-      "question": "Under what conditions does Single GPU Data Parallelism become a viable option for small models?",
-      "answer": "Single GPU Data Parallelism becomes a viable option for small models when dealing with a very large dataset and wishing to perform training with a small batch size, even if the model itself does not fully utilize the GPU's capacity."
-    },
-    {
-      "question": "What technologies are used in the provided example to implement Single GPU Data Parallelism efficiently on one GPU?",
-      "answer": "The example uses Nvidia's Multi-Process Service (MPS) along with MPI to efficiently place multiple model replicas on a single GPU for Single GPU Data Parallelism."
-    },
-    {
-      "question": "How much GPU memory and compute capacity does the example model for Single GPU Data Parallelism use with a batch size of 512 images?",
-      "answer": "With a batch size of 512 images, the example model for Single GPU Data Parallelism takes up about 1GB of GPU memory space and uses only about 6% of its compute capacity during training."
+      "question": "Under what circumstances is Single GPU Data Parallelism recommended for PyTorch models, and which technologies are used to implement it?",
+      "answer": "Single GPU Data Parallelism is recommended for models that are small and do not fully utilize a GPU's compute capacity, especially when working with very large datasets and small batch sizes. It allows for multiple model replicas to fit on a single GPU, increasing resource utilization and speed. This approach is typically implemented using Nvidia's Multi-Process Service (MPS) alongside MPI."
     }
   ],
-  "generated_at": "2026-04-12T05:38:39.414258+00:00"
+  "generated_at": "2026-04-13T11:36:31.972785+00:00"
 }

@@ -4,41 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What is the recommended stripe count for small files, such as configuration files, when used in a parallel program?",
-      "answer": "For small files (less than 1 MB), it is best to set the stripe count to 1, meaning the file is stored on a single disk."
+      "question": "When working with small files (less than 1 MB) in a parallel program, what are the best practices for setting the stripe count and handling file access on the Lustre filesystem?",
+      "answer": "For small files, such as configuration files, in a parallel program, it is best to set the stripe count to 1. The recommended approach is for the master rank to read the file, and then distribute its content to other ranks using an MPI_Broadcast or MPI_Scatter operation."
     },
     {
-      "question": "How should a parallel program read small files, like configuration files, for optimal performance?",
-      "answer": "It is best for the master rank to read the small file from one disk (stripe count=1) and then use MPI_Broadcast or MPI_Scatter to send its content to other ranks."
+      "question": "What are the recommended guidelines for stripe count and stripe size when dealing with large files in a parallel program on the Lustre filesystem?",
+      "answer": "For large files in a parallel program, it is generally best to use a stripe count that is as large as the number of MPI ranks. For the stripe size, it should ideally match the buffer size used by each rank for reading or writing data; for example, if each rank reads 1 MB of data at a time, a 1 MB stripe size is likely ideal. If the optimal size is unknown, keeping the default value, which is optimized for large files, is a good option. It is important to note that the stripe size must always be an integer multiple of 1 MB."
     },
     {
-      "question": "What is the general recommendation for stripe count when dealing with large files in parallel programs?",
-      "answer": "For large files, it is usually best to set the stripe count to be as large as the number of MPI ranks."
-    },
-    {
-      "question": "How should the stripe size be determined for large files in a parallel program?",
-      "answer": "The stripe size should ideally be the same size as the buffer size for the data that each rank is reading or writing."
-    },
-    {
-      "question": "If I am unsure about what stripe size to use for large files, what is the best approach?",
-      "answer": "If you don't know what size to use, your best bet is to keep the default value, as it has been optimized for large files."
-    },
-    {
-      "question": "What is an important rule regarding the stripe size value?",
-      "answer": "The stripe size must always be an integer multiple of 1 MB."
-    },
-    {
-      "question": "What general advice is given for managing open/close operations on the filesystem?",
-      "answer": "In general, you want to reduce the number of open/close operations on the filesystem."
-    },
-    {
-      "question": "When writing data, is it better to create many small files or concatenate data into a single file?",
-      "answer": "It is best to concatenate all data within a single file rather than writing a lot of small files."
-    },
-    {
-      "question": "How should files be opened and closed during a program to minimize filesystem operations?",
-      "answer": "It is best to open the file once at the beginning of the program and close it once at the end, rather than opening and closing it each time you want to add new data."
+      "question": "What general strategies are advised to minimize open/close operations and improve filesystem efficiency when interacting with the Lustre filesystem?",
+      "answer": "To enhance filesystem efficiency and reduce open/close operations, it is advisable to concatenate all data into a single file rather than creating numerous small files. Additionally, a best practice is to open the file once at the beginning of the program and close it only once at the end, rather than opening and closing it repeatedly for each data addition."
     }
   ],
-  "generated_at": "2026-04-12T09:53:23.124009+00:00"
+  "generated_at": "2026-04-13T15:02:02.030468+00:00"
 }

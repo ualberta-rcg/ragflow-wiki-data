@@ -4,77 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "What should I do if I want to continue a Fluent calculation with existing data?",
-      "answer": "You should export a \"data\" file (File > Export > Data…) or locate it in your project folder (e.g., FFF-1.dat.gz)."
+      "question": "After preparing an Ansys Fluent job on a desktop machine, what are the recommended steps to run it on the Alliance clusters?",
+      "answer": "The recommended steps include exporting the 'case' file (e.g., `FFF-1.cas.gz`) and, if continuing a previous calculation, the 'data' file (e.g., `FFF-1.dat.gz`). These files should then be transferred to a directory on the `/project` or `/scratch` filesystem on the cluster. Next, a 'journal' file must be created to load the case and data files, run the solver, and write the results. Finally, after running the job, users can download the resulting data file and import it back into Fluent."
     },
     {
-      "question": "Where should I transfer my Fluent case and data files on the cluster?",
-      "answer": "Transfer your case file (and data file, if needed) to a directory on the /project or /scratch filesystem on the cluster."
+      "question": "In the context of running Ansys Fluent jobs on the Alliance clusters, what is the primary purpose of a journal file?",
+      "answer": "The primary purpose of a journal file is to automate the Ansys Fluent simulation process on the clusters. It contains commands that instruct Fluent to load the case file (and optionally the data file), execute the solver, and finally write out the results. Users must customize the journal file to adjust filenames and the desired number of iterations for their specific simulation."
     },
     {
-      "question": "What is the purpose of a journal file in Fluent?",
-      "answer": "A journal file is used to load the case file (and optionally the data file), run the solver, and then write the results."
-    },
-    {
-      "question": "What should I consider if my Fluent jobs frequently fail due to license shortages?",
-      "answer": "Consider modifying your script to requeue your job (up to 4 times) as shown under the 'by node + requeue' tab."
-    },
-    {
-      "question": "What is the risk of using a job requeue script for Fluent simulations?",
-      "answer": "Job requeue scripts will also requeue simulations that fail due to non-license related issues (such as divergence), which can result in lost compute time."
-    },
-    {
-      "question": "What is recommended to confirm if a job requeue attempt is license-related?",
-      "answer": "It is strongly recommended to monitor and inspect each Slurm output file to confirm if each requeue attempt is license related."
-    },
-    {
-      "question": "What should I do if a Fluent job is requeued due to a simulation issue?",
-      "answer": "Immediately manually kill the job progression with `scancel jobid` and correct the problem."
-    },
-    {
-      "question": "How do I import data back into Fluent after a job has run on the cluster?",
-      "answer": "You can download the data file and import it back into Fluent using 'File > Import > Data…'."
-    },
-    {
-      "question": "Which Slurm script is generally recommended for Fluent jobs to minimize solution latency and maximize performance?",
-      "answer": "Most Fluent jobs should use the 'by node' script to minimize solution latency and maximize performance over as few nodes as possible."
-    },
-    {
-      "question": "When might a 'by core' script be preferable for Fluent jobs?",
-      "answer": "Very large Fluent jobs might wait less in the queue if they use a 'by core' script."
-    },
-    {
-      "question": "What is a potential drawback of using a 'by core' script for very large Fluent jobs over many nodes?",
-      "answer": "The startup time can be significantly longer, and the job will be more vulnerable to crashing if any compute nodes fail during the simulation."
-    },
-    {
-      "question": "How do Fluent scripts handle communication on single versus multiple nodes?",
-      "answer": "The scripts ensure Fluent uses shared memory for communication on a single node and distributed memory (utilizing MPI and HPC interconnect) when run over multiple nodes."
-    },
-    {
-      "question": "What is an alternative if Fluent crashes during the initial auto mesh partitioning phase using standard Intel-based scripts?",
-      "answer": "You can use the two Narval tabs for a more robust alternative or manually perform mesh partitioning in the Fluent GUI."
-    },
-    {
-      "question": "What is the recommendation for the number of mesh partitions for optimal efficiency in Fluent?",
-      "answer": "The number of mesh partitions should be an integral multiple of the number of cores, ensuring at least 10,000 cells per core for optimal efficiency."
-    },
-    {
-      "question": "What Slurm parameter specifies the number of compute nodes in the 'Multinode (by node)' Fluent script?",
-      "answer": "The `#SBATCH --nodes=1` parameter specifies the number of compute nodes."
-    },
-    {
-      "question": "How is memory allocated per compute node in the 'Multinode (by node)' Fluent script?",
-      "answer": "The `#SBATCH --mem=0` parameter allocates all memory per compute node."
-    },
-    {
-      "question": "What is the function of `#SBATCH --ntasks=16` in the 'Multinode (by core)' Fluent script?",
-      "answer": "It specifies the total number of cores across all nodes."
-    },
-    {
-      "question": "How is memory allocated per CPU in the 'Multinode (by core)' Fluent script?",
-      "answer": "The `#SBATCH --mem-per-cpu=4G` parameter specifies memory per core."
+      "question": "If an Ansys Fluent job frequently fails to start on the Alliance clusters due to license shortages, what modification can be made to the Slurm script to address this, and what is a crucial consideration when using this feature?",
+      "answer": "If an Ansys Fluent job frequently fails due to license shortages, users can modify their Slurm script to automatically requeue the job (up to 4 times) by using the 'by node + requeue' or 'by core + requeue' script tabs. A crucial consideration is that this feature will also requeue jobs that fail due to non-license-related issues, such as divergence. Therefore, it is strongly recommended to monitor and inspect each Slurm output file to confirm that requeue attempts are indeed license-related. If a simulation issue is identified, the job should be immediately manually killed with `scancel jobid`, and the problem corrected."
     }
   ],
-  "generated_at": "2026-04-12T16:35:08.549410+00:00"
+  "generated_at": "2026-04-13T01:40:53.645546+00:00"
 }

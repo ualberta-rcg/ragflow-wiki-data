@@ -4,61 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Pourquoi toute la mémoire d'un nœud de calcul n'est pas entièrement disponible pour ma tâche?",
-      "answer": "Une partie de la mémoire du nœud est réservée pour le système d'exploitation et d'autres processus essentiels, donc elle n'est pas entièrement à la disposition de votre tâche."
+      "question": "Pourquoi la mémoire vive disponible pour une tâche est-elle souvent moins que la mémoire totale d'un nœud sur les grappes d'Alliance, et comment Slurm interprète-t-il les unités de mémoire comme 'G' ou 'M' ?",
+      "answer": "Une certaine quantité de la mémoire du nœud est réservée pour le système d'exploitation, ce qui fait que la mémoire réellement disponible pour une tâche est moindre. Par exemple, un nœud de 128 Go offre généralement 125 Go pour l'exécution des tâches. De plus, Slurm interprète les unités comme K, M ou G comme des préfixes binaires (par exemple, `--mem=125G` est équivalent à `--mem=128000M`)."
     },
     {
-      "question": "Quelle quantité de mémoire est généralement disponible pour une tâche sur un nœud de 128 Go?",
-      "answer": "Sur un nœud de 128 Go, il y a habituellement 125 Go de mémoire disponibles pour l'exécution de vos tâches."
+      "question": "Comment puis-je vérifier le statut de mes tâches soumises sur les grappes d'Alliance, et que signifient les états « PD » (pending) et « R » (running) affichés par les commandes Slurm ?",
+      "answer": "Pour vérifier le statut de vos tâches, vous pouvez utiliser la commande `squeue` pour voir toutes les tâches, ou la forme courte `sq` pour lister seulement les vôtres. Les états les plus communs affichés sont « PD » pour les tâches en attente (pending) et « R » pour celles qui sont en cours d'exécution (running). Il est important de ne pas exécuter ces commandes de manière répétée et à courts intervalles à partir d'un script pour éviter de surcharger Slurm."
     },
     {
-      "question": "Qu'arrive-t-il si je demande plus de mémoire pour ma tâche que la quantité maximale disponible sur un nœud?",
-      "answer": "Si vous demandez plus de mémoire que la quantité maximale disponible, votre tâche devra être exécutée sur des nœuds ayant plus de mémoire, ce qui pourrait réduire le nombre de nœuds disponibles et influencer le temps d'attente."
-    },
-    {
-      "question": "Comment Slurm interprète-t-il les unités de mémoire comme K, M ou G?",
-      "answer": "Slurm interprète ces unités comme des préfixes binaires. Par exemple, `--mem=125G` est équivalent à `--mem=128000M`."
-    },
-    {
-      "question": "Où puis-je trouver la quantité de mémoire maximale que je peux demander pour une tâche sur les différentes grappes?",
-      "answer": "La quantité de mémoire que vous pouvez demander est indiquée dans les tableaux 'Caractéristiques des nœuds' pour des grappes comme Fir, Narval, Graham et Nibi."
-    },
-    {
-      "question": "Quelle commande permet de vérifier le statut des tâches Slurm?",
-      "answer": "On utilise la commande `squeue` pour vérifier le statut des tâches Slurm."
-    },
-    {
-      "question": "Quelle est la différence entre les commandes `squeue` et `sq`?",
-      "answer": "Par défaut, `squeue` affiche les informations sur toutes les tâches, tandis que `sq` (une commande spécifique à nos environnements) ne listera que vos propres tâches."
-    },
-    {
-      "question": "Que signifie la colonne 'ST' dans la sortie de `squeue` ou `sq`?",
-      "answer": "La colonne 'ST' indique l'état de chaque tâche. 'PD' signifie que la tâche est en attente (pending) et 'R' signifie qu'elle est en cours (running)."
-    },
-    {
-      "question": "Est-ce une bonne pratique d'exécuter `squeue` ou `sq` de manière répétée et rapide à partir d'un script?",
-      "answer": "Non, ce n'est pas recommandé. Exécuter `squeue` ou `sq` à plusieurs reprises et à de courts intervalles à partir d'un script ou d'une application peut surcharger Slurm et nuire à sa performance."
-    },
-    {
-      "question": "Comment puis-je savoir quand une tâche commence et se termine sans surcharger Slurm avec des commandes répétées?",
-      "answer": "Pour éviter de surcharger Slurm, vous devriez plutôt consulter les notifications par courriel pour savoir quand une tâche commence et se termine."
-    },
-    {
-      "question": "Quel est le nom par défaut du fichier où le résultat d'une tâche Slurm est enregistré?",
-      "answer": "Par défaut, le résultat est écrit dans un fichier nommé `slurm-ID_DE_LA_TÂCHE.out`, où 'ID_DE_LA_TÂCHE' est l'identifiant unique de la tâche, par exemple `slurm-123456.out`."
-    },
-    {
-      "question": "Où est placé le fichier de sortie par défaut après la soumission d'une tâche?",
-      "answer": "Le fichier de sortie par défaut est placé dans le répertoire à partir duquel la tâche a été soumise."
-    },
-    {
-      "question": "Comment puis-je spécifier un nom ou un emplacement différent pour le fichier de sortie?",
-      "answer": "Vous pouvez utiliser l'option `--output` avec votre commande `sbatch` pour spécifier un nom ou un emplacement différent pour le fichier de sortie."
-    },
-    {
-      "question": "Est-il possible d'inclure des informations dynamiques comme l'ID de la tâche dans le nom de mon fichier de sortie personnalisé?",
-      "answer": "Oui, le nom du fichier peut contenir certains symboles de remplacement, comme l'ID de la tâche, le nom de la tâche ou l'ID du vecteur de tâches."
+      "question": "Où sont enregistrés par défaut les résultats de sortie d'une tâche Slurm sur les grappes d'Alliance, et quelle commande doit-on utiliser si l'on souhaite spécifier un autre emplacement ou nom de fichier ?",
+      "answer": "Par défaut, les résultats d'une tâche Slurm sont écrits dans un fichier nommé `slurm-<ID_de_la_tâche>.out`, situé dans le répertoire à partir duquel la tâche a été soumise. Si vous avez besoin de spécifier un emplacement ou un nom différent pour le fichier de sortie, vous pouvez utiliser la directive `--output` lors de la soumission de la tâche avec `sbatch`."
     }
   ],
-  "generated_at": "2026-04-12T07:10:54.839519+00:00"
+  "generated_at": "2026-04-13T12:52:08.235135+00:00"
 }

@@ -4,21 +4,17 @@
   "chunk_index": 40,
   "qa_pairs": [
     {
-      "question": "Pourquoi l'utilisation de SSH avec redirection X n'est-elle généralement pas recommandée pour les programmes graphiques d'Ansys?",
-      "answer": "L'utilisation de SSH avec redirection X n'est généralement pas recommandée parce que les temps de réponse interactifs sont souvent inacceptables, même pour des opérations de menu de base, et encore moins pour des tâches complexes nécessitant du rendu graphique. Les temps d'attente pour démarrer les programmes avec interface graphique peuvent aussi être très longs; par exemple, un test a montré qu'il fallait 40 minutes pour obtenir l'interface graphique avec SSH, comparativement à 34 secondes avec vncviewer."
+      "question": "Quelles sont les étapes de base pour lancer un programme ANSYS avec une interface graphique en utilisant SSH sur une grappe de calcul?",
+      "answer": "Pour lancer un programme ANSYS avec interface graphique via SSH, il faut d'abord se connecter avec `ssh -Y nomutilisateur@graham.computecanada.ca`, puis allouer des ressources avec `salloc --x11 --time=1:00:00 --mem=16G --cpus-per-task=4 [--gpus-per-node=1] --account=def-mon_groupe`. Après s'être connecté à un nœud de calcul, vérifiez le bon fonctionnement de l'affichage X11 en exécutant `xclock`. Si l'horloge apparaît, vous pouvez charger le module Ansys désiré et démarrer le programme."
     },
     {
-      "question": "Dans quel cas pourrait-on envisager d'utiliser SSH pour des programmes graphiques d'Ansys, malgré ses inconvénients?",
-      "answer": "Malgré la lenteur potentielle lors de la connexion via SSH pour exécuter des programmes avec interface graphique, cela peut être intéressant si votre seul objectif est d'ouvrir une simulation et d'effectuer des opérations de menu de base ou d'exécuter des calculs simples."
+      "question": "Est-il recommandé d'utiliser SSH pour l'accès graphique aux programmes ANSYS, et pourquoi?",
+      "answer": "Non, l'utilisation de SSH pour l'accès graphique aux programmes ANSYS n'est ni testée ni prise en charge. Les temps de réponse interactifs sont généralement jugés inacceptables, même pour des opérations de menu de base, et encore plus pour le rendu graphique. Le démarrage des programmes peut aussi être très lent, selon la connexion Internet de l'utilisateur."
     },
     {
-      "question": "Quelles sont les étapes initiales pour lancer un programme Ansys en mode graphique sur une grappe en utilisant SSH?",
-      "answer": "Les étapes initiales pour lancer un programme Ansys en mode graphique sur une grappe en utilisant SSH sont : 1) se connecter via `ssh -Y username@graham.computecanada.ca`; 2) allouer des ressources avec `salloc --x11 --time=1:00:00 --mem=16G --cpus-per-task =4 [--gpus-per-node=1] --account=def-mygroup`; 3) une fois connecté à un nœud de calcul, exécuter `xclock` pour vérifier la redirection X; 4) si l'horloge apparaît, charger le module Ansys souhaité et essayer d'exécuter le programme."
-    },
-    {
-      "question": "Comment vérifier si la redirection X fonctionne correctement après avoir demandé un nœud de calcul via `salloc` pour une session graphique Ansys?",
-      "answer": "Pour vérifier si la redirection X fonctionne correctement, une fois connecté à un nœud de calcul, il faut essayer d'exécuter la commande `xclock`. Si l'horloge apparaît sur votre bureau, la redirection X est fonctionnelle."
+      "question": "Comment peut-on vérifier si la redirection X11 fonctionne correctement après une connexion SSH pour utiliser les programmes ANSYS graphiques?",
+      "answer": "Après vous être connecté à un nœud de calcul via SSH, vous pouvez vérifier si la redirection X11 fonctionne correctement en essayant d'exécuter la commande `xclock`. Si l'horloge apparaît sur votre bureau, cela indique que l'affichage X11 est configuré adéquatement."
     }
   ],
-  "generated_at": "2026-04-12T17:04:56.749382+00:00"
+  "generated_at": "2026-04-13T02:00:48.761324+00:00"
 }

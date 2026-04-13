@@ -4,45 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "What is a condition variable in pthreads used for?",
-      "answer": "A condition variable is a pthreads construct used to allow multiple threads to wait for a single condition, such as work becoming available for worker threads. It has the datatype `pthread_cond_t`."
+      "question": "What is a condition variable in pthreads and what is its primary use?",
+      "answer": "A condition variable, identified by the datatype `pthread_cond_t`, is a construct used in pthreads to allow multiple threads to wait for a specific condition to become true, such as when work becomes available for worker threads."
     },
     {
-      "question": "How do you manage the lifecycle of a condition variable?",
-      "answer": "Like a mutex or a read/write lock, a condition variable must be initialized before its first use and destroyed when it is no longer needed in the program."
+      "question": "How does a thread typically wait on a condition variable, and what is the role of a mutex in this process?",
+      "answer": "To wait on a condition, a thread first locks an associated mutex to control access to the variables being tested. It then calls the function `pthread_cond_wait` with both the condition variable and the mutex. The mutex is released atomically as the thread begins waiting, allowing other threads to modify the condition-related variables, and is re-acquired by the waiting thread when it is woken up."
     },
     {
-      "question": "What other construct is required when using a condition variable?",
-      "answer": "The use of a condition variable requires a mutex to control access to the variable(s) that form the basis for the condition being tested."
-    },
-    {
-      "question": "What is the function `pthread_cond_wait` used for and how does it operate?",
-      "answer": "A thread that needs to wait on a condition will lock a mutex and then call the `pthread_cond_wait` function, providing the condition variable and the mutex as arguments. The mutex will be released atomically with the creation of the condition variable that the thread is now waiting upon, allowing other threads to lock the mutex to wait or modify variables."
-    },
-    {
-      "question": "In the `thread_condition.c` example, what is the initial requirement for the `workload` variable?",
-      "answer": "In the `thread_condition.c` example, the initial value of the integer `workload` must be less than or equal to 25."
-    },
-    {
-      "question": "Describe the actions of the first worker thread (thread 0) in the `thread_condition.c` example.",
-      "answer": "The first worker thread (thread 0) locks a mutex. While `workload` is less than or equal to 25, it calls `pthread_cond_wait` with the `ticker` condition variable and the mutex. Once awakened, it increments `workload` by 15 and then unlocks the mutex."
-    },
-    {
-      "question": "Describe the actions of the second worker thread (thread 1) in the `thread_condition.c` example.",
-      "answer": "The second worker thread (thread 1) performs a loop where it locks the mutex, increments `workload` by 3, and prints the current workload. If `workload` becomes greater than 25, it calls `pthread_cond_signal` on the `ticker` condition variable to alert the waiting thread, sets an exit condition for its loop, and then unlocks the mutex."
-    },
-    {
-      "question": "How does `pthread_cond_signal` function within the `thread_condition.c` example?",
-      "answer": "When the second thread in the `thread_condition.c` example determines that `workload` is greater than 25, it calls `pthread_cond_signal` on the `ticker` condition variable. This action alerts the first thread, which is waiting on `ticker`, that the condition has been satisfied, waking it up."
-    },
-    {
-      "question": "What happens after the worker threads complete their tasks in the `thread_condition.c` program?",
-      "answer": "After the worker threads have been absorbed by the master thread using `pthread_join`, the master thread prints out the final value of `workload`, and the program exits."
-    },
-    {
-      "question": "What is the difference between `pthread_cond_signal` and `pthread_cond_broadcast` when multiple threads are waiting?",
-      "answer": "If several threads are waiting on a condition variable, `pthread_cond_signal` will notify only a single waiting thread, chosen at random. In contrast, `pthread_cond_broadcast` will notify *all* the waiting threads that the condition is satisfied."
+      "question": "What is the difference between `pthread_cond_signal` and `pthread_cond_broadcast` in pthreads for notifying waiting threads?",
+      "answer": "`pthread_cond_signal` notifies a single thread, chosen at random from those waiting on a condition variable, that the condition is satisfied. In contrast, `pthread_cond_broadcast` notifies all threads that are currently waiting on that specific condition variable."
     }
   ],
-  "generated_at": "2026-04-12T05:30:51.819673+00:00"
+  "generated_at": "2026-04-13T11:29:37.261432+00:00"
 }

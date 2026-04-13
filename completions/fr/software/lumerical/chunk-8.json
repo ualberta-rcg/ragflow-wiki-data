@@ -4,29 +4,17 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "Comment la mémoire requise par processus (`PROCMEM`) est-elle déterminée?",
-      "answer": "La mémoire requise par processus (`PROCMEM`) est d'abord calculée en divisant la mémoire totale estimée (`TOTALMEM`) par le nombre de processus (`PROCS`). Si le résultat est inférieur à la mémoire minimale (`MEMORY_MIN`), `PROCMEM` est ajustée pour être égale à `MEMORY_MIN`."
+      "question": "Dans le script `fdtd-process-template.sh`, comment est-ce que le temps de simulation estimé (`TIME`) est calculé avant d'être potentiellement ajusté?",
+      "answer": "Le temps de simulation estimé est d'abord calculé en multipliant les points de grille (`GRIDPTS`) par les pas de temps (`TIMESTEPS`), puis en divisant ce résultat par le nombre de processus (`PROCS`), la cadence de simulation (`RATE`), et par 10 000 000. Par la suite, si cette valeur est plus petite que le temps minimum configuré (`TIME_MIN`), elle est fixée à `TIME_MIN`."
     },
     {
-      "question": "D'où proviennent les valeurs de points de grille (`GRIDPTS`) et d'étapes de temps (`TIMESTEPS`)?",
-      "answer": "Les valeurs de `GRIDPTS` et `TIMESTEPS` sont extraites d'un fichier temporaire nommé `$1.tmp`. Le script cherche les lignes contenant 'gridpoints' et 'time_steps' respectivement, puis en retire le préfixe jusqu'au signe '='."
+      "question": "Une fois que le temps de simulation total estimé (`TIME`) est établi dans le script `fdtd-process-template.sh`, comment est-il converti en composantes d'heures, de minutes et de secondes distinctes?",
+      "answer": "Le nombre d'heures (`HOUR`) est calculé en divisant `TIME` par 3600. Les secondes restantes (`MINSEC`) sont obtenues en soustrayant les heures converties en secondes du `TIME` total. Ensuite, les minutes (`MIN`) sont calculées en divisant `MINSEC` par 60, et les secondes finales (`SEC`) sont le reste de `MINSEC` après avoir retiré les minutes converties en secondes."
     },
     {
-      "question": "Comment le temps estimé (`TIME`) pour une simulation est-il calculé?",
-      "answer": "Le temps estimé (`TIME`) est calculé en multipliant les points de grille (`GRIDPTS`) par les étapes de temps (`TIMESTEPS`), puis en divisant ce résultat par le nombre de processus (`PROCS`), le taux de simulation (`RATE`) et une constante de 10 millions. Si ce temps est inférieur au temps minimum (`TIME_MIN`), il est ajusté pour être égal à `TIME_MIN`."
-    },
-    {
-      "question": "Comment le temps total estimé (`TIME`) est-il converti en heures, minutes et secondes?",
-      "answer": "Les heures (`HOUR`) sont obtenues en divisant `TIME` par 3600. Les secondes restantes (`MINSEC`) après le calcul des heures sont ensuite divisées par 60 pour obtenir les minutes (`MIN`). Les secondes restantes (`SEC`) sont alors calculées en soustrayant les minutes converties de `MINSEC`."
-    },
-    {
-      "question": "Quelle information est affichée par le script `fdtd-process-template.sh` avant de procéder aux remplacements?",
-      "answer": "Le script affiche la valeur de la mémoire totale requise (`TOTALMEM`)."
-    },
-    {
-      "question": "Quels sont les jetons (tokens) qui sont remplacés dans le gabarit de script (`$2`) par cette section de code?",
-      "answer": "Cette section de code initialise le remplacement des jetons `<total_memory>`, `<processor_memory>`, `<hours>`, `<minutes>`, `<seconds>`, `<n>`, `<dir_fsp>` et `<filename>` par les valeurs calculées correspondantes."
+      "question": "Dans le script `fdtd-process-template.sh`, quel ajustement est fait à la mémoire requise par processus (`PROCMEM`) si elle est inférieure à une valeur minimale?",
+      "answer": "Si la mémoire calculée par processus (`PROCMEM`) est plus petite que la valeur minimale définie par `MEMORY_MIN`, le script ajuste `PROCMEM` pour qu'elle soit égale à `MEMORY_MIN`."
     }
   ],
-  "generated_at": "2026-04-12T01:10:17.937333+00:00"
+  "generated_at": "2026-04-13T08:15:24.073065+00:00"
 }

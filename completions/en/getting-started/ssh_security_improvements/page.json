@@ -3,53 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is SSH and why is it important for connecting to your clusters?",
-      "answer": "SSH is a software protocol used to connect to our clusters. It protects communication by verifying the server’s identity and yours, and by encrypting the connection."
+      "question": "What is SSH and why is it used on Alliance clusters?",
+      "answer": "SSH is a software protocol used to connect to Alliance clusters, protecting communication security by verifying server and user identities and encrypting the connection."
     },
     {
-      "question": "Why were changes made to the SSH security protocols?",
-      "answer": "Changes were made because security risks evolve over time, and certain SSH options and older encryption algorithms/protocols are no longer deemed secure due to increases in computing power."
+      "question": "Why were SSH security changes implemented on Alliance clusters in 2019?",
+      "answer": "SSH security changes were implemented because evolving security risks and increasing computing power made some older encryption algorithms and protocols unacceptable, posing a risk of connection compromise by a third party."
     },
     {
-      "question": "When were the SSH security improvements implemented on the clusters?",
-      "answer": "The SSH security improvements were implemented on September 24, 2019, on Graham, and one week later on Béluga and Cedar."
+      "question": "When were the main SSH security improvements implemented on Alliance clusters like Graham, Béluga, and Cedar?",
+      "answer": "The main SSH security improvements were implemented on September 24, 2019, for Graham, and one week later for Béluga and Cedar."
     },
     {
-      "question": "What are the three main SSH security improvements that were implemented?",
-      "answer": "The three main improvements are: disabling certain encryption algorithms, disabling certain public key types, and regenerating the cluster's host keys."
+      "question": "What three specific SSH security improvements were made on Alliance clusters starting in September 2019?",
+      "answer": "The three specific SSH security improvements were disabling certain encryption algorithms, disabling certain public key types, and regenerating the cluster's host keys."
     },
     {
-      "question": "Which cluster is not affected by these SSH changes, and why?",
-      "answer": "Arbutus is not affected because users connect to it via a web interface, not SSH."
+      "question": "Are users of the Arbutus cluster affected by the SSH security changes made to other Alliance clusters?",
+      "answer": "No, users do not connect to Arbutus via SSH but through a web interface, so the upcoming SSH changes do not concern them."
     },
     {
-      "question": "What common warning message might users see when logging in after the SSH changes?",
-      "answer": "Users will probably see a warning message like 'WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!' because the cluster's host keys were changed, and their SSH client remembers the old keys."
+      "question": "What warning message will users likely see the first time they log in to an Alliance cluster after the SSH host key changes?",
+      "answer": "Users will probably see a warning message stating \"WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!\" because the cluster's host keys were regenerated."
     },
     {
-      "question": "How should users of MobaXterm, PuTTY, or WinSCP handle the host key warning?",
-      "answer": "They should click 'Yes' on the pop-up warning to accept the new host key, but only if the fingerprint matches one listed in the SSH host key fingerprints section of the document."
+      "question": "Why does an SSH client display a \"REMOTE HOST IDENTIFICATION HAS CHANGED\" warning message when connecting to an Alliance cluster?",
+      "answer": "An SSH client displays this warning because the host keys on the cluster were changed, and the client remembers the old host keys to prevent \"man-in-the-middle\" attacks."
     },
     {
-      "question": "What command should macOS, Linux, GitBash, or Cygwin users run to clear old host keys?",
-      "answer": "Users should run `ssh-keygen -R $h` for the specific hostname or IP address to tell their system to 'forget' the old host key."
+      "question": "How should users of MobaXterm, PuTTY, or WinSCP respond to a pop-up warning about a changed host key when connecting to an Alliance cluster?",
+      "answer": "Users should click \"Yes\" to accept the new host key only if the fingerprint displayed in the pop-up matches one listed in the official SSH host key fingerprints section of the documentation."
     },
     {
-      "question": "What should a user do if their SSH key no longer works and they are being asked for a password?",
-      "answer": "This is likely because 1024-bit DSA & RSA keys have been disabled. The user needs to generate a new stronger key and add its public key to the remote host."
+      "question": "How can macOS, Linux, GitBash, or Cygwin users update their SSH client's known host list for an Alliance cluster after a host key change?",
+      "answer": "They should tell their system to \"forget\" the old host key by running the `ssh-keygen -R $h` command for the specific cluster, then confirm the new host key upon reconnection if the fingerprint matches the official list."
     },
     {
-      "question": "What error messages indicate that a user needs to upgrade their SSH client?",
-      "answer": "Error messages such as 'Unable to negotiate with ... no matching cipher found', 'no matching key exchange method found', or 'no matching mac found' indicate that an SSH client upgrade is needed."
+      "question": "What action should a user take if the host key fingerprint displayed during connection to an Alliance cluster does not match any on the official list?",
+      "answer": "If the fingerprint does not match any on the official list, the user should not accept the connection and should contact technical support with the details."
     },
     {
-      "question": "Where can users find the correct SSH host key fingerprints for your clusters?",
-      "answer": "Users can find the correct SSH host key fingerprints in the 'SSH host key fingerprints' section of the document or retrieve them remotely using `ssh-keyscan` commands."
+      "question": "What should a user do if their SSH key no longer works and they are asked for a password when connecting to an Alliance cluster?",
+      "answer": "If an SSH key no longer works, it's likely due to the disabling of 1024-bit DSA & RSA keys, so the user needs to generate a new, stronger SSH key."
     },
     {
-      "question": "What should a user do if a host key fingerprint presented during connection does not match the official list?",
-      "answer": "If the fingerprint does not match any on the list, the user should not accept the connection and contact technical support with the details."
+      "question": "What are some common error messages that indicate an SSH client needs to be upgraded for compatibility with Alliance clusters?",
+      "answer": "Error messages like \"no matching cipher found,\" \"no matching key exchange method found,\" or \"no matching mac found\" indicate that the SSH client needs to be upgraded."
+    },
+    {
+      "question": "Which versions of OpenSSH clients are compatible with the new SSH configuration on Alliance clusters for Linux users?",
+      "answer": "Compatible Linux clients include OpenSSH_7.4p1 (OpenSSL 1.0.2k-fips on CentOS 7.5, 7.6) and OpenSSH_6.6.1p1 (Ubuntu-2ubuntu2.13, OpenSSL 1.0.1f on Ubuntu 14)."
+    },
+    {
+      "question": "What are some examples of compatible SSH clients for Windows after the Alliance cluster security updates?",
+      "answer": "Compatible Windows clients include MobaXterm Home Edition v11.1, PuTTY 0.72, and Windows Services for Linux (WSL) v1 (e.g., Ubuntu 18.04 or openSUSE Leap 15.1)."
+    },
+    {
+      "question": "How can users remotely retrieve the SSH host key fingerprints for an Alliance cluster to verify authenticity?",
+      "answer": "Users can retrieve host fingerprints remotely using commands like `ssh-keyscan <hostname> | ssh-keygen -E md5 -l -f -` or `ssh-keyscan <hostname> | ssh-keygen -E sha256 -l -f -`."
     }
   ],
-  "generated_at": "2026-04-12T07:30:59.265621+00:00"
+  "generated_at": "2026-04-13T13:10:05.024863+00:00"
 }

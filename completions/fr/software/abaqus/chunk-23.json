@@ -4,61 +4,17 @@
   "chunk_index": 23,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce qui s'est passé avec les deux tâches Abaqus de l'utilisateur \"roberpj\" dans l'exemple fourni?",
-      "answer": "La première tâche (27530366) a réussi à obtenir les 10 jetons nécessaires et a démarré son solveur sur le nœud c107. La seconde tâche (27530407) est restée en attente sur le nœud c292, parce qu'il n'y avait plus de jetons disponibles."
+      "question": "Comment faire pour éviter les problèmes de pénurie de licences Abaqus lorsqu'on soumet plusieurs tâches qui requièrent des jetons coûteux?",
+      "answer": "Pour éviter les pénuries de licences lors de la soumission de plusieurs tâches Abaqus, il est recommandé d'utiliser des dépendances de tâches (job dependencies), des vecteurs de tâches (job arrays) ou de configurer des notifications par courriel Slurm. Ces méthodes permettent de savoir quand une tâche est terminée avant d'en soumettre une autre manuellement, évitant ainsi que des tâches restent en file d'attente sans jetons disponibles."
     },
     {
-      "question": "Quel a été l'impact de cette situation de pénurie de licences pour l'utilisateur \"roberpj\"?",
-      "answer": "La seconde tâche, qui était en attente, a gaspillé les ressources disponibles et a réduit la juste part de l'utilisateur, puisque son impact sur la priorité du compte est le même que si elle effectuait des calculs."
+      "question": "Comment s'assurer de l'utilisation optimale des jetons Abaqus et des ressources de calcul (mémoire et cœurs CPU) dans les scripts Slurm?",
+      "answer": "Pour garantir une utilisation optimale, il est important de spécifier avec précision la mémoire et le nombre de cœurs (ncpus) requis dans votre script Slurm. Pour les tâches terminées, utilisez la commande `seff JobNumber` pour vérifier la mémoire utilisée et son efficacité; si elle est inférieure à 90%, diminuez la valeur du paramètre `#SBATCH --mem=`. Pour le CPU, si l'efficacité est inférieure à 90%, testez la scalabilité pour trouver le nombre optimal de CPU et mettez à jour `#SBATCH --cpus-per-task=`. Pour les tâches en cours, utilisez `srun --overlap --jobid=JOBID --pty top -d 5 -u $USER` pour surveiller l'utilisation du CPU (%CPU), de la mémoire (%MEM) et de la mémoire résidente (RES)."
     },
     {
-      "question": "Comment peut-on éviter les problèmes de pénurie de licences quand on soumet plusieurs tâches Abaqus qui demandent des jetons coûteux?",
-      "answer": "Pour éviter ça, il faut utiliser des dépendances, des vecteurs de tâches (job arrays), ou au moins configurer une notification par courriel Slurm pour savoir quand votre tâche est terminée avant d'en soumettre une autre manuellement."
-    },
-    {
-      "question": "Pourquoi est-ce important de spécifier précisément la mémoire et le nombre de cœurs (ncpus) requis dans un script Slurm pour Abaqus?",
-      "answer": "C'est important pour garantir une utilisation optimale de vos jetons Abaqus et de nos ressources."
-    },
-    {
-      "question": "Comment peut-on déterminer les valeurs optimales de mémoire et de cœurs pour une tâche Abaqus qui est déjà terminée?",
-      "answer": "Pour les tâches terminées, on utilise la commande `seff JobNumber` pour afficher la 'mémoire utilisée' et son 'efficacité'. Si l'efficacité est sous 90%, il faut réduire la valeur du paramètre `#SBATCH --mem=` dans le script Slurm. On peut aussi vérifier le 'temps CPU utilisé' et l''efficacité du CPU' pour ajuster `#SBATCH --cpus-per-task=` après avoir testé la scalabilité."
-    },
-    {
-      "question": "Comment peut-on surveiller l'utilisation des ressources pour une tâche Abaqus en cours d'exécution?",
-      "answer": "Pour les tâches en cours d'exécution, on utilise la commande `srun --overlap --jobid=29821580 --pty top -d 5 -u $USER` pour surveiller les pourcentages d'utilisation du CPU (%CPU), de la mémoire (%MEM) et de la mémoire résidente (RES) de chaque processus parent Abaqus."
-    },
-    {
-      "question": "Comment interprète-t-on les colonnes %CPU, %MEM et RES de la commande `top` pour une tâche Abaqus?",
-      "answer": "Les colonnes %CPU et %MEM affichent le pourcentage d'utilisation par rapport à la mémoire totale disponible du nœud. La colonne RES indique la taille de la mémoire résidente par CPU, affichée dans un format lisible pour les valeurs supérieures à 1 Go."
-    },
-    {
-      "question": "Quelle est la formule utilisée pour la correspondance entre le nombre de cœurs et le nombre de jetons Abaqus?",
-      "answer": "La formule est `TOKENS = floor[5 X CORES^0.422]`."
-    },
-    {
-      "question": "Est-ce qu'un GPU nécessite des jetons Abaqus supplémentaires?",
-      "answer": "Oui, chaque GPU nécessite un jeton additionnel."
-    },
-    {
-      "question": "La licence Abaqus de Western est-elle toujours utilisable sur la grappe Dusky?",
-      "answer": "Non, le fichier `abaqus.lic` pour la licence de Western ne fonctionne plus, car la machine `license4` a été mise hors service définitivement. Toutes les demandes d'accès à cette licence sur la grappe Dusky échoueront."
-    },
-    {
-      "question": "Qui a le droit d'utiliser la licence Abaqus de Western?",
-      "answer": "La licence de Western est réservée aux chercheurs et chercheuses de Western."
-    },
-    {
-      "question": "Sur quel type de matériel la licence Abaqus de Western peut-elle être utilisée?",
-      "answer": "Elle peut être utilisée uniquement sur du matériel situé sur le campus de Western, ce qui signifie que seule la grappe Dusky remplit actuellement cette condition. Les systèmes Nibi et SHARCNET OOD sont exclus."
-    },
-    {
-      "question": "À qui doit-on s'adresser pour des questions concernant la licence Abaqus de Western?",
-      "answer": "Pour toute question, il faut contacter l'administrateur du serveur de licences Abaqus de Western à l'adresse `jmilner@robarts.ca`."
-    },
-    {
-      "question": "Que faut-il faire si on rencontre un problème en utilisant la licence Abaqus de Western sur Dusky?",
-      "answer": "Si un problème survient, il faut écrire au soutien technique en indiquant que vous utilisez la licence du site Western sur Dusky. Il faut aussi ajouter le numéro de la tâche qui pose problème et copier les messages d'erreur s'il y a lieu."
+      "question": "Quelle est la correspondance entre le nombre de cœurs de CPU et les jetons Abaqus requis pour une tâche, et un GPU a-t-il une incidence sur cette correspondance?",
+      "answer": "La correspondance cœur-jeton est donnée par la formule `TOKENS = floor[5 X CORES^0.422]`. Chaque GPU utilisé pour une tâche nécessite un jeton additionnel, en plus de ceux calculés pour les cœurs de CPU."
     }
   ],
-  "generated_at": "2026-04-11T15:42:04.974062+00:00"
+  "generated_at": "2026-04-13T00:53:26.468289+00:00"
 }

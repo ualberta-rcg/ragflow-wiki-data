@@ -3,93 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi la grappe Nibi?",
-      "answer": "Nibi est une nouvelle grappe de calcul haute performance d'Alliance de recherche numérique du Canada qui offre 134 400 CPU et 288 GPU H100 de NVIDIA. Son nom signifie \"eau\" en anishinaabe."
+      "question": "Qu'est-ce que la grappe Nibi et par qui est-elle opérée ?",
+      "answer": "La grappe Nibi est un système de calcul haute performance d'Alliance, conçue par Hypertec, qui est hébergée et exploitée par SHARCNET à l'Université de Waterloo."
     },
     {
-      "question": "Quand est-ce que la grappe Nibi sera disponible?",
-      "answer": "La grappe Nibi sera disponible à partir du 31 juillet 2025."
+      "question": "Quelles sont les principales méthodes d'accès à la grappe Nibi ?",
+      "answer": "On peut accéder à la grappe Nibi via le nœud de connexion SSH (nibi.alliancecan.ca), l'interface web Open OnDemand (ondemand.sharcnet.ca), une collection Globus, ou le portail (portal.nibi.sharcnet.ca)."
     },
     {
-      "question": "Qui a conçu et qui gère la grappe Nibi?",
-      "answer": "Nibi a été conçue par Hypertec et est hébergée et exploitée par SHARCNET à l'Université de Waterloo."
+      "question": "Quelle est la capacité de stockage parallèle sur la grappe Nibi et quel type de technologie est utilisé ?",
+      "answer": "La grappe Nibi offre 25 Po (pétaoctets) de stockage parallèle via des SSD (Solid-State Drive) de VAST Data pour les répertoires /home, /project et /scratch."
     },
     {
-      "question": "C'est quoi le nœud de connexion SSH pour Nibi?",
-      "answer": "Le nœud de connexion SSH pour Nibi est nibi.alliancecan.ca."
+      "question": "Comment le quota pour l'espace /scratch est-il géré sur Nibi ?",
+      "answer": "Nibi utilise un mécanisme expérimental pour /scratch avec un quota souple de 1 To et un délai de grâce de 60 jours. Après ce délai, la création ou l'extension de fichiers est bloquée jusqu'à ce que l'utilisation revienne sous la limite souple."
     },
     {
-      "question": "Comment peut-on accéder à Nibi via une interface web?",
-      "answer": "On peut accéder à Nibi via son interface web Open OnDemand à l'adresse https://ondemand.sharcnet.ca."
+      "question": "Quel est le nombre de cœurs CPU et de GPU H100 disponibles sur la grappe Nibi ?",
+      "answer": "La grappe Nibi est dotée de 134 400 cœurs CPU et de 288 GPU NVIDIA H100."
     },
     {
-      "question": "Quel type de stockage est utilisé pour les répertoires /home, /project et /scratch sur Nibi?",
-      "answer": "Pour /home, /project et /scratch, Nibi utilise un stockage parallèle de 25 Po (pétaoctets) de disques SSD (Solid-State Drive) de VAST Data."
+      "question": "Quelle est l'infrastructure d'interconnexion réseau de la grappe Nibi ?",
+      "answer": "L'interconnexion est assurée par de l'Ethernet Nokia 200/400 Gbit/s, offrant 200 Gbit/s pour les nœuds CPU et GPU, 24x100 Gbit/s pour le stockage VAST, et des liaisons montantes de 400 Gbit/s."
     },
     {
-      "question": "Comment l'espace est-il comptabilisé pour les quotas sur le stockage VAST Data?",
-      "answer": "VAST Data comptabilise la taille apparente des fichiers pour les quotas, ce qui est différent des systèmes Lustre qui peuvent compresser les fichiers et comptabiliser l'espace après compression."
+      "question": "Comment un utilisateur peut-il demander un ou plusieurs GPU H100 complets pour une tâche Slurm sur Nibi ?",
+      "answer": "Pour un GPU H100-80gb, on utilise `--gpus=h100:1`. Pour plusieurs GPU H100 complets par nœud, on peut spécifier `--gpus-per-node=h100:2`, et pour un nombre arbitraire de GPU H100 distribués, on utilise `--gpus=h100:n` (où n est le nombre de GPU)."
     },
     {
-      "question": "Comment fonctionne le quota pour le répertoire /scratch sur Nibi?",
-      "answer": "Sur Nibi, il y a une limite souple de 1 TB pour /scratch avec un délai de grâce de 60 jours. Après cette période, la limite est imposée, empêchant la création ou l'extension de fichiers jusqu'à ce que l'utilisation revienne sous 1 TB."
+      "question": "Quelles sont les instances Multi-Instance GPU (MIG) disponibles sur Nibi et comment les demander ?",
+      "answer": "Trois instances MIG sont disponibles : H100-1g.10gb, H100-2g.20gb et H100-3g.40gb. On les demande avec l'option Slurm correspondante, par exemple `--gpus=h100_1g.10gb:1` pour une instance H100-1g.10gb."
     },
     {
-      "question": "Quelle technologie d'interconnexion est utilisée sur la grappe Nibi?",
-      "answer": "L'interconnexion de Nibi utilise l'Ethernet Nokia avec des débits de 200/400 Gbit/s."
+      "question": "Les nœuds de calcul sur Nibi ont-ils accès à Internet ?",
+      "answer": "Oui, tous les nœuds de calcul sur Nibi ont un accès direct à Internet, sans nécessiter d'autorisation de pare-feu spéciale ou de serveur mandataire (proxy)."
     },
     {
-      "question": "Comment peut-on améliorer la performance des tâches multi-nœuds fortement couplées?",
-      "answer": "Pour améliorer la performance, on peut forcer l'utilisation d'un seul commutateur réseau en ajoutant l'option `#SBATCH --switches=1` au script de la tâche."
+      "question": "Comment les répertoires d'utilisateurs sont-ils gérés dans l'espace /project sur Nibi ?",
+      "answer": "Les répertoires des utilisateurs ne sont plus créés par défaut dans /project. Les groupes doivent créer et organiser leurs propres répertoires à l'aide de `mkdir` pour faciliter le partage de données entre les membres."
     },
     {
-      "question": "Quels sont les types de nœuds CPU disponibles sur Nibi et leurs caractéristiques principales?",
-      "answer": "Il y a des nœuds avec 192 cœurs, 748G ou 6000G de mémoire, 3T de stockage local, équipés de 2 x Intel 6972P à 2.4GHz."
+      "question": "Qu'est-ce qu'Open OnDemand (OOD) sur Nibi et à quoi sert-il ?",
+      "answer": "Open OnDemand (OOD) est une plateforme web (ondemand.sharcnet.ca) qui simplifie l'accès à la grappe Nibi en offrant une interface web pour les nœuds de connexion et un environnement de bureau à distance, accessible avec l'authentification multifacteur."
     },
     {
-      "question": "Quels sont les types de nœuds GPU disponibles et leurs spécificités?",
-      "answer": "Il y a des nœuds avec 112 cœurs CPU, 2000G de mémoire, 11T de stockage local et 8 x NVIDIA H100 SXM (80Go), ainsi que des nœuds avec 96 cœurs CPU, 495G de mémoire, 3T de stockage local et 4 x AMD MI300A qui partagent la même mémoire unifiée."
+      "question": "Comment peut-on lancer JupyterLab sur Nibi via Open OnDemand ?",
+      "answer": "On peut lancer JupyterLab via OOD de deux manières : en utilisant un environnement préconfiguré via l'option 'Nibi JupyterLab' dans le menu 'Compute Node', ou en lançant un 'Compute Desktop' pour activer ou créer un environnement virtuel Python et y installer/lancer JupyterLab manuellement."
     },
     {
-      "question": "Comment demander un GPU H100 complet pour une tâche Slurm?",
-      "answer": "Pour un seul GPU H100-80gb, utilisez `--gpus=h100:1` ou `--gpus=h100_80gb:1`. Pour plusieurs par nœud, utilisez `--gpus-per-node=h100:N`."
+      "question": "Comment peut-on récupérer un fichier supprimé accidentellement dans /home ou /project sur Nibi ?",
+      "answer": "Nibi dispose d'un système de sauvegarde qui crée des instantanés de /home et /project toutes les 30 minutes, conservés pendant deux semaines. Pour récupérer un fichier, utilisez la commande `oops` pour trouver son chemin dans les instantanés, puis copiez-le avec `cp`."
     },
     {
-      "question": "C'est quoi les instances GPU à multi-instances (MIG) disponibles sur Nibi?",
-      "answer": "Nibi offre des instances MIG H100-1g.10gb (1/8 puissance, 10Go mémoire), H100-2g.20gb (2/8 puissance, 20Go mémoire) et H100-3g.40gb (3/8 puissance, 40Go mémoire)."
+      "question": "Quel est le nom en langue anishinaabe qui a été donné à la grappe et sa signification ?",
+      "answer": "Le nom de la grappe est Nibi, un terme qui signifie 'l'eau' dans la langue anishinaabe."
     },
     {
-      "question": "Comment demander une instance GPU MIG H100-2g.20gb avec Slurm?",
-      "answer": "Pour demander une instance H100-2g.20gb, utilisez l'option Slurm `--gpus=h100_2g.20gb:1`."
+      "question": "Quel type de processeurs et de GPU sont utilisés dans les nœuds Nibi avec GPU Nvidia ?",
+      "answer": "Les nœuds Nibi avec GPU Nvidia utilisent deux processeurs Intel 8570 @ 2.1GHz et huit GPU Nvidia H100 SXM (80Go) connectés via NVLink."
     },
     {
-      "question": "Est-ce que les nœuds de calcul sur Nibi ont accès à Internet?",
-      "answer": "Oui, tous les nœuds de calcul sur Nibi ont accès à Internet directement, sans avoir besoin d'autorisations spéciales de pare-feu ou de serveurs mandataires (proxy)."
-    },
-    {
-      "question": "Est-ce que les répertoires d'utilisateurs sont créés automatiquement dans /project sur Nibi?",
-      "answer": "Non, les répertoires d'utilisateurs ne sont plus créés par défaut dans /project. Les utilisateurs doivent créer leurs propres répertoires à l'aide de mkdir pour organiser l'espace de leur groupe."
-    },
-    {
-      "question": "Comment accéder à Nibi via Open OnDemand (OOD)?",
-      "answer": "On peut accéder à Nibi via OOD en se connectant à https://ondemand.sharcnet.ca/ avec l'authentification multifacteur, ce qui donne accès à un terminal Bash ou un environnement de bureau à distance."
-    },
-    {
-      "question": "Quelles sont les options pour utiliser JupyterLab sur Nibi via OOD?",
-      "answer": "Il y a deux options : utiliser un environnement préconfiguré via \"Nibi JupyterLab\" dans le menu \"Compute Node\", ou lancer JupyterLab depuis un environnement virtuel Python personnel sur un \"Compute Desktop\"."
-    },
-    {
-      "question": "Comment lancer JupyterLab dans un environnement virtuel Python personnel via le \"Compute Desktop\" d'OOD?",
-      "answer": "Après avoir lancé un \"Compute Desktop\" via OOD, ouvrez un terminal, activez votre environnement virtuel Python, installez JupyterLab si nécessaire (`pip install --no-index jupyterlab`), puis lancez-le avec `jupyter-lab --notebook-dir $HOME`."
-    },
-    {
-      "question": "Est-ce que Nibi offre une infrastructure de bureau virtuel (VDI)?",
-      "answer": "Nibi n'offre plus de VDI, mais propose un environnement de bureau à distance via le portail Open OnDemand (OOD) avec des performances et un support logiciel améliorés."
-    },
-    {
-      "question": "Comment récupérer un fichier supprimé accidentellement sur Nibi?",
-      "answer": "Nibi sauvegarde les fichiers de /home et /project toutes les 30 minutes pendant deux semaines. Utilisez la commande `oops` pour trouver le chemin de l'instantané, puis `cp` pour copier le fichier vers votre répertoire actuel."
+      "question": "Les fichiers dans les instantanés de sauvegarde sur Nibi peuvent-ils être modifiés directement ?",
+      "answer": "Non, les instantanés sur Nibi sont en lecture seule. Vous ne pouvez ni supprimer ni modifier les fichiers qu'ils contiennent; vous devez d'abord les copier vers un autre emplacement."
     }
   ],
-  "generated_at": "2026-04-12T03:56:07.370141+00:00"
+  "generated_at": "2026-04-13T10:07:29.934031+00:00"
 }

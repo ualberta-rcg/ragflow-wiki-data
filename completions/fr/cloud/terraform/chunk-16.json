@@ -4,57 +4,13 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "Selon le plan d'exécution, qu'est-ce qui arrive à la ressource `openstack_compute_floatingip_associate_v2.myvm_fip` lorsqu'un volume est ajouté à la VM?",
-      "answer": "Elle doit être remplacée, car son `instance_id` force le remplacement, comme indiqué par `-/+ destroy and then create replacement` dans le plan."
+      "question": "Comment configurer un volume racine pour une machine virtuelle OpenStack avec Terraform en utilisant un bloc de périphérique (`block_device`), et quelles sont les implications de cette opération?",
+      "answer": "Pour configurer un volume racine, il faut ajouter un sous-bloc `block_device` dans la définition de votre ressource `openstack_compute_instance_v2`. Ce bloc devrait inclure l'UUID de l'image (`uuid`), `source_type = \"image\"`, `destination_type = \"volume\"`, la taille du volume (`volume_size`), `boot_index = 0`, et `delete_on_termination`. L'attribut `delete_on_termination` devrait être réglé à `true` pour les tests et `false` pour la production afin d'éviter la suppression accidentelle des données. Il est important de noter que l'ajout d'un volume racine via `block_device` est une opération destructrice. Terraform va détruire l'instance existante et en créer une nouvelle, ce qui est indiqué par `-/+ destroy and then create replacement` dans le plan. Vous devrez donc supprimer l'ancienne clé SSH de votre fichier `known_hosts` et mettre à jour le système d'exploitation de la nouvelle VM après l'application."
     },
     {
-      "question": "Selon le plan d'exécution, qu'est-ce qui arrive à la ressource `openstack_compute_instance_v2.myvm` lorsqu'un volume est ajouté?",
-      "answer": "Elle doit être remplacée, comme indiqué par `-/+ destroy and then create replacement` dans le plan, pour inclure la configuration du `block_device`."
-    },
-    {
-      "question": "Combien de ressources Terraform prévoit-il d'ajouter, de modifier et de détruire après la configuration du volume racine?",
-      "answer": "Le plan Terraform indique qu'il y aura 2 ressources à ajouter, 0 à modifier et 2 à détruire."
-    },
-    {
-      "question": "Après la recréation d'une machine virtuelle par Terraform, que doit faire l'utilisateur s'il s'était déjà connecté à cette VM via SSH et qu'une nouvelle clé SSH a été générée?",
-      "answer": "L'utilisateur devra supprimer la clé SSH de son fichier `known_hosts` (ou équivalent) car la VM a été recréée avec une nouvelle clé SSH."
-    },
-    {
-      "question": "Quelle est l'action recommandée immédiatement après s'être connecté à une VM nouvellement configurée avec Terraform?",
-      "answer": "La première chose à faire est de se connecter à la VM et d'appliquer toutes les mises à jour disponibles, par exemple en utilisant `sudo yum update -y`."
-    },
-    {
-      "question": "Dans l'exemple de configuration Terraform complet, quel est l'identifiant (UUID) de l'image utilisée pour le `block_device` de la VM `myvm`?",
-      "answer": "L'UUID de l'image utilisée est \"80ceebef-f9aa-462e-a793-d3c1cf96123b\"."
-    },
-    {
-      "question": "Quelle est la taille spécifiée pour le volume (en gigaoctets) dans le `block_device` de l'exemple de configuration Terraform complet?",
-      "answer": "La taille du volume est de 10 Go (`volume_size = 10`)."
-    },
-    {
-      "question": "Quel est le type de source (`source_type`) et le type de destination (`destination_type`) spécifiés pour le `block_device` dans l'exemple de configuration Terraform complet?",
-      "answer": "Le `source_type` est \"image\" et le `destination_type` est \"volume\"."
-    },
-    {
-      "question": "Que signifie l'attribut `delete_on_termination = true` pour le `block_device` dans la configuration Terraform?",
-      "answer": "Cela signifie que le volume sera automatiquement supprimé lorsque la machine virtuelle sera terminée (détruite), ce qui est utile pour les tests."
-    },
-    {
-      "question": "Pourquoi est-il important de retirer l'attribut `image_id` de la définition de l'instance de calcul externe si un `block_device` est utilisé pour le démarrage?",
-      "answer": "Si l'attribut `image_id` n'est pas retiré, Terraform pourrait alterner entre le démarrage à partir du volume et le démarrage directement à partir de l'image à chaque exécution, ce qui entraînerait la reconstruction constante de l'instance."
-    },
-    {
-      "question": "Quelles sont les ressources OpenStack configurées dans l'exemple Terraform complet fourni?",
-      "answer": "L'exemple configure un fournisseur OpenStack, une instance de calcul (VM) nommée `myvm`, une adresse IP flottante et l'association de cette IP flottante à la VM."
-    },
-    {
-      "question": "Dans la configuration complète, quel est le nom du réseau privé auquel la machine virtuelle `myvm` est connectée?",
-      "answer": "Le nom du réseau privé est \"my-tenant-net\"."
-    },
-    {
-      "question": "Quelles sont les références suggérées pour approfondir l'utilisation de Terraform avec OpenStack?",
-      "answer": "Les références incluent 'What is Terraform?', 'OpenStack Provider' et 'OpenStack compute instance v2', cette dernière proposant plusieurs cas d'usage pour la création d'instances dans OpenStack avec Terraform."
+      "question": "Pourquoi est-il recommandé de ne pas laisser l'attribut `image_id` défini dans la ressource `openstack_compute_instance_v2` lorsque l'on utilise un bloc de périphérique (`block_device`) pour un volume de démarrage dans Terraform?",
+      "answer": "Si l'attribut `image_id` est laissé dans la définition externe de l'instance de calcul en même temps qu'un bloc de périphérique de démarrage (`block_device`), Terraform changera de mode de démarrage (entre le démarrage à partir du volume et le démarrage direct à partir de l'image) à chaque exécution. Cela amènera Terraform à tenter de reconstruire votre instance de manière répétée, ce qui est généralement indésirable. Il est donc essentiel de supprimer l'`image_id` externe lorsque vous définissez un volume de démarrage via `block_device`."
     }
   ],
-  "generated_at": "2026-04-12T09:15:40.287352+00:00"
+  "generated_at": "2026-04-13T14:30:41.600339+00:00"
 }

@@ -4,113 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is Apache MXNet?",
-      "answer": "Apache MXNet is a deep learning framework designed for both efficiency and flexibility. It allows you to mix symbolic and imperative programming to maximize efficiency and productivity."
+      "question": "What is Apache MXNet and what are its key features as a deep learning framework?",
+      "answer": "Apache MXNet is a deep learning framework designed for both efficiency and flexibility. It allows users to mix symbolic and imperative programming to maximize efficiency and productivity. At its core, MXNet includes a dynamic dependency scheduler that automatically parallelizes operations on the fly, and a graph optimization layer for fast, memory-efficient symbolic execution. It is also portable, lightweight, and scalable across multiple GPUs and machines."
     },
     {
-      "question": "What is at the core of MXNet?",
-      "answer": "At its core, MXNet contains a dynamic dependency scheduler that automatically parallelizes both symbolic and imperative operations on the fly."
+      "question": "What are the steps to install Apache MXNet within a Python virtual environment?",
+      "answer": "To install Apache MXNet in a Python virtual environment, first load the `python/3.10` module. Next, create a virtual environment using `virtualenv --no-download ~/env` and activate it with `source ~/env/bin/activate`. Finally, install MXNet and its Python dependencies by running `pip install --no-index mxnet` within the activated environment."
     },
     {
-      "question": "How does MXNet achieve fast and memory-efficient symbolic execution?",
-      "answer": "A graph optimization layer on top of MXNet's dynamic dependency scheduler makes symbolic execution fast and memory efficient."
-    },
-    {
-      "question": "Is MXNet portable and scalable?",
-      "answer": "Yes, MXNet is portable and lightweight, and it is scalable to many GPUs and machines."
-    },
-    {
-      "question": "How can one list the available MXNet wheels?",
-      "answer": "You can list available wheels using the `avail_wheels mxnet` command."
-    },
-    {
-      "question": "What versions of MXNet wheels are available in the provided example?",
-      "answer": "MXNet version 1.9.1 is listed as available for different Python architectures."
-    },
-    {
-      "question": "Which Python versions are supported by the MXNet 1.9.1 wheels in the example?",
-      "answer": "The MXNet 1.9.1 wheels are available for Python versions cp39, cp38, and cp310, all for the avx2 architecture."
-    },
-    {
-      "question": "What are the first steps to create and activate a Python virtual environment for MXNet installation?",
-      "answer": "First, load the `python/3.10` module, then create the virtual environment with `virtualenv --no-download ~/env`, and finally activate it using `source ~/env/bin/activate`."
-    },
-    {
-      "question": "How do you install MXNet and its Python dependencies within a virtual environment?",
-      "answer": "You install MXNet and its Python dependencies by running `pip install --no-index mxnet` from the activated virtual environment."
-    },
-    {
-      "question": "What command is used to validate an MXNet installation?",
-      "answer": "The command to validate an MXNet installation is `python -c \"import mxnet as mx;print((mx.nd.ones((2, 3))*2).asnumpy());\"`."
-    },
-    {
-      "question": "What output confirms a successful MXNet installation validation?",
-      "answer": "A successful MXNet installation validation will display `[[2. 2. 2.] [2. 2. 2.]]`."
-    },
-    {
-      "question": "What is the name of the example Python script that implements a single Convolution layer?",
-      "answer": "The example Python script for a single Convolution layer is `mxnet-conv-ex.py`."
-    },
-    {
-      "question": "How does the `mxnet-conv-ex.py` script determine whether to use a CPU or GPU?",
-      "answer": "The script checks `mx.context.num_gpus() > 0`; if GPUs are available, it uses `mx.gpu()`, otherwise it defaults to `mx.cpu()`."
-    },
-    {
-      "question": "What library does `mxnet-conv-ex.py` use for operations when running on a CPU?",
-      "answer": "When running on a CPU, `mxnet-conv-ex.py` will use MKLDNN for its operations."
-    },
-    {
-      "question": "What library does `mxnet-conv-ex.py` use for operations when running on a GPU?",
-      "answer": "When running on a GPU, `mxnet-conv-ex.py` will use cuDNN for its operations."
-    },
-    {
-      "question": "What are the default values for `num_filter`, `kernel`, `pad`, and `shape` in `mxnet-conv-ex.py`?",
-      "answer": "In `mxnet-conv-ex.py`, `num_filter` is 32, `kernel` is (3, 3), `pad` is (1, 1), and `shape` is (32, 32, 256, 256)."
-    },
-    {
-      "question": "What command is used to submit an MXNet job to the scheduler?",
-      "answer": "You submit the job to the scheduler using the command `sbatch mxnet-conv.sh`."
-    },
-    {
-      "question": "What SLURM directive specifies the job name?",
-      "answer": "The `#SBATCH --job-name` directive specifies the job name, for example, `mxnet-conv`."
-    },
-    {
-      "question": "How do you specify the accounting group for an MXNet job in the submission script?",
-      "answer": "The accounting group is specified using `#SBATCH --account=def-someprof`, which needs to be adjusted to match your specific group."
-    },
-    {
-      "question": "What is the recommended walltime for the example `mxnet-conv` job?",
-      "answer": "The recommended walltime for the example `mxnet-conv` job is `01:00:00` (one hour)."
-    },
-    {
-      "question": "How many CPUs per task are requested in the example `mxnet-conv.sh` submission scripts?",
-      "answer": "Both the CPU and GPU example `mxnet-conv.sh` submission scripts request `2` CPUs per task."
-    },
-    {
-      "question": "What memory allocation is requested for the `mxnet-conv` job in the example scripts?",
-      "answer": "The example `mxnet-conv` job requests `20G` of memory."
-    },
-    {
-      "question": "Which Python module is loaded as a dependency in the `mxnet-conv.sh` submission scripts?",
-      "answer": "The `python/3.10` module is loaded as a dependency in the `mxnet-conv.sh` scripts."
-    },
-    {
-      "question": "How is the virtual environment set up within the `mxnet-conv.sh` submission scripts?",
-      "answer": "A virtual environment is generated in `$SLURM_TMPDIR` using `virtualenv --no-download ${SLURM_TMPDIR}/env` and then activated with `source ${SLURM_TMPDIR}/env/bin/activate`."
-    },
-    {
-      "question": "What specific version of MXNet is installed in the `mxnet-conv.sh` submission scripts?",
-      "answer": "MXNet version `1.9.1` is installed using `pip install --no-index mxnet==1.9.1` in the `mxnet-conv.sh` submission scripts."
-    },
-    {
-      "question": "What SLURM directive is used to request a GPU for a job?",
-      "answer": "The SLURM directive `#SBATCH --gres=gpu:1` is used to request one GPU for a job."
-    },
-    {
-      "question": "What is the key difference in SLURM directives between the CPU and GPU `mxnet-conv.sh` submission scripts?",
-      "answer": "The GPU `mxnet-conv.sh` script includes the `#SBATCH --gres=gpu:1` directive to request a GPU, which is absent in the CPU version."
+      "question": "How can a user run a simple MXNet Convolution layer job on a CPU, and what is the recommended submission process?",
+      "answer": "To run a simple MXNet Convolution layer job on a CPU, a user first creates a Python script (e.g., `mxnet-conv-ex.py`) defining the layer. Then, a Bash submission script (e.g., `mxnet-conv.sh`) is prepared. This script typically loads the `python/3.10` module, sets up and activates a virtual environment in `$SLURM_TMPDIR`, installs `mxnet==1.9.1` with `pip install --no-index`, and then executes the Python script. The job is then submitted to the scheduler using the command `sbatch mxnet-conv.sh`."
     }
   ],
-  "generated_at": "2026-04-12T02:05:23.773611+00:00"
+  "generated_at": "2026-04-13T08:58:49.625510+00:00"
 }

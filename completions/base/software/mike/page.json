@@ -3,45 +3,85 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is MIKE powered by DHI?",
+      "question": "What is MIKE powered by DHI software used for?",
       "answer": "MIKE powered by DHI is a hydraulic and hydrological modeling software package."
     },
     {
-      "question": "What are the license requirements for using MIKE on our HPC clusters?",
-      "answer": "You need to supply your own commercial internet license and have a download link for the Linux version of MIKE."
+      "question": "What are the license requirements for using MIKE powered by DHI on Alliance HPC clusters?",
+      "answer": "MIKE is a commercial product, so each user needs to supply their own license. Users must confirm they have an internet license and a download link for the Linux version from MIKE Customer Care."
     },
     {
-      "question": "Who should I contact to confirm my MIKE license for HPC cluster use?",
-      "answer": "You should contact MIKE Customer Care at mike@dhigroup.com."
+      "question": "Before installing MIKE on an Alliance HPC cluster, what two key pieces of information should a user confirm with MIKE Customer Care?",
+      "answer": "Users should confirm that they have an internet license and a download link for the Linux version of MIKE."
     },
     {
-      "question": "What is the initial step for installing MIKE on an HPC cluster?",
-      "answer": "You need to download the Linux installation archives and upload them to a directory like `~/scratch/MIKE_TGZ`."
+      "question": "What types of installation archives does a user typically download for different versions of MIKE software for Linux?",
+      "answer": "For MIKE 2025 and newer, the installation archives are typically in one Zip-file. For MIKE 2024 and older, they are usually in three *.tgz files."
     },
     {
-      "question": "Which MPI library is MIKE compiled with, and what module must be loaded during installation?",
-      "answer": "MIKE is compiled with the Intel MPI library, so you must load a matching `intelmpi` module along with `StdEnv` and `intel` modules."
+      "question": "What is the recommended directory on an Alliance HPC cluster for uploading MIKE installation archives?",
+      "answer": "Users should create and upload the installation archives to the `~/scratch/MIKE_TGZ` directory."
     },
     {
-      "question": "How do installation archives for MIKE 2025 differ from older versions like MIKE 2024?",
-      "answer": "MIKE 2025 and newer versions use a single Zip file (e.g., `MIKE_Zero_2025_rhel9.zip`), while MIKE 2024 and older use three `*.tgz` files."
+      "question": "Why is it necessary to load a specific Intel MPI module before installing MIKE on an Alliance HPC cluster?",
+      "answer": "MIKE was compiled with the Intel MPI library, so a matching `intelmpi` module must be loaded for the software to function correctly."
     },
     {
-      "question": "What is the purpose of the `setrpaths.sh` script during MIKE installation?",
-      "answer": "The `setrpaths.sh` script is used to patch the installed binaries, allowing them to find the dynamic libraries of Intel MPI and be compatible with the software stack."
+      "question": "What is the role of the `setrpaths.sh` script during the MIKE software installation process on an Alliance HPC cluster?",
+      "answer": "The `setrpaths.sh` script is used to patch the installed binaries, making them compatible with the Alliance HPC software stack by helping them find the dynamic libraries of Intel MPI."
     },
     {
-      "question": "After installing MIKE, why should I create an environment module?",
-      "answer": "Creating an environment module allows you to easily load the correct dependencies and environment variables for MIKE in any job or login session, ensuring proper functionality."
+      "question": "What is the general installation procedure for MIKE software on an Alliance HPC cluster, excluding the module creation and license configuration?",
+      "answer": "The general procedure involves creating a directory for archives, loading a matching `intelmpi` module, extracting the installation archives, running `install.sh` scripts for each component, and then patching the binaries with `setrpaths.sh`."
     },
     {
-      "question": "How do I configure my MIKE internet license after installation?",
-      "answer": "You configure the license by running a command similar to `licconfig set --type=internet --iuser=user@example.com --ipassword=my-password`, typically provided by MIKE Customer Care."
+      "question": "How do the specific installation archive filenames differ between MIKE 2025 and MIKE 2024 versions on an Alliance HPC cluster?",
+      "answer": "MIKE 2025 uses a single `MIKE_Zero_2025_rhel9.zip` file, while MIKE 2024 uses three `tar.gz` files such as `MIKE_Zero_2024_rhel9_Update_1.tgz`, `MIKE_Zero_2024_Tools_rhel9_Update_1.tgz`, and `MIKE_Zero_2024_Examples_Update_1.tgz`."
     },
     {
-      "question": "What modules should be loaded in a job script to run MIKE 2025 on an HPC cluster?",
-      "answer": "For MIKE 2025, you should load `StdEnv/2023`, `intel/2023.2.1`, `intelmpi/2021.9.0`, and your custom `mike/2025` module."
+      "question": "What adaptations are generally needed when installing minor updates or newer major releases of MIKE software on an Alliance HPC cluster?",
+      "answer": "Users need to adjust the filenames for the installation archives and the directory names accordingly. For future major releases, a newer version of Intel MPI may be required, so the `intelmpi` module might need to be adapted to match the Major version (i.e., year)."
+    },
+    {
+      "question": "Who should users contact if they encounter difficulties adapting the MIKE installation instructions for newer versions of the software on an Alliance HPC cluster?",
+      "answer": "Users should contact technical support if they run into problems adapting the installation recipe for newer versions of MIKE."
+    },
+    {
+      "question": "What is the purpose of creating a custom environment module for MIKE after installation on an Alliance HPC cluster?",
+      "answer": "Creating a custom environment module allows users to easily activate the correct environment variables and dependencies for MIKE in any job or login session, ensuring consistent access to the installed software."
+    },
+    {
+      "question": "Which parameters must be adjusted when creating a custom environment module for a specific MIKE version on an Alliance HPC cluster?",
+      "answer": "Users must adjust the `MIKE_VERSION` to match their installed version, and also ensure the `intelmpi` and `intel` module versions within the module definition match those loaded during installation."
+    },
+    {
+      "question": "After creating a custom MIKE environment module, how can a user make it visible and activate it in a job or login session on an Alliance HPC cluster?",
+      "answer": "After creation, a fresh login is required, or the user can run `module use $HOME/modulefiles` to make it visible. It can then be activated with `module load StdEnv/<year> mike/<version>`."
+    },
+    {
+      "question": "How does a user configure their internet license for MIKE powered by DHI on an Alliance HPC cluster?",
+      "answer": "A user configures their internet license by running the command `licconfig set --type=internet --iuser=user@example.com --ipassword=my-password`, replacing the example email and password with their own credentials."
+    },
+    {
+      "question": "Where is the MIKE license information typically stored on an Alliance HPC cluster after it has been configured?",
+      "answer": "The MIKE license information is stored in a file located at `~/.config/DHI/license/NetLmLcwConfig.xml`."
+    },
+    {
+      "question": "What are the common SLURM directives typically included in an example job script for running MIKE on an Alliance HPC cluster?",
+      "answer": "Common SLURM directives include `--nodes` (number of nodes), `--ntasks` (total tasks), `--cpus-per-task` (CPUs per task), `--mem-per-cpu` (memory per CPU), and `--time` (job duration)."
+    },
+    {
+      "question": "How is a MIKE model executed in a SLURM job script for MIKE 2025, 2024, or 2023 on an Alliance HPC cluster?",
+      "answer": "For MIKE 2025, 2024, or 2023, the model is executed using `srun $engine $model` after loading the necessary modules and setting `OMP_NUM_THREADS`."
+    },
+    {
+      "question": "How is a MIKE model executed in a SLURM job script for MIKE 2022 on an Alliance HPC cluster?",
+      "answer": "For MIKE 2022, the model is executed using `mpirun -machinefile machinefile.$SLURM_JOBID $engine $model`, after loading modules, setting `OMP_NUM_THREADS`, and generating a `machinefile`."
+    },
+    {
+      "question": "What environment variable is set in the example MIKE job scripts to manage multi-threading?",
+      "answer": "The `OMP_NUM_THREADS` environment variable is set to `${SLURM_CPUS_PER_TASK:-1}` in the example MIKE job scripts to manage multi-threading."
     }
   ],
-  "generated_at": "2026-04-12T01:35:46.251100+00:00"
+  "generated_at": "2026-04-13T08:36:49.849380+00:00"
 }

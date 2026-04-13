@@ -4,101 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "À quoi sert la commande `farm_init.run`?",
-      "answer": "La commande `farm_init.run` sert à initialiser un groupe de cas dans META-Farm."
+      "question": "Quelles sont les commandes principales qu'on peut utiliser dans META-Farm et à quoi servent-elles?",
+      "answer": "Dans META-Farm, y'a plusieurs commandes pour gérer les groupes de cas. Par exemple, `farm_init.run` sert à initialiser un nouveau groupe de cas, tandis que `submit.run` soumet les tâches à l'ordonnanceur. Pour reprendre les cas qui ont échoué, on utilise `resubmit.run`. Si on veut voir l'état des tâches, `list.run` ou `query.run` sont là pour ça, `query.run` étant plus pratique pour un grand nombre de tâches. On peut aussi interrompre des tâches avec `kill.run` ou annuler celles en attente avec `prune.run`. Enfin, `Status.run` permet de lister l'état de tous les cas traités, et `clean.run` supprime les fichiers associés à un groupe de cas (mais faut faire attention)."
     },
     {
-      "question": "Quelle commande permet de soumettre un groupe de cas à l'ordonnanceur?",
-      "answer": "C'est la commande `submit.run` qui permet de soumettre le groupe de cas à l'ordonnanceur."
+      "question": "Quand est-ce qu'on devrait utiliser le mode SIMPLE dans META-Farm pour gérer des calculs?",
+      "answer": "Le mode SIMPLE de META-Farm est recommandé quand on a un nombre de cas total assez bas, disons moins de 500, et que chaque cas prend au moins 20 minutes à s'exécuter. Dans ce mode-là, une tâche distincte est dédiée à chaque cas. Si les conditions sont pas ça, faudrait plutôt regarder le mode META."
     },
     {
-      "question": "Quel argument doit-on spécifier avec la commande `submit.run`?",
-      "answer": "On doit spécifier un argument `N` qui représente le nombre de tâches à soumettre."
-    },
-    {
-      "question": "Comment activer le mode SIMPLE avec `submit.run`?",
-      "answer": "Pour activer le mode SIMPLE, il faut utiliser `N=-1` comme argument pour `submit.run`. Ça soumet autant de tâches qu'il y a de lignes dans le fichier `table.dat`."
-    },
-    {
-      "question": "Comment activer le mode META avec `submit.run`?",
-      "answer": "Pour activer le mode META, il faut fournir un entier positif `N` à `submit.run`, `N` étant le nombre de métatâches désirées."
-    },
-    {
-      "question": "Que se passe-t-il si l'option `-auto` est utilisée avec `submit.run`?",
-      "answer": "Si l'option `-auto` est présente, la soumission se refera automatiquement à la fin, plus d'une fois si nécessaire, jusqu'à ce que tous les cas dans `table.dat` aient été traités."
-    },
-    {
-      "question": "Quel est le rôle du fichier `final.sh` s'il est présent lors de l'exécution de `submit.run`?",
-      "answer": "Si un fichier `final.sh` est présent dans le répertoire du groupe de cas, `submit.run` le traitera comme un script de tâche de post-traitement et il sera lancé automatiquement une fois que tous les cas de `table.dat` auront été traités avec succès."
-    },
-    {
-      "question": "Peut-on passer des arguments additionnels à la commande `sbatch` via `submit.run`?",
-      "answer": "Oui, si on fournit d'autres arguments à `submit.run`, ils seront transmis à la commande `sbatch` de l’ordonnanceur pour le lancement de toutes les métatâches."
-    },
-    {
-      "question": "À quoi sert la commande `resubmit.run`?",
-      "answer": "La commande `resubmit.run` permet de soumettre comme nouveau groupe de cas tous les traitements qui ont échoué ou qui n’ont jamais été exécutés."
-    },
-    {
-      "question": "Que fait la commande `list.run`?",
-      "answer": "La commande `list.run` liste toutes les tâches et leur état actuel."
-    },
-    {
-      "question": "Quelle commande donne un sommaire de l'état d'un groupe de cas?",
-      "answer": "La commande `query.run` fournit un sommaire de l’état du groupe de cas, incluant le nombre de tâches dans la queue, en cours d’exécution et terminées, ainsi que la progression générale et celle de l'exécution en cours."
-    },
-    {
-      "question": "Pourquoi `query.run` est-elle plus pratique que `list.run` quand il y a un grand nombre de tâches?",
-      "answer": "`query.run` est plus pratique que `list.run` quand il y a un grand nombre de tâches parce qu'elle fournit un sommaire de l'état du groupe de cas et sa progression, au lieu de lister toutes les tâches individuellement."
-    },
-    {
-      "question": "Comment annuler toutes les tâches en cours ou en file d'attente?",
-      "answer": "Pour interrompre toutes les tâches en cours et annuler celles qui sont dans la file d’attente, il faut utiliser la commande `kill.run`."
-    },
-    {
-      "question": "Quelle commande permet d'annuler seulement les tâches en file d'attente?",
-      "answer": "La commande `prune.run` annule uniquement les tâches qui sont dans la file d’attente."
-    },
-    {
-      "question": "Quelle commande permet de lister l'état de tous les cas traités?",
-      "answer": "La commande `Status.run` (avec un S majuscule au début) permet de lister les états de tous les cas traités."
-    },
-    {
-      "question": "Comment `Status.run` peut-elle aider à repérer les cas qui ont échoué?",
-      "answer": "En utilisant l'option `-f` avec `Status.run`, les lignes d’état non nulles sont affichées à la toute fin, ce qui facilite l'identification des cas ayant échoué ou qui doivent être traités de nouveau."
-    },
-    {
-      "question": "Quel est l'effet de la commande `clean.run`?",
-      "answer": "La commande `clean.run` supprime tous les fichiers dans le répertoire du groupe de cas et les sous-répertoires, sauf certains fichiers comme `job_script.sh` ou `table.dat`. Elle supprime aussi les fichiers associés dans `/home/$USER/tmp`."
-    },
-    {
-      "question": "Pourquoi faut-il utiliser `clean.run` avec prudence?",
-      "answer": "Il faut utiliser `clean.run` avec beaucoup de prudence parce qu'elle supprime tous les fichiers et résultats obtenus du groupe de cas, à l'exception de quelques fichiers de configuration."
-    },
-    {
-      "question": "Où doivent être exécutées les commandes META (sauf `farm_init.run`)?",
-      "answer": "Toutes les commandes META, à l'exception de `farm_init.run` elle-même, doivent être exécutées dans un répertoire de groupe de cas créé par `farm_init.run`."
-    },
-    {
-      "question": "Qu'est-ce qu'un « cas » dans le contexte de META?",
-      "answer": "Un « cas » est une seule exécution de votre code, c'est-à-dire un calcul distinct."
-    },
-    {
-      "question": "Qu'est-ce qu'une « tâche » dans le contexte de META?",
-      "answer": "Une « tâche » est une invocation de l'ordonnanceur."
-    },
-    {
-      "question": "Dans quelles conditions est-il recommandé d'utiliser le mode SIMPLE?",
-      "answer": "Il est recommandé d'utiliser le mode SIMPLE si le nombre total de cas est assez bas, disons moins de 500, ET que chaque cas prend au moins 20 minutes à s'exécuter."
-    },
-    {
-      "question": "Quand devrait-on envisager d'utiliser le mode META plutôt que le mode SIMPLE?",
-      "answer": "On devrait utiliser le mode META si le nombre total de cas est largement supérieur à 500, ou si chaque cas prend moins de 20 minutes."
-    },
-    {
-      "question": "Quels sont les trois scripts essentiels de META?",
-      "answer": "Les trois scripts essentiels de META sont la commande `submit.run` et les deux scripts personnalisables `single_case.sh` et `job_script.sh`."
+      "question": "Comment est-ce qu'on utilise la commande `submit.run` dans META-Farm et quelles sont les options disponibles pour la soumission des tâches?",
+      "answer": "Pour utiliser la commande `submit.run` dans META-Farm, faut spécifier un argument `N`. Si `N` est `-1`, ça lance le mode SIMPLE, où une tâche est soumise pour chaque ligne du fichier `table.dat`. Si `N` est un entier positif, ça active le mode META et `N` représente le nombre de métatâches à soumettre. On peut aussi ajouter l'option `-auto` pour que la soumission se refasse automatiquement, plus d'une fois si nécessaire, jusqu'à ce que tous les cas soient traités. Des arguments `sbatch` additionnels peuvent aussi être passés à la commande."
     }
   ],
-  "generated_at": "2026-04-12T01:24:09.517279+00:00"
+  "generated_at": "2026-04-13T08:27:39.027446+00:00"
 }

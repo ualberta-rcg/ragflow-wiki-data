@@ -4,97 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "De quoi vient le terme « pthreads »?",
-      "answer": "Le terme « pthreads » provient de POSIX threads, une des premières techniques de parallélisation."
+      "question": "C'est quoi les 'pthreads' et quelles sont leurs caractéristiques principales en matière de parallélisation?",
+      "answer": "Les 'pthreads' (ou 'POSIX threads') sont une technique de parallélisation qui utilise des fils d'exécution. Ils fonctionnent avec une mémoire partagée, généralement sur un seul nœud, et le nombre de fils actifs est limité aux cœurs CPU disponibles. Considérés comme des outils primitifs, les pthreads permettent de créer des fils dynamiquement pour exécuter des sous-procédures légères de façon asynchrone. Le partage de données est facilité par des variables globales, mais il y a un risque de 'situations de compétition' (race conditions)."
     },
     {
-      "question": "Dans quel genre de contexte les pthreads sont-ils utilisés habituellement?",
-      "answer": "Pthreads s'emploie dans un contexte de mémoire partagée, habituellement sur un seul nœud, où le nombre de fils actifs est limité aux cœurs CPU disponibles."
+      "question": "Comment est-ce qu'on compile un programme C qui se sert de la bibliothèque pthreads?",
+      "answer": "Pour compiler un programme C qui utilise les pthreads, il faut inclure le fichier d'en-tête (header file) <tt>pthread.h</tt> et lier le programme avec la bibliothèque pthreads en utilisant l'indicateur (flag) <tt>-pthread</tt> lors de la compilation. Par exemple, la commande <tt>gcc -pthread -o test threads.c</tt> est utilisée pour ça."
     },
     {
-      "question": "Dans quel langage de programmation pthreads est-il surtout utilisé?",
-      "answer": "On utilise pthreads dans plusieurs langages de programmation, mais surtout en C."
-    },
-    {
-      "question": "Quelle est l'approche privilégiée pour la parallélisation de fils d'exécution en Fortran?",
-      "answer": "En Fortran, la parallélisation de fils d'exécution se fait préférablement avec OpenMP."
-    },
-    {
-      "question": "Quels outils sont mieux adaptés à la programmation orientée-objet en C++ pour la parallélisation?",
-      "answer": "En C++, les outils de la bibliothèque Boost, issus de la norme C11, sont mieux adaptés à la programmation orientée-objet."
-    },
-    {
-      "question": "Comment la bibliothèque pthreads se compare-t-elle à des APIs comme OpenMP?",
-      "answer": "La bibliothèque pthreads a servi de base aux approches de parallélisation qui ont suivi, dont OpenMP. Pthreads est un ensemble d'outils primitifs offrant des fonctionnalités élémentaires de parallélisation, contrairement aux APIs conviviales et de haut niveau comme OpenMP."
-    },
-    {
-      "question": "Comment les fils d'exécution sont-ils gérés dans le modèle pthreads?",
-      "answer": "Dans le modèle pthreads, les fils sont générés dynamiquement pour exécuter des sous-procédures légères de façon asynchrone, puis ils sont détruits après avoir réintégré le processus principal."
-    },
-    {
-      "question": "Pourquoi le partage de données est-il facile avec pthreads?",
-      "answer": "Puisque tous les fils d'un même programme résident dans le même espace mémoire, il est facile de partager les données à l'aide de variables globales."
-    },
-    {
-      "question": "Quel risque peut découler de la modification des données partagées avec pthreads?",
-      "answer": "Toute modification aux données partagées risque de créer des situations de compétition, aussi appelées 'race conditions'."
-    },
-    {
-      "question": "Qu'est-ce que la scalabilité dans le contexte de la parallélisation de programme?",
-      "answer": "La scalabilité, dans ce contexte, est la capacité d'un programme à s'exécuter en parallèle."
-    },
-    {
-      "question": "Que recommande-t-on de faire après avoir parallélisé un logiciel?",
-      "answer": "Après avoir parallélisé un logiciel et que sa qualité satisfait, on recommande d'effectuer une analyse de sa scalabilité pour en comprendre la performance."
-    },
-    {
-      "question": "Que doit-on inclure dans un programme C pour utiliser les fonctions pthreads?",
-      "answer": "Il faut y inclure le fichier d'en-tête `<pthread.h>` et compiler le programme avec un indicateur pour faire le lien avec la bibliothèque pthreads."
-    },
-    {
-      "question": "Comment compile-t-on un programme C qui utilise la bibliothèque pthreads?",
-      "answer": "On le compile en utilisant une commande comme `gcc -pthread -o test threads.c`."
-    },
-    {
-      "question": "Par quelles méthodes peut-on définir le nombre de fils pour un programme pthreads?",
-      "answer": "Le nombre de fils peut être utilisé comme argument dans une ligne de commande, entré via une variable d'environnement, ou encodé dans le fichier source."
-    },
-    {
-      "question": "Quelle méthode de définition du nombre de fils ne permet pas de l'ajuster à l'exécution?",
-      "answer": "L'encodage du nombre de fils directement dans le fichier source ne permet pas de l'ajuster à l'exécution."
-    },
-    {
-      "question": "Quel modèle de programmation est utilisé pour paralléliser un programme séquentiel existant avec pthreads?",
-      "answer": "On utilise un modèle de programmation où les fils sont créés par un parent, exécutent une partie du travail, puis sont réintégrés au parent."
-    },
-    {
-      "question": "Qui peut être le parent dans le modèle de création de pthreads?",
-      "answer": "Le parent peut être soit le « fil maître » séquentiel, soit un des autres « fils esclaves »."
-    },
-    {
-      "question": "Quelle fonction est utilisée pour créer de nouveaux fils d'exécution avec pthreads?",
-      "answer": "La fonction `pthread_create` est utilisée pour créer de nouveaux fils."
-    },
-    {
-      "question": "Quels sont les quatre arguments nécessaires pour la fonction `pthread_create`?",
-      "answer": "Les quatre arguments sont : l'identifiant unique pour le nouveau fil, l'ensemble des attributs du fil, la fonction C que le fil exécute lorsqu'il est amorcé (la routine de lancement) et l'argument de la routine de lancement."
-    },
-    {
-      "question": "Est-ce que la fonction `pthread_create` bloque le fil maître?",
-      "answer": "Non, la fonction `pthread_create` ne bloque pas le fil maître; il continue à exécuter sa fonction `main` après la création de chaque fil."
-    },
-    {
-      "question": "Quelle fonction le fil maître appelle-t-il pour attendre que les fils esclaves terminent leur exécution?",
-      "answer": "Le fil maître appelle la fonction bloquante `pthread_join` pour attendre que les fils esclaves terminent."
-    },
-    {
-      "question": "Quel est le fonctionnement de base d'un fil POSIX?",
-      "answer": "Le fil maître crée un fil en lui assignant une fonction à exécuter, attend ensuite que le fil créé termine cette fonction, puis réintègre le fil maître."
-    },
-    {
-      "question": "Pourquoi l'ordre des messages peut-il varier lorsque le programme `thread.c` est exécuté plusieurs fois?",
-      "answer": "L'ordre des messages varie parce que les fils s'exécutent en mode asynchrone et répondent en même temps à la fonction `printf`, ce qui fait que ce n'est jamais le même fil qui remporte la course."
+      "question": "À quoi servent les fonctions <tt>pthread_create</tt> et <tt>pthread_join</tt> dans un programme pthreads, et comment s'articulent-elles?",
+      "answer": "La fonction <tt>pthread_create</tt> sert à démarrer de nouveaux fils d'exécution pour qu'ils exécutent une partie du travail de façon asynchrone, sans bloquer le fil maître. La fonction <tt>pthread_join</tt>, quant à elle, est une fonction bloquante utilisée par le fil maître pour attendre que tous les fils esclaves qu'il a créés terminent leur tâche et se réintègrent au processus principal."
     }
   ],
-  "generated_at": "2026-04-12T05:31:34.095806+00:00"
+  "generated_at": "2026-04-13T11:30:27.652696+00:00"
 }

@@ -4,73 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What is the recommended Memory Efficiency for jobs when using the `seff` command?",
-      "answer": "Your `Memory Efficiency` in the output from the `seff` command should generally be at least 80% to 85% in most cases."
+      "question": "What is the recommended memory efficiency for jobs on a cluster, and how should users specify memory requests for a whole node or a large memory node in their job submission scripts?",
+      "answer": "For most jobs, a `Memory Efficiency` of at least 80% to 85% is recommended, as shown in the output from the `seff` command. To utilize all available memory on a node, users can include `#SBATCH --mem=0` in their job submission script, though this approach might lead to the job being assigned a node with less memory due to the variable memory available on cluster nodes. If a large memory node is specifically required, users should request a specific amount, for example, `#SBATCH --mem=1500G`, but should be aware that these nodes are few, leading to potentially longer wait times."
     },
     {
-      "question": "How can I request all available memory on a whole node for my job?",
-      "answer": "You can request all available memory on a whole node by including `#SBATCH --mem=0` in your job submission script."
-    },
-    {
-      "question": "What is a potential drawback of using `#SBATCH --mem=0` to request all available memory?",
-      "answer": "Using `#SBATCH --mem=0` might result in your job being assigned a node with less memory, as most clusters offer nodes with variable amounts of memory."
-    },
-    {
-      "question": "How do I request a large memory node for my job?",
-      "answer": "If your testing indicates a need for a large memory node, you can request it using a line such as `#SBATCH --mem=1500G` in your job script, for example, to get 1500 GB of memory."
-    },
-    {
-      "question": "What should I consider before requesting a large memory node?",
-      "answer": "You should ensure your job genuinely requires the extra memory, as there are relatively few large memory nodes, which means your job will likely experience longer wait times."
-    },
-    {
-      "question": "What is the default core allocation for a job, and why is this sensible?",
-      "answer": "By default, your job will receive one core on one node. This is sensible because most software is serial and can only use a single core."
-    },
-    {
-      "question": "Will requesting more cores or nodes speed up a serial program?",
-      "answer": "No, requesting more cores or nodes will not speed up a serial program, as its source code would need significant modification to run in parallel."
-    },
-    {
-      "question": "How can I determine if the software I'm using can run in parallel?",
-      "answer": "The best approach is to check the software's documentation for a section on parallel execution; if you can't find anything, it's usually a sign the program is serial. You can also contact the development team to ask if it can run in parallel."
-    },
-    {
-      "question": "What does a shared memory environment imply for parallel program execution?",
-      "answer": "A shared memory environment means multiple cores can be used, but they must all be located on the same node, which sets a ceiling for the number of cores you can use."
-    },
-    {
-      "question": "Is it always best to request the maximum number of cores possible for a parallel program?",
-      "answer": "No, requesting an excessive number of CPU cores can have the perverse effect of slowing down a program, so it is not always the wisest approach."
-    },
-    {
-      "question": "How should I determine the optimal number of CPU cores for a parallel program?",
-      "answer": "To determine the optimal number of CPU cores for a parallel program, you need to study the software's scalability."
-    },
-    {
-      "question": "What is required for a parallel program to use multiple nodes?",
-      "answer": "For a parallel program to use multiple nodes, the software you are running must support distributed memory parallelism."
-    },
-    {
-      "question": "How can I tell if software supports distributed memory parallelism using multiple nodes?",
-      "answer": "Most software able to run over more than one node uses the MPI standard. If the documentation doesn't mention MPI or consistently refers to threading, you will likely need to restrict yourself to a single node."
-    },
-    {
-      "question": "Which command should be used to start programs parallelized to run across multiple nodes?",
-      "answer": "Programs that have been parallelized to run across multiple nodes should be started using `srun` rather than `mpirun`."
-    },
-    {
-      "question": "Why should I avoid scattering parallel processes across more nodes than necessary?",
-      "answer": "Avoiding the scattering of parallel processes across more nodes than necessary is important because a more compact distribution will usually help your job's performance, as highly fragmented jobs often exhibit poor performance."
-    },
-    {
-      "question": "How can I optimize the distribution of parallel processes for better job performance on a cluster?",
-      "answer": "You should try to submit jobs where the number of parallel processes is equal to an integral multiple of the number of cores per node, assuming this is compatible with the parallel software your jobs run."
-    },
-    {
-      "question": "Can you provide an example of a job script configuration for a compact distribution of 120 MPI processes on a cluster with 40 cores per node?",
-      "answer": "For a cluster with 40 cores/node, to assign 120 MPI processes in a compact fashion using three whole nodes, you would use the job script header: `#SBATCH --nodes=3` and `#SBATCH --ntasks-per-node=40`."
+      "question": "When running a job on a cluster, how can one determine if the software supports parallel execution, and what are the best practices for configuring a job to efficiently use multiple cores within a single node or distribute processes across multiple nodes?",
+      "answer": "To determine if software supports parallel execution, consult its documentation for a section on parallel execution, or contact the development team. For parallel programs utilizing multiple cores on a single node (shared memory), users should study the software's scalability to select the optimal number of CPU cores, as requesting too many can paradoxically slow the program down. For distributed memory parallelism across multiple nodes, ensure the software uses the MPI standard, start jobs using `srun` instead of `mpirun`, and aim to avoid scattering processes. Instead, submit jobs where the number of parallel processes is an integral multiple of the number of cores per node for a more compact and performant distribution."
     }
   ],
-  "generated_at": "2026-04-11T18:33:19.758794+00:00"
+  "generated_at": "2026-04-13T02:58:52.163539+00:00"
 }

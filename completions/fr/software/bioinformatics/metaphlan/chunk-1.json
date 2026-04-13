@@ -4,73 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi MetaPhlAn comme outil?",
-      "answer": "MetaPhlAn, c'est un outil informatique qui permet de profiler la composition des communautés microbiennes (comme les bactéries, les archées et les eucaryotes) à partir de données de séquençage métagénomique, et ce, au niveau de l'espèce."
+      "question": "À quoi sert l'outil informatique MetaPhlAn et quelles analyses peut-il effectuer?",
+      "answer": "MetaPhlAn est un outil informatique qui permet de profiler la composition des communautés microbiennes (incluant les bactéries, les archées et les eucaryotes) à partir de données de séquençage métagénomique, et ce, au niveau de l'espèce. En le combinant avec StrainPhlAn, il est même possible d'effectuer un profilage microbien précis au niveau de la souche."
     },
     {
-      "question": "Quel type de données est utilisé par MetaPhlAn pour le profilage microbien?",
-      "answer": "MetaPhlAn utilise des données de séquençage métagénomique (pas 16S) pour faire le profilage."
+      "question": "Comment les utilisateurs sont-ils censés installer les versions récentes de MetaPhlAn sur les grappes de calcul d'Alliance?",
+      "answer": "Bien que la pile logicielle des grappes contienne des modules pour quelques versions plus anciennes de MetaPhlAn (comme la 2.2.0 et la 2.8), les utilisateurs sont désormais tenus d'installer les versions récentes de l'outil à l'aide d'un environnement virtuel Python."
     },
     {
-      "question": "À quel niveau de précision StrainPhlAn permet-il de faire le profilage microbien?",
-      "answer": "Avec StrainPhlAn, il est possible d'effectuer un profilage microbien vraiment précis, jusqu'au niveau de la souche."
-    },
-    {
-      "question": "Est-ce qu'il y a des anciennes versions de MetaPhlAn disponibles en tant que modules sur les grappes?",
-      "answer": "Oui, la pile logicielle de nos grappes contient des modules pour quelques versions plus anciennes, comme MetaPhlAn 2.2.0 et 2.8."
-    },
-    {
-      "question": "Comment est-ce qu'on est supposé installer les versions récentes de MetaPhlAn?",
-      "answer": "On attend des utilisateurs qu'ils installent les versions récentes de MetaPhlAn en utilisant un environnement virtuel Python."
-    },
-    {
-      "question": "Où est-ce que je peux trouver plus d'informations sur MetaPhlAn?",
-      "answer": "Pour plus d'informations, on peut consulter le site wiki de MetaPhlAn."
-    },
-    {
-      "question": "Comment faire pour connaître les 'wheels' (versions) disponibles de MetaPhlAn?",
-      "answer": "Pour connaître les 'wheels' disponibles, il faut utiliser la commande `avail_wheels metaphlan --all-versions`."
-    },
-    {
-      "question": "Quelles versions de MetaPhlAn sont affichées comme disponibles par la commande `avail_wheels`?",
-      "answer": "La commande `avail_wheels` montre que MetaPhlAn 4.0.3 et 3.0.7 sont disponibles, toutes deux pour Python 3 et génériques."
-    },
-    {
-      "question": "Où est-ce que les bases de données de MetaPhlAn doivent absolument être téléchargées?",
-      "answer": "C'est super important que la base de données de MetaPhlAn se trouve dans le répertoire `$SCRATCH`."
-    },
-    {
-      "question": "D'où est-ce qu'on peut télécharger les bases de données pour MetaPhlAn?",
-      "answer": "On peut télécharger les bases de données de MetaPhlAn à partir du site FTP de Segatalab, dont l'adresse est indiquée."
-    },
-    {
-      "question": "Quelles sont les commandes pour créer le répertoire des bases de données de MetaPhlAn sur un nœud de connexion?",
-      "answer": "À partir d'un nœud de connexion, il faut utiliser ces commandes: `export DB_DIR=$SCRATCH/metaphlan_databases`, `mkdir -p $DB_DIR`, et ensuite `cd $DB_DIR`."
-    },
-    {
-      "question": "Sur quel type de nœud devrait-on télécharger les données des bases de données de MetaPhlAn?",
-      "answer": "Cette étape doit absolument se faire à partir d'un nœud de connexion et non à partir d'un nœud de calcul."
-    },
-    {
-      "question": "Comment décompresser les bases de données de MetaPhlAn une fois qu'elles sont téléchargées?",
-      "answer": "On peut faire l'extraction des données en utilisant une tâche interactive, par exemple avec `salloc --account=<your account> --cpus-per-task=2 --mem=10G`, puis décompresser les fichiers avec `tar -xf mpa_vJan21_CHOCOPhlAnSGB_202103.tar` et `parallel bunzip2 ::: *.bz2`."
-    },
-    {
-      "question": "Quels modules sont requis pour utiliser MetaPhlAn dans un script de tâche Slurm?",
-      "answer": "Il faut charger les modules suivants: `gcc blast samtools bedtools bowtie2 python/3.14`."
-    },
-    {
-      "question": "Combien de cœurs et de mémoire sont alloués dans l'exemple de script Slurm pour une tâche MetaPhlAn?",
-      "answer": "L'exemple de script Slurm alloue 4 cœurs (`--cpus-per-task=4`) et 15 Go de mémoire (`--mem=15G`) pour la tâche."
-    },
-    {
-      "question": "Comment installer MetaPhlAn et ses dépendances dans un environnement virtuel temporaire à l'intérieur d'une tâche?",
-      "answer": "Après avoir généré et activé l'environnement virtuel, on installe MetaPhlAn en utilisant `pip install --no-index --upgrade pip` suivi de `pip install --no-index metaphlan==X.Y.Z` (en remplaçant X.Y.Z par la version voulue, comme 4.0.3)."
-    },
-    {
-      "question": "Quelles sont les options importantes à utiliser avec la commande `metaphlan` pour qu'elle s'exécute correctement dans une tâche?",
-      "answer": "Il est important d'utiliser les options `--index` et `--bowtie2db` avec la commande `metaphlan` pour qu'elle soit exécutée comme il faut à l'intérieur de la tâche."
+      "question": "Où doivent être téléchargées et stockées les bases de données requises pour MetaPhlAn, et quel est le processus pour les obtenir?",
+      "answer": "Les bases de données requises pour MetaPhlAn doivent impérativement être téléchargées et stockées dans votre répertoire <tt>$SCRATCH</tt>. Le processus implique de créer un répertoire pour les données dans <tt>$SCRATCH</tt> à partir d'un nœud de connexion, de télécharger les données depuis le site FTP de Segatalab (par exemple, en utilisant <tt>wget</tt> en parallèle), puis d'extraire ces données, idéalement en utilisant une tâche interactive."
     }
   ],
-  "generated_at": "2026-04-12T02:23:51.064883+00:00"
+  "generated_at": "2026-04-13T09:15:34.346221+00:00"
 }

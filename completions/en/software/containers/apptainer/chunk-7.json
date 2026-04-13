@@ -4,13 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "What are the main commands for running software with Apptainer, and how do their functionalities differ for execution versus interactive use?",
-      "answer": "For executing programs, `apptainer run` is generally recommended, as it first runs the container's `%runscript` before executing the specified command. `apptainer exec` runs commands directly without invoking the `%runscript`. Both are suitable for BASH and SLURM job scripts. For interactive work within a container, `apptainer shell` is used, providing a prompt for direct command input."
+      "question": "What are the essential command-line options recommended for `apptainer run` and `apptainer shell` on Alliance clusters, and what is the key difference between these two commands?",
+      "answer": "For both `apptainer run` and `apptainer shell` on Alliance clusters, essential options include `-C` (to isolate the container), `-W $SLURM_TMPDIR` (to use a disk location for the working directory), and bind mounts like `-B /project` and `-B /scratch` to access external filesystems. For `apptainer shell`, `-B /home:/cluster_home` is also recommended for home directory access without conflicts. The key difference is that `apptainer run` executes programs immediately, making it suitable for BASH and SLURM job scripts, while `apptainer shell` provides an interactive session for running commands inside the container."
     },
     {
-      "question": "On Alliance clusters, what are the crucial command-line options to use with `apptainer run` or `apptainer shell` for proper container isolation and external filesystem access?",
-      "answer": "When running Apptainer on clusters, critical options include `-C` (or `-c`) to isolate the container's environment, `-W` (or `--workdir`) to specify a disk location for temporary files (e.g., `$SLURM_TMPDIR` for SLURM jobs) to avoid RAM limits, and bind mounts (`-B`) to access external filesystems like `/project` and `/scratch`. For interactive `apptainer shell` sessions where changes need to be saved, the `-w` or `--writable` option is also essential."
+      "question": "When interacting with an Apptainer container using `apptainer shell` on Alliance clusters, what option is critical to ensure that changes made to a persistent overlay image are saved?",
+      "answer": "To save changes made to a persistent overlay image during an `apptainer shell` session, it is critical to pass the `-w` or `--writable` option to your container. If this option is not passed, any modifications made within the interactive session will not be saved."
+    },
+    {
+      "question": "How should daemons be run within an Apptainer container on compute clusters, and what are the benefits of using the recommended approach?",
+      "answer": "Daemons should be run using the `apptainer instance` command on compute clusters. This approach ensures proper interaction with tools like the Slurm scheduler, preventing daemons from hanging or resulting in defunct processes if a job is cancelled, killed, crashes, or finishes. It also allows users to control the daemons and other programs running in the same container. However, daemons can only run while the job they were started in is active."
     }
   ],
-  "generated_at": "2026-04-12T19:20:15.547326+00:00"
+  "generated_at": "2026-04-13T02:14:15.871132+00:00"
 }

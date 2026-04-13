@@ -3,81 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Quel est le but principal de cette page dans la documentation du paquet META-Farm?",
-      "answer": "Cette page présente les fonctionnalités avancées du paquet META-Farm."
+      "question": "Comment peut-on automatiser la resoumission des tâches échouées dans le paquet META-Farm sur les grappes d'Alliance?",
+      "answer": "Pour automatiser la resoumission des tâches échouées, il faut ajouter l'option `-auto` à la commande `submit.run` ou `resubmit.run`."
     },
     {
-      "question": "Comment activer la resoumission automatique des cas en échec pour une ferme de tâches (job farm) META-Farm?",
-      "answer": "Pour activer cette fonctionnalité, il faut ajouter l'option `-auto` à la commande `submit.run` ou `resubmit.run`."
+      "question": "Que doit-on ajuster dans le fichier `config.h` du paquet META-Farm lors de l'utilisation de l'option d'auto-resoumission (`-auto`)?",
+      "answer": "Il faut s'assurer que la valeur du paramètre `NJOBS_MAX` est au moins une unité plus petite que le nombre maximal de tâches qu'on peut soumettre sur la grappe."
     },
     {
-      "question": "Quel est le rôle du script `resubmit_script.sh` lorsque la resoumission automatique est activée?",
-      "answer": "`resubmit_script.sh` est un script exécuté par une tâche (job) sérielle supplémentaire qui lance automatiquement la commande `resubmit.run` après la fin de la ferme actuelle. Un exemple est copié par `farm_init.run`."
+      "question": "Pourquoi l'auto-resoumission des cas échoués s'arrête-t-elle si seuls des cas défectueux demeurent dans un farm META-Farm?",
+      "answer": "L'auto-resoumission s'arrête pour éviter une boucle infinie sur des cas mal formulés qui échoueraient constamment. Les messages pertinents sont consignés dans le fichier `farm.log`."
     },
     {
-      "question": "Comment faut-il ajuster le paramètre `NJOBS_MAX` du fichier `config.h` si l'on utilise l'option `-auto`?",
-      "answer": "La valeur de `NJOBS_MAX` devrait être au moins d'une unité inférieure à la limite maximale de tâches que vous pouvez soumettre sur le cluster. Par exemple, si la limite est de 999, réglez `NJOBS_MAX` à 998."
+      "question": "Comment configurer META-Farm pour qu'une tâche de post-traitement s'exécute automatiquement après le succès de tous les cas d'une ferme?",
+      "answer": "Il suffit de créer un script nommé `final.sh` dans le répertoire de la ferme; cette tâche s'exécutera automatiquement si tous les cas de `table.dat` sont traités avec succès."
     },
     {
-      "question": "Dans quelles conditions la resoumission automatique des cas en échec s'arrête-t-elle?",
-      "answer": "La resoumission automatique s'arrête si les seules tâches restantes à traiter sont celles qui ont échoué précédemment, afin d'éviter une boucle infinie sur des cas qui échoueront toujours."
+      "question": "Quelle est l'incidence sur `NJOBS_MAX` si l'on utilise à la fois l'auto-resoumission et le post-traitement automatique dans META-Farm?",
+      "answer": "Si les deux fonctionnalités sont utilisées, elles soumettent ensemble une seule tâche additionnelle, il n'est donc pas nécessaire de soustraire 2 de `NJOBS_MAX`."
     },
     {
-      "question": "Comment automatiser l'exécution d'une tâche de post-traitement une fois que toutes les tâches d'une ferme sont complétées avec succès?",
-      "answer": "Il suffit de créer un script nommé `final.sh` dans le répertoire de la ferme. Cette tâche ne s'exécutera que si tous les cas du fichier `table.dat` ont été traités avec succès."
+      "question": "Qu'est-ce que le mode `WHOLE_NODE` dans META-Farm et comment s'active-t-il?",
+      "answer": "Le mode `WHOLE_NODE` permet de regrouper des tâches de farming séries individuelles en tâches de nœud entier. Il s'active en éditant `config.h` pour définir `WHOLE_NODE=1` et en configurant `NWHOLE` au nombre de cœurs de CPU par nœud."
     },
     {
-      "question": "Qu'est-ce que le mode `WHOLE_NODE` dans META-Farm et quand peut-il être avantageux?",
-      "answer": "Le mode `WHOLE_NODE` permet de regrouper des tâches individuelles en série en tâches utilisant des nœuds entiers. Il peut être avantageux sur des clusters comme Niagara/Trillium ou lorsque les temps d'attente en file d'attente pour les tâches de nœud entier sont plus courts que pour les tâches en série."
+      "question": "Quelles sont les limitations du mode `WHOLE_NODE` de META-Farm en termes de types d'applications?",
+      "answer": "Le mode `WHOLE_NODE` ne peut être utilisé que pour le farming série et n'est pas compatible avec les applications multi-threadées, MPI ou GPU."
     },
     {
-      "question": "Comment activer le mode `WHOLE_NODE` et configurer le nombre de cœurs de processeur par nœud?",
-      "answer": "Dans le fichier `config.h` du répertoire de votre ferme, il faut définir `WHOLE_NODE=1` et la variable `NWHOLE` au nombre de cœurs de processeur par nœud (par exemple, 40 pour Niagara, 192 pour Trillium)."
+      "question": "Comment utiliser le paquet META-Farm sur une grappe où il n'est pas installé comme un module?",
+      "answer": "Il faut cloner le dépôt Git du paquet et modifier la variable `$PATH` pour qu'elle pointe vers le sous-répertoire `bin` du répertoire `meta-farm` nouvellement créé."
     },
     {
-      "question": "Comment utiliser META-Farm si le paquet n'est pas installé comme module sur un cluster?",
-      "answer": "Vous pouvez cloner le paquet depuis le référentiel Git (`git clone https://git.computecanada.ca/syam/meta-farm.git`) et ensuite ajouter le sous-répertoire `bin` de ce nouveau répertoire `meta-farm` à votre variable d'environnement `$PATH`."
+      "question": "Comment passer des arguments `sbatch` additionnels, comme les requêtes de mémoire ou de GPU, aux tâches META-Farm?",
+      "answer": "On peut les ajouter au fichier `job_script.sh` comme des lignes `#SBATCH` séparées, ou les inclure à la fin de la commande `submit.run` ou `resubmit.run`."
     },
     {
-      "question": "Comment passer des arguments `sbatch` supplémentaires à une tâche META-Farm (comme `--mem 4G` ou `--gres=gpu:1`)?",
-      "answer": "On peut les ajouter à `job_script.sh` sous forme de lignes `#SBATCH` séparées, ou les inclure à la fin de la commande `submit.run` ou `resubmit.run`."
+      "question": "Comment configurer le fichier `job_script.sh` pour des applications multifils (OpenMP) dans META-Farm?",
+      "answer": "Il faut ajouter les lignes `#SBATCH --cpus-per-task=N`, `#SBATCH --mem=M` et `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`."
     },
     {
-      "question": "Comment configurer META-Farm pour des applications multifils (OpenMP) en modifiant `job_script.sh`?",
-      "answer": "Il faut ajouter `#SBATCH --cpus-per-task=N`, `#SBATCH --mem=M` et `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`, où `N` est le nombre de cœurs de processeur et `M` la mémoire totale à réserver."
+      "question": "Comment s'assurer que des variables d'environnement personnalisées sont transmises à toutes les tâches d'une ferme META, y compris les tâches auto-resoumises et de post-traitement?",
+      "answer": "Il faut définir les variables directement sur la ligne de commande avant `submit.run`, par exemple: `VAR1=1 VAR2=5 submit.run ...`, et éviter d'utiliser `--export` sans `ALL`."
     },
     {
-      "question": "Comment configurer META-Farm pour des applications MPI?",
-      "answer": "Ajoutez `#SBATCH --ntasks=N` et `#SBATCH --mem-per-cpu=M` à `job_script.sh`, et insérez `srun` devant le chemin de votre code dans `single_case.sh` (par ex. `srun $COMM`) ou devant chaque ligne dans `table.dat`."
+      "question": "Comment l'algorithme de réduction du gaspillage de CPU dans META-Farm aide-t-il à minimiser l'interruption des cas due aux limites de temps?",
+      "answer": "Il mesure le temps d'exécution de chaque cas, estime un temps d'exécution conservateur (`dt_cutoff`) et met fin aux tâches de meta-job plus tôt si le temps restant ne suffit pas pour le prochain cas, évitant ainsi les arrêts en milieu de calcul."
     },
     {
-      "question": "Comment s'assurer que des variables d'environnement personnalisées sont transmises à toutes les tâches de la ferme, y compris les tâches de resoumission automatique et de post-traitement?",
-      "answer": "Il faut définir les variables directement sur la ligne de commande avant `submit.run`, par exemple: `VAR1=1 VAR2=5 submit.run ...`, plutôt que d'utiliser l'option `--export` de `sbatch`."
+      "question": "Que signifie le message d'erreur \"Non-farm directory, or no farm has been submitted; exiting\" dans le contexte de META-Farm?",
+      "answer": "Ce message indique que le répertoire actuel n'est pas un répertoire de ferme, ou que la commande `submit.run` n'a jamais été exécutée pour cette ferme."
     },
     {
-      "question": "Quel est le mécanisme intégré dans META-Farm pour réduire le gaspillage de cycles CPU causé par les tâches qui atteignent leur limite de temps d'exécution?",
-      "answer": "Le script `task.run` mesure le temps d'exécution de chaque cas et estime un temps de coupure (`dt_cutoff`). Chaque tâche vérifie ensuite s'il lui reste suffisamment de temps pour terminer le cas suivant et, si ce n'est pas le cas, elle se termine prématurément."
+      "question": "Que faut-il vérifier si le message d'erreur \"lockfile is not on path; exiting\" apparaît lors de l'utilisation de META-Farm?",
+      "answer": "Il faut s'assurer que l'utilitaire `lockfile` est présent dans la variable `$PATH`, car il est essentiel pour garantir que les tâches ne lisent pas la même ligne de `table.dat` simultanément."
     },
     {
-      "question": "Que signifie le message d'erreur \"Non-farm directory, or no farm has been submitted; exiting\"?",
-      "answer": "Ce message indique que le répertoire actuel n'est pas un répertoire de ferme META-Farm, ou que la commande `submit.run` n'a jamais été exécutée pour cette ferme."
+      "question": "Que signifie le message d'erreur \"Jobs are still running/queued; cannot resubmit\" lors de l'exécution de `resubmit.run` pour une ferme META?",
+      "answer": "Ce message signifie que l'on ne peut pas utiliser `resubmit.run` tant que toutes les tâches de meta-job de cette ferme n'ont pas terminé leur exécution."
     },
     {
-      "question": "Que faire si je reçois le message d'erreur \"lockfile is not on path; exiting\"?",
-      "answer": "Assurez-vous que l'utilitaire `lockfile` est présent dans votre variable d'environnement `$PATH`, car il est essentiel pour gérer l'accès sérialisé des tâches au fichier `table.dat`."
-    },
-    {
-      "question": "Que signifie le message \"Jobs are still running/queued; cannot resubmit\" et que faut-il faire?",
-      "answer": "Cela signifie que vous ne pouvez pas utiliser `resubmit.run` tant que toutes les tâches de la ferme n'ont pas fini de s'exécuter. Utilisez `list.run` ou `queue.run` pour vérifier leur statut."
-    },
-    {
-      "question": "Que signifie le message \"Not enough runtime left; exiting.\"?",
-      "answer": "Ce message indique que la tâche (job) META a déterminé qu'il ne lui restait probablement pas assez de temps pour traiter le cas suivant, en se basant sur les temps d'exécution des cas précédents, et qu'elle se termine donc plus tôt."
-    },
-    {
-      "question": "Quel est le sens du message \"Only failed cases left; cannot auto-resubmit; exiting\" et quelle est la marche à suivre?",
-      "answer": "Ce message apparaît uniquement si vous avez utilisé l'option `-auto`. Il signifie qu'il ne reste que des cas qui ont échoué. Il faut trouver ces cas avec `Status.run -f`, corriger la raison de leur échec, puis relancer `resubmit.run`."
+      "question": "Que faire si le message \"Only failed cases left; cannot auto-resubmit; exiting\" apparaît avec l'option `-auto` de META-Farm?",
+      "answer": "Il faut trouver les cas échoués avec `Status.run -f`, corriger la ou les causes des échecs, puis exécuter `resubmit.run` manuellement."
     }
   ],
-  "generated_at": "2026-04-12T01:32:19.531796+00:00"
+  "generated_at": "2026-04-13T08:33:54.644565+00:00"
 }

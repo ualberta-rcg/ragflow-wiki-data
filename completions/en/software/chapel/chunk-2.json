@@ -4,37 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How does the provided Chapel code determine whether to use a GPU or a CPU for operations?",
-      "answer": "The Chapel code uses a variable named `operateOn` which checks if `here.gpus.size` is greater than 0. If it is, `operateOn` is set to `here.gpus[0]` (the first GPU); otherwise, it defaults to `here` (the CPU)."
+      "question": "How do you set up the environment to run Multi-locale Chapel with NVIDIA GPU support on an InfiniBand cluster?",
+      "answer": "To set up the environment for running Multi-locale Chapel with NVIDIA GPU support on an InfiniBand cluster, you need to load the `gcc/12.3`, `cuda/12.2`, and `chapel-ucx-cuda/2.4.0` modules."
     },
     {
-      "question": "What kind of parallelism is shown in the `probeGPU.chpl` code example?",
-      "answer": "The `probeGPU.chpl` code example demonstrates thread parallelism, which can be executed on either a CPU or a GPU, as indicated by the `@assertOnGpu` annotation within the `foreach` loop."
+      "question": "After loading the necessary modules, how do you request an interactive job with NVIDIA GPU access for Multi-locale Chapel on an InfiniBand cluster?",
+      "answer": "After loading the required modules, you can request an interactive job with NVIDIA GPU access for Multi-locale Chapel on an InfiniBand cluster using the `salloc` command. An example command is: `salloc --time=0:30:0 --mem-per-cpu=3500 --gpus-per-node=1 --account=def-someprof`."
     },
     {
-      "question": "Which module is required to run Chapel code with NVIDIA GPU support on an InfiniBand cluster?",
-      "answer": "To run Chapel code with NVIDIA GPU support on an InfiniBand cluster, you need to load the `chapel-ucx-cuda` module."
-    },
-    {
-      "question": "What is the complete command for loading the necessary modules to run Chapel GPU code on an InfiniBand cluster?",
-      "answer": "The complete command to load the necessary modules is `module load gcc/12.3 cuda/12.2 chapel-ucx-cuda/2.4.0`."
-    },
-    {
-      "question": "How can a user allocate resources for an interactive job to run the `probeGPU.chpl` code with GPU support?",
-      "answer": "A user can allocate resources for an interactive job using the command: `salloc --time=0:30:0 --mem-per-cpu=3500 --gpus-per-node=1 --account=def-someprof`."
-    },
-    {
-      "question": "What command is used to compile the `probeGPU.chpl` code once an interactive job has been initiated?",
-      "answer": "To compile the `probeGPU.chpl` code, the command `chpl --fast probeGPU.chpl` is used from the prompt on the allocated compute node."
-    },
-    {
-      "question": "How do you run the compiled `probeGPU` program from the prompt within an interactive job, specifying one locale?",
-      "answer": "The compiled `probeGPU` program is run using the command `./probeGPU -nl 1`."
-    },
-    {
-      "question": "What is the recommended approach for submitting production jobs that utilize multi-locale Chapel with NVIDIA GPU support?",
-      "answer": "For production jobs, it is recommended to write a Slurm submission script and submit the job using `sbatch`."
+      "question": "Once an interactive job is running, what are the steps to compile and execute a Multi-locale Chapel program that utilizes GPUs?",
+      "answer": "Once an interactive job is running on an allocated compute node, you first compile the Chapel GPU program using `chpl --fast <program_name.chpl>`, for example, `chpl --fast probeGPU.chpl`. Then, you execute the compiled program by running `./<program_name> -nl 1`, such as `./probeGPU -nl 1`."
     }
   ],
-  "generated_at": "2026-04-11T19:36:43.409884+00:00"
+  "generated_at": "2026-04-13T03:49:48.805233+00:00"
 }

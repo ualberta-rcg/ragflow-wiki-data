@@ -4,25 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How can `rsync` be used for local transfers within a single system?",
-      "answer": "In its simplest form, `rsync` can transfer a directory or file from a home or scratch location into a project directory on the same system by dropping the cluster name, using a command such as `rsync -avh --no-g --no-p LOCALNAME ~/projects/def-professor/someuser/somedir/`."
+      "question": "How can files or directories be transferred locally within a single system to a project directory using `rsync`?",
+      "answer": "To transfer a directory or file locally (e.g., from your home or scratch directory) into a `/project` filesystem on the same system, you can use the `rsync` command: `rsync -avh --no-g --no-p LOCALNAME ~/projects/def-professor/someuser/somedir/`. In this command, `LOCALNAME` represents the directory or file being transferred, and `somedir` will be created if it doesn't already exist. The `--no-g` and `--no-p` options are crucial as `/project` filesystems enforce quotas based on group ownership, and preserving group ownership (which `-a` would do by default) can lead to \"Disk quota exceeded\" errors."
     },
     {
-      "question": "What happens to the destination directory (`somedir`) if it doesn't exist when using `rsync` for a local transfer?",
-      "answer": "If the destination directory (`somedir`) doesn't already exist, `rsync` will create it before copying the local item into it."
-    },
-    {
-      "question": "Which `rsync` options are demonstrated for local transfers to a project directory?",
-      "answer": "The demonstrated `rsync` options for local transfers to a project directory are `-avh --no-g --no-p`."
-    },
-    {
-      "question": "How does the `cp` command's behaviour differ from `rsync` when transferring a directory to a non-existent destination directory locally?",
-      "answer": "Unlike `rsync`, if `LOCALNAME` is a directory and the `somedir` destination does not exist, the `cp` command will rename `LOCALNAME` to `somedir`."
-    },
-    {
-      "question": "Can the `cp` command be used to transfer a directory or file from a home or scratch directory to a project directory locally?",
-      "answer": "Yes, the `cp` command can be used similarly to `rsync` for local transfers from home to project, for example, by using `cp -rv --preserve=\"mode,timestamps\" LOCALNAME ~/projects/def-professor/someuser/somedir/`."
+      "question": "What is the key distinction between `rsync` and the `cp` command when locally transferring a directory to a project directory if the destination directory does not yet exist?",
+      "answer": "When performing a local transfer of a directory (e.g., `LOCALNAME`) to a project directory (`somedir`) that does not yet exist, `rsync` will create `somedir` and copy `LOCALNAME` into it. In contrast, using the `cp` command (e.g., `cp -rv --preserve=\"mode,timestamps\" LOCALNAME ~/projects/def-professor/someuser/somedir/`) will rename the `LOCALNAME` directory to `somedir` if `somedir` does not exist, rather than creating `somedir` and placing `LOCALNAME` inside it."
     }
   ],
-  "generated_at": "2026-04-12T09:22:13.297530+00:00"
+  "generated_at": "2026-04-13T14:37:24.000477+00:00"
 }

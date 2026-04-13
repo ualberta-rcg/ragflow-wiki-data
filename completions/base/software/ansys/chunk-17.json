@@ -4,25 +4,17 @@
   "chunk_index": 17,
   "qa_pairs": [
     {
-      "question": "When should I set the `dual-time-iterate` value to 1 instead of 2 for a Fluent solution restart?",
-      "answer": "You should choose 1 for `dual-time-iterate` if all time steps are expected to require a similar amount of wall time to complete, especially if the first time step starts from a converged (previous) solution."
+      "question": "What is the purpose of adjusting the `dual-time-iterate` value in the `sample-restart.jou` file for Fluent simulations on Alliance clusters?",
+      "answer": "If the second and subsequent time steps are known to run twice as fast as the initial time step, adjusting the `dual-time-iterate` value in the `sample-restart.jou` file to 2 ensures that the solution is only restarted after two time steps are completed following the initial one. This helps minimize the number of computationally expensive solution restarts."
     },
     {
-      "question": "How do you calculate the total simulation time for a Fluent job that uses the solution restart script with `dual-time-iterate` set to 2?",
-      "answer": "The total time of simulation is calculated as `1*Dt + 2*Nrestart*Dt`, where `Dt` represents the time for one time step and `Nrestart` is the number of solution restarts specified in the script."
+      "question": "How are the total simulation time and the total number of time steps calculated when using solution restarts in Fluent, assuming a `dual-time-iterate` value of 2?",
+      "answer": "When the `dual-time-iterate` value is chosen as 2, the total simulation time will be `1*Dt + 2*Nrestart*Dt`, where `Dt` is the time step and `Nrestart` is the number of solution restarts specified in the script. The total number of time steps (and thus the number of output files generated) will be `1 + 2*Nrestart`."
     },
     {
-      "question": "What is the total number of time steps and output files generated when `dual-time-iterate` is set to 2 in a Fluent solution restart?",
-      "answer": "The total number of time steps, and consequently the number of output files generated, will be `1 + 2*Nrestart`, where `Nrestart` is the number of solution restarts specified in the script."
-    },
-    {
-      "question": "How should the time resource request be configured for a Slurm job when performing a Fluent solution restart?",
-      "answer": "The value for the time resource request (e.g., `#SBATCH --time`) should be selected to comfortably allow the initial time step and all subsequent time steps to complete within the available Slurm time window."
-    },
-    {
-      "question": "What is the maximum time limit for a Slurm job that can be specified using the `#SBATCH --time` directive?",
-      "answer": "The maximum time limit that can be specified for a Slurm job is `07-00:00` days."
+      "question": "What is the maximum Slurm time window that can be requested for a job using solution restarts in Fluent simulations?",
+      "answer": "The time resource request for a Fluent job with solution restarts should be chosen such that the initial time step and subsequent time steps comfortably complete within the Slurm time window, which can be specified up to a maximum of `#SBATCH --time=07-00:00` days."
     }
   ],
-  "generated_at": "2026-04-12T16:37:27.459102+00:00"
+  "generated_at": "2026-04-13T01:42:23.003115+00:00"
 }

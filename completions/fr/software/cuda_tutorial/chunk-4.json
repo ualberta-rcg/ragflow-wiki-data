@@ -4,65 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce qui fait que le premier exemple de code CUDA C simple présenté n'avait pas une allure parallèle?",
-      "answer": "Le code initial n'avait pas une allure parallèle car le kernel `add` était lancé avec `<<< 1, 1 >>>`, ce qui signifie qu'un seul bloc et un seul fil étaient utilisés pour l'exécution."
+      "question": "Comment peut-on rendre un programme CUDA parallèle, et quelles sont les principales façons de distribuer les tâches sur un GPU?",
+      "answer": "Pour rendre un programme CUDA parallèle, on peut modifier les paramètres entre les chevrons triples (`<<< >>>`) lors du lancement du *kernel*. On peut distribuer la tâche sur `N` blocs CUDA différents en écrivant `add <<<N, 1>>> (dev_a, dev_b, dev_c);`, ce qui nécessite d'utiliser `blockIdx.x` pour identifier les données traitées par chaque bloc. Alternativement, on peut distribuer la tâche sur `N` fils parallèles au sein d'un seul bloc en écrivant `add <<<1, N>>> (dev_a, dev_b, dev_c);`."
     },
     {
-      "question": "Comment peut-on paralléliser un programme CUDA en utilisant des blocs différents?",
-      "answer": "Pour paralléliser avec des blocs, on peut remplacer la valeur `1` par `N` dans la première chevrone (`add <<< N, 1 >>>`), ce qui permet d'exécuter `N` blocs CUDA différents en même temps. Il faut aussi modifier le kernel pour qu'il utilise `blockIdx.x`."
+      "question": "Quelle est la principale distinction entre la parallélisation sur des blocs et celle sur des fils dans un *kernel* CUDA, et quand privilégier l'une ou l'autre?",
+      "answer": "La principale distinction est la capacité de communication : les fils d'un même bloc peuvent communiquer entre eux, mais les fils d'un bloc ne coopèrent pas avec les fils des autres blocs. On privilégie la parallélisation sur plusieurs fils dans un bloc quand la communication entre les tâches est intense. En revanche, les portions de code qui peuvent être exécutées indépendamment, avec peu ou pas de communication, sont mieux distribuées sur des blocs parallèles."
     },
     {
-      "question": "À quoi sert `blockIdx.x` dans le contexte de la parallélisation basée sur les blocs en CUDA?",
-      "answer": "`blockIdx.x` est le numéro unique qui identifie un bloc CUDA, permettant à chaque bloc de travailler sur une valeur spécifique dans les tableaux d'entrée et de sortie (`a[]`, `b[]`, `c[]`)."
-    },
-    {
-      "question": "Comment distribue-t-on une tâche sur des fils parallèles plutôt que sur des blocs en CUDA?",
-      "answer": "Pour distribuer une tâche sur des fils parallèles, on modifie le contenu entre les chevrons triples à `add <<< 1, N >>>`, ce qui permet de paralléliser sur plusieurs fils au sein d'un même bloc."
-    },
-    {
-      "question": "Quel est l'avantage principal de paralléliser avec des fils plutôt qu'avec des blocs?",
-      "answer": "L'avantage principal est que, contrairement aux blocs, les fils peuvent communiquer ensemble. On parallélise sur des fils dans un bloc quand la communication est intense."
-    },
-    {
-      "question": "Quand faut-il utiliser la parallélisation sur des blocs versus des fils?",
-      "answer": "Les portions de code qui peuvent être exécutées indépendamment, avec peu ou pas de communication, sont distribuées sur des blocs parallèles, tandis que les fils parallèles sont utilisés quand la communication est intense au sein du bloc."
-    },
-    {
-      "question": "Quel est le problème avec les transferts en mémoire via la mémoire globale du GPU dans un ''kernel''?",
-      "answer": "La mémoire globale du GPU est relativement lente, et une communication trop intense entre les fils via cette mémoire peut significativement diminuer la performance du programme."
-    },
-    {
-      "question": "Comment peut-on accélérer les transferts en mémoire entre les fils en CUDA?",
-      "answer": "Pour accélérer les transferts en mémoire entre les fils, on peut utiliser la mémoire partagée, qui est beaucoup plus rapide que la mémoire globale."
-    },
-    {
-      "question": "Quelle est la principale restriction concernant la communication via la mémoire partagée en CUDA?",
-      "answer": "La principale restriction est que seuls les fils du même bloc peuvent communiquer entre eux via la mémoire partagée."
-    },
-    {
-      "question": "Quel problème est rencontré avec la variable temporaire dans l'exemple initial du produit scalaire avec un ''kernel'' `dot`?",
-      "answer": "Le problème est que chaque copie de la variable temporaire du fil (`int temp`) est privée, ce qui empêche les fils de partager leurs données pour effectuer la somme finale."
-    },
-    {
-      "question": "Comment résout-on le problème des variables temporaires privées dans l'exemple du produit scalaire en utilisant la mémoire partagée?",
-      "answer": "On résout le problème en déclarant la variable temporaire avec `__shared__` (`__shared__ int temp[N];`), ce qui la rend accessible à tous les fils du bloc. On utilise aussi `__syncthreads()` pour s'assurer que tous les fils ont fini leur portion avant de calculer la somme."
-    },
-    {
-      "question": "Quelle est la vitesse du bus PCI-e comparativement à la mémoire hôte et la mémoire de la carte graphique?",
-      "answer": "Le PCI-e est extrêmement lent, avec un débit de 4-6 Go/s, en comparaison à la mémoire hôte et la mémoire de la carte graphique."
-    },
-    {
-      "question": "Quelle est la première stratégie pour optimiser les transferts de mémoire et améliorer la performance?",
-      "answer": "Pour optimiser les transferts de mémoire, il faut minimiser les copies de mémoire dans les deux directions (entre l'hôte et la carte graphique)."
-    },
-    {
-      "question": "Quelle est une autre stratégie importante pour optimiser la performance des transferts de données en CUDA?",
-      "answer": "Une autre stratégie importante est de garder les données sur la carte graphique le plus longtemps possible afin d'éviter des copies inutiles."
-    },
-    {
-      "question": "Dans quel cas pourrait-il être plus rapide d'exécuter des tâches non optimales sur le GPU plutôt que sur le CPU?",
-      "answer": "Il pourrait être plus rapide d'exécuter des tâches non optimales avec le GPU plutôt que de copier les données vers le CPU, les exécuter, puis retourner le résultat, à cause de la lenteur des transferts via PCI-e."
+      "question": "Pourquoi la mémoire partagée est-elle avantageuse pour les opérations CUDA, et quelle est sa principale limitation?",
+      "answer": "La mémoire partagée est avantageuse car elle peut accélérer les transferts en mémoire entre les fils, ce qui est très rapide comparativement à la mémoire globale du GPU qui est plus lente. Sa principale limitation est que seuls les fils du même bloc peuvent communiquer et échanger des données via cette mémoire."
     }
   ],
-  "generated_at": "2026-04-11T19:20:45.800551+00:00"
+  "generated_at": "2026-04-13T03:36:55.992501+00:00"
 }

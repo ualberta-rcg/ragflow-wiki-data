@@ -4,49 +4,13 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "How can one access individual columns from the cases table within the `single_case.sh` script?",
-      "answer": "To access individual columns, you need to modify `single_case.sh` by converting the `$COMM` variable into a bash array using `COMM=( $COMM )`. Once it's an array, you can access columns individually as `${COMM[i]}`, a range as `${COMM[@]:i:n}`, or all columns from an index as `${COMM[@]:i}`."
+      "question": "In the META-Farm package, how can a user access individual columns from a `table.dat` entry within the `single_case.sh` script for customized processing?",
+      "answer": "To access individual columns from a `table.dat` entry within `single_case.sh`, the `$COMM` variable, which contains the line corresponding to the case without the ID field, should be converted into an array using `COMM=( $COMM )`. After this, individual columns can be accessed as `${COMM[i]}` (where `i` is the 0-based index), and a range of columns can be accessed using `${COMM[@]:i:n}`. The case ID itself is available in the `$ID` variable."
     },
     {
-      "question": "What information do the `$ID` and `$COMM` variables provide in `single_case.sh`?",
-      "answer": "The `$ID` variable contains the case ID from the original table, and the `$COMM` variable contains the entire line corresponding to the case `$ID` from the original table, but without the ID field itself."
-    },
-    {
-      "question": "How do you determine the total number of columns in the `$COMM` array after converting it in `single_case.sh`?",
-      "answer": "After converting `$COMM` to an array using `COMM=( $COMM )`, you can find the number of columns by using the command `Ncol=${#COMM[@]}`."
-    },
-    {
-      "question": "Provide an example of how to modify `single_case.sh` to handle a scenario where your code requires both a standard input file and a variable number of command-line arguments.",
-      "answer": "If your cases table entries look like `/path/to/IC.1 0.1` (where the first column is the input file and subsequent columns are arguments), you would modify `single_case.sh` to call your user code as: `/path/to/code ${COMM[@]:1} < ${COMM[0]}`."
-    },
-    {
-      "question": "What is the purpose of the built-in intelligence implemented in `task.run` regarding job run-times?",
-      "answer": "The built-in intelligence in `task.run` is designed to reduce the waste of CPU cycles that occurs when meta-jobs hit their run-time limits and abort in the middle of processing a case, by proactively estimating and managing job completion times."
-    },
-    {
-      "question": "How does `task.run` calculate an estimate for an individual case's run-time, referred to as `dt_cutoff`?",
-      "answer": "After the first 8 cases are computed, one of the meta-jobs reads the run-times of all processed cases from a scratch file called `times` and calculates the largest 12.5% quantile, which serves as a conservative estimate for `dt_cutoff`."
-    },
-    {
-      "question": "Where are the measured run-times of individual cases stored by the `task.run` script?",
-      "answer": "The run-time of each case is measured by `task.run` and added as a line to a scratch file named `times`, which is created in the directory `/home/$USER/tmp/$NODE.$PID/`."
-    },
-    {
-      "question": "How does a meta-job decide whether to start a new case or exit early to avoid wasting CPU cycles?",
-      "answer": "Before starting a new case, a meta-job estimates if it has sufficient time to complete it by checking if `t_finish - t_now > dt_cutoff`. If it determines there isn't enough time, it will exit early to minimize the risk of a case aborting mid-calculation."
-    },
-    {
-      "question": "How frequently is the `dt_cutoff` estimate updated to improve its accuracy?",
-      "answer": "The `dt_cutoff` estimate is recomputed at every subsequent power of two number of computed cases (e.g., 8, then 16, then 32, and so on) to ensure it becomes increasingly accurate as more cases are processed."
-    },
-    {
-      "question": "What is the approximate reduction in wasted CPU cycles provided by `task.run`'s intelligent run-time management?",
-      "answer": "The algorithm implemented in `task.run` reduces the amount of CPU cycles wasted due to jobs hitting their run-time limit by a factor of 8, on average."
-    },
-    {
-      "question": "Besides reducing waste, what other useful side effect does the run-time measurement in `task.run` provide?",
-      "answer": "As a useful side effect, the individual run-times for all cases are stored in `/home/$USER/tmp/$NODE.$PID/times`, which can be analyzed to fine-tune the farm setup or for profiling the user's code."
+      "question": "How does the META-Farm package prevent wasting CPU cycles when meta-jobs might reach their run-time limits before completing a case?",
+      "answer": "The META-Farm package's `task.run` script includes a built-in intelligence to reduce waste. It measures the run-time of each case, and once the first 8 cases are computed, it estimates a conservative `dt_cutoff` (run-time estimate). Before a meta-job starts a new case, it checks if its remaining allocated run-time is greater than this `dt_cutoff`. If not, the job will exit early, preventing cases from being interrupted mid-calculation due to run-time limits. This `dt_cutoff` estimate is recomputed at every subsequent power of two number of computed cases (e.g., 16, 32) to improve accuracy."
     }
   ],
-  "generated_at": "2026-04-12T01:30:50.978838+00:00"
+  "generated_at": "2026-04-13T08:32:42.456508+00:00"
 }

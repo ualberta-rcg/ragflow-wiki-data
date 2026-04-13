@@ -4,137 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How many nodes on Narval have 2009G of available memory?",
-      "answer": "There are 33 nodes on Narval with 2009G (or 2057500M) of available memory."
+      "question": "What type of GPUs are available on the Narval cluster, and what Slurm options should be used to request one or more full A100 GPUs for a compute job?",
+      "answer": "The Narval cluster offers NVidia A100SXM4 GPUs with 40 GB of memory. To request one full A100-40gb GPU, use `--gpus=a100:1`. For multiple A100-40gb GPUs per node, options include `--gpus-per-node=a100:2`, `--gpus-per-node=a100:3`, or `--gpus-per-node=a100:4`. To request multiple full A100 GPUs spread across the cluster, use `--gpus=a100:n`, replacing `n` with the desired number of GPUs."
     },
     {
-      "question": "What CPU configuration do the 33 nodes with 2009G of memory on Narval use?",
-      "answer": "The 33 nodes with 2009G of memory on Narval use 2 x AMD EPYC 7502 (Zen 2) processors at 2.50 GHz, each with a 128M cache L3."
+      "question": "What is Multi-Instance GPU (MIG) technology on the Narval cluster, what are the available MIG instance sizes, and what Slurm options are used to request a single specific MIG instance?",
+      "answer": "Multi-Instance GPU (MIG) technology is available on several GPU nodes on Narval, allowing for partitioning of A100 GPUs. Four sizes are offered: 1g.5gb (1/8 compute capacity, 5 GB memory), 2g.10gb (2/8 compute capacity, 10 GB memory), 3g.20gb (3/8 compute capacity, 20 GB memory), and 4g.20gb (4/8 compute capacity, 20 GB memory). To request a single MIG instance, use options like `--gpus=a100_1g.5gb:1`, `--gpus=a100_2g.10gb:1`, `--gpus=a100_3g.20gb:1`, or `--gpus=a100_4g.20gb:1` for the respective sizes."
     },
     {
-      "question": "How many nodes on Narval have 4000G of available memory?",
-      "answer": "There are 3 nodes on Narval with 4000G (or 4096000M) of available memory."
-    },
-    {
-      "question": "What CPU configuration do the 3 nodes with 4000G of memory on Narval use?",
-      "answer": "The 3 nodes with 4000G of memory on Narval use 2 x AMD EPYC 7502 (Zen 2) processors at 2.50 GHz, each with a 128M cache L3."
-    },
-    {
-      "question": "How many GPU-equipped nodes are available on Narval?",
-      "answer": "There are 159 GPU-equipped nodes available on Narval."
-    },
-    {
-      "question": "What are the specifications for the 159 GPU nodes on Narval?",
-      "answer": "The 159 GPU nodes on Narval each have 48 cores, 498G (or 510000M) of available memory, 2 x AMD EPYC 7413 (Zen 3) processors at 2.65 GHz with a 128M cache L3, 1 x 3.84 TB SSD, and 4 x NVidia A100SXM4 (40 GB memory) connected via NVLink."
-    },
-    {
-      "question": "What type of GPUs are installed in the 159 GPU nodes on Narval?",
-      "answer": "The 159 GPU nodes on Narval are equipped with 4 x NVidia A100SXM4 (40 GB memory) GPUs per node, connected via NVLink."
-    },
-    {
-      "question": "Which AMD EPYC processor generations does Narval use, and what instruction set do they support?",
-      "answer": "Narval is equipped with 2nd and 3rd generation AMD EPYC processors that support the AVX2 instruction set."
-    },
-    {
-      "question": "Does Narval support the AVX512 instruction set?",
-      "answer": "No, Narval does not support the AVX512 instruction set."
-    },
-    {
-      "question": "Can Intel compilers be used to compile applications for Narval's AMD processors?",
-      "answer": "Yes, Intel compilers can compile applications for Narval's AMD processors that support AVX2 and earlier instruction sets."
-    },
-    {
-      "question": "What Intel compiler option should be used to produce executables compatible with both Intel and AMD processors on Narval?",
-      "answer": "Use the `-march=core-avx2` option when using Intel compilers to produce executables compatible with both Intel and AMD processors on Narval."
-    },
-    {
-      "question": "Which Intel compiler options should be avoided when compiling for Narval's AMD processors?",
-      "answer": "The Intel compiler options `-xXXXX` (such as `-xCORE-AVX2`), `-xHOST`, and `-march=native` should not be used on Narval."
-    },
-    {
-      "question": "Why should options like `-xCORE-AVX2` not be used when compiling for Narval with Intel compilers?",
-      "answer": "If a program compiled on an Intel system used options like `-xCORE-AVX2`, it will not work on Narval because Intel compilers add additional instructions to verify that the processor used is an Intel product."
-    },
-    {
-      "question": "What is the standard software environment on Narval?",
-      "answer": "The standard software environment on Narval is StdEnv/2023."
-    },
-    {
-      "question": "Are older standard software environments accessible on Narval?",
-      "answer": "No, previous versions of the standard software environment (2016 and 2018) have been intentionally blocked on Narval."
-    },
-    {
-      "question": "Who should be contacted if an application requires an older standard software environment on Narval?",
-      "answer": "If you need an application that is only available with an older standard environment, you should write to technical support."
-    },
-    {
-      "question": "How well does the Intel MKL library perform on Narval's AMD processors?",
-      "answer": "The Intel MKL library works with AMD processors on Narval, but not in an optimal way."
-    },
-    {
-      "question": "Which BLAS and LAPACK library is currently favoured on Narval?",
-      "answer": "The FlexiBLAS library is currently favoured for BLAS and LAPACK on Narval."
-    },
-    {
-      "question": "What Slurm option is used to request one full A100-40gb GPU?",
-      "answer": "To request one full A100-40gb GPU, use the Slurm option `--gpus=a100:1`."
-    },
-    {
-      "question": "How can multiple A100-40gb GPUs be requested per node on Narval using Slurm?",
-      "answer": "To request multiple A100-40gb GPUs per node, you can use Slurm options like `--gpus-per-node=a100:2`, `--gpus-per-node=a100:3`, or `--gpus-per-node=a100:4`."
-    },
-    {
-      "question": "What Slurm option is used to request multiple A100-40gb GPUs that can be spread across different nodes?",
-      "answer": "To request multiple A100-40gb GPUs spread anywhere, use the Slurm option `--gpus=a100:n`, replacing 'n' with the desired number of GPUs."
-    },
-    {
-      "question": "What GPU technology is configured on several GPU nodes on Narval?",
-      "answer": "Several GPU nodes on Narval are configured with Multi-Instance GPU (MIG) technology."
-    },
-    {
-      "question": "What are the available sizes for Multi-Instance GPU (MIG) instances on Narval?",
-      "answer": "The four available Multi-Instance GPU sizes on Narval are 1g.5gb, 2g.10gb, 3g.20gb, and 4g.20gb."
-    },
-    {
-      "question": "What are the specifications for the 1g.5gb Multi-Instance GPU size?",
-      "answer": "The 1g.5gb Multi-Instance GPU provides 1/8 compute capacity and 5 GB of GPU memory."
-    },
-    {
-      "question": "What are the specifications for the 2g.10gb Multi-Instance GPU size?",
-      "answer": "The 2g.10gb Multi-Instance GPU provides 2/8 compute capacity and 10 GB of GPU memory."
-    },
-    {
-      "question": "What are the specifications for the 3g.20gb Multi-Instance GPU size?",
-      "answer": "The 3g.20gb Multi-Instance GPU provides 3/8 compute capacity and 20 GB of GPU memory."
-    },
-    {
-      "question": "What are the specifications for the 4g.20gb Multi-Instance GPU size?",
-      "answer": "The 4g.20gb Multi-Instance GPU provides 4/8 compute capacity and 20 GB of GPU memory."
-    },
-    {
-      "question": "Are all Multi-Instance GPU sizes equally available on Narval?",
-      "answer": "No, there are fewer 4g.20gb Multi-Instance GPU instances available compared to other sizes."
-    },
-    {
-      "question": "How do you request a single 1g.5gb GPU instance for a compute job using Slurm?",
-      "answer": "To request one 1g.5gb GPU instance, use the Slurm option `--gpus=a100_1g.5gb:1`."
-    },
-    {
-      "question": "How do you request a single 2g.10gb GPU instance for a compute job using Slurm?",
-      "answer": "To request one 2g.10gb GPU instance, use the Slurm option `--gpus=a100_2g.10gb:1`."
-    },
-    {
-      "question": "How do you request a single 3g.20gb GPU instance for a compute job using Slurm?",
-      "answer": "To request one 3g.20gb GPU instance, use the Slurm option `--gpus=a100_3g.20gb:1`."
-    },
-    {
-      "question": "How do you request a single 4g.20gb GPU instance for a compute job using Slurm?",
-      "answer": "To request one 4g.20gb GPU instance, use the Slurm option `--gpus=a100_4g.20gb:1`."
-    },
-    {
-      "question": "Where can I find information on the maximum recommended CPU cores and system memory per GPU instance?",
-      "answer": "Information on the maximum recommended number of CPU cores and system memory per GPU instance can be found in the 'Allocations and compute scheduling#Ratios_in_bundles' table."
+      "question": "What instruction sets do the AMD EPYC processors on the Narval cluster support, and what precautions should be taken when using Intel compilers to build applications for these processors?",
+      "answer": "Narval's 2nd and 3rd generation AMD EPYC processors support the AVX2 instruction set, but they do not support AVX512. When using Intel compilers, the `-march=core-avx2` option should be used to produce executables compatible with both Intel and AMD processors. It is crucial to avoid options like `-xXXXX` (e.g., `-xCORE-AVX2`), `-xHOST`, or `-march=native`, as these options will result in programs that either verify for Intel processors or compile for an outdated architecture, preventing them from working correctly on Narval."
     }
   ],
-  "generated_at": "2026-04-12T03:38:48.379167+00:00"
+  "generated_at": "2026-04-13T09:53:26.835506+00:00"
 }

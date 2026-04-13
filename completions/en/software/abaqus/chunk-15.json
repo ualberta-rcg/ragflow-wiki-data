@@ -4,69 +4,13 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "How can one determine the required Slurm memory for multi-node Abaqus scripts?",
-      "answer": "Memory estimates (per compute process) required to minimize I/O are provided in the output `.dat` file of completed jobs."
+      "question": "How can one estimate the `mem-per-cpu` value for multi-node Abaqus jobs on Slurm clusters?",
+      "answer": "To estimate the required `mem-per-cpu` value for multi-node Abaqus jobs, first consult the memory estimates per compute process found in the output .dat file of completed jobs. If the `mp_host_split` parameter is not specified or is set to 1, calculate `mem-per-cpu` by multiplying the largest memory estimate by the number of nodes, then dividing by the number of `ntasks`. If `mp_host_split` is greater than 1, multiply the largest memory estimate by the number of nodes and the `mp_host_split` value, then divide by the number of `ntasks`."
     },
     {
-      "question": "How is the `mem-per-cpu` value roughly determined if `mp_host_split` is not specified or is set to 1 in a multi-node Abaqus script?",
-      "answer": "If `mp_host_split` is not specified or is set to 1, the total number of compute processes will equal the number of nodes. The `mem-per-cpu` value can then be roughly determined by multiplying the largest memory estimate by the number of nodes and dividing by the number of `ntasks`."
-    },
-    {
-      "question": "How is the `mem-per-cpu` value roughly determined when `mp_host_split` is specified and greater than 1 in a multi-node Abaqus script?",
-      "answer": "If `mp_host_split` is specified and is greater than 1, the `mem-per-cpu` value can be roughly determined by multiplying the largest memory estimate by the number of nodes, then by the value of `mp_host_split`, and finally dividing by the number of tasks."
-    },
-    {
-      "question": "What happens if the `mp_host_split` value exceeds the number of cores per node during runtime?",
-      "answer": "If `mp_host_split` is less than or equal to the number of cores per node assigned by Slurm at runtime, Abaqus will terminate. This scenario can be controlled by uncommenting to specify a value for `tasks-per-node`."
-    },
-    {
-      "question": "What factors influence the upper limit of memory that Abaqus can allocate?",
-      "answer": "The upper limit of memory that Abaqus can allocate generally depends on the value of the \"MEMORY\" parameter and the amount of physical memory available on the machine."
-    },
-    {
-      "question": "Under what condition will Abaqus's actual memory usage be close to the \"MEMORY TO MINIMIZE I/O\" value, resulting in near-zero scratch disk usage?",
-      "answer": "If the memory upper limit is greater than the memory required to minimize I/O, then the actual memory usage will be close to the estimated \"MEMORY TO MINIMIZE I/O\" value, and the scratch disk usage will be close to zero."
-    },
-    {
-      "question": "When will Abaqus's actual memory usage be close to the specified memory limit, and scratch disk usage be roughly proportional to a difference?",
-      "answer": "If the memory upper limit is not greater than the memory required to minimize I/O, the actual memory used will be close to the memory limit, and the scratch disk usage will be roughly proportional to the difference between the estimated \"MEMORY TO MINIMIZE I/O\" and the memory upper limit."
-    },
-    {
-      "question": "What are the recommended methods for running graphical Abaqus applications at the Alliance?",
-      "answer": "It is recommended to use an OpenOnDemand or JupyterLab desktop to run graphical applications at the Alliance."
-    },
-    {
-      "question": "What is the first step to access Abaqus graphically using OnDemand?",
-      "answer": "The first step is to start an OnDemand desktop session by clicking one of the provided OnDemand links, such as `https://ondemand.sharcnet.ca` for Nibi or `https://ondemand.scinet.utoronto.ca` for TRILLIUM."
-    },
-    {
-      "question": "How does one load the Abaqus module in an OnDemand desktop session?",
-      "answer": "After starting an OnDemand desktop session and opening a new terminal window, one should enter the command `module load abaqus/2026`."
-    },
-    {
-      "question": "When should the `abaqus cae -mesa` option be used to start Abaqus in graphical mode?",
-      "answer": "The `abaqus cae -mesa` option should be used if you are on a node without a GPU or on a node with a GPU but without VirtualGL support."
-    },
-    {
-      "question": "How can one achieve better graphical performance when starting Abaqus CAE on an OnDemand desktop with GPU and VirtualGL support?",
-      "answer": "For better graphical performance on a node with a GPU and VirtualGL support, start Abaqus without the `-mesa` option using `abaqus cae`. If using the Nibi OnDemand desktop, a full h100 (80GB) GPU must be selected."
-    },
-    {
-      "question": "How can a user check for available Abaqus CAE licenses?",
-      "answer": "Users can check for available CAE licenses by running the command: `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | grep \"Users of cae\"`."
-    },
-    {
-      "question": "What are the steps to start an Abaqus graphical session using JupyterLab?",
-      "answer": "To start an Abaqus graphical session using JupyterLab, first start a JupyterHub desktop session via a provided link (e.g., FIR, NARVAL, or RORQUAL). Then, highlight an Abaqus module (such as `abaqus/2026`) in the 'Available Module' section, click 'Load', and an 'Abaqus (VNC)' icon will appear on the desktop. Clicking this icon should automatically start Abaqus in a remote Jupyter desktop."
-    },
-    {
-      "question": "Is VncViewer still recommended for graphical Abaqus use?",
-      "answer": "No, VncViewer is considered obsolete; users are advised to use the OnDemand or JupyterHub desktop instead."
-    },
-    {
-      "question": "If VncViewer must be used, what are the steps to launch Abaqus CAE?",
-      "answer": "If VncViewer must be used, connect with a VncViewer client to a login or compute node without a GPU, open a new terminal, load the `abaqus/2026` module, and start the application with `abaqus cae -mesa`."
+      "question": "What are the recommended platforms for running Abaqus in graphical mode within the Alliance computing environment, and how are they used?",
+      "answer": "The recommended platforms for running Abaqus in graphical mode at the Alliance are OpenOnDemand or JupyterLab. For OpenOnDemand, users start a desktop session, open a terminal, load the `abaqus/2026` module, and then launch Abaqus with `abaqus cae` (if a GPU with VirtualGL support is available) or `abaqus cae -mesa` (otherwise). For JupyterLab, users start a JupyterHub desktop session, select and load the `abaqus/2026` module, and then click the 'Abaqus (VNC)' icon that appears."
     }
   ],
-  "generated_at": "2026-04-11T15:34:18.655661+00:00"
+  "generated_at": "2026-04-13T00:48:50.128346+00:00"
 }

@@ -4,57 +4,17 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "What is the default simulation name used in the provided GROMACS checkpointing job scripts?",
-      "answer": "The default simulation name used in the GROMACS checkpointing job scripts is \"md\"."
+      "question": "How can users automate the process of splitting a long GROMACS simulation into multiple shorter jobs using SLURM?",
+      "answer": "Users can automate checkpointing by employing a SLURM job array. With such a script, a single 'sbatch' call submits multiple short jobs, and as soon as one job completes, the next one becomes eligible to start and resume the simulation. This process repeats until all jobs are complete or the simulation is finished, at which point any remaining pending jobs are automatically cancelled."
     },
     {
-      "question": "How do the GROMACS checkpointing scripts determine the number of OpenMP threads to use?",
-      "answer": "The scripts determine the number of OpenMP threads by using the value of the `SLURM_CPUS_PER_TASK` environment variable, defaulting to 1 if it's not explicitly set."
+      "question": "How is the simulation performance of GROMACS typically measured or quantified?",
+      "answer": "The simulation performance of GROMACS is typically quantified by the number of nanoseconds of MD-trajectory that can be simulated within a day (ns/day)."
     },
     {
-      "question": "In the GROMACS checkpointing job script, how is the job's time limit in hours obtained?",
-      "answer": "The job's time limit in hours is obtained by executing `squeue -h -j $SLURM_JOB_ID -O TimeLimit` and then cutting the output to get the first part, which represents hours."
-    },
-    {
-      "question": "What GROMACS command is used in the Narval checkpointing script to run a simulation with checkpointing and a specified time limit?",
-      "answer": "The command `srun gmx_mpi mdrun -ntomp $nt -deffnm $simname -cpi \"$simname.cpt\" -maxh $nhours` is used in the Narval checkpointing script."
-    },
-    {
-      "question": "What happens to pending jobs in a GROMACS job array if one of the simulation jobs exits with an error?",
-      "answer": "If a simulation job exits with an error, the script will print an error message and then cancel all pending jobs in the array using the `scancel -t pending $SLURM_ARRAY_JOB_ID` command."
-    },
-    {
-      "question": "How does the GROMACS checkpointing job script determine if a simulation has completed successfully?",
-      "answer": "The script checks the `simname.log` file for the line \"Writing checkpoint, step $nsteps at \" where `$nsteps` corresponds to the total number of steps configured for the simulation. If found, it indicates completion."
-    },
-    {
-      "question": "What resource is recommended for determining optimal conditions for AMBER, GROMACS, NAMD, and OpenMM jobs on Alliance clusters?",
-      "answer": "The Molecular Dynamics Performance Guide created by a team at ACENET is recommended for determining optimal conditions for these molecular dynamics jobs on Alliance clusters."
-    },
-    {
-      "question": "What factors primarily influence `mdrun` performance in GROMACS?",
-      "answer": "The best `mdrun` performance parameters depend highly on the system's size (number of particles, as well as the size and shape of the simulation box) and the simulation parameters, such as cutoffs and the use of the Particle-Mesh-Ewald (PME) method for long-range electrostatics."
-    },
-    {
-      "question": "Where can users find detailed information on optimizing `mdrun` performance in GROMACS?",
-      "answer": "Users can find detailed information in a long section of the GROMACS user-guide specifically dedicated to `mdrun`-performance, which explains all relevant options, parameters, and strategies."
-    },
-    {
-      "question": "How is GROMACS simulation performance typically quantified?",
-      "answer": "The simulation performance in GROMACS is typically quantified by the number of nanoseconds of MD-trajectory that can be simulated within a day (ns/day)."
-    },
-    {
-      "question": "What is the definition of parallel scaling in the context of GROMACS performance?",
-      "answer": "Parallel scaling (S) is defined as `S = p_N / ( N * p_1 )`, where `p_N` is the performance using `N` CPU cores and `p_1` is the performance using a single CPU core."
-    },
-    {
-      "question": "What does an ideal parallel scaling value of 1 signify in GROMACS simulations?",
-      "answer": "An ideal parallel scaling value of 1 signifies linear scaling, meaning the simulation performance increases linearly with the number of CPU cores used."
-    },
-    {
-      "question": "Where can GROMACS users find performance information and statistics to help identify bottlenecks?",
-      "answer": "GROMACS prints performance information and statistics at the end of the `md.log` file, which is useful for identifying bottlenecks and often includes notes on how to further improve performance."
+      "question": "What is the definition of parallel scaling in the context of GROMACS simulations?",
+      "answer": "Parallel scaling in GROMACS simulations is a measure of how effectively the compute resources are used. It is defined as S = p<sub>N</sub> / ( N * p<sub>1</sub> ), where p<sub>N</sub> is the performance using N CPU cores."
     }
   ],
-  "generated_at": "2026-04-11T22:35:06.058109+00:00"
+  "generated_at": "2026-04-13T06:11:02.016105+00:00"
 }

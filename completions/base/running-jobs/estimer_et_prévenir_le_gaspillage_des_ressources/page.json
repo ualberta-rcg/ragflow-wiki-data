@@ -3,109 +3,85 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the main objective of this document?",
-      "answer": "The main objective is to help users minimize resource waste in high-performance computing clusters by identifying common errors in CPU, GPU, and memory requests, and providing corrective actions."
+      "question": "What is the main purpose of the \"Common Errors and How to Correct Them\" document for Alliance clusters?",
+      "answer": "The document aims to minimize resource waste on Alliance clusters by outlining frequent user errors related to CPU, GPU, and memory usage, and providing solutions for correction."
     },
     {
-      "question": "What defines a serial task?",
-      "answer": "A serial task executes on a single processor or compute core at a time, without parallelism, following a strictly sequential execution, and memory is shared by processes and threads."
+      "question": "How can users identify if they are requesting too many CPU cores for a serial task on Alliance clusters?",
+      "answer": "If a serial task requests multiple CPU cores (e.g., `--cpus-per-task=8`), the CPU graph will show only one active core, and the 'Processes and threads' graph will indicate only one active execution thread, wasting the other requested cores."
     },
     {
-      "question": "How should CPU resources be requested for a serial task?",
-      "answer": "For a serial task, only one core should be requested using the `--cpus-per-task=1` option in the submission script."
+      "question": "What is a serial task in the context of Alliance clusters?",
+      "answer": "A serial task runs on a single processor or compute core at a time without parallelism, following a strictly sequential execution, and shares memory among processes and threads."
     },
     {
-      "question": "How can you identify if you have requested too many cores for a serial task when viewing performance graphs?",
-      "answer": "The CPU graph will show activity only on one core even if more were requested, and the 'Processes and threads' graph will indicate only one active thread, signifying wasted cores."
+      "question": "How should a user correct a submission script that requests multiple CPU cores for a serial task on Alliance clusters?",
+      "answer": "To correct this, users should request only one core using `--cpus-per-task=1` in their SLURM submission script."
     },
     {
-      "question": "How is memory requested and monitored for a serial task, and what margin is recommended?",
-      "answer": "Memory is requested using `--mem-per-cpu` or `--mem`, and the 'Memory' graph shows 'total allocated memory' and 'maximum used memory'. A margin of approximately 20% is recommended to avoid 'Out of memory' (OOM) errors."
+      "question": "What defines a multithreaded task on Alliance clusters?",
+      "answer": "A multithreaded task, or 'multithreaded' task, can use multiple execution threads to perform operations in parallel, typically on a single node where threads share allocated memory."
     },
     {
-      "question": "What is a multithreaded task?",
-      "answer": "A multithreaded task can utilize multiple execution threads to perform operations in parallel, sharing allocated memory, and typically requiring only one node."
+      "question": "How can a user determine if they are requesting more CPU cores than necessary for a multithreaded task on Alliance clusters, and what is the recommended fix?",
+      "answer": "Users can tell by observing the CPU graph displaying in red or fewer active threads than requested in the 'Processes and threads' graph. The fix is to reduce `--cpus-per-task` to match the actual number of active threads."
     },
     {
-      "question": "How can you tell if you've requested more cores than necessary for a multithreaded task by observing the portal graphs?",
-      "answer": "The CPU graph will display in red and show the maximum number of cores used is significantly lower than the requested cores, while the 'Processes and threads' graph will indicate the actual number of active threads."
+      "question": "What are the characteristics of a multiprocessor task on Alliance clusters?",
+      "answer": "A multiprocessor task distributes work across multiple independent processes (often using MPI), can run on multiple cores and nodes, and each process has its own dedicated memory."
     },
     {
-      "question": "What are the key characteristics of a multiprocessor task?",
-      "answer": "A multiprocessor task distributes its work across several independent processes, often using MPI, can run on multiple cores and nodes, and each process has its own dedicated memory."
+      "question": "How can users identify and correct the error of requesting `--cpus-per-task=2` for a non-multithreaded multiprocessor task on Alliance clusters?",
+      "answer": "This error is identifiable when the CPU utilization graph shows only half of the requested cores active, and the 'Processes and threads' graph indicates half the number of active threads compared to allocated cores. The correction is to set `--cpus-per-task=1`."
     },
     {
-      "question": "When is it appropriate to use the `--mem=0` parameter in a multiprocessor task submission script?",
-      "answer": "The `--mem=0` parameter, which allocates all available node memory, is appropriate only if all cores on that node are also allocated and fully utilized by the task."
+      "question": "What is the recommended approach for configuring `OMP_NUM_THREADS` in a GROMACS submission script on Alliance clusters to avoid CPU waste?",
+      "answer": "To avoid CPU waste, `OMP_NUM_THREADS` should match the number of requested cores (`--cpus-per-task`). It's recommended to use the environment variable `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"` in the submission script."
     },
     {
-      "question": "What happens if `--cpus-per-task=2` is used for a multiprocessor task that is not multithreaded?",
-      "answer": "If a multiprocessor task is not multithreaded, specifying `--cpus-per-task=2` means only one core per process will be utilized, leaving the additional allocated cores idle."
+      "question": "What general strategies are recommended to prevent CPU waste on Alliance clusters?",
+      "answer": "Users should identify their task type, start with simple tests (e.g., 1 CPU), consult application documentation, use interactive tasks for testing, utilize visualization portals, and connect to active nodes for insights."
     },
     {
-      "question": "How can incorrect configuration of `OMP_NUM_THREADS` impact a GROMACS task?",
-      "answer": "If the `OMP_NUM_THREADS` environment variable does not match the `--cpus-per-task` value in the SBATCH script, it leads to underutilization where requested CPU cores remain idle."
+      "question": "How can a user determine if they have requested a GPU but are not using it at all on Alliance clusters?",
+      "answer": "The GPU computational cycle graph will show no activity (no values for metrics like SM Active, SM Occupancy), indicating that the GPU remains unused."
     },
     {
-      "question": "What is the recommended way to ensure `OMP_NUM_THREADS` is correctly configured for a GROMACS task?",
-      "answer": "It is recommended to use the `SLURM_CPUS_PER_TASK` environment variable (e.g., `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"`) to synchronize `OMP_NUM_THREADS` with `--cpus-per-task`."
+      "question": "What action should be taken if a user requests multiple GPUs but only one is actively used for a task on Alliance clusters?",
+      "answer": "Users should either modify their code to effectively utilize all requested GPUs or simply request only the number of GPUs their task actually needs (e.g., `--gpu-per-node=1`)."
     },
     {
-      "question": "What are the main recommendations to prevent CPU resource waste?",
-      "answer": "Identify your task type, conduct simple tests starting with one CPU, consult application documentation for parallelism, use interactive tasks for quick testing, monitor resources via visualization portals, and connect to active nodes for insights."
+      "question": "When should a user consider using Multi-Instance GPU (MIG) technology for their tasks on Alliance clusters?",
+      "answer": "MIG technology should be considered for A100 GPU instances if GPU utilization is between 10% and 40% and memory usage is under 20 GB, as it helps prevent waste by enabling GPU sharing."
     },
     {
-      "question": "How do you determine if a requested GPU is not being utilized at all?",
-      "answer": "The 'GPU - Cycle de calcul GPU utilisé' graph will show no activity or recorded values for metrics like SM Active or SM Occupancy, indicating the GPU is idle."
+      "question": "What are the key recommendations for managing CPU resources when submitting a GPU task on Alliance clusters to avoid performance issues?",
+      "answer": "On a node with four GPUs, it's advised not to request more than one-quarter of the CPUs per GPU, to prevent allocating CPU cores on different NUMA nodes or sockets, which can slow down CPU-GPU transfers."
     },
     {
-      "question": "What considerations should be made if a GPU is requested but not utilized?",
-      "answer": "One should evaluate if a GPU is truly necessary for the task by comparing execution times on CPU versus GPU, as GPU nodes are expensive and CPU performance might be sufficient or even faster."
+      "question": "What are common scenarios where Multi-Process Service (MPS) can be effectively applied to optimize GPU usage on Alliance clusters?",
+      "answer": "MPS is well-suited for multiprocessor (MPI) tasks, multithreaded tasks, or several similar serial tasks where individual processes or threads do not fully utilize a GPU on their own."
     },
     {
-      "question": "How can you identify if you've requested multiple GPUs but are only using one?",
-      "answer": "The 'GPU Cycle de calcul', 'GPU Power', and 'GPU Mémoire' graphs will display activity for only one GPU (e.g., GPU 0), while other requested GPUs (e.g., GPU 1) will show no data or utilization."
+      "question": "What is the primary indicator that too much memory has been requested for a job on Alliance clusters, and what is a general guideline for memory allocation?",
+      "answer": "The primary indicator is when the memory graph shows a high 'total allocated' value but a significantly lower 'maximum used' value. A general guideline on Béluga/Narval is about 4 GB of memory per core, and it's acceptable to request up to 20% more than actual usage as a safety margin."
     },
     {
-      "question": "What is the recommendation for CPU allocation when running a GPU task on a node with four GPUs?",
-      "answer": "It's advised not to request more than a quarter of the CPU cores per GPU to prevent CPUs from being allocated on the wrong NUMA node or socket, which can significantly slow down data transfers between the CPU and GPU."
+      "question": "How should memory be requested when a task requires the total available memory of a node on Alliance clusters?",
+      "answer": "If a task requires the total available memory of a node and all of its cores are also allocated and used, users can set `--mem=0` in their submission script."
     },
     {
-      "question": "When should Multi-Instance GPU (MIG) technology be considered for a task?",
-      "answer": "MIG should be considered if GPU utilization is between 10% and 40%, GPU memory usage is under 20 GB, and the task is running on A100 GPU instances."
+      "question": "What is a crucial point to remember when requesting resources for a task array on Alliance clusters?",
+      "answer": "It is crucial to remember that resources requested for a task array apply to a single task within the array, not to the entire set of tasks. Requesting resources for the array as a whole (e.g., `--cpus-per-task=12` for a 12-task array where each task needs 1 CPU) leads to overestimation and waste."
     },
     {
-      "question": "What strategy should be adopted if a task uses the GPU only temporarily or irregularly?",
-      "answer": "Consider pausing the task after its GPU-intensive phase to resume it on a CPU node, or vice versa, to optimize resource utilization by separating CPU and GPU phases."
+      "question": "What are the guidelines for using interactive tasks on Alliance clusters?",
+      "answer": "Interactive tasks should be short (under 6 hours), reserved for testing and debugging, and use minimal resources to reduce wait times and maintain queue priority. Development should ideally occur on a local machine."
     },
     {
-      "question": "Under what scenarios is Multi-Process Service (MPS) a suitable solution for optimizing GPU utilization?",
-      "answer": "MPS is suitable for multiprocessor or multithreaded tasks where individual processes or threads do not fully utilize a GPU, or for grouping several similar serial tasks that individually do not fully utilize a GPU."
-    },
-    {
-      "question": "What are the main recommendations to avoid GPU resource waste?",
-      "answer": "Ensure your program is GPU-compatible, test with interactive tasks and MIGs, analyze GPU utilization via the portal, understand SBATCH options for GPU, MIG, and MPS, use MIG for tasks consuming less than 20 GiB of GPU memory, and consider MPS for multiple light tasks."
-    },
-    {
-      "question": "What is a common mistake related to memory allocation when submitting a job?",
-      "answer": "A common mistake is requesting significantly more memory than the task actually requires, such as asking for 752 GB when only 60 GB are ultimately used."
-    },
-    {
-      "question": "How can users effectively estimate memory requirements for tasks on Béluga/Narval clusters?",
-      "answer": "On Béluga/Narval, a general guideline is approximately 4 GB of memory per core. Users should calculate their needs based on this ratio and add up to a 20% margin to prevent OOM errors."
-    },
-    {
-      "question": "How should resources be requested for task arrays to avoid waste?",
-      "answer": "Resources must be requested for each individual task within the array (e.g., `--cpus-per-task=1`), as the specified resources apply to each task, not the array as a whole."
-    },
-    {
-      "question": "What is the primary purpose and recommended duration for interactive tasks?",
-      "answer": "Interactive tasks are primarily for quick testing or debugging, not full development, and should ideally last less than 6 hours while utilizing minimal resources."
-    },
-    {
-      "question": "What are typical resource recommendations for interactive CPU and GPU tasks?",
-      "answer": "For CPU, it's recommended to use `salloc --time=1:0:0 --mem-per-cpu=4G --cpus-per-task=1`. For GPU, use `salloc --time=1:0:0 --mem-per-cpu=4G --cpus-per-task=1 --gres=gpu:a100_1g.5gb:1`."
+      "question": "What is an example command for requesting minimal resources for an interactive CPU task on Alliance clusters?",
+      "answer": "An example command for requesting minimal resources for an interactive CPU task is: `$ salloc --time=1:0:0 --mem-per-cpu=4G --cpus-per-task=1 --account=def-someuser`."
     }
   ],
-  "generated_at": "2026-04-11T21:18:44.760196+00:00"
+  "generated_at": "2026-04-13T05:08:25.219837+00:00"
 }

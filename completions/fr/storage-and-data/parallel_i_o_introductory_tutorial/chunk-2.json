@@ -4,77 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "C'est quoi les IOPs?",
-      "answer": "Les IOPs, ça veut dire « Input / Output operations per second », c'est le nombre d'opérations d'entrée/sortie (comme des lectures, des écritures, des ouvertures, des fermetures ou des recherches) par seconde. C'est essentiellement l'inverse de la latence."
+      "question": "C'est quoi la différence entre les IOPs et la bande passante d'E/S (entrée/sortie) dans le contexte des systèmes de calcul haute performance?",
+      "answer": "Les IOPs (Input/Output operations per second) mesurent le nombre d'opérations d'E/S, comme les lectures, écritures, ouvertures, fermetures et recherches, par seconde, ce qui représente l'inverse de la latence. La bande passante d'E/S, quant à elle, désigne la quantité de données que tu peux lire ou écrire par unité de temps."
     },
     {
-      "question": "Comment on définit la bande passante d'entrée/sortie (bande passante E/S)?",
-      "answer": "La bande passante E/S, c'est la quantité de données que tu lis ou que tu écris."
+      "question": "Peux-tu décrire les différentes couches d'abstraction de la pile logicielle et matérielle d'E/S parallèle?",
+      "answer": "La pile logicielle et matérielle d'E/S parallèle comprend plusieurs couches d'abstraction, en partant du bas: le matériel d'E/S (disques durs physiques), le système de fichiers parallèle (comme Lustre sur les systèmes nationaux), le middleware d'E/S qui optimise l'accès et les flux de données, puis les bibliothèques d'E/S de haut niveau (comme HDF5 ou NetCDF) qui mappent les abstractions de l'application aux abstractions de stockage, et finalement l'application elle-même."
     },
     {
-      "question": "Est-ce que les systèmes de fichiers parallèles offrent une performance de supercalcul pour les E/S?",
-      "answer": "Non, les systèmes de fichiers parallèles, même s'ils sont optimisés pour les E/S efficaces par plusieurs utilisateurs sur plusieurs machines ou nœuds, n'offrent pas une performance de « supercalcul » pour les E/S."
-    },
-    {
-      "question": "Quels sont les facteurs qui peuvent affecter la performance des systèmes de fichiers parallèles?",
-      "answer": "Les facteurs incluent le temps d'accès au disque et la communication sur le réseau, surtout quand la bande passante est limitée et qu'il y a plusieurs utilisateurs."
-    },
-    {
-      "question": "Quelles sont les principales couches d'abstraction dans la pile logicielle et matérielle d'E/S?",
-      "answer": "La pile logicielle et matérielle d'E/S est composée de ces couches : le matériel d'E/S, le système de fichiers parallèle, le « middleware » d'E/S, les bibliothèques d'E/S de haut niveau et l'application."
-    },
-    {
-      "question": "Quelle est la première couche (tout en bas) quand on parle de l'organisation des E/S parallèles?",
-      "answer": "La première couche, c'est le matériel d'E/S, qui représente les disques durs physiques ou la grappe de disques rattachée au « cluster »."
-    },
-    {
-      "question": "Quel système de fichiers parallèle est couramment utilisé sur les systèmes nationaux, et quel est son objectif?",
-      "answer": "Sur la plupart des systèmes nationaux, on utilise Lustre, un système de fichiers « open source ». Son objectif est de maintenir les partitions logiques et de fournir un accès efficace aux données."
-    },
-    {
-      "question": "Quel est le rôle du « middleware » d'E/S dans la pile logicielle et matérielle?",
-      "answer": "Le « middleware » d'E/S gère l'accès de plusieurs processus en optimisant les E/S en deux phases, les E/S disque et le flux de données sur le réseau. Il fait aussi du « data sieving », qui consiste à regrouper plusieurs petites requêtes d'E/S non contiguës en moins de requêtes, mais plus grosses."
-    },
-    {
-      "question": "À quoi servent les bibliothèques d'E/S de haut niveau comme HDF5 ou NetCDF?",
-      "answer": "Ces bibliothèques associent les abstractions de l'application aux abstractions de stockage d'E/S en utilisant les structures de données du code. Elles permettent de stocker les données directement sur le disque de manière très efficace."
-    },
-    {
-      "question": "Est-ce que le « middleware » d'E/S MPI-IO fait partie d'une norme existante?",
-      "answer": "Oui, MPI-IO fait partie de la norme MPI-2."
-    },
-    {
-      "question": "Comment les systèmes de fichiers parallèles sur les systèmes nationaux sont-ils conçus pour l'échelle?",
-      "answer": "Ils sont conçus pour s'adapter efficacement à des dizaines de milliers de nœuds de calcul."
-    },
-    {
-      "question": "Comment peut-on améliorer la performance des fichiers dans un système de fichiers parallèle?",
-      "answer": "Pour une meilleure performance, les fichiers peuvent être « répartis en bandes » (striped) sur plusieurs disques durs. Ainsi, pendant qu'un disque lit, un autre peut envoyer des données au programme."
-    },
-    {
-      "question": "Quel est le mécanisme utilisé par les systèmes de fichiers parallèles pour gérer l'accès concurrent aux fichiers?",
-      "answer": "Les systèmes de fichiers parallèles utilisent des « locks » (verrous) pour s'assurer que deux ou plusieurs processus différents n'accèdent pas au même fichier en même temps."
-    },
-    {
-      "question": "Comment fonctionne le système de « locks » dans un système de fichiers parallèle?",
-      "answer": "Les fichiers sont divisés en unités de « lock » et sont dispersés sur plusieurs disques durs. Les nœuds clients, qui sont les nœuds de calcul, obtiennent des « locks » sur les unités auxquelles ils accèdent avant que l'opération d'E/S ne se produise. Ça permet aussi la mise en cache sur les clients, et les « locks » sont récupérés des clients quand d'autres processus veulent accéder aux données."
-    },
-    {
-      "question": "Pour quel type de fichiers les systèmes de fichiers parallèles sont-ils optimisés principalement?",
-      "answer": "Ils sont optimisés pour le stockage de gros fichiers partagés qui peuvent être accessibles par un grand nombre de nœuds de calcul."
-    },
-    {
-      "question": "Est-ce que les systèmes de fichiers parallèles sont efficaces pour gérer de nombreux petits fichiers?",
-      "answer": "Non, ils montrent une très mauvaise performance pour stocker un grand nombre de petits fichiers. On recommande fortement aux utilisateurs de ne pas générer des millions de petits fichiers."
-    },
-    {
-      "question": "Comment l'activité d'E/S d'un utilisateur peut-elle impacter les autres utilisateurs sur un « cluster »?",
-      "answer": "La façon dont un utilisateur lit ou écrit des fichiers, le format de fichier, le nombre de fichiers dans un répertoire et la fréquence des commandes comme `ls` peuvent affecter tout le monde. Une activité E/S trop intense peut ralentir le système pour les autres et même nuire aux communications de processus MPI."
-    },
-    {
-      "question": "Quelles sont les ressources limitées des systèmes de fichiers dans un environnement de calcul haute performance?",
-      "answer": "Les systèmes de fichiers ont des limites en termes de bande passante, d'IOPs, de nombre de fichiers et d'espace de stockage, entre autres."
+      "question": "Comment les systèmes de fichiers parallèles gèrent-ils l'accès concurrent aux fichiers, et pour quels types de fichiers sont-ils le plus efficaces?",
+      "answer": "Les systèmes de fichiers parallèles utilisent des « locks » (verrous) pour gérer l'accès concurrent aux fichiers. Les fichiers sont divisés en unités de 'lock' réparties sur plusieurs disques, et les nœuds clients obtiennent ces 'locks' avant d'accéder aux unités. Ces systèmes sont optimisés pour stocker de gros fichiers partagés, mais ils affichent de très faibles performances quand il s'agit de gérer un grand nombre de petits fichiers."
     }
   ],
-  "generated_at": "2026-04-12T05:07:52.500038+00:00"
+  "generated_at": "2026-04-13T11:09:11.444972+00:00"
 }

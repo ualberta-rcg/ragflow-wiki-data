@@ -3,77 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What common problem arises when managing very large collections of small files in domains like AI and Machine Learning on clusters?",
-      "answer": "Filesystem quotas on clusters limit the number of filesystem objects, and very large numbers of small files create significant performance problems for shared filesystems and automated backups."
+      "question": "What is the main problem addressed by the Storage and File Management page on Alliance clusters?",
+      "answer": "The page addresses issues related to managing very large collections of small files (hundreds of thousands or more), which can cause problems with filesystem quotas, shared filesystem performance, and automated backups on Alliance clusters."
     },
     {
-      "question": "What is one way to recursively count all files in folders within the current directory to identify areas for cleanup?",
-      "answer": "Users can use a `for` loop combined with `find . -maxdepth 1 -type d | tail -n +2` to iterate through folders and `find $FOLDER -type f | wc -l` to count files within each."
+      "question": "What types of solutions does the Storage and File Management page on Alliance clusters offer for managing large datasets?",
+      "answer": "The page offers solutions such as using local disk, RAM disk, various archiving tools (like dar, HDF5, SQLite), parallel compression, partial extraction from archives, and managing hidden files in Git repositories."
     },
     {
-      "question": "How can users find the top 10 directories using the most disk space from their current directory?",
-      "answer": "The command `du -sh * | sort -hr | head -10` will output the 10 directories using the most disk space."
+      "question": "How can users identify folders with a large number of files in their current directory on Alliance clusters?",
+      "answer": "Users can use a shell script that iterates through directories, such as `for FOLDER in $(find . -maxdepth 1 -type d | tail -n +2); do echo -ne \"$FOLDER:\t\"; find $FOLDER -type f | wc -l; done`, to recursively count files in each folder."
     },
     {
-      "question": "What is the primary benefit of using local disks attached to compute nodes for storing datasets?",
-      "answer": "Local disks generally offer considerably better performance than project or scratch filesystems, being at least SATA SSD or better."
+      "question": "What command can users use to find the top 10 directories consuming the most disk space from their current directory on Alliance clusters?",
+      "answer": "Users can use the command `du -sh * | sort -hr | head -10` to identify the 10 directories using the most disk space."
     },
     {
-      "question": "How can users access the local disk within a job script?",
-      "answer": "The local disk can be accessed using the environment variable `$SLURM_TMPDIR`."
+      "question": "How can users access local disk storage on compute nodes for their jobs on Alliance clusters?",
+      "answer": "Users can access this local disk inside of a job using the environment variable `$SLURM_TMPDIR`."
     },
     {
-      "question": "What is a common workflow for using local disk space during a job for large datasets?",
-      "answer": "Users can archive their dataset as a single `tar` file in project space, copy it to `$SLURM_TMPDIR` at the job's start, extract and use it, then re-archive and copy back any changes at job's end."
+      "question": "What is a recommended workflow for using local disk storage with large datasets during a job on Alliance clusters?",
+      "answer": "A recommended workflow involves keeping the dataset archived as a single `tar` file in project space, copying it to the local disk at the beginning of the job, extracting and using it, and then re-archiving any changes and copying them back to project space at the job's end."
     },
     {
-      "question": "What is the typical local disk size available on Béluga's CPU and GPU nodes?",
-      "answer": "Béluga CPU nodes offer roughly 370GB of local disk, while GPU nodes have a 1.6TB NVMe disk."
+      "question": "Do all Alliance clusters offer the same amount of local disk space on compute nodes?",
+      "answer": "No, the actual amount of local disk space varies from one cluster to another; for instance, Béluga's CPU and GPU nodes have different amounts, and Niagara compute nodes do not have local storage."
     },
     {
-      "question": "Does Niagara cluster have local storage on its compute nodes?",
-      "answer": "No, Niagara does not have local storage on its compute nodes."
+      "question": "How is `/tmp` implemented on compute nodes across Alliance clusters, and what are its key characteristics?",
+      "answer": "`/tmp` is implemented as a RAM disk using `tmpfs` on all clusters, is cleared at job end, falls under the job's cgroup memory limit, and `df` reports its size as the node's total physical RAM."
     },
     {
-      "question": "How can the `/tmp` filesystem be used as a RAM disk on compute nodes?",
-      "answer": "The `/tmp` filesystem, implemented using `tmpfs`, can be used as a RAM disk on compute nodes."
+      "question": "What are some modern archiving tools suggested on Alliance clusters for managing files?",
+      "answer": "Modern archiving tools suggested include `dar` (Disk Archive utility), `HDF5` for high-performance binary data, and `SQLite` for relational databases in a single file."
     },
     {
-      "question": "What happens to the contents of `/tmp` at the end of a job?",
-      "answer": "The contents of `/tmp` are cleared at job end."
+      "question": "What kind of data can be stored using HDF5 on Alliance clusters, and which programming languages support it?",
+      "answer": "HDF5 is a high-performance binary file format that can store various data, including matrices and image data, with tools available in programming languages like Python (e.g., h5py)."
     },
     {
-      "question": "What is 'dar' in the context of archiving solutions?",
-      "answer": "Dar (Disk archive utility) is presented as a significant modernization of the traditional `tar` tool."
+      "question": "What are the benefits of using SQLite for data management on Alliance clusters, especially for collections of small files?",
+      "answer": "SQLite allows for a relational database to reside entirely in a single file without needing a database server, provides SQL access and APIs for many languages, and is practical for storing millions of small binary files, like images, within a single file."
     },
     {
-      "question": "What is HDF5 and what kind of data can it store?",
-      "answer": "HDF5 is a high-performance binary file format capable of storing various data types, including extended objects like matrices and image data, with tools available in languages like Python."
+      "question": "When might SQLite performance degrade, and what alternatives are suggested on Alliance clusters for very large database files?",
+      "answer": "SQLite performance can degrade for very large database files (several gigabytes or more), in which case users may need to contemplate using a more traditional database server like MySQL or PostgreSQL."
     },
     {
-      "question": "How does SQLite help with managing many small files?",
-      "answer": "SQLite allows a relational database to reside entirely in a single file on disk, enabling storage of binary blobs (like image files) within a single file rather than as millions of individual files, accessible via SQL commands and APIs."
+      "question": "How can users achieve parallel compression when creating archives on Alliance clusters?",
+      "answer": "Users can use `pigz` instead of `gzip` with `tar` by specifying `--use-compress-program=\"pigz -p N\"` (where N is the number of cores) to compress archives using multiple cores."
     },
     {
-      "question": "What are the potential limitations of SQLite for very large database files?",
-      "answer": "Performance of SQLite can degrade for very large database files (several gigabytes or more), potentially requiring the use of a traditional database server like MySQL or PostgreSQL."
+      "question": "How can users extract only a specific part of an archive to local disk on Alliance clusters?",
+      "answer": "Users can extract a specific folder or subdirectory from an archive directly to `$SLURM_TMPDIR` on the local disk using `tar -zxf /path/to/archive.tar.gz dir/subdir --directory $SLURM_TMPDIR`."
     },
     {
-      "question": "How can users access the `sqlite3` executable on the systems?",
-      "answer": "The `sqlite3` executable is available via the `nixpkgs` module, which is loaded by default on the systems."
-    },
-    {
-      "question": "How can parallel compression be used when creating an archive with `tar`?",
-      "answer": "Users can use `pigz` instead of `gzip` with `tar` by specifying `--use-compress-program=\"pigz -p 4\"` to compress the archive using multiple cores."
-    },
-    {
-      "question": "How can a user extract only a specific part of an archive to the local disk?",
-      "answer": "A specific folder can be extracted from an archive to `$SLURM_TMPDIR` using `tar -zxf /path/to/archive.tar.gz dir/subdir --directory $SLURM_TMPDIR`."
-    },
-    {
-      "question": "What Git command is recommended to manage the growth of files in the hidden `.git` repository subdirectory and speed up Git operations?",
-      "answer": "Using `git repack` will pack many files together into fewer large database files, greatly speeding up Git's operations."
+      "question": "How can the size and performance of a `.git` repository subdirectory be optimized on Alliance clusters?",
+      "answer": "Using `git repack` can pack many files into a few large database files within the hidden `.git` repository subdirectory, which significantly speeds up Git's operations."
     }
   ],
-  "generated_at": "2026-04-11T23:40:22.500615+00:00"
+  "generated_at": "2026-04-13T07:01:21.987777+00:00"
 }

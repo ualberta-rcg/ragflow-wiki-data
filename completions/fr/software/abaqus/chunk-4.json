@@ -4,45 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Comment lancer une tâche Abaqus en utilisant le mode « threads » sur un nœud simple, selon ce script?",
-      "answer": "Pour lancer une tâche Abaqus, on utilise la commande `abaqus` avec les options `mp_mode=threads`, en spécifiant le nom de la tâche, le fichier d'entrée, le répertoire temporaire, le nombre de cœurs et la mémoire."
+      "question": "Comment est-ce qu'on lance une simulation Abaqus standard pour un nœud simple en mode fils, en se fiant au script fourni?",
+      "answer": "Pour lancer une simulation Abaqus standard en mode fils sur un nœud simple, la commande Abaqus inclut les paramètres `job=testsp1`, `input=mystd-sim.inp`, `scratch=$SLURM_TMPDIR`, `cpus=$SLURM_CPUS_ON_NODE`, `interactive`, et `mp_mode=threads`. La mémoire est allouée en utilisant `memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
     },
     {
-      "question": "Quels sont les paramètres essentiels pour la commande `abaqus` dans ce script?",
-      "answer": "Les paramètres essentiels sont `job` (nom de la tâche), `input` (fichier d'entrée), `scratch` (répertoire temporaire), `cpus` (nombre de cœurs), `interactive` (mode interactif), `mp_mode` (mode de parallélisation) et `memory` (mémoire allouée)."
+      "question": "Quelle est la stratégie d'allocation de mémoire spécifiée dans le script Abaqus pour les tâches de simulation standard sur un nœud simple?",
+      "answer": "La stratégie d'allocation de mémoire spécifiée est de déduire 3072 Mo de la mémoire totale disponible par nœud, soit `memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`. Cela permet de laisser une marge pour d'autres processus système."
     },
     {
-      "question": "Comment le script définit-il le nom de la tâche Abaqus?",
-      "answer": "Le script définit le nom de la tâche Abaqus avec l'argument `job=testsp1`."
-    },
-    {
-      "question": "Quel fichier est utilisé comme entrée pour la simulation Abaqus dans ce script?",
-      "answer": "Le fichier `mystd-sim.inp` est utilisé comme fichier d'entrée pour la simulation Abaqus."
-    },
-    {
-      "question": "Où sont sauvegardés les fichiers temporaires (`scratch`) de la tâche Abaqus selon ce script?",
-      "answer": "Les fichiers temporaires de la tâche Abaqus sont sauvegardés dans le répertoire spécifié par la variable `$SLURM_TMPDIR`."
-    },
-    {
-      "question": "Comment le nombre de cœurs (CPUs) est-il attribué à la tâche Abaqus dans ce script?",
-      "answer": "Le nombre de cœurs est attribué en utilisant la variable `$SLURM_CPUS_ON_NODE`, qui correspond au nombre de cœurs disponibles sur le nœud."
-    },
-    {
-      "question": "Quel est le mode de parallélisation configuré pour Abaqus dans ce script?",
-      "answer": "Le mode de parallélisation configuré est `mp_mode=threads`."
-    },
-    {
-      "question": "Comment la mémoire allouée à Abaqus est-elle calculée dans ce script?",
-      "answer": "La mémoire est calculée en soustrayant 3072 Mo de la mémoire totale disponible sur le nœud, spécifiée par `$((${SLURM_MEM_PER_NODE}-3072))MB`."
-    },
-    {
-      "question": "L'utilisation de GPU est-elle activée par défaut dans ces scripts pour les tâches Abaqus?",
-      "answer": "Non, l'utilisation de GPU n'est pas activée par défaut; la ligne `#gpus=$SLURM_GPUS_ON_NODE` est commentée et doit être décommentée pour activer cette fonctionnalité."
-    },
-    {
-      "question": "Y a-t-il une différence dans la façon de lancer Abaqus pour la version 2021 comparé aux versions 2026 et ultérieures, d'après ce bout de code?",
-      "answer": "Oui, pour Abaqus 2021, la commande `abaqus` est précédée d'une commande `unshare` complexe, alors que pour les versions 2026 et ultérieures, la commande `abaqus` est lancée directement sans le préfixe `unshare`."
+      "question": "Y a-t-il une différence dans la façon de lancer une tâche Abaqus entre la version 2021 et les versions 2026 ou plus récentes, selon les exemples de script?",
+      "answer": "Oui, pour Abaqus 2021, la commande est précédée de `'/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare --fork --pid --mount-proc --user --map-user $USER'`. Par contre, pour les versions 2026 et ultérieures, la commande `abaqus` est exécutée directement sans ce préfixe."
     }
   ],
-  "generated_at": "2026-04-11T15:36:36.888269+00:00"
+  "generated_at": "2026-04-13T00:50:26.873639+00:00"
 }

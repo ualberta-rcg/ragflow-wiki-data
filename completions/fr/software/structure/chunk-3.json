@@ -4,73 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "C'est quoi l'utilité des outils StrAuto et StructureHarvester avec le logiciel ''structure''?",
-      "answer": "Ils sont utilisés pour automatiser la préparation de processus multiples et l’agrégation des résultats, surtout avec la méthode Evanno."
+      "question": "À quoi servent les outils StrAuto et StructureHarvester lorsqu'on utilise le logiciel « structure » pour analyser des données génétiques?",
+      "answer": "StrAuto et StructureHarvester sont utilisés pour automatiser la préparation de processus multiples et l'agrégation des résultats, notamment en travaillant avec la méthode Evanno, parce que « structure » n’est pas conçu pour travailler en parallèle de façon native."
     },
     {
-      "question": "Où est-ce qu'on peut voir des exemples de tâches StrAuto qui roulent sur des grappes de CHP avec l'ordonnanceur Slurm?",
-      "answer": "Le chapitre 8 du manuel de l’utilisateur pour StrAuto contient des exemples de tâches exécutées sur des grappes de CHP avec l’ordonnanceur Slurm."
+      "question": "Quelles sont les considérations pratiques importantes à prendre en compte lors de l'exécution de processus « structure » en parallèle sur des grappes de Calcul à haute performance (CHP) avec l'ordonnanceur Slurm?",
+      "answer": "Il est préférable que le nombre total de processus soit un multiple du nombre de cœurs demandés pour maximiser l'utilisation des ressources de calcul. De plus, le temps d'exécution demandé pour la tâche doit être suffisant pour couvrir tous les processus « structure » subséquents, sinon les tâches plus longues pourraient rester en attente en raison de la politique d'ordonnancement."
     },
     {
-      "question": "Pour avoir une meilleure utilisation des ressources de calcul, c'est quoi l'idéal quand on exécute des tâches StrAuto sur des grappes de CHP?",
-      "answer": "C'est mieux quand le nombre total de processus est un multiple du nombre de cœurs demandés. Si c'est pas le cas, des CPU alloués resteront inutilisés, ce qui n'est pas optimal."
-    },
-    {
-      "question": "C'est quoi l'affaire avec le temps d'exécution qu'on demande pour les processus ''structure''?",
-      "answer": "Le temps d'exécution demandé doit être assez long pour que tous les processus ''structure'' se fassent. Les tâches plus longues risquent d'attendre plus longtemps à cause de la politique d'ordonnancement."
-    },
-    {
-      "question": "À quoi sert le script <tt>create_strauto_slurm_scripts.py</tt>?",
-      "answer": "Y'est conçu pour aider à rouler des tâches Structure ordonnancées par Slurm sur les grappes de Calcul Canada."
-    },
-    {
-      "question": "C'est quels outils qu'on a besoin pour utiliser le script <tt>create_strauto_slurm_scripts.py</tt>?",
-      "answer": "Les outils requis sont Structure, StrAuto pis StructureHarvester."
-    },
-    {
-      "question": "Avant d'utiliser <tt>create_strauto_slurm_scripts.py</tt>, c'est quels fichiers qu'il faut mettre dans le même répertoire?",
-      "answer": "Faut mettre <tt>strauto_1.py</tt> et <tt>input.py</tt> de StrAuto, <tt>structureHarvester.py</tt> et <tt>harvesterCore.py</tt> de StructureHarvester, pis le fichier de données (comme <tt>my_dataset.str</tt>) dans le même répertoire que <tt>create_strauto_slurm_scripts.py</tt>."
-    },
-    {
-      "question": "Comment on fait pour rendre le script <tt>create_strauto_slurm_scripts.py</tt> exécutable?",
-      "answer": "On le rend exécutable avec la commande <tt>chmod u+x create_strauto_slurm_scripts.py</tt>."
-    },
-    {
-      "question": "Est-ce qu'il y a des paramètres spécifiques à changer dans le fichier <tt>input.py</tt>?",
-      "answer": "Oui, il faut modifier les paramètres de <tt>input.py</tt> tel que décrit dans le manuel StrAuto, pis s'assurer que l'option <tt>parallel</tt> est configurée à <tt>True</tt> (question 23)."
-    },
-    {
-      "question": "Quels paramètres faut-il ajuster dans le script <tt>create_strauto_slurm_scripts.py</tt> lui-même?",
-      "answer": "Faut ajuster <tt>max_jobtime</tt> (une durée minimale pour l’exécution d’un processus ''structure'' unique), <tt>slurm_account</tt> (pour indiquer le compte Slurm) et <tt>submit_delay</tt> (pour pas surcharger l’ordonnanceur)."
-    },
-    {
-      "question": "Quelles commandes il faut rouler après avoir configuré les fichiers et les paramètres pour l'exécution de processus de longue durée?",
-      "answer": "Faut rouler les commandes suivantes: <tt>module load python/2.7</tt>, après <tt>./strauto_1.py</tt>, pis ensuite <tt>./create_strauto_slurm_scripts.py</tt>."
-    },
-    {
-      "question": "C'est quoi le résultat après avoir roulé <tt>./strauto_1.py</tt>?",
-      "answer": "Le script va trouver <tt>input.py</tt>, afficher les infos entrées, pis après écrire les fichiers <tt>mainparams</tt>, <tt>extraparams</tt> pis le script shell <tt>runstructure</tt>."
-    },
-    {
-      "question": "Qu'est-ce qui est créé quand on exécute <tt>./create_strauto_slurm_scripts.py</tt>?",
-      "answer": "Ce script crée des scripts de tâches SLURM (par exemple, 40 scripts), des répertoires, un script d'aide à la soumission (<tt>submit_strauto_jobs.sh</tt>) et un script de post-traitement (<tt>post_strauto.sh</tt>)."
-    },
-    {
-      "question": "Comment on fait pour soumettre les tâches Slurm après que les scripts soient générés?",
-      "answer": "On soumet les tâches avec la commande <tt>bash submit_strauto_jobs.sh</tt>."
-    },
-    {
-      "question": "Qu'est-ce qu'on doit faire une fois que toutes les tâches soumises via <tt>submit_strauto_jobs.sh</tt> sont terminées?",
-      "answer": "Quand toutes les tâches sont finies, il faut lancer <tt>bash post_strauto.sh</tt> pour agréger les résultats pis exécuter StructureHarvester."
-    },
-    {
-      "question": "Qui a écrit le script <tt>create_strauto_slurm_scripts.py</tt>?",
-      "answer": "Le script a été écrit par Oliver Stueker."
-    },
-    {
-      "question": "C'est quoi la licence du script <tt>create_strauto_slurm_scripts.py</tt>?",
-      "answer": "Y'est sous la licence \"MIT License\"."
+      "question": "Quel est le but du script `create_strauto_slurm_scripts.py` et quels outils sont requis pour l'utiliser sur les grappes de Calcul Canada?",
+      "answer": "Le script `create_strauto_slurm_scripts.py` est conçu pour faciliter l'exécution de tâches Structure de longue durée ordonnancées par Slurm sur les grappes de Calcul Canada. Pour l'utiliser, les outils requis sont Structure, StrAuto et StructureHarvester."
     }
   ],
-  "generated_at": "2026-04-12T08:35:17.677471+00:00"
+  "generated_at": "2026-04-13T13:58:47.524704+00:00"
 }

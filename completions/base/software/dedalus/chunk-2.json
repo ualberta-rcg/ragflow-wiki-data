@@ -4,61 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What does the `#SBATCH --ntasks-per-node=4` directive in the job submission script specify?",
-      "answer": "The `#SBATCH --ntasks-per-node=4` directive is used to adjust the number of tasks or processes to run per node, matching the job's requirements."
+      "question": "What module dependencies are required to run a Dedalus job on Alliance clusters, as specified in the provided job submission script for whole nodes?",
+      "answer": "To run a Dedalus job on Alliance clusters using the whole nodes submission script, the required module dependencies include `StdEnv/2023`, `gcc`, `openmpi`, `mpi4py/3.1.4`, `fftw-mpi/3.3.10`, `hdf5-mpi/1.14.2`, and `python/3.11`."
     },
     {
-      "question": "What is the purpose of `#SBATCH --mem-per-cpu=4G` in the submission script?",
-      "answer": "The `#SBATCH --mem-per-cpu=4G` directive is used to adjust the memory needed per process, according to your job's specific memory requirements."
+      "question": "How is the Python virtual environment prepared and installed for a Dedalus job running on multiple 'whole nodes' within a SLURM submission script?",
+      "answer": "For a Dedalus job running on multiple 'whole nodes', the Python virtual environment is created and Dedalus is installed on each allocated node. This is achieved using an `srun` command (`srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash`) to create a virtual environment in `$SLURM_TMPDIR/env` and then install Dedalus dependencies from a `requirements.txt` file (e.g., `dedalus-3.0.2-requirements.txt`) using `pip install --no-index` within that environment. Finally, the virtual environment is activated on the main node."
     },
     {
-      "question": "Where can I find documentation on running jobs on 'whole nodes' for advanced MPI scheduling?",
-      "answer": "You can find documentation on running jobs on 'whole nodes' by visiting `https://docs.alliancecan.ca/wiki/Advanced_MPI_scheduling#Whole_nodes`."
-    },
-    {
-      "question": "What are the module dependencies loaded in the Dedalus whole-node job submission script?",
-      "answer": "The module dependencies loaded are `StdEnv/2023`, `gcc`, `openmpi`, `mpi4py/3.1.4`, `fftw-mpi/3.3.10`, `hdf5-mpi/1.14.2`, and `python/3.11`."
-    },
-    {
-      "question": "How is a Python virtual environment created on each allocated node within the job script?",
-      "answer": "A Python virtual environment is created on each allocated node using the command `srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF virtualenv --no-download $SLURM_TMPDIR/env source $SLURM_TMPDIR/env/bin/activate ... EOF`."
-    },
-    {
-      "question": "How are pip and Dedalus requirements installed within the virtual environment on each allocated node?",
-      "answer": "Pip is upgraded using `pip install --no-index --upgrade pip`, and Dedalus requirements are installed with `pip install --no-index -r dedalus-3.0.2-requirements.txt`."
-    },
-    {
-      "question": "How is the virtual environment activated on the main node before the script execution?",
-      "answer": "The virtual environment is activated on the main node using the command `source $SLURM_TMPDIR/env/bin/activate;`."
-    },
-    {
-      "question": "What is the value of `OMP_NUM_THREADS` set to in the submission script?",
-      "answer": "`OMP_NUM_THREADS` is set to `1` using `export OMP_NUM_THREADS=1`."
-    },
-    {
-      "question": "How is the main Python script executed in the Dedalus job submission script?",
-      "answer": "The main Python script, `$SCRATCH/myscript.py`, is executed using the command `srun python $SCRATCH/myscript.py;`."
-    },
-    {
-      "question": "What environment variables are exported by `srun` when executing the Python script?",
-      "answer": "`srun` exports the current environment, which includes `$VIRTUAL_ENV` and `$PATH` variables."
-    },
-    {
-      "question": "What is the second step in the process of running Dedalus after writing the job submission script?",
-      "answer": "The second step is to submit your job to the scheduler."
-    },
-    {
-      "question": "What is an important prerequisite before submitting a job to the scheduler?",
-      "answer": "Before submitting your job, it is important to test that your submission script will start without errors."
-    },
-    {
-      "question": "How can one perform a quick test of a job submission script?",
-      "answer": "You can do a quick test in an interactive job to ensure your submission script starts without errors."
-    },
-    {
-      "question": "What command is used to submit a Dedalus job to the scheduler?",
-      "answer": "You submit a Dedalus job to the scheduler using the command `sbatch submit-dedalus.sh`."
+      "question": "What is the recommended final step for submitting a Dedalus job to the scheduler, and what testing practice should be performed beforehand?",
+      "answer": "The recommended final step for submitting a Dedalus job to the scheduler is to use the `sbatch` command, for example, `sbatch submit-dedalus.sh`. Before submitting, it is important to test that the submission script will start without errors by running it in an interactive job."
     }
   ],
-  "generated_at": "2026-04-11T21:07:21.720133+00:00"
+  "generated_at": "2026-04-13T04:59:21.626984+00:00"
 }

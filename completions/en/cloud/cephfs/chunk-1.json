@@ -4,89 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is CephFS and what does it provide?",
-      "answer": "CephFS provides a common filesystem that can be shared amongst multiple OpenStack VM hosts."
+      "question": "What is CephFS and how can users request access to it for OpenStack VM hosts?",
+      "answer": "CephFS provides a common filesystem that can be shared amongst multiple OpenStack VM hosts. To request access to the service or obtain a quota, users need to send an email to cloud@tech.alliancecan.ca. The request should include their OpenStack project name, the amount of quota required (in GB), and the number of shares needed."
     },
     {
-      "question": "How do I request access to the CephFS service?",
-      "answer": "Access to the CephFS service is granted via requests to cloud@tech.alliancecan.ca."
+      "question": "What are the steps for creating a CephFS share and an access rule within the OpenStack configuration?",
+      "answer": "To create a CephFS share, navigate to `Project --> Share --> Shares` in OpenStack and click `+Create Share`. You'll need to enter a share name (e.g., `project-name-shareName`), select 'CephFS' as the Share Protocol, specify the desired Size, choose 'cephfs' (or 'cephfs-ec42' on SD4H/Juno) for Share Type, and set 'nova' for Availability Zone. Ensure you do not check 'Make visible for all'. After creating the share, you must create an access rule by selecting `Manage Rules` from the `Actions` column for the share, then click `+Add Rule`. Set `Access Type` to 'cephx', select an `Access Level` (read-write or read-only), and provide a key name for `Access To`."
     },
     {
-      "question": "What basic technical skills are assumed for setting up CephFS?",
-      "answer": "This procedure assumes basic Linux skills for creating/editing files, setting permissions, and creating mount points."
-    },
-    {
-      "question": "Where can I get assistance with setting up CephFS?",
-      "answer": "For assistance in setting up this service, you can write to cloud@tech.alliancecan.ca."
-    },
-    {
-      "question": "What should I do if I don't already have a quota for the CephFS service?",
-      "answer": "If you do not already have a quota for the service, you will need to request this through cloud@tech.alliancecan.ca."
-    },
-    {
-      "question": "What information is required when requesting a CephFS quota?",
-      "answer": "In your request, you must provide your OpenStack project name, the amount of quota required (in GB), and the number of shares required."
-    },
-    {
-      "question": "What are the steps to create a CephFS share in OpenStack?",
-      "answer": "In OpenStack, go to Project --> Share --> Shares, then click on '+Create Share'. You will then need to fill in the share details and click 'Create'."
-    },
-    {
-      "question": "What should I enter for the 'Share Name' when creating a CephFS share?",
-      "answer": "You should enter a name that identifies your project, for example, 'project-name-shareName'."
-    },
-    {
-      "question": "What protocol should be selected for a CephFS share?",
-      "answer": "The 'Share Protocol' should be set to CephFS."
-    },
-    {
-      "question": "What 'Share Type' should be chosen for a CephFS share, especially on SD4H/Juno?",
-      "answer": "The 'Share Type' should be 'cephfs' (or 'cephfs-ec42' on SD4H/Juno)."
-    },
-    {
-      "question": "Which 'Availability Zone' should be selected for a CephFS share?",
-      "answer": "The 'Availability Zone' should be set to 'nova'."
-    },
-    {
-      "question": "Why should I not check 'Make visible for all' when creating a CephFS share?",
-      "answer": "You should not check 'Make visible for all' (or 'Make visible to users from all projects' on SD4H/Juno), otherwise the share will be accessible by all users in all projects."
-    },
-    {
-      "question": "How do I create an access rule for a CephFS share to generate an access key?",
-      "answer": "In Project --> Share --> Shares, go to the 'Actions' column, select 'Manage Rules' from the drop-down menu, then click on the '+Add Rule' button."
-    },
-    {
-      "question": "What 'Access Type' should be used when creating an access rule for CephFS?",
-      "answer": "The 'Access Type' should be 'cephx'."
-    },
-    {
-      "question": "What 'Access Level' options are available for a CephFS share?",
-      "answer": "You can select 'read-write' or 'read-only' for the 'Access Level', and you can create multiple rules for either access level if required."
-    },
-    {
-      "question": "Why is the 'Access To' key name important when creating an access rule?",
-      "answer": "The 'Access To' key name is important because it will be used in the CephFS client configuration on the VM; an example name is 'MyCephFS-RW'."
-    },
-    {
-      "question": "What three elements of share details should I note for later use on the VM?",
-      "answer": "You should note the 'Path' (for the mount command), the 'Access to' (which will be the client name), and the 'Access Key' that will let the VM's client connect."
-    },
-    {
-      "question": "Is there a difference in attaching the CephFS network to a VM on Arbutus compared to SD4H/Juno?",
-      "answer": "Yes, on Arbutus, the CephFS network is already exposed to your VM, so nothing needs to be done. On SD4H/Juno, you need to explicitly attach the CephFS network to the VM."
-    },
-    {
-      "question": "How do I attach the CephFS network to a VM on SD4H/Juno using the Web GUI?",
-      "answer": "For each VM you need to attach, select 'Instance --> Action --> Attach interface', then select the 'CephFS-Network' and leave the 'Fixed IP Address' box empty."
-    },
-    {
-      "question": "What command lists OpenStack servers using the OpenStack client?",
-      "answer": "The command to list servers is `openstack server list`."
-    },
-    {
-      "question": "How do I attach the CephFS network to a specific VM using the OpenStack client on SD4H/Juno?",
-      "answer": "First, list servers to get the VM's ID using `openstack server list`, then run `openstack server add network <VM_ID> CephFS-Network`, for example, `openstack server add network 1b2a3c21-c1b4-42b8-9016-d96fc8406e04 CephFS-Network`."
+      "question": "How do users attach the CephFS network to their Virtual Machines (VMs) on the Arbutus and SD4H/Juno platforms?",
+      "answer": "On the Arbutus platform, the CephFS network is already exposed to your VM, so no action is required. However, on SD4H/Juno, you must explicitly attach the CephFS network to the VM. This can be done via the Web GUI by selecting `Instance --> Action --> Attach interface` for each VM, choosing `CephFS-Network`, and leaving the `Fixed IP Address` box empty. Alternatively, using the OpenStack client, you can execute the command `openstack server add network <server-id> CephFS-Network` after identifying the VM's ID with `openstack server list`."
     }
   ],
-  "generated_at": "2026-04-11T19:31:03.824054+00:00"
+  "generated_at": "2026-04-13T03:45:27.220097+00:00"
 }

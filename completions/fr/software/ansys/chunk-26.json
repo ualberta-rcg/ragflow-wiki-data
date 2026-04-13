@@ -4,29 +4,17 @@
   "chunk_index": 26,
   "qa_pairs": [
     {
-      "question": "Après être revenu à la boîte de dialogue d'injection dans Fluent, qu'est-ce qu'on devrait voir et où peut-on lister les particules?",
-      "answer": "Une fois revenu à la boîte de dialogue d'Injection, on devrait voir le même nom d'injection que celui qu'on a spécifié dans la boîte de dialogue 'Set Injection Properties', et on peut lister ses particules et propriétés directement dans la console."
+      "question": "Après avoir validé une injection DPM (modèle de phase discrète) dans l'interface graphique de Fluent, comment peut-on automatiser les réglages de cette injection via un fichier de journalisation?",
+      "answer": "Une fois que l'injection est confirmée comme fonctionnant dans l'interface graphique de Fluent, vous pouvez automatiser les étapes en ajoutant des commandes à votre fichier de journalisation, après l'initialisation de la solution. Ces commandes permettent notamment de sélectionner « Interaction with Continuous Phase » dans la boîte de dialogue « Discrete Phase Model » pour mettre à jour les termes sources DPM à chaque itération de flux, ainsi que de créer ou lister les injections."
     },
     {
-      "question": "Dans la boîte de dialogue 'Discrete Phase Model', quel paramètre faut-il sélectionner pour mettre à jour les termes sources DPM à chaque itération de flux?",
-      "answer": "Dans la boîte de dialogue 'Discrete Phase Model', il faut sélectionner 'Interaction with Continuous Phase' pour permettre la mise à jour des termes sources DPM à chaque itération de flux."
+      "question": "Quels sont des exemples de commandes à inclure dans un fichier de journalisation Fluent pour automatiser l'interaction DPM et la création d'injections?",
+      "answer": "Voici des exemples de commandes que vous pourriez ajouter à votre fichier de journalisation :\n```\n/define/models/dpm/interaction/coupled-calculations yes\n/define/models/dpm/injections/delete-injection injection-0:1\n/define/models/dpm/injections/create injection-0:1 no yes file no zinjection01.inj no no no no\n/define/models/dpm/injections/list-particles injection-0:1\n/define/models/dpm/injections/list-injection-properties injection-0:1\n```\nCes commandes gèrent l'interaction avec la phase continue, suppriment une injection, en créent une nouvelle à partir d'un fichier et listent ses propriétés."
     },
     {
-      "question": "Où peut-on enregistrer le paramètre 'Interaction with Continuous Phase' pour les simulations DPM?",
-      "answer": "Ce paramètre peut être enregistré soit dans votre fichier cas, soit ajouté via le fichier de journalisation comme indiqué."
-    },
-    {
-      "question": "Comment peut-on automatiser les étapes d'une injection DPM une fois que son fonctionnement est confirmé dans l'interface graphique?",
-      "answer": "Une fois l'injection confirmée comme fonctionnant dans l'interface graphique, on peut automatiser les étapes en ajoutant des commandes au fichier de journalisation après l'initialisation de la solution."
-    },
-    {
-      "question": "Quelles commandes peut-on ajouter à un fichier de journalisation pour automatiser la configuration des injections DPM?",
-      "answer": "On peut ajouter les commandes suivantes au fichier de journalisation après l'initialisation de la solution : `/define/models/dpm/interaction/coupled-calculations yes`, `/define/models/dpm/injections/delete-injection injection-0:1`, `/define/models/dpm/injections/create injection-0:1 no yes file no zinjection01.inj no no no no`, `/define/models/dpm/injections/list-particles injection-0:1`, et `/define/models/dpm/injections/list-injection-properties injection-0:1`."
-    },
-    {
-      "question": "Donnez un exemple du format d'un fichier d'injection DPM de base créé manuellement.",
-      "answer": "Un format de fichier stable d'injection de base créé manuellement pourrait ressembler à :\n```\n$ cat zinjection01.inj\n(z=4 12)\n( x y z u v w diamètre t débit massique fréquence massique temps nom )\n(( 2.90e-02 5.00e-03 0.0 -1,00e-03 0,0 0,0 1,00e-04 2,93e+02 1,00e-06 0,0 0,0 0,0 ) injection-0:1 )\n```"
+      "question": "Quel est le format typique d'un fichier d'injection DPM de base créé manuellement, comme un fichier .inj?",
+      "answer": "Un fichier d'injection DPM de base créé manuellement, tel que `zinjection01.inj`, pour des simulations DPM est généralement configuré pour un suivi stationnaire ou instable de particules. Un exemple de format de fichier stable pourrait ressembler à ceci :\n```\n(z=4 12)\n( x y z u v w diamètre t débit massique fréquence massique temps nom )\n(( 2.90e-02 5.00e-03 0.0 -1,00e-03 0,0 0,0 1,00e-04 2,93e+02 1,00e-06 0,0 0,0 0,0 ) injection-0:1 )\n```"
     }
   ],
-  "generated_at": "2026-04-12T17:01:40.782781+00:00"
+  "generated_at": "2026-04-13T01:58:45.041351+00:00"
 }

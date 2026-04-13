@@ -4,65 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What state is declared for the passive system within its `keepalived.conf` configuration?",
-      "answer": "The passive system's `keepalived.conf` declares it to be in the `BACKUP` state."
+      "question": "What is the configuration for the `/etc/keepalived/keepalived.conf` file on a passive system in an active-passive high-availability setup, specifically for the `vrrp_instance`?",
+      "answer": "On a passive system, the `/etc/keepalived/keepalived.conf` file for the `vrrp_instance` should declare its `state` as `BACKUP` and set a `priority` (e.g., `50`) that is lower than the active system. It also needs to specify the `virtual_router_id`, the `interface`, `advert_int`, `authentication` details (including a password), the `virtual_ipaddress` (e.g., `192.168.27.251`), and the `unicast_peer` as the IP address of the active system (e.g., `192.168.27.116`)."
     },
     {
-      "question": "What is the priority configured for the passive system in `keepalived.conf`?",
-      "answer": "The priority configured for the passive system is `50`."
+      "question": "Besides configuring `keepalived`, what network settings are essential to ensure VRRP traffic flows correctly between the systems in an active-passive setup, and what is the expected behaviour when `keepalived` is started on both the active and passive nodes?",
+      "answer": "It is crucial to allow VRRP traffic between the systems by configuring the relevant `Security Groups` and ensuring they are attached to the systems. When `keepalived` is started, the system designated as `MASTER` (with higher priority) will bring up and own the Virtual IP (VIP), while the `BACKUP` system will enter `BACKUP STATE` and will not take ownership of the VIP as long as the master is active and reachable."
     },
     {
-      "question": "What does a lower priority indicate for a `vrrp_instance` in the network?",
-      "answer": "A lower priority means that if there is a higher priority system on the network, the higher one takes precedence."
-    },
-    {
-      "question": "Which IP address is specified as the `unicast_peer` for the passive system in its `keepalived.conf`?",
-      "answer": "The IP address `192.168.27.116` is specified as the `unicast_peer` for the passive system, which is the IP address of the active system."
-    },
-    {
-      "question": "What is the authentication type and password used in the `keepalived.conf` for VRRP communication?",
-      "answer": "The authentication type is `PASS` and the password is `EcbCp2b1`."
-    },
-    {
-      "question": "What internal IP address is set as the `virtual_ipaddress` in the `keepalived.conf` for the VRRP instance?",
-      "answer": "The `virtual_ipaddress` is set to `192.168.27.251`."
-    },
-    {
-      "question": "What network interface is used for the VRRP instance on both active and passive systems?",
-      "answer": "The `ens3` interface is used for the VRRP instance on both systems."
-    },
-    {
-      "question": "What needs to be configured in `Security Groups` to allow VRRP traffic between the systems?",
-      "answer": "You need to make sure to allow the vrrp traffic between the systems in your `Security Groups` and ensure it's attached to your systems."
-    },
-    {
-      "question": "What command is used to enable and start the `keepalived` service on `web-srv-1`?",
-      "answer": "The command `systemctl enable --now keepalived` is used to enable and start the `keepalived` service."
-    },
-    {
-      "question": "What command allows you to check the IP addresses on a network device like `ens3`?",
-      "answer": "The command `ip a s dev ens3` allows you to check the IP addresses on a network device."
-    },
-    {
-      "question": "After starting `keepalived` on `web-srv-1`, which IP addresses are shown on the `ens3` interface?",
-      "answer": "After starting `keepalived` on `web-srv-1`, both `192.168.27.116` and the virtual IP `192.168.27.251` are shown on the `ens3` interface."
-    },
-    {
-      "question": "What happens when `keepalived` is started on the standby node if the active system is already running?",
-      "answer": "When `keepalived` is started on the standby node, it will perform the same checks, but the Virtual IP (VIP) will stay on the active system."
-    },
-    {
-      "question": "How can you test if the IP address is taken over by the standby node?",
-      "answer": "To test that the IP is taken over by the standby node, you can simply stop `keepalived` on the active system and then check if the IP has moved."
-    },
-    {
-      "question": "What command shows the status of the `keepalived` service on `web-srv-2` after starting it?",
-      "answer": "The command `systemctl status keepalived` shows the status of the service, indicating it enters `BACKUP STATE (init)`."
-    },
-    {
-      "question": "Which IP address remains on `web-srv-1` after `keepalived` is stopped on it?",
-      "answer": "After `keepalived` is stopped on `web-srv-1`, only `192.168.27.116` remains on the `ens3` interface, as the VIP is released."
+      "question": "How can the failover of the Virtual IP (VIP) be tested in a `keepalived` active-passive setup, and what happens to the VIP when the original active system, configured with a higher priority, restarts its `keepalived` service?",
+      "answer": "To test VIP failover, one can stop the `keepalived` service on the currently active system (e.g., `web-srv-1`) using `systemctl stop keepalived`. This action should cause the passive system (e.g., `web-srv-2`) to take over the VIP, which can be verified using `ip a s dev ens3` or by checking the `systemctl status keepalived` output on the passive node. If the original active system (with a higher priority) later restarts its `keepalived` service, it will reclaim the VIP, causing the system that was temporarily master to revert to `BACKUP STATE`. If this automatic VIP reclamation is not desired, the priorities of both systems should be set to equal numbers in their `keepalived.conf` files."
     }
   ],
-  "generated_at": "2026-04-11T23:39:45.498811+00:00"
+  "generated_at": "2026-04-13T07:00:39.452959+00:00"
 }

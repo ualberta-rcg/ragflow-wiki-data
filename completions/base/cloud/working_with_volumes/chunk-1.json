@@ -4,105 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is a volume in the context of cloud storage?",
-      "answer": "A volume provides storage which is not destroyed when a VM (Virtual Machine) is terminated."
+      "question": "What is an OpenStack volume, and what are the different volume types available on the Arbutus cloud?",
+      "answer": "An OpenStack volume provides persistent storage that is not destroyed when a virtual machine (VM) is terminated. On the Arbutus cloud, volumes utilize Ceph storage with either a 3-fold replication factor or erasure codes for safety against hardware failure. Specifically, the `rbd1` volume type uses spinning disk hard drives and erasure codes, while the `high_performance` volume type uses solid state NVMe drives with a 3-fold replication factor for higher performance."
     },
     {
-      "question": "What type of storage do volumes use on our clouds?",
-      "answer": "Volumes on our clouds use Ceph storage."
+      "question": "What are the required steps and fields to create a new volume using the OpenStack dashboard?",
+      "answer": "To create a new volume, first click on the 'Create Volume' button. Then, fill in the following fields: 'Volume Name' (e.g., `data`), 'Description' (optional), 'Volume Source' (select `No source, empty volume`), 'Type' (select `No volume type`), 'Size (GiB)' (a suitable size like `40`), and 'Availability Zone' (which is `nova`). Finally, click the blue 'Create Volume' button at the bottom."
     },
     {
-      "question": "How do volumes ensure data safety against hardware failure?",
-      "answer": "Volumes use either a 3-fold replication factor or erasure codes to provide safety against hardware failure."
-    },
-    {
-      "question": "What are the characteristics of the `rbd1` volume type on Arbutus?",
-      "answer": "On Arbutus, the `rbd1` volume type is stored on spinning disk hard drives and uses erasure codes to provide data safety while reducing extra storage costs of 3-fold replication."
-    },
-    {
-      "question": "What are the characteristics of the `high_performance` volume type on Arbutus?",
-      "answer": "The `high_performance` volume type is stored on solid state NVMe drives and uses the less storage efficient but higher performance 3-fold replication factor."
-    },
-    {
-      "question": "Where can I find more documentation about OpenStack volumes?",
-      "answer": "More documentation about OpenStack volumes can be found at https://docs.openstack.org/cinder/latest/cli/cli-manage-volumes.html."
-    },
-    {
-      "question": "What is the initial step to create a volume?",
-      "answer": "To create a volume, click on the 'Create Volume' button."
-    },
-    {
-      "question": "What fields are required when creating a volume?",
-      "answer": "When creating a volume, you need to fill in: Volume Name (e.g., `data`), Description (optional), Volume Source (`No source, empty volume`), Type (`No volume type`), Size (GiB, e.g., `40`), and Availability Zone (`nova`)."
-    },
-    {
-      "question": "What is the final action after filling in the volume creation fields?",
-      "answer": "Finally, click on the blue 'Create Volume' button at the bottom."
-    },
-    {
-      "question": "What is the process of attaching a volume?",
-      "answer": "Attaching is the process of associating a volume with a VM, similar to plugging an external drive into a computer."
-    },
-    {
-      "question": "From which page in the dashboard can you attach a volume?",
-      "answer": "You can attach a volume from the 'Volumes' page in the dashboard."
-    },
-    {
-      "question": "What are the steps to attach a volume from the dashboard?",
-      "answer": "From the 'Volumes' page, select 'Manage Attachments' from the 'Actions' drop-down menu for the desired volume, choose a VM from the 'Attach to Instance' drop-down menu, and then click the blue 'Attach Volume' button."
-    },
-    {
-      "question": "How long does it typically take for a volume to attach?",
-      "answer": "Attaching should complete in a few seconds."
-    },
-    {
-      "question": "Where will a newly attached volume appear on the selected VM?",
-      "answer": "The newly created volume will be attached to your selected VM on `/dev/vdb` or some similar location."
-    },
-    {
-      "question": "When should you avoid formatting a volume?",
-      "answer": "Do not format if you are attaching an existing volume, as it would have already been formatted if previously used to store data."
-    },
-    {
-      "question": "What is the purpose of formatting a volume?",
-      "answer": "Formatting is the process of preparing a volume to store directories and files."
-    },
-    {
-      "question": "What happens to existing data when a volume is formatted?",
-      "answer": "Formatting erases all existing information on a volume."
-    },
-    {
-      "question": "When is formatting necessary for a volume?",
-      "answer": "Before a newly created and attached volume can be used, it must be formatted."
-    },
-    {
-      "question": "Where can I find instructions for formatting a new empty volume?",
-      "answer": "See instructions for doing this on a Linux or Windows VM."
-    },
-    {
-      "question": "What does mounting a volume mean?",
-      "answer": "Mounting is the process of mapping the volume's directory and file structure logically within the VM's directory and file structure."
-    },
-    {
-      "question": "What is an example command to mount a volume?",
-      "answer": "An example command to mount a volume is `sudo mount /dev/vdb1 /mnt`."
-    },
-    {
-      "question": "What happens to a mounted volume after a virtual machine reboots?",
-      "answer": "When the virtual machine reboots, the volume will need to be re-mounted using the same `mount` command."
-    },
-    {
-      "question": "How can volumes be automatically mounted when a virtual machine boots?",
-      "answer": "It is possible to automatically mount volumes when a virtual machine boots by editing the file named `/etc/fstab` to contain a new line with details about how the volume should be mounted."
-    },
-    {
-      "question": "What command can be used to view mounting information?",
-      "answer": "To view mounting information, use the `blkid` command."
-    },
-    {
-      "question": "How do you add a line to `/etc/fstab` for automatic mounting based on UUID?",
-      "answer": "Based on the UUID, add a line to `/etc/fstab` like this: `/dev/disk/by-uuid/anananan-anan-anana-anan-ananananana /mnt auto defaults,nofail 0 3`, substituting 'anananan-anan-anana-anan-ananananana' with the UUID of the device."
+      "question": "After attaching a newly created volume to a virtual machine, what are the subsequent steps required to make it usable for storing files?",
+      "answer": "After attaching a newly created volume, it must first be formatted to prepare it for storing directories and files; this process erases all existing data. Once formatted, the volume needs to be mounted, which maps its directory and file structure logically within the VM's filesystem, typically using a command like `sudo mount /dev/vdb1 /mnt`. For persistent access across VM reboots, you can configure automatic mounting by editing the `/etc/fstab` file with the volume's UUID."
     }
   ],
-  "generated_at": "2026-04-12T12:06:56.720767+00:00"
+  "generated_at": "2026-04-13T16:26:17.328671+00:00"
 }

@@ -4,25 +4,17 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "À quoi ça sert, une liste de contrôle d'accès (ACL) sur SciNet?",
-      "answer": "Une liste de contrôle d'accès (ACL) permet à votre superviseur ou à un autre membre de votre groupe de gérer vos fichiers (les créer, les déplacer, les renommer ou les supprimer), tout en vous permettant de conserver vos droits d'accès. Ça vous permet aussi d'autoriser des utilisateurs ou des groupes complets, même d'autres groupes, à consulter ou à exécuter vos fichiers."
+      "question": "Sur SciNet, à quoi servent les listes de contrôle d'accès (ACL) et qui peut en bénéficier?",
+      "answer": "Les listes de contrôle d'accès (ACL) permettent à un superviseur ou à un autre utilisateur du même groupe de gérer les fichiers d'un utilisateur (créer, déplacer, renommer, supprimer), tout en conservant les droits d'accès du propriétaire initial. Elles permettent aussi d'autoriser des utilisateurs ou des groupes entiers d'autres groupes à accéder aux fichiers (pour la lecture ou l'exécution)."
     },
     {
-      "question": "Quelles sont les commandes à utiliser pour gérer les listes de contrôle d'accès (ACL) sur GPFS?",
-      "answer": "Les commandes à utiliser sont `mmputacl` et `mmgetacl`."
+      "question": "Quelles sont les principales commandes pour gérer les listes de contrôle d'accès (ACL) sur SciNet, et comment s'en sert-on pour définir des permissions?",
+      "answer": "Les commandes principales pour gérer les ACL sont `mmputacl` et `mmgetacl`. Pour configurer des permissions, on utilise `mmputacl` avec un fichier de définition des ACL (par exemple, `/tmp/supervisor.acl`) pour un répertoire spécifique. La commande `mmgetacl` sert à vérifier les attributs ACL actuellement appliqués. D'autres commandes comme `mmdelacl` et `mmeditacl` sont disponibles pour supprimer ou modifier les ACL."
     },
     {
-      "question": "Quels types d'ACL sont supportés par les commandes `mmputacl` et `mmgetacl`?",
-      "answer": "Ces commandes de GPFS supportent les ACL POSIX ou NFS v4."
-    },
-    {
-      "question": "Comment on peut configurer une ACL avec la commande `mmputacl`?",
-      "answer": "Pour configurer une ACL, il faut d'abord créer un fichier temporaire, comme `/tmp/supervisor.acl`, avec les permissions désirées. Ensuite, on utilise la commande `mmputacl` en spécifiant ce fichier et le répertoire cible, par exemple : `mmputacl -i /tmp/supervisor.acl /project/g/group/[owner]`."
-    },
-    {
-      "question": "Quel est un exemple de contenu pour un fichier ACL temporaire?",
-      "answer": "Un fichier ACL temporaire pourrait contenir des lignes comme :\n`user::rwxc`\n`group::----`\n`other::----`\n`mask::rwxc`\n`user:[owner]:rwxc`\n`user:[supervisor]:rwxc`\n`group:[othegroup]:r-xc`"
+      "question": "Quelle est une limitation importante concernant l'application des listes de contrôle d'accès (ACL) sur des fichiers ou répertoires déjà existants?",
+      "answer": "Il n'est pas possible d'ajouter ou de supprimer récursivement des attributs ACL à des fichiers existants avec une seule commande intégrée à GPFS. Pour ce faire, il faut soit utiliser l'option `-i` pour chaque fichier ou répertoire individuellement, soit adapter un script bash récursif comme celui fourni en exemple."
     }
   ],
-  "generated_at": "2026-04-11T20:58:45.030818+00:00"
+  "generated_at": "2026-04-13T04:52:36.255639+00:00"
 }

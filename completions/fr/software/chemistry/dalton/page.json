@@ -4,44 +4,60 @@
   "qa_pairs": [
     {
       "question": "C'est quoi la suite logicielle Dalton2016 et à quoi ça sert?",
-      "answer": "C'est une suite logicielle qui inclut Dalton et LSDalton, conçue pour l'étude des structures électroniques de molécules et le calcul de leurs propriétés à différents niveaux théoriques."
+      "answer": "La suite Dalton2016, qui comprend les applications Dalton et LSDalton, est conçue pour l'étude des structures électroniques de molécules et le calcul de leurs propriétés moléculaires."
     },
     {
-      "question": "Quelles sont les applications principales qui constituent le noyau de Dalton2016?",
-      "answer": "Les applications principales sont Dalton et LSDalton."
+      "question": "Quels niveaux théoriques la suite Dalton2016 supporte-t-elle pour les calculs de propriétés moléculaires?",
+      "answer": "La suite Dalton2016 supporte les niveaux théoriques HF, DFT, MCSCF et CC pour le calcul des propriétés moléculaires."
     },
     {
-      "question": "À quels niveaux théoriques la suite Dalton2016 permet-elle de calculer les propriétés moléculaires?",
-      "answer": "Elle permet les calculs aux niveaux théoriques HF, DFT, MCSCF et CC."
+      "question": "Où peut-on trouver le site web officiel, la documentation et le forum du projet Dalton2016?",
+      "answer": "Le site web du projet est http://daltonprogram.org/, la documentation est à http://daltonprogram.org/documentation/ et le forum est à http://forum.daltonprogram.org/."
     },
     {
-      "question": "Comment on fait pour charger le module Dalton/2017-alpha pour l'utiliser?",
-      "answer": "Il faut taper `module load nixpkgs/16.09 intel/2016.4 openmpi/2.0.2 dalton/2017-alpha` dans la console."
+      "question": "Comment on charge le module `dalton/2017-alpha` sur les grappes de calcul pour commencer à utiliser Dalton?",
+      "answer": "Pour charger le module `dalton/2017-alpha`, il faut utiliser la commande `module load nixpkgs/16.09 intel/2016.4 openmpi/2.0.2 dalton/2017-alpha`."
     },
     {
-      "question": "Y'a-t-il une spécificité pour la version d'OpenMPI quand on utilise le module Dalton/2017-alpha?",
-      "answer": "Oui, le module `dalton/2017-alpha` dépend d'une version spécifique d'OpenMPI (`2.0.2`) qui n'est pas la version par défaut."
+      "question": "Est-ce que le module `dalton/2017-alpha` a des dépendances spécifiques en termes de version d'OpenMPI?",
+      "answer": "Oui, le module `dalton/2017-alpha` dépend d’une version OpenMPI spécifique, soit `openmpi/2.0.2`, qui est différente de la version par défaut."
     },
     {
-      "question": "Quels sont les fichiers nécessaires pour lancer une simulation avec Dalton?",
-      "answer": "Il faut un fichier d'entrée (.dal) et un fichier qui spécifie la molécule (.mol)."
+      "question": "Quels sont les deux types de fichiers d'entrée principaux requis pour exécuter un travail avec Dalton?",
+      "answer": "Les fichiers d'entrée principaux sont un fichier de type `.dal` pour les paramètres du calcul et un fichier de type `.mol` pour la spécification de la molécule."
     },
     {
-      "question": "Comment on fait pour inclure les bases atomiques dans une commande Dalton?",
-      "answer": "Il faut ajouter l'option `-b ${BASLIB}` à la ligne de commande Dalton."
+      "question": "Comment on fait pour inclure les bases atomiques quand on lance une exécution de Dalton en ligne de commande?",
+      "answer": "Pour inclure les bases atomiques, il faut ajouter l'option `-b ${BASLIB}` à la ligne de commande."
     },
     {
-      "question": "Comment on peut spécifier le nombre de processus pour le lanceur Dalton?",
-      "answer": "On peut soit ajouter l'option `-N ${SLURM_NTASKS}` à la ligne de commande, soit exporter la variable d'environnement `DALTON_NUM_MPI_PROCS=${SLURM_NTASKS}`."
+      "question": "C'est quoi une des méthodes pour définir le nombre de processus MPI pour un travail Dalton directement en ligne de commande?",
+      "answer": "On peut ajouter l’option `-N ${SLURM_NTASKS}` en ligne de commande pour le lanceur Dalton."
     },
     {
-      "question": "Donnez un exemple de commande de base pour exécuter Dalton en spécifiant le fichier d'entrée et la molécule.",
-      "answer": "Une commande de base pourrait être : `dalton -b ${BASLIB} -N ${SLURM_NTASKS} -dal dft_rspexci_nosym.dal -mol H2O_cc-pVDZ_nosym.mol`."
+      "question": "Quelle est l'autre méthode pour spécifier le nombre de processus MPI pour une exécution de Dalton en utilisant une variable d'environnement?",
+      "answer": "L'autre méthode est d'utiliser `export DALTON_NUM_MPI_PROCS=${SLURM_NTASKS}` pour définir la variable d'environnement avant d'exécuter Dalton."
     },
     {
-      "question": "Où peut-on trouver le site web du projet et la documentation de Dalton?",
-      "answer": "Le site web du projet est http://daltonprogram.org/ et la documentation est à http://daltonprogram.org/documentation/."
+      "question": "Donnez un exemple complet d'une commande Dalton typique qui inclut les fichiers d'entrée, les bases atomiques et la spécification du nombre de processus.",
+      "answer": "Un exemple de commande complète serait: `dalton -b ${BASLIB} -N ${SLURM_NTASKS} -dal dft_rspexci_nosym.dal -mol H2O_cc-pVDZ_nosym.mol`."
+    },
+    {
+      "question": "Quelles sont les directives SLURM minimales qu'on retrouve dans les scripts d'exemple pour soumettre des travaux Dalton?",
+      "answer": "Les scripts d'exemple incluent généralement les directives SLURM `#SBATCH --nodes`, `#SBATCH --ntasks-per-node`, `#SBATCH --mem-per-cpu` et `#SBATCH --time`."
+    },
+    {
+      "question": "Quels sont les noms des fichiers d'entrée (`.dal` et `.mol`) pour le premier exemple de calcul Dalton présenté?",
+      "answer": "Pour le premier exemple, le fichier d'entrée Dalton est `dft_rspexci_nosym.dal` et le fichier de molécule est `H2O_cc-pVDZ_nosym.mol`."
+    },
+    {
+      "question": "Quels sont les noms des fichiers d'entrée (`.dal` et `.mol`) pour le deuxième exemple de calcul Dalton présenté?",
+      "answer": "Pour le deuxième exemple, le fichier d'entrée Dalton est `dft_rspexci_sym.dal` et le fichier de molécule est `H2O_cc-pVDZ_sym.mol`."
+    },
+    {
+      "question": "Quelles sections principales sont typiquement présentes dans un fichier d'entrée Dalton au format `.dal`?",
+      "answer": "Un fichier d'entrée Dalton (.dal) contient habituellement les sections `**DALTON INPUT`, `.RUN`, `**INTEGRALS`, `**WAVE FUNCTIONS`, `**RESPONSE` et `**END OF DALTON INPUT`."
     }
   ],
-  "generated_at": "2026-04-11T20:42:57.778004+00:00"
+  "generated_at": "2026-04-13T04:42:17.450946+00:00"
 }

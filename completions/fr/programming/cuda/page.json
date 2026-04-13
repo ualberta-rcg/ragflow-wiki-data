@@ -3,61 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, CUDA?",
-      "answer": "CUDA est une plateforme de calcul parallèle et un modèle de programmation développé par NVIDIA pour des calculs généraux utilisant le GPU."
+      "question": "Qu'est-ce que CUDA et à quoi sert-il pour la programmation GPU?",
+      "answer": "CUDA est une plateforme de calcul parallèle et un modèle de programmation développé par NVIDIA, permettant de créer des programmes pour GPU à l'aide de bibliothèques et de compilateurs C, C++ et Fortran."
     },
     {
-      "question": "Qu'est-ce que CUDA offre aux programmeurs?",
-      "answer": "Ça fournit un ensemble de bibliothèques et de compilateurs C, C++ et Fortran pour créer des programmes pour les GPU."
+      "question": "En plus de CUDA, quel autre outil de programmation pour GPU est mentionné dans le document?",
+      "answer": "Le document mentionne OpenACC comme un autre outil de programmation pour GPU."
     },
     {
-      "question": "Comment on fait pour charger le module CUDA avant de compiler un programme?",
-      "answer": "Il faut utiliser les commandes `module purge` puis `module load cuda` dans la console."
+      "question": "Comment doit-on préparer son environnement avant de compiler un programme CUDA sur les clusters?",
+      "answer": "Il faut d'abord charger le module CUDA en utilisant les commandes `module purge` puis `module load cuda`."
     },
     {
-      "question": "Quel suffixe est important pour les fichiers source de code CUDA C/C++?",
-      "answer": "Le suffixe `cu` est important pour les fichiers, comme `add.cu`."
+      "question": "Quel suffixe est important pour les fichiers de code source CUDA C/C++ comme dans l'exemple `add.cu`?",
+      "answer": "Le suffixe `.cu` est important pour les fichiers de code source CUDA C/C++."
     },
     {
-      "question": "C'est quel compilateur qu'on utilise pour le code CUDA C/C++?",
-      "answer": "On utilise le compilateur `nvcc`."
+      "question": "Quelle commande utilise-t-on pour compiler un programme CUDA C/C++ comme `add.cu` en un exécutable?",
+      "answer": "On utilise la commande `nvcc add.cu -o add` pour compiler un programme CUDA C/C++."
     },
     {
-      "question": "Comment on soumet un programme CUDA à l'ordonnanceur Slurm?",
-      "answer": "Il faut créer un script Slurm (par exemple, `gpu_job.sh`) avec les directives nécessaires et le soumettre avec `sbatch gpu_job.sh`."
+      "question": "Quelles sont les informations essentielles à spécifier dans un script Slurm pour soumettre une tâche CUDA utilisant un GPU, tel que montré dans l'exemple `gpu_job.sh`?",
+      "answer": "Il faut spécifier le compte (`--account`), le nombre de GPU requis (`--gres=gpu:1`), la mémoire (`--mem`) et le temps limite (`--time`)."
     },
     {
-      "question": "Quelles sont quelques directives Slurm importantes pour une tâche qui utilise le GPU?",
-      "answer": "Les directives importantes incluent `--account`, `--gres=gpu:1` pour le nombre de GPU, `--mem` pour la mémoire et `--time` pour la durée."
+      "question": "Comment soumet-on un script Slurm comme `gpu_job.sh` à l'ordonnanceur pour exécuter une tâche CUDA?",
+      "answer": "On soumet le script à l'ordonnanceur en utilisant la commande `sbatch gpu_job.sh`."
     },
     {
-      "question": "Comment on fait pour lier des bibliothèques CUDA comme cuBLAS lors de la compilation?",
-      "answer": "On ajoute les indicateurs `-lcublas -Xlinker=-rpath,$CUDA_PATH/lib64` à la commande `nvcc`."
+      "question": "Quel serait le résultat de l'exécution du programme `add` si aucun GPU n'était disponible pour la tâche Slurm?",
+      "answer": "Sans GPU, le résultat serait `2+7=0` au lieu de `2+7=9`, indiquant que le calcul sur GPU n'a pas été effectué."
     },
     {
-      "question": "Qu'est-ce que l'attribut « compute capability » veut dire pour les GPU NVIDIA?",
-      "answer": "C'est un terme technique de NVIDIA qui indique les fonctionnalités prises en charge par un GPU et spécifie certains de ses paramètres matériels."
+      "question": "Comment faut-il compiler un programme CUDA si celui-ci doit établir des liens avec des bibliothèques incluses avec CUDA, comme cuBLAS?",
+      "answer": "Il faut utiliser les indicateurs `nvcc -lcublas -Xlinker=-rpath,$CUDA_PATH/lib64` lors de la compilation."
     },
     {
-      "question": "Quels genres d'erreurs peuvent arriver si le « compute capability » n'est pas géré comme il faut?",
-      "answer": "On peut voir des messages comme `nvcc fatal : Unsupported gpu architecture 'compute_XX'` ou `no kernel image is available for execution on the device (209)`."
+      "question": "Qu'est-ce que le terme \"compute capability\" de NVIDIA désigne pour les dispositifs GPU?",
+      "answer": "La \"compute capability\" désigne un attribut des dispositifs GPU qui indique les fonctionnalités prises en charge et spécifie certains paramètres matériels de ce dernier."
     },
     {
-      "question": "Comment on peut régler les problèmes liés au « compute capability » quand on compile avec `nvcc`?",
-      "answer": "Il faut ajouter l'indicateur `-gencode arch=compute_XX,code=[sm_XX,compute_XX]` à la commande `nvcc`, où XX est la valeur de la capacité de calcul."
+      "question": "Quels types de messages d'erreur peuvent indiquer un problème lié à l'attribut \"compute capability\" lors de la compilation ou de l'exécution de programmes CUDA?",
+      "answer": "Des messages comme `nvcc fatal : Unsupported gpu architecture 'compute_XX'` ou `no kernel image is available for execution on the device (209)` sont souvent liés à la \"compute capability\"."
     },
     {
-      "question": "Et si j'utilise CMake, comment je gère les problèmes de « compute capability »?",
-      "answer": "On utilise l'indicateur `cmake .. -DCMAKE_CUDA_ARCHITECTURES=XX`, où XX est la valeur de la capacité de calcul pour le GPU."
+      "question": "Comment peut-on résoudre les problèmes de \"compute capability\" lors de la compilation avec `nvcc`?",
+      "answer": "Il faut ajouter un indicateur comme `-gencode arch=compute_XX,code=[sm_XX,compute_XX]` à la commande `nvcc`, où `XX` est la valeur de la \"compute capability\" du GPU cible."
     },
     {
-      "question": "Où je peux trouver la valeur de « compute capability » pour un GPU NVIDIA en particulier?",
-      "answer": "On peut la trouver sur la page CUDA GPU Compute Capability de NVIDIA en omettant le point décimal."
+      "question": "Si on utilise `cmake`, quel indicateur doit être utilisé pour spécifier la \"compute capability\" du GPU cible?",
+      "answer": "Avec `cmake`, l'indicateur à utiliser est `-DCMAKE_CUDA_ARCHITECTURES=XX`, où `XX` est la valeur de la \"compute capability\"."
     },
     {
-      "question": "Où je peux trouver plus de détails et apprendre comment utiliser le parallélisme avec les GPU?",
-      "answer": "Tu peux consulter le Tutoriel CUDA pour plus de détails sur l'exemple et le parallélisme avec les GPU."
+      "question": "Où peut-on trouver la valeur de la \"compute capability\" pour un GPU NVIDIA spécifique?",
+      "answer": "On peut trouver ces valeurs sur la page \"CUDA GPU Compute Capability\" de NVIDIA, en omettant le point décimal."
+    },
+    {
+      "question": "Quelle valeur de \"compute capability\" est utilisée pour un nœud A100 de Narval et comment l'indique-t-on pour `nvcc`?",
+      "answer": "La valeur est 8.0, et on l'indique pour `nvcc` avec `-gencode arch=compute_80,code=[sm_80,compute_80]`."
     }
   ],
-  "generated_at": "2026-04-11T19:16:18.982331+00:00"
+  "generated_at": "2026-04-13T03:33:26.235673+00:00"
 }

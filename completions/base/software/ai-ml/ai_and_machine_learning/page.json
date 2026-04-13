@@ -3,117 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the main purpose of this document regarding machine learning applications?",
-      "answer": "To provide guidance on effectively using clusters for machine learning applications."
+      "question": "What is the primary difference between a local machine and Alliance clusters that machine learning practitioners should be aware of?",
+      "answer": "Alliance clusters use a distributed filesystem, which means accessing files from locations like `/project` can have very different performance implications compared to accessing them from the current node, unlike a local machine."
     },
     {
-      "question": "How does a cluster fundamentally differ from a local machine for machine learning tasks?",
-      "answer": "A cluster uses a distributed filesystem, which means IO operations have different performance implications compared to a local machine."
+      "question": "What is the general recommendation for Python users working on Alliance clusters for machine learning?",
+      "answer": "Python users should refer to the Alliance documentation about Python for important information on Python versions, virtual environments on login or compute nodes, `multiprocessing`, Anaconda, and Jupyter."
     },
     {
-      "question": "What is a crucial consideration for data placement on clusters when doing machine learning?",
-      "answer": "Users need to wisely choose where to put their data to optimize performance due to the distributed filesystem."
+      "question": "Why does Alliance recommend against using Anaconda for Python environments for machine learning?",
+      "answer": "Users are asked to avoid Anaconda and use `virtualenv` instead, with specific reasons detailed on the Anaconda documentation page."
     },
     {
-      "question": "Where can users find a self-paced introductory course on machine learning for clusters?",
+      "question": "What is the recommended approach for choosing storage type for datasets of different sizes when running machine learning tasks on Alliance clusters?",
+      "answer": "For datasets around 10 GB or less, they can likely fit in memory; for datasets around 100 GB or less, transfer them to the local storage of the compute node (`$SLURM_TMPDIR`) at the beginning of the job; for larger datasets, they may need to remain in shared storage like your project space."
+    },
+    {
+      "question": "How should users handle datasets containing many small files, such as image datasets, on Alliance clusters?",
+      "answer": "Datasets with hundreds of thousands or more small files should be stored in large single-file archives to avoid filesystem quota limits and significant slowdowns when streaming from `/project` or `/scratch`."
+    },
+    {
+      "question": "What is 'checkpointing' and why is it recommended for long-running machine learning computations on Alliance clusters?",
+      "answer": "Checkpointing involves splitting long computations (e.g., 3-day training) into shorter chunks (e.g., 24 hours) to prevent loss of work during outages and to potentially gain priority, as more nodes are often available for short jobs."
+    },
+    {
+      "question": "What tools are available on Alliance clusters for users who need to run many similar machine learning jobs, such as hyperparameter searches?",
+      "answer": "Tools such as META, GLOST, and GNU Parallel are available to help users group many similar jobs into one."
+    },
+    {
+      "question": "Which services are recommended for experiment tracking and hyperparameter optimization on Alliance clusters?",
+      "answer": "Weights & Biases (wandb) and Comet.ml are recommended for easier tracking and analysis of training runs, and for providing Bayesian hyperparameter search."
+    },
+    {
+      "question": "What advice is given regarding the scaling of classic machine learning models versus deep learning models on large datasets on Alliance clusters?",
+      "answer": "While modern deep learning packages include native utilities for large-scale training, scaling classic machine learning methods can be challenging and is addressed with ideas, practical options, and tutorials in a dedicated guide."
+    },
+    {
+      "question": "How can non-deterministic behaviour in RNN and multi-head attention API calls be resolved when using cuDNN with CUDA Toolkit 10.2 or higher on Alliance clusters?",
+      "answer": "The non-deterministic behaviour can be eliminated by setting the CUBLAS_WORKSPACE_CONFIG environmental variable to a specific buffer size, such as `:16:8` or `:4096:2`."
+    },
+    {
+      "question": "Where can Alliance users find a self-paced course on machine learning topics?",
       "answer": "A self-paced course titled 'Introduction to Machine Learning' is available from SHARCNET."
     },
     {
-      "question": "Where can users find a tutorial on porting their machine learning programs to the clusters?",
-      "answer": "Users can refer to the 'our tutorial' page specifically for porting machine learning programs."
+      "question": "What are the typical usage patterns for shared storage options (home, project, scratch) on Alliance clusters regarding data access frequency?",
+      "answer": "All shared storage (home, project, scratch) is intended for storing and reading data at low frequencies, such as one large chunk every 10 seconds, rather than many small chunks every second."
     },
     {
-      "question": "Is there a user-made tutorial for setting up deep learning environments in Python?",
-      "answer": "Yes, a user-made tutorial is available showing steps for local and Alliance environments for deep learning in Python."
+      "question": "What are the performance advantages of local node storage for datasets on Alliance compute nodes?",
+      "answer": "Local node storage is orders of magnitude faster and more reliable than shared storage (home, project, scratch) and is suitable for datasets up to about 100 GB, which should be transferred there at the beginning of a job."
     },
     {
-      "question": "Where should users look for important information about Python on the clusters?",
-      "answer": "Users should refer to the documentation specifically about Python on the clusters for details on versions, virtual environments, multiprocessing, Anaconda, and Jupyter."
-    },
-    {
-      "question": "What is the recommended approach for using Python environments on the clusters, specifically regarding Anaconda?",
-      "answer": "Users are asked to avoid Anaconda and use virtualenv instead."
-    },
-    {
-      "question": "Is it difficult to switch from Anaconda to virtualenv for machine learning tasks on the clusters?",
-      "answer": "Switching to virtualenv is generally easy; users just need to install the same packages, excluding low-level libraries like CUDA and CuDNN which are pre-installed."
-    },
-    {
-      "question": "Where can users find information about installing and common pitfalls for specific machine learning packages?",
-      "answer": "Users should refer to the dedicated pages for their machine learning package of choice, such as TensorFlow, PyTorch, Keras, or Scikit-Learn."
-    },
-    {
-      "question": "What kind of storage options do the clusters provide for users?",
-      "answer": "The clusters offer a wide range of storage options, from high-speed temporary local storage to various long-term storage types."
-    },
-    {
-      "question": "How should datasets around 10 GB or less be managed for machine learning tasks?",
-      "answer": "They can likely fit in memory, so users should avoid reading data from disk during tasks."
-    },
-    {
-      "question": "What is the recommended storage strategy for datasets around 100 GB or less?",
-      "answer": "These datasets should be transferred to the local storage of the compute node ($SLURM_TMPDIR) at the beginning of the job, as it's faster and more reliable than shared storage."
-    },
-    {
-      "question": "Where should datasets larger than 100 GB typically be stored, and what are the considerations for shared storage?",
-      "answer": "They may need to remain in shared storage (project for permanent, scratch for faster but non-permanent), which is best for low-frequency data access."
-    },
-    {
-      "question": "What kind of input/output patterns are optimal for shared storage (home, project, scratch)?",
-      "answer": "Shared storage is best for storing and reading at low frequencies, such as one large chunk every 10 seconds, rather than many small chunks frequently."
-    },
-    {
-      "question": "What issues arise when managing datasets with many small files (e.g., image datasets) on a distributed filesystem?",
-      "answer": "Problems include filesystem quotas limiting the number of objects and significant slowdowns from streaming many small files from /project or /scratch."
-    },
-    {
-      "question": "How should large collections of small files be stored on a distributed filesystem to avoid performance issues?",
-      "answer": "Data should be stored in large single-file archives."
-    },
-    {
-      "question": "What practice is recommended for long-running machine learning computations on the clusters?",
-      "answer": "Users should employ checkpointing, splitting long jobs into shorter chunks (e.g., 24 hours)."
-    },
-    {
-      "question": "What are the advantages of using checkpointing for long-running jobs?",
-      "answer": "It prevents loss of work during outages and can provide a priority advantage because more nodes are available for short jobs."
-    },
-    {
-      "question": "Do machine learning libraries typically support checkpointing?",
-      "answer": "Yes, most machine learning libraries natively support checkpointing."
-    },
-    {
-      "question": "Is there a general checkpointing solution available if a program doesn't natively support it?",
-      "answer": "Yes, a general checkpointing solution is provided for programs without native support."
-    },
-    {
-      "question": "When should users consider grouping many similar jobs into one?",
-      "answer": "When performing hyperparameter search, training many variants of a method, or running many optimization processes of similar duration."
-    },
-    {
-      "question": "What tools are available to help users group many similar jobs into one?",
-      "answer": "META, GLOST, and GNU Parallel are available for this purpose."
-    },
-    {
-      "question": "Which tools are recommended for experiment tracking and hyperparameter optimization?",
-      "answer": "Weights & Biases (wandb) and Comet.ml are recommended."
-    },
-    {
-      "question": "How do experiment tracking and hyperparameter optimization tools help users?",
-      "answer": "They allow for easier tracking and analysis of training runs and provide Bayesian hyperparameter search."
-    },
-    {
-      "question": "Where can users find guidance for scaling classic machine learning models on very large datasets?",
-      "answer": "A dedicated guide contains ideas and practical options, along with tutorials, to tackle training classic ML models on very large datasets."
-    },
-    {
-      "question": "What can cause non-deterministic behaviour in RNN and multi-head attention API calls with CUDA?",
-      "answer": "The cuDNN library built with CUDA Toolkit 10.2 or higher can cause non-deterministic behaviour."
-    },
-    {
-      "question": "How can users eliminate non-deterministic behaviour in cuDNN RNN and multi-head attention APIs?",
-      "answer": "Users can set the CUBLAS_WORKSPACE_CONFIG environmental variable to a specific buffer size (e.g., :16:8 or :4096:2)."
+      "question": "Are there specific documentation pages for machine learning software packages on Alliance clusters?",
+      "answer": "Yes, there are specific documentation pages for popular machine learning packages like TensorFlow, PyTorch, Keras, Torch, SpaCy, Scikit-Learn, and SnapML, covering installation and common pitfalls."
     }
   ],
-  "generated_at": "2026-04-11T14:56:19.727875+00:00"
+  "generated_at": "2026-04-13T00:22:30.507448+00:00"
 }

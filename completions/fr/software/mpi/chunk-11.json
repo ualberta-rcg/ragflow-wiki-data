@@ -4,49 +4,13 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "À quoi sert la fonction `MPI_Recv` dans la programmation parallèle avec MPI?",
-      "answer": "La fonction `MPI_Recv` est utilisée pour recevoir des données, soit une ou plusieurs instances de données du même type de base, envoyées par un autre processus."
+      "question": "À quoi sert la fonction `MPI_Recv` dans la programmation parallèle avec MPI, et quels sont les principaux arguments qu'elle prend en langage C?",
+      "answer": "La fonction `MPI_Recv` est utilisée pour recevoir des messages envoyés par d'autres processus dans un environnement de programmation parallèle avec MPI. En langage C, elle prend plusieurs arguments, notamment `*message` (une référence au tampon où les données reçues seront stockées), `count` (le nombre d'éléments à recevoir), `datatype` (le type des éléments à recevoir), `source` (le rang du processus d'où le message doit être reçu), `tag` (un identifiant spécifié par le programmeur) et `*status` (une structure qui stocke les informations sur le message reçu)."
     },
     {
-      "question": "Quels sont les arguments principaux de la fonction `MPI_Recv` en langage C?",
-      "answer": "En C, les arguments de `MPI_Recv` sont : `void *message` (référence au tampon pour les données reçues), `int count` (nombre d'éléments à recevoir), `MPI_Datatype datatype` (type des éléments à recevoir), `int source` (rang du processus d'où recevoir le message), `int tag` (identifiant spécifié par le programmeur), `MPI_Comm comm` (communicateur) et `MPI_Status *status` (stocke des informations sur le message reçu)."
-    },
-    {
-      "question": "En Fortran, comment spécifie-t-on les informations de statut pour `MPI_RECV`?",
-      "answer": "En Fortran, l'argument `STATUS` de `MPI_RECV` contient une matrice `MPI_STATUS_SIZE` de nombres entiers. Pour Fortran 2008, c'est une variable dérivée `TYPE(MPI_Status)`."
-    },
-    {
-      "question": "Que représente le paramètre `source` dans l'appel à `MPI_Recv`?",
-      "answer": "Le paramètre `source` représente le rang du processus d'où le message doit être reçu."
-    },
-    {
-      "question": "À quoi sert l'argument `tag` dans `MPI_Recv`?",
-      "answer": "L'argument `tag` est un identifiant entier spécifié par le programmeur, utile pour distinguer les différentes communications entre les processus."
-    },
-    {
-      "question": "Quel est le rôle du paramètre `comm` (communicateur) dans `MPI_Recv`?",
-      "answer": "Le paramètre `comm` est un communicateur, c'est-à-dire un ensemble de processus qui peuvent s'envoyer des messages entre eux. `MPI_COMM_WORLD` est un communicateur prédéfini par MPI qui représente l'ensemble des processus lancés par la tâche."
-    },
-    {
-      "question": "Quand la fonction `MPI_Recv` retourne-t-elle?",
-      "answer": "`MPI_Recv` ne retourne pas tant que tout le contenu du message ne se trouve pas dans la mémoire tampon."
-    },
-    {
-      "question": "Comment calcule-t-on le rang du processus d'où on s'attend à recevoir un message (`recvfrom`) dans l'exemple `phello2`?",
-      "answer": "Le rang du processus d'où on reçoit un message (`recvfrom`) est calculé avec la formule `(rank + size - 1) % size`, où `rank` est le rang du processus actuel et `size` est le nombre total de processus."
-    },
-    {
-      "question": "Dans le cas simple des fonctions `MPI_Send` et `MPI_Recv`, quelle information les processus doivent-ils connaître pour communiquer?",
-      "answer": "Dans le cas simple, le processus qui envoie doit connaître le rang du processus qui reçoit et vice versa."
-    },
-    {
-      "question": "Pour les objets Python généraux, quelle est la signature de la fonction de réception dans mpi4py?",
-      "answer": "La signature est `MPI.Intracomm.recv(self, buf=None, int source=ANY_SOURCE, int tag=ANY_TAG, Status status=None)`."
-    },
-    {
-      "question": "Quel est l'objectif du programme parallèle `phello2.c`?",
-      "answer": "L'objectif du programme `phello2.c` est de faire en sorte que chaque processus envoie un message au processus suivant et reçoive un message du processus précédent (en bouclant), puis affiche le message reçu."
+      "question": "Comment un processus MPI détermine-t-il le rang du processus à qui envoyer un message et celui du processus d'où il doit en recevoir un, dans un schéma de communication en boucle (cyclique)?",
+      "answer": "Dans un schéma de communication en boucle avec MPI, où chaque processus envoie un message au processus suivant et reçoit un message du processus précédent, les règles mathématiques sont utilisées pour déterminer les rangs. Pour un processus de rang `rank` dans un groupe de `size` processus, il envoie un message au processus `(rank + 1) % size`. Il reçoit un message du processus `(rank + size - 1) % size`."
     }
   ],
-  "generated_at": "2026-04-12T01:57:27.434786+00:00"
+  "generated_at": "2026-04-13T08:52:26.419711+00:00"
 }

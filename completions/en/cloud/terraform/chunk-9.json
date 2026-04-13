@@ -4,53 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What command should be used to apply a Terraform configuration after reviewing the plan?",
-      "answer": "To apply a Terraform configuration after reviewing the plan, you should use the `terraform apply` command."
+      "question": "After successfully running the `terraform apply` command, what key outcome is observed, and what file is generated in the workspace?",
+      "answer": "After successfully running `terraform apply`, a virtual machine (VM) is created and becomes active, as shown by the `Creation complete` message and its presence in the OpenStack server list. Additionally, a `terraform.tfstate` file is generated in the workspace, which contains details about the managed resources that Terraform uses to track the infrastructure's state."
     },
     {
-      "question": "What was the ID of the VM that Terraform successfully created in the provided example?",
-      "answer": "The VM created by Terraform had the ID `1f7f73ff-b9b5-40ad-9ddf-d848efe13e42`."
+      "question": "What is the primary function of the `terraform.tfstate` file, and why is it important for managing resources with Terraform?",
+      "answer": "The `terraform.tfstate` file stores details about the managed resources, which Terraform uses to determine how to reconcile the desired state described by configuration updates with the actual state on the cloud. Without this file, Terraform cannot properly manage resources, and if it's deleted, it must be restored or recreated, or those resources will need to be managed without Terraform."
     },
     {
-      "question": "How can you confirm that a new VM has been created by Terraform in OpenStack?",
-      "answer": "You can confirm this by checking Horizon (the OpenStack web interface) or by viewing the output of the `server list` command in your OpenStack terminal window."
-    },
-    {
-      "question": "Does Terraform impact existing OpenStack virtual machines that were not configured using the current Terraform setup?",
-      "answer": "No, Terraform does not impact existing OpenStack virtual machines that were not configured through the current setup. It bases its actions only on the given configuration and previously determined state, making existing resources invisible to it."
-    },
-    {
-      "question": "What is the purpose of the `terraform.tfstate` file in a Terraform workspace?",
-      "answer": "The `terraform.tfstate` file contains details about the managed resources that Terraform uses to determine how to achieve a new state as described by configuration updates."
-    },
-    {
-      "question": "What happens if the `terraform.tfstate` file is deleted from a workspace?",
-      "answer": "If the `terraform.tfstate` file is deleted, Terraform cannot properly manage its resources. You would need to restore or recreate it, or manage those resources without Terraform."
-    },
-    {
-      "question": "Why can't a newly created VM on a private network be logged into directly from outside the tenant?",
-      "answer": "A newly created VM on a private network cannot be logged into directly from outside the tenant because it has not yet been assigned a floating IP, which is necessary for external accessibility."
-    },
-    {
-      "question": "What is a 'bastion host' (or jump host) and when is it a useful strategy?",
-      "answer": "A bastion host (or jump host) is another host within the same tenant that has a floating IP, used to access new VMs on the same private network that lack direct external access. It's a useful strategy for nodes that don't require direct internet access (like database servers) or to conserve limited floating IPs."
-    },
-    {
-      "question": "How are floating IPs handled in OpenStack when using Terraform?",
-      "answer": "In OpenStack, floating IPs are not created directly on a VM; instead, they are allocated to the project from a pool and then associated with the VM’s private network interface."
-    },
-    {
-      "question": "What is the key piece of information required to declare a floating IP resource in Terraform?",
-      "answer": "The only key piece of information required is the name of the pool from which to allocate the floating IP, which is typically the external network (e.g., `ext_net`)."
-    },
-    {
-      "question": "Provide the Terraform configuration block for declaring a floating IP resource from the 'ext_net' pool.",
-      "answer": "The Terraform configuration block for declaring a floating IP from the 'ext_net' pool is:\n```terraform\nresource \"openstack_networking_floatingip_v2\" \"myvm_fip\" {\n  pool = \"ext_net\"\n}\n```"
-    },
-    {
-      "question": "What was the outcome of applying the Terraform configuration for the floating IP in the example?",
-      "answer": "The application resulted in '1 to add, 0 to change, 0 to destroy,' meaning one new floating IP resource was successfully created."
+      "question": "Why is a newly created virtual machine (VM) on a private network not directly accessible from outside its OpenStack tenant, and what is the recommended solution for external access?",
+      "answer": "A newly created VM on a private network is not directly accessible from outside its OpenStack tenant because it hasn't been assigned a floating IP. To enable direct external access, a floating IP needs to be allocated from a pool (such as `ext_net` on Alliance clouds) and then associated with the VM's private network interface."
     }
   ],
-  "generated_at": "2026-04-12T09:11:02.660019+00:00"
+  "generated_at": "2026-04-13T14:26:42.135456+00:00"
 }

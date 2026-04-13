@@ -4,97 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What is the primary benefit of booting a VM from a volume compared to booting from an image?",
-      "answer": "Booting from a volume is safest for a persistent machine because volume storage has redundancy, protecting the VM from hardware failure. If you boot from an image, the VM is stored on the local disk of the actual machine running it, and the VM may be lost if that machine or its disk fails."
+      "question": "Why is it safer to boot a virtual machine (VM) from a volume compared to booting from an image?",
+      "answer": "Booting a VM from a volume is safer because volume storage has redundancy, which protects the VM from hardware failure. In contrast, when you boot a VM from an image, the VM is stored on the local disk of the actual machine running the VM, making it vulnerable to data loss if that machine or its disk fails."
     },
     {
-      "question": "What types of VM flavours are typically used when booting from a volume?",
-      "answer": "Typically, VM flavours starting with the letter 'p' are used when booting from a volume."
+      "question": "What are the steps to create an image from a volume using the OpenStack dashboard, and why would one do this?",
+      "answer": "To create an image from a volume using the dashboard, first ensure the volume is detached from any VM (if it's a boot volume, the VM must be terminated, but ensure 'Delete Volume on Instance Delete' was not checked). Then, go to the 'Volumes' left-hand menu, select 'Upload to Image' from the 'Actions' drop-down menu for the desired volume. You will then choose a name, a disk format (QCOW2 is recommended for OpenStack, VMDK or VDI for VirtualBox), and finally click 'Upload'. This process allows you to download the image for backup purposes or to spin up a VM on a different cloud, such as VirtualBox."
     },
     {
-      "question": "What are the different methods available for booting a VM from a volume?",
-      "answer": "You can boot from an image (which creates a new volume), boot from a pre-existing volume, or boot from a volume snapshot (which also creates a new volume)."
-    },
-    {
-      "question": "If you're new to booting VMs from volumes, which option is available to you?",
-      "answer": "If you haven't done this before, the only option available is to boot from an image, which creates a new volume."
-    },
-    {
-      "question": "What should be done to ensure a volume persists longer than the VM when it's created as part of the VM launch process?",
-      "answer": "You should ensure that the 'Delete on Terminate' box is not checked when creating the volume."
-    },
-    {
-      "question": "What is the purpose of creating an image from a volume?",
-      "answer": "Creating an image from a volume allows you to download the image, which can be used for backup purposes or to deploy a VM on a different cloud, such as VirtualBox."
-    },
-    {
-      "question": "What method is recommended for copying a volume to a new volume within the same cloud environment?",
-      "answer": "Cloning a volume is the recommended method for copying volumes within the same cloud."
-    },
-    {
-      "question": "What must be done to a volume before you can create an image of it?",
-      "answer": "To create an image of a volume, it must first be detached from a VM."
-    },
-    {
-      "question": "Under what circumstances can a boot (root) volume be detached to create an image?",
-      "answer": "A boot (root) volume can only be detached from a VM if the VM is terminated or deleted, provided that the 'Delete Volume on Instance Delete' box was not checked during VM creation."
-    },
-    {
-      "question": "What potential issues can arise when working with large images?",
-      "answer": "Large images, exceeding 10-20GB, may be very slow to create, upload, and manage. It's suggested to consider separating data if possible."
-    },
-    {
-      "question": "What are the dashboard steps to create an image from a volume?",
-      "answer": "1. Click on the 'Volumes' left-hand menu. 2. Under the desired volume, click the 'Actions' drop-down menu and select 'Upload to Image'. 3. Choose a name for your new image. 4. Select a disk format (QCOW2 is recommended for OpenStack, vmdk or vdi for Virtualbox). 5. Click 'Upload'."
-    },
-    {
-      "question": "Which disk format is suggested for use within the OpenStack cloud when creating an image, and why?",
-      "answer": "QCOW2 is recommended for OpenStack because it is relatively compact compared to 'Raw' and integrates well with OpenStack."
-    },
-    {
-      "question": "Which disk formats are more suitable if you plan to use the image with Virtualbox?",
-      "answer": "If you intend to use the image with Virtualbox, the 'vmdk' or 'vdi' image formats might be better suited."
-    },
-    {
-      "question": "How do you create an image from a volume using the OpenStack command line client?",
-      "answer": "You use the command: `openstack image create --disk-format <format> --volume <volume_name> <image_name>`."
-    },
-    {
-      "question": "What are the two common disk format values for the `<format>` parameter when creating an image via the command line?",
-      "answer": "The two common values for the `<format>` parameter are `qcow2` and `vmdk`."
-    },
-    {
-      "question": "What is the recommended method for copying volumes and why?",
-      "answer": "Cloning is the recommended method for copying volumes because it is much faster and requires less data movement behind the scenes compared to making an image and then creating a new volume from it."
-    },
-    {
-      "question": "When is cloning a volume particularly useful?",
-      "answer": "Cloning is particularly useful if you have a persistent VM and wish to test something out before implementing it on your production site."
-    },
-    {
-      "question": "What action is strongly advised before creating a clone of a volume?",
-      "answer": "It is highly recommended to shut down your VM before creating a clone of the volume."
-    },
-    {
-      "question": "Why should a VM be shut down before cloning its volume?",
-      "answer": "Shutting down the VM prevents the newly created volume from being left in an inconsistent state, which could happen if data was being written to the source volume during the cloning process."
-    },
-    {
-      "question": "What command is used with the command line client to clone a volume?",
-      "answer": "You use the command: `openstack volume create --source <source-volume-id> --size <size-of-new-volume> <name-of-new-volume>`."
-    },
-    {
-      "question": "What crucial step must be taken before detaching a volume?",
-      "answer": "Before detaching a volume, it is important to ensure that the operating system and any other programs running on your VM are not actively accessing files on that volume."
-    },
-    {
-      "question": "What potential issues can arise if a volume is detached while files on it are still being accessed?",
-      "answer": "If a volume is detached while files are being accessed, it can be left in a corrupted state, or the programs accessing it could exhibit unexpected behaviours."
-    },
-    {
-      "question": "How can you prevent issues when detaching a volume?",
-      "answer": "To prevent issues, you can either shut down the VM entirely before detaching the volume, or unmount the volume first."
+      "question": "When should one clone a volume instead of creating an image from it, and what is the command-line method for cloning?",
+      "answer": "Cloning is the recommended method for copying volumes within the same cloud because it is much faster and requires less data movement behind the scenes than creating an image. This method is particularly useful for testing something on a persistent VM before applying it to your production site. It is highly recommended to shut down your VM before creating a clone to prevent the new volume from being in an inconsistent state. To create a clone using the command-line client, use the command: `openstack volume create --source <source-volume-id> --size <size-of-new-volume> <name-of-new-volume>`."
     }
   ],
-  "generated_at": "2026-04-12T12:08:32.699524+00:00"
+  "generated_at": "2026-04-13T16:27:22.678015+00:00"
 }

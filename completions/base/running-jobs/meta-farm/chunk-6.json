@@ -4,45 +4,13 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "What does the `$ID` variable represent in the `single_case.sh` script?",
-      "answer": "The `$ID` variable contains the case ID from the original `table.dat` file and can be used to provide a unique seed to the code or for other purposes."
+      "question": "In the META package, what is the role of the `single_case.sh` script, and how does it process an individual computation, including its environment setup and command execution?",
+      "answer": "The `single_case.sh` script is responsible for handling a single independent computation, referred to as a \"case.\" For each case, it first creates a dedicated subdirectory named `RUN$ID` (where `$ID` is the case's unique identifier) and navigates into it. Inside this directory, it executes the command(s) provided in the `$COMM` variable, which originates from a line in `table.dat`. After the command(s) finish, it captures their exit status into the `STATUS` variable and then returns to the parent directory."
     },
     {
-      "question": "What information is stored in the `$COMM` variable within the `single_case.sh` script?",
-      "answer": "The `$COMM` variable holds the line corresponding to the case `$ID` from the original `table.dat` file, excluding the ID field."
-    },
-    {
-      "question": "What does `$METAJOB_ID` represent in the `single_case.sh` script?",
-      "answer": "The `$METAJOB_ID` variable represents the job ID for the current metajob, which is convenient for creating per-job files."
-    },
-    {
-      "question": "What is the purpose of the `mkdir -p RUN$ID` command in `single_case.sh`?",
-      "answer": "The `mkdir -p RUN$ID` command creates a subdirectory named `RUN` followed by the case ID, where the specific case's execution will take place."
-    },
-    {
-      "question": "Why does the `single_case.sh` script execute `cd RUN$ID`?",
-      "answer": "The script executes `cd RUN$ID` to change the current working directory into the `RUN$ID` subdirectory, ensuring that the subsequent commands operate within that case's dedicated directory."
-    },
-    {
-      "question": "What does the `echo \"Case $ID:\"` command do?",
-      "answer": "The `echo \"Case $ID:\"` command prints a message to the standard output, indicating which case ID is currently being processed."
-    },
-    {
-      "question": "How is the command from `table.dat` executed within `single_case.sh`?",
-      "answer": "The command from `table.dat` (stored in the `$COMM` variable) is executed using the `eval \"$COMM\"` command."
-    },
-    {
-      "question": "Are multiple shell commands allowed on a single line in `table.dat` when using `single_case.sh`?",
-      "answer": "Yes, it is allowed to use more than one shell command, separated by semicolons, on a single line within `table.dat`."
-    },
-    {
-      "question": "What is the function of `STATUS=$?` in `single_case.sh`?",
-      "answer": "`STATUS=$?` assigns the exit status of the most recently executed command (typically the user's program) to the `STATUS` variable. This is important for tracking if a case completed successfully."
-    },
-    {
-      "question": "What does `cd ..` achieve after a case's command has been executed in `single_case.sh`?",
-      "answer": "After the command for a specific case is executed, `cd ..` changes the current directory back to the parent directory (the farm directory)."
+      "question": "What key variables are made available within the `single_case.sh` script, and what specific information do `$ID`, `$COMM`, and `$METAJOB_ID` convey?",
+      "answer": "Within the `single_case.sh` script, several key variables provide context for processing a case. Specifically, `$ID` contains the unique case identifier from the original `table.dat` file; `$COMM` holds the actual command line(s) for the current case, derived from `table.dat` (excluding the ID field); and `$METAJOB_ID` provides the job ID for the current metajob, which is convenient for creating per-job files."
     }
   ],
-  "generated_at": "2026-04-12T01:17:57.904560+00:00"
+  "generated_at": "2026-04-13T08:22:23.443842+00:00"
 }

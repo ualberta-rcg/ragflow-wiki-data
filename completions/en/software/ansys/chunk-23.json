@@ -4,57 +4,17 @@
   "chunk_index": 23,
   "qa_pairs": [
     {
-      "question": "How can I enable interaction between Discrete Phase Models (DPM) and the continuous phase in Fluent using a journal file?",
-      "answer": "You can enable interaction with the continuous phase by adding the command `/define/models/dpm/interaction/coupled-calculations yes` to your Fluent journal file."
+      "question": "What are some important command-line options for `cfx5solve` in Ansys CFX simulations, and how do they affect performance or resource usage?",
+      "answer": "A summary of command-line options can be printed by running `cfx5solve -help`. By default, `cfx5solve` runs in single precision; to run in double precision, add the `-double` option, which will also double memory requirements. For larger meshes, supporting up to 2 billion elements (compared to the default 80 million structured or 200 million unstructured), the `-large` option can be used. These options can be specified for the Partitioner, Interpolator, or Solver."
     },
     {
-      "question": "How do I delete a specific DPM injection, for example, 'injection-0:1', using a Fluent journal file?",
-      "answer": "To delete a DPM injection named 'injection-0:1', add the command `/define/models/dpm/injections/delete-injection injection-0:1` to your Fluent journal file."
+      "question": "How can Discrete Phase Model (DPM) injections be automated in Ansys Fluent using journal file commands, and what does a basic steady injection file look like?",
+      "answer": "DPM injections can be automated by adding commands to the journal file after solution initialization, such as `/define/models/dpm/interaction/coupled-calculations yes`, `/define/models/dpm/injections/delete-injection injection-0:1`, and `/define/models/dpm/injections/create injection-0:1 no yes file no zinjection01.inj no no no no`. A basic manually created steady injection file, like `zinjection01.inj`, would include parameters such as `x`, `y`, `z` coordinates, `u`, `v`, `w` velocities, `diameter`, `t` (temperature), `mass-flow`, `mass`, `frequency`, `time`, and a `name` for each injection point."
     },
     {
-      "question": "What is the journal file command to create a DPM injection from a file, such as 'zinjection01.inj'?",
-      "answer": "You can create a DPM injection from a file using the command `/define/models/dpm/injections/create injection-0:1 no yes file no zinjection01.inj no no no no` in your Fluent journal file."
-    },
-    {
-      "question": "How can I list the particles for a specific DPM injection in Fluent using a journal file?",
-      "answer": "To list the particles for 'injection-0:1', include the command `/define/models/dpm/injections/list-particles injection-0:1` in your Fluent journal file."
-    },
-    {
-      "question": "What is the journal file command to display the properties of a DPM injection in Fluent?",
-      "answer": "To list the properties of 'injection-0:1', use the command `/define/models/dpm/injections/list-injection-properties injection-0:1` in your Fluent journal file."
-    },
-    {
-      "question": "Could you provide an example of a basic steady file format for DPM injections?",
-      "answer": "A basic manually created injection steady file format might look like this: `(z=4 12)\n( x          y        z    u         v    w    diameter  t         mass-flow  mass  frequency  time name )\n(( 2.90e-02  5.00e-03 0.0 -1.00e-03  0.0  0.0  1.00e-04  2.93e+02  1.00e-06   0.0   0.0        0.0 ) injection-0:1 )`."
-    },
-    {
-      "question": "Where can I find detailed information about the steady file format for DPM injections?",
-      "answer": "Details about the steady file format for DPM injections are described in subsection 'Part III: Solution Mode | Chapter 24: Modeling Discrete Phase | 24.3. Setting Initial Conditions for the Discrete Phase | 24.3.13 Point Properties for File Injections | 24.3.13.1 Steady File Format' of the `2024R2 Fluent Customization Manual`."
-    },
-    {
-      "question": "How do I print a summary of command-line options for `cfx5solve`?",
-      "answer": "You can print a summary of command-line options by running `cfx5solve -help` after loading the appropriate CFX module version."
-    },
-    {
-      "question": "What is the default precision for `cfx5solve`, and how can I change it to double precision?",
-      "answer": "By default, `cfx5solve` runs in single precision (`-single`). To run it in double precision, you need to add the `-double` option to the command, which will also double the memory requirements."
-    },
-    {
-      "question": "How can `cfx5solve` support meshes larger than the default limits, up to 2 billion elements?",
-      "answer": "`cfx5solve` can support larger meshes, up to 2 billion elements, by adding the `-large` option to the command line."
-    },
-    {
-      "question": "Where can I find more specific details about command-line options for `cfx5solve` related to Partitioner, Interpolator, or Solver?",
-      "answer": "You should consult the ANSYS CFX-Solver Manager User's Guide for further details on specifying various combinations of options for the Partitioner, Interpolator, or Solver."
-    },
-    {
-      "question": "What MPI start method is typically used for a single-node CFX job on Narval or Fir clusters, and how does it differ from other clusters?",
-      "answer": "On Narval or Fir clusters, a single-node CFX job typically uses `Open MPI Local Parallel`. On other clusters, it uses `Intel MPI Local Parallel`."
-    },
-    {
-      "question": "What MPI start method is typically used for a multinode CFX job on Narval or Fir clusters, and how does it differ from other clusters?",
-      "answer": "On Narval or Fir clusters, a multinode CFX job typically uses `Open MPI Distributed Parallel`. On other clusters, it uses `Intel MPI Distributed Parallel`, and requires `export I_MPI_HYDRA_BOOTSTRAP=ssh` and `unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`."
+      "question": "How can one submit a multinode Ansys CFX job using a Slurm script, and what are the key configurations for different Alliance clusters?",
+      "answer": "To submit a multinode Ansys CFX job using a Slurm script, you must specify the account, time limit, `--nodes` (two or more), and `--ntasks-per-node` (e.g., `192` to use all cores). After loading `StdEnv/2023` and an `ansys` module (e.g., `ansys/2023R2`), the `NNODES` variable is determined using `slurm_hl2hl.py --format ANSYS-CFX`. For clusters like `narval` or `fir`, the `cfx5solve` command uses `-start-method \"Open MPI Distributed Parallel\" -par-dist $NNODES`. For other clusters, it uses `Intel MPI Distributed Parallel`, requiring `export I_MPI_HYDRA_BOOTSTRAP=ssh` and `unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`."
     }
   ],
-  "generated_at": "2026-04-12T16:51:01.973254+00:00"
+  "generated_at": "2026-04-13T01:51:19.876935+00:00"
 }

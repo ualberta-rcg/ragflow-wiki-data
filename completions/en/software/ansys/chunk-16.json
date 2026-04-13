@@ -4,41 +4,17 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the provided Slurm script named `script-flu-bycore+restart.sh`?",
-      "answer": "The script `script-flu-bycore+restart.sh` is designed for restarting Fluent simulations, configured to allocate resources on a per-core basis."
+      "question": "What is the primary purpose of the Fluent solution restart scripts on Alliance clusters?",
+      "answer": "The Fluent solution restart scripts are designed to automate the restarting of very large jobs that require more than the typical seven-day maximum runtime window, by resuming simulations from the most recently saved time step files."
     },
     {
-      "question": "Which account should be specified for the `script-flu-bycore+restart.sh` Slurm job?",
-      "answer": "The account should be specified as `def-group` in the `#SBATCH --account` directive."
+      "question": "How should users prepare their journal files to utilize Fluent's solution restart feature?",
+      "answer": "To use the solution restart feature, users must modify their initial `sample.jou` file to include `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`. A separate `sample-restart.jou` file should then be created, containing `/file/read-cas-data sample-restart` and with the initialization line commented out, such as `; /solve/initialize/initialize-flow`."
     },
     {
-      "question": "What is the default time limit set for the `script-flu-bycore+restart.sh` Slurm job?",
-      "answer": "The default time limit specified for the job is 3 hours (00-03:00)."
-    },
-    {
-      "question": "How many total cores are requested for the `script-flu-bycore+restart.sh` Slurm job?",
-      "answer": "The script requests a total of 16 cores (`#SBATCH --ntasks=16`)."
-    },
-    {
-      "question": "What is the memory per CPU requested in the `script-flu-bycore+restart.sh` Slurm script?",
-      "answer": "The script requests 4 gigabytes of memory per core (`#SBATCH --mem-per-cpu=4G`)."
-    },
-    {
-      "question": "What value should be set for `cpus-per-task` in the `script-flu-bycore+restart.sh` Slurm script?",
-      "answer": "The `cpus-per-task` value should not be changed from its specified value of 1."
-    },
-    {
-      "question": "How many solution restarts or time steps are configured for the `script-flu-bycore+restart.sh` Slurm job?",
-      "answer": "The script is configured for 5 solution restarts or time steps (`#SBATCH --array=1-5%1`), indicating that 2 or more are expected, with 5 being shown as an example."
-    },
-    {
-      "question": "What type of shell is used for the `script-flu-bycore+restart.sh` Slurm script?",
-      "answer": "The script uses Bash as its shell, as indicated by `#!/bin/bash`."
-    },
-    {
-      "question": "Is it possible to specify the number of nodes for the `script-flu-bycore+restart.sh` job?",
-      "answer": "Yes, although it's commented out in the provided snippet, the line `##SBATCH --nodes=1` suggests that the number of compute nodes can be specified, with a note that Narval clusters have a 1-node maximum."
+      "question": "When using Fluent solution restart scripts, how is the total simulation time and number of output files determined?",
+      "answer": "Assuming a fixed time step size (Dt) and that the `sample-restart.jou` specifies two iterations, the total simulation time will be 1*Dt + 2*Nrestart*Dt. The total number of time steps and corresponding output files will be 1 + 2*Nrestart, where Nrestart represents the number of solution restarts specified in the script."
     }
   ],
-  "generated_at": "2026-04-12T16:49:36.421957+00:00"
+  "generated_at": "2026-04-13T01:50:16.310054+00:00"
 }

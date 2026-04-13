@@ -4,73 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What are the SBATCH parameters for an mpi4py job configured to run on whole nodes?",
-      "answer": "The SBATCH parameters for running an mpi4py job on whole nodes are `--account=def-someprof`, `--time=01:00:00`, `--nodes=2`, `--ntasks-per-node=40`, and `--mem-per-cpu=1G`."
+      "question": "How can a user submit an `mpi4py` job that runs on CPU cores distributed across multiple nodes using SLURM?",
+      "answer": "To submit an `mpi4py` job designed to run on CPU cores distributed across a system, create a SLURM submission script (e.g., `submit-mpi4py-distributed.sh`). This script should define resource requirements like account, walltime, number of tasks (`--ntasks`), and memory per CPU (`--mem-per-cpu`). It must load essential modules, including `StdEnv/2023`, `gcc`, `mpi4py/4.0.0`, and `python/3.12`. Crucially, the script should create a virtual environment on each allocated node using `srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF virtualenv --no-download $SLURM_TMPDIR/env ... EOF`, activate it on the main node (`source $SLURM_TMPDIR/env/bin/activate;`), and then install any necessary dependencies like `numpy` before executing the Python script with `srun python mpi4py-np-bc.py;`. Finally, submit the job to the scheduler using `sbatch submit-mpi4py-distributed.sh`."
     },
     {
-      "question": "Which modules are necessary for the `submit-mpi4py-whole-nodes.sh` script to function correctly?",
-      "answer": "The modules required for the `submit-mpi4py-whole-nodes.sh` script are `StdEnv/2023`, `gcc`, `openmpi`, `mpi4py/4.0.0`, and `python/3.12`."
+      "question": "What steps are involved in running an `mpi4py` job utilizing GPUs?",
+      "answer": "To run an `mpi4py` job on GPUs, first download a relevant demo example, such as `use_cupy.py`, from the `mpi4py` demo folder using `wget https://raw.githubusercontent.com/mpi4py/mpi4py/refs/heads/master/demo/cuda-aware-mpi/use_cupy.py`. Next, create a SLURM submission script (e.g., `submit-mpi4py-gpu.sh`) that specifies required resources including the account, walltime, number of tasks (`--ntasks`), memory per CPU, and importantly, the number of GPUs (`--gpus=1`). Within this script, load the necessary modules: `StdEnv/2023`, `gcc`, `cuda/12`, `mpi4py/4.0.0`, and `python/3.11`. Then, create a virtual environment (`virtualenv --no-download $SLURM_TMPDIR/env`), activate it, install GPU-specific packages like `cupy` and `numba` using `pip`, and finally execute your Python script with `srun python use_cupy.py;`. After thoroughly testing the script, submit the job using `sbatch submit-mpi4py-gpu.sh`."
     },
     {
-      "question": "How is a virtual environment created and activated within the `submit-mpi4py-whole-nodes.sh` script?",
-      "answer": "A virtual environment is created on each allocated node using `srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF virtualenv --no-download $SLURM_TMPDIR/env ... EOF`, and then it's activated on the main node with `source $SLURM_TMPDIR/env/bin/activate;`."
-    },
-    {
-      "question": "What Python packages are installed within the virtual environment for the `submit-mpi4py-whole-nodes.sh` job?",
-      "answer": "Inside the virtual environment, `pip` is upgraded using `pip install --no-index --upgrade pip`, and `numpy==2.1.1` is installed with `pip install --no-index numpy==2.1.1`."
-    },
-    {
-      "question": "What is the recommended method for testing a submission script before officially submitting a job?",
-      "answer": "Before submitting your job, it's important to test that your submission script will start without errors. This can be done by running a quick test in an interactive job."
-    },
-    {
-      "question": "What is the command to submit an mpi4py distributed job to the scheduler?",
-      "answer": "You can submit an mpi4py distributed job to the scheduler using the command `sbatch submit-mpi4py-distributed.sh`."
-    },
-    {
-      "question": "How do I download the `mpi4py` CUDA-aware MPI demo example from a login node?",
-      "answer": "You can download the `mpi4py` CUDA-aware MPI demo example from a login node using the command `wget https://raw.githubusercontent.com/mpi4py/mpi4py/refs/heads/master/demo/cuda-aware-mpi/use_cupy.py`."
-    },
-    {
-      "question": "Where can additional `mpi4py` demo examples be located?",
-      "answer": "Additional `mpi4py` demo examples can be found in the `mpi4py` demo folder on GitHub at `https://github.com/mpi4py/mpi4py/tree/master/demo`."
-    },
-    {
-      "question": "What SBATCH parameters are specified for an mpi4py GPU job?",
-      "answer": "The SBATCH parameters for an mpi4py GPU job include `--account=def-someprof`, `--time=08:00:00`, `--ntasks=2`, `--mem-per-cpu=2G`, and `--gpus=1`."
-    },
-    {
-      "question": "Which modules are loaded as dependencies for an mpi4py GPU job submission script?",
-      "answer": "The modules loaded for an mpi4py GPU job are `StdEnv/2023`, `gcc`, `cuda/12`, `mpi4py/4.0.0`, and `python/3.11`."
-    },
-    {
-      "question": "What Python packages are installed within the virtual environment for an mpi4py GPU job?",
-      "answer": "The Python packages installed in the virtual environment for an mpi4py GPU job are `pip` (upgraded), `cupy`, and `numba`."
-    },
-    {
-      "question": "What command is used to execute the `use_cupy.py` script within an mpi4py GPU job?",
-      "answer": "The `use_cupy.py` script is executed using the command `srun python use_cupy.py;`."
-    },
-    {
-      "question": "What is the command for submitting an mpi4py GPU job?",
-      "answer": "You can submit an mpi4py GPU job using the command `sbatch submit-mpi4py-gpu.sh`."
-    },
-    {
-      "question": "What error might occur if the `mpi4py` module is not accessible?",
-      "answer": "If `mpi4py` is not accessible, you may encounter the error `ModuleNotFoundError: No module named 'mpi4py'` when trying to import it."
-    },
-    {
-      "question": "What are the recommended solutions if you receive a `ModuleNotFoundError: No module named 'mpi4py'`?",
-      "answer": "Possible solutions include checking Python compatibility with your loaded `mpi4py` module using `module spider mpi4py/X.Y.Z` and confirming that `python -c 'import mpi4py'` works, or ensuring you load the `mpi4py` module before activating your virtual environment."
-    },
-    {
-      "question": "How can I check which Python versions are compatible with a specific version of the `mpi4py` module?",
-      "answer": "You can check Python version compatibility for a specific `mpi4py` module version using the command `module spider mpi4py/X.Y.Z`, replacing `X.Y.Z` with the exact desired version."
-    },
-    {
-      "question": "What is the correct sequence for loading the `mpi4py` module and activating a virtual environment to prevent import errors?",
-      "answer": "To prevent import errors, it is crucial to load the `mpi4py` module before activating your virtual environment."
+      "question": "How can a `ModuleNotFoundError: No module named 'mpi4py'` be resolved when working with `mpi4py`?",
+      "answer": "If you encounter a `ModuleNotFoundError: No module named 'mpi4py'`, there are a few potential solutions. First, you should check which Python versions are compatible with your loaded `mpi4py` module by using `module spider mpi4py/X.Y.Z` for your specific `mpi4py` version. Once a compatible Python module is loaded, confirm `mpi4py`'s accessibility with `python -c 'import mpi4py'`. Secondly, if you are utilizing a Python virtual environment, it is crucial to load the `mpi4py` module *before* activating your virtual environment. This involves deactivating any currently active virtual environment (`test $VIRTUAL_ENV && deactivate`), loading the `mpi4py` and compatible Python modules, and then reactivating your virtual environment."
     }
   ],
-  "generated_at": "2026-04-12T02:01:48.889388+00:00"
+  "generated_at": "2026-04-13T08:56:03.313041+00:00"
 }

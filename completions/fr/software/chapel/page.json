@@ -3,57 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, Chapel?",
-      "answer": "Chapel est un langage de programmation parallèle compilé de haut niveau à usage général avec des abstractions intégrées pour le parallélisme à mémoire partagée et distribuée."
+      "question": "Qu'est-ce que Chapel comme langage de programmation dans le contexte des grappes de calcul de haute performance (CHP)?",
+      "answer": "Chapel est un langage de programmation parallèle compilé de haut niveau à usage général, doté d'abstractions intégrées pour le parallélisme à mémoire partagée et distribuée, ce qui en fait un outil idéal pour le CHP."
     },
     {
-      "question": "Quels sont les types de parallélisme pris en charge par Chapel?",
-      "answer": "Chapel offre le parallélisme de tâches, où les tâches sont spécifiées par programmation, et le parallélisme de données, où les calculs se font sur des sous-ensembles de données."
+      "question": "Quels sont les deux principaux styles de programmation parallèle offerts par le langage Chapel?",
+      "answer": "Chapel offre le parallélisme de tâches, où le parallélisme est spécifié par programmation, et le parallélisme de données, où les mêmes calculs sont effectués sur des sous-ensembles de données."
     },
     {
-      "question": "Qu'est-ce qui rend Chapel idéal pour le calcul de haute performance (CHP)?",
-      "answer": "Il est intuitif, fusionne la facilité de Python avec les performances de langages compilés comme C et Fortran, et permet d'exprimer des blocs parallèles en quelques lignes de code."
+      "question": "Pourquoi le langage Chapel est-il considéré comme un bon choix pour apprendre la programmation parallèle pour le calcul de haute performance?",
+      "answer": "Chapel est incroyablement intuitif et s'efforce de fusionner la facilité d'utilisation de Python avec les performances des langages compilés traditionnels comme C et Fortran, permettant d'exprimer des blocs parallèles complexes en peu de lignes de code."
     },
     {
-      "question": "Chapel est-il open source et sur quels systèmes d'exploitation peut-il fonctionner?",
-      "answer": "Oui, Chapel est open source et peut fonctionner sur n'importe quel système d'exploitation de type Unix."
+      "question": "Quelles sont les limitations actuelles du langage Chapel par rapport à d'autres langages établis comme C, C++ ou Fortran?",
+      "answer": "Chapel a une base d'utilisateurs relativement petite, ce qui signifie que de nombreuses bibliothèques existantes pour C, C++ et Fortran n'ont pas encore été implémentées dans Chapel."
     },
     {
-      "question": "Quelles sont les limites actuelles de Chapel?",
-      "answer": "Chapel a une base d'utilisateurs relativement petite, donc plusieurs bibliothèques existantes pour C, C++ et Fortran n'ont pas encore été implémentées dans Chapel."
+      "question": "Quel module doit-on charger pour effectuer des calculs simples avec Chapel sur un nœud unique et de la mémoire partagée sur les grappes d'usage général?",
+      "answer": "Pour ces calculs, il faut charger le module `chapel-multicore`."
     },
     {
-      "question": "Comment j'fais pour exécuter des calculs Chapel simples sur un seul nœud?",
-      "answer": "Tu dois charger le module `chapel-multicore`, utiliser `salloc` pour obtenir des ressources, puis compiler ton code avec `chpl` et l'exécuter."
+      "question": "Comment peut-on allouer des ressources pour tester un code Chapel en mode multi-cœurs sur un même nœud en utilisant la commande `salloc`?",
+      "answer": "On peut utiliser la commande `salloc --time=0:30:0 --ntasks=1 --cpus-per-task=3 --mem-per-cpu=3600 --account=def-someprof`."
     },
     {
-      "question": "Quel module j'devrais charger pour des calculs Chapel sur un nœud unique avec mémoire partagée?",
-      "answer": "Il faut charger le module `chapel-multicore`, par exemple `module load gcc/12.3 chapel-multicore/2.4.0`."
+      "question": "Quel module est nécessaire pour les tâches Chapel impliquant plusieurs nœuds et une mémoire hybride (partagée et distribuée) sur les grappes InfiniBand?",
+      "answer": "Pour exécuter ce type de tâches, il faut charger le module `chapel-ucx`."
     },
     {
-      "question": "Comment j'fais pour exécuter des calculs Chapel distribués sur plusieurs nœuds?",
-      "answer": "Pour les grappes InfiniBand, tu charges le module `chapel-ofi` (et `chapel-ucx` pour l'exécution), tu utilises `salloc` pour allouer plusieurs nœuds, puis tu compiles et exécutes ton programme."
+      "question": "Quelle est l'utilité du code Chapel nommé `probeLocales.chpl` dans un environnement de calcul distribué?",
+      "answer": "Le code `probeLocales.chpl` imprime des informations de base sur les nœuds (locales) disponibles dans une tâche, telles que leur nom, le nombre de cœurs de processeur et la mémoire physique."
     },
     {
-      "question": "Quel module j'devrais charger pour compiler et exécuter du code Chapel sur une grappe InfiniBand pour des calculs distribués?",
-      "answer": "Tu devrais charger le module `chapel-ucx`, par exemple `module load gcc/12.3 chapel-ucx/2.4.0`."
+      "question": "Comment compile-t-on et exécute-t-on un programme Chapel comme `probeLocales.chpl` pour un calcul distribué après avoir alloué des nœuds?",
+      "answer": "On compile avec `chpl --fast probeLocales.chpl -o probeLocales` et on exécute avec `./probeLocales -nl 4`."
     },
     {
-      "question": "Y'a-t-il un exemple de code Chapel pour afficher les informations de base sur les nœuds (locales)?",
-      "answer": "Oui, le fichier `probeLocales.chpl` utilise `MemDiagnostics` pour afficher l'ID, le nom, le nombre de cœurs et la mémoire de chaque locale."
+      "question": "Quel module doit-on charger pour utiliser les GPU NVIDIA avec Chapel sur les grappes InfiniBand?",
+      "answer": "Il faut charger le module `chapel-ucx-cuda` en plus de `gcc` et `cuda`."
     },
     {
-      "question": "Comment j'fais pour utiliser Chapel avec le support des GPU NVIDIA?",
-      "answer": "Tu dois charger le module `chapel-ucx-cuda` (avec `cuda`), utiliser `salloc` en spécifiant `--gpus-per-node`, puis compiler et exécuter ton code."
+      "question": "Comment alloue-t-on des ressources pour une tâche Chapel avec support GPU sur une grappe InfiniBand?",
+      "answer": "On utilise la commande `salloc --time=0:30:0 --mem-per-cpu=3500 --gpus-per-node=1 --account=def-someprof`."
     },
     {
-      "question": "Quel module j'devrais charger pour Chapel avec le support des GPU NVIDIA sur une grappe InfiniBand?",
-      "answer": "Il faut charger le module `chapel-ucx-cuda`, par exemple `module load gcc/12.3 cuda/12.2 chapel-ucx-cuda/2.4.0`."
+      "question": "Quelle est la commande pour compiler un programme Chapel comme `probeGPU.chpl` qui utilise des GPU?",
+      "answer": "La commande pour compiler ce type de programme est `chpl --fast probeGPU.chpl`."
     },
     {
-      "question": "Comment je soumets une tâche de production Chapel?",
-      "answer": "Pour les tâches de production, tu dois préparer un script de soumission de tâche et le soumettre avec la commande `sbatch`."
+      "question": "Quelle est la méthode recommandée pour soumettre des tâches Chapel de production sur les grappes de calcul?",
+      "answer": "Pour les tâches de production, il est recommandé de préparer un script de soumission de tâche et de le soumettre avec la commande `sbatch`."
+    },
+    {
+      "question": "Sur quels types de systèmes d'exploitation Chapel peut-il fonctionner et quel matériel prend-il en charge?",
+      "answer": "Chapel est open source et peut fonctionner sur n'importe quel système d'exploitation de type Unix, avec une prise en charge matérielle allant des ordinateurs portables aux grands systèmes de CHP."
+    },
+    {
+      "question": "Comment peut-on obtenir plus d'informations sur le langage de programmation Chapel?",
+      "answer": "Pour plus d'informations, on peut consulter les webinaires Chapel disponibles à l'adresse fournie."
     }
   ],
-  "generated_at": "2026-04-11T19:37:11.133471+00:00"
+  "generated_at": "2026-04-13T03:50:11.466812+00:00"
 }

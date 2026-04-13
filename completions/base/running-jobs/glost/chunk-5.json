@@ -4,65 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is demonstrated by the `run_glost_test.sh` script in the initial example?",
-      "answer": "The `run_glost_test.sh` script demonstrates a typical way to submit a GLOST job, including Slurm directives for resource allocation and commands to load necessary modules."
+      "question": "What are the essential components of a Slurm script used to submit a GLOST job, and what command initiates the GLOST process?",
+      "answer": "A typical GLOST Slurm script includes Slurm directives such as `--nodes`, `--ntasks-per-node`, `--time`, and `--mem-per-cpu`. It also involves loading the required modules, specifically `glost` along with its dependencies like `intel` and `openmpi`. The GLOST process is initiated by running the command `srun glost_launch list_glost_tasks.txt`, where `list_glost_tasks.txt` is the text file containing the serial jobs to be executed."
     },
     {
-      "question": "What does the `list_glost_example.txt` file illustrate in the first example?",
-      "answer": "The `list_glost_example.txt` file illustrates a simple syntax for a list of jobs, with each line representing a job, which will serve as an argument for the `glost_launch` wrapper."
-    },
-    {
-      "question": "Can the example script `run_glost_test.sh` and the `list_glost_example.txt` file be executed as provided?",
-      "answer": "No, the provided example cannot be executed directly because the commands within `list_glost_example.txt` are not defined and are merely placeholders to show syntax."
-    },
-    {
-      "question": "What is required to make the example script and job list functional for a user's workflow?",
-      "answer": "Both the list of jobs and the submission script must be adapted to the user's specific workflow and application commands."
-    },
-    {
-      "question": "Which file is passed as an argument to the `glost_launch` wrapper in the basic example?",
-      "answer": "The file `list_glost_example.txt` is passed as an argument to the `glost_launch` wrapper in the basic example."
-    },
-    {
-      "question": "How can GLOST be used to run a set of serial jobs within a single directory?",
-      "answer": "GLOST can run a set or list of serial jobs in one directory, but users must ensure that results do not overlap by preventing different jobs from using the same temporary or output files."
-    },
-    {
-      "question": "What methods can be used to avoid result overlap when running multiple GLOST jobs in the same directory?",
-      "answer": "To avoid result overlap, users can add arguments to differentiate jobs, redirect standard output to unique files using variables, or create a separate directory for each task if jobs use similar temporary or output filenames."
-    },
-    {
-      "question": "How are multiple commands grouped together and executed sequentially within a single job line in a GLOST task list?",
-      "answer": "Multiple commands within a single job line in a GLOST task list should be separated by `&&` to ensure they are executed one after another."
-    },
-    {
-      "question": "What does the line `nargument=20 && sleep 360 && echo ${nargument}.`hostname` > log_${nargument}.txt` signify in the `list_glost_tasks.txt` example for running jobs in one directory?",
-      "answer": "This line signifies a single job that executes three commands sequentially: it sets a variable `nargument`, simulates a program run with `sleep 360`, and then logs the `nargument` value and hostname to a unique log file."
-    },
-    {
-      "question": "What is the purpose of the `sleep 360` command in the example `list_glost_tasks.txt`?",
-      "answer": "The `sleep 360` command is used for testing purposes to simulate a program's runtime and should be replaced with the actual command line that runs the user's application."
-    },
-    {
-      "question": "What function does the `echo ${nargument}.`hostname` > log_${nargument}.txt` command serve in the provided example?",
-      "answer": "This command demonstrates printing the `nargument` variable and the hostname to a file named `log_${nargument}.txt`, serving as an example of a command that can be executed after the main application. It should be replaced with the user's specific post-execution commands if needed."
-    },
-    {
-      "question": "How many commands are executed per job line in the `list_glost_tasks.txt` example for running jobs in one directory?",
-      "answer": "Each job line in this particular example runs three commands sequentially."
-    },
-    {
-      "question": "How does GLOST distribute jobs among cores when using 2 cores for a list of 10 jobs in the example?",
-      "answer": "GLOST uses a cyclic distribution, assigning the first two jobs to the available processors. When a processor completes a job, it is assigned the next available job from the list until all tasks are finished."
-    },
-    {
-      "question": "What do the `#SBATCH` directives in the `run_glost_test.sh` script specify for the GLOST job in the 'one directory' example?",
-      "answer": "The `#SBATCH` directives in this example specify that the job should use 1 node, 2 tasks per node, have a maximum wall time of 2 hours, and allocate 4000 megabytes of memory per CPU."
-    },
-    {
-      "question": "Which specific modules are loaded in the `run_glost_test.sh` script for the 'one directory' example?",
-      "answer": "The script loads the `intel/2023.2.1`, `openmpi/4.1.5`, and `glost/0.3.1` modules."
+      "question": "When running multiple serial jobs using GLOST within a single directory, how should the list of tasks be structured, and what measures should be taken to prevent output file overlaps?",
+      "answer": "When running GLOST jobs in a single directory, the `list_glost_tasks.txt` file should contain one job per line. Each job can consist of one or more commands, separated by `&&`. For instance, a single task might define a variable (e.g., `nargument=20`), run the main program (e.g., `sleep 360`), and then execute follow-up commands (e.g., `echo ${nargument}.`hostname` > log_${nargument}.txt`). To prevent overlap of results, it's essential to ensure that different jobs do not use the same temporary or output files. This can be achieved by adding arguments to differentiate the jobs, or by redirecting standard output to files named with variables corresponding to the job's parameters."
     }
   ],
-  "generated_at": "2026-04-11T22:10:53.177993+00:00"
+  "generated_at": "2026-04-13T05:53:36.591436+00:00"
 }

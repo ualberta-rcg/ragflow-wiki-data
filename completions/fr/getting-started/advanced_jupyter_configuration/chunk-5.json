@@ -4,65 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Comment peut-on accéder au serveur JupyterLab qui est sur un nœud de calcul à partir de son fureteur web?",
-      "answer": "Pour avoir accès au serveur JupyterLab dans un nœud de calcul à partir de votre fureteur web, vous devez créer un tunnel SSH de votre ordinateur vers la grappe."
+      "question": "Pourquoi faut-il créer un tunnel SSH pour se connecter à un serveur JupyterLab lancé sur une grappe de l'Alliance à partir d'un navigateur web?",
+      "answer": "Il faut créer un tunnel SSH parce que les nœuds de calcul, où tourne le serveur JupyterLab, ne sont pas directement accessibles depuis l'internet. Le tunnel permet d'accéder au serveur à partir de votre ordinateur local."
     },
     {
-      "question": "Pourquoi est-ce nécessaire de créer un tunnel SSH pour se connecter à JupyterLab?",
-      "answer": "C'est nécessaire de créer un tunnel SSH parce que les nœuds de calcul ne sont pas accessibles directement à partir de l'internet."
+      "question": "Comment faire pour se connecter à un serveur JupyterLab à partir d'un ordinateur Windows?",
+      "answer": "À partir de Windows, vous devez utiliser un terminal supportant la commande `ssh`, comme MobaXTerm. Premièrement, vous devez extraire le `hostname:port` et le `token` de l'adresse HTTP fournie par JupyterLab. Ensuite, vous ouvrez un tunnel SSH avec la commande `ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca`. Finalement, vous ouvrez votre navigateur web et naviguez à l'adresse `http://localhost:8888/?token=<token>`."
     },
     {
-      "question": "Quel paquet Python est recommandé pour créer un tunnel SSH sous Linux ou macOS?",
-      "answer": "Sous Linux ou macOS, on recommande d'utiliser le paquet Python `sshuttle`."
-    },
-    {
-      "question": "Quelle commande est utilisée pour créer un tunnel SSH avec `sshuttle` sous Linux ou macOS?",
-      "answer": "Sur votre ordinateur, ouvrez une nouvelle fenêtre de terminal et utilisez la commande `sshuttle --dns -Nr <username>@<cluster>.alliancecan.ca`."
-    },
-    {
-      "question": "Quelles informations doivent être remplacées dans la commande `sshuttle` pour se connecter à JupyterLab?",
-      "answer": "Il faut remplacer `<username>` par le nom d'utilisateur de votre compte avec l'Alliance et `<cluster>` par la grappe sur laquelle vous avez lancé JupyterLab."
-    },
-    {
-      "question": "Après avoir créé le tunnel SSH sous Linux ou macOS, où faut-il coller l'adresse HTTP pour accéder à JupyterLab?",
-      "answer": "Il faut copier et coller la première adresse HTTP fournie par le lancement de JupyterLab (celle commençant par `http://node_name.int.cluster...`) dans votre fureteur web."
-    },
-    {
-      "question": "Quels outils peut-on utiliser pour créer un tunnel SSH à partir de Windows?",
-      "answer": "Pour créer un tunnel SSH à partir de Windows, on peut utiliser MobaXTerm ou n’importe quel terminal qui supporte la commande `ssh`."
-    },
-    {
-      "question": "Quelles informations doit-on extraire de l'adresse HTTP fournie par JupyterLab une fois qu'il est lancé sur un nœud de calcul sous Windows?",
-      "answer": "Il faut extraire le `hostname:port` et le `token` de la première adresse HTTP fournie, par exemple `http://node_name.int.cluster.alliancecan.ca:8888/lab?token=101c368829...`."
-    },
-    {
-      "question": "Comment crée-t-on un tunnel SSH via MobaXTerm (ou un terminal supportant `ssh`) sous Windows?",
-      "answer": "Il faut ouvrir un nouvel onglet Terminal dans MobaXTerm et utiliser la commande `ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca`."
-    },
-    {
-      "question": "Quelles sont les valeurs à remplacer dans la commande `ssh -L` sous Windows pour le tunnel SSH?",
-      "answer": "Dans la commande `ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca`, il faut remplacer `<hostname:port>` par la valeur correspondante, `<username>` par le nom d'utilisateur pour votre compte avec l'Alliance, et `<cluster>` par la grappe sur laquelle vous avez lancé JupyterLab."
-    },
-    {
-      "question": "Une fois le tunnel SSH configuré sous Windows, quelle adresse doit-on utiliser dans le fureteur web pour se connecter à JupyterLab?",
-      "answer": "Une fois le tunnel configuré, ouvrez votre fureteur web et allez à l'adresse `http://localhost:8888/?token=<token>`, en remplaçant `<token>` par la valeur alphanumérique extraite plus tôt."
-    },
-    {
-      "question": "Comment peut-on arrêter le serveur JupyterLab avant la fin du temps d'exécution alloué?",
-      "answer": "Pour arrêter le serveur JupyterLab avant la fin du temps d'exécution, il faut appuyer deux fois sur CTRL-C dans le terminal où la tâche interactive a été lancée."
-    },
-    {
-      "question": "Si on a utilisé MobaXterm pour créer un tunnel SSH, comment on le ferme?",
-      "answer": "Si vous avez utilisé MobaXterm pour créer un tunnel SSH, appuyez sur Ctrl-D pour fermer le tunnel."
-    },
-    {
-      "question": "Pourquoi voudrait-on ajouter des noyaux (kernels) à JupyterLab?",
-      "answer": "Il est possible d'ajouter des noyaux pour d'autres langages de programmation, pour une version différente de Python ou pour un environnement virtuel persistant qui a tous les paquets et bibliothèques nécessaires à votre projet."
-    },
-    {
-      "question": "Quelles sont les deux étapes principales pour installer un nouveau noyau (kernel) dans JupyterLab?",
-      "answer": "L'installation d'un nouveau noyau se fait en deux étapes : 1) Installer les paquets qui permettent à l'interpréteur du langage de communiquer avec l'interface Jupyter. 2) Créer un fichier qui indique à JupyterLab comment amorcer un canal de communication avec l'interpréteur du langage."
+      "question": "Quelles sont les étapes générales pour ajouter un nouveau noyau de langage de programmation à JupyterLab?",
+      "answer": "L'installation d'un nouveau noyau se fait en deux étapes. Premièrement, il faut installer les paquets qui permettent à l'interpréteur du langage de communiquer avec l'interface Jupyter. Deuxièmement, il faut créer un fichier de spécifications du noyau (`kernel spec file`) qui indique à JupyterLab comment amorcer un canal de communication avec l'interpréteur du langage, et le sauvegarder dans un sous-répertoire de `~/.local/share/jupyter/kernels`."
     }
   ],
-  "generated_at": "2026-04-11T16:08:49.102098+00:00"
+  "generated_at": "2026-04-13T01:13:19.694814+00:00"
 }

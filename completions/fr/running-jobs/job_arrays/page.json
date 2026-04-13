@@ -3,57 +3,57 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi un vecteur de tâches (job array) dans SLURM?",
-      "answer": "C'est une façon de gérer plusieurs tâches dont un paramètre diffère, en utilisant une seule soumission pour les organiser."
+      "question": "Qu'est-ce qu'un vecteur de tâches (job array) dans le contexte des grappes de calcul Alliance?",
+      "answer": "C'est une fonctionnalité SLURM qui permet de soumettre et de gérer un ensemble de tâches similaires dont un paramètre diffère, en utilisant une seule commande de soumission."
     },
     {
-      "question": "Comment est-ce que les tâches individuelles dans un vecteur de tâches sont différenciées?",
-      "answer": "Elles sont différenciées par la variable d’environnement $SLURM_ARRAY_TASK_ID, à laquelle l’ordonnanceur attribue une valeur différente pour chaque tâche."
+      "question": "Quelle variable d'environnement est utilisée pour distinguer les tâches individuelles au sein d'un vecteur de tâches SLURM?",
+      "answer": "La variable d'environnement `$SLURM_ARRAY_TASK_ID` est utilisée pour différencier chaque tâche d'un vecteur, SLURM lui attribuant une valeur unique."
     },
     {
-      "question": "Comment sont définies les valeurs possibles pour $SLURM_ARRAY_TASK_ID?",
-      "answer": "Les valeurs sont définies par le paramètre --array lors de la soumission de la tâche via sbatch."
+      "question": "Comment spécifie-t-on les identifiants pour les tâches d'un vecteur de tâches SLURM?",
+      "answer": "On définit les valeurs des identifiants à l'aide du paramètre `--array` lors de la soumission de la tâche avec `sbatch`."
     },
     {
-      "question": "Donnez des exemples de la syntaxe du paramètre --array pour définir les valeurs de $SLURM_ARRAY_TASK_ID.",
-      "answer": "On peut utiliser une plage (ex: --array=0-7), une liste de valeurs (ex: --array=1,3,5,7), une plage avec un pas (ex: --array=1-7:2), ou limiter le nombre de tâches exécutées simultanément (ex: --array=1-100%10)."
+      "question": "Pouvez-vous donner des exemples de syntaxe pour le paramètre `--array` dans `sbatch`?",
+      "answer": "On peut utiliser des plages (`--array=0-7`), des listes de valeurs spécifiques (`--array=1,3,5,7`), des plages avec un pas (`--array=1-7:2`), ou limiter les tâches simultanées (`--array=1-100%10`)."
     },
     {
-      "question": "Que fait le script simple_array.sh et comment utilise-t-il $SLURM_ARRAY_TASK_ID?",
-      "answer": "Il crée 10 tâches indépendantes, chacune d'une durée maximale de 3 heures. $SLURM_ARRAY_TASK_ID est utilisé pour spécifier le fichier d'entrée ou un argument de ligne de commande pour chaque tâche."
+      "question": "Quels sont les avantages d'utiliser un vecteur de tâches SLURM plutôt que de soumettre plusieurs tâches séquentielles?",
+      "answer": "Un vecteur de tâches réduit l'encombrement dans la file d'attente (`squeue`), facilite la consultation et offre un gain de performance à l'ordonnanceur en évitant d'analyser chaque tâche séparément au début."
     },
     {
-      "question": "Quels sont les avantages d'utiliser un vecteur de tâches par rapport à la soumission de plusieurs tâches séparées?",
-      "answer": "Un vecteur de tâches en attente ne produit qu’une seule ligne dans squeue, facilitant la consultation, et l’ordonnanceur gagne en performance en analysant les besoins une seule fois."
+      "question": "Dans quel cas n'est-il pas recommandé d'utiliser un vecteur de tâches SLURM?",
+      "answer": "Il n'est pas recommandé pour des tâches très courtes, particulièrement celles dont la durée est de quelques minutes seulement."
     },
     {
-      "question": "Dans quelles situations n'est-il pas recommandé d'utiliser un vecteur de tâches?",
-      "answer": "Il n'est pas recommandé pour des tâches qui durent beaucoup moins d'une heure, particulièrement celles de quelques minutes seulement."
+      "question": "Quelles sont les alternatives aux vecteurs de tâches SLURM pour exécuter un grand nombre de tâches très courtes?",
+      "answer": "Pour les tâches très courtes, il est préférable de les regrouper à l'aide d'outils comme META, GLOST, GNU Parallel ou d'intégrer une boucle de l'interpréteur à l'intérieur d'une seule tâche."
     },
     {
-      "question": "Quelles alternatives sont suggérées pour regrouper des tâches de très courte durée?",
-      "answer": "On peut utiliser META, GLOST, GNU Parallel ou une boucle de l’interpréteur à l'intérieur d'une seule tâche."
+      "question": "Comment peut-on utiliser un vecteur de tâches SLURM pour exécuter le même script dans plusieurs répertoires différents?",
+      "answer": "On peut créer un fichier (`case_list`) contenant les noms des répertoires, puis utiliser `sed` et `$SLURM_ARRAY_TASK_ID` dans le script de soumission pour sélectionner et changer de répertoire pour chaque tâche."
     },
     {
-      "question": "Quel type de problème le script directories_array.sh aide-t-il à résoudre?",
-      "answer": "Il permet d'exécuter le même script dans des répertoires multiples ayant une structure identique, en lisant les noms de répertoires à partir d'un fichier."
+      "question": "Quelles sont les précautions importantes à prendre lorsqu'on utilise un fichier de liste (comme `case_list`) avec un vecteur de tâches SLURM?",
+      "answer": "Le nombre de tâches demandées doit être égal au nombre de lignes du fichier, et le fichier ne doit pas être modifié tant que toutes les tâches du vecteur n'ont pas été exécutées."
     },
     {
-      "question": "Comment le script directories_array.sh sélectionne-t-il le répertoire pour chaque tâche?",
-      "answer": "Il utilise la commande `sed -n \"${SLURM_ARRAY_TASK_ID}p\" case_list` pour sélectionner la ligne correspondant au numéro de la tâche dans le fichier case_list, puis se déplace dans ce répertoire."
+      "question": "Comment peut-on faire passer un paramètre différent à un script Python pour chaque tâche d'un vecteur de tâches SLURM?",
+      "answer": "Il faut faire passer la valeur de `$SLURM_ARRAY_TASK_ID` comme argument de ligne de commande au script Python, qui l'utilisera ensuite pour sélectionner le paramètre approprié (par exemple, un index dans un tableau NumPy)."
     },
     {
-      "question": "Quelle précaution importante faut-il prendre avec le fichier case_list lorsqu'on utilise des répertoires multiples?",
-      "answer": "Le fichier case_list ne doit pas être modifié tant que toutes les tâches du vecteur ne sont pas exécutées, car il est lu au début de chaque nouvelle tâche."
+      "question": "Quel est l'objectif principal de la page sur les vecteurs de tâches SLURM sur les grappes de calcul Alliance?",
+      "answer": "L'objectif est d'expliquer comment utiliser les vecteurs de tâches (job arrays) dans l'environnement SLURM des grappes Alliance pour gérer efficacement des ensembles de tâches paramétrées."
     },
     {
-      "question": "Comment le script Python `my_script_parallel.py` récupère-t-il la valeur de $SLURM_ARRAY_TASK_ID?",
-      "answer": "Il récupère la valeur en tant qu'argument de ligne de commande via `sys.argv[1]` et la convertit en entier pour l'utiliser comme index."
+      "question": "Comment une tâche d'un vecteur SLURM peut-elle utiliser `$SLURM_ARRAY_TASK_ID` pour spécifier des fichiers d'entrée différents?",
+      "answer": "La variable `$SLURM_ARRAY_TASK_ID` peut être utilisée pour construire dynamiquement des noms de fichiers d'entrée, par exemple `program_x <input.$SLURM_ARRAY_TASK_ID`, où chaque tâche utilise un fichier d'entrée différent."
     },
     {
-      "question": "Comment est configuré le paramètre --array pour l'exemple Python de calculs parallèles?",
-      "answer": "Le paramètre --array est configuré de 0 à 99 (--array=0-99) pour correspondre aux index du vecteur NumPy utilisé dans le script Python."
+      "question": "Est-il possible de limiter le nombre de tâches d'un vecteur SLURM qui peuvent s'exécuter simultanément sur les grappes de calcul Alliance?",
+      "answer": "Oui, on peut limiter le nombre de tâches exécutées simultanément en ajoutant le caractère `%` suivi d'un nombre à la spécification du paramètre `--array`, par exemple `--array=1-100%10` pour limiter à 10 tâches à la fois."
     }
   ],
-  "generated_at": "2026-04-12T00:14:58.295371+00:00"
+  "generated_at": "2026-04-13T07:31:02.856471+00:00"
 }

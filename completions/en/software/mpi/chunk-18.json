@@ -4,29 +4,13 @@
   "chunk_index": 18,
   "qa_pairs": [
     {
-      "question": "In the Fortran 2008 safe MPI example, how is the total number of processes (`num_procs`) incorporated into a string variable?",
-      "answer": "The total number of processes (`num_procs`) is first written into a temporary string variable `tmp` using an integer-to-string conversion (`'(i2)'`), and then this `tmp` string is appended to the `outbuf` variable after the ' of ' phrase."
+      "question": "In the provided Fortran MPI code, how are the `sendto` and `recvfrom` ranks calculated for message communication?",
+      "answer": "In the Fortran MPI code, the `sendto` rank, which is the destination for a message, is calculated as `(rank + 1) % num_procs`. The `recvfrom` rank, which is the source of a message, is calculated as `((rank + num_procs) - 1) % num_procs`. This establishes a communication ring where each process sends to the next higher rank and receives from the next lower rank, wrapping around for the last and first processes."
     },
     {
-      "question": "What is the formula used to determine the rank of the process to send a message to (`sendto`) in the provided Fortran 2008 MPI code snippet?",
-      "answer": "The rank of the process to send to (`sendto`) is calculated as `mod((rank + 1), num_procs)`."
-    },
-    {
-      "question": "How is the rank of the process from which to receive a message (`recvfrom`) determined in the Fortran 2008 safe MPI example?",
-      "answer": "The rank of the process from which to receive a message (`recvfrom`) is determined using the formula `mod(((rank + num_procs) - 1), num_procs)`."
-    },
-    {
-      "question": "Based on the Fortran 2008 code, what communication pattern is followed by a process if its rank is an even number?",
-      "answer": "If a process has an even rank (i.e., `MOD(rank,2) == 0`), it first calls `MPI_Send` to transmit its message and then calls `MPI_Recv` to receive a message."
-    },
-    {
-      "question": "What are the specific arguments passed to the `MPI_Send` function when a process has an even rank in the given Fortran 2008 example?",
-      "answer": "For an even-ranked process, `MPI_Send` is called with `outbuf` (message), `BUFMAX` (count), `MPI_CHARACTER` (datatype), `sendto` (destination rank), `0` (tag), and `MPI_COMM_WORLD` (communicator)."
-    },
-    {
-      "question": "Which arguments are used for the `MPI_Recv` function when an even-ranked process is receiving a message in the Fortran 2008 safe MPI program?",
-      "answer": "An even-ranked process calls `MPI_Recv` with `inbuf` (buffer for received data), `BUFMAX` (count), `MPI_CHARACTER` (datatype), `recvfrom` (source rank), `0` (tag), `MPI_COMM_WORLD` (communicator), and `status` (for message information)."
+      "question": "What communication strategy does the Fortran MPI code implement to prevent deadlocks when processes are sending and receiving in a ring pattern?",
+      "answer": "The Fortran MPI code employs an odd-even pairing strategy to prevent deadlocks. Processes with an even rank first execute `MPI_Send` to their designated recipient, then `MPI_Recv` from their sender. Conversely, processes with an odd rank first execute `MPI_Recv` from their sender, then `MPI_Send` to their recipient. This ensures that all send operations are matched by a corresponding receive, thereby avoiding a scenario where all processes might block simultaneously."
     }
   ],
-  "generated_at": "2026-04-12T01:54:25.296754+00:00"
+  "generated_at": "2026-04-13T08:50:14.464792+00:00"
 }

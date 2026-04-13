@@ -4,57 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "C'est quoi les paramètres minimaux qu'on doit ajuster pour soumettre une tâche AlphaFold 2.2 avec un GPU?",
-      "answer": "Pour soumettre une tâche AlphaFold 2.2 avec un GPU, il faut ajuster le nom de la tâche (`--job-name`), le groupe de comptabilité (`--account`), la durée maximale (`--time`), le nombre de GPU (`--gres=gpu:1`), le nombre de cœurs CPU (`--cpus-per-task=8`) et la mémoire requise (`--mem`)."
+      "question": "Quels sont les requis en termes de ressources (CPU, mémoire, GPU) pour exécuter AlphaFold 2.2 avec un GPU sur une grappe de calcul, selon le script d'exemple fourni?",
+      "answer": "Selon le script d'exemple pour AlphaFold 2.2 avec GPU, il est recommandé de demander un maximum de 8 cœurs de processeur (puisque l'application n'en utilise pas plus), 20 Go de mémoire, et 1 GPU (lequel aide à accélérer seulement la partie d'inférence)."
     },
     {
-      "question": "Combien de cœurs CPU est-ce qu'AlphaFold 2.2 peut utiliser au maximum?",
-      "answer": "AlphaFold 2.2 est programmé pour utiliser un maximum de 8 cœurs CPU, et ça sert à rien d'en demander plus."
+      "question": "Comment faire pour soumettre une tâche AlphaFold à l'ordonnanceur de tâches après avoir préparé le script de soumission?",
+      "answer": "Pour soumettre une tâche AlphaFold à l'ordonnanceur de tâches, vous devez utiliser la commande `sbatch --job-name alphafold-X alphafold-gpu.sh`, en remplaçant `alphafold-X` par le nom de votre tâche et `alphafold-gpu.sh` par le nom de votre script de soumission."
     },
     {
-      "question": "Quelles sont les dépendances de modules qu'il faut charger pour rouler AlphaFold 2.2 avec un GPU?",
-      "answer": "Il faut charger les modules StdEnv/2020, gcc/9.3.0, openmpi/4.0.3, cuda/11.4, cudnn/8.2.0, kalign/2.03, hmmer/3.2.1, openmm-alphafold/7.5.1, hh-suite/3.3.0 et python/3.8."
-    },
-    {
-      "question": "Où est-ce que les données téléchargées, d'entrée et de sortie sont censées se trouver pour une tâche AlphaFold 2.2 avec GPU?",
-      "answer": "Le script propose de mettre les données téléchargées (`DOWNLOAD_DIR`) dans `$SCRATCH/alphafold/data`, les données d'entrée (`INPUT_DIR`) dans `$SCRATCH/alphafold/input`, et les données de sortie (`OUTPUT_DIR`) dans `${SCRATCH}/alphafold/output`."
-    },
-    {
-      "question": "Comment on crée et on active un environnement virtuel Python pour AlphaFold 2.2 dans le script de soumission?",
-      "answer": "On crée l'environnement virtuel sans téléchargement avec `virtualenv --no-download ${SLURM_TMPDIR}/env` et on l'active avec `source ${SLURM_TMPDIR}/env/bin/activate`."
-    },
-    {
-      "question": "Comment on installe AlphaFold et ses dépendances Python dans l'environnement virtuel, tel qu'indiqué dans le script 2.2 GPU?",
-      "answer": "On installe AlphaFold et ses dépendances avec `pip install --no-index --upgrade pip` et `pip install --no-index --requirement ~/alphafold-requirements.txt`."
-    },
-    {
-      "question": "Quel est le nom du paramètre pour la base de données Uniclust30 dans la version 2.2 d'AlphaFold?",
-      "answer": "Dans la version 2.2, le paramètre pour la base de données Uniclust30 est `--uniclust30_database_path`, alors qu'il a été renommé `--uniref30_database_path` dans la version 2.3."
-    },
-    {
-      "question": "Quel `model_preset` est utilisé par défaut dans le script AlphaFold 2.2 avec GPU?",
-      "answer": "Le script AlphaFold 2.2 avec GPU utilise `monomer_casp14` comme `model_preset`."
-    },
-    {
-      "question": "Est-ce que la relaxation par GPU est activée dans le script d'exécution AlphaFold 2.2 avec GPU?",
-      "answer": "Oui, la relaxation par GPU est activée avec le paramètre `--use_gpu_relax=True` dans le script AlphaFold 2.2 avec GPU."
-    },
-    {
-      "question": "Comment on soumet le script AlphaFold GPU à l'ordonnanceur?",
-      "answer": "Pour soumettre la tâche, il faut utiliser la commande `sbatch --job-name alphafold-X alphafold-gpu.sh`, en remplaçant `alphafold-X` par le nom de tâche désiré."
-    },
-    {
-      "question": "C'est quoi le message d'erreur 'Broken pipe' qu'on peut recevoir en téléchargeant les bases de données AlphaFold?",
-      "answer": "C'est un message d'erreur `Client_loop: send disconnect: Broken pipe` qui peut apparaître si y a beaucoup d'utilisateurs sur le nœud de connexion, ce qui laisse moins de bande passante pour télécharger des données."
-    },
-    {
-      "question": "Y a-t-il des solutions si on reçoit l'erreur 'Broken pipe' pendant le téléchargement des bases de données?",
-      "answer": "Oui, on peut utiliser un multiplexeur de terminal, ou utiliser la base de données déjà disponible sur la grappe à l'adresse `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2023_07/`, ou encore télécharger les bases de données par sections en utilisant des scripts spécifiques."
-    },
-    {
-      "question": "Comment on fait pour trouver les scripts disponibles pour télécharger les bases de données par sections?",
-      "answer": "Après avoir chargé le module et activé l'environnement virtuel, on peut taper `download_` dans le terminal et appuyer deux fois sur la touche `tab` pour voir tous les scripts disponibles."
+      "question": "Quelles sont les solutions suggérées lorsqu'on rencontre le message d'erreur « Client_loop: send disconnect: Broken pipe » en téléchargeant les bases de données AlphaFold?",
+      "answer": "Si vous obtenez le message d'erreur « Client_loop: send disconnect: Broken pipe » en téléchargeant les bases de données AlphaFold, vous pouvez essayer d'utiliser un multiplexeur de terminal, d'utiliser la base de données déjà disponible sur la grappe à l'adresse `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2023_07/`, ou de télécharger les bases de données par sections à l'aide des scripts de téléchargement individuels comme `download_pdb.sh`."
     }
   ],
-  "generated_at": "2026-04-11T16:37:54.669819+00:00"
+  "generated_at": "2026-04-13T01:34:00.985765+00:00"
 }

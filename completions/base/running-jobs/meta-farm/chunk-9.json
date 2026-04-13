@@ -4,109 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What are the default sbatch arguments provided in the `job_script.sh` file by `farm_init.run`?",
-      "answer": "The default sbatch arguments in `job_script.sh` set a time limit of 0-00:10 (10 minutes), a memory limit of 4G (`--mem=4G`), and an account name (`-A Your_account_name`). The script also includes the `task.run` command which should not be changed."
+      "question": "Which fields are essential to customize in the `job_script.sh` file when setting up a META farm, and why is including the runtime switch within this file critical?",
+      "answer": "Users must customize the account name using the `-A` switch and the metajob runtime using either the `-t` or `--time` switch in `job_script.sh`. It is critical to include the runtime switch directly in `job_script.sh` because it cannot be passed as an optional argument to the `sbatch` command via `submit.run`."
     },
     {
-      "question": "Which lines in the `job_script.sh` file must be customized by the user?",
-      "answer": "At the very least, users should change the account name (the `-A` switch) and the metajob runtime (the `-t` switch)."
+      "question": "How can users implement custom checks in `job_script.sh` to prevent metajobs from failing due to defective nodes or missing resources, and what built-in protection mechanism does the META package provide?",
+      "answer": "To prevent metajobs from failing on defective nodes, users can add tests to `job_script.sh` before the `task.run` line. For instance, a check for an NVidia GPU using `nvidia-smi` can force the metajob to exit if no GPU is found. The META package also has a built-in protection mechanism that detects metajobs churning through cases too quickly. This is controlled by `N_failed_max` and `dt_failed` parameters in `config.h`, which by default will stop a metajob if its first 5 cases finish in less than 5 seconds."
     },
     {
-      "question": "What is the recommendation for setting the runtime in `job_script.sh` when using SIMPLE mode?",
-      "answer": "In SIMPLE mode, the runtime should be set to be somewhat longer than the longest expected individual case."
-    },
-    {
-      "question": "Is the runtime switch (`-t` or `--time`) mandatory in `job_script.sh`?",
-      "answer": "Yes, the `job_script.sh` file must include the runtime switch (either `-t` or `--time`)."
-    },
-    {
-      "question": "Can the runtime switch be passed as an optional argument to `submit.run`?",
-      "answer": "No, the runtime switch cannot be passed to `sbatch` as an optional argument to `submit.run`."
-    },
-    {
-      "question": "What kind of problems can occur if a metajob is allocated to a defective node?",
-      "answer": "A metajob allocated to a defective node might cause the program to fail instantly, for example, if a required GPU is malfunctioning or if the `/project` file system is not mounted. This can cause a single bad metajob to quickly churn through `table.dat`, making the whole farm fail."
-    },
-    {
-      "question": "How can one add tests to `job_script.sh` to prevent metajobs from failing due to defective hardware, such as a missing or malfunctioning GPU?",
-      "answer": "Tests can be added to `job_script.sh` before the `task.run` line. For instance, `nvidia-smi` can be used to check for an NVidia GPU, and if none is found (or if it fails), the metajob can be forced to exit before processing any cases."
-    },
-    {
-      "question": "Where can the `gpu_test` utility be copied from on Nibi?",
-      "answer": "On Nibi, the `gpu_test` utility can be copied from `~syam/bin/gpu_test` to the user's `~/bin` directory."
-    },
-    {
-      "question": "What built-in mechanism does the META package have to detect and stop metajobs that are failing too quickly?",
-      "answer": "The META package has a built-in mechanism that detects problems of this kind and kills a metajob if it churns through cases too quickly."
-    },
-    {
-      "question": "Which parameters control the META package's protection mechanism against quickly failing metajobs?",
-      "answer": "The protection mechanism is controlled by two parameters: `N_failed_max` and `dt_failed`."
-    },
-    {
-      "question": "Where are the `N_failed_max` and `dt_failed` parameters configured?",
-      "answer": "These parameters are set in the `config.h` file."
-    },
-    {
-      "question": "What are the default values for `N_failed_max` and `dt_failed`?",
-      "answer": "The default values for both `N_failed_max` and `dt_failed` are 5."
-    },
-    {
-      "question": "When is the META package's protection mechanism for quickly failing metajobs triggered?",
-      "answer": "The protection mechanism is triggered when the first `N_failed_max` cases are very short, specifically less than `dt_failed` seconds in duration."
-    },
-    {
-      "question": "How can false triggering of the protective mechanism be avoided if some normal cases have a runtime shorter than `dt_failed`?",
-      "answer": "If false triggering occurs because some normal cases have a runtime shorter than `dt_failed`, the value of `dt_failed` in `config.h` should be reduced."
-    },
-    {
-      "question": "What output files are created in the farm directory when one or more metajobs are running?",
-      "answer": "The following files are created: `OUTPUT/slurm-$JOBID.out` (one per metajob for standard output) and `STATUSES/status.$JOBID` (one per metajob for the status of each processed case)."
-    },
-    {
-      "question": "What information does the `OUTPUT/slurm-$JOBID.out` file contain?",
-      "answer": "The `OUTPUT/slurm-$JOBID.out` file contains the standard output for a specific metajob."
-    },
-    {
-      "question": "What information does the `STATUSES/status.$JOBID` file contain?",
-      "answer": "The `STATUSES/status.$JOBID` file contains the status of each case that was processed by a specific metajob."
-    },
-    {
-      "question": "What does `$JOBID` represent in the context of output file names?",
-      "answer": "`$JOBID` stands for the jobid of the corresponding metajob."
-    },
-    {
-      "question": "What is the purpose of the `MISC` directory created inside the root farm directory?",
-      "answer": "The `MISC` directory contains some auxiliary data."
-    },
-    {
-      "question": "Where does `submit.run` create unique subdirectories for temporary files?",
-      "answer": "Every time `submit.run` is executed, it creates a unique subdirectory inside `/home/$USER/tmp`."
-    },
-    {
-      "question": "What kind of files are stored in the temporary subdirectories created by `submit.run`?",
-      "answer": "These subdirectories contain small scratch files, such as those used by `lockfile` to serialize certain operations inside the jobs."
-    },
-    {
-      "question": "What is the naming convention for the temporary subdirectories created by `submit.run`?",
-      "answer": "These subdirectories have names in the format `$NODE.$PID`, where `$NODE` is the name of the current node (typically a login node) and `$PID` is the unique process ID for the script."
-    },
-    {
-      "question": "Can the temporary subdirectories created by `submit.run` be safely erased after farm execution?",
-      "answer": "Yes, once the farm execution is done, these temporary subdirectories can be safely erased."
-    },
-    {
-      "question": "What command automatically deletes the temporary subdirectories created by `submit.run`?",
-      "answer": "The `clean.run` command automatically deletes these temporary subdirectories."
-    },
-    {
-      "question": "What is the caution associated with using the `clean.run` command?",
-      "answer": "`clean.run` also deletes all the results produced by the farm, so users should be very careful when using this script."
-    },
-    {
-      "question": "Who should be contacted if a defective node is detected?",
-      "answer": "Defective nodes should be reported to `support@tech.alliancecan.ca`."
+      "question": "Where does the META package store the output and status files for metajobs, as well as its temporary scratch files, and what important caution should be noted about the `clean.run` command?",
+      "answer": "The META package creates `OUTPUT/slurm-$JOBID.out` files for standard output and `STATUSES/status.$JOBID` files for case statuses within the farm directory for each metajob. It also creates a `MISC` directory for auxiliary data in the farm root. Temporary scratch files, used for mechanisms like `lockfile`, are stored in unique subdirectories within `/home/$USER/tmp`. A crucial caution is that the `clean.run` command will delete all files in the farm directory (except specified configuration files) and all associated temporary files in `/home/$USER/tmp`, including all the results produced by your farm."
     }
   ],
-  "generated_at": "2026-04-12T01:18:32.849947+00:00"
+  "generated_at": "2026-04-13T08:22:49.315833+00:00"
 }

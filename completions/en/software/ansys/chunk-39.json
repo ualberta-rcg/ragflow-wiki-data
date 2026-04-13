@@ -4,45 +4,17 @@
   "chunk_index": 39,
   "qa_pairs": [
     {
-      "question": "What is the status of the license3.sharcnet.ca license server as of February 2026?",
-      "answer": "As of February 2026, the old license3.sharcnet.ca license server has been permanently shut down."
+      "question": "How do I configure my `ansys.lic` file to use the SHARCNET Ansys license on an Alliance cluster?",
+      "answer": "To use the SHARCNET Ansys license on any Alliance cluster, you need to configure your `ansys.lic` file by adding the line `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license1.computecanada.ca\")` to `~/.licenses/ansys.lic`. The previous server, `license3.sharcnet.ca`, was permanently shut down as of February 2026."
     },
     {
-      "question": "How should I configure my `ansys.lic` file to use the SHARCNET Ansys license on an Alliance cluster?",
-      "answer": "You should configure your `ansys.lic` file with the line `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license1.computecanada.ca\")`."
+      "question": "How can I check the number of Ansys licenses currently in use by my username and by all users on an Alliance cluster?",
+      "answer": "To check Ansys license usage, log in to a cluster (e.g., `ssh nibi.alliancecan.ca`), load the `ansys` module, and then execute the command: `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil \\lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of\\\\|$USER\" | grep -v \" Total of 0 licenses in use\"`. This command will display the number of licenses in use by your username and the total in use by all users."
     },
     {
-      "question": "What is the command to query SHARCNET Ansys license usage on an Alliance cluster?",
-      "answer": "To query SHARCNET Ansys license usage, you can run the command `ssh nibi.alliancecan.ca; module load ansys; $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\" | grep -v \" Total of 0 licenses in use\"`."
-    },
-    {
-      "question": "How can I check the number of Ansys licenses currently in use by my username and by all users?",
-      "answer": "You can check Ansys license usage by running the command: `ssh nibi.alliancecan.ca; module load ansys; $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\" | grep -v \" Total of 0 licenses in use\"`."
-    },
-    {
-      "question": "In the provided example, how many `anshpc` licenses are used by an 8-core Fluent job and a 32-core Fluent job combined?",
-      "answer": "A total of 32 `anshpc` licenses are used by the two jobs, calculated as (8-4) + (32-4)."
-    },
-    {
-      "question": "If the total `anshpc` licenses in use increase from 1568 to 1600 after a user submits two jobs, how many new `anshpc` licenses were consumed?",
-      "answer": "The total number of `anshpc` licenses in use increased by 32 (1600 - 1568)."
-    },
-    {
-      "question": "Given a total of 1986 `anshpc` licenses issued and 1600 currently in use, how many `anshpc` licenses remain available for additional jobs?",
-      "answer": "There are 386 `anshpc` licenses remaining available (1986 - 1600)."
-    },
-    {
-      "question": "Why would a 400-core parallel job fail to start if only 386 `anshpc` licenses are available?",
-      "answer": "A 400-core parallel job would fail to start because it requires (400-4) = 396 `anshpc` licenses, but only 386 are currently available."
-    },
-    {
-      "question": "What options does a user have if their parallel job fails to start due to an `anshpc` license shortage?",
-      "answer": "The user can either wait for a sufficient number of `anshpc` licenses to become available or reduce the job size (e.g., to 390 cores or less in the example scenario) and resubmit immediately."
-    },
-    {
-      "question": "What does the provided example demonstrate about `anshpc` license availability compared to the per-user limit?",
-      "answer": "The example demonstrates that while the `anshpc` feature is designed to be generously overcommitted, the actual number of `anshpc` licenses available for a user may sometimes be far less than the 512 per-user limit due to overall usage."
+      "question": "What is the `anshpc` license feature, and how does its oversubscription affect parallel Ansys jobs on Alliance clusters?",
+      "answer": "The `anshpc` license feature is part of the SHARCNET Ansys license, which allows researchers to run up to 16 simultaneous jobs using a total of 512 `anshpc` cores across all clusters. However, the overall SHARCNET license pool of 1986 `anshpc` licenses is oversubscribed. This means that if a large number of `anshpc` licenses are already in use by other researchers, a new parallel job requiring a significant number of cores (e.g., a 400-core job needing 396 `anshpc` licenses) might fail to start due to a license shortage, even if the user is within their individual 512-core limit. In such cases, users must either wait for licenses to become available or reduce their job's core request and resubmit."
     }
   ],
-  "generated_at": "2026-04-12T16:54:10.638835+00:00"
+  "generated_at": "2026-04-13T01:53:25.835414+00:00"
 }

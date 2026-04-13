@@ -4,29 +4,13 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How do I add a read group (RG) tag to a BAM file using GATK?",
-      "answer": "You can add a read group (RG) tag to a BAM file using the `gatk AddOrReplaceReadGroups` command."
+      "question": "How can I add a read group (RG) tag to a BAM file using GATK?",
+      "answer": "To add a read group tag, such as 'tag', to an `input.bam` file and create an `output.bam` with an index, you can use the `AddOrReplaceReadGroups` command. For example, the command `gatk AddOrReplaceReadGroups -I input.bam -O output.bam --RGLB tag --RGPL ILLUMINA --RGPU tag --RGSM tag --SORT_ORDER 'coordinate' --CREATE_INDEX true` will perform this operation, assuming your input file is sorted by coordinates."
     },
     {
-      "question": "What are the basic parameters for the `AddOrReplaceReadGroups` command?",
-      "answer": "The basic parameters include specifying an input file (`-I input.bam`), an output file (`-O output.bam`), and various read group tags such as `--RGLB tag`, `--RGPL ILLUMINA`, `--RGPU tag`, and `--RGSM tag`."
-    },
-    {
-      "question": "What is the purpose of the `--CREATE_INDEX true` option when using `AddOrReplaceReadGroups`?",
-      "answer": "The `--CREATE_INDEX true` option generates an index file alongside the annotated output BAM file."
-    },
-    {
-      "question": "What sort order is specified for the output BAM file in the `AddOrReplaceReadGroups` example?",
-      "answer": "The `AddOrReplaceReadGroups` example specifies `SORT_ORDER 'coordinate'` for the output BAM file."
-    },
-    {
-      "question": "What assumption is made about the input file when using the `AddOrReplaceReadGroups` command to generate an index?",
-      "answer": "It is assumed that the input file is sorted by coordinates."
-    },
-    {
-      "question": "What is the next topic discussed after the `AddOrReplaceReadGroups` example?",
-      "answer": "The next topic discussed is how to deal with the `java.lang.OutOfMemoryError: Java heap space` error."
+      "question": "What should I do if I encounter a `java.lang.OutOfMemoryError: Java heap space` error while running GATK?",
+      "answer": "This error indicates that GATK requires more memory to process your files than currently allocated. To fix this, you should increase the maximum heap memory by adding the `-Xmx` option to `--java-options`. For instance, if you were running `gatk MarkDuplicates -I input.bam -O marked_duplicates.bam -M marked_dup_metrics.txt` and got the error, you could try `gatk MarkDuplicates --java-options \"-Xmx8G -DGATK_STACKTRACE_ON_USER_EXCEPTION=true\" -I input.bam -O marked_duplicates.bam -M marked_dup_metrics.txt`. If the error persists, continue increasing the `-Xmx` value (e.g., `-Xmx16G`, `-Xmx32G`) until the required memory for your dataset is met. Remember to request enough memory on the computing system you are using."
     }
   ],
-  "generated_at": "2026-04-11T21:56:21.359291+00:00"
+  "generated_at": "2026-04-13T05:40:05.248991+00:00"
 }

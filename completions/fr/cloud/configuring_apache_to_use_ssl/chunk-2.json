@@ -4,81 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Que dois-je faire si on me demande une phrase de passe pendant que je crée un certificat SSL autosigné?",
-      "answer": "Si une phrase de passe vous est demandée, vous devez relancer la commande de création du certificat en y incluant l'option `-node`."
+      "question": "Lors de la création d'un certificat SSL autosigné pour une machine virtuelle sur un de nos nuages, quel champ est le plus important à remplir et comment doit-il être configuré?",
+      "answer": "Le champ le plus important est le \"Common Name\". Pour une machine virtuelle sur un de nos nuages, il faut remplacer les X dans l'exemple d'adresse IP flottante (par exemple, XXX-XXX-XXX-XXX.cloud.computecanada.ca) par l'adresse IP réelle de la machine virtuelle."
     },
     {
-      "question": "Quelles sont les informations que je dois fournir lorsque je crée un certificat SSL autosigné?",
-      "answer": "Vous devrez répondre à plusieurs questions, notamment le nom du pays (Country Name), la province ou l'État (State or Province Name), la ville (Locality Name), le nom de votre organisation (Organization Name), l'unité organisationnelle (Organizational Unit Name), le nom commun (Common Name) de votre serveur, et votre adresse courriel (Email Address)."
+      "question": "Comment configure-t-on Apache pour qu'il utilise un certificat SSL autosigné spécifique après l'avoir créé?",
+      "answer": "Pour configurer Apache, il faut modifier le fichier `/etc/apache2/sites-available/default-ssl.conf`. Dans ce fichier, on remplace les lignes existantes pour `SSLCertificateFile` et `SSLCertificateKeyFile` par les chemins de votre nouveau certificat et clé (`/etc/ssl/certs/server.crt` et `/etc/ssl/private/server.key`), et on ajoute `SSLCertificateChainFile /etc/ssl/certs/server.crt`."
     },
     {
-      "question": "Quelle est l'information la plus importante à remplir lors de la création d'un certificat SSL autosigné?",
-      "answer": "La réponse à la question `Common Name` est la plus importante, car il s'agit du nom de domaine de votre serveur."
-    },
-    {
-      "question": "Comment puis-je remplir le champ 'Common Name' pour une machine virtuelle sur un nuage?",
-      "answer": "Pour une machine virtuelle sur un de nos nuages, vous devez remplacer les 'X' dans l'exemple `XXX-XXX-XXX-XXX.cloud.computecanada.ca` par l'adresse IP flottante associée à la machine virtuelle."
-    },
-    {
-      "question": "Quelles commandes dois-je utiliser pour configurer le propriétaire et les autorisations de la clé privée SSL?",
-      "answer": "Vous devez entrer les commandes `sudo chown root:ssl-cert /etc/ssl/private/server.key` et `sudo chmod 640 /etc/ssl/private/server.key`."
-    },
-    {
-      "question": "Quel fichier de configuration Apache dois-je modifier pour que le serveur utilise le certificat SSL autosigné?",
-      "answer": "Vous devez modifier le fichier de configuration SSL avec la commande `sudo vim /etc/apache2/sites-available/default-ssl.conf`."
-    },
-    {
-      "question": "Quelles lignes dois-je remplacer dans le fichier `default-ssl.conf` pour configurer le certificat autosigné?",
-      "answer": "Vous devez remplacer les lignes `SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem` et `SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key` par les trois lignes `SSLCertificateFile /etc/ssl/certs/server.crt`, `SSLCertificateKeyFile /etc/ssl/private/server.key` et `SSLCertificateChainFile /etc/ssl/certs/server.crt`."
-    },
-    {
-      "question": "Que faut-il vérifier concernant le `DocumentRoot` après la configuration d'Apache pour le certificat SSL?",
-      "answer": "Il faut vérifier que le chemin pour `DocumentRoot` correspond à celui défini dans `/etc/apache2/sites-available/000-default.conf`, si le SSL s'applique à ce site."
-    },
-    {
-      "question": "Comment puis-je renforcer la sécurité de mon serveur web après avoir configuré un certificat autosigné?",
-      "answer": "Pour renforcer la sécurité, vous devriez rediriger les requêtes HTTP vers HTTPS, exiger des versions plus à jour de SSL et utiliser de meilleures options de chiffrement en modifiant le fichier `default-ssl.conf`."
-    },
-    {
-      "question": "Quelles sont les lignes de configuration à ajouter dans la balise `<VirtualHost>` du fichier `default-ssl.conf` pour renforcer la sécurité?",
-      "answer": "Il faut ajouter les lignes `ServerName XXX-XXX-XXX-XXX.cloud.computecanada.ca`, `SSLProtocol all -SSLv2 -SSLv3`, `SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5:!SEED:!IDEA:!RC4` et `SSLHonorCipherOrder on`."
-    },
-    {
-      "question": "Que faut-il faire avec les 'X' dans la ligne `ServerName` lors de la configuration de sécurité?",
-      "answer": "Il faut remplacer les 'X' par l'adresse IP de la machine virtuelle, en utilisant des tirets au lieu de points dans l'IP."
-    },
-    {
-      "question": "Quel fichier de configuration dois-je modifier pour mettre en place une redirection permanente de HTTP vers HTTPS?",
-      "answer": "Vous devez modifier le fichier de configuration du site web par défaut avec la commande `sudo vim /etc/apache2/sites-available/000-default.conf`."
-    },
-    {
-      "question": "Quelle ligne de redirection dois-je ajouter dans le fichier `000-default.conf` pour rediriger HTTP vers HTTPS?",
-      "answer": "Vous devez ajouter la ligne `Redirect permanent / https://XXX-XXX-XXX-XXX.cloud.computecanada.ca` à l'intérieur de la balise `<VirtualHost>`."
-    },
-    {
-      "question": "Quelles commandes dois-je exécuter pour activer le site sécurisé et redémarrer Apache?",
-      "answer": "Vous devez utiliser les commandes `sudo a2ensite default-ssl.conf` et `sudo service apache2 restart`."
-    },
-    {
-      "question": "Quel est l'exemple de 'Country Name' donné pour la configuration du certificat?",
-      "answer": "L'exemple donné pour 'Country Name' est 'CA'."
-    },
-    {
-      "question": "Quel est l'exemple de 'State or Province Name' donné pour la configuration du certificat?",
-      "answer": "L'exemple donné pour 'State or Province Name' est 'Nova Scotia'."
-    },
-    {
-      "question": "Quel est l'exemple de 'Locality Name' donné pour la configuration du certificat?",
-      "answer": "L'exemple donné pour 'Locality Name' est 'Halifax'."
-    },
-    {
-      "question": "Quel est l'exemple d''Organization Name' donné pour la configuration du certificat?",
-      "answer": "L'exemple donné pour 'Organization Name' est 'Alliance'."
-    },
-    {
-      "question": "Quel est l'exemple d''Organizational Unit Name' donné pour la configuration du certificat?",
-      "answer": "L'exemple donné pour 'Organizational Unit Name' est 'ACENET'."
+      "question": "Quelles mesures peut-on prendre pour renforcer la sécurité d'un serveur Apache après avoir configuré un certificat SSL autosigné, au-delà de la simple activation?",
+      "answer": "Pour renforcer la sécurité, il est recommandé de rediriger toutes les requêtes HTTP vers HTTPS. Il faut aussi modifier le fichier `/etc/apache2/sites-available/default-ssl.conf` pour exiger des versions plus à jour de SSL (par exemple, `SSLProtocol all -SSLv2 -SSLv3`) et utiliser de meilleures options de chiffrement (`SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5:!SEED:!IDEA:!RC4` et `SSLHonorCipherOrder on`). Finalement, il faut activer le site sécurisé avec `sudo a2ensite default-ssl.conf` et redémarrer Apache."
     }
   ],
-  "generated_at": "2026-04-11T20:20:55.228599+00:00"
+  "generated_at": "2026-04-13T04:24:06.932399+00:00"
 }

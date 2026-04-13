@@ -4,49 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on se connecte à Jupyter Notebook à partir d'un poste de travail sous Linux ou macOS X?",
-      "answer": "Pour vous connecter à Jupyter Notebook depuis un poste de travail sous Linux ou macOS X, il est recommandé d'utiliser le paquet Python `sshuttle`. Sur votre poste de travail, ouvrez une nouvelle fenêtre terminal et lancez la commande `sshuttle --dns -Nr <username>@<cluster>.alliancecan.ca`, en remplaçant `<username>` par votre nom d'utilisateur et `<cluster>` par la grappe à laquelle vous vous êtes connecté. Ensuite, copiez-collez l'adresse URL fournie par Jupyter dans votre fureteur."
+      "question": "Comment se connecter à Jupyter Notebook depuis un poste de travail Linux ou macOS X quand Jupyter tourne sur une grappe?",
+      "answer": "Pour se connecter à Jupyter Notebook à partir de Linux ou macOS X, il faut ouvrir un nouveau terminal sur votre poste de travail et y lancer la commande `sshuttle --dns -Nr <username>@<cluster>.alliancecan.ca`. Vous devez remplacer `<username>` par votre nom d'utilisateur et `<cluster>` par le nom de la grappe où Jupyter Notebook est lancé. Après ça, vous n'avez qu'à copier-coller l'adresse URL fournie par Jupyter dans votre fureteur."
     },
     {
-      "question": "Quelle commande faut-il utiliser pour créer un tunnel SSH vers Jupyter Notebook à partir de Linux ou macOS X?",
-      "answer": "La commande à utiliser est `sshuttle --dns -Nr <username>@<cluster>.alliancecan.ca`. Il faut remplacer `<username>` par votre nom d'utilisateur et `<cluster>` par le nom de la grappe où Jupyter Notebook est lancé."
+      "question": "Quelle est la procédure pour accéder à Jupyter Notebook depuis un poste Windows en utilisant MobaXTerm?",
+      "answer": "La procédure implique trois étapes. D'abord, dans MobaXTerm, ouvrez un premier onglet ''Terminal'' (session 1) et connectez-vous à une grappe pour lancer Jupyter Notebook et obtenir l'URL (contenant le nom du serveur, le port et le jeton). Ensuite, ouvrez un second onglet ''Terminal'' (session 2) et lancez la commande `ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca`, en remplaçant les informations entre crochets par les vôtres. Enfin, dans votre fureteur web, naviguez à `http://localhost:8888/?token=<jeton>`, en substituant `<jeton>` par la valeur obtenue à la session 1."
     },
     {
-      "question": "Comment se connecter à Jupyter Notebook si on utilise un système Windows?",
-      "answer": "Sous Windows, pour créer un tunnel SSH, utilisez MobaXTerm. D'abord, dans un premier onglet Terminal (session 1), connectez-vous à la grappe et suivez les directives pour lancer Jupyter Notebook afin d'obtenir l'adresse URL (nom du serveur:port et jeton). Ensuite, dans un second onglet Terminal (session 2), lancez la commande `ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca`, en remplaçant les valeurs appropriées. Finalement, accédez à `http://localhost:8888/?token=<jeton>` dans votre fureteur, en remplaçant `<jeton>` par celui obtenu en session 1."
-    },
-    {
-      "question": "Comment fermer le serveur Jupyter Notebook avant la fin du temps d'exécution alloué?",
-      "answer": "Pour fermer le serveur Jupyter Notebook avant la fin du temps d'exécution, vous devez appuyer deux fois sur CTRL-C dans le terminal où la tâche interactive a été lancée."
-    },
-    {
-      "question": "Si le tunnel SSH a été créé avec MobaXTerm, comment le fermer?",
-      "answer": "Si le tunnel SSH a été créé avec MobaXTerm, appuyez sur CTRL-D dans la session 2 (l'onglet Terminal où la commande `ssh -L` a été exécutée) pour le fermer."
-    },
-    {
-      "question": "C'est quoi les deux étapes principales pour ajouter des noyaux (''kernels'') à Jupyter Notebook?",
-      "answer": "L'installation de nouveaux noyaux se fait en deux étapes : premièrement, l'installation des paquets qui permettent à l'interpréteur de communiquer avec Jupyter Notebook, et deuxièmement, la création du fichier de configuration du noyau pour que Jupyter Notebook puisse établir un canal de communication avec l'interpréteur."
-    },
-    {
-      "question": "Où doivent être créés les fichiers de configuration des noyaux pour Jupyter Notebook?",
-      "answer": "Chacun des fichiers de configuration du noyau doit être créé dans son propre sous-répertoire, situé dans votre répertoire personnel (''home'') par le chemin `~/.local/share/jupyter/kernels`."
-    },
-    {
-      "question": "Quelle commande faut-il utiliser pour créer le répertoire où seront stockés les fichiers de configuration des noyaux si celui-ci n'existe pas?",
-      "answer": "La première étape est de créer ce répertoire avec la commande `mkdir -p ~/.local/share/jupyter/kernels`."
-    },
-    {
-      "question": "Quelles sont les étapes pour installer le noyau Julia (IJulia) dans Jupyter Notebook?",
-      "answer": "Pour installer le noyau Julia (IJulia) : 1. Chargez le module Julia avec `module load julia`. 2. Activez l'environnement virtuel Jupyter Notebook avec `source $HOME/jupyter_py3/bin/activate`. 3. Installez IJulia en exécutant `echo 'Pkg.add(\"IJulia\")' | julia`."
-    },
-    {
-      "question": "Comment installer un noyau Python pour une version spécifique (comme Python 3.5) dans Jupyter Notebook?",
-      "answer": "Pour installer un noyau Python 3.5 : 1. Chargez le module Python 3.5 avec `module load python/3.5`. 2. Créez un nouvel environnement Python avec `virtualenv $HOME/jupyter_py3.5`. 3. Activez cet environnement avec `source $HOME/jupyter_py3.5/bin/activate`. 4. Installez la bibliothèque `ipykernel` avec `pip install ipykernel`. 5. Générez le fichier de configuration du noyau avec `python -m ipykernel install --user --name <unique_name> --display-name \"Python 3.5 Kernel\"`, en remplaçant `<unique_name>` par un nom unique. 6. Désactivez l'environnement virtuel avec `deactivate`."
-    },
-    {
-      "question": "C'est quoi la procédure pour installer un noyau R dans Jupyter Notebook?",
-      "answer": "Pour installer un noyau R : 1. Chargez le module R avec `module load r`. 2. Activez l'environnement virtuel Jupyter Notebook avec `source $HOME/jupyter_py3/bin/activate`. 3. Installez les dépendances du noyau avec `R -e \"install.packages(c('crayon', 'pbdZMQ', 'devtools'), repos='http://cran.us.r-project.org')\"`. 4. Installez le noyau R avec `R -e \"devtools::install_github(paste0('IRkernel/', c('repr', 'IRdisplay', 'IRkernel')))\"`. 5. Installez le fichier de configuration du noyau R avec `R -e \"IRkernel::installspec()\"`."
+      "question": "Comment fait-on pour ajouter de nouveaux noyaux (kernels) à Jupyter Notebook pour supporter d'autres langages de programmation ou des versions de Python différentes?",
+      "answer": "Pour ajouter des noyaux à Jupyter Notebook, il faut suivre deux étapes principales : premièrement, installer les paquets qui permettent à l'interpréteur du nouveau langage de communiquer avec Jupyter Notebook, et deuxièmement, créer un fichier de configuration pour ce noyau dans un sous-répertoire de `~/.local/share/jupyter/kernels` afin que Jupyter Notebook puisse établir un canal de communication avec l'interpréteur."
     }
   ],
-  "generated_at": "2026-04-12T00:41:00.695133+00:00"
+  "generated_at": "2026-04-13T07:51:09.650518+00:00"
 }

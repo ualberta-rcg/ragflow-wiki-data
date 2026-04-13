@@ -4,45 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on peut se connecter à un serveur de base de données sur Fir à partir de son ordinateur personnel?",
-      "answer": "On peut créer un tunnel SSH à partir de son ordinateur personnel vers les serveurs PostgreSQL et MySQL situés sur Fir."
+      "question": "Comment puis-je établir un tunnel SSH pour me connecter à un serveur de base de données PostgreSQL ou MySQL situé sur la grappe Fir, à partir de mon ordinateur personnel ?",
+      "answer": "Pour établir une connexion à un serveur PostgreSQL ou MySQL sur la grappe Fir depuis votre ordinateur personnel, vous devez créer un tunnel SSH. Utilisez une des commandes suivantes, en remplaçant 'PORT' par un numéro de port de votre choix (qui doit être inférieur à 32768) et 'someuser' par votre nom d'utilisateur associé à votre compte sur Fir :\n\nPour PostgreSQL : `ssh -L PORT:cedar-pgsql-vm.int.cedar.computecanada.ca:5432 someuser@fir.alliancecan.ca`\n\nPour MySQL : `ssh -L PORT:cedar-mysql-vm.int.cedar.computecanada.ca:3306 someuser@fir.alliancecan.ca`"
     },
     {
-      "question": "Quelle est la commande pour établir un tunnel SSH vers un serveur PostgreSQL sur Fir?",
-      "answer": "La commande est `ssh -L PORT:cedar-pgsql-vm.int.cedar.computecanada.ca:5432 someuser@fir.alliancecan.ca`, où `PORT` est un numéro de port local et `someuser` est votre nom d'utilisateur."
+      "question": "Une fois qu'un tunnel SSH est établi vers un serveur de base de données sur Fir, comment puis-je me connecter à la base de données depuis mon ordinateur personnel ?",
+      "answer": "Après avoir établi le tunnel SSH, vous pouvez vous connecter à la base de données depuis votre ordinateur personnel en exécutant la commande usuelle de votre client de base de données. Vous devrez utiliser `127.0.0.1` comme hôte et le numéro de port 'PORT' que vous avez choisi pour le tunnel. Par exemple :\n\nPour PostgreSQL : `psql -h 127.0.0.1 -p PORT -U <votre nom d'utilisateur> -d <votre base de données>`\n\nPour MySQL : `mysql -h 127.0.0.1 -P PORT -u <votre nom d'utilisateur> --protocol=TCP -p`"
     },
     {
-      "question": "Quelle commande permet de créer un tunnel SSH vers un serveur MySQL sur Fir?",
-      "answer": "La commande à utiliser est `ssh -L PORT:cedar-mysql-vm.int.cedar.computecanada.ca:3306 someuser@fir.alliancecan.ca`, en remplaçant `PORT` par un numéro de port de votre choix et `someuser` par votre nom d'utilisateur."
-    },
-    {
-      "question": "Y a-t-il une restriction sur le numéro de port (PORT) qu'on peut utiliser pour le tunnel SSH?",
-      "answer": "Oui, la valeur du numéro de port `PORT` doit être inférieure à 32768 (ce qui correspond à 2^15)."
-    },
-    {
-      "question": "Que représente le terme 'someuser' dans les commandes SSH pour la connexion aux bases de données?",
-      "answer": "Dans ces exemples, 'someuser' représente le nom d'utilisateur associé à votre compte."
-    },
-    {
-      "question": "Une fois le tunnel SSH établi, quelle est la particularité par rapport à une connexion SSH ordinaire?",
-      "answer": "La différence est que vous pouvez utiliser un autre terminal sur votre ordinateur personnel pour vous connecter directement au serveur de base de données via le tunnel."
-    },
-    {
-      "question": "Comment se connecter à une base de données PostgreSQL à partir de son ordinateur personnel après avoir créé le tunnel?",
-      "answer": "Il faut exécuter la commande `psql -h 127.0.0.1 -p PORT -U <your username> -d <your database>` sur votre ordinateur personnel, en remplaçant `PORT` par le numéro de port choisi."
-    },
-    {
-      "question": "Quelle commande faut-il utiliser pour se connecter à un serveur MySQL depuis son ordinateur personnel une fois le tunnel SSH actif?",
-      "answer": "Vous devez lancer la commande `mysql -h 127.0.0.1 -P PORT -u <your username> --protocol=TCP -p` sur votre ordinateur personnel, en utilisant le `PORT` spécifié lors de la création du tunnel."
-    },
-    {
-      "question": "Où peut-on trouver le mot de passe nécessaire pour se connecter à MySQL?",
-      "answer": "Le mot de passe pour MySQL se trouve dans le fichier `.my.cnf` qui est situé dans votre répertoire `/home` sur Fir."
-    },
-    {
-      "question": "Pendant combien de temps la connexion à la base de données via le tunnel est-elle maintenue?",
-      "answer": "La connexion à la base de données est maintenue tant que la connexion SSH principale demeure active."
+      "question": "Où puis-je trouver le mot de passe requis pour me connecter à MySQL lorsque j'accède à un serveur de base de données sur Fir via un tunnel SSH ?",
+      "answer": "Le mot de passe pour vous connecter à MySQL se trouve dans le fichier `.my.cnf` qui est situé dans votre répertoire `/home` sur la grappe Fir."
     }
   ],
-  "generated_at": "2026-04-12T07:36:24.089974+00:00"
+  "generated_at": "2026-04-13T13:15:11.362057+00:00"
 }

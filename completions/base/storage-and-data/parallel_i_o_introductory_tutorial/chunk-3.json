@@ -4,85 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What parallel file system is commonly used on national HPC systems?",
-      "answer": "On most national systems, Lustre, an open-source file system, is used."
+      "question": "What open-source parallel filesystem is commonly used on national HPC systems, and what is its primary function?",
+      "answer": "On most of the national systems we are running Lustre which is an open-source filesystem. The purpose of the parallel filesystem is to maintain the logical partitions and provide efficient access to data."
     },
     {
-      "question": "What is the primary purpose of a parallel file system?",
-      "answer": "The purpose of the parallel file system is to maintain logical partitions and provide efficient access to data."
+      "question": "What type of data storage is a parallel filesystem optimized for, and what kind of file management practices lead to poor performance?",
+      "answer": "The most important part we should know is that the parallel filesystem is optimized for storing large shared files which can be possibly accessible from many computing nodes. So, it shows very poor performance to store many small size files. As you may get told in our new user seminar, we strongly recommend users not to generate millions of small size files."
     },
     {
-      "question": "What is the role of I/O middleware in the software stack?",
-      "answer": "I/O middleware organizes access from many processes by optimizing two-phase I/O, disk I/O, and data flow over the network, and also provides data sieving by converting many small non-contiguous I/O requests into fewer/bigger requests."
-    },
-    {
-      "question": "What do high-end I/O libraries like HDF5 and NetCDF do?",
-      "answer": "High-end I/O libraries like HDF5 and NetCDF map application abstractions to storage abstractions in terms of the data structures of the code, storing data directly and efficiently to disk."
-    },
-    {
-      "question": "Is MPI-IO considered an I/O middleware or a high-end I/O library?",
-      "answer": "MPI-IO is considered I/O middleware and is a part of MPI-2."
-    },
-    {
-      "question": "Who decides whether to use a high-end I/O library or I/O middleware in an application?",
-      "answer": "The application, which is mostly your program, will decide whether to use a high-end I/O library or I/O middleware."
-    },
-    {
-      "question": "How are parallel file systems designed to scale on national systems?",
-      "answer": "On the national systems, parallel file systems are designed to scale efficiently to tens of thousands of computing nodes."
-    },
-    {
-      "question": "What is file striping in a parallel file system, and why is it used?",
-      "answer": "File striping means a file does not reside on a single hard drive but multiple drives, allowing for better performance as one hard drive takes a reading operation while another sends data back to the program."
-    },
-    {
-      "question": "How do parallel file systems manage concurrent file access by multiple processes?",
-      "answer": "Parallel file systems use locks to manage concurrent file access, where files are pieced into ‘lock’ units scattered across multiple hard drives, and client nodes obtain locks on units they access before I/O occurs."
-    },
-    {
-      "question": "What kind of files are parallel file systems optimized for storing?",
-      "answer": "Parallel file systems are optimized for storing large shared files which can be possibly accessible from many computing nodes."
-    },
-    {
-      "question": "How does a parallel file system perform when storing many small files?",
-      "answer": "A parallel file system shows very poor performance when storing many small size files, and users are strongly recommended not to generate millions of small size files."
-    },
-    {
-      "question": "What user actions can negatively affect parallel file system performance for all users?",
-      "answer": "How you read and write, your file format, the number of files in a directory, and how often you use the `ls` command can affect every user."
-    },
-    {
-      "question": "How can heavy I/O activity impact a cluster's communication?",
-      "answer": "Hammering the file system can hurt process communications, mostly related to MPI communication, which also affects other users."
-    },
-    {
-      "question": "What are some inherent limitations of file systems?",
-      "answer": "File systems are limited in terms of bandwidth, IOPs (I/O operations per second), the number of files, and available space."
-    },
-    {
-      "question": "What is the first recommended best practice for I/O?",
-      "answer": "It is always recommended to make a plan for your data needs, such as how much will be generated, how much you need to save, and where to keep it."
-    },
-    {
-      "question": "Do different file systems on national systems have different quotas, and what about scratch data?",
-      "answer": "Yes, on national systems, different file systems (home, project, scratch) have different quotas, and scratch data is also subject to expiry."
-    },
-    {
-      "question": "Which filesystem commands should users minimize the use of, especially in large directories?",
-      "answer": "Users should minimize the use of `ls` or `du` commands, especially in a directory with many files."
-    },
-    {
-      "question": "How should users regularly check their disk usage?",
-      "answer": "Users should regularly check their disk usage with the `quota` command."
-    },
-    {
-      "question": "What are two warning signs that should prompt careful consideration regarding I/O practices?",
-      "answer": "Warning signs include having more than 100,000 files in your space and an average data file size less than 100MB (if writing lots of data)."
-    },
-    {
-      "question": "What 'housekeeping' practices are recommended to maintain a reasonable number of files and manage quotas?",
-      "answer": "Users should do 'housekeeping' regularly, using commands like `gzip` and `tar` to compress multiple files and group them, thereby reducing the number of files."
+      "question": "What are some recommended best practices for managing data and I/O activities on national HPC systems to ensure efficiency and avoid issues?",
+      "answer": "First of all, it is always recommended to make a plan for your data needs such as how much will be generated and how much do you need to save and where to keep. On the national systems, different file systems (home, project, scratch) have different quotas. Scratch data is also subject to expiry. For more details see [https://alliancecan.ca/en/services/advanced-research-computing/national-services/storage this document]. Takes these limits into account before submitting a job. And please minimize use of ‘ls’ or ‘du’ command especially in a directory with many files. Regularly check your disk usage with quota command. Furthermore, please take warning signs that should prompt careful consideration when you have more than 100,000 files in your space and average data file size less than 100MB (if writing lots of data)."
     }
   ],
-  "generated_at": "2026-04-12T05:01:48.726876+00:00"
+  "generated_at": "2026-04-13T11:04:21.403478+00:00"
 }

@@ -4,13 +4,17 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "Comment on peut inspecter un script Python qui semble être figé durant l'exécution d'une tâche sans devoir le modifier avant ?",
-      "answer": "Pour ça, tu peux utiliser `py-spy`. Il faut d'abord l'installer dans un environnement virtuel dans ton `répertoire /home`. Ensuite, tu te connectes à ta tâche en cours avec `srun --overlap --pty --jobid JOBID bash`, tu trouves l'ID du processus Python avec `htop -u $USER`, tu actives ton environnement virtuel où `py-spy` est installé, et tu lances `py-spy top --pid PID` pour voir en temps réel les endroits où le code utilise beaucoup de temps, ou `py-spy dump --pid PID` pour avoir une trace complète de l'état du code."
+      "question": "Comment faire pour déboguer un script Python de façon interactive sur nos grappes?",
+      "answer": "Pour déboguer un script Python de façon interactive, vous pouvez ajouter `import pdb; pdb.set_trace()` au début de votre fichier ou utiliser `breakpoint()` à l'endroit où vous voulez mettre une pause. Ensuite, exécutez votre code. Le débogueur `pdb` se lancera et vous pourrez utiliser des commandes telles que `w` pour afficher la trace de la pile d'exécution, `s` pour exécuter ligne par ligne, `n` pour passer à la ligne suivante, `p exp` pour évaluer une expression et `q` pour quitter le débogueur. Vous pouvez le faire dans une petite tâche interactive."
     },
     {
-      "question": "J'ai eu une erreur en essayant d'installer un paquet Python qui disait « Package 'X' requires a different Python: X.Y.Z not in '>=X.Y' ». Qu'est-ce que ça veut dire et comment je peux régler ça ?",
-      "answer": "Ça veut dire que la version de Python que tu utilises présentement n'est pas supportée par le paquet que tu essaies d'installer. La solution, c'est d'utiliser une version de Python plus récente, comme le dernier module disponible, ou bien d'installer une version plus ancienne du paquet en question pour qu'elle soit compatible."
+      "question": "Quelles sont les méthodes pour dépanner un script Python qui semble bloqué (qui ne répond plus) durant son exécution?",
+      "answer": "Si un script Python est bloqué, vous pouvez le dépanner de deux façons principales. Premièrement, vous pouvez modifier votre script en utilisant le module `faulthandler` pour obtenir une trace de l'origine du problème après un certain délai, notamment avec la commande `faulthandler.dump_traceback_later()`. Deuxièmement, vous pouvez inspecter un processus Python en cours d'exécution sans le modifier au préalable en utilisant l'outil `py-spy`. Après avoir installé `py-spy` dans un environnement virtuel, connectez-vous à la tâche en cours, trouvez l'ID du processus Python avec `htop -u $USER`, puis lancez `py-spy top --pid PID` pour visionner en direct les endroits où le code utilise beaucoup de temps, ou `py-spy dump --pid PID` pour obtenir une trace de l'état de votre code."
+    },
+    {
+      "question": "Que faut-il faire si on reçoit le message d'erreur \"No matching distribution found for X\" lors de l'installation d'un paquet Python avec `pip`?",
+      "answer": "Si vous obtenez l'erreur \"No matching distribution found for X\" lors de l'installation d'un paquet Python, cela signifie que `pip` n'a trouvé aucun paquet qui rencontrait les exigences spécifiées (nom, version ou tags). Pour corriger cela, assurez-vous d'abord que le nom et la version du paquet sont corrects. Vous devriez aussi vérifier si le paquet est disponible via la commande `avail_wheels` sur la grappe ou en consultant la page \"Wheels Python disponibles\". Il faut savoir que les wheels `manylinux_x_y` sont parfois ignorés par `pip`."
     }
   ],
-  "generated_at": "2026-04-12T18:23:01.563052+00:00"
+  "generated_at": "2026-04-13T11:53:44.064579+00:00"
 }

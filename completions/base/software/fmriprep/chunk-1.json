@@ -4,69 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is fMRIPrep?",
-      "answer": "fMRIPrep is a NiPreps app designed for preprocessing MRI data in BIDS format."
+      "question": "What is fMRIPrep and how do users load it on Alliance resources?",
+      "answer": "fMRIPrep is a NiPreps app designed for preprocessing MRI data in BIDS format. To use it on Alliance resources, users must first load the necessary modules by executing `module load apptainer fmriprep`."
     },
     {
-      "question": "How can one use fMRIPrep on Alliance resources?",
-      "answer": "To use fMRIPrep on Alliance resources, you must first load the `apptainer` and `fmriprep` modules using the command: `module load apptainer fmriprep`."
+      "question": "What are the required steps to set up and download TemplateFlow templates for fMRIPrep on Alliance resources?",
+      "answer": "To set up TemplateFlow, users first need to load Python and git-annex, then install DataLad using `pip3 install datalad`. Next, the TemplateFlow metadataset is installed with `datalad install -r ///templateflow`. After this, users must navigate to the TemplateFlow shared directory (e.g., `/lustre03/project/GROUPNAME/shared/templateflow`) and download specific template subsets using `datalad get -r <template_name>`, such as `tpl-MNI152NLin2009cAsym` and `tpl-OASIS30ANTs`. These DataLad steps only need to be performed once per project group."
     },
     {
-      "question": "What is Apptainer's role when fMRIPrep is used on the command line?",
-      "answer": "When fMRIPrep is used on the command line, Apptainer runs under the hood to invoke a container with fMRIPrep set up inside it."
-    },
-    {
-      "question": "How can users affect the Apptainer context when running fMRIPrep?",
-      "answer": "To affect the Apptainer context, users need to use Apptainer environment variables."
-    },
-    {
-      "question": "Why do TemplateFlow templates need to be downloaded manually for fMRIPrep within an Apptainer container?",
-      "answer": "fMRIPrep within the container will attempt to download TemplateFlow templates but will fail, so users must download this data themselves in advance."
-    },
-    {
-      "question": "What are the initial steps to set up and download TemplateFlow data?",
-      "answer": "The initial steps involve loading Python and git-annex, then installing DataLad (optionally in a virtualenv), and finally installing the TemplateFlow metadataset using the commands: `module load python git-annex`, `pip3 install datalad`, and `datalad install -r ///templateflow`."
-    },
-    {
-      "question": "Where are TemplateFlow templates downloaded by default?",
-      "answer": "TemplateFlow templates are downloaded into a shared directory of the user's default project, typically looking something like `/lustre03/project/GROUPNAME/shared/templateflow`."
-    },
-    {
-      "question": "How do you download specific TemplateFlow template subsets?",
-      "answer": "After changing into the TemplateFlow directory (e.g., `/lustre03/project/GROUPNAME/shared/templateflow`), you can download specific subsets using a command like: `datalad get -r tpl-MNI152NLin2009cAsym tpl-OASIS30ANTs`."
-    },
-    {
-      "question": "How often do the DataLad steps for TemplateFlow need to be performed?",
-      "answer": "The DataLad steps for downloading TemplateFlow templates only need to be done once, and they will be available to the user and their project group until deleted."
-    },
-    {
-      "question": "What Apptainer and fMRIPrep environment variables need to be set up?",
-      "answer": "The environment variables to set up are `APPTAINERENV_TEMPLATEFLOW_HOME` and `APPTAINER_BIND`."
-    },
-    {
-      "question": "What is the purpose of the `APPTAINERENV_TEMPLATEFLOW_HOME` environment variable?",
-      "answer": "`APPTAINERENV_TEMPLATEFLOW_HOME` tells the fMRIPrep app where to locate the TemplateFlow templates. An example value is `/lustre03/project/GROUPNAME/shared/templateflow`."
-    },
-    {
-      "question": "What is the function of the `APPTAINER_BIND` environment variable?",
-      "answer": "`APPTAINER_BIND` tells Apptainer which input, output, and log directories to mount, making them accessible to the fMRIPrep app within the container. An example value is `/path/to/input,/path/to/output,/path/to/output/logs,$APPTAINERENV_TEMPLATEFLOW_HOME`."
-    },
-    {
-      "question": "What is an important consideration for directory and filenames when using fMRIPrep?",
-      "answer": "It is important to keep directory and filenames short because fMRIPrep does not accept very long paths."
-    },
-    {
-      "question": "What is the command to run fMRIPrep after setup?",
-      "answer": "The command to run fMRIPrep is: `fmriprep /path/to/input /path/to/output participant --work-dir /path/to/output`."
-    },
-    {
-      "question": "What additional steps are required to run fMRIPrep with FreeSurfer?",
-      "answer": "To run fMRIPrep with FreeSurfer, you must register with FreeSurfer, download the license file, copy it to one of the directories specified in `APPTAINER_BIND`, and then use the `--fs-license-file` option."
-    },
-    {
-      "question": "Who contributed input for the instructions on this page?",
-      "answer": "Pierre Rioux is thanked for the voluminous input on the instructions provided on the page."
+      "question": "How do you configure Apptainer environment variables to enable fMRIPrep to find TemplateFlow templates and access input/output directories?",
+      "answer": "To configure Apptainer environment variables, first set `APPTAINERENV_TEMPLATEFLOW_HOME` to the path of the TemplateFlow templates (e.g., `export APPTAINERENV_TEMPLATEFLOW_HOME=/lustre03/project/GROUPNAME/shared/templateflow`). Then, define `APPTAINER_BIND` to specify the input, output, logs, and TemplateFlow home directories that Apptainer needs to mount, for instance, `export APPTAINER_BIND=/path/to/input,/path/to/output,/path/to/output/logs,$APPTAINERENV_TEMPLATEFLOW_HOME`. It is important to keep these directory and filenames short because fMRIPrep does not accept very long paths."
     }
   ],
-  "generated_at": "2026-04-11T21:27:34.909086+00:00"
+  "generated_at": "2026-04-13T05:15:51.339688+00:00"
 }

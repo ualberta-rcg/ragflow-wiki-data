@@ -4,57 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is the parent page for this documentation on Gaussian errors?",
-      "answer": "The parent page for this documentation is [[Gaussian]]."
+      "question": "What are the common indicators of a normal Gaussian job termination, and what typical issues lead to an abnormal termination without an explicit error message?",
+      "answer": "A Gaussian job normally concludes with an output line similar to \"Normal termination of Gaussian 16 at Tue Nov 14 15:31:56 2017,\" along with the CPU and elapsed times. If a job doesn't display these lines and no other error message appears, it typically signifies that the disk quota was exceeded, the job ran longer than the requested time from the scheduler, the job used more memory than requested, or the job generated too much data for the local disk on the compute node."
     },
     {
-      "question": "Who originally put together this list of Gaussian errors?",
-      "answer": "Professor Cory C. Pye originally assembled this list."
+      "question": "What does an \"Erroneous Write\" message in a Gaussian job output indicate, and what are the recommended steps to fix this error?",
+      "answer": "An \"Erroneous Write\" message in a Gaussian job output, often accompanied by phrases like \"No space left on device\" or \"Probably out of disk space,\" indicates that the job has run out of disk space. This can happen if a disk quota has been exceeded, a disk is physically full, or a network drive is temporarily unavailable. To resolve this, users should check their disk quota with the `quota` command and delete unnecessary files. Alternatively, if the job is too large for the current hardware, using a smaller basis set might be necessary."
     },
     {
-      "question": "What does the output of a normally terminated Gaussian job look like?",
-      "answer": "A normal termination of a Gaussian job will typically show lines such as 'Job cpu time:', 'Elapsed time:', and 'Normal termination of Gaussian 16 at [Date and Time]'."
-    },
-    {
-      "question": "What are the common reasons a Gaussian job might terminate without an explicit error message?",
-      "answer": "If a Gaussian job does not end with normal termination lines and no other error message is produced, it usually means that your disk quota was exceeded, the job exceeded the time requested from the scheduler, the job exceeded the memory requested, or the job produced more data than could fit on the local disk of the compute node."
-    },
-    {
-      "question": "What kind of output indicates an 'Erroneous Write' error in Gaussian?",
-      "answer": "An 'Erroneous Write' error is indicated by output similar to 'Erroneous write. write [number] instead of [number].', 'writwa: File exists', 'writwa: No space left on device', or 'Erroneous write during file extend. Probably out of disk space. Write error in NtrExt1'."
-    },
-    {
-      "question": "What is the typical explanation for an 'Erroneous Write' error in Gaussian?",
-      "answer": "This error typically occurs when you have run out of disk space. This can happen if you have exceeded your quota, if a disk is physically full, or, more rarely, if a network drive is unavailable due to a communication timeout."
-    },
-    {
-      "question": "How can one fix an 'Erroneous Write' error in Gaussian?",
-      "answer": "To fix an 'Erroneous Write' error, check your disk quota with the `quota` command and delete any unnecessary files. If the job is simply too large for the current hardware, try using a smaller basis set."
-    },
-    {
-      "question": "What does the output look like when a 'Link 9999' error occurs in Gaussian?",
-      "answer": "A 'Link 9999' error is indicated by lines such as 'Error termination request processed by link 9999.' and 'Error termination via Lnk1e in /disc30/g98/l9999.exe.' Additionally, lines indicating 'Optimization stopped. -- Number of steps exceeded' with non-converged forces or displacements will usually appear above these."
-    },
-    {
-      "question": "What is the most common cause of a 'Link 9999' error in Gaussian?",
-      "answer": "The most common cause of a 'Link 9999' error is that a geometry optimization has not converged, indicating an abnormal termination for a reason internal to Gaussian."
-    },
-    {
-      "question": "What are the steps to fix a 'Link 9999' error caused by a poor initial starting structure?",
-      "answer": "If a poor initial starting structure is the cause, try optimizing the structure at a lower level of theory and using that as the new starting structure. If the structure appears to be converging, restart the optimization from the last step using `geom=allcheck`, and consider `opt=CalcFC` if it is not too expensive."
-    },
-    {
-      "question": "How can a 'Link 9999' error caused by a poor starting force constants matrix (Hessian) be resolved?",
-      "answer": "To resolve a 'Link 9999' error caused by a poor starting force constants matrix, use a better one. This can involve using a series of linked jobs with `--Link1--`. For previous jobs, `Opt=ReadFC` usually works, but `Opt=CalcFC` or `Opt=CalcAll` may occasionally be needed."
-    },
-    {
-      "question": "What options are available if the coordinate system itself is causing a 'Link 9999' error?",
-      "answer": "If the coordinate system is at fault, particularly due to poor z-matrix choices that result in collinear atoms (e.g., an angle close to 0 or 180 degrees), you should formulate a better z-matrix or use the default redundant internal coordinates."
-    },
-    {
-      "question": "If standard fixes for 'Link 9999' fail, what other optimization methods can be tried?",
-      "answer": "If standard methods fail, another option is to change the optimization method from the default to another type, such as `opt=ef` (if the number of variables is less than 50) or `opt=gdiis` (for floppy molecules)."
+      "question": "What is the primary cause of a \"Link 9999\" error in a Gaussian job when the output mentions \"Optimization stopped. -- Number of steps exceeded,\" and how can this error be addressed?",
+      "answer": "A \"Link 9999\" error in a Gaussian job, especially when accompanied by messages indicating that the optimization stopped due to an exceeded number of steps, means the Gaussian job terminated abnormally due to an internal issue, most commonly a failed geometry optimization convergence. To fix this, one can provide a better initial starting structure (e.g., by optimizing at a lower level of theory), restart the optimization from the last step using `geom=allcheck`, or use a better starting force constants matrix (Hessian) with `Opt=ReadFC` or `Opt=CalcFC`. In some cases, reformulating the z-matrix to avoid collinear atoms or changing the optimization method (e.g., to `opt=ef` or `opt=gdiis`) might also resolve the issue."
     }
   ],
-  "generated_at": "2026-04-11T22:53:29.428475+00:00"
+  "generated_at": "2026-04-13T06:25:21.344291+00:00"
 }

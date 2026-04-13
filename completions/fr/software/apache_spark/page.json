@@ -3,69 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Qu'est-ce qu'Apache Spark?",
-      "answer": "C'est une framework de calcul distribuée open source, initialement développée par l'AMPLab de l'Université Berkeley, et maintenant un projet de la fondation Apache."
+      "question": "Qu'est-ce qu'Apache Spark et d'où vient-il?",
+      "answer": "Apache Spark est un framework de calcul distribué open source initialement développé par l'AMPLab de l'Université Berkeley, et maintenant un projet de la fondation Apache."
     },
     {
-      "question": "Quelle est la principale différence entre Apache Spark et l'algorithme MapReduce implémenté par Hadoop?",
-      "answer": "Contrairement à MapReduce qui utilise le stockage sur disque, Spark utilise des primitives conservées en mémoire, ce qui permet des performances jusqu'à 100 fois plus rapides."
+      "question": "En quoi Apache Spark se distingue-t-il de l'algorithme MapReduce de Hadoop en termes de performance?",
+      "answer": "Contrairement à Hadoop qui utilise le stockage sur disque, Spark utilise des primitives conservées en mémoire, ce qui lui permet d'atteindre des performances jusqu'à 100 fois plus rapides pour certaines applications."
     },
     {
-      "question": "Pour quels types d'applications Apache Spark est-il particulièrement bien adapté?",
-      "answer": "Spark est particulièrement approprié pour l'apprentissage automatique et l'analyse de données interactive, grâce à sa capacité d'interroger fréquemment les données en mémoire."
+      "question": "Pour quelles applications Apache Spark est-il particulièrement approprié?",
+      "answer": "Spark est particulièrement approprié pour l'apprentissage automatique et l'analyse de données interactive, car le chargement des données en mémoire permet de les interroger fréquemment."
     },
     {
-      "question": "Quelles sont les deux principales façons d'utiliser Apache Spark mentionnées dans le document?",
-      "answer": "On peut utiliser Apache Spark avec PySpark (Python) ou avec des Java Jars."
+      "question": "Quels modules doivent être chargés pour utiliser PySpark sur les grappes de calcul de l'Alliance?",
+      "answer": "Pour utiliser PySpark, il faut charger les modules `spark/2.3.0` et `python/3.7`."
     },
     {
-      "question": "Dans l'exemple PySpark fourni, quels modules faut-il charger avant de soumettre une tâche?",
-      "answer": "Il faut charger les modules `spark/2.3.0` et `python/3.7`."
+      "question": "Quelles sont les étapes clés pour exécuter une application PySpark sur une grappe de calcul de l'Alliance en utilisant un script SBATCH?",
+      "answer": "Il faut charger les modules requis, définir des variables d'environnement, démarrer un maître Spark avec `start-master.sh`, lancer les esclaves avec `srun start-slave.sh`, soumettre l'application avec `spark-submit`, puis arrêter les esclaves et le maître."
     },
     {
-      "question": "Quelles sont quelques variables d'environnement importantes souvent configurées avant de lancer une tâche Spark via un script SLURM?",
-      "answer": "On configure souvent `MKL_NUM_THREADS`, `SPARK_IDENT_STRING`, `SPARK_WORKER_DIR` et `SLURM_SPARK_MEM`."
+      "question": "Comment l'exécution d'une application Java JAR avec Spark sur les grappes de calcul de l'Alliance diffère-t-elle d'une application PySpark?",
+      "answer": "Pour une application Java JAR, la commande `spark-submit` nécessite l'argument `--class` pour spécifier la classe principale du JAR, et seul le module `spark/2.3.0` est nécessaire. Le reste du processus de démarrage est similaire."
     },
     {
-      "question": "Comment démarre-t-on le maître (master) et les travailleurs (slaves) d'un cluster Spark dans les scripts d'exemple?",
-      "answer": "Le maître est démarré avec `start-master.sh`, puis les travailleurs sont lancés avec `srun` et `start-slave.sh`."
+      "question": "Quels paramètres SLURM sont communément configurés pour une tâche Spark sur les grappes de calcul de l'Alliance?",
+      "answer": "Les paramètres SLURM typiques incluent `--account`, `--time`, `--nodes`, `--mem`, `--cpus-per-task` et `--ntasks-per-node`."
     },
     {
-      "question": "Comment soumet-on une application PySpark à un cluster Spark?",
-      "answer": "On utilise la commande `spark-submit --master [URL_DU_MAÎTRE] [votre_script_python.py]`."
+      "question": "Pourquoi est-il important de définir la variable d'environnement `MKL_NUM_THREADS` lors de l'utilisation de Spark avec des routines Intel MKL?",
+      "answer": "Il est recommandé de définir `MKL_NUM_THREADS=1` pour optimiser l'appel des routines Intel MKL à partir d'applications multi-threadées."
     },
     {
-      "question": "Comment soumet-on une application Java Jar à un cluster Spark?",
-      "answer": "On utilise la commande `spark-submit --class [classe_principale] [votre_fichier.jar]`."
+      "question": "Quel est le but des variables d'environnement `SPARK_IDENT_STRING` et `SPARK_WORKER_DIR` dans les scripts SBATCH Spark?",
+      "answer": "`SPARK_IDENT_STRING` identifie le travail Spark, souvent avec l'ID du travail SLURM, et `SPARK_WORKER_DIR` spécifie le répertoire de travail des esclaves Spark, généralement réglé sur le répertoire temporaire SLURM."
     },
     {
-      "question": "Pourquoi voudrait-on activer la sauvegarde des journaux d'activités de l'application Spark?",
-      "answer": "Pour pouvoir consulter les journaux ultérieurement à l'aide d'une application web fournie avec Spark."
+      "question": "Quel est l'avantage de la surveillance des activités des applications Spark?",
+      "answer": "La surveillance permet de sauvegarder et de consulter les journaux d'activités des applications Spark exécutées à l'aide d'une application web, ce qui est utile pour le débogage et l'analyse."
     },
     {
-      "question": "Quelles sont les étapes de configuration pour activer les journaux d'événements de Spark?",
-      "answer": "Il faut créer les répertoires `~/.spark/<spark version>/eventlog` et `~/.spark/<spark version>/conf`, puis ajouter des paramètres à `spark-defaults.conf`."
+      "question": "Comment configure-t-on Spark pour activer la sauvegarde des journaux d'événements d'application?",
+      "answer": "Il faut créer des répertoires pour les journaux et la configuration Spark, puis créer ou modifier le fichier `spark-defaults.conf` en y ajoutant les lignes `spark.eventLog.enabled true`, `spark.eventLog.dir` et `spark.history.fs.logDirectory`."
     },
     {
-      "question": "Quels sont les paramètres essentiels à inclure dans le fichier `spark-defaults.conf` pour les journaux d'événements?",
-      "answer": "Il faut configurer `spark.eventLog.enabled true`, `spark.eventLog.dir` et `spark.history.fs.logDirectory`."
+      "question": "Qu'est-ce qui est requis pour accéder à l'application web Spark pour la visualisation des journaux depuis un ordinateur local?",
+      "answer": "Il est nécessaire de créer un tunnel SSH entre votre ordinateur et la grappe de calcul pour accéder à l'application web de visualisation des journaux."
     },
     {
-      "question": "Quelle est la première étape pour visualiser les journaux d'activités Spark avec l'application web?",
-      "answer": "Il faut créer un tunnel SSH entre votre ordinateur et la grappe de calcul."
+      "question": "Quelles sont les étapes pour lancer l'application web Spark pour la visualisation de l'historique?",
+      "answer": "Après avoir établi un tunnel SSH, il faut charger le module Spark (ex: `module load spark/2.3.0`) et lancer l'application avec la commande `SPARK_NO_DAEMONIZE=1 start-history-server.sh`."
     },
     {
-      "question": "Quelle commande utilise-t-on pour lancer l'application web de visualisation des journaux d'activités Spark (History Server)?",
-      "answer": "On utilise la commande `SPARK_NO_DAEMONIZE=1 start-history-server.sh`."
+      "question": "Quel port est utilisé par le serveur d'historique Spark pour son interface web?",
+      "answer": "Le serveur d'historique Spark utilise le port 18080 pour son interface web."
     },
     {
-      "question": "Sur quel port l'application web de visualisation des journaux Spark est-elle généralement accessible?",
-      "answer": "Elle est généralement accessible sur le port 18080."
-    },
-    {
-      "question": "Comment arrête-t-on l'application de visualisation des journaux Spark après l'avoir lancée?",
-      "answer": "On entre la combinaison de touches Ctrl-C dans le terminal ayant servi à lancer l'application."
+      "question": "Comment un utilisateur peut-il arrêter l'application du serveur d'historique Spark?",
+      "answer": "Pour arrêter l'application de visualisation des journaux, l'utilisateur doit entrer la combinaison de touches `Ctrl-C` dans le terminal où l'application a été lancée."
     }
   ],
-  "generated_at": "2026-04-11T17:23:55.185305+00:00"
+  "generated_at": "2026-04-13T02:07:51.908167+00:00"
 }

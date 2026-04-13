@@ -4,33 +4,13 @@
   "chunk_index": 32,
   "qa_pairs": [
     {
-      "question": "Quel module Ansys est chargé dans ce bout de script?",
-      "answer": "Le script charge le module `ansys/2024R1.03`."
+      "question": "Comment peut-on lancer une simulation Ansys Mechanical APDL en mode parallèle à mémoire partagée (SMP) sur les grappes de l'Alliance, et quels sont les éléments clés du script Slurm à utiliser?",
+      "answer": "Pour lancer une simulation Ansys Mechanical APDL en mode SMP, il faut utiliser un script Slurm, comme `script-smp-2023-cpu.sh`. Ce script doit d'abord charger l'environnement standard (`StdEnv/2023`) et le module Ansys désiré (par exemple `ansys/2024R1.03`). La commande `mapdl -smp` est ensuite utilisée avec des options comme `-b nolist` pour le mode batch, `-np $SLURM_NTASKS` pour spécifier le nombre de cœurs à utiliser et `-i YOURAPDLFILE.inp` pour le fichier d'entrée APDL. Il est important de noter que sur la grappe Cedar, il est nécessaire d'exporter la variable `LD_LIBRARY_PATH` pour inclure la bibliothèque `lib/gcc`."
     },
     {
-      "question": "À quoi sert la commande `mkdir` dans ce segment de script?",
-      "answer": "La commande `mkdir` sert à créer un nouveau répertoire nommé `outdir-` suivi de l'identifiant de la tâche Slurm (`$SLURM_JOBID`), où les fichiers de sortie seront stockés."
-    },
-    {
-      "question": "Dans quelles conditions la variable d'environnement `LD_LIBRARY_PATH` est-elle modifiée?",
-      "answer": "La variable d'environnement `LD_LIBRARY_PATH` est modifiée seulement si le grappe utilisé est `cedar`."
-    },
-    {
-      "question": "Quelle commande est employée pour lancer le solveur APDL en mode parallèle à mémoire partagée?",
-      "answer": "La commande utilisée pour lancer le solveur APDL en mode parallèle à mémoire partagée (SMP) est `mapdl -smp`."
-    },
-    {
-      "question": "Comment le script définit-il le nombre de cœurs à utiliser pour une simulation APDL?",
-      "answer": "Le script utilise l'option `-np $SLURM_NTASKS` pour spécifier le nombre de cœurs, en se basant sur la variable Slurm `$SLURM_NTASKS`."
-    },
-    {
-      "question": "Quel est le nom du fichier d'entrée requis par la commande `mapdl`?",
-      "answer": "Le fichier d'entrée pour la simulation APDL est `YOURAPDLFILE.inp`."
-    },
-    {
-      "question": "Comment le script s'assure-t-il que le solveur APDL fonctionne en mode non interactif?",
-      "answer": "Le script utilise l'option `-b nolist` pour que le solveur APDL fonctionne en mode non interactif, sans liste."
+      "question": "Quelles sont les étapes pour exécuter une simulation Ansys Mechanical APDL en mode parallèle à mémoire distribuée (DMP) sur les grappes de l'Alliance, et comment les configurations MPI varient-elles selon les grappes?",
+      "answer": "Pour exécuter une simulation Ansys Mechanical APDL en mode DMP, on utilise un script Slurm comme `script-dmp-2023-cpu.sh`. Après avoir chargé les modules `StdEnv/2023` et `ansys/2024R1.03`, la commande `mapdl -dis` est employée. La configuration MPI dépend de la grappe: sur Beluga, il faut utiliser `-mpi intelmpi` et exporter `KMP_AFFINITY=none`. Sur les autres grappes, comme Cedar, on utilise `-mpi openmpi`. De plus, pour Cedar, il faut créer un lien symbolique pour `libstdc++.so.6.0.29` dans le répertoire de sortie et exporter `LD_LIBRARY_PATH` pour inclure ce répertoire."
     }
   ],
-  "generated_at": "2026-04-12T17:03:11.332670+00:00"
+  "generated_at": "2026-04-13T01:59:41.086537+00:00"
 }

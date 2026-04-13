@@ -4,57 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How do I enable the software environment in my session?",
-      "answer": "You can enable the software environment by sourcing the bash script `/cvmfs/soft.computecanada.ca/config/profile/bash.sh`. For example, `source /cvmfs/soft.computecanada.ca/config/profile/bash.sh`. To mimic a specific cluster, define the `CC_CLUSTER` variable first, such as `export CC_CLUSTER=rorqual`."
+      "question": "How do users enable the CVMFS software environment in their session, and what specific conditions or steps are needed if their user ID is below 1000?",
+      "answer": "Users can enable the CVMFS software environment by sourcing the bash script `/cvmfs/soft.computecanada.ca/config/profile/bash.sh`. However, this command will not execute if the user's ID is below 1000, serving as a safeguard against privileged operations. To enable the environment for such user IDs, one must first define the environment variable `FORCE_CC_CVMFS=1` (e.g., `export FORCE_CC_CVMFS=1`) or create a file named `$HOME/.force_cc_cvmfs` in their home directory."
     },
     {
-      "question": "Why might the software environment command not run for my user ID?",
-      "answer": "The command will not execute if your user ID is below 1000. This is a safety measure to prevent reliance on the software environment for privileged operations."
-    },
-    {
-      "question": "How can I force the software environment to enable if my user ID is below 1000?",
-      "answer": "To force the environment to enable, you can define the environment variable `FORCE_CC_CVMFS=1` (e.g., `export FORCE_CC_CVMFS=1`) or create an empty file named `$HOME/.force_cc_cvmfs` in your home directory (e.g., `touch $HOME/.force_cc_cvmfs`)."
-    },
-    {
-      "question": "How do I prevent the software environment from being enabled in a session?",
-      "answer": "To prevent the environment from being enabled, you can define the environment variable `SKIP_CC_CVMFS=1` or create an empty file named `$HOME/.skip_cc_cvmfs` in your home directory."
-    },
-    {
-      "question": "How can I customize the default behaviour of the software environment?",
-      "answer": "You can customize the default behaviour of the software environment by defining specific environment variables prior to enabling the environment."
-    },
-    {
-      "question": "What is the purpose of the `CC_CLUSTER` environment variable?",
-      "answer": "The `CC_CLUSTER` environment variable is used to identify a cluster, send information to system logs, and define behaviour related to licensed software. Its default value is `computecanada`."
-    },
-    {
-      "question": "What is the `RSNT_ARCH` environment variable used for, and what are its supported values?",
-      "answer": "The `RSNT_ARCH` environment variable identifies the set of CPU instructions supported by the system. While it's usually detected automatically, you can force a specific value. Supported instruction sets include sse3, avx, avx2, and avx512."
-    },
-    {
-      "question": "What is the function of the `RSNT_INTERCONNECT` environment variable?",
-      "answer": "The `RSNT_INTERCONNECT` environment variable identifies the type of interconnect supported by the system. It's automatically detected, with `ethernet` as a fallback. Supported values are `omnipath`, `infiniband`, and `ethernet`, and its value influences the transport protocol options used in OpenMPI."
-    },
-    {
-      "question": "How is the `RSNT_CUDA_DRIVER_VERSION` environment variable used?",
-      "answer": "The `RSNT_CUDA_DRIVER_VERSION` environment variable hides or shows CUDA module versions based on required NVidia drivers. If not defined, it's detected from files under `/usr/lib64/nvidia`. Defining `RSNT_CUDA_DRIVER_VERSION=0.0` will hide all CUDA versions."
-    },
-    {
-      "question": "What assumption is made regarding CUDA driver versions for backward compatibility if no libraries are found under `/usr/lib64/nvidia`?",
-      "answer": "For backward compatibility, if no library is found under `/usr/lib64/nvidia`, it is assumed that the driver versions are sufficient for CUDA 10.2. This feature was introduced around the release of CUDA 11.0."
-    },
-    {
-      "question": "What is the purpose of the `RSNT_LOCAL_MODULEPATHS` environment variable?",
-      "answer": "The `RSNT_LOCAL_MODULEPATHS` environment variable allows you to define locations for local hierarchical module trees installed via EasyBuild, which will automatically integrate into the central module tree."
-    },
-    {
-      "question": "How do I use `RSNT_LOCAL_MODULEPATHS` to install EasyBuild recipes?",
-      "answer": "First, define the variable (e.g., `export RSNT_LOCAL_MODULEPATHS=/opt/software/easybuild/modules`). Then, install your EasyBuild recipe using `eb --installpath /opt/software/easybuild <your recipe>.eb`. This will install the software using the hierarchical layout, making it discoverable when compiler, MPI, and CUDA modules are loaded."
-    },
-    {
-      "question": "How should I add a local path to a flat module tree, as distinct from a hierarchical one?",
-      "answer": "To add a local path to a flat module tree, use the `module use` command *after* sourcing the central scripts. Use `module use --priority 1 /path/to/your/flat/module/tree` for higher priority, or `module use --priority -1 /path/to/your/flat/module/tree` for lower priority."
+      "question": "What are some of the key environment variables available to customize the behaviour of the CVMFS software environment, and what aspects of the system do they control?",
+      "answer": "Several environment variables are available for customizing the CVMFS software environment. `CC_CLUSTER` is used to identify the cluster for system logs and licensed software. `RSNT_ARCH` identifies the CPU instruction set (e.g., sse3, avx, avx2, avx512), which can be overridden from automatic detection. `RSNT_INTERCONNECT` specifies the system's interconnect type (e.g., omnipath, infiniband, ethernet) to influence OpenMPI transport protocols. `RSNT_CUDA_DRIVER_VERSION` helps hide or show specific CUDA module versions based on NVidia driver compatibility. Finally, `RSNT_LOCAL_MODULEPATHS` allows defining locations for local EasyBuild module trees to seamlessly integrate them into the central module hierarchy."
     }
   ],
-  "generated_at": "2026-04-11T15:46:06.476427+00:00"
+  "generated_at": "2026-04-13T00:55:52.365863+00:00"
 }

@@ -4,81 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Comment configurer un script Slurm pour une tâche multifil avec GPU utilisant 16 cœurs CPU et 1 GPU H100?",
-      "answer": "Le script devrait inclure les directives Slurm `#SBATCH --cpus-per-task=16`, `#SBATCH --mem=10g`, `#SBATCH --time=0:15:00`, et `#SBATCH --gpus-per-node=h100:1`. Il doit aussi charger les modules `StdEnv/2023`, `gcc/12.3`, `cuda/12.6` et `namd-multicore/3.0.2` avant d'exécuter `namd3 +p$SLURM_CPUS_PER_TASK +idlepoll stmv.namd`."
+      "question": "Comment est configuré l'exemple de script pour les tâches NAMD UCX sur plusieurs nœuds GPU, notamment pour la grappe Narval, et quelle est la mise en garde concernant les versions de NAMD et les GPU H100?",
+      "answer": "L'exemple de script pour Narval est configuré pour 8 tâches réparties sur 2 nœuds, avec 4 tâches par nœud. Chaque tâche utilise 12 fils CPU et 1 GPU A100. Le script charge la version `namd-ucx-smp/2.14`. Il est important de noter que la version 2.14 ne devrait pas être utilisée sur les grappes qui ont des GPU H100, et la version UCX NAMD 3.0.1 pour les GPU H100 n'est pas encore installée sur nos grappes."
     },
     {
-      "question": "Quel paramètre d'entrée est recommandé d'ajouter pour améliorer la performance de NAMD 3 sur un GPU?",
-      "answer": "Pour obtenir une meilleure performance avec NAMD 3 sur un GPU, il est fortement recommandé d'ajouter la ligne `GPUresident on;` à votre fichier de configuration, pourvu que la configuration en entrée le permette."
+      "question": "Pourquoi est-il recommandé de procéder à un étalonnage (benchmarking) pour les simulations NAMD sur les grappes de calcul?",
+      "answer": "L'étalonnage est très utile pour les simulations NAMD de longue durée, car la performance peut varier selon les systèmes simulés, notamment en fonction de la quantité d'atomes. Les données ainsi collectées peuvent également servir à documenter les demandes pour les concours d'allocation de ressources."
     },
     {
-      "question": "Dans quelles conditions l'utilisation de tâches UCX avec plusieurs nœuds GPU est-elle justifiée?",
-      "answer": "L'utilisation de tâches UCX avec plusieurs nœuds GPU est justifiée uniquement quand la tâche peut les utiliser à leur plein potentiel, car un seul nœud GPU offre déjà une bonne puissance de calcul."
-    },
-    {
-      "question": "Décrivez un exemple de configuration pour des tâches UCX avec GPU sur la grappe Narval.",
-      "answer": "Un exemple pour Narval est de configurer 8 tâches sur 2 nœuds, où chaque tâche utilise 12 fils et 1 GPU. Cette configuration exploite pleinement les nœuds GPU de Narval, qui possèdent 48 cœurs et 4 GPU par nœud."
-    },
-    {
-      "question": "Pourquoi NAMD peut-il rapporter moins de cœurs utilisés que le nombre de cœurs alloués dans un script UCX sur Narval?",
-      "answer": "Il est normal que NAMD rapporte moins de cœurs utilisés car 1 cœur par tâche est réservé à un fil de communication."
-    },
-    {
-      "question": "Est-ce que la version 2.14 de NAMD est recommandée pour les grappes avec des GPU H100 pour les tâches UCX?",
-      "answer": "Non, la version 2.14 de NAMD ne devrait pas être utilisée sur les grappes qui ont des GPU H100 pour les tâches UCX."
-    },
-    {
-      "question": "La version UCX NAMD 3.0.1 pour les GPU H100 est-elle disponible sur les grappes?",
-      "answer": "Non, la version UCX NAMD 3.0.1 pour les GPU H100 n'est pas encore installée sur nos grappes."
-    },
-    {
-      "question": "Comment un script Slurm devrait-il être configuré pour des tâches UCX sur 2 nœuds utilisant des GPU A100?",
-      "answer": "Un script Slurm devrait inclure `#SBATCH --nodes=2`, `#SBATCH --ntasks-per-node=4`, `#SBATCH --cpus-per-task=12`, `#SBATCH --gpus-per-node=a100:4`, `#SBATCH --mem=0` et `#SBATCH --time=0:15:00`. Les modules à charger sont `StdEnv/2020`, `intel/2020.1.217`, `cuda/11.0` et `namd-ucx-smp/2.14`. L'exécution se fait via `srun --cpus-per-task=$SLURM_CPUS_PER_TASK --mpi=pmi2 namd2 ++ppn $NUM_PES stmv.namd`."
-    },
-    {
-      "question": "Quel est l'objectif du guide 'Molecular Dynamics Performance Guide' d'ACENET?",
-      "answer": "Le guide 'Molecular Dynamics Performance Guide' a été créé par une équipe d'ACENET pour décrire les conditions optimales d'exécution des tâches sur nos grappes avec des logiciels tels qu'AMBER, GROMACS, OpenMM et NAMD."
-    },
-    {
-      "question": "Pourquoi est-il crucial d'effectuer un étalonnage (benchmarking) pour les simulations NAMD, surtout pour les tâches de longue durée?",
-      "answer": "La performance de NAMD varie beaucoup en fonction des systèmes simulés et de la quantité d'atomes. Un étalonnage permet d'optimiser les simulations de longue durée et de recueillir des données pour documenter les demandes d'allocation de ressources."
-    },
-    {
-      "question": "Quels sont les facteurs importants pour obtenir des résultats pertinents lors de l'étalonnage de performance de NAMD?",
-      "answer": "Il est suggéré de varier le nombre d'étapes pour que la simulation dure quelques minutes et de collecter les données de durée à des intervalles d'au moins quelques secondes, afin d'éviter des variations dans les résultats si le temps d'exécution est trop court."
-    },
-    {
-      "question": "Sur quelle grappe et avec quelle configuration les données d'étalonnage standard apoa1 ont-elles été collectées?",
-      "answer": "Les données d'étalonnage standard apoa1 ont été collectées sur la grappe Graham, laquelle possède des nœuds CPU de 32 cœurs et des nœuds GPU de 32 cœurs avec 2 GPU."
-    },
-    {
-      "question": "Comment l'efficacité est-elle calculée dans l'exemple d'étalonnage CPU avec NAMD 2.12 et le module verbs?",
-      "answer": "L'efficacité est calculée avec la formule suivante : (durée avec 1 cœur) / (N * (durée avec N cœurs))."
-    },
-    {
-      "question": "Selon l'étalonnage CPU avec NAMD 2.12, quel nombre de cœurs est jugé acceptable pour simuler le système apoa1?",
-      "answer": "Selon l'étalonnage, il est acceptable d'utiliser 256 cœurs pour simuler le système apoa1."
-    },
-    {
-      "question": "Quel est l'impact de demander un nombre excessif de cœurs pour une tâche NAMD?",
-      "answer": "Demander plus de cœurs qu'il n'en faut peut entraîner des temps d'attente plus longs pour vos tâches et affecter négativement votre résultat d'ensemble."
-    },
-    {
-      "question": "Quand faut-il utiliser le module multicœur de NAMD et quand le module verbs-smp pour les tâches GPU?",
-      "answer": "Le module multicœur de NAMD est utilisé pour les simulations pouvant être effectuées avec un seul nœud, tandis que le module verbs-smp est requis pour les tâches nécessitant plusieurs nœuds."
-    },
-    {
-      "question": "D'après l'étalonnage GPU, quelle est la configuration la plus efficace avec un seul nœud sur Graham, et quelle est une alternative acceptable?",
-      "answer": "Avec un seul nœud, la configuration la plus efficace est d'utiliser 1 GPU et 16 cœurs. L'utilisation de 2 GPU et 32 cœurs est acceptable si les résultats doivent être produits rapidement."
-    },
-    {
-      "question": "L'étalonnage GPU indique-t-il un avantage à utiliser plus d'un nœud GPU pour les tâches NAMD sur Graham?",
-      "answer": "Non, les données de l'étalonnage indiquent qu'il est absolument inutile d'utiliser plus d'un nœud GPU, car la performance décroît avec 2 nœuds ou plus."
-    },
-    {
-      "question": "Quel est le conseil économique concernant le choix entre les nœuds GPU et CPU sur Graham, compte tenu des coûts et de la performance?",
-      "answer": "Il est plus économique d'utiliser les GPU sur Graham, car malgré un coût près de deux fois supérieur à celui d'un nœud CPU, ils traitent la tâche plus rapidement. Cependant, si les temps d'attente pour les nœuds GPU sont trop longs, il est judicieux de considérer l'utilisation des nœuds CPU, qui sont plus nombreux."
+      "question": "Quelles sont les suggestions pour obtenir des résultats d'étalonnage fiables et pertinents pour les simulations NAMD?",
+      "answer": "Pour obtenir des résultats d'étalonnage pertinents, il est suggéré de varier le nombre d'étapes pour que la simulation du système se fasse sur quelques minutes et que la collecte des données de durée se fasse à des intervalles d'au moins quelques secondes. Un temps d'exécution trop court pourrait en effet entraîner des variations dans les résultats de durée."
     }
   ],
-  "generated_at": "2026-04-12T03:34:14.539875+00:00"
+  "generated_at": "2026-04-13T09:49:35.185312+00:00"
 }

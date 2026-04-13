@@ -4,125 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "Can new jobs be submitted from Trillium's compute nodes?",
-      "answer": "No, jobs cannot be submitted from compute nodes or datamover nodes on Trillium."
+      "question": "Can users submit new jobs from Trillium's compute nodes or datamover nodes?",
+      "answer": "No, jobs cannot be submitted from compute nodes or datamover nodes on Trillium. This restriction is implemented to prevent accidentally spawning many jobs, which could overload the scheduler and the backup process."
     },
     {
-      "question": "What is the reason for restricting job submission from compute nodes on Trillium?",
-      "answer": "This restriction is in place to prevent accidentally spawning too many jobs, which could overload the scheduler and the backup process."
+      "question": "How are CPU cores and memory allocated for jobs on Trillium's CPU subcluster, and what should users do if their job requires fewer cores than allocated?",
+      "answer": "On Trillium's CPU subcluster, jobs are always allocated full nodes, meaning a minimum of 192 cores are available for each CPU job. Memory requests are ignored, as CPU jobs always receive N × 768GiB of RAM, where N is the number of nodes. If a job underutilizes the 192 cores, users must still effectively use all cores by bundling multiple independent tasks into one job script."
     },
     {
-      "question": "Is it possible to request a specific number of CPU cores on Trillium?",
-      "answer": "No, it is not possible to request a certain number of CPU cores on Trillium. All CPU jobs must use full nodes."
-    },
-    {
-      "question": "What is the minimum job size for the CPU subcluster on Trillium?",
-      "answer": "The minimum size for a CPU job is one full node, which provides 192 cores."
-    },
-    {
-      "question": "What should users do if their CPU job doesn't fully utilize the 192 cores on a node?",
-      "answer": "If a CPU job underutilizes the 192 cores on a node, users should bundle multiple independent tasks into one job script to use the cores effectively, or contact the support team for assistance."
-    },
-    {
-      "question": "How does the scheduler manage GPU job requests on Trillium?",
-      "answer": "The scheduler for the GPU subcluster allows requests for either a whole number of nodes or a single GPU."
-    },
-    {
-      "question": "How many GPUs does each GPU compute node contain on Trillium?",
-      "answer": "Each GPU compute node on Trillium contains 4 GPUs."
-    },
-    {
-      "question": "What resources are allocated when a single GPU is requested on the GPU subcluster?",
-      "answer": "Requesting a single GPU on the GPU subcluster amounts to a quarter node, with 24 cores and approximately 188 GiB of RAM."
-    },
-    {
-      "question": "Does Trillium's GPU subcluster support NVIDIA's MIG technology?",
-      "answer": "No, Trillium does not support NVIDIA's MIG technology for scheduling a fraction of a GPU."
-    },
-    {
-      "question": "Can Hyper-Q / MPS be utilized within GPU jobs on Trillium?",
-      "answer": "Yes, users can use Hyper-Q / MPS (Multi-Process Service) within their GPU jobs to share a GPU among processes."
-    },
-    {
-      "question": "Are memory requests honoured by the Trillium scheduler?",
-      "answer": "No, memory requests are ignored on Trillium."
-    },
-    {
-      "question": "How much RAM do CPU jobs receive on Trillium?",
-      "answer": "CPU jobs on Trillium always receive N × 768 GiB of RAM, where N is the number of nodes requested."
-    },
-    {
-      "question": "What is the memory allocation for GPU full-node jobs on Trillium?",
-      "answer": "GPU full-node jobs receive the same amount of memory as CPU jobs, which is N × 768 GiB, where N is the number of nodes."
-    },
-    {
-      "question": "What is the memory allocation for single-GPU jobs on Trillium?",
-      "answer": "Single-GPU jobs on Trillium receive 1/4 of a node's memory, which is 188 GiB."
-    },
-    {
-      "question": "Which SLURM option is used to specify the number of nodes for a job?",
-      "answer": "The `--nodes` (or short option `-N`) option is used to specify the number of nodes for a job."
-    },
-    {
-      "question": "How can I specify the number of tasks for `srun` or `mpirun` to launch per node?",
-      "answer": "You can use the `--ntasks-per-node` option to specify the number of tasks for `srun` or `mpirun` to launch per node."
-    },
-    {
-      "question": "Which option is recommended for specifying tasks: `--ntasks` or `--ntasks-per-node`?",
-      "answer": "The `--ntasks-per-node` option is preferred over `--ntasks`."
-    },
-    {
-      "question": "What option should be used to specify the number of cores per task, particularly for OpenMP threads?",
-      "answer": "The `--cpus-per-task` (or short option `-c`) option is used to specify the number of cores per task, typically for OpenMP threads."
-    },
-    {
-      "question": "How do I define the maximum duration for my job?",
-      "answer": "You use the `--time` (or short option `-t`) option to define the maximum duration for your job."
-    },
-    {
-      "question": "What option allows a user to assign a specific name to their job?",
-      "answer": "The `--job-name` (or short option `-J`) option allows a user to assign a specific name to their job."
-    },
-    {
-      "question": "How can standard output be redirected to a file in a job script?",
-      "answer": "The `--output` (or short option `-o`) option is used to redirect standard output to a file. It can also use patterns, such as `%j` for the job ID."
-    },
-    {
-      "question": "What option controls when email notifications are sent for a job?",
-      "answer": "The `--mail-type` option is used to control when email notifications are sent for a job (e.g., BEGIN, END, FAIL, ALL)."
-    },
-    {
-      "question": "What are the allowed values for `--gpus-per-node` on the GPU subcluster?",
-      "answer": "On the GPU subcluster, the `--gpus-per-node` option can only be set to either 1 or 4."
-    },
-    {
-      "question": "How do I specify the SLURM partition for my job submission?",
-      "answer": "You specify the SLURM partition using the `--partition` (or short option `-p`) option."
-    },
-    {
-      "question": "What option is used to explicitly specify the SLURM account for a job?",
-      "answer": "The `--account` (or short option `-A`) option is used to explicitly specify the SLURM account for a job."
-    },
-    {
-      "question": "How are common job script options incorporated into a job script?",
-      "answer": "These options should be placed in separate comment lines at the top of the job script, prefixed with `#SBATCH`, typically after `#!/bin/bash`."
-    },
-    {
-      "question": "Can common job script options also be used with the `salloc` command?",
-      "answer": "Yes, these options can also be used as command line options for `salloc`."
-    },
-    {
-      "question": "What do 'partitions' refer to in SLURM terminology?",
-      "answer": "In SLURM terminology, 'partitions' refer to different use cases or queues for jobs."
-    },
-    {
-      "question": "What is the default partition for jobs if one is not explicitly specified?",
-      "answer": "If a partition is not explicitly specified, the job will run in the `compute` partition, which is the most common use case."
-    },
-    {
-      "question": "What factors influence the waiting time for jobs in the queue?",
-      "answer": "The waiting time for jobs depends on several factors, including the user group's allocation amount, recent past usage, the number of requested nodes and walltime, and the total number of other jobs currently waiting in the queue."
+      "question": "How are GPUs and memory allocated for jobs on Trillium's GPU subcluster, and does Trillium support NVIDIA's MIG technology?",
+      "answer": "On Trillium's GPU subcluster, the scheduler allows users to request either a whole number of nodes (each containing 4 GPUs) or a single GPU. A single-GPU job amounts to a quarter node, with 24 cores and about 188GiB of RAM. Memory requests using `--mem` are ignored, with full GPU node jobs receiving 755GiB. Trillium does not support NVIDIA's MIG technology for fractional GPU allocation, but users can employ Hyper-Q / MPS within their jobs."
     }
   ],
-  "generated_at": "2026-04-12T09:46:12.571931+00:00"
+  "generated_at": "2026-04-13T14:55:54.971070+00:00"
 }

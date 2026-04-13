@@ -3,105 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Project Jupyter?",
-      "answer": "Project Jupyter is a non-profit, open-source project, born out of the IPython Project in 2014, supporting interactive data science and scientific computing across all programming languages."
+      "question": "What is Project Jupyter, and what is its relation to Jupyter Notebook?",
+      "answer": "Project Jupyter is a non-profit, open-source project that evolved from the IPython Project in 2014 to support interactive data science and scientific computing. Jupyter Notebook is an open-source web application from Project Jupyter that allows users to create and share documents containing live code, equations, visualizations, and narrative text."
     },
     {
-      "question": "What is the Jupyter Notebook?",
-      "answer": "The Jupyter Notebook is an open-source web application that allows you to create and share documents containing live code, equations, visualizations, and narrative text."
+      "question": "Why is it recommended to run Jupyter Notebook on a compute node rather than a login node on Alliance clusters?",
+      "answer": "Login nodes on Alliance clusters impose various user- and process-based limits, meaning applications running there might be terminated if they consume excessive CPU time or memory. Running Jupyter Notebook on a compute node allows users to submit a job requesting specific CPU, GPU, memory, and runtime resources, ensuring better stability and performance."
     },
     {
-      "question": "Where can Jupyter Notebook be run, and what are the recommendations?",
-      "answer": "Jupyter Notebook can be run on a compute node or a login node, though running on login nodes is not recommended due to user- and process-based limits."
+      "question": "What are the recommended alternatives to Jupyter Notebook for users on Alliance clusters?",
+      "answer": "Users are encouraged to consider installing JupyterLab as it is a newer Jupyter interface. For a preconfigured Jupyter environment, users should refer to the dedicated 'Jupyter' page."
     },
     {
-      "question": "What are the suggested alternatives to Jupyter Notebook?",
-      "answer": "Users should consider installing JupyterLab, which is a newer interface, or refer to the \"Jupyter\" page for a preconfigured Jupyter environment."
+      "question": "What is the general process for installing Jupyter Notebook within a Python virtual environment on Alliance clusters?",
+      "answer": "To install Jupyter Notebook, users need to load a Python module, create and activate a new Python virtual environment in their home directory, and then use `pip` to install Jupyter Notebook and related dependencies within that virtual environment."
     },
     {
-      "question": "What is the first step to installing Jupyter Notebook with pip?",
-      "answer": "The first step is to load the Python module, for example, `module load python/3.7`."
+      "question": "What is Jupyter Lmod, and how does it enhance Jupyter Notebook on Alliance clusters?",
+      "answer": "Jupyter Lmod is an extension for Jupyter Notebook that allows users to interact with environment modules before launching kernels. It uses Lmod's Python interface to perform module-related tasks like loading, unloading, or saving module collections."
     },
     {
-      "question": "How do you create a Python virtual environment for Jupyter Notebook?",
-      "answer": "You create a new Python virtual environment in your home directory, for instance, `virtualenv $HOME/jupyter_py3`."
+      "question": "How does the nbserverproxy extension benefit Jupyter Notebook users on Alliance clusters?",
+      "answer": "The nbserverproxy extension enables users to access arbitrary web services running within their spawned Jupyter server, even if they are listening only on a port of the localhost. This is useful for services like TensorBoard."
     },
     {
-      "question": "How do you activate the Python virtual environment for Jupyter Notebook installation?",
-      "answer": "Activate the virtual environment using `source $HOME/jupyter_py3/bin/activate`."
+      "question": "What is the purpose of RStudio Launcher in Jupyter Notebook, and what are its software environment limitations?",
+      "answer": "RStudio Launcher adds an 'RStudio Session' option to the Jupyter Notebook 'New' dropdown list, allowing users to start an RStudio session with Jupyter Notebook's token authentication. However, its installation procedure only works with the `StdEnv/2016.4` and `StdEnv/2018.3` software environments."
     },
     {
-      "question": "What commands are used to install Jupyter Notebook in a Python virtual environment?",
-      "answer": "Inside the activated virtual environment, run `pip install --no-index --upgrade pip` and then `pip install --no-index jupyter`."
+      "question": "What are the essential steps to activate a previously installed Jupyter Notebook environment before starting the application on an Alliance cluster?",
+      "answer": "Users must first load the Python module associated with their environment (e.g., `module load python/3.7`) and then activate the Python virtual environment where Jupyter Notebook was installed (e.g., `source $HOME/jupyter_py3/bin/activate`)."
     },
     {
-      "question": "How do you create and make executable a wrapper script for launching Jupyter Notebook?",
-      "answer": "You create the script with `echo -e '#!/bin/bash\nexport JUPYTER_RUNTIME_DIR=$SLURM_TMPDIR/jupyter\njupyter notebook --ip $(hostname -f) --no-browser' > $VIRTUAL_ENV/bin/notebook.sh` and make it executable with `chmod u+x $VIRTUAL_ENV/bin/notebook.sh`."
+      "question": "How does one start a Jupyter Notebook server on a compute node on Alliance clusters?",
+      "answer": "To start the application, users submit an interactive job using `salloc` with parameters for time, tasks, CPUs, memory, and account, then execute the `notebook.sh` wrapper script via `srun`."
     },
     {
-      "question": "What is the purpose of Jupyter Notebook extensions?",
-      "answer": "Extensions allow you to add functionalities and modify the application’s user interface of Jupyter Notebook."
+      "question": "How do users connect to a Jupyter Notebook server running on a compute node from a Linux or MacOS X system?",
+      "answer": "Users need to create an SSH tunnel between their computer and the cluster. On Linux or MacOS X, the recommended method is to use the `sshuttle` Python package, running `sshuttle --dns -Nr <username>@<cluster>.alliancecan.ca` in a new terminal."
     },
     {
-      "question": "What is Jupyter Lmod and what is its functionality?",
-      "answer": "Jupyter Lmod is an extension that enables interaction with environment modules (like loading or unloading) before launching kernels, utilizing Lmod's Python interface."
+      "question": "What is the method for Windows users to connect to a Jupyter Notebook running on a compute node on an Alliance cluster?",
+      "answer": "Windows users can create an SSH tunnel using MobaXTerm. This involves starting Jupyter Notebook in one MobaXTerm terminal, then opening a second terminal to run an `ssh -L` command to forward the port, and finally navigating to `http://localhost:8888/?token=<token>` in their browser."
     },
     {
-      "question": "What is `nbserverproxy` useful for?",
-      "answer": "`nbserverproxy` enables users to access arbitrary web services running within their spawned Jupyter server, such as TensorBoard, especially those listening only on a localhost port."
+      "question": "How can a user gracefully shut down a Jupyter Notebook server running on an Alliance cluster?",
+      "answer": "The Jupyter Notebook server can be shut down before its allocated walltime limit by pressing Ctrl-C twice in the terminal where the interactive job was launched."
     },
     {
-      "question": "What does the RStudio Launcher extension provide?",
-      "answer": "RStudio Launcher adds an \"RStudio Session\" option to the Jupyter Notebook's \"New\" dropdown list, allowing it to start an RStudio session that uses Jupyter Notebook's token authentication system."
+      "question": "What are the two main steps involved in adding new kernels for different programming languages or Python versions to Jupyter Notebook?",
+      "answer": "The two main steps are: 1. Installing the necessary packages that enable the language interpreter to communicate with Jupyter Notebook. 2. Creating a 'kernel spec file' in `~/.local/share/jupyter/kernels` that instructs Jupyter Notebook on how to initiate a communication channel with that interpreter."
     },
     {
-      "question": "What is a specific requirement for installing RStudio Launcher?",
-      "answer": "The installation procedure for RStudio Launcher only works with the `StdEnv/2016.4` and `StdEnv/2018.3` software environments."
+      "question": "How do users add a Julia kernel to their Jupyter Notebook environment on an Alliance cluster?",
+      "answer": "Users must load the Julia module, activate the Jupyter Notebook virtual environment, and then execute `Pkg.add(\"IJulia\")` within a Julia session to install the IJulia package."
     },
     {
-      "question": "How do you activate the Jupyter Notebook environment after logging into the cluster?",
-      "answer": "You need to reload the associated Python module (`module load python/3.7`) and then activate the virtual environment (`source $HOME/jupyter_py3/bin/activate`)."
-    },
-    {
-      "question": "How do you start Jupyter Notebook after activation?",
-      "answer": "You start it by submitting an interactive job using a command like `salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=def-yourpi srun $VIRTUAL_ENV/bin/notebook.sh`."
-    },
-    {
-      "question": "Why is an SSH tunnel required to connect to Jupyter Notebook from a web browser?",
-      "answer": "An SSH tunnel is required because compute nodes are not directly accessible from the Internet, so a tunnel is needed between the cluster and your local computer."
-    },
-    {
-      "question": "How do you connect to Jupyter Notebook from a Linux or MacOS X system?",
-      "answer": "It's recommended to use the `sshuttle` Python package by running `sshuttle --dns -Nr <username>@<cluster>.alliancecan.ca` in a new terminal, then pasting the provided URL into your browser."
-    },
-    {
-      "question": "How do you connect to Jupyter Notebook from Windows using MobaXTerm?",
-      "answer": "First, start Jupyter Notebook in one MobaXTerm tab to get the URL. Then, in a second MobaXTerm tab, create an SSH tunnel with `ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca`, and finally, navigate to `http://localhost:8888/?token=<token>` in your browser."
-    },
-    {
-      "question": "How do you shut down the Jupyter Notebook server?",
-      "answer": "You can shut down the Jupyter Notebook server by pressing Ctrl-C twice in the terminal where the interactive job was launched."
-    },
-    {
-      "question": "What are the two steps for installing a new kernel in Jupyter Notebook?",
-      "answer": "The two steps are: installing packages for the language interpreter to communicate with Jupyter Notebook, and creating a kernel spec file to indicate how to initiate a communication channel."
-    },
-    {
-      "question": "Where should Jupyter Notebook kernel spec files be located?",
-      "answer": "Each kernel spec file must be in its own subfolder within the `~/.local/share/jupyter/kernels` directory in your home directory."
-    },
-    {
-      "question": "How do you add a Julia kernel to Jupyter Notebook?",
-      "answer": "Load the Julia module, activate the Jupyter Notebook virtual environment, and then run `echo 'Pkg.add(\"IJulia\")' | julia`."
-    },
-    {
-      "question": "How do you add a Python 3.5 kernel to Jupyter Notebook?",
-      "answer": "Load the `python/3.5` module, create and activate a new Python virtual environment, install `ipykernel`, then generate the kernel spec file using `python -m ipykernel install --user --name <unique_name> --display-name \"Python 3.5 Kernel\"`, and finally deactivate the environment."
-    },
-    {
-      "question": "How do you add an R kernel to Jupyter Notebook?",
-      "answer": "Load the R module, activate the Jupyter Notebook virtual environment, install R kernel dependencies and the R kernel, and then install the R kernel spec file using `R -e \"IRkernel::installspec()\"`."
+      "question": "What is the procedure for installing a new Python kernel (e.g., Python 3.5) in Jupyter Notebook on an Alliance cluster?",
+      "answer": "Users need to load the desired Python module, create and activate a new Python virtual environment for that version, install the `ipykernel` library, and then generate the kernel spec file using `python -m ipykernel install --user --name <unique_name> --display-name \"Python 3.5 Kernel\"`."
     }
   ],
-  "generated_at": "2026-04-12T00:37:59.071190+00:00"
+  "generated_at": "2026-04-13T07:49:42.753438+00:00"
 }

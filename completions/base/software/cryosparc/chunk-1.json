@@ -4,145 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is CryoSPARC?",
-      "answer": "CryoSPARC is a state-of-the-art scientific software platform for cryo-electron microscopy (cryo-EM)."
+      "question": "What is CryoSPARC and what is its primary application?",
+      "answer": "CryoSPARC is a state-of-the-art scientific software platform designed for cryo-electron microscopy (cryo-EM) and is utilized in both research and drug discovery pipelines."
     },
     {
-      "question": "What is CryoSPARC used for?",
-      "answer": "CryoSPARC is used in research and drug discovery pipelines."
+      "question": "What are the key requirements and restrictions for installing and running CryoSPARC on computing clusters?",
+      "answer": "CryoSPARC is not supported on login nodes and must be installed and run on a GPU node to prevent overloading shared system resources and potential port conflicts. Currently, only Fir and Nibi clusters support CryoSPARC installation and execution on GPU nodes, as they offer outbound HTTPS access from GPU nodes to the CryoSPARC download site. The installation involves building a standalone CryoSPARC instance within an Apptainer container image on a GPU node."
     },
     {
-      "question": "Where should CryoSPARC not be installed or run?",
-      "answer": "CryoSPARC is not supported on login nodes."
-    },
-    {
-      "question": "Where must CryoSPARC be installed and run?",
-      "answer": "CryoSPARC must be installed and run on a GPU node."
-    },
-    {
-      "question": "What are the potential consequences of running CryoSPARC on a login node?",
-      "answer": "Running CryoSPARC on a login node can overload shared system resources and may lead to port conflicts when multiple instances are started at the same time."
-    },
-    {
-      "question": "Which systems currently support CryoSPARC installation and execution on GPU nodes?",
-      "answer": "Currently, only Fir and Nibi support CryoSPARC installation and execution on GPU nodes."
-    },
-    {
-      "question": "Why do Fir and Nibi support CryoSPARC installation?",
-      "answer": "Fir and Nibi support CryoSPARC installation because these systems provide outbound HTTPS access from GPU nodes to the CryoSPARC download site."
-    },
-    {
-      "question": "What is the purpose of this tutorial regarding CryoSPARC?",
-      "answer": "This tutorial describes how to build a standalone CryoSPARC instance in an Apptainer container image on a GPU node, allowing users to run CryoSPARC through GPU batch jobs while reducing filesystem load."
-    },
-    {
-      "question": "What is the first step in installing CryoSPARC?",
-      "answer": "The first step is to acquire the license."
-    },
-    {
-      "question": "How does one request a CryoSPARC license?",
-      "answer": "One can request a CryoSPARC license by completing the form at https://cryosparc.com/download."
-    },
-    {
-      "question": "What is the typical format of a CryoSPARC license key?",
-      "answer": "The license key is a string of letters and numbers in the format: `1a23b4d5-67ef-89g0-hi1j-kl2m3n4o5p6q`."
-    },
-    {
-      "question": "What is the second step in the CryoSPARC installation process?",
-      "answer": "The second step is to set up the installation directory."
-    },
-    {
-      "question": "What command is used to export the host path for CryoSPARC installation?",
-      "answer": "The command `export HOST_PATH=/path/to/cryosparc` is used to export the host path."
-    },
-    {
-      "question": "How do you set up the `LICENSE_ID` in Step 2?",
-      "answer": "You set up the `LICENSE_ID` by replacing `1a23b4d5-67ef-89g0-hi1j-kl2m3n4o5p6q` with the license key obtained in Step 1 from https://cryosparc.com/download."
-    },
-    {
-      "question": "What directories should be created for CryoSPARC master and worker components?",
-      "answer": "The directories `cryosparc_master` and `cryosparc_worker` should be created."
-    },
-    {
-      "question": "What is the third step for installing CryoSPARC?",
-      "answer": "The third step for installing CryoSPARC is to download the installation package."
-    },
-    {
-      "question": "How are the CryoSPARC master and worker installation packages downloaded?",
-      "answer": "The packages are downloaded using `curl -sL https://get.cryosparc.com/download/master-latest/$LICENSE_ID > cryosparc2_master.tar.gz` for the master and `curl -sL https://get.cryosparc.com/download/worker-latest/$LICENSE_ID > cryosparc2_worker.tar.gz` for the worker."
-    },
-    {
-      "question": "What are the filenames of the downloaded CryoSPARC installation packages?",
-      "answer": "The filenames are `cryosparc2_master.tar.gz` and `cryosparc2_worker.tar.gz`."
-    },
-    {
-      "question": "What is the fourth step in the CryoSPARC installation process?",
-      "answer": "The fourth step is to submit a GPU job for installation."
-    },
-    {
-      "question": "What command is used to launch an interactive GPU job for installation?",
-      "answer": "An interactive GPU job is launched using the command `salloc --account=def-account --time=3:00:00 --gpus=h100:1 --cpus-per-task=4 --mem=16000M`."
-    },
-    {
-      "question": "What account, time, GPUs, CPUs, and memory are specified for the interactive GPU job?",
-      "answer": "The interactive GPU job specifies `--account=def-account`, `--time=3:00:00`, `--gpus=h100:1`, `--cpus-per-task=4`, and `--mem=16000M`."
-    },
-    {
-      "question": "What is the first definition file to prepare in Step 4 called?",
-      "answer": "The first definition file to prepare in Step 4 is called `ubuntu.def`."
-    },
-    {
-      "question": "What needs to be changed in the `ubuntu.def` file?",
-      "answer": "The value of `$HOST_PATH` needs to be changed in the `ubuntu.def` file to match the path set in Step 2."
-    },
-    {
-      "question": "What is the `Bootstrap` setting in the `ubuntu.def` file?",
-      "answer": "The `Bootstrap` setting in the `ubuntu.def` file is `docker`."
-    },
-    {
-      "question": "What is the `INSTALL_PATH` set to in the `ubuntu.def` file?",
-      "answer": "The `INSTALL_PATH` is set to `/usr/local/cryosparc` in the `ubuntu.def` file."
-    },
-    {
-      "question": "How do you build the first container image using the definition file?",
-      "answer": "You build the first container image by loading the Apptainer module (`module load apptainer`) and then running `apptainer build ubuntu.sif ubuntu.def`."
-    },
-    {
-      "question": "What is the name of the first container image built?",
-      "answer": "The name of the first container image built is `ubuntu.sif`."
-    },
-    {
-      "question": "What is the name of the second definition file to prepare?",
-      "answer": "The name of the second definition file to prepare is `cryosparc.def`."
-    },
-    {
-      "question": "What is the `Bootstrap` setting for the `cryosparc.def` file?",
-      "answer": "The `Bootstrap` setting for the `cryosparc.def` file is `localimage`."
-    },
-    {
-      "question": "Which image is used as the base for the `cryosparc.def` file?",
-      "answer": "The `ubuntu.sif` image is used as the base for the `cryosparc.def` file."
-    },
-    {
-      "question": "What environment variable is added to the PATH in `cryosparc.def`?",
-      "answer": "The environment variable `/usr/local/cryosparc/cryosparc_master/bin` is added to the PATH in `cryosparc.def`."
-    },
-    {
-      "question": "What personal information needs to be updated in the `cryosparc.def` file for CryoSPARC setup?",
-      "answer": "The `HOST_PATH`, `LICENSE_ID`, `MY_EMAIL`, `CRYOSPARC_PASSWD`, `FIRSTNAME`, `LASTNAME`, and `USER` (CCDB username) variables need to be updated in the `cryosparc.def` file."
-    },
-    {
-      "question": "Which variable defines the login email for CryoSPARC in `cryosparc.def`?",
-      "answer": "The `MY_EMAIL` variable defines the login email for CryoSPARC in `cryosparc.def`."
-    },
-    {
-      "question": "Which variable in `cryosparc.def` defines the password for CryoSPARC login?",
-      "answer": "The `CRYOSPARC_PASSWD` variable in `cryosparc.def` defines the password for CryoSPARC login."
-    },
-    {
-      "question": "Which variable in `cryosparc.def` is important to replace with the CCDB username?",
-      "answer": "The `USER` variable in `cryosparc.def` is important to replace with the CCDB username."
+      "question": "What are the initial three steps required to prepare for CryoSPARC installation?",
+      "answer": "The initial three steps are: 1. Acquire a license key by completing the form at cryosparc.com/download. 2. Set up the installation directory by defining your desired HOST_PATH and creating the `cryosparc_master` and `cryosparc_worker` subdirectories. 3. Download the CryoSPARC installation packages (master and worker tar.gz files) using `curl` and your license ID."
     }
   ],
-  "generated_at": "2026-04-11T20:29:53.483472+00:00"
+  "generated_at": "2026-04-13T04:32:43.500807+00:00"
 }

@@ -4,45 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is the primary function of cloudInit when creating a virtual machine?",
-      "answer": "cloudInit is used during the creation of a VM to customize it, specifically for tasks such as adding users."
+      "question": "What is the primary purpose of using cloudInit during the creation of a virtual machine (VM)?",
+      "answer": "cloudInit is used during the creation of a VM to customize it, such as adding new users with specific configurations like shell access, sudo permissions, and SSH authorized keys."
     },
     {
-      "question": "How can I add multiple users with varying sudo permissions using a cloudInit script?",
-      "answer": "You can add users by specifying their names, shell, sudo permissions (e.g., `sudo: ALL=(ALL) NOPASSWD:ALL` for sudo access), and `ssh_authorized_keys` in a cloudInit YAML script."
+      "question": "How can you add multiple users to a new VM using a cloudInit script, specifying their permissions and SSH keys?",
+      "answer": "You can add multiple users by including a `users:` section in your cloudInit YAML script. For each user, specify their `name`, `shell` (e.g., `/bin/bash`), `sudo` permissions (e.g., `ALL=(ALL) NOPASSWD:ALL` for full sudo access), and `ssh_authorized_keys` with their public key string. It is vital to have at least one user with sudo permission."
     },
     {
-      "question": "What is a key formatting requirement for cloudInit scripts written in YAML?",
-      "answer": "YAML is very picky about white space formatting; there must be a space after the hyphen ('-') before your public key string or other list items."
-    },
-    {
-      "question": "What happens to the default user if a cloudInit script, without the 'default' keyword, is used during VM creation?",
-      "answer": "This configuration overwrites the default user that is added when no cloudInit script is specified, meaning the users listed in this configuration script will be the only users on the newly created VM."
-    },
-    {
-      "question": "What is a critical requirement for a cloudInit script that replaces the default user with new users?",
-      "answer": "It is vital to have at least one user with sudo permission among the users defined in the script."
-    },
-    {
-      "question": "How can I add more users beyond the initial ones defined in a cloudInit script?",
-      "answer": "More users can be added by simply including more `- name: username` sections in the cloudInit script."
-    },
-    {
-      "question": "How do I ensure the default user created by the distribution (e.g., debian, centos, ubuntu) is preserved when using cloudInit to add other users?",
-      "answer": "To preserve the default user, you should include `- default` in the users section of your cloudInit script before listing other user definitions."
-    },
-    {
-      "question": "What steps should be taken after a VM has launched to verify that user public keys have been added correctly by cloudInit?",
-      "answer": "After the VM has finished spawning, you should look at the log to ensure that the public keys have been added correctly for those users."
-    },
-    {
-      "question": "Where can the VM's log be found to check cloudInit output?",
-      "answer": "The log can be found by clicking on the name of the instance on the 'Compute->Instances' panel and then selecting the 'log' tab."
-    },
-    {
-      "question": "Once public keys are added via cloudInit, how do users access the VM?",
-      "answer": "Once this is done, users can log into the VM with their private keys as usual."
+      "question": "What is the impact of a cloudInit script on default users when creating a VM, and how can the default users be retained?",
+      "answer": "When a cloudInit script specifies new users, it overwrites the default user created by the distribution (e.g., `debian`, `centos`, `ubuntu`), meaning only the users listed in the script will exist on the VM. To preserve the default user in addition to new ones, you must include `- default` as the first item under the `users:` section in your cloudInit script."
     }
   ],
-  "generated_at": "2026-04-12T02:14:48.539273+00:00"
+  "generated_at": "2026-04-13T09:07:20.196519+00:00"
 }

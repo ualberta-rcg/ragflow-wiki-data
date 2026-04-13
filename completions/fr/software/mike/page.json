@@ -3,89 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "À quoi sert le progiciel MIKE du groupe DHI?",
-      "answer": "Il est utilisé pour la modélisation hydraulique et hydrologique."
+      "question": "À quoi sert le progiciel MIKE du groupe DHI sur les grappes de calcul?",
+      "answer": "Le progiciel MIKE est utilisé pour la modélisation hydraulique et hydrologique."
     },
     {
-      "question": "MIKE est-il un logiciel gratuit pour l'utilisation sur les grappes de calcul?",
-      "answer": "Non, MIKE est un produit commercial et il faut avoir sa propre licence."
+      "question": "Quelles sont les conditions préalables pour utiliser le progiciel commercial MIKE sur les grappes de calcul?",
+      "answer": "Pour l'utiliser, il faut détenir sa propre licence Internet et avoir un lien de téléchargement pour la version Linux de MIKE."
     },
     {
-      "question": "Quelles sont les deux exigences principales pour utiliser MIKE sur les grappes de calcul?",
-      "answer": "Il faut avoir une licence internet et un lien de téléchargement pour la version Linux de MIKE."
+      "question": "À quelle adresse courriel doit-on s'adresser pour confirmer sa licence MIKE et obtenir la version Linux?",
+      "answer": "Il faut contacter le service à la clientèle de MIKE à l'adresse mike@dhigroup.com."
     },
     {
-      "question": "Qui doit-on contacter pour confirmer l'admissibilité de sa licence MIKE?",
-      "answer": "Il faut contacter le service à la clientèle de MIKE à mike@dhigroup.com."
+      "question": "Quels sont les types de fichiers d'archives d'installation attendus pour MIKE 2025 et les versions plus récentes?",
+      "answer": "Pour MIKE 2025 et plus, les archives d'installation sont un fichier Zip (par exemple, MIKE_Zero_2025_rhel9.zip)."
     },
     {
-      "question": "Où faut-il télécharger les fichiers d'installation de MIKE pour Linux?",
-      "answer": "Il faut télécharger les archives d'installation pour Linux."
+      "question": "Quels sont les types de fichiers d'archives d'installation attendus pour MIKE 2024 et les versions plus anciennes?",
+      "answer": "Pour MIKE 2024 et moins, les archives d'installation se présentent sous la forme de trois fichiers *.tgz (par exemple, MIKE_Zero_2024_rhel9_Update_1.tgz)."
     },
     {
-      "question": "Sous quel format les archives d'installation de MIKE 2025 et plus récentes sont-elles fournies?",
-      "answer": "Elles sont fournies dans un fichier Zip (ex: MIKE_Zero_2025_rhel9.zip)."
+      "question": "Quelle est la première étape pour préparer l'installation de MIKE sur une grappe de calcul?",
+      "answer": "La première étape est de créer le répertoire `~/scratch/MIKE_TGZ` pour y téléverser les archives d'installation."
     },
     {
-      "question": "Comment sont généralement empaquetées les archives d'installation de MIKE 2024 et moins récentes?",
-      "answer": "Elles sont généralement en trois fichiers `.tgz`."
+      "question": "Quel module doit être chargé avant de procéder à l'installation de MIKE, puisque le logiciel a été compilé avec la bibliothèque Intel MPI?",
+      "answer": "Le module `intelmpi` doit être chargé, en s'assurant qu'il correspond à la version de MIKE et à l'environnement standard (StdEnv)."
     },
     {
-      "question": "Quel répertoire doit être créé pour téléverser les archives d'installation de MIKE?",
-      "answer": "Il faut créer le répertoire `~/scratch/MIKE_TGZ`."
+      "question": "Pourquoi le script `setrpaths.sh` est-il utilisé après l'exécution des scripts d'installation de MIKE?",
+      "answer": "Le script `setrpaths.sh` est utilisé pour modifier les binaires afin qu'ils trouvent les bibliothèques dynamiques d'Intel MPI, assurant la compatibilité avec la pile logicielle des grappes de calcul."
     },
     {
-      "question": "Quel module doit être chargé car MIKE a été compilé avec la bibliothèque Intel MPI?",
-      "answer": "Il faut charger le module `intelmpi` apparié."
+      "question": "Comment les instructions d'installation de MIKE sur les grappes de calcul diffèrent-elles de la procédure officielle concernant la bibliothèque Intel MPI?",
+      "answer": "L'installation de `MIKE_Zero_*_Prerequisites.tgz` (qui contient la bibliothèque Intel MPI) est omise, et un module `intelmpi` correspondant est chargé à sa place."
     },
     {
-      "question": "Quelles sont les étapes générales après l'extraction des archives pour installer MIKE?",
-      "answer": "Il faut exécuter les scripts d'installation `install.sh` pour chaque composant, puis modifier les binaires pour qu'ils trouvent les bibliothèques dynamiques d'Intel MPI."
+      "question": "Que doit faire un utilisateur s'il éprouve des difficultés à adapter les directives d'installation pour une nouvelle version majeure de MIKE?",
+      "answer": "Il est recommandé d'écrire au soutien technique pour obtenir de l'aide si les difficultés persistent."
     },
     {
-      "question": "Quel est le rôle du script `setrpaths.sh` dans l'installation de MIKE?",
-      "answer": "Il est utilisé pour modifier les paquets binaires afin de les rendre compatibles avec la pile logicielle."
+      "question": "Pourquoi est-il conseillé de créer un module d'environnement pour MIKE après l'installation?",
+      "answer": "La création d'un module d'environnement permet de configurer facilement les chemins et les variables nécessaires à MIKE et de l'activer dans chaque tâche ou session de connexion."
     },
     {
-      "question": "Que doit-on ajuster lors de l'installation de versions mineures de MIKE si les noms de fichiers ne correspondent pas exactement?",
-      "answer": "Il faut ajuster les noms des fichiers pour les archives et les noms des répertoires en conséquence."
+      "question": "Quelles sont les informations clés à modifier lors de la création d'un module d'environnement pour MIKE?",
+      "answer": "Il faut modifier la version de MIKE, ainsi que les versions des modules `intelmpi` et `intel` pour qu'elles correspondent à ceux chargés durant l'installation."
     },
     {
-      "question": "Que faire si les prochaines versions majeures de MIKE utilisent des versions différentes de MPI?",
-      "answer": "Il faudrait modifier les directives d'installation en conséquence, en essayant un module de bibliothèque Intel MPI avec une version majeure correspondante (année)."
+      "question": "Comment un utilisateur doit-il configurer sa licence MIKE de type 'internet' après l'installation?",
+      "answer": "Il doit utiliser la commande `licconfig set --type=internet --iuser=<votre_courriel> --ipassword=<votre_mot_de_passe>`, ce qui est généralement une opération unique."
     },
     {
-      "question": "À qui faut-il écrire si on a des difficultés à adapter la recette d'installation pour de nouvelles versions de MIKE?",
-      "answer": "Il faut écrire au soutien technique."
+      "question": "Où sont enregistrés les renseignements de la licence MIKE après sa configuration initiale?",
+      "answer": "Les renseignements sur la licence sont enregistrés dans le fichier `~/.config/DHI/license/NetLmLcwConfig.xml`."
     },
     {
-      "question": "Pourquoi est-il recommandé de créer un module d'environnement pour MIKE?",
-      "answer": "Pour faciliter l'activation de MIKE et de ses dépendances d'environnement dans les tâches ou sessions."
+      "question": "Quels modules d'environnement sont généralement nécessaires dans un script de tâche SLURM pour exécuter MIKE 2025?",
+      "answer": "Dans un script de tâche SLURM pour MIKE 2025, il faut charger les modules `StdEnv/2023`, `intel/2023.2.1`, `intelmpi/2021.9.0` et `mike/2025`."
     },
     {
-      "question": "Quelles informations faut-il modifier lors de la création du module d'environnement pour MIKE?",
-      "answer": "Il faut modifier la version de MIKE et les versions des modules `intelmpi` et `intel` pour qu'elles correspondent à l'installation."
-    },
-    {
-      "question": "Comment peut-on rendre le nouveau module d'environnement MIKE visible après sa création sans se reconnecter?",
-      "answer": "On peut exécuter la commande `module use $HOME/modulefiles`."
-    },
-    {
-      "question": "Quelle commande est utilisée pour configurer la licence internet de MIKE?",
-      "answer": "La commande `licconfig set --type=internet --iuser=user@example.com --ipassword=my-password`."
-    },
-    {
-      "question": "Où sont enregistrés les renseignements sur la licence de MIKE?",
-      "answer": "Les renseignements sont enregistrés dans le fichier `~/.config/DHI/license/NetLmLcwConfig.xml`."
-    },
-    {
-      "question": "Comment active-t-on le module MIKE 2025 dans une tâche ou une session?",
-      "answer": "On utilise la commande `module load StdEnv/2023 mike/2025`."
-    },
-    {
-      "question": "Comment lance-t-on un modèle MIKE 2025 nommé 'my_model.m3fm' dans un script de tâche SLURM?",
-      "answer": "Après avoir chargé les modules nécessaires, on utilise `srun FemEngineHD my_model.m3fm`."
+      "question": "Quelle est la principale différence dans la commande d'exécution du moteur de MIKE entre la version 2022 et les versions plus récentes (2023, 2024, 2025) dans un script de tâche SLURM?",
+      "answer": "Pour MIKE 2022, on utilise `mpirun` avec un fichier `machinefile.$SLURM_JOBID`, tandis que pour les versions 2023 à 2025, on utilise directement `srun`."
     }
   ],
-  "generated_at": "2026-04-12T01:41:20.526565+00:00"
+  "generated_at": "2026-04-13T08:40:21.280296+00:00"
 }

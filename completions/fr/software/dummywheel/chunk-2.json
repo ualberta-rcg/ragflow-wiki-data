@@ -4,77 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "C'est quoi un \"Dummy Wheel\"?",
-      "answer": "Les \"Dummy Wheels\" sont des fichiers de roue (.whl) qui existent dans le \"wheelhouse\" pour servir de substituts (placeholders) pour des paquets Python populaires disponibles sur PyPI, mais qui sont plutôt fournis comme modules sur notre infrastructure."
+      "question": "Qu'est-ce qu'une \"roue factice\" (Dummy Wheel) et pourquoi est-elle utilisée dans l'infrastructure de Calcul Canada?",
+      "answer": "Une \"roue factice\" est un fichier de substitution qui sert de marqueur de position pour certains paquets Python populaires. Ces paquets sont disponibles sur PyPI, mais sont fournis comme des modules préinstallés sur notre infrastructure plutôt que d'être installés directement par pip. Elles sont identifiées par une version locale, comme `+dummy`."
     },
     {
-      "question": "Comment sont identifiés les \"Dummy Wheels\"?",
-      "answer": "Ils sont tous marqués avec une version locale, spécifiquement \"dummy\". Par exemple : `pyarrow-23.0.1+dummy.computecanada-py3-none-any.whl`."
+      "question": "Que se passe-t-il quand pip tente d'installer une \"roue factice\" et qu'est-ce que cela signifie?",
+      "answer": "Quand pip sélectionne une \"roue factice\", il déclenche une erreur parce qu'il ne trouve pas de correspondance pour l'exigence. Cette erreur est normale et indique que l'une des situations suivantes s'est produite: le module requis n'a pas été chargé, la version du module chargé ne correspond pas à la version demandée par le paquet dépendant, ou le module chargé ne supporte pas la version de Python utilisée."
     },
     {
-      "question": "Pouvez-vous me donner des exemples de paquets qui ont un \"Dummy Wheel\"?",
-      "answer": "Oui, par exemple : `pyarrow` (pour Arrow), `opencv_python` (pour OpenCV) et `MPI4py`."
-    },
-    {
-      "question": "Qu'est-ce qui arrive quand \"pip\" sélectionne un \"Dummy Wheel\"?",
-      "answer": "Quand \"pip\" sélectionne un \"Dummy Wheel\", il va générer une erreur parce qu'il ne trouvera pas de correspondance pour cette exigence."
-    },
-    {
-      "question": "Est-ce normal de recevoir une erreur quand un \"Dummy Wheel\" est sélectionné?",
-      "answer": "Oui, c'est une erreur normale générée par ce type de fichier \"dummy wheel\"."
-    },
-    {
-      "question": "Si une dépendance comme `pyarrow` n'est pas satisfaite et qu'une erreur est générée par le \"dummy wheel\", qu'est-ce que ça veut dire?",
-      "answer": "Ça veut dire que soit le module \"arrow\" n'a pas été chargé, soit la version d'\"arrow\" chargée ne répond pas à la version requise par le paquet dépendant, ou encore que le module \"arrow\" chargé ne supporte pas la version de Python utilisée."
-    },
-    {
-      "question": "Quel paquet est utilisé comme exemple pour le dépannage des \"Dummy Wheels\" et est-ce que ça s'applique à d'autres paquets?",
-      "answer": "Le paquet `pyarrow` est utilisé comme exemple, mais le même principe s'applique à d'autres paquets également."
-    },
-    {
-      "question": "Que dois-je faire si le module n'est pas chargé et que cela cause le problème avec le \"Dummy Wheel\"?",
-      "answer": "Vous devez désactiver tout environnement virtuel, charger le module nécessaire, réactiver votre environnement virtuel, puis relancer votre commande `pip install`."
-    },
-    {
-      "question": "Comment est-ce que je désactive mon environnement virtuel Python?",
-      "answer": "Vous pouvez le faire en utilisant la commande : `test $VIRTUAL_ENV && deactivate`."
-    },
-    {
-      "question": "Comment charger le module Arrow?",
-      "answer": "Vous chargez le module avec la commande `module load gcc arrow/x.y.z python/x.y.z`, où `x.y.z` représente la version nécessaire."
-    },
-    {
-      "question": "Comment réactiver un environnement virtuel qui a été créé précédemment?",
-      "answer": "Vous pouvez le réactiver avec la commande : `source <env>/bin/activate`, en remplaçant `<env>` par le chemin de votre environnement virtuel."
-    },
-    {
-      "question": "Une fois le module chargé et l'environnement réactivé, quelle est la prochaine étape?",
-      "answer": "La prochaine étape est de relancer votre commande `pip install <package>`."
-    },
-    {
-      "question": "Qu'est-ce que ça signifie si le module \"arrow\" chargé ne satisfait pas les exigences d'un paquet?",
-      "answer": "Ça veut dire que le paquet dépendant requiert une version spécifique du module \"arrow\" (par exemple, `pyarrow>=21.0.0`), et la version actuelle de \"arrow\" n'est pas assez récente ou n'est pas compatible. L'installation d'une version antérieure du module \"arrow\" avec cette version du paquet entraînera l'installation du \"dummy wheel\"."
-    },
-    {
-      "question": "Comment trouver l'exigence de version demandée pour un paquet comme `pyarrow`?",
-      "answer": "Vous pouvez trouver l'exigence de version en regardant la ligne `pyarrow_noinstall` lors d'un `pip install --no-index datasets`, par exemple. L'information sera affichée entre parenthèses, comme `(from pyarrow>=21.0.0->datasets)`."
-    },
-    {
-      "question": "Comment vérifier rapidement si un module chargé a les \"bindings\" Python pour le module Python utilisé?",
-      "answer": "Vous pouvez vérifier en exécutant la commande : `python -c \"import pyarrow\"`. Si la commande n'affiche rien, l'importation a réussi et le module fournit `pyarrow` pour le module Python utilisé."
-    },
-    {
-      "question": "Comment savoir si \"pip\" détecte `pyarrow`?",
-      "answer": "Vous pouvez vérifier si \"pip\" le voit en utilisant la commande : `pip list | grep pyarrow`."
-    },
-    {
-      "question": "Si `pip list` affiche une entrée pour `pyarrow`, qu'est-ce que ça signifie?",
-      "answer": "Si `pip list` affiche une entrée, cela signifie que `pyarrow` est disponible et est détecté par `pip`."
-    },
-    {
-      "question": "Et si `pip list` ne montre aucune entrée pour `pyarrow`?",
-      "answer": "Dans le cas où il n'y a pas d'entrée, `pyarrow` n'est pas disponible."
+      "question": "Comment dépanner l'erreur de \"roue factice\" lorsque le module requis, comme `pyarrow`, n'est pas chargé?",
+      "answer": "Pour résoudre ce problème quand le module n'est pas chargé, il faut désactiver votre environnement virtuel Python, puis charger le module nécessaire (par exemple, `module load gcc arrow/x.y.z python/x.y.z` où `x.y.z` représente la version), réactiver votre environnement virtuel, et finalement relancer votre commande `pip install`."
     }
   ],
-  "generated_at": "2026-04-11T21:15:15.909018+00:00"
+  "generated_at": "2026-04-13T05:05:40.804178+00:00"
 }

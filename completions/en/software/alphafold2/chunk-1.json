@@ -5,116 +5,16 @@
   "qa_pairs": [
     {
       "question": "What is AlphaFold?",
-      "answer": "AlphaFold is a machine learning model designed for predicting protein folding."
+      "answer": "AlphaFold is a machine learning model designed for the prediction of protein folding. The version discussed on this page is v2.0, which was entered in CASP14 and subsequently published in Nature."
     },
     {
-      "question": "What version of AlphaFold is discussed on this page?",
-      "answer": "This page discusses how to use AlphaFold v2.0, the version that was entered in CASP14 and published in Nature."
+      "question": "How can I install AlphaFold in a Python virtual environment on the clusters?",
+      "answer": "To install AlphaFold, first load the necessary module dependencies, including `StdEnv/2020`, `gcc/9.3.0`, `openmpi/4.0.3`, `cuda/11.4`, `cudnn/8.2.0`, `kalign/2.03`, `hmmer/3.2.1`, `openmm-alphafold/7.5.1`, and `python/3.8`. Ensure you are using Python 3.7 or 3.8, as these are the only supported versions as of July 2022. Then, create and activate a Python virtual environment, and finally, install AlphaFold using `pip install --no-index alphafold==X.Y.Z`, replacing `X.Y.Z` with the desired version, or omit it to install the latest available."
     },
     {
-      "question": "Where can I find the source code and documentation for AlphaFold?",
-      "answer": "The source code and documentation for AlphaFold are available on their GitHub page."
-    },
-    {
-      "question": "How should I cite AlphaFold if I publish findings from using its source code or model parameters?",
-      "answer": "Any publication disclosing findings from using AlphaFold's source code or model parameters should cite the AlphaFold paper."
-    },
-    {
-      "question": "What is the DOI for the AlphaFold paper?",
-      "answer": "The DOI for the AlphaFold paper is 10.1038/s41586-021-03819-2."
-    },
-    {
-      "question": "How can I list the available versions of AlphaFold on the clusters?",
-      "answer": "You can list the available versions of AlphaFold using the command `avail_wheels alphafold --all-versions`."
-    },
-    {
-      "question": "Is AlphaFold available as prebuilt Python packages on the clusters?",
-      "answer": "Yes, AlphaFold is available on the clusters as prebuilt Python packages (wheels)."
-    },
-    {
-      "question": "What are the first steps to install AlphaFold in a Python virtual environment?",
-      "answer": "First, you need to load AlphaFold dependencies, then create and activate a Python virtual environment."
-    },
-    {
-      "question": "What modules need to be loaded as AlphaFold dependencies?",
-      "answer": "You need to load the following modules: StdEnv/2020, gcc/9.3.0, openmpi/4.0.3, cuda/11.4, cudnn/8.2.0, kalign/2.03, hmmer/3.2.1, openmm-alphafold/7.5.1, hh-suite/3.3.0, and python/3.8."
-    },
-    {
-      "question": "Which Python versions were supported for AlphaFold as of July 2022?",
-      "answer": "As of July 2022, only Python 3.7 and 3.8 were supported for AlphaFold."
-    },
-    {
-      "question": "How do I create and activate a Python virtual environment for AlphaFold?",
-      "answer": "You can create and activate a Python virtual environment using the commands: `virtualenv --no-download ~/alphafold_env` and `source ~/alphafold_env/bin/activate`."
-    },
-    {
-      "question": "How do I install a specific version of AlphaFold within a virtual environment?",
-      "answer": "To install a specific version, use `pip install --no-index alphafold==X.Y.Z`, where `X.Y.Z` is the desired version, such as `2.2.4`."
-    },
-    {
-      "question": "How can I install the latest available version of AlphaFold from the wheelhouse?",
-      "answer": "You can install the latest version by omitting the version number in the pip install command: `pip install --no-index alphafold`."
-    },
-    {
-      "question": "What command is used to validate an AlphaFold installation?",
-      "answer": "To validate the AlphaFold installation, run `run_alphafold.py --help`."
-    },
-    {
-      "question": "How do I freeze the AlphaFold environment and its requirements?",
-      "answer": "You can freeze the environment and requirements by running `pip freeze > ~/alphafold-requirements.txt`."
-    },
-    {
-      "question": "Does AlphaFold require databases to function?",
-      "answer": "Yes, AlphaFold requires a set of databases."
-    },
-    {
-      "question": "Where are the AlphaFold databases primarily available?",
-      "answer": "The AlphaFold databases are available in `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/`."
-    },
-    {
-      "question": "How frequently are AlphaFold databases on CVMFS updated?",
-      "answer": "AlphaFold databases on CVMFS undergo yearly updates."
-    },
-    {
-      "question": "When was the AlphaFold database updated in 2024, and where can it be accessed?",
-      "answer": "In January 2024, the AlphaFold database was updated and is accessible in the folder `2024_01`."
-    },
-    {
-      "question": "How do I set the `DOWNLOAD_DIR` to use the January 2024 AlphaFold database from CVMFS?",
-      "answer": "You can set the `DOWNLOAD_DIR` using the command `export DOWNLOAD_DIR=/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2024_01/`."
-    },
-    {
-      "question": "Where must locally downloaded AlphaFold databases be stored?",
-      "answer": "The databases must live in the `$SCRATCH` directory if downloaded locally."
-    },
-    {
-      "question": "What are the initial steps to download AlphaFold databases locally?",
-      "answer": "First, from a DTN or login node, you need to create the data folder by setting `export DOWNLOAD_DIR=$SCRATCH/alphafold/data` and then running `mkdir -p $DOWNLOAD_DIR`."
-    },
-    {
-      "question": "What command is used to download all AlphaFold data locally after setting up the directory?",
-      "answer": "After loading modules and activating your virtual environment, you can download all data using `download_all_data.sh $DOWNLOAD_DIR`."
-    },
-    {
-      "question": "Can the AlphaFold database download process be performed from a compute node?",
-      "answer": "No, this step cannot be done from a compute node."
-    },
-    {
-      "question": "Where should AlphaFold database downloads be performed if not on a compute node?",
-      "answer": "It should be done on a data transfer node (DTN) if available, or on a login node on clusters without a DTN."
-    },
-    {
-      "question": "What is recommended for long AlphaFold database downloads?",
-      "answer": "For downloads that can take up to a full day, it is suggested to use a terminal multiplexer."
-    },
-    {
-      "question": "What common error message might appear during AlphaFold database download?",
-      "answer": "You might encounter a `Client_loop: send disconnect: Broken pipe` error message during database download."
-    },
-    {
-      "question": "Where can I find troubleshooting information for the 'Broken pipe' error message during database download?",
-      "answer": "Troubleshooting for the 'Broken pipe' error message can be found in the 'Troubleshooting' section under 'Broken pipe error message' on the AlphaFold page."
+      "question": "Where are the AlphaFold databases located, and what are the key considerations for downloading them locally?",
+      "answer": "AlphaFold requires a set of databases, which are available on CVMFS at `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/`, with the latest update for January 2024 in the `2024_01` folder. If you choose to download the databases locally, they must reside in your `$SCRATCH` directory. The download process, which uses `download_all_data.sh`, cannot be done from a compute node; it must be performed on a data transfer node (DTN) or a login node."
     }
   ],
-  "generated_at": "2026-04-11T16:34:02.244063+00:00"
+  "generated_at": "2026-04-13T01:31:16.153096+00:00"
 }

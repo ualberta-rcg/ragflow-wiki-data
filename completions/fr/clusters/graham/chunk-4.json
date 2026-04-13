@@ -4,101 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Quel type de nœud devrais-je privilégier pour mes applications sur Graham?",
-      "answer": "On vous recommande de ne pas sélectionner un type de nœud particulier pour vos tâches, puisque la plupart des applications fonctionnent bien avec les nœuds Broadwell, Skylake ou Cascade Lake, et les différences de performance devraient être minimes comparativement aux temps d'attente."
+      "question": "Quelle est la recommandation générale pour le choix des types de nœuds CPU sur la grappe Graham, et comment demander spécifiquement des nœuds Cascade Lake si c'est nécessaire?",
+      "answer": "Il est recommandé de ne pas sélectionner un type de nœud CPU particulier (comme Broadwell, Skylake ou Cascade Lake) pour la plupart des tâches, car les différences de performance sont minimes par rapport aux temps d'attente. Toutefois, si une tâche exige spécifiquement un CPU Cascade Lake, il faut utiliser l'option `--constraint=cascade`."
     },
     {
-      "question": "Comment puis-je demander spécifiquement un CPU Cascade Lake pour ma tâche?",
-      "answer": "Si nécessaire, pour les tâches qui doivent être exécutées avec un CPU Cascade Lake, utilisez l'option `--constraint=cascade` dans votre script."
+      "question": "Quelles sont les générations de GPU Tesla disponibles sur la grappe Graham, et quelle est une caractéristique importante des nœuds GPU Volta, incluant la durée maximale d'exécution des tâches?",
+      "answer": "Les générations de GPU Tesla disponibles sur Graham sont les V100 Volta, les GPU Turing T4 et les A100 Ampere. Les deux nœuds GPU Volta ont une interconnexion NVLINK à large bande passante et sont disponibles pour tous les utilisateurs avec des durées d'exécution maximales de 7 jours."
     },
     {
-      "question": "Quel répertoire est suggéré pour le stockage local sur un nœud?",
-      "answer": "Pour le stockage local sur un nœud, il est recommandé d'utiliser le répertoire temporaire `$SLURM_TMPDIR` qui est généré par Slurm."
-    },
-    {
-      "question": "Qu'arrive-t-il au contenu du répertoire `$SLURM_TMPDIR` à la fin d'une tâche?",
-      "answer": "Le répertoire `$SLURM_TMPDIR` et tout son contenu sont automatiquement supprimés à la fin de l'exécution de la tâche."
-    },
-    {
-      "question": "Pourquoi la quantité de mémoire disponible sur les nœuds est-elle inférieure à la valeur arrondie de la configuration matérielle?",
-      "answer": "La quantité de mémoire disponible est moindre parce qu'une certaine quantité est utilisée en permanence par le noyau (kernel) et le système d'exploitation."
-    },
-    {
-      "question": "Comment l'ordonnanceur s'assure-t-il d'éviter le swapping ou le paging?",
-      "answer": "Pour éviter la perte de temps causée par le swapping ou le paging, l'ordonnanceur n'allouera jamais une tâche dont les exigences dépassent la quantité de mémoire disponible indiquée dans le tableau des caractéristiques des nœuds."
-    },
-    {
-      "question": "Est-ce que je dois considérer autre chose que les besoins de mes processus pour l'allocation de mémoire?",
-      "answer": "Oui, la mémoire allouée pour la tâche doit être suffisante pour les lectures et écritures dans la mémoire tampon qui sont effectuées par le noyau et le système de fichiers. Lorsque ces opérations sont nombreuses, il est préférable de demander plus de mémoire que la quantité totale requise par les processus."
-    },
-    {
-      "question": "Quelles sont les trois générations de GPU Tesla offertes sur Graham, de la plus ancienne à la plus récente?",
-      "answer": "Les trois générations de GPU Tesla, de la plus ancienne à la plus récente, sont : V100 Volta, GPU Turing T4 et A100 Ampere."
-    },
-    {
-      "question": "Les GPU P100 sont-ils toujours en service sur Graham?",
-      "answer": "Non, les GPU P100 ne sont plus en service."
-    },
-    {
-      "question": "Quels avantages offrent les GPU V100 par rapport aux P100?",
-      "answer": "Les V100 succèdent aux P100 et offrent deux fois plus de performance pour les calculs standards et huit fois plus de performance pour les calculs en apprentissage profond qui peuvent utiliser leurs unités de calcul avec cœurs Tensor."
-    },
-    {
-      "question": "Quelles sont les caractéristiques principales des cartes GPU T4?",
-      "answer": "La carte T4 est plus récente et adaptée aux tâches d'apprentissage profond. Elle n'est pas efficace pour les calculs double précision, mais sa performance en simple précision est bonne. Elle possède aussi des cœurs Tensor et peut traiter les calculs à précision réduite avec les entiers."
-    },
-    {
-      "question": "Combien de nœuds GPU Volta possède Graham et quelle est leur particularité?",
-      "answer": "Graham a deux nœuds GPU Volta au total qui ont une interconnexion NVLINK à large bande passante."
-    },
-    {
-      "question": "Quelle est la durée maximale d'exécution pour les tâches sur les nœuds GPU Volta?",
-      "answer": "Les nœuds GPU Volta sont disponibles à tous les utilisateurs pour des durées d'exécution maximales de sept jours (7 jours)."
-    },
-    {
-      "question": "Quel est le ratio CPU/GPU recommandé pour les nœuds Volta de 28 cœurs?",
-      "answer": "Sur les nœuds Volta de 28 cœurs, vous devriez appliquer un ratio CPU/GPU de 3.5 ou moins."
-    },
-    {
-      "question": "Si ma tâche utilise 4 GPU sur un nœud de 28 cœurs, combien de cœurs CPU devrais-je demander au maximum?",
-      "answer": "Si votre tâche doit utiliser 4 GPU, vous devriez demander au plus 14 cœurs CPU."
-    },
-    {
-      "question": "Combien de cœurs CPU devrais-je demander pour une tâche utilisant 1 GPU sur un nœud de 28 cœurs?",
-      "answer": "Pour utiliser 1 GPU, vous devriez demander au plus 3 cœurs CPU."
-    },
-    {
-      "question": "Comment puis-je évaluer la performance de mon code sur les nœuds Volta?",
-      "answer": "Les utilisateurs peuvent faire exécuter quelques tâches de test de moins d'une heure pour connaître le niveau de performance de leur code."
-    },
-    {
-      "question": "Comment dois-je ajuster le nombre de cœurs CPU par GPU sur les deux plus récents nœuds Volta qui ont 40 cœurs?",
-      "answer": "Sur les deux plus récents nœuds Volta qui ont 40 cœurs, le nombre de cœurs par GPU demandé doit être ajusté à la hausse; une tâche peut par exemple utiliser 5 cœurs CPU par GPU."
-    },
-    {
-      "question": "Quel paramètre doit être ajouté au script de soumission pour utiliser les plus récents nœuds Volta (40 cœurs)?",
-      "answer": "Si vous voulez utiliser un de ces nœuds (40 cœurs), il faut ajouter au script de soumission de la tâche le paramètre `constraint=cascade,v100`."
-    },
-    {
-      "question": "Pourquoi devrais-je utiliser le disque local rapide sur les nœuds Volta via `$SLURM_TMPDIR`?",
-      "answer": "Les nœuds Volta de Graham ont un disque local rapide qui devrait être utilisé si la tâche exige beaucoup d'opérations d'entrée/sortie (I/O)."
-    },
-    {
-      "question": "Comment puis-je gérer mes fichiers de données et de sortie avec `$SLURM_TMPDIR` sur les nœuds Volta?",
-      "answer": "Vous pouvez y copier vos fichiers de données au début du script avant d'exécuter le programme, et y copier vos fichiers de sortie à la fin du script. Comme tous les fichiers sont supprimés quand la tâche est terminée, vous n'avez pas à vous en soucier."
-    },
-    {
-      "question": "Peut-on créer des environnements virtuels Python dans le répertoire `$SLURM_TMPDIR`?",
-      "answer": "Oui, vous pouvez créer des environnements virtuels Python dans cet espace temporaire pour améliorer l'efficacité."
-    },
-    {
-      "question": "Comment spécifier une demande pour des nœuds GPU Turing (T4) dans mon script de soumission?",
-      "answer": "Pour demander des nœuds GPU Turing, vous devriez indiquer `--gres=gpu:t4:X`, où X est le nombre de cartes T4 désirées, par exemple `--gres=gpu:t4:2` pour deux cartes."
-    },
-    {
-      "question": "Comment faire une demande pour des nœuds GPU Ampere (A100 ou A5000) dans un script de soumission?",
-      "answer": "Pour obtenir des nœuds GPU Ampere, il faut spécifier `--gres=gpu:a100:X` ou `--gres=gpu:a5000:X`, où X est le nombre de cartes Ampere désirées, par exemple `--gres=gpu:a100:2`."
+      "question": "Comment est-il conseillé de gérer le stockage local sur les nœuds de calcul de Graham, et quels sont les points à considérer lors de l'allocation de la mémoire pour une tâche?",
+      "answer": "Pour le stockage local sur un nœud de calcul de Graham, il est recommandé d'utiliser le répertoire temporaire `$SLURM_TMPDIR`, dont le contenu est automatiquement supprimé à la fin de l'exécution de la tâche. Concernant l'allocation de mémoire, il faut savoir que la quantité disponible est toujours légèrement inférieure à la valeur nominale due à l'utilisation par le noyau et le système d'exploitation, et il est préférable de demander plus de mémoire que la quantité requise par les processus pour les tâches avec beaucoup d'opérations d'écriture et de lecture."
     }
   ],
-  "generated_at": "2026-04-11T23:27:03.069640+00:00"
+  "generated_at": "2026-04-13T06:50:36.326495+00:00"
 }

@@ -4,57 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Quelles sont les quatre clauses principales qu'on peut utiliser avec une directive `loop` pour contrôler le niveau de parallélisme en OpenACC?",
-      "answer": "Les quatre clauses principales sont `gang`, `worker`, `vector` et `seq`."
+      "question": "Quelles sont les clauses OpenACC disponibles pour contrôler le niveau de parallélisme d'une boucle, et dans quel ordre doivent-elles être utilisées?",
+      "answer": "Pour contrôler le niveau de parallélisme dans une boucle OpenACC, on peut utiliser les clauses `gang`, `worker`, `vector` et `seq`. Les clauses de niveau doivent être placées de l'extérieur vers l'intérieur, c'est-à-dire de `gang` à `vector`."
     },
     {
-      "question": "À quoi sert la clause `seq` dans une boucle OpenACC?",
-      "answer": "La clause `seq` indique au compilateur d'exécuter la boucle séquentiellement, sans appliquer de parallélisme."
+      "question": "Comment peut-on spécifier la taille des niveaux de parallélisme `vector`, `worker` et `gang` dans OpenACC, et quelles sont les valeurs maximales pour les GPU NVIDIA?",
+      "answer": "On peut spécifier la taille de chaque niveau de parallélisme en ajoutant un paramètre numérique aux clauses `vector`, `worker` et `gang`, par exemple `worker(32) vector(32)`. Pour les GPU NVIDIA, la longueur de `vector` doit être un multiple de 32 (jusqu'à 1024), et la taille de `gang` est le produit du nombre de `worker`s multiplié par la taille de `vector` (jusqu'à 1204)."
     },
     {
-      "question": "Si on utilise plusieurs clauses de niveau de parallélisme pour une boucle OpenACC, dans quel ordre doit-on les placer?",
-      "answer": "Il faut les placer de l'extérieur vers l'intérieur, c'est-à-dire en commençant par `gang`, puis `worker`, et finalement `vector`."
-    },
-    {
-      "question": "Quelle clause OpenACC est utilisée pour spécifier le type d'accélérateur visé par une directive?",
-      "answer": "C'est la clause `device_type` qui permet de spécifier le type d'accélérateur."
-    },
-    {
-      "question": "Donnez un exemple d'utilisation de la clause `device_type` pour cibler un GPU NVIDIA avec un niveau de parallélisme `vector`.",
-      "answer": "Par exemple, `device_type(nvidia) vector` s'applique uniquement si le code est compilé pour un GPU NVIDIA."
-    },
-    {
-      "question": "Peut-on spécifier une taille pour les niveaux de parallélisme `vector`, `worker` et `gang`?",
-      "answer": "Oui, un paramètre de taille peut être ajouté à ces clauses, comme `worker(32) vector(32)`."
-    },
-    {
-      "question": "Dans le cas des GPUs NVIDIA, quelle est la restriction sur la longueur d'un `vector`?",
-      "answer": "La longueur d'un `vector` doit être un multiple de 32 et ne peut pas dépasser 1024."
-    },
-    {
-      "question": "Comment est calculée la taille maximale d'un `gang` pour les GPUs NVIDIA?",
-      "answer": "La taille d'un `gang` est le produit du nombre de `worker`s multiplié par la taille de `vector`, avec un maximum de 1204."
-    },
-    {
-      "question": "Dans l'exemple du document, quelle était la longueur de `vector` que le compilateur avait fixée par défaut?",
-      "answer": "Le compilateur avait fixé la longueur de `vector` à 128."
-    },
-    {
-      "question": "Pourquoi le programmeur a-t-il voulu diminuer la longueur de `vector` de 128 dans l'exemple, et à quelle valeur l'a-t-il ajustée?",
-      "answer": "Étant donné que chaque rangée de la matrice contenait seulement 27 éléments, le compilateur générait des calculs inutiles pour 101 éléments. Le programmeur a donc choisi de diminuer la longueur de `vector` à 32."
-    },
-    {
-      "question": "Comment spécifie-t-on une longueur de `vector` de 32 pour une boucle interne avec la directive `kernels` en OpenACC pour un GPU NVIDIA?",
-      "answer": "On utilise `#pragma acc loop device_type(nvidia) vector(32)` juste avant la boucle interne."
-    },
-    {
-      "question": "Avec la directive `parallel loop`, comment spécifie-t-on une longueur de `vector` de 32 pour un GPU NVIDIA?",
-      "answer": "On utilise `device_type(nvidia) vector_length(32)` sur la directive `parallel loop` de la boucle la plus externe, et `#pragma acc loop ... device_type(nvidia) vector` pour la boucle interne."
-    },
-    {
-      "question": "Quel a été l'impact sur le temps d'exécution sur un GPU K20 après avoir ajusté la longueur de `vector` de 128 à 32 dans l'exemple du document?",
-      "answer": "Le temps d'exécution est passé de 10 à environ 15 secondes sur un K20, ce qui montre que le compilateur avait initialement fait un meilleur travail dans ce cas."
+      "question": "Dans l'exemple fourni, le compilateur avait fixé la longueur de `vector` à 128. Pourquoi a-t-on tenté de la diminuer à 32, et quel a été l'impact sur la performance?",
+      "answer": "Le compilateur avait fixé la longueur de `vector` à 128. On a tenté de la diminuer à 32 parce que les rangées de la matrice ne contenaient que 27 éléments, ce qui entraînait des calculs inutiles. Cependant, cette modification a fait passer le temps d'exécution sur un K20 de 10 secondes à environ 15 secondes, démontrant que le compilateur initialement faisait un meilleur travail."
     }
   ],
-  "generated_at": "2026-04-12T04:19:34.978169+00:00"
+  "generated_at": "2026-04-13T10:27:35.793051+00:00"
 }

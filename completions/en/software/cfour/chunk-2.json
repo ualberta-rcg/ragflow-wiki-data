@@ -4,45 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What is the typical value for CFOUR_NUM_CORES in a serial CFOUR job script?",
-      "answer": "In a serial CFOUR job script, CFOUR_NUM_CORES is typically set to 1, as shown by `export CFOUR_NUM_CORES=1`."
+      "question": "How do users execute the CFOUR program in a serial job environment on Alliance clusters, and which environment variable is typically set for core allocation?",
+      "answer": "In a serial job, the CFOUR program is executed by running `xcfour`, typically redirecting its output to a file (e.g., `xcfour > cfour-output.txt`). For core allocation, the `CFOUR_NUM_CORES` environment variable should be explicitly set to `1`, for example, with `export CFOUR_NUM_CORES=1`."
     },
     {
-      "question": "How do you execute the CFOUR program in a serial job script?",
-      "answer": "The CFOUR program is executed using `xcfour > ${CFOUROUTPUT}`, which redirects the output to a file specified by `CFOUROUTPUT`."
+      "question": "What are the essential steps and required modules for submitting an MPI (parallel) CFOUR job on Alliance systems using SLURM?",
+      "answer": "For an MPI CFOUR job, users need to include SLURM directives like `--ntasks-per-node` and load specific modules: `intel/2023.2.1`, `openmpi/4.1.5`, and `cfour-mpi/2.1`. The `CFOUR_NUM_CORES` environment variable must be set to the number of allocated SLURM tasks (e.g., `export CFOUR_NUM_CORES=${SLURM_NTASKS}`), and the program is then executed using `xcfour`, often redirecting its output to a file."
     },
     {
-      "question": "What is the purpose of the `if [[ -L \"GENBAS\" ]]; then unlink GENBAS; fi` command in CFOUR job scripts?",
-      "answer": "This command is used to clean up the `GENBAS` symlink by unlinking it if it exists, ensuring a clean state after the job finishes."
-    },
-    {
-      "question": "What is the recommended output filename for CFOUR jobs, according to the example scripts?",
-      "answer": "The recommended output filename for CFOUR jobs is `cfour-output.txt`, as indicated by `CFOUROUTPUT=\"cfour-output.txt\"`."
-    },
-    {
-      "question": "Which modules need to be loaded for a serial CFOUR job?",
-      "answer": "For a serial CFOUR job, you need to load the `intel/2023.2.1` and `cfour/2.1` modules."
-    },
-    {
-      "question": "What is the typical value for CFOUR_NUM_CORES in an MPI CFOUR job script?",
-      "answer": "In an MPI CFOUR job script, CFOUR_NUM_CORES is typically set to the number of tasks, using `${SLURM_NTASKS}`."
-    },
-    {
-      "question": "How many tasks per node are requested in the example MPI job script?",
-      "answer": "The example MPI job script requests `4` tasks per node, as specified by `#SBATCH --ntasks-per-node=4`."
-    },
-    {
-      "question": "Which modules need to be loaded for an MPI CFOUR job?",
-      "answer": "For an MPI CFOUR job, you need to load `intel/2023.2.1`, `openmpi/4.1.5`, and `cfour-mpi/2.1` modules."
-    },
-    {
-      "question": "Where can users find the manual for CFOUR?",
-      "answer": "The manual for CFOUR can be found at http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main.Manual."
-    },
-    {
-      "question": "Where can users find information about the features of CFOUR?",
-      "answer": "Information about the features of CFOUR is available at http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main.Features."
+      "question": "Is there a recommended post-job cleanup step for the `GENBAS` file after a CFOUR run?",
+      "answer": "Yes, after a CFOUR run, it is recommended to clean up the `GENBAS` symlink if it was created during the job. This can be accomplished with the bash command `if [[ -L \"GENBAS\" ]]; then unlink GENBAS; fi`."
     }
   ],
-  "generated_at": "2026-04-11T18:55:57.707852+00:00"
+  "generated_at": "2026-04-13T03:17:14.915224+00:00"
 }

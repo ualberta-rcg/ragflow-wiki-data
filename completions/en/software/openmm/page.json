@@ -3,81 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is OpenMM?",
-      "answer": "OpenMM is an open-source molecular dynamics toolkit designed for flexibility and programmability, primarily used via Python."
+      "question": "What is OpenMM, the open-source molecular dynamics toolkit?",
+      "answer": "OpenMM is a molecular dynamics toolkit designed for flexibility and programmability, used via Python. It offers both application-level classes for running simulations and a lower-level API for custom workflows."
     },
     {
-      "question": "How can users interact with OpenMM?",
-      "answer": "Users can interact with OpenMM through application-level Python classes for running simulations or a lower-level API for custom workflows within their own code."
+      "question": "Which biomolecular system formats can OpenMM natively read and simulate?",
+      "answer": "OpenMM can natively read and simulate systems prepared with AMBER, GROMACS, and CHARMM."
     },
     {
-      "question": "Which existing biomolecular simulation formats does OpenMM natively support?",
-      "answer": "OpenMM can natively read and simulate systems prepared with AMBER, GROMACS, and CHARMM formats."
+      "question": "What types of machine-learning potentials does OpenMM's plugin architecture support for hybrid simulations?",
+      "answer": "OpenMM's plugin architecture supports integration with machine-learning potentials, including TorchMD-Net, MACE, TorchANI, AIMNet2, and DeepMD."
     },
     {
-      "question": "What types of machine-learning potentials can be integrated with OpenMM via its plugin architecture?",
-      "answer": "OpenMM's plugin architecture supports integration with machine-learning potentials such as TorchMD-Net, MACE, TorchANI, AIMNet2, and DeepMD for general-purpose or hybrid ML/MM simulations."
+      "question": "What are some key strengths of using OpenMM for molecular dynamics simulations?",
+      "answer": "Key strengths include its flexible Python interface, high-level plugin framework for ML-driven potentials, efficient execution on CPUs and GPUs suitable for HPC, native support for major biomolecular formats, and being open-source with an active plugin ecosystem."
     },
     {
-      "question": "What are the main strengths of OpenMM?",
-      "answer": "OpenMM offers a flexible Python interface, a high-level plugin framework for ML-driven potentials, efficient execution on CPUs and GPUs for HPC, native support for major biomolecular formats, and is open-source with an active plugin ecosystem."
+      "question": "What are some identified weak points or limitations of the OpenMM molecular dynamics toolkit?",
+      "answer": "Weak points include being slower than highly optimized classical MM engines for large-scale production runs, added complexity for hybrid ML/MM simulations due to flexibility, and the potential need for external tools for specialized trajectory analysis."
     },
     {
-      "question": "What are the known limitations or weak points of OpenMM?",
-      "answer": "OpenMM is slower than highly optimized classical MM engines for large-scale production runs, its flexibility can add complexity for hybrid ML/MM simulations, and specialized trajectory analysis may require external tools."
+      "question": "What is the recommended command to load the OpenMM environment module on an Alliance cluster, including its dependencies?",
+      "answer": "The recommended command is `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 openmm/8.4.0 ambertools/25.0`, noting that `ambertools` is optional and only required for AMBER-prepared systems."
     },
     {
-      "question": "How do you load the required environment modules for OpenMM on an HPC system?",
-      "answer": "You can load the required environment modules using the command: `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 openmm/8.4.0 ambertools/25.0`."
+      "question": "What are the prerequisites for input files when preparing systems for OpenMM simulations on an HPC platform?",
+      "answer": "Before transferring files to HPC, your system should be equilibrated and minimized in Amber or another package. OpenMM can then directly read Amber, GROMACS, or CHARMM formats."
     },
     {
-      "question": "When is the `ambertools` module necessary for OpenMM simulations?",
-      "answer": "The `ambertools` module is optional and only required if you plan to simulate AMBER-prepared systems."
+      "question": "What SLURM directives are used in a typical job script for running an OpenMM simulation using one GPU on an HPC cluster?",
+      "answer": "A typical job script includes `#SBATCH --cpus-per-task=1`, `#SBATCH --gpus=h100:1`, `#SBATCH --mem-per-cpu=4000`, and `#SBATCH --time=0-01:00:00`."
     },
     {
-      "question": "Why might a user create a Python virtual environment when using OpenMM?",
-      "answer": "A Python virtual environment can be created if users want to install extra packages, such as machine-learning potentials."
+      "question": "How does an OpenMM Python simulation script typically handle loading AMBER parameter and restart files?",
+      "answer": "An OpenMM Python script uses `parmed.load_file(\"prmtop.parm7\", \"restart.rst7\")` to load AMBER topology and restart files and `app.amberinpcrdfile.AmberInpcrdFile(\"restart.rst7\")` for the inpcrd file."
     },
     {
-      "question": "What input file types does OpenMM read directly for AMBER systems?",
-      "answer": "OpenMM can directly read Amber topology (e.g., prmtop.parm7) and coordinate/restart files (e.g., restart.rst7) for AMBER systems."
+      "question": "What OpenMM objects are commonly instantiated in a Python script to define the simulation environment and parameters?",
+      "answer": "Common OpenMM objects instantiated include the `system` (e.g., from `amber_sys.createSystem`), an `integrator` (e.g., `LangevinMiddleIntegrator`), a `barostat` (e.g., `MonteCarloBarostat`), and the `Platform` (e.g., `Platform.getPlatformByName(\"CUDA\")`)."
     },
     {
-      "question": "What is an important preparation step before transferring files for OpenMM simulations to an HPC platform?",
-      "answer": "Users must ensure their system is equilibrated and minimized in Amber or another package before transferring files to HPC."
+      "question": "What are some examples of reporters used in an OpenMM Python simulation script to monitor and save simulation data?",
+      "answer": "Examples of reporters include `app.StateDataReporter` for logging simulation progress, `NetCDFReporter` for saving trajectories, and `RestartReporter` for saving restart files."
     },
     {
-      "question": "What does the example SLURM job script `submit_openmm.cuda.sh` do?",
-      "answer": "The example SLURM job script requests one CPU per task, one H100 GPU, 4000 MB of memory per CPU, and a time limit of 1 hour to load modules and run a Python script named `openmm_input.py`."
+      "question": "What specific platform properties can be set for a CUDA platform in an OpenMM Python script?",
+      "answer": "For a CUDA platform, properties such as `CudaPrecision`, `UseCpuPme`, `DeterministicForces`, and `DeviceIndex` can be configured."
     },
     {
-      "question": "What is the primary function of the `openmm_input.py` Python script?",
-      "answer": "The `openmm_input.py` script loads Amber parameter and restart files, builds an OpenMM simulation system, sets up the integrator, and runs molecular dynamics."
-    },
-    {
-      "question": "What are some key simulation parameters defined in the example Python script?",
-      "answer": "Key parameters include `nsteps = 6000`, `dt = 2.0 * unit.femtoseconds`, `temperature = 310 * unit.kelvin`, `pressure = 1 * unit.atmosphere`, and `cutoff = 8.0 * unit.angstroms`."
-    },
-    {
-      "question": "How does the example Python script handle pressure and temperature control during the simulation?",
-      "answer": "The script uses a `LangevinMiddleIntegrator` for temperature control and a `MonteCarloBarostat` for pressure control."
-    },
-    {
-      "question": "What reporting mechanisms are set up in the example OpenMM Python script?",
-      "answer": "The script sets up `StateDataReporter` to print simulation data to stdout every 1000 steps, `NetCDFReporter` to save trajectories to 'trajectory.nc' every 50,000 steps, and `RestartReporter` to save restart files to 'restart.nc' every 50,000 steps."
-    },
-    {
-      "question": "Where can users find a performance guide for OpenMM on Alliance clusters?",
-      "answer": "Users can find a Molecular Dynamics Performance Guide created by ACENET at their website, mdbench.ace-net.ca."
-    },
-    {
-      "question": "How many CPUs are typically required per GPU for OpenMM on the CUDA platform?",
+      "question": "According to the performance section, what is the optimal CPU-to-GPU allocation for OpenMM simulations on the CUDA platform?",
       "answer": "OpenMM on the CUDA platform requires only one CPU per GPU because it does not use CPUs for calculations."
     },
     {
-      "question": "Is using multiple GPUs always efficient for OpenMM simulations?",
-      "answer": "While OpenMM can use several GPUs, the most efficient way to run simulations is typically with a single GPU. Speedup on multiple GPUs is slight on nodes with NvLink, and very little on P100 GPUs without NvLink."
+      "question": "How does OpenMM performance scale with multiple GPUs, particularly concerning NvLink connections on Alliance clusters?",
+      "answer": "OpenMM runs slightly faster on multiple GPUs on nodes with NvLink, but for nodes without NvLink, such as those with P100 GPUs, there is very little speedup with multiple GPUs; a single GPU is generally most efficient."
+    },
+    {
+      "question": "Where can users find a guide for optimizing OpenMM job performance on Alliance clusters?",
+      "answer": "Users can find a guide for optimizing OpenMM job performance on Alliance clusters in the 'Molecular Dynamics Performance Guide' created by a team at ACENET."
     }
   ],
-  "generated_at": "2026-04-12T04:30:41.012005+00:00"
+  "generated_at": "2026-04-13T10:37:10.845545+00:00"
 }

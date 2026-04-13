@@ -4,81 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi, Gaussian?",
-      "answer": "Gaussian, c'est une application de chimie computationnelle qui est produite par Gaussian, Inc."
+      "question": "Sur quelles plateformes l'application de chimie computationnelle Gaussian est-elle disponible et quelles sont ses principales limitations d'exécution sur les systèmes nationaux de l'Alliance?",
+      "answer": "Gaussian est seulement disponible sur les grappes Nibi et Fir. Sur ces systèmes, les tâches Gaussian ne peuvent utiliser qu'un seul nœud de calcul à la fois, car l'exécution en parallèle grappe/réseau (parallélisme Linda) n'est pas prise en charge; seule l'exécution en parallèle avec multiprocesseur à mémoire partagée est permise."
     },
     {
-      "question": "Sur quels systèmes de calcul est-ce que Gaussian est disponible présentement?",
-      "answer": "Gaussian est disponible uniquement sur Nibi et Fir."
+      "question": "Quelles sont les conditions à remplir et les étapes à suivre pour obtenir l'accès à l'application Gaussian sur les grappes de l'Alliance?",
+      "answer": "Pour avoir accès à Gaussian, vous devez accepter certaines conditions : ne pas faire partie d'un groupe de recherche concurrent, ne pas copier ni distribuer l'application, reconnaître la collaboration de l'Alliance dans toute publication et informer l'Alliance de tout changement. Il faut envoyer ces énoncés par courriel au soutien technique de l'Alliance. Si vous êtes un utilisateur parrainé, votre chercheur principal doit aussi avoir envoyé ces mêmes énoncés."
     },
     {
-      "question": "Quel type de parallélisme est pris en charge pour Gaussian sur les systèmes nationaux?",
-      "answer": "Les systèmes nationaux prennent en charge uniquement l'exécution en parallèle avec multiprocesseur à mémoire partagée. Le parallélisme Linda (exécution en parallèle grappe/réseau) n'est pas supporté."
-    },
-    {
-      "question": "Est-ce qu'une tâche Gaussian peut s'étendre sur plus d'un nœud de calcul?",
-      "answer": "Non, une tâche Gaussian ne peut pas utiliser plus d'un nœud de calcul."
-    },
-    {
-      "question": "Quelles sont les étapes pour obtenir l'accès à l'application Gaussian?",
-      "answer": "Pour utiliser l'application, vous devez accepter certaines conditions. Il faut copier des énoncés spécifiques dans un courriel et l'envoyer au soutien technique."
-    },
-    {
-      "question": "Quelles sont les conditions de licence qu'on doit accepter pour pouvoir utiliser Gaussian?",
-      "answer": "Les conditions incluent : ne pas faire partie d'un groupe de recherche concurrent, ne pas copier Gaussian ni le rendre disponible à un tiers, reconnaître la collaboration de l'Alliance dans toute publication, et informer l'Alliance de tout changement concernant les conditions."
-    },
-    {
-      "question": "Que doit faire un utilisateur parrainé par un chercheur principal pour obtenir l'accès à Gaussian?",
-      "answer": "Si vous êtes un utilisateur parrainé, votre chercheur principal doit aussi avoir envoyé une copie des mêmes énoncés au soutien technique."
-    },
-    {
-      "question": "Comment faire pour connaître les versions de Gaussian qui sont disponibles sur Nibi et Fir?",
-      "answer": "Le module `gaussian` est installé sur Nibi et Fir. Pour connaître les versions disponibles, il faut utiliser la commande `module spider gaussian`."
-    },
-    {
-      "question": "Quel ordonnanceur est utilisé par les grappes nationales pour la soumission des tâches Gaussian?",
-      "answer": "Les grappes nationales utilisent l'ordonnanceur Slurm pour la soumission des tâches."
-    },
-    {
-      "question": "Combien de cœurs (CPU) est-il recommandé d'utiliser au maximum par tâche Gaussian, et pourquoi?",
-      "answer": "On recommande de ne pas utiliser plus de 32 CPU par tâche, à moins de pouvoir prouver qu'ils seront bien utilisés, parce que la scalabilité de Gaussian n'est pas toujours optimale au-delà de ce nombre."
-    },
-    {
-      "question": "Est-ce qu'on peut utiliser des nœuds de calcul entiers pour les tâches Gaussian sur Nibi et Fir?",
-      "answer": "Nibi et Fir ont 192 CPU par nœud, mais on vous demande de ne pas utiliser des nœuds entiers pour Gaussian puisque ce ne serait pas efficace."
-    },
-    {
-      "question": "Que dois-je faire si ma tâche Gaussian a besoin de plus de mémoire que ce qui est disponible sur un seul nœud?",
-      "answer": "Chacune des grappes offre quelques nœuds avec plus de mémoire. Pour en connaître le nombre et la capacité, il faut consulter les pages de Fir et Nibi."
-    },
-    {
-      "question": "Quels fichiers sont nécessaires pour soumettre une tâche Gaussian?",
-      "answer": "Il vous faut un fichier d'entrée `name.com` et un script qui décrit les ressources de calcul pour la tâche. Ce script doit être dans le même répertoire que le fichier d'entrée."
-    },
-    {
-      "question": "Combien d'options y a-t-il pour la soumission des tâches Gaussian, et qu'est-ce qui les différencie?",
-      "answer": "Il y a deux options pour les tâches Gaussian, qui se distinguent par la localisation des fichiers d'exécution par défaut et la taille de la tâche."
-    },
-    {
-      "question": "Où sont enregistrés les fichiers d'exécution par défaut avec l'Option 1 pour Gaussian (G16, G09, G03)?",
-      "answer": "Avec l'Option 1, les fichiers d'exécution par défaut (comme .rwf, .inp, .d2e, .int, .skr) sont enregistrés dans le répertoire `/scratch/username/jobid/`."
-    },
-    {
-      "question": "Si une tâche Gaussian échoue ou n'est pas terminée avec l'Option 1, est-ce que les fichiers d'exécution par défaut sont supprimés?",
-      "answer": "Non, avec l'Option 1, les fichiers d'exécution par défaut demeurent dans le répertoire `/scratch/username/jobid/` même si la tâche n'est pas terminée ou a échoué."
-    },
-    {
-      "question": "Est-ce qu'il est possible de récupérer un fichier pour redémarrer une tâche plus tard avec l'Option 1 de Gaussian?",
-      "answer": "Oui, le fichier .rwf peut être récupéré du répertoire `/scratch/username/jobid/` pour redémarrer la tâche plus tard."
-    },
-    {
-      "question": "Comment est-ce qu'on utilise Gaussian 09 ou Gaussian 03 au lieu de G16 avec l'Option 1?",
-      "answer": "Pour utiliser Gaussian 09 ou Gaussian 03, il faut remplacer `gaussian/g16.c01` par `gaussian/g09.e01` ou `gaussian/g03.d01` dans le script, et remplacer `G16` par `G09` ou `G03` dans la commande."
-    },
-    {
-      "question": "Quels paramètres du script doivent être modifiés pour ajuster les ressources de calcul pour une tâche Gaussian avec l'Option 1?",
-      "answer": "Il faut modifier les paramètres `--mem`, `--time`, et `--cpus-per-task` dans le script pour ajuster les ressources de calcul selon les besoins de votre tâche."
+      "question": "Quand on soumet une tâche Gaussian sur les grappes Nibi ou Fir, combien de cœurs de processeur (CPU) est-il recommandé d'utiliser, et pourquoi?",
+      "answer": "Même si les tâches peuvent utiliser jusqu'au maximum de cœurs par nœud sur Nibi et Fir (qui en ont 192), il est recommandé de ne pas utiliser plus de 32 CPU par tâche, à moins de pouvoir prouver qu'ils seront bien exploités. Cette recommandation est due à la scalabilité de Gaussian et vise à éviter une utilisation inefficace des ressources du nœud."
     }
   ],
-  "generated_at": "2026-04-11T22:52:01.691574+00:00"
+  "generated_at": "2026-04-13T06:24:20.434532+00:00"
 }

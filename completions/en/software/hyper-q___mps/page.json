@@ -3,45 +3,53 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Hyper-Q, also known as MPS, and what is its primary function?",
-      "answer": "Hyper-Q (or MPS) is a feature of NVIDIA GPUs, designed to transparently enable co-operative multi-process CUDA applications to utilize Hyper-Q capabilities, allowing CUDA kernels to be processed concurrently on the same GPU."
+      "question": "What is Hyper-Q, also known as MPS, in the context of NVIDIA GPUs?",
+      "answer": "Hyper-Q (or MPS) is an NVIDIA GPU feature designed to enable co-operative multi-process CUDA applications, like MPI jobs, to utilize GPU capabilities more efficiently."
     },
     {
-      "question": "Which NVIDIA GPUs support the Hyper-Q feature?",
-      "answer": "GPUs with CUDA compute capability 3.5 and higher support the Hyper-Q feature."
+      "question": "Which NVIDIA GPUs support the Hyper-Q (MPS) feature?",
+      "answer": "NVIDIA GPUs with CUDA compute capability 3.5 and higher support the Hyper-Q (MPS) feature."
     },
     {
-      "question": "When does Hyper-Q generally improve performance?",
-      "answer": "Hyper-Q can benefit performance when the GPU compute capacity is underutilized by a single application process."
+      "question": "What is the main benefit of Hyper-Q (MPS) for GPU performance?",
+      "answer": "Hyper-Q (MPS) allows CUDA kernels to be processed concurrently on the same GPU, which can significantly improve performance when a single application process underutilizes the GPU's compute capacity."
     },
     {
-      "question": "For what type of CUDA applications is MPS particularly beneficial?",
-      "answer": "MPS is particularly beneficial for CUDA applications with relatively small problem sizes that cannot efficiently saturate modern GPUs on their own."
+      "question": "When is the MPS feature particularly beneficial for CUDA applications?",
+      "answer": "MPS is particularly beneficial for CUDA applications with relatively small problem sizes that cannot efficiently saturate modern GPUs on their own, as it can increase the total GPU flop rate."
     },
     {
-      "question": "Is the MPS feature enabled by default on NVIDIA GPUs?",
-      "answer": "No, the MPS feature is not enabled by default."
+      "question": "Is the NVIDIA MPS feature enabled by default?",
+      "answer": "No, the NVIDIA MPS feature is not enabled by default."
     },
     {
-      "question": "What are the necessary commands to enable the MPS feature before running a CUDA application?",
-      "answer": "You need to execute `export CUDA_MPS_PIPE_DIRECTORY=/tmp/nvidia-mps`, `export CUDA_MPS_LOG_DIRECTORY=/tmp/nvidia-log`, and `nvidia-cuda-mps-control -d`."
+      "question": "What commands are required to enable the MPS feature before running a CUDA application?",
+      "answer": "To enable MPS, you need to execute `export CUDA_MPS_PIPE_DIRECTORY=/tmp/nvidia-mps`, `export CUDA_MPS_LOG_DIRECTORY=/tmp/nvidia-log`, and `nvidia-cuda-mps-control -d`."
     },
     {
-      "question": "In what situations can the MPS feature be utilized after it's enabled?",
-      "answer": "The MPS feature can be utilized if you have more than one CPU thread accessing the GPU, such as with hybrid MPI/CUDA, hybrid OpenMP/CUDA applications, or multiple instances of a serial CUDA application (GPU farming)."
+      "question": "In what types of scenarios can the MPS feature be utilized after it's enabled?",
+      "answer": "The MPS feature can be utilized when more than one CPU thread accesses the GPU, such as with hybrid MPI/CUDA, hybrid OpenMP/CUDA applications, or multiple instances of a serial CUDA application (GPU farming)."
     },
     {
-      "question": "What is 'GPU farming' in the context of MPS?",
-      "answer": "GPU farming involves running multiple instances of a CUDA application on a single GPU, often when individual applications are too small to saturate a modern GPU, thereby increasing overall throughput."
+      "question": "What is 'GPU farming' in the context of using NVIDIA's MPS feature?",
+      "answer": "GPU farming refers to running multiple instances of a CUDA application on a single GPU using MPS, especially when each instance individually is too small to fully saturate a modern GPU."
     },
     {
-      "question": "What is a crucial prerequisite for successful GPU farming using MPS?",
-      "answer": "There must be enough GPU memory available for all of the application instances running concurrently."
+      "question": "What is a primary advantage of using MPS for GPU farming?",
+      "answer": "A primary advantage of using MPS for GPU farming is a significantly increased throughput from all GPU processes, provided there is enough GPU memory for all application instances."
     },
     {
-      "question": "Which two important elements are required in a job script for setting up GPU farming?",
-      "answer": "The `&` operator on the code execution line to send processes to the background, and the `wait` command at the end of the script to ensure the job runs until all background processes have completed."
+      "question": "In a job script for GPU farming, what are the two crucial elements for running multiple application instances concurrently?",
+      "answer": "The two crucial elements are sending code processes to the background using `&` on the execution line and including the `wait` command at the end of the script to ensure all background processes complete."
+    },
+    {
+      "question": "How does an example job script for GPU farming set up the MPS temporary directories?",
+      "answer": "The example job script sets up MPS temporary directories within the job's allocated temporary space, specifically `$SLURM_TMPDIR/tmp`, for `CUDA_MPS_LOG_DIRECTORY`."
+    },
+    {
+      "question": "How does the example job script for GPU farming assign CPU resources to application instances?",
+      "answer": "The example script requests a specific number of CPU cores per task (`#SBATCH --cpus-per-task=8`) and then loops to launch an equal number of application instances, effectively assigning one CPU core per application instance."
     }
   ],
-  "generated_at": "2026-04-11T23:47:57.237006+00:00"
+  "generated_at": "2026-04-13T07:08:17.968492+00:00"
 }

@@ -3,45 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary function of the Dalton2016 suite?",
-      "answer": "The Dalton2016 suite, which includes Dalton and LSDalton, is designed for molecular electronic structure calculations and determining molecular properties."
+      "question": "What is the primary purpose of the Dalton2016 suite of programs?",
+      "answer": "The Dalton2016 suite, which includes Dalton and LSDalton, provides extensive functionality for calculating molecular properties at various theoretical levels like HF, DFT, MCSCF, and CC."
     },
     {
-      "question": "Which theoretical levels are supported for calculations within the Dalton2016 suite?",
-      "answer": "The suite supports calculations at the HF, DFT, MCSCF, and CC levels of theory."
+      "question": "Which specific programs form the core of the Dalton2016 suite?",
+      "answer": "The core of the Dalton2016 suite consists of the powerful molecular electronic structure programs, Dalton and LSDalton."
     },
     {
-      "question": "Where can users find documentation for the Dalton2016 suite?",
-      "answer": "Documentation for the Dalton2016 suite is available on its project website at http://daltonprogram.org/documentation/."
+      "question": "What levels of theory are supported by the Dalton2016 suite for molecular property calculations?",
+      "answer": "The Dalton2016 suite supports calculations at the HF, DFT, MCSCF, and CC levels of theory."
     },
     {
-      "question": "How does one load the `dalton/2017-alpha` module?",
-      "answer": "To load the module, use the command: `module load nixpkgs/16.09 intel/2016.4 openmpi/2.0.2 dalton/2017-alpha`."
+      "question": "Where can users find the official project website, documentation, and forum for the Dalton program?",
+      "answer": "The project website is http://daltonprogram.org/, documentation is http://daltonprogram.org/documentation/, and the forum is http://forum.daltonprogram.org/."
     },
     {
-      "question": "What is a notable dependency requirement for the `dalton/2017-alpha` module?",
-      "answer": "The `dalton/2017-alpha` module requires a non-default version of Open MPI, specifically `openmpi/2.0.2`."
+      "question": "How does a user load the Dalton module, including its specific version and required dependencies?",
+      "answer": "A user loads the Dalton module by executing `module load nixpkgs/16.09 intel/2016.4 openmpi/2.0.2 dalton/2017-alpha`."
     },
     {
-      "question": "What two types of files are essential for running a Dalton job?",
-      "answer": "An essential Dalton input file (e.g., `.dal`) and a molecule specification file (e.g., `.mol`) are required."
+      "question": "Is there a specific dependency noted for the `dalton/2017-alpha` module?",
+      "answer": "Yes, the `dalton/2017-alpha` module depends on a non-default version of Open MPI."
     },
     {
-      "question": "How can the number of processes for a Dalton job be configured?",
-      "answer": "The number of processes can be set either by adding the option `-N ${SLURM_NTASKS}` to the command line or by exporting the environment variable `DALTON_NUM_MPI_PROCS=${SLURM_NTASKS}`."
+      "question": "What two main types of input files are generally required when running a Dalton job?",
+      "answer": "A Dalton input file (e.g., `dft_rspexci_nosym.dal`) and a molecule specification file (e.g., `H2O_cc-pVDZ_nosym.mol`) are generally required."
     },
     {
-      "question": "Which command-line option is used to include the program's installed atomic basis set?",
-      "answer": "The option `-b ${BASLIB}` is used to supply the atomic basis set installed with the program."
+      "question": "How can a user specify the atomic basis set installed with the Dalton program when running a job?",
+      "answer": "The atomic basis set can be supplied by providing the option `-b ${BASLIB}` to the command line."
     },
     {
-      "question": "Provide an example of a Dalton command execution using command-line options for both basis set and processes.",
+      "question": "What are the two described methods for setting the number of processes for a Dalton job?",
+      "answer": "The number of processes can be set either by adding the option `-N ${SLURM_NTASKS}` to the launcher command line or by exporting the environment variable `DALTON_NUM_MPI_PROCS=${SLURM_NTASKS}`."
+    },
+    {
+      "question": "What is the basic command to launch the Dalton program after its module has been loaded?",
+      "answer": "The basic command to launch the Dalton program is `dalton`."
+    },
+    {
+      "question": "Provide an example command-line execution of Dalton using the `-N` option to specify the number of processes.",
       "answer": "An example command is `dalton -b ${BASLIB} -N ${SLURM_NTASKS} -dal dft_rspexci_nosym.dal -mol H2O_cc-pVDZ_nosym.mol`."
     },
     {
-      "question": "What information is typically found in a Dalton input file, according to the examples?",
-      "answer": "A Dalton input file usually contains specifications for the run type, integrals, wave functions (like DFT), and response properties, enclosed within `**DALTON INPUT` and `**END OF DALTON INPUT`."
+      "question": "Provide an example of how to run Dalton using the `DALTON_NUM_MPI_PROCS` environment variable to specify the number of processes.",
+      "answer": "First, `export DALTON_NUM_MPI_PROCS=${SLURM_NTASKS}`, then run `dalton -b ${BASLIB} -dal dft_rspexci_nosym.dal -mol H2O_cc-pVDZ_nosym.mol`."
+    },
+    {
+      "question": "What type of calculation is demonstrated in the `dft_rspexci_nosym.dal` input file from Example 1?",
+      "answer": "This input file demonstrates a DFT B3LYP calculation with linear response, requesting a single residue and 3 roots."
+    },
+    {
+      "question": "What common resource manager directives are included in the example SLURM scripts provided for Dalton jobs?",
+      "answer": "The example SLURM scripts include directives for nodes (`--nodes`), tasks per node (`--ntasks-per-node`), memory per CPU (`--mem-per-cpu`), and job time limit (`--time`)."
+    },
+    {
+      "question": "How do the two example SLURM scripts, 'Script 1' and 'Script 2,' differ in their method of specifying the number of MPI processes for Dalton?",
+      "answer": "'Script 1' specifies the number of processes using the `-N ${SLURM_NTASKS}` command-line option, while 'Script 2' uses the `export DALTON_NUM_MPI_PROCS=${SLURM_NTASKS}` environment variable."
+    },
+    {
+      "question": "What is the key difference in the `.RESPONSE` section between the `dft_rspexci_nosym.dal` (Example 1) and `dft_rspexci_sym.dal` (Example 2) input files?",
+      "answer": "The `dft_rspexci_nosym.dal` file explicitly requests `3` roots under `*LINEAR .SINGLE RESIDUE .ROOTS`, whereas `dft_rspexci_sym.dal` does not specify the number of roots."
     }
   ],
-  "generated_at": "2026-04-11T20:40:36.591696+00:00"
+  "generated_at": "2026-04-13T04:40:27.656683+00:00"
 }

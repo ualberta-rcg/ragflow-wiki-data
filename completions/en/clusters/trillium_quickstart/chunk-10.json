@@ -4,81 +4,13 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "What are the two main partitions available for CPU compute jobs on Trillium?",
-      "answer": "The two main partitions for CPU compute jobs are 'compute' and 'debug'."
+      "question": "What are the specific job limits and characteristics for CPU compute jobs submitted to the 'compute' partition on Trillium?",
+      "answer": "For CPU compute jobs on Trillium's 'compute' partition, users can have a limit of 150 running jobs and 500 submitted jobs (including those already running). Each job must utilize a minimum of 1 node (192 cores). The maximum job size is 10 nodes (1920 cores) by default, but can extend to 128 nodes (24576 cores) if a specific allocation is in place. The minimum allowed walltime for these jobs is 15 minutes, and the maximum walltime is 24 hours."
     },
     {
-      "question": "What is the maximum number of running 'compute' jobs a user can have on the CPU subcluster?",
-      "answer": "A user can have a limit of 150 running 'compute' jobs on the CPU subcluster."
-    },
-    {
-      "question": "What is the maximum number of submitted jobs (including running jobs) allowed for the 'compute' partition on the CPU subcluster?",
-      "answer": "The limit for submitted jobs, including running ones, in the 'compute' partition is 500."
-    },
-    {
-      "question": "What is the minimum job size for 'compute' jobs on the CPU subcluster?",
-      "answer": "The minimum job size for 'compute' jobs is 1 node, which provides 192 cores."
-    },
-    {
-      "question": "What is the default maximum job size for 'compute' jobs on the CPU subcluster?",
-      "answer": "By default, the maximum size for 'compute' jobs is 10 nodes (1920 cores)."
-    },
-    {
-      "question": "How does having an allocation affect the maximum job size for 'compute' jobs on the CPU subcluster?",
-      "answer": "With an allocation, the maximum job size for 'compute' jobs increases to 128 nodes (24576 cores)."
-    },
-    {
-      "question": "What is the minimum walltime for 'compute' jobs on the CPU subcluster?",
-      "answer": "The minimum walltime for 'compute' jobs is 15 minutes."
-    },
-    {
-      "question": "What is the maximum walltime for 'compute' jobs on the CPU subcluster?",
-      "answer": "The maximum walltime for 'compute' jobs is 24 hours."
-    },
-    {
-      "question": "What is the purpose of the 'debug' partition on the CPU subcluster?",
-      "answer": "The 'debug' partition is used for testing or troubleshooting jobs."
-    },
-    {
-      "question": "What is the limit on running jobs within the 'debug' partition?",
-      "answer": "Only 1 job can be running at a time within the 'debug' partition."
-    },
-    {
-      "question": "What is the maximum size for jobs submitted to the 'debug' partition?",
-      "answer": "Jobs in the 'debug' partition can be up to 2 nodes (384 cores)."
-    },
-    {
-      "question": "What is the walltime limit for jobs in the 'debug' partition?",
-      "answer": "Jobs in the 'debug' partition have a maximum walltime of 1 hour."
-    },
-    {
-      "question": "What factors influence the waiting time for a job in the queue?",
-      "answer": "Job waiting time depends on factors such as the group's allocation amount, recent allocation usage, the number of requested nodes and walltime, and the number of other jobs in the queue."
-    },
-    {
-      "question": "How do you submit an MPI job script on Trillium's CPU subcluster?",
-      "answer": "An MPI job script should be submitted from a CPU login node while in your `$SCRATCH` directory using the command `sbatch mpi_job.sh`."
-    },
-    {
-      "question": "What is the purpose of the `source /scinet/vast/etc/vastpreload-openmpi.bash` line in an MPI job script?",
-      "answer": "This line preloads a library that tunes MPI-IO for the VAST file system, which is important for MPI-IO operations. It needs to be adjusted if using IntelMPI instead of OpenMPI."
-    },
-    {
-      "question": "Why must `mpirun` be used for the VAST preload library to take effect, and not `srun`?",
-      "answer": "The VAST preload library for MPI-IO only works with `mpirun` and does not take effect when using `srun`."
-    },
-    {
-      "question": "How do you set the number of OpenMP threads in an OpenMP job script on Trillium?",
-      "answer": "The `OMP_NUM_THREADS` environment variable is set to the value of `$SLURM_CPUS_PER_TASK`, which is determined by the `--cpus-per-task` SBATCH directive."
-    },
-    {
-      "question": "What is indicated by lines starting with `#SBATCH` in a job script?",
-      "answer": "Lines starting with `#SBATCH` are directives for the SLURM scheduler, specifying job requests like node count, tasks, time, and job name."
-    },
-    {
-      "question": "Where should a user be when submitting a CPU job script like the MPI or OpenMP examples?",
-      "answer": "The user should be in their `$SCRATCH` directory on a CPU login node when submitting such job scripts."
+      "question": "How do you submit an MPI (Message Passing Interface) job to Trillium's CPU subcluster, and what are the essential components of its job script?",
+      "answer": "To submit an MPI job to Trillium's CPU subcluster, you must first be in your `$SCRATCH` directory on a CPU login node, then execute the command `$ sbatch mpi_job.sh`. The job script (`mpi_job.sh`) must begin with `#!/bin/bash` and include `#SBATCH` directives to specify resources, such as `--nodes` (e.g., 2), `--ntasks-per-node` (e.g., 192), `--time` (e.g., 01:00:00), `--job-name`, and `--output`. Inside the script, it's crucial to `cd $SLURM_SUBMIT_DIR`, load necessary modules like `StdEnv/2023`, `gcc/12.3`, and `openmpi/4.1.5`, and for MPI-IO performance, `source /scinet/vast/etc/vastpreload-openmpi.bash`. Finally, the MPI application is launched using `mpirun ./mpi_example`."
     }
   ],
-  "generated_at": "2026-04-12T09:46:20.644731+00:00"
+  "generated_at": "2026-04-13T14:56:19.561391+00:00"
 }

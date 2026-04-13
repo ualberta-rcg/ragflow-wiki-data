@@ -4,25 +4,13 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How can one determine if they are requesting too many cores for a multithreaded task?",
-      "answer": "You can identify this by observing the CPU graph. If it appears red, it indicates that the maximum number of cores being utilized is significantly lower than the number requested. Additionally, the 'Processes and threads' graph serves as a reference, showing the actual number of active execution threads."
+      "question": "How can a user identify if they have requested more CPU cores than necessary for a multithreaded task on an Alliance cluster?",
+      "answer": "To identify if too many CPU cores have been requested for a multithreaded task, a user should consult the CPU graph and the 'Processes and threads' graph. The CPU graph will display in red, indicating that the maximum number of cores utilized is significantly less than what was requested (e.g., 10 cores used out of 32 requested). The 'Processes and threads' graph will then confirm the actual average number of active threads, providing a reference for the true core usage."
     },
     {
-      "question": "What is the visual indicator in the CPU graph when too many cores are requested for a multithreaded task?",
-      "answer": "The CPU graph will display in red when the requested resources are not sufficiently utilized, signifying that the maximum number of cores being used is well below the number that was asked for."
-    },
-    {
-      "question": "What is the recommended adjustment to the SBATCH script if the CPU graph shows excessive core requests for a multithreaded task?",
-      "answer": "If the CPU graph shows that, for example, only 10 out of 32 requested cores are being used, the `#SBATCH --cpus-per-task` parameter should be corrected to reflect the actual number of utilized cores, such as `#SBATCH --cpus-per-task=10`."
-    },
-    {
-      "question": "How should memory allocation be adjusted if the number of cores requested for a multithreaded task is reduced due to over-requesting?",
-      "answer": "If the number of cores is reduced (e.g., from 32 to 10), the memory per CPU may need to be increased to compensate. For instance, you might adjust `#SBATCH --mem-per-cpu=1` to `#SBATCH --mem-per-cpu=3` to achieve a total of 30 GB."
-    },
-    {
-      "question": "What information does the 'Processes and threads' graph provide for identifying over-requested cores in a multithreaded task?",
-      "answer": "The 'Processes and threads' graph shows the average number of active execution threads, which can confirm if fewer threads are running than cores requested (e.g., 10 active threads even if 32 cores were asked for)."
+      "question": "What is the recommended correction if a user discovers they have requested an excessive number of CPU cores for a multithreaded task on an Alliance cluster?",
+      "answer": "If a user has requested too many CPU cores for a multithreaded task, the recommended correction is to adjust the `#SBATCH --cpus-per-task` parameter in their submission script to match the actual number of active threads observed. For example, if 32 cores were requested but only 10 were utilized, the parameter should be changed to `#SBATCH --cpus-per-task=10`. Furthermore, if the initial memory request (`#SBATCH --mem-per-cpu`) was based on the excessive core count, it should also be re-evaluated and adjusted accordingly (e.g., from 1G per CPU to 3G per CPU for a total of 30G with 10 cores)."
     }
   ],
-  "generated_at": "2026-04-11T21:19:35.036159+00:00"
+  "generated_at": "2026-04-13T05:09:09.264060+00:00"
 }

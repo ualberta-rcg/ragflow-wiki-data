@@ -4,85 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What is the primary function of a volume snapshot?",
-      "answer": "A volume snapshot saves the state of a volume at the exact time the snapshot was created."
+      "question": "How do OpenStack VM snapshots differ in behaviour between persistent VMs and compute VMs when used for backup purposes?",
+      "answer": "When you create a snapshot of a persistent VM, OpenStack generates a nearly empty image that primarily contains pointers to volume snapshots of the VM's boot and attached volumes. In contrast, for a compute VM, creating a snapshot produces an image that includes a direct copy of the VM's root drive."
     },
     {
-      "question": "Why are volume snapshots not considered ideal for backup purposes?",
-      "answer": "Volume snapshots depend on the original volume remaining intact, which makes them less suitable for backups."
+      "question": "When backing up a compute VM in OpenStack by creating an image from a snapshot, what happens to the data stored on the `/mnt` data drive?",
+      "answer": "The data located on the `/mnt` extra data drive of a compute VM is not captured in the image created from a snapshot. Users must make other arrangements, such as copying the data off the disk before the VM is terminated, to save this information."
     },
     {
-      "question": "Can OpenStack volume snapshots be downloaded?",
-      "answer": "No, it is not possible to download volume snapshots as they depend on the original volume."
-    },
-    {
-      "question": "What is a key benefit of creating a new volume from a volume snapshot?",
-      "answer": "It allows you to create a new volume from a snapshot, which is useful for reverting file changes since the last snapshot or for isolating file changes specific to a VM."
-    },
-    {
-      "question": "Does the term 'snapshot' consistently refer to the same thing in OpenStack?",
-      "answer": "No, OpenStack uses the word 'snapshot' to mean two different things: volume snapshots and snapshots of VMs."
-    },
-    {
-      "question": "What happens when you create a snapshot of a persistent VM?",
-      "answer": "If you have a persistent VM and create a snapshot of it, OpenStack creates a nearly empty image that contains pointers to volume snapshots."
-    },
-    {
-      "question": "What do the pointers in a persistent VM snapshot refer to?",
-      "answer": "These pointers refer to the volume snapshot(s) of the persistent VM's boot volume and any attached volumes that were created as part of the VM snapshot."
-    },
-    {
-      "question": "How can a new VM be created from a snapshot of a persistent VM?",
-      "answer": "You can create a new VM by booting from the image created from the snapshot, which will create new volumes from the previously taken volume snapshots, boot a new VM from the root volume, and attach any other duplicated volumes."
-    },
-    {
-      "question": "What is the main objective when creating backups of compute VMs?",
-      "answer": "The main goal is to create an image of at least the root drive, and possibly other attached volumes if required."
-    },
-    {
-      "question": "How do compute VMs differ from persistent VMs in their booting mechanism?",
-      "answer": "Compute VMs are designed to boot from disk images residing locally on the computer running the VM, unlike persistent VMs which boot from volumes accessed over the network."
-    },
-    {
-      "question": "How do you create an image of a compute VM's root disk in OpenStack?",
-      "answer": "You can do this by clicking 'Create Snapshot' on your VM's drop-down menu on the 'Instances' tab."
-    },
-    {
-      "question": "What kind of image is produced when you create a snapshot of a compute VM?",
-      "answer": "Creating a snapshot of a compute VM produces an image that contains a copy of the VM's root drive, which is not nearly as empty as a persistent VM snapshot."
-    },
-    {
-      "question": "Is the data on a compute VM's `/mnt` drive captured in the VM image?",
-      "answer": "No, the data on the extra data drive mounted at `/mnt` on a compute VM is not captured in the image created of that VM."
-    },
-    {
-      "question": "What actions should be taken to preserve data from a compute VM's `/mnt` drive?",
-      "answer": "Other arrangements, such as copying the data off the disk before the VM is terminated, must be made to save this data."
-    },
-    {
-      "question": "What challenges are associated with managing very large disk images?",
-      "answer": "Very large disk images (over 10-20 GB) can be difficult to manage due to relatively long upload times and extended VM creation times."
-    },
-    {
-      "question": "What is a recommended basic backup strategy for VMs with large data sets?",
-      "answer": "A good basic strategy might be to separate large data sets from your operating system and software stack."
-    },
-    {
-      "question": "How can the operating system and software stack be backed up in the example strategy?",
-      "answer": "The operating system and software stack can be backed up either using a disk image or by recreating them using provisioning software."
-    },
-    {
-      "question": "Which methods are suggested for backing up data sets in the example strategy?",
-      "answer": "The data sets can then be backed up with using normal file backup methods to a remote location."
-    },
-    {
-      "question": "What specific action is recommended for backing up database software like MySQL or PostgreSQL?",
-      "answer": "You will want to create dumps of the databases to include in your backups."
-    },
-    {
-      "question": "What is the most crucial step in any backup strategy?",
-      "answer": "The most crucial step is to test restoring from your backup, as a backup is not useful if you cannot restore from it."
+      "question": "What is the most crucial step to ensure the effectiveness of any backup strategy for virtual machines in OpenStack?",
+      "answer": "The most crucial step is to test restoring from your backup. If you are unable to restore data from your backup, it is not very useful."
     }
   ],
-  "generated_at": "2026-04-11T18:30:56.014060+00:00"
+  "generated_at": "2026-04-13T02:57:07.370160+00:00"
 }

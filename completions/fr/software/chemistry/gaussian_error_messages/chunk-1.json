@@ -4,41 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Qui est la personne qui a initialement compilé l'information sur Gaussian?",
-      "answer": "L'information sur Gaussian a été initialement compilée par le professeur Cory C. Pye."
+      "question": "Comment savoir si une tâche Gaussian s'est terminée normalement? Quelles sont les raisons courantes si une tâche échoue sans message d'erreur explicite, mais que le rapport de sortie semble normal?",
+      "answer": "Une tâche Gaussian se termine normalement quand on voit le message 'Normal termination of Gaussian...' dans le fichier de sortie, avec le temps d'exécution. Si une tâche semble se terminer normalement mais échoue sans message d'erreur explicite, ça peut être parce que votre quota a été dépassé, le temps d'exécution a été plus long que celui demandé à l'ordonnanceur (`--time=HH:MM:SS`), la mémoire demandée était insuffisante, ou la tâche a produit des données dont la taille dépasse la capacité du disque local des nœuds de calcul."
     },
     {
-      "question": "Comment savoir si une tâche Gaussian s'est terminée normalement?",
-      "answer": "Une tâche Gaussian terminée normalement affichera un message tel que « Normal termination of Gaussian 16 » dans son rapport de sortie, en plus d'indiquer le temps CPU et le temps écoulé."
+      "question": "Qu'est-ce qu'indique une erreur 'Erroneous Write' dans Gaussian et quelles sont les solutions pour la régler?",
+      "answer": "L'erreur 'Erroneous Write' indique habituellement que l'espace disque est épuisé. Ça peut être dû à un quota dépassé, un disque à pleine capacité, ou plus rarement, une interruption de la communication avec un lecteur de réseau. Pour résoudre ça, vous devriez vérifier votre quota avec la commande `quota` et supprimer les fichiers inutiles. Vous pouvez aussi essayer de réduire la taille de votre tâche si elle est trop volumineuse pour le matériel."
     },
     {
-      "question": "Quelles sont les raisons possibles si une tâche Gaussian échoue sans message d'erreur, mais que son rapport de sortie semble normal?",
-      "answer": "Si une tâche Gaussian échoue sans message d'erreur apparent, les causes possibles incluent un quota dépassé, un temps d'exécution plus long que demandé à l'ordonnanceur, une mémoire insuffisante, ou des données produites dont la taille dépasse la capacité du disque local des nœuds de calcul."
-    },
-    {
-      "question": "Comment se présente une erreur du type « Erroneous Write » dans un fichier de sortie Gaussian?",
-      "answer": "Une erreur du type « Erroneous Write » se manifeste vers la fin du fichier de sortie par des messages comme « Erroneous write. write X instead of Y. », « writwa: File exists », « writwa: No space left on device » ou « Probably out of disk space. Write error in NtrExt1 »."
-    },
-    {
-      "question": "Quelle est la cause principale derrière l'erreur « Erroneous Write » dans Gaussian?",
-      "answer": "L'erreur « Erroneous Write » survient habituellement quand l'espace disque est épuisé, ce qui peut être dû à un quota dépassé, un disque à pleine capacité, ou plus rarement, une interruption de la communication avec un lecteur de réseau."
-    },
-    {
-      "question": "Que dois-je faire pour régler une erreur « Erroneous Write »?",
-      "answer": "Pour régler une erreur « Erroneous Write », il faut vérifier son quota avec la commande `quota` et supprimer les fichiers inutiles si nécessaire, ou essayer de réduire la base de la tâche si elle est trop volumineuse pour le matériel."
-    },
-    {
-      "question": "Quels messages indiquent une erreur de type « Link 9999 » dans le fichier de sortie de Gaussian?",
-      "answer": "Une erreur « Link 9999 » est signalée par des messages comme « Error termination request processed by link 9999. » ou « Error termination via Lnk1e in /disc30/g98/l9999.exe. » à la fin du fichier, souvent après une indication que l'optimisation s'est arrêtée parce que le nombre d'étapes a été dépassé."
-    },
-    {
-      "question": "Quelle est la cause la plus fréquente d'une erreur « Link 9999 »?",
-      "answer": "La cause la plus fréquente d'une erreur « Link 9999 » est la non-convergence d'une optimisation géométrique, indiquant une terminaison anormale de l'application."
-    },
-    {
-      "question": "Comment peut-on solutionner une erreur « Link 9999 » due à une non-convergence de l'optimisation géométrique?",
-      "answer": "Pour solutionner une erreur « Link 9999 » due à une non-convergence, on peut optimiser la structure de départ avec un niveau théorique plus bas, redémarrer l'optimisation à partir de la dernière étape en utilisant `geom=allcheck`, ou utiliser `opt=CalcFC` si c'est abordable. On peut aussi employer une matrice hessienne de constantes de force plus riche avec des tâches liées (`Opt=ReadFC`, `Opt=CalcFC`, `Opt=CalcAll`)."
+      "question": "Quelle est la cause la plus fréquente de l'erreur 'Link 9999' dans Gaussian et comment peut-on la corriger?",
+      "answer": "L'erreur 'Link 9999' est généralement causée par une non-convergence lors d'une optimisation géométrique. Pour la corriger, on peut optimiser la structure de départ avec un niveau théorique plus bas, redémarrer l'optimisation à partir de la dernière étape en utilisant `geom=allcheck` ou `opt=CalcFC`. On peut aussi utiliser une matrice hessienne de constantes de force plus riche avec `Opt=ReadFC` ou `Opt=CalcFC`, modifier la Z-matrice si le problème vient du système de coordonnées, ou remplacer la méthode d'optimisation par défaut par `opt=ef` ou `opt=gdiis`."
     }
   ],
-  "generated_at": "2026-04-11T22:59:32.693951+00:00"
+  "generated_at": "2026-04-13T06:29:53.456655+00:00"
 }

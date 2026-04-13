@@ -3,53 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is a primary challenge for PAICE sites when trying to obtain user lists for communications from CCDB?",
-      "answer": "PAICE sites cannot reliably get lists of active users from CCDB because it is very difficult for CCDB to determine what site a sponsored user has access to at any given time."
+      "question": "What is the primary challenge for PAICE sites when trying to obtain lists of active users from CCDB?",
+      "answer": "PAICE sites cannot reliably get a list of usernames from CCDB to send communications to active users and must instead obtain it from LDAP or their own systems."
     },
     {
-      "question": "What types of user roles does this document focus on for retrieving access lists?",
-      "answer": "This document focuses on how to get a list of PI roles (but not sponsored roles) that have requested Tier access and system access on any PAICE site."
+      "question": "Why is it difficult for CCDB to determine which site a sponsored user has access to?",
+      "answer": "It requires looking at the tier service of which their PI is a member, what system the sponsored user requested access to, and the `aip-` RAP the sponsored user is a member of."
     },
     {
-      "question": "What level of permissions is required on CCDB to perform the actions described?",
-      "answer": "An administrator must have a Privileged Federation staff role or higher permissions on CCDB."
+      "question": "What specific type of user roles does this document focus on retrieving lists for from CCDB?",
+      "answer": "This page focuses on how to get a list of PI roles (but not sponsored roles) that have requested Tier access and system access on any PAICE site."
     },
     {
-      "question": "Why is it difficult for CCDB to know what site a sponsored user has access to?",
-      "answer": "It requires looking at the tier service their PI is a member of, what system the sponsored user requested access to, and the `aip-` RAP the sponsored user is a member of."
+      "question": "Who is authorized to perform the steps outlined in this document on CCDB?",
+      "answer": "Any administrator with a Privileged Federation staff role or higher permissions on CCDB can perform these steps."
     },
     {
-      "question": "What is the naming convention for Tier 1 and Tier 2 services in CCDB?",
-      "answer": "Tier 1 and Tier 2 services follow the convention `aip-[site]-tier1` (or `aip-[site]-tier2`)."
+      "question": "What is the key difference in service naming conventions between Tier 1/2 and Tier 3/4 on Alliance clusters?",
+      "answer": "Tier 1 and Tier 2 have services following `aip-[site]-tier1`, while Tiers 3 and 4 have generic `aip-tier3` and `aip-[site]-tier1` services."
     },
     {
-      "question": "What makes identifying system access for Tier 3 and 4 services more complex than for Tier 1 and 2?",
-      "answer": "Tiers 3 and 4 have generic services like `aip-tier3`, which means it is not possible to know who is in a particular system just by looking at the members of these services."
+      "question": "What is the implication of Tier 3-4 service naming conventions for identifying users from a specific site?",
+      "answer": "It means it's not possible to determine who is in a particular system just by looking at the members of a Tier 3-4 service, requiring cross-checking multiple lists."
     },
     {
-      "question": "What is the general method for finding users who have requested both a specific Tier access and a specific system access?",
-      "answer": "Two lists need to be downloaded from CCDB (one for Tier access and one for system access), and then a crosscheck needs to be done between the two using a tool like Excel or Google Sheets."
+      "question": "What general steps are involved in finding users who requested both Tier 3 access and access to a specific system like Tamia?",
+      "answer": "Two lists need to be downloaded (one for Tier 3 access, one for system access), and then a cross-check needs to be done between them."
     },
     {
-      "question": "How does an administrator begin the process of getting a list of users with Tier 3 access?",
-      "answer": "They go to `Browse` → `Services` in the main CCDB menu, type 'tier3' in the search box, click on `aip-tier3`, and then click 'Export to CSV'."
+      "question": "How does an administrator export the list of active roles that have requested access to a Tier 3 service from CCDB?",
+      "answer": "They go to `Browse` → `Services`, search for \"tier3\", click on `aip-tier3`, and then click the `Export to CSV` button."
     },
     {
-      "question": "What are the steps to get a list of active roles that have requested access to the Tamia system?",
-      "answer": "Go to `Browse` → `Services`, scroll to the System agreements panel, type 'tamia' in the search box, click on the `tamia-access` link, and then click 'Export to CSV'."
+      "question": "What information is provided in the CSV exported from the `aip-tier3` service page?",
+      "answer": "This CSV provides the list of any active role that has requested access to a Tier 3 service, but it does not specifically show who has also requested access to a particular system."
     },
     {
-      "question": "What tool is recommended for cross-referencing the two exported CSV lists?",
-      "answer": "Excel or Google Sheets, using a simple VLOOKUP formula, is recommended for cross-checking the lists."
+      "question": "How does an administrator export the list of active roles that have requested access to the Tamia system from CCDB?",
+      "answer": "They go to `Browse` → `Services`, scroll to the System agreements panel, type \"tamia\" in the search box, click on `tamia-access`, and then click the `Export to CSV` button."
     },
     {
-      "question": "What should an administrator expect to see if some users have requested access to only one of the two services being cross-checked?",
-      "answer": "The VLOOKUP formula may return some `#N/A` values if users have access to one service but not the other."
+      "question": "What information is provided in the CSV exported from the `tamia-access` service page?",
+      "answer": "This CSV provides the list of any active role that has requested access to the Tamia system, but it does not indicate which service, if any, the role is a member of."
     },
     {
-      "question": "How does the process for retrieving user lists for Tier 1 or Tier 2 services differ from Tier 3?",
-      "answer": "The process is identical, but `aip-tier3` must be replaced with the appropriate `aip-[site]-tier1` or `aip-[site]-tier2` service name."
+      "question": "After downloading two CSV lists (e.g., Tier 3 and Tamia access), how can an administrator identify users who are on both lists?",
+      "answer": "They can put the two lists into Excel or Google Sheets and use a VLOOKUP formula to cross-check which users show in both."
+    },
+    {
+      "question": "What does it mean if a VLOOKUP formula returns `#N/A` when cross-checking the user lists?",
+      "answer": "It means some users may have requested access to a Tier 3 service but not to the Tamia system (or vice versa), which is an expected outcome."
+    },
+    {
+      "question": "How does the process for getting user lists for Tier 1 or Tier 2 services differ from getting lists for Tier 3 services?",
+      "answer": "The process is the same, but `aip-tier3` should be replaced with the appropriate `aip-[site]-tier1` or `aip-[site]-tier2` service name."
     }
   ],
-  "generated_at": "2026-04-11T23:42:50.884322+00:00"
+  "generated_at": "2026-04-13T07:03:37.552189+00:00"
 }

@@ -4,73 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How can I consistently use a specific account for all my jobs on the clusters?",
-      "answer": "You can set the `SLURM_ACCOUNT`, `SBATCH_ACCOUNT`, and `SALLOC_ACCOUNT` environment variables in your `~/.bashrc` file. For example: `export SLURM_ACCOUNT=def-someuser`."
+      "question": "When submitting a Slurm job, what is the order of precedence for specifying an account name, and how can a user override an environment variable setting?",
+      "answer": "The order of precedence for specifying an account name is: a command-line argument to `sbatch` takes priority over an environment variable (such as `SBATCH_ACCOUNT`), which in turn takes priority over the `--account` directive within the job script. To override an account name set via an environment variable, you must supply the desired account name as a command-line argument to `sbatch`."
     },
     {
-      "question": "Which environment variable does Slurm use for the account name in job scripts?",
-      "answer": "Slurm uses the value of `SBATCH_ACCOUNT` in place of the `--account` directive in the job script."
+      "question": "What is an array job in Slurm, and how are individual tasks within the array distinguished from one another?",
+      "answer": "An array job, also known as a task array, is a method to submit a whole set of related jobs with a single command. The individual jobs in the array are distinguished by the environment variable `$SLURM_ARRAY_TASK_ID`, which is automatically set to a different value for each instance of the job."
     },
     {
-      "question": "What happens if an account name is specified in both a job script and an environment variable?",
-      "answer": "The environment variable takes priority over the `--account` directive supplied within the job script."
-    },
-    {
-      "question": "How can I override an account name set by an environment variable for a specific job?",
-      "answer": "To override an account name set by an environment variable, you must supply the account name as a command-line argument to `sbatch`."
-    },
-    {
-      "question": "What is the role of the `SLURM_ACCOUNT` environment variable?",
-      "answer": "`SLURM_ACCOUNT` plays the same role as `SBATCH_ACCOUNT`, but for the `srun` command instead of `sbatch`. The same concept applies to `SALLOC_ACCOUNT`."
-    },
-    {
-      "question": "What is a serial job?",
-      "answer": "A serial job is a job that requests only a single core and is considered the simplest type of job."
-    },
-    {
-      "question": "What is an array job?",
-      "answer": "An array job, also known as a task array, is a method to submit a whole set of jobs using a single command."
-    },
-    {
-      "question": "How are individual jobs in an array job differentiated?",
-      "answer": "Individual jobs in an array are distinguished by the `$SLURM_ARRAY_TASK_ID` environment variable, which is set to a different value for each instance of the job."
-    },
-    {
-      "question": "What compilation flag is required for an application to use OpenMP?",
-      "answer": "For an application to use OpenMP, it must be compiled with an appropriate flag, such as `gcc -fopenmp ...` or `icc -openmp ...`."
-    },
-    {
-      "question": "How many MPI processes and how much memory per CPU are requested in the provided MPI job example?",
-      "answer": "The example MPI script launches four MPI processes, each requesting 1024 MB of memory per CPU."
-    },
-    {
-      "question": "What is the time limit for the MPI job example?",
-      "answer": "The run time for the MPI job example is limited to 5 minutes."
-    },
-    {
-      "question": "Can MPI jobs use multiple nodes?",
-      "answer": "Yes, large MPI jobs may span more than one node, and hybrid MPI/threaded jobs are also supported."
-    },
-    {
-      "question": "Where can I find information on requesting GPU resources?",
-      "answer": "For information on requesting GPU resources, please see the \"Using GPUs with Slurm\" page."
-    },
-    {
-      "question": "Are interactive jobs supported on the clusters?",
-      "answer": "Yes, interactive jobs are supported, although batch submission is the most common and efficient method to take advantage of the clusters."
-    },
-    {
-      "question": "What are some use cases for interactive jobs?",
-      "answer": "Interactive jobs are useful for data exploration at the command line, interactive console tools like R and iPython, and significant software development, debugging, or compiling."
-    },
-    {
-      "question": "What command is used to start an interactive session on a compute node?",
-      "answer": "You can start an interactive session on a compute node using the `salloc` command."
-    },
-    {
-      "question": "How do you request resources for an interactive `salloc` session?",
-      "answer": "You specify resources like time limit, memory per CPU, and number of tasks using command-line arguments, for example: `salloc --time=1:0:0 --mem-per-cpu=3G --ntasks=1 --account=def-someuser`."
+      "question": "What are some common uses for interactive jobs on our clusters, and which command should be used to initiate such a job on a compute node?",
+      "answer": "Interactive jobs are useful for tasks such as data exploration at the command line, using interactive console tools like R and iPython, and for significant software development, debugging, or compiling. A user can start an interactive session on a compute node using the `salloc` command."
     }
   ],
-  "generated_at": "2026-04-12T07:06:35.466457+00:00"
+  "generated_at": "2026-04-13T12:48:48.126681+00:00"
 }

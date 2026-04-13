@@ -4,97 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi, MXNet?",
-      "answer": "MXNet est une librairie en apprentissage profond à la fois souple et efficace qui permet de combiner la programmation symbolique et impérative pour maximiser l'efficacité et la productivité."
+      "question": "C'est quoi MXNet, pis à quoi ça sert?",
+      "answer": "MXNet, c'est une librairie d'apprentissage profond à la fois souple pis efficace. Ça permet de mélanger la programmation symbolique pis impérative pour avoir le gros de l'efficacité et de la productivité. À la base, ça a un planificateur de dépendances dynamique qui parallélise tout seul les opérations symboliques pis impératives au fur et à mesure. En plus, une couche d'optimisation des graphes rend l'exécution symbolique rapide pis économe en mémoire. C'est portable, léger, pis ça peut s'adapter à plein de GPU pis de machines."
     },
     {
-      "question": "Comment MXNet gère-t-il les opérations symboliques et impératives?",
-      "answer": "À la base, MXNet contient un planificateur de dépendances dynamique qui parallélise automatiquement les opérations symboliques et impératives comme elles se présentent."
+      "question": "Comment on fait pour voir les différentes versions de MXNet qui sont disponibles sur les clusters?",
+      "answer": "Pour savoir quelles versions de paquets MXNet sont disponibles, vous pouvez utiliser la commande <tt>avail_wheels mxnet</tt>. Ça va vous montrer le nom du paquet, la version, la version de Python compatible pis l'architecture."
     },
     {
-      "question": "Qu'est-ce qui rend l'exécution symbolique rapide et économe en mémoire dans MXNet?",
-      "answer": "Une couche supérieure d'optimisation des graphes rend l'exécution symbolique rapide et économe en mémoire."
-    },
-    {
-      "question": "MXNet est-il portable et évolutif?",
-      "answer": "Oui, MXNet est portable et léger, évolutif pour de nombreux GPU et machines."
-    },
-    {
-      "question": "Comment je peux savoir quels paquets MXNet sont disponibles?",
-      "answer": "Pour savoir quels paquets sont disponibles, il faut utiliser la commande <tt>avail_wheels</tt>."
-    },
-    {
-      "question": "Quelles sont les versions de MXNet 1.9.1 disponibles pour Python?",
-      "answer": "Les versions 1.9.1 de MXNet sont disponibles pour Python cp39, cp38 et cp310, toutes pour l'architecture avx2."
-    },
-    {
-      "question": "C'est quoi la première étape pour installer MXNet dans un environnement virtuel Python?",
-      "answer": "La première étape est de créer et d'activer un environnement virtuel Python."
-    },
-    {
-      "question": "Quelle commande sert à charger le module Python 3.10?",
-      "answer": "On utilise la commande <tt>module load python/3.10</tt>."
-    },
-    {
-      "question": "Comment on crée un environnement virtuel Python sans télécharger les paquets?",
-      "answer": "On crée un environnement virtuel en utilisant la commande <tt>virtualenv --no-download ~/env</tt>."
-    },
-    {
-      "question": "Quelle est la commande pour activer un environnement virtuel Python?",
-      "answer": "Il faut taper <tt>source ~/env/bin/activate</tt>."
-    },
-    {
-      "question": "Comment on installe MXNet et ses dépendances Python dans un environnement virtuel?",
-      "answer": "On utilise la commande <tt>pip install --no-index mxnet</tt>."
-    },
-    {
-      "question": "Comment peut-on valider que MXNet est bien installé?",
-      "answer": "On peut valider l'installation en exécutant la commande Python suivante: <tt>python -c \"import mxnet as mx;print((mx.nd.ones((2, 3))*2).asnumpy());\"</tt>."
-    },
-    {
-      "question": "Quel résultat devrait afficher la validation de l'installation de MXNet?",
-      "answer": "Le résultat attendu est: <tt>[[2. 2. 2.][2. 2. 2.]]</tt>."
-    },
-    {
-      "question": "Le script <tt>mxnet-conv-ex.py</tt>, c'est pour quoi faire?",
-      "answer": "Le script <tt>mxnet-conv-ex.py</tt> fournit un exemple de couche simple pour les convolutions."
-    },
-    {
-      "question": "Comment le script <tt>mxnet-conv-ex.py</tt> détermine-t-il s'il doit utiliser le CPU ou le GPU?",
-      "answer": "Le script détermine le périphérique en vérifiant le nombre de GPU disponibles: <tt>device = mx.gpu() if mx.context.num_gpus() > 0 else mx.cpu()</tt>."
-    },
-    {
-      "question": "Quel backend MXNet utilise-t-il pour les opérations sur CPU dans l'exemple de convolution?",
-      "answer": "Sur CPU, MXNet utilisera MKLDNN."
-    },
-    {
-      "question": "Quel backend MXNet utilise-t-il pour les opérations sur GPU dans l'exemple de convolution?",
-      "answer": "Sur GPU, MXNet utilisera cuDNN."
-    },
-    {
-      "question": "C'est quoi le nom de tâche par défaut spécifié dans le script Slurm <tt>mxnet-conv.sh</tt> pour CPU?",
-      "answer": "Le nom de tâche par défaut est <tt>mxnet-conv</tt>."
-    },
-    {
-      "question": "Quelles sont les directives Slurm de base incluses dans le script <tt>mxnet-conv.sh</tt> (version CPU)?",
-      "answer": "Les directives de base sont <tt>--job-name</tt>, <tt>--account</tt>, <tt>--time</tt>, <tt>--cpus-per-task</tt> et <tt>--mem</tt>."
-    },
-    {
-      "question": "Quel module Python est chargé pour l'exécution d'une tâche MXNet sur CPU via le script Slurm?",
-      "answer": "Le module <tt>python/3.10</tt> est chargé."
-    },
-    {
-      "question": "Où l'environnement virtuel est-il généré dans le script Slurm pour une tâche MXNet?",
-      "answer": "L'environnement virtuel est généré dans <tt>${SLURM_TMPDIR}/env</tt>."
-    },
-    {
-      "question": "Comment MXNet est-il installé dans le script Slurm <tt>mxnet-conv.sh</tt> (version CPU)?",
-      "answer": "Il est installé avec la commande <tt>pip install --no-index mxnet==1.9.1</tt>."
-    },
-    {
-      "question": "Quelle directive Slurm additionnelle est requise pour exécuter une tâche MXNet sur GPU comparativement au CPU?",
-      "answer": "La directive additionnelle est <tt>#SBATCH --gres=gpu:1</tt>."
+      "question": "Quelles sont les étapes pour installer MXNet dans un environnement virtuel Python sur un cluster?",
+      "answer": "Pour installer MXNet dans un environnement virtuel Python, vous devez premièrement charger le module Python (ex: <tt>module load python/3.10</tt>), ensuite créer pis activer votre environnement virtuel (ex: <tt>virtualenv --no-download ~/env</tt> et <tt>source ~/env/bin/activate</tt>), pis après ça, installer MXNet avec la commande <tt>pip install --no-index mxnet</tt>."
     }
   ],
-  "generated_at": "2026-04-12T02:07:30.961485+00:00"
+  "generated_at": "2026-04-13T09:01:01.224072+00:00"
 }

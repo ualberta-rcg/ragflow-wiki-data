@@ -4,25 +4,17 @@
   "chunk_index": 20,
   "qa_pairs": [
     {
-      "question": "Comment le script détermine-t-il si une simulation est terminée?",
-      "answer": "Le script vérifie si la ligne \"Writing checkpoint, step $nsteps at \" apparaît dans le fichier de journalisation de la simulation (`$simname.log`)."
+      "question": "Pourquoi est-ce une bonne stratégie de morceler les simulations GROMACS en plusieurs tâches plus courtes?",
+      "answer": "Morceler les simulations en tâches plus courtes est avantageux parce que les tâches de trois heures ou moins sont éligibles à la planification de remplacement, ce qui réduit le temps d'attente avant le lancement et optimise l'utilisation des ressources, même avec des allocations par défaut."
     },
     {
-      "question": "Que fait le script une fois qu'une simulation est identifiée comme terminée?",
-      "answer": "Si la simulation est terminée, le script affiche le message \"Simulation finished, cancelling pending jobs\" et annule les tâches en attente (`scancel -t pending $SLURM_ARRAY_JOB_ID`)."
+      "question": "Comment automatiser le processus de morcellement et de redémarrage des simulations GROMACS en utilisant les vecteurs de tâches?",
+      "answer": "Pour automatiser ce processus, on utilise un vecteur de tâches (job array) via un seul appel à `sbatch`. Ce système soumet plusieurs tâches courtes, où seule la première démarre, et les suivantes reprennent la simulation dès que la précédente se termine. Les tâches en attente sont automatiquement annulées si la simulation est complétée ou si elle rencontre une erreur."
     },
     {
-      "question": "Quel est le nom du fichier de script pour une tâche GROMACS GPU avec point de contrôle?",
-      "answer": "Le nom du fichier de script est `gromacs_job_checkpoint.sh`."
-    },
-    {
-      "question": "Quelle est la première directive SLURM spécifiée dans le script pour une tâche GPU?",
-      "answer": "La première directive SLURM est `#SBATCH --gpus-per-node=1`, demandant 1 GPU par nœud."
-    },
-    {
-      "question": "Comment le script extrait-il le nombre d'étapes (`nsteps`) du fichier de journalisation?",
-      "answer": "Le script extrait le nombre d'étapes en utilisant `grep` avec l'expression régulière `'^[[:space:]]*nsteps[[:space:]]*=[[:space:]]*[[:digit:]]*$'` sur le fichier `$simname.log`, puis il utilise `awk` pour prendre le troisième champ."
+      "question": "Quels paramètres de la commande `gmx mdrun` sont essentiels pour gérer le redémarrage et la complétion propre des simulations GROMACS dans le cadre du morcellement?",
+      "answer": "Pour redémarrer une simulation, il faut utiliser le paramètre `-cpi state.cpt`, où `state.cpt` est le fichier de point de contrôle le plus récent. Pour assurer une fermeture propre et la création d'un nouveau point de contrôle avant la limite de temps de la tâche Slurm, il faut aussi spécifier le paramètre `-maxh` avec la durée en heures."
     }
   ],
-  "generated_at": "2026-04-11T22:42:54.065849+00:00"
+  "generated_at": "2026-04-13T06:17:15.578113+00:00"
 }

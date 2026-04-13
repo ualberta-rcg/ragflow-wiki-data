@@ -4,101 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "What Python development environment packages are installed within the FEniCS Singularity container?",
-      "answer": "The Singularity recipe installs `ipython`, `ipython3`, `python-ipython-genutils`, `python3-ipython-genutils`, `python-jinja2`, `python3-jinja2`, `python-jsonschema`, `python3-jsonschema`, `python-lockfile`, `python3-lockfile`, `python-markupsafe`, `python3-markupsafe`, `python-matplotlib`, `python3-matplotlib`, `python-mistune`, `python3-mistune`, `python-mock`, `python3-mock`, `python-mpmath`, `python3-mpmath`, `python-netaddr`, `python3-netaddr`, `python-netifaces`, `python3-netifaces`, `python-nose`, `python3-nose`, `ipython-notebook`, `ipython3-notebook`, `python-numpy`, `python3-numpy`, `python-pandas`, `python3-pandas`, `python-paramiko`, `python3-paramiko`, `python-path`, `python3-path`, `python-pathlib`, `python-pbr`, `python3-pbr`, `python-pexpect`, `python3-pexpect`, `python-pickleshare`, `python3-pickleshare`, `python-prompt-toolkit`, `python3-prompt-toolkit`, `python-ptyprocess`, `python3-ptyprocess`, `python-pycryptopp`, `python-pygments`, `python3-pygments`, `python-pyparsing`, `python3-pyparsing`, `python-zmq`, `python3-zmq`, `python-requests`, `python3-requests`, `python-scipy`, `python3-scipy`, `python-setuptools`, `python3-setuptools`, `python-simplegeneric`, `python3-simplegeneric`, `python-singledispatch`, `python3-singledispatch`, `python-six`, `python3-six`, `python-sympy`, `python3-sympy`, `python-terminado`, `python3-terminado`, `python-tornado`, `python3-tornado`, `python-traitlets`, `python3-traitlets`, `python3-pip`, and `python3-venv`."
+      "question": "How can a user acquire the FEniCS Legacy 2019 Docker image as an Apptainer SIF file for use on Trillium?",
+      "answer": "Users can acquire the FEniCS Legacy 2019 Docker image by pulling it as an Apptainer SIF file using the command: `apptainer pull fenics-legacy.sif docker://ghcr.io/scientificcomputing/fenics-gmsh:2024-05-30`."
     },
     {
-      "question": "What non-Python development tools are installed within the FEniCS Singularity container?",
-      "answer": "The Singularity recipe installs `automake`, `git-core`, `libopenmpi-dev`, `libtool`, `mercurial`, and `openmpi-bin`."
+      "question": "What is the purpose of creating a writable sandbox directory for FEniCS Legacy, and how is it done with Apptainer?",
+      "answer": "A writable sandbox directory for FEniCS Legacy is created to allow users to modify the container or install additional packages. This can be accomplished by building it from an existing SIF file using the command: `apptainer build --sandbox fenics-legacy.sandbox fenics-legacy.sif`. The directory name, such as `fenics-legacy.sandbox`, can be customized."
     },
     {
-      "question": "What cleanup steps are performed after installing packages in the FEniCS Singularity container?",
-      "answer": "After installation, `sudo apt-get clean` is run, and `/var/lib/apt/lists/*`, `/tmp/*`, and `/var/tmp/*` are removed."
-    },
-    {
-      "question": "What is the first step for installing FEniCS Legacy (2019) on Trillium?",
-      "answer": "The first step is to download the Docker image as an Apptainer SIF."
-    },
-    {
-      "question": "How do you download the FEniCS Legacy Docker image as an Apptainer SIF?",
-      "answer": "You use the command `apttainer pull fenics-legacy.sif docker://ghcr.io/scientificcomputing/fenics-gmsh:2024-05-30`."
-    },
-    {
-      "question": "Why would someone create a writable sandbox directory from an Apptainer SIF file for FEniCS Legacy?",
-      "answer": "A writable sandbox directory allows for modifying or installing extra packages within the image."
-    },
-    {
-      "question": "What command is used to create a writable sandbox directory from an Apptainer SIF file?",
-      "answer": "The command is `apptainer build --sandbox fenics-legacy.sandbox fenics-legacy.sif`."
-    },
-    {
-      "question": "Is the '.sandbox' suffix required for the name of a writable sandbox directory?",
-      "answer": "No, the '.sandbox' suffix is just a convention and is not required."
-    },
-    {
-      "question": "How do you fix the pip certificate bundle path inside the FEniCS Legacy sandbox to ensure SSL trusts HTTPS?",
-      "answer": "You create a certs folder and symlink the CA bundle using the command: `apptainer exec --writable fenics-legacy.sandbox sh -c \"mkdir -p /etc/pki/tls/certs && ln -s /etc/ssl/certs/ca-certificates.crt /etc/pki/tls/certs/ca-bundle.crt\"`."
-    },
-    {
-      "question": "How do you create a new read-only SIF file from a modified Apptainer sandbox?",
-      "answer": "You use the command `apptainer build fenics-legacy-updated.sif fenics-legacy.sandbox`."
-    },
-    {
-      "question": "What command can be used to run a quick test for FEniCS Legacy after creating an updated SIF?",
-      "answer": "You can use `apptainer exec --bind $PWD:/root/shared --pwd /root/shared fenics-legacy-updated.sif python3 -c \"import ufl_legacy; print('ufl_legacy ok. version:', ufl_legacy.__version__)\"`."
-    },
-    {
-      "question": "What is the function of the `--bind $PWD:/root/shared` option in the FEniCS Legacy quick test command?",
-      "answer": "This option mounts your current host directory into the container at `/root/shared`."
-    },
-    {
-      "question": "What is the function of the `--pwd /root/shared` option in the FEniCS Legacy quick test command?",
-      "answer": "This option sets the working directory inside the container to `/root/shared`."
-    },
-    {
-      "question": "What specific Python package does FEniCS Legacy (2019.1.x) require?",
-      "answer": "FEniCS Legacy (2019.1.x) requires UFL Legacy."
-    },
-    {
-      "question": "What is the correct Python package name for UFL in FEniCS Legacy?",
-      "answer": "The Python package is named `ufl_legacy`."
-    },
-    {
-      "question": "What is the compatible UFL version provided by `ufl_legacy` for FEniCS Legacy?",
-      "answer": "The compatible UFL version is 2022.3.0."
-    },
-    {
-      "question": "What should happen if a plain `import ufl` is attempted with FEniCS Legacy?",
-      "answer": "A plain `import ufl` should fail."
-    },
-    {
-      "question": "What should happen if `import ufl_legacy` is attempted with FEniCS Legacy?",
-      "answer": "`import ufl_legacy` should succeed."
-    },
-    {
-      "question": "Why might it be necessary to alias `ufl_legacy` as `ufl` for FEniCS Legacy?",
-      "answer": "Some downstream packages, such as Oasis, assume `import ufl`, and aliasing avoids patching all of them."
-    },
-    {
-      "question": "Where should the file for the UFL shim package be created?",
-      "answer": "The file `/pyshims/ufl/__init__.py` should be created."
-    },
-    {
-      "question": "What are the contents of the `__init__.py` file for aliasing `ufl_legacy` as `ufl`?",
-      "answer": "The contents are: `import sys\nimport ufl_legacy as ufl\n\napi = [k for k in ufl.__dict__.keys() if not k.startswith('__') and not k.endswith('__')]\nfor key in api:\n    sys.modules['ufl.{}'.format(key)] = getattr(ufl, key)\ndel api`."
-    },
-    {
-      "question": "How do you test the aliasing of `ufl_legacy` as `ufl` inside the container?",
-      "answer": "You prepend the shim path to `PYTHONPATH` and run `apptainer exec --bind /scratch:/scratch ~/fenics-legacy-updated.sif python3 -c \"from ufl.tensors import ListTensor; print('UFL tensors ok')\"`."
-    },
-    {
-      "question": "What does `APPTAINERENV_PYTHONPATH=<path_to_shim>:$PYTHONPATH` do in the command to test UFL aliasing?",
-      "answer": "It prepends the shim path to `PYTHONPATH` when launching inside the container."
-    },
-    {
-      "question": "What does `--bind /scratch:/scratch` do in the command to test UFL aliasing?",
-      "answer": "It mounts the `/scratch` directory from the host into the container."
+      "question": "After making modifications in an Apptainer sandbox for FEniCS Legacy, how does one create a new, read-only SIF image?",
+      "answer": "After modifying the FEniCS Legacy Apptainer sandbox, a new read-only and portable SIF image can be created from the sandbox directory using the command: `apptainer build fenics-legacy-updated.sif fenics-legacy.sandbox`."
     }
   ],
-  "generated_at": "2026-04-11T21:24:42.370887+00:00"
+  "generated_at": "2026-04-13T05:13:36.098313+00:00"
 }

@@ -4,61 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "How can I run an interactive Apptainer shell session on Alliance clusters with specific bind mounts and work directory settings?",
-      "answer": "You can use a command similar to this: `apptainer shell -C -W $SLURM_TMPDIR -B /home:/cluster_home -B /project -B /scratch your-container-name.sif`"
+      "question": "When using Apptainer, what is required to ensure that changes made to a persistent overlay image during an `apptainer shell` session are saved?",
+      "answer": "To ensure that changes made to a persistent overlay image are saved during an `apptainer shell` session, users must pass the `-w` or `--writable` option to their container. If this option is not passed, any modifications made to the image within the `apptainer shell` session will not be preserved."
     },
     {
-      "question": "Where can I find additional information about the command-line options used with `apptainer shell`?",
-      "answer": "More information on these options can be found in the \"Important Command Line Options,\" \"Using GPUs,\" and \"Bind Mounts and Persistent Overlays\" sections on this page, as well as in the official Apptainer documentation."
+      "question": "On Alliance clusters, what is the primary reason to use bind mounts with Apptainer containers, particularly when isolation options like `-C` or `-c` are enabled?",
+      "answer": "When Apptainer is used with isolation options like `-C` or `-c`, bind mounts are essential to allow the container to access disk space originating outside of its environment. This explicitly connects host filesystems, such as `/project`, `/scratch`, or specific directories, into the container, making them accessible to programs running inside. For instance, `-B /home:/cluster_home` is recommended for the home filesystem to prevent interference with container software."
     },
     {
-      "question": "What is essential to remember if I want to save changes to a persistent overlay image during an `apptainer shell` session?",
-      "answer": "If you are making use of a persistent overlay image and want changes to be written to it, you must pass the `-w` or `--writable` option to your container; otherwise, any changes made will not be saved."
-    },
-    {
-      "question": "How are daemons properly run within Apptainer compute jobs on clusters?",
-      "answer": "Daemons are properly run within Apptainer compute jobs on clusters by using `apptainer instance`."
-    },
-    {
-      "question": "Why is it recommended to use `apptainer instance` for running daemons instead of doing it manually?",
-      "answer": "Using `apptainer instance` ensures that Apptainer works properly with tools like the Slurm scheduler, preventing daemons from hanging or becoming defunct processes if a job is cancelled, killed, crashes, or finishes. It also allows you to control the daemons and programs within the same container."
-    },
-    {
-      "question": "What happens to daemons if the scheduler terminates the job they are running in?",
-      "answer": "If the scheduler kills your job, all daemons running in that job will also be killed."
-    },
-    {
-      "question": "What options are available if I need to run daemons for a duration longer than the job they were started in?",
-      "answer": "If you need to run daemons longer than the job they were started in, you may need to also have a virtual machine running in the cloud, in which case you should contact technical support."
-    },
-    {
-      "question": "Does running MPI programs within an Apptainer container across multiple nodes require special configuration?",
-      "answer": "Yes, running MPI programs within an Apptainer container across nodes likely requires special configuration because MPI exploits cluster interconnection hardware for efficient communication."
-    },
-    {
-      "question": "Is special configuration necessary for MPI programs running within an Apptainer container on a single shared-memory node?",
-      "answer": "No, when all MPI processes are running on a single shared-memory node (e.g., with Slurm's `--nodes=1` option), there is no need for interconnection hardware, and no issues are expected when running MPI programs within an Apptainer container."
-    },
-    {
-      "question": "What can happen if an MPI program runs over multiple nodes from within an Apptainer container without proper setup?",
-      "answer": "If an MPI program runs over multiple nodes from within an Apptainer container and has not been set up to properly run, it is possible it will fail."
-    },
-    {
-      "question": "What are the two common features users often want to utilize in Apptainer?",
-      "answer": "The two features users often want to utilize in Apptainer are bind mounts (for accessing external disk space) and persistent overlays (for overlaying a writable filesystem on an immutable container image)."
-    },
-    {
-      "question": "What issue can arise when using Apptainer with the `-C` or `-c` options regarding disk access?",
-      "answer": "When Apptainer is used with the `-C` or `-c` options, users will find that they cannot access their disk space from inside the container."
-    },
-    {
-      "question": "How can I resolve the issue of not being able to access disk space inside a container when using the `-C` or `-c` options?",
-      "answer": "The solution is to explicitly bind mount the disk space you wish to access."
-    },
-    {
-      "question": "Provide an example of how to bind mount the current directory when running a command within an Apptainer container using the `-C` option.",
-      "answer": "To bind mount the current directory, you would use a command like: `apptainer run -C -B . -W $SLURM_TMPDIR a-container.sif wc -l ./my_data_file.txt`, where `-B .` performs the bind mount."
+      "question": "Why is it recommended to use the `apptainer instance` command for running daemons within compute jobs on Apptainer clusters, rather than running them manually?",
+      "answer": "It is recommended to use `apptainer instance` for running daemons because it's designed to properly integrate with other tools like the Slurm scheduler on clusters. This ensures that when a job is cancelled, killed, or crashes, daemons run using `apptainer instance` will not hang or result in defunct processes, allowing for better control and cleanup of processes within the container."
     }
   ],
-  "generated_at": "2026-04-11T17:28:53.699739+00:00"
+  "generated_at": "2026-04-13T02:11:56.017334+00:00"
 }

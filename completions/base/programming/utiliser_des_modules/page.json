@@ -3,125 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What options are available for accessing software on the servers?",
-      "answer": "Software can be pre-installed as a module, requested for installation from our team, or installed by the user themselves."
+      "question": "What is the primary method for accessing installed software on Linux servers?",
+      "answer": "When software is already installed on the computing servers, it is typically accessible as a 'module'."
     },
     {
-      "question": "What are modules in this context?",
-      "answer": "Modules are configuration files containing instructions to modify your software environment, allowing multiple versions of the same application to be installed without conflict."
+      "question": "What is the purpose of software modules on Linux servers?",
+      "answer": "Modules are configuration files containing instructions to modify your software environment, enabling multiple versions of an application to be installed without conflict."
     },
     {
-      "question": "Which tool manages modules on new servers?",
-      "answer": "Lmod, developed at TACC, manages modules on new servers, replacing 'Environment Modules' used on most older servers."
+      "question": "What tool manages modules on new Linux servers, and what does it replace?",
+      "answer": "On new servers, modules are managed by Lmod, which replaces 'Environment Modules' used on most older servers."
     },
     {
-      "question": "What information does a module file typically contain?",
-      "answer": "A module file typically contains instructions that modify or initialize environment variables like `PATH` and `LD_LIBRARY_PATH` to make an application or library available."
+      "question": "What kind of information does a modulefile typically contain?",
+      "answer": "A modulefile typically contains instructions that modify or initialize environment variables like PATH and LD_LIBRARY_PATH to make an application or library available."
     },
     {
-      "question": "Does loading a module automatically execute the software it refers to?",
-      "answer": "No, loading a module does not automatically execute the software it refers to."
-    },
-    {
-      "question": "How do you find a list of available `module` subcommands?",
-      "answer": "You can find a list of available `module` subcommands by using `module help`."
+      "question": "How can users find a list of available subcommands for the `module` command?",
+      "answer": "Users can find a list of available subcommands by using `module help`."
     },
     {
       "question": "What is the purpose of the `module spider` subcommand?",
-      "answer": "The `module spider` subcommand displays all modules located in the current standard software environment."
+      "answer": "The `module spider` subcommand displays all modules found in the current standard software environment and can list all available versions of a specific application."
     },
     {
-      "question": "How can I find all available versions of a specific application using `module spider`?",
-      "answer": "You can find all available versions of a specific application by typing `module spider <application_name>`, for example, `module spider openmpi`."
+      "question": "How do you list modules that are available to be loaded?",
+      "answer": "To list modules that can be loaded, use the command `module avail`."
     },
     {
-      "question": "How do I find the options to load a specific version of an application with `module spider`?",
-      "answer": "You can find the options to load a specific version by typing `module spider <application_name>/<version_number>`, for example, `module spider openmpi/4.0.3`."
+      "question": "What command shows which modules are currently loaded in a user's environment?",
+      "answer": "The `module list` subcommand displays the modules that are currently loaded in your environment."
     },
     {
-      "question": "How do I list the modules that I can load?",
-      "answer": "You can list the modules you can load by using `module avail`."
+      "question": "How do users load a specific software module, such as GCC version 9.3?",
+      "answer": "Users load a specific software module using the `module load` subcommand, for example, `module load gcc/9.3`."
     },
     {
-      "question": "Why might `module avail` not show all modules?",
-      "answer": "`module avail` may not list modules that are incompatible with modules you currently have loaded; use `module spider` for a complete list."
+      "question": "What happens if a user loads a module incompatible with an already loaded module?",
+      "answer": "Lmod will indicate that the old module has been replaced by the new one, which can happen with compilers and MPI implementations."
     },
     {
-      "question": "How do I see which modules are currently loaded in my environment?",
-      "answer": "You can see currently loaded modules by using `module list`."
+      "question": "How can a user remove a module from their environment?",
+      "answer": "A user can remove a module from their environment using the `module unload` subcommand, for example, `module unload gcc/9.3`."
     },
     {
-      "question": "How do I load a module, such as GCC version 9.3?",
-      "answer": "You can load a module by using `module load <module_name>/<version>`, for example, `module load gcc/9.3`."
+      "question": "What command allows a user to remove all loaded modules at once?",
+      "answer": "The `module purge` subcommand allows users to remove all loaded modules simultaneously, though some 'sticky' modules set by administrators may remain."
     },
     {
-      "question": "What happens if I try to load an incompatible module?",
-      "answer": "If you load a module that is incompatible with one already loaded, Lmod will indicate that it has replaced the old module with the new one."
+      "question": "What are the `module show`, `module help`, and `module whatis` subcommands used for?",
+      "answer": "The `module show` subcommand displays the entirety of a module, `module help` shows a help message, and `module whatis` displays a description of a given module."
     },
     {
-      "question": "How do I remove a module from my environment?",
-      "answer": "You can remove a module from your environment by using `module unload <module_name>/<version>`, for example, `module unload gcc/9.3`."
+      "question": "How can users search for modules using a keyword if they are unsure which module is appropriate for their computation?",
+      "answer": "Users can use the `module apropos` or `module keyword` subcommands to search for a keyword within all module descriptions."
     },
     {
-      "question": "What happens to dependent modules if I unload a module they rely on?",
-      "answer": "If certain modules depended on the unloaded module, Lmod will indicate that they have been deactivated."
+      "question": "Is it recommended to automatically load modules in a `.bashrc` file on these systems?",
+      "answer": "No, it is strongly discouraged to automatically load modules in your `.bashrc`; it is recommended to load them as needed, for example, in job scripts."
     },
     {
-      "question": "How can I remove all loaded modules at once?",
-      "answer": "You can remove all loaded modules at once by using `module purge`."
+      "question": "How can a user save a collection of modules for later use?",
+      "answer": "After loading the required modules, a user can save them as a collection using `module save <collection_name>` and later restore them with `module restore <collection_name>`."
     },
     {
-      "question": "Are all modules removed when `module purge` is used?",
-      "answer": "No, some modules may be marked as 'sticky' (permanent) by system administrators and will not be removed."
+      "question": "What is the benefit of using a module hierarchy system?",
+      "answer": "A module hierarchy system simplifies module names and allows for different versions of a module to be loaded automatically based on previously loaded 'parent' modules, such as compilers."
     },
     {
-      "question": "What are the differences between `module show`, `module help`, and `module whatis`?",
-      "answer": "`module show` displays the full content of a module, `module help` displays a help message, and `module whatis` shows a description of the module."
-    },
-    {
-      "question": "How can I search for modules based on a keyword?",
-      "answer": "You can search for modules based on a keyword using the `module apropos` or `module keyword` subcommands."
-    },
-    {
-      "question": "Is it recommended to automatically load modules in `.bashrc`?",
-      "answer": "No, it is discouraged to automatically load modules in your `.bashrc`; it's recommended to load them as needed, for example, in task scripts or by using a module collection."
-    },
-    {
-      "question": "How do I create a module collection?",
-      "answer": "To create a module collection, first load the required modules, then use the `module save <collection_name>` command."
-    },
-    {
-      "question": "How can I restore a previously saved module collection?",
-      "answer": "You can restore a module collection by using the `module restore <collection_name>` command."
-    },
-    {
-      "question": "What are hidden modules?",
-      "answer": "Hidden modules are generally loaded automatically as needed and can usually be ignored by users as they don't need to be loaded manually."
-    },
-    {
-      "question": "What is the purpose of a module hierarchy?",
-      "answer": "A module hierarchy resolves the problem of having many combinations of versions of different modules, allowing for simpler loading commands while ensuring compatibility."
-    },
-    {
-      "question": "What is a drawback of using a module hierarchy?",
-      "answer": "A drawback is that `module avail` only displays modules compatible with currently loaded 'parent' modules, meaning you might need to load parents first to see certain dependent modules."
-    },
-    {
-      "question": "How does the system handle loading modules of the same family or version?",
-      "answer": "When loading modules of the same family or version, the `module load` command will automatically replace the original module with the new one."
-    },
-    {
-      "question": "What happens to dependent modules when a hierarchical parent module is replaced?",
-      "answer": "If a replaced module is a node in the module hierarchy, dependent modules will be reloaded if a compatible version exists, or deactivated otherwise."
-    },
-    {
-      "question": "Where can I find instructions on how to create modules?",
-      "answer": "Instructions on how to create modules can be found in the official Lmod documentation."
-    },
-    {
-      "question": "How can I use modules with ZSH or KSH shells?",
-      "answer": "You can use modules with ZSH by executing `zsh -l` and with KSH by executing `ksh -l`."
+      "question": "What is a consequence of using a module hierarchy system, particularly for the `module avail` command?",
+      "answer": "With a module hierarchy, `module avail` only displays modules compatible with currently loaded 'parent' modules; `module spider` must be used to see all modules."
     }
   ],
-  "generated_at": "2026-04-12T10:32:25.782200+00:00"
+  "generated_at": "2026-04-13T15:32:54.358850+00:00"
 }

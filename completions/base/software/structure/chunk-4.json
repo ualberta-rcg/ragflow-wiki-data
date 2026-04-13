@@ -4,109 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How many job scripts are created by the `create_strauto_slurm_scripts.py` script?",
-      "answer": "Forty job scripts are created by the `create_strauto_slurm_scripts.py` script."
+      "question": "What is the primary purpose of the `create_strauto_slurm_scripts.py` script?",
+      "answer": "The `create_strauto_slurm_scripts.py` script is designed as a supplement for running Structure jobs on Compute Canada HPC clusters that use the Slurm Workload manager, integrating with Structure, StrAuto, and StructureHarvester."
     },
     {
-      "question": "What is the name of the submission helper script that is created?",
-      "answer": "The submission helper script created is named \"submit_strauto_jobs.sh\"."
+      "question": "What files must be placed in the same directory as `create_strauto_slurm_scripts.py` for it to work properly?",
+      "answer": "For `create_strauto_slurm_scripts.py` to function correctly, it must be in the same directory as `strauto_1.py` and `input.py` (from StrAuto), `structureHarvester.py` and `harvesterCore.py` (from StructureHarvester), and the file containing the Structure dataset (e.g., `my_dataset.str`)."
     },
     {
-      "question": "What is the name of the post-processing script that is created?",
-      "answer": "The post-processing script created is named \"post_strauto.sh\"."
-    },
-    {
-      "question": "What command is used to submit the created jobs?",
-      "answer": "The jobs are submitted by running the command `bash submit_strauto_jobs.sh`."
-    },
-    {
-      "question": "What should be done after all jobs have completed?",
-      "answer": "After all jobs have completed, you should run `bash post_strauto.sh` to aggregate the results and run StructureHarvester."
-    },
-    {
-      "question": "What is the main function of the `create_strauto_slurm_scripts.py` script?",
-      "answer": "The `create_strauto_slurm_scripts.py` script is designed to supplement running Structure jobs on Compute Canada HPC clusters that use the Slurm Workload manager."
-    },
-    {
-      "question": "Which software packages are required to use `create_strauto_slurm_scripts.py`?",
-      "answer": "Structure, StrAuto, and StructureHarvester are required to use `create_strauto_slurm_scripts.py`."
-    },
-    {
-      "question": "Which specific files from StrAuto need to be in the same directory as `create_strauto_slurm_scripts.py`?",
-      "answer": "`strauto_1.py` and `input.py` from StrAuto need to be placed in the same directory."
-    },
-    {
-      "question": "Which specific files from StructureHarvester need to be in the same directory as `create_strauto_slurm_scripts.py`?",
-      "answer": "`structureHarvester.py` and `harvesterCore.py` from StructureHarvester need to be placed in the same directory."
-    },
-    {
-      "question": "What other file, besides the script dependencies, must be present in the directory for `create_strauto_slurm_scripts.py` to work?",
-      "answer": "The file with the Structure dataset (e.g., `sim.str`) must also be present in the directory."
-    },
-    {
-      "question": "What specific option in `input.py` must be set when using `create_strauto_slurm_scripts.py`?",
-      "answer": "The option `parallel` must be set to `True` (question 23) in `input.py`."
-    },
-    {
-      "question": "Which parameters within `create_strauto_slurm_scripts.py` can be adjusted by the user?",
-      "answer": "The adjustable parameters in `create_strauto_slurm_scripts.py` are `max_jobtime`, `slurm_account`, `submit_delay`, and `job_prefix`."
-    },
-    {
-      "question": "What is the purpose of the `max_jobtime` parameter in `create_strauto_slurm_scripts.py`?",
-      "answer": "`max_jobtime` should be set to a duration where you can be reasonably sure that no individual Structure run takes longer than this."
-    },
-    {
-      "question": "What format is expected for the `max_jobtime` parameter?",
-      "answer": "The `max_jobtime` parameter expects the format `d-hh:mm:ss`, such as '1-0:00:0'."
-    },
-    {
-      "question": "When would a user specify a value for the `slurm_account` parameter?",
-      "answer": "A user can specify a value for `slurm_account` if they can submit under multiple Slurm accounts and need to select a specific one."
-    },
-    {
-      "question": "What is the function of the `submit_delay` parameter?",
-      "answer": "The `submit_delay` parameter defines the pause duration between job submissions to avoid overloading the Scheduler."
-    },
-    {
-      "question": "Is the `job_prefix` parameter mandatory?",
-      "answer": "No, the `job_prefix` parameter is optional."
-    },
-    {
-      "question": "What Slurm resource request does the generated job script template include?",
-      "answer": "The generated job script template includes `#SBATCH --ntasks=1`."
-    },
-    {
-      "question": "Which module does the generated job script template load?",
-      "answer": "The generated job script template loads the `structure/2.3.4` module."
-    },
-    {
-      "question": "What are the initial actions performed by the post-processing script (`post_strauto.sh`)?",
-      "answer": "The post-processing script initially moves the K-list files to `results_f/`, creates an `harvester_input` directory, and copies relevant files into it."
-    },
-    {
-      "question": "How does `post_strauto.sh` run StructureHarvester?",
-      "answer": "`post_strauto.sh` runs StructureHarvester using the command `./structureHarvester.py --dir harvester_input --out harvester --evanno --clumpp`."
-    },
-    {
-      "question": "How does `post_strauto.sh` clean up the harvester input files?",
-      "answer": "`post_strauto.sh` zips the `harvester_input` files into a zip archive named `{DATASET:}_Harvester_Upload.zip`, moves it to the `harvester/` directory, and then removes the `harvester_input` directory."
-    },
-    {
-      "question": "What is the homepage URL for Structure, as referenced in the `create_strauto_slurm_scripts.py` script?",
-      "answer": "The homepage for Structure is http://web.stanford.edu/group/pritchardlab/structure.html."
-    },
-    {
-      "question": "What is the homepage URL for StrAuto, as referenced in the `create_strauto_slurm_scripts.py` script?",
-      "answer": "The homepage for StrAuto is http://www.crypticlineage.net/pages/software.html."
-    },
-    {
-      "question": "What is the homepage URL for StructureHarvester, as referenced in the `create_strauto_slurm_scripts.py` script?",
-      "answer": "The homepage for StructureHarvester is http://alumni.soe.ucsc.edu/~dearl/software/structureHarvester/, and its GitHub page is https://github.com/dentearl/structureHarvester."
-    },
-    {
-      "question": "Who holds the copyright for the `create_strauto_slurm_scripts.py` program?",
-      "answer": "The copyright for the `create_strauto_slurm_scripts.py` program is held by Oliver Stueker, from 2017-2020."
+      "question": "What specific parameters within the `create_strauto_slurm_scripts.py` script should users adjust, and why?",
+      "answer": "Users should adjust `max_jobtime` to accommodate the longest individual Structure run, `slurm_account` if they need to submit jobs under a specific account, and `submit_delay` to prevent overwhelming the scheduler with too many immediate job submissions. An optional `job_prefix` can also be set for job naming."
     }
   ],
-  "generated_at": "2026-04-12T08:31:48.021690+00:00"
+  "generated_at": "2026-04-13T13:56:20.962475+00:00"
 }

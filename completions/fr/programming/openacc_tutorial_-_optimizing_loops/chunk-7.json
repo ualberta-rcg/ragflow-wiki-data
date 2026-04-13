@@ -4,29 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "Quelle directive OpenACC est utilisée pour ajouter 32 'worker's dans cet exemple de code avec la directive 'kernels'?",
-      "answer": "La directive utilisée est `#pragma acc loop device_type(nvidia) gang worker(32)`."
+      "question": "Pourquoi est-ce qu'on ajoute des workers dans les directives OpenACC pour optimiser le rendement sur un GPU NVIDIA?",
+      "answer": "On ajoute des workers parce qu'une analyse guidée avec le NVIDIA Visual Profiler a montré que la performance était limitée par la taille des blocs (les gangs en OpenACC). Le GPU était seulement utilisé à 25% de sa capacité, n'exécutant qu'un seul worker par bloc alors qu'il aurait pu en gérer 32. L'accélérateur ne pouvait traiter que 16 gangs sur les 64 requis pour être à plein rendement, ce qui indiquait un besoin de gangs plus grands pour mieux utiliser le GPU."
     },
     {
-      "question": "Pourquoi est-ce qu'on choisit 32 'worker's dans cet exemple de code OpenACC?",
-      "answer": "On choisit 32 'worker's parce que la taille d'un 'gang' pour un GPU NVIDIA ne peut pas dépasser 1024, et cette taille est le produit de la longueur de 'vector' (qui est fixée à 32) multipliée par la quantité de 'worker's."
+      "question": "Comment spécifier le nombre de workers avec la directive OpenACC `kernels` pour un GPU NVIDIA, en gardant la taille de vector à 32?",
+      "answer": "Pour spécifier 32 workers avec la directive `kernels` pour un GPU NVIDIA, tout en gardant une longueur de vector de 32, il faut ajouter la clause `gang worker(32)` à la boucle externe et `vector(32)` à la boucle interne. Par exemple: `#pragma acc loop device_type(nvidia) gang worker(32)` pour la boucle externe, et `#pragma acc loop device_type(nvidia) vector(32)` pour la boucle interne."
     },
     {
-      "question": "Quelle boucle est parallélisée au niveau 'worker' dans l'extrait de code fourni avec la directive 'kernels'?",
-      "answer": "C'est la boucle externe (`for(int i=0;i<num_rows;i++)`) qui est parallélisée au niveau 'worker'."
-    },
-    {
-      "question": "Quelle boucle est parallélisée au niveau 'vector' dans l'extrait de code fourni avec la directive 'kernels'?",
-      "answer": "C'est la boucle interne (`for(int j=row_start;j<row_end;j++)`) qui est parallélisée au niveau 'vector' avec une longueur de 32."
-    },
-    {
-      "question": "Quel est le but de spécifier `device_type(nvidia)` dans les directives OpenACC de ce code?",
-      "answer": "La clause `device_type(nvidia)` sert à indiquer que le parallélisme spécifié (comme 'gang worker(32)' et 'vector(32)') doit s'appliquer uniquement si le code est compilé pour un GPU NVIDIA."
-    },
-    {
-      "question": "Quel gain de performance est observé sur un K20 suite à l'ajout des 'worker's comme montré dans l'exemple de code?",
-      "answer": "Sur un K20, l'ajout des 'worker's double presque la performance, réduisant le temps d'exécution de 10 secondes à 6 secondes."
+      "question": "Quelle est la taille maximale permise pour un gang sur un GPU NVIDIA en OpenACC et comment est-elle déterminée?",
+      "answer": "Sur un GPU NVIDIA, la taille d'un gang ne peut pas dépasser 1024. Cette taille est déterminée en multipliant la longueur du `vector` par la quantité de `worker`s."
     }
   ],
-  "generated_at": "2026-04-12T04:20:22.517355+00:00"
+  "generated_at": "2026-04-13T10:28:16.803592+00:00"
 }

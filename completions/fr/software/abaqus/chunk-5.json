@@ -4,85 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Comment faire pour qu'Abaqus écrive les données de redémarrage en incréments de 12?",
-      "answer": "Pour ça, faut ajouter la ligne `*RESTART, WRITE, OVERLAY, FREQUENCY=12` dans le fichier d'entrée."
+      "question": "Comment est-ce qu'on soumet une simulation Abaqus standard sur un nœud simple en utilisant un script Slurm configuré pour le répertoire `/project`?",
+      "answer": "Pour soumettre une simulation Abaqus standard sur un nœud simple via un script Slurm pour le répertoire `/project`, vous devez spécifier le compte (`#SBATCH --account`), la durée de la tâche (`#SBATCH --time`), le nombre de cœurs par tâche (`#SBATCH --cpus-per-task`), la mémoire totale requise (`#SBATCH --mem`), et le nombre de nœuds (`#SBATCH --nodes=1`). Ensuite, le script doit charger le module Abaqus pertinent (par exemple, `module load abaqus/2026`) et lancer la commande Abaqus en indiquant le nom du travail (`job=`), le fichier d'entrée (`input=`), le répertoire temporaire (`scratch=$SLURM_TMPDIR`), le nombre de cœurs (`cpus=$SLURM_CPUS_ON_NODE`), le mode de parallélisation par threads (`mp_mode=threads`) et la mémoire allouée (`memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`)."
     },
     {
-      "question": "Comment configurer le fichier d'entrée pour enregistrer les données de redémarrage pour un total de 12 incréments, sans horodatage?",
-      "answer": "Il faut mettre `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO` dans le fichier d'entrée."
+      "question": "Quelles sont les lignes à ajouter dans le fichier d'entrée d'une simulation Abaqus pour configurer l'écriture ou la lecture de données de redémarrage lors d'une analyse standard sur un nœud simple?",
+      "answer": "Pour écrire les données de redémarrage en incréments de N=12, le fichier d'entrée doit contenir la ligne `*RESTART, WRITE, OVERLAY, FREQUENCY=12`. Si vous voulez écrire les données de redémarrage pour un total de 12 incréments, vous devez plutôt utiliser la ligne `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`. Pour redémarrer une tâche interrompue, le fichier d'entrée de redémarrage doit inclure les lignes `*HEADING` et `*RESTART, READ`."
     },
     {
-      "question": "Comment vérifier l'information complète sur le redémarrage d'une simulation Abaqus?",
-      "answer": "On peut utiliser la commande `egrep -i \"step|start\" testsp*.com testsp*.msg testsp*.sta` pour regarder les fichiers pertinents."
-    },
-    {
-      "question": "Est-ce qu'il y a une option à ajouter au script Abaqus pour améliorer certaines simulations?",
-      "answer": "Oui, on peut ajouter la commande Abaqus `order_parallel=OFF` à la fin du script pour améliorer certaines simulations."
-    },
-    {
-      "question": "C'est quoi le rôle du script Slurm `scriptsp2.txt`?",
-      "answer": "Le `scriptsp2.txt` est un script de redémarrage pour les simulations Abaqus qui s'exécutent dans le répertoire `/project` sur un nœud simple."
-    },
-    {
-      "question": "Quelle version d'Abaqus est chargée par défaut dans le script de redémarrage `scriptsp2.txt`?",
-      "answer": "Par défaut, la version `abaqus/2026` est chargée."
-    },
-    {
-      "question": "Combien de mémoire est allouée pour la tâche Slurm dans le script `scriptsp2.txt`?",
-      "answer": "Le script alloue `8G` de mémoire, tel qu'indiqué par `#SBATCH --mem=8G`."
-    },
-    {
-      "question": "Combien de cœurs de CPU sont demandés par tâche dans le script `scriptsp2.txt`?",
-      "answer": "Le script demande `4` cœurs de CPU par tâche, spécifié par `#SBATCH --cpus-per-task=4`."
-    },
-    {
-      "question": "Quel contenu minimal doit avoir un fichier d'entrée pour un redémarrage avec `scriptsp2.txt`?",
-      "answer": "Le fichier d'entrée pour le redémarrage doit contenir les lignes `*HEADING` et `*RESTART, READ`."
-    },
-    {
-      "question": "C'est quoi l'objectif du `scriptst1.txt`?",
-      "answer": "L'objectif du `scriptst1.txt` est de soumettre des simulations Abaqus sur un nœud simple en utilisant un répertoire temporaire (`$SLURM_TMPDIR`) pour les fichiers de travail."
-    },
-    {
-      "question": "Comment le script `scriptst1.txt` s'assure-t-il que les données sont sauvegardées même si la tâche atteint sa limite de temps?",
-      "answer": "Le script utilise une boucle `while sleep 6h` qui copie régulièrement tous les fichiers du répertoire temporaire (`$SLURM_TMPDIR`) vers le répertoire de soumission (`$SLURM_SUBMIT_DIR`) pendant que la tâche roule."
-    },
-    {
-      "question": "Où est-ce que le script `scriptst1.txt` crée son répertoire de travail `scratch`?",
-      "answer": "Il crée le répertoire `scratch` directement sous `SLURM_TMPDIR` (soit `$SLURM_TMPDIR/scratch`)."
-    },
-    {
-      "question": "Quelle est la commande Abaqus exécutée dans le `scriptst1.txt` pour les versions 2026 ou plus récentes?",
-      "answer": "La commande est `abaqus job=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim.inp scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
-    },
-    {
-      "question": "Dans le contexte d'un script utilisant un répertoire temporaire (`scriptst1.txt`), comment peut-on spécifier l'écriture des données de redémarrage par incréments de 12 dans le fichier d'entrée?",
-      "answer": "Il faut inclure la ligne `*RESTART, WRITE, OVERLAY, FREQUENCY=12` dans le fichier d'entrée."
-    },
-    {
-      "question": "Quelle est la limite de temps par défaut configurée pour les tâches Slurm dans les scripts d'analyse standard à nœud simple comme `scriptsp2.txt` ou `scriptst1.txt`?",
-      "answer": "La limite de temps par défaut est de 6 heures, indiquée par `#SBATCH --time=00-06:00`."
-    },
-    {
-      "question": "Quel est le paramètre Slurm utilisé dans les scripts d'analyse standard pour spécifier le compte à utiliser?",
-      "answer": "Le paramètre est `#SBATCH --account=def-group`."
-    },
-    {
-      "question": "Est-il permis de changer le nombre de nœuds (`--nodes=`) dans les scripts Slurm pour un nœud simple d'analyse standard?",
-      "answer": "Non, le document mentionne explicitement de ne pas le modifier, il doit rester à `--nodes=1`."
-    },
-    {
-      "question": "Quel est le rôle de la variable d'environnement `MPI_IC_ORDER` exportée dans les scripts Slurm Abaqus?",
-      "answer": "Elle est exportée comme `export MPI_IC_ORDER='tcp'`, ce qui indique l'ordre des interconnexions MPI."
-    },
-    {
-      "question": "Que fait l'instruction `unset SLURM_GTIDS` dans les scripts Abaqus?",
-      "answer": "Elle annule la définition de la variable d'environnement `SLURM_GTIDS`."
-    },
-    {
-      "question": "Quand on utilise les scripts pour répertoire temporaire comme `scriptst1.txt`, quelles informations de répertoires sont affichées au début de l'exécution?",
-      "answer": "Le script affiche les valeurs de `SLURM_SUBMIT_DIR` et `SLURM_TMPDIR`."
+      "question": "Pourquoi est-il préférable d'utiliser le répertoire temporaire `$SLURM_TMPDIR` pour les tâches Abaqus qui génèrent de gros fichiers de redémarrage?",
+      "answer": "Il est préférable d'utiliser le répertoire temporaire `$SLURM_TMPDIR` pour les tâches Abaqus qui produisent des fichiers de redémarrage volumineux afin d'écrire ces données sur le disque local du nœud de calcul. Cela réduit la charge sur le système de fichiers partagé, améliore les performances en limitant les opérations d'entrée/sortie (E/S) et permet une meilleure gestion des fichiers temporaires. Les scripts utilisant `$SLURM_TMPDIR` incluent également un mécanisme pour sauvegarder périodiquement les données vers le répertoire de soumission (`$SLURM_SUBMIT_DIR`) en cas de dépassement de la durée allouée pour la tâche."
     }
   ],
-  "generated_at": "2026-04-11T15:37:06.217096+00:00"
+  "generated_at": "2026-04-13T00:50:37.488949+00:00"
 }

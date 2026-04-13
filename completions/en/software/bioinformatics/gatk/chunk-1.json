@@ -4,169 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is the Genome Analysis Toolkit (GATK)?",
-      "answer": "The Genome Analysis Toolkit (GATK) is a set of bioinformatic tools designed for analyzing high-throughput sequencing (HTS) and variant call format (VCF) data."
+      "question": "What is the Genome Analysis Toolkit (GATK) and what is its main purpose?",
+      "answer": "The Genome Analysis Toolkit (GATK) is a suite of bioinformatic tools for analyzing high-throughput sequencing (HTS) and variant call format (VCF) data. It is well established for germline short variant discovery from whole genome and exome sequencing data, making it a leading tool in variant discovery and best practices for genomics research."
     },
     {
-      "question": "What types of data analysis is GATK well-established for?",
-      "answer": "GATK is well-established for germline short variant discovery from whole genome and exome sequencing data."
+      "question": "How do users load a specific version of the Genome Analysis Toolkit (GATK) module on the systems?",
+      "answer": "To load a specific version of GATK, users can use the `module load` command. For GATK versions 4.0.0.0 or later, where `StdEnv/2020` is loaded by default, one can simply use `module load gatk/<VERSION>`, for example, `module load gatk/4.1.8.1`. The `module spider gatk` command can be used to view all available GATK versions."
     },
     {
-      "question": "What is GATK recognized for in genomics research?",
-      "answer": "GATK is a leading tool in variant discovery and best practices for genomics research."
-    },
-    {
-      "question": "How can users access GATK version information on our systems?",
-      "answer": "Users can access GATK version information using the `module` command."
-    },
-    {
-      "question": "What command should be used to list available GATK versions?",
-      "answer": "To list available GATK versions, use the command `module spider gatk`."
-    },
-    {
-      "question": "What are some of the GATK versions available on our systems?",
-      "answer": "Some available GATK versions include gatk/3.7, gatk/3.8, gatk/4.0.0.0, gatk/4.1.8.1, and gatk/4.2.5.0, among others."
-    },
-    {
-      "question": "How can specific information about a particular GATK version be accessed?",
-      "answer": "More specific information on any given GATK version can be accessed using the command `module spider gatk/VERSION`, for example, `module spider gatk/4.1.8.1`."
-    },
-    {
-      "question": "What prerequisite module does `gatk/4.1.8.1` have?",
-      "answer": "The `gatk/4.1.8.1` module has `StdEnv/2020` as a prerequisite."
-    },
-    {
-      "question": "How do you load a GATK module like `gatk/4.1.8.1` when its prerequisite `StdEnv/2020` is already loaded by default?",
-      "answer": "You can simply load it with `module load gatk/4.1.8.1`."
-    },
-    {
-      "question": "How do you load a GATK module like `gatk/4.1.8.1` along with its `StdEnv/2020` prerequisite?",
-      "answer": "You can load it with `module load StdEnv/2020 gatk/4.1.8.1`."
-    },
-    {
-      "question": "How do GATK versions 4.0.0.0 and later simplify execution?",
-      "answer": "Later versions of GATK (>=4.0.0.0) provide a wrapper over the Java executables (.jar), and loading the GATK modules automatically sets most environmental variables needed to run GATK."
-    },
-    {
-      "question": "What is the general usage syntax for GATK versions 4.0.0.0 and later?",
-      "answer": "The general usage syntax is `gatk [--java-options \"-Xmx4G\"] ToolName [GATK args]`."
-    },
-    {
-      "question": "How do you specify the maximum heap memory for a GATK command?",
-      "answer": "You specify the maximum heap memory using the `--java-options` argument, such as `-Xmx8G` for 8 Gb of memory, for example: `gatk --java-options \"-Xmx8G\" HaplotypeCaller ...`."
-    },
-    {
-      "question": "What Java option is always recommended for GATK, and why?",
-      "answer": "It is always recommended to use `-DGATK_STACKTRACE_ON_USER_EXCEPTION=true` within `--java-options`, as it provides more information if the program fails, which helps in troubleshooting."
-    },
-    {
-      "question": "What is an important rule for all options passed to `--java-options`?",
-      "answer": "All options passed to `--java-options` must be enclosed within quotation marks."
-    },
-    {
-      "question": "What GATK option is recommended for `sbatch` jobs on our systems to handle temporary files?",
-      "answer": "On our systems, it is recommended to use the `--tmp-dir` option and set it to `${SLURM_TMPDIR}` in an `sbatch` job to redirect temporary files to local storage."
-    },
-    {
-      "question": "When using `GenomicsDBImport`, what option should be enabled for shared Posix Filesystems, and why?",
-      "answer": "When using `GenomicsDBImport`, the `--genomicsdb-shared-posixfs-optimizations` option should be enabled to allow for optimizations that improve usability and performance for shared Posix Filesystems (e.g., NFS, Lustre)."
-    },
-    {
-      "question": "What should a user do if `--genomicsdb-shared-posixfs-optimizations` is not feasible or when using GNU parallel with `GenomicsDBImport`?",
-      "answer": "Users should copy their database to `${SLURM_TMPDIR}` and run it from there, as IO operations might disrupt the filesystem for other users."
-    },
-    {
-      "question": "Why is using `${SLURM_TMPDIR}` beneficial for IO operations?",
-      "answer": "`${SLURM_TMPDIR}` is a local storage, which is faster and ensures that IO operations do not negatively affect other users."
-    },
-    {
-      "question": "How do users call earlier versions of GATK (before GATK 4) since they don't have the `gatk` command?",
-      "answer": "Earlier versions of GATK (before GATK 4) require calling the Java jar file directly, for example: `java -jar GenomeAnalysisTK.jar PROGRAM OPTIONS`."
-    },
-    {
-      "question": "What environmental variables on our systems contain the path to the GATK and Picard jar files for older versions?",
-      "answer": "On our systems, `$EBROOTPICARD` for Picard and `$EBROOTGATK` for GATK contain the path to the respective jar files."
-    },
-    {
-      "question": "What is the appropriate way to call GATK versions <= 3 on our systems?",
-      "answer": "The appropriate way is `module load nixpkgs/16.09 gatk/3.8` followed by `java -jar \"${EBROOTGATK}\"/GenomeAnalysisTK.jar PROGRAM OPTIONS`."
-    },
-    {
-      "question": "Where can users find specific usage information for GATK <= 3?",
-      "answer": "Specific usage information for GATK <= 3 can be found in the GATK3 guide on GitHub."
-    },
-    {
-      "question": "Are most GATK (>=4) tools multicore by default?",
-      "answer": "No, most GATK (>=4) tools are not multicore by default, meaning you should generally request only one core when calling them."
-    },
-    {
-      "question": "When can users request more CPUs for GATK tools?",
-      "answer": "Users can request more CPUs (up to 4 threads for most) for GATK tools that use threads in some computations, such as `Mutect2` with its `--native-pair-hmm-threads` option."
-    },
-    {
-      "question": "Do all GATK tools utilize Spark?",
-      "answer": "No, not all GATK tools use Spark. Tools that can use Spark generally have a note in their Tool Doc, and some Spark-capable versions have a 'Spark' suffix in their names."
-    },
-    {
-      "question": "What should a user remember when requesting multiple CPUs for Spark commands in GATK?",
-      "answer": "Users must provide the exact number of CPUs to the Spark command; for example, if 10 CPUs are requested, use `--spark-master local[10]` instead of `--spark-master local[*]`. "
-    },
-    {
-      "question": "How can a user scale a Spark cluster across multiple nodes with GATK?",
-      "answer": "To scale a Spark cluster across multiple nodes, the user must first deploy a Spark cluster and then set the appropriate variables in the GATK command."
-    },
-    {
-      "question": "When is it recommended to run GATK via Apptainer?",
-      "answer": "It is recommended to run GATK via Apptainer if errors like `IllegalArgumentException` are encountered when using the installed modules on the clusters."
-    },
-    {
-      "question": "Where can a Docker image for GATK be found?",
-      "answer": "A Docker image for GATK can be found on Docker Hub at `https://hub.docker.com/r/broadinstitute/gatk`."
-    },
-    {
-      "question": "How do you build an Apptainer image for the latest GATK version from Docker on the cluster?",
-      "answer": "You can build it by running: `module load apptainer` followed by `apptainer build gatk.sif docker://broadinstitute/gatk`."
-    },
-    {
-      "question": "How do you build an Apptainer image for a specific GATK version from Docker?",
-      "answer": "You can build it by running: `module load apptainer` followed by `apptainer build gatk_VERSION.sif docker://broadinstitute/gatk:VERSION`."
-    },
-    {
-      "question": "What is the general command to run GATK via Apptainer within an SBATCH script?",
-      "answer": "The general command is: `module load apptainer` followed by `apptainer exec -B /home -B /project -B /scratch -B /localscratch <path to the image>/gatk.sif gatk [--java-options \"-Xmx4G\"] ToolName [GATK args]`."
-    },
-    {
-      "question": "How can a user add a read group (RG) tag to a BAM file using GATK?",
-      "answer": "A user can add a read group tag using the GATK/PICARD command `AddOrReplaceReadGroups`."
-    },
-    {
-      "question": "What is an example command to add a read group called 'tag' to an `input.bam` file using GATK?",
-      "answer": "An example command is: `gatk AddOrReplaceReadGroups -I input.bam -O output.bam --RGLB tag --RGPL ILLUMINA --RGPU tag --RGSM tag --SORT_ORDER 'coordinate' --CREATE_INDEX true`."
-    },
-    {
-      "question": "What error message indicates that a GATK subprogram requires more memory?",
-      "answer": "The error message `java.lang.OutOfMemoryError: Java heap space` indicates that a GATK subprogram requires more memory."
-    },
-    {
-      "question": "How can a user typically resolve a `java.lang.OutOfMemoryError: Java heap space` error when running GATK?",
-      "answer": "Users should add or increase the `-Xmx` option within `--java-options` to allocate more heap memory, for example: `gatk MarkDuplicates --java-options \"-Xmx8G -DGATK_STACKTRACE_ON_USER_EXCEPTION=true\" -I input.bam -O marked_duplicates.bam -M marked_dup_metrics.txt`."
-    },
-    {
-      "question": "What should a user do if increasing heap memory does not resolve `java.lang.OutOfMemoryError: Java heap space`?",
-      "answer": "If increasing heap memory doesn't fix the issue, especially with non-model organisms and many scaffolds, it is recommended to remove small scaffolds and create subsets of the reference, then run pipelines on each subset."
-    },
-    {
-      "question": "Why might GATK/JAVA applications sometimes use more memory or CPUs than requested?",
-      "answer": "GATK/JAVA applications might use more resources than requested due to the Java garbage collection process."
-    },
-    {
-      "question": "How can a user control excessive memory or CPU usage generated by Java garbage collection in GATK?",
-      "answer": "To control this, users can add `-XX:ConcGCThreads=1` to the `--java-options` argument."
-    },
-    {
-      "question": "Where can users find additional Frequently Asked Questions about GATK?",
-      "answer": "Users can find additional GATK FAQs on their website in the Troubleshooting GATK4 Issues section."
+      "question": "What are the recommended practices for managing temporary files and optimizing performance when running Genome Analysis Toolkit (GATK) jobs on the systems?",
+      "answer": "When running GATK on the systems, it is recommended to use the `--tmp-dir` option and set it to `${SLURM_TMPDIR}` in an `sbatch` job, which redirects temporary files to local storage. Additionally, when using `GenomicsDBImport`, enable the `--genomicsdb-shared-posixfs-optimizations` option for performance. If not possible, or when using GNU parallel, copy the database to `${SLURM_TMPDIR}` to utilize faster local storage and avoid disrupting the filesystem for other users."
     }
   ],
-  "generated_at": "2026-04-11T21:55:55.544447+00:00"
+  "generated_at": "2026-04-13T05:39:42.675061+00:00"
 }

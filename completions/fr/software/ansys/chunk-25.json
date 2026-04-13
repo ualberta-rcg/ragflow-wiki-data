@@ -4,117 +4,17 @@
   "chunk_index": 25,
   "qa_pairs": [
     {
-      "question": "Comment j'fais pour dire à Fluent d'interpréter mon UDF (User-Defined Function) quand ça roule?",
-      "answer": "Pour dire à Fluent d'interpréter votre UDF au moment de l'exécution, faut ajouter une ligne de commande spécifique dans votre fichier de journal avant que les fichiers cas/dat soient lus ou initialisés."
+      "question": "Comment utiliser une fonction définie par l'utilisateur (UDF) interprétée avec Fluent sur les grappes de l'Alliance?",
+      "answer": "Pour utiliser une UDF interprétée avec Fluent, il faut ajouter la ligne de commande `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no` dans votre fichier journal avant de lire les fichiers de cas ou de données. Il est essentiel que le fichier source de l'UDF se trouve dans le même répertoire que votre fichier journal. De plus, avant de sauvegarder votre fichier de cas, assurez-vous de l'ouvrir dans l'interface graphique Fluent, de supprimer toutes les définitions gérées et de le réenregistrer pour que seule cette commande prenne le contrôle. Pour les tâches parallèles, l'UDF devra être parallélisée selon la section dédiée."
     },
     {
-      "question": "C'est quoi la commande qu'on utilise pour interpréter une UDF dans Fluent?",
-      "answer": "La commande à utiliser est `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no`. Faut juste remplacer `sampleudf.c` par l'nom d'votre fichier source."
+      "question": "Quelles sont les étapes pour configurer et utiliser une fonction définie par l'utilisateur (UDF) compilée avec Fluent sur les grappes de l'Alliance?",
+      "answer": "Pour utiliser une UDF compilée, il faut d'abord la compiler sur l'une des grappes de l'Alliance au moins une fois; cela créera une structure de sous-répertoire `libudf` contenant la bibliothèque partagée `libudf.so`. Ce répertoire `libudf` peut ensuite être transféré vers d'autres grappes si votre compte charge la même version du module d'environnement StdEnv. Dans votre fichier journal, ajoutez la commande `define/user-defined/compiled-functions load libudf` pour charger l'UDF. Il est important de ne pas laisser les commandes de compilation et de chargement actives simultanément lors de la soumission de tâches pour éviter une recompilation inutile et des conflits. La compilation peut aussi se faire via l'interface graphique de Fluent en ajoutant le fichier source dans la boîte de dialogue 'Compiled UDFs' et en cliquant sur 'Build'. Une UDF compilée doit également être parallélisée pour les tâches parallèles."
     },
     {
-      "question": "Est-ce que la commande pour les UDF interprétées change si ma simulation est séquentielle ou parallèle?",
-      "answer": "Non, la commande reste la même, peu importe si la simulation est exécutée en mode séquentiel ou parallèle."
-    },
-    {
-      "question": "Qu'est-ce que j'dois faire avec mon fichier cas avant de le téléverser quand j'utilise une UDF interprétée?",
-      "answer": "Faut ouvrir votre fichier cas dans l'interface graphique Fluent, supprimer toutes les définitions gérées et le réenregistrer. Ça assure qu'seule la commande du fichier de journal va contrôler l'exécution de Fluent."
-    },
-    {
-      "question": "Qu'est-ce qui est nécessaire pour utiliser une UDF interprétée avec des tâches parallèles?",
-      "answer": "Pour utiliser une UDF interprétée avec des tâches parallèles, elle doit être parallélisée comme décrit dans la section sur le parallélisme des UDF."
-    },
-    {
-      "question": "Quelle est la première étape si j'veux utiliser une UDF compilée?",
-      "answer": "La première étape est de compiler votre UDF sur une de nos grappes au moins une fois."
-    },
-    {
-      "question": "Qu'est-ce qui arrive une fois que j'ai compilé mon UDF sur une grappe?",
-      "answer": "Ça va créer une structure de sous-répertoire `libudf` qui contient la bibliothèque partagée `libudf.so` nécessaire."
-    },
-    {
-      "question": "Puis-je copier le répertoire `libudf` d'une machine locale (comme mon laptop) vers la grappe de l'Alliance?",
-      "answer": "Non, vous ne pouvez pas copier le répertoire `libudf` directement, parce que les dépendances de la bibliothèque partagée ne seraient pas satisfaites, ce qui ferait planter Fluent au démarrage."
-    },
-    {
-      "question": "Est-ce que j'peux transférer un répertoire `libudf` compilé d'une grappe de l'Alliance à une autre?",
-      "answer": "Oui, une fois que l'UDF est compilée sur une de nos grappes, vous pouvez transférer le répertoire `libudf` nouvellement créé vers n'importe quelle autre grappe, à condition que votre compte charge la même version du module d'environnement `StdEnv`."
-    },
-    {
-      "question": "Comment j'fais pour utiliser une UDF compilée dans mon fichier de journal?",
-      "answer": "Pour utiliser une UDF compilée, faut supprimer le commentaire de la deuxième ligne (load) `libudf` dans votre fichier de journal au moment de soumettre la tâche."
-    },
-    {
-      "question": "Pourquoi j'devrais pas laisser les deux lignes (compile et load) pour l'UDF compilée sans commentaire dans mon fichier de journal?",
-      "answer": "Faut pas laisser les deux lignes sans commentaire, sinon votre UDF sera automatiquement recompilée pour chaque tâche, ce qui est inefficace et peut causer des conflits de build (type « racetime »)."
-    },
-    {
-      "question": "Outre l'fichier de journal, est-ce qu'il y a une autre façon de compiler mon UDF avec l'interface graphique de Fluent?",
-      "answer": "Oui, vous pouvez utiliser l'interface graphique de Fluent (sur un nœud de calcul ou gra-vdi). Faut ajouter le fichier source UDF dans la boîte de dialogue `Compiled UDFs`, puis cliquer sur `Build`."
-    },
-    {
-      "question": "Qu'est-ce qui est nécessaire pour une UDF compilée avec des tâches parallèles?",
-      "answer": "Quand on utilise une UDF compilée avec des tâches parallèles, votre fichier source doit être parallélisé comme indiqué dans la section sur le parallélisme des UDF."
-    },
-    {
-      "question": "Qu'est-ce que j'dois faire avant qu'une UDF puisse être utilisée avec une tâche parallèle Fluent?",
-      "answer": "Avant qu'une UDF puisse être utilisée avec une tâche parallèle Fluent (SMP à nœud unique et MPI à nœuds multiples), elle doit être parallélisée."
-    },
-    {
-      "question": "Qu'est-ce qu'implique la procédure d'instrumentation pour paralléliser une UDF?",
-      "answer": "La procédure d'instrumentation consiste à ajouter des directives de compilation, des prédicats et des macros de réduction dans votre UDF séquentielle."
-    },
-    {
-      "question": "Qu'arrivera-t-il si j'ne parallélise pas mon UDF pour des tâches parallèles Fluent?",
-      "answer": "Si vous ne le faites pas, Fluent fonctionnera lentement au mieux ou plantera immédiatement au pire."
-    },
-    {
-      "question": "Quel est l'objectif final de la parallélisation d'une UDF?",
-      "answer": "L'objectif final est d'obtenir une UDF unique qui s'exécute efficacement lorsque Fluent est utilisé à la fois en mode séquentiel et en mode parallèle."
-    },
-    {
-      "question": "Où j'peux trouver des informations détaillées sur la parallélisation des UDF?",
-      "answer": "Le sujet est décrit en détail dans le `Fluent Customization Manual, Part I: Chapter 7: Parallel Considerations`, disponible dans la documentation en ligne."
-    },
-    {
-      "question": "Comment les UDF peuvent-elles être utilisées pour personnaliser les modèles de phase discrète (DPM)?",
-      "answer": "Les UDF peuvent être utilisées pour personnaliser les modèles de phase discrète (DPM) comme décrit dans le `2024R2 Fluent Users Guide` et le `2024R2 Fluent Customization Manual`."
-    },
-    {
-      "question": "Qu'est-ce qui doit être défini avant d'utiliser une UDF basée sur le DPM dans une simulation?",
-      "answer": "Avant d'utiliser une UDF basée sur le DPM, faut définir l'injection d'un ensemble de particules en spécifiant des `Point Properties` comme la position de la source, la trajectoire initiale, le débit massique, la durée, la température, etc."
-    },
-    {
-      "question": "Comment j'peux définir les Point Properties via l'interface graphique de Fluent?",
-      "answer": "Ça se fait en cliquant sur le panneau `Physics--> Discrete Phase`, puis sur le bouton `Injections`, ce qui ouvre une boîte de dialogue où vous pouvez créer de nouvelles injections et définir leurs `Point Properties`."
-    },
-    {
-      "question": "Quels sont les quatre premiers types d'injection disponibles dans la boîte de dialogue `Set Injection Properties`?",
-      "answer": "Les quatre premiers types d'injection disponibles sont `single`, `group`, `surface` et `flat-fan-atomizer`."
-    },
-    {
-      "question": "Comment j'fais pour spécifier les Point Properties en lisant un fichier texte d'injection?",
-      "answer": "Faut sélectionner `File` dans le menu déroulant `Injection Type`, spécifier le nom de l'injection, puis cliquer sur le bouton `File` et choisir votre fichier d'injection (.dpm ou .inj)."
-    },
-    {
-      "question": "C'est quoi l'extension typique d'un fichier texte d'injection créé manuellement?",
-      "answer": "Un fichier texte d'injection créé manuellement a généralement une extension `.inj`."
-    },
-    {
-      "question": "Après avoir configuré l'injection, qu'est-ce que j'dois faire dans la boîte de dialogue `Discrete Phase Model`?",
-      "answer": "Après avoir configuré l'injection, faut ouvrir la boîte de dialogue `Discrete Phase Model` et sélectionner `Interaction with Continuous Phase` pour mettre à jour les termes sources DPM à chaque itération de flux."
-    },
-    {
-      "question": "Comment j'peux automatiser les étapes d'injection DPM en ajoutant des commandes à mon fichier de journal?",
-      "answer": "On peut automatiser les étapes en ajoutant des commandes au fichier de journal après l'initialisation de la solution, comme `/define/models/dpm/interaction/coupled-calculations yes` et d'autres commandes pour créer ou lister les injections."
-    },
-    {
-      "question": "Donnez-moi un exemple de format de fichier d'injection de base pour une simulation DPM stable.",
-      "answer": "Un format de fichier d'injection de base pourrait ressembler à :\n`$ cat zinjection01.inj\n(z=4 12)\n( x y z u v w diamètre t débit massique fréquence massique temps nom )\n(( 2.90e-02 5.00e-03 0.0 -1,00e-03 0,0 0,0 1,00e-04 2,93e+02 1,00e-06 0,0 0,0 0,0 ) injection-0:1 )`"
-    },
-    {
-      "question": "Où j'peux trouver plus de détails sur le format de fichier stable pour l'injection DPM?",
-      "answer": "Des détails se trouvent dans le `2024R2 Fluent Customization Manual, Part III: Solution Mode | Chapter 24: Modeling Discrete Phase | 24.3. Setting Initial Conditions for the Discrete Phase | 24.3.13 Point Properties for File Injections | 24.3.13.1 Steady File Format`."
+      "question": "Pourquoi est-il nécessaire de paralléliser une fonction définie par l'utilisateur (UDF) pour les simulations Fluent exécutées en parallèle sur les grappes de l'Alliance, et où puis-je trouver des directives détaillées?",
+      "answer": "Il est impératif de paralléliser une UDF avant de l'utiliser avec une tâche Fluent parallèle, que ce soit en mode SMP (nœud unique) ou MPI (nœuds multiples). Si l'UDF n'est pas parallélisée, Fluent fonctionnera lentement au mieux, ou plantera immédiatement au pire. La procédure d'instrumentation consiste à ajouter des directives de compilation, des prédicats et des macros de réduction à votre UDF séquentielle, afin qu'elle s'exécute efficacement en mode séquentiel et parallèle. Des informations détaillées sur ce sujet sont disponibles dans le `Fluent Customization Manual, Part I: Chapter 7: Parallel Considerations`."
     }
   ],
-  "generated_at": "2026-04-12T17:01:31.487647+00:00"
+  "generated_at": "2026-04-13T01:58:34.032492+00:00"
 }

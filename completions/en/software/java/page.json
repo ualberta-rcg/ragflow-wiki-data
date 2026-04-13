@@ -3,77 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Java and when was it developed?",
-      "answer": "Java is a general-purpose, high-level, object-oriented programming language developed in 1995 by Sun Microsystems."
+      "question": "What is the primary purpose of the Java documentation page on Alliance clusters?",
+      "answer": "The page provides tips and hints for using Java in a high-performance computing environment, such as Alliance clusters, rather than teaching the Java programming language itself."
     },
     {
-      "question": "What was a principal design goal for Java, and how is it achieved?",
-      "answer": "A principal design goal was a high degree of portability across platforms, summarized as 'write once, run anywhere', achieved by compiling source code to bytecode that runs inside a Java virtual machine (JVM)."
+      "question": "How can users access different Java virtual machines on Alliance clusters?",
+      "answer": "Users can access different Java virtual machines via the `module` command, similar to other software packages, and should generally load only one Java module at a time."
     },
     {
-      "question": "What is the specific purpose of this document regarding Java?",
-      "answer": "This document provides tips and hints for utilizing Java in a high-performance computing environment, such as Alliance clusters, rather than teaching the programming language itself."
+      "question": "What are the principal commands for working with Java modules on Alliance clusters?",
+      "answer": "The principal commands are `java` to launch the Java virtual machine and `javac` to call the Java compiler for converting Java source code into bytecode."
     },
     {
-      "question": "How are different Java virtual machines made available to users on Alliance systems?",
-      "answer": "Java virtual machines are made available via the `module` command, similar to other software packages."
+      "question": "How can a user run Java software distributed as a JAR file on Alliance clusters?",
+      "answer": "A user can run a JAR file using the command `java -jar file.jar`, provided the JAR file is compiled to operate as an autonomous program with a `Main-class` manifest header."
     },
     {
-      "question": "What are the two principal commands associated with Java modules?",
-      "answer": "The principal commands are `java` to launch the Java virtual machine and `javac` to call the Java compiler."
+      "question": "How does Java support parallelism through threading, and what are its advantages?",
+      "answer": "Java includes built-in support for threading via the `Thread` class, obviating the need for separate interfaces and libraries like OpenMP or pthreads used in other languages."
     },
     {
-      "question": "How can you run Java software distributed as a JAR file?",
-      "answer": "You can run a JAR file using the command `java -jar file.jar`, provided it has a `Main-class` manifest header to operate as an autonomous program."
+      "question": "What library is commonly used for MPI-style parallelism in Java programs on Alliance clusters?",
+      "answer": "The MPJ Express library is a common method for using MPI-style parallelism in Java programs."
     },
     {
-      "question": "Does Java include built-in support for threading?",
-      "answer": "Yes, Java includes built-in support for threading, eliminating the need for separate interfaces and libraries like OpenMP or pthreads."
+      "question": "Why do Java virtual machines often encounter memory issues in shared computing environments like Alliance clusters?",
+      "answer": "Java virtual machines default to setting initial and maximum heap sizes (1/64 and 1/4 of physical memory respectively), which can easily exceed the memory limits imposed by a scheduler or shell in a shared computing environment."
     },
     {
-      "question": "What is the principal Java object for handling concurrency?",
-      "answer": "The `Thread` class is the principal Java object for handling concurrency."
+      "question": "How can a user explicitly control the Java virtual machine's run-time memory parameters from the command line?",
+      "answer": "Users can control memory parameters using flags like `-Xms256m` for the initial heap size and `-Xmx4g` for the maximum heap size, for example: `java -Xms256m -Xmx4g -version`."
     },
     {
-      "question": "What is a common method for using MPI-style parallelism in a Java program?",
-      "answer": "The MPJ Express library is a common method for using MPI-style parallelism in Java."
+      "question": "What is an alternative method to setting Java run-time options instead of passing them directly on the command line?",
+      "answer": "An alternative method is to use the `JAVA_TOOL_OPTIONS` environment variable, for example, by setting `export JAVA_TOOL_OPTIONS=\"-Xms256m -Xmx2g\"`."
     },
     {
-      "question": "What is a common memory issue when running Java on a high-performance computing environment?",
-      "answer": "The Java virtual machine expects access to all physical memory, but schedulers or shells may impose lower memory limits, causing Java to fail."
+      "question": "What is the recommended job memory limit for a Java job on Alliance clusters, in relation to the `-Xmx` setting?",
+      "answer": "It is recommended to specify the job's memory limit as 1-2GB more than the Java command line option `-Xmx` to account for the Java virtual machine's memory usage overhead."
     },
     {
-      "question": "What are the default initial and maximum heap sizes set by the Java VM at startup?",
-      "answer": "The Java VM sets an initial heap size of 1/64 of physical memory and a maximum heap size of 1/4 of physical memory by default."
+      "question": "What is garbage collection in Java, and how does it relate to memory management?",
+      "answer": "Garbage collection is an automatic system in Java that identifies variables which are out of scope and returns their associated memory to the operating system."
     },
     {
-      "question": "How can Java's run-time memory parameters be explicitly controlled?",
-      "answer": "Run-time memory parameters can be explicitly controlled on the command line using flags like `-Xms256m -Xmx4g` or `-XX:InitialHeapSize=256m -XX:MaxHeapSize=4g`."
+      "question": "How does the Java VM's default parallel garbage collector behave, and what are its implications for performance on Alliance clusters?",
+      "answer": "By default, the Java VM uses a parallel garbage collector that sets the number of GC threads equal to the number of CPU cores on a node, with each thread consuming memory proportional to physical memory, which can be inefficient if not matched to requested CPU cores."
     },
     {
-      "question": "What environment variable can be used to set Java run-time options?",
-      "answer": "The `JAVA_TOOL_OPTIONS` environment variable can be utilized to set run-time options, which is convenient for multiple Java calls."
+      "question": "How can a user optimize the number of garbage collection threads for a Java job on Alliance clusters?",
+      "answer": "Users should match the number of garbage collection threads to the number of CPU cores requested from the scheduler by using the option `-XX:ParallelGCThreads=N`, for example, `-XX:ParallelGCThreads=12`."
     },
     {
-      "question": "What is recommended for the job's memory limit compared to the Java `-Xmx` option?",
-      "answer": "It is recommended to specify the memory limit for your job as 1-2GB more than the setting on the Java command line option `-Xmx` due to JVM memory usage overhead."
+      "question": "What is the primary effect of the `volatile` keyword when applied to a variable in Java?",
+      "answer": "In Java, the `volatile` keyword ensures that a variable's value is always read from and written to main memory, which helps make modifications visible to other threads."
     },
     {
-      "question": "What is garbage collection in Java?",
-      "answer": "Garbage collection is an automatic system in Java that identifies out-of-scope variables and returns their associated memory to the operating system."
-    },
-    {
-      "question": "What is the default behaviour of the Java VM regarding garbage collector threads?",
-      "answer": "By default, the Java VM uses a parallel garbage collector and sets the number of GC threads equal to the number of CPU cores on a given node."
-    },
-    {
-      "question": "What is the recommendation for setting the number of garbage collector threads?",
-      "answer": "It is highly recommended to match the number of garbage collector threads (`-XX:ParallelGCThreads=N`) to the number of CPU cores requested from the scheduler in your job submission script."
-    },
-    {
-      "question": "What is the effect of the `volatile` keyword in Java?",
-      "answer": "When applied to a variable, `volatile` ensures its value is always read from and written to main memory, which helps make modifications visible to other threads."
+      "question": "Why might the `volatile` keyword not always be sufficient to prevent race conditions in Java programs?",
+      "answer": "The `volatile` keyword is not always sufficient to avoid race conditions, and the `synchronized` keyword may also be required to ensure program consistency in certain contexts."
     }
   ],
-  "generated_at": "2026-04-12T00:11:39.115983+00:00"
+  "generated_at": "2026-04-13T07:27:47.531654+00:00"
 }

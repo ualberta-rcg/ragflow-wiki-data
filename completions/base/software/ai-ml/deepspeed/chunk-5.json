@@ -4,85 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is the primary function of the `deepspeed-stage3.sh` script?",
-      "answer": "The `deepspeed-stage3.sh` script is a SLURM batch script used to execute a PyTorch Lightning training job, leveraging DeepSpeed ZeRO Stage 3 for GPU acceleration."
+      "question": "How is DeepSpeed ZeRO Stage 3 enabled and configured when using PyTorch Lightning in the provided example scripts?",
+      "answer": "DeepSpeed ZeRO Stage 3 is enabled by setting the `strategy` parameter to `\"deepspeed_stage_3\"` when initializing the `pytorch_lightning.Trainer` in the `deepspeed-stage3.py` script. Additionally, the `configure_optimizers` method within the `pl.LightningModule` returns `FusedAdam` from `deepspeed.ops.adam`, and the `cuda` module must be loaded in the SLURM script if a DeepSpeed optimizer is used."
     },
     {
-      "question": "How many computing nodes are requested in the `deepspeed-stage3.sh` SLURM script?",
-      "answer": "The script requests one computing node (`--nodes 1`)."
-    },
-    {
-      "question": "How many GPUs are allocated per node for the job defined in `deepspeed-stage3.sh`?",
-      "answer": "Two GPUs are allocated per node (`--gres=gpu:2`)."
-    },
-    {
-      "question": "What is the memory allocation specified for the job in `deepspeed-stage3.sh`?",
-      "answer": "The job requests 32 gigabytes of memory (`--mem=32G`)."
-    },
-    {
-      "question": "What is the maximum time limit for the job specified in `deepspeed-stage3.sh`?",
-      "answer": "The maximum time allocated for the job is 20 minutes (`--time=0-00:20`)."
-    },
-    {
-      "question": "Which software modules must be loaded to use a DeepSpeed optimizer, as indicated in `deepspeed-stage3.sh`?",
-      "answer": "The `python` and `cuda` modules must be loaded."
-    },
-    {
-      "question": "How are the necessary Python packages installed within the `deepspeed-stage3.sh` environment?",
-      "answer": "The packages `torchvision`, `pytorch-lightning`, and `deepspeed` are installed into a virtual environment using `pip install --no-index`."
-    },
-    {
-      "question": "What environment variable is exported in `deepspeed-stage3.sh` related to asynchronous handling?",
-      "answer": "The environment variable `TORCH_NCCL_ASYNC_HANDLING` is exported with a value of `1` (`export TORCH_NCCL_ASYNC_HANDLING=1`)."
-    },
-    {
-      "question": "What is the requirement for `tasks-per-node` when PyTorch Lightning runs inside a SLURM batch job, according to the comments in `deepspeed-stage3.sh`?",
-      "answer": "PyTorch Lightning expects the user to have requested one task per GPU."
-    },
-    {
-      "question": "What could happen if a PyTorch Lightning job running within SLURM does not request one task per GPU or is not launched with `srun`?",
-      "answer": "The job will fail if these conditions are not met."
-    },
-    {
-      "question": "What is the command used to launch the Python training script within `deepspeed-stage3.sh`?",
-      "answer": "The script uses `srun python deepspeed-stage3.py --batch_size 256` to launch the training."
-    },
-    {
-      "question": "What type of neural network model is defined in `deepspeed-stage3.py`?",
-      "answer": "The `deepspeed-stage3.py` script defines a convolutional neural network (CNN) for CIFAR10 classification, comprising a `ConvPart` and an `MLPPart`."
-    },
-    {
-      "question": "Which optimizer is configured for use in the `deepspeed-stage3.py` script?",
-      "answer": "The `FusedAdam` optimizer from `deepspeed.ops.adam` is configured."
-    },
-    {
-      "question": "How is the PyTorch Lightning `Trainer` configured for DeepSpeed ZeRO Stage 3 in `deepspeed-stage3.py`?",
-      "answer": "The `Trainer` is initialized with `accelerator=\"gpu\"`, `devices=2`, `num_nodes=1`, and `strategy=\"deepspeed_stage_3\"`."
-    },
-    {
-      "question": "What is the dataset used for training in the `deepspeed-stage3.py` script?",
-      "answer": "The CIFAR10 dataset is used for training."
-    },
-    {
-      "question": "What data transformations are applied to the CIFAR10 training set in `deepspeed-stage3.py`?",
-      "answer": "The data is converted to a tensor and then normalized with a mean of (0.5, 0.5, 0.5) and a standard deviation of (0.5, 0.5, 0.5)."
-    },
-    {
-      "question": "What is the purpose of `progress_bar_refresh_rate=0` in the `pl.Trainer` initialization, according to the comments in `deepspeed-stage3.py`?",
-      "answer": "It is set to `0` to prevent frequent logging of the progress bar, which can lead to issues."
-    },
-    {
-      "question": "What is the default batch size defined by the argument parser in `deepspeed-stage3.py`?",
-      "answer": "The default batch size is 768 (`--batch_size 768`)."
-    },
-    {
-      "question": "What is the `max_epochs` value set for training in `deepspeed-stage3.py`?",
-      "answer": "The `max_epochs` value is set to 2 (`--max_epochs 2`)."
-    },
-    {
-      "question": "How many tasks per node are requested in the `deepspeed-stage3.sh` SLURM script?",
-      "answer": "Two tasks per node are requested (`--tasks-per-node=2`)."
+      "question": "What are the required SLURM resource specifications for running the `deepspeed-stage3.sh` example job?",
+      "answer": "The `deepspeed-stage3.sh` example job specifies a single node (`--nodes 1`), two GPUs (`--gres=gpu:2`), and two tasks per node (`--tasks-per-node=2`), ensuring one process per GPU. It also requests 32GB of memory (`--mem=32G`) and a time limit of 20 minutes (`--time=0-00:20`)."
     }
   ],
-  "generated_at": "2026-04-11T21:10:41.241270+00:00"
+  "generated_at": "2026-04-13T05:01:48.816325+00:00"
 }

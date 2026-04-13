@@ -3,65 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi GDB pis à quoi ça sert?",
-      "answer": "GDB (GNU Project Debugger) est un débogueur pour investiguer les problèmes présents dans les logiciels."
+      "question": "Qu'est-ce que le logiciel GDB (GNU Project Debugger) et à quoi sert-il principalement?",
+      "answer": "GDB est un débogueur pour investiguer des problèmes présents dans les logiciels, permettant de trouver rapidement la cause d'un problème, notamment les erreurs de segmentation."
     },
     {
-      "question": "Quel est le type de problème le plus souvent résolu avec GDB?",
-      "answer": "GDB est principalement utilisé pour trouver rapidement la cause d'erreurs de segmentation."
+      "question": "Pour quels types de problèmes logiciels est-il conseillé d'utiliser Valgrind plutôt que GDB?",
+      "answer": "Il est conseillé d'utiliser Valgrind pour trouver des problèmes de mémoire, par exemple des fuites de mémoire."
     },
     {
-      "question": "Si je veux trouver une fuite de mémoire, est-ce que GDB est le meilleur outil?",
-      "answer": "Non, pour les fuites de mémoire, il est conseillé d'utiliser Valgrind."
+      "question": "Lors de la compilation d'un programme, quelle option doit être utilisée pour permettre à GDB de décoder les symboles et fournir plus d'informations sur la source d'un bogue?",
+      "answer": "Il faut compiler le programme avec l'option `-g` pour permettre au débogueur de décoder les symboles et fournir davantage d'information sur la source du bogue."
     },
     {
-      "question": "Quelle option de compilation est requise pour que GDB puisse afficher des informations utiles sur le code source?",
-      "answer": "Il faut compiler le programme avec l'option <tt>-g</tt> pour permettre au débogueur de décoder les symboles."
+      "question": "Comment exécute-t-on un programme à l'intérieur de GDB pour trouver la cause d'une erreur de segmentation directement?",
+      "answer": "Après avoir compilé le programme avec l'option `-g`, on utilise la commande `gdb ./program` puis, dans l'interface de GDB, la commande `run`."
     },
     {
-      "question": "Comment on démarre un programme à déboguer avec GDB et on le lance?",
-      "answer": "On tape <tt>gdb ./nom_du_programme</tt>, puis, dans l'invite de GDB, on écrit <tt>run</tt>."
+      "question": "Quelle commande GDB permet d'afficher la pile d'appels en cours pour tracer l'exécution qui a mené à un problème?",
+      "answer": "La commande `backtrace` (ou son raccourci `bt`) permet d'afficher la pile d'appels en cours."
     },
     {
-      "question": "Quelle commande GDB permet de voir la séquence d'appels de fonctions (la pile d'appels) qui a mené à un plantage?",
-      "answer": "La commande est <tt>bt</tt> ou <tt>backtrace</tt>."
+      "question": "Comment configurer le système pour qu'un fichier `core` soit généré après une erreur de segmentation, ce qui est utile pour déboguer des bogues qui se produisent longtemps après le début de l'exécution?",
+      "answer": "Il faut activer la création de fichiers `core` en exécutant la commande `ulimit -c unlimited`."
     },
     {
-      "question": "Que faut-il faire pour que le système génère un fichier <tt>core</tt> quand un programme plante?",
-      "answer": "Il faut activer la création de ces fichiers avec la commande <tt>ulimit -c unlimited</tt>."
+      "question": "Après la génération d'un fichier `core` suite à une erreur de segmentation, comment GDB est-il utilisé avec ce fichier et l'exécutable du programme pour identifier la cause de l'erreur?",
+      "answer": "On lance GDB avec la commande `gdb -q ./program` puis, dans GDB, on utilise `core-file core.XXXX` (où `core.XXXX` est le nom du fichier `core`)."
     },
     {
-      "question": "Une fois qu'on a un fichier <tt>core</tt>, comment on l'utilise avec GDB pour analyser la cause du plantage?",
-      "answer": "On lance GDB avec l'exécutable (<tt>gdb ./programme</tt>), puis on charge le fichier core avec <tt>core-file nom_du_fichier_core</tt>."
+      "question": "Comment peut-on attacher le débogueur GDB à un processus existant, par exemple une tâche s'exécutant sur un nœud de calcul?",
+      "answer": "Il faut d'abord trouver le numéro du processus (PID) avec `ps aux`, puis attacher le débogueur avec la commande `gdb attach [PID]`."
     },
     {
-      "question": "Comment on fait pour déboguer un processus qui roule déjà, comme Firefox?",
-      "answer": "On trouve le numéro du processus (PID) avec <tt>ps aux</tt>, puis on attache GDB avec <tt>gdb attach PID</tt>."
+      "question": "Quelle commande GDB est utilisée pour créer un point d'arrêt (breakpoint) à une ligne de code spécifique ou à l'entrée d'une fonction?",
+      "answer": "La commande `break` (raccourci `b`) avec l'argument `src.c:numero_de_ligne` ou `fonction` est utilisée pour créer un point d'arrêt."
     },
     {
-      "question": "C'est quoi la commande GDB pour mettre un point d'arrêt (breakpoint) à une ligne de code ou dans une fonction spécifique?",
-      "answer": "C'est la commande <tt>break</tt> ou <tt>b</tt>, suivie du nom de fichier et numéro de ligne (ex: <tt>src.c:123</tt>) ou du nom de la fonction."
+      "question": "Comment GDB peut-il être configuré pour améliorer l'affichage du contenu des structures de la librairie standard du C++ (STL)?",
+      "answer": "Une solution simple est de copier un fichier spécifique (comme `dbinit_stl_views-1.03.txt`) dans le répertoire d'accueil sous le nom `~/.gdbinit`."
     },
     {
-      "question": "Comment on fait pour que GDB mette le programme en pause quand une variable change de valeur?",
-      "answer": "On utilise la commande <tt>watch</tt> suivie du nom de la variable."
+      "question": "Après qu'un programme soit interrompu par un point d'arrêt dans GDB, quelle commande est utilisée pour reprendre son exécution?",
+      "answer": "La commande `continue` (raccourci `c`) est utilisée pour continuer l'exécution après un point d'arrêt."
     },
     {
-      "question": "Après qu'un programme s'est arrêté à un point d'arrêt, quelle commande permet de continuer l'exécution?",
-      "answer": "La commande <tt>continue</tt> ou <tt>c</tt>."
+      "question": "Dans GDB, quelle commande permet d'exécuter l'opération suivante du programme, utile pour un débogage pas à pas?",
+      "answer": "La commande `step` (raccourci `s`) exécute l'opération suivante du programme."
     },
     {
-      "question": "Quelle commande est utilisée pour afficher le contenu d'une variable pendant que le programme est en pause dans GDB?",
-      "answer": "C'est la commande <tt>print</tt> ou <tt>p</tt>, suivie du nom de la variable."
+      "question": "Comment afficher le contenu d'une variable spécifique lorsque l'exécution d'un programme est interrompue dans GDB?",
+      "answer": "La commande `print` (raccourci `p`) suivie du nom de la variable permet d'afficher son contenu."
     },
     {
-      "question": "Est-ce que GDB affiche les structures de la librairie standard du C++ (STL) de façon claire par défaut?",
-      "answer": "Non, par défaut, GDB n'affiche pas très bien le contenu des structures de la STL."
-    },
-    {
-      "question": "C'est quoi une façon simple d'améliorer l'affichage des structures STL dans GDB?",
-      "answer": "Copier un fichier de configuration spécifique, comme <tt>dbinit_stl_views-1.03.txt</tt>, dans votre répertoire d'accueil sous le nom <tt>~/.gdbinit</tt>."
+      "question": "Quelle est la commande GDB utilisée pour arrêter l'exécution d'un programme uniquement lorsqu'une variable spécifique est modifiée?",
+      "answer": "La commande `watch` avec le nom de la variable arrête l'exécution lorsque cette variable est modifiée."
     }
   ],
-  "generated_at": "2026-04-11T22:08:14.419570+00:00"
+  "generated_at": "2026-04-13T05:50:33.893141+00:00"
 }

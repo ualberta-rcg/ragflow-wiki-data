@@ -4,117 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is pthreads?",
-      "answer": "pthreads, short for POSIX threads, is one of the earliest parallelization techniques."
+      "question": "What are pthreads and what is their primary use case in parallelisation?",
+      "answer": "Pthreads, short for POSIX threads, are an early parallelisation technique that relies on a shared memory environment. They are typically used only on a single node, with the number of active threads limited by the available CPU cores, and are primarily targeted at C programming."
     },
     {
-      "question": "What kind of memory environment does pthreads parallelization rely on?",
-      "answer": "pthreads parallelization relies on the assumption of a shared memory environment."
+      "question": "How does one compile a C program that uses pthreads?",
+      "answer": "To compile a C program using pthreads, you will need to include the header file <tt>pthread.h</tt> and compile your program with the special flag <tt>-pthread</tt> so that it is linked with the pthread library, for example, using the command `gcc -pthread -o test threads.c`."
     },
     {
-      "question": "On what type of system are pthreads typically used?",
-      "answer": "pthreads are typically used only on a single node with the number of active threads limited by the number of available CPU cores on that node."
-    },
-    {
-      "question": "Which programming language is the main target for pthreads in practice?",
-      "answer": "In practice, the main target programming language for pthreads is C."
-    },
-    {
-      "question": "What is a recommended alternative for parallelizing a Fortran program using threads?",
-      "answer": "To parallelize a Fortran program using threads, OpenMP is almost certainly a better idea than pthreads."
-    },
-    {
-      "question": "What are more attractive threading options for C++ programmers compared to pthreads?",
-      "answer": "C++ programmers would probably find the constructs in the Boost threading library or which are part of the C++11 standard to be more attractive options, given their consistency with object-oriented design."
-    },
-    {
-      "question": "How have pthreads served in the development of later parallelization approaches?",
-      "answer": "As one of the earliest forms of parallelization, pthreads have served as the basis for later approaches to shared memory parallelization like OpenMP."
-    },
-    {
-      "question": "What kind of parallelization do pthreads primitives permit?",
-      "answer": "pthreads can be thought of as forming a toolkit of threading primitives that permit the most general and low-level parallelization."
-    },
-    {
-      "question": "What is the trade-off for the low-level parallelization offered by pthreads?",
-      "answer": "The trade-off for pthreads' low-level parallelization is sacrificing much of the simplicity and ease of use of a high level API like OpenMP."
-    },
-    {
-      "question": "Describe the essential model for pthreads.",
-      "answer": "The essential model for pthreads is the dynamic spawning of lightweight sub-processes (threads) that asynchronously carry out operations and then are extinguished by rejoining the program's master process."
-    },
-    {
-      "question": "Is it difficult to share data among pthreads through global variables?",
-      "answer": "No, sharing data among pthreads through global variables isn't difficult because all the threads of a program reside in the same memory space."
-    },
-    {
-      "question": "What must be done carefully when modifying shared data in a pthreads program?",
-      "answer": "Any modifications of shared data have to be managed with care to avoid race conditions."
-    },
-    {
-      "question": "What is meant by a software's scalability?",
-      "answer": "Scalability, in the context of parallelizing a program, refers to how well the program is able to run in parallel."
-    },
-    {
-      "question": "What is recommended after parallelizing software and confirming its correctness?",
-      "answer": "After you've parallelized your software and are satisfied about its correctness, we recommend that you perform a scaling analysis in order to understand its parallel performance."
-    },
-    {
-      "question": "What header file is required to use pthreads functions in a C program?",
-      "answer": "To use pthreads functions and data structures in your C program, you will need to include the header file `pthread.h`."
-    },
-    {
-      "question": "How do you compile a C program to link with the pthread library?",
-      "answer": "You compile your program with a special flag, for example `gcc -pthread -o test threads.c`, so that it is linked with the pthread library."
-    },
-    {
-      "question": "What are the different ways to specify the number of threads in a pthreads program?",
-      "answer": "The number of threads can be set via a command-line argument, an environment variable, or hard-coded into the source file."
-    },
-    {
-      "question": "What is the drawback of hard-coding the thread count into a pthreads program's source file?",
-      "answer": "If the thread count is hard-coded into the source file, you would not be able to adjust the thread count at run time."
-    },
-    {
-      "question": "Describe the programming model used for creating and destroying threads with pthreads.",
-      "answer": "Threads are created by a parent, carry out some work, and finally are reabsorbed or joined back into the parent."
-    },
-    {
-      "question": "Who can act as the 'parent' in the pthreads programming model?",
-      "answer": "The parent may be the serial master thread or another worker thread."
-    },
-    {
-      "question": "What function is used to create new threads in pthreads?",
-      "answer": "New threads are created with the function `pthread_create`."
-    },
-    {
-      "question": "What are the four arguments required by the `pthread_create` function?",
-      "answer": "The four arguments for `pthread_create` are: the unique identifier for the newly created thread, the set of attributes for this thread, the C function (the \"start routine\") that the thread will execute upon initiation, and the argument for the start routine."
-    },
-    {
-      "question": "Is `pthread_create` a blocking or non-blocking function?",
-      "answer": "`pthread_create` is a non-blocking function."
-    },
-    {
-      "question": "What does it mean that `pthread_create` is non-blocking?",
-      "answer": "Being non-blocking means that the root or master thread, which is executing the `main` function, continues to execute after each worker thread is created."
-    },
-    {
-      "question": "Which function does the master thread call to wait for worker threads to complete their tasks and rejoin?",
-      "answer": "The master thread calls `pthread_join` to wait for the worker threads to finish executing their assigned function and rejoin the master thread."
-    },
-    {
-      "question": "Is `pthread_join` a blocking or non-blocking function?",
-      "answer": "`pthread_join` is a blocking function."
-    },
-    {
-      "question": "What is the basic lifecycle of a POSIX thread as demonstrated in the provided example?",
-      "answer": "The basic lifecycle of a POSIX thread involves the master thread creating a thread by assigning it a function to run, then waiting for the thread to finish and join back into the execution of the master thread."
-    },
-    {
-      "question": "Why might the order in which worker threads print 'Hello World' vary when running the example program multiple times?",
-      "answer": "The order varies because the threads are running asynchronously and compete for access to the standard output during the `printf` call, and the winners of this competition will change with each execution."
+      "question": "What is the fundamental programming model for creating and managing threads using pthreads for program parallelisation?",
+      "answer": "The essential programming model for pthreads involves the dynamic spawning of lightweight sub-processes (threads) that asynchronously carry out operations and then are extinguished by rejoining the program's master process. This is typically done by a parent thread creating worker threads, which then perform tasks and are reabsorbed or joined back into the parent."
     }
   ],
-  "generated_at": "2026-04-12T05:28:53.753577+00:00"
+  "generated_at": "2026-04-13T11:28:09.129357+00:00"
 }

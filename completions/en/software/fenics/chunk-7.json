@@ -4,25 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "After making modifications, how do you create a new Apptainer SIF (Singularity Image Format) from a sandbox directory?",
-      "answer": "You can create a new read-only, portable, and reproducible SIF from a sandbox directory by running the command: `apptainer build fenics-legacy-updated.sif fenics-legacy.sandbox`."
+      "question": "After creating a writable sandbox for FEniCS Legacy, how do you fix the pip certificate bundle path inside it to ensure HTTPS trust for pip/SSL operations?",
+      "answer": "To fix the pip certificate bundle path within the FEniCS Legacy sandbox, you need to execute a command that creates a certificates folder and symlinks the CA bundle. This is accomplished by running `apptainer exec --writable fenics-legacy.sandbox sh -c \"mkdir -p /etc/pki/tls/certs && ln -s /etc/ssl/certs/ca-certificates.crt /etc/pki/tls/certs/ca-bundle.crt\"`."
     },
     {
-      "question": "What is the purpose of creating a new SIF from the sandbox directory?",
-      "answer": "The purpose is to create a new read-only image that is portable and reproducible after any modifications have been made to the sandbox."
+      "question": "Once modifications have been made to a FEniCS Legacy sandbox directory, what command is used to create a new, read-only SIF (Singularity Image Format) image from it?",
+      "answer": "After making modifications to a FEniCS Legacy sandbox, you can create a new read-only SIF image, which is portable and reproducible, by using the command `apptainer build fenics-legacy-updated.sif fenics-legacy.sandbox`."
     },
     {
-      "question": "What command is used to run quick tests on the `fenics-legacy-updated.sif` image?",
-      "answer": "The command `apptainer exec --bind $PWD:/root/shared --pwd /root/shared fenics-legacy-updated.sif python3 -c \"import ufl_legacy; print('ufl_legacy ok. version:', ufl_legacy.__version__)\"` is used to run quick tests."
-    },
-    {
-      "question": "Which Python module is imported as part of the quick tests for FEniCS Legacy?",
-      "answer": "The `ufl_legacy` Python module is imported during the quick tests."
-    },
-    {
-      "question": "What information is printed by the quick test command regarding `ufl_legacy`?",
-      "answer": "The quick test command prints \"ufl_legacy ok. version:\" followed by the version number of `ufl_legacy`."
+      "question": "How can one quickly verify that the `ufl_legacy` package is correctly installed and accessible within a newly created FEniCS Legacy SIF image?",
+      "answer": "To run a quick test to verify the `ufl_legacy` package inside a FEniCS Legacy SIF image, such as `fenics-legacy-updated.sif`, you can use the command `apptainer exec --bind $PWD:/root/shared --pwd /root/shared fenics-legacy-updated.sif python3 -c \"import ufl_legacy; print('ufl_legacy ok. version:', ufl_legacy.__version__)\"`. This command mounts your current host directory, sets the working directory inside the container, and attempts to import `ufl_legacy`."
     }
   ],
-  "generated_at": "2026-04-11T21:25:02.136889+00:00"
+  "generated_at": "2026-04-13T05:13:57.538372+00:00"
 }

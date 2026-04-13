@@ -4,37 +4,13 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "How can I determine if a particular file exists within a `tar` archive without actually extracting the archive?",
-      "answer": "You can use the command `tar -tf results.tar | grep -a file_name_you_search` or `tar -tvf results.tar | grep -a file_name_you_search`. If the file is not present, the command output will be empty (T:134-135)."
+      "question": "How can I search for a specific file or list files matching a pattern within a plain `.tar` archive without extracting its contents?",
+      "answer": "To search for a specific file, you can pipe the output of `tar -tf [archive_name.tar]` to `grep -a [file_name]`. For instance, to find 'log.15Feb16.4' in 'results.tar', you would use `tar -tf results.tar | grep -a log.15Feb16.4`. To list all files that start with a particular string, such as 'log', you can use `tar -tf results.tar | grep -a log*`. Including the `-v` option (e.g., `tar -tvf results.tar | grep -a log*`) will display additional details like permissions and modification dates."
     },
     {
-      "question": "What does an empty output from `tar -tf archive.tar | grep -a filename` indicate?",
-      "answer": "An empty output from these commands signifies that the specified file does not exist within the archive (T:135)."
-    },
-    {
-      "question": "How do I list all files within a `tar` archive that begin with a specific sequence of characters, such as \"log\"?",
-      "answer": "You can list files starting with \"log\" by using the command `tar -tf results.tar | grep -a log*` on your terminal (T:137)."
-    },
-    {
-      "question": "Is it possible to list files matching a pattern in a `tar` archive and include detailed metadata for each file?",
-      "answer": "Yes, you can add the verbose option (`-v`) to display more details, using a command like `tar -tvf results.tar | grep -a log*` (T:139)."
-    },
-    {
-      "question": "Besides `grep`, what other commands can be used with a pipe symbol to process the listed contents of a `tar` archive?",
-      "answer": "The `more` command can also be invoked after the pipe symbol to list the files in the archive or a compressed file (T:140)."
-    },
-    {
-      "question": "What is the method for listing the contents of a `gzip` compressed archive (`.gz`) without decompressing the entire file?",
-      "answer": "You can list the contents of a `.gz` archive by combining the `tar` command with the `-z` option, for example: `tar -tvzf results.tar.gz` (T:142-143)."
-    },
-    {
-      "question": "How do I list the contents of a `bzip2` compressed archive (`.bz2`) without first decompressing it?",
-      "answer": "To list the contents of a `.bz2` archive without decompressing, use the `tar` command with the `-j` option, for example: `tar -tvjf results.tar.bz2` (T:144-145)."
-    },
-    {
-      "question": "When listing the contents of compressed archives, is the verbose (`-v`) option required, and can I still use tools like `wc` or `grep`?",
-      "answer": "The `-v` option is not required but displays all details. Yes, these commands can also be combined with a pipe (`|`) and `wc` or `grep`, similar to plain `tar` files (T:146)."
+      "question": "How do you list the contents of a compressed tar file (e.g., `.tar.gz` or `.tar.bz2`) without fully decompressing it?",
+      "answer": "You can list the contents of a compressed tar file by combining the `tar` command with the appropriate compression option. For `.tar.gz` files, use `tar -tvzf [archive_name.tar.gz]`. For `.tar.bz2` files, use `tar -tvjf [archive_name.tar.bz2]`. The `-t` option lists the contents, `-v` provides verbose details, and `-z` or `-j` specifies `gzip` or `bzip2` compression, respectively, allowing you to view the archive's contents without decompressing the entire file."
     }
   ],
-  "generated_at": "2026-04-11T15:14:34.579962+00:00"
+  "generated_at": "2026-04-13T00:34:52.668773+00:00"
 }

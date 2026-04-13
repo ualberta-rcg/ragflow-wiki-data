@@ -4,13 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What is TensorBoard and where should it be executed when running TensorFlow jobs on an Alliance cluster?",
-      "answer": "TensorBoard is a suite of visualization tools for TensorFlow that operates by reading TensorFlow event and model files. It requires too much processing power to be run on a login node, so users are strongly encouraged to execute it in the same job as the TensorFlow process, launching it in the background by calling it before their Python script and appending an ampersand (&) to the call."
+      "question": "What is TensorBoard and what is its purpose when working with TensorFlow on Alliance clusters?",
+      "answer": "TensorBoard is a suite of visualization tools that accompanies TensorFlow. Its primary purpose is to monitor resources used by TensorFlow and visualize the progress of machine learning model training by reading TensorFlow events and model files."
     },
     {
-      "question": "How can a user connect to and access a running TensorBoard instance from their local computer when it's operating on an Alliance compute node?",
-      "answer": "To access TensorBoard, first determine the hostname of the compute node running the TensorBoard server by checking the 'NODELIST' column of your jobs using the `sq` command. Then, from your local computer, create an SSH connection using the command `ssh -N -f -L localhost:6006:computenode:6006 userid@cluster.computecanada.ca`. You'll need to replace `computenode` with the actual node hostname, `userid` with your Alliance username, and `cluster` with the appropriate cluster hostname (e.g., `rorqual`, `fir`, `nibi`). Once the connection is established, you can access TensorBoard by navigating to `http://localhost:6006` in your web browser. If port 6006 is already in use, TensorBoard might use an alternate port like 6007 or 6008."
+      "question": "How should TensorBoard be launched within a TensorFlow job on an Alliance cluster?",
+      "answer": "Due to its processing power requirements, TensorBoard should be executed in the background within the same job as the TensorFlow process, not on a login node. This is achieved by calling `tensorboard --logdir=/tmp/your_log_dir --host 0.0.0.0 --load_fast false &` before your Python training script in your job submission script."
+    },
+    {
+      "question": "After launching TensorBoard on a compute node, how can a user access its web interface from their local computer?",
+      "answer": "To access TensorBoard, first identify the hostname of the compute node running the job using the `sq` command. Then, from your local computer, establish an SSH tunnel with the command: `ssh -N -f -L localhost:6006:computenode:6006 userid@cluster.computecanada.ca`. Replace `computenode` with the actual node hostname, `userid` with your Alliance username, and `cluster` with the appropriate cluster hostname (e.g., `rorqual`, `fir`). Once the connection is active, navigate to `http://localhost:6006` in your web browser. Note that if port 6006 is unavailable, TensorBoard might use another port like 6007 or 6008."
     }
   ],
-  "generated_at": "2026-04-12T21:33:14.315321+00:00"
+  "generated_at": "2026-04-13T14:18:47.086180+00:00"
 }

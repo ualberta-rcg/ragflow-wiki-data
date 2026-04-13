@@ -4,33 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "C'est quoi l'objectif principal de la section « Travailler avec des fichiers volumineux »?",
-      "answer": "L'objectif est de montrer comment compter en parallèle le nombre de caractères dans un gros fichier FASTA, comme <tt>database.fa</tt>, en utilisant une tâche avec 8 cœurs."
+      "question": "Pourquoi est-ce qu'on doit utiliser les arguments `--pipepart` et `--block` quand on travaille avec des fichiers volumineux avec GNU Parallel?",
+      "answer": "Pour gérer efficacement de grandes portions d'un fichier et permettre le traitement parallèle de son contenu, comme pour compter le nombre de caractères dans un gros fichier FASTA, il est nécessaire d'utiliser les arguments `--pipepart` et `--block` avec GNU Parallel."
     },
     {
-      "question": "Quels arguments sont essentiels pour traiter efficacement des gros fichiers avec GNU Parallel?",
-      "answer": "Pour gérer de grandes portions de fichiers de manière efficace, il faut utiliser les arguments <tt>--pipepart</tt> et <tt>--block</tt>."
-    },
-    {
-      "question": "Peux-tu donner un exemple de commande pour compter les caractères dans un fichier FASTA volumineux avec GNU Parallel?",
-      "answer": "Oui, voici un exemple pour le fichier <tt>database.fa</tt> : <tt>parallel --jobs $SLURM_CPUS_PER_TASK --keep-order --block -1 --recstart '>' --pipepart wc :::: database.fa</tt>."
-    },
-    {
-      "question": "Quel est l'impact de la taille du bloc (--block) sur l'efficacité des tâches avec GNU Parallel?",
-      "answer": "La taille du bloc a un impact réel sur l'efficacité et la quantité de cœurs utilisés. Un bloc trop petit ou trop grand peut nuire à la performance."
-    },
-    {
-      "question": "Qu'est-ce qui se passe si la taille des blocs est trop petite, par exemple 10 Mo pour un fichier de 827 Mo?",
-      "answer": "Si la taille des blocs est trop petite (comme 10 Mo), ça va générer plusieurs tâches (par exemple 83) qui se distribueront sur les cœurs disponibles, mais ce n'est pas la configuration la plus efficace."
-    },
-    {
-      "question": "Qu'arrive-t-il si la taille des blocs est trop grande, par exemple la taille totale du fichier (827 Mo) pour un fichier de 827 Mo?",
-      "answer": "Si la taille des blocs est trop grande (par exemple 827 Mo pour un fichier de cette taille), seulement une tâche sera exécutée, utilisant un seul cœur sur les 8 disponibles, ce qui n'est pas du tout efficace."
-    },
-    {
-      "question": "Quelle est la recommandation pour choisir la taille du bloc (--block) afin d'optimiser la vitesse?",
-      "answer": "La recommandation est de laisser GNU Parallel décider de lui-même de la taille des blocs en utilisant l'argument <tt>--block -1</tt>, car c'est souvent la méthode la plus rapide."
+      "question": "Quelle commande peut-on utiliser avec GNU Parallel pour compter le nombre de caractères dans un gros fichier FASTA, comme `database.fa`, en utilisant les cœurs alloués par la tâche?",
+      "answer": "On peut utiliser la commande suivante pour ça : `parallel --jobs $SLURM_CPUS_PER_TASK --keep-order --block -1 --recstart '>' --pipepart wc :::: database.fa`. Cette commande utilise les arguments `--pipepart` et `--block` pour bien gérer le fichier volumineux."
     }
   ],
-  "generated_at": "2026-04-11T22:20:19.772133+00:00"
+  "generated_at": "2026-04-13T06:00:13.196765+00:00"
 }

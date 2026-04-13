@@ -4,41 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "What does the `-/+ destroy and then create replacement` symbol indicate in a Terraform plan output?",
-      "answer": "The `-/+ destroy and then create replacement` symbol indicates that an existing resource will be destroyed and then a new replacement resource will be created to satisfy the configuration changes."
+      "question": "When modifying an OpenStack VM configuration using Terraform, what does the `-/+ destroy and then create replacement` action in a plan indicate?",
+      "answer": "This action indicates that the existing OpenStack VM resource and related components (like a floating IP association) will be destroyed and then recreated. This is a destructive operation that users must carefully review in the plan before applying changes to prevent unintended rebuilding of VMs."
     },
     {
-      "question": "What specific actions would Terraform take if a `block_device` configuration is added to an existing `openstack_compute_instance_v2` resource, as shown in the example plan?",
-      "answer": "Terraform would plan to destroy the existing `openstack_compute_floatingip_associate_v2` resource and the `openstack_compute_instance_v2` resource, and then create new replacements for both, due to the `block_device` addition forcing a replacement of the instance."
+      "question": "How does defining a `block_device` sub-block within an `openstack_compute_instance_v2` resource in Terraform impact an OpenStack virtual machine's boot disk configuration?",
+      "answer": "Adding a `block_device` sub-block allows the VM to boot from a dedicated OpenStack volume instead of directly from an image on the hypervisor. Key attributes include `uuid` (of the image), `source_type` (image), `destination_type` (volume), `volume_size`, `boot_index`, and `delete_on_termination`. It is crucial to remove the `image_id` attribute from the outer `openstack_compute_instance_v2` block to prevent Terraform from constantly attempting to rebuild the instance."
     },
     {
-      "question": "What does the Terraform plan summary `Plan: 2 to add, 0 to change, 2 to destroy` mean in the context of adding a `block_device` to a VM?",
-      "answer": "This summary indicates that two new resources will be created, no existing resources will be changed without replacement, and two existing resources (the VM and its floating IP association) will be destroyed as part of the plan to implement the `block_device` configuration."
-    },
-    {
-      "question": "What should a user do if a VM managed by Terraform is replaced and they previously connected to it via SSH?",
-      "answer": "If a VM is replaced by Terraform, it will be created with a new SSH key. The user will need to remove the old SSH key from their `known_hosts` file (or equivalent) before they can connect to the new VM."
-    },
-    {
-      "question": "After a new Terraform-managed VM is created and successfully provisioned, what is the recommended first step?",
-      "answer": "The recommended first step after a new Terraform-managed VM is created and accessible is to log on and apply all available operating system updates using a command like `sudo yum update -y`."
-    },
-    {
-      "question": "Which attributes are used to define a `block_device` for an OpenStack compute instance in Terraform, as shown in the example?",
-      "answer": "The `block_device` for an OpenStack compute instance is defined using `uuid` (of the image), `source_type` (e.g., \"image\"), `destination_type` (e.g., \"volume\"), `volume_size`, `boot_index` (e.g., 0), and `delete_on_termination` (e.g., `true`)."
-    },
-    {
-      "question": "How is a root volume configured within a compute instance definition to boot from an image and be stored as an OpenStack-provided volume?",
-      "answer": "To configure a root volume, the `block_device` sub-block should include `uuid` set to the image's UUID, `source_type = \"image\"`, `destination_type = \"volume\"`, `volume_size` to the desired size, and `boot_index = 0`. The `image_id` attribute should also be removed from the outer compute instance definition."
-    },
-    {
-      "question": "What is the importance of `delete_on_termination` in a `block_device` configuration?",
-      "answer": "`delete_on_termination` determines whether the OpenStack volume created for the block device will be deleted when the VM is terminated. For testing, setting it to `true` is convenient for cleanup, but for real use, `false` is recommended as a safeguard against accidental resource deletion."
-    },
-    {
-      "question": "Can you provide a complete Terraform configuration example for an OpenStack VM with a volume, private network, floating IP, and associated security group?",
-      "answer": "Yes, a complete example configuration includes:\n```terraform\nprovider \"openstack\" {}\n\nresource \"openstack_compute_instance_v2\" \"myvm\" {\n  name = \"myvm\"\n  flavor_id = \"0351ddb0-00d0-4269-80d3-913029d1a111\"\n  key_pair = \"Aluminum\"\n  security_groups = [\"default\"]\n\n  network {\n    name = \"my-tenant-net\"\n  }\n\n  block_device {\n    uuid = \"80ceebef-f9aa-462e-a793-d3c1cf96123b\"\n    source_type = \"image\"\n    destination_type = \"volume\"\n    volume_size = 10\n    boot_index = 0\n    delete_on_termination = true\n  }\n}\n\nresource \"openstack_networking_floatingip_v2\" \"myvm_fip\" {\n  pool = \"provider-199-2\"\n}\n\nresource \"openstack_compute_floatingip_associate_v2\" \"myvm_fip\" {\n  floating_ip = openstack_networking_floatingip_v2.myvm_fip.address\n  instance_id = openstack_compute_instance_v2.myvm.id\n}\n```"
+      "question": "What are the recommended immediate actions for a user after a new OpenStack virtual machine has been successfully created and configured with a root volume using Terraform?",
+      "answer": "After a new VM is created with Terraform, it's recommended to remove any old SSH keys for the VM from the workstation's `known_hosts` file, as a new SSH key will be generated. The first logical step upon logging into the VM is to apply all available operating system updates, for example, by running `sudo yum update -y`."
     }
   ],
-  "generated_at": "2026-04-12T09:08:29.538952+00:00"
+  "generated_at": "2026-04-13T14:24:49.017120+00:00"
 }

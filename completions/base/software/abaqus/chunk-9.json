@@ -4,61 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What environment variable is set to configure the host list for MPI jobs in the multi-node standard analysis script?",
-      "answer": "The `mphostlist` environment variable is set to configure the host list for MPI jobs."
+      "question": "How do Abaqus solvers support parallelization for explicit analysis, and what types of scripts are provided for running these jobs on Alliance clusters?",
+      "answer": "Abaqus solvers support both thread-based and MPI-based parallelization for explicit analysis. Scripts are provided for running these job types on single or multiple nodes, though template scripts for multinode job restarts are not currently provided pending further testing."
     },
     {
-      "question": "What file is created to store the MPI host list configuration in the multi-node standard analysis script?",
-      "answer": "The `abaqus_v6.env` file is created to store the MPI host list configuration."
+      "question": "How can a user configure and submit a single-node explicit analysis job in Abaqus on an Alliance cluster?",
+      "answer": "To configure and submit a single-node explicit analysis job, a user should create a Slurm script that loads the required Abaqus module (e.g., `abaqus/2026`). The script defines job parameters like account, time, memory (`--mem=8000M`), CPUs per task (`--cpus-per-task=4`), and ensures a single node (`--nodes=1`). The Abaqus command is then executed with `mp_mode=threads`, specifying the job name, input file, scratch directory, and CPU/memory parameters, for example: `abaqus job=testep1 input=myexp-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
     },
     {
-      "question": "What Abaqus command is used for multi-node MPI-based standard analysis jobs in the provided script fragment?",
-      "answer": "The command is `abaqus job=testsp1-mpi input=mystd-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_NTASKS interactive mp_mode=mpi`."
-    },
-    {
-      "question": "What types of parallelization do Abaqus solvers support for explicit analysis?",
-      "answer": "Abaqus solvers support thread-based and MPI-based parallelization for explicit analysis."
-    },
-    {
-      "question": "Are template scripts provided for multi-node job restarts in explicit analysis?",
-      "answer": "No, template scripts to perform multi-node job restarts for explicit analysis are not currently provided, pending further testing."
-    },
-    {
-      "question": "What are the default Slurm parameters specified in the 'project directory script' for a single-node explicit analysis job?",
-      "answer": "The default Slurm parameters are `--account=def-group`, `--time=00-06:00`, `--mem=8000M`, `--cpus-per-task=4`, and `--nodes=1`."
-    },
-    {
-      "question": "Which Abaqus module is recommended for single-node explicit analysis jobs according to the 'project directory script'?",
-      "answer": "The `abaqus/2026` module is recommended as the latest version for single-node explicit analysis jobs."
-    },
-    {
-      "question": "How can a user specify in the input file to write restart data for a total of 12 time increments for an explicit analysis?",
-      "answer": "The user should specify `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO` in the input file."
-    },
-    {
-      "question": "What command is used to check for completed restart information in explicit analysis output files?",
-      "answer": "The command `egrep -i \"step|restart\" testep*.com testep*.msg testep*.sta` is used to check for completed restart information."
-    },
-    {
-      "question": "What is the Abaqus command for running a single-node explicit analysis job for Abaqus version 2026 or newer using the 'project directory script'?",
-      "answer": "The command is `abaqus job=testep1 input=myexp-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
-    },
-    {
-      "question": "What is the Abaqus command for restarting a single-node explicit analysis job using Abaqus version 2026 or newer with the 'project directory restart script'?",
-      "answer": "The command is `abaqus job=testep2 input=myexp-sim.inp recover scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
-    },
-    {
-      "question": "Are input file modifications required to restart an explicit analysis using the 'project directory restart script'?",
-      "answer": "No input file modifications are required to restart the analysis using the 'project directory restart script'."
-    },
-    {
-      "question": "What is the difference in the Abaqus command between Abaqus version 2021 and version 2026 or newer for single-node explicit analysis jobs?",
-      "answer": "For Abaqus version 2021, the command is prefixed with `/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare --fork --pid --mount-proc --user --map-user $USER`, while for version 2026 or newer, this prefix is not used."
-    },
-    {
-      "question": "How does the 'project directory restart script' for explicit analysis prepare files for a restart job?",
-      "answer": "It removes `testep2*` and `testep1.lck` files, then copies all `testep1*` files to `testep2*` with the prefix changed (e.g., `testep2` for `testep1`)."
+      "question": "How do you restart a single-node explicit analysis job in Abaqus on an Alliance cluster?",
+      "answer": "To restart a single-node explicit analysis job, a Slurm script is used which loads the Abaqus module (e.g., `abaqus/2026`). The script then executes the Abaqus command with the `recover` option, specifying a new `job` name and the `oldjob` name from the previous run (e.g., `abaqus job=testep2 oldjob=testep1 input=myexp-sim.inp recover`). It is also necessary to copy the relevant output files from the previous `testep1` job to the current job's directory, and no modifications to the input file are typically required for the restart."
     }
   ],
-  "generated_at": "2026-04-11T15:28:07.230133+00:00"
+  "generated_at": "2026-04-13T00:44:30.033642+00:00"
 }

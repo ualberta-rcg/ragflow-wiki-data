@@ -4,93 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What are images in the context of cloud computing?",
-      "answer": "Images are files containing the contents of a virtual disk, often including a base operating system used to create a volume or an ephemeral disk from which a virtual machine boots."
+      "question": "What is a virtual machine image in a cloud context, and what are its primary uses and characteristics?",
+      "answer": "A virtual machine image is a file containing the contents of a virtual disk, typically holding a base operating system used to boot a virtual machine (VM) from either a volume or an ephemeral disk. Images are highly portable; they can be downloaded from the cloud, used to create a VM on a local machine (e.g., with VirtualBox), and then uploaded to another cloud to create a new VM. This portability is not a feature of volumes or ephemeral disks, which are destroyed with the VM. Common formats for these images include raw, qcow2, vmdk, and vdi."
     },
     {
-      "question": "What is an ephemeral disk?",
-      "answer": "An ephemeral disk is a virtual disk file that resides on the host (or hypervisor) where the virtual machine runs. These files are destroyed when the VM is destroyed."
+      "question": "When creating an image from a virtual machine (VM) that boots from an ephemeral disk using OpenStack, what command should be used, and what key considerations are important?",
+      "answer": "To create an image from a VM booting from an ephemeral disk, you should use the OpenStack command `openstack server image create <server-name>`, replacing `<server-name>` with the VM's actual name. It's crucial to understand that this action will only include the VM's root drive (e.g., `/dev/vda`) in the image; ephemeral drives and non-boot attached volumes will not be included. Therefore, additional steps are needed to preserve data on these other drives. Furthermore, to avoid capturing the filesystem in an inconsistent state, it is recommended to shut off the VM (not delete it) before creating the image if the VM is actively writing to disk."
     },
     {
-      "question": "How do ephemeral disks differ from volumes?",
-      "answer": "Ephemeral disks are destroyed when a VM is destroyed, unlike volumes, which persist independently."
-    },
-    {
-      "question": "What makes cloud images portable?",
-      "answer": "Images are portable because they can be downloaded from the cloud, used to create a virtual machine on a laptop (e.g., with VirtualBox), and then uploaded to another cloud to create a new virtual machine. This portability does not apply to volumes or ephemeral disks."
-    },
-    {
-      "question": "What are some common formats for cloud images?",
-      "answer": "Some commonly encountered image formats include raw, qcow2, vmdk, and vdi."
-    },
-    {
-      "question": "What sensitive information should be removed before sharing virtual machine images?",
-      "answer": "Before sharing virtual machine images, sensitive information such as public/private keys and configuration files containing passwords should be removed."
-    },
-    {
-      "question": "What is required for an image created from a VirtualBox VM to be uploaded to the clouds?",
-      "answer": "If uploading an image created from a VirtualBox virtual machine to the clouds, it must have cloud-init installed and configured correctly."
-    },
-    {
-      "question": "Where can I find more details about manually creating images for OpenStack?",
-      "answer": "You can find more details in the OpenStack documentation on creating images manually at [https://docs.openstack.org/image-guide/create-images-manually.html]."
-    },
-    {
-      "question": "Where can I find a list of images provided by staff?",
-      "answer": "For a list of images provided by staff, see the 'Cloud resources#Images' section."
-    },
-    {
-      "question": "How does the procedure for creating an image from a VM vary?",
-      "answer": "The procedure for creating an image of a VM depends on whether it is booting from a volume (typically 'p' flavours) or from an ephemeral disk (typically 'c' flavours)."
-    },
-    {
-      "question": "What command is used to create an image from a VM booting from an ephemeral disk?",
-      "answer": "The command `openstack server image create <server-name>` can be used with the OpenStack command line clients to create an image from a VM booting from an ephemeral disk."
-    },
-    {
-      "question": "What part of the VM is included in the image when using `openstack server image create` for an ephemeral disk boot?",
-      "answer": "This action will only include the VM's root drive (e.g., /dev/vda) in the image."
-    },
-    {
-      "question": "What data is not included when creating an image from a VM booting from an ephemeral disk?",
-      "answer": "Ephemeral drives and non-boot attached volumes will not be included in the image when creating it from a VM booting from an ephemeral disk."
-    },
-    {
-      "question": "What is recommended before creating an image from a VM to ensure filesystem consistency?",
-      "answer": "It is recommended that the VM be shut off (not deleted) before an image is created from it to prevent capturing the filesystem in an inconsistent state if the VM is writing to disk."
-    },
-    {
-      "question": "Where can I find instructions for creating an image from a VM that boots from a volume?",
-      "answer": "You can find instructions for creating an image from a VM booting from a volume in the 'Working_with_volumes#Creating_an_image_from_a_volume' section."
-    },
-    {
-      "question": "What is the two-step process for sharing an image with another project?",
-      "answer": "The two-step process involves a member of the project owning the image sharing it with a second project, and then a member of the second project accepting the newly shared image."
-    },
-    {
-      "question": "Which OpenStack command is used by the image owner to share an image with another project?",
-      "answer": "The `glance member-create <IMAGE_ID> <MEMBER_ID>` command is used by a member of the project owning the image to share it."
-    },
-    {
-      "question": "In the `glance member-create` command, what do `<IMAGE_ID>` and `<MEMBER_ID>` represent?",
-      "answer": "`<IMAGE_ID>` is the ID of the image to be shared, and `<MEMBER_ID>` is the ID of the project to share it with."
-    },
-    {
-      "question": "Which OpenStack command is used by a member of the second project to accept a shared image?",
-      "answer": "The `glance member-update <IMAGE_ID> <MEMBER_ID> <MEMBER_STATUS>` command is used by a member of the second project to accept the shared image."
-    },
-    {
-      "question": "What are the valid values for `<MEMBER_STATUS>` when updating an image membership?",
-      "answer": "Valid values for status are `accepted`, `rejected`, and `pending`."
-    },
-    {
-      "question": "What happens after a shared image is accepted by the second project?",
-      "answer": "After an image is accepted, it will be available for use and appear in the OpenStack dashboard's list of images in the second project."
-    },
-    {
-      "question": "How can you check the status of an image's membership?",
-      "answer": "You can check the status of image membership using the command `glance member-list --image-id <IMAGE_ID>`."
+      "question": "What is the two-step process for sharing a virtual machine image from one OpenStack project to another, including the command-line operations?",
+      "answer": "Sharing a virtual machine image with another OpenStack project is a two-step process. First, a member of the project owning the image must share it using the OpenStack command `glance member-create <IMAGE_ID> <MEMBER_ID>`, where `<IMAGE_ID>` is the image's ID and `<MEMBER_ID>` is the ID of the recipient project. This action sets the image's status to 'pending' for the recipient. Second, a member of the recipient project must accept the newly shared image by executing the command `glance member-update <IMAGE_ID> <MEMBER_ID> accepted`. Once accepted, the image becomes available for use and will appear in the recipient project's list of images on the OpenStack dashboard."
     }
   ],
-  "generated_at": "2026-04-12T12:03:05.487552+00:00"
+  "generated_at": "2026-04-13T16:23:19.534032+00:00"
 }

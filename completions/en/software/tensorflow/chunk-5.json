@@ -4,17 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What high-level API does TensorFlow offer for leveraging multiple GPUs?",
-      "answer": "TensorFlow provides the `tf.distribute` high-level API, which offers various strategies for making use of multiple GPUs."
+      "question": "What API does TensorFlow provide for utilizing multiple GPUs, and where can users find more detailed information?",
+      "answer": "TensorFlow offers various strategies for using multiple GPUs through its high-level `tf.distribute` API. For more detailed information, users should refer to the official TensorFlow documentation on `tf.distribute`."
     },
     {
-      "question": "How do you set up TensorFlow's MirroredStrategy for a single-node job with multiple GPUs?",
-      "answer": "To set up TensorFlow's MirroredStrategy for a single-node multi-GPU job, you use `tf.distribute.MirroredStrategy()` within your Python script. The corresponding SLURM batch script would request multiple GPUs on a single node, for example, `#SBATCH --gres=gpu:4` and `#SBATCH --nodes 1`. Optionally, `export NCCL_BLOCKING_WAIT=1` can be used if you intend to use the NCCL backend for inter-GPU communication."
+      "question": "How is a TensorFlow job configured to use multiple GPUs on a single node with the Mirrored strategy?",
+      "answer": "To configure a TensorFlow job for multiple GPUs on a single node using the Mirrored strategy, the SLURM script (e.g., `tensorflow-singleworker.sh`) requests multiple GPUs with `--gres=gpu:4` and sets `export NCCL_BLOCKING_WAIT=1` for inter-GPU communication. The Python script then initializes `tf.distribute.MirroredStrategy()` within its scope."
     },
     {
-      "question": "What are the main distinctions when configuring TensorFlow for multiple GPUs distributed across multiple nodes, as opposed to a single node?",
-      "answer": "When configuring TensorFlow for multiple GPUs across multiple nodes, the primary differences involve using `tf.distribute.MultiWorkerMirroredStrategy()` in your Python script. You also utilize `SlurmClusterResolver()` to retrieve job information from SLURM and explicitly add `CommunicationImplementation.NCCL` to the distribution strategy to specify Nvidia's NCCL backend for inter-GPU communications, which is not the default for this strategy. The SLURM batch script will request multiple nodes (e.g., `--nodes 2`) and GPUs per node (e.g., `--gres=gpu:2`)."
+      "question": "What are the primary differences when implementing TensorFlow's MultiWorkerMirroredStrategy across multiple nodes compared to a single-node MirroredStrategy?",
+      "answer": "When implementing MultiWorkerMirroredStrategy across multiple nodes, the key differences involve using `tf.distribute.MultiWorkerMirroredStrategy()` instead of `MirroredStrategy()`. It also requires `tf.distribute.cluster_resolver.SlurmClusterResolver()` to obtain job information from SLURM and explicitly sets `CommunicationImplementation.NCCL` for inter-GPU communications, whereas NCCL is the default for single-node MirroredStrategy. The SLURM job script (`tensorflow-multiworker.sh`) must request multiple nodes and `ntasks-per-node` accordingly."
     }
   ],
-  "generated_at": "2026-04-12T21:33:25.577771+00:00"
+  "generated_at": "2026-04-13T14:19:01.333173+00:00"
 }

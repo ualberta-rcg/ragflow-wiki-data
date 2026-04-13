@@ -4,65 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Comment faire pour configurer Terraform à l'aide d'une variable d'environnement pour le nuage OpenStack?",
-      "answer": "Pour configurer Terraform en utilisant une variable d'environnement, vous pouvez exporter la variable `$OS_CLOUD` avec le nom du nuage que vous souhaitez utiliser, par exemple : `export OS_CLOUD=arbutus`."
+      "question": "À quoi sert l'interface de ligne de commande OpenStack (OSC) quand on travaille avec Terraform sur OpenStack, et comment l'installer?",
+      "answer": "L'interface de ligne de commande OpenStack (OSC) est pratique pour obtenir les identifiants de gabarits (<i>flavors</i>) et d'images, qui sont nécessaires pour vérifier les actions de Terraform. L'OSC, qui est un client Python, peut être installé en utilisant Python Pip et il est compatible avec diverses distributions et systèmes d'exploitation."
     },
     {
-      "question": "Pourquoi est-il avantageux d'avoir une fenêtre de terminal ouverte avec l'interface de ligne de commande OpenStack lorsqu'on utilise Terraform?",
-      "answer": "C'est utile parce que ça fournit une référence pratique pour les spécifications que vous allez créer. Vous aurez besoin des identifiants de gabarits ('flavors') et d'images pour vérifier les actions effectuées par Terraform."
+      "question": "Comment faut-il faire pour définir le fournisseur OpenStack dans Terraform, et quelles sont les différentes manières de fournir les informations de connexion pour OpenStack?",
+      "answer": "Pour définir le fournisseur OpenStack dans Terraform, il faut décrire à Terraform qu'il doit utiliser OpenStack et comment s'y connecter. Les informations de connexion peuvent être fournies de trois façons : directement dans la spécification du fournisseur, via des variables d'environnement (comme `$OS_CLOUD` ou un fichier RC), ou de manière partielle dans la spécification, le reste étant fourni par l'environnement (par exemple, en utilisant un fichier `clouds.yaml`)."
     },
     {
-      "question": "Est-ce qu'on peut utiliser Horizon pour trouver directement les identifiants de gabarits OpenStack?",
-      "answer": "Non, Horizon peut être utilisé pour rechercher des images et pour vérifier que Terraform produit les effets escomptés, mais il n'est pas possible de rechercher directement les identifiants des gabarits ('flavors')."
-    },
-    {
-      "question": "Qu'est-ce que l'OpenStack CLI (OSC) et comment peut-on l'installer?",
-      "answer": "L'OpenStack CLI, aussi appelé OSC, est un client Python qu'on peut installer avec Python Pip. Il est disponible pour plusieurs distributions et systèmes d'exploitation."
-    },
-    {
-      "question": "Quelle est la première étape à faire pour l'espace de travail Terraform?",
-      "answer": "Il faut créer un répertoire qui servira de point de départ pour vos fichiers de configuration et d'état."
-    },
-    {
-      "question": "Quel est le rôle de la définition du fournisseur OpenStack dans Terraform?",
-      "answer": "La définition du fournisseur OpenStack sert à indiquer à Terraform qu'il doit utiliser OpenStack et à lui préciser comment l'utiliser."
-    },
-    {
-      "question": "Que se passe-t-il lorsque le fournisseur OpenStack est initialisé dans Terraform?",
-      "answer": "Lors de l'initialisation, la version la plus récente du plugiciel du fournisseur OpenStack est installée dans le répertoire de travail, et les informations d'identification incluses serviront à se connecter au nuage spécifié lors des opérations Terraform subséquentes."
-    },
-    {
-      "question": "Quelles sont les différentes façons de fournir les informations d'identification OpenStack à Terraform?",
-      "answer": "Les informations d'identification pour OpenStack peuvent être fournies à Terraform de trois manières : directement dans la spécification du fournisseur, via des variables d'environnement, ou partiellement dans la spécification avec le reste dans l'environnement."
-    },
-    {
-      "question": "Donnez un exemple des détails qu'on peut inclure dans une spécification complète du fournisseur OpenStack dans Terraform.",
-      "answer": "On peut inclure `tenant_name`, `tenant_id`, `auth_url`, `user_name`, `password` et `user_domain_name`."
-    },
-    {
-      "question": "Qu'est-ce qu'on entend par 'informations d'identification partielles' dans Terraform pour OpenStack?",
-      "answer": "Les informations d'identification partielles permettent de laisser certaines valeurs en dehors de la configuration Terraform et de les fournir d'une autre manière, comme le mot de passe via la variable d'environnement `$OS_PASSWORD`."
-    },
-    {
-      "question": "Comment peut-on configurer le fournisseur OpenStack dans Terraform en utilisant le fichier `clouds.yaml`?",
-      "answer": "On peut utiliser le fichier `clouds.yaml` en spécifiant simplement l'attribut `cloud` avec le nom du nuage, par exemple `cloud = \"my_cloud\"`, dans le bloc `provider \"openstack\"`."
-    },
-    {
-      "question": "Quelles conditions doivent être remplies si la définition du fournisseur OpenStack est vide (`provider \"openstack\" {}`)?",
-      "answer": "Dans ce cas, la variable d'environnement `$OS_CLOUD` ou les variables définies par le fichier RC approprié doivent se trouver dans l'environnement d'exécution pour que Terraform puisse continuer."
-    },
-    {
-      "question": "Quels types de détails spécifiques au nuage devraient se retrouver dans la configuration Terraform?",
-      "answer": "La configuration Terraform devrait contenir des détails spécifiques à chaque nuage, comme les UUID de gabarit et d'image, les noms de réseau et les locataires."
-    },
-    {
-      "question": "Quel est l'aspect le plus crucial à considérer concernant la configuration Terraform et le stockage des informations d'identification?",
-      "answer": "La sécurité est l'aspect le plus important. Il est fortement recommandé d'éviter de stocker vos informations d'identification (comme les mots de passe) directement dans la configuration Terraform, même sur votre propre poste de travail, à cause des risques de copie ou de déplacement des fichiers."
-    },
-    {
-      "question": "Pourquoi est-il considéré comme une mauvaise pratique de conserver les mots de passe et autres identifiants sensibles directement dans les fichiers de configuration Terraform?",
-      "answer": "Ce n'est pas une bonne pratique, car ces fichiers de configuration peuvent être copiés ou déplacés dans votre système de fichiers, ce qui pourrait exposer des informations sensibles, même si vous travaillez seul."
+      "question": "En matière de sécurité, quelle est la meilleure pratique recommandée pour gérer les identifiants OpenStack lors de la configuration de Terraform?",
+      "answer": "Pour des raisons de sécurité, il est fortement recommandé d'éviter de stocker des informations d'identification sensibles, comme les mots de passe, directement dans la configuration Terraform. Ce n'est pas une bonne pratique, même si les fichiers sont sur votre propre poste de travail, car ils pourraient être copiés ou déplacés, compromettant ainsi la sécurité."
     }
   ],
-  "generated_at": "2026-04-12T09:13:17.252881+00:00"
+  "generated_at": "2026-04-13T14:28:26.329202+00:00"
 }

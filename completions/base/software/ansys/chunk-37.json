@@ -4,101 +4,17 @@
   "chunk_index": 37,
   "qa_pairs": [
     {
-      "question": "How do I configure the HOOPS_PICTURE environment variable for Ansys Fluent version 2025R1 or newer when using an OnDemand Desktop with a GPU?",
-      "answer": "For Ansys Fluent version 2025R1 or newer, set `HOOPS_PICTURE=opengl2` in the Environment Tab of the Fluent Launcher popup selector panel after loading the Ansys module and before clicking the 'Start' button."
+      "question": "How do users start Ansys Fluent in graphical mode from an On Demand Desktop, and what environment variables are necessary, especially when using a GPU or on the Nibi cluster?",
+      "answer": "To start Fluent from an On Demand Desktop, users should first load the `StdEnv/2023 ansys/2025R1` modules, then run `fluent`. In the Fluent Launcher popup, on the Environment Tab, set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi). For graphics, use `HOOPS_PICTURE=opengl2` for Ansys version 2025R1 or newer when a GPU is requested, or `HOOPS_PICTURE=opengl` for 2024R2 or older. If no GPU is requested, use `HOOPS_PICTURE=opengl2-mesa` for 2025R1 or newer, or `HOOPS_PICTURE=null` for 2024R2 or older."
     },
     {
-      "question": "What is the correct setting for HOOPS_PICTURE for Ansys Fluent 2024R2 or older when starting it from an OnDemand Desktop with a GPU?",
-      "answer": "For Ansys Fluent version 2024R2 or older, set `HOOPS_PICTURE=opengl` in the Environment Tab of the Fluent Launcher popup selector panel after loading the Ansys module and before clicking the 'Start' button."
+      "question": "What are the command-line arguments for launching Ansys CFX and Mechanical APDL (Mapdl) in graphical mode from an On Demand Desktop, and how is Workbench started graphically?",
+      "answer": "To launch CFX graphically, load the `StdEnv/2023 ansys/2025R1` (or older) modules, then use `cfx5 -graphics mesa` if no GPU was requested, or `cfx5 -graphics ogl` if a GPU was requested. For Mechanical APDL, after loading `StdEnv/2023 ansys/2022R2` (or newer), use `mapdl -g` or `launcher`. To start Workbench on an On Demand Desktop, load `StdEnv/2023 ansys/2025R1` and run `runwb2 -oglmesa` if no GPU was requested, or simply `runwb2` if a GPU was requested (e.g., a t4 GPU on Nibi for accelerated graphics)."
     },
     {
-      "question": "What environment variable is required on Nibi for Ansys Fluent when starting an OnDemand Desktop session with a GPU?",
-      "answer": "On Nibi, `I_MPI_HYDRA_BOOTSTRAP=ssh` is required in the Environment Tab of the Fluent Launcher popup selector panel when starting an OnDemand Desktop session with a GPU."
-    },
-    {
-      "question": "How should I set the HOOPS_PICTURE environment variable for Ansys Fluent version 2025R1 or newer when starting an OnDemand Desktop session without a GPU?",
-      "answer": "For Ansys Fluent version 2025R1 or newer, set `HOOPS_PICTURE=opengl2-mesa` in the Environment Tab of the Fluent Launcher popup selector panel after loading the Ansys module and before clicking the 'Start' button."
-    },
-    {
-      "question": "What is the appropriate HOOPS_PICTURE setting for Ansys Fluent 2024R2 or older when starting it from an OnDemand Desktop without a GPU?",
-      "answer": "For Ansys Fluent version 2024R2 or older, set `HOOPS_PICTURE=null` in the Environment Tab of the Fluent Launcher popup selector panel after loading the Ansys module and before clicking the 'Start' button."
-    },
-    {
-      "question": "What environment variable is required on Nibi for Ansys Fluent when starting an OnDemand Desktop session without a GPU?",
-      "answer": "On Nibi, `I_MPI_HYDRA_BOOTSTRAP=ssh` is required in the Environment Tab of the Fluent Launcher popup selector panel when starting an OnDemand Desktop session without a GPU."
-    },
-    {
-      "question": "How do I start Ansys CFX from an OnDemand Desktop without a GPU?",
-      "answer": "Load the module `StdEnv/2023 ansys/2025R1` (or older), then run `cfx5 -graphics mesa` from the terminal window command line."
-    },
-    {
-      "question": "How do I start Ansys CFX from an OnDemand Desktop with a GPU?",
-      "answer": "Load the module `StdEnv/2023 ansys/2025R1` (or older), then run `cfx5 -graphics ogl` from the terminal window command line."
-    },
-    {
-      "question": "What module needs to be loaded before starting CFX graphically from an OnDemand Desktop?",
-      "answer": "Before starting CFX graphically, you need to load the module `StdEnv/2023 ansys/2025R1` (or an older version)."
-    },
-    {
-      "question": "How do I start the Mechanical APDL GUI from the command line of an OnDemand Desktop?",
-      "answer": "Load the module `StdEnv/2023 ansys/2022R2` (or newer versions), then run `mapdl -g` or `launcher` and click the 'RUN' button."
-    },
-    {
-      "question": "What module needs to be loaded before starting Mapdl graphically from an OnDemand Desktop?",
-      "answer": "Before starting Mapdl graphically, you need to load the module `StdEnv/2023 ansys/2022R2` (or newer versions)."
-    },
-    {
-      "question": "How do I start Ansys Workbench from an OnDemand Desktop without a GPU or from a Basic Desktop?",
-      "answer": "Load the module `StdEnv/2023 ansys/2025R1`, then run `runwb2 -oglmesa` from the terminal window."
-    },
-    {
-      "question": "What module should be loaded before starting Ansys Workbench graphically on an OnDemand Desktop without a GPU?",
-      "answer": "Before starting Ansys Workbench graphically on an OnDemand Desktop without a GPU, load `StdEnv/2023 ansys/2025R1` (or a newer version)."
-    },
-    {
-      "question": "When starting Fluent from within Workbench on an OnDemand Desktop without a GPU, how do I configure HOOPS_PICTURE for Ansys Fluent version 2025R1 or newer?",
-      "answer": "In the Fluent Launcher's Environment Tab, set `HOOPS_PICTURE=opengl2-mesa` for Ansys Fluent version 2025R1 or newer."
-    },
-    {
-      "question": "When starting Fluent from within Workbench on an OnDemand Desktop without a GPU, how do I configure HOOPS_PICTURE for Ansys Fluent version 2024R2 or older?",
-      "answer": "In the Fluent Launcher's Environment Tab, set `HOOPS_PICTURE=null` for Ansys Fluent version 2024R2 or older."
-    },
-    {
-      "question": "What environment variable is required on Nibi when starting Fluent from within Workbench on an OnDemand Desktop without a GPU?",
-      "answer": "On Nibi, `I_MPI_HYDRA_BOOTSTRAP=ssh` is required in the Fluent Launcher's Environment Tab when starting Fluent from within Workbench on an OnDemand Desktop without a GPU."
-    },
-    {
-      "question": "What GPU type should be selected on Nibi for accelerated graphics when configuring an OnDemand Desktop session for Workbench?",
-      "answer": "To accelerate graphics on Nibi for an OnDemand Desktop session, choose a `t4 (15GB)` GPU from the GPU selector pulldown list."
-    },
-    {
-      "question": "How do I start Ansys Workbench from an OnDemand Desktop with a GPU requested?",
-      "answer": "Load the module `StdEnv/2023 ansys/2025R1`, then run `runwb2` from the terminal window."
-    },
-    {
-      "question": "What module should be loaded before starting Ansys Workbench graphically on an OnDemand Desktop with a GPU?",
-      "answer": "Before starting Ansys Workbench graphically on an OnDemand Desktop with a GPU, load `StdEnv/2023 ansys/2025R1` (or a newer version)."
-    },
-    {
-      "question": "When starting Fluent from within Workbench on an OnDemand Desktop with a GPU, how do I configure HOOPS_PICTURE for Ansys Fluent version 2025R1 or newer?",
-      "answer": "In the Fluent Launcher's Environment Tab, set `HOOPS_PICTURE=opengl2` for Ansys Fluent version 2025R1 or newer."
-    },
-    {
-      "question": "When starting Fluent from within Workbench on an OnDemand Desktop with a GPU, how do I configure HOOPS_PICTURE for Ansys Fluent version 2024R2 or older?",
-      "answer": "In the Fluent Launcher's Environment Tab, set `HOOPS_PICTURE=null` for Ansys Fluent version 2024R2 or older."
-    },
-    {
-      "question": "What environment variable is required on Nibi when starting Fluent from within Workbench on an OnDemand Desktop with a GPU?",
-      "answer": "On Nibi, `I_MPI_HYDRA_BOOTSTRAP=ssh` is required in the Fluent Launcher's Environment Tab when starting Fluent from within Workbench on an OnDemand Desktop with a GPU."
-    },
-    {
-      "question": "What happens if `I_MPI_HYDRA_BOOTSTRAP=ssh` is not set properly on Nibi when Fluent is started with Intel MPI in an OnDemand Compute Desktop session?",
-      "answer": "If `I_MPI_HYDRA_BOOTSTRAP=ssh` is not set properly on Nibi when Fluent is started with Intel MPI in an OnDemand Compute Desktop session, Fluent will crash on startup producing an error related to `bstrap_proxy`."
-    },
-    {
-      "question": "What error message might indicate a problem with the `I_MPI_HYDRA_BOOTSTRAP=ssh` setting on Nibi for Fluent?",
-      "answer": "An error message like `[mpiexec@g4.nibi.sharcnet] Error: Unable to run bstrap_proxy on g4.nibi.sharcnet` indicates a problem with the `I_MPI_HYDRA_BOOTSTRAP=ssh` setting on Nibi for Fluent."
+      "question": "What critical environment variable needs to be set when running Ansys Fluent in an OnDemand Compute Desktop session on the Nibi cluster, especially when using Intel MPI, and what happens if it's not configured?",
+      "answer": "When running Fluent in an OnDemand Compute Desktop session on Nibi with Intel MPI, it is critical to set the environment variable `I_MPI_HYDRA_BOOTSTRAP=ssh`. If this variable is not set properly, Fluent will crash on startup, producing an error output indicating an inability to run `bstrap_proxy` and set up bootstrap proxies. To resolve this, users must completely exit Fluent, shut down Workbench (if applicable), and restart the process after correctly setting the environment variable."
     }
   ],
-  "generated_at": "2026-04-12T16:41:18.831414+00:00"
+  "generated_at": "2026-04-13T01:45:47.820307+00:00"
 }

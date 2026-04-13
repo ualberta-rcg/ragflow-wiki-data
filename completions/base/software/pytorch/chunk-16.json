@@ -4,77 +4,17 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "What is Fully Sharded Data Parallelism (FSDP) in PyTorch?",
-      "answer": "Fully Sharded Data Parallelism (FSDP) is a technique similar to Deepspeed that allows for the distributed storage and computing of various training task elements, such as optimizer states, model weights, model gradients, and model activations, across multiple devices like GPUs, CPUs, local hard disks, or combinations thereof."
+      "question": "What is Fully Sharded Data Parallelism (FSDP) in PyTorch, and what is a key limitation to consider when choosing it over Tensor Parallelism (TP)?",
+      "answer": "Fully Sharded Data Parallelism (FSDP) enables distributed storage and computation of various training task elements, such as optimizer states, model weights, gradients, and activations, across multiple devices like GPUs, CPUs, or local hard disks. This resource pooling allows for efficient training of models with a large number of parameters across multiple nodes. However, FSDP is not recommended if individual model layers do not fit entirely within the memory of a single GPU, as these layers may need to be collected on a single device during forward or backward passes. For such cases, Tensor Parallelism (TP) is more suitable because it splits computation steps locally across devices where model shards are placed."
     },
     {
-      "question": "What is the main benefit of using FSDP?",
-      "answer": "The main benefit of FSDP is the 'pooling' of resources, particularly for storage, which enables the efficient training of models with massive amounts of parameters across multiple nodes."
+      "question": "How does Pipeline Parallelism (PP) work in PyTorch, and what mechanism is used to keep devices busy during sequential computations?",
+      "answer": "Pipeline Parallelism (PP) is a model sharding approach where groups of consecutive layers are placed on different devices. During a forward or backward pass, computations are performed sequentially across these devices. To mitigate device idleness caused by this sequential processing, every input batch is broken into 'micro-batches' which are fed to the model in sequence. This strategy ensures that all devices remain busy once the first micro-batch reaches the last model block."
     },
     {
-      "question": "Are there any limitations to using FSDP?",
-      "answer": "Yes, a limitation of FSDP is that if a model has layers that do not fit entirely in the memory of a single GPU, it should not be used, as a model layer sharded across devices may be collected inside a single device during a forward or backward pass."
-    },
-    {
-      "question": "When should I avoid using FSDP?",
-      "answer": "You should not use FSDP if your model contains layers that do not fit entirely into the memory of a single GPU."
-    },
-    {
-      "question": "What is Tensor Parallelism (TP)?",
-      "answer": "Tensor Parallelism (TP) is a model sharding approach where the computation of a forward or backward pass through a model layer, along with the layers' weights, is split across multiple devices."
-    },
-    {
-      "question": "How does Tensor Parallelism (TP) differ from FSDP?",
-      "answer": "TP differs from FSDP because in TP, computation steps are performed locally on the device where a model shard is placed, whereas FSDP shards model weights across devices but still has to collect these shards together on the same device during certain computation steps, which introduces overhead."
-    },
-    {
-      "question": "What is Pipeline Parallelism (PP)?",
-      "answer": "Pipeline Parallelism (PP) is a model sharding approach where groups of consecutive layers of a model are treated as shards, and each block of sequential layers is placed on a different device."
-    },
-    {
-      "question": "How does Pipeline Parallelism work during a forward or backward pass?",
-      "answer": "During a forward or backward pass in Pipeline Parallelism, computations are performed on each device in sequence. To mitigate idle time for devices, every input batch is broken into 'micro-batches' which are fed to the model sequentially, ensuring all devices stay busy as the first micro-batch reaches the last model block."
-    },
-    {
-      "question": "What is a model checkpoint in PyTorch?",
-      "answer": "A checkpoint in PyTorch is a snapshot of your model at a specific point during the training process, typically after a certain number of iterations or epochs, which is saved to disk and can be loaded later."
-    },
-    {
-      "question": "Why is it recommended to create model checkpoints during training?",
-      "answer": "Creating model checkpoints is recommended as a good habit because it helps break up very long jobs into shorter ones that can be allocated more quickly on clusters, and it prevents loss of progress in case of unexpected code errors or node failures."
-    },
-    {
-      "question": "How can you create a checkpoint when training with PyTorch Lightning?",
-      "answer": "When training with `pytorch-lightning`, you can create a checkpoint by using the `callbacks` parameter of the `Trainer()` class, specifically the `pl.callbacks.ModelCheckpoint` callback, making sure the specified path for the checkpoint exists."
-    },
-    {
-      "question": "How does PyTorch Lightning handle loading checkpoints?",
-      "answer": "The same code snippet used to create a checkpoint with `pl.callbacks.ModelCheckpoint` will also load an existing checkpoint from the specified path (`./ckpt` in the example) and resume training from that point."
-    },
-    {
-      "question": "Where can users find more detailed information on creating checkpoints in custom PyTorch training loops?",
-      "answer": "For detailed information on how to create and load checkpoints inside a custom training loop, users should refer to the official PyTorch documentation on saving and loading a general checkpoint."
-    },
-    {
-      "question": "What is the recommendation for checkpointing during distributed training with DistributedDataParallel or Horovod?",
-      "answer": "During distributed training with DistributedDataParallel or Horovod, checkpointing should be done by only one process (typically rank 0) of your program, as all ranks will have the same state at the end of each iteration."
-    },
-    {
-      "question": "Why should only one process create checkpoints during distributed training?",
-      "answer": "Only one process should create checkpoints because all ranks in a DistributedDataParallel or Horovod setup will have the same model state at the end of each iteration, so saving from multiple processes would be redundant."
-    },
-    {
-      "question": "What is an example of checkpoint creation by rank 0 in distributed training?",
-      "answer": "An example of checkpoint creation by rank 0 in distributed training is: `if global_rank == 0: torch.save(ddp_model.state_dict(), \"./checkpoint_path\")`."
-    },
-    {
-      "question": "What precautions should be taken when loading checkpoints during distributed training?",
-      "answer": "When loading checkpoints during distributed training, you must be careful that a process doesn't try to load a checkpoint before it has been saved by another. It's important to add a barrier to ensure the checkpoint is fully written to disk before other processes attempt to load it, and to pass `map_location` to `torch.load` to ensure tensors are loaded onto the correct GPU for each rank."
-    },
-    {
-      "question": "How can you safely load a checkpoint on the correct GPU for each rank in distributed training?",
-      "answer": "To safely load a checkpoint on the correct GPU for each rank in distributed training, you can use: `torch.distributed.barrier()` followed by `map_location = f\"cuda:{local_rank}\" ddp_model.load_state_dict(torch.load(\"./checkpoint_path\", map_location=map_location))`."
+      "question": "Why are model checkpoints important during PyTorch training on HPC clusters, and what specific steps should be taken when creating them in a distributed training environment?",
+      "answer": "Model checkpoints are crucial for saving a snapshot of your model's state, allowing you to break up long training jobs into shorter, more manageable ones for quicker allocation, and preventing loss of progress due to errors or node failures. In a distributed training program, only one process (e.g., rank 0) should create the checkpoint, as all ranks will have the same state. To prevent errors during loading, a `torch.distributed.barrier()` should be used to ensure the checkpoint is fully written to disk before other processes attempt to load it. Additionally, when loading, `map_location` must be passed to `torch.load` to correctly load tensors onto each rank's respective GPU."
     }
   ],
-  "generated_at": "2026-04-12T05:39:12.507521+00:00"
+  "generated_at": "2026-04-13T11:37:03.871281+00:00"
 }

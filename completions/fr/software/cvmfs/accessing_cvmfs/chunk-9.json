@@ -4,45 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "Comment faire pour que les utilisateurs puissent trouver des modules logiciels additionnels installés localement?",
-      "answer": "Pour que les utilisateurs puissent trouver des modules logiciels additionnels, nous recommandons de définir la variable d'environnement `RSNT_LOCAL_MODULEPATHS` dans le profil commun de la grappe, par exemple en utilisant la commande `export RSNT_LOCAL_MODULEPATHS=/opt/software/easybuild/modules`."
+      "question": "Comment est-il possible d'installer des modules logiciels supplémentaires sur une grappe de calcul afin qu'ils soient reconnus par la hiérarchie centrale de modules de l'Alliance?",
+      "answer": "Pour installer des modules additionnels, il faut d'abord identifier un chemin d'installation, comme `/opt/software/easybuild`, et s'assurer que ce répertoire existe. Ensuite, exportez la variable d'environnement `RSNT_LOCAL_MODULEPATHS` vers ce chemin, par exemple avec `export RSNT_LOCAL_MODULEPATHS=/opt/software/easybuild/modules`. Après ça, vous pouvez installer les paquets logiciels souhaités en utilisant EasyBuild, via la commande `eb --installpath /opt/software/easybuild <votre recette easyconfig>`. Ces logiciels seront alors installés localement selon la nomenclature de modules de l'Alliance et seront automatiquement disponibles pour les utilisateurs lorsqu'ils chargeront un compilateur, MPI ou CUDA."
     },
     {
-      "question": "Comment installer des paquets logiciels localement avec EasyBuild après avoir configuré le chemin des modules locaux?",
-      "answer": "Après avoir défini le chemin des modules locaux avec `RSNT_LOCAL_MODULEPATHS`, vous pouvez installer les paquets logiciels désirés avec EasyBuild en utilisant la commande `eb --installpath /opt/software/easybuild <une recette easyconfig>`."
+      "question": "Quelle précaution importante les administrateurs de systèmes doivent-ils prendre lorsqu'ils effectuent des opérations sur CVMFS ou avec des privilèges élevés?",
+      "answer": "Lorsqu'un administrateur effectue des opérations de système avec des privilèges ou des tâches liées à CVMFS, il doit absolument s'assurer que sa session *ne dépend pas de l'environnement logiciel*. Par exemple, si une mise à jour de CVMFS est effectuée avec YUM alors qu'un module Python chargé depuis CVMFS est actif dans la session, YUM pourrait perdre l'accès et bloquer la mise à jour. De même, si l'environnement de l'administrateur dépend de CVMFS et que celui-ci est reconfiguré, la session pourrait interférer avec les opérations ou être suspendue."
     },
     {
-      "question": "Est-ce que les logiciels installés localement selon cette méthode seront automatiquement accessibles aux utilisateurs?",
-      "answer": "Oui, les logiciels seront installés localement selon notre hiérarchie de nomenclature de modules et seront automatiquement présentés aux utilisateurs quand ils chargeront notre compilateur, MPI et CUDA."
-    },
-    {
-      "question": "Quelle précaution un administrateur doit-il prendre lorsqu'il effectue des opérations système avec des privilèges ou en rapport avec CVMFS?",
-      "answer": "Un administrateur doit s'assurer que sa session ne dépend pas de l'environnement logiciel lorsqu'il effectue des opérations de système avec des privilèges ou des opérations en rapport avec CVMFS."
-    },
-    {
-      "question": "Quel est le risque de mettre à jour CVMFS avec YUM si ma session utilise un module Python chargé de CVMFS?",
-      "answer": "Si vous faites la mise à jour de CVMFS avec YUM pendant que votre session utilise un module Python chargé à partir de CVMFS, YUM pourrait être exécuté en utilisant ce même module et en perdre l'accès par la mise à jour, ce qui bloquerait l'opération."
-    },
-    {
-      "question": "Quelles peuvent être les conséquences si mon environnement dépend de CVMFS et que je reconfigure CVMFS?",
-      "answer": "Si votre environnement dépend de CVMFS et que vous reconfigurez CVMFS, ce qui peut interrompre temporairement l'accès, votre session pourrait nuire aux opérations de CVMFS ou être suspendue."
-    },
-    {
-      "question": "Pourquoi certains logiciels commerciaux ne sont-ils pas disponibles même si j'installe et configure CVMFS sur ma propre machine?",
-      "answer": "Certains logiciels commerciaux sont mis à la disposition des utilisateurs sous condition de licence et ne sont disponibles qu'avec les ressources de l'Alliance. Vous n'y aurez pas accès, même si vous suivez les directives pour installer et configurer CVMFS."
-    },
-    {
-      "question": "Si j'ai accès aux modules des compilateurs d'Intel ou du Portland Group via CVMFS, est-ce que je peux compiler de nouvelles applications?",
-      "answer": "Non, si les modules pour ces compilateurs sont disponibles, vous n'avez accès qu'aux parties redistribuables (habituellement les objets partagés), ce qui vous permet d'exécuter des applications compilées, mais pas de compiler de nouvelles applications."
-    },
-    {
-      "question": "Quel est le problème avec la localisation des bibliothèques de pilotes NVidia pour CUDA qui peut causer des incompatibilités avec l'environnement logiciel CVMFS?",
-      "answer": "Le problème est que sur certaines plateformes, les récents pilotes NVidia installent les bibliothèques dans `/usr/lib64` sans emprunter de toutes les bibliothèques du système, ce qui peut créer des incompatibilités avec notre environnement logiciel qui utilise `/usr/lib64/nvidia`."
-    },
-    {
-      "question": "Comment résoudre les problèmes d'incompatibilité liés à la localisation des bibliothèques CUDA sur des plateformes où les pilotes NVidia récents les installent différemment?",
-      "answer": "Il est recommandé de créer des liens symboliques dans `/usr/lib64/nvidia` pour rediriger vers les bibliothèques NVidia qui sont installées, en utilisant les scripts fournis (pour RedHat ou Ubuntu) et en remplaçant le numéro de version par celui désiré."
+      "question": "Si j'installe et configure CVMFS sur ma propre machine ou grappe, aurai-je un accès complet aux logiciels commerciaux comme les compilateurs Intel ou du Portland Group, qui sont normalement disponibles sur les ressources de l'Alliance?",
+      "answer": "Non. Même si les modules pour des logiciels commerciaux tels que les compilateurs d'Intel ou du Portland Group peuvent être disponibles, vous n'aurez accès qu'aux parties redistribuables, généralement les objets partagés. Cela signifie que vous pourrez exécuter des applications déjà compilées, mais pas compiler de nouvelles applications. L'accès complet à ces produits sous licence est réservé à nos ressources."
     }
   ],
-  "generated_at": "2026-04-11T15:51:05.299083+00:00"
+  "generated_at": "2026-04-13T00:59:15.167082+00:00"
 }

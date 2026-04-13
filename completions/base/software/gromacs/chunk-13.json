@@ -4,77 +4,17 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "Where can users find general information about using GPUs on the systems?",
-      "answer": "Users can find general information about using GPUs on the systems by reading the [[Using GPUs with Slurm]] page."
+      "question": "How do you submit a GROMACS job that uses a single GPU and OpenMP threads?",
+      "answer": "To submit a GROMACS job using a single GPU and OpenMP threads, you would typically use a Slurm script. For example, to request one GPU and four OpenMP threads per MPI process, your script would include `#SBATCH --gpus-per-node=1` and `#SBATCH --cpus-per-task=4`. You would then load the necessary modules, such as `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 gromacs/2025.4`, set the `OMP_NUM_THREADS` environment variable to match `SLURM_CPUS_PER_TASK`, and run GROMACS with `gmx mdrun -ntomp ${SLURM_CPUS_PER_TASK:-1} -deffnm md`."
     },
     {
-      "question": "What are the key elements of a sample GROMACS `mdrun` job script for a GPU?",
-      "answer": "A sample GPU job script includes requesting 1 GPU per node, 4 OpenMP threads per MPI process, 2000 MB memory per CPU core, a time limit (e.g., 0:30:00), module purging, loading specific environment modules (`StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, `gromacs/2025.4`), exporting `OMP_NUM_THREADS`, and executing `gmx mdrun` with `-ntomp` and `-deffnm` options."
+      "question": "What are some critical considerations and constraints when running GROMACS simulations on GPUs?",
+      "answer": "When running GROMACS on GPUs, it's important to note that using more than a single GPU often leads to poor efficiency, so careful testing of multi-GPU versus single-GPU performance is recommended. A significant bug exists in GROMACS versions 2020.0 through 2021.5 when using the `mdrun` option `-update gpu` on Volta or newer generation GPUs (like V100, T4, A100, and H100), which could affect virial calculation and pressure coupling. Additionally, GROMACS 2018.2 imposes constraints such as requiring the number of `--tasks-per-node` to be the same as, or a multiple of, `--gpus-per-node`. It also won't run GPU jobs with only one OpenMP thread unless explicitly forced with the `-ntomp` option, with an optimal `--cpus-per-task` usually falling between 2 and 6."
     },
     {
-      "question": "Which specific GROMACS and CUDA versions are used in the provided sample GPU job script?",
-      "answer": "The provided sample GPU job script uses `gromacs/2025.4` and `cuda/12.6` within the `StdEnv/2023` environment."
-    },
-    {
-      "question": "What is the recommendation for efficiency when running GROMACS simulations with multiple GPUs?",
-      "answer": "Using more than a single GPU usually leads to poor efficiency; it is recommended to carefully test and compare multi-GPU and single-GPU performance before deciding to use more than one GPU for simulations."
-    },
-    {
-      "question": "Describe the bug found in GROMACS versions 2020.0 to 2021.5 when utilizing GPUs of Volta or newer generations.",
-      "answer": "GROMACS versions 2020.0 up to and including 2021.5 contain a bug that could perturb the virial calculation and lead to incorrect pressure coupling when used on Volta or newer generation GPUs (V100, T4, A100) with the `mdrun` option `-update gpu`."
-    },
-    {
-      "question": "How frequently does the GROMACS GPU bug (versions 2020.0-2021.5) occur, according to the developers?",
-      "answer": "The GROMACS developers state that the GPU update is not enabled by default, so the error can only appear if it was manually selected, and even then, the error might be rare as they have not observed it in practice during testing."
-    },
-    {
-      "question": "Where can users find additional details or discussions regarding the GPU bug in GROMACS versions 2020.0-2021.5?",
-      "answer": "Further discussion of this bug can be found in the GitLab issue #4393 of the GROMACS project and in the GROMACS 2021.6 Release Notes (\"Fix missing synchronization in CUDA update kernels\")."
-    },
-    {
-      "question": "Where can one find information about the different GPU node configurations available on the clusters?",
-      "answer": "Information about different GPU node configurations, including GPU models and the number of GPUs and CPUs per node, can be found on the [[Using GPUs with Slurm#Available GPUs]] page."
-    },
-    {
-      "question": "What are the specific constraints for `tasks-per-node` and `gpus-per-node` in GROMACS 2018.2 GPU runs?",
-      "answer": "For GROMACS 2018.2, the number of `--tasks-per-node` always needs to be the same as, or a multiple of, the number of GPUs (`--gpus-per-node`)."
-    },
-    {
-      "question": "What is the optimal range for the number of OpenMP threads per MPI process (`--cpus-per-task`) in GROMACS GPU runs?",
-      "answer": "According to GROMACS developers, the optimum number of `--cpus-per-task` (OpenMP threads per MPI process) is usually between 2 and 6."
-    },
-    {
-      "question": "What happens if a GROMACS GPU run is attempted with only 1 OpenMP thread?",
-      "answer": "GROMACS will not run GPU runs with only 1 OpenMP thread unless forced by explicitly setting the `-ntomp` option."
-    },
-    {
-      "question": "What should be avoided when allocating CPU and memory resources for GROMACS GPU jobs?",
-      "answer": "Users should avoid using a larger fraction of CPUs and memory than the fraction of GPUs they have requested in a node."
-    },
-    {
-      "question": "Where can users explore benchmark results for GROMACS on GPUs?",
-      "answer": "Benchmark results for GROMACS on GPUs can be explored on the MDBench portal."
-    },
-    {
-      "question": "Why are recent GPU models like Nvidia A100 and H100 often not fully utilized by GROMACS for typical simulations?",
-      "answer": "Recent GPU models such as the Nvidia A100 and H100 are often not fully utilized because GROMACS and other MD simulation programs are unable to make full use of them unless the molecular system is very large (millions of atoms), leading to wasted computational resources for typical simulations."
-    },
-    {
-      "question": "What are the two recommended solutions for addressing inefficient GPU utilization in GROMACS?",
-      "answer": "The two recommended solutions are to run multiple similar simulations on a single GPU using `mdrun -multidir`, or to use a Multi-Instance GPU (MIG) instance (a fraction of a GPU) rather than a full GPU."
-    },
-    {
-      "question": "Under what circumstances is running multiple simulations on a single GPU with `mdrun -multidir` the preferred solution?",
-      "answer": "This is the preferred solution if you run multiple similar simulations, such as repeating the same simulation for more conformational space sampling, simulating multiple protein variants, multiple small ligands in complex with the same protein, multiple temperatures or ionic concentrations, or for ensemble-based simulations like replica exchange."
-    },
-    {
-      "question": "Why is it important to ensure simulations are similar when using `mdrun -multidir` for multiple simulations on a single GPU?",
-      "answer": "Similar simulations are needed to ensure proper load balancing. If the simulations are dissimilar, some will progress faster and finish earlier than others, leading to idle resources."
-    },
-    {
-      "question": "What are examples of similar simulations that are well-suited for the `mdrun -multidir` approach?",
-      "answer": "Examples include repeating the same simulation to acquire more conformational space sampling, simulating multiple protein variants, multiple small ligands in complex with the same protein, multiple temperatures or ionic concentrations, and ensemble-based simulations such as replica exchange."
+      "question": "How can one efficiently utilize modern GPU models, such as the Nvidia A100 and H100, for GROMACS simulations, particularly when the molecular system is not extremely large?",
+      "answer": "Modern GPU models like the Nvidia A100 and H100 may not be fully utilized by GROMACS with typical simulation sizes, leading to wasted computational resources. Two solutions are recommended: first, for multiple similar simulations (e.g., repeating the same simulation or simulating multiple variants), run them on a single GPU using `mdrun -multidir`. This ensures proper load balancing. Second, for single or dissimilar simulations, using Multi-Instance GPU (MIG) instances, which are fractions of a GPU, is preferred. It is explicitly advised never to use Hyper-Q or MPS with GROMACS, as the built-in `-multidir` option provides more efficient functionality."
     }
   ],
-  "generated_at": "2026-04-11T22:26:32.551145+00:00"
+  "generated_at": "2026-04-13T06:04:58.166154+00:00"
 }

@@ -4,57 +4,17 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "Quelles sont les méthodes de copie de données recommandées, selon la taille des volumes, pour la migration?",
-      "answer": "Pour la migration, il est recommandé d'utiliser Globus pour les très gros volumes de données (plus de 5 To) et rsync + ssh pour les plus petits volumes."
+      "question": "Quelles sont les méthodes de copie de données recommandées pour la migration, en fonction de la taille des volumes?",
+      "answer": "Pour la migration de très grands volumes de données (plus de 5 To), on recommande d'utiliser Globus. Pour les plus petits volumes, la méthode rsync+ssh est suggérée."
     },
     {
-      "question": "Quelle méthode est suggérée pour transférer des volumes de données de plus de 5 To?",
-      "answer": "Pour les très grands volumes de données, soit ceux qui dépassent 5 To, la méthode recommandée est Globus."
+      "question": "Quelles sont les étapes à suivre pour transférer de très grands volumes de données (plus de 5 To) en utilisant Globus lors d'une migration?",
+      "answer": "Pour transférer de très grands volumes de données avec Globus, il faut d'abord s'abonner à Globus Connect Personal Plus en contactant globus@tech.alliancecan.ca. Ensuite, on doit activer Globus Connect Personal sur chaque instance concernée en s'assurant que l'instance a une adresse IP externe, que le coupe-feu autorise la communication par les ports nécessaires, et que l'utilisateur a accès aux données. Après avoir exécuté Globus Connect Personal en arrière-plan, on crée un point de chute partagé et on procède au transfert des données via l'interface Globus (globus.org ou globus.calculcanada.ca)."
     },
     {
-      "question": "Quelle est la façon la plus simple d'utiliser Globus pour transférer des données?",
-      "answer": "La façon la plus simple, c'est d'utiliser le client Globus Connect Personal avec un abonnement Globus Plus."
-    },
-    {
-      "question": "Comment faire pour s'abonner à Globus Connect Personal Plus?",
-      "answer": "Pour s'abonner à Globus Connect Personal Plus, il faut écrire à globus@tech.alliancecan.ca, puis répondre à l'invitation et suivre les directives."
-    },
-    {
-      "question": "Quelles étapes sont nécessaires pour activer Globus Connect Personal sur les instances touchées par le transfert de données?",
-      "answer": "Pour activer Globus Connect Personal, il faut prendre connaissance de la documentation, installer le client sur chaque instance, modifier la configuration pour qu'elle communique avec le service Globus, s'assurer que l'instance possède une adresse IP externe, que le coupe-feu des instances permet la communication par les ports, que l'utilisateur qui exécute Globus Connect Personal a accès aux données, et exécuter Globus Connect Personal en arrière-plan."
-    },
-    {
-      "question": "Comment les données sont-elles transférées via l'interface Globus?",
-      "answer": "Une fois abonné à Globus Connect Personal Plus, on doit créer un point de chute partagé pour une ou les deux instances, puis, par l'interface Globus (globus.org, globus.calculcanada.ca), on accède aux points de chute et on transfère les données."
-    },
-    {
-      "question": "Où peut-on trouver plus d'information sur la configuration de Globus?",
-      "answer": "Pour plus d'information sur la configuration de Globus, il faut consulter le lien https://computecanada.github.io/DHSI-cloud-course/globus/."
-    },
-    {
-      "question": "Qui contacter si on rencontre des difficultés avec Globus?",
-      "answer": "En cas de difficulté avec Globus, il faut contacter le soutien technique à globus@tech.alliancecan.ca et il est fortement suggéré de soumettre une demande d’assistance."
-    },
-    {
-      "question": "Quelle méthode est recommandée pour les plus petits volumes de données?",
-      "answer": "Pour les plus petits volumes de données, la méthode rsync + ssh est recommandée parce qu'elle offre de bonnes vitesses de transfert et travaille de manière incrémentale."
-    },
-    {
-      "question": "Quelles sont les étapes pour copier des données avec rsync + ssh?",
-      "answer": "Pour copier des données avec rsync + ssh, il faut d'abord se connecter avec SSH à l’instance sur le nuage Ouest qui possède le volume principal, prendre note du chemin absolu à copier, puis lancer rsync sur SSH. Après, il faut vérifier que les données ont bien été copiées dans l’instance sur Arbutus et supprimer les données sur le nuage Ouest."
-    },
-    {
-      "question": "Est-ce qu'on peut utiliser une autre méthode pour déplacer ses données si on est plus familier avec celle-ci?",
-      "answer": "Oui, vous pouvez déplacer vos données par une autre méthode que vous connaissez bien."
-    },
-    {
-      "question": "Quelles sont les activités de configuration qu'on pourrait avoir à faire après avoir transféré les données vers une nouvelle instance?",
-      "answer": "Après le transfert des données, on pourrait avoir à mettre à jour les règles de coupe-feu pour les nouvelles adresses IP, travailler avec le fournisseur DNS pour les entrées de domaines personnalisées, mettre à jour les adresses IP dans les fichiers de configuration, modifier les noms d'utilisateur dans MySQL, et renouveler les certificats TLS Let’s Encrypt."
-    },
-    {
-      "question": "Que doit-on faire une fois que la configuration post-migration et les tests sont complétés?",
-      "answer": "Une fois les tests faits après la configuration post-migration, il faut informer les membres de votre équipe que la migration est terminée."
+      "question": "Comment peut-on transférer des petits volumes de données en utilisant rsync + ssh pour la migration?",
+      "answer": "Pour transférer des petits volumes de données avec rsync + ssh, il faut se connecter via SSH à l'instance sur le nuage Ouest qui détient le volume principal et noter le chemin absolu à copier. Ensuite, on lance la commande rsync sur SSH, idéalement en utilisant une connexion sans mot de passe avec des clés SSH, comme dans l'exemple `rsync -avzP -e 'ssh -i ~/.ssh/key.pem' /local/path/ remoteuser@remotehost:/path/to/files/`. Une fois la copie terminée, il est important de vérifier que les données ont bien été transférées et de supprimer les anciennes données sur le nuage Ouest."
     }
   ],
-  "generated_at": "2026-04-11T17:49:46.426556+00:00"
+  "generated_at": "2026-04-13T02:25:27.154653+00:00"
 }

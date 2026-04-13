@@ -3,61 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is GAMESS?",
-      "answer": "GAMESS, the General Atomic and Molecular Electronic Structure System, is a general *ab initio* quantum chemistry package."
+      "question": "What is GAMESS and what kind of calculations does it perform?",
+      "answer": "GAMESS (General Atomic and Molecular Electronic Structure System) is a general ab initio quantum chemistry package used for quantum chemistry calculations."
     },
     {
-      "question": "Which job scheduler do Compute Canada clusters use for GAMESS jobs?",
-      "answer": "Compute Canada clusters use the Slurm scheduler for submitting and monitoring jobs."
+      "question": "Which job scheduler is used for submitting GAMESS jobs on Compute Canada clusters?",
+      "answer": "Compute Canada clusters use the Slurm scheduler for submitting jobs, including those for GAMESS."
     },
     {
-      "question": "What two main files are required to run a GAMESS job?",
-      "answer": "You need a GAMESS input file, which specifies the molecular geometry and calculation, and a job script to define the compute resources for the job."
+      "question": "What two main files are required to run a GAMESS job on Compute Canada clusters?",
+      "answer": "You need a GAMESS input file, containing molecular geometry and calculation specifications, and a job script to define compute resources. Both files must be in the same directory."
     },
     {
-      "question": "Where can I find detailed information about the GAMESS input file format and keywords?",
-      "answer": "Detailed information about the GAMESS input file format and keywords is available in the GAMESS Documentation, specifically Chapter 2 \"Input Description\"."
+      "question": "How do users submit a GAMESS job script to the scheduler?",
+      "answer": "Users submit a GAMESS job to the scheduler using the command `sbatch gamess_job.sh`."
     },
     {
-      "question": "How do you submit a GAMESS job script to the scheduler?",
-      "answer": "You submit a GAMESS job to the scheduler using the command `sbatch gamess_job.sh`."
+      "question": "By default, where are GAMESS temporary binary files (scratch files) written?",
+      "answer": "By default, GAMESS temporary binary files are written to local disk on the compute node, specifically to `$SLURM_TMPDIR`."
     },
     {
-      "question": "Where are GAMESS temporary binary files written by default, and what happens to them after the job finishes?",
-      "answer": "By default, GAMESS temporary binary files (`SCR`) are written to `$SLURM_TMPDIR` on the local disk of the compute node and are deleted after the job finishes."
+      "question": "What happens to the data stored in `$SLURM_TMPDIR` after a GAMESS job completes?",
+      "answer": "The data in `$SLURM_TMPDIR` is deleted automatically after the GAMESS job finishes."
     },
     {
-      "question": "How can I change the default location for GAMESS temporary binary files?",
-      "answer": "If local disk space is insufficient, you can change the location for temporary binary files to `/scratch` by uncommenting and setting the `SCR` environment variable in your job script."
+      "question": "How can a user redirect GAMESS temporary binary files to `/scratch` instead of local disk?",
+      "answer": "A user can redirect temporary binary files to `/scratch` by uncommenting and setting the `SCR` environment variable in the job script, for example: `export SCR=\"$SCRATCH/gamess_${SLURM_JOB_ID}/\"`."
     },
     {
-      "question": "Where are GAMESS supplementary output files stored by default?",
-      "answer": "GAMESS supplementary output files (`USERSCR`) are written by default to the user's `$SCRATCH` directory."
+      "question": "Where are GAMESS supplementary output files written by default?",
+      "answer": "GAMESS supplementary output files are written by default to the user's `$SCRATCH` directory, controlled by the `USERSCR` environment variable."
     },
     {
-      "question": "What is a key limitation of GAMESS when running on multiple CPUs?",
-      "answer": "GAMESS has been built using sockets for parallelization, meaning it can only use CPU cores that are located on the same compute node."
+      "question": "How do you specify the number of CPUs a GAMESS calculation should use in a job script?",
+      "answer": "The number of CPUs available for a GAMESS calculation is determined by the `--cpus-per-task` setting in the job script."
     },
     {
-      "question": "Why are scaling tests recommended when determining the number of CPUs for a GAMESS calculation?",
-      "answer": "Quantum chemistry calculations do not always scale well to large numbers of CPUs, so scaling tests help determine the most efficient number of CPUs to use for a particular job to avoid wasting resources."
+      "question": "What is a key limitation for GAMESS regarding the use of multiple CPUs?",
+      "answer": "GAMESS can only use CPU cores located on the same compute node because it has been built using sockets for parallelization, limiting the maximum number of cores to the node's size."
     },
     {
-      "question": "What are the two steps to assign sufficient memory for a GAMESS job?",
-      "answer": "First, request memory for the job in the submission script using `--mem-per-cpu`. Second, define `MWORDS` and `MEMDDI` options within the `$SYSTEM` group of the GAMESS input file."
+      "question": "Why is it recommended to perform a scaling test for GAMESS jobs when using multiple CPUs?",
+      "answer": "Quantum chemistry calculations often don't scale well with increasing CPUs; a scaling test helps determine the optimal number of CPUs for efficient resource usage, as doubling CPUs might not halve execution time or could even slow down certain calculations."
     },
     {
-      "question": "What do `MWORDS` and `MEMDDI` represent in the GAMESS input file?",
-      "answer": "`MWORDS` is the maximum replicated memory a job can use on every core, and `MEMDDI` is the grand total memory needed for the distributed data interface (DDI) storage."
+      "question": "What two steps are involved in assigning sufficient memory for a GAMESS calculation?",
+      "answer": "The two steps are: 1) Requesting memory for the job in the submission script using `--mem-per-cpu`, and 2) Defining the `MWORDS` and `MEMDDI` options within the `$SYSTEM` group of the GAMESS input file."
     },
     {
-      "question": "What does the error message \"slurmstepd: error: Exceeded step/job memory limit at some point\" indicate?",
-      "answer": "This message indicates that Slurm terminated the job because it attempted to use more memory than was requested in the submission script."
+      "question": "What do `MWORDS` and `MEMDDI` represent in the GAMESS input file's `$SYSTEM` group?",
+      "answer": "`MWORDS` is the maximum replicated memory a job can use per core, and `MEMDDI` is the grand total memory needed for distributed data interface (DDI) storage, both specified in units of 1,000,000 words (where a word is 64 bits or 8 bytes)."
     },
     {
-      "question": "Why should a safety margin be left between memory requested from the scheduler and memory allocated to GAMESS?",
-      "answer": "Leaving a few hundred MB as a safety margin helps prevent Slurm from terminating the job if GAMESS briefly exceeds the exact memory it was allowed to use, even if it's within the overall job request."
+      "question": "What safety measure should be taken when allocating memory for GAMESS jobs?",
+      "answer": "It's important to leave a safety margin of a few hundred MB of memory between what is requested from the scheduler and what GAMESS is allowed to use."
+    },
+    {
+      "question": "What does the Slurm message 'slurmstepd: error: Exceeded step/job memory limit at some point' indicate for a GAMESS job?",
+      "answer": "This message indicates that Slurm terminated the GAMESS job because it tried to use more memory than was requested in the submission script."
     }
   ],
-  "generated_at": "2026-04-11T21:52:29.233843+00:00"
+  "generated_at": "2026-04-13T05:37:03.679969+00:00"
 }

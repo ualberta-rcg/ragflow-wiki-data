@@ -3,77 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary function of CephFS in an OpenStack environment?",
+      "question": "What is the primary purpose of CephFS within Alliance's OpenStack environment?",
       "answer": "CephFS provides a common filesystem that can be shared amongst multiple OpenStack VM hosts."
     },
     {
-      "question": "What basic Linux skills are assumed for setting up CephFS?",
-      "answer": "Basic Linux skills for creating/editing files, setting permissions, and creating mount points are assumed."
+      "question": "How do users request access to CephFS shares on Alliance's OpenStack clusters?",
+      "answer": "Users need to send a request to cloud@tech.alliancecan.ca, providing their OpenStack project name, the required quota in GB, and the number of shares needed."
     },
     {
-      "question": "How does one request access to CephFS shares and a quota?",
-      "answer": "You need to send an email to cloud@tech.alliancecan.ca, providing your OpenStack project name, the amount of quota required (in GB), and the number of shares needed."
+      "question": "What basic skills are assumed for users performing the CephFS setup procedure on Alliance's OpenStack?",
+      "answer": "The procedure assumes basic Linux skills, including creating and editing files, setting permissions, and creating mount points."
     },
     {
-      "question": "What information is required when creating a new CephFS share in the OpenStack GUI?",
-      "answer": "You need to provide a Share Name, select CephFS as the Share Protocol, specify the Size, choose 'cephfs' (or 'cephfs-ec42' on SD4H/Juno) as the Share Type, and set the Availability Zone to 'nova'."
+      "question": "How does one create a new CephFS share using the OpenStack Horizon graphical user interface (GUI)?",
+      "answer": "In Project -> Share -> Shares, click '+Create Share', then specify the Share Name, CephFS protocol, Size, 'cephfs' Share Type, and 'nova' Availability Zone, ensuring 'Make visible for all' is not checked."
     },
     {
-      "question": "Why should the 'Make visible for all' option not be checked when creating a CephFS share?",
-      "answer": "If checked, the share will be accessible by all users across all projects, which is generally not desired for security."
+      "question": "What steps are involved in creating an access rule for a CephFS share to generate an access key?",
+      "answer": "In Project -> Share -> Shares -> Actions, select 'Manage Rules', then click '+Add Rule', choose 'cephx' Access Type, select 'read-write' or 'read-only' Access Level, and provide a key name for 'Access To'."
     },
     {
-      "question": "How do you create an access rule for a CephFS share to generate an access key?",
-      "answer": "In Project --> Share --> Shares --> Actions, select 'Manage Rules,' then click '+Add Rule.' Set Access Type to 'cephx,' select 'read-write' or 'read-only' for Access Level, and choose a key name for 'Access To'."
+      "question": "Which specific share details should users note after creating a CephFS share and an access rule?",
+      "answer": "Users should note the 'Path', 'Access to' (which will be the client name), and 'Access Key' from the Share Overview."
     },
     {
-      "question": "What key share details should be noted after creating a CephFS share and its access rule?",
-      "answer": "The 'Path' (for the mount command), the 'Access to' (client name), and the 'Access Key' are the important details to note."
+      "question": "Is it necessary to explicitly attach the CephFS network to a virtual machine (VM) on the Arbutus cloud platform?",
+      "answer": "No, on Arbutus, the CephFS network is already exposed to the VM, so no action is required."
     },
     {
-      "question": "Is there a difference in attaching the CephFS network to a VM on Arbutus versus SD4H/Juno?",
-      "answer": "Yes, on Arbutus, the CephFS network is already exposed to your VM, so no action is needed. On SD4H/Juno, you must explicitly attach the CephFS-Network to each VM."
+      "question": "How can a user attach the CephFS network to a VM on SD4H/Juno using the Web GUI?",
+      "answer": "For each VM, select Instance -> Action -> Attach interface, then choose the CephFS-Network and leave the Fixed IP Address box empty."
     },
     {
-      "question": "How can the CephFS network be attached to a VM on SD4H/Juno using the Web GUI?",
-      "answer": "For each VM, select Instance --> Action --> Attach interface, then choose the 'CephFS-Network' and leave the 'Fixed IP Address' box empty."
+      "question": "What OpenStack command-line client command is used to attach the CephFS network to a VM?",
+      "answer": "The command is `openstack server add network <server_ID> CephFS-Network`, where `<server_ID>` is the ID of the target VM."
     },
     {
-      "question": "What packages are required for Red Hat family distributions (e.g., RHEL, CentOS, Rocky, Alma) to install the CephFS client?",
-      "answer": "After configuring the Ceph and EPEL repositories, you need to install 'libcephfs2', 'python3-cephfs', 'ceph-common', and 'python3-ceph-argparse' using `sudo dnf install`."
+      "question": "What are the general steps to install the required CephFS client packages on a Red Hat family Linux VM, such as Enterprise Linux 9?",
+      "answer": "Users need to configure the Ceph and Ceph-noarch repositories in `/etc/yum.repos.d/ceph.repo`, install `epel-release`, and then run `sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
     },
     {
-      "question": "What packages are required for Debian family distributions (e.g., Debian, Ubuntu, Mint) to install the CephFS client?",
-      "answer": "After adding the Ceph repository, you need to install 'libcephfs2', 'python3-cephfs', 'ceph-common', and 'python3-ceph-argparse' using `sudo apt-get install`."
+      "question": "How does one install the necessary CephFS client packages on a Debian family Linux VM?",
+      "answer": "First, determine the distro codename with `lsb_release -sc`, then add the Ceph repository using `sudo apt-add-repository 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`, and finally run `sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
     },
     {
-      "question": "How do the 'mon host' entries differ in the `ceph.conf` file for Arbutus and SD4H/Juno clouds?",
-      "answer": "Arbutus uses specific IP addresses with v2 and v1 ports (e.g., `[v2:134.87.15.61:3300/0,v1:134.87.15.61:6789/0]`), while SD4H/Juno uses private IP addresses with port 6789 (e.g., `10.65.0.10:6789,10.65.0.12:6789,10.65.0.11:6789`)."
+      "question": "Which two configuration files are essential for configuring the CephFS client on a VM, and what information do they contain?",
+      "answer": "The `ceph.conf` file contains global settings including monitor hosts, while the `ceph.keyring` file stores the client name and its access key."
     },
     {
-      "question": "What information needs to be placed in the `/etc/ceph/ceph.keyring` file?",
-      "answer": "The `ceph.keyring` file should contain the client name (e.g., `[client.MyCephFS-RW]`) and its corresponding `key = <Access Key>`, which are obtained from the share's access rules."
+      "question": "What is a key difference in the `mon host` configuration between Arbutus and SD4H/Juno in the `ceph.conf` file?",
+      "answer": "The `mon host` IP addresses are different; Arbutus uses public IPs (e.g., 134.87.15.61), while SD4H/Juno uses private IPs (e.g., 10.65.0.10)."
     },
     {
-      "question": "How do you permanently mount a CephFS device in a VM using `/etc/fstab`?",
-      "answer": "You add a line to `/etc/fstab` specifying the share's path (starting with `:`), the mount point, 'ceph' as the filesystem type, and options such as `name=<ClientName>,nofail` (and `mds_namespace` for SD4H/Juno)."
+      "question": "How can a user permanently mount a CephFS share on a VM?",
+      "answer": "By adding an entry to the `/etc/fstab` file, specifying the CephFS path, mount point, 'ceph' filesystem type, client name, and appropriate options like `nofail`."
     },
     {
-      "question": "What does the `nofail` option in the `fstab` entry for CephFS ensure?",
-      "answer": "The `nofail` option ensures that the system will boot even if the CephFS service is down or unreachable."
+      "question": "What is an alternative method to mount CephFS in user space, and what steps are involved?",
+      "answer": "CephFS can be mounted in user space via `ceph-fuse`. This involves installing `ceph-fuse`, uncommenting `user_allow_other` in `/etc/fuse.conf`, creating a local directory, and then using the `ceph-fuse` command with `--id`, `--conf`, `--keyring`, and `--client-mountpoint` options."
     },
     {
-      "question": "Can CephFS be mounted directly in user space, and if so, what is required?",
-      "answer": "Yes, CephFS can be mounted in user space via `ceph-fuse`. This requires installing `ceph-fuse` and uncommenting `user_allow_other` in `/etc/fuse.conf`."
-    },
-    {
-      "question": "Can a single CephFS share have multiple user keys?",
-      "answer": "Yes, a particular share can have more than one user key provisioned for it, allowing for more granular access control (e.g., read-only access for some hosts)."
-    },
-    {
-      "question": "Is the CephFS service accessible to hosts outside of the OpenStack cluster?",
+      "question": "Can CephFS shares provided by Alliance's OpenStack cluster be accessed by hosts outside of the OpenStack cluster?",
       "answer": "No, this service is not available to hosts outside of the OpenStack cluster."
+    },
+    {
+      "question": "Why might a user provision more than one key for a particular CephFS share?",
+      "answer": "Provisioning multiple keys allows for more granular access to the filesystem, for example, enabling some hosts to have read-only access while others have read-write."
     }
   ],
-  "generated_at": "2026-04-11T19:30:49.434311+00:00"
+  "generated_at": "2026-04-13T03:45:18.546930+00:00"
 }

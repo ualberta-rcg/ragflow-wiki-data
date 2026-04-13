@@ -3,97 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "À quoi sert le système de fichiers CephFS dans le contexte d'OpenStack?",
-      "answer": "Il permet de partager un système de fichiers à travers plusieurs hôtes d'instances OpenStack."
+      "question": "À quoi sert le système de fichiers CephFS sur les grappes OpenStack d'Alliance?",
+      "answer": "Le système de fichiers CephFS peut être partagé par plusieurs hôtes d'instances OpenStack, permettant le partage de données entre elles."
     },
     {
-      "question": "Comment peut-on obtenir l'accès au service CephFS?",
-      "answer": "Il faut faire une demande à nuage@tech.alliancecan.ca."
+      "question": "Quelles sont les compétences Linux de base nécessaires pour configurer et utiliser le service CephFS?",
+      "answer": "Il faut des compétences Linux de base pour créer et modifier des fichiers, définir des permissions et créer des points de montage."
     },
     {
-      "question": "Quelles compétences sont requises pour la procédure de configuration de CephFS?",
-      "answer": "Des compétences Linux de base sont nécessaires pour créer et modifier des fichiers, définir des permissions et créer des points de montage."
+      "question": "Quelle est la première étape pour obtenir l'accès à un service CephFS partagé sur les instances OpenStack d'Alliance?",
+      "answer": "Il faut envoyer une demande à nuage@tech.alliancecan.ca pour obtenir un quota pour le service."
     },
     {
-      "question": "Où peut-on demander de l'assistance pour la configuration de CephFS?",
-      "answer": "On peut écrire à nuage@tech.alliancecan.ca pour obtenir de l'aide."
-    },
-    {
-      "question": "Quelles informations doit-on fournir lors d'une demande de quota pour le service CephFS?",
-      "answer": "Il faut indiquer le nom du projet OpenStack, la capacité du quota requise (en Go) et le nombre de points de partage requis."
+      "question": "Quelles informations doit-on fournir lors de la demande de quota pour un service CephFS?",
+      "answer": "Vous devez indiquer le nom du projet OpenStack, la capacité du quota requise (en Go) et le nombre de points de partage requis."
     },
     {
       "question": "Comment crée-t-on un point de partage CephFS dans l'interface OpenStack?",
-      "answer": "Dans Project --> Share --> Shares, on clique sur '+Create Share', puis on remplit les champs comme le nom, le protocole CephFS, la taille et le type de partage."
+      "answer": "Dans Project --> Share --> Shares, cliquez sur '+Create Share', puis remplissez les détails comme le nom, le protocole CephFS, la taille et le type de partage."
     },
     {
-      "question": "Quel type de point de partage doit-on choisir pour les plateformes SD4H/Juno?",
-      "answer": "Pour SD4H/Juno, il faut choisir 'cephfs-ec42' comme type de point de partage."
+      "question": "Quelle précaution faut-il prendre lors de la création d'un point de partage CephFS pour les grappes SD4H/Juno?",
+      "answer": "Il ne faut pas sélectionner 'Make visible for all' ou 'Make visible to users from all projects', sinon le point de partage sera accessible par tous les utilisateurs dans tous les projets."
     },
     {
-      "question": "Pourquoi est-il important de ne pas sélectionner 'Make visible for all' ou 'Make visible to users from all projects' pour SD4H/Juno?",
-      "answer": "Pour éviter que le point de partage soit accessible par tous les utilisateurs dans tous les projets."
+      "question": "Comment génère-t-on une clé d'accès pour un point de partage CephFS dans OpenStack?",
+      "answer": "Dans Project --> Share --> Shares, sélectionnez 'Manage Rules' pour votre point de partage, cliquez sur '+Add Rule', puis configurez 'Access Type' (cephx), 'Access Level' (lecture/écriture ou lecture seule) et 'Access To' (le nom du client)."
     },
     {
-      "question": "Comment crée-t-on une règle d'accès pour un point de partage CephFS?",
-      "answer": "Dans Project --> Share --> Shares, on sélectionne 'Manage Rules' dans la colonne Actions, puis on clique sur '+Add Rule'."
+      "question": "Quelles sont les trois informations clés à noter de la page 'Share Overview' pour configurer un client CephFS?",
+      "answer": "Il faut noter le 'Path' qui servira à la commande 'mount', 'Access to' qui sera le nom du client, et 'Access Key' pour la connexion de l'instance client."
     },
     {
-      "question": "Quels sont les détails importants à noter concernant un point de partage CephFS après sa création?",
-      "answer": "Il faut noter le 'Path' (chemin), le nom du client ('Access to') et l''Access Key' (clé d'accès)."
+      "question": "Comment attacher le réseau CephFS à une instance sur SD4H/Juno, via l'interface web?",
+      "answer": "Pour chaque instance, sélectionnez 'Instance --> Action --> Attach interface --> CephFS-Network' et ne cochez pas la case 'Fixed IP Address'."
     },
     {
-      "question": "Y a-t-il une différence dans l'attachement du réseau CephFS entre Arbutus et SD4H/Juno?",
-      "answer": "Oui, sur Arbutus, le réseau CephFS est déjà disponible pour les instances, tandis que sur SD4H/Juno, il faut l'attacher manuellement à chaque instance."
+      "question": "Le réseau CephFS doit-il être attaché manuellement aux instances sur Arbutus?",
+      "answer": "Non, sur Arbutus, le réseau CephFS est déjà disponible pour les instances, donc aucune action n'est requise."
     },
     {
-      "question": "Comment attacher le réseau CephFS à une instance via l'interface web sur SD4H/Juno?",
-      "answer": "Pour chaque instance, on sélectionne 'Instance --> Action --> Attach interface --> CephFS-Network', sans cocher la case 'Fixed IP Address'."
+      "question": "Comment installe-t-on les dépôts de paquets du client Ceph sur une instance Enterprise Linux (comme RHEL 8 ou 9)?",
+      "answer": "Il faut créer le fichier `/etc/yum.repos.d/ceph.repo` avec les bonnes URLs pour la version Ceph (ex: quincy) et la distribution, puis exécuter `sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
     },
     {
-      "question": "Quelle commande utilise-t-on pour attacher le réseau CephFS à une instance via le client OpenStack en ligne de commande?",
-      "answer": "On utilise la commande `openstack server add network <ID_de_l'instance> CephFS-Network`."
+      "question": "Comment configure-t-on le fichier `ceph.conf` pour un client CephFS sur une instance OpenStack?",
+      "answer": "Il faut créer le fichier `/etc/ceph/ceph.conf` et y inclure les adresses des moniteurs ('mon host'), qui diffèrent selon que l'on est sur Arbutus ou SD4H/Juno."
     },
     {
-      "question": "Quels paquets sont nécessaires pour installer un client CephFS sur une instance de la famille Red Hat (RHEL, CentOS, Fedora, Rocky, Alma)?",
-      "answer": "Après avoir configuré les dépôts, il faut installer `libcephfs2`, `python3-cephfs`, `ceph-common` et `python3-ceph-argparse` avec `sudo dnf install -y`."
+      "question": "Comment le fichier `ceph.keyring` doit-il être configuré pour un client CephFS?",
+      "answer": "Le fichier `/etc/ceph/ceph.keyring` doit contenir la section `[client.VotreNomDuClient]` avec la 'key = <Votre Clé d'Accès>', où le nom du client et la clé d'accès sont obtenus depuis l'interface OpenStack."
     },
     {
-      "question": "Comment configure-t-on le fichier `/etc/ceph/ceph.conf` pour le client Ceph?",
-      "answer": "Il faut y définir le 'mon host' (hôtes des moniteurs Ceph) qui varie selon le nuage (Arbutus ou SD4H/Juno), ainsi que d'autres options globales et client."
+      "question": "Comment monter de façon permanente un système de fichiers CephFS sur une instance Linux?",
+      "answer": "Il faut créer un répertoire de montage (ex: `/cephfs`) et ajouter une entrée dans `/etc/fstab` en spécifiant le chemin du point de partage, le répertoire de montage, le type 'ceph' et les options appropriées ('name', 'nofail', 'mds_namespace' pour SD4H/Juno)."
     },
     {
-      "question": "Quelles informations doit-on placer dans le fichier `/etc/ceph/ceph.keyring`?",
-      "answer": "Il faut y entrer le nom du client (par exemple 'MyCephFS-RW') et sa clé d'accès ('Access Key'), qui sont disponibles dans les règles d'accès du point de partage sur la page web du projet."
+      "question": "À quoi sert l'option `nofail` lors du montage d'un CephFS dans le fichier `/etc/fstab`?",
+      "answer": "L'option `nofail` assure que le système pourra démarrer même si le point de partage CephFS n'est pas disponible ou inaccessible au moment du démarrage."
     },
     {
-      "question": "Comment trouve-t-on le 'Path' exact à utiliser pour monter le système de fichiers CephFS?",
-      "answer": "On le copie de la section 'Share Overview' en cliquant sur le nom du point de partage dans la page 'Shares', en cherchant la partie qui contient le caractère ':'."
+      "question": "Est-il possible de monter CephFS dans l'espace utilisateur sur une instance?",
+      "answer": "Oui, il est possible de monter CephFS dans l'espace utilisateur en installant `ceph-fuse`, en décommentant `user_allow_other` dans `/etc/fuse.conf`, puis en utilisant la commande `ceph-fuse` avec les bons paramètres `--id`, `--conf` et `--keyring`."
     },
     {
-      "question": "Quel est l'exemple d'entrée `fstab` pour un montage permanent de CephFS sur Arbutus?",
-      "answer": "L'entrée ressemble à `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,nofail 0 2`."
-    },
-    {
-      "question": "Quelle option `fstab` assure que le système pourra démarrer même si CephFS n'est pas disponible?",
-      "answer": "L'option `nofail` dans le fichier `fstab` garantit que le système pourra être amorcé."
-    },
-    {
-      "question": "Comment monter CephFS en ligne de commande sur SD4H/Juno?",
-      "answer": "On utilise la commande `sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw`."
-    },
-    {
-      "question": "Peut-on monter CephFS dans l'espace utilisateur?",
-      "answer": "Oui, CephFS peut être monté directement dans votre espace de travail via `ceph-fuse`, après avoir installé la bibliothèque et décommenté `user_allow_other` dans `/etc/fuse.conf`."
-    },
-    {
-      "question": "Est-il possible d'avoir plusieurs clés utilisateur pour un point de partage CephFS?",
-      "answer": "Oui, un point de partage peut disposer de plusieurs clés utilisateur, permettant un accès plus précis comme la lecture seule pour certains hôtes."
-    },
-    {
-      "question": "Le service CephFS est-il accessible aux hôtes extérieurs à la grappe OpenStack?",
+      "question": "Le service CephFS est-il disponible pour les hôtes extérieurs à la grappe OpenStack?",
       "answer": "Non, ce service n'est pas disponible pour les hôtes extérieurs à la grappe OpenStack."
     }
   ],
-  "generated_at": "2026-04-11T19:32:27.520013+00:00"
+  "generated_at": "2026-04-13T03:46:36.821094+00:00"
 }

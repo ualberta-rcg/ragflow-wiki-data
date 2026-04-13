@@ -3,69 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is MetaPhlAn primarily used for?",
-      "answer": "MetaPhlAn is a computational tool designed for profiling the composition of microbial communities (Bacteria, Archaea, and Eukaryotes) at the species level from metagenomic shotgun sequencing data."
+      "question": "What is MetaPhlAn, according to its GitHub repository?",
+      "answer": "MetaPhlAn is a computational tool for profiling the composition of microbial communities from metagenomic shotgun sequencing data at species-level, and with StrainPhlAn, it can perform accurate strain-level microbial profiling."
     },
     {
-      "question": "What is StrainPhlAn used for?",
-      "answer": "StrainPhlAn allows for accurate strain-level microbial profiling when used with MetaPhlAn."
+      "question": "How are recent versions of MetaPhlAn typically installed on Alliance clusters?",
+      "answer": "Users are expected to install recent versions using a Python virtual environment, though older versions (2.2.0 and 2.8) are available as modules."
     },
     {
-      "question": "How should users install recent versions of MetaPhlAn on the clusters?",
-      "answer": "Users are expected to install recent versions of MetaPhlAn using a Python virtual environment."
+      "question": "Where can users find comprehensive information on how to use MetaPhlAn?",
+      "answer": "Users can find more information on how to use MetaPhlAn on its GitHub wiki."
     },
     {
-      "question": "Where can users find more information on how to use MetaPhlAn?",
-      "answer": "Users can refer to the MetaPhlAn 4 wiki for more information on how to use the tool."
+      "question": "What command lists the available MetaPhlAn wheels on Alliance clusters?",
+      "answer": "The `avail_wheels metaphlan --all-versions` command lists the available MetaPhlAn wheels."
     },
     {
-      "question": "How can one list the available MetaPhlAn software wheels?",
-      "answer": "You can list available MetaPhlAn wheels using the `avail_wheels metaphlan --all-versions` command."
+      "question": "What specific versions of MetaPhlAn are listed as available wheels in the document?",
+      "answer": "MetaPhlAn versions 4.0.3 and 3.0.7 are listed as available wheels."
     },
     {
-      "question": "Where must MetaPhlAn's databases be stored?",
-      "answer": "MetaPhlAn requires a set of databases that must be downloaded into the `$SCRATCH` directory."
+      "question": "What essential prerequisite is required before running MetaPhlAn?",
+      "answer": "MetaPhlAn requires a set of databases to be downloaded."
     },
     {
-      "question": "From where can MetaPhlAn databases be downloaded?",
-      "answer": "MetaPhlAn databases can be downloaded from the Segatalab FTP site (http://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases)."
+      "question": "In which directory must the MetaPhlAn databases reside?",
+      "answer": "The MetaPhlAn databases must live in the `$SCRATCH` directory."
     },
     {
-      "question": "What are the initial commands to prepare the database directory on a login node?",
-      "answer": "From a login node, you should use `export DB_DIR=$SCRATCH/metaphlan_databases`, `mkdir -p $DB_DIR`, and `cd $DB_DIR` to prepare the database directory."
+      "question": "Where can users download the necessary MetaPhlAn databases from?",
+      "answer": "Databases can be downloaded from the Segatalab FTP at http://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases."
+    },
+    {
+      "question": "What is the initial step for downloading MetaPhlAn databases from a login node?",
+      "answer": "From a login node, users should create a data folder, for example, `$SCRATCH/metaphlan_databases`, using `export DB_DIR=$SCRATCH/metaphlan_databases` and `mkdir -p $DB_DIR`."
     },
     {
       "question": "From which type of node must the MetaPhlAn databases be downloaded?",
       "answer": "The MetaPhlAn databases must be downloaded from a login node, not a compute node."
     },
     {
-      "question": "How are the downloaded MetaPhlAn databases typically extracted?",
-      "answer": "The downloaded MetaPhlAn databases are extracted by untarring the main archive (e.g., `tar -xf mpa_vJan21_CHOCOPhlAnSGB_202103.tar`) and then unzipping other compressed files (e.g., `parallel bunzip2 ::: *.bz2`) within an interactive job."
+      "question": "What is the recommended method for extracting downloaded MetaPhlAn database files?",
+      "answer": "The downloaded data should be extracted using an interactive job by first untarring the main archive and then unzipping the `.bz2` files, for example, `tar -xf mpa_vJan21_CHOCOPhlAnSGB_202103.tar` and `parallel bunzip2 ::: *.bz2`."
     },
     {
-      "question": "What SLURM resources are commonly requested for a MetaPhlAn job?",
-      "answer": "A MetaPhlAn job commonly requests an account, a time limit (e.g., 1 hour), CPUs per task (e.g., 4), and memory (e.g., 15G)."
+      "question": "What are the common SLURM resource requests specified in the example MetaPhlAn job script?",
+      "answer": "The example MetaPhlAn job script requests an account (e.g., `def-someuser`), a time limit (e.g., `01:00:00`), 4 CPUs per task, and 15GB of memory."
     },
     {
-      "question": "Which modules need to be loaded in a job script before running MetaPhlAn?",
-      "answer": "The required modules to load include `gcc`, `blast`, `samtools`, `bedtools`, `bowtie2`, and `python/3.14`."
+      "question": "Which modules need to be loaded on an Alliance cluster before running a MetaPhlAn job?",
+      "answer": "Before running a MetaPhlAn job, the following modules need to be loaded: `gcc`, `blast`, `samtools`, `bedtools`, `bowtie2`, and `python/3.14`."
     },
     {
-      "question": "How is the Python virtual environment prepared and activated within a MetaPhlAn job script?",
-      "answer": "The virtual environment is generated using `virtualenv --no-download ${SLURM_TMPDIR}/env` and then activated with `source ${SLURM_TMPDIR}/env/bin/activate`."
+      "question": "Where should a MetaPhlAn job script typically change its working directory to?",
+      "answer": "A MetaPhlAn job script should typically change its working directory to `$SCRATCH`."
     },
     {
-      "question": "How is MetaPhlAn installed within the virtual environment in a job script?",
-      "answer": "MetaPhlAn is installed using `pip install --no-index --upgrade pip` followed by `pip install --no-index metaphlan==X.Y.Z`, where 'X.Y.Z' is the desired version."
+      "question": "How is a Python virtual environment set up and activated for MetaPhlAn within a SLURM job script?",
+      "answer": "Within a job script, a Python virtual environment is generated in `$SLURM_TMPDIR` using `virtualenv --no-download ${SLURM_TMPDIR}/env`, and then activated with `source ${SLURM_TMPDIR}/env/bin/activate`."
     },
     {
-      "question": "What critical command-line options are important when running MetaPhlAn inside a job?",
-      "answer": "It is important to use the `--index` and `--bowtie2db` options when running MetaPhlAn inside a job."
+      "question": "How is MetaPhlAn and its dependencies installed within a Python virtual environment in a job script?",
+      "answer": "After activating the virtual environment, pip is upgraded and MetaPhlAn is installed using `pip install --no-index --upgrade pip` and `pip install --no-index metaphlan==X.Y.Z` (specifying the required version)."
     },
     {
-      "question": "How do you submit a MetaPhlAn job script to the scheduler?",
-      "answer": "You submit a MetaPhlAn job script to the scheduler using the command `sbatch metaphlan-job.sh`."
+      "question": "What crucial command-line arguments are highlighted for running the `metaphlan` tool within a job script?",
+      "answer": "It is important to use `--nproc`, `--index`, `--bowtie2db`, and `--bowtie2out` when running the `metaphlan` tool within a job script."
+    },
+    {
+      "question": "How do users submit a MetaPhlAn job script to the scheduler?",
+      "answer": "Users submit a MetaPhlAn job script to the scheduler using the command `sbatch metaphlan-job.sh`."
     }
   ],
-  "generated_at": "2026-04-12T02:22:17.620252+00:00"
+  "generated_at": "2026-04-13T09:14:19.301883+00:00"
 }

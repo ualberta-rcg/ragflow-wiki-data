@@ -3,77 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "How can users request Alliance staff to install academic software?",
-      "answer": "Users can email Alliance staff at `support@tech.alliancecan.ca` with a URL for the software they wish to have installed."
+      "question": "How can users request the installation of academic software that is freely available on the internet for use on Alliance clusters?",
+      "answer": "Users can email Alliance support staff, provide them with a URL, and ask them to install the package so that it can be accessed via a `module load` command."
     },
     {
-      "question": "What criteria must be met for Alliance staff to install software for users?",
-      "answer": "The software's license terms and technical requirements must be met for Alliance staff to make it available."
+      "question": "What are two reasons why a user might choose to install software in their own home space or project space on an Alliance cluster?",
+      "answer": "A user might choose to install software themselves if they plan to make their own modifications to the code or if they wish to evaluate it quickly."
     },
     {
-      "question": "Why might a user choose to install software in their own home or project space instead of requesting Alliance staff installation?",
-      "answer": "Users might install software in their own space if they plan to make modifications to the code or wish to evaluate it quickly."
+      "question": "What is a very common instruction pattern for installing software from source code on Alliance clusters?",
+      "answer": "A very common instruction pattern is `./configure`, `make`, and `make install`."
     },
     {
-      "question": "What is a frequently encountered instruction pattern for building software from source code?",
-      "answer": "The `configure; make; make install` instruction pattern is very common for building software from source."
+      "question": "If `make install` fails because a package expects to write to a shared area like `/usr/local` on an Alliance cluster, what is the usual solution?",
+      "answer": "The usual solution is to supply a `--prefix` flag at the `configure` step to direct the installation to a directory of the user's choice."
     },
     {
-      "question": "Why does `make install` sometimes fail, and what is the typical solution?",
-      "answer": "`make install` can fail if the package attempts to write to shared file system areas like `/usr/local` without proper permissions. The usual solution is to use the `--prefix` flag during the `configure` step to direct the installation to a user-specified directory."
+      "question": "Whom should users contact if they encounter other errors during software installation on Alliance clusters?",
+      "answer": "Users should contact Alliance support at support@computecanada.ca if other errors arise."
     },
     {
-      "question": "What should users do if installation instructions include `sudo make install`?",
-      "answer": "`sudo make install` will always fail because it requires 'root' or administrator privileges, which are not available to users. Users should look for alternative installation methods or contact support."
+      "question": "What is the simplest way to make use of a library on an Alliance system?",
+      "answer": "The simplest way is to first load the corresponding module using `module load library_name/x.y.z`."
     },
     {
-      "question": "How do users typically access and utilize a library on an Alliance system?",
-      "answer": "The simplest way is to first load the corresponding module using the `module load library_name/x.y.z` command."
+      "question": "Which environment variables are set when a library module is loaded on an Alliance system, and what do they point to?",
+      "answer": "Loading a library module sets `CPATH` and `LIBRARY_PATH` environment variables, pointing to the location of the library itself and its header files."
     },
     {
-      "question": "What environment variables are typically set when a library module is loaded, and how do compilers use them?",
-      "answer": "Loading a library module sets the `CPATH` and `LIBRARY_PATH` environment variables, which most compilers automatically use to locate header files and libraries during compilation and linking."
+      "question": "When explicitly specifying the location of a library for tools like `cmake` on an Alliance system, what is the preferred and most robust method?",
+      "answer": "The preferred method is to use an EasyBuild environment variable, such as `EBROOTGSL`, which adheres to the pattern `EBROOT` followed by the capitalized package name."
     },
     {
-      "question": "When using `cmake`, how is it recommended to explicitly specify the location of a library provided by a module?",
-      "answer": "It is recommended to use an EasyBuild environment variable, such as `EBROOTGSL` for the GSL library, following the pattern `EBROOT` concatenated with the capitalized package name (e.g., `-DGSL_DIR=$EBROOTGSL`)."
-    },
-    {
-      "question": "What advice is given if software installation instructions involve `apt-get` or `yum` commands?",
-      "answer": "If instructions involve `apt-get` or `yum`, users should look for alternative instructions to 'build from source' or contact `support@computecanada.ca` for assistance, as these commands are unlikely to work."
+      "question": "Can users install software on Alliance clusters using instructions that involve `apt-get` or `yum` commands?",
+      "answer": "It is unlikely that users will be able to install software using `apt-get` or `yum` instructions; they should look for instructions to build from source or contact support."
     },
     {
       "question": "How can users install Python, R, or Perl packages that are not already available on Alliance systems?",
-      "answer": "Users should consult the specific language's page for detailed guidance on using its package manager to install extensions into their home directory."
+      "answer": "Users can use the language's package manager to install the desired extension in their home directory, following the detailed guidance on each language's page."
     },
     {
-      "question": "What is a common error encountered when installing pre-compiled binary packages, and how can it be resolved?",
-      "answer": "Pre-compiled binaries may fail with errors like `/lib64/libc.so.6: version 'GLIBC_2.18' not found`. This can often be resolved by patching the binaries using the `setrpaths.sh --path path` script."
+      "question": "What common error can occur when installing pre-compiled binaries in a user's home directory on Alliance clusters, and what script helps resolve it?",
+      "answer": "A common error is `/lib64/libc.so.6: version 'GLIBC_2.18' not found`, which can often be patched using the `setrpaths.sh` script."
     },
     {
-      "question": "Where is the majority of software used on new Alliance clusters distributed from?",
-      "answer": "Most software is distributed centrally using the CVMFS file system, located under `/cvmfs/soft.computecanada.ca`, and is identical across all new clusters."
+      "question": "Where is almost all software used on the new Alliance clusters centrally distributed from?",
+      "answer": "Almost all software is centrally distributed under `/cvmfs/soft.computecanada.ca` using the CVMFS file system."
     },
     {
-      "question": "What is the core component of the Alliance software stack, and which environment variable points to its installation path?",
-      "answer": "The core of the software stack is provided by the `gentoo/2023` module, loaded by default. The environment variable `$EBROOTGENTOO` refers to its installation path at `/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr`."
+      "question": "What is the core module that provides the standard software stack on Alliance clusters, and which environment variable refers to its path?",
+      "answer": "The `gentoo/2023` module provides the core software stack, and its path is referred to by the `$EBROOTGENTOO` environment variable."
     },
     {
-      "question": "Why is it generally discouraged to set the `LD_LIBRARY_PATH` environment variable for software on Alliance systems?",
-      "answer": "CVMFS binaries use a RUNPATH, which embeds the directories for their runtime libraries. Setting `LD_LIBRARY_PATH` overrides this runpath and can prevent many binaries from functioning correctly."
+      "question": "What is the recommendation regarding the `LD_LIBRARY_PATH` environment variable when working with the Alliance software stack?",
+      "answer": "It is generally not necessary to use `LD_LIBRARY_PATH`, and users should not set it to locations like `/usr/lib64` or `$EBROOTGENTOO/lib64`, as it overrides the runpath and can cause many binaries to stop working."
     },
     {
-      "question": "In what specific scenarios should code be compiled on a compute node instead of a login node?",
-      "answer": "Code should be compiled on a compute node, typically within an interactive job, if it needs to be built on a node equipped with a GPU or a Skylake CPU."
+      "question": "In what specific situations might a user need to use the `module --force purge` command on Alliance clusters?",
+      "answer": "Users might need to use `module --force purge` for special situations like compiling GCC themselves or using custom toolchains such as the MESA SDK."
     },
     {
-      "question": "What is the function of the `module --force purge` command?",
-      "answer": "The `module --force purge` command removes the CVMFS environment, leaving a bare AlmaLinux-9 installation without modules. This is useful for compiling custom toolchains or software like GCC."
-    },
-    {
-      "question": "How can users find the location of header and library files for a specific module loaded on the Alliance system?",
-      "answer": "After loading a module (e.g., `hdf5`), its installation path is referenced by an `EBROOT...` environment variable (e.g., `$EBROOTHDF5`), with header files in `$EBROOTHDF5/include` and library files in `$EBROOTHDF5/lib`."
+      "question": "When should code be compiled on a compute node rather than a login node on Alliance clusters?",
+      "answer": "Code should be compiled on a compute node if it needs to be built on a node with a GPU or a Skylake CPU, by starting an interactive job on a host with the required hardware."
     }
   ],
-  "generated_at": "2026-04-12T00:08:00.085359+00:00"
+  "generated_at": "2026-04-13T07:24:36.504819+00:00"
 }

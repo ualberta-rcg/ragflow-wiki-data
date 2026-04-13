@@ -3,89 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Nearline and what is its primary purpose?",
-      "answer": "Nearline is a tape-based filesystem intended for storing inactive data, such as datasets not expected to be accessed for several months."
+      "question": "What is the purpose of the /nearline filesystem on Alliance clusters?",
+      "answer": "The /nearline filesystem is a tape-based system intended for inactive data, meaning datasets that users do not expect to access for months are good candidates for storage there."
     },
     {
-      "question": "What are the guidelines for file sizes when storing data in /nearline?",
-      "answer": "Files smaller than approximately 10GB should be combined into archive files (tarballs), while files larger than 4TB should be split into 1TB chunks. Index files are an exception to the small file rule."
+      "question": "What are the recommended file size guidelines for storing data in the /nearline filesystem?",
+      "answer": "Files smaller than approximately 10GB should be combined into archive files (tarballs). Files larger than 4TB should be split into 1TB chunks. Index files are an exception and can be stored as small files."
     },
     {
-      "question": "Is it necessary to compress data before storing it in /nearline?",
-      "answer": "No, it's not necessary as the tape archive system automatically performs compression using specialized circuitry."
+      "question": "Is it necessary to compress data before storing it in the /nearline filesystem?",
+      "answer": "No, it is not necessary to compress data for /nearline because the tape archive system automatically performs compression using specialized circuitry."
     },
     {
-      "question": "Which tools are recommended for creating archive files for /nearline?",
-      "answer": "`tar` or `dar` are recommended."
+      "question": "Which tools are recommended for creating archive files for the /nearline filesystem, and where should these archives be created?",
+      "answer": "The `tar` or `dar` tools are recommended for creating archive files. These archives should be created directly in /nearline for efficiency and to avoid using additional storage space."
     },
     {
-      "question": "What is the best practice for creating archives when using /nearline?",
-      "answer": "Create the archive directly in /nearline instead of creating it elsewhere and then copying it, as this is more efficient and doesn't require additional storage space."
+      "question": "Why should users create an index for their archive files stored in /nearline?",
+      "answer": "Creating an index allows users to find individual files within a bundled collection without having to restore the entire large collection from tape when only a few files are needed."
     },
     {
-      "question": "Why should users create an index for their archive files in /nearline?",
-      "answer": "Creating an index helps users find individual files within a large archive without having to restore the entire collection from tape."
+      "question": "Can data stored in the /nearline filesystem be accessed directly from compute nodes?",
+      "answer": "No, data in /nearline cannot be read from compute nodes. This is because data retrieval from tape can take an uncertain amount of time, and /nearline is not mounted on compute nodes."
     },
     {
-      "question": "How can an index file be created for a `tar` archive?",
-      "answer": "An index can be created by saving the verbose output of `tar` when creating the archive (e.g., `tar cvvf ... > mycollection.index`) or by listing the contents of an existing archive (e.g., `tar tvvf ... > mycollection.index`)."
+      "question": "What are the advantages of using tape storage, such as /nearline, compared to disk or solid-state (SSD) media?",
+      "answer": "Tape storage offers a lower cost per unit of data, easily expanded storage volume by buying more tapes, and effectively zero energy consumption per unit of data stored."
     },
     {
-      "question": "Can /nearline be accessed from compute nodes?",
-      "answer": "No, /nearline is not mounted on compute nodes, and reading from it is not permitted in a job context due to uncertain data retrieval times."
+      "question": "Describe the typical lifecycle of a file stored in the /nearline filesystem.",
+      "answer": "When a file is first copied, it exists only on disk. After a period, it's copied to tape (existing on both disk and tape). Later, the disk copy may be deleted, leaving the file only on tape. When recalled, it's copied back from tape to disk."
     },
     {
-      "question": "Where should resource-intensive archiving processes be run?",
-      "answer": "These processes should be run on a data-transfer node (DTN) if available, or on a login node if no DTN is present."
+      "question": "What should users expect regarding data transfer times when moving files from the /nearline filesystem, especially with tools like Globus?",
+      "answer": "Users should expect longer transfer times from /nearline because files on tape are automatically restored to disk upon reading, and each file restoration can hang the transfer for a few minutes to a few hours."
     },
     {
-      "question": "Why should a terminal multiplexer like `tmux` be used for archiving large file collections?",
-      "answer": "Terminal multiplexers help manage long-running archiving processes, which can take hours or days, by preventing interruptions from SSH session disconnections and allowing users to close their session while the program continues to run."
+      "question": "How can a user determine the storage state of a specific file in the /nearline filesystem (e.g., on disk, on tape, or both)?",
+      "answer": "The `lfs hsm_state <FILE>` command can be used. States include `(0x00000000)` for disk-only, `exists archived` for disk and tape, and `released exists archived` for tape-only."
     },
     {
-      "question": "What are the key advantages of tape storage used by /nearline compared to disk or SSD media?",
-      "answer": "Tape storage offers a lower cost per unit of data, easily expandable storage volume, and effectively zero energy consumption per unit of data stored."
+      "question": "On clusters like Béluga, what is the process for files being copied to tape and then virtualized in /nearline?",
+      "answer": "Files placed in `~/nearline/PROJECT` are copied onto tape after about 24 hours. If the file remains unchanged for another 24 hours, the disk copy is removed, making the file virtualized on tape."
     },
     {
-      "question": "How does /nearline help improve the performance of /project?",
-      "answer": "By offloading inactive data from /project, /nearline reduces the load on /project and thereby improves its performance."
+      "question": "What happens if a user accidentally deletes a file from their `~/nearline` directory on the Béluga cluster?",
+      "answer": "If a file is deleted from `~/nearline` on Béluga, the tape copy will be retained for up to 60 days. Users can contact technical support with the full path and desired version to restore it."
     },
     {
-      "question": "Describe the typical lifecycle of a file stored in /nearline.",
-      "answer": "Initially, a file exists only on disk; after a period, it's copied to tape (existing on both); later, the disk copy may be deleted (existing only on tape); when recalled, it's copied back to disk."
+      "question": "How does the /nearline service on the Nibi cluster differ from that on Béluga regarding file archiving?",
+      "answer": "On Nibi, it may take longer than 24 hours for the first tape copy of the data to be created, and the disk copy will not be erased until 60 days have passed (compared to Béluga's 24-hour retention)."
     },
     {
-      "question": "What does it mean for a file to be \"virtualized\" on /nearline, and what are the implications when reading it?",
-      "answer": "A virtualized file exists entirely on tape but still appears in directory listings. Reading such a file will trigger a recall from tape, causing the process trying to read it to block for an uncertain amount of time (from minutes to over an hour)."
+      "question": "What is the /nearline service called on the Trillium cluster, and what are the primary methods for accessing it?",
+      "answer": "On Trillium, the /nearline service is called HPSS. It can be accessed by submitting HPSS-specific commands (`htar` or `hsi`) as Slurm jobs, using the VFS node (`salloc -pvfsshort`), or via Globus using the `alliancecan#hpss` endpoint."
     },
     {
-      "question": "What should users expect regarding transfer times when moving data from /nearline using tools like Globus?",
-      "answer": "Users should expect longer transfer times because each file restoration from tape to disk can pause the transfer for minutes to hours."
+      "question": "Why is using a terminal multiplexer like `tmux` recommended when archiving large file collections for /nearline?",
+      "answer": "Archiving large file collections can take several hours or days, and a terminal multiplexer allows the program to continue running in the background even if the SSH session is interrupted or closed."
     },
     {
-      "question": "How can users check the state of files on /nearline, and what are the possible states?",
-      "answer": "On some clusters, `diskusage_report --nearline --per_user --all_users` can be used. Possible `Location` states include `On disk and tape`, `Modified, will be archived again`, `Archiving in progress`, and `On tape`. The `lfs hsm_state <FILE>` command provides similar information for individual files."
-    },
-    {
-      "question": "How can a user explicitly force a file to be recalled from tape to disk without actually reading it?",
-      "answer": "The command `lfs hsm_restore <FILE>` can be used for this purpose."
-    },
-    {
-      "question": "On Béluga, where is /nearline accessible, and what is the typical timeline for files to be moved to tape and for disk copies to be removed?",
-      "answer": "/nearline is accessible on login nodes and DTNs. Files are copied to tape after about 24 hours, and the disk copy is removed after another 24 hours if the file remains unchanged."
-    },
-    {
-      "question": "What happens if a file is accidentally deleted from `~/nearline` on Béluga, and how can it be restored?",
-      "answer": "The tape copy is retained for up to 60 days. To restore it, users should contact technical support with the full path and desired version of the file(s)."
-    },
-    {
-      "question": "How does the /nearline service on Nibi differ from Béluga?",
-      "answer": "On Nibi, it may take longer than 24 hours for the first tape copy to be created, and the disk copy is retained for 60 days before being erased."
-    },
-    {
-      "question": "What is the /nearline service on Trillium, and what are the three methods for accessing it?",
-      "answer": "On Trillium, the /nearline service is HPSS. It can be accessed by submitting HPSS-specific commands (`htar` or `hsi`) as Slurm jobs, by using the VFS node (`salloc --time=1:00:00 -pvfsshort`), or by using Globus with the `alliancecan#hpss` endpoint."
+      "question": "How should the `dar` command be used to ensure non-interactive operation when archiving files for /nearline, especially in an unattended terminal multiplexer?",
+      "answer": "It is recommended to explicitly disable interactivity with `dar -Q`. When used without an attached terminal, `dar` runs in non-interactive mode and assumes a “no” answer to any questions."
     }
   ],
-  "generated_at": "2026-04-12T10:25:25.338869+00:00"
+  "generated_at": "2026-04-13T15:26:58.355473+00:00"
 }

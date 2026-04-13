@@ -4,33 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Comment faire pour vérifier si ma licence Ansys est bien configurée et qu'elle fonctionne correctement?",
-      "answer": "Pour vérifier si votre fichier `ansys.lic` est bien configuré et fonctionne comme il faut, vous devez copier et coller la séquence de commandes fournie sur la grappe où vous prévoyez soumettre vos tâches."
+      "question": "Comment est-ce qu'on peut vérifier si la licence Ansys est bien configurée et fonctionne correctement sur un nœud de calcul?",
+      "answer": "Pour vérifier la configuration et le bon fonctionnement de la licence Ansys sur un nœud de calcul, il faut d'abord se rendre dans le répertoire `/tmp`, allouer des ressources avec la commande `salloc --time=1:0:0 --mem=1000M --account=def-YOURUSERID`, charger les modules `StdEnv/2023` et `ansys/2025R2.04`, puis exécuter la commande `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\"`."
     },
     {
-      "question": "Quelles sont les commandes à exécuter pour tester la configuration de ma licence Ansys sur une grappe?",
-      "answer": "Vous devez d'abord vous rendre dans le répertoire `/tmp` (`cd /tmp`). Ensuite, allouez des ressources avec `salloc --time=1:0:0 --mem=1000M --account=def-VOTREIDUTILISATEUR`. Chargez les modules `StdEnv/2023` et `ansys/2025R2.04`. Finalement, exécutez la commande `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\" 1> /dev/null && echo Success || echo Fail`."
+      "question": "Quelle commande Linux est utilisée pour lancer l'outil de vérification de l'état de la licence Ansys après avoir chargé les modules sur un nœud de calcul?",
+      "answer": "Après avoir chargé les modules `StdEnv/2023` et `ansys/2025R2.04` sur un nœud de calcul, la commande pour vérifier l'état de la licence Ansys est `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\"`."
     },
     {
-      "question": "Si la commande de vérification de la licence Ansys affiche \"Success\", qu'est-ce que ça signifie?",
-      "answer": "Si la commande affiche `Success`, ça veut dire que l'extraction des licences devrait fonctionner lorsque vous soumettez vos tâches dans la file d'attente."
-    },
-    {
-      "question": "Si la commande de vérification de la licence Ansys affiche \"Fail\", qu'est-ce que ça signifie?",
-      "answer": "Si la commande affiche `Fail`, ça signale un problème avec la configuration de la licence quelque part, et vos tâches risquent de ne pas fonctionner."
-    },
-    {
-      "question": "Est-ce que la version du module Ansys que je charge pour le test de licence a une importance?",
-      "answer": "Oui, pour que la licence fonctionne quand vous soumettez des tâches, il faut s'assurer d'utiliser la même version du module Ansys que celle chargée par votre script dans les commandes de vérification."
-    },
-    {
-      "question": "Dans l'exemple de commande, quelle est la version de l'environnement standard et du module Ansys qui sont chargés pour la vérification de la licence?",
-      "answer": "L'exemple charge l'environnement `StdEnv/2023` et le module Ansys `ansys/2025R2.04`."
-    },
-    {
-      "question": "Que dois-je faire avec `def-YOURUSERID` dans la commande `salloc` lors de la vérification de la licence?",
-      "answer": "Vous devez remplacer `def-YOURUSERID` par votre véritable identifiant d'utilisateur ou celui de votre groupe (`def-VOTREIDUTILISATEUR`) dans la commande `salloc`."
+      "question": "Qu'est-ce qu'un message de « Success » indique après avoir exécuté la vérification de la licence Ansys sur un nœud de calcul?",
+      "answer": "Un message de « Success » indique que les demandes de licence Ansys devraient fonctionner sans problème lors de la soumission de tâches à la file d'attente."
     }
   ],
-  "generated_at": "2026-04-12T16:56:25.691624+00:00"
+  "generated_at": "2026-04-13T01:55:14.379399+00:00"
 }

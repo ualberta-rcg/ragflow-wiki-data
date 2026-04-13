@@ -3,97 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is META-Farm and what is its primary purpose?",
-      "answer": "META-Farm, or META, is a suite of scripts designed in SHARCNET to automate high-throughput computing, also known as farming, serial farming, or task farming, on Alliance national systems and other Slurm-based clusters."
+      "question": "What new features were introduced in version 1.0.3 of the META-Farm suite of scripts, released in March 2025?",
+      "answer": "Version 1.0.3 of the META-Farm suite adds support for the Trillium cluster, which includes the introduction of a new WHOLE_NODE mode and other accommodations."
     },
     {
-      "question": "What new feature was introduced in Version 1.0.3 of META-Farm?",
-      "answer": "Version 1.0.3, released in March 2025, adds support for the Trillium cluster through the introduction of the new WHOLE_NODE mode, which packages serial farm jobs into whole node jobs."
+      "question": "What is META-Farm and what is its primary purpose on Alliance national systems?",
+      "answer": "META-Farm is a suite of scripts designed in SHARCNET to automate high-throughput computing, also known as farming, serial farming, or task farming, on all Alliance national systems and other clusters using the Slurm scheduler."
     },
     {
-      "question": "Could you define the terms 'case' and 'job' as used within the META-Farm context?",
-      "answer": "In META-Farm, a 'case' refers to one independent computation, which could be a serial, parallel, or GPU-using program. A 'job' is an invocation of the Slurm job scheduler that may handle several cases."
+      "question": "In the context of the META-Farm package, what is the distinction between a \"case,\" a \"job,\" and a \"metajob\"?",
+      "answer": "A 'case' refers to one independent computation, a 'job' is an invocation of the Slurm job scheduler, and a 'metajob' is a job in META mode that can handle multiple cases."
     },
     {
-      "question": "What are the two main modes of operation offered by META-Farm?",
-      "answer": "META-Farm offers two modes of operation: SIMPLE mode, which handles one case per job, and META mode, which handles many cases per job with dynamic workload balancing."
+      "question": "What are some of the key features offered by the META-Farm suite for high-throughput computing?",
+      "answer": "Key features include two modes of operation (SIMPLE and META), dynamic workload balancing in META mode, capture of individual case exit statuses, automatic resubmission of failed or unrun cases, management of multiple concurrent farms, and automatic post-processing job execution."
     },
     {
-      "question": "What are some of the key features of META-Farm?",
-      "answer": "Key features include two operational modes (SIMPLE and META), dynamic workload balancing in META mode, capture of individual case exit statuses, automatic resubmission of failed or unrun cases, support for multiple independent farms, and automatic post-processing job execution."
+      "question": "What are the main advantages of using the META-Farm package compared to other approaches like GLOST for farm processing?",
+      "answer": "META-Farm offers significantly shorter queue wait times, eliminates wasted idle CPU time at the end of computations, and supports automated resubmission of failed or unrun cases, features not typically found in GLOST."
     },
     {
-      "question": "What are the basic technical requirements for using META-Farm?",
-      "answer": "For each farm, every case must be described as a separate line in a `table.dat` file, and each farm must operate within its own dedicated directory."
+      "question": "How does a user typically initiate a new farm using the META-Farm package on an Alliance cluster?",
+      "answer": "To initiate a new farm, a user logs into a cluster, loads the `meta-farm` module, and then runs the `farm_init.run Farm_name` command to create a farm directory and its essential files."
     },
     {
-      "question": "How does META mode achieve dynamic workload balancing?",
-      "answer": "In META mode, metajobs read lines from `table.dat` in a serialized manner using a `lockfile` mechanism. This ensures that metajobs handling shorter cases process more of them, leading to dynamic workload balancing across all running metajobs."
+      "question": "What are the roles of the `table.dat` file and the `single_case.sh` script when setting up a farm with the META-Farm package?",
+      "answer": "The `table.dat` file describes one independent computation (case) per line, and the `single_case.sh` script reads and parses a line from `table.dat` to launch the user's code for that specific case."
     },
     {
-      "question": "What are the advantages of META-Farm over approaches like GLOST for high-throughput computing?",
-      "answer": "META-Farm offers dramatically shorter queue wait times, avoids idle CPU time at the end of computations as metajobs exit when done, and supports automated resubmission of failed or unrun cases, unlike GLOST."
+      "question": "What essential modifications must be made to the `job_script.sh` file created by `farm_init.run` in the META-Farm package?",
+      "answer": "Users must at minimum change the Slurm account name (using the `-A` switch) and set an appropriate metajob runtime (using the `-t` or `--time` switch) within the `job_script.sh` file."
     },
     {
-      "question": "What are the essential steps to quickly start using META-Farm?",
-      "answer": "Quick start steps include loading the `meta-farm` module, initializing a farm directory with `farm_init.run`, customizing `table.dat`, `single_case.sh`, and `job_script.sh`, then submitting with `submit.run -1` for SIMPLE mode or `submit.run N` for META mode."
+      "question": "Name some common utility commands provided by the META-Farm package for managing a computational farm, and explain their basic functions.",
+      "answer": "Common commands include `submit.run` (to submit the farm), `resubmit.run` (to resubmit failed cases), `query.run` (to get a short summary of farm status), `kill.run` (to terminate running and queued jobs), and `clean.run` (to delete most farm-related files)."
     },
     {
-      "question": "Which command is used to initialize a new farm directory in META-Farm?",
-      "answer": "The `farm_init.run` command is used to initialize a new farm directory, which also creates essential files within it."
+      "question": "When should a user choose SIMPLE mode versus META mode for running computations with the META-Farm package?",
+      "answer": "SIMPLE mode is suitable for a fairly small number of cases (under 500) where each runs for at least 20 minutes. META mode is preferred for a much larger number of cases or when individual case runtimes are short, to reduce scheduling overhead and manage job limits."
     },
     {
-      "question": "How do you submit a farm to the scheduler using META-Farm, differentiating between SIMPLE and META modes?",
-      "answer": "To submit, use `submit.run -1` for SIMPLE mode (one case per job), or `submit.run N` for META mode, where 'N' is the desired number of metajobs (multiple cases per job)."
+      "question": "How do you use the `submit.run` command to launch a farm in either SIMPLE or META mode within the META-Farm package, and what is the purpose of the `-auto` switch?",
+      "answer": "To launch in SIMPLE mode, use `submit.run -1`. For META mode, use `submit.run N`, where N is the desired number of metajobs. The `-auto` switch enables the farm to automatically resubmit itself until all cases are processed."
     },
     {
-      "question": "What does the `resubmit.run` command do?",
-      "answer": "The `resubmit.run` command analyzes `status.*` files, identifies cases that failed or never ran, creates a `table.dat_` file with only those cases, and then launches a new farm to re-compute them."
+      "question": "What is the significance of the `STATUS` variable within the `single_case.sh` script in the META-Farm package, and how can it be customized for error handling?",
+      "answer": "The `STATUS` variable indicates if a case computed correctly (0) or failed (positive value), which is crucial for `resubmit.run`. Users can customize `single_case.sh` to set `STATUS` based on their program's exit code or by adding checks, such as verifying the existence or content of output files."
     },
     {
-      "question": "How can you get a quick summary of a farm's status, including progress, without listing all jobs?",
-      "answer": "The `query.run` command provides a short summary of the farm's state, showing the number of queued, running, and completed jobs, as well as the progress of processed cases."
+      "question": "How does the META-Farm package achieve dynamic workload balancing in META mode across multiple metajobs?",
+      "answer": "In META mode, metajobs read cases from the `table.dat` file in a serialized manner using a `lockfile` mechanism, allowing jobs that finish cases faster to pick up more work. This ensures all metajobs tend to finish around the same time, regardless of individual case runtimes."
     },
     {
-      "question": "What is the purpose of the `single_case.sh` script, and how can it be customized?",
-      "answer": "`single_case.sh` reads one line from `table.dat`, parses it, and launches the user's code for a single case. It can be customized to include common commands, use case IDs as arguments, or modify error detection for the `STATUS` variable."
+      "question": "What is the recommended process for estimating the optimal runtime and number of metajobs when setting up a large farm in META mode using the META-Farm package?",
+      "answer": "Users should first estimate the average case runtime by testing a few cases. Then, calculate the total CPU time needed for all cases. Choose a metajob runtime (e.g., 12h-24h) that is significantly longer than the average case runtime but not excessively long, and divide the total CPU-hours by this chosen runtime to determine the number of metajobs."
     },
     {
-      "question": "Why is the `STATUS` variable important in `single_case.sh` and how should it be set?",
-      "answer": "The `STATUS` variable is crucial for `resubmit.run` to identify failed cases. It should be set to '0' for a successful computation and a positive value (greater than 0) for any failure. Users can customize how it's set beyond just the program's exit code, for example, by checking for expected output files."
+      "question": "What specific recommendations are given for optimizing very large farms (e.g., over 10,000 cases) running with the META-Farm package?",
+      "answer": "For very large farms, it is recommended to minimize the creation of files and directories, instruct the code to append to existing output files (one per metajob, not one per case), and avoid creating a separate subdirectory for each case to enhance efficiency."
     },
     {
-      "question": "What must be included in `job_script.sh`, and what should users typically customize?",
-      "answer": "`job_script.sh` must include the Slurm runtime switch (`-t` or `--time`). Users should customize the account name (`-A`) and the metajob runtime to suit their needs."
-    },
-    {
-      "question": "What output files and directories are created in the farm directory when metajobs are running?",
-      "answer": "When metajobs run, `OUTPUT/slurm-$JOBID.out` (standard output per metajob), `STATUSES/status.$JOBID` (case statuses per metajob), and the `MISC` directory (auxiliary data) are created in the farm directory."
-    },
-    {
-      "question": "When should one use SIMPLE mode versus META mode?",
-      "answer": "SIMPLE mode is recommended for a fairly small number of cases (less than 500) where each case runs for at least 20 minutes. META mode is preferred for a large number of cases (greater than 500) or if individual cases have short runtimes."
-    },
-    {
-      "question": "How can users estimate the optimal runtime for metajobs and the number of metajobs needed for a farm?",
-      "answer": "Users should estimate the average individual case runtime (`dt_case`) by running sample cases. Calculate the total CPU time, add a safety margin, then divide by a chosen metajob runtime (e.g., 12h-24h for good queue times) to determine the number of metajobs required, rounding up."
-    },
-    {
-      "question": "What precaution should be taken when using `clean.run`?",
-      "answer": "`clean.run` deletes all files in the farm directory (except specific scripts and `table.dat`) and associated scratch files, including all results produced by the farm. Users should be very careful when executing it."
-    },
-    {
-      "question": "What is the built-in protection mechanism in META-Farm to detect faulty metajobs?",
-      "answer": "META-Farm has a built-in mechanism that stops a metajob if the first `N_failed_max` cases finish in less than `dt_failed` seconds, indicating a potential issue. These parameters are configurable in `config.h`."
-    },
-    {
-      "question": "How can large farms, exceeding cluster job limits like 1000 jobs, be managed?",
-      "answer": "For farms larger than cluster job limits, users can sequentially submit with `submit.run 1000` and then repeatedly use `resubmit.run 1000` after each batch finishes. Alternatively, the `-auto` switch with `submit.run` or `resubmit.run` can fully automate resubmission."
-    },
-    {
-      "question": "What are some recommendations for optimizing META-Farm for very large numbers of cases (e.g., over 10,000)?",
-      "answer": "For very large farms, minimize file and directory creation, instruct code to append to existing output files (one per metajob) instead of creating new ones per case, and avoid creating separate subdirectories for each case."
+      "question": "Where can users find the standard output and status information for individual metajobs and cases within a farm run by the META-Farm package?",
+      "answer": "Standard output for each metajob is located in `OUTPUT/slurm-$JOBID.out`, and the status of each processed case is recorded in `STATUSES/status.$JOBID`, both within the farm directory. Auxiliary data is stored in the `MISC` directory."
     }
   ],
-  "generated_at": "2026-04-12T01:19:49.161155+00:00"
+  "generated_at": "2026-04-13T08:24:12.434575+00:00"
 }

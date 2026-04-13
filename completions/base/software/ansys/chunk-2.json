@@ -4,61 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What initial changes are required before using a local institutional Ansys license server on the Alliance?",
-      "answer": "Before a local institutional Ansys license server can be used on the Alliance, firewall changes will need to be done on both the server and cluster sides."
+      "question": "What information is needed and what steps are involved when configuring a local institutional Ansys license server for use on an Alliance cluster for the first time?",
+      "answer": "For a local institutional Ansys license server that has never been used on an Alliance cluster, you will need the configured Ansys flex port (FLEXPORT) number, the fully qualified hostname (LICSERVER) of the license server, and the statically configured vendor port (VENDPORT) from your local Ansys license server administrator. You also need confirmation that the `<servername>` (found in the first line of the license file with format \"SERVER <servername> <host id> <lmgrd port>\") will resolve to the same IP address as LICSERVER on the cluster. You should then email these three items (FLEXPORT, LICSERVER, VENDPORT) to Alliance technical support, mentioning which Alliance cluster you plan to use. An Alliance system administrator will open the outbound cluster firewall, and you'll receive a range of IP addresses to give to your local network administrator, who must open the firewall into your local license server to allow Ansys license connection requests to reach your FLEXPORT and VENDPORT ports across that IP range."
     },
     {
-      "question": "What information do I need to get from my local Ansys license server administrator if the server is already set up for use on an Alliance cluster?",
-      "answer": "You need to obtain two pieces of information: the configured Ansys flex port (FLEXPORT) number, which is commonly 1055, and the fully qualified hostname (LICSERVER) of the license server."
+      "question": "How can an Alliance researcher verify if their `ansys.lic` file is properly configured and connecting to their Ansys license server?",
+      "answer": "To test your `ansys.lic` configuration, you need to run a sequence of commands on the same cluster where you plan to submit jobs. First, `cd /tmp`. Then, allocate a compute node using `salloc`, for example: `salloc --time=1:0:0 --mem=1000M --account=def-YOURUSERID`. Once on the compute node, load the required Ansys modules: `module load StdEnv/2023; module load ansys/2025R2.04`. Finally, execute the license check command: `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\" 1> /dev/null && echo Success || echo Fail`. A `Success` output indicates that license checkouts should work when jobs are submitted."
     },
     {
-      "question": "How do I configure my license file for a 'Ready to use' local institutional Ansys license server?",
-      "answer": "You configure your `~/.licenses/ansys.lic` file by plugging the FLEXPORT and LICSERVER values you received from your administrator into the `FILE: ansys.lic` template."
-    },
-    {
-      "question": "What additional information is required to set up an Ansys license server that has never been used with an Alliance cluster?",
-      "answer": "In addition to the FLEXPORT and LICSERVER, you will need the statically configured vendor port (VENDPORT) of the license server and confirmation that the `<servername>` (found in the first line of your license file) resolves to the same IP address as LICSERVER on the cluster."
-    },
-    {
-      "question": "Whom should I contact to initiate the setup for a new local Ansys license server on an Alliance cluster?",
-      "answer": "You should send the FLEXPORT, LICSERVER, and VENDPORT information by email to technical support and mention which Alliance cluster you intend to run Ansys jobs on."
-    },
-    {
-      "question": "What happens after I send the necessary license server information to Alliance technical support for a new setup?",
-      "answer": "An Alliance system administrator will open the outbound cluster firewall to allow license checkout requests from compute nodes to your license server. They will then send you a range of IP addresses, which you must provide to your local network administrator to open the firewall into your local license server for FLEXPORT and VENDPORT ports across that IP range."
-    },
-    {
-      "question": "How can I test if my `ansys.lic` file is correctly configured and working with my license server?",
-      "answer": "To test your `ansys.lic` configuration, run the following commands on the cluster where you'll submit jobs: `cd /tmp`, `salloc --time=1:0:0 --mem=1000M --account=def-YOURUSERID`, then `module load StdEnv/2023; module load ansys/2025R2.04`, and finally `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\" 1> /dev/null && echo Success || echo Fail`."
-    },
-    {
-      "question": "What does 'Success' output mean when checking an Ansys license configuration?",
-      "answer": "`Success` output indicates that license checkouts should work when jobs are submitted to the queue."
-    },
-    {
-      "question": "What does 'Fail' output indicate when checking an Ansys license configuration?",
-      "answer": "`Fail` output indicates a problem with the licensing setup somewhere, and jobs will likely fail."
-    },
-    {
-      "question": "What message might appear in Slurm output files if there is an Ansys license server checkout problem?",
-      "answer": "If there's an Ansys license server checkout problem, a message like `Connected License Server List: <Shared_Web_License_Server> Hit return to exit.` will appear when Fluent jobs are started."
-    },
-    {
-      "question": "Are Ansys simulations typically forward or backward compatible?",
-      "answer": "Ansys simulations are typically forward compatible but not backwards compatible."
-    },
-    {
-      "question": "What does it mean that Ansys simulations are 'forward compatible'?",
-      "answer": "It means that simulations created using an older version of Ansys can be expected to load and run fine with any newer version."
-    },
-    {
-      "question": "Can simulations created with a newer version of Ansys be opened with an older version?",
-      "answer": "No, simulations created with a newer version cannot typically be opened with an older version. While it may be possible to start, random error messages or crashing will likely occur."
-    },
-    {
-      "question": "How can I determine which version of Ansys Fluent was used to create a `.cas` file?",
-      "answer": "You can try grepping the `.cas` file for clues, for example, by running `$ grep -ia fluent combustor.cas`."
+      "question": "Are Ansys simulations forward or backward compatible, and how can a user determine the version of Ansys used to create a Fluent case file?",
+      "answer": "Ansys simulations are typically forward compatible, meaning that simulations created with an older version of Ansys can generally be loaded and run with any newer version. For example, a simulation from ansys/2022R2 should work with ansys/2023R2. However, they are generally NOT backwards compatible; trying to run a simulation created with a newer version using an older Ansys version will likely result in random error messages or crashes. To determine the Ansys version used to create a Fluent `.cas` file, you can `grep` the file for clues, such as by running `grep -ia fluent combustor.cas`."
     }
   ],
-  "generated_at": "2026-04-12T16:34:27.968921+00:00"
+  "generated_at": "2026-04-13T01:40:17.256431+00:00"
 }

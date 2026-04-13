@@ -4,121 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is Gaussian?",
-      "answer": "Gaussian is a computational chemistry application produced by Gaussian, Inc."
+      "question": "What are the limitations regarding parallel execution for Gaussian jobs on national systems such as Nibi and Fir?",
+      "answer": "On national systems like Nibi and Fir, only \"shared-memory multiprocessor parallel execution\" is supported for Gaussian jobs. \"Cluster/network parallel execution,\" also known as \"Linda parallelism,\" is not supported, which means that no Gaussian job can use more than a single compute node."
     },
     {
-      "question": "On which national systems is Gaussian currently supported?",
-      "answer": "Gaussian is currently supported on Nibi and Fir."
+      "question": "What conditions must a user agree to in order to obtain access to the Gaussian computational chemistry application on national systems?",
+      "answer": "To use Gaussian, a user must agree to four conditions: they are not part of a research group developing competitive software, they will not copy or make Gaussian available to others, they will properly acknowledge Gaussian Inc. and the Alliance in publications, and they will notify the Alliance of any change in their acknowledgement. Sponsored users also require their sponsor (PI) to have such a statement on file. After agreeing, users must contact support to be granted access."
     },
     {
-      "question": "Is 'Linda parallelism' supported for Gaussian on our national systems?",
-      "answer": "No, cluster/network parallel execution of Gaussian, also known as 'Linda parallelism,' is not supported at any of our national systems."
-    },
-    {
-      "question": "What type of parallel execution is supported for Gaussian jobs?",
-      "answer": "Only 'shared-memory multiprocessor parallel execution' is supported for Gaussian jobs."
-    },
-    {
-      "question": "What is the maximum number of compute nodes a Gaussian job can use?",
-      "answer": "A Gaussian job cannot use more than a single compute node."
-    },
-    {
-      "question": "What must users do to gain access to Gaussian?",
-      "answer": "To gain access to Gaussian, you must agree to certain conditions and contact support with a copy of a specific statement."
-    },
-    {
-      "question": "What are the conditions a user must agree to for Gaussian access?",
-      "answer": "A user must agree not to be a member of a research group developing competitive software, not to copy or make the software available to others, to properly acknowledge Gaussian Inc. and the Alliance in publications, and to notify the Alliance of any change in the acknowledgement."
-    },
-    {
-      "question": "What additional requirement applies to sponsored Gaussian users?",
-      "answer": "If you are a sponsored user, your sponsor (PI) must also have a statement on file agreeing to the conditions of use."
-    },
-    {
-      "question": "How can I check which versions of the `gaussian` module are available on Nibi and Fir?",
-      "answer": "You can check available Gaussian versions by using the `module spider gaussian` command."
-    },
-    {
-      "question": "Which job scheduler is used on the national clusters for submitting Gaussian jobs?",
-      "answer": "The national clusters use the Slurm scheduler for submitting jobs."
-    },
-    {
-      "question": "What is the recommended maximum number of CPUs for a Gaussian job?",
-      "answer": "It is recommended to use no more than 32 CPUs per Gaussian job unless there is good evidence that they can be used efficiently."
-    },
-    {
-      "question": "How many CPUs are available per node on the Nibi and Fir clusters?",
-      "answer": "The new clusters Nibi and Fir have 192 CPUs per node."
-    },
-    {
-      "question": "Is it efficient to run full-node Gaussian jobs on Nibi and Fir?",
-      "answer": "No, it is inefficient to simply run full-node Gaussian jobs on Nibi and Fir."
-    },
-    {
-      "question": "What should a user do if their Gaussian job is limited by available memory on a single node?",
-      "answer": "If a job is limited by memory on a single node, users should be aware that some nodes at each site have more memory and should refer to the Fir and Nibi pages for details."
-    },
-    {
-      "question": "What files must be prepared for submitting a Gaussian job, and where should they be located?",
-      "answer": "You must prepare an input file (e.g., 'name.com') and a job script to define compute resources; both files must be in the same directory."
-    },
-    {
-      "question": "How many options are there for running Gaussian jobs on the clusters, and what are they based on?",
-      "answer": "There are two options for running Gaussian jobs on the clusters, based on the location of the default runtime files and the job size."
-    },
-    {
-      "question": "Where are the default runtime files saved when using the G16 (G09, G03) option?",
-      "answer": "When using the G16 (G09, G03) option, default runtime files (unnamed .rwf, .inp, .d2e, .int, .skr files) are saved to `/scratch/username/jobid/`."
-    },
-    {
-      "question": "Can the .rwf file from a G16 (G09, G03) job be used for restarting if the job is unfinished or failed?",
-      "answer": "Yes, the .rwf file saved to `/scratch/username/jobid/` using the G16 (G09, G03) option can be located and used for restart purposes later."
-    },
-    {
-      "question": "What are the example resource allocations for memory, time, and CPUs in a G16 job script?",
-      "answer": "An example G16 job script allocates 32GB of memory, a run time of 2 days (02-00:00), and 32 CPUs per task."
-    },
-    {
-      "question": "How do you run a G16 job using the provided script example?",
-      "answer": "You would load the G16 module with `module load gaussian/g16.c01` and then execute the job using `G16 name.com`."
-    },
-    {
-      "question": "How can a user run Gaussian 09 or Gaussian 03 instead of G16?",
-      "answer": "To run Gaussian 09 or Gaussian 03, a user needs to modify the module load command to `gaussian/g09.e01` or `gaussian/g03.d01` respectively, and change the executable command from `G16` to `G09` or `G03`."
-    },
-    {
-      "question": "What parameters in a Gaussian job script can be modified to match specific compute resource requirements?",
-      "answer": "The `--mem`, `--time`, and `--cpus-per-task` parameters in the job script can be modified to match a job's specific compute resource requirements."
-    },
-    {
-      "question": "Where are the default runtime files saved when using the g16 (g09, g03) option?",
-      "answer": "When using the g16 (g09, g03) option, default runtime files are temporarily saved in `$SLURM_TMPDIR` (e.g., `/localscratch/username.jobid.0/`) on the compute node."
-    },
-    {
-      "question": "Do Gaussian jobs run faster when using `/localscratch`?",
-      "answer": "Yes, Gaussian jobs will run faster when using `/localscratch`."
-    },
-    {
-      "question": "What happens to the runtime files saved in `$SLURM_TMPDIR` after a g16 job finishes?",
-      "answer": "These files will be automatically removed by the scheduler when the job finishes, whether successfully or not."
-    },
-    {
-      "question": "What must be done to use a .rwf file for restarting a g16 job at a later time?",
-      "answer": "If you plan to use the .rwf file to restart a g16 job later, you must explicitly specify and name your own .rwf file in the Gaussian input file."
-    },
-    {
-      "question": "What is the approximate size of `/localscratch` and how is it shared?",
-      "answer": "/localscratch is approximately 3TB and is shared by all jobs running on the same node."
-    },
-    {
-      "question": "When should the G16 (G09, G03) option be used instead of the g16 (g09, g03) option?",
-      "answer": "The G16 (G09, G03) option should be used instead if your job files would be bigger than or close to 3TB, which is the shared size of `/localscratch`."
-    },
-    {
-      "question": "How do you run a g16 job using the provided script example?",
-      "answer": "You would load the g16 module with `module load gaussian/g16.c01` and then execute the job using `g16 < name.com >& name.log`."
+      "question": "When submitting Gaussian jobs on clusters like Nibi and Fir, what is the recommended maximum number of CPUs to use per job, and what are the two main options for handling default runtime files?",
+      "answer": "When submitting Gaussian jobs on clusters such as Nibi and Fir, it is recommended to use no more than 32 CPUs per job, despite nodes having 192 CPUs, as using more can be inefficient due to Gaussian's scalability. There are two primary options for handling default runtime files:\n1.  **G16 (G09, G03)**: Saves default runtime files (e.g., .rwf) to `/scratch/username/jobid/`, where they persist for potential restarts.\n2.  **g16 (g09, g03)**: Saves default runtime files temporarily to `$SLURM_TMPDIR` (`/localscratch/username.jobid.0/`) on the compute node for faster execution. These files are automatically removed upon job completion, so the user must explicitly name any .rwf files intended for restart."
     }
   ],
-  "generated_at": "2026-04-11T22:50:56.568341+00:00"
+  "generated_at": "2026-04-13T06:23:23.606446+00:00"
 }

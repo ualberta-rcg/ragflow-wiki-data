@@ -3,77 +3,85 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "How do I request one or more GPUs for a Slurm job?",
-      "answer": "You can request GPUs using the form `--gpus-per-node=<model_specifier>:<number>`, for example, `--gpus-per-node=a100:1` for a single A100 GPU."
+      "question": "What is the primary purpose of the guide on GPU usage for Slurm jobs on Alliance clusters?",
+      "answer": "This guide provides instructions on how to request and use GPUs for Slurm jobs on Alliance clusters, including available models, recommended practices, and example scripts."
     },
     {
-      "question": "Is there an older command for requesting GPUs, and is it recommended?",
-      "answer": "Yes, `--gres=gpu:<model_specifier>:<number>` can also be used, but it may not be supported in the future. It is recommended to replace it with `--gpus-per-node` in your scripts."
+      "question": "How should users request one or more GPUs for a Slurm job on Alliance clusters?",
+      "answer": "Users should use the `--gpus-per-node=<model_specifier>:<number>` form to request GPUs for a Slurm job. For example: `--gpus-per-node=a100:1`."
     },
     {
-      "question": "What are some other Slurm directives available for requesting GPU resources?",
-      "answer": "Slurm supports directives such as `--gpus`, `--gpus-per-socket`, `--gpus-per-task`, `--mem-per-gpu`, and `--ntasks-per-gpu`."
+      "question": "What is the deprecated method for requesting GPUs in Slurm jobs, and what is the recommended alternative?",
+      "answer": "The `--gres=gpu:<model_specifier>:<number>` form is deprecated for requesting GPUs. The recommended alternative is to use `--gpus-per-node`."
     },
     {
-      "question": "How can I find a list of available GPU models and their specifiers?",
-      "answer": "A table in the document summarizes available GPU models and specifiers by cluster. You can also obtain model specifiers from Slurm using the command `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\\n/g'|cut -d: -f1|sort|uniq`."
+      "question": "What are some other Slurm directives that can be used to request GPU resources?",
+      "answer": "Other Slurm directives for requesting GPU resources include `--gpus`, `--gpus-per-socket`, `--gpus-per-task`, `--mem-per-gpu`, and `--ntasks-per-gpu`."
     },
     {
-      "question": "What GPU models are available on the Fir cluster?",
-      "answer": "The Fir cluster offers H100-80gb GPUs, including various Multi-Instance GPU (MIG) configurations."
+      "question": "How can users determine the available GPU models and their corresponding specifiers on a given Alliance cluster if the documentation is not up-to-date?",
+      "answer": "Users can use the `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\\n/g'|cut -d: -f1|sort|uniq` command to obtain the GPU model specifiers available on any given cluster from Slurm."
     },
     {
-      "question": "What GPU models are available on the Narval cluster?",
-      "answer": "The Narval cluster offers A100-40gb GPUs, including various Multi-Instance GPU (MIG) configurations."
+      "question": "Why is it strongly recommended to always provide a specific GPU model specifier in Slurm job scripts on Alliance clusters?",
+      "answer": "It is strongly recommended because not supplying a specifier may lead to the job being rejected or sent to an arbitrary GPU instance, which very few programs can use efficiently."
     },
     {
-      "question": "What GPU models are available on the Nibi cluster?",
-      "answer": "The Nibi cluster offers H100-80gb and MI300A-128gb GPUs, including various Multi-Instance GPU (MIG) configurations for H100s."
+      "question": "How are GPUs scheduled on the Arbutus cluster, according to the Alliance documentation?",
+      "answer": "GPUs on the Arbutus cluster, like other cloud resources, cannot be scheduled via Slurm. Users should refer to the Cloud resources documentation for more details."
     },
     {
-      "question": "What happens if I don't provide a specific GPU model specifier in my job script?",
-      "answer": "Your job may be rejected or sent to an arbitrary GPU instance, which is generally inefficient. It is strongly recommended to always provide a specific GPU model specifier."
+      "question": "What is Multi-Instance GPU (MIG) technology, as described in the Alliance documentation?",
+      "answer": "MIG is a technology that partitions a GPU into multiple instances, allowing jobs to potentially use a MIG instance instead of a whole GPU."
     },
     {
-      "question": "What are Multi-Instance GPUs (MIGs)?",
-      "answer": "MIG is a technology that partitions a GPU into multiple instances, allowing your jobs to potentially use a MIG instance instead of a whole GPU."
+      "question": "What is the default number of CPU cores allocated with each GPU instance in an Alliance Slurm job, and where can users find recommended maximums for CPU cores and system memory per GPU?",
+      "answer": "The default number of CPU cores is 1 per GPU instance. Recommended maximum numbers of CPU cores and gigabytes of system memory per GPU instance are listed in the table of bundle characteristics under \"Allocations and compute scheduling\"."
     },
     {
-      "question": "Should I request CPU cores and system memory when requesting a GPU?",
-      "answer": "Yes, along with each GPU instance, your job should have a number of CPU cores (default is 1) and some amount of system memory."
+      "question": "What are the recommended maximum CPU cores per full GPU on the Fir, Narval, Nibi, and Rorqual clusters?",
+      "answer": "The recommended maximum CPU cores per full GPU are: no more than 12 on Fir, no more than 12 on Narval, no more than 14 on Nibi, and no more than 16 on Rorqual."
     },
     {
-      "question": "What are the recommended maximum CPU cores per full GPU on the Fir and Narval clusters?",
-      "answer": "On both Fir and Narval, it is recommended to use no more than 12 CPU cores per full GPU."
+      "question": "How can a user request a single A100 GPU with 4GB of memory for a single-core job in a Slurm script on an Alliance cluster?",
+      "answer": "A user can include `#SBATCH --gpus-per-node=a100:1` and `#SBATCH --mem=4000M` in their Slurm script."
     },
     {
-      "question": "How do I request a single A100 GPU with one CPU core, 4000M memory, and a 3-hour time limit for a single-core job?",
-      "answer": "You would use a Slurm batch script specifying `--gpus-per-node=a100:1`, `--mem=4000M`, and `--time=0-03:00` for your program."
+      "question": "How can a user request a single A100 GPU with 6 CPU cores and 4GB of memory for a multi-threaded job in a Slurm script on an Alliance cluster?",
+      "answer": "A user can include `#SBATCH --gpus-per-node=a100:1`, `#SBATCH --cpus-per-task=6`, and `#SBATCH --mem=4000M` in their Slurm script."
     },
     {
-      "question": "How can I run a multi-threaded GPU job on Slurm?",
-      "answer": "Request `--cpus-per-task` (e.g., `--cpus-per-task=6`) along with your GPU request, and set `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK` in your script."
+      "question": "What tool is recommended for packing multiple single-GPU or two-GPU programs within one Slurm job for longer durations?",
+      "answer": "GNU Parallel is recommended for packing multiple single-GPU or two-GPU programs within one Slurm job, especially for jobs longer than 24 hours."
     },
     {
-      "question": "How can I run multiple single-GPU programs efficiently within one Slurm job?",
-      "answer": "GNU Parallel is recommended, especially for jobs longer than 24 hours, using `CUDA_VISIBLE_DEVICES` to assign GPUs to concurrent tasks."
+      "question": "How can users enable GPU profiling on Narval and Rorqual clusters?",
+      "answer": "Users can enable GPU profiling by disabling the NVIDIA Data Center GPU Manager (DCGM) during job submission, by setting the `DISABLE_DCGM=1` environment variable, and then waiting for DCGM to be disabled in the interactive job."
     },
     {
-      "question": "How do I profile GPU tasks on Narval and Rorqual?",
-      "answer": "You must disable the NVIDIA Data Center GPU Manager (DCGM) during job submission by setting `DISABLE_DCGM=1` and then wait for DCGM to be disabled in your interactive job before launching your profiler."
+      "question": "Is GPU profiling, using the technique described for disabling DCGM, available on Fir and Nibi clusters?",
+      "answer": "No, GPU profiling using the described technique is not yet available on Fir and Nibi clusters."
     },
     {
-      "question": "Is GPU profiling available on Fir and Nibi using the DCGM disabling method?",
-      "answer": "No, GPU profiling using the described technique is not yet available on Fir and Nibi."
+      "question": "Which Alliance clusters provide H100-80gb GPU models?",
+      "answer": "The Fir, Nibi, Rorqual, Trillium, Killarney, and tamIA clusters provide H100-80gb GPU models."
     },
     {
-      "question": "Can GPUs on Arbutus be scheduled via Slurm?",
-      "answer": "No, GPUs at Arbutus are cloud resources and cannot be scheduled via Slurm. Refer to 'Cloud resources' for more details."
+      "question": "Which Alliance clusters provide A100-40gb GPU models?",
+      "answer": "The Narval cluster provides A100-40gb GPU models."
     },
     {
-      "question": "What is the benefit of asking Slurm for a whole node if my application can use it efficiently?",
-      "answer": "If your application can efficiently use an entire node and its associated GPUs, you will probably experience shorter wait times."
+      "question": "Which Alliance clusters provide L40S-48gb GPU models?",
+      "answer": "The Killarney and Vulcan clusters provide L40S-48gb GPU models."
+    },
+    {
+      "question": "What are the common model specifiers for the H100-80gb GPU on Alliance clusters when requesting a full GPU?",
+      "answer": "The common model specifier for a full H100-80gb GPU is `h100`."
+    },
+    {
+      "question": "What is the model specifier for the MI300A-128gb GPU on Alliance clusters?",
+      "answer": "The model specifier for the MI300A-128gb GPU is `mi300a`."
     }
   ],
-  "generated_at": "2026-04-12T10:01:02.660099+00:00"
+  "generated_at": "2026-04-13T15:08:27.764288+00:00"
 }

@@ -4,89 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi GLOST?",
-      "answer": "GLOST (pour Greedy Launcher Of Small Tasks) est un outil qui sert à exécuter plein de tâches séquentielles, qu'elles soient de courte durée, de durée variable, ou avec des jeux de paramètres (parameter sweep)."
+      "question": "C'est quoi, GLOST, pis à quoi ça sert exactement?",
+      "answer": "GLOST, ou «Greedy Launcher Of Small Tasks», c'est un outil conçu pour exécuter un grand nombre de tâches séquentielles, qu'elles soient de courte durée, de durée variable ou avec des jeux de paramètres. Ça sert à regrouper plusieurs de ces tâches pour les faire rouler dans une seule tâche MPI, ce qui simplifie la gestion et le lancement."
     },
     {
-      "question": "À quoi le fonctionnement de GLOST est-il semblable?",
-      "answer": "Son fonctionnement est semblable à celui de GNU parallel ou d'un vecteur de tâches, mais avec une syntaxe simplifiée."
+      "question": "Quels sont les avantages d'utiliser GLOST, particulièrement par rapport à l'ordonnanceur de tâches?",
+      "answer": "Le principal avantage de GLOST, c'est de diminuer la charge sur l'ordonnanceur de tâches (comme Slurm). Au lieu de soumettre plein de petites tâches séquentielles qui peuvent le ralentir, GLOST les regroupe toutes dans un fichier nommé `list_glost_tasks.txt` et les soumet comme une seule tâche MPI avec `glost_launch`. Ça réduit considérablement le nombre de demandes que l'ordonnanceur doit traiter, ce qui minimise les délais et les interruptions."
     },
     {
-      "question": "Quelles commandes et quelle enveloppe GLOST utilise-t-il?",
-      "answer": "GLOST utilise l'enveloppe (wrapper) `glost_launch` et les commandes MPI `srun`, `mpiexec` et `mpirun`."
-    },
-    {
-      "question": "Quel est le nom du fichier texte que GLOST utilise pour regrouper les tâches?",
-      "answer": "GLOST utilise un fichier texte nommé **list_glost_tasks.txt** qui regroupe les tâches et qui est employé comme argument pour l'enveloppe `glost_launch`."
-    },
-    {
-      "question": "Dans quels cas GLOST est-il particulièrement utile?",
-      "answer": "GLOST est particulièrement utile pour plusieurs tâches séquentielles de durée comparable, plusieurs tâches séquentielles de courte durée, ou des tâches séquentielles avec des paramètres variables (parameter sweep)."
-    },
-    {
-      "question": "Quel est le principe de base de GLOST?",
-      "answer": "Le principe est de grouper plein de tâches séquentielles et de les faire exécuter dans une tâche MPI qui peut utiliser plusieurs cœurs (un ou plusieurs nœuds)."
-    },
-    {
-      "question": "Quel est l'avantage principal de grouper les tâches avec GLOST pour l'ordonnanceur?",
-      "answer": "Avec moins de tâches dans la queue, l'ordonnanceur sera moins sollicité."
-    },
-    {
-      "question": "Y a-t-il un paquet logiciel alternatif à GLOST qui est mentionné dans la documentation?",
-      "answer": "Oui, le paquet logiciel META, développé par une de nos équipes, est mentionné comme alternative."
-    },
-    {
-      "question": "Quels sont les avantages de META par rapport à GLOST?",
-      "answer": "Avec META, le temps d'attente total peut être beaucoup plus court, la surcharge imposée est moindre, il y a un mécanisme pratique pour resoumettre les calculs qui ont échoué ou qui n'ont jamais été exécutés, et META peut traiter autant les tâches séquentielles que les tâches multifils, MPI, GPU et hybrides."
-    },
-    {
-      "question": "Que doit faire un utilisateur avant de commencer à utiliser GLOST?",
-      "answer": "L'utilisateur devrait lire toute la page pour savoir si l'outil peut servir dans ses travaux. Si c'est le cas, il pourra demander de l'assistance à l'équipe technique pour modifier ses processus."
-    },
-    {
-      "question": "Pourquoi est-ce qu'on dit que GLOST atténue le fardeau de Slurm?",
-      "answer": "GLOST atténue le fardeau de Slurm parce qu'il diminue de beaucoup le nombre de tâches dans la queue en les regroupant dans un seul fichier, ce qui produit moins de demandes à traiter par l'ordonnanceur que si elles étaient soumises séparément."
-    },
-    {
-      "question": "Comment l'expérience utilisateur est-elle améliorée avec GLOST concernant la soumission de tâches?",
-      "answer": "Avec GLOST, l'utilisateur soumet et traite juste quelques tâches MPI plutôt que des centaines ou des milliers de tâches séquentielles."
-    },
-    {
-      "question": "Quelle implémentation de MPI GLOST utilise-t-il?",
-      "answer": "GLOST utilise OpenMPI pour grouper des tâches séquentielles dans une tâche MPI."
-    },
-    {
-      "question": "Quels modules faut-il charger pour pouvoir utiliser GLOST?",
-      "answer": "Il faut charger OpenMPI et le module GLOST correspondant."
-    },
-    {
-      "question": "Comment peut-on voir les modules GLOST qui sont disponibles?",
-      "answer": "Pour voir les modules GLOST disponibles, il faut utiliser la commande `module spider glost`."
-    },
-    {
-      "question": "Selon la commande `module spider glost/0.3.1`, quel est le but de GLOST?",
-      "answer": "La description est: \"This is GLOST, the Greedy Launcher Of Small Tasks.\" (C'est GLOST, le Lanceur Gourmand de Petites Tâches)."
-    },
-    {
-      "question": "Quelles sont les propriétés de GLOST d'après la commande `module spider`?",
-      "answer": "Les propriétés sont \"Tools for development / Outils de développement\"."
-    },
-    {
-      "question": "Quels modules faut-il charger avant que le module `glost/0.3.1` soit disponible pour être chargé, selon `module spider`?",
-      "answer": "Il faut charger tous les modules d'une des lignes suivantes: `StdEnv/2023 gcc/12.3 openmpi/4.1.5` ou `StdEnv/2023 intel/2023.2.1 openmpi/4.1.5`."
-    },
-    {
-      "question": "Où peut-on trouver plus d'information sur GLOST, comme sa page d'accueil?",
-      "answer": "La page d'accueil de GLOST est https://github.com/cea-hpc/glost."
-    },
-    {
-      "question": "Si un module OpenMPI est déjà chargé dans l'environnement, que doit-on faire pour activer GLOST?",
-      "answer": "Il suffit d'ajouter `module load glost` à la liste des modules nécessaires pour activer GLOST."
-    },
-    {
-      "question": "Quelle commande permet de s'assurer que GLOST et les autres modules requis sont bien présents?",
-      "answer": "On peut lancer la commande `module list` pour vérifier que GLOST et les autres modules sont présents."
+      "question": "Comment on fait pour rendre GLOST disponible dans notre environnement de travail avant de l'utiliser?",
+      "answer": "Pour pouvoir utiliser GLOST, il faut charger le module OpenMPI, puis le module GLOST correspondant. Si OpenMPI est déjà présent dans l'environnement par défaut, une simple commande comme `module load glost` suffit. Pour vérifier si tous les modules nécessaires sont bien chargés, on peut utiliser la commande `module list`."
     }
   ],
-  "generated_at": "2026-04-11T22:14:04.137048+00:00"
+  "generated_at": "2026-04-13T05:56:10.827555+00:00"
 }

@@ -3,61 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi R pis à quoi ça sert, en gros?",
-      "answer": "R est un outil de calcul statistique et de graphiques. C'est un langage de programmation avec un environnement graphique, un débogueur pis des fonctions système, qui permet d'exécuter des scripts."
+      "question": "Qu'est-ce que R, et pourquoi est-il considéré comme un outil essentiel sur les supercalculateurs d'Alliance?",
+      "answer": "R est un outil de calcul statistique et de graphiques, ainsi qu'un langage de programmation avec un environnement graphique et un débogueur. Même s'il n'a pas été développé pour le calcul de haute performance, sa popularité dans plusieurs disciplines scientifiques (génie, maths, statistique, bio-informatique) en fait un outil essentiel sur les supercalculateurs dédiés à la recherche universitaire."
     },
     {
-      "question": "Pourquoi R est important même s'il est pas fait pour le calcul de haute performance?",
-      "answer": "Sa popularité dans plusieurs disciplines scientifiques (génie, maths, statistique, bio-informatique) en fait un outil essentiel sur les supercalculateurs universitaires, d'autant plus que certaines fonctions compilées en C sont parallélisées, ce qui donne des performances raisonnables sur un seul nœud."
+      "question": "Comment puis-je charger un module R sur les grappes d'Alliance pour commencer à l'utiliser?",
+      "answer": "Pour charger un module R, vous devez d'abord consulter les versions disponibles en utilisant la commande `module spider r`, puis charger une version spécifique avec une commande comme `module load r/4.5.0`."
     },
     {
-      "question": "Comment je fais pour commencer à utiliser R sur les grappes?",
-      "answer": "Faut d'abord charger un module R. Tu peux voir les versions dispo avec `module spider r` pis après tu charges la version que tu veux avec `module load r/VERSION` (ex: `module load r/4.5.0`)."
+      "question": "Quelle est la méthode recommandée pour exécuter des scripts R de manière non interactive sur les systèmes d'Alliance?",
+      "answer": "Pour exécuter des scripts R de manière non interactive, il faut utiliser la commande `Rscript` suivie du nom de votre fichier script, par exemple `Rscript computation.R`."
     },
     {
-      "question": "C'est quoi la différence entre lancer l'interpréteur R pis exécuter un script R de manière non interactive?",
-      "answer": "Lancer l'interpréteur (`R`) te met dans un environnement interactif pour entrer du code. Pour exécuter un script R de manière non interactive, tu utilises `Rscript` suivi du nom de ton fichier (ex: `Rscript computation.R`), ce qui est idéal pour le traitement en lot."
+      "question": "Pourquoi les calculs R d'une durée de plus de deux ou trois minutes ne devraient-ils pas être exécutés directement par un nœud de calcul sur les grappes d'Alliance, et quelle est la solution?",
+      "answer": "Les calculs R d'une durée de plus de deux ou trois minutes ne devraient pas être exécutés directement par un nœud de calcul. Ils devraient plutôt être soumis à l'ordonnanceur (scheduler) pour être exécutés comme des tâches en lot, afin d'utiliser les ressources de manière appropriée et efficace."
     },
     {
-      "question": "Si mon calcul R dure plus de deux ou trois minutes, qu'est-ce que je devrais faire?",
-      "answer": "Les calculs qui prennent plus de deux ou trois minutes devraient pas être faits directement sur un nœud de calcul, mais plutôt soumis à l'ordonnanceur de tâches (Slurm) via un script de soumission."
+      "question": "Comment doit-on installer des paquets R à partir du CRAN sur les grappes d'Alliance en utilisant `install.packages()`?",
+      "answer": "Pour installer des paquets R à partir du CRAN, vous devez utiliser `install.packages()` dans une session R interactive sur un nœud de connexion, et non pas sur un nœud de calcul. Il est aussi recommandé de charger un module `gcc` avant l'installation, par exemple `module load gcc/12.3.0 r/4.5.0`."
     },
     {
-      "question": "Comment j'installe des paquets R du CRAN?",
-      "answer": "Tu dois lancer une session R interactive sur un nœud de connexion pis utiliser la commande `install.packages('nom_du_paquet', repos='https://cloud.r-project.org/')`. C'est recommandé de charger un module `gcc` avant."
+      "question": "Comment s'assurer qu'un paquet R est installé pour une version spécifique de R et dans un répertoire personnel sur les grappes d'Alliance?",
+      "answer": "Pour installer un paquet R pour une version spécifique et dans un répertoire personnel, créez d'abord le répertoire local avec `mkdir -p ~/.local/R/$EBVERSIONR/` et exportez `R_LIBS` avec `export R_LIBS=~/.local/R/$EBVERSIONR/`. Ensuite, installez le paquet avec `R -e 'install.packages(\"sp\", repos=\"https://cloud.r-project.org/\")'`."
     },
     {
-      "question": "Qu'est-ce que je dois faire si un paquet R a des dépendances à des bibliothèques externes?",
-      "answer": "Si la bibliothèque est déjà installée sur nos grappes, tu dois charger le module approprié avant d'installer le paquet. Si l'installation échoue, le message d'erreur pourrait t'indiquer les modules manquants."
+      "question": "Que doit-on faire si l'installation d'un paquet R échoue à cause de dépendances sur des bibliothèques externes?",
+      "answer": "Si l'installation d'un paquet R échoue et qu'il y a des dépendances, vérifiez le message d'erreur. S'il indique des modules requis, chargez les modules appropriés (par exemple, `gcc` ou `openmpi`) avant de tenter d'installer le paquet."
     },
     {
-      "question": "Comment je passe des arguments à un script R?",
-      "answer": "Tu peux les passer directement après la commande `Rscript` (ex: `Rscript myscript.R input_1.csv 5`). Dans le script, tu récupères ces arguments avec `commandArgs(trailingOnly=TRUE)`."
+      "question": "Comment installer un paquet R que j'ai téléchargé manuellement (par exemple, un fichier .tgz) sur les systèmes d'Alliance?",
+      "answer": "Pour installer un paquet R téléchargé manuellement, utilisez la commande `R CMD INSTALL -l 'chemin pour votre bibliothèque R locale' archive_package.tgz` dans l'interpréteur (shell)."
     },
     {
-      "question": "Avant de paralléliser mon code R, qu'est-ce que je devrais vérifier?",
-      "answer": "Avant d'investir du temps dans la parallélisation, assure-toi que ton code séquentiel est le plus efficient possible. Évite les boucles imbriquées pis utilise les fonctions vectorielles ou les fonctions de la famille `apply` quand c'est possible pour de meilleurs gains de performance."
+      "question": "Quelle est la syntaxe recommandée pour faire des appels système dans R sur les grappes d'Alliance pour éviter des problèmes avec `LD_LIBRARY_PATH`?",
+      "answer": "Pour éviter des problèmes avec la variable d'environnement `LD_LIBRARY_PATH` lors d'appels système dans R, utilisez la syntaxe `system(\"LD_LIBRARY_PATH=$RSNT_LD_LIBRARY_PATH <mon appel système>\")` au lieu de simplement `system(\"<mon appel système>\")`."
     },
     {
-      "question": "Comment fonctionne la parallélisation avec `doParallel` et `foreach`?",
-      "answer": "Tu dois charger `foreach` pis `doParallel`, enregistrer le système dorsal en lui disant le nombre de cœurs (souvent `Sys.getenv(\"SLURM_CPUS_PER_TASK\")`), pis après utiliser `foreach()` avec l'opérateur `%dopar%`."
+      "question": "Comment passer des arguments à un script R exécuté avec `Rscript` sur les grappes d'Alliance?",
+      "answer": "Les arguments peuvent être passés directement après le nom du script R, par exemple, `Rscript myscript.R input_1.csv 5`. À l'intérieur du script R, vous pouvez y accéder en utilisant `args = commandArgs(trailingOnly=TRUE)`."
     },
     {
-      "question": "Comment je peux utiliser `doParallel` avec `makeCluster` pour de la parallélisation sur plusieurs nœuds?",
-      "answer": "Tu dois créer une grappe avec `makeCluster()` en lui passant la liste des nœuds (via la variable d'environnement `NODESLIST` obtenue avec `srun hostname | cut -f 1 -d '.'`), enregistrer la grappe avec `registerDoParallel()`, pis n'oublie pas de libérer les ressources avec `stopCluster()` après les calculs."
+      "question": "Avant de paralléliser mon code R sur les supercalculateurs d'Alliance, quelle est la première étape cruciale pour optimiser la performance?",
+      "answer": "Avant de paralléliser votre code R, assurez-vous que votre implémentation séquentielle est aussi efficiente que possible. Priorisez l'utilisation de fonctions vectorielles, des fonctions de la famille `apply` et de `ifelse` pour éliminer les boucles (surtout imbriquées), car cela peut souvent apporter un gain de performance plus important que la parallélisation elle-même."
     },
     {
-      "question": "Quelles sont les étapes pour installer Rmpi?",
-      "answer": "Il faut charger les modules `gcc`, `openmpi` pis `r`, télécharger la bonne version de Rmpi, créer un répertoire local pour tes bibliothèques R (ex: `~/local/R_libs/`), pis lancer l'installation avec `R CMD INSTALL` en spécifiant les chemins pour MPI via `--configure-args`."
+      "question": "Comment configurer et utiliser `doParallel` avec `foreach` pour la parallélisation en R sur les systèmes d'Alliance?",
+      "answer": "Pour utiliser `doParallel` et `foreach`, vous devez charger `library(doParallel)`, puis enregistrer le système dorsal en indiquant le nombre de cœurs disponibles avec `registerDoParallel(cores=ncores)`, où `ncores` peut être obtenu via `Sys.getenv(\"SLURM_CPUS_PER_TASK\")` dans un script de tâche. Ensuite, utilisez l'opérateur `%dopar%` avec `foreach()` sur la même ligne."
     },
     {
-      "question": "Comment on lance un script Rmpi sur les grappes?",
-      "answer": "Après avoir chargé les modules nécessaires (gcc, openmpi, r) et défini ton `R_LIBS`, tu peux lancer ton script R (ex: `test.R`) avec `mpirun -np 1 R CMD BATCH test.R test.txt` dans ton script de soumission Slurm."
+      "question": "Comment utiliser `doParallel` avec `makeCluster` pour la parallélisation en R, notamment pour distribuer des processus sur plusieurs nœuds?",
+      "answer": "Pour utiliser `doParallel` avec `makeCluster`, vous devez charger `library(doParallel)`. Créez ensuite une grappe en spécifiant les nœuds (par exemple, à partir de la variable d'environnement `NODESLIST` définie par SLURM) et le type de grappe (`type = \"PSOCK\"`), par exemple `cl = makeCluster(nodeslist, type = \"PSOCK\")`. Puis, enregistrez-la avec `registerDoParallel(cl)` et n'oubliez pas de libérer les ressources avec `stopCluster(cl)` à la fin."
     },
     {
-      "question": "Quel est le problème avec la commande R `system()` sur les grappes pis comment le régler?",
-      "answer": "La commande `system()` dans R peut donner une valeur incorrecte à la variable `LD_LIBRARY_PATH`. Faut plutôt utiliser la syntaxe `system(\"LD_LIBRARY_PATH=$RSNT_LD_LIBRARY_PATH <mon appel système>\")` pour éviter les pépins."
+      "question": "Quelles sont les étapes pour installer le paquet `Rmpi` sur les grappes d'Alliance afin d'exécuter R en parallèle avec MPI?",
+      "answer": "Pour installer `Rmpi`, vous devez d'abord charger les modules `gcc`, `openmpi` et `r` appropriés (par exemple, `module load gcc/12.3 openmpi/4.1.5 r/4.5.0`). Téléchargez ensuite la dernière version de `Rmpi` (un fichier `.tar.gz`) et configurez un répertoire local pour les bibliothèques. Enfin, lancez l'installation avec `R CMD INSTALL --configure-args=\"--with-Rmpi-include=$EBROOTOPENMPI/include --with-Rmpi-libpath=$EBROOTOPENMPI/lib --with-Rmpi-type='OPENMPI' \" Rmpi_X.X-X.tar.gz`."
     }
   ],
-  "generated_at": "2026-04-12T06:15:22.562958+00:00"
+  "generated_at": "2026-04-13T12:07:35.015188+00:00"
 }

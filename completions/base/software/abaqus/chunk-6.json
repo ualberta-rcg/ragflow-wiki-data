@@ -4,65 +4,13 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "What is the name of the Slurm script provided for a temporary directory restart of a standard Abaqus analysis on a single node?",
-      "answer": "The script is named `scriptst2.txt`."
+      "question": "How do you submit an Abaqus Standard Analysis job to an Alliance cluster that restarts a previous simulation, utilizes a temporary directory for scratch files, and runs on a single node?",
+      "answer": "To submit an Abaqus Standard Analysis job that restarts a simulation, uses a temporary directory for scratch files, and runs on a single node, you would use a Slurm script such as `scriptst2.txt`. This script is configured to load the `abaqus/2026` module, copy previous job files (`testst1*`) to `$SLURM_TMPDIR`, create a scratch subdirectory, and then execute Abaqus with `job=testst2`, `oldjob=testst1`, and specify `scratch=$SLURM_TMPDIR/scratch`. The script also includes a loop to save data back to the submission directory (`$SLURM_SUBMIT_DIR`) periodically and upon completion, to prevent data loss. The restart input file (`mystd-sim-restart.inp`) must contain `*HEADING` and `*RESTART, READ`."
     },
     {
-      "question": "What are the default Slurm resource requests for the `scriptst2.txt` temporary directory restart script?",
-      "answer": "The script requests `--account=def-group`, `--time=00-06:00` (6 hours), `--cpus-per-task=4`, `--mem=8G`, and `--nodes=1`."
-    },
-    {
-      "question": "Which Abaqus module is loaded by default in the `scriptst2.txt` for a temporary directory restart?",
-      "answer": "The `abaqus/2026` module, which is the latest version, is loaded by default."
-    },
-    {
-      "question": "How does the `scriptst2.txt` manage temporary files for an Abaqus restart job?",
-      "answer": "The script copies `testst1*` files to `$SLURM_TMPDIR`, creates a scratch directory `$SLURM_TMPDIR/scratch`, and changes the working directory to `$SLURM_TMPDIR` before running Abaqus."
-    },
-    {
-      "question": "How does the `scriptst2.txt` ensure data is saved periodically during long-running jobs?",
-      "answer": "It includes a `while sleep 6h; do ... cp -fv testst2* $SLURM_SUBMIT_DIR 2>/dev/null; done &` loop to save data back to the submit directory every 6 hours."
-    },
-    {
-      "question": "What is the Abaqus command used in the `scriptst2.txt` for restarting a standard analysis job?",
-      "answer": "The command is `abaqus job=testst2 oldjob=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim-restart.inp scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
-    },
-    {
-      "question": "What content is required in the restart input file (`mystd-sim-restart.inp`) for a standard Abaqus analysis restart?",
-      "answer": "The restart input file should contain `*HEADING` and `*RESTART, READ`."
-    },
-    {
-      "question": "When should users consider using multiple node computing for Abaqus standard analysis?",
-      "answer": "Users with large memory or compute needs and access to large licenses should use multiple node computing to distribute processing over arbitrary node ranges determined by the scheduler."
-    },
-    {
-      "question": "Are restart scripts provided for multi-node Abaqus standard analysis jobs?",
-      "answer": "No, a companion template script to perform restarts of multinode jobs is not currently provided due to additional limitations."
-    },
-    {
-      "question": "Which Abaqus versions are supported for multi-node computing in the standard analysis scripts?",
-      "answer": "Only `abaqus/2026` or newer may be used with these scripts."
-    },
-    {
-      "question": "What is the purpose of the `scriptsp1-mpi.txt` Slurm script?",
-      "answer": "The `scriptsp1-mpi.txt` script is used for performing MPI-based computing over an arbitrary range of nodes for Abaqus standard analysis, typically for users with large memory or compute requirements."
-    },
-    {
-      "question": "What are the default Slurm resource requests for the `scriptsp1-mpi.txt` multi-node MPI script?",
-      "answer": "The script requests `--account=def-group`, `--time=00-06:00` (6 hours), `--ntasks=8`, `--mem-per-cpu=4G`, and `--cpus-per-task=1`."
-    },
-    {
-      "question": "How does the `scriptsp1-mpi.txt` script determine the host list for MPI processes?",
-      "answer": "It uses `slurm_hl2hl.py` and other shell commands to generate an `mp_host_list` which is then exported and written to the `abaqus_v6.env` file."
-    },
-    {
-      "question": "What is the Abaqus command for running an MPI-based job in the `scriptsp1-mpi.txt` script?",
-      "answer": "The command is `abaqus job=testsp1-mpi input=mystd-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_NTASKS interactive mp_mode=mpi`."
-    },
-    {
-      "question": "Which Abaqus module is loaded for multi-node MPI-based computing jobs using `scriptsp1-mpi.txt`?",
-      "answer": "The `abaqus/2026` module, which is the latest version, is loaded."
+      "question": "How can a user with large computational needs submit an MPI-based Abaqus Standard Analysis job that uses multiple compute nodes on an Alliance cluster?",
+      "answer": "Users with large memory or compute requirements can submit an MPI-based Abaqus Standard Analysis job across multiple compute nodes on an Alliance cluster using a Slurm script like `scriptsp1-mpi.txt`. This script is specifically designed for Abaqus version 2026 or newer and automatically determines the node range. Key Slurm parameters include `--ntasks` for the total number of cores and `--mem-per-cpu` for memory per core. The script dynamically generates an `mp_host_list` using `slurm_hl2hl.py` and exports it to `abaqus_v6.env`, which Abaqus then uses to distribute the computation via MPI. It's important to note that a dedicated restart script for multi-node jobs is not currently provided due to additional limitations."
     }
   ],
-  "generated_at": "2026-04-11T15:27:28.761670+00:00"
+  "generated_at": "2026-04-13T00:44:05.481956+00:00"
 }

@@ -3,97 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Java and when was it developed?",
-      "answer": "Java is a general-purpose, high-level, object-oriented programming language developed in 1995 by Sun Microsystems."
+      "question": "What is the primary purpose of the Java page on Alliance clusters?",
+      "answer": "The Java page on Alliance clusters aims to provide tips and hints for using Java in a high-performance computing environment, rather than teaching the Java programming language itself."
     },
     {
-      "question": "What was a principal design goal for Java?",
-      "answer": "A principal design goal for Java was a high degree of portability across platforms, summarized by 'write once, run anywhere'."
+      "question": "How are different Java virtual machines made accessible to users on Alliance's systems?",
+      "answer": "Different Java virtual machines are made accessible to users on Alliance's systems via the module command, similar to other software packages."
     },
     {
-      "question": "How does Java achieve its portability across platforms?",
-      "answer": "Java achieves portability by having its source code compiled to 'bytecode' which then runs inside a Java virtual machine (JVM)."
+      "question": "What are the two principal commands associated with Java modules that users should be aware of?",
+      "answer": "The two principal commands associated with Java modules are `java` to launch the Java virtual machine and `javac` to call the Java compiler."
     },
     {
-      "question": "What is the specific purpose of this page regarding Java?",
-      "answer": "This page provides tips and hints for using Java in a high-performance computing environment, such as Alliance clusters."
+      "question": "How can a user run a Java program distributed as a JAR file on Alliance clusters?",
+      "answer": "A user can run a Java program distributed as a JAR file by using the command `java -jar file.jar`, assuming the JAR file has been compiled to operate as an autonomous program with a `Main-class` manifest header."
     },
     {
-      "question": "How do users access different Java virtual machines on Alliance systems?",
-      "answer": "Users access different Java virtual machines on Alliance systems via the `module` command."
+      "question": "What built-in mechanism does Java offer for handling parallelism through threading?",
+      "answer": "Java includes built-in support for threading through the `Thread` class, which programmers can use by providing a `Runnable` method or by subclassing the `Thread` class."
     },
     {
-      "question": "What are the two principal commands associated with Java modules?",
-      "answer": "The two principal commands are `java` to launch the Java virtual machine and `javac` to call the Java compiler."
+      "question": "Which library is commonly used for MPI-style parallelism in Java programs on Alliance clusters?",
+      "answer": "The MPJ Express library is a common method for using MPI-style parallelism in a Java program on Alliance clusters."
     },
     {
-      "question": "How is Java software frequently distributed, and how can it be executed as an autonomous program?",
-      "answer": "Java software is frequently distributed as a JAR file with the `.jar` extension, and can be executed using `java -jar file.jar` if it has a `Main-class` manifest header."
+      "question": "What common memory issue can arise when running Java programs on Alliance clusters due to how the Java VM sets heap sizes?",
+      "answer": "A common memory issue is that the Java VM's default initial (1/64 of physical memory) and maximum (1/4 of physical memory) heap sizes can easily exceed the memory limits imposed by the scheduler or shell, leading to 'insufficient memory' errors."
     },
     {
-      "question": "How does Java support threading for concurrency?",
-      "answer": "Java includes built-in support for threading, using the `Thread` class, which obviates the need for separate interfaces like OpenMP or pthreads."
+      "question": "How can users explicitly specify the initial and maximum heap sizes for a Java virtual machine on the command line?",
+      "answer": "Users can explicitly specify the initial and maximum heap sizes by using the command-line options `-Xms` for the initial heap size and `-Xmx` for the maximum heap size, for example, `java -Xms256m -Xmx4g -version`."
     },
     {
-      "question": "What are two methods a programmer can use to handle concurrency with the `Thread` class?",
-      "answer": "A programmer can either provide a `Runnable` method to the `Thread` class or subclass the `Thread` class."
+      "question": "Is there an alternative method to setting Java run-time options instead of passing them directly on the command line?",
+      "answer": "Yes, an alternative method is to use the `JAVA_TOOL_OPTIONS` environment variable to set run-time options, which is convenient for multiple Java calls or when calling Java from another Java program."
     },
     {
-      "question": "What is a drawback of subclassing the `Thread` class for multithreading?",
-      "answer": "A drawback is that Java does not permit multiple inheritance, so the class cannot subclass any other potentially more useful class."
+      "question": "What is recommended regarding the memory limit for a job when setting Java's `-Xmx` option on Alliance clusters?",
+      "answer": "It is recommended to specify the memory limit for the job as 1-2GB more than the setting on the Java command line option `-Xmx` to account for the Java virtual machine's memory usage overhead."
     },
     {
-      "question": "Which library is commonly used for MPI-style parallelism in Java programs?",
-      "answer": "The MPJ Express library is a common method for using MPI-style parallelism in Java programs."
+      "question": "How does Java's default garbage collector behave concerning CPU cores, and what is the implication for resource usage?",
+      "answer": "By default, the Java VM uses a parallel garbage collector that sets the number of GC threads equal to the number of CPU cores on a given node. Each GC thread consumes memory, proportional to the amount of physical memory, which can lead to excessive resource consumption."
     },
     {
-      "question": "What is a common memory-related pitfall for Java programs in shared computing environments?",
-      "answer": "The Java virtual machine expects access to all physical memory, which can exceed memory limits imposed by schedulers or shells, leading to failures."
+      "question": "How can users optimize the number of garbage collection threads for a Java job on Alliance clusters?",
+      "answer": "Users can optimize garbage collection threads by matching the number of GC threads to the number of CPU cores requested from the scheduler using `-XX:ParallelGCThreads=N`, or by specifying `-XX:+UseSerialGC` to use the serial garbage collector."
     },
     {
-      "question": "What are the default initial and maximum heap sizes set by the Java VM?",
-      "answer": "The Java VM defaults to an initial heap size of 1/64 of physical memory and a maximum heap size of 1/4 of physical memory."
+      "question": "What is the primary effect of the `volatile` keyword on a variable in Java?",
+      "answer": "In Java, applying `volatile` to a variable ensures its value is always read from and written to main memory, which helps make modifications visible to other threads."
     },
     {
-      "question": "What error messages might indicate insufficient memory for the Java Runtime Environment?",
-      "answer": "Error messages like 'Could not reserve enough space for object heap' or 'There is insufficient memory for the Java Runtime Environment to continue' indicate this issue."
-    },
-    {
-      "question": "How can users explicitly control Java's run-time memory parameters?",
-      "answer": "Users can explicitly control memory parameters on the command line using flags like `-Xms256m -Xmx4g` or `-XX:InitialHeapSize=256m -XX:MaxHeapSize=4g`."
-    },
-    {
-      "question": "What environment variable can be used to set Java run-time options, and how is its usage verified?",
-      "answer": "The `JAVA_TOOL_OPTIONS` environment variable can be used, and its usage is verified by a diagnostic message 'Picked up JAVA_TOOL_OPTIONS'."
-    },
-    {
-      "question": "What is the recommended memory limit for a job compared to the `-Xmx` setting?",
-      "answer": "It is recommended to specify the memory limit for your job as 1-2GB more than your `-Xmx` setting due to JVM overhead."
-    },
-    {
-      "question": "How can you see all the command-line options the JVM will run with?",
-      "answer": "You can see all command-line options by specifying the flag `-XX:+PrintCommandLineFlags`."
-    },
-    {
-      "question": "What is Java's garbage collection system?",
-      "answer": "Java uses an automatic system called 'garbage collection' to identify out-of-scope variables and return their associated memory to the operating system."
-    },
-    {
-      "question": "What is the recommendation for setting the number of garbage collector (GC) threads?",
-      "answer": "It is highly recommended to match the number of GC threads to the number of CPU cores requested from the scheduler, using an option like `-XX:ParallelGCThreads=12`."
-    },
-    {
-      "question": "What is the effect of the `volatile` keyword when applied to a variable in Java?",
-      "answer": "In Java, `volatile` ensures that a variable's value is always read from and written to main memory, making modifications visible to other threads."
-    },
-    {
-      "question": "When might the `volatile` keyword not be sufficient in Java?",
-      "answer": "There are contexts where `volatile` is not sufficient to avoid race conditions, and the `synchronized` keyword is required for program consistency."
-    },
-    {
-      "question": "Which book is recommended for further reading on Java threads?",
-      "answer": "The book 'Java Threads: Understanding and Mastering Concurrent Programming' by Scott Oaks and Henry Wong is recommended."
+      "question": "Under what circumstances might the `volatile` keyword alone not be sufficient to ensure program consistency in Java?",
+      "answer": "There are contexts in which the `volatile` keyword alone is not sufficient to avoid race conditions, and the `synchronized` keyword may be required to ensure program consistency."
     }
   ],
-  "generated_at": "2026-04-12T00:10:49.578287+00:00"
+  "generated_at": "2026-04-13T07:27:07.106165+00:00"
 }

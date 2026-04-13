@@ -4,117 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Pourquoi devrais-je me connecter à une grappe de calcul via SSH?",
-      "answer": "Vous devrez vous connecter via SSH pour soumettre et faire le suivi de tâches, modifier des fichiers, et effectuer plusieurs autres opérations."
+      "question": "Comment faire pour garder une connexion SSH active pendant plusieurs heures, même si elle est inactive, quand on travaille sur une grappe de l'Alliance?",
+      "answer": "Pour prolonger une connexion SSH, vous pouvez modifier la configuration de votre client SSH. Sur macOS et Linux, le fichier est `$HOME/.ssh/config`, pis sur Windows, c'est `C:\\Users\\<username>\\.ssh\\config`. Faut y ajouter les lignes `Host *` et `ServerAliveInterval 240`. Ça envoie un signe de vie au serveur distant toutes les 240 secondes (4 minutes), ce qui aide à garder la connexion active même si y'a pas d'activité."
     },
     {
-      "question": "Est-ce qu'il est possible de garder une connexion SSH active pendant longtemps?",
-      "answer": "Oui, il est parfois nécessaire de garder la connexion active pendant plusieurs heures, même plusieurs jours. Le document présente des techniques pour y arriver."
+      "question": "C'est quoi un multiplexeur de terminal comme `tmux` ou `screen`, pis à quoi ça sert pour travailler sur une grappe de calcul?",
+      "answer": "Les multiplexeurs de terminal comme `tmux` et `screen` sont des programmes qui vous permettent de détacher complètement une session de terminal. L'avantage, c'est que la session reste active même si vous vous déconnectez de la grappe, fermez votre poste de travail ou le mettez en veille. Vous pouvez ensuite vous y rattacher plus tard pour reprendre votre travail exactement où vous l'aviez laissé."
     },
     {
-      "question": "Quelle est une façon simple de prolonger une connexion SSH?",
-      "answer": "Une solution simple est de modifier la configuration de votre client SSH."
-    },
-    {
-      "question": "Où se trouve le fichier de configuration SSH sur macOS et Linux?",
-      "answer": "Sur macOS et Linux, le fichier de configuration SSH se trouve dans `$HOME/.ssh/config`."
-    },
-    {
-      "question": "Où se trouve le fichier de configuration SSH sur Windows?",
-      "answer": "Sur Windows, le fichier de configuration SSH est situé dans `C:\\Users\\<username>\\.ssh\\config`."
-    },
-    {
-      "question": "Que dois-je faire si le fichier de configuration SSH n'existe pas?",
-      "answer": "Si le fichier n'existe pas, vous devez le créer."
-    },
-    {
-      "question": "Quelles lignes dois-je ajouter au fichier de configuration SSH pour maintenir la connexion?",
-      "answer": "Vous devez ajouter les lignes suivantes : `Host *` et `ServerAliveInterval 240`."
-    },
-    {
-      "question": "À quoi sert la ligne `ServerAliveInterval 240` dans la configuration SSH?",
-      "answer": "Cette ligne transmet un signe de vie au serveur distant (comme une grappe de l'Alliance) à toutes les 240 secondes, soit toutes les 4 minutes."
-    },
-    {
-      "question": "Quel est l'impact d'envoyer un signe de vie au serveur toutes les 240 secondes?",
-      "answer": "Ceci devrait garder la connexion vivante même si elle est inactive pendant quelques heures."
-    },
-    {
-      "question": "Qu'est-ce qu'un multiplexeur de terminal?",
-      "answer": "Les multiplexeurs de terminal comme `tmux` et `screen` sont des programmes qui vous permettent de complètement détacher une session de terminal qui restera active jusqu'à ce que vous vous y rattachiez."
-    },
-    {
-      "question": "Quels sont les avantages d'utiliser un multiplexeur de terminal comme `tmux` ou `screen`?",
-      "answer": "Vous pouvez vous déconnecter de la grappe, fermer le poste de travail ou le mettre en veille, puis reprendre le travail le lendemain en vous rattachant à la même session."
-    },
-    {
-      "question": "Qu'est-ce que la dépendance au nœud de connexion signifie pour une session `tmux` ou `screen`?",
-      "answer": "Votre session `tmux` ou `screen` est lancée sur un nœud de connexion particulier. Pour vous y rattacher, vous devez utiliser le même nœud de connexion que celui où vous avez lancé la session."
-    },
-    {
-      "question": "Que se passe-t-il si un nœud de connexion est redémarré alors que j'y ai une session `tmux` ou `screen` active?",
-      "answer": "Si un nœud de connexion est redémarré, cela élimine les sessions qui s'y trouvent. Dans un tel cas, vos sessions et tous les processus associés seront perdus."
-    },
-    {
-      "question": "Qu'est-ce que le logiciel `tmux`?",
-      "answer": "`tmux` est un multiplexeur de terminal qui permet plusieurs sessions virtuelles à l'intérieur d'une même session de terminal."
-    },
-    {
-      "question": "Quel est un avantage majeur de `tmux` en lien avec les sessions SSH?",
-      "answer": "Avec `tmux`, vous pouvez vous déconnecter d'une session SSH sans que les processus ne soient affectés."
-    },
-    {
-      "question": "Quelle commande permet de démarrer le serveur `tmux`?",
-      "answer": "La commande pour démarrer le serveur `tmux` est simplement `tmux`."
-    },
-    {
-      "question": "Comment puis-je me déconnecter d'un serveur `tmux`?",
-      "answer": "Pour vous déconnecter d'un serveur `tmux`, utilisez la combinaison de touches `Ctrl+B D`."
-    },
-    {
-      "question": "Comment puis-je me reconnecter à un serveur `tmux` existant?",
-      "answer": "Pour vous reconnecter à un serveur `tmux`, utilisez la commande `tmux a`."
-    },
-    {
-      "question": "Comment créer une nouvelle fenêtre dans `tmux`?",
-      "answer": "Pour créer une nouvelle fenêtre dans `tmux`, utilisez la combinaison de touches `Ctrl+B C`."
-    },
-    {
-      "question": "Comment naviguer vers la prochaine fenêtre dans `tmux`?",
-      "answer": "Pour aller à la prochaine fenêtre dans `tmux`, utilisez la combinaison de touches `Ctrl+B N`."
-    },
-    {
-      "question": "Comment activer le mode copie pour le défilement dans `tmux`?",
-      "answer": "Pour activer le mode copie pour le défilement (avec la souris et les touches page suivante/précédente), utilisez `Ctrl+B [`."
-    },
-    {
-      "question": "Comment désactiver le mode copie dans `tmux`?",
-      "answer": "Pour désactiver le mode copie dans `tmux`, appuyez sur la touche `Esc`."
-    },
-    {
-      "question": "Quel message d'erreur peut-on obtenir en tentant de lancer `tmux` à l'intérieur d'une tâche soumise par `tmux`?",
-      "answer": "Vous pourriez obtenir le message d'erreur `lost server`."
-    },
-    {
-      "question": "Pourquoi l'erreur `lost server` survient-elle avec `tmux` imbriqué?",
-      "answer": "C'est dû au fait que la variable d'environnement `$TMUX`, qui pointe vers le serveur `tmux` sur le nœud de connexion, est propagée à la tâche, ce qui rend sa valeur invalide."
-    },
-    {
-      "question": "Comment peut-on réinitialiser la variable d'environnement `$TMUX`?",
-      "answer": "Vous pouvez réinitialiser la variable avec la commande `unset TMUX`."
-    },
-    {
-      "question": "Est-il recommandé d'utiliser plusieurs niveaux de `tmux` (sessions `tmux` imbriquées)?",
-      "answer": "Non, l'usage de deux niveaux de `tmux` ou plus n'est pas recommandé."
-    },
-    {
-      "question": "Si j'utilise `tmux` imbriqué, comment dois-je taper les commandes pour la session intérieure?",
-      "answer": "Pour envoyer des commandes à un `tmux` imbriqué, il faut taper deux fois les touches `Ctrl+B`. Par exemple, pour créer une fenêtre, il faut taper `Ctrl+B Ctrl+B C`."
-    },
-    {
-      "question": "Quelle est l'alternative suggérée à l'utilisation de `tmux` imbriqué dans une tâche si on utilise déjà `tmux` sur un nœud de connexion?",
-      "answer": "Il est plutôt suggéré d'utiliser GNU Screen à l'intérieur de vos tâches si vous utilisez déjà `tmux` sur un nœud de connexion."
+      "question": "Quand on utilise `tmux` ou `screen` sur une grappe de l'Alliance, quelle est l'information cruciale à se rappeler concernant les nœuds de connexion?",
+      "answer": "Il est crucial de se rappeler que votre session `tmux` ou `screen` est lancée sur un nœud de connexion spécifique de la grappe. Pour vous rattacher à votre session, vous devez absolument utiliser le même nœud de connexion que celui où vous l'avez démarrée. Si un nœud de connexion est redémarré, toutes les sessions qui s'y trouvaient, ainsi que les processus associés, seront perdues."
     }
   ],
-  "generated_at": "2026-04-12T05:28:10.824764+00:00"
+  "generated_at": "2026-04-13T11:27:29.908817+00:00"
 }

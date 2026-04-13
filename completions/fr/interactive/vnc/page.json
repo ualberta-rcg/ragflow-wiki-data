@@ -3,89 +3,81 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi l'avantage d'utiliser VNC plutôt que le protocole X11 via SSH pour démarrer l'interface graphique d'un programme à distance?",
-      "answer": "VNC offre de meilleures performances, surtout pour les rotations graphiques complexes et fluides, comparativement au protocole X11 via SSH qui est souvent insuffisant."
+      "question": "Pourquoi devrait-on utiliser VNC plutôt que le protocole X11 via SSH pour afficher des interfaces graphiques à distance sur les grappes Alliance?",
+      "answer": "Le protocole X11 via SSH offre souvent des performances insuffisantes pour les rotations graphiques complexes et fluides, alors que VNC est une meilleure option pour se connecter à un ordinateur à distance."
     },
     {
-      "question": "Avant d'utiliser les fonctions avancées de VNC décrites dans ce document, quelle méthode est-il recommandé d'essayer en premier?",
-      "answer": "Il est recommandé d'utiliser VNC directement dans le navigateur avec JupyterLab, puisque c'est une méthode plus simple."
+      "question": "Avant d'utiliser les fonctions avancées de VNC décrites sur cette page, quelle méthode est suggérée pour une utilisation plus simple de VNC dans un navigateur avec les grappes Alliance?",
+      "answer": "Il est suggéré d'essayer d'abord VNC dans votre navigateur avec JupyterLab et Desktop, car c'est une méthode plus simple."
     },
     {
-      "question": "Quel client VNC est recommandé pour se connecter à un serveur VNC, et pour quels systèmes d'exploitation est-il disponible?",
+      "question": "Quel client VNC est recommandé pour se connecter à un serveur VNC sur les systèmes Alliance?",
       "answer": "Le paquet TigerVNC est recommandé et est disponible pour Windows, macOS et la plupart des distributions Linux."
     },
     {
-      "question": "Comment on installe TigerVNC Viewer sur un système Windows?",
-      "answer": "Sur Windows, on télécharge et exécute la plus récente version stable de l'installateur vncviewer64-x.y.z.exe depuis la page officielle de TigerVNC."
+      "question": "Comment installer TigerVNC Viewer sur un ordinateur Windows pour se connecter à un serveur VNC sur les grappes Alliance?",
+      "answer": "Il faut télécharger et exécuter la plus récente version stable de l'installateur `vncviewer64-x.y.z.exe` à partir de la page officielle de TigerVNC."
     },
     {
-      "question": "Comment on installe TigerVNC Viewer sur un système macOS?",
-      "answer": "Sur macOS, on télécharge le paquet DMG stable, on le double-clique, puis on glisse l'icône TigerVNC dans le dossier Applications et/ou dans le Dock."
+      "question": "Comment installer TigerVNC Viewer sur un ordinateur macOS pour se connecter à un serveur VNC sur les grappes Alliance?",
+      "answer": "Il faut télécharger le plus récent paquet DMG stable depuis la page officielle, le double-cliquer pour l'ouvrir et glisser l'icône TigerVNC dans le dossier Applications et/ou dans le Dock."
     },
     {
-      "question": "Quelles sont les commandes pour installer TigerVNC Viewer sur différentes distributions Linux?",
-      "answer": "Sur Debian/Ubuntu, c'est `sudo apt-get install tigervnc-viewer`. Sur Fedora/CentOS/RHEL, c'est `sudo yum install tigervnc`. Sur Gentoo, c'est `emerge -av net-misc/tigervnc`."
+      "question": "Quelle commande utiliser pour installer TigerVNC Viewer sur une distribution Linux Debian ou Ubuntu afin de se connecter aux grappes Alliance?",
+      "answer": "Sur Debian ou Ubuntu, la commande est `sudo apt-get install tigervnc-viewer`."
     },
     {
-      "question": "Comment on démarre un vncserver sur un nœud de connexion?",
-      "answer": "Après s'être connecté au nœud de connexion via SSH, on utilise la commande `vncserver -idletimeout seconds`, par exemple `vncserver -idletimeout 86400`."
+      "question": "Comment démarrer un serveur VNC sur un nœud de connexion Alliance en spécifiant un délai d'inactivité?",
+      "answer": "On se connecte d'abord au nœud de connexion, puis on exécute `vncserver -idletimeout seconds`, où `seconds` est la durée maximale d'inactivité avant la fermeture du serveur VNC en cas d'oubli de déconnexion."
     },
     {
-      "question": "Comment on détermine le port sur lequel un vncserver écoute après l'avoir démarré?",
-      "answer": "On utilise la commande `grep -iE \"\\sport|kill\"` sur le fichier de journalisation du vncserver (par exemple, `/home/yourusername/.vnc/l4.nibi.sharcnet:1.log`)."
+      "question": "Après avoir démarré un serveur VNC sur un nœud de connexion Alliance, comment établir une connexion sécurisée depuis son ordinateur local?",
+      "answer": "On démarre un tunnel SSH sur son ordinateur en redirigeant un port arbitraire (ex: 5905) vers le port d'écoute du serveur VNC sur le nœud de connexion, puis on utilise `vncviewer localhost:port_local_redireccionné`."
     },
     {
-      "question": "Comment on établit un tunnel SSH sécurisé de l'ordinateur local vers un vncserver sur un nœud de connexion?",
-      "answer": "On utilise la commande `ssh nibi.computecanada.ca -L local_port:nom_du_nœud_de_connexion:port_vnc`, par exemple `ssh nibi.computecanada.ca -L 5905:l4:5901`."
+      "question": "Quelle est la première étape pour démarrer un serveur VNC sur un nœud de calcul Alliance afin d'obtenir plus de ressources, comme de la mémoire ou des CPU?",
+      "answer": "Il faut d'abord créer une allocation sur un nœud de calcul à l'aide de la commande `salloc`, en spécifiant les ressources requises comme le temps, les CPU et la mémoire."
     },
     {
-      "question": "Comment on se connecte au serveur VNC avec TigerVNC Viewer une fois le tunnel SSH établi?",
-      "answer": "On peut lancer l'application TigerVNC Viewer et entrer `localhost:port_local_du_tunnel` (ex: `localhost:5905`) dans la boîte de dialogue, ou taper `vncviewer localhost:port_local_du_tunnel` dans un terminal."
+      "question": "Comment démarrer un serveur VNC une fois qu'on est connecté à un nœud de calcul Alliance via `salloc`?",
+      "answer": "Après avoir défini la variable d'environnement `export XDG_RUNTIME_DIR=${SLURM_TMPDIR}`, on lance simplement la commande `vncserver`, et on doit entrer un mot de passe VNC si c'est la première fois."
     },
     {
-      "question": "Pourquoi est-ce qu'on utiliserait un nœud de calcul plutôt qu'un nœud de connexion pour VNC?",
-      "answer": "On utilise un nœud de calcul si le programme requiert plus de mémoire, de ressources CPU, ou d'accès GPU que ce qui est offert par les nœuds de connexion, ou pour l'accélération graphique."
+      "question": "Quelle est la commande spécifique pour établir un tunnel SSH sécurisé vers un serveur VNC sur un nœud de calcul de la grappe Nibi, si l'on utilise une paire de clés SSH?",
+      "answer": "On utilise la commande `ssh -J username@nibi.alliancecan.ca -L port_local:localhost:port_distant nom_du_nœud_de_calcul`."
     },
     {
-      "question": "Comment on demande une tâche interactive sur un nœud de calcul pour utiliser VNC?",
-      "answer": "On utilise la commande `salloc` pour allouer les ressources nécessaires, par exemple `salloc --time=1:00:00 --cpus-per-task=4 --mem=16000 --account=def-piusername`."
+      "question": "Comment réinitialiser son mot de passe VNC pour les sessions sur les grappes Alliance?",
+      "answer": "On utilise la commande `vncpasswd` sur le nœud où le serveur VNC est actif, puis on entre le nouveau mot de passe deux fois."
     },
     {
-      "question": "Comment la commande SSH pour établir un tunnel vers un nœud de calcul diffère-t-elle pour la grappe Nibi comparativement aux autres grappes?",
-      "answer": "Pour Nibi, on utilise `ssh -J username@nibi.alliancecan.ca -L localforwardedport:localhost:remotelisteningport computenode`. Pour les autres grappes, on utilise `ssh username@clustername -L localforwardedport:computenode:remotelisteningport`."
+      "question": "Comment tuer un serveur VNC spécifique qui n'est plus nécessaire sur les grappes Alliance?",
+      "answer": "On liste d'abord les sessions actives avec `vncserver -list` pour trouver le numéro d'affichage, puis on utilise `vncserver -kill :NUMÉRO_D'AFFICHAGE`."
     },
     {
-      "question": "Comment on lance un terminal ou un programme comme MATLAB sur le bureau MATE VNC?",
-      "answer": "Pour un terminal, on clique sur 'Applications -> System Tools -> MATE Terminal'. Pour un programme comme MATLAB, on charge le module, puis on exécute la commande (ex: `matlab`) dans le terminal."
+      "question": "Comment tuer tous les serveurs VNC actifs pour un utilisateur sur un nœud Alliance en une seule commande?",
+      "answer": "On utilise la commande `pkill Xvnc -u $USER`."
     },
     {
-      "question": "Comment on réinitialise le mot de passe du vncserver?",
-      "answer": "On utilise la commande `vncpasswd` dans un terminal sur le nœud où le vncserver est actif."
+      "question": "Comment permettre à plusieurs utilisateurs ou sessions VNC Viewer de se connecter simultanément au même bureau VNC sur une grappe Alliance?",
+      "answer": "Le serveur VNC doit être démarré avec l'option supplémentaire `-alwaysshared`, comme `vncserver -idletimeout 86400 -alwaysshared`."
     },
     {
-      "question": "Comment on tue un vncserver qui n'est plus nécessaire?",
-      "answer": "On utilise la commande `vncserver -kill :DISPLAY#` (ex: `vncserver -kill :44`) ou `pkill Xvnc -u $USER` pour tuer tous les vncservers actifs de l'utilisateur."
+      "question": "Que faire si des échecs répétés se produisent lors de l'établissement d'une nouvelle connexion VNC sur les grappes Alliance et que l'on soupçonne un problème de tunnel SSH?",
+      "answer": "On vérifie la présence de tunnels SSH existants qui pourraient bloquer les ports en utilisant `ps ux | grep ssh` sur son ordinateur, puis on les tue avec `kill PID`."
     },
     {
-      "question": "Comment peut-on établir plusieurs connexions au même vncserver?",
-      "answer": "On doit démarrer le vncserver avec l'option `-alwaysshared`, par exemple `vncserver -idletimeout 86400 -alwaysshared`."
+      "question": "Quelles modifications `salloc` sont nécessaires pour exécuter un programme graphique utilisant OpenGL accéléré par le matériel sur un nœud de calcul Alliance?",
+      "answer": "Il faut ajouter `--gpus-per-node=1` ou `--gpus-per-node=TYPE_GPU:1` à la commande `salloc` pour demander l'accès à un GPU."
     },
     {
-      "question": "Si des échecs de connexion VNC surviennent, quelle pourrait en être la cause et comment y remédier?",
-      "answer": "Des échecs répétés peuvent être causés par un tunnel SSH existant qui bloque les ports. Pour y remédier, on peut utiliser `ps ux | grep ssh` dans un terminal local pour identifier les tunnels actifs, puis `kill PID` pour les fermer."
+      "question": "Après avoir alloué un nœud GPU, comment lancer un programme graphique OpenGL dans une session VNC sur une grappe Alliance pour utiliser l'accélération matérielle?",
+      "answer": "Il faut préfixer la commande du programme avec `vglrun -d egl`, par exemple `vglrun -d egl PROGRAM`."
     },
     {
-      "question": "Comment on configure `salloc` pour demander un nœud GPU afin d'utiliser OpenGL avec VNC?",
-      "answer": "On ajoute l'option `--gpus-per-node=1` (ou `--gpus-per-node=type_de_gpu:1`) à la commande `salloc`, par exemple `salloc --time=1:00:00 --cpus-per-task=4 --gpus-per-node=1 --mem=16000 --account=def-piname`."
-    },
-    {
-      "question": "Quelle commande faut-il généralement ajouter avant le nom du programme dans un terminal VNC pour l'accélération OpenGL?",
-      "answer": "Il faut ajouter `vglrun` juste avant le nom du programme, par exemple `vglrun -d egl PROGRAM`."
-    },
-    {
-      "question": "Quelles sont les alternatives à VNC pour l'accès graphique à distance mentionnées dans le document?",
-      "answer": "Les alternatives sont OpenOnDemand sur Nibi et JupyterHub sur Rorqual, qui offrent une interface web VDI automatisée avec un bureau moderne."
+      "question": "Quels sont les alternatives au VNC classique pour accéder à un environnement de bureau virtuel (VDI) automatisé sur les grappes Nibi ou Rorqual?",
+      "answer": "On peut utiliser OpenOnDemand sur Nibi ou JupyterHub sur Rorqual, qui offrent une interface web VDI simplifiée avec des performances matérielles améliorées et une meilleure prise en charge logicielle."
     }
   ],
-  "generated_at": "2026-04-12T10:53:51.808396+00:00"
+  "generated_at": "2026-04-13T15:50:18.211479+00:00"
 }

@@ -4,73 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Comment est-ce que je peux me connecter à la grappe Trillium?",
-      "answer": "Vous pouvez vous connecter à Trillium en utilisant SSH, soit via un navigateur avec Open OnDemand, soit via un terminal avec SSH, en ouvrant une fenêtre de terminal (comme PuTTY sous Windows, ou MobaXTerm) et en utilisant vos identifiants CCDB."
+      "question": "Comment on se connecte aux nœuds de connexion de la sous-grappe de CPU ou de GPU sur Trillium en utilisant SSH?",
+      "answer": "Pour la sous-grappe de CPU, faut utiliser la commande `ssh -i /CHEMIN/VERS/MA_CLÉ_PRIVÉE_SSH MONNOMDUTILISATEURALLIANCE@trillium.scinet.utoronto.ca`. Si c'est pour la sous-grappe de GPU, on tape `ssh -i /CHEMIN/VERS/MA_CLÉ_PRIVÉE_SSH MONNOMDUTILISATEURALLIANCE@trillium-gpu.scinet.utoronto.ca`. Faut juste remplacer `/CHEMIN/VERS/MA_CLÉ_PRIVÉE_SSH` par le chemin de ta clé SSH privée pis `MONNOMDUTILISATEURALLIANCE` par ton nom d'utilisateur CCDB."
     },
     {
-      "question": "Quelle est la commande pour me connecter à un nœud de connexion de la sous-grappe de CPU de Trillium?",
-      "answer": "Pour vous connecter à un nœud de connexion de la sous-grappe de CPU, utilisez la commande : `$ ssh -i /PATH/TO/SSH_PRIVATE_KEY MYALLIANCEUSERNAME@trillium.scinet.utoronto.ca`."
+      "question": "C'est quoi les limitations pour l'utilisation des nœuds de connexion sur la grappe Trillium?",
+      "answer": "Sur les nœuds de connexion de Trillium, on peut développer, modifier, compiler, préparer et soumettre des tâches. Par contre, il faut pas exécuter des tâches qui demandent beaucoup de mémoire, des entraînements parallèles, des processus avec plein de fils, des calculs qui durent longtemps (plus de quelques minutes), ou des tâches intensives comme celles avec plusieurs opérations d'E/S ou des simulations."
     },
     {
-      "question": "Comment puis-je me brancher au nœud de connexion de la sous-grappe de GPU sur Trillium?",
-      "answer": "Pour vous brancher au nœud de connexion de la sous-grappe de GPU, la commande est : `$ ssh -i /PATH/TO/SSH_PRIVATE_KEY MYALLIANCEUSERNAME@trillium-gpu.scinet.utoronto.ca`."
-    },
-    {
-      "question": "Qu'est-ce que je dois remplacer dans les commandes SSH pour me connecter à Trillium?",
-      "answer": "`PATH/TO/SSH_PRIVATE_KEY` doit être remplacé par le chemin de votre clé SSH privée, et `MYALLIANCEUSERNAME` par votre nom d'utilisateur CCDB."
-    },
-    {
-      "question": "Qu'est-ce que je devrais vérifier lors de ma toute première connexion à Trillium?",
-      "answer": "À votre première connexion, assurez-vous de bien être sur Trillium en vérifiant que l'empreinte de la clé hôte du nœud de connexion correspond à celle indiquée."
-    },
-    {
-      "question": "Quelles sont les activités que je peux faire sur les nœuds de connexion de Trillium?",
-      "answer": "Les nœuds de connexion de Trillium vous permettent de développer, de modifier, de compiler, de préparer et de soumettre des tâches."
-    },
-    {
-      "question": "Les nœuds de connexion sont-ils des nœuds de calcul?",
-      "answer": "Non, les nœuds de connexion CPU et GPU ne sont pas des nœuds de calcul, mais ils partagent la même architecture, le même système d'exploitation et la même pile logicielle que les nœuds de calcul."
-    },
-    {
-      "question": "Est-ce que je peux me connecter d'un nœud de connexion à un autre sur Trillium?",
-      "answer": "Oui, vous pouvez vous connecter via SSH d'un nœud de connexion à un autre en utilisant leurs noms d'hôte internes, tels que `tri-login01` à `tri-login06` pour les CPU et `trig-login01` pour le GPU."
-    },
-    {
-      "question": "À quoi sert l'option `-Y` quand je me connecte en SSH à Trillium?",
-      "answer": "L'option `-Y` active la redirection X11, ce qui permet aux programmes graphiques de Trillium d'afficher des fenêtres sur votre ordinateur local."
-    },
-    {
-      "question": "Comment doit-on rouler des tâches sur les nœuds de calcul de Trillium?",
-      "answer": "Pour rouler des tâches sur les nœuds de calcul, vous devez soumettre une tâche en lot."
-    },
-    {
-      "question": "Quelles sortes de tâches ne sont pas permises sur les nœuds de connexion de Trillium?",
-      "answer": "Sur les nœuds de connexion, vous ne pouvez pas rouler des tâches à forte consommation de mémoire, des entraînements parallèles ou des processus hautement multifils, des calculs de longue durée (ne dépassant pas quelques minutes), ni des tâches intensives comme des opérations avec plusieurs I/O ou des simulations."
-    },
-    {
-      "question": "Que dois-je faire si j'ai de la misère à me connecter à Trillium?",
-      "answer": "Si vous n'arrivez pas à vous connecter, vous devriez vérifier l'état du système, vous assurer que votre compte CCDB est actif, que votre clé publique (au format openssh) a été téléversée dans CCDB et que vous avez demandé l'accès sur la page \"Accès aux systèmes\"."
-    },
-    {
-      "question": "Quels sont les répertoires de stockage principaux disponibles sur Trillium et à quoi servent-ils?",
-      "answer": "Trillium dispose d'un système de stockage VAST avec les répertoires : `/home` pour les configurations et fichiers personnels, `/scratch` pour l'espace de stockage personnel temporaire haute vitesse pour les données des tâches, et `/project` pour l'espace partagé pour les projets d'équipe et la collaboration."
-    },
-    {
-      "question": "Comment puis-je accéder facilement à mes répertoires /home, /scratch et /project?",
-      "answer": "Les emplacements de niveau supérieur de vos répertoires `/home` et `/scratch` sont accessibles via les variables d'environnement `$HOME` et `$SCRATCH`, tandis que `$PROJECT` pointe vers votre répertoire dans `/project`."
-    },
-    {
-      "question": "Si je participe à plusieurs projets, vers quel répertoire pointe la variable $PROJECT?",
-      "answer": "Si vous participez à plusieurs projets, la variable `$PROJECT` pointera vers votre dernier projet en ordre alphabétique. Tous les répertoires de niveau supérieur des projets auxquels vous avez accès se trouvent aussi dans `$HOME/links/projects`."
-    },
-    {
-      "question": "Que dois-je faire si je ne vois pas le répertoire `$HOME/links` dans mon compte?",
-      "answer": "Si le répertoire `$HOME/links` n'est pas présent dans votre compte, vous pouvez le créer avec la commande `trisetup`."
-    },
-    {
-      "question": "Le contenu de `$HOME/links/projects` se met-il à jour automatiquement?",
-      "answer": "Oui, le contenu de `$HOME/links/projects` sera mis à jour automatiquement lorsque vous quitterez ou joindrez des projets."
+      "question": "Quels sont les principaux répertoires de stockage disponibles sur Trillium et à quoi servent-ils?",
+      "answer": "Trillium a un système de stockage unifié de haute performance avec trois répertoires principaux : `/home` pour les configurations et fichiers personnels, `/scratch` qui est un espace de stockage temporaire haute vitesse pour les données des tâches, et `/project` qui sert d'espace partagé pour les projets d'équipe et la collaboration. On y accède via les variables d'environnement $HOME, $SCRATCH et $PROJECT."
     }
   ],
-  "generated_at": "2026-04-12T09:48:37.975990+00:00"
+  "generated_at": "2026-04-13T14:58:15.493576+00:00"
 }

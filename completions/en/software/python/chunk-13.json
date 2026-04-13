@@ -4,17 +4,17 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "When using Python's `multiprocessing` module for parallel programming on a cluster, what important considerations should be kept in mind to ensure efficient resource utilization and prevent issues?",
-      "answer": "When using the `multiprocessing` module, it's crucial to match the number of processes you start to the number of CPU cores allocated to your job to avoid slowdowns or overloaded nodes. Additionally, if your code calls external libraries like NumPy, verify if their functions are also parallel, and if so, control their thread usage to prevent conflicts with your `multiprocessing` processes. The `multiprocessing` module is limited to a single compute node; for multi-node parallelization, consider `mpi4py` or `PySpark`."
+      "question": "How can a user debug a Python program interactively on a compute cluster?",
+      "answer": "To debug a Python program interactively on a compute cluster, a user can add `import pdb; pdb.set_trace()` or `breakpoint()` to their script at the desired location. After running the script in a small interactive job, they will enter the `pdb` debugger, where they can use commands like `w` (print stack trace), `b` (set breakpoint), `s` (step execution), `n` (continue to next line), `p exp` (evaluate expression), `l` (list source code), and `q` (quit debugger) to inspect and control the program's execution."
     },
     {
-      "question": "How can I debug a Python script interactively on the clusters using `pdb`, and what are some common commands?",
-      "answer": "To debug a Python script interactively, add `import pdb; pdb.set_trace()` or `breakpoint()` at the desired location in your code. Then, run your script (e.g., `python your_script.py`) in a small interactive job. Once in the debugger, useful commands include `w` (to print a stack trace), `b` (to set breakpoints), `s` (to step into functions), `n` (to execute the next line in the current function), `r` (to continue until the current function returns), `c` (to continue until a breakpoint), `p exp` (to evaluate an expression), `l` (to list source code), and `q` (to quit the debugger)."
+      "question": "What are the limitations of the Python `multiprocessing` module for parallel programming on compute clusters, and what alternatives are available for multi-node execution?",
+      "answer": "The Python `multiprocessing` module is restricted to using a single compute node, so the speedup achievable by a program is limited to the total number of CPU cores within that specific node. If a user needs to go beyond this single-node limit and utilize multiple nodes for parallel processing, they should consider using `mpi4py` or `PySpark`."
     },
     {
-      "question": "What methods can be used to diagnose a Python script that is hanging during execution on the cluster?",
-      "answer": "If a Python script is hanging, you can use the `faulthandler` module by adding `faulthandler.dump_traceback_later()` to your script to dump a traceback after a timeout. Alternatively, you can use `py-spy` without modifying your script: install it in a virtual environment, attach to the running job, find the Python process ID using `htop -u $USER`, then activate your `py-spy` virtual environment and run `py-spy top --pid PID` for live feedback or `py-spy dump --pid PID` to get a current traceback."
+      "question": "How can a user diagnose and troubleshoot a Python script that appears to be hanging on a compute cluster?",
+      "answer": "To diagnose a hanging Python script on a compute cluster, users have two main approaches: either modify their script to use the `faulthandler` module (specifically `faulthandler.dump_traceback_later()`) to dump a traceback after a timeout, or inspect the running process without prior modification using `py-spy`. For the `py-spy` method, one would install `py-spy` in a virtual environment, attach to the running job, find the process ID (PID) of the Python script using `htop`, activate the virtual environment, and then run `py-spy top --pid PID` for live feedback or `py-spy dump --pid PID` to get a traceback of the script's current state."
     }
   ],
-  "generated_at": "2026-04-12T18:20:15.693824+00:00"
+  "generated_at": "2026-04-13T11:49:59.899388+00:00"
 }

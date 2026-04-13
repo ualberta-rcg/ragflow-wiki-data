@@ -4,97 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is the default username for a Debian virtual machine when connecting via SSH?",
-      "answer": "The default username for a Debian VM is 'debian'."
+      "question": "What are the default SSH usernames for virtual machines running various operating systems?",
+      "answer": "The default SSH usernames depend on the operating system of the virtual machine:\n- Debian: debian\n- Ubuntu: ubuntu\n- AlmaLinux: almalinux\n- CentOS: centos\n- Fedora: fedora\n(Note: This table does not apply if you explicitly changed your username with a custom CloudInit script.)"
     },
     {
-      "question": "What is the default username for an Ubuntu virtual machine?",
-      "answer": "For an Ubuntu VM, the default username is 'ubuntu'."
+      "question": "If a user cannot connect to their virtual machine via SSH, what security settings should they verify?",
+      "answer": "Users should verify two security settings: first, that their own IP address has not changed and is allowed in the security settings. They can check their IP address using a service like https://ipv4.icanhazip.com/. Second, they should check their security group rules to ensure that their current IP address is unblocked for SSH connections (Port 22, TCP protocol, Ingress direction) to their virtual machine. If their IP has changed or the rule is missing, they need to add or update the rule in the security group settings."
     },
     {
-      "question": "Which username should I use to connect to an AlmaLinux VM?",
-      "answer": "You should use 'almalinux' as the username for an AlmaLinux VM."
-    },
-    {
-      "question": "What is the standard username for a CentOS virtual machine?",
-      "answer": "The standard username for a CentOS VM is 'centos'."
-    },
-    {
-      "question": "What is the default username for a Fedora VM?",
-      "answer": "The default username for a Fedora VM is 'fedora'."
-    },
-    {
-      "question": "Does the default username table apply if I used a custom CloudInit script?",
-      "answer": "No, if you explicitly changed your username with a custom CloudInit script, the table does not apply. The correct username will be what you changed it to."
-    },
-    {
-      "question": "What should I do if I don't get an SSH login prompt for my virtual machine?",
-      "answer": "If you don't get an SSH login prompt, you should check your security settings, specifically by verifying your IP address and ensuring it's unblocked for SSH connections."
-    },
-    {
-      "question": "How can I check my current IP address?",
-      "answer": "You can check your current IP address by opening 'https://ipv4.icanhazip.com/' in a browser."
-    },
-    {
-      "question": "Why is it important to verify my IP address when troubleshooting SSH connection issues?",
-      "answer": "Your IP address must be allowed in the security settings for you to reach your VM. If it has changed, you will need to add a new rule to your Security Group."
-    },
-    {
-      "question": "How do I add a new rule to my Security Group if my IP address has changed?",
-      "answer": "You need to add a new rule to your Security Group, specifying your updated IP address. This is typically done by navigating to 'Network' -> 'Security groups' in the dashboard, finding your VM's security group, clicking 'Manage Rules', and then adding a rule for SSH with your new IP address in the CIDR field."
-    },
-    {
-      "question": "How can I check if my IP address is unblocked for SSH connections to my VM?",
-      "answer": "To check if your IP address is unblocked for SSH connections, navigate to 'Network' in the left-hand navigation panel, then 'Security groups'. Find the security group for your VM (often the 'default' group) and click 'Manage Rules'. Look for a rule with 'Ingress' direction, 'TCP' protocol, '22 (SSH)' port range, and your IP address in the 'Remote IP Prefix' field."
-    },
-    {
-      "question": "What details should an SSH security rule for my IP address include?",
-      "answer": "An SSH security rule for your IP address should have 'Ingress' direction, 'TCP' for IP Protocol, '22 (SSH)' for Port Range, and 'your-ip-address/32' (replacing 'your-ip-address' with your actual IP) in the Remote IP Prefix."
-    },
-    {
-      "question": "What should I do if I have followed all SSH troubleshooting steps and still can't connect to my instance?",
-      "answer": "If you've followed all steps and still can't connect, submit a ticket to cloud@tech.alliancecan.ca. Provide the cloud name, project name, instance UUID, and all information collected during your troubleshooting process."
-    },
-    {
-      "question": "How do I find the instance UUID for a support ticket?",
-      "answer": "To find the instance UUID, click on 'Instances' in the left-hand side navigation panel, then on the specific instance name you are having trouble with. Go to the 'Overview' tab for that instance and look for the 'ID' field. The UUID will be a long string of letters, numbers, and hyphens."
-    },
-    {
-      "question": "What is the first thing to check if I can't delete a volume?",
-      "answer": "The first thing to check is if the volume is attached to a running virtual machine, as you cannot delete an attached volume."
-    },
-    {
-      "question": "How can I verify if a volume is attached to a VM?",
-      "answer": "Log in to your cloud project's dashboard, click 'Volumes' on the left-side menu, then click the 'Volumes' sub-heading. In the list, check the 'Attached To' column. If it lists a VM, the volume is attached."
-    },
-    {
-      "question": "What action is required if a volume is attached to a VM and I want to delete it?",
-      "answer": "If a volume is attached, it needs to be detached before it can be deleted. You can find instructions for detaching a volume in the 'Detaching a Volume' section of the 'Working with volumes' page."
-    },
-    {
-      "question": "What should I do if a volume is detached but still shows a status of 'In-use'?",
-      "answer": "If a detached volume is still listed as 'In-use', you should submit a ticket to cloud@tech.alliancecan.ca with your username, project name, cloud name, the UUID of the volume, and any other troubleshooting information you collected."
-    },
-    {
-      "question": "How do I check a volume's status?",
-      "answer": "Log in to your cloud dashboard, click 'Volumes' on the left-side menu, then click the 'Volumes' sub-heading. Look at the 'Status' column for your volume; it should be 'Available' if it's ready for deletion."
-    },
-    {
-      "question": "Can I delete a volume if it has snapshots?",
-      "answer": "No, you must delete any snapshots of a volume before you can delete the source volume."
-    },
-    {
-      "question": "How can I check if a volume has existing snapshots?",
-      "answer": "To check for snapshots, click on 'Volumes' in the left-side panel, then click on 'Snapshots'. You will see a list of all your snapshots, and you can look at the 'Volume Name' column to see if any are associated with the volume you wish to delete."
-    },
-    {
-      "question": "How do I delete a volume snapshot?",
-      "answer": "To delete a snapshot, locate its row in the 'Snapshots' list (under 'Volumes' -> 'Snapshots'), then click the drop-down menu in the 'Actions' column and select 'Delete Volume Snapshot'."
-    },
-    {
-      "question": "What information should I include when submitting a ticket about being unable to delete a volume?",
-      "answer": "When submitting a ticket for this issue, include your username, the project name, the cloud name, the UUID of the volume, and any other information you collected during troubleshooting."
+      "question": "What are the common reasons why a user might be unable to delete a volume in the cloud service?",
+      "answer": "A user might be unable to delete a volume for a few common reasons:\n1. The volume is attached to a running virtual machine (VM). It must be detached before it can be deleted.\n2. The volume's status is still listed as 'In-use' even after being detached, indicating a potential system issue.\n3. There are snapshots of the volume that still exist. All snapshots of a volume must be deleted before the source volume can be removed."
     }
   ],
-  "generated_at": "2026-04-11T20:09:27.935644+00:00"
+  "generated_at": "2026-04-13T04:14:56.585775+00:00"
 }

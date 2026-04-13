@@ -4,105 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Quelle est l'une des responsabilités importantes d'un utilisateur concernant ses tâches?",
-      "answer": "Une responsabilité importante est de s'assurer que les tâches utilisent efficacement les ressources qui leur sont attribuées, surtout lors de l'utilisation d'un nouveau programme ou de modifications substantielles à une tâche."
+      "question": "Comment est-ce qu'on peut voir la liste de nos tâches en cours d'exécution sur le système, et est-ce qu'il y a un moyen plus rapide de le faire?",
+      "answer": "Pour afficher toutes vos tâches en cours d'exécution, vous pouvez utiliser la commande `squeue -u $USER`. Si vous voulez une option encore plus courte, l'utilitaire `sq` fait la même chose et vous permet d'entrer moins de texte."
     },
     {
-      "question": "Comment peut-on évaluer l'efficacité des tâches?",
-      "answer": "On peut évaluer l'efficacité des tâches en utilisant différentes méthodes, qu'elles soient en cours d'exécution ou déjà terminées."
+      "question": "Quelle commande doit-on utiliser pour obtenir un sommaire détaillé de l'efficacité d'une tâche qui est terminée, notamment pour les ressources CPU et la mémoire?",
+      "answer": "Pour avoir un sommaire de l'efficacité des CPU et de la mémoire pour une tâche terminée, vous devriez utiliser la commande `seff` suivie de l'identifiant de la tâche, par exemple `seff 12345678`."
     },
     {
-      "question": "Quelle commande affiche toutes les tâches gérées par l'ordonnanceur?",
-      "answer": "La commande `squeue` affiche, par défaut, toutes les tâches gérées par l'ordonnanceur à ce moment-là."
-    },
-    {
-      "question": "Comment afficher seulement ses propres tâches en cours pour une exécution plus rapide?",
-      "answer": "Pour n'inclure que ses propres tâches et accélérer l'exécution, on utilise la commande `squeue -u $USER`."
-    },
-    {
-      "question": "Existe-t-il une alternative plus courte à `squeue -u $USER`?",
-      "answer": "Oui, l'utilitaire `sq` fait la même chose que `squeue -u $USER` mais permet d'entrer moins de texte."
-    },
-    {
-      "question": "Comment afficher uniquement les tâches en cours d'exécution pour un utilisateur spécifique?",
-      "answer": "On utilise la commande `squeue -u <username> -t RUNNING` pour afficher seulement les tâches en cours d'exécution."
-    },
-    {
-      "question": "Comment afficher uniquement les tâches en attente pour un utilisateur spécifique?",
-      "answer": "On utilise la commande `squeue -u <username> -t PENDING` pour afficher seulement les tâches en attente."
-    },
-    {
-      "question": "Comment obtenir des informations détaillées sur une tâche en cours en particulier?",
-      "answer": "Pour obtenir des informations détaillées sur une tâche en cours, on utilise la commande `scontrol show job -dd <jobid>`."
-    },
-    {
-      "question": "Quelle est la recommandation concernant l'exécution de `squeue` à partir d'un script?",
-      "answer": "Il ne faut pas exécuter `squeue` à partir d'un script ou d'un programme à une fréquence élevée (par exemple, toutes les quelques secondes), car cela augmente la charge de l'ordonnanceur et peut interférer avec sa performance."
-    },
-    {
-      "question": "Comment configurer les notifications par courriel pour une tâche?",
-      "answer": "Il est possible de recevoir une notification par courriel pour certaines conditions d'une tâche en ajoutant des options comme `#SBATCH --mail-user=your.email@example.com` et `#SBATCH --mail-type=ALL` à `sbatch`."
-    },
-    {
-      "question": "Que signifie le fait que les résultats d'une tâche non interactive soient 'mis en mémoire tampon'?",
-      "answer": "Cela signifie qu'il y a habituellement un temps d'attente entre le moment où les données de la tâche sont enregistrées et celui où les résultats peuvent être vus dans un nœud de connexion."
-    },
-    {
-      "question": "Qu'est-ce qui influence le temps d'attente pour les résultats mis en mémoire tampon?",
-      "answer": "Ce temps d'attente dépend de l'application utilisée et de la charge exercée sur le système de fichiers."
-    },
-    {
-      "question": "Est-il recommandé de réduire ou d'éliminer la mise en mémoire tampon des résultats?",
-      "answer": "Non, ce n'est pas recommandé, car l'utilisation de la mémoire tampon assure la bonne performance générale du système de fichiers."
-    },
-    {
-      "question": "Que doit-on utiliser pour faire le suivi des résultats d'une tâche en temps réel?",
-      "answer": "Si on a besoin de faire le suivi des résultats d'une tâche en temps réel, il faut plutôt utiliser une tâche interactive."
-    },
-    {
-      "question": "Quelle commande permet d'obtenir un sommaire de l'efficacité des CPU et de la mémoire pour les tâches terminées?",
-      "answer": "La commande `seff` est utilisée pour obtenir un sommaire de l'efficacité des CPU et de la mémoire des tâches terminées."
-    },
-    {
-      "question": "Comment obtenir des informations détaillées sur une tâche qui est terminée?",
-      "answer": "Pour l'information détaillée sur une tâche terminée, on utilise la commande `sacct`."
-    },
-    {
-      "question": "Comment personnaliser le contenu affiché par la commande `sacct`?",
-      "answer": "On peut déterminer le contenu affiché avec `sacct` en utilisant l'option `--format`, par exemple, `sacct -j <jobid> --format=JobID,JobName,MaxRSS,Elapsed`."
-    },
-    {
-      "question": "Quels types d'enregistrements inclut généralement le résultat de `sacct`?",
-      "answer": "Le résultat de `sacct` inclut généralement des enregistrements `.bat+` et `.ext+`, et possiblement aussi `.0, .1, .2, ...`."
-    },
-    {
-      "question": "À quoi correspond l'étape `batch` (`.bat+`) dans les résultats de `sacct`?",
-      "answer": "L'étape `batch` (`.bat+`) est le script de soumission de l'utilisateur; pour plusieurs tâches, c'est ici que s'effectue la plus grande part du travail et que les ressources sont consommées."
-    },
-    {
-      "question": "Quand une étape `.0` est-elle créée dans `sacct` et que fait-elle?",
-      "answer": "Si `srun` est utilisé dans le script de soumission, une étape `.0` est créée, ce qui consommerait presque toutes les ressources."
-    },
-    {
-      "question": "À quoi correspond l'étape externe (`.ext+`) dans les résultats de `sacct`?",
-      "answer": "L'étape externe (`.ext+`) est surtout en prologue et en épilogue et ne consomme habituellement pas une grande quantité de ressources."
-    },
-    {
-      "question": "Comment consulter tous les enregistrements relatifs à une tâche si elle a été relancée suite à une défaillance de nœud?",
-      "answer": "Pour consulter tous les enregistrements relatifs à une tâche ayant été relancée, il faut ajouter l'option `--duplicates` à `sacct`."
-    },
-    {
-      "question": "Quel champ dans `sacct` indique la quantité de mémoire utilisée par une tâche?",
-      "answer": "Le champ `MaxRSS` donne la quantité de mémoire utilisée par une tâche, représentant la valeur du plus grand *resident set size*."
-    },
-    {
-      "question": "Comment identifier la tâche et le nœud associés à la valeur `MaxRSS`?",
-      "answer": "Pour connaître la tâche et le nœud en cause pour la valeur `MaxRSS`, il faut aussi imprimer les champs `MaxRSSTask` et `MaxRSSNode`."
-    },
-    {
-      "question": "Quelle commande fournit des renseignements sur l'état d'une tâche en cours d'exécution et quelle commande est utilisée pour les tâches terminées?",
-      "answer": "La commande `sstat` fournit des renseignements sur l'état d'une tâche en cours d'exécution, tandis que la commande `sacct` est utilisée pour les tâches qui sont terminées."
+      "question": "Qu'est-ce que ça veut dire quand les résultats d'une tâche non interactive sont mis en mémoire tampon, et est-ce une bonne idée de désactiver cette fonction pour voir les résultats en temps réel?",
+      "answer": "Quand les résultats d'une tâche non interactive sont mis en mémoire tampon (ou <i>buffered</i>), ça veut dire qu'il y a un délai entre le moment où les données sont enregistrées et celui où vous pouvez les voir. Bien qu'il soit possible de réduire ou d'éliminer ce délai, ce n'est pas recommandé, car la mémoire tampon assure la bonne performance générale du système de fichiers. Pour un suivi en temps réel, il est préférable d'utiliser une tâche interactive."
     }
   ],
-  "generated_at": "2026-04-12T03:15:00.473389+00:00"
+  "generated_at": "2026-04-13T09:33:26.016346+00:00"
 }

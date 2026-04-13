@@ -4,69 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Comment on fait pour soumettre un script de tâche avec l'ordonnanceur Slurm?",
-      "answer": "Pour soumettre un script de tâche avec Slurm, on utilise la commande `sbatch`, par exemple : `sbatch simple_job.sh`."
+      "question": "Comment est-ce qu'on soumet une tâche simple à l'ordonnanceur Slurm et comment peut-on modifier ses options directement en ligne de commande?",
+      "answer": "Pour soumettre un script comme `simple_job.sh` à l'ordonnanceur Slurm, on utilise la commande `sbatch` suivie du nom du script, par exemple `sbatch simple_job.sh`. Il est aussi possible de modifier des options de la tâche directement en ligne de commande en ajoutant les paramètres à `sbatch`, comme `sbatch --time=00:30:00 simple_job.sh` pour changer la durée d'exécution à 30 minutes."
     },
     {
-      "question": "Qu'est-ce que la commande `sbatch` nous retourne quand une tâche est soumise?",
-      "answer": "Après avoir soumise une tâche, la commande `sbatch` nous retourne un identifiant unique pour cette tâche, comme \"Submitted batch job 1234\"."
+      "question": "Après avoir soumis une tâche Slurm, comment peut-on vérifier son état et comment les résultats sont-ils enregistrés par défaut si aucun fichier de sortie n'est spécifié?",
+      "answer": "On peut vérifier l'état d'une tâche soumise avec la commande `sq`. La colonne 'ST' (*state*) indique si la tâche est 'PD' (en attente), 'R' (en cours), ou vide si elle est complétée. Si le fichier de sortie n'est pas spécifié, les résultats sont enregistrés par défaut dans un fichier nommé `slurm-IDENTIFIANT_DE_LA_TÂCHE.out`, où l'identifiant est un numéro unique attribué à la tâche."
     },
     {
-      "question": "Comment on vérifie l'état d'une tâche qui a été soumise?",
-      "answer": "On peut utiliser la commande `sq` pour afficher l'état d'une tâche."
-    },
-    {
-      "question": "C'est quoi la signification des différentes valeurs dans la colonne 'ST' (état) quand on utilise `sq`?",
-      "answer": "Dans la colonne 'ST', 'PD' veut dire que la tâche est en attente (pending), 'R' qu'elle est en cours d'exécution (running). Si la colonne 'ST' est vide, ça signifie que la tâche est complétée."
-    },
-    {
-      "question": "À quoi sert l'identifiant unique que chaque tâche soumise reçoit?",
-      "answer": "L'identifiant unique sert à distinguer les tâches, surtout si plusieurs tâches portent le même nom."
-    },
-    {
-      "question": "Si on ne spécifie pas l'endroit où stocker le résultat d'une tâche, où est-ce qu'il va être enregistré?",
-      "answer": "Si l'endroit n'est pas spécifié, le résultat est enregistré dans un fichier nommé avec l'identifiant de la tâche, comme par exemple `slurm-1234.out`."
-    },
-    {
-      "question": "Est-ce qu'on peut changer les options d'une tâche, comme le temps d'exécution, directement en ligne de commande avec `sbatch`?",
-      "answer": "Oui, on peut définir les options pour `sbatch` directement sur la ligne de commande. Par exemple, pour changer la durée d'exécution à 30 minutes, on écrirait `sbatch --time=00:30:00 simple_job.sh`."
-    },
-    {
-      "question": "Comment on fait pour donner un nom plus pertinent au fichier de sortie d'une tâche Slurm?",
-      "answer": "Pour donner un nom plus significatif au fichier de sortie, on peut le modifier avec l'option `--output`."
-    },
-    {
-      "question": "Comment on peut définir le nom d'une tâche et le nom du fichier de sortie directement dans le script Slurm?",
-      "answer": "Dans le script, on peut utiliser `#SBATCH --job-name=test` pour le nom de la tâche, et `#SBATCH --output=test-%J.out` pour enregistrer le résultat dans un fichier dont le nom est basé sur le nom de la tâche et son identifiant."
-    },
-    {
-      "question": "Est-ce que le fichier de sortie contient les messages d'erreur et les résultats standards ensemble par défaut?",
-      "answer": "Oui, par défaut, le même fichier de sortie comprendrait aussi les erreurs, comme si les commandes avaient été données interactivement."
-    },
-    {
-      "question": "C'est possible de séparer les messages d'erreur (stderr) des résultats standards (stdout) dans des fichiers différents?",
-      "answer": "Oui, il est possible de séparer le canal stderr (pour les erreurs standards) du canal stdout (pour la sortie standard) en utilisant l'option `-e` pour spécifier les noms des fichiers."
-    },
-    {
-      "question": "Pourquoi est-ce qu'on enregistre les renseignements sur les tâches qui sont exécutées?",
-      "answer": "Les renseignements sur les tâches sont enregistrés pour nous permettre de faire un suivi de la qualité de nos services et de faire rapport de la bonne utilisation des fonds aux organismes subventionnaires."
-    },
-    {
-      "question": "Quels genres de renseignements sont collectés pour le suivi des tâches?",
-      "answer": "Ces renseignements comprennent le temps passé en file d'attente, la durée d'exécution et le nombre de cœurs CPU utilisés."
-    },
-    {
-      "question": "À quoi chaque tâche doit-elle être obligatoirement associée?",
-      "answer": "Chaque tâche doit être associée à un nom de compte qui correspond à un projet."
-    },
-    {
-      "question": "Comment on spécifie le nom de compte pour une tâche directement dans un script Slurm?",
-      "answer": "On spécifie le nom de compte en utilisant la directive `#SBATCH --account=def-user-ab` dans le script."
-    },
-    {
-      "question": "Qu'est-ce qui arrive si on soumet une tâche avec `sbatch` sans spécifier de nom de compte alors que c'est requis?",
-      "answer": "Si un nom de compte est requis et que vous ne le spécifiez pas, une liste de noms de comptes valides s'affichera et vous devrez en choisir un."
+      "question": "Pourquoi est-ce essentiel d'associer une tâche à un nom de compte de projet lors de sa soumission à l'ordonnanceur de l'Alliance, et quelle directive Slurm est utilisée pour ça?",
+      "answer": "Il est essentiel d'associer chaque tâche à un nom de compte correspondant à un projet afin de permettre le suivi de la qualité de nos services et de justifier l'utilisation des fonds auprès des organismes subventionnaires. Ceci est spécifié dans le script de tâche en utilisant la directive Slurm `#SBATCH --account=nom-du-compte`. Si aucun compte n'est spécifié alors que c'est requis, l'utilisateur devra en choisir un parmi une liste valide."
     }
   ],
-  "generated_at": "2026-04-12T11:28:23.301992+00:00"
+  "generated_at": "2026-04-13T16:19:13.280240+00:00"
 }

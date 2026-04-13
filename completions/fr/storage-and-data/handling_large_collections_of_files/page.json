@@ -3,73 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Pourquoi est-ce problématique d'avoir un grand nombre de petits fichiers, surtout en intelligence artificielle et en apprentissage machine?",
-      "answer": "Un très grand nombre de fichiers, particulièrement s'ils sont de petite taille, cause d'importants problèmes de performance aux systèmes de fichiers, aux quotas d'objets et à la sauvegarde automatisée de /home et /project."
+      "question": "Quel est le problème fondamental abordé par le document sur la gestion du stockage et des fichiers sur les grappes de l'Alliance?",
+      "answer": "Le problème fondamental est la gestion de centaines de milliers, voire de millions, de fichiers, souvent de petite taille, qui causent des problèmes de performance aux systèmes de fichiers et aux sauvegardes automatisées de /home et /project en raison des limites d'objets."
     },
     {
-      "question": "Comment peut-on identifier les répertoires qui contiennent un grand nombre de fichiers dans le répertoire courant?",
-      "answer": "On peut utiliser une boucle `for` avec `find . -maxdepth 1 -type d` et `wc -l` pour compter récursivement les fichiers dans les sous-répertoires."
+      "question": "Comment les utilisateurs peuvent-ils identifier les répertoires contenant un grand nombre de fichiers sur les systèmes de l'Alliance pour optimiser la performance?",
+      "answer": "Les utilisateurs peuvent utiliser une boucle 'for' avec les commandes 'find' et 'wc -l' pour compter récursivement les fichiers dans les sous-répertoires du répertoire courant."
     },
     {
-      "question": "Quelle commande permet de lister les 10 répertoires qui occupent le plus d'espace disque dans le répertoire courant?",
-      "answer": "La commande `du -sh * | sort -hr | head -10` liste les répertoires les plus volumineux."
+      "question": "Comment les utilisateurs peuvent-ils lister les 10 répertoires qui occupent le plus d'espace disque dans leur répertoire courant sur les systèmes de l'Alliance?",
+      "answer": "Il faut utiliser la commande 'du -sh * | sort -hr | head -10'."
     },
     {
-      "question": "Quels sont les avantages d'utiliser le disque local des nœuds de calcul?",
-      "answer": "Les disques locaux offrent une performance généralement supérieure à celle des systèmes de fichiers /project et /scratch, étant des SSD SATA ou plus rapides."
+      "question": "Quels sont les principaux avantages d'utiliser le disque local pour le stockage sur les nœuds de calcul des grappes de l'Alliance?",
+      "answer": "Les disques locaux offrent une performance généralement supérieure à celle des systèmes de fichiers /project et /scratch, étant souvent des SSD SATA ou plus."
     },
     {
-      "question": "Comment accède-t-on au disque local à l'intérieur d'une tâche de calcul?",
-      "answer": "On y accède en utilisant la variable d'environnement `$SLURM_TMPDIR`."
+      "question": "Comment un utilisateur devrait-il utiliser typiquement le stockage sur disque local pendant une tâche de calcul sur les grappes de l'Alliance?",
+      "answer": "Une approche consiste à conserver l'ensemble de données dans un fichier archive .tar sur /project, le copier sur le disque local ($SLURM_TMPDIR) au début de la tâche, l'extraire, effectuer les calculs, puis archiver les changements et les recopier sur /project."
     },
     {
-      "question": "Quelle est la capacité du disque local sur les nœuds CPU et GPU de la grappe Béluga?",
-      "answer": "Béluga offre environ 370Go de disque local pour les nœuds CPU et un disque NVMe de 1.6To pour les nœuds GPU."
+      "question": "Quelle est la capacité du disque local disponible sur les nœuds de calcul de la grappe Béluga, en particulier pour les nœuds CPU et GPU?",
+      "answer": "Sur Béluga, les nœuds CPU offrent environ 370 Go de disque local, tandis que les nœuds GPU disposent d'un disque NVMe de 1,6 To."
     },
     {
-      "question": "Est-ce que la grappe Niagara offre du stockage local sur ses nœuds de calcul?",
-      "answer": "Non, Niagara n'offre pas de stockage local sur ses nœuds de calcul."
+      "question": "La grappe Niagara offre-t-elle du stockage sur disque local sur ses nœuds de calcul?",
+      "answer": "Non, la grappe Niagara n'offre pas de stockage local sur ses nœuds de calcul."
     },
     {
-      "question": "Décrivez une approche typique pour utiliser le disque local avec un grand ensemble de données.",
-      "answer": "Il faut archiver l'ensemble de données dans un fichier `tar` sur /project, le copier sur le disque local via `$SLURM_TMPDIR` au début de la tâche, l'extraire, utiliser les données, puis archiver les changements et les recopier dans /project."
+      "question": "Comment fonctionne le disque RAM (/tmp) sur les nœuds de calcul des grappes de l'Alliance et quelles sont ses principales caractéristiques?",
+      "answer": "Le disque RAM /tmp est implémenté avec tmpfs sur toutes les grappes, est vidé à la fin de la tâche et son utilisation compte dans la limite de mémoire du cgroup associé à la requête sbatch."
     },
     {
-      "question": "Comment le répertoire `/tmp` est-il utilisé comme disque RAM sur les nœuds de calcul?",
-      "answer": "Le répertoire `/tmp` est implémenté avec `tmpfs` sur toutes les grappes, agissant comme un disque RAM, et est vidé à la fin de la tâche."
+      "question": "Quel est un problème potentiel avec la capacité du disque RAM /tmp sur les grappes de l'Alliance concernant les requêtes de mémoire sbatch?",
+      "answer": "La capacité de tmpfs est fixée à 100% de la mémoire physique (MemTotal), ce qui peut ne pas correspondre à la requête sbatch et nuire à certains scripts."
     },
     {
-      "question": "Quelles sont les implications de l'utilisation de `/tmp` comme disque RAM sur la mémoire d'une tâche?",
-      "answer": "L'utilisation de `/tmp` compte dans la limite de mémoire imposée par le `cgroup` de la requête `sbatch`, et sa capacité fixée à 100% via `mount` peut faire en sorte que MemTotal ne corresponde pas à la requête `sbatch`."
+      "question": "Qu'est-ce que HDF5 et pourquoi est-il recommandé pour le stockage de données sur les grappes de l'Alliance, surtout pour de grands ensembles?",
+      "answer": "HDF5 est un format de fichier binaire pour le stockage de diverses données, y compris les objets étendus comme les matrices et les images. Il est recommandé pour sa capacité à gérer de grandes quantités de données et d'objets multiples dans un seul fichier."
     },
     {
-      "question": "Quel est l'objectif de l'outil d'archivage `dar`?",
-      "answer": "`dar` est un utilitaire d'archivage sur disque conçu pour améliorer l'outil `tar`."
+      "question": "Quel est le principal avantage d'utiliser SQLite pour stocker de nombreux petits fichiers, comme des images, sur les grappes de l'Alliance?",
+      "answer": "SQLite permet de regrouper un grand nombre de petits fichiers (comme des millions d'images PNG ou JPEG) en objets binaires (BLOB) au sein d'une seule base de données relationnelle enregistrée sur disque, sans nécessiter de serveur de bases de données."
     },
     {
-      "question": "À quoi sert le format de fichier HDF5?",
-      "answer": "HDF5 est un format de fichier binaire pour stocker plusieurs sortes de données étendues, comme des matrices et des images, avec des outils disponibles pour divers langages comme Python."
+      "question": "Quelles connaissances sont requises pour utiliser efficacement SQLite sur les systèmes de l'Alliance, et quand sa performance pourrait-elle se dégrader?",
+      "answer": "Il faut connaître SQL et savoir créer une base de données relationnelle simple. La performance de SQLite peut se dégrader avec de très grandes bases de données, à partir de plusieurs gigaoctets."
     },
     {
-      "question": "Comment SQLite aide-t-il à gérer des millions de petits fichiers?",
-      "answer": "SQLite permet de regrouper le contenu de millions de fichiers image (en tant que BLOB) dans une seule base de données relationnelle contenue dans un seul fichier sur disque, sans serveur."
+      "question": "Comment les utilisateurs peuvent-ils effectuer une compression parallèle lors de la création d'une archive tar sur les grappes de l'Alliance?",
+      "answer": "Les utilisateurs peuvent utiliser la commande 'tar -vc --use-compress-program=\"pigz -p 4\" -f dir.tar.gz dir_to_tar', où 'pigz -p 4' indique d'utiliser 4 cœurs pour la compression."
     },
     {
-      "question": "Quelles connaissances sont requises pour utiliser SQLite et quelles sont ses limitations de performance?",
-      "answer": "Il faut connaître SQL et savoir créer une base de données relationnelle. La performance de SQLite peut se dégrader avec de très grandes bases de données (plusieurs gigaoctets)."
+      "question": "Est-il possible d'extraire seulement un sous-répertoire spécifique d'une archive tar compressée sur les systèmes de l'Alliance, et comment cela se fait-il?",
+      "answer": "Oui, il est possible d'extraire un sous-répertoire spécifique avec la commande 'tar -zxf /chemin/vers/archive.tar.gz dossier/sous-dossier --directory $SLURM_TMPDIR', en spécifiant le répertoire à extraire et la destination."
     },
     {
-      "question": "Comment peut-on créer une archive compressée en utilisant la compression parallèle?",
-      "answer": "On peut utiliser la commande `tar -vc --use-compress-program=\"pigz -p 4\" -f dir.tar.gz dir_to_tar` pour compresser l'archive avec `pigz` en utilisant 4 cœurs."
-    },
-    {
-      "question": "Est-il possible d'extraire seulement une partie du contenu d'un fichier archive compressé?",
-      "answer": "Oui, on peut extraire un sous-répertoire spécifique d'un fichier `tar.gz` directement vers le disque local avec `tar -zxf /path/to/archive.tar.gz dir/subdir --directory $SLURM_TMPDIR`."
-    },
-    {
-      "question": "Comment peut-on optimiser la performance d'un dépôt `git` qui contient un grand nombre de fichiers cachés?",
-      "answer": "Il faut utiliser la commande `git repack` pour regrouper plusieurs des fichiers cachés dans quelques grandes bases de données, ce qui accélère la performance."
+      "question": "Comment les utilisateurs de Git peuvent-ils optimiser la performance pour leurs dépôts contenant beaucoup de fichiers sur les grappes de l'Alliance?",
+      "answer": "Les utilisateurs de Git devraient utiliser la commande 'git repack' pour regrouper plusieurs fichiers dans quelques grandes bases de données, ce qui permet d'accélérer la performance."
     }
   ],
-  "generated_at": "2026-04-11T23:41:53.994894+00:00"
+  "generated_at": "2026-04-13T07:02:55.821970+00:00"
 }

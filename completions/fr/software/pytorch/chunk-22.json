@@ -4,41 +4,13 @@
   "chunk_index": 22,
   "qa_pairs": [
     {
-      "question": "Si je veux tester une application avec CUDA, qu'est-ce que je dois faire?",
-      "answer": "Si tu veux tester une application avec CUDA, il faut demander une tâche interactive avec un GPU."
+      "question": "Comment puis-je installer rTorch à partir d'un nœud de connexion sur les grappes de calcul d'Alliance?",
+      "answer": "Pour installer rTorch, vous devez d'abord charger les modules requis, comme `r/4.5`, `cuda/12.6` et `cudnn`. Ensuite, créez un répertoire d'installation pour R en suivant les instructions fournies, installez le paquet \"torch\" depuis CRAN (`install.packages(\"torch\")`) et ses dépendances avec `torch::install_torch()`. Pour finir, il est nécessaire de corriger la bibliothèque partagée `liblantern.so` en utilisant `setrpaths.sh` pour ajouter les chemins des bibliothèques nécessaires."
     },
     {
-      "question": "Comment faire pour installer rTorch à partir d'un nœud de connexion?",
-      "answer": "Pour installer rTorch, faut d'abord charger les modules nécessaires, ensuite créer ton répertoire d'installation, installer la dernière version de rtorch, installer les dépendances, corriger la bibliothèque partagée 'lantern', pis après ça, tu peux faire un test rapide sur le CPU pis un autre sur le GPU."
-    },
-    {
-      "question": "Quels modules faut charger pour installer rTorch?",
-      "answer": "Faut charger les modules `r/4.5`, `cuda/12.6` et `cudnn`. La commande que tu dois utiliser c'est `module load r/4.5 cuda/12.6 cudnn`."
-    },
-    {
-      "question": "Comment est-ce que je crée le répertoire d'installation pour rTorch?",
-      "answer": "Faut créer un répertoire comme `~/.local/R/$EBVERSIONR/` pis après ça exporter la variable `R_LIBS` vers ce chemin-là. Les commandes, c'est `mkdir -p ~/.local/R/$EBVERSIONR/` et `export R_LIBS=~/.local/R/$EBVERSIONR/`."
-    },
-    {
-      "question": "Comment j'installe le paquet rtorch dans R?",
-      "answer": "Pour installer la dernière version disponible de rtorch, tu peux rouler la commande `R -e 'install.packages(\"torch\", repos=\"https://cloud.r-project.org/\")'` dans le terminal."
-    },
-    {
-      "question": "C'est quelle la commande pour installer les dépendances de rTorch?",
-      "answer": "Faut que tu roules `R -e 'torch::install_torch()'` pour installer les dépendances de rTorch."
-    },
-    {
-      "question": "Comment je fais pour corriger la bibliothèque partagée 'lantern' après avoir installé rTorch?",
-      "answer": "Faut utiliser le script `setrpaths.sh` avec la commande suivante : `setrpaths.sh --path $R_LIBS/torch/lib/liblantern.so --add_path $EBROOTCUDACORE/lib --any_interpreter`."
-    },
-    {
-      "question": "Comment je peux faire un test rapide du CPU pour rTorch?",
-      "answer": "Tu peux rouler `R -e 'torch::torch_tensor(1);'`. Le résultat que tu devrais avoir, c'est:\n```\n> torch::torch_tensor(1);\ntorch_tensor\n 1\n[ CPUFloatType{1} ]\n```"
-    },
-    {
-      "question": "Comment je peux faire un test du GPU pour rTorch?",
-      "answer": "Faut soumettre une tâche qui demande des ressources GPU en utilisant `srun --mem=3500M --gpus=h100_1g.10gb:1 -- R -e 'torch::torch_tensor(1)$cuda()'`. Le résultat attendu, c'est:\n```\n> torch::torch_tensor(1)$cuda();\ntorch_tensor\n 1\n[ CUDAFloatType{1} ]\n```"
+      "question": "Après avoir installé rTorch, comment vérifier son bon fonctionnement sur un CPU et sur un GPU?",
+      "answer": "Pour vérifier l'installation de rTorch sur un CPU, exécutez la commande `R -e 'torch::torch_tensor(1);'`. Pour effectuer un test sur GPU, vous devez d'abord demander une tâche interactive avec accès à un GPU, puis lancer la commande `srun --mem=3500M --gpus=h100_1g.10gb:1 -- R -e 'torch::torch_tensor(1)$cuda()'`. Le résultat de ce dernier test devrait afficher `[ CUDAFloatType{1} ]` pour confirmer que le GPU est bien utilisé."
     }
   ],
-  "generated_at": "2026-04-12T05:49:09.365393+00:00"
+  "generated_at": "2026-04-13T11:44:28.376597+00:00"
 }

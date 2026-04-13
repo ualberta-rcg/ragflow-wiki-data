@@ -3,73 +3,53 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi AMS?",
-      "answer": "AMS, ou Amsterdam Modeling Suite, est la nouvelle appellation d'ADF (Amsterdam Density Functional) et fait partie de la suite SCM Software for Chemistry and Materials."
+      "question": "Qu'est-ce que le logiciel AMS (Amsterdam Modeling Suite) et quelle est son utilité principale sur les grappes de calcul d'Alliance?",
+      "answer": "AMS est la nouvelle désignation pour ADF (Amsterdam Density Functional) et fait partie de la suite SCM Software for Chemistry and Materials. Il fournit des outils performants pour la recherche en chimie computationnelle, notamment dans les domaines de la catalyse, la chimie inorganique, la chimie des éléments lourds, la biochimie et divers types de spectroscopie."
     },
     {
-      "question": "Dans quels domaines la suite AMS est-elle utile pour la recherche en chimie computationnelle?",
-      "answer": "AMS est performante en catalyse (homogène et hétérogène), chimie inorganique, chimie des éléments lourds, biochimie et différents types de spectroscopie."
+      "question": "Quels sont les principaux produits du module SCM qui sont disponibles via AMS sur les infrastructures d'Alliance?",
+      "answer": "Les principaux produits disponibles sont ADF, ADF-GUI, BAND, BAND-GUI, DFTB, ReaxFF, COSMO-RS, QE-GUI et NBO6."
     },
     {
-      "question": "Quels produits sont inclus dans le module SCM?",
-      "answer": "Les produits incluent ADF, ADF-GUI, BAND, BAND-GUI, DFTB, ReaxFF, COSMO-RS, QE-GUI et NBO6."
+      "question": "Où le module `ams` est-il installé sur les grappes d'Alliance et quelles sont les restrictions concernant son utilisation?",
+      "answer": "Le module `ams` est installé sur Nibi. La licence est détenue par SHARCNET et est réservée aux centres de calcul universitaires; elle ne peut être utilisée pour des services de consultation ou toute autre fin commerciale."
     },
     {
-      "question": "Est-ce que le module `ams` est disponible sur Nibi?",
-      "answer": "Oui, le module `ams` est installé sur Nibi."
+      "question": "Comment peut-on connaître les différentes versions du module `ams` disponibles sur une grappe comme Nibi?",
+      "answer": "Pour lister les versions disponibles du module `ams` sur une grappe, il faut lancer la commande `module spider ams` dans un terminal."
     },
     {
-      "question": "Quelle est la politique de licence pour AMS sur SHARCNET?",
-      "answer": "La licence de SHARCNET est réservée aux centres de calcul universitaires et ne peut être utilisée pour des services de consultation ou à des fins commerciales."
+      "question": "Quel est le système d'ordonnancement utilisé pour soumettre des tâches AMS sur les grappes de calcul d'Alliance, et où peut-on trouver des informations détaillées à ce sujet?",
+      "answer": "Les tâches soumises sur les grappes d'Alliance sont ordonnancées par Slurm. Des détails sont disponibles en consultant la documentation sur l'exécution des tâches Slurm."
     },
     {
-      "question": "Comment puis-je voir les versions d'AMS disponibles sur Nibi?",
-      "answer": "Il faut lancer la commande `module spider ams` pour connaître les versions disponibles."
+      "question": "Quelles sont les étapes essentielles de configuration de l'environnement des modules et des chemins temporaires dans un script Slurm pour une tâche AMS?",
+      "answer": "Dans un script Slurm, il faut décharger `openmpi` (`module unload openmpi`), puis charger le module `ams` (par exemple, `module load ams/2025.102`). Il est également recommandé d'exporter `SCM_TMPDIR` vers `$SLURM_TMPDIR` pour utiliser le disque local du nœud."
     },
     {
-      "question": "Quel ordonnanceur de tâches est utilisé sur les grappes pour les tâches AMS?",
-      "answer": "Les tâches sont ordonnancées par Slurm sur nos grappes."
+      "question": "Comment doit-on allouer les cœurs CPU pour une tâche AMS dans un script Slurm afin d'optimiser l'utilisation des ressources sur Nibi?",
+      "answer": "Il est important d'utiliser un nombre raisonnable de CPU (par exemple, 32 cœurs par nœud) et d'éviter de demander un nœud complet de Nibi (192 cœurs) à moins d'avoir démontré que votre tâche peut les utiliser efficacement."
     },
     {
-      "question": "Quelle est la recommandation concernant le nombre de CPU à demander pour une tâche AMS sur Nibi?",
-      "answer": "Il est conseillé d'utiliser un nombre raisonnable de CPU et d'éviter de demander un nœud complet (192 CPU) à moins d'avoir démontré que la tâche peut les utiliser efficacement."
+      "question": "Quelles sont les remarques importantes concernant les fichiers d'entrée et de sortie des tâches AMS par rapport aux anciennes versions d'ADF?",
+      "answer": "Les fichiers d'entrée pour AMS sont différents de ceux pour ADF; les anciens fichiers ADF ne sont pas compatibles. Les fichiers de sortie, à l'exception du fichier `.log`, sont sauvegardés dans le sous-répertoire `AMS_JOBNAME.results`, et le fichier de point de sauvegarde est `ams.rkf` (au lieu de `TAPE13`)."
     },
     {
-      "question": "Comment doit-on configurer le répertoire temporaire pour AMS dans un script Slurm?",
-      "answer": "Il faut définir la variable d'environnement `SCM_TMPDIR` à `$SLURM_TMPDIR` pour utiliser le disque local."
+      "question": "Où peut-on trouver des exemples de fichiers d'entrée pour AMS?",
+      "answer": "Des exemples de fichiers d'entrée pour AMS sont disponibles dans le répertoire `/opt/software/ams/2025.102/examples/` sur la grappe."
     },
     {
-      "question": "Quelle est la principale différence entre les fichiers d'entrée AMS et les anciens fichiers ADF?",
-      "answer": "Le fichier d'entrée pour AMS est différent de celui pour ADF; les anciens fichiers d'entrée ADF ne fonctionneront pas avec le nouveau AMS."
+      "question": "Comment peut-on utiliser l'interface graphique AMS-GUI de manière interactive sur un nœud de calcul de Nibi?",
+      "answer": "Pour utiliser AMS-GUI sur Nibi, connectez-vous à `ondemand.sharcnet.ca`, sélectionnez 'Nibi Desktop' dans 'Compute', ouvrez un 'MATE Terminal', déchargez `openmpi`, chargez `ams`, puis lancez `amsinput &` pour créer des fichiers ou `amsview &` pour visualiser les résultats."
     },
     {
-      "question": "Où sont sauvegardés les fichiers de sortie d'une tâche AMS, à part le fichier .log?",
-      "answer": "Tous les fichiers, sauf le .log, sont sauvegardés dans le sous-répertoire `AMS_JOBNAME.results`. Si `AMS_JOBNAME` n'est pas défini, le nom par défaut est `ams.results`."
+      "question": "Quelles sont les recommandations spécifiques pour l'utilisation d'AMS-GUI via OnDemand sur Nibi en termes d'allocation de ressources?",
+      "answer": "Pour AMS-GUI, il est conseillé de sélectionner un seul cœur ainsi qu'une quantité de mémoire et un temps d'exécution raisonnables. Il ne faut pas y exécuter de tâches régulières ou interactives de longue durée, mais plutôt l'utiliser pour la création de fichiers d'entrée et la visualisation des résultats."
     },
     {
-      "question": "Quel est le nom du fichier de point de sauvegarde dans AMS?",
-      "answer": "Le fichier de point de sauvegarde est `ams.rkf`, remplaçant `TAPE13` des versions précédentes d'ADF."
-    },
-    {
-      "question": "Comment peut-on utiliser AMS en mode graphique sur Nibi?",
-      "answer": "AMS peut être utilisé interactivement en mode graphique via OnDemand sur un nœud de calcul de Nibi, avec une durée limite de 8 heures."
-    },
-    {
-      "question": "Quelle est la première étape pour accéder à AMS-GUI via OnDemand?",
-      "answer": "Il faut se connecter à `ondemand.sharcnet.ca`."
-    },
-    {
-      "question": "Comment lance-t-on les applications `amsinput` et `amsview` sur le Nibi Desktop?",
-      "answer": "Après avoir ouvert un terminal, on lance `amsinput &` pour créer des fichiers d'entrée et `amsview &` pour visualiser les résultats."
-    },
-    {
-      "question": "Que doit-on faire si VirtualGL est activé pour un autre programme et cause un conflit avec AMS-GUI?",
-      "answer": "Il faut désactiver VirtualGL pour AMS en le lançant avec `LD_PRELOAD= amsinput`."
-    },
-    {
-      "question": "Quelles sont les recommandations pour l'utilisation d'AMS-GUI sur Nibi Desktop via OnDemand?",
-      "answer": "Il ne faut pas y exécuter de tâches régulières ou de longue durée, et il faut sélectionner un seul cœur avec une quantité de mémoire et un temps d'exécution raisonnables."
+      "question": "Que doit-on faire si on a activé VirtualGL pour un autre programme et que cela entre en conflit avec l'utilisation d'AMS-GUI?",
+      "answer": "Si VirtualGL est activé pour un autre programme, vous devez le désactiver pour AMS en lançant la commande `LD_PRELOAD= amsinput` au lieu de `amsinput`."
     }
   ],
-  "generated_at": "2026-04-11T15:07:40.533251+00:00"
+  "generated_at": "2026-04-13T00:29:52.115494+00:00"
 }

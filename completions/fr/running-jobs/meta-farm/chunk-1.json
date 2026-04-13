@@ -4,81 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Quelle version de META a été publiée en mars 2025 et sur quelle grappe fonctionne-t-elle?",
-      "answer": "La version 1.0.3 de META, publiée en mars 2025, fonctionne sur la grappe Trillium."
+      "question": "C'est quoi META-Farm, pis à quoi ça sert?",
+      "answer": "META-Farm, c'est une suite de scripts développée par l'équipe SHARCNET pour automatiser l'exécution d'un gros paquet de calculs connexes. Ça permet de gérer pis de lancer plein de 'cas' (des calculs distincts) sur les systèmes nationaux de l'Alliance et d'autres grappes qui utilisent l'ordonnanceur Slurm."
     },
     {
-      "question": "Qu'est-ce qui a rendu possible le fonctionnement de la version 1.0.3 de META sur la grappe Trillium?",
-      "answer": "Le fonctionnement de la version 1.0.3 sur la grappe Trillium est rendu possible grâce à l'ajout du nouveau mode WHOLE_NODE et à quelques autres ajustements."
+      "question": "Quelles sont les principales fonctionnalités de META-Farm, incluant ses modes d'opération?",
+      "answer": "META-Farm offre deux modes de fonctionnement principaux : le mode SIMPLE, où chaque tâche gère un seul cas, pis le mode META, où une tâche peut s'occuper de plusieurs cas. Ses fonctionnalités incluent aussi l'équilibrage dynamique de la charge de travail en mode META, la capture des statuts de sortie individuels pour chaque cas, la resoumission automatique des cas qui ont planté ou qui ont pas été exécutés, pis l'exécution automatique d'une tâche de post-traitement une fois que tous les cas sont finis."
     },
     {
-      "question": "Le mode WHOLE_NODE est-il activé par défaut?",
-      "answer": "Non, le mode WHOLE_NODE est inactif par défaut, mais il est configurable dans le fichier `config.h`."
-    },
-    {
-      "question": "À quoi sert le mode WHOLE_NODE?",
-      "answer": "Le mode WHOLE_NODE rassemble les cas séquentiels de calcul dans des tâches qui demandent des nœuds complets."
-    },
-    {
-      "question": "Qu'est-ce que META (META-Farm)?",
-      "answer": "META est une suite de scripts conçus par l'équipe SHARCNET pour automatiser l'exécution d'un grand nombre de calculs connexes."
-    },
-    {
-      "question": "Comment cette pratique d'automatisation est-elle parfois nommée en anglais?",
-      "answer": "En anglais, cette pratique est parfois nommée *farming*, *serial farming* ou *task farming*."
-    },
-    {
-      "question": "Sur quels systèmes META peut-il être utilisé?",
-      "answer": "META fonctionne sur tous les systèmes nationaux de l'Alliance et peut également être utilisée sur d'autres grappes qui possèdent la même configuration et qui font usage de l'ordonnanceur Slurm."
-    },
-    {
-      "question": "Dans la terminologie de META, qu'est-ce qu'un 'cas'?",
-      "answer": "Un 'cas' désigne un calcul distinct, qui peut être l'exécution d'un programme en série, d'un programme parallèle ou d'un programme utilisant un GPU."
-    },
-    {
-      "question": "Selon META, qu'est-ce qu'une 'tâche'?",
-      "answer": "Une 'tâche' est une invocation à l'ordonnanceur de tâches; une tâche peut regrouper plusieurs cas."
-    },
-    {
-      "question": "Quels sont les deux modes de fonctionnement de META?",
-      "answer": "META possède deux modes de fonctionnement : le mode SIMPLE avec un cas par tâche, et le mode META avec plusieurs cas par tâche."
-    },
-    {
-      "question": "Quelles sont les fonctionnalités offertes par META?",
-      "answer": "META offre deux modes de fonctionnement, l'équilibrage dynamique de la charge de travail en mode META, la capture du statut de sortie pour tous les cas individuels, la resoumission automatique des cas qui ont échoué ou n'ont jamais été exécutés, et l'exécution automatique d'une tâche de post-traitement une fois que tous les cas ont été traités avec succès."
-    },
-    {
-      "question": "Quelle est une exigence technique pour organiser les cas à traiter avec META?",
-      "answer": "Pour chaque groupe de cas, chaque cas à traiter doit être décrit sur une ligne distincte dans un fichier `table.dat`."
-    },
-    {
-      "question": "Comment gérer plusieurs groupes de cas indépendants avec META?",
-      "answer": "Vous pouvez exécuter plusieurs groupes de cas indépendamment, mais chacun doit avoir son propre répertoire."
-    },
-    {
-      "question": "Combien de tâches sont généralement soumises en mode META par rapport au nombre de cas?",
-      "answer": "En mode META, le nombre de tâches (ou métatâches) effectivement soumises est généralement bien inférieur au nombre de cas à traiter."
-    },
-    {
-      "question": "Comment le mode META gère-t-il l'équilibrage dynamique de la charge de travail?",
-      "answer": "Une collection de métatâches lira les lignes de `table.dat` séquentiellement et utilisera le mécanisme `lockfile` pour éviter une situation de concurrence, garantissant un bon équilibre dynamique de la charge de travail, car celles qui traitent des cas plus courts peuvent en traiter davantage."
-    },
-    {
-      "question": "Est-ce que toutes les métatâches soumises en mode META doivent s'exécuter?",
-      "answer": "Non, toutes les métatâches n'ont pas besoin d'exécuter des cas. La première métatâche commencera à traiter les lignes de `table.dat`, et si d'autres démarrent, elles rejoignent la première."
-    },
-    {
-      "question": "Quel est l'un des avantages de META par rapport à GLOST concernant le temps en file d'attente?",
-      "answer": "Le temps en file d'attente peut être beaucoup plus court avec META qu'avec GLOST, car l'ordonnanceur dispose de toute la souplesse pour démarrer les métatâches individuelles quand il le souhaite, au lieu d'attendre une seule grande tâche MPI."
-    },
-    {
-      "question": "Comment META évite-t-il la perte de ressources à la fin du traitement d'un groupe de cas, contrairement à GLOST?",
-      "answer": "Avec META, il n'y a pas de perte à la fin du traitement, car les métatâches individuelles sortent plus tôt si elles n'ont plus de charge de travail, alors qu'avec GLOST, certains rangs MPI peuvent rester inactifs en attendant le plus lent."
-    },
-    {
-      "question": "META prend-il en charge la resoumission automatisée des cas qui ont échoué?",
-      "answer": "Oui, META possède la fonctionnalité de resoumission automatisée des cas qui ont échoué ou qui n'ont jamais été exécutés, ce qui n'est pas le cas de GLOST et d'autres outils similaires."
+      "question": "Quels sont les avantages d'utiliser META-Farm comparé à d'autres approches, comme GLOST, pour gérer les tâches de calcul?",
+      "answer": "META-Farm a des avantages significatifs par rapport à GLOST. Par exemple, le temps d'attente en file peut être ben plus court avec META parce que l'ordonnanceur peut démarrer des petites 'métatâches' dès qu'il y a de la place, ce qui donne des premiers résultats beaucoup plus vite. En plus, avec META, y'a pas de perte de temps à la fin du traitement; les métatâches s'arrêtent dès qu'elles ont plus de travail. Finalement, META offre la resoumission automatisée des cas qui ont échoué ou qui n'ont jamais été exécutés, une fonction que GLOST n'a pas."
     }
   ],
-  "generated_at": "2026-04-12T01:23:19.083671+00:00"
+  "generated_at": "2026-04-13T08:27:04.132201+00:00"
 }

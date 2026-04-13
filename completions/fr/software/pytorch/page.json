@@ -3,133 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi PyTorch et quelles sont ses fonctionnalités principales?",
-      "answer": "PyTorch est un paquet Python qui offre deux fonctionnalités de haut niveau : le calcul tensoriel avec forte accélération de GPU, et des réseaux de neurones d’apprentissage profond dans un système de gradients conçu sur le modèle d’un magnétophone."
+      "question": "Qu'est-ce que PyTorch et quelles sont ses fonctionnalités principales?",
+      "answer": "PyTorch est un paquet Python qui offre deux fonctionnalités de haut niveau : le calcul tensoriel (semblable à celui effectué par NumPy) avec forte accélération de GPU, et des réseaux de neurones d’apprentissage profond dans un système de gradients conçu sur le modèle d’un magnétophone."
     },
     {
-      "question": "Que devrais-je consulter si je veux porter un programme PyTorch sur une de nos grappes?",
-      "answer": "Il serait bon de prendre connaissance du tutoriel sur l'apprentissage machine."
+      "question": "Quelle est la différence entre PyTorch et Torch, et qu'est-ce que LibTorch offre?",
+      "answer": "PyTorch et Torch peuvent être considérés comme des projets différents pour des raisons pratiques. LibTorch est une offre des développeurs PyTorch qui permet d'implémenter des extensions C++ à PyTorch et des applications d'apprentissage machine en C++ pur. Les modèles Python peuvent être convertis et utilisés en C++ avec TorchScript."
     },
     {
-      "question": "Y a-t-il une différence entre PyTorch et Torch?",
-      "answer": "Oui, même s'il y a une certaine ressemblance, pour des raisons pratiques, on peut considérer que ce sont des projets différents."
+      "question": "Comment installer PyTorch à l'aide de 'wheels' sur les grappes d'Alliance?",
+      "answer": "La meilleure option est d'installer PyTorch avec des 'Python wheels'. Il faut charger un module Python, créer et démarrer un environnement virtuel, puis installer PyTorch dans cet environnement avec `pip install --no-index torch`."
     },
     {
-      "question": "Qu'est-ce que LibTorch et à quoi sert-il?",
-      "answer": "LibTorch permet d'implémenter des extensions à PyTorch à l'aide de C++ et d'implémenter des applications d'apprentissage machine en C++ pur. Les modèles Python écrits avec PyTorch peuvent être convertis et utilisés en C++ avec TorchScript."
+      "question": "Quelles sont les considérations spécifiques pour les GPU H100 lors de l'installation de PyTorch sur les grappes d'Alliance?",
+      "answer": "Avec les GPU H100, il est recommandé d'utiliser Torch 2.3 et les versions plus récentes pour assurer la compatibilité et la performance."
     },
     {
-      "question": "Comment puis-je connaître la dernière version de PyTorch disponible?",
-      "answer": "Pour connaître la dernière version, utilisez la commande `avail_wheels torch`."
+      "question": "Comment soumettre une tâche PyTorch simple qui utilise un GPU sur une grappe d'Alliance?",
+      "answer": "Il faut créer un script SLURM (par exemple, `pytorch-test.sh`) qui charge un module Python, active un environnement virtuel, installe PyTorch, puis exécute un script Python (par exemple, `pytorch-test.py`) qui initialise des tenseurs et vérifie la disponibilité de CUDA. La tâche est soumise avec `sbatch pytorch-test.sh`."
     },
     {
-      "question": "Quelles sont les étapes recommandées pour installer PyTorch en utilisant les Python wheels?",
-      "answer": "Il faut d'abord charger un module Python, ensuite créer et démarrer un environnement virtuel, puis installer PyTorch dans cet environnement avec `pip install`."
+      "question": "Qu'est-ce que le mode TensorFloat-32 (TF32) de Nvidia dans PyTorch et quels sont ses impacts sur la performance et la précision?",
+      "answer": "Le mode TF32, disponible sur les architectures GPU d'Ampere et Nvidia, accélère les opérations tensorielles jusqu'à 20x. Cependant, ce gain de performance peut réduire la précision des résultats. À partir de PyTorch 1.12.0, TF32 est désactivé par défaut pour les multiplications matricielles et activé pour les convolutions."
     },
     {
-      "question": "Quelle version de Torch faut-il utiliser avec les GPU H100?",
-      "answer": "Avec les GPU H100, il faut utiliser Torch 2.3 et versions plus récentes."
+      "question": "Quand devrais-je privilégier l'utilisation des CPU plutôt que des GPU pour l'entraînement de modèles PyTorch sur les grappes d'Alliance?",
+      "answer": "Pour les petits modèles ou les jeux de données pas assez grands, il est fortement recommandé d'utiliser plusieurs CPU. Bien que l'entraînement soit généralement plus rapide avec un GPU, l'utilisation inefficace d'un GPU sur une grappe partagée monopolise une ressource précieuse et affecte l'allocation de votre groupe."
     },
     {
-      "question": "Quels paquets supplémentaires puis-je installer en plus de `torch`?",
-      "answer": "Vous pouvez aussi installer `torchvision`, `torchtext` et `torchaudio`."
+      "question": "Comment optimiser l'utilisation d'un seul GPU avec PyTorch pour améliorer la performance?",
+      "answer": "Pour optimiser l'utilisation d'un seul GPU, il faut augmenter la valeur de `batch_size` au maximum que la mémoire du GPU permet et utiliser un `DataLoader` avec autant de `num_workers` que de `cpus-per-task` pour faciliter le mouvement des données entre le CPU et le GPU."
     },
     {
-      "question": "Comment soumettre une tâche PyTorch sur la grappe?",
-      "answer": "Un script bash (comme `pytorch-test.sh`) doit être créé pour charger le module Python, configurer l'environnement virtuel, installer PyTorch, puis exécuter votre script Python. Ensuite, soumettez-le avec `sbatch pytorch-test.sh`."
+      "question": "Qu'est-ce que le parallélisme des données en PyTorch et quelle approche est recommandée pour plusieurs GPU?",
+      "answer": "Le parallélisme des données implique d'entraîner un modèle sur plusieurs copies en parallèle, chaque copie traitant un ensemble différent de données. Pour plusieurs GPU, la classe `DistributedDataParallel` est recommandée par les développeurs PyTorch pour son efficacité, que ce soit avec un nœud unique ou plusieurs nœuds."
     },
     {
-      "question": "Qu'est-ce que le mode TensorFloat-32 (TF32) de Nvidia dans PyTorch?",
-      "answer": "C'est un mode qui accélère les opérations tensorielles jusqu'à 20 fois plus vite que les opérations en simple précision (FP32), mais peut entraîner une baisse de la précision des résultats. Il est disponible pour les architectures GPU d'Ampere et de Nvidia."
+      "question": "Comment PyTorch Lightning facilite-t-il le parallélisme des données avec plusieurs GPU?",
+      "answer": "PyTorch Lightning fournit des interfaces simplifiées pour les tâches courantes d'apprentissage profond, y compris l'entraînement de modèles avec plusieurs GPU. Il gère automatiquement la distribution sans nécessiter d'appels explicites à des classes comme `DistributedDataParallel`, en configurant le `Trainer` avec les paramètres appropriés (`accelerator='gpu'`, `devices`, `num_nodes`, `strategy='ddp'`)."
     },
     {
-      "question": "Quel est le comportement par défaut de TF32 à partir de PyTorch version 1.12.0?",
-      "answer": "À partir de la version 1.12.0, TF32 est désactivé par défaut pour les multiplications matricielles et activé par défaut pour les convolutions."
+      "question": "Dans quels cas est-il avantageux d'utiliser le parallélisme des données avec un seul GPU en PyTorch sur les grappes d'Alliance, et comment y parvenir?",
+      "answer": "C'est avantageux pour les modèles de petite taille qui n'utilisent pas pleinement un GPU mais qui doivent être entraînés avec un très grand jeu de données et de petits lots. On y parvient en exécutant plusieurs copies du modèle sur un seul GPU en utilisant le service Multi-Process (MPS) de Nvidia et MPI, ce qui optimise l'utilisation des ressources du GPU et offre un gain de vitesse."
     },
     {
-      "question": "Comment activer ou désactiver TF32 pour PyTorch version 1.12.0 et plus?",
-      "answer": "On peut donner la valeur `True` ou `False` aux indicateurs `torch.backends.cuda.matmul.allow_tf32` (pour les multiplications matricielles) et `torch.backends.cudnn.allow_tf32` (pour les convolutions)."
+      "question": "Quelles sont les différences fondamentales entre le parallélisme de données entièrement fragmentées (FSDP), le parallélisme tensoriel et le parallélisme de pipeline en PyTorch?",
+      "answer": "FSDP distribue le stockage des états de l'optimiseur, des poids, des gradients et des activations à travers plusieurs appareils. Le parallélisme tensoriel (TP) divise les calculs et les poids des couches d'un modèle sur plusieurs appareils, effectuant les étapes de calcul localement. Le parallélisme de pipeline (PP) fragmente le modèle en groupes de couches consécutives et les place sur différents appareils, traitant les lots d'entrée en 'micro-lots' pour maintenir l'activité des appareils."
     },
     {
-      "question": "Comment PyTorch permet-il le parallélisme avec plusieurs CPU?",
-      "answer": "PyTorch permet le parallélisme de deux façons : intra-op (implémentation parallèle d'opérateurs avec OpenMP ou des bibliothèques comme MKL/OneDNN) et inter-op (exécution de différentes parties de code de manière concurrente)."
+      "question": "Pourquoi est-il important de créer des points de contrôle (checkpoints) durant l'entraînement de modèles PyTorch, surtout en entraînement distribué?",
+      "answer": "Les points de contrôle sont cruciaux pour découper les tâches de longue durée en tâches plus courtes, permettant des allocations plus rapides sur les grappes. Ils préviennent également la perte de progrès en cas d'erreurs inattendues ou de pannes de nœud. En entraînement distribué, ils assurent la résilience et la continuité."
     },
     {
-      "question": "Est-il toujours préférable d'utiliser un GPU pour les petits modèles sur les grappes?",
-      "answer": "Non, pour les petits modèles, il est fortement recommandé d'utiliser plusieurs CPU plutôt qu'un GPU, car un GPU bloquerait une ressource pour d'autres calculs et ne serait pas utilisé efficacement."
+      "question": "Comment éviter les problèmes lors de la création et du chargement de points de contrôle dans un environnement d'entraînement distribué PyTorch?",
+      "answer": "Pour éviter les problèmes, assurez-vous qu'un seul processus (`rank`) crée le point de contrôle et utilisez une barrière (`torch.distributed.barrier()`) pour garantir que l'écriture sur le disque est terminée avant que d'autres processus tentent de charger. Utilisez également `map_location` avec `torch.load` pour charger les tenseurs sur le GPU approprié à chaque processus (par exemple, `map_location=f\"cuda:{local_rank}\"`)."
     },
     {
-      "question": "Quels sont les avantages des GPU pour les tâches d'apprentissage profond?",
-      "answer": "Les GPU peuvent paralléliser l’exécution d’opérations clés sur des milliers de cœurs de calcul et offrent une bande passante de mémoire beaucoup plus grande que les CPU."
+      "question": "Quelle est la cause fréquente de l'erreur CUDA 'no kernel image is available for execution on the device' en utilisant PyTorch?",
+      "answer": "Cette erreur signifie que l'installation actuelle de Torch ne prend pas en charge l'architecture de calcul ou le GPU utilisé. La solution est généralement d'installer une version plus récente de PyTorch ou de demander un GPU compatible avec la version de Torch que vous utilisez."
     },
     {
-      "question": "Quels paramètres sont importants pour optimiser la performance sur un GPU?",
-      "answer": "Les paramètres importants sont `batch_size` (pour augmenter la taille des entrées) et `num_workers` (pour faciliter le mouvement des données entre CPU et GPU)."
+      "question": "Quelles sont les étapes pour configurer l'environnement afin d'utiliser LibTorch pour le développement C++ avec PyTorch?",
+      "answer": "Il faut d'abord charger les modules système nécessaires (comme `gcc`, `cuda`, `cmake`, `protobuf`, `cudnn`, `python`) puis créer et activer un environnement virtuel Python pour installer `torch` et `numpy` via `pip`. Les versions des modules `abseil`, `cusparselt` et `opencv` peuvent nécessiter des ajustements selon le wheel de PyTorch utilisé."
     },
     {
-      "question": "Qu'est-ce que le parallélisme des données?",
-      "answer": "Le parallélisme des données est une méthode où un modèle est entraîné sur plusieurs copies en parallèle, chaque copie recevant un ensemble différent de données d'entraînement. Les gradients sont agrégés et les paramètres sont mis à jour après chaque itération."
-    },
-    {
-      "question": "Quel est un inconvénient majeur du parallélisme des données?",
-      "answer": "Un inconvénient majeur est qu'il faut ajuster le taux d'apprentissage ou la taille des lots en fonction du nombre de copies pour obtenir un modèle équivalent à celui entraîné sans parallélisme."
-    },
-    {
-      "question": "Quelle classe est recommandée par les développeurs PyTorch pour le parallélisme des données avec plusieurs GPU?",
-      "answer": "La classe `DistributedDataParallel` est recommandée pour le parallélisme des données avec plusieurs GPU, que ce soit avec un nœud unique ou plusieurs nœuds."
-    },
-    {
-      "question": "Comment PyTorch Lightning simplifie-t-il le parallélisme des données?",
-      "answer": "PyTorch Lightning fournit des interfaces qui simplifient les tâches d'entraînement de modèles avec plusieurs GPU, sans avoir à gérer explicitement la classe `DistributedDataParallel`."
-    },
-    {
-      "question": "Quand est-il avantageux d'utiliser le parallélisme des données avec un seul GPU?",
-      "answer": "C'est avantageux si on a un modèle de petite taille, mais un très grand jeu de données, et qu'on veut effectuer l'entraînement avec des lots de petite taille, afin d'optimiser l'utilisation des ressources et d'obtenir un gain de vitesse."
-    },
-    {
-      "question": "Comment le parallélisme des données avec un seul GPU est-il implémenté?",
-      "answer": "Il est implémenté en utilisant le service Multi-Process (MPS) de Nvidia et MPI pour déployer efficacement plusieurs copies (replicas) du modèle sur un seul GPU."
-    },
-    {
-      "question": "Qu'est-ce que le parallélisme de données entièrement fragmentées (FSDP)?",
-      "answer": "Le FSDP permet le stockage et le calcul distribués de différents éléments d'une tâche d'entraînement (états de l'optimiseur, poids, gradients, activations) sur plusieurs périphériques pour entraîner efficacement des modèles massifs."
-    },
-    {
-      "question": "Quel est un inconvénient de FSDP concernant les couches de modèle?",
-      "answer": "Avec FSDP, une couche de modèle fragmentée peut être collectée sur un seul périphérique lors d'un passage avant ou arrière, ce qui signifie que les couches ou blocs fragmentés doivent tenir entièrement dans la mémoire d'un seul GPU."
-    },
-    {
-      "question": "Comment le parallélisme tensoriel (TP) se distingue-t-il de FSDP?",
-      "answer": "Avec TP, le calcul d'un passage avant ou arrière à travers une couche de modèle est divisé avec les poids de la couche sur plusieurs périphériques, et les étapes de calcul sont effectuées localement sur le périphérique où se trouve le fragment de modèle, évitant ainsi le déplacement des fragments."
-    },
-    {
-      "question": "Qu'est-ce que le parallélisme de pipeline (PP)?",
-      "answer": "PP est une approche de fragmentation de modèle où les fragments sont des groupes de couches consécutives, chacun placé sur un périphérique différent. Pour atténuer le temps d'attente, chaque lot d'entrée est divisé en 'micro-lots' alimentés séquentiellement au modèle."
-    },
-    {
-      "question": "Pourquoi est-il recommandé de créer des points de contrôle pendant l'entraînement?",
-      "answer": "Il est recommandé de créer des points de contrôle pour découper les tâches de longue durée en tâches plus courtes, allouer plus rapidement sur la grappe et éviter de perdre le déroulement en cas d'erreurs inattendues ou de panne de nœud."
-    },
-    {
-      "question": "Comment créer des points de contrôle avec PyTorch Lightning?",
-      "answer": "Il faut utiliser le paramètre de rappels (`callbacks parameter`) de la classe `Trainer()`, par exemple `pl.callbacks.ModelCheckpoint(dirpath=\"./ckpt\",every_n_epochs=1)`."
-    },
-    {
-      "question": "Quelle est la procédure pour créer des points de contrôle durant l’entraînement distribué avec `DistributedDataParallel`?",
-      "answer": "Les points de contrôle doivent être créés par un seul processus (souvent le `rank 0`). Il faut ajouter une barrière (`torch.distributed.barrier()`) pour s'assurer que l'écriture est terminée avant que d'autres processus tentent de charger, et passer `map_location` à `torch.load` pour charger les tenseurs sur le GPU approprié pour chaque processus."
-    },
-    {
-      "question": "Que signifie l'erreur CUDA 'no kernel image is available for execution on the device'?",
-      "answer": "Cette exception indique que l'installation actuelle de Torch ne prend pas en charge l'architecture de calcul ou le GPU utilisé."
-    },
-    {
-      "question": "Quels modules sont généralement requis pour configurer l'environnement LibTorch avec StdEnv/2023?",
-      "answer": "Pour StdEnv/2023, les modules requis incluent `StdEnv/2023`, `gcc`, `cuda/12.2`, `cmake`, `protobuf`, `cudnn`, `python/3.11`, `abseil`, `cusparselt` et `opencv/4.8.1`."
-    },
-    {
-      "question": "Comment installer rTorch à partir d'un nœud de connexion?",
-      "answer": "Il faut charger les modules R, CUDA et CUDNN, créer un répertoire d'installation, installer le paquet 'torch' via R, installer ses dépendances avec `torch::install_torch()`, puis corriger la bibliothèque partagée 'lantern' avec `setrpaths.sh`."
+      "question": "Comment installer et vérifier l'installation de rTorch avec support GPU sur les grappes d'Alliance?",
+      "answer": "Il faut charger les modules `r`, `cuda` et `cudnn`, créer un répertoire d'installation R local, puis installer le paquet `torch` dans R. Ensuite, installez ses dépendances avec `torch::install_torch()` et corrigez la bibliothèque partagée `liblantern.so` avec `setrpaths.sh`. Les tests CPU et GPU peuvent être effectués avec `R -e 'torch::torch_tensor(1);'` et `srun --gpus=h100_1g.10gb:1 -- R -e 'torch::torch_tensor(1)$cuda()'` respectivement."
     }
   ],
-  "generated_at": "2026-04-12T05:44:47.861301+00:00"
+  "generated_at": "2026-04-13T11:41:27.611093+00:00"
 }

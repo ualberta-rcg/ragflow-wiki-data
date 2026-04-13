@@ -3,57 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi la bibliothèque OpenCV?",
+      "question": "Qu'est-ce que la bibliothèque OpenCV et à quoi sert-elle?",
       "answer": "La bibliothèque OpenCV (Open Source Computer Vision) est spécialisée dans le traitement d'images en temps réel."
     },
     {
-      "question": "Comment on charge le module OpenCV avec le support CUDA?",
-      "answer": "Pour charger OpenCV avec CUDA, il faut utiliser la commande `module load gcc cuda opencv/X.Y.Z`, en remplaçant X.Y.Z par la version désirée."
+      "question": "Comment puis-je charger le module OpenCV avec le support CUDA sur les clusters Alliance?",
+      "answer": "Pour charger OpenCV avec le support CUDA, vous devez utiliser la commande `module load gcc cuda opencv/X.Y.Z`, où `X.Y.Z` désigne la version d'OpenCV choisie."
     },
     {
-      "question": "Est-ce que le module OpenCV inclut les modules additionnels `contrib`?",
-      "answer": "Oui, le module OpenCV contient aussi les modules `contrib`."
+      "question": "Est-ce que le module OpenCV disponible sur les clusters Alliance inclut les modules `contrib` additionnels?",
+      "answer": "Oui, le module OpenCV sur les clusters Alliance contient aussi les modules `contrib`."
     },
     {
-      "question": "Comment on fait pour savoir quelles interfaces Python sont compatibles avec une version donnée d'OpenCV?",
-      "answer": "Pour connaître les interfaces Python compatibles, on peut utiliser la commande `module spider opencv/X.Y.Z` ou `module spider opencv_python/X.Y.Z`."
+      "question": "Comment puis-je trouver les interfaces Python compatibles avec une version spécifique d'OpenCV sur les clusters Alliance?",
+      "answer": "Vous pouvez connaître les interfaces compatibles en lançant la commande `module spider opencv/X.Y.Z` ou en cherchant directement `opencv_python` avec `module spider opencv_python/X.Y.Z`, en remplaçant `X.Y.Z` par la version désirée."
     },
     {
-      "question": "Quelle est la commande pour charger les modules nécessaires afin d'utiliser OpenCV avec Python?",
-      "answer": "Il faut charger les modules `gcc`, `opencv/X.Y.Z`, `python` et `scipy-stack` en utilisant la commande `module load gcc opencv/X.Y.Z python scipy-stack`."
+      "question": "Quelles sont les étapes pour utiliser OpenCV avec Python sur les clusters Alliance?",
+      "answer": "Les étapes consistent à charger les modules requis, comme `module load gcc opencv/X.Y.Z python scipy-stack`, puis à importer OpenCV en Python avec `python -c \"import cv2\"`. L'importation est réussie si rien n'est affiché."
     },
     {
-      "question": "Comment on vérifie si l'importation d'OpenCV en Python est réussie?",
-      "answer": "L'importation est réussie si la commande `python -c \"import cv2\"` ne produit aucun affichage."
+      "question": "Quels sont les paquets Python liés à OpenCV qui sont offerts par le module sur les clusters Alliance?",
+      "answer": "Le module offre les paquets Python suivants : `opencv_python`, `opencv_contrib_python`, `opencv_python_headless` et `opencv_contrib_python_headless`."
     },
     {
-      "question": "Quels sont les paquets Python d'OpenCV disponibles offerts par le module?",
-      "answer": "Le module offre les paquets `opencv_python`, `opencv_contrib_python`, `opencv_python_headless` et `opencv_contrib_python_headless`."
+      "question": "Comment dois-je configurer OpenCV pour qu'il puisse lire des fichiers EXR sur les clusters Alliance?",
+      "answer": "Pour qu'OpenCV puisse lire des fichiers EXR, le module doit être activé via une variable d'environnement. Il faut préfixer votre commande Python avec `OPENCV_IO_ENABLE_OPENEXR=1`, par exemple `OPENCV_IO_ENABLE_OPENEXR=1 python <nom_du_fichier.py>`."
     },
     {
-      "question": "Comment le module `opencv` aide-t-il à satisfaire les dépendances envers OpenCV pour les paquets Python?",
-      "answer": "Lorsque le module `opencv` est chargé, toute dépendance envers OpenCV requise par les paquets Python est satisfaite."
+      "question": "Quelles sont les causes possibles de l'erreur `ModuleNotFoundError: No module named 'cv2'` lors de l'utilisation d'OpenCV avec Python sur les clusters Alliance?",
+      "answer": "Cette erreur signifie habituellement qu'un module OpenCV compatible n'a pas été chargé ou qu'un module Python requis n'a pas été chargé."
     },
     {
-      "question": "Comment on active le support OpenEXR pour qu'OpenCV puisse lire les fichiers EXR?",
-      "answer": "Il faut activer le module via une variable d'environnement en lançant la commande `OPENCV_IO_ENABLE_OPENEXR=1 python <file>`."
+      "question": "Que dois-je faire si l'erreur `ModuleNotFoundError: No module named 'cv2'` survient parce qu'un module OpenCV n'a pas été chargé?",
+      "answer": "Vous devez trouver un module OpenCV compatible et le charger en utilisant la commande `module load` appropriée."
     },
     {
-      "question": "Qu'est-ce que ça veut dire quand on reçoit l'erreur `ModuleNotFoundError: No module named 'cv2'` en important `cv2`?",
-      "answer": "Cela indique généralement que le module OpenCV ou un module Python compatible n'a pas été chargé."
+      "question": "Comment puis-je résoudre l'erreur `ModuleNotFoundError: No module named 'cv2'` si un module Python n'a pas été chargé, en particulier si j'utilise un environnement virtuel?",
+      "answer": "Vous devez d'abord désactiver tout environnement virtuel Python actif (avec `test $VIRTUAL_ENV && deactivate`), puis charger les modules `opencv/x.y.z` et `python/x.y.z`. Il est important de réactiver votre environnement virtuel après le chargement si nécessaire."
     },
     {
-      "question": "Si l'erreur `No module named 'cv2'` apparaît parce que le module OpenCV n'a pas été chargé, quelle est la solution?",
-      "answer": "Il faut trouver et charger un module OpenCV qui est compatible avec votre configuration."
+      "question": "Est-ce nécessaire de désactiver un environnement virtuel Python avant de charger le module OpenCV sur les clusters Alliance?",
+      "answer": "Oui, si un environnement virtuel est actif, il est important de le désactiver avant de charger le module OpenCV. Vous pouvez le réactiver une fois que le module est chargé."
     },
     {
-      "question": "Qu'arrive-t-il si on oublie de charger un module Python en activant un environnement virtuel, et qu'on reçoit l'erreur `cv2` non trouvé?",
-      "answer": "Les interfaces Python ne seront pas disponibles, ce qui empêche de trouver le module `cv2`."
+      "question": "Comment puis-je vérifier que le module `opencv_python` est visible par `pip` après avoir chargé les modules OpenCV et Python sur les clusters Alliance?",
+      "answer": "Vous pouvez vérifier sa visibilité en exécutant la commande `pip list | grep opencv`. La liste affichée devrait inclure `opencv-python` ou `opencv-contrib-python` avec sa version."
     },
     {
-      "question": "Quelles sont les étapes pour résoudre le problème du module Python non chargé, surtout avec un environnement virtuel actif?",
-      "answer": "D'abord, désactiver tout environnement virtuel Python. Ensuite, charger le module `opencv/x.y.z python/x.y.z`. Finalement, vérifier la visibilité du module par `pip` et son accès par Python."
+      "question": "Après avoir chargé les modules OpenCV et Python sur les clusters Alliance, comment puis-je vérifier que le module Python a bien accès à `cv2`?",
+      "answer": "Vous pouvez vérifier l'accès à `cv2` en exécutant `python -c 'import cv2'`. Si aucune erreur ne survient, cela indique que le module est accessible et que l'importation est réussie."
+    },
+    {
+      "question": "Dans les commandes d'OpenCV sur les clusters Alliance, que représente la notation `X.Y.Z`?",
+      "answer": "La notation `X.Y.Z` désigne la version spécifique du module (comme OpenCV ou Python) que l'utilisateur souhaite charger et utiliser."
     }
   ],
-  "generated_at": "2026-04-12T04:26:31.286573+00:00"
+  "generated_at": "2026-04-13T10:33:39.229558+00:00"
 }

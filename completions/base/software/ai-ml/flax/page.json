@@ -3,49 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Flax?",
-      "answer": "Flax is a neural network library and ecosystem built for JAX, designed for flexibility, with a model-building API similar to PyTorch and Keras and a training API based on functional programming."
+      "question": "What is Flax in the context of neural networks on Alliance clusters?",
+      "answer": "Flax is a neural network library and ecosystem for JAX, designed for flexibility. It offers an API for building models similar to PyTorch and Keras, but its training API is based on functional programming due to its JAX foundation."
     },
     {
-      "question": "How can Flax be installed on Compute Canada?",
-      "answer": "To install Flax on Compute Canada, one should load a Python module, create and start a virtual environment, then use `pip install --no-index flax` within that virtual environment."
+      "question": "How does Flax's model building API differ from its model training API?",
+      "answer": "Flax's model building API is designed around sequences of modules, similar to PyTorch and Keras. In contrast, its API for training models is fundamentally designed around functional programming, leveraging its JAX backend."
     },
     {
-      "question": "How does Flax achieve high performance with JAX?",
-      "answer": "Flax's high performance comes from the combination of JAX's functional paradigm, automatic differentiation, and TensorFlow's Accelerated Linear Algebra (XLA) compiler, which Just-In-Time (JIT) compiles frequently called code blocks for CPU or GPU execution."
+      "question": "What is the preferred method for installing Flax in a Python virtual environment on Compute Canada systems?",
+      "answer": "The preferred method is to load a Python module, create and activate a virtual environment, and then install Flax using `pip install --no-index flax` within that environment."
     },
     {
-      "question": "When is it recommended to use multiple CPUs instead of a GPU for Flax training?",
-      "answer": "For training small-scale models and datasets, it is strongly recommended to use multiple CPUs instead of a GPU to avoid inefficient resource utilization on shared HPC clusters, which can block resources for other users and waste allocation."
+      "question": "How does Flax achieve high performance when utilizing CPUs or a single GPU?",
+      "answer": "Flax achieves high performance by combining a functional programming paradigm, automatic differentiation, and TensorFlow's Accelerated Linear Algebra (XLA) compiler, utilizing JAX's Just-In-Time (JIT) compiler to optimize frequently executed code blocks like loss computation and gradient updates."
     },
     {
-      "question": "What is Data Parallelism in the context of Flax with multiple GPUs?",
-      "answer": "Data Parallelism refers to training multiple replicas of a model in parallel, where each replica processes a different segment of training data. Gradients are then aggregated, and model parameters are updated synchronously or asynchronously across replicas."
+      "question": "When should users consider using multiple CPUs instead of a GPU for Flax model training on high-performance computing (HPC) clusters?",
+      "answer": "Users should consider multiple CPUs for training small-scale models. If the model and dataset aren't large enough, a GPU may not offer a significant speed-up over CPUs and could lead to inefficient resource utilization, blocking resources for other users' large-scale computations."
     },
     {
-      "question": "What is a key consideration when using Data Parallelism with Flax?",
-      "answer": "A crucial caveat is that users must scale either the learning rate or the desired batch size according to the number of model replicas to achieve a trained model equivalent to one without Data Parallelism."
+      "question": "What is the purpose of the `jax.jit` decorator in single-device Flax training examples?",
+      "answer": "The `jax.jit` decorator is used to Just-In-Time compile entire code blocks, such as the `train_step` (forward and backward pass) and `update_state` functions, to leverage the XLA compiler for performance optimization."
     },
     {
-      "question": "How is data loading typically handled in Flax and JAX examples?",
-      "answer": "Neither Flax nor JAX directly provide pre-processing or data loading code; examples often utilize PyTorch's `torchvision` for transforms and `DataLoader` for data loading, along with a custom helper to cast NumPy arrays to JAX arrays."
+      "question": "What is Data Parallelism in the context of training Flax models with multiple GPUs?",
+      "answer": "Data Parallelism refers to training methods where multiple replicas of a model run in parallel, each processing a different segment of the training data. Gradients are then aggregated, and model parameters are updated synchronously or asynchronously across all replicas."
     },
     {
-      "question": "Which JAX features enable single-node multi-GPU training with Flax?",
-      "answer": "For single-node multi-GPU training, `jax_utils.replicate` is used to broadcast model replicas to all GPUs, and `jax.pmap` parallelizes inputs, function evaluation, and outputs over a given axis, which is typically the number of GPUs."
+      "question": "What is a critical consideration when implementing Data Parallelism for Flax models?",
+      "answer": "An important consideration is that to achieve a trained model equivalent to one without Data Parallelism, the user must scale either the learning rate or the desired batch size in proportion to the number of model replicas."
     },
     {
-      "question": "How are gradients and loss handled across multiple GPUs in a single-node data parallel setup?",
-      "answer": "In a single-node multi-GPU setup, `jax.lax.pmean` is used to compute the average of gradients and loss across all model replicas before updating the model weights."
+      "question": "How are gradients and loss handled across multiple GPUs in a single-node Data Parallelism setup using `jax.pmap`?",
+      "answer": "When using `jax.pmap`, gradients and loss from all model replicas across the GPUs are averaged using `jax.lax.pmean` along the specified axis (e.g., 'gpus'). The model's weights are then updated using these averaged gradients."
     },
     {
-      "question": "What is necessary to enable multi-node distributed training with Flax and JAX?",
-      "answer": "To enable multi-node distributed training, `jax.distributed.initialize()` must be called to inform JAX about the multi-node job, specifying the coordinator address, total number of processes (nodes), and the current process's ID (node rank)."
+      "question": "What steps are necessary to enable Data Parallelism for Flax across multiple computing nodes?",
+      "answer": "To enable multi-node Data Parallelism, `jax.distributed.initialize` must be called to inform JAX about the distributed environment. This involves providing the coordinator's address, the total number of processes (nodes), and the current node's process ID (rank)."
     },
     {
-      "question": "How is data distributed across multiple nodes for training in the Flax examples?",
-      "answer": "In the multi-node example, PyTorch's `DistributedSampler` is integrated with the `DataLoader` to ensure that each node processes only a distinct portion of the dataset, coordinating distribution based on `num_replicas` (world size) and `rank`."
+      "question": "How do the provided Flax examples manage data loading and preprocessing, given that Flax and JAX do not offer built-in solutions?",
+      "answer": "The examples utilize PyTorch's `torchvision` for image transformations and `torch.utils.data.DataLoader` for efficient data loading. For multi-node setups, a `torch.utils.data.distributed.DistributedSampler` is also employed to ensure data distribution across nodes."
+    },
+    {
+      "question": "What is the role of the `XLA` compiler in Flax's high-performance capabilities?",
+      "answer": "The XLA (Accelerated Linear Algebra) compiler, integrated through JAX, transparently compiles Python code blocks into highly optimized machine code for either CPUs or GPUs, significantly boosting Flax's execution performance."
+    },
+    {
+      "question": "Why is it important to increase the `cpus-per-task` SLURM parameter if `num_workers > 0` is used in the `DataLoader` for multi-GPU or multi-node jobs?",
+      "answer": "Increasing `cpus-per-task` is important because setting `num_workers > 0` in the `DataLoader` enables parallel data loading, which consumes CPU resources. Insufficient CPUs can create a bottleneck, slowing down the overall training process despite GPU acceleration."
+    },
+    {
+      "question": "How does the `flax-example-multigpu.py` script prepare input data for parallel processing by multiple GPUs on a single node?",
+      "answer": "The `flax-example-multigpu.py` script prepares input data by reshaping the `inputs` and `targets` tensors. It divides the batch into `n_devices` (number of local GPUs) sub-batches, allowing each GPU to process a distinct segment of the data in parallel."
+    },
+    {
+      "question": "What SLURM parameters are specifically used to request GPUs for a Flax job, and how are they modified for a CPU-only job?",
+      "answer": "To request GPUs, the `#SBATCH --gres=gpu:<number>` parameter is used (e.g., `gpu:1` for one GPU). For a CPU-only job, this line should be removed, and the `module load cuda` command in the script should also be omitted."
+    },
+    {
+      "question": "What is `jax.local_device_count()` used for in the Flax multi-GPU examples?",
+      "answer": "`jax.local_device_count()` is used to determine the number of GPUs available to the job on the current node, which is then used to correctly split input batches for Data Parallelism."
     }
   ],
-  "generated_at": "2026-04-11T21:37:43.977473+00:00"
+  "generated_at": "2026-04-13T05:24:17.982057+00:00"
 }

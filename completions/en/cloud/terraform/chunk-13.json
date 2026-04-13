@@ -4,41 +4,13 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "What happens when a root volume is added to an existing virtual machine (VM) in Terraform?",
-      "answer": "Adding a root volume to a VM in Terraform is considered a destructive operation because it replaces the VM's boot disk."
+      "question": "When using Terraform for OpenStack, how does one add a root volume to a virtual machine (VM), and what critical attributes should be configured within the `block_device` sub-block?",
+      "answer": "To add a root volume to a VM with Terraform on OpenStack, you include a `block_device` sub-block as part of the compute instance definition. Key attributes to configure are `uuid` (the UUID of the image to use), `source_type` (set to `\"image\"`), `destination_type` (set to `\"volume\"` to use an OpenStack-provided volume), `volume_size` (the size in GB), `boot_index` (typically `0`), and `delete_on_termination`. For testing, `delete_on_termination` is often `true` for easy cleanup, but for real use, it should be `false` to safeguard against accidental deletion of resources."
     },
     {
-      "question": "Why is it important to carefully review Terraform plans before applying changes?",
-      "answer": "It's important to read Terraform plans carefully because it can be deceptively easy to create configuration changes that require rebuilding existing VMs, which is a destructive operation."
-    },
-    {
-      "question": "How is a root volume defined within a Terraform configuration for an OpenStack compute instance?",
-      "answer": "A root volume is created as a `block_device` subblock, alongside the network subblock, as part of the `openstack_compute_instance_v2` resource definition."
-    },
-    {
-      "question": "What attributes are typically specified in a `block_device` subblock when adding a root volume?",
-      "answer": "The `block_device` subblock typically includes attributes such as `uuid`, `source_type`, `destination_type`, `volume_size`, `boot_index`, and `delete_on_termination`."
-    },
-    {
-      "question": "What should be done with the `image_id` attribute in the outer compute instance definition when a `block_device` is used to define a root volume?",
-      "answer": "The `image_id` attribute must be removed from the outer compute instance definition. Failing to do so will cause Terraform to repeatedly attempt to rebuild the instance, seeing a change from 'boot from volume' to 'boot directly from image'."
-    },
-    {
-      "question": "What does setting `destination_type` to `volume` mean in a `block_device` configuration?",
-      "answer": "Setting `destination_type = \"volume\"` indicates that the boot disk is to be stored with an OpenStack-provided volume rather than using disk space directly on the hypervisor."
-    },
-    {
-      "question": "What is the recommended setting for `delete_on_termination` in a `block_device` for testing versus real-world use?",
-      "answer": "For testing, `delete_on_termination` should generally be `true` to simplify cleanup of leftover volumes. For real use, it should be `false` to act as a last defence against accidental deletion of resources."
-    },
-    {
-      "question": "How does a Terraform plan indicate that a resource will be replaced?",
-      "answer": "A Terraform plan indicates replacement by using the symbol `- / + destroy and then create replacement` for the affected resources, and also explicitly stating \"N to add, N to change, N to destroy\" in the summary, where the destroy count is non-zero."
-    },
-    {
-      "question": "What is a potential consequence for SSH access after a VM is rebuilt by Terraform due to a volume change?",
-      "answer": "If the VM is rebuilt, it will be created with a new SSH key. Consequently, if you connected previously, you will need to remove the old SSH key from your `known_hosts` file or its equivalent."
+      "question": "What is a critical warning to consider when adding a root volume to a virtual machine (VM) using Terraform, and what are the potential consequences of ignoring it?",
+      "answer": "Adding a root volume to a VM using Terraform is a destructive operation as it replaces the VM's boot disk, requiring the instance to be rebuilt. A crucial warning is to ensure you remove the `image_id` attribute from the outer compute instance definition when using a `block_device` sub-block for the root volume. If `image_id` is left in the outer block, Terraform will repeatedly interpret this as a change from \"boot from volume\" to \"boot directly from image\" on every run, leading to the continuous and unnecessary rebuilding of your VM. Always carefully read the `terraform plan` output, specifically looking for `-/+ destroy and then create replacement` indicators, to understand the impact of your changes before applying them."
     }
   ],
-  "generated_at": "2026-04-12T09:11:40.492463+00:00"
+  "generated_at": "2026-04-13T14:27:09.068946+00:00"
 }

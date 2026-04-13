@@ -4,57 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on compile et exécute le programme `phello2.c`?",
-      "answer": "Pour compiler le programme, on utilise la commande `mpicc -Wall phello2.c -o phello2`. Après la compilation, on peut l'exécuter avec `mpirun -np 4 ./phello2` pour quatre processus."
+      "question": "Dans la norme MPI, comment fonctionnent les appels de communication comme <tt>MPI_Send</tt> et <tt>MPI_Recv</tt> ?",
+      "answer": "Selon la norme MPI, les appels <tt>MPI_Send</tt> et <tt>MPI_Recv</tt> sont des appels bloquants. <tt>MPI_Send</tt> ne retourne pas avant qu'il soit sécuritaire pour le module qui appelle de modifier le contenu de la mémoire tampon. Pour sa part, <tt>MPI_Recv</tt> ne retourne pas avant que tout le contenu du message ait été placé dans la mémoire tampon."
     },
     {
-      "question": "Qu'est-ce que l'exécution de `phello2.c` avec quatre processus affiche typiquement?",
-      "answer": "L'exécution affiche que chaque processus communique avec un autre. Par exemple, le processus 0 indique qu'il a reçu un message du processus 3, le processus 1 du processus 0, et ainsi de suite, formant une boucle de communication."
+      "question": "Comment est-ce qu'une \"impasse\" ou un \"interblocage\" peut survenir lors de l'utilisation des fonctions <tt>MPI_Send</tt> et <tt>MPI_Recv</tt>, et quel est l'impact de l'usage d'une mémoire tampon par la bibliothèque MPI sur ce risque ?",
+      "answer": "Une impasse ou un interblocage peut survenir lorsque des processus s'attendent mutuellement. Par exemple, si le processus 0 tente de recevoir du processus 1, et que le processus 1 tente aussi de recevoir du processus 0, les deux processus se bloquent indéfiniment. Le fait qu'une bibliothèque MPI offre une mémoire tampon pour <tt>MPI_Send</tt> peut masquer ce risque, car <tt>MPI_Send</tt> peut retourner dès que les données sont copiées dans cette mémoire tampon. Cependant, si la norme MPI ne requiert pas l'usage de cette mémoire tampon, ou si celle-ci est saturée, le programme risque de se bloquer, menant à une impasse."
     },
     {
-      "question": "Comment les appels `MPI_Send` et `MPI_Recv` sont-ils caractérisés dans la norme MPI?",
-      "answer": "Selon la norme MPI, les appels `MPI_Send` et `MPI_Recv` sont des appels bloquants."
-    },
-    {
-      "question": "Dans quelles conditions la fonction `MPI_Send` retourne-t-elle?",
-      "answer": "`MPI_Send` ne retourne pas tant qu'il n'est pas sécuritaire pour le module appelant de modifier le contenu de la mémoire tampon d'où les données sont envoyées."
-    },
-    {
-      "question": "Dans quelles conditions la fonction `MPI_Recv` retourne-t-elle?",
-      "answer": "`MPI_Recv` ne retourne pas tant que tout le contenu du message n'est pas entièrement placé dans la mémoire tampon de réception."
-    },
-    {
-      "question": "Pourquoi l'exemple `phello2.c` ne mène-t-il pas à une impasse immédiate, même si chaque processus appelle `MPI_Send` en premier?",
-      "answer": "L'exemple `phello2.c` ne mène pas à une impasse parce que les implémentations de MPI, comme celles de Calcul Canada, utilisent des mémoires tampons. `MPI_Send` copie les données dans cette mémoire tampon et peut retourner sans attendre la réception, évitant ainsi un blocage mutuel."
-    },
-    {
-      "question": "Quel est le risque associé au programme `phello2.c` en termes d'impasse?",
-      "answer": "Le programme `phello2.c` est considéré comme à risque d'une impasse parce que son bon fonctionnement dépend de l'usage d'une mémoire tampon par la bibliothèque MPI, ce que la norme MPI ne garantit pas. Si la mémoire tampon n'était pas disponible ou saturée, le programme pourrait bloquer."
-    },
-    {
-      "question": "Qu'est-ce qu'un programme MPI qui ne serait pas à risque d'une impasse?",
-      "answer": "Un programme qui n'est pas à risque est celui dont le bon fonctionnement ne requiert pas l’usage d’une mémoire tampon pour ses communications."
-    },
-    {
-      "question": "Décrivez un scénario de code C où un interblocage se produit avec `MPI_Recv` et `MPI_Send`.",
-      "answer": "Un interblocage survient si le processus 0 appelle d'abord `MPI_Recv(from 1)` et le processus 1 appelle d'abord `MPI_Recv(from 0)`. Chacun attendra la réception de l'autre avant d'envoyer, créant une attente mutuelle et indéfinie."
-    },
-    {
-      "question": "Décrivez un scénario de code C qui présente une 'situation à risque' d'interblocage.",
-      "answer": "Une situation à risque se produit si le processus 0 appelle `MPI_Send(to 1)` suivi de `MPI_Recv(from 1)`, et le processus 1 appelle `MPI_Send(to 0)` suivi de `MPI_Recv(from 0)`. Ça pourrait fonctionner avec une mémoire tampon, mais si celle-ci n'est pas présente ou est saturée, `MPI_Send` bloquera, menant à une impasse."
-    },
-    {
-      "question": "Comment peut-on rendre un code de communication MPI plus fiable pour éviter les impasses, sans dépendre des mémoires tampons?",
-      "answer": "Pour rendre le code fiable, on doit s'assurer que les appels d'envoi et de réception sont bien couplés. Une solution est que le processus qui envoie lance son `MPI_Send` et que le processus qui reçoit lance son `MPI_Recv` de manière synchrone, même si l'un est arrêté momentanément en attente de l'autre."
-    },
-    {
-      "question": "Quelle stratégie commode est suggérée pour s'assurer que le code MPI est correct et éviter les impasses dans un modèle de communication séquentiel?",
-      "answer": "Une solution commode est d'utiliser une approche en deux temps avec des couples pair-impair : tous les processus pairs exécutent d'abord leur envoi (`MPI_Send`) suivi de leur réception (`MPI_Recv`), tandis que tous les processus impairs exécutent leur réception (`MPI_Recv`) suivie de leur envoi (`MPI_Send`)."
-    },
-    {
-      "question": "Pourquoi la stratégie pair-impair pour éviter les impasses fonctionne-t-elle même avec un nombre impair de processus?",
-      "answer": "La stratégie fonctionne car l'envoi effectué par un processus pair (comme le processus 0) est correctement apparié à la réception lancée par un processus impair (comme le processus 1). Puisque le processus impair commence par une réception, la transaction sera assurément complétée, éliminant le risque d'interblocage."
+      "question": "Quelle stratégie est recommandée pour éviter les interblocages et garantir un code MPI fiable lors de l'échange de messages entre processus avec <tt>MPI_Send</tt> et <tt>MPI_Recv</tt> ?",
+      "answer": "Pour éviter les interblocages et assurer un code fiable, une stratégie commode est d'utiliser des couples pair-impair. Les processus avec un rang pair exécutent d'abord l'envoi (<tt>MPI_Send</tt>) suivi de la réception (<tt>MPI_Recv</tt>), tandis que les processus avec un rang impair exécutent la réception suivie de l'envoi. Cette méthode garantit que les opérations sont bien définies et élimine la possibilité d'interblocage."
     }
   ],
-  "generated_at": "2026-04-12T01:57:59.340319+00:00"
+  "generated_at": "2026-04-13T08:52:59.475240+00:00"
 }

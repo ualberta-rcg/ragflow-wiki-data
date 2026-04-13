@@ -3,77 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is AMS (Amsterdam Modeling Suite)?",
-      "answer": "AMS is SCM Software for Chemistry and Materials, originally named ADF (Amsterdam Density Functional)."
+      "question": "What is AMS (Amsterdam Modeling Suite) and what research areas does it support?",
+      "answer": "AMS (Amsterdam Modeling Suite), originally named ADF (Amsterdam Density Functional), is SCM Software for Chemistry and Materials, offering computational chemistry tools for research areas like homogeneous and heterogeneous catalysis, inorganic chemistry, heavy element chemistry, various types of spectroscopy, and biochemistry."
     },
     {
-      "question": "What research areas can AMS be used for?",
-      "answer": "AMS offers tools for research in homogeneous and heterogeneous catalysis, inorganic chemistry, heavy element chemistry, various types of spectroscopy, and biochemistry."
+      "question": "What are some of the full SCM module products available as part of AMS?",
+      "answer": "Some of the full SCM module products available include ADF, ADF-GUI, BAND, BAND-GUI, DFTB, ReaxFF, COSMO-RS, QE-GUI, and NBO6."
     },
     {
-      "question": "Which specific SCM module products are available as part of AMS?",
-      "answer": "The available products include ADF, ADF-GUI, BAND, BAND-GUI, DFTB, ReaxFF, COSMO-RS, QE-GUI, and NBO6."
+      "question": "On which Alliance cluster is the `ams` module installed for users?",
+      "answer": "The `ams` module is installed on the Nibi cluster."
     },
     {
-      "question": "On which cluster is the `ams` module installed, and who owns its license?",
-      "answer": "The `ams` module is installed on Nibi, and the license is an Academic Computing Center license owned by SHARCNET."
+      "question": "What are the licensing restrictions for using AMS on Nibi?",
+      "answer": "The AMS license on Nibi is an Academic Computing Centre license owned by SHARCNET, which prohibits its use for consulting services or commercial purposes."
     },
     {
-      "question": "What are the restrictions on using the AMS software license on Nibi?",
-      "answer": "The software may not be used for consulting services or for purposes that have a commercial nature."
+      "question": "How can users check the available versions of the `ams` module on Nibi?",
+      "answer": "Users can check the available versions of the `ams` module on Nibi by using the command `module spider ams`."
     },
     {
-      "question": "How can a user check the available versions of the `ams` module on Nibi?",
-      "answer": "Users can check available versions by using the `module spider ams` command."
+      "question": "What scheduler do Alliance clusters like Nibi use for submitting computational jobs?",
+      "answer": "Alliance clusters like Nibi use the Slurm scheduler for job submission."
     },
     {
-      "question": "What scheduler is used for submitting jobs on Nibi clusters?",
-      "answer": "The clusters on Nibi use the Slurm scheduler for job submission."
+      "question": "What is a recommended practice regarding CPU allocation for an AMS job on Nibi?",
+      "answer": "It is recommended to use a reasonable number of CPUs rather than running a full-node job on Nibi, unless it has been demonstrated that the job scales efficiently to 192 CPUs."
     },
     {
-      "question": "What is the recommended number of CPUs to request for an AMS job on Nibi?",
-      "answer": "Users should request a reasonable number of CPUs, typically avoiding full-node jobs (192 CPUs) unless scaling efficiency has been demonstrated."
+      "question": "Which module commands are typically used in a Slurm job script to run AMS?",
+      "answer": "A typical Slurm job script for AMS includes `module unload openmpi` and `module load ams/2025.102`."
     },
     {
-      "question": "How is the local disk specified for temporary files in an AMS job script?",
-      "answer": "The environment variable `SCM_TMPDIR` should be set to `$SLURM_TMPDIR` to use the local disk."
+      "question": "How can a user ensure that temporary AMS job files utilize the local disk on a compute node?",
+      "answer": "A user can ensure temporary AMS job files use the local disk by adding `export SCM_TMPDIR=$SLURM_TMPDIR` to their Slurm job script."
     },
     {
-      "question": "How is an AMS input script typically executed within a Slurm job script?",
-      "answer": "An AMS input script is executed using `bash [input_file_name].run`, for example, `bash H2O_adf.run`."
+      "question": "What are some key differences between AMS input and previous ADF input files?",
+      "answer": "The input for AMS is different from ADF, meaning old ADF input files will not work with AMS. Users should use `$AMSBIN/ams` instead of `$ADFBIN/adf`, and the restart file is `ams.rkf` instead of `TAPE13`."
     },
     {
-      "question": "What is a key difference between AMS input files and older ADF input files?",
-      "answer": "AMS input is different from previous ADF input files; older ADF input files will not run with the new AMS."
+      "question": "Where are the output files (excluding the log file) from an AMS job saved?",
+      "answer": "Except for the output `.log` file, all other files from an AMS job are saved in a subdirectory named `AMS_JOBNAME.results`, or `ams.results` if `AMS_JOBNAME` is not defined in the input run file."
     },
     {
-      "question": "Where can users find example AMS input files?",
-      "answer": "Examples can be found in `/opt/software/ams/2025.102/examples/`."
+      "question": "How can users run AMS-GUI applications, such as `amsinput` or `amsview`, interactively on Nibi?",
+      "answer": "Users can run AMS-GUI interactively on Nibi via OnDemand by logging into `ondemand.sharcnet.ca`, selecting 'Nibi Desktop', launching the desktop, opening a terminal, loading the `ams` module, and then running `amsinput &` or `amsview &`."
     },
     {
-      "question": "Where are AMS output files saved?",
-      "answer": "Except for the `.log` output file, all other files are saved in a subdirectory named `AMS_JOBNAME.results` (or `ams.results` if `AMS_JOBNAME` is not defined in the input)."
+      "question": "What is the primary purpose of using OnDemand Nibi Desktop for AMS-GUI applications?",
+      "answer": "OnDemand Nibi Desktop is primarily intended for AMS-GUI applications such as making input files and visualizing results, not for running regular or long interactive jobs."
     },
     {
-      "question": "What is the name of the restart file in AMS?",
-      "answer": "The restart file name is `ams.rkf`, which replaces `TAPE13` from previous ADF versions."
+      "question": "What command modification is needed if `VirtualGL` is enabled and interfering with AMS-GUI applications?",
+      "answer": "If `VirtualGL` is enabled and interfering, AMS-GUI applications should be started with `LD_PRELOAD= amsinput` or `LD_PRELOAD= amsview` to disable `VirtualGL` for AMS."
     },
     {
-      "question": "How can AMS-GUI be run on Nibi?",
-      "answer": "AMS-GUI can be run interactively in graphical mode on a Nibi compute node (with an 8-hour time limit) via OnDemand at ondemand.sharcnet.ca."
-    },
-    {
-      "question": "What are the commands to launch the AMS input builder and result visualization tools from a Nibi Desktop session?",
-      "answer": "`amsinput &` is used to make AMS input, and `amsview &` is used for AMS result visualization."
-    },
-    {
-      "question": "How should `VirtualGL` be handled if it's enabled for other programs when running AMS-GUI via OnDemand?",
-      "answer": "If `VirtualGL` is enabled, it should be disabled for AMS by starting it with `LD_PRELOAD= amsinput` or `LD_PRELOAD= amsview`."
-    },
-    {
-      "question": "What is the intended use of OnDemand Nibi Desktop for AMS-GUI applications?",
-      "answer": "It is intended for making input files and visualizing results, not for running regular jobs or long interactive jobs."
+      "question": "Where can users find more usage information and examples for AMS?",
+      "answer": "Users can find more usage information in the manuals on SCM Support at `scm.com/support/`, and examples are available in `/opt/software/ams/2025.102/examples/`."
     }
   ],
-  "generated_at": "2026-04-11T15:05:18.380528+00:00"
+  "generated_at": "2026-04-13T00:28:27.508644+00:00"
 }

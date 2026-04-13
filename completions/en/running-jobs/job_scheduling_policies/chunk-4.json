@@ -4,97 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "What is backfilling in job scheduling?",
-      "answer": "Backfilling is a scheduling technique employed by the scheduler to improve overall system usage. It allows lower priority jobs to start if doing so does not delay the expected start time of any higher priority jobs."
+      "question": "What is backfilling in job scheduling and what is its purpose on these clusters?",
+      "answer": "Backfilling is a scheduling technique employed to improve overall system utilization and responsiveness. It allows the scheduler to start lower priority jobs if doing so does not delay the expected start time of any higher priority jobs. This method primarily benefits jobs with short time limits, such as those under 3 hours, by giving them more scheduling opportunities."
     },
     {
-      "question": "What is the primary goal of using backfill scheduling?",
-      "answer": "The primary goal of using backfill scheduling is to improve overall system utilization and responsiveness, which would otherwise be significantly lower if jobs were scheduled strictly in priority order."
+      "question": "How are nodes on general-purpose clusters like Fir, Narval, Nibi, and Rorqual partitioned, and what effect does this have on job access to resources?",
+      "answer": "Nodes on general-purpose clusters are partitioned in a hierarchical manner. First, they are categorized by hardware (Base, Large Memory, or GPU nodes). Within these categories, nodes are designated as 'by-node' for jobs requiring complete nodes or 'by-core' for jobs using individual cores. Finally, nodes are partitioned based on the requested walltime; shorter jobs (e.g., under 3 hours) have access to a larger pool of resources than longer jobs, meaning they have more scheduling opportunities. This structure is analogous to Matryoshka dolls, where shorter walltime partitions encompass the nodes available to longer walltime partitions."
     },
     {
-      "question": "Why are reasonably accurate time limits important for backfill scheduling to work effectively?",
-      "answer": "Reasonably accurate time limits are important for backfill scheduling to work well because the expected start time of pending jobs depends on the expected completion time of running jobs."
-    },
-    {
-      "question": "Which types of jobs primarily benefit from backfilling?",
-      "answer": "Backfilling primarily benefits jobs with short time limits, such as those under 3 hours."
-    },
-    {
-      "question": "Which general-purpose clusters are discussed in the context of node partitioning?",
-      "answer": "The general-purpose clusters discussed are Fir, Narval, Nibi, and Rorqual."
-    },
-    {
-      "question": "How are nodes initially categorized on general-purpose clusters?",
-      "answer": "Nodes are initially partitioned into three main categories: Base nodes, Large memory nodes, and GPU nodes."
-    },
-    {
-      "question": "What are 'Base nodes'?",
-      "answer": "Base nodes are nodes that have 4 or 8 GB of memory per core."
-    },
-    {
-      "question": "What are 'Large memory nodes'?",
-      "answer": "Large memory nodes are nodes that have 16 to 96 GB of memory per core."
-    },
-    {
-      "question": "How is a job assigned to a node category?",
-      "answer": "Upon submission, a job is routed to one of the node categories (Base, Large memory, or GPU) based on the resources it requests."
-    },
-    {
-      "question": "How are nodes further partitioned within each category after the initial resource-based division?",
-      "answer": "Within each category, some nodes are reserved for jobs that use complete nodes ('by-node' partitions), while jobs using only a few cores are allowed to use a subset of the category ('by-core' partitions)."
-    },
-    {
-      "question": "What happens if a job only uses a few cores out of each node instead of complete nodes?",
-      "answer": "If a job only uses a few cores (or a single core) out of each node, it is only allowed to use a subset of the category, referred to as 'by-core' partitions."
-    },
-    {
-      "question": "How does the requested walltime affect a job's access to resources?",
-      "answer": "The nodes are partitioned based on the walltime requested by your job, and shorter jobs generally have access to more resources."
-    },
-    {
-      "question": "Can a job with a 3-hour walltime request run on a node that allows 12-hour jobs?",
-      "answer": "Yes, a job with less than 3 hours of requested walltime can run on any node that allows 12 hours."
-    },
-    {
-      "question": "Are there nodes that accept 3-hour jobs but not 12-hour jobs?",
-      "answer": "Yes, there are nodes that accept 3-hour jobs that do not accept 12-hour jobs, meaning shorter jobs have more scheduling opportunities."
-    },
-    {
-      "question": "What is the purpose of the `partition-stats` utility?",
-      "answer": "The `partition-stats` utility is used to show information about jobs and nodes within different partitions, providing insight into cluster usage."
-    },
-    {
-      "question": "What specific information does the `partition-stats` utility display?",
-      "answer": "The `partition-stats` utility shows how many jobs are waiting to run (queued), how many jobs are currently running, how many nodes are currently idle, and the total number of nodes assigned to each partition."
-    },
-    {
-      "question": "How is the `partition-stats` utility executed?",
-      "answer": "The `partition-stats` utility is executed by typing `partition-stats` in the command line, for example: `[user@login1 ~]$ partition-stats`."
-    },
-    {
-      "question": "In the `partition-stats` output, what do the numbers like '12:170' under 'Number of Queued Jobs' for 'Regular' nodes with '3 hr' walltime represent?",
-      "answer": "For 'Regular' nodes with a '3 hr' walltime, '12:170' means there were 12 jobs waiting which requested whole nodes and 3 hours or less runtime, and 170 jobs waiting which requested individual cores (less than whole nodes) and 3 hours or less runtime."
-    },
-    {
-      "question": "What does the 'Regular' node type refer to in the `partition-stats` output?",
-      "answer": "The 'Regular' node type refers to base nodes, which have 4 to 8 GB of memory per core."
-    },
-    {
-      "question": "How are time-based partitions conceptualized in the context of node access?",
-      "answer": "Time-based partitions are conceptualized like Matryoshka (Russian) dolls, where a shorter-time partition (e.g., 3-hour) contains the nodes for longer-time partitions (e.g., 12-hour) as a subset, meaning shorter jobs have access to a broader set of nodes."
-    },
-    {
-      "question": "What type of information is not provided by the `partition-stats` utility?",
-      "answer": "The `partition-stats` utility does not provide information about the number of cores represented by running or waiting jobs, the number of free cores in partly-assigned nodes in by-core partitions, or available memory associated with free cores in by-core partitions."
-    },
-    {
-      "question": "Why should users avoid writing scripts that repeatedly call `partition-stats`?",
-      "answer": "Users should avoid writing scripts that repeatedly call `partition-stats` because running the utility is somewhat costly to the scheduler."
-    },
-    {
-      "question": "Who should a user contact if their workflow requires automatic parsing of `partition-stats` information?",
-      "answer": "If a workflow would benefit from automatic parsing of `partition-stats` information, the user should contact Technical support for guidance."
+      "question": "What kind of information does the `partition-stats` utility provide to users about the cluster's state?",
+      "answer": "The `partition-stats` utility displays key metrics about the cluster's partitions, including the number of jobs waiting to run ('queued'), the number of jobs currently running, the number of idle nodes, and the total number of nodes assigned to each partition. This information is broken down by node type (Regular, Large Memory, GPU), maximum walltime (e.g., 3 hr, 12 hr), and whether the partition is for 'by-node' or 'by-core' jobs."
     }
   ],
-  "generated_at": "2026-04-12T00:19:00.584847+00:00"
+  "generated_at": "2026-04-13T07:33:41.933778+00:00"
 }

@@ -3,133 +3,81 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What are data transfer nodes used for?",
-      "answer": "Data transfer nodes, also known as data mover nodes, should be used instead of login nodes when transferring data to and from the clusters."
+      "question": "What is the recommended approach for transferring data to and from Alliance clusters?",
+      "answer": "Users should utilize data transfer nodes, also known as data mover nodes, instead of login nodes for all data transfer operations to and from Alliance clusters."
     },
     {
-      "question": "How can I locate the URL for an available data transfer node?",
-      "answer": "The URL for an available data transfer node will be provided near the top of the main page for each cluster, accessible via the sidebar on the left."
+      "question": "Does Globus automatically use data transfer nodes on Alliance clusters?",
+      "answer": "Yes, Globus is configured to automatically use data transfer nodes for transfers on Alliance clusters."
     },
     {
-      "question": "Which specific data transfer tool automatically uses data transfer nodes?",
-      "answer": "Globus automatically uses data transfer nodes."
+      "question": "What command-line tools are available for Linux or Mac OS X users to securely transfer files to and from Alliance machines?",
+      "answer": "Linux or Mac OS X users can use the `scp` and `sftp` commands in a command-line environment for secure file transfers to and from Alliance machines."
     },
     {
-      "question": "What command-line tools are available for secure file transfer on Linux or Mac OS X computers?",
-      "answer": "On Linux or Mac OS X computers, the commands `scp` and `sftp` can be used in a command-line environment for secure file transfers."
+      "question": "Which software options are available for Microsoft Windows users to transfer files to and from Alliance clusters?",
+      "answer": "Microsoft Windows users can use MobaXterm (graphical and command-line), WinSCP (graphical), or PuTTY (which includes `pscp` and `psftp`) for file transfers to and from Alliance clusters."
     },
     {
-      "question": "What software options are recommended for Microsoft Windows users to transfer files?",
-      "answer": "For Microsoft Windows platforms, MobaXterm offers both a graphical file transfer function and a command-line interface via SSH, while WinSCP is another free program, and PuTTY comes with `pscp` and `psftp`."
+      "question": "For file transfers exceeding one minute to or from Alliance servers, what tool is recommended?",
+      "answer": "If file transfers take longer than one minute to or from Alliance servers, users are recommended to install and use Globus Personal Connect, as Globus transfers run in the background."
     },
     {
-      "question": "When is it recommended to install and use Globus Personal Connect?",
-      "answer": "If transferring files to or from the servers takes more than one minute, it is recommended to install and try Globus Personal Connect, as transfers can be set up to run in the background."
+      "question": "What is the preferred tool for transferring data between different Alliance cluster systems?",
+      "answer": "Globus is the preferred tool for transferring data between different Alliance cluster systems."
     },
     {
-      "question": "What is the preferred tool for transferring data between different resources?",
-      "answer": "Globus is the preferred tool for transferring data between systems, and if it can be used, it should be utilized."
+      "question": "How can users transfer files between two different Alliance clusters, such as from Fir to Trillium?",
+      "answer": "To transfer files between Alliance clusters, users should log into the source cluster using `ssh -A USERNAME@source_cluster.alliancecan.ca` and then use `scp` to copy the file to the destination cluster."
     },
     {
-      "question": "Besides Globus, what other common tools can be used for data transfer between systems?",
-      "answer": "Other common tools for transferring data both inside and outside of the systems include SFTP, SCP (Secure Copy Protocol), and rsync."
+      "question": "What are the standard command-line tools for downloading data directly from websites on Alliance Linux systems?",
+      "answer": "The standard command-line tools for downloading data directly from websites on Alliance Linux systems are `wget` and `curl`."
     },
     {
-      "question": "How do you transfer files between two of the Alliance clusters, for example, from Fir to Trillium?",
-      "answer": "To transfer files between clusters, log into the source cluster (e.g., Fir) using `ssh -A USERNAME@fir.alliancecan.ca`, then perform the copy using `scp file USERNAME@trillium.alliancecan.ca:`."
+      "question": "Can `wget` and `curl` resume interrupted downloads on Alliance clusters?",
+      "answer": "Yes, both `wget` and `curl` can resume interrupted downloads on Alliance clusters using the `-c` option for `wget` and `-C -` option for `curl`."
     },
     {
-      "question": "What are the standard tools for downloading data from websites?",
-      "answer": "The standard tool for downloading data from websites is `wget`, and another frequently used one is `curl`."
+      "question": "What tool is recommended for downloading data from various cloud services, such as Google Cloud Storage or Google Drive, on Alliance clusters?",
+      "answer": "For downloading data from various cloud services like Google Cloud Storage, Google Drive, and Google Photos, the `rclone` tool is recommended on Alliance clusters."
     },
     {
-      "question": "Which tool is suggested for getting data from various cloud services like Google cloud storage or Google Drive?",
-      "answer": "For getting data from various cloud services such as Google cloud storage, Google Drive, and Google Photos, the `rclone` tool is suggested."
+      "question": "What is the main purpose of synchronizing files between two locations on Alliance clusters?",
+      "answer": "The main purpose of synchronizing files on Alliance clusters is to ensure that two copies of files or directories stored in different locations are identical."
     },
     {
-      "question": "How can `wget` and `curl` resume interrupted downloads?",
-      "answer": "`wget` can resume interrupted downloads by rerunning it with the `-c` option, and `curl` can do so with the `-C -` command-line option."
+      "question": "When using Globus for file synchronization, what criteria can be selected to determine which files are transferred?",
+      "answer": "Globus allows users to select synchronization criteria such as different checksums, file not existing on the destination, different file size, or newer modification time on the source."
     },
     {
-      "question": "What is the primary benefit of using Globus for file synchronization?",
-      "answer": "Globus usually offers the best performance and reliability for synchronizing files."
+      "question": "What specific `rsync` options should be used when transferring files into `/project` filesystems on Alliance clusters to prevent quota issues?",
+      "answer": "When using `rsync` into `/project` filesystems on Alliance clusters, users should include the `--no-g --no-p` options to prevent issues related to group ownership and potential 'Disk quota exceeded' errors."
     },
     {
-      "question": "How do you configure a Globus transfer to synchronize files rather than simply overwriting them?",
-      "answer": "During a Globus transfer, you should go to the 'Transfer & Timer Options' and choose to 'sync' instead of overwriting, especially if some files might already exist on the destination and don't need re-transferring if they match."
+      "question": "What alternative method can be used to synchronize files if Globus is unavailable or Rsync is too slow for two systems on Alliance clusters?",
+      "answer": "If Globus is unavailable or Rsync is too slow, users can generate checksums (e.g., using `sha1sum`) on both systems and then use the `diff` utility to identify non-matching files after sorting the checksum logs."
     },
     {
-      "question": "What criteria can Globus use to decide which files to transfer during a sync operation?",
-      "answer": "Globus can decide which files to transfer if their checksums are different, if the file doesn't exist on the destination, if the file size is different, or if the modification time is newer on the source than the destination."
+      "question": "What is SFTP, and what protocol does it use for secure file transfers between machines on Alliance clusters?",
+      "answer": "SFTP (Secure File Transfer Protocol) uses the SSH protocol to encrypt data during file transfers between machines on Alliance clusters."
     },
     {
-      "question": "What is `rsync` commonly used for?",
-      "answer": "`Rsync` is a popular tool for ensuring that two separate datasets are identical."
+      "question": "What is SCP, and how does its functionality differ from synchronization tools like Globus or rsync?",
+      "answer": "SCP (Secure Copy Protocol) uses the SSH protocol for encrypted data transfer but does not support synchronization, meaning it cannot efficiently manage existing files or synchronize directories like Globus or rsync."
     },
     {
-      "question": "By default, what does `rsync` check to determine if a file needs to be transferred?",
-      "answer": "By default, `rsync` checks the modification time and size of each file, and only transfers the file if one or the other does not match."
+      "question": "What recommendation is given regarding the use of `scp -r` for transferring data into the `/project` filesystem on Alliance clusters?",
+      "answer": "Users are advised against using `scp -r` to transfer data into `/project` filesystems because it can turn off the setgid bit in created directories, potentially leading to 'Disk quota exceeded' errors."
     },
     {
-      "question": "When transferring files into `/project` file systems, which `rsync` flags should be avoided and why?",
-      "answer": "When transferring files into `/project` file systems, the `-p` and `-g` flags (which are included in `-a`) should be avoided. Use `--no-g --no-p` because preserving group ownership can lead to 'Disk quota exceeded' errors due to how `/project` quotas are enforced."
+      "question": "What initial checks should be performed to troubleshoot 'unable to read data' errors before initiating a transfer on Alliance clusters?",
+      "answer": "To troubleshoot 'unable to read data' errors, users should use the command `find <directory_name> ! -readable -ls` on a Linux system to identify any unreadable files in the source directory."
     },
     {
-      "question": "How can interrupted `rsync` transfers of very large files be restarted?",
-      "answer": "To allow interrupted transfers of very large files to be restarted with `rsync`, add the `--partial` option to the command."
-    },
-    {
-      "question": "When should checksum utilities be used to verify if files match between two systems?",
-      "answer": "Checksum utilities like `sha1sum` should be used to determine if files match when Globus is unavailable between systems and rsync is taking too long."
-    },
-    {
-      "question": "How can you generate checksums for all files in a directory and log them?",
-      "answer": "You can generate checksums for all files in a directory and log them by using the command: `find /home/username/ -type f -print0 | xargs -0 sha1sum | tee checksum-result.log`."
-    },
-    {
-      "question": "After generating checksum logs on two systems, how can `diff` be used to find files that do not match?",
-      "answer": "After generating checksum logs (e.g., `checksum-result-silo.log` and `checksum-dtn.log`), you can use `diff checksum-result-silo.log checksum-dtn.log` to find files that don't match. It is advisable to `sort -k2` both log files first to prevent false differences."
-    },
-    {
-      "question": "What protocol does SFTP use for transferring files securely?",
-      "answer": "SFTP (Secure File Transfer Protocol) uses the SSH protocol to encrypt data being transferred between machines."
-    },
-    {
-      "question": "What are some graphical programs available for SFTP on Windows, Mac, and Linux?",
-      "answer": "Graphical programs for SFTP include WinSCP and MobaXterm (Windows), FileZilla (Windows, Mac, and Linux), and Cyberduck (Mac and Windows)."
-    },
-    {
-      "question": "What does SCP stand for, and what protocol does it use for data transfer?",
-      "answer": "SCP stands for Secure Copy Protocol, and like SFTP, it uses the SSH protocol to encrypt data being transferred."
-    },
-    {
-      "question": "Does SCP support synchronization like Globus or rsync?",
-      "answer": "No, SCP does not support synchronization like Globus or rsync."
-    },
-    {
-      "question": "On which computer should the `scp` command always be executed?",
-      "answer": "The `scp` command should always be executed on your local computer, regardless of whether you are transferring data to or from the remote cluster."
-    },
-    {
-      "question": "Why is `scp -r` not recommended for transferring data into `/project` directories?",
-      "answer": "`scp -r` is not recommended for transferring data into `/project` directories because the setgid bit is turned off in the created directories, which may lead to 'Disk quota exceeded' or similar errors if files are later created there."
-    },
-    {
-      "question": "How do you use `scp` if you have chosen a custom SSH key name?",
-      "answer": "If you have a custom SSH key name, you need to use the `-i` option with `scp` and specify the path to your private key before the file paths, for example, `scp -i /path/to/key foo.txt username@rorqual.alliancecan.ca:work/`."
-    },
-    {
-      "question": "What command can be used to list unreadable items in a directory on a Linux system before a transfer?",
-      "answer": "On a Linux system, the command `find <directory_name> ! -readable -ls` can list all items not readable to you before initiating any transfer."
-    },
-    {
-      "question": "What two main aspects should be double-checked when encountering an 'unable to write new data' error?",
-      "answer": "When facing an 'unable to write new data' error, you should double-check the storage usage to ensure enough space and files are available, and double-check the filesystem permissions to confirm write permission at the transfer location."
-    },
-    {
-      "question": "How can the apparent size of a dataset be determined, especially considering filesystem compression differences?",
-      "answer": "The apparent size of a dataset can be determined using the `du -b dataset` command, which reports the size by the apparent size of your files, even if the filesystem automatically compresses them."
+      "question": "What are two common causes for 'unable to write new data' errors during file transfers to Alliance clusters?",
+      "answer": "Two common causes for 'unable to write new data' errors are insufficient storage space or file count (which can be checked with `du -b dataset`) and inadequate filesystem permissions at the destination."
     }
   ],
-  "generated_at": "2026-04-12T09:21:18.195067+00:00"
+  "generated_at": "2026-04-13T14:36:40.251064+00:00"
 }

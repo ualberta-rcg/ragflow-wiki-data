@@ -4,53 +4,17 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce qui fait apparaître le message d'erreur \"malloc failed.\"?",
-      "answer": "Le message \"malloc failed.\" indique un manque de mémoire, souvent parce qu'on a demandé trop de mémoire via la ligne `%mem` dans le fichier d'entrée de Gaussian."
+      "question": "Quand l'erreur « galloc: could not allocate memory » apparaît dans le fichier de sortie de Gaussian, quelle en est la cause et comment peut-on la résoudre?",
+      "answer": "Cette erreur d'allocation mémoire indique que le logiciel Gaussian tente d'utiliser environ 1 Go de mémoire de plus que ce qui est spécifié par la directive `%mem` dans le fichier d'entrée. Pour y remédier, il faut s'assurer que la valeur de `%mem` est au moins 1 Go inférieure à la quantité de mémoire demandée avec `--mem=` dans le script de la tâche, ou, inversement, que `--mem=` est au moins 1 Go supérieure à `%mem` dans le fichier d'entrée."
     },
     {
-      "question": "Comment corriger l'erreur \"malloc failed.\", qui signale un manque de mémoire?",
-      "answer": "Pour résoudre cette erreur, il faut soit réduire la valeur spécifiée pour `%mem`, soit augmenter la quantité de mémoire demandée dans le script de la tâche en utilisant `--mem=`."
+      "question": "Qu'est-ce qui cause le message d'erreur « No such file or directory » dans le fichier de sortie de Gaussian, et quelle est la solution?",
+      "answer": "Ce message indique que le fichier mentionné dans la troisième ligne de l'erreur n'existe pas, souvent parce que le répertoire qui est censé le contenir n'a pas été créé. Cela peut arriver, par exemple, si la variable d'environnement `GAUSS_SCRDIR` est configurée pour pointer vers un répertoire inexistant. La solution est de créer le répertoire manquant en utilisant la commande `mkdir` ou de modifier la définition de `GAUSS_SCRDIR` pour qu'elle utilise un répertoire qui existe déjà."
     },
     {
-      "question": "Quelle est la cause de l'erreur \"Charge and multiplicity card seems defective\"?",
-      "answer": "Cette erreur de saisie se produit quand il n'y a pas de ligne de titre avec l'option `geom=modify`, ce qui fait que la ligne de charge/multiplicité est interprétée comme le titre, et la vraie ligne de charge/multiplicité est alors lue comme une liste de variables."
-    },
-    {
-      "question": "Que faut-il faire pour régler le problème \"Charge and multiplicity card seems defective\"?",
-      "answer": "Pour corriger ça, il suffit d'ajouter une ligne de titre au fichier d'entrée."
-    },
-    {
-      "question": "D'où vient l'erreur \"Attempt to redefine unrecognized symbol \"XXXXX\"\"?",
-      "answer": "C'est une erreur de saisie qui arrive quand on demande `geom=modify`, mais qu'une des variables qu'on essaie de manipuler ne se trouve pas dans le fichier de contrôle ('checkpoint')."
-    },
-    {
-      "question": "Comment résoudre l'erreur \"Attempt to redefine unrecognized symbol \"XXXXX\"\"?",
-      "answer": "Pour régler le problème, il faut entrer le bon fichier de contrôle ou la bonne variable."
-    },
-    {
-      "question": "Pourquoi l'erreur \"Inconsistency #2 in MakNEB\" survient-elle?",
-      "answer": "C'est une erreur de saisie. Elle se produit quand le groupe ponctuel a été modifié et qu'on a spécifié `iop(2/15=4,2/16=2,2/17=7)` pour éviter que le programme ne plante."
-    },
-    {
-      "question": "Quelle est la solution pour l'erreur \"Inconsistency #2 in MakNEB\"?",
-      "answer": "Pour régler cette erreur, il faut être très prudent avec l'utilisation de `iop` ou, si possible, le supprimer."
-    },
-    {
-      "question": "Que signifie le message d'erreur \"galloc: could not allocate memory\"?",
-      "answer": "Ce message indique une erreur d'allocation de mémoire, signifiant qu'il y a un manque de mémoire. Gaussian utilise environ 1 Go de plus que ce qui est spécifié par la directive `%mem`."
-    },
-    {
-      "question": "Comment puis-je résoudre l'erreur \"galloc: could not allocate memory\"?",
-      "answer": "La valeur de `%mem` doit être au moins 1 Go inférieure à la valeur spécifiée par `--mem` dans le script de la tâche. Inversement, `--mem` dans le script doit être au moins 1 Go supérieure à `%mem` dans le fichier d'entrée. 1 Go est une valeur conservatrice basée sur l'expérience."
-    },
-    {
-      "question": "Qu'est-ce qui cause le message \"No such file or directory\" dans le fichier de sortie de Gaussian?",
-      "answer": "Ce message signifie que le fichier indiqué (par exemple, `/home/johndoe/scratch/Gau-12345.inp`) n'existe pas, probablement parce que le répertoire qui le contient n'existe pas. Ça peut arriver si la variable `GAUSS_SCRDIR` pointe vers un répertoire inexistant."
-    },
-    {
-      "question": "Comment corriger l'erreur \"No such file or directory\"?",
-      "answer": "Pour résoudre ça, il faut soit créer le répertoire manquant avec la commande `mkdir`, soit changer la définition de `GAUSS_SCRDIR` pour qu'elle utilise un répertoire qui existe déjà."
+      "question": "Si une tâche Gaussian échoue avec le message « Charge and multiplicity card seems defective », quelle est la cause et comment la corriger?",
+      "answer": "Cette erreur est généralement une erreur de saisie. Elle survient quand il manque une ligne de titre au-dessus des spécifications de géométrie, surtout si l'option `geom=modify` est utilisée. Sans ligne de titre, Gaussian interprète la ligne charge/multiplicité comme étant le titre, et la ligne qui devrait contenir la charge/multiplicité est alors interprétée comme une liste de variables. La solution est simplement d'ajouter une ligne de titre dans le fichier d'entrée."
     }
   ],
-  "generated_at": "2026-04-11T23:01:36.939379+00:00"
+  "generated_at": "2026-04-13T06:31:41.663533+00:00"
 }

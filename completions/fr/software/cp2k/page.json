@@ -3,41 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi CP2K, pis ça sert à quoi dans le fond?",
-      "answer": "CP2K, c'est un paquet logiciel pour la chimie quantique pis la physique des solides. Ça permet de faire des simulations atomistiques pour des systèmes solides, liquides, moléculaires, matériels, cristallins pis biologiques."
+      "question": "À quoi sert le paquet logiciel CP2K sur les grappes Alliance?",
+      "answer": "CP2K est un paquet logiciel pour la chimie quantique et la physique des solides, permettant des simulations atomistiques de systèmes variés comme les solides, les liquides, les molécules, les matériaux, les cristaux et les systèmes biologiques."
     },
     {
-      "question": "Quelle est la plus récente version de CP2K qu'on peut utiliser, pis comment on fait pour la charger si elle a été compilée avec GCC?",
-      "answer": "La plus récente version installée, c'est la 8.2. Pour la charger si elle est compilée avec GCC, on doit lancer la commande `module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cp2k/8.2`."
+      "question": "Quelle est la version la plus récente de CP2K installée sur les grappes de calcul d'Alliance et quelle est l'option de compilation recommandée?",
+      "answer": "La version la plus récente installée est CP2K 8.2, et la version compilée avec GCC est recommandée pour sa stabilité."
     },
     {
-      "question": "Est-ce que la version de CP2K compilée avec Intel est aussi stable que celle compilée avec GCC?",
-      "answer": "Non, la version compilée avec Intel semble moins stable. Des fois, elle plante pour des raisons qu'on ne connaît pas."
+      "question": "Comment peut-on charger le module CP2K 8.2 compilé avec GCC sur les grappes Alliance?",
+      "answer": "Pour charger le module CP2K 8.2 compilé avec GCC, il faut lancer la commande `module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cp2k/8.2`."
     },
     {
-      "question": "Pour faire l'exemple de calcul statique, comment on fait pour récupérer les fichiers nécessaires?",
-      "answer": "Il faut se connecter à une grappe, puis télécharger les fichiers avec `wget https://www.cp2k.org/_media/static_calculation.tgz`, les décompresser avec `tar xvfz static_calculation.tgz`, pis ensuite aller dans le répertoire `cd static_calculation/sample_output_no_smearing`."
+      "question": "Est-ce qu'une version de CP2K 8.2 compilée avec Intel est disponible et y a-t-il des considérations particulières concernant son utilisation sur les grappes Alliance?",
+      "answer": "Oui, une version compilée avec Intel est disponible en utilisant `module load StdEnv/2020 intel/2020.1.217 openmpi/4.0.3 cp2k/8.2`, mais elle est considérée moins stable et peut planter à l'occasion pour des raisons inconnues."
     },
     {
-      "question": "Une fois qu'on a créé un script de tâche, comme `mpi_job.sh`, comment on le soumet pour qu'il s'exécute?",
-      "answer": "Pour soumettre la tâche, il faut lancer la commande `sbatch mpi_job.sh`."
+      "question": "Comment télécharger les fichiers requis pour l'exemple de calcul statique de CP2K sur une grappe Alliance?",
+      "answer": "Pour télécharger les fichiers de l'exemple de calcul statique de CP2K, il faut se connecter à une grappe et exécuter les commandes `wget https://www.cp2k.org/_media/static_calculation.tgz`, `tar xvfz static_calculation.tgz` puis `cd static_calculation/sample_output_no_smearing`."
     },
     {
-      "question": "Comment on fait pour vérifier si notre tâche CP2K est terminée, pis où on trouve les résultats?",
-      "answer": "On lance la commande `sq` pour voir si notre tâche apparaît encore dans la liste. Si elle n'y est plus, c'est qu'elle est terminée. Le résultat de CP2K se trouve dans le fichier `Si_bulk8.out`."
+      "question": "Comment créer un script de tâche SLURM pour un calcul statique avec CP2K en utilisant seulement MPI (`cp2k.popt`) sur une grappe Alliance?",
+      "answer": "Il faut créer un fichier `mpi_job.sh` avec des directives SLURM spécifiant le compte, le nombre de tâches MPI, la mémoire par CPU et le temps, puis charger le module CP2K et exécuter `srun cp2k.popt -o Si_bulk8.out Si_bulk8.inp`."
     },
     {
-      "question": "À partir de la version 8.2 de CP2K, quels sont les deux exécutables qu'on peut utiliser, pis c'est quoi la différence?",
-      "answer": "On a `cp2k.popt` pour les calculs MPI seulement, pis `cp2k.psmp` qui est un exécutable OpenMP/MPI. Le `cp2k.psmp` peut parfois améliorer la performance en utilisant des fils."
+      "question": "Après avoir créé un script SLURM pour un calcul CP2K, comment soumettre cette tâche sur une grappe Alliance?",
+      "answer": "Pour soumettre une tâche SLURM nommée `mpi_job.sh`, il suffit de lancer la commande `sbatch mpi_job.sh`."
     },
     {
-      "question": "Est-ce que l'utilisation de l'exécutable `cp2k.psmp` avec OpenMP/MPI garantit toujours une meilleure performance?",
-      "answer": "Non, l'amélioration de performance dépend du problème. Des fois, `cp2k.psmp` peut même prendre plus de temps, alors c'est important de faire des essais pour trouver la meilleure option pour son code."
+      "question": "Comment vérifier si une tâche CP2K soumise via SLURM sur une grappe Alliance est terminée?",
+      "answer": "On peut lancer la commande `sq` et si la tâche ne figure plus dans la liste, cela signifie qu'elle est terminée."
     },
     {
-      "question": "Quand on utilise `cp2k.psmp` avec OpenMP/MPI, quelles sont les configurations importantes à mettre dans le script de tâche et comment on gère les fils?",
-      "answer": "Il faut configurer les paramètres SBATCH comme `--nodes`, `--ntasks` (nombre de processus MPI), `--cpus-per-task` (nombre de fils par tâche), `--mem-per-cpu` pis `--time`. On gère le nombre de fils en exportant `OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`."
+      "question": "Où trouver les résultats d'un calcul CP2K et les journaux SLURM après l'exécution d'une tâche sur une grappe Alliance?",
+      "answer": "Le résultat principal de CP2K se trouvera dans le fichier spécifié par l'option `-o` (par exemple, `Si_bulk8.out`), et un fichier de résultats SLURM nommé `slurm-*.out` sera généré, lequel sera vide en cas de succès du calcul."
+    },
+    {
+      "question": "Quels sont les exécutables CP2K disponibles à partir de la version 8.2 sur les grappes Alliance, et quelle est leur distinction principale?",
+      "answer": "La version 8.2 de CP2K fournit l'exécutable `cp2k.popt` pour les calculs MPI seuls, et `cp2k.psmp` pour les calculs OpenMP/MPI, qui peuvent améliorer la performance pour certains problèmes."
+    },
+    {
+      "question": "Comment l'utilisation de `cp2k.psmp` avec des fils et MPI peut-elle influencer la performance des calculs CP2K par rapport à l'exécution de `cp2k.popt` en MPI seul?",
+      "answer": "L'utilisation de `cp2k.psmp` avec 2 fils par processus MPI a démontré une amélioration de 10 % dans certains tests (par exemple, QS/H2O-512.inp), en comparaison de `cp2k.popt` avec le même total de cœurs CPU."
+    },
+    {
+      "question": "Quelles sont les considérations importantes concernant l'utilisation de l'exécutable `cp2k.psmp` de CP2K pour les performances sur les grappes Alliance?",
+      "answer": "La différence de performance avec `cp2k.psmp` dépend du problème traité; il est crucial de faire des essais avec son propre code, car dans certains cas, `cp2k.psmp` peut même prendre plus de temps que `cp2k.popt`."
+    },
+    {
+      "question": "Comment configurer un script de tâche SLURM pour exécuter un calcul CP2K avec OpenMP et MPI (`cp2k.psmp`) sur une grappe Alliance, en utilisant l'exemple de Béluga?",
+      "answer": "Il faut définir les directives SLURM pour le compte, le nombre de nœuds, le nombre de processus MPI et les cœurs par tâche (`--cpus-per-task`), charger le module CP2K, définir la variable `OMP_NUM_THREADS` à partir de `$SLURM_CPUS_PER_TASK`, et exécuter `srun --cpus-per-task=$OMP_NUM_THREADS cp2k.psmp -o H2O-512.out H2O-512.inp`."
+    },
+    {
+      "question": "Pour un script de tâche OpenMP/MPI de CP2K conçu pour Béluga, quelles modifications sont nécessaires pour l'utiliser sur d'autres grappes d'Alliance?",
+      "answer": "Sur d'autres grappes d'Alliance, il faut ajuster le nombre de tâches (`--ntasks`) pour qu'il corresponde au nombre de cœurs disponibles sur les nœuds spécifiques de chaque grappe."
+    },
+    {
+      "question": "Dans un script SLURM pour une tâche CP2K OpenMP/MPI, comment la variable d'environnement `OMP_NUM_THREADS` est-elle généralement configurée sur les grappes Alliance?",
+      "answer": "La variable `OMP_NUM_THREADS` est généralement configurée en l'exportant à partir de la variable `$SLURM_CPUS_PER_TASK`, comme dans `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`."
     }
   ],
-  "generated_at": "2026-04-11T19:08:40.149310+00:00"
+  "generated_at": "2026-04-13T03:27:29.247597+00:00"
 }

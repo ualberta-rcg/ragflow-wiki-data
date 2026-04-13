@@ -4,85 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How do you validate the installation of CheckV?",
-      "answer": "You can validate CheckV by running the Python command `python -c 'import checkv'` to import the module, and then `checkv --help` to display the help menu."
+      "question": "How do you validate a CheckV installation on the clusters after the installation process?",
+      "answer": "To validate a CheckV installation, first confirm that the package can be imported by running `python -c 'import checkv'`. Subsequently, display the help menu for the CheckV executable by running `checkv --help` to ensure it is accessible."
     },
     {
-      "question": "When can a requirement file be used for CheckV installation?",
-      "answer": "A requirement file can only be used with installation option 4.1 (installing a wheel from the wheelhouse) and 4.3 (installing a wheel from the web outside the virtual environment)."
+      "question": "What is the recommended approach for downloading the CheckV database, and where should it be stored for optimal performance?",
+      "answer": "You must pre-download the CheckV database before submitting your job. It is recommended to download databases to your scratch storage space, as it is the best choice for intensive read/write operations on large files. The command to do this is `checkv download_database $SCRATCH/`."
     },
     {
-      "question": "What command is used to freeze the environment and requirements for CheckV?",
-      "answer": "To freeze the environment and requirements, you use the command: `pip freeze > checkv-1.0.1-requirements.txt`."
-    },
-    {
-      "question": "Where is the recommended location to download the CheckV database?",
-      "answer": "It is recommended to download the CheckV database to your scratch storage space, as it's the best choice for intensive read/write operations on large files."
-    },
-    {
-      "question": "What command is used to download the CheckV database to your scratch directory?",
-      "answer": "You can download the CheckV database to your scratch directory using the command: `checkv download_database $SCRATCH/`."
-    },
-    {
-      "question": "How can users update the CheckV database with their own complete genomes?",
-      "answer": "Users can update the database using their own complete genomes with the command: `checkv update_database /path/to/checkv-db /path/to/updated-checkv-db genomes.fna`."
-    },
-    {
-      "question": "Where can you find an archive of previous CheckV database versions?",
-      "answer": "An archive of all previous CheckV database versions can be found at: https://portal.nersc.gov/CheckV/."
-    },
-    {
-      "question": "What steps are required to manually build a DIAMOND database after downloading an archived CheckV database version?",
-      "answer": "After downloading and extracting an archived CheckV database (e.g., `wget https://portal.nersc.gov/CheckV/checkv-db-archived-version.tar.gz` and `tar -zxvf checkv-db-archived-version.tar.gz`), you need to change into the `genome_db` directory and run `diamond makedb --in checkv_reps.faa --db checkv_reps`."
-    },
-    {
-      "question": "Where is the CheckV test data set available?",
-      "answer": "The CheckV test data set is available at: https://bitbucket.org/berkeleylab/checkv/src/master/test/."
-    },
-    {
-      "question": "What command is used to download the CheckV test sequences?",
-      "answer": "You can download the CheckV test sequences using the command: `wget https://bitbucket.org/berkeleylab/checkv/raw/3f185b5841e8c109848cd0b001df7117fe795c50/test/test_sequences.fna`."
-    },
-    {
-      "question": "What is the initial step for running your job?",
-      "answer": "The first step for running your job is to use an interactive session."
-    },
-    {
-      "question": "Where can users refresh their knowledge about SBATCH parameters?",
-      "answer": "Users can refresh their knowledge about SBATCH parameters by looking at the Slurm SBATCH command page (https://slurm.schedmd.com/sbatch.html) and the 'Running jobs' wiki page."
-    },
-    {
-      "question": "What should be done first when analyzing a proposed command line for HPC usage?",
-      "answer": "The first thing to do is to analyze the proposed command line and look in the help menu for any information about threading or parameters that can assist in setting up HPC usage."
-    },
-    {
-      "question": "What is the CheckV command line for a full pipeline analysis?",
-      "answer": "The CheckV command line for a full pipeline analysis is: `checkv end_to_end input_file.fna output_directory -t 16`."
-    },
-    {
-      "question": "How do you access the help menu for the `checkv end_to_end` program?",
-      "answer": "You can access the help menu for the `checkv end_to_end` program by running: `checkv end_to_end --help`."
-    },
-    {
-      "question": "What does the `-t` parameter in the `checkv end_to_end` command mean?",
-      "answer": "The `-t` parameter specifies the number of threads to use for Prodigal and DIAMOND, which are multithreaded programs utilized by CheckV."
-    },
-    {
-      "question": "What `salloc` command is recommended as a first trial for CheckV?",
-      "answer": "As a first trial for CheckV, the recommended `salloc` command is: `salloc --time=1:0:0 --mem=2G --cpus-per-task=16 --account=def-someuser`."
-    },
-    {
-      "question": "What is the typical time allocation for an interactive job?",
-      "answer": "The typical time allocation for an interactive job is usually around 1 to 2 hours, as it's intended for exploring command lines or debugging, not for running long scripts."
-    },
-    {
-      "question": "What is the recommended starting memory allocation for an interactive CheckV job?",
-      "answer": "The recommended starting memory allocation for an interactive CheckV job is 2G, with the objective to start low and increase if needed."
-    },
-    {
-      "question": "What is the recommended starting CPU allocation for an interactive CheckV job?",
-      "answer": "The recommended starting CPU allocation for an interactive CheckV job is 16 tasks, based on the proposed command line in the CheckV software, starting low and increasing if needed."
+      "question": "What `salloc` command parameters are recommended as a starting point for an interactive CheckV job, and what considerations should be given to `--time`, `--mem`, and `--cpus-per-task`?",
+      "answer": "For a first trial of an interactive CheckV job, you could use `salloc --time=1:0:0 --mem=2G --cpus-per-task=16 --account=def-someuser`. For `--time`, interactive jobs are typically for debugging or compiling, so 1-2 hours is a suitable start. For `--mem` and `--cpus-per-task`, it's advisable to start with lower values (e.g., 2G memory, 16 CPUs as CheckV uses multithreaded programs like Prodigal and DIAMOND) and increase them if necessary based on your observed resource usage."
     }
   ],
-  "generated_at": "2026-04-11T19:38:25.827299+00:00"
+  "generated_at": "2026-04-13T03:51:13.267381+00:00"
 }

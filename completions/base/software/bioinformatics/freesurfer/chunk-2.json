@@ -4,81 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How can FreeSurfer 6.0.1 be installed in a shared location using EasyBuild?",
-      "answer": "To install FreeSurfer 6.0.1 in a shared location using EasyBuild, first run `newgrp def-someuser`. Then, set the following environment variables: `installdir=/home/$USER/projects/def-someuser/$USER`, `moduledir=/home/$USER/.local/easybuild/modules/2020`, and `pathtosrc=/home/$USER/software`. Finally, execute the EasyBuild command: `eb FreeSurfer-6.0.1-centos6_x86_64.eb --installpath-modules=${moduledir} --prefix=${installdir} --sourcepath=${pathtosrc}`."
+      "question": "How do you install FreeSurfer 6.0.1 in a shared location for a group using EasyBuild?",
+      "answer": "To install FreeSurfer 6.0.1 in a shared location, such as under a project directory, you first need to set up environment variables for the installation and module directories. Use the following commands: `newgrp def-someuser`, `installdir=/home/$USER/projects/def-someuser/$USER`, `moduledir=/home/$USER/.local/easybuild/modules/2020`, `pathtosrc=/home/$USER/software`. Then, execute the EasyBuild command: `eb FreeSurfer-6.0.1-centos6_x86_64.eb --installpath-modules=${moduledir} --prefix=${installdir} --sourcepath=${pathtosrc}`. If EasyBuild complains about checksums, add the option `--disable-enforce-checksums` to the `eb` command."
     },
     {
-      "question": "What should I do if the EasyBuild installation complains about checksums?",
-      "answer": "If the EasyBuild installation complains about checksums, you should add the `--disable-enforce-checksums` option to the `eb` command."
+      "question": "What steps are required for group members to access a FreeSurfer installation that was installed in a shared location with EasyBuild?",
+      "answer": "To make a shared FreeSurfer installation accessible to all members of a group, two main steps are required. First, you must give all group members read and execute access to the installation directory, typically `/home/$USER/projects/def-someuser/$USER`. Refer to the 'Changing the permissions of existing files' documentation for details on how to set these permissions. Second, each member of the group needs to copy the module file (`6.0.1.lua`) into their own `/home` directory. The module file is located under `/home/$USER/.local/easybuild/modules/2020/Core/freesurfer/`. Each member should create the necessary directory structure and copy the file using: `mkdir -p /home/$USER/.local/easybuild/modules/2020/Core/freesurfer` and `cp 6.0.1.lua /home/$USER/.local/easybuild/modules/2020/Core/freesurfer/`. Once these steps are completed, members can load the module using `module load freesurfer/6.0.1`."
     },
     {
-      "question": "What steps are needed to make a FreeSurfer installation in a shared folder accessible to all members of a group?",
-      "answer": "To make the program accessible for all members of the group, two additional steps are required: 1. You need to give all members of your group read and execute access to the installation directory `/home/$USER/projects/def-someuser/$USER`. 2. Each member of the group will need to place the module file (`6.0.1.lua`) in their own `/home` directories."
-    },
-    {
-      "question": "Where can I find information on how to change permissions for the shared FreeSurfer installation directory?",
-      "answer": "To learn how to give group members read and execute access to the installation directory `/home/$USER/projects/def-someuser/$USER`, please refer to the 'Changing the permissions of existing files' documentation."
-    },
-    {
-      "question": "What is the location of the FreeSurfer 6.0.1 module file after installation in a shared folder?",
-      "answer": "The FreeSurfer 6.0.1 module file (`6.0.1.lua`) is located under the directory `/home/$USER/.local/easybuild/modules/2020/Core/freesurfer/`."
-    },
-    {
-      "question": "How do group members set up the FreeSurfer 6.0.1 module in their own accounts after a shared installation?",
-      "answer": "Each member of the group needs to create the directory `/home/$USER/.local/easybuild/modules/2020/Core/freesurfer` and then copy the `6.0.1.lua` file into it using the commands: `mkdir -p /home/$USER/.local/easybuild/modules/2020/Core/freesurfer` and `cp 6.0.1.lua /home/$USER/.local/easybuild/modules/2020/Core/freesurfer/`."
-    },
-    {
-      "question": "How can a group member load the FreeSurfer 6.0.1 module from their own account?",
-      "answer": "The module can be loaded from a group member's own account using the command `module load freesurfer/6.0.1`."
-    },
-    {
-      "question": "What is needed to perform hippocampus and brainstem processing with FreeSurfer?",
-      "answer": "To perform processing of the hippocampus and brainstem, you need to download and install MATLAB runtime 2012b from the FreeSurfer website."
-    },
-    {
-      "question": "What are the steps to download and install MATLAB runtime 2012b for FreeSurfer hippocampus and brainstem processing?",
-      "answer": "First, load the FreeSurfer module with `module load freesurfer/6.0.0` and navigate to `$FREESURFER_HOME`. Then, download the runtime using `curl \"http://surfer.nmr.mgh.harvard.edu/fswiki/MatlabRuntime?action=AttachFile&do=get&target=runtime2012bLinux.tar.gz\" -o \"matlab_runtime2012bLinux.tar.gz\"` and extract it with `tar xvf matlab_runtime2012bLinux.tar.gz`."
-    },
-    {
-      "question": "What kind of script is provided as an example for FreeSurfer versions 6.0.0 and newer?",
-      "answer": "An example of a working batch script, named `mysub.sh`, is provided for FreeSurfer versions 6.0.0 and newer."
-    },
-    {
-      "question": "What SLURM directives are included in the example batch script `mysub.sh` for FreeSurfer?",
-      "answer": "The `mysub.sh` example script includes the SLURM directives: `#SBATCH --account=def-someuser`, `#SBATCH --mem=16G`, and `#SBATCH --time=10:00:00`."
-    },
-    {
-      "question": "How is the FreeSurfer module loaded within the example `mysub.sh` batch script?",
-      "answer": "The FreeSurfer module is loaded in the example `mysub.sh` batch script using the command `module load freesurfer/6.0.0`."
-    },
-    {
-      "question": "What FreeSurfer-related variables are set in the example batch script?",
-      "answer": "In the example batch script, the `SUBJECTS_DIR` variable is exported to a user-defined directory, and the FreeSurfer environment is sourced using `source $EBROOTFREESURFER/FreeSurferEnv.sh`."
-    },
-    {
-      "question": "What is the recommended walltime for the `recon-all -all` command?",
-      "answer": "The recommended walltime for the `recon-all -all` command is `08:00:00`."
-    },
-    {
-      "question": "What is the recommended walltime for the `recon-all -qcache` command?",
-      "answer": "The recommended walltime for the `recon-all -qcache` command is `00:20:00`."
-    },
-    {
-      "question": "What is the recommended walltime for the `recon-all -base -tp1 -tp2` command?",
-      "answer": "The recommended walltime for the `recon-all -base -tp1 -tp2` command is `10:00:00`."
-    },
-    {
-      "question": "What is the recommended walltime for the `recon-all -long subjid -base base` command?",
-      "answer": "The recommended walltime for the `recon-all -long subjid -base base` command is `10:00:00`."
-    },
-    {
-      "question": "What is the recommended walltime for the `recon-all -hippocampal-subfields-T1` command?",
-      "answer": "The recommended walltime for the `recon-all -hippocampal-subfields-T1` command is `00:40:00`."
-    },
-    {
-      "question": "What is the recommended walltime for the `recon-all -brainstem-structures` command?",
-      "answer": "The recommended walltime for the `recon-all -brainstem-structures` command is `00:30:00`."
+      "question": "What would an example batch script look like for running FreeSurfer version 6.0.0 on a cluster?",
+      "answer": "An example batch script for running FreeSurfer version 6.0.0 on a cluster would include SBATCH directives for resource allocation, module loading, and variable setup. Here's a sample `mysub.sh` script:\n```bash\n#!/bin/bash\n\n#SBATCH --account=def-someuser\n#SBATCH --mem=16G\n#SBATCH --time=10:00:00\n\n# Load the module:\nmodule load freesurfer/6.0.0\n\n# set the variables:\nexport SUBJECTS_DIR=<User_Defined_DIR>\nsource $EBROOTFREESURFER/FreeSurferEnv.sh\n\necho \"Starting run at: `date`\"\n\nrecon-all command\n\necho \"Program finished with exit code $? at: `date`\"\n```\nThis script loads the FreeSurfer module, sets the `SUBJECTS_DIR`, sources the environment setup script, and then executes a `recon-all` command."
     }
   ],
-  "generated_at": "2026-04-11T21:42:46.180640+00:00"
+  "generated_at": "2026-04-13T05:28:40.733665+00:00"
 }

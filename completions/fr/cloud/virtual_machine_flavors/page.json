@@ -3,29 +3,57 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "À quoi servent les gabarits OpenStack?",
-      "answer": "Les gabarits OpenStack définissent des paramètres comme le nombre de cœurs, la capacité de mémoire vive et sur disque, permettant à l'utilisateur de sélectionner le type d'instance virtuelle qui lui convient."
+      "question": "Qu'est-ce qu'un gabarit (flavor) OpenStack et à quoi ça sert?",
+      "answer": "Un gabarit OpenStack définit les paramètres du matériel virtuel, comme le nombre de cœurs, la mémoire vive et la capacité de disque, permettant à l'utilisateur de sélectionner le type d'instance qui convient à ses besoins."
     },
     {
-      "question": "Comment peut-on consulter la liste des gabarits disponibles pour un projet?",
-      "answer": "On peut les voir dans le tableau de bord Horizon ou en utilisant la commande `openstack flavor list --sort-column RAM` via le client ligne de commande."
+      "question": "Comment puis-je visualiser les gabarits OpenStack disponibles pour mon projet?",
+      "answer": "Vous pouvez les voir dans le tableau de bord Horizon ou en utilisant la commande `openstack flavor list --sort-column RAM` avec le client ligne de commande OpenStack."
     },
     {
-      "question": "Que faut-il faire si le gabarit dont on a besoin n'est pas affiché dans la liste?",
-      "answer": "Il faut écrire à nuage@tech.alliancecan.ca pour demander le gabarit souhaité."
+      "question": "Que dois-je faire si je ne trouve pas le gabarit OpenStack dont j'ai besoin dans la liste?",
+      "answer": "Si le gabarit souhaité n'est pas affiché, vous devez écrire un courriel à nuage@tech.alliancecan.ca pour en faire la demande."
     },
     {
-      "question": "Comment les gabarits OpenStack sont-ils nommés et que signifient ces noms?",
-      "answer": "Les noms commencent par un préfixe (c pour « calcul », p pour « persistant », g pour « vGPU »), suivi du nombre de CPU ou GPU virtuels, de la mémoire vive et, si applicable, de la taille du disque éphémère secondaire en gigaoctets."
+      "question": "Quelle est la convention de nommage utilisée pour les gabarits OpenStack?",
+      "answer": "Les noms de gabarits commencent par un préfixe (c, p ou g), suivi du nombre de CPU ou GPU virtuels, puis d'un tiret, de la quantité de mémoire vive. Un deuxième tiret peut indiquer la taille du disque éphémère secondaire."
     },
     {
-      "question": "Quelles sont les particularités des gabarits de type 'c' (calcul) et à quelles tâches conviennent-ils?",
-      "answer": "Les gabarits de type 'c' conviennent aux tâches de développement, de test et aux tâches de courte durée. Leurs disques sont locaux, non redondants, et le disque racine est typiquement de 20Go. Sur Arbutus, ils sont adaptés aux tâches utilisant intensément les CPU."
+      "question": "Que représentent les préfixes 'c', 'p' et 'g' dans les noms des gabarits OpenStack?",
+      "answer": "Le préfixe 'c' désigne « calcul » (compute), 'p' désigne « persistant » et 'g' désigne « vGPU » (GPU virtuel)."
     },
     {
-      "question": "À quels types d'instances les gabarits de type 'p' (persistant) sont-ils destinés et quelles sont leurs caractéristiques?",
-      "answer": "Les gabarits de type 'p' conviennent aux tâches de durée indéterminée. Leur disque racine n'est pas prédéfini et ils doivent être démarrés à partir d'un volume d'au moins 20Go. Sur Arbutus, ils offrent une haute redondance et sont idéaux pour les serveurs web, les bases de données ou les instances avec un usage CPU faible ou irrégulier."
+      "question": "À quels types de tâches les gabarits de type 'c' sont-ils particulièrement adaptés dans un environnement OpenStack?",
+      "answer": "Les gabarits de type 'c' conviennent aux tâches de développement, de test et aux tâches d'une durée d'exécution limitée."
+    },
+    {
+      "question": "Quelle est la source de démarrage des machines virtuelles qui utilisent des gabarits de type 'c'?",
+      "answer": "Les machines virtuelles utilisant des gabarits de type 'c' sont démarrées à partir d'une image de format qcow2."
+    },
+    {
+      "question": "Quelle est la caractéristique principale du stockage pour les disques des machines virtuelles avec des gabarits de type 'c'?",
+      "answer": "Les disques de la machine virtuelle résident localement sur le matériel qui exécute l'instance et ne sont pas redondants, fonctionnant comme un RAID 0."
+    },
+    {
+      "question": "Quelle est la taille typique du disque racine pour un gabarit de type 'c', et quel est le comportement du disque éphémère secondaire?",
+      "answer": "Le disque racine est typiquement de 20Go, et un disque éphémère secondaire pour le stockage des données est créé et supprimé avec l'instance."
+    },
+    {
+      "question": "Dans le contexte spécifique d'Arbutus, à quoi les gabarits de type 'c' sont-ils recommandés?",
+      "answer": "Pour Arbutus, les gabarits de type 'c' conviennent aux tâches faisant un usage intense des CPU puisqu'ils ne les surexploitent pas."
+    },
+    {
+      "question": "Pour quels types de tâches les gabarits de type 'p' sont-ils conçus dans un environnement OpenStack?",
+      "answer": "Les gabarits de type 'p' conviennent aux tâches dont la durée d'exécution est indéterminée, nécessitant une persistance des données."
+    },
+    {
+      "question": "Comment est-il recommandé de démarrer une instance avec un gabarit de type 'p' et quelle taille est suggérée pour le disque racine?",
+      "answer": "Il est recommandé de démarrer depuis un volume, et nous suggérons un volume d'au moins 20Go pour le disque racine persistant."
+    },
+    {
+      "question": "Quelles sont les particularités des gabarits de type 'p' sur la plateforme Arbutus, et pour quels usages sont-ils recommandés?",
+      "answer": "Sur Arbutus, ces gabarits sont sur des nœuds de calcul avec redondance élevée (disque et réseau), surexploitent le CPU, et conviennent aux serveurs web, aux serveurs de bases de données et aux instances qui font peu ou un usage irrégulier du CPU."
     }
   ],
-  "generated_at": "2026-04-12T11:05:18.654809+00:00"
+  "generated_at": "2026-04-13T16:00:16.010566+00:00"
 }

@@ -4,77 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "What are the common commands used for debugging a Python file with `pdb`?",
-      "answer": "Typically, the commands used to debug a Python file are `w` (where), `s` (step), `l` (list), `p` (print expression), and `n` (next)."
+      "question": "When using the `pdb` debugger for Python, what are some of the most useful commands for navigating and inspecting code?",
+      "answer": "Some of the most useful `pdb` commands include `w` (to print a stack trace), `b` (to set a breakpoint), `s` (to step into a function), `n` (to continue to the next line in the current function), `r` (to continue until the current function returns), `c` (to continue until a breakpoint is hit), `p exp` (to evaluate an expression), `l` (to list source code for the current file), and `q` (to quit the debugger)."
     },
     {
-      "question": "How can I view the stack trace in the `pdb` debugger?",
-      "answer": "You can view the stack trace in the `pdb` debugger by using the `w` (or `here`) command. It prints the stack trace with the most recent frame at the bottom, and an arrow indicates the current frame."
+      "question": "What are the recommended methods for diagnosing a hanging Python script on a cluster?",
+      "answer": "To diagnose a hanging Python script, you can either use the `faulthandler` module to dump a traceback after a timeout (by editing your script beforehand) or use `py-spy` to inspect a running process without prior modification. `py-spy` allows you to see live feedback on where your code is spending time (`py-spy top --pid PID`) or get a traceback of its current state (`py-spy dump --pid PID`)."
     },
     {
-      "question": "How do I set a breakpoint in `pdb`?",
-      "answer": "To set a breakpoint in `pdb`, use the `b` (or `break`) command with a `lineno` argument, like `b <lineno>`, in the current file."
-    },
-    {
-      "question": "What does the `s` (step) command do in the Python debugger?",
-      "answer": "The `s` (step) command executes the current line and stops at the first possible occasion, which could be inside a called function or on the next line in the current function."
-    },
-    {
-      "question": "What is the purpose of the `n` (next) command in `pdb`?",
-      "answer": "The `n` (next) command continues execution until the next line in the current function is reached or the function returns."
-    },
-    {
-      "question": "How do I continue execution until the current function returns in `pdb`?",
-      "answer": "You can continue execution until the current function returns in `pdb` by using the `r` (or `return`) command."
-    },
-    {
-      "question": "What command allows `pdb` to continue execution until a breakpoint is hit?",
-      "answer": "The `c` (or `cont(inue)`) command allows `pdb` to continue execution, stopping only when a breakpoint is encountered."
-    },
-    {
-      "question": "How can I evaluate an expression and print its value in `pdb`?",
-      "answer": "To evaluate an expression in the current context and print its value in `pdb`, use the `p exp` command, where `exp` is the expression you want to evaluate."
-    },
-    {
-      "question": "What command is used to list the source code in `pdb`?",
-      "answer": "To list the source code for the current file in `pdb`, use the `l` (or `list`) command."
-    },
-    {
-      "question": "How do I quit the `pdb` debugger?",
-      "answer": "To quit the `pdb` debugger and abort the program being executed, use the `q` (or `quit`) command."
-    },
-    {
-      "question": "How can I attach the Python Debugger (`pdb`) to a running process?",
-      "answer": "With Python 3.14 and higher, you can attach `pdb` to a running process from a different terminal by executing `python -m pdb --pid <process id>`."
-    },
-    {
-      "question": "What should I do if my Python script is hanging?",
-      "answer": "If your Python script is hanging, you can use the `faulthandler` module to allow dumping a traceback after a timeout by calling `faulthandler.dump_traceback_later()`. Alternatively, you can use `py-spy` to inspect the running process without modification."
-    },
-    {
-      "question": "How can I use `py-spy` to diagnose a hanging Python script?",
-      "answer": "To use `py-spy`: 1) Install `py-spy` in a virtual environment in your home directory. 2) Attach to the running job using `srun --overlap --pty --jobid JOBID bash`. 3) Find your Python script's process ID with `htop -u $USER`. 4) Activate the `py-spy` virtual environment. 5) Run `py-spy top --pid PID` for live feedback on code execution or `py-spy dump --pid PID` for a current traceback."
-    },
-    {
-      "question": "What does the error \"Package 'X' requires a different Python: X.Y.Z not in '>=X.Y'\" mean?",
-      "answer": "This error means that the currently loaded Python module (e.g., 3.6.10) is not supported by the package you are trying to install. The package requires a newer version of Python."
-    },
-    {
-      "question": "How do I fix the error \"Package 'X' requires a different Python: X.Y.Z not in '>=X.Y'\"?",
-      "answer": "To fix this error, you can either update to a more recent Python version (such as the latest available module) or install an older version of the problematic package 'X' that is compatible with your current Python version."
-    },
-    {
-      "question": "What should I do if I get an \"ERROR: Package has requirement X, but you'll have Y which is incompatible\" message during package installation?",
-      "answer": "This error indicates a dependency conflict. To resolve it, upgrade `pip` to version 21.3 or higher to utilize its new dependency resolver by running `pip install --no-index --upgrade pip`, then retry your installation command."
-    },
-    {
-      "question": "What does \"ERROR: No matching distribution found for X\" signify when installing a Python package?",
-      "answer": "This error means that `pip` could not find any package that satisfies your specified requirements (name, version, or tags). This could be due to an incorrect package name or version, or because `manylinux_x_y` wheels are being discarded."
-    },
-    {
-      "question": "How can I troubleshoot the \"No matching distribution found for X\" error?",
-      "answer": "To troubleshoot this error, verify that the package name and version are correct. You can also check if the package is available in the wheelhouse by using the `avail_wheels` command or by searching the Available Python wheels page."
+      "question": "How can a user resolve errors such as 'Package 'X' requires a different Python' or 'Package has requirement X, but you'll have Y which is incompatible' when installing Python packages?",
+      "answer": "If a package requires a different Python version, you should update to a more recent Python module or install an older version of the package. For incompatible dependency errors, it is recommended to upgrade `pip` to the latest version (or higher than 21.3) using `pip install --no-index --upgrade pip` and then retry the installation command."
     }
   ],
-  "generated_at": "2026-04-12T05:52:19.042484+00:00"
+  "generated_at": "2026-04-13T11:47:17.711434+00:00"
 }

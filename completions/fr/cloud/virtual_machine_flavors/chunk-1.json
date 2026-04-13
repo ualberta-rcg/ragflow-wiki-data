@@ -4,73 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que c'est, les gabarits OpenStack pour le matériel virtuel?",
-      "answer": "Les gabarits (flavors) OpenStack définissent plusieurs paramètres comme le nombre de cœurs, la capacité de mémoire vive et sur disque, ce qui permet à l'utilisateur de choisir le type d'instance qui lui convient."
+      "question": "Dans le contexte des services infonuagiques d'OpenStack, qu'est-ce qu'un « gabarit » et quels paramètres définit-il pour une instance?",
+      "answer": "Un gabarit OpenStack, aussi appelé 'flavor', est une configuration prédéfinie pour le matériel virtuel. Il définit des paramètres importants comme le nombre de cœurs de processeur, la capacité de mémoire vive (RAM) et la taille de l'espace disque, permettant à l'utilisateur de choisir l'instance qui convient le mieux à ses besoins, à la manière d'un serveur physique."
     },
     {
-      "question": "Comment est-ce que je peux voir les gabarits qui sont disponibles pour mon projet?",
-      "answer": "Vous pouvez consulter les gabarits dans le tableau de bord Horizon ou en utilisant la commande `openstack flavor list --sort-column RAM` avec le client ligne de commande OpenStack."
+      "question": "Comment sont nommés les gabarits OpenStack et que signifient les préfixes « c », « p » et « g » dans leur convention de nommage?",
+      "answer": "Les gabarits OpenStack sont nommés selon une convention où un préfixe est suivi du nombre de CPU ou GPU virtuels, d'un tiret, puis de la quantité de mémoire vive. S'il y a un deuxième tiret, il indique la taille du disque éphémère secondaire. Par convention, le préfixe « c » désigne « calcul » (compute), le préfixe « p » désigne « persistant » (persistent) et le préfixe « g » désigne « vGPU »."
     },
     {
-      "question": "Qui dois-je contacter si j'ai besoin d'un gabarit qui n'est pas affiché dans la liste?",
-      "answer": "Vous devez écrire à nuage@tech.alliancecan.ca si vous avez besoin d'un gabarit qui n'est pas affiché."
-    },
-    {
-      "question": "Que signifient les préfixes 'c', 'p' et 'g' dans les noms des gabarits?",
-      "answer": "Par convention, le préfixe 'c' désigne « calcul » (compute), 'p' désigne « persistant » (persistent) et 'g' désigne « vGPU »."
-    },
-    {
-      "question": "Comment la structure d'un nom de gabarit est-elle conventionnellement définie?",
-      "answer": "Le préfixe est suivi du nombre de CPU ou GPU virtuels, d'un tiret, puis de la quantité de mémoire vive. S'il y a un deuxième tiret, il est suivi de la taille du disque éphémère secondaire en gigaoctets."
-    },
-    {
-      "question": "Quelle est l'information additionnelle dans le nom d'un gabarit pour un vGPU?",
-      "answer": "Dans le cas d'un vGPU, le gabarit est inclus à la suite de l'information sur ce vGPU."
-    },
-    {
-      "question": "À quelles sortes de tâches les gabarits de type 'c' conviennent-ils?",
-      "answer": "Les gabarits de type 'c' conviennent aux tâches de développement, de test et aux tâches d'une durée d'exécution limitée."
-    },
-    {
-      "question": "Quel est le format de l'image à partir duquel les gabarits de type 'c' sont démarrés?",
-      "answer": "Les gabarits de type 'c' sont démarrés à partir d'une image de format qcow2."
-    },
-    {
-      "question": "Où sont stockés les disques des machines virtuelles qui utilisent des gabarits de type 'c', et sont-ils redondants?",
-      "answer": "Les disques de la machine virtuelle résident localement sur le matériel qui exécute l'instance et ne sont pas redondants (voir RAID 0)."
-    },
-    {
-      "question": "Quelle est la taille typique du disque racine pour un gabarit de type 'c'?",
-      "answer": "Le disque racine est typiquement de 20Go pour un gabarit de type 'c'."
-    },
-    {
-      "question": "Qu'arrive-t-il au disque éphémère secondaire d'une instance avec un gabarit de type 'c'?",
-      "answer": "Un disque éphémère secondaire pour le stockage des données est créé et supprimé avec l'instance."
-    },
-    {
-      "question": "Sur Arbutus, à quel type d'utilisation du CPU les gabarits de type 'c' sont-ils adaptés?",
-      "answer": "Dans le cas d'Arbutus, ces gabarits conviennent aux tâches faisant un usage intense des CPU puisqu'ils ne les surexploitent pas."
-    },
-    {
-      "question": "Pour quelles tâches est-il préférable d'utiliser les gabarits de type 'p'?",
-      "answer": "Les gabarits de type 'p' conviennent aux tâches dont la durée d'exécution est indéterminée."
-    },
-    {
-      "question": "Le disque racine est-il prédéfini pour les gabarits de type 'p'?",
-      "answer": "Non, le disque racine n'est pas prédéfini pour les gabarits de type 'p'."
-    },
-    {
-      "question": "Comment devrait-on démarrer les gabarits de type 'p'?",
-      "answer": "Les gabarits de type 'p' devraient être démarrés depuis un volume."
-    },
-    {
-      "question": "Quelle est la taille de volume recommandée pour le disque racine persistant des gabarits de type 'p'?",
-      "answer": "Nous recommandons un volume d'au moins 20Go pour le disque racine persistant des gabarits de type 'p'."
-    },
-    {
-      "question": "Quelles sont les caractéristiques des gabarits de type 'p' sur Arbutus, particulièrement en ce qui concerne la redondance et l'utilisation du CPU?",
-      "answer": "Sur Arbutus, ces gabarits sont sur des nœuds de calcul avec redondance élevée (disque et réseau) et ils surexploitent le CPU. Ils conviennent donc aux serveurs web, aux serveurs de bases de données et aux instances qui font généralement peu usage du CPU ou encore ont un usage irrégulier."
+      "question": "Quelles sont les principales différences entre les gabarits de type « c » et de type « p » offerts dans OpenStack, et pour quels types de tâches chacun est-il recommandé?",
+      "answer": "Les gabarits de type « c » sont adaptés aux tâches de développement, de test et à celles d'une durée d'exécution limitée. Ils démarrent à partir d'une image qcow2, leurs disques de VM résident localement sans redondance et le disque racine est typiquement de 20Go. Sur Arbutus, ils conviennent aux tâches intensives en CPU car ils ne surexploitent pas les processeurs. En revanche, les gabarits de type « p » sont conçus pour des tâches de durée indéterminée et doivent être démarrés depuis un volume persistant (au moins 20Go recommandé pour le disque racine). Sur Arbutus, ils sont sur des nœuds de calcul à haute redondance et surexploitent le CPU, ce qui les rend idéaux pour les serveurs web, les bases de données ou les instances avec un usage CPU faible ou irrégulier."
     }
   ],
-  "generated_at": "2026-04-12T11:05:32.711566+00:00"
+  "generated_at": "2026-04-13T16:00:26.079746+00:00"
 }

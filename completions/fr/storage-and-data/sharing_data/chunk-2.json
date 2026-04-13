@@ -4,93 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Comment accorder la permission de lecture à tous les membres du groupe pour un fichier spécifique avec la commande `chmod`?",
-      "answer": "Pour accorder la permission de lecture à tous les membres du groupe auquel appartient un fichier, on utilise la commande `chmod g+r file.txt`."
+      "question": "Comment est-ce qu'on fait pour modifier les permissions d'un fichier ou d'un répertoire pour des catégories d'utilisateurs spécifiques sur les grappes de calcul, en utilisant la commande `chmod` et la notation symbolique ?",
+      "answer": "On utilise la commande `chmod` suivie de la catégorie d'utilisateur (`u` pour le propriétaire, `g` pour le groupe, `o` pour les autres, ou `a` pour tous) puis d'un signe plus (`+`) ou moins (`-`) pour ajouter ou retirer une permission, et finalement, la nature de la permission (`r` pour lecture, `w` pour écriture, `x` pour exécution). Par exemple, `chmod g+r file.txt` accorde la permission de lecture à tous les membres du groupe auquel appartient le fichier."
     },
     {
-      "question": "Quelle commande utiliser pour retirer la permission d'exécution à tous les utilisateurs d'un fichier, à l'exception du propriétaire et du groupe?",
-      "answer": "Il faut utiliser la commande `chmod o-x script.py` pour retirer la permission d'exécuter un fichier à tous, sauf au propriétaire et au groupe."
+      "question": "À quoi sert le 'sticky bit' dans les systèmes de fichiers Unix sur les grappes de calcul, et comment on fait pour l'activer sur un répertoire ?",
+      "answer": "Le 'sticky bit' empêche qu'un fichier soit supprimé ou renommé par un utilisateur autre que son propriétaire dans un répertoire partagé, même si cet utilisateur a des permissions d'écriture. Pour l'activer sur un répertoire, on utilise la commande `chmod +t <nom_du_répertoire>` ou, en notation octale, `chmod 1774 <nom_du_répertoire>`."
     },
     {
-      "question": "Que représente la catégorie d'utilisateur `a` lorsqu'on modifie les permissions avec `chmod`?",
-      "answer": "La catégorie d'utilisateur `a` signifie « tous » (all) les utilisateurs de la grappe."
-    },
-    {
-      "question": "Comment s'assurer que tous les utilisateurs de la grappe peuvent lire un fichier donné?",
-      "answer": "Pour que tous les utilisateurs de la grappe puissent lire un fichier, on utilise la commande `chmod a+r file.txt`."
-    },
-    {
-      "question": "Quelle est la formule pour interpréter les permissions en notation octale sur un système Unix?",
-      "answer": "La formule pour interpréter les permissions en notation octale est (bit de lecture)*4 + (bit d'écriture)*2 + (bit d'exécution)*1."
-    },
-    {
-      "question": "Si les permissions octales d'un fichier sont 644, quelles permissions sont accordées au propriétaire, au groupe et aux autres?",
-      "answer": "Avec 644, le propriétaire a les permissions de lecture et d'écriture (4+2=6), tandis que le groupe et les autres ont seulement la permission de lecture (4+0+0=4)."
-    },
-    {
-      "question": "Quelles permissions sont nécessaires sur un répertoire pour pouvoir accéder aux fichiers qu'il contient?",
-      "answer": "Il faut avoir les permissions de lecture et d'exécution (5 et 7 en notation octale) pour le répertoire qui contient le fichier."
-    },
-    {
-      "question": "Que signifie la commande `chmod 770 name_of_file`?",
-      "answer": "La commande `chmod 770 name_of_file` accorde au propriétaire et à tous les utilisateurs du groupe les permissions d'écriture, de lecture et d'exécution, mais rien pour les autres."
-    },
-    {
-      "question": "Qui a le droit de modifier les permissions associées à un fichier ou un répertoire?",
-      "answer": "Seul le propriétaire d'un fichier ou d'un répertoire peut en modifier les permissions."
-    },
-    {
-      "question": "Quelle commande permet de modifier le groupe auquel appartient un fichier ou un répertoire?",
-      "answer": "Pour modifier le groupe d'un fichier ou d'un répertoire, on utilise la commande `chgrp`."
-    },
-    {
-      "question": "Quel est le rôle du \"sticky bit\" dans un système de fichiers Unix, surtout dans des répertoires partagés comme `/project`?",
-      "answer": "Le \"sticky bit\" sert à empêcher qu'un fichier soit supprimé ou renommé par un autre utilisateur que son propriétaire, particulièrement utile dans les répertoires partagés."
-    },
-    {
-      "question": "Qu'arriverait-il sans le \"sticky bit\" dans un répertoire où plusieurs utilisateurs ont des permissions de lecture et d'écriture?",
-      "answer": "Sans le \"sticky bit\", les utilisateurs qui ont des permissions de lecture et d'écriture pour un répertoire pourraient renommer ou supprimer tous les fichiers qui s'y trouvent, même s'ils n'en sont pas les propriétaires."
-    },
-    {
-      "question": "Comment activer le \"sticky bit\" sur un répertoire avec la commande `chmod` en notation symbolique?",
-      "answer": "Pour activer le \"sticky bit\" sur un répertoire, on utilise la commande `chmod +t <directory name>`."
-    },
-    {
-      "question": "Comment activer le \"sticky bit\" sur un répertoire avec la commande `chmod` en notation octale?",
-      "answer": "Pour activer le \"sticky bit\" sur un répertoire en notation octale, on utilise la commande `chmod 1774 <directory name>` (le mode 1000 représente le sticky bit)."
-    },
-    {
-      "question": "Comment le \"sticky bit\" est-il représenté dans la sortie de la commande `ls -l`?",
-      "answer": "Dans la sortie de `ls -l`, le \"sticky bit\" est représenté par la lettre `t` (ou `T` majuscule) à la fin du champ des permissions."
-    },
-    {
-      "question": "Comment désactiver le \"sticky bit\" sur un répertoire avec la commande `chmod` en notation symbolique?",
-      "answer": "Pour désactiver le \"sticky bit\" sur un répertoire, on utilise la commande `chmod -t <directory name>`."
-    },
-    {
-      "question": "Comment désactiver le \"sticky bit\" sur un répertoire avec la commande `chmod` en notation octale?",
-      "answer": "Pour désactiver le \"sticky bit\" sur un répertoire en notation octale, on utilise la commande `chmod 0774 <directory name>`."
-    },
-    {
-      "question": "À quoi sert le bit `setGID` lorsqu'il est activé pour un répertoire?",
-      "answer": "Quand le bit `setGID` est activé pour un répertoire, tous les nouveaux fichiers et sous-répertoires créés à l'intérieur de celui-ci héritent du groupe auquel le répertoire est associé."
-    },
-    {
-      "question": "Comment activer la permission `setGID` sur un répertoire?",
-      "answer": "On peut activer la permission `setGID` d'un répertoire en utilisant la commande `chmod g+s <directory name>`."
-    },
-    {
-      "question": "Comment sait-on que le bit `setGID` est activé pour un répertoire quand on regarde la sortie de `ls -l`?",
-      "answer": "Quand le bit `setGID` est activé, la permission `x` des permissions du groupe est remplacée par un `s` minuscule dans la sortie de `ls -l`."
-    },
-    {
-      "question": "Qu'arrive-t-il si on crée un nouveau répertoire sous un répertoire où `setGID` est déjà activé?",
-      "answer": "Le nouveau répertoire sera associé au même groupe que le répertoire parent, et son propre bit `setGID` sera aussi activé automatiquement."
-    },
-    {
-      "question": "Quelle est la différence entre `S` (majuscule) et `s` (minuscule) dans le contexte du bit `setGID` affiché par `ls -l`?",
-      "answer": "Un `S` majuscule indique que la permission d'exécution a été retirée du répertoire, mais que le `setGID` est toujours activé, ce qui peut entraîner des problèmes d'accès, tandis que le `s` minuscule indique que le `setGID` est actif et que l'exécution est permise."
+      "question": "C'est quoi l'utilité du bit `setGID` pour un répertoire et comment on fait pour l'activer pour que les nouveaux fichiers et sous-répertoires héritent du groupe du répertoire parent ?",
+      "answer": "Lorsque le bit `setGID` est activé pour un répertoire, les nouveaux fichiers et sous-répertoires créés à l'intérieur de celui-ci héritent automatiquement du groupe auquel le répertoire parent est associé. Pour l'activer, on utilise la commande `chmod g+s <nom_du_répertoire>`, ce qui est représenté par la lettre `s` dans le champ des permissions du groupe lors de l'affichage avec `ls -l`."
     }
   ],
-  "generated_at": "2026-04-12T08:00:51.746571+00:00"
+  "generated_at": "2026-04-13T13:35:15.897444+00:00"
 }

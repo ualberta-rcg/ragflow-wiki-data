@@ -3,49 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Comment puis-je réinitialiser mon mot de passe pour accéder aux grappes nationales de l'Alliance?",
-      "answer": "Vous pouvez le réinitialiser en visitant https://ccdb.alliancecan.ca/security/forgot. Assurez-vous d'abord que votre premier rôle a été approuvé."
+      "question": "Comment peut-on réinitialiser son mot de passe pour accéder aux grappes nationales de l'Alliance?",
+      "answer": "Pour réinitialiser votre mot de passe pour accéder aux grappes nationales de l'Alliance, il faut visiter l'adresse https://ccdb.alliancecan.ca/security/forgot."
     },
     {
-      "question": "Comment faire pour copier-coller du texte dans un terminal Linux, sous Windows ou macOS?",
-      "answer": "Dans un terminal Linux, Ctrl+C est pour annuler; utilisez plutôt Ctrl+Insert pour copier et Shift+Insert pour coller, ou sélectionnez le texte puis clic droit/milieu. Sous macOS, utilisez Cmd+C et Cmd+V comme d'habitude."
+      "question": "Quelle est une condition essentielle pour pouvoir réinitialiser son mot de passe pour les grappes nationales de l'Alliance?",
+      "answer": "Il est impossible de réinitialiser votre mot de passe pour les grappes nationales de l'Alliance tant que votre premier rôle n'est pas approuvé."
     },
     {
-      "question": "Quels problèmes les fichiers texte créés sous Windows peuvent-ils causer dans un environnement Linux, et comment les résoudre?",
-      "answer": "Les fichiers Windows contiennent un caractère 'retour de chariot' invisible à la fin des lignes, ce qui cause des problèmes sous Linux. Pour contrer cela, créez/éditez les fichiers directement sur la grappe avec des éditeurs Linux (emacs, vim, nano) ou utilisez la commande `dos2unix <filename>` sur un nœud de connexion."
+      "question": "Comment peut-on copier-coller du texte dans un terminal Linux sur les grappes de l'Alliance sans utiliser la combinaison [Ctrl]+C?",
+      "answer": "Dans un terminal Linux sur les grappes de l'Alliance, [Ctrl]+C sert à annuler ou interrompre un programme. Pour copier, sous Windows et Linux, utilisez [Ctrl]+[Insert] et pour coller, [Shift]+[Insert]. Sous macOS, utilisez les commandes habituelles [Cmd]+C et [Cmd]+V. On peut aussi souvent sélectionner le texte pour le copier et utiliser un clic de droite ou du milieu pour le coller."
     },
     {
-      "question": "Pourquoi la sauvegarde des fichiers avec Emacs est-elle lente sur les grappes, et comment améliorer la performance?",
-      "answer": "Emacs utilise l'appel système `fsync` pour une meilleure fiabilité, ce qui peut ralentir la sauvegarde sur les systèmes de fichiers partagés. Pour améliorer la performance, ajoutez la ligne `(setq write-region-inhibit-fsync t)` à votre fichier `~/.emacs`."
+      "question": "Quels problèmes peuvent survenir avec les fichiers texte créés sous Windows lorsqu'ils sont lus dans un environnement Linux sur les grappes de l'Alliance, et quelles sont les solutions?",
+      "answer": "Les fichiers texte créés sous Windows se terminent par un caractère 'retour de chariot' invisible, ce qui peut poser problème en environnement Linux. Pour y remédier, on peut créer et éditer les fichiers directement sur la grappe avec un éditeur Linux (comme emacs, vim ou nano) ou utiliser la commande `dos2unix <filename>` sur un nœud de connexion pour convertir les caractères de fin de ligne."
     },
     {
-      "question": "Que signifie le message d'erreur ''sbatch: error: Batch job submission failed: Socket timed out on send/recv operation'' et que devrais-je faire?",
-      "answer": "Ce message indique que l'ordonnanceur est possiblement surchargé. Attendez environ une minute, puis utilisez `squeue -u $USER` pour vérifier si la tâche a été soumise. Si ce n'est pas le cas, soumettez-la de nouveau, car Slurm peut l'avoir acceptée malgré le message."
+      "question": "Pourquoi la sauvegarde de fichiers avec l'éditeur Emacs peut-elle être lente sur les systèmes de fichiers partagés des grappes de l'Alliance, et comment améliorer cette performance?",
+      "answer": "La sauvegarde avec Emacs peut être lente sur les systèmes de fichiers partagés (comme home, scratch, project) des grappes de l'Alliance, car Emacs utilise l'appel système `fsync` pour réduire les risques de perte de données. Pour améliorer la performance, ajoutez la ligne `(setq write-region-inhibit-fsync t)` à votre fichier `~/.emacs`."
     },
     {
-      "question": "Comment puis-je savoir pourquoi mes tâches ont le statut 'en attente' (PD), et que signifient 'Resources' ou 'Priority'?",
-      "answer": "Exécutez la commande `squeue -u <username>`. Si la raison est 'Resources', la grappe est occupée. Si c'est 'Priority', votre tâche a une basse priorité due à une utilisation récente élevée des ressources par vous ou votre groupe."
+      "question": "Que signifie le message d'erreur ''sbatch: error: Batch job submission failed: Socket timed out on send/recv operation'' lors de la soumission de tâches sur les grappes de l'Alliance, et que doit-on faire?",
+      "answer": "Ce message d'erreur indique généralement que l'ordonnanceur Slurm est surchargé. Il est recommandé d'attendre environ une minute, puis de vérifier si la tâche a été soumise avec la commande `squeue -u $USER`. Si la tâche n'est pas listée, soumettez-la de nouveau."
     },
     {
-      "question": "Que signifient les messages comme ''Nodes required for job are DOWN, DRAINED or RESERVED for jobs in higher priority partitions'' ou ''ReqNodeNotAvailable'' pour mes tâches?",
-      "answer": "Ces messages, souvent affichés par Slurm 19.05, indiquent que les nœuds requis sont en panne, hors service ou réservés. Ce ne sont pas des erreurs; les tâches sont en attente et seront traitées, comme la raison 'Ressources' de Slurm 17.11."
+      "question": "Comment peut-on connaître la raison pour laquelle une tâche est en attente (statut PD) sur les grappes de l'Alliance?",
+      "answer": "Pour savoir pourquoi vos tâches ont le statut PD (pending), il faut exécuter la commande `squeue -u <username>`. La colonne (REASON) affichera la cause."
     },
     {
-      "question": "Pourquoi le moment de début (`START_TIME`) affiché par `squeue` pour les tâches en attente n'est-il pas précis ou est souvent 'N/A'?",
-      "answer": "Le `START_TIME` est imprécis car les conditions des grappes changent constamment (tâches qui finissent tôt, nouvelles tâches de haute priorité, annulations). Slurm revoit souvent l'ordre d'exécution. Pour la plupart des tâches en attente, Slurm n'essaie pas de fixer le moment de début ('N/A'). Il n'est précis que pour les tâches déjà en cours."
+      "question": "Que signifient les raisons ''Resources'' et ''Priority'' pour une tâche en attente sur les grappes de l'Alliance?",
+      "answer": "La raison 'Resources' signifie que la grappe est très occupée ou que les ressources demandées ne sont pas disponibles. La raison 'Priority' indique que la tâche est en attente à cause de sa basse priorité, souvent parce que votre groupe a récemment utilisé une grande part des ressources disponibles."
     },
     {
-      "question": "Qu'est-ce qu'un fichier '.core', à quoi sert-il et comment éviter qu'il ne soit créé?",
-      "answer": "Un fichier '.core' est créé lorsqu'un programme se termine anormalement; il contient un instantané de l'état du programme utile pour le débogage. Pour les utilisateurs, il signale un problème et peut être supprimé. Pour éviter leur création, ajoutez `ulimit -c 0` à la fin de votre fichier `$HOME/.bashrc`."
+      "question": "Que veulent dire les messages ''Nodes required for job are DOWN, DRAINED or RESERVED for jobs in higher priority partitions'' ou ''ReqNodeNotAvailable'' dans le champ 'Reason' de `squeue` pour une tâche en attente sur les grappes de l'Alliance?",
+      "answer": "Ces messages, qui apparaissent avec Slurm 19.05, signifient qu'un ou plusieurs des nœuds disponibles sont en panne, hors service, ou réservés pour d'autres tâches. Ce ne sont pas des erreurs, mais une indication que la tâche est dans la file d'attente et sera traitée éventuellement, de la même manière que la raison 'Ressources'."
     },
     {
-      "question": "J'obtiens une erreur 'librairie introuvable' comme '/lib64/libc.so.6: version 'GLIBC_2.18' not found' en exécutant un paquet binaire. Où puis-je trouver la solution?",
-      "answer": "Vous trouverez la solution à cette erreur dans la section 'Installer des paquets binaires' du guide d'installation de logiciels dans votre répertoire `$HOME`."
+      "question": "Pourquoi la valeur `START_TIME` affichée par la commande `squeue` n'est-elle pas toujours précise pour les tâches en attente sur les grappes de l'Alliance?",
+      "answer": "Le moment de début prévu par Slurm n'est jamais exact pour les tâches en attente à cause des changements constants (tâches qui se terminent plus tôt, ordre de priorité modifié par l'annulation ou la soumission de nouvelles tâches). Pour la plupart des tâches en attente, la valeur est N/A ('not available')."
     },
     {
-      "question": "Est-ce que les grappes de l'Alliance sont sécurisées pour gérer des données de recherche sensibles?",
-      "answer": "Les grappes ne sont pas spécifiquement conçues pour garantir la sécurité des données sensibles. L'Alliance applique les meilleures pratiques, mais il est de la responsabilité des chercheurs de s'assurer que les exigences de sécurité spécifiques pour leurs données sont respectées, en consultant la Politique de protection des données et les Conditions d'utilisation."
+      "question": "Quand est-ce que la valeur `START_TIME` fournie par `squeue` est-elle précise sur les grappes de l'Alliance?",
+      "answer": "La valeur de `START_TIME` obtenue par `squeue` est précise seulement pour les tâches qui sont déjà en cours d'exécution."
+    },
+    {
+      "question": "Que sont les fichiers ''.core'' que l'on trouve parfois sur les grappes de l'Alliance, et à quoi servent-ils?",
+      "answer": "Les fichiers ''.core'' sont des fichiers binaires créés lorsqu'un programme se termine anormalement; ils contiennent un instantané de l'état du programme à ce moment-là. Ils sont utiles pour le débogage, mais n'ont pas d'intérêt direct pour les utilisateurs et peuvent être supprimés."
+    },
+    {
+      "question": "Comment peut-on empêcher la création des fichiers ''.core'' sur les grappes de l'Alliance?",
+      "answer": "Pour éviter la création des fichiers ''.core'', il suffit d'ajouter la ligne `ulimit -c 0` à la fin de votre fichier `$HOME/.bashrc`."
+    },
+    {
+      "question": "Que faire si un message d'erreur comme ''/lib64/libc.so.6: version 'GLIBC_2.18' not found'' apparaît lors de l'exécution d'un paquet binaire précompilé installé dans son répertoire $HOME sur les grappes de l'Alliance?",
+      "answer": "Ce message indique qu'une bibliothèque nécessaire est introuvable. La solution à ce problème est décrite dans la documentation sur l'installation de logiciels dans votre répertoire personnel."
+    },
+    {
+      "question": "Les grappes nationales de l'Alliance sont-elles spécifiquement conçues pour garantir la sécurité des données personnelles, privées ou sensibles?",
+      "answer": "Non, les grappes de l'Alliance ne sont pas spécifiquement conçues pour garantir la sécurité des données personnelles, privées ou sensibles."
+    },
+    {
+      "question": "Quelle est la responsabilité des chercheurs concernant le traitement des données sensibles sur les grappes de l'Alliance?",
+      "answer": "Il est de la responsabilité des chercheurs de s'assurer que leurs ensembles de données sensibles sont traités avec des ressources certifiées selon des standards de sécurité particuliers et de prendre connaissance des politiques de protection des données de l'Alliance."
+    },
+    {
+      "question": "Où peut-on trouver plus d'informations sur la protection des données, la confidentialité et le respect de la vie privée sur les grappes de l'Alliance?",
+      "answer": "Plus d'informations sont disponibles dans l'article 5.2 de la Politique de protection des données et des renseignements personnels et le paragraphe 3.2 des Conditions d’utilisation de l'Alliance, ainsi que sur la page de documentation dédiée à la protection des données, la confidentialité et le respect de la vie privée."
     }
   ],
-  "generated_at": "2026-04-11T21:46:41.314369+00:00"
+  "generated_at": "2026-04-13T05:32:09.746312+00:00"
 }

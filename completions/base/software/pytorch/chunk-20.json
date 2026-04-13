@@ -4,41 +4,13 @@
   "chunk_index": 20,
   "qa_pairs": [
     {
-      "question": "What modules are required to set up the LibTorch environment under StdEnv/2023?",
-      "answer": "To set up LibTorch under StdEnv/2023, you need to load the following modules: `StdEnv/2023`, `gcc`, `cuda/12.2`, `cmake`, `protobuf`, `cudnn`, `python/3.11`, `abseil`, `cusparselt`, and `opencv/4.8.1`."
+      "question": "What steps are required to set up the environment for using LibTorch on a cluster with StdEnv/2023?",
+      "answer": "To set up the LibTorch environment with StdEnv/2023, you need to first load the following modules: `StdEnv/2023`, `gcc`, `cuda/12.2`, `cmake`, `protobuf`, `cudnn`, `python/3.11`, `abseil`, `cusparselt`, and `opencv/4.8.1`. Following this, create and activate a Python virtual environment using `virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate`, and then install PyTorch and NumPy with `pip install --no-index torch numpy`. Note that the versions for `abseil`, `cusparselt`, and `opencv` modules might need to be adjusted depending on the `torch` package version, which can be found by inspecting the `libtorch_cuda.so` shared library."
     },
     {
-      "question": "How do you create and activate a Python virtual environment for LibTorch using StdEnv/2023?",
-      "answer": "You can create and activate a Python virtual environment by running the command `virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate`."
-    },
-    {
-      "question": "After setting up the virtual environment, how do you install PyTorch and NumPy for LibTorch under StdEnv/2023?",
-      "answer": "You install PyTorch and NumPy by executing `pip install --no-index torch numpy` in the activated virtual environment."
-    },
-    {
-      "question": "Why might the versions for the `abseil`, `cusparselt`, and `opencv` modules need adjustment when using StdEnv/2023 with LibTorch?",
-      "answer": "The versions for the `abseil`, `cusparselt`, and `opencv` modules may need to be adjusted depending on the specific version of the `torch` package being used."
-    },
-    {
-      "question": "How can one determine which versions of `opencv`, `abseil`, and `cusparselt` modules were used to compile the Python wheel for `torch` under StdEnv/2023?",
-      "answer": "You can find out by using the command: `ldd $VIRTUAL_ENV/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so | sed -n 's&^.*/\\(\\(opencv\\|abseil\\|cusparselt\\)/[^/]*\\).*&\\1&p' | sort -u`."
-    },
-    {
-      "question": "What modules are necessary for setting up the LibTorch environment using StdEnv/2020?",
-      "answer": "For StdEnv/2020, you need to load `gcc`, `cuda/11.4`, `cmake`, `protobuf`, `cudnn`, and `python/3.10` modules."
-    },
-    {
-      "question": "How do you create and activate a Python virtual environment for LibTorch using StdEnv/2020?",
-      "answer": "You can create and activate a Python virtual environment by running the command `virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate`."
-    },
-    {
-      "question": "After setting up the virtual environment, how do you install PyTorch and NumPy for LibTorch under StdEnv/2020?",
-      "answer": "You install them by executing `pip install --no-index torch numpy` in the activated virtual environment."
-    },
-    {
-      "question": "What is the initial step for compiling a minimal LibTorch example?",
-      "answer": "The initial step for compiling a minimal LibTorch example is to create two files named `example.cpp` and `CMakeLists.txt`."
+      "question": "After setting up the environment, what are the steps to compile a minimal C++ application using LibTorch for StdEnv/2023?",
+      "answer": "Once the LibTorch environment is set up, you need to create two files: `example.cpp` (containing the C++ code for a simple tensor operation, including a CUDA availability check) and `CMakeLists.txt` (which defines the project, finds the Torch package, and links the executable to Torch libraries). With your Python virtual environment activated, configure the project using `cmake -B build -S . -DCMAKE_PREFIX_PATH=$VIRTUAL_ENV/lib/python3.11/site-packages -DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath=$VIRTUAL_ENV/lib/python3.11/site-packages/torch/lib,-L$EBROOTCUDA/extras/CUPTI/lib64 -DCMAKE_SKIP_RPATH=ON -DTORCH_CUDA_ARCH_LIST=\"6.0;7.0;7.5;8.0;9.0\"`. Finally, compile the program with `cmake --build build` and run it using `./build/example`."
     }
   ],
-  "generated_at": "2026-04-12T05:39:46.253486+00:00"
+  "generated_at": "2026-04-13T11:37:40.745065+00:00"
 }

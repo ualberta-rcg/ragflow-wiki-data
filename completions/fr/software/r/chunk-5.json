@@ -4,81 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Comment faire pour passer des paramètres à un script R pour ne pas le modifier à chaque fois?",
-      "answer": "Pour éviter de modifier un script R pour des tâches similaires, ou de gérer plusieurs copies, on peut passer les paramètres en arguments au script au début. Par exemple, avec `Rscript myscript.R input_1.csv 5`."
+      "question": "Comment passer des paramètres à un script R pour éviter de le modifier constamment?",
+      "answer": "Pour éviter d'avoir à modifier un script R pour chaque tâche semblable, on peut lui passer des paramètres en argument lors de son exécution. Par exemple, avec la commande `Rscript myscript.R input_1.csv 5`, le script `myscript.R` recevra 'input_1.csv' et '5' comme arguments. À l'intérieur du script, ces arguments peuvent être récupérés en utilisant la fonction `commandArgs(trailingOnly=TRUE)`."
     },
     {
-      "question": "Quels sont les arguments que le script R `arguments_test.R` s'attend à recevoir?",
-      "answer": "Le script `arguments_test.R` s'attend à recevoir précisément deux arguments. Le premier doit être une chaîne de caractères (le nom) et le second un nombre entier (le numéro)."
+      "question": "Avant de paralléliser du code R sur nos supercalculateurs, quelles sont les pratiques recommandées pour optimiser sa performance?",
+      "answer": "Avant d'allouer des efforts à la parallélisation du code R, il est essentiel de s'assurer que son implémentation séquentielle est déjà la plus efficiente possible. Cela implique de s'attaquer aux goulots d'étranglement, souvent causés par les boucles (surtout imbriquées), et d'utiliser des fonctions vectorielles ou d'autres éléments fonctionnels comme les fonctions de la famille `apply` et `ifelse`. Souvent, un gain de performance plus important est obtenu en éliminant une boucle plutôt qu'en parallélisant son exécution."
     },
     {
-      "question": "Que se passe-t-il si on fournit moins de deux arguments au script `arguments_test.R`?",
-      "answer": "Si moins de deux arguments sont fournis au script `arguments_test.R`, il affichera une erreur indiquant que «At least two arguments must be supplied ('name' (text) and 'numer' (integer) )»."
-    },
-    {
-      "question": "Comment l'exemple de script `arguments_test.R` utilise-t-il les arguments passés?",
-      "answer": "Le script `arguments_test.R` lit le premier argument comme une chaîne de caractères (variable `name`) et le deuxième comme un entier (variable `number`), puis les utilise pour afficher un message."
-    },
-    {
-      "question": "Qu'est-ce qui rend les supercalculateurs intéressants, même si leurs processeurs sont ordinaires?",
-      "answer": "Ce qui rend les supercalculateurs intéressants, c'est qu'ils offrent des milliers de CPU sur un réseau très performant, permettant la programmation parallèle."
-    },
-    {
-      "question": "Que faut-il faire pour tirer profit de la puissance des supercalculateurs pour son code R?",
-      "answer": "Pour profiter de la puissance des supercalculateurs, il faut utiliser la programmation parallèle."
-    },
-    {
-      "question": "Quelle est la première chose à faire avant de consacrer beaucoup de temps à paralléliser son code R?",
-      "answer": "Avant de paralléliser son code R, il faut s'assurer que l'implémentation séquentielle est aussi efficiente que possible."
-    },
-    {
-      "question": "Quels sont les principaux goulots d'étranglement de performance dans un langage interprété comme R?",
-      "answer": "Les principaux goulots d'étranglement sont causés par les boucles, surtout les boucles imbriquées, ce qui affecte grandement la performance."
-    },
-    {
-      "question": "Comment peut-on améliorer la performance d'un script R sans recourir à la parallélisation?",
-      "answer": "On peut améliorer la performance en utilisant les fonctions vectorielles et d'autres éléments plus fonctionnels comme la famille des fonctions `apply` et la fonction `ifelse`, afin d'éliminer les boucles."
-    },
-    {
-      "question": "Où peut-on trouver une liste de paquets R pour le calcul de haute performance et la programmation parallèle?",
-      "answer": "On peut trouver cette information sur la page CRAN Task View on High-Performance and Parallel Computing with R."
-    },
-    {
-      "question": "Où peut-on consulter une vue d'ensemble et des conseils sur le calcul de haute performance en R?",
-      "answer": "Une excellente vue d'ensemble et des conseils sont disponibles dans le contenu du colloque de Compute Ontario du 11 octobre 2023, intitulé «High-Performance Computing in R»."
-    },
-    {
-      "question": "Dans la documentation, que signifient les termes 'nœud' et 'hôte'?",
-      "answer": "Dans la documentation, les termes 'nœud' et 'hôte' sont parfois employés pour désigner un ordinateur distinct."
-    },
-    {
-      "question": "Comment est défini une 'grappe' dans ce contexte?",
-      "answer": "Une 'grappe' est un regroupement de 'nœuds' ou d''hôtes'. De plus, un 'nœud' peut désigner un 'processus de travail', et un regroupement de ces processus constitue aussi une 'grappe'."
-    },
-    {
-      "question": "Qu'est-ce que le paquet `foreach` dans R?",
-      "answer": "`foreach` peut être considéré comme une interface unifiée pour tous les systèmes dorsaux (backends) comme doMC, doMPI, doParallel, doRedis, etc., et fonctionne sur toutes les plateformes si le système dorsal est fonctionnel."
-    },
-    {
-      "question": "Quel est le rôle du paquet `doParallel`?",
-      "answer": "`doParallel` agit comme une interface entre `foreach` et le paquet parallèle, et peut être chargé seul."
-    },
-    {
-      "question": "Y a-t-il des problèmes de performance connus avec `foreach`?",
-      "answer": "Oui, certains problèmes de performance connus surviennent avec `foreach` lors de l'exécution d'un très grand nombre de très petites tâches."
-    },
-    {
-      "question": "Que se passe-t-il si le système dorsal n'est pas enregistré avec le nombre de cœurs disponibles?",
-      "answer": "Si le système dorsal n'est pas enregistré, `foreach` assume que le nombre de cœurs est 1 et exécute les itérations de façon séquentielle."
-    },
-    {
-      "question": "Quelles sont les étapes générales pour utiliser `foreach`?",
-      "answer": "Les étapes générales sont: 1) charger `foreach` et le paquet dorsal, 2) enregistrer le paquet dorsal, et 3) appeler `foreach()` en le laissant sur la même ligne que l'opérateur `%do%` (série) ou `%dopar%`."
-    },
-    {
-      "question": "Quelle est une règle de syntaxe importante à respecter lors de l'utilisation de `foreach()` avec `%dopar%`?",
-      "answer": "Il est crucial que `foreach()` et `%dopar%` soient sur la même ligne de code."
+      "question": "Quelle terminologie est utilisée dans la documentation pour décrire les composantes physiques et logicielles des grappes de calcul de haute performance?",
+      "answer": "Dans la documentation, les termes « nœud » et « hôte » sont parfois employés de façon interchangeable pour désigner un ordinateur distinct. Un regroupement de ces nœuds ou hôtes constitue une « grappe ». Le terme « nœud » peut aussi faire référence à un « processus de travail » (worker process), et un ensemble de ces processus forme également une « grappe », comme décrit dans la citation « Following snow, a pool of worker processes listening via sockets for commands from the master is called a 'cluster' of nodes. »."
     }
   ],
-  "generated_at": "2026-04-12T06:16:17.702987+00:00"
+  "generated_at": "2026-04-13T12:08:26.020316+00:00"
 }

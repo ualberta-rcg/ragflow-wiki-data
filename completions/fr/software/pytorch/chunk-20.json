@@ -4,109 +4,17 @@
   "chunk_index": 20,
   "qa_pairs": [
     {
-      "question": "C'est quoi, LibTorch?",
-      "answer": "LibTorch permet d'implémenter des extensions à PyTorch à l'aide de C++ et des applications d'apprentissage machine en C++ pur."
+      "question": "Qu'est-ce que LibTorch et quelles sont ses fonctions principales pour le développement en apprentissage machine?",
+      "answer": "LibTorch est une distribution qui permet d'implémenter des extensions à PyTorch en utilisant C++ et de développer des applications d'apprentissage machine entièrement en C++. Elle contient les en-têtes, les bibliothèques et les fichiers de configuration CMake nécessaires."
     },
     {
-      "question": "Qu'est-ce que la distribution LibTorch inclut?",
-      "answer": "La distribution LibTorch possède les en-têtes, les bibliothèques et les fichiers de configuration CMake nécessaires pour travailler avec PyTorch."
+      "question": "Comment configurer l'environnement pour utiliser LibTorch avec le `StdEnv/2023` sur les grappes de calcul?",
+      "answer": "Pour configurer l'environnement avec `StdEnv/2023`, il faut d'abord charger les modules suivants : `StdEnv/2023`, `gcc`, `cuda/12.2`, `cmake`, `protobuf`, `cudnn`, `python/3.11`, `abseil`, `cusparselt` et `opencv/4.8.1`. Ensuite, vous devez créer et activer un environnement virtuel Python, puis installer PyTorch et NumPy à l'intérieur de cet environnement en utilisant `pip install --no-index torch numpy`."
     },
     {
-      "question": "Où est-ce que je peux trouver de la documentation pour LibTorch?",
-      "answer": "Vous pouvez consulter la documentation de PyTorch sur l'installation, disponible à l'adresse https://pytorch.org/cppdocs/installing.html."
-    },
-    {
-      "question": "Comment on configure l'environnement pour utiliser LibTorch?",
-      "answer": "Il faut charger les modules requis par LibTorch, puis installer PyTorch dans un environnement virtuel Python."
-    },
-    {
-      "question": "Quels modules faut-il charger pour LibTorch avec StdEnv/2023?",
-      "answer": "Vous devez charger les modules StdEnv/2023, gcc, cuda/12.2, cmake, protobuf, cudnn, python/3.11, abseil, cusparselt et opencv/4.8.1."
-    },
-    {
-      "question": "Comment je crée et active un environnement virtuel Python pour LibTorch avec StdEnv/2023?",
-      "answer": "Vous utilisez la commande `virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate`."
-    },
-    {
-      "question": "Comment j'installe PyTorch et NumPy dans l'environnement virtuel pour StdEnv/2023?",
-      "answer": "Vous utilisez `pip install --no-index torch numpy`."
-    },
-    {
-      "question": "Comment je peux vérifier les versions spécifiques des modules comme abseil, cusparselt et opencv utilisées pour compiler le wheel Python sous StdEnv/2023?",
-      "answer": "Vous pouvez lancer la commande `ldd $VIRTUAL_ENV/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so | sed -n 's&^.*/\\(\\(opencv\\|abseil\\|cusparselt\\)/[^/]*\\).*&\\1&p' | sort -u`."
-    },
-    {
-      "question": "Quels modules sont nécessaires pour LibTorch avec StdEnv/2020?",
-      "answer": "Il faut charger les modules gcc, cuda/11.4, cmake, protobuf, cudnn et python/3.10."
-    },
-    {
-      "question": "Comment je crée et active un environnement virtuel Python pour LibTorch avec StdEnv/2020?",
-      "answer": "Vous utilisez la commande `virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate`."
-    },
-    {
-      "question": "Comment j'installe PyTorch et NumPy dans l'environnement virtuel pour StdEnv/2020?",
-      "answer": "Vous installez avec `pip install --no-index torch numpy`."
-    },
-    {
-      "question": "Quels fichiers sont nécessaires pour compiler un exemple simple de LibTorch?",
-      "answer": "Il faut créer deux fichiers : `example.cpp` et `CMakeLists.txt`."
-    },
-    {
-      "question": "C'est quoi le contenu du fichier `example.cpp` pour un exemple LibTorch simple?",
-      "answer": "Le fichier `example.cpp` inclut `<torch/torch.h>`, `<iostream>`, initialise un tenseur sur le CPU ou le GPU si CUDA est disponible, puis l'affiche."
-    },
-    {
-      "question": "C'est quoi le contenu du fichier `CMakeLists.txt` pour compiler un exemple LibTorch simple?",
-      "answer": "Le fichier `CMakeLists.txt` doit spécifier la version minimale de CMake, le nom du projet, trouver le paquet Torch, ajouter l'exécutable `example` et lier les bibliothèques Torch."
-    },
-    {
-      "question": "Comment on compile un programme LibTorch avec CMake pour StdEnv/2023?",
-      "answer": "Il faut d'abord configurer le projet avec `cmake -B build -S . -DCMAKE_PREFIX_PATH=$VIRTUAL_ENV/lib/python3.11/site-packages -DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath=$VIRTUAL_ENV/lib/python3.11/site-packages/torch/lib,-L$EBROOTCUDA/extras/CUPTI/lib64 -DCMAKE_SKIP_RPATH=ON -DTORCH_CUDA_ARCH_LIST=\"6.0;7.0;7.5;8.0;9.0\"`, puis le compiler avec `cmake --build build`."
-    },
-    {
-      "question": "Comment on compile un programme LibTorch avec CMake pour StdEnv/2020?",
-      "answer": "Il faut configurer le projet avec `cmake -B build -S . -DCMAKE_PREFIX_PATH=$VIRTUAL_ENV/lib/python3.10/site-packages -DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath=$VIRTUAL_ENV/lib/python3.10/site-packages/torch/lib -DCMAKE_SKIP_RPATH=ON`, puis le compiler avec `cmake --build build`."
-    },
-    {
-      "question": "Comment on lance le programme LibTorch compilé?",
-      "answer": "On exécute le programme avec la commande `build/example`."
-    },
-    {
-      "question": "Comment je peux tester une application LibTorch avec CUDA?",
-      "answer": "Pour tester une application avec CUDA, il faut demander une tâche interactive avec un GPU."
-    },
-    {
-      "question": "Comment on installe rTorch à partir d'un nœud de connexion?",
-      "answer": "L'installation se fait en chargeant les modules requis, en créant le répertoire d'installation, en installant la version la plus récente de rtorch et ses dépendances, en corrigeant la bibliothèque partagée 'lantern', puis en effectuant des tests CPU et GPU."
-    },
-    {
-      "question": "Quels modules faut-il charger pour installer rTorch?",
-      "answer": "Vous devez charger les modules `r/4.5`, `cuda/12.6` et `cudnn`."
-    },
-    {
-      "question": "Comment on crée le répertoire d'installation pour rTorch?",
-      "answer": "On crée le répertoire avec `mkdir -p ~/.local/R/$EBVERSIONR/` et on exporte `R_LIBS` avec `export R_LIBS=~/.local/R/$EBVERSIONR/`."
-    },
-    {
-      "question": "Comment j'installe la plus récente version de rtorch?",
-      "answer": "Vous utilisez la commande R `-e 'install.packages(\"torch\", repos=\"https://cloud.r-project.org/\")'`."
-    },
-    {
-      "question": "Comment j'installe les dépendances de rTorch?",
-      "answer": "Vous installez les dépendances avec `R -e 'torch::install_torch()'`."
-    },
-    {
-      "question": "Comment on corrige la bibliothèque partagée 'lantern' après l'installation de rTorch?",
-      "answer": "On utilise la commande `setrpaths.sh --path $R_LIBS/torch/lib/liblantern.so --add_path $EBROOTCUDACORE/lib --any_interpreter`."
-    },
-    {
-      "question": "Comment je fais un test rapide de CPU avec rTorch?",
-      "answer": "Vous lancez la commande `R -e 'torch::torch_tensor(1);'`."
-    },
-    {
-      "question": "Comment je fais un test de GPU avec rTorch?",
-      "answer": "Vous utilisez la commande `srun --mem=3500M --gpus=h100_1g.10gb:1 -- R -e 'torch::torch_tensor(1)$cuda()'`."
+      "question": "Quelles sont les étapes essentielles pour compiler une application LibTorch C++ simple après avoir configuré l'environnement?",
+      "answer": "Pour compiler une application LibTorch C++ simple, vous devez créer un fichier source C++ (comme `example.cpp`) et un fichier de configuration CMake (`CMakeLists.txt`). Après avoir activé votre environnement virtuel Python, vous configurerez le projet en exécutant une commande `cmake` (incluant le `CMAKE_PREFIX_PATH` pointant vers votre environnement virtuel) pour générer les fichiers de construction, puis compilerez le programme avec `cmake --build build`. Finalement, vous pourrez lancer l'exécutable avec `build/example`."
     }
   ],
-  "generated_at": "2026-04-12T05:48:51.647485+00:00"
+  "generated_at": "2026-04-13T11:44:13.229566+00:00"
 }

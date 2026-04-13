@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Comment peut-on lancer un programme Julia en parallèle sur plusieurs nœuds d'une grappe de calcul en utilisant des processus de travail?",
-      "answer": "Pour lancer un programme Julia en parallèle sur plusieurs nœuds d'une grappe, il faut d'abord utiliser la commande `srun hostname -s > hostfile` pour générer un fichier `hostfile` qui liste les noms des nœuds alloués. Ensuite, on exécute la commande `julia --machine-file ./hostfile ./pi_p.jl 1000000000000` (en adaptant le nom du programme et les arguments) pour démarrer un processus Julia principal et les processus de travail sur les nœuds spécifiés dans le `hostfile`."
+      "question": "Comment faire pour lancer un programme Julia en parallèle sur plusieurs nœuds d'une grappe de calcul en utilisant Slurm?",
+      "answer": "Pour ça, tu dois d'abord générer un fichier nommé `hostfile` qui contient la liste des noms des nœuds qui te sont alloués, avec la commande `srun hostname -s > hostfile`. Après, tu peux lancer ton programme Julia en parallèle en utilisant la commande `julia --machine-file ./hostfile ton_programme.jl`."
     },
     {
-      "question": "Quelles sont les étapes pour configurer l'interface MPI pour Julia afin d'utiliser les bibliothèques MPI du système sur une grappe de calcul?",
-      "answer": "Pour configurer l'interface MPI pour Julia, il faut d'abord charger les modules `StdEnv` et `julia`. Ensuite, à partir de Julia, on doit ajouter le paquet `MPIPreferences` et le configurer pour utiliser les binaires du système en spécifiant le chemin d'accès aux bibliothèques MPI, par exemple avec `MPIPreferences.use_system_binary(;extra_paths=[joinpath(ENV[\"EBROOTOPENMPI\"],\"lib64\")])`. Finalement, il faut ajouter le paquet `MPI`. Pour l'utiliser, on chargera les modules `StdEnv` et `julia`, puis on lancera le programme Julia avec `mpirun -np 2 julia hello.jl` (pour deux processus, par exemple)."
+      "question": "Quelles sont les étapes à suivre pour configurer Julia afin qu'il utilise les bibliothèques MPI du système sur nos grappes?",
+      "answer": "Il faut d'abord charger les modules d'environnement et Julia avec `module load StdEnv julia`. Ensuite, dans la session Julia, tu ajoutes le paquet `MPIPreferences` (`Pkg.add(\"MPIPreferences\")`), tu l'actives (`using MPIPreferences`), puis tu le configures pour utiliser les binaires du système avec `MPIPreferences.use_system_binary(;extra_paths=[joinpath(ENV[\"EBROOTOPENMPI\"],\"lib64\")])`. Finalement, tu installes le paquet `MPI` (`Pkg.add(\"MPI\")`)."
     },
     {
-      "question": "Comment installer et configurer le paquet CUDA.jl pour utiliser les GPU avec Julia sur une grappe, en s'assurant de la compatibilité avec le pilote CUDA local?",
-      "answer": "Pour utiliser les GPU avec Julia, il faut installer le paquet CUDA.jl. Premièrement, sur un nœud de connexion, chargez les modules `cuda` et `julia`, puis dans Julia, installez `CUDA` après avoir désactivé la précompilation automatique avec `ENV[\"JULIA_PKG_PRECOMPILE_AUTO\"]=0` et `Pkg.add(\"CUDA\")`. Ensuite, sur un nœud de calcul GPU, pour éviter les incompatibilités avec le pilote CUDA installé, configurez Julia pour utiliser la boîte à outils locale de CUDA avec `CUDA.set_runtime_version!(v\"version_of_cuda\", local_toolkit=true)`, où `version_of_cuda` correspond à la version du module CUDA chargé (ex: 12.2 pour `cuda/12.2`)."
+      "question": "Comment est-ce qu'on peut gérer le nombre de fils de discussion (threads) utilisés par Julia et les attacher aux cœurs CPU sur une grappe?",
+      "answer": "Tu peux contrôler le nombre de fils en configurant la variable d'environnement `JULIA_NUM_THREADS` à la valeur `k` désirée. Pour attacher les fils à un cœur spécifique, tu peux configurer la variable `JULIA_EXCLUSIVE` à une valeur autre que zéro. Par contre, `JULIA_EXCLUSIVE` ne fonctionnera que si ta tâche a un accès exclusif aux nœuds et que tous les cœurs CPU sont alloués à ta tâche."
     }
   ],
-  "generated_at": "2026-04-12T20:48:02.686676+00:00"
+  "generated_at": "2026-04-13T07:39:14.357717+00:00"
 }

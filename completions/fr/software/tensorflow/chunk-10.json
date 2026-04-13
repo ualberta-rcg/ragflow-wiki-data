@@ -4,13 +4,13 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "Que faut-il faire si on rencontre l'erreur 'OMP: Error #15: Initializing libiomp5.so, but found libiomp5.so already initialized.' lorsqu'on utilise la bibliothèque scikit-image avec TensorFlow sur les grappes d'Alliance?",
-      "answer": "Cette erreur survient quand la bibliothèque TensorFlow essaie de charger une version d'OMP incompatible avec celle du système. Pour la contourner, il faut naviguer dans votre répertoire d'environnement virtuel (par exemple, `tf_skimage_venv`) et exécuter les commandes suivantes pour trouver le chemin de la bonne `libiomp5.so` et créer les liens symboliques nécessaires :\n`export LIBIOMP_PATH=$(strace python -c 'from skimage.transform import AffineTransform' 2>&1 | grep -v ENOENT | grep -ohP -e '(?<=\")[^\"]+libiomp5.so(?=\")' | xargs realpath)`\n`find -path '*_solib_local*' -name libiomp5.so -exec ln -sf $LIBIOMP_PATH {} \\;`\nL'installation de TensorFlow pourra alors utiliser la version appropriée de `libiomp5.so`."
+      "question": "Comment faire pour résoudre l'erreur \"OMP: Error #15: Initializing libiomp5.so, but found libiomp5.so already initialized\" lorsqu'on utilise la bibliothèque scikit-image avec TensorFlow?",
+      "answer": "Cette erreur, qui survient quand TensorFlow essaie de charger une version d'OMP incompatible avec celle du système, peut être contournée en exécutant une série de commandes. Vous devez d'abord vous rendre dans votre environnement virtuel (par exemple, `cd tf_skimage_venv`), puis exporter le chemin de `libiomp5.so` en utilisant `export LIBIOMP_PATH=$(strace python -c 'from skimage.transform import AffineTransform' 2>&1 | grep -v ENOENT | grep -ohP -e '(?<=\")[^\"]+libiomp5.so(?=\")' | xargs realpath)`, et enfin créer un lien symbolique avec `find -path '*_solib_local*' -name libiomp5.so -exec ln -sf $LIBIOMP_PATH {} \\;`. Cela permettra à l'installation de TensorFlow d'utiliser la bonne version de `libiomp5.so`."
     },
     {
-      "question": "Comment résoudre l'erreur 'Couldn't open CUDA library libcupti.so' lors de l'exécution de TensorFlow, qui peut indiquer que la bibliothèque libcupti.so est manquante?",
-      "answer": "Si cette erreur survient, c'est que certaines fonctions de suivi de TensorFlow utilisent la bibliothèque `libcupti.so` et qu'elle n'est pas disponible. Pour solutionner le problème, il faut exécuter les commandes suivantes avant votre script pour charger le module CUDA approprié et mettre à jour le chemin de la bibliothèque :\n`module load cuda/9.0.xxx`\n`export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_HOME/extras/CUPTI/lib64/`\nN'oubliez pas de remplacer `xxx` par la version spécifique de CUDA (par exemple, `9.0.xxx`) que vous pouvez trouver en utilisant la commande `module av cuda`."
+      "question": "Que signifie l'erreur \"Couldn't open CUDA library libcupti.so\" et comment la corriger en travaillant avec TensorFlow?",
+      "answer": "L'erreur \"Couldn't open CUDA library libcupti.so\" indique que TensorFlow ne peut pas trouver la bibliothèque `libcupti.so`, qui est nécessaire pour certaines fonctions de suivi. Pour la solutionner, vous devez charger le module CUDA approprié (par exemple, `module load cuda/9.0.xxx` en remplaçant 'xxx' par la version exacte que vous pouvez trouver avec `module av cuda`), puis exporter la variable d'environnement `LD_LIBRARY_PATH` pour y inclure le chemin vers la bibliothèque CUPTI, soit `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_HOME/extras/CUPTI/lib64/`."
     }
   ],
-  "generated_at": "2026-04-12T21:35:34.322648+00:00"
+  "generated_at": "2026-04-13T14:21:14.288338+00:00"
 }

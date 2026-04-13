@@ -4,125 +4,13 @@
   "chunk_index": 23,
   "qa_pairs": [
     {
-      "question": "À quoi servent les fichiers de journalisation dans Ansys Fluent?",
-      "answer": "Les fichiers de journalisation peuvent contenir toutes les commandes de l'interface TUI (Text User Interface) de Fluent, permettant de modifier des paramètres de simulation comme la température, la pression ou la vitesse du flux, et ainsi d'effectuer une série de simulations sous différentes conditions."
+      "question": "À quoi servent les fichiers de journalisation dans Ansys Fluent et comment configurer les formats de fichiers?",
+      "answer": "Les fichiers de journalisation dans Ansys Fluent permettent de regrouper toutes les commandes de l'interface TUI (Text User Interface). Ils servent à modifier des paramètres de simulation, tels que la température, la pression ou la vitesse du flux, afin d'effectuer des séries de simulations. Pour les modules jusqu'à la version 2019R3, les fichiers de journalisation utilisent par défaut les formats .cas/.dat en spécifiant `/file/cff-files no`. Pour les versions à partir de 2020R1, les formats plus efficaces .cas.h5/.dat.h5 sont configurés avec `/file/cff-files yes`."
     },
     {
-      "question": "Comment configurer les fichiers de journalisation Fluent pour utiliser les formats de fichiers .cas/.dat traditionnels (antérieurs à 2020R1)?",
-      "answer": "Pour utiliser les formats .cas/.dat, la configuration dans le fichier de journalisation est `file/cff-files no`."
-    },
-    {
-      "question": "Quelle commande doit-on utiliser dans un fichier de journalisation Fluent pour s'assurer que les fichiers ne sont pas écrasés par défaut?",
-      "answer": "La commande `/file/confirm-overwrite no` dans le fichier de journalisation empêche l'écrasement des fichiers par défaut."
-    },
-    {
-      "question": "Comment lire les fichiers de cas et de données d'entrée dans Fluent via un fichier de journalisation?",
-      "answer": "Pour lire les fichiers de cas et de données d'entrée, utilisez la commande `/file/read-case-data FFF-in` dans le fichier de journalisation, en remplaçant 'FFF-in' par le nom de votre fichier."
-    },
-    {
-      "question": "Dans un fichier de journalisation Fluent, quelle commande permet d'exécuter le solveur pour un nombre précis d'itérations?",
-      "answer": "La commande `/solve/iterate 1000` exécute le solveur pour 1000 itérations. Le nombre peut être ajusté selon les besoins."
-    },
-    {
-      "question": "Comment écrire le fichier de données de sortie final dans Fluent en utilisant un fichier de journalisation?",
-      "answer": "Pour écrire le fichier de données de sortie final, utilisez la commande `/file/write-case-data FFF-out`, en remplaçant 'FFF-out' par le nom de fichier désiré."
-    },
-    {
-      "question": "Peut-on générer un rapport de simulation à partir d'un fichier de journalisation Fluent? Si oui, comment?",
-      "answer": "Oui, pour enregistrer un rapport de simulation dans un fichier, utilisez la commande `/report/summary y \"My_Simulation_Report.txt\"` dans le fichier de journalisation."
-    },
-    {
-      "question": "Quelle commande permet de fermer proprement Fluent depuis un fichier de journalisation?",
-      "answer": "La commande `/exit` (ou `exit` pour le deuxième exemple) permet de fermer proprement Fluent."
-    },
-    {
-      "question": "Comment configurer l'auto-enregistrement des fichiers de données à une fréquence donnée dans Fluent via un fichier de journalisation?",
-      "answer": "Pour configurer l'auto-enregistrement, utilisez la commande `/file/auto-save/data-frequency 100` pour enregistrer un fichier de données toutes les 100 itérations."
-    },
-    {
-      "question": "Comment conserver les fichiers de données des 5 itérations les plus récentes lors de l'auto-enregistrement dans Fluent?",
-      "answer": "Ajoutez la commande `/file/auto-save/retain-most-recent-files y` à votre fichier de journalisation."
-    },
-    {
-      "question": "Comment spécifier un nom de racine pour les fichiers de données auto-enregistrés dans un sous-répertoire de sortie avec Fluent?",
-      "answer": "Utilisez la commande `/file/auto-save/root-name output/FFF-out` pour sauvegarder les fichiers dans un sous-répertoire 'output' avec un nom de racine 'FFF-out'."
-    },
-    {
-      "question": "Pour une simulation transitoire dans Fluent, quelle commande permet de définir la taille du pas de temps physique?",
-      "answer": "La commande `/solve/set/time-step 0.0001` permet de définir la taille du pas de temps physique. La valeur peut être ajustée."
-    },
-    {
-      "question": "Comment configurer le nombre d'itérations pour lesquelles les moniteurs de convergence sont rapportés dans Fluent?",
-      "answer": "Utilisez la commande `/solve/set/reporting-interval 1` pour spécifier le nombre d'itérations pour les moniteurs de convergence."
-    },
-    {
-      "question": "Quelle commande permet d'initialiser une simulation Fluent avec la méthode hybride?",
-      "answer": "La commande `/solve/initialize/hyb-initialization` permet d'initialiser la simulation avec la méthode hybride."
-    },
-    {
-      "question": "Comment spécifier le nombre maximal d'itérations par pas de temps et le nombre de pas pour une itération à double pas de temps dans Fluent?",
-      "answer": "Utilisez la commande `/solve/dual-time-iterate 1000 75` pour spécifier 1000 pas de temps et un maximum de 75 itérations par pas."
-    },
-    {
-      "question": "Quelle est la première chose à faire pour utiliser une UDF (User-Defined Function) dans Ansys Fluent sur une grappe?",
-      "answer": "La première étape est de transférer le fichier source de votre UDF (par exemple, sampleudf.c) et tous les fichiers de dépendance supplémentaires vers la grappe."
-    },
-    {
-      "question": "Lors du transfert d'un fichier UDF depuis une machine Windows vers la grappe, quelle précaution faut-il prendre?",
-      "answer": "Il faut s'assurer que le mode texte du client de transfert est utilisé, sinon Fluent ne pourra pas lire correctement le fichier sur la grappe Linux."
-    },
-    {
-      "question": "Où doit être placé le fichier UDF sur la grappe?",
-      "answer": "Le fichier UDF doit être placé dans le même répertoire que vos fichiers de journalisation, de cas et de données."
-    },
-    {
-      "question": "Avant de soumettre des tâches Fluent, comment s'assurer que seules les commandes du fichier de journalisation contrôlent l'utilisation d'une UDF?",
-      "answer": "Avant de télécharger votre fichier de cas, il faut vérifier que les boîtes de dialogue `Interpreted UDFs` et `UDF Library Manager` ne sont pas configurées pour utiliser une UDF."
-    },
-    {
-      "question": "Comment indiquer à Fluent d'interpréter une UDF au moment de l'exécution en l'ajoutant à un fichier de journalisation?",
-      "answer": "Il faut ajouter la ligne de commande `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no` au fichier de journalisation, avant que les fichiers cas/dat ne soient lus ou initialisés, en remplaçant `sampleudf.c` par le nom de votre fichier source."
-    },
-    {
-      "question": "Que doit-on faire pour qu'une UDF interprétée puisse être utilisée avec des tâches parallèles Fluent?",
-      "answer": "Pour être utilisée avec des tâches parallèles, l'UDF interprétée devra être parallélisée."
-    },
-    {
-      "question": "Qu'est-ce qui est requis avant de pouvoir charger une UDF compilée sur une grappe?",
-      "answer": "Votre UDF doit être compilée sur une de nos grappes au moins une fois, ce qui créera une structure de sous-répertoire `libudf` contenant la bibliothèque partagée `libudf.so`."
-    },
-    {
-      "question": "Peut-on simplement copier le répertoire `libudf` d'un système distant vers l'Alliance pour utiliser une UDF compilée?",
-      "answer": "Non, le répertoire `libudf` ne peut pas être simplement copié, car les dépendances de la bibliothèque partagée ne seront pas satisfaites, ce qui fera planter Fluent au démarrage."
-    },
-    {
-      "question": "Une fois qu'une UDF est compilée sur une grappe, peut-elle être transférée et utilisée sur une autre grappe de l'Alliance?",
-      "answer": "Oui, une fois compilée, le répertoire `libudf` peut être transféré vers n'importe quelle autre grappe, à condition que le même module d'environnement StdEnv soit chargé."
-    },
-    {
-      "question": "Comment charger une UDF compilée dans un fichier de journalisation Fluent?",
-      "answer": "Il faut décommenter la ligne `define/user-defined/compiled-functions load libudf` dans le fichier de journalisation."
-    },
-    {
-      "question": "Pourquoi ne faut-il pas laisser les deux lignes (compilation et chargement) des commandes libudf sans commentaire dans un fichier de journalisation lors de la soumission de tâches?",
-      "answer": "Laisser les deux lignes sans commentaire entraînerait la (re)compilation automatique de l'UDF pour chaque tâche, ce qui est inefficace et peut provoquer des conflits de build de type « racetime » si plusieurs tâches sont exécutées à partir du même répertoire."
-    },
-    {
-      "question": "Comment compiler une UDF en utilisant l'interface graphique (GUI) de Fluent?",
-      "answer": "Dans l'interface graphique de Fluent, il faut ajouter le fichier source UDF dans la boîte de dialogue `Compiled UDFs`, puis cliquer sur `Build`."
-    },
-    {
-      "question": "Que faut-il faire pour qu'une UDF compilée puisse être utilisée avec des tâches parallèles Fluent?",
-      "answer": "Le fichier source de l'UDF doit être parallélisé."
-    },
-    {
-      "question": "En quoi consiste la procédure d'instrumentation pour paralléliser une UDF?",
-      "answer": "La procédure consiste à ajouter des directives de compilation, des prédicats et des macros de réduction dans votre UDF séquentielle. Sans cela, Fluent fonctionnera lentement ou plantera."
-    },
-    {
-      "question": "Où peut-on trouver des informations détaillées sur la parallélisation des UDF dans Fluent?",
-      "answer": "Le sujet est décrit en détail dans le `Fluent Customization Manual, Part I: Chapter 7: Parallel Considerations` qui se trouve dans la documentation officielle en ligne d'Ansys."
+      "question": "Comment configurer les fonctions UDF (User-Defined Functions) dans Ansys Fluent, et quelle est la différence entre les UDF interprétées et compilées?",
+      "answer": "Pour configurer une UDF, vous devez d'abord transférer le fichier source de votre UDF (par exemple, `sampleudf.c`) et tous les fichiers de dépendance nécessaires vers la grappe, en utilisant le mode texte si le transfert se fait depuis Windows vers Linux. Le fichier UDF doit être placé dans le même répertoire que vos fichiers de journalisation, de cas et de données. Avant de soumettre votre tâche, assurez-vous que les boîtes de dialogue 'Interpreted UDFs' et 'UDF Library Manager' de l'interface graphique de Fluent ne sont pas déjà configurées pour une UDF.\n\nLes UDF interprétées sont indiquées à Fluent au moment de l'exécution en ajoutant la ligne de commande `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no` à votre fichier de journalisation avant la lecture des fichiers de cas/données.\n\nPour les UDF compilées, le fichier source doit être compilé sur une de nos grappes au moins une fois pour créer la bibliothèque partagée `libudf.so`. Une fois compilée, vous pouvez charger l'UDF en ajoutant la commande `define/user-defined/compiled-functions load libudf` à votre fichier de journalisation. Il est recommandé de ne pas inclure simultanément les commandes de compilation et de chargement dans le même fichier de journalisation pour les tâches soumises afin d'éviter l'inefficacité et les conflits."
     }
   ],
-  "generated_at": "2026-04-12T17:01:06.505795+00:00"
+  "generated_at": "2026-04-13T01:58:14.399806+00:00"
 }

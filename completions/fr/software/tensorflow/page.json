@@ -3,69 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que TensorFlow, tel que décrit sur la page des grappes Alliance?",
-      "answer": "TensorFlow est une bibliothèque logicielle open source d'apprentissage machine."
+      "question": "Qu'est-ce que TensorFlow, selon la documentation des grappes de l'Alliance?",
+      "answer": "TensorFlow est une bibliothèque logicielle <i>open source</i> d'apprentissage machine."
     },
     {
-      "question": "Comment les directives d'installation de TensorFlow décrivent-elles l'emplacement d'installation et la méthode privilégiée sur les grappes Alliance?",
-      "answer": "Les directives indiquent d'installer TensorFlow dans le répertoire personnel de l'utilisateur, à l'aide des `wheels` Python disponibles via `pip` dans un environnement virtuel Python."
+      "question": "Quelle ressource est recommandée aux utilisateurs qui souhaitent porter un programme TensorFlow sur les grappes de l'Alliance?",
+      "answer": "Il est recommandé de prendre connaissance du tutoriel sur l'apprentissage machine."
     },
     {
-      "question": "Quelles sont les étapes essentielles pour installer TensorFlow 2.x dans un environnement virtuel Python sur les grappes Alliance?",
-      "answer": "Il faut charger le module `python/3`, créer un nouvel environnement virtuel nommé `tensorflow` avec `virtualenv --no-download tensorflow`, l'activer avec `source tensorflow/bin/activate`, puis installer TensorFlow avec `pip install --no-index tensorflow`."
+      "question": "Comment installer TensorFlow dans un répertoire <i>home</i> sur les grappes de l'Alliance en général?",
+      "answer": "Il faut installer TensorFlow dans un environnement virtuel Python à l'aide de la commande `pip` et des <i>wheels</i> Python disponibles."
     },
     {
-      "question": "Pourquoi TensorFlow 1.x n'est-il pas disponible sur la grappe Narval de l'Alliance?",
-      "answer": "TensorFlow 1.x n'est pas disponible sur Narval parce que cette grappe n'offre pas l'environnement `StdEnv/2018` qui est requis."
+      "question": "Quelles sont les étapes de base pour installer TensorFlow 2.x dans un environnement virtuel Python sur les grappes de l'Alliance?",
+      "answer": "Il faut charger le module `python/3`, créer un environnement virtuel avec `virtualenv --no-download tensorflow`, l'activer avec `source tensorflow/bin/activate`, puis installer TensorFlow avec `pip install --no-index tensorflow`."
     },
     {
-      "question": "Lors de l'installation de TensorFlow 1.x sur les grappes Alliance, quels paquets spécifiques doit-on utiliser pour les versions CPU et GPU, et quelle est la mise en garde importante?",
-      "answer": "Pour la version CPU, il faut utiliser `tensorflow_cpu==1.15.0`, et pour la version GPU, `tensorflow_gpu==1.15.0`. Il ne faut pas installer le paquet `tensorflow` sans suffixe en raison de problèmes de compatibilité."
+      "question": "Quelles sont les exigences spécifiques pour TensorFlow 1.x et sa disponibilité sur les grappes de l'Alliance?",
+      "answer": "TensorFlow 1.x requiert `StdEnv/2018` et n'est pas disponible sur la grappe Narval. Lors de l'installation, il faut spécifier le paquet `tensorflow_cpu` ou `tensorflow_gpu`."
     },
     {
-      "question": "Comment peut-on intégrer TensorFlow dans un environnement R après l'avoir installé dans un environnement virtuel Python sur les grappes Alliance?",
-      "answer": "Après avoir chargé les modules `gcc` et `r`, et activé l'environnement virtuel Python, il faut lancer R, puis installer les paquets `devtools` et `tensorflow` (depuis `rstudio/tensorflow` sur GitHub) en R. Ensuite, utiliser `library(tensorflow)` et `use_virtualenv(Sys.getenv('VIRTUAL_ENV'))`."
+      "question": "Comment utiliser TensorFlow avec R sur les grappes de l'Alliance, une fois qu'il est installé dans un environnement virtuel Python?",
+      "answer": "Après avoir chargé les modules `gcc` et `r` et activé votre environnement virtuel Python, il faut lancer R, installer les paquets `devtools` et `tensorflow` en R, puis utiliser `library(tensorflow)` et `use_virtualenv(Sys.getenv('VIRTUAL_ENV'))`."
     },
     {
-      "question": "Quelle est la commande Slurm à utiliser pour soumettre une tâche TensorFlow avec un GPU sur les grappes Alliance?",
-      "answer": "Il faut soumettre la tâche avec la commande `sbatch tensorflow-test.sh`, où `tensorflow-test.sh` est un script Slurm configuré pour demander une ressource GPU et exécuter le script Python de TensorFlow."
+      "question": "Comment soumettre une tâche TensorFlow qui utilise un GPU sur une grappe de l'Alliance?",
+      "answer": "Il faut soumettre un script Slurm (par exemple, `tensorflow-test.sh`) avec la commande `sbatch`, en s'assurant que le script demande les ressources GPU (`#SBATCH --gres=gpu:1`) et charge les modules `cuda` et `cudnn`."
     },
     {
-      "question": "Pourquoi ne devrait-on pas exécuter TensorBoard sur un nœud de connexion sur les grappes Alliance, et comment le lancer correctement?",
-      "answer": "TensorBoard exige trop de puissance de calcul pour un nœud de connexion. Il est recommandé de l'exécuter en arrière-plan dans la même tâche que le processus TensorFlow, en l'appelant avant le script Python avec le caractère `&`."
+      "question": "Comment peut-on faire le suivi des ressources utilisées par TensorFlow et visualiser le déroulement de l'entraînement d'une tâche en cours sur les grappes de l'Alliance?",
+      "answer": "Il est possible de se connecter à un nœud sur lequel une tâche est en cours d'exécution pour y lancer des processus de suivi, comme décrit dans la section \"Surveillance d'une tâche en cours\" des documents de l'Alliance."
     },
     {
-      "question": "Comment accéder à l'interface de TensorBoard depuis un ordinateur local après l'avoir lancé sur un nœud de calcul de l'Alliance?",
-      "answer": "Il faut d'abord trouver le `hostname` du nœud de calcul, puis créer une connexion SSH en lançant la commande `ssh -N -f -L localhost:6006:computenode:6006 userid@cluster.computecanada.ca` sur l'ordinateur local. Ensuite, on y accède via `http://localhost:6006` dans un navigateur."
+      "question": "Quelles sont les recommandations pour exécuter et accéder à TensorBoard sur les grappes de l'Alliance?",
+      "answer": "TensorBoard ne doit pas être exécuté sur un nœud de connexion. Il est recommandé de le lancer en arrière-plan dans la même tâche que le processus TensorFlow, puis d'établir une connexion SSH à partir de votre ordinateur local vers le nœud de calcul où TensorBoard est exécuté pour y accéder via un fureteur."
     },
     {
-      "question": "Quelle stratégie de distribution TensorFlow est utilisée pour le parallélisme multi-GPU sur un seul nœud de calcul avec Keras sur les grappes Alliance?",
-      "answer": "La stratégie `tf.distribute.MirroredStrategy()` est utilisée pour le parallélisme multi-GPU sur un seul nœud de calcul."
+      "question": "Comment utiliser plusieurs GPU sur un nœud unique des grappes de l'Alliance avec TensorFlow et Keras?",
+      "answer": "Il faut utiliser la stratégie `tf.distribute.MirroredStrategy()` et encapsuler la création et la compilation du modèle Keras dans son `strategy.scope()`."
     },
     {
-      "question": "Quelle est la principale différence dans la configuration d'une stratégie miroir de TensorFlow pour plusieurs nœuds par rapport à un nœud unique sur les grappes Alliance?",
-      "answer": "La principale différence est l'utilisation de `MultiWorkerMirroredStrategy()` et de `SlurmClusterResolver()` pour obtenir les informations de la tâche via Slurm, ainsi que l'ajout de `CommunicationImplementation.NCCL` pour la communication inter-GPU."
+      "question": "Comment utiliser plusieurs GPU sur plusieurs nœuds des grappes de l'Alliance avec TensorFlow et Keras?",
+      "answer": "Il faut implémenter la `tf.distribute.MultiWorkerMirroredStrategy()`, en utilisant `SlurmClusterResolver()` pour la configuration du cluster et `CommunicationImplementation.NCCL` pour la communication inter-GPU."
     },
     {
-      "question": "Quelle est la méthode recommandée pour créer des points de contrôle (checkpoints) lors d'un entraînement TensorFlow avec Keras sur les grappes Alliance?",
-      "answer": "La méthode recommandée est d'utiliser le paramètre `callbacks` de la méthode `model.fit()`, en spécifiant `tf.keras.callbacks.ModelCheckpoint` pour créer un point de contrôle, par exemple à la fin de chaque époque."
+      "question": "Pourquoi est-il important de créer des points de contrôle (checkpoints) durant l'entraînement TensorFlow sur les grappes de l'Alliance?",
+      "answer": "Créer des points de contrôle permet de sauvegarder l'état du modèle à des moments précis, ce qui est utile pour diviser les longues tâches, éviter la perte de travail en cas d'erreurs inattendues ou de pannes matérielles, et récupérer l'entraînement."
     },
     {
-      "question": "Pourquoi est-il avantageux de créer des points de contrôle pendant l'entraînement d'un modèle TensorFlow sur les grappes Alliance?",
-      "answer": "La création de points de contrôle permet de diviser une longue tâche en petites tâches plus rapidement allouables et d'éviter de perdre le travail en cas d'erreurs inattendues ou de panne matérielle."
+      "question": "Comment créer des points de contrôle lors d'un entraînement TensorFlow avec Keras?",
+      "answer": "On utilise le paramètre `callbacks` de la méthode `model.fit()` en lui fournissant une instance de `tf.keras.callbacks.ModelCheckpoint`, configurée pour sauvegarder, par exemple, à la fin de chaque époque."
     },
     {
-      "question": "Comment résoudre l'erreur \"OMP: Error #15: Initializing libiomp5.so, but found libiomp5.so already initialized\" lorsqu'on utilise `scikit-image` avec TensorFlow sur les grappes Alliance?",
-      "answer": "Il faut trouver le chemin correct de `libiomp5.so` et créer un lien symbolique pour que l'installation de TensorFlow utilise la version compatible, en exécutant une série de commandes spécifiques dans l'environnement virtuel."
+      "question": "Comment résoudre l'erreur \"OMP: Error #15: Initializing libiomp5.so, but found libiomp5.so already initialized\" lors de l'utilisation de scikit-image avec TensorFlow?",
+      "answer": "Il faut forcer l'installation de TensorFlow à utiliser la version de `libiomp5.so` compatible avec le système en exportant la variable `LIBIOMP_PATH` et en créant des liens symboliques pour remplacer les fichiers `libiomp5.so` incorrects."
     },
     {
-      "question": "Que doit-on faire si TensorFlow signale l'impossibilité d'ouvrir la bibliothèque `libcupti.so` sur les grappes Alliance?",
-      "answer": "Il faut charger le module `cuda` approprié (par exemple `cuda/9.0.xxx`) et exporter la variable d'environnement `LD_LIBRARY_PATH` pour y inclure `$CUDA_HOME/extras/CUPTI/lib64/`."
+      "question": "Que faut-il faire si TensorFlow génère une erreur \"Couldn't open CUDA library libcupti.so\"?",
+      "answer": "Il faut charger le module `cuda` approprié (par exemple, `cuda/9.0.xxx`) et ajouter le chemin `$CUDA_HOME/extras/CUPTI/lib64/` à la variable d'environnement `LD_LIBRARY_PATH` avant d'exécuter le script."
     },
     {
-      "question": "Quel bogue affectait les couches d'augmentation de données Keras de TensorFlow avant la version 2.12, et comment se manifestait-il?",
-      "answer": "Un bogue introduit après la version 2.8.3 affectait la performance des couches `tf.keras.layers.Random`, ralentissant le processus d'entraînement d'un facteur de plus de 100."
+      "question": "Comment contrôler le nombre de fils CPU utilisés par TensorFlow?",
+      "answer": "On peut utiliser les fonctions Python `tf.config.threading.set_inter_op_parallelism_threads(num_threads)` et `tf.config.threading.set_intra_op_parallelism_threads(num_threads)` pour définir les paramètres `intra_op_parallelism_threads` et `inter_op_parallelism_threads`."
+    },
+    {
+      "question": "Quel est le problème connu lié aux couches d'augmentation de données Keras dans TensorFlow, et quand a-t-il été résolu?",
+      "answer": "Un bogue dans les versions de TensorFlow antérieures à 2.12 affecte la performance des couches d'augmentation de données `tf.keras.layers.Random*` de Keras, ralentissant le processus d'entraînement. Ce bogue a été corrigé dans la version 2.12."
     }
   ],
-  "generated_at": "2026-04-12T21:34:14.490082+00:00"
+  "generated_at": "2026-04-13T14:19:50.092670+00:00"
 }

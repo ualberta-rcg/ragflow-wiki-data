@@ -4,25 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What is the configuration for the 'ubuntu' host in the `~/.ssh/config` file on the 'smart' Windows system for the alternative setup?",
-      "answer": "The configuration for the 'ubuntu' host in the `~/.ssh/config` on the 'smart' system sets the `Hostname` to `localhost` and has `RemoteCommand ssh cedar` commented out."
+      "question": "How does the alternative SSH setup, which may be more suitable for Windows GUI applications like WinSCP, work to connect to Alliance clusters via WSL?",
+      "answer": "In the alternative setup, to better support Windows GUI applications that cannot explicitly set a `RemoteCommand`, the `RemoteCommand ssh cedar` line is commented out or removed from the `~/.ssh/config` file on the Windows machine. Instead, the `authorized_keys` file on the Ubuntu VM is modified to include `command=\"ssh cedar\"` directly before the public SSH key, allowing the command to be executed upon authentication. Users can still connect from a Windows shell using `ssh ubuntu -p 2222`."
     },
     {
-      "question": "What is the `Hostname` specified for the 'ubuntu' entry in the `~/.ssh/config` file on the 'smart' Windows machine in the alternative setup?",
-      "answer": "The `Hostname` specified for the 'ubuntu' entry in the `~/.ssh/config` file on the 'smart' Windows machine is `localhost`."
-    },
-    {
-      "question": "Can a user still connect to the Ubuntu VM from a Windows shell with the alternative setup?",
-      "answer": "Yes, a user may still use `ssh ubuntu -p 2222` from a shell on Windows after the alternative setup."
-    },
-    {
-      "question": "What command is used to connect to 'ubuntu' from a Windows shell with the alternative setup?",
-      "answer": "To connect to 'ubuntu' from a Windows shell with the alternative setup, the command `ssh ubuntu -p 2222` is used."
-    },
-    {
-      "question": "What is mentioned regarding MobaXterm in this section of the document?",
-      "answer": "This section introduces 'Setup with MobaXterm' and includes references to image files like `MobaXterm-setup.jpg` and `MobaXterm-VSL-localdriveC.jpg`."
+      "question": "What is a notable limitation when using native Windows applications (like WinSCP) with the ControlMaster setup under WSL for connecting to Alliance clusters?",
+      "answer": "A key limitation is that native Windows applications using this setup may display the file system of the Ubuntu relay server rather than the local Windows drives. This means users cannot directly list or access files on their Windows host from within these applications when attempting to transfer data to or from an Alliance cluster like Cedar. Users are instead directed to the Ubuntu VM's file system, where Windows drives are mounted under `/mnt`."
     }
   ],
-  "generated_at": "2026-04-11T20:22:32.302135+00:00"
+  "generated_at": "2026-04-13T04:25:24.477704+00:00"
 }

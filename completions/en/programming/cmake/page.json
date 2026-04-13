@@ -3,69 +3,57 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is CMake and what is its primary purpose?",
-      "answer": "CMake is a free, multi-language, multi-platform compilation tool designed to simplify the build process across different operating systems."
+      "question": "What is CMake used for in software development?",
+      "answer": "CMake is a free, multi-language, multi-platform compilation tool that helps manage the build process for software projects, generating native build environments like Makefiles or Visual Studio projects."
     },
     {
-      "question": "Why did projects like KDE and MySQL switch from Autotools to CMake?",
-      "answer": "They switched because CMake makes compilation quicker and build files easier to write compared to Autotools."
+      "question": "Why have some projects, such as KDE and MySQL, switched from Autotools to CMake?",
+      "answer": "Projects like KDE and MySQL have switched to CMake because compilation is often quicker, and build files are easier to write compared to Autotools, which many developers found challenging."
     },
     {
-      "question": "What is the basic sequence of commands to configure, build, and install an application using CMake?",
-      "answer": "The simplest way is to run `cmake . && make && make install`."
+      "question": "What is the basic workflow for configuring and building an application using CMake?",
+      "answer": "The basic workflow involves running `cmake .` (or `cmake <directory>`) to configure the project, followed by `make` to build it, and then optionally `make install` to install the application or library."
     },
     {
-      "question": "How do you run CMake from within the directory where you want to build an application?",
-      "answer": "You run the command `cmake .`"
+      "question": "Which CMake option should be used to avoid RPATH conflicts when compiling software packages on Alliance clusters?",
+      "answer": "To avoid RPATH conflicts on Alliance clusters, users should add the option `-DCMAKE_SKIP_INSTALL_RPATH=ON` to their `cmake` command line."
     },
     {
-      "question": "What CMake option helps avoid conflicts with `RUNPATH` or `RPATH` on the clusters?",
-      "answer": "You can add the option `-DCMAKE_SKIP_INSTALL_RPATH=ON` to your command line."
+      "question": "How can users help CMake find libraries installed in non-standard locations on Alliance clusters?",
+      "answer": "Users can help CMake find libraries in non-standard locations on Alliance clusters by using the option `-DCMAKE_SYSTEM_PREFIX_PATH=$EBROOTGENTOO` in their `cmake` command, and potentially more specific options for individual libraries."
     },
     {
-      "question": "How can CMake be instructed to find libraries installed in non-standard locations on the clusters?",
-      "answer": "You can add the option `-DCMAKE_SYSTEM_PREFIX_PATH=$EBROOTGENTOO` to your `cmake` command."
+      "question": "What is the `ccmake` command used for, and how is it typically invoked?",
+      "answer": "`ccmake` provides a command-line interface to customize a project's configuration options. It is typically invoked after an initial `cmake` run, for example, `cmake . && ccmake .`."
     },
     {
-      "question": "How do you specify the location of a specific library and its include directory, such as cURL, using command line options?",
-      "answer": "You would use options like `-DCURL_LIBRARY=$EBROOTGENTOO/lib/libcurl.so -DCURL_INCLUDE_DIR=$EBROOTGENTOO/include`."
+      "question": "What actions can a user perform within the `ccmake` interface to configure a project?",
+      "answer": "Within `ccmake`, a user can edit option values by pressing `enter`, try out configurations with new values by pressing `c`, generate the Makefile by pressing `g`, or quit by pressing `q`. They can also toggle advanced mode with `t`."
     },
     {
-      "question": "What command line tool allows for an interactive customization of CMake configuration?",
-      "answer": "The `ccmake` command allows for interactive customization."
+      "question": "What additional details does `ccmake` display when in advanced mode?",
+      "answer": "In advanced mode, `ccmake` displays a much longer list of variables, including both found and not-found libraries (like different BLAS versions), and flags passed to compilers and linkers depending on the build type."
     },
     {
-      "question": "When should `ccmake` be run relative to `cmake`?",
-      "answer": "`ccmake` should be run after `cmake`, typically as `cmake . && ccmake .`"
+      "question": "What is the general syntax for customizing CMake options directly from the command line?",
+      "answer": "The general syntax for customizing CMake options from the command line is `cmake . -DVARIABLE=VALUE`, where `VARIABLE` is the option name and `VALUE` is its desired setting."
     },
     {
-      "question": "In `ccmake`, what key do you press to edit an option's value?",
-      "answer": "You press the `enter` key to edit an option."
+      "question": "How can a user specify a custom installation directory for a CMake project using a command-line option?",
+      "answer": "A user can specify a custom installation directory using the command-line option `cmake . -DCMAKE_INSTALL_PREFIX=/home/user/my_directory`."
     },
     {
-      "question": "After modifying a value in `ccmake`, what key do you press to test the new configuration?",
-      "answer": "You press the `c` key to configure with the new value."
+      "question": "Which command-line options allow users to change the C or C++ compilers or their flags in CMake?",
+      "answer": "Users can change the C compiler with `CMAKE_C_COMPILER`, the C++ compiler with `CMAKE_CXX_COMPILER`, and their respective flags with `CMAKE_C_FLAGS` and `CMAKE_CXX_FLAGS`."
     },
     {
-      "question": "How do you access a more exhaustive list of configuration variables in `ccmake`?",
-      "answer": "You press the `t` key to toggle advanced mode."
+      "question": "What is the purpose of the `CMAKE_BUILD_TYPE` option in CMake?",
+      "answer": "The `CMAKE_BUILD_TYPE` option defines which compilation type should be used, automatically setting appropriate compiler and optimization flags without needing manual configuration."
     },
     {
-      "question": "What is the general syntax for modifying a CMake variable using command line options?",
-      "answer": "The syntax is `cmake . -DVARIABLE=VALUE`."
-    },
-    {
-      "question": "Which command line option is used to change the C++ compiler that CMake uses?",
-      "answer": "The `CMAKE_CXX_COMPILER` option is used to change the C++ compiler."
-    },
-    {
-      "question": "What is `CMAKE_BUILD_TYPE` used for, and what are some of its possible values?",
-      "answer": "`CMAKE_BUILD_TYPE` defines the compilation type, with possible values including `Debug`, `Release`, `MinSizeRel`, and `RelWithDebInfo`."
-    },
-    {
-      "question": "What is the benefit of using `CMAKE_BUILD_TYPE`?",
-      "answer": "It allows you to define compiler options without needing to know the exact compiler flags for different compilers."
+      "question": "What are some common values for the `CMAKE_BUILD_TYPE` option and their general effects?",
+      "answer": "Common values include `Debug` (activates debugging, deactivates optimization), `Release` (deactivates debugging, activates usual optimizations), `MinSizeRel` (optimizes for minimum binary size), and `RelWithDebInfo` (activates debugging and usual optimizations)."
     }
   ],
-  "generated_at": "2026-04-11T18:58:19.278621+00:00"
+  "generated_at": "2026-04-13T03:19:23.360312+00:00"
 }

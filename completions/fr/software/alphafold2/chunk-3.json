@@ -4,101 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "C'est quoi la commande pour télécharger toutes les bases de données d'AlphaFold, une fois que les modules sont chargés pis l'environnement virtuel est activé?",
-      "answer": "Pour télécharger toutes les bases de données, il faut utiliser la commande `download_all_data.sh $DOWNLOAD_DIR`."
+      "question": "Sur quel type de nœud faut-il télécharger les bases de données d'AlphaFold?",
+      "answer": "Vous ne devriez jamais télécharger les bases de données d'AlphaFold à partir d'un nœud de calcul. Il est recommandé d'utiliser un nœud de transfert de données (DTN) si votre grappe en possède un, sinon, un nœud de connexion devrait faire l'affaire."
     },
     {
-      "question": "Où est-ce qu'on n'a pas le droit de télécharger les données d'AlphaFold?",
-      "answer": "Il ne faut pas télécharger les données à partir d'un nœud de calcul."
+      "question": "Combien de temps ça peut prendre pour télécharger l'ensemble des bases de données d'AlphaFold, et quelle est la suggestion pour gérer ça?",
+      "answer": "Le téléchargement des bases de données d'AlphaFold peut prendre une journée complète. Pour éviter les interruptions, il est suggéré d'utiliser un multiplexeur de terminal."
     },
     {
-      "question": "Sur quel type de nœud on devrait télécharger les bases de données si on n'a pas accès à un nœud de transfert de données (DTN)?",
-      "answer": "Si y'a pas de nœud de transfert de données, il faut utiliser un nœud de connexion."
-    },
-    {
-      "question": "Pourquoi c'est recommandé d'utiliser un multiplexeur de terminal pour télécharger les bases de données d'AlphaFold?",
-      "answer": "Parce que le téléchargement peut prendre une journée complète, pis ça aide à éviter les déconnexions inattendues."
-    },
-    {
-      "question": "C'est quoi l'erreur qu'on pourrait avoir en téléchargeant les bases de données, pis c'est où qu'on peut trouver du dépannage?",
-      "answer": "On pourrait avoir le message d'erreur `Client_loop: send disconnect: Broken pipe`. On peut trouver du dépannage dans la section [[AlphaFold/fr#Dépannage|Dépannage]]."
-    },
-    {
-      "question": "C'est quoi le répertoire de base où les bases de données d'AlphaFold doivent absolument être stockées?",
-      "answer": "Les bases de données doivent absolument se trouver dans le répertoire `$SCRATCH`."
-    },
-    {
-      "question": "Si on est sur la grappe Graham, c'est quoi le `DOWNLOAD_DIR` qu'il faut configurer pour les bases de données?",
-      "answer": "Sur Graham, il faut configurer `DOWNLOAD_DIR` à `/datashare/alphafold`."
-    },
-    {
-      "question": "C'est quoi la taille totale approximative des bases de données pour AlphaFold version 2.3?",
-      "answer": "La taille totale des bases de données pour AlphaFold 2.3 est d'environ 2.6 TB."
-    },
-    {
-      "question": "Pour la version 2.3 d'AlphaFold, c'est quoi la taille du répertoire `bfd/`?",
-      "answer": "Le répertoire `bfd/` pour la version 2.3 fait environ 1.8 TB."
-    },
-    {
-      "question": "Combien de fichiers `.cif` se trouvent dans `pdb_mmcif/mmcif_files/` pour la version 2.3 d'AlphaFold?",
-      "answer": "Y'a 202 764 fichiers `.cif` dans `pdb_mmcif/mmcif_files/` pour la version 2.3."
-    },
-    {
-      "question": "C'est quoi la taille totale approximative des bases de données pour AlphaFold version 2.2 (taille téléchargée)?",
-      "answer": "La taille totale des bases de données pour AlphaFold 2.2 est d'environ 2.2 TB, mais le téléchargement initial est d'environ 428 GB."
-    },
-    {
-      "question": "Pour la version 2.2 d'AlphaFold, combien de modèles CASP14 pis de modèles pTM sont inclus dans le répertoire `params/`?",
-      "answer": "Le répertoire `params/` pour la version 2.2 contient 5 modèles CASP14 pis 5 modèles pTM."
-    },
-    {
-      "question": "Y'a combien de fichiers `.cif` environ dans `pdb_mmcif/mmcif_files/` pour la version 2.2 d'AlphaFold?",
-      "answer": "Y'a environ 180 000 fichiers `.cif` dans `pdb_mmcif/mmcif_files/` pour la version 2.2."
-    },
-    {
-      "question": "Combien de cœurs maximum AlphaFold peut-il utiliser efficacement, pis pourquoi?",
-      "answer": "AlphaFold peut utiliser un maximum de 8 cœurs, parce que c'est codé en dur (hardcoded) pour pas en utiliser plus pis ça n'apporte pas de bénéfice d'en demander plus."
-    },
-    {
-      "question": "Quand on utilise AlphaFold avec un GPU, c'est quelle partie de l'exécution qui est accélérée?",
-      "answer": "Un GPU aide à accélérer seulement la partie de l'inférence."
-    },
-    {
-      "question": "Où est-ce qu'on devrait générer l'environnement virtuel Python dans un script de soumission Slurm pour AlphaFold?",
-      "answer": "Il faut générer l'environnement virtuel dans le répertoire `$SLURM_TMPDIR`."
-    },
-    {
-      "question": "C'est quoi le paramètre `--model_preset` à utiliser pour AlphaFold 2.3?",
-      "answer": "Pour AlphaFold 2.3, il faut utiliser `--model_preset=multimer`."
-    },
-    {
-      "question": "C'est quoi le paramètre `--model_preset` à utiliser pour AlphaFold 2.2?",
-      "answer": "Pour AlphaFold 2.2, il faut utiliser `--model_preset=monomer_casp14`."
-    },
-    {
-      "question": "Quel chemin de base de données a été renommé entre la version 2.2 pis la version 2.3 d'AlphaFold?",
-      "answer": "L'option `--uniclust30_database_path` de la version 2.2 a été renommée `--uniref30_database_path` dans la version 2.3."
-    },
-    {
-      "question": "C'est quoi la valeur du paramètre `--use_gpu_relax` quand on exécute AlphaFold avec un CPU?",
-      "answer": "Quand on exécute avec un CPU, la valeur de `--use_gpu_relax` doit être `False`."
-    },
-    {
-      "question": "C'est quoi la valeur du paramètre `--use_gpu_relax` quand on exécute AlphaFold avec un GPU?",
-      "answer": "Quand on exécute avec un GPU, la valeur de `--use_gpu_relax` doit être `True`."
-    },
-    {
-      "question": "C'est quoi une des solutions si on rencontre l'erreur `Client_loop: send disconnect: Broken pipe` lors du téléchargement des bases de données?",
-      "answer": "Une solution, c'est d'utiliser un multiplexeur de terminal. Ça diminue les chances d'avoir cette erreur."
-    },
-    {
-      "question": "Y'a-t-il une autre solution pour l'erreur `Client_loop: send disconnect: Broken pipe` si je ne veux pas télécharger les bases de données localement?",
-      "answer": "Oui, une autre solution, c'est d'utiliser la base de données déjà disponible sur la grappe, qui se trouve à `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2023_07/`."
-    },
-    {
-      "question": "Comment on peut télécharger les bases de données par sections si on a l'erreur `Client_loop: send disconnect: Broken pipe`?",
-      "answer": "Après avoir chargé le module pis activé l'environnement virtuel, on peut taper `download_` pis deux fois sur la touche `tab` pour voir les scripts disponibles, comme `download_pdb.sh`, pis télécharger les sections manuellement."
+      "question": "Est-ce qu'AlphaFold profite de l'utilisation de plus de 8 cœurs de processeur lors de son exécution?",
+      "answer": "Non, AlphaFold est codé en dur pour n'utiliser qu'un maximum de 8 cœurs de processeur, donc il n'y a aucun bénéfice à en demander davantage lors de son exécution."
     }
   ],
-  "generated_at": "2026-04-11T16:36:33.537724+00:00"
+  "generated_at": "2026-04-13T01:33:16.671493+00:00"
 }

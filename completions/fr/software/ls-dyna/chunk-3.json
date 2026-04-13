@@ -4,89 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on peut spécifier notre serveur de licence LSTC en utilisant des variables d'environnement dans nos scripts?",
-      "answer": "Pour spécifier votre serveur de licence LSTC, vous devez définir les variables d'environnement suivantes dans vos scripts: `export LSTC_LICENSE=network` et `export LSTC_LICENSE_SERVER=<port>@<server>`, où `<port>` est un nombre entier et `<server>` est le nom d'hôte ou l'adresse IP de votre serveur de licence LSTC."
+      "question": "Comment configurer une licence LS-DYNA émise par LSTC sur les grappes d'Alliance en utilisant des variables d'environnement dans un script?",
+      "answer": "Pour configurer une licence LS-DYNA de type LSTC en définissant des variables d'environnement dans vos scripts, vous devez exporter `LSTC_LICENSE=network` et `LSTC_LICENSE_SERVER=<port>@<server>`, où `<port>` est un nombre entier et `<server>` est le nom d'hôte ou l'adresse IP de votre serveur de licence LSTC. Ces variables priment sur toute valeur spécifiée dans le fichier `~/.licenses/ls-dyna.lic`. Il est aussi essentiel que ce fichier `~/.licenses/ls-dyna.lic` existe (même s'il est vide) pour que les modules `ls-dyna` ou `ls-dyna-mpi` puissent se charger correctement. Vous pouvez le créer en exécutant `touch ~/.licenses/ls-dyna.lic` en ligne de commande pour chaque grappe où vous soumettez des tâches."
     },
     {
-      "question": "Est-ce que les variables d'environnement `LSTC_LICENSE` et `LSTC_LICENSE_SERVER` ont priorité sur les valeurs du fichier `~/.licenses/ls-dyna.lic`?",
-      "answer": "Oui, ces variables d'environnement auront la priorité sur toutes les valeurs spécifiées dans votre fichier `~/.licenses/ls-dyna.lic`."
-    },
-    {
-      "question": "Le fichier `~/.licenses/ls-dyna.lic` est-il nécessaire même si on définit la licence LSTC avec des variables d'environnement?",
-      "answer": "Oui, le fichier `~/.licenses/ls-dyna.lic` doit exister (même s'il est vide) pour que tout module `ls-dyna` ou `ls-dyna-mpi` puisse se charger correctement."
-    },
-    {
-      "question": "Comment s'assurer que le fichier `~/.licenses/ls-dyna.lic` existe pour l'utilisation d'une licence LSTC via variables d'environnement?",
-      "answer": "Pour vous assurer que le fichier existe, vous pouvez exécuter la commande `touch ~/.licenses/ls-dyna.lic` en ligne de commande pour chaque grappe où vous soumettrez des tâches."
-    },
-    {
-      "question": "Où peut-on trouver plus de détails sur la configuration des licences LSTC?",
-      "answer": "Pour plus de détails, vous pouvez consulter la documentation officielle de LS-DYNA."
-    },
-    {
-      "question": "Comment est-ce qu'on configure une licence LS-DYNA si elle est hébergée sur un serveur de licence Ansys?",
-      "answer": "Si votre licence LS-DYNA est hébergée sur un serveur de licence Ansys, vous devez définir les variables d'environnement suivantes dans vos scripts: `export LSTC_LICENSE=ansys` et `export ANSYSLMD_LICENSE_FILE=<port>@<server>`, où `<port>` est un nombre entier et `<server>` est le nom d'hôte ou l'adresse IP de votre serveur de licence Ansys."
-    },
-    {
-      "question": "Est-ce qu'on peut définir les variables de licence Ansys dans le fichier `~/.licenses/ls-dyna.lic`?",
-      "answer": "Non, les variables de licence Ansys ne peuvent pas être définies dans votre fichier `~/.licenses/ls-dyna.lic`."
-    },
-    {
-      "question": "Le fichier `~/.licenses/ls-dyna.lic` doit-il exister même pour une licence Ansys?",
-      "answer": "Oui, le fichier `~/.licenses/ls-dyna.lic` doit exister (même s'il est vide) pour que tout module `ls-dyna` puisse se charger."
-    },
-    {
-      "question": "Comment s'assurer que le fichier `~/.licenses/ls-dyna.lic` existe pour une licence Ansys?",
-      "answer": "Pour vous assurer que le fichier existe, exécutez `touch ~/.licenses/ls-dyna.lic` en ligne de commande ou à chaque fois dans vos scripts."
-    },
-    {
-      "question": "Quelles versions de module LS-DYNA sont compatibles avec les serveurs de licence Ansys?",
-      "answer": "Seules les versions de module de LS-DYNA égales ou supérieures à 12.2.1 fonctionneront avec les serveurs de licence Ansys."
-    },
-    {
-      "question": "Comment utiliser la licence Ansys de SHARCNET sur la grappe Nibi pour LS-DYNA?",
-      "answer": "Pour utiliser la licence Ansys de SHARCNET sur la grappe Nibi, vous devez ajouter les lignes suivantes dans votre script: `export LSTC_LICENSE=ansys` et `export ANSYSLMD_LICENSE_FILE=1055@license1.computecanada.ca`."
-    },
-    {
-      "question": "Quels types de tâches la licence Ansys de SHARCNET prend-elle en charge pour LS-DYNA?",
-      "answer": "La licence Ansys de SHARCNET prend en charge l'exécution de tâches SMP (Shared Memory Parallel) et MPP (Message Passing Parallel) de LS-DYNA."
-    },
-    {
-      "question": "Y a-t-il des restrictions pour l'utilisation de la licence Ansys de SHARCNET?",
-      "answer": "Oui, elle peut être utilisée librement par n'importe qui, mais sur une base limitée au nombre de cœurs et de tâches."
-    },
-    {
-      "question": "Comment configurer une licence LS-DYNA achetée de CMC sur les différentes grappes (Fir, Nibi, Narval, Rorqual, Trillium)?",
-      "answer": "Pour une licence CMC, vous devez définir `export LSTC_LICENSE=ansys` et la variable `ANSYSLMD_LICENSE_FILE` selon la grappe: Fir: `6624@172.26.0.101`, Nibi: `6624@10.25.1.56`, Narval/Rorqual: `6624@10.100.64.10`, Trillium: `6624@scinet-cmc`."
-    },
-    {
-      "question": "Est-ce que des modifications du pare-feu sont nécessaires pour utiliser une licence CMC sur une grappe?",
-      "answer": "Non, aucune modification du pare-feu n'est requise pour utiliser une licence CMC sur une grappe, car elles ont déjà été effectuées."
-    },
-    {
-      "question": "Pourquoi les variables d'environnement de la licence CMC ne peuvent-elles pas être définies dans le fichier `~/.licenses/ls-dyna.lic`?",
-      "answer": "Étant donné que le serveur CMC distant qui héberge les licences LS-DYNA est basé sur Ansys, ces variables ne peuvent pas être définies dans votre fichier `~/.licenses/ls-dyna.lic`."
-    },
-    {
-      "question": "Quelles versions de module LS-DYNA sont compatibles avec les serveurs de licence CMC?",
-      "answer": "Seules les versions de module de LS-DYNA égales ou supérieures à 13.1.1 fonctionneront avec les serveurs de licence Ansys, sur lesquels les licences CMC sont basées."
-    },
-    {
-      "question": "Qu'est-ce que les adresses IP spécifiées pour les licences CMC représentent?",
-      "answer": "Les différentes adresses IP spécifiées pour les licences CMC correspondent aux serveurs CADpass respectifs."
-    },
-    {
-      "question": "Quels sont les deux modes principaux d'exécution de tâches offerts par LS-DYNA sur une grappe?",
-      "answer": "LS-DYNA offre des binaires pour l'exécution de tâches sur des nœuds uniques (SMP, Shared Memory Parallel avec OpenMP) ou sur plusieurs nœuds (MPP, Message Passing Parallel avec MPI)."
-    },
-    {
-      "question": "Que signifie l'acronyme SMP dans le contexte de LS-DYNA?",
-      "answer": "SMP signifie 'Shared Memory Parallel' (parallélisation à mémoire partagée) et est utilisé avec OpenMP pour les tâches sur nœuds uniques."
-    },
-    {
-      "question": "Que signifie l'acronyme MPP dans le contexte de LS-DYNA?",
-      "answer": "MPP signifie 'Message Passing Parallel' (parallélisation par échange de messages) et est utilisé avec MPI pour les tâches sur plusieurs nœuds."
+      "question": "Quelles variables d'environnement doit-on utiliser pour configurer une licence LS-DYNA hébergée sur un serveur Ansys ou achetée via CMC Microsystems sur une grappe d'Alliance?",
+      "answer": "Si votre licence LS-DYNA est hébergée sur un serveur de licences Ansys ou a été achetée auprès de CMC Microsystems, vous devez définir `export LSTC_LICENSE=ansys`. La deuxième variable, `ANSYSLMD_LICENSE_FILE`, varie selon l'option:\n*   Pour un serveur de licences Ansys général, utilisez `export ANSYSLMD_LICENSE_FILE=<port>@<server>` (où `<port>` est un entier et `<server>` est le nom d'hôte ou l'adresse IP de votre serveur).\n*   Pour la licence Ansys de SHARCNET sur la grappe Nibi, utilisez `export ANSYSLMD_LICENSE_FILE=1055@license1.computecanada.ca`.\n*   Pour une licence CMC, les valeurs spécifiques à chaque grappe sont:\n    *   Fir : `6624@172.26.0.101`\n    *   Nibi : `6624@10.25.1.56`\n    *   Narval et Rorqual : `6624@10.100.64.10`\n    *   Trillium : `6624@scinet-cmc`\n\nCes variables ne peuvent pas être configurées dans le fichier `~/.licenses/ls-dyna.lic`, mais ce dernier doit tout de même exister (même s'il est vide) pour que les modules `ls-dyna` puissent se charger; utilisez `touch ~/.licenses/ls-dyna.lic` pour vous en assurer. Les versions de module `>= 12.2.1` sont requises pour les serveurs de licences Ansys et `>= 13.1.1` pour les serveurs de licences CMC. Aucune modification du pare-feu n'est nécessaire pour les licences CMC, car elles ont déjà été effectuées."
     }
   ],
-  "generated_at": "2026-04-12T00:54:58.998582+00:00"
+  "generated_at": "2026-04-13T08:03:24.632268+00:00"
 }

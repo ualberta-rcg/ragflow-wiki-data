@@ -4,21 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What is the issue observed in the memory graph when a serial task requests 8 cores with `--mem-per-cpu=32G`?",
-      "answer": "The memory demand is too high; a total of 256 GB is requested, but only 4 GB are actually used."
+      "question": "For a serial task on a compute cluster, what happens if you request multiple CPU cores (e.g., eight cores), and how is this inefficiency typically observed?",
+      "answer": "If you request multiple CPU cores for a serial task, only one core will be actively used because serial tasks are designed to run on a single processor. This leads to the remaining requested cores (e.g., seven out of eight) being wasted. This inefficiency can be observed in the CPU utilization graph, which will show activity corresponding to only one core, even if more were requested."
     },
     {
-      "question": "How is the total memory requested calculated in the example where 8 cores and `--mem-per-cpu=32G` are specified?",
-      "answer": "The total memory requested is calculated by multiplying the 8 cores by 32 GB, which results in 256 GB."
-    },
-    {
-      "question": "What is the actual memory usage compared to the requested amount in the provided example?",
-      "answer": "Only 4 GB of memory are actually used, despite the total request of 256 GB."
-    },
-    {
-      "question": "What correction is suggested for the excessive memory request in the given scenario?",
-      "answer": "The suggested correction is to request `--mem-per-cpu=6G`."
+      "question": "When running a serial task, if a submission script incorrectly requests 8 CPU cores and 32 GB of memory per CPU, what is the total memory allocated, how much is typically used, and what is the recommended adjustment for memory allocation?",
+      "answer": "If a serial task's submission script requests 8 CPU cores and 32 GB of memory per CPU, the total allocated memory would be 256 GB (8 cores * 32 GB/core). However, the task might only use approximately 4 GB. The recommended adjustment for memory allocation, assuming the task properly requests only one CPU core, would be to set `--mem-per-cpu=6G` to provide a reasonable buffer over the actual usage."
     }
   ],
-  "generated_at": "2026-04-11T21:19:24.063158+00:00"
+  "generated_at": "2026-04-13T05:08:58.269942+00:00"
 }

@@ -4,57 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Quelles sont les directives Slurm par défaut dans un script STAR-CCM+ pour la grappe Nibi, spécifiquement pour une tâche sans GPU?",
-      "answer": "Pour une tâche sans GPU sur Nibi, les directives Slurm par défaut incluent: `#SBATCH --account=def-group`, `#SBATCH --time=00-01:00`, `#SBATCH --nodes=1`, `#SBATCH --cpus-per-task=16`, `#SBATCH --mem=64G`, `#SBATCH --ntasks-per-node=1`, `#SBATCH --constraint=granite` (pour les nœuds de calcul Intel) et `#SBATCH --switches=1` (facultatif)."
+      "question": "Comment peut-on structurer un script Slurm pour lancer une tâche STAR-CCM+ sur les grappes d'Alliance, comme Nibi, Fir, Narval ou Rorqual ?",
+      "answer": "Pour structurer un script Slurm pour STAR-CCM+, il faut commencer par des directives `#SBATCH` afin de spécifier les ressources comme le compte (`--account`), la durée (`--time`), le nombre de nœuds (`--nodes`), et la mémoire (`--mem`). Ensuite, il faut charger l'environnement standard (`module load StdEnv/2023`) et le module STAR-CCM+ souhaité (par exemple, `module load starccm-mixed/20.04.007`). Il est aussi nécessaire de définir le nom du fichier de simulation (par exemple, `SIM_FILE='mysample.sim'`). La commande d'exécution de `starccm+` variera selon le type de licence : pour une licence POD de Siemens, il faut inclure l'option `-power -podkey $LM_PROJECT`, tandis que pour une licence institutionnelle, ces options ne sont pas nécessaires."
     },
     {
-      "question": "Quel environnement standard et quel module STAR-CCM+ sont chargés dans l'exemple de script Nibi?",
-      "answer": "L'environnement standard `StdEnv/2023` est chargé, suivi du module `starccm-mixed/20.04.007`. D'autres versions comme 18.04.009, 18.06.007, 19.04.009, 19.06.009, 20.02.008 ou plus récentes peuvent aussi être spécifiées."
+      "question": "Dans un script Slurm pour STAR-CCM+, comment spécifie-t-on les fichiers d'entrée de simulation et comment gère-t-on les différents types de licences (POD de Siemens ou institutionnelle) ?",
+      "answer": "Pour spécifier le fichier d'entrée de simulation dans un script Slurm STAR-CCM+, on utilise la variable `SIM_FILE`, par exemple `SIM_FILE='mysample.sim'`. On peut aussi spécifier un fichier Java via `JAVA_FILE='mymacros.java'` si besoin. En ce qui concerne les licences, si vous utilisez une licence POD (Power On Demand) de Siemens, la variable d'environnement `LM_PROJECT` doit être configurée (par exemple, `LM_PROJECT='ma_clé_pod_de_22_chiffres'`) et la commande `starccm+` doit inclure les options `-power -podkey $LM_PROJECT`. Pour une licence institutionnelle, il suffit de s'assurer que le fichier `~/.licenses/starccm.lic` est correctement configuré, et la commande `starccm+` ne nécessite pas les options `-power -podkey`."
     },
     {
-      "question": "Comment les noms de fichiers d'entrée pour la simulation et les macros Java sont-ils spécifiés dans le script Slurm pour Nibi?",
-      "answer": "Le nom du fichier de simulation est spécifié par `SIM_FILE='mysample.sim'`. Pour un fichier Java de macros, la variable `JAVA_FILE='mymacros.java'` doit être décommentée."
-    },
-    {
-      "question": "Comment le répertoire temporaire `STARCCM_TMP` est-il configuré dans le script Nibi, et où les fichiers temporaires sont-ils redirigés?",
-      "answer": "Le répertoire temporaire `STARCCM_TMP` est initialement configuré comme `${SCRATCH}/.starccm-${EBVERSIONSTARCCM}` et créé. Par la suite, il est redirigé vers `$SLURM_TMPDIR`."
-    },
-    {
-      "question": "Comment le nombre de cœurs (NCORE) est-il calculé dans le script Slurm pour Nibi?",
-      "answer": "Le nombre de cœurs est calculé en utilisant `NCORE=$((SLURM_NNODES * SLURM_CPUS_PER_TASK * SLURM_NTASKS_PER_NODE))` ou `NCORE=$((SLURM_NTASKS * SLURM_CPUS_PER_TASK))`."
-    },
-    {
-      "question": "Quels sont les paramètres par défaut pour `FLEXIBLAS`, `STAR_MPI` et `STAR_FABRIC` dans le script Nibi?",
-      "answer": "Les paramètres par défaut sont `FLEXIBLAS=StarMKL`, `STAR_MPI=\"-mpi intel\"` et `STAR_FABRIC=\"-fabric tcp\"`."
-    },
-    {
-      "question": "Comment lance-t-on STAR-CCM+ avec une licence Siemens PoD (Power on Demand) dans un script Nibi?",
-      "answer": "Si la variable d'environnement `LM_PROJECT` est définie, la commande `starccm+ -jvmargs -Xmx4G -jvmargs -Djava.io.tmpdir=$SLURM_TMPDIR -batch -power -podkey $LM_PROJECT -np $NCORE -nbuserdir $SLURM_TMPDIR -machinefile $SLURM_TMPDIR/machinefile $JAVA_FILE $SIM_FILE $STAR_MPI $STAR_FABRIC` est utilisée."
-    },
-    {
-      "question": "Comment lance-t-on STAR-CCM+ avec un serveur de licence institutionnel dans un script Nibi?",
-      "answer": "Si `LM_PROJECT` n'est pas défini, la commande `starccm+ -jvmargs -Xmx4G -jvmargs -Djava.io.tmpdir=$SLURM_TMPDIR -batch -np $NCORE -nbuserdir $SLURM_TMPDIR -machinefile $SLURM_TMPDIR/machinefile $JAVA_FILE $SIM_FILE $STAR_MPI $STAR_FABRIC` est utilisée. Il y a aussi une commande optionnelle `lmutil` pour vérifier l'état de la licence."
-    },
-    {
-      "question": "Quelles sont les directives Slurm par défaut pour les grappes Fir, Narval ou Rorqual dans un script STAR-CCM+ sans GPU?",
-      "answer": "Pour ces grappes, les directives Slurm par défaut sont similaires à Nibi: `#SBATCH --account=def-group`, `#SBATCH --time=00-01:00`, `#SBATCH --nodes=1`, `#SBATCH --cpus-per-task=16`, `#SBATCH --mem=64G`, `#SBATCH --ntasks-per-node=1`. Sur Rorqual, `#SBATCH --constraint=genoa` peut être décommenté."
-    },
-    {
-      "question": "Comment doit-on configurer la clé Siemens PoD dans le script pour Fir, Narval ou Rorqual?",
-      "answer": "Vous devez décommenter la ligne `LM_PROJECT='my22digitpodkey'` et remplacer `my22digitpodkey` par votre clé Siemens Power on Demand (PoD) à 22 chiffres."
-    },
-    {
-      "question": "Comment le script pour Fir/Narval/Rorqual vérifie-t-il la connectivité au serveur de licence?",
-      "answer": "Le script extrait le serveur et le port de `CDLMD_LICENSE_FILE` puis utilise `nmap $server -Pn -p $port` pour vérifier la connectivité au serveur de licence."
-    },
-    {
-      "question": "Comment `FLEXIBLAS` et `STAR_MPI` sont-ils définis en fonction du fournisseur de CPU dans le script Fir/Narval/Rorqual?",
-      "answer": "Par défaut, `FLEXIBLAS=NETLIB` et `STAR_MPI=\"-mpi openmpi\"`. Si le CPU est Intel, `FLEXIBLAS` est défini à `StarMKL` et `STAR_MPI` à `\"-mpi intel\"`. Si le CPU est AMD, `FLEXIBLAS` est défini à `StarAOCL`."
-    },
-    {
-      "question": "Une option spéciale est-elle nécessaire pour les versions de STAR-CCM+ antérieures à la version 20 sur les grappes Fir, Narval ou Rorqual?",
-      "answer": "Oui, si la version de STAR-CCM+ (extraite de `EBVERSIONSTARCCM`) est inférieure à 20, la variable `STAR_UCX=\"-xsystemucx\"` est ajoutée."
+      "question": "Quelles sont les principales différences entre les scripts Slurm pour les grappes Nibi et Fir/Narval/Rorqual lorsqu'on soumet une tâche STAR-CCM+ ?",
+      "answer": "Bien que les scripts Slurm pour Nibi et Fir/Narval/Rorqual partagent plusieurs similarités, il y a quelques différences notables. Sur Nibi, la directive `#SBATCH --constraint=granite` est utilisée pour les nœuds de calcul Intel (sans GPU) et `STAR_MPI` est défini comme `-mpi intel`. Sur Fir, Narval et Rorqual, le `LM_PROJECT` pour les licences PoD de Siemens est configuré directement dans le script, tandis que sur Nibi, cette configuration se fait dans un bloc conditionnel. De plus, `STAR_MPI` est généralement défini comme `-mpi openmpi` sur Fir/Narval/Rorqual, avec des ajustements pour `FLEXIBLAS` selon le fournisseur du CPU."
     }
   ],
-  "generated_at": "2026-04-12T08:18:22.037232+00:00"
+  "generated_at": "2026-04-13T13:48:30.096651+00:00"
 }

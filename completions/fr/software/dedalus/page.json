@@ -3,57 +3,53 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi Dedalus?",
-      "answer": "C'est un environnement de développement souple qui sert à résoudre des équations aux dérivées partielles en utilisant des méthodes spectrales modernes."
+      "question": "Qu'est-ce que Dedalus sur les grappes de calcul d'Alliance?",
+      "answer": "Dedalus est un environnement de développement flexible pour résoudre des équations aux dérivées partielles à l'aide de méthodes spectrales modernes sur les grappes de calcul d'Alliance."
     },
     {
-      "question": "Comment savoir quelles versions de Dedalus sont disponibles sur nos grappes?",
-      "answer": "Il faut exécuter la commande `avail_wheels dedalus` pour voir les versions disponibles sous forme de <i>wheels</i> Python."
+      "question": "Comment peut-on vérifier les versions de Dedalus disponibles sur les grappes de calcul d'Alliance?",
+      "answer": "Les versions de Dedalus sont des *wheels* Python. Pour connaître les versions disponibles, il faut exécuter la commande `avail_wheels dedalus`."
     },
     {
-      "question": "Quels modules faut-il charger avant d'installer Dedalus dans un environnement virtuel?",
-      "answer": "Il faut charger les modules StdEnv/2023, gcc, openmpi, mpi4py/3.1.4, fftw-mpi/3.3.10, hdf5-mpi/1.14.2 et python/3.11."
+      "question": "Quels modules sont requis pour exécuter Dedalus dans un environnement virtuel Python sur les grappes d'Alliance?",
+      "answer": "Les modules requis sont `StdEnv/2023`, `gcc`, `openmpi`, `mpi4py/3.1.4`, `fftw-mpi/3.3.10`, `hdf5-mpi/1.14.2` et `python/3.11`."
     },
     {
-      "question": "Comment créer et activer un environnement virtuel pour Dedalus?",
-      "answer": "Il faut utiliser les commandes `virtualenv --no-download ~/dedalus_env` puis `source ~/dedalus_env/bin/activate`."
+      "question": "Comment créer et activer un environnement virtuel Python pour Dedalus sur une grappe d'Alliance?",
+      "answer": "Il faut d'abord exécuter `virtualenv --no-download ~/dedalus_env` pour créer l'environnement, puis `source ~/dedalus_env/bin/activate` pour l'activer."
     },
     {
-      "question": "Comment installer une version spécifique de Dedalus dans un environnement virtuel?",
-      "answer": "Une fois l'environnement virtuel activé, on utilise la commande `pip install --no-index dedalus==X.Y.Z`, où X.Y.Z est la version souhaitée."
+      "question": "Quelle est la procédure pour installer une version spécifique de Dedalus et ses dépendances Python dans un environnement virtuel?",
+      "answer": "Après avoir activé l'environnement virtuel, il faut exécuter `pip install --no-index --upgrade pip` puis `pip install --no-index dedalus==X.Y.Z`, où `X.Y.Z` est la version choisie (par exemple 3.0.2)."
     },
     {
-      "question": "Comment valider que Dedalus est bien installé dans l'environnement virtuel?",
-      "answer": "On exécute la commande `python -c 'import dedalus'` dans l'environnement activé."
+      "question": "Comment valider l'installation de Dedalus dans un environnement virtuel sur une grappe d'Alliance?",
+      "answer": "Pour valider l'installation, exécutez la commande `python -c 'import dedalus'` dans l'environnement virtuel activé."
     },
     {
-      "question": "À quoi ça sert de 'geler' l'environnement virtuel après l'installation?",
-      "answer": "Ça permet d'enregistrer les dépendances Python requises dans un fichier (par exemple, `~/dedalus-3.0.2-requirements.txt`) pour une éventuelle réutilisation."
+      "question": "Comment enregistrer les dépendances d'un environnement virtuel Dedalus localement sur une grappe d'Alliance?",
+      "answer": "On peut figer l'environnement et ses dépendances en exécutant `pip freeze --local > ~/dedalus-3.0.2-requirements.txt`."
     },
     {
-      "question": "Comment supprimer un environnement virtuel local de Dedalus?",
-      "answer": "Il faut le désactiver avec `deactivate` puis supprimer le répertoire avec `rm -r ~/dedalus_env`."
+      "question": "Comment exécuter Dedalus en mode distribué sur plusieurs nœuds ou cœurs sur les grappes d'Alliance?",
+      "answer": "Dedalus peut être exécuté en mode distribué en préparant un script Slurm qui charge les modules, crée un environnement virtuel et installe les dépendances sur chaque nœud alloué, puis exécute le script Python avec `srun`."
     },
     {
-      "question": "Est-ce que Dedalus peut fonctionner en mode distribué?",
-      "answer": "Oui, Dedalus peut être exécuté en mode distribué sur plusieurs nœuds ou cœurs."
+      "question": "Dans les scripts Slurm pour l'exécution distribuée de Dedalus, pourquoi l'environnement virtuel est-il créé sur chaque nœud alloué avec `srun`?",
+      "answer": "L'environnement virtuel est créé sur chaque nœud alloué (`srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF ... EOF`) pour s'assurer que Dedalus et ses dépendances sont disponibles et isolées sur toutes les ressources utilisées pour la tâche MPI."
     },
     {
-      "question": "Quelles sont les étapes générales pour préparer un script de soumission Dedalus en mode distribué?",
-      "answer": "Il faut charger les modules nécessaires, créer l'environnement virtuel sur chaque nœud alloué, activer l'environnement sur le nœud principal et utiliser `srun` pour lancer le script Python."
+      "question": "Comment soumettre une tâche Dedalus à l'ordonnanceur Slurm sur une grappe d'Alliance?",
+      "answer": "Après avoir préparé le script de soumission Slurm (par exemple, `submit-dedalus.sh`), la tâche est soumise en exécutant `sbatch submit-dedalus.sh`."
     },
     {
-      "question": "Quelle est la différence principale dans les directives SLURM entre le mode distribué et l'exécution sur des nœuds entiers pour Dedalus?",
-      "answer": "Pour le mode distribué, on utilise principalement `--ntasks`. Pour les nœuds entiers, on spécifie `--nodes` et `--ntasks-per-node`."
+      "question": "Quelle est la recommandation avant de soumettre un script Dedalus complexe à l'ordonnanceur Slurm?",
+      "answer": "Il est important de tester le script pour des erreurs possibles en faisant un test rapide avec une tâche interactive avant de le soumettre à l'ordonnanceur."
     },
     {
-      "question": "Comment soumettre une tâche Dedalus à l'ordonnanceur?",
-      "answer": "Il faut utiliser la commande `sbatch submit-dedalus.sh`."
-    },
-    {
-      "question": "Que devrait-on faire avant de soumettre une tâche Dedalus complexe à l'ordonnanceur?",
-      "answer": "Il est recommandé de tester le script pour des erreurs potentielles en exécutant une tâche interactive rapide."
+      "question": "Quelle est la signification de l'instruction `export OMP_NUM_THREADS=1` dans les scripts d'exécution de Dedalus?",
+      "answer": "L'instruction `export OMP_NUM_THREADS=1` garantit que chaque processus MPI utilise un seul thread OpenMP, ce qui est une pratique courante pour les applications MPI afin d'éviter la surallocation de threads et d'optimiser les performances."
     }
   ],
-  "generated_at": "2026-04-11T21:08:38.840539+00:00"
+  "generated_at": "2026-04-13T05:00:26.054385+00:00"
 }

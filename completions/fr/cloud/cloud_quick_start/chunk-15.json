@@ -4,61 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "Pourquoi est-ce que je dois autoriser le protocole RDP pour me connecter à mon instance Windows?",
-      "answer": "Pour pouvoir vous connecter à votre instance Windows à l'aide d'un client à distance, vous devez d'abord autoriser le protocole RDP."
+      "question": "Comment configurer le pare-feu pour permettre la connexion Bureau à distance (RDP) à une instance Windows dans OpenStack?",
+      "answer": "Pour autoriser le protocole RDP, vous devez aller dans \"Accès et Sécurité\" dans le menu de gauche. Sous l'onglet \"Groupes de sécurité\", sélectionnez le groupe \"default\" et cliquez sur le bouton \"Gérer les règles\". Ensuite, cliquez sur le bouton \"+Ajouter une règle\", sélectionnez la règle prédéfinie pour RDP et remplacez `0.0.0.0/0` dans le champ \"CIDR\" par votre adresse IP. Il est crucial de ne pas laisser `0.0.0.0/0` car cela rendrait votre instance vulnérable aux attaques par force brute et pourrait entraîner un blocage d'accès par l'administrateur."
     },
     {
-      "question": "Comment faire pour ajouter une règle de pare-feu qui autorise le protocole RDP pour mon instance Windows?",
-      "answer": "Pour ajouter une règle RDP, vous devez aller dans le menu de gauche, sélectionner « Accès et Sécurité », puis l'onglet « Groupes de sécurité ». Ensuite, sélectionnez le groupe « default » et cliquez sur « Gérer les règles ». Dans la fenêtre de gestion des règles, cliquez sur « +Ajouter une règle », sélectionnez la règle prédéfinie pour RDP, laissez « CIDR » dans le champ « Distant » et remplacez `0.0.0.0/0` par votre adresse IP dans le champ « CIDR ». Finalement, cliquez sur « Ajoutez »."
+      "question": "Comment récupérer le mot de passe d'une instance Windows après sa création dans l'environnement infonuagique?",
+      "answer": "Pour récupérer le mot de passe de votre instance Windows, naviguez vers le menu \"Instances\" dans la barre de gauche. Dans le menu déroulant de votre instance, sélectionnez \"Récupérer le mot de passe\". Le mot de passe a été crypté avec la clé publique sélectionnée lors de la création de l'instance. Pour le déchiffrer, vous devrez afficher le fichier où se trouve votre clé privée (le fichier .pem enregistré sur votre ordinateur) et cliquer sur \"Déchiffrer le mot de passe\"."
     },
     {
-      "question": "Où est-ce que je peux trouver mon adresse IP courante si je ne la connais pas?",
-      "answer": "Si vous ignorez votre adresse IP actuelle, vous pouvez l'obtenir en allant sur [http://ipv4.icanhazip.com ipv4.icanhazip.com] dans votre fureteur."
-    },
-    {
-      "question": "Pourquoi est-il risqué de laisser <code>0.0.0.0/0</code> dans le champ CIDR pour la règle RDP?",
-      "answer": "Laisser <code>0.0.0.0/0</code> permet à n'importe qui d'accéder à votre instance, ce qui la rend vulnérable aux attaques par force brute. De plus, l'administrateur de la ressource pourrait bloquer tout accès à votre instance si les règles de sécurité ne sont pas adéquates."
-    },
-    {
-      "question": "Que dois-je faire si je veux permettre à plusieurs adresses IP d'accéder à mon instance Windows via RDP?",
-      "answer": "Pour permettre l'accès à partir de plusieurs adresses IP, vous pouvez ajouter des règles individuelles pour chacune des adresses ou indiquer un groupe d'adresses en utilisant l'outil disponible à l'adresse [https://www.ipaddressguide.com/cidr]."
-    },
-    {
-      "question": "Quelles informations sont nécessaires pour me connecter à une instance Windows avec un client de connexion à distance?",
-      "answer": "Pour vous connecter à une instance Windows à l'aide d'un client de connexion à distance, vous avez besoin d'une adresse IP flottante, d'un nom d'utilisateur et d'un mot de passe."
-    },
-    {
-      "question": "Comment puis-je récupérer le mot de passe de mon instance Windows?",
-      "answer": "Pour récupérer le mot de passe, allez dans le menu de gauche, cliquez sur « Instances », puis sélectionnez « Récupérer le mot de passe » dans le menu déroulant de votre instance."
-    },
-    {
-      "question": "Comment décrypter le mot de passe de mon instance Windows après l'avoir récupéré?",
-      "answer": "Pour décrypter le mot de passe, vous devez localiser le fichier où se trouve votre clé privée (qui devrait avoir l'extension .pem) sur votre ordinateur, la sélectionner, puis cliquer sur « Déchiffrer le mot de passe »."
-    },
-    {
-      "question": "Le mot de passe de l'instance Windows est-il crypté?",
-      "answer": "Oui, le mot de passe a été crypté avec la clé publique que vous avez sélectionnée lors de la création de l'instance."
-    },
-    {
-      "question": "Quelle est l'importance du fichier de clé privée pour le mot de passe de l'instance Windows?",
-      "answer": "Le fichier de clé privée est essentiel, car il contient la clé privée correspondante à la clé publique utilisée pour crypter le mot de passe de votre instance Windows, et il sert à le décrypter."
-    },
-    {
-      "question": "Peut-on récupérer le mot de passe d'une instance Windows plusieurs fois?",
-      "answer": "Oui, vous pouvez répéter le processus de récupération du mot de passe autant de fois que nécessaire."
-    },
-    {
-      "question": "Où puis-je me procurer l'application de connexion Bureau à distance si je ne l'ai pas déjà sur mon ordinateur Windows?",
-      "answer": "Si votre version de Windows ne l'inclut pas par défaut, vous pouvez télécharger et installer gratuitement l'application de connexion Bureau à distance depuis le site de Microsoft à cette adresse : [https://www.microsoft.com/fr-ca/store/p/bureau-a-distance-microsoft/9wzdncrfj3ps]."
-    },
-    {
-      "question": "Quelles sont les étapes pour me connecter à une instance Windows via un client Bureau à distance?",
-      "answer": "Pour vous connecter, lancez l'application Bureau à distance. Entrez l'adresse IP publique de votre instance dans le champ « Ordinateur », puis votre « Nom d'utilisateur ». Cliquez sur « Connexion », et quand on vous le demande, entrez le mot de passe que vous avez récupéré précédemment et cliquez sur « OK »."
-    },
-    {
-      "question": "Est-ce normal de voir un message d'avertissement disant que l'identité de l'ordinateur distant ne peut pas être vérifiée lorsque je me connecte à mon instance Windows via Bureau à distance?",
-      "answer": "Oui, il est tout à fait normal de recevoir un message vous avisant que l'identité de l'ordinateur distant ne peut pas être vérifiée et vous demandant si vous voulez continuer. Vous devez répondre « Oui »."
+      "question": "Quelles sont les étapes pour se connecter à une instance Windows en utilisant le client Bureau à distance sur un ordinateur Windows?",
+      "answer": "Une fois que le pare-feu est configuré pour le protocole RDP et que vous avez récupéré le mot de passe, lancez l'application \"Connexion Bureau à distance\" sur votre ordinateur Windows. Dans le champ \"Ordinateur\", entrez l'adresse IP publique de votre instance et votre \"Nom d'utilisateur\". Cliquez ensuite sur le bouton \"Connexion\" et entrez le mot de passe précédemment récupéré quand on vous le demandera. Il est normal de recevoir un message sur l'identité de l'ordinateur distant; vous pouvez répondre \"Oui\" pour poursuivre la connexion."
     }
   ],
-  "generated_at": "2026-04-11T19:54:07.990698+00:00"
+  "generated_at": "2026-04-13T04:04:23.928058+00:00"
 }

@@ -4,109 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Why is it important for jobs to efficiently use assigned resources?",
-      "answer": "Ensuring that your jobs make efficient use of the resources assigned to them is an important part of being a responsible user, particularly when using a new program or making substantial changes to a job's work."
+      "question": "How can users view their own currently running or pending Slurm jobs, and how can they get detailed information for a specific job?",
+      "answer": "Users can view their own jobs using `squeue -u $USER` or the `sq` utility. To filter by state, they can use `squeue -u <username> -t RUNNING` for running jobs or `squeue -u <username> -t PENDING` for pending jobs. For detailed information on a specific job, the `scontrol show job -dd <jobid>` command is used."
     },
     {
-      "question": "What is the purpose of this page regarding job efficiency?",
-      "answer": "This page describes various methods for evaluating the efficiency of jobs, covering both currently running and completed jobs."
+      "question": "What commands can users employ to evaluate the efficiency and retrieve detailed information for a completed Slurm job?",
+      "answer": "Users can get a short summary of CPU and memory efficiency for a completed job with `seff <jobid>`. For more detailed information about a completed job, including customizable output, they can use `sacct -j <jobid>`, optionally with the `--format` option (e.g., `sacct -j <jobid> --format=JobID,JobName,MaxRSS,Elapsed`)."
     },
     {
-      "question": "What information does the `squeue` command display by default?",
-      "answer": "By default, `squeue` will show all the jobs the scheduler is managing at the moment."
-    },
-    {
-      "question": "How can I speed up the `squeue` command when checking my jobs?",
-      "answer": "You can make `squeue` run much faster if you ask only about your own jobs with `squeue -u $USER`."
-    },
-    {
-      "question": "Is there a shorter command to check my own jobs than `squeue -u $USER`?",
-      "answer": "Yes, you can use the utility `sq` to do the same thing with less typing."
-    },
-    {
-      "question": "How do I display only running jobs using `squeue`?",
-      "answer": "You can show only running jobs using the command `squeue -u <username> -t RUNNING`."
-    },
-    {
-      "question": "How do I display only pending jobs using `squeue`?",
-      "answer": "You can show only pending jobs using the command `squeue -u <username> -t PENDING`."
-    },
-    {
-      "question": "What command allows me to view detailed information for a specific job?",
-      "answer": "You can show detailed information for a specific job with `scontrol show job -dd <jobid>`."
-    },
-    {
-      "question": "Should I run `squeue` frequently from a script or program?",
-      "answer": "No, you should not run `squeue` from a script or program at high frequency (e.g., every few seconds) because it adds load to Slurm and may interfere with its performance or correct operation."
-    },
-    {
-      "question": "How can I set up email notifications for my job's conditions?",
-      "answer": "You can ask to be notified by email of certain job conditions by supplying options to `sbatch`, such as `#SBATCH --mail-user=your.email@example.com` and `#SBATCH --mail-type=ALL`."
-    },
-    {
-      "question": "Where can I find a complete list of `sbatch` options for email notification?",
-      "answer": "For a complete list of the options, you can see SchedMD's documentation, specifically for `--mail-type`."
-    },
-    {
-      "question": "What is output buffering in the context of non-interactive Slurm jobs?",
-      "answer": "Output from a non-interactive Slurm job is normally buffered, which means there's usually a delay between when data is written by the job and when you can see the output on a login node."
-    },
-    {
-      "question": "What factors can affect the delay in seeing output from a buffered Slurm job?",
-      "answer": "The delay can depend on the application you are running and the load on the filesystem."
-    },
-    {
-      "question": "How long can the delay caused by output buffering last?",
-      "answer": "This delay can range from less than a second to many minutes, or until the job completes."
-    },
-    {
-      "question": "Is it recommended to disable or reduce output buffering for Slurm jobs?",
-      "answer": "No, it is not recommended to reduce or eliminate buffering because it is vital to preserving the overall performance of the filesystem."
-    },
-    {
-      "question": "What is the recommended approach for monitoring job output in real time?",
-      "answer": "If you need to monitor the output from a job in real time, it is recommended you run an interactive job."
-    },
-    {
-      "question": "What command provides a summary of CPU and memory efficiency for a completed job?",
-      "answer": "You can get a short summary of the CPU and memory efficiency of a job with `seff`."
-    },
-    {
-      "question": "How can I obtain more detailed information about a completed job?",
-      "answer": "You can find more detailed information about a completed job with `sacct`, and optionally, control what it prints using `--format`."
-    },
-    {
-      "question": "What does the `.bat+` record in `sacct` output typically signify?",
-      "answer": "The batch step (`.bat+`) is your submission script; for many jobs, that's where the main part of the work is done and where the resources are consumed."
-    },
-    {
-      "question": "What creates a `.0` step in `sacct` output, and what does it do?",
-      "answer": "If you use `srun` in your submission script, that would create a `.0` step that would consume most of the resources."
-    },
-    {
-      "question": "What is the purpose of the `.ext+` step in `sacct` output?",
-      "answer": "The extern (`.ext+`) step is basically prologue and epilogue and normally doesn't consume any significant resources."
-    },
-    {
-      "question": "If a job is restarted after a node failure, which record will `sacct` typically show?",
-      "answer": "`sacct` will normally show you only the record for the last (presumably successful) run."
-    },
-    {
-      "question": "How can I see all records for a job, including those from previous runs if it was restarted?",
-      "answer": "If you wish to see all records related to a given job, including restarts, add the `--duplicates` option to `sacct`."
-    },
-    {
-      "question": "Which `sacct` accounting field should I use to determine a job's memory requirements?",
-      "answer": "Use the `MaxRSS` accounting field to determine how much memory a job needed."
-    },
-    {
-      "question": "What does the `MaxRSS` value represent for a job?",
-      "answer": "The `MaxRSS` value returned will be the largest resident set size for any of the tasks within the job."
-    },
-    {
-      "question": "How can I identify the specific task and node where the `MaxRSS` occurred?",
-      "answer": "If you want to know which task and node this occurred on, print the `MaxRSSTask` and `MaxRSSNode` fields along with `MaxRSS`."
+      "question": "What is output buffering in non-interactive Slurm jobs, and why is it generally not recommended to disable it for real-time monitoring?",
+      "answer": "Output buffering refers to a delay between when data is written by a non-interactive Slurm job and when it can be seen on a login node. This buffering is crucial for preserving the overall performance of the filesystem, so reducing or eliminating it is not recommended. For real-time monitoring of job output, running an interactive job is advised instead."
     }
   ],
-  "generated_at": "2026-04-12T03:13:18.832052+00:00"
+  "generated_at": "2026-04-13T09:31:58.313765+00:00"
 }

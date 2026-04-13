@@ -4,13 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is a common reason for Apptainer jobs to be terminated on HPC clusters?",
-      "answer": "Apptainer jobs can be terminated because they consume too much RAM relative to what was requested for the job, especially since temporary filesystems like `/tmp` often use RAM instead of disk space."
+      "question": "Why might Apptainer jobs on compute clusters be terminated due to excessive RAM consumption?",
+      "answer": "Apptainer jobs can be terminated if they consume too much RAM, which often occurs because default working directories like `/tmp` on compute clusters typically utilize RAM instead of disk space. This can cause jobs to exceed their requested memory limits."
     },
     {
-      "question": "How can users prevent Apptainer jobs from being killed due to excessive RAM usage related to temporary files?",
-      "answer": "To prevent jobs from being killed due to high RAM consumption from temporary files, users should tell Apptainer to use a real disk location for its working directory. This is done by passing the `-W` or `--workdir` option followed by a path to a disk location where Apptainer can read and write temporary files."
+      "question": "How can users prevent Apptainer jobs from being killed due to high RAM usage by specifying an alternative working directory?",
+      "answer": "Users can prevent Apptainer jobs from being killed due to high RAM usage by using the `-W` or `--workdir` command-line option. This option allows them to specify a real disk location where Apptainer can read/write temporary files, rather than using RAM-based filesystems."
+    },
+    {
+      "question": "When running Apptainer on Alliance clusters in an `salloc`, `sbatch` job, or via JupyterHub, what specific variable should be used for the working directory location?",
+      "answer": "When running Apptainer in an `salloc` or `sbatch` job, or when using JupyterHub on Alliance clusters, users should specify `${SLURM_TMPDIR}` for the working directory location with the `-W` option, for example: `-W ${SLURM_TMPDIR}`."
     }
   ],
-  "generated_at": "2026-04-12T19:19:58.543498+00:00"
+  "generated_at": "2026-04-13T02:13:57.517264+00:00"
 }

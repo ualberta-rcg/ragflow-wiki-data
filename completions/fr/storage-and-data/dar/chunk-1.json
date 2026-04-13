@@ -4,73 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi, l'utilitaire `dar`?",
-      "answer": "`dar` (pour 'Disk ARchive') est un utilitaire open source qui a été conçu pour remplacer l'outil Unix `tar`. Il peut être compilé par tout système de type Unix et est maintenu activement depuis 2002."
+      "question": "C'est quoi l'utilitaire `dar` pis c'est quoi ses avantages par rapport à `tar` sur les systèmes de type Unix?",
+      "answer": "L'utilitaire `dar` (pour 'Disk ARchive') a été conçu pour remplacer `tar` sur les systèmes de type Unix. Il offre plusieurs avantages importants, comme un accès aux fichiers et une restauration des données plus rapides grâce à un index intégré dans chaque archive. Il compresse chaque fichier séparément, ce qui assure une meilleure résilience en cas de corruption de données. Parmi ses autres fonctionnalités, on trouve le chiffrement robuste, la capacité de découper une archive en tranches et la gestion d'attributs étendus."
     },
     {
-      "question": "Quels types de sauvegardes `dar` permet-il de faire?",
-      "answer": "`dar` permet de faire des sauvegardes complètes, différentielles et incrémentales, comme `tar`."
+      "question": "Comment qu'on fait pour trouver pis utiliser l'utilitaire `dar` sur les grappes de calcul de Calcul Canada, mettons avec `StdEnv/2020`?",
+      "answer": "Sur les grappes de Calcul Canada, l'utilitaire `dar` est disponible sous `/cvmfs`. Pour l'utiliser, surtout avec l'environnement `StdEnv/2020`, tu peux vérifier son chemin d'accès en tapant `which dar` dans ton terminal, ce qui devrait te donner `/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/dar`."
     },
     {
-      "question": "Quel est un avantage majeur de `dar` par rapport à `tar` pour les archives volumineuses?",
-      "answer": "Pour les archives volumineuses, `dar` est plus rapide que `tar` pour l'accès aux fichiers et la restauration des données, car chacune des archives `dar` contient un index des fichiers."
-    },
-    {
-      "question": "Comment `dar` gère-t-il la compression des fichiers pour assurer la résilience?",
-      "answer": "`dar` compresse chacun des fichiers séparément, ce qui offre plus de résilience en cas de corruption de données. Il est aussi possible d'éviter la compression de fichiers déjà fortement compressés comme les `mp4` ou `gz`."
-    },
-    {
-      "question": "Nommez au moins trois fonctionnalités utiles de `dar`.",
-      "answer": "Parmi ses fonctionnalités utiles, `dar` offre le chiffrement robuste, le découpage d'une archive en tranches de différentes tailles (jusqu'à un octet), la gestion d'attributs étendus, de fichiers épars, de liens physiques et symboliques, et la détection de corruption de données avec récupération."
-    },
-    {
-      "question": "Où est-ce qu'on peut trouver l'utilitaire `dar` sur les grappes de calcul?",
-      "answer": "Sur nos grappes, `dar` est disponible sur `/cvmfs`."
-    },
-    {
-      "question": "Comment vérifier la version de `dar` avec l'environnement `StdEnv/2020`?",
-      "answer": "Pour vérifier la version, après avoir configuré `StdEnv/2020`, vous pouvez utiliser la commande `dar --version`. L'exemple indique `dar version 2.5.11`."
-    },
-    {
-      "question": "Quelle commande faut-il utiliser pour créer une archive de base d'un sous-répertoire nommé `test` dans le répertoire courant?",
-      "answer": "La commande à utiliser est `dar -w -c all -g test`. Un fichier archive `all.1.dar` sera créé."
-    },
-    {
-      "question": "Dans le nom de fichier `all.1.dar`, que signifient `all` et `1`?",
-      "answer": "`all` est le nom de base de l'archive, et `1` est le numéro de la tranche. Une archive peut être divisée en plusieurs tranches."
-    },
-    {
-      "question": "Comment inclure plusieurs répertoires et fichiers dans une seule archive `dar`?",
-      "answer": "Pour inclure plusieurs répertoires et fichiers, vous pouvez utiliser plusieurs indicateurs `-g`, par exemple: `dar -w -c all -g testDir1 -g testDir2 -g file1 -g file2`."
-    },
-    {
-      "question": "Quelle est la contrainte concernant les chemins des éléments à archiver avec `dar`?",
-      "answer": "Tous les chemins des éléments à archiver doivent être reliés au répertoire courant."
-    },
-    {
-      "question": "Comment faire pour lister le contenu d'une archive `dar`?",
-      "answer": "Pour lister le contenu d'une archive, utilisez la commande `dar -l` suivie uniquement du nom de base de l'archive, par exemple `dar -l all`."
-    },
-    {
-      "question": "Quelle est la commande pour extraire un fichier spécifique, par exemple `test/filename`, dans un sous-répertoire `restore`?",
-      "answer": "La commande pour extraire un fichier spécifique est `dar -R restore/ -O -w -x all -v -g test/filename`."
-    },
-    {
-      "question": "À quoi sert l'indicateur `-O` lors de l'extraction de fichiers avec `dar`?",
-      "answer": "L'indicateur `-O` permet de faire abstraction de la propriété des fichiers. Il est utile si vous restaurez des fichiers qui ne vous appartiennent pas sans être administrateur, ou pour éviter les messages de confirmation lorsque vous restaurez vos propres fichiers."
-    },
-    {
-      "question": "Quand est-ce qu'on utilise l'indicateur `-w` lors d'une extraction avec `dar`?",
-      "answer": "L'indicateur `-w` est utilisé pour désactiver les avertissements si le répertoire de destination (par exemple `restore/test`) existe déjà."
-    },
-    {
-      "question": "Comment extraire un répertoire entier, comme `test`, dans un sous-répertoire `restore`?",
-      "answer": "Pour extraire un répertoire entier, la commande est `dar -R restore/ -O -w -x all -v -g test`."
-    },
-    {
-      "question": "Est-ce que `dar` supporte les masques inverses (wildcard masks) Unix après l'indicateur `-g`?",
-      "answer": "Non, `dar` n'accepte pas les masques inverses (wildcard masks) Unix après l'indicateur `-g`."
+      "question": "Comment créer une archive de base avec l'utilitaire `dar` pour un sous-répertoire, pis comment inclure plusieurs répertoires ou fichiers dans une seule archive?",
+      "answer": "Pour créer une archive de base à partir d'un sous-répertoire comme `test` dans ton répertoire courant, tu peux utiliser la commande `dar -w -c all -g test`. Ça va créer un fichier d'archive nommé `all.1.dar`. Si tu veux inclure plusieurs répertoires ou fichiers dans la même archive, il suffit de répéter l'indicateur `-g` pour chacun d'entre eux, par exemple `dar -w -c all -g testDir1 -g testDir2 -g file1 -g file2`. Faut juste que tous les chemins soient reliés au répertoire courant."
     }
   ],
-  "generated_at": "2026-04-11T20:46:41.427870+00:00"
+  "generated_at": "2026-04-13T04:44:44.803944+00:00"
 }

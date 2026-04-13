@@ -4,57 +4,17 @@
   "chunk_index": 43,
   "qa_pairs": [
     {
-      "question": "How do I load the Ansys AdditiveWizard extension for both current and future Workbench sessions?",
-      "answer": "To load the AdditiveWizard extension for current and future sessions, click to highlight the AdditiveWizard box, then click the lower right corner arrow in the box and select 'Load extension'."
+      "question": "How do you load the Ansys Additive Manufacturing ACT extension to be available for current and future sessions on an Alliance cluster?",
+      "answer": "To load the Ansys AdditiveWizard extension for current and future sessions, click the lower right corner arrow in the AdditiveWizard box within the Extension Manager and select 'Load extension'."
     },
     {
-      "question": "How can I unload the Ansys AdditiveWizard extension so it doesn't load in future Workbench sessions?",
-      "answer": "To prevent the AdditiveWizard extension from loading in future sessions, click to un-highlight the AdditiveWizard box, then click the lower right corner arrow in the box and select 'Do not load as default'."
+      "question": "What are the essential preparation steps for submitting a new Ansys Additive project to a cluster queue?",
+      "answer": "Before submitting a newly uploaded Additive project to a cluster queue, open the simulation with the Workbench GUI in the job's submission directory, save it using the same Ansys module version that will be used for the job, create a Slurm script (changing `Update()` to `UpdateAllDesignPoints()` for parametric studies), and determine optimal cores and memory by submitting several short test jobs. To avoid overwriting the initialized solution between test runs, either change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the Slurm script or save a copy of the original project file and its corresponding `_files` directory."
     },
     {
-      "question": "What are the steps to run an Ansys Additive Manufacturing job on gra-vdi?",
-      "answer": "To run an Ansys Additive Manufacturing job on gra-vdi, first start Workbench as described in the 'Enable Additive' section. Then, open your 'test.wbpj' project file, reset the workspace (if needed), start Mechanical, clear generated data, tick 'Distributed', specify cores, and finally click 'File -> Save Project -> Solve'."
-    },
-    {
-      "question": "What is the maximum number of cores that can be used for an Ansys Additive Manufacturing job on gra-vdi?",
-      "answer": "A single Ansys Additive Manufacturing job on gra-vdi can use up to 16 cores."
-    },
-    {
-      "question": "How do I check the resource utilization of an Ansys Additive Manufacturing job running on gra-vdi?",
-      "answer": "You can check resource utilization by opening another terminal and running either `top -u $USER` or `ps u -u $USER | grep ansys`."
-    },
-    {
-      "question": "How can I terminate rogue Ansys processes from previous runs on gra-vdi?",
-      "answer": "To kill rogue processes on gra-vdi, you can issue the command `pkill -9 -e -u $USER -f \"ansys|mwrpcss|mwfwrapper|ENGINE\"` in a terminal window."
-    },
-    {
-      "question": "What issues can rogue Ansys processes cause on gra-vdi?",
-      "answer": "Rogue processes can persistently tie up licenses between gra-vdi login sessions or cause other unusual errors when trying to start GUI programs. They might not be killable until normal disk access is restored if a hung filesystem is to blame."
-    },
-    {
-      "question": "What preparations are required before submitting an Ansys Additive project to a cluster queue?",
-      "answer": "Before submission, open your simulation with the Workbench GUI in the job's submission directory using the same Ansys module version, then save it again. You'll also need to create a Slurm script."
-    },
-    {
-      "question": "How do I configure a Slurm script for Ansys Additive to perform parametric studies?",
-      "answer": "To perform parametric studies, change `Update()` to `UpdateAllDesignPoints()` in your Slurm script."
-    },
-    {
-      "question": "What steps can I take to avoid manually clearing solutions and recreating design points in Workbench between test runs on a cluster?",
-      "answer": "To avoid manual clearing and recreation, either change `Save(Overwrite=True)` to `Save(Overwrite=False)` in your Slurm script, or save a copy of your original project file (`YOURPROJECT.wbpj`) and its corresponding `YOURPROJECT_files` directory."
-    },
-    {
-      "question": "Can a single replay file be used for Ansys Additive jobs in different directories on a cluster?",
-      "answer": "Yes, a single replay file can be used in different directories by opening it in a text editor and changing the internal `FilePath` setting."
-    },
-    {
-      "question": "How can I get a snapshot of an Ansys Additive job's resource utilization on compute nodes after it has started on a cluster?",
-      "answer": "Once your job has been running for a few minutes, you can obtain a snapshot of its resource utilization using the `srun --overlap --jobid=myjobid top -bn1 -u $USER | grep R | grep -v top` command."
-    },
-    {
-      "question": "How can I determine the optimal number of cores for Ansys Additive jobs through scaling tests?",
-      "answer": "After a job completes, get its 'Job Wall-clock time' using `seff myjobid`. Perform scaling tests by submitting short test jobs with an increasing number of cores. If the Wall-clock time decreases by approximately 50% when cores are doubled, consider using additional cores."
+      "question": "How can a user monitor the resource utilization of an Ansys Additive job running on a cluster?",
+      "answer": "Once an Ansys Additive job has been running for a few minutes on a compute node(s), a snapshot of its resource utilization can be obtained by running the `srun --overlap --jobid=myjobid top -bn1 -u $USER | grep R | grep -v top` command."
     }
   ],
-  "generated_at": "2026-04-12T16:54:48.413675+00:00"
+  "generated_at": "2026-04-13T01:54:04.562780+00:00"
 }

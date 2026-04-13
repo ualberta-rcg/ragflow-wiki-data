@@ -4,69 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "Comment puis-je me connecter au serveur VNC avec TigerVNC Viewer sur macOS ou Windows sans utiliser la ligne de commande?",
-      "answer": "Sur macOS ou Windows, vous pouvez cliquer sur l'icône de l'application *TigerVNC Viewer* et ensuite entrer l'information sur le `localhost:port` dans la boîte de dialogue *VNC Viewer: Connexion détails*."
+      "question": "Après avoir établi un tunnel SSH, comment se connecter à un serveur VNC avec TigerVNC Viewer sur un ordinateur Windows ou macOS, et comment lancer des applications une fois connecté à l'environnement de bureau MATE?",
+      "answer": "Pour se connecter avec TigerVNC Viewer sur Windows ou macOS, il faut lancer l'application et entrer `localhost:port` dans la boîte de dialogue des détails de connexion. Une fois connecté, un bureau Linux MATE s'affiche. Pour démarrer un terminal, on clique sur `Applications -> System Tools -> MATE Terminal`. Pour lancer des programmes, comme `xclock` ou MATLAB, on utilise la commande habituelle dans le terminal MATE après avoir chargé le module approprié pour MATLAB."
     },
     {
-      "question": "Quel est le port VNC par défaut utilisé par TigerVNC Viewer?",
-      "answer": "Le port VNC par défaut utilisé par TigerVNC Viewer est 5900."
+      "question": "Si on a besoin de réinitialiser ou de modifier le mot de passe d'un serveur VNC, quelles sont les étapes à suivre?",
+      "answer": "Pour réinitialiser le mot de passe d'un serveur VNC, on utilise la commande `vncpasswd` dans le terminal et on suit les instructions. On peut aussi supprimer complètement le répertoire `~/.vnc` de son compte, ce qui forcera une nouvelle définition du mot de passe la prochaine fois qu'on lancera `vncserver`."
     },
     {
-      "question": "Si j'ai configuré un tunnel SSH sur le port local 5900, quelle information dois-je entrer pour me connecter à mon serveur VNC avec TigerVNC Viewer?",
-      "answer": "Si vous avez spécifié 5900 comme port local à transférer au démarrage de votre tunnel SSH, vous pourriez simplement spécifier `localhost` pour vous connecter."
-    },
-    {
-      "question": "Est-ce qu'il peut y avoir des problèmes pour configurer un tunnel SSH sur le port local 5900 sous Windows?",
-      "answer": "Oui, sous Windows, il est possible que vous ne puissiez pas configurer un tunnel SSH sur le port local 5900."
-    },
-    {
-      "question": "Quel type de bureau Linux s'affiche une fois que `vncviewer` est connecté?",
-      "answer": "Une fois que `vncviewer` est connecté, un bureau Linux MATE s'affichera."
-    },
-    {
-      "question": "Comment puis-je lancer un terminal sur le bureau Linux MATE?",
-      "answer": "Pour lancer un terminal sur le bureau Linux MATE, vous devez cliquer sur \"Applications -> System Tools -> MATE Terminal\" dans le menu du haut."
-    },
-    {
-      "question": "Comment puis-je ajouter un raccourci pour le terminal MATE au menu supérieur?",
-      "answer": "Pour ajouter un raccourci au menu supérieur, faites un clic droit sur \"MATE Terminal\" et cliquez sur \"Add this launcher to panel\"."
-    },
-    {
-      "question": "Comment lancer un programme comme MATLAB sur le bureau VNC?",
-      "answer": "Pour lancer un programme complexe comme MATLAB, il faut d'abord charger le module, puis exécuter la commande `matlab`. Pour des programmes plus simples, utilisez la commande comme vous le feriez normalement dans une session `bash`, par exemple `xclock`."
-    },
-    {
-      "question": "Quelle commande dois-je utiliser pour réinitialiser mon mot de passe VNC?",
-      "answer": "Pour réinitialiser votre mot de passe VNC, utilisez la commande `vncpasswd`."
-    },
-    {
-      "question": "Comment puis-je supprimer complètement ma configuration VNC, incluant mon mot de passe?",
-      "answer": "Vous pouvez supprimer définitivement votre configuration VNC, y compris votre mot de passe, en supprimant votre répertoire `~/.vnc`. La prochaine fois que vous lancerez `vncserver`, une invite vous demandera de définir un nouveau mot de passe."
-    },
-    {
-      "question": "Comment faire pour tuer un vncserver spécifique qui n'est plus utile?",
-      "answer": "Si un vncserver actif n'est plus nécessaire, tuez-le avec la commande `vncserver -kill :DISPLAY#`, en remplaçant `#` par le numéro d'affichage approprié. Par exemple, `vncserver -kill :44`."
-    },
-    {
-      "question": "Comment puis-je lister tous les vncservers actifs sous mon nom d'utilisateur?",
-      "answer": "Tous les vncservers exécutés sous votre nom d'utilisateur peuvent être listés avec la commande `vncserver -list`."
-    },
-    {
-      "question": "Y a-t-il une commande pour tuer tous les vncservers actifs en même temps pour un utilisateur sur un nœud?",
-      "answer": "Oui, pour tuer tous les vncservers actifs du même coup pour un utilisateur sur un nœud, utilisez la commande `pkill Xvnc -u $USER`."
-    },
-    {
-      "question": "Qu'est-ce qui permet d'établir plusieurs connexions à un même vncserver?",
-      "answer": "Si un vncserver a été démarré avec l'option supplémentaire `-AlwaysShared`, plusieurs connexions peuvent être établies en créant un nouveau tunnel et un nouveau vncviewer à partir de n'importe quel emplacement distant."
-    },
-    {
-      "question": "Quel est l'avantage de démarrer un vncserver avec l'option `-AlwaysShared` pour des connexions multiples?",
-      "answer": "Démarrer un vncserver avec l'option `-AlwaysShared` permet de laisser vncviewer actif sur un ordinateur au bureau et de se reconnecter depuis chez soi pour accéder à la même session. Cela permet de continuer à travailler de manière transparente avec les mêmes applications sans avoir à les fermer."
-    },
-    {
-      "question": "Que se passe-t-il si un vncserver n'a pas été démarré avec l'option `-AlwaysShared` et que j'essaie de me reconnecter à la session depuis un autre endroit?",
-      "answer": "Si un vncserver n'a pas été démarré avec `-AlwaysShared`, une seule connexion vncviewer est possible. Avant de quitter le bureau, vous devrez fermer toutes les applications et le vncserver. Une fois à la maison, il faudra créer un nouveau bureau et ouvrir les applications pour poursuivre votre travail."
+      "question": "Comment peut-on arrêter ou « tuer » une session de serveur VNC active sur une grappe, que ce soit une session spécifique ou toutes les sessions de l'utilisateur?",
+      "answer": "Pour mettre fin à une session VNC spécifique, on utilise la commande `vncserver -kill :DISPLAY#`, en remplaçant `#` par le numéro d'affichage de la session (qu'on peut trouver avec `vncserver -list`). Si on veut tuer tous les vncservers actifs sous son nom d'utilisateur sur un nœud, on peut employer la commande `pkill Xvnc -u $USER`."
     }
   ],
-  "generated_at": "2026-04-12T10:55:38.922067+00:00"
+  "generated_at": "2026-04-13T15:51:42.894034+00:00"
 }

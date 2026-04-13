@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How can I install an R package for a specific R version in a local directory on a high-performance computing cluster?",
-      "answer": "To install an R package for a specific R version, first create a local library directory with `mkdir -p ~/.local/R/$EBVERSIONR/` and then set the `R_LIBS` environment variable using `export R_LIBS=~/.local/R/$EBVERSIONR/`. You can then install the package with `R -e 'install.packages(\"sp\", repos=\"https://cloud.r-project.org/\")'`. It's crucial to also load the desired R module and set the `R_LIBS` environment variable in any subsequent job submission scripts."
+      "question": "How do you install R packages for a specific R version into a local directory on the cluster?",
+      "answer": "To install R packages for a specific R version into a local directory, first create the directory (e.g., `mkdir -p ~/.local/R/$EBVERSIONR/`) and set the `R_LIBS` environment variable to this path (e.g., `export R_LIBS=~/.local/R/$EBVERSIONR/`). Then, you can install packages using a command like `R -e 'install.packages(\"sp\", repos=\"https://cloud.r-project.org/\")'`. Remember to load the appropriate R module and set the `R_LIBS` environment variable in your job submission scripts."
     },
     {
-      "question": "How do I pass parameters or arguments to an R script when running it from the command line on a cluster?",
-      "answer": "You can pass parameters to an R script by appending them as arguments after the script name when using `Rscript`, for example: `Rscript myscript.R input_1.csv 5`. Inside your R script, you can retrieve these arguments using `args = commandArgs(trailingOnly=TRUE)`. The first argument would be `args[1]`, the second `args[2]`, and so on."
+      "question": "How can users pass parameters to R scripts when running them on a cluster to avoid modifying the script for each job?",
+      "answer": "Users can pass parameters as command-line arguments to R scripts by executing them with `Rscript`. For example, `Rscript myscript.R input_1.csv 5` would pass 'input_1.csv' and '5' as arguments. Inside the R script, these arguments can be accessed using the `commandArgs(trailingOnly=TRUE)` function."
     },
     {
-      "question": "What are the recommended initial steps to optimize R code for parallel execution on a supercomputer, prior to parallelization efforts?",
-      "answer": "Before investing time in parallelizing R code on a supercomputer, ensure that your serial implementation is as efficient as possible. As R is an interpreted language, loops (especially nested ones) are a significant performance bottleneck. Whenever feasible, use vectorized forms of R functions and more functional elements like the `apply` family of functions and `ifelse` to achieve better performance gains by eliminating loops altogether."
+      "question": "What is the key advice for optimizing R code for performance on supercomputers before attempting to parallelize it?",
+      "answer": "Before parallelizing R code, it's essential to ensure that the serial implementation is as efficient as possible. Since R is an interpreted language, the use of loops, especially nested loops, can be a major performance bottleneck. It is highly recommended to use vectorized forms of R functions and more functional elements, such as the `apply` family of functions and the `ifelse` function, as these often provide significant performance gains by eliminating loops altogether."
     }
   ],
-  "generated_at": "2026-04-12T20:50:20.519622+00:00"
+  "generated_at": "2026-04-13T12:06:19.684936+00:00"
 }

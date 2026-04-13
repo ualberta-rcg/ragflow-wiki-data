@@ -3,65 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is EasyBuild used for on high-performance computing systems?",
-      "answer": "EasyBuild is a tool for building, installing, and maintaining software on high-performance computing systems."
+      "question": "What is EasyBuild used for on Alliance clusters?",
+      "answer": "EasyBuild is a tool used for building, installing, and maintaining software on high-performance computing systems, particularly for the software repository, CVMFS."
     },
     {
-      "question": "What is a key feature of EasyBuild regarding software availability in a user's session?",
-      "answer": "A key feature is that EasyBuild automatically generates environment modules which can be used to make a software package available in your session."
+      "question": "How does EasyBuild make software available in a user's session?",
+      "answer": "EasyBuild automatically generates environment modules which, when loaded, define standard Linux environment variables like PATH, CPATH, and LIBRARY_PATH, making the software package available."
     },
     {
-      "question": "Which two EasyBuild-specific environment variables are particularly useful for users and what do they contain?",
-      "answer": "The two variables are `EBROOT<name>`, containing the full path to the software installation, and `EBVERSION<name>`, containing the full version of the loaded software."
+      "question": "What are the two EasyBuild-specific environment variables of interest to users, and what do they contain?",
+      "answer": "The two EasyBuild-specific environment variables are `EBROOT<name>`, containing the full path to the software's installation, and `EBVERSION<name>`, containing the full version of the loaded software."
     },
     {
-      "question": "Where can users find the installation recipe and a detailed log for an EasyBuild-installed software package?",
-      "answer": "The installation recipe and detailed log are accessible in the `$EBROOT<name>/easybuild` directory within the software's installation location."
+      "question": "Where can users find the installation recipe and detailed log for a software package installed with EasyBuild?",
+      "answer": "Users can find the installation recipe and detailed log inside the software's installation directory, specifically within the `$EBROOT<name>/easybuild` directory."
     },
     {
-      "question": "When is it generally preferable to ask technical support to install software centrally instead of using EasyBuild in your own account?",
-      "answer": "It is preferable for central installation to ensure software is available on all clusters, avoid using your quota, and prevent undue load on parallel filesystems."
+      "question": "When is it generally recommended to ask technical support to install software centrally rather than installing it in a personal account using EasyBuild on Alliance clusters?",
+      "answer": "It is generally preferable to ask technical support for central installation because it ensures software availability on all clusters, avoids using personal quota, and prevents undue load on parallel filesystems."
     },
     {
-      "question": "Name two specific use cases where a user might want to install software using EasyBuild in their own account.",
-      "answer": "Users may want to install software in their own account if they need a custom/modified build, a nightly build, or if central installation is not permitted due to licensing reasons like for VASP or Materials Studio."
+      "question": "What are some specific scenarios where a user might want to install software using EasyBuild in their own account?",
+      "answer": "Users might install software in their own account if they need a custom or modified build, a nightly build or a version without a release number, or if central installation is restricted by licensing for commercial software like VASP or Materials Studio."
     },
     {
-      "question": "What is an EasyBuild recipe also referred to as?",
-      "answer": "An EasyBuild recipe is also known as an EasyConfig file."
+      "question": "What are EasyBuild recipes, also known as EasyConfig files, and how are they typically named?",
+      "answer": "EasyBuild recipes, or EasyConfig files, are text files containing information needed to build software in a specific environment, named as `<name>-<version>-<toolchain name>-<toolchain version>.eb`."
     },
     {
-      "question": "What naming convention do EasyBuild recipe files follow?",
-      "answer": "Recipe files are named `\\<name\\>-\\ <version\\>-\\ <toolchain name\\>-\\ <toolchain version\\>.eb`."
+      "question": "What is the most reliable way to find a working EasyBuild recipe for installing software on Alliance clusters?",
+      "answer": "The most reliable way to find a working EasyBuild recipe is to start from one of the recipes that has been centrally installed, which can be found in the installation folder or in the `/cvmfs/soft.computecanada.ca/easybuild/ebfiles_repo/$EBVERSIONGENTOO` directory."
     },
     {
-      "question": "Where can users find reliable EasyBuild recipes to start with?",
-      "answer": "Reliable recipes can be found in the installation folder of existing software, or in the `/cvmfs/soft.computecanada.ca/easybuild/ebfiles_repo/$EBVERSIONGENTOO` directory."
+      "question": "In the context of EasyBuild, what is a toolchain?",
+      "answer": "A toolchain is a combination of a compiler, an MPI implementation, a CUDA version, and mathematical libraries, which are used to compile software packages."
     },
     {
-      "question": "What components typically make up an EasyBuild toolchain?",
-      "answer": "A toolchain is a combination of a compiler, an MPI implementation, a CUDA version, and mathematical libraries used for compiling software."
+      "question": "How does one install a software package using EasyBuild after finding and potentially modifying a recipe?",
+      "answer": "After finding and modifying a recipe, a user can install the software by running the command `eb <recipe.eb>`, which installs it into `$HOME/.local/easybuild`."
     },
     {
-      "question": "What is the command to install a software package using a copied EasyBuild recipe?",
-      "answer": "The command to install a software package is `eb <recipe.eb>`."
+      "question": "What command should be used if a user needs to reinstall an existing software version locally with modified parameters, even if that version is already installed centrally?",
+      "answer": "To reinstall an existing version locally with modified parameters, even if it's centrally installed, the user should use the command `eb <recipe.eb> --force`."
     },
     {
-      "question": "Where does EasyBuild install software by default when a user runs the installation command?",
-      "answer": "EasyBuild installs the software in the user's home directory, specifically in `$HOME/.local/easybuild`."
+      "question": "How can a user install a software package with EasyBuild to a location other than their home directory, such as a project directory?",
+      "answer": "To install a software package to a different location, such as a project directory, a user can use the command `eb <recipe.eb> --installpath /path/to/your/project/easybuild`."
     },
     {
-      "question": "How do you reinstall a locally modified version of a software package that already exists centrally?",
-      "answer": "To reinstall an existing version with modified parameters, you must use the command `eb <recipe.eb> --force`."
+      "question": "After installing software to a custom location using EasyBuild, how can a user make the associated modules available in their sessions?",
+      "answer": "To make modules from a custom installation path available, the user needs to run `export RSNT_LOCAL_MODULEPATHS=/path/to/your/project/easybuild/modules`, and can add this to their `.bashrc` file for default availability."
     },
     {
-      "question": "How can you specify a custom installation location for a software package when using EasyBuild?",
-      "answer": "You can specify a custom installation location using the command `eb <recipe.eb> --installpath /path/to/your/project/easybuild`."
+      "question": "What kind of information is specified in the `dependencies` section of a toolchain recipe, such as the `gofbc` example?",
+      "answer": "The `dependencies` section of a toolchain recipe specifies the exact versions of core components like GCC, CUDA, OpenMPI, and mathematical libraries that comprise that particular toolchain."
     },
     {
-      "question": "What command can be used to make modules from a custom installation path available in your current session?",
-      "answer": "You can make modules available by running `export RSNT_LOCAL_MODULEPATHS=/path/to/your/project/easybuild/modules`."
+      "question": "What does the `builddependencies` part of a toolchain recipe signify regarding other toolchains?",
+      "answer": "The `builddependencies` part indicates that the toolchain is a superset of other specified toolchains, allowing software built with the superset toolchain to have dependencies on software built with the sub-toolchains."
     }
   ],
-  "generated_at": "2026-04-11T21:15:45.289421+00:00"
+  "generated_at": "2026-04-13T05:06:05.431007+00:00"
 }

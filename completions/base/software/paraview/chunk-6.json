@@ -4,89 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "What types of rendering are supported on cluster CPUs for remote ParaView visualization?",
-      "answer": "Both rasterization and ray tracing can be performed on cluster CPUs, allowing for both types of rendering."
+      "question": "In a client-server ParaView setup for parallel rendering on Alliance HPC clusters, how can users estimate the number of CPU cores required for their dataset?",
+      "answer": "To estimate the number of CPU cores needed for parallel rendering, take the amount of memory your dataset requires (e.g., a single timestep) and divide it by approximately 3.5 GB/core. You should also allocate additional memory for filters and data processing, as operations like structured-to-unstructured dataset conversion can increase memory footprint by about 3x. As software rendering is CPU-intensive, allocating more than 4 GB/core is not recommended. If the ParaView server terminates during processing, it indicates a need to increase the number of cores."
     },
     {
-      "question": "Which modern CPU-based libraries provide performance comparable to GPU-based rendering for ParaView?",
-      "answer": "Modern CPU-based libraries such as OSPRay and OpenSWR offer performance quite similar to GPU-based rendering."
+      "question": "What are the essential steps to configure and connect a local ParaView client to a parallel ParaView server running on an Alliance HPC cluster for large-scale interactive visualization?",
+      "answer": "First, ensure the same major version of ParaView is installed on your local computer and the chosen Alliance HPC cluster. Then, log into the cluster and start a parallel CPU interactive job (e.g., using `salloc --time=1:00:0 --ntasks=... --mem-per-cpu=3600 --account=def-someprof`). Within this job, load the ParaView module (and `StdEnv/2023` on Trillium) and launch the ParaView server using `srun pvserver --force-offscreen-rendering --opengl-window-backend OSMesa`. Next, on your local computer, establish an SSH tunnel to link your local port 11111 to the compute node's port 11111 (e.g., `ssh <username>@fir.alliancecan.ca -L 11111:<compute_node_name>:11111`). Finally, open the ParaView client on your local computer, add a new server configuration pointing to `localhost:11111` (with `Server Type` set to `Client/Server` and `Startup Type` to `Manual`), and then connect."
     },
     {
-      "question": "How does the ParaView server achieve parallel rendering for very large datasets?",
-      "answer": "The ParaView server utilizes MPI for distributed-memory processing, enabling parallel rendering on a large number of CPU cores, which can be located on a single node or across multiple nodes."
-    },
-    {
-      "question": "What is a general guideline for estimating the number of CPU cores required for ParaView rendering based on memory usage?",
-      "answer": "The easiest way to estimate the necessary cores is to take the amount of memory you anticipate needing for your rendering and divide it by approximately 3.5 GB/core."
-    },
-    {
-      "question": "How many cores would be needed to hold a 40GB dataset in memory for ParaView visualization, using the general estimation rule?",
-      "answer": "A 40GB dataset, if loaded into memory at once, would require at least 12 cores just to hold the data (40 GB / ~3.5 GB/core)."
-    },
-    {
-      "question": "What is the recommended maximum memory allocation per core for software rendering, given its CPU-intensive nature?",
-      "answer": "Since software rendering is CPU-intensive, it is not recommended to allocate more than 4GB/core."
-    },
-    {
-      "question": "Why is it important to allocate additional memory for filters and data processing in a ParaView workflow?",
-      "answer": "It's important to allocate additional memory because filters and data processing, such as a structured to unstructured dataset conversion, can increase the memory footprint by approximately 3X."
-    },
-    {
-      "question": "What action should be taken if the ParaView server is terminated during data processing?",
-      "answer": "If the ParaView server gets killed while processing data, you will need to increase the number of allocated cores."
-    },
-    {
-      "question": "What specific scheduling requirement applies to ParaView visualization jobs on Trillium?",
-      "answer": "On Trillium, you must schedule on whole nodes, which means allocating resources in multiples of 192 cores."
-    },
-    {
-      "question": "What is the minimum number of cores required for a ParaView visualization job on Trillium?",
-      "answer": "The minimum job on Trillium will require 192 cores."
-    },
-    {
-      "question": "What are the initial steps to set up a large-scale interactive client-server ParaView visualization?",
-      "answer": "First, install the exact same ParaView version on your computer as the one available on the cluster. Next, log into the cluster and initiate a parallel CPU interactive job."
-    },
-    {
-      "question": "What `salloc` command would you use to request a 1-hour parallel CPU interactive job with 3600 MB memory per CPU, and a specified account?",
-      "answer": "The command is `salloc --time=1:00:0 --ntasks=... --mem-per-cpu=3600 --account=def-someprof`."
-    },
-    {
-      "question": "How do you start a parallel CPU interactive job on Trillium for visualization, assuming you are using one node?",
-      "answer": "On Trillium, the command would be `salloc --time=1:00:0 --ntasks=192 --account=def-someprof`."
-    },
-    {
-      "question": "What module needs to be loaded on Trillium before attempting to load the `paraview/6.0.0` module?",
-      "answer": "On Trillium, you must load `StdEnv/2023` before attempting to load `paraview/6.0.0`."
-    },
-    {
-      "question": "After loading the ParaView module, what command starts the ParaView server with off-screen rendering?",
-      "answer": "The command to start the server is `srun pvserver --force-offscreen-rendering --opengl-window-backend OSMesa`."
-    },
-    {
-      "question": "What specific details from the ParaView server's output are essential for connecting a client?",
-      "answer": "You need to note the compute node name (e.g., fc30669) and the port number (usually 11111) from the `Connection URL` displayed in the server output."
-    },
-    {
-      "question": "How do you set up an SSH tunnel on your local computer to connect to a ParaView server running on a cluster like Fir?",
-      "answer": "In a terminal on your computer (Mac/Linux) or a terminal emulator (Windows), you would link local port 11111 to the remote compute node's port 11111 using `ssh <username>@fir.alliancecan.ca -L 11111:fc30669:11111`, replacing `fc30669` with the actual node name."
-    },
-    {
-      "question": "What is the specific SSH command recommended for port forwarding when connecting to a ParaView server on Nibi?",
-      "answer": "For Nibi, you should use the command `ssh -T -J <username>@nibi.alliancecan.ca -L 11111:localhost:11111 <username>@<nibi_compute_node>` on your computer."
-    },
-    {
-      "question": "What is the function of the `-T` flag in the SSH command for Nibi when routing port forwarding?",
-      "answer": "The `-T` flag disables pseudo-terminal allocation, which is crucial for facilitating the initial client-server handshake."
-    },
-    {
-      "question": "What steps are involved in configuring the ParaView GUI on your local computer to connect to the remote parallel server?",
-      "answer": "In the ParaView GUI, click the `Connect` button, then `Add Server`. Set `Server Type` to `Client/Server`, `Host` to `localhost`, and `Port` to `11111`. Click `Configure`, select `Manual`, and then `Save`. Finally, select the added server from the list and click `Connect`."
-    },
-    {
-      "question": "How can you verify that the ParaView client has successfully connected to the remote server?",
-      "answer": "Upon a successful connection, the first terminal window where the server is running will change its message from 'Accepting connection' to 'Client connected'."
+      "question": "What are the specific scheduling and connection considerations for using a ParaView client-server setup on the Trillium and Nibi clusters?",
+      "answer": "On Trillium, jobs must be scheduled on whole nodes, which means allocating resources in multiples of 192 cores. Therefore, a minimum of 192 cores is required for a single-node visualization example. For Nibi, inter-node traffic limits require a two-step SSH port forwarding process through the login node to establish the connection. The specific command to use on your computer is `ssh -T -J <username>@nibi.alliancecan.ca -L 11111:localhost:11111 <username>@<nibi_compute_node>`, with the `-T` flag being crucial for the initial handshake."
     }
   ],
-  "generated_at": "2026-04-12T04:52:24.110993+00:00"
+  "generated_at": "2026-04-13T10:56:03.363360+00:00"
 }

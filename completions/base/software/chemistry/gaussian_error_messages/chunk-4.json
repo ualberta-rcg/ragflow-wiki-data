@@ -4,53 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "What does the \"End of file in GetChg\" error in Gaussian output indicate?",
-      "answer": "The \"End of file in GetChg\" error typically appears in Gaussian output after \"Symbolic Z-matrix:\" and sometimes \"Charge = 0 Multiplicity = 1\", followed by the error message itself and \"Error termination via Lnk1e in /disc30/g98/l101.exe.\" It also includes job CPU time and file lengths."
+      "question": "What does the \"End of file in GetChg\" error in Gaussian output indicate, and what are the steps to resolve it?",
+      "answer": "The \"End of file in GetChg\" error in Gaussian output typically means that either the required charge/multiplicity line was forgotten in the input, or `geom=allcheck` was not specified in the route section when the intention was to read the charge/multiplicity from a checkpoint file. To fix this, you should either insert the charge/multiplicity line into your input or ensure `geom=allcheck` is included in the route section."
     },
     {
-      "question": "What causes the \"End of file in GetChg\" error in Gaussian?",
-      "answer": "This error occurs because either the charge/multiplicity line, which is required for the input, was forgotten, or the `geom=allcheck` command was not included in the route section when attempting to read the charge/multiplicity from a checkpoint file."
+      "question": "When running a Gaussian optimization, what causes the \"Change in point group or standard orientation\" error, and what are the recommended solutions?",
+      "answer": "The \"Change in point group or standard orientation\" error occurs during a Gaussian optimization when the molecule's standard orientation or its point group changes. This can be caused by an incorrectly specified z-matrix leading to a change in the point group, a starting structure with too much symmetry that needs to be desymmetrized, or, rarely, an incorrect point group if the z-matrix should have more symmetry. To resolve it, you can reformulate the z-matrix, desymmetrize your starting structure, or, if symmetry is not a concern, turn off symmetry completely."
     },
     {
-      "question": "How can one fix the \"End of file in GetChg\" error in Gaussian?",
-      "answer": "To fix this error, you should either add the missing charge/multiplicity line to the input file or include `geom=allcheck` in the route section if you intended to read the charge/multiplicity from a checkpoint file."
-    },
-    {
-      "question": "What error message indicates a \"Change in point group or standard orientation\" in Gaussian?",
-      "answer": "The error output will include the line \"Omega: Change in point group or standard orientation.\" and \"Error termination via Lnk1e in /disc30/g98/l202.exe.\", usually found after stoichiometry and point group information."
-    },
-    {
-      "question": "What is the explanation for a \"Change in point group or standard orientation\" error in Gaussian?",
-      "answer": "This error means that either the molecule's standard orientation or its point group changed during the optimization process. A visualization program might show the structure suddenly flipping, typically by 180 degrees. This error has become less frequent since Gaussian 03 was released."
-    },
-    {
-      "question": "What are some ways to fix the \"Change in point group or standard orientation\" error in Gaussian?",
-      "answer": "Possible fixes include checking if your z-matrix is correctly specified (especially if transitioning from a point group like C2v to a subgroup like C2, Cs, or C1), desymmetrizing your starting structure if it had too high symmetry, or reformulating your z-matrix with more symmetry if the detected point group is incorrect (of higher symmetry)."
-    },
-    {
-      "question": "What can be done if symmetry is not important but the \"Change in point group or standard orientation\" error occurs?",
-      "answer": "If you do not care about symmetry in your calculation, you can turn symmetry completely off to resolve the \"Change in point group or standard orientation\" error."
-    },
-    {
-      "question": "How does the \"Unrecognized atomic symbol\" error manifest in Gaussian output?",
-      "answer": "The error output will include the line \"Unrecognized atomic symbol [symbol]\" (e.g., \"Unrecognized atomic symbol ic2\") after \"General basis read from cards:\", followed by \"Error termination via Lnk1e in /disc30/g98/l301.exe.\" and job details."
-    },
-    {
-      "question": "Why does Gaussian report an \"Unrecognized atomic symbol\" error?",
-      "answer": "This error typically occurs when reading a general basis set and the specified atom (like 'ic2' in the example) does not match any standard atomic symbol. It can also happen in a link job if a previous step used default coordinates, wiping the z-matrix, and then an attempt to modify the z-matrix with `geom=modify` causes Gaussian to misinterpret the z-matrix variable section as basis set information."
-    },
-    {
-      "question": "What is the solution for an \"Unrecognized atomic symbol\" error in Gaussian?",
-      "answer": "The solution for an \"Unrecognized atomic symbol\" error in Gaussian is to type in the correct atomic symbol."
-    },
-    {
-      "question": "What does a \"Convergence failure -- run terminated\" error look like in Gaussian output?",
-      "answer": "This error is indicated by lines such as \">>>>>>>>>> Convergence criterion not met. SCF Done: E(RHF) = [energy] A.U. after [cycles] cycles ... Convergence failure -- run terminated. Error termination via Lnk1e in /disc30/g98/l502.exe.\""
-    },
-    {
-      "question": "What is the cause of a \"Convergence failure -- run terminated\" error in Gaussian?",
-      "answer": "The \"Convergence failure -- run terminated\" error means that the SCF (self-consistent field) procedure has failed to converge during the Gaussian calculation."
+      "question": "What does the \"Convergence failure -- run terminated\" error in Gaussian signify, and how can it be fixed?",
+      "answer": "The \"Convergence failure -- run terminated\" error in Gaussian indicates that the Self-Consistent Field (SCF) procedure failed to converge. This is often due to a poor initial guess for the molecular orbitals or an unsuitable molecular geometry. To address this, you can try providing a better initial guess (e.g., using `guess=read` from a calculation at a lower level of theory), utilizing alternative SCF convergence methods such as `SCF=QC` or `SCF=XQC`, correcting the initial geometry if it's distorted, or resubmitting the job from a previous, more stable geometry with a freshly evaluated Hessian."
     }
   ],
-  "generated_at": "2026-04-11T22:53:59.501758+00:00"
+  "generated_at": "2026-04-13T06:25:46.421981+00:00"
 }

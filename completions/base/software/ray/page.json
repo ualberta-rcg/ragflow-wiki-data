@@ -3,73 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Ray and what is its primary purpose?",
-      "answer": "Ray is a unified framework for scaling AI and Python applications, comprising a core distributed runtime and a toolkit of libraries to simplify parallel/distributed workloads, particularly Machine Learning jobs."
+      "question": "What is Ray and what is its primary purpose on Alliance clusters?",
+      "answer": "Ray is a unified framework designed for scaling AI and Python applications on Alliance clusters, featuring a core distributed runtime and libraries to simplify parallel and distributed workloads, especially for Machine Learning jobs."
     },
     {
-      "question": "How can one check the latest available version of a Ray wheel?",
-      "answer": "One can check the latest version of a Ray wheel by using the command `avail_wheels \"ray\"`."
+      "question": "How can users check the latest available version of Ray wheels on Alliance clusters?",
+      "answer": "Users can check the latest version of Ray wheels by running the command `avail_wheels \"ray\"`."
     },
     {
-      "question": "What are the three main steps to install Ray using a Python wheel?",
-      "answer": "The three main steps are: 1. Load a Python module; 2. Create and start a virtual environment; 3. Install Ray in the virtual environment using `pip install --no-index ray`."
+      "question": "What are the recommended steps for installing Ray using a Python wheel on Alliance clusters?",
+      "answer": "The recommended steps are: loading a Python module, creating and starting a virtual environment, and then installing Ray within the virtual environment using `pip install --no-index ray`."
     },
     {
-      "question": "What resources are allocated to the single-node Ray cluster in the provided job submission example script?",
-      "answer": "The example script allocates 200GB RAM, 48 CPU cores, and 4 H100 GPUs per node for a single-node Ray cluster."
+      "question": "How can a user configure a multi-node Ray cluster when submitting a job on Alliance clusters?",
+      "answer": "A user can configure a multi-node Ray cluster by changing the `#SBATCH --nodes=1` line in their job script to the desired number of nodes, or by overriding it with the `sbatch --nodes=` command-line argument."
     },
     {
-      "question": "How can the `ray-example.sh` script be modified to run a multi-node Ray cluster?",
-      "answer": "The `ray-example.sh` script can be modified for multi-node clusters by changing the default value of `#SBATCH --nodes=1` or by overriding it with the `sbatch --nodes=` command-line argument."
+      "question": "What resources are requested for the single-node Ray cluster example provided in the documentation for Alliance clusters?",
+      "answer": "The example requests 200GB of RAM, 48 CPU cores, and 4 H100 GPUs per node for a single-node Ray cluster."
     },
     {
-      "question": "What is the function of the `config_env.sh` script in the Ray job submission example?",
-      "answer": "The `config_env.sh` script loads the Python module, creates a virtual environment in `$SLURM_TMPDIR/ENV`, activates it, and then upgrades pip and installs Ray within that environment."
+      "question": "What is the purpose of the `config_env.sh` script used in the Ray job submission example on Alliance clusters?",
+      "answer": "The `config_env.sh` script is responsible for loading the Python module, creating a virtual environment without downloading packages, activating it, and then installing `pip` and Ray itself."
     },
     {
-      "question": "How does the `ray-example.sh` script determine and export the Ray head node address and port?",
-      "answer": "The script sets `HEAD_NODE` to the current hostname and `RAY_PORT` to an available free port found by a Python script using `socket`."
+      "question": "How does the `test_ray.py` script verify the Ray cluster's setup on Alliance clusters?",
+      "answer": "The `test_ray.py` script connects to the Ray cluster using environment variables for the head node and port, then prints the nodes in the cluster and their available resources to verify the setup."
     },
     {
-      "question": "What is `ray-multiprog.conf` used for in the job submission script?",
-      "answer": "`ray-multiprog.conf` is used to configure `srun --multi-prog` to launch the Ray head node on node 0 and Ray worker nodes on all other allocated nodes."
+      "question": "What is Ray Tune, and what are its capabilities for Machine Learning applications on Alliance clusters?",
+      "answer": "Ray Tune is a Ray module for experiment execution and hyperparameter tuning at any scale, supporting a wide range of frameworks such as PyTorch, TensorFlow, and Scikit-Learn."
     },
     {
-      "question": "What is the purpose of the `test_ray.py` script?",
-      "answer": "The `test_ray.py` script connects to the launched Ray cluster and verifies that Ray sees the allocated nodes and their status, as well as the available CPU and GPU resources."
+      "question": "What factors determine the amount of resources required for a Ray Tune job on Alliance clusters?",
+      "answer": "The amount of resources required for a Ray Tune job primarily depends on the number of samples a user wishes to draw from the search space and the memory size of their model."
     },
     {
-      "question": "What is Ray Tune used for?",
-      "answer": "Ray Tune is a Ray module used for experiment execution and hyperparameter tuning at any scale."
+      "question": "For the Ray Tune example provided, how are resources allocated for each trial to perform a hyperparameter sweep on Alliance clusters?",
+      "answer": "In the example, each trial is allocated one CPU to be used as a `DataLoader` worker and 0.1 of a GPU, allowing 10 trials to run in parallel on a single GPU."
     },
     {
-      "question": "What machine learning frameworks does Ray Tune support for hyperparameter search?",
-      "answer": "Ray Tune supports a wide range of frameworks, including PyTorch, TensorFlow, and Scikit-Learn."
+      "question": "What specific command-line arguments are used to run the `ray-tune-example.py` script for hyperparameter search on Alliance clusters?",
+      "answer": "The script is run with `python ray-tune-example.py --num_samples=20 --cpus-per-trial=1 --gpus-per-trial=0.1`."
     },
     {
-      "question": "How are the resource requirements for a Ray Tune job typically determined?",
-      "answer": "Resource requirements are mainly determined by the number of samples to draw from the search space and the model's memory size, which helps estimate the number of parallel trials and necessary resources."
+      "question": "Which Python packages need to be installed in the virtual environment to run the Ray Tune hyperparameter search example on Alliance clusters?",
+      "answer": "To run the Ray Tune example, the `ray[tune]` and `torchvision` packages need to be installed in the virtual environment."
     },
     {
-      "question": "In the Ray Tune example, how many trials run in parallel on a single GPU, and what CPU resources are allocated to each trial?",
-      "answer": "In the example, 10 trials run in parallel on a single GPU, with one CPU allocated to each trial to be used as a `DataLoader` worker."
+      "question": "In the Ray Tune example for Alliance clusters, what hyperparameters are being tuned for the convolutional neural network?",
+      "answer": "The example tunes the learning rate (`lr`) and batch size (`batch_size`) for the convolutional neural network."
     },
     {
-      "question": "What specific `pip install` commands are needed for the Ray Tune example?",
-      "answer": "For the Ray Tune example, `pip install ray[tune]` and `pip install torchvision` are needed in the virtual environment."
+      "question": "What scheduler is used in the Ray Tune example for hyperparameter optimization on Alliance clusters, and what is its purpose?",
+      "answer": "The `ASHAScheduler` is used; its purpose is to potentially terminate unpromising trials early to optimize the hyperparameter search process."
     },
     {
-      "question": "What hyperparameters are being tuned in the `ray-tune-example.py` script, and what are their respective search spaces?",
-      "answer": "The hyperparameters being tuned are `lr` (learning rate), sampled from a log-uniform distribution between 1e-4 and 1e-1, and `batch_size`, sampled randomly from the list [2, 4, 8, 16]."
+      "question": "What is the significance of the `ray start --block --head` and `ray start --block --address` commands in the `ray-example.sh` script on Alliance clusters?",
+      "answer": "`ray start --block --head` initiates the head node of the Ray cluster, while `ray start --block --address` is used by worker nodes to connect to the specified head node, forming the distributed cluster."
     },
     {
-      "question": "What is the role of `ASHAScheduler` in the Ray Tune example?",
-      "answer": "`ASHAScheduler` can prematurely terminate trials that do not appear promising, especially when a training loop runs for many epochs, to save computational resources."
-    },
-    {
-      "question": "What metric does the `tune.Tuner` use to determine the best result in the Ray Tune example?",
-      "answer": "The `tune.Tuner` uses \"accuracy\" as the metric and seeks to maximize it to find the best result."
+      "question": "How does the Ray job submission script handle potential issues with older Ray versions where worker nodes might start before the head node on Alliance clusters?",
+      "answer": "For older Ray versions, the script provides an alternative configuration to add a 10-second delay (`sleep 10`) before worker nodes launch, ensuring the head node starts first."
     }
   ],
-  "generated_at": "2026-04-12T06:54:00.887034+00:00"
+  "generated_at": "2026-04-13T12:38:47.311169+00:00"
 }

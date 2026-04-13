@@ -4,81 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "How do I submit jobs for the GPU subcluster on Trillium?",
-      "answer": "You submit jobs for the GPU subcluster using the `sbatch` command on the GPU login node, with specific options within your job script to configure resources like the number of nodes and GPUs."
+      "question": "When submitting jobs for the GPU subcluster on Trillium, how many GPUs can a user request per node?",
+      "answer": "On Trillium's GPU subcluster, users are only allowed to request exactly 1 GPU or a multiple of 4 GPUs per node. Requests for 2 or 3 GPUs per node are not permitted, and NVIDIA's MIG technology for subdividing a GPU is not supported. However, within a job, NVIDIA's Multi-Process Service (MPS) can be used to share a GPU among processes."
     },
     {
-      "question": "What are the rules for requesting GPUs on Trillium's GPU subcluster?",
-      "answer": "On Trillium, you are only allowed to request exactly 1 GPU or a multiple of 4 GPUs. Requesting `--gpus-per-node=2` or `--gpus-per-node=3` is not permitted."
+      "question": "What are the job limits for GPU compute jobs submitted to the 'compute' partition on Trillium?",
+      "answer": "For GPU compute jobs in Trillium's 'compute' partition, users can have a limit of 150 running jobs and 500 submitted jobs (including running ones). The minimum job size is 1/4 node (24 cores / 1 GPU), while the maximum size is 5 nodes (480 cores / 20 GPUs) by default, or up to 25 nodes (2400 cores / 100 GPUs) with an allocation. The minimum walltime is 15 minutes, and the maximum walltime is 24 hours."
     },
     {
-      "question": "Does Trillium support NVIDIA's MIG technology for subdividing GPUs?",
-      "answer": "No, Trillium does not support NVIDIA's MIG (Multi-Instance GPU) technology to allocate a subdivision of a GPU."
-    },
-    {
-      "question": "Can I use NVIDIA's Multi-Process Service (MPS) on Trillium's GPU subcluster?",
-      "answer": "Yes, inside a job, you can use NVIDIA's Multi-Process Service (MPS) to share a GPU among processes running on the same job."
-    },
-    {
-      "question": "What `sbatch` option should I use to request a single GPU for my job?",
-      "answer": "For single-GPU jobs, you should use `--gpus-per-node=1` in your job script."
-    },
-    {
-      "question": "What `sbatch` option should I use to request a whole GPU node for my job?",
-      "answer": "To request a whole GPU node, which typically contains 4 GPUs, you should use `--gpus-per-node=4` in your job script."
-    },
-    {
-      "question": "What is the default maximum size for GPU compute jobs in the `compute` partition?",
-      "answer": "By default, the maximum size for GPU compute jobs in the `compute` partition is 5 nodes, which provides 480 cores and 20 GPUs."
-    },
-    {
-      "question": "What is the maximum size for GPU compute jobs in the `compute` partition if I have an allocation?",
-      "answer": "With a RAC allocation, the maximum size for GPU compute jobs in the `compute` partition is 25 nodes, providing 2400 cores and 100 GPUs."
-    },
-    {
-      "question": "What is the minimum job size for GPU compute jobs in the `compute` partition?",
-      "answer": "The minimum job size for GPU compute jobs in the `compute` partition is 1/4 node, which includes 24 cores and 1 GPU."
-    },
-    {
-      "question": "What are the walltime limits for GPU compute jobs in the `compute` partition?",
-      "answer": "For GPU compute jobs in the `compute` partition, the minimum walltime is 15 minutes, and the maximum walltime is 24 hours."
-    },
-    {
-      "question": "What are the limits for GPU testing jobs in the `debug` partition?",
-      "answer": "For GPU testing jobs in the `debug` partition, you are limited to 1 running job and 1 submitted job (including running). The minimum job size is 1/4 node (24 cores / 1 GPU), and the maximum size is 2 nodes (192 cores / 8 GPUs). The walltime limit is 2 hours for 1 GPU or 30 minutes for 8 GPUs."
-    },
-    {
-      "question": "What factors influence the waiting time for GPU jobs in the queue?",
-      "answer": "The waiting time for GPU jobs depends on several factors, including your group's allocation amount, how much allocation has been used in the recent past, the number of requested nodes and walltime, and how many other jobs are waiting in the queue."
-    },
-    {
-      "question": "Which `sbatch` directives are used to request a single-GPU job with a 30-minute runtime?",
-      "answer": "The `sbatch` directives for a single-GPU job with a 30-minute runtime are: `#SBATCH --nodes=1`, `#SBATCH --gpus-per-node=1`, and `#SBATCH --time=00:30:00`."
-    },
-    {
-      "question": "What modules are typically loaded for a single-GPU Python job?",
-      "answer": "Typical modules loaded for a single-GPU Python job include `StdEnv/2023`, `cuda/12.6`, and `python/3.11.5`."
-    },
-    {
-      "question": "How can I activate a Python environment within a GPU job script?",
-      "answer": "You can activate a Python environment in a GPU job script by including a line like `source ~/myenv/bin/activate`, replacing `~/myenv` with the actual path to your environment."
-    },
-    {
-      "question": "What command can be used within a GPU job script to check the GPU allocation?",
-      "answer": "You can use the command `srun nvidia-smi` within a GPU job script to check the GPU allocation."
-    },
-    {
-      "question": "Which `sbatch` directives are used to request a whole-node (4 GPUs) job with a 2-hour runtime?",
-      "answer": "The `sbatch` directives for a whole-node (4 GPUs) job with a 2-hour runtime are: `#SBATCH --nodes=1`, `#SBATCH --gpus-per-node=4`, and `#SBATCH --time=02:00:00`."
-    },
-    {
-      "question": "How would I configure an `sbatch` header for a multi-node GPU job requesting two full nodes (8 GPUs total) and a 4-hour runtime?",
-      "answer": "An `sbatch` header for a multi-node GPU job requesting two full nodes would include: `#SBATCH --nodes=2`, `#SBATCH --gpus-per-node=4`, and `#SBATCH --time=04:00:00`."
-    },
-    {
-      "question": "Why are there more partitions for the GPU subcluster compared to the CPU subcluster on Trillium?",
-      "answer": "There are more partitions for the GPU subcluster than for the CPU subcluster to support scheduling by GPU instead of by node, as each node has 4 GPUs."
+      "question": "What are the basic SLURM directives required for a single-GPU job script on Trillium?",
+      "answer": "A basic SLURM script for a single-GPU job on Trillium should include the following directives: `#SBATCH --job-name=single_gpu_job` for the job's name, `#SBATCH --output=single_gpu_job_%j.out` to specify the output file, `#SBATCH --nodes=1` to request one node, `#SBATCH --gpus-per-node=1` to request a single GPU, and `#SBATCH --time=HH:MM:SS` to set the maximum runtime for the job."
     }
   ],
-  "generated_at": "2026-04-12T09:43:15.130659+00:00"
+  "generated_at": "2026-04-13T14:53:56.457327+00:00"
 }

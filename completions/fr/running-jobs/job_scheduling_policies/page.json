@@ -3,73 +3,81 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "À quoi sert principalement le document sur les politiques d'ordonnancement des tâches?",
-      "answer": "Il vise à aider les utilisateurs à soumettre des tâches qui nécessitent beaucoup de ressources ou qui sont multiples, en leur fournissant une bonne connaissance des politiques d'ordonnancement pour une meilleure productivité."
+      "question": "Quel est l'objectif principal de comprendre la politique d'ordonnancement des tâches sur les grappes de calcul de Compute Canada?",
+      "answer": "L'objectif principal est d'améliorer la productivité lors de la soumission de plusieurs tâches ou de tâches nécessitant une grande quantité de ressources sur les grappes de calcul de Compute Canada."
     },
     {
-      "question": "Comment la priorité des tâches est-elle établie sur les grappes de Compute Canada?",
-      "answer": "La priorité des tâches est déterminée par l'algorithme Fair Tree, qui évalue la 'juste part' de chaque projet."
+      "question": "Comment la priorité des tâches est-elle déterminée sur les grappes de Compute Canada?",
+      "answer": "La priorité des tâches est déterminée par l'algorithme Fair Tree, qui établit un ordre de priorisation selon la « juste part » attribuée à chaque projet."
     },
     {
-      "question": "Quels sont les types de codes de compte utilisés pour la soumission de tâches et à quoi correspondent-ils?",
-      "answer": "Les codes commençant par `rrg-` ou `rpp-` sont pour les projets ayant une allocation via le concours d'allocation de ressources, et ceux commençant par `def-` sont pour le service d'accès rapide."
+      "question": "Quelle commande peut-on utiliser pour consulter l'information sur l'utilisation et le partage des ressources pour un compte sur les grappes de Compute Canada?",
+      "answer": "La commande `sshare -l -A [code_compte] -u [utilisateurs]` peut être utilisée pour consulter l'information sur l'utilisation et le partage des ressources pour un compte."
     },
     {
-      "question": "Comment les cibles d'utilisation des ressources sont-elles définies pour les différents projets?",
-      "answer": "Pour les projets alloués par concours, elles dépendent des CPU-années ou GPU-années allouées. Pour les comptes `def-`, elles sont ajustées fréquemment selon le nombre de projets actifs."
+      "question": "Quels sont les types de codes de compte généralement utilisés pour les projets sur les grappes de Compute Canada?",
+      "answer": "Pour les projets avec des allocations de ressources, les codes de compte commencent généralement par `rrg-` ou `rpp-`. Pour les projets d'accès rapide, ils commencent généralement par `def-`."
     },
     {
-      "question": "Quelle commande permet de visualiser l'information sur l'utilisation et le partage des ressources pour un projet?",
-      "answer": "La commande `sshare -l -A [code_de_compte]_cpu/gpu -u [liste_utilisateurs]` permet de consulter ces informations."
+      "question": "Quelle est la signification d'une valeur 'LevelFS' élevée pour un projet sur les grappes de Compute Canada?",
+      "answer": "Une valeur 'LevelFS' élevée (supérieure à 1.0) indique que le groupe a utilisé une part inférieure à sa cible d'utilisation, ce qui signifie que ses tâches bénéficieront d'une priorité plutôt haute."
     },
     {
-      "question": "Qu'indique la valeur de la colonne `LevelFS` dans la sortie de la commande `sshare`?",
-      "answer": "La colonne `LevelFS` indique la valeur de la juste part (fair share). Un résultat supérieur à 1 signifie que l'association reçoit moins de ressources que mérité, et un résultat entre 0 et 1 indique l'inverse."
+      "question": "Quelle est la différence principale entre demander des nœuds entiers ou des cœurs individuels pour l'exécution des tâches sur les grappes de Compute Canada?",
+      "answer": "Les applications qui utilisent efficacement tous les cœurs d'un nœud sont mieux servies par des nœuds entiers. Il est considéré comme un abus de demander un nombre inefficace de processeurs juste pour profiter des avantages d'ordonnancement des nœuds entiers."
     },
     {
-      "question": "Comment l'utilisation passée (`RawUsage`) est-elle prise en compte dans la priorisation des tâches?",
-      "answer": "L'usage passé est pondéré et diminue avec une demi-vie d'une semaine, ce qui signifie que l'utilisation datant de plus de quelques semaines a un effet minime sur la priorisation."
+      "question": "Quelles sont les durées maximales des tâches sur les grappes Trillium, Fir, Narval, Nibi et Rorqual de Compute Canada?",
+      "answer": "Le cluster Trillium peut accommoder des tâches jusqu'à 24 heures. Fir, Narval, Nibi et Rorqual permettent des tâches d'une durée maximale de 7 jours."
     },
     {
-      "question": "Quand est-il préférable de demander des nœuds entiers plutôt que des cœurs individuels pour l'exécution d'une tâche?",
-      "answer": "Il est préférable de demander des nœuds entiers pour les applications qui peuvent utiliser efficacement plus de cœurs que ce qu'un nœud simple contient."
+      "question": "Comment le concept de 'remplissage' (backfilling) influence-t-il l'ordonnancement des tâches sur les grappes de Compute Canada?",
+      "answer": "Le remplissage optimise l'utilisation des ressources en lançant des tâches de basse priorité si cela ne retarde pas les tâches de plus haute priorité, ce qui avantage les tâches dont la durée maximale est plus courte (moins de 3 heures)."
     },
     {
-      "question": "Qu'est-ce qui est considéré comme un abus injustifié des ressources concernant les requêtes de processeurs?",
-      "answer": "Demander un nombre inefficace de processeurs, par exemple, 192 cœurs pour un programme ayant un temps d'exécution similaire sur 64 cœurs."
+      "question": "Quelles sont les principales catégories de nœuds disponibles sur les grappes d'usage général comme Fir, Narval, Nibi et Rorqual?",
+      "answer": "Les principales catégories de nœuds sont les nœuds de type 'base' (4 à 8Go de mémoire par cœur), les nœuds de type 'large' (16 à 96Go de mémoire par cœur) et les nœuds de type 'GPU base'."
     },
     {
-      "question": "Quelles sont les durées maximales d'exécution des tâches sur les grappes Trillium, Fir, Narval, Nibi et Rorqual?",
-      "answer": "Trillium peut accommoder des tâches jusqu'à 24 heures, tandis que Fir, Narval, Nibi et Rorqual permettent des tâches d'une durée maximale de 7 jours."
+      "question": "Quel utilitaire peut-on utiliser pour connaître l'état des partitions et des queues de tâches sur les grappes de Compute Canada?",
+      "answer": "L'utilitaire `partition-stats` permet de voir le nombre de tâches en attente ou en cours, ainsi que le nombre de nœuds inactifs ou assignés à chaque partition."
     },
     {
-      "question": "Pourquoi les tâches de plus courte durée sont-elles avantagées par l'ordonnanceur?",
-      "answer": "Les tâches plus courtes sont susceptibles d'être ordonnancées plus rapidement car elles ont accès à plus de ressources, pouvant s'exécuter dans diverses partitions de durées maximales différentes, et sont favorisées par le remplissage."
+      "question": "Comment les partitions de temps réel d'exécution sont-elles organisées sur les grappes d'usage général de Compute Canada?",
+      "answer": "Les partitions sont organisées comme des \"poupées russes\" : la partition pour 3 heures est un sous-ensemble de celle pour 12 heures, qui est elle-même un sous-ensemble de celle pour 24 heures, et ainsi de suite. Les tâches plus courtes ont accès à plus de ressources."
     },
     {
-      "question": "Qu'est-ce que le 'remplissage' (backfilling) et quel est son but?",
-      "answer": "Le remplissage est une technique d'ordonnancement qui optimise l'utilisation des ressources en lançant des tâches de basse priorité, à condition qu'elles ne retardent pas les tâches de plus haute priorité."
+      "question": "Existe-t-il une limite au nombre de tâches qu'un compte peut avoir en exécution ou en attente simultanément sur les grappes comme Narval, Nibi et Rorqual?",
+      "answer": "Oui, sur Narval, Nibi et Rorqual, un compte normal ne peut pas avoir plus de 1000 tâches en exécution ou en attente au même moment, incluant les tâches d'un vecteur de tâches."
     },
     {
-      "question": "Quelles sont les trois catégories de nœuds disponibles sur les grappes d'usage général?",
-      "answer": "Les catégories de nœuds sont : les nœuds de type 'base' (4 à 8 Go de mémoire par cœur), les nœuds de type 'large' (16 à 96 Go de mémoire par cœur) et les nœuds de type 'GPU base'."
+      "question": "Que représente la colonne `RawUsage` dans la sortie de la commande `sshare` sur les grappes de Compute Canada?",
+      "answer": "La colonne `RawUsage` représente une pondération du nombre total de secondes-ressources (temps CPU, temps GPU et mémoire) facturées au compte, diminuée d'une demi-vie d'une semaine."
     },
     {
-      "question": "Quelle est la différence entre les partitions 'par nœud' et 'par cœur'?",
-      "answer": "Les partitions 'par nœud' sont pour les tâches utilisant toutes les ressources d'un nœud entier, tandis que les partitions 'par cœur' sont pour les tâches n'utilisant qu'un sous-ensemble des cœurs sur un nœud."
+      "question": "Que signifie la colonne `NormShares` dans l'affichage de l'utilitaire `sshare` sur les grappes de Compute Canada?",
+      "answer": "La colonne `NormShares` indique la fraction des parts assignées à l'utilisateur ou au compte, divisée par le nombre total des parts assignées pour ce niveau (par exemple, fraction des parts du projet par rapport à tous les projets)."
     },
     {
-      "question": "À quoi sert l'utilitaire `partition-stats`?",
-      "answer": "Il montre le nombre de tâches en attente et en cours d'exécution, le nombre de nœuds inactifs et le nombre total de nœuds assignés à chaque partition par type de nœud et par durée maximale."
+      "question": "À quoi sert la colonne `EffectvUsage` dans le tableau de `sshare` pour les grappes de Compute Canada?",
+      "answer": "La colonne `EffectvUsage` montre l'utilisation de l'association (projet ou utilisateur) par rapport à son parent, permettant de comparer l'utilisation d'un projet par rapport à d'autres, ou d'un utilisateur par rapport aux autres membres du même projet."
     },
     {
-      "question": "Y a-t-il une limite au nombre de tâches qu'un compte normal peut avoir en exécution ou en attente sur Narval, Nibi et Rorqual?",
-      "answer": "Oui, un compte normal ne peut pas avoir plus de 1000 tâches en exécution ou en attente au même moment, chaque élément d'un vecteur de tâches comptant pour une tâche individuelle."
+      "question": "Que doit faire un utilisateur qui a une grande quantité de tâches en série et souhaite les exécuter efficacement sur un seul nœud sur les grappes de Compute Canada?",
+      "answer": "L'utilisateur est encouragé à utiliser des outils comme META-Farm, GNU Parallel, GLOST ou d'autres techniques pour rassembler ces tâches et les exécuter sur un seul nœud."
     },
     {
-      "question": "Où peut-on consulter les mises à jour des politiques d'ordonnancement?",
-      "answer": "Les changements sont listés sur la page 'Mise à jour de nos politiques d'ordonnancement'."
+      "question": "Quelle est l'importance de spécifier des durées d'exécution maximales raisonnablement exactes pour les tâches sur les grappes de Compute Canada?",
+      "answer": "Des durées d'exécution maximales raisonnablement exactes sont nécessaires pour le bon fonctionnement de la technique de remplissage (backfilling), qui optimise l'utilisation des ressources."
+    },
+    {
+      "question": "Quelles sont les différentes partitions basées sur les durées maximales d'exécution disponibles sur les grappes d'usage général de Compute Canada?",
+      "answer": "Il y a des partitions pour des tâches ayant des temps d'exécution de 3 heures ou moins, 12 heures ou moins, 24 heures ou moins, 72 heures ou moins et 7 jours ou moins."
+    },
+    {
+      "question": "Pourquoi est-il déconseillé d'appeler l'utilitaire `partition-stats` de façon répétitive dans des scripts sur les grappes de Compute Canada?",
+      "answer": "L'exécution de `partition-stats` exige beaucoup de l'ordonnanceur. Il est donc déconseillé de l'appeler répétitivement dans des scripts pour éviter de surcharger le système."
     }
   ],
-  "generated_at": "2026-04-12T00:19:59.872998+00:00"
+  "generated_at": "2026-04-13T07:34:35.585896+00:00"
 }

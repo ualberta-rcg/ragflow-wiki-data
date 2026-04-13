@@ -3,53 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, le but principal des modifications apportées au protocole SSH?",
-      "answer": "Les modifications visent à améliorer la sécurité des connexions aux grappes de calcul, car les anciens algorithmes de chiffrement ne sont plus jugés suffisamment sécuritaires face à la puissance de traitement actuelle."
+      "question": "Pourquoi les grappes de Calcul Canada ont-elles modifié leurs politiques et pratiques de connexion SSH en septembre et octobre 2019?",
+      "answer": "Les modifications ont été faites parce que la puissance de traitement croissante rendait certains algorithmes et protocoles de chiffrement utilisés il y a 10 ou 15 ans vulnérables aux intrusions, présentant un risque pour la sécurité."
     },
     {
-      "question": "Quand est-ce que les principales modifications SSH ont été déployées pour des grappes comme Graham, Béluga et Cedar?",
-      "answer": "Pour la grappe Graham, les modifications ont été faites le 24 septembre 2019, et une semaine plus tard pour Béluga et Cedar."
+      "question": "Quels types de modifications ont été apportés aux systèmes de connexion SSH des grappes de Calcul Canada en septembre et octobre 2019?",
+      "answer": "Les principales modifications incluent la désactivation de certains algorithmes de chiffrement, la désactivation de certains types de clés publiques, et la régénération des clés hôtes."
     },
     {
-      "question": "Quelles sont les trois modifications majeures implémentées concernant SSH?",
-      "answer": "Les modifications incluent la désactivation de certains algorithmes de chiffrement, la désactivation de certains types de clés publiques et la régénération des clés hôtes."
+      "question": "Quelles sont les grappes de Calcul Canada et les utilisateurs qui sont affectés par les récentes modifications de sécurité SSH?",
+      "answer": "Les utilisateurs qui se connectent via SSH aux grappes Graham, Béluga, Cedar et Mp2 sont affectés. Les utilisateurs d'Arbutus ne sont pas touchés, car la connexion se fait par interface web."
     },
     {
-      "question": "Quels utilisateurs sont affectés par ces mises à jour de sécurité SSH?",
-      "answer": "Tous les utilisateurs qui se connectent aux grappes via SSH sont affectés, à l'exception des utilisateurs d'Arbutus qui utilisent une interface web."
+      "question": "Si je reçois un message d'avertissement comme \"REMOTE HOST IDENTIFICATION HAS CHANGED!\" lors d'une connexion SSH à une grappe de Calcul Canada, qu'est-ce que cela signifie?",
+      "answer": "Ce message indique que les clés hôtes de la grappe ont été modifiées et que votre logiciel client SSH se souvient des anciennes clés, ce qui est une mesure de sécurité contre les attaques de l'homme du milieu."
     },
     {
-      "question": "Quel genre de message d'avertissement risque-t-on de voir apparaître la première fois qu'on se connecte après les modifications des clés hôtes?",
-      "answer": "On risque de recevoir un avertissement comme « WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! » indiquant que les clés hôtes de la grappe ont été modifiées."
+      "question": "Comment un utilisateur Windows utilisant MobaXterm, PuTTY ou WinSCP doit-il gérer l'avertissement de changement de clé hôte SSH des grappes de Calcul Canada?",
+      "answer": "L'utilisateur doit accepter la nouvelle clé en cliquant sur \"Yes\" dans la fenêtre d'avertissement, mais seulement après s'être assuré que l'empreinte de la clé correspond à celles listées officiellement par Calcul Canada."
     },
     {
-      "question": "Si j'utilise MobaXterm, PuTTY ou WinSCP sous Windows et que je vois un avertissement de clé hôte changée, comment dois-je procéder?",
-      "answer": "Vous devriez accepter la nouvelle clé en cliquant sur 'Yes' dans la fenêtre d'avertissement, mais seulement après avoir vérifié que l'empreinte correspond à celles listées dans la documentation."
+      "question": "Que doit faire un utilisateur de macOS, Linux, GitBash ou Cygwin s'il reçoit un avertissement de changement de clé hôte SSH lors de sa connexion à une grappe de Calcul Canada?",
+      "answer": "L'utilisateur doit exécuter la commande `ssh-keygen -R` pour l'hôte concerné afin de supprimer l'ancienne clé de sa liste d'hôtes connus, puis confirmer la nouvelle clé lors de la prochaine connexion après avoir vérifié son empreinte."
     },
     {
-      "question": "Comment faire pour gérer le changement de clé hôte sur macOS ou Linux si j'utilise la ligne de commande SSH?",
-      "answer": "Il faut utiliser la commande `ssh-keygen -R` pour que votre système oublie l'ancienne clé hôte pour le serveur concerné, puis confirmer la nouvelle clé en vérifiant l'empreinte quand vous vous connecterez à nouveau."
+      "question": "Pourquoi ma clé SSH existante pourrait-elle ne plus fonctionner pour me connecter aux grappes de Calcul Canada et que l'on me demande un mot de passe à la place?",
+      "answer": "Cela est probablement dû à la désactivation des clés SSH de type DSA et RSA 1024 bits, qui sont maintenant jugées moins sécuritaires."
     },
     {
-      "question": "Ma clé SSH ne fonctionne plus et on me demande un mot de passe. C'est quoi le problème?",
-      "answer": "Le problème est probablement dû à la désactivation des clés DSA et RSA 1024 bits jugées moins sécuritaires. Il faut générer une nouvelle clé SSH plus forte."
+      "question": "Que dois-je faire si ma clé SSH actuelle ne fonctionne plus pour me connecter aux grappes de Calcul Canada?",
+      "answer": "Vous devrez générer une nouvelle paire de clés SSH plus forte. La méthode diffère selon que vous utilisez Windows ou Linux/macOS."
     },
     {
-      "question": "J'ai des messages d'erreur du genre \"Unable to negotiate with... no matching cipher found\", qu'est-ce que ça veut dire?",
-      "answer": "Ces messages indiquent que votre client SSH est incompatible avec les nouvelles politiques de sécurité. Vous devez le mettre à jour vers une version compatible."
+      "question": "Quels types de messages d'erreur indiquent une incompatibilité de client SSH, rendant impossible la connexion aux grappes de Calcul Canada?",
+      "answer": "Des messages d'erreur tels que \"Unable to negotiate with [IP/port]: no matching cipher found\", \"no matching key exchange method found\", ou \"no matching mac found\" indiquent une incompatibilité de votre client SSH."
     },
     {
-      "question": "Y a-t-il une liste de clients SSH compatibles suite aux modifications?",
-      "answer": "Oui, le document fournit une liste non exhaustive de clients testés et compatibles pour Linux, OS X, Windows et iOS, mais il est recommandé de toujours mettre à jour votre système d'exploitation et votre client SSH."
+      "question": "Comment puis-je résoudre les erreurs de connexion SSH dues à des problèmes de chiffrement ou de méthode d'échange de clés lors de l'accès aux grappes de Calcul Canada?",
+      "answer": "Vous devez mettre à jour votre client SSH à une version compatible avec les nouvelles politiques de sécurité de Calcul Canada, et il est recommandé de mettre à jour votre système d'exploitation également."
     },
     {
-      "question": "Comment est-ce que je peux récupérer et vérifier l'empreinte d'une clé hôte à distance?",
-      "answer": "Vous pouvez utiliser les commandes `ssh-keyscan <hostname> | ssh-keygen -E md5 -l -f -` ou `ssh-keyscan <hostname> | ssh-keygen -E sha256 -l -f -` et comparer le résultat avec la liste des empreintes de clés hôtes fournie."
+      "question": "Quelles sont quelques-unes des versions de clients SSH qui ont été testées et sont compatibles avec les grappes de Calcul Canada après les mises à jour de sécurité?",
+      "answer": "Parmi les clients compatibles, on retrouve OpenSSH_7.4p1 (CentOS 7.5, 7.6), OpenSSH 7.9p1 (OS X 10.14.5), MobaXterm Home Edition v11.1, PuTTY 0.72, et certaines versions de Windows Services for Linux (WSL) comme Ubuntu 18.04."
     },
     {
-      "question": "Si l'empreinte d'une clé hôte que je reçois ne correspond pas à celles listées, que dois-je faire?",
-      "answer": "Vous ne devez pas accepter la connexion et contacter immédiatement le soutien technique."
+      "question": "Pourquoi est-il crucial de vérifier l'empreinte de la clé hôte lors de la première connexion SSH à une grappe de Calcul Canada?",
+      "answer": "La vérification de l'empreinte est essentielle pour s'assurer que vous vous connectez bien au serveur légitime et non à un serveur malveillant, protégeant ainsi contre les attaques de l'homme du milieu (man-in-the-middle)."
+    },
+    {
+      "question": "Comment peut-on récupérer à distance les empreintes de clés hôtes d'une grappe de Calcul Canada pour les vérifier avant de se connecter?",
+      "answer": "On peut utiliser les commandes `ssh-keyscan <hostname> | ssh-keygen -E md5 -l -f -` ou `ssh-keyscan <hostname> | ssh-keygen -E sha256 -l -f -`."
+    },
+    {
+      "question": "Quand faut-il contacter le soutien technique de Calcul Canada concernant des problèmes de connexion SSH?",
+      "answer": "Il faut contacter le soutien technique si l'empreinte de la clé hôte que vous recevez ne correspond pas à la liste officielle fournie, ou si vous rencontrez des problèmes de connexion persistants malgré les étapes de dépannage suggérées."
+    },
+    {
+      "question": "Quel protocole est principalement utilisé pour se connecter aux grappes de Calcul Canada et quels sont ses rôles?",
+      "answer": "SSH est le protocole principal; il vérifie l'identité du serveur et de l'utilisateur, les compare aux identités connues et assure le chiffrement de la connexion pour protéger les communications."
+    },
+    {
+      "question": "Quels types de clés publiques ont été désactivés sur les grappes de Calcul Canada suite aux mises à jour de sécurité?",
+      "answer": "Les clés DSA et RSA de 1024 bits ont été désactivées car elles ne sont plus jugées suffisamment sécuritaires."
     }
   ],
-  "generated_at": "2026-04-12T07:32:13.163318+00:00"
+  "generated_at": "2026-04-13T13:11:03.763675+00:00"
 }

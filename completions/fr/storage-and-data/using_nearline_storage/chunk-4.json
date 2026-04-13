@@ -4,97 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "À quoi sert la commande `lfs hsm_state`?",
-      "answer": "La commande `lfs hsm_state` permet de savoir si un fichier est sur ruban ou encore sur disque. L'abréviation HSM signifie ''hierarchical storage manager''."
+      "question": "Comment savoir si un fichier sur le système de fichiers /nearline est encore sur disque ou s'il a été archivé sur ruban seulement?",
+      "answer": "Pour vérifier l'état d'un fichier sur /nearline, on utilise la commande `lfs hsm_state <FILE>`. Cette commande indique si le fichier est uniquement sur disque (0x00000000), en cours de copie sur ruban (exists), présent sur disque et sur ruban (exists archived), ou seulement sur ruban (released exists archived), ce qui prendra plus de temps pour l'ouvrir. On peut forcer le rappel d'un fichier du ruban vers le disque sans le lire en utilisant la commande `lfs hsm_restore <FILE>`."
     },
     {
-      "question": "Que signifie le résultat `(0x00000000)` quand on utilise `lfs hsm_state` sur un fichier?",
-      "answer": "Cela indique que le fichier se trouve seulement sur disque."
+      "question": "Quelles sont les particularités du service /nearline sur la grappe Béluga, notamment concernant l'archivage, la suppression et la restauration de fichiers?",
+      "answer": "Sur la grappe Béluga, l'accès au répertoire /nearline se fait via les nœuds de connexion et les nœuds de copie (DTN). Les fichiers enregistrés dans `~/nearline/PROJECT` sont copiés sur ruban après environ 24 heures. Si un fichier n’est pas modifié pendant le même laps de temps, sa copie sur disque est supprimée, le virtualisant ainsi sur ruban. Si un fichier est supprimé de `~/nearline`, sa copie sur ruban est conservée pendant 60 jours. Pour restaurer ces fichiers, il faut contacter le soutien technique en fournissant le chemin complet et la date de la version désirée. Il est recommandé de conserver une copie de la structure de votre espace /nearline, par exemple avec la commande `ls -R > ~/nearline_contents.txt`."
     },
     {
-      "question": "Que signifie le résultat `exists, [...]` quand on utilise `lfs hsm_state` sur un fichier?",
-      "answer": "Cela signifie que le fichier est présentement copié sur ruban."
-    },
-    {
-      "question": "Que signifie le résultat `exists archived, [...]` quand on utilise `lfs hsm_state` sur un fichier?",
-      "answer": "Cela indique que le fichier se trouve à la fois sur disque et sur ruban."
-    },
-    {
-      "question": "Que signifie le résultat `released exists archived, [...]` quand on utilise `lfs hsm_state` sur un fichier?",
-      "answer": "Cela signifie que le fichier se trouve sur ruban et n'est plus sur disque; l'ouvrir prendra plus de temps."
-    },
-    {
-      "question": "Comment faire pour forcer le rappel d'un fichier sur ruban vers le disque sans le lire?",
-      "answer": "On peut utiliser la commande `lfs hsm_restore <FILE>`."
-    },
-    {
-      "question": "Comment accéder au répertoire /nearline sur la grappe Béluga?",
-      "answer": "L'accès au répertoire /nearline sur la grappe Béluga se fait par les nœuds de connexion et les nœuds de copie (DTN)."
-    },
-    {
-      "question": "Où dois-je enregistrer mes fichiers pour le service /nearline sur Béluga?",
-      "answer": "Vous devriez enregistrer vos fichiers dans votre répertoire `~/nearline/PROJECT`."
-    },
-    {
-      "question": "Combien de temps faut-il pour que mes fichiers soient copiés sur ruban sur Béluga?",
-      "answer": "Les fichiers sont copiés sur ruban après un certain temps, soit environ 24 heures (en date de février 2019)."
-    },
-    {
-      "question": "Quand la copie sur disque d'un fichier est-elle supprimée sur Béluga?",
-      "answer": "Si un fichier n'est pas modifié pendant un certain temps (24 heures en date de février 2019), la copie sur disque sera supprimée, ce qui virtualise le fichier sur ruban."
-    },
-    {
-      "question": "Que se passe-t-il si je supprime un fichier de mon répertoire `~/nearline` sur Béluga?",
-      "answer": "Si vous supprimez un fichier de `~/nearline` volontairement ou par accident, la copie sur ruban est conservée pendant 60 jours."
-    },
-    {
-      "question": "Comment restaurer un fichier supprimé de `~/nearline` sur Béluga?",
-      "answer": "Pour restaurer ces fichiers, vous devez contacter le soutien technique en mentionnant le chemin complet et la version (avec la date), de la même manière que vous procéderiez pour restaurer une copie de sauvegarde."
-    },
-    {
-      "question": "Pourquoi est-il important de conserver une copie de la structure de mon espace /nearline sur Béluga?",
-      "answer": "Il est important de conserver une copie de la structure complète de votre espace /nearline pour pouvoir restaurer des fichiers supprimés en mentionnant le chemin exact au soutien technique."
-    },
-    {
-      "question": "Comment puis-je visualiser la structure de mes fichiers dans mon espace `~/nearline/PROJECT` sur Béluga?",
-      "answer": "Vous pouvez utiliser la commande `ls -R > ~/nearline_contents.txt` lancée du répertoire `~/nearline/PROJECT` pour voir où sont situés les fichiers dans votre espace /nearline."
-    },
-    {
-      "question": "Quelles sont les différences du service /nearline sur Nibi par rapport à Béluga?",
-      "answer": "Sur Nibi, la création de la première copie sur ruban des données pourrait prendre plus que 24 heures, et la copie sur disque ne sera pas effacée avant 60 jours."
-    },
-    {
-      "question": "Le service /nearline sur Narval est-il similaire à celui de Béluga?",
-      "answer": "Oui, le service /nearline sur Narval est semblable à celui de Béluga."
-    },
-    {
-      "question": "Quel est le service /nearline pour la grappe Trillium?",
-      "answer": "Le service /nearline pour Trillium est HPSS."
-    },
-    {
-      "question": "Quelles sont les méthodes pour accéder à HPSS sur Trillium?",
-      "answer": "Les méthodes d'accès sont: soumettre une tâche à l'ordonnanceur Slurm avec les commandes HPSS `htar` ou `hsi`, utiliser un nœud VFS (''virtual file system'') via la commande `salloc --time=1:00:00 -pvfsshort`, ou utiliser Globus avec le point de chute `alliancecan#hpss`."
-    },
-    {
-      "question": "Comment soumettre une tâche à l'ordonnanceur Slurm pour accéder à HPSS sur Trillium?",
-      "answer": "Vous pouvez soumettre une tâche à l'ordonnanceur Slurm dans une des partitions archive avec les commandes HPSS `htar` ou `hsi`. Travailler avec des scripts est recommandé pour automatiser les transferts."
-    },
-    {
-      "question": "Où se trouvent les fichiers HPSS sur Trillium?",
-      "answer": "Vos fichiers HPSS se trouvent dans le répertoire `$ARCHIVE`, qui est semblable à `$PROJECT` mais où `/project` est remplacé par `/archive`."
-    },
-    {
-      "question": "Comment utiliser un nœud VFS pour accéder à HPSS sur Trillium?",
-      "answer": "Vous pouvez utiliser la commande `salloc --time=1:00:00 -pvfsshort` pour obtenir un nœud VFS. C'est utile quand vous avez peu de fichiers HPSS."
-    },
-    {
-      "question": "Quel est le point de chute Globus pour transférer des fichiers HPSS sur Trillium?",
-      "answer": "Le point de chute (''endpoint'') Globus pour les transferts HPSS est `alliancecan#hpss`."
-    },
-    {
-      "question": "Quand est-il recommandé d'utiliser Globus pour les transferts HPSS sur Trillium?",
-      "answer": "Globus est utile pour un usage occasionnel ou pour les transferts entre HPSS et les autres sites."
+      "question": "Quelles sont les différentes façons d'accéder au service /nearline sur la grappe Trillium, qui utilise le système HPSS?",
+      "answer": "Sur la grappe Trillium, le service /nearline est géré par HPSS et offre trois méthodes d'accès. Premièrement, vous pouvez soumettre une tâche à l'ordonnanceur Slurm dans une partition archive en utilisant les commandes HPSS `htar` ou `hsi`, ce qui est idéal pour l'automatisation. Deuxièmement, pour un petit nombre de fichiers, il est possible d'utiliser un nœud VFS (virtual file system) en lançant `salloc --time=1:00:00 -pvfsshort`. Finalement, vous pouvez utiliser Globus pour transférer vos fichiers HPSS en spécifiant le point de chute `alliancecan#hpss`, une méthode utile pour un usage occasionnel ou des transferts entre différents sites. Sur Trillium, vos fichiers HPSS se trouvent dans le répertoire `$ARCHIVE`, qui est l'équivalent de `/project`."
     }
   ],
-  "generated_at": "2026-04-12T10:28:51.845975+00:00"
+  "generated_at": "2026-04-13T15:29:30.539496+00:00"
 }

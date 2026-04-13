@@ -4,37 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What information is required to aggregate datasets using Cellranger?",
-      "answer": "To aggregate datasets, you need to create a CSV file with two columns: `sample_id` and `molecule_h5`."
+      "question": "What is the purpose of the `cellranger aggr` pipeline and what input file is needed to run it?",
+      "answer": "The `cellranger aggr` pipeline aggregates outputs from multiple `cellranger count` runs, normalizing them to the same sequencing depth and then recomputing feature-barcode matrices and analysis on the combined data. To run it, users need to create a CSV file containing `sample_id` and `molecule_h5` paths for each dataset to be aggregated."
     },
     {
-      "question": "Can you provide an example of the CSV format required for `cellranger aggr`?",
-      "answer": "An example CSV for aggregation would include columns `sample_id` and `molecule_h5`, with entries such as `Sample1,/opt/runs/outs/per_sample_outs/Sample1/count/sample_molecule_info.h5` and `Sample2,/opt/runs/outs/per_sample_outs/Sample2/count/sample_molecule_info.h5`."
-    },
-    {
-      "question": "What is the command to run the `cellranger aggr` pipeline?",
-      "answer": "You can run the `aggr` pipeline using the command: `cellranger aggr --id=$ID --csv=aggr.csv`."
-    },
-    {
-      "question": "What are the typical SLURM parameters specified in a batch script for running Cellranger in alliance clusters?",
-      "answer": "Typical SLURM parameters in a batch script for alliance clusters include `--account=def-someprof`, `-N 1` (for one node), `--cpus-per-task=8`, `--mem=64g`, and `--time=24:00:00`."
-    },
-    {
-      "question": "How are the local CPU cores and memory allocated to the `cellranger count` command in the provided SLURM script example?",
-      "answer": "In the example SLURM script, `localcores` is set to `$SLURM_CPUS_PER_TASK` and `localmem` is set to `$SLURM_MEM_PER_NODE`."
-    },
-    {
-      "question": "What variables are passed as arguments to the SLURM script for running `cellranger count`?",
-      "answer": "The variables passed as arguments to the SLURM script are `FASTQS`, `ID`, and `WORK_DIR`."
-    },
-    {
-      "question": "What is the purpose of `cd $WORK_DIR` in the example SLURM script for Cellranger?",
-      "answer": "The `cd $WORK_DIR` command in the SLURM script changes the current directory to the specified working directory before executing the `cellranger count` command."
-    },
-    {
-      "question": "Where can I find the official Cellranger documentation?",
-      "answer": "The official Cellranger documentation is available at https://www.10xgenomics.com/support/software/cell-ranger/latest/analysis."
+      "question": "How is the `cellranger count` pipeline typically run within the Alliance clusters?",
+      "answer": "Within the Alliance clusters, the `cellranger count` pipeline is typically run using an SLURM batch script. This script defines resources like CPU cores (`--cpus-per-task`), memory (`--mem`), and job time (`--time`), and sets the `--localcores` and `--localmem` parameters of the `cellranger count` command using SLURM environment variables such as `$SLURM_CPUS_PER_TASK` and `$SLURM_MEM_PER_NODE`."
     }
   ],
-  "generated_at": "2026-04-11T19:28:55.042491+00:00"
+  "generated_at": "2026-04-13T03:43:28.117184+00:00"
 }

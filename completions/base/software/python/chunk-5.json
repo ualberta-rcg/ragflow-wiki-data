@@ -4,57 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `submit_venv.sh` script provided in the documentation?",
-      "answer": "The `submit_venv.sh` script demonstrates how to create and activate a Python virtual environment, upgrade `pip`, and install packages from a `requirements.txt` file within a single-node job."
+      "question": "Why is it recommended to create Python virtual environments inside job allocations on compute nodes rather than in `/home` or `/project` directories on Alliance clusters?",
+      "answer": "Creating Python virtual environments inside job allocations, particularly on the compute node's local disk (like `$SLURM_TMPDIR`), is recommended as a workaround for performance slowdowns. Parallel filesystems, typically used for `/home` and `/project`, can be inefficient for intensive use of small files, which often occurs when launching software and loading libraries from a virtual environment. This approach can be faster and helps protect against filesystem performance issues."
     },
     {
-      "question": "Which Python version is loaded in the `submit_venv.sh` example script?",
-      "answer": "The `submit_venv.sh` example script loads Python version `3.11` using the command `module load python/3.11`."
+      "question": "How can a user create a reproducible Python virtual environment for a single-node job, ensuring all required packages (like TensorFlow) are consistently installed, and what steps are involved in setting this up on an Alliance cluster?",
+      "answer": "To create a reproducible virtual environment for a single-node job on an Alliance cluster: First, on a login node, load your desired Python module (e.g., `python/3.11`), create a temporary virtual environment (e.g., `virtualenv --no-download /tmp/$RANDOM/env`), activate it, and install all necessary packages (e.g., `pip install --no-index tensorflow`). Then, use `pip freeze --local > requirements.txt` to generate a file listing all installed packages and their versions. Deactivate and remove the temporary environment. In your job submission script, load the Python module, create a new virtual environment on the compute node's local disk (`virtualenv --no-download $SLURM_TMPDIR/env`), activate it, upgrade pip, and finally install packages using the generated `requirements.txt` file (`pip install --no-index -r requirements.txt`)."
     },
     {
-      "question": "How is a virtual environment created within the `submit_venv.sh` job submission script?",
-      "answer": "A virtual environment is created using the command `virtualenv --no-download $SLURM_TMPDIR/env` within the `submit_venv.sh` script."
-    },
-    {
-      "question": "Where should the virtual environment be created for a single-node job according to the example script?",
-      "answer": "The virtual environment should be created in `$SLURM_TMPDIR`, which is a node-local temporary directory."
-    },
-    {
-      "question": "How are Python packages installed from a `requirements.txt` file within the `submit_venv.sh` script?",
-      "answer": "Packages are installed using the command `pip install --no-index -r requirements.txt` within the `submit_venv.sh` script."
-    },
-    {
-      "question": "What command is used to upgrade `pip` in the virtual environment within the `submit_venv.sh` script?",
-      "answer": "The command `pip install --no-index --upgrade pip` is used to upgrade `pip` in the virtual environment within the `submit_venv.sh` script."
-    },
-    {
-      "question": "What is the process for creating a `requirements.txt` file for a TensorFlow environment on a login node?",
-      "answer": "To create a `requirements.txt` file for TensorFlow, load Python 3.11, create a temporary virtual environment, activate it, upgrade `pip`, install TensorFlow with `pip install --no-index tensorflow`, then freeze the installed packages into `requirements.txt` using `pip freeze --local > requirements.txt`, and finally deactivate and remove the temporary environment."
-    },
-    {
-      "question": "What is the significance of using a `requirements.txt` file for Python environments?",
-      "answer": "The `requirements.txt` file ensures that your Python environment is reproducible between jobs by listing all specific packages and their exact versions."
-    },
-    {
-      "question": "What should users do if a required Python wheel is not available in the provided wheelhouse?",
-      "answer": "If a required wheel is not available, users can pre-download the package or contact Technical Support to make a request for its inclusion in the wheelhouse."
-    },
-    {
-      "question": "What is necessary for running Python scripts across multiple nodes when utilizing virtual environments?",
-      "answer": "To run Python scripts across multiple nodes with virtual environments, each allocated node must have its own virtual environment activated."
-    },
-    {
-      "question": "How do you create a virtual environment on each allocated node within a multi-node job submission script?",
-      "answer": "In a multi-node job submission script, use an `srun` block like `srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF ... EOF` to run `virtualenv --no-download $SLURM_TMPDIR/env` and `source $SLURM_TMPDIR/env/bin/activate` on each node."
-    },
-    {
-      "question": "Can you provide an example of the content found in a `requirements.txt` file for a TensorFlow environment?",
-      "answer": "An example `requirements.txt` for TensorFlow might include entries such as `tensorflow==2.9.0+computecanada`, `numpy==1.23.0+computecanada`, `keras==2.9.0+computecanada`, and many other dependencies, often suffixed with `+computecanada`."
-    },
-    {
-      "question": "How is the virtual environment activated within the `submit_venv.sh` script for a single-node job?",
-      "answer": "The virtual environment is activated using the command `source $SLURM_TMPDIR/env/bin/activate` in the `submit_venv.sh` script."
+      "question": "When running Python scripts across multiple nodes on Alliance clusters, what is the procedure for creating and activating a virtual environment on each allocated node within a job submission script?",
+      "answer": "For multi-node Python jobs on Alliance clusters, you must create and activate a virtual environment on each allocated node. Within your job submission script, use `srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF` to execute commands that create the virtual environment (`virtualenv --no-download $SLURM_TMPDIR/env`) and activate it (`source $SLURM_TMPDIR/env/bin/activate`) on every node. Inside this `EOF` block, you should also upgrade pip and install your required packages from a `requirements.txt` file. After the `srun` block, activate the virtual environment on the main node with `source $SLURM_TMPDIR/env/bin/activate;` before using `srun python myscript.py;` to run your script, as `srun` exports the current environment."
     }
   ],
-  "generated_at": "2026-04-12T05:50:49.763640+00:00"
+  "generated_at": "2026-04-13T11:45:44.943184+00:00"
 }

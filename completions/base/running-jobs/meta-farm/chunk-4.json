@@ -4,93 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Where must most META commands be executed?",
-      "answer": "Most META commands, except for `farm_init.run` itself, must be executed inside a farm directory created by `farm_init.run`."
+      "question": "What are the recommended conditions for using the SIMPLE mode in the META package?",
+      "answer": "The SIMPLE mode is recommended if the total number of computational cases is fairly small (e.g., less than 500) and each case is expected to run for at least 20 minutes."
     },
     {
-      "question": "What is a 'case' in the context of META-Farm?",
-      "answer": "A 'case' refers to a single, independent execution of your code."
+      "question": "How do you use the `submit.run` command in the META package, and what are its main arguments?",
+      "answer": "The `submit.run` command requires one obligatory argument, `N`. If `N` is -1, it enables SIMPLE mode, submitting one job for each line in `table.dat`. If `N` is a positive integer, it enables META mode, requesting `N` metajobs. Optional arguments like `-auto` can be used for automatic resubmission, and any additional arguments are passed to the Slurm `sbatch` command."
     },
     {
-      "question": "What is a 'job' in the context of META-Farm?",
-      "answer": "A 'job' is an invocation of the Slurm scheduler."
-    },
-    {
-      "question": "Under what conditions is it reasonable to use the SIMPLE mode?",
-      "answer": "SIMPLE mode is reasonable to use if the total number of cases is fairly small (e.g., less than 500) and each case runs for at least 20 minutes."
-    },
-    {
-      "question": "When should one consider using META mode over SIMPLE mode?",
-      "answer": "One should consider using META mode to handle many cases per job if the conditions for SIMPLE mode are not met, such as having a large number of cases or short individual case runtimes."
-    },
-    {
-      "question": "What are the three essential scripts for running a META-Farm?",
-      "answer": "The three essential scripts are `submit.run`, `single_case.sh`, and `job_script.sh`."
-    },
-    {
-      "question": "What is the obligatory argument for the `submit.run` command?",
-      "answer": "The obligatory argument for `submit.run` is `N`, which specifies the number of jobs to submit."
-    },
-    {
-      "question": "How do you request SIMPLE mode when using `submit.run`?",
-      "answer": "To request SIMPLE mode, set `N` to -1 in the `submit.run` command, which will submit as many jobs as there are lines in `table.dat`."
-    },
-    {
-      "question": "How do you request META mode when using `submit.run`?",
-      "answer": "To request META mode, provide a positive integer `N` as the argument to `submit.run`, where `N` is the desired number of metajobs."
-    },
-    {
-      "question": "What happens if `N` is neither -1 nor a positive integer for `submit.run`?",
-      "answer": "Any value for `N` other than -1 or a positive integer is considered invalid for `submit.run`."
-    },
-    {
-      "question": "What is the purpose of the `-auto` switch in the `submit.run` command?",
-      "answer": "The `-auto` switch ensures the farm automatically resubmits itself at the end, more than once if necessary, until all cases from `table.dat` have been processed."
-    },
-    {
-      "question": "What happens if a `final.sh` file is present in the farm directory?",
-      "answer": "If a `final.sh` file is present, `submit.run` will treat it as a script for a post-processing job and launch it automatically once all cases from `table.dat` are successfully processed."
-    },
-    {
-      "question": "How can additional arguments be passed to the Slurm `sbatch` command via `submit.run`?",
-      "answer": "Any additional arguments supplied to `submit.run` after `N` and `-auto` will be passed on to the Slurm `sbatch` command used to launch all metajobs for the farm."
-    },
-    {
-      "question": "What is the main function of the `single_case.sh` script?",
-      "answer": "The function of `single_case.sh` is to read one line from `table.dat`, parse it, and use its contents to launch your code for a single case."
-    },
-    {
-      "question": "Can `single_case.sh` be customized?",
-      "answer": "Yes, `single_case.sh` can be customized for your specific purposes."
-    },
-    {
-      "question": "How does the default `single_case.sh` provided by `farm_init.run` process lines from `table.dat`?",
-      "answer": "The default `single_case.sh` treats each line in `table.dat` as a literal command and executes it within its own subdirectory named `RUNyyy`, where `yyy` is the case number."
-    },
-    {
-      "question": "What does the `$ID` variable represent in `single_case.sh`?",
-      "answer": "The `$ID` variable in `single_case.sh` contains the case ID from the original `table.dat`."
-    },
-    {
-      "question": "What does the `$COMM` variable represent in `single_case.sh`?",
-      "answer": "The `$COMM` variable in `single_case.sh` is the line corresponding to the case `$ID` in `table.dat`, without the ID field."
-    },
-    {
-      "question": "What does the `$METAJOB_ID` variable represent in `single_case.sh`?",
-      "answer": "The `$METAJOB_ID` variable in `single_case.sh` represents the job ID for the current metajob, useful for creating per-job files."
-    },
-    {
-      "question": "If `single_case.sh` is unmodified, what should each line of `table.dat` contain?",
-      "answer": "If `single_case.sh` is unmodified, each line of `table.dat` should contain a complete command."
-    },
-    {
-      "question": "Can a single line in `table.dat` include multiple shell commands?",
-      "answer": "Yes, a single line in `table.dat` is allowed to use more than one shell command, separated by semicolons."
-    },
-    {
-      "question": "Must all commands in `table.dat` be identical except for their arguments?",
-      "answer": "No, while `table.dat` typically contains identical commands differentiated by arguments, it can contain any executable statement."
+      "question": "What is the primary function of the `single_case.sh` script within the META package?",
+      "answer": "The `single_case.sh` script's primary function is to read a single line from the `table.dat` file, parse its contents, and then use that information to launch your code for one individual computational case. Users can customize this script for their specific needs."
     }
   ],
-  "generated_at": "2026-04-12T01:17:45.137870+00:00"
+  "generated_at": "2026-04-13T08:22:03.926780+00:00"
 }

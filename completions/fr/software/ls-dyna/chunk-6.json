@@ -4,53 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on soumet une tâche LS-DYNA MPP sur une grappe en spécifiant un nombre entier de nœuds de calcul?",
-      "answer": "Pour soumettre une tâche LS-DYNA MPP en spécifiant le nombre entier de nœuds, il faut utiliser un script comme `script-mpp-bynode.sh` avec la commande `sbatch`."
+      "question": "Comment soumet-on une tâche LS-DYNA en mode MPP en spécifiant un nombre précis de nœuds de calcul entiers sur les grappes de l'Alliance?",
+      "answer": "Pour soumettre une tâche LS-DYNA en mode MPP en spécifiant un nombre de nœuds entiers, il faut utiliser un script comme `script-mpp-bynode.sh`. Ce script demande de définir le nombre de cœurs par nœud via `--ntasks-per-node` (par exemple, 192 pour Narval, Nibi, Fir ou Trillium) et le nombre de nœuds via `--nodes`. La mémoire est configurée à `0` pour utiliser toute la mémoire par nœud de calcul. Une fois les modules chargés (`StdEnv/2023`, `intel/2023.2.1`, `ls-dyna-mpi/12.2.1`), la tâche est lancée avec `srun ls-dyna_d` ou `mpirun` selon la version de EasyBuild."
     },
     {
-      "question": "Quels sont les paramètres SLURM principaux pour un script de soumission de tâche MPP où l'on spécifie le nombre de nœuds?",
-      "answer": "Les paramètres SLURM principaux pour un script MPP par nombre de nœuds sont `--account`, `--time`, `--ntasks-per-node`, `--nodes` et `--mem=0`."
+      "question": "Quelle est la méthode pour soumettre des tâches LS-DYNA MPP en spécifiant le nombre total de cœurs, et quel avantage cela procure-t-il par rapport à la spécification du nombre de nœuds?",
+      "answer": "Pour soumettre des tâches LS-DYNA MPP en spécifiant le nombre total de cœurs, on utilise un script comme `script-mpp-bycore.sh`. Il faut y définir le nombre total de cœurs avec `--ntasks` (par exemple, 64) et la mémoire par cœur avec `--mem-per-cpu` (par exemple, 2G). L'avantage de cette approche, c'est que l'ordonnanceur peut déterminer le nombre optimal de nœuds de calcul pour minimiser le temps d'attente dans la file d'attente. Il est important que la valeur de `mem-per-cpu` soit assez élevée pour que le processeur principal puisse bien décomposer et gérer les calculs."
     },
     {
-      "question": "Pourquoi le paramètre `--mem=0` est-il spécifié dans le script `script-mpp-bynode.sh`?",
-      "answer": "Le paramètre `--mem=0` est configuré pour que le nœud de calcul utilise toute sa mémoire disponible, et il ne faut pas le modifier."
-    },
-    {
-      "question": "Combien de cœurs par nœud sont typiquement spécifiés pour les grappes comme Narval, Nibi, Fir et Trillium dans un script MPP par nœud?",
-      "answer": "Dans le script `script-mpp-bynode.sh`, on spécifie généralement 192 cœurs par nœud (`--ntasks-per-node=192`) pour les grappes comme Narval, Nibi, Fir et Trillium."
-    },
-    {
-      "question": "Quels modules faut-il charger pour exécuter une tâche LS-DYNA MPP avec les versions 2023 de l'environnement standard?",
-      "answer": "Il faut charger les modules `StdEnv/2023`, `intel/2023.2.1` et `ls-dyna-mpi/12.2.1`."
-    },
-    {
-      "question": "Quelle commande est utilisée pour lancer le solveur LS-DYNA MPP en double précision?",
-      "answer": "La commande `ls-dyna_d` est utilisée pour lancer le solveur LS-DYNA MPP en double précision."
-    },
-    {
-      "question": "Pourquoi est-ce qu'on choisirait de soumettre une tâche LS-DYNA MPP en spécifiant le nombre de cœurs plutôt que le nombre de nœuds?",
-      "answer": "On choisirait de soumettre une tâche MPP en spécifiant le nombre de cœurs pour permettre à l'ordonnanceur de déterminer le nombre optimal de nœuds de calcul, ce qui aide à minimiser le temps d'attente dans la queue."
-    },
-    {
-      "question": "Quel est le paramètre SLURM pour spécifier le nombre total de cœurs pour une tâche MPP?",
-      "answer": "Le paramètre SLURM pour spécifier le nombre total de cœurs est `--ntasks`, par exemple `--ntasks=64`."
-    },
-    {
-      "question": "Quelle est l'importance du paramètre `mem-per-cpu` dans un script MPP où le nombre de cœurs est spécifié?",
-      "answer": "La valeur de `mem-per-cpu` doit être assez élevée pour que le processeur principal puisse bien décomposer et gérer les calculs, étant donné que la limite de mémoire s'applique aux cœurs."
-    },
-    {
-      "question": "Pourquoi est-ce essentiel de faire des tests de scalabilité avant de lancer de longues tâches LS-DYNA?",
-      "answer": "Il est essentiel de faire des tests de scalabilité pour LS-DYNA afin de déterminer le nombre maximal de cœurs utilisables avant que la performance ne commence à se dégrader, surtout avant de soumettre des longues tâches."
-    },
-    {
-      "question": "Comment peut-on obtenir les statistiques de performance d'une tâche de test LS-DYNA?",
-      "answer": "Pour obtenir les statistiques de performance d'une tâche de test LS-DYNA, comme le temps d'exécution total ou l'efficacité CPU et mémoire, on peut utiliser la commande `seff jobnumber` ou un portail comme celui de Nibi (`https://portal.nibi.sharcnet.ca`)."
-    },
-    {
-      "question": "Quelle est la meilleure façon d'effectuer des tests de scalabilité fiables pour LS-DYNA?",
-      "answer": "La meilleure façon d'effectuer des tests de scalabilité fiables est de les réaliser en utilisant la simulation réelle et la grappe où les exécutions de production complètes sont prévues."
+      "question": "Pourquoi est-ce qu'on recommande de faire des tests de scalabilité pour les simulations LS-DYNA, et comment peut-on obtenir les statistiques de performance d'une tâche?",
+      "answer": "Il est conseillé de faire des tests de scalabilité pour les simulations LS-DYNA parce que le logiciel pourrait ne pas utiliser efficacement un très grand nombre de cœurs en parallèle. Ces tests aident à déterminer le nombre maximal de cœurs pouvant être utilisés avant que la performance ne commence à se dégrader. Pour avoir les statistiques des travaux de test, comme le temps d'exécution total, l'efficacité CPU et l'efficacité de la mémoire, on peut utiliser la commande `seff jobnumber` ou un portail comme celui de Nibi. Il est crucial d'exécuter ces tests avec la simulation réelle et sur la grappe où les exécutions de production complètes seront réalisées pour obtenir des résultats fiables."
     }
   ],
-  "generated_at": "2026-04-12T00:55:56.173091+00:00"
+  "generated_at": "2026-04-13T08:03:57.707178+00:00"
 }

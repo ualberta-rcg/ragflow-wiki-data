@@ -4,61 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How do I configure my own license file for the Lumerical suite?",
-      "answer": "You need to create a file named `$HOME/.licenses/lumerical.lic` with the content `setenv(\"LUMERICAL_LICENSE_FILE\", \"27011@license01.example.com\")`, ensuring you adjust the port and hostname to match your specific license server."
+      "question": "How do users install FDTD Solutions if the downloaded installer version does not exactly match the version specified in the installation recipe?",
+      "answer": "If the FDTD Solutions installer version differs from the recipe (e.g., from `8.19.1438`), users should execute the command `eb FDTD_Solutions-8.19.1438.eb --try-software-version=<version> --sourcepath=<path> --disable-enforce-checksums`. For instance, to install version `8.19.1466` from a file downloaded in `$HOME/Downloads`, the command would be `eb FDTD_Solutions-8.19.1438.eb --try-software-version=8.19.1466 --sourcepath=$HOME/Downloads --disable-enforce-checksums`."
     },
     {
-      "question": "What is the command to install FDTD Solutions version 8.19.1438?",
-      "answer": "To install FDTD Solutions version 8.19.1438, run the command `eb FDTD_Solutions-8.19.1438.eb --sourcepath=<path> --disable-enforce-checksums`, where `<path>` is the directory containing your `.tar.gz` installer file."
+      "question": "After installing FDTD Solutions, what is the procedure to configure its license server?",
+      "answer": "Once FDTD Solutions is installed, users must start the software on a login node. The application will then prompt for the license server information, and this configuration step is only required once."
     },
     {
-      "question": "How do I install a version of FDTD Solutions other than 8.19.1438?",
-      "answer": "If you have a different version, use the command `eb FDTD_Solutions-8.19.1438.eb --try-software-version=<version> --sourcepath=<path> --disable-enforce-checksums`. For example, to install version 8.19.1466 downloaded to `$HOME/Downloads`, you'd use `eb FDTD_Solutions-8.19.1438.eb --try-software-version=8.19.1466 --sourcepath=$HOME/Downloads --disable-enforce-checksums`."
-    },
-    {
-      "question": "What should I do if the FDTD Solutions installation encounters issues or does not work?",
-      "answer": "If the installation does not work as expected, you should contact technical support for assistance so they can adapt an installation script for your specific version."
-    },
-    {
-      "question": "What steps are required to load the FDTD Solutions module after installation?",
-      "answer": "Once FDTD Solutions is installed, you must log out of and then back into the server. Afterwards, you can load the FDTD module using the command `module load fdtd_solutions`."
-    },
-    {
-      "question": "How do I set up my license server for FDTD Solutions after installation?",
-      "answer": "To configure your license server, start the FDTD Solutions software on a login node for the first time. It should prompt you to enter the necessary license server information. This setup is only required once."
-    },
-    {
-      "question": "What are the key differences between the `fdtd_solutions` and `lumerical` modules?",
-      "answer": "Besides the `lumerical` module containing additional tools, the main difference is the environment variable that stores the installation location: `EBROOTFDTD_SOLUTIONS` for FDTD Solutions and `EBROOTLUMERICAL` for Lumerical."
-    },
-    {
-      "question": "How should I adjust scripts when switching between the `fdtd_solutions` and `lumerical` modules?",
-      "answer": "When switching modules, you should replace the module name in the `module load ...` line and update the environment variable for the install location (either `EBROOTFDTD_SOLUTIONS` or `EBROOTLUMERICAL`) accordingly."
-    },
-    {
-      "question": "What specific MPI options should I use when submitting a Lumerical job?",
-      "answer": "Because Lumerical's MPI implementation isn't tightly coupled with the scheduler, you should use `--ntasks-per-node=1` and `--cpus-per-task=32` when submitting a Lumerical job."
-    },
-    {
-      "question": "How can I adjust the time limit and node count in a Lumerical job submission script?",
-      "answer": "You can adjust the `#SBATCH --time` directive to modify the time limit and the `#SBATCH --nodes` directive to change the node count to suit your job's requirements."
-    },
-    {
-      "question": "What are the recommended SLURM directives for a Lumerical job submission script?",
-      "answer": "The recommended SLURM directives for a Lumerical job submission script are `#SBATCH --time=0:30:00`, `#SBATCH --ntasks-per-node=1`, `#SBATCH --cpus-per-task=32`, `#SBATCH --ntasks=2` (same as nodes), `#SBATCH --nodes=2`, and `#SBATCH --mem=0`."
-    },
-    {
-      "question": "What specific MPI options should I use when submitting an FDTD Solutions job?",
-      "answer": "Because FDTD's MPI implementation isn't tightly coupled with the scheduler, you should use `--ntasks-per-node=1` and `--cpus-per-task=32` when submitting an FDTD Solutions job."
-    },
-    {
-      "question": "How can I adjust the time limit and node count in an FDTD Solutions job submission script?",
-      "answer": "You can adjust the `#SBATCH --time` directive to modify the time limit and the `#SBATCH --nodes` directive to change the node count to suit your job's requirements."
-    },
-    {
-      "question": "What are the recommended SLURM directives for an FDTD Solutions job submission script?",
-      "answer": "The recommended SLURM directives for an FDTD Solutions job submission script are `#SBATCH --time=0:30:00`, `#SBATCH --ntasks-per-node=1`, `#SBATCH --cpus-per-task=32`, `#SBATCH --ntasks=2` (same as nodes), `#SBATCH --nodes=2`, and `#SBATCH --mem=0`."
+      "question": "What specific SLURM options are recommended for Lumerical and FDTD Solutions job submissions, and what is the reason for these recommendations?",
+      "answer": "For both Lumerical and FDTD Solutions, it is recommended to use the SLURM options `--ntasks-per-node=1` and `--cpus-per-task=32` when submitting a job. This is due to the MPI implementation provided by these applications not being tightly coupled with the scheduler."
     }
   ],
-  "generated_at": "2026-04-12T01:07:24.534818+00:00"
+  "generated_at": "2026-04-13T08:13:21.831717+00:00"
 }

@@ -4,41 +4,13 @@
   "chunk_index": 30,
   "qa_pairs": [
     {
-      "question": "What Ansys Mechanical module version is loaded in this script?",
-      "answer": "The script loads the `ansys/2024R1.03` module version."
+      "question": "How can an Ansys Mechanical (APDL) job be submitted to Alliance clusters using a Slurm script to run in Shared Memory Parallel (SMP) mode with CPU?",
+      "answer": "To submit an Ansys Mechanical (APDL) job in Shared Memory Parallel (SMP) mode to Alliance clusters, you would typically use a Slurm script that loads the `StdEnv/2023` and `ansys/2024R1.03` (or newer) modules. The `mapdl` command should be executed with the `-smp` flag to enable SMP, `-b nolist` for batch mode without listing, `-np` followed by the number of tasks, `-dir` to specify an output directory, and `-i` to provide the input file. For example: `mapdl -smp -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
     },
     {
-      "question": "What standard environment module is required for this Ansys Mechanical script?",
-      "answer": "The `StdEnv/2023` module is required."
-    },
-    {
-      "question": "How does the script specify the number of cores for the Ansys Mechanical APDL job?",
-      "answer": "The script uses `-np $SLURM_NTASKS` to specify the number of cores, which corresponds to the Slurm-allocated tasks."
-    },
-    {
-      "question": "What command is used to run Ansys Mechanical APDL in shared memory parallel mode?",
-      "answer": "The `mapdl -smp` command is used to run Ansys Mechanical APDL in shared memory parallel mode."
-    },
-    {
-      "question": "Where does the `mapdl` command save its output files?",
-      "answer": "The `mapdl` command saves its output files in a directory named `outdir-$SLURM_JOBID`, which is created for each job."
-    },
-    {
-      "question": "What is the purpose of the line `mkdir outdir-$SLURM_JOBID` in the script?",
-      "answer": "This line creates a unique directory named after the Slurm job ID (`$SLURM_JOBID`) to store the job's output files."
-    },
-    {
-      "question": "Is there a specific `LD_LIBRARY_PATH` setting mentioned for the Cedar cluster?",
-      "answer": "Yes, for the 'cedar' cluster (`$CC_CLUSTER = cedar`), the `LD_LIBRARY_PATH` is set to `$EBROOTGCC/../lib/gcc`."
-    },
-    {
-      "question": "What is the name of the input file used by the `mapdl` command in this script?",
-      "answer": "The input file for the `mapdl` command is `YOURAPDLFILE.inp`."
-    },
-    {
-      "question": "Does this Ansys Mechanical APDL script run in batch mode?",
-      "answer": "Yes, the script runs in batch mode, indicated by the `-b nolist` option in the `mapdl` command."
+      "question": "What specific environment variable configuration is required for an Ansys Mechanical (APDL) Shared Memory Parallel (SMP) job running on the Cedar cluster?",
+      "answer": "For an Ansys Mechanical (APDL) Shared Memory Parallel (SMP) job running on the Cedar cluster, an additional environment variable needs to be set within the Slurm script: `export LD_LIBRARY_PATH=$EBROOTGCC/../lib/gcc`. This ensures that the necessary GCC libraries are accessible for the Ansys executable on the Cedar cluster."
     }
   ],
-  "generated_at": "2026-04-12T16:39:47.796925+00:00"
+  "generated_at": "2026-04-13T01:44:17.241651+00:00"
 }

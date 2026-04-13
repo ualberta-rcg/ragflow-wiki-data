@@ -4,57 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Quel est l'avantage d'utiliser des profils MIG moins puissants?",
-      "answer": "L'utilisation de profils MIG moins puissants aura un impact moindre sur votre allocation et votre priorité de calcul."
+      "question": "Comment puis-je lister tous les gabarits et les noms complets des GPU disponibles sur une grappe de calcul en particulier?",
+      "answer": "Pour obtenir la liste de tous les gabarits et les noms complets des GPU sur une grappe spécifique, vous pouvez lancer la commande suivante : `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\\n/g'|cut -d: -f1|sort|uniq`."
     },
     {
-      "question": "Comment faire pour obtenir la liste de tous les gabarits (et le nom complet des GPU) disponibles sur une grappe en particulier?",
-      "answer": "Pour obtenir cette liste, il faut lancer la commande `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\\n/g'|cut -d: -f1|sort|uniq`."
+      "question": "Comment faire pour demander une instance de GPU spécifique pour une tâche interactive sur une grappe de calcul?",
+      "answer": "Pour demander une instance de GPU pour une tâche interactive, vous utiliseriez la commande `salloc`. Par exemple, pour une instance de 20Go à 3/8 de la puissance pour une durée d'une heure, la commande serait : `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`."
     },
     {
-      "question": "Où est-ce que je peux trouver le maximum recommandé de cœurs CPU et de mémoire système par instance?",
-      "answer": "Vous pouvez trouver ces informations dans le tableau des ratios, sous la section [[Allocations_and_compute_scheduling/fr#Ratios_dans_les_bundles|Ratios dans les bundles]]."
-    },
-    {
-      "question": "Quelle commande `salloc` utiliser pour demander une instance GPU interactive de 20 Go avec 3/8 de la puissance pour une durée d'une heure?",
-      "answer": "La commande à utiliser est `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`."
-    },
-    {
-      "question": "Comment soumettre une tâche en lot qui requiert une instance GPU de 20 Go avec 4/8 de la puissance pour 24 heures en utilisant les ressources recommandées sur Narval?",
-      "answer": "Vous pouvez utiliser un script SBATCH similaire à ceci: `#!/bin/bash #SBATCH --account=def-someuser #SBATCH --gpus=a100_4g.20gb:1 #SBATCH --cpus-per-task=6 #SBATCH --mem=62gb #SBATCH --time=24:00:00 hostname nvidia-smi`."
-    },
-    {
-      "question": "Quel est le nombre recommandé de cœurs CPU et de mémoire RAM système pour les instances 3g.20gb et 4g.20gb sur Narval?",
-      "answer": "Sur Narval, il y a 6 cœurs CPU par tâche et 62 Go de mémoire RAM système recommandés pour les instances 3g.20gb et 4g.20gb."
-    },
-    {
-      "question": "Où puis-je consulter l'historique de mes tâches pour déterminer si une migration vers une instance GPU est pertinente?",
-      "answer": "L'historique de vos tâches est disponible sur le portail d'utilisation de Narval, qui est en préparation."
-    },
-    {
-      "question": "Quel est un bon indicateur pour évaluer la puissance de calcul totale qu'une tâche demande à un GPU?",
-      "answer": "La consommation d'énergie est un bon indicateur de la puissance de calcul totale demandée au GPU."
-    },
-    {
-      "question": "Pourquoi une faible consommation d'énergie d'un GPU entier peut-elle suggérer une migration vers une instance MIG?",
-      "answer": "Si un GPU A100 entier avec un TDP maximal de 400 W n'utilise que 100 W en moyenne, soit seulement 50 W de plus que la consommation au repos, cela indique une sous-utilisation et suggère qu'une instance MIG pourrait être suffisante."
-    },
-    {
-      "question": "En plus de la consommation d'énergie, quelles autres informations peuvent aider à évaluer l'utilisation d'un GPU et décider de la migration vers une instance?",
-      "answer": "Les fonctionnalités du GPU, comme son taux d'utilisation, ainsi que la quantité maximale de mémoire GPU et la quantité moyenne de cœurs CPU nécessaires, peuvent fournir des informations utiles."
-    },
-    {
-      "question": "Donnez un exemple de tâche qui pourrait facilement être exécutée sur une instance MIG basée sur l'utilisation des ressources.",
-      "answer": "Une tâche qui utilise un maximum de 3 Go de mémoire GPU sur 40 Go d'un GPU A100 et qui a été lancée avec un seul cœur de processeur, tout en sous-utilisant la puissance de calcul du GPU, pourrait facilement s'exécuter sur une instance de 3g.20Go ou de 4g.20Go."
-    },
-    {
-      "question": "Comment peut-on surveiller l'utilisation d'un GPU en temps réel pour une tâche qui est déjà en cours d'exécution?",
-      "answer": "On peut se connecter au nœud sur lequel la tâche se trouve et utiliser la commande `nvidia-smi` pour lire les métriques du GPU en temps réel."
-    },
-    {
-      "question": "Est-ce que la commande `nvidia-smi` fournit les valeurs maximales et moyennes de mémoire et de puissance pour l'ensemble d'une tâche?",
-      "answer": "Non, `nvidia-smi` ne fournit pas les valeurs maximales et moyennes pour la mémoire et la puissance de toute la tâche, mais elle est utile pour identifier une sous-utilisation du GPU en temps réel."
+      "question": "Quels indicateurs devrais-je considérer pour déterminer si une tâche de calcul devrait plutôt être exécutée sur une instance de GPU au lieu d'un GPU entier?",
+      "answer": "Pour savoir si une tâche doit être migrée sur une instance de GPU, il faut consulter l'historique de vos tâches. Les principaux indicateurs à évaluer sont la consommation d’énergie du GPU, l'utilisation générale du GPU, la quantité maximale de mémoire GPU utilisée et la quantité moyenne de cœurs CPU nécessaires. Si votre tâche n'utilise qu'une fraction des ressources d'un GPU entier, une instance pourrait être plus efficace, consommant moins de votre priorité de calcul."
     }
   ],
-  "generated_at": "2026-04-12T03:25:22.256770+00:00"
+  "generated_at": "2026-04-13T09:42:28.357587+00:00"
 }

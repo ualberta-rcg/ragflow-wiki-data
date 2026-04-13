@@ -4,37 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What version of Samtools is loaded in the provided script fragment?",
-      "answer": "The script fragment loads `samtools/1.20`."
+      "question": "What is the primary function of the `samtools_gnuparallel.sh` script demonstrated in the document?",
+      "answer": "The `samtools_gnuparallel.sh` script is designed to process multiple SAM files concurrently. It accomplishes this by using `find` to locate all SAM files and piping them to `GNU parallel`, which then executes `samtools view` and `samtools sort` on each file to convert them into sorted BAM files."
     },
     {
-      "question": "What is the purpose of the `find . -name \"*.sam\"` command in the GNU parallel example?",
-      "answer": "The `find . -name \"*.sam\"` command locates all files with the `.sam` extension in the current directory."
+      "question": "How does the `samtools_gnuparallel.sh` script control the number of SAM files processed in parallel?",
+      "answer": "The `samtools_gnuparallel.sh` script controls the number of SAM files processed in parallel by passing the `${SLURM_CPUS_PER_TASK}` variable to the `parallel -j` flag. This means the script will execute a number of jobs concurrently equal to the CPUs allocated by the SLURM job scheduler, as defined by the `--cpus-per-task` SBATCH request."
     },
     {
-      "question": "How does the example script handle multiple SAM files using GNU parallel?",
-      "answer": "The example script uses GNU parallel to find all `.sam` files and then processes them concurrently by applying `samtools view` and `samtools sort` to convert them into sorted BAM files."
-    },
-    {
-      "question": "Which `samtools` subcommands are used in the GNU parallel processing pipeline shown?",
-      "answer": "The `samtools view` and `samtools sort` subcommands are used in the GNU parallel processing pipeline."
-    },
-    {
-      "question": "What `parallel` option is used to control the number of concurrent jobs?",
-      "answer": "The `-j` option is used with `parallel` to control the number of concurrent jobs, typically set using `${SLURM_CPUS_PER_TASK}`."
-    },
-    {
-      "question": "How many SAM files will the described script process concurrently?",
-      "answer": "The described script will execute `view` and `sort` on four SAM files concurrently."
-    },
-    {
-      "question": "What adjustment is required if a user has more input files than the script is set to process concurrently?",
-      "answer": "If there are more input files, the `--cpus-per-task` request needs to be modified."
-    },
-    {
-      "question": "What is the specified time limit for the job according to the Slurm directive in the script fragment?",
-      "answer": "The Slurm directive `#SBATCH --time=3:00:00` specifies a time limit of three hours."
+      "question": "If a user has more SAM input files, what modification should they make to the `samtools_gnuparallel.sh` script to process more files concurrently?",
+      "answer": "If a user has more SAM input files and wishes to process more of them concurrently, they should modify the `--cpus-per-task` request in the SBATCH directive of the `samtools_gnuparallel.sh` script. This will increase the number of parallel jobs `GNU parallel` executes."
     }
   ],
-  "generated_at": "2026-04-12T07:37:52.153431+00:00"
+  "generated_at": "2026-04-13T13:16:33.235366+00:00"
 }

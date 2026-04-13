@@ -4,53 +4,17 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "When should I use META mode for running computations?",
-      "answer": "META mode is the solution to problems that arise when the number of cases is much greater than 500, such as hitting cluster job limits or wasting CPU cycles due to scheduling overheads if individual cases are typically short (less than 20 minutes)."
+      "question": "What is META mode, and when is it recommended for use in high-throughput computing?",
+      "answer": "META mode is a solution designed for processing a large number of computational cases, specifically when the total count exceeds approximately 500. It is recommended to overcome limitations such as cluster job limits and to prevent CPU cycles from being wasted due to scheduling overheads when individual cases have very short runtimes (less than 20 minutes). In META mode, a smaller number of 'metajobs' are submitted, with each metajob processing multiple cases."
     },
     {
-      "question": "What is the primary difference between META mode and SIMPLE mode?",
-      "answer": "In SIMPLE mode, a separate job is submitted for each case. In META mode, a smaller number of 'metajobs' are submitted, and each metajob processes multiple cases."
+      "question": "How does the META mode achieve dynamic workload balancing across multiple metajobs within a farm?",
+      "answer": "META mode implements dynamic workload balancing by having each metajob execute the `task.run` script, which contains a `while` loop for processing cases. Each iteration of this loop goes through a serialized code portion, allowing only one job at a time to retrieve the next case from `table.dat`. This ensures that metajobs, regardless of their individual start times or the varying runtimes of cases, read lines from `table.dat` in a serialized manner using a `lockfile` mechanism, leading to all metajobs finishing around the same time and efficiently balancing the workload."
     },
     {
-      "question": "How do I enable META mode when submitting a farm?",
-      "answer": "To enable META mode, the first argument to `submit.run` should be the desired number of metajobs, which should be a fairly small number—much smaller than the total number of cases to process. For example, you would use `$ submit.run 32`."
-    },
-    {
-      "question": "How does META mode handle cases with different processing times?",
-      "answer": "META mode uses a dynamic workload-balancing scheme to handle cases with varying processing times. Each metajob iteratively gets the next case from `table.dat` in a serialized manner and processes it, ensuring good balance."
-    },
-    {
-      "question": "What scripts are involved in the implementation of META mode's dynamic workload balancing?",
-      "answer": "Each metajob executes `task.run`. Inside `task.run`, there's a `while` loop for cases, where it retrieves the next case from `table.dat` and then executes `single_case.sh` for that specific case, which in turn calls the user code."
-    },
-    {
-      "question": "What are the advantages of dynamic workload balancing in META mode?",
-      "answer": "Dynamic workload balancing results in all metajobs finishing around the same time, regardless of individual case runtimes, CPU speeds on different nodes, or when individual metajobs start. It also means not all metajobs need to run for all cases to be processed, and if a metajob dies, at most one case will be lost."
-    },
-    {
-      "question": "What happens if not all requested metajobs run in META mode?",
-      "answer": "Not all of the requested metajobs will necessarily run, depending on cluster busyness. However, in META mode, you will eventually get all your results regardless of how many metajobs run, although you might need to use `resubmit.run` to complete a particularly large farm."
-    },
-    {
-      "question": "How do I estimate the average runtime for an individual case (`dt_case`)?",
-      "answer": "First, allocate a single CPU core with `salloc`. Then, execute `single_case.sh` for a few different cases using a shell `for` loop (e.g., `$ N=10; time for ((i=1; i<=$N; i++)); do ./single_case.sh table.dat $i ; done`). Divide the 'real' time output by `N` to get the average case runtime estimate."
-    },
-    {
-      "question": "How do I estimate the total CPU time needed to process an entire farm?",
-      "answer": "Estimate the total CPU time needed by multiplying the average case runtime (`dt_case`) by the total number of cases (the number of lines in `table.dat`). Convert this to CPU-hours by dividing by 3600, and add a safety margin by multiplying by 1.1 or 1.3."
-    },
-    {
-      "question": "What guidelines should I follow when choosing the runtime for metajobs in `job_script.sh`?",
-      "answer": "The metajob runtime should be significantly larger than the average individual case runtime (ideally 100 times or more) and definitely longer than the longest expected individual case. It should not be excessively long (e.g., no more than 3 days) as this can increase queue wait times. On Alliance general-purpose clusters, 12-hour or 24-hour runtimes are often good choices due to scheduling policies."
-    },
-    {
-      "question": "How do I calculate the optimal number of metajobs for my farm?",
-      "answer": "Once you have chosen a suitable metajob runtime (in hours), divide the estimated total CPU-hours needed for the farm by this chosen runtime, and then round up the result to the next integer to get the required number of metajobs."
-    },
-    {
-      "question": "What should I do if my farm requires more than 1000 jobs, which is the maximum on clusters like Nibi and Rorqual?",
-      "answer": "If your farm requires more than 1000 jobs, you can use a workaround: submit in batches of 1000 jobs (e.g., `$ submit.run 1000`). After the initial farm finishes, repeatedly use `$ resubmit.run 1000` until all cases are processed, remembering that each `resubmit.run` command can only be executed after the previous farm has finished."
+      "question": "What is the recommended approach for estimating the optimal runtime and number of metajobs when setting up a farm in META mode?",
+      "answer": "To estimate the optimal runtime and number of metajobs, first determine the average runtime of a single case (`dt_case`) by allocating a CPU core with `salloc` and running `single_case.sh` for several cases using a shell `for` loop. Multiply this average case runtime by the total number of cases in `table.dat` and add a safety margin (e.g., 10-30%) to get the total estimated CPU-hours. Then, choose a metajob runtime that is significantly longer than `dt_case` (ideally 100x or more, but typically 12 or 24 hours on Alliance clusters due to scheduling policies) and divide the total estimated CPU-hours by this chosen metajob runtime to determine the required number of metajobs, rounding up to the next integer."
     }
   ],
-  "generated_at": "2026-04-12T01:22:01.015550+00:00"
+  "generated_at": "2026-04-13T08:25:41.798986+00:00"
 }

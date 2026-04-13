@@ -4,77 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Quelles sont les deux étapes générales pour installer un nouveau noyau?",
-      "answer": "Pour installer un nouveau noyau, il faut d'abord installer les paquets qui permettent à l'interpréteur du langage de communiquer avec l'interface Jupyter, puis créer un fichier qui indique à JupyterLab comment amorcer un canal de communication avec cet interpréteur."
+      "question": "Quelles sont les deux étapes principales pour installer un nouveau noyau (kernel) dans JupyterLab?",
+      "answer": "Pour installer un nouveau noyau, il faut d'abord installer les paquets qui permettent à l'interpréteur du langage de communiquer avec l'interface Jupyter, puis créer un fichier de configuration du noyau (kernel spec file) qui indique à JupyterLab comment démarrer un canal de communication. Ce fichier est sauvegardé dans un sous-répertoire de `~/.local/share/jupyter/kernels`."
     },
     {
-      "question": "Où est sauvegardé le fichier de configuration d'un noyau (kernel spec file)?",
-      "answer": "Le fichier de configuration du noyau est sauvegardé dans un sous-répertoire de `~/.local/share/jupyter/kernels`."
+      "question": "Quels sont les prérequis essentiels pour configurer un noyau Julia dans JupyterLab?",
+      "answer": "La configuration d'un noyau Julia nécessite un environnement virtuel Python et un répertoire `kernels`. Il faut aussi savoir que l'installation des paquets Julia requiert un accès à l'internet et doit être effectuée à l'invite de commande sur un nœud de connexion via SSH."
     },
     {
-      "question": "Quels sont les prérequis pour configurer un noyau Julia?",
-      "answer": "Les prérequis pour configurer un noyau Julia sont un environnement virtuel Python, un répertoire `kernels` et un accès à l'internet, ce qui nécessite de faire la configuration sur un nœud de connexion."
-    },
-    {
-      "question": "Pourquoi la configuration d'un noyau Julia doit-elle se faire sur un nœud de connexion?",
-      "answer": "La configuration d'un noyau Julia doit se faire sur un nœud de connexion parce que l'installation des paquets Julia nécessite un accès à l'internet."
-    },
-    {
-      "question": "Comment faire pour installer IJulia après avoir chargé le module Julia?",
-      "answer": "Après avoir chargé le module Julia avec `module load julia`, on installe IJulia en exécutant la commande `echo -e 'using Pkg\nPkg.add(\"IJulia\")' | julia`."
-    },
-    {
-      "question": "Que faut-il faire avant d'utiliser le noyau Julia après son installation?",
-      "answer": "Il est très important de démarrer ou de redémarrer une nouvelle session JupyterLab avant d'utiliser le noyau Julia."
-    },
-    {
-      "question": "Sur quel type de nœud doit-on installer d'autres paquets Julia?",
-      "answer": "L'installation d'autres paquets Julia doit se faire à partir d'un nœud de connexion."
-    },
-    {
-      "question": "Est-ce que l'environnement virtuel Python doit être activé pour installer des paquets Julia supplémentaires?",
-      "answer": "Non, l'environnement virtuel Python peut rester désactivé lors de l'installation de paquets Julia supplémentaires."
-    },
-    {
-      "question": "Comment s'assurer que le module Julia est chargé avant d'installer des paquets Julia additionnels?",
-      "answer": "Il faut s'assurer que le module Julia est chargé en utilisant la commande `module load julia`."
-    },
-    {
-      "question": "Quelle est la configuration la plus simple de Jupyter dans un nouvel environnement virtuel Python?",
-      "answer": "La configuration la plus simple de Jupyter dans un nouvel environnement virtuel Python inclut la création et l'activation d'un environnement virtuel, la création du répertoire `kernels`, puis l'installation du noyau Python."
-    },
-    {
-      "question": "Si j'utilise le Terminal Jupyter via JupyterHub pour configurer un noyau Python, comment puis-je commencer à partir d'un environnement Bash vierge?",
-      "answer": "Vous pouvez commencer à partir d'un environnement Bash vierge avec la commande `env -i HOME=$HOME bash -l`."
-    },
-    {
-      "question": "Comment charger un module Python par défaut?",
-      "answer": "On charge le module Python par défaut avec la commande `module load python`."
-    },
-    {
-      "question": "Quelle commande utilise-t-on pour créer un nouvel environnement virtuel Python sans téléchargement?",
-      "answer": "On utilise la commande `virtualenv --no-download $HOME/jupyter_py3` pour créer un nouvel environnement virtuel Python sans télécharger des paquets."
-    },
-    {
-      "question": "Comment activer un nouvel environnement virtuel Python une fois créé?",
-      "answer": "On active le nouvel environnement virtuel Python en utilisant la commande `source $HOME/jupyter_py3/bin/activate`."
-    },
-    {
-      "question": "Quel répertoire commun est nécessaire pour tous les noyaux que l'on veut installer?",
-      "answer": "Il faut créer le répertoire commun `~/.local/share/jupyter/kernels`."
-    },
-    {
-      "question": "Comment installer la bibliothèque `ipykernel` pour le noyau Python?",
-      "answer": "On installe la bibliothèque `ipykernel` avec la commande `pip install --no-index ipykernel`."
-    },
-    {
-      "question": "Comment générer le fichier des spécifications du noyau Python?",
-      "answer": "Pour générer le fichier des spécifications du noyau Python, on utilise la commande `python -m ipykernel install --user --name <unique_name> --display-name \"Python 3.x Kernel\"`, en remplaçant `<unique_name>` par un nom unique."
-    },
-    {
-      "question": "Est-ce qu'il faut redémarrer JupyterLab après l'installation du noyau Python?",
-      "answer": "Oui, il est important de démarrer ou de redémarrer une nouvelle session JupyterLab avant d'utiliser le noyau Python."
+      "question": "Comment configurer un noyau Python pour JupyterLab dans un nouvel environnement virtuel sur un serveur distant?",
+      "answer": "Pour configurer un noyau Python, il faut commencer par créer et activer un environnement virtuel Python. Ensuite, on crée le répertoire `~/.local/share/jupyter/kernels`, puis on installe la bibliothèque `ipykernel` avec `pip` et on génère le fichier des spécifications du noyau à l'aide de la commande `python -m ipykernel install --user --name <unique_name> --display-name \"Python 3.x Kernel\"`. Il est important de redémarrer JupyterLab avant de l'utiliser."
     }
   ],
-  "generated_at": "2026-04-11T16:09:03.483372+00:00"
+  "generated_at": "2026-04-13T01:13:27.597871+00:00"
 }

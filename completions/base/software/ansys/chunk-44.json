@@ -4,113 +4,17 @@
   "chunk_index": 44,
   "qa_pairs": [
     {
-      "question": "What should I do if the licence query command shows Ansys licences are still in use unexpectedly under my username?",
-      "answer": "If Ansys licences are unexpectedly in use by your username on a desktop or compute node, you should close the desktop, scancel the salloc session, or open a terminal window on the affected node and issue the command `pkill -9 -e -u $USER -f \"ansys\"`."
+      "question": "What steps should a user take if Ansys licenses are unexpectedly in use due to rogue processes on an Alliance cluster?",
+      "answer": "If Ansys licenses are unexpectedly tied up by rogue processes, likely because a GUI program or batch job did not shut down cleanly, users should take one of the following actions to kill the responsible processes: close the desktop, scancel the `salloc` session, or open a terminal window on the affected node and issue the command `pkill -9 -e -u $USER -f \"ansys\"`. This will release the licenses, making them available again."
     },
     {
-      "question": "What can cause Ansys licences to be unexpectedly tied up by rogue processes?",
-      "answer": "Rogue processes can occur if an Ansys GUI program (like Fluent, Workbench) is not cleanly terminated before vncviewer is terminated, either manually or unexpectedly (e.g., due to a transient network outage or a hung filesystem). Ansys programs crashing on a cluster compute node during an interactive salloc session can also leave rogue processes running."
+      "question": "How does an Alliance researcher enable the Ansys Additive Manufacturing ACT extension for their project on a cluster?",
+      "answer": "To enable the Ansys Additive Manufacturing ACT extension, a user must first download the `AdditiveWizard.wbex` file from the Ansys catalog and upload it to the cluster. Then, they need to start the Workbench GUI, open their project file, navigate to the ACT Start Page, click 'Manage Extensions', select the '+' box to install the `AdditiveWizard.wbex` file, and finally click the lower right corner arrow in the `AdditiveWizard` box to select 'Load extension', which loads it for both current and future sessions."
     },
     {
-      "question": "How does killing rogue Ansys processes affect licence availability?",
-      "answer": "Any Ansys licences held open by rogue processes will immediately be returned to the SHARCNET licence server and become available for use again by yourself or other researchers."
-    },
-    {
-      "question": "What is the initial step to set up Ansys Additive Manufacturing?",
-      "answer": "To get started, you need to configure your `~/.licences/ansys.lic` file to point to a licence server that has a valid Ansys Mechanical License. This must be done on all systems where you plan to run the software."
-    },
-    {
-      "question": "What is the purpose of the Ansys Additive Manufacturing ACT extension?",
-      "answer": "The Ansys Additive Manufacturing ACT extension is required to make additive manufacturing functionalities available for use in your project."
-    },
-    {
-      "question": "What should I do if I receive warnings about missing un-needed extensions while setting up Additive Manufacturing?",
-      "answer": "If you get warnings about missing un-needed extensions (such as ANSYSMotion), you should uninstall them from your project."
-    },
-    {
-      "question": "Where can I download the `AdditiveWizard.wbex` file for the Additive Manufacturing extension?",
-      "answer": "You can download the `AdditiveWizard.wbex` file from the Ansys catalogue at `https://catalog.ansys.com/`."
-    },
-    {
-      "question": "What should I do after downloading the `AdditiveWizard.wbex` file?",
-      "answer": "After downloading, you need to upload the `AdditiveWizard.wbex` file to the cluster where it will be used."
-    },
-    {
-      "question": "How do I start Workbench to enable the Additive Manufacturing extension?",
-      "answer": "You need to start Workbench by following the instructions in the \"Graphical use\" section, then open your project file (ending in `.wbpj`) into the Workbench GUI."
-    },
-    {
-      "question": "How do I open the Extension Manager in Ansys Workbench?",
-      "answer": "To open the Extension Manager, click \"ACT Start Page\" which will open the \"ACT Home page\" tab, then click \"Manage Extensions\"."
-    },
-    {
-      "question": "What are the steps to install the `AdditiveWizard.wbex` file in Ansys Workbench?",
-      "answer": "In the Extension Manager, click the box with the large '+' sign under the search bar, then navigate to select and install your `AdditiveWizard.wbex` file."
-    },
-    {
-      "question": "How do I load the AdditiveWizard extension for the current Workbench session only?",
-      "answer": "To load the AdditiveWizard extension for the current session only, click to highlight the AdditiveWizard box in the Extension Manager."
-    },
-    {
-      "question": "How do I load the AdditiveWizard extension for both current and future Workbench sessions?",
-      "answer": "To load the AdditiveWizard extension for current and future sessions, click the lower right corner arrow in the AdditiveWizard box and select \"Load extension\"."
-    },
-    {
-      "question": "How do I unload the AdditiveWizard extension for the current Workbench session only?",
-      "answer": "To unload the AdditiveWizard extension for the current session only, click to un-highlight the AdditiveWizard box in the Extension Manager."
-    },
-    {
-      "question": "How do I prevent the AdditiveWizard extension from loading by default in future Workbench sessions?",
-      "answer": "To prevent the AdditiveWizard extension from loading by default in future sessions, click the lower right corner arrow in the AdditiveWizard box and select \"Do not load as default\"."
-    },
-    {
-      "question": "How can a user run a single Ansys Additive Manufacturing job on gra-vdi with up to 16 cores?",
-      "answer": "A user can run a single Ansys Additive Manufacturing job on gra-vdi by first starting Workbench as described in the \"Enable Additive\" section, then clicking \"File -> Open\" to select `test.wbpj` and opening it. After that, click \"View -> reset workspace\" if a grey screen appears, then start Mechanical, clear Generated Data, tick Distributed, specify Cores, and finally click \"File -> Save Project -> Solve\"."
-    },
-    {
-      "question": "How do I check the resource utilisation of an Ansys Additive Manufacturing job on gra-vdi?",
-      "answer": "You can check resource utilisation by opening another terminal and running either `top -u $USER` or `ps u -u $USER | grep ansys`."
-    },
-    {
-      "question": "How do I kill rogue Ansys processes on gra-vdi that might be left over from previous runs?",
-      "answer": "To kill rogue processes from previous runs on gra-vdi, issue the command `pkill -9 -e -u $USER -f \"ansys|mwrpcss|mwfwrapper|ENGINE\"` in a terminal."
-    },
-    {
-      "question": "What typically causes rogue processes on gra-vdi that can tie up licences or cause errors?",
-      "answer": "Rogue processes on gra-vdi can occur if an Ansys GUI session (Fluent, Workbench, etc.) is not cleanly terminated by the user before the VNC viewer is terminated, either manually or unexpectedly (e.g., due to a transient network outage or a hung filesystem)."
-    },
-    {
-      "question": "What preparations are required before submitting a newly uploaded Additive project to a cluster queue using a Slurm script?",
-      "answer": "Before submitting, open your simulation with the Workbench GUI (using the same Ansys module version as the job) in the directory where the job will be submitted from, and save it again. Then create a Slurm script as explained in the \"Cluster Batch Job Submission - WORKBENCH\" section."
-    },
-    {
-      "question": "How do I configure a Slurm script to perform parametric studies with an Ansys Additive Manufacturing project on a cluster?",
-      "answer": "To perform parametric studies, you need to change `Update()` to `UpdateAllDesignPoints()` in the Slurm script."
-    },
-    {
-      "question": "What is the recommended method to determine the optimal number of cores and memory for an Ansys Additive Manufacturing job on a cluster?",
-      "answer": "The recommended method is to submit several short test jobs with varying configurations to determine the optimal number of cores and memory."
-    },
-    {
-      "question": "How can I prevent the solution from being manually cleared and design points from being recreated in Workbench between each test run for an Additive project on a cluster?",
-      "answer": "To avoid these manual steps, you can either change `Save(Overwrite=True)` to `Save(Overwrite=False)` in your Slurm script, or save a copy of the original `YOURPROJECT.wbpj` file and its corresponding `YOURPROJECT_files` directory before each test."
-    },
-    {
-      "question": "Can a single replay file be used in different directories for Ansys Additive Manufacturing on a cluster?",
-      "answer": "Yes, a single replay file can be used in different directories by opening it in a text editor and changing the internal `FilePath` setting."
-    },
-    {
-      "question": "How can I obtain a snapshot of resource utilisation for a running Ansys Additive Manufacturing job on a cluster?",
-      "answer": "Once your additive job has been running for a few minutes, you can obtain a snapshot of its resource utilisation on the compute node(s) with the `srun --overlap --jobid=myjobid top -bn1 -u $USER | grep R | grep -v top` command."
-    },
-    {
-      "question": "How can scaling tests be performed for Ansys Additive Manufacturing jobs on a cluster?",
-      "answer": "After a job completes, obtain its \"Job Wall-clock time\" using `seff myjobid`. Then, perform scaling tests by submitting short test jobs with an increasing number of cores and observing the change in Wall-clock time."
-    },
-    {
-      "question": "What indicates that additional cores might be beneficial when performing scaling tests for an Ansys Additive Manufacturing job?",
-      "answer": "If the \"Job Wall-clock time\" decreases by approximately 50% when the number of cores is doubled, it indicates that additional cores may be considered."
+      "question": "What preparation is necessary before submitting an Ansys Additive Manufacturing project to an Alliance cluster queue using a Slurm script?",
+      "answer": "Before submitting an Ansys Additive Manufacturing project to a cluster queue, you must first open the simulation with the Workbench GUI in the same directory as the job submission and save it again, ensuring the correct Ansys module version is used. Next, create a Slurm script, potentially modifying `Update()` to `UpdateAllDesignPoints()` for parametric studies. To avoid manually clearing solutions or recreating design points between test runs, either change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the Slurm script or save a copy of your original project files."
     }
   ],
-  "generated_at": "2026-04-12T16:43:13.078359+00:00"
+  "generated_at": "2026-04-13T01:46:44.500179+00:00"
 }

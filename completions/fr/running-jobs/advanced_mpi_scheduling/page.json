@@ -3,53 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Quel est le moyen recommandé pour soumettre la plupart des tâches MPI parallèles à mémoire distribuée sur Slurm?",
-      "answer": "Il est recommandé d'utiliser `--ntasks` ou `-n` pour spécifier le nombre de processus et de laisser l'ordonnanceur Slurm faire la meilleure allocation."
+      "question": "Quelle est la recommandation générale pour soumettre des tâches MPI parallèles à mémoire distribuée sur les grappes d'Alliance?",
+      "answer": "La plupart du temps, il est recommandé de soumettre les tâches MPI parallèles à mémoire distribuée en spécifiant le nombre de processus avec `--ntasks` ou `-n` et de laisser l'ordonnanceur faire l'allocation pour maximiser l'efficacité."
     },
     {
-      "question": "Où peut-on trouver plus d'informations si l'on souhaite avoir un contrôle plus précis sur l'allocation des ressources pour les tâches Slurm?",
-      "answer": "Il faut consulter la page 'Support for Multi-core/Multi-thread Architectures' de SchedMD, qui décrit comment plusieurs options de la commande `sbatch` agissent sur l'ordonnancement des processus."
+      "question": "Où peut-on trouver plus de détails pour exercer un contrôle accru sur l'allocation des processus avec la commande `sbatch` dans Slurm?",
+      "answer": "Pour plus de contrôle sur l'allocation, on peut consulter la page 'Support for Multi-core/Multi-thread Architectures' de SchedMD, qui décrit comment diverses options de la commande `sbatch` agissent sur l'ordonnancement des processus."
     },
     {
-      "question": "Comment spécifier le nombre de processus MPI et la mémoire par cœur pour une tâche Slurm avec un petit nombre de cœurs et un nombre de nœuds indéterminé?",
-      "answer": "On utilise `--ntasks` pour le nombre de processus et `--mem-per-cpu` pour la mémoire par cœur, comme dans l'exemple `#SBATCH --ntasks=15` et `#SBATCH --mem-per-cpu=3G`."
+      "question": "Quelle est la manière la plus simple de spécifier le nombre de processus MPI et la mémoire nécessaire pour une tâche qui utilise peu de cœurs, sans préférence pour le nombre de nœuds?",
+      "answer": "Le moyen le plus simple est d'utiliser `--ntasks` pour le nombre de processus MPI et `--mem-per-cpu` pour la mémoire nécessaire, car l'allocation par défaut de 256 Mo est souvent insuffisante et le nombre de cœurs par nœud est indéterminé."
     },
     {
-      "question": "Dans quel scénario est-il suggéré de demander des nœuds entiers pour une tâche Slurm?",
-      "answer": "C'est suggéré pour les tâches parallèles intensives qui peuvent utiliser efficacement 64 cœurs ou plus."
+      "question": "Pour quels types de tâches parallèles devrait-on envisager de demander des nœuds entiers sur les grappes d'Alliance?",
+      "answer": "On devrait probablement demander des nœuds entiers pour une tâche parallèle intensive qui peut utiliser efficacement 64 cœurs ou plus."
     },
     {
-      "question": "Que signifie l'option `--mem=0` dans un script Slurm pour une tâche sur nœuds entiers?",
-      "answer": "`--mem=0` indique à Slurm de réserver toute la mémoire disponible de chacun des nœuds assignés à la tâche."
+      "question": "Comment l'option `--mem=0` affecte-t-elle l'allocation de mémoire pour une tâche Slurm demandant des nœuds entiers?",
+      "answer": "L'option `--mem=0` indique à Slurm de réserver toute la mémoire disponible de chacun des nœuds assignés à la tâche."
     },
     {
-      "question": "Quand ne devrait-on PAS utiliser l'option `--mem=0` pour la mémoire dans un script Slurm?",
-      "answer": "On ne devrait pas l'utiliser si l'on a besoin de plus de mémoire par nœud que ce que le plus petit nœud peut offrir, ou si une partie de la mémoire est réservée au système d'exploitation; il faut plutôt demander une quantité explicite."
+      "question": "Dans quelles situations ne devrait-on pas utiliser `--mem=0` lors de la demande de mémoire pour une tâche sur nœud entier?",
+      "answer": "Vous ne devriez pas utiliser `--mem=0` si vous avez besoin de plus de mémoire par nœud que ce que le plus petit nœud peut offrir, ou si vous devez demander une quantité explicite de mémoire en tenant compte de la mémoire réservée au système d'exploitation."
     },
     {
-      "question": "Combien de cœurs et de mémoire utilisable les nœuds de la grappe Narval ont-ils typiquement?",
-      "answer": "La plupart des nœuds de Narval ont 64 cœurs et 249 Gio de mémoire utilisable."
+      "question": "Comment demander un nombre spécifique de cœurs, tous sur un seul nœud, avec une quantité totale de mémoire allouée?",
+      "answer": "Pour ce scénario, vous devez spécifier `--nodes=1` pour un seul nœud, `--ntasks-per-node` pour le nombre de cœurs désirés et `--mem` pour la quantité totale de mémoire requise sur ce nœud."
     },
     {
-      "question": "Quelle est la différence entre utiliser `--mem-per-cpu` et `--mem` pour une tâche Slurm demandant peu de cœurs sur un nœud unique?",
-      "answer": "`--mem-per-cpu` annule la tâche si un processus dépasse sa limite, tandis que `--mem` spécifie la mémoire totale pour le nœud, permettant aux processus de varier leur consommation tant qu'ils ne dépassent pas le total alloué."
+      "question": "Quel est l'avantage d'utiliser `--mem` plutôt que `--mem-per-cpu` pour une tâche sur un seul nœud avec un nombre défini de tâches par nœud?",
+      "answer": "L'avantage d'utiliser `--mem` est que la mémoire consommée par chaque processus n'importe pas tant que le total ne dépasse pas la limite spécifiée, offrant plus de flexibilité que `--mem-per-cpu` qui annulerait la tâche si un processus dépasse sa limite individuelle."
     },
     {
-      "question": "Quelles options `sbatch` doit-on utiliser pour spécifier le nombre de processus MPI et le nombre de fils (threads) pour une tâche hybride?",
-      "answer": "Il faut utiliser `--ntasks` ou `--ntasks-per-node` pour les processus MPI et `--cpus-per-task` pour le nombre de fils."
+      "question": "Comment doit-on spécifier les ressources pour une tâche hybride qui utilise à la fois des processus MPI et des fils OpenMP ou Posix dans Slurm?",
+      "answer": "Pour une tâche hybride, il faut indiquer le nombre de processus MPI avec `--ntasks` ou `--ntasks-per-node`, et le nombre de fils avec `--cpus-per-task`."
     },
     {
-      "question": "Pourquoi `srun` est-il préféré à `mpiexec` ou `mpirun` pour lancer des calculs avec Slurm?",
-      "answer": "`srun` est l'outil Slurm universel qui distribue automatiquement les processus aux ressources allouées, il est plus polyvalent, initialise les variables d'environnement Slurm et minimise les conflits de ressources."
+      "question": "Pourquoi est-il exigé d'ajouter `--cpus-per-task=$SLURM_CPUS_PER_TASK` à la commande `srun` lors de l'exécution d'une tâche hybride avec Slurm?",
+      "answer": "Cette option est exigée depuis Slurm 22.05 et assure que `srun` lance l'application avec le bon nombre de cœurs par tâche, en plus de ne pas nuire aux versions antérieures de Slurm."
     },
     {
-      "question": "Quels types de calculs `srun` peut-il gérer au-delà des tâches MPI?",
-      "answer": "`srun` peut gérer les tâches OpenMP, hybrides, de distribution sérielle, en pipeline, multiprogrammes ou autres."
+      "question": "Pourquoi `srun` est-il l'outil privilégié pour lancer tous les types de calculs parallèles avec Slurm plutôt que `mpiexec` ou `mpirun`?",
+      "answer": "`srun` est privilégié car il est parfaitement adapté à Slurm, gère l'affinité des tâches, initialise correctement les variables d'environnement (`SLURM_STEP_ID`, `SLURM_PROCID`), fournit des renseignements de suivi appropriés et est plus polyvalent que `mpiexec` ou `mpirun` en étant capable de distribuer différents types de tâches (MPI, OpenMP, hybride, etc.)."
     },
     {
-      "question": "Quel paramètre `--cpus-per-task` est requis pour la commande `srun` elle-même depuis Slurm 22.05 dans le cas des tâches hybrides?",
-      "answer": "Il faut spécifier `--cpus-per-task=$SLURM_CPUS_PER_TASK` pour la commande `srun`."
+      "question": "Quand est-il recommandé de contacter le soutien technique d'Alliance concernant l'évaluation des facteurs pour une tâche parallèle?",
+      "answer": "Il est recommandé de contacter le soutien technique pour obtenir de l'aide sur l'évaluation des facteurs qui peuvent influer sur le temps d'exécution (ou la bonne utilisation de la ressource) ou le temps d'attente (ou la bonne utilisation du temps imparti) pour des tâches parallèles complexes."
+    },
+    {
+      "question": "Quelle quantité de cœurs et de mémoire est généralement disponible sur un nœud entier de la grappe Fir?",
+      "answer": "Un nœud entier de la grappe Fir dispose généralement de 192 cœurs et environ 750 Gio de mémoire utilisable."
+    },
+    {
+      "question": "Quelle est la configuration typique d'un nœud entier sur la grappe Narval en termes de cœurs et de mémoire?",
+      "answer": "La grappe Narval offre généralement des nœuds avec 64 cœurs et 249 Gio de mémoire utilisable."
     }
   ],
-  "generated_at": "2026-04-11T16:13:27.264357+00:00"
+  "generated_at": "2026-04-13T01:16:07.767527+00:00"
 }

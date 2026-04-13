@@ -3,69 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi FEniCS?",
-      "answer": "FEniCS est une plateforme de logiciels libres qui sert à résoudre des équations aux dérivées partielles."
+      "question": "Qu'est-ce que FEniCS et à quoi sert cette plateforme logicielle?",
+      "answer": "FEniCS est une plateforme de logiciels libres conçue pour la résolution d'équations aux dérivées partielles."
     },
     {
-      "question": "Quelles sont les façons d'installer FEniCS?",
-      "answer": "On peut installer FEniCS soit dans un environnement virtuel, soit en utilisant un conteneur Singularity."
+      "question": "Quelles sont les deux principales méthodes d'installation ou d'utilisation de la plateforme FEniCS offertes selon le document?",
+      "answer": "Les utilisateurs ont le choix entre une installation dans un environnement virtuel ou l'utilisation d'un conteneur Singularity."
     },
     {
-      "question": "Quelle version de FEniCS est installée par le script d'environnement virtuel, et avec quels modules?",
-      "answer": "Le script installe la version 2019.1.0 dans StdEnv/2020 avec OpenMPI et GCC 9.3.0. Il charge des modules comme python/3.10.2, scipy-stack, hdf5-mpi, etc."
+      "question": "Comment lance-t-on le script `fenics-install.sh` pour installer FEniCS dans un environnement virtuel sur une grappe?",
+      "answer": "Il faut copier le script sur la grappe et le lancer en exécutant `bash fenics-install.sh`."
     },
     {
-      "question": "Comment j'exécute le script d'installation de FEniCS dans un environnement virtuel sur une grappe?",
-      "answer": "Vous devez copier le script sur la grappe que vous utilisez et le lancer avec la commande `bash fenics-install.sh`."
+      "question": "Quelle version de FEniCS est installée par défaut lors de l'exécution du script `fenics-install.sh` dans un environnement virtuel?",
+      "answer": "Le script installe la version 2019.1.0 de FEniCS."
     },
     {
-      "question": "Qu'est-ce qui arrive si le répertoire d'installation de FEniCS existe déjà quand j'exécute le script?",
-      "answer": "Le script vous informe qu'un nouveau répertoire sera créé pour l'application ou que le répertoire sera remplacé si l'application s'y trouve déjà, puis il attend votre confirmation."
+      "question": "Que fait le script d'installation de FEniCS avec le répertoire `$HOME/fenics` s'il existe déjà?",
+      "answer": "Le script supprime complètement le répertoire `$HOME/fenics` et le recrée pour l'installation, en affichant un avertissement à l'utilisateur."
     },
     {
-      "question": "C'est quoi les directives pour utiliser FEniCS une fois qu'il est installé dans un environnement virtuel?",
-      "answer": "Vous devez charger les modules, puis activer l'environnement virtuel avec `source $FENICS_INSTALL/bin/activate` et configurer Dolfin avec `source $FENICS_INSTALL/share/dolfin/dolfin.conf`."
+      "question": "Quelles sont les commandes à exécuter pour activer FEniCS après une installation réussie dans un environnement virtuel, comme indiqué par le script `fenics-install.sh`?",
+      "answer": "Il faut charger les modules nécessaires (spécifiés dans l'installation), puis exécuter `source $FENICS_INSTALL/bin/activate` et `source $FENICS_INSTALL/share/dolfin/dolfin.conf`."
     },
     {
-      "question": "La section sur les plugiciels (add-ons) est-elle à jour pour StdEnv/2020?",
+      "question": "Comment construit-on une image Singularity FEniCS (`FEniCS.simg`) à partir du fichier `FEniCS-ComputeCanada-Singularity-Recipe`?",
+      "answer": "Il faut utiliser la commande `sudo singularity build FEniCS.simg FEniCS-ComputeCanada-Singularity-Recipe` sur un ordinateur Linux où Singularity est installé et avec les permissions requises."
+    },
+    {
+      "question": "Quelles sont les composantes de base utilisées par le pilote Singularity Recipe pour l'image FEniCS?",
+      "answer": "Le pilote télécharge l'image FEniCS Docker de `quay.io/fenicsproject/stable:latest` et installe plusieurs paquets Python additionnels."
+    },
+    {
+      "question": "Comment télécharger l'image Docker FEniCS Legacy (2019) au format Apptainer SIF pour une installation sur Trillium?",
+      "answer": "On utilise la commande `apptainer pull fenics-legacy.sif docker://ghcr.io/scientificcomputing/fenics-gmsh:2024-05-30`."
+    },
+    {
+      "question": "Dans le contexte de FEniCS Legacy sur Trillium, pourquoi est-il recommandé de créer un bac à sable (sandbox) Apptainer à partir de l'image SIF?",
+      "answer": "Créer un bac à sable permet de modifier l'image ou d'installer d'autres paquets, offrant ainsi une arborescence avec des permissions d'écriture."
+    },
+    {
+      "question": "Comment s'assure-t-on que pip et SSL font confiance aux connexions HTTPS à l'intérieur du bac à sable Apptainer pour FEniCS Legacy?",
+      "answer": "Il faut créer un répertoire `certs` dans `/etc/pki/tls/` et un lien symbolique vers le `ca-certificates.crt` dans le bac à sable, par exemple avec `apptainer exec --writable fenics-legacy.sandbox sh -c \"mkdir -p /etc/pki/tls/certs && ln -s /etc/ssl/certs/ca-certificates.crt /etc/pki/tls/certs/ca-bundle.crt\"`."
+    },
+    {
+      "question": "Quelle est l'une des remarques importantes concernant le paquet UFL pour FEniCS Legacy (2019.1.x) lorsqu'on l'utilise avec Python?",
+      "answer": "FEniCS Legacy nécessite UFL Legacy, dont le paquet Python se nomme `ufl_legacy` et non `ufl`. Par conséquent, `import ufl` devrait échouer, mais `import ufl_legacy` devrait fonctionner."
+    },
+    {
+      "question": "Comment créer un alias pour le module Python `ufl_legacy` afin que d'autres logiciels qui s'attendent à `ufl` puissent le trouver dans FEniCS Legacy?",
+      "answer": "On peut créer un fichier `__init__.py` dans un répertoire comme `/pyshims/ufl` qui réexporte `ufl_legacy` sous le nom `ufl`, et ajouter le chemin de ce répertoire à `PYTHONPATH`."
+    },
+    {
+      "question": "La section sur les plugiciels FEniCS est-elle à jour pour l'environnement StdEnv/2020?",
       "answer": "Non, la section sur les plugiciels n'est pas à jour pour StdEnv/2020."
-    },
-    {
-      "question": "Comment on bâtit l'image Singularity pour FEniCS?",
-      "answer": "Vous utilisez la commande `sudo singularity build FEniCS.simg FEniCS-ComputeCanada-Singularity-Recipe` sur un ordinateur Linux où Singularity est installé et où vous avez toutes les permissions."
-    },
-    {
-      "question": "Où sont placés les fichiers FEniCS à l'intérieur du conteneur Singularity?",
-      "answer": "L'image FEniCS Docker place plusieurs fichiers dans `/home/fenics` à l'intérieur du conteneur."
-    },
-    {
-      "question": "Comment je télécharge l'image Docker de FEniCS Legacy au format Apptainer SIF sur Trillium?",
-      "answer": "Vous utilisez la commande `apptainer pull fenics-legacy.sif docker://ghcr.io/scientificcomputing/fenics-gmsh:2024-05-30` dans votre répertoire `/home`."
-    },
-    {
-      "question": "Comment créer un bac à sable (sandbox) avec permission d'écriture pour FEniCS Legacy?",
-      "answer": "Vous créez l'arborescence `fenics-legacy.sandbox` à partir du fichier SIF en utilisant `apptainer build --sandbox fenics-legacy.sandbox fenics-legacy.sif`."
-    },
-    {
-      "question": "Pourquoi devrais-je créer un bac à sable pour FEniCS Legacy?",
-      "answer": "Le bac à sable vous permet de modifier ou d'installer d'autres paquets dans l'image."
-    },
-    {
-      "question": "Comment résoudre les problèmes de certificat pip/SSL dans un bac à sable Apptainer de FEniCS Legacy?",
-      "answer": "Il faut exécuter une commande `apptainer exec --writable` pour créer un dossier `certs` et créer un lien symbolique pour le bundle de CA afin que pip/SSL fasse confiance à HTTPS."
-    },
-    {
-      "question": "Comment je peux créer une nouvelle image SIF en lecture seulement à partir d'un bac à sable modifié de FEniCS Legacy?",
-      "answer": "Une fois les modifications du bac à sable terminées, vous utilisez la commande `apptainer build fenics-legacy-updated.sif fenics-legacy.sandbox`."
-    },
-    {
-      "question": "Quelle est la particularité du paquet UFL pour FEniCS Legacy (2019)?",
-      "answer": "FEniCS Legacy (2019.1.x) nécessite UFL Legacy. Le paquet Python se nomme `ufl_legacy` (version 2022.3.0) et non `ufl`."
-    },
-    {
-      "question": "Comment créer un alias pour `ufl_legacy` afin qu'il puisse être importé comme `ufl`?",
-      "answer": "Il faut créer un fichier `pyshims/ufl/__init__.py` qui contient un code Python spécifique pour réexporter `ufl_legacy` sous le nom `ufl`."
     }
   ],
-  "generated_at": "2026-04-11T21:25:23.858793+00:00"
+  "generated_at": "2026-04-13T05:14:15.365121+00:00"
 }

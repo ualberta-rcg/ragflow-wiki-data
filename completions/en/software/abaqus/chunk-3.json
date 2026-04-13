@@ -4,73 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "When should users consider using MPI scripts for Abaqus jobs?",
-      "answer": "Users should use MPI scripts in the multiple node sections when their jobs require large memory or larger compute resources that extend beyond what a single compute node can provide. These scripts help distribute computing over arbitrary node ranges determined automatically by the scheduler."
+      "question": "When should I use MPI scripts for Abaqus simulations on Alliance clusters, and what preliminary steps are recommended?",
+      "answer": "MPI scripts in the multiple node sections should be used for Abaqus jobs that require significant memory or larger compute resources beyond what a single compute node can provide. Before running long jobs, it's recommended to perform short scaling test jobs to determine the optimal wall-clock times and memory requirements as a function of the number of cores (e.g., 2, 4, 8)."
     },
     {
-      "question": "What is recommended to determine optimal core usage and memory requirements for long Abaqus jobs?",
-      "answer": "Before running any long jobs, short scaling test jobs should be run to determine wall-clock times and memory requirements as a function of the number of cores (e.g., 2, 4, 8) to find the optimal number."
+      "question": "How can I submit a standard Abaqus analysis job to a single node on an Alliance cluster using a project directory script?",
+      "answer": "To submit a standard Abaqus analysis job to a single node, you would use a Slurm script (e.g., `scriptsp1.txt`). This script specifies the Slurm account, time limit, number of CPUs per task, total memory, and sets `--nodes=1`. It loads the appropriate Abaqus module (e.g., `abaqus/2026`) and then executes the Abaqus job with parameters for the input file, scratch directory, number of CPUs, interactive mode, and thread-based parallelization (e.g., `abaqus job=testsp1 input=mystd-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`)."
     },
     {
-      "question": "What types of parallelization do Abaqus solvers support for Standard Analysis?",
-      "answer": "Abaqus solvers support both thread-based and MPI-based parallelization for running Standard Analysis type jobs."
-    },
-    {
-      "question": "Are scripts currently available for performing multiple node job restarts in Standard Analysis?",
-      "answer": "No, scripts to perform multiple node job restarts for Standard Analysis are not currently provided."
-    },
-    {
-      "question": "What is the purpose of the `project directory script` for single-node Standard Analysis?",
-      "answer": "The `project directory script` is a prototype Slurm script designed for submitting thread-based parallel simulations to a single compute node for Standard Analysis type jobs."
-    },
-    {
-      "question": "How is the account specified in the `scriptsp1.txt` Slurm script?",
-      "answer": "The account is specified using `#SBATCH --account=def-group` in the `scriptsp1.txt` Slurm script."
-    },
-    {
-      "question": "What is the maximum wall-clock time requested in the `scriptsp1.txt` Slurm script?",
-      "answer": "The maximum wall-clock time requested is 6 hours, specified as `--time=00-06:00` (days-hours:minutes)."
-    },
-    {
-      "question": "How many CPUs are requested per task in the `scriptsp1.txt` Slurm script for single-node computing?",
-      "answer": "The script requests 4 CPUs per task, indicated by `#SBATCH --cpus-per-task=4`."
-    },
-    {
-      "question": "What is the total memory requested for a single-node standard analysis job using `scriptsp1.txt`?",
-      "answer": "The `scriptsp1.txt` requests 8 GB of total memory, specified by `#SBATCH --mem=8G`."
-    },
-    {
-      "question": "Which Abaqus module is recommended to be loaded in the `scriptsp1.txt` for standard analysis?",
-      "answer": "The `abaqus/2026` module, representing the latest version, is recommended to be loaded."
-    },
-    {
-      "question": "What Abaqus command is used in `scriptsp1.txt` for versions 2026 and newer to run a standard analysis job?",
-      "answer": "For Abaqus versions 2026 and newer, the command `abaqus job=testsp1 input=mystd-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"` is used."
-    },
-    {
-      "question": "How can you specify in the Abaqus input file to write restart data every 12 time increments?",
-      "answer": "To write restart data every N=12 time increments, you should specify `*RESTART, WRITE, OVERLAY, FREQUENCY=12` in the input file."
-    },
-    {
-      "question": "How can one check for completed restart information for a standard analysis job?",
-      "answer": "To check for completed restart information, you can run the command `egrep -i \"step|start\" testsp*.com testsp*.msg testsp*.sta`."
-    },
-    {
-      "question": "What is the purpose of the `project directory restart script` (`scriptsp2.txt`)?",
-      "answer": "The `project directory restart script` (`scriptsp2.txt`) is used to continue standard analysis jobs that have been terminated early due to reaching maximum runtime or compute node crashes."
-    },
-    {
-      "question": "What files are removed at the start of the `scriptsp2.txt` restart script?",
-      "answer": "At the start of the `scriptsp2.txt` restart script, `testsp2*` and `testsp1.lck` are removed."
-    },
-    {
-      "question": "What Abaqus command is used in `scriptsp2.txt` to restart a job, assuming an existing job named `testsp1`?",
-      "answer": "The Abaqus command used to restart a job in `scriptsp2.txt` is `abaqus job=testsp2 oldjob=testsp1 input=mystd-sim-restart.inp ...`."
-    },
-    {
-      "question": "What specific lines should the restart input file contain for a standard analysis job using `scriptsp2.txt`?",
-      "answer": "The restart input file should contain `*HEADING` and `*RESTART, READ`."
+      "question": "How do I restart a previously terminated single-node Abaqus Standard Analysis job using a project directory restart script on an Alliance cluster?",
+      "answer": "To restart a single-node Abaqus Standard Analysis job that was previously terminated, you would use a project directory restart script (e.g., `scriptsp2.txt`). This script is similar to a standard submission script but includes `oldjob=testsp1` and `input=mystd-sim-restart.inp` in the Abaqus command, where `testsp1` is the name of the original job. Additionally, the restart input file (`mystd-sim-restart.inp`) must contain `*HEADING` and `*RESTART, READ` directives."
     }
   ],
-  "generated_at": "2026-04-11T15:31:27.977819+00:00"
+  "generated_at": "2026-04-13T00:47:08.151653+00:00"
 }

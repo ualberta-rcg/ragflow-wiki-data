@@ -4,17 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Pourquoi est-ce qu'on suggère de créer son environnement virtuel Python directement dans une tâche sur nos grappes, même si ça veut dire le refaire à chaque fois?",
-      "answer": "C'est parce que les systèmes de fichiers parallèles sont pas super efficaces pour gérer plein de petits fichiers, ce qui peut ralentir le lancement de Python ou le chargement des bibliothèques. En le créant sur le disque local du nœud de calcul, c'est souvent ben plus rapide et plus efficace."
+      "question": "Comment est-ce qu'on peut installer plusieurs paquets Python en une seule fois en utilisant `pip` sur les grappes?",
+      "answer": "Pour installer plusieurs paquets Python, il est préférable de les installer en une seule étape avec la commande `pip install package1 package2 package3`. Ça aide `pip` à mieux gérer et résoudre les dépendances croisées."
     },
     {
-      "question": "Comment on fait pour créer un environnement virtuel Python à l'intérieur d'un script de tâche Slurm pour un seul nœud de calcul?",
-      "answer": "Dans ton script de tâche, tu commences par charger le module Python que tu veux (ex: `module load python/3.11`). Après, tu crées l'environnement sur le disque local du nœud avec `virtualenv --no-download $SLURM_TMPDIR/env`, tu l'actives avec `source $SLURM_TMPDIR/env/bin/activate`, puis tu installes tes paquets, souvent en utilisant un fichier `requirements.txt`."
+      "question": "Sur les grappes de calcul, pourquoi est-il avantageux de créer un environnement virtuel Python directement à l'intérieur d'une tâche, surtout pour les tâches à nœud unique?",
+      "answer": "C'est avantageux parce que les systèmes de fichiers parallèles des grappes sont efficaces pour les gros volumes de données, mais lents pour l'accès intensif à de petits fichiers, ce qui se produit au démarrage de Python et au chargement d'environnements virtuels. Créer l'environnement virtuel sur le disque local temporaire du nœud de calcul durant la tâche est souvent plus rapide et plus efficace."
     },
     {
-      "question": "Y'a-t-il une consigne particulière pour la création et l'activation d'environnements virtuels Python sur la grappe Trillium?",
-      "answer": "Oui, sur Trillium, on te conseille de créer ton environnement virtuel dans ton répertoire `/home` sur un nœud de connexion, puis de l'activer avec la commande `source` directement dans le script de ta tâche."
+      "question": "Comment faire pour générer un fichier `requirements.txt` qui contient toutes les dépendances d'un environnement TensorFlow à partir d'un nœud de connexion sur la grappe?",
+      "answer": "Pour ça, il faut charger le module `python/3.11`, puis créer un environnement virtuel temporaire avec `virtualenv --no-download $ENVDIR`. Après l'avoir activé avec `source $ENVDIR/bin/activate`, on installe `pip` et `tensorflow` avec l'option `--no-index`. Finalement, on utilise `pip freeze --local > requirements.txt` pour capturer les dépendances, puis on désactive et supprime l'environnement temporaire."
     }
   ],
-  "generated_at": "2026-04-12T18:21:35.248817+00:00"
+  "generated_at": "2026-04-13T11:51:42.974247+00:00"
 }

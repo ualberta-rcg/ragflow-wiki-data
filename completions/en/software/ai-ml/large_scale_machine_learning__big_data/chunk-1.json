@@ -4,53 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "How do Deep Learning training tasks achieve scalability with large quantities of data?",
-      "answer": "Deep Learning training tasks naturally scale to large quantities of data through the widespread use of mini-batching strategies combined with first-order iterative solvers."
+      "question": "What are the main challenges when scaling traditional machine learning methods, such as those in `scikit-learn`, to very large datasets compared to deep learning approaches?",
+      "answer": "Deep learning methods are naturally scalable to large datasets using mini-batching strategies and first-order iterative solvers. In contrast, many traditional machine learning packages like `scikit-learn` often struggle with large datasets because their default implementations may require the entire training set to be loaded into memory, often do not leverage thread or process parallelism, and may rely on memory-intensive solvers."
     },
     {
-      "question": "What is a common challenge when scaling Traditional Machine Learning algorithms, particularly in packages like scikit-learn, to very large datasets?",
-      "answer": "A common challenge is that many traditional machine learning algorithms, such as Generalized Linear Models (GLMs) and Support Vector Machines (SVMs), often have default implementations that require the entire training set to be loaded into memory and do not leverage thread or process parallelism, making scaling to very large datasets not trivial."
+      "question": "If a training dataset fits into memory but still causes Out-Of-Memory (OOM) errors during `scikit-learn` training, what is a likely cause and a recommended solution?",
+      "answer": "A likely cause of Out-Of-Memory (OOM) errors in `scikit-learn` when the dataset fits into memory is the use of a memory-intensive solver. A straightforward solution is to replace the default solver with an SGD-based one, as many common machine learning methods in `scikit-learn` offer variations of stochastic gradient descent (SGD) as an option."
     },
     {
-      "question": "What is Scikit-learn?",
-      "answer": "Scikit-learn is a Python module for machine learning that is built on top of SciPy and distributed under the 3-Clause BSD license."
-    },
-    {
-      "question": "What are the primary limitations of scikit-learn's implementations for common methods like GLMs and SVMs when dealing with massive datasets?",
-      "answer": "Many scikit-learn implementations for common methods like GLMs and SVMs assume the entire training set can be loaded into memory. Furthermore, some of these algorithms opt for memory-intensive solvers by default, which can be a showstopper when dealing with massive datasets."
-    },
-    {
-      "question": "What should you suspect if you encounter Out-Of-Memory (OOM) errors during training, even if your scikit-learn training set fits in memory?",
-      "answer": "If your scikit-learn training set is small enough to be loaded entirely into memory but you're experiencing Out-Of-Memory (OOM) errors during training, the culprit is likely a memory-intensive solver."
-    },
-    {
-      "question": "How can Out-Of-Memory (OOM) errors in scikit-learn often be resolved when a memory-intensive solver is the cause?",
-      "answer": "Out-Of-Memory (OOM) errors in scikit-learn can often be resolved by replacing the default memory-intensive solver with an SGD-based (stochastic gradient descent) variation, which is available as an option for many common machine learning methods."
-    },
-    {
-      "question": "What scikit-learn class can be used instead of Ridge for further memory usage reduction in regression tasks?",
-      "answer": "`SGDRegressor` can be used instead of `Ridge` for further memory usage reduction."
-    },
-    {
-      "question": "What is a key limitation when using `SGDRegressor` in scikit-learn?",
-      "answer": "One key limitation of using `SGDRegressor` in scikit-learn is that it only works if the output is unidimensional, meaning it must be a scalar."
-    },
-    {
-      "question": "What is 'out-of-core learning' in scikit-learn?",
-      "answer": "'Out-of-core learning' in scikit-learn refers to the strategy of leaving a dataset too large to fit in memory on disk and loading it in batches during training, similar to how deep learning packages work."
-    },
-    {
-      "question": "What method must an estimator have to support out-of-core learning in scikit-learn?",
-      "answer": "An estimator must have the `partial_fit` method available to support out-of-core learning in scikit-learn."
-    },
-    {
-      "question": "How can data be loaded in batches from NumPy arrays stored on disk for out-of-core learning with `SGDClassifier`?",
-      "answer": "Data can be loaded in batches from NumPy arrays stored on disk by memory-mapping these files and iterating through them, loading only a small batch of rows from the arrays into memory at a time for `SGDClassifier`'s `partial_fit` method."
-    },
-    {
-      "question": "How can a LASSO regression model be trained with `SGDRegressor` using data from a CSV file in batches?",
-      "answer": "A LASSO regression model can be trained with `SGDRegressor` by reading data in batches from a CSV file using the pandas package's `read_csv` function with the `chunksize` parameter, then calling `model.partial_fit` for each batch."
+      "question": "How does `scikit-learn`'s \"out-of-core learning\" address the challenge of training models on datasets too large to fit entirely into memory?",
+      "answer": "`Scikit-learn`'s \"out-of-core learning\" addresses datasets too large for memory by allowing data to remain on disk and be loaded in batches during training. This strategy is viable whenever an estimator has the `partial_fit` method available, enabling iterative processing of data chunks without loading the entire dataset into memory."
     }
   ],
-  "generated_at": "2026-04-12T00:58:35.257886+00:00"
+  "generated_at": "2026-04-13T08:06:21.341050+00:00"
 }

@@ -3,69 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Quelle est la principale directive Slurm qu'on doit utiliser pour demander un ou plusieurs GPU pour une tâche?",
-      "answer": "On doit utiliser la directive `--gpus-per-node=<identifiant_modèle>:<nombre>`."
+      "question": "Comment peut-on demander un ou plusieurs GPU pour une tâche Slurm sur les grappes de l'Alliance?",
+      "answer": "On utilise la directive `--gpus-per-node=<model_specifier>:<number>`."
     },
     {
-      "question": "Quel est l'identifiant Slurm recommandé pour demander un GPU A100?",
-      "answer": "Pour demander un GPU A100, l'identifiant est `a100`."
+      "question": "Pouvez-vous donner un exemple de la commande Slurm pour demander un seul GPU A100?",
+      "answer": "Pour demander un seul GPU A100, on utiliserait la directive `--gpus-per-node=a100:1`."
     },
     {
-      "question": "Existe-t-il d'autres directives Slurm pour demander des GPU, et laquelle n'est plus recommandée?",
-      "answer": "Oui, il y a d'autres directives comme `--gpus`, `--gpus-per-socket`, `--gpus-per-task`, `--mem-per-gpu` et `--ntasks-per-gpu`. Cependant, la directive `--gres=gpu:<identifiant_modèle>:<nombre>` pourrait ne plus être prise en charge et il est recommandé de la remplacer par `--gpus-per-node`."
+      "question": "Y a-t-il une autre directive Slurm pour demander des GPU qui est maintenant déconseillée?",
+      "answer": "Oui, la directive `--gres=gpu:<model_specifier>:<number>` est possiblement déconseillée et il est recommandé de la remplacer par `--gpus-per-node`."
     },
     {
-      "question": "Que doit-on faire si on n'obtient pas le résultat voulu avec une combinaison de directives Slurm pour les GPU?",
-      "answer": "Il faut contacter le soutien technique."
+      "question": "Pourquoi est-il fortement recommandé de toujours spécifier un identifiant de modèle GPU dans les scripts de tâches Slurm?",
+      "answer": "Si un modèle n'est pas spécifié, la tâche risque d'être rejetée ou acheminée vers une instance de GPU arbitraire, et très peu de programmes sont capables d'utiliser efficacement un modèle arbitraire."
     },
     {
-      "question": "Quels types de GPU sont disponibles sur les grappes Fir, Narval, Nibi et Rorqual?",
-      "answer": "Sur Fir, Nibi et Rorqual, des GPU H100-80gb sont disponibles. Sur Narval, des GPU A100-40gb sont disponibles. Nibi offre également des MI300A-128gb."
+      "question": "Quelle commande peut-on utiliser pour voir les identifiants de GPU (et MIG) disponibles sur les grappes de l'Alliance, si le tableau des GPU n'est pas à jour?",
+      "answer": "On peut utiliser la commande `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\n/g'|cut -d: -f1|sort|uniq`."
     },
     {
-      "question": "Comment puis-je obtenir une liste des identifiants de GPU (et MIG) disponibles sur chaque grappe en utilisant une commande?",
-      "answer": "On peut utiliser la commande `sinfo -o \"%G\" | grep gpu | sed 's/gpu://g' | sed 's/),/\\n/g' | cut -d: -f1 | sort | uniq`."
+      "question": "Qu'est-ce que la technologie GPU multi-instances (MIG) mentionnée pour certaines grappes de l'Alliance?",
+      "answer": "La technologie MIG permet de partitionner un GPU physique en plusieurs instances plus petites, et les tâches pourraient utiliser un MIG plutôt qu'un GPU entier."
     },
     {
-      "question": "Qu'arrive-t-il si on ne spécifie pas un identifiant de modèle de GPU pour une tâche Slurm?",
-      "answer": "Si on ne spécifie pas de modèle, la tâche risque d'être rejetée ou acheminée vers une instance de GPU arbitraire, ce qui est rarement efficace."
+      "question": "Lorsqu'on demande une instance GPU pour une tâche Slurm, quels autres ressources doivent être demandées?",
+      "answer": "Avec chaque instance GPU, une tâche doit avoir un nombre de cœurs CPU (1 par défaut) et une certaine quantité de mémoire système."
     },
     {
-      "question": "Qu'est-ce que la technologie GPU multi-instances (MIG)?",
-      "answer": "La technologie MIG permet de partitionner un GPU en plusieurs instances, ce qui permet à des tâches d'utiliser une partie d'un GPU plutôt qu'un GPU entier."
+      "question": "Comment écrire un script Slurm pour une tâche qui nécessite un seul cœur CPU et un GPU A100 avec 4000M de mémoire et une durée de 3 heures?",
+      "answer": "Le script devrait inclure `#SBATCH --gpus-per-node=a100:1`, `#SBATCH --mem=4000M`, `#SBATCH --time=0-03:00`, en plus de l'account et du programme à exécuter."
     },
     {
-      "question": "Quel est le nombre par défaut de cœurs CPU et la quantité de mémoire système qu'une tâche reçoit avec chaque instance GPU?",
-      "answer": "Par défaut, une tâche reçoit un (1) cœur CPU et une certaine quantité de mémoire système avec chaque instance GPU."
+      "question": "Quel est le script Slurm recommandé pour une tâche GPU multifils qui utilise 6 cœurs CPU et un GPU A100 sur un seul nœud?",
+      "answer": "Le script Slurm devrait inclure `#SBATCH --gpus-per-node=a100:1`, `#SBATCH --cpus-per-task=6`, `#SBATCH --mem=4000M`, et exporter `OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`."
     },
     {
-      "question": "Où peut-on trouver le maximum de cœurs CPU et de mémoire système qu'on peut demander avec un GPU?",
-      "answer": "Pour le maximum de cœurs CPU et de mémoire système, il faut consulter le tableau des ratios dans la section 'Allocations et ordonnancement de calcul'."
+      "question": "Quel est le nombre maximum de cœurs CPU recommandé pour chaque GPU complet demandé sur les grappes Fir et Narval?",
+      "answer": "Sur Fir et Narval, il est recommandé un maximum de 12 cœurs CPU par GPU complet. Pour Nibi, c'est un maximum de 14, et pour Rorqual, 16."
     },
     {
-      "question": "Quel est un exemple de script Slurm pour une tâche qui demande un seul GPU A100 et un seul cœur CPU?",
-      "answer": "```bash\n#!/bin/bash\n#SBATCH --account=def-someuser\n#SBATCH --gpus-per-node=a100:1\n#SBATCH --mem=4000M\n#SBATCH --time=0-03:00\n./program\n```"
+      "question": "Sur quelles grappes le profilage des tâches GPU est-il possible et quelle est la précaution à prendre?",
+      "answer": "Le profilage est possible sur Narval et Rorqual, mais DCGM (NVIDIA Data Center GPU Manager) doit être désactivé en configurant la variable d'environnement `DISABLE_DCGM=1` lors de la soumission de la tâche."
     },
     {
-      "question": "Comment demande-t-on un GPU A100 avec plusieurs cœurs CPU pour une tâche multifils?",
-      "answer": "On ajoute `#SBATCH --cpus-per-task=<nombre_de_cœurs>` à son script Slurm, par exemple `#SBATCH --cpus-per-task=6` en plus de `#SBATCH --gpus-per-node=a100:1`."
+      "question": "Sur quelles grappes de l'Alliance le profilage de GPU tel que décrit n'est-il pas encore disponible?",
+      "answer": "Le profilage de GPU n'est pas encore disponible sur les grappes Fir et Nibi."
     },
     {
-      "question": "Quel est le nombre maximal de cœurs CPU recommandé par GPU complet sur les grappes Fir, Narval, Nibi et Rorqual?",
-      "answer": "On recommande un maximum de 12 cœurs CPU sur Fir et Narval, 14 sur Nibi, et 16 sur Rorqual par GPU complet."
+      "question": "Quels modèles de GPU sont disponibles sur la grappe Narval?",
+      "answer": "La grappe Narval dispose de GPU A100-40gb, incluant des instances multi-instances comme a100_1g.5gb, a100_2g.10gb, a100_3g.20gb et a100_4g.20gb."
     },
     {
-      "question": "Comment peut-on exécuter plusieurs tâches utilisant un seul GPU concurremment dans un seul travail Slurm, par exemple avec GNU Parallel?",
-      "answer": "On peut utiliser `cat params.input | parallel -j<nombre_tâches> 'CUDA_VISIBLE_DEVICES=$(({%} - 1)) python {} &> {#}.out'`, où `params.input` contient les paramètres pour chaque tâche sur des lignes distinctes."
+      "question": "Est-il possible de soumettre des tâches GPU via Slurm sur la grappe Arbutus?",
+      "answer": "Non, ce n'est pas possible via Slurm sur Arbutus car c'est une ressource infonuagique."
     },
     {
-      "question": "Comment peut-on activer le profilage des tâches GPU sur les grappes Narval et Rorqual?",
-      "answer": "Pour activer le profilage, il faut désactiver DCGM (NVIDIA Data Center GPU Manager) en configurant la variable d'environnement `DISABLE_DCGM=1` lors de la soumission de la tâche Slurm."
+      "question": "Quel outil est recommandé pour regrouper plusieurs tâches à GPU unique qui s'exécutent sur une longue période, comme plus de 24 heures?",
+      "answer": "GNU Parallel est recommandé pour regrouper de telles tâches, en particulier pour exécuter plusieurs programmes concurremment sur différents GPU à l'aide de `CUDA_VISIBLE_DEVICES`."
     },
     {
-      "question": "Sur quelles grappes le profilage de GPU décrit dans le document n'est-il pas encore disponible?",
-      "answer": "Le profilage de GPU n'est pas encore disponible sur Fir et Nibi."
+      "question": "Qui doit-on contacter si l'on n'obtient pas le résultat voulu avec les directives Slurm pour GPU ou si l'on a besoin de plus d'informations?",
+      "answer": "On doit contacter le soutien technique de l'Alliance."
+    },
+    {
+      "question": "Quelles sont les grappes de l'Alliance qui offrent des GPU H100-80gb?",
+      "answer": "Les grappes Fir, Nibi et Rorqual offrent des GPU H100-80gb, en plus de Trillium et TamIA."
+    },
+    {
+      "question": "Quelles directives Slurm supplémentaires peuvent être utilisées pour demander des GPU, au-delà de `--gpus-per-node`?",
+      "answer": "Slurm prend en charge d'autres directives comme `--gpus`, `--gpus-per-socket`, `--gpus-per-task`, `--mem-per-gpu` et `--ntasks-per-gpu`."
     }
   ],
-  "generated_at": "2026-04-12T10:04:37.122504+00:00"
+  "generated_at": "2026-04-13T15:10:31.405069+00:00"
 }

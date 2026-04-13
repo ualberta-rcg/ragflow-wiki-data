@@ -3,81 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Who is this guide primarily intended for, and what is its main purpose?",
-      "answer": "This guide is for advanced users and provides detailed instructions on how to configure and submit a JupyterLab job on any national cluster."
+      "question": "What is the primary purpose of the \"Advanced Jupyter configuration\" page on Alliance clusters?",
+      "answer": "The primary purpose of this page is to provide detailed instructions on how to configure and submit a custom JupyterLab job on any national Alliance cluster."
     },
     {
-      "question": "What is the recommended alternative for users looking for a preconfigured Jupyter environment?",
-      "answer": "Users are recommended to consider using the preconfigured JupyterLab environment instead."
+      "question": "Is the custom JupyterLab configuration described on this page recommended for all users on Alliance clusters?",
+      "answer": "No, it is explicitly stated that this content is for advanced users only, is seldom tested, and is not recommended. Users are advised to consider using the preconfigured JupyterLab instead."
     },
     {
-      "question": "What kind of tasks are Jupyter Lab and notebooks best suited for, and what should be used for longer analyses?",
-      "answer": "Jupyter Lab and notebooks are meant for short interactive tasks (few minutes), while longer analyses must be done in a non-interactive job using `sbatch`."
+      "question": "What are Jupyter Lab and notebooks meant for on Alliance clusters?",
+      "answer": "Jupyter Lab and notebooks are meant for short interactive tasks such as testing, debugging, or quickly visualizing data, typically lasting only a few minutes."
     },
     {
-      "question": "Where should a JupyterLab server be run to avoid performance issues?",
-      "answer": "A JupyterLab server should only run on a compute node or a cloud instance, not on cluster login nodes."
+      "question": "Where should a JupyterLab server run on an Alliance cluster?",
+      "answer": "A JupyterLab server should only run on a compute node or a cloud instance, as cluster login nodes impose limits that can stop applications consuming too much CPU time or memory."
     },
     {
-      "question": "What is the first step when installing JupyterLab using these instructions?",
-      "answer": "The first step is to create and then activate a Python virtual environment."
+      "question": "What command is used to install JupyterLab in a Python virtual environment on Alliance clusters?",
+      "answer": "JupyterLab is installed using the `pip install --no-index jupyterlab` command within an activated Python virtual environment."
     },
     {
-      "question": "Which command is used to install JupyterLab within a virtual environment?",
-      "answer": "The command `pip install --no-index jupyterlab` is used to install JupyterLab."
+      "question": "What is a prerequisite for installing JupyterLab with RStudio Server functionality on Alliance clusters?",
+      "answer": "When installing JupyterLab with RStudio Server, the `rstudio-server` module must be loaded before the `python` module and before creating a new virtual environment."
     },
     {
-      "question": "What specific module loading is required if RStudio Server functionality is desired during JupyterLab installation?",
-      "answer": "You must load the `rstudio-server` module before the `python` module and before creating a new virtual environment."
+      "question": "What is the purpose of the Jupyter Lmod extension?",
+      "answer": "Jupyter Lmod is an extension that allows users to interact with environment modules, such as loading and unloading, directly from the JupyterLab interface before launching kernels."
     },
     {
-      "question": "What is the function of the Jupyter Lmod extension?",
-      "answer": "Jupyter Lmod is an extension that allows users to interact with environment modules, such as loading or unloading them, before launching kernels."
+      "question": "How do users start a JupyterLab server on an Alliance cluster after installation?",
+      "answer": "Users start a JupyterLab server by submitting an interactive job using the `salloc` command with specified resources and then running the `jupyterlab.sh` wrapper script."
     },
     {
-      "question": "How do you install the Jupyter RSession proxy to enable RStudio Server in your JupyterLab environment?",
-      "answer": "After JupyterLab is installed in the new virtual environment, you install the proxy using `pip install --no-index jupyter-rsession-proxy`."
+      "question": "Why is SSH tunneling required to connect to JupyterLab on Alliance clusters?",
+      "answer": "SSH tunneling is required because the compute nodes where JupyterLab runs are not directly accessible from the internet, so a tunnel must be created from the user's computer through the cluster."
     },
     {
-      "question": "How do you start a JupyterLab server on a compute node?",
-      "answer": "You start a JupyterLab server by submitting an interactive job with `salloc`, adjusting parameters based on your needs."
+      "question": "How do Linux or macOS users connect to a running JupyterLab session on an Alliance cluster?",
+      "answer": "Linux or macOS users can connect by opening an SSH tunnel using the `sshuttle` Python package from their local machine, then copying and pasting the provided HTTP address into their web browser."
     },
     {
-      "question": "Why is an SSH tunnel necessary to access JupyterLab from a web browser?",
-      "answer": "An SSH tunnel is necessary because compute nodes are not directly accessible from the internet."
+      "question": "What are the two main steps for installing a new kernel in JupyterLab?",
+      "answer": "The two main steps are installing packages that enable the language interpreter to communicate with the Jupyter interface, and then creating a kernel spec file that tells JupyterLab how to initiate this communication."
     },
     {
-      "question": "Which tool is recommended for creating an SSH tunnel from Linux or macOS to connect to JupyterLab?",
-      "answer": "The `sshuttle` Python package is recommended for creating an SSH tunnel from Linux or macOS."
+      "question": "What is a prerequisite for configuring a Julia kernel in JupyterLab on Alliance clusters?",
+      "answer": "A Python virtual environment must be available and activated, and the Julia kernel configuration must be done in a remote shell session on a login node due to the need for internet access to install Julia packages."
     },
     {
-      "question": "How can you shut down the JupyterLab server before its walltime limit is reached?",
-      "answer": "You can shut down the JupyterLab server by pressing `Ctrl-C` twice in the terminal that launched the interactive job."
+      "question": "Where must R packages be installed for an R kernel in JupyterLab on Alliance clusters?",
+      "answer": "R packages must be installed from a login node via a remote shell session, as installation cannot be done directly from notebooks due to a lack of access to CRAN."
     },
     {
-      "question": "What are the two main steps involved in adding a new kernel to JupyterLab?",
-      "answer": "The two main steps are installing packages that allow the language interpreter to communicate with Jupyter, and creating a kernel spec file."
+      "question": "How can a Jupyter notebook be converted into a Python script for non-interactive jobs on Alliance clusters?",
+      "answer": "A Jupyter notebook can be converted into a Python script using the `jupyter nbconvert --to python mynotebook.ipynb` command, after ensuring `nbconvert` is installed in an activated virtual environment."
     },
     {
-      "question": "What are the prerequisites for configuring a Julia kernel?",
-      "answer": "A Python virtual environment and a `kernels` folder are prerequisites, and the configuration must be done in a remote shell session on a login node due to internet access requirements."
-    },
-    {
-      "question": "What is the command to install the `ipykernel` library for a Python kernel?",
-      "answer": "The command is `pip install --no-index ipykernel` within the activated Python virtual environment."
-    },
-    {
-      "question": "Why must R packages be installed from a login node for an R kernel?",
-      "answer": "R packages require access to CRAN (Comprehensive R Archive Network) for installation, which is available from a login node."
-    },
-    {
-      "question": "What is the recommended approach for running Jupyter notebooks for longer analyses or non-interactive jobs?",
-      "answer": "The recommended approach is to convert the notebook to a Python script and submit it as a non-interactive job using `sbatch`."
-    },
-    {
-      "question": "How do you convert a Jupyter notebook file (e.g., `mynotebook.ipynb`) into a Python script?",
-      "answer": "You convert it using the command `jupyter nbconvert --to python mynotebook.ipynb`."
+      "question": "What is the recommended way to run long analyses from Jupyter notebooks on Alliance clusters?",
+      "answer": "For longer analyses, it's recommended to convert the notebook to a Python script, create a submission script, and then submit it as a non-interactive job using `sbatch`."
     }
   ],
-  "generated_at": "2026-04-11T16:03:41.896860+00:00"
+  "generated_at": "2026-04-13T01:09:31.849878+00:00"
 }

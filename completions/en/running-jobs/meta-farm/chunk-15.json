@@ -4,29 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "What is one assumption for optimizing a META farm with a very large number of cases, specifically concerning output file naming?",
-      "answer": "One assumption is that your code accepts the output file name via a command line switch, such as `-o`."
+      "question": "What is the primary benefit of optimizing the `single_case.sh` script for very large farms that involve hundreds of thousands or millions of cases?",
+      "answer": "The primary benefit of optimizing `single_case.sh` for very large farms is to significantly minimize the number of files and directories created during execution. This ensures the farm runs efficiently, even with a massive number of cases."
     },
     {
-      "question": "In an optimized setup for a very large META farm, what mode should the application use when opening its output file?",
-      "answer": "The application should open its output file in 'append' mode."
+      "question": "What specific conditions or programming practices are assumed for the most efficient `single_case.sh` setup when dealing with a very large number of cases?",
+      "answer": "The most efficient `single_case.sh` setup for very large farms assumes several conditions: the user's code accepts the output filename via a command-line switch (e.g., `-o`), opens the output file in append mode, can safely run multiple instances concurrently in the same directory (thus avoiding separate subdirectories for each case), and produces no files other than the designated output file."
     },
     {
-      "question": "Why is it important for an application to open its output file in 'append' mode when optimizing a META farm for a large number of cases?",
-      "answer": "Opening the output file in 'append' mode allows multiple runs to keep adding to the existing file, rather than overwriting it or creating new ones, which is crucial for efficiency with many cases."
-    },
-    {
-      "question": "For an optimized META farm with a very large number of cases, how should the `table.dat` file provide arguments to your code?",
-      "answer": "Each line of the `table.dat` file should provide the rest of the command line arguments for your code."
-    },
-    {
-      "question": "What is an assumption regarding code execution location for optimizing a META farm with a very large number of cases?",
-      "answer": "It is assumed that multiple instances of your code can safely run concurrently inside the same directory, removing the need to create a separate subdirectory for each case."
-    },
-    {
-      "question": "What efficiency benefit arises from allowing multiple instances of code to run concurrently in the same directory for a large META farm?",
-      "answer": "It eliminates the need to create a separate subdirectory for each case, which optimizes the farm for a very large number of cases."
+      "question": "How should the `single_case.sh` script be modified to optimize for a very large number of cases, particularly regarding output file handling and directory structure?",
+      "answer": "To optimize for a very large number of cases, the `single_case.sh` script should be modified to avoid creating a separate subdirectory for each case. Instead, it should execute the user's code, passing command-line arguments from `table.dat`, and direct the output to a file named using the unique metajob ID (e.g., `output.$METAJOB_ID`). This assumes the application appends to the output file and does not create other files, preventing excessive file creation."
     }
   ],
-  "generated_at": "2026-04-12T01:22:41.679402+00:00"
+  "generated_at": "2026-04-13T08:26:23.073939+00:00"
 }

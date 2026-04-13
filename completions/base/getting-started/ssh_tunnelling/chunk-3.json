@@ -4,17 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How can a user typically inform their software to use a specific port on `localhost` for a license server?",
-      "answer": "While it depends on the specific application and license server type, it is often done by setting an environment variable in the job script."
+      "question": "How do you configure software to use a license server via an SSH tunnel on a compute node?",
+      "answer": "When using an SSH tunnel to connect to a license server from a compute node, you typically inform the software by setting an environment variable within your job script. For example, you might use `export MLM_LICENSE_FILE=COMPUTEPORT@localhost`, where `COMPUTEPORT` is the specific port number chosen on the compute node, and `localhost` refers to the computer itself. The precise method can vary based on the specific application and license server type."
     },
     {
-      "question": "What is an example of an environment variable setting for a license file that uses `localhost` and a specific port?",
-      "answer": "An example is `export MLM_LICENSE_FILE=COMPUTEPORT@localhost`."
-    },
-    {
-      "question": "What is the purpose of the provided example job script?",
-      "answer": "The example job script sets up an SSH tunnel to contact `licenseserver.institution.ca` at port 9999."
+      "question": "Can you provide an example of a batch job script that sets up an SSH tunnel to contact a remote license server?",
+      "answer": "Yes, an example batch job script can establish an SSH tunnel to contact a remote license server, such as `licenseserver.institution.ca` at port `9999`. The script would typically select a random local port, then use an SSH command like `ssh tri-gw -L $LOCALPORT:$REMOTEHOST:$REMOTEPORT -N -f` to forward connections from that local port through a gateway server (e.g., `tri-gw`) to the remote license server. Finally, it would set an environment variable, such as `export MLM_LICENSE_FILE=$LOCALPORT@$LOCALHOST`, to direct the software to use the tunnel."
     }
   ],
-  "generated_at": "2026-04-12T07:33:41.909239+00:00"
+  "generated_at": "2026-04-13T13:12:32.823341+00:00"
 }

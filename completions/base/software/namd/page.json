@@ -3,57 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is NAMD and what is its primary purpose?",
-      "answer": "NAMD is a parallel, object-oriented molecular dynamics code designed for high-performance simulation of large biomolecular systems."
+      "question": "What is NAMD on Alliance clusters, and what is its primary purpose?",
+      "answer": "NAMD (NAnoscale Molecular Dynamics) is a parallel, object-oriented molecular dynamics code designed for high-performance simulation of large biomolecular systems on Alliance clusters."
     },
     {
-      "question": "Which visualization package integrates with NAMD for simulation preparation and analysis?",
-      "answer": "The VMD visualization package integrates with NAMD for simulation preparation and analysis."
+      "question": "How is NAMD made available to users on Alliance clusters?",
+      "answer": "NAMD is installed by the Alliance software team and is available as a module on all clusters."
     },
     {
-      "question": "How is NAMD typically installed and made available on clusters?",
-      "answer": "NAMD is installed by the software team and is available as a module on the clusters."
+      "question": "What is the latest version of NAMD available on Alliance clusters, and when was it released?",
+      "answer": "The latest version of NAMD available on Alliance clusters is 3.0.2, released on August 27, 2025."
     },
     {
-      "question": "What is the latest version of NAMD available on all clusters and when was it released?",
-      "answer": "The latest version of NAMD is 3.0.2, released on August 27, 2025."
+      "question": "What should a user do if they need a newer NAMD version or require details about its compilation on Alliance clusters?",
+      "answer": "Users should contact Technical support if a new NAMD version is required, or if they need to perform their own installation, they can ask for details on how existing NAMD modules were compiled."
     },
     {
-      "question": "Which older version of NAMD is available, and what is its limitation regarding GPUs?",
-      "answer": "NAMD version 2.14 is available, but it cannot run on H100 GPUs and should only be used on the Narval cluster if the GPU version is required."
+      "question": "What visualization package is integrated with NAMD for preparing and analyzing simulations?",
+      "answer": "The VMD visualization package is integrated with NAMD for simulation preparation and analysis."
     },
     {
-      "question": "What is recommended for running NAMD jobs that span multiple nodes?",
-      "answer": "To run NAMD jobs that span nodes, UCX is recommended."
+      "question": "What is the key input flag in NAMD 3 that can significantly improve performance for GPU jobs, and where should it be added?",
+      "answer": "The key input flag is `GPUresident on;`, which shifts more calculations to the GPU. It should be added to the NAMD input file."
     },
     {
-      "question": "What input flag was added in NAMD 3 to improve GPU performance, and where should it be added?",
-      "answer": "NAMD 3 added the 'GPUresident on;' input flag, which shifts more calculations to the GPU, and it should be added to your NAMD input file."
+      "question": "When should users consider using the UCX version of NAMD for multi-node CPU jobs on Alliance clusters?",
+      "answer": "Users should only use the UCX version of NAMD if the multicore version is not sufficient for their needs and they need to run on multiple nodes."
     },
     {
-      "question": "When is it recommended to use UCX jobs for multi-node CPU simulations?",
-      "answer": "UCX jobs should only be used if the multicore version of NAMD is insufficient and you need to run on multiple nodes."
+      "question": "What is a general recommendation for achieving best performance with NAMD UCX jobs on Alliance clusters?",
+      "answer": "For best performance, NAMD UCX jobs should utilize full nodes."
     },
     {
-      "question": "What is a key recommendation for achieving best performance with NAMD UCX jobs?",
-      "answer": "For best performance, NAMD UCX jobs should use full nodes."
+      "question": "What NAMD version should not be used on clusters equipped with H100 GPUs, according to the document?",
+      "answer": "NAMD 2.14 should not be used on clusters with H100 GPUs."
     },
     {
-      "question": "Why is it important to conduct benchmarking for NAMD simulations?",
-      "answer": "Benchmarking helps determine optimal conditions for your specific system, as NAMD's performance varies with factors like the number of atoms, and it's useful for RAC award applications."
+      "question": "What resource can help users determine optimal conditions for NAMD jobs on Alliance clusters, besides conducting their own benchmarks?",
+      "answer": "ACENET has created a Molecular Dynamics Performance Guide that can help determine optimal conditions for NAMD jobs on Alliance clusters."
     },
     {
-      "question": "Where can users find a Molecular Dynamics Performance Guide for Alliance clusters, including NAMD?",
-      "answer": "A team at ACENET created a Molecular Dynamics Performance Guide for Alliance clusters, available at mdbench.ace-net.ca/mdbench/."
+      "question": "What critical factor affects NAMD's performance differently and should be considered during benchmarking?",
+      "answer": "The performance of NAMD will be different for various systems being simulated, depending especially on the number of atoms in the simulation."
     },
     {
-      "question": "What is the general recommendation regarding running NAMD simulations with or without GPUs, based on the provided benchmarking example?",
-      "answer": "Generally, it is more cost-effective to run with GPUs if possible, as a GPU node can offer significantly faster performance than multiple non-GPU nodes, although waiting times for GPU jobs might be longer due to fewer available nodes."
+      "question": "What general advice is given for conducting a good NAMD benchmark run?",
+      "answer": "For a good benchmark, users should vary the number of steps so that the system runs for a few minutes and timing information is collected in reasonable intervals of at least a few seconds to avoid fluctuations."
     },
     {
-      "question": "How can users install a newer version of NAMD downloaded directly from the website if it's not yet available as a module?",
-      "answer": "Users can download the binary, extract it, navigate to the directory, and then run `setrpaths.sh --path .` to link it to the correct libraries on Alliance systems."
+      "question": "When might it be more cost-effective to run NAMD with GPUs despite potentially fewer GPU nodes being available?",
+      "answer": "Running NAMD with GPUs can be more cost-effective if a GPU node's computational power allows the job to run significantly faster than on multiple non-GPU nodes, even if a GPU node costs more."
+    },
+    {
+      "question": "How can a user install a NAMD binary downloaded from the NAMD website to run it on Alliance systems?",
+      "answer": "After extracting the downloaded NAMD binary (e.g., `tar xvfz NAMD_3.0alpha11_Linux-x86_64-multicore-CUDA-SingleNode.tar.gz`), the user should navigate into the extracted directory and run `setrpaths.sh --path .` to link the executable to the correct libraries on Alliance systems."
+    },
+    {
+      "question": "What NAMD version is the previous one still available on Alliance clusters, and on which cluster should it primarily be used with GPUs?",
+      "answer": "The previous NAMD version 2.14 is available, and it should only be used on the Narval cluster if a GPU version is utilized, as it cannot run on H100 GPUs."
+    },
+    {
+      "question": "What information should a user adjust when using a multi-node GPU job script on clusters other than Narval?",
+      "answer": "Users should look up the specifications of the available nodes on other clusters and adjust the `--cpus-per-task` and `--gpus-per-node` options accordingly in the job script."
     }
   ],
-  "generated_at": "2026-04-12T03:30:01.575501+00:00"
+  "generated_at": "2026-04-13T09:46:49.363533+00:00"
 }

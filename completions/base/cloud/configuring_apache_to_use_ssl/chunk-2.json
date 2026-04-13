@@ -4,45 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What is the most important field to complete when creating a self-signed SSL certificate, especially for a virtual machine?",
-      "answer": "The most important field is the \"Common Name\" question. For a virtual machine on our clouds, this should be the floating IP associated with the virtual machine, replacing the placeholder string of Xs in the example response (e.g., `XXX-XXX-XXX-XXX.cloud.computecanada.ca`)."
+      "question": "When creating a self-signed SSL certificate, what information should be used for the \"Common Name\" when the server is a virtual machine on a cloud?",
+      "answer": "For a virtual machine on a cloud, the \"Common Name\" during self-signed SSL certificate creation should be the floating IP address associated with that virtual machine."
     },
     {
-      "question": "How do you set the correct ownership and permissions for a private SSL key file in Ubuntu?",
-      "answer": "You can set the ownership to `root:ssl-cert` and permissions to `640` for the private key, `/etc/ssl/private/server.key`, using the commands `sudo chown root:ssl-cert /etc/ssl/private/server.key` and `sudo chmod 640 /etc/ssl/private/server.key`."
+      "question": "How does one configure Apache to utilize a newly generated self-signed SSL certificate for encrypted communications?",
+      "answer": "To configure Apache, edit the `/etc/apache2/sites-available/default-ssl.conf` file. The lines `SSLCertificateFile` and `SSLCertificateKeyFile` must be updated to reference `/etc/ssl/certs/server.crt` and `/etc/ssl/private/server.key`, respectively. You should also add `SSLCertificateChainFile /etc/ssl/certs/server.crt`. Additionally, ensure that the `DocumentRoot` variables are identical between `default-ssl.conf` and `000-default.conf`."
     },
     {
-      "question": "Which Apache configuration file should be modified to configure Apache to use a self-signed SSL certificate?",
-      "answer": "You should edit Apache's SSL configuration file, typically found at `/etc/apache2/sites-available/default-ssl.conf`."
-    },
-    {
-      "question": "What lines in the `default-ssl.conf` file need to be changed to specify the new self-signed certificate files?",
-      "answer": "You need to change the `SSLCertificateFile` and `SSLCertificateKeyFile` lines to point to `/etc/ssl/certs/server.crt` and `/etc/ssl/private/server.key` respectively. Additionally, you should add `SSLCertificateChainFile /etc/ssl/certs/server.crt`."
-    },
-    {
-      "question": "If `default-ssl.conf` is the SSL version of `000-default.conf`, what variable should be consistent between them?",
-      "answer": "Both `default-ssl.conf` and `000-default.conf` should have the same `DocumentRoot` variables."
-    },
-    {
-      "question": "How can you tighten security settings for Apache's SSL configuration?",
-      "answer": "You can tighten security by editing `/etc/apache2/sites-available/default-ssl.conf` and adding directives like `ServerName`, `SSLProtocol all -SSLv2 -SSLv3`, `SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5:!SEED:!IDEA:!RC4`, and `SSLHonorCipherOrder on` inside the `<VirtualHost>` tag. Remember to replace `XXX-XXX-XXX-XXX` with your VM's public IP."
-    },
-    {
-      "question": "What SSL protocols are recommended to be disabled for better security?",
-      "answer": "It is recommended to disable SSLv2 and SSLv3 protocols."
-    },
-    {
-      "question": "What `SSLCipherSuite` is suggested for improved security?",
-      "answer": "The suggested `SSLCipherSuite` for improved security is `HIGH:MEDIUM:!aNULL:!MD5:!SEED:!IDEA:!RC4`."
-    },
-    {
-      "question": "How do you configure Apache to force all HTTP traffic to HTTPS?",
-      "answer": "To force all HTTP traffic to HTTPS, edit the default website configuration file (`/etc/apache2/sites-available/000-default.conf`) and add the line `Redirect permanent / https://XXX-XXX-XXX-XXX.cloud.computecanada.ca` inside the `<VirtualHost>` tag, replacing `XXX-XXX-XXX-XXX` with your VM's public IP."
-    },
-    {
-      "question": "What commands are used to enable the SSL-enabled website configuration and apply the changes?",
-      "answer": "To enable the SSL-enabled website configuration and apply changes, you use the commands `sudo a2ensite default-ssl.conf` and `sudo service apache2 restart`."
+      "question": "What steps are involved in tightening security and enabling an Apache web server to force HTTPS traffic after configuring it with a self-signed SSL certificate?",
+      "answer": "First, edit `/etc/apache2/sites-available/default-ssl.conf` to specify the `ServerName` (using the VM's public IP), disable older SSL protocols (like SSLv2 and SSLv3 with `SSLProtocol all -SSLv2 -SSLv3`), and define a strong `SSLCipherSuite` along with `SSLHonorCipherOrder on`. Next, modify `/etc/apache2/sites-available/000-default.conf` to add a permanent redirect from HTTP to HTTPS within the `<VirtualHost>` tag. Finally, enable the SSL-configured site using `sudo a2ensite default-ssl.conf` and restart the Apache service with `sudo service apache2 restart`."
     }
   ],
-  "generated_at": "2026-04-11T20:19:19.968296+00:00"
+  "generated_at": "2026-04-13T04:22:43.877240+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "How can one build an Apptainer SIF file image from a Docker image?",
-      "answer": "To build an Apptainer SIF file image from a Docker image, use the `apptainer build` command, specifying the desired `.sif` filename and the Docker image source. For example, to build an image named `bb.sif` from Docker's `busybox` image, you would run: `apptainer build bb.sif docker://busybox`."
+      "question": "How does one build an Apptainer SIF file image from a Docker image using the `apptainer build` command?",
+      "answer": "To build an Apptainer SIF file image from a Docker image, such as Docker's latest available busybox image, use the `apptainer build` command followed by the desired SIF filename and the Docker image URI. For example, the command `apptainer build bb.sif docker://busybox` would create an SIF file named `bb.sif`."
     },
     {
-      "question": "How does one build an Apptainer sandbox directory image?",
-      "answer": "To build an Apptainer sandbox directory image, use the `apptainer build` command with the `--sandbox` or `-s` option, followed by the name of the directory you wish to create for the sandbox image, and then the Docker image source. For instance, to create a sandbox directory named `bb.dir` from the `busybox` Docker image, you would use: `apptainer build --sandbox bb.dir docker://busybox`."
+      "question": "What are the key differences between an Apptainer SIF file image and a sandbox directory image, and which type is generally recommended?",
+      "answer": "An Apptainer SIF file image is contained in a single, compressed, read-only file, providing higher disk access speeds and consuming less disk space and file count quotas. Conversely, a sandbox directory image is an uncompressed directory that can contain thousands of files, offers read-write access to the image itself, and uses significant amounts of disk space and file count quotas. If read-write access to the underlying image is not normally required, using an SIF file is recommended due to its performance and efficiency benefits."
     },
     {
-      "question": "What are the main differences between an Apptainer SIF file and a sandbox directory image?",
-      "answer": "An Apptainer SIF file is a single, compressed, and read-only image that offers higher disk access speeds and consumes less disk space and file count quota. In contrast, a sandbox directory image is uncompressed, stored in a directory (potentially containing thousands of files), is read-write, and will consume significant amounts of both disk space and file count quotas. An SIF file is generally recommended unless frequent read-write access to the underlying image is required."
+      "question": "What is the process for creating an Apptainer container from a Dockerfile, and where are these instructions typically executed?",
+      "answer": "To create an Apptainer container from a Dockerfile, you first build the Docker image (`docker build -f Dockerfile -t your-tag-name`), then save it as a tarball (`docker save your-tag-name -o your-tarball-name.tar`), and remove the Docker image (`docker image rm your-tag-name`). Subsequently, you build the Apptainer SIF file from the Docker archive (`apptainer build --fakeroot your-sif-name.sif docker-archive://your-tarball-name.tar`) and finally remove the tarball. These instructions require installing and using both Docker and Apptainer on a system where you have appropriate privileges (e.g., `sudo` or root access, or membership in the `docker` group), as they will not work on compute clusters."
     }
   ],
-  "generated_at": "2026-04-12T19:20:56.636057+00:00"
+  "generated_at": "2026-04-13T02:15:07.531289+00:00"
 }

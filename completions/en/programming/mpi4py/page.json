@@ -3,61 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is `mpi4py` and what is its primary purpose?",
-      "answer": "`mpi4py` provides Python bindings for the Message Passing Interface (MPI) standard, allowing Python applications to utilize multiple processors on workstations, clusters, and supercomputers."
+      "question": "What is the primary function of `mpi4py`?",
+      "answer": "`mpi4py` provides Python bindings for the Message Passing Interface (MPI) standard, allowing Python applications to use multiple processors on workstations, clusters, and supercomputers."
     },
     {
-      "question": "How can I find out which versions of `mpi4py` are available?",
-      "answer": "You can find available versions of `mpi4py` by running the command `module spider mpi4py`."
+      "question": "How can users discover the available versions of the `mpi4py` module on a system?",
+      "answer": "Users can find available `mpi4py` versions by running `module spider mpi4py` and get detailed information on a specific version like `4.0.0` with `module spider mpi4py/4.0.0`."
     },
     {
-      "question": "How do I get detailed information about a specific `mpi4py` version?",
-      "answer": "To get more information about a specific version, use the command `module spider mpi4py/X.Y.Z`, replacing `X.Y.Z` with the exact version number, such as `4.0.0`."
+      "question": "Is `mpi4py` typically installed from a Python wheelhouse?",
+      "answer": "No, `mpi4py` is available as a module and not from the wheelhouse like typical Python packages."
     },
     {
-      "question": "What are the essential steps to run a 'Hello World' test with `mpi4py`?",
-      "answer": "First, run a short interactive job, then load the `mpi4py` and Python modules, and finally, execute the command `srun python -m mpi4py.bench helloworld`."
+      "question": "What are the basic steps to run an `mpi4py` 'Hello World' test in an interactive job?",
+      "answer": "First, run an interactive job using `salloc`, then load the `mpi4py` and `python` modules (e.g., `module load mpi4py/4.0.0 python/3.12`), and finally execute the test with `srun python -m mpi4py.bench helloworld`."
     },
     {
-      "question": "What is the recommended procedure when `mpi4py` is a dependency of another package?",
-      "answer": "You should first deactivate any Python virtual environment, then load the `mpi4py` and Python modules, verify `mpi4py`'s visibility, and finally, create and install your packages within a new virtual environment."
+      "question": "What is the recommended procedure when `mpi4py` is a dependency of another package, especially concerning virtual environments?",
+      "answer": "Deactivate any active Python virtual environment, then load the `mpi4py` and `python` modules. After the modules are loaded, you can create and activate a new virtual environment to install other packages."
     },
     {
-      "question": "Why is it important to deactivate a virtual environment before loading the `mpi4py` module when it's a dependency?",
-      "answer": "It is crucial to deactivate an active virtual environment, load the `mpi4py` module, and then reactivate the virtual environment to ensure `mpi4py` is properly accessible."
+      "question": "How can one verify that `mpi4py` is visible to `pip` and accessible by Python after loading its module?",
+      "answer": "To check `pip` visibility, run `pip list | grep mpi4py`. To confirm Python accessibility, execute `python -c 'import mpi4py'`. No errors indicate correct setup."
     },
     {
-      "question": "How do job submission scripts typically manage virtual environments for `mpi4py` CPU jobs?",
-      "answer": "Virtual environments are created without downloading (`--no-download`) in `$SLURM_TMPDIR/env` on each allocated node, activated, and then `pip install` commands are used to install necessary Python packages like NumPy."
+      "question": "What are the essential components of a Slurm submission script for running a distributed `mpi4py` CPU job?",
+      "answer": "A Slurm script includes `SBATCH` directives for account, time, number of tasks (`--ntasks`), and memory per CPU. It loads `StdEnv`, `gcc`, `mpi4py`, and `python` modules, creates a virtual environment on each allocated node, activates it on the main node, and runs the Python script using `srun`."
     },
     {
-      "question": "What is the key difference in resource allocation between 'Distributed' and 'Whole nodes' submission scripts for `mpi4py` CPU jobs?",
-      "answer": "The 'Distributed' script uses `--ntasks` to run on cores spread across the system, while the 'Whole nodes' script specifies `--nodes` and `--ntasks-per-node` to dedicate entire nodes to the job."
+      "question": "How are virtual environments handled within `mpi4py` Slurm submission scripts for CPU jobs?",
+      "answer": "Virtual environments are created on each allocated node using `srun --ntasks $SLURM_NNODES --tasks-per-node=1 virtualenv --no-download $SLURM_TMPDIR/env`. They are then activated only on the main node (`source $SLURM_TMPDIR/env/bin/activate;`) before `srun` executes the Python script."
     },
     {
-      "question": "What is the initial step to set up an `mpi4py` GPU job?",
-      "answer": "From a login node, you should download a demo example like `use_cupy.py` using `wget https://raw.githubusercontent.com/mpi4py/mpi4py/refs/heads/master/demo/cuda-aware-mpi/use_cupy.py`."
+      "question": "Where can users find more information about efficient MPI scheduling on Alliance clusters?",
+      "answer": "Users can find information on efficient MPI scheduling in the 'MPI job' and 'Advanced MPI scheduling' sections of the documentation."
     },
     {
-      "question": "Which specific modules and Python packages are typically loaded/installed for `mpi4py` GPU jobs?",
-      "answer": "Modules such as `StdEnv/2023`, `gcc`, `cuda/12`, `mpi4py/4.0.0`, and `python/3.11` are loaded, and Python packages like `cupy` and `numba` are installed into the virtual environment."
+      "question": "What is required in a Slurm submission script to run an `mpi4py` job that utilizes GPUs?",
+      "answer": "A GPU `mpi4py` submission script includes `SBATCH` directives for account, time, number of tasks, memory per CPU, and specifies GPU allocation (`--gpus=1`). It loads `StdEnv`, `gcc`, `cuda`, `mpi4py`, and `python` modules, creates a virtual environment, installs necessary packages like `cupy` and `numba`, and then runs the Python script with `srun`."
     },
     {
-      "question": "How can you verify a submission script before submitting a `mpi4py` job to the scheduler?",
-      "answer": "You can perform a quick test by running the submission script within an interactive job to ensure it starts without errors."
+      "question": "What is a common method to download a demo example for `mpi4py` GPU usage from a login node?",
+      "answer": "A common method is to use `wget https://raw.githubusercontent.com/mpi4py/mpi4py/refs/heads/master/demo/cuda-aware-mpi/use_cupy.py` from a login node."
     },
     {
-      "question": "What is the command to submit a `mpi4py` job to the scheduler?",
-      "answer": "You submit the job using the `sbatch` command, followed by the name of your submission script, for instance, `sbatch submit-mpi4py-distributed.sh`."
+      "question": "What are common solutions for encountering a `ModuleNotFoundError: No module named 'mpi4py'`?",
+      "answer": "Possible solutions include checking for Python version compatibility with the loaded `mpi4py` module using `module spider mpi4py/X.Y.Z`, and ensuring that the `mpi4py` module is loaded *before* activating any Python virtual environment."
     },
     {
-      "question": "What is a common error message if `mpi4py` is not properly accessible in Python?",
-      "answer": "A common error message is `ModuleNotFoundError: No module named 'mpi4py'`."
+      "question": "Why is it important to test a submission script before submitting an `mpi4py` job to the scheduler?",
+      "answer": "It is important to test the submission script to ensure it starts without errors, which helps prevent wasted computational resources. A quick test can be done in an interactive job."
     },
     {
-      "question": "What are the recommended solutions for a `ModuleNotFoundError: No module named 'mpi4py'`?",
-      "answer": "Possible solutions include checking for compatible Python versions using `module spider mpi4py/X.Y.Z` and loading a compatible Python module, and ensuring the `mpi4py` module is loaded before activating any virtual environment."
+      "question": "How can a user submit an `mpi4py` job script to the Slurm scheduler?",
+      "answer": "Users can submit an `mpi4py` job script (e.g., `submit-mpi4py-distributed.sh`) to the Slurm scheduler using the command `sbatch submit-mpi4py-distributed.sh`."
     }
   ],
-  "generated_at": "2026-04-12T02:01:16.327782+00:00"
+  "generated_at": "2026-04-13T08:55:45.693748+00:00"
 }

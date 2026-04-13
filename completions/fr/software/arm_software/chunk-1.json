@@ -4,93 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi Linaro DDT, pis à quoi ça sert?",
-      "answer": "Linaro DDT (qu'on appelait avant ARM DDT) est un outil commercial puissant pour déboguer le code parallèle. Il a une interface utilisateur graphique pis sert au débogage en C, C++ pis Fortran pour des applications en série, MPI, multifils, CUDA, ou toute combinaison de ces types."
+      "question": "C'est quoi Linaro DDT pis MAP, pis à quoi ça sert pour les développeurs de code parallèle?",
+      "answer": "Linaro DDT (auparavant ARM DDT) est un outil commercial vraiment puissant pour débugger du code parallèle, pis Linaro MAP est un profileur pour le code parallèle. Les deux ont une interface graphique, pis ils sont faits pour débugger des applications en C, C++ pis Fortran, qu'elles soient en série, MPI, multifils, CUDA, ou une combinaison de tout ça."
     },
     {
-      "question": "Est-ce que Linaro offre d'autres outils pour le code parallèle?",
-      "answer": "Oui, Linaro offre aussi le profileur MAP pour le code parallèle."
+      "question": "Vu que Linaro DDT pis MAP, c'est des applications avec une interface graphique, comment qu'on fait pour se connecter aux grappes Nibi pis Trillium pour les utiliser?",
+      "answer": "Pour utiliser ces applications graphiques sur Nibi pis Trillium, il faut se connecter avec la commande `ssh -Y`. Ça implique d'utiliser un client SSH qui supporte la redirection X11, comme MobaXTerm pour ceux qui sont sur Windows ou XQuartz pour ceux qui sont sur Mac."
     },
     {
-      "question": "Quels modules sont disponibles pour DDT sur Nibi pis Trillium quand le module StdEnv est chargé?",
-      "answer": "Les modules disponibles sont 'ddt-cpu' pour déboguer et profiler le code sur CPU, pis 'ddt-gpu' pour déboguer le code sur GPUs ou sur CPU/GPU."
-    },
-    {
-      "question": "Comment faut que j'me connecte pour utiliser une application avec une interface graphique comme DDT?",
-      "answer": "Faut te connecter avec `ssh -Y` et utiliser un client SSH comme MobaXTerm (pour Windows) ou XQuartz (pour Mac) pour assurer la redirection X11."
-    },
-    {
-      "question": "Comment on utilise généralement DDT et MAP?",
-      "answer": "On les utilise d'habitude de façon interactive, via l'interface utilisateur graphique, avec la commande `salloc`."
-    },
-    {
-      "question": "Le profileur MAP, est-ce qu'on peut l'utiliser sans que ce soit interactif?",
-      "answer": "Oui, le profileur MAP peut aussi être utilisé de façon non interactive en soumettant des tâches à l'ordonnanceur avec la commande `sbatch`."
-    },
-    {
-      "question": "C'est quoi les limites d'utilisation de la licence pour DDT/MAP au niveau des CPU pis des GPU?",
-      "answer": "Avec la licence actuelle, DDT/MAP peuvent utiliser concurremment jusqu'à 64 CPU pour tous les utilisateurs, alors que DDT-GPU peut juste utiliser 8 GPU."
-    },
-    {
-      "question": "Quelle est la première étape pour déboguer ou profiler du code juste sur CPU?",
-      "answer": "Faut allouer le ou les nœuds sur lesquels tu veux déboguer ou profiler. Ça ouvre une session de l'interpréteur ('shell') sur ces nœuds. Un exemple de commande est: `salloc --x11 --time=0-1:00 --mem-per-cpu=4G --ntasks=4`."
-    },
-    {
-      "question": "Après avoir alloué les nœuds pour du code sur CPU, quelle est la prochaine étape?",
-      "answer": "Il faut charger le module approprié, par exemple avec la commande `module load ddt-cpu`."
-    },
-    {
-      "question": "Comment je lance la commande ddt ou map une fois le module chargé?",
-      "answer": "Tu lances la commande `ddt path/to/code` ou `map path/to/code`."
-    },
-    {
-      "question": "Avant de cliquer sur 'Run' dans DDT/MAP, qu'est-ce qu'il faut s'assurer de vérifier?",
-      "answer": "Faut s'assurer que l'implémentation MPI par défaut est l'OpenMPI dans la fenêtre DDT/MAP. Sinon, clique sur 'Change' pis sélectionne la bonne option. Faut aussi spécifier le nombre de cœurs-CPU."
-    },
-    {
-      "question": "Comment je fais pour terminer l'allocation des nœuds après avoir fini de déboguer ou profiler sur CPU?",
-      "answer": "Il suffit de quitter l'interpréteur ('shell') pour terminer l'allocation."
-    },
-    {
-      "question": "Y'a-tu un problème de compatibilité connu entre DDT pis OpenMPI?",
-      "answer": "Oui, les versions courantes de DDT pis OpenMPI ont un problème qui fait que DDT peut pas afficher les queues de messages dans le menu 'Tools'."
-    },
-    {
-      "question": "Comment on fait pour contourner le problème de compatibilité entre DDT pis OpenMPI pour les queues de messages?",
-      "answer": "Pour contourner le problème, lance la commande `export OMPI_MCA_pml=ob1`."
-    },
-    {
-      "question": "Est-ce qu'il y a des désavantages à utiliser la commande `export OMPI_MCA_pml=ob1`?",
-      "answer": "Oui, cette commande peut ralentir le code MPI, alors utilise-la juste quand tu débogues."
-    },
-    {
-      "question": "Quelle est la première étape pour déboguer ou profiler du code CUDA?",
-      "answer": "Faut allouer le ou les nœuds sur lesquels tu veux déboguer ou profiler avec `salloc`, pis ça ouvre une session de l'interpréteur ('shell'). Un exemple est: `salloc --x11 --time=0-1:00 --mem-per-cpu=4G --ntasks=1 --gres=gpu:1`."
-    },
-    {
-      "question": "Après avoir alloué les nœuds pour CUDA, quel module faut que je charge?",
-      "answer": "Charge le module approprié, par exemple `module load ddt-gpu`."
-    },
-    {
-      "question": "Si on me demande de charger une version antérieure d'OpenMPI quand je charge ddt-gpu, qu'est-ce que je fais?",
-      "answer": "Dans ce cas-là, charge de nouveau le module OpenMPI avec la commande proposée (`module load openmpi/2.0.2`), pis charge ensuite de nouveau le module `ddt-gpu`."
-    },
-    {
-      "question": "Qu'est-ce qu'il faut s'assurer d'avoir chargé après le module ddt-gpu pour CUDA?",
-      "answer": "Faut s'assurer qu'un module CUDA est chargé avec la commande `module load cuda`."
-    },
-    {
-      "question": "Comment je lance DDT pour du code CUDA?",
-      "answer": "Tu lances la commande `ddt path/to/code`."
-    },
-    {
-      "question": "Si DDT pose problème à cause d'une incompatibilité entre le pilote CUDA pis la boîte à outils, qu'est-ce que je peux faire?",
-      "answer": "Exécute la commande `export ALLINEA_FORCE_CUDA_VERSION=10.1` (en utilisant la même version que dans la commande) pis relance DDT."
-    },
-    {
-      "question": "Comment je termine l'allocation de nœuds après avoir débogué du code CUDA?",
-      "answer": "Quitte l'interpréteur ('shell') pour terminer l'allocation."
+      "question": "Quelles sont les étapes pour débugger du code juste avec le CPU sur une grappe comme Nibi ou Trillium en utilisant Linaro DDT ou MAP, pis y'a-t-il des problèmes de compatibilité connus avec OpenMPI?",
+      "answer": "Premièrement, il faut allouer les nœuds de calcul avec la commande `salloc` (par exemple, `salloc --x11 --time=0-1:00 --mem-per-cpu=4G --ntasks=4`). Ensuite, on charge le module approprié, comme `module load ddt-cpu`. Après ça, on lance `ddt path/to/code` ou `map path/to/code`. C'est important de s'assurer que l'implémentation MPI est bien OpenMPI par défaut pis de spécifier le nombre de cœurs-CPU dans l'interface. Concernant les problèmes de compatibilité, les versions actuelles de DDT pis OpenMPI ont un bug qui empêche DDT d'afficher les queues de messages. Pour contourner ça, on peut lancer la commande `$ export OMPI_MCA_pml=ob1` avant de démarrer DDT, mais faut faire attention, ça peut ralentir le code MPI."
     }
   ],
-  "generated_at": "2026-04-11T15:10:37.587787+00:00"
+  "generated_at": "2026-04-13T00:32:05.228825+00:00"
 }

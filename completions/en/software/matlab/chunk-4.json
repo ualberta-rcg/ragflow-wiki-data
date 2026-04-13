@@ -4,13 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "What is the process for compiling MATLAB code and running the generated executable on the Compute Canada clusters?",
-      "answer": "To compile MATLAB code, use the `mcc -m -R -nodisplay your_file.m` command, which produces a binary executable. To run this binary on the clusters, you must first load an appropriate MCR module (e.g., `module load mcr/R2024b`), then run `setrpaths.sh --path your_binary` once for each compiled binary. Finally, execute the binary within a job submission script (not on the login nodes) using the provided wrapper script: `run_mcr_binary.sh your_binary`. The `run_mcr_binary.sh` script is necessary because it correctly sets the required library paths."
+      "question": "How can I compile my MATLAB code using the MATLAB Compiler for use on the clusters, and which versions are supported?",
+      "answer": "You can compile your MATLAB code using the `mcc` command, for example: `mcc -m -R -nodisplay cosplot.m`. This will produce a binary and a wrapper script. The MATLAB Compiler `mcc` is currently provided for versions 2014a, 2018a, and later on our clusters."
     },
     {
-      "question": "When should one consider using the MATLAB Parallel Server, and what are the current limitations regarding its use from a local computer?",
-      "answer": "The MATLAB Parallel Server is beneficial when a parallel MATLAB job requires more workers than are available on a single compute node. However, since May 2023, there's a significant limitation: submitting MATLAB parallel jobs from a local computer is no longer possible. This is due to mandatory security improvements implemented on all clusters, as MATLAB's SSH mode is no longer permitted, and currently, there is no workaround."
+      "question": "Once my MATLAB code is compiled into a binary using the MATLAB Compiler, what are the steps to execute it on the compute clusters?",
+      "answer": "To run a compiled MATLAB binary, first load the corresponding MCR module (e.g., `module load mcr/R2024b`). Next, run the command `setrpaths.sh --path <your_binary_name>` once for each compiled binary. Finally, in your submission script (and not on the login nodes), use the wrapper script `run_mcr_binary.sh <your_binary_name>` to execute your binary."
+    },
+    {
+      "question": "Is it currently possible to use MATLAB Parallel Server to run parallel MATLAB jobs across multiple compute nodes on the clusters?",
+      "answer": "No, as of May 2023, it is not currently possible to use MATLAB Parallel Server for multi-node jobs. Mandatory security improvements on the clusters have rendered the SSH mode used by MATLAB for job submission from a local computer no longer permitted, and there is currently no workaround."
     }
   ],
-  "generated_at": "2026-04-12T20:49:17.111094+00:00"
+  "generated_at": "2026-04-13T08:19:12.227268+00:00"
 }

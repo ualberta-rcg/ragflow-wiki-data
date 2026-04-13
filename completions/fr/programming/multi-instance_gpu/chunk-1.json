@@ -4,61 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Pourquoi les logiciels n'exploitent-ils pas toujours pleinement les GPU modernes comme les A100 et H100 de NVidia?",
-      "answer": "Plusieurs logiciels sont incapables d'exploiter pleinement les GPU modernes tels que les A100 et H100 de NVidia."
+      "question": "C'est quoi, au juste, la technologie Multi-Instance GPU (MIG) et pourquoi ça a été conçue?",
+      "answer": "La technologie Multi-Instance GPU (MIG) permet de scinder un seul GPU en plusieurs instances virtuelles, chacune étant complètement autonome avec sa propre part de ressources de calcul et de mémoire. Ça a été développée parce que plusieurs logiciels ne sont pas capables d'utiliser à plein rendement les GPU modernes comme les A100 et H100 de NVidia."
     },
     {
-      "question": "C'est quoi la technologie Multi-Instance GPU (MIG)?",
-      "answer": "La technologie Multi-Instance GPU (MIG) permet de partitionner un seul GPU en plusieurs instances, faisant ainsi de chacune un GPU virtuel complètement indépendant."
+      "question": "Quels sont les bénéfices d'utiliser une instance MIG pour mes tâches de calcul comparativement à un GPU au complet?",
+      "answer": "Utiliser une instance MIG est moins gourmand en ressources, ce qui se traduit par une diminution moins rapide de votre priorité de calcul. Vous pouvez lancer plus de tâches et réduire le temps d'attente, car ces instances utilisent moins de la priorité qui vous a été allouée. Pour les tâches qui n'exploitent pas plus de la moitié de la puissance et de la mémoire d'un GPU entier, elles vont souvent rouler aussi vite sur une instance tout en consommant moins de la moitié des ressources."
     },
     {
-      "question": "Comment les différentes instances d'un GPU sont-elles isolées les unes des autres?",
-      "answer": "Chacune des instances de GPU dispose d'une portion des ressources de calcul et de la mémoire du GPU d'origine, le tout étant détaché des autres instances par des protections sur puce."
-    },
-    {
-      "question": "Quels sont les avantages d'utiliser des instances de GPU pour soumettre des tâches?",
-      "answer": "Les instances d'un GPU sont moins gourmandes, ce qui se reflète par une utilisation moins rapide de votre priorité de calcul. Vous pourrez exécuter plus de tâches avec un temps d'attente plus court."
-    },
-    {
-      "question": "Dans quels cas devrais-je envisager d'évaluer une tâche sur une instance de GPU plutôt qu'un GPU entier?",
-      "answer": "Les tâches qui utilisent moins de la moitié de la puissance de calcul d'un GPU entier et moins de la moitié de la mémoire GPU disponible doivent être évaluées et testées sur une instance."
-    },
-    {
-      "question": "Est-ce qu'une tâche s'exécute moins rapidement sur une instance de GPU que sur un GPU entier?",
-      "answer": "Non, dans la plupart des cas, les tâches s'exécutent tout aussi rapidement sur une instance et consomment moins de la moitié des ressources de calcul."
-    },
-    {
-      "question": "Quelles sont les limitations de la technologie MIG concernant la communication interprocessus CUDA?",
-      "answer": "La technologie MIG ne prend pas en charge la communication interprocessus CUDA qui optimise le transfert de données via NVLink et NVSwitch."
-    },
-    {
-      "question": "Est-ce que le lancement d'un exécutable sur plusieurs instances MIG à la fois améliore la performance?",
-      "answer": "Non, le lancement d'un exécutable sur plusieurs MIG à la fois n'améliore pas la performance et doit être évité, car cela diminue l'efficacité de la communication entre les instances."
-    },
-    {
-      "question": "Est-ce que les API graphiques comme OpenGL ou Vulkan sont supportées par la technologie MIG?",
-      "answer": "Non, les API graphiques (par exemple OpenGL, Vulkan, etc.) ne sont pas prises en charge par la technologie MIG."
-    },
-    {
-      "question": "Dans quel cas une tâche avec GPU pourrait-elle nécessiter un GPU entier au lieu d'une instance?",
-      "answer": "Les tâches avec GPU qui nécessitent de nombreux cœurs CPU par GPU peuvent également nécessiter un GPU entier au lieu d'une instance."
-    },
-    {
-      "question": "Qu'est-ce qui détermine le nombre maximum de cœurs CPU par instance?",
-      "answer": "Le nombre maximum de cœurs CPU par instance dépend du nombre maximum de cœurs CPU par GPU entier et des profils MIG qui sont configurés, ces caractéristiques variant d'une grappe à l'autre et d'un nœud GPU à l'autre."
-    },
-    {
-      "question": "Quels sont quelques exemples de configurations et profils MIG disponibles sur les systèmes comme Narval, Rorqual et Nibi?",
-      "answer": "Sur Narval, il y a le NVIDIA A100-40gb; sur Rorqual, le NVIDIA H100-80gb; et sur Nibi, on trouve des profils comme nvidia_h100_80gb_hbm3_1g.10gb, nvidia_h100_80gb_hbm3_2g.20gb et nvidia_h100_80gb_hbm3_3g.40gb."
-    },
-    {
-      "question": "Que signifie un nom de profil MIG comme '3g.20gb'?",
-      "answer": "Le nom du profil '3g.20gb' indique que l'instance est dotée de 20Go de mémoire GPU et que sa performance est égale aux 3/8e de la performance de calcul d’un GPU entier."
-    },
-    {
-      "question": "Quel est l'impact de l'utilisation de profils MIG moins puissants sur l'allocation et la priorité des tâches?",
-      "answer": "Le fait de nécessiter moins de puissance en utilisant des profils MIG diminue l’impact sur votre allocation et sur la priorité assignée à vos tâches."
+      "question": "Quelles sont les principales restrictions de la technologie Multi-Instance GPU (MIG) à considérer?",
+      "answer": "La technologie MIG ne prend pas en charge la communication interprocessus CUDA, ce qui diminue l'efficacité des échanges de données entre les instances. De ce fait, lancer un exécutable sur plusieurs instances MIG à la fois n'améliorera pas la performance et doit être évité. Il faut aussi noter que les API graphiques comme OpenGL ou Vulkan ne sont pas supportées."
     }
   ],
-  "generated_at": "2026-04-12T03:25:05.725294+00:00"
+  "generated_at": "2026-04-13T09:42:18.802027+00:00"
 }

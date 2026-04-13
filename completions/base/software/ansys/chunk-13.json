@@ -4,61 +4,13 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "What should I do if I get an 'ERROR: A link to a writable .ansys directory does not exist' message when running an Ansys Fluent job on Trillium?",
-      "answer": "If you encounter this error, you should remove `~/.ansys` if one exists, and then run the command `ln -s $SCRATCH/.ansys ~/.ansys`. Afterwards, you can try submitting your job again."
+      "question": "What action should a user take if an Ansys Fluent job fails because symbolic links for `~/.ansys`, `~/.fluentconf`, or `~/.flrecent` are missing?",
+      "answer": "If a symbolic link such as `~/.ansys` is missing, the user should first ensure any existing `~/.ansys` directory or file is removed. Then, they need to create a new symbolic link to the `$SCRATCH` directory, for example, by running `ln -s $SCRATCH/.ansys ~/.ansys`. Similar steps apply for `~/.fluentconf` and `~/.flrecent`."
     },
     {
-      "question": "What is the troubleshooting step for an 'ERROR: A link to a writable .fluentconf directory does not exist' message on Trillium when running Ansys Fluent?",
-      "answer": "To resolve this error, remove `~/.fluentconf` if it exists and then execute the command `ln -s $SCRATCH/.fluentconf ~/.fluentconf`. Then, attempt to submit your job once more."
-    },
-    {
-      "question": "What action is required if an Ansys Fluent job on Trillium shows 'ERROR: A link to a writable .flrecent file does not exist'?",
-      "answer": "If you see this error, remove `~/.flrecent` if one exists and then run the command `ln -s $SCRATCH/.flrecent ~/.flrecent`. After performing this step, resubmit your job."
-    },
-    {
-      "question": "What directories and files are created by the Trillium Fluent script if the required links (`.ansys`, `.fluentconf`, `.flrecent`) exist?",
-      "answer": "If the links for `.ansys`, `.fluentconf`, and `.flrecent` are properly set up, the Trillium Fluent script will create the directories `$SCRATCH/.ansys` and `$SCRATCH/.fluentconf`, and it will touch the file `$SCRATCH/.flrecent`."
-    },
-    {
-      "question": "When is it appropriate to use the license requeue scripts for Fluent jobs?",
-      "answer": "The license requeue scripts should only be used for Fluent jobs that are known to complete normally without generating any errors in the output, but which typically require multiple attempts to check out licenses."
-    },
-    {
-      "question": "For what types of Fluent jobs are license requeue scripts not recommended?",
-      "answer": "License requeue scripts are not recommended for Fluent jobs that might run for a long time before crashing, or for jobs that complete but contain unresolved journal file warnings. This is because in such cases, the simulations would be repeated from the beginning until the maximum number of requeue attempts is reached."
-    },
-    {
-      "question": "What could happen if a Fluent job with unresolved journal file warnings is run using a license requeue script?",
-      "answer": "If a Fluent job with unresolved journal file warnings is run with a license requeue script, the simulation will be repeated from its beginning until the maximum number of requeue attempts, as specified by the `array` value, is reached, potentially leading to wasted compute time."
-    },
-    {
-      "question": "What does the `#SBATCH --array=1-5%1` line in the `script-flu-bynode+requeue.sh` script indicate?",
-      "answer": "This line specifies the number of requeue attempts for the job. The value `1-5%1` indicates that five attempts are shown as an example, with a recommendation for at least two or more attempts."
-    },
-    {
-      "question": "How do you specify the Ansys Fluent version and the journal file in a `script-flu-bynode+requeue.sh` Slurm script?",
-      "answer": "The Ansys Fluent version is specified by the `module load ansys/2023R2` line (or a newer version), and the journal file is specified by setting `MYJOURNALFILE=sample.jou`."
-    },
-    {
-      "question": "Which MPI setup is used on the Narval cluster for Fluent jobs that use license requeue scripts?",
-      "answer": "On the Narval cluster, the script loads `intel/2023` and `intelmpi`, exports `INTELMPI_ROOT`, and unsets `I_MPI_ROOT` for Fluent jobs with license requeue."
-    },
-    {
-      "question": "What environment variables are set for Fluent jobs using license requeue scripts if `EBVERSIONANSYS` is 2025 or newer on Nibi, or if the cluster is Narval?",
-      "answer": "If `EBVERSIONANSYS` is 2025 or newer on Nibi, or if the cluster is Narval, the script exports `I_MPI_HYDRA_BOOTSTRAP` as `ssh` and unsets `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`."
-    },
-    {
-      "question": "How does the `script-flu-bynode+requeue.sh` handle single-node Fluent execution?",
-      "answer": "For single-node Fluent execution (`SLURM_NNODES == 1`), the script executes Fluent using the command: `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`."
-    },
-    {
-      "question": "How does the `script-flu-bynode+requeue.sh` handle multi-node Fluent execution on Nibi?",
-      "answer": "For multi-node Fluent execution on Nibi, the script runs Fluent with the command: `fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
-    },
-    {
-      "question": "How does the `script-flu-bynode+requeue.sh` handle multi-node Fluent execution on clusters other than Nibi?",
-      "answer": "For multi-node Fluent execution on clusters other than Nibi, the script runs Fluent with the command: `fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
+      "question": "For which specific type of Ansys Fluent jobs are the \"License Requeue\" Slurm scripts recommended?",
+      "answer": "The \"License Requeue\" Slurm scripts are recommended only for Ansys Fluent jobs that are known to complete normally without generating errors in the output but frequently require multiple attempts to check out a license due to temporary shortages."
     }
   ],
-  "generated_at": "2026-04-12T16:36:41.898883+00:00"
+  "generated_at": "2026-04-13T01:41:50.203803+00:00"
 }

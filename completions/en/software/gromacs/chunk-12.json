@@ -4,101 +4,13 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "What are the SBATCH parameters specified for a basic GROMACS GPU job requesting one GPU and four OpenMP threads?",
-      "answer": "For a basic GROMACS GPU job, the SBATCH parameters are `--gpus-per-node=1` for one GPU, `--cpus-per-task=4` for four OpenMP threads per MPI process, `--mem-per-cpu=2000M` for a memory limit of 2000 megabytes per CPU core, and `--time=0:30:00` for a time limit of 30 minutes."
+      "question": "How do you configure a GROMACS job to utilize an entire compute node on a cluster like Rorqual, Fir, Nibi, or Trillium, including the necessary environment modules and resource requests?",
+      "answer": "To configure a GROMACS job for an entire node on clusters such as Rorqual, Fir, Nibi, or Trillium, you would typically request 1 node (`--nodes=1`), 96 MPI tasks per node (`--ntasks-per-node=96`), and 2 OpenMP threads per MPI task (`--cpus-per-task=2`), resulting in a total of 192 CPUs per node. A common memory allocation is 2000 MB per CPU (`--mem-per-cpu=2000M`) with a time limit of 1 hour (`--time=0-01:00`). The required environment modules are `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `gromacs/2025.4`. OpenMP threads are enabled by `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"`, and the simulation is launched using `srun --cpus-per-task=$OMP_NUM_THREADS gmx_mpi mdrun -deffnm md`."
     },
     {
-      "question": "Which GROMACS modules should be loaded for a GPU job using the `StdEnv/2023` environment?",
-      "answer": "To run a GPU job using `StdEnv/2023`, the following modules need to be loaded: `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `gromacs/2025.4`."
-    },
-    {
-      "question": "How is the `OMP_NUM_THREADS` environment variable typically configured for a GPU job in a SLURM script?",
-      "answer": "The `OMP_NUM_THREADS` environment variable is typically set using `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"`."
-    },
-    {
-      "question": "What is the GROMACS command used to run a simulation with OpenMP threads in a GPU job script?",
-      "answer": "The GROMACS command is `gmx mdrun -ntomp ${SLURM_CPUS_PER_TASK:-1} -deffnm md`."
-    },
-    {
-      "question": "Is it generally efficient to use multiple GPUs for GROMACS simulations?",
-      "answer": "No, using more than a single GPU usually leads to poor efficiency. It is recommended to carefully test and compare multi-GPU and single-GPU performance before deciding to use more than one GPU."
-    },
-    {
-      "question": "What bug was present in GROMACS versions 2020.0 through 2021.5 when used with GPUs of Volta or newer generations?",
-      "answer": "GROMACS versions 2020.0 up to and including 2021.5 contained a bug when used on GPUs of Volta or newer generations (e.g., V100, T4, A100) with the `mdrun` option `-update gpu`, which could have perturbed the virial calculation and led to incorrect pressure coupling."
-    },
-    {
-      "question": "Under what specific condition might the GROMACS GPU bug (versions 2020.0-2021.5) manifest?",
-      "answer": "The bug could only appear in simulations where the `-update gpu` option was manually selected, as the GPU update is not enabled by default."
-    },
-    {
-      "question": "Where can users find more details about the GROMACS GPU bug?",
-      "answer": "Further discussion of this bug can be found in the GitLab issue #4393 of the GROMACS project."
-    },
-    {
-      "question": "Where can one find information about the specific configurations of GPU nodes on the clusters?",
-      "answer": "Information about the different node configurations, including GPU models and the number of GPUs and CPUs per node, can be found on the `Using GPUs with Slurm#Available GPUs` page."
-    },
-    {
-      "question": "For GROMACS 2018.2, what is a key constraint regarding the number of MPI tasks and GPUs requested?",
-      "answer": "For GROMACS 2018.2, the number of `--tasks-per-node` must always be the same as, or a multiple of, the number of GPUs (`--gpus-per-node`)."
-    },
-    {
-      "question": "Will GROMACS execute GPU runs if only one OpenMP thread is specified?",
-      "answer": "GROMACS will not run GPU runs with only one OpenMP thread unless it is explicitly forced by setting the `-ntomp` option."
-    },
-    {
-      "question": "What is the optimal range for the number of OpenMP threads per MPI process (`--cpus-per-task`) according to GROMACS developers?",
-      "answer": "According to GROMACS developers, the optimum number of `--cpus-per-task` (OpenMP threads per MPI process) is usually between 2 and 6."
-    },
-    {
-      "question": "What general guideline should be followed when allocating CPUs and memory in relation to requested GPUs?",
-      "answer": "Users should avoid using a larger fraction of CPUs and memory than the fraction of GPUs requested in a node."
-    },
-    {
-      "question": "Where can users explore benchmark results related to GROMACS performance?",
-      "answer": "Users can explore some benchmark results on the MDBench portal."
-    },
-    {
-      "question": "Why might recent GPU models, such as the Nvidia A100 and H100, not be fully utilized by GROMACS for typical simulations?",
-      "answer": "Recent GPU models like the Nvidia A100 and H100 may not be fully utilized by GROMACS unless the molecular system being simulated is very large (millions of atoms), leading to wasted computational resources for typical simulations."
-    },
-    {
-      "question": "What are the two recommended approaches to address the underutilization of powerful GPUs by GROMACS?",
-      "answer": "The two recommended approaches are to run multiple simulations on a single GPU using `mdrun -multidir`, or to use a Multi-Instance GPU (MIG) instance (a fraction of a GPU)."
-    },
-    {
-      "question": "When is running multiple simulations on a single GPU with `mdrun -multidir` the preferred solution?",
-      "answer": "This method is preferred when running multiple similar simulations, such as repeating the same simulation, simulating multiple protein variants or small ligands, or performing ensemble-based simulations like replica exchange."
-    },
-    {
-      "question": "What kind of simulations are suitable for using `mdrun -multidir` to ensure proper load balancing?",
-      "answer": "Similar simulations are needed to ensure proper load balancing, otherwise, dissimilar simulations may finish at different times, leading to idle resources."
-    },
-    {
-      "question": "If the number of simulations changes when using `mdrun -multidir`, which SLURM parameters should be adjusted?",
-      "answer": "If the number of simulations changes, `--ntasks-per-node` and `--cpus-per-task` must be adjusted. There should be one task per simulation, while the total number of CPU cores should remain constant."
-    },
-    {
-      "question": "What are the SBATCH parameters for a `mdrun -multidir` GPU job on Narval that runs three simulations?",
-      "answer": "The SBATCH parameters for a `mdrun -multidir` GPU job on Narval, running three simulations, are `--gpus-per-node=1`, `--ntasks-per-node=3`, `--cpus-per-task=4`, `--mem-per-cpu=2000M`, and `--time=0:30:00`."
-    },
-    {
-      "question": "What GROMACS command is used to run three parallel simulations in separate directories (`sim1`, `sim2`, `sim3`) on a single GPU?",
-      "answer": "The GROMACS command is `srun gmx_mpi mdrun -ntomp ${SLURM_CPUS_PER_TASK:-1} -deffnm md -multidir sim1 sim2 sim3`."
-    },
-    {
-      "question": "When is it advisable to use a Multi-Instance GPU (MIG) instance instead of running multiple simulations with `mdrun -multidir`?",
-      "answer": "Using a MIG instance is preferred if you have a single simulation or if your simulations are dissimilar, for example, systems with different sizes, shapes, or compositions (like a membrane-bound versus a soluble protein)."
-    },
-    {
-      "question": "Which GPU technologies should never be used with GROMACS?",
-      "answer": "Hyper-Q / MPS should never be used with GROMACS."
-    },
-    {
-      "question": "Why is the built-in `mdrun -multidir` option preferred over Hyper-Q / MPS for GROMACS?",
-      "answer": "The built-in `mdrun -multidir` option achieves the same functionality as Hyper-Q / MPS, but more efficiently."
+      "question": "What are the required Slurm resource requests and environment modules for running a GROMACS simulation on a single GPU?",
+      "answer": "For a GROMACS simulation on a single GPU, the Slurm script needs to request 1 GPU per node (`--gpus-per-node=1`), specify 4 OpenMP threads per MPI process (`--cpus-per-task=4`), allocate 2000 MB of memory per CPU core (`--mem-per-cpu=2000M`), and set a time limit, for example, 30 minutes (`--time=0:30:00`). The necessary environment modules to load include `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `gromacs/2025.4`. The OpenMP threads are set with `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"`, and the `gmx mdrun` command includes `-ntomp ${SLURM_CPUS_PER_TASK:-1}`."
     }
   ],
-  "generated_at": "2026-04-11T22:33:51.446597+00:00"
+  "generated_at": "2026-04-13T06:10:02.082732+00:00"
 }

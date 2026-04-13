@@ -4,117 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is Dedalus?",
-      "answer": "Dedalus is a flexible framework designed for solving partial differential equations using modern spectral methods."
+      "question": "How can users list the available versions of Dedalus on the clusters?",
+      "answer": "Users can list the available versions of Dedalus on the clusters by executing the command `avail_wheels dedalus`."
     },
     {
-      "question": "How can I check the available versions of Dedalus on the clusters?",
-      "answer": "You can list the available versions of Dedalus by using the `avail_wheels dedalus` command."
+      "question": "What are the necessary steps to install Dedalus within a Python virtual environment on the clusters?",
+      "answer": "To install Dedalus in a Python virtual environment, users must first load runtime dependencies such as `StdEnv/2023`, `gcc`, `openmpi`, `mpi4py/3.1.4`, `fftw-mpi/3.3.10`, `hdf5-mpi/1.14.2`, and `python/3.11`. Next, create and activate a virtual environment (e.g., `virtualenv --no-download ~/dedalus_env` and `source ~/dedalus_env/bin/activate`). Then, install Dedalus using `pip install --no-index dedalus==X.Y.Z`, replacing `X.Y.Z` with the desired version, or omit it for the latest. Finally, validate the installation with `python -c 'import dedalus'`, freeze the environment with `pip freeze --local > ~/dedalus-3.0.2-requirements.txt`, and deactivate and remove the environment when finished."
     },
     {
-      "question": "What specific versions of Dedalus are shown as available in the example?",
-      "answer": "The example shows Dedalus version 3.0.2 available for Python 3.11 (cp311) and Python 3.10 (cp310), both for the x86-64-v3 architecture."
-    },
-    {
-      "question": "Where can Dedalus be found on the clusters?",
-      "answer": "Dedalus is available on the clusters as prebuilt Python packages, often referred to as wheels."
-    },
-    {
-      "question": "What runtime dependencies are required to load Dedalus?",
-      "answer": "The required runtime dependencies for Dedalus are `StdEnv/2023`, `gcc`, `openmpi`, `mpi4py/3.1.4`, `fftw-mpi/3.3.10`, `hdf5-mpi/1.14.2`, and `python/3.11`."
-    },
-    {
-      "question": "What command should I use to load Dedalus's dependencies?",
-      "answer": "You should use `module load StdEnv/2023 gcc openmpi mpi4py/3.1.4 fftw-mpi/3.3.10 hdf5-mpi/1.14.2 python/3.11` to load the dependencies."
-    },
-    {
-      "question": "How do I create a Python virtual environment for Dedalus?",
-      "answer": "You can create a Python virtual environment for Dedalus by running `virtualenv --no-download ~/dedalus_env`."
-    },
-    {
-      "question": "What command is used to activate the Dedalus virtual environment?",
-      "answer": "To activate the Dedalus virtual environment, use the command `source ~/dedalus_env/bin/activate`."
-    },
-    {
-      "question": "How do I install a specific version of Dedalus within a virtual environment?",
-      "answer": "To install a specific version of Dedalus, use `pip install --no-index dedalus==X.Y.Z`, replacing `X.Y.Z` with the desired version, such as `3.0.2`."
-    },
-    {
-      "question": "Can I install the latest available version of Dedalus without specifying the version number?",
-      "answer": "Yes, you can omit specifying the version when using `pip install --no-index dedalus` to install the latest one available from the wheelhouse."
-    },
-    {
-      "question": "Is it recommended to upgrade pip before installing Dedalus?",
-      "answer": "Yes, it is recommended to upgrade pip using `pip install --no-index --upgrade pip` before installing Dedalus."
-    },
-    {
-      "question": "How can I validate the Dedalus installation?",
-      "answer": "You can validate the Dedalus installation by running `python -c 'import dedalus'` within the activated virtual environment."
-    },
-    {
-      "question": "How do I freeze the Dedalus virtual environment's requirements to a file?",
-      "answer": "To freeze the environment's requirements, use `pip freeze --local > ~/dedalus-3.0.2-requirements.txt`."
-    },
-    {
-      "question": "What command is used to remove a local Dedalus virtual environment?",
-      "answer": "To remove a local Dedalus virtual environment, first deactivate it with `deactivate`, then use `rm -r ~/dedalus_env`."
-    },
-    {
-      "question": "How can Dedalus be run?",
-      "answer": "Dedalus can be run distributed across multiple nodes or cores."
-    },
-    {
-      "question": "Where can I find additional information about efficient MPI scheduling for Dedalus?",
-      "answer": "For information on efficient MPI scheduling, you can refer to the 'MPI job' and 'Advanced MPI scheduling' documentation."
-    },
-    {
-      "question": "What are the key SLURM parameters for running Dedalus in a distributed manner across cores?",
-      "answer": "When running Dedalus distributed across cores, key SLURM parameters include `#SBATCH --ntasks=4` and `#SBATCH --mem-per-cpu=4G`, along with a specified account and walltime."
-    },
-    {
-      "question": "What file name is suggested for a distributed Dedalus job submission script?",
-      "answer": "A suggested file name for a distributed Dedalus job submission script is `submit-dedalus-distributed.sh`."
-    },
-    {
-      "question": "What SLURM parameters are used for running Dedalus on whole nodes?",
-      "answer": "For running Dedalus on whole nodes, SLURM parameters include `#SBATCH --nodes=2`, `#SBATCH --ntasks-per-node=4`, and `#SBATCH --mem-per-cpu=4G`, in addition to an account and walltime."
-    },
-    {
-      "question": "What file name is suggested for a Dedalus job submission script running on whole nodes?",
-      "answer": "A suggested file name for a Dedalus job submission script running on whole nodes is `submit-dedalus-whole-nodes.sh`."
-    },
-    {
-      "question": "What module dependencies need to be loaded in a Dedalus job submission script?",
-      "answer": "The module dependencies to load in a Dedalus job submission script are `StdEnv/2023`, `gcc`, `openmpi`, `mpi4py/3.1.4`, `fftw-mpi/3.3.10`, `hdf5-mpi/1.14.2`, and `python/3.11`."
-    },
-    {
-      "question": "How is the virtual environment created and installed on each allocated node within a Dedalus job script?",
-      "answer": "The virtual environment is created and installed on each allocated node using an `srun` command block that includes `virtualenv --no-download $SLURM_TMPDIR/env`, `source $SLURM_TMPDIR/env/bin/activate`, `pip install --no-index --upgrade pip`, and `pip install --no-index -r dedalus-3.0.2-requirements.txt`."
-    },
-    {
-      "question": "On which node should the virtual environment be activated for running the Python script in a job?",
-      "answer": "The virtual environment should be activated only on the main node using `source $SLURM_TMPDIR/env/bin/activate;`."
-    },
-    {
-      "question": "What environment variable is set before running the Python script in a Dedalus job submission script?",
-      "answer": "The `OMP_NUM_THREADS` environment variable is set to `1` (`export OMP_NUM_THREADS=1`) before running the Python script."
-    },
-    {
-      "question": "What command executes the Python script within the job submission script?",
-      "answer": "The Python script is executed using `srun python $SCRATCH/myscript.py;`."
-    },
-    {
-      "question": "What is the purpose of `srun` when executing the Python script in a job script?",
-      "answer": "`srun` exports the current environment, which contains `$VIRTUAL_ENV` and `$PATH` variables, for the Python script execution."
-    },
-    {
-      "question": "How do I submit a Dedalus job to the scheduler?",
-      "answer": "You submit a Dedalus job to the scheduler using the `sbatch` command, for example, `sbatch submit-dedalus.sh`."
-    },
-    {
-      "question": "What is recommended before submitting a Dedalus job to the scheduler?",
-      "answer": "It is recommended to test that your submission script will start without errors, which can be done with a quick test in an interactive job, before submitting it to the scheduler."
+      "question": "What are the key components of a Slurm job submission script for running Dedalus distributed across multiple nodes or cores?",
+      "answer": "A Slurm job submission script for running Dedalus distributed across multiple nodes or cores requires SLURM directives like `--account`, `--time`, `--ntasks`, and `--mem-per-cpu`. Within the script, essential steps include loading module dependencies (e.g., `StdEnv/2023`, `gcc`, `openmpi`, `python/3.11`), creating and installing the virtual environment on each allocated node using an `srun` command block that runs `virtualenv`, activates it, and installs Dedalus from a requirements file. Following this, the environment is activated on the main node, `OMP_NUM_THREADS` is set to `1`, and the Python script is executed using `srun python $SCRATCH/myscript.py`."
     }
   ],
-  "generated_at": "2026-04-11T21:08:01.959693+00:00"
+  "generated_at": "2026-04-13T04:59:53.382369+00:00"
 }

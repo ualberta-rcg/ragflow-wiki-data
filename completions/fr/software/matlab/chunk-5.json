@@ -4,65 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Comment faire pour éviter la corruption des profils parallèles locaux lorsque plusieurs tâches lancent `parpool` en même temps?",
-      "answer": "Pour éviter ce problème, on suggère que chaque tâche crée son propre profil parallèle dans un endroit unique en spécifiant la propriété `JobStorageLocation` de l'objet `parallel.Cluster`, en utilisant `local_cluster.JobStorageLocation = getenv('SLURM_TMPDIR')`."
+      "question": "Quand plusieurs tâches MATLAB parallèles sont exécutées simultanément sur les grappes de l'Alliance, quel problème peut survenir et comment peut-on l'éviter?",
+      "answer": "Si plusieurs tâches MATLAB parallèles tentent d'initialiser `parpool` en même temps, le fichier `.dat` partagé dans le répertoire `$HOME/.matlab/local_cluster_jobs/R*` risque d'être corrompu. Pour éviter ce problème, chaque tâche devrait créer son propre profil parallèle dans un endroit unique en spécifiant la propriété `JobStorageLocation` de l'objet `parallel.Cluster` et en la configurant pour qu'elle utilise un chemin unique comme `SLURM_TMPDIR`."
     },
     {
-      "question": "Quel est un exemple de code MATLAB pour configurer un emplacement de stockage unique pour les profils de grappe parallèle?",
-      "answer": "Un exemple de code est:\n```matlab\nlocal_cluster = parcluster('local')\nlocal_cluster.JobStorageLocation = getenv('SLURM_TMPDIR')\nparpool(local_cluster);\n```"
+      "question": "Comment est-ce qu'on peut compiler un programme MATLAB, comme `cosplot.m`, et ensuite faire rouler le binaire résultant sur les serveurs de l'Alliance en utilisant le compilateur `mcc`?",
+      "answer": "Pour compiler un code comme `cosplot.m`, il faut utiliser la commande `mcc -m -R -nodisplay cosplot.m`. Ça générera un binaire (par exemple `cosplot`). Pour l'exécuter sur les serveurs, il faut d'abord charger le module MCR correspondant à la version de MATLAB utilisée (par exemple `module load mcr/R2024b`), puis exécuter `setrpaths.sh --path cosplot` une seule fois. Finalement, dans le script pour la tâche (et non sur les nœuds de connexion), on lance le binaire avec `run_mcr_binary.sh cosplot`."
     },
     {
-      "question": "Est-ce qu'il faut soumettre le code MCR à l'ordonnanceur pour les tâches aux exigences élevées?",
-      "answer": "Oui, il est important de toujours inclure le code MCR dans une tâche soumise à l'ordonnanceur pour toutes les tâches aux exigences élevées."
-    },
-    {
-      "question": "Comment puis-je compiler mon code MATLAB avec le MATLAB Compiler?",
-      "answer": "Vous pouvez compiler votre code en utilisant la commande `mcc`. Par exemple, pour compiler `cosplot.m`, vous utiliseriez `mcc -m -R -nodisplay cosplot.m`."
-    },
-    {
-      "question": "Quelles versions de MATLAB supportent l'utilisation de `mcc` pour la compilation?",
-      "answer": "Pour l'instant, `mcc` est disponible pour les versions 2014a, 2018a et les versions subséquentes."
-    },
-    {
-      "question": "Qu'est-ce que la compilation d'un fichier MATLAB avec `mcc` produit?",
-      "answer": "La compilation d'un fichier MATLAB avec `mcc` produit le binaire exécutable (par exemple `cosplot`) et un script enveloppant (par exemple `run_cosplot.sh`)."
-    },
-    {
-      "question": "Le script enveloppant `run_cosplot.sh` généré par `mcc` fonctionne-t-il directement sur les serveurs?",
-      "answer": "Non, le script enveloppant généré par `mcc` ne fonctionnera pas tel quel sur nos serveurs. Il faut plutôt utiliser le script `run_mcr_binary.sh` qui définit les bons chemins pour les bibliothèques."
-    },
-    {
-      "question": "Comment charger le module MCR avant d'exécuter un binaire compilé avec MATLAB?",
-      "answer": "Il faut charger le module MCR correspondant à la version de MATLAB utilisée pour créer l'exécutable, par exemple avec `module load mcr/R2024b`."
-    },
-    {
-      "question": "Quelle commande doit être lancée après avoir chargé le module MCR et avant d'exécuter le binaire compilé?",
-      "answer": "Il faut lancer la commande `setrpaths.sh --path cosplot` (où `cosplot` est un exemple de nom de binaire)."
-    },
-    {
-      "question": "Où et comment doit-on exécuter le binaire compilé (par exemple `cosplot`)?",
-      "answer": "Le binaire doit être exécuté dans le script pour la tâche (et non pas sur les nœuds de connexion) en utilisant la commande `run_mcr_binary.sh cosplot`."
-    },
-    {
-      "question": "Combien de fois doit-on exécuter la commande `setrpaths.sh` pour un binaire compilé?",
-      "answer": "La commande `setrpaths.sh` ne doit être exécutée qu'une seule fois pour chacun des binaires compilés."
-    },
-    {
-      "question": "Dans quel cas est-ce que MATLAB Parallel Server est utile?",
-      "answer": "MATLAB Parallel Server est utile uniquement si votre tâche MATLAB parallèle a besoin de plus de processus (qu'on appelle des 'workers') que les cœurs CPU disponibles sur un seul nœud de calcul."
-    },
-    {
-      "question": "Combien de workers l'installation régulière de MATLAB permet-elle d'utiliser sur un nœud unique?",
-      "answer": "L'installation régulière de MATLAB permet d'exécuter des tâches parallèles avec un seul nœud, jusqu'à 64 workers par tâche, selon la grappe et le nœud utilisé."
-    },
-    {
-      "question": "Est-il présentement possible de soumettre des tâches MATLAB parallèles à partir d'un ordinateur local vers nos grappes?",
-      "answer": "Non, ce n'est plus possible depuis mai 2023. Des améliorations de sécurité ont été faites sur nos grappes, et MATLAB utilise un mode SSH qui n'est plus autorisé. Il n'y a présentement pas de solution."
-    },
-    {
-      "question": "Pourquoi la procédure d'installation du module d'extension Slurm pour MATLAB Parallel Server ne fonctionne-t-elle pas actuellement?",
-      "answer": "La procédure ne fonctionne pas parce que l'extension Slurm n'est plus disponible et à cause du problème avec SSH, où MATLAB utilise un mode qui n'est plus autorisé."
+      "question": "Est-ce qu'on peut soumettre des tâches MATLAB parallèles aux grappes de calcul de l'Alliance directement à partir de l'interface MATLAB installée sur son ordinateur personnel?",
+      "answer": "Malheureusement, non, ce n'est plus possible. Depuis mai 2023, des mises à jour de sécurité sur nos grappes ont désactivé le mode SSH que MATLAB utilise pour cette fonction. Actuellement, il n'y a pas de solution pour soumettre des tâches parallèles directement à partir d'un ordinateur local."
     }
   ],
-  "generated_at": "2026-04-12T01:16:07.006629+00:00"
+  "generated_at": "2026-04-13T08:20:43.132587+00:00"
 }

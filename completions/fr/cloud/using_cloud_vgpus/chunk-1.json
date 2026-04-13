@@ -4,77 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que cette page documente en général?",
-      "answer": "Cette page décrit comment allouer des ressources de GPU virtuel (vGPU) à une machine virtuelle (VM), comment installer les pilotes nécessaires et comment vérifier si le vGPU peut être utilisé."
+      "question": "Dans quel environnement les GPU virtuels (vGPU) sont-ils accessibles, et quels gabarits de machine virtuelle (VM) doit-on utiliser pour pouvoir s'en servir?",
+      "answer": "Les vGPU sont présentement disponibles uniquement sur le nuage Arbutus. Pour les utiliser, la machine virtuelle doit être déployée avec un des gabarits suivants : g1-12gb-c3-35gb-125 ou g1-24gb-c6-70gb-250."
     },
     {
-      "question": "Où peut-on accéder aux vGPU et aux dépôts de données mentionnés?",
-      "answer": "L'accès aux dépôts de données ainsi qu'aux vGPU n'est actuellement disponible que sur le nuage Arbutus."
+      "question": "Une fois qu'une machine virtuelle (VM) est prête, quelles sont les étapes essentielles à suivre pour la préparer avant d'installer les pilotes de GPU virtuel (vGPU)?",
+      "answer": "Il faut s'assurer de mettre à jour le système d'exploitation de la VM à sa plus récente version, incluant le noyau (kernel), puis la redémarrer. Il est également recommandé d'installer DKMS ou, si nécessaire, d'installer manuellement le paquet `kernel-header`."
     },
     {
-      "question": "Qu'est-ce que cette documentation couvre spécifiquement?",
-      "answer": "La documentation ci-dessous couvre seulement l'installation du pilote vGPU."
-    },
-    {
-      "question": "La boîte à outils CUDA est-elle préinstallée?",
-      "answer": "Non, la boîte à outils CUDA n'est pas préinstallée."
-    },
-    {
-      "question": "Comment peut-on installer la boîte à outils CUDA?",
-      "answer": "On peut l'installer directement à partir de NVIDIA ou la charger de la pile logicielle dans CVMFS."
-    },
-    {
-      "question": "Quelle précaution faut-il prendre si on installe la boîte à outils CUDA directement de NVIDIA?",
-      "answer": "Si vous choisissez d'installer la boîte à outils directement de NVIDIA, vous devez vous assurer que le pilote vGPU n'est pas écrasé par celui de CUDA."
-    },
-    {
-      "question": "Qu'est-ce qui est nécessaire pour utiliser un vGPU dans une machine virtuelle?",
-      "answer": "Pour utiliser un vGPU dans une machine virtuelle, l'instance doit être déployée sur un des gabarits pris en charge."
-    },
-    {
-      "question": "Comment le vGPU sera-t-il disponible pour le système d'exploitation?",
-      "answer": "Le vGPU sera disponible pour le système d'exploitation via le bus PCI."
-    },
-    {
-      "question": "Quels sont les gabarits (flavors) pris en charge pour les vGPU?",
-      "answer": "Les gabarits pris en charge sont 'g1-12gb-c3-35gb-125' et 'g1-24gb-c6-70gb-250'."
-    },
-    {
-      "question": "Quelle est la première étape pour préparer une machine virtuelle pour l'utilisation d'un vGPU?",
-      "answer": "Une fois que la machine virtuelle est disponible, il faut s'assurer de mettre à jour le système d'exploitation avec la dernière version disponible, incluant le noyau (kernel)."
-    },
-    {
-      "question": "Que doit-on faire après avoir mis à jour le système d'exploitation et le noyau?",
-      "answer": "Il faut redémarrer la machine virtuelle pour avoir le dernier noyau."
-    },
-    {
-      "question": "Quelle installation est recommandée lors de la préparation d'une VM pour un vGPU?",
-      "answer": "L'installation de DKMS est recommandée, car il est disponible par défaut dans toutes les distributions notables."
-    },
-    {
-      "question": "Que faire si DKMS n'installe pas automatiquement le paquet 'kernel-header'?",
-      "answer": "Il faudra installer manuellement le paquet 'kernel-header' avec le gestionnaire de paquets de votre distribution."
-    },
-    {
-      "question": "Quels sont les deux fichiers à télécharger pour l'installation du vGPU?",
-      "answer": "Il faut télécharger les fichiers 'NVIDIA-Linux-x86_64-580.105.08-grid.run' et 'kalpa-prod.tok'."
-    },
-    {
-      "question": "Comment télécharger les fichiers nécessaires sur votre ordinateur?",
-      "answer": "On peut les télécharger en utilisant les commandes 'wget https://object-arbutus.alliancecan.ca/swift/v1/6c87c15eb7d2468daf3d2bd0c58bbfce/vgpu/NVIDIA-Linux-x86_64-580.105.08-grid.run' et 'wget https://object-arbutus.alliancecan.ca/swift/v1/6c87c15eb7d2468daf3d2bd0c58bbfce/vgpu/kalpa-prod.tok'."
-    },
-    {
-      "question": "Quelle est la commande pour installer le pilote vGPU de Nvidia?",
-      "answer": "On installe le pilote avec la commande 'chmod 755 NVIDIA-Linux-x86_64-580.105.08-grid.run && ./NVIDIA-Linux-x86_64-580.105.08-grid.run'."
-    },
-    {
-      "question": "Quelles options d'installation sont recommandées pour le pilote vGPU?",
-      "answer": "Les options 'NVIDIA Proprietary' et 'DKMS' sont recommandées lors de l'installation."
-    },
-    {
-      "question": "Comment vérifier l'accès au vGPU après une installation réussie du pilote?",
-      "answer": "Après une installation réussie, il faut redémarrer l'ordinateur et utiliser la commande 'nvidia-smi' pour vérifier si le système d'exploitation a bien accès au vGPU."
+      "question": "Quels fichiers doit-on télécharger pour installer le pilote vGPU de Nvidia, et quelle est la commande principale pour procéder à son installation?",
+      "answer": "Il faut télécharger les fichiers `NVIDIA-Linux-x86_64-580.105.08-grid.run` et `kalpa-prod.tok`. Pour installer le pilote, la commande à utiliser est `chmod 755 NVIDIA-Linux-x86_64-580.105.08-grid.run && ./NVIDIA-Linux-x86_64-580.105.08-grid.run`, en sélectionnant les options \"NVIDIA Proprietary\" et \"DKMS\" si elles sont proposées."
     }
   ],
-  "generated_at": "2026-04-12T10:21:59.504135+00:00"
+  "generated_at": "2026-04-13T15:24:14.450597+00:00"
 }

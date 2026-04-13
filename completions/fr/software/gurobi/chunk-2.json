@@ -4,97 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Pourquoi est-ce important d'utiliser un script de démarrage progressif pour les tâches Gurobi soumises en boucle à l'ordonnanceur?",
-      "answer": "Utiliser un script de démarrage progressif, comme l'exemple fourni, permet de minimiser la fréquence d'utilisation des licences Gurobi et, par conséquent, de réduire la charge sur notre serveur de licences."
+      "question": "Comment puis-je minimiser l'utilisation des licences Gurobi lorsque je soumets un grand nombre de tâches en boucle sur les grappes d'Alliance Recherche?",
+      "answer": "Pour réduire la charge sur le serveur de licences Gurobi et assurer un démarrage progressif de vos tâches, il est recommandé d'utiliser l'option de dépendance `after` de l'ordonnanceur Slurm. Cela permet d'enchaîner les soumissions de tâches, minimisant ainsi la fréquence d'utilisation des licences. Il faut aussi savoir qu'il y a une limite de 10 000 utilisations de licences Gurobi par grappe sur une période de 24 heures."
     },
     {
-      "question": "Quelle option de dépendance de l'ordonnanceur Slurm est utilisée dans le script d'exemple pour assurer un démarrage progressif?",
-      "answer": "Le script d'exemple utilise l'option de dépendance `after` de l'ordonnanceur Slurm."
+      "question": "Quelles sont les différentes façons d'utiliser Gurobi de manière interactive sur une grappe d'Alliance Recherche?",
+      "answer": "Après avoir demandé une allocation interactive avec `salloc` et chargé le module Gurobi, vous pouvez utiliser Gurobi de deux façons principales. Vous pouvez employer l'outil en ligne de commande `gurobi_cl` pour exécuter des commandes directement, ou vous pouvez lancer l'interpréteur interactif `gurobi.sh` pour une session plus guidée où vous entrez les commandes Gurobi une par une."
     },
     {
-      "question": "Quelle est la limite d'utilisations de licences Gurobi par grappe sur une période de 24 heures?",
-      "answer": "Nous limitons à 10 000 le nombre d'utilisations de licences Gurobi par grappe sur une période de 24 heures."
-    },
-    {
-      "question": "Si mon programme Gurobi nécessite deux licences par tâche, combien de tâches puis-je soumettre par jour?",
-      "answer": "Si votre programme Gurobi utilise un algorithme nécessitant l'utilisation de deux licences par tâche, cela correspond à un maximum de 5 000 tâches soumises par jour."
-    },
-    {
-      "question": "Comment puis-je obtenir une allocation interactive pour utiliser Gurobi en ligne de commande?",
-      "answer": "Pour obtenir une allocation interactive, vous pouvez utiliser la commande `salloc --time=1:00:0 --cpus-per-task=8 --mem=1G --account=def-xyz`."
-    },
-    {
-      "question": "Une fois dans une allocation interactive, comment charger le module Gurobi?",
-      "answer": "Vous devez charger le module Gurobi avec la commande `module load gurobi`."
-    },
-    {
-      "question": "Comment lancer un problème d'optimisation avec l'outil Gurobi en ligne de commande (gurobi_cl) en spécifiant des paramètres comme le nombre de fils et le fichier de résultats?",
-      "answer": "Vous pouvez lancer un problème en utilisant `gurobi_cl Record=1 Threads=8 Method=2 ResultFile=p0033.sol LogFile=p0033.log $GUROBI_HOME/examples/data/p0033.mps`."
-    },
-    {
-      "question": "Comment puis-je obtenir de l'aide pour les commandes Gurobi en ligne de commande?",
-      "answer": "Pour obtenir de l'aide, vous pouvez utiliser la commande `gurobi_cl --help`."
-    },
-    {
-      "question": "Comment puis-je configurer des paramètres Gurobi pour l'interpréteur interactif en utilisant un fichier?",
-      "answer": "Vous pouvez créer un fichier `gurobi.env` avec la ligne `echo \"Record 1\" > gurobi.env` pour configurer des paramètres."
-    },
-    {
-      "question": "Comment démarrer l'interpréteur interactif Gurobi?",
-      "answer": "Vous démarrez l'interpréteur interactif avec la commande `gurobi.sh`."
-    },
-    {
-      "question": "Dans l'interpréteur interactif Gurobi, comment puis-je lire un modèle?",
-      "answer": "Dans l'interpréteur, vous utilisez la commande `m = read('/cvmfs/restricted.computecanada.ca/easybuild/software/2017/Core/gurobi/8.1.1/examples/data/glass4.mps')`."
-    },
-    {
-      "question": "Comment définir le nombre de fils (`Threads`) et la méthode d'optimisation (`Method`) pour un modèle dans l'interpréteur interactif Gurobi?",
-      "answer": "Vous pouvez définir ces paramètres avec `m.Params.Threads = 8` et `m.Params.Method = 2`."
-    },
-    {
-      "question": "Comment sauvegarder les résultats et les journaux d'optimisation dans l'interpréteur interactif Gurobi?",
-      "answer": "Vous utilisez `m.Params.ResultFile = \"glass4.sol\"` pour le fichier de résultats et `m.Params.LogFile = \"glass4.log\"` pour le fichier de journaux."
-    },
-    {
-      "question": "Comment lancer l'optimisation d'un modèle dans l'interpréteur interactif Gurobi?",
-      "answer": "La commande pour lancer l'optimisation est `m.optimize()`."
-    },
-    {
-      "question": "Comment vérifier le statut et le temps d'exécution d'un modèle dans l'interpréteur interactif Gurobi?",
-      "answer": "Vous pouvez utiliser `m.status` pour le statut et `m.runtime` pour le temps d'exécution."
-    },
-    {
-      "question": "Est-il possible d'enregistrer et de rejouer des appels API avec Gurobi?",
-      "answer": "Oui, il est possible d'enregistrer des appels API et de rejouer l'enregistrement avec la commande `gurobi_cl recording000.grbr`."
-    },
-    {
-      "question": "Comment soumettre un script Slurm à la queue pour une tâche en lots Gurobi?",
-      "answer": "Vous soumettez un script Slurm avec la commande `sbatch script-name.sh`."
-    },
-    {
-      "question": "Comment puis-je vérifier l'état de mes tâches Gurobi soumises à la queue?",
-      "answer": "Vous pouvez vérifier l'état de vos tâches dans la queue avec la commande `sq`."
-    },
-    {
-      "question": "Où puis-je trouver des exemples de problèmes Gurobi à résoudre avec des scripts?",
-      "answer": "Des exemples de problèmes se trouvent dans le répertoire `examples` de chaque module Gurobi."
-    },
-    {
-      "question": "Quel est le but du script Slurm `script-lp_coins.sh` fourni en exemple?",
-      "answer": "Le script Slurm `script-lp_coins.sh` utilise l'interface en ligne de commande de Gurobi pour résoudre un modèle simple de production de pièces de monnaie écrit au format LP."
-    },
-    {
-      "question": "Comment les paramètres sont-ils passés à l'outil `gurobi_cl` dans l'exemple `script-lp_coins.sh`?",
-      "answer": "Les paramètres sont passés directement à l'outil `gurobi_cl` comme des arguments simples, par exemple `Threads=$SLURM_CPUS_ON_NODE Method=2 ResultFile=coins.sol`."
-    },
-    {
-      "question": "Où puis-je trouver de l'information pour sélectionner les meilleurs paramètres pour un problème Gurobi particulier?",
-      "answer": "Vous pouvez consulter les sections `Performance and Parameters` et `Algorithms and Search` dans la `Knowledge Base` et la documentation de Gurobi."
-    },
-    {
-      "question": "Quels modules sont chargés dans l'exemple de script `script-lp_coins.sh` pour Gurobi version 9.5.0?",
-      "answer": "Les modules chargés sont `StdEnv/2020` et `gurobi/9.5.0`."
+      "question": "Comment soumettre un script Gurobi en tant que tâche par lots sur une grappe d'Alliance Recherche?",
+      "answer": "Une fois que votre script Slurm est prêt pour exécuter Gurobi, vous pouvez le soumettre à la file d'attente en utilisant la commande `sbatch nom-du-script.sh`. Pour vérifier l'état de vos tâches soumises dans la file d'attente, vous pouvez ensuite utiliser la commande `sq`."
     }
   ],
-  "generated_at": "2026-04-11T23:33:24.855603+00:00"
+  "generated_at": "2026-04-13T06:55:23.378739+00:00"
 }

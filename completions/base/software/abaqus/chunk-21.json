@@ -4,41 +4,17 @@
   "chunk_index": 21,
   "qa_pairs": [
     {
-      "question": "What information does the `sq` command output provide for user 'roberpj'?",
-      "answer": "The `sq` command output for user 'roberpj' shows two running jobs (IDs 27530366 and 27530407), each using 1 node, 6 CPUs, and 8GB of memory on nodes c107 and c292, respectively, for the script 'scriptsp2.txt'."
+      "question": "What happens when an Abaqus job is reported as 'queued' by the license server, even if Slurm lists it as 'Running'?",
+      "answer": "When an Abaqus job is indicated as 'queued' by the license server, it signifies that the job has transitioned to the 'Running' state from Slurm's perspective (e.g., `squeue -j jobid` or `sacct -j jobid`), but it's actually idle on a compute node, waiting for an available license. This scenario consumes CPU time and impacts the user's account priority as if the job were actively computing."
     },
     {
-      "question": "According to the `abaqus licensing lmstat` output, what is the total number of Abaqus licenses issued?",
-      "answer": "A total of 78 Abaqus licenses have been issued."
+      "question": "What specific problem does the example of user 'roberpj' illustrate regarding Abaqus license usage on Alliance clusters?",
+      "answer": "The example with user 'roberpj' illustrates that if multiple Abaqus jobs are submitted requiring more license tokens than a user possesses, the scheduler may start them on compute nodes. However, due to the license shortage, some jobs will enter an idle 'queued' state, wasting allocated compute resources and depreciating the user's fair share level without performing actual computations."
     },
     {
-      "question": "How many Abaqus licenses are currently in use, as indicated by the `lmstat` output?",
-      "answer": "There are currently 53 Abaqus licenses in use."
-    },
-    {
-      "question": "How many licenses is 'roberpj' currently using for the job running on node c107?",
-      "answer": "'roberpj' is using 10 licenses for the job on node c107."
-    },
-    {
-      "question": "What is the license status of 'roberpj''s job on node c292?",
-      "answer": "'roberpj''s job on node c292 is queued for 10 licenses."
-    },
-    {
-      "question": "Which license server is referenced in the `lmstat` output for the Abaqus licenses?",
-      "answer": "The license server referenced is 'license3.sharcnet.ca/27050'."
-    },
-    {
-      "question": "What is the start time for 'roberpj''s job on node c107?",
-      "answer": "The job on c107 for 'roberpj' started on Monday, November 25th, at 17:15."
-    },
-    {
-      "question": "What is the job ID of the Abaqus job that is running on node c107?",
-      "answer": "The job ID for the Abaqus job running on node c107 is 27530366."
-    },
-    {
-      "question": "What is the job ID of the Abaqus job that is queued on node c292?",
-      "answer": "The job ID for the Abaqus job queued on node c292 is 27530407."
+      "question": "What strategies can users employ to prevent resource waste and negative impacts on their fair share level due to Abaqus license shortages on Alliance clusters?",
+      "answer": "To prevent resource waste and negative impacts on fair share levels from Abaqus license shortages, users should utilize job dependencies, job arrays, or configure Slurm email notifications. These tools help ensure that subsequent jobs only start when previous ones complete and licenses become available, avoiding idle jobs waiting for tokens."
     }
   ],
-  "generated_at": "2026-04-11T15:30:04.969251+00:00"
+  "generated_at": "2026-04-13T00:46:18.107144+00:00"
 }

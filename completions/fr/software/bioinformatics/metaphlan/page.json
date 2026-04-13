@@ -3,53 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "À quoi sert l'outil MetaPhlAn?",
-      "answer": "MetaPhlAn sert à profiler la composition des communautés microbiennes (bactéries, archées et eucaryotes) au niveau de l'espèce à partir de données de séquençage métagénomique."
+      "question": "À quoi sert l'outil MetaPhlAn sur les grappes d'Alliance?",
+      "answer": "MetaPhlAn est un outil informatique qui sert à profiler la composition des communautés microbiennes (bactéries, archées et eucaryotes) à partir de données de séquençage métagénomique au niveau de l'espèce."
     },
     {
-      "question": "Quel outil est mentionné pour effectuer un profilage microbien précis au niveau de la souche?",
-      "answer": "StrainPhlAn est l'outil qui permet un profilage microbien précis au niveau de la souche lorsqu'il est utilisé avec MetaPhlAn."
+      "question": "Est-ce que MetaPhlAn peut effectuer un profilage microbien au niveau de la souche?",
+      "answer": "Oui, avec l'outil StrainPhlAn, il est possible d'effectuer un profilage microbien précis au niveau de la souche en combinaison avec MetaPhlAn."
     },
     {
-      "question": "Comment les utilisateurs sont-ils encouragés à installer les versions récentes de MetaPhlAn?",
-      "answer": "Les utilisateurs doivent installer les versions récentes de MetaPhlAn à l'aide d'un environnement virtuel Python."
+      "question": "Comment est-il recommandé d'installer les versions récentes de MetaPhlAn sur les grappes d'Alliance?",
+      "answer": "Il est désormais attendu des utilisateurs qu'ils installent les versions récentes de MetaPhlAn à l'aide d'un environnement virtuel Python."
     },
     {
-      "question": "Comment vérifier les versions de MetaPhlAn disponibles en tant que 'wheels'?",
-      "answer": "Il faut utiliser la commande `avail_wheels metaphlan --all-versions`."
+      "question": "Quelle commande faut-il utiliser pour connaître les versions de MetaPhlAn disponibles sous forme de wheels?",
+      "answer": "Il faut utiliser la commande `avail_wheels metaphlan --all-versions` pour lister les versions de MetaPhlAn disponibles en wheels."
     },
     {
-      "question": "Où doivent être téléchargées les bases de données nécessaires à MetaPhlAn?",
-      "answer": "Les bases de données doivent être téléchargées dans le répertoire `$SCRATCH`."
+      "question": "Où les bases de données nécessaires à MetaPhlAn doivent-elles être téléchargées sur les grappes?",
+      "answer": "Les bases de données de MetaPhlAn doivent impérativement être téléchargées dans le répertoire `$SCRATCH`."
     },
     {
-      "question": "D'où peut-on télécharger les bases de données de MetaPhlAn?",
-      "answer": "Les bases de données peuvent être téléchargées à partir du site FTP de Segatalab."
+      "question": "D'où peut-on télécharger les bases de données pour MetaPhlAn?",
+      "answer": "Les bases de données pour MetaPhlAn peuvent être téléchargées à partir du serveur FTP de Segatalab (http://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases)."
     },
     {
-      "question": "Sur quel type de nœud l'étape de téléchargement des bases de données doit-elle être effectuée?",
-      "answer": "Cette étape doit se faire à partir d'un nœud de connexion et non d'un nœud de calcul."
+      "question": "Sur quel type de nœud faut-il télécharger les bases de données de MetaPhlAn?",
+      "answer": "Le téléchargement des bases de données de MetaPhlAn doit se faire à partir d'un nœud de connexion et non d'un nœud de calcul."
     },
     {
-      "question": "Comment les bases de données téléchargées sont-elles décompressées?",
-      "answer": "Elles sont décompressées en utilisant la commande `tar -xf` pour les fichiers `.tar` et `parallel bunzip2` pour les fichiers `.bz2`, souvent dans une tâche interactive."
+      "question": "Comment doit-on extraire les bases de données de MetaPhlAn après les avoir téléchargées?",
+      "answer": "L'extraction des bases de données, incluant le `tar -xf` et le `bunzip2`, doit se faire à partir d'un nœud de calcul, idéalement via une tâche interactive allouée avec `salloc`."
     },
     {
-      "question": "Quels modules sont requis pour exécuter une tâche MetaPhlAn?",
-      "answer": "Les modules requis sont `gcc`, `blast`, `samtools`, `bedtools`, `bowtie2` et `python/3.14`."
+      "question": "Quels modules sont généralement requis pour exécuter MetaPhlAn dans un script SLURM?",
+      "answer": "Les modules requis incluent `gcc`, `blast`, `samtools`, `bedtools`, `bowtie2` et `python/3.14`."
     },
     {
-      "question": "Comment MetaPhlAn est-il installé dans un script de tâche?",
-      "answer": "MetaPhlAn est installé dans un environnement virtuel Python créé dans `$SLURM_TMPDIR` en utilisant `pip install --no-index metaphlan==X.Y.Z`."
+      "question": "Quelles sont les requêtes de ressources recommandées pour une tâche MetaPhlAn typique dans un script SLURM?",
+      "answer": "Il est recommandé de demander `--cpus-per-task=4` et `--mem=15G` pour une tâche MetaPhlAn."
     },
     {
-      "question": "Quelles sont les options importantes à utiliser lors de l'exécution de la commande MetaPhlAn dans un script de tâche?",
-      "answer": "Il est important d'utiliser `--nproc` pour spécifier le nombre de cœurs, `--index` pour la version de l'index et `--bowtie2db` pour le chemin des bases de données."
+      "question": "Où est-il suggéré de générer l'environnement virtuel Python pour MetaPhlAn à l'intérieur d'une tâche SLURM?",
+      "answer": "Il est recommandé de générer l'environnement virtuel Python dans le répertoire temporaire de la tâche, `$SLURM_TMPDIR`."
     },
     {
-      "question": "Comment soumettre un script de tâche MetaPhlAn à l'ordonnanceur?",
-      "answer": "On soumet le script de tâche en utilisant la commande `sbatch metaphlan-job.sh`."
+      "question": "Comment installer MetaPhlAn et ses dépendances dans un environnement virtuel à l'intérieur d'un script SLURM?",
+      "answer": "Après avoir activé l'environnement virtuel, il faut utiliser `pip install --no-index --upgrade pip` puis `pip install --no-index metaphlan==X.Y.Z`."
+    },
+    {
+      "question": "Quels drapeaux sont importants pour la commande MetaPhlAn lorsqu'elle est exécutée dans une tâche SLURM?",
+      "answer": "Il est important d'utiliser `--nproc $SLURM_CPUS_PER_TASK`, `--index` avec le nom de l'index de la base de données et `--bowtie2db` avec le chemin vers les bases de données (`$DB_DIR`)."
+    },
+    {
+      "question": "Comment soumettre une tâche MetaPhlAn à l'ordonnanceur SLURM une fois le script de tâche préparé?",
+      "answer": "On soumet la tâche à l'ordonnanceur en utilisant la commande `sbatch metaphlan-job.sh`, en remplaçant `metaphlan-job.sh` par le nom de votre script."
     }
   ],
-  "generated_at": "2026-04-12T02:23:35.234669+00:00"
+  "generated_at": "2026-04-13T09:15:26.271359+00:00"
 }

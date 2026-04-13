@@ -4,85 +4,17 @@
   "chunk_index": 21,
   "qa_pairs": [
     {
-      "question": "Quels sont les paramètres Slurm définis dans le script pour une tâche GPU morcelée?",
-      "answer": "Le script demande 1 GPU par nœud (`--gpus-per-node=1`), 4 fils OpenMP par processus MPI (`--cpus-per-task=4`), une limite de mémoire de 2000 Mo par cœur CPU (`--mem-per-cpu=2000M`) et une limite de temps de 3 heures (`--time=03:00:00`)."
+      "question": "Comment peut-on automatiser le morcellement des simulations GROMACS utilisant des GPU pour les rendre plus courtes et redémarrables, en tirant parti des vecteurs de tâches (job arrays) Slurm ?",
+      "answer": "Pour diviser et relancer des simulations GROMACS sur GPU en des tâches plus courtes, on peut automatiser le processus en utilisant les vecteurs de tâches Slurm (job arrays). Le script de soumission devrait inclure `#SBATCH --array=1-N%1` pour exécuter une seule tâche à la fois, et utiliser l'option `gmx mdrun -cpi \"$simname.cpt\" -maxh $nhours` pour que la simulation redémarre à partir du dernier point de contrôle et se termine proprement dans le temps alloué. Le script doit également vérifier si la simulation s'est terminée ou a rencontré une erreur, puis annuler les tâches en attente en conséquence."
     },
     {
-      "question": "À quoi sert le paramètre `--array=1-20%1` dans le script de tâche GPU?",
-      "answer": "Le paramètre `--array=1-20%1` définit une plage de tâches (job range) et indique que seule une tâche peut s'exécuter à la fois (%1)."
+      "question": "Quelles sont les deux principales métriques pour évaluer la performance des simulations GROMACS et qu'est-ce qu'elles mesurent spécifiquement ?",
+      "answer": "La performance d'une simulation GROMACS se mesure typiquement par le nombre de nanosecondes de trajectoire pouvant être simulée en un jour (ns/jour). La scalabilité parallèle, quant à elle, indique l'efficacité de l'utilisation des ressources de calcul et se mesure par la formule S = pN / (N * p1), où pN représente la performance avec N cœurs CPU et p1 est la performance avec un seul cœur CPU. Idéalement, une scalabilité linéaire (S = 1) signifie que la performance augmente directement avec le nombre de cœurs CPU utilisés."
     },
     {
-      "question": "Quels modules sont chargés pour exécuter GROMACS 2024.4 avec un GPU dans cet exemple de script?",
-      "answer": "Les modules chargés sont `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.2` et `gromacs/2024.4`."
-    },
-    {
-      "question": "Comment la variable d'environnement `OMP_NUM_THREADS` est-elle configurée dans le script?",
-      "answer": "La variable `OMP_NUM_THREADS` est configurée avec la valeur de `SLURM_CPUS_PER_TASK`, ou `1` par défaut."
-    },
-    {
-      "question": "Quelle commande `gmx mdrun` est utilisée pour redémarrer une simulation et gérer le temps limite dans le script?",
-      "answer": "La commande est `srun gmx mdrun -ntomp $nt -deffnm $simname -cpi \"$simname.cpt\" -maxh $nhours`. Elle utilise le fichier de point de contrôle (`.cpt`) et indique la durée maximale (`-maxh`) pour une terminaison propre."
-    },
-    {
-      "question": "Que fait le script si la simulation se termine avec une erreur ou si elle est complétée?",
-      "answer": "Si la simulation se termine avec une erreur, le script affiche un message et annule les tâches en attente. Si la simulation est complétée (le dernier point de contrôle est écrit au `nsteps`), il affiche aussi un message et annule les tâches en attente."
-    },
-    {
-      "question": "C'est quoi le \"Molecular Dynamics Performance Guide\" mentionné dans le document?",
-      "answer": "Le \"Molecular Dynamics Performance Guide\" est un guide créé par l'équipe d'ACENET qui décrit les conditions optimales pour exécuter des tâches sur leurs grappes avec des logiciels comme AMBER, GROMACS, NAMD et OpenMM."
-    },
-    {
-      "question": "Est-ce facile d'obtenir une bonne performance avec `mdrun` dans GROMACS?",
-      "answer": "Non, ce n'est pas facile; les développeurs de GROMACS fournissent beaucoup d'information sur les options, les paramètres et les stratégies pour y arriver."
-    },
-    {
-      "question": "Quels sont les facteurs qui influencent le choix des paramètres pour une performance optimale de GROMACS?",
-      "answer": "Le meilleur choix de paramètres dépend fortement de la taille du système (nombre de particules, taille et forme de la boite de simulation) et des paramètres de la simulation (rayons de coupure, utilisation de la sommation d'Ewald)."
-    },
-    {
-      "question": "Où peut-on trouver l'information et les statistiques de performance d'une simulation GROMACS?",
-      "answer": "L'information et les statistiques de performance sont imprimées à la fin du fichier `md.log`. On peut souvent y trouver des notes pour améliorer la performance."
-    },
-    {
-      "question": "Comment mesure-t-on typiquement la performance d'une simulation GROMACS?",
-      "answer": "La performance de la simulation se mesure typiquement par le nombre de nanosecondes de trajectoire pouvant être simulée en un jour (ns/jour)."
-    },
-    {
-      "question": "Comment est mesurée la scalabilité parallèle?",
-      "answer": "La scalabilité parallèle est mesurée par la formule `S = p_N / ( N * p_1 )`, où `p_N` représente la performance avec `N` cœurs CPU et `p_1` est la performance avec un seul cœur CPU."
-    },
-    {
-      "question": "Quelle est la scalabilité parallèle idéale?",
-      "answer": "Idéalement, la performance s'accroît de façon linéaire avec le nombre de cœurs CPU, ce qui correspond à une scalabilité linéaire où S = 1."
-    },
-    {
-      "question": "Quelle est la façon la plus simple d'augmenter le nombre de processus MPI dans GROMACS avec Slurm?",
-      "answer": "La façon la plus simple d'augmenter le nombre de processus MPI (ou `MPI-ranks` dans la documentation GROMACS) est d'utiliser les options Slurm `--ntasks` ou `--ntasks-per-node` dans le script."
-    },
-    {
-      "question": "C'est quoi la décomposition des domaines dans GROMACS?",
-      "answer": "La décomposition des domaines (DD) est une méthode utilisée par GROMACS pour distribuer la solution des interactions non liantes entre particules (PP) sur plusieurs cœurs CPU."
-    },
-    {
-      "question": "Comment fonctionne la décomposition des domaines dans GROMACS?",
-      "answer": "Elle s'effectue en découpant la boite de simulation selon les axes X, Y et/ou Z et en assignant chacun des domaines à un processus MPI."
-    },
-    {
-      "question": "Quand est-ce que la méthode de décomposition des domaines devient moins efficace?",
-      "answer": "La décomposition des domaines devient moins efficace lorsque le temps exigé pour la communication devient grand par rapport à la taille du domaine en termes de nombre de particules et de volume du domaine."
-    },
-    {
-      "question": "Qu'arrive-t-il à la performance quand la décomposition des domaines atteint ses limites?",
-      "answer": "La scalabilité parallèle tombe loin sous 1 et, dans les cas extrêmes, la performance diminue avec l'augmentation du nombre de domaines."
-    },
-    {
-      "question": "GROMACS offre-t-il une fonctionnalité pour équilibrer la charge dynamique des domaines?",
-      "answer": "Oui, GROMACS peut répartir la charge de façon dynamique (dynamic load balancing) en déplaçant dans une certaine mesure les frontières des domaines afin d'empêcher que certains prennent beaucoup plus de temps à résoudre que d'autres. Cette fonctionnalité est présente par défaut dans mdrun."
-    },
-    {
-      "question": "Quelle est la taille minimale pour un domaine dans GROMACS?",
-      "answer": "Dans chaque direction, un domaine ne peut pas être plus petit que le plus long rayon de coupure."
+      "question": "Qu'est-ce que la décomposition des domaines dans GROMACS et comment cette méthode distribue-t-elle les calculs des interactions non liantes sur plusieurs cœurs de processeur ?",
+      "answer": "La décomposition des domaines (DD) est une méthode employée par GROMACS pour distribuer le calcul des interactions non liantes entre particules (PP) sur plusieurs cœurs CPU. Elle s'effectue en découpant la boîte de simulation en domaines selon les axes X, Y et/ou Z, et en assignant chacun de ces domaines à un processus MPI distinct. Cette approche permet de répartir la charge de calcul, mais son efficacité diminue si le temps de communication entre les domaines devient trop grand par rapport à la taille ou au volume de chaque domaine."
     }
   ],
-  "generated_at": "2026-04-11T22:43:12.994001+00:00"
+  "generated_at": "2026-04-13T06:17:26.741005+00:00"
 }

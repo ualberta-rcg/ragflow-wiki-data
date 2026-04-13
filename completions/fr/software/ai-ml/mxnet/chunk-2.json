@@ -4,37 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Quels types d'implémentations d'opérateurs MXNet propose-t-il pour le travail avec les CPU et les GPU?",
-      "answer": "MXNet offre des implémentations d'opérateurs pour les CPU et les GPU, notamment pour les multiplications matricielles et les convolutions. Pour les CPU, il utilise OpenMP et MKLDNN, tandis que pour les GPU, il se base sur CUDA et cuDNN."
+      "question": "Comment on fait pour soumettre une job MXNet à l'ordonnanceur de tâches?",
+      "answer": "Pour soumettre une job MXNet à l'ordonnanceur, il faut utiliser la commande `sbatch mxnet-conv.sh`."
     },
     {
-      "question": "Comment les opérations de MXNet gèrent-elles automatiquement la parallélisation sur CPU ou GPU?",
-      "answer": "Que votre code effectue ou non des opérations comme les multiplications matricielles ou les convolutions, elles utiliseront automatiquement le mode multifils sur plusieurs cœurs CPU ou un GPU si la tâche le demande."
+      "question": "C'est quoi la recommandation pour utiliser des CPU par rapport à un seul GPU pour les tâches MXNet dans un environnement de grappe partagé, pis pourquoi?",
+      "answer": "C'est fortement suggéré d'utiliser plusieurs CPU au lieu d'un seul GPU, surtout si ton modèle pis tes données sont pas super gros. Même si un GPU pourrait être plus rapide, la différence est pas énorme pis ta job utilisera juste une petite partie de sa capacité. Ça bloque inutilement une ressource que d'autres pourraient utiliser pour des calculs plus importants, pis ça affecte la priorité des jobs des collègues."
     },
     {
-      "question": "Quelle est la recommandation principale concernant l'utilisation de plusieurs CPU par rapport à un seul GPU pour l'entraînement?",
-      "answer": "Il est fortement recommandé d'utiliser plusieurs CPU plutôt qu'un seul GPU pour l'entraînement."
-    },
-    {
-      "question": "Pourquoi l'utilisation d'un seul GPU n'est-elle pas toujours optimale pour les modèles et les ensembles de données de petite taille dans un environnement de grappe?",
-      "answer": "Pour les modèles et les ensembles de données pas assez grands, même si l'entraînement avec un GPU est un peu plus rapide, la différence par rapport aux CPU n'est pas significative. La tâche n'utilisera qu'un faible pourcentage de la capacité de calcul du GPU, ce qui n'est pas optimal dans un environnement partagé."
-    },
-    {
-      "question": "Quels sont les inconvénients d'utiliser un GPU de manière inefficace dans un environnement de grappe partagé?",
-      "answer": "Dans un environnement de grappe partagé, l'utilisation inefficace d'un GPU bloque une ressource qui pourrait être utilisée par d'autres pour des calculs à grande échelle. Ça utilise aussi l'allocation de votre groupe et a un effet négatif sur la priorité accordée aux tâches de vos collègues."
-    },
-    {
-      "question": "Quand faut-il éviter de demander l'accès à un GPU?",
-      "answer": "Il ne faut pas demander un GPU si votre code est incapable de faire un usage raisonnable de sa capacité de calcul."
-    },
-    {
-      "question": "Quel est le but des scripts `mxnet-example.sh` et `mxnet-example.py` fournis en exemple?",
-      "answer": "Ces scripts sont fournis pour illustrer l'entraînement d'un réseau neuronal convolutif avec ou sans GPU, et montrent comment ajuster le nombre de CPU (`--cpus-per-task`) ou activer/désactiver le GPU (`--gres=gpu:1`)."
-    },
-    {
-      "question": "Comment soumettre une tâche MXNet, telle que celle décrite dans l'exemple `mxnet-conv.sh`, à l'ordonnanceur?",
-      "answer": "Pour soumettre la tâche à l'ordonnanceur, il faut utiliser la commande `sbatch mxnet-conv.sh`."
+      "question": "Quelles technologies MXNet utilise pour optimiser ses opérations sur les CPU et les GPU?",
+      "answer": "Pour les opérations sur les CPU, MXNet se sert d'OpenMP et de MKLDNN. Pour les GPU, il utilise CUDA et CUDNN pour des calculs comme les multiplications matricielles et les convolutions."
     }
   ],
-  "generated_at": "2026-04-12T02:07:42.434962+00:00"
+  "generated_at": "2026-04-13T09:01:11.306554+00:00"
 }

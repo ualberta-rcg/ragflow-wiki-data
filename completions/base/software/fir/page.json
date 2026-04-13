@@ -3,85 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the Fir cluster?",
-      "answer": "Fir is a versatile, heterogeneous computing cluster built in partnership with Lenovo Canada and Data Direct Networks (DDN), designed to support a wide range of scientific computations."
+      "question": "What is the Fir computing cluster and where is it hosted?",
+      "answer": "The Fir computing cluster is a versatile, heterogeneous system built in partnership with Lenovo Canada and Data Direct Networks (DDN) for a wide range of scientific computations. It is hosted at Simon Fraser University (SFU) in Burnaby, British Columbia."
     },
     {
-      "question": "When will the Fir cluster be available?",
-      "answer": "The Fir cluster will be available on August 11, 2025."
+      "question": "When is the Fir computing cluster expected to be available for use?",
+      "answer": "The Fir computing cluster is expected to be available on August 11, 2025."
     },
     {
-      "question": "Where is the Fir cluster hosted?",
-      "answer": "The Fir cluster is hosted at Simon Fraser University (SFU) in Burnaby, British Columbia."
+      "question": "How does the Fir computing cluster enhance energy efficiency and what is its performance ranking?",
+      "answer": "Fir enhances energy efficiency by transitioning from traditional air cooling to advanced direct-to-chip liquid cooling. It is ranked #78 on the June 2025 TOP500 list of the world's most powerful supercomputers."
     },
     {
-      "question": "What is the login node address for Fir?",
-      "answer": "The login node address for Fir is `fir.alliancecan.ca`."
+      "question": "How can a researcher request access to the Fir computing cluster?",
+      "answer": "Researchers must request access in CCDB by navigating to Resources, then Access Systems, selecting 'Fir' from the list, and choosing 'I request access'. Access can take up to an hour to be enabled."
     },
     {
-      "question": "What is the URL for JupyterHub on Fir?",
-      "answer": "The URL for JupyterHub on Fir is `jupyterhub.fir.alliancecan.ca`."
+      "question": "What are the main access points provided for the Fir computing cluster, such as the login node and Globus collection ID?",
+      "answer": "The login node is `fir.alliancecan.ca`, the automation node is `robot.fir.alliancecan.ca`, the Globus collection ID is `alliancecan#fir-globus`, and the JupyterHub URL is `jupyterhub.fir.alliancecan.ca`."
     },
     {
-      "question": "How does Fir contribute to environmental sustainability in high-performance computing?",
-      "answer": "Fir transitions from traditional air cooling to advanced direct-to-chip liquid cooling, significantly improving energy efficiency and reducing power consumption associated with cooling."
+      "question": "What are the key site-specific policies for jobs and data transfer on the Fir computing cluster?",
+      "answer": "Compute nodes have full internet access, `crontab` is not supported, jobs should have a duration of at least one hour (five minutes for test jobs) and a maximum of seven days (168 hours). For data transfer, use the specified Globus endpoint or the login node for tools like rsync and scp."
     },
     {
-      "question": "How does Fir's network performance compare to the previous-generation Cedar cluster?",
-      "answer": "The new high-speed InfiniBand network in Fir delivers more than twice the performance of the previous-generation Cedar cluster."
+      "question": "What is the total high-performance storage capacity on the Fir computing cluster?",
+      "answer": "The Fir computing cluster has 51 PB of high-performance DDN Lustre storage, consisting of 2 PB NVMe and 49 PB SAS."
     },
     {
-      "question": "What is Fir's ranking on the June 2025 TOP500 list?",
-      "answer": "Fir is ranked #78 on the June 2025 TOP500 list of the world’s most powerful supercomputers."
+      "question": "What are the different storage areas available on the Fir computing cluster, and what are their primary uses and backup policies?",
+      "answer": "The storage areas are HOME (default, small per-user quota, daily backup), SCRATCH (for temporary files, large per-user quota, no backup, files purged automatically), and PROJECT (for group data sharing and large datasets, large and adjustable per-project quota, daily backup)."
     },
     {
-      "question": "How can a researcher request access to the Fir cluster?",
-      "answer": "Researchers must request access in CCDB by navigating to Resources --> Access Systems, selecting Fir from the list, and then choosing 'I request access'."
+      "question": "What are the architectural specifications of the standard CPU nodes on the Fir computing cluster?",
+      "answer": "Each standard CPU node features two AMD EPYC 9655 (Zen 5) processors at 2.7 GHz, totalling 192 physical cores, 750 GB of available memory, and 7.84 TB NVMe storage. It uses a chiplet-based NUMA architecture with 8 NUMA nodes and 24 CCDs per node."
     },
     {
-      "question": "Are compute nodes on Fir able to access the internet?",
-      "answer": "Yes, Fir's compute nodes have full access to the internet."
+      "question": "What are the architectural specifications of the GPU nodes on the Fir computing cluster, including the type of GPUs?",
+      "answer": "Each GPU node contains one AMD EPYC 9454 (Zen 4) processor at 2.75 GHz with 48 physical cores, 1125 GB of available memory, 7.84 TB NVMe storage, and four NVIDIA H100 SXM5 GPUs with 80 GB memory, interconnected by SXM5."
     },
     {
-      "question": "What is the allowed job duration on Fir?",
-      "answer": "Each job should have a duration of at least one hour (or five minutes for test jobs), and the maximum job duration is 7 days (168 hours)."
+      "question": "What performance tuning recommendations are provided for optimizing task execution on Fir's CPU nodes?",
+      "answer": "To optimize CPU node performance, users should align tasks to CCDs using `#SBATCH --cpus-per-task=8` and distribute tasks across CCDs using `#SBATCH --ntasks-per-node=24` to fully utilize the 192-core node."
     },
     {
-      "question": "How should users transfer data to or from Fir using rsync or scp?",
-      "answer": "For tools like rsync and scp, users should use the login node."
+      "question": "What performance tuning recommendations are provided for optimizing CPU-GPU data locality on Fir's GPU nodes?",
+      "answer": "For GPU nodes, it's recommended to bind threads to CCDs using `#SBATCH --cpus-per-task=6` and match tasks to NUMA nodes using `#SBATCH --ntasks-per-node=4` along with `#SBATCH --cpus-per-task=12` for optimal CPU-GPU data locality."
     },
     {
-      "question": "What is the total storage capacity and type available on Fir?",
-      "answer": "Fir has 51PB of high-performance DDN Lustre storage, comprising 2PB NVME and 49PB SAS."
+      "question": "How can users request full NVidia H100-80gb GPUs for their compute jobs on the Fir cluster?",
+      "answer": "To request full H100 GPUs, users can use Slurm options like `--gpus=h100:1` for one GPU, `--gpus-per-node=h100:2` for multiple GPUs per node, or `--gpus=h100:n` for multiple GPUs spread anywhere."
     },
     {
-      "question": "What are the three main storage areas on Fir and their characteristics?",
-      "answer": "The three main storage areas are HOME (small per-user quota, daily backup, cannot be increased), SCRATCH (large per-user quota, no backup, temporary files purged automatically), and PROJECT (large, adjustable per-project quota, daily backup, for group sharing)."
-    },
-    {
-      "question": "What type of interconnect does Fir use?",
-      "answer": "Fir uses an InfiniBand NDR interconnect."
-    },
-    {
-      "question": "What CPU processors are used in the main Fir CPU nodes?",
-      "answer": "The main Fir CPU nodes feature 2 × AMD EPYC 9655 (Zen 5) @ 2.7 GHz processors, totalling 192 physical cores."
-    },
-    {
-      "question": "What are the performance tuning recommendations for CPU nodes to align tasks to CCDs?",
-      "answer": "To align tasks to CCDs and keep threads within an 8-core CCD, use `#SBATCH --cpus-per-task=8`."
-    },
-    {
-      "question": "What GPUs are equipped on Fir's GPU nodes?",
-      "answer": "Fir's GPU nodes are equipped with 4 x NVidia H100 SXM5 (80 GB memory) accelerators."
-    },
-    {
-      "question": "How can a user request a single full H100 GPU for a compute job?",
-      "answer": "To request one full H100 GPU, use the Slurm option `--gpus=h100:1`."
-    },
-    {
-      "question": "What are the available GPU instance sizes for MIG-configured nodes on Fir?",
-      "answer": "The available GPU instance sizes are 1g.10gb (1/8th computing power with 10GB GPU memory), 2g.20gb (2/8th computing power with 20GB GPU memory), and 3g.40gb (3/8th computing power with 40GB GPU memory)."
+      "question": "What are the available MIG (Multi-Instance GPU) instance sizes on Fir's GPU nodes, and how can a user request a specific instance?",
+      "answer": "Approximately half of the GPU nodes support MIG technology with available instance sizes: 1g.10gb, 2g.20gb, and 3g.40gb. Users can request a specific instance using options like `--gpus=nvidia_h100_80gb_hbm3_1g.10gb:1`."
     }
   ],
-  "generated_at": "2026-04-11T21:32:08.565211+00:00"
+  "generated_at": "2026-04-13T05:20:38.599793+00:00"
 }

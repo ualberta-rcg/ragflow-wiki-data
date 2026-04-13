@@ -4,29 +4,17 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que la ligne `#SBATCH --array=1-5%1` permet de spécifier dans les scripts Fluent de remise en file d'attente?",
-      "answer": "Cette ligne permet de spécifier le nombre de tentatives de remise en file d'attente pour une tâche, avec un minimum de 2, et 5 étant l'exemple montré."
+      "question": "Comment configurer la remise en file d'attente automatique d'une tâche Fluent dans un script Slurm sur les grappes de l'Alliance?",
+      "answer": "Pour configurer la remise en file d'attente automatique d'une tâche Fluent, il faut inclure la directive `#SBATCH --array=1-5%1` dans le script Slurm. Le `1-5` indique le nombre de tentatives de remise en file d'attente (dans cet exemple, 5 tentatives) et le `%1` spécifie qu'une seule tâche sera exécutée à la fois."
     },
     {
-      "question": "Est-ce que la ligne `module load StdEnv/2023` doit être modifiée dans les scripts de soumission Ansys Fluent?",
-      "answer": "Non, cette ligne ne doit pas être changée selon les instructions du script."
+      "question": "Quels sont les paramètres Slurm et les modules à charger essentiels pour exécuter une simulation Ansys Fluent sur les grappes de l'Alliance en utilisant le modèle de script fourni?",
+      "answer": "Les paramètres Slurm essentiels incluent `#SBATCH --account=def-group` (pour le compte), `#SBATCH --time=00-03:00` (pour la limite de temps), `#SBATCH --nodes=1` (pour le nombre de nœuds de calcul), `#SBATCH --ntasks-per-node=32` (pour le nombre de cœurs par nœud) et `#SBATCH --mem=0` (pour allouer toute la mémoire du nœud). Il faut aussi charger les modules `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente)."
     },
     {
-      "question": "Quelle version du module Ansys est spécifiée dans l'exemple de script?",
-      "answer": "L'exemple de script spécifie d'utiliser le module `ansys/2023R2` ou une version plus récente."
-    },
-    {
-      "question": "Comment peut-on indiquer le nom du fichier de journalisation à utiliser dans le script de soumission Fluent?",
-      "answer": "Le nom du fichier de journalisation est spécifié par la variable `MYJOURNALFILE`. Il faut remplacer `sample.jou` par le nom de votre propre fichier de journalisation."
-    },
-    {
-      "question": "Quels sont les choix possibles pour la variable `MYVERSION` dans le script de soumission Fluent?",
-      "answer": "Les choix possibles pour la variable `MYVERSION` sont `2d`, `2ddp`, `3d` ou `3ddp`."
-    },
-    {
-      "question": "Quelles sont les configurations spécifiques pour la grappe Narval dans le script Fluent?",
-      "answer": "Si la grappe utilisée est Narval, le script charge les modules `intel/2023` et `intelmpi`, puis il exporte la variable d'environnement `INTELMPI_ROOT` avec la valeur de `$I_MPI_ROOT`."
+      "question": "Comment le script Slurm adapte-t-il la commande d'exécution de Fluent pour les grappes Narval et Nibi par rapport aux autres grappes de l'Alliance?",
+      "answer": "Pour la grappe Narval, le script charge des modules `intel/2023` et `intelmpi` spécifiques, puis désactive `I_MPI_ROOT`. De plus, pour Narval ou Nibi avec Ansys version 2025 ou plus récente, le script exporte la variable `I_MPI_HYDRA_BOOTSTRAP=ssh`. La commande Fluent elle-même utilise `-pib` (pour InfiniBand) pour la plupart des grappes et `-peth` (pour Ethernet) pour Nibi, si plusieurs nœuds sont utilisés."
     }
   ],
-  "generated_at": "2026-04-12T16:59:14.161746+00:00"
+  "generated_at": "2026-04-13T01:57:02.025076+00:00"
 }

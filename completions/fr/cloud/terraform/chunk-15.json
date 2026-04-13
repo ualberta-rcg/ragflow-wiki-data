@@ -4,49 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "Comment peut-on se connecter à une instance de machine virtuelle (VM) une fois qu'une adresse IP flottante y est associée?",
-      "answer": "Une fois qu'une IP flottante est associée à une instance de VM, on peut généralement s'y connecter via SSH en utilisant la commande `ssh centos@X.Y.Z.W hostname`."
+      "question": "Comment est-ce qu'on peut se connecter à une machine virtuelle OpenStack par SSH après lui avoir attribué une adresse IP flottante?",
+      "answer": "Une fois qu'une adresse IP flottante est attribuée à une instance OpenStack, on peut généralement s'y connecter via SSH en utilisant la commande `$ ssh centos@X.Y.Z.W hostname`. Si ça ne fonctionne pas, il est possible que vous deviez ajouter l'adresse IP de votre ordinateur au groupe de sécurité par défaut du projet."
     },
     {
-      "question": "Que faut-il faire si on n'arrive pas à se connecter via SSH à une VM même après avoir associé une IP flottante?",
-      "answer": "Si la connexion SSH échoue, il est possible qu'on doive ajouter l'adresse IP de son ordinateur au groupe de sécurité par défaut du projet OpenStack."
+      "question": "Quelle est la principale mise en garde à considérer quand on ajoute un volume racine à une machine virtuelle OpenStack avec Terraform?",
+      "answer": "La principale mise en garde est qu'ajouter un volume racine à une machine virtuelle avec Terraform est une opération destructive. Cela signifie que la machine virtuelle existante sera détruite et reconstruite. Il est donc crucial de lire attentivement les plans de Terraform avant de les appliquer pour éviter la reconstruction accidentelle de machines virtuelles existantes."
     },
     {
-      "question": "Est-ce que l'ajout d'un volume racine à une machine virtuelle avec Terraform est une opération sans risque?",
-      "answer": "Non, l'ajout d'un volume racine est une opération destructrice, car ça va remplacer le disque de démarrage de la VM. Il est très important de lire attentivement les plans Terraform avant d'appliquer de tels changements."
-    },
-    {
-      "question": "Comment définit-on un volume racine pour une machine virtuelle OpenStack dans une configuration Terraform?",
-      "answer": "Un volume racine se définit comme un sous-bloc `block_device` dans la ressource `openstack_compute_instance_v2`, juste après le sous-bloc du réseau."
-    },
-    {
-      "question": "Quels attributs importants faut-il spécifier quand on configure un `block_device` pour un volume racine?",
-      "answer": "Les attributs importants à spécifier sont `uuid` (l'UUID de l'image), `source_type` (ex. 'image'), `destination_type` (ex. 'volume'), `volume_size`, `boot_index` et `delete_on_termination`."
-    },
-    {
-      "question": "Pourquoi est-il crucial de mettre `destination_type = \"volume\"` quand on configure un `block_device`?",
-      "answer": "Il est crucial de mettre `destination_type = \"volume\"` pour indiquer que le stockage doit être fourni par un volume OpenStack, et non par un disque sur l'hyperviseur."
-    },
-    {
-      "question": "Quelle est l'utilité de l'attribut `delete_on_termination` pour un volume dans Terraform?",
-      "answer": "Pour les tests, on peut le mettre à `true` pour que les volumes soient automatiquement supprimés. Pour une utilisation en production, il est recommandé de le mettre à `false` comme dernière défense contre la suppression accidentelle de ressources."
-    },
-    {
-      "question": "Y a-t-il une précaution à prendre concernant l'attribut `image_id` quand on ajoute un `block_device` à une instance de calcul externe?",
-      "answer": "Oui, il ne faut pas laisser l'attribut `image_id` défini dans la définition de l'instance de calcul externe. Sinon, Terraform changera entre le 'démarrage à partir du volume' et le 'démarrage directement à partir de l'image' à chaque exécution, et tentera de reconstruire l'instance à chaque fois."
-    },
-    {
-      "question": "Comment savoir si l'ajout d'un volume entraînera la reconstruction de la machine virtuelle lors de l'exécution de `terraform plan`?",
-      "answer": "Le plan Terraform indiquera les symboles `-/+ destroy and then create replacement` pour les ressources affectées, et la ligne récapitulative montrera un nombre de ressources à détruire (ex. `Plan: 2 to add, 0 to change, 2 to destroy.`)."
-    },
-    {
-      "question": "Que doit-on faire après la reconstruction d'une VM via Terraform, surtout si on s'y était déjà connecté avec SSH?",
-      "answer": "Après la reconstruction d'une VM, elle aura probablement une nouvelle clé SSH. Il faudra donc supprimer l'ancienne clé SSH de son fichier `known_hosts` (ou équivalent) avant de pouvoir se reconnecter."
-    },
-    {
-      "question": "Quelle est la première chose à faire après s'être connecté à une VM fraîchement créée ou reconstruite par Terraform?",
-      "answer": "La première chose à faire après s'être connecté est d'exécuter `sudo yum update -y` pour s'assurer d'appliquer toutes les mises à jour du système d'exploitation disponibles."
+      "question": "Quels sont les attributs importants à considérer dans le bloc `block_device` lorsqu'on définit un volume racine pour une machine virtuelle OpenStack avec Terraform, et quelle est leur utilité?",
+      "answer": "Dans le bloc `block_device` pour un volume racine, les attributs importants sont: `uuid` (l'UUID de l'image source), `source_type` (généralement \"image\"), `destination_type` (\"volume\" pour un stockage via un volume OpenStack), `volume_size`, `boot_index` et `delete_on_termination`. L'attribut `delete_on_termination` est critique: on le met à `true` pour les tests afin de faciliter le nettoyage automatique, mais on devrait le mettre à `false` pour une utilisation réelle afin de protéger les ressources contre la suppression accidentelle. Il est aussi important de ne pas laisser l'attribut `image_id` dans la définition externe de l'instance de calcul pour éviter des tentatives de reconstruction de la VM à chaque exécution de Terraform."
     }
   ],
-  "generated_at": "2026-04-12T09:15:18.413093+00:00"
+  "generated_at": "2026-04-13T14:30:27.071364+00:00"
 }

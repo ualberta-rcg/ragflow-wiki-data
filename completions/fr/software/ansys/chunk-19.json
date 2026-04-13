@@ -4,65 +4,13 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "À quoi servent les scripts de soumission pour le redémarrage d'une simulation Fluent?",
-      "answer": "Ces scripts permettent d'automatiser le redémarrage de tâches intensives qui nécessitent plus que le maximum de sept jours d'exécution permis sur la plupart des grappes, en reprenant à partir des fichiers de pas de temps les plus récemment sauvegardés."
+      "question": "À quoi servent les scripts de redémarrage pour les simulations Ansys Fluent sur les grappes de Calcul Canada?",
+      "answer": "Ces scripts sont conçus pour automatiser le redémarrage des tâches Fluent intensives qui risquent de dépasser la durée maximale d'exécution de sept jours permise sur la plupart des grappes. Ils permettent de reprendre les calculs à partir des fichiers de pas de temps les plus récemment sauvegardés."
     },
     {
-      "question": "Quelles sont les directives Slurm principales pour le script 'Plusieurs nœuds (par nœud + redémarrage)'?",
-      "answer": "Les directives Slurm incluent la spécification du compte (`#SBATCH --account=def-group`), la limite de temps (`#SBATCH --time=07-00:00`), le nombre de nœuds de calcul (`#SBATCH --nodes=1`), le nombre de cœurs par nœud (`#SBATCH --ntasks-per-node=32`), la mémoire par nœud (`#SBATCH --mem=0`) et le nombre de redémarrages de solution (`#SBATCH --array=1-5%1`)."
-    },
-    {
-      "question": "Quel est le temps limite par défaut pour une tâche Fluent avec redémarrage 'par nœud'?",
-      "answer": "La limite de temps par défaut spécifiée est de 07 jours et 00 heure (`#SBATCH --time=07-00:00`)."
-    },
-    {
-      "question": "Combien de nœuds de calcul sont spécifiés par défaut pour une tâche Fluent avec redémarrage 'par nœud'?",
-      "answer": "Par défaut, un seul nœud de calcul est spécifié (`#SBATCH --nodes=1`), avec une note que c'est le maximum pour Narval."
-    },
-    {
-      "question": "Quel est le nombre maximal de cœurs par nœud de calcul spécifié dans le script 'Plusieurs nœuds (par nœud + redémarrage)'?",
-      "answer": "Le script spécifie jusqu'à 32 cœurs par nœud de calcul (`#SBATCH --ntasks-per-node=32`)."
-    },
-    {
-      "question": "Comment la mémoire est-elle allouée pour une tâche Fluent avec redémarrage 'par nœud'?",
-      "answer": "La mémoire est allouée en spécifiant `#SBATCH --mem=0`, ce qui signifie que toute la mémoire disponible par nœud de calcul est utilisée."
-    },
-    {
-      "question": "Quels modules doivent être chargés pour utiliser ces scripts de redémarrage Fluent?",
-      "answer": "Il faut charger les modules `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente d'Ansys)."
-    },
-    {
-      "question": "Quelles sont les variables que l'utilisateur doit définir dans les scripts de redémarrage Fluent?",
-      "answer": "L'utilisateur doit spécifier `MYVERSION` (par exemple, `3d`), `MYJOUFILE` (le nom du fichier journal initial), `MYJOUFILERES` (le nom du fichier journal de redémarrage), `MYCASFILERES` (le nom du fichier cas de redémarrage) et `MYDATFILERES` (le nom du fichier dat de redémarrage)."
-    },
-    {
-      "question": "Comment le script gère-t-il la première tâche d'un tableau Slurm versus les tâches subséquentes, lorsque la simulation est exécutée sur un seul nœud?",
-      "answer": "Pour la première tâche (`SLURM_ARRAY_TASK_ID == 1`), le script utilise le fichier journal initial (`$MYJOUFILE`). Pour les tâches subséquentes, il utilise le fichier journal de redémarrage (`$MYJOUFILERES`)."
-    },
-    {
-      "question": "Comment le script fait-il la distinction entre le cluster Nibi et les autres clusters lors de l'exécution sur plusieurs nœuds?",
-      "answer": "Si le cluster est Nibi (`CC_CLUSTER == nibi`), il utilise l'option MPI `-peth`. Sinon, il utilise l'option MPI `-pib`."
-    },
-    {
-      "question": "Que se passe-t-il si une tâche Fluent se termine avec succès selon ces scripts?",
-      "answer": "Si la tâche se termine avec succès et qu'il reste des tentatives de redémarrage (`SLURM_ARRAY_TASK_ID` est inférieur à `SLURM_ARRAY_TASK_COUNT`), le script prépare le redémarrage en créant des liens symboliques vers les fichiers de cas et de données les plus récents. Si c'est la dernière tentative, il indique que le travail est terminé avec succès et annule l'ID du travail Slurm (`scancel $SLURM_ARRAY_JOB_ID`)."
-    },
-    {
-      "question": "Que se passe-t-il si une simulation Fluent échoue selon ces scripts?",
-      "answer": "Si la simulation échoue (`$? -ne 0`), le script affiche un message indiquant que la simulation a échoué et qu'il quitte (`Simulation failed. Exiting …`)."
-    },
-    {
-      "question": "Comment le script prépare-t-il le redémarrage d'une tâche avec les données de sortie les plus récentes?",
-      "answer": "Après une exécution réussie (et s'il reste des tentatives de redémarrage), le script crée des liens symboliques (`ln -sfv`) vers les fichiers `.cas` et `.dat` les plus récents trouvés dans le répertoire `output/`, en les renommant avec les noms spécifiés par `MYCASFILERES` et `MYDATFILERES`."
-    },
-    {
-      "question": "Quelle est la différence principale dans les directives Slurm entre le script 'par nœud' et 'par cœur' pour les redémarrages?",
-      "answer": "Le script 'par nœud' spécifie `--nodes=1` et `--ntasks-per-node=32` avec `--mem=0` (toute la mémoire), tandis que le script 'par cœur' spécifie `--ntasks=16` (nombre total de cœurs) et `--mem-per-cpu=4G` (mémoire par cœur)."
-    },
-    {
-      "question": "Quel est le nombre par défaut de redémarrages de solution spécifié dans la directive de tableau Slurm?",
-      "answer": "Le nombre par défaut est de 5 redémarrages, spécifié par `--array=1-5%1`."
+      "question": "Quelles sont les exigences préliminaires pour configurer un fichier de journalisation Ansys Fluent afin de permettre un redémarrage automatique d'une simulation sur les grappes de Calcul Canada?",
+      "answer": "Pour configurer un redémarrage automatique, vous devez d'abord vous assurer que les fichiers `sample.cas`, `sample.dat` et `sample.jou` sont présents. Le fichier `sample.jou` doit contenir les lignes `/solve/dual-time-iterate 1` et `/file/auto-save/data-frequency 1`. Ensuite, un fichier `sample-restart.jou` doit être créé à partir de `sample.jou`, en modifiant la ligne pour lire les données du cas avec `/file/read-cas-data sample-restart` et en commentant la ligne d'initialisation, par exemple `;/solve/initialize/initialize-flow`."
     }
   ],
-  "generated_at": "2026-04-12T17:00:05.887182+00:00"
+  "generated_at": "2026-04-13T01:57:31.477445+00:00"
 }

@@ -4,49 +4,13 @@
   "chunk_index": 25,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the provided Slurm script for CFX?",
-      "answer": "The script is designed for submitting multinode distributed parallel jobs for Ansys CFX."
+      "question": "How do I submit a multinode distributed parallel Ansys CFX job on an Alliance cluster?",
+      "answer": "To submit a multinode distributed parallel Ansys CFX job on an Alliance cluster, you'll need a Slurm script. This script should load `StdEnv/2023` and `ansys/2023R2` (or a newer Ansys module version). The core command is `cfx5solve -def YOURFILE.def -start-method \"MPI Distributed Parallel\" -par-dist $NNODES`, where `$NNODES` is determined by `slurm_hl2hl.py --format ANSYS-CFX`. Key Slurm directives in the script include specifying the account (`--account`), time limit (`--time`), number of compute nodes (`--nodes`, set to 2 or more for multinode), tasks per node (`--ntasks-per-node=192` to use all cores), and memory (`--mem=0` to use all memory)."
     },
     {
-      "question": "Which environment modules are recommended for running a CFX multinode job?",
-      "answer": "You should load the `StdEnv/2023` and `ansys/2023R2` modules, or newer versions."
-    },
-    {
-      "question": "Are there any deprecated modules mentioned for CFX multinode job submission?",
-      "answer": "Yes, `StdEnv/2020` and `2021R2` are mentioned as deprecated and should not be used."
-    },
-    {
-      "question": "How is the number of nodes (`NNODES`) determined for a CFX multinode job?",
-      "answer": "The `NNODES` variable is determined by executing the `slurm_hl2hl.py --format ANSYS-CFX` command."
-    },
-    {
-      "question": "What is the command to start CFX in distributed parallel mode on `narval` or `fir` clusters?",
-      "answer": "On `narval` or `fir` clusters, the command is `cfx5solve -def YOURFILE.def -start-method \"Open MPI Distributed Parallel\" -par-dist $NNODES`."
-    },
-    {
-      "question": "How do you start CFX in distributed parallel mode on clusters other than `narval` or `fir`?",
-      "answer": "For clusters other than `narval` or `fir`, you need to set `export I_MPI_HYDRA_BOOTSTRAP=ssh`, unset `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`, and then run `cfx5solve -def YOURFILE.def -start-method \"Intel MPI Distributed Parallel\" -par-dist $NNODES`."
-    },
-    {
-      "question": "What Slurm parameters are specified for a multinode CFX job in the example script?",
-      "answer": "The script specifies `--account=def-group`, `--time=00-03:00`, `--nodes=2` (or more), `--ntasks-per-node=192`, `--mem=0`, and `--cpus-per-task=1`."
-    },
-    {
-      "question": "What does `#SBATCH --ntasks-per-node=192` signify in the CFX multinode script?",
-      "answer": "It signifies that all available cores per compute node should be used, and this value should not be changed."
-    },
-    {
-      "question": "What is the implication of setting `#SBATCH --mem=0` in the CFX multinode Slurm script?",
-      "answer": "Setting `--mem=0` means that all available memory on each compute node will be used, and this parameter should not be altered."
-    },
-    {
-      "question": "Which MPI implementation is used for CFX on `narval` and `fir` clusters?",
-      "answer": "On `narval` and `fir` clusters, \"Open MPI Distributed Parallel\" is used for CFX simulations."
-    },
-    {
-      "question": "Which MPI implementation is used for CFX on clusters other than `narval` and `fir`?",
-      "answer": "On clusters other than `narval` and `fir`, \"Intel MPI Distributed Parallel\" is used for CFX simulations."
+      "question": "What are the specific MPI `start-method` configurations for running Ansys CFX in a distributed parallel mode on different Alliance clusters?",
+      "answer": "When running Ansys CFX in distributed parallel mode on Alliance clusters, the `start-method` in the `cfx5solve` command depends on the cluster. For Narval or Fir clusters, you should use `\"Open MPI Distributed Parallel\"`. For other Alliance clusters, the `start-method` is `\"Intel MPI Distributed Parallel\"`, and you must also set the environment variable `export I_MPI_HYDRA_BOOTSTRAP=ssh` and unset `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`."
     }
   ],
-  "generated_at": "2026-04-12T16:51:25.701088+00:00"
+  "generated_at": "2026-04-13T01:51:39.924082+00:00"
 }

@@ -4,113 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is Apache Spark?",
-      "answer": "Apache Spark is an open-source framework for distributed computation."
+      "question": "What is Apache Spark, and how does its performance compare to Hadoop's MapReduce algorithm?",
+      "answer": "Apache Spark is an open-source framework for distributed computation, originally developed by the AMPLab at Berkeley University. It differentiates itself from Hadoop's MapReduce by storing computation primitives in memory rather than on disk, which can result in up to 100 times faster performance in certain applications. This in-memory approach makes Spark particularly well-suited for automated learning and interactive data analysis, where data are queried frequently."
     },
     {
-      "question": "Where was Apache Spark initially developed?",
-      "answer": "Apache Spark was initially developed by the AMPLab at Berkeley University."
+      "question": "What are the essential steps for submitting an Apache Spark job on a cluster using a SLURM script, as shown in the provided examples for PySpark or Java Jars?",
+      "answer": "To submit an Apache Spark job on a cluster using a SLURM script, a user first loads the necessary modules, such as `spark/2.3.0` and `python/3.7` (for PySpark). Key environment variables like `MKL_NUM_THREADS`, `SPARK_IDENT_STRING`, `SPARK_WORKER_DIR`, and `SLURM_SPARK_MEM` are then exported. Following this, the Spark master is initiated with `start-master.sh`, and then the Spark worker slaves are launched using `srun` with `start-slave.sh`. Finally, the actual Spark application (e.g., a Python script or a Java JAR) is submitted using the `spark-submit` command, specifying the master URL and executor memory, before the slave processes are killed and the master is stopped."
     },
     {
-      "question": "Which organization currently sponsors Apache Spark?",
-      "answer": "Apache Spark is currently sponsored by the Apache foundation."
-    },
-    {
-      "question": "How does Spark's storage mechanism differ from Hadoop's MapReduce algorithm?",
-      "answer": "Unlike the MapReduce algorithm implemented by Hadoop that uses disk storage, Spark makes use of primitives which are stored in memory."
-    },
-    {
-      "question": "What performance improvement can Spark offer over Hadoop in certain applications?",
-      "answer": "Spark can achieve up to 100 times the performance of Hadoop in certain applications."
-    },
-    {
-      "question": "For what types of applications is Spark especially appropriate?",
-      "answer": "Spark is especially appropriate for automated learning and interactive data analysis because loading data in memory allows them to be queried frequently."
-    },
-    {
-      "question": "What is the filename of the example PySpark submission script?",
-      "answer": "The filename of the example PySpark submission script is `pyspark_submit.sh`."
-    },
-    {
-      "question": "Which modules are loaded for a PySpark job according to the provided script?",
-      "answer": "For a PySpark job, the `spark/2.3.0` and `python/3.7` modules are loaded."
-    },
-    {
-      "question": "What is the recommended setting for `MKL_NUM_THREADS` in the example scripts?",
-      "answer": "The recommended setting for `MKL_NUM_THREADS` is `1`."
-    },
-    {
-      "question": "How is the `MASTER_URL` for Spark determined in the example submission scripts?",
-      "answer": "The `MASTER_URL` is determined by using `grep -Po '(?=spark://).*' $SPARK_LOG_DIR/spark-${SPARK_IDENT_STRING}-org.apache.spark.deploy.master*.out` to extract the Spark master URL from the log file."
-    },
-    {
-      "question": "How is the number of Spark workers (`NWORKERS`) calculated in the example scripts?",
-      "answer": "The number of Spark workers (`NWORKERS`) is calculated as `((SLURM_NTASKS_PER_NODE * SLURM_JOB_NUM_NODES - 1))`."
-    },
-    {
-      "question": "Which Python example application is executed in the `pyspark_submit.sh` script?",
-      "answer": "The `pyspark_submit.sh` script executes the `pi.py` example located at `$SPARK_HOME/examples/src/main/python/pi.py`."
-    },
-    {
-      "question": "What is the filename of the example Java Jars submission script?",
-      "answer": "The filename of the example Java Jars submission script is `pyspark_java_submit.sh`."
-    },
-    {
-      "question": "Which modules are loaded for a Java Jars job according to the provided script?",
-      "answer": "For a Java Jars job, only the `spark/2.3.0` module is loaded."
-    },
-    {
-      "question": "What Java example applications are run in the `pyspark_java_submit.sh` script?",
-      "answer": "The `pyspark_java_submit.sh` script runs `org.apache.spark.examples.SparkPi` and `org.apache.spark.examples.SparkLR`."
-    },
-    {
-      "question": "What is the purpose of the Spark monitoring feature?",
-      "answer": "The Spark monitoring feature allows for saving and later examining the event log of a Spark application using a Web application."
-    },
-    {
-      "question": "What is the first step to configure saving Spark event logs?",
-      "answer": "The first step to configure saving Spark event logs is to create a directory for the event logs using `mkdir ~/.spark/<spark version>/eventlog`."
-    },
-    {
-      "question": "Where should Spark configuration parameters be stored?",
-      "answer": "Spark configuration parameters should be stored in the `~/.spark/<spark version>/conf` directory."
-    },
-    {
-      "question": "What content must be added to the `spark-defaults.conf` file to enable event logging?",
-      "answer": "To enable event logging, the `spark-defaults.conf` file should contain:\n`spark.eventLog.enabled true`\n`spark.eventLog.dir /home/<userid>/.spark/<spark version>/eventlog`\n`spark.history.fs.logDirectory /home/<userid>/.spark/<spark version>/eventlog`."
-    },
-    {
-      "question": "What preparatory step is required before visualizing the Spark event logs through the Web application?",
-      "answer": "Before visualizing the Spark event logs, one must create an SSH tunnel between their computer and the cluster."
-    },
-    {
-      "question": "What command is used to start the Web application for visualizing Spark event logs?",
-      "answer": "The command `SPARK_NO_DAEMONIZE=1 start-history-server.sh` is used to start the Web application for visualizing Spark event logs."
-    },
-    {
-      "question": "On what port does the Spark History Server typically start its web interface?",
-      "answer": "The Spark History Server typically starts its web interface on port 18080."
-    },
-    {
-      "question": "How can the Spark event log visualization application be stopped?",
-      "answer": "The Spark event log visualization application can be stopped by typing the combination Ctrl-C in the terminal used to launch the application."
-    },
-    {
-      "question": "What is the SLURM `--account` directive specified in the example scripts?",
-      "answer": "The SLURM `--account` directive specified in the example scripts is `def-someuser`."
-    },
-    {
-      "question": "What is the `--time` limit set for the SLURM jobs in the example scripts?",
-      "answer": "The `--time` limit set for the SLURM jobs in the example scripts is `00:01:00`."
-    },
-    {
-      "question": "How much memory per node is requested for the Spark jobs in the example SLURM scripts?",
-      "answer": "The example SLURM scripts request 4 gigabytes of memory per node (`--mem=4G`)."
-    },
-    {
-      "question": "How is the `SLURM_SPARK_MEM` variable calculated in the example scripts?",
-      "answer": "The `SLURM_SPARK_MEM` variable is calculated as 95% of the memory allocated per node: `$(printf \"%.0f\" $((${SLURM_MEM_PER_NODE} *95/100)))`."
+      "question": "How can a user enable and visualize event logs for an Apache Spark application?",
+      "answer": "To enable event logging for an Apache Spark application, a user must first create a directory for the event logs (e.g., `~/.spark/<spark version>/eventlog`) and a configuration directory (e.g., `~/.spark/<spark version>/conf`) if they don't already exist. Inside the `conf` directory, the `spark-defaults.conf` file needs to be created or updated to include `spark.eventLog.enabled true` and specify the event log directory path using `spark.eventLog.dir`. To visualize the logs, a user should establish an SSH tunnel to the cluster, load the Spark module (e.g., `spark/2.3.0`), and then start the Web application by executing `SPARK_NO_DAEMONIZE=1 start-history-server.sh`. The terminal will then display a URL, which can be pasted into a web browser to access the visualization."
     }
   ],
-  "generated_at": "2026-04-11T17:23:15.889398+00:00"
+  "generated_at": "2026-04-13T02:07:15.150550+00:00"
 }

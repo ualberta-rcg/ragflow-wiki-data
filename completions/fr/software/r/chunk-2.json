@@ -4,69 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Quelle commande faut-il lancer avant d'installer des paquets R qui ont été développés avec des compilateurs GNU?",
-      "answer": "Pour installer des paquets R développés avec les compilateurs GNU, on doit d'abord charger les modules `gcc` et `r`, par exemple avec la commande `module load gcc/12.3.0 r/4.5.0`."
+      "question": "Comment installer un paquet R comme `sp` à partir du CRAN sur un nœud de connexion d'une grappe, en tenant compte des meilleures pratiques?",
+      "answer": "Pour installer un paquet R depuis le CRAN sur une grappe, vous devez d'abord charger les modules `gcc` et `r` appropriés (ex. : `module load gcc/12.3.0 r/4.5.0`). Ensuite, sur un nœud de connexion, démarrez une session R interactive et exécutez `install.packages('sp', repos='https://cloud.r-project.org/')`. Spécifier l'argument `repos` est recommandé pour éviter d'avoir à choisir un miroir de téléchargement. Pour une installation dans votre répertoire personnel et pour une version spécifique de R, créez le répertoire `~/.local/R/$EBVERSIONR/`, configurez la variable `R_LIBS` avec `export R_LIBS=~/.local/R/$EBVERSIONR/`, puis lancez l'installation avec `R -e 'install.packages(\"sp\", repos=\"https://cloud.r-project.org/\")'`. Notez que certains paquets peuvent nécessiter la définition de la variable d'environnement `TMPDIR` ou le chargement de modules de dépendances additionnels."
     },
     {
-      "question": "Comment j'installe un paquet R comme `sp` (pour les données spatiales) sur un nœud de connexion?",
-      "answer": "Pour installer le paquet `sp` (qui offre des classes et des méthodes pour les données spatiales) sur un nœud de connexion, il faut lancer la commande `install.packages('sp', repos='https://cloud.r-project.org/')` dans une session R interactive."
-    },
-    {
-      "question": "Qu'est-ce qui arrive si j'oublie de spécifier l'argument `repos` quand j'installe un paquet R avec `install.packages()`?",
-      "answer": "Si l'argument `repos` n'est pas spécifié, le système va vous demander de sélectionner un miroir pour le téléchargement. Idéalement, ce miroir devrait être géographiquement proche de la grappe que vous utilisez."
-    },
-    {
-      "question": "Y a-t-il des variables d'environnement particulières à définir avant d'installer certains paquets R?",
-      "answer": "Oui, avant l'installation, certains paquets R requièrent que la variable d'environnement `TMPDIR` soit définie."
-    },
-    {
-      "question": "Comment je peux préparer un répertoire local pour installer des paquets R pour une ou plusieurs versions spécifiques?",
-      "answer": "Pour configurer un répertoire local, il faut d'abord le créer avec `mkdir -p ~/.local/R/$EBVERSIONR/` puis exporter la variable d'environnement `R_LIBS` en utilisant `export R_LIBS=~/.local/R/$EBVERSIONR/`."
-    },
-    {
-      "question": "Une fois que le répertoire local est configuré, quelle commande j'utilise pour installer un paquet R comme 'sp' pour une version spécifique de R?",
-      "answer": "Après avoir configuré le répertoire local, vous pouvez installer le paquet avec la commande `R -e 'install.packages(\"sp\", repos=\"https://cloud.r-project.org/\")'`."
-    },
-    {
-      "question": "Qu'est-ce que je dois inclure dans mon script de soumission Slurm si j'ai installé des paquets R dans un répertoire local?",
-      "answer": "Dans le script de soumission, il faut charger le module R désiré et configurer le répertoire local pour la bibliothèque avec la commande `export R_LIBS=~/.local/R/$EBVERSIONR/`."
-    },
-    {
-      "question": "Comment je gère les dépendances si un paquet R que je veux installer utilise des bibliothèques déjà présentes sur les grappes?",
-      "answer": "Si un paquet R utilise des bibliothèques déjà installées, il faut charger le module approprié pour cette bibliothèque avant d'installer le paquet R."
-    },
-    {
-      "question": "Si j'installe le paquet `rgdal` qui dépend de la bibliothèque `gdal`, comment je fais pour trouver les modules nécessaires?",
-      "answer": "Pour le paquet `rgdal` qui utilise `gdal`, vous pouvez lancer `module spider gdal/2.2.1` pour voir les modules requis (comme `nixpkgs` et `gcc`), puis `module spider gdal/3.9.1` pour savoir comment charger le module `gdal`."
-    },
-    {
-      "question": "Si l'installation d'un paquet R échoue, qu'est-ce que je devrais faire ou vérifier?",
-      "answer": "Si l'installation d'un paquet échoue, il faut porter attention au message d'erreur, car il pourrait indiquer d'autres modules nécessaires ou des problèmes à résoudre."
-    },
-    {
-      "question": "Comment j'installe un paquet R que j'ai téléchargé (par exemple, un fichier `.tgz`) sans passer par `install.packages()`?",
-      "answer": "Pour installer un paquet R téléchargé (comme `archive_package.tgz`), vous devez exécuter la commande suivante dans l'interpréteur (shell) : `R CMD INSTALL -l 'chemin pour votre bibliothèque R locale (home)' archive_package.tgz`."
-    },
-    {
-      "question": "Est-ce qu'utiliser la commande `system()` de R pour des appels système peut poser problème sur les grappes?",
-      "answer": "Oui, la commande R `system()` risque de causer des problèmes sur les grappes parce que R peut donner une valeur incorrecte à la variable d'environnement `LD_LIBRARY_PATH`."
-    },
-    {
-      "question": "Quelle est la syntaxe correcte pour les appels système dans R sur les grappes pour éviter les problèmes de `LD_LIBRARY_PATH`?",
-      "answer": "Pour éviter les problèmes, il faut utiliser la syntaxe `system(\"LD_LIBRARY_PATH=$RSNT_LD_LIBRARY_PATH <mon appel système>\")` dans vos appels système R."
-    },
-    {
-      "question": "Pourquoi est-ce utile de passer des arguments à un script R?",
-      "answer": "Il est utile de passer des arguments à un script R pour éviter de le modifier constamment pour des tâches similaires et de devoir gérer plusieurs copies du même script. Ça permet de spécifier des paramètres numériques ou des noms de fichiers d'entrée/sortie."
-    },
-    {
-      "question": "Comment on passe des paramètres comme 'input_1.csv' et '5' à un script R nommé `myscript.R` en ligne de commande?",
-      "answer": "On passe les paramètres au script R au début de la commande, comme ceci : `Rscript myscript.R input_1.csv 5`."
-    },
-    {
-      "question": "Si un script R s'attend à deux arguments, le premier étant un nom (chaîne de caractères) et le deuxième un numéro, comment devraient-ils être fournis?",
-      "answer": "Le premier argument devrait être une chaîne de caractères qui représente le **nom** de la variable, et le deuxième devrait être le **numéro** de la variable."
+      "question": "Comment peut-on passer des paramètres à un script R depuis la ligne de commande pour qu'il soit plus flexible et réutilisable?",
+      "answer": "Pour passer des arguments à un script R sans devoir modifier le code à chaque exécution, utilisez la commande `Rscript` suivie du nom de votre script et des paramètres. Par exemple : `Rscript myscript.R input_1.csv 5`. Dans votre script R, récupérez ces arguments en utilisant la fonction `args = commandArgs(trailingOnly=TRUE)`. Les arguments seront alors accessibles via `args[1]`, `args[2]`, etc. Il est ensuite possible de convertir ces valeurs au type désiré, par exemple `number <- as.integer( args[2] )`."
     }
   ],
-  "generated_at": "2026-04-12T06:15:52.682458+00:00"
+  "generated_at": "2026-04-13T12:07:56.473014+00:00"
 }

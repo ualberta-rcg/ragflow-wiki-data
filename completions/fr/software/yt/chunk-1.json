@@ -4,69 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Comment faire pour installer le logiciel YT dans mon répertoire personnel afin d'effectuer des rendus avec un processeur (CPU) sur une grappe?",
-      "answer": "Pour installer YT, vous devez lancer les commandes suivantes dans l'ordre: `module load python mpi4py`, puis `virtualenv astro`, `source ~/astro/bin/activate`, et enfin `pip install cython`, `pip install numpy`, `pip install yt`."
+      "question": "Comment faire pour installer l'outil YT dans son répertoire personnel et mettre en place l'environnement Python requis pour effectuer des rendus avec le CPU sur une grappe de calcul?",
+      "answer": "Pour installer YT et configurer l'environnement pour les rendus CPU, il faut d'abord charger les modules `python` et `mpi4py`. Ensuite, créez un environnement virtuel nommé `astro` dans votre répertoire `$HOME`, activez-le, puis utilisez `pip install` pour installer `cython`, `numpy` et `yt`."
     },
     {
-      "question": "Quel est le rôle de la commande `virtualenv astro` lors de l'installation de YT?",
-      "answer": "La commande `virtualenv astro` sert à installer les outils Python dans votre répertoire personnel, spécifiquement dans le sous-répertoire `$HOME/astro`."
+      "question": "Quelles sont les étapes à suivre pour soumettre un script de rendu YT qui génère une séquence d'images en rotation d'un ensemble de données, en utilisant un script SLURM sur une grappe de calcul?",
+      "answer": "Après avoir préparé le script Python `grids.py` et le script SLURM `yt-mpi.sh`, assurez-vous que l'ensemble de données Enzo_64 est disponible. Activez ensuite votre environnement `astro` avec `source $HOME/astro/bin/activate`. Finalement, soumettez la tâche au système de grappe avec la commande `sbatch yt-mpi.sh`. Le script SLURM est configuré pour lancer le rendu en parallèle avec 4 processus MPI pendant 30 minutes."
     },
     {
-      "question": "Comment puis-je charger l'environnement virtuel 'astro' une fois qu'il est créé?",
-      "answer": "Pour charger l'environnement virtuel 'astro', vous devez utiliser la commande `source ~/astro/bin/activate`."
-    },
-    {
-      "question": "Comment désactiver l'environnement Python après avoir terminé mes opérations?",
-      "answer": "Vous pouvez désactiver l'environnement Python en utilisant simplement la commande `deactivate`."
-    },
-    {
-      "question": "Quel est le prérequis concernant les données pour le processus de rendu décrit?",
-      "answer": "On suppose que vous avez déjà téléchargé l'ensemble de données Enzo_64 à partir de l'adresse `http://yt-project.org/data`."
-    },
-    {
-      "question": "Quelle est la fonction principale du script Python `grids.py`?",
-      "answer": "Le script `grids.py` est conçu pour générer un rendu de l'ensemble de données en 90 images, avec une rotation sur l'axe vertical."
-    },
-    {
-      "question": "Comment le parallélisme MPI est-il activé dans le script `grids.py`?",
-      "answer": "Le parallélisme MPI est activé grâce à la ligne `yt.enable_parallelism()` qui utilise la bibliothèque `mpi4py`."
-    },
-    {
-      "question": "Quelle est la résolution spécifiée pour chaque image rendue par le script `grids.py`?",
-      "answer": "La résolution de chaque image est fixée à `(1024, 1024)` pixels."
-    },
-    {
-      "question": "Combien d'images sont générées par la boucle de rotation dans le script `grids.py` et sur quel angle la rotation est-elle effectuée?",
-      "answer": "Le script génère 90 images (`nspin = 90`) en effectuant une rotation totale de 180 degrés (π radians) sur ces images."
-    },
-    {
-      "question": "Quel est le nom du script de soumission pour la grappe qui exécute le rendu parallèle?",
-      "answer": "Le nom du script de soumission est `yt-mpi.sh`."
-    },
-    {
-      "question": "Quel temps maximal est alloué pour la tâche de rendu dans le script `yt-mpi.sh`?",
-      "answer": "Le temps maximal alloué (walltime) pour la tâche est de 30 minutes, spécifié par `#SBATCH --time=0:30:00`."
-    },
-    {
-      "question": "Combien de processus MPI sont demandés pour la tâche de rendu via le script `yt-mpi.sh`?",
-      "answer": "Le script `yt-mpi.sh` demande 4 processus MPI, comme indiqué par `#SBATCH --ntasks=4`."
-    },
-    {
-      "question": "Comment soumettre la tâche de rendu à la grappe une fois le script `yt-mpi.sh` préparé?",
-      "answer": "Pour soumettre la tâche à la grappe, il faut utiliser la commande `sbatch yt-mpi.sh`."
-    },
-    {
-      "question": "Après le rendu, comment faire pour créer un film MP4 à partir des images générées?",
-      "answer": "Une fois les images rendues, vous pouvez créer un film MP4 à 30 images par seconde en utilisant la commande `ffmpeg -r 30 -i frame%04d.png -c:v libx264 -pix_fmt yuv420p -vf \"scale=trunc(iw/2)*2:trunc(ih/2)*2\" grids.mp4`."
-    },
-    {
-      "question": "Que fait la fonction `annotate_domain` dans le script `grids.py`?",
-      "answer": "La fonction `annotate_domain` (`sc.annotate_domain`) sert à dessiner la limite du domaine de l'ensemble de données avec une couleur et une transparence spécifiées."
-    },
-    {
-      "question": "Quel est l'objectif de la fonction `annotate_grids` dans le script `grids.py`?",
-      "answer": "La fonction `annotate_grids` (`sc.annotate_grids`) est utilisée pour dessiner les limites des grilles de l'ensemble de données, avec une transparence donnée."
+      "question": "Une fois que le rendu est complété et que les images sont produites sur la grappe, comment peut-on créer un fichier vidéo à partir de ces images?",
+      "answer": "Une fois que la tâche de rendu est terminée, vous pouvez créer un film à partir des images générées (`frame%04d.png`) en utilisant la commande `ffmpeg`. La commande complète est `ffmpeg -r 30 -i frame%04d.png -c:v libx264 -pix_fmt yuv420p -vf \"scale=trunc(iw/2)*2:trunc(ih/2)*2\" grids.mp4`. Ceci générera un fichier `grids.mp4` à 30 images par seconde."
     }
   ],
-  "generated_at": "2026-04-12T12:11:54.113371+00:00"
+  "generated_at": "2026-04-13T16:30:12.177786+00:00"
 }

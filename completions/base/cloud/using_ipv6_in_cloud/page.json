@@ -3,65 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What types of IPv6 addresses are generally available within the Arbutus cloud environment?",
-      "answer": "Both IPv6 Link-Local (LLA) and Global Unicast Addresses (GUA) are generally available."
+      "question": "What types of IPv6 addresses are generally available within the Arbutus Cloud environment?",
+      "answer": "IPv6 Link-Local (LLA) and Global Unicast Addresses (GUA) are generally available."
     },
     {
-      "question": "How are Global Unicast Addresses (GUA) typically set up on VMs in the Arbutus cloud?",
-      "answer": "GUAs are set up using Stateless Address Auto Configuration (SLAAC), which automatically configures the IP on the VM interface."
+      "question": "How are IPv6 Global Unicast Addresses (GUA) typically set up in the Arbutus Cloud environment?",
+      "answer": "They are set up using Stateless Address Auto Configuration (SLAAC), which automatically configures the IP on the VM interface."
     },
     {
-      "question": "What are the default security group rules for IPv6 GUA traffic on a VM?",
-      "answer": "By default, all outbound traffic from the VM is allowed, but no traffic originating from outside the VM is permitted until specific security group rules have been defined, which is the same behaviour as IPv4."
+      "question": "What are the default security group rules for IPv6 Global Unicast Addresses (GUA) on a virtual machine in Arbutus Cloud?",
+      "answer": "By default, all outbound traffic from the VM is allowed via the IPv6 GUA, but no traffic originating from outside the VM is allowed until specific security group rules are defined."
     },
     {
-      "question": "How can I find the ID of a VM using the OpenStack command-line interface to attach a network interface?",
-      "answer": "You can find the VM's ID by using the `openstack server list` command."
+      "question": "How can a user allow inbound traffic from outside a virtual machine to an IPv6 Global Unicast Address (GUA) in Arbutus Cloud?",
+      "answer": "Access from any IPv6 GUA can be granted by defining specific security group rules in OpenStack, using CIDR to detect the address type."
     },
     {
-      "question": "What OpenStack CLI command is used to assign an IPv6 GUA network interface to a VM?",
-      "answer": "The command `openstack server add network <VM_ID> IPv6-GUA` is used, where `<VM_ID>` is the virtual machine's identifier."
+      "question": "What OpenStack CLI command is used to add an IPv6 network interface to a virtual machine in the Arbutus Cloud?",
+      "answer": "The command is `openstack server add network <VM_ID> IPv6-GUA`."
     },
     {
-      "question": "How do I verify if an IPv6 GUA interface has been successfully assigned to a VM via the OpenStack CLI?",
-      "answer": "You can check the assignment status by running `openstack server list` again and observing the 'Networks' column for the VM."
+      "question": "What are the general steps to attach an IPv6 Global Unicast Address (GUA) interface to a virtual machine using the OpenStack web interface in the Arbutus Cloud?",
+      "answer": "Log in to the dashboard, go to 'Instances', click 'Attach Interface', select 'IPv6-GUA' from the network menu, and click 'Attach'."
     },
     {
-      "question": "What are the steps to configure an IPv6 GUA using the Arbutus Cloud web interface?",
-      "answer": "Log in to the dashboard, go to the 'Instances' menu, click 'Attach Interface', select 'IPv6-GUA (2607:f8f0:c11:7004::/64)' from the network menu, and then click 'Attach'."
+      "question": "When is an IPv6 Global Unicast Address (GUA) released back into the pool in the Arbutus Cloud environment?",
+      "answer": "The GUA is released and returned to the pool every time its interface is detached from a virtual machine."
     },
     {
-      "question": "When is an IPv6 GUA released and put back into the pool?",
-      "answer": "The GUA is released and put back into the pool every time its interface is detached, but not when the VM is rebuilt or restarted."
+      "question": "Does rebuilding or restarting a virtual machine release its IPv6 Global Unicast Address (GUA) in the Arbutus Cloud?",
+      "answer": "No, rebuilding or restarting a virtual machine will not release the GUA."
     },
     {
-      "question": "How is access from an IPv6 GUA granted via OpenStack Security Groups?",
-      "answer": "Access can be granted via 'Security Groups' in OpenStack, with the CIDR automatically detecting the address type."
+      "question": "How does a newly configured IPv6 network interface typically appear in a Linux virtual machine within the Arbutus Cloud environment?",
+      "answer": "It will appear as an additional eth-type interface, commonly as `/dev/eth1`, if `/dev/eth0` is the existing interface."
     },
     {
-      "question": "In a Linux VM, which interface typically becomes the new IPv6 enabled interface after configuration?",
-      "answer": "In most cases, the new IPv6 enabled interface will be `/dev/eth1`."
+      "question": "How can a user confirm if IPv6 is enabled on a Linux virtual machine in Arbutus Cloud before configuring a new interface?",
+      "answer": "Execute the command `sudo sysctl -a | grep ipv6.*disable`; the output should all end in zeros."
     },
     {
-      "question": "How can I confirm if IPv6 is enabled on a Linux VM before configuring the new interface?",
-      "answer": "You can confirm by running `sudo sysctl -a | grep ipv6.*disable`; the output should all end in zeros."
+      "question": "What kernel parameters should be added to `/etc/sysctl.conf` for an IPv6-enabled interface on a Linux virtual machine in Arbutus Cloud?",
+      "answer": "The parameters `net.ipv6.conf.eth1.forwarding=0` and `net.ipv6.conf.eth1.accept_ra=1` should be added."
     },
     {
-      "question": "Which kernel parameters should be added to `/etc/sysctl.conf` for the new IPv6 interface in Linux?",
-      "answer": "The parameters `net.ipv6.conf.eth1.forwarding=0` and `net.ipv6.conf.eth1.accept_ra=1` should be added to `/etc/sysctl.conf`."
+      "question": "What configurations should be added to the `/etc/sysconfig/network-scripts/ifcfg-eth1` file for an IPv6-enabled interface on a Linux virtual machine in Arbutus Cloud?",
+      "answer": "The configurations `IPV6INIT=yes`, `IPV6_AUTOCONF=yes`, `IPV6_DEFROUTE=yes`, and `IPV6_FAILURE_FATAL=no` should be added."
     },
     {
-      "question": "What configurations should be added to `/etc/sysconfig/network-scripts/ifcfg-eth1` for the IPv6 interface in Linux?",
-      "answer": "The following configurations should be added: `IPV6INIT=yes`, `IPV6_AUTOCONF=yes`, `IPV6_DEFROUTE=yes`, and `IPV6_FAILURE_FATAL=no`."
+      "question": "How can a user verify the IPv6 address configuration on a Linux virtual machine in Arbutus Cloud after setup?",
+      "answer": "The user can confirm the IPv6 configuration by running the command `ip -6 address`."
     },
     {
-      "question": "How can I confirm the IPv6 address configuration on a Linux VM after setting up the interface?",
-      "answer": "You can confirm the IPv6 configuration using the command `ip -6 address`."
-    },
-    {
-      "question": "What command can be used to confirm IPv6 connectivity on a Linux VM?",
-      "answer": "To confirm that IPv6 is working, you can use the command `ping6 -c 1 www.google.com`."
+      "question": "How can a user confirm that IPv6 connectivity is working on a Linux virtual machine in Arbutus Cloud?",
+      "answer": "The user can confirm connectivity by executing the command `ping6 -c 1 www.google.com`."
     }
   ],
-  "generated_at": "2026-04-12T10:22:43.275347+00:00"
+  "generated_at": "2026-04-13T15:24:54.855188+00:00"
 }

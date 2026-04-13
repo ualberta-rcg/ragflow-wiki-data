@@ -4,81 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is Flax?",
-      "answer": "Flax is a neural network library and ecosystem for JAX that is designed for flexibility."
+      "question": "What is Flax, and what is its core design philosophy for training models?",
+      "answer": "Flax is a neural network library and ecosystem for JAX, designed for flexibility. While its API for building models is similar to PyTorch and Keras, its API for training models is uniquely designed around functional programming, stemming from its JAX foundation."
     },
     {
-      "question": "How does Flax's API for building models compare to other popular libraries?",
-      "answer": "Flax's API for building models is similar to that of PyTorch and Keras, where models are expressed as sequences of modules."
+      "question": "What is the preferred method for installing Flax on Compute Canada systems?",
+      "answer": "The preferred method for installing Flax on Compute Canada systems is by using the Python wheel. This process involves loading a Python module, creating and activating a virtual environment, and then installing Flax within that environment using `pip install --no-index flax`."
     },
     {
-      "question": "What is unique about Flax's API for training models?",
-      "answer": "Being based on JAX, Flax's API for training models is designed around functional programming."
-    },
-    {
-      "question": "How can users check for the latest available Flax wheels?",
-      "answer": "Users can see the latest built version of Flax by using the command `avail_wheels \"flax*\"`."
-    },
-    {
-      "question": "What is the preferred method to install Flax on Compute Canada?",
-      "answer": "The preferred option is to install Flax using the Python wheel."
-    },
-    {
-      "question": "What are the steps to install Flax using the Compute Canada wheel?",
-      "answer": "The steps are: 1. Load a Python module with `module load python`. 2. Create and start a virtual environment. 3. Install Flax in the virtual environment with `pip install --no-index flax`."
-    },
-    {
-      "question": "How does Flax achieve high performance?",
-      "answer": "Flax derives its high-performance from the combination of a functional paradigm, automatic differentiation, and TensorFlow's Accelerated Linear Algebra (XLA) compiler."
-    },
-    {
-      "question": "How can JAX's Just-In-Time (JIT) compiler be used with XLA in Flax?",
-      "answer": "One can use JAX's JIT compiler to leverage XLA on code blocks (often compositions of functions) that are called repeatedly during a training loop, such as loss computation, backpropagation, and gradient updates."
-    },
-    {
-      "question": "What is an advantage of XLA regarding CPU and GPU code compilation?",
-      "answer": "XLA handles compiling code blocks into CPU or GPU code transparently, meaning your Python code is exactly the same regardless of the device where it will be executed."
-    },
-    {
-      "question": "What is the recommendation for training small-scale models using Flax?",
-      "answer": "When training small-scale models, it is strongly recommended to use multiple CPUs instead of a GPU."
-    },
-    {
-      "question": "Why should users avoid using a GPU for small-scale models on shared HPC clusters?",
-      "answer": "Using a GPU for small models on HPC clusters can lead to underutilized compute capabilities, unnecessarily blocking resources, consuming group allocation, and affecting the priority of colleagues' jobs."
-    },
-    {
-      "question": "When should a user avoid requesting a GPU for their Flax job?",
-      "answer": "A user should not ask for a GPU if their code is not capable of making reasonable use of its compute capacity."
-    },
-    {
-      "question": "What is the purpose of the `flax-example.sh` script?",
-      "answer": "The `flax-example.sh` script illustrates how to submit a Flax job with or without a GPU."
-    },
-    {
-      "question": "How can a user run the `flax-example.sh` script using only a CPU?",
-      "answer": "To run the `flax-example.sh` script using only a CPU, the line `#SBATCH --gres=gpu:1` should be removed."
-    },
-    {
-      "question": "What modules are loaded in the `flax-example.sh` script?",
-      "answer": "The `flax-example.sh` script loads the `python` module (default version) and the `cuda` module (if using a GPU)."
-    },
-    {
-      "question": "How are Flax and its dependencies installed within the `flax-example.sh` script?",
-      "answer": "Flax, TensorFlow, and torchvision are installed in a virtual environment (created in `$SLURM_TMPDIR/env`) using `pip install --no-index flax tensorflow torchvision`."
-    },
-    {
-      "question": "What is the `Net` class in `flax-example.py` designed for?",
-      "answer": "The `Net` class in `flax-example.py` defines a convolutional neural network model using `flax.linen` for CIFAR-10 classification."
-    },
-    {
-      "question": "What is the role of the `CastToJnp` class in `flax-example.py`?",
-      "answer": "The `CastToJnp` class is a helper class used to cast NumPy arrays to JAX arrays with a `jnp.float32` data type."
-    },
-    {
-      "question": "Which libraries handle data pre-processing and loading in `flax-example.py`, given that Flax and JAX don't provide this functionality?",
-      "answer": "PyTorch's `torchvision` (specifically `transforms` and `CIFAR10`) and `torch.utils.data` (`DataLoader`) are used for pre-processing and data loading."
+      "question": "When should users consider using multiple CPUs instead of a single GPU for Flax training on HPC clusters?",
+      "answer": "For training small-scale models, users are strongly recommended to use multiple CPUs instead of a single GPU. While a GPU might offer faster training, if the model and dataset are not sufficiently large, the speed-up relative to CPUs will likely be insignificant, leading to underutilized GPU compute capabilities. In a shared HPC environment, this unnecessarily blocks resources needed by other users for large-scale computations and impacts group allocation and job priority."
     }
   ],
-  "generated_at": "2026-04-11T21:37:58.367457+00:00"
+  "generated_at": "2026-04-13T05:24:23.792775+00:00"
 }

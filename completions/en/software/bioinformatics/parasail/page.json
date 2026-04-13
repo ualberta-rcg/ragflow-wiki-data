@@ -3,73 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is parasail?",
-      "answer": "parasail is a SIMD C (C99) library that provides implementations of various pairwise sequence alignment algorithms."
+      "question": "What is the parasail library used for on Alliance clusters?",
+      "answer": "parasail is a SIMD C (C99) library that provides implementations for various pairwise sequence alignment algorithms, including Smith-Waterman (local), Needleman-Wunsch (global), and semi-global alignments."
     },
     {
-      "question": "Which sequence alignment algorithms does parasail implement?",
-      "answer": "It implements the Smith-Waterman (local), Needleman-Wunsch (global), and various semi-global pairwise sequence alignment algorithms."
+      "question": "How does the parasail-python extension integrate with different StdEnv versions on Alliance clusters?",
+      "answer": "From StdEnv/2023 onwards, the parasail-python extension is bundled directly within the parasail module. For StdEnv/2020, the parasail module needs to be loaded separately for the Python extension to be installed in a virtual environment."
     },
     {
-      "question": "How does the parasail-python extension behave with StdEnv/2023 onwards?",
-      "answer": "With StdEnv/2023 onwards, the parasail-python extension is bundled directly within the parasail module."
+      "question": "How can a user find the available versions of the parasail library on Alliance clusters?",
+      "answer": "Users can find the required versions by running the command `module spider parasail`."
     },
     {
-      "question": "How does the parasail-python extension behave with StdEnv/2020?",
-      "answer": "With StdEnv/2020, the parasail module must be loaded for the Python extension to be installed in a virtual environment."
+      "question": "What is the command to load a specific version of the parasail library on Alliance clusters?",
+      "answer": "A specific version of the library, such as 2.6.2, can be loaded using the command `module load parasail/2.6.2`."
     },
     {
-      "question": "How can one find available versions of the parasail library?",
-      "answer": "You can find required versions by running the command `module spider parasail`."
+      "question": "When using the `parasail_aligner` binary on Alliance clusters, how should the number of threads be set?",
+      "answer": "When using the `parasail_aligner` binary, the number of threads should be set to match the number of cores allocated for the job using the option `-t ${SLURM_CPUS_PER_TASK:-1}`."
     },
     {
-      "question": "How do you load a specific version of the parasail library?",
-      "answer": "You can load the library using a command such as `module load parasail/2.6.2`."
+      "question": "How can a user determine which Python versions are compatible with a specific parasail module on Alliance clusters?",
+      "answer": "To discover compatible Python versions, a user can run a command like `module spider parasail/1.3.4`."
     },
     {
-      "question": "How should the number of threads be set when using the parasail_aligner binary?",
-      "answer": "The number of threads should be set to match the number of allocated cores in your job, for example, `parasail_aligner -t ${SLURM_CPUS_PER_TASK:-1}`."
+      "question": "What modules need to be loaded to use the parasail Python extension with a default StdEnv on Alliance clusters?",
+      "answer": "To use the parasail Python extension, users typically need to load `parasail/2.6.2`, `python/3.11`, and `scipy-stack/2023b`."
     },
     {
-      "question": "How do you identify compatible Python versions for the parasail module?",
-      "answer": "To discover compatible Python versions, you can run `module spider parasail/<version>`, such as `module spider parasail/1.3.4`."
+      "question": "How can a user verify that the parasail Python module has been successfully imported in their environment on Alliance clusters?",
+      "answer": "Users can verify a successful import by running `python -c \"import parasail\"`; if the command displays nothing, the import was successful."
     },
     {
-      "question": "What modules are typically loaded to use the parasail Python extension with StdEnv/2023b?",
-      "answer": "You would typically load `parasail/2.6.2`, `python/3.11`, and `scipy-stack/2023b`."
+      "question": "What is the purpose of the provided Python script `parasail-sw.py` in the documentation for Alliance clusters?",
+      "answer": "The `parasail-sw.py` script serves as an example to compare local alignment scores between the parasail library and BioPython."
     },
     {
-      "question": "How can you verify if the parasail Python extension imported successfully?",
-      "answer": "Run `python -c \"import parasail\"`. If no output is displayed, the import was successful."
+      "question": "What modules are required for a job submission script using the parasail Python extension with StdEnv/2020 on Alliance clusters?",
+      "answer": "For StdEnv/2020, the required modules include `StdEnv/2020`, `gcc`, `parasail/2.5`, and `python/3.10`."
     },
     {
-      "question": "What is the purpose of the provided Python example script `parasail-sw.py`?",
-      "answer": "The script demonstrates a quick local alignment score comparison between parasail and BioPython for identical sequences."
+      "question": "How does one install the parasail Python package into a virtual environment when using StdEnv/2020 on Alliance clusters?",
+      "answer": "After activating the virtual environment and loading the appropriate parasail module, users should install the desired parasail version, for example, `pip install --no-index parasail==1.2.4`."
     },
     {
-      "question": "What are the key steps to run the parasail Python example on a cluster?",
-      "answer": "The steps include writing the Python script, creating a job submission script (setting up a virtual environment and installing dependencies), and submitting the job with `sbatch`."
+      "question": "How does a user submit a job script named `submit-parasail.sh` to the Slurm workload manager on Alliance clusters?",
+      "answer": "A job script named `submit-parasail.sh` can be submitted using the command `sbatch submit-parasail.sh`."
     },
     {
-      "question": "How do you install Biopython for the parasail Python example within a virtual environment using the Default StdEnv?",
-      "answer": "After activating a virtual environment, use `pip install --no-index biopython==1.83`."
+      "question": "After a job has finished running on Alliance clusters, how can a user view its output file?",
+      "answer": "The job's output can be viewed in the Slurm output file, typically by running `less slurm-*.out`."
     },
     {
-      "question": "What is the process for installing the parasail Python extension in a virtual environment when using StdEnv/2020?",
-      "answer": "First, identify available wheels with `avail_wheel parasail`, then install the desired version in your virtual environment using `pip install --no-index parasail==<version>`."
-    },
-    {
-      "question": "How do you view the output of a submitted Slurm job?",
-      "answer": "You can view the output by checking the Slurm output file, for example, using `less slurm-*.out`."
-    },
-    {
-      "question": "What is the expected output when running the `parasail-sw.py` script from the example?",
-      "answer": "The expected output will show identical scores for parasail and biopython, such as `parasail: 4000` and `biopython: 4000.0`."
-    },
-    {
-      "question": "How can you check the installed version of the parasail Python package after loading the module?",
-      "answer": "You can check by running `pip list | grep parasail`, which will display the installed version, like `parasail 1.3.4`."
+      "question": "How can a user check the version of the parasail Python package installed in their virtual environment on Alliance clusters?",
+      "answer": "Users can check the installed version by running `pip list | grep parasail`."
     }
   ],
-  "generated_at": "2026-04-12T05:12:17.061477+00:00"
+  "generated_at": "2026-04-13T11:12:48.804871+00:00"
 }

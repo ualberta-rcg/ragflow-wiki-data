@@ -4,69 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Quelles commandes d'archivage sont permises par le script `/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/archiving_commands.sh`?",
-      "answer": "Ce script permet les commandes comme `gzip`, `tar` ou `dar`."
+      "question": "Quels sont les scripts enveloppants préconfigurés que l'on peut utiliser avec la contrainte `command=` dans une clé SSH pour les nœuds d'automatisation, et quelles sont leurs fonctions ?",
+      "answer": "Il existe plusieurs scripts enveloppants prédéfinis. Par exemple, `/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/transfer_commands.sh` autorise uniquement les commandes de transfert de fichiers comme `scp` ou `rsync`. Le script `archiving_commands.sh` permet les commandes d'archivage (comme `gzip` ou `tar`), `file_commands.sh` les manipulations de fichiers (comme `mv` ou `rm`), `git_commands.sh` la commande `git`, et `slurm_commands.sh` certaines commandes Slurm (comme `squeue` ou `sbatch`). Si vous voulez permettre toutes ces commandes, vous pouvez utiliser `/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/allowed_commands.sh`."
     },
     {
-      "question": "Quel est le rôle du script `/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/file_commands.sh`?",
-      "answer": "Ce script permet les commandes de manipulation de fichiers, comme `mv`, `cp` ou `rm`."
+      "question": "Comment faire pour se connecter aux nœuds d'automatisation des différentes grappes comme Fir, Narval, Nibi, Rorqual, tamIA ou Trillium ?",
+      "answer": "Pour vous connecter à un nœud d'automatisation, vous devez utiliser des adresses spécifiques. Par exemple, pour Fir, l'adresse est `robot.fir.alliancecan.ca`; pour Narval, c'est `robot.narval.alliancecan.ca`; pour Nibi, `robot.nibi.alliancecan.ca`; pour Rorqual, `robot.rorqual.alliancecan.ca`; pour tamIA, `robot.tamia.ecpia.ca`; et pour Trillium, `robot2.scinet.utoronto.ca`."
     },
     {
-      "question": "Quelle commande spécifique est permise par le script `/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/git_commands.sh`?",
-      "answer": "Le script `/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/git_commands.sh` permet la commande `git`."
-    },
-    {
-      "question": "Quelles sont quelques-unes des commandes Slurm que le script `/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/slurm_commands.sh` autorise?",
-      "answer": "Ce script permet certaines commandes Slurm, comme `squeue` et `sbatch`."
-    },
-    {
-      "question": "Quel est le script enveloppant qui permet toutes les commandes mentionnées précédemment?",
-      "answer": "C'est le script `/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/allowed_commands.sh` qui permet toutes les commandes ci-dessus."
-    },
-    {
-      "question": "Donnez un exemple de contrainte de clé SSH valide pour permettre le transfert de fichiers avec `scp`, `sftp` ou `rsync` à partir d'une adresse IP spécifique.",
-      "answer": "Un exemple valide est : `restrict,from=\"216.18.209.*\",command=\"/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/transfer_commands.sh\" ssh-ed25519 AAAAC3NzaC1lZDI1NTE6AACAIExK9iTTDGsyqKKzduA46DvIJ9oFKZ/WN5memqG9Invw`."
-    },
-    {
-      "question": "Comment configurer une clé SSH pour qu'elle permette uniquement des commandes Slurm, comme `squeue` ou `sbatch`?",
-      "answer": "On utiliserait une contrainte comme celle-ci : `restrict,from=\"216.18.209.*\",command=\"/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/slurm_commands.sh\" ssh-ed25519 AAAAC3NzaC1lZDI1NTE6AACAIExK9iTTDGsyqKKzduA46DvIJ9oFKZ/WN5memqG9Invw`."
-    },
-    {
-      "question": "Quelle est la chose importante à vérifier avant d'ajouter une clé SSH à votre compte CCDB?",
-      "answer": "Avant d’ajouter la clé SSH dans votre compte CCDB, il faut vous assurer que les contraintes sont bien indiquées comme dans les exemples fournis."
-    },
-    {
-      "question": "Quelles sont les adresses pour se connecter aux nœuds d'automatisation des grappes Fir et Narval?",
-      "answer": "Pour Fir, c'est `robot.fir.alliancecan.ca`, et pour Narval, c'est `robot.narval.alliancecan.ca`."
-    },
-    {
-      "question": "Comment se connecter au nœud d'automatisation de Rorqual?",
-      "answer": "L'adresse pour se connecter au nœud d'automatisation de Rorqual est `robot.rorqual.alliancecan.ca`."
-    },
-    {
-      "question": "Quelle est l'adresse du nœud d'automatisation pour la grappe tamIA?",
-      "answer": "L'adresse pour tamIA est `robot.tamia.ecpia.ca`."
-    },
-    {
-      "question": "Comment s'assurer d'utiliser la bonne clé privée si on a plusieurs clés SSH, par exemple avec la commande `ssh` ou `scp`?",
-      "answer": "On peut le faire en passant le paramètre `-i .ssh/private_key_to_use` à la commande, comme dans `ssh -i .ssh/private_key_to_use ...`."
-    },
-    {
-      "question": "Comment spécifier une clé privée SSH spécifique lors de l'utilisation de `rsync`?",
-      "answer": "Avec `rsync`, il faut utiliser l'option `-e \"ssh -i .ssh/private_key_to_use\" ...`."
-    },
-    {
-      "question": "Où est-il plus pratique d'inclure les paramètres SSH pour qu'ils soient automatiquement pris en compte?",
-      "answer": "Il est souvent beaucoup plus pratique d'inclure ces paramètres dans votre fichier `~/.ssh/config`."
-    },
-    {
-      "question": "Donnez un exemple de configuration SSH dans `~/.ssh/config` pour un hôte `robot`.",
-      "answer": "Un exemple est: `host robot\n hostname robot.cluster.alliancecan.ca\n user myrobot\n identityfile ~/.ssh/my-robot-key\n identitiesonly yes\n requesttty no`."
-    },
-    {
-      "question": "Quel problème d'adressage peut survenir lors de la connexion à un nœud d'automatisation avec SSH, surtout sous Windows?",
-      "answer": "Le client SSH de votre ordinateur pourrait choisir l'adressage IPv6 plutôt que l'IPv4 moins récent, ce qui peut causer un problème si le masque d'adresse IP dans la contrainte `restrict,from=` de la clé SSH ne correspond pas au type d'adresse utilisé."
+      "question": "Quand on a plusieurs clés SSH, comment s'assurer d'utiliser la bonne pour se connecter à un nœud d'automatisation ou pour un transfert de fichiers ?",
+      "answer": "Pour vous assurer d'utiliser la bonne clé, vous pouvez spécifier le chemin de votre clé privée directement avec l'option `-i` pour les commandes `ssh` ou `scp`, par exemple `ssh -i .ssh/private_key_to_use ...`. Pour `rsync`, utilisez `-e \"ssh -i .ssh/private_key_to_use\" ...`. Pour plus de commodité, il est souvent plus pratique d'ajouter ces paramètres dans votre fichier `~/.ssh/config` pour les hôtes d'automatisation."
     }
   ],
-  "generated_at": "2026-04-11T18:10:54.147339+00:00"
+  "generated_at": "2026-04-13T02:41:13.427295+00:00"
 }

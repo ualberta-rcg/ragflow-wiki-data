@@ -3,65 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is PGPROF used for?",
-      "answer": "PGPROF is a tool for analyzing the performance of parallel programs written with OpenMP, MPI, OpenACC, or CUDA."
+      "question": "What is PGPROF and what is its primary purpose for users of parallel computing?",
+      "answer": "PGPROF is a powerful and simple tool designed for analyzing the performance of parallel programmes."
     },
     {
-      "question": "What are the two available profiling modes in PGPROF?",
-      "answer": "PGPROF offers both a command-line mode and a graphical mode for profiling."
+      "question": "Which types of parallel programmes can PGPROF analyze for performance issues?",
+      "answer": "PGPROF can analyze programmes written with OpenMP, MPI, OpenACC, or CUDA."
     },
     {
-      "question": "What are the two main steps when using PGPROF?",
-      "answer": "The two main steps are data collection, which involves running the application with profiling enabled, and analysis, which involves visualizing the collected data."
+      "question": "What are the two main profiling modes available to users when working with PGPROF?",
+      "answer": "PGPROF offers two profiling modes: command-line mode and graphical mode."
     },
     {
-      "question": "What module needs to be loaded before using PGPROF?",
-      "answer": "The appropriate PGI environment module, which is part of the PGI compiler package, needs to be loaded before profiling with PGPROF."
+      "question": "What are the two essential steps involved in using PGPROF for performance analysis?",
+      "answer": "The two essential steps are data collection (running the application with profiling enabled) and analysis (visualizing the produced data)."
     },
     {
-      "question": "How can I see what versions of PGI modules are available?",
-      "answer": "You can run `module avail pgi` to see available versions compatible with your loaded compiler, MPI, and CUDA modules, or `module -r spider '.*pgi.*'` for a comprehensive list."
+      "question": "How do users load the necessary PGPROF environment module before starting profiling?",
+      "answer": "Users need to load the appropriate PGI compiler module, for example, by using the command `module load pgi/17.3`."
     },
     {
-      "question": "How should code be compiled to get useful information from PGPROF?",
-      "answer": "Your code needs to be compiled using one of the PGI compilers (pgcc for C, pgc++ for C++, pgfortran for Fortran), and for Fortran, the `-g` flag may be required."
+      "question": "What is the prerequisite for compiling user code to ensure useful information can be gathered by PGPROF?",
+      "answer": "Code must be compiled with one of the PGI compilers (e.g., `pgcc`, `pgc++`, `pgfortran`), and Fortran source may require the `-g` flag."
     },
     {
-      "question": "How do I collect performance data in PGPROF's command-line mode?",
-      "answer": "To collect data, you run your application with `pgprof -o [output_file] [your_application]`, for example, `pgprof -o a.prof ./a.out`."
+      "question": "How do users collect performance data for an application named `a.out` and save it to `a.prof` using PGPROF in command-line mode?",
+      "answer": "Users collect data with the command `pgprof -o a.prof ./a.out`."
     },
     {
-      "question": "How do I analyze previously collected performance data in command-line mode?",
-      "answer": "You can visualize the data using `pgprof -i [data_file]`, for instance, `pgprof -i a.prof`."
+      "question": "After collecting performance data, how can users visualize it in PGPROF's command-line mode from a file named `a.prof`?",
+      "answer": "Users visualize the data using the command `pgprof -i a.prof`."
     },
     {
-      "question": "What categories of profiling results are typically shown in command-line analysis?",
-      "answer": "Profiling results are usually divided into categories such as GPU kernel execution profile, CUDA API execution profile, OpenACC execution profile, and CPU execution profile."
+      "question": "What are some of the categories of profiling results that PGPROF typically provides in command-line analysis?",
+      "answer": "Results are typically divided into categories such as GPU kernel execution profile, CUDA API execution profile, OpenACC execution profile, and CPU execution profile."
     },
     {
-      "question": "Which command-line option displays only the CPU profiling results?",
-      "answer": "The `--cpu-profiling` option will show only the CPU results in command-line mode."
+      "question": "How can users display only the CPU profiling results when analyzing data in PGPROF's command-line mode?",
+      "answer": "Users can use the `--cpu-profiling` option, for example: `pgprof --cpu-profiling -i a.prof`."
     },
     {
-      "question": "How can I view the CPU profiling results with the main subroutine at the top in command-line mode?",
-      "answer": "You can use the `--cpu-profiling-mode top-down` option with `pgprof -i` to display results with the main subroutine at the top."
+      "question": "What is the difference between the `top-down` and `bottom-up` CPU profiling modes when analyzing data with PGPROF in command-line?",
+      "answer": "`top-down` mode shows the main subroutine at the top with called functions below, while `bottom-up` mode shows each function followed by functions that called it, working backwards to the main function."
     },
     {
-      "question": "Where should the PGPROF graphical user interface (GUI) be executed?",
-      "answer": "The PGPROF GUI, which is Java-based, should be executed on a compute node in an interactive session, typically started with `salloc --x11` to enable X11 forwarding."
+      "question": "Why is it recommended to launch PGPROF's graphical user interface (GUI) on a compute node instead of a login node?",
+      "answer": "The GUI, being Java-based, requires more memory than typically available on login nodes, making compute nodes more suitable."
     },
     {
-      "question": "How do you start a new profiling session in PGPROF's graphical mode?",
-      "answer": "In graphical mode, you open the 'File' menu, click 'New Session', then select your executable file, add arguments, and click 'Next' followed by 'Finish'."
+      "question": "What is required to enable X11 forwarding for launching PGPROF's graphical mode in an interactive session on a compute node?",
+      "answer": "An interactive session should be started using `salloc --x11 ...` to enable X11 forwarding."
     },
     {
-      "question": "What are the four main panes in the PGPROF graphical visualization window?",
+      "question": "What are the initial steps for setting up a new data collection session in PGPROF's graphical mode?",
+      "answer": "Users need to launch the profiler, open the 'File' menu, click 'New Session', select the executable, and add any profiling arguments."
+    },
+    {
+      "question": "What are the four main panes available in the PGPROF graphical visualization window for analysing performance data?",
       "answer": "The four main panes are the timeline, GPU Details, CPU Details, and Properties."
     },
     {
-      "question": "Who developed PGPROF?",
-      "answer": "PGPROF is a product of PGI, which is a subsidiary of NVIDIA Corporation."
+      "question": "Which pane in PGPROF's graphical mode displays performance details specifically for GPU kernels?",
+      "answer": "The 'GPU Details' pane shows performance details for the GPU kernels."
+    },
+    {
+      "question": "What is the affiliation of PGI, the producer of PGPROF?",
+      "answer": "PGI is a subsidiary of NVIDIA Corporation."
     }
   ],
-  "generated_at": "2026-04-12T04:47:55.532780+00:00"
+  "generated_at": "2026-04-13T10:51:49.646648+00:00"
 }

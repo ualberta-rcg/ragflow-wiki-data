@@ -4,121 +4,13 @@
   "chunk_index": 17,
   "qa_pairs": [
     {
-      "question": "C'est quoi, Terraform?",
-      "answer": "Terraform est un outil qui sert à définir et à approvisionner l'infrastructure de centres de données, incluant des machines virtuelles."
+      "question": "Dans la sortie d'un plan Terraform (avec la commande `terraform plan`), que signifie le symbole `-/+` quand il est affiché à côté d'une ressource comme `openstack_compute_instance_v2.myvm` ou `openstack_compute_floatingip_associate_v2.myvm_fip`?",
+      "answer": "Le symbole `-/+` dans la sortie d'un plan Terraform indique que la ressource sera remplacée. Ça veut dire que Terraform va détruire l'ancienne ressource avant d'en créer une nouvelle qui correspond aux modifications de la configuration."
     },
     {
-      "question": "Pourquoi l'Alliance utilise-t-elle de plus en plus Terraform?",
-      "answer": "Terraform utilise un modèle d'infrastructure-en-code, ce qui permet de gérer les ressources OpenStack comme une collection de définitions qui sont faciles à mettre à jour, à partager et à stocker dans un système de contrôle de version."
-    },
-    {
-      "question": "Quelles sont les trois choses nécessaires avant de commencer à utiliser Terraform?",
-      "answer": "Pour commencer avec Terraform, il faut un accès à un projet OpenStack avec des ressources disponibles, le binaire `terraform` installé, et quelques configurations faites sur votre poste de travail ou ordinateur portable."
-    },
-    {
-      "question": "Que devrait faire un nouvel utilisateur OpenStack avant d'utiliser Terraform pour les nuages OpenStack de l'Alliance?",
-      "answer": "Il devrait se familiariser avec OpenStack en créant manuellement une machine virtuelle, en attachant un volume, en associant une IP flottante et en s'assurant qu'il peut s'y connecter par la suite. C'est aussi une bonne idée d'avoir déjà créé une paire de clés SSH et importé la clé publique dans OpenStack."
-    },
-    {
-      "question": "Quelle version de Terraform est utilisée dans ce tutoriel?",
-      "answer": "Ce tutoriel utilise Terraform 0.12."
-    },
-    {
-      "question": "Comment peut-on fournir ses identifiants OpenStack à Terraform dans un environnement de ligne de commande?",
-      "answer": "Il y a deux façons : via des variables d'environnement ou dans un fichier de configuration comme `clouds.yaml`."
-    },
-    {
-      "question": "Où peut-on télécharger un fichier d'identifiants OpenStack (comme `clouds.yaml` ou un fichier RC)?",
-      "answer": "Après s'être connecté, on clique sur 'API Access' dans la barre de navigation, puis on utilise le menu déroulant 'Download OpenStack RC File'."
-    },
-    {
-      "question": "Comment activer les variables d'environnement OpenStack à partir d'un fichier RC?",
-      "answer": "Il faut exécuter la commande `$ source openrc.sh` dans l'interpréteur de commandes."
-    },
-    {
-      "question": "Quelle est la meilleure pratique pour le nom des nuages dans le fichier `clouds.yaml` si on en utilise plusieurs?",
-      "answer": "Il est recommandé de modifier le nom du nuage en un nom significatif dans le fichier téléchargé, surtout si vous utilisez plusieurs nuages OpenStack."
-    },
-    {
-      "question": "Pourquoi est-il utile d'avoir une fenêtre de terminal ouverte avec l'interface de ligne de commande OpenStack pendant qu'on travaille avec Terraform?",
-      "answer": "Ça fournit une référence pratique pour les identifiants de gabarits (flavors) et d'image, et ça permet de vérifier que Terraform produit les effets escomptés."
-    },
-    {
-      "question": "Quel est le rôle du fournisseur OpenStack dans Terraform?",
-      "answer": "Le fournisseur OpenStack indique à Terraform comment utiliser OpenStack, et lors de l'initialisation, il installe le plugiciel nécessaire pour que Terraform puisse se connecter au nuage spécifié et le gérer."
-    },
-    {
-      "question": "Pourquoi est-il fortement déconseillé de stocker les mots de passe et autres identifiants directement dans la configuration Terraform, même sur son propre poste de travail?",
-      "answer": "Pour des raisons de sécurité. Ce n'est pas une bonne pratique de stocker des informations sensibles dans des fichiers de configuration qui pourraient être copiés ou déplacés, augmentant les risques de piratage."
-    },
-    {
-      "question": "Quelle commande Terraform faut-il exécuter après avoir défini un fournisseur dans un fichier comme `nodes.tf`?",
-      "answer": "Il faut exécuter `terraform init` pour initialiser Terraform et télécharger le plugiciel du fournisseur."
-    },
-    {
-      "question": "La commande `terraform init` vérifie-t-elle les identifiants OpenStack fournis?",
-      "answer": "Non, elle ne fait que télécharger le plugiciel, elle n'essaie pas de se connecter au fournisseur défini ni de valider les identifiants."
-    },
-    {
-      "question": "Quel conseil important est donné pour spécifier les gabarits et les images dans une définition de VM Terraform?",
-      "answer": "Il est recommandé de toujours utiliser leurs identifiants (UUIDs) plutôt que leurs noms, car les UUIDs sont permanents et ne changeront jamais, contrairement aux noms qui pourraient être modifiés ou réutilisés, ce qui pourrait entraîner des destructions/reconstructions accidentelles de ressources."
-    },
-    {
-      "question": "Que faut-il faire si une erreur `Multiple possible networks found, use a Network ID to be more specific.` survient lors de la création d'une VM?",
-      "answer": "Il faut ajouter un sous-bloc `network` à la définition de la VM pour spécifier le nom du réseau privé à utiliser, par exemple `name = \"my-tenant-net\"`."
-    },
-    {
-      "question": "Que fait la commande `terraform plan`?",
-      "answer": "Elle compile la définition de Terraform, essaie de déterminer comment concilier l'état désiré avec l'état actuel du nuage, et produit un plan des modifications qui seraient appliquées."
-    },
-    {
-      "question": "Pourquoi est-il crucial de lire attentivement le résultat de `terraform plan`?",
-      "answer": "Pour éviter les mauvaises surprises, surtout si des ressources existantes risquent d'être modifiées ou détruites. Il faut vérifier la ligne \"Plan: X to add, Y to change, Z to destroy.\"."
-    },
-    {
-      "question": "Est-ce que Terraform affecte les machines virtuelles OpenStack déjà existantes qui ne sont pas définies dans sa configuration?",
-      "answer": "Non, Terraform ne connaît pas les ressources déjà définies pour le projet si elles ne sont pas représentées dans sa configuration et ne tentera pas de les modifier."
-    },
-    {
-      "question": "Quel est le rôle du fichier `terraform.tfstate`?",
-      "answer": "C'est un fichier d'état créé par Terraform qui contient les détails des ressources gérées. Il est essentiel pour que Terraform puisse déterminer comment atteindre un nouvel état de configuration."
-    },
-    {
-      "question": "Après avoir créé une VM sur un réseau privé avec Terraform, pourquoi ne peut-on pas s'y connecter via SSH?",
-      "answer": "Parce qu'aucune adresse IP flottante n'a été attribuée à cet hôte, il n'est donc pas directement accessible de l'extérieur du locataire."
-    },
-    {
-      "question": "Comment allouer une adresse IP flottante avec Terraform?",
-      "answer": "Il faut déclarer une ressource `openstack_networking_floatingip_v2` en spécifiant le `pool` (par exemple, `ext_net`) d'où l'IP sera allouée."
-    },
-    {
-      "question": "Comment associer une IP flottante à une instance de VM OpenStack avec Terraform?",
-      "answer": "Il faut utiliser la ressource `openstack_compute_floatingip_associate_v2` en lui passant les attributs `floating_ip` et `instance_id` qui réfèrent aux ressources d'IP flottante et de VM déjà définies."
-    },
-    {
-      "question": "L'ajout d'un volume racine à une machine virtuelle existante avec Terraform est-il une opération destructrice?",
-      "answer": "Oui, c'est une opération destructrice, car cela remplace le disque de démarrage de la machine virtuelle, ce qui entraînera une reconstruction de l'instance."
-    },
-    {
-      "question": "Que signifie `delete_on_termination = true` dans le bloc `block_device` d'une VM Terraform?",
-      "answer": "Cela indique que le volume sera automatiquement supprimé lorsque la machine virtuelle sera détruite. C'est utile pour les tests, mais `false` est souvent préférable pour une utilisation réelle pour éviter la suppression accidentelle de données."
-    },
-    {
-      "question": "Si l'on ajoute un bloc `block_device` pour un volume racine, pourquoi est-il important de supprimer l'attribut `image_id` de la définition externe de l'instance de calcul?",
-      "answer": "Si l'attribut `image_id` reste défini en même temps que le `block_device` pour un volume, Terraform tentera constamment de reconstruire l'instance à chaque exécution, en alternant entre le démarrage par volume et le démarrage direct à partir de l'image."
-    },
-    {
-      "question": "Après avoir ajouté un volume racine à une VM existante et que le plan Terraform indique une recréation, que doit-on faire si on s'est déjà connecté à la VM via SSH?",
-      "answer": "Il faut supprimer la clé SSH de la VM reconstruite de son fichier `known_hosts` (ou équivalent), car la VM aura une nouvelle clé SSH."
-    },
-    {
-      "question": "Où peut-on trouver l'UUID d'une image OpenStack via l'interface web Horizon?",
-      "answer": "Dans Horizon, il faut aller sous `Compute` (Calcul), cliquer sur `Images`, puis sélectionner l'image désirée pour voir son ID (UUID)."
-    },
-    {
-      "question": "Est-il possible de trouver directement l'UUID d'un gabarit (flavor) OpenStack via l'interface web Horizon?",
-      "answer": "Non, Horizon ne montre que le nom du gabarit. Pour obtenir l'ID, il faut soit utiliser le nom pour une première exécution Terraform et récupérer l'ID du fichier d'état, soit utiliser l'interface de ligne de commande OpenStack (ce qui est recommandé)."
+      "question": "Quand Terraform affiche « # forces replacement » (qui signifie \"force le remplacement\") à côté d'un attribut comme `instance_id` dans la sortie d'un plan, qu'est-ce que ça veut dire?",
+      "answer": "Le commentaire « # forces replacement » signifie qu'une modification à cet attribut spécifique, par exemple l'attribut `instance_id`, est si significative qu'elle exige la destruction de la ressource existante et sa recréation. La ressource ne peut pas être mise à jour directement."
     }
   ],
-  "generated_at": "2026-04-12T09:16:09.086523+00:00"
+  "generated_at": "2026-04-13T14:30:53.281379+00:00"
 }

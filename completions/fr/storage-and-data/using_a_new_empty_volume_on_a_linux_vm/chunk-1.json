@@ -4,61 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Quelles sont les étapes générales pour préparer et utiliser un nouveau volume dans un environnement Linux?",
-      "answer": "Dans la plupart des environnements Linux, les étapes consistent à partitionner, formater et ensuite monter le nouveau volume."
+      "question": "Comment partitionner, formater et monter un nouveau volume de stockage dans un environnement Linux?",
+      "answer": "Pour partitionner, formater et monter un nouveau volume sur Linux, il faut d'abord le partitionner avec `sudo fdisk /dev/vdb` en répondant aux questions (`n` pour nouvelle partition, `p` pour primaire, `1` pour le numéro de partition, puis deux fois `<return>` pour les secteurs par défaut, et `w` pour écrire et quitter). Ensuite, on formate la nouvelle partition avec `sudo mkfs -t ext4 /dev/vdb1`. Après, on crée le point de montage avec `sudo mkdir /media/data` et finalement, on monte le volume avec `sudo mount /dev/vdb1 /media/data`. Il est crucial de ne pas exécuter le partitionnement et le formatage si ce n'est pas un nouveau volume, car ça effacerait les données existantes."
     },
     {
-      "question": "Est-ce que je devrais partitionner et formater un volume si ce n'est pas un nouveau volume?",
-      "answer": "Non, si ce n'est pas un nouveau volume, vous ne devriez pas exécuter le partitionnement et le formatage, car ça pourrait entraîner la perte de données. Procédez seulement au montage."
+      "question": "Comment s'assurer qu'un volume soit monté automatiquement après la réinitialisation d'une instance Linux?",
+      "answer": "Pour qu'un volume soit monté automatiquement après une réinitialisation de l'instance, il faut modifier le fichier `/etc/fstab`. On y ajoute une ligne comme `/dev/vdb1 /media/data ext4 defaults 0 2`. Si l'instance n'est pas réinitialisée et qu'on veut monter un périphérique qu'on vient d'ajouter à `/etc/fstab`, on peut utiliser la commande `sudo mount -a`."
     },
     {
-      "question": "Quelle commande utilise-t-on pour partitionner un volume?",
-      "answer": "Pour partitionner le volume, on utilise la commande `sudo fdisk /dev/vdb`."
-    },
-    {
-      "question": "Quelles sont les options à entrer dans `fdisk` pour créer une nouvelle partition primaire, numéro 1, avec les valeurs par défaut pour les secteurs, et pour écrire les changements sur le disque?",
-      "answer": "Dans `fdisk`, il faut entrer les caractères suivants: `n` pour une nouvelle partition, `p` pour primaire, `1` pour la partition numéro 1, appuyer sur `<return>` deux fois pour accepter les valeurs par défaut des secteurs, et `w` pour écrire la table de partition sur disque et quitter."
-    },
-    {
-      "question": "Comment formate-t-on la nouvelle partition avec le système de fichiers `ext4`?",
-      "answer": "Pour formater la nouvelle partition avec le système de fichiers `ext4`, on utilise la commande `sudo mkfs -t ext4 /dev/vdb1`."
-    },
-    {
-      "question": "Quelle commande sert à créer le répertoire où le périphérique sera monté?",
-      "answer": "On utilise la commande `sudo mkdir /media/data` pour créer l'endroit où monter le périphérique."
-    },
-    {
-      "question": "Quelle commande utilise-t-on pour monter le volume `/dev/vdb1` dans le répertoire `/media/data`?",
-      "answer": "Pour monter le volume, on utilise la commande `sudo mount /dev/vdb1 /media/data`."
-    },
-    {
-      "question": "Que se passe-t-il si l'instance est réinitialisée après avoir monté un volume?",
-      "answer": "Si l'instance est réinitialisée, le volume devra être monté à nouveau."
-    },
-    {
-      "question": "Comment peut-on s'assurer qu'un volume est monté automatiquement après le redémarrage d'une instance?",
-      "answer": "Pour que l'instance remonte le volume automatiquement, il faut modifier le fichier `/etc/fstab` en y ajoutant une ligne spécifique."
-    },
-    {
-      "question": "Quelle ligne devrait être ajoutée à `/etc/fstab` pour que le volume `/dev/vdb1` soit monté automatiquement dans `/media/data` avec le système de fichiers `ext4`?",
-      "answer": "Il faut ajouter la ligne `/dev/vdb1 /media/data ext4 defaults 0 2` au fichier `/etc/fstab`."
-    },
-    {
-      "question": "Si l'instance n'a pas été réinitialisée, mais que des périphériques ont été ajoutés à `/etc/fstab`, quelle commande peut être utilisée pour les monter sans redémarrer?",
-      "answer": "Si l'instance n'est pas réinitialisée, on peut monter les nouveaux périphériques ajoutés à `/etc/fstab` avec la commande `sudo mount -a`."
-    },
-    {
-      "question": "Pourquoi est-il important de démonter un volume avant d'en créer une image ou de le brancher à une autre instance?",
-      "answer": "C'est préférable de le démonter d'abord afin d'éviter la corruption des données."
-    },
-    {
-      "question": "Quelle commande est utilisée pour démonter le volume monté dans l'exemple (`/media/data`)?",
-      "answer": "Pour démonter le volume, on utilise la commande `sudo umount /media/data`."
-    },
-    {
-      "question": "Qu'est-ce qui peut empêcher la commande de démontage de fonctionner correctement, et quel message sera affiché si ça arrive?",
-      "answer": "Pour que la commande de démontage fonctionne, aucun fichier ne doit être utilisé en lecture ou en écriture par le système d'exploitation ou par une autre application active. Sinon, un message sera affiché indiquant que «le volume est occupé»."
+      "question": "Comment peut-on démonter un volume ou un périphérique de façon sécuritaire sous Linux, et pourquoi est-ce important de le faire?",
+      "answer": "Pour démonter un volume ou un périphérique de manière sécuritaire, par exemple pour en créer une image ou l'attacher à une autre instance, on utilise la commande `sudo umount /media/data`. Il est important de le démonter avant pour éviter la corruption des données. Pour que la commande fonctionne, aucun fichier du volume ne doit être en cours d'utilisation par le système d'exploitation ou par une autre application active; sinon, un message indiquant que le volume est occupé sera affiché."
     }
   ],
-  "generated_at": "2026-04-12T10:13:56.860420+00:00"
+  "generated_at": "2026-04-13T15:18:09.124328+00:00"
 }

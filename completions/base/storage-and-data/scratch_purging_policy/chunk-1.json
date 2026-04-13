@@ -4,125 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of the /scratch filesystem on our clusters?",
-      "answer": "The /scratch filesystem is intended for temporary, fast storage for data being used during job execution."
+      "question": "What is the intended purpose of the /scratch filesystem on the clusters, and what is the general policy regarding file deletion?",
+      "answer": "The /scratch filesystem is for temporary, fast storage of data during job execution, while long-term data should be kept in /project or other archival areas. Files older than 60 days are periodically deleted according to policy to ensure adequate space."
     },
     {
-      "question": "Where should data for long-term storage and reference be kept instead of /scratch?",
-      "answer": "Data for long-term storage and reference should be kept in either /project or other archival storage areas."
+      "question": "How does the file expiration procedure on the /scratch filesystem work for the Fir, Narval, Rorqual, and Trillium clusters?",
+      "answer": "The /scratch filesystem is checked at the end of the month for files that will be candidates for expiry on the 15th of the following month. Users receive notification emails on the 1st and 12th of the month, and files with both `ctime` and `atime` timestamps older than 60 days are deleted at the end of the day on the 15th."
     },
     {
-      "question": "What is the policy for deleting files from /scratch?",
-      "answer": "Files older than 60 days are periodically deleted from /scratch."
-    },
-    {
-      "question": "Does moving a file to a different directory within /scratch prevent it from being purged?",
-      "answer": "No, simply moving a file from one directory in /scratch to another will not generally prevent it from being purged, as purging is based on age, not location."
-    },
-    {
-      "question": "Is the /scratch purging method the same for all clusters?",
-      "answer": "No, the method for Nibi is different from that of the other clusters."
-    },
-    {
-      "question": "What is an advantage of Nibi's quota-based mechanism for /scratch?",
-      "answer": "The quota-based mechanism is fully user-controlled and prevents specific files in a collection from disappearing due to slightly different ages."
-    },
-    {
-      "question": "When is the /scratch filesystem checked for files on Fir, Narval, Rorqual, and Trillium clusters?",
-      "answer": "The /scratch filesystem is checked at the end of the month for files that will be candidates for expiry on the 15th of the following month."
-    },
-    {
-      "question": "How are users notified if their files are candidates for purging on Fir, Narval, Rorqual, and Trillium?",
-      "answer": "On the first day of the month, a login message is posted and a notification e-mail is sent to users with candidate files, including the location of a file listing all candidates."
-    },
-    {
-      "question": "How much time do users have to move their data after the first purging notification on Fir, Narval, Rorqual, and Trillium?",
-      "answer": "Users have two weeks from the first day of the month to make arrangements to copy data."
-    },
-    {
-      "question": "When is the final purging notification sent on Fir, Narval, Rorqual, and Trillium, and how much time does it give users?",
-      "answer": "A final notification e-mail is sent on the 12th of the month with an updated assessment, giving users 72 hours to move their files."
-    },
-    {
-      "question": "When are files actually deleted from /scratch on Fir, Narval, Rorqual, and Trillium?",
-      "answer": "At the end of the day on the 15th, any remaining files on the /scratch filesystem for which both the `ctime` and `atime` timestamps are older than 60 days are deleted."
-    },
-    {
-      "question": "What is a user's ultimate responsibility regarding files on /scratch on Fir, Narval, Rorqual, and Trillium?",
-      "answer": "Users are ultimately responsible for keeping files older than 60 days out of /scratch space."
-    },
-    {
-      "question": "What should users do once they have moved data from /scratch to another location?",
-      "answer": "Users should delete the original files and directories in /scratch instead of depending on automatic purging."
-    },
-    {
-      "question": "What is the soft limit for /scratch usage on the Nibi cluster?",
-      "answer": "The soft limit for /scratch usage on Nibi is currently set at 1TB."
-    },
-    {
-      "question": "What happens if a user's /scratch usage on Nibi remains under the soft limit?",
-      "answer": "If usage remains under the soft limit, there is no time limit, and nothing is automatically deleted."
-    },
-    {
-      "question": "What occurs when a user exceeds the soft limit on Nibi's /scratch?",
-      "answer": "Exceeding the soft limit triggers an over-quota condition, which includes a 60-day grace period."
-    },
-    {
-      "question": "What happens when the grace period expires for an over-quota condition on Nibi?",
-      "answer": "Over-quota enforcement starts, meaning files are still accessible, but adding files or increasing file sizes will fail with an error."
-    },
-    {
-      "question": "How can a user add files or increase their size after over-quota enforcement begins on Nibi?",
-      "answer": "The user must first bring their usage under the soft limit, which resets the 60-day counter."
-    },
-    {
-      "question": "Is there a hard limit for /scratch storage on Nibi?",
-      "answer": "Yes, there is a hard limit of 20TB, meaning users cannot store more than 20TB of data even within the 60-day grace period."
-    },
-    {
-      "question": "Where can users on Fir and Narval clusters check for files scheduled for purging?",
-      "answer": "On Fir and Narval clusters, users can go to the `/scratch/to_delete/` path and look for a file with their name."
-    },
-    {
-      "question": "Where can users on Trillium check for files scheduled for purging?",
-      "answer": "On Trillium, users can go to `/scratch/t/to_delete/` (which is a symlink to `/scratch/t/todelete/current`)."
-    },
-    {
-      "question": "What information does the assessment file for purging candidates contain?",
-      "answer": "The file will contain a list of filenames with their full path, and possibly other information about `atime`, `ctime`, and size."
-    },
-    {
-      "question": "How often is the purging assessment file updated?",
-      "answer": "The purging assessment file is updated only on the 1st and the 12th of each month."
-    },
-    {
-      "question": "What does it mean if a purging assessment file with a user's name is present?",
-      "answer": "If a file with a user's name is present, it means they have candidates for purging that month."
-    },
-    {
-      "question": "If a user accesses or moves candidate files between the 1st and 11th of the month, will the assessment file immediately reflect these changes?",
-      "answer": "No, there won't be any changes in the assessment until the 12th."
-    },
-    {
-      "question": "What if an assessment file was present until the 11th but is no longer there on the 12th?",
-      "answer": "If there was an assessment file up until the 11th but not on the 12th, it means the user no longer has anything to be purged that month."
-    },
-    {
-      "question": "If a user accesses or moves candidate files after the 12th of the month, how can they confirm their files won't be purged?",
-      "answer": "If changes are made after the 12th, the user has to check for themselves to confirm their files won't be purged on the 15th."
-    },
-    {
-      "question": "How is a file's age determined for purging purposes?",
-      "answer": "A file's age is determined by the younger of either its access time (`atime`) or its change time (`ctime`)."
-    },
-    {
-      "question": "What command can be used to check the `atime` and `ctime` timestamps of a file?",
-      "answer": "The `stat <filename>` command can be used to print both `atime` and `ctime` timestamps."
-    },
-    {
-      "question": "Why is the modification time (`mtime`) not used to determine a file's age for purging?",
-      "answer": "The `mtime` is not used because it can be backdated by users or programs like version-control or build-system software."
+      "question": "What is the file purging policy for the /scratch filesystem specifically on the Nibi cluster?",
+      "answer": "On the Nibi cluster, if usage remains under a 1TB soft limit, nothing is automatically deleted. Exceeding this limit triggers a 60-day grace period, after which over-quota enforcement starts, preventing new files or increased file sizes. There is also a hard limit of 20TB."
     }
   ],
-  "generated_at": "2026-04-12T07:43:53.101759+00:00"
+  "generated_at": "2026-04-13T13:21:56.612726+00:00"
 }

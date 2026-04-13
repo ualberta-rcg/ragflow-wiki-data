@@ -4,41 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "C'est quoi la but de la section « Courtes tâches interactives »?",
-      "answer": "La section « Courtes tâches interactives » décrit la visualisation interactive avec un bureau à distance en utilisant JupyterHub et Open OnDemand."
+      "question": "Quel est l'objectif du flux de travail des « Courtes tâches interactives » pour la visualisation à distance sur les grappes de l'Alliance?",
+      "answer": "Ce flux de travail décrit comment réaliser une visualisation interactive en utilisant un bureau à distance via JupyterHub et Open OnDemand sur les grappes de l'Alliance."
     },
     {
-      "question": "Sur quelles grappes peut-on utiliser JupyterLab pour la visualisation interactive?",
-      "answer": "JupyterLab peut être utilisé sur les grappes Fir, Rorqual ou Narval pour la visualisation interactive."
+      "question": "Comment lance-t-on ParaView pour une visualisation interactive avec un seul cœur via JupyterLab sur les grappes Fir, Rorqual ou Narval?",
+      "answer": "Après s'être connecté à JupyterHub et avoir configuré les options du serveur (compte CPU, pas de GPU, 1 cœur, durée, mémoire et interface JupyterLab), il faut attendre le lancement de la tâche. Ensuite, il y a deux options: soit charger le module 'paraview/6.0.0' sous l'onglet 'Software Modules' et cliquer sur le bouton 'ParaView (VNC)', soit ouvrir un bureau virtuel, lancer un terminal et entrer les commandes 'module load paraview/6.0.0' suivi de 'paraview'."
     },
     {
-      "question": "Sur quelles grappes doit-on utiliser Open OnDemand pour la visualisation interactive?",
-      "answer": "Open OnDemand est recommandé pour les grappes Nibi ou Trillium."
-    },
-    {
-      "question": "Comment faire pour lancer une session JupyterLab pour une visualisation avec un seul cœur sur les grappes compatibles?",
-      "answer": "Pour lancer une session JupyterLab, il faut se connecter à JupyterHub sur une des grappes avec votre compte de l'Alliance, puis configurer les « Server Options » en sélectionnant un compte CPU (sans GPU), « None » pour la configuration GPU, « 1 » pour le nombre de cœurs, une durée pour la session, une valeur de mémoire selon les données à traiter et « JupyterLab » comme interface utilisateur, avant de cliquer sur « Start »."
-    },
-    {
-      "question": "Quelles sont les configurations à choisir dans les « Server Options » de JupyterHub pour une visualisation mono-cœur?",
-      "answer": "Il faut sélectionner un compte CPU (pas de GPU), « None » pour la configuration GPU, « 1 » pour le nombre de cœurs, la durée de la session, la mémoire nécessaire pour les données, et « JupyterLab » pour l'interface utilisateur."
-    },
-    {
-      "question": "Après avoir lancé JupyterLab, comment peut-on démarrer ParaView via l'onglet « Software Modules »?",
-      "answer": "Dans le tableau de bord JupyterLab, sur le côté gauche, il faut charger le module « paraview/6.0.0 » sous l'onglet « Software Modules ». Un bouton « ParaView (VNC) » devrait apparaître; il faut cliquer dessus pour démarrer ParaView dans un bureau virtuel. Si ça ne démarre pas automatiquement, il faut cliquer sur le raccourci sur le bureau."
-    },
-    {
-      "question": "Quelle est l'autre façon de lancer ParaView après avoir accédé au tableau de bord de JupyterLab, si on ne passe pas par l'onglet des modules logiciels?",
-      "answer": "Dans le tableau de bord de JupyterLab, on peut cliquer sur le bouton du bureau virtuel préféré pour ouvrir une session. Dans ce bureau virtuel, on lance un terminal (habituellement via « Applications > System ... ») et on entre les commandes « module load paraview/6.0.0 » puis « paraview »."
-    },
-    {
-      "question": "Est-ce que ParaView peut utiliser directement plusieurs cœurs pour un rendu multifil?",
-      "answer": "Non, ParaView n'est pas multifil et ne peut pas utiliser directement plusieurs cœurs. Cependant, certains filtres comme l'affichage d'isolignes, l'écrêtage ou le rééchantillonnage supportent le multifil via des fonctions VTK qui utilisent TBB ou OpenMP."
-    },
-    {
-      "question": "Comment peut-on obtenir un rendu véritablement parallèle avec ParaView dans JupyterLab?",
-      "answer": "Pour un rendu véritablement parallèle, il faut connecter un client ParaView avec un seul cœur à un serveur ParaView parallèle. Les deux peuvent être lancés dans une session JupyterLab."
+      "question": "Comment peut-on effectuer un rendu parallèle avec ParaView en utilisant plusieurs cœurs via JupyterLab, étant donné que ParaView n'est pas directement multifil?",
+      "answer": "Pour un rendu véritablement parallèle, il faut connecter un client ParaView avec un seul cœur à un serveur ParaView parallèle. Dans les options du serveur JupyterLab, on doit sélectionner le nombre de cœurs souhaité et ajuster la mémoire. Ensuite, dans un terminal du bureau virtuel, on lance le serveur ParaView en parallèle avec 'mpirun --oversubscribe -np [nombre_de_cœurs] pvserver', et dans un autre terminal, on lance le client ParaView. Finalement, dans l'interface du client ParaView, on configure une connexion 'Client/Server' vers 'localhost' sur le port indiqué par l'URL de connexion du serveur (habituellement 11111)."
     }
   ],
-  "generated_at": "2026-04-12T04:56:36.749967+00:00"
+  "generated_at": "2026-04-13T10:59:41.246370+00:00"
 }

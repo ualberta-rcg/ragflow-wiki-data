@@ -3,61 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Quel est l'objectif principal de ce guide?",
-      "answer": "L'objectif principal est de s'assurer que les tâches utilisent efficacement les ressources qui leur sont attribuées et de décrire des méthodes pour évaluer l'efficacité des tâches, qu'elles soient en cours ou terminées."
+      "question": "Quel est l'objectif principal de la page sur l'évaluation de l'efficacité des tâches sur les clusters Alliance?",
+      "answer": "L'objectif est de décrire différentes méthodes pour évaluer l'efficacité des tâches, qu'elles soient en cours d'exécution ou terminées, afin de s'assurer qu'elles utilisent efficacement les ressources attribuées."
     },
     {
-      "question": "Comment puis-je afficher toutes mes tâches en cours d'exécution ou en attente sur l'ordonnanceur?",
-      "answer": "Pour voir toutes vos tâches, vous pouvez utiliser `squeue -u $USER` ou la version courte `sq`. Pour les tâches en cours, utilisez `squeue -u <nom_utilisateur> -t RUNNING`, et pour celles en attente, `squeue -u <nom_utilisateur> -t PENDING`."
+      "question": "Comment peut-on afficher ses propres tâches Slurm en cours d'exécution ou en attente sur un cluster Alliance?",
+      "answer": "On peut utiliser la commande `squeue -u $USER` ou la version raccourcie `sq` pour voir toutes ses tâches, ou spécifier `squeue -u <nom_utilisateur> -t RUNNING` pour les tâches en cours et `squeue -u <nom_utilisateur> -t PENDING` pour les tâches en attente."
     },
     {
-      "question": "Quelles informations détaillées puis-je obtenir sur une tâche spécifique en cours?",
-      "answer": "Pour avoir des infos détaillées sur une tâche en cours, utilisez la commande `scontrol show job -dd <jobid>`."
+      "question": "Quelle commande permet d'obtenir des informations détaillées sur une tâche Slurm en cours spécifique sur un cluster Alliance?",
+      "answer": "La commande `scontrol show job -dd <id_tâche>` permet d'obtenir des informations détaillées sur une tâche en cours."
     },
     {
-      "question": "Est-ce qu'il y a des restrictions sur la fréquence d'utilisation de la commande `squeue` dans des scripts?",
-      "answer": "Oui, il ne faut pas exécuter `squeue` à une fréquence élevée (par exemple, toutes les quelques secondes) à partir d'un script ou d'un programme, car ça augmente la charge de l'ordonnanceur et peut nuire à sa performance."
+      "question": "Est-il recommandé d'exécuter la commande `squeue` à haute fréquence à partir d'un script sur un cluster Alliance?",
+      "answer": "Non, il n'est pas recommandé d'exécuter `squeue` à haute fréquence (par exemple, toutes les quelques secondes) à partir d'un script ou d'un programme, car cela augmente la charge de l'ordonnanceur et peut nuire à ses performances."
     },
     {
-      "question": "Comment faire pour recevoir des notifications par courriel concernant mes tâches?",
-      "answer": "Vous pouvez ajouter des options à `sbatch` comme `#SBATCH --mail-user=votre.courriel@example.com` et `#SBATCH --mail-type=ALL` dans votre script de soumission."
+      "question": "Comment peut-on configurer la réception de notifications par courriel concernant le statut d'une tâche Slurm sur un cluster Alliance?",
+      "answer": "Il faut ajouter les options `#SBATCH --mail-user=votre.courriel@exemple.com` et `#SBATCH --mail-type=ALL` au script `sbatch` pour recevoir des notifications par courriel."
     },
     {
-      "question": "Pourquoi y a-t-il souvent un délai avant de voir les résultats d'une tâche non interactive?",
-      "answer": "Les résultats des tâches non interactives sont généralement mis en mémoire tampon (buffered), ce qui crée un temps d'attente avant que vous puissiez les voir. Ce délai assure la bonne performance générale du système de fichiers."
+      "question": "Qu'est-ce que le 'buffering' (mise en mémoire tampon) des résultats d'une tâche Slurm non interactive signifie pour un utilisateur sur un cluster Alliance?",
+      "answer": "Le buffering signifie qu'il y a habituellement un délai entre le moment où les données de la tâche sont enregistrées et celui où elles sont visibles dans un nœud de connexion, ce temps pouvant varier selon l'application et la charge du système de fichiers."
     },
     {
-      "question": "Quel outil permet d'obtenir un sommaire de l'efficacité des CPU et de la mémoire pour une tâche terminée?",
-      "answer": "La commande `seff <jobid>` est utilisée pour obtenir un sommaire de l'efficacité des CPU et de la mémoire pour une tâche terminée."
+      "question": "Est-il recommandé de désactiver la mise en mémoire tampon des résultats d'une tâche Slurm pour avoir un suivi en temps réel sur un cluster Alliance?",
+      "answer": "Non, il n'est pas recommandé de désactiver la mise en mémoire tampon, car cela assure la bonne performance générale du système de fichiers. Pour un suivi en temps réel, il est préférable d'utiliser une tâche interactive."
     },
     {
-      "question": "Comment consulter les informations détaillées d'une tâche après qu'elle soit terminée?",
-      "answer": "Pour les tâches terminées, utilisez `sacct -j <jobid>`. Vous pouvez aussi personnaliser le contenu affiché avec l'option `--format`, par exemple `sacct -j <jobid> --format=JobID,JobName,MaxRSS,Elapsed`."
+      "question": "Quelle commande peut être utilisée pour obtenir un sommaire de l'efficacité des CPU et de la mémoire pour une tâche Slurm terminée sur un cluster Alliance?",
+      "answer": "La commande `seff <id_tâche>` est utilisée pour obtenir un sommaire de l'efficacité des CPU et de la mémoire d'une tâche Slurm terminée."
     },
     {
-      "question": "Qu'est-ce que représentent les enregistrements '.bat+' et '.ext+' dans la sortie de `sacct`?",
-      "answer": "L'étape '.bat+' correspond au script de soumission où la plupart du travail et de la consommation de ressources se fait. L'étape '.ext+' est pour le prologue et l'épilogue et consomme habituellement peu de ressources."
+      "question": "Comment peut-on consulter des informations détaillées sur une tâche Slurm qui est déjà terminée sur un cluster Alliance?",
+      "answer": "La commande `sacct -j <id_tâche>` permet de consulter des informations détaillées sur une tâche terminée. On peut aussi utiliser l'option `--format` pour personnaliser les champs affichés."
     },
     {
-      "question": "Comment puis-je voir tous les enregistrements relatifs à une tâche si elle a été relancée après une défaillance de nœud?",
-      "answer": "Ajoutez l'option `--duplicates` à la commande `sacct`, comme `sacct -j <jobid> --duplicates`, pour consulter tous les enregistrements."
+      "question": "Quel est le rôle de l'enregistrement `.bat+` dans les résultats de `sacct` pour une tâche Slurm sur un cluster Alliance?",
+      "answer": "L'enregistrement `.bat+` représente le script de soumission (batch) de la tâche; c'est là que s'effectue la plus grande part du travail et que les ressources sont consommées."
     },
     {
-      "question": "Quelle est la différence principale entre `sstat` et `sacct`?",
-      "answer": "`sstat` fournit des renseignements sur l'état d'une tâche en cours d'exécution, tandis que `sacct` est utilisée pour les tâches qui sont terminées."
+      "question": "Comment peut-on obtenir la valeur maximale de mémoire utilisée par une tâche Slurm terminée, et identifier la tâche et le nœud concernés sur un cluster Alliance?",
+      "answer": "Le champ `MaxRSS` donne la quantité de mémoire utilisée. Pour connaître la tâche et le nœud en cause, on peut imprimer aussi les champs `MaxRSSTask` et `MaxRSSNode` avec `sacct`."
     },
     {
-      "question": "Comment puis-je surveiller l'utilisation du GPU sur un nœud où ma tâche est en cours d'exécution?",
-      "answer": "Vous pouvez utiliser `nvidia-smi` sur le nœud. Par exemple, lancez `srun --jobid 123456 --overlap --pty watch -n 30 nvidia-smi` pour le voir toutes les 30 secondes."
+      "question": "Quelle est la différence principale entre les commandes `sstat` et `sacct` sur un cluster Alliance?",
+      "answer": "La commande `sstat` est utilisée pour obtenir des informations sur l'état d'une tâche en cours d'exécution, tandis que `sacct` est utilisée pour les tâches qui sont terminées."
     },
     {
-      "question": "Puis-je exécuter plusieurs commandes de surveillance simultanément sur le même nœud que ma tâche?",
-      "answer": "Oui, vous pouvez utiliser `tmux`. Par exemple, `srun --jobid 123456 --overlap --pty tmux new-session -d 'htop -u $USER' \\; split-window -h 'watch nvidia-smi' \\; attach` pour exécuter `htop` et `nvidia-smi` dans des fenêtres séparées."
+      "question": "Comment peut-on surveiller l'utilisation d'un GPU sur un nœud où une tâche Slurm est en cours d'exécution sur un cluster Alliance?",
+      "answer": "On peut se connecter au nœud et utiliser la commande `nvidia-smi`, par exemple en l'exécutant via `srun` comme suit : `srun --jobid <id_tâche> --overlap --pty watch -n 30 nvidia-smi`."
     },
     {
-      "question": "Est-ce que l'exécution de processus de surveillance via `srun` sur le même nœud que ma tâche principale a des conséquences?",
-      "answer": "Oui, les processus lancés avec `srun` partagent les ressources. Il faut éviter de lancer des processus trop gourmands, car ils pourraient ralentir ou même arrêter la tâche principale."
+      "question": "Pourquoi faut-il être prudent en lançant des processus supplémentaires avec `srun` sur un nœud où une tâche Slurm est en cours d'exécution sur un cluster Alliance?",
+      "answer": "Il faut être prudent car les processus lancés avec `srun` partagent les ressources utilisées par la tâche principale. Lancer des processus qui consomment trop de ressources pourrait nuire à l'efficacité de la tâche ou même l'arrêter."
+    },
+    {
+      "question": "Comment peut-on suivre plusieurs activités (comme l'utilisation CPU et GPU) simultanément sur un nœud où une tâche Slurm soumise avec `sbatch` est en cours d'exécution sur un cluster Alliance?",
+      "answer": "On peut utiliser `srun` avec `tmux` pour lancer plusieurs commandes dans des fenêtres distinctes, par exemple `htop` et `nvidia-smi`, sur le nœud où la tâche est exécutée."
+    },
+    {
+      "question": "Est-ce que la méthode de surveillance avec `srun --jobid` est valable pour les tâches interactives sur un cluster Alliance?",
+      "answer": "Non, la méthode avec `srun --jobid` ne fonctionne que pour les tâches soumises avec `sbatch`. Pour les tâches interactives, il faut ouvrir plusieurs fenêtres avec `tmux` et démarrer les processus directement."
+    },
+    {
+      "question": "Où peut-on trouver des informations spécifiques sur le suivi des tâches qui utilisent un GPU sur un cluster Alliance?",
+      "answer": "Des informations spécifiques sur le suivi des tâches qui utilisent un GPU peuvent être trouvées dans la section 'Utilisation de GPU' de la documentation NVTOP."
     }
   ],
-  "generated_at": "2026-04-12T03:14:42.385388+00:00"
+  "generated_at": "2026-04-13T09:33:16.469110+00:00"
 }

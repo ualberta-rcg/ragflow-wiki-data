@@ -3,41 +3,57 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que MXNet et quels sont ses principaux avantages?",
-      "answer": "MXNet est une librairie d'apprentissage profond souple et efficace qui permet de combiner la programmation symbolique et impérative pour maximiser l'efficacité et la productivité. Elle offre un planificateur de dépendances dynamique et une couche d'optimisation des graphes pour une exécution rapide et économe en mémoire."
+      "question": "Qu'est-ce que MXNet et quelles sont ses caractéristiques principales en tant que librairie d'apprentissage profond?",
+      "answer": "MXNet est une librairie d'apprentissage profond souple et efficace qui combine la programmation symbolique et impérative pour maximiser l'efficacité et la productivité. Elle est portable, légère et évolutive pour plusieurs GPU et machines."
     },
     {
-      "question": "Comment puis-je vérifier les versions des paquets MXNet disponibles?",
-      "answer": "Pour vérifier les paquets MXNet disponibles, vous devez utiliser la commande `avail_wheels mxnet`."
+      "question": "Comment puis-je vérifier quels paquets MXNet sont disponibles sur un système donné?",
+      "answer": "Pour savoir quels paquets MXNet sont disponibles, il faut utiliser la commande `avail_wheels mxnet`."
     },
     {
       "question": "Quelles sont les étapes pour installer MXNet dans un environnement virtuel Python?",
-      "answer": "Il faut d'abord charger le module Python, puis créer et activer un environnement virtuel, et finalement installer MXNet et ses dépendances à l'aide de la commande `pip install --no-index mxnet`."
+      "answer": "Pour installer MXNet, il faut d'abord charger le module Python (ex: `python/3.10`), créer et activer un environnement virtuel (`virtualenv --no-download ~/env` puis `source ~/env/bin/activate`), puis installer MXNet avec `pip install --no-index mxnet`."
     },
     {
-      "question": "Comment valider que l'installation de MXNet a été réussie?",
-      "answer": "On peut valider l'installation en exécutant une commande Python simple comme `python -c \"import mxnet as mx;print((mx.nd.ones((2, 3))*2).asnumpy());\"` qui devrait afficher une matrice de 2."
+      "question": "Comment valider l'installation de MXNet une fois qu'elle est terminée dans un environnement virtuel Python?",
+      "answer": "Pour valider l'installation, on peut exécuter la commande Python suivante : `python -c \"import mxnet as mx;print((mx.nd.ones((2, 3))*2).asnumpy());\"`."
     },
     {
-      "question": "Comment un script MXNet détermine-t-il s'il doit utiliser un CPU ou un GPU pour l'exécution?",
-      "answer": "Le script MXNet utilise généralement la logique `mx.gpu() if mx.context.num_gpus() > 0 else mx.cpu()` pour détecter la présence d'un GPU et l'utiliser si disponible, sinon il se rabat sur le CPU."
+      "question": "Quel est l'objectif du script Python `mxnet-conv-ex.py` fourni dans la documentation?",
+      "answer": "Le script `mxnet-conv-ex.py` démontre une couche de convolution simple en utilisant MXNet, avec la capacité de s'exécuter sur CPU (avec MKLDNN) ou GPU (avec cuDNN)."
     },
     {
-      "question": "Quels sont les ajustements nécessaires dans un script SLURM pour passer d'une exécution MXNet sur CPU à une exécution sur GPU?",
-      "answer": "Pour passer à une exécution sur GPU, il faut ajouter la ligne `#SBATCH --gres=gpu:1` au script SLURM pour allouer un GPU et s'assurer que le script Python est configuré pour l'utiliser, par exemple avec `device = mx.gpu()`."
+      "question": "Comment configurer un script SLURM pour exécuter une tâche MXNet sur un CPU?",
+      "answer": "Pour une tâche MXNet sur CPU, il faut inclure des paramètres SLURM comme `--job-name`, `--account`, `--time`, `--cpus-per-task`, `--mem`, et charger le module Python, puis installer MXNet dans un environnement virtuel temporaire et exécuter le script Python."
     },
     {
-      "question": "Comment soumettre une tâche MXNet à l'ordonnanceur de tâches?",
-      "answer": "Pour soumettre une tâche MXNet à l'ordonnanceur, il faut utiliser la commande `sbatch <nom_du_script_slurm>.sh`."
+      "question": "Comment configurer un script SLURM pour exécuter une tâche MXNet sur un GPU?",
+      "answer": "Pour une tâche MXNet sur GPU, les paramètres SLURM sont similaires à ceux du CPU, mais il faut ajouter la ligne `--gres=gpu:1` pour demander un GPU, en ajustant le nombre si nécessaire."
     },
     {
-      "question": "Dans quel cas est-il conseillé d'utiliser plusieurs CPU plutôt qu'un seul GPU pour une tâche MXNet?",
-      "answer": "Il est fortement recommandé d'utiliser plusieurs CPU plutôt qu'un seul GPU si le modèle et l'ensemble de données ne sont pas assez grands. Dans ce cas, un GPU ne serait pas utilisé à sa pleine capacité, et la différence de vitesse avec les CPU ne serait pas significative."
+      "question": "Quelle est la recommandation principale concernant l'utilisation de GPU par rapport à plusieurs CPU pour les tâches MXNet sur les grappes partagées?",
+      "answer": "Il est fortement encouragé d'utiliser plusieurs CPU plutôt qu'un seul GPU si le modèle et l'ensemble de données ne sont pas assez grands, car un GPU sous-utilisé bloque une ressource précieuse pour d'autres utilisateurs et affecte la priorité des tâches."
     },
     {
-      "question": "Pourquoi est-il déconseillé de demander un GPU si la tâche n'en fait pas un usage raisonnable dans un environnement partagé?",
-      "answer": "Dans un environnement partagé comme les grappes de calcul, demander un GPU sans en faire un usage raisonnable bloque inutilement une ressource qui pourrait être utilisée par d'autres pour des calculs à grande échelle, ce qui peut aussi impacter négativement la priorité des tâches des collègues et l'allocation de ressources du groupe."
+      "question": "Pourquoi est-il déconseillé de demander un GPU si un code MXNet n'est pas capable d'en faire un usage raisonnable de sa capacité de calcul?",
+      "answer": "Cela bloque sans raison valable une ressource de calcul intensif dans un environnement partagé, ce qui pourrait être utilisé par d'autres pour des calculs à grande échelle, et cela a un effet négatif sur la priorité accordée aux tâches des collègues."
+    },
+    {
+      "question": "Comment MXNet tire-t-il parti de la haute performance sur les CPU et les GPU?",
+      "answer": "MXNet offre des implémentations d'opérateurs pour les CPU (avec OpenMP et MKLDNN) et les GPU (avec CUDA et cuDNN), utilisant automatiquement le mode multifils sur plusieurs cœurs CPU ou un GPU si la tâche le demande."
+    },
+    {
+      "question": "Dans l'exemple `mxnet-example.sh`, comment peut-on modifier le nombre de cœurs CPU utilisés pour une tâche?",
+      "answer": "Dans le script `mxnet-example.sh`, le paramètre `#SBATCH --cpus-per-task=1` peut être ajusté à `2, 4, 6,...` pour changer le nombre de cœurs CPU utilisés."
+    },
+    {
+      "question": "Comment peut-on basculer entre l'exécution CPU et GPU dans le script SLURM `mxnet-example.sh`?",
+      "answer": "Pour exécuter sur CPU seulement, il faut supprimer la ligne `#SBATCH --gres=gpu:1`. Si cette ligne est présente, la tâche demandera un GPU."
+    },
+    {
+      "question": "Quel est le but du script Python `mxnet-example.py` fourni dans la section sur la haute performance?",
+      "answer": "Le script `mxnet-example.py` est un exemple d'entraînement d'un réseau neuronal convolutif pour la classification d'images (CIFAR10) et sert à illustrer l'entraînement avec ou sans GPU et à mesurer la performance."
     }
   ],
-  "generated_at": "2026-04-12T02:07:19.672703+00:00"
+  "generated_at": "2026-04-13T09:00:55.310293+00:00"
 }

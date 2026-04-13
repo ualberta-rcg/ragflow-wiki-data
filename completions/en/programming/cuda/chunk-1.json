@@ -4,17 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is CUDA and what is its primary purpose?",
-      "answer": "CUDA® is a parallel computing platform and programming model developed by NVIDIA for general computing on graphical processing units (GPUs). It can be thought of as a set of libraries and associated C, C++, and Fortran compilers that enable users to write code for GPUs."
+      "question": "What is CUDA and what is its primary function?",
+      "answer": "CUDA® is a parallel computing platform and programming model developed by NVIDIA for general computing on graphical processing units (GPUs). It can be considered a set of libraries and associated C, C++, and Fortran compilers that enable writing code for GPUs."
     },
     {
-      "question": "What is the typical process for compiling a basic CUDA C/C++ program?",
-      "answer": "To compile a basic CUDA C/C++ program, you first need to load a CUDA module using `$ module load cuda`. Then, save your source file with a `.cu` extension, for example, `add.cu`. Finally, compile it using the `nvcc` language compiler, creating an executable; for instance, `$ nvcc add.cu -o add`."
+      "question": "What are the basic steps for compiling and running a simple CUDA C/C++ program, such as one that adds two numbers, on a system like an Alliance cluster?",
+      "answer": "First, load the CUDA module using `module load cuda`. Then, save your CUDA C/C++ program, for example, `add.cu`, ensuring it has the `.cu` file extension. Compile the program using the `nvcc` compiler, for instance, by running `nvcc add.cu -o add`. Finally, to run it, create a Slurm job script (e.g., `gpu_job.sh`) that specifies GPU resources and executes your compiled program, then submit the job using `sbatch gpu_job.sh`."
     },
     {
-      "question": "How do you submit a CUDA program to a Slurm scheduler to utilize a GPU?",
-      "answer": "To submit a CUDA program to a Slurm scheduler, create a job script (e.g., `gpu_job.sh`) that specifies the GPU resource requirement with `#SBATCH --gres=gpu:1` and includes your specific account information (e.g., `#SBATCH --account=def-someuser`). Once the script is prepared, submit it using the command `$ sbatch gpu_job.sh`."
+      "question": "How can one resolve compilation errors like 'nvcc fatal : Unsupported gpu architecture' or runtime errors like 'no kernel image is available for execution on the device (209)' when working with CUDA?",
+      "answer": "These errors are typically connected with compute capability issues. To resolve them, you may need to add the correct architecture flag to your compilation command. For `nvcc`, use `-gencode arch=compute_XX,code=[sm_XX,compute_XX]`, and if using `cmake`, provide the flag `cmake .. -DCMAKE_CUDA_ARCHITECTURES=XX`. In both cases, 'XX' should be replaced with the numeric compute capability of the Nvidia GPU you expect to run the application on, with the decimal point omitted (e.g., '80' for a compute capability of 8.0)."
     }
   ],
-  "generated_at": "2026-04-12T20:00:29.693498+00:00"
+  "generated_at": "2026-04-13T03:32:59.904069+00:00"
 }

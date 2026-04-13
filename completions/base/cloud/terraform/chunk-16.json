@@ -4,57 +4,17 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "What is the name assigned to the virtual machine in this Terraform configuration?",
-      "answer": "The virtual machine is named \"myvm\"."
+      "question": "How would one define an OpenStack virtual machine using Terraform, ensuring it boots from a 10 GB volume created from a specific image UUID and is connected to a private network named \"my-tenant-net\"?",
+      "answer": "An OpenStack virtual machine can be defined in Terraform using the `openstack_compute_instance_v2` resource. Within this resource, the `block_device` sub-block specifies booting from a volume: `uuid` for the image, `source_type = \"image\"`, `destination_type = \"volume\"`, `volume_size = 10`, and `boot_index = 0`. The network connection is specified by a `network` sub-block with `name = \"my-tenant-net\"`. Other attributes like `name`, `flavour_id`, `key_pair`, and `security_groups` are also set in the main resource block."
     },
     {
-      "question": "What is the flavour ID specified for the virtual machine?",
-      "answer": "The flavour ID specified for the virtual machine is \"0351ddb0-00d0-4269-80d3-913029d1a111\"."
+      "question": "What is the purpose of the `delete_on_termination = true` setting within the `block_device` configuration for an OpenStack virtual machine in Terraform?",
+      "answer": "Setting `delete_on_termination = true` for a `block_device` in a Terraform `openstack_compute_instance_v2` resource ensures that the associated volume is automatically deleted when the virtual machine itself is terminated. This helps in cleaning up resources, particularly during testing."
     },
     {
-      "question": "Which key pair is configured for the virtual machine?",
-      "answer": "The \"Aluminum\" key pair is configured for the virtual machine."
-    },
-    {
-      "question": "What security group is the virtual machine associated with?",
-      "answer": "The virtual machine is associated with the \"default\" security group."
-    },
-    {
-      "question": "What is the name of the network the virtual machine is configured to use?",
-      "answer": "The virtual machine is configured to use the \"my-tenant-net\" network."
-    },
-    {
-      "question": "What image UUID is used to create the boot volume for the virtual machine?",
-      "answer": "The image UUID \"80ceebef-f9aa-462e-a793-d3c1cf96123b\" is used to create the boot volume."
-    },
-    {
-      "question": "What is the source type for the virtual machine's boot device?",
-      "answer": "The source type for the virtual machine's boot device is \"image\"."
-    },
-    {
-      "question": "What is the destination type for the virtual machine's boot device?",
-      "answer": "The destination type for the virtual machine's boot device is \"volume\"."
-    },
-    {
-      "question": "What is the size specified for the virtual machine's boot volume?",
-      "answer": "The size specified for the virtual machine's boot volume is 10."
-    },
-    {
-      "question": "What is the boot index for the block device configured for the VM?",
-      "answer": "The boot index for the VM's block device is 0."
-    },
-    {
-      "question": "Is the boot volume configured to be deleted when the virtual machine is terminated?",
-      "answer": "Yes, `delete_on_termination` is set to `true` for the boot volume, meaning it will be deleted upon VM termination."
-    },
-    {
-      "question": "What is the logical name for the floating IP resource in the configuration?",
-      "answer": "The logical name for the floating IP resource is \"myvm_fip\"."
-    },
-    {
-      "question": "From which pool is the floating IP allocated?",
-      "answer": "The floating IP is allocated from the \"provider-199-2\" pool."
+      "question": "How does one allocate a floating IP from the \"provider-199-2\" pool for an OpenStack project using Terraform?",
+      "answer": "To allocate a floating IP from a specific pool in OpenStack using Terraform, you would define an `openstack_networking_floatingip_v2` resource and set its `pool` attribute to the desired pool name, such as \"provider-199-2\"."
     }
   ],
-  "generated_at": "2026-04-12T09:08:53.990041+00:00"
+  "generated_at": "2026-04-13T14:25:07.448320+00:00"
 }

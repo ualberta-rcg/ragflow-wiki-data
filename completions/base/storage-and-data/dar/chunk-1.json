@@ -4,109 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What does `dar` stand for?",
-      "answer": "`dar` stands for Disk ARchive."
+      "question": "What is the `dar` utility, and how does it differ from the classical Unix `tar` tool for archiving and backups?",
+      "answer": "The `dar` (Disk ARchive) utility is a modern, open-source replacement for the classical Unix `tar` tool, first released in 2002 and actively maintained. While both support full, differential, and incremental backups, `dar` archives include a file index for fast file access and restore, offer built-in file-by-file compression for resilience against data corruption, support strong encryption, can split archives at 1-byte resolution, and can detect and recover from data corruption with minimal data loss."
     },
     {
-      "question": "What is the `dar` utility designed to replace?",
-      "answer": "The `dar` utility was written as a modern replacement for the classical Unix `tar` tool."
+      "question": "How can one create a basic archive of a directory using the `dar` utility on compute clusters, and where is `dar` typically located?",
+      "answer": "To create a basic archive of a subdirectory, for example, `test`, you would type `dar -w -c all -g test` in the current directory. This command creates an archive file named `all.1.dar`. On compute clusters, `dar` is available on `/cvmfs` and can be accessed with `StdEnv/2020`."
     },
     {
-      "question": "When was `dar` first released?",
-      "answer": "`dar` was first released in 2002."
-    },
-    {
-      "question": "Is `dar` open source and actively maintained?",
-      "answer": "Yes, `dar` is open source and actively maintained."
-    },
-    {
-      "question": "On what systems can `dar` be compiled?",
-      "answer": "`dar` can be compiled on any Unix-like system."
-    },
-    {
-      "question": "What types of backups does `dar` support?",
-      "answer": "`dar` supports full, differential, and incremental backups."
-    },
-    {
-      "question": "How does `dar` provide fast file access and restore, especially for large archives?",
-      "answer": "Each `dar` archive includes a file index for fast file access and restore, which is especially useful for large archives."
-    },
-    {
-      "question": "How does `dar` handle compression and data corruption?",
-      "answer": "`dar` has built-in compression on a file-by-file basis, making it more resilient against data corruption."
-    },
-    {
-      "question": "Can `dar` avoid compressing already highly compressed files?",
-      "answer": "Yes, you can optionally tell `dar` not to compress already highly compressed files such as `mp4` and `gz`."
-    },
-    {
-      "question": "What security feature does `dar` support?",
-      "answer": "`dar` supports strong encryption."
-    },
-    {
-      "question": "At what resolution can `dar` split archives?",
-      "answer": "`dar` can split archives at 1-byte resolution."
-    },
-    {
-      "question": "What types of file attributes and links does `dar` support?",
-      "answer": "`dar` supports extended file attributes, sparse files, hard links, and symbolic (soft) links."
-    },
-    {
-      "question": "How does `dar` handle data corruption?",
-      "answer": "`dar` can detect data corruption in both headers and saved data and recover with minimal data loss."
-    },
-    {
-      "question": "Where can users find a detailed feature comparison between `tar` and `dar`?",
-      "answer": "A detailed feature-by-feature `tar`-to-`dar` comparison can be found on the `dar` page, specifically in its FAQ."
-    },
-    {
-      "question": "Where is `dar` available on the clusters?",
-      "answer": "On the clusters, `dar` is available on `/cvmfs`."
-    },
-    {
-      "question": "Which software environment is recommended for using `dar` on the clusters?",
-      "answer": "The `StdEnv/2020` standard software environment is recommended for using `dar`."
-    },
-    {
-      "question": "What is the command to pack a subdirectory named `test` into a `dar` archive?",
-      "answer": "To pack a subdirectory `test` into an archive, you can use the command: `dar -w -c all -g test`."
-    },
-    {
-      "question": "What is the default naming convention for a `dar` archive created with the base name `all`?",
-      "answer": "The archive file will be named `all.1.dar`, where `all` is the base name and `1` is the slice number."
-    },
-    {
-      "question": "How can multiple directories and files be included in a `dar` archive?",
-      "answer": "You can include multiple directories and files by repeating the `-g` flag for each, for example: `dar -w -c all -g testDir1 -g testDir2 -g file1 -g file2`."
-    },
-    {
-      "question": "What is an important consideration for paths when creating a `dar` archive?",
-      "answer": "All paths used should be relative to the current directory."
-    },
-    {
-      "question": "How do you list the contents of a `dar` archive?",
-      "answer": "To list the archive's contents, use the command `dar -l all`, where `all` is the base name of the archive."
-    },
-    {
-      "question": "What command is used to extract a single file, `test/filename`, from an archive named `all` into a `restore` subdirectory?",
-      "answer": "You can use the command: `dar -R restore/ -O -w -x all -v -g test/filename`."
-    },
-    {
-      "question": "What does the `-O` flag do when extracting files with `dar`?",
-      "answer": "The `-O` flag tells `dar` to ignore file ownership. It also disables a confirmation warning if you are restoring your own files as a non-root user."
-    },
-    {
-      "question": "What is the purpose of the `-w` flag when extracting files with `dar`?",
-      "answer": "The `-w` flag will disable a warning if the target directory for restoration (e.g., `restore/test`) already exists."
-    },
-    {
-      "question": "What command is used to extract an entire directory named `test` from an archive named `all` into a `restore` subdirectory?",
-      "answer": "You can use the command: `dar -R restore/ -O -w -x all -v -g test`."
-    },
-    {
-      "question": "Does `dar` support Unix wild masks (wildcards) after the `-g` flag when specifying files or directories?",
-      "answer": "No, `dar` does not accept Unix wild masks after the `-g` flag."
+      "question": "What are the commands to list the contents of a `dar` archive or to extract specific files or directories from it?",
+      "answer": "To list the contents of an archive with the base name `all`, use `dar -l all`. To extract a single file, such as `test/filename`, into a subdirectory named `restore`, use `dar -R restore/ -O -w -x all -v -g test/filename`. To extract an entire directory like `test` into `restore`, use `dar -R restore/ -O -w -x all -v -g test`. The `-O` flag tells `dar` to ignore file ownership, and `-w` disables warnings if the target subdirectory already exists."
     }
   ],
-  "generated_at": "2026-04-11T20:44:49.203802+00:00"
+  "generated_at": "2026-04-13T04:43:09.872026+00:00"
 }

@@ -3,49 +3,53 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Open Babel?",
-      "answer": "Open Babel is a chemical toolbox designed to manage various chemical data formats, serving as an open, collaborative project for tasks like searching, converting, analyzing, or storing molecular data."
+      "question": "What is Open Babel, as described on Alliance clusters?",
+      "answer": "Open Babel is a chemical toolbox designed to handle various chemical data languages, allowing users to search, convert, analyze, or store data from molecular modelling, chemistry, solid-state materials, biochemistry, or related fields."
     },
     {
-      "question": "What are the primary functions users can perform with Open Babel?",
-      "answer": "Users can search, convert, analyze, or store data from molecular modelling, chemistry, solid-state materials, biochemistry, or related areas using Open Babel."
+      "question": "Where can users find more detailed information on how to use Open Babel?",
+      "answer": "Users can refer to the Open Babel User Guide for further information on how to use Open Babel."
     },
     {
-      "question": "Where can I find additional information on using Open Babel?",
-      "answer": "For further information on how to use Open Babel, please refer to the Open Babel User Guide."
+      "question": "What are the two main types of Open Babel modules installed on Alliance clusters?",
+      "answer": "On Alliance clusters, there are two types of Open Babel modules installed: `openbabel` (the serial version) and `openbabel-omp` (the OpenMP parallelized version)."
     },
     {
-      "question": "What are the two main Open Babel modules available on the clusters?",
-      "answer": "The two main modules are `openbabel` (the serial version) and `openbabel-omp` (the OpenMP parallelized version)."
+      "question": "When should the `openbabel` module be used on Alliance clusters?",
+      "answer": "The `openbabel` module, which is the serial version, should be used for most users, particularly for converting chemical structure files between different formats."
     },
     {
-      "question": "When is it appropriate to use the `openbabel` module?",
-      "answer": "The `openbabel` module is the serial version, suitable for most users and safe to use even on login nodes for converting chemical structure files."
+      "question": "Can the `openbabel` module be used on login nodes of Alliance clusters?",
+      "answer": "Yes, the `openbabel` module can be safely used even on login nodes of Alliance clusters for tasks like converting chemical structure files."
     },
     {
-      "question": "How do I convert a `.mol` file to a `.pdb` file using the serial `openbabel` module?",
-      "answer": "You would load the `openbabel` module and then use the command: `obabel -i mol acetic_acid.mol -o pdb acetic_acid.pdb`."
+      "question": "How can a user convert an `acetic_acid.mol` file to `acetic_acid.pdb` format using the serial `openbabel` module on an Alliance cluster?",
+      "answer": "A user would first load the `openbabel` module and then execute the command `obabel -i mol acetic_acid.mol -o pdb acetic_acid.pdb`."
     },
     {
-      "question": "What is the `openbabel-omp` module used for?",
-      "answer": "The `openbabel-omp` module, with OpenMP parallelization, is useful for converting very large numbers of molecule structures or calculating many cheminformatics descriptors for multiple molecules."
+      "question": "What is the purpose of the `openbabel-omp` module on Alliance clusters?",
+      "answer": "The `openbabel-omp` module is the OpenMP parallelized version of Open Babel, useful for converting very large numbers of molecule structures or calculating many cheminformatics descriptors for multiple molecules."
     },
     {
-      "question": "Is it safe to use the `openbabel-omp` module on login nodes?",
-      "answer": "No, the `openbabel-omp` module should not be used on login nodes because it can create many threads, causing disruptive load-spikes for other users."
+      "question": "Why is it advised not to use the `openbabel-omp` module on login nodes of Alliance clusters?",
+      "answer": "The `openbabel-omp` module should not be used on login nodes because it can create as many threads as it detects CPUs, causing disruptive load-spikes for other users, even for simple tasks."
     },
     {
-      "question": "Which environment variable should be set when using `openbabel-omp` and why?",
-      "answer": "The `OMP_NUM_THREADS` environment variable must be set to tell Open Babel how many CPUs it is allowed to use."
+      "question": "What environment variable needs to be set when using the `openbabel-omp` module to control the number of CPUs it utilizes?",
+      "answer": "Users must set the `OMP_NUM_THREADS` environment variable to tell Open Babel how many CPUs it is allowed to use with the `openbabel-omp` module."
     },
     {
-      "question": "Can Open Babel functionality be integrated with Python?",
-      "answer": "Yes, Open Babel's functionality can be used from Python through its Python interface, which is included as extensions in both the `openbabel` and `openbabel-omp` modules."
+      "question": "How can Open Babel's functionality be accessed from Python on Alliance clusters?",
+      "answer": "Open Babel's functionality can be used from Python by loading both an `openbabel` (or `openbabel-omp`) module and a compatible Python module, after which the `openbabel` and `pybel` packages become available."
     },
     {
-      "question": "What steps are required to use the Open Babel Python interface?",
-      "answer": "To use the Python interface, you need to load both an `openbabel` module and a compatible Python module, then you can import `openbabel` or `pybel` in your Python script."
+      "question": "What Python packages become available once a user loads a Python module and an Open Babel module (e.g., `openbabel/3.1.1`) on an Alliance cluster?",
+      "answer": "After loading a Python module and an Open Babel module, both the `openbabel` and `pybel` packages become available for use in Python."
+    },
+    {
+      "question": "How would a user configure a Slurm job to use the parallel `openbabel-omp` module with two CPU cores to generate Canonical SMILES from an SDF file on an Alliance cluster?",
+      "answer": "The user would create a Slurm job script requesting `cpus-per-task=2`, load the `openbabel-omp` module, set `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"`, and then run the command `obabel -i sdf many_molecules.sdf -o can -O many_canonical_smiles.txt`."
     }
   ],
-  "generated_at": "2026-04-12T04:42:27.256069+00:00"
+  "generated_at": "2026-04-13T10:46:47.726033+00:00"
 }

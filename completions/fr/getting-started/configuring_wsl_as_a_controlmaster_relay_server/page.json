@@ -3,53 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Quel est le but principal de cette procédure?",
-      "answer": "Cette procédure vise à utiliser ControlMaster de WSL pour se connecter aux grappes avec plusieurs applications Windows natives pour une certaine durée, sans avoir à vous authentifier à chaque session."
+      "question": "Quel est le but principal de la procédure qui utilise ControlMaster de WSL pour se connecter aux grappes Alliance?",
+      "answer": "La procédure permet de se connecter aux grappes Alliance avec plusieurs applications Windows natives pour une certaine durée, sans avoir à s'authentifier pour chaque session."
     },
     {
-      "question": "Quelle est la première étape nécessaire pour débuter, avant même de configurer SSH?",
-      "answer": "La première étape est d'installer Linux sur Windows en utilisant le Sous-système Windows pour Linux (WSL), en se référant à la documentation sur 'Travailler avec Windows Subsystem for Linux (WSL)'."
+      "question": "Quel est l'état actuel de la page d'information sur ControlMaster de WSL pour les grappes Alliance, et comment peut-on soumettre des suggestions?",
+      "answer": "La page est une ébauche et l'équipe travaille à sa version finale. On peut soumettre des suggestions en écrivant au soutien technique."
     },
     {
-      "question": "Quels logiciels additionnels doit-on installer sur la distribution Ubuntu dans WSL?",
-      "answer": "Il faut installer `openssh-server` en exécutant les commandes `sudo apt update && sudo apt upgrade -y` puis `sudo apt install openssh-server -y`."
+      "question": "Quelle est la première étape nécessaire pour utiliser ControlMaster de WSL afin de se connecter aux grappes Alliance?",
+      "answer": "Il faut installer Linux sur Windows en utilisant le Sous-système Windows pour Linux (WSL)."
     },
     {
-      "question": "Pourquoi doit-on créer un répertoire `custom_ssh` sur la VM Ubuntu?",
-      "answer": "Ce répertoire est créé pour contenir une configuration personnalisée du serveur `sshd`, incluant des clés d'hôte spécifiques, un fichier `authorized_keys` et un fichier `sshd_config`."
+      "question": "Dans l'exemple de configuration, quelle distribution Linux est utilisée pour l'instance WSL et quel est le nom de l'hôte Windows?",
+      "answer": "La distribution est Ubuntu pour l'instance WSL, et le nom du système Windows est 'smart'."
     },
     {
-      "question": "Quels paramètres ControlMaster sont configurés dans le fichier `~/.ssh/config` sur Ubuntu pour la connexion à Cedar?",
-      "answer": "Pour la connexion à Cedar, le fichier `~/.ssh/config` sur Ubuntu configure `ControlPath`, `ControlMaster auto` et `ControlPersist 10m`."
+      "question": "Quels logiciels additionnels doivent être installés sur Ubuntu pour la mise en place de ControlMaster de WSL?",
+      "answer": "Il faut installer `openssh-server` sur Ubuntu."
     },
     {
-      "question": "Quel type de clé SSH est utilisé dans le fichier `authorized_keys` sur Ubuntu et où doit-elle être obtenue?",
-      "answer": "Une clé publique SSH de type `ssh-ed25519` est utilisée, et elle doit être celle que vous avez téléchargée dans CCDB."
+      "question": "Décrivez la chaîne de connexion SSH utilisée dans cette configuration pour se connecter à une grappe Alliance à partir de Windows via WSL.",
+      "answer": "La connexion se fait de la machine Windows vers un serveur relais SSH sur la VM Ubuntu, puis de là vers le serveur cible SSH, tel que Cedar."
     },
     {
-      "question": "Comment lance-t-on le serveur `sshd` avec la configuration personnalisée et quelles sont les précautions à prendre?",
-      "answer": "On lance le serveur avec `/usr/sbin/sshd -f ${HOME}/custom_ssh/sshd_config`. Il faut s'assurer qu'il est lancé avec le profil de l'utilisateur (non `root`) et qu'il doit être relancé à chaque redémarrage de l'ordinateur ou de WSL."
+      "question": "Quel numéro de port est configuré pour le serveur sshd personnalisé dans le fichier `custom_ssh/sshd_config` sur Ubuntu?",
+      "answer": "Le port configuré est 2222."
     },
     {
-      "question": "Comment configure-t-on le fichier `~/.ssh/config` sur la machine Windows (`smart`) pour initier la connexion à Ubuntu, puis à Cedar?",
-      "answer": "Sur la machine Windows, on configure un hôte `ubuntu` avec `Hostname localhost` et `RemoteCommand ssh cedar` pour rediriger la connexion."
+      "question": "Comment lance-t-on le serveur sshd avec la configuration personnalisée sur Ubuntu, et quelle est une précaution importante à prendre?",
+      "answer": "On le lance avec la commande `/usr/sbin/sshd -f ${HOME}/custom_ssh/sshd_config`. Il faut s'assurer que le serveur est lancé avec le profil de l'utilisateur et non celui de root, et le relancer après chaque redémarrage de l'ordinateur ou de WSL."
     },
     {
-      "question": "Quelle commande utilise-t-on depuis un interpréteur Windows pour se connecter à Cedar via Ubuntu?",
-      "answer": "On utilise la commande `ssh -t ubuntu -p 2222` depuis un interpréteur Windows."
+      "question": "Quelle est la configuration `ControlPersist` spécifiée dans le fichier `~/.ssh/config` sur Ubuntu pour la connexion à Cedar?",
+      "answer": "La configuration `ControlPersist 10m` est utilisée, ce qui maintient la connexion ControlMaster ouverte pendant 10 minutes."
     },
     {
-      "question": "Existe-t-il une autre option de configuration pour les applications graphiques comme WinSCP sans utiliser `RemoteCommand` sur Windows?",
-      "answer": "Oui, on peut ajouter `command=\"ssh cedar\"` devant la clé publique dans le fichier `/home/jaime/custom_ssh/authorized_keys` sur Ubuntu, tout en commentant le `RemoteCommand` sur le fichier `~/.ssh/config` de Windows."
+      "question": "Quelle clé est utilisée dans le fichier `authorized_keys` sur Ubuntu pour l'authentification avec ControlMaster de WSL?",
+      "answer": "On utilise la clé publique SSH téléchargée dans le CCDB (Centre de Calcul du Canada)."
     },
     {
-      "question": "Le document contient-il des informations détaillées sur la configuration avec MobaXterm?",
-      "answer": "Le document mentionne la configuration avec MobaXterm et inclut des captures d'écran, mais sans description textuelle détaillée des étapes de configuration."
+      "question": "Quelle ligne de configuration dans le fichier `~/.ssh/config` sur la machine Windows ('smart') permet de se connecter directement à Cedar via Ubuntu?",
+      "answer": "C'est la ligne `RemoteCommand ssh cedar` sous la section `Host ubuntu`."
     },
     {
-      "question": "Que doit-on faire si on a des suggestions pour améliorer cette procédure qui est une ébauche?",
-      "answer": "Si vous avez des suggestions pour cette page qui est une ébauche, vous devriez écrire au soutien technique."
+      "question": "Quelle commande faut-il exécuter à partir de la machine Windows ('smart') pour établir la connexion SSH vers Cedar en utilisant cette configuration?",
+      "answer": "Il faut utiliser la commande `ssh -t ubuntu -p 2222`."
+    },
+    {
+      "question": "Comment peut-on configurer `authorized_keys` sur Ubuntu pour que des applications graphiques comme WinSCP fonctionnent sans avoir à spécifier `RemoteCommand` sur Windows?",
+      "answer": "On peut ajouter `command=\"ssh cedar\"` devant la clé publique SSH dans le fichier `/home/jaime/custom_ssh/authorized_keys` sur Ubuntu."
+    },
+    {
+      "question": "Le document présente des captures d'écran pour la configuration de quel outil de terminal Windows?",
+      "answer": "Le document présente des captures d'écran pour la configuration de MobaXterm."
     }
   ],
-  "generated_at": "2026-04-11T20:22:53.498459+00:00"
+  "generated_at": "2026-04-13T04:25:47.091413+00:00"
 }

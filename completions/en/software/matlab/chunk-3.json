@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How can a user submit a serial MATLAB program to the Slurm scheduler on the clusters?",
-      "answer": "To submit a serial MATLAB program to the Slurm scheduler, a user first creates a Slurm script, such as `matlab_slurm.sl`. This script includes parameters like `--job-name`, `--account`, `--time`, `--nodes`, `--ntasks`, `--cpus-per-task`, and `--mem`, and specifies loading a MATLAB module (e.g., `module load matlab/2024b.1`). The MATLAB program is then executed using a command like `matlab -singleCompThread -batch \"cosplot\"`. Finally, the job is submitted with `sbatch matlab_slurm.sl`."
+      "question": "How do you submit a serial MATLAB program to the scheduler on the clusters?",
+      "answer": "To submit a serial MATLAB program, you need to create a Slurm job script (e.g., `matlab_slurm.sl`) that specifies job parameters such as job name, accounting group, wall time, number of nodes, tasks, CPUs per task, and memory. Within this script, load the desired MATLAB module (e.g., `module load matlab/2024b.1`) and then execute your MATLAB script using a command like `matlab -singleCompThread -batch \"cosplot\"`. Finally, submit the job using the command `sbatch matlab_slurm.sl`."
     },
     {
-      "question": "How can a user execute a parallel MATLAB function on a single node using a `Threads` parallel environment?",
-      "answer": "To execute a parallel MATLAB function using a `Threads` parallel environment on a single node, a user should define the parallel logic within a MATLAB script, for example, `timeparfor.m`, which utilizes `parpool(\"Threads\",nthreads)` based on the `SLURM_CPUS_PER_TASK` environment variable. This MATLAB script is then submitted via a Slurm job script (e.g., `matlab_parallel.sh`) that specifies the required number of CPU cores per task (e.g., `--cpus-per-task=4`) and executes MATLAB using `matlab -nojvm -batch \"timeparfor\"` after loading the appropriate MATLAB module."
+      "question": "How can a user run a parallel MATLAB program using a Threads parallel environment on a single compute node on the clusters?",
+      "answer": "To run a parallel MATLAB program using a `Threads` parallel environment on a single node, first save your parallel MATLAB code (e.g., `timeparfor.m`) to a file. Then, create a Slurm job script (e.g., `matlab_parallel.sh`) which includes `#SBATCH` directives for the accounting group, time, CPUs per task (e.g., `--cpus-per-task=4`), and memory. Load the MATLAB module (e.g., `module load matlab/2024b.1`) and execute your MATLAB function using `matlab -nojvm -batch \"timeparfor\"`. The number of threads in your MATLAB code should be set using `str2num(getenv('SLURM_CPUS_PER_TASK'))` to match the allocated CPUs. Finally, submit the job using `sbatch matlab_parallel.sh`."
     },
     {
-      "question": "What issue can occur when running multiple parallel MATLAB jobs simultaneously, and how can it be avoided?",
-      "answer": "When two or more parallel MATLAB jobs simultaneously call `parpool` in a `Cluster` parallel environment, they can corrupt the local parallel profile by attempting to read and write to the same `.dat` file in the `$HOME/.matlab/local_cluster_jobs/R*` folder. To avoid this, it is recommended to ensure each job creates its own unique parallel profile location by setting the `JobStorageLocation` property of the `parallel.Cluster` object, for instance, to `getenv('SLURM_TMPDIR')`."
+      "question": "What issue can arise when running multiple parallel MATLAB jobs simultaneously using a Cluster parallel environment, and what is the recommended workaround?",
+      "answer": "When two or more parallel MATLAB jobs simultaneously call `parpool` in a `Cluster` parallel environment, they may try to read and write to the same `.dat` file within the `$HOME/.matlab/local_cluster_jobs/R*` folder, which can corrupt the local parallel profile used by other MATLAB jobs. To avoid this, it's recommended to ensure each job creates its own parallel profile in a unique location by setting the `JobStorageLocation` property of the `parallel.Cluster` object, typically to `getenv('SLURM_TMPDIR')`. An example of this is: `local_cluster = parcluster('local'); local_cluster.JobStorageLocation = getenv('SLURM_TMPDIR'); parpool(local_cluster);`."
     }
   ],
-  "generated_at": "2026-04-12T20:49:11.272801+00:00"
+  "generated_at": "2026-04-13T08:19:03.937041+00:00"
 }

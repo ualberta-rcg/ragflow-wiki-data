@@ -4,69 +4,13 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "What indicates that too many cores were requested for a multiprocessing task, according to the CPU usage graph?",
-      "answer": "The CPU usage graph indicates that too many cores were requested when only 16 cores are utilized, even though the system had 24 available."
+      "question": "How can one identify if they are requesting more CPU cores than necessary for a multiprocessor task?",
+      "answer": "To determine if too many CPU cores are being requested for a multiprocessor task, observe the CPU usage graph. If the graph shows that only a fraction of the requested cores are active (e.g., 16 out of 24 requested cores are utilized, leaving the graph partially coloured), it indicates an over-allocation. Additionally, reviewing the 'Processes and threads' graph can provide a complementary method to estimate the true number of active threads, thereby helping to gauge the actual core requirement."
     },
     {
-      "question": "How would the CPU graph appear if all requested cores were efficiently used in a multiprocessing task?",
-      "answer": "If all requested cores were efficiently utilized, the CPU graph would be entirely coloured."
-    },
-    {
-      "question": "What is the recommended correction if 24 tasks were requested but only 16 cores were utilized for a multiprocessing task?",
-      "answer": "The recommended correction is to change `#SBATCH --ntasks=24` to `#SBATCH --ntasks=16`."
-    },
-    {
-      "question": "How can one identify excessive memory allocation for a multiprocessing task using the memory graph?",
-      "answer": "By observing the memory usage graph, one can see that the requested amount of memory is excessive."
-    },
-    {
-      "question": "What is a judicious step to test if the memory requested for a multiprocessing task is excessive?",
-      "answer": "It would be judicious to test by reducing the `#SBATCH --mem-per-cpu` value to `1G`."
-    },
-    {
-      "question": "Why might the 'Processes and threads' graph be difficult to read for a multiprocessing task?",
-      "answer": "Some points on the 'Processes and threads' graph can overlap, which may make it difficult to read."
-    },
-    {
-      "question": "How can the actual number of active execution threads be determined from the 'Processes and threads' graph when points overlap?",
-      "answer": "By individually selecting each execution thread, one can determine that a total of 16 execution threads are active."
-    },
-    {
-      "question": "What complementary method can be used to estimate the actual number of cores needed for a multiprocessing task?",
-      "answer": "Counting the number of active execution threads constitutes a complementary method to estimate the actual number of cores needed for a multiprocessing task."
-    },
-    {
-      "question": "How can one identify if resources have been requested for a multiprocessing task that is not multithreaded?",
-      "answer": "One can identify this error by observing the CPU usage graph, which shows only half of the cores active, or by comparing the number of allocated cores per node with the number of active execution threads in the 'Processes and threads' graph."
-    },
-    {
-      "question": "What causes the error when `#SBATCH --cpus-per-task>1` is used for a multiprocessing task that is not multithreaded?",
-      "answer": "The error arises from using the `#SBATCH --cpus-per-task` option with a value greater than 1, as a non-multithreaded multiprocessing task only requires one core per process."
-    },
-    {
-      "question": "How many cores are required per process for a non-multithreaded multiprocessing task?",
-      "answer": "Only one core is required per process for a non-multithreaded multiprocessing task, as it uses a single execution thread per process."
-    },
-    {
-      "question": "What happens if more cores than necessary are allocated to a non-multithreaded multiprocessing task?",
-      "answer": "If more cores are allocated than necessary to a non-multithreaded multiprocessing task, they will remain unused because each process can only utilize one thread."
-    },
-    {
-      "question": "How does the CPU usage graph reflect an error where `#SBATCH --cpus-per-task=2` is used for a non-multithreaded multiprocessing task?",
-      "answer": "The CPU usage graph shows that only half of the allocated cores are active, because only one of the two cores allocated per process is actually used."
-    },
-    {
-      "question": "What memory adjustment can be made to reduce an excessive margin when `#SBATCH --cpus-per-task=2` is used for a non-multithreaded multiprocessing task?",
-      "answer": "The memory value could be reduced to `#SBATCH --mem-per-cpu=2g` to limit the excessive margin."
-    },
-    {
-      "question": "What is an alternative way to detect if a non-multithreaded multiprocessing task is incorrectly requesting resources?",
-      "answer": "Another way to detect this error is by comparing the number of cores allocated per node (visible in the Portal's Resources section) with the number of active execution threads displayed in the 'Processes and threads' graph."
-    },
-    {
-      "question": "Provide an example of how to identify the error of requesting too many cores for a non-multithreaded multiprocessing task using node nc30408.",
-      "answer": "On node 'nc30408', if 16 cores are allocated (as seen in the Resources section) but only 8 active execution threads are shown in the 'Processes and threads' graph, it indicates that `#SBATCH --cpus-per-task=2` was used for a non-multithreaded task, leading to unused cores."
+      "question": "How can you identify if a multiprocessor task that is not multithreaded is incorrectly requesting multiple cores per task, for instance, by using `#SBATCH --cpus-per-task=2`?",
+      "answer": "If a multiprocessor task is not designed to be multithreaded, yet its submission script specifies `#SBATCH --cpus-per-task > 1`, it indicates a resource waste because each process will only utilize a single core. This issue can be identified by observing the CPU usage graph, which will show that only half of the allocated cores are active. Another diagnostic method involves comparing the total number of cores allocated per node (as seen in the 'Ressources' section of the portal) with the number of active threads displayed in the 'Processes and threads' graph. If the number of active threads is half the number of allocated cores per node (e.g., 8 active threads on a node with 16 allocated cores), it confirms that each process is using only one thread, leaving the additional allocated cores idle."
     }
   ],
-  "generated_at": "2026-04-11T21:20:10.466583+00:00"
+  "generated_at": "2026-04-13T05:09:38.376332+00:00"
 }

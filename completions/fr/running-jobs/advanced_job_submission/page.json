@@ -3,45 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Pourquoi utiliser des outils spécifiques quand on a beaucoup de tâches de calcul à soumettre?",
-      "answer": "Pour traiter efficacement un grand nombre de fichiers ou des combinaisons de paramètres différentes (ce qu'on appelle un 'parameter sweep')."
+      "question": "Quelles sont les méthodes recommandées pour gérer plusieurs tâches de calcul sur les grappes de calcul d'Alliance quand on doit traiter de nombreux fichiers ou utiliser différentes combinaisons de paramètres?",
+      "answer": "Il existe plusieurs outils utiles, notamment les tableaux de tâches (Job Arrays), GNU Parallel, GLOST (Greedy Launcher Of Small Tasks) et META (une suite de scripts conçue par SHARCNET)."
     },
     {
-      "question": "Quelles sont les conditions idéales pour utiliser les Job Arrays?",
-      "answer": "Les Job Arrays sont parfaits quand chaque tâche dépasse une heure et que le nombre total de tâches est de moins de mille."
+      "question": "Quand est-il idéal d'utiliser les tableaux de tâches (Job Arrays) pour soumettre des calculs sur les grappes d'Alliance?",
+      "answer": "Les tableaux de tâches sont idéaux pour soumettre plusieurs tâches similaires dans un seul script, surtout quand chaque tâche dépasse une heure et que leur nombre est inférieur à mille."
     },
     {
-      "question": "Quel outil est recommandé pour exécuter et gérer plusieurs calculs courts, incluant les balayages de paramètres, sur un seul nœud?",
-      "answer": "GNU Parallel est l'outil conseillé pour cette situation, puisqu'il permet de faire ça sur un seul nœud réservé via une tâche parallèle."
+      "question": "À quoi sert GNU Parallel sur les grappes de calcul d'Alliance et dans quel contexte est-il le plus utile?",
+      "answer": "GNU Parallel sert à exécuter et gérer plusieurs calculs courts, incluant les balayages de paramètres, sur un seul nœud réservé via une tâche parallèle."
     },
     {
-      "question": "Comment le Greedy Launcher Of Small Tasks (GLOST) gère-t-il une longue liste de tâches sérielles?",
-      "answer": "GLOST utilise MPI et une architecture de type gérant-travailleur pour exécuter progressivement une longue liste de tâches sérielles sur les cœurs de CPU réservés via une tâche parallèle."
+      "question": "Qu'est-ce que GLOST (Greedy Launcher Of Small Tasks) et comment fonctionne-t-il pour exécuter des tâches sur les grappes de calcul d'Alliance?",
+      "answer": "GLOST utilise MPI et une architecture de gestionnaire-travailleur pour exécuter progressivement une longue liste de tâches série sur les cœurs de CPU réservés par une tâche parallèle."
     },
     {
-      "question": "Quelle est la principale utilité de la suite de scripts META de SHARCNET?",
-      "answer": "META vise à automatiser le calcul à haut débit, c'est-à-dire l'exécution d'un grand nombre de calculs sériels, parallèles ou GPU, souvent liés entre eux."
+      "question": "Quel est le but de la suite de scripts META développée par SHARCNET pour les grappes de calcul d'Alliance?",
+      "answer": "META est une suite de scripts conçue pour automatiser le calcul à haut débit, c'est-à-dire l'exécution d'un grand nombre de calculs sériels, parallèles ou GPU liés."
     },
     {
-      "question": "Qu'est-ce qu'une dépendance entre tâches (inter-job dependency) dans Slurm?",
-      "answer": "C'est un lien ou une relation entre les étapes d'un pipeline de calcul, permettant de définir qu'une tâche dépend du début, de la fin ou du statut final d'une autre tâche."
+      "question": "À quoi servent les interdépendances entre les tâches Slurm dans les pipelines de calcul sur les grappes d'Alliance?",
+      "answer": "Les interdépendances servent de liens et de relations entre les étapes d'un pipeline, permettant, par exemple, qu'une seconde tâche ne démarre qu'après la réussite d'une première."
     },
     {
-      "question": "Comment peut-on soumettre une tâche qui doit absolument attendre la réussite d'une tâche précédente dans Slurm?",
-      "answer": "On utilise la commande `sbatch --dependency=afterok:$JOBID1 job2.sh`, où `$JOBID1` est l'identifiant de la première tâche qui doit réussir."
+      "question": "Comment spécifier qu'une tâche Slurm (par exemple, job2.sh) doit démarrer seulement après la réussite d'une autre tâche (par exemple, job1.sh) en utilisant la commande `sbatch`?",
+      "answer": "On peut utiliser la commande `sbatch --dependency=afterok:$JOBID1 job2.sh`, où `$JOBID1` est l'identifiant de la première tâche enregistrée avec `sbatch --parsable job1.sh`."
     },
     {
-      "question": "Existe-t-il différents types de dépendances entre tâches dans Slurm?",
-      "answer": "Oui, il y a plusieurs types de dépendances comme `after`, `afterany`, `afterok` et `afternotok` pour des contrôles variés sur le démarrage des tâches dépendantes."
+      "question": "Est-il possible pour plusieurs tâches d'attendre la complétion d'une seule tâche dans Slurm?",
+      "answer": "Oui, plusieurs tâches peuvent avoir la même dépendance, ce qui signifie qu'elles attendent toutes après la complétion d'une seule tâche."
     },
     {
-      "question": "À quoi servent les tâches hétérogènes (heterogeneous jobs) dans Slurm?",
-      "answer": "Elles sont très pratiques pour les applications MPI où le processus principal requiert plus de cœurs CPU et de mémoire que les autres processus."
+      "question": "Est-ce qu'une tâche Slurm peut dépendre de plusieurs autres tâches avant de démarrer?",
+      "answer": "Oui, une tâche peut avoir plusieurs dépendances, attendant ainsi la complétion de multiples tâches avant de pouvoir s'exécuter."
     },
     {
-      "question": "Comment spécifier des requêtes de ressources différentes pour les composants d'une tâche hétérogène dans Slurm?",
-      "answer": "On peut utiliser l'instruction `#SBATCH hetjob` dans le script de tâche, ou séparer les requêtes de ressources avec un deux-points (:) directement sur la ligne de commande `sbatch`."
+      "question": "Quels sont les différents types de dépendances disponibles avec l'option `--dependency` dans Slurm?",
+      "answer": "Les types de dépendances incluent `after`, `afterany`, `afterok` et `afternotok`, parmi d'autres, pour gérer les conditions de démarrage des tâches."
+    },
+    {
+      "question": "Qu'est-ce qu'une tâche hétérogène dans Slurm et quand peut-elle être utile pour des applications comme MPI?",
+      "answer": "Une tâche hétérogène est une fonctionnalité du planificateur Slurm qui permet de spécifier des exigences de ressources différentes pour divers processus au sein d'une même tâche, ce qui est très utile si une application MPI nécessite plus de cœurs CPU et de mémoire pour le processus principal que pour les autres processus."
+    },
+    {
+      "question": "Donnez un exemple concret de situation où les tâches hétérogènes Slurm seraient avantageuses pour une application MPI.",
+      "answer": "Si le processus principal d'une application MPI requiert 8 cœurs et un total de 32 Go de RAM, tandis que les autres processus n'ont besoin que d'un seul cœur et 1 Go de RAM chacun, les tâches hétérogènes permettent de spécifier ces besoins distincts de ressources."
+    },
+    {
+      "question": "Comment peut-on spécifier les requêtes de ressources pour une tâche hétérogène directement dans un script de tâche Slurm?",
+      "answer": "On peut spécifier les requêtes en utilisant des lignes `SBATCH` séparées par `#SBATCH hetjob`, par exemple: `#SBATCH --ntasks=1 --cpus-per-task=8 --mem-per-cpu=4000M` suivi de `#SBATCH hetjob` puis des requêtes pour les autres processus."
+    },
+    {
+      "question": "Comment peut-on séparer les requêtes de ressources pour différentes parties d'une tâche hétérogène directement sur la ligne de commande `sbatch`?",
+      "answer": "On peut séparer les requêtes de ressources pour les différentes parties de la tâche hétérogène en utilisant un deux-points (deux-points) `:` sur la ligne de commande `sbatch`."
     }
   ],
-  "generated_at": "2026-04-11T16:03:05.056944+00:00"
+  "generated_at": "2026-04-13T01:09:03.687740+00:00"
 }

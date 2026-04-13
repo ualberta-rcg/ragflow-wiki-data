@@ -3,49 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "How can I reset my password for an Alliance national cluster?",
-      "answer": "You can reset your password by visiting https://ccdb.alliancecan.ca/security/forgot, but only after your first role has been approved by staff."
+      "question": "How can a user reset their password for any Alliance national cluster?",
+      "answer": "Users can reset their password by visiting https://ccdb.alliancecan.ca/security/forgot. However, they must wait for their first role to be approved by Alliance staff before they can reset it."
     },
     {
-      "question": "How do I copy and paste text in the Linux terminal?",
-      "answer": "In Linux, you can use [Ctrl]+[Insert] to copy and [Shift]+[Insert] to paste. macOS users can continue to use [Cmd]+C and [Cmd]+V. Alternatively, selecting text might copy it to the clipboard, and pasting can be done with a right-click or middle-click."
+      "question": "How do users copy and paste text in the Linux terminal on Alliance clusters without using Ctrl+C?",
+      "answer": "In the Linux terminal, users can typically use Ctrl+Insert to copy and Shift+Insert to paste. macOS users can continue to use Cmd+C and Cmd+V. Some terminal programs also allow selecting text to copy and using a right-click or middle-click to paste."
     },
     {
-      "question": "What issues can arise from text file line endings between Windows and Linux environments, and how can they be resolved?",
-      "answer": "Windows text files include an invisible 'carriage return' character at the end of each line, which can cause problems in Linux. To resolve this, create and edit text files on the cluster using Linux editors (emacs, vim, nano) or use the `dos2unix <filename>` command on the cluster login node to convert the line endings."
+      "question": "What issues can arise from text files prepared in a Windows environment when used in a Linux environment on Alliance clusters?",
+      "answer": "Text files prepared in a Windows environment have an additional invisible 'carriage return' character at the end of each line, which can cause problems when these files are read in a Linux environment."
     },
     {
-      "question": "Why is saving files slow in Emacs on Alliance national clusters, and how can I improve performance?",
-      "answer": "Emacs uses the `fsync` system call for data reliability, which can cause slow saving on shared filesystems. To improve performance, add `(setq write-region-inhibit-fsync t)` to your `~/.emacs` file."
+      "question": "How can users convert text file line endings from a Windows convention to a Linux convention on an Alliance cluster?",
+      "answer": "Users can either create and edit text files directly on the cluster using Linux text editors like emacs, vim, or nano, or use the command `dos2unix <filename>` on the cluster login node to convert the line endings."
     },
     {
-      "question": "What should I do if I encounter the error 'sbatch: error: Batch job submission failed: Socket timed out on send/recv operation'?",
-      "answer": "This error often indicates high load on the Slurm manager. Wait about a minute, then run `squeue -u $USER` to check if your job was accepted. If it doesn't appear, submit it again."
+      "question": "Why might saving files be slow in Emacs on shared filesystems on Alliance clusters, and what is the recommended solution?",
+      "answer": "Emacs uses the `fsync` system call for data reliability, which can cause slow saves on shared filesystems like `home`, `scratch`, or `project`. To improve performance, users can add the line `(setq write-region-inhibit-fsync t)` to their `~/.emacs` file."
     },
     {
-      "question": "How can I determine why my jobs are pending ('PD') in the Slurm queue?",
-      "answer": "Run `squeue -u <username>`. The `(REASON)` column will typically show 'Resources' (cluster is busy, consider fewer resources) or 'Priority' (your research group has over-consumed resources, which you can track using `sshare`)."
+      "question": "What does the error message \"sbatch: error: Batch job submission failed: Socket timed out on send/recv operation\" indicate on an Alliance cluster?",
+      "answer": "This error message indicates that the load on the Slurm manager or scheduler process is too high."
     },
     {
-      "question": "What do 'Nodes required for job are DOWN, DRAINED or RESERVED' or 'ReqNodeNotAvailable' mean in `squeue` output?",
-      "answer": "These messages mean that some nodes Slurm considered for your job are unavailable (down, deliberately offline, or reserved). They are not error messages; your job is in the queue and will eventually be processed, similar to the 'Resources' reason in older Slurm versions."
+      "question": "What should a user do if they receive a \"Socket timed out\" error when submitting a job on an Alliance cluster?",
+      "answer": "Users should wait approximately a minute, then run `squeue -u $USER` to check if the job was accepted. If it doesn't appear, they should simply submit it again."
     },
     {
-      "question": "How accurate are the `START_TIME` forecasts provided by `squeue`?",
-      "answer": "Slurm's `START_TIME` forecasts for high-priority pending jobs are not very useful because they depend on rapidly changing conditions like jobs ending early or prioritization changes. Most waiting jobs show 'N/A'. The start time for *running* jobs is accurate."
+      "question": "How can users determine why their jobs are in the pending (PD) state on an Alliance cluster, and what are the common reasons?",
+      "answer": "Users can run the `squeue -u <username>` command to see the reason. Common reasons are `Resources` (the cluster is busy) or `Priority` (the job is waiting due to lower priority caused by past over-consumption of resources)."
     },
     {
-      "question": "What are `.core` files and can I delete them?",
-      "answer": "`.core` files are binary snapshots of a program's state when it crashes. While useful for debugging, regular users can generally delete them. To prevent their creation, add `ulimit -c 0` to your `$HOME/.bashrc` file."
+      "question": "How does past resource consumption affect job priority on Alliance clusters, and what does the `LevelFS` column indicate?",
+      "answer": "Past over-consumption of cluster resources by a research group can lower job priority. The `sshare` command's `LevelFS` column indicates resource consumption: a value greater than one means under-consumption, while less than one means over-consumption, impacting job priority."
     },
     {
-      "question": "How can I fix a 'library not found' error when installing precompiled binary packages in my `$HOME` directory?",
-      "answer": "For errors such as `/lib64/libc.so.6: version 'GLIBC_2.18' not found`, refer to the 'Installing binary packages' section within the 'Installing software in your home directory' guide for a fix."
+      "question": "What do the Slurm 19.05 messages \"Nodes required for job are DOWN, DRAINED or RESERVED for jobs in higher priority partitions\" or \"ReqNodeNotAvailable\" mean for a pending job on an Alliance cluster?",
+      "answer": "These messages indicate that one or more nodes considered for the job are unavailable (down, deliberately offline, or reserved). They are not error messages; jobs submitted with these reasons are still in the queue and will be processed eventually, similar to the older \"Resources\" reason."
     },
     {
-      "question": "Does the Alliance provide clusters specifically designated for sensitive research data, such as human clinical research data?",
-      "answer": "No, the Alliance does not operate clusters specifically designated for handling personal, private, or sensitive data. While resources follow best practices for shared systems, they are not certified to specific security assurance levels, and the ultimate responsibility for data protection rests with the researcher."
+      "question": "How accurate is the `START_TIME` forecast by `squeue` for pending jobs on Alliance general-purpose clusters?",
+      "answer": "The `START_TIME` forecast for pending jobs is often not very useful or accurate because Slurm recomputes its plans frequently due to rapidly changing conditions like jobs ending early or priority shifts. Most waiting jobs show \"N/A\"."
+    },
+    {
+      "question": "What are `.core` files found in a directory on an Alliance cluster, and should users keep them?",
+      "answer": "`.core` files are binary files created when a program crashes, containing a snapshot of its state for debugging. Regular users typically have no interest in them beyond indicating a crash and can delete them."
+    },
+    {
+      "question": "How can users prevent `.core` files from being created in their directories on Alliance clusters?",
+      "answer": "To prevent `.core` files from being created, users can add the line `ulimit -c 0` to the end of their `$HOME/.bashrc` file."
+    },
+    {
+      "question": "Does the Alliance provide specific clusters designated for handling sensitive research data, such as human clinical research data?",
+      "answer": "No, the Alliance does not operate any clusters specifically designated for handling personal, private, or sensitive data like human clinical research data."
+    },
+    {
+      "question": "Who holds the ultimate responsibility for data protection and data privacy when using Alliance resources for research?",
+      "answer": "The ultimate responsibility for data protection and data privacy rests with the researcher, as Alliance resources, while adhering to best practices, are not certified to meet specific security assurance levels for certain datasets."
     }
   ],
-  "generated_at": "2026-04-11T21:44:56.173533+00:00"
+  "generated_at": "2026-04-13T05:30:34.096485+00:00"
 }

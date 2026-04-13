@@ -4,13 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What issue can arise when multiple parallel MATLAB jobs are run simultaneously on a cluster?",
-      "answer": "When two or more parallel MATLAB jobs call `parpool` at the same time, they may attempt to read from and write to the same `.dat` file within the `$HOME/.matlab/local_cluster_jobs/R*` folder. This can corrupt the local parallel profile used by other MATLAB jobs."
+      "question": "What issue can arise when multiple parallel MATLAB jobs call `parpool` simultaneously on our clusters?",
+      "answer": "When two or more parallel MATLAB jobs call `parpool` at the same time, they may try to read and write to the same `.dat` file within the `$HOME/.matlab/local_cluster_jobs/R*` folder. This can lead to the corruption of the local parallel profile, which then affects other MATLAB jobs."
     },
     {
-      "question": "How can users prevent simultaneous parallel MATLAB jobs from corrupting local parallel profiles?",
-      "answer": "To prevent corruption of local parallel profiles, users should ensure each job creates its own parallel profile in a unique location. This can be achieved by setting the `JobStorageLocation` property of the `parallel.Cluster` object, for example, to `getenv('SLURM_TMPDIR')`."
+      "question": "How can users prevent simultaneous parallel MATLAB jobs from corrupting shared local parallel profiles?",
+      "answer": "To avoid corruption of shared local parallel profiles, it is recommended that each job creates its own parallel profile in a unique location. This is accomplished by setting the `JobStorageLocation` property of the `parallel.Cluster` object. For instance, you can set it to a unique temporary directory like `getenv('SLURM_TMPDIR')` using MATLAB code similar to:\n```matlab\nlocal_cluster = parcluster('local')\nlocal_cluster.JobStorageLocation = getenv('SLURM_TMPDIR')\nparpool(local_cluster);\n```"
     }
   ],
-  "generated_at": "2026-04-12T20:49:21.023826+00:00"
+  "generated_at": "2026-04-13T08:19:18.336896+00:00"
 }

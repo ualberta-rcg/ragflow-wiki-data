@@ -4,81 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What is the general syntax for using GLOST?",
-      "answer": "The general syntax for GLOST involves using a wrapper called `glost_launch` with an MPI command and a text file containing the list of tasks. Valid forms include `srun glost_launch list_glost_tasks.txt`, `mpiexec glost_launch list_glost_tasks.txt`, or `mpirun glost_launch list_glost_tasks.txt`."
+      "question": "What are the common command-line syntaxes used to run a GLOST job on Alliance clusters?",
+      "answer": "GLOST jobs are typically launched using the `glost_launch` wrapper with a text file containing the list of tasks. The general syntaxes are: `srun glost_launch list_glost_tasks.txt`, `mpiexec glost_launch list_glost_tasks.txt`, or `mpirun glost_launch list_glost_tasks.txt`."
     },
     {
-      "question": "What file is used as an argument for the `glost_launch` wrapper?",
-      "answer": "The `list_glost_tasks.txt` file (or a similarly named text file) is used as an argument for the `glost_launch` wrapper."
-    },
-    {
-      "question": "How does GLOST distribute serial jobs among available cores?",
-      "answer": "GLOST uses a cyclic distribution method to assign serial jobs. It picks the first lines from the list of jobs, assigning one processor to each, and then continuously assigns subsequent lines to processors as they complete their current tasks, until the list is exhausted or the job runs out of time."
-    },
-    {
-      "question": "Does the number of cores need to exactly match the number of requested jobs when using GLOST?",
-      "answer": "No, the number of cores may not necessarily match the number of requested jobs in the list. However, for optimal resource usage, it's beneficial if serial jobs have similar runtimes to be distributed evenly."
-    },
-    {
-      "question": "What types of job situations are suitable for GLOST?",
-      "answer": "GLOST is suitable for running a large number of very short serial jobs (hundreds or thousands, e.g., a few minutes each), tens to hundreds of relatively short runtime jobs (e.g., an hour or so), or many long serial jobs with similar runtimes."
-    },
-    {
-      "question": "How can one estimate the wall time for a GLOST job?",
-      "answer": "To estimate the wall time for a GLOST job, first estimate the runtime (`t0`) for a single serial job using one processor. If you have `Njobs` similar jobs and will use `Ncores` for your GLOST job, the estimated wall time (`wt`) is calculated as `wt = t0 * Njobs / Ncores`."
-    },
-    {
-      "question": "What is the formula for estimating GLOST job wall time?",
-      "answer": "The formula for estimating GLOST job wall time is `wt = t0 * Njobs / Ncores`, where `t0` is the runtime of one serial job on one processor, `Njobs` is the total number of serial jobs, and `Ncores` is the number of cores used for the GLOST job."
-    },
-    {
-      "question": "What is `Njobs` in the GLOST wall time estimation formula?",
-      "answer": "`Njobs` represents the total number of similar serial jobs in your GLOST job's list of tasks."
-    },
-    {
-      "question": "What is `t0` in the GLOST wall time estimation formula?",
-      "answer": "`t0` represents the estimated runtime for a single serial job when executed on one processor."
-    },
-    {
-      "question": "What is `Ncores` in the GLOST wall time estimation formula?",
-      "answer": "`Ncores` represents the total number of cores that will be utilized to run your GLOST job."
-    },
-    {
-      "question": "How does GLOST minimize communication overhead despite using MPI?",
-      "answer": "GLOST uses MPI primarily to launch entirely serial jobs, meaning communication overhead is relatively infrequent, leading to nearly the same efficiency as writing a custom MPI program without the extra effort."
-    },
-    {
-      "question": "Which Slurm flag should be used to specify memory for a GLOST job?",
-      "answer": "For GLOST jobs, you should use the `--mem-per-cpu` flag instead of `--mem` in your Slurm script to specify memory."
-    },
-    {
-      "question": "Why should `--mem-per-cpu` be used for GLOST jobs instead of `--mem`?",
-      "answer": "GLOST uses MPI to run serial jobs, and the memory required per core should be the same as the memory required for a serial job if it were run independently. Therefore, `--mem-per-cpu` ensures each core gets the appropriate memory."
-    },
-    {
-      "question": "How do you create the list of tasks for a GLOST job?",
-      "answer": "Before submitting a GLOST job, you create a text file, typically named `list_glost_tasks.txt`, which contains all the commands needed to run your serial jobs, with one job command (or sequence of commands) per line."
-    },
-    {
-      "question": "What is the ideal characteristic for jobs listed in the GLOST tasks file to optimize resource use?",
-      "answer": "Ideally, one should choose jobs with similar runtimes to optimize the use of requested resources."
-    },
-    {
-      "question": "How can output file overlaps be avoided when running multiple GLOST tasks in a single directory?",
-      "answer": "To avoid output overlaps when running multiple GLOST tasks in one directory, standard output should be redirected to a file that includes a variable indicating the argument or option used for the corresponding job, making each output file unique."
-    },
-    {
-      "question": "What should be done if serial jobs in a GLOST list use similar temporary or output files and cannot easily redirect output?",
-      "answer": "If jobs use similar temporary or output files, you may need to create a dedicated directory for each task, with one directory for each argument or option that corresponds to a particular job."
-    },
-    {
-      "question": "Can a single entry in the GLOST tasks file contain multiple commands?",
-      "answer": "Yes, one job entry in the GLOST tasks file may contain one command or multiple commands. If there are multiple commands, they should be separated by `&&` to ensure sequential execution."
-    },
-    {
-      "question": "What delimiter is used to separate multiple commands within a single job entry in the GLOST tasks file?",
-      "answer": "Multiple commands within a single job entry in the GLOST tasks file should be separated by `&&`."
+      "question": "When creating the list of tasks for a GLOST job, what considerations should be kept in mind regarding the file `list_glost_tasks.txt` and its contents?",
+      "answer": "Before submitting a GLOST job, you must create a text file, commonly named `list_glost_tasks.txt`, that contains all the commands needed to run the serial jobs, with one job per line. Ideally, jobs with similar runtimes should be chosen to optimize resource utilization. If a single job involves multiple commands, they should be separated by `&&`. To prevent output or temporary file overlaps, especially when running all jobs in one directory, you should redirect standard output to unique files (e.g., using variables) or create a dedicated directory for each task."
     }
   ],
-  "generated_at": "2026-04-11T22:10:34.887182+00:00"
+  "generated_at": "2026-04-13T05:53:19.447522+00:00"
 }

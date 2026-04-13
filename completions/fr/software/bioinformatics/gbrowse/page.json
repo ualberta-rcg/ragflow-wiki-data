@@ -3,73 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que GBrowse et à quoi sert-il?",
-      "answer": "GBrowse est un outil web qui permet de manipuler et de visualiser des données génomiques au moyen d'une interface interactive, combinant une base de données et des pages web."
+      "question": "Qu'est-ce que GBrowse et à quoi sert-il sur les grappes d'Alliance?",
+      "answer": "GBrowse est un outil qui permet de manipuler et de visualiser des données génomiques à l'aide d'une interface web interactive. Il est disponible sur la grappe Cedar."
     },
     {
-      "question": "Où est-ce que GBrowse est disponible sur les systèmes de Compute Canada?",
-      "answer": "GBrowse est disponible sur Cedar et peut être installé à partir de https://gateway.cedar.computecanada.ca."
+      "question": "Comment un chercheur principal ou une chercheuse principale peut-il ou elle demander l'accès à GBrowse pour son groupe de recherche sur les grappes d'Alliance?",
+      "answer": "Le chercheur ou la chercheuse principal(e) doit écrire au soutien technique pour demander la création d'un compte partagé pour son groupe et attester qu'il ou elle comprend les conditions d'utilisation d'un tel compte."
     },
     {
-      "question": "Comment notre installation de GBrowse diffère-t-elle de celle décrite sur la page web officielle de GBrowse?",
-      "answer": "Notre installation diffère principalement en ce qui a trait à l’autorisation et à l’authentification."
+      "question": "Quelles informations supplémentaires doivent être fournies lors de la demande d'accès à GBrowse sur les grappes d'Alliance?",
+      "answer": "Il faut également indiquer le nom de la base de données qui sera utilisée sur Cedar. Si le groupe n'a pas encore de compte de base de données, la page des serveurs de bases de données doit être consultée."
     },
     {
-      "question": "Qui doit faire la demande pour obtenir un accès à GBrowse pour un groupe de recherche?",
-      "answer": "Le chercheur principal ou la chercheuse principale doit écrire au soutien technique pour demander la création du compte partagé."
+      "question": "Où les fichiers de configuration de GBrowse doivent-ils être placés pour être visibles par tous les membres d'un groupe de recherche sur les grappes d'Alliance?",
+      "answer": "Les fichiers de configuration doivent être placés dans le répertoire `/project/GROUPID/gbrowse/USERNAME/conf`, où `GROUPID` est l'identifiant du groupe et `USERNAME` est le nom d'utilisateur."
     },
     {
-      "question": "Quel type de compte est créé pour les groupes de recherche demandant l'accès à GBrowse?",
-      "answer": "Un compte partagé est créé, où les données et les fichiers de configuration sont lisibles par tous les membres du groupe."
+      "question": "Comment configure-t-on la connexion à une base de données MySQL pour GBrowse sur les grappes d'Alliance?",
+      "answer": "Les fichiers de configuration GBrowse doivent contenir `db_adaptor = Bio::DB::SeqFeature::Store` et `db_args = -adaptor DBI::mysql -dsn DATABASE;mysql_read_default_file=/home/SHARED/.my.cnf`, où `DATABASE` est le nom de la base de données et `SHARED` est le compte partagé. Le fichier `.my.cnf` est créé par l'équipe technique."
     },
     {
-      "question": "Quelle information additionnelle est requise lors de la demande d'accès à GBrowse?",
-      "answer": "Il faut indiquer le nom de la base de données utilisée sur Cedar. Si vous n’avez pas de compte de base de données, consultez la page des serveurs de bases de données."
+      "question": "Comment configure-t-on la connexion à une base de données PostgreSQL pour GBrowse sur les grappes d'Alliance?",
+      "answer": "Les fichiers de configuration GBrowse doivent contenir `db_adaptor = Bio::DB::SeqFeature::Store` et `db_args = -adaptor DBI::Pg -dsn = dbi:Pg:dbname=DATABASE`, où `DATABASE` est le nom de la base de données."
     },
     {
-      "question": "Où doivent être placés les fichiers de configuration de GBrowse pour qu'ils soient visibles par tous les membres du groupe?",
-      "answer": "Les fichiers de configuration doivent être placés dans le répertoire /project/GROUPID/gbrowse/USERNAME/conf."
-    },
-    {
-      "question": "Comment doit-on s'assurer que les membres du groupe peuvent lire les fichiers de configuration?",
-      "answer": "Il faut s'assurer que les permissions de lecture du groupe pour ces fichiers sont activées."
-    },
-    {
-      "question": "Comment configure-t-on la connexion à une base de données MySQL dans les fichiers de configuration GBrowse?",
-      "answer": "La configuration doit inclure `db_adaptor = Bio::DB::SeqFeature::Store` et `db_args = -adaptor DBI::mysql -dsn DATABASE;mysql_read_default_file=/home/SHARED/.my.cnf`."
-    },
-    {
-      "question": "À quoi sert le fichier .my.cnf dans la configuration de connexion MySQL?",
-      "answer": "Le fichier .my.cnf est créé par l'équipe technique et contient les renseignements nécessaires pour se connecter à MySQL."
-    },
-    {
-      "question": "Comment configure-t-on la connexion à une base de données Postgres dans les fichiers de configuration GBrowse?",
-      "answer": "La configuration doit inclure `db_adaptor = Bio::DB::SeqFeature::Store` et `db_args = -adaptor DBI::Pg -dsn = dbi:Pg:dbname=DATABASE`."
-    },
-    {
-      "question": "Est-il nécessaire de téléverser les fichiers .bam pour les visualiser avec GBrowse?",
+      "question": "Est-il nécessaire de téléverser les fichiers .bam pour les visualiser avec GBrowse sur les grappes d'Alliance?",
       "answer": "Non, il n'est pas nécessaire de téléverser les fichiers .bam; GBrowse peut les lire directement si certaines conditions sont respectées."
     },
     {
-      "question": "Quelles sont les exigences pour que GBrowse puisse lire directement les fichiers .bam?",
-      "answer": "Les fichiers doivent être dans le répertoire /project et lisibles par le groupe, le répertoire doit avoir le setgid et la permission group-execute, la propriété de groupe du fichier .bam doit être celle du groupe, et le chemin doit être modifié dans le fichier de configuration."
+      "question": "Quelles sont les conditions pour que GBrowse puisse lire directement les fichiers .bam à partir d'un répertoire partagé sur les grappes d'Alliance?",
+      "answer": "Les fichiers doivent être copiés dans le répertoire `/project` et être lisibles par le groupe, le répertoire contenant les fichiers .bam doit avoir le `setgid` et la permission `group-execute` activés, la propriété de groupe du fichier .bam doit être le nom du groupe, et le chemin vers le fichier .bam doit être modifié dans le fichier de configuration."
     },
     {
-      "question": "Quelle commande BioPerl est utilisée pour téléverser des séquences génomiques dans la base de données?",
-      "answer": "On utilise `module load bioperl/1.7.1; bp_seqfeature_load.pl -c –d DATABASE:mysql_read_default_file=/home/USERNAME/.my.cnf example_genomic_sequence.fa header_file`."
+      "question": "Comment téléverser des fichiers génomiques vers la base de données de GBrowse en utilisant BioPerl sur les grappes d'Alliance?",
+      "answer": "Il faut charger le module `bioperl/1.7.1` et exécuter la commande `bp_seqfeature_load.pl` avec les arguments `-c -d DATABASE:mysql_read_default_file=/home/USERNAME/.my.cnf`, le fichier FASTA du génome complet et un fichier d'en-tête contenant les détails sur la longueur des chromosomes."
     },
     {
-      "question": "Quels types de fichiers sont nécessaires pour la commande de téléversement `bp_seqfeature_load.pl`?",
-      "answer": "Un fichier FASTA (par exemple, `example_genomic_sequence.fa`) contenant le génome complet et un fichier d'en-tête (par exemple, `header_file`) contenant les détails sur la longueur des chromosomes."
+      "question": "Où ne doit-on pas exécuter la commande `bp_seqfeature_load.pl` pour téléverser des fichiers vers la base de données GBrowse sur les grappes d'Alliance?",
+      "answer": "Cette commande ne doit pas être exécutée sur un nœud principal; il est recommandé de passer par l'ordonnanceur."
     },
     {
-      "question": "Où ne devrait-on pas exécuter la commande de téléversement de données BioPerl?",
-      "answer": "Il ne faut pas exécuter cette commande sur un nœud principal, mais plutôt en passant par l’ordonnanceur."
+      "question": "Quelle étape est requise après le téléversement des données dans la base de données GBrowse pour permettre la lecture par le compte partagé sur les grappes d'Alliance?",
+      "answer": "Une fois que les données sont téléversées, il faut accorder l'accès en lecture au compte partagé (`SHARED`) pour que GBrowse puisse lire la base de données."
     },
     {
-      "question": "Quelle est l'étape finale après le téléversement des données dans la base de données pour que GBrowse y accède?",
-      "answer": "Il faut accorder l'accès en lecture au compte partagé (`SHARED`) pour que GBrowse puisse lire la base de données."
+      "question": "Quel est le rôle du fichier `.my.cnf` dans la configuration de la connexion à une base de données MySQL pour GBrowse sur les grappes d'Alliance?",
+      "answer": "Le fichier `.my.cnf` est un fichier texte créé par l'équipe technique qui contient les renseignements nécessaires pour se connecter à MySQL à partir des fichiers de configuration GBrowse."
+    },
+    {
+      "question": "Qu'est-ce qu'un 'compte partagé' dans le contexte de l'accès à GBrowse sur les grappes d'Alliance?",
+      "answer": "Un compte partagé est un compte créé par l'équipe technique pour chaque groupe de recherche, permettant à tous ses membres de lire les données et les fichiers de configuration liés à GBrowse."
+    },
+    {
+      "question": "Quelle est la principale différence entre l'installation de GBrowse sur Cedar et l'installation décrite sur la page web officielle de GBrowse?",
+      "answer": "L'installation sur Cedar diffère particulièrement en ce qui a trait à l'autorisation et à l'authentification."
     }
   ],
-  "generated_at": "2026-04-11T21:59:12.778381+00:00"
+  "generated_at": "2026-04-13T05:43:02.396782+00:00"
 }

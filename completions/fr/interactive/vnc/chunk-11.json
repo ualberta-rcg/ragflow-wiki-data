@@ -4,41 +4,17 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "Comment puis-je diagnostiquer et régler les problèmes de connexion VNC causés par des tunnels SSH existants?",
-      "answer": "Si des échecs répétés à établir une nouvelle connexion vncserver/vncviewer surviennent, ça pourrait être dû à un tunnel SSH actif sur votre ordinateur qui bloque les ports. Pour déterminer la présence de tels tunnels et les fermer, il faut ouvrir une fenêtre de terminal sur votre ordinateur, lancer la commande `ps ux | grep ssh` pour les identifier, puis utiliser `kill PID` pour les terminer."
+      "question": "Comment puis-je résoudre les échecs de connexion répétés à un serveur VNC qui pourraient être causés par des tunnels SSH actifs sur mon ordinateur?",
+      "answer": "Pour vérifier et éliminer les tunnels SSH existants qui pourraient bloquer les ports, vous devez ouvrir une fenêtre de terminal sur votre ordinateur. Lancez la commande `ps ux | grep ssh` pour identifier les tunnels, puis utilisez `kill PID` en remplaçant `PID` par l'identifiant du processus du tunnel SSH que vous souhaitez arrêter."
     },
     {
-      "question": "Quel mot de passe devrais-je entrer si mon écran de veille VNC me le demande?",
-      "answer": "Si votre écran de veille VNC s'éteint et qu'un mot de passe vous est demandé, vous devez entrer le mot de passe de votre compte sur la grappe, et non le mot de passe du vncserver."
+      "question": "Quelles sont les étapes à suivre pour exécuter un programme graphique avec l'accélération matérielle OpenGL via VNC sur une grappe d'Alliance?",
+      "answer": "Pour exécuter un programme graphique utilisant OpenGL accéléré par le matériel via VNC, vous devez d'abord modifier votre commande `salloc` pour demander un nœud GPU, par exemple en ajoutant `--gpus-per-node=1` ou `--gpus-per-node=t4:1`. Ensuite, dans le terminal VNC, ajoutez `vglrun` juste avant le nom de votre programme (par exemple, `vglrun -d egl PROGRAM`) pour configurer les variables d'environnement nécessaires à l'utilisation des bibliothèques VirtualGL."
     },
     {
-      "question": "Que dois-je faire si l'écran de veille du bureau MATE ne se déverrouille pas?",
-      "answer": "Si le bureau MATE est en cours d'exécution et que l'écran de veille ne se déverrouille pas, vous pouvez essayer d'utiliser la commande `killall -9 .mate-screensaver`. Cependant, cette situation ne devrait plus se produire, car l'écran de veille VNC a été désactivé sur nos grappes."
-    },
-    {
-      "question": "Quelles sont les deux étapes nécessaires pour se connecter à gra-vdi.alliancecan.ca?",
-      "answer": "La connexion à gra-vdi.alliancecan.ca se fait en deux étapes : premièrement, il faut entrer votre nom d'utilisateur et votre mot de passe pour CCDB; deuxièmement, il faut entrer votre code de passe pour l'authentification multifacteur."
-    },
-    {
-      "question": "Que se passe-t-il si je saisis un nom d'utilisateur ou un mot de passe incorrect à la première étape de connexion à gra-vdi.alliancecan.ca?",
-      "answer": "Si vous entrez un nom d'utilisateur ou un mot de passe erroné à la première étape de connexion à gra-vdi.alliancecan.ca, vous devrez quand même passer l'étape 2. Si vous saisissez ensuite votre nom d'utilisateur/mot de passe, vous recevrez un message indiquant que la connexion est établie et vous serez redirigé vers l'écran de connexion de l'étape 1."
-    },
-    {
-      "question": "Comment puis-je réinitialiser mon mot de passe CCDB si je l'ai oublié pour la connexion à gra-vdi.alliancecan.ca?",
-      "answer": "Si vous ne vous souvenez plus de votre mot de passe CCDB, vous pouvez le réinitialiser en allant sur [https://ccdb.alliancecan.ca/security/forgot], à condition que votre compte ne soit pas en attente de renouvellement par votre chercheuse principale ou chercheur principal."
-    },
-    {
-      "question": "Comment faut-il ajuster la commande `salloc` pour utiliser OpenGL accéléré par le matériel?",
-      "answer": "Pour exécuter un programme graphique utilisant OpenGL accéléré par le matériel, il faut modifier la commande `salloc` pour demander un nœud GPU. Pour demander le premier nœud GPU disponible, spécifiez `--gpus-per-node=1`. Si vous voulez un type de nœud GPU spécifique, comme un 't4', utilisez `--gpus-per-node=t4:1` dans votre commande `salloc`."
-    },
-    {
-      "question": "Quels ajustements supplémentaires faut-il faire dans le terminal VNC pour qu'un programme utilise OpenGL accéléré par le matériel?",
-      "answer": "En plus de modifier la commande `salloc`, il faudra probablement ajouter `vglrun` juste avant le nom du programme sur la ligne de commande de votre terminal VNC, par exemple `vglrun -d egl PROGRAM`. Cette fonction configure des variables d'environnement pour garantir que le programme utilise les bibliothèques VirtualGL appropriées, mais elle n'est pas nécessaire si votre programme a déjà été modifié pour utiliser l'environnement standard cvmfs actuel."
-    },
-    {
-      "question": "Quelles sont les options alternatives si je rencontre des problèmes graphiques en utilisant VNC?",
-      "answer": "Si vous rencontrez des problèmes graphiques à l'utilisation de VNC, vous pouvez essayer d'utiliser OpenOnDemand sur Nibi ou JupyterHub sur Rorqual. Ces deux plateformes offrent une interface web VDI automatisée avec un bureau moderne, conçue pour une utilisation simplifiée, avec des performances matérielles améliorées et une meilleure prise en charge logicielle."
+      "question": "Si j'ai des difficultés à me connecter au service gra-vdi.alliancecan.ca, que devrais-je vérifier?",
+      "answer": "La connexion à gra-vdi.alliancecan.ca se fait en deux étapes : d'abord le mot de passe de votre compte CCDB, puis votre code de passe pour l'authentification multifacteur. Si vous entrez un nom d'utilisateur ou un mot de passe CCDB erroné à la première étape, le système peut quand même vous demander le code d'authentification multifacteur, puis vous rediriger vers l'écran de connexion initial. La solution est de réessayer en vous assurant que vous utilisez la bonne combinaison nom d'utilisateur/mot de passe CCDB. Si vous avez oublié votre mot de passe CCDB, vous pouvez le réinitialiser via le site web de CCDB."
     }
   ],
-  "generated_at": "2026-04-12T10:56:00.070665+00:00"
+  "generated_at": "2026-04-13T15:51:58.990519+00:00"
 }

@@ -4,73 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of this page regarding remote visualization?",
-      "answer": "This page describes remote visualization of your dataset residing on one of the Alliance's HPC clusters."
+      "question": "What are the primary workflows available for remote visualization with ParaView on Alliance's HPC clusters?",
+      "answer": "There are three primary workflows: 'Small-scale interactive' for datasets up to a few GBs, using remote desktop sessions via JupyterHub or Open OnDemand; 'Large-scale interactive' for bigger datasets, employing a client-server setup with the client on your computer and the server on the HPC cluster; and 'Batch production' for automated, off-screen visualizations, typically scripted and run as batch jobs."
     },
     {
-      "question": "What are the three main scenarios for remote visualization workflows discussed?",
-      "answer": "The three main scenarios are 'Small-scale interactive', 'Large-scale interactive', and 'Batch production'."
+      "question": "Why are H100 GPUs on Alliance's clusters not recommended for ParaView visualization?",
+      "answer": "H100 GPUs are not optimized for graphics rendering, utilizing only a small fraction of their thread controllers (roughly 3% GPU utilization) for OpenGL and Vulkan applications. This leads to poor cluster utilization and rendering speeds comparable to a mid-range laptop GPU, and Multi-Instance GPU (MIG) instances cannot run graphics APIs like OpenGL or Vulkan."
     },
     {
-      "question": "How can one visualize a small dataset (a few GBs) interactively?",
-      "answer": "You can visualize it interactively using a small number of CPU cores by starting a remote desktop session through JupyterHub or Open OnDemand and running ParaView inside it."
-    },
-    {
-      "question": "What is the recommended setup for interactively visualizing a larger dataset?",
-      "answer": "For larger datasets, a client-server setup is recommended, where the ParaView client runs on your computer and the server runs in parallel within a Slurm job on the HPC cluster."
-    },
-    {
-      "question": "What determines if a dataset is considered 'large' on Trillium for interactive visualization?",
-      "answer": "On Trillium, only whole-node jobs in multiples of 192 cores are allowed. Therefore, your dataset should be 50–100 GB to efficiently utilize all 192 cores."
-    },
-    {
-      "question": "For clusters other than Trillium (e.g., Fir, Narval, Nibi, Rorqual), how is core scheduling handled for large-scale interactive visualization?",
-      "answer": "On other clusters like Fir, Narval, Nibi, and Rorqual, you can schedule by core, making it possible to visualize much smaller datasets, even on a single core, though more cores speed up rendering."
-    },
-    {
-      "question": "When is a client-server configuration generally recommended compared to using JupyterHub or Open OnDemand?",
-      "answer": "JupyterHub or Open OnDemand is generally recommended for smaller datasets before attempting a client-server configuration, which is more complex."
-    },
-    {
-      "question": "What is the ideal approach for production visualizations, such as generating many frames for a movie?",
-      "answer": "Ideally, all production visualizations should be scripted and run as batch, off-screen jobs on the clusters, without interactive windows, rendering directly to files."
-    },
-    {
-      "question": "How should GUI workflows be used in the context of batch production visualizations?",
-      "answer": "GUI workflows should be considered interactive steps to set up your visualization and save it as a ParaView Python script, which can then be executed as a batch job on the cluster."
-    },
-    {
-      "question": "Are the clusters' H100 GPUs suitable for visualization tasks?",
-      "answer": "No, the clusters' H100 GPUs should not be used for visualization as they are not optimized for graphics rendering, resulting in low GPU utilization and speeds comparable to a mid-range laptop GPU."
-    },
-    {
-      "question": "Can MIG instances run graphics APIs like OpenGL or Vulkan?",
-      "answer": "No, MIG instances (static GPU partitions) cannot run graphics APIs such as OpenGL or Vulkan."
-    },
-    {
-      "question": "If GPU rendering is absolutely necessary, which nodes are recommended?",
-      "answer": "If GPU rendering is absolutely necessary, use Nibi's AMD MI300A nodes or older NVIDIA GPUs (e.g., T4) where available."
-    },
-    {
-      "question": "Which clusters support single-core visualization via JupyterLab?",
-      "answer": "Fir, Rorqual, and Narval support single-core visualization via JupyterLab."
-    },
-    {
-      "question": "Which clusters require using Open OnDemand for interactive visualization?",
-      "answer": "Nibi and Trillium require using Open OnDemand for interactive visualization."
-    },
-    {
-      "question": "What is the first step to launch a JupyterLab instance for single-core visualization on Fir, Rorqual, or Narval?",
-      "answer": "The first step is to sign in to JupyterHub on one of these clusters with your Alliance account."
-    },
-    {
-      "question": "When configuring a JupyterLab session for single-core visualization, what should be selected for 'GPU configuration' and 'Number of Cores'?",
-      "answer": "Under 'GPU configuration', select 'None', and under 'Number of Cores', select '1'."
-    },
-    {
-      "question": "What are the two options for starting ParaView after a JupyterLab dashboard appears for single-core visualization?",
-      "answer": "Option one is to load the 'paraview/6.0.0' module and click the 'ParaView (VNC)' button. Option two is to click on your preferred 'Desktop' button, open a terminal inside the virtual desktop, and type 'module load paraview/6.0.0' followed by 'paraview'."
+      "question": "How can users perform single-core interactive ParaView visualization on Alliance clusters such as Fir, Rorqual, or Narval using JupyterLab?",
+      "answer": "Users can launch a JupyterLab instance by signing into JupyterHub on one of these clusters. In the Server Options form, they must select a CPU account, choose 'None' for GPU configuration, select '1' for the number of cores, set the required time and memory, and pick 'JupyterLab' for the User interface. After the JupyterLab dashboard appears, they can load the `paraview/6.0.0` module and click the 'ParaView (VNC)' button, or open a terminal in a virtual desktop and type `module load paraview/6.0.0` followed by `paraview`."
     }
   ],
-  "generated_at": "2026-04-12T04:51:23.671136+00:00"
+  "generated_at": "2026-04-13T10:55:17.791981+00:00"
 }

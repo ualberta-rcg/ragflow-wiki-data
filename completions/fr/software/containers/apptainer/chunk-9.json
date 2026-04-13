@@ -4,25 +4,13 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "Comment faire pour compiler et exécuter un programme C++ comme `myprog.cpp` à l'intérieur d'un conteneur Apptainer sur nos grappes de calcul?",
-      "answer": "Pour compiler et ensuite exécuter un programme C++ comme `myprog.cpp` dans un conteneur Apptainer sur nos grappes, vous utiliseriez des commandes comme celles-ci :\n`apptainer run -C -W $SLURM_TMPDIR -B /project -B /scratch your-container-name.sif g++ -O2 -march=broadwell ./myprog.cpp`\n`apptainer run -C -W $SLURM_TMPDIR -B /project -B /scratch ./a.out`"
+      "question": "Comment faire pour compiler un programme C++ et l'exécuter à l'intérieur d'un conteneur Apptainer sur les grappes de calcul d'Alliance?",
+      "answer": "Pour compiler et exécuter un programme C++ comme `myprog.cpp` dans un conteneur Apptainer sur les grappes d'Alliance, vous utiliserez la commande `apptainer run` avec des options spécifiques. Par exemple, pour compiler un programme C++ avec `g++` et l'exécuter, vous utiliserez :\n`apptainer run -C -W $SLURM_TMPDIR -B /project -B /scratch your-container-name.sif g++ -O2 -march=broadwell ./myprog.cpp`\npuis pour exécuter le programme compilé :\n`apptainer run -C -W $SLURM_TMPDIR -B /project -B /scratch ./a.out`\nLes options `-C`, `-W $SLURM_TMPDIR`, `-B /project` et `-B /scratch` sont essentielles pour bien isoler le conteneur, définir un répertoire de travail temporaire approprié et permettre l'accès aux systèmes de fichiers de la grappe."
     },
     {
-      "question": "Quelles options est-ce que je devrais typiquement ajouter aux commandes `apptainer run` sur les grappes de calcul?",
-      "answer": "Sur nos grappes de calcul, vous devriez ajouter des options comme `-C`, `-c`, `-e`, et `-W` à votre commande `apptainer run`. Vous devrez aussi inclure des options de `bind mount` comme `-B /project` et `-B /scratch` pour rendre l'espace disque disponible à vos programmes dans le conteneur."
-    },
-    {
-      "question": "Pourquoi est-il important d'ajouter des options de `bind mount` comme `-B /project` et `-B /scratch` lorsque j'utilise `apptainer run` sur nos grappes?",
-      "answer": "Les options de `bind mount` comme `-B /project` et `-B /scratch` sont nécessaires pour que l'espace disque soit disponible aux programmes à l'intérieur du conteneur, étant donné que les options comme `-C` peuvent isoler le conteneur de ces systèmes de fichiers par défaut."
-    },
-    {
-      "question": "Où est-ce que je peux trouver plus de détails sur les options de ligne de commande d'Apptainer, l'utilisation des GPU ou les `bind mounts`?",
-      "answer": "Pour plus d'informations, vous pouvez consulter les sections suivantes : 'Options de ligne de commande à retenir', 'Utiliser des GPU', et 'Bind mounts et overlays persistants'. Vous pouvez aussi consulter la documentation officielle d'Apptainer."
-    },
-    {
-      "question": "Quelle est l'utilité de l'option `-W $SLURM_TMPDIR` quand on exécute Apptainer sur les grappes?",
-      "answer": "L'option `-W $SLURM_TMPDIR` est utilisée pour spécifier un répertoire de travail sur un disque physique (`${SLURM_TMPDIR}`) pour Apptainer. Ceci est important sur les grappes où les systèmes de fichiers comme `/tmp` utilisent la mémoire RAM, et les tâches peuvent être annulées si elles consomment trop de mémoire allouée."
+      "question": "Quelles sont les options de ligne de commande importantes à utiliser avec Apptainer sur les grappes d'Alliance pour exécuter des programmes?",
+      "answer": "Lorsque vous exécutez des programmes avec Apptainer sur les grappes d'Alliance, il est crucial d'inclure des options spécifiques avec des commandes comme `apptainer run`, `apptainer shell`, ou `apptainer exec`. Parmi ces options, on retrouve :\n*   `-C` (ou `-c`) : Cette option isole le conteneur de la plupart des systèmes de fichiers de l'hôte et de son environnement, aidant à prévenir les conflits.\n*   `-W $SLURM_TMPDIR` : Elle permet à Apptainer d'utiliser un répertoire de travail temporaire sur un disque physique (`${SLURM_TMPDIR}`) plutôt que sur la mémoire vive, ce qui est important car les tâches sur les grappes ont souvent des allocations de mémoire vive limitées.\n*   `-B /project` et `-B /scratch` : Ces \"bind mounts\" sont utilisés pour donner au conteneur l'accès aux systèmes de fichiers `/project` et `/scratch` de l'hôte, ce qui est nécessaire pour manipuler des données externes au conteneur."
     }
   ],
-  "generated_at": "2026-04-11T17:36:06.264003+00:00"
+  "generated_at": "2026-04-13T02:17:05.636960+00:00"
 }

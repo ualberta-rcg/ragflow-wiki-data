@@ -4,49 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "À quoi sert l'option `-C` quand on exécute un conteneur Apptainer?",
-      "answer": "L'option `-C` sert à isoler complètement le conteneur actif de tous les systèmes de fichiers, du PID parent, des IPC et de l'environnement. Si vous voulez accéder à des systèmes de fichiers externes, vous devrez utiliser des \"bind mounts\"."
+      "question": "Quelles sont les options de ligne de commande principales pour isoler un conteneur Apptainer du système hôte, et qu'est-ce qu'elles font?",
+      "answer": "Les options principales sont `-C`, `-c` et `-e`. L'option `-C` isole complètement le conteneur de tous les systèmes de fichiers, du PID parent, des IPC et de l'environnement, nécessitant des « bind mounts » pour accéder aux ressources externes. L'option `-c` isole le conteneur de la plupart des systèmes de fichiers en utilisant un répertoire `/dev` minimal, et des répertoires `/tmp` et `/home` vides. Enfin, l'option `-e` nettoie certaines variables d'environnement avant de lancer les commandes et configure les paramètres pour une meilleure compatibilité OCI/Docker, en ajoutant implicitement `--containall`, `--no-init`, `--no-umask` et `--writable-tmpfs`."
     },
     {
-      "question": "Quelle est la fonction de l'option `-c` avec un conteneur Apptainer?",
-      "answer": "L'option `-c` isole le conteneur actif de la plupart des systèmes de fichiers. Ça veut dire qu'il n'utilisera qu'un répertoire `/dev` minimal, un répertoire `/tmp` vide et un répertoire `/home` vide. Comme avec `-C`, il faut recourir aux \"bind mounts\" pour accéder aux systèmes de fichiers de l'extérieur du conteneur."
+      "question": "Pourquoi est-ce important d'utiliser l'option `--workdir` (ou `-W`) avec Apptainer sur les grappes de calcul, et comment on l'utilise correctement?",
+      "answer": "Il est important d'utiliser l'option `--workdir` (ou `-W`) parce que sur les grappes, les systèmes de fichiers comme `/tmp` utilisent la mémoire vive (RAM) plutôt que l'espace disque. Comme les tâches sur les grappes ont souvent peu de RAM allouée, elles pourraient être annulées si elles en consomment trop. L'option `--workdir` permet à Apptainer d'utiliser un disque physique pour son répertoire de travail temporaire. Sur nos grappes, lorsque Apptainer est utilisé via `salloc`, `sbatch` ou JupyterHub, le répertoire de travail doit être spécifié comme `${SLURM_TMPDIR}` (par exemple, `-W ${SLURM_TMPDIR}`)."
     },
     {
-      "question": "Que fait l'option `-e` dans les commandes Apptainer?",
-      "answer": "L'option `-e` supprime certaines variables de l'environnement de l'interpréteur avant de lancer les commandes et ajuste les paramètres pour une meilleure compatibilité OCI/Docker. Elle ajoute implicitement les options `--containall`, `--no-init`, `--no-umask` et `--writable-tmpfs`."
-    },
-    {
-      "question": "Pourquoi est-il important d'utiliser l'option `-W` ou `--workdir` avec Apptainer sur les grappes de calcul?",
-      "answer": "Sur nos grappes et avec la plupart des systèmes Linux, les systèmes de fichiers comme `/tmp` utilisent la mémoire RAM. Comme les tâches exécutées sur nos grappes disposent habituellement de peu de mémoire RAM et qu'elles sont annulées si elles consomment plus que ce qui a été alloué, Apptainer doit utiliser un disque physique pour son répertoire de travail. L'option `-W` ou `--workdir` permet de spécifier un chemin vers un disque où Apptainer peut lire et écrire des fichiers temporaires."
-    },
-    {
-      "question": "Comment spécifier un répertoire de travail pour une commande Apptainer?",
-      "answer": "Vous utilisez l'option `-W` suivie du chemin vers le répertoire de travail désiré. Par exemple, pour la commande `myprogram` dans l'image `myimage.sif`, vous écririez: `apptainer run -C -B /project -W /path/to/a/workdir myimage.sif myprogram`."
-    },
-    {
-      "question": "Dans quelles circonstances l'option `workdir` peut-elle être omise lors de l'exécution d'un conteneur Apptainer?",
-      "answer": "L'option `workdir` peut être omise si aucun conteneur actif ne l'utilise."
-    },
-    {
-      "question": "Quel répertoire de travail Apptainer devrait-il utiliser quand il est lancé sur nos grappes de calcul via `salloc`, `sbatch`, ou `JupyterHub`?",
-      "answer": "Quand Apptainer est utilisé dans une tâche lancée avec `salloc`, `sbatch` ou `JupyterHub` sur nos grappes, le répertoire de travail doit être `${SLURM_TMPDIR}`, par exemple en utilisant `-W ${SLURM_TMPDIR}`."
-    },
-    {
-      "question": "Est-ce qu'on peut exécuter des programmes intensifs avec Apptainer directement sur les nœuds de connexion de la grappe?",
-      "answer": "Non, aucun programme intensif (incluant Apptainer) ne doit être exécuté sur les nœuds de connexion. Il faut plutôt utiliser `salloc` pour démarrer une tâche interactive."
-    },
-    {
-      "question": "Quelles options faut-il passer aux commandes Apptainer pour utiliser les GPU NVIDIA ou AMD dans un conteneur?",
-      "answer": "Pour le matériel NVIDIA, il faut passer l'option `--nv`. Pour le matériel AMD, c'est l'option `--rocm`. Ces options s'assurent que les entrées nécessaires dans `/dev` sont incluses dans le \"bind mount\" à l'intérieur du conteneur et qu'elles localisent les bibliothèques GPU et les attachent à l'hôte, en plus de configurer la variable d'environnement `LD_LIBRARY_PATH`."
-    },
-    {
-      "question": "En plus des options spécifiques à Apptainer, qu'est-ce qui est crucial pour qu'un logiciel utilise le GPU à l'intérieur d'un conteneur?",
-      "answer": "Il est crucial que l'application qui utilise le GPU dans le conteneur ait été correctement compilée pour pouvoir utiliser le GPU et ses bibliothèques."
-    },
-    {
-      "question": "Comment activer OpenCL dans un conteneur Apptainer qui utilise des GPU?",
-      "answer": "Pour utiliser OpenCL dans un conteneur avec GPU, il faut ajouter le \"bind mount\" `-B /etc/OpenCL` en plus des options `--nv` (pour NVIDIA) ou `--rocm` (pour AMD)."
+      "question": "Quelles options faut-il ajouter aux commandes Apptainer pour utiliser des GPU NVIDIA ou AMD dans un conteneur, et qu'est-ce qu'elles font?",
+      "answer": "Pour utiliser des GPU NVIDIA, il faut ajouter l'option `--nv` aux commandes Apptainer. Pour le matériel AMD, c'est l'option `--rocm`. Ces options s'assurent que les entrées nécessaires dans `/dev` sont incluses dans le « bind mount » du conteneur, qu'elles localisent les bibliothèques GPU et les attachent à l'hôte, et qu'elles configurent la variable d'environnement `LD_LIBRARY_PATH` pour que les bibliothèques fonctionnent correctement dans le conteneur. Il est aussi crucial que l'application à l'intérieur du conteneur ait été compilée pour utiliser le GPU et ses bibliothèques. Pour OpenCL, il faut aussi ajouter `-B /etc/OpenCL`."
     }
   ],
-  "generated_at": "2026-04-11T17:35:16.409075+00:00"
+  "generated_at": "2026-04-13T02:16:34.300554+00:00"
 }

@@ -4,89 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How can I check the number of COMSOL licenses currently being used by my jobs?",
-      "answer": "You can check the number of licenses by loading the ANSYS module and using the `lmutil lmstat` command with the path to your `~/.licenses/comsol.lic` file. The full command is: `module load ansys; $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c ~/.licenses/comsol.lic -a | sed '/^$/d' | egrep 'License|UP|$USER|Total of' | grep -v 'Total of 0'`."
+      "question": "How can users determine which COMSOL modules and products are available for use on the clusters?",
+      "answer": "To check available COMSOL modules and products, users should launch COMSOL in graphical mode. Once running, they can navigate to the upper pull-down menu and click `Options -> Licensed and Used Products`."
     },
     {
-      "question": "Is the `lmstat` command installed by default with COMSOL?",
-      "answer": "No, the `lmstat` command is not installed with COMSOL by default, so a workaround using `lmutil` from the ANSYS module is provided."
+      "question": "What are the methods for finding the exact COMSOL version number and listing all available versions on the clusters?",
+      "answer": "To find the full COMSOL version number, users can either start COMSOL in graphical (GUI) mode and check the messages window in the lower right corner, or log in to a cluster, load the COMSOL module (e.g., `module load comsol/6.2`), and then run `comsol batch -version`. To list COMSOL versions available within the currently loaded standard environment, use `module avail comsol`. For all versions across all available standard environments, use `module spider comsol`."
     },
     {
-      "question": "What is required for the license checking workaround to function correctly?",
-      "answer": "The `~/.licenses/comsol.lic` file must be configured to define the license server you are using for the license checking workaround to work."
-    },
-    {
-      "question": "How do I determine which COMSOL modules and products are available for my use?",
-      "answer": "To check available modules and products, start COMSOL in graphical mode, then click `Options -> Licensed and Used Products` from the upper pull-down menu."
-    },
-    {
-      "question": "Who should I contact if a COMSOL module or product is missing or shows as unlicensed?",
-      "answer": "If a module or product is missing or reports being unlicensed, you should contact technical support, as a reinstall of the CVMFS module you are using may be required."
-    },
-    {
-      "question": "Where can I find a detailed explanation about COMSOL products and customizing them?",
-      "answer": "A detailed explanation can be found in the COMSOL documentation by clicking [https://doc.comsol.com/6.0/docserver/#!/com.comsol.help.comsol/comsol_ref_customizing.16.09.html here]."
-    },
-    {
-      "question": "What are two ways to check the full version number of COMSOL?",
-      "answer": "You can check the full version number either by starting COMSOL in GUI mode and inspecting the lower right corner messages window, or by logging into a cluster and running `comsol batch -version` in batch mode."
-    },
-    {
-      "question": "How can I check the COMSOL version in batch mode on a cluster?",
-      "answer": "To check the COMSOL version in batch mode, you can log in to a cluster, allocate resources (e.g., `salloc --time=0:01:00 --nodes=1 --cores=1 --mem=1G --account=def-someuser`), load the COMSOL module (e.g., `module load comsol/6.2`), and then run `comsol batch -version`."
-    },
-    {
-      "question": "What does the output `COMSOL Multiphysics 6.2.0.290` signify?",
-      "answer": "This output corresponds to COMSOL 6.2 Update 1."
-    },
-    {
-      "question": "What format does a new COMSOL release use for its version number upon installation?",
-      "answer": "When a new COMSOL release is installed, it uses an abbreviated 6.X version format and includes the latest available update at the time of installation."
-    },
-    {
-      "question": "How are subsequent COMSOL product updates denoted in their version numbers?",
-      "answer": "Additional COMSOL product updates utilize the full 6.X.Y.Z version format."
-    },
-    {
-      "question": "What commands can be used to load COMSOL 6.2 Update 3 on a cluster?",
-      "answer": "COMSOL 6.2 Update 3 can be loaded on a cluster using either `module load comsol/6.2.0.415` or `module load comsol` commands."
-    },
-    {
-      "question": "Which COMSOL update is recommended for use?",
-      "answer": "It is recommended to use the most recent update to take advantage of all the latest improvements."
-    },
-    {
-      "question": "Does the software content change if I use an older COMSOL module version (e.g., 6.X or 6.X.Y.Z)?",
-      "answer": "No, if you continue using any module version, the software contained within these modules will remain exactly the same."
-    },
-    {
-      "question": "How do I find out which COMSOL versions are available in my current standard environment?",
-      "answer": "To check which COMSOL versions are available in your currently loaded standard environment (typically `StdEnv/2023`), run the `module avail comsol` command."
-    },
-    {
-      "question": "How can I see all COMSOL versions available across all standard environments?",
-      "answer": "To check which COMSOL versions are available in ALL available standard environments, use the `module spider comsol` command."
-    },
-    {
-      "question": "Which COMSOL 6.3 module is currently available on all clusters?",
-      "answer": "A module `comsol/6.3` corresponding to version 6.3.0.290 is now available on all clusters."
-    },
-    {
-      "question": "Can you provide a sample Slurm script for running a COMSOL job with eight cores on a single compute node?",
-      "answer": "A sample submission script named `mysub1.sh` for this purpose includes SBATCH directives for time, account, memory, 8 CPUs per task, 1 node, 1 task per node, and uses `module load StdEnv/2023` and `module load comsol/6.4` before running `comsol batch -inputfile ${INPUTFILE} -outputfile ${OUTPUTFILE} -np $SLURM_CPUS_ON_NODE`."
-    },
-    {
-      "question": "What standard environment should be loaded for COMSOL versions 6.2 and newer?",
-      "answer": "For COMSOL versions 6.2 and newer, `module load StdEnv/2023` should be loaded."
-    },
-    {
-      "question": "What is the recommended approach for optimizing core usage in COMSOL simulations?",
-      "answer": "It is advisable to test the scaling of your simulation by gradually increasing the number of cores, as COMSOL may not efficiently use many cores depending on the simulation's complexity."
-    },
-    {
-      "question": "When should I consider running a COMSOL job across multiple full nodes?",
-      "answer": "If near-linear speedup is achieved using all cores on a single compute node, you should consider running the job over multiple full nodes."
+      "question": "How do you submit a COMSOL job to run on a single compute node, and what performance advice is given for core utilization?",
+      "answer": "A COMSOL job can be submitted to a single compute node using a SLURM submission script, such as the `mysub1.sh` example provided, which typically configures resources like time, account, memory, and the number of CPUs per task. It's recommended to test the simulation's scaling by gradually increasing the number of cores, as COMSOL may not always efficiently use a very high core count. If near-linear speedup is observed, then considering multiple full nodes for the job might be beneficial."
     }
   ],
-  "generated_at": "2026-04-11T19:02:11.553123+00:00"
+  "generated_at": "2026-04-13T03:21:55.185602+00:00"
 }

@@ -3,73 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Why would a user need to maintain a long-lasting SSH connection on Alliance clusters?",
-      "answer": "Users may need to keep an SSH connection alive for an extended period, ranging from hours to days, for tasks such as job submission and monitoring, or editing files."
+      "question": "What is the primary purpose of the 'Keeping Terminal Sessions Alive' page on Alliance clusters?",
+      "answer": "The page provides various techniques for Alliance cluster users to keep their SSH terminal sessions alive for extended periods, ranging from hours to days, which is often necessary for job submission, monitoring, and file editing."
     },
     {
-      "question": "How can an SSH client's configuration be modified to help keep a connection alive?",
-      "answer": "Users can add the line `ServerAliveInterval 240` to their SSH client configuration file to ensure a 'sign-of-life' signal is transmitted every 240 seconds."
+      "question": "Where can users on MacOS or Linux find the SSH client configuration file to modify connection settings for Alliance clusters?",
+      "answer": "Users on MacOS or Linux can find their SSH client configuration in `$HOME/.ssh/config`."
     },
     {
-      "question": "Where is the SSH client configuration file typically located on MacOS and Linux systems?",
-      "answer": "On MacOS and Linux, the SSH client configuration file is found in `$HOME/.ssh/config`."
+      "question": "What is the location of the SSH client configuration file for Windows users who want to modify connection settings for Alliance clusters?",
+      "answer": "For Windows users, the SSH client configuration is located at `C:\\Users\\<username>\\.ssh\\config`."
     },
     {
-      "question": "What is the location of the SSH client configuration file on Windows?",
-      "answer": "On Windows, the SSH client configuration file is located at `C:\\Users\\<username>\\.ssh\\config`."
+      "question": "What specific lines should be added to an SSH client configuration file to help keep an SSH connection alive to an Alliance cluster?",
+      "answer": "To help keep an SSH connection alive, users should add `Host *` and `ServerAliveInterval 240` to their SSH client configuration file."
     },
     {
-      "question": "What are terminal multiplexers, and how do they help with persistent SSH sessions?",
-      "answer": "Terminal multiplexers like `tmux` and `screen` allow users to detach their terminal session, which continues running independently, and then reattach to it later, even after logging out or turning off their workstation."
+      "question": "What is the function of the `ServerAliveInterval 240` setting in an SSH configuration for Alliance clusters?",
+      "answer": "The `ServerAliveInterval 240` setting ensures that a sign-of-life signal is transmitted over the SSH connection every 240 seconds (four minutes) to any remote server, helping to keep the connection alive even when idle."
     },
     {
-      "question": "What is an important dependency to remember when using `tmux` or `screen` across multiple login nodes?",
-      "answer": "Each `tmux` or `screen` session is specific to a login node, so users must connect to the correct login node to reattach to their session."
+      "question": "What is a terminal multiplexer, and what is its primary benefit for users on Alliance clusters?",
+      "answer": "A terminal multiplexer is a program, such as `tmux` or `screen`, which allows users to detach their terminal session entirely, enabling it to continue running independently even if they log out, turn off their workstation, or hibernate their laptop, and then reattach to it later."
     },
     {
-      "question": "What happens to detached terminal sessions if a login node is rebooted?",
-      "answer": "Any detached terminal sessions on a login node will be killed if that node is occasionally rebooted."
+      "question": "What is a crucial consideration regarding login nodes when using terminal multiplexers like `tmux` or `screen` on Alliance clusters?",
+      "answer": "Terminal multiplexer sessions are specific to a login node; therefore, users must ensure they connect to the correct login node to reattach to a session, and be aware that login node reboots will terminate any detached sessions."
     },
     {
-      "question": "What is `tmux`?",
-      "answer": "`tmux` is a terminal multiplexer that allows for multiple virtual sessions within a single terminal session, enabling users to disconnect from an SSH session without interrupting its processes."
+      "question": "What command should a user use to start a `tmux` server on an Alliance cluster?",
+      "answer": "To start a `tmux` server on an Alliance cluster, a user should simply type `tmux`."
     },
     {
-      "question": "What command is used to start a new `tmux` server session?",
-      "answer": "To start a new `tmux` server, use the command `tmux`."
+      "question": "How can a user disconnect from a `tmux` server session while leaving its processes running on an Alliance cluster?",
+      "answer": "To disconnect from a `tmux` server session on an Alliance cluster, a user should press `Ctrl+B D`."
     },
     {
-      "question": "How do you disconnect from a `tmux` server session without terminating it?",
-      "answer": "To disconnect from a `tmux` server, use the key combination `Ctrl+B D`."
+      "question": "What command allows a user to reconnect to an existing `tmux` server session on an Alliance cluster?",
+      "answer": "A user can reconnect to an existing `tmux` server session on an Alliance cluster by using the command `tmux a`."
     },
     {
-      "question": "What command allows a user to reconnect to an existing `tmux` server session?",
-      "answer": "To reconnect to a `tmux` server, use the command `tmux a`."
+      "question": "What keystrokes are used to create a new window within a `tmux` session on an Alliance cluster?",
+      "answer": "To create a new window within a `tmux` session on an Alliance cluster, a user should press `Ctrl+B C`."
     },
     {
-      "question": "How can a user scroll within a `tmux` session?",
-      "answer": "To scroll in `tmux`, first enable 'copy' mode with `Ctrl+B [` , then scroll using the mouse or Page-Up/Page-Down, and exit 'copy' mode with `Esc`."
+      "question": "How can a user enable 'copy' mode in `tmux` to scroll with the mouse and Page-Up/Page-Down?",
+      "answer": "A user can enable 'copy' mode in `tmux` by pressing `Ctrl+B [`."
     },
     {
-      "question": "What is the 'lost server' error related to `tmux` and how is it resolved?",
-      "answer": "The 'lost server' error occurs if `tmux` is launched inside a job already submitted through `tmux` due to an invalid `$TMUX` environment variable; it can be resolved by running `unset TMUX`."
+      "question": "What common error occurs when attempting to launch `tmux` inside a job submitted through another `tmux` session, and what is the solution?",
+      "answer": "The `lost server` error message occurs because the `$TMUX` environment variable is propagated to the job, and it can be reset by using the command `unset TMUX`."
     },
     {
-      "question": "If `tmux` is already being used on a login node, what is the recommended alternative for using a terminal multiplexer inside a submitted job?",
-      "answer": "If `tmux` is being used on a login node, `GNU Screen` is recommended for use inside a submitted job instead of nested `tmux`."
+      "question": "What is the recommendation for using nested `tmux` sessions on Alliance clusters?",
+      "answer": "Nested use of `tmux` is not recommended; instead, users should consider using GNU Screen inside their job if they are already using `tmux` on a login node."
     },
     {
-      "question": "What command is used to create a new detached `GNU Screen` session with a descriptive name?",
-      "answer": "To create a new detached `GNU Screen` session with a name, use the command `screen -S <session name>`."
+      "question": "How does a user create a new, detached GNU Screen terminal session with a specific name on an Alliance cluster?",
+      "answer": "A user creates a new, detached GNU Screen terminal session with a descriptive name by using the command `screen -S <session name>`."
     },
     {
-      "question": "How can a user view a list of their active `GNU Screen` sessions on a particular node?",
-      "answer": "Users can list their detached terminal sessions on a node using the command `screen -list`."
+      "question": "What command allows a user to see a list of their detached GNU Screen terminal sessions on a specific node of an Alliance cluster?",
+      "answer": "To see a list of detached GNU Screen terminal sessions on a node, a user can use the command `screen -list`."
     },
     {
-      "question": "What command allows a user to reattach to a named `GNU Screen` session?",
-      "answer": "To reattach to a named `GNU Screen` session, use the command `screen -d -r <session name>`."
+      "question": "How can a user attach to an existing GNU Screen session on an Alliance cluster?",
+      "answer": "A user can attach to an existing GNU Screen session by using the command `screen -d -r <session name>`."
     }
   ],
-  "generated_at": "2026-04-12T05:27:13.664878+00:00"
+  "generated_at": "2026-04-13T11:26:44.179133+00:00"
 }

@@ -3,109 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is considered a significant security risk regarding file permissions on shared facilities like clusters?",
-      "answer": "Issuing a bulk `chmod -R 777` on any of your folders is a huge security risk and is completely unacceptable on shared facilities."
+      "question": "What is the primary purpose of the document about Storage and File Management on Alliance clusters?",
+      "answer": "The document describes various mechanisms available on Alliance clusters for sharing data with colleagues and managing file system permissions."
     },
     {
-      "question": "What are the primary mechanisms available for sharing data with colleagues on the clusters?",
-      "answer": "Data can be shared using project space for colleagues within the same research group, shared endpoints via Globus for external users without cluster accounts, or filesystem permissions for colleagues with cluster accounts but not in a common research group."
+      "question": "What important security warning is provided regarding file permissions on shared facilities like Alliance clusters?",
+      "answer": "Users should never issue a bulk `chmod -R 777` command on any folders, especially their home folder, as it poses a significant security risk on shared facilities."
     },
     {
-      "question": "How can one request the creation of a research group on a national cluster?",
-      "answer": "You can request the creation of a group by contacting technical support."
+      "question": "What are the main methods for sharing data with colleagues on Alliance clusters, depending on their account status and group affiliation?",
+      "answer": "Data can be shared using project space (for same research group members), Globus (for external users without cluster accounts), or filesystem permissions and Access Control Lists (ACLs) for colleagues with cluster accounts but not in a common research group."
     },
     {
-      "question": "What is a prerequisite for someone to access a shared file if it's located within a deep directory structure?",
-      "answer": "The individual must have execute permission for the entire chain of directories leading from `/scratch` or `/project` to the directory where the file is located."
+      "question": "How do Linux filesystem permissions work on Alliance clusters, and what three categories of users are recognized?",
+      "answer": "Linux filesystem permissions control read, write, and execute access for three categories of users: the object's owner, members of the object's group, and everyone else."
     },
     {
-      "question": "What are the three categories of users for filesystem objects on the clusters?",
-      "answer": "The three categories are the object's owner, members of the object's group, and everyone else."
+      "question": "What specific permission is required for all directories in a path to a file for a user to access that file on Alliance clusters?",
+      "answer": "A user must have execute permission for each directory leading from the root (e.g., `/scratch` or `/project`) to the directory containing the file they wish to access."
     },
     {
-      "question": "How can you view the current permissions for a file or directory?",
-      "answer": "You can see the current permissions using the command `ls -l name_of_object`."
+      "question": "How can one view the current permissions for a filesystem object on Alliance clusters?",
+      "answer": "The `ls -l name_of_object` command can be used to display the current read, write, and execute permissions for the owner, group, and everyone else for a filesystem object."
     },
     {
-      "question": "What does the command `chmod g+r file.txt` accomplish?",
-      "answer": "This command grants read permission to all members of the group that `file.txt` belongs to."
+      "question": "How do users change filesystem permissions for files and directories on Alliance clusters using symbolic notation?",
+      "answer": "The `chmod` command is used with a user category (`u` for owner, `g` for group, `o` for others, `a` for all), a plus or minus sign to grant or withdraw permission, and the permission type (`r` for read, `w` for write, `x` for execute)."
     },
     {
-      "question": "Explain the concept of octal notation for Unix filesystem permissions.",
-      "answer": "Octal notation uses three bits to represent permissions (read=4, write=2, execute=1) for each user category, with these bits interpreted as a number from 0 to 7. For example, 644 means the owner has read/write, and the group and others have read only."
+      "question": "What is octal notation for Unix filesystem permissions, and how does it relate to read, write, and execute bits?",
+      "answer": "Octal notation represents permissions for each user category as a single digit from 0 to 7, derived from the sum of read (4), write (2), and execute (1) bits. For example, 644 means the owner has read/write, while the group and others have read only."
     },
     {
-      "question": "What permissions are specifically required on a directory for a user to be able to access files within it?",
-      "answer": "To access files within a directory, a user needs both read and execute permission on the directory itself, which corresponds to '5' or '7' in octal notation."
+      "question": "What is the purpose of the sticky bit on Alliance clusters, and how can it be set for a directory?",
+      "answer": "The sticky bit ensures that files within a shared directory can only be renamed or deleted by their owner or the directory's owner. It can be set with `chmod +t <directory name>` or `chmod 1XXX <directory name>` (e.g., `1774`)."
     },
     {
-      "question": "What is the purpose of the sticky bit in a shared directory?",
-      "answer": "The sticky bit prevents individuals from deleting or renaming files or directories within a shared directory unless they are the file's owner or the directory's owner, even if they have write and execute permissions for the directory."
+      "question": "How does the Set Group ID (setGID) bit function on Alliance clusters, and why is it useful for shared directories?",
+      "answer": "When enabled on a directory, the setGID bit causes new files and subdirectories created within it to inherit the parent directory's group ownership, which helps maintain consistent group access in shared project spaces."
     },
     {
-      "question": "How can you enable the sticky bit on a directory using `chmod`?",
-      "answer": "You can enable the sticky bit using `chmod +t <directory name>` or, with octal notation, `chmod 1774 <directory name>`."
+      "question": "Is the Set User ID (setUID) bit functional on Alliance clusters?",
+      "answer": "No, the `setUID` bit is completely disabled on Alliance clusters for security reasons."
     },
     {
-      "question": "What is the function of the `setGID` bit when enabled for a directory?",
-      "answer": "When the `setGID` bit is enabled for a directory, new files and directories created within it will automatically inherit the same group ownership as the parent directory."
+      "question": "What does the `umask` command determine on Alliance clusters, and how can a user check their current `umask` value?",
+      "answer": "The `umask` command defines the default filesystem permissions for newly created files and directories. Users can check their current `umask` value with `umask -S`."
     },
     {
-      "question": "Is the `setUID` bit functional on the clusters, and why or why not?",
-      "answer": "No, the `setUID` bit is completely disabled on our clusters for security reasons."
+      "question": "What are Access Control Lists (ACLs) on Alliance clusters, and what advantage do they offer over standard Unix permissions?",
+      "answer": "ACLs provide more granular control over file permissions, allowing specific read, write, or execute rights to be set on a user-by-user basis, rather than being limited to just owner, group, and everyone else."
     },
     {
-      "question": "What defines the default filesystem permissions for newly created files?",
-      "answer": "Default filesystem permissions for new files are defined by the `umask` value."
+      "question": "How can a user grant read and execute permissions to a specific individual (e.g., `smithj`) on a file using ACLs on Alliance clusters?",
+      "answer": "To grant permissions, use the command `setfacl -m u:smithj:rx my_script.py`."
     },
     {
-      "question": "How can I check my current `umask` value in a session?",
-      "answer": "You can display your current `umask` value by running the command `umask -S`."
+      "question": "What two `setfacl` commands are needed to grant a user (e.g., `smithj`) read, write, and execute permissions to an entire subdirectory and its future contents on Alliance clusters?",
+      "answer": "`setfacl -d -m u:smithj:rwX /path/to/shared_data` sets default rules for new data, and `setfacl -R -m u:smithj:rwX /path/to/shared_data` applies rules recursively to existing data."
     },
     {
-      "question": "Does changing the `umask` value affect files that already exist?",
-      "answer": "No, the `umask` only applies to new files and does not change the access permissions of existing files."
+      "question": "When sharing a directory in the project filesystem using ACLs on Alliance clusters, what important consideration must users remember regarding the path?",
+      "answer": "Collaborators must be provided with a path starting with `/project` (e.g., `/project/9041430/shared_data`), not `/home/<user>/projects`, because the latter contains symlinks that may not be reachable by collaborators. The `realpath` command can convert `/home/<user>/projects` paths."
     },
     {
-      "question": "What are Access Control Lists (ACLs) used for?",
-      "answer": "ACLs provide more fine-grained permissions, allowing access to be set on a user-by-user basis beyond the standard owner, group, and others categories."
+      "question": "When are data sharing groups used on Alliance clusters, and how are they created?",
+      "answer": "Data sharing groups are used for more complex scenarios involving multiple people on multiple clusters. They are created by sending an email request to technical support and then managed through the ccdb.computecanada.ca/services/ portal."
     },
     {
-      "question": "Which commands are used to view and modify ACL permissions?",
-      "answer": "`getfacl` is used to see ACL permissions, and `setfacl` is used to alter them."
-    },
-    {
-      "question": "How would you grant read and execute permission to a specific user, 'smithj', for a single file named 'my_script.py' using ACLs?",
-      "answer": "You would use the command `setfacl -m u:smithj:rx my_script.py`."
-    },
-    {
-      "question": "When sharing a subdirectory recursively with ACLs, why are two `setfacl` commands often necessary?",
-      "answer": "One command (`-d -m`) sets default ACL rules for any new files or directories created in the future, while the other (`-R -m`) applies the rules recursively to all existing content within the directory."
-    },
-    {
-      "question": "What does the 'X' attribute in `rwX` signify when setting ACLs for directories?",
-      "answer": "The 'X' attribute sets the execute permission only if the item is already executable (e.g., a directory or an executable file), which is crucial for directory browsing."
-    },
-    {
-      "question": "If sharing a project directory, why must collaborators be provided with a path starting with `/project` instead of `/home/<user>/projects`?",
-      "answer": "The `/home/<user>/projects` path contains symbolic links that will not be reachable by collaborators unless they also have access to your home directory; `/project` provides the physical path."
-    },
-    {
-      "question": "How can one remove all extended ACL attributes recursively from a directory?",
-      "answer": "Use the command `setfacl -bR /home/<user>/projects/def-<PI>/shared_data`."
-    },
-    {
-      "question": "Under what circumstances would you typically need to create a data sharing group?",
-      "answer": "A data sharing group is typically needed for more complex data sharing scenarios involving multiple people across multiple clusters."
-    },
-    {
-      "question": "What is the initial step to create a data sharing group?",
-      "answer": "The first step is to send an email to technical support requesting the creation of the group and indicating that you should be the owner."
-    },
-    {
-      "question": "How can you test for read access recursively within a specific directory, identifying any unreadable items?",
-      "answer": "You can use the command `find <directory_name> ! -readable -ls`."
+      "question": "What command can be used to identify all items in a specific directory that are not readable to the current user on Alliance clusters?",
+      "answer": "The command `find <directory_name> ! -readable -ls` can be used to list all unreadable items within a specified directory."
     }
   ],
-  "generated_at": "2026-04-12T07:57:37.307271+00:00"
+  "generated_at": "2026-04-13T13:33:22.514570+00:00"
 }

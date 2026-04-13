@@ -3,53 +3,53 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, Weights & Biases (wandb)?",
-      "answer": "C'est une plateforme de méta-apprentissage machine qui permet de bâtir des modèles pour des applications concrètes, en plus de suivre, comparer, décrire et reproduire les expériences d'apprentissage machine."
+      "question": "Qu'est-ce que Weights & Biases (wandb) et à quoi sert cette plateforme de méta-apprentissage machine?",
+      "answer": "Weights & Biases (wandb) est une plateforme de méta-apprentissage machine conçue pour suivre, comparer, décrire et reproduire les expériences d'apprentissage machine afin de bâtir des modèles pour des applications concrètes."
     },
     {
-      "question": "Quelles conditions sont nécessaires pour utiliser toutes les fonctionnalités de wandb sur les nœuds de calcul des grappes Alliance?",
-      "answer": "Pour utiliser toutes les fonctionnalités de wandb sur les nœuds de calcul, ça prend un accès Internet et à Google Cloud Storage, ce qui n'est pas toujours disponible selon la grappe."
+      "question": "Quelles sont les conditions requises pour utiliser toutes les fonctionnalités de Weights & Biases (wandb) sur les nœuds de calcul des grappes Alliance?",
+      "answer": "Pour utiliser toutes les fonctionnalités de Weights & Biases (wandb) sur les nœuds de calcul des grappes Alliance, un accès Internet et un accès à Google Cloud Storage sont nécessaires."
     },
     {
-      "question": "Sur quelles grappes Alliance wandb est-il entièrement disponible sans avoir besoin de httpproxy?",
-      "answer": "Wandb est entièrement disponible sur Fir, Nibi, Vulcan et Killarney sans que httpproxy ne soit requis."
+      "question": "Sur quelles grappes Alliance l'utilisation de Weights & Biases (wandb) est-elle pleinement disponible sans configuration spéciale comme `httpproxy`?",
+      "answer": "L'utilisation de Weights & Biases (wandb) est pleinement disponible sur les grappes Fir, Nibi, Vulcan et Killarney sans que le module `httpproxy` soit requis."
     },
     {
-      "question": "Pourquoi wandb est-il inutilisable sur la grappe Trillium?",
-      "answer": "Sur Trillium, l'accès Internet est désactivé pour les nœuds de calcul, ce qui rend wandb non fonctionnel."
+      "question": "L'utilisation de Weights & Biases (wandb) est-elle possible sur la grappe Trillium des clusters Alliance?",
+      "answer": "Non, l'utilisation de Weights & Biases (wandb) n'est pas possible sur la grappe Trillium des clusters Alliance, car l'accès Internet y est désactivé pour les nœuds de calcul."
     },
     {
-      "question": "Comment les membres de Mila peuvent-ils utiliser wandb sur les grappes comme Narval, Rorqual et TamIA où l'accès est limité?",
-      "answer": "Ils peuvent l'utiliser via httpproxy, à condition de se connecter à la plateforme avec un compte Mila-org valide."
+      "question": "Pourquoi l'utilisation de Weights & Biases (wandb) est-elle limitée sur les grappes Narval, Rorqual et TamIA pour la plupart des utilisateurs?",
+      "answer": "L'utilisation de Weights & Biases (wandb) est limitée sur Narval, Rorqual et TamIA pour la plupart des utilisateurs car l'accès à Google Cloud Storage, essentiel pour certaines fonctionnalités, n'est pas autorisé sur les nœuds de calcul de ces grappes, ce qui peut causer des plantages ou des blocages."
     },
     {
-      "question": "Quel est le problème principal quand on essaie d'utiliser wandb sur Narval, Rorqual et TamIA en mode normal?",
-      "answer": "Le package wandb tente de télécharger des informations d'environnement vers un bucket Google Cloud Storage, ce qui n'est pas autorisé sur ces grappes et peut causer un plantage ou bloquer la tâche."
+      "question": "Quels sont les groupes spécifiques qui peuvent utiliser Weights & Biases (wandb) sur les grappes Narval, Rorqual et TamIA?",
+      "answer": "Les membres de l'Institut québécois d’intelligence artificielle Mila et d'autres groupes admissibles peuvent utiliser Weights & Biases (wandb) sur Narval, Rorqual et TamIA via `httpproxy`, à condition d'utiliser un compte Mila-org valide."
     },
     {
-      "question": "Est-ce que le téléchargement d'artefacts avec `wandb.save()` fonctionne sur Narval, Rorqual et TamIA?",
-      "answer": "Non, `wandb.save()` nécessite un accès à Google Cloud Storage, ce qui bloquera ou fera planter votre tâche sur ces grappes."
+      "question": "Quels problèmes concrets peuvent survenir lorsque Weights & Biases (wandb) est utilisé sur les grappes Narval, Rorqual et TamIA en mode normal?",
+      "answer": "Sur Narval, Rorqual et TamIA, le paquet Weights & Biases (wandb) essaiera de téléverser automatiquement des informations d'environnement vers un bucket Google Cloud Storage, ce qui n'est pas autorisé et entraînera un plantage ou un blocage de la tâche. Le téléchargement d'artefacts avec `wandb.save()` rencontrera le même problème."
     },
     {
-      "question": "Quels modes de wandb sont recommandés pour les grappes comme Narval, Rorqual et TamIA pour contourner les restrictions?",
-      "answer": "Il est recommandé d'activer les modes `offline` ou `dryrun`."
+      "question": "Comment peut-on contourner les restrictions d'accès à Google Cloud Storage pour utiliser Weights & Biases (wandb) sur les grappes Narval, Rorqual et TamIA?",
+      "answer": "Pour contourner ces restrictions, on peut activer les modes `offline` ou `dryrun` de Weights & Biases (wandb). Dans ces modes, wandb écrit toutes les métriques, journalisations et artefacts sur le disque local sans synchronisation avec le service internet."
     },
     {
-      "question": "Comment fonctionne le mode `offline` de wandb et comment les données sont-elles gérées?",
-      "answer": "En mode `offline`, wandb écrit toutes les métriques, journalisations et artefacts sur le disque local, sans synchronisation avec le service Internet. Les données peuvent être synchronisées plus tard avec la commande `wandb sync` sur le nœud de connexion."
+      "question": "Une fois les données enregistrées en mode `offline` ou `dryrun` de Weights & Biases (wandb), comment les synchroniser avec le service en ligne?",
+      "answer": "Après l'entraînement en mode `offline` ou `dryrun`, il faut utiliser la commande `wandb sync ./wandb/offline-run*` sur le nœud de connexion pour envoyer les métriques et artefacts au serveur de Weights & Biases."
     },
     {
-      "question": "Y a-t-il une alternative à Weights & Biases qui est compatible avec Narval, Rorqual et TamIA?",
-      "answer": "Oui, le produit Comet.ml est très semblable à Weights & Biases et fonctionne sur Narval, Rorqual et TamIA."
+      "question": "Existe-t-il une alternative comparable à Weights & Biases (wandb) qui fonctionne sur les grappes Narval, Rorqual et TamIA?",
+      "answer": "Oui, le produit Comet.ml est très semblable à Weights & Biases (wandb) et il fonctionne sur les grappes Narval, Rorqual et TamIA."
     },
     {
-      "question": "Combien de cœurs de processeur (CPU) sont recommandés pour une tâche wandb, selon l'exemple fourni?",
-      "answer": "Il est recommandé d'allouer au moins 2 cœurs de processeur par tâche : un pour le processus principal et un autre pour le processus wandb."
+      "question": "Quelles sont les étapes de base pour préparer l'environnement et lancer une tâche Weights & Biases (wandb) en mode hors ligne via un script SLURM sur une grappe Alliance?",
+      "answer": "Les étapes incluent le chargement du module Python, la création d'un environnement virtuel, l'installation de `wandb` sans accès Internet (`pip install --no-index wandb`), l'activation du mode `wandb offline`, puis l'exécution du script Python de journalisation."
     },
     {
-      "question": "Après une exécution en mode hors ligne, où se trouvent les informations de la tâche wandb?",
-      "answer": "Après une exécution en mode hors ligne, les informations se trouvent dans un nouveau répertoire `./wandb/offline-run*` sur le disque local."
+      "question": "Combien de CPUs sont recommandés pour une tâche utilisant Weights & Biases (wandb) sur les grappes Alliance, et pourquoi?",
+      "answer": "Il est recommandé d'allouer au moins 2 CPUs par tâche utilisant Weights & Biases (wandb) : un pour le processus principal et un autre pour le processus wandB afin d'assurer un bon fonctionnement."
     }
   ],
-  "generated_at": "2026-04-12T11:25:52.871832+00:00"
+  "generated_at": "2026-04-13T16:16:45.175869+00:00"
 }

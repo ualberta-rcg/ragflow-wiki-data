@@ -4,125 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "What is the value of a GPU instance with a 1g profile?",
-      "answer": "A GPU instance with a 1g profile is worth 1/7 of an A100 or H100 GPU."
+      "question": "What is a core equivalent, and how does the scheduler determine job priority based on it?",
+      "answer": "A core equivalent is defined as a single core bundled with an associated amount of memory, typically 4GB per core on most clusters. The scheduler calculates job priority based on the maximum number of core equivalents a research group prevents others from using, rather than just the actual resources consumed."
     },
     {
-      "question": "What special consideration is given to a 3g GPU instance profile?",
-      "answer": "The 3g GPU instance profile takes into consideration the extra amount of memory per 'g'."
+      "question": "How does the type of floating-point operation (FP32 or FP16) impact the efficiency of GPU usage, considering Reference GPU Units (RGUs), when choosing between GPU models like the A100-40gb and P100-12gb?",
+      "answer": "For primarily FP32 operations, an A100-40gb is twice as fast as a P100-12gb but records four times the RGU usage, meaning P100-12gb GPUs can facilitate double the computations for the same RGU allocation. For FP16 operations (common in AI), an A100-40gb is evaluated as using four times the resources of a P100-12gb but can perform approximately 30 times more calculations in the same timeframe, allowing for about 7.5 times more computations."
     },
     {
-      "question": "Why are 4g GPU profiles not available on the clusters?",
-      "answer": "To simplify things for users, the 4g profiles are not available on the clusters."
-    },
-    {
-      "question": "For applications primarily performing FP32 operations, how does an A100-40gb GPU compare to a P100-12gb GPU in terms of speed and recorded usage?",
-      "answer": "An A100-40gb GPU is expected to be twice as fast as a P100-12gb GPU for FP32 operations, but its recorded usage will be four times the resources."
-    },
-    {
-      "question": "If running FP32 operations, which GPU allows for double the computations for an equal amount of RGUs: an A100-40gb or a P100-12gb?",
-      "answer": "For an equal amount of RGUs and applications primarily performing FP32 operations, P100-12gb GPUs should allow you to run double the computations compared to an A100-40gb GPU."
-    },
-    {
-      "question": "For AI-related applications primarily doing FP16 operations, how much more resource usage is an A100-40gb evaluated as compared to a P100-12gb?",
-      "answer": "For AI-related applications primarily doing FP16 operations, an A100-40gb is evaluated as using 4 times the resources of a P100-12gb."
-    },
-    {
-      "question": "For FP16 operations, how many more calculations can an A100-40gb GPU perform compared to a P100-12gb GPU in the same amount of time?",
-      "answer": "For FP16 operations, an A100-40gb GPU is capable of computing approximately 30 times more calculations than a P100-12gb GPU for the same amount of time."
-    },
-    {
-      "question": "If using an A100-40gb GPU for FP16 operations, how many more computations can be completed compared to a P100-12gb GPU?",
-      "answer": "Using an A100-40gb GPU for FP16 operations would allow you to complete approximately 7.5 times more computations compared to a P100-12gb GPU."
-    },
-    {
-      "question": "What must a proposal asking for GPUs specify during the Resource Allocation Competition (RAC)?",
-      "answer": "During the Resource Allocation Competition (RAC), any proposal asking for GPUs must specify the preferred GPU model for the project."
-    },
-    {
-      "question": "How are Reference GPU Units (RGUs) calculated in the CCDB form for RAC proposals?",
-      "answer": "In the CCDB form, the amount of Reference GPU Units (RGUs) is automatically calculated from the requested amount of GPU-years per year of project."
-    },
-    {
-      "question": "If 13 GPU-years of an A100-40gb model are requested for the narval-gpu resource, what is the corresponding amount of RGUs?",
-      "answer": "If 13 GPU-years of an A100-40gb model are requested for the narval-gpu resource, the corresponding amount of RGUs would be 52."
-    },
-    {
-      "question": "What factor determines the final RGU allocation by the RAC committee?",
-      "answer": "The RAC committee allocates RGUs depending on the proposal score."
-    },
-    {
-      "question": "What happens if a GPU allocation needs to be moved to a different cluster?",
-      "answer": "If a GPU allocation must be moved to a different cluster, the committee will allocate GPU-years at that cluster so as to keep the amount of RGUs the same."
-    },
-    {
-      "question": "What is the main principle for calculating job priority on national clusters?",
-      "answer": "The main principle for calculating job priority on national clusters is that compute-based jobs are considered based on the resources others are prevented from using, not on the resources actually used."
-    },
-    {
-      "question": "When do unused cores contribute to a job's priority calculation?",
-      "answer": "Unused cores contribute to a job's priority calculation when a submitted job requests multiple cores but uses fewer than requested during execution."
-    },
-    {
-      "question": "What core usage metric affects the priority of future jobs?",
-      "answer": "The number of cores requested, not the number of cores actually used by the application, affects the priority of future jobs."
-    },
-    {
-      "question": "Why does the number of requested cores, not actual usage, affect future job priority?",
-      "answer": "The number of requested cores affects future job priority because any unused cores were unavailable to other users during the job's execution."
-    },
-    {
-      "question": "What is another common scenario where resource usage affects priority calculation?",
-      "answer": "Another common scenario is when a job requests memory beyond what is associated with the cores requested."
-    },
-    {
-      "question": "How is usage calculated if a job requests one core but 8GB of memory on a cluster with 4GB per core?",
-      "answer": "If a job requests one core and 8GB of memory on a cluster with 4GB per core, it will be deemed to have used two cores."
-    },
-    {
-      "question": "Why is a job requesting 8GB of memory with a single core (on a 4GB/core system) deemed to have used two cores?",
-      "answer": "It is deemed to have used two cores because other researchers were effectively prevented from using the second core due to a lack of available memory."
-    },
-    {
-      "question": "What is a core equivalent?",
-      "answer": "A core equivalent is a bundle consisting of a single core and a certain amount of associated memory."
-    },
-    {
-      "question": "How else can a core equivalent be defined?",
-      "answer": "A core equivalent can also be defined as a core plus the amount of memory considered to be associated with each core on a given system."
-    },
-    {
-      "question": "What is the typical definition of a core-equivalent on most clusters?",
-      "answer": "On most clusters, a core-equivalent is defined as 4GB of memory and a core, reflecting the most common node type's memory-to-core ratio."
-    },
-    {
-      "question": "How are jobs charged in terms of core-equivalent usage?",
-      "answer": "Jobs are charged at a rate of 4 GB per core for core-equivalent usage."
-    },
-    {
-      "question": "When is allocation target tracking straightforward for core usage?",
-      "answer": "Allocation target tracking is straightforward when resource requests consist entirely of core and memory amounts that can be portioned only into complete equivalent cores."
-    },
-    {
-      "question": "What complicates allocation target tracking for core equivalents?",
-      "answer": "Allocation target tracking becomes more complicated when jobs request portions of a core equivalent, as many points can be counted against a research group's allocation even for partial usage."
-    },
-    {
-      "question": "What is the purpose of the Alliance's method for accounting for system usage?",
-      "answer": "The Alliance's method for accounting for system usage aims to solve problems related to fairness and perceptions of fairness."
-    },
-    {
-      "question": "How are research groups charged for core equivalent usage?",
-      "answer": "Research groups are charged for the maximum number of core equivalents they take from the resources."
-    },
-    {
-      "question": "How are research groups charged if they use more cores than memory, relative to the 1 core/4GB ratio?",
-      "answer": "Research groups using more cores than memory, above the 1 core/4GB ratio, will be charged based on cores."
-    },
-    {
-      "question": "If a research group requests two cores and 2GB per core (4GB total) on a system with a 1 core/4GB equivalent, how many core equivalents will be counted for priority calculation?",
-      "answer": "If a research group requests two cores and 2GB per core (4GB total) on a system with a 1 core/4GB equivalent, the job will be counted as 2 core equivalents for priority calculation."
+      "question": "During the Resource Allocation Competition (RAC), how are Reference GPU Units (RGUs) determined for GPU allocation requests, and what happens if an allocation needs to be moved to a different cluster?",
+      "answer": "During the RAC, when a project proposes GPU usage, the requested GPU model must be specified. The amount of RGUs is then automatically calculated in the CCDB form by multiplying the requested GPU-years by the RGU value of the chosen model. If an allocation is subsequently moved to a different cluster, the RAC committee ensures that the allocated GPU-years at the new cluster maintain the original RGU value."
     }
   ],
-  "generated_at": "2026-04-11T16:24:41.764881+00:00"
+  "generated_at": "2026-04-13T01:24:43.815791+00:00"
 }

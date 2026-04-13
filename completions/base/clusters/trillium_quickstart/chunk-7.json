@@ -4,117 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "What is the `debugjob` command used for on Trillium?",
-      "answer": "The `debugjob` command is used to request an interactive debug job for testing code that exceeds login node limits or requires dedicated resources."
+      "question": "How can a user request an interactive debug job on Trillium, and what are the available resource configurations and their limits?",
+      "answer": "On Trillium, users can request an interactive debug job using the `debugjob` command on a login node. This provides an interactive shell on a compute session with specific resource limits. For instance, `debugjob` on a CPU login node grants 1 CPU node (192 cores, 755 GiB memory) for 60 minutes, while `debugjob -g 1` on a GPU login node provides 1 GPU (24 cores, 188 GiB memory) for 120 minutes. Other configurations include 2 CPU nodes for 30 minutes, or 4 GPUs on 1 node for 30 minutes, or 8 GPUs on 2 nodes for 15 minutes. The environment is similar to a fresh login, with standard modules loaded, no internet access, and read-only home/project file systems. To inherit previously loaded modules, `--export=ALL` can be added as the first option to `debugjob`."
     },
     {
-      "question": "How do I request a default CPU debug job on Trillium?",
-      "answer": "You can request a default CPU debug job by running the command `debugjob` from a CPU login node."
+      "question": "What is the process for submitting a computational job to Trillium's cluster scheduler for execution on its compute nodes?",
+      "answer": "To submit a computational job on Trillium, you use the `sbatch` command on a login node, typically with a job script (e.g., `$ sbatch jobscript.sh`). CPU compute jobs must be submitted from CPU login nodes, and GPU compute jobs from GPU login nodes. The job script should contain lines starting with `#SBATCH` to specify the required resources, such as the number of nodes, tasks, and walltime. Trillium uses SLURM as its job scheduler, which places the job into a queue and executes it when resources become available and its priority allows."
     },
     {
-      "question": "What resources are allocated for a default CPU debug job?",
-      "answer": "A default CPU debug job allocates 1 node with 192 CPU cores, 0 GPUs, and 755 GiB of memory, with a walltime limit of 60 minutes."
-    },
-    {
-      "question": "How do I request a 2-node CPU debug job?",
-      "answer": "You can request a 2-node CPU debug job by running the command `debugjob 2` from a CPU login node."
-    },
-    {
-      "question": "What resources are allocated for a 2-node CPU debug job?",
-      "answer": "A 2-node CPU debug job allocates 2 nodes with 384 CPU cores, 0 GPUs, and 2x755 GiB of memory, with a walltime limit of 30 minutes."
-    },
-    {
-      "question": "How do I request a single GPU debug job?",
-      "answer": "You can request a single GPU debug job by running `debugjob` or `debugjob -g 1` from the GPU login node."
-    },
-    {
-      "question": "What resources are allocated for a single GPU debug job?",
-      "answer": "A single GPU debug job allocates 1/4 of a node, with 24 CPU cores, 1 GPU, and 188 GiB of memory, with a walltime limit of 120 minutes."
-    },
-    {
-      "question": "How do I request a full node (4 GPUs) debug job?",
-      "answer": "You can request a full node (4 GPUs) debug job by running `debugjob 1` or `debugjob -g 4` from the GPU login node."
-    },
-    {
-      "question": "What resources are allocated for a full node (4 GPUs) debug job?",
-      "answer": "A full node (4 GPUs) debug job allocates 1 node with 96 CPU cores, 4 GPUs, and 755 GiB of memory, with a walltime limit of 30 minutes."
-    },
-    {
-      "question": "How do I request an 8 GPU debug job (2 nodes)?",
-      "answer": "You can request an 8 GPU debug job by running `debugjob 2` or `debugjob -g 8` from the GPU login node."
-    },
-    {
-      "question": "What resources are allocated for an 8 GPU debug job?",
-      "answer": "An 8 GPU debug job allocates 2 nodes with 192 CPU cores, 8 GPUs, and 2x755 GiB of memory, with a walltime limit of 15 minutes."
-    },
-    {
-      "question": "What is the environment like inside a `debugjob` session?",
-      "answer": "The shell environment in a `debugjob` session is similar to when you first log in: only standard modules are loaded, there is no internet access, no write access to home and project file systems, and no job submissions are allowed."
-    },
-    {
-      "question": "How can I make a `debugjob` session inherit the modules I had loaded previously?",
-      "answer": "To make a `debugjob` session inherit your previously loaded modules, add `--export=ALL` as the first option to the `debugjob` command (e.g., `debugjob --export=ALL`)."
-    },
-    {
-      "question": "When should I use `salloc` instead of `debugjob`?",
-      "answer": "You should use `salloc` if your test job requires more time than the limits allowed by `debugjob`."
-    },
-    {
-      "question": "What is the command to request an interactive CPU test job from the regular queue using `salloc`?",
-      "answer": "The command is `$ salloc --export=NONE --nodes=N --time=M:00:00 [--ngpus-per-node=G] [--x11]`."
-    },
-    {
-      "question": "What do the options `N`, `M`, `G`, and `--x11` mean in the `salloc` command?",
-      "answer": "`N` is the number of nodes, `M` is the number of hours the job should run, `G` is the number of GPUs per node (if applicable), and `--x11` is required for graphical applications."
-    },
-    {
-      "question": "What are the implications of submitting jobs with `salloc`?",
-      "answer": "Jobs submitted with `salloc` may take longer to start than with `debugjob` and count towards your allocation."
-    },
-    {
-      "question": "What is the purpose of submitting jobs to the scheduler on Trillium?",
-      "answer": "Submitting jobs to the scheduler allows your compiled and tested code or workflow to run on Trillium's compute nodes, with execution managed by the scheduler."
-    },
-    {
-      "question": "Which job scheduler does Trillium use?",
-      "answer": "Trillium uses SLURM as its job scheduler."
-    },
-    {
-      "question": "What command is used to submit a job script on Trillium?",
-      "answer": "The `sbatch` command is used to submit a job script on a login node, for example: `$ sbatch jobscript.sh`."
-    },
-    {
-      "question": "From which login nodes should CPU compute jobs be submitted?",
-      "answer": "CPU compute jobs need to be submitted from the CPU login nodes."
-    },
-    {
-      "question": "From which login nodes should GPU compute jobs be submitted?",
-      "answer": "GPU compute jobs must be submitted from the GPU login node."
-    },
-    {
-      "question": "What information should a job script contain for SLURM?",
-      "answer": "The job script should contain lines starting with `#SBATCH` that specify the resources the script will need."
-    },
-    {
-      "question": "How is the priority of a job in the queue determined by SLURM?",
-      "answer": "The priority of a job in the queue depends on requested resources, time spent in the queue, recent past usage, and the SLURM account under which the job was submitted."
-    },
-    {
-      "question": "What are SLURM accounts on Trillium?",
-      "answer": "SLURM accounts on Trillium correspond to Resource Allocation Projects (RAPs), which can be either RAS (default) RAPs or RAC RAPs."
-    },
-    {
-      "question": "What are the typical prefixes for SLURM accounts associated with default RAPs?",
-      "answer": "SLURM accounts for default RAPs typically start with `def-`."
-    },
-    {
-      "question": "What are the typical prefixes for SLURM accounts associated with RAC allocations?",
-      "answer": "SLURM accounts for RAC allocations typically start with `rrg-` or `rpp-`."
-    },
-    {
-      "question": "Can a RAC allocation for a different system, like Nibi, be used on Trillium?",
-      "answer": "No, RAC allocations are bound to a specific system, so a RAC for Nibi cannot be used on Trillium."
+      "question": "How can a user request an interactive session on Trillium for testing that requires more time than the `debugjob` command allows?",
+      "answer": "If a test job requires more time or specific resources beyond what `debugjob` offers, users can request a longer interactive session from the regular queue using the `salloc` command. For CPU test jobs, the command format is `$ salloc --export=NONE --nodes=N --time=M:00:00 [--ngpus-per-node=G] [--x11]`, where `N` is the number of nodes, `M` is the number of hours, `G` is the number of GPUs per node (if applicable), and `--x11` is for graphical applications. Unlike `debugjob` sessions, `salloc` jobs may take longer to start and count towards the user's allocation."
     }
   ],
-  "generated_at": "2026-04-12T09:41:55.551078+00:00"
+  "generated_at": "2026-04-13T14:52:57.544723+00:00"
 }

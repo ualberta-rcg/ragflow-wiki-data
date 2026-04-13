@@ -4,49 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "What Python packages are installed during the Singularity container build process for FEniCS?",
-      "answer": "The Singularity container build process installs numerous Python packages, including `python-dateutil`, `python-deap`, `python-decorator`, `python-ecdsa`, `python-enum34`, `python-funcsigs`, `ipython`, `python-ipython-genutils`, `python-jinja2`, `python-jsonschema`, `python-lockfile`, `python-markupsafe`, `python-matplotlib`, `python-mistune`, `python-mock`, `python-mpmath`, `python-netaddr`, `python-netifaces`, `python-nose`, `ipython-notebook`, `python-numpy`, `python-pandas`, `python-paramiko`, `python-path`, `python-pathlib`, `python-pbr`, `python-pexpect`, `python-pickleshare`, `python-prompt-toolkit`, `python-ptyprocess`, `python-pycryptopp`, `python-pygments`, `python-pyparsing`, `python-zmq`, `python-requests`, `python-scipy`, `python-setuptools`, `python-simplegeneric`, `python-singledispatch`, `python-six`, `python-sympy`, `python-terminado`, `python-tornado`, and `python-traitlets` (T:19)."
+      "question": "What software components, including Python packages, are installed during the `%post` phase when building the FEniCS Singularity container?",
+      "answer": "During the `%post` phase, the FEniCS Singularity container installs numerous Python packages such as `python-dateutil`, `python-deap`, `python-matplotlib`, `python-numpy`, `python-pandas`, `python-scipy`, and many others. Additionally, it installs tools like `automake`, `git-core`, `libopenmpi-dev`, `libtool`, `mercurial`, `openmpi-bin`, `python3-pip`, and `python3-venv`. After installation, it cleans up downloaded and temporary files."
     },
     {
-      "question": "What other general tools and libraries are installed as part of the Singularity container build?",
-      "answer": "Besides Python packages, the Singularity container build also installs `automake`, `git-core`, `libopenmpi-dev`, `libtool`, `mercurial`, `openmpi-bin`, `python3-pip`, and `python3-venv` (T:19)."
+      "question": "What is the initial step for installing the FEniCS Legacy (2019) version on Trillium using Apptainer?",
+      "answer": "The initial step for installing FEniCS Legacy (2019) on Trillium is to download the Docker image as an Apptainer SIF file. This is achieved by running a command like `apttainer pull fenics-legacy.sif docker://ghcr.io/scientificcomputing/fenics-gmsh:2024-05-30` from your home directory."
     },
     {
-      "question": "What cleanup steps are performed after installing packages within the FEniCS Singularity recipe?",
-      "answer": "After package installation, the Singularity recipe performs cleanup by running `sudo apt-get clean` and `sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*` (T:20)."
-    },
-    {
-      "question": "What is the primary purpose of the 'FEniCS Legacy (2019) Installation on Trillium' section?",
-      "answer": "This section provides instructions for setting up and testing a container for the legacy FEniCS 2019 version on the Trillium cluster (T:25, T:26)."
-    },
-    {
-      "question": "Where should users begin the FEniCS Legacy installation process on Trillium?",
-      "answer": "Users should go to their home directory to begin the FEniCS Legacy installation process on Trillium (T:26)."
-    },
-    {
-      "question": "How do I download the FEniCS Legacy Docker image as an Apptainer SIF?",
-      "answer": "You can download the FEniCS Legacy Docker image as an Apptainer SIF by running the command: `apptainer pull fenics-legacy.sif docker://ghcr.io/scientificcomputing/fenics-gmsh:2024-05-30` (T:27)."
-    },
-    {
-      "question": "What is the command to create a writable sandbox directory from an Apptainer SIF file?",
-      "answer": "To create a writable sandbox directory from an Apptainer SIF file, use the command: `apptainer build --sandbox fenics-legacy.sandbox fenics-legacy.sif` (T:28)."
-    },
-    {
-      "question": "Why would I create a writable sandbox directory from a SIF file?",
-      "answer": "You would create a writable sandbox directory to modify or install extra packages within the FEniCS environment (T:28)."
-    },
-    {
-      "question": "Is the name 'fenics-legacy.sandbox' a mandatory name for the writable directory?",
-      "answer": "No, 'fenics-legacy.sandbox' is just an example directory name. You can call it something else, like 'fenics-dev/' or 'my_rw_image/', and the '.sandbox' suffix is a convention, not a requirement (T:29)."
-    },
-    {
-      "question": "How do I fix the pip certificate bundle path inside the sandbox directory?",
-      "answer": "Inside the sandbox, you can fix the pip certificate bundle path by creating a certs folder and symlinking the CA bundle with the command: `apptainer exec --writable fenics-legacy.sandbox sh -c \"mkdir -p /etc/pki/tls/certs && ln -s /etc/ssl/certs/ca-certificates.crt /etc/pki/tls/certs/ca-bundle.crt\"` (T:30)."
-    },
-    {
-      "question": "What is the purpose of fixing the pip certificate bundle path within the sandbox?",
-      "answer": "Fixing the pip certificate bundle path ensures that pip/SSL trusts HTTPS connections inside the sandbox (T:30)."
+      "question": "Why is it recommended to create a writable sandbox directory when installing FEniCS Legacy (2019) on Trillium with Apptainer?",
+      "answer": "Creating a writable sandbox directory, such as `fenics-legacy.sandbox`, is recommended because it allows users to modify the Apptainer SIF file or install additional packages after it has been downloaded, providing flexibility for customization."
     }
   ],
-  "generated_at": "2026-04-11T21:22:46.260556+00:00"
+  "generated_at": "2026-04-13T05:12:07.260784+00:00"
 }

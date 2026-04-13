@@ -3,53 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "À quoi sert l'application BEAST?",
-      "answer": "BEAST est une application multiplateforme pour l'analyse bayésienne MCMC de séquences moléculaires, spécifiquement pour inférer des phylogénies enracinées chronologiques à l'aide de modèles d'horloge moléculaire."
+      "question": "Qu'est-ce que BEAST comme application et à quoi sert-elle?",
+      "answer": "BEAST est une application multiplateforme pour l'analyse bayésienne MCMC de séquences moléculaires, principalement pour l'inférence de phylogénies enracinées chronologiques avec des modèles d'horloge moléculaire."
     },
     {
-      "question": "Quelle méthode BEAST utilise-t-il pour ses analyses?",
-      "answer": "BEAST utilise l'analyse bayésienne MCMC (chaîne de Markov Monte Carlo) pour faire la moyenne d'une partie d'un arbre, donnant un poids proportionnel à la probabilité antérieure de chaque arbre."
+      "question": "Quelles sont les principales utilisations de BEAST en bioinformatique?",
+      "answer": "On l'utilise pour la reconstruction de phylogénies et comme environnement de test pour des hypothèses sur l'évolution, sans conditionner une topologie d'arbre."
     },
     {
-      "question": "Quelle bibliothèque BEAST peut-il utiliser pour optimiser ses calculs?",
-      "answer": "BEAST peut utiliser la bibliothèque haute performance beagle-lib pour les calculs fondamentaux des bibliothèques phylogénétiques bayésiennes ou celles utilisant l'estimation du maximum de similitude."
+      "question": "Est-ce que BEAST peut utiliser des bibliothèques de calculs haute performance, et si oui, laquelle est mentionnée?",
+      "answer": "Oui, BEAST peut utiliser la bibliothèque haute performance beagle-lib pour les calculs phylogénétiques bayésiens ou d'estimation du maximum de similitude."
     },
     {
-      "question": "Comment charge-t-on le module BEAST dans l'environnement?",
-      "answer": "On charge le module BEAST en utilisant la commande `module load beast`."
+      "question": "Comment charge-t-on le module BEAST sur les grappes de calcul Alliance?",
+      "answer": "Il faut utiliser la commande `module load beast`."
     },
     {
-      "question": "Quels modules sont automatiquement chargés avec le module BEAST?",
-      "answer": "Lorsque le module BEAST est chargé, les modules dépendants `beagle-lib` et `java` le sont également."
+      "question": "Quels modules sont chargés automatiquement avec BEAST sur les systèmes Alliance?",
+      "answer": "Les modules dépendants `beagle-lib` et `java` sont chargés automatiquement."
     },
     {
-      "question": "Quelle variable d'environnement est configurée après le chargement du module BEAST?",
-      "answer": "La variable d'environnement `EBROOTBEAST` est configurée pour pointer vers le répertoire de l'application."
+      "question": "Quelle variable d'environnement est configurée lors du chargement du module BEAST?",
+      "answer": "La variable `EBROOTBEAST` est configurée pour pointer vers le répertoire qui contient les fichiers de l'application."
     },
     {
-      "question": "Quelles commandes faut-il utiliser pour ajouter des paquets d'extension à BEAST?",
-      "answer": "Il faut utiliser `packagemanager` pour les versions de BEAST à partir de 2.5.1, et `addonmanager` pour les versions antérieures."
+      "question": "Comment installe-t-on des extensions pour BEAST si on utilise la version 2.5.1 ou plus récente?",
+      "answer": "Il faut utiliser la commande `packagemanager`. Par exemple, pour ajouter l'extension SNAPP, on ferait `packagemanager -add SNAPP`."
     },
     {
-      "question": "Comment liste-t-on les extensions disponibles ou installées pour BEAST version 2.5.1 ou plus?",
-      "answer": "On utilise la commande `packagemanager -list`."
+      "question": "Quelle commande doit-on utiliser pour installer des extensions pour les versions de BEAST antérieures à 2.5.1 (par exemple, 2.4.x)?",
+      "answer": "Pour ces versions, il faut utiliser la commande `addonmanager`. Par exemple, `addonmanager -add SNAPP`."
     },
     {
-      "question": "Comment installe-t-on l'extension SNAPP pour BEAST version 2.5.1 ou plus?",
-      "answer": "On utilise la commande `packagemanager -add SNAPP`."
+      "question": "Comment peut-on voir la liste des extensions disponibles pour BEAST et leur statut d'installation?",
+      "answer": "On utilise `packagemanager -list` pour les versions 2.5.1 et plus récentes, ou `addonmanager -list` pour les versions antérieures."
     },
     {
-      "question": "Dans un script de job BEAST demandant plus de mémoire, quelle variable permet d'ajuster la mémoire maximale pour Java?",
-      "answer": "La variable `BEAST_MEM` est utilisée pour ajuster la mémoire maximale pour Java (par exemple, `-Xmx3750M`)."
+      "question": "Où sont installées les extensions de BEAST par défaut une fois ajoutées?",
+      "answer": "Elles sont installées dans le répertoire personnel de l'utilisateur, sous `~/.beast/<version_de_beast>/<Nom_de_l'extension>`."
     },
     {
-      "question": "Quelle est la relation entre la variable `BEAST_MEM` et la mémoire allouée par SBATCH (`--mem=`) dans un script à haute mémoire?",
-      "answer": "La valeur de `BEAST_MEM` doit être 250M inférieure à la valeur spécifiée pour `--mem=` dans la directive SBATCH."
+      "question": "Quelle est la structure de base d'un script SLURM pour exécuter un travail BEAST simple?",
+      "answer": "Un script SLURM de base inclut des directives `#SBATCH` pour le compte, le temps et la mémoire, puis le chargement du module BEAST et l'exécution de la commande `beast input_beast.xml`."
     },
     {
-      "question": "Comment les chemins des bibliothèques sont-ils définis et passés à la commande Java dans le script BEAST à haute mémoire?",
-      "answer": "Les chemins sont définis par `BEAST_LIB` et `BEAST_EXTRA_LIBS`, puis passés à la commande Java via l'option `-Djava.library.path=` et exportés pour `LD_LIBRARY_PATH`."
+      "question": "Comment demande-t-on plus de mémoire pour un travail BEAST dans un script SLURM?",
+      "answer": "On augmente la valeur de `--mem-per-cpu` dans les directives `#SBATCH` et on ajuste la variable `BEAST_MEM` (pour l'option Java `-Xmx`) à environ 250 Mo de moins que le `--mem-per-cpu` demandé."
+    },
+    {
+      "question": "Dans un script SLURM pour BEAST nécessitant beaucoup de mémoire, pourquoi doit-on définir explicitement des chemins de bibliothèque Java et `LD_LIBRARY_PATH`?",
+      "answer": "C'est pour s'assurer que BEAST et Java trouvent toutes les bibliothèques nécessaires, y compris `beagle-lib`, surtout lorsque des paramètres de mémoire et des commandes Java personnalisées sont utilisés."
+    },
+    {
+      "question": "Quel est le rôle de la variable `BEAST_MEM` dans un script SLURM pour un travail BEAST demandant plus de mémoire?",
+      "answer": "`BEAST_MEM` définit la taille maximale de la mémoire vive (heap size) que la machine virtuelle Java allouera à BEAST via l'option `-Xmx`, et doit être inférieure à la mémoire totale demandée via `--mem-per-cpu`."
+    },
+    {
+      "question": "Quelle est la commande Java complète utilisée pour lancer BEAST en spécifiant la mémoire et les chemins de bibliothèques?",
+      "answer": "La commande combine `java -Xms256m ${BEAST_MEM}`, `-Djava.library.path=${BEAST_EXTRA_LIBS}` et `-cp ${BEAST_LIB}/launcher.jar beast.app.beastapp.BeastLauncher`."
     }
   ],
-  "generated_at": "2026-04-11T18:19:24.153518+00:00"
+  "generated_at": "2026-04-13T02:48:05.991176+00:00"
 }

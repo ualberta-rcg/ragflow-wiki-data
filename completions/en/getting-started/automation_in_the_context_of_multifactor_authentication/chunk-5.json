@@ -4,41 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How can I determine if my SSH client is using IPv4 or IPv6 to connect to an automation node?",
-      "answer": "You can determine the IP version by running the SSH command with the `-vvv` (Very Very Verbose) option and looking for the \"Connecting to...\" message in the debug output. This message will show the IP address used for the connection."
+      "question": "When troubleshooting SSH connection issues to an automation node, how can a user determine if their client is using IPv4 or IPv6 addressing?",
+      "answer": "To determine if your SSH client is using IPv4 or IPv6, execute the test command `ssh -i ~/.ssh/automation_key -vvv username@robot.rorqual.alliancecan.ca \"ls -l\"`. Look for the 'Connecting to...' message in the debug output: `[199.241.166.5]` indicates IPv4, while `[2620:123:7002:4::5]` indicates IPv6."
     },
     {
-      "question": "What does an SSH debug message like `debug1: Connecting to robot.rorqual.alliancecan.ca [199.241.166.5] port 22.` indicate about the IP version being used?",
-      "answer": "This message indicates that IPv4 is being used for the SSH connection."
+      "question": "What are the recommended ways to resolve an SSH connection issue to an automation node when there's a mismatch between the client's IP addressing (IPv4 or IPv6) and the `from=` constraint in the uploaded SSH key?",
+      "answer": "You can explicitly force the SSH client to use either IPv4 or IPv6 by adding the `-4` or `-6` options, respectively, to your SSH command. Alternatively, you can connect using an IP address (e.g., `username@132.219.138.79` for Rorqual) instead of the hostname to ensure IPv4 is used. Disabling IPv6 on your computer is a last resort method."
     },
     {
-      "question": "What does an SSH debug message like `debug1: Connecting to robot.rorqual.alliancecan.ca [2620:123:7002:4::5] port 22.` indicate about the IP version being used?",
-      "answer": "This message indicates that IPv6 is being used for the SSH connection."
-    },
-    {
-      "question": "What options can I use with the SSH client to explicitly force IPv4 or IPv6 connections?",
-      "answer": "You can use the `-4` option to explicitly force the SSH client to use IPv4, or the `-6` option to force IPv6, matching the IP format used for your key in the CCDB."
-    },
-    {
-      "question": "Besides using command-line options, what is another way to force an SSH client to use IPv4 when connecting to an automation node?",
-      "answer": "You can try using the direct IPv4 address of the automation node instead of its hostname in your SSH command. For example, for Rorqual, you could use `ssh -i ~/.ssh/automation_key -vvv username@132.219.138.79 \"ls -l\"` to force IPv4."
-    },
-    {
-      "question": "Is disabling IPv6 addressing on my computer a recommended solution for SSH connection problems with automation nodes?",
-      "answer": "Disabling IPv6 addressing on your computer is considered a last resort method and is not recommended by Microsoft, although it should not have negative impacts. The process to disable IPv6 will depend on your operating system."
-    },
-    {
-      "question": "Which Python module is suitable for automating workflows that interact with automation nodes?",
-      "answer": "The Paramiko Python module is suitable for automating workflows that interact with automation nodes."
-    },
-    {
-      "question": "Can you provide a brief overview of the Python Paramiko code example for connecting to an automation node?",
-      "answer": "The provided Python code example uses the Paramiko module to load an Ed25519 SSH key, connect to the Rorqual automation node as a specified user, execute the `ls -l` command, and then print the output to the screen before closing the connection."
-    },
-    {
-      "question": "How should I install the Paramiko Python module to ensure it includes support for Ed25519 key types?",
-      "answer": "To ensure support for Ed25519 key types, you should install the Paramiko Python module using the command: `pip install paramiko[all]`."
+      "question": "How can a Python script using the Paramiko module be configured to connect to an automation node and execute a command, such as listing files?",
+      "answer": "A Python script using Paramiko can connect by first loading an Ed25519 private key, for example, `paramiko.Ed25519Key.from_private_key_file(\"/home/username/.ssh/cc_allowed\")`. Then, create an `SSHClient` instance, set `paramiko.AutoAddPolicy()` for missing host keys, and call `ssh.connect()` with the hostname (e.g., `robot.rorqual.alliancecan.ca`), username, and the loaded key. Commands can then be executed using `ssh.exec_command(\"ls -l\")`. It is also important to install Paramiko with `pip install paramiko[all]` for Ed25519 key support."
     }
   ],
-  "generated_at": "2026-04-11T18:09:40.797167+00:00"
+  "generated_at": "2026-04-13T02:40:28.096881+00:00"
 }

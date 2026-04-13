@@ -4,77 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Comment un utilisateur, par exemple 'xxyz', peut-il vérifier si ses fichiers sont planifiés pour être supprimés dans le système `/scratch`?",
-      "answer": "Pour vérifier si ses fichiers sont planifiés pour la suppression, un utilisateur comme 'xxyz' doit lancer la commande `ls -1 /scratch/t/todelete/current |grep xxyz` sur un nœud de connexion SciNet."
+      "question": "Comment un utilisateur peut-il vérifier si ses fichiers sur le système `/scratch` de Trillium sont prévus pour être supprimés (purgés)?",
+      "answer": "Pour vérifier si des fichiers sont planifiés pour la suppression, un utilisateur peut utiliser la commande `ls -1 /scratch/t/todelete/current | grep [userid]` sur un nœud de connexion. Le résultat montrera un fichier dont le nom inclut l'identifiant de l'utilisateur, le groupe, la taille des fichiers concernés et leur nombre. Pour visualiser la liste détaillée de ces fichiers, il faut ensuite utiliser une commande comme `more` ou `cat` sur ce fichier."
     },
     {
-      "question": "Quelle information est contenue dans le nom d'un fichier de purge comme `3110001___xxyz_______abc_________1.00T_____9560files`?",
-      "answer": "Le nom de ce fichier contient l'ID de l'utilisateur (xxyz), le groupe auquel il appartient (abc), le volume total des données à purger (1.0 TB) et le nombre de fichiers concernés (9560)."
+      "question": "Quelles sont les méthodes recommandées pour déplacer des données vers ou depuis la grappe Trillium, en tenant compte de la taille des données?",
+      "answer": "Pour déplacer moins de 10 Go, il est conseillé d'utiliser les commandes `scp` ou `rsync` via les nœuds de connexion comme `tri-dm{2,3,4}.scinet.utoronto.ca`. Pour des transferts de plus de 10 Go, il faut se connecter aux nœuds de copie `nia-datamover1` ou `nia-datamover2` via `ssh` à partir d'un nœud de connexion, ou directement de l'extérieur avec `scp`/`rsync`. Pour des transferts de données fréquents, il est suggéré d'utiliser l'outil web Globus, en spécifiant les points de chute `alliancecan#trillium` pour Trillium ou `alliancecan#hpss` pour HPSS."
     },
     {
-      "question": "Une fois qu'un fichier de purge est identifié, comment peut-on visualiser la liste exacte des fichiers qui y sont mentionnés pour être supprimés?",
-      "answer": "Vous pouvez utiliser des commandes standard comme `more`, `less` ou `cat` sur le fichier en question, par exemple `more /scratch/t/todelete/current/3110001___xxyz_______abc_________1.00T_____9560files`."
-    },
-    {
-      "question": "Est-ce que les membres d'un même groupe peuvent accéder aux fichiers de purge des autres, et comment peuvent-ils les vérifier?",
-      "answer": "Oui, les membres d'un même groupe peuvent accéder au contenu des fichiers de purge des autres. Pour les vérifier, ils peuvent utiliser la commande `ls -1 /scratch/t/todelete/current |grep` suivi du nom de leur groupe, comme `ls -1 /scratch/t/todelete/current |grep abc`."
-    },
-    {
-      "question": "Que se passe-t-il si le temps d'accès ou de modification d'un fichier est changé entre la production de la liste de purge et la date de suppression?",
-      "answer": "Si le temps d'accès ou de modification d'un fichier est modifié entre-temps, ce changement ne sera pas détecté avant le prochain cycle d'évaluation, car la préparation de ces listes prend plusieurs heures."
-    },
-    {
-      "question": "Comment un utilisateur peut-il obtenir une confirmation immédiate que les temps d'accès ou de modification d'un fichier ont été mis à jour?",
-      "answer": "Pour obtenir une confirmation immédiate, il faut utiliser la commande `ls -lu` pour vérifier le ctime (change time) et `ls -lc` pour le mtime (modification time) du fichier."
-    },
-    {
-      "question": "Si le temps d'accès ou de modification d'un fichier est mis à jour avant la date de purge du 15 du mois, est-ce que le fichier sera quand même supprimé?",
-      "answer": "Non, si le `atime` ou `ctime` du fichier a été mis à jour, il ne sera plus supprimé à la date de purge du 15."
-    },
-    {
-      "question": "Quels sont les principaux moyens de déplacer des données de et vers Trillium?",
-      "answer": "Les données peuvent être déplacées de et vers Trillium en utilisant `rsync`/`scp` ou l'outil web Globus."
-    },
-    {
-      "question": "Comment déplacer moins de 10 Go de données en utilisant `rsync` ou `scp`?",
-      "answer": "Pour déplacer moins de 10 Go, il faut utiliser les nœuds de connexion. Connectez-vous à un des sites `tri-dm{2,3,4}.scinet.utoronto.ca` avec `scp` ou `rsync`."
-    },
-    {
-      "question": "Comment déplacer plus de 10 Go de données en utilisant `rsync` ou `scp`?",
-      "answer": "Pour déplacer plus de 10 Go, il est recommandé d'utiliser les nœuds de copie `nia-datamover1` ou `nia-datamover2`. On peut y accéder via SSH depuis un nœud de connexion, ou directement de l'extérieur en utilisant `login/scp/rsync`."
-    },
-    {
-      "question": "Quand devrais-je envisager d'utiliser Globus pour le transfert de données?",
-      "answer": "Vous devriez envisager d'utiliser Globus si vous effectuez des transferts de données fréquemment."
-    },
-    {
-      "question": "Où puis-je trouver la documentation pour l'utilisation de Globus?",
-      "answer": "La documentation est disponible sur la page wiki de Calcul Canada et la page wiki de SciNet dédiée à Globus."
-    },
-    {
-      "question": "Quels sont les points de chute (endpoint) Globus pour Trillium et HPSS?",
-      "answer": "Le point de chute Globus pour Trillium est `alliancecan#trillium` et pour HPSS, c'est `alliancecan#hpss`."
-    },
-    {
-      "question": "Quelle est la principale utilité de HPSS sur SciNet?",
-      "answer": "HPSS est une solution de stockage sur bandes utilisée comme espace 'nearline' par SciNet, et est conçue pour le stockage de longue durée."
-    },
-    {
-      "question": "Comment l'espace de stockage sur HPSS est-il alloué?",
-      "answer": "L'espace de stockage sur HPSS est alloué dans le cadre du concours d'allocation de ressources (Resource Allocation Competition/fr)."
-    },
-    {
-      "question": "Quelles sont les autorisations par défaut pour les utilisateurs d'un même groupe sur SciNet en ce qui concerne les fichiers des autres membres?",
-      "answer": "Par défaut, les utilisateurs d'un même groupe ont l'autorisation de lecture pour les fichiers des autres, mais pas celle d'écriture."
-    },
-    {
-      "question": "Pourquoi utiliser une liste de contrôle d'accès (ACL) sur SciNet?",
-      "answer": "Une ACL permet d'accorder à un superviseur ou à d'autres utilisateurs du groupe la permission de gérer vos fichiers (créer, déplacer, renommer, supprimer), ou d'autoriser des utilisateurs ou des groupes entiers d'autres groupes à accéder à vos fichiers (lecture, exécution)."
-    },
-    {
-      "question": "Quelles commandes GPFS sont utilisées pour configurer et gérer les listes de contrôle d'accès (ACL)?",
-      "answer": "Les commandes GPFS utilisées pour configurer et gérer les ACL sont `mmputacl` et `mmgetacl`. Elles prennent en charge les ACL POSIX ou NFS v4."
+      "question": "Comment les listes de contrôle d'accès (ACL) GPFS peuvent-elles être utilisées pour gérer les permissions des fichiers et répertoires pour d'autres utilisateurs ou groupes sur SciNet, et quelles commandes sont nécessaires?",
+      "answer": "Sur SciNet, on peut utiliser les commandes GPFS `mmputacl` et `mmgetacl` pour configurer les listes de contrôle d'accès (ACL). Pour permettre à un superviseur ou à d'autres membres de votre groupe de gérer vos fichiers (créer, déplacer, renommer, supprimer) ou pour accorder des permissions (lecture, exécution) à d'autres utilisateurs ou groupes, il faut d'abord créer un fichier texte contenant les règles ACL désirées (comme `/tmp/supervisor.acl`). Ensuite, cette configuration est appliquée avec `mmputacl`, et on peut vérifier les attributs ACL actuels avec `mmgetacl`."
     }
   ],
-  "generated_at": "2026-04-11T20:58:33.860763+00:00"
+  "generated_at": "2026-04-13T04:52:13.511112+00:00"
 }

@@ -4,61 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "Comment lancer le serveur ParaView avec plusieurs cœurs dans une session Open OnDemand?",
-      "answer": "Pour lancer le serveur ParaView avec plusieurs cœurs, il faut d'abord charger le module ParaView en tapant `module load paraview/6.0.0`, puis exécuter le serveur avec la commande `mpirun --oversubscribe -np 4 pvserver` pour 4 cœurs."
+      "question": "Quelle est la principale caractéristique du flux de travail des « Longues tâches interactives » pour la visualisation ParaView sur les grappes de calcul de l'Alliance?",
+      "answer": "Ce flux de travail utilise une configuration client-serveur où le client ParaView s'exécute sur l'ordinateur de l'utilisateur et le serveur ParaView est exécuté à distance sur la grappe de calcul haute performance (HPC)."
     },
     {
-      "question": "Quel est le 'Connection URL' affiché lorsque le serveur ParaView démarre sur Nibi?",
-      "answer": "Le 'Connection URL' affiché lorsque le serveur ParaView démarre sur Nibi est `cs://g4.nibi.sharcnet:11111`."
+      "question": "Pourquoi est-ce important que la version majeure de ParaView soit la même sur le client local et le serveur distant lors de l'utilisation du mode client-serveur pour les longues tâches interactives?",
+      "answer": "Il faut que les versions majeures correspondent parce que des incompatibilités entre versions peuvent empêcher la connexion client-serveur de fonctionner. Par exemple, si le serveur ParaView sur la grappe est en version 6.0.0, votre client ParaView local doit aussi être en version 6.0.0."
     },
     {
-      "question": "Comment démarrer le client ParaView dans une session Open OnDemand après avoir lancé le serveur?",
-      "answer": "Pour démarrer le client ParaView après avoir lancé le serveur, ouvrez un autre terminal dans le bureau virtuel et entrez `module load paraview/6.0.0` suivi de `paraview`."
-    },
-    {
-      "question": "Quelles sont les étapes pour connecter le client ParaView au serveur parallèle dans une session Open OnDemand?",
-      "answer": "Dans l'interface de ParaView, vous devez cliquer sur le bouton 'Connect', puis sur 'Add Server'. Ensuite, sélectionnez 'Server Type' comme 'Client/Server', définissez 'Host' sur 'localhost', 'Port' sur '11111', et 'Startup Type' sur 'Manual'. Cliquez ensuite sur 'Connect' de nouveau."
-    },
-    {
-      "question": "Comment peut-on s'assurer que le rendu ParaView s'effectue bien en parallèle?",
-      "answer": "Pour vérifier que le rendu est parallèle, vous pouvez colorer votre jeu de données avec la variable 'Process Id', qui n'est pas disponible en mode séquentiel."
-    },
-    {
-      "question": "Quels sont les grappes HPC qui supportent la configuration client-serveur pour les longues tâches interactives?",
-      "answer": "La configuration client-serveur interactive est supportée sur les grappes HPC suivantes : Rorqual, Nibi, Fir, Trillium et Narval."
-    },
-    {
-      "question": "Est-il nécessaire d'avoir la même version de ParaView sur le client local et le serveur distant?",
-      "answer": "Oui, il est crucial que la même version majeure de ParaView soit installée sur le client local et sur l'ordinateur hôte à distance pour éviter les incompatibilités de connexion."
-    },
-    {
-      "question": "Que signifie le paramètre 'Remote Render Threshold' dans ParaView et comment l'ajuster?",
-      "answer": "Le paramètre 'Remote Render Threshold' (dans 'Render View -> Remote/Parallel Rendering Options') détermine si un rendu est effectué localement ou à distance. Une valeur par défaut (20Mo) fait les petits rendus localement (rotation rapide) et les plus gros à distance. Une valeur de 0Mo force tout le rendu, incluant la rotation, à se faire à distance sur les ressources de la grappe, ce qui est mieux pour les très gros jeux de données mais moins interactif. Il est recommandé de tester différentes valeurs."
-    },
-    {
-      "question": "Quelles sont les capacités de ParaView pour le rendu sur les CPU de la grappe?",
-      "answer": "ParaView permet d'effectuer à la fois le tramage ('rasterization') et le lancer de rayons ('ray tracing') sur les CPU de la grappe, en allouant le nombre de cœurs nécessaire. Des bibliothèques modernes comme OSPRay et OpenSWR offrent des performances comparables à celles des rendus sur GPU."
-    },
-    {
-      "question": "Comment ParaView gère-t-il les très grands jeux de données pour le rendu parallèle?",
-      "answer": "Le serveur ParaView utilise MPI pour le traitement en mémoire distribuée, ce qui permet d'effectuer un rendu parallèle sur un grand nombre de cœurs CPU, que ce soit sur un seul nœud ou sur plusieurs."
-    },
-    {
-      "question": "Comment estimer le nombre de cœurs CPU nécessaires pour un rendu ParaView?",
-      "answer": "Le moyen le plus simple est de diviser la quantité de mémoire requise pour votre rendu par environ 3,5 Go/cœur. Par exemple, un ensemble de données de 40 Go nécessiterait au moins 12 cœurs."
-    },
-    {
-      "question": "Quelle est la quantité de mémoire par cœur recommandée pour le rendu logiciel ParaView?",
-      "answer": "Il est déconseillé d'allouer plus de 4 Go/cœur pour le rendu logiciel, car cela est très demandant en puissance CPU."
-    },
-    {
-      "question": "Pourquoi est-il important de prévoir de la mémoire additionnelle lors de l'estimation des cœurs pour ParaView?",
-      "answer": "Il est important de prévoir de la mémoire pour les filtres et pour le traitement des données, comme la conversion d'un ensemble de données structuré en un ensemble de données non structuré, ce qui peut multiplier par trois l'empreinte mémoire."
-    },
-    {
-      "question": "Que doit-on faire si le serveur ParaView est interrompu pendant le traitement de données volumineuses?",
-      "answer": "Si le serveur ParaView est subitement interrompu, cela indique que vous devez augmenter le nombre de cœurs alloués pour le traitement des données."
+      "question": "Comment peut-on estimer le nombre de cœurs de CPU nécessaires pour un rendu ParaView sur une grappe de calcul lorsqu'on travaille avec des jeux de données volumineux?",
+      "answer": "La façon la plus simple d'estimer les cœurs est de calculer la quantité de mémoire nécessaire pour votre rendu et de diviser ce chiffre par environ 3,5 Go par cœur. Il est également recommandé de ne pas allouer plus de 4 Go par cœur, et de prévoir de la mémoire supplémentaire pour les filtres et le traitement des données."
     }
   ],
-  "generated_at": "2026-04-12T04:57:14.415414+00:00"
+  "generated_at": "2026-04-13T11:00:22.103142+00:00"
 }

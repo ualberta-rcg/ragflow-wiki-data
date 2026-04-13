@@ -4,13 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on peut accéder à TensorBoard depuis notre ordinateur personnel quand il roule sur un nœud de calcul d'une grappe de l'Alliance?",
-      "answer": "Pour accéder à TensorBoard, faut d'abord trouver le nom d'hôte du nœud de calcul où il roule en utilisant la commande `sq`. Après ça, on ouvre une connexion SSH depuis notre ordinateur personnel en utilisant la commande `ssh -N -f -L localhost:6006:computenode:6006 userid@cluster.computecanada.ca`. Il faut remplacer `computenode` par le nom d'hôte, `userid` par notre nom d'utilisateur de l'Alliance, et `cluster` par le nom de la grappe (comme `rorqual`, `fir`, `nibi`). Une fois que c'est connecté, on peut ouvrir `http://localhost:6006` dans notre fureteur local."
+      "question": "Comment accéder à l'interface de TensorBoard à partir de mon ordinateur local quand il roule sur un nœud de calcul de l'Alliance de Recherche Numérique du Canada?",
+      "answer": "Pour accéder à TensorBoard depuis votre ordinateur local, vous devez créer un lien SSH entre votre machine et le nœud de calcul où TensorBoard est en fonction. Commencez par trouver le nom d'hôte (hostname) du nœud de calcul en utilisant la commande `sq` pour afficher la liste de vos tâches. Ensuite, sur votre ordinateur local, lancez la commande SSH suivante en remplaçant `computenode`, `userid` et `cluster` par les informations pertinentes : `ssh -N -f -L localhost:6006:computenode:6006 userid@cluster.computecanada.ca`. Une fois la connexion établie, vous pourrez voir TensorBoard en ouvrant votre fureteur à l'adresse `http://localhost:6006`."
     },
     {
-      "question": "Quelle est la stratégie recommandée par TensorFlow pour utiliser plusieurs GPU sur un seul nœud de calcul, et comment la configure-t-on de base?",
-      "answer": "TensorFlow recommande d'utiliser l'API `tf.distribute`, et pour un seul nœud de calcul, la `MirroredStrategy` est suggérée. Pour la configurer, dans votre script Slurm, vous devez demander les GPU avec une ligne comme `#SBATCH --gres=gpu:4`. Dans le script Python, vous devez créer une instance de `tf.distribute.MirroredStrategy()` et exécuter votre modèle à l'intérieur de son `scope()` pour qu'il distribue la charge de travail entre les GPU disponibles sur ce nœud."
+      "question": "Quelles sont les étapes principales pour utiliser plusieurs GPU sur un seul nœud avec TensorFlow en employant la stratégie miroir (MirroredStrategy) via Keras?",
+      "answer": "Pour utiliser plusieurs GPU sur un seul nœud avec TensorFlow et Keras en utilisant la stratégie miroir, il faut d'abord configurer la stratégie dans votre script Python avec `strategy = tf.distribute.MirroredStrategy()`. Ensuite, la définition et la compilation de votre modèle Keras doivent être incluses dans un bloc `with strategy.scope():`. Pour le script de soumission Slurm, il est essentiel de spécifier le nombre de GPU requis avec l'option `#SBATCH --gres=gpu:X`, où `X` correspond au nombre de GPU que vous voulez utiliser."
     }
   ],
-  "generated_at": "2026-04-12T21:34:51.376396+00:00"
+  "generated_at": "2026-04-13T14:20:33.061789+00:00"
 }

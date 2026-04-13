@@ -4,37 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How can Samtools take advantage of multiple cores for multithreading?",
-      "answer": "Samtools can utilize multiple cores by employing the `-@` flag."
+      "question": "How can Samtools be configured to use multiple CPU cores for a single operation, such as viewing and sorting a SAM file?",
+      "answer": "Samtools can be configured to use multiple CPU cores for a single operation by including the `-@` flag, followed by the number of desired cores, in the command. For example, in a SLURM job script, one might use `samtools view -@ ${SLURM_CPUS_PER_TASK} -b ${FILE}` and pipe it to `samtools sort`."
     },
     {
-      "question": "What is demonstrated in the `samtools_multithreading.sh` script?",
-      "answer": "The `samtools_multithreading.sh` script demonstrates how to use the `-@` flag with Samtools to process multiple SAM files using multithreading, converting them into sorted BAM files."
+      "question": "Beyond Samtools' internal multithreading, how can multiple SAM files be processed concurrently using an external tool on a multi-core system?",
+      "answer": "Multiple SAM files can be processed concurrently using GNU parallel. This involves finding the SAM files (e.g., with `find . -name \"*.sam\"`) and piping them to `parallel -j ${SLURM_CPUS_PER_TASK}`, which then executes Samtools commands for each file in parallel."
     },
     {
-      "question": "What version of Samtools is loaded in the `samtools_multithreading.sh` example script?",
-      "answer": "The `samtools_multithreading.sh` example script loads Samtools version 1.20."
-    },
-    {
-      "question": "What is an alternative method to utilize multiple cores for processing multiple files concurrently, apart from Samtools's built-in multithreading?",
-      "answer": "A different way to take advantage of multiple cores is to use GNU parallel to process multiple files concurrently."
-    },
-    {
-      "question": "What does the `samtools_gnuparallel.sh` script do?",
-      "answer": "The `samtools_gnuparallel.sh` script uses GNU parallel to find all SAM files and then concurrently executes the `samtools view` and `samtools sort` commands on them, generating sorted BAM files."
-    },
-    {
-      "question": "How many SAM files will the `samtools_gnuparallel.sh` script process concurrently by default?",
-      "answer": "The `samtools_gnuparallel.sh` script, as configured with `#SBATCH --cpus-per-task 4`, will execute `view` and `sort` on four SAM files concurrently."
-    },
-    {
-      "question": "How can one increase the number of input files processed concurrently by the GNU parallel script?",
-      "answer": "To process more input files concurrently with the GNU parallel script, you need to modify the `--cpus-per-task` request."
-    },
-    {
-      "question": "What specific flag enables Samtools to use multiple threads for improved efficiency?",
-      "answer": "Samtools can take advantage of multiple cores if given the `-@` flag."
+      "question": "In a SLURM job script, how is the number of CPU cores requested for parallel Samtools tasks (either multithreaded or using GNU parallel) specified and accessed?",
+      "answer": "The number of CPU cores is requested in a SLURM job script using `#SBATCH --cpus-per-task N` (where N is the number of cores). This value can then be accessed within the script via the `${SLURM_CPUS_PER_TASK}` environment variable, which can be passed to Samtools' `-@` flag or GNU parallel's `-j` option."
     }
   ],
-  "generated_at": "2026-04-12T07:37:09.235888+00:00"
+  "generated_at": "2026-04-13T13:15:55.172530+00:00"
 }

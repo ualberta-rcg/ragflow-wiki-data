@@ -4,77 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Quels sont les modules préalables nécessaires pour charger GLOST 0.3.1?",
-      "answer": "Pour que le module GLOST 0.3.1 soit disponible, il faut d'abord charger tous les modules de l'une des deux lignes suivantes : `StdEnv/2023 gcc/12.3 openmpi/4.1.5` ou `StdEnv/2023 intel/2023.2.1 openmpi/4.1.5`."
+      "question": "Comment activer GLOST si le module OpenMPI est déjà chargé dans mon environnement?",
+      "answer": "Si le module OpenMPI est déjà chargé dans votre environnement par défaut, il suffit d'ajouter `module load glost` à la liste des modules nécessaires pour activer GLOST. Pour vous assurer que GLOST et les autres modules sont présents, utilisez la commande `module list`."
     },
     {
-      "question": "Où est la page d'accueil de GLOST?",
-      "answer": "La page d'accueil de GLOST est `https://github.com/cea-hpc/glost`."
+      "question": "Quelles sont les commandes de base pour lancer des tâches avec l'outil GLOST?",
+      "answer": "Pour lancer des tâches avec GLOST, vous utilisez l'enveloppe `glost_launch` en spécifiant le fichier `list_glost_tasks.txt` qui regroupe vos tâches. Vous pouvez combiner cette enveloppe avec les commandes MPI `srun`, `mpiexec` ou `mpirun`, ce qui donne les syntaxes suivantes : `srun glost_launch list_glost_tasks.txt`, `mpiexec glost_launch list_glost_tasks.txt` ou `mpirun glost_launch list_glost_tasks.txt`."
     },
     {
-      "question": "Comment activer GLOST si OpenMPI est déjà chargé dans l'environnement par défaut?",
-      "answer": "Si un module OpenMPI est déjà présent dans votre environnement, comme c'est le cas pour l'environnement par défaut, il suffit d'ajouter `module load glost` à la liste des modules dont vous avez besoin."
-    },
-    {
-      "question": "Quelle commande permet de vérifier les modules chargés?",
-      "answer": "Pour vous assurer que GLOST et les autres modules sont bien présents, il faut lancer la commande `module list`."
-    },
-    {
-      "question": "Quelles sont les syntaxes de base pour utiliser GLOST?",
-      "answer": "Les syntaxes possibles pour lancer GLOST sont : `srun glost_launch list_glost_tasks.txt`, `mpiexec glost_launch list_glost_tasks.txt` ou `mpirun glost_launch list_glost_tasks.txt`."
-    },
-    {
-      "question": "Comment GLOST attribue-t-il les tâches séquentielles aux cœurs disponibles?",
-      "answer": "Les tâches séquentielles sont attribuées aux cœurs disponibles par une distribution cyclique. L'enveloppe GLOST commence par la première tâche et lui assigne un processeur, puis répète ce processus."
-    },
-    {
-      "question": "Comment optimiser les ressources lorsqu'on utilise GLOST?",
-      "answer": "Pour optimiser les ressources, il faut s'assurer que les tâches ont une durée d'exécution similaire et qu'elles peuvent être distribuées également sur le nombre de cœurs demandés."
-    },
-    {
-      "question": "Comment utiliser GLOST pour un grand nombre de tâches séquentielles très courtes?",
-      "answer": "Avec un grand nombre de tâches séquentielles très courtes (par exemple des centaines ou des milliers de quelques minutes), vous pouvez soumettre une ou plusieurs tâches GLOST en utilisant un nombre limité de cœurs. Il est conseillé de soumettre les tâches avec une courte durée et par nœud pour profiter du remplissage et de l'ordonnanceur."
-    },
-    {
-      "question": "Comment GLOST gère-t-il des dizaines à des centaines de tâches relativement courtes (environ une heure)?",
-      "answer": "Avec des dizaines à des centaines de tâches relativement courtes (environ une heure), vous pouvez les grouper dans une ou plusieurs tâches GLOST."
-    },
-    {
-      "question": "Est-ce que GLOST est utile pour regrouper plusieurs tâches de longue durée ayant des temps d'exécution similaires?",
-      "answer": "Oui, vous pouvez aussi regrouper plusieurs tâches de longue durée ayant des temps d'exécution similaires dans une tâche GLOST."
-    },
-    {
-      "question": "Comment estimer le temps d'exécution d'une tâche GLOST?",
-      "answer": "Si votre tâche GLOST comprend `Njobs` tâches similaires, chacune prenant un temps `t0` sur un processeur, la durée totale serait `t0*Njobs`. Pour utiliser `Ncores`, la durée estimée sera `wt = t0*Njobs/Ncores`."
-    },
-    {
-      "question": "Est-ce que GLOST engendre un surcoût en communication MPI significatif?",
-      "answer": "Non, GLOST utilise MPI pour lancer des tâches séquentielles uniquement. Le surcoût en communication est donc relativement rare, et GLOST est presque aussi efficace que d'utiliser directement MPI, en plus d'éviter l'écriture de code MPI."
-    },
-    {
-      "question": "Quelle option de mémoire faut-il utiliser dans un script Slurm avec GLOST?",
-      "answer": "Dans le script Slurm, il faut utiliser l'option `--mem-per-cpu` plutôt que `--mem`, car la mémoire par cœur devrait être la même que celle utilisée par les tâches exécutées séparément."
-    },
-    {
-      "question": "Comment créer le fichier `list_glost_tasks.txt`?",
-      "answer": "Pour créer le fichier `list_glost_tasks.txt`, il faut rédiger un fichier texte avec une tâche par ligne, chaque ligne contenant les commandes pour cette tâche."
-    },
-    {
-      "question": "Comment choisir les tâches pour optimiser l'utilisation des ressources lors de la création de la liste?",
-      "answer": "Pour optimiser les ressources utilisées, il est préférable de choisir des tâches qui ont une durée d'exécution similaire."
-    },
-    {
-      "question": "Si les tâches GLOST sont toutes dans le même répertoire, comment éviter les conflits de fichiers de sortie ou temporaires?",
-      "answer": "Pour éviter que les résultats utilisent les mêmes fichiers temporaires ou de sortie, on peut les rediriger vers un fichier avec une variable qui indique l'option ou l'argument utilisé dans l'exécution de la tâche."
-    },
-    {
-      "question": "Quelle est la solution si les tâches GLOST utilisent inévitablement les mêmes fichiers temporaires ou de sortie dans le même répertoire?",
-      "answer": "Si les tâches utilisent les mêmes fichiers temporaires ou de sortie, vous pourriez avoir besoin de créer un répertoire distinct pour chaque tâche, correspondant à chaque option ou argument particulier."
-    },
-    {
-      "question": "Une tâche dans le fichier `list_glost_tasks.txt` peut-elle contenir plusieurs commandes?",
-      "answer": "Oui, une tâche peut contenir une ou plusieurs commandes exécutées l'une à la suite de l'autre; les commandes doivent être séparées par `&&`."
+      "question": "Comment doit-on préparer le fichier `list_glost_tasks.txt` pour GLOST, surtout si les tâches partagent le même répertoire?",
+      "answer": "Le fichier `list_glost_tasks.txt` doit être un fichier texte contenant une tâche par ligne, avec les commandes spécifiques à exécuter pour chaque tâche. Si toutes les tâches se trouvent dans le même répertoire, il est crucial d'éviter les conflits de fichiers temporaires ou de sortie en redirigeant les résultats vers des fichiers uniques, par exemple en utilisant une variable ou un argument qui identifie la tâche. Au besoin, vous pourriez devoir créer un répertoire distinct pour chaque tâche."
     }
   ],
-  "generated_at": "2026-04-11T22:14:29.946282+00:00"
+  "generated_at": "2026-04-13T05:56:26.642437+00:00"
 }

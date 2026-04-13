@@ -4,117 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What are the executable files available for VASP-4.6?",
-      "answer": "For VASP-4.6, the executable files are `vasp`, `vasp-gamma`, and `makeparam`."
+      "question": "What executable programs are available for different versions of VASP, and what are their intended uses?",
+      "answer": "For VASP-4.6, the executables include `vasp` for standard NVT calculations with non-gamma k-points, `vasp-gamma` for standard NVT calculations with only gamma points, and `makeparam` to estimate required memory. For VASP-5.4.1, 5.4.4, and 6.1.0 without CUDA support, `vasp_std` is for standard NVT calculations with non-gamma k-points, `vasp_gam` for standard NVT calculations with only gamma points, and `vasp_ncl` for NPT calculations with non-gamma k-points. If CUDA support is available for VASP-5.4.4 and 6.1.0, `vasp_gpu` is used for standard NVT calculations with gamma and non-gamma k-points, and `vasp_gpu_ncl` for NPT calculations with gamma and non-gamma k-points."
     },
     {
-      "question": "What is the purpose of the `vasp` executable for VASP-4.6?",
-      "answer": "The `vasp` executable for VASP-4.6 is used for standard NVT calculations with non-gamma k-points."
+      "question": "What are the key recommendations and performance considerations for users running VASP-GPU executable files?",
+      "answer": "VASP-GPU executable files are designed to run on both GPUs and CPUs within a node. As calculations on GPUs can be significantly more resource-intensive, it is highly recommended to perform a benchmark using one or two GPUs to ensure optimal performance. Benchmarks indicate that using one or two GPUs alongside one CPU can achieve over five times better performance compared to using only CPUs. However, there may not be substantial performance gains when increasing from one GPU to two, with the second GPU's utilization often around 50%. Users should conduct benchmarks for their specific systems to avoid wasting computer resources."
     },
     {
-      "question": "What is `vasp-gamma` used for in VASP-4.6?",
-      "answer": "The `vasp-gamma` executable in VASP-4.6 is used for standard NVT calculations with only gamma points."
-    },
-    {
-      "question": "How can I estimate the memory required for a VASP-4.6 run?",
-      "answer": "You can use `makeparam` to estimate how much memory is required to run VASP-4.6 for a particular cluster."
-    },
-    {
-      "question": "Which executable files are available for VASP versions 5.4.1, 5.4.4, and 6.1.0 without CUDA support?",
-      "answer": "For VASP versions 5.4.1, 5.4.4, and 6.1.0 without CUDA support, the executable files are `vasp_std`, `vasp_gam`, and `vasp_ncl`."
-    },
-    {
-      "question": "What is the function of `vasp_std` for VASP versions without CUDA support?",
-      "answer": "The `vasp_std` executable is used for standard NVT calculations with non-gamma k-points in VASP versions 5.4.1, 5.4.4, and 6.1.0 without CUDA support."
-    },
-    {
-      "question": "What is `vasp_gam` used for in VASP versions without CUDA support?",
-      "answer": "The `vasp_gam` executable is used for standard NVT calculations with only gamma points in VASP versions 5.4.1, 5.4.4, and 6.1.0 without CUDA support."
-    },
-    {
-      "question": "What is `vasp_ncl` used for in VASP versions without CUDA support?",
-      "answer": "The `vasp_ncl` executable is used for NPT calculations with non-gamma k-points in VASP versions 5.4.1, 5.4.4, and 6.1.0 without CUDA support."
-    },
-    {
-      "question": "What are the executable files for VASP-5.4.4 and VASP-6.1.0 with CUDA support?",
-      "answer": "For VASP-5.4.4 and VASP-6.1.0 with CUDA support, the executable files are `vasp_gpu` and `vasp_gpu_ncl`."
-    },
-    {
-      "question": "What is `vasp_gpu` used for in CUDA-supported VASP versions?",
-      "answer": "The `vasp_gpu` executable is used for standard NVT calculations with both gamma and non-gamma k-points in VASP-5.4.4 and 6.1.0 with CUDA support."
-    },
-    {
-      "question": "What is `vasp_gpu_ncl` used for in CUDA-supported VASP versions?",
-      "answer": "The `vasp_gpu_ncl` executable is used for NPT calculations with both gamma and non-gamma k-points in VASP-5.4.4 and 6.1.0 with CUDA support."
-    },
-    {
-      "question": "What extensions have been incorporated into VASP?",
-      "answer": "Two extensions have been incorporated: Transition State Tools and VASPsol."
-    },
-    {
-      "question": "What should I do if the VASP version I need is not listed?",
-      "answer": "If the VASP version you need is not listed, you can either build it yourself or contact Technical support to request that it be built and installed."
-    },
-    {
-      "question": "What do Vasp-GPU executable files run on?",
-      "answer": "Vasp-GPU executable files run on both GPUs and CPUs of a node."
-    },
-    {
-      "question": "Why is it recommended to perform a benchmark when using Vasp-GPU?",
-      "answer": "It is highly recommended to perform a benchmark using one or two GPUs to ensure maximum performance, as calculations on a GPU are much more expensive than on a CPU."
-    },
-    {
-      "question": "What did the Vasp-GPU benchmark of a Si crystal show regarding performance with GPUs?",
-      "answer": "The benchmark showed that performance for GPU=1,2 and CPU=1 is more than 5 times better compared to GPU=0 and CPU=1. However, there wasn't much performance gain from GPU=1 to GPU=2."
-    },
-    {
-      "question": "What was the GPU usage for GPU=2 in the monitoring system during the benchmark?",
-      "answer": "During the benchmark, the GPU usage for GPU=2 was around 50% in the monitoring system."
-    },
-    {
-      "question": "What is the general recommendation for users before running Vasp-GPU jobs?",
-      "answer": "Users are recommended to first perform a benchmark for their own system to ensure they are not wasting computer resources, especially with multiple GPUs."
-    },
-    {
-      "question": "Can you provide an example of a Slurm job script for running VASP in parallel?",
-      "answer": "Yes, an example job script for running VASP in parallel using Slurm requests four CPU cores, 4096MB memory, and loads specific `intel` and `intelmpi` modules, followed by a VASP module and `mpirun <VASP>`."
-    },
-    {
-      "question": "How many CPU cores and how much memory does the example VASP job script request?",
-      "answer": "The example VASP job script requests four CPU cores and 4096MB memory (4x1024MB)."
-    },
-    {
-      "question": "What does `<ACCOUNT>` represent in the VASP job script?",
-      "answer": "`<ACCOUNT>` is a Slurm account name; refer to 'Accounts and projects' for details on what to enter."
-    },
-    {
-      "question": "What VASP versions can be used for `<VERSION>` in the example job script?",
-      "answer": "`<VERSION>` can be 4.6, 5.4.1, 5.4.4, or 6.1.0."
-    },
-    {
-      "question": "How can I find out how to change a specific VASP version in a job script?",
-      "answer": "You can use `module spider vasp/<VERSION>` to see how you can change a particular VASP version."
-    },
-    {
-      "question": "What does `<VASP>` refer to in the example job script?",
-      "answer": "`<VASP>` refers to the name of the executable. You should refer to the 'Executable programs' section to select the correct executable for each VASP version."
-    },
-    {
-      "question": "Can you provide an example of a Slurm job script for running VASP with GPU support?",
-      "answer": "Yes, an example GPU job script for Slurm requests one CPU core, one GPU of type p100 (valid only for Cedar), 3GB memory, and loads `intel`, `cuda`, `openmpi`, and VASP modules, then uses `mpirun <VASP>`."
-    },
-    {
-      "question": "How many CPU cores and GPUs does the example VASP-GPU job script request?",
-      "answer": "The example VASP-GPU job script requests one CPU core and one GPU of type p100."
-    },
-    {
-      "question": "Which cluster is the p100 GPU type valid for in the example VASP-GPU job script?",
-      "answer": "The p100 GPU type specified in the example VASP-GPU job script is only valid for Cedar."
-    },
-    {
-      "question": "How much memory does the example VASP-GPU job script request?",
-      "answer": "The example VASP-GPU job script requests 3GB of memory."
+      "question": "How do you structure a basic Slurm job script to run a CPU-based VASP calculation?",
+      "answer": "A basic Slurm job script for a CPU-based VASP calculation should include several `#SBATCH` directives to specify job parameters. These typically include `--account=<ACCOUNT>` for your Slurm account, `--ntasks=<number of MPI processes>` (e.g., 4), `--mem-per-cpu=<memory per CPU>` (e.g., 1024M), and `--time=<DD-HH:MM>` for the job's duration (e.g., 0-00:05). After setting these, you must load the necessary modules, such as `intel`, `intelmpi`, and `vasp/<VERSION>` (e.g., `vasp/4.6`), and then initiate the VASP program using `mpirun <VASP>` (e.g., `mpirun vasp`). You need to replace the placeholders for `<ACCOUNT>`, `<VERSION>`, and `<VASP>` with your specific details."
     }
   ],
-  "generated_at": "2026-04-12T10:37:48.518843+00:00"
+  "generated_at": "2026-04-13T15:37:17.067641+00:00"
 }

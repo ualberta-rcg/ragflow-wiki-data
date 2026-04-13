@@ -4,53 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "How can I see a list of apps installed in my Apptainer container?",
-      "answer": "To view a list of apps installed in your container, use the command `apptainer inspect --list-apps your-container-name.sif`, replacing `your-container-name.sif` with the actual name of your container."
+      "question": "What is the main difference between the `apptainer run` command and the `apptainer exec` command when executing software within an Apptainer container?",
+      "answer": "When the `apptainer run` command launches the container, it first runs the `%runscript` defined for that container (if there is one), and then runs the specific command you specified. The `apptainer exec` command will not run the `%runscript`, even if one is defined in the container."
     },
     {
-      "question": "What is the difference between `apptainer run` and `apptainer exec`?",
-      "answer": "The `apptainer run` command first executes the `%runscript` defined for the container (if one exists) and then runs the specified command. In contrast, `apptainer exec` will not run the `%runscript`, even if it's defined in the container."
+      "question": "How can one run a C++ compiler and then execute the compiled program inside an Apptainer container on an Alliance cluster, ensuring proper filesystem and temporary directory handling?",
+      "answer": "To compile and run a C++ program on an Alliance cluster, you would use commands like `apptainer run -C -W $SLURM_TMPDIR -B /project -B /scratch your-container-name.sif g++ -O2 -march=broadwell ./myprog.cpp` and `apptainer run -C -W $SLURM_TMPDIR -B /project -B /scratch ./a.out`, where `-C`, `-W $SLURM_TMPDIR`, `-B /project`, and `-B /scratch` are important options for isolation, temporary files, and filesystem access."
     },
     {
-      "question": "Which command is generally recommended for running software in an Apptainer container?",
-      "answer": "It is suggested to always use `apptainer run`."
-    },
-    {
-      "question": "How do I run a specific command, like a C++ compiler, inside an Apptainer container?",
-      "answer": "To run a command like `g++ -O2 -march=broadwell ./myprog.cpp` inside a container named `your-container-name.sif`, you would use: `apptainer run your-container-name.sif g++ -O2 -march=broadwell ./myprog.cpp`."
-    },
-    {
-      "question": "What additional options are typically used with `apptainer run` on HPC clusters?",
-      "answer": "On HPC clusters, you'll generally use options like `-C`, `-c`, `-e`, and `-W` (or `--workdir`), along with bind mount options like `-B /project -B /scratch`, to ensure proper isolation, temporary directory handling, and access to disk space. For example: `apptainer run -C -W $SLURM_TMPDIR -B /project -B /scratch your-container-name.sif g++ -O2 -march=broadwell ./myprog.cpp`."
-    },
-    {
-      "question": "Where can I find more details about the command-line options for `apptainer run`?",
-      "answer": "More information on these options can be found in the 'Important command line options', 'Using GPUs', and 'Bind mounts and persistent overlays' sections of this page, as well as the official Apptainer documentation."
-    },
-    {
-      "question": "When should I use `apptainer shell`?",
-      "answer": "`apptainer shell` is used when you need to interactively perform tasks or run commands inside a container, rather than executing a program immediately, which is useful for debugging or exploration."
-    },
-    {
-      "question": "How do I start an interactive session inside an Apptainer container?",
-      "answer": "To start an interactive session, use the command `apptainer shell your-container-name.sif`, replacing `your-container-name.sif` with your container's name."
-    },
-    {
-      "question": "What prompt will I see when I'm inside an Apptainer container using `apptainer shell`?",
-      "answer": "Once the container starts, you will see an `Apptainer>` prompt (or `Singularity>` prompt if you are using Singularity)."
-    },
-    {
-      "question": "How do I exit an interactive `apptainer shell` session?",
-      "answer": "To exit the container, type `exit` and then press the Enter or Return key at the prompt."
-    },
-    {
-      "question": "What common options should I use with `apptainer shell` on clusters?",
-      "answer": "On clusters, you should include options such as `-C`, `-c`, `-e`, `-W` (for workdir, often `$SLURM_TMPDIR`), and bind mount options like `-B /home:/cluster_home -B /project -B /scratch` to ensure proper environment and file access. For example: `apptainer shell -C -W $SLURM_TMPDIR -B /home:/cluster_home -B /project -B /scratch your-container-name.sif`."
-    },
-    {
-      "question": "What options are important for saving changes made within an `apptainer shell` session when using a persistent overlay?",
-      "answer": "If you are using a persistent overlay image and want any changes made during the `apptainer shell` session to be saved, you must pass the `-w` or `--writable` option to your container. Otherwise, changes will not be saved."
+      "question": "What command should be used to interactively work inside an Apptainer container on an Alliance cluster, and what are some recommended options for this?",
+      "answer": "To run commands interactively while remaining inside an Apptainer container, you should use the `apptainer shell` command. On Alliance clusters, an example with recommended options is `apptainer shell -C -W $SLURM_TMPDIR -B /home:/cluster_home -B /project -B /scratch your-container-name.sif`."
     }
   ],
-  "generated_at": "2026-04-11T17:28:36.239022+00:00"
+  "generated_at": "2026-04-13T02:11:37.347872+00:00"
 }

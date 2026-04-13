@@ -4,57 +4,17 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "Are CPU (non-GPU) versions of GROMACS available in both single- and double-precision?",
-      "answer": "Yes, CPU (non-GPU) versions are available in both single- and double-precision, with the exception of version 2019.3, where double-precision is not available for AVX512."
+      "question": "How are GROMACS modules loaded for CPU-only execution, specifically for the `StdEnv/2023` and `StdEnv/2020` environments?",
+      "answer": "To load a GROMACS module for CPU-only execution, you would use the `module load` command. For example, for the `StdEnv/2023` environment, use `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2025.4`. For the `StdEnv/2020` environment, use `module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2023.2`."
     },
     {
-      "question": "How do I load a CPU-only GROMACS module using `module load`?",
-      "answer": "You can load a CPU-only GROMACS module by using a `module load` command with the appropriate modules. For example, `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2025.4` or `module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2023.2`."
+      "question": "For GROMACS versions 5.x, 2016.x, and newer, what are the primary binary names and their corresponding functionalities regarding precision, OpenMP, and MPI?",
+      "answer": "For GROMACS versions 5.x, 2016.x, and newer, the primary binaries and their functionalities are:\n*   `gmx`: mixed (\"single\") precision GROMACS with OpenMP (threading) but without MPI.\n*   `gmx_mpi`: mixed (\"single\") precision GROMACS with OpenMP and MPI.\n*   `gmx_d`: double precision GROMACS with OpenMP but without MPI.\n*   `gmx_mpi_d`: double precision GROMACS with OpenMP and MPI."
     },
     {
-      "question": "What precision is available for GROMACS versions with GPU support?",
-      "answer": "GROMACS versions with GPU support are available only with single precision."
-    },
-    {
-      "question": "What is required to load a GPU-enabled GROMACS version, and can you provide an example?",
-      "answer": "To load a GPU-enabled GROMACS version, the `cuda` module needs to be loaded first. For example, `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 gromacs/2025.4` or `module load StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs/2023.2`."
-    },
-    {
-      "question": "How many binaries do GROMACS 5.x, 2016.x, and newer releases consist of, and what are their names and functions?",
-      "answer": "GROMACS 5 and newer releases consist of four binaries: `gmx` (mixed/single precision with OpenMP, no MPI), `gmx_mpi` (mixed/single precision with OpenMP and MPI), `gmx_d` (double precision with OpenMP, no MPI), and `gmx_mpi_d` (double precision with OpenMP and MPI)."
-    },
-    {
-      "question": "How are double-precision binaries suffixed in GROMACS 4.6.7?",
-      "answer": "In GROMACS 4.6.7, double-precision binaries have the suffix `_d`."
-    },
-    {
-      "question": "What are the names of the parallel single and double precision `mdrun` binaries for GROMACS 4.6.7?",
-      "answer": "The parallel `mdrun` binaries for GROMACS 4.6.7 are `mdrun_mpi` for single precision and `mdrun_mpi_d` for double precision."
-    },
-    {
-      "question": "Where can I find help on using the SLURM workload manager?",
-      "answer": "Please refer to the [[Running jobs]] page for help on using the SLURM workload manager."
-    },
-    {
-      "question": "Can you provide an example of a simple job script for a serial `mdrun` simulation?",
-      "answer": "A simple job script for serial `mdrun` is:\n```bash\n#!/bin/bash\n#SBATCH --time=0-0:30         # time limit (D-HH:MM)\n#SBATCH --mem-per-cpu=1000M   # memory per CPU (in MB)\nmodule purge  \nmodule load  StdEnv/2023  gcc/12.3  openmpi/4.1.5  gromacs/2025.4\nexport OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"\ngmx mdrun -nt 1 -deffnm em\n```\nThis script will run the simulation of the molecular system in the file `em.tpr`."
-    },
-    {
-      "question": "Why is it common to use whole nodes for GROMACS simulations?",
-      "answer": "It is common to use whole nodes for GROMACS simulations because the systems simulated with GROMACS are often very large."
-    },
-    {
-      "question": "How should `--ntasks-per-node` and `--cpus-per-task` be configured for GROMACS simulations on whole nodes?",
-      "answer": "Generally, the product of `--ntasks-per-node` and `--cpus-per-task` should match the number of CPU cores of the cluster’s compute nodes."
-    },
-    {
-      "question": "What should I do if GROMACS reports an error about domain decomposition being impossible?",
-      "answer": "If GROMACS reports an error about domain decomposition being impossible, you should halve `--ntasks-per-node` and double `--cpus-per-task`."
-    },
-    {
-      "question": "Can you provide a job script example for running GROMACS on a whole node on the Narval cluster?",
-      "answer": "Here's an example script for a whole node GROMACS job on Narval:\n```bash\n#!/bin/bash\n#SBATCH --nodes=1                # number of nodes\n#SBATCH --ntasks-per-node=32     # request 32 MPI tasks per node\n#SBATCH --cpus-per-task=2        # 2 OpenMP threads per MPI task => total: 32 x 2 = 64 CPUs/node\n#SBATCH --mem-per-cpu=2000M      # memory per CPU (in MB)\n#SBATCH --time=0-01:00           # time limit (D-HH:MM)\nmodule purge  \nmodule load  StdEnv/2023  gcc/12.3  openmpi/4.1.5  gromacs/2025.4\nexport OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"\n \nsrun --cpus-per-task=$OMP_NUM_THREADS gmx_mpi mdrun -deffnm md\n```"
+      "question": "Are GROMACS versions with GPU support available in both single and double precision?",
+      "answer": "No, GROMACS versions that support GPUs are only available with single precision. CPU-only versions, however, are generally available in both single and double precision, with the specific exception of version 2019.3 for AVX512, which does not offer double precision."
     }
   ],
-  "generated_at": "2026-04-11T22:32:56.687423+00:00"
+  "generated_at": "2026-04-13T06:09:25.835269+00:00"
 }

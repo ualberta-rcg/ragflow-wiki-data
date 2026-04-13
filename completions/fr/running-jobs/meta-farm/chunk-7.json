@@ -4,45 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "Comment META gère-t-il les tâches de post-traitement une fois que tous les cas sont complétés?",
-      "answer": "Si un fichier nommé `final.sh` est présent dans le répertoire du groupe de cas, `submit.run` le traitera comme un script de tâche pour le post-traitement. Ce script sera lancé automatiquement une fois que tous les cas de `table.dat` auront été traités avec succès."
+      "question": "C'est quoi le rôle du script `single_case.sh` dans META-Farm, pis comment est-ce qu'on peut le personnaliser?",
+      "answer": "Le script `single_case.sh` lit chaque ligne du fichier `table.dat`, l'analyse, pis utilise ce contenu pour lancer votre code pour un cas spécifique. On peut l'adapter à nos besoins. Par défaut, la version fournie par `farm_init.run` exécute chaque ligne de `table.dat` comme une commande littérale dans son propre répertoire `RUNyyy`."
     },
     {
-      "question": "Que se passe-t-il si j'ajoute des arguments supplémentaires à la commande `submit.run`?",
-      "answer": "Si vous fournissez d'autres arguments à `submit.run`, ils seront transmis à la commande `sbatch` de l’ordonnanceur pour le lancement de toutes les métatâches de votre groupe de cas."
+      "question": "Comment faire pour modifier le script `single_case.sh` si on veut pas répéter la même commande à chaque ligne de notre fichier `table.dat`?",
+      "answer": "Pour éviter de répéter la même commande, on peut modifier `single_case.sh` pour y inclure la commande commune. Ensuite, on ajuste `table.dat` pour qu'il contienne juste les arguments ou les redirections spécifiques à chaque cas. Par exemple, si votre code est toujours `/path/to/your/code`, vous pouvez l'écrire dans `single_case.sh` pis mettre juste les paramètres comme `12.56` ou `21.35` dans `table.dat`."
     },
     {
-      "question": "Quel est le rôle du script `single_case.sh`?",
-      "answer": "Le script `single_case.sh` est responsable de lire et d'analyser une ligne du fichier `table.dat`, puis d'utiliser son contenu pour lancer le code correspondant à un des cas."
-    },
-    {
-      "question": "Est-ce que le script `single_case.sh` est personnalisable?",
-      "answer": "Oui, vous pouvez adapter le script `single_case.sh` à vos besoins."
-    },
-    {
-      "question": "Comment la version par défaut de `single_case.sh` gère-t-elle les commandes du `table.dat`?",
-      "answer": "La version de `single_case.sh` fournie par `farm_init.run` traite chaque ligne de `table.dat` comme une commande littérale et l’exécute dans son propre répertoire nommé `RUNyyy`, où `yyy` est le numéro du cas."
-    },
-    {
-      "question": "Quelles variables sont disponibles dans le script `single_case.sh` pour l'exécution d'un cas?",
-      "answer": "Dans le script `single_case.sh`, les variables `$ID` (identifiant du cas), `$COMM` (la ligne correspondante dans `table.dat` sans l'ID) et `$METAJOB_ID` (identifiant de la métatâche en cours) sont disponibles."
-    },
-    {
-      "question": "Si je ne modifie pas `single_case.sh`, que doit contenir chaque ligne de `table.dat`?",
-      "answer": "Si `single_case.sh` n’est pas modifié, chaque ligne de `table.dat` doit contenir une commande complète. Il peut aussi s'agir d'une commande composée, avec plusieurs commandes séparées par des points-virgules (;)."
-    },
-    {
-      "question": "Le fichier `table.dat` doit-il contenir uniquement des arguments pour des commandes identiques?",
-      "answer": "Non, ce n'est pas obligatoire. Le fichier `table.dat` peut contenir n'importe quel énoncé exécutable, pas seulement des arguments pour des commandes identiques."
-    },
-    {
-      "question": "Comment puis-je éviter de répéter la même commande dans chaque ligne de `table.dat` si la commande est commune à tous les cas?",
-      "answer": "Pour éviter de répéter une commande commune, vous pouvez modifier `single_case.sh` pour y inclure cette commande, et ensuite `table.dat` ne contiendra que les arguments ou les redirections spécifiques à chaque cas."
-    },
-    {
-      "question": "Dans un exemple où `single_case.sh` est modifié, comment peut-on utiliser le numéro de cas `$ID`?",
-      "answer": "Dans l'exemple fourni, le numéro de cas `$ID` est utilisé comme source pour le traitement selon la méthode de Monte-Carlo, en étant passé comme argument `-seed` à la commande `/path/to/your/code`."
+      "question": "À quoi sert le fichier `final.sh` dans un groupe de cas META-Farm, pis c'est quand qu'il s'exécute?",
+      "answer": "Si un fichier nommé `final.sh` est présent dans le répertoire du groupe de cas, la commande `submit.run` va le traiter comme un script de tâche pour le post-traitement. Il va se lancer automatiquement une fois que toutes les exécutions de cas spécifiées dans `table.dat` auront été traitées avec succès."
     }
   ],
-  "generated_at": "2026-04-12T01:24:29.696371+00:00"
+  "generated_at": "2026-04-13T08:27:50.555221+00:00"
 }

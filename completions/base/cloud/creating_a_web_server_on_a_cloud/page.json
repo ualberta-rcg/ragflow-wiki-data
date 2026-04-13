@@ -3,61 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the main goal of this document?",
-      "answer": "This document describes the simplest way to create a web server on our clouds using Ubuntu Linux and the Apache web server."
+      "question": "What is the main purpose of the \"Creating an Apache web server on your cloud VM\" page on Alliance clouds?",
+      "answer": "The page describes how to create a web server on Alliance clouds using Ubuntu Linux and the Apache web server, focusing on the simplest case."
     },
     {
-      "question": "What are the primary security concerns when making a computer publicly accessible?",
-      "answer": "Security concerns include restricting access to specific ports and IP addresses using OpenStack security groups, and using encryption like Transport Layer Security (TLS) to prevent eavesdropping or data modification."
+      "question": "What are the key security considerations when making a computer accessible to the public on Alliance clouds?",
+      "answer": "Key security considerations include managing and restricting access to ports using OpenStack security groups, encrypting data with Transport Layer Security (TLS) to prevent eavesdropping and modification, and taking responsibility for the security of your virtual machines."
     },
     {
-      "question": "How can access to specific ports on a virtual machine be managed and restricted?",
-      "answer": "Access to specific ports can be managed and restricted using OpenStack's 'Security groups', allowing you to grant access only to a specific IP address or ranges of IP addresses."
+      "question": "Why is Transport Layer Security (TLS) recommended for web servers on Alliance clouds?",
+      "answer": "TLS is recommended to encrypt data, such as passwords, sent from or to the web server, which prevents eavesdroppers from reading the information and third parties from modifying data."
     },
     {
-      "question": "Why is it important to use encryption on a web server, particularly for sites that involve logins?",
-      "answer": "Using encryption (e.g., Transport Layer Security) is important because it prevents eavesdroppers from reading sensitive information like passwords and ensures that data transmitted from your web server to a client isn't modified by a third party."
+      "question": "What operating system and web server are used in the example for creating a web server on Alliance clouds?",
+      "answer": "The example uses Ubuntu Linux as the operating system and Apache as the web server."
     },
     {
-      "question": "What are the initial prerequisites for installing the Apache web server on a cloud VM?",
-      "answer": "The initial prerequisites are creating a persistent virtual machine running Ubuntu Linux and opening port 80 to allow HTTP requests into your VM."
+      "question": "What are the initial steps required before installing Apache on a cloud VM according to the guide?",
+      "answer": "Users must first create a persistent Ubuntu Linux virtual machine and open port 80 to allow HTTP requests into the VM."
     },
     {
-      "question": "What command-line steps are involved in installing the Apache web server on Ubuntu?",
-      "answer": "First, update apt-get repositories with `sudo apt-get update`, then upgrade Ubuntu with `sudo apt-get upgrade`, and finally install Apache with `sudo apt-get install apache2`."
+      "question": "What commands are used to install the Apache web server after logging into an Ubuntu VM?",
+      "answer": "After logging into the VM, users should run `sudo apt-get update`, `sudo apt-get upgrade`, and `sudo apt-get install apache2` to install Apache."
     },
     {
-      "question": "How can you confirm that Apache has been successfully installed and is serving web pages?",
-      "answer": "You can confirm by entering the floating IP address of your VM into your browser's address bar; you should see the Apache2 test page."
+      "question": "How can a user verify that the Apache web server has been successfully installed on their cloud VM?",
+      "answer": "To verify, a user should enter the VM's floating IP address into a web browser, which should display an Apache2 test page."
     },
     {
-      "question": "What is the default directory where Apache serves web content?",
-      "answer": "The default directory for web content is `/var/www/html`."
+      "question": "Why might a user want to change the default web server's root directory for Apache on their VM?",
+      "answer": "Changing the default web server's root directory, for example to `/home/ubuntu/public_html`, makes it easier to manage website files as they can be owned by the user connecting to the VM without needing `sudo`."
     },
     {
-      "question": "Why would someone want to change Apache's default web server root directory?",
-      "answer": "Changing the web server's root directory, for example to `/home/ubuntu/public_html`, often makes it easier to manage a website because the files can then be owned and edited by the user connecting to the VM without needing `sudo`."
+      "question": "What configuration files need to be modified to change Apache's web server root directory to `/home/ubuntu/public_html`?",
+      "answer": "The `apache2.conf` file (specifically the `<Directory /var/www/>` line) and the `000-default.conf` file (specifically the `DocumentRoot /var/www/html` line) need to be modified."
     },
     {
-      "question": "Which Apache configuration files need to be modified to change the document root?",
-      "answer": "To change the document root, you need to modify `/etc/apache2/apache2.conf` and `/etc/apache2/sites-available/000-default.conf`."
+      "question": "After changing the web server's root directory and copying files, what command should be run to apply these changes?",
+      "answer": "The command `sudo service apache2 restart` should be run to apply the changes to the Apache server."
     },
     {
-      "question": "What command is used to restart the Apache server after configuration changes?",
-      "answer": "The command to restart the Apache server is `sudo service apache2 restart`."
+      "question": "Why would someone want to limit the bandwidth of an Apache web server on Alliance clouds?",
+      "answer": "Limiting bandwidth is useful for Apache web servers in high demand to manage and conserve considerable bandwidth resources."
     },
     {
-      "question": "How can an Apache web server's overall bandwidth usage be limited?",
-      "answer": "The overall bandwidth usage of an Apache web server can be limited by installing and configuring the `mod_bw` Apache bandwidth module."
+      "question": "What Apache module is used to limit overall bandwidth usage?",
+      "answer": "The `mod_bw` Apache bandwidth module is used to limit overall bandwidth usage."
     },
     {
       "question": "What commands are used to install and enable the Apache bandwidth module?",
-      "answer": "To install, use `sudo apt install libapache2-mod-bw`, and to enable, use `sudo a2enmod bw`."
+      "answer": "To install, use `sudo apt install libapache2-mod-bw`. To enable, use `sudo a2enmod bw`."
     },
     {
-      "question": "Where should bandwidth limiting configurations be placed within Apache's setup?",
-      "answer": "Bandwidth limiting configurations should be placed between the `<VirtualHost></VirtualHost>` tags for your site, typically in the `/etc/apache2/sites-enabled/000-default.conf` file for the default site."
+      "question": "Where should the configuration for limiting bandwidth using `mod_bw` be placed in the Apache configuration files?",
+      "answer": "The `mod_bw` configuration should be placed between the `<VirtualHost></VirtualHost>` tags for your site, typically in the `/etc/apache2/sites-enabled/000-default.conf` file for the default Apache site."
+    },
+    {
+      "question": "What are some recommended next steps after setting up a basic Apache web server on an Alliance cloud VM?",
+      "answer": "Recommended next steps include configuring Apache to use SSL, referring to the Apache2 documentation, and exploring HTML tutorials."
     }
   ],
-  "generated_at": "2026-04-11T20:26:54.210795+00:00"
+  "generated_at": "2026-04-13T04:30:30.488962+00:00"
 }

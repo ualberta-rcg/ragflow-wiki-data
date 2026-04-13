@@ -4,89 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "How do I terminate a specific running VNC server?",
-      "answer": "You can terminate a specific VNC server by using the command `vncserver -kill :DISPLAY#`, where `:DISPLAY#` is the display number of the server, for example, `vncserver -kill :44`."
+      "question": "How can a user terminate a specific VNC server session, or all VNC server sessions, on a cluster node?",
+      "answer": "To terminate a specific VNC server session, first use `vncserver -list` to find its display number (e.g., `:44`), then execute `vncserver -kill :DISPLAY#` (e.g., `vncserver -kill :44`). To terminate all VNC server sessions instantly under your username on a node, run `pkill Xvnc -u $USER`."
     },
     {
-      "question": "What command can I use to instantly kill all VNC servers running under my username on a node?",
-      "answer": "To instantly kill all VNC servers running under your username on a node, use the command `pkill Xvnc -u $USER`."
+      "question": "What is the benefit of starting a VNC server with the `-alwaysshared` option, and how does it affect the ability to make multiple connections?",
+      "answer": "Starting a VNC server with the `-alwaysshared` option enables multiple connections to the same desktop session. This allows a user to establish new SSH tunnels and VNC viewer connections from any remote location, such as from the office and then from home, to seamlessly continue working on the same desktop. Without this option, only one VNC viewer connection is possible, necessitating the shutdown and restart of the desktop session and applications to reconnect from a different location."
     },
     {
-      "question": "How can I view all VNC servers running under my username?",
-      "answer": "You can view all VNC servers running under your username on a login or compute node by using the `vncserver -list` command."
-    },
-    {
-      "question": "What option should be added when starting a VNC server to allow multiple connections to it?",
-      "answer": "To allow multiple connections to a VNC server, you should start it with the additional `-AlwaysShared` option, for example: `vncserver -idletimeout 86400 -alwaysshared`."
-    },
-    {
-      "question": "What is the benefit of starting a VNC server with the `-AlwaysShared` option for remote access?",
-      "answer": "Starting a VNC server with the `-AlwaysShared` option allows you to establish new tunnels and reconnect with `vncviewer` from different remote locations (e.g., office then home) to access the same desktop and continue working seamlessly."
-    },
-    {
-      "question": "What happens if a VNC server is not started with the `-AlwaysShared` option and I need to access it from a different location?",
-      "answer": "If a VNC server was not started with `-AlwaysShared`, only one `vncviewer` connection is possible. To access it from a different location, you would need to close all applications, shut down the `vncserver`, and then restart a whole new desktop and applications later."
-    },
-    {
-      "question": "Why might I repeatedly fail to establish a new VNC server/viewer connection?",
-      "answer": "Repeated failures to connect may be due to an old SSH tunnel still running on your desktop and tying up ports."
-    },
-    {
-      "question": "How can I resolve connection failures caused by an old SSH tunnel?",
-      "answer": "To resolve connection failures caused by an old SSH tunnel, open a terminal window on your desktop, run `ps ux | grep ssh` to identify old tunnels, and then use `kill PID` to terminate them."
-    },
-    {
-      "question": "Which password should I use if my VNC screensaver times out and requests one?",
-      "answer": "If your VNC screensaver times out, you should enter your cluster account password, not your `vncserver` password, to unlock it."
-    },
-    {
-      "question": "What command can I try if the MATE desktop screensaver will not unlock?",
-      "answer": "If you are running the MATE desktop and the screensaver will not unlock, try running the command `killall -9 .mate-screensaver`."
-    },
-    {
-      "question": "Is the VNC screensaver still an issue on the clusters?",
-      "answer": "No, the VNC screensaver has been disabled on the clusters, so it should no longer be a problem."
-    },
-    {
-      "question": "What is the two-step login process for gra-vdi.alliancecan.ca?",
-      "answer": "The two-step login process for gra-vdi.alliancecan.ca involves entering your username and CCDB password in the first step, and then your username and Duo two-factor MFA passcode in the second step."
-    },
-    {
-      "question": "What happens if I enter the wrong username or CCDB password during the first step of logging into gra-vdi.alliancecan.ca?",
-      "answer": "If you enter the wrong username or CCDB password in the first step, you will still be prompted for the second step. However, after submitting your username and passcode, you will receive a \"Success, Logging you in...\" message and be returned to the first login screen."
-    },
-    {
-      "question": "How can I resolve the issue of being returned to the login screen after entering my Duo passcode for gra-vdi.alliancecan.ca?",
-      "answer": "You must try again, ensuring you enter the correct username and CCDB password combination during the first step of the login process for gra-vdi.alliancecan.ca."
-    },
-    {
-      "question": "Where can I reset my CCDB password if I forget it?",
-      "answer": "You can visit [https://ccdb.alliancecan.ca/security/forgot here] to reset your CCDB password, assuming your account is not pending renewal by your PI."
-    },
-    {
-      "question": "What is required to run a graphics-based program that uses hardware-based accelerated OpenGL?",
-      "answer": "To run a graphics-based program that uses hardware-based accelerated OpenGL, you need to modify the `salloc` command to request a GPU node and potentially add `vglrun` just before the name of your `PROGRAM` on the command line of your VNC desktop terminal window."
-    },
-    {
-      "question": "Why is it important to modify the `salloc` command to request a GPU node for OpenGL graphics?",
-      "answer": "It's important to modify `salloc` to request a GPU node because if you don't, the program will fall back to slower software-based rendering on CPUs instead of using hardware acceleration."
-    },
-    {
-      "question": "What `salloc` command can I use to request the first available GPU node to minimize queue wait time?",
-      "answer": "To request the first available GPU node, you can use the command: `salloc --time=1:00:00 --cpus-per-task=4 --gpus-per-node=1 --mem=16000 --account=def-piname`."
-    },
-    {
-      "question": "How do I request a specific GPU node type, such as one with a 't4' GPU, using `salloc`?",
-      "answer": "To request a specific GPU node type like a 't4' GPU, you would use the `salloc` command: `salloc --time=1:00:00 --cpus-per-task=4 --gpus-per-node=t4:1 --mem=16000 --account=def-piname`."
-    },
-    {
-      "question": "What is the purpose of adding `vglrun` before my program command in the VNC desktop terminal for OpenGL graphics?",
-      "answer": "`vglrun` sets extra environment variables to ensure your program uses the correct VirtualGL libraries for hardware-based accelerated OpenGL."
-    },
-    {
-      "question": "Is `vglrun` always required when running OpenGL graphics programs?",
-      "answer": "No, `vglrun` is not required if your program has already been patched to use the current cvmfs standard environment."
+      "question": "When running a graphics-based program that requires hardware-accelerated OpenGL within a VNC desktop on a cluster compute node, what `salloc` modifications are needed to request a GPU, and which command is used to launch the program?",
+      "answer": "To request a GPU node for hardware-accelerated OpenGL graphics, the `salloc` command must include the `--gpus-per-node` option. For instance, to request any available GPU, use `salloc --time=1:00:00 --cpus-per-task=4 --gpus-per-node=1 --mem=16000 --account=def-piname`. If a specific GPU type like `t4` is preferred, use `--gpus-per-node=t4:1`. After the VNC desktop starts, the program should typically be launched using `vglrun`, such as `vglrun -d egl PROGRAM`, unless the program is already patched to use the current cvmfs standard environment."
     }
   ],
-  "generated_at": "2026-04-12T10:50:51.590943+00:00"
+  "generated_at": "2026-04-13T15:47:56.747280+00:00"
 }

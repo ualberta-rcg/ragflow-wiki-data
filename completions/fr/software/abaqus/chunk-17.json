@@ -4,77 +4,13 @@
   "chunk_index": 17,
   "qa_pairs": [
     {
-      "question": "Comment on fait pour estimer la mémoire Slurm qu'il faut pour les scripts Slurm multinœuds?",
-      "answer": "Pour déterminer la mémoire Slurm nécessaire, on se base sur les estimations de mémoire par processus de calcul (pour minimiser les entrées/sorties) qui se retrouvent dans le fichier de sortie '.dat' des tâches qui ont été terminées."
+      "question": "Comment peut-on estimer la valeur du paramètre `mem-per-cpu` pour les scripts Slurm multinœuds d'Abaqus afin de minimiser les entrées/sorties?",
+      "answer": "Pour les scripts Slurm multinœuds d'Abaqus, l'estimation de la valeur `mem-per-cpu` dépend de si `mp_host_split` est spécifié. Si `mp_host_split` n'est pas spécifié (ou est égal à 1), multipliez l'estimation de mémoire la plus élevée (par processus de calcul) trouvée dans le fichier de sortie `.dat` par le nombre de nœuds, puis divisez le résultat par le nombre de tâches (`ntasks`). Si `mp_host_split` est spécifié et est supérieur à 1, multipliez l'estimation de mémoire la plus élevée par le nombre de nœuds, puis par la valeur de `mp_host_split`, et divisez ce total par le nombre de tâches (`ntasks`). Il est crucial que `mp_host_split` soit inférieur ou égal au nombre de cœurs par nœud attribués par Slurm pour éviter qu'Abaqus ne se ferme."
     },
     {
-      "question": "Comment puis-je estimer la valeur du paramètre `mem-per-cpu` si `mp_host_split` n'est pas spécifié ou s'il est égal à 1?",
-      "answer": "Dans ce cas, on peut estimer la valeur de `mem-per-cpu` en multipliant l'estimation de mémoire la plus élevée par le nombre de nœuds, puis en divisant ce résultat par le nombre de tâches (''ntasks'')."
-    },
-    {
-      "question": "Et si `mp_host_split` a une valeur spécifiée qui est supérieure à 1, comment estimer `mem-per-cpu`?",
-      "answer": "Si `mp_host_split` est spécifié et plus grand que 1, la valeur de `mem-per-cpu` peut être estimée en multipliant l'estimation de mémoire la plus élevée par le nombre de nœuds, puis par la valeur de `mp_host_split`, et en divisant le tout par le nombre de tâches."
-    },
-    {
-      "question": "Qu'est-ce qui arrive si la valeur de `mp_host_split` dépasse le nombre de cœurs par nœud attribués par Slurm?",
-      "answer": "Si `mp_host_split` est supérieur au nombre de cœurs par nœud attribués par Slurm lors de l'exécution, Abaqus va fermer (planter)."
-    },
-    {
-      "question": "Comment on peut contrôler le scénario où `mp_host_split` pourrait dépasser le nombre de cœurs par nœud?",
-      "answer": "Ce scénario peut être contrôlé en enlevant le commentaire de la ligne qui permet de spécifier une valeur pour ''tasks-per-node'' dans le script."
-    },
-    {
-      "question": "Qu'est-ce qui détermine le maximum de mémoire qu'Abaqus peut allouer?",
-      "answer": "Le maximum de mémoire pouvant être alloué par Abaqus dépend généralement de la valeur du paramètre ''MÉMOIRE'' et de la quantité de mémoire physique disponible sur la machine."
-    },
-    {
-      "question": "De quoi dépend l'utilisation réelle de la mémoire et de l'espace disque pour les données de /scratch?",
-      "answer": "L'utilisation réelle de la mémoire et de l'espace disque pour les données de /scratch va dépendre de la limite supérieure de mémoire ainsi que de la mémoire requise pour minimiser les entrées/sorties."
-    },
-    {
-      "question": "Dans quel cas l'utilisation réelle de la mémoire sera-t-elle près de la valeur estimée de 'MEMORY TO MINIMIZE I/O'?",
-      "answer": "Si la limite supérieure de mémoire est supérieure à la mémoire requise pour minimiser les entrées/sorties, l'utilisation réelle de la mémoire sera proche de la valeur estimée de 'MEMORY TO MINIMIZE I/O' et l'utilisation du disque de travail sera proche de zéro."
-    },
-    {
-      "question": "Quand est-ce que la mémoire réelle utilisée sera près de la limite supérieure de mémoire?",
-      "answer": "Si la limite supérieure de mémoire est inférieure à la mémoire requise pour minimiser les entrées/sorties, la mémoire réelle utilisée sera proche de cette limite supérieure mentionnée, et l'utilisation du disque /scratch sera à peu près proportionnelle à la différence entre l'estimation de 'MEMORY TO MINIMIZE I/O' et la limite supérieure de la mémoire."
-    },
-    {
-      "question": "Est-ce qu'il est possible d'évaluer précisément l'espace /scratch du disque?",
-      "answer": "Non, il est impossible d'évaluer avec précision l'espace /scratch du disque."
-    },
-    {
-      "question": "Quelles sont les méthodes recommandées pour travailler avec des applications graphiques?",
-      "answer": "On recommande d'utiliser Open OnDemand ou Jupyter pour travailler avec des applications graphiques."
-    },
-    {
-      "question": "Comment on lance une session OnDemand sur NIBI?",
-      "answer": "Pour lancer une session OnDemand sur NIBI, on doit cliquer sur le lien approprié: https://ondemand.sharcnet.ca."
-    },
-    {
-      "question": "Comment on lance une session OnDemand sur TRILLIUM?",
-      "answer": "Pour lancer une session OnDemand sur TRILLIUM, on doit cliquer sur le lien approprié: https://ondemand.scinet.utoronto.ca."
-    },
-    {
-      "question": "Quelles sont les étapes pour commencer une session Abaqus via OnDemand?",
-      "answer": "D'abord, on lance une session OnDemand. Ensuite, on ouvre une nouvelle fenêtre de terminal et on charge le module abaqus/2026 en utilisant la commande `module load abaqus/2026`."
-    },
-    {
-      "question": "Comment lancer Abaqus en mode graphique si on est sur un nœud sans GPU ou si VirtualGL n'est pas supporté?",
-      "answer": "Dans ce cas, on lance l'application en mode graphique en utilisant l'option 'mesa' avec la commande `abaqus cae -mesa`."
-    },
-    {
-      "question": "Pour une meilleure performance graphique sur un nœud avec GPU où VirtualGL est supporté, comment lance-t-on Abaqus?",
-      "answer": "Pour une meilleure performance graphique, on lance Abaqus sans l'option 'mesa', en utilisant la commande `abaqus cae`. Si on est sur Nibi Desktop, on sélectionne h100 (80GB) dans le menu déroulant."
-    },
-    {
-      "question": "De quoi a-t-on besoin pour lancer Abaqus en mode graphique?",
-      "answer": "Pour lancer Abaqus en mode graphique, on a besoin d'au moins une licence de calcul non utilisée."
-    },
-    {
-      "question": "Comment vérifier le nombre de licences CAE Abaqus en usage?",
-      "answer": "On peut vérifier le nombre de licences en usage en exécutant la commande: `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | grep \"Users of cae\"`."
+      "question": "Quelles sont les étapes pour lancer l'application Abaqus en mode graphique sur un bureau Open OnDemand?",
+      "answer": "Pour lancer Abaqus en mode graphique sur un bureau Open OnDemand, vous devez d'abord démarrer une session OnDemand (par exemple, sur Nibi via https://ondemand.sharcnet.ca ou Trillium via https://ondemand.scinet.utoronto.ca). Ensuite, ouvrez une nouvelle fenêtre de terminal et chargez le module `abaqus/2026`. Pour les nœuds sans GPU ou où VirtualGL n'est pas pris en charge, utilisez la commande `abaqus cae -mesa`. Si vous êtes sur un nœud avec GPU où VirtualGL est pris en charge et que vous avez besoin d'une meilleure performance graphique, lancez `abaqus cae` sans l'option `mesa`. Assurez-vous également qu'au moins une licence de calcul Abaqus est disponible et non utilisée."
     }
   ],
-  "generated_at": "2026-04-11T15:40:25.962439+00:00"
+  "generated_at": "2026-04-13T00:52:35.790770+00:00"
 }

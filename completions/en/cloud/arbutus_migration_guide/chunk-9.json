@@ -4,97 +4,13 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What command is used on the temporary Legacy Arbutus instance to copy a volume to a New Arbutus instance using `dd` over SSH?",
-      "answer": "The command is `screen sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@xxx.xx.xx.xx \"sudo dd bs=16M of=/dev/vdb\"`."
+      "question": "What are the recommended methods for copying data between instances in the Legacy Arbutus Cloud and the New Arbutus Cloud, and when should each method be used?",
+      "answer": "For very large data volumes (e.g., greater than 5TB), Globus is recommended. For smaller data volumes, `rsync + ssh` is suggested, as it provides good transfer speeds and can work incrementally."
     },
     {
-      "question": "What is the purpose of the `screen` command in the `dd` migration process for large volumes?",
-      "answer": "The `screen` command is used in case you get disconnected from your SSH session during the `dd` migration process."
-    },
-    {
-      "question": "What is the outcome once the `dd` migration process for a volume is complete?",
-      "answer": "Once the process is complete, you will have an exact copy of the volume from Legacy Arbutus on New Arbutus which you can then use to launch instances on New Arbutus."
-    },
-    {
-      "question": "How is an ephemeral instance defined?",
-      "answer": "An ephemeral instance is an instance without a backing volume."
-    },
-    {
-      "question": "What are the recommended methods for migrating ephemeral instances?",
-      "answer": "Ephemeral instances can be migrated using Glance images and volume snapshots, or by using the alternative Linux 'dd' method."
-    },
-    {
-      "question": "What factor determines the most appropriate method for copying data between cloud instances?",
-      "answer": "The most appropriate method for copying data between instances running in the two clouds depends upon the size of the data volumes in your tenant."
-    },
-    {
-      "question": "Which data copying method is recommended for very large volumes, such as those greater than 5TB?",
-      "answer": "For very large volumes (e.g., greater than 5TB), Globus is recommended."
-    },
-    {
-      "question": "What is considered the simplest method for using Globus for data transfer?",
-      "answer": "The simplest method is to use the Globus Connect Personal client with a Globus Plus subscription."
-    },
-    {
-      "question": "How do you request a Globus Connect Personal Plus subscription?",
-      "answer": "You should send an email to globus@tech.alliancecan.ca with your information and ask to be added to the Globus Plus subscription."
-    },
-    {
-      "question": "What initial steps are required to enable Globus Connect Personal on a cloud instance for data transfer?",
-      "answer": "You need to read the relevant guides for Globus Connect Personal and install Globus Connect Personal on each instance using the proper guide, such as the Linux guide."
-    },
-    {
-      "question": "What configuration adjustments are necessary for instances to communicate with the Globus Service?",
-      "answer": "To enable communication with the Globus Service, you must ensure each VM has an external IP address, ensure firewall rules on your VMs permit communication on the necessary ports, and ensure the user running Globus Connect Personal has access to data on the instances' storage systems."
-    },
-    {
-      "question": "How should Globus Connect Personal be run after its installation?",
-      "answer": "Globus Connect Personal should be run as a background process in user space."
-    },
-    {
-      "question": "What can a Globus Connect Personal Plus subscriber do after enabling Globus Connect Personal?",
-      "answer": "As a Globus Connect Personal Plus subscriber, you can create a shared endpoint on one or both VMs."
-    },
-    {
-      "question": "How do you transfer data using Globus once endpoints are created?",
-      "answer": "You can access both endpoints using any Globus Interface (globus.org, globus.computecanada.ca) and transfer data after reading the data transfer manual."
-    },
-    {
-      "question": "Who should you contact for support if you encounter issues during the Globus data migration process?",
-      "answer": "You should contact Technical support at globus@tech.alliancecan.ca if any issues arise during the Globus data migration process."
-    },
-    {
-      "question": "What is recommended if you have very large volumes to move using Globus?",
-      "answer": "It is recommended to submit a support ticket in advance if you have very large volumes to move."
-    },
-    {
-      "question": "Which data copying method is recommended for smaller volumes?",
-      "answer": "For smaller volumes, rsync + ssh provides good transfer speeds and can work in an incremental way."
-    },
-    {
-      "question": "What network option should be considered with `rsync` for potentially improved data transfer performance?",
-      "answer": "When moving data with rsync, consider using the IPv6 GUA network in Openstack, which is a VLAN network that bypasses the OpenStack Neutron component."
-    },
-    {
-      "question": "What is a typical first step when performing data transfer using rsync over SSH?",
-      "answer": "A typical first step is to SSH to the Legacy Arbutus instance which has the principal volume attached and note the absolute path you want to copy to the instance on New Arbutus Cloud."
-    },
-    {
-      "question": "What is an example command for executing `rsync` over SSH?",
-      "answer": "An example command is `rsync -avzP -e 'ssh -i ~/.ssh/key.pem' /local/path/ remoteuser@remotehost:/path/to/files/`."
-    },
-    {
-      "question": "What is assumed regarding SSH login for the provided `rsync` command example?",
-      "answer": "The example assumes that password-less login via SSH Keys has already been set up between the instances."
-    },
-    {
-      "question": "What are the recommended steps after data has been successfully copied using rsync?",
-      "answer": "After data has been successfully copied, you should verify the data on the instance in the New Arbutus Cloud and then delete the data from the Legacy Arbutus Cloud."
-    },
-    {
-      "question": "Are there other options for transferring data beyond Globus and rsync + ssh?",
-      "answer": "Yes, you may also use any other method you are familiar with for transferring data."
+      "question": "When migrating a large bootable volume from Legacy Arbutus to New Arbutus, how can the `dd` command be used with SSH to create an exact copy of the volume?",
+      "answer": "To create an exact copy of a large bootable volume, you can execute a command like `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@xxx.xx.xx.xx \"sudo dd bs=16M of=/dev/vdb\"` on the temporary Legacy Arbutus instance. This pipes the disk image from the source volume (`/dev/vdb`) over SSH to the destination volume (`/dev/vdb`) on the temporary New Arbutus instance, using `pv` for progress monitoring and requiring password-less SSH login."
     }
   ],
-  "generated_at": "2026-04-11T17:45:59.953465+00:00"
+  "generated_at": "2026-04-13T02:22:51.175025+00:00"
 }

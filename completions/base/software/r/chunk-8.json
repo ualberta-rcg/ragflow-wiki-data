@@ -4,17 +4,13 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "How is the NODESLIST environment variable populated in the `job_makecluster.sh` script?",
-      "answer": "The `NODESLIST` environment variable is populated by executing `srun hostname | cut -f 1 -d '.'` to get the node name (cutting off the domain name) and then exporting the result using `export NODESLIST=$(echo $(srun hostname | cut -f 1 -d '.'))`."
+      "question": "When using `makeCluster` for R parallel jobs with Slurm, why might all processes be placed on a single node, even if multiple nodes are available?",
+      "answer": "The Slurm scheduler might place all processes on just one node by default, even when using `makeCluster` with R, if there are no explicit instructions to distribute them across multiple nodes."
     },
     {
-      "question": "What is a potential outcome of the scheduler regarding process placement in the `job_makecluster.sh` example?",
-      "answer": "In the `job_makecluster.sh` example, the scheduler might place all four processes on just one node."
-    },
-    {
-      "question": "How can one demonstrate that a job works correctly even when its processes are distributed across multiple nodes, rather than being confined to a single node?",
-      "answer": "To prove that a job functions correctly even if its processes are placed on different nodes, add the line `#SBATCH --ntasks-per-node=2` to the job submission script."
+      "question": "How can a user ensure that R processes leveraging `makeCluster` are distributed across different nodes by the Slurm scheduler?",
+      "answer": "To ensure R processes are distributed across different nodes when using `makeCluster` with Slurm, you can add `#SBATCH --ntasks-per-node=<number>` to your job script, specifying the desired number of tasks per node."
     }
   ],
-  "generated_at": "2026-04-12T06:10:59.264972+00:00"
+  "generated_at": "2026-04-13T12:03:27.620895+00:00"
 }

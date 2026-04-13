@@ -3,69 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is scalability in the context of parallel programming?",
-      "answer": "Scalability refers to a program's ability to efficiently use added computing resources, such as CPU cores, though doubling cores rarely halves calculation duration."
+      "question": "In parallel programming, how is scalability defined?",
+      "answer": "Scalability refers to a program's capacity to efficiently use additional computing resources, such as CPU cores."
     },
     {
-      "question": "Why is it recommended to conduct a scalability analysis for parallel programs?",
-      "answer": "It's recommended to conduct a scalability analysis to determine the optimal number of CPU cores for a specific problem and cluster, as performance gains depend on several factors and can worsen with too many cores."
+      "question": "Why is it advisable to perform a scalability analysis when planning to use a parallel program on a particular cluster?",
+      "answer": "It is recommended to conduct a scalability analysis to test the software using a fixed problem while varying the number of CPU cores, to plot the run time, and determine the optimal number of cores for the given problem and cluster."
     },
     {
-      "question": "What are the two main reasons why parallel program scalability is often worse than expected?",
-      "answer": "The two main reasons are that not all operations can be parallelized (resulting in a serial percentage of execution) and the increasing cost of parallel overhead due to communication and synchronization among processes."
+      "question": "What are the two primary reasons why the scalability of a parallel program might be less efficient than anticipated?",
+      "answer": "The two main reasons are that a percentage of the program's execution remains serial (cannot be parallelized), and there's an increasing cost of parallel overhead due to communication and synchronization among processes."
     },
     {
-      "question": "How does the 'serial percentage' limit a program's parallel efficiency?",
-      "answer": "The serial percentage represents operations that cannot be parallelized; even with an infinite number of cores, the program's duration cannot fall below the time spent on these serial operations."
+      "question": "What does the term 'parallel overhead' refer to in the context of parallel programming scalability?",
+      "answer": "Parallel overhead refers to the communication and synchronization costs that increase with the number of parallel processes working together in a program."
     },
     {
-      "question": "What is 'parallel overhead' and how does it affect program duration?",
-      "answer": "Parallel overhead is the cost of communication and synchronization among parallel processes, which typically increases with the number of processes, eventually dominating the program's total duration as more cores are added."
+      "question": "How should a test problem be chosen for a scalability analysis to ensure it is effective and representative?",
+      "answer": "A test problem should be relatively small, taking 30 to 60 minutes to complete on one or two cores, but not so small (under ten minutes) as to be unrepresentative of a production run. For weak scaling, its size should also be easily increasable."
     },
     {
-      "question": "What characteristics should a good test problem have for a scalability analysis?",
-      "answer": "A good test problem should be relatively small for quick testing, but large enough to be representative of a production run, ideally taking 30 to 60 minutes on one or two cores. For weak scaling, its size should also be easily increasable."
+      "question": "What kind of problems are known as 'embarrassingly parallel,' and why do they achieve perfect scaling?",
+      "answer": "'Embarrassingly parallel' problems have no significant parallel overhead, as individual tasks are independent and require no synchronization or communication among processes, allowing for perfect scaling."
     },
     {
-      "question": "What are 'embarrassingly parallel' problems?",
-      "answer": "Embarrassingly parallel problems are a class of problems where there's no parallel overhead because individual tasks are independent and require no synchronization or communication, allowing for perfect scaling."
+      "question": "What is the main distinction between strong scaling and weak scaling in parallel programming?",
+      "answer": "Strong scaling involves a fixed problem size while increasing CPU cores to run simulations faster, whereas weak scaling increases the problem size proportionally to the CPU cores to simulate larger or more detailed models within the same run time."
     },
     {
-      "question": "When should strong scaling be applied?",
-      "answer": "Strong scaling applies when you want to perform simulations of the same size as before, but achieve them more quickly by adding more cores."
+      "question": "What is the objective when conducting a strong scaling analysis for a parallel program?",
+      "answer": "In strong scaling, the objective is to perform simulations of the same size more quickly by increasing the number of CPU cores while keeping the problem fixed."
     },
     {
-      "question": "When is weak scaling more pertinent?",
-      "answer": "Weak scaling is more pertinent when you wish to simulate larger or more detailed models and are willing to wait just as long as before, but for better results."
+      "question": "In strong scaling analysis, how is the efficiency percentage calculated, and what percentage is generally considered good?",
+      "answer": "Efficiency is calculated by dividing the reference run time at two cores by the run time at N cores, then dividing that result by N/2, and multiplying by 100. An efficiency of 75% or more is considered good."
     },
     {
-      "question": "How is strong scaling defined in terms of problem size and CPU cores?",
-      "answer": "In strong scaling, the problem to be used for the scalability analysis is fixed in size, while the number of CPU cores is increased."
+      "question": "What is 'superlinear scaling' in strong scaling, and what is a common cause for this phenomenon?",
+      "answer": "Superlinear scaling occurs when the efficiency is greater than 100%, meaning the program's run time decreases more than linearly with added cores. It is rarely observed but is typically caused by more effective CPU cache utilization as each core has less work."
     },
     {
-      "question": "How is efficiency calculated for strong scaling?",
-      "answer": "Efficiency for strong scaling is calculated by dividing the reference run time (e.g., at two cores) by the run time at 'n' cores, then dividing that result by 'n/2', and finally multiplying by one hundred to get a percentage."
+      "question": "What is the primary goal of weak scaling when analyzing a parallel program's performance?",
+      "answer": "The primary goal of weak scaling is to simulate larger or more detailed models, increasing the problem size in proportion to the number of CPU cores, while aiming to keep the program's run time approximately the same."
     },
     {
-      "question": "What is 'superlinear scaling' and what typically causes it?",
-      "answer": "Superlinear scaling occurs when efficiency exceeds 100% (e.g., doubling cores more than halves run time), and it is usually due to the CPU cache functioning more effectively as each core has less to do."
+      "question": "How is the efficiency percentage determined for a weak scaling analysis, and what is an acceptable efficiency level?",
+      "answer": "For weak scaling, efficiency is calculated by dividing the reference run time by the run time at N cores and then multiplying by 100. An efficiency of at least 75% is considered good."
     },
     {
-      "question": "What is considered a good efficiency percentage for parallel program performance?",
-      "answer": "An efficiency of 75% or more is generally considered good."
+      "question": "For what types of applications is weak scaling particularly relevant, and which types might show poor weak scaling performance?",
+      "answer": "Weak scaling is especially pertinent for memory-bound applications and those designed to privilege communications between nearest neighbours. Applications with extensive non-local communication, such as a fast Fourier transform, may exhibit poor weak scalability."
     },
     {
-      "question": "How is weak scaling defined in terms of problem size and CPU cores?",
-      "answer": "In weak scaling, the problem size is increased in proportion to the increase in the number of CPU cores, aiming for the program's run time to remain constant in an ideal linear scaling scenario."
+      "question": "How many data points are recommended for a scalability analysis, and when should the analysis be halted?",
+      "answer": "At least five or six data points are recommended. The analysis should not be pursued beyond the number of cores where the program starts running more slowly with added cores."
     },
     {
-      "question": "How is efficiency calculated for weak scaling?",
-      "answer": "For weak scaling, efficiency is simply the reference run time divided by the run time at 'n' cores, multiplied by one hundred to obtain a percentage."
-    },
-    {
-      "question": "What types of applications tend to benefit most from good weak scaling performance?",
-      "answer": "Weak scaling tends to be especially pertinent for memory-bound applications, particularly those designed to privilege communications between nearest neighbours."
+      "question": "According to the document, what happens to a parallel program's run time if too many CPU cores are used beyond an optimal point?",
+      "answer": "Beyond an optimal number of CPU cores, a parallel program's run time will start to increase as more processes are added, due to the dominance of parallel overhead."
     }
   ],
-  "generated_at": "2026-04-12T07:39:13.243253+00:00"
+  "generated_at": "2026-04-13T13:17:49.637326+00:00"
 }

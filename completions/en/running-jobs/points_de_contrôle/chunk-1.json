@@ -4,65 +4,13 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Why might a program's execution time be a problem on clusters?",
-      "answer": "A program's execution time can sometimes be too long for the maximum duration permitted by the job schedulers used on the clusters."
+      "question": "Why is it preferable to use checkpoints for long-running software programs executed on clusters?",
+      "answer": "It is preferable to use checkpoints for long-running software programs to minimize the risk of losing several days' worth of computation. This is important because job schedulers on clusters impose maximum duration limits, and long-running jobs are vulnerable to system instability caused by power outages, hardware defects, and other issues."
     },
     {
-      "question": "What risks are associated with long-running jobs?",
-      "answer": "Long-running jobs are subject to risks of system instability, including power outages and hardware defects."
-    },
-    {
-      "question": "How does the approach to restarting differ for short versus long-running programs?",
-      "answer": "A program with a short execution time can easily be restarted, but for long-running software, it's preferable to use checkpoints to minimize the risk of losing several days' worth of computation."
-    },
-    {
-      "question": "What is the primary purpose of using checkpoints for long-running software?",
-      "answer": "The primary purpose of using checkpoints is to minimize the risk of losing several days' worth of computation."
-    },
-    {
-      "question": "What form do checkpoints typically take?",
-      "answer": "Checkpoints take the form of binary disk files."
-    },
-    {
-      "question": "How do checkpoints allow a program to restart?",
-      "answer": "Checkpoints allow a program to be restarted at the point in the computation where the checkpoint file was initially created."
-    },
-    {
-      "question": "What should a user do if the application they are using already handles checkpoint creation and loading?",
-      "answer": "If the application already handles checkpoint creation and loading, the user simply needs to read the relevant documentation on how to use this functionality."
-    },
-    {
-      "question": "Under what circumstances might a user need to implement checkpoint/restart functionality themselves?",
-      "answer": "A user might need to implement checkpoint/restart functionality themselves if they have access to the software's source code and/or if they are the author."
-    },
-    {
-      "question": "What is the suggested frequency for creating a checkpoint file?",
-      "answer": "The creation of a checkpoint file is done periodically, with a suggested frequency of every 2 to 24 hours."
-    },
-    {
-      "question": "What important consideration should be kept in mind when writing a checkpoint file?",
-      "answer": "It is important to remember that the program could be interrupted at any moment for a variety of reasons while writing the checkpoint file."
-    },
-    {
-      "question": "What is a recommended practice regarding previous checkpoints when creating a new one?",
-      "answer": "It is preferable to not delete the preceding checkpoint when creating the new one."
-    },
-    {
-      "question": "How can the creation of a checkpoint file be made 'atomic'?",
-      "answer": "The creation of the checkpoint file can be made 'atomic' by performing an operation which confirms the end of the checkpoint process."
-    },
-    {
-      "question": "Can you provide an example of how to make a checkpoint file creation atomic?",
-      "answer": "For example, the checkpoint file can be initially named based on the date and time, and as the final step, a symbolic link 'latest-version' is pointed at this new checkpoint file."
-    },
-    {
-      "question": "What is an advanced method to verify the integrity of a checkpoint file during restart?",
-      "answer": "A more advanced method is to create a second file containing a hash of the checkpoint file's content, which the restart function can use to verify its integrity when loaded."
-    },
-    {
-      "question": "What option is available regarding older checkpoints once an atomic write is completed?",
-      "answer": "Once the atomic write has been completed, one can choose whether or not to delete any older checkpoints."
+      "question": "What are the essential steps for implementing checkpoint/restart functionality directly into a program's source code?",
+      "answer": "When implementing checkpoint/restart functionality directly, the essential steps are: creating a checkpoint file periodically, with a suggested frequency of every 2 to 24 hours; not deleting the preceding checkpoint when creating a new one; and making the creation of the checkpoint file atomic. An atomic write can be achieved, for example, by initially naming the checkpoint file based on the date and time, and then, as a final step, pointing a symbolic link 'latest-version' at this new checkpoint file. Another advanced method is to create a second file containing a hash of the checkpoint file's content to verify its integrity upon loading. Once an atomic write is completed, older checkpoints can optionally be deleted."
     }
   ],
-  "generated_at": "2026-04-12T05:21:01.007028+00:00"
+  "generated_at": "2026-04-13T11:21:07.165808+00:00"
 }

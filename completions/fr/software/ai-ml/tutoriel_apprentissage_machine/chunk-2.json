@@ -4,61 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Quels sont les principaux éléments à considérer lors de la rédaction d'un script `sbatch` pour une tâche d'apprentissage automatique?",
-      "answer": "Les éléments importants à inclure dans un script `sbatch` sont le compte sur lequel les ressources seront facturées, les ressources demandées (comme le nombre de CPU, de GPU, la quantité de mémoire et la durée) ainsi que les commandes bash pour préparer l'environnement, transférer les données vers le nœud de calcul et lancer l'exécutable."
+      "question": "Quels sont les éléments essentiels à inclure dans un script `sbatch` pour soumettre une tâche d'apprentissage automatique sur les grappes de l'Alliance?",
+      "answer": "Pour soumettre une tâche d'apprentissage automatique via un script `sbatch`, il faut spécifier le compte sur lequel les ressources seront facturées et les ressources requises, comme le nombre de CPU (suggéré : 6), le nombre de GPU (suggéré : 1, car la plupart des programmes TensorFlow et PyTorch en utilisent un seul par défaut), la quantité de mémoire (suggéré : 32000 Mo) et la durée de la tâche (maximum 7 jours sur Béluga, 28 jours sur Graham et Cedar). De plus, le script doit contenir les commandes Bash pour préparer l'environnement (modules, environnement virtuel), transférer les données vers le nœud de calcul et lancer le programme exécutable."
     },
     {
-      "question": "Combien de CPU sont suggérés pour une tâche d'apprentissage automatique dans un script `sbatch`?",
-      "answer": "Il est suggéré de demander 6 CPU pour une tâche d'apprentissage automatique."
-    },
-    {
-      "question": "Combien de GPU sont suggérés par défaut et que faut-il savoir sur leur utilisation avec TensorFlow et PyTorch?",
-      "answer": "Il est suggéré d'utiliser un seul GPU, à moins d'être certain que votre programme en utilise plusieurs. Par défaut, TensorFlow et PyTorch utilisent un seul GPU."
-    },
-    {
-      "question": "Quelle quantité de mémoire est suggérée pour une tâche d'apprentissage automatique dans un script `sbatch`?",
-      "answer": "Une quantité de 32000M (mégabytes) est suggérée pour la mémoire."
-    },
-    {
-      "question": "Quelles sont les durées maximales de tâche pour les grappes Béluga, Graham et Cedar?",
-      "answer": "La durée maximale est de 7 jours sur la grappe Béluga et de 28 jours sur les grappes Graham et Cedar."
-    },
-    {
-      "question": "Dans l'exemple de script `ml-test.sh`, comment sont chargées les dépendances logicielles essentielles comme Python, CUDA et CUDNN?",
-      "answer": "Dans l'exemple, les dépendances sont chargées via des modules avec la commande `module load python/3.6 cuda cudnn`."
-    },
-    {
-      "question": "Comment l'environnement virtuel Python est-il activé dans l'exemple de script `ml-test.sh`?",
-      "answer": "L'environnement virtuel est activé en utilisant la commande `source ~/my_env/bin/activate`."
-    },
-    {
-      "question": "Comment les données sont-elles préparées et copiées vers le répertoire temporaire du nœud de calcul (`$SLURM_TMPDIR`) dans l'exemple de script `ml-test.sh`?",
-      "answer": "Les données sont préparées en créant un répertoire `$SLURM_TMPDIR/data` et en extrayant le contenu d'une archive `data.tar` (située dans `~/projects/def-xxxx/`) vers ce nouveau répertoire temporaire avec la commande `tar xf ~/projects/def-xxxx/data.tar -C $SLURM_TMPDIR/data`."
-    },
-    {
-      "question": "Pourquoi est-il recommandé de morceler les longues tâches en blocs de 24 heures?",
-      "answer": "Morceler les tâches en blocs de 24 heures permet d'améliorer votre priorité dans la file d'attente. De plus, en créant une chaîne de tâches, il est possible de dépasser la limite de 7 jours sur la grappe Béluga."
-    },
-    {
-      "question": "Quelle est la première étape pour pouvoir morceler une tâche d'apprentissage automatique?",
-      "answer": "Il faut modifier votre script de soumission ou votre programme pour que la tâche puisse être interrompue et continuée, en permettant l'accès au ''checkpoint'' le plus récent."
-    },
-    {
-      "question": "Comment calcule-t-on le nombre de blocs de 24 heures nécessaires pour une tâche morcelée?",
-      "answer": "On calcule le nombre de blocs (`n_blocs`) en divisant le nombre total d'epochs (`n_epochs_total`) par le nombre d'epochs pouvant être effectuées à l'intérieur de 24 heures (`n_epochs_par_24h`)."
-    },
-    {
-      "question": "Quel argument `sbatch` est utilisé pour demander une chaîne de tâches morcelées?",
-      "answer": "L'argument `--array 1-<n_blocs>%1` est utilisé pour demander une chaîne de `n_blocs` tâches."
-    },
-    {
-      "question": "Dans un script de chaîne de tâches comme `ml-test-chain.sh`, comment le script trouve-t-il le plus récent ''checkpoint''?",
-      "answer": "Le script utilise une combinaison de commandes `find`, `xargs`, `ls` et `head` pour rechercher les fichiers de ''checkpoint'' (`*.h5` ou `*.pt`) dans un répertoire spécifié (par exemple `~/scratch/checkpoints/ml-test`) et sélectionner le plus récent."
-    },
-    {
-      "question": "Comment le script de chaîne de tâches `ml-test-chain.sh` décide-t-il de démarrer l'entraînement de zéro ou de reprendre à partir d'un ''checkpoint''?",
-      "answer": "Le script vérifie si la variable `$LAST_CHECKPOINT` est vide. Si elle est vide, cela signifie qu'aucun ''checkpoint'' n'a été trouvé et l'entraînement démarre de zéro. Sinon, le programme charge le ''checkpoint'' spécifié par `$LAST_CHECKPOINT`."
+      "question": "Comment peut-on gérer une tâche d'apprentissage automatique qui dépasse la durée maximale permise sur les grappes de l'Alliance, comme Béluga, Graham ou Cedar?",
+      "answer": "Pour les tâches d'apprentissage automatique qui sont prévues pour durer plus longtemps que les limites de temps des grappes (par exemple, 7 jours sur Béluga), il est recommandé de les morceler en blocs de 24 heures. Cette approche améliore également la priorité de la tâche. Pour ce faire, il faut modifier le programme ou le script de soumission pour qu'il puisse être interrompu et repris à partir du ''checkpoint'' le plus récent. On doit ensuite déterminer combien d'epochs peuvent être complétées en 24 heures, calculer le nombre total de blocs nécessaires, et utiliser l'argument `--array 1-<nombre_de_blocs>%1` dans le script `sbatch` pour lancer une chaîne de tâches."
     }
   ],
-  "generated_at": "2026-04-12T09:57:05.022316+00:00"
+  "generated_at": "2026-04-13T15:05:02.751468+00:00"
 }

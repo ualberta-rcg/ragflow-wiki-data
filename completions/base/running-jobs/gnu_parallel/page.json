@@ -3,85 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of GNU Parallel?",
-      "answer": "GNU Parallel is a tool designed for running many sequential tasks simultaneously on one or more nodes, particularly useful for tasks that are short, of variable durations, or when performing a parameter sweep."
+      "question": "What is GNU Parallel used for on Alliance clusters?",
+      "answer": "GNU Parallel is a tool for running many sequential tasks at the same time on one or more nodes, particularly useful for a large number of short or variable-duration tasks, and parameter sweeps."
     },
     {
-      "question": "How does GNU Parallel determine the number of tasks to run concurrently by default?",
-      "answer": "By default, GNU Parallel will run as many tasks as the number of cores allocated by the scheduler, aiming to maximize resource usage."
+      "question": "How does GNU Parallel determine the number of simultaneous tasks to run by default?",
+      "answer": "By default, `parallel` will run as many tasks as the number of cores allocated by the scheduler."
     },
     {
-      "question": "How can you specify a different number of simultaneous tasks for GNU Parallel?",
-      "answer": "You can change the number of simultaneous tasks using the `--jobs` option, followed by the desired number."
+      "question": "How can a user change the number of simultaneous tasks GNU Parallel runs?",
+      "answer": "Users can change this behaviour using the `--jobs` option followed by the desired number of simultaneous tasks."
     },
     {
-      "question": "What syntax does GNU Parallel use to represent parameters in a command?",
-      "answer": "GNU Parallel uses curly brackets (`{}`) as placeholders for parameters within the command it is running."
+      "question": "What is the basic syntax for passing parameters to a command in GNU Parallel?",
+      "answer": "GNU Parallel uses curly brackets `{}` as parameters for the command to be run."
     },
     {
-      "question": "What is the alternative syntax to provide input values to GNU Parallel besides pipes?",
-      "answer": "An alternative syntax is to use three colons (`:::`) followed by the list of input values."
+      "question": "What is an alternative syntax for specifying a list of arguments for GNU Parallel?",
+      "answer": "An alternative syntax is to use `:::`, such as `parallel echo {} ::: $(seq 1 3)`."
     },
     {
-      "question": "How does GNU Parallel's definition of a 'job' differ from a typical batch scheduler's definition?",
-      "answer": "GNU Parallel refers to each command it executes as a 'job,' which can be confusing because these are typically 'subjobs' running within a larger batch script submitted to a scheduler."
+      "question": "How can the content of a file be used as a list of values for arguments in GNU Parallel?",
+      "answer": "The `::::` syntax takes the content of a file to generate the list of values for the arguments."
     },
     {
-      "question": "How can you pass multiple distinct arguments to a command using GNU Parallel?",
-      "answer": "You can use multiple arguments by enumerating them (e.g., `{1}`, `{2}`) and providing separate lists for each argument using `:::`."
+      "question": "How can GNU Parallel interpret lines of a file as subjobs to be run in parallel?",
+      "answer": "GNU Parallel can interpret lines of a file as subjobs by using redirection, for example, `parallel < my_commands.txt`."
     },
     {
-      "question": "What syntax allows GNU Parallel to read a list of argument values from a file?",
-      "answer": "The `::::` syntax (four colons) takes the content of a file to generate the list of values for the arguments."
+      "question": "Is using GNU Parallel across multiple nodes recommended on Alliance clusters?",
+      "answer": "No, it is not recommended, especially for many short jobs, due to potential problems with starting SSH sessions that may hang."
     },
     {
-      "question": "How can GNU Parallel execute a series of commands listed line-by-line in a file?",
-      "answer": "GNU Parallel can interpret the lines of a file as actual subjobs to be run in parallel by using input redirection (e.g., `parallel < my_commands.txt`)."
+      "question": "If GNU Parallel is used across multiple nodes, what is a recommended practice to avoid issues?",
+      "answer": "It is recommended to add a delay between jobs of 30 seconds or more using the `--sshdelay 30` option."
     },
     {
-      "question": "When is using a file as a command list particularly useful for GNU Parallel?",
-      "answer": "This mode is particularly useful if the subjobs contain symbols special to GNU Parallel or if subcommands include multiple shell commands (e.g., `cd dir1 && ./executable`)."
+      "question": "How can a user keep track of completed commands and their details using GNU Parallel?",
+      "answer": "Users can use the `--joblog JOBLOGFILE` argument, which will create a file containing the list of completed commands, their start times, durations, hosts, and exit values."
     },
     {
-      "question": "Is it recommended to use GNU Parallel across multiple nodes?",
-      "answer": "No, it is generally not recommended, especially for many short jobs, as it can have problems with SSH sessions taking several seconds or hanging. If used, a delay of at least 30 seconds with `--sshdelay 30` is advised."
+      "question": "How can an interrupted GNU Parallel command be made to pick up where it left off?",
+      "answer": "Users can use the `--resume` option along with the job log file to pick up where the command was interrupted."
     },
     {
-      "question": "How do you specify a list of nodes for GNU Parallel to distribute tasks across?",
-      "answer": "You create a file containing the list of hostnames (e.g., using `scontrol show hostname`) and then specify this file with the `--sshloginfile` option."
+      "question": "How can a user re-run only the subcommands that failed in a GNU Parallel job?",
+      "answer": "Users can re-run failed subcommands using the `--resume-failed` option with the job log file."
     },
     {
-      "question": "What options are used to transfer environment variables and set the working directory when running GNU Parallel across multiple nodes?",
-      "answer": "The `--env` option transfers named environment variables to all nodes, and the `--workdir` option ensures tasks start in the same directory as the main node."
+      "question": "What GNU Parallel arguments are used to efficiently handle chunks of a large file in parallel?",
+      "answer": "The `--pipepart` and `--block` arguments are used to efficiently handle chunks of large files."
     },
     {
-      "question": "How can you enable GNU Parallel to keep a log of completed and failed commands?",
-      "answer": "You can tell GNU Parallel to keep track of commands using the `--joblog JOBLOGFILE` argument, which records details like start times, durations, hosts, and exit values."
+      "question": "What does the document suggest about choosing the block size when processing large files with GNU Parallel?",
+      "answer": "Letting GNU Parallel adapt and decide on the block size, by setting `--block -1`, is often faster than manually choosing a size."
     },
     {
-      "question": "What option allows GNU Parallel to resume tasks if the command was interrupted?",
-      "answer": "The `--resume` option allows GNU Parallel to pick up where it left off, appending new jobs to the existing job log file."
+      "question": "When running hundreds of simulations, how can parameters be fed to a simulator using a file with GNU Parallel's argument list feature?",
+      "answer": "Users can create a file with tab-delimited parameters, and then use `parallel -j $SLURM_CPUS_PER_TASK --colsep '\\t' my_simulator --alpha {1} --beta {2} :::: ./my_parameters.txt`."
     },
     {
-      "question": "How can you re-run only the subcommands that previously failed using GNU Parallel?",
-      "answer": "You can re-run failed subcommands using the `--resume-failed` option, which will also start any subjobs that were not considered before."
+      "question": "How can a list of full commands for simulations be executed in parallel using a file with GNU Parallel?",
+      "answer": "Users can put each command on a new line in a file and then use `parallel -j $SLURM_CPUS_PER_TASK < ./my_commands.txt`."
     },
     {
-      "question": "What two GNU Parallel arguments are essential for efficiently handling large files in parallel?",
-      "answer": "The `--pipepart` and `--block` arguments are essential for efficiently handling chunks of large files."
+      "question": "How can GNU Parallel generate parameters for simulations directly without an input file?",
+      "answer": "Users can generate parameters by using multiple `:::` arguments, for example, `parallel my_simulator --alpha {1} --beta {2} ::: {1..10} ::: {1..100}`."
     },
     {
-      "question": "Why is selecting the correct block size important when processing large files with GNU Parallel?",
-      "answer": "Choosing the right block size significantly impacts efficiency and core utilization; an optimal size balances the number of jobs created with the available cores, with `--block -1` often providing the best performance by letting GNU Parallel adapt."
-    },
-    {
-      "question": "What is a crucial first step when preparing to run hundreds or thousands of simulations with GNU Parallel?",
-      "answer": "A crucial first step is to determine the resources (memory, cores, time) required by a single simulation to accurately estimate the total resources needed for the entire job."
-    },
-    {
-      "question": "How can GNU Parallel process parameters for simulations if they are organized in a file with tab-separated columns?",
-      "answer": "You can use the `--colsep '\\t'` option along with `::::` to read the tab-delimited parameters from the file, referencing each column as `{1}`, `{2}`, and so on."
+      "question": "What other related tools or topics are mentioned alongside GNU Parallel?",
+      "answer": "Related topics include META, GLOST, and Job arrays."
     }
   ],
-  "generated_at": "2026-04-11T22:16:04.763948+00:00"
+  "generated_at": "2026-04-13T05:57:26.259041+00:00"
 }

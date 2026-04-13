@@ -4,77 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `SIM_FILE` variable in the Slurm script for Fir, Narval, Rorqual, and Trillium clusters?",
-      "answer": "The `SIM_FILE` variable is used to specify your input simulation filename."
+      "question": "How do users specify their input simulation file and any optional Java macros for a STAR-CCM+ batch job on Alliance clusters like Fir, Narval, or Rorqual?",
+      "answer": "Users specify their input simulation filename by setting the `SIM_FILE` variable, for example, `SIM_FILE='mySample.sim'`. To include optional Java macros, mesh, run, or step commands, they should uncomment and define the `BATCH_CMD` variable, for instance, `BATCH_CMD='myMacro.java,run'`."
     },
     {
-      "question": "How can one specify Java macros, mesh, or run steps in the Slurm script for STAR-CCM+ on Fir, Narval, Rorqual, or Trillium clusters?",
-      "answer": "You can uncomment and specify the `BATCH_CMD` variable (e.g., `BATCH_CMD='myMacro.java,run'`)."
+      "question": "What are the key differences in configuring STAR-CCM+ for Siemens Power-on-Demand (PoD) licenses versus institutional license servers in Slurm batch scripts for Fir, Narval, or Rorqual clusters?",
+      "answer": "For a Siemens Power-on-Demand (PoD) license, users must manually set the `LM_PROJECT` environment variable to their 22-digit PoD license key, for example, `LM_PROJECT='22digit-PoD-License-Key'`. This line should be commented out if an institutional license server is used. The script then checks the `CDLMD_LICENSE_FILE` for institutional license server details and invokes `starccm+` accordingly, either with `-power -podkey $LM_PROJECT` for PoD or without those specific options for an institutional server."
     },
     {
-      "question": "How do researchers with a Power-on-Demand (PoD) license configure their license key in the Slurm script for Fir, Narval, Rorqual, and Trillium clusters?",
-      "answer": "Researchers with a PoD license must manually set the `LM_PROJECT` environment variable to their 22-digit PoD license key (e.g., `LM_PROJECT='22digit-PoD-License-Key'`)."
-    },
-    {
-      "question": "When should the `LM_PROJECT` line be commented out in the Slurm script for Fir, Narval, Rorqual, and Trillium clusters?",
-      "answer": "The `LM_PROJECT` line should be commented out when using an institutional license server instead of a Siemens PoD license server."
-    },
-    {
-      "question": "Where are temporary output files from STAR-CCM+ jobs redirected in the Slurm script for Fir, Narval, Rorqual, and Trillium clusters?",
-      "answer": "Temporary output files are redirected from `~/.star-VERSION#` to `$SLURM_TMPDIR` by exporting `STARCCM_TMP=\"$SLURM_TMPDIR\"`."
-    },
-    {
-      "question": "How is the `NCORE` variable, representing the total number of cores, calculated in the Slurm script?",
-      "answer": "`NCORE` is calculated by multiplying the number of nodes (`SLURM_NNODES`), CPUs per task (`SLURM_CPUS_PER_TASK`), and tasks per node (`SLURM_NTASKS_PER_NODE`)."
-    },
-    {
-      "question": "What license-related checks does the Slurm script for Fir, Narval, or Rorqual clusters perform before running STAR-CCM+?",
-      "answer": "The script checks the `CDLMD_LICENSE_FILE` to extract the license server and port, then uses `nmap` to verify connectivity to the license server and port."
-    },
-    {
-      "question": "How is the `FLEXIBLAS` variable configured based on the CPU vendor on Fir, Narval, or Rorqual clusters?",
-      "answer": "`FLEXIBLAS` is initially set to `NETLIB`. If the CPU vendor is Intel, it's set to `StarMKL`. If the CPU vendor is AMD, it's set to `StarAOCL`."
-    },
-    {
-      "question": "What MPI implementation is used by default for STAR-CCM+ jobs on Fir, Narval, or Rorqual clusters, and how can it change?",
-      "answer": "By default, `STAR_MPI` is set to `-mpi openmpi`. If the CPU vendor is Intel, `STAR_MPI` changes to `-mpi intel`."
-    },
-    {
-      "question": "Under what condition is the `STAR_UCX` option used in the Slurm script for Fir, Narval, Rorqual, and Trillium clusters?",
-      "answer": "The `STAR_UCX` option, set to `-xsystemucx`, is used if the major version of STAR-CCM+ (`EBVERSIONSTARCCM`) is less than 20."
-    },
-    {
-      "question": "How does the Slurm script for Fir, Narval, or Rorqual differentiate between running with a Siemens PoD license server and an institutional license server?",
-      "answer": "The script checks if the `LM_PROJECT` variable is set. If it is, it assumes a Siemens PoD license and includes `-power -podkey $LM_PROJECT` in the `starccm+` command. Otherwise, it assumes an institutional license server and optionally checks its status using `lmutil`."
-    },
-    {
-      "question": "Where should a user submit their STAR-CCM+ job from on the Trillium cluster?",
-      "answer": "Users should submit their job from the `$SCRATCH/some/dir` directory, indicated by `cd $SLURM_SUBMIT_DIR` in the script."
-    },
-    {
-      "question": "What specific variables are used on Trillium to define the license server details, and how do they relate to the `~/.licenses/starccm.lic` file?",
-      "answer": "On Trillium, `FLEXPORT` (static flex port), `VENDPORT` (static vendor port), and `LICSERVER` (license server hostname) are explicitly defined. These settings are used instead of the `~/.licenses/starccm.lic` file."
-    },
-    {
-      "question": "How is the `CDLMD_LICENSE_FILE` environment variable set for STAR-CCM+ on the Trillium cluster?",
-      "answer": "On Trillium, `CDLMD_LICENSE_FILE` is set to `\"$FLEXPORT@127.0.0.1\"`."
-    },
-    {
-      "question": "What command is used on Trillium to establish an SSH tunnel for accessing the license server?",
-      "answer": "The command `ssh tri-gw -L $FLEXPORT:$LICSERVER:$FLEXPORT -L $VENDPORT:$LICSERVER:$VENDPORT -N -f` is used to tunnel the license server ports through the `tri-gw` gateway."
-    },
-    {
-      "question": "How is the `FLEXIBLAS` variable configured for STAR-CCM+ jobs on the Trillium cluster?",
-      "answer": "On Trillium, `FLEXIBLAS` is explicitly set to `StarAOCL`."
-    },
-    {
-      "question": "What MPI implementation is used for STAR-CCM+ jobs on the Trillium cluster?",
-      "answer": "On the Trillium cluster, `STAR_MPI` is set to `-mpi openmpi`."
-    },
-    {
-      "question": "Describe the workaround implemented in the Trillium Slurm script to handle potential STAR-CCM+ license failures.",
-      "answer": "The script includes a `while` loop that attempts to start STAR-CCM+ up to 5 times until the exit status is zero. There's also a 5-second sleep before subsequent attempts if the first one fails."
+      "question": "How is STAR-CCM+ licensing configured for batch jobs on the Trillium cluster when using an institutional license server?",
+      "answer": "On the Trillium cluster, when using an institutional license server, the `LM_PROJECT` variable should be commented out. Instead, specific variables are used: `FLEXPORT` (server static flex port, e.g., 1999), `VENDPORT` (server static vendor port, e.g., 2099), and `LICSERVER` (license server hostname, e.g., `flex.cd-adapco.com`). The `CDLMD_LICENSE_FILE` is exported as `\"$FLEXPORT@127.0.0.1\"`, and an `ssh` command (`ssh tri-gw -L $FLEXPORT:$LICSERVER:$FLEXPORT -L $VENDPORT:$LICSERVER:$VENDPORT -N -f`) is executed to forward the necessary ports. The `starccm+` command is then invoked without the `-power -podkey` options."
     }
   ],
-  "generated_at": "2026-04-12T08:13:13.391360+00:00"
+  "generated_at": "2026-04-13T13:45:03.196936+00:00"
 }

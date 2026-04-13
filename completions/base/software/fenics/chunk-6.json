@@ -4,81 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "How do I fix the pip certificate bundle path inside the `fenics-legacy.sandbox`?",
-      "answer": "To fix the pip certificate bundle path inside the sandbox, you need to create a certs folder and symlink the CA bundle so pip/SSL trusts HTTPS by running `apptainer exec --writable fenics-legacy.sandbox sh -c \"mkdir -p /etc/pki/tls/certs && ln -s /etc/ssl/certs/ca-certificates.crt /etc/pki/tls/certs/ca-bundle.crt\"`."
+      "question": "How do you create a new, read-only Apptainer SIF image from a modified sandbox directory for a FEniCS Legacy installation?",
+      "answer": "After making modifications within a writable sandbox directory (e.g., `fenics-legacy.sandbox`), you can create a new read-only SIF image using the command: `apptainer build fenics-legacy-updated.sif fenics-legacy.sandbox`."
     },
     {
-      "question": "What is the purpose of creating a certs folder and symlinking the CA bundle within the FEniCS legacy sandbox?",
-      "answer": "The purpose is to ensure that pip/SSL trusts HTTPS connections."
+      "question": "What is the key difference between the Python packages `ufl_legacy` and `ufl` in the context of FEniCS Legacy (2019.1.x) installations?",
+      "answer": "FEniCS Legacy (version 2019.1.x) specifically requires `ufl_legacy`, which is the correct and bundled Python package (version 2022.3.0). A direct `import ufl` statement is expected to fail, while `import ufl_legacy` should succeed, indicating the correct package is in use."
     },
     {
-      "question": "What is the fourth step in the FEniCS Legacy installation on Trillium after fixing the pip certificate bundle path?",
-      "answer": "The fourth step is to create a new SIF (Singularity Image Format) from the sandbox."
-    },
-    {
-      "question": "What type of image is created from the sandbox after modifications?",
-      "answer": "After modifications, a new read-only image (portable, reproducible) is created from the sandbox."
-    },
-    {
-      "question": "Which command is used to create a new SIF image from the `fenics-legacy.sandbox`?",
-      "answer": "You can create a new SIF image using the command `apptainer build fenics-legacy-updated.sif fenics-legacy.sandbox`."
-    },
-    {
-      "question": "What is the fifth step in the FEniCS Legacy installation process on Trillium?",
-      "answer": "The fifth step is to run quick tests."
-    },
-    {
-      "question": "How can I run a quick test to verify the `ufl_legacy` import and its version?",
-      "answer": "You can run a quick test using the command `apptainer exec --bind $PWD:/root/shared --pwd /root/shared fenics-legacy-updated.sif python3 -c \"import ufl_legacy; print('ufl_legacy ok. version:', ufl_legacy.__version__)\"`."
-    },
-    {
-      "question": "What does the `--bind $PWD:/root/shared` option do when executing an Apptainer command?",
-      "answer": "The `--bind $PWD:/root/shared` option mounts your current host directory in the container."
-    },
-    {
-      "question": "What is the function of the `--pwd` option in an Apptainer execution command?",
-      "answer": "The `--pwd` option sets the working directory inside the container."
-    },
-    {
-      "question": "What is an important note regarding FEniCS Legacy (2019.1.x) and UFL?",
-      "answer": "FEniCS Legacy (2019.1.x) requires UFL Legacy, which is already bundled."
-    },
-    {
-      "question": "What is the correct Python package name for UFL in FEniCS Legacy?",
-      "answer": "The Python package is named `ufl_legacy`, not `ufl`."
-    },
-    {
-      "question": "What is the compatible UFL version provided by `ufl_legacy`?",
-      "answer": "The compatible UFL version is 2022.3.0, provided by `ufl_legacy`."
-    },
-    {
-      "question": "How can I check if I am using the correct UFL package name in FEniCS Legacy?",
-      "answer": "A plain `import ufl` should fail, while `import ufl_legacy` should succeed."
-    },
-    {
-      "question": "Why might it be necessary to alias `ufl_legacy` as `ufl`?",
-      "answer": "Some downstream packages (like Oasis) assume `import ufl`. Aliasing `ufl_legacy` as `ufl` can avoid patching them all."
-    },
-    {
-      "question": "What is the purpose of providing a shim package that re-exports `ufl_legacy` as `ufl`?",
-      "answer": "The purpose is to avoid patching downstream packages (like Oasis) that assume `import ufl`."
-    },
-    {
-      "question": "Where should the `__init__.py` file be created for the `ufl_legacy` aliasing shim?",
-      "answer": "The `__init__.py` file should be created at `/pyshims/ufl/__init__.py`."
-    },
-    {
-      "question": "What are the contents of the `__init__.py` file for aliasing `ufl_legacy` as `ufl`?",
-      "answer": "The contents are: `import sys\nimport ufl_legacy as ufl\n\napi = [k for k in ufl.__dict__.keys() if not k.startswith('__') and not k.endswith('__')]\nfor key in api:\n    sys.modules['ufl.{}'.format(key)] = getattr(ufl, key)\ndel api`."
-    },
-    {
-      "question": "How do you test the aliasing of `ufl_legacy` as `ufl`?",
-      "answer": "You test the aliasing by prepending the shim path to PYTHONPATH when launching inside the container."
-    },
-    {
-      "question": "What command can be used to test the aliasing of `ufl_legacy` as `ufl`?",
-      "answer": "You can test the aliasing using `APPTAINERENV_PYTHONPATH=<path_to_shim>:$PYTHONPATH apptainer exec --bind /scratch:/scratch ~/fenics-legacy-updated.sif python3 -c \"from ufl.tensors import ListTensor; print('UFL tensors ok')\"`."
+      "question": "How can `ufl_legacy` be aliased to `ufl` to ensure compatibility with downstream Python packages that expect `import ufl` within a FEniCS Legacy Apptainer container?",
+      "answer": "To alias `ufl_legacy` as `ufl`, you should create a shim package. This involves creating a file, for example, `/pyshims/ufl/__init__.py`, that imports `ufl_legacy` as `ufl` and re-exports its contents. Then, when launching the container, prepend the path to this shim package (e.g., `<path_to_shim>`) to the `PYTHONPATH` environment variable: `APPTAINERENV_PYTHONPATH=<path_to_shim>:$PYTHONPATH apptainer exec ...`."
     }
   ],
-  "generated_at": "2026-04-11T21:23:09.459159+00:00"
+  "generated_at": "2026-04-13T05:12:22.379017+00:00"
 }

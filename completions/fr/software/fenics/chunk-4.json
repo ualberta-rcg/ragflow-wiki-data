@@ -4,61 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Pouvez-vous nommer quelques-uns des paquets Python installés via `apt-get` lors de la création du conteneur Singularity FEniCS?",
-      "answer": "Oui, parmi les paquets Python installés, on trouve `python-deap`, `python-decorator`, `python-ecdsa`, `python-matplotlib`, `python-numpy`, `python-pandas`, `python-scipy`, et `python-setuptools`, ainsi que leurs versions Python 3."
+      "question": "Quelles sont les premières étapes pour installer FEniCS Legacy (2019) sur Trillium en utilisant Apptainer?",
+      "answer": "Pour commencer l'installation de FEniCS Legacy 2019 sur Trillium, il faut d'abord télécharger l'image Docker au format Apptainer SIF en utilisant la commande `apttainer pull fenics-legacy.sif docker://ghcr.io/scientificcomputing/fenics-gmsh:2024-05-30`. Ensuite, on doit créer un bac à sable (sandbox) avec permission d'écriture à partir de ce fichier SIF pour pouvoir le modifier ou y installer d'autres paquets."
     },
     {
-      "question": "Quels outils additionnels, en dehors des paquets Python, sont installés via `apt-get` dans le conteneur Singularity FEniCS?",
-      "answer": "Des outils comme `automake`, `git-core`, `libopenmpi-dev`, `libtool`, `mercurial`, `openmpi-bin`, `python3-pip`, et `python3-venv` sont installés."
+      "question": "Pourquoi est-il nécessaire de créer un bac à sable (sandbox) pour l'installation de FEniCS Legacy sur Trillium, et comment procède-t-on?",
+      "answer": "Un bac à sable comme `fenics-legacy.sandbox` est créé à partir du fichier SIF pour permettre de modifier ou d'installer d'autres paquets. Pour ce faire, on exécute la commande `apptainer build --sandbox fenics-legacy.sandbox fenics-legacy.sif`. Le nom du répertoire créé peut être modifié, et le suffixe `.sandbox` est optionnel."
     },
     {
-      "question": "Quelles commandes sont exécutées pour le nettoyage des fichiers à la fin de l'installation des paquets dans le conteneur Singularity FEniCS?",
-      "answer": "Les commandes `sudo apt-get clean` et `sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*` sont exécutées pour nettoyer les fichiers téléchargés et temporaires."
-    },
-    {
-      "question": "Quelle version de FEniCS est l'objet de la section \"Installation de FEniCS Legacy (2019) sur Trillium\"?",
-      "answer": "Cette section porte sur l'installation de FEniCS Legacy (2019)."
-    },
-    {
-      "question": "Dans quel répertoire les instructions recommandent-elles de configurer et tester le conteneur FEniCS Legacy 2019 sur Trillium?",
-      "answer": "Les instructions suggèrent de configurer et tester le conteneur dans votre répertoire `/home`."
-    },
-    {
-      "question": "Comment télécharge-t-on l'image Docker de FEniCS Legacy en format Apptainer SIF?",
-      "answer": "On utilise la commande `apttainer pull fenics-legacy.sif docker://ghcr.io/scientificcomputing/fenics-gmsh:2024-05-30`."
-    },
-    {
-      "question": "Quel est le nom du fichier SIF résultant du téléchargement de l'image Docker pour FEniCS Legacy?",
-      "answer": "Le fichier SIF se nomme `fenics-legacy.sif`."
-    },
-    {
-      "question": "À partir de quelle source Docker l'image FEniCS Legacy est-elle téléchargée?",
-      "answer": "L'image est téléchargée de `docker://ghcr.io/scientificcomputing/fenics-gmsh:2024-05-30`."
-    },
-    {
-      "question": "Dans le contexte de FEniCS Legacy sur Trillium, à quoi sert la création d'un « bac à sable » (sandbox) avec permission d'écriture?",
-      "answer": "La création d'un bac à sable avec permission d'écriture permet de modifier ou d'installer d'autres paquets."
-    },
-    {
-      "question": "Quelle commande utilise-t-on pour créer une arborescence de « bac à sable » (sandbox) à partir d'un fichier SIF?",
-      "answer": "La commande est `apptainer build --sandbox fenics-legacy.sandbox fenics-legacy.sif`."
-    },
-    {
-      "question": "Quel est le nom du répertoire créé par défaut lors de la création d'un « bac à sable » pour FEniCS Legacy?",
-      "answer": "Le répertoire créé est nommé `fenics-legacy.sandbox`."
-    },
-    {
-      "question": "Est-il possible de personnaliser le nom du répertoire d'un « bac à sable » (sandbox) Apptainer?",
-      "answer": "Oui, vous pouvez modifier le nom du répertoire pour des noms comme `fenics-dev/` ou `my_rw_image/`."
-    },
-    {
-      "question": "Le suffixe `.sandbox` est-il obligatoire lorsque l'on nomme un répertoire de « bac à sable »?",
-      "answer": "Non, le suffixe `.sandbox` est optionnel."
-    },
-    {
-      "question": "Quelle est la troisième étape mentionnée pour l'installation de FEniCS Legacy (2019) sur Trillium?",
-      "answer": "La troisième étape est intitulée \"Certificat pip\"."
+      "question": "Comment s'assurer que pip fonctionne correctement avec les certificats SSL à l'intérieur du bac à sable FEniCS Legacy?",
+      "answer": "Pour que pip et SSL fassent confiance aux connexions HTTPS à l'intérieur du bac à sable FEniCS Legacy, il faut créer un dossier pour les certificats et lier symboliquement le paquet de certificats de l'autorité de certification (CA bundle). La commande à utiliser est `apptainer exec --writable fenics-legacy.sandbox sh -c \"mkdir -p /etc/pki/tls/certs && ln -s /etc/ssl/certs/ca-certificates.crt /etc/pki/tls/certs/ca-bundle.crt\"`."
     }
   ],
-  "generated_at": "2026-04-11T21:26:37.680640+00:00"
+  "generated_at": "2026-04-13T05:14:56.957873+00:00"
 }

@@ -4,69 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What is the process for resubmitting a job from within its own script?",
-      "answer": "A job is submitted to run an initial chunk of a calculation and save a checkpoint. Before the allocated run-time expires, the script checks if the calculation is complete. If not, it submits a copy of itself to continue the work."
+      "question": "How does automatic job resubmission work in Slurm job scripts, and what is a crucial consideration when implementing the resubmission logic?",
+      "answer": "In automatic job resubmission, a job script runs a portion of a calculation and saves a checkpoint. Before its allocated run-time elapses, the script checks if the calculation is complete. If the calculation is not yet finished, the script submits a copy of itself to continue the work. A crucial consideration is that the test to determine whether to submit a follow-up job (e.g., `work_should_continue`) should be a *positive test*. This means it should explicitly check for conditions that require the job to continue, rather than checking for a stopping condition, to prevent indefinite job chains if an unforeseen error occurs."
     },
     {
-      "question": "What is the purpose of the `work_should_continue` function in a job resubmission script?",
-      "answer": "The `work_should_continue` function determines if more work is needed and if the job should resubmit itself to continue the calculation."
+      "question": "What is 'task farming' in the context of Slurm clusters, and what tools are available for this practice?",
+      "answer": "'Task farming,' also known as 'serial farming' or simply 'farming,' is the practice of automating the submission of a large number of related serial, parallel, or GPU calculations on Slurm clusters. This approach not only automates the workflow but also improves computational efficiency by bundling many short computations into fewer tasks of longer duration. Tools available on our clusters for task farming include META-Farm, GNU Parallel, and GLOST."
     },
     {
-      "question": "What is a critical consideration when implementing the `work_should_continue` function in a job resubmission script?",
-      "answer": "The `work_should_continue` function should be designed as a positive test to confirm that work should continue, rather than testing for a stopping condition. This prevents indefinite job chains if an unforeseen error occurs."
-    },
-    {
-      "question": "What are the Slurm directives specified in the example `job_resubmission.sh` script?",
-      "answer": "The example script specifies `--job-name=job_chain`, `--account=def-someuser`, `--cpus-per-task=1`, `--time=0-10:00`, and `--mem=100M`."
-    },
-    {
-      "question": "How does the example `job_resubmission.sh` script handle restarting from a checkpoint?",
-      "answer": "The script checks for the existence of a `state.cpt` file. If found, it restarts the simulation using `mdrun --restart state.cpt`; otherwise, it starts a new simulation with `mdrun`."
-    },
-    {
-      "question": "What are other terms used for the practice of automating job submission to run a large number of related calculations?",
-      "answer": "This practice is sometimes called farming, serial farming, or task farming."
-    },
-    {
-      "question": "What benefits do advanced tools for automating job submission offer?",
-      "answer": "These tools automate the workflow and can improve computational efficiency by bundling many short computations into fewer, longer-duration tasks."
-    },
-    {
-      "question": "What tools are available on the clusters for automating job submission?",
-      "answer": "The available tools include META-Farm, GNU Parallel, and GLOST."
-    },
-    {
-      "question": "What is the recommended approach for specifying a partition when submitting jobs?",
-      "answer": "It is recommended to allow the scheduler to assign a partition to your job based on the resources it requests, rather than specifying one explicitly."
-    },
-    {
-      "question": "How should users handle software packages that automatically specify a partition, conflicting with the recommended practice?",
-      "answer": "Users should configure such software to use `--partition=default`, which the script treats the same as not specifying a partition."
-    },
-    {
-      "question": "What are the job scheduling policy limits for clusters like Beluga, Fir, Narval, Nibi, and Rorqual?",
-      "answer": "On these clusters, jobs are not permitted to run longer than 168 hours (7 days), there is a limit of 1000 jobs (queued and running) per user, and production jobs should have a duration of at least an hour."
-    },
-    {
-      "question": "Where can users find specific restrictions for the Trillium cluster?",
-      "answer": "Users can find specific restrictions for Trillium in the [[Trillium_Quickstart#Trillium_specific_restrictions|Trillium specific restrictions]] documentation."
-    },
-    {
-      "question": "What is a common cause of issues with job scripts?",
-      "answer": "A common cause of trouble is preparing a job script with a word processor instead of a plain text editor, leading to hidden characters."
-    },
-    {
-      "question": "What is the best practice for preparing job scripts?",
-      "answer": "The best practice is to prepare your job script directly on the cluster using a text editor such as nano, vim, or emacs."
-    },
-    {
-      "question": "What specific advice is given for Windows users who prepare job scripts offline?",
-      "answer": "Windows users should use a text editor like Notepad or Notepad++, and after uploading the script, use `dos2unix` to convert Windows end-of-line characters to Linux end-of-line characters."
-    },
-    {
-      "question": "What specific advice is given for Mac users who prepare job scripts offline?",
-      "answer": "Mac users should open a terminal window and use an editor such as nano, vim, or emacs to prepare their job scripts."
+      "question": "What is the recommended best practice for creating or modifying Slurm job scripts to avoid issues with hidden characters, especially for Windows and Mac users working offline?",
+      "answer": "The recommended best practice for creating or modifying Slurm job scripts is to prepare them directly on the cluster using a text editor such as `nano`, `vim`, or `emacs`. If preparing or altering scripts offline: Windows users should use a plain text editor like Notepad or Notepad++, and after uploading the script, use `dos2unix` to convert Windows end-of-line characters to Linux ones. Mac users should use a text editor within a terminal window, such as `nano`, `vim`, or `emacs`."
     }
   ],
-  "generated_at": "2026-04-12T07:07:17.857442+00:00"
+  "generated_at": "2026-04-13T12:49:23.965997+00:00"
 }

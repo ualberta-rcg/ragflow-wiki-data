@@ -3,53 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "À quoi servent les espaces /project sur les grappes de calcul de l'Alliance?",
-      "answer": "Les espaces /project sont organisés selon des groupes et servent habituellement à stocker des données partagées, persistant, sauvegardé et plutôt de grande taille."
+      "question": "Comment les espaces `/project` sont-ils organisés sur les grappes de calcul de l'Alliance?",
+      "answer": "Sur les grappes de calcul de l'Alliance, les espaces `/project` sont organisés selon des groupes."
     },
     {
-      "question": "Comment accède-t-on aux répertoires /project depuis son répertoire /home?",
-      "answer": "On y accède habituellement par des liens symboliques à partir de votre répertoire /home, sous le format `$HOME/projects/group_name`, sauf sur Rorqual et Trillium où le chemin est `$HOME/links/projects/group_name`."
+      "question": "Comment les utilisateurs peuvent-ils habituellement accéder à leur espace `/project` sur les grappes de calcul de l'Alliance?",
+      "answer": "L'accès à l'espace `/project` se fait habituellement par des liens symboliques à partir du répertoire `/home` de l'utilisateur."
     },
     {
-      "question": "Par défaut, quelles permissions les membres d'un groupe ont-ils pour les nouveaux fichiers enregistrés dans l'espace /project?",
-      "answer": "Pour tout nouveau fichier enregistré dans le répertoire d'un groupe, les membres ont par défaut un droit de lecture seulement."
+      "question": "Quel est le format des liens symboliques pour accéder à l'espace `/project` sur la plupart des grappes de l'Alliance, et quelle est l'exception pour les grappes Rorqual et Trillium?",
+      "answer": "Le format est `$HOME/projects/group_name`, sauf sur les grappes Rorqual et Trillium où le chemin est `$HOME/links/projects/group_name`."
     },
     {
-      "question": "Comment peut-on configurer un répertoire dans /project pour que les membres du groupe aient des droits d'écriture sur les nouveaux fichiers?",
-      "answer": "La meilleure approche est de créer un répertoire particulier avec `mkdir $HOME/projects/def-profname/group_writable` suivi de `setfacl -d -m g::rwx $HOME/projects/def-profname/group_writable`."
+      "question": "Quelles sont les permissions par défaut pour les membres d'un groupe dans un espace `/project` de l'Alliance pour les nouveaux fichiers?",
+      "answer": "Pour tout nouveau fichier enregistré dans le répertoire, les membres du groupe ont par défaut un droit de lecture seulement."
     },
     {
-      "question": "Quels sont les quotas par défaut pour un espace /project et comment peuvent-ils être augmentés?",
-      "answer": "Par défaut, un espace /project a un quota de 1To et 500 000 fichiers. L'espace peut être augmenté jusqu'à 40To sur demande auprès du soutien technique, ou plus si alloué suite au concours pour l’allocation de ressources."
+      "question": "Comment peut-on donner un droit d'écriture aux membres d'un groupe pour les nouveaux fichiers dans un répertoire spécifique de l'espace `/project` sur une grappe de l'Alliance?",
+      "answer": "Il faut créer un répertoire particulier, par exemple `mkdir $HOME/projects/def-profname/group_writable`, puis exécuter `setfacl -d -m g::rwx $HOME/projects/def-profname/group_writable`."
     },
     {
-      "question": "Quelle commande faut-il utiliser pour connaître l'espace disque utilisé et disponible dans son espace /project?",
-      "answer": "Pour connaître les espaces utilisés et disponibles, il faut utiliser la commande `diskusage_report`."
+      "question": "Quels sont les quotas par défaut pour un espace `/project` sur les grappes de calcul de l'Alliance et jusqu'où peuvent-ils être augmentés?",
+      "answer": "Par défaut, un espace `/project` a un quota de 1 To et 500 000 fichiers, mais il peut être augmenté jusqu'à 40 To sur demande auprès du soutien technique."
     },
     {
-      "question": "À quoi sert le bit `setgid` dans un répertoire et comment l'attribuer?",
-      "answer": "Le bit `setgid` permet aux nouveaux fichiers et sous-répertoires ajoutés sous le répertoire d'hériter du même groupe que leur parent. On l'attribue avec `chmod g+s <directory name>`."
+      "question": "Comment les utilisateurs sur les grappes de calcul de l'Alliance peuvent-ils connaître l'espace disque utilisé et disponible dans leur espace `/project`?",
+      "answer": "Pour connaître les espaces utilisés et disponibles, les utilisateurs peuvent utiliser la commande `diskusage_report`."
     },
     {
-      "question": "Comment attribuer le bit `setgid` aux sous-répertoires existants?",
-      "answer": "Pour attribuer `setgid` aux sous-répertoires existants, utilisez la commande `find <directory name> -type d -print0 | xargs -0 chmod g+s`."
+      "question": "Quelle est l'utilité d'attribuer le bit `setgid` à un répertoire dans l'espace `/project` sur les grappes de l'Alliance?",
+      "answer": "Attribuer le bit `setgid` permet de faire en sorte que tous les nouveaux fichiers et sous-répertoires ajoutés sous ce répertoire héritent du même groupe que leur parent, et que les sous-répertoires héritent aussi de `setgid`."
     },
     {
-      "question": "Comment changer temporairement son groupe par défaut pendant une session interactive?",
-      "answer": "On utilise la commande `newgrp`, par exemple `newgrp rrg-profname-ab`. Ce changement est toutefois temporaire et dure seulement pour la session en cours."
+      "question": "Comment attribuer le bit `setgid` à un répertoire et à ses sous-répertoires existants sur une grappe de calcul de l'Alliance?",
+      "answer": "Pour un répertoire, utilisez `chmod g+s <directory name>`. Pour les sous-répertoires existants, utilisez `find <directory name> -type d -print0 | xargs -0 chmod g+s`."
     },
     {
-      "question": "Que faire si je reçois un message 'Disk quota exceeded' et que je pense que des fichiers sont associés au mauvais groupe?",
-      "answer": "Si des fichiers sont associés à votre groupe personnel (2Mo de quota), utilisez la commande `find <directory name> -group $USER -print0 | xargs -0 chgrp -h <group>` pour corriger l'appartenance au groupe."
+      "question": "À quoi sert la commande `newgrp` sur les grappes de calcul de l'Alliance et comment l'utiliser?",
+      "answer": "La commande `newgrp` modifie le groupe par défaut d'un utilisateur pendant une session interactive, par exemple `newgrp rrg-profname-ab`, ce qui est utile avant de copier des données vers un répertoire `/project` spécifique."
     },
     {
-      "question": "Comment peut-on partager un fichier avec une personne qui n’est pas membre du groupe ni parrainée par la chercheuse principale?",
-      "answer": "Le plus simple est de configurer les permissions via une liste de contrôle d’accès (ACL) ou de créer un point de chute commun dans Globus si la personne n'a pas de compte Alliance."
+      "question": "Quelle est une cause fréquente des messages d'erreur 'Disk quota exceeded' sur les grappes de calcul de l'Alliance et comment y remédier?",
+      "answer": "Une cause fréquente est que des fichiers sont associés au mauvais groupe, notamment le groupe personnel de l'utilisateur. On peut résoudre ce problème avec `find <directory name> -group $USER -print0 | xargs -0 chgrp -h <group>`."
     },
     {
-      "question": "Quels sont les usages recommandés pour les espaces `scratch`, `home` et `project`?",
-      "answer": "L'espace `scratch` est pour les fichiers privés et temporaires, `home` pour un petit nombre de fichiers relativement privés (comme des scripts), et `project` pour les données de groupe partagées, persistantes et sauvegardées."
+      "question": "Quel est le rôle principal de l'espace `/scratch` sur les grappes de calcul de l'Alliance?",
+      "answer": "L'espace `/scratch` est principalement utilisé pour les fichiers privés et temporaires."
+    },
+    {
+      "question": "Quel est le rôle principal de l'espace `/home` sur les grappes de calcul de l'Alliance?",
+      "answer": "L'espace `/home` est habituellement utilisé pour un petit nombre de fichiers relativement privés, comme des scripts de tâches."
+    },
+    {
+      "question": "Quel est le rôle principal de l'espace `/project` pour un groupe sur les grappes de calcul de l'Alliance?",
+      "answer": "L'espace `/project` du groupe est habituellement utilisé pour les données partagées, car il est persistant, sauvegardé et peut être de grande taille (jusqu'à 40 To et plus si alloué dans le cadre du concours d'allocation de ressources)."
+    },
+    {
+      "question": "Comment une chercheuse principale peut-elle partager un fichier avec une personne qui n'est pas parrainée ou membre du groupe sur une grappe de calcul de l'Alliance?",
+      "answer": "Le plus simple est de configurer les permissions via une liste de contrôle d'accès (ACL) pour le répertoire ou le fichier, ou de créer un point de chute commun dans Globus si la personne n'a pas de compte avec l'Alliance."
+    },
+    {
+      "question": "Si une chercheuse souhaite partager des données avec une personne externe qui n'a pas de compte avec l'Alliance, quelle est l'option recommandée?",
+      "answer": "Il est recommandé de créer un point de chute commun dans Globus pour partager les données avec des chercheuses et chercheurs qui n’ont pas de compte avec l'Alliance."
+    },
+    {
+      "question": "Est-il possible de partager un répertoire de l'espace `/scratch` ou un sous-répertoire de l'espace `/project` sur les grappes de calcul de l'Alliance?",
+      "answer": "Oui, il est possible de partager un répertoire de l'espace `/scratch` ou un seul sous-répertoire particulier de l'espace `/project`, en ajustant les permissions du système de fichiers."
     }
   ],
-  "generated_at": "2026-04-12T05:25:16.347775+00:00"
+  "generated_at": "2026-04-13T11:25:11.770556+00:00"
 }

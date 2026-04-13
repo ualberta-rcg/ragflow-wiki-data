@@ -3,61 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, Narval, et pour quel genre de calculs est-ce qu'elle est conçue?",
-      "answer": "Narval est une grappe hétérogène et polyvalente conçue pour une grande variété de calculs scientifiques de petite et moyenne taille."
+      "question": "À quoi sert la grappe Narval d'Alliance et où est-elle située physiquement?",
+      "answer": "La grappe Narval est une plateforme hétérogène et polyvalente conçue pour une grande variété de calculs scientifiques de petite et moyenne taille. Elle est située à l'École de technologie supérieure (ETS)."
     },
     {
-      "question": "Depuis quand la grappe Narval est-elle disponible et où est-ce qu'elle est située?",
-      "answer": "Narval est disponible depuis octobre 2021 et est située à l'École de technologie supérieure (ÉTS)."
+      "question": "Quel est le nœud de connexion principal pour la grappe Narval et comment peut-on transférer des données en utilisant Globus ou d'autres outils comme rsync et scp?",
+      "answer": "Le nœud de connexion principal est `narval.alliancecan.ca`. Pour les transferts via Globus, il faut utiliser la collection `Compute Canada - Narval`, et pour les outils comme rsync ou scp, on utilise le nœud de copie à la même adresse, `narval.alliancecan.ca`."
     },
     {
-      "question": "Quel est le nœud de connexion principal pour Narval et l'adresse de son portail web?",
-      "answer": "Le nœud de connexion est narval.alliancecan.ca et le portail web est https://portail.narval.calculquebec.ca/."
+      "question": "Est-ce que les nœuds de calcul de la grappe Narval ont accès à l'internet?",
+      "answer": "Non, les nœuds de calcul de Narval n'ont pas accès à l'internet par défaut. Pour faire une exception, il faut joindre le soutien technique pour expliquer la nécessité."
     },
     {
-      "question": "Les nœuds de calcul de Narval ont-ils accès à l'internet et est-ce que l'outil `crontab` est disponible?",
-      "answer": "Non, les nœuds de calcul de Narval n'ont pas accès à l'internet par défaut et l'outil `crontab` n'est pas offert."
+      "question": "Quelles sont les limites concernant la durée et le nombre de tâches que l'on peut soumettre sur la grappe Narval?",
+      "answer": "Chaque tâche devrait durer au moins une heure (cinq minutes pour les tâches de test), la durée maximale d'une tâche est de 7 jours (168 heures), et on ne peut pas avoir plus de 1000 tâches (en exécution et en attente) à la fois."
     },
     {
-      "question": "Quelles sont les limites de durée et du nombre de tâches qu'on peut avoir sur Narval?",
-      "answer": "Chaque tâche doit durer au moins une heure (5 minutes pour les tests), avec une durée maximale de 7 jours (168 heures). On ne peut pas avoir plus de 1000 tâches (en exécution et en attente) à la fois."
+      "question": "Quels sont les différents types d'espaces de stockage offerts sur la grappe Narval et à quoi servent-ils?",
+      "answer": "Les espaces de stockage sont HOME pour les petits fichiers personnels avec sauvegarde, SCRATCH pour les fichiers temporaires pendant les calculs sans sauvegarde et PROJECT pour le partage de données et le stockage volumineux avec sauvegarde."
     },
     {
-      "question": "Quels sont les trois types d'espaces de stockage disponibles sur Narval, et leurs particularités principales?",
-      "answer": "Les types sont HOME (petit, sauvegardé), SCRATCH (grand, temporaire, purgé, pas de sauvegarde) et PROJECT (très grand, partage de données, sauvegardé)."
+      "question": "Comment les quotas et les sauvegardes sont-ils gérés pour les espaces de stockage HOME et PROJECT sur Narval?",
+      "answer": "L'espace HOME a de petits quotas fixes par utilisateur et une sauvegarde automatique quotidienne. L'espace PROJECT a de grands quotas ajustables par projet et une sauvegarde automatique quotidienne."
     },
     {
-      "question": "Quel est le type de réseau haute performance qui relie les nœuds de la grappe Narval?",
-      "answer": "C'est le réseau InfiniBand HDR de Mellanox."
+      "question": "Quelle est la politique principale concernant l'espace de stockage SCRATCH sur la grappe Narval?",
+      "answer": "L'espace SCRATCH est conçu pour stocker les fichiers temporaires de grande taille, n'a pas de système de sauvegarde automatique et est sujet à une purge automatique des vieux fichiers."
     },
     {
-      "question": "Quels sont les processeurs utilisés dans les nœuds de Narval et quelles instructions vectorielles sont prises en charge?",
-      "answer": "Narval utilise des processeurs AMD EPYC de 2e et 3e génération (Zen 2 et Zen 3) qui supportent les instructions AVX2, mais pas les AVX512."
+      "question": "Quelle technologie de réseautique haute performance est utilisée pour relier les nœuds de la grappe Narval?",
+      "answer": "La grappe Narval utilise le réseau InfiniBand HDR de Mellanox, qui relie tous les nœuds avec des débits de 200 Gb/s."
     },
     {
-      "question": "Comment doit-on compiler des applications avec un compilateur Intel pour les processeurs AMD de Narval?",
-      "answer": "Il faut utiliser l'option `-march=core-avx2` et éviter les options comme `-xCORE-AVX2`, `-xHOST` ou `-march=native`."
+      "question": "Quels types de processeurs (CPU) équipent les nœuds de calcul de la grappe Narval?",
+      "answer": "Les nœuds de calcul de Narval sont principalement équipés de processeurs AMD EPYC de 2e génération (Zen 2) et de 3e génération (Zen 3)."
     },
     {
-      "question": "Quel est l'environnement logiciel standard par défaut sur Narval et quelle bibliothèque BLAS/LAPACK est recommandée?",
-      "answer": "L'environnement par défaut est `StdEnv/2023`, et FlexiBLAS est favorisée par rapport à Intel MKL pour BLAS et LAPACK."
+      "question": "Quels sont les types de GPU disponibles sur la grappe Narval et comment peut-on les demander pour une tâche Slurm?",
+      "answer": "La grappe Narval dispose de GPU NVidia A100SXM4 de 40 Go. On peut les demander complets avec `--gpus=a100:N` ou en utilisant la technologie MIG avec des options spécifiques comme `--gpus=a100_1g.5gb:1` pour des instances partielles."
     },
     {
-      "question": "Comment demander un GPU A100-40gb complet pour une tâche Slurm sur Narval?",
-      "answer": "Il faut utiliser l'option `--gpus=a100:1` pour un GPU, ou `--gpus-per-node=a100:N` ou `--gpus=a100:N` pour plusieurs."
+      "question": "Quels ensembles d'instructions sont supportés et non supportés par les processeurs AMD EPYC de la grappe Narval?",
+      "answer": "Les processeurs AMD EPYC de Narval prennent en charge les instructions AVX2, mais ne supportent pas les instructions AVX512."
     },
     {
-      "question": "Quelles sont les différentes tailles d'instances GPU disponibles avec la technologie MIG sur Narval et comment en demander une?",
-      "answer": "Les tailles sont 1g.5gb, 2g.10gb, 3g.20gb et 4g.20gb. Pour en demander une, par exemple 2g.10gb, on utilise `--gpus=a100_2g.10gb:1`."
+      "question": "Comment doit-on utiliser les compilateurs Intel pour qu'ils fonctionnent correctement avec les processeurs AMD de la grappe Narval?",
+      "answer": "Pour utiliser les compilateurs Intel sur Narval, il faut employer l'option `-march=core-avx2`. Il est important de ne pas utiliser d'options comme `-xXXXX`, `-xHOST` ou `-march=native`, car elles peuvent causer des problèmes de compatibilité."
     },
     {
-      "question": "Où peut-on suivre ses tâches de calcul sur Narval et pourquoi est-il important de le faire?",
-      "answer": "On peut les suivre en temps réel depuis le portail de Narval. C'est important pour maximiser l'utilisation des ressources et réduire les temps d'attente en ajustant ses demandes."
+      "question": "Quel est l'environnement logiciel standard par défaut sur la grappe Narval?",
+      "answer": "L'environnement logiciel standard par défaut sur Narval est `StdEnv/2023`. Les versions antérieures ont été bloquées."
     },
     {
-      "question": "Comment transférer des données vers Narval en utilisant Globus ou des outils comme rsync et scp?",
-      "answer": "Pour Globus, on utilise le 'Point de chute Globus'. Pour rsync, scp ou sftp, on utilise le 'Nœud de copie' qui est `narval.alliancecan.ca`."
+      "question": "Quelle bibliothèque BLAS et LAPACK est recommandée pour une performance optimale avec les processeurs AMD sur Narval?",
+      "answer": "Pour une performance optimale avec les processeurs AMD sur Narval, l'utilisation de FlexiBLAS est privilégiée par rapport à Intel MKL."
+    },
+    {
+      "question": "Qu'est-ce que la technologie MIG et comment permet-elle de demander des ressources GPU spécifiques sur Narval?",
+      "answer": "La technologie MIG (Multi-Instance GPU) permet de diviser un GPU A100 en instances plus petites. On peut demander ces instances avec des options Slurm spécifiques, par exemple `--gpus=a100_1g.5gb:1` pour obtenir une instance de 1/8 de la puissance de calcul avec 5 Go de mémoire GPU."
+    },
+    {
+      "question": "Quel outil est disponible pour suivre les tâches de calcul (CPU et GPU) sur la grappe Narval et quelles informations y sont affichées?",
+      "answer": "Le portail Narval (https://portail.narval.calculquebec.ca/) permet de suivre les tâches en temps réel ou passées. On peut y visualiser l'utilisation des cœurs de calcul, de la mémoire et des GPU."
+    },
+    {
+      "question": "Pourquoi est-il important de surveiller l'utilisation des ressources allouées à ses tâches sur Narval?",
+      "answer": "Il est important de surveiller l'utilisation des ressources pour maximiser l'efficacité, réduire les temps d'attente dans la file et rectifier les demandes de ressources si les capacités allouées sont peu ou pas utilisées, évitant ainsi le gaspillage."
     }
   ],
-  "generated_at": "2026-04-12T03:39:27.903624+00:00"
+  "generated_at": "2026-04-13T09:54:18.636358+00:00"
 }

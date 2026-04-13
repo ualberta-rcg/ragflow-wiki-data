@@ -4,37 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "How can I handle applications that require a specific, unchangeable input file name, such as `INPUT`?",
-      "answer": "To handle applications that expect a fixed input file name, each case must run in its own subdirectory. You'll need to prepare the specific input file for each case, store them (e.g., as `/path/to/data.X`), and then modify your `single_case.sh` script to copy the appropriate input file to the prescribed name (`INPUT`) within each case's subdirectory."
+      "question": "How can META-Farm be configured to handle applications that require input from a file with a specific, unchangeable name, such as 'INPUT'?",
+      "answer": "To accommodate applications that expect a fixed input filename, each case in the META-Farm should run in its own subdirectory. The `single_case.sh` script needs to be modified to copy the case-specific input file (e.g., from `/path/to/data.X`, where 'X' is the case ID) into the farm subdirectory, renaming it to the prescribed input name (e.g., `INPUT`). The `table.dat` file for such a setup would simply contain the application's executable path repeatedly."
     },
     {
-      "question": "What should the `table.dat` file contain when dealing with applications that require a fixed input file name per case?",
-      "answer": "When dealing with applications that require a fixed input file name, your `table.dat` file should repeatedly list only the application's name or its full path, for example: `/path/to/code`."
+      "question": "In META-Farm, how can individual columns from the `table.dat` file be accessed and utilized within the `single_case.sh` script for customized command execution?",
+      "answer": "To access individual columns from `table.dat` in `single_case.sh`, the `$COMM` variable, which contains the line from `table.dat` without the case ID, must be converted into a bash array. This is done by adding the line `COMM=( $COMM )` to `single_case.sh`. Once `COMM` is an array, individual columns can be referenced using array indexing, such as `${COMM[0]}` for the first column, `${COMM[1]}` for the second, and so on. This allows for flexible use of specific arguments or input files defined in the `table.dat`."
     },
     {
-      "question": "How do you modify `single_case.sh` to copy a case-specific input file to a fixed name like `INPUT`?",
-      "answer": "To copy a case-specific input file (e.g., `/path/to/data.$ID`) to a fixed name (e.g., `INPUT`) within each farm subdirectory, add a line similar to `cp /path/to/data.$ID INPUT` to your `single_case.sh` script before the command that runs your application."
-    },
-    {
-      "question": "How can one access individual columns from the cases table in the `single_case.sh` script?",
-      "answer": "You can access individual columns from the cases table by modifying `single_case.sh`. The `$COMM` variable, which holds the line from `table.dat` (without the ID field), can be converted into a Bash array using `COMM=( $COMM )`. Then, individual columns can be accessed as `${COMM[i]}`, where `i` is the column index starting from 0."
-    },
-    {
-      "question": "What do the `$ID` and `$COMM` variables represent in `single_case.sh` when using explicit column access?",
-      "answer": "In `single_case.sh` when using explicit column access, `$ID` contains the case ID from the original table, and `$COMM` is the line corresponding to the case `$ID` in the original table, but without the ID field itself."
-    },
-    {
-      "question": "Provide an example of how to call a user code that requires both a standard input file and a variable number of command-line arguments using explicit column access in `single_case.sh`.",
-      "answer": "If your `table.dat` looks like `/path/to/IC.1 0.1` and `/path/to/IC.2 0.2 10`, you can implement this in `single_case.sh` by calling your code as follows: `/path/to/code ${COMM[@]:1} < ${COMM[0]}`."
-    },
-    {
-      "question": "What is a potential problem when running multiple cases per job in META-Farm?",
-      "answer": "A potential problem when running multiple cases per job is that meta-jobs might hit their run-time limits and start dying in the middle of processing cases. This can lead to interrupted calculations and a waste of CPU cycles if cases are frequently aborted halfway through."
-    },
-    {
-      "question": "How do META-Farm scripts mitigate the problem of wasted CPU cycles due to jobs hitting run-time limits?",
-      "answer": "The `task.run` script includes built-in intelligence to mitigate this problem. It estimates the run-time required for individual cases and, if it determines that a meta-job does not have enough time left to finish the next case before hitting its run-time limit, it will exit early to minimize the chance of cases aborting halfway."
+      "question": "What mechanism does the META-Farm `task.run` script employ to reduce CPU waste caused by jobs terminating prematurely due to run-time limits?",
+      "answer": "The `task.run` script minimizes CPU waste by implementing a dynamic run-time estimation. It measures the run-time of each case and computes a `dt_cutoff`, a conservative estimate of individual case run-time. Before starting a new case, a meta-job checks if its remaining allocated run-time is sufficient to complete the next case based on `dt_cutoff`. If it determines there isn't enough time, the job exits early, preventing the interruption of a case midway through processing. This `dt_cutoff` estimate is regularly recomputed (at powers of two for processed cases) to improve accuracy, leading to an average reduction in wasted CPU cycles by a factor of eight."
     }
   ],
-  "generated_at": "2026-04-12T01:28:28.485117+00:00"
+  "generated_at": "2026-04-13T08:30:57.626005+00:00"
 }

@@ -3,53 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, au juste, une clé SSH?",
-      "answer": "Une clé SSH est une paire de clés (une publique et une privée) qui utilise la cryptographie asymétrique pour sécuriser les connexions et valider l'identité des utilisateurs sur nos grappes."
+      "question": "Qu'est-ce qu'une clé SSH et comment ça fonctionne pour sécuriser les connexions sur les grappes d'Alliance?",
+      "answer": "Une clé SSH utilise la cryptographie à clé publique (CP), ou cryptographie asymétrique, où une clé privée reste secrète et une clé publique peut être partagée. La clé publique sert à encoder un message ou à valider l'identité, tandis que seule la clé privée peut le décoder."
     },
     {
-      "question": "Pourquoi l'Alliance canadienne recommande-t-elle fortement l'authentification par clé SSH?",
-      "answer": "L'authentification par clé SSH est recommandée parce qu'elle est habituellement plus sécuritaire qu'un mot de passe et offre une meilleure praticabilité une fois configurée."
+      "question": "Pourquoi l'Alliance recommande-t-elle fortement d'utiliser l'authentification par clé publique (CP) pour se connecter à ses grappes?",
+      "answer": "L'authentification par clé publique est fortement recommandée car elle est habituellement plus sécuritaire qu'un mot de passe et offre une meilleure praticabilité une fois configurée."
     },
     {
-      "question": "Où est-ce que je devrais générer ma paire de clés SSH?",
-      "answer": "Vous devriez générer votre paire de clés sur votre propre ordinateur ou sur un ordinateur que vous jugez sécuritaire, et jamais sur un ordinateur partagé comme une grappe."
+      "question": "Quelles sont les étapes de base pour générer une paire de clés SSH destinée aux systèmes d'Alliance?",
+      "answer": "Vous devez générer une paire de clés (privée et publique) sur votre propre ordinateur ou sur un ordinateur sécuritaire, puis installer la clé publique sur tous les systèmes d'Alliance auxquels vous souhaitez vous connecter."
     },
     {
-      "question": "Quelle est l'importance d'une phrase de passe quand on génère une clé privée SSH?",
-      "answer": "La phrase de passe sert à chiffrer votre clé privée et offre une protection essentielle si votre clé privée est volée. Il est recommandé qu'elle soit robuste, d'un minimum de 15 caractères."
+      "question": "Quelle est l'importance d'entrer une phrase de passe robuste lors de la génération d'une paire de clés SSH, et quelle est la recommandation de l'Alliance à ce sujet?",
+      "answer": "La phrase de passe sert à chiffrer votre clé privée, offrant une protection si celle-ci est volée. L'Alliance recommande une phrase de passe robuste d'un minimum de 15 caractères."
     },
     {
-      "question": "Comment puis-je installer ma clé publique SSH sur les grappes de l'Alliance en utilisant CCDB?",
-      "answer": "Vous devez vous connecter à CCDB via https://ccdb.alliancecan.ca/ssh_authorized_keys, copier votre clé publique (en format texte) et la téléverser dans le formulaire de CCDB, en y ajoutant une description."
+      "question": "Où peut-on trouver des procédures détaillées pour générer des clés SSH selon le système d'exploitation pour les environnements de l'Alliance?",
+      "answer": "Pour les clients Windows comme PuTTY ou MobaXterm, il faut consulter la page 'Générer des clés sous Windows'. Pour les environnements Linux, Mac, Windows Subsystem for Linux ou Cygwin, la page 'Utiliser des clés SSH sous Linux' est le guide."
     },
     {
-      "question": "Est-ce que les clés publiques enregistrées dans CCDB fonctionnent avec les nuages OpenStack?",
-      "answer": "Non, les nuages OpenStack n'ont pas accès aux clés enregistrées dans CCDB."
+      "question": "Comment les utilisateurs peuvent-ils installer leur clé publique SSH sur les grappes de l'Alliance en utilisant l'interface du CCDB?",
+      "answer": "Il faut se connecter à CCDB via l'adresse `https://ccdb.alliancecan.ca/ssh_authorized_keys`, copier le contenu de sa clé publique SSH (par exemple, depuis `.ssh/id_rsa.pub`) et le téléverser dans le formulaire de CCDB avec une description."
     },
     {
-      "question": "Comment puis-je installer ma clé publique SSH sur une grappe particulière seulement, plutôt que sur toutes les grappes de l'Alliance?",
-      "answer": "Pour installer une clé sur une grappe spécifique, vous devez copier votre clé publique dans le fichier `~/.ssh/authorized_keys` de votre répertoire /home sur cette grappe, ou utiliser la commande `ssh-copy-id`."
+      "question": "Une clé publique enregistrée dans CCDB pour les services de l'Alliance peut-elle être utilisée pour se connecter aux nuages OpenStack de l'Alliance?",
+      "answer": "Non, les nuages OpenStack n'ont pas accès aux clés enregistrées dans CCDB. Les clés CCDB peuvent être utilisées pour se connecter aux grappes d'Alliance, mais pas à ses nuages OpenStack."
     },
     {
-      "question": "Pourquoi est-il recommandé d'utiliser un agent d'authentification SSH (ssh-agent)?",
-      "answer": "Un agent d'authentification SSH vous permet d'entrer votre phrase de passe une seule fois au lancement de l'agent, évitant ainsi de la taper à chaque connexion tout en gardant votre clé privée chiffrée."
+      "question": "Comment installer une clé publique SSH sur une grappe spécifique de l'Alliance, comme Fir, en utilisant le fichier `authorized_keys` plutôt que CCDB?",
+      "answer": "Pour ce faire, vous devez copier votre clé publique dans le fichier `~/.ssh/authorized_keys` de votre répertoire `/home` sur la grappe Fir. La commande `ssh-copy-id -i alliance-key username@fir.alliancecan.ca` est une méthode pratique."
     },
     {
-      "question": "Comment peut-on limiter les actions qu'une clé publique SSH peut effectuer?",
-      "answer": "Vous pouvez définir des contraintes directement dans la syntaxe de la clé publique, par exemple en utilisant `restrict,command=\"...\"` pour limiter les commandes exécutables ou `restrict,from=\"...\"` pour limiter les hôtes d'où la connexion peut provenir."
+      "question": "Quel est l'avantage principal d'utiliser un agent d'authentification SSH pour la gestion des clés sur les systèmes de l'Alliance?",
+      "answer": "L'agent d'authentification SSH permet de n'entrer la phrase de passe qu'une seule fois au lancement. L'agent fournit ensuite la clé privée pour toutes les nouvelles connexions, ce qui évite de conserver une clé privée non chiffrée et la saisie répétée de la phrase de passe."
     },
     {
-      "question": "Quelles sont les meilleures pratiques de sécurité pour la gestion des clés SSH?",
-      "answer": "Les meilleures pratiques incluent l'unicité des clés par compte, le chiffrement de la clé privée avec une phrase de passe robuste, ne jamais partager ni copier la clé privée sur un ordinateur distant, et l'utilisation d'un `ssh-agent`."
+      "question": "Quelles sont les options que l'on peut considérer lors de la génération d'une clé SSH avec `ssh-keygen` pour les systèmes d'Alliance, et à quoi servent-elles?",
+      "answer": "On peut ajouter un commentaire (`-C`) pour différencier les clés, sélectionner le fichier de la clé (`-f`) pour nommer les fichiers privés/publics, utiliser un type de clé différent (`-t ed25519`), ou renforcer certains types de clés avec une longueur plus grande (`-b 4096`)."
     },
     {
-      "question": "Qu'arrive-t-il si ma clé SSH est révoquée par l'Alliance et que dois-je faire?",
-      "answer": "Si votre clé est révoquée, elle ne peut plus accéder aux services de l'Alliance. Vous devez la remplacer immédiatement par une nouvelle clé et supprimer la clé révoquée de tous les services où elle était utilisée."
+      "question": "Comment est-il possible de définir des contraintes sur une clé publique SSH pour limiter son utilisation sur les systèmes de l'Alliance?",
+      "answer": "Des contraintes peuvent être définies directement dans la syntaxe de la clé publique, par exemple `restrict,command=\"squeue --me\"` pour limiter à une seule opération, ou `restrict,from=\"d24-141-114-17.home.cgocable.net\"` pour limiter les hôtes d'origine."
     },
     {
-      "question": "Comment gérer une clé publique générée avec PuTTY pour l'utiliser avec OpenSSH, comme pour CCDB?",
-      "answer": "Vous devez ouvrir PuTTY Key Generator ou MobaXterm SSH Key Generator, charger votre clé privée, puis copier le contenu qui apparaît sous 'Public key for pasting into OpenSSH authorized_keys'."
+      "question": "Selon les meilleures pratiques de l'Alliance, quels sont les principes importants concernant la confidentialité et le partage d'une clé privée SSH?",
+      "answer": "Il ne faut jamais partager sa clé privée avec personne et ne jamais la copier sur un ordinateur distant; elle ne devrait jamais quitter votre poste de travail."
+    },
+    {
+      "question": "Pourquoi l'Alliance pourrait-elle révoquer une clé SSH, et quelles sont les conséquences pour l'utilisateur dont la clé est révoquée?",
+      "answer": "Une clé SSH peut être révoquée si elle est utilisée par plus d'une personne, si elle est compromise (vol, brèche de sécurité) ou mal gérée. Une clé révoquée ne peut plus être utilisée pour accéder aux services de l'Alliance, présentant un risque de sécurité important."
+    },
+    {
+      "question": "Si une clé SSH d'un utilisateur est révoquée par l'Alliance, quelles sont les actions immédiates et cruciales à entreprendre?",
+      "answer": "Il est primordial de remplacer la clé révoquée par une nouvelle clé et de supprimer la clé révoquée de tous les services (de l'Alliance et autres) afin de prévenir les accès non autorisés et les brèches de sécurité."
+    },
+    {
+      "question": "L'Alliance met-elle en garde contre la génération de clés SSH sur des ordinateurs partagés comme une grappe? Pourquoi?",
+      "answer": "Oui, l'Alliance avertit que cette opération devrait être effectuée sur votre propre ordinateur et non sur un ordinateur partagé comme une grappe, car cela pourrait compromettre la sécurité de votre clé privée."
+    },
+    {
+      "question": "Quel est le comportement du mécanisme `authorized_keys` pour les clés SSH sur les grappes d'Alliance et pourquoi est-il considéré comme fragile?",
+      "answer": "Le mécanisme `authorized_keys` est standard, mais il est quelque peu fragile car SSH est très sensible aux permissions pour le fichier `authorized_keys`, ainsi que pour votre répertoire `/home` et le sous-répertoire `.ssh`."
     }
   ],
-  "generated_at": "2026-04-12T07:23:40.477552+00:00"
+  "generated_at": "2026-04-13T13:03:41.374928+00:00"
 }

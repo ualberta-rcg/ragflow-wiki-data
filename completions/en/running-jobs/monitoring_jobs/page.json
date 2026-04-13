@@ -3,85 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the main purpose of this document?",
-      "answer": "This document describes various methods for evaluating the efficiency of jobs, covering both currently running and completed tasks."
+      "question": "What is the primary objective of the \"Evaluating Job Efficiency\" page on Alliance clusters?",
+      "answer": "The primary objective of this page is to describe various methods for evaluating the efficiency of jobs, both currently running and those that have finished, to promote responsible resource usage."
     },
     {
-      "question": "Why is it important to evaluate the efficiency of your jobs?",
-      "answer": "It's an important part of being a responsible user, especially when using a new program or after making substantial changes to a job's work."
+      "question": "How can a user list only their own jobs currently managed by the scheduler on an Alliance cluster?",
+      "answer": "A user can list only their own jobs by using the command `$ squeue -u $USER` or the utility `sq`."
     },
     {
-      "question": "How can you view all jobs the scheduler is currently managing?",
-      "answer": "You can use the `squeue` command to view all jobs the scheduler is currently managing."
+      "question": "What commands can be used to display only running or only pending jobs for a specific user on an Alliance cluster?",
+      "answer": "To display only running jobs, a user can use `$ squeue -u <username> -t RUNNING`. For pending jobs, the command is `$ squeue -u <username> -t PENDING`."
     },
     {
-      "question": "What is the shortcut command to view only your own jobs?",
-      "answer": "You can use `sq` or `squeue -u $USER` to view only your own jobs."
+      "question": "How can a user find detailed information for a specific job on an Alliance cluster?",
+      "answer": "Detailed information for a specific job can be found using the `scontrol` command: `$ scontrol show job -dd <jobid>`."
     },
     {
-      "question": "How do you display only running or only pending jobs for a specific user?",
-      "answer": "To show running jobs, use `squeue -u <username> -t RUNNING`. For pending jobs, use `squeue -u <username> -t PENDING`."
+      "question": "Why should users avoid running `squeue` at a high frequency from a script or program on Slurm?",
+      "answer": "Running `squeue` at a high frequency adds load to Slurm and can interfere with its performance or correct operation."
     },
     {
-      "question": "What command provides detailed information for a specific running job?",
-      "answer": "You can use `scontrol show job -dd <jobid>` to get detailed information for a specific running job."
+      "question": "How can a user request email notifications for specific job conditions when submitting a job on an Alliance cluster?",
+      "answer": "Users can request email notifications by supplying options like `#SBATCH --mail-user=your.email@example.com` and `#SBATCH --mail-type=ALL` to their `sbatch` script."
     },
     {
-      "question": "What is the caution regarding running `squeue` from a script?",
-      "answer": "Do not run `squeue` from a script or program at a high frequency (e.g., every few seconds) as it adds load to Slurm and may interfere with performance."
+      "question": "Why is output buffering common for non-interactive Slurm jobs, and what is the recommended method for real-time monitoring of job output?",
+      "answer": "Output buffering is common and vital for preserving the overall performance of the filesystem. For real-time monitoring, it is recommended to run an interactive job."
     },
     {
-      "question": "How can you set up email notifications for job conditions using sbatch?",
-      "answer": "You can supply `#SBATCH --mail-user=your.email@example.com` and `#SBATCH --mail-type=ALL` options to `sbatch`."
+      "question": "What command provides a short summary of CPU and memory efficiency for a completed job on an Alliance cluster?",
+      "answer": "The `seff` command, followed by the job ID (e.g., `seff 12345678`), provides a short summary of CPU and memory efficiency for a completed job."
     },
     {
-      "question": "What does 'output buffering' mean for non-interactive Slurm jobs?",
-      "answer": "Output buffering means there's normally a delay between when data is written by the job and when you can see the output on a login node."
+      "question": "How can a user retrieve more detailed information about a completed job on an Alliance cluster, and how can they customize the output?",
+      "answer": "More detailed information about a completed job can be retrieved using `sacct -j <jobid>`. The output can be customized using the `--format` option, for example, `sacct -j <jobid> --format=JobID,JobName,MaxRSS,Elapsed`."
     },
     {
-      "question": "What is recommended for monitoring job output in real time?",
-      "answer": "If you need to monitor job output in real time, it's recommended to run an interactive job."
+      "question": "What do the `.bat+` and `.0` records typically represent in the output of the `sacct` command for a completed job?",
+      "answer": "The `.bat+` (batch step) typically represents the submission script where the main work and resource consumption occur. If `srun` is used in the submission script, it creates a `.0` step that consumes most resources."
     },
     {
-      "question": "How do you get a short summary of CPU and memory efficiency for a completed job?",
-      "answer": "You can use the `seff <jobid>` command to get a short summary of CPU and memory efficiency for a completed job."
+      "question": "What option should be used with `sacct` if a user wants to see all records related to a job that may have been restarted due to a node failure?",
+      "answer": "The `--duplicates` option should be added to the `sacct` command to see all records related to a job that may have been restarted."
     },
     {
-      "question": "What command provides more detailed information about a completed job, and how can its output be formatted?",
-      "answer": "The `sacct -j <jobid>` command provides detailed information. Its output can be formatted using the `--format` option, for example: `sacct -j <jobid> --format=JobID,JobName,MaxRSS,Elapsed`."
+      "question": "How can a user determine the maximum amount of memory a completed job needed on an Alliance cluster?",
+      "answer": "The `MaxRSS` accounting field in `sacct` output can be used to determine the maximum amount of memory a job needed. This value represents the largest resident set size for any of the tasks."
     },
     {
-      "question": "In `sacct` output, what do `.bat+` and `.ext+` typically represent?",
-      "answer": "`.bat+` represents the batch step (your submission script), and `.ext+` represents the extern step (prologue and epilogue)."
+      "question": "Which command provides similar functionality to `sacct` but for a running job on an Alliance cluster?",
+      "answer": "The `sstat` command works on a running job in a similar way that `sacct` works on a completed job."
     },
     {
-      "question": "How can you view all records related to a job if it was restarted?",
-      "answer": "You can add the `--duplicates` option to the `sacct` command to see all records related to a given job, even if it was restarted."
+      "question": "How can a user connect to a node running an `sbatch` job to monitor GPU usage using `nvidia-smi` on an Alliance cluster?",
+      "answer": "A user can connect and monitor GPU usage using `srun --jobid <jobid> --overlap --pty watch -n 30 nvidia-smi`, while being careful not to consume significant job resources."
     },
     {
-      "question": "Which accounting field in `sacct` helps determine the maximum memory a job utilized?",
-      "answer": "The `MaxRSS` accounting field helps determine the maximum resident set size (memory) a job needed."
+      "question": "How can a user launch multiple monitoring commands, like `htop` and `nvidia-smi`, in separate panes when attaching to an `sbatch` job on an Alliance cluster?",
+      "answer": "A user can use the command `srun --jobid <jobid> --overlap --pty tmux new-session -d 'htop -u $USER' \\; split-window -h 'watch nvidia-smi' \\; attach` to launch multiple commands in separate panes."
     },
     {
-      "question": "What command functions similarly to `sacct` but for running jobs?",
-      "answer": "The `sstat` command works on a running job much the same way that `sacct` works on a completed job."
-    },
-    {
-      "question": "Why might you want to connect to a node running a job and execute new processes?",
-      "answer": "You might want to do this for troubleshooting or to monitor the progress of a job."
-    },
-    {
-      "question": "Provide an example command to monitor GPU usage on a node assigned to a running job.",
-      "answer": "An example command is `srun --jobid 123456 --overlap --pty watch -n 30 nvidia-smi`."
-    },
-    {
-      "question": "What is a key caution when launching new processes on a node where a job is already running?",
-      "answer": "Be careful not to launch processes that would use a significant portion of the resources allocated for the job, as this could lead to the job being killed or slowed down."
-    },
-    {
-      "question": "Do the `srun` monitoring commands work the same way for interactive jobs as for `sbatch` jobs?",
-      "answer": "No, the `srun` commands shown work only to monitor a job submitted with `sbatch`. To monitor an interactive job, you would create multiple panes with `tmux` and start each process in its own pane."
+      "question": "What caution should users exercise when launching processes with `srun` to monitor a running job on an Alliance cluster?",
+      "answer": "Users should be careful not to launch processes that would use a significant portion of the resources allocated for the job, as this could result in the job being killed or slowed down."
     }
   ],
-  "generated_at": "2026-04-12T03:13:57.357772+00:00"
+  "generated_at": "2026-04-13T09:32:30.877229+00:00"
 }

@@ -3,53 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is fMRIPrep and what is its primary function?",
-      "answer": "fMRIPrep is a NiPreps application designed for preprocessing MRI data that is formatted according to BIDS standards."
+      "question": "What is fMRIPrep and what kind of data does it preprocess on Alliance resources?",
+      "answer": "fMRIPrep is a NiPreps app designed for preprocessing MRI data that is in BIDS (Brain Imaging Data Structure) format."
     },
     {
-      "question": "How do users load fMRIPrep on Alliance resources?",
-      "answer": "Users can load fMRIPrep on Alliance resources by executing the command `module load apptainer fmriprep`."
+      "question": "What is the initial step to load fMRIPrep on Alliance resources?",
+      "answer": "To use fMRIPrep on Alliance resources, you must first load the `apptainer` and `fmriprep` modules."
     },
     {
-      "question": "Why does fMRIPrep rely on Apptainer, and how can its context be influenced?",
-      "answer": "fMRIPrep uses Apptainer to run within a container. To influence the Apptainer context, users must utilize Apptainer environment variables."
+      "question": "How does fMRIPrep utilize Apptainer when executed on the command line on Alliance clusters?",
+      "answer": "When fMRIPrep is used on the command line, it employs Apptainer under the hood to invoke a container. Command line options are passed to fMRIPrep within the container, but Apptainer environment variables are also used to affect the Apptainer context."
     },
     {
-      "question": "What is TemplateFlow, and why is it necessary to manually set it up for fMRIPrep within a container?",
-      "answer": "TemplateFlow provides templates for fMRIPrep. Manual setup is required because fMRIPrep, when run inside an Apptainer container, is unable to download these templates automatically."
+      "question": "Why do TemplateFlow templates fail to download when fMRIPrep runs inside its container on Alliance clusters?",
+      "answer": "fMRIPrep within its container will try to download TemplateFlow templates but will fail, necessitating that users download this data themselves in advance."
     },
     {
-      "question": "What are the initial steps to download and install TemplateFlow templates?",
-      "answer": "First, load the `python` and `git-annex` modules, then install `datalad` using `pip3`, and finally install the TemplateFlow metadataset with `datalad install -r ///templateflow`."
+      "question": "What are the steps to manually set up and download TemplateFlow templates for fMRIPrep on Alliance resources?",
+      "answer": "The steps involve loading `python` and `git-annex` modules, installing `datalad` (optionally in a virtualenv), installing the TemplateFlow metadataset using `datalad install -r ///templateflow`, then navigating to the TemplateFlow directory and using `datalad get -r` for specific template subsets."
     },
     {
-      "question": "Where are TemplateFlow templates typically stored after installation for a project group?",
-      "answer": "TemplateFlow templates are typically downloaded into a shared directory for the project group, such as `/lustre03/project/GROUPNAME/shared/templateflow`."
+      "question": "Which modules need to be loaded on Alliance clusters before installing DataLad for TemplateFlow?",
+      "answer": "Before installing DataLad for TemplateFlow, the `python` and `git-annex` modules must be loaded."
     },
     {
-      "question": "How do you download specific TemplateFlow templates once the metadataset is installed?",
-      "answer": "After navigating to the TemplateFlow directory (e.g., `cd /lustre03/project/GROUPNAME/shared/templateflow`), you can download specific templates using `datalad get -r tpl-MNI152NLin2009cAsym tpl-OASIS30ANTs` for example."
+      "question": "Where are TemplateFlow templates typically stored for a project group on Alliance clusters after being downloaded?",
+      "answer": "TemplateFlow templates are typically downloaded into a shared directory such as `/lustre03/project/GROUPNAME/shared/templateflow` for a project group."
     },
     {
-      "question": "How often do the DataLad steps for downloading TemplateFlow templates need to be performed?",
-      "answer": "The DataLad steps for downloading TemplateFlow templates only need to be performed once per project group, as they will then be available to everyone in that group."
+      "question": "How often does a project group need to perform the DataLad steps to download TemplateFlow templates on Alliance clusters?",
+      "answer": "The DataLad steps for downloading TemplateFlow templates only need to be performed once per project group, and the templates will remain available until deleted."
     },
     {
-      "question": "Which Apptainer environment variables are crucial for fMRIPrep, and what do they control?",
-      "answer": "The crucial variables are `APPTAINERENV_TEMPLATEFLOW_HOME`, which tells fMRIPrep where templates are, and `APPTAINER_BIND`, which mounts input, output, logs, and TemplateFlow directories for the container."
+      "question": "What Apptainer environment variables need to be defined before running fMRIPrep on Alliance clusters?",
+      "answer": "The Apptainer environment variables `APPTAINERENV_TEMPLATEFLOW_HOME` and `APPTAINER_BIND` need to be defined."
     },
     {
-      "question": "What is an important consideration regarding path lengths when defining `APPTAINER_BIND`?",
-      "answer": "It's important to keep directory and filenames short within `APPTAINER_BIND` because fMRIPrep does not accept very long paths."
+      "question": "What is the purpose of the `APPTAINERENV_TEMPLATEFLOW_HOME` variable when running fMRIPrep with Apptainer on Alliance clusters?",
+      "answer": "The `APPTAINERENV_TEMPLATEFLOW_HOME` variable tells the fMRIPrep app where to locate the TemplateFlow templates."
     },
     {
-      "question": "What is the basic command to run fMRIPrep once all setup is complete?",
-      "answer": "The basic command to run fMRIPrep is `fmriprep /path/to/input /path/to/output participant --work-dir /path/to/output`."
+      "question": "What is the purpose of the `APPTAINER_BIND` variable when running fMRIPrep with Apptainer on Alliance clusters?",
+      "answer": "The `APPTAINER_BIND` variable instructs Apptainer which input, output, and log directories to mount, making them accessible to the fMRIPrep app within the container."
     },
     {
-      "question": "What extra steps are necessary if FreeSurfer is to be used with fMRIPrep?",
-      "answer": "If using FreeSurfer, you must register, download the license file, copy it to a directory within `APPTAINER_BIND`, and then specify the license file using the `--fs-license-file` option during the fMRIPrep run."
+      "question": "Are there any specific considerations regarding path lengths when using fMRIPrep with Apptainer on Alliance clusters?",
+      "answer": "Yes, fMRIPrep does not accept very long paths, so it's important to keep directory and filenames short."
+    },
+    {
+      "question": "What is an example command to run fMRIPrep after all setup procedures on Alliance clusters?",
+      "answer": "An example command to run fMRIPrep is `fmriprep /path/to/input /path/to/output participant --work-dir /path/to/output`."
+    },
+    {
+      "question": "What additional requirements are there for running fMRIPrep with FreeSurfer functionality on Alliance clusters?",
+      "answer": "To run fMRIPrep with FreeSurfer, users must register with FreeSurfer, download its license file, copy it to one of the directories specified in `APPTAINER_BIND`, and use the `--fs-license-file` option."
+    },
+    {
+      "question": "What is the specific option needed for fMRIPrep when incorporating FreeSurfer preprocessing on Alliance clusters?",
+      "answer": "The specific option needed for fMRIPrep when incorporating FreeSurfer preprocessing is `--fs-license-file`."
     }
   ],
-  "generated_at": "2026-04-11T21:27:21.568628+00:00"
+  "generated_at": "2026-04-13T05:15:44.317828+00:00"
 }

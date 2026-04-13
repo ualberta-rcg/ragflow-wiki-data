@@ -4,97 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What command is used to download all AlphaFold data?",
-      "answer": "The command `download_all_data.sh $DOWNLOAD_DIR` is used to download all AlphaFold data."
+      "question": "When preparing to run AlphaFold, what are the guidelines for downloading the necessary databases on compute clusters, and what are some best practices?",
+      "answer": "AlphaFold databases should not be downloaded from a compute node. Instead, this task must be performed on a data transfer node (DTN) or, if no DTN is available, on a login node. As the download can take up to a full day, using a terminal multiplexer is recommended to maintain the session and mitigate potential 'Client_loop: send disconnect: Broken pipe' errors. For Graham-specific clusters, the `DOWNLOAD_DIR` can be set to `/datashare/alphafold`."
     },
     {
-      "question": "Can I download AlphaFold data from a compute node?",
-      "answer": "No, this step cannot be done from a compute node."
+      "question": "What is the maximum number of CPU cores that AlphaFold can effectively utilize when run on a compute cluster?",
+      "answer": "AlphaFold is hardcoded to use a maximum of 8 CPU cores and does not benefit from requesting more. Therefore, users should request at most 8 CPU cores when submitting AlphaFold jobs."
     },
     {
-      "question": "Where should AlphaFold data be downloaded on clusters that have a data transfer node (DTN)?",
-      "answer": "On clusters with a DTN, the AlphaFold data should be downloaded on the data transfer node."
-    },
-    {
-      "question": "What should I use to download AlphaFold data if my cluster does not have a data transfer node?",
-      "answer": "If your cluster does not have a DTN, you should use a login node to download the AlphaFold data."
-    },
-    {
-      "question": "What is recommended for long data downloads, especially if they take up to a full day?",
-      "answer": "For downloads that can take up to a full day, it is suggested to use a terminal multiplexer."
-    },
-    {
-      "question": "What error message might I encounter during the AlphaFold database download?",
-      "answer": "You might encounter a `Client_loop: send disconnect: Broken pipe` error message during the AlphaFold database download."
-    },
-    {
-      "question": "What is the recommended `DOWNLOAD_DIR` for users on the Graham cluster?",
-      "answer": "For users on the Graham cluster, the recommended `DOWNLOAD_DIR` is `/datashare/alphafold`."
-    },
-    {
-      "question": "What is the total size of the AlphaFold v2.3 databases?",
-      "answer": "The total size of the AlphaFold v2.3 databases is approximately 2.6 TB."
-    },
-    {
-      "question": "What are some of the main subdirectories in the AlphaFold v2.3 data structure?",
-      "answer": "The main subdirectories in the AlphaFold v2.3 data structure include `bfd`, `mgnify`, `params`, `pdb70`, `pdb_mmcif`, `pdb_seqres`, `uniprot`, `uniref30`, and `uniref90`."
-    },
-    {
-      "question": "How large is the `bfd` directory for AlphaFold v2.3?",
-      "answer": "The `bfd` directory for AlphaFold v2.3 is approximately 1.8 TB."
-    },
-    {
-      "question": "What is the total size of the AlphaFold v2.2 databases, and what is the download size?",
-      "answer": "The total size of the AlphaFold v2.2 databases is approximately 2.2 TB, with a download size of 428 GB."
-    },
-    {
-      "question": "What are some of the main subdirectories in the AlphaFold v2.2 data structure?",
-      "answer": "The main subdirectories in the AlphaFold v2.2 data structure include `bfd`, `mgnify`, `params`, `pdb70`, `pdb_mmcif`, `uniclust30`, and `uniref90`."
-    },
-    {
-      "question": "How many CPU cores should be requested when running AlphaFold?",
-      "answer": "You should request at most 8 CPU cores when running AlphaFold, as it is hardcoded to not use more and does not benefit from additional cores."
-    },
-    {
-      "question": "What is the suggested walltime for an AlphaFold job in a submission script?",
-      "answer": "The suggested walltime for an AlphaFold job in a submission script is `08:00:00`."
-    },
-    {
-      "question": "What is the recommended memory allocation for an AlphaFold job in a submission script?",
-      "answer": "The recommended memory allocation for an AlphaFold job in a submission script is `20G`."
-    },
-    {
-      "question": "Which modules need to be loaded as dependencies for AlphaFold in a submission script?",
-      "answer": "The following modules need to be loaded: `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cuda/11.4 cudnn/8.2.0 kalign/2.03 hmmer/3.2.1 openmm-alphafold/7.5.1 hh-suite/3.3.0 python/3.8`."
-    },
-    {
-      "question": "Where are the `DOWNLOAD_DIR`, `INPUT_DIR`, and `OUTPUT_DIR` typically set in an AlphaFold submission script?",
-      "answer": "In an AlphaFold submission script, these directories are typically set within the user's `$SCRATCH` directory, for example: `DOWNLOAD_DIR=$SCRATCH/alphafold/data`, `INPUT_DIR=$SCRATCH/alphafold/input`, and `OUTPUT_DIR=${SCRATCH}/alphafold/output`."
-    },
-    {
-      "question": "How is a Python virtual environment generated and activated within an AlphaFold submission script?",
-      "answer": "A Python virtual environment is generated using `virtualenv --no-download ${SLURM_TMPDIR}/env` and activated with `source ${SLURM_TMPDIR}/env/bin/activate` within a submission script."
-    },
-    {
-      "question": "What command-line argument is used to specify the input FASTA paths when running `run_alphafold.py`?",
-      "answer": "The `--fasta_paths` argument is used to specify the input FASTA paths, for example: `--fasta_paths=${INPUT_DIR}/YourSequence.fasta,${INPUT_DIR}/AnotherSequence.fasta`."
-    },
-    {
-      "question": "Which database preset is used for AlphaFold v2.3 on CPU?",
-      "answer": "The `full_dbs` database preset is used for AlphaFold v2.3 on CPU."
-    },
-    {
-      "question": "What model preset is specified for AlphaFold v2.3 on CPU?",
-      "answer": "The `multimer` model preset is specified for AlphaFold v2.3 on CPU."
-    },
-    {
-      "question": "What is the `max_template_date` argument set to for AlphaFold v2.3 on CPU?",
-      "answer": "The `max_template_date` argument is set to `2022-01-01` for AlphaFold v2.3 on CPU."
-    },
-    {
-      "question": "Does AlphaFold v2.3 on CPU use GPU relaxation?",
-      "answer": "No, AlphaFold v2.3 on CPU sets `use_gpu_relax=False`."
+      "question": "What are the typical SLURM `SBATCH` parameters required when submitting an AlphaFold job to a cluster scheduler?",
+      "answer": "When submitting an AlphaFold job to a cluster scheduler, typical `SBATCH` parameters include `--job-name` for the job's identifier, `--account` to specify the accounting group, `--time` for the walltime limit (e.g., `08:00:00`), `--cpus-per-task` set to a maximum of 8 cores, and `--mem` to allocate memory (e.g., `20G`). For GPU-accelerated jobs, `--gres=gpu:1` should also be included."
     }
   ],
-  "generated_at": "2026-04-11T16:31:36.345314+00:00"
+  "generated_at": "2026-04-13T01:29:42.899016+00:00"
 }

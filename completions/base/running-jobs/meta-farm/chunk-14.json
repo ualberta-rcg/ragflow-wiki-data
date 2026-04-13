@@ -4,73 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "How can one work around the 1000-job submission limit on Nibi and Rorqual for large META farms?",
-      "answer": "For farms larger than 1000 jobs, you can submit in batches. Start with `submit.run 1000`, and then, after the previous farm has finished running, use `resubmit.run 1000` repeatedly until all cases are processed."
+      "question": "What is the workaround for submitting a META farm that requires more than 1000 jobs on Alliance clusters like Nibi and Rorqual?",
+      "answer": "For META farms requiring more than 1000 jobs on clusters such as Nibi and Rorqual, the workaround involves executing `submit.run 1000` initially, followed by `resubmit.run 1000` multiple times until all cases are processed. Each command must be executed only after the previous farm has finished running. Alternatively, the \"Resubmitting failed cases automatically\" advanced feature can fully automate these steps."
     },
     {
-      "question": "What advanced feature of the META package automates the resubmission steps for large farms?",
-      "answer": "The 'Resubmitting failed cases automatically' advanced feature of the META package can fully automate the farm resubmission steps for large farms."
+      "question": "What are the recommendations for improving efficiency when running very large farms (e.g., over 10,000 cases) with the META package?",
+      "answer": "For very large farms, it is recommended to minimize the number of files and directories created during execution. If possible, users should instruct their code to append to existing files (one per metajob, without mixing results from different metajobs in a single output file!) instead of creating a separate file for each case. Additionally, avoiding the creation of a separate subdirectory for each case can significantly improve efficiency, though it is the default setup for safety."
     },
     {
-      "question": "What is a recommended first step before submitting a large production run with META?",
-      "answer": "It is always recommended to start with a small test run to ensure everything works correctly before submitting a large production run."
-    },
-    {
-      "question": "How can individual cases be tested when using the META package?",
-      "answer": "You can test individual cases by reserving an interactive node with `salloc`, navigating to the farm directory, and executing commands such as `./single_case.sh table.dat 1` or `./single_case.sh table.dat 2`."
-    },
-    {
-      "question": "What strategies are recommended for making very large META farms (e.g., over 10,000 cases) run efficiently?",
-      "answer": "To run very large farms efficiently, minimize the number of files and directories created. Instruct your code to append to existing files (one per metajob, without mixing results from different metajobs) instead of creating a new file for each case. Also, avoid creating a separate subdirectory for each case."
-    },
-    {
-      "question": "Why is the default META setup to create a separate subdirectory for each case, despite it being inefficient for very large farms?",
-      "answer": "The default setup of creating a separate subdirectory for each case was chosen for safety, not efficiency."
-    },
-    {
-      "question": "What are the assumptions for the optimized example of `single_case.sh` for very large farms?",
-      "answer": "The optimized example assumes that your code accepts the output file name via a command-line switch `-o`, opens the output file in append mode, `table.dat` provides the rest of the command-line arguments, multiple instances of your code can run concurrently in the same directory, and each run produces only the output file."
-    },
-    {
-      "question": "How does the optimized setup for `single_case.sh` benefit very large META farms?",
-      "answer": "With this optimized setup, very few files are created, which allows even farms with hundreds of thousands or millions of cases to run efficiently."
-    },
-    {
-      "question": "In the optimized `single_case.sh` example for very large farms, what does `$METAJOB_ID` represent?",
-      "answer": "In the optimized `single_case.sh` example, `$METAJOB_ID` represents the job ID for the current metajob, which is useful for creating per-job files."
-    },
-    {
-      "question": "Where can users find more detailed information and troubleshooting tips for the META package?",
-      "answer": "Users can find more detailed discussion of features and troubleshooting suggestions in 'META-Farm: Advanced features and troubleshooting'."
-    },
-    {
-      "question": "Who should users contact for additional help with the META package, and what information should they provide?",
-      "answer": "Users needing more help should contact technical support, mentioning the package name (META) and the name of the staff member who wrote the software (Sergey Mashchenko)."
-    },
-    {
-      "question": "What is a 'case' in the context of the META package?",
-      "answer": "A 'case' is one independent computation, with `table.dat` listing one case per line."
-    },
-    {
-      "question": "What does 'farming' (verb) mean in the context of META?",
-      "answer": "'Farming' (verb) means running many jobs on a cluster that carry out independent (but related) computations of the same kind."
-    },
-    {
-      "question": "What is a 'farm' (noun) in the context of the META package?",
-      "answer": "A 'farm' (noun) refers to the directory and files involved in running one instance of the META package."
-    },
-    {
-      "question": "What is a 'metajob'?",
-      "answer": "A 'metajob' is a job that can process multiple cases (independent computations) from `table.dat`."
-    },
-    {
-      "question": "What is 'META mode'?",
-      "answer": "'META mode' is the operational mode of the package where each job can process multiple cases from `table.dat`."
-    },
-    {
-      "question": "What is 'SIMPLE mode'?",
-      "answer": "'SIMPLE mode' is the operational mode of the package where each job will process only one case from `table.dat`."
+      "question": "How can users test individual cases within a META farm before initiating a large production run?",
+      "answer": "To test individual cases within a META farm, users can reserve an interactive node using `salloc`, navigate to the farm directory, and then execute commands such as `./single_case.sh table.dat 1` or `./single_case.sh table.dat 2` for specific cases."
     }
   ],
-  "generated_at": "2026-04-12T01:19:18.755395+00:00"
+  "generated_at": "2026-04-13T08:23:31.618233+00:00"
 }

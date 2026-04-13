@@ -4,49 +4,13 @@
   "chunk_index": 21,
   "qa_pairs": [
     {
-      "question": "C'est quoi l'objectif principal des scripts de redémarrage pour les simulations Ansys Fluent?",
-      "answer": "Les scripts de redémarrage permettent d'automatiser la reprise de tâches intensives qui nécessitent plus que la limite maximale de sept jours d'exécution permise sur la plupart des grappes de calcul, en redémarrant à partir des fichiers de pas de temps les plus récemment sauvegardés."
+      "question": "Pourquoi devrais-je utiliser les scripts de redémarrage pour mes simulations Ansys Fluent sur les grappes de l'Alliance?",
+      "answer": "Les scripts de redémarrage sont utiles pour automatiser la continuation de simulations Fluent qui s'étirent sur une longue période et pourraient dépasser la limite de temps maximale autorisée sur les grappes, qui est souvent de sept jours. Ils permettent de reprendre la simulation à partir des fichiers de pas de temps les plus récemment sauvegardés."
     },
     {
-      "question": "Quels fichiers initiaux sont nécessaires pour démarrer une simulation Ansys Fluent avec un script de redémarrage?",
-      "answer": "Pour commencer, vous avez besoin d'un groupe de fichiers `sample.cas`, `sample.dat` et `sample.jou`."
-    },
-    {
-      "question": "Comment on modifie le fichier de journalisation initial (`sample.jou`) pour l'utiliser avec un script de redémarrage Fluent?",
-      "answer": "Dans le fichier `sample.jou`, il faut s'assurer d'inclure les lignes `/solve/dual-time-iterate 1` et `/file/auto-save/data-frequency 1`."
-    },
-    {
-      "question": "Comment on prépare un fichier de journalisation spécifiquement pour le redémarrage d'une simulation Fluent?",
-      "answer": "Après avoir copié `sample.jou` en `sample-restart.jou`, il faut modifier `sample-restart.jou` pour qu'il contienne `/file/read-cas-data sample-restart` au lieu de `/file/read-cas-data sample`, et mettre en commentaire la ligne d'initialisation (par exemple, en la précédant d'un point-virgule comme `;/solve/initialize/initialize-flow`)."
-    },
-    {
-      "question": "Si les pas de temps subséquents d'une simulation Fluent sont deux fois plus rapides que le pas initial, comment doit-on ajuster le fichier `sample-restart.jou`?",
-      "answer": "Dans ce cas, il faut modifier `sample-restart.jou` pour spécifier `/solve/dual-time-iterate 2`. Ça fait en sorte que la solution ne redémarre qu'après la fin de deux pas suivant le pas initial."
-    },
-    {
-      "question": "Que signifie la valeur '2' dans `/solve/dual-time-iterate 2` quand on utilise les scripts de redémarrage Fluent?",
-      "answer": "La valeur '2' est arbitraire mais suggère que les deux pas de temps suivants devraient être exécutés dans la fenêtre de temps allouée pour le vecteur de tâches. Ça limite le nombre de redémarrages, qui peuvent être gourmands en ressources."
-    },
-    {
-      "question": "Comment le script de redémarrage gère-t-il les fichiers de sortie les plus récents pour la prochaine étape de la simulation?",
-      "answer": "Le script utilise les commandes `ln -sfv output/$(ls -ltr output | grep .cas | tail -n1 | awk '{print $9}') $MYCASFILERES` et `ln -sfv output/$(ls -ltr output | grep .dat | tail -n1 | awk '{print $9}') $MYDATFILERES` pour lier symboliquement les fichiers `.cas` et `.dat` les plus récents de la tâche précédente pour le redémarrage."
-    },
-    {
-      "question": "Quel message apparaît dans la sortie du script de redémarrage si la simulation se termine avec succès?",
-      "answer": "Si la simulation se termine avec succès, le script affichera `Job completed successfully! Exiting now.` (La tâche s'est terminée avec succès! On quitte maintenant)."
-    },
-    {
-      "question": "Quel message s'affiche si la simulation échoue lors d'un redémarrage?",
-      "answer": "Si la simulation échoue, le script affichera `Simulation failed. Exiting …` (La simulation a échoué. On quitte…)."
-    },
-    {
-      "question": "Quelle est la principale différence entre le script `script-flu-bynode+restart.sh` et `script-flu-bycore+restart.sh`?",
-      "answer": "Le script `script-flu-bynode+restart.sh` est configuré pour demander des ressources par nœud de calcul (`--nodes`), tandis que `script-flu-bycore+restart.sh` demande des ressources par cœur de calcul (`--ntasks`). Les deux incluent la logique de redémarrage."
-    },
-    {
-      "question": "Quel est le temps maximal qu'on peut allouer à un job Slurm pour les scripts de redémarrage Fluent?",
-      "answer": "Le temps maximal qu'on peut allouer pour ces scripts peut aller jusqu'à `07-00:00` jours, tel qu'indiqué dans les options `--time` des scripts."
+      "question": "Quels sont les fichiers requis et les étapes de préparation pour un redémarrage de simulation Ansys Fluent?",
+      "answer": "Pour redémarrer une simulation Fluent, vous avez besoin des fichiers `sample.cas`, `sample.dat` et `sample.jou`. Le fichier `sample.jou` initial doit contenir les commandes `/solve/dual-time-iterate 1` et `/file/auto-save/data-frequency 1`. Vous devez aussi créer un `sample-restart.jou` (copie de `sample.jou`) qui utilise `/file/read-cas-data sample-restart` et dont la ligne d'initialisation est commentée, par exemple, `;/solve/initialize/initialize-flow`."
     }
   ],
-  "generated_at": "2026-04-12T17:00:39.823791+00:00"
+  "generated_at": "2026-04-13T01:57:50.205468+00:00"
 }

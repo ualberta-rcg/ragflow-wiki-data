@@ -4,13 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "Quel est le principal avantage du module `multiprocessing` en Python pour la programmation parallèle sur les grappes de calcul, et quelle est sa principale limite?",
-      "answer": "Le module `multiprocessing` permet de faire de la programmation parallèle en Python, notamment avec la classe `Pool`, pour exécuter des calculs plus rapidement en utilisant plusieurs processus. Son principal avantage est de permettre une distribution efficace des tâches sur les cœurs d'un nœud. Par contre, il est limité à un seul nœud de calcul; le gain de performance est donc restreint au nombre de cœurs CPU disponibles sur ce nœud."
+      "question": "Comment puis-je utiliser le module `multiprocessing` de Python pour la programmation parallèle sur les grappes de calcul, en m'assurant d'utiliser les cœurs alloués de façon optimale?",
+      "answer": "Pour la programmation parallèle avec le module `multiprocessing` de Python, la classe `Pool` est particulièrement utile. Il faut initialiser le pool en utilisant le nombre de cœurs alloués à votre tâche, que vous pouvez obtenir via la variable d'environnement `SLURM_CPUS_PER_TASK`. Par exemple, vous pouvez récupérer la valeur avec `ncpus = int(os.environ.get('SLURM_CPUS_PER_TASK', default=1))` et ensuite initialiser le pool avec `pool = mp.Pool(processes=ncpus)`. Il est important de vérifier si les fonctions appelées par votre code (par exemple, celles d'une bibliothèque externe comme NumPy) sont déjà parallèles, car si elles consomment déjà tous les cœurs et que vous lancez un nombre équivalent de processus, cela pourrait surcharger le nœud et ralentir vos calculs."
     },
     {
-      "question": "Comment faire pour déboguer du code Python avec `pdb` sur les grappes, et quelles sont les commandes les plus utiles?",
-      "answer": "Pour déboguer du code Python sur une grappe, on peut utiliser `pdb` via une tâche interactive. Il suffit d'ajouter `import pdb; pdb.set_trace()` (ou `breakpoint()`) dans votre script à l'endroit où vous voulez commencer le débogage, puis d'exécuter le script. Une fois dans le débogueur, les commandes utiles incluent `w` pour voir la pile d'exécution, `s` pour exécuter pas à pas, `n` pour passer à la prochaine ligne, `p exp` pour évaluer une expression, `l` pour lister le code source, et `q` pour quitter."
+      "question": "Quelles sont les limites du module `multiprocessing` de Python pour la programmation parallèle sur les grappes de calcul, et quelles sont les solutions si j'ai besoin d'utiliser plusieurs nœuds?",
+      "answer": "Le module `multiprocessing` de Python ne peut utiliser qu'un seul nœud de calcul, ce qui limite le gain en performance au nombre de cœurs CPU de ce nœud. Si vous voulez dépasser cette limite et utiliser plusieurs nœuds pour vos tâches, vous devriez envisager d'utiliser `mpi4py` ou `PySpark`. Avant de paralléliser votre code, assurez-vous qu'il est optimal, car un code de qualité fournira toujours la meilleure performance possible."
+    },
+    {
+      "question": "Comment peut-on déboguer du code Python sur les grappes de calcul en utilisant `pdb`, le débogueur Python, et quelles sont les commandes essentielles à connaître?",
+      "answer": "Pour déboguer votre code Python sur les grappes de calcul, vous pouvez ajouter `import pdb; pdb.set_trace()` ou `breakpoint()` à l'endroit approprié dans votre fichier. Ensuite, exécutez votre code dans une petite tâche interactive pour vous retrouver dans le débogueur, où vous pourrez analyser et évaluer les expressions. Parmi les commandes utiles de `pdb`, on retrouve `w` (pour afficher la pile d'exécution), `b` (pour insérer un point d'arrêt), `s` (pour exécuter une ligne et s'arrêter à la première occasion), `n` (pour continuer jusqu'à la ligne suivante de la fonction actuelle), `c` (pour continuer l'exécution jusqu'à un point d'arrêt), `p exp` (pour évaluer une expression) et `q` (pour quitter le débogueur et arrêter le programme)."
     }
   ],
-  "generated_at": "2026-04-12T18:22:52.442315+00:00"
+  "generated_at": "2026-04-13T11:53:32.859578+00:00"
 }

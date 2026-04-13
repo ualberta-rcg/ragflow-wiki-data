@@ -4,104 +4,68 @@
   "qa_pairs": [
     {
       "question": "What is AlphaFold?",
-      "answer": "AlphaFold is a machine learning model designed for predicting protein folding."
+      "answer": "AlphaFold is a machine learning model designed for the prediction of protein folding."
     },
     {
-      "question": "Which version of AlphaFold is discussed on this page?",
-      "answer": "This page discusses how to use AlphaFold v2.0, which was entered in CASP14 and published in Nature."
+      "question": "Which specific version of AlphaFold is discussed in detail on this page?",
+      "answer": "This page discusses AlphaFold v2.0, the version that was entered in CASP14 and published in Nature."
     },
     {
-      "question": "Where can users find the source code and documentation for AlphaFold?",
-      "answer": "The source code and documentation for AlphaFold are available on DeepMind's GitHub page."
+      "question": "How should users cite AlphaFold if they publish findings derived from its source code or model parameters?",
+      "answer": "Any publication disclosing findings from using AlphaFold's source code or model parameters should cite the AlphaFold paper."
     },
     {
-      "question": "How should users cite AlphaFold if they disclose findings from its source code or model parameters?",
-      "answer": "Users should cite the AlphaFold paper, which is linked on their GitHub page."
+      "question": "How can one list the available prebuilt Python package versions of AlphaFold on Alliance clusters?",
+      "answer": "Users can list available versions by running the command `avail_wheels alphafold --all-versions`."
     },
     {
-      "question": "How can I list the available AlphaFold versions on the clusters?",
-      "answer": "You can list available versions using the `avail_wheels alphafold --all-versions` command."
+      "question": "What are the primary module dependencies required to set up AlphaFold in a Python virtual environment on Alliance clusters?",
+      "answer": "The required modules include StdEnv/2020, gcc/9.3.0, openmpi/4.0.3, cuda/11.4, cudnn/8.2.0, kalign/2.03, hmmer/3.2.1, openmm-alphafold/7.5.1, hh-suite/3.3.0, and python/3.8."
     },
     {
-      "question": "What Python versions are supported for AlphaFold as of July 2022?",
-      "answer": "As of July 2022, only Python 3.7 and 3.8 are supported for AlphaFold."
+      "question": "As of July 2022, which Python versions are supported for installing AlphaFold?",
+      "answer": "As of July 2022, only Python 3.7 and 3.8 are supported for AlphaFold installation."
     },
     {
-      "question": "What modules need to be loaded as dependencies for AlphaFold?",
-      "answer": "The required modules are StdEnv/2020, gcc/9.3.0, openmpi/4.0.3, cuda/11.4, cudnn/8.2.0, kalign/2.03, hmmer/3.2.1, openmm-alphafold/7.5.1, and hh-suite/3.3.0, along with python/3.8."
+      "question": "What is the recommended command to install a specific version of AlphaFold within an activated Python virtual environment on Alliance clusters?",
+      "answer": "Users should use `pip install --no-index alphafold==X.Y.Z`, replacing `X.Y.Z` with the desired version, or omit the version to install the latest available."
     },
     {
-      "question": "How do you create and activate a Python virtual environment for AlphaFold?",
-      "answer": "You create it with `virtualenv --no-download ~/alphafold_env` and activate it with `source ~/alphafold_env/bin/activate`."
+      "question": "Where are the AlphaFold databases hosted on Alliance clusters, and how often are they updated?",
+      "answer": "The AlphaFold databases are available in `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/` and undergo yearly updates."
     },
     {
-      "question": "How do I install a specific version of AlphaFold within a virtual environment?",
-      "answer": "You can install a specific version using `pip install --no-index alphafold==X.Y.Z`, replacing `X.Y.Z` with the desired version, e.g., `2.2.4`."
+      "question": "If a user downloads AlphaFold databases locally, which directory should they be stored in, and on what type of node should the download be performed?",
+      "answer": "The databases must reside in the `$SCRATCH` directory, and the download must be done on a data transfer node (DTN) or a login node, not a compute node."
     },
     {
-      "question": "How can I install the latest available version of AlphaFold in my virtual environment?",
-      "answer": "You can install the latest version by omitting the version number in the pip install command: `pip install --no-index alphafold`."
+      "question": "What is the maximum number of CPU cores recommended for AlphaFold jobs on Alliance clusters, and why?",
+      "answer": "A maximum of 8 CPU cores should be requested because AlphaFold is hardcoded not to use more and does not benefit from additional cores."
     },
     {
-      "question": "What is the command to validate an AlphaFold installation?",
-      "answer": "To validate the installation, run `run_alphafold.py --help` within the activated virtual environment."
+      "question": "In the AlphaFold submission scripts, what is a notable change in database path arguments between version 2.2 and 2.3?",
+      "answer": "The `--uniclust30_database_path` option used in AlphaFold version 2.2 was renamed to `--uniref30_database_path` in version 2.3."
     },
     {
-      "question": "Do AlphaFold databases need to be downloaded?",
-      "answer": "Yes, AlphaFold requires a set of databases."
+      "question": "What is a key initial step after loading modules and setting paths in an AlphaFold SLURM submission script?",
+      "answer": "A key initial step is to generate a Python virtual environment within `$SLURM_TMPDIR` and then activate it."
     },
     {
-      "question": "Where are AlphaFold databases available on Compute Canada clusters?",
-      "answer": "The databases are available in `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/`."
+      "question": "What are two recommended solutions for addressing a \"Client_loop: send disconnect: Broken pipe\" error when downloading AlphaFold databases?",
+      "answer": "Two solutions are to use a terminal multiplexer or to use the AlphaFold database already present on the cluster at `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2023_07/`."
     },
     {
-      "question": "How often are the AlphaFold databases on CVMFS updated?",
-      "answer": "AlphaFold databases on CVMFS undergo yearly updates."
+      "question": "Is it possible to download the AlphaFold database in sections if the full download experiences issues?",
+      "answer": "Yes, after loading the module and activating the virtual environment, users can use individual download scripts like `download_pdb.sh` to download sections of the database."
     },
     {
-      "question": "Where must locally downloaded AlphaFold databases reside?",
-      "answer": "The databases must live in the `$SCRATCH` directory."
+      "question": "What command can be used to validate the installation of AlphaFold within a virtual environment?",
+      "answer": "The installation can be validated by running `run_alphafold.py --help` within the activated virtual environment."
     },
     {
-      "question": "What directory should be exported for the January 2024 AlphaFold database update on CVMFS?",
-      "answer": "You should export `DOWNLOAD_DIR=/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2024_01/`."
-    },
-    {
-      "question": "Can I download AlphaFold data from a compute node?",
-      "answer": "No, this step cannot be done from a compute node; it should be done on a data transfer node (DTN) or a login node."
-    },
-    {
-      "question": "What is the recommended tool for downloading AlphaFold data, given it can take a full day?",
-      "answer": "Using a terminal multiplexer is suggested because the download can take up to a full day."
-    },
-    {
-      "question": "What is the maximum number of CPU cores AlphaFold will utilize?",
-      "answer": "AlphaFold is hardcoded to use a maximum of 8 CPU cores and does not benefit from more."
-    },
-    {
-      "question": "How do you specify input and output directories when running AlphaFold?",
-      "answer": "You set `INPUT_DIR` and `OUTPUT_DIR` variables in the submission script, typically within your `$SCRATCH` directory."
-    },
-    {
-      "question": "What is the purpose of the `--use_gpu_relax` argument when running AlphaFold?",
-      "answer": "The `--use_gpu_relax` argument determines whether GPU relaxation is used; it should be set to `True` for GPU runs and `False` for CPU runs."
-    },
-    {
-      "question": "What is a common error message encountered when downloading the AlphaFold database, and what are its potential causes?",
-      "answer": "A common error is `Client_loop: send disconnect: Broken pipe`, which can be caused by an unusually high number of users on the login node or other factors."
-    },
-    {
-      "question": "What are some solutions if I encounter a 'Broken pipe' error message while downloading the AlphaFold database?",
-      "answer": "Solutions include using a terminal multiplexer, using the database already present on the cluster (e.g., `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2023_07/`), or downloading the full database in sections using specific download scripts like `download_pdb.sh`."
-    },
-    {
-      "question": "How can I download specific sections of the AlphaFold database instead of the full database?",
-      "answer": "After loading modules and activating your virtual environment, type `download_` and press `tab` twice to see available scripts, then use a script like `download_pdb.sh` to download sections manually."
-    },
-    {
-      "question": "What is the difference in database path arguments between AlphaFold 2.2 and 2.3?",
-      "answer": "The `--uniclust30_database_path` option used in version 2.2 was renamed to `--uniref30_database_path` in version 2.3."
+      "question": "Why is it suggested to use a terminal multiplexer when downloading AlphaFold data on Alliance clusters?",
+      "answer": "It is suggested because the download can take up to a full day, and a terminal multiplexer can help maintain the session and prevent errors like a \"Broken pipe\"."
     }
   ],
-  "generated_at": "2026-04-11T16:31:04.001881+00:00"
+  "generated_at": "2026-04-13T01:29:25.046004+00:00"
 }

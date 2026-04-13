@@ -4,93 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "What is the minimum number of cores required for ParaView visualization on Trillium?",
-      "answer": "On Trillium, you must schedule on whole nodes, meaning the minimum number of cores required for ParaView visualization is 192."
+      "question": "How do users set up a large-scale interactive ParaView client-server visualization workflow on an Alliance HPC cluster, such as Fir or Rorqual?",
+      "answer": "To set up a large-scale interactive ParaView client-server visualization workflow on an Alliance HPC cluster, users must first install the same major ParaView client version on their local computer as is available on the cluster. They then log into the cluster and start a parallel CPU interactive job using the `salloc` command. Within this job, they load the ParaView module and start the ParaView server with `srun pvserver --force-offscreen-rendering --opengl-window-backend OSMesa`. Finally, on their local computer, they create an SSH tunnel to link a local port (typically 11111) to the server's port on the compute node, and then connect their local ParaView client to `localhost:11111`."
     },
     {
-      "question": "What ParaView client and server versions are compatible for establishing a connection?",
-      "answer": "ParaView requires the same major version on both the local client and the remote host. For example, to use ParaView server version 6.0.0 on the cluster, your client should be version 6.0.x."
+      "question": "What are the specific requirements for scheduling ParaView client-server interactive jobs on the Trillium cluster, and for establishing an SSH connection to a Nibi compute node?",
+      "answer": "When scheduling ParaView client-server interactive jobs on the Trillium cluster, users must schedule on whole nodes, which means allocating resources in multiples of 192 CPU cores. For establishing an SSH connection to a Nibi compute node for client-server ParaView, a specific two-step port forwarding command is required on the user's computer. This is due to Nibi's inter-node traffic limitations and network blocking, routing SSH port forwarding through the login node using the command: `ssh -T -J <username>@nibi.alliancecan.ca -L 11111:localhost:11111 <username>@<nibi_compute_node>`. The `-T` flag is important to facilitate the initial handshake."
     },
     {
-      "question": "What is the 'Remote Render Threshold' in ParaView's preferences and how does it impact rendering?",
-      "answer": "The 'Remote Render Threshold' in ParaView's preferences (under 'Render View -> Remote/Parallel Rendering Options') determines where rendering occurs. If set to the default (e.g., 20MB), small renderings are done on your computer's GPU for faster rotation, but anything modestly intensive will be shipped to your computer. If set to 0MB, all rendering, including rotation, is performed remotely on the cluster, which is beneficial for large data processing but may reduce interactivity."
-    },
-    {
-      "question": "Can CPU-based rendering offer performance comparable to GPU-based rendering for large-scale interactive visualization?",
-      "answer": "Yes, modern CPU-based libraries such as OSPRay and OpenSWR offer performance quite similar to GPU-based rendering on cluster CPUs."
-    },
-    {
-      "question": "How can I estimate the number of CPU cores needed for large-scale interactive ParaView rendering?",
-      "answer": "The easiest way to estimate the number of necessary cores is to take the amount of memory you anticipate needing for your rendering and divide it by approximately 3.5 GB/core. Remember to also allocate additional memory for filters and data processing."
-    },
-    {
-      "question": "What is the recommended maximum memory allocation per core for CPU-intensive software rendering with ParaView?",
-      "answer": "It is not recommended to allocate more than 4GB per core for CPU-intensive software rendering with ParaView."
-    },
-    {
-      "question": "What are the initial steps for setting up a large-scale interactive ParaView client-server session on a cluster?",
-      "answer": "First, install the same major ParaView version on your computer as the one available on the cluster. Next, log into the cluster and start a parallel CPU interactive job."
-    },
-    {
-      "question": "What Slurm command is used to start a parallel CPU interactive job for ParaView visualization?",
-      "answer": "The Slurm command to start a parallel CPU interactive job is `salloc --time=1:00:0 --ntasks=... --mem-per-cpu=3600 --account=def-someprof`."
-    },
-    {
-      "question": "How do I request a parallel CPU interactive job specifically on Trillium for ParaView visualization?",
-      "answer": "On Trillium, assuming you are using one node for visualization, you would use the command: `salloc --time=1:00:0 --ntasks=192 --account=def-someprof`."
-    },
-    {
-      "question": "What modules must be loaded before starting the ParaView server on Trillium?",
-      "answer": "On Trillium, you must load `StdEnv/2023` before attempting to load the `paraview/6.0.0` module."
-    },
-    {
-      "question": "How do you start the ParaView server within an interactive job on the cluster?",
-      "answer": "You start the ParaView server using the command `srun pvserver --force-offscreen-rendering --opengl-window-backend OSMesa`."
-    },
-    {
-      "question": "How do you set up SSH port forwarding for a ParaView client-server connection on most Alliance clusters (Rorqual, Fir, Trillium, Narval)?",
-      "answer": "In another terminal on your computer, use the command `ssh <username>@<cluster_name>.alliancecan.ca -L 11111:<compute_node>:11111`, replacing `<username>`, `<cluster_name>`, and `<compute_node>` with the appropriate details."
-    },
-    {
-      "question": "What is the specific SSH command for port forwarding on Nibi for ParaView client-server visualization?",
-      "answer": "For Nibi, you should use the command `ssh -T -J <username>@nibi.alliancecan.ca -L 11111:localhost:11111 <username>@<nibi_compute_node>` to route SSH port forwarding in two steps through the login node."
-    },
-    {
-      "question": "What is the purpose of the `-T` flag in the SSH command for Nibi when setting up ParaView client-server?",
-      "answer": "The `-T` flag disables pseudo-terminal allocation, which is important to facilitate the initial client-server handshake on Nibi."
-    },
-    {
-      "question": "How do you connect the local ParaView client to the remote ParaView server after setting up SSH tunnelling?",
-      "answer": "On your computer, start ParaView, go to 'File -> Connect', click 'Add Server', and configure it with 'Server Type' = Client/Server, 'Host' = localhost, 'Port' = 11111, and 'Startup Type' = Manual. Then, select the configured server from the list and click 'Connect'."
-    },
-    {
-      "question": "How can I verify that parallel rendering is active in ParaView?",
-      "answer": "To check that you are performing parallel rendering, you can colour your dataset by the `Process Id` variable, which is unavailable when running in serial."
-    },
-    {
-      "question": "What is the recommended approach for large-scale and automated ParaView visualization?",
-      "answer": "For large-scale and automated visualization, it is strongly recommended to switch from interactive client-server to off-screen batch visualization, using ParaView's Python scripting capabilities."
-    },
-    {
-      "question": "Who should be contacted for assistance with ParaView Python scripting for batch visualization?",
-      "answer": "If you need any help with ParaView Python scripting for batch visualization, you should contact Technical Support."
-    },
-    {
-      "question": "What commands are used to execute a serial batch ParaView job?",
-      "answer": "To execute a serial batch ParaView job, you first load the ParaView module (`module load paraview/6.0.0`) and then submit the Slurm script (`sbatch serial.sh`)."
-    },
-    {
-      "question": "Can you provide an example of a Slurm script for a serial ParaView batch job?",
-      "answer": "An example `serial.sh` Slurm script would include: `#!/bin/bash\n#SBATCH --time=3:0:0\n#SBATCH --mem-per-cpu=3600\n#SBATCH --account=def-someuser\npvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py`."
-    },
-    {
-      "question": "What commands are used to execute a parallel batch ParaView job?",
-      "answer": "To execute a parallel batch ParaView job, you first load the ParaView module (`module load paraview/6.0.0`) and then submit the Slurm script (`sbatch distributed.sh`)."
-    },
-    {
-      "question": "Can you provide an example of a Slurm script for a parallel ParaView batch job?",
-      "answer": "An example `distributed.sh` Slurm script would include: `#!/bin/bash\n#SBATCH --time=3:0:0\n#SBATCH --mem-per-cpu=3600\n#SBATCH --ntasks=4\n#SBATCH --account=def-someuser\nsrun pvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py`."
+      "question": "When is it recommended to use batch production for ParaView visualization, and how are these jobs typically submitted on Alliance clusters?",
+      "answer": "Batch production is strongly recommended for large-scale, automated, and off-screen ParaView visualizations, such as generating many frames for a movie, especially when interactive windows are not needed. These visualizations should be scripted using ParaView Python scripts. On Alliance clusters, batch jobs are typically submitted using Slurm; for example, by first loading the `paraview/6.0.0` module and then executing `sbatch serial.sh` for serial rendering or `sbatch distributed.sh` for parallel rendering, where `serial.sh` or `distributed.sh` are Slurm job submission scripts that contain `pvbatch` commands."
     }
   ],
-  "generated_at": "2026-04-12T04:55:00.431299+00:00"
+  "generated_at": "2026-04-13T10:58:13.738053+00:00"
 }

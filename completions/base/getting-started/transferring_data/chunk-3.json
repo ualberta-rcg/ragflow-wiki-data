@@ -4,89 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What are the primary benefits of using Globus for data transfer?",
-      "answer": "Globus typically offers the best performance and reliability for transferring data."
+      "question": "What criteria can be used in Globus to determine which files to transfer during a synchronization process?",
+      "answer": "When synchronizing files with Globus, you can choose to transfer files if their checksums are different, if the file doesn't exist on the destination, if the file size is different, or if the modification time is newer on the source than the destination."
     },
     {
-      "question": "What is the default behaviour when initiating a Globus transfer?",
-      "answer": "Normally, when a Globus transfer is initiated, it will overwrite files on the destination with the files from the source, meaning all files from the source will be transferred."
-    },
-    {
-      "question": "How can I prevent Globus from overwriting existing files on the destination during a transfer?",
-      "answer": "To prevent overwriting existing files, you should go to the 'Transfer & Timer Options' in Globus and choose the 'sync' option instead of the default transfer behaviour."
-    },
-    {
-      "question": "What criteria can Globus use to decide which files to transfer during a sync?",
-      "answer": "Globus can decide which files to transfer based on whether their checksums are different, if the file doesn't exist on the destination, if the file size is different, or if the modification time is newer."
-    },
-    {
-      "question": "Which Globus sync option is the most accurate but also the slowest?",
-      "answer": "The 'Their checksums are different' option is the slowest but most accurate, as it will catch changes or errors that result in the same size of file but with different contents."
-    },
-    {
-      "question": "Which Globus sync option is useful for incrementally creating files?",
-      "answer": "The 'File doesn't exist on destination' option is useful for incrementally creating files, as it will only transfer files that have been created since the last sync."
-    },
-    {
-      "question": "What is a quick way for Globus to determine if a file's content has changed during a sync?",
-      "answer": "A quick test is to check if the 'File size is different'; if it has changed, its contents must have changed, and it will be re-transferred."
-    },
-    {
-      "question": "What is important to do if I want Globus to only transfer files with a newer modification time?",
-      "answer": "If you want Globus to depend on the 'Modification time is newer' option, it is important to check the 'preserve source file modification times' option when initiating a Globus transfer."
-    },
-    {
-      "question": "What is Rsync primarily used for?",
-      "answer": "Rsync is a popular tool for ensuring that two separate datasets are identical."
-    },
-    {
-      "question": "Under what conditions might Rsync perform slowly?",
-      "answer": "Rsync can be quite slow if there are many files to transfer or if there is a lot of latency between the two sites, especially if they are geographically apart or on different networks."
-    },
-    {
-      "question": "How does Rsync typically determine if a file needs to be transferred?",
-      "answer": "Normally, Rsync checks the modification time and size of each file, and it will only transfer the file if one or the other does not match."
-    },
-    {
-      "question": "How can I force Rsync to compare files using checksums instead of modification times and sizes?",
-      "answer": "If you expect modification times not to match on the two systems, you can use the `-c` option with Rsync, which will compute checksums at the source and destination and transfer only if the checksums do not match."
-    },
-    {
-      "question": "Why should the `-p` and `-g` flags be avoided when using Rsync to transfer files to `/project` file systems?",
-      "answer": "The `-p` and `-g` flags should not be used when transferring files into `/project` file systems because quotas are enforced based on group ownership, and preserving the group ownership can lead to 'Disk quota exceeded' errors."
-    },
-    {
-      "question": "What options should be added to an Rsync command when transferring to `/project` file systems if the `-a` option is used?",
-      "answer": "If the `-a` option is used (which includes `-p` and `-g` by default), the `--no-g --no-p` options should be added to the Rsync command when transferring files to `/project` file systems."
-    },
-    {
-      "question": "What is the purpose of the `-z` option in an Rsync command?",
-      "answer": "The `-z` option in an Rsync command compresses files (excluding those in the `--skip-compress` list), though it requires additional CPU resources."
-    },
-    {
-      "question": "How can I make Rsync output file sizes in a human-readable format during a transfer?",
-      "answer": "The `-h` option makes transferred file sizes human readable in Rsync."
-    },
-    {
-      "question": "Which Rsync option enables resuming interrupted transfers of large files?",
-      "answer": "If you are transferring very large files, add the `--partial` option to Rsync so interrupted transfers can be restarted."
-    },
-    {
-      "question": "How can I view the progress of each individual file during an Rsync transfer?",
-      "answer": "The `--progress` option will display the percent progress of each file as it's transferred by Rsync."
-    },
-    {
-      "question": "What Rsync option can display a single progress bar for the entire transfer when dealing with many smaller files?",
-      "answer": "If you are transferring many smaller files, it may be more desirable to display a single progress bar that represents the transfer progress of all files using the `--info=progress2` option with Rsync."
-    },
-    {
-      "question": "Can Rsync be used to transfer files from a remote system to a local system?",
-      "answer": "Yes, Rsync transfers from a remote system into a project directory on a local system work in much the same way as local-to-remote transfers, using a slightly modified command structure."
-    },
-    {
-      "question": "Is it possible to use Rsync for local file transfers within a single system?",
-      "answer": "Yes, in its simplest incarnation, Rsync can also be used locally within a single system to transfer a directory or file (from home or scratch) into a project directory by dropping the cluster name."
+      "question": "When using `rsync` to transfer files into the `/project` file systems, which flags should be avoided, and what options should be used instead?",
+      "answer": "When transferring files into the `/project` file systems, you should not use the `-p` and `-g` flags since the quotas in `/project` are enforced based on group ownership and can lead to a \"Disk quota exceeded\" error. Since `-a` includes these flags by default, the `--no-g --no-p` options should be added to the `rsync` command."
     }
   ],
-  "generated_at": "2026-04-12T09:20:24.419937+00:00"
+  "generated_at": "2026-04-13T14:35:41.009311+00:00"
 }

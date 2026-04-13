@@ -3,125 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What are the two primary high-level features provided by PyTorch?",
-      "answer": "PyTorch offers tensor computation with strong GPU acceleration, similar to NumPy, and deep neural networks built on a tape-based autograd system."
+      "question": "What is PyTorch and what are its main features available on Alliance clusters?",
+      "answer": "PyTorch is a Python package offering two main high-level features on Alliance clusters: Tensor computation, similar to NumPy but with strong GPU acceleration, and deep neural networks built on a tape-based autograd system."
     },
     {
-      "question": "What is LibTorch, and how does it relate to PyTorch?",
-      "answer": "LibTorch allows developers to implement C++ extensions to PyTorch and pure C++ machine learning applications, including converting Python-written PyTorch models for C++ use via TorchScript."
+      "question": "How do you install the latest available PyTorch wheel in a Python virtual environment on Alliance clusters?",
+      "answer": "To install PyTorch, first load a Python module (e.g., `module load python`), then create and start a virtual environment. Finally, install PyTorch within the virtual environment using `pip install --no-index torch`."
     },
     {
-      "question": "How can one check the latest available PyTorch version on the clusters?",
-      "answer": "You can use the command `avail_wheels torch` to see the latest built version of PyTorch."
+      "question": "What is the significance of TF32 mode in PyTorch on Ampere and newer Nvidia GPU architectures on Alliance clusters, and how can it be controlled?",
+      "answer": "TF32 (TensorFloat-32) mode can significantly speed up tensor operations (up to 20x compared to FP32) on Ampere and later Nvidia GPUs. However, it may decrease numerical accuracy. Starting with PyTorch 1.12.0, TF32 is disabled by default for matrix multiplications but enabled for convolutions. Users can control it by setting `torch.backends.cuda.matmul.allow_tf32` and `torch.backends.cudnn.allow_tf32` to `True` or `False`."
     },
     {
-      "question": "What is the preferred method for installing PyTorch using a Python wheel?",
-      "answer": "The preferred method involves loading a Python module, creating and starting a virtual environment, and then installing PyTorch into it using `pip install`."
+      "question": "When should users consider using multiple CPUs instead of a GPU for PyTorch models on Alliance clusters?",
+      "answer": "For small-scale models and datasets, it is strongly recommended to use multiple CPUs instead of a GPU. If the model and dataset are not large enough, a GPU job might not offer significant speedup and could unnecessarily block resources needed by other users or consume group allocations."
     },
     {
-      "question": "Which PyTorch version is required when using H100 GPUs?",
-      "answer": "Torch 2.5.1 and higher is required for H100 GPUs."
+      "question": "What are the key recommendations for optimising GPU performance when running PyTorch models on Alliance clusters?",
+      "answer": "To optimise GPU performance, users should increase their `batch_size` as much as can fit in the GPU's memory. Additionally, use a `DataLoader` with as many workers as there are `cpus-per-task` to efficiently feed data to the GPU."
     },
     {
-      "question": "What additional packages can be installed alongside `torch`?",
-      "answer": "In addition to `torch`, you can install `torchvision`, `torchtext`, and `torchaudio`."
+      "question": "What is Data Parallelism in PyTorch on Alliance clusters, and what is a crucial consideration when implementing it?",
+      "answer": "Data Parallelism involves training over multiple model replicas in parallel, with each replica processing a different chunk of data. Gradients are aggregated, and parameters are updated. A crucial consideration is that the user must scale either the learning rate or the desired batch size in proportion to the number of replicas to achieve equivalent trained models."
     },
     {
-      "question": "What are the recommended resource allocations for CPUs and memory per GPU when submitting a job?",
-      "answer": "You should refer to the 'Ratios in bundles' section of the 'Allocations and compute scheduling' documentation for appropriate CPU and Memory per GPU for each cluster."
+      "question": "What is the PyTorch-recommended method for multi-GPU data parallelism, and how does PyTorch Lightning simplify this approach on Alliance clusters?",
+      "answer": "The PyTorch-recommended method for multi-GPU data parallelism is the `DistributedDataParallel` class. PyTorch Lightning simplifies this by providing higher-level interfaces, allowing users to train on multiple GPUs with less explicit code compared to directly leveraging the `DistributedDataParallel` class."
     },
     {
-      "question": "What is TF32 mode in PyTorch, and which GPUs support it?",
-      "answer": "TF32 (TensorFloat-32) mode is an Nvidia precision format supported on Ampere and later Nvidia GPU architectures, designed to speed up tensor operations."
+      "question": "Under what specific conditions is Single GPU Data Parallelism with technologies like Nvidia's Multi-Process Service (MPS) advisable for PyTorch on Alliance clusters?",
+      "answer": "Single GPU Data Parallelism is advisable for fairly small models that don't fully utilise a GPU's compute capacity but are being trained on a very large dataset with a small batch size. By using technologies like Nvidia's Multi-Process Service (MPS) and MPI, multiple model replicas can fit on a single GPU, increasing resource utilisation and speeding up training."
     },
     {
-      "question": "What is the default behaviour of TF32 in PyTorch versions 1.12.0 and later?",
-      "answer": "Starting with PyTorch 1.12.0, TF32 is disabled by default for matrix multiplications but remains enabled by default for convolutions."
+      "question": "What are Fully Sharded Data Parallelism (FSDP), Tensor Parallelism (TP), and Pipeline Parallelism (PP) in PyTorch, and how do they generally differ in their approach to model sharding?",
+      "answer": "FSDP distributes optimizer states, model weights, gradients, and activations across multiple devices, allowing large models to be trained efficiently. TP shards model layers' weights and splits computations across devices, ensuring computation steps are local to the shard. PP shards groups of consecutive layers across devices, and uses 'micro-batches' to keep all devices busy during sequential computations."
     },
     {
-      "question": "How can TF32 be explicitly enabled or disabled for matrix multiplications and convolutions in PyTorch version 1.12.0 and later?",
-      "answer": "You can set `torch.backends.cuda.matmul.allow_tf32 = True/False` for matrix multiplications and `torch.backends.cudnn.allow_tf32 = True/False` for convolutions."
+      "question": "Why is creating model checkpoints important during PyTorch training on Alliance clusters, and how is it handled in distributed training?",
+      "answer": "Creating model checkpoints is important for breaking up long jobs, avoiding loss of progress due to errors or node failures, and resuming training. In distributed training, checkpointing should be performed by only one process (e.g., rank 0) of the program, as all ranks will have the same state. A barrier should be used to ensure the checkpoint is fully saved before other processes attempt to load it, and `map_location` should be passed to `torch.load` to load tensors to the correct GPU for each rank."
     },
     {
-      "question": "How does PyTorch support parallelizing work across multiple CPUs?",
-      "answer": "PyTorch supports CPU parallelism in two ways: intra-op parallelism, using multi-threading for operators like matrix multiplication, and inter-op parallelism, for executing different parts of code concurrently through explicit program design."
+      "question": "What common CUDA error might PyTorch users encounter on Alliance clusters, and what are the suggested solutions?",
+      "answer": "A common CUDA error is 'no kernel image is available for execution on the device'. This means the current PyTorch installation does not support the GPU's compute architecture or the device being used. Solutions include updating PyTorch to a more recent version or requesting a different GPU that is compatible with the current PyTorch version."
     },
     {
-      "question": "When is it recommended to use multiple CPUs instead of a GPU for PyTorch models?",
-      "answer": "For small-scale models where the model and dataset are not large enough to significantly utilize a GPU's compute capabilities, using multiple CPUs is strongly recommended to avoid unnecessarily blocking GPU resources and using up allocations."
+      "question": "What is LibTorch and how does it enable C++ extensions and applications for PyTorch on Alliance clusters?",
+      "answer": "LibTorch is a C++ library provided by PyTorch developers that allows users to implement C++ extensions for PyTorch and develop pure C++ machine learning applications. It includes all necessary headers, libraries, and CMake configuration files to integrate with PyTorch."
     },
     {
-      "question": "What are the two main reasons GPUs offer a performance advantage in Deep Learning tasks?",
-      "answer": "GPUs benefit from their ability to parallelize numerical operations over thousands of compute cores and their much higher memory bandwidth compared to CPUs, allowing efficient processing of large data amounts."
+      "question": "What are the initial steps to set up the environment for using LibTorch on Alliance clusters, specifically for StdEnv/2023?",
+      "answer": "For StdEnv/2023, users must load required modules such as `StdEnv/2023`, `gcc`, `cuda/12.2`, `cmake`, `protobuf`, `cudnn`, `python/3.11`, `abseil`, `cusparselt`, and `opencv/4.8.1`. Then, create and activate a Python virtual environment and install PyTorch and NumPy within it using `pip install --no-index torch numpy`."
     },
     {
-      "question": "What two parameters play an important role in optimizing GPU performance for PyTorch?",
-      "answer": "Increasing `batch_size` to fit GPU memory and using a `DataLoader` with as many workers as `cpus-per-task` are crucial for optimizing GPU performance."
-    },
-    {
-      "question": "What is Data Parallelism in the context of PyTorch training?",
-      "answer": "Data Parallelism involves training across multiple model replicas, each processing a different chunk of training data, with gradients aggregated and parameters updated synchronously or asynchronously."
-    },
-    {
-      "question": "What is a crucial caveat when using Data Parallelism?",
-      "answer": "To achieve a trained model equivalent to one without Data Parallelism, the user must scale either the learning rate or the desired batch size based on the number of replicas."
-    },
-    {
-      "question": "Which PyTorch class is recommended by PyTorch maintainers for multi-GPU data parallelism?",
-      "answer": "The `DistributedDataParallel` class is recommended for using multiple GPUs, whether on a single node or distributed across nodes."
-    },
-    {
-      "question": "What is PyTorch Lightning, and how does it simplify multi-GPU training?",
-      "answer": "PyTorch Lightning is a Python package that provides interfaces to PyTorch, simplifying common, code-heavy tasks like multi-GPU training by abstracting away much of the explicit `DistributedDataParallel` setup."
-    },
-    {
-      "question": "When is Single GPU Data Parallelism advisable for small models?",
-      "answer": "It's advisable when a model is small but you have a very large dataset and wish to perform training with a small batch size, allowing multiple model replicas to fit on a single GPU to increase resource usage and speed."
-    },
-    {
-      "question": "What technologies are used to achieve Single GPU Data Parallelism by placing multiple model replicas on one GPU?",
-      "answer": "Nvidia's Multi-Process Service (MPS) along with MPI are used to efficiently place multiple model replicas on a single GPU."
-    },
-    {
-      "question": "What is Fully Sharded Data Parallelism (FSDP)?",
-      "answer": "FSDP enables distributed storage and computing of training task elements like optimizer states, model weights, gradients, and activations across multiple devices, facilitating training of models with massive parameters."
-    },
-    {
-      "question": "What is a limitation of FSDP regarding model layers?",
-      "answer": "You should not use FSDP if your model has layers that do not fit entirely into the memory of a single GPU, as sharded layers may be collected into a single device during a forward or backward pass."
-    },
-    {
-      "question": "How does Tensor Parallelism (TP) differ from FSDP?",
-      "answer": "TP splits the computation of a forward or backward pass through a model layer across devices along with the layers' weights, meaning computation steps are done locally in the device where a model shard is placed, avoiding overheads of moving shards like in FSDP."
-    },
-    {
-      "question": "What is Pipeline Parallelism (PP) and how does it mitigate device idle time?",
-      "answer": "PP shards a model into groups of consecutive layers, placing each group on a different device. To mitigate idle time caused by sequential computation, input batches are broken into 'micro-batches' which are fed to the model in sequence, keeping all devices busy."
-    },
-    {
-      "question": "Why is it a good practice to create model checkpoints during training?",
-      "answer": "Checkpoints save a snapshot of your model's state, allowing you to break up long jobs into shorter ones, resume training from a specific point, and avoid losing progress due to errors or node failures."
-    },
-    {
-      "question": "How can you create a checkpoint using PyTorch Lightning?",
-      "answer": "You can use the `callbacks` parameter of the `Trainer()` class, specifically `pl.callbacks.ModelCheckpoint`, to instruct PyTorch Lightning to create checkpoints, for example, at the end of every training epoch."
-    },
-    {
-      "question": "What precaution should be taken when checkpointing during distributed training using DistributedDataParallel or Horovod?",
-      "answer": "Checkpointing should only be done by one process (e.g., rank 0) of your program, and a `torch.distributed.barrier()` should be used before loading to ensure the checkpoint is fully written to disk."
-    },
-    {
-      "question": "What does the CUDA error 'no kernel image is available for execution on the device' indicate, and how can it be resolved?",
-      "answer": "This error means the current PyTorch installation doesn't support the GPU's compute architecture. It can be resolved by updating `torch` to a more recent version or requesting a different, compatible GPU."
-    },
-    {
-      "question": "What modules are required to set up the LibTorch environment for StdEnv/2023?",
-      "answer": "For StdEnv/2023, you need to load `StdEnv/2023`, `gcc`, `cuda/12.2`, `cmake`, `protobuf`, `cudnn`, `python/3.11`, `abseil`, `cusparselt`, and `opencv/4.8.1` modules."
-    },
-    {
-      "question": "How do you install rTorch from a login node?",
-      "answer": "Installation involves loading R and CUDA modules, creating an R installation directory, installing the 'torch' package from CRAN, installing dependencies using `torch::install_torch()`, and patching the `liblantern.so` shared library."
+      "question": "How can rTorch be installed and quickly tested for both CPU and GPU functionality on an Alliance cluster?",
+      "answer": "To install rTorch, first load `r/4.5`, `cuda/12.6`, and `cudnn` modules, then create an R installation directory and install the 'torch' package from CRAN, followed by `torch::install_torch()`. Finally, patch `liblantern.so` with `setrpaths.sh`. CPU testing involves `R -e 'torch::torch_tensor(1)'`, and GPU testing requires an interactive job with a GPU: `srun --mem=3500M --gpus=h100_1g.10gb:1 -- R -e 'torch::torch_tensor(1)$cuda()'`."
     }
   ],
-  "generated_at": "2026-04-12T05:36:54.308449+00:00"
+  "generated_at": "2026-04-13T11:35:03.574884+00:00"
 }

@@ -4,49 +4,13 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "Quel est le nombre maximal de tâches qu'on peut soumettre sur les grappes Nibi et Rorqual?",
-      "answer": "Le nombre maximal de tâches qu'on peut soumettre sur Nibi et Rorqual est de 1000."
+      "question": "Comment gérer une analyse META-Farm avec plus de 1000 métatâches, sachant la limite de soumission sur les grappes Nibi et Rorqual de l'Alliance?",
+      "answer": "Si une analyse META-Farm requiert plus de 1000 métatâches, ce qui dépasse la limite de soumission sur les grappes Nibi et Rorqual, vous ne pourrez pas lancer tout le groupe de cas en une seule soumission. La solution est d'utiliser une séquence de commandes : commencez par `submit.run 1000`, puis, une fois que toutes les tâches de cette première exécution sont terminées, utilisez `resubmit.run 1000` pour soumettre les cas restants. Répétez la commande `resubmit.run 1000` jusqu'à ce que tous les cas soient traités. Si cette méthode manuelle vous semble fastidieuse, il est recommandé d'utiliser la fonctionnalité avancée de resoumission automatique des cas."
     },
     {
-      "question": "Comment faire si mon analyse requiert plus de 1000 métatâches, dépassant la limite de soumission unique sur Nibi et Rorqual?",
-      "answer": "Vous ne pourrez pas exécuter tout le groupe de cas avec une seule soumission. La solution de contournement est d'utiliser une séquence de commandes `submit.run 1000` puis `resubmit.run 1000` à plusieurs reprises, en vous assurant que chaque commande est exécutée après la fin du groupe précédent."
-    },
-    {
-      "question": "Est-ce qu'il y a une façon moins fastidieuse de gérer la resoumission de nombreux cas qui dépassent la limite de 1000 métatâches?",
-      "answer": "Oui, vous pouvez utiliser la fonctionnalité avancée pour resoumettre automatiquement les cas qui ont échoué."
-    },
-    {
-      "question": "Quelle précaution faut-il prendre avant de soumettre un gros groupe de cas?",
-      "answer": "Il faut toujours commencer par un petit test pour vous assurer que tout fonctionne avant de soumettre un grand groupe de cas."
-    },
-    {
-      "question": "Comment puis-je tester des cas individuels de manière interactive?",
-      "answer": "Vous pouvez tester des cas individuels en réservant un nœud interactif avec `salloc`, en passant au répertoire du groupe de cas et en exécutant des commandes comme `./single_case.sh table.dat 1` ou `./single_case.sh table.dat 2`."
-    },
-    {
-      "question": "Quelles sont les recommandations pour un groupe de cas qui contient plus de 10 000 cas afin d'assurer l'efficacité?",
-      "answer": "Vous devez minimiser le nombre de fichiers et/ou de répertoires créés, faire en sorte que votre code poursuive ses écritures à la suite des fichiers existants (un par métatâche sans mélanger les résultats), et éviter de créer un sous-répertoire distinct pour chaque cas."
-    },
-    {
-      "question": "Pourquoi la création de sous-répertoires séparés pour chaque cas est-elle le comportement par défaut de META, même si ce n'est pas efficace pour un très grand nombre de cas?",
-      "answer": "Le comportement par défaut de créer des sous-répertoires séparés pour chaque cas a été choisi pour la sécurité et non pour l'efficacité."
-    },
-    {
-      "question": "Quelles sont les conditions idéales pour optimiser l'exécution d'un très grand nombre de cas avec META?",
-      "answer": "L'optimisation est possible si votre code accepte le nom du fichier de sortie via une option en ligne de commande `-o`, si l'application ouvre le fichier de sortie en mode ajout (append), si chaque ligne de `table.dat` fournit le reste des arguments en ligne de commande, si plusieurs instances de votre code peuvent s'exécuter simultanément en toute sécurité dans le même répertoire, et si chaque exécution ne produira aucun fichier en plus du fichier de sortie."
-    },
-    {
-      "question": "Comment modifier le script `single_case.sh` pour l'optimiser pour un très grand nombre de cas, en utilisant la variable `$METAJOB_ID`?",
-      "answer": "Pour l'optimiser, vous pouvez modifier la ligne d'exécution dans `single_case.sh` pour qu'elle ressemble à `/path/to/your/code $COMM -o output.$METAJOB_ID`, en supposant que votre code accepte ces arguments."
-    },
-    {
-      "question": "Où puis-je trouver plus d'informations sur les fonctionnalités avancées et le dépannage de META-Farm?",
-      "answer": "Vous pouvez consulter la version française de la page 'META-Farm : Fonctions avancées et dépannage'."
-    },
-    {
-      "question": "À qui dois-je m'adresser si j'ai besoin d'assistance supplémentaire avec l'outil META?",
-      "answer": "Vous devez contacter le soutien technique et mentionner le nom de l'outil META ainsi que celui de son développeur, Sergey Mashchenko."
+      "question": "Pour une analyse META-Farm comportant plus de 10 000 cas, quelles sont les pratiques recommandées afin d'optimiser l'efficacité du traitement?",
+      "answer": "Pour optimiser l'efficacité d'une analyse META-Farm avec plus de 10 000 cas, il faut minimiser la création de fichiers et de répertoires durant l'exécution. Idéalement, votre code devrait écrire en mode ajout (append) dans des fichiers existants, un par métatâche, plutôt que de créer un fichier séparé pour chaque cas. Il est également conseillé d'éviter de créer un sous-répertoire distinct pour chaque cas, car, bien que ce soit la configuration par défaut de META pour la sécurité, ce n'est pas la plus efficace pour les très grands groupes de cas."
     }
   ],
-  "generated_at": "2026-04-12T01:26:19.623812+00:00"
+  "generated_at": "2026-04-13T08:29:19.568764+00:00"
 }

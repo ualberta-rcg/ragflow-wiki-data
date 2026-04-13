@@ -4,33 +4,17 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "À quoi sert le bloc conditionnel `if [[ (\"${EBVERSIONANSYS//R*}\" -ge 2025 && \"${CC_CLUSTER}\" == nibi) || \"${CC_CLUSTER}\" == narval ]]; then` dans les scripts Ansys Fluent?",
-      "answer": "Ce bloc configure des variables d'environnement spécifiques pour Intel MPI, comme `I_MPI_HYDRA_BOOTSTRAP=ssh` et annule `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`, lorsque le cluster est Nibi (pour les versions Ansys 2025 et plus récentes) ou Narval."
+      "question": "Comment Ansys Fluent est-il lancé pour des tâches sur plusieurs nœuds sur la grappe Nibi, en utilisant le script Intel MPI 'par nœud'?",
+      "answer": "Pour lancer Ansys Fluent sur plusieurs nœuds de la grappe Nibi avec le script Intel MPI 'par nœud', la commande à utiliser est `fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
     },
     {
-      "question": "Comment le fichier 'machinefile' est-il créé pour Ansys Fluent dans ces scripts?",
-      "answer": "Le fichier 'machinefile' temporaire est créé à l'aide de la commande `slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/machinefile-$SLURM_JOB_ID`."
+      "question": "En dehors de la grappe Nibi, quelle est la commande pour lancer Fluent pour des tâches sur plusieurs nœuds avec le script Intel MPI 'par nœud'?",
+      "answer": "Pour les grappes autres que Nibi, quand on utilise le script Intel MPI 'par nœud' pour des tâches sur plusieurs nœuds, Fluent est lancé avec la commande `fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
     },
     {
-      "question": "Comment le nombre de cœurs (`NCORES`) est-il déterminé dans le script?",
-      "answer": "Le nombre de cœurs (`NCORES`) est défini en prenant la valeur de `$SLURM_NTASKS`."
-    },
-    {
-      "question": "Quelle est la commande pour exécuter Fluent sur un seul nœud en parallèle avec mémoire partagée (SMP) en utilisant Intel MPI?",
-      "answer": "Pour une exécution sur un seul nœud, la commande est `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`, où `-pshmem` indique le mode parallèle à mémoire partagée."
-    },
-    {
-      "question": "Comment Ansys Fluent est-il exécuté sur plusieurs nœuds du cluster Nibi en utilisant Intel MPI?",
-      "answer": "Sur Nibi, pour plusieurs nœuds, Fluent est lancé avec `fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`, en utilisant l'interconnexion `peth` (Ethernet)."
-    },
-    {
-      "question": "Quelle est la commande pour exécuter Fluent sur plusieurs nœuds des autres grappes (comme Beluga, Cedar ou Graham) en utilisant Intel MPI?",
-      "answer": "Sur les autres grappes pour plusieurs nœuds, Fluent est exécuté avec `fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`, en utilisant l'interconnexion `pib` (InfiniBand ou similaire)."
-    },
-    {
-      "question": "Quel est le nom du fichier de script pour exécuter Fluent sur plusieurs nœuds avec Open MPI sur Narval?",
-      "answer": "Le nom du fichier de script est `script-flu-bynode-openmpi.sh`."
+      "question": "Quel est le titre du script alternatif pour Fluent qui est présenté spécifiquement pour la grappe Narval, suivant le script 'Plusieurs nœuds (par nœud)'?",
+      "answer": "Le script alternatif pour Fluent spécifiquement présenté pour la grappe Narval, juste après le script 'Plusieurs nœuds (par nœud)', est intitulé 'Plusieurs nœuds (par nœud, Narval)'."
     }
   ],
-  "generated_at": "2026-04-12T16:58:05.742342+00:00"
+  "generated_at": "2026-04-13T01:56:23.989810+00:00"
 }

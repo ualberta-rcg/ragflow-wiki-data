@@ -4,53 +4,17 @@
   "chunk_index": 20,
   "qa_pairs": [
     {
-      "question": "Comment dois-je configurer mon fichier de licence Abaqus pour les systèmes SHARCNET afin d'utiliser la licence gratuite?",
-      "answer": "Vous devez mettre à jour votre fichier `~/.licenses/abaqus.lic` pour qu'il contienne la ligne `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27050@license1.computecanada.ca\")`."
+      "question": "Comment configurer le fichier de licence Abaqus pour utiliser la licence SHARCNET gratuite sur les systèmes appropriés?",
+      "answer": "Pour configurer votre fichier de licence Abaqus afin d'utiliser la licence SHARCNET gratuite sur des systèmes comme les grappes Nibi et Dusky, vous devez créer ou mettre à jour le fichier `~/.licenses/abaqus.lic` dans votre répertoire personnel avec la ligne suivante : `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27050@license1.computecanada.ca\")`."
     },
     {
-      "question": "Pourquoi est-il nécessaire de mettre à jour le fichier `abaqus.lic` pour la licence SHARCNET?",
-      "answer": "C'est nécessaire parce que l'ancien serveur de licence `license3.sharcnet.ca` est définitivement fermé."
+      "question": "Comment interroger le serveur de licences SHARCNET pour vérifier les tâches Abaqus en cours d'exécution, celles en file d'attente et les réservations de produits?",
+      "answer": "Pour interroger le serveur de licences SHARCNET, connectez-vous à Nibi avec `ssh nibi.alliancecan.ca`, puis chargez les modules nécessaires en utilisant `module load StdEnv/2020` et `module load abaqus`. Ensuite, pour voir les tâches lancées et en file d'attente, exécutez `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"`. Pour inclure les réservations de produits par groupe d'acquisition, utilisez plutôt `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued|RESERVATION\"`."
     },
     {
-      "question": "Que dois-je vérifier si ma tâche Abaqus se termine avec le message d'erreur \"*** ABAQUS/eliT_CheckLicense rank 0 terminated by signal 11 (Segmentation fault)\"?",
-      "answer": "Vous devriez vérifier si votre fichier `abaqus.lic` contient \"ABAQUSLM_LICENSE_FILE\" pour la version d'Abaqus/202X que vous utilisez."
-    },
-    {
-      "question": "Si j'utilise Abaqus/6.14.1 et que je reçois le message d'erreur \"License server machine is down or not responding etc.\", quelle action devrais-je prendre?",
-      "answer": "Dans ce cas, vous devriez remplacer \"ABAQUSLM_LICENSE_FILE\" par \"LM_LICENSE_FILE\" dans votre fichier de licence."
-    },
-    {
-      "question": "Quelles sont les étapes de base pour interroger le serveur de licences Abaqus sur Nibi?",
-      "answer": "Vous devez d'abord vous connecter à Nibi via SSH (`ssh nibi.alliancecan.ca`), puis charger les modules `StdEnv/2020` et `abaqus`."
-    },
-    {
-      "question": "Quelle commande me permet de vérifier les tâches Abaqus lancées et celles qui sont en file d'attente pour le serveur de licence SHARCNET?",
-      "answer": "Vous pouvez utiliser la commande `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"`."
-    },
-    {
-      "question": "Comment puis-je vérifier les tâches lancées et en file d'attente, y compris les réservations de produits par groupe d'acquisition, sur le serveur de licence SHARCNET?",
-      "answer": "Utilisez la commande `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued|RESERVATION\"`."
-    },
-    {
-      "question": "Quelle est la commande pour vérifier la disponibilité explicite de produits comme 'cae', 'standard' ou 'explicit' pour le calcul sur le serveur de licences SHARCNET?",
-      "answer": "La commande à exécuter est `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | grep \"Users of\" | egrep \"cae|standard|explicit\"`."
-    },
-    {
-      "question": "Lorsqu'une tâche est en file d'attente pour une licence, quel est son statut selon `squeue -j jobid` ou `sacct -j jobid`?",
-      "answer": "La tâche est considérée comme étant à l'état 'R (running)' même si elle est inactive sur un nœud de calcul, en attente d'une licence."
-    },
-    {
-      "question": "Quel impact une tâche en file d'attente pour une licence a-t-elle sur la priorité de mon compte?",
-      "answer": "Cela aura le même impact sur la priorité de votre compte que si la tâche effectuait des calculs et consommait du temps CPU."
-    },
-    {
-      "question": "Quand une tâche Abaqus qui est en file d'attente pour une licence va-t-elle démarrer?",
-      "answer": "La tâche en file d'attente démarrera dès que suffisamment de licences seront disponibles."
-    },
-    {
-      "question": "Selon l'exemple donné, pourquoi la seconde tâche (27527297) est-elle restée en attente alors que la première (27527287) s'exécutait?",
-      "answer": "La seconde tâche est restée en attente parce que l'utilisateur, disposant de 10 jetons Abaqus, avait vu sa première tâche utiliser ces 10 jetons, ne laissant aucune licence disponible pour la seconde tâche."
+      "question": "Quel est l'impact de soumettre plusieurs tâches Abaqus qui dépassent le nombre de jetons de licence disponibles sur le serveur SHARCNET?",
+      "answer": "Si vous soumettez plusieurs tâches Abaqus nécessitant plus de jetons que ce qui est disponible, la première tâche obtiendra les jetons nécessaires et commencera. Les tâches suivantes, n'ayant plus accès aux jetons, resteront en attente même si l'ordonnanceur les a lancées sur des nœuds de calcul. Cela aura le même impact sur la priorité de votre compte que si la tâche effectuait des calculs, gaspillant des ressources et réduisant votre juste part tant que la tâche est inactive en attente de licence."
     }
   ],
-  "generated_at": "2026-04-11T15:41:12.617100+00:00"
+  "generated_at": "2026-04-13T00:53:01.445746+00:00"
 }

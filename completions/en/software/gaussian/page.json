@@ -3,81 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Gaussian?",
+      "question": "What type of application is Gaussian, as supported on Alliance clusters?",
       "answer": "Gaussian is a computational chemistry application."
     },
     {
-      "question": "On which national systems is Gaussian currently supported?",
+      "question": "Which Alliance clusters currently support Gaussian?",
       "answer": "Gaussian is currently supported on Nibi and Fir."
     },
     {
-      "question": "What type of parallel execution for Gaussian is not supported on national systems?",
-      "answer": "Cluster/network parallel execution, also known as 'Linda parallelism', is not supported."
+      "question": "What type of parallel execution is supported for Gaussian on Alliance national systems?",
+      "answer": "Only \"shared-memory multiprocessor parallel execution\" is supported, meaning a Gaussian job cannot use more than a single compute node."
     },
     {
-      "question": "What type of parallel execution for Gaussian is supported on national systems?",
-      "answer": "Only 'shared-memory multiprocessor parallel execution' is supported."
+      "question": "What type of parallel execution is not supported for Gaussian on Alliance national systems?",
+      "answer": "Cluster/network parallel execution, also known as \"Linda parallelism\", is not supported."
     },
     {
-      "question": "What is the maximum number of compute nodes a Gaussian job can utilize?",
-      "answer": "A Gaussian job can use no more than a single compute node."
+      "question": "What are the required conditions to use Gaussian software on Alliance clusters?",
+      "answer": "Users must agree not to develop competitive software, not to copy or share Gaussian, properly acknowledge Gaussian Inc. and the Alliance in publications, and notify the Alliance of any changes to acknowledgement. Sponsored users' PIs must also have this statement on file."
     },
     {
-      "question": "How do users gain access to Gaussian software on the national systems?",
-      "answer": "Users must agree to specific license conditions and contact support with a signed statement."
+      "question": "How do users gain access to Gaussian on Alliance clusters?",
+      "answer": "Users must contact support with a copy of the required statement agreeing to the license conditions, after which access will be granted."
     },
     {
-      "question": "What are the key conditions users must agree to before using Gaussian?",
-      "answer": "Users must not be part of a group developing competitive software, not copy or make Gaussian available to others, properly acknowledge Gaussian Inc. and the Alliance, and notify the Alliance of any acknowledgement changes."
+      "question": "How can users check available Gaussian versions on Alliance clusters like Nibi and Fir?",
+      "answer": "Users can check available versions by using the `module spider gaussian` command."
     },
     {
-      "question": "How can users check which versions of the Gaussian module are available on Nibi and Fir?",
-      "answer": "Users can use the `module spider gaussian` command to check available versions."
+      "question": "What is the recommended maximum number of CPUs for a Gaussian job on Alliance clusters, despite nodes having more available?",
+      "answer": "It is recommended to use no more than 32 CPUs per job unless there is good evidence of efficient use, even though Nibi and Fir nodes have 192 CPUs."
     },
     {
-      "question": "What is the recommended maximum number of CPUs for a Gaussian job, despite nodes having more?",
-      "answer": "It is recommended to use no more than 32 CPUs per job unless there is good evidence of efficient usage."
+      "question": "What are the two primary options for running Gaussian jobs on Alliance clusters, distinguished by how they handle default runtime files?",
+      "answer": "The two options are 'G16' (or G09, G03) which saves runtime files to `/scratch/username/jobid/`, and 'g16' (or g09, g03) which saves them temporarily to `$SLURM_TMPDIR` (`/localscratch/`)."
     },
     {
-      "question": "What two files are essential and must be in the same directory for submitting a Gaussian job?",
-      "answer": "An input file (e.g., `name.com`) and a job script (e.g., `mysub.sh`) are essential."
+      "question": "When should users choose the 'G16' option for running Gaussian jobs on Alliance clusters?",
+      "answer": "Users should choose the 'G16' option when they need default runtime files (like the .rwf file) to persist for restart purposes, or if their job files would be larger than or close to the 3TB /localscratch limit."
     },
     {
-      "question": "What is the primary difference between the G16 (uppercase) and g16 (lowercase) job submission options regarding runtime files?",
-      "answer": "The G16 option saves runtime files to `/scratch/username/jobid/` (which persist), while the g16 option saves them temporarily to `$SLURM_TMPDIR` (`/localscratch/`) and they are automatically removed upon job completion."
+      "question": "When should users choose the 'g16' option for running Gaussian jobs on Alliance clusters?",
+      "answer": "Users should choose the 'g16' option when faster execution is desired due to temporary file storage on `/localscratch`, and the runtime files are not needed after job completion or are explicitly specified and named in the Gaussian input file."
     },
     {
-      "question": "Which Gaussian job submission option is recommended for faster execution of runtime files?",
-      "answer": "The g16 (lowercase) option, which uses `/localscratch` on the compute node, is recommended for faster execution."
+      "question": "How do users submit a Gaussian batch job using the Slurm scheduler on Alliance clusters?",
+      "answer": "Users must prepare an input file (e.g., `name.com`) and a job script (e.g., `mysub.sh`) in the same directory, then submit it using the command `sbatch mysub.sh`."
     },
     {
-      "question": "How can users ensure the `.rwf` file is saved for a restart when using the g16 (lowercase) option?",
-      "answer": "Users must explicitly specify and name their own `.rwf` file in the Gaussian input file."
+      "question": "How can a user restart a Gaussian job from a previous run on Alliance clusters?",
+      "answer": "To restart, users need to specify the path to the previous `.rwf` file using `%rwf` and change the keywords line in the input file to `#p restart`."
     },
     {
-      "question": "How can a user initiate an interactive Gaussian session on a compute node?",
-      "answer": "A user can use the `salloc` command, specifying resources such as time, CPUs, and memory (e.g., `salloc --time=1:0:0 --cpus-per-task=8 --mem=10g`)."
+      "question": "Which specific Gaussian version available on Alliance clusters includes NBO7?",
+      "answer": "NBO7 is included in the `g16.c01` version of Gaussian."
     },
     {
-      "question": "From what type of file can Gaussian geometry optimization jobs be restarted?",
-      "answer": "Gaussian geometry optimization jobs can be restarted from the `.chk` file."
+      "question": "Where can users find example Gaussian input and run scripts on Alliance clusters?",
+      "answer": "Example input files and run scripts (`*.sh`) can be found in `/opt/software/gaussian/version/examples/`."
     },
     {
-      "question": "What keyword should be included in a Gaussian input file to restart a previous job?",
-      "answer": "The keyword `#p restart` should be included in the input file."
+      "question": "Are interactive Gaussian jobs permitted on Alliance compute nodes for testing purposes?",
+      "answer": "Yes, interactive Gaussian jobs are permitted for testing on compute nodes by starting an interactive session with `salloc`, but it's not good practice to run them on a login node."
     },
     {
-      "question": "Where can users find example input files and run scripts for Gaussian?",
-      "answer": "Example files can be found in `/opt/software/gaussian/version/examples/`, where 'version' corresponds to a specific Gaussian release (e.g., g16.b01)."
-    },
-    {
-      "question": "Which specific Gaussian version includes NBO7, and how is it invoked?",
-      "answer": "NBO7 is included in the `g16.c01` version, and it can be invoked using either the `nbo6` or `nbo7` keywords."
-    },
-    {
-      "question": "Where can users find suggestions for resolving common Gaussian error messages?",
-      "answer": "Users can refer to the [[Gaussian error messages]] page for resolution suggestions."
+      "question": "What is the general memory recommendation for Gaussian job scripts when defining `--mem` for the Slurm scheduler on Alliance clusters?",
+      "answer": "The `--mem` specified in the Slurm job script should be roughly two times the `%mem` defined in the Gaussian input `.com` file."
     }
   ],
-  "generated_at": "2026-04-11T22:50:36.489730+00:00"
+  "generated_at": "2026-04-13T06:23:15.556711+00:00"
 }

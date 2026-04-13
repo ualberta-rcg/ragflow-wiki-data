@@ -3,53 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, Parabricks?",
-      "answer": "Parabricks est une suite logicielle d'analyse de l'ADN par séquençage haut débit (NGS)."
+      "question": "Qu'est-ce que Parabricks et à quoi sert-il sur les grappes de Calcul Canada?",
+      "answer": "Parabricks est une suite logicielle utilisée pour l'analyse de l'ADN par séquençage haut débit (NGS), permettant un traitement très rapide des données génomiques."
     },
     {
-      "question": "Quel est le principal avantage de Parabricks en termes de performance?",
-      "answer": "Il peut analyser le séquençage entier du génome humain (WGS) en quelques heures, comparativement à plusieurs jours avec d'autres techniques."
+      "question": "Quel est l'avantage principal de Parabricks par rapport aux autres techniques d'analyse de séquençage de génome entier (WGS)?",
+      "answer": "Parabricks peut analyser le séquençage entier du génome humain (WGS) d'une résolution de 30x en quelques heures, contrairement à quelques jours avec d'autres techniques."
     },
     {
-      "question": "Comment faire pour obtenir une licence Parabricks afin de l'utiliser sur les grappes de Calcul Canada?",
-      "answer": "Il faut s'entendre directement avec NVIDIA pour obtenir une licence, puisque l'offre gratuite pour la recherche sur la COVID-19 est terminée."
+      "question": "Comment les utilisateurs peuvent-ils obtenir une licence pour Parabricks afin de l'utiliser sur les grappes de Calcul Canada?",
+      "answer": "Les utilisateurs doivent s'entendre directement avec NVIDIA pour obtenir leur licence, car l'offre gratuite pour la recherche sur la COVID-19 a pris fin le 17 mai 2020."
     },
     {
-      "question": "Comment peut-on trouver le logiciel Parabricks sur les grappes de Calcul Canada?",
-      "answer": "On peut le trouver avec la commande `module spider parabricks`."
+      "question": "Comment les utilisateurs peuvent-ils trouver le module Parabricks sur les grappes de Calcul Canada?",
+      "answer": "On peut trouver Parabricks en utilisant la commande `module spider parabricks`."
     },
     {
-      "question": "Quelle commande faut-il utiliser pour charger le module Parabricks?",
+      "question": "Quelle commande Lmod doit-on utiliser pour charger la version 2.5.0 de Parabricks sur une grappe de Calcul Canada?",
       "answer": "Il faut utiliser la commande `module load parabricks/2.5.0`."
     },
     {
-      "question": "Quels sont les prérequis ou les documents à consulter avant de se servir de Parabricks?",
-      "answer": "Il est recommandé de consulter la documentation officielle de Parabricks et le guide sur l'ordonnancement Slurm avec des GPU."
+      "question": "Quelles informations les utilisateurs devraient-ils consulter avant de soumettre une tâche Parabricks sur les grappes de Calcul Canada?",
+      "answer": "Il est recommandé de prendre connaissance de la documentation officielle de Parabricks ainsi que des instructions sur l'ordonnancement Slurm avec des tâches exécutées avec GPU."
     },
     {
-      "question": "Comment doit-on spécifier la mémoire si un nœud complet est réservé pour une tâche Parabricks?",
-      "answer": "Il est suggéré d'utiliser `--mem=0` dans le script Slurm pour allouer toute la mémoire disponible du nœud."
+      "question": "Quels paramètres Slurm sont essentiels pour un script de soumission de tâche Parabricks qui utilise une carte GPU?",
+      "answer": "Les paramètres essentiels incluent `--account`, `--gres=gpu:1`, `--nodes=1`, `--cpus-per-task`, `--mem` et `--time`."
     },
     {
-      "question": "Quel est un exemple de commande Parabricks pour l'analyse germinale?",
-      "answer": "Un exemple est `pbrun germline`, avec des options comme `--ref` et `--in-fq` pour les données d'entrée."
+      "question": "Qu'est-ce qui peut causer un échec à court terme lors du premier test d'utilisation de Parabricks sur les grappes de Calcul Canada?",
+      "answer": "Un échec à court terme peut être dû à un module manquant ou à un conflit avec une variable d'environnement."
     },
     {
-      "question": "Que faire en cas d'échec rapide de Parabricks, possiblement dû à un module manquant ou un conflit?",
-      "answer": "Il faut purger les modules avec `module --force purge` et ensuite charger l'environnement standard et Parabricks (`module load StdEnv/2016.4 nixpkgs/16.09 parabricks/2.5.0`)."
+      "question": "Comment peut-on résoudre les problèmes de module manquant ou de conflit de variable d'environnement qui causent des échecs avec Parabricks?",
+      "answer": "On peut essayer de résoudre le problème en utilisant `module --force purge` suivi de `module load StdEnv/2016.4 nixpkgs/16.09 parabricks/2.5.0`."
     },
     {
-      "question": "Si Parabricks échoue sans message d'erreur clair après un certain temps, quelle en est la cause habituelle?",
-      "answer": "C'est souvent un signe qu'il n'y a pas assez de mémoire allouée pour le traitement des données."
+      "question": "Quelle est la cause fréquente des échecs à plus long terme avec Parabricks, surtout lorsque le logiciel ne fournit pas de trace claire de l'erreur?",
+      "answer": "Ceci signifie habituellement que les utilisateurs n'ont pas demandé suffisamment de mémoire pour le pipeline."
     },
     {
-      "question": "Combien de cœurs de CPU (CPUs) sont recommandés pour une utilisation hybride de Parabricks?",
-      "answer": "Les tests recommandent de demander au moins 10 cœurs de CPU avec `--cpus-per-task=10`."
+      "question": "Comment s'assurer que Parabricks dispose de suffisamment de mémoire lors de l'exécution d'une tâche sur un nœud complet sur les grappes de Calcul Canada?",
+      "answer": "Si un nœud complet est réservé avec `--nodes=1`, il est suggéré d'utiliser toute la mémoire disponible avec `--mem=0`."
     },
     {
-      "question": "Quelle commande est suggérée pour s'assurer d'utiliser des chemins absolus dans les scripts?",
-      "answer": "La commande `realpath` est recommandée pour obtenir des chemins absolus."
+      "question": "Parabricks utilise-t-il les CPU et les GPU conjointement, et combien de CPU sont recommandés pour son utilisation sur les grappes de Calcul Canada?",
+      "answer": "Oui, Parabricks peut utiliser les CPU et les GPU. Il est recommandé de demander un minimum de 10 CPU avec `--cpus-per-task=10`."
+    },
+    {
+      "question": "Où les utilisateurs peuvent-ils trouver plus d'informations sur Parabricks, incluant ses pipelines et ses outils autonomes?",
+      "answer": "Plus d'information est disponible sur le site web officiel de NVIDIA Parabricks à l'adresse www.nvidia.com/parabricks."
+    },
+    {
+      "question": "Que représente la variable `${DATA_DIR}` dans l'exemple de script Parabricks?",
+      "answer": "La variable `${DATA_DIR}` représente le chemin absolu vers le répertoire où se trouvent les données d'entrée pour l'analyse."
+    },
+    {
+      "question": "Pourquoi la commande `realpath` est-elle mentionnée en note dans l'exemple d'utilisation de Parabricks?",
+      "answer": "Elle est mentionnée pour s'assurer que les chemins de fichiers utilisés dans le script sont absolus, ce qui peut être important pour l'exécution des tâches."
     }
   ],
-  "generated_at": "2026-04-12T04:59:18.090192+00:00"
+  "generated_at": "2026-04-13T11:02:20.456276+00:00"
 }

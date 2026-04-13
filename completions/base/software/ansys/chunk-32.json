@@ -4,69 +4,17 @@
   "chunk_index": 32,
   "qa_pairs": [
     {
-      "question": "What are the default memory allocations for APDL jobs in Ansys?",
-      "answer": "Ansys allocates 1024 MB total memory and 1024 MB database memory by default for APDL jobs."
+      "question": "How can users adjust the default memory allocation for Ansys Mechanical (APDL) jobs?",
+      "answer": "Ansys Mechanical (APDL) jobs allocate 1024 MB total memory and 1024 MB database memory by default. These values can be manually specified or changed by adding the arguments `-m <value>` for total memory and/or `-db <value>` for database memory to the `mapdl` command line in the Slurm scripts."
     },
     {
-      "question": "How can I manually adjust the default memory allocations for APDL jobs?",
-      "answer": "You can manually specify or change these values by adding arguments `-m 1024` and/or `-db 1024` to the `mapdl` command line in your scripts."
+      "question": "What is the updated guidance for loading the Ansys Rocky module, and what are the licensing implications when using it?",
+      "answer": "The `ansysrocky/2024R2.0` module is no longer supported and will be removed. Users should instead use Rocky included within the `ansys/2025R1` module (and future versions) available on all clusters. When Rocky is run with four or more CPUs, `rocky_hpc` licenses, which are provided by the SHARCNET license, will be required."
     },
     {
-      "question": "What additional arguments might be necessary for APDL jobs when using a remote institutional license server with multiple Ansys licenses?",
-      "answer": "When using a remote institutional license server with multiple Ansys licenses, it may be necessary to add `-p aa_r` or `-ppf anshpc` to your `mapdl` command, depending on the Ansys module you are using."
-    },
-    {
-      "question": "Which type of scripts are generally recommended for Ansys Mechanical (APDL) jobs for better performance?",
-      "answer": "The `single node` (SMP Shared Memory Parallel) scripts will typically perform better than the `multinode` (DIS Distributed Memory Parallel) scripts and should be used whenever possible."
-    },
-    {
-      "question": "Why is it important for the Ansys module version to match the input file's generation version for APDL jobs?",
-      "answer": "To help avoid compatibility issues, the Ansys module loaded in your script should ideally match the version used to generate the input file."
-    },
-    {
-      "question": "How can I check which Workbench version was used to create an APDL input file?",
-      "answer": "You can check the Workbench version by running `cat YOURAPDLFILE.inp | grep version` on the input file, which will show a line like `! ANSYS input file written by Workbench version 2019 R3`."
-    },
-    {
-      "question": "In what modes can Ansys Rocky simulations be run?",
-      "answer": "Ansys Rocky can run simulations in either graphical user interface (GUI) mode or non-GUI mode."
-    },
-    {
-      "question": "Does Ansys Rocky support GPU acceleration?",
-      "answer": "Yes, Ansys Rocky supports running simulations with CPUs only or with both CPUs and GPUs."
-    },
-    {
-      "question": "Which Ansys Rocky module should no longer be used and why?",
-      "answer": "The `ansysrocky/2024R2.0` module should be discontinued as it is no longer supported and will be removed."
-    },
-    {
-      "question": "What is the recommended Ansys module for Rocky simulations on Alliance clusters?",
-      "answer": "It is recommended to use the `ansys/2025R1` module, and future versions that will be installed, as it includes Rocky and is available on all clusters."
-    },
-    {
-      "question": "How can users view all available command-line options for Ansys Rocky?",
-      "answer": "To get a full listing of command-line options, users can run `Rocky -h` on the command line after loading the appropriate Rocky module."
-    },
-    {
-      "question": "Is there any specific path configuration required to run the `Rocky` command currently?",
-      "answer": "Yes, it is currently necessary to set your path to Rocky using `export PATH=$EBROOTANSYS/v251/rocky:$PATH` for the `Rocky` command to be found, although this will be included in future module versions."
-    },
-    {
-      "question": "When running Rocky with GPUs for coupled problems, how many CPUs should be requested from Slurm?",
-      "answer": "When Rocky is run with GPUs for solving coupled problems, the number of CPUs requested from Slurm (on the same node) should be increased to a maximum until the scalability limit of the coupled application is reached."
-    },
-    {
-      "question": "How many CPUs should be requested for Rocky when running standalone uncoupled problems with GPUs?",
-      "answer": "If Rocky is being run with GPUs to solve standalone uncoupled problems, only a minimal number of CPUs, such as 2 or possibly 3, should be requested to allow Rocky to run optimally."
-    },
-    {
-      "question": "What type of licenses are required if Ansys Rocky is run with four or more CPUs?",
-      "answer": "When Rocky is run with four or more CPUs (>= 4 cpus), `rocky_hpc` licenses will be required, which are provided by the SHARCNET license."
-    },
-    {
-      "question": "Are the provided Slurm scripts for Rocky currently guaranteed to work without adjustments?",
-      "answer": "No, the provided Slurm scripts for Rocky have not been tested since the clusters were updated in fall 2025, so some adjustments may be required."
+      "question": "When running Ansys Rocky simulations with GPUs, what is the recommended approach for requesting CPUs from Slurm?",
+      "answer": "For coupled problems using Ansys Rocky with GPUs, increase the number of CPUs requested from Slurm on the same node to a maximum that matches the coupled application's scalability limit. For standalone uncoupled problems with GPUs, request only a minimal number of CPUs, such as two or three, to ensure optimal performance."
     }
   ],
-  "generated_at": "2026-04-12T16:40:26.562362+00:00"
+  "generated_at": "2026-04-13T01:44:44.578701+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "When using `doParallel` with `makeCluster` for parallel R code execution, how is the cluster created and registered, and what type of cluster is typically used?",
-      "answer": "When using `doParallel` with `makeCluster`, you create a cluster by feeding it node names multiplied by the desired number of processes (e.g., `node1 node1 node2 node2` for two nodes with two processes each). This cluster is then registered using `registerDoParallel(cl)`. The `PSOCK` cluster type is typically used, which runs commands via SSH connections into the nodes."
+      "question": "What are the essential steps to configure and execute a parallel R script using `doParallel` and `makeCluster` on a high-performance computing cluster?",
+      "answer": "To use `doParallel` with `makeCluster` for parallel R computation, you first need to write an R script (e.g., `test_makecluster.R`) that imports `doParallel`, obtains the `NODESLIST` environment variable, creates a PSOCK type cluster using `makeCluster(nodeslist, type = \"PSOCK\")`, registers it with `registerDoParallel(cl)`, performs the parallel computation using `foreach %dopar%`, and finally releases resources with `stopCluster(cl)`. The corresponding job submission script (e.g., `job_makecluster.sh`) must load the necessary R module, export the `NODESLIST` variable by cutting the domain name from `srun hostname`, and then execute the R script using `R -f test_makecluster.R`. The backend should be registered by feeding it the node names multiplied by the desired number of processes."
     },
     {
-      "question": "What are the necessary steps to install the `Rmpi` package for parallel R execution on a cluster, including required modules and the specific installation command?",
-      "answer": "To install `Rmpi`, first load the `gcc`, `openmpi`, and `r` modules (e.g., `module load gcc/12.3 openmpi/4.1.5 r/4.5.0`). Then, download the `Rmpi` tarball (e.g., `wget https://cran.r-project.org/src/contrib/Rmpi_0.7-3.3.tar.gz`), and specify the local installation directory by setting `export R_LIBS=~/local/R_libs/`. Finally, run the installation command: `R CMD INSTALL --configure-args=\"--with-Rmpi-include=$EBROOTOPENMPI/include --with-Rmpi-libpath=$EBROOTOPENMPI/lib --with-Rmpi-type='OPENMPI' \" Rmpi_0.7-3.3.tar.gz`."
+      "question": "How do you install the `Rmpi` package for enabling parallel R execution using MPI routines on a cluster?",
+      "answer": "To install the `Rmpi` package, begin by loading the required modules, typically `gcc/12.3`, `openmpi/4.1.5`, and `r/4.5.0`, adjusting versions as needed. Next, download the latest `Rmpi` version tarball (e.g., `Rmpi_0.7-3.3.tar.gz`) from CRAN. Then, specify your local installation directory by creating it (e.g., `mkdir -p ~/local/R_libs/`) and exporting the `R_LIBS` environment variable to this path. Finally, run the installation command: `R CMD INSTALL --configure-args=\"--with-Rmpi-include=$EBROOTOPENMPI/include --with-Rmpi-libpath=$EBROOTOPENMPI/lib --with-Rmpi-type='OPENMPI' \" Rmpi_0.7-3.3.tar.gz`. It is important to carefully read any error messages during installation to identify and load any additional required modules."
     },
     {
-      "question": "How is an R script that utilizes the `Rmpi` package executed within a job submission script on a cluster?",
-      "answer": "To run an R script using `Rmpi` (e.g., `test.R`), you include the `mpirun` command in your job submission script. An example command is `mpirun -np 1 R CMD BATCH test.R test.txt`, where `-np` specifies the number of MPI processes and `R CMD BATCH` executes the R script non-interactively."
+      "question": "What is the process for running an R script in parallel using `Rmpi` through a job submission script on a cluster?",
+      "answer": "To run an R script with `Rmpi`, first create an R script (e.g., `test.R`) that loads the `Rmpi` library, utilizes `mpi.spawn.Rslaves()` to create worker processes, executes commands on these slaves using `mpi.remote.exec()`, and then gracefully closes them with `mpi.close.Rslaves()` and `mpi.quit()`. Next, prepare a job submission script (e.g., `job.sh`) which specifies SBATCH directives for account, number of tasks (`--ntasks`), memory per CPU, and time limit. Within this script, load the necessary modules like `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `r/4.5.0`, and export your `R_LIBS` path. Finally, execute the R script using `mpirun -np 1 R CMD BATCH test.R test.txt` to initiate the parallel execution with MPI."
     }
   ],
-  "generated_at": "2026-04-12T20:50:38.850647+00:00"
+  "generated_at": "2026-04-13T12:06:50.104161+00:00"
 }

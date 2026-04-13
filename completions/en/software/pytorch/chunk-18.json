@@ -4,17 +4,13 @@
   "chunk_index": 18,
   "qa_pairs": [
     {
-      "question": "When performing distributed training with PyTorch, what steps should be taken to correctly load a checkpoint on the appropriate GPU for each rank?",
-      "answer": "To correctly load a checkpoint during distributed PyTorch training, especially when created by a single process (rank 0), first ensure that all processes are synchronized by calling `torch.distributed.barrier()`. Then, specify the `map_location` argument in `torch.load` to load tensors onto the correct GPU for each rank, for example, `map_location = f\"cuda:{local_rank}\"`. This prevents errors or incorrect results that could arise if processes try to load a checkpoint before it's fully saved or if tensors are loaded onto the wrong device."
+      "question": "When performing distributed training with PyTorch, why is it important to use `torch.distributed.barrier()` before loading a model checkpoint?",
+      "answer": "Using `torch.distributed.barrier()` before loading a model checkpoint in distributed PyTorch training is crucial to prevent errors or incorrect results. It ensures that the process responsible for saving the checkpoint has fully written it to disk before any other processes attempt to load it."
     },
     {
-      "question": "Why is it important to use `map_location` when loading a PyTorch checkpoint in a distributed training environment?",
-      "answer": "It is important to use `map_location` when loading a PyTorch checkpoint in a distributed training environment because `torch.load` by default attempts to load tensors onto the GPU where they were originally saved (e.g., `cuda:0`). Specifying `map_location` ensures that tensors are loaded onto the correct GPU for each respective rank, preventing potential issues or incorrect results across the distributed processes."
-    },
-    {
-      "question": "In distributed PyTorch training, why is it necessary to include `torch.distributed.barrier()` before loading a checkpoint that was saved by only one process?",
-      "answer": "It is necessary to include `torch.distributed.barrier()` before loading a checkpoint in distributed PyTorch training when the checkpoint was saved by only one process. This barrier ensures that the process responsible for creating the checkpoint finishes writing it to disk before any other processes attempt to load it, thereby preventing errors or wrong results that could occur from trying to load a non-existent or incomplete file."
+      "question": "In PyTorch distributed training, how can one ensure that tensors are loaded onto the correct GPU for each rank when loading a model checkpoint?",
+      "answer": "To ensure tensors are loaded onto the correct GPU for each rank when loading a model checkpoint in PyTorch distributed training, you should pass the `map_location` argument to `torch.load`. For instance, `map_location = f\"cuda:{local_rank}\"` directs tensors to the appropriate GPU for the specific rank, preventing issues where `torch.load` might default to loading tensors on `cuda:0`."
     }
   ],
-  "generated_at": "2026-04-12T21:31:58.314324+00:00"
+  "generated_at": "2026-04-13T11:40:31.992327+00:00"
 }

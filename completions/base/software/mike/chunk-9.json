@@ -4,85 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What is the file name of the example job script for MIKE 2023?",
-      "answer": "The file name of the example job script for MIKE 2023 is `job_mike_2023_CPU.sh`."
+      "question": "What is the purpose of the provided example job scripts for MIKE software?",
+      "answer": "The provided job scripts are examples for running MIKE 2023 and MIKE 2022 on a CPU. They illustrate how to specify resource requests using SLURM directives, load the required software modules, and execute the MIKE engine with a model."
     },
     {
-      "question": "What is the file name of the example job script for MIKE 2022?",
-      "answer": "The file name of the example job script for MIKE 2022 is `job_mike_2022_CPU.sh`."
+      "question": "How are computing resources requested for a MIKE job using SLURM in the example scripts?",
+      "answer": "Computing resources for a MIKE job are requested using specific SLURM directives within the script. For example, `--nodes=1` requests one node, `--ntasks=8` requests eight tasks, `--cpus-per-task=1` allocates one CPU per task, `--mem-per-cpu=4000M` reserves 4000 megabytes of memory per CPU, and `--time=00:20:00` sets a time limit of 20 minutes for the job."
     },
     {
-      "question": "How many nodes are requested in the MIKE 2023 example job script?",
-      "answer": "One node is requested in the MIKE 2023 example job script (`#SBATCH --nodes=1`)."
-    },
-    {
-      "question": "How many tasks are requested for the MIKE 2023 job in the example script?",
-      "answer": "Eight tasks are requested for the MIKE 2023 job (`#SBATCH --ntasks=8`)."
-    },
-    {
-      "question": "What is the memory per CPU allocated for the MIKE 2023 job?",
-      "answer": "The MIKE 2023 job script allocates 4000M of memory per CPU (`#SBATCH --mem-per-cpu=4000M`)."
-    },
-    {
-      "question": "What is the time limit specified for the MIKE 2023 example job?",
-      "answer": "The time limit specified for the MIKE 2023 example job is 20 minutes (`#SBATCH --time=00:20:00`)."
-    },
-    {
-      "question": "Which modules are loaded for MIKE 2023 in the example job script?",
-      "answer": "For MIKE 2023, the modules `StdEnv/2020`, `intel/2021.2.0`, `intelmpi/2021.2.0`, and `mike/2023` are loaded."
-    },
-    {
-      "question": "How is the `OMP_NUM_THREADS` environment variable set in the MIKE 2023 example job script?",
-      "answer": "The `OMP_NUM_THREADS` environment variable is set to `${SLURM_CPUS_PER_TASK:-1}` in the MIKE 2023 example job script."
-    },
-    {
-      "question": "What is the name of the MIKE engine specified in the MIKE 2023 example script?",
-      "answer": "The name of the MIKE engine specified in the MIKE 2023 example script is `FemEngineHD`."
-    },
-    {
-      "question": "How is the MIKE engine executed in the MIKE 2023 example job script?",
-      "answer": "The MIKE engine is executed using the command `srun $engine $model`."
-    },
-    {
-      "question": "How many nodes are requested in the MIKE 2022 example job script?",
-      "answer": "One node is requested in the MIKE 2022 example job script (`#SBATCH --nodes=1`)."
-    },
-    {
-      "question": "How many tasks are requested for the MIKE 2022 job in the example script?",
-      "answer": "Eight tasks are requested for the MIKE 2022 job (`#SBATCH --ntasks=8`)."
-    },
-    {
-      "question": "What is the memory per CPU allocated for the MIKE 2022 job?",
-      "answer": "The MIKE 2022 job script allocates 4000M of memory per CPU (`#SBATCH --mem-per-cpu=4000M`)."
-    },
-    {
-      "question": "What is the time limit specified for the MIKE 2022 example job?",
-      "answer": "The time limit specified for the MIKE 2022 example job is 20 minutes (`#SBATCH --time=00:20:00`)."
-    },
-    {
-      "question": "Which modules are loaded for MIKE 2022 in the example job script?",
-      "answer": "For MIKE 2022, the modules `StdEnv/2020`, `intel/2020.1.217`, `intelmpi/2019.7.217`, and `mike/2022` are loaded."
-    },
-    {
-      "question": "How is the `OMP_NUM_THREADS` environment variable set in the MIKE 2022 example job script?",
-      "answer": "The `OMP_NUM_THREADS` environment variable is set to `${SLURM_CPUS_PER_TASK:-1}` in the MIKE 2022 example job script."
-    },
-    {
-      "question": "What is the purpose of the `slurm_hl2hl.py` command in the MIKE 2022 job script?",
-      "answer": "The `slurm_hl2hl.py --format MPIHOSTLIST > machinefile.$SLURM_JOBID` command in the MIKE 2022 job script is used to generate a machinefile that lists the MPI hosts for the job."
-    },
-    {
-      "question": "How is the MIKE engine executed in the MIKE 2022 example job script?",
-      "answer": "The MIKE engine is executed using the command `mpirun -machinefile machinefile.$SLURM_JOBID $engine $model`."
-    },
-    {
-      "question": "What is the common placeholder for the model file name in both MIKE 2023 and MIKE 2022 example job scripts?",
-      "answer": "The common placeholder for the model file name in both MIKE 2023 and MIKE 2022 example job scripts is `my_model.m3fm`."
-    },
-    {
-      "question": "What is a notable difference in the execution command between the MIKE 2023 and MIKE 2022 example job scripts?",
-      "answer": "The MIKE 2023 script uses `srun` for execution, while the MIKE 2022 script uses `mpirun -machinefile` after generating a machinefile with `slurm_hl2hl.py`."
+      "question": "What are the key differences in how MIKE 2023 and MIKE 2022 are executed in the example job scripts?",
+      "answer": "The key differences in execution methods between MIKE 2023 and MIKE 2022 in the example job scripts involve the specific modules loaded and the command used to run the engine. MIKE 2023 uses `module load StdEnv/2020 intel/2021.2.0 intelmpi/2021.2.0 mike/2023` and executes the engine directly with `srun $engine $model`. In contrast, MIKE 2022 uses `module load StdEnv/2020 intel/2020.1.217 intelmpi/2019.7.217 mike/2022`, requires generating a `machinefile` using `slurm_hl2hl.py`, and then executes the engine with `mpirun -machinefile machinefile.$SLURM_JOBID $engine $model`."
     }
   ],
-  "generated_at": "2026-04-12T01:38:18.998586+00:00"
+  "generated_at": "2026-04-13T08:38:25.885398+00:00"
 }

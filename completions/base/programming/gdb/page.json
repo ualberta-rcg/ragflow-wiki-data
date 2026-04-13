@@ -3,45 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is GDB?",
-      "answer": "GDB is a debugger used to investigate software problems, particularly helpful for quickly finding the cause of issues like segmentation faults."
+      "question": "What is the primary purpose of GDB, the GNU Project Debugger?",
+      "answer": "GDB is a debugger used to investigate software problems and quickly find their causes, often used to resolve issues like segmentation faults."
     },
     {
-      "question": "What does the acronym GDB stand for?",
-      "answer": "GDB stands for 'GDB: The GNU Project Debugger'."
+      "question": "When is Valgrind recommended instead of GDB for debugging software issues?",
+      "answer": "Valgrind is recommended for resolving problems relating to memory, such as memory leaks."
     },
     {
-      "question": "What tool is recommended for resolving memory-related problems, such as memory leaks, instead of GDB?",
-      "answer": "For memory-related issues like memory leaks, Valgrind is recommended."
-    },
-    {
-      "question": "What is a prerequisite for GDB to provide more detailed information about a bug when debugging a program?",
+      "question": "What specific compile option is required to ensure GDB can provide more detailed information when debugging a program?",
       "answer": "The program must be compiled with the `-g` option to include debugging symbols within the binary."
     },
     {
-      "question": "How do you run a program inside GDB?",
-      "answer": "You run a program inside GDB by executing `gdb ./program` and then typing `run` at the GDB prompt."
+      "question": "How do you initially run a program inside GDB to begin a debugging session?",
+      "answer": "You can run a program inside GDB by typing `gdb ./program` (replacing `./program` with your executable's path) and then typing `run` at the `(gdb)` prompt."
     },
     {
-      "question": "What GDB command is used to show the current call stack, and what is its shortcut?",
-      "answer": "The `backtrace` command, or its shortcut `bt`, is used to show the current call stack."
+      "question": "What GDB command is used to display the current call stack, showing the sequence of function calls that led to the current point in execution?",
+      "answer": "The `backtrace` command, or its shortcut `bt`, displays the current call stack."
     },
     {
-      "question": "How can you debug a program's error using a core file after a segmentation fault has occurred?",
-      "answer": "First, ensure core file generation is active using `ulimit -c unlimited`. After the program generates a `core` file, you can trace its execution up to the error with `gdb -q ./program` followed by `core-file <core_filename>`."
+      "question": "What is the purpose of a `core` file in the context of debugging with GDB?",
+      "answer": "A `core` file captures the memory image of a program when it terminates unexpectedly, allowing GDB to trace its execution up to the error without directly running it in the debugger."
     },
     {
-      "question": "How do you attach GDB to an already running process?",
-      "answer": "To attach GDB to a running process, you first need its process ID (PID), which can be found using commands like `ps aux`. Then, you use the command `gdb attach <PID>`."
+      "question": "How can you enable the creation of `core` files on a system?",
+      "answer": "To enable the creation of `core` files, you must activate the feature by running the command `ulimit -c unlimited`."
     },
     {
-      "question": "What are some of the main commands available in GDB for interactive debugging?",
-      "answer": "Some main GDB commands include `run` (r) to begin execution, `backtrace` (bt) to display the call stack, `break` (b) to set breakpoints, `watch` to interrupt on variable modification, `continue` (c) to resume, `step` (s) to execute the next operation, `print` (p) to display variable content, and `list` (l) to display code lines."
+      "question": "After a `core` file has been generated, how do you use GDB to analyse the cause of an error?",
+      "answer": "You can use GDB with the program binary and the `core` file by running `gdb -q ./program` and then at the `(gdb)` prompt, entering `core-file core.XXXXX` (replacing `XXXXX` with the core file's name)."
     },
     {
-      "question": "How can GDB's display of C++ STL structures be improved?",
-      "answer": "A simple solution is to copy the `dbinit_stl_views-1.03.txt` file into your home folder and rename it to `~/.gdbinit`."
+      "question": "Under what circumstances would you typically attach GDB to an already running process?",
+      "answer": "You would attach GDB to an already running process if you need to debug a program that is already executing, such as a job running on a compute node, to investigate its current state."
+    },
+    {
+      "question": "What is the process to attach GDB to an existing running application, such as Firefox?",
+      "answer": "First, find the process ID (PID) of the running application using a command like `ps aux | grep firefox`. Then, attach GDB directly using `gdb attach [PID]` (e.g., `gdb attach 12691`)."
+    },
+    {
+      "question": "How do you set a breakpoint in GDB at a specific line of code or within a function?",
+      "answer": "You can set a breakpoint using the `break` (or `b`) command, specifying `src.c:line_number` or the `function` name (e.g., `break program.cpp:15` or `break main`)."
+    },
+    {
+      "question": "What GDB command allows you to interrupt a program's execution when a specific variable is modified?",
+      "answer": "The `watch` command is used to interrupt the program when a specified variable's value changes."
+    },
+    {
+      "question": "How do you display the current content or value of a variable during a GDB debugging session?",
+      "answer": "You can display the content of a variable using the `print` (or `p`) command followed by the variable's name (e.g., `print myVariable`)."
+    },
+    {
+      "question": "What is a common issue when displaying C++ Standard Template Library (STL) structures in GDB by default, and what is a simple solution?",
+      "answer": "By default, GDB does not display C++ STL structures very well. A simple solution is to copy a specific GDB initialization file (e.g., `dbinit_stl_views-1.03.txt`) into your home folder as `~/.gdbinit`."
     }
   ],
-  "generated_at": "2026-04-11T22:05:51.032519+00:00"
+  "generated_at": "2026-04-13T05:48:46.639272+00:00"
 }

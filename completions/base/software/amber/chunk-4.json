@@ -4,69 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Is the `MMPBSA.py.MPI` executable available in the `amber/20.12-20.15` module?",
-      "answer": "No, the `amber/20.12-20.15` module does not include the `MMPBSA.py.MPI` executable."
+      "question": "Are there any known issues regarding the MMPBSA.py executable in specific AMBER modules?",
+      "answer": "Yes, the `amber/20.12-20.15` module does not include the `MMPBSA.py.MPI` executable. Additionally, `MMPBSA.py` from `amber/18-10-18.11` and `amber/18.14-18.17` modules cannot perform PB calculations; for these, it is recommended to use more recent `amber/20` modules."
     },
     {
-      "question": "Which AMBER modules are unable to perform PB calculations using `MMPBSA.py`?",
-      "answer": "The `MMPBSA.py` executable from the `amber/18-10-18.11` and `amber/18.14-18.17` modules cannot perform PB calculations."
+      "question": "Which AMBER modules and CUDA version are recommended for GPU-accelerated simulations, especially on A100 GPUs on the Narval cluster?",
+      "answer": "For GPU-accelerated simulations on Narval, particularly on A100 GPUs, it is crucial to use modules compiled with CUDA version 11.4 or higher. For example, a single GPU job would typically load `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `amber-pmemd/24.3`."
     },
     {
-      "question": "What is the recommended approach for performing PB calculations with `MMPBSA.py`?",
-      "answer": "For performing PB calculations with `MMPBSA.py`, it is recommended to use more recent `amber/20` modules."
-    },
-    {
-      "question": "Which AMBER module should be used for GPU-accelerated simulations on Narval?",
-      "answer": "For GPU-accelerated simulations on Narval, the `amber/20.12-20.15` module should be used."
-    },
-    {
-      "question": "What CUDA version is required for AMBER modules to function correctly on A100 GPUs?",
-      "answer": "AMBER modules compiled with a CUDA version less than 11.4 will not work on A100 GPUs."
-    },
-    {
-      "question": "What are the SLURM resource requests for a single-GPU AMBER job as per the example?",
-      "answer": "The SLURM resource requests for a single-GPU AMBER job are `--ntasks=1`, `--gpus-per-node=1`, `--mem-per-cpu=2000`, and `--time=10:00:00`."
-    },
-    {
-      "question": "What modules must be loaded for a single-GPU AMBER job using `amber-pmemd/24.3` with `StdEnv/2023`?",
-      "answer": "For a single-GPU AMBER job using `amber-pmemd/24.3` with `StdEnv/2023`, you must load `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `amber-pmemd/24.3`."
-    },
-    {
-      "question": "How do you initiate a single-GPU AMBER simulation using the `pmemd.cuda` executable?",
-      "answer": "A single-GPU AMBER simulation can be initiated using the command `pmemd.cuda -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7`."
-    },
-    {
-      "question": "What modules should be loaded for a CPU-only parallel MPI AMBER job using `amber-pmemd/24.3` and `StdEnv/2023`?",
-      "answer": "For a CPU-only parallel MPI AMBER job using `amber-pmemd/24.3` and `StdEnv/2023`, load `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `amber-pmemd/24.3`."
-    },
-    {
-      "question": "What is the command to run a CPU-only parallel MPI AMBER simulation?",
-      "answer": "To run a CPU-only parallel MPI AMBER simulation, use `srun pmemd.MPI -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7`."
-    },
-    {
-      "question": "What are the SLURM resource requests for a CPU-only parallel MPI job on Narval?",
-      "answer": "For a CPU-only parallel MPI job on Narval, the SLURM resource requests are `--nodes=4`, `--ntasks-per-node=64`, `--mem-per-cpu=2000`, and `--time=1:00:00`."
-    },
-    {
-      "question": "What are the SLURM resource requests for a CPU-only parallel MPI job on Rorqual, Fir, Nibi, or Trillium?",
-      "answer": "For a CPU-only parallel MPI job on Rorqual, Fir, Nibi, or Trillium, the SLURM resource requests are `--nodes=1`, `--ntasks-per-node=192`, `--mem-per-cpu=2000`, and `--time=1:00:00`."
-    },
-    {
-      "question": "How many GPUs does the example QM/MM distributed multi-GPU job request?",
-      "answer": "The example QM/MM distributed multi-GPU job requests eight GPUs."
-    },
-    {
-      "question": "What SLURM parameters are specified for the example QM/MM distributed multi-GPU job?",
-      "answer": "For the example QM/MM distributed multi-GPU job, the SLURM parameters specified are `--ntasks=8`, `--gpus-per-task=1`, `--mem-per-cpu=4000`, and `--time=02:00:00`."
-    },
-    {
-      "question": "Which modules must be loaded for a QM/MM distributed multi-GPU job using `ambertools/25.0` with `StdEnv/2023`?",
-      "answer": "For a QM/MM distributed multi-GPU job using `ambertools/25.0` with `StdEnv/2023`, you must load `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `ambertools/25.0`."
-    },
-    {
-      "question": "What command is used to run a QM/MM distributed multi-GPU AMBER simulation?",
-      "answer": "A QM/MM distributed multi-GPU AMBER simulation is run using the command `srun sander.quick.cuda.MPI -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7`."
+      "question": "What is the typical module loading sequence for running a CPU-only parallel MPI job using AMBER on a cluster like Narval?",
+      "answer": "For a CPU-only parallel MPI job on Narval, the typical module loading sequence after purging existing modules is `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `amber-pmemd/24.3`. The job would then be executed using `srun pmemd.MPI`."
     }
   ],
-  "generated_at": "2026-04-11T15:00:19.266110+00:00"
+  "generated_at": "2026-04-13T00:25:19.512822+00:00"
 }

@@ -4,45 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Quel est l'objectif principal du script Python original, `my_script.py`?",
-      "answer": "Le script `my_script.py` simule des calculs qui prennent du temps en itérant sur une liste de 100 valeurs pour le paramètre `beta`, puis il affiche le résultat de la fonction `calculation` pour chacune de ces valeurs."
+      "question": "Comment adapter un script Python pour qu'il puisse traiter des paramètres multiples en parallèle à l'aide d'un vecteur de tâches SLURM?",
+      "answer": "Pour adapter un script Python, comme `my_script_parallel.py`, afin qu'il puisse traiter des paramètres multiples en parallèle avec un vecteur de tâches, il faut qu'il récupère la valeur de `$SLURM_ARRAY_TASK_ID` comme argument en ligne de commande (par exemple, via `sys.argv[1]`). Cette valeur est ensuite utilisée comme index pour choisir un paramètre spécifique (comme une valeur `beta` d'un tableau NumPy `betas`) à traiter par l'instance de tâche courante."
     },
     {
-      "question": "Comment peut-on rendre le traitement des calculs du script `my_script.py` plus rapide en utilisant les ressources de calcul?",
-      "answer": "On peut accélérer le traitement de cette tâche en utilisant un vecteur de tâches (job array) SLURM, ce qui permet à chaque valeur du paramètre `beta` d'être calculée en parallèle, de façon indépendante."
-    },
-    {
-      "question": "Quelle variable d'environnement de SLURM doit-on passer au script Python pour différencier les tâches d'un vecteur?",
-      "answer": "Il faut passer la variable d'environnement `$SLURM_ARRAY_TASK_ID` au script Python pour qu'il puisse obtenir la valeur spécifique du paramètre `beta` qui lui est attribuée."
-    },
-    {
-      "question": "Comment le script Python modifié, `my_script_parallel.py`, détermine-t-il quelle valeur du paramètre `beta` il doit utiliser?",
-      "answer": "Le script `my_script_parallel.py` récupère la valeur de `$SLURM_ARRAY_TASK_ID` en tant qu'argument de la ligne de commande via `sys.argv[1]`, la convertit en entier (`i`), et l'utilise comme index pour sélectionner la valeur appropriée dans le tableau `betas`."
-    },
-    {
-      "question": "Pourquoi le module `sys` est-il importé dans le script `my_script_parallel.py`?",
-      "answer": "Le module `sys` est importé pour permettre au script d'accéder aux arguments passés sur la ligne de commande, notamment `$SLURM_ARRAY_TASK_ID`, via `sys.argv`."
-    },
-    {
-      "question": "Combien de tâches distinctes seront lancées par le script de soumission `data_parallel_python.sh`?",
-      "answer": "Le script `data_parallel_python.sh` lancera 100 tâches distinctes, car l'option `--array=0-99` indique que le vecteur de tâches doit inclure les identifiants de 0 à 99 inclusivement."
-    },
-    {
-      "question": "Quelle est la raison pour laquelle l'option `--array=0-99` est spécifiée dans le script `data_parallel_python.sh`?",
-      "answer": "L'option `--array=0-99` est utilisée pour que les indices du vecteur de tâches correspondent aux indices du tableau NumPy `betas` qui vont de 0 à 99, assurant que chaque valeur de `beta` est traitée par une tâche unique."
-    },
-    {
-      "question": "Quel est le but de la commande `module load scipy-stack` dans le script `data_parallel_python.sh`?",
-      "answer": "La commande `module load scipy-stack` sert à charger l'environnement logiciel nécessaire, incluant des bibliothèques comme NumPy, pour que le script Python `my_script_parallel.py` puisse s'exécuter correctement."
-    },
-    {
-      "question": "Quel est le temps maximal alloué pour l'exécution de chaque tâche du vecteur dans l'exemple `data_parallel_python.sh`?",
-      "answer": "Le temps maximal alloué pour chaque tâche du vecteur est d'une heure, tel qu'indiqué par l'option `#SBATCH --time=1:00:00`."
-    },
-    {
-      "question": "Comment le script `my_script_parallel.py` est-il exécuté pour chaque tâche du vecteur?",
-      "answer": "Le script est exécuté pour chaque tâche avec la commande `python my_script_parallel.py $SLURM_ARRAY_TASK_ID`, où `$SLURM_ARRAY_TASK_ID` passe l'identifiant unique de la tâche courante en tant qu'argument au script Python."
+      "question": "Quel est l'exemple de script Bash pour soumettre un script Python qui utilise un vecteur de tâches SLURM pour le traitement parallèle des données?",
+      "answer": "Le script Bash pour soumettre une telle tâche (par exemple, `data_parallel_python.sh`) doit inclure `#SBATCH --array=0-99` pour spécifier la plage des identifiants de tâches. Il doit aussi charger les modules nécessaires (comme `module load scipy-stack`) et ensuite exécuter le script Python en lui passant la variable `$SLURM_ARRAY_TASK_ID` comme argument, par exemple: `python my_script_parallel.py $SLURM_ARRAY_TASK_ID`."
     }
   ],
-  "generated_at": "2026-04-12T00:15:32.467034+00:00"
+  "generated_at": "2026-04-13T07:31:19.299842+00:00"
 }

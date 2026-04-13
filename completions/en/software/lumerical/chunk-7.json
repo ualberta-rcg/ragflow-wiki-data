@@ -4,41 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `fdtd-mpi-template.sh` script?",
-      "answer": "The `fdtd-mpi-template.sh` script serves as a job submission template for FDTD Solutions, which is filled in by another script like `fdtd-process-template.sh`."
+      "question": "What is the `fdtd-mpi-template.sh` script used for when running FDTD Solutions simulations?",
+      "answer": "The `fdtd-mpi-template.sh` script serves as a template for a Slurm job submission script for FDTD Solutions project files. It includes placeholders for the simulation time and the project filename, and is designed to execute an FDTD Solutions simulation using MPI."
     },
     {
-      "question": "What Slurm directives are defined within the `fdtd-mpi-template.sh` template?",
-      "answer": "The `fdtd-mpi-template.sh` template defines `#SBATCH --time=<hours>:<minutes>:<seconds>` and `#SBATCH --ntasks-per-node=1`."
+      "question": "What environment variables and commands are used in the `fdtd-mpi-template.sh` script to set up and run an FDTD Solutions simulation?",
+      "answer": "The `fdtd-mpi-template.sh` script first loads the `fdtd_solutions` module. It then defines the MPI executable using `$EBROOTFDTD_SOLUTIONS/mpich2/nemesis/bin/mpiexec` and the FDTD Solutions program using `$EBROOTFDTD_SOLUTIONS/bin/fdtd-engine-mpich2nem`. Finally, it runs the simulation using the command `$MPI -n $NCORE $MY_PROG ./${INPUT}`, where `NCORE` is calculated from Slurm variables and `INPUT` is a placeholder for the project filename."
     },
     {
-      "question": "Which module is loaded by the `fdtd-mpi-template.sh` script?",
-      "answer": "The `fdtd-mpi-template.sh` script loads the `fdtd_solutions` module."
-    },
-    {
-      "question": "How does `fdtd-mpi-template.sh` specify the MPI executable and the FDTD engine program?",
-      "answer": "It uses the `EBROOTFDTD_SOLUTIONS` environment variable to define `MPI` as `$EBROOTFDTD_SOLUTIONS/mpich2/nemesis/bin/mpiexec` and `MY_PROG` as `$EBROOTFDTD_SOLUTIONS/bin/fdtd-engine-mpich2nem`."
-    },
-    {
-      "question": "What placeholder is used for the input filename in `fdtd-mpi-template.sh`?",
-      "answer": "The placeholder for the input filename in `fdtd-mpi-template.sh` is `<filename>`."
-    },
-    {
-      "question": "How is the total number of cores (`NCORE`) calculated in the `fdtd-mpi-template.sh` script?",
-      "answer": "The `NCORE` variable is calculated as the product of `SLURM_NTASKS` and `SLURM_CPUS_PER_TASK`, specifically `NCORE=$((SLURM_NTASKS * SLURM_CPUS_PER_TASK))`."
-    },
-    {
-      "question": "What is the final command executed by the `fdtd-mpi-template.sh` script to run the FDTD simulation?",
-      "answer": "The final command executed is `$MPI -n $NCORE $MY_PROG ./${INPUT}`, which runs the FDTD engine with the specified number of cores and input file."
-    },
-    {
-      "question": "What command is used to submit a job script (like one derived from `fdtd-mpi-template.sh`) to the scheduler?",
-      "answer": "The `sbatch` command is used to submit the job script, as shown by `sbatch --nodes=${NODES} --ntasks=${NODES} --cpus-per-task=${PROCS} --mem=${TOTAL_MEM} $SHELLFILE`."
-    },
-    {
-      "question": "What Slurm options are passed to the `sbatch` command when submitting a generated FDTD Solutions job script?",
-      "answer": "The `sbatch` command is passed `--nodes`, `--ntasks`, `--cpus-per-task`, and `--mem` options, along with the generated shell file."
+      "question": "What Slurm job scheduling parameters are defined within the `fdtd-mpi-template.sh` script?",
+      "answer": "The `fdtd-mpi-template.sh` script defines two Slurm job scheduling parameters: `#SBATCH --time=<hours>:<minutes>:<seconds>`, which specifies the time limit for the job, and `#SBATCH --ntasks-per-node=1`, which ensures that only one task is run per node."
     }
   ],
-  "generated_at": "2026-04-12T01:08:17.751079+00:00"
+  "generated_at": "2026-04-13T08:13:53.471972+00:00"
 }

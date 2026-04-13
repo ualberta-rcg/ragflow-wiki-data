@@ -3,133 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Trillium?",
-      "answer": "Trillium is a large parallel cluster built by Lenovo Canada and hosted by SciNet at the University of Toronto."
+      "question": "What is the Trillium cluster, and what are its main components?",
+      "answer": "Trillium is a large parallel cluster built by Lenovo Canada and hosted by SciNet at the University of Toronto. It consists of three main components: a CPU Subcluster, a GPU Subcluster, and a unified Storage System."
     },
     {
-      "question": "What are the three main components of Trillium?",
-      "answer": "The three main components are the CPU Subcluster, the GPU Subcluster, and the Storage System."
+      "question": "What are the key specifications of Trillium's CPU Subcluster?",
+      "answer": "Trillium's CPU Subcluster has 235,008 cores across 1224 CPU compute nodes. Each node features 192 AMD EPYC 9655 cores at 2.6 GHz and 755 GiB of available memory, connected by a non-blocking 400 Gb/s InfiniBand NDR interconnect, designed for large-scale parallel workloads."
     },
     {
-      "question": "What are the key specifications of the Trillium CPU Subcluster?",
-      "answer": "It features 235,008 cores from 1224 CPU compute nodes, each with two 96-core AMD EPYC 9655 CPUs (Zen 5) at 2.6 GHz, 755 GiB of available memory, and a non-blocking 400 Gb/s InfiniBand NDR interconnect, designed for large-scale parallel workloads."
+      "question": "What are the key specifications of Trillium's GPU Subcluster?",
+      "answer": "Trillium's GPU Subcluster includes 252 NVIDIA H100 (SXM) GPUs with 80 GB of dedicated VRAM, spread across 63 GPU compute nodes. Each node also has 96 AMD EPYC 9654 cores and is connected by a non-blocking 800 Gb/s InfiniBand NDR interconnect. This subcluster is optimized for AI/ML and accelerated science workloads."
     },
     {
-      "question": "What are the key specifications of the Trillium GPU Subcluster?",
-      "answer": "It comprises 252 GPUs across 63 GPU compute nodes, with each node having four NVIDIA H100 (SXM) GPUs (80 GB VRAM each) and one 96-core AMD EPYC 9654 CPU (Zen 4) at 2.4 GHz, connected by an 800 Gb/s InfiniBand NDR interconnect, optimized for AI/ML and accelerated science workloads."
+      "question": "How does a user gain access to the Trillium cluster?",
+      "answer": "To gain access to Trillium, users need an active CCDB (Digital Research Alliance of Canada) account. They can then request access on the 'Access Systems' page of the CCDB site."
     },
     {
-      "question": "Does the Trillium GPU Subcluster have a dedicated login node?",
-      "answer": "Yes, it has a dedicated login node (trig-login01) with four NVIDIA H100 (SXM) GPUs."
+      "question": "What are the two primary methods for accessing Trillium, and which is recommended for users new to Linux?",
+      "answer": "The two primary methods for accessing Trillium are via your browser with Open OnDemand (recommended for users not familiar with Linux or the command line) or through terminal access using SSH."
     },
     {
-      "question": "Describe Trillium's storage system.",
-      "answer": "It's a unified 29 PB VAST NVMe all-flash storage system, accessible as a standard shared parallel file system for all workloads, offering consistent performance."
+      "question": "What type of authentication is exclusively allowed for SSH access to Trillium?",
+      "answer": "For SSH access to Trillium, authentication is only allowed via SSH keys that must be uploaded to the CCDB."
     },
     {
-      "question": "What is the primary prerequisite for gaining access to Trillium?",
-      "answer": "You need an active CCDB account from the Digital Research Alliance of Canada."
+      "question": "What types of tasks are restricted from being run on Trillium's login nodes?",
+      "answer": "Users are prohibited from running large memory jobs, parallel training or highly multi-threaded processes, computations lasting more than a few minutes, or resource-intensive tasks such as I/O-heavy operations or simulations on Trillium's login nodes."
     },
     {
-      "question": "What are the two recommended ways to access Trillium?",
-      "answer": "Access is available via your browser using Open OnDemand (recommended for Linux beginners) or through terminal access with SSH."
+      "question": "What are the main file systems available on Trillium, and what are their designated purposes?",
+      "answer": "Trillium provides a unified high-performance storage system with three main file systems: `$HOME` for personal files and configurations, `$SCRATCH` for high-speed temporary personal storage for job data, and `$PROJECT` for shared storage among project teams and collaborations. A `$ARCHIVE` system for nearline storage is also planned."
     },
     {
-      "question": "What type of authentication is exclusively allowed for Trillium?",
-      "answer": "Authentication is only allowed via SSH keys that have been uploaded to the CCDB."
+      "question": "What are the general quotas and backup policies for the `$HOME`, `$SCRATCH`, and `$PROJECT` file systems on Trillium?",
+      "answer": "The `$HOME` file system has a 100 GB per user quota, is backed up, and is read-only on compute nodes. The `$SCRATCH` file system has a 25 TB per user quota, is not backed up, and is fully accessible on compute nodes. The `$PROJECT` file system's quota is determined by RAC allocation (1 TB default), is backed up, and is read-only on compute nodes."
     },
     {
-      "question": "Which operating system does Trillium run?",
-      "answer": "Trillium runs Rocky Linux 9.6."
+      "question": "How is software managed on Trillium, and what are some essential module commands?",
+      "answer": "Software on Trillium is managed using the environment modules system. Essential commands include `module load <module-name>` to load software, `module purge` to unload all modules, `module avail` to list available modules, `module list` to show loaded modules, and `module spider` to search for modules and their dependencies."
     },
     {
-      "question": "How do you log into the CPU subcluster's login nodes?",
-      "answer": "You use the command: `ssh -i /PATH/TO/SSH_PRIVATE_KEY MYALLIANCEUSERNAME@trillium.scinet.utoronto.ca`."
+      "question": "What are the recommended best practices for loading software modules on Trillium to ensure environment consistency and reproducibility?",
+      "answer": "It is recommended to avoid loading modules in your `.bashrc` file. Instead, load modules manually, from a separate script, or directly within your job scripts. Always specify full module versions for reproducibility (e.g., `gcc/13.3` instead of `gcc`), and use `module spider` to resolve dependencies."
     },
     {
-      "question": "What tasks are prohibited on Trillium's login nodes?",
-      "answer": "On login nodes, users may not run large memory jobs, parallel training, highly multi-threaded processes, long computations (exceeding a few minutes), or resource-intensive tasks such as I/O-heavy operations or simulations."
+      "question": "How can users request an interactive debugging session on Trillium for tests that exceed login node capabilities?",
+      "answer": "Users can request an interactive debug job by using the `debugjob` command on a login node. This provides an interactive shell on a compute node for a limited time, such as 1 hour for a CPU session or up to 2 hours for a single-GPU session."
     },
     {
-      "question": "What types of file systems are available on Trillium and what is their purpose?",
-      "answer": "Trillium provides a `home` file system for personal files, a `scratch` file system for high-speed temporary job data, and a `project` file system for shared team collaborations."
+      "question": "What is Trillium's specific policy regarding where job output must be written, and why is this enforced?",
+      "answer": "On Trillium, job output must be written to the `$SCRATCH` file system. This is enforced because the `$HOME` and `$PROJECT` directories are read-only on the compute nodes, ensuring that jobs utilize the fast, parallel scratch file system for optimal performance."
     },
     {
-      "question": "What is the default quota for the `home` file system?",
-      "answer": "The default quota for the `home` file system is 100 GB per user."
+      "question": "What is Trillium's CPU job scheduling policy, and what is the minimum required job size?",
+      "answer": "Trillium employs a whole-node scheduling policy for CPU jobs, meaning the minimum job size is one full node with 192 cores. Users are expected to utilize all 192 cores effectively, potentially by bundling multiple independent tasks."
     },
     {
-      "question": "How is software managed on Trillium?",
-      "answer": "Software is managed using the environment modules system, which dynamically modifies your environment to access different versions of compilers, libraries, and other software packages."
+      "question": "What are the allowed GPU request configurations on Trillium's GPU subcluster?",
+      "answer": "On Trillium's GPU subcluster, users are allowed to request exactly 1 GPU or a multiple of 4 GPUs (representing a whole node). Requesting 2 or 3 GPUs is not supported, nor is NVIDIA's MIG technology for fractional GPU allocation."
     },
     {
-      "question": "What command lists all available software modules?",
-      "answer": "The `module avail` command lists all available modules."
+      "question": "How is memory allocated to jobs on Trillium, and are memory requests specified in job scripts respected?",
+      "answer": "Memory requests specified in job scripts are ignored on Trillium. CPU jobs always receive N × 755GiB of RAM (where N is the number of nodes). Single-GPU jobs receive 188GiB, while full-node GPU jobs receive 755GiB."
     },
     {
-      "question": "What is a key best practice for loading software modules on Trillium?",
-      "answer": "Avoid loading modules in your `.bashrc` file; instead, load them manually, from a separate script, or directly within your job script, and always specify explicit module versions."
+      "question": "Which SLURM commands are useful for monitoring a user's jobs in the queue and their resource usage on Trillium?",
+      "answer": "To monitor jobs in the queue, users can use `squeue -u $USER`. For detailed job information, `scontrol show job JOBID` is used. `squeue --start -j JOBID` provides an estimated start time for pending jobs, `scancel JOBID` cancels a job, and `jobperf JOBID` gives a live snapshot of CPU and memory usage for a running job."
     },
     {
-      "question": "Are users able to use commercial software on Trillium?",
-      "answer": "Yes, users can use commercial software on Trillium if they possess a valid license. Connection to license servers can be achieved securely via SSH tunnelling."
-    },
-    {
-      "question": "What are the general limits for lightweight tests runnable directly on Trillium's login nodes?",
-      "answer": "Lightweight tests should run in under a few minutes, use no more than 1–2 GB of memory, utilize only 1–4 CPU cores, and at most 1 GPU."
-    },
-    {
-      "question": "How can users request an interactive debug job for tests that exceed login node limits?",
-      "answer": "Users can request an interactive debug job using the `debugjob` command on a login node, which provides an interactive shell on a compute session with dedicated resources."
-    },
-    {
-      "question": "Which job scheduler does Trillium employ?",
-      "answer": "Trillium uses SLURM as its job scheduler."
-    },
-    {
-      "question": "What is a critical restriction regarding job output files on Trillium's compute nodes?",
-      "answer": "Job output must be written to the `scratch` file system, as the `home` and `project` directories are only available for reading on the compute nodes."
-    },
-    {
-      "question": "Can jobs submit other jobs from Trillium's compute nodes?",
-      "answer": "No, jobs cannot be submitted from compute nodes (nor datamover nodes) on Trillium."
-    },
-    {
-      "question": "How are CPU resources allocated for jobs on Trillium's CPU subcluster?",
-      "answer": "On the CPU subcluster, all jobs must utilize full nodes, meaning the minimum size of a CPU job has 192 cores at its disposal."
-    },
-    {
-      "question": "How are GPU resources allocated for jobs on Trillium's GPU subcluster?",
-      "answer": "Users are only allowed to request exactly 1 GPU or a multiple of 4 GPUs; requesting 2 or 3 GPUs is not supported."
-    },
-    {
-      "question": "Are memory requests considered when submitting jobs on Trillium?",
-      "answer": "No, memory requests are ignored. CPU jobs always receive N × 768GB of RAM, while single-GPU jobs receive 188GiB."
-    },
-    {
-      "question": "What is the maximum walltime for compute jobs in the `compute` partition on the CPU subcluster?",
-      "answer": "The maximum walltime for compute jobs in the `compute` partition on the CPU subcluster is 24 hours."
-    },
-    {
-      "question": "What is the command to submit a batch job script to the SLURM scheduler?",
-      "answer": "The command to submit a batch job script is `sbatch jobscript.sh`."
-    },
-    {
-      "question": "How can you view your own queued jobs?",
-      "answer": "You can view only your jobs in the queue using the command `squeue -u $USER`."
-    },
-    {
-      "question": "What command allows you to cancel a submitted job?",
-      "answer": "You can cancel a submitted job using `scancel JOBID`, where `JOBID` is the identifier of your job."
-    },
-    {
-      "question": "How can you monitor the CPU and memory usage of a job while it is running?",
-      "answer": "The `jobperf JOBID` command provides a live snapshot of the CPU and memory usage of your running job."
-    },
-    {
-      "question": "Where can users find information and performance data for their past jobs?",
-      "answer": "Past jobs and their resource usage, including performance data collected every two minutes, can be inspected through the my.SciNet portal."
+      "question": "Where can users find detailed information and performance data for their past jobs on Trillium?",
+      "answer": "After a job has finished, users can inspect information about their past jobs, including performance data collected every two minutes, through the my.SciNet portal."
     }
   ],
-  "generated_at": "2026-04-12T09:40:43.936343+00:00"
+  "generated_at": "2026-04-13T14:52:02.631357+00:00"
 }

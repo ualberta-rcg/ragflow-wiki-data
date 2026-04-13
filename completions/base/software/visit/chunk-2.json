@@ -4,121 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How do I configure VisIt to connect to the Trillium cluster using a configuration file?",
-      "answer": "You need to download the Trillium host file by right-clicking on 'host_trillium.xml' and selecting 'Save as'. Then, place the file in '~/.visit/hosts/' on Linux/Mac, or in 'My Documents\\VisIt 2.13.0\\hosts\\' on Windows."
+      "question": "How can a user configure VisIt to connect to the Trillium cluster for client-server visualization?",
+      "answer": "To connect VisIt to the Trillium cluster, users can either download a host configuration file or manually set up a host profile. For the configuration file method, download `host_trillium.xml` and save it to `~/.visit/hosts/` on Linux/Mac, or `My Documents\\VisIt 2.13.0\\hosts\\` on Windows, then restart VisIt. For the manual configuration method, open VisIt, go to `Options -> Host Profiles`, click `New Host`, and input the following details: Host nickname `trillium`, Remote host name `trillium.alliancecan.ca`, your CCDB username, and `Path to VisIt installation = /scinet/trillium/software/2018a/opt/base/visit/2.13.1`. Remember to check `Tunnel data connections through SSH` and then save your settings. You will also need to configure launch profiles (login or slurm)."
     },
     {
-      "question": "Where should I save the Trillium host configuration file on a Linux or Mac machine?",
-      "answer": "On Linux/Mac, you should place the host configuration file in the '~/.visit/hosts/' directory."
+      "question": "What preliminary steps are required on a CentOS virtual machine to prepare it for compiling VisIt or ParaView for client-server visualization?",
+      "answer": "On a CentOS VM, users need to install several additional packages by running these `sudo yum install` commands: `xauth wget gcc gcc-c++ ncurses-devel python-devel libxcb-devel`, `patch imake libxml2-python mesa-libGL mesa-libGL-devel`, and `mesa-libGLU mesa-libGLU-devel bzip2 bzip2-libs libXt-devel zlib-devel flex byacc`. Additionally, a symbolic link `sudo ln -s /usr/include/GL/glx.h /usr/local/include/GL/glx.h` must be created. If desired, a private-public SSH key pair can also be copied to the VM to simplify logins."
     },
     {
-      "question": "Where should I save the Trillium host configuration file on a Windows machine?",
-      "answer": "On Windows, you should place the host configuration file in the 'My Documents\\VisIt 2.13.0\\hosts\\' directory or a similar directory."
-    },
-    {
-      "question": "After saving the Trillium host file, how do I verify that the profile is available in VisIt?",
-      "answer": "Restart VisIt and check that the Trillium profile is available under 'Options -> Host Profiles' in the main menu."
-    },
-    {
-      "question": "What is the process for manually configuring VisIt to connect to the Trillium cluster?",
-      "answer": "Open VisIt on your computer, go to the 'Options' menu, click on 'Host Profiles', then click 'New Host'. You'll need to set the Host nickname, Remote host name, Username, and Path to VisIt installation, then check 'Tunnel data connections through SSH' and click 'Apply'."
-    },
-    {
-      "question": "What host nickname should be used for manual configuration to connect to Trillium?",
-      "answer": "The host nickname should be set to 'trillium'."
-    },
-    {
-      "question": "What is the remote host name for manual configuration when connecting to Trillium?",
-      "answer": "The remote host name should be set to 'trillium.alliancecan.ca'."
-    },
-    {
-      "question": "What is the path to the VisIt installation on the Trillium cluster?",
-      "answer": "The path to the VisIt installation is '/scinet/trillium/software/2018a/opt/base/visit/2.13.1'."
-    },
-    {
-      "question": "Should 'Tunnel data connections through SSH' be enabled when manually configuring VisIt for Trillium?",
-      "answer": "Yes, you should check 'Tunnel data connections through SSH'."
-    },
-    {
-      "question": "How do I create a new launch profile for Trillium?",
-      "answer": "At the top of the window, click on the 'Launch Profiles' tab and then click on 'New Profile'."
-    },
-    {
-      "question": "What are the two types of launch profiles available for Trillium and their functions?",
-      "answer": "The two profiles are 'login' to connect through a login node and access data, and 'slurm' to use compute nodes as rendering engines."
-    },
-    {
-      "question": "What tab should I click on to configure a parallel engine for the Slurm profile on Trillium?",
-      "answer": "You should click on the 'Parallel' tab and set the 'Launch parallel engine'."
-    },
-    {
-      "question": "What should I do after making changes to the VisIt settings for Trillium?",
-      "answer": "After you are done with these changes, go to the 'Options' menu and select 'Save settings' so that your changes are saved and available the next time you launch VisIt."
-    },
-    {
-      "question": "What guide provides information on launching a new virtual machine (VM)?",
-      "answer": "The Cloud Quick Start Guide explains how to launch a new virtual machine (VM)."
-    },
-    {
-      "question": "What additional packages might I need to install on a CentOS VM to compile ParaView or VisIt?",
-      "answer": "On a CentOS VM, you might need to install 'xauth', 'wget', 'gcc', 'gcc-c++', 'ncurses-devel', 'python-devel', 'libxcb-devel', 'patch', 'imake', 'libxml2-python', 'mesa-libGL', 'mesa-libGL-devel', 'mesa-libGLU', 'mesa-libGLU-devel', 'bzip2', 'bzip2-libs', 'libXt-devel', 'zlib-devel', 'flex', and 'byacc'."
-    },
-    {
-      "question": "How can I simplify logins to a VM if I have my own private-public SSH key pair?",
-      "answer": "You can copy your public key to the VM by issuing the command: `cat ~/.ssh/id_rsa.pub | ssh -i ~/.ssh/cloudwestkey.pem centos@vm.ip.address 'cat >>.ssh/authorized_keys'` on your laptop."
-    },
-    {
-      "question": "How can VisIt with offscreen rendering support be built on a cloud VM?",
-      "answer": "VisIt can be built with a single script, 'build_visit2_12_1', which needs to be downloaded, made executable, and run with specific flags like '--prefix', '--mesa', and '--system-python', among others."
-    },
-    {
-      "question": "What script is used to build VisIt with OSMesa on a cloud VM?",
-      "answer": "The script used is 'build_visit2_12_1', downloaded from 'http://portal.nersc.gov/project/visit/releases/2.12.1/build_visit2_12_1'."
-    },
-    {
-      "question": "What are some of the flags recommended for building VisIt with OSMesa on a cloud VM?",
-      "answer": "Recommended flags include '--prefix /home/centos/visit', '--mesa', '--system-python', '--hdf4', '--hdf5', '--netcdf', '--silo', '--szip', '--xdmf', and '--zlib'."
-    },
-    {
-      "question": "How long does it typically take to compile VisIt with OSMesa?",
-      "answer": "It may take a couple of hours to compile VisIt with OSMesa."
-    },
-    {
-      "question": "How can I test the VisIt installation after compiling with OSMesa?",
-      "answer": "You can test the installation by running `~/visit/bin/visit -cli -nowin`."
-    },
-    {
-      "question": "What is the purpose of the command `~/visit/bin/visit -cli -nowin`?",
-      "answer": "This command is used to test the VisIt installation after compilation and should start a VisIt Python shell."
-    },
-    {
-      "question": "How do I configure VisIt on my laptop to run in client-server mode with a cloud VM?",
-      "answer": "On your laptop, start VisIt, go to 'Options -> Host profiles', and edit the connection nickname, the VM host name, the path to the VisIt installation (/home/centos/visit), and your username on the VM. Also, enable tunneling through SSH."
-    },
-    {
-      "question": "What settings should be edited in VisIt's 'Options -> Host profiles' for a cloud VM connection?",
-      "answer": "You should edit the connection nickname, the VM host name, the path to the VisIt installation (/home/centos/visit), and your username on the VM."
-    },
-    {
-      "question": "Should SSH tunneling be enabled when setting up a VisIt connection to a cloud VM?",
-      "answer": "Yes, you should enable tunneling through SSH."
-    },
-    {
-      "question": "How do I ensure that my VisIt settings for a cloud VM connection are saved?",
-      "answer": "Don't forget to save your settings with 'Options -> Save Settings'."
-    },
-    {
-      "question": "What happens when you open a file with the cloud VM host selected in VisIt?",
-      "answer": "When you open a file by selecting 'File -> Open file -> Host = Arbutus' (or your configured VM host), you should see the VM's filesystem."
-    },
-    {
-      "question": "Where is the data processing and rendering performed when using VisIt in client-server mode with a VM?",
-      "answer": "Data processing and rendering should be done on the VM."
-    },
-    {
-      "question": "What is displayed on the laptop when using VisIt in client-server mode with a VM?",
-      "answer": "The result of the visualization and the GUI controls will be displayed on your laptop."
+      "question": "After installing VisIt with OSMesa on a Cloud VM, how do you configure the local VisIt client on your laptop to run in client-server mode with the VM?",
+      "answer": "To run VisIt in client-server mode with a Cloud VM, start VisIt on your laptop. Go to `Options -> Host profiles`, and edit the connection by setting the appropriate nickname, the VM host name, the path to the VisIt installation (e.g., `/home/centos/visit`), and your username on the VM. Ensure that `Tunnel data connections through SSH` is enabled. Finally, save these settings through `Options -> Save Settings`. Once configured, you should be able to open files from the VM's filesystem."
     }
   ],
-  "generated_at": "2026-04-12T11:06:17.848946+00:00"
+  "generated_at": "2026-04-13T16:01:19.173271+00:00"
 }

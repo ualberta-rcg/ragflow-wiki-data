@@ -4,93 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What command might team members want to add to their `~/.bashrc` file after a team installation of Materials Studio?",
-      "answer": "Team members may wish to add the command `module use $PI_PROJECT_DIR/MatStudio2018/modules/2017/Core/` to their `~/.bashrc` file."
+      "question": "How can users submit Materials Studio jobs, such as those employing `RunDMol3.sh` or `RunCASTEP.sh`, on Alliance clusters using Slurm?",
+      "answer": "To submit Materials Studio jobs using Slurm, users should create a job script that includes SBATCH directives for resource allocation (e.g., nodes, CPUs, time), loads the `materialsstudio/2018` module, sets up the `DSD_MachineList` by running `slurm_hl2hl.py --format HP-MPI` or `slurm_hl2hl.py --format MPIHOSTLIST`, exports this list, and then executes the desired Materials Studio command like `RunDMol3.sh -np $SLURM_CPUS_PER_TASK Brucite001f` or `RunCASTEP.sh -np $SLURM_CPUS_PER_TASK castepjob`."
     },
     {
-      "question": "How do team members load the Materials Studio module after a team installation?",
-      "answer": "Team members load the Materials Studio module by running `module load materialsstudio`."
-    },
-    {
-      "question": "What important reminder should users keep in mind regarding the `PI_GROUP` and `PI_PROJECT_DIR` variables?",
-      "answer": "Users should always replace the `PI_GROUP` and `PI_PROJECT_DIR` variables with their appropriate values."
-    },
-    {
-      "question": "What information is provided after the team installation instructions for Materials Studio?",
-      "answer": "Examples of Slurm job submission scripts are provided after the team installation instructions for Materials Studio."
-    },
-    {
-      "question": "What is assumed about the Materials Studio installation before using the provided Slurm job submission script examples?",
-      "answer": "The provided Slurm job submission script examples assume that Materials Studio 2018 has been installed according to the instructions provided earlier in the document."
-    },
-    {
-      "question": "What is the purpose of the first example Slurm job submission script?",
-      "answer": "The first example Slurm job submission script is for running `RunDMol3.sh` with Materials Studio 2018."
-    },
-    {
-      "question": "How many nodes are requested in the first example Slurm job script for Materials Studio 2018?",
-      "answer": "The first example Slurm job script requests 1 node (`--nodes=1`)."
-    },
-    {
-      "question": "How many tasks per node are requested in the first example Slurm job script?",
-      "answer": "The first example Slurm job script requests 1 task per node (`--ntasks-per-node=1`)."
-    },
-    {
-      "question": "How many CPUs per task are requested in the first example Slurm job script?",
-      "answer": "The first example Slurm job script requests 32 CPUs per task (`--cpus-per-task=32`)."
-    },
-    {
-      "question": "What is the maximum time allocated for the job in the first example Slurm script?",
-      "answer": "The maximum time allocated for the job in the first example Slurm script is 12 hours (`--time=12:00:00`)."
-    },
-    {
-      "question": "What command loads the Materials Studio module in the first example Slurm job script?",
-      "answer": "The command `module load materialsstudio/2018` loads the Materials Studio module in the first example Slurm job script."
-    },
-    {
-      "question": "How is the `DSD_MachineList` created for the `RunDMol3.sh` job in the first Slurm example?",
-      "answer": "The `DSD_MachineList` for the `RunDMol3.sh` job is created by running `slurm_hl2hl.py --format HP-MPI > machines.LINUX`."
-    },
-    {
-      "question": "What is the main executable command in the first example Slurm job script?",
-      "answer": "The main executable command in the first example Slurm job script is `RunDMol3.sh -np $SLURM_CPUS_PER_TASK Brucite001f`."
-    },
-    {
-      "question": "What Materials Studio command does the second Slurm job script example rely on?",
-      "answer": "The second Slurm job script example relies on Materials Studio's `RunCASTEP.sh` command."
-    },
-    {
-      "question": "How many nodes are requested in the second example Slurm job script?",
-      "answer": "The second example Slurm job script requests 1 node (`--nodes=1`)."
-    },
-    {
-      "question": "How much memory per CPU is requested in the second example Slurm job script?",
-      "answer": "The second example Slurm job script requests 1MB of memory per CPU (`--mem-per-cpu=1M`)."
-    },
-    {
-      "question": "How is the `DSD_MachineList` created for the `RunCASTEP.sh` job in the second Slurm example?",
-      "answer": "The `DSD_MachineList` for the `RunCASTEP.sh` job is created by running `slurm_hl2hl.py --format MPIHOSTLIST >mpd.hosts`."
-    },
-    {
-      "question": "What conditional logic is used in the second Slurm example for `castepjob_NMR.param`?",
-      "answer": "If `castepjob_NMR.param` exists, the script copies `castepjob.check` to `castepjob_NMR.check` and then runs `RunCASTEP.sh` for `castepjob_NMR`."
-    },
-    {
-      "question": "What is required if a user needs an earlier version of Materials Studio than 2018?",
-      "answer": "If a user requires an earlier version of Materials Studio than 2018, they will need to install it into an Apptainer container."
-    },
-    {
-      "question": "What are the steps involved in installing an earlier version of Materials Studio into an Apptainer container?",
-      "answer": "Installing an earlier version of Materials Studio into an Apptainer container involves creating an Apptainer container with a compatible Linux distribution, installing Materials Studio into that container, and then uploading and using the container in your account."
-    },
-    {
-      "question": "What is a crucial step for accessing the license server from compute nodes when using an Apptainer container for older Materials Studio versions?",
-      "answer": "To access the license server from the compute nodes when using an Apptainer container for older Materials Studio versions, you will need to contact technical support so that they can configure firewalls to allow the software to connect to your license server."
-    },
-    {
-      "question": "What potential restriction should users be aware of when running earlier versions of Materials Studio within an Apptainer container?",
-      "answer": "Users should be aware that they might be restricted to whole-node (single-node) jobs because the version of MPI inside the container might not be able to be used across nodes."
+      "question": "What is the process for installing versions of Materials Studio that are older than 2018 on Alliance clusters, and what are the key considerations for this method?",
+      "answer": "For Materials Studio versions predating 2018, installation is required within an Apptainer container. This process involves creating an Apptainer container with a compatible Linux distribution, installing Materials Studio into that container, and then uploading and using the container from your account. Key considerations include contacting technical support to configure firewalls for license server access from compute nodes, and being aware that jobs might be restricted to whole-node (single-node) usage due to potential MPI version limitations within the container."
     }
   ],
-  "generated_at": "2026-04-12T02:19:03.835806+00:00"
+  "generated_at": "2026-04-13T09:11:09.492767+00:00"
 }

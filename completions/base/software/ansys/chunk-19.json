@@ -4,41 +4,13 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the 'Multinode (by core + restart)' Slurm script for Ansys Fluent?",
-      "answer": "The 'Multinode (by core + restart)' Slurm script is designed to automate the restarting of very large Fluent jobs that may exceed the typical seven-day maximum runtime, restarting them from the most recent saved time step files."
+      "question": "What is the purpose of the \"Multinode (by core + restart)\" Slurm script for Ansys Fluent simulations?",
+      "answer": "This Slurm script is designed for Ansys Fluent jobs that require restarting, particularly for very large simulations needing to run beyond the typical seven-day maximum runtime window on Alliance clusters. It automates restarting simulations from the most recently saved time step files."
     },
     {
-      "question": "What Slurm directives are used to configure resources for the 'Multinode (by core + restart)' Fluent job?",
-      "answer": "The script uses `#SBATCH --account` for the account name, `#SBATCH --time` for the time limit, `#SBATCH --ntasks` for the total number of cores, `#SBATCH --mem-per-cpu` for memory per core, `#SBATCH --cpus-per-task=1`, and `#SBATCH --array` to specify the number of solution restarts (aka time steps)."
-    },
-    {
-      "question": "Which Ansys Fluent module version should be loaded for the 'Multinode (by core + restart)' script?",
-      "answer": "The script loads `StdEnv/2023` and `ansys/2023R2` or newer versions."
-    },
-    {
-      "question": "What user-defined variables are required for the 'Multinode (by core + restart)' Fluent script?",
-      "answer": "Users must specify `MYVERSION` (e.g., 2d, 2ddp, 3d, 3ddp), `MYJOUFILE` (original journal filename), `MYJOUFILERES` (journal restart filename), `MYCASFILERES` (case restart filename), and `MYDATFILERES` (data restart filename)."
-    },
-    {
-      "question": "How does the 'Multinode (by core + restart)' script differentiate between the initial job run and subsequent restarts?",
-      "answer": "The script uses the `SLURM_ARRAY_TASK_ID` variable. If `SLURM_ARRAY_TASK_ID` is 1, it executes Fluent with `MYJOUFILE`. For subsequent tasks, it uses `MYJOUFILERES` for restarting."
-    },
-    {
-      "question": "What happens when an Ansys Fluent job configured with the 'Multinode (by core + restart)' script completes successfully and more restarts are scheduled?",
-      "answer": "If the job completes successfully and `SLURM_ARRAY_TASK_ID` is less than `SLURM_ARRAY_TASK_COUNT`, the script will link the most recent output case and data files to the specified restart files (`MYCASFILERES` and `MYDATFILERES`) to prepare for the next restart."
-    },
-    {
-      "question": "What is the primary function of Fluent journal files?",
-      "answer": "Fluent journal files serve to include any command from Fluent's Text-User-Interface (TUI), allowing users to change simulation parameters like temperature, pressure, and flow speed, and to run series of simulations under different conditions with a single case file."
-    },
-    {
-      "question": "How can users control the file format (legacy vs. efficient) for Fluent journal files?",
-      "answer": "Users can control the file format by setting `/file/cff-files no` for the legacy .cas/.dat format (default for module versions 2019R3 or older) or `/file/cff-files yes` for the more efficient .cas.h5/.dat.h5 file format (default for module versions 2020R1 or newer)."
-    },
-    {
-      "question": "Where can users find more information and a complete list of commands for Fluent journal files?",
-      "answer": "Users should refer to the Fluent User's Guide for more information and a list of all commands that can be used in journal files."
+      "question": "How can a user configure a Fluent journal file to utilize either the legacy or the more efficient file format for simulation results?",
+      "answer": "Users can configure their Fluent journal file by setting `/file/cff-files no` to use the legacy `.cas/.dat` format (default for module versions 2019R3 or older) or by setting `/file/cff-files yes` to use the more efficient `.cas.h5/.dat.h5` format (default for module versions 2020R1 or newer)."
     }
   ],
-  "generated_at": "2026-04-12T16:37:45.165573+00:00"
+  "generated_at": "2026-04-13T01:42:41.791632+00:00"
 }

@@ -3,61 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Qu'est-ce qu'on vise à apprendre dans ce tutoriel sur le profilage de code?",
-      "answer": "On veut comprendre ce qu'est un profileur, savoir utiliser le profileur NVPROF, décortiquer la performance du code et cibler les routines les plus gourmandes en temps."
+      "question": "Quels sont les objectifs d'apprentissage couverts dans ce document sur le profilage de code ?",
+      "answer": "Les objectifs sont de comprendre ce qu'est un profileur, de savoir utiliser NVPROF, de comprendre la performance du code et de savoir concentrer ses efforts pour réécrire les routines qui prennent beaucoup de temps."
     },
     {
-      "question": "Pourquoi est-il important de profiler le code?",
-      "answer": "C'est la seule façon de comprendre comment le temps est utilisé aux points critiques (hotspots), de comprendre la performance du code et de savoir comment mieux employer le temps de développement."
+      "question": "Pourquoi est-il nécessaire de profiler du code ?",
+      "answer": "Le profilage du code est la seule façon de comprendre comment le temps est utilisé aux points critiques, de comprendre la performance du code et de savoir comment mieux employer le temps de développement."
     },
     {
-      "question": "D'après la loi d'Amdahl, pourquoi est-ce important de connaître les points critiques (hotspots) dans le code?",
-      "answer": "Parce que paralléliser les routines qui exigent le plus de temps d'exécution (les points critiques) produit le plus grand impact sur la performance."
+      "question": "Selon la loi d'Amdahl, pourquoi est-il important de connaître les points critiques dans le code ?",
+      "answer": "D'après la loi d'Amdahl, paralléliser les routines qui exigent le plus de temps d'exécution (les points critiques) produit le plus d'impact sur la performance."
     },
     {
-      "question": "D'où provient le code utilisé pour les exemples pratiques dans ce tutoriel?",
-      "answer": "Le code provient du dépôt de données Git de Calcul Québec, spécifiquement le `cq-formation`."
+      "question": "Où peut-on télécharger le code exemple utilisé pour l'exercice de profilage mentionné dans ce tutoriel ?",
+      "answer": "Le code exemple provient du dépôt de données Git de Calcul Québec et peut être téléchargé en extrayant le paquet puis en se positionnant dans le répertoire `cpp` ou `f90`."
     },
     {
-      "question": "Quels types de compilateurs offrent le support le plus avancé pour OpenACC, et quelle version est utilisée dans ce tutoriel?",
-      "answer": "Les compilateurs de Cray et de NVIDIA (via sa trousse HPC SDK) offrent le support le plus avancé. La version 22.7 de NVIDIA HPC SDK est utilisée ici."
+      "question": "Quels compilateurs offrent le support le plus avancé pour OpenACC, d'après les informations fournies ?",
+      "answer": "Les compilateurs mis de l'avant par Cray et NVIDIA (via sa trousse HPC SDK) offrent le support le plus avancé pour OpenACC. Les compilateurs GNU améliorent aussi leur support depuis GCC 6."
     },
     {
-      "question": "Quels sont les prérequis en termes de mémoire et de cœurs CPU pour exécuter le programme `cg.x` qui sera profilé?",
-      "answer": "L'exécutable utilise environ 3Go de mémoire et un cœur CPU presque à 100%, donc l'environnement de test devrait avoir 4Go de mémoire disponible et au moins deux cœurs CPU."
+      "question": "Quelle version de la trousse HPC SDK de NVIDIA est utilisée spécifiquement dans ce tutoriel ?",
+      "answer": "La version 22.7 de NVIDIA HPC SDK est utilisée dans ce tutoriel."
     },
     {
-      "question": "Quels profileurs sont mentionnés dans ce tutoriel et lequel est utilisé en premier pour analyser le code `cg.x`?",
-      "answer": "Les profileurs mentionnés sont `nvprof` de NVIDIA et `nvvp` (NVIDIA Visual Profiler). On utilise `nvprof` en premier car `cg.x` n'exploite pas encore le GPU."
+      "question": "Quelles sont les exigences minimales en mémoire et en cœurs CPU pour l'environnement de test afin d'exécuter l'exécutable `cg.x` ?",
+      "answer": "L'environnement de test devrait avoir 4 Go de mémoire disponible et au moins deux (2) cœurs CPU."
     },
     {
-      "question": "Comment faire pour profiler un exécutable CPU pur avec `nvprof`?",
-      "answer": "Il faut ajouter l'argument `--cpu-profiling on` à la ligne de commande, comme `nvprof --cpu-profiling on ./cg.x`."
+      "question": "Quels sont les deux profileurs principaux utilisés dans ce tutoriel pour l'analyse de code ?",
+      "answer": "Les deux profileurs utilisés sont `nvprof` de NVIDIA, un profileur en ligne de commande, et `nvvp` (NVIDIA Visual Profiler), un outil d'analyse multiplateforme."
     },
     {
-      "question": "Selon les résultats du profilage avec `nvprof`, quelle fonction a consommé le plus de temps d'exécution?",
-      "answer": "La fonction `matvec()` a consommé 83.54% du temps d'exécution total."
+      "question": "Pourquoi le profileur `nvprof` est-il choisi pour commencer l'analyse de l'exécutable `cg.x` ?",
+      "answer": "Puisque l'exécutable `cg.x` n'utilise pas encore le GPU, l'analyse commence avec le profileur `nvprof`."
     },
     {
-      "question": "Quelles questions devrait-on se poser avant d'optimiser une routine de code?",
+      "question": "Quel module doit être chargé pour utiliser `nvprof` sur les grappes, tel qu'indiqué dans le document ?",
+      "answer": "Pour utiliser `nvprof` sur les grappes, le module `cuda/11.7` doit être chargé."
+    },
+    {
+      "question": "Quel argument doit être ajouté à la ligne de commande de `nvprof` pour profiler un exécutable qui utilise uniquement le CPU ?",
+      "answer": "Pour profiler un exécutable CPU pur avec `nvprof`, il faut ajouter l'argument `--cpu-profiling on` à la ligne de commande."
+    },
+    {
+      "question": "Quelle fonction consomme le plus de temps d'exécution selon le résultat du profilage de l'exécutable `cg.x` avec `nvprof` ?",
+      "answer": "La fonction `matvec()` utilise 83.5 % du temps d'exécution, son appel se trouvant dans la fonction `main()`."
+    },
+    {
+      "question": "Quelles sont les questions essentielles à se poser pour comprendre le comportement du compilateur avant de modifier une routine pour l'optimisation ?",
       "answer": "Il faut se demander quelles optimisations ont été automatiquement appliquées, ce qui a empêché d'optimiser davantage, et si de petites modifications affecteraient la performance."
     },
     {
-      "question": "Quel indicateur du compilateur NVIDIA permet d'obtenir des renseignements détaillés sur ses optimisations?",
-      "answer": "L'indicateur `-Minfo` offre diverses options pour obtenir des renseignements sur le compilateur, comme `all` ou `intensity`."
+      "question": "Quel indicateur le compilateur NVIDIA offre-t-il pour obtenir des informations détaillées sur les optimisations, y compris celles liées aux boucles et à la vectorisation ?",
+      "answer": "Le compilateur NVIDIA offre l'indicateur `-Minfo` avec des options comme `all` (pour presque toutes les informations) et `intensity` (pour l'information sur l'intensité des boucles)."
     },
     {
-      "question": "Comment modifier le `Makefile` pour inclure l'indicateur `-Minfo=all,intensity` lors de la compilation?",
-      "answer": "Il faut définir `CXX=nvc++`, puis `CXXFLAGS=-fast -Minfo=all,intensity` et `LDFLAGS=${CXXFLAGS}`."
+      "question": "Comment le Makefile doit-il être modifié pour activer l'indicateur `-Minfo` avec les options `all` et `intensity` pour le compilateur NVIDIA ?",
+      "answer": "Le Makefile doit être modifié en définissant `CXXFLAGS=-fast -Minfo=all,intensity` et `LDFLAGS=${CXXFLAGS}`."
     },
     {
-      "question": "Qu'est-ce que l'intensité computationnelle d'une boucle et que signifie une valeur supérieure à 1?",
-      "answer": "C'est le rapport entre les opérations de calcul et les opérations en mémoire. Une valeur supérieure à 1 indique que la boucle serait bien exécutée sur un processeur graphique (GPU)."
+      "question": "Comment l'intensité computationnelle d'une boucle est-elle définie, et que signifie une valeur supérieure à 1 dans le résultat du compilateur ?",
+      "answer": "L'intensité computationnelle est le rapport entre les opérations de calcul et les opérations en mémoire. Une valeur supérieure à 1 indique que la boucle serait bien exécutée sur un processeur graphique (GPU)."
     },
     {
-      "question": "Est-ce que l'accumulation de valeurs dans une variable `sum` au sein d'une boucle représente une dépendance de données problématique pour la parallélisation?",
-      "answer": "Non, il s'agit d'une réduction, et les compilateurs modernes sont généralement capables de bien optimiser ce genre d'opérations."
+      "question": "Dans la fonction `matvec()`, l'accumulation des valeurs dans la variable `sum` est-elle considérée comme une dépendance de données qui rendrait le parallélisme inefficace ?",
+      "answer": "Non, l'accumulation des valeurs dans `sum` est une réduction, et les compilateurs modernes sont capables d'optimiser efficacement ce genre de réduction."
     }
   ],
-  "generated_at": "2026-04-12T04:24:03.271500+00:00"
+  "generated_at": "2026-04-13T10:31:21.293468+00:00"
 }

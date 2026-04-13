@@ -4,65 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How do you list OpenStack servers using the command line client?",
-      "answer": "You can list OpenStack servers by running the command: `$ openstack server list`."
+      "question": "How do you attach the CephFS network to a virtual machine on SD4H/Juno using the OpenStack command-line client?",
+      "answer": "To attach the CephFS network to a virtual machine (VM) on SD4H/Juno using the OpenStack command-line client, first list your servers to identify the VM's ID by running `openstack server list`. Once you have the VM's ID, execute the command `openstack server add network <VM_ID> CephFS-Network`, replacing `<VM_ID>` with the actual ID of your virtual machine."
     },
     {
-      "question": "Which command is used to attach the CephFS network to an OpenStack VM using the command line client?",
-      "answer": "To attach the CephFS network to a VM, use the command: `$ openstack server add network <VM_ID> CephFS-Network`. For example, `$ openstack server add network 1b2a3c21-c1b4-42b8-9016-d96fc8406e04 CephFS-Network`."
+      "question": "What is the procedure for installing the CephFS client packages on an Enterprise Linux 9 virtual machine?",
+      "answer": "To install the CephFS client packages on an Enterprise Linux 9 virtual machine, you need to first configure the relevant repositories. Create the `/etc/yum.repos.d/ceph.repo` file with the specified `[Ceph]`, `[Ceph-noarch]`, and `[ceph-source]` repository configurations, pointing to `http://download.ceph.com/rpm-tentacle/el9/$basearch` and similar paths for noarch and SRPMS, ensuring `gpgcheck=1` and the correct `gpgkey`. Additionally, install the EPEL repository by running `sudo dnf install epel-release`. Finally, install the necessary Ceph client packages with `sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
     },
     {
-      "question": "How can you verify that the CephFS network has been successfully attached to a VM using the OpenStack client?",
-      "answer": "After running the attachment command, you can confirm by listing the servers again with `$ openstack server list`. The output should show 'CephFS-Network' listed under the 'Networks' column for the specified VM, along with an assigned IP address like 'CephFS-Network=10.65.20.71'."
-    },
-    {
-      "question": "What is the latest stable Ceph release mentioned as of April 2026?",
-      "answer": "As of April 2026, `tentacle` is mentioned as the latest stable Ceph release."
-    },
-    {
-      "question": "Where can one find available Ceph RPM releases?",
-      "answer": "Available Ceph RPM releases can be found by checking `rpm-*` directories at `https://download.ceph.com/`."
-    },
-    {
-      "question": "Which Linux distribution is used as an example for Ceph client configuration in the Red Hat family section?",
-      "answer": "Configuration examples for `Enterprise Linux 9` are shown for the Red Hat family."
-    },
-    {
-      "question": "What is the file path for creating/editing the Ceph repository configuration on Red Hat family systems?",
-      "answer": "The Ceph repository configuration file should be located at `/etc/yum.repos.d/ceph.repo`."
-    },
-    {
-      "question": "What is the `baseurl` for the Ceph `tentacle` packages for `el9` architectures in the Red Hat family repository configuration?",
-      "answer": "The `baseurl` for Ceph `tentacle` packages for `el9` architectures is `http://download.ceph.com/rpm-tentacle/el9/$basearch`."
-    },
-    {
-      "question": "What is the `gpgkey` URL for the Ceph repository on Red Hat family systems?",
-      "answer": "The `gpgkey` URL for the Ceph repository is `https://download.ceph.com/keys/release.asc`."
-    },
-    {
-      "question": "How do you install the EPEL repository on Red Hat family systems?",
-      "answer": "The EPEL repository can be installed using the command: `sudo dnf install epel-release`."
-    },
-    {
-      "question": "What command installs the required Ceph client and associated packages on Red Hat family systems?",
-      "answer": "The required Ceph client and associated packages can be installed using: `sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
-    },
-    {
-      "question": "How do you determine the distro codename for Debian family systems to configure the Ceph repository?",
-      "answer": "You can determine your distro codename by running the command: `lsb_release -sc`."
-    },
-    {
-      "question": "What command adds the Ceph `tentacle` repository for Debian family systems?",
-      "answer": "To add the Ceph `tentacle` repository, use the command: `sudo apt-add-repository 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`, replacing `{codename}` with your distro's codename."
-    },
-    {
-      "question": "How do you revert the `apt-add-repository` command if it generates an error on Debian family systems?",
-      "answer": "If the `apt-add-repository` command gave an error, you can revert it with: `sudo add-apt-repository -r 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`."
-    },
-    {
-      "question": "What command installs the required Ceph client and associated packages on Debian family systems?",
-      "answer": "The required Ceph client and associated packages for Debian family systems can be installed with: `sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
+      "question": "How are the CephFS client and its dependencies installed on a VM running a Debian family distribution?",
+      "answer": "To install the CephFS client and its dependencies on a VM running a Debian family distribution, first identify your distribution's codename using `lsb_release -sc`. Then, add the Ceph repository with the command `sudo apt-add-repository 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`, substituting `{codename}` with your distribution's actual codename. If an error occurs, revert the change using `sudo add-apt-repository -r 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`. After setting up the repository, install the Ceph client packages by running `sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
     }
   ],
-  "generated_at": "2026-04-11T19:31:24.239172+00:00"
+  "generated_at": "2026-04-13T03:45:45.782864+00:00"
 }

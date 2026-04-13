@@ -4,13 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "When is Single GPU Data Parallelism with Nvidia's Multi-Process Service (MPS) recommended in PyTorch, and what is a crucial limitation regarding the backend for process group initialization?",
-      "answer": "Single GPU Data Parallelism with MPS is recommended when you have a relatively small model that doesn't fully utilize a GPU's compute capacity, but you need to train with a very large dataset and a small batch size. This approach allows multiple replicas of the model to run on a single GPU, improving resource usage and providing a speed-up. A crucial limitation is that the process group initialization must use `backend=\"mpi\"` or `\"gloo\"`, as NCCL does not work for single GPU configurations due to a hard-coded multi-GPU topology check."
+      "question": "What is Single GPU Data Parallelism in PyTorch, and when is it recommended for use on high-performance computing (HPC) clusters?",
+      "answer": "Single GPU Data Parallelism allows for running multiple replicas of a PyTorch model on a single GPU by utilizing Nvidia's Multi-Process Service (MPS) along with MPI. This approach is recommended when you have a relatively small model that doesn't fully utilize a GPU's compute capacity but needs to process a very large dataset with a small batch size. It helps increase GPU resource utilization and can provide a speed-up in such scenarios."
     },
     {
-      "question": "What is Fully Sharded Data Parallelism (FSDP) in PyTorch, what is its primary benefit, and under what condition should it not be used?",
-      "answer": "Fully Sharded Data Parallelism (FSDP) in PyTorch is a method that distributes the storage and computation of training elements, such as optimizer states, model weights, gradients, and activations, across multiple devices like GPUs, CPUs, or local hard disks. Its primary benefit is enabling the efficient training of models with massive numbers of parameters across multiple nodes by pooling these diverse resources. However, FSDP should not be used if any single model layer does not fit entirely within the memory of a single GPU, as these layers may be collected on a single device during forward or backward passes."
+      "question": "What is Fully Sharded Data Parallelism (FSDP) in PyTorch, and what is an important consideration when deciding to use it?",
+      "answer": "Fully Sharded Data Parallelism (FSDP) is a PyTorch approach that enables the distributed storage and computation of various training elements—such as optimizer states, model weights, gradients, and activations—across multiple devices, including GPUs, CPUs, and local hard disks. This pooling of resources allows for the efficient training of models with a massive number of parameters across multiple nodes. An important consideration is that you should not use FSDP if your model has individual layers that do not fit entirely within the memory of a single GPU, as these layers may need to be collected on a single device during forward or backward passes."
+    },
+    {
+      "question": "How does Tensor Parallelism (TP) differ from Fully Sharded Data Parallelism (FSDP) in how it shards model layers and handles computation?",
+      "answer": "Tensor Parallelism (TP) is a model sharding approach where the computation of a forward or backward pass through a model layer is split along with the layer's weights across multiple devices. This means that computation steps are performed locally on the device where a model shard is placed. In contrast, while FSDP also shards model weights across devices, it may still collect these shards together on the same device during certain computation steps, which introduces overhead and requires individual FSDP layers or sharded blocks to fit entirely within a single device's memory. TP is designed to address cases where FSDP's layer collection might not fit within a single GPU's memory."
     }
   ],
-  "generated_at": "2026-04-12T21:31:35.859727+00:00"
+  "generated_at": "2026-04-13T11:40:12.824139+00:00"
 }

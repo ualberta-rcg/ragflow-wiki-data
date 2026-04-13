@@ -3,45 +3,85 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is BraCeR used for?",
-      "answer": "BraCeR is used for the reconstruction of B cell receptor sequences from single-cell RNA-seq data."
+      "question": "What is BraCeR used for in bioinformatics?",
+      "answer": "BraCeR is a bioinformatics tool designed for the reconstruction of B cell receptor sequences from single-cell RNA-seq data."
     },
     {
-      "question": "What are the main components installed during the BraCeR setup process?",
-      "answer": "The main components installed are the BraCeR Git repository, a virtual Python environment, and transcriptome databases for Kallisto."
+      "question": "Where does the BraCeR Git repository get installed by default during the installation process?",
+      "answer": "The BraCeR Git repository is installed in the user's home directory at `$HOME/bracer`."
     },
     {
-      "question": "Which software modules must be loaded to set up the environment for BraCeR?",
-      "answer": "The necessary modules include StdEnv/2020, python/3.8, gcc/9.3.0, bowtie2/2.4.1, bowtie/1.3.0, trinity/2.14.0, samtools/1.15.1, igblast/1.17.0, blast+/2.12.0, kallisto/0.46.1, jellyfish/2.3.0, salmon/1.7.0, and fastqc/0.11.9."
+      "question": "What is the recommended default location for BraCeR's virtual Python environment upon installation?",
+      "answer": "The recommended default location for BraCeR's virtual Python environment is `$HOME/venv_bracer`."
     },
     {
-      "question": "How is the Python virtual environment for BraCeR created and populated with dependencies?",
-      "answer": "It's created using `virtualenv --no-download ~/venv_bracer`, activated with `source ~/venv_bracer/bin/activate`, and then `biopython`, `graphviz`, and requirements from `~/bracer/requirements.txt` are installed via `pip install --no-index`."
+      "question": "Where are the transcriptome databases for Kallisto stored by default after installation?",
+      "answer": "The transcriptome databases for Kallisto are stored in `/scratch/$USER/GRCh38` and `/scratch/$USER/GRCm38`."
     },
     {
-      "question": "What are the key steps to install Trim Galore for use with BraCeR?",
-      "answer": "Trim Galore is installed by downloading and extracting its archive, modifying the Perl hashbang in `trim_galore`, and then copying the script into the virtual environment's `bin` directory."
+      "question": "What standard environment and Python modules are essential prerequisites for installing BraCeR?",
+      "answer": "The `StdEnv/2020` and `python/3.8` modules are required for installing BraCeR."
     },
     {
-      "question": "Which transcriptome databases are required for Kallisto and from where are they obtained?",
-      "answer": "Human (GRCh38) and mouse (GRCm38) transcriptomes are required. They are obtained from Gencode (specifically Gencode_human release 41 and Gencode_mouse release M30) via EBI FTP."
+      "question": "What specific bioinformatics tool modules, besides the standard environment and Python, are required for BraCeR's installation and operation?",
+      "answer": "Modules like `gcc/9.3.0`, `bowtie2/2.4.1`, `bowtie/1.3.0`, `trinity/2.14.0`, `samtools/1.15.1`, `igblast/1.17.0`, `blast+/2.12.0`, `kallisto/0.46.1`, `jellyfish/2.3.0`, `salmon/1.7.0`, and `fastqc/0.11.9` are required."
     },
     {
-      "question": "What is the primary role of the `bracer.conf` configuration file?",
-      "answer": "The `bracer.conf` file configures BraCeR by specifying paths for various tools, Trinity options like maximum Jellyfish memory, Kallisto transcriptome locations, and the main BraCeR installation path."
+      "question": "What are some of the key Python packages installed into BraCeR's virtual environment?",
+      "answer": "Key Python packages include `biopython==1.77`, dependencies from `~/bracer/requirements.txt`, and `graphviz`."
     },
     {
-      "question": "What specific details in `bracer.conf` need to be updated before running BraCeR?",
-      "answer": "The `USERNAME` placeholder must be replaced in the `[kallisto_transcriptomes]` and `[bracer_location]` sections, and `max_jellyfish_memory` under `[trinity_options]` should be set appropriately for the environment."
+      "question": "How is Trim Galore installed and configured within the BraCeR virtual environment?",
+      "answer": "Trim Galore is downloaded, extracted, its Perl hashbang is tweaked, and the `trim_galore` script is copied into the virtual environment's `bin` directory."
     },
     {
-      "question": "How is the `bracer assemble` command typically invoked within a job script?",
-      "answer": "It's invoked as `bracer assemble --ncores ${SLURM_CPUS_PER_TASK:-1} --config_file bracer.conf my_cell_name ./my_output_directory/ file_001.fastq file_002.fastq`."
+      "question": "From which organization's public databases are the base transcriptomes for Kallisto downloaded?",
+      "answer": "The base transcriptomes for Kallisto are downloaded from `https://www.gencodegenes.org/` via `ftp.ebi.ac.uk`."
     },
     {
-      "question": "What SLURM resource requests does the example `bracer_job.sh` script specify?",
-      "answer": "The example script requests a time limit of 30 minutes, 4 CPUs per task, and 4000M of memory per CPU."
+      "question": "Which specific human transcriptome release is downloaded for Kallisto as part of the BraCeR setup?",
+      "answer": "Human transcriptome release 41 (`gencode.v41.transcripts.fa.gz`) is downloaded for Kallisto."
+    },
+    {
+      "question": "Which specific mouse transcriptome release is downloaded for Kallisto as part of the BraCeR setup?",
+      "answer": "Mouse transcriptome release M30 (`gencode.vM30.transcripts.fa.gz`) is downloaded for Kallisto."
+    },
+    {
+      "question": "What is the primary function of the `bracer.conf` configuration file for BraCeR?",
+      "answer": "The `bracer.conf` file is used to configure paths to tools, Trinity options like maximum Jellyfish memory, and locations of Kallisto transcriptomes and BraCeR itself."
+    },
+    {
+      "question": "What essential modification must be made to the `bracer.conf` file before running BraCeR?",
+      "answer": "The `USERNAME` placeholder in the `bracer.conf` file must be replaced with the user's actual username."
+    },
+    {
+      "question": "How is the maximum memory for the Trinity Jellyfish component specified in the `bracer.conf` file?",
+      "answer": "The `max_jellyfish_memory` option under the `[trinity_options]` section, for example, `max_jellyfish_memory = 15G`, specifies the memory."
+    },
+    {
+      "question": "How are the paths for human (`Hsap`) and mouse (`Mmus`) Kallisto transcriptomes defined in the `bracer.conf` file?",
+      "answer": "They are defined under the `[kallisto_transcriptomes]` section, for example, `Hsap = /scratch/USERNAME/GRCh38` and `Mmus = /scratch/USERNAME/GRCm38`."
+    },
+    {
+      "question": "What is the recommended time allocation for the example BraCeR SLURM job script?",
+      "answer": "The example SLURM job script recommends a time allocation of 30 minutes (`0-00:30`)."
+    },
+    {
+      "question": "How many CPUs per task and how much memory per CPU are requested in the example BraCeR SLURM job script?",
+      "answer": "The example SLURM job script requests 4 CPUs per task and 4000M (4GB) of memory per CPU."
+    },
+    {
+      "question": "What is the basic syntax for executing the `bracer assemble` command within a job script, including specifying cores and the configuration file?",
+      "answer": "The basic command is `bracer assemble --ncores ${SLURM_CPUS_PER_TASK:-1} --config_file bracer.conf my_cell_name ./my_output_directory/ file_001.fastq file_002.fastq`."
+    },
+    {
+      "question": "How is the BraCeR virtual environment activated prior to running the `bracer` command in a job script?",
+      "answer": "The BraCeR virtual environment is activated using the command `source ~/venv_bracer/bin/activate`."
+    },
+    {
+      "question": "Where can users find comparative information regarding different storage types available for data on Alliance clusters, as referenced by the BraCeR installation guide?",
+      "answer": "Users can refer to the \"Storage and file management\" page, specifically the \"Storage types\" section, for a comparison of storage options."
     }
   ],
-  "generated_at": "2026-04-11T18:40:58.611203+00:00"
+  "generated_at": "2026-04-13T03:05:18.693825+00:00"
 }

@@ -4,21 +4,13 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "Quelle est la recommandation pour la somme de la mémoire totale attendue par nœud lors de l'exécution de tâches LS-DYNA sur plusieurs nœuds?",
-      "answer": "Pour obtenir de meilleurs résultats avec les tâches LS-DYNA sur plusieurs nœuds, la somme de toute la mémoire attendue par nœud devrait être maintenue dans les 75 % de la RAM réservée sur ce nœud."
+      "question": "Comment devrait-on gérer l'allocation de mémoire pour le cœur principal du nœud maître dans le cadre de tâches LS-DYNA MPP (Message Passing Parallel) exécutées sur plusieurs nœuds?",
+      "answer": "Pour les tâches MPP, le premier cœur (processeur 0) du nœud maître doit disposer d'une quantité de mémoire suffisamment importante (appelée 'memory1') pour la décomposition et la simulation du modèle. Pour ce faire, il faut spécifier une valeur de mémoire par processeur qui est légèrement supérieure à la mémoire ('memory2') requise par cœur pour la simulation, puis s'assurer que la somme différentielle (mémoire par processeur moins 'memory2') est supérieure ou égale à 'memory1'."
     },
     {
-      "question": "Comment peut-on satisfaire les besoins en mémoire (`mémoire1`) du premier cœur sur le nœud maître pour les tâches LS-DYNA multi-nœuds, et quelles sont les valeurs maximales suggérées pour `mémoire1` et `mémoire2` sur un nœud de calcul de 128 Go?",
-      "answer": "Les besoins en mémoire (`mémoire1`) du premier cœur sur le nœud maître peuvent être satisfaits en spécifiant une mémoire par processeur légèrement supérieure à la `mémoire2` requise par cœur pour la simulation, puis en plaçant suffisamment de cœurs sur le nœud principal pour que leur somme différentielle (mémoire par processeur moins `mémoire2`) soit supérieure ou égale à `mémoire1`. Sur un nœud de calcul de 128 Go, `mémoire1` peut être de 6 000 Mo (48 Go) maximum et `mémoire2` de 200 Mo (48 Go/31 cœurs)."
-    },
-    {
-      "question": "Selon le texte, quelle est la formule pour calculer le paramètre de mémoire en mégawords pour les solutions à double précision avec LS-DYNA en mode multi-nœuds?",
-      "answer": "Selon le texte, pour les solutions à double précision, la formule est (0,75 * `mémoireGo` / 4 octets/s) * 1 000 Mo."
-    },
-    {
-      "question": "Selon le texte, quelle est la formule pour calculer le paramètre de mémoire en mégawords pour les solutions à simple précision avec LS-DYNA en mode multi-nœuds?",
-      "answer": "Selon le texte, pour les solutions à simple précision, la formule est (0,75 * `mémoireGo` / 4 octets/s) * 1 000 Mo."
+      "question": "Quelle est la recommandation générale concernant la mémoire par nœud pour les tâches LS-DYNA MPP, et quel est un exemple concret pour un nœud de 128 Go?",
+      "answer": "Pour obtenir de meilleurs résultats, la somme de toute la mémoire attendue par nœud doit être maintenue dans les 75 % de la RAM réservée sur ce nœud. À titre d'exemple, pour un nœud de calcul doté de 128 Go de mémoire complète, la valeur 'memory1' peut atteindre un maximum de 6 000 Mo (ou 48 Go), tandis que 'memory2' peut être de 200 Mo (ce qui correspond à 48 Go divisé par 31 cœurs)."
     }
   ],
-  "generated_at": "2026-04-12T00:56:10.732551+00:00"
+  "generated_at": "2026-04-13T08:04:09.810722+00:00"
 }

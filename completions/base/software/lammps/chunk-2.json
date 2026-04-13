@@ -4,73 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How can I check which packages are supported or not supported for a specific LAMMPS module?",
-      "answer": "For some LAMMPS modules, a file named `list-packages.txt` is provided. Once you have loaded a particular module, you can run `cat ${EBROOTLAMMPS}/list-packages.txt` to view its contents, which list the enabled (\"Supported\") and disabled (\"Not Supported\") packages."
+      "question": "How can users determine which packages are enabled or disabled for a specific LAMMPS module after it has been loaded?",
+      "answer": "After loading a LAMMPS module, users can run `cat ${EBROOTLAMMPS}/list-packages.txt` to view a file listing the supported and not supported packages. If this file is unavailable, the enabled packages can be found in the `general_packages` block of the EasyBuild recipe file, located at `$EBROOTLAMMPS/easybuild/LAMMPS*.eb`."
     },
     {
-      "question": "What should I do if the `list-packages.txt` file is not found for a LAMMPS module?",
-      "answer": "If `list-packages.txt` is not found, you may be able to determine which packages are available by examining the EasyBuild recipe file, located at `$EBROOTLAMMPS/easybuild/LAMMPS*.eb`. The list of enabled packages will appear in the block labelled `general_packages`."
+      "question": "How are LAMMPS jobs submitted for both serial and MPI execution using the provided example Slurm scripts?",
+      "answer": "For serial execution, the `run_lmp_serial.sh` script configures Slurm for 1 task and runs `lmp < lammps.in > lammps_output.txt`. For MPI execution, the `run_lmp_mpi.sh` script configures Slurm for 4 tasks and uses `srun lmp < lammps.in > lammps_output.txt` for parallel execution. Both scripts load common environment, Intel, OpenMPI, and lammps-omp modules."
     },
     {
-      "question": "What type of simulation is described in the example input file `lammps.in`?",
-      "answer": "The example input file `lammps.in` is configured for a \"3d Lennard-Jones melt\" simulation."
-    },
-    {
-      "question": "What is the purpose of the `write_data` command in the `lammps.in` example?",
-      "answer": "The `write_data` command in the `lammps.in` example is used to output the simulation's final configuration to a file named `config.end_sim`."
-    },
-    {
-      "question": "What are the SBATCH directives for the example serial LAMMPS job script?",
-      "answer": "The example serial LAMMPS job script (`run_lmp_serial.sh`) includes the following SBATCH directives: `--ntasks=1`, `--mem-per-cpu=2500M`, and `--time=0-00:30`."
-    },
-    {
-      "question": "Which modules are loaded before running the serial LAMMPS job in the example?",
-      "answer": "The example serial LAMMPS job loads the `StdEnv/2020`, `intel/2020.1.217`, `openmpi/4.0.3`, and `lammps-omp/20210929` modules."
-    },
-    {
-      "question": "How is LAMMPS executed in the example serial job script?",
-      "answer": "In the example serial job script, LAMMPS is executed using the command `lmp < lammps.in > lammps_output.txt`."
-    },
-    {
-      "question": "What are the SBATCH directives for the example MPI LAMMPS job script?",
-      "answer": "The example MPI LAMMPS job script (`run_lmp_mpi.sh`) includes the following SBATCH directives: `--ntasks=4`, `--mem-per-cpu=2500M`, and `--time=0-00:30`."
-    },
-    {
-      "question": "Which modules are loaded before running the MPI LAMMPS job in the example?",
-      "answer": "The example MPI LAMMPS job loads the `StdEnv/2020`, `intel/2020.1.217`, `openmpi/4.0.3`, and `lammps-omp/20210929` modules."
-    },
-    {
-      "question": "How is LAMMPS executed in the example MPI job script?",
-      "answer": "In the example MPI job script, LAMMPS is executed using the command `srun lmp < lammps.in > lammps_output.txt`."
-    },
-    {
-      "question": "What consumes the majority of CPU time in molecular dynamics simulations?",
-      "answer": "Most of the CPU time for molecular dynamics simulations is spent computing the pair interactions between particles."
-    },
-    {
-      "question": "How does LAMMPS distribute work among processors?",
-      "answer": "LAMMPS uses domain decomposition to split the work among the available processors by assigning a part of the simulation box to each processor."
-    },
-    {
-      "question": "What happens to communication time as the number of processors increases in LAMMPS?",
-      "answer": "During the computation of interactions between particles, communication between processors is required. For a given number of particles, the more processors used, the more parts of the simulation box there are that must exchange data, thus increasing communication time."
-    },
-    {
-      "question": "Why is it important to run performance tests before extensive simulations?",
-      "answer": "It is important to run performance tests to see how the program's performance changes with the number of cores, allowing you to find a suitable number of cores that will approximately maximize the efficiency of the simulation."
-    },
-    {
-      "question": "What was the outcome of a LAMMPS simulation of 4000 particles using 12 MPI tasks, regarding efficiency?",
-      "answer": "A simulation of 4000 particles using 12 MPI tasks resulted in very low efficiency, with the code spending 46.45% of its time computing pair interactions and 44.5% in communications between the processors."
-    },
-    {
-      "question": "What caused the low efficiency in the example simulation of 4000 atoms with 12 MPI tasks?",
-      "answer": "The low efficiency in the example was caused by the large number of small boxes resulting from dividing a small system of 4000 atoms among 12 cores, which led to a large fraction of time spent in communication."
-    },
-    {
-      "question": "What was the reported loop time and CPU usage for the 4000-atom, 12-processor simulation example?",
-      "answer": "The reported loop time was 15.4965 on 12 procs for 25000 steps with 4000 atoms, and the CPU usage was 90.2% with 12 MPI tasks x 1 OpenMP threads."
+      "question": "What are the primary performance considerations for LAMMPS simulations when distributing work across multiple processors?",
+      "answer": "Most CPU time in LAMMPS simulations is spent on pair interactions. LAMMPS uses domain decomposition to split the simulation box among processors. However, as more processors are used, communication time between them increases, leading to decreased CPU efficiency. It is recommended to run short tests with varying numbers of cores to identify an optimal number that maximizes efficiency for a given problem size."
     }
   ],
-  "generated_at": "2026-04-12T00:46:54.257060+00:00"
+  "generated_at": "2026-04-13T07:56:08.998208+00:00"
 }

@@ -4,57 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "C'est quoi la principale distinction entre les fichiers de commande `job1.nex` pis `job2.nex` quand on fait du checkpointing avec MrBayes?",
-      "answer": "La distinction majeure, c'est que `job2.nex` contient la commande `append=yes` à la fin, ce qui lui permet de reprendre un calcul déjà commencé, alors que `job1.nex` ne l'a pas."
+      "question": "Pourquoi est-il recommandé d'utiliser des points de contrôle pour les tâches de longue durée avec MrBayes?",
+      "answer": "Il est recommandé d'utiliser des points de contrôle pour les tâches MrBayes qui demandent beaucoup de temps d'exécution parce que les tâches de longue durée risquent davantage d'être interrompues par des pannes de matériel ou des travaux de maintenance. Ce mécanisme permet d'enregistrer le résultat d'une tâche et de poursuivre le travail avec une autre."
     },
     {
-      "question": "Comment est-ce qu'on soumet les deux tâches (celle de `job1.nex` pis celle de `job2.nex`) quand on utilise la méthode des points de contrôle avec un vecteur de tâches?",
-      "answer": "On soumet un seul script, `submit-mrbayes-cp.sh`, avec une seule commande `sbatch`, pour lancer les deux tâches l'une à la suite de l'autre."
-    },
-    {
-      "question": "Quel paramètre Slurm est utilisé dans le script `submit-mrbayes-cp.sh` pour gérer plusieurs tâches via un vecteur de tâches?",
-      "answer": "Le paramètre Slurm utilisé, c'est `--array=1-2%1`."
-    },
-    {
-      "question": "C'est quoi la variable Slurm qui permet de sélectionner le bon fichier `.nex` pour chaque tâche dans un vecteur de tâches?",
-      "answer": "C'est la variable `$SLURM_ARRAY_TASK_ID` qui est utilisée pour choisir entre `job1.nex` et `job2.nex`."
-    },
-    {
-      "question": "Quel est le nom du fichier d'entrée principal que les scripts `job1.nex` pis `job2.nex` exécutent?",
-      "answer": "Les deux scripts exécutent le fichier `primates.nex`."
-    },
-    {
-      "question": "Quel module doit être chargé avant de rouler MrBayes pour les tâches de points de contrôle?",
-      "answer": "Il faut charger les modules `gcc` pis `mrbayes/3.2.7`."
-    },
-    {
-      "question": "Combien de générations (`ngen`) sont spécifiées dans la commande `mcmc` du fichier `job1.nex`?",
-      "answer": "Le fichier `job1.nex` spécifie `ngen=10000000` (dix millions) de générations."
-    },
-    {
-      "question": "Combien de générations (`ngen`) sont spécifiées dans la commande `mcmc` du fichier `job2.nex`?",
-      "answer": "Le fichier `job2.nex` spécifie `ngen=20000000` (vingt millions) de générations."
-    },
-    {
-      "question": "Quel est le nom du script de soumission Slurm pour les tâches de points de contrôle?",
-      "answer": "Le script de soumission s'appelle `submit-mrbayes-cp.sh`."
-    },
-    {
-      "question": "Comment on fait pour soumettre le script `submit-mrbayes-cp.sh`?",
-      "answer": "On le soumet avec la commande `sbatch submit-mrbayes-cp.sh`."
-    },
-    {
-      "question": "Combien de tâches (`--ntasks`) sont spécifiées dans le script `submit-mrbayes-cp.sh` pour chaque exécution du programme `mb`?",
-      "answer": "Le script `submit-mrbayes-cp.sh` demande `--ntasks=8` pour chaque instance du programme `mb` lancée par le `srun`."
-    },
-    {
-      "question": "C'est quoi la quantité de mémoire par CPU (`--mem-per-cpu`) demandée dans le script de soumission des points de contrôle?",
-      "answer": "Le script demande `--mem-per-cpu=3G`."
-    },
-    {
-      "question": "Quel est le temps d'exécution (`--time`) alloué pour chaque tâche du vecteur de tâches dans le script `submit-mrbayes-cp.sh`?",
-      "answer": "Le temps alloué est `--time=1:00:00` (une heure)."
+      "question": "Quelle est la commande spécifique qui permet à une tâche MrBayes de reprendre un calcul interrompu, en utilisant l'exemple fourni pour les points de contrôle?",
+      "answer": "Pour qu'une tâche MrBayes reprenne un calcul interrompu, il faut inclure la commande `append=yes` dans le fichier de commandes de la tâche subséquente, comme on le voit dans le fichier `job2.nex` de l'exemple."
     }
   ],
-  "generated_at": "2026-04-12T03:21:49.380411+00:00"
+  "generated_at": "2026-04-13T09:39:21.897012+00:00"
 }

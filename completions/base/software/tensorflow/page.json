@@ -3,137 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is TensorFlow?",
-      "answer": "TensorFlow is an open-source software library for Machine Intelligence."
+      "question": "What is TensorFlow, as described in the context of Alliance clusters?",
+      "answer": "TensorFlow is an open-source software library specifically designed for Machine Intelligence."
     },
     {
-      "question": "Where can I find a tutorial for porting TensorFlow programs to an Alliance cluster?",
-      "answer": "You should follow the tutorial on machine learning for porting TensorFlow programs to an Alliance cluster."
+      "question": "What is the recommended method for installing TensorFlow on Alliance clusters?",
+      "answer": "TensorFlow should be installed in your `/home` directory using Alliance's prebuilt Python wheels within a Python virtual environment."
     },
     {
-      "question": "How is TensorFlow installed on Alliance clusters?",
-      "answer": "TensorFlow is installed in your `/home` directory using Alliance's prebuilt Python wheels within a Python virtual environment."
+      "question": "What are the key steps to install TensorFlow 2.x on an Alliance cluster?",
+      "answer": "The installation involves loading the `python/3` module, creating and activating a Python virtual environment named 'tensorflow', and then using `pip install --no-index tensorflow` within that environment."
     },
     {
-      "question": "What are the steps to install TensorFlow 2.x in a virtual environment?",
-      "answer": "The steps are to load `python/3`, create a virtual environment named `tensorflow`, activate it, then use `pip install --no-index tensorflow`."
+      "question": "Is TensorFlow 1.x available on the Narval cluster, and why or why not?",
+      "answer": "No, TensorFlow 1.x is not available on the Narval cluster because it requires `StdEnv/2018`, which is not supported on that cluster."
     },
     {
-      "question": "What are the module requirements for TensorFlow 1.x?",
-      "answer": "TensorFlow 1.x requires `StdEnv/2018` and `python/3` modules."
+      "question": "When installing TensorFlow 1.x on an Alliance cluster, what important instruction should users follow regarding the TensorFlow package?",
+      "answer": "Users should avoid installing the generic `tensorflow` package (without `_cpu` or `_gpu` suffixes) due to compatibility issues with other libraries, and instead install `tensorflow_cpu==1.15.0` or `tensorflow_gpu==1.15.0`."
     },
     {
-      "question": "Is TensorFlow 1.x available on the Narval cluster?",
-      "answer": "No, TensorFlow 1.x is not available on Narval because `StdEnv/2018` is not available on that cluster."
+      "question": "How can users set up TensorFlow for use within R on Alliance clusters?",
+      "answer": "First, install TensorFlow in a Python virtual environment. Then, load `gcc` and `r` modules, activate the Python virtual environment, launch R, and install the `devtools` and `tensorflow` R packages. Finally, use `library(tensorflow)` and `use_virtualenv(Sys.getenv('VIRTUAL_ENV'))` in R."
     },
     {
-      "question": "How do I install TensorFlow 1.x for CPU-only usage?",
-      "answer": "After loading modules and activating the virtual environment, use `pip install --no-index tensorflow_cpu==1.15.0`."
+      "question": "What are the essential SLURM parameters for submitting a TensorFlow job that utilizes a single GPU on Alliance clusters?",
+      "answer": "Essential SLURM parameters include `--gres=gpu:1` for GPU allocation, `--cpus-per-task=6` for CPU cores, `--mem=32000M` for memory, and `--time=0-03:00` for job duration."
     },
     {
-      "question": "How do I install TensorFlow 1.x with GPU support?",
-      "answer": "After loading modules and activating the virtual environment, use `pip install --no-index tensorflow_gpu==1.15.0`."
+      "question": "What is TensorBoard, and how should it be run on Alliance clusters for optimal performance?",
+      "answer": "TensorBoard is a suite of visualization tools for TensorFlow. It should be executed in the same job as the TensorFlow process, rather than on a login node, by launching it in the background before the Python script."
     },
     {
-      "question": "Which TensorFlow 1.x package should be avoided due to compatibility issues?",
-      "answer": "Do not install the `tensorflow` package (without `_cpu` or `_gpu` suffixes) as it has compatibility issues with other libraries."
+      "question": "How do users access a TensorBoard instance running on a compute node from their local computer on Alliance clusters?",
+      "answer": "Users must first find the hostname of the compute node running TensorBoard, then create an SSH tunnel from their local computer using the command `ssh -N -f -L localhost:6006:computenode:6006 userid@cluster.computecanada.ca`, and finally navigate to `http://localhost:6006` in a web browser."
     },
     {
-      "question": "How can I use TensorFlow within R?",
-      "answer": "First, install TensorFlow in a Python virtual environment, then load `gcc` and `r` modules, activate the virtual environment, launch R, and install `devtools` and the `rstudio/tensorflow` package from GitHub."
+      "question": "What high-level API does TensorFlow offer for using multiple GPUs, and what are some of the strategies available on Alliance clusters?",
+      "answer": "TensorFlow offers the `tf.distribute` API for multiple GPUs. Strategies include `MirroredStrategy` for single-node multi-GPU setups and `MultiWorkerMirroredStrategy` for multi-node distributed training."
     },
     {
-      "question": "Should I call `install_tensorflow()` in R if TensorFlow is already installed in a virtual environment?",
-      "answer": "No, do not call `install_tensorflow()` in R, as TensorFlow has already been installed in your virtual environment with `pip`."
+      "question": "When implementing a MirroredStrategy for multi-GPU training on multiple nodes on Alliance clusters, what are the key differences compared to a single-node setup?",
+      "answer": "For multiple nodes, users employ `MultiWorkerMirroredStrategy()` with `SlurmClusterResolver()` to acquire job information from SLURM and must explicitly add `CommunicationImplementation.NCCL` for inter-GPU communication, which is the default for `MirroredStrategy()` on a single node."
     },
     {
-      "question": "How do I activate a pre-installed TensorFlow virtual environment for use in R?",
-      "answer": "After activating the Python virtual environment and launching R, use `library(tensorflow)` and `use_virtualenv(Sys.getenv('VIRTUAL_ENV'))`."
+      "question": "Why are model checkpoints recommended when running TensorFlow training jobs on Alliance clusters?",
+      "answer": "Checkpoints, which are model snapshots, are recommended to break long-running jobs into shorter ones (for quicker allocation), and to prevent loss of progress due to unexpected errors or node failures."
     },
     {
-      "question": "What is the command to submit a TensorFlow job with a GPU on Alliance clusters?",
-      "answer": "Use `sbatch tensorflow-test.sh`."
+      "question": "How can users create model checkpoints when training with Keras in TensorFlow on Alliance clusters?",
+      "answer": "Users can create checkpoints with Keras by using the `callbacks` parameter of the `model.fit()` method, specifically by adding `tf.keras.callbacks.ModelCheckpoint` to save the model at specified intervals, such as after every epoch."
     },
     {
-      "question": "What resources are requested in the example `tensorflow-test.sh` script for a GPU job?",
-      "answer": "The script requests 1 GPU, 6 CPU cores per task, 32 GB of memory, and a time limit of 3 hours."
+      "question": "What is a common workaround for the `OMP: Error #15` when using the scikit-image library with TensorFlow on Alliance clusters?",
+      "answer": "The workaround involves identifying the system's `libiomp5.so` path, exporting it as `LIBIOMP_PATH`, and then creating a symbolic link from the TensorFlow installation's `libiomp5.so` to the system-wide one."
     },
     {
-      "question": "Which modules are loaded in the example `tensorflow-test.sh` script?",
-      "answer": "`cuda` and `cudnn` modules are loaded."
+      "question": "How can users resolve a `Couldn't open CUDA library libcupti.so` error in TensorFlow on Alliance clusters?",
+      "answer": "To resolve this, users need to load the appropriate CUDA module (e.g., `module load cuda/9.0.xxx`) and then export `LD_LIBRARY_PATH` to include `$CUDA_HOME/extras/CUPTI/lib64/` before executing their script."
     },
     {
-      "question": "What is the typical output file name for a completed TensorFlow job?",
-      "answer": "The output file will be named something like `node_id-job_id.out`."
+      "question": "What is the troubleshooting step for a `libiomp5.so: invalid ELF header` error in TensorFlow on Alliance clusters?",
+      "answer": "Users should navigate to the directory mentioned in the error message and execute `ln -sf $(cat libiomp5.so) libiomp5.so` to replace the erroneously installed text file with the correct symbolic link."
     },
     {
-      "question": "What types of GPU nodes can TensorFlow run on?",
-      "answer": "TensorFlow can run on all GPU node types."
+      "question": "How can users control the number of CPUs and threads utilized by TensorFlow operations on Alliance clusters?",
+      "answer": "Users can control the number of threads by setting the `intra_op_parallelism_threads` and `inter_op_parallelism_threads` configuration parameters using `tf.config.threading.set_inter_op_parallelism_threads(num_threads)` and `tf.config.threading.set_intra_op_parallelism_threads(num_threads)`."
     },
     {
-      "question": "How can I monitor resources and visualize training progress for a TensorFlow job?",
-      "answer": "You can connect to the node running the job and execute processes, or use tools like TensorBoard."
-    },
-    {
-      "question": "What is TensorBoard?",
-      "answer": "TensorBoard is a suite of visualization tools that comes with TensorFlow, operating by reading TensorFlow events and model files."
-    },
-    {
-      "question": "Where should TensorBoard be run?",
-      "answer": "TensorBoard requires too much processing power to be run on a login node and should be executed in the same job as the TensorFlow process."
-    },
-    {
-      "question": "How do I launch TensorBoard in a job script?",
-      "answer": "Launch it in the background before your Python script, for example: `tensorboard --logdir=/tmp/your_log_dir --host 0.0.0.0 --load_fast false &`."
-    },
-    {
-      "question": "How do I access TensorBoard from my local computer once it's running on a compute node?",
-      "answer": "First, find the compute node's hostname using `sq`, then use `ssh -N -f -L localhost:6006:computenode:6006 userid@cluster.computecanada.ca` from your local computer, and finally navigate to `http://localhost:6006` in your web browser."
-    },
-    {
-      "question": "How does TensorFlow support multi-GPU usage?",
-      "answer": "TensorFlow offers various strategies through the high-level `tf.distribute` API."
-    },
-    {
-      "question": "Which strategy is provided as an example for single-node multi-GPU training?",
-      "answer": "The Mirrored strategy is provided as an example for single-node multi-GPU training."
-    },
-    {
-      "question": "What environment variable can be set for inter-GPU communication with NCCL?",
-      "answer": "`NCCL_BLOCKING_WAIT=1` can be set if you wish to use the NCCL backend for inter-GPU communication."
-    },
-    {
-      "question": "What is the main difference when using TensorFlow for multi-GPU across multiple nodes compared to a single node?",
-      "answer": "The main difference is using `MultiWorkerMirroredStrategy()` with `SlurmClusterResolver()` and explicitly specifying `CommunicationImplementation.NCCL`."
-    },
-    {
-      "question": "What is a model checkpoint and why is it useful?",
-      "answer": "A checkpoint is a snapshot of your model at a given point during training, saved to disk, which helps break long jobs, prevents progress loss, and facilitates faster allocation."
-    },
-    {
-      "question": "How do you create checkpoints with Keras?",
-      "answer": "Use the `callbacks` parameter of the `model.fit()` method with `tf.keras.callbacks.ModelCheckpoint`."
-    },
-    {
-      "question": "What is a common error when using TensorFlow with scikit-image, and what is the workaround?",
-      "answer": "A common error is `OMP: Error #15: Initializing libiomp5.so, but found libiomp5.so already initialized.`. The workaround involves patching the TensorFlow library to use the systemwide `libiomp5.so`."
-    },
-    {
-      "question": "What causes the `Couldn't open CUDA library libcupti.so` error, and how is it resolved?",
-      "answer": "This error occurs if `libcupti.so` is not available for tracing features. The solution is to load the correct `cuda` module and export `LD_LIBRARY_PATH` to include `$CUDA_HOME/extras/CUPTI/lib64/`."
-    },
-    {
-      "question": "How do you fix an `libiomp5.so invalid ELF header` error?",
-      "answer": "Navigate to the directory mentioned in the error and execute `ln -sf $(cat libiomp5.so) libiomp5.so` to replace the erroneous text file with the correct symbolic link."
-    },
-    {
-      "question": "How do you control the number of threads used by TensorFlow?",
-      "answer": "You can set the `intra_op_parallelism_threads` and `inter_op_parallelism_threads` parameters using `tf.config.threading.set_inter_op_parallelism_threads(num_threads)` and `tf.config.threading.set_intra_op_parallelism_threads(num_threads)`."
-    },
-    {
-      "question": "What is a known performance issue with TensorFlow versions after 2.8.3 related to Keras layers?",
-      "answer": "A bug in Keras after TensorFlow 2.8.3 significantly slows down training (over 100 times) when using `tf.keras.layers.Random*` layers for data augmentation; this bug is fixed in version 2.12."
+      "question": "What is a known performance bug related to Keras data augmentation layers in TensorFlow, and in which versions was it present and fixed?",
+      "answer": "A bug in Keras versions after 2.8.3 but before 2.12 significantly slowed down training when using data augmentation layers with the `tf.keras.layers.Random` prefix (e.g., `RandomRotation`). This bug was fixed in version 2.12."
     }
   ],
-  "generated_at": "2026-04-12T08:58:04.420627+00:00"
+  "generated_at": "2026-04-13T14:16:32.567397+00:00"
 }

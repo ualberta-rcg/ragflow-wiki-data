@@ -4,73 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que le système de fichiers CephFS?",
-      "answer": "C'est un système de fichiers qui peut être partagé par plusieurs hôtes d'instances OpenStack."
+      "question": "Quelles informations faut-il fournir quand on demande un quota pour le service CephFS pour un projet OpenStack?",
+      "answer": "Lorsque vous demandez un quota pour le service CephFS, vous devez indiquer le nom de votre projet OpenStack, la capacité du quota requise (en Go) et le nombre de points de partage nécessaires."
     },
     {
-      "question": "Comment est-ce qu'on fait pour avoir accès au service CephFS?",
-      "answer": "Il faut envoyer une demande à nuage@tech.alliancecan.ca."
+      "question": "Comment procède-t-on pour créer un point de partage CephFS dans l'interface OpenStack et quelles sont les informations importantes à noter par la suite?",
+      "answer": "Pour créer un point de partage CephFS dans OpenStack, allez dans `Project --> Share --> Shares` et cliquez sur `+Create Share`. Remplissez les champs `Share Name`, `Share Protocol` (CephFS), `Taille`, `Share Type` (cephfs ou cephfs-ec42 pour SD4H/Juno), et `Zone de disponibilité` (nova). Il ne faut pas cocher l'option `Make visible for all` pour SD4H/Juno. Ensuite, sous `Manage Rules` dans la colonne Actions, ajoutez une règle en sélectionnant `cephx` comme `Access Type`, un `Access Level` (read-write ou read-only) et un nom significatif pour `Access To`. Après la création, n'oubliez pas de noter le `Path`, le nom du client (`Access to`) et la `Access Key` depuis la section `Share Overview` de votre point de partage."
     },
     {
-      "question": "Quelles sont les compétences de base nécessaires pour suivre la procédure d'utilisation de CephFS?",
-      "answer": "La procédure est assez technique et demande des compétences Linux de base pour créer et modifier des fichiers, définir des permissions et créer des points de montage."
-    },
-    {
-      "question": "Où est-ce qu'on peut obtenir de l'aide si on a de la misère avec la procédure CephFS?",
-      "answer": "Vous pouvez écrire à nuage@tech.alliancecan.ca pour obtenir de l'assistance."
-    },
-    {
-      "question": "Est-ce que toutes les chaînes de caractères de l'interface OpenStack sont traduites en français?",
-      "answer": "Non, plusieurs chaînes de caractères de l'interface OpenStack ne sont pas traduites en français."
-    },
-    {
-      "question": "Que dois-je faire si je n'ai pas de quota pour le service CephFS?",
-      "answer": "Vous devez écrire à nuage@tech.alliancecan.ca."
-    },
-    {
-      "question": "Quelles informations faut-il fournir quand on demande un quota pour CephFS?",
-      "answer": "Il faut indiquer le nom du projet OpenStack, la capacité du quota requise (en Go) et le nombre de points de partage requis."
-    },
-    {
-      "question": "Quelles sont les étapes pour créer un point de partage CephFS dans l'interface OpenStack?",
-      "answer": "Dans l'interface OpenStack, allez à <i>Project --> Share --> Shares</i>, puis cliquez sur <i>+Create Share</i>."
-    },
-    {
-      "question": "Quelles informations doit-on entrer quand on crée un point de partage CephFS?",
-      "answer": "Vous devez entrer un <i>Share Name</i> significatif, choisir <i>CephFS</i> comme <i>Share Protocol</i>, spécifier la <i>Taille</i> requise, sélectionner <i>cephfs</i> (ou <i>cephfs-ec42</i> pour SD4H/Juno) comme <i>Share Type</i> et choisir <i>nova</i> pour la <i>Zone de disponibilité</i>."
-    },
-    {
-      "question": "Y a-t-il une option qu'il ne faut pas cocher quand on crée un point de partage pour SD4H/Juno?",
-      "answer": "Oui, il ne faut pas sélectionner <i>Make visible for all</i> ou <i>Make visible to users from all projects</i>, sinon le point de partage va être accessible par tous les utilisateurs dans tous les projets."
-    },
-    {
-      "question": "Comment on fait pour créer une règle d'accès pour un point de partage CephFS?",
-      "answer": "Dans <i>Project --> Share --> Shares</i>, dans la colonne <i>Actions</i>, choisissez <i>Manage Rules</i> du menu déroulant, puis cliquez sur le bouton <i>+Add Rule</i>."
-    },
-    {
-      "question": "Quelles sont les infos à donner quand on ajoute une règle d'accès pour un point de partage CephFS?",
-      "answer": "Il faut spécifier l'<i>Access Type</i> (cephx), l'<i>Access Level</i> (<i>read-write</i> ou <i>read-only</i>) et l'<i>Access To</i> (un nom significatif pour la clé)."
-    },
-    {
-      "question": "Pourquoi le nom entré dans le champ \"Access To\" est-il important quand on crée une règle pour une clé d'accès?",
-      "answer": "Ce nom est important parce qu'il va être utilisé dans la configuration du client CephFS."
-    },
-    {
-      "question": "Où est-ce qu'on peut trouver les détails nécessaires, comme le <i>Path</i>, le nom du client et l'<i>Access Key</i>, après avoir créé un point de partage?",
-      "answer": "Dans <i>Project --> Share --> Shares</i>, cliquez sur le nom du point de partage, puis notez les éléments affichés dans <i>Share Overview</i>."
-    },
-    {
-      "question": "Faut-il attacher le réseau CephFS à une instance sur Arbutus?",
-      "answer": "Non, sur Arbutus, le réseau CephFS est déjà disponible pour les instances, donc il n'y a rien à faire."
-    },
-    {
-      "question": "Comment attacher le réseau CephFS à une instance sur SD4H/Juno via l'interface web OpenStack?",
-      "answer": "Pour chaque instance, sélectionnez <i>Instance --> Action --> Attach interface --> CephFS-Network</i>. Il ne faut pas cocher la case <i>Fixed IP Address</i>."
-    },
-    {
-      "question": "Comment attacher le réseau CephFS à une instance sur SD4H/Juno en utilisant le client OpenStack en ligne de commande?",
-      "answer": "D'abord, utilisez `openstack server list` pour trouver l'identifiant de l'instance, puis exécutez la commande `openstack server add network <ID de l'instance> CephFS-Network`."
+      "question": "Sur la plateforme SD4H/Juno, comment attacher le réseau CephFS à une instance OpenStack via l'interface web?",
+      "answer": "Pour attacher le réseau CephFS à une instance sur SD4H/Juno par l'interface web, il faut sélectionner `Instance --> Action --> Attach interface` pour chaque instance, puis choisir `CephFS-Network`. Il est important de ne pas cocher la case `Fixed IP Address`."
     }
   ],
-  "generated_at": "2026-04-11T19:32:46.622318+00:00"
+  "generated_at": "2026-04-13T03:46:48.553497+00:00"
 }

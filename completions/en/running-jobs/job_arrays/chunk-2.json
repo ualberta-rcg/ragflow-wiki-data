@@ -4,37 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How can a Python script, where calculations depend on a list of parameters, be adapted for parallel processing using a Slurm job array?",
-      "answer": "To adapt a Python script for parallel processing with a Slurm job array, you can pass the `$SLURM_ARRAY_TASK_ID` to the Python script. This allows each individual task in the array to get a unique task ID, which it then uses to select a specific parameter value from a list or array for its calculation."
+      "question": "What is the main objective of using a Slurm job array with Python scripts, as demonstrated in the 'Multiple parameters' example?",
+      "answer": "The main objective is to process a Python script's calculations in parallel, especially when the script involves varying a specific parameter across multiple runs. This allows each unique parameter value, such as a different 'beta' from a NumPy array, to be handled by an independent task within the job array."
     },
     {
-      "question": "What is the primary modification made to `my_script.py` to create `my_script_parallel.py` for job array processing?",
-      "answer": "The primary modification is to remove the loop that iterates through all beta parameters and, instead, import the `sys` module to retrieve a single task index (`i`) from the command-line arguments (`sys.argv[1]`), converting it to an integer. This index is then used to select a specific `beta` value from the pre-defined `betas` array."
-    },
-    {
-      "question": "How does `my_script_parallel.py` acquire the specific `beta` parameter value it needs for its calculations?",
-      "answer": "`my_script_parallel.py` acquires the specific `beta` parameter value by reading the first command-line argument (`sys.argv[1]`), which is expected to be the `$SLURM_ARRAY_TASK_ID`. It converts this argument to an integer and uses it as an index to select an element from the `betas` NumPy array."
-    },
-    {
-      "question": "What is the purpose of the `#SBATCH --array=0-99` line in the `data_parallel_python.sh` job submission script?",
-      "answer": "The `#SBATCH --array=0-99` line specifies that the job array should create 100 individual tasks, with task IDs ranging from 0 to 99 inclusive. This range directly corresponds to the valid indices of the `betas` NumPy array in the Python script, ensuring each beta value is processed by a unique task."
-    },
-    {
-      "question": "What module needs to be loaded in the Slurm job script to run the parallelized Python script?",
-      "answer": "The `scipy-stack` module needs to be loaded in the Slurm job script (`data_parallel_python.sh`) before running the parallelized Python script."
-    },
-    {
-      "question": "What is the command used to execute the parallel Python script within the `data_parallel_python.sh` job submission script?",
-      "answer": "The command used is `python my_script_parallel.py $SLURM_ARRAY_TASK_ID`. This passes the unique task ID for each array task as a command-line argument to the Python script."
-    },
-    {
-      "question": "What is the estimated runtime allocated for each task in the `data_parallel_python.sh` job array?",
-      "answer": "Each task in the `data_parallel_python.sh` job array is allocated an estimated runtime of `1:00:00` (one hour), as specified by `#SBATCH --time=1:00:00`."
-    },
-    {
-      "question": "What is the range of values for the `betas` NumPy array defined in `my_script_parallel.py`?",
-      "answer": "The `betas` NumPy array is defined using `np.linspace(10,36.5,100)`, which creates 100 evenly spaced values subdividing the interval from 10 to 36.5."
+      "question": "How does a Python script, like `my_script_parallel.py`, utilize the `SLURM_ARRAY_TASK_ID` environment variable to facilitate parallel processing in a Slurm job array?",
+      "answer": "In a Python script, the `SLURM_ARRAY_TASK_ID` is passed as a command-line argument (e.g., using `sys.argv[1]`). The script then converts this argument into an integer, which is used as an index to select a specific parameter value (e.g., from a `betas` NumPy array) for its calculations. This ensures that each task in the job array processes a unique set of parameters."
     }
   ],
-  "generated_at": "2026-04-12T00:14:32.300594+00:00"
+  "generated_at": "2026-04-13T07:30:36.559617+00:00"
 }

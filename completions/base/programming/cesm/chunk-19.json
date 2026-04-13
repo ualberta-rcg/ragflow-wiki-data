@@ -4,77 +4,13 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "What is the maximum wall time, minimum nodes, and maximum nodes configured for the Niagara cluster in the `config_batch.xml` file?",
-      "answer": "For the Niagara cluster, the `config_batch.xml` specifies a `walltimemax` of \"12:00:00\", a `nodemin` of \"1\", and a `nodemax` of \"2024\"."
+      "question": "What is the purpose of the `~/.cime/config_batch.xml` file in CESM configuration, and how can it be validated on a cluster like Niagara?",
+      "answer": "The `~/.cime/config_batch.xml` file configures batch system parameters for job submission, including commands like `sbatch` and `scancel`, and defines specific queue directives. For example, on the Niagara cluster, the `niagara` queue is configured with a maximum walltime of 12:00:00 and supports between 1 and 2024 nodes. To validate this XML machine file, you would execute the command: `xmllint --noout --schema /path/to/CESM/cime/config/xml_schemas/config_batch.xsd ~/.cime/config_batch.xml`."
     },
     {
-      "question": "What is the maximum wall time, minimum nodes, and maximum nodes configured for the Rorqual cluster in the `config_batch.xml` file?",
-      "answer": "For the Rorqual cluster, the `config_batch.xml` specifies a `walltimemax` of \"12:00:00\", a `nodemin` of \"1\", and a `nodemax` of \"670\"."
-    },
-    {
-      "question": "Is there a specific directive for Niagara's batch configuration that is not present in Rorqual's `config_batch.xml`?",
-      "answer": "Yes, Niagara's `config_batch.xml` includes the directive `--constraint=[skylake!|cascade]` which is not found in Rorqual's configuration."
-    },
-    {
-      "question": "What is the purpose of the `<unknown_queue_directives>` entry in the batch configuration files for Niagara and Rorqual?",
-      "answer": "The `<unknown_queue_directives>regular</unknown_queue_directives>` entry indicates that unknown queues should use the batch directives defined for the regular queue."
-    },
-    {
-      "question": "How do I validate the `~/.cime/config_batch.xml` file?",
-      "answer": "You can validate the `~/.cime/config_batch.xml` file by running the command: `xmllint --noout --schema /path/to/CESM/cime/config/xml_schemas/config_batch.xsd ~/.cime/config_batch.xml`."
-    },
-    {
-      "question": "What is the expected output when the `config_batch.xml` file is successfully validated?",
-      "answer": "If the `config_batch.xml` file is valid, the expected output is `/home/name/.cime/config_batch.xml validates`."
-    },
-    {
-      "question": "Where can I find additional documentation for CESM Coupled Model XML files, including configuration parameters and examples?",
-      "answer": "You can find additional documentation for configuration parameters and examples at [https://esmci.github.io/cime/versions/maint-5.6/html/xml_files/cesm.html#cimeroot-config-cesm-machines]."
-    },
-    {
-      "question": "Which file should be created and edited for local compiler configuration per cluster?",
-      "answer": "You should create and edit the file `~/.cime/config_compilers.xml` for local compiler configuration per cluster."
-    },
-    {
-      "question": "What `CPPDEFS` flags are appended for the 'gptl' model in the `config_compilers.xml` for clusters like Fir, Nibi, Narval, Niagara, and Rorqual?",
-      "answer": "For the 'gptl' model, the `CPPDEFS` flags appended are `-DHAVE_NANOTIME -DBIT64 -DHAVE_VPRINTF -DHAVE_BACKTRACE -DHAVE_SLASHPROC -DHAVE_COMM_F2C -DHAVE_TIMES -DHAVE_GETTIMEOFDAY`."
-    },
-    {
-      "question": "What environment variables are used for `NETCDF_PATH`, `PIO_FILESYSTEM_HINTS`, and `PNETCDF_PATH` within the `config_compilers.xml` configuration for the specified clusters?",
-      "answer": "`NETCDF_PATH` uses `$ENV{NETCDF_FORTRAN_ROOT}`, `PIO_FILESYSTEM_HINTS` is set to `lustre`, and `PNETCDF_PATH` uses `$ENV{PARALLEL_NETCDF_ROOT}`."
-    },
-    {
-      "question": "What are the `SLIBS` appends in the `config_compilers.xml` for Fir, Nibi, Narval, Niagara, and Rorqual clusters?",
-      "answer": "The `SLIBS` append is `-L$(NETCDF_PATH)/lib -lnetcdff -L$(NETCDF_C_ROOT)/lib -lnetcdf -L$(NETLIB_LAPACK_PATH)/lib/intel64 -lmkl -ldl` for these clusters."
-    },
-    {
-      "question": "How do I validate the `~/.cime/config_compilers.xml` file?",
-      "answer": "You can validate the `~/.cime/config_compilers.xml` file by running the command: `xmllint --noout --schema /path/to/CESM/cime/config/xml_schemas/config_compilers_v2.xsd ~/.cime/config_compilers.xml`."
-    },
-    {
-      "question": "What is the expected output when the `config_compilers.xml` file is successfully validated?",
-      "answer": "If the `config_compilers.xml` file is valid, the expected output is `/home/name/.cime/config_compilers.xml validates`."
-    },
-    {
-      "question": "What commands are used to submit and cancel batch jobs for the Slurm system, according to the `config_batch.xml`?",
-      "answer": "The `config_batch.xml` specifies `sbatch` for submitting jobs and `scancel` for cancelling them when using the Slurm batch system."
-    },
-    {
-      "question": "How are job dependencies specified in the `config_batch.xml` for Slurm?",
-      "answer": "Job dependencies are specified using `--dependency=afterok:jobid` for successful completion dependencies and `--dependency=afterany:jobid` for dependencies regardless of status. The `depend_separator` is a comma (`,`)."
-    },
-    {
-      "question": "What mail notification flags are supported in the `config_batch.xml` for batch jobs?",
-      "answer": "The `config_batch.xml` indicates `--mail-user` and `--mail-type` flags are supported for mail notifications, with `batch_mail_type` options including `none`, `all`, `begin`, `end`, and `fail`."
-    },
-    {
-      "question": "What arguments are typically submitted with batch jobs, as defined in the `config_batch.xml`?",
-      "answer": "Typically, the `--time` flag with `$JOB_WALLCLOCK_TIME` and the `--account` flag with `$CHARGE_ACCOUNT` are submitted as arguments with batch jobs."
-    },
-    {
-      "question": "What are the common directives included in batch scripts, according to the `config_batch.xml`?",
-      "answer": "Common directives include `--job-name={{ job_id }}`, `--nodes={{ num_nodes }}`, `--ntasks-per-node={{ tasks_per_node }}`, `--output={{ job_id }}`, `--exclusive`, and `--mem=0`."
+      "question": "What is the function of the `~/.cime/config_compilers.xml` file in CESM installations, and what are the specific flags enabled for nano timers in its configuration for machines like Fir or Nibi?",
+      "answer": "The `~/.cime/config_compilers.xml` file is used to define compiler-specific settings for each machine. For instance, on the Fir and Nibi clusters, the `<CPPDEFS>` section for the `gptl` model includes flags such as `-DHAVE_NANOTIME`, `-DBIT64`, `-DHAVE_VPRINTF`, `-DHAVE_BACKTRACE`, `-DHAVE_SLASHPROC`, `-DHAVE_COMM_F2C`, `-DHAVE_TIMES`, and `-DHAVE_GETTIMEOFDAY` to enable nano timers. This XML compiler file can be validated by running: `xmllint --noout --schema /path/to/CESM/cime/config/xml_schemas/config_compilers_v2.xsd ~/.cime/config_compilers.xml`."
     }
   ],
-  "generated_at": "2026-04-11T18:53:53.441436+00:00"
+  "generated_at": "2026-04-13T03:15:27.661107+00:00"
 }

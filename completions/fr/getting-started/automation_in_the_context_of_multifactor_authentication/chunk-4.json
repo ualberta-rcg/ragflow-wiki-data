@@ -4,49 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Pourquoi ma clé SSH pourrait ne pas être acceptée si j'ai spécifié un masque IPv4 dans la contrainte `restrict,from=`?",
-      "answer": "Votre clé pourrait ne pas être acceptée si votre client SSH essaie de se connecter en utilisant une adresse IPv6, surtout dans un environnement Windows, alors que le masque de la clé SSH est configuré pour l'IPv4."
+      "question": "Pourquoi est-ce que ma clé SSH pourrait ne pas être acceptée quand j'essaie de me connecter à un nœud d'automatisation, surtout si je suis sur un environnement Windows?",
+      "answer": "Votre clé SSH pourrait ne pas être acceptée si votre client SSH essaie de se connecter avec une adresse IPv6, mais que le masque d'adresse IP que vous avez entré dans la contrainte `restrict,from=` de votre clé SSH dans CCDB est pour une adresse IPv4. Ce problème d'adressage semble plus fréquent dans les environnements Windows."
     },
     {
-      "question": "Comment puis-je vérifier le type d'adresse IP (IPv4 ou IPv6) que mon ordinateur utilise?",
-      "answer": "Vous pouvez vérifier le type d'adresses IP que votre ordinateur utilise en visitant le site `https://test-ipv6.com/`."
+      "question": "Comment puis-je vérifier si mon client SSH utilise l'adressage IPv4 ou IPv6 quand j'essaie d'établir une connexion avec un nœud d'automatisation de l'Alliance de Calcul?",
+      "answer": "Pour identifier le type d'adressage, vous pouvez faire un test en utilisant la commande `ssh -i ~/.ssh/automation_key -vvv username@robot.rorqual.alliancecan.ca \"ls -l\"`. Si le message de débogage 'Connecting to...' affiche une adresse comme `[199.241.166.5]`, c'est de l'IPv4. Si elle ressemble plutôt à `[2620:123:7002:4::5]`, c'est de l'IPv6."
     },
     {
-      "question": "À quoi ressemblent des exemples d'adresses IPv4 et IPv6?",
-      "answer": "Une adresse IPv4 ressemble à `199.241.166.5`, alors qu'une adresse IPv6 a l'air de `2620:123:7002:4::5`."
-    },
-    {
-      "question": "Comment faire pour identifier le problème si ma connexion SSH à un nœud d'automatisation ne fonctionne pas?",
-      "answer": "Si la connexion ne se fait pas, vous pouvez faire un test en utilisant la commande `ssh -i ~/.ssh/automation_key -vvv username@robot.rorqal.alliancecan.ca \"ls -l\"`. L'option `-vvv` (Very Very Verbose) vous donnera beaucoup d'informations de débogage."
-    },
-    {
-      "question": "Comment savoir si ma connexion SSH utilise IPv4 ou IPv6 en regardant les messages de débogage?",
-      "answer": "Dans les messages de débogage, si vous voyez `debug1: Connecting to robot.rorqual.alliancecan.ca [199.241.166.5] port 22.`, l'adressage est en IPv4. Si le message est plutôt `debug1: Connecting to robot.rorqual.alliancecan.ca [2620:123:7002:4::5] port 22.`, c'est en IPv6."
-    },
-    {
-      "question": "Quelles sont les solutions possibles si l'adressage IP cause des problèmes de connexion SSH?",
-      "answer": "Il y a plusieurs solutions : vous pouvez forcer le client SSH à utiliser IPv4 ou IPv6 avec les options `-4` ou `-6`, pointer au nœud d'automatisation directement avec son adresse IP plutôt qu'avec son nom, ou en dernier recours, désactiver l'adressage IPv6 sur votre ordinateur."
-    },
-    {
-      "question": "Comment puis-je forcer mon client SSH à utiliser l'adressage IPv4?",
-      "answer": "Vous pouvez forcer le client SSH à utiliser l'IPv4 en utilisant l'option `-4` dans la commande SSH, ou en vous connectant directement à l'adresse IP du nœud, comme dans l'exemple `ssh -i ~/.ssh/automation_key -vvv username@132.219.138.79 \"ls -l\"` pour Rorqual."
-    },
-    {
-      "question": "Est-ce qu'il est recommandé de désactiver l'adressage IPv6 sur mon ordinateur?",
-      "answer": "Non, Microsoft ne le recommande pas, et ça ne devrait être utilisé qu'en dernier recours, même si ça ne devrait pas avoir d'impact négatif sur votre ordinateur."
-    },
-    {
-      "question": "Comment peut-on automatiser des flux de travail avec Python en utilisant le module Paramiko pour se connecter aux nœuds d'automatisation?",
-      "answer": "Pour automatiser avec Python et Paramiko, il faut d'abord importer Paramiko, puis charger votre clé SSH privée avec `paramiko.Ed25519Key.from_private_key_file()`. Ensuite, établissez la connexion au nœud d'automatisation avec `ssh.connect(hostname=host, username=user, pkey=key)` et utilisez `ssh.exec_command()` pour exécuter des commandes."
-    },
-    {
-      "question": "Est-ce qu'il y a une installation spéciale à faire pour que Paramiko prenne en charge les clés Ed25519?",
-      "answer": "Oui, c'est important d'installer Paramiko avec la commande `pip install paramiko[all]` pour s'assurer que le support pour les clés de type Ed25519 est bien inclus."
-    },
-    {
-      "question": "Que fait la ligne `ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())` dans un script Paramiko?",
-      "answer": "Cette ligne indique à Paramiko que si la clé de l'hôte n'est pas déjà connue, c'est acceptable et qu'il peut l'ajouter automatiquement à la liste des hôtes connus."
+      "question": "Comment puis-je automatiser la connexion et l'exécution de commandes sur un nœud d'automatisation de l'Alliance en utilisant le module Paramiko de Python?",
+      "answer": "Pour automatiser avec Paramiko, vous devez d'abord charger votre clé privée (par exemple, `paramiko.Ed25519Key.from_private_key_file(\"/home/username/.ssh/cc_allowed\")`). Ensuite, créez un client SSH avec `paramiko.SSHClient()`, configurez la politique des clés d'hôte avec `ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())` et connectez-vous au nœud d'automatisation en spécifiant l'hôte, l'utilisateur et la clé. Une fois connecté, vous pouvez exécuter des commandes comme `cmd = \"ls -l\"; stdin, stdout, stderr = ssh.exec_command(cmd)`. N'oubliez pas d'installer Paramiko avec le support Ed25519 en utilisant `pip install paramiko[all]`."
     }
   ],
-  "generated_at": "2026-04-11T18:11:09.939162+00:00"
+  "generated_at": "2026-04-13T02:41:21.814507+00:00"
 }

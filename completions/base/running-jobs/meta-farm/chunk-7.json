@@ -4,61 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "What should each line of `table.dat` contain if the `single_case.sh` script is used without modifications?",
-      "answer": "If you are using the unmodified `single_case.sh` script, each line of `table.dat` should contain a complete command. This command can also be a compound command, with several individual commands separated by semicolons."
+      "question": "How should the `table.dat` file be structured when using an unmodified `single_case.sh` script in the META package?",
+      "answer": "When using the default, unmodified `single_case.sh` script, each line of `table.dat` must contain a complete command. This can also be a compound command, meaning several commands separated by semicolons."
     },
     {
-      "question": "What kind of executable statements can be included in `table.dat`?",
-      "answer": "`table.dat` can include any executable statement. While it often contains identical commands that only differ by their arguments, this is not a strict requirement."
+      "question": "What is the critical function of the `STATUS` variable within the `single_case.sh` script, and how can it be customized?",
+      "answer": "The `STATUS` variable in `single_case.sh` is crucial for indicating whether a specific computation case completed successfully (set to `0`) or failed (set to a positive value). This status is used by `resubmit.run` to identify and re-run failed cases. While the default `single_case.sh` sets `STATUS` to the program's exit code, users can customize this by editing the script to include additional checks, such as verifying the existence or content of output files, to more accurately determine success or failure."
     },
     {
-      "question": "Can you provide examples of commands that might be found in a `table.dat` file?",
-      "answer": "Examples of commands in `table.dat` include `/home/user/bin/code1 1.0 10 2.1`, `cp -f ~/input_dir/input1 .; ~/code_dir/code`, or `./code2 < IC.2`."
-    },
-    {
-      "question": "How can I avoid repeating the same command on every line of `table.dat` if it's common to all cases?",
-      "answer": "You can edit `single_case.sh` to include the common command. Then, modify your `table.dat` to contain only the specific arguments and/or redirects that vary for each case."
-    },
-    {
-      "question": "If `single_case.sh` is modified to include a common command, what would an example `table.dat` look like?",
-      "answer": "If `single_case.sh` includes the common command, `table.dat` would then contain only the varying arguments or parameters for each case, such as `12.56` or `21.35`."
-    },
-    {
-      "question": "What is the purpose of the `$ID` variable when `single_case.sh` is customized?",
-      "answer": "The `$ID` variable in `single_case.sh` contains the case ID from the original table. It can be used as a unique seed for Monte-Carlo type serial farming or as an additional argument to the code."
-    },
-    {
-      "question": "What should I do if my code doesn't require any arguments from `table.dat`?",
-      "answer": "Even if your code doesn't need arguments from `table.dat`, you still need to generate the file with a number of lines equal to the total number of cases you wish to compute. The specific content of these lines won't matter, only their count."
-    },
-    {
-      "question": "Do I need to manually add line numbers to the `table.dat` file?",
-      "answer": "No, you do not need to insert line numbers at the beginning of each line of `table.dat`. The `submit.run` script will automatically modify `table.dat` to add line numbers if it finds them missing."
-    },
-    {
-      "question": "What is the role of the `STATUS` variable in `single_case.sh`?",
-      "answer": "The `STATUS` variable in `single_case.sh` indicates whether a case was computed successfully (0) or if an error occurred (a positive value). This variable is critical for `resubmit.run` to identify which cases have failed and need to be re-computed."
-    },
-    {
-      "question": "How is the `STATUS` variable typically set in the default `single_case.sh`?",
-      "answer": "In the default version of `single_case.sh`, `STATUS` is set to the exit code of your program."
-    },
-    {
-      "question": "Why might I need to customize how the `STATUS` variable is set in `single_case.sh`?",
-      "answer": "You might need to customize how `STATUS` is set because some programs can produce an exit code of zero even if something went wrong. Modifying `single_case.sh` allows you to add custom checks to ensure `STATUS` accurately reflects case failures for `resubmit.run`."
-    },
-    {
-      "question": "How can I modify `single_case.sh` to ensure a case is marked as failed if a critical output file is missing or empty?",
-      "answer": "You can add a conditional check in `single_case.sh`. For example, after your program runs, you could check if an expected output file (e.g., `out.dat`) exists and is not empty. If it's missing or empty, you can explicitly set `STATUS=1` to indicate a failure."
-    },
-    {
-      "question": "What is the purpose of the `job_script.sh` file?",
-      "answer": "`job_script.sh` is the job script that will be submitted to the SLURM scheduler for all metajobs within your farm. This applies to both SIMPLE and META modes."
-    },
-    {
-      "question": "Which command creates the default `job_script.sh` file?",
-      "answer": "The default `job_script.sh` file is created by the `farm_init.run` command."
+      "question": "What are the mandatory modifications required for the `job_script.sh` file when configuring a serial farm with the META package?",
+      "answer": "When configuring a serial farm with the META package, the `job_script.sh` file absolutely requires modification of the account name (using the `-A` SBATCH switch) and the metajob runtime (using either the `-t` or `--time` SBATCH switch). It is important to note that the runtime switch must be included directly within `job_script.sh` and cannot be passed as an optional argument to `submit.run`."
     }
   ],
-  "generated_at": "2026-04-12T01:18:12.822463+00:00"
+  "generated_at": "2026-04-13T08:22:34.341342+00:00"
 }

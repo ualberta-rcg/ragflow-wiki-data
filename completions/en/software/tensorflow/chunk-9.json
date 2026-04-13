@@ -4,17 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "How do I create model checkpoints in TensorFlow when using Keras callbacks?",
-      "answer": "To create model checkpoints during training with Keras, you should use the `callbacks` parameter of the `model.fit()` method. For example, to create a checkpoint at the end of every training epoch, you can use `callbacks = [tf.keras.callbacks.ModelCheckpoint(filepath=\"./ckpt\", save_freq=\"epoch\")]`. Ensure the specified `filepath` exists."
+      "question": "How can one create model checkpoints during training using Keras in TensorFlow?",
+      "answer": "To create a checkpoint when training with Keras, you should use the `callbacks` parameter of the `model.fit()` method. For example, to create a checkpoint at the end of every training epoch, you can use `callbacks = [tf.keras.callbacks.ModelCheckpoint(filepath=\"./ckpt\", save_freq=\"epoch\")]`. It's important to ensure that the specified `filepath` for the checkpoint already exists."
     },
     {
-      "question": "What is the solution for the `OMP: Error #15` when `libiomp5.so` is already initialized, especially when using scikit-image with TensorFlow?",
-      "answer": "This error occurs because the TensorFlow library attempts to load its own bundled version of OpenMP (`libiomp5.so`), which conflicts with an already initialized system version. The workaround involves navigating to your virtual environment directory (e.g., `tf_skimage_venv`) and executing specific commands to patch the TensorFlow installation to use the systemwide `libiomp5.so`."
+      "question": "What is the workaround for the \"OMP: Error #15: Initializing libiomp5.so, but found libiomp5.so already initialized\" error when using the scikit-image library with TensorFlow?",
+      "answer": "This error occurs because the TensorFlow library attempts to load a bundled version of OMP that conflicts with the system version. The workaround involves navigating to your Python virtual environment directory, exporting the `LIBIOMP_PATH` to point to the system-wide `libiomp5.so`, and then creating a symbolic link to patch the TensorFlow library installation. The specific commands are `cd tf_skimage_venv`, `export LIBIOMP_PATH=$(strace python -c 'from skimage.transform import AffineTransform' 2>&1 | grep -v ENOENT | grep -ohP -e '(?<=\")[^\"]+libiomp5.so(?=\")' | xargs realpath)`, and `find -path '*_solib_local*' -name libiomp5.so -exec ln -sf $LIBIOMP_PATH {} \\;`."
     },
     {
-      "question": "What is the known performance issue with Keras `tf.keras.layers.Random` data augmentation layers in TensorFlow, and which versions are affected?",
-      "answer": "A bug in the Keras implementation of TensorFlow after version 2.8.3 significantly slows down the training process, by more than 100 times, when using data augmentation layers with the prefix `tf.keras.layers.Random` (e.g., `tf.keras.layers.RandomRotation`, `tf.keras.layers.RandomTranslation`). This bug has since been fixed in version 2.12."
+      "question": "Is there a known performance bug affecting Keras data augmentation layers in TensorFlow, and if so, which versions are involved?",
+      "answer": "Yes, there is a known bug in the Keras implementation of TensorFlow after version 2.8.3 that significantly slows down the training process (by over 100 times). This bug specifically affects data augmentation layers with the prefix `tf.keras.layers.Random`, such as `tf.keras.layers.RandomRotation` and `tf.keras.layers.RandomTranslation`. The bug has since been fixed in version 2.12."
     }
   ],
-  "generated_at": "2026-04-12T21:33:54.970384+00:00"
+  "generated_at": "2026-04-13T14:19:28.144571+00:00"
 }

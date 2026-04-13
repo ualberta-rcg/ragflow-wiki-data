@@ -4,73 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Comment faire pour qu'une application sur un nœud de calcul sache où est le serveur de licence après avoir mis en place un tunnel?",
-      "answer": "Pour que l'application sache que le serveur de licence est sur le port `COMPUTEPORT` du serveur `localhost`, il faut souvent définir une variable d'environnement, par exemple avec `export MLM_LICENSE_FILE=COMPUTEPORT@localhost`."
+      "question": "À quoi sert un tunnel SSH lorsqu'on veut se connecter à une application qui roule sur un nœud de calcul d'une grappe?",
+      "answer": "Un tunnel SSH crypté peut être mis en place dans un nœud de connexion d'une grappe pour connecter l'ordinateur d'un utilisateur à un nœud de calcul de cette grappe. Ça permet d'afficher de façon transparente des visualisations et des graphiques de Jupyter Notebook exécutés sur le nœud de calcul directement sur l'ordinateur de l'utilisateur. C'est aussi utile pour transférer un port réseau d'un nœud de calcul vers le nœud de connexion afin d'accéder à un serveur de bases de données."
     },
     {
-      "question": "À quoi sert l'exemple de script fourni?",
-      "answer": "L'exemple de script sert à mettre en place un tunnel SSH pour entrer en contact avec un serveur de licence, comme `licenseserver.institution.ca` au port 9999."
+      "question": "Si je suis sur un ordinateur Windows, comment puis-je créer un tunnel SSH pour me connecter à une application, comme Jupyter Notebook, qui roule sur un nœud de calcul d'une grappe?",
+      "answer": "Pour créer un tunnel SSH depuis Windows, vous pouvez utiliser MobaXTerm. Vous devez lancer deux sessions MobaXterm: la première pour vous connecter à la grappe et lancer votre application (ce qui vous donnera une URL avec le nom du nœud et un port, par exemple `fc3281.int.fir.alliancecan.ca:8888`). La seconde session sera un terminal local où vous lancerez la commande `ssh -L 8888:fc3281.int.fir.alliancecan.ca:8888 someuser@fir.alliancecan.ca` (en remplaçant les informations par celles de votre application et grappe). Ensuite, vous modifierez l'URL obtenue dans la première session en remplaçant le nom du nœud par `localhost` (par exemple `http://localhost:8888/?token=...`) et la collerez dans votre fureteur."
     },
     {
-      "question": "Dans le script d'exemple, comment est choisi le port local pour le tunnel SSH?",
-      "answer": "Le script utilise une boucle `for` pour essayer de trouver un port local (`LOCALPORT`) disponible entre 1024 et 65535, en se servant de la commande `shuf -i 1024-65535 -n 1`."
-    },
-    {
-      "question": "Quelle est la commande SSH utilisée dans l'exemple de script pour établir le tunnel?",
-      "answer": "La commande SSH utilisée est `ssh tri-gw -L $LOCALPORT:$REMOTEHOST:$REMOTEPORT -N -f`."
-    },
-    {
-      "question": "Pourquoi voudrait-on créer un tunnel crypté vers un nœud de calcul?",
-      "answer": "On crée un tunnel crypté pour connecter l’ordinateur d’un utilisateur à un nœud de calcul d’une grappe, ce qui permet d'afficher de façon transparente des visualisations ou des graphiques de Jupyter Notebook exécutés sur ce nœud."
-    },
-    {
-      "question": "Est-ce qu'un tunnel SSH peut servir à accéder à un serveur de base de données sur une grappe?",
-      "answer": "Oui, si la seule façon d’accéder à un serveur de bases de données est par un nœud de connexion, un tunnel SSH peut transférer un port réseau arbitraire d’un nœud de calcul vers le nœud de connexion de la grappe et l’associer au serveur de bases de données."
-    },
-    {
-      "question": "Comment Nibi et Fir permettent-ils aux nœuds de calcul d'accéder à l'Internet?",
-      "answer": "Nibi et Fir effectuent une NAT (Network Address Translation) pour que les utilisateurs puissent avoir accès à l’Internet à partir des nœuds de calcul."
-    },
-    {
-      "question": "Quel paquet Python est recommandé pour établir un tunnel SSH sur Linux ou MacOS X?",
-      "answer": "Le paquet Python `sshuttle` est recommandé pour Linux ou MacOS X."
-    },
-    {
-      "question": "Comment lancer un tunnel avec `sshuttle` sur Linux ou MacOS X?",
-      "answer": "Sur votre ordinateur, il faut ouvrir une nouvelle fenêtre de terminal et lancer la commande `sshuttle --dns -Nr userid@machine_name`."
-    },
-    {
-      "question": "Après avoir lancé `sshuttle`, comment accéder à l'application web?",
-      "answer": "Il suffit de copier et coller l’URL de l'application, comme celle de Jupyter Notebook qui comprend un `token`, directement dans votre fureteur."
-    },
-    {
-      "question": "Quel outil est utilisé pour créer un tunnel SSH sous Windows?",
-      "answer": "Un tunnel SSH peut être créé avec MobaXTerm sous Windows."
-    },
-    {
-      "question": "Combien de sessions MobaXterm sont nécessaires pour configurer un tunnel SSH sous Windows?",
-      "answer": "Il faut lancer deux sessions MobaXterm pour configurer un tunnel SSH sous Windows."
-    },
-    {
-      "question": "Que doit-on faire dans la première session MobaXterm pour un tunnel SSH?",
-      "answer": "Dans la session 1, vous devriez vous connecter à la grappe et lancer votre tâche, par exemple avec Jupyter Notebook, afin d'obtenir une URL qui contient le nom et un port du nœud hôte."
-    },
-    {
-      "question": "Que doit-on faire dans la deuxième session MobaXterm pour un tunnel SSH?",
-      "answer": "La session 2 est un terminal local dans lequel le tunnel SSH sera mis en place en lançant une commande `ssh -L`."
-    },
-    {
-      "question": "Quel est un exemple de commande SSH pour créer un tunnel dans MobaXterm sous Windows?",
-      "answer": "Un exemple de commande est `ssh -L 8888:fc3281.int.fir.alliancecan.ca:8888 someuser@fir.alliancecan.ca`, qui redirige le port local 8888 vers le port 8888 sur `fc3281.int.fir.alliancecan.ca`."
-    },
-    {
-      "question": "Est-ce que les numéros de port local et distant doivent être les mêmes lors de la création d'un tunnel SSH avec MobaXterm?",
-      "answer": "Non, il n'est pas nécessaire que les numéros soient identiques, mais c'est une convention pour identifier plus facilement le port local et le port distant."
-    },
-    {
-      "question": "Comment doit-on modifier l'URL de l'application obtenue dans MobaXterm pour l'utiliser avec le tunnel SSH?",
-      "answer": "Il faut modifier l'URL en remplaçant le nom du nœud par `localhost`, par exemple transformer `http://fc3281.int.fir.alliancecan.ca:8888/?token=...` en `http://localhost:8888/?token=...`."
+      "question": "Comment peut-on configurer un tunnel SSH dans un script de tâche pour qu'une application sur un nœud de calcul puisse communiquer avec un serveur de licence externe?",
+      "answer": "Dans un script de tâche, on configure un tunnel SSH pour une redirection de port. Il faut utiliser la commande `ssh GATEWAY -L COMPUTEPORT:LICSERVER:LICPORT -N -f`. `GATEWAY` est le serveur passerelle, `LICSERVER` est l'adresse du serveur de licence et `LICPORT` son port, tandis que `COMPUTEPORT` est le port local choisi sur le nœud de calcul. Il faut aussi que l'application sache que le serveur de licence se trouve sur le port `COMPUTEPORT` de `localhost`, souvent en définissant une variable d'environnement comme `export MLM_LICENSE_FILE=COMPUTEPORT@localhost`."
     }
   ],
-  "generated_at": "2026-04-12T07:35:56.756262+00:00"
+  "generated_at": "2026-04-13T13:14:38.137606+00:00"
 }

@@ -3,37 +3,53 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the main purpose of GNU Profiler (gprof)?",
-      "answer": "gprof is a profiling software designed to collect information and compile statistics on your code by inserting timing instructions for functions and subroutines."
+      "question": "What is GNU Profiler (gprof) and what is its main purpose?",
+      "answer": "gprof is a profiling software designed to collect information and compile statistics on your code. Its main purpose is to identify functions and subroutines in your program and insert timing instructions to gather performance data."
     },
     {
-      "question": "Where can gprof be found and accessed on computing clusters?",
-      "answer": "gprof comes with the GNU compiler suite and is available with the `gcc` module on clusters."
+      "question": "How does gprof work to generate profiling statistics?",
+      "answer": "gprof works by inserting timing instructions into functions and subroutines within your program. Executing this modified program creates a raw data file, which gprof then interprets to produce profiling statistics."
     },
     {
-      "question": "What is the initial step to prepare an application for gprof profiling on a cluster?",
-      "answer": "You need to load the appropriate GNU compiler, for example, by executing `module load gcc/7.3.0`."
+      "question": "Where can gprof be found and accessed on Alliance clusters?",
+      "answer": "gprof comes bundled with the GNU compiler suite and is available through the `gcc` module on Alliance clusters."
     },
     {
-      "question": "Which specific compiler option is required when compiling code to enable gprof to gather useful information?",
-      "answer": "You must add the `-pg` option to the compilation command, which tells the compiler to generate extra code for profile information."
+      "question": "What is the initial step to prepare an application for profiling with gprof on Alliance clusters?",
+      "answer": "The initial step to prepare an application for profiling with gprof is to load the appropriate GNU compiler, such as `module load gcc/7.3.0`."
     },
     {
-      "question": "What happens if you compile your code without the `-pg` option and then try to use gprof?",
-      "answer": "Without the `-pg` option, no call-graph data will be gathered, and you may get the error: `gprof: gmon.out file is missing call-graph data`."
+      "question": "Which specific compiler option is required when compiling code to enable gprof to collect useful profiling information?",
+      "answer": "To enable gprof to collect useful profiling information, you need to compile your code with the `-pg` option using GNU compilers, which also enables debugging information."
     },
     {
-      "question": "How should a program compiled with gprof support be executed?",
-      "answer": "The program should be run the same way as without gprof profiling, using its path and any arguments."
+      "question": "Why is the `-pg` option crucial when compiling an application for gprof analysis?",
+      "answer": "The `-pg` option is crucial because it instructs the compiler to generate extra code specifically for writing profile information suitable for gprof's analysis, including essential call-graph data."
     },
     {
-      "question": "What file is created after successfully executing a program that has been compiled with gprof options?",
-      "answer": "A file named `gmon.out` is created in the current working directory, or in a new directory if the code changes it and has sufficient permissions."
+      "question": "What error message might a user encounter if their code is not compiled with the necessary `-pg` option for gprof?",
+      "answer": "If code is not compiled with the `-pg` option, a user might encounter the error message \"gprof: gmon.out file is missing call-graph data\" because no call-graph data will have been gathered."
     },
     {
-      "question": "How do you generate the final profiling statistics file from the raw data created by an executed program?",
-      "answer": "You execute the gprof tool with the binary name and the `gmon.out` file as arguments, typically redirecting the output to an analysis file like `analysis.txt`."
+      "question": "How should a program, once compiled with gprof options, be executed?",
+      "answer": "A program compiled with gprof options should be executed in the exact same manner as it would normally be run, for example, `/path/to/your/executable arg1 arg2`, without altering the execution line."
+    },
+    {
+      "question": "What file is generated in the working directory after a gprof-instrumented program successfully completes execution?",
+      "answer": "After a gprof-instrumented program successfully completes execution, a file named `gmon.out` is generated in the current working directory, provided the program has sufficient permissions."
+    },
+    {
+      "question": "What is the purpose of the `gmon.out` file created by gprof-instrumented programs?",
+      "answer": "The `gmon.out` file serves as a raw data file that stores the profile information collected during the execution of a gprof-instrumented program, which is then used by the `gprof` tool for analysis."
+    },
+    {
+      "question": "What command is used to generate the final profiling analysis report from the `gmon.out` file?",
+      "answer": "To generate the final profiling analysis report, you use the command `gprof /path/to/your/executable gmon.out > analysis.txt`, where `analysis.txt` will contain the desired profiling information."
+    },
+    {
+      "question": "What kind of statistics and information does gprof ultimately provide about a program?",
+      "answer": "gprof ultimately provides profiling statistics, including timing information for functions and subroutines, and call-graph data, to help understand the performance characteristics of a program."
     }
   ],
-  "generated_at": "2026-04-11T23:20:32.182976+00:00"
+  "generated_at": "2026-04-13T06:46:58.055672+00:00"
 }

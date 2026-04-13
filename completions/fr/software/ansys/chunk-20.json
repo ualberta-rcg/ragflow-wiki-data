@@ -4,65 +4,13 @@
   "chunk_index": 20,
   "qa_pairs": [
     {
-      "question": "Quelle est la limite de temps par défaut spécifiée dans ce script Slurm pour une tâche Fluent avec redémarrage?",
-      "answer": "La limite de temps par défaut spécifiée est de 00-03:00, ce qui correspond à 3 heures."
+      "question": "Comment faut-il configurer un script Slurm pour automatiser le redémarrage des simulations Fluent sur les grappes de l'Alliance?",
+      "answer": "Pour automatiser le redémarrage des simulations Fluent, votre script Slurm doit inclure la directive `#SBATCH --array=1-5%1` afin de spécifier le nombre de tentatives de redémarrage (l'exemple montre 5 tentatives). Vous devrez également définir des variables pour le fichier de journal principal (`MYJOUFILE`), le fichier de journal de redémarrage (`MYJOUFILERES`), et les fichiers de cas et de données de redémarrage (`MYCASFILERES` et `MYDATFILERES`). Le script contient une logique pour gérer les tâches à nœud unique ou multiple, et à chaque tentative, il met à jour les liens symboliques vers les fichiers de cas et de données les plus récents, ce qui permet à la simulation de reprendre à partir du dernier état sauvegardé."
     },
     {
-      "question": "Combien de cœurs de calcul sont demandés par défaut pour une tâche avec ce script?",
-      "answer": "Le script demande 16 cœurs de calcul au total (`#SBATCH --ntasks=16`)."
-    },
-    {
-      "question": "Quelle quantité de mémoire par cœur est allouée avec ce script Slurm?",
-      "answer": "Le script alloue 4 Go de mémoire par cœur (`#SBATCH --mem-per-cpu=4G`)."
-    },
-    {
-      "question": "Que signifie la directive Slurm `#SBATCH --array=1-5%1` dans ce script?",
-      "answer": "Ça spécifie le nombre de redémarrages de la solution, aussi appelés pas de temps, avec un minimum de 2 redémarrages et un maximum de 5 tentatives, dont une seule à la fois."
-    },
-    {
-      "question": "Quels modules d'environnement sont chargés par défaut avant de lancer la simulation Fluent?",
-      "answer": "Les modules chargés sont `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente)."
-    },
-    {
-      "question": "Comment le script détermine-t-il si la tâche Fluent est exécutée sur un seul nœud ou sur plusieurs nœuds?",
-      "answer": "Le script utilise la variable `$SLURM_NNODES` pour vérifier si la tâche est exécutée sur un seul nœud ou sur plusieurs."
-    },
-    {
-      "question": "Comment le script gère-t-il le redémarrage de la simulation après un échec?",
-      "answer": "Si la tâche échoue et qu'il ne s'agit pas de la dernière tentative, le script affiche un message de nouvelle soumission. Si toutes les tentatives échouent, il quitte."
-    },
-    {
-      "question": "Comment le script met-il à jour les fichiers de cas et de données pour un redémarrage de la simulation?",
-      "answer": "Il crée des liens symboliques vers les fichiers de cas (`.cas`) et de données (`.dat`) les plus récents trouvés dans le sous-répertoire `output`, les renommant `sample-restart.cas.h5` et `sample-restart.dat.h5` respectivement."
-    },
-    {
-      "question": "À quoi servent les fichiers de journalisation Fluent?",
-      "answer": "Les fichiers de journalisation Fluent servent à contenir toutes les commandes de l'interface TUI (Text User Interface) de Fluent pour modifier des paramètres de simulation ou effectuer une série de simulations sous différentes conditions."
-    },
-    {
-      "question": "Où peut-on trouver plus d'informations sur les commandes spécifiques à utiliser dans les fichiers de journalisation Fluent?",
-      "answer": "Il faut consulter le guide d'utilisation de Fluent pour plus d'informations et pour connaître la liste des commandes."
-    },
-    {
-      "question": "Comment configurer un fichier de journalisation Fluent pour utiliser les formats de fichiers .cas et .dat, qui sont les formats par défaut pour les modules jusqu'à 2019R3?",
-      "answer": "Il faut configurer le fichier avec la ligne `/file/cff-files no`."
-    },
-    {
-      "question": "Quelle est la configuration requise pour les fichiers de journalisation Fluent afin d'utiliser les formats plus efficaces .cas.h5 et .dat.h5 à partir des versions 2020R1?",
-      "answer": "La configuration est `/file/cff-files yes`."
-    },
-    {
-      "question": "Quel est le nom du fichier de journalisation spécifié pour le redémarrage d'une simulation dans le script?",
-      "answer": "Le nom du fichier de journalisation pour le redémarrage est `sample-restart.jou` (`MYJOUFILERES`)."
-    },
-    {
-      "question": "Quel type de simulation Fluent est spécifié par défaut par la variable MYVERSION dans ce script?",
-      "answer": "Le type de simulation Fluent spécifié par défaut est `3d` (`MYVERSION=3d`)."
-    },
-    {
-      "question": "Quelles configurations spécifiques sont appliquées si la grappe est Narval, ou si c'est Nibi avec Ansys version 2025 ou plus récente?",
-      "answer": "Pour ces grappes, la variable d'environnement `I_MPI_HYDRA_BOOTSTRAP` est exportée avec la valeur `ssh`, et `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS` est désactivée."
+      "question": "Quel est le rôle principal des fichiers de journalisation Fluent et comment peut-on y spécifier le format des fichiers de cas et de données?",
+      "answer": "Les fichiers de journalisation Fluent servent principalement à automatiser les commandes de l'interface TUI (Text User Interface), ce qui permet de modifier des paramètres de simulation comme la température ou la pression, et d'exécuter des séries de simulations avec différentes conditions. Pour spécifier le format des fichiers de cas et de données, vous utilisez la commande `/file/cff-files` dans le fichier de journalisation. Par exemple, `/file/cff-files no` utilise les formats `.cas/.dat` (par défaut pour les modules jusqu'à 2019R3), tandis que `/file/cff-files yes` utilise les formats plus récents et efficaces `.cas.h5/.dat.h5` (à partir de la version 2020R1)."
     }
   ],
-  "generated_at": "2026-04-12T17:00:27.077081+00:00"
+  "generated_at": "2026-04-13T01:57:41.198716+00:00"
 }

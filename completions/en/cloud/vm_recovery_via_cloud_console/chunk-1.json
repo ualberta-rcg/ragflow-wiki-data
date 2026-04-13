@@ -4,129 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "When would a user need to perform an OS recovery on a virtual machine?",
-      "answer": "A user would need to perform an OS recovery if the VM can no longer be accessed via SSH or through a local user account."
+      "question": "Under what circumstances would you need to boot a virtual machine (VM) into single-user mode or launch a recovery kernel?",
+      "answer": "You would need to boot a VM into single-user mode or launch a recovery kernel if you can no longer access the VM via SSH or through a local user account. This provides privileged access to the operating system image, provided the boot manager is accessible and can be modified."
     },
     {
-      "question": "What methods are available to gain privileged access to a VM's OS image for recovery?",
-      "answer": "Privileged access can be gained by booting the OS into single user mode or by launching a recovery kernel."
+      "question": "For a Debian10 virtual machine, what specific modification to the GRUB menu is required to execute a shell for recovery operations, given that the root account is often locked?",
+      "answer": "To execute a shell for recovery operations on a Debian10 VM when the root account is locked, you must boot into the GRUB menu, hit `e` for edit, remove any serial console entries, and add `init=/bin/bash` to the `linux` line. This tells the kernel to execute `/bin/bash` as the `init` process, providing a shell environment."
     },
     {
-      "question": "What is the primary requirement for initiating an OS recovery procedure?",
-      "answer": "The only requirement for recovery is that the boot manager is accessible and can be modified."
-    },
-    {
-      "question": "How does the Debian 10 recovery procedure compare to CentOS?",
-      "answer": "The Debian 10 recovery procedure is not as easy and convenient as CentOS, but its functionality is the same or at least similar."
-    },
-    {
-      "question": "Why is booting into single user mode often insufficient for recovery on most cloud images?",
-      "answer": "Booting into single user mode usually won't help because most cloud images have the root account locked."
-    },
-    {
-      "question": "What is the 'init' process in a Linux-based system, and what is its PID?",
-      "answer": "The 'init' process is a single userspace binary that the kernel runs after initializing hardware; it always has PID1."
-    },
-    {
-      "question": "Name some common 'init' processes found in recent Linux distributions.",
-      "answer": "In most recent distributions, the 'init' process is either `systemd`, `systemV`, or `upstart`."
-    },
-    {
-      "question": "How can the default 'init' process be changed during boot?",
-      "answer": "Via the boot manager, the 'init' process can be modified to tell the kernel to execute a shell instead."
-    },
-    {
-      "question": "What boot manager does the Debian 10 image typically use?",
-      "answer": "The Debian 10 image comes with GRUB2."
-    },
-    {
-      "question": "What key should be pressed in the GRUB menu to enter edit mode for Debian 10 recovery?",
-      "answer": "You should hit 'e' for edit when the GRUB menu is visible."
-    },
-    {
-      "question": "What specific modification needs to be made in the GRUB menu for Debian 10 recovery to execute a shell?",
-      "answer": "You need to remove serial consoles and add `init=/bin/bash` to the line after `linux`."
-    },
-    {
-      "question": "What is the purpose of adding `init=/bin/bash` to the kernel boot parameters?",
-      "answer": "Adding `init=/bin/bash` tells the kernel to execute `/bin/bash` as the new 'init' process."
-    },
-    {
-      "question": "What is the initial mount state of the filesystem after booting a Debian 10 VM with `init=/bin/bash`?",
-      "answer": "After booting with `init=/bin/bash`, the system lands in memory and the filesystem is mounted read-only (r/o)."
-    },
-    {
-      "question": "What are the general steps for a useful Debian 10 recovery once `/bin/bash` is running as `init`?",
-      "answer": "The next steps are to remount the initrd filesystem read/write (r/w), mount the OS image disk, chroot into it, set a root password, and restart the VM."
-    },
-    {
-      "question": "How do you remount the initrd filesystem as read/write during Debian 10 recovery?",
-      "answer": "You can remount the initrd filesystem as r/w using the command: `mount -o remount,rw /`."
-    },
-    {
-      "question": "What command is used to mount the primary partition (`/dev/vda1`) to `/mnt` during Debian 10 recovery?",
-      "answer": "You would use the command: `mount /dev/vda1 /mnt`."
-    },
-    {
-      "question": "Why is it necessary to bind mount `/dev`, `/proc`, and `/sys` when chrooting into the OS image for Debian 10 recovery?",
-      "answer": "You need to mount `/dev` to gain tty access, and `/proc` and `/sys` to access the network and other system functionalities."
-    },
-    {
-      "question": "What commands are used to bind mount `/proc`, `/sys`, and `/dev` into the chroot environment?",
-      "answer": "The commands are: `mount -o bind /proc /mnt/proc`, `mount -o bind /sys /mnt/sys`, and `mount -o bind /dev /mnt/dev`."
-    },
-    {
-      "question": "What common error might appear when chrooting into `/mnt`, and should it be ignored?",
-      "answer": "An ioctl error for the terminal process group might appear, and it can be ignored."
-    },
-    {
-      "question": "How can the root password be reset after chrooting into the Debian 10 OS image?",
-      "answer": "You can use the `passwd` command to reset the root password."
-    },
-    {
-      "question": "How does one exit the chroot environment after completing recovery operations?",
-      "answer": "You leave the chroot via `Ctrl+D`."
-    },
-    {
-      "question": "How should a Debian 10 VM be restarted after recovery operations when `bash` is the `init` process?",
-      "answer": "After unmounting everything cleanly, the system can be restarted using the `Ctrl+Alt+Del` submit button on the OpenStack console page, or by simply stopping and starting the VM."
-    },
-    {
-      "question": "What should be done with the root password after successfully logging in post-recovery?",
-      "answer": "After logging in as root, the root password should be removed or direct root logins via SSH should be disabled."
-    },
-    {
-      "question": "How do you reboot a CentOS 7 VM via the Horizon console?",
-      "answer": "You can reboot a CentOS 7 VM using the `CtrlAltDel` button in the upper-right corner of the Horizon console."
-    },
-    {
-      "question": "What key is used to enter edit mode in the GRUB menu for CentOS 7 recovery?",
-      "answer": "You hit 'e' on your keyboard to get into edit mode once the GRUB menu is visible."
-    },
-    {
-      "question": "What console parameters need to be removed from the `linux16` line for CentOS 7 recovery, and which one can be left?",
-      "answer": "All console parameters need to be removed, except `console=tty0`, which is the easier option for console access."
-    },
-    {
-      "question": "What is the purpose of the `rd.break` parameter in CentOS recovery?",
-      "answer": "The `rd.break` parameter is used to interrupt the boot process at an early stage."
-    },
-    {
-      "question": "What key combination is used to boot the kernel with changes made in the CentOS 7 GRUB edit mode?",
-      "answer": "You hit `Ctrl+x` to boot the kernel with the changes."
-    },
-    {
-      "question": "Where is the image filesystem mounted by default after booting CentOS 7 with `rd.break`?",
-      "answer": "The image filesystem from the image is mounted read-only (ro) under `/sysroot`."
-    },
-    {
-      "question": "How do you remount the `/sysroot` filesystem as read/write in CentOS 7 recovery?",
-      "answer": "You remount it using the command: `mount -o remount,rw /sysroot`."
-    },
-    {
-      "question": "What are the key options for CentOS 8 recovery, similar to CentOS 7?",
-      "answer": "The key options for CentOS 8 recovery are `console=tty` to initialize a tty instead of a serial console, and `rd.break` to launch the recovery environment."
+      "question": "After booting a Debian10 VM with `/bin/bash` as the `init` process, what are the subsequent steps required to perform a useful recovery, such as resetting the root password, and then properly restarting the VM?",
+      "answer": "After booting a Debian10 VM with `/bin/bash` as the `init` process, you must first remount the initrd filesystem as read/write using `mount -o remount,rw /`. Next, mount the OS image disk (e.g., `/dev/vda1`) to `/mnt` using `mount /dev/vda1 /mnt`. Then, bind mount `/proc`, `/sys`, and `/dev` to their respective paths under `/mnt`. Chroot into `/mnt`, use the `passwd` command to reset the root password, exit the chroot with `Ctrl+D`, unmount all previously mounted points, and finally restart the VM (e.g., using the `Ctrl+Alt+Del` submit button on the OpenStack console page, or by stopping and starting the VM)."
     }
   ],
-  "generated_at": "2026-04-12T10:47:39.382835+00:00"
+  "generated_at": "2026-04-13T15:44:59.929149+00:00"
 }

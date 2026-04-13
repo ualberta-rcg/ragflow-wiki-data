@@ -3,85 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Quel est le problème principal abordé dans ce document concernant l'apprentissage machine traditionnel?",
-      "answer": "Le document aborde comment adapter les méthodes d'apprentissage machine traditionnel à de très grands ensembles de données, surtout quand un nœud de type \"Large Memory\" ne suffit pas ou que le traitement séquentiel est trop long."
+      "question": "Quel est l'objectif principal de ce document concernant l'apprentissage machine traditionnel?",
+      "answer": "Ce document aborde des options pour adapter les méthodes d'apprentissage machine traditionnel à de très grands ensembles de données, surtout quand un nœud de type Large Memory ou le traitement séquentiel est insuffisant."
     },
     {
-      "question": "En quoi l'apprentissage de réseaux de neurones profonds se distingue-t-il de l'apprentissage machine traditionnel pour la scalabilité des données?",
-      "answer": "L'apprentissage profond gère la scalabilité des données via des traitements en petits lots et des solveurs itératifs, ce qui est souvent plus simple que d'adapter les paquets d'apprentissage machine traditionnel comme scikit-learn à de larges échelles."
+      "question": "Quelle est une limitation courante des implémentations par défaut de plusieurs paquets d'apprentissage machine traditionnel, comme scikit-learn, pour les grands ensembles de données?",
+      "answer": "Plusieurs implémentations par défaut, notamment pour les modèles linéaires généralisés (GLM) et les machines à vecteurs de support (SVM), exigent que la totalité de l'ensemble d'apprentissage soit chargée en mémoire et n'offrent pas de fonctionnalités de parallélisme."
     },
     {
-      "question": "Pourquoi est-ce que les paquets comme scikit-learn peuvent être difficiles à utiliser pour l'entraînement à large échelle?",
-      "answer": "Plusieurs implémentations par défaut dans scikit-learn exigent que l'ensemble d'apprentissage soit entièrement chargé en mémoire et n'offrent pas de fonctionnalités de parallélisme par fils ou par processus, en plus d'utiliser des solveurs gourmands en mémoire."
+      "question": "Si un ensemble de données est assez petit pour être chargé en mémoire, mais que des erreurs de mémoire insuffisante (OOM) surviennent durant l'entraînement avec scikit-learn, quelle solution est suggérée?",
+      "answer": "Le remplacement du solveur par défaut par un solveur du gradient stochastique est souvent une solution facile, car le problème est probablement dû à un solveur trop gourmand en mémoire."
     },
     {
-      "question": "Qu'est-ce que scikit-learn et sous quelle licence est-il distribué?",
-      "answer": "Scikit-learn est un module Python d'apprentissage machine basé sur SciPy, distribué sous la licence BSD-3-Clause."
+      "question": "Pour la régression dans scikit-learn, comment la classe `SGDRegressor` peut-elle réduire l'utilisation de la mémoire?",
+      "answer": "`SGDRegressor` implémente plusieurs types de modèles linéaires généralisés (GLM) pour les régressions en utilisant l'algorithme du gradient stochastique (SGD) comme solveur, ce qui réduit l'utilisation de la mémoire."
     },
     {
-      "question": "Si un ensemble de données est assez petit pour la mémoire, mais qu'il y a des erreurs de mémoire insuffisante (OOM) pendant l'entraînement avec scikit-learn, quelle est la cause probable?",
-      "answer": "Le problème est probablement dû à un solveur trop gourmand en mémoire utilisé par défaut."
+      "question": "Qu'est-ce que l'« apprentissage hors mémoire » (out-of-core learning) dans le contexte de scikit-learn?",
+      "answer": "L'apprentissage hors mémoire est une technique qui permet de garder les données sur disque et de les charger en petits lots pour l'entraînement lorsque l'ensemble de données est trop grand pour la mémoire disponible."
     },
     {
-      "question": "Comment peut-on résoudre les problèmes de mémoire insuffisante (OOM) dans scikit-learn si le solveur par défaut est trop gourmand?",
-      "answer": "Il est souvent possible de remplacer le solveur par défaut par une variation de l'algorithme du gradient stochastique."
+      "question": "Quelle méthode essentielle un estimateur scikit-learn doit-il posséder pour permettre l'apprentissage hors mémoire?",
+      "answer": "L'estimateur doit offrir la méthode `partial_fit` pour que l'apprentissage hors mémoire soit une option viable."
     },
     {
-      "question": "Quelle est l'alternative à `Ridge` pour réduire davantage l'utilisation de la mémoire dans scikit-learn, et quelle est sa limitation?",
-      "answer": "L'alternative est `SGDRegressor`, mais il ne fonctionne que si le résultat est unidimensionnel (scalaire)."
+      "question": "Quelles sont deux méthodes courantes mentionnées dans le document pour stocker et charger des données en lots pour l'apprentissage hors mémoire avec scikit-learn?",
+      "answer": "Les données peuvent être stockées dans des fichiers NPY mappés en mémoire avec `numpy.memmap` ou lues en lots à partir de fichiers CSV en utilisant le paquet `pandas` avec `chunksize`."
     },
     {
-      "question": "Qu'est-ce que l'apprentissage hors mémoire (out-of-core learning) dans scikit-learn?",
-      "answer": "C'est une technique qui permet de garder les données sur disque et de les charger en petits lots pour l'entraînement, utile lorsque l'ensemble de données est trop grand pour la mémoire disponible."
+      "question": "Qu'est-ce que Snap ML et quels sont ses principaux avantages pour l'apprentissage machine à grande échelle?",
+      "answer": "Snap ML est une bibliothèque d'apprentissage machine propriétaire d'IBM qui prend en charge plusieurs modèles classiques, s'adapte à des ensembles de données massifs (milliards d'exemples/variables), et permet l'entraînement distribué, l'accélération GPU et l'utilisation de structures creuses."
     },
     {
-      "question": "Quelle méthode un estimateur doit-il posséder pour supporter l'apprentissage hors mémoire dans scikit-learn?",
-      "answer": "L'estimateur doit offrir la méthode `partial_fit`."
+      "question": "Comment peut-on installer la bibliothèque Snap ML sur les clusters d'Alliance?",
+      "answer": "Il faut d'abord charger un module Python, créer et activer un environnement virtuel Python, puis installer Snap ML dans cet environnement avec `pip install --no-index snapml`."
     },
     {
-      "question": "Comment l'apprentissage hors mémoire peut-il être mis en œuvre avec `SGDClassifier` et des fichiers NumPy?",
-      "answer": "On peut utiliser `np.memmap` pour mapper les vecteurs NumPy stockés sur disque en mémoire, puis itérer sur des petits lots de données pour appeler `model.partial_fit(X,y)`."
+      "question": "Comment le parallélisme par fils est-il géré dans les estimateurs de Snap ML?",
+      "answer": "Le parallélisme par fils est contrôlé avec le paramètre `n_jobs`, que l'on peut définir au nombre de cœurs disponibles pour la tâche afin d'observer une accélération."
     },
     {
-      "question": "Comment peut-on effectuer l'entraînement en lots à partir de fichiers CSV avec scikit-learn et pandas?",
-      "answer": "On utilise `pd.read_csv()` avec l'option `chunksize` pour lire les données en lots et on appelle `model.partial_fit(X,y)` pour chaque lot."
+      "question": "Comment peut-on activer l'accélération GPU pour l'entraînement d'un estimateur Snap ML?",
+      "answer": "Pour l'entraînement avec un seul GPU, on utilise le paramètre `use_gpu=True`. Pour plusieurs GPU, on passe une liste des ID des GPU disponibles au paramètre `device_ids` en plus de `use_gpu=True`."
     },
     {
-      "question": "Qu'est-ce que Snap ML?",
-      "answer": "Snap ML est une bibliothèque d'apprentissage machine propriétaire développée par IBM, conçue pour s'adapter à des ensembles de données massifs."
+      "question": "Comment Snap ML gère-t-il l'entraînement hors mémoire par rapport à scikit-learn?",
+      "answer": "Tous les estimateurs de Snap ML utilisent par défaut des solveurs itératifs du premier ordre comme SGD, ce qui permet l'entraînement en lots. Snap ML accepte également directement les entrées de vecteurs numpy par le mappage en mémoire."
     },
     {
-      "question": "Quelles sont les caractéristiques clés de Snap ML?",
-      "answer": "Snap ML permet l'entraînement distribué, l'accélération par GPU et l'utilisation de structures creuses, s'adaptant à des milliards d'exemples et/ou de variables."
+      "question": "Comment peut-on utiliser le mode distribué de Snap ML pour l'entraînement d'estimateurs?",
+      "answer": "Pour utiliser le mode distribué, il faut appeler un script Python avec les commandes `mpirun` ou `srun`."
     },
     {
-      "question": "Comment peut-on trouver la plus récente version de Snap ML disponible?",
-      "answer": "En lançant la commande `avail_wheels \"snapml\"`."
+      "question": "Quel est l'objectif de la bibliothèque Spark ML?",
+      "answer": "Spark ML est une bibliothèque basée sur Apache Spark qui permet la scalabilité de méthodes d'apprentissage machine à d'énormes quantités de données et sur plusieurs nœuds, sans nécessiter la distribution manuelle de données ou de code parallèle."
     },
     {
-      "question": "Quelle est la méthode privilégiée pour installer Snap ML?",
-      "answer": "L'option à privilégier est d'utiliser le wheel Python en le chargeant dans un environnement virtuel via `pip install --no-index snapml`."
-    },
-    {
-      "question": "Comment Snap ML prend-il en charge le parallélisme par fils, et quel est son avantage?",
-      "answer": "Tous les estimateurs Snap ML supportent le parallélisme par fils via le paramètre `n_jobs`, ce qui peut accélérer l'entraînement comparé à scikit-learn."
-    },
-    {
-      "question": "Comment configure-t-on l'entraînement sur un ou plusieurs GPU avec Snap ML?",
-      "answer": "Pour un GPU, on utilise le paramètre `use_gpu=True`. Pour plusieurs GPU, on passe une liste d'ID des GPU disponibles au paramètre `device_ids` en plus de `use_gpu=True`."
-    },
-    {
-      "question": "Comment Snap ML gère-t-il l'entraînement hors mémoire (out-of-core learning)?",
-      "answer": "Snap ML utilise par défaut des solveurs itératifs du premier ordre et accepte les entrées de vecteurs NumPy par mappage en mémoire, permettant l'entraînement en lots sans charger l'ensemble de données complet."
-    },
-    {
-      "question": "Snap ML prend-il en charge l'entraînement distribué, et comment l'active-t-on?",
-      "answer": "Oui, Snap ML offre des implémentations distribuées de plusieurs estimateurs. On les active en appelant un script Python avec `mpirun` ou `srun`."
-    },
-    {
-      "question": "Qu'est-ce que Spark ML et à quoi sert-il?",
-      "answer": "Spark ML est une bibliothèque basée sur Apache Spark qui permet de scaler des méthodes d'apprentissage machine à d'énormes quantités de données sur plusieurs nœuds, sans code distribué explicite."
+      "question": "Que doit-on consulter avant de reproduire les exemples de la documentation Spark ML sur les systèmes d'Alliance?",
+      "answer": "Il faut consulter le tutoriel sur comment soumettre une tâche Spark sur les systèmes d'Alliance."
     }
   ],
-  "generated_at": "2026-04-12T00:59:25.697644+00:00"
+  "generated_at": "2026-04-13T08:07:04.412385+00:00"
 }

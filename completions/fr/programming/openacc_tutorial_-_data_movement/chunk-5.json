@@ -4,37 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Comment met-on à jour un vecteur dans la mémoire du CPU avant de le copier sur le GPU, selon l'exemple fourni?",
-      "answer": "Pour mettre à jour un vecteur, on modifie d'abord ses coefficients directement sur le CPU, par exemple avec `v.coefs[i]=val;`, puis on utilise la directive `#pragma acc update device(v.coefs[:v.n])` pour copier les données mises à jour vers le GPU."
+      "question": "Dans OpenACC, comment la directive `update` est-elle utilisée pour synchroniser les données entre le processeur (CPU) et le processeur graphique (GPU)?",
+      "answer": "La directive `update` permet d'actualiser un tableau ou une partie d'un tableau entre la mémoire du CPU et celle du GPU. Par exemple, `#pragma acc update self(a)` copie les données du GPU vers le CPU, tandis que `#pragma acc update device(a)` copie les données du CPU vers le GPU, suite à une modification sur le CPU."
     },
     {
-      "question": "Quelle directive utilise-t-on pour copier un vecteur mis à jour du CPU vers le GPU?",
-      "answer": "Pour copier un vecteur mis à jour du CPU vers le GPU, on utilise la directive `#pragma acc update device(v.coefs[:v.n])`."
-    },
-    {
-      "question": "Comment la performance du code est-elle évaluée en relation avec l'utilisation de la mémoire autogérée?",
-      "answer": "La performance du code est évaluée en faisant des essais avec et sans l'option `-ta=tesla:managed`, comme le montrent les bancs d'essai."
-    },
-    {
-      "question": "Est-ce que la mémoire autogérée (managed memory) peut améliorer la vitesse d'exécution dans certains cas?",
-      "answer": "Oui, les résultats démontrent que certains tests avec mémoire autogérée améliorent la vitesse, ce qui est probablement dû à la mémoire immobilisée (pinned memory)."
-    },
-    {
-      "question": "Dans quelles conditions le mouvement des données n'a-t-il pas un impact majeur sur la performance générale?",
-      "answer": "Le mouvement des données n'a pas d'incidence majeure sur la performance quand la plupart des opérations sont effectuées sur le GPU et que les données y demeurent longtemps, suggérant que la localité fonctionne bien."
-    },
-    {
-      "question": "Quel est le premier objectif de l'exercice pour ajouter des directives?",
-      "answer": "Le premier objectif de l'exercice est d'utiliser les directives `kernels` ou `parallel loop` pour obtenir la gestion explicite des données."
-    },
-    {
-      "question": "Comment faut-il modifier les indicateurs du compilateur pour désactiver la mémoire autogérée dans le cadre de l'exercice?",
-      "answer": "Il faut modifier les indicateurs du compilateur en `-ta=tesla` pour une gestion non gérée."
-    },
-    {
-      "question": "Que doit-on vérifier une fois que les directives sont ajoutées et les indicateurs du compilateur modifiés dans l'exercice?",
-      "answer": "Il faut vérifier si les résultats et la performance sont les mêmes qu'avant les modifications."
+      "question": "Quelles sont les observations générales concernant la performance du code OpenACC quand on le compare avec et sans mémoire autogérée (Unified Memory)?",
+      "answer": "Les essais démontrent que certains tests avec la mémoire autogérée peuvent améliorer la vitesse, possiblement grâce à l'utilisation de la 'mémoire immobilisée' (pinned memory). Cependant, de façon générale, quand la plupart des opérations sont exécutées sur le GPU et que les données y restent longtemps, le mouvement des données n'a pas d'incidence majeure sur la performance, car la localité des données est plus importante."
     }
   ],
-  "generated_at": "2026-04-12T04:13:44.200850+00:00"
+  "generated_at": "2026-04-13T10:22:11.491596+00:00"
 }

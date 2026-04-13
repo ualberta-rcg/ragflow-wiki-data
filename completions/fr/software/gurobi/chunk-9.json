@@ -4,37 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "Comment j'installe les paquets Python nécessaires, comme Pandas, dans mon environnement virtuel Gurobi?",
-      "answer": "Après avoir activé votre environnement virtuel avec `source ~/env_gurobi/bin/activate`, vous pouvez installer des paquets comme Pandas en utilisant la commande `pip install --no-index pandas`."
+      "question": "Comment faut-il installer `gurobipy` pour les versions de Gurobi 11.0.0 et plus récentes dans un environnement virtuel Python sur les systèmes de l'Alliance?",
+      "answer": "Pour les versions de Gurobi 11.0.0 et plus récentes, l'installation de `gurobipy` dans un environnement virtuel Python nécessite une approche spécifique. Les commandes `pip install gurobipy` et l'installation hors ligne de la roue ne fonctionnent pas directement en raison de la configuration de nos systèmes Linux (préfixe Gentoo). Il faut télécharger un script `unmanylinuxize.sh`, le rendre exécutable, puis l'utiliser pour convertir la roue binaire compatible et l'installer avec `python -m pip install --find-links $PWD --no-index gurobipy`."
     },
     {
-      "question": "Est-ce que la méthode `setup.py` est toujours recommandée pour installer Gurobi pour Python avec les versions 11.0.0 et plus récentes?",
-      "answer": "Non, l'utilisation de `setup.py` pour installer Gurobi pour Python est déconseillée à partir de Gurobi 11. Les alternatives sont Pip et Conda, mais comme Conda ne doit pas être utilisé sur nos systèmes, l'approche avec Pip est celle à privilégier."
+      "question": "Comment peut-on préparer un environnement virtuel Python pour exécuter des scripts Gurobi (version 11.0.1) qui utilisent d'autres librairies comme NumPy ou SciPy sur les grappes de l'Alliance?",
+      "answer": "Pour exécuter des scripts Gurobi qui nécessitent d'autres librairies Python, il faut d'abord charger les modules `gurobi/11.0.1` et `scipy-stack` (si SciPy est nécessaire) avec la commande `module load`. Ensuite, activez votre environnement virtuel Python créé précédemment en utilisant `source ~/env_gurobi/bin/activate`. Une fois l'environnement activé, vous pouvez exécuter vos scripts Python."
     },
     {
-      "question": "Pourquoi l'installation de gurobipy avec Pip est-elle plus compliquée sur nos systèmes Linux pour les versions Gurobi 11.0.0 et plus?",
-      "answer": "C'est compliqué parce que nos systèmes Linux sont configurés avec le préfixe gentoo. Ça fait que ni la commande recommandée `pip install gurobipy==11.0.1` ni l'installation hors ligne de la roue avec `python -m pip install --find-links <wheel-dir> --no-index gurobipy` ne fonctionnent directement."
-    },
-    {
-      "question": "Quelle est la procédure pour installer gurobipy pour la version 11.0.1 dans un environnement virtuel sur nos systèmes?",
-      "answer": "Pour installer gurobipy (version 11.0.1), il faut d'abord télécharger et rendre exécutable le script `unmanylinuxize.sh` depuis GitHub. Ensuite, vous devez vous rendre sur la page PyPI de gurobipy 11.0.1 pour copier le lien HTTPS du fichier wheel (`gurobipy-11.0.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl`). Finalement, vous exécutez le script `./unmanylinuxize.sh` avec les bons arguments, incluant l'URL du fichier wheel, puis vous installez la roue convertie avec `python -m pip install --find-links $PWD --no-index gurobipy`."
-    },
-    {
-      "question": "Quelles sont les commandes exactes pour installer gurobipy pour la version 11.0.1 dans un environnement virtuel en suivant la méthode recommandée?",
-      "answer": "Les commandes sont les suivantes :\n```bash\nwget https://raw.githubusercontent.com/ComputeCanada/wheels_builder/main/unmanylinuxize.sh\nchmod u+rx unmanylinuxize.sh\n./unmanylinuxize.sh --package gurobipy --version 11.0.1 --url https://files.pythonhosted.org/packages/1c/96/4c800e7cda4a1688d101a279087646912cf432b0f61ff5c816f0bc8503e0/gurobipy-11.0.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl\npython -m pip install --find-links $PWD --no-index gurobipy\ndeactivate\n```"
-    },
-    {
-      "question": "Comment activer mon environnement Gurobi et le préparer pour travailler avec des exemples qui demandent Gurobi, SciPy et NumPy?",
-      "answer": "Pour ça, vous devez d'abord charger les modules Gurobi et `scipy-stack` en utilisant `module load gurobi/11.0.1 scipy-stack`. Ensuite, vous activez votre environnement virtuel avec `source ~/env_gurobi/bin/activate`. NumPy devrait déjà être disponible si vous avez installé Pandas précédemment."
-    },
-    {
-      "question": "Comment on fait pour exécuter un script Python d'exemple Gurobi, comme `matrix1.py`, une fois que l'environnement virtuel est activé?",
-      "answer": "Une fois que votre environnement virtuel est activé, vous pouvez exécuter un script d'exemple comme `matrix1.py` en utilisant la commande `python $EBROOTGUROBI/examples/python/matrix1.py`."
-    },
-    {
-      "question": "Comment je peux soumettre mes scripts Python personnalisés qui utilisent Gurobi et d'autres paquets comme Pandas et NumPy comme des tâches Slurm?",
-      "answer": "Vous pouvez soumettre vos scripts Python personnalisés en écrivant un script Slurm. Ce script devra d'abord charger votre environnement virtuel et ensuite exécuter votre script Python. Il faudra aussi s'assurer que votre script Python importe les modules nécessaires comme `pandas`, `numpy` et `gurobipy`."
+      "question": "Quelle est la procédure pour soumettre un script Python qui utilise Gurobi et un environnement virtuel comme tâche par lots sur une grappe Slurm?",
+      "answer": "Pour soumettre un script Python Gurobi qui utilise un environnement virtuel comme tâche par lots, créez un script Slurm (`.sh`). Dans ce script, spécifiez les directives `SBATCH` (compte, temps, nœuds, CPU par tâche, mémoire). Ensuite, chargez les modules `StdEnv` et `gurobi`, créez le fichier `gurobi.env` pour définir le nombre de fils d'exécution, activez votre environnement virtuel Python avec `source ~/env_gurobi/bin/activate`, puis exécutez votre script Python à l'aide de la commande `python mon_script_gurobi.py`. Vous soumettez ensuite ce script Slurm avec `sbatch mon_script_slurm.sh`."
     }
   ],
-  "generated_at": "2026-04-11T23:34:48.934545+00:00"
+  "generated_at": "2026-04-13T06:56:27.151333+00:00"
 }

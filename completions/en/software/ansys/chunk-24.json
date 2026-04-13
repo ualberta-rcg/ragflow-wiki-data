@@ -4,81 +4,13 @@
   "chunk_index": 24,
   "qa_pairs": [
     {
-      "question": "What is the initial step for preparing a Workbench job for submission to a Slurm queue?",
-      "answer": "You must first open an OnDemand desktop on the cluster where you intend to submit the Workbench jobs, such as Nibi."
+      "question": "How do I initialize an Ansys Workbench job on an Alliance cluster before submitting it to a Slurm queue?",
+      "answer": "To initialize an Ansys Workbench job for Slurm submission, first open an OnDemand desktop on the cluster (e.g., Nibi). In a terminal, navigate to your project directory, then remove the `_ProjectScratch` cache by running `rm -rf _ProjectScratch`. Load the Ansys module (e.g., `module load ansys/2025R2.04`), and open the Workbench GUI with your project file by issuing `runwb2 -f YOURPROJECT.wbpj`. If a popup asks \"Do you want to recover the project before opening?\", answer \"No\". In the Project Schematic window, right-click on `Model` and select `Reset`, then confirm `Ok` when warned about deleting local data. Finally, select `File -> Save` and then `File -> Exit` to shut down Workbench, answering `No` if prompted about saving modifications to the project."
     },
     {
-      "question": "What should be done with the `_ProjectScratch` directory before running a Workbench job?",
-      "answer": "The old project cache directory, `_ProjectScratch`, should be removed by running `rm -rf _ProjectScratch` as it can be very large from previous runs."
-    },
-    {
-      "question": "How do I load the Ansys module for Workbench in a terminal window?",
-      "answer": "Open a terminal window and load the module version you will use in your Slurm script, for example, by running `module load ansys/2025R2.04`."
-    },
-    {
-      "question": "How do I open the Workbench GUI with my project file from the command line?",
-      "answer": "You can open the Workbench GUI with your project file by issuing `runwb2 -f YOURPROJECT.wbpj` directly from the command line."
-    },
-    {
-      "question": "What should I do if a pop-up appears asking to recover the project when opening Workbench?",
-      "answer": "You should answer 'No' if a pop-up appears asking \"Do you want to recover the project before opening?\"."
-    },
-    {
-      "question": "How do I reset the Model in the Ansys Workbench Project Schematic?",
-      "answer": "In the context menu pop-up that appears in the centre Project Schematic window, right-click on 'Model' and select 'Reset'. Then, click 'Ok' when prompted with a warning about deleting local and generated data."
-    },
-    {
-      "question": "What steps are involved in saving and exiting Workbench during the initialization process?",
-      "answer": "In the top menu bar pulldown, select 'File -> Save' then 'File -> Exit' to shut down Workbench. When asked \"The current project has been modified. Do you want to save it?\", click on the 'No' button."
-    },
-    {
-      "question": "Can Workbench simulations be run interactively instead of using Slurm scripts?",
-      "answer": "Yes, you can consider running your Workbench simulations directly from within the Workbench native GUI on an OnDemand desktop, which can reserve a Compute Node with up to 96 cores, 768GB memory, and 8 hours runtime, offering a more intuitive option."
-    },
-    {
-      "question": "How do you submit a Workbench project file to the queue using a Slurm script?",
-      "answer": "A project file can be submitted to the queue by customizing one of the provided Slurm scripts and then running the `sbatch script-wbpj-202X.sh` command."
-    },
-    {
-      "question": "What is the purpose of the `MEMPAR` variable in the Workbench Slurm scripts?",
-      "answer": "`MEMPAR` is set to 0 for Shared Memory Parallel (SMP) on a single node, and 1 for Distributed Memory Parallel (DMP) for multi-node setups."
-    },
-    {
-      "question": "What environment variables are explicitly set in the Workbench Slurm script for `StdEnv/2023`?",
-      "answer": "The environment variables `KMP_AFFINITY=disabled` and `I_MPI_HYDRA_BOOTSTRAP=ssh` are set."
-    },
-    {
-      "question": "What is the command used to run Workbench in batch mode within the Slurm script?",
-      "answer": "The command `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj` is used to run Workbench in batch mode, update, save, and open the specified project file."
-    },
-    {
-      "question": "How can I prevent the solution from being overwritten by each test job when performing scaling tests for Workbench simulations?",
-      "answer": "To avoid overwriting the solution when a job completes, change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of the Slurm script."
-    },
-    {
-      "question": "What is the default maximum number of cores requested in the `script-wbpj-2023.sh` Slurm example?",
-      "answer": "The `script-wbpj-2023.sh` example requests 4 cores (`#SBATCH --ntasks=4`) for a single node."
-    },
-    {
-      "question": "What is the default memory requested in the `script-wbpj-2023.sh` Slurm example?",
-      "answer": "The `script-wbpj-2023.sh` example requests 16GB of total memory (`#SBATCH --mem=16G`)."
-    },
-    {
-      "question": "Which `StdEnv` module is loaded in the `script-wbpj-2023.sh` example?",
-      "answer": "`StdEnv/2023` is loaded in the `script-wbpj-2023.sh` example."
-    },
-    {
-      "question": "Which Ansys module version is specified in the `script-wbpj-2020.sh` example?",
-      "answer": "The `script-wbpj-2020.sh` example specifies `ansys/2022R2` (or older Ansys module versions)."
-    },
-    {
-      "question": "What files are modified by the `sed` commands in the Workbench Slurm scripts?",
-      "answer": "The `SolveHandlers.xml` file located in `~/.mw/Application\\ Data/Ansys/v*/` is modified to configure Ansys solution distribution and processor settings."
-    },
-    {
-      "question": "What is the purpose of `rm -fv *_files/.lock` in the Workbench Slurm scripts?",
-      "answer": "This command is used to remove any lock files that might prevent the Workbench project from being opened or processed, typically found in project-specific `_files` directories."
+      "question": "How are the memory parallelization settings (SMP/DMP) and the number of processors configured within an Ansys Workbench Slurm script on an Alliance cluster?",
+      "answer": "In an Ansys Workbench Slurm script, the memory parallelization is configured using the `MEMPAR` variable. Set `MEMPAR=0` for Shared Memory Parallel (SMP) if the job runs on a single node (`$SLURM_NNODES == 1`). Otherwise, set `MEMPAR=1` for Distributed Memory Parallel (DMP). The total number of cores, specified by `#SBATCH --ntasks`, is used to update the `MaxNumber.Processors` setting in the `SolveHandlers.xml` file, ensuring the job utilizes the requested cores for parallel computation."
     }
   ],
-  "generated_at": "2026-04-12T16:51:15.304675+00:00"
+  "generated_at": "2026-04-13T01:51:30.220253+00:00"
 }

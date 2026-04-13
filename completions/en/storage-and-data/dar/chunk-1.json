@@ -4,117 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is the `dar` utility?",
-      "answer": "The `dar` (Disk ARchive) utility was written as a modern replacement for the classical Unix `tar` tool."
+      "question": "What is the `dar` utility, and how does it differ from the traditional Unix `tar` tool?",
+      "answer": "The `dar` (Disk ARchive) utility is a modern, open-source replacement for the classical Unix `tar` tool, first released in 2002. While both support full, differential, and incremental backups, `dar` uniquely includes a file index in each archive for fast file access and restore, which is especially useful for large archives. Additionally, `dar` features built-in compression on a file-by-file basis, offers strong encryption, can split archives at 1-byte resolution, supports extended file attributes and sparse files, handles hard and symbolic links, and can detect and recover from data corruption with minimal data loss."
     },
     {
-      "question": "When was the `dar` utility first released?",
-      "answer": "The `dar` utility was first released in 2002."
+      "question": "Where can users find the `dar` utility on computational clusters, specifically when using the `StdEnv/2020` environment?",
+      "answer": "On computational clusters, the `dar` utility is available on `/cvmfs`. With `StdEnv/2020`, users can locate it at `/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/dar`."
     },
     {
-      "question": "Is `dar` open source and actively maintained?",
-      "answer": "Yes, `dar` is open source and actively maintained."
-    },
-    {
-      "question": "On which systems can `dar` be compiled?",
-      "answer": "`dar` can be compiled on any Unix-like system."
-    },
-    {
-      "question": "What types of backups does `dar` support?",
-      "answer": "`dar` supports full, differential, and incremental backups."
-    },
-    {
-      "question": "What is a key difference between `dar` and `tar` archives?",
-      "answer": "Unlike `tar`, each `dar` archive includes a file index for fast file access and restore, which is especially useful for large archives."
-    },
-    {
-      "question": "How does `dar` handle compression?",
-      "answer": "`dar` has built-in compression on a file-by-file basis, making it more resilient against data corruption. It can also optionally be told not to compress already highly compressed files like `mp4` and `gz`."
-    },
-    {
-      "question": "What are some notable features of `dar`?",
-      "answer": "`dar` supports strong encryption, can split archives at 1-byte resolution, supports extended file attributes, sparse files, hard and symbolic (soft) links, and can detect and recover from data corruption in both headers and saved data with minimal data loss."
-    },
-    {
-      "question": "Where can I find a detailed comparison between `tar` and `dar` features?",
-      "answer": "A detailed feature-by-feature `tar`-to-`dar` comparison can be found on the `dar` page's FAQ."
-    },
-    {
-      "question": "Where is `dar` available on the clusters?",
-      "answer": "On our clusters, `dar` is available on `/cvmfs`."
-    },
-    {
-      "question": "What is the full path to `dar` when using `StdEnv/2020`?",
-      "answer": "With `StdEnv/2020`, the `dar` executable is located at `/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/dar`."
-    },
-    {
-      "question": "What version of `dar` is shown in the example output?",
-      "answer": "The example output shows `dar` version 2.5.11."
-    },
-    {
-      "question": "How do you create a `dar` archive of a subdirectory named `test`?",
-      "answer": "You can create an archive of a subdirectory named `test` by typing `dar -w -c all -g test` in the current directory."
-    },
-    {
-      "question": "What is the default naming convention for a `dar` archive file?",
-      "answer": "A `dar` command like `dar -w -c all -g test` will create an archive file named `all.1.dar`, where `all` is the base name and `1` is the slice number."
-    },
-    {
-      "question": "How can you include multiple directories and files in a single `dar` archive?",
-      "answer": "You can include multiple directories and files in an archive by using multiple `-g` flags, for example: `dar -w -c all -g testDir1 -g testDir2 -g file1 -g file2`."
-    },
-    {
-      "question": "What is important to remember about paths when creating a `dar` archive?",
-      "answer": "All paths provided when creating a `dar` archive should be relative to the current directory."
-    },
-    {
-      "question": "How do you list the contents of a `dar` archive?",
-      "answer": "To list the archive's contents, use the command `dar -l` followed by only the base name of the archive, for example: `dar -l all`."
-    },
-    {
-      "question": "What command is used to extract a single file (`test/filename`) from an archive named `all` into a subdirectory `restore`?",
-      "answer": "To extract a single file, you would use: `dar -R restore/ -O -w -x all -v -g test/filename`."
-    },
-    {
-      "question": "What is the purpose of the `-O` flag during `dar` extraction?",
-      "answer": "The `-O` flag tells `dar` to ignore file ownership. This is useful when restoring someone else's files or to disable a warning when restoring your own files as a non-root user."
-    },
-    {
-      "question": "What does the `-w` flag do when extracting with `dar`?",
-      "answer": "The `-w` flag will disable a warning if the target subdirectory (e.g., `restore/test`) already exists during extraction."
-    },
-    {
-      "question": "How do you extract an entire directory (`test`) from a `dar` archive named `all` into a subdirectory `restore`?",
-      "answer": "To extract an entire directory, you would use: `dar -R restore/ -O -w -x all -v -g test`."
-    },
-    {
-      "question": "Can `dar` accept Unix wild masks after the `-g` flag for archiving or extracting?",
-      "answer": "No, `dar` does not accept Unix wild masks after the `-g` flag."
-    },
-    {
-      "question": "What happens to extended attributes if archived files originate from a Lustre filesystem?",
-      "answer": "If archived files come from a Lustre filesystem, some extended attributes are saved automatically."
-    },
-    {
-      "question": "How can you view the extended attributes assigned to files within a `dar` archive?",
-      "answer": "To see which extended attributes are assigned to each archived file, use the `-alist-ea` flag with the list command, for example: `dar -l all -alist-ea`."
-    },
-    {
-      "question": "What kind of error message might appear when extracting Lustre files with extended attributes to node local storage?",
-      "answer": "When trying to extract files with Lustre extended attributes to node local storage (like `$SLURM_TMPDIR`), you might see error messages such as `Error while adding EA lustre.lov : Operation not supported`."
-    },
-    {
-      "question": "How can you prevent `lustre.lov` error messages when extracting files to a non-Lustre formatted location?",
-      "answer": "To prevent these error messages, you can use the `-u 'lustre*'` flag during extraction, for example: `dar -R restore/ -O -w -x all -v -g test -u 'lustre*'`. The affected files will still be extracted."
-    },
-    {
-      "question": "Is there a way to prevent `lustre.lov` attributes from being included in the archive during creation?",
-      "answer": "Yes, you can get rid of the `lustre.lov` attribute while creating the archive by using the `-u 'lustre*'` flag, for example: `dar -w -c all -g test -u 'lustre*'`. "
-    },
-    {
-      "question": "When is it necessary to exclude `lustre.lov` attributes using the `-u 'lustre*'` flag?",
-      "answer": "It is necessary to exclude `lustre.lov` attributes only if you intend to extract files to a location not formatted in Lustre, such as node local storage."
+      "question": "When extracting files archived from a Lustre filesystem, what steps or flags should be used with `dar` to prevent errors if extracting to a non-Lustre formatted location?",
+      "answer": "When extracting files from a Lustre filesystem that were archived with `dar`, some extended attributes (like `lustre.lov`) are automatically saved. If these files are extracted to a location not formatted in Lustre, such as node local storage (`$SLURM_TMPDIR`), errors related to adding these attributes may occur. To avoid these errors, the `-u 'lustre*'` flag can be used during extraction to exclude specific Lustre attributes while still extracting the files. Alternatively, this same flag can be used when creating the archive to prevent the `lustre.lov` attribute from being saved in the first place."
     }
   ],
-  "generated_at": "2026-04-11T20:45:52.041011+00:00"
+  "generated_at": "2026-04-13T04:44:01.363009+00:00"
 }

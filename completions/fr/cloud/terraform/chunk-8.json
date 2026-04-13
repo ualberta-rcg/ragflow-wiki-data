@@ -4,33 +4,17 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "Est-ce qu'on peut importer des ressources OpenStack qui existent déjà dans Terraform?",
-      "answer": "Oui, c'est possible d'importer des ressources OpenStack déjà définies dans Terraform, mais c'est pas une mince affaire pi ça sort du cadre de ce tutoriel."
+      "question": "À quoi sert la commande `terraform apply` dans le cadre de la gestion de l'infrastructure OpenStack?",
+      "answer": "La commande `terraform apply` sert à exécuter les changements décrits dans le plan généré par Terraform. Elle permet de créer, modifier ou détruire des ressources dans votre environnement OpenStack, comme des machines virtuelles, en fonction de la configuration que vous avez définie."
     },
     {
-      "question": "Est-ce que les ressources OpenStack qui sont déjà définies dans mon projet peuvent être manipulées involontairement par Terraform?",
-      "answer": "Non, les ressources existantes dans votre projet OpenStack sont protégées contre toute manipulation involontaire via Terraform. Terraform ne connaît pas ces ressources pi n'essaie pas d'en déterminer l'état."
+      "question": "Quel genre de problème peut survenir lors de la création d'une machine virtuelle avec `terraform apply` si le réseau n'est pas spécifié, et comment le corriger?",
+      "answer": "Si le réseau n'est pas spécifié lors de la création d'une machine virtuelle avec `terraform apply`, une erreur de type « Multiple possible networks found, use a Network ID to be more specific » peut survenir. Cela indique que Terraform ne sait pas quel réseau utiliser parmi les réseaux privés et publics. Pour corriger ça, il faut ajouter un bloc `network` à la définition de la VM dans le fichier de configuration (par exemple, en spécifiant `name = \"my-tenant-net\"`)."
     },
     {
-      "question": "Quelle commande faut-il utiliser pour appliquer une configuration Terraform?",
-      "answer": "Pour appliquer la configuration pis effectuer les changements décrits dans le plan, vous devez utiliser la commande `terraform apply`."
-    },
-    {
-      "question": "Pourquoi la commande `terraform apply` peut-elle échouer avec un message d'erreur indiquant 'Multiple possible networks found'?",
-      "answer": "La commande `terraform apply` peut échouer avec cette erreur parce qu'il y a au moins deux réseaux (un privé pi un public) définis pour un projet OpenStack, pi Terraform a besoin de savoir lequel utiliser."
-    },
-    {
-      "question": "Comment corriger l'erreur de réseau multiples quand on définit une VM avec Terraform?",
-      "answer": "Pour corriger l'erreur, vous devez ajouter un sous-bloc de ressources `network` à votre définition de VM, en précisant le nom du réseau privé, comme par exemple `name = \"my-tenant-net\"`."
-    },
-    {
-      "question": "Où peut-on trouver le nom du réseau privé de son projet OpenStack?",
-      "answer": "Le nom du réseau privé peut être trouvé dans la CLI avec la commande `network list`, ou sur Horizon sous `Réseau -> Réseaux`."
-    },
-    {
-      "question": "Quelle est la signification de l'invite 'Do you want to perform these actions? Enter a value: yes' après avoir exécuté `terraform apply`?",
-      "answer": "Cette invite vous demande de confirmer si vous voulez vraiment que Terraform effectue les actions décrites dans le plan d'exécution. Il faut taper `yes` pour approuver pi continuer."
+      "question": "Est-ce que Terraform gère automatiquement les ressources OpenStack qui ont été créées manuellement (c'est-à-dire sans Terraform) dans mon projet?",
+      "answer": "Non, Terraform ne gère pas automatiquement les ressources OpenStack qui ont été créées manuellement. Il se base uniquement sur la configuration que vous lui avez fournie et sur son fichier d'état interne. Les ressources existantes qui ne sont pas définies dans Terraform lui sont invisibles, à moins d'être importées explicitement, ce qui est une procédure plus complexe et sort du cadre de ce tutoriel."
     }
   ],
-  "generated_at": "2026-04-12T09:14:13.521297+00:00"
+  "generated_at": "2026-04-13T14:29:19.652501+00:00"
 }

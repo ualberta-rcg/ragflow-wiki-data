@@ -4,29 +4,17 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "What is the purpose of `tf.distribute.MultiWorkerMirroredStrategy` in TensorFlow?",
-      "answer": "`tf.distribute.MultiWorkerMirroredStrategy` is used to utilize multiple GPUs distributed across multiple compute nodes for TensorFlow operations."
+      "question": "What is the primary purpose of `MultiWorkerMirroredStrategy` in TensorFlow when distributing training across multiple nodes on Alliance clusters?",
+      "answer": "The `MultiWorkerMirroredStrategy` in TensorFlow is used to enable training across multiple GPUs that are distributed across several compute nodes on Alliance clusters."
     },
     {
-      "question": "How is the `MultiWorkerMirroredStrategy` configured?",
-      "answer": "It is configured by providing a `cluster_resolver` and `communication_options` to the `tf.distribute.MultiWorkerMirroredStrategy` constructor."
+      "question": "How does `MultiWorkerMirroredStrategy` acquire job and cluster information when distributing TensorFlow training across multiple nodes?",
+      "answer": "When distributing TensorFlow training across multiple nodes, `MultiWorkerMirroredStrategy` uses `tf.distribute.cluster_resolver.SlurmClusterResolver()` to automatically gather all the necessary job information from SLURM."
     },
     {
-      "question": "What does `tf.distribute.cluster_resolver.SlurmClusterResolver()` do?",
-      "answer": "`tf.distribute.cluster_resolver.SlurmClusterResolver()` tells TensorFlow to retrieve all necessary job information directly from SLURM."
-    },
-    {
-      "question": "Which communication implementation is explicitly specified for `MultiWorkerMirroredStrategy` in the provided example?",
-      "answer": "The `tf.distribute.experimental.CommunicationImplementation.NCCL` is explicitly specified for inter-GPU communication."
-    },
-    {
-      "question": "How are command-line arguments handled in the Python script for the multi-worker mirrored strategy?",
-      "answer": "Command-line arguments such as `lr` (learning rate) and `batch_size` are parsed using `argparse.ArgumentParser`."
-    },
-    {
-      "question": "What are the default values for `lr` and `batch_size` when parsing arguments in the example script?",
-      "answer": "The default value for `lr` is 0.001 and for `batch_size` is 256."
+      "question": "Which communication backend is explicitly specified for inter-GPU communication with `MultiWorkerMirroredStrategy` when training on multiple nodes, and why is this required?",
+      "answer": "For `MultiWorkerMirroredStrategy` with multiple nodes, `tf.distribute.experimental.CommunicationImplementation.NCCL` is explicitly added to the distribution strategy. This is required to specify Nvidia's NCCL backend for inter-GPU communication, which is the default for `MirroredStrategy` in single-node cases but needs explicit definition for multi-node setups."
     }
   ],
-  "generated_at": "2026-04-12T08:59:29.735670+00:00"
+  "generated_at": "2026-04-13T14:17:45.215330+00:00"
 }

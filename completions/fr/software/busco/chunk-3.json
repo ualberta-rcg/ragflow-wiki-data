@@ -4,97 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Comment télécharger les fichiers de génome pour un test?",
-      "answer": "Pour télécharger les fichiers de génome, il faut lancer la commande `wget https://gitlab.com/ezlab/busco/-/raw/master/test_data/bacteria/genome.fna`."
+      "question": "Comment peut-on exécuter un test BUSCO pour un seul fichier de génome après avoir téléchargé les fichiers nécessaires?",
+      "answer": "Après avoir téléchargé les fichiers de génome (par exemple avec `wget https://gitlab.com/ezlab/busco/-/raw/master/test_data/bacteria/genome.fna`), vous pouvez lancer le test pour un seul génome avec la commande `busco --offline --in genome.fna --out TEST --lineage_dataset bacteria_odb10 --mode genome --cpu ${SLURM_CPUS_PER_TASK:-1} --download_path busco_download/`. Il est important de noter que ce genre de test ne devrait pas excéder 60 secondes; pour des tâches plus gourmandes en temps, il faut plutôt les soumettre à l'ordonnanceur."
     },
     {
-      "question": "Quelle est la commande pour exécuter BUSCO avec un seul génome en mode test?",
-      "answer": "Pour un seul génome, la commande est `busco --offline --in genome.fna --out TEST --lineage_dataset bacteria_odb10 --mode genome --cpu ${SLURM_CPUS_PER_TASK:-1} --download_path busco_download/`."
+      "question": "Quelle est la procédure pour soumettre une tâche BUSCO à l'ordonnanceur Slurm pour des analyses de production?",
+      "answer": "Pour soumettre une tâche BUSCO à l'ordonnanceur Slurm, vous devez préparer un script bash (par exemple, `run_busco.sh`) qui inclut les directives Slurm (comme `#SBATCH`), charge les dépendances de modules (`module load`), génère un environnement virtuel temporaire (`virtualenv` dans `$SLURM_TMPDIR`), installe BUSCO et ses dépendances (`pip install`), puis exécute la commande BUSCO principale. Ensuite, vous soumettez ce script à l'ordonnanceur en utilisant la commande `sbatch run_busco.sh`."
     },
     {
-      "question": "Comment exécuter BUSCO pour analyser plusieurs génomes?",
-      "answer": "Pour analyser plusieurs génomes, on utilise la commande `busco --offline --in genome/ --out TEST --lineage_dataset bacteria_odb10 --mode genome --cpu ${SLURM_CPUS_PER_TASK:-1} --download_path busco_download/`. Le répertoire `genome/` doit être dans le répertoire courant ou on doit fournir le chemin complet."
-    },
-    {
-      "question": "Combien de temps une commande BUSCO pour un seul génome devrait-elle prendre lors d'un test?",
-      "answer": "La commande pour un seul génome devrait s'exécuter en moins de 60 secondes."
-    },
-    {
-      "question": "Que faire si une tâche de production BUSCO prend plus de 60 secondes?",
-      "answer": "Les tâches de production qui nécessitent plus de 60 secondes doivent être soumises à l'ordonnanceur."
-    },
-    {
-      "question": "Quel argument faut utiliser avec BUSCO pour analyser un seul fichier génomique?",
-      "answer": "Pour analyser un seul fichier, il faut utiliser l'argument `--in genome.fna`."
-    },
-    {
-      "question": "Quel argument faut utiliser avec BUSCO pour analyser plusieurs fichiers génomiques?",
-      "answer": "Pour analyser plusieurs fichiers, il faut utiliser l'argument `--in genome/`."
-    },
-    {
-      "question": "Pourquoi utiliser l'argument `--offline` avec BUSCO dans un contexte Slurm?",
-      "answer": "Il faut utiliser l'argument `--offline` pour éviter l'utilisation de l'internet."
-    },
-    {
-      "question": "Comment s'assurer que BUSCO utilise le nombre de CPU alloué par Slurm?",
-      "answer": "Il faut utiliser l'argument `--cpu` avec `${SLURM_CPUS_PER_TASK}` dans le script de la tâche pour que BUSCO utilise le nombre alloué de CPU."
-    },
-    {
-      "question": "Quel argument de BUSCO permet de reprendre une tâche interrompue?",
-      "answer": "L'argument `--restart` permet de reprendre une tâche BUSCO interrompue."
-    },
-    {
-      "question": "Comment soumettre un script BUSCO pour exécution via Slurm?",
-      "answer": "On peut soumettre le script avec la commande `sbatch run_busco.sh`."
-    },
-    {
-      "question": "Quelles sont les ressources typiquement demandées pour une tâche Slurm BUSCO selon l'exemple de script?",
-      "answer": "Le script d'exemple demande 8 CPUs par tâche et 20G de mémoire, avec un temps d'exécution d'une heure (`01:00:00`)."
-    },
-    {
-      "question": "Quels modules sont chargés dans le script Slurm d'exemple pour BUSCO?",
-      "answer": "Les modules chargés sont `StdEnv/2023`, `gcc`, `python/3.11`, `augustus/3.5.0`, `hmmer/3.4`, `blast+/2.15`, `metaeuk/7`, `prodigal/2.6.3`, `r` et `bbmap/39.06`."
-    },
-    {
-      "question": "Comment l'environnement virtuel est-il créé et activé dans le script Slurm d'exemple?",
-      "answer": "L'environnement virtuel est créé sans téléchargement dans `$SLURM_TMPDIR` avec `virtualenv --no-download ${SLURM_TMPDIR}/env` et activé avec `source ${SLURM_TMPDIR}/env/bin/activate`."
-    },
-    {
-      "question": "Comment les dépendances de BUSCO sont-elles installées dans le script Slurm d'exemple?",
-      "answer": "Les dépendances de BUSCO sont installées avec `pip install --no-index --upgrade pip` et `pip install --no-index --requirement ~/busco-requirements.txt`."
-    },
-    {
-      "question": "Quel est l'exemple de commande BUSCO exécutée dans le script Slurm?",
-      "answer": "L'exemple de commande BUSCO est `busco --offline --in genome.fna --out TEST --lineage_dataset bacteria_odb10 --mode genome --cpu ${SLURM_CPUS_PER_TASK:-1} --download_path busco_download/`."
-    },
-    {
-      "question": "Comment utiliser des paramètres personnalisés avec Augustus via BUSCO?",
-      "answer": "Si vous avez plus d'expérience, vous pouvez utiliser l'argument `--augustus_parameters=\"--yourAugustusParameter\"`."
-    },
-    {
-      "question": "Quelle est la première étape pour configurer les paramètres Augustus?",
-      "answer": "La première étape est de copier le répertoire `config` d'Augustus à un endroit où la lecture est possible, par exemple avec `cp -r $EBROOTAUGUSTUS/config $HOME/augustus_config`."
-    },
-    {
-      "question": "Quelle variable d'environnement doit être définie pour Augustus?",
-      "answer": "Il faut définir la variable d'environnement `AUGUSTUS_CONFIG_PATH` avec le chemin vers le répertoire de configuration, par exemple `export AUGUSTUS_CONFIG_PATH=$HOME/augustus_config`."
-    },
-    {
-      "question": "Où et comment installer SEPP pour l'utiliser avec BUSCO?",
-      "answer": "SEPP doit être installé localement dans l'environnement virtuel de BUSCO, à partir du nœud de connexion."
-    },
-    {
-      "question": "Quelle est la première étape pour installer SEPP dans l'environnement virtuel BUSCO?",
-      "answer": "La première étape est d'activer votre environnement virtuel BUSCO en utilisant `source busco_env/bin/activate`."
-    },
-    {
-      "question": "Quelle dépendance doit être installée avant SEPP?",
-      "answer": "Il faut installer DendroPy avec la commande `pip install 'dendropy<4.6'` avant d'installer SEPP."
-    },
-    {
-      "question": "Quelles sont les étapes pour installer SEPP après avoir installé DendroPy?",
-      "answer": "Après DendroPy, il faut cloner le dépôt Git de SEPP avec `git clone https://github.com/smirarab/sepp.git`, aller dans le répertoire `sepp` avec `cd sepp`, puis exécuter `python setup.py config` et `python setup.py install`."
+      "question": "Quels sont les arguments de ligne de commande importants à connaître pour exécuter BUSCO, en particulier dans un environnement Slurm?",
+      "answer": "Pour analyser un seul fichier de génome, utilisez l'argument `--in genome.fna`, et pour analyser plusieurs fichiers dans un répertoire, employez `--in genome/`. Pour éviter d'utiliser l'accès à Internet, utilisez l'argument `--offline`. Afin d'optimiser l'utilisation des CPU alloués par Slurm, intégrez `--cpu ${SLURM_CPUS_PER_TASK:-1}` dans votre script de tâche. Finalement, `--restart` est un argument pratique pour reprendre une tâche qui a été interrompue."
     }
   ],
-  "generated_at": "2026-04-11T18:28:47.588093+00:00"
+  "generated_at": "2026-04-13T02:55:24.018315+00:00"
 }

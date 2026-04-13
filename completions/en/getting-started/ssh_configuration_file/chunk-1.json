@@ -4,77 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of modifying your local SSH configuration file on Linux and macOS?",
-      "answer": "Modifying your local SSH configuration file on Linux and macOS can change the default behaviour of `ssh` and simplify the login procedure."
+      "question": "How can I simplify the login procedure for an Alliance cluster like Narval using an SSH key on Linux or macOS?",
+      "answer": "To simplify the login to an Alliance cluster like narval.alliancecan.ca, you can modify your local SSH configuration file, located at `~/.ssh/config`. You should add a `Host` block for 'narval', specifying your `User`, the `HostName narval.alliancecan.ca`, and the path to your `IdentityFile` (e.g., `~/.ssh/your_private_key`). Once configured, you can log in by simply typing `ssh narval`."
     },
     {
-      "question": "On which operating systems can you modify your local SSH configuration file to change `ssh` behaviour?",
-      "answer": "You can modify your local SSH configuration file on Linux and macOS."
+      "question": "How can I configure my local SSH settings to easily log into multiple Alliance clusters, such as Narval, Beluga, Graham, and Cedar?",
+      "answer": "Instead of creating separate entries for each cluster, you can modify your `~/.ssh/config` file on your local machine to include a single `Host` block that lists all the clusters you frequently log into, such as `Host narval beluga graham cedar`. Within this block, you would use `HostName %h.alliancecan.ca`. It's important to remember that you will still need to install your public SSH key on each cluster individually or utilize CCDB."
     },
     {
-      "question": "What is the default command to log into `narval.alliancecan.ca` as a `username` using a specific SSH key?",
-      "answer": "The default command is `ssh -i ~/.ssh/your_private_key username@narval.alliancecan.ca`."
-    },
-    {
-      "question": "Where should you add configuration details to avoid repeatedly typing a lengthy SSH command to connect to Narval?",
-      "answer": "You should add the configuration details to `~/.ssh/config` on your local machine."
-    },
-    {
-      "question": "What are the configuration lines to add to `~/.ssh/config` to simplify logging into Narval as `username` using a private key?",
-      "answer": "You should add the following lines: `Host narval`, `User username`, `HostName narval.alliancecan.ca`, and `IdentityFile ~/.ssh/your_private_key`."
-    },
-    {
-      "question": "After configuring the `~/.ssh/config` file, what is the simplified command to log into Narval?",
-      "answer": "You can now log into Narval by typing `ssh narval`."
-    },
-    {
-      "question": "Besides `ssh`, which other commands have their behaviour changed by modifying the `~/.ssh/config` file?",
-      "answer": "Modifying the `~/.ssh/config` file also changes the behaviour of `sftp`, `scp`, and `rsync`."
-    },
-    {
-      "question": "What is an example command for transferring files to Narval using `scp` after SSH configuration?",
-      "answer": "An example command is `scp local_file narval:work/`."
-    },
-    {
-      "question": "How can you configure your SSH file for frequently logging into multiple clusters like Narval, Beluga, Graham, and Cedar efficiently?",
-      "answer": "You can modify the `Host` block as `Host narval beluga graham cedar` and include `HostName %h.alliancecan.ca`."
-    },
-    {
-      "question": "What is required after configuring a multi-cluster `Host` block in `~/.ssh/config`?",
-      "answer": "You need to install your public SSH key on each cluster separately or use CCDB."
-    },
-    {
-      "question": "What `~/.ssh/config` parameter corresponds to the `ssh` command-line option `-X` for X11 forwarding?",
-      "answer": "The corresponding parameter is `ForwardX11 yes`."
-    },
-    {
-      "question": "What `~/.ssh/config` parameter corresponds to the `ssh` command-line option `-Y` for trusted X11 forwarding?",
-      "answer": "The corresponding parameter is `ForwardX11Trusted yes`."
-    },
-    {
-      "question": "What `~/.ssh/config` parameter corresponds to the `ssh` command-line option `-A` for agent forwarding?",
-      "answer": "The corresponding parameter is `ForwardAgent yes`."
-    },
-    {
-      "question": "Why is it not recommended to enable X11 forwarding by default for all SSH connections?",
-      "answer": "Enabling X11 forwarding by default for all your connections can slow down your sessions, especially if your X11 client on your computer is misconfigured."
-    },
-    {
-      "question": "What is the risk associated with enabling trusted X11 forwarding by default?",
-      "answer": "Enabling trusted X11 forwarding by default comes with a risk: should the server to which you are connecting be compromised, a privileged user (`root`) could intercept keyboard activity on your local computer."
-    },
-    {
-      "question": "When should trusted X11 forwarding be used?",
-      "answer": "Trusted X11 forwarding should be used *only when you need it*."
-    },
-    {
-      "question": "What risk is involved with forwarding your SSH agent if the remote server is compromised?",
-      "answer": "If the server to which you are connecting is compromised, a privileged user (`root`) could use your agent and connect to another host without your knowledge."
-    },
-    {
-      "question": "What tool is recommended to combine with SSH agent forwarding to prevent unauthorized usage of your agent?",
-      "answer": "It is recommended to combine agent forwarding with `ssh-askpass` so that any use of your SSH agent triggers a prompt on your computer."
+      "question": "What are the common SSH command line forwarding options (`-X`, `-Y`, `-A`), how can they be set in the `~/.ssh/config` file, and what are the associated risks?",
+      "answer": "The common SSH command line forwarding options are `-X` for X11 forwarding, `-Y` for trusted X11 forwarding, and `-A` for agent forwarding. These can be set in your `~/.ssh/config` file by adding `ForwardX11 yes`, `ForwardX11Trusted yes`, and `ForwardAgent yes` respectively. However, enabling them by default is generally not recommended due to risks: X11 forwarding can slow down sessions, trusted X11 forwarding carries a risk of keyboard activity interception by a compromised server, and agent forwarding could allow a compromised server to use your agent to connect to other hosts. These features should only be used when necessary, and for agent forwarding, combining it with `ssh-askpass` is recommended."
     }
   ],
-  "generated_at": "2026-04-12T07:25:57.638779+00:00"
+  "generated_at": "2026-04-13T13:05:45.526968+00:00"
 }

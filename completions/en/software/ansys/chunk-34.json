@@ -4,57 +4,17 @@
   "chunk_index": 34,
   "qa_pairs": [
     {
-      "question": "How can I launch Mechanical APDL (Mapdl) in graphical mode from the command line?",
-      "answer": "To launch Mechanical APDL in graphical mode, first load the necessary modules using `module load StdEnv/2023 ansys/2022R2` (or newer versions). Then, you can run either `mapdl -g` or `launcher` and click the `RUN` button."
+      "question": "How do users start the Ansys Mechanical APDL graphical user interface (GUI) on an On Demand Desktop?",
+      "answer": "To start the Ansys Mechanical APDL GUI from the command line of an On Demand Desktop, users should first load the `StdEnv/2023` and an `ansys/2022R2` (or newer) module. Then, they can either run `mapdl -g` or type `launcher` and click the `RUN` button."
     },
     {
-      "question": "What is the command to load the required modules for Mechanical APDL (Mapdl) graphical usage?",
-      "answer": "You should use `module load StdEnv/2023 ansys/2022R2` or any newer compatible Ansys module version."
+      "question": "How does one launch Ansys Workbench graphically on an OnDemand Desktop without requesting a GPU, and what steps are needed to then open Fluent from within Workbench?",
+      "answer": "To launch Ansys Workbench graphically on an OnDemand Desktop without a GPU, first load `module load StdEnv/2023 ansys/2025R1` (or a newer version), then execute `runwb2 -oglmesa`. To start Fluent from within Workbench, click `Fluid Flow (Fluent)` in the Analysis Menu, then click `Setup` in the centre canvas `Fluid Flow (Fluent)` popup. In the Fluent Launcher's Environment Tab, set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi) and `HOOPS_PICTURE=opengl2-mesa` (for Ansys 2025R1 or newer, or `HOOPS_PICTURE=null` for 2024R2 or older), then click the `Start` button."
     },
     {
-      "question": "How do I start Ansys Workbench in graphical mode on an On-Demand Desktop without a GPU?",
-      "answer": "First, load the modules with `module load StdEnv/2023 ansys/2025R1` (or newer). Then, run `runwb2 -oglmesa`."
-    },
-    {
-      "question": "When starting Fluent from Workbench on an On-Demand Desktop without a GPU (for Ansys 2025R1 or newer), which environment variables should I set?",
-      "answer": "In the Fluent Launcher's Environment Tab, set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi) and `HOOPS_PICTURE=opengl2-mesa`. Then, click the `Start` button."
-    },
-    {
-      "question": "What environment variables are needed to launch Fluent from Workbench on an On-Demand Desktop without a GPU for Ansys 2024R2 or older versions?",
-      "answer": "In the Fluent Launcher's Environment Tab, you need to set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi) and `HOOPS_PICTURE=null`. Afterwards, click the `Start` button."
-    },
-    {
-      "question": "What GPU option should be selected on Nibi for an On-Demand Desktop session to enable accelerated graphics for Workbench?",
-      "answer": "You must choose a `t4 (15GB)` GPU from the GPU selector pulldown list when configuring the resources for your On-Demand desktop session."
-    },
-    {
-      "question": "How do I start Ansys Workbench on an On-Demand Desktop on Nibi when a GPU has been requested for accelerated graphics?",
-      "answer": "After selecting a `t4 (15GB)` GPU during desktop configuration, open a terminal window once the desktop appears. Load the modules with `module load StdEnv/2023 ansys/2025R1` (or newer) and then run `runwb2`."
-    },
-    {
-      "question": "Which environment variables are required to start Fluent from Workbench on an On-Demand Desktop with a GPU (for Ansys 2025R1 or newer)?",
-      "answer": "In the Fluent Launcher's Environment Tab, set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi only) and `HOOPS_PICTURE=opengl2`. Then, click the `Start` button."
-    },
-    {
-      "question": "What environment variables are necessary to launch Fluent from Workbench on an On-Demand Desktop with a GPU for Ansys 2024R2 or older versions?",
-      "answer": "In the Fluent Launcher's Environment Tab, you should set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi only) and `HOOPS_PICTURE=null`. Then, click the `Start` button."
-    },
-    {
-      "question": "What troubleshooting steps should I take if Fluent crashes on startup within an On-Demand Compute Desktop session on Nibi when Intel MPI is in use?",
-      "answer": "This crash usually indicates that `I_MPI_HYDRA_BOOTSTRAP=ssh` was not properly set. You should completely exit Fluent, cleanly shut down Workbench, and then restart the process, ensuring the environment variable is correctly configured in the Fluent Launcher's Environment Tab."
-    },
-    {
-      "question": "How do I launch Ansys Workbench from a Jupyter Lab Desktop without requesting a GPU?",
-      "answer": "First, click to load `ansys/2025R1` (or a newer version) from the Desktop's left-hand side menu. Then, click the 'Workbench (VNC)' icon. Since the default icon is configured for a GPU node, you must exit Workbench, open a terminal window, copy the desktop file (`cd ~/Desktop; cp -p $(realpath workbench.desktop) workbench-mesa.desktop`), edit `workbench-mesa.desktop` to change `runwb2` to `runwb2 -oglmesa`, save the file, and then click your newly customized icon."
-    },
-    {
-      "question": "What steps are involved in customizing the Workbench icon on a Jupyter Lab Desktop to run in Mesa mode (without a GPU)?",
-      "answer": "After loading the Ansys module and exiting Workbench, open a terminal window. Run `cd ~/Desktop; cp -p $(realpath workbench.desktop) workbench-mesa.desktop` to copy the default icon. Then, edit `workbench-mesa.desktop` to change `runwb2` to `runwb2 -oglmesa`. Save the file, and then click this new icon to start Workbench in Mesa mode. This customized icon will persist for future sessions until manually deleted."
-    },
-    {
-      "question": "How do I launch Ansys Workbench from a Jupyter Lab Desktop when a GPU has been requested for the session?",
-      "answer": "First, click to load `ansys/2025R1` (or a newer version) from the Desktop's left-hand side menu. Then, click the 'Workbench (VNC)' icon located in the Jupyter Lab desktop's centre window."
+      "question": "What are the required steps and environment variable settings to launch Ansys Workbench on an OnDemand Desktop with a GPU on the Nibi cluster, and what common error might occur if these settings are incorrect?",
+      "answer": "To launch Ansys Workbench on an OnDemand Desktop with a GPU on the Nibi cluster for accelerated graphics, you must choose a `t4 (15GB)` GPU when configuring your OnDemand desktop session. Once the desktop appears, open a terminal window, load `module load StdEnv/2023 ansys/2025R1` (or a newer version), and run `runwb2`. To start Fluent from within Workbench, click `Fluid Flow (Fluent)`, then `Setup`. In the Fluent Launcher's Environment Tab, set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi only) and `HOOPS_PICTURE=opengl2` (for Ansys 2025R1 or newer, or `HOOPS_PICTURE=null` for 2024R2 or older), then click `Start`. If `I_MPI_HYDRA_BOOTSTRAP=ssh` is not properly set on Nibi when using Intel MPI, Fluent will crash on startup, producing an error indicating an inability to run `bstrap_proxy`."
     }
   ],
-  "generated_at": "2026-04-12T16:53:23.362592+00:00"
+  "generated_at": "2026-04-13T01:52:54.684455+00:00"
 }

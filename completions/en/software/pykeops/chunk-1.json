@@ -4,117 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is the primary function of the KeOps library?",
-      "answer": "The KeOps library allows you to compute reductions of large arrays whose entries are defined by a mathematical formula or a neural network."
+      "question": "What is the KeOps library and what functionalities does it offer?",
+      "answer": "The KeOps library allows users to compute reductions of large arrays whose entries are defined by a mathematical formula or a neural network. It integrates efficient C++ routines with an automatic differentiation engine and supports usage with Python (NumPy, PyTorch), MATLAB, and R."
     },
     {
-      "question": "What technologies does the KeOps library combine for its operations?",
-      "answer": "It combines efficient C++ routines with an automatic differentiation engine."
+      "question": "What is the step-by-step process to install PyKeOps within a Python virtual environment on the clusters?",
+      "answer": "To install PyKeOps, first load runtime dependencies using `module load StdEnv/2023 python/3.11`. Next, create and activate a Python virtual environment (e.g., `virtualenv --no-download ~/pykeops_env` and `source ~/pykeops_env/bin/activate`). Then, install PyKeOps and its Python dependencies by running `pip install --no-index pykeops==X.Y.Z` (specifying a version or omitting it for the latest). Finally, validate the installation with `python -c 'import pykeops; pykeops.test_numpy_bindings()'`. After validation, you can freeze the environment with `pip freeze --local > ~/pykeops-2.2.3-requirements.txt` and optionally remove the local virtual environment."
     },
     {
-      "question": "Which programming languages and environments can use KeOps?",
-      "answer": "KeOps can be used with Python (NumPy, PyTorch), MATLAB, and R."
-    },
-    {
-      "question": "How can I find the available versions of PyKeOps on the clusters?",
-      "answer": "You can list available versions with the `avail_wheels` command."
-    },
-    {
-      "question": "What is the command to check for available PyKeOps versions?",
-      "answer": "The command is `avail_wheels pykeops`."
-    },
-    {
-      "question": "According to the example, what is the latest specific version of PyKeOps shown?",
-      "answer": "The example shows PyKeOps version 2.2.3."
-    },
-    {
-      "question": "What are the initial runtime dependencies to load for installing PyKeOps in a Python virtual environment?",
-      "answer": "You need to load `StdEnv/2023` and `python/3.11` using the command `module load StdEnv/2023 python/3.11`."
-    },
-    {
-      "question": "How do you create a Python virtual environment named `pykeops_env` without downloading packages?",
-      "answer": "You create it using the command `virtualenv --no-download ~/pykeops_env`."
-    },
-    {
-      "question": "What command is used to activate a Python virtual environment located at `~/pykeops_env`?",
-      "answer": "You activate it with `source ~/pykeops_env/bin/activate`."
-    },
-    {
-      "question": "How do you install a specific version of PyKeOps, such as 2.2.3, within an activated virtual environment?",
-      "answer": "You use the command `pip install --no-index pykeops==2.2.3`."
-    },
-    {
-      "question": "What command ensures that `pip` is up-to-date and installed without using external indexes within a virtual environment?",
-      "answer": "You use `pip install --no-index --upgrade pip`."
-    },
-    {
-      "question": "How can you install the latest available version of PyKeOps from the wheelhouse without specifying a version number?",
-      "answer": "You can omit specifying the version, using `pip install --no-index pykeops`."
-    },
-    {
-      "question": "What is the command to validate the PyKeOps installation within a Python virtual environment?",
-      "answer": "You can validate it by running `python -c 'import pykeops; pykeops.test_numpy_bindings()'`."
-    },
-    {
-      "question": "How do you freeze the environment and generate a requirements file for PyKeOps?",
-      "answer": "You use the command `pip freeze --local > ~/pykeops-2.2.3-requirements.txt`."
-    },
-    {
-      "question": "What is the process to remove a local PyKeOps virtual environment named `~/pykeops_env`?",
-      "answer": "You can remove it by running `deactivate && rm -r ~/pykeops_env`."
-    },
-    {
-      "question": "Can PyKeOps jobs be run on both CPU and GPU resources?",
-      "answer": "Yes, PyKeOps can be run on CPU or GPU."
-    },
-    {
-      "question": "What SLURM directive is used to specify the accounting group for a job?",
-      "answer": "The `SBATCH --account=def-someprof` directive is used to specify the accounting group."
-    },
-    {
-      "question": "How do you specify a walltime of 8 hours for a job submission script?",
-      "answer": "You use the SLURM directive `#SBATCH --time=08:00:00`."
-    },
-    {
-      "question": "What modules are loaded for a CPU PyKeOps job submission script?",
-      "answer": "For a CPU job, the modules `StdEnv/2023` and `python/3.11` are loaded."
-    },
-    {
-      "question": "How is a virtual environment typically created on a compute node for a CPU job submission script?",
-      "answer": "It is created using `virtualenv --no-download $SLURM_TMPDIR/env`."
-    },
-    {
-      "question": "What command installs PyKeOps and its dependencies on a compute node based on a requirements file?",
-      "answer": "The command is `pip install --no-index -r pykeops-2.2.3-requirements.txt`."
-    },
-    {
-      "question": "What additional SLURM directive is required for a GPU job compared to a CPU job?",
-      "answer": "The `#SBATCH --gpus=1` directive is required for a GPU job."
-    },
-    {
-      "question": "Which specific module is crucial for loading dependencies in a GPU PyKeOps job submission script?",
-      "answer": "The `custom-ctypes` module is critical."
-    },
-    {
-      "question": "What modules are loaded for a GPU PyKeOps job submission script?",
-      "answer": "The modules `StdEnv/2023`, `python/3.11`, `cuda/12`, and `custom-ctypes` are loaded for a GPU job."
-    },
-    {
-      "question": "How is the PyKeOps installation tested in a GPU job script to verify `nvrtc` bindings?",
-      "answer": "It's tested with `python -c 'import pykeops; pykeops.test_numpy_bindings()'`."
-    },
-    {
-      "question": "What is recommended to do before submitting a job to the scheduler?",
-      "answer": "It is important to test that your submission script will start without errors."
-    },
-    {
-      "question": "How can you quickly test a job submission script before submitting it?",
-      "answer": "You can do a quick test in an interactive job."
-    },
-    {
-      "question": "What is the command to submit a KeOps job script to the scheduler?",
-      "answer": "The command is `sbatch submit-keops.sh`."
+      "question": "What are the essential differences in the job submission scripts for running PyKeOps on a CPU compared to a GPU on the clusters?",
+      "answer": "The primary differences in job submission scripts for running PyKeOps on a CPU versus a GPU involve resource requests and module loading. For GPU jobs, the script must include `#SBATCH --gpus=1` to request a GPU and load additional modules: `cuda/12` and `custom-ctypes`, alongside `StdEnv/2023 python/3.11`. The `custom-ctypes` module is crucial for GPU functionality. CPU job scripts, however, do not require the `--gpus` directive or the `cuda/12` and `custom-ctypes` modules, only `StdEnv/2023 python/3.11`."
     }
   ],
-  "generated_at": "2026-04-12T05:34:13.547340+00:00"
+  "generated_at": "2026-04-13T11:32:40.165652+00:00"
 }

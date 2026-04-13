@@ -4,57 +4,17 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "How does the new Arbutus Cloud Object Storage manage bucket name collisions?",
-      "answer": "New Arbutus Cloud Object Storage uses tenants, which means bucket name collisions will only happen within an individual project instead of across all projects in Arbutus."
+      "question": "How do tenants impact bucket name collisions and public access URLs in the New Arbutus Cloud Object Storage?",
+      "answer": "In the New Arbutus Cloud Object Storage, tenants ensure that bucket name collisions are confined to individual projects. For public access to buckets without authentication, the Tenant ID (which is identical to the OpenStack Project ID) must be specified in the S3 access URL."
     },
     {
-      "question": "How is the tenant determined when authenticating with the Swift or S3 API in the new Arbutus Cloud Object Storage?",
-      "answer": "When authenticating with either the Swift or S3 API, the tenant is inferred from the user/key provided."
+      "question": "What tool is recommended for migrating Object Storage data to the New Arbutus Cloud, and what is a key consideration when using it?",
+      "answer": "The document recommends using `rclone` for migrating Object Storage data to the New Arbutus Cloud. A key consideration is that `rclone` does not copy bucket Access Control Lists (ACLs), meaning all access will initially default to private in the new location."
     },
     {
-      "question": "Is it necessary to specify the tenant for public access to buckets without authentication in the new Arbutus Cloud Object Storage?",
-      "answer": "Yes, for public access to buckets with no authentication, the tenant must be specified."
-    },
-    {
-      "question": "What is the relationship between the Tenant ID and the OpenStack Project ID in the new Arbutus Cloud Object Storage?",
-      "answer": "The Tenant ID is identical to the OpenStack Project ID."
-    },
-    {
-      "question": "What is the URL format for unauthenticated S3 access in the new Arbutus Cloud Object Storage?",
-      "answer": "The URL for unauthenticated S3 access will be of the following format: `https://object-arbutus.alliancecan.ca/<tenant-id>:<bucket-name>/<object-name>`."
-    },
-    {
-      "question": "What tool is recommended for migrating object storage data if one is unsure which to use?",
-      "answer": "If you are not sure which tool to use, we can recommend using rclone."
-    },
-    {
-      "question": "Does rclone copy bucket Access Control Lists (ACLs) during migration?",
-      "answer": "No, rclone will not copy the bucket ACLs, so all access will initially be defaulted private in the new location."
-    },
-    {
-      "question": "What is the first step to use rclone for object storage migration?",
-      "answer": "The first step is to install rclone, which can be done by following the instructions at https://rclone.org/install/."
-    },
-    {
-      "question": "What should be done after installing rclone for object storage migration?",
-      "answer": "After installing rclone, you need to create S3 credentials in both the legacy and new Arbutus Cloud, as detailed in https://docs.alliancecan.ca/wiki/Arbutus_object_storage."
-    },
-    {
-      "question": "Where is the rclone config file typically located on Linux/macOS systems?",
-      "answer": "The rclone config file is typically located at `~/.config/rclone/rclone.conf` on Linux/macOS systems."
-    },
-    {
-      "question": "Can you provide an example of the rclone config file content for migrating between legacy and new Arbutus Cloud Object Storage?",
-      "answer": "An example config file includes sections for both `[new]` and `[legacy]` environments, each specifying `type = s3`, `access_key_id`, `secret_access_key`, and the respective `endpoint` URL."
-    },
-    {
-      "question": "What command is used to sync all buckets from legacy to new Arbutus Cloud using rclone?",
-      "answer": "To sync all buckets with rclone, use the command: `rclone sync legacy: renewal:`."
-    },
-    {
-      "question": "What is the email address for Cloud support requests?",
-      "answer": "Support requests can be sent to cloud@tech.alliancecan.ca."
+      "question": "What are the general steps to use `rclone` for syncing Object Storage buckets between the legacy and new Arbutus Clouds?",
+      "answer": "To sync Object Storage buckets using `rclone`, you must first install `rclone` and create S3 credentials for both the legacy and new Arbutus Clouds. Next, create an `rclone.conf` file, configuring it with the `access_key_id`, `secret_access_key`, and `endpoint` for both the `[new]` and `[legacy]` environments. Finally, execute the command `rclone sync legacy: renewal:` to transfer the data."
     }
   ],
-  "generated_at": "2026-04-11T17:46:40.764285+00:00"
+  "generated_at": "2026-04-13T02:23:19.568600+00:00"
 }

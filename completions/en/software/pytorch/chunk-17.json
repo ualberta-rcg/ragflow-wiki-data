@@ -4,17 +4,13 @@
   "chunk_index": 17,
   "qa_pairs": [
     {
-      "question": "What is Fully Sharded Data Parallelism (FSDP) and when should it not be used?",
-      "answer": "Fully Sharded Data Parallelism (FSDP) enables the distributed storage and computing of various training task elements, such as optimizer states, model weights, gradients, and activations, across multiple devices including GPUs, CPUs, and local hard disks. This resource pooling allows for the efficient training of models with a massive number of parameters across multiple nodes. However, FSDP should not be used if your model has layers that do not fit entirely into the memory of a single GPU, as these layers may be collected into a single device during a forward or backward pass."
+      "question": "What is Fully Sharded Data Parallelism (FSDP) in PyTorch and what is its main advantage?",
+      "answer": "Fully Sharded Data Parallelism (FSDP) in PyTorch allows for the distributed storage and computing of different elements of a training task, such as optimizer states, model weights, gradients, and activations, across various devices including GPU, CPU, and hard disk. This resource pooling, particularly for storage, enables the efficient training of models with massive amounts of parameters across multiple nodes."
     },
     {
-      "question": "How does Tensor Parallelism (TP) differ from Fully Sharded Data Parallelism (FSDP)?",
-      "answer": "Tensor Parallelism (TP) differs from FSDP in its approach to sharding model layers and computations. While FSDP shards model weights and may collect them on a single device during certain computation steps, TP splits the computation of a forward or backward pass through a model layer directly along with the layers' weights across multiple devices. This means that computation steps are performed locally on the device where a model shard is placed, avoiding the overhead of moving model shards across devices and allowing individual model layers or sharded blocks to not necessarily fit entirely in the memory of a single GPU."
-    },
-    {
-      "question": "What is Pipeline Parallelism (PP) and how does it mitigate device idle time during computation?",
-      "answer": "Pipeline Parallelism (PP) is a model sharding approach where groups of consecutive layers of a model are placed on different devices. During a forward or backward pass, computations are performed sequentially across these devices. To mitigate idle time for devices that are further along in the sequence, PP breaks each input batch into \"micro-batches,\" which are then fed to the model in sequence, ensuring all devices remain busy."
+      "question": "Under what specific condition should a user avoid using Fully Sharded Data Parallelism (FSDP) for a PyTorch model?",
+      "answer": "A user should avoid using Fully Sharded Data Parallelism (FSDP) if a model layer, even when sharded across devices, cannot be entirely collected and fit into the memory of a single GPU during a forward or backward pass."
     }
   ],
-  "generated_at": "2026-04-12T21:31:51.658820+00:00"
+  "generated_at": "2026-04-13T11:40:26.028592+00:00"
 }

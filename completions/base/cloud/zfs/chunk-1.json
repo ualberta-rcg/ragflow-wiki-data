@@ -4,165 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is ZFS?",
-      "answer": "ZFS is a combined file system and logical volume manager."
+      "question": "What is ZFS, and what are its primary advantages for managing file systems?",
+      "answer": "ZFS is a combined file system and logical volume manager, originally designed by Sun Microsystems. Its primary advantages include its ability to scale to very large file system sizes, support for data compression, and the simplified process of increasing a file system's size, which can be done live while file I/O is occurring."
     },
     {
-      "question": "Who designed ZFS?",
-      "answer": "ZFS was designed by Sun Microsystems."
+      "question": "How do you install ZFS on an Ubuntu system, specifically starting with the `Ubuntu-18.04-Bionic-x64-2018-09` image?",
+      "answer": "To install ZFS on Ubuntu, first ensure your package list is up-to-date and upgrade installed packages by running `sudo apt-get update` followed by `sudo apt-get dist-upgrade -y`. After that, install ZFS by executing `sudo apt-get install zfsutils-linux`."
     },
     {
-      "question": "What are the main capabilities of ZFS regarding size and compression?",
-      "answer": "ZFS can scale to very large file system sizes and supports compression."
-    },
-    {
-      "question": "How does ZFS simplify increasing the size of a file system?",
-      "answer": "ZFS greatly simplifies the process of increasing a file system size by allowing users to add new volumes to their VM and then add them to the ZFS file system."
-    },
-    {
-      "question": "Can a ZFS file system's size be increased while it is actively in use?",
-      "answer": "Yes, increasing a ZFS file system's size can be done while the file system is live and file IO is occurring on it."
-    },
-    {
-      "question": "What Ubuntu image is mentioned for ZFS installation?",
-      "answer": "The Ubuntu-18.04-Bionic-x64-2018-09 image is mentioned for ZFS installation."
-    },
-    {
-      "question": "What commands are used to update package lists and upgrade packages on Ubuntu before installing ZFS?",
-      "answer": "First, use `sudo apt-get update` to update the package list, and then `sudo apt-get dist-upgrade -y` to upgrade installed packages."
-    },
-    {
-      "question": "Is it strictly necessary to upgrade installed packages before installing ZFS on Ubuntu?",
-      "answer": "No, it isn't strictly necessary to upgrade installed packages, but it is a good idea."
-    },
-    {
-      "question": "What command installs ZFS on Ubuntu?",
-      "answer": "To install ZFS on Ubuntu, use the command `sudo apt-get install zfsutils-linux`."
-    },
-    {
-      "question": "What CentOS image is mentioned for ZFS installation?",
-      "answer": "The CentOS-7-x64-2018-09 image is mentioned for ZFS installation."
-    },
-    {
-      "question": "What command is used to install ZFS on CentOS?",
-      "answer": "To install ZFS on CentOS, use the command `sudo yum install http://download.zfsonlinux.org/epel/zfs-release.el7_5.noarch.rpm`."
-    },
-    {
-      "question": "Is installing ZFS on CentOS considered straightforward?",
-      "answer": "The document suggests the CentOS installation process 'is looking strangely more complicated'."
-    },
-    {
-      "question": "What Fedora image is mentioned in the ZFS installation section?",
-      "answer": "The Fedora-Cloud-Base-29-1.2 image is mentioned."
-    },
-    {
-      "question": "Is the ZFS installation guide for Fedora complete?",
-      "answer": "No, the guide for Fedora is currently 'to be written!'."
-    },
-    {
-      "question": "What command creates a new zpool named 'data' using volumes '/dev/vdb' and '/dev/vdc'?",
-      "answer": "The command `sudo zpool create -f data /dev/vdb /dev/vdc` creates a new zpool named 'data'."
-    },
-    {
-      "question": "Where will a new zpool created with the specified command (`sudo zpool create -f data /dev/vdb /dev/vdc`) be mounted?",
-      "answer": "It will create a new mount point at `/data`."
-    },
-    {
-      "question": "How does the size of a newly created ZFS file system compare to the combined sizes of its attached volumes?",
-      "answer": "The file system will have a size slightly smaller than the combined sizes of all attached volumes."
-    },
-    {
-      "question": "How is data written to the `/data` mount point distributed across drives in a new zpool?",
-      "answer": "As data is written to the `/data` mount point, it will be dynamically stripped across all drives."
-    },
-    {
-      "question": "Does dynamic stripping of data across drives provide data replication?",
-      "answer": "No, dynamic stripping of data across drives does not provide any additional data replication."
-    },
-    {
-      "question": "What are the benefits of dynamic data stripping across drives in ZFS?",
-      "answer": "Dynamic data stripping is good for performance and allows for the use of all available storage."
-    },
-    {
-      "question": "Can ZFS compress data?",
-      "answer": "Yes, ZFS can compress data as it is written to the file system and uncompress it when it is read."
-    },
-    {
-      "question": "What command is used to enable 'lz4' compression on a zpool named 'data'?",
-      "answer": "To enable 'lz4' compression on a zpool named 'data', use the command `sudo zfs set compression=lz4 data`."
-    },
-    {
-      "question": "What is the 'lz4' compression algorithm?",
-      "answer": "The 'lz4' compression algorithm is a specific algorithm that can be used for data compression in ZFS."
-    },
-    {
-      "question": "When might compression not significantly reduce storage use in ZFS?",
-      "answer": "If your data is largely binary, you might not see a large reduction in storage use with compression."
-    },
-    {
-      "question": "When might compression lead to a larger reduction in storage use in ZFS?",
-      "answer": "If your data is something more compressible, such as ASCII data, you may see a larger reduction in storage use."
-    },
-    {
-      "question": "How can compression affect file IO performance?",
-      "answer": "Using compression can improve file IO performance because less data needs to be read and written, but some computationally intensive algorithms may reduce performance."
-    },
-    {
-      "question": "Why was the 'lz4' algorithm chosen for ZFS compression?",
-      "answer": "The 'lz4' algorithm was chosen because it is a reasonable compromise between speed and the amount of compression achieved."
-    },
-    {
-      "question": "What command displays all properties for a ZFS pool named 'data'?",
-      "answer": "To see a list of properties for your pool, use the command `sudo zfs get all data`."
-    },
-    {
-      "question": "What is a ZFS dataset?",
-      "answer": "A dataset is a subdivision within a zpool that allows you to operate on smaller portions of your zpool independently."
-    },
-    {
-      "question": "How do you create a dataset named 'www' within the 'data' zpool?",
-      "answer": "To create a dataset named 'www' within the 'data' zpool, use the command `sudo zfs create data/www`."
-    },
-    {
-      "question": "What is an example of an independent operation possible with a ZFS dataset?",
-      "answer": "An example is setting a different compression algorithm for the dataset."
-    },
-    {
-      "question": "How does growing a zpool compare to growing other file systems and logical volume managers?",
-      "answer": "Growing a zpool is a relatively simple task when compared to other file systems and logical volume managers."
-    },
-    {
-      "question": "What is the two-step process for growing a zpool?",
-      "answer": "The two-step process is 1) adding a new volume to your VM and 2) adding the new device to your zpool."
-    },
-    {
-      "question": "What command adds a new device at '/dev/vde' to the 'data' zpool?",
-      "answer": "To add a new device to the zpool 'data', use the command `sudo zpool add data /dev/vde`."
-    },
-    {
-      "question": "How long does it typically take to add storage to a zpool?",
-      "answer": "This process usually takes less than a minute, even for very large, several TB sized zpools and volumes."
-    },
-    {
-      "question": "What command is used to destroy a zpool named 'data'?",
-      "answer": "To destroy a zpool named 'data', use the command `sudo zpool destroy data`."
-    },
-    {
-      "question": "Is it recommended to use ZFS with resizing volumes in OpenStack?",
-      "answer": "While in theory it should be possible, in practice it has not been straightforward and is better to be avoided if possible."
-    },
-    {
-      "question": "Is there a hard limit on how many volumes can be attached to a VM?",
-      "answer": "No, there is no hard limit to how many volumes you can attach to your VM."
-    },
-    {
-      "question": "How many attached volumes have been tested with the Queens version of OpenStack?",
-      "answer": "19 attached volumes have been tested and shown to work well with the Queens version of OpenStack."
-    },
-    {
-      "question": "What configuration can provide improved IO performance for a zpool?",
-      "answer": "Having a pool of two or more volumes may provide improved IO performance."
+      "question": "How do you create a new ZFS zpool using two volumes, and how can you enable compression for that zpool?",
+      "answer": "To create a new zpool named `data` using `/dev/vdb` and `/dev/vdc`, execute the command `sudo zpool create -f data /dev/vdb /dev/vdc`. This action will establish a new mount point at `/data`. To enable compression for this zpool, for instance using the `lz4` algorithm, run `sudo zfs set compression=lz4 data`."
     }
   ],
-  "generated_at": "2026-04-12T12:12:44.409757+00:00"
+  "generated_at": "2026-04-13T16:30:36.694201+00:00"
 }

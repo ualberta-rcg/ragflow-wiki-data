@@ -3,77 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of remote visualization with ParaView on the Alliance's HPC clusters?",
-      "answer": "The primary purpose is to allow users to visualize datasets that reside on one of the Alliance's HPC clusters remotely."
+      "question": "What are the main workflows available for remote visualization of datasets residing on Alliance HPC clusters using ParaView?",
+      "answer": "The main workflows include small-scale interactive visualization using a remote desktop, large-scale interactive visualization with a client-server setup, and batch production for automated rendering."
     },
     {
-      "question": "What are the three main scenarios for ParaView visualization workflows described in the document?",
-      "answer": "The three main scenarios are small-scale interactive visualization, large-scale interactive visualization using a client-server setup, and batch production for automated visualizations."
+      "question": "Why are the Alliance clusters' H100 GPUs not recommended for ParaView visualization?",
+      "answer": "H100 GPUs are not optimized for graphics rendering; they utilize only a small fraction of their thread controllers, leading to poor cluster utilization and performance comparable to a mid-range laptop GPU. MIG instances also cannot run graphics APIs."
     },
     {
-      "question": "When is the 'small-scale interactive' workflow recommended, and how is it typically accessed?",
-      "answer": "It's recommended for datasets up to a few GBs (or each timestep in a time-dependent simulation) that can be visualized interactively. It's typically accessed through a remote desktop session via JupyterHub or Open OnDemand."
+      "question": "If GPU rendering is absolutely necessary, which GPU options are recommended on Alliance clusters?",
+      "answer": "For essential GPU rendering, users should consider Nibi's AMD MI300A nodes or older NVIDIA GPUs (e.g., T4) where available, as these are more suitable than H100s."
     },
     {
-      "question": "When should users consider the 'large-scale interactive' client-server setup for ParaView?",
-      "answer": "Users should consider it for interactively visualizing larger datasets, where the ParaView client runs on their computer and the server runs in parallel as a Slurm job on the HPC cluster."
+      "question": "What type of datasets is the \"small-scale interactive\" workflow with ParaView best suited for on Alliance clusters?",
+      "answer": "This workflow is ideal for datasets only a few GBs in size, allowing interactive visualization using a small number of CPU cores within a remote desktop session, typically through JupyterHub or Open OnDemand."
     },
     {
-      "question": "What is the recommended approach for production visualizations, such as generating thousands of frames for a movie?",
-      "answer": "For production visualizations, it's strongly recommended to script the workflow using ParaView Python and run it as a batch, off-screen job on the clusters, rendering directly to files."
+      "question": "How can users launch a single-core ParaView visualization session using JupyterLab on Alliance clusters like Fir, Rorqual, or Narval?",
+      "answer": "Users sign into JupyterHub, select 1 CPU core and other resources, then within the JupyterLab dashboard, load the `paraview/6.0.0` module and either click the 'ParaView (VNC) button' or open a virtual desktop terminal to type `paraview`."
     },
     {
-      "question": "Are the clusters' H100 GPUs suitable for ParaView visualization?",
-      "answer": "No, H100 GPUs are not optimized for graphics rendering and result in poor cluster utilization and slow rendering speeds, making them unsuitable for visualization."
+      "question": "How can a user perform multi-core ParaView visualization within a JupyterLab session on Alliance clusters?",
+      "answer": "Users configure JupyterHub for multiple cores, then within a virtual desktop, start a parallel ParaView server using `mpirun` and `pvserver`. In a separate terminal, they launch the ParaView client and connect it to the server using `localhost` and the specified port (e.g., `11111`)."
     },
     {
-      "question": "If GPU rendering is absolutely necessary on Alliance clusters, which GPUs are recommended?",
-      "answer": "If absolutely necessary, users should use Nibi's AMD MI300A nodes or older NVIDIA GPUs (e.g., T4) where available."
+      "question": "Which Alliance clusters support single-core ParaView visualization via Open OnDemand, and how is it initiated?",
+      "answer": "Nibi and Trillium support single-core ParaView visualization via Open OnDemand. Users log into the respective Open OnDemand portal, request a CPU-only compute desktop with 1 CPU core, and then open a terminal within the desktop to load the ParaView module and launch `paraview`."
     },
     {
-      "question": "How do users launch a single-core ParaView visualization session via JupyterLab on Fir, Rorqual, or Narval?",
-      "answer": "Users sign into JupyterHub, select a CPU account with 1 core, set time and memory, choose JupyterLab UI, then load the `paraview/6.0.0` module and click the 'ParaView (VNC)' button, or open a virtual desktop and launch ParaView from a terminal."
+      "question": "When is the \"large-scale interactive\" client-server setup recommended for ParaView visualization on Alliance HPC clusters?",
+      "answer": "This setup is recommended for interactively visualizing larger datasets where the ParaView client runs on the user's local computer, and the server runs in parallel as a Slurm job on the HPC cluster."
     },
     {
-      "question": "How can one perform multi-core ParaView visualization within a JupyterLab session?",
-      "answer": "Configure the JupyterHub session with the desired number of cores and scaled memory. Inside a virtual desktop, load ParaView, start `mpirun pvserver` in one terminal, then `paraview` in another, and connect the local ParaView client to the parallel server using `localhost:11111`."
+      "question": "What are crucial requirements for setting up a large-scale interactive ParaView client-server connection on Alliance clusters?",
+      "answer": "The local ParaView client and the remote ParaView server must have the same major version. Additionally, users should adjust the 'Remote Render Threshold' in ParaView preferences to optimize rendering location and interactivity."
     },
     {
-      "question": "How do users access single-core ParaView visualization via Open OnDemand on Nibi or Trillium?",
-      "answer": "Users sign into the respective Open OnDemand portal (ondemand.sharcnet.ca for Nibi, ondemand.scinet.utoronto.ca for Trillium), find 'Compute Desktop', specify a CPU-only account with 1 core, launch the desktop, and then run `module load paraview/6.0.0` followed by `paraview` in a terminal."
+      "question": "How can users estimate the number of CPU cores required for large-scale interactive ParaView rendering on Alliance clusters?",
+      "answer": "A general guideline is to divide the anticipated memory needed for the dataset by approximately 3.5 GB/core, allocating additional memory for filters and processing, while avoiding more than 4GB/core for software rendering."
     },
     {
-      "question": "What is an important compatibility requirement for the ParaView client and server versions in a large-scale interactive setup?",
-      "answer": "ParaView requires the same major version on the local client and the remote host to prevent incompatibility and failed handshake when establishing the connection (e.g., client 6.0.x for server 6.0.0)."
+      "question": "What is a specific core allocation requirement for interactive ParaView visualization on Trillium?",
+      "answer": "On Trillium, users must schedule on whole nodes, meaning jobs require multiples of 192 cores, with 192 cores being the minimum for visualization."
     },
     {
-      "question": "What is the purpose of the 'Remote Render Threshold' setting in ParaView's preferences for client-server visualization?",
-      "answer": "This setting determines whether small rendering tasks are handled by the local computer's GPU (default 20MB) or entirely by the remote cluster resources (0MB). Experimentation is recommended to find a suitable balance between interactivity and remote resource utilization."
+      "question": "What is the purpose of SSH tunneling when setting up a ParaView client-server connection on Alliance clusters, and how is it done?",
+      "answer": "SSH tunneling creates a secure link between a local port on the user's computer and a port on the remote compute node, allowing the local ParaView client to connect to the remote server using a command like `ssh <username>@<cluster_name> -L 11111:<compute_node>:11111`."
     },
     {
-      "question": "How can users estimate the number of CPU cores needed for a large-scale interactive ParaView rendering job?",
-      "answer": "Users can estimate by dividing the amount of memory needed for rendering by approximately 3.5 GB/core. Additional memory should be allocated for filters and data processing, and users should not allocate more than 4GB/core."
+      "question": "Are there special considerations for setting up SSH tunneling for ParaView client-server visualization on Nibi?",
+      "answer": "Yes, on Nibi, users must route SSH port forwarding in two steps through the login node using `ssh -T -J <username>@nibi.alliancecan.ca -L 11111:localhost:11111 <username>@<nibi_compute_node>` to bypass inter-node traffic limitations and network blocking."
     },
     {
-      "question": "What specific command is used to initiate a parallel ParaView server on an HPC cluster for a large-scale interactive session?",
-      "answer": "After loading the ParaView module, the command `srun pvserver --force-offscreen-rendering --opengl-window-backend OSMesa` is used to start the server."
+      "question": "Why is \"batch production\" recommended for ParaView visualization on Alliance clusters, and what does it involve?",
+      "answer": "Batch production is recommended for large-scale and automated visualization, such as generating many frames for a movie. It involves scripting the ParaView workflow in Python and submitting it as a serial or parallel job on the cluster without interactive windows."
     },
     {
-      "question": "How do users establish an SSH tunnel for client-server ParaView visualization on Nibi, given its network limitations?",
-      "answer": "For Nibi, users must route SSH port forwarding in two steps through the login node using the command: `ssh -T -J <username>@nibi.alliancecan.ca -L 11111:localhost:11111 <username>@<nibi_compute_node>`."
+      "question": "What is a typical command to submit a serial ParaView batch visualization job on an Alliance cluster?",
+      "answer": "After loading the ParaView module, users submit a Slurm script (e.g., `serial.sh`) using `sbatch serial.sh`, where the script contains the command `pvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py`."
     },
     {
-      "question": "When is client-server visualization in a cloud VM recommended over using Alliance HPC clusters?",
-      "answer": "This approach is less common and should only be used if a custom setup is required that is not supported by the cluster-installed ParaView."
+      "question": "How is a parallel ParaView batch visualization job submitted on an Alliance cluster?",
+      "answer": "Users load the ParaView module and submit a Slurm script (e.g., `distributed.sh`) using `sbatch distributed.sh`, with the script containing `srun pvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py` and appropriate `--ntasks` specified."
     },
     {
-      "question": "Why is it necessary to compile ParaView with OSMesa support when running on a cloud VM?",
-      "answer": "Since most cloud VMs do not have access to a GPU, ParaView must be compiled with OSMesa support to enable off-screen (software) rendering using CPU-based drivers like `llvmpipe` or `SWR`."
+      "question": "When should a user consider running a ParaView server on a cloud VM instead of directly on an Alliance HPC cluster?",
+      "answer": "This approach is less common and should only be used if a user requires a custom setup for ParaView or VisIt that is not supported by the cluster-installed versions."
     },
     {
-      "question": "What command is used to start the ParaView server on a cloud VM after compiling it with OSMesa?",
-      "answer": "The command `./paraview/bin/pvserver --force-offscreen-rendering --opengl-window-backend OSMesa` is used to start the server."
+      "question": "What are the initial software prerequisites for setting up a ParaView server on a CentOS cloud VM?",
+      "answer": "Users need to install essential packages like `xauth`, `wget`, `gcc`, `gcc-c++`, `ncurses-devel`, `python-devel`, `libxcb-devel`, `patch`, `imake`, `libxml2-python`, and various Mesa libraries including `mesa-libGL` and `mesa-libGL-devel`."
     }
   ],
-  "generated_at": "2026-04-12T04:53:32.961284+00:00"
+  "generated_at": "2026-04-13T10:57:10.096133+00:00"
 }

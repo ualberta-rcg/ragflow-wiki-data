@@ -3,69 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi STAR-CCM+?",
-      "answer": "STAR-CCM+ est une suite logicielle de simulation utilisée dans plusieurs spécialités de génie pour la modélisation."
+      "question": "Qu'est-ce que STAR-CCM+ et dans quels domaines d'ingénierie est-il utilisé sur les grappes de l'Alliance?",
+      "answer": "STAR-CCM+ est une suite logicielle de simulation utilisée dans plusieurs spécialités de génie, incluant l'acoustique, la dynamique des fluides, le transfert thermique, la rhéologie, et la mécanique des solides."
     },
     {
-      "question": "Quels domaines de génie peuvent être modélisés avec STAR-CCM+?",
-      "answer": "Elle permet la modélisation en acoustique, dynamique des fluides, transfert thermique, rhéologie, écoulement polyphasique, flux de particules, mécanique des solides, fluides réactifs, électrochimie et électromagnétisme."
+      "question": "Faut-il posséder sa propre licence pour utiliser STAR-CCM+ sur les serveurs de l'Alliance?",
+      "answer": "Oui, les usagers doivent posséder leur propre licence pour utiliser STAR-CCM+, car les grappes de l'Alliance n'offrent pas de licence d'utilisation générale, bien que les binaires soient installés."
     },
     {
-      "question": "L'Alliance fournit-elle une licence pour STAR-CCM+?",
-      "answer": "Non, les binaires STAR-CCM+ sont installés sur les serveurs, mais il faut posséder sa propre licence pour l'utiliser."
+      "question": "Quels sont les types de licences STAR-CCM+ qu'on peut utiliser avec les ressources de l'Alliance?",
+      "answer": "On peut utiliser une licence POD (Power On Demand) achetée directement de Siemens, ou une licence locale hébergée par son établissement, à condition que le pare-feu permette l'accès à la grappe."
     },
     {
-      "question": "Comment peut-on obtenir une licence pour STAR-CCM+?",
-      "answer": "On peut acheter une licence POD (Power On Demand) directement de Siemens ou utiliser une licence locale hébergée par son établissement si le pare-feu le permet."
+      "question": "Comment configure-t-on un compte pour utiliser un serveur de licence STAR-CCM+ sur une grappe de l'Alliance?",
+      "answer": "Il faut créer le fichier `$HOME/.licenses/starccm.lic` en y spécifiant le nom de l'hôte (ou l'adresse IP) et le port statique du fournisseur du serveur de licence."
     },
     {
-      "question": "Quel fichier doit-on créer pour configurer l'accès à un serveur de licence STAR-CCM+?",
-      "answer": "Il faut créer le fichier `$HOME/.licenses/starccm.lic`."
+      "question": "Est-il nécessaire de définir manuellement la variable d'environnement `CDLMD_LICENSE_FILE` pour STAR-CCM+?",
+      "answer": "Non, cette variable est automatiquement spécifiée lorsqu'un module STAR-CCM+ est chargé, en utilisant les informations de votre fichier `$HOME/.licenses/starccm.lic`."
     },
     {
-      "question": "Que doit contenir le fichier `$HOME/.licenses/starccm.lic` pour une licence institutionnelle?",
-      "answer": "Il doit contenir `SERVER <server> ANY <port>\nUSE_SERVER`, où `<server>` est le nom d'hôte ou l'adresse IP, et `<port>` est le port statique du serveur."
+      "question": "Quelles sont les configurations spécifiques requises pour utiliser une licence POD (Power On Demand) de Siemens avec STAR-CCM+ sur les grappes de l'Alliance?",
+      "answer": "Le fichier `~/.licenses/starccm.lic` doit contenir `SERVER flex.cd-adapco.com ANY 1999` et `USE_SERVER`. De plus, la variable d'environnement `LM_PROJECT` doit être configurée avec votre *CD-ADAPCO PROJECT ID*."
     },
     {
-      "question": "Est-il nécessaire de définir manuellement la variable d'environnement `CDLMD_LICENSE_FILE`?",
-      "answer": "Non, cette variable est automatiquement spécifiée à partir du fichier `$HOME/.licenses/starccm.lic` lorsqu'un module Star-CCM+ est chargé."
+      "question": "Que doit-on faire si on soumet des tâches STAR-CCM+ en lot pour la première fois avec un serveur de licence institutionnel sur une grappe de l'Alliance?",
+      "answer": "Après avoir créé le fichier `~/.licenses/starccm.lic`, il faut soumettre une demande d'assistance au soutien technique de l'Alliance pour coordonner les modifications du pare-feu réseau nécessaires."
     },
     {
-      "question": "Comment configure-t-on une licence POD (Power On Demand) pour STAR-CCM+?",
-      "answer": "Il faut manuellement configurer la variable d'environnement `LM_PROJECT` à son ID de projet CD-ADAPCO dans le script Slurm, et le fichier `~/.licenses/starccm.lic` doit contenir `SERVER flex.cd-adapco.com ANY 1999\nUSE_SERVER`."
+      "question": "Si des problèmes de licence persistent pour STAR-CCM+, quelle est une étape de dépannage suggérée?",
+      "answer": "On peut essayer de supprimer ou de renommer le fichier `~/.flexlmrc`, car il pourrait stocker des chemins de recherche ou des paramètres de serveur de licence précédents."
     },
     {
-      "question": "Que doit-on faire si on utilise un serveur de licence institutionnel pour la première fois sur une grappe?",
-      "answer": "Il faut créer le fichier `~/.licenses/starccm.lic` et soumettre une demande au soutien technique pour coordonner les modifications du pare-feu réseau."
+      "question": "Les tâches STAR-CCM+ génèrent-elles des fichiers temporaires qui peuvent affecter le quota de stockage de l'usager?",
+      "answer": "Oui, des fichiers de sortie de tâches peuvent s'accumuler dans des répertoires cachés nommés `.star-version_number` et ainsi consommer le quota de stockage de l'usager."
     },
     {
-      "question": "Comment dépanner les problèmes de licence avec STAR-CCM+?",
-      "answer": "On peut essayer de supprimer ou de renommer le fichier `~/.flexlmrc` si des problèmes persistent, car il pourrait contenir d'anciens chemins ou paramètres de licence."
+      "question": "Comment peut-on nettoyer les fichiers temporaires de STAR-CCM+ qui s'accumulent sur les grappes de l'Alliance?",
+      "answer": "On peut supprimer ces fichiers périodiquement en exécutant la commande `rm -ri ~/.starccm*` et en répondant 'oui' aux invites."
     },
     {
-      "question": "Comment gérer les fichiers de sortie accumulés par STAR-CCM+?",
-      "answer": "Les fichiers de sortie peuvent s'accumuler dans des répertoires cachés nommés `.star-version_number`. On peut les supprimer périodiquement en exécutant `rm -ri ~/.starccm*`."
+      "question": "À quoi servent les scripts Slurm pour STAR-CCM+ sur les grappes de l'Alliance?",
+      "answer": "Les scripts Slurm sont utilisés pour soumettre et gérer les tâches en lot de STAR-CCM+ sur les grappes, en spécifiant les ressources requises et en configurant l'environnement d'exécution."
     },
     {
-      "question": "Quelles sont les options recommandées pour utiliser STAR-CCM+ en mode graphique?",
-      "answer": "Il est recommandé d'utiliser un système OnDemand ou JupyterLab pour démarrer un bureau distant."
+      "question": "Comment est géré le répertoire temporaire pour STAR-CCM+ dans les scripts Slurm sur les grappes de l'Alliance?",
+      "answer": "Dans les scripts Slurm, la variable `STARCCM_TMP` est exportée pour rediriger les fichiers temporaires du répertoire `~/.star-VERSION#` vers `$SLURM_TMPDIR`, qui est un répertoire temporaire propre à chaque tâche."
     },
     {
-      "question": "Comment lancer STAR-CCM+ en mode graphique sur un système OnDemand pour les versions récentes (18.04.008 et plus)?",
-      "answer": "Il faut charger `StdEnv/2023`, puis `starccm-mixed/20.04.007` (ou `starccm/20.04.007-R8`), et enfin exécuter `starccm+ -rr server`."
+      "question": "Quelle est la méthode recommandée pour utiliser STAR-CCM+ en mode graphique sur les grappes de l'Alliance?",
+      "answer": "Il est recommandé d'utiliser un système OnDemand ou JupyterLab pour démarrer un bureau distant, ou de se connecter via VNCViewer."
     },
     {
-      "question": "Comment vérifier les versions disponibles du module STAR-CCM+?",
-      "answer": "Pour l'environnement standard chargé, utilisez `module avail starccm-mixed`. Pour toutes les versions disponibles, utilisez `module spider starccm-mixed`."
+      "question": "Quels modules doit-on charger pour utiliser les versions récentes de STAR-CCM+ (18.04.008 ou plus récentes) en mode graphique sur les grappes de l'Alliance?",
+      "answer": "Il faut charger `module load StdEnv/2023` (par défaut) suivi de `module load starccm-mixed/20.04.007` (ou la version spécifique désirée)."
     },
     {
-      "question": "Qu'est-ce que `LM_PROJECT` représente dans les scripts Slurm?",
-      "answer": "`LM_PROJECT` représente la clé Power on Demand (PoD) de Siemens, un identifiant de projet."
+      "question": "Une fois les modules chargés, comment lance-t-on STAR-CCM+ en mode graphique pour les versions récentes?",
+      "answer": "Après avoir chargé les modules nécessaires, on lance la commande `starccm+ -rr server` pour démarrer l'application en mode graphique."
     },
     {
-      "question": "Comment les scripts Slurm déterminent-ils s'il faut utiliser une licence PoD ou institutionnelle?",
-      "answer": "Les scripts vérifient si la variable `LM_PROJECT` est définie; si oui, ils utilisent le serveur de licence PoD de Siemens, sinon, ils optent pour le serveur de licence institutionnel."
+      "question": "Comment peut-on savoir quelles versions du module STAR-CCM+ sont disponibles sur les grappes de l'Alliance?",
+      "answer": "Pour voir les versions disponibles dans l'environnement standard chargé, utilisez `module avail starccm-mixed`. Pour toutes les versions disponibles dans toutes les versions de modules StdEnv, utilisez `module spider starccm-mixed`."
     }
   ],
-  "generated_at": "2026-04-12T08:16:57.604420+00:00"
+  "generated_at": "2026-04-13T13:47:54.450458+00:00"
 }

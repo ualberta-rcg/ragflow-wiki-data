@@ -4,37 +4,17 @@
   "chunk_index": 46,
   "qa_pairs": [
     {
-      "question": "Quelle était la limite de licences Ansys pour les utilisateurs SHARCNET avant octobre 2024?",
-      "answer": "Avant octobre 2024, chaque utilisateur pouvait exécuter 4 travaux en utilisant un total de 252 cœurs anshpc, plus 4 cœurs anshpc par tâche. Ça permettait, par exemple, une tâche de 256 cœurs ou quatre tâches de 67 cœurs."
+      "question": "Quelles sont les limites actuelles des licences Ansys en termes de nombre de tâches et de cœurs HPC par utilisateur sur les grappes, tel que mis à jour en octobre 2024?",
+      "answer": "Depuis la mise à jour d'octobre 2024, la limite a été portée à 8 tâches et 512 cœurs HPC par utilisateur, collectivement sur toutes les grappes et pour toutes les applications Ansys."
     },
     {
-      "question": "Quelles sont les nouvelles limites de licences Ansys pour les utilisateurs SHARCNET depuis octobre 2024?",
-      "answer": "Depuis octobre 2024, la limite a été portée à 8 tâches et 512 cœurs HPC par utilisateur (collectivement sur toutes les grappes pour toutes les applications) pour une période de test afin de permettre plus de flexibilité."
+      "question": "Comment dois-je configurer mon fichier `ansys.lic` pour pouvoir utiliser la licence Ansys de SHARCNET sur les grappes de l'Alliance?",
+      "answer": "Pour utiliser la licence SHARCNET, vous devez créer ou modifier le fichier `~/.licenses/ansys.lic` avec les lignes suivantes :\n`setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license3.sharcnet.ca\")`\n`setenv(\"ANSYSLI_SERVERS\", \"2325@license3.sharcnet.ca\")`"
     },
     {
-      "question": "Est-ce que la mise à jour des licences Ansys en octobre 2024 a des implications pour le démarrage des tâches?",
-      "answer": "Oui, comme la licence sera moins sollicitée, il pourrait y avoir des échecs de tâches au démarrage, mais les tâches devront simplement être soumises à nouveau."
-    },
-    {
-      "question": "Quelle est la meilleure pratique pour libérer les licences Ansys après avoir utilisé des applications graphiques?",
-      "answer": "Il est utile de fermer les applications Ansys immédiatement après l'achèvement de toute tâche liée à l'interface graphique pour libérer les licences consommées pendant que l'application est inactive, afin que d'autres puissent les utiliser."
-    },
-    {
-      "question": "Comment configurer le fichier `ansys.lic` pour utiliser la licence SHARCNET sur nos grappes?",
-      "answer": "Pour utiliser la licence de SHARCNET, vous devez configurer votre fichier `~/.licenses/ansys.lic` avec les lignes suivantes : `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license3.sharcnet.ca\")` et `setenv(\"ANSYSLI_SERVERS\", \"2325@license3.sharcnet.ca\")`."
-    },
-    {
-      "question": "Comment faire pour savoir le nombre de licences Ansys que j'utilise et le total des licences en usage sur SHARCNET?",
-      "answer": "Pour connaître le nombre de licences utilisées qui sont associées à votre nom d'utilisateur et le nombre de licences utilisées par tous les utilisateurs, lancez les commandes suivantes : `ssh graham.computecanada.ca`, `module load ansys`, puis `lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of\\\\|$USER\"`."
-    },
-    {
-      "question": "Comment puis-je libérer des licences Ansys qui semblent être bloquées ou utilisées sans justification?",
-      "answer": "Si vous remarquez que des licences sont utilisées sans justification avec votre nom d'utilisateur, connectez-vous au nœud en cause, ouvrez une fenêtre de terminal et mettez fin au processus avec la commande `pkill -9 -e -u $USER -f \"ansys\"` pour libérer vos licences."
-    },
-    {
-      "question": "Y a-t-il une particularité à prendre en compte quand je libère des licences sur gra-vdi?",
-      "answer": "Oui, gra-vdi possède deux nœuds (gra-vdi3 et gra-vdi4) qui vous sont assignés au hasard. Avant de lancer `pkill`, il est nécessaire d'indiquer le nom complet de l'hôte (par exemple, `gra-vdi3.sharcnet.ca` ou `gra-vdi4.sharcnet.ca`) quand vous vous connectez."
+      "question": "Quelle est la procédure pour vérifier l'utilisation des licences Ansys (pour mon nom d'utilisateur et tous les utilisateurs) sur les grappes?",
+      "answer": "Pour vérifier l'utilisation des licences, vous devez d'abord vous connecter à une grappe (par exemple, `ssh graham.computecanada.ca`), puis charger le module Ansys (`module load ansys`), et enfin lancer la commande `lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of\\|$USER\"`."
     }
   ],
-  "generated_at": "2026-04-12T17:06:24.414107+00:00"
+  "generated_at": "2026-04-13T02:01:45.700665+00:00"
 }

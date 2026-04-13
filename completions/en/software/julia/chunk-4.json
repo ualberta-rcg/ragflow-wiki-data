@@ -4,13 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `JULIA_EXCLUSIVE` environment variable, and when might it benefit Julia's performance?",
-      "answer": "The `JULIA_EXCLUSIVE` environment variable takes control of thread scheduling away from the operating system, pinning Julia threads to CPU cores. This can potentially improve performance if one has precise information on cache access patterns or wishes to avoid unwelcome scheduling patterns used by the OS."
+      "question": "What is the purpose of the `JULIA_EXCLUSIVE` environment variable in Julia?",
+      "answer": "The `JULIA_EXCLUSIVE` environment variable allows Julia to take control of thread scheduling away from the operating system and pin threads directly to CPU cores, sometimes referred to as 'green' threads with affinity."
     },
     {
-      "question": "What are the specific conditions and potential limitations for effectively using the `JULIA_EXCLUSIVE` environment variable on compute nodes?",
-      "answer": "The `JULIA_EXCLUSIVE` variable only works if your job has exclusive access to the compute nodes, meaning all available CPU cores were allocated to your job. However, since SLURM already pins processes and threads to CPU cores, asking Julia to re-pin threads might not lead to any additional performance improvement."
+      "question": "Under what conditions might setting `JULIA_EXCLUSIVE` improve performance for Julia computations?",
+      "answer": "Setting `JULIA_EXCLUSIVE` might improve performance if a user has precise information on cache access patterns or when the operating system's default scheduling patterns are not optimal for the specific computation."
+    },
+    {
+      "question": "What are the prerequisites for `JULIA_EXCLUSIVE` to function, and how does it interact with SLURM's core pinning on clusters?",
+      "answer": "For `JULIA_EXCLUSIVE` to function, your job must have exclusive access to the compute nodes, meaning all available CPU cores must be allocated to your job. However, since SLURM already pins processes and threads to CPU cores, asking Julia to re-pin threads may not lead to any additional performance improvement."
     }
   ],
-  "generated_at": "2026-04-12T20:46:54.987712+00:00"
+  "generated_at": "2026-04-13T07:38:04.210786+00:00"
 }

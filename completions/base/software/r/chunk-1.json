@@ -4,121 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is R?",
-      "answer": "R is a system for statistical computation and graphics, consisting of a language and a runtime environment with graphics, a debugger, access to system functions, and the ability to run programs from script files."
+      "question": "What is R, and why is it considered an essential tool on high-performance computing (HPC) installations for academic research, despite not being developed for HPC?",
+      "answer": "R is a system designed for statistical computation and graphics, comprising a language and a runtime environment with graphics, a debugger, and system function access. Despite not being developed for high-performance computing (HPC), its widespread popularity among scientists across various fields, such as engineering, mathematics, statistics, and bioinformatics, makes it an essential tool for HPC installations dedicated to academic research. Features like C extensions, byte-compiled code, and parallelization allow for reasonable performance in single-node jobs."
     },
     {
-      "question": "Is R suitable for high-performance computing (HPC)?",
-      "answer": "While R was not originally developed for HPC, its popularity among scientists makes it an essential tool on HPC installations for academic research, achieving reasonable performance in single-node jobs through features like C extensions, byte-compiled code, and parallelization."
+      "question": "How should long-running R calculations be executed on a cluster, and what is the restriction regarding login nodes?",
+      "answer": "Calculations in R that are expected to last longer than two or three minutes should not be run on the login node of a cluster. Instead, these calculations must be executed via the job scheduler. Non-interactive R scripts can be run using the `Rscript` command with the file containing R commands as an argument, which automatically applies options like `--slave`, `--no-restore`, and `--no-save` to prevent the creation of unnecessary workspace files."
     },
     {
-      "question": "How can users customize R functions?",
-      "answer": "Users can customize R functions by installing packages from the Comprehensive R Archive Network (CRAN) into their home directories, thanks to R’s modular nature."
-    },
-    {
-      "question": "Where can users find R packages to install?",
-      "answer": "Users can find R packages to install from the Comprehensive R Archive Network (CRAN)."
-    },
-    {
-      "question": "Is there a resource available for running R scripts with Compute Canada?",
-      "answer": "Yes, user Julie Fortin has written a blog post titled \"How to run your R script with Compute Canada\" which may be useful."
-    },
-    {
-      "question": "How do you start using R on the system?",
-      "answer": "You need to begin by loading an R module."
-    },
-    {
-      "question": "How can you see a list of available R modules?",
-      "answer": "You can see a list of all available R modules using the command `module spider r`."
-    },
-    {
-      "question": "What command is used to load a specific R module, for example version 4.5.0?",
-      "answer": "You can load a particular R module using a command like `module load r/4.5.0`."
-    },
-    {
-      "question": "How do you start the R interpreter interactively?",
-      "answer": "You can start the R interpreter by typing `R` in the command line after loading an R module."
-    },
-    {
-      "question": "Is R free software?",
-      "answer": "Yes, R is free software."
-    },
-    {
-      "question": "Does R come with a warranty?",
-      "answer": "No, R comes with absolutely no warranty."
-    },
-    {
-      "question": "How can you find details about R's distribution conditions?",
-      "answer": "You can type `license()` or `licence()` in the R environment for distribution details."
-    },
-    {
-      "question": "How can you find more information about R's contributors?",
-      "answer": "You can type `contributors()` in the R environment for more information about its contributors."
-    },
-    {
-      "question": "What command provides guidance on citing R or R packages in publications?",
-      "answer": "The command `citation()` provides guidance on how to cite R or R packages in publications."
-    },
-    {
-      "question": "How can you access demonstrations in R?",
-      "answer": "You can access demonstrations in R by typing `demo()`."
-    },
-    {
-      "question": "How do you get online help in R?",
-      "answer": "You can get online help in R by typing `help()` or `help.start()` for an HTML browser interface."
-    },
-    {
-      "question": "How do you quit the R interpreter?",
-      "answer": "You can quit the R interpreter by typing `q()`."
-    },
-    {
-      "question": "How do you execute an R script non-interactively?",
-      "answer": "To execute an R script non-interactively, use `Rscript` with the file containing the R commands as an argument."
-    },
-    {
-      "question": "What is an example command for running an R script non-interactively?",
-      "answer": "An example command for running an R script non-interactively is `Rscript computation.R`."
-    },
-    {
-      "question": "What default options does `Rscript` pass to the R interpreter?",
-      "answer": "`Rscript` automatically passes `--slave` and `--no-restore` options, which also imply `--no-save`, to the R interpreter."
-    },
-    {
-      "question": "Why does `Rscript` pass the `--no-save` option?",
-      "answer": "`Rscript` passes the `--no-save` option to prevent the creation of useless workspace files on exit."
-    },
-    {
-      "question": "Should long-running R calculations be performed on the login node?",
-      "answer": "No, any R calculations lasting more than two or three minutes should not be run on the login node; they should be run via the job scheduler."
-    },
-    {
-      "question": "What is an example of a simple job script for running an R computation?",
-      "answer": "A simple job script for running an R computation includes lines for account, memory, time, loading `StdEnv/2023` and `r/4.5.0` modules, and then executing `Rscript computation.R`."
-    },
-    {
-      "question": "Where can I find more information about running jobs?",
-      "answer": "More information about running jobs can be found in the \"Running jobs\" documentation."
-    },
-    {
-      "question": "How are R packages typically installed from CRAN?",
-      "answer": "R packages from CRAN can be installed using `install.packages` in an interactive R session on a cluster login node."
-    },
-    {
-      "question": "Can R packages be installed in a batch or interactive job on compute nodes?",
-      "answer": "No, installing R packages in a batch or interactive job is not possible because compute nodes on most clusters do not have access to the Internet."
-    },
-    {
-      "question": "What is recommended before installing R packages that use GNU compilers?",
-      "answer": "It is recommended to load a `gcc` module before trying to install R packages that are developed using the GNU family of compilers, and to use the same `gcc` version for all installed packages."
-    },
-    {
-      "question": "What is an example command for loading the recommended modules before installing R packages?",
-      "answer": "An example command for loading recommended modules before installing R packages is `module load gcc/12.3.0 r/4.5.0`."
-    },
-    {
-      "question": "What is the first step for installing an R package for a specific R version?",
-      "answer": "The first step for installing an R package for a specific R version is to be on a login node."
+      "question": "What is the recommended method for installing R packages from CRAN on a cluster, and what are the important considerations during installation?",
+      "answer": "To install R packages from the Comprehensive R Archive Network (CRAN) on a cluster, you should use the `install.packages()` function within an interactive R session on a cluster login node. It's crucial to note that installing R packages in a batch or interactive job on compute nodes is not possible due to their lack of internet access. It is also recommended to load a `gcc` module, using the same version for all packages, before attempting installation, as many R packages are developed with the GNU family of compilers."
     }
   ],
-  "generated_at": "2026-04-12T06:09:39.073327+00:00"
+  "generated_at": "2026-04-13T12:02:26.272485+00:00"
 }

@@ -3,57 +3,53 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What tools are recommended for managing numerous compute tasks, such as processing multiple files or performing parameter sweeps?",
-      "answer": "Job Arrays, GNU Parallel, GLOST (Greedy Launcher Of Small Tasks), and META (a SHARCNET suite of scripts) are recommended tools."
+      "question": "What is the primary purpose of the 'Managing numerous compute tasks' section of this document?",
+      "answer": "This section describes tools useful for processing multiple files, with or without different parameter combinations, on compute clusters."
     },
     {
-      "question": "What is the ideal use case for Slurm Job Arrays?",
-      "answer": "Job Arrays are ideal for submitting several similar jobs in one script when each job exceeds one hour and the total number of jobs is under one thousand."
+      "question": "When is it advisable to use Job Arrays for managing compute tasks?",
+      "answer": "Job Arrays are an ideal method for submitting several similar jobs when each job exceeds one hour and the total number of jobs is under one thousand."
     },
     {
-      "question": "When should GNU Parallel be used for managing compute tasks?",
-      "answer": "GNU Parallel should be used to run and manage several short calculations, including parameter sweeps, on a single node reserved via a parallel job."
+      "question": "What is GNU Parallel specifically designed for in the context of compute tasks?",
+      "answer": "GNU Parallel is designed to run and manage several short calculations, including parameter sweeps, on a single node reserved via a parallel job."
     },
     {
-      "question": "How does GLOST (Greedy Launcher Of Small Tasks) function?",
+      "question": "How does GLOST (Greedy Launcher Of Small Tasks) operate to manage jobs?",
       "answer": "GLOST uses MPI and a manager-worker architecture to progressively run a long list of serial jobs on the CPU cores reserved via a parallel job."
     },
     {
-      "question": "What is META designed to accomplish?",
+      "question": "What is META, and what kind of computing does it automate?",
       "answer": "META is a suite of scripts designed in SHARCNET to automate high-throughput computing, which involves running a large number of related serial, parallel, or GPU calculations."
     },
     {
-      "question": "What are inter-job dependencies in the context of Slurm jobs?",
-      "answer": "Inter-job dependencies are the links and relationships between the steps of a compute pipeline, where one job's execution relies on the status or timing of another job."
+      "question": "What are inter-job dependencies in Slurm compute pipelines?",
+      "answer": "Inter-job dependencies are the links and relationships between the steps of a compute pipeline, dictating the order or conditions under which jobs execute."
     },
     {
-      "question": "How can you make a second Slurm job dependent on the successful completion of a first job?",
-      "answer": "You can use `sbatch --dependency=afterok:$JOBID1 job2.sh`, where `$JOBID1` is the ID of the first job."
+      "question": "How can one make a Slurm job dependent on the successful completion of a previous job?",
+      "answer": "You can use the `--dependency=afterok:$JOBID1` option in the `sbatch` command for the dependent job, where `$JOBID1` is the ID of the preceding job."
     },
     {
-      "question": "Can a single Slurm job have multiple dependencies, or can multiple jobs depend on the same job?",
-      "answer": "Yes, multiple jobs can have the same dependency, and a single job can also have multiple dependencies."
+      "question": "Can a single Slurm job wait for multiple other jobs to complete?",
+      "answer": "Yes, a single Slurm job can have multiple dependencies, meaning it can wait for several other jobs to finish their execution before starting."
     },
     {
-      "question": "Where can one find more details about the various types of Slurm job dependencies?",
-      "answer": "More details can be found on the official `sbatch` documentation page under the `--dependency` option."
+      "question": "What are some of the available dependency types for Slurm jobs using the `--dependency` option?",
+      "answer": "Some available dependency types include `after`, `afterany`, `afterok`, and `afternotok`."
     },
     {
-      "question": "What are heterogeneous jobs supported by the Slurm scheduler?",
-      "answer": "Heterogeneous jobs are a Slurm feature that allows processes within a single job to have different resource requirements, such as varying CPU cores or memory."
+      "question": "What is the main advantage of using heterogeneous jobs with the Slurm scheduler?",
+      "answer": "The main advantage is the ability to specify different resource requirements, such as CPU cores and memory, for different processes within a single MPI application."
     },
     {
-      "question": "When would heterogeneous jobs be particularly useful for an MPI application?",
-      "answer": "Heterogeneous jobs are very useful if an MPI application requires more CPU cores and memory for its main process compared to its other processes."
+      "question": "How are distinct resource requests specified for a heterogeneous job within a Slurm job script?",
+      "answer": "Distinct resource requests for a heterogeneous job are specified using separate `#SBATCH` directives, with `#SBATCH hetjob` indicating the start of the second component's requests."
     },
     {
-      "question": "How are heterogeneous job resource requirements specified within a Slurm job script?",
-      "answer": "They are specified using multiple `#SBATCH` lines, with resource requests for the first part of the job, followed by `#SBATCH hetjob`, and then resource requests for subsequent parts of the job."
-    },
-    {
-      "question": "How can heterogeneous job resource requests be specified on the `sbatch` command line?",
-      "answer": "Resource requests for different parts of the job can be separated by a colon (`:`) on the `sbatch` command line."
+      "question": "How can heterogeneous resource requests be specified on the `sbatch` command line?",
+      "answer": "On the `sbatch` command line, heterogeneous resource requests can be separated by a colon (`:`), for example, `sbatch --ntasks=1 --cpus-per-task=8 --mem-per-cpu=4000M : --ntasks=15 --cpus-per-task=1 --mem-per-cpu=1000M mpi_job.sh`."
     }
   ],
-  "generated_at": "2026-04-11T16:02:35.896068+00:00"
+  "generated_at": "2026-04-13T01:08:38.800233+00:00"
 }

@@ -3,65 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi Amber et à quoi ça sert?",
-      "answer": "Amber est un ensemble d'applications utilisé pour effectuer des simulations de dynamique moléculaire, particulièrement avec les biomolécules."
+      "question": "Qu'est-ce que la suite logicielle Amber et à quoi sert-elle dans le contexte des grappes de calcul de l'Alliance?",
+      "answer": "Amber est un ensemble d'applications conçu pour effectuer des simulations de dynamique moléculaire, particulièrement sur les biomolécules, offrant un outil puissant pour des calculs usuels."
     },
     {
-      "question": "Quels sont les principaux modules Amber offerts dans la pile logicielle?",
-      "answer": "Les principaux modules disponibles sont <code>amber</code>, <code>ambertools</code> et <code>amber-pmemd</code>."
+      "question": "Quels sont les principaux modules Amber disponibles sur la pile logicielle de l'Alliance?",
+      "answer": "Les principaux modules sont `amber`, `amber-pmemd` (Amber 24+) et `ambertools`."
     },
     {
-      "question": "Quelle est la différence entre le module <code>amber</code> et le module <code>ambertools</code>?",
-      "answer": "Le module <code>amber</code> inclut tout ce qui est dans AmberTools, plus le programme avancé <i>pmemd</i> pour les simulations haute performance. Le module <code>ambertools</code>, lui, offre des outils pour préparer et analyser les simulations, ainsi que l'application <code>sander</code>."
+      "question": "Quelle est la fonction principale du module `ambertools`?",
+      "answer": "Le module `ambertools` offre des outils pour préparer et analyser les simulations, incluant l'application `sander` pour les simulations de dynamique moléculaire. Ces outils sont gratuits et à code source ouvert."
     },
     {
-      "question": "Qu'est-ce que le module <code>amber-pmemd</code> et pourquoi est-il distinct depuis Amber24?",
-      "answer": "C'est le moteur <code>pmemd</code> haute performance optimisé pour CPU et GPU. Il est distinct depuis Amber24 parce que <code>pmemd</code> n'est plus compilé avec AmberTools."
+      "question": "Quelle est la différence entre le module `amber` et le module `amber-pmemd` pour les versions d'Amber 24+?",
+      "answer": "Le module `amber` inclut AmberTools et le programme avancé `pmemd`. Le module `amber-pmemd` (Amber 24+) est un moteur `pmemd` haute performance optimisé pour CPU et GPU, qui est séparé d'AmberTools et doit être chargé avec `ambertools` pour utiliser les deux applications."
     },
     {
-      "question": "Si on veut utiliser les outils d'AmberTools et le moteur <code>pmemd</code> haute performance, comment doit-on faire?",
-      "answer": "Il faut charger les deux modules séparément: <code>ambertools</code> pour les outils et <code>amber-pmemd</code> pour le moteur de simulation."
+      "question": "Comment les utilisateurs peuvent-ils obtenir la liste des versions installées des modules Amber et de leurs dépendances sur les grappes de l'Alliance?",
+      "answer": "Les utilisateurs peuvent lancer la sous-commande `module spider` ou consulter la page des Logiciels disponibles sur le wiki de l'Alliance."
     },
     {
-      "question": "Quels modules Amber faut-il absolument utiliser pour les grappes de GPU H100 de NVIDIA?",
-      "answer": "Pour les grappes de GPU H100, il est impératif d'utiliser les modules <code>ambertools/25.0</code> ou <code>amber-pmemd/24.3</code>, car ils ont les noyaux CUDA compatibles avec l'architecture Hopper."
+      "question": "Quelles sont les considérations importantes pour l'utilisation d'AMBER sur les grappes de GPU H100 de NVIDIA?",
+      "answer": "Les anciens modules AMBER ne prennent pas en charge les GPU H100. Il est crucial d'utiliser les modules `ambertools/25.0` ou `amber-pmemd/24.3`, qui sont compilés avec CUDA 12+ pour l'architecture Hopper."
     },
     {
-      "question": "Comment puis-je vérifier les versions d'Amber installées et leurs modules dépendants?",
-      "answer": "Pour vérifier les versions installées, on peut lancer la sous-commande <code>module spider</code> ou consulter la page des logiciels disponibles."
+      "question": "Quel est l'environnement de modules requis pour exécuter des tâches AMBER sur les GPU H100 en utilisant `StdEnv/2023`?",
+      "answer": "Pour les GPU H100 avec `StdEnv/2023`, il faut charger les modules `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6` avec soit `amber-pmemd/24.3` ou `ambertools/25.0`."
     },
     {
-      "question": "Quelle est la commande pour charger les modules nécessaires à une tâche <code>amber-pmemd/24.3</code> avec GPU sous l'environnement StdEnv/2023?",
-      "answer": "La commande est <code>module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 amber-pmemd/24.3</code>."
+      "question": "Comment configurer les variables d'environnement après avoir chargé le module AmberTools 21?",
+      "answer": "Après avoir chargé le module AmberTools 21, il faut exécuter la commande `source $EBROOTAMBERTOOLS/amber.sh`."
     },
     {
-      "question": "Après avoir chargé le module AmberTools 21, quelle commande doit-on exécuter pour configurer les variables d'environnement?",
-      "answer": "Il faut lancer la commande <code>source $EBROOTAMBERTOOLS/amber.sh</code>."
+      "question": "Quelles sont les différences majeures entre les modules Amber 20.9-20.15 et Amber 20.12-20.15?",
+      "answer": "Amber 20.9-20.15 utilise MKL et CUDA 11.0, qui peut avoir des problèmes avec les CPU AMD, tandis qu'Amber 20.12-20.15 utilise FlexiBLAS (optimisé pour le matériel) et CUDA 11.4, requis pour les GPU A100."
     },
     {
-      "question": "Quelle est la différence principale entre les modules Amber 20.9-20.15 et 20.12-20.15?",
-      "answer": "Le 20.9-20.15 utilise MKL et cuda/11.0, tandis que le 20.12-20.15 utilise FlexiBLAS (optimisé pour le matériel CPU) et cuda/11.4, qui est requis pour les GPU A100."
+      "question": "Quels sont les problèmes connus liés à MMPBSA.py avec certains modules Amber?",
+      "answer": "Le module `amber/20.12-20.15` n'offre pas l'exécutable `MMPBSA.py.MPI`, et les versions `amber/18-10-18.11` et `amber/18.14-18.17` ne peuvent pas effectuer les calculs PB avec MMPBSA.py, pour lesquels des modules `amber/20` plus récents sont recommandés."
     },
     {
-      "question": "Quel exécutable utiliser pour des simulations Amber avec un seul GPU?",
-      "answer": "Pour les simulations avec un seul GPU, on utilise l'exécutable <code>pmemd.cuda</code>."
+      "question": "Quel est un exemple de commande Slurm pour soumettre une tâche AMBER utilisant un seul GPU avec `amber-pmemd/24.3`?",
+      "answer": "Un script Slurm doit inclure `#SBATCH --gpus-per-node=1` et charger `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 amber-pmemd/24.3` avant d'exécuter `pmemd.cuda`."
     },
     {
-      "question": "Comment lance-t-on une tâche MPI parallèle avec CPU en utilisant Amber?",
-      "answer": "On utilise <code>pmemd.MPI</code> avec la commande <code>srun</code> dans un script de soumission, comme illustré dans les exemples pour Narval ou Rorqual."
+      "question": "Quel est l'exécutable utilisé pour les tâches MPI parallèles avec CPU pour PMEMD, et quel est un exemple de commande Slurm?",
+      "answer": "L'exécutable est `pmemd.MPI`. Un script Slurm devrait charger les modules appropriés et utiliser `srun pmemd.MPI` avec des directives Slurm comme `--nodes` et `--ntasks-per-node`."
     },
     {
-      "question": "Quel exécutable est utilisé pour une tâche QM/MM distribuée avec plusieurs GPU?",
-      "answer": "Pour une tâche QM/MM distribuée avec plusieurs GPU, l'exécutable à utiliser est <code>sander.quick.cuda.MPI</code>."
+      "question": "Comment peut-on soumettre une tâche QM/MM distribuée utilisant plusieurs GPU avec `ambertools/25.0`?",
+      "answer": "Il faut spécifier `#SBATCH --ntasks=8 --gpus-per-task=1` (pour 8 GPU par exemple) et charger `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 ambertools/25.0` avant d'exécuter `srun sander.quick.cuda.MPI`."
     },
     {
-      "question": "Y a-t-il des problèmes connus avec MMPBSA.py dans les versions plus anciennes d'Amber?",
-      "answer": "Oui, le module <code>amber/20.12-20.15</code> n'offre pas l'exécutable <code>MMPBSA.py.MPI</code>, et les modules <code>amber/18</code> ne peuvent pas effectuer les calculs PB avec <code>MMPBSA.py</code>. Il est recommandé d'utiliser les modules Amber 20 plus récents pour ces calculs."
+      "question": "Pourquoi la scalabilité de MMPBSA est-elle souvent linéaire dans les tâches parallèles?",
+      "answer": "La scalabilité de MMPBSA est généralement linéaire parce que chaque séquence de la trajectoire est traitée indépendamment, permettant un traitement efficace en parallèle."
     },
     {
-      "question": "Où peut-on trouver des informations sur la performance et l'étalonnage des simulations avec Amber sur les grappes?",
-      "answer": "On peut consulter le guide <i>Molecular Dynamics Performance Guide</i> créé par l'équipe d'ACENET, qui contient des étalonnages pour PMEMD et SANDER.QUICK."
+      "question": "Où peut-on trouver des informations sur la performance et l'étalonnage (benchmarking) des simulations de dynamique moléculaire sur les grappes de l'Alliance?",
+      "answer": "Le guide 'Molecular Dynamics Performance Guide' d'ACENET est une ressource, et il existe des pages d'étalonnage spécifiques pour les simulations PMEMD et QM/MM avec SANDER.QUICK."
     }
   ],
-  "generated_at": "2026-04-12T19:17:59.557728+00:00"
+  "generated_at": "2026-04-13T00:27:17.111510+00:00"
 }

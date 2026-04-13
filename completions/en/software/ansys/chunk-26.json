@@ -4,33 +4,13 @@
   "chunk_index": 26,
   "qa_pairs": [
     {
-      "question": "What is the `SolveHandlers.xml` file's role in the Workbench Slurm script?",
-      "answer": "The `SolveHandlers.xml` file is modified by the Slurm script to configure settings such as distributed or shared memory parallelism, the maximum number of processors, and to mark the user configuration as active."
+      "question": "How do you submit an Ansys Workbench project in batch mode on a single compute node using a Slurm script with StdEnv/2023?",
+      "answer": "To submit an Ansys Workbench project (e.g., `YOURPROJECT.wbpj`) in batch mode on a single compute node, you would use a Slurm script that first loads `StdEnv/2023` and the appropriate Ansys module. The core command for execution is `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj`, which updates the project, saves it, and runs it in batch mode."
     },
     {
-      "question": "How are the parallel processing settings configured for Ansys Workbench in the Slurm script?",
-      "answer": "The `SolveHandlers.xml` file is modified to set the distributed memory parallel (DMP) or shared memory parallel (SMP) mode based on the `$MEMPAR` variable, and to specify the maximum number of processors using the `$SLURM_NTASKS` variable."
-    },
-    {
-      "question": "What environment variables are set before launching Ansys Workbench in the Slurm script?",
-      "answer": "The environment variables `KMP_AFFINITY` is set to `disabled` and `I_MPI_HYDRA_BOOTSTRAP` is set to `ssh`."
-    },
-    {
-      "question": "What is the command used to run Ansys Workbench in batch mode from the Slurm script?",
-      "answer": "The command used is `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj`."
-    },
-    {
-      "question": "What actions does the `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj` command perform?",
-      "answer": "This command runs Ansys Workbench in batch mode (`-B`), updates the project, and then saves it (overwriting if it already exists) before specifying the project file (`-F YOURPROJECT.wbpj`)."
-    },
-    {
-      "question": "How does the Slurm script handle saving the Workbench project upon completion?",
-      "answer": "The script saves the Workbench project using `Save(Overwrite=True)`, which means any existing project file will be overwritten."
-    },
-    {
-      "question": "What modification can be made to the Slurm script to prevent overwriting the Workbench solution after a job completes?",
-      "answer": "To prevent overwriting the solution, the `Save(Overwrite=True)` portion of the `runwb2` command in the last line of the Slurm script should be changed to `Save(Overwrite=False)`."
+      "question": "What parallel processing settings are configured in the `SolveHandlers.xml` file for an Ansys Workbench batch job running on a single compute node?",
+      "answer": "For an Ansys Workbench batch job running on a single compute node, the `SolveHandlers.xml` file is modified to configure parallel settings. The `Distribute` setting is set to `0` for Shared Memory Parallel (SMP), the maximum number of processors is set to the value of `$SLURM_NTASKS`, and the `UserConfigured` flag is set to `1`."
     }
   ],
-  "generated_at": "2026-04-12T16:51:38.934358+00:00"
+  "generated_at": "2026-04-13T01:51:49.152615+00:00"
 }

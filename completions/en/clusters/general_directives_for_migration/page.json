@@ -3,77 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the main purpose of this document?",
-      "answer": "This document explains issues related to transferring data between our facilities and our regional partners."
+      "question": "What is the primary purpose of the document that explains data transfer between facilities and regional partners?",
+      "answer": "The document explains issues related to transferring data between our facilities and our regional partners."
     },
     {
-      "question": "Who should I contact if I have questions or doubts about the data transfer advice?",
-      "answer": "You should contact our technical support for help."
+      "question": "What is the initial step users should take before migrating their data between facilities to understand responsibilities?",
+      "answer": "Users should determine whether they are responsible for their own data migration or if staff will be migrating it, contacting technical support if unsure."
     },
     {
-      "question": "What is the initial step to determine before beginning a data migration?",
-      "answer": "You need to know whether you are responsible for your own data migration or if our staff will be handling it."
+      "question": "What preparation is recommended for users who haven't used Globus before, or for testing other tools like tar or gzip, prior to data migration?",
+      "answer": "Users should read about Globus and verify it works, and test any other tools they plan to use (like tar, gzip, zip) on test data."
     },
     {
-      "question": "Which tools should be tested before using them for an important data migration?",
-      "answer": "You should test Globus if you haven't used it, and verify that other tools like tar, gzip, or zip work on test data."
+      "question": "How much time should users generally allocate for large data migrations between facilities?",
+      "answer": "Users should expect hundreds of gigabytes to take hours and terabytes to take days, and should not wait until the last minute."
     },
     {
-      "question": "What is a recommended practice regarding the timing of data migration?",
-      "answer": "Do not wait until the last minute to start your migration, as large transfers can take a surprisingly long time."
+      "question": "Why is it considered a good practice to clean up files and directories before a major data migration?",
+      "answer": "Cleaning up reduces the amount of data to move, which saves time, and helps conserve storage space on new systems that are in high demand."
     },
     {
-      "question": "How long should one expect a transfer of hundreds of gigabytes to take?",
-      "answer": "Expect hundreds of gigabytes to take hours, but give yourself days in case there are problems."
+      "question": "What types of files are specifically mentioned as candidates for deletion during the data cleanup phase before migration?",
+      "answer": "Intermediate files from compiled programs (e.g., `.o` files, or via `make clean`) and large core dump files (e.g., `core.12345`) are recommended for deletion."
     },
     {
-      "question": "What is the benefit of cleaning up files before a major data migration?",
-      "answer": "Cleaning up files reduces the amount of data to move, which saves time and conserves valuable storage space on new systems."
+      "question": "What is the recommended approach for efficiently transferring directories that contain numerous small files during a data migration?",
+      "answer": "Users should use `tar` to combine (archive) directories or directory trees containing many small files, as transfer programs are more efficient with fewer, larger files."
     },
     {
-      "question": "What types of files are often good candidates for deletion during a cleanup?",
-      "answer": "Intermediate program files (e.g., from `make clean`) and core dump files (like `core.12345`) are common candidates for deletion."
+      "question": "Under what conditions might compressing large files for data transfer be worthwhile, and what factors should be considered?",
+      "answer": "Compression can be worthwhile for large files, especially text files, if the time saved by transferring a smaller file outweighs the time taken for compression and decompression."
     },
     {
-      "question": "Why is it recommended to archive directories with many small files before transfer?",
-      "answer": "Most file transfer programs move one reasonable-sized file more efficiently than thousands of small files of the same total size."
+      "question": "What advice is given regarding avoiding data duplication when migrating data from multiple existing systems to a new one?",
+      "answer": "Users should avoid moving the same data twice by choosing one source for duplicate data if migrating from multiple systems, and be careful not to overwrite files with duplicate names."
     },
     {
-      "question": "When is compressing large files for transfer beneficial?",
-      "answer": "Compression is beneficial in some cases for large files, especially text files, but it depends on how much the file can be compressed, compression time, and transfer bandwidth."
+      "question": "Which tool is highly recommended for setting up file transfers during the data migration process, and what makes it advantageous?",
+      "answer": "Globus is recommended because it is the most user-friendly and efficient tool for the task, designed to automatically recover from network interruptions."
     },
     {
-      "question": "What should be avoided when migrating data from multiple source systems to a new one?",
-      "answer": "Try not to move the same data twice; choose one source for duplicated data to avoid redundant transfers and accidental overwrites."
+      "question": "What specific setting is recommended to enable in Globus's 'Transfer & Timer Options' during data transfer?",
+      "answer": "Users are recommended to enable the setting to 'preserve source file modification times'."
     },
     {
-      "question": "What is the most user-friendly and efficient tool recommended for file transfer?",
-      "answer": "Globus is the most user-friendly and efficient tool recommended for file transfer, as it recovers automatically from network interruptions."
+      "question": "If Globus is not supported at the source site, what strategies should users employ when using tools like scp, sftp, or rsync for data migration?",
+      "answer": "Users should compress data, avoid duplication, migrate data in blocks of a few hundreds of gigabytes at a time, and regularly check the transfer process."
     },
     {
-      "question": "Which setting should be enabled when using Globus for a transfer?",
-      "answer": "You should enable the setting to 'preserve source file modification times' in the 'Transfer & Timer Options'."
+      "question": "How can users effectively monitor the progress of their data transfer when using tools like scp, sftp, or rsync if Globus is not available?",
+      "answer": "Users should regularly check to ensure the transfer process has not stopped, using file size as a good indicator of progress, and contact technical support if issues arise."
     },
     {
-      "question": "What considerations become more important if Globus is not supported at the source site?",
-      "answer": "Compressing data and avoiding duplication become even more important if Globus is not supported."
+      "question": "What steps should users take after completing a data migration to verify data integrity, particularly if Globus's verification feature was not used?",
+      "answer": "Users should compare file sizes at the source and destination, or for greater assurance, use `cksum` or `md5sum` at each end to see if the results match."
     },
     {
-      "question": "What steps should be taken when using tools like scp, sftp, or rsync for data migration?",
-      "answer": "Make a schedule to migrate data in blocks, and regularly check the transfer process for progress using file size as an indicator."
+      "question": "Which specific Linux commands can users employ to check the integrity of files after a data transfer is complete?",
+      "answer": "Users can employ `cksum` or `md5sum` commands on Linux to check for data corruption by comparing checksums."
     },
     {
-      "question": "How can you verify data integrity after a migration if Globus's verification wasn't used?",
-      "answer": "You can compare file sizes at the source and destination, or for greater assurance, use `cksum` or `md5sum` at each end and compare the results."
+      "question": "Where can users find help for general technical issues or specific questions regarding data migration between facilities?",
+      "answer": "Users can contact the technical support team for help with any issues or doubts."
     },
     {
-      "question": "What should be done if files have mismatching sizes or checksums after a transfer?",
-      "answer": "Any files with mismatching sizes or checksums should be transferred again."
-    },
-    {
-      "question": "How can users get help with archiving and compression utilities?",
-      "answer": "Users can use Linux commands like `man <command>` or `<command> --help`, or contact technical support."
+      "question": "How can users learn more about how to operate various archiving and compression utilities on a Linux system?",
+      "answer": "Users can learn about archiving and compression utilities by using Linux commands like `man <command>` or `<command> --help`."
     }
   ],
-  "generated_at": "2026-04-11T23:02:57.419275+00:00"
+  "generated_at": "2026-04-13T06:33:07.114932+00:00"
 }

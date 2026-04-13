@@ -4,65 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How is the `buffer` initialized in the `mpi_view.c` example program?",
-      "answer": "The buffer is initialized with characters starting from 'a' plus the process's rank, and the last character is set to a newline `\\n`."
+      "question": "In the `mpi_view.c` example, how is data written to a shared file using MPI-IO views?",
+      "answer": "In the `mpi_view.c` example, data is written to a shared file by first initializing a buffer with a character specific to the process's rank. Then, an `MPI_Datatype` for contiguous blocks of size `BLOCKSIZE` is committed. Within a loop, `MPI_File_set_view` is called for each iteration, setting a view that alternates the write position for each process (e.g., `rank*BLOCKSIZE + i*size*BLOCKSIZE`). Finally, `MPI_File_write` is used to write the buffer through this defined view."
     },
     {
-      "question": "What MPI file modes are used when opening the file for writing in the `mpi_view.c` example?",
-      "answer": "The file is opened with `MPI_MODE_WRONLY` (write-only) and `MPI_MODE_CREATE` (create if it doesn't exist)."
-    },
-    {
-      "question": "How is a contiguous MPI datatype (`type_intercomp`) created for writing in the `mpi_view.c` program?",
-      "answer": "It is created using `MPI_Type_contiguous(BLOCKSIZE, MPI_CHAR, &type_intercomp)` and then committed with `MPI_Type_commit(&type_intercomp)`."
-    },
-    {
-      "question": "Describe how the file view is set for writing data in the `mpi_view.c` example program.",
-      "answer": "The file view is set within a loop for each block using `MPI_File_set_view(f, rank*BLOCKSIZE+i*size*BLOCKSIZE, MPI_CHAR, type_intercomp, \"native\", MPI_INFO_NULL)`."
-    },
-    {
-      "question": "What function is used to write data to the file after the view has been set in the `mpi_view.c` example?",
-      "answer": "`MPI_File_write(f, buffer, BLOCKSIZE, MPI_CHAR, MPI_STATUS_IGNORE)` is used to write data."
-    },
-    {
-      "question": "How does the `mpi_view.c` example program describe the pattern of data written by the processes?",
-      "answer": "The program writes data alternating between processes, described as \"aabbccddaabbccdd...\"."
-    },
-    {
-      "question": "What MPI file mode is used when opening the file for reading in the `mpi_view.c` example?",
-      "answer": "The file is opened with `MPI_MODE_RDONLY` (read-only)."
-    },
-    {
-      "question": "How is a contiguous MPI datatype (`type_contiguous`) created for reading in the `mpi_view.c` program?",
-      "answer": "It is created using `MPI_Type_contiguous(NBRBLOCKS*BLOCKSIZE, MPI_CHAR, &type_contiguous)` and then committed with `MPI_Type_commit(&type_contiguous)`."
-    },
-    {
-      "question": "How is the file view set for reading data in the `mpi_view.c` example program?",
-      "answer": "The file view is set once before the reading loop using `MPI_File_set_view(f, rank*NBRBLOCKS*BLOCKSIZE, MPI_CHAR, type_contiguous, \"native\", MPI_INFO_NULL)`."
-    },
-    {
-      "question": "What function is used to read data from the file after the view has been set for reading in the `mpi_view.c` example?",
-      "answer": "`MPI_File_read(f, buffer, BLOCKSIZE, MPI_CHAR, MPI_STATUS_IGNORE)` is used to read data."
-    },
-    {
-      "question": "How does the `mpi_view.c` example program describe the pattern of data read by each process?",
-      "answer": "Each process reads data in a serial fashion, described as \"aabbccdd\"."
-    },
-    {
-      "question": "What is a potential issue with using views, especially on disjoint file sections?",
-      "answer": "Some file systems do not support file locks, which can make certain operations, particularly using views on disjoint file sections, impossible."
-    },
-    {
-      "question": "What specific operations might be affected if a file system does not support file locks?",
-      "answer": "Operations involving views on disjoint file sections might not be possible."
-    },
-    {
-      "question": "Where can one find additional documentation for OpenMPI?",
-      "answer": "Additional documentation for OpenMPI can be found at [http://www.open-mpi.org/doc/current/ OpenMPI documentation]."
-    },
-    {
-      "question": "Is there a recommended course for parallel I/O?",
-      "answer": "Yes, there is a course on parallel I/O available at [https://scinet.courses/215]."
+      "question": "What is a significant limitation to be aware of when using MPI-IO views, particularly concerning file systems?",
+      "answer": "A significant limitation when using MPI-IO views is that some file systems do not support file locks. This lack of support means that certain operations become impossible, specifically using views on disjoint file sections."
     }
   ],
-  "generated_at": "2026-04-12T01:48:47.316243+00:00"
+  "generated_at": "2026-04-13T08:46:14.249130+00:00"
 }

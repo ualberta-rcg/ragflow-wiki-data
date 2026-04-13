@@ -4,97 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Comment sont organisés les espaces /project sur les grappes de calcul?",
-      "answer": "Sur nos grappes de calcul, les espaces /project sont organisés selon des groupes."
+      "question": "Comment sont organisés les espaces de stockage `/project` sur les grappes de calcul de l'Alliance, et comment y accède-t-on?",
+      "answer": "Les espaces `/project` sont organisés selon des groupes. On y accède habituellement via des liens symboliques depuis votre répertoire `/home`, sous le format `$HOME/projects/group_name`. Par contre, sur les grappes Rorqual et Trillium, le chemin est plutôt de type `$HOME/links/projects/group_name`."
     },
     {
-      "question": "Par quel moyen accède-t-on habituellement à l'espace /project?",
-      "answer": "L'accès à /project se fait habituellement par des liens symboliques à partir de votre répertoire /home."
+      "question": "Dans un répertoire `/project`, pourquoi les membres d'un groupe ont-ils par défaut qu'un droit de lecture sur les nouveaux fichiers qui y sont enregistrés, même s'ils ont des permissions de lecture et d'écriture sur le répertoire lui-même? Comment peut-on donner aux membres du groupe un droit d'écriture sur ces nouveaux fichiers?",
+      "answer": "Par défaut, lorsqu'un nouveau fichier est créé dans un répertoire `/project`, les membres du groupe n'ont qu'un droit de lecture sur ce fichier. Pour que les membres puissent avoir un droit en écriture sur les nouveaux fichiers, la meilleure approche est de créer un répertoire particulier, par exemple `group_writable`, en utilisant les commandes `mkdir $HOME/projects/def-profname/group_writable` suivi de `setfacl -d -m g::rwx $HOME/projects/def-profname/group_writable`."
     },
     {
-      "question": "Quel est le format des liens symboliques pour accéder à /project?",
-      "answer": "Les liens symboliques se présentent sous le format `$HOME/projects/group_name`."
-    },
-    {
-      "question": "Y a-t-il des grappes où le format des liens symboliques vers /project est différent?",
-      "answer": "Oui, à l'exception des grappes Rorqual et Trillium où le chemin est semblable à `$HOME/links/projects/group_name`."
-    },
-    {
-      "question": "Qui est le propriétaire du répertoire dans un espace /project réservé à un groupe?",
-      "answer": "Dans l’espace réservé à un groupe, la chercheuse ou le chercheur principal est propriétaire du répertoire."
-    },
-    {
-      "question": "Quelles permissions les membres d'un groupe ont-ils par défaut pour le répertoire /project?",
-      "answer": "Les membres du groupe ont des permissions de lecture et écriture pour ce répertoire."
-    },
-    {
-      "question": "Quel droit ont les membres du groupe par défaut pour tout nouveau fichier enregistré dans le répertoire /project?",
-      "answer": "Pour tout nouveau fichier enregistré dans le répertoire, les membres du groupe ont par défaut un droit de lecture seulement."
-    },
-    {
-      "question": "Comment permettre aux membres d'un groupe d'avoir un droit en écriture pour les nouveaux fichiers dans un répertoire /project?",
-      "answer": "La meilleure approche est de créer un répertoire particulier avec `mkdir $HOME/projects/def-profname/group_writable` suivi de `setfacl -d -m g::rwx $HOME/projects/def-profname/group_writable`."
-    },
-    {
-      "question": "Quel est le quota par défaut d'un espace /project?",
-      "answer": "Par défaut, un espace /project a un quota de 1To et 500 000 fichiers."
-    },
-    {
-      "question": "Jusqu'à combien l'espace /project peut-il être augmenté et comment?",
-      "answer": "L’espace peut être augmenté jusqu’à 40To sur demande auprès du soutien technique."
-    },
-    {
-      "question": "Comment les groupes peuvent-ils obtenir des quotas plus élevés pour leur espace /project?",
-      "answer": "Si votre groupe dispose de quotas plus élevés par suite du concours pour l’allocation de ressources, vous connaissez le quota qui vous est alloué pour l’année."
-    },
-    {
-      "question": "Est-ce que l'espace de stockage alloué pour un /project peut être utilisé sur une autre grappe?",
-      "answer": "Non, l'espace de stockage alloué dépend de la grappe et ne peut en principe être utilisé sur une autre grappe."
-    },
-    {
-      "question": "Quelle commande permet de connaître les espaces utilisés et disponibles pour un /project?",
-      "answer": "Pour connaître les espaces utilisés et disponibles, utilisez la commande `diskusage_report`."
-    },
-    {
-      "question": "Quel est l'utilité d'attribuer le bit `setgid` à un répertoire dans /project?",
-      "answer": "Il est utile d'attribuer le bit `setgid` pour que les fichiers copiés ou déplacés dans /project appartiennent au même groupe et soient comptabilisés dans le quota prévu."
-    },
-    {
-      "question": "Comment le bit `setgid` affecte-t-il les nouveaux fichiers et sous-répertoires?",
-      "answer": "De cette manière, tous les nouveaux fichiers et sous-répertoires ajoutés sous le répertoire en question héritent du même groupe que leur parent; de plus, les sous-répertoires héritent aussi de `setgid`."
-    },
-    {
-      "question": "La commande `setgid` modifie-t-elle l'appartenance de groupe des fichiers et sous-répertoires déjà existants?",
-      "answer": "Non, l'appartenance au groupe n'est pas modifiée pour les fichiers et sous-répertoires déjà existants."
-    },
-    {
-      "question": "Quelle commande est utilisée pour modifier l'appartenance de groupe des fichiers et sous-répertoires existants?",
-      "answer": "Pour les fichiers et sous-répertoires déjà existants, l'appartenance au groupe est modifiée par la commande `chgrp`."
-    },
-    {
-      "question": "Comment attribuer le bit `setgid` à un répertoire?",
-      "answer": "Pour attribuer `setgid` à un répertoire, utilisez la commande `chmod g+s <directory name>`."
-    },
-    {
-      "question": "Comment attribuer le bit `setgid` aux sous-répertoires existants?",
-      "answer": "Pour attribuer `setgid` aux sous-répertoires existants, utilisez la commande `find <directory name> -type d -print0 | xargs -0 chmod g+s`."
-    },
-    {
-      "question": "Quel est le rôle de la commande `newgrp`?",
-      "answer": "La commande `newgrp` modifie votre groupe par défaut pendant une session interactive."
-    },
-    {
-      "question": "Le changement de groupe effectué par `newgrp` est-il permanent?",
-      "answer": "Non, le groupe par défaut est modifié uniquement pour cette session; vous devrez utiliser `newgrp` à nouveau pour changer le groupe par défaut à votre prochaine connexion."
-    },
-    {
-      "question": "Pourquoi pourrais-je recevoir un message d'erreur 'Disk quota exceeded'?",
-      "answer": "Ceci peut très bien être dû au fait que des fichiers sont associés au mauvais groupe, notamment votre groupe personnel, qui a un quota de seulement 2Mo."
-    },
-    {
-      "question": "Comment trouver et résoudre un problème de propriété de groupe pour des fichiers qui causent un message 'Disk quota exceeded'?",
-      "answer": "Pour trouver et résoudre un problème de propriété de groupe pour ces fichiers, vous pouvez utiliser la commande `find <directory name> -group $USER -print0 | xargs -0 chgrp -h <group>`, où `<group>` est un groupe qui possède un quota raisonnable d'un téraoctet ou plus."
+      "question": "Quelles sont les limites de stockage par défaut pour un espace `/project` sur les grappes de calcul, et comment puis-je vérifier l'espace utilisé et disponible?",
+      "answer": "Par défaut, un espace `/project` est limité à 1 téraoctet (1To) et 500 000 fichiers. Cet espace peut être augmenté jusqu'à 40 To sur demande auprès du soutien technique. Pour connaître l'espace utilisé et disponible dans votre `/project`, vous pouvez utiliser la commande `diskusage_report`."
     }
   ],
-  "generated_at": "2026-04-12T05:25:37.797784+00:00"
+  "generated_at": "2026-04-13T11:25:21.616878+00:00"
 }

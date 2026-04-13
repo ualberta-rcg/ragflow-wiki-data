@@ -3,69 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Amber?",
-      "answer": "Amber is a collection of programs designed for performing molecular dynamics simulations, particularly on biomolecules."
+      "question": "What is the AMBER software suite used for in computational biology?",
+      "answer": "The AMBER software suite is a collection of programs designed for performing molecular dynamics simulations, particularly on biomolecules."
     },
     {
-      "question": "What are the main Amber modules available in the software stack?",
-      "answer": "The main Amber modules are AmberTools (module `ambertools`), Amber (module `amber`), and Amber-PMEMD (module `amber-pmemd`)."
+      "question": "What are the primary AMBER software modules available on Alliance clusters?",
+      "answer": "The primary AMBER modules available are AmberTools, Amber, and Amber-PMEMD."
     },
     {
-      "question": "What is included in AmberTools?",
-      "answer": "AmberTools includes utilities for preparing and analyzing simulations, `QUICK` for GPU-accelerated DFT calculations, and `sander` for molecular dynamics. It is free and open source."
+      "question": "What is AmberTools and what does it include?",
+      "answer": "AmberTools is a free and open-source module that includes tools for preparing and analyzing simulations, `QUICK` for GPU-accelerated DFT calculations, and `sander` for molecular dynamics."
     },
     {
-      "question": "What does the Amber module provide beyond AmberTools?",
-      "answer": "The Amber module includes everything in AmberTools, plus the advanced `pmemd` program for high-performance molecular dynamics simulations."
+      "question": "How does the 'Amber' module differ from AmberTools on Alliance clusters?",
+      "answer": "The 'Amber' module includes everything found in AmberTools, plus the advanced `pmemd` program for high-performance molecular dynamics simulations."
     },
     {
-      "question": "What is Amber-PMEMD, and what's important to know about it starting with Amber 24?",
-      "answer": "Amber-PMEMD provides the high-performance MD engine `pmemd` (optimized for CPU/GPU) as a standalone module, as `pmemd` no longer requires AmberTools for compilation starting with Amber 24. It does not include AmberTools, so you need to load `ambertools` separately if required."
+      "question": "What is the purpose of the `amber-pmemd` module, introduced with Amber 24+?",
+      "answer": "The `amber-pmemd` module provides the high-performance MD engine `pmemd` as a standalone module, optimized for both CPU and GPU, and no longer requires AmberTools for compilation."
     },
     {
-      "question": "How can users check installed versions and module dependencies for Amber?",
-      "answer": "Users can use the `module spider` command or check the Available Software page."
+      "question": "Which AMBER modules are compatible with NVIDIA H100 GPUs on Alliance clusters, and what are their requirements?",
+      "answer": "For H100 GPU-accelerated runs, users must use `ambertools/25.0` or `amber-pmemd/24.3`, which include H100-specific CUDA kernels compiled with CUDA 12+. Legacy AMBER modules are incompatible and will fail."
     },
     {
-      "question": "What is the key update regarding AMBER modules and NVIDIA H100 GPUs?",
-      "answer": "Older AMBER modules are incompatible with NVIDIA H100 GPUs, so users must use newly installed modules that include H100-specific CUDA kernels (compiled with CUDA 12+ for Hopper architecture) for GPU-accelerated runs."
+      "question": "How can users find a list of installed AMBER versions and their dependencies on Alliance clusters?",
+      "answer": "Users can find a list of installed AMBER versions and their dependencies by using the `module spider` command or by checking the 'Available software' page."
     },
     {
-      "question": "Which specific Amber modules are compatible with H100 GPU clusters?",
-      "answer": "`ambertools/25.0` or `amber-pmemd/24.3` are compatible with H100 GPU clusters."
+      "question": "After loading the `ambertools/21` module, what additional step is required to set up AMBER environment variables?",
+      "answer": "Users need to run `source $EBROOTAMBERTOOLS/amber.sh` to set the AMBER environment variables."
     },
     {
-      "question": "How do you set the AMBER environment variables after loading the AmberTools 21 module?",
-      "answer": "You need to run `source $EBROOTAMBERTOOLS/amber.sh` after loading the module."
+      "question": "What is the key difference between the `amber/20.9-20.15` and `amber/20.12-20.15` modules, particularly concerning CPU types?",
+      "answer": "The `amber/20.9-20.15` module uses MKL, which performs poorly on AMD CPUs, while `amber/20.12-20.15` uses FlexiBLAS, which optimizes libraries for the detected CPU hardware."
     },
     {
-      "question": "What are the differences between the two Amber 20 modules: `20.9-20.15` and `20.12-20.15`?",
-      "answer": "The `20.9-20.15` module uses MKL libraries and CUDA 11.0, while `20.12-20.15` uses FlexiBLAS (which performs better on AMD CPUs) and CUDA 11.4 (required for A100 GPUs)."
+      "question": "Which `amber/20` module version is necessary for running simulations on A100 GPUs installed on Narval?",
+      "answer": "The `amber/20.12-20.15` module, which uses CUDA 11.4, is required for running simulations on A100 GPUs on Narval."
     },
     {
-      "question": "What MD programs are available with Amber/20 CPU-only modules, and what do GPU modules add?",
-      "answer": "CPU-only modules provide all MD programs from AmberTools/20 plus `pmemd` (serial) and `pmemd.MPI` (parallel). GPU modules add `pmemd.cuda` (single GPU) and `pmemd.cuda.MPI` (multi-GPU)."
+      "question": "What molecular dynamics programs are included with CPU-only and GPU-enabled `amber/20` modules?",
+      "answer": "CPU-only modules provide `sander` and `pmemd` (serial and parallel MPI versions). GPU modules add `pmemd.cuda` (single GPU) and `pmemd.cuda.MPI` (multi-GPU)."
     },
     {
-      "question": "What is a known issue with the `amber/20.12-20.15` module?",
-      "answer": "The `amber/20.12-20.15` module does not include the `MMPBSA.py.MPI` executable."
+      "question": "What are the known issues with MMPBSA functionality in older `amber/18` modules?",
+      "answer": "Older `amber/18` modules (specifically `amber/18-10-18.11` and `amber/18.14-18.17`) cannot perform PB calculations with MMPBSA.py. Also, `amber/20.12-20.15` does not include the `MMPBSA.py.MPI` executable."
     },
     {
-      "question": "Are there any known issues with `MMPBSA.py` from older Amber modules?",
-      "answer": "`MMPBSA.py` from `amber/18-10-18.11` and `amber/18.14-18.17` modules cannot perform PB calculations; users should use more recent amber/20 modules for these calculations."
+      "question": "How would one submit a single-GPU job for AMBER simulations on an H100 GPU cluster using an SLURM script?",
+      "answer": "A single-GPU job for H100 GPUs would require loading `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `amber-pmemd/24.3`, then executing `pmemd.cuda` within an `SBATCH` script configured for one GPU."
     },
     {
-      "question": "Which Amber module is recommended for GPU-accelerated simulations on Narval with A100 GPUs?",
-      "answer": "For GPU-accelerated simulations on Narval, `amber/20.12-20.15` or `amber-pmemd/24.3` (with CUDA 11.4+ or 12.6 respectively) are recommended, as modules compiled with CUDA versions less than 11.4 do not work on A100 GPUs."
+      "question": "What is an example of modules to load for a CPU-only parallel MPI AMBER job on Alliance clusters?",
+      "answer": "For a CPU-only parallel MPI AMBER job, one would typically load `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `amber-pmemd/24.3`, then use `srun pmemd.MPI`."
     },
     {
-      "question": "How does MMPBSA scale for parallel jobs?",
-      "answer": "MMPBSA scales linearly because each trajectory frame is processed independently."
+      "question": "Which AMBER executable is used for QM/MM distributed multi-GPU jobs, and what module is typically loaded?",
+      "answer": "The `sander.quick.cuda.MPI` executable is used for QM/MM distributed multi-GPU jobs, typically loaded with `ambertools/25.0` (along with `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`)."
     },
     {
-      "question": "Where can users find performance guides and benchmarks for AMBER on Alliance clusters?",
-      "answer": "Users can find a Molecular Dynamics Performance Guide created by ACENET, which includes benchmarks for PMEMD and QM/MM simulations with SANDER.QUICK, on the ACENET website."
+      "question": "Why does MMPBSA scale linearly in parallel jobs, and what executable is used?",
+      "answer": "MMPBSA scales linearly in parallel jobs because each trajectory frame is processed independently. The `MMPBSA.py.MPI` executable is used for such tasks."
+    },
+    {
+      "question": "Where can users find performance and benchmarking guides for AMBER and other molecular dynamics software on Alliance clusters?",
+      "answer": "Users can refer to the Molecular Dynamics Performance Guide created by ACENET, which offers benchmarks and optimal conditions for AMBER, GROMACS, NAMD, and OpenMM jobs on Alliance clusters."
     }
   ],
-  "generated_at": "2026-04-11T14:58:52.682182+00:00"
+  "generated_at": "2026-04-13T00:24:40.021069+00:00"
 }

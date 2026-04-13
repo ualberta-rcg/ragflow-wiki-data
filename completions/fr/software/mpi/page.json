@@ -3,85 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Pourquoi est-ce qu'on utilise la programmation parallèle?",
-      "answer": "On utilise la programmation parallèle pour augmenter la vitesse de calcul et répondre aux exigences élevées en mémoire, en fragmentant un problème pour que plusieurs processeurs travaillent en même temps."
+      "question": "Pourquoi est-il avantageux d'utiliser la programmation parallèle pour les problèmes numériques?",
+      "answer": "La programmation parallèle permet d'augmenter la vitesse de calcul et de répondre à des exigences élevées en mémoire en fragmentant un problème pour que plusieurs processeurs puissent exécuter des tâches simultanément."
     },
     {
-      "question": "Quel est l'aspect le plus important à considérer quand on développe des programmes parallèles?",
-      "answer": "La communication entre les différents processus est l'aspect le plus important, car c'est ce qui rend la conception complexe."
+      "question": "Quel est l'aspect le plus important à considérer lors de la conception et du développement de programmes parallèles?",
+      "answer": "La communication est l'aspect le plus important, car elle introduit la complexité et est essentielle pour que les processus logiciels puissent échanger des valeurs."
     },
     {
-      "question": "Quels sont les deux modèles principaux en programmation parallèle?",
+      "question": "Quels sont les deux modèles principaux en programmation parallèle décrits dans le document?",
       "answer": "Les deux modèles principaux sont les programmes à mémoire partagée (SMP) et les programmes à mémoire distribuée."
     },
     {
-      "question": "Comment fonctionne le modèle à mémoire partagée (SMP) et quel est son défi?",
-      "answer": "Dans le modèle à mémoire partagée, tous les processeurs voient la même image mémoire et communiquent implicitement. Le défi principal est d'assurer la cohérence des données."
+      "question": "Dans le modèle de parallélisation à mémoire partagée (SMP), quel est le défi principal concernant la gestion des données?",
+      "answer": "Le défi principal est la cohérence des données, car il faut s'assurer que les données ne soient modifiées que par un seul processus à la fois."
     },
     {
-      "question": "Décrivez le modèle à mémoire distribuée et son principal défi.",
-      "answer": "Ce modèle s'apparente à une grappe d'ordinateurs, où chaque processus possède sa propre mémoire et communique par l'envoi et la réception explicites de messages. Le défi est de minimiser les communications à cause de la lenteur des réseaux."
+      "question": "Comment les processus communiquent-ils dans un modèle de parallélisation à mémoire distribuée, tel que sur une grappe d'ordinateurs?",
+      "answer": "Les processus communiquent par l'envoi et la réception de messages, chacun possédant sa propre mémoire."
     },
     {
-      "question": "Quel modèle de programmation parallèle est abordé dans ce tutoriel?",
-      "answer": "Ce tutoriel se concentre uniquement sur la programmation avec mémoire distribuée sur grappe, en utilisant MPI."
+      "question": "Qu'est-ce que MPI signifie et à quoi sert-il en programmation parallèle?",
+      "answer": "MPI signifie \"Message Passing Interface\" et est une norme qui fournit des sous-routines, fonctions et objets pour développer des programmes parallèles dans un environnement à mémoire distribuée."
     },
     {
-      "question": "C'est quoi MPI et à quoi ça sert?",
-      "answer": "MPI (Message Passing Interface) est une norme avec des sous-routines, fonctions et objets pour développer des programmes parallèles dans un environnement à mémoire distribuée, facilitant la communication entre les processus."
+      "question": "Quels sont les principaux avantages d'utiliser MPI pour la programmation parallèle?",
+      "answer": "MPI offre la portabilité des programmes sur différentes machines, une parallélisation efficace permettant une bonne scalabilité, et simplifie certaines opérations de débogage grâce à des plages mémoire distinctes pour chaque processus."
     },
     {
-      "question": "Pour quels langages MPI est-elle standardisée et quels autres langages ont des interfaces?",
-      "answer": "MPI est standardisée pour Fortran, C et C++. Il existe aussi des interfaces pour Python (mpi4py), Boost.MPI, Rmpi, entre autres."
+      "question": "Quelles fonctions MPI faut-il appeler au début et à la fin d'un programme MPI pour l'initialisation et le nettoyage?",
+      "answer": "Il faut appeler `MPI_Init` au tout début du programme et `MPI_Finalize` à la toute fin pour initialiser et nettoyer l'environnement MPI."
     },
     {
-      "question": "Quels sont les avantages de programmer avec MPI?",
-      "answer": "Les programmes MPI sont portables, offrent une bonne scalabilité, et simplifient le débogage des erreurs de segmentation grâce aux plages mémoire distinctes de chaque processus."
+      "question": "Comment un programme MPI obtient-il le nombre total de processus en opération et le rang unique de chaque processus?",
+      "answer": "Le programme utilise la fonction `MPI_Comm_size` pour obtenir le nombre total de processus et `MPI_Comm_rank` pour obtenir le rang unique du processus actuel, dans le communicateur `MPI_COMM_WORLD`."
     },
     {
-      "question": "C'est quoi le modèle d'exécution SPMD utilisé par MPI?",
-      "answer": "SPMD (Single Program Multiple Data) signifie que plusieurs instances du même programme s'exécutent en même temps, chacune assignée à un rang unique, et peuvent avoir des comportements différents grâce à des énoncés conditionnels."
+      "question": "Quelles sont les deux fonctions de base utilisées en MPI pour l'échange de données entre processus?",
+      "answer": "Les fonctions les plus simples pour échanger des données entre processus en MPI sont `MPI_Send` pour l'envoi et `MPI_Recv` pour la réception."
     },
     {
-      "question": "Quelles fonctions sont essentielles pour démarrer et arrêter un programme MPI?",
-      "answer": "Il faut appeler `MPI_Init` au tout début du programme pour initialiser l'environnement MPI et `MPI_Finalize` à la toute fin pour faire un nettoyage."
+      "question": "Pourquoi l'argument `datatype` est-il important dans les fonctions `MPI_Send` et `MPI_Recv`?",
+      "answer": "L'argument `datatype` assure une couche de compatibilité entre les processus opérant sur des architectures différentes, en identifiant le type des données contenues dans le message selon la norme MPI."
     },
     {
-      "question": "Comment on fait pour obtenir le rang d'un processus et le nombre total de processus en opération avec MPI?",
-      "answer": "On utilise `MPI_Comm_rank` pour obtenir le rang du processus actuel et `MPI_Comm_size` pour connaître le nombre total de processus, en spécifiant `MPI_COMM_WORLD` comme communicateur."
+      "question": "Quel est le risque de bloquage (\"deadlock\") dans un programme MPI si tous les processus appellent `MPI_Send` en premier sans une gestion appropriée?",
+      "answer": "Si la bibliothèque MPI ne garantit pas la mise en mémoire tampon ou si celle-ci est saturée, tous les processus pourraient appeler `MPI_Send` et rester indéfiniment en attente que le processus voisin appelle `MPI_Recv`, créant un interblocage."
     },
     {
-      "question": "À quoi sert le communicateur `MPI_COMM_WORLD`?",
-      "answer": "C'est un communicateur prédéfini par MPI qui représente l'ensemble de tous les processus lancés pour une tâche donnée."
+      "question": "Comment peut-on structurer la communication entre processus dans MPI pour éviter les risques d'interblocage, surtout dans des situations où le tampon mémoire n'est pas garanti?",
+      "answer": "Une solution fiable consiste à utiliser une stratégie de couples pair-impair, où les processus de rang pair exécutent l'envoi suivi de la réception, et les processus de rang impair exécutent la réception suivie de l'envoi."
     },
     {
-      "question": "Quels sont les paramètres principaux des fonctions `MPI_Send` et `MPI_Recv`?",
-      "answer": "Ces fonctions prennent en paramètres un pointeur vers les données, le nombre d'éléments, le type de données MPI (ex: `MPI_CHAR`), le rang du destinataire ou de l'expéditeur, un identifiant (tag) et le communicateur. `MPI_Recv` inclut aussi un paramètre `status`."
+      "question": "À quoi servent les enveloppes de compilateurs (comme `mpicc` ou `mpifort`) dans le contexte de la programmation MPI?",
+      "answer": "Les enveloppes de compilateurs sont des scripts qui appellent d'autres compilateurs en s'assurant qu'ils reçoivent les indicateurs et les bibliothèques spécifiques à MPI (par exemple, pour l'inclusion et le linkage)."
     },
     {
-      "question": "Pourquoi utilise-t-on des types de données MPI (comme `MPI_CHAR`) et pas les types natifs du langage?",
-      "answer": "Les types de données MPI assurent une couche de compatibilité entre les processus qui peuvent s'exécuter sur des architectures où le format natif des données est différent."
+      "question": "Que permet l'option `--showme` lorsqu'elle est utilisée avec une enveloppe de compilateur Open MPI?",
+      "answer": "L'option `--showme` affiche le nom du compilateur sous-jacent qui sera appelé et toutes les options (indicateurs) qui y seront ajoutées par l'enveloppe."
     },
     {
-      "question": "Qu'est-ce qui peut causer une impasse (deadlock) avec `MPI_Send` et `MPI_Recv`?",
-      "answer": "Une impasse peut arriver si `MPI_Send` bloque en attendant que le processus de destination appelle `MPI_Recv`, et que ce même processus de destination est aussi bloqué sur son propre `MPI_Send` avant d'appeler `MPI_Recv`, créant une attente indéfinie."
-    },
-    {
-      "question": "Comment peut-on s'assurer d'éviter les impasses dans les communications MPI?",
-      "answer": "Pour éviter les impasses, on peut adopter des stratégies comme l'approche \"pair-impair\" où les processus pairs exécutent l'envoi suivi de la réception, tandis que les processus impairs exécutent la réception suivie de l'envoi, garantissant ainsi des appels `Send` et `Recv` bien appariés."
-    },
-    {
-      "question": "C'est quoi une enveloppe de compilateur MPI?",
-      "answer": "C'est un script pratique fourni par les bibliothèques MPI qui appelle un compilateur standard (comme `gcc` ou `icc`) en y ajoutant automatiquement les options (`include`, `lib`) nécessaires pour compiler des programmes MPI."
-    },
-    {
-      "question": "Donnez des exemples d'enveloppes de compilateurs MPI.",
-      "answer": "Des exemples incluent `mpicc` pour le C, `mpicxx` pour le C++, et `mpifort` (ou `mpif90`, `mpif77`) pour le Fortran."
-    },
-    {
-      "question": "À quoi sert l'option `--showme` avec les enveloppes de compilateurs Open MPI?",
-      "answer": "L'option `--showme` affiche le nom du compilateur sous-jacent qui sera utilisé et toutes les options (flags) qui lui seront ajoutées pour la compilation MPI."
+      "question": "La version MPI 3.0 prend-elle toujours en charge les interfaces C++ natives?",
+      "answer": "Non, la version MPI 3.0 ne prend plus en charge les interfaces C++ natives; il est recommandé d'utiliser les interfaces C depuis C++ ou Boost MPI."
     }
   ],
-  "generated_at": "2026-04-12T01:55:16.463326+00:00"
+  "generated_at": "2026-04-13T08:51:00.050653+00:00"
 }

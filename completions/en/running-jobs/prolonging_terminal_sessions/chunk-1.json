@@ -4,125 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Why do most users need to use SSH to connect to clusters?",
-      "answer": "Most users will need to use SSH to connect to the cluster for job submission and monitoring, editing files, and so forth."
+      "question": "What methods are available for keeping an SSH terminal session alive for extended periods when working on a cluster?",
+      "answer": "To maintain an SSH connection over long periods, users can either modify their SSH client configuration to send regular 'sign-of-life' signals, or they can utilize terminal multiplexer programs like `tmux` or `screen` to detach and later reattach to their sessions."
     },
     {
-      "question": "What is one simple solution for keeping an SSH connection alive for a long period?",
-      "answer": "One simple solution is to modify the configuration of your SSH client to prolong the connection."
+      "question": "How can one configure their SSH client to prevent an idle connection from timing out on a remote server, such as an Alliance cluster?",
+      "answer": "You can modify your SSH client's configuration file (located at `$HOME/.ssh/config` on MacOS/Linux or `C:\\Users\\<username>\\.ssh\\config` on Windows) by adding the lines `Host *\n    ServerAliveInterval 240`. This instructs the client to transmit a sign-of-life signal every 240 seconds, helping to sustain the connection even when idle for several hours."
     },
     {
-      "question": "Where is the SSH client configuration file located on MacOS and Linux?",
-      "answer": "On MacOS and Linux, the client configuration is found in `$HOME/.ssh/config`."
-    },
-    {
-      "question": "What is the location of the SSH client configuration file on Windows?",
-      "answer": "In Windows, the SSH client configuration is located in `C:\\Users\\<username>\\.ssh\\config`."
-    },
-    {
-      "question": "What lines should be added to the SSH client configuration file to help keep the connection alive?",
-      "answer": "You should add the lines `Host *` followed by `ServerAliveInterval 240` to your SSH client configuration file."
-    },
-    {
-      "question": "How often does the `ServerAliveInterval 240` setting send a sign-of-life signal?",
-      "answer": "This setting will ensure the transmission of a sign-of-life signal over the SSH connection every 240 seconds, which is four minutes."
-    },
-    {
-      "question": "What is a terminal multiplexer?",
-      "answer": "A terminal multiplexer is a program which allows you to detach your terminal session entirely, where it will keep on running on its own until you choose to reattach to it."
-    },
-    {
-      "question": "Can you provide examples of terminal multiplexer programs?",
-      "answer": "The programs `tmux` and `screen` are examples of terminal multiplexers."
-    },
-    {
-      "question": "What are the advantages of using a terminal multiplexer like `tmux` or `screen`?",
-      "answer": "With such a program, you can log out from the cluster, turn off your workstation or hibernate your laptop, and then reattach to your session and start from right where you left off."
-    },
-    {
-      "question": "What is a critical dependency when using `tmux` or `screen` sessions on a cluster?",
-      "answer": "Your `tmux` or `screen` session is specific to a login node. If you wish to reattach to a session, you must ensure you're connected to the right login node, which means remembering which login node you were using."
-    },
-    {
-      "question": "What could happen to a detached terminal session if a login node reboots?",
-      "answer": "Login nodes may occasionally be rebooted, which will kill any detached terminal sessions on that node."
-    },
-    {
-      "question": "What is `tmux` software?",
-      "answer": "`tmux` software is a terminal multiplexer, allowing multiple virtual sessions in a single terminal session. You can thus disconnect from an SSH session without interrupting its process(es)."
-    },
-    {
-      "question": "How do you start a `tmux` server?",
-      "answer": "To start a `tmux` server, you use the command `tmux`."
-    },
-    {
-      "question": "What is the command to disconnect from a `tmux` server?",
-      "answer": "To disconnect from a `tmux` server, use the command `Ctrl+B D`."
-    },
-    {
-      "question": "How can you reconnect to a `tmux` server?",
-      "answer": "You can reconnect to a `tmux` server using the command `tmux a`."
-    },
-    {
-      "question": "What `tmux` command is used to create a new window?",
-      "answer": "To create a new window in `tmux`, use the command `Ctrl+B C`."
-    },
-    {
-      "question": "How do you switch to the next window in `tmux`?",
-      "answer": "To go to the next window in `tmux`, use the command `Ctrl+B N`."
-    },
-    {
-      "question": "Which `tmux` command enables 'copy' mode?",
-      "answer": "The command `Ctrl+B [` enables 'copy' mode in `tmux`."
-    },
-    {
-      "question": "What is the functionality of 'copy' mode in `tmux`?",
-      "answer": "'Copy' mode allows for scrolling with the mouse and Page-Up Page-Down within the `tmux` session."
-    },
-    {
-      "question": "How do you disable 'copy' mode in `tmux`?",
-      "answer": "To disable 'copy' mode in `tmux`, use the `Esc` command."
-    },
-    {
-      "question": "Why would you get a 'lost server' error when trying to launch `tmux` within a job submitted via `tmux`?",
-      "answer": "You would get a 'lost server' error because the `$TMUX` environment variable, which points to the `tmux` server, is propagated to the job with an invalid value."
-    },
-    {
-      "question": "How can you reset the `$TMUX` environment variable to resolve a 'lost server' error?",
-      "answer": "You can reset the `$TMUX` environment variable with the command `unset TMUX`."
-    },
-    {
-      "question": "Is it recommended to use nested `tmux` sessions?",
-      "answer": "No, nested use of `tmux` is not recommended."
-    },
-    {
-      "question": "How do commands differ when using nested `tmux` sessions?",
-      "answer": "To send commands to a nested `tmux` session, one has to hit `Ctrl+B` twice; for example, to create a new window, one has to use `Ctrl+B Ctrl+B C`."
-    },
-    {
-      "question": "What alternative is suggested if you are using `tmux` on a login node and need a multiplexer inside a job?",
-      "answer": "If you are using `tmux` on a login node, it is suggested to consider using `GNU Screen` inside your job instead of nested `tmux`."
-    },
-    {
-      "question": "What is `GNU Screen`?",
-      "answer": "The `GNU Screen` program is another widely used terminal multiplexer."
-    },
-    {
-      "question": "What command is used to create a detached terminal session with `GNU Screen`?",
-      "answer": "To create a detached terminal session with `GNU Screen`, you can use the command `screen -S <session name>`."
-    },
-    {
-      "question": "Why should you give descriptive names to `GNU Screen` sessions?",
-      "answer": "It's a good idea to give descriptive names to your terminal sessions, making it easier to identify them later."
-    },
-    {
-      "question": "How can you view a list of your detached `GNU Screen` sessions?",
-      "answer": "You can use the command `screen -list` to see a list of your detached terminal sessions on the node."
-    },
-    {
-      "question": "What command allows you to attach to an existing `GNU Screen` session?",
-      "answer": "You can attach to one of your sessions using the command `screen -d -r <session name>`."
+      "question": "What are terminal multiplexers like `tmux` and `screen`, and what crucial dependency should users be aware of when using them on cluster login nodes?",
+      "answer": "Terminal multiplexers such as `tmux` and `screen` are programs that allow you to detach your terminal session entirely, keeping it running on a cluster's login node even after you've logged out, and then reattach to it later. A crucial dependency to remember is that each `tmux` or `screen` session is specific to a particular login node; therefore, you must connect to the same login node to reattach. Also, detached sessions will be terminated if the login node is rebooted."
     }
   ],
-  "generated_at": "2026-04-12T05:27:35.234872+00:00"
+  "generated_at": "2026-04-13T11:26:52.474119+00:00"
 }

@@ -4,77 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is Optuna?",
-      "answer": "Optuna is an automatic hyperparameter optimization (HPO) software framework, particularly designed for machine learning."
+      "question": "What is Optuna, and what is its primary purpose in machine learning?",
+      "answer": "Optuna is an automatic hyperparameter optimization (HPO) software framework, specifically designed to optimize hyperparameters for machine learning models."
     },
     {
-      "question": "What is Optuna primarily designed for?",
-      "answer": "Optuna is primarily designed for machine learning."
+      "question": "When configuring an SBATCH script for hyperparameter optimization with Optuna on Compute Canada, why is it crucial that the value of `M` is much smaller than `N` in the `--array 1-N%M` argument?",
+      "answer": "It is crucial for `M` to be much smaller than `N` to allow the optimization process to benefit from 'past knowledge.' If all trials were to execute simultaneously (i.e., `M` is close to `N`), they wouldn't incorporate results from previous trials, which would make the optimization equivalent to a random search."
     },
     {
-      "question": "Where can I find more detailed information like definitions of terms, tutorials, or API for Optuna?",
-      "answer": "You can refer to the Optuna Documentation for definitions of terms, tutorials, API information, and more."
-    },
-    {
-      "question": "What is the recommended filename for an SBATCH script performing HPO with Optuna?",
-      "answer": "The recommended filename for an SBATCH script performing HPO with Optuna is `hpo_with_optuna.sh`."
-    },
-    {
-      "question": "How is the Python script `train.py` launched within the example SBATCH script?",
-      "answer": "The Python script `train.py` is launched with the command `python train.py --optuna-db $OPTUNA_DB --optuna-study-name $OPTUNA_STUDY_NAME`."
-    },
-    {
-      "question": "What command-line arguments are passed to `train.py` in the provided SBATCH script example?",
-      "answer": "The database file (`--optuna-db $OPTUNA_DB`) and the study name (`--optuna-study-name $OPTUNA_STUDY_NAME`) are passed as command-line arguments to `train.py`."
-    },
-    {
-      "question": "How is the `OPTUNA_STUDY_NAME` variable set in the example SBATCH script?",
-      "answer": "The `OPTUNA_STUDY_NAME` variable is set to `my_optuna_study1` in the example SBATCH script."
-    },
-    {
-      "question": "How is the `OPTUNA_DB` variable specified in the example SBATCH script?",
-      "answer": "The `OPTUNA_DB` variable is specified as `$HOME/${OPTUNA_STUDY_NAME}.db`, indicating a path in the user's home directory or project space."
-    },
-    {
-      "question": "What is the function of the `#SBATCH --array 1-N%M` directive in the SBATCH script?",
-      "answer": "This directive will launch `N` jobs, but it will only allow `M` of them to run in parallel."
-    },
-    {
-      "question": "Why is it important for `M` to be much smaller than `N` in the `--array` argument when using Optuna?",
-      "answer": "It is important for `M` to be much smaller than `N` to allow the optimization process to benefit from 'past knowledge', preventing it from being equivalent to a random search."
-    },
-    {
-      "question": "What happens if all Optuna trials execute simultaneously?",
-      "answer": "If all Optuna trials execute simultaneously, they won't benefit from 'past knowledge', making the process equivalent to a random search."
-    },
-    {
-      "question": "Why must the Optuna `study_name` be set in the SBATCH script?",
-      "answer": "The Optuna `study_name` must be set to be able to continue an existing study."
-    },
-    {
-      "question": "What does `#SBATCH --time TIME` define in the SBATCH script?",
-      "answer": "It defines the time limit for each of the `N` jobs launched by the script."
-    },
-    {
-      "question": "How is an Optuna study created in the `train.py` script?",
-      "answer": "An Optuna study is created using `optuna.create_study(storage='sqlite:///' + args.optuna_db, study_name=args.optuna_study_name, load_if_exists=True)`."
-    },
-    {
-      "question": "What is the purpose of `load_if_exists=True` when creating an Optuna study?",
-      "answer": "`load_if_exists=True` ensures that if a study with the specified `study_name` already exists, it will be loaded rather than creating a new one."
-    },
-    {
-      "question": "How many trials should `study.optimize` execute at a time in the `train.py` script when launching a separate job for each trial?",
-      "answer": "`study.optimize` should execute only a single trial at a time (e.g., `n_trials=1`)."
-    },
-    {
-      "question": "Why should the Python script stop after executing a single Optuna trial?",
-      "answer": "The Python script should stop after a single trial because each trial is launched in a separate job; otherwise, a subsequent trial would start and the job would be killed while running."
-    },
-    {
-      "question": "Where can users find the complete code for `train.py` beyond the study creation and optimization call?",
-      "answer": "For the rest of the code for `train.py`, users should refer to the Optuna Documentation."
+      "question": "Why is `n_trials=1` specified in the `study.optimize()` call within the Python script when running an Optuna study on Compute Canada?",
+      "answer": "On Compute Canada, each Optuna trial is launched as a separate job. Specifying `n_trials=1` ensures that the Python script stops after executing a single trial, preventing a subsequent trial from starting within the same job, which would ultimately lead to the job being killed while it's still running."
     }
   ],
-  "generated_at": "2026-04-12T04:46:25.549379+00:00"
+  "generated_at": "2026-04-13T10:50:15.869246+00:00"
 }

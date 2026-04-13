@@ -4,49 +4,13 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Pourquoi est-il nécessaire d'établir un tunnel SSH vers le serveur VNC une fois qu'il a été démarré sur un nœud de calcul?",
-      "answer": "Une fois le serveur VNC démarré, il faut créer un tunnel sécurisé entre votre ordinateur et le nœud de calcul sur lequel le vncserver est exécuté."
+      "question": "Comment est-ce qu'on établit un tunnel SSH sécurisé vers un serveur VNC sur un nœud de calcul des grappes de l'Alliance?",
+      "answer": "Pour établir un tunnel SSH sécurisé depuis votre ordinateur local vers un serveur VNC qui roule sur un nœud de calcul de l'Alliance, la commande à utiliser change selon la grappe. Pour la plupart des grappes (sauf Nibi), vous devriez utiliser la forme : `ssh nom_utilisateur@nom_grappe -L port_local_redirectionné:nœud_calcul:port_distant_écoute`. Par exemple, pour la grappe `rorqual`, ce serait `ssh nom_utilisateur@rorqual.alliancecan.ca -L 5905:rc12509:5901`. Si vous utilisez la grappe Nibi, la commande est différente et demande une paire de clés SSH : `ssh -J nom_utilisateur@nibi.alliancecan.ca -L port_local_redirectionné:localhost:port_distant_écoute nœud_calcul`. Par exemple, sur Nibi, ça pourrait être `ssh -J nom_utilisateur@nibi.alliancecan.ca -L 5905:localhost:5901 c48`."
     },
     {
-      "question": "Quels sont les deux types de commandes SSH qu'on peut utiliser pour établir un tunnel vers le serveur VNC, en fonction de la grappe utilisée?",
-      "answer": "Deux types de commandes peuvent être utilisées : une forme générale pour toutes les grappes (sauf Nibi) et une forme spécifique pour Nibi."
-    },
-    {
-      "question": "Quelle est la commande SSH à utiliser pour établir un tunnel vers un serveur VNC sur une grappe autre que Nibi, en donnant un exemple?",
-      "answer": "Pour toutes les grappes sauf Nibi, la commande est `ssh username@clustername -L localforwardedport:computenode:remotelisteningport`. Par exemple, pour Rorqual, ce serait `ssh username@rorqual.alliancecan.ca -L 5905:rc12509:5901`."
-    },
-    {
-      "question": "Comment la commande SSH pour établir un tunnel vers un serveur VNC diffère-t-elle pour la grappe Nibi?",
-      "answer": "Pour Nibi, une nouvelle forme de la commande est utilisée : `ssh -J username@clustername -L localforwardedport:localhost:remotelisteningport computenode`. Un exemple serait `ssh -J username@nibi.alliancecan.ca -L 5905:localhost:5901 c48`."
-    },
-    {
-      "question": "Quelles sont les exigences supplémentaires pour utiliser la commande SSH spécifique à Nibi pour établir un tunnel?",
-      "answer": "Une paire de clés SSH doit être créée sur votre ordinateur, avec le contenu de la clé publique saisie dans votre fichier `~/.ssh/authorized_keys` sur `nibi`."
-    },
-    {
-      "question": "Que se passe-t-il si on quitte le nœud auquel notre tunnel SSH est connecté avant de se déconnecter du serveur VNC?",
-      "answer": "Si vous quittez le nœud auquel votre tunnel est connecté, vous ne pourrez plus vous connecter au serveur VNC avec vncviewer. Cependant, le vncserver continuera de fonctionner, vous pourrez donc y accéder avec un nouveau tunnel."
-    },
-    {
-      "question": "Comment peut-on se connecter au serveur VNC à partir d'un ordinateur Linux?",
-      "answer": "Sous Linux, vous devez ouvrir une nouvelle fenêtre de terminal et connecter votre client VNC à `localhost:port` en utilisant la commande `vncviewer localhost:5905`, par exemple. Il faudra entrer le mot de passe VNC défini précédemment."
-    },
-    {
-      "question": "Quelle est la méthode de connexion au serveur VNC pour les utilisateurs de macOS ou Windows?",
-      "answer": "Sous macOS ou Windows, plutôt que de lancer `vncviewer` par la ligne de commande, vous pouvez cliquer sur l'icône de l'application `TigerVNC Viewer` et entrer l'information `localhost:port` dans la boîte de dialogue."
-    },
-    {
-      "question": "Quel est le port VNC par défaut utilisé par TigerVNC Viewer?",
-      "answer": "Le port VNC par défaut utilisé par TigerVNC Viewer est 5900."
-    },
-    {
-      "question": "Dans quel cas peut-on simplement spécifier 'localhost' sans numéro de port pour se connecter avec TigerVNC Viewer?",
-      "answer": "Si vous avez spécifié 5900 comme port local à transférer au démarrage de votre tunnel SSH, vous pourriez simplement spécifier `localhost`."
-    },
-    {
-      "question": "Y a-t-il une limitation à considérer pour le port local 5900 lors de la configuration d'un tunnel SSH sous Windows?",
-      "answer": "Oui, sous Windows, il est possible que vous ne puissiez pas configurer un tunnel SSH sur le port local 5900."
+      "question": "Une fois qu'un tunnel SSH est établi, comment faire pour se connecter au serveur VNC à partir de son ordinateur local?",
+      "answer": "Une fois que le tunnel SSH est bien établi entre votre ordinateur et le nœud de calcul où le serveur VNC est actif, vous pouvez vous connecter au serveur VNC en utilisant un client VNC. Sur Linux, vous ouvrez une nouvelle fenêtre de terminal et vous utilisez la commande `vncviewer localhost:port`, en remplaçant `port` par le port local que vous avez transféré dans votre tunnel SSH (par exemple, `vncviewer localhost:5905`). Pour macOS ou Windows, vous pouvez cliquer sur l'icône de l'application <i>TigerVNC Viewer</i> et entrer `localhost:port` dans la boîte de dialogue de connexion. Dans tous les cas, vous devrez entrer le mot de passe VNC que vous avez configuré précédemment."
     }
   ],
-  "generated_at": "2026-04-12T10:55:10.320334+00:00"
+  "generated_at": "2026-04-13T15:51:14.935454+00:00"
 }

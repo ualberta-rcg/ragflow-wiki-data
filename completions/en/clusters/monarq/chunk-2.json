@@ -4,113 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What is the first command to load the Python module for setting up the environment?",
-      "answer": "The first command to load the Python module is `module load python/3.11`."
+      "question": "How does one set up the Python virtual environment to use PennyLane and the PennyLane-CalculQuébec plugin for MonarQ?",
+      "answer": "To set up the Python virtual environment, first load the `python/3.11` module, then create and activate a virtual environment named `~/ENV` using `virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate`. Next, upgrade `pip` with `pip install --no-index --upgrade pip` and install `pennylane-calculquebec` using `pip install --no-index --upgrade pennylane-calculquebec`. Finally, verify the installation by running `python -c \"import pennylane; import pennylane_calculquebec\"`."
     },
     {
-      "question": "How do I create and activate a Python virtual environment for using MonarQ?",
-      "answer": "You can create and activate a Python virtual environment using the command `virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate`."
+      "question": "How do you configure MonarQ as a device in a Python script using PennyLane and your access credentials?",
+      "answer": "In a Python `.py` file, you need to import `pennylane` as `qml` and `CalculQuebecClient` from `pennylane_calculquebec.API.client`. Then, create a client instance by providing your `host` (`https://monarq.calculquebec.ca`), `user`, `access_token`, and `project_id`. Finally, define MonarQ as a PennyLane device using `qml.device(\"monarq.default\", client = my_client, wires = N)` where `N` is the desired number of qubits."
     },
     {
-      "question": "Which command is used to upgrade pip within the virtual environment?",
-      "answer": "To upgrade pip, use the command `pip install --no-index --upgrade pip`."
-    },
-    {
-      "question": "How do I install the PennyLane-CalculQuébec plugin?",
-      "answer": "You install the PennyLane-CalculQuébec plugin using `pip install --no-index --upgrade pennylane-calculquebec`."
-    },
-    {
-      "question": "What command verifies if PennyLane and PennyLane-CalculQuébec are imported correctly?",
-      "answer": "You can verify the import by running `python -c \"import pennylane; import pennylane_calculquebec\"`."
-    },
-    {
-      "question": "What dependencies are required to configure MonarQ in a Python file?",
-      "answer": "You need to import `pennylane` as `qml` and `CalculQuebecClient` from `pennylane_calculquebec.API.client`."
-    },
-    {
-      "question": "Where can I find my access token for MonarQ?",
-      "answer": "Your access token is available through the Thunderhead portal."
-    },
-    {
-      "question": "What is the host address for MonarQ?",
-      "answer": "The host address for MonarQ is `https://monarq.calculquebec.ca`."
-    },
-    {
-      "question": "What information is required to create a `CalculQuebecClient` instance?",
-      "answer": "To create a `CalculQuebecClient` instance, you need the `host`, your `user` (username), `access_token`, and `project_id`."
-    },
-    {
-      "question": "How do I define MonarQ as a PennyLane device?",
-      "answer": "You define MonarQ as a PennyLane device using `qml.device(\"monarq.default\", client = my_client, wires = N)`, where `N` is the number of qubits."
-    },
-    {
-      "question": "Can I specify the number of qubits when defining the PennyLane device?",
-      "answer": "Yes, you can specify the number of qubits using the `wires` parameter when creating the PennyLane device."
-    },
-    {
-      "question": "Where can I find additional details on configuring identifiers and defining MonarQ as a device?",
-      "answer": "More information is available at `https://github.com/calculquebec/pennylane-calculquebec/blob/main/doc/getting_started.ipynb`."
-    },
-    {
-      "question": "How do you set the number of shots for a quantum circuit in PennyLane?",
-      "answer": "You can define the number of shots using the `@qml.set_shots(N)` decorator, where `N` is the desired number of shots."
-    },
-    {
-      "question": "What is an example of a basic quantum circuit provided in the documentation?",
-      "answer": "A Bell circuit is demonstrated, which includes applying a `qml.Hadamard` gate on wire 0 and `qml.CNOT` gates on wires [0, 1] and [1, 2]."
-    },
-    {
-      "question": "How do you obtain the measurement counts from a PennyLane quantum circuit?",
-      "answer": "You retrieve the measurement counts by returning `qml.counts()` from the `qnode` function."
-    },
-    {
-      "question": "Which command is used to submit a quantum circuit task to the scheduler?",
-      "answer": "The `sbatch` command is used to submit a task to the scheduler."
-    },
-    {
-      "question": "What is an example of a command to submit a Slurm batch job?",
-      "answer": "A typical command to submit a Slurm batch job is `sbatch simple_job.sh`."
-    },
-    {
-      "question": "What are some common Slurm directives found in the `simple_job.sh` script?",
-      "answer": "Common Slurm directives include `--time` (e.g., `00:15:00`), `--account` (e.g., `def-someuser`), `--cpus-per-task` (e.g., `1`), and `--mem-per-cpu` (e.g., `1G`)."
-    },
-    {
-      "question": "How is the Python script executed within a Slurm job?",
-      "answer": "The Python script is executed by `python my_circuit.py` within the Slurm job."
-    },
-    {
-      "question": "Where are the results of an executed Slurm job saved?",
-      "answer": "The results are written to a file named `slurm-TASK_ID.out`, where `TASK_ID` is the job's ID (e.g., `slurm-123456.out`)."
-    },
-    {
-      "question": "What format do the results of a quantum circuit execution have in the output file?",
-      "answer": "The results are presented in a dictionary format, showing the counts for each measurement outcome, for example `{'000': 496, '001': 0, '010': 0, '011': 0, '100': 0, '101': 0, '110': 0, '111': 504}`."
-    },
-    {
-      "question": "Where can I find more information about submitting tasks on Narval?",
-      "answer": "More details about submitting tasks on Narval can be found in the \"Running jobs\" section."
-    },
-    {
-      "question": "Where is the Frequently Asked Questions (FAQ) for MonarQ located?",
-      "answer": "The FAQ for MonarQ is available at `https://docs.google.com/document/d/13sfHwJTo5tcmzCZQqeDmAw005v8I5iFeKp3Xc_TdT3U/edit?tab=t.0`."
-    },
-    {
-      "question": "What other tools are mentioned in connection with MonarQ?",
-      "answer": "Quantum transpilation is mentioned as another tool."
-    },
-    {
-      "question": "What are the key applications for MonarQ?",
-      "answer": "MonarQ is suited for computations with small quantities of high-fidelity qubits, developing and testing quantum algorithms, modelling small quantum systems, testing new methods for quantum programming and error correction, and fundamental research in quantum computing."
-    },
-    {
-      "question": "Who should I contact for technical support regarding quantum services?",
-      "answer": "For questions about quantum services, you can write to `quantum@calculquebec.ca`."
-    },
-    {
-      "question": "Where can I find a list of sessions on quantum computing and programming with MonarQ?",
-      "answer": "Sessions on quantum computing and programming with MonarQ are listed at `https://www.eventbrite.com/o/calcul-quebec-8295332683`."
+      "question": "What is the process for executing a quantum circuit created for MonarQ using the scheduler on Narval?",
+      "answer": "To execute a quantum circuit on MonarQ via the scheduler, you must use the `sbatch` command to submit a Slurm script. This script, such as `simple_job.sh`, should include directives like `--time`, `--account`, `--cpus-per-task`, and `--mem-per-cpu`, followed by the command to run your Python circuit file (e.g., `python my_circuit.py`). The results of the execution will be written to a file named `slurm-` followed by the task ID and a `.out` suffix."
     }
   ],
-  "generated_at": "2026-04-12T03:10:10.805094+00:00"
+  "generated_at": "2026-04-13T09:29:15.829779+00:00"
 }

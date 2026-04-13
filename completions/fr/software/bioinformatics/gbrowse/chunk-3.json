@@ -4,41 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Comment doit-on modifier le chemin d'accès aux fichiers .bam dans le fichier de configuration de GBrowse?",
-      "answer": "Pour que GBrowse puisse lire directement les fichiers .bam, le chemin vers le fichier .bam doit être modifié dans le fichier de configuration, par exemple en utilisant `/project/GROUPID/USERNAME/gbrowse_bam_files/example_file.bam`."
+      "question": "Quelles sont les étapes et les conditions à respecter pour que l'outil GBrowse puisse lire directement les fichiers .bam?",
+      "answer": "Pour que GBrowse puisse lire directement les fichiers .bam, vous devez les copier dans votre répertoire `/project` et vous assurer qu'ils sont lisibles par le groupe. Le répertoire qui contient ces fichiers doit avoir le `setgid` et la permission d'exécution par le groupe (`group-execute`) activés. De plus, la propriété de groupe du fichier .bam doit indiquer le nom du groupe (par exemple, `jsmith:def-kjones` plutôt que `jsmith:jsmith`), et le chemin vers le fichier .bam doit être modifié dans le fichier de configuration de GBrowse, en utilisant une ligne comme `db_args = -bam /project/GROUPID/USERNAME/gbrowse_bam_files/example_file.bam`."
     },
     {
-      "question": "Peux-tu me donner un exemple de configuration pour un fichier .bam dans le fichier de configuration de GBrowse?",
-      "answer": "Oui, voici un exemple de configuration pour un fichier .bam : `[example_bam:database]` `db_adaptor = Bio::DB::Sam` `db_args = -bam /project/GROUPID/USERNAME/gbrowse_bam_files/example_file.bam` `search options = default`."
-    },
-    {
-      "question": "Quelle commande doit-on exécuter pour téléverser des fichiers vers la base de données avec BioPerl?",
-      "answer": "Il faut exécuter la commande `module load bioperl/1.7.1` suivie de `bp_seqfeature_load.pl -c –d 'DATABASE':mysql_read_default_file=/home/'USERNAME'/.my.cnf example_genomic_sequence.fa header_file`."
-    },
-    {
-      "question": "Quels sont les éléments requis pour la commande `bp_seqfeature_load.pl`?",
-      "answer": "La commande nécessite le nom de la base de données (`DATABASE`), le compte d'utilisateur (`USERNAME`), le fichier FASTA qui contient le génome complet (par exemple, `example_genomic_sequence.fa`) et un `header_file`."
-    },
-    {
-      "question": "Qu'est-ce que le fichier `example_genomic_sequence.fa` représente lors du téléversement?",
-      "answer": "Le fichier `example_genomic_sequence.fa` est le fichier FASTA qui contient le génome complet que l'on souhaite téléverser."
-    },
-    {
-      "question": "À quoi sert le `header_file` dans le processus de téléversement de données?",
-      "answer": "Le `header_file` contient les détails sur la longueur des chromosomes, comme par exemple `##sequence-region I 1 15072434`."
-    },
-    {
-      "question": "Sur quel type de nœud ne doit-on pas exécuter la commande de téléversement BioPerl?",
-      "answer": "Il ne faut pas exécuter cette commande sur un nœud principal."
-    },
-    {
-      "question": "Où est-il recommandé d'exécuter les commandes de téléversement des fichiers?",
-      "answer": "Il est recommandé d'exécuter ces commandes en passant par l'ordonnanceur."
-    },
-    {
-      "question": "Que faut-il faire une fois les données téléversées pour que GBrowse puisse les consulter?",
-      "answer": "Une fois les données téléversées, vous devez accorder l'accès en lecture au compte partagé (`SHARED`) pour que GBrowse puisse lire la base de données, en consultant la section sur le partage de données MySQL."
+      "question": "Comment faire pour téléverser des fichiers de données génomiques, comme des fichiers FASTA, dans la base de données de GBrowse en utilisant BioPerl?",
+      "answer": "Pour téléverser des fichiers de données génomiques avec BioPerl, vous devez d'abord charger le module `bioperl/1.7.1`. Ensuite, exécutez la commande `bp_seqfeature_load.pl -c –d DATABASE:mysql_read_default_file=/home/USERNAME/.my.cnf example_genomic_sequence.fa header_file`. Il faut remplacer `DATABASE` par le nom de votre base de données, `example_genomic_sequence.fa` par votre fichier FASTA du génome complet et `header_file` par le fichier contenant les détails sur la longueur des chromosomes. Il est important de lancer cette commande via l'ordonnanceur plutôt que sur un nœud principal, et d'accorder l'accès en lecture au compte partagé une fois les données téléversées."
     }
   ],
-  "generated_at": "2026-04-11T21:59:42.455686+00:00"
+  "generated_at": "2026-04-13T05:43:26.071336+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What is the intended use for the SCRATCH filesystem, and what are its key characteristics?",
-      "answer": "SCRATCH is designed for intensive read/write operations on large files (over 100 MB) and should be used for temporary files such as checkpoint files or job outputs that can be easily recreated. Important files must be copied off SCRATCH as they are not backed up and are subject to purging; it should not be considered normal storage for transient data you can't afford to lose."
+      "question": "When should a user utilize the SCRATCH storage versus the `$SLURM_TMPDIR` environment variable for temporary files on the system?",
+      "answer": "SCRATCH storage is best for intensive read/write operations on large temporary files (over 100 MB per file), such as checkpoint files or job outputs, that can be recreated. However, `$SLURM_TMPDIR` is preferred for temporary files needed only for the duration of a job, especially large collections of small files (under a few megabytes), as it provides increased performance from a fast, local filesystem on the compute node, and its contents are automatically deleted upon job completion."
     },
     {
-      "question": "What is the purpose of the NEARLINE filesystem?",
-      "answer": "NEARLINE is a tape-based filesystem intended for inactive data. It's suitable for datasets you don't expect to access for months."
+      "question": "What are the main characteristics and intended uses of Nearline storage?",
+      "answer": "Nearline is a tape-based filesystem primarily intended for inactive data. It is suitable for datasets that users do not expect to access for several months, making it an appropriate alternative location for archiving files that are no longer actively used but must be retained."
     },
     {
-      "question": "When should users utilize the `$SLURM_TMPDIR` environment variable, and what are its advantages?",
-      "answer": "The `$SLURM_TMPDIR` environment variable holds a unique path to a temporary folder on a fast, local filesystem on each compute node allocated to a job. It should be used for temporary files needed only for the duration of a job, as its contents are deleted when the job ends. Its main advantage is increased performance due to being local to the compute node, making it especially well-suited for large collections of small files."
+      "question": "How can a user estimate their individual space and file count usage within a project space, given that the `diskusage_report` command only shows the total group quota?",
+      "answer": "Users can estimate their individual space and file count usage on the entire project space by running the command `lfs quota -u $USER /project`. Additionally, to estimate the number of files within a specific directory and its subdirectories, the command `lfs find <path to the directory> -type f | wc -l` can be used."
     }
   ],
-  "generated_at": "2026-04-12T18:26:22.569273+00:00"
+  "generated_at": "2026-04-13T13:52:10.658395+00:00"
 }

@@ -3,117 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, GROMACS?",
-      "answer": "GROMACS est un logiciel de simulation en dynamique moléculaire qui peut gérer des systèmes allant de quelques centaines à quelques millions de particules, initialement conçu pour les molécules biochimiques, mais aussi utilisé pour des systèmes non biologiques en raison de sa rapidité de calcul."
+      "question": "Qu'est-ce que GROMACS et pour quel type de simulations moléculaires est-il principalement utilisé?",
+      "answer": "GROMACS est un logiciel de simulation en dynamique moléculaire capable de traiter des systèmes allant de quelques centaines à plusieurs millions de particules. Il est d'abord conçu pour les molécules biochimiques, telles que les protéines, lipides et acides nucléiques, mais est aussi utilisé pour des systèmes non biologiques comme les polymères."
     },
     {
-      "question": "Quels sont les principaux atouts de GROMACS?",
-      "answer": "GROMACS offre une très bonne performance, une excellente accélération CUDA des GPU Nvidia depuis la version 4.6, un grand choix d'outils d'analyse des trajectoires, l'exécution en parallèle avec MPI ou Thread MPI, et il est gratuit sous licence LGPL."
+      "question": "Quels sont les principaux avantages de performance de GROMACS?",
+      "answer": "GROMACS offre une très bonne performance comparativement à d'autres applications et, depuis la version 4.6, une excellente accélération CUDA pour les GPU Nvidia ayant une capacité de calcul de 2.0 ou plus. Il propose également un grand choix d'outils d'analyse des trajectoires et peut s'exécuter en parallèle avec MPI ou Thread MPI."
     },
     {
-      "question": "Est-ce qu'il y a des inconvénients à utiliser GROMACS?",
-      "answer": "Oui, les analyses interactives et la collecte de données sont réduites pour prioriser la vitesse, les méthodes et paramètres par défaut changent beaucoup d'une version à l'autre, et la qualité ou la documentation des outils d'analyse ajoutés n'est pas toujours optimale, ce qui demande de la vigilance."
+      "question": "Quels sont les inconvénients ou les points faibles de GROMACS que les utilisateurs devraient connaître?",
+      "answer": "Pour maximiser la vitesse de simulation, les analyses et la collecte de données interactives sont réduites, ce qui peut compliquer l'obtention d'informations non standard. Les méthodes et paramètres par défaut varient grandement entre les versions, rendant difficile la reproduction des résultats. De plus, certains outils d'analyse peuvent contenir des bogues ou être mal documentés."
     },
     {
-      "question": "Comment GROMACS gère-t-il l'utilisation des cartes graphiques (GPU)?",
-      "answer": "GROMACS détecte et utilise automatiquement les GPU, en répartissant la charge entre les CPU et les GPU. La performance dépend d'un équilibre adéquat entre les deux."
+      "question": "Comment GROMACS gère-t-il l'utilisation des GPU pour l'accélération des calculs, et quel paramètre est crucial pour cela?",
+      "answer": "GROMACS utilise automatiquement tout GPU repéré en complément des CPU. Pour l'accélération GPU, il est crucial d'ajouter `cutoff-scheme = verlet` au fichier MDP, ce qui est le comportement par défaut depuis la version 5. Les versions antérieures à 4.6 utilisaient `cutoff-scheme = group`."
     },
     {
-      "question": "Quel paramètre doit être ajusté dans le fichier MDP pour activer l'accélération GPU?",
-      "answer": "Pour l'accélération GPU, il faut régler la variable `cutoff-scheme` à `verlet` dans le fichier MDP. C'est le réglage par défaut dans GROMACS version 5 et les suivantes."
+      "question": "Comment un utilisateur charge-t-il les modules d'environnement requis pour utiliser GROMACS avec des CPU sur une grappe de Calcul Canada, en prenant l'exemple de StdEnv/2023 et de la version 2025.4?",
+      "answer": "Pour utiliser GROMACS avec des CPU sous StdEnv/2023 et la version 2025.4, l'utilisateur doit charger les modules suivants : `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2025.4`."
     },
     {
-      "question": "Comment charger un module GROMACS pour l'utilisation des CPU sur un environnement `StdEnv/2023`, par exemple la version 2025.4?",
-      "answer": "Pour ce faire, il faut utiliser la commande `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2025.4`."
+      "question": "Comment un utilisateur charge-t-il les modules d'environnement pour utiliser GROMACS avec des GPU (CUDA) sur une grappe de Calcul Canada, en prenant l'exemple de StdEnv/2023 et de la version 2025.4?",
+      "answer": "Pour utiliser GROMACS avec des GPU sous StdEnv/2023 et la version 2025.4, l'utilisateur doit charger les modules suivants : `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 gromacs/2025.4`."
     },
     {
-      "question": "Comment charger un module GROMACS pour l'utilisation des GPU (CUDA) sur un environnement `StdEnv/2023`, par exemple la version 2025.4?",
-      "answer": "Il faut charger le module `cuda` en plus: `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 gromacs/2025.4`."
+      "question": "Quels sont les principaux binaires GROMACS disponibles pour les versions 5.x, 2016.x et suivantes, et que désignent leurs suffixes?",
+      "answer": "Les versions 5.x et suivantes comprennent quatre binaires : `gmx` (précision mixte, OpenMP sans MPI), `gmx_mpi` (précision mixte, OpenMP avec MPI), `gmx_d` (double précision, OpenMP sans MPI) et `gmx_mpi_d` (double précision, OpenMP avec MPI)."
     },
     {
-      "question": "Quels sont les binaires GROMACS disponibles depuis les versions 5.x et à quoi servent-ils?",
-      "answer": "Les versions 5 et suivantes comprennent quatre binaires: `gmx` (précision mixte, OpenMP sans MPI), `gmx_mpi` (précision mixte, OpenMP et MPI), `gmx_d` (double précision, OpenMP sans MPI) et `gmx_mpi_d` (double précision, OpenMP et MPI)."
+      "question": "Comment soumet-on une tâche GROMACS séquentielle avec l'ordonnanceur Slurm sur une grappe de Calcul Canada?",
+      "answer": "Une tâche GROMACS séquentielle peut être soumise via un script Slurm incluant des directives comme `#SBATCH --time=0-0:30`, `#SBATCH --mem-per-cpu=1000M`, et des commandes pour charger les modules et exécuter GROMACS, par exemple `gmx mdrun -nt 1 -deffnm em`."
     },
     {
-      "question": "Quels fichiers sont nécessaires pour créer un fichier d'entrée binaire '.tpr' pour une simulation GROMACS?",
-      "answer": "Pour créer un fichier '.tpr' avec `gmx grompp`, il faut un fichier de coordonnées initial (.gro, .pdb ou .cpt), un fichier de topologie (.top) et un fichier de paramètres d'exécution (.mdp)."
+      "question": "Comment soumet-on une tâche GROMACS utilisant des GPU avec l'ordonnanceur Slurm?",
+      "answer": "Pour soumettre une tâche GROMACS utilisant des GPU, le script Slurm doit inclure `#SBATCH --gpus-per-node=1`, `#SBATCH --cpus-per-task=4` et charger les modules `cuda` et `gromacs` appropriés. La commande d'exécution serait `gmx mdrun -ntomp ${SLURM_CPUS_PER_TASK:-1} -deffnm md`."
     },
     {
-      "question": "Comment gérer une simulation GROMACS qui risque de dépasser la durée limite d'une tâche?",
-      "answer": "Il faut utiliser le paramètre `-maxh` de `mdrun` pour indiquer au programme de créer un fichier de point de contrôle et de fermer correctement tous les fichiers de sortie avant que la tâche n'atteigne sa durée maximale."
+      "question": "Quand est-il recommandé d'utiliser l'option `mdrun -multidir` pour exécuter plusieurs simulations GROMACS sur un seul GPU?",
+      "answer": "L'utilisation de `mdrun -multidir` est recommandée lorsque vous exécutez plusieurs simulations similaires, comme la répétition de la même simulation, la simulation de variants de protéines, ou la simulation basée sur des ensembles (échange de répliques), afin d'optimiser l'utilisation des GPU modernes."
     },
     {
-      "question": "Comment redémarrer une simulation GROMACS à partir d'un point de contrôle?",
-      "answer": "Pour redémarrer une simulation, on utilise la même commande `mdrun` que l'originale, en ajoutant le paramètre `-cpi state.cpt`, où `state.cpt` est le nom du dernier fichier de point de contrôle."
+      "question": "Quels fichiers d'entrée sont nécessaires pour préparer une simulation GROMACS avec la commande `gmx grompp`?",
+      "answer": "La commande `gmx grompp` requiert un fichier de coordonnées avec la structure de départ (formats .gro, .pdb ou .cpt), un fichier de topologie du système au format .top (incluant les fichiers .itp des molécules), et un fichier .mdp contenant les paramètres d'exécution de la simulation."
     },
     {
-      "question": "Comment peut-on découper une longue simulation GROMACS en plusieurs tâches courtes?",
-      "answer": "On peut utiliser un vecteur de tâches (`--array=`) avec Slurm et le paramètre `-cpi` de `mdrun`. Cela permet de soumettre plusieurs tâches courtes qui se suivent, chacune reprenant la simulation là où la précédente s'était arrêtée, et de bénéficier des politiques de planification des tâches plus courtes."
+      "question": "Comment gérer et redémarrer efficacement les simulations GROMACS de longue durée sur une grappe de calcul?",
+      "answer": "Il faut diviser les simulations en tâches plus courtes en utilisant le paramètre `-maxh` de `mdrun` (par exemple, 99 % du temps limite Slurm). Pour redémarrer, on utilise la même commande `mdrun` en ajoutant le paramètre `-cpi state.cpt`, où `state.cpt` est le dernier fichier de point de contrôle."
     },
     {
-      "question": "Comment la performance d'une simulation GROMACS est-elle typiquement mesurée?",
-      "answer": "La performance de la simulation est mesurée par le nombre de nanosecondes de trajectoire pouvant être simulée en un jour (ns/jour)."
+      "question": "Comment GROMACS optimise-t-il la parallélisation des calculs des interactions non liantes sur plusieurs cœurs CPU?",
+      "answer": "GROMACS utilise la méthode de décomposition des domaines (DD) pour distribuer la solution des interactions non liantes entre particules (PP) sur plusieurs cœurs CPU. Cela s'effectue en découpant la boîte de simulation selon les axes X, Y et/ou Z, et en assignant chaque domaine à un processus MPI."
     },
     {
-      "question": "Qu'est-ce que la décomposition des domaines dans GROMACS et pourquoi est-elle utilisée?",
-      "answer": "La décomposition des domaines est une méthode utilisée par GROMACS pour distribuer le calcul des interactions non liantes sur plusieurs cœurs CPU en divisant la boîte de simulation. Elle vise à améliorer la scalabilité parallèle."
+      "question": "Quels paquets Python sont recommandés pour l'analyse des trajectoires et des coordonnées GROMACS?",
+      "answer": "MDAnalysis et MDTraj sont deux paquets Python recommandés pour lire et écrire des fichiers de trajectoires et de coordonnées GROMACS (TRR, XTC). Ils offrent également plusieurs fonctions d'analyse courantes et facilitent l'écriture d'outils d'analyse personnalisés."
     },
     {
-      "question": "Comment les interactions à longue distance via PME sont-elles gérées en parallèle dans GROMACS?",
-      "answer": "GROMACS peut attribuer des processus MPI spécifiquement au calcul des interactions PME pour éviter une dégradation de la performance due à la communication globale, surtout avec plus de 12 processus MPI."
+      "question": "Quel est le but des modules GROMACS-PLUMED?",
+      "answer": "Les modules GROMACS-PLUMED sont des versions de GROMACS avec des correctifs intégrant la bibliothèque PLUMED. Ils sont utilisés pour le calcul de l'énergie libre dans les systèmes moléculaires et pour exécuter des simulations métadynamiques."
     },
     {
-      "question": "Quand est-il recommandé d'utiliser des fils OpenMP pour optimiser la performance de GROMACS?",
-      "answer": "Une fois que la décomposition des domaines atteint sa limite de scalabilité, les fils OpenMP peuvent améliorer la performance en distribuant le travail d'un processus MPI sur plusieurs cœurs CPU. Le nombre optimal de fils est souvent entre 2 et 6 par processus MPI."
-    },
-    {
-      "question": "Comment GROMACS s'adapte-t-il à l'architecture des CPU pour optimiser la performance?",
-      "answer": "GROMACS utilise des fonctions optimisées (kernel functions) pour les interactions à courte portée, sélectionnées lors de la compilation pour correspondre aux jeux d'instructions SIMD (comme AVX, AVX2 ou AVX512) des CPU, afin d'assurer une performance maximale."
-    },
-    {
-      "question": "Quelle est une méthode pour utiliser plus efficacement les GPU récents (comme les Nvidia A100 ou H100) avec GROMACS pour des systèmes moléculaires qui ne sont pas très volumineux?",
-      "answer": "Il est recommandé d'exécuter plusieurs simulations similaires sur un seul GPU en utilisant l'option `mdrun -multidir`. Ceci permet d'exploiter plus pleinement les ressources de calcul allouées."
-    },
-    {
-      "question": "Quels outils sont offerts par GROMACS pour analyser les résultats de simulation?",
-      "answer": "GROMACS fournit de nombreux outils pour le post-traitement et l'analyse courante, qui lisent les trajectoires et les fichiers de coordonnées pour produire des graphiques au format XVG. Une liste des commandes est disponible dans le manuel."
-    },
-    {
-      "question": "Peut-on utiliser des outils externes pour l'analyse des simulations GROMACS?",
-      "answer": "Oui, des programmes comme VMD permettent de visualiser et d'analyser visuellement les trajectoires, et des paquets Python comme MDAnalysis et MDTraj facilitent la lecture, l'écriture et l'analyse personnalisée des fichiers de trajectoires."
-    },
-    {
-      "question": "À quoi sert le module `gromacs-plumed`?",
-      "answer": "Le module `gromacs-plumed` est une version de GROMACS patchée avec PLUMED, une bibliothèque open source, pour calculer l'énergie libre dans les systèmes moléculaires et exécuter des simulations métadynamiques."
-    },
-    {
-      "question": "Qu'est-ce que le module `gromacs-colvars` permet de faire?",
-      "answer": "Le module `gromacs-colvars` intègre la bibliothèque Colvars aux versions de GROMACS antérieures à la 2024, permettant l'utilisation de variables collectives avancées pour l'application de potentiels de polarisation et de méthodes d'échantillonnage avancées."
-    },
-    {
-      "question": "Quelle est la particularité du module `gromacs-cp2k`?",
-      "answer": "Le module `gromacs-cp2k` offre des versions de GROMACS compilées avec le support de CP2K pour les simulations hybrides quantiques-classiques (QM/MM). Ces versions ne sont utilisables qu'avec les CPU et contiennent uniquement des exécutables compatibles avec MPI."
-    },
-    {
-      "question": "Quelles sont les caractéristiques principales de GROMACS-LS?",
-      "answer": "GROMACS-LS et la bibliothèque MDStress permettent de calculer des champs de contraintes locaux. Il nécessite une compilation en double précision, ne supporte pas MPI, l'accélération SIMD ou les GPU, et est plus lent car il utilise un seul cœur CPU."
-    },
-    {
-      "question": "Dans quel but utilise-t-on GROMACS-RAMD?",
-      "answer": "GROMACS-RAMD est une version de GROMACS qui implémente la méthode RAMD (Random Acceleration Molecular Dynamics) pour identifier les voies de sortie des ligands et étudier leur mécanisme de dissociation à travers des simulations."
-    },
-    {
-      "question": "Que permet le module `gromacs-swaxs`?",
-      "answer": "GROMACS-SWAXS est une version modifiée de GROMACS pour calculer les courbes de diffusion de rayons X ou de neutrons à petit et grand angles (SAXS/SANS) et pour effectuer des simulations de dynamique moléculaire pilotées par SAXS/SANS."
-    },
-    {
-      "question": "Quelle est la différence entre `G_MMPBSA` et `gmx_MMPBSA`?",
-      "answer": "`G_MMPBSA` est un outil plus ancien, compatible uniquement avec GROMACS 5.1.x. `gmx_MMPBSA`, basé sur MMPBSA.py d'AMBER, est un outil plus récent qui peut être utilisé avec les versions courantes de GROMACS et AmberTools pour le calcul d'énergie libre."
-    },
-    {
-      "question": "Comment installe-t-on `gmx_MMPBSA` dans un environnement virtuel pour GROMACS 2024?",
-      "answer": "Il faut charger les modules `StdEnv/2023`, `ambertools/23.5`, `gromacs/2024.4` et `qt/5.15.11`, créer un environnement virtuel, l'activer, puis installer `gmx_MMPBSA==1.6.3` avec `pip install --no-index`."
+      "question": "Quel est l'objectif du module gmx_MMPBSA et comment peut-il être installé dans un environnement virtuel?",
+      "answer": "gmx_MMPBSA est un outil basé sur MMPBSA.py d'AMBER pour calculer l'énergie libre d'état final à l'aide de fichiers GROMACS. Il peut être installé dans un environnement virtuel en chargeant les modules nécessaires (StdEnv, ambertools, gromacs, python, qt), puis en utilisant `pip install --no-index gmx_MMPBSA==VERSION`."
     }
   ],
-  "generated_at": "2026-04-11T22:38:51.755173+00:00"
+  "generated_at": "2026-04-13T06:13:56.811865+00:00"
 }

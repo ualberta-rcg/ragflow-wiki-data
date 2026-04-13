@@ -4,21 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Selon l'exemple de script, quelle commande est utilisée pour se positionner dans le répertoire temporaire avant de procéder au nettoyage des données après les calculs?",
-      "answer": "La commande `cd $SLURM_TMPDIR` est utilisée pour naviguer vers le répertoire temporaire."
+      "question": "Comment le répertoire `/tmp` est-il utilisé sur les nœuds de calcul dans les grappes Alliance?",
+      "answer": "Sur les nœuds de calcul, le répertoire `/tmp` peut servir de disque RAM. Il est mis en œuvre avec `tmpfs` sur toutes les grappes."
     },
     {
-      "question": "Comment les résultats des calculs effectués sur le disque local sont-ils sauvegardés dans l'espace /project?",
-      "answer": "Les résultats sont archivés du répertoire de travail (par exemple, `work`) vers un fichier `tar` et ensuite copiés dans l'espace /project, tel qu'illustré par `tar -cf ~/projects/def-foo/johndoe/results.tar work`."
-    },
-    {
-      "question": "Quel système de fichiers peut être utilisé comme disque RAM sur les nœuds de calcul?",
-      "answer": "Le système de fichiers `/tmp` peut être utilisé comme disque RAM sur les nœuds de calcul."
-    },
-    {
-      "question": "Comment le système de fichiers `/tmp` est-il implémenté lorsqu'il sert de disque RAM?",
-      "answer": "Il est implémenté avec `tmpfs`."
+      "question": "Quelles sont les principales caractéristiques de l'utilisation de `/tmp` comme disque RAM, notamment en ce qui concerne la persistance des données et la gestion de la mémoire?",
+      "answer": "Lorsqu'il est utilisé comme disque RAM, le répertoire `/tmp` est vidé à la fin de chaque tâche. De plus, son utilisation compte dans la limite de mémoire imposée par le `cgroup` associé à la requête `sbatch`. La capacité de `tmpfs` est fixée à 100% via les options de montage, ce qui peut faire en sorte que `MemTotal` représente la capacité RAM physique et non la requête `sbatch`."
     }
   ],
-  "generated_at": "2026-04-11T23:42:32.479383+00:00"
+  "generated_at": "2026-04-13T07:03:22.675957+00:00"
 }

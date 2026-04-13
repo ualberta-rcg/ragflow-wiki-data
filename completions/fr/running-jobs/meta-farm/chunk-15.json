@@ -4,93 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "Comment faire pour déterminer le temps d'exécution moyen d'un cas individuel?",
-      "answer": "Pour déterminer le temps d'exécution moyen d'un cas individuel, il faut mesurer la durée d'exécution totale de quelques cas et la diviser par le nombre de cas exécutés."
+      "question": "Comment est-ce qu'on fait pour estimer le temps d'exécution moyen d'un cas individuel (aussi appelé `dt_case`) pour l'exécution d'une grappe de cas avec META?",
+      "answer": "Pour estimer le temps d'exécution moyen d'un cas individuel, il faut d'abord allouer un seul cœur CPU avec `salloc`. Ensuite, exécutez le script `single_case.sh` pour quelques cas différents et mesurez la durée d'exécution totale. Finalement, divisez cette durée totale par le nombre de cas que vous avez exécutés pour obtenir `dt_case`. Un exemple de commande serait : `$ N=10; time for ((i=1; i<=$N; i++)); do ./single_case.sh table.dat $i; done`."
     },
     {
-      "question": "Quelles sont les étapes pour estimer la durée d'exécution moyenne d'un cas si le programme n'est pas parallèle?",
-      "answer": "Pour estimer la durée d'exécution moyenne d'un cas si le programme n'est pas parallèle, on alloue un seul cœur CPU avec `salloc`, puis on exécute `single_case.sh` pour quelques cas différents."
+      "question": "Une fois que le temps d'exécution moyen d'un cas (`dt_case`) est connu, comment calcule-t-on le temps CPU total requis pour traiter l'ensemble des cas dans un groupe META, en incluant une marge de sécurité?",
+      "answer": "Pour calculer le temps CPU total, multipliez le temps moyen d'exécution d'un cas (`dt_case`) par le nombre total de cas inscrits dans le fichier `table.dat`. Si le résultat est en secondes CPU, divisez-le par 3600 pour obtenir des heures CPU. Pour une marge de sécurité, il est recommandé de multiplier ce total par un facteur de 1,1 ou 1,3."
     },
     {
-      "question": "Comment peut-on calculer l'estimation du temps moyen d'exécution, aussi appelé `dt_case`, après avoir utilisé une boucle `for`?",
-      "answer": "Après avoir utilisé une boucle `for`, on doit diviser le temps réel obtenu par le nombre de cas (`$N`) pour obtenir l'estimation du temps moyen d’exécution, soit `dt_case`."
-    },
-    {
-      "question": "Comment estimer le temps CPU total requis pour traiter l'ensemble des cas?",
-      "answer": "On estime le temps CPU total nécessaire en multipliant le `dt_case` par le nombre total de cas, c'est-à-dire le nombre de lignes dans le fichier `table.dat`."
-    },
-    {
-      "question": "Comment convertir le temps CPU total, qui est en secondes CPU, en heures CPU?",
-      "answer": "Pour convertir le temps CPU total de secondes CPU en heures CPU, on doit diviser le résultat par 3600."
-    },
-    {
-      "question": "Pourquoi est-il suggéré de multiplier le temps CPU total par un facteur de 1,1 ou 1,3?",
-      "answer": "Il est suggéré de multiplier le temps CPU total par un facteur de 1,1 ou 1,3 pour avoir une certaine marge de sécurité."
-    },
-    {
-      "question": "Quelle devrait être la relation entre la durée d'exécution d'une métatâche et la durée d'exécution moyenne d'un cas individuel?",
-      "answer": "La durée d'exécution choisie pour une métatâche doit être nettement supérieure à la durée d'exécution moyenne d'un cas individuel, idéalement par un facteur de 100 ou plus."
-    },
-    {
-      "question": "En plus d'être plus longue que la moyenne, à quoi la durée d'exécution d'une métatâche doit-elle être supérieure?",
-      "answer": "Elle doit aussi être supérieure à la durée d'exécution la plus longue que l'on prévoit pour un cas individuel."
-    },
-    {
-      "question": "Quelle est la durée maximale recommandée pour une métatâche?",
-      "answer": "Une métatâche ne devrait pas durer plus de 3 jours."
-    },
-    {
-      "question": "Quelles durées d'exécution sont considérées comme un bon choix pour les métatâches sur les grappes à usage général de l'Alliance?",
-      "answer": "Sur les grappes à usage général de l'Alliance, un bon choix pour la durée d'exécution des métatâches serait de 12 ou 24 heures, en raison des politiques d'ordonnancement des tâches."
-    },
-    {
-      "question": "Comment calculer le nombre requis de métatâches une fois que le temps d'exécution a été choisi?",
-      "answer": "Une fois le temps d'exécution choisi, on divise le nombre total d'heures CPU par le temps d'exécution choisi (en heures), puis on arrondit ce nombre à l'entier supérieur pour obtenir le nombre requis de métatâches."
-    },
-    {
-      "question": "Quel était le temps réel obtenu après l'exécution de la boucle `for` pour 10 cas dans l'exemple donné?",
-      "answer": "Dans l'exemple, le temps réel obtenu après l'exécution de la boucle `for` pour 10 cas était de 15 minutes et 50 secondes, soit 950 secondes."
-    },
-    {
-      "question": "Selon l'exemple, quel est le temps moyen (`dt_case`) pour un cas individuel?",
-      "answer": "Selon l'exemple, le temps moyen pour un cas individuel (`dt_case`) est de 95 secondes (950 secondes divisées par 10 cas)."
-    },
-    {
-      "question": "Quel est le nombre total de cas à traiter dans l'exemple mentionné?",
-      "answer": "Dans l'exemple mentionné, le nombre total de cas à traiter est de 1000."
-    },
-    {
-      "question": "Quel est le temps CPU total nécessaire pour calculer tous les cas dans l'exemple, avant d'appliquer une marge de sécurité?",
-      "answer": "Le temps CPU total nécessaire pour calculer tous les cas dans l'exemple est de 95 secondes x 1000 cas = 95 000 secondes CPU, soit 26,4 heures CPU."
-    },
-    {
-      "question": "Après avoir appliqué une marge de sécurité de 1,2, combien d'heures CPU sont nécessaires dans l'exemple?",
-      "answer": "Après avoir appliqué une marge de sécurité de 1,2, il faut 31,7 heures CPU dans l'exemple."
-    },
-    {
-      "question": "Quelle durée d'exécution est choisie pour les métatâches dans l'exemple, et comment doit-on la configurer dans `job_script.sh`?",
-      "answer": "Dans l'exemple, une durée d'exécution de 3 heures est choisie pour les métatâches, et il faut modifier `#SBATCH -t` dans `job_script.sh` pour qu'elle soit `3:00:00`."
-    },
-    {
-      "question": "Combien de métatâches sont nécessaires pour traiter tous les cas dans l'exemple après arrondi?",
-      "answer": "Dans l'exemple, 11 métatâches sont nécessaires pour traiter tous les cas après arrondi (31,7 heures de base divisées par 3 heures donnent 10,6, arrondi à 11)."
-    },
-    {
-      "question": "Comment lancer le groupe de cas avec le nombre estimé de métatâches dans l'exemple?",
-      "answer": "On peut lancer le groupe de cas en exécutant la commande `submit.run 11`."
-    },
-    {
-      "question": "Que se passe-t-il si le nombre de métatâches nécessaires est supérieur à 1000 sur des grappes comme Nibi et Rorqual?",
-      "answer": "Si le nombre de métatâches nécessaires est supérieur à 1000 sur Nibi et Rorqual, on ne peut pas exécuter tout le groupe de cas en une seule soumission, car ces grappes ont une limite de 1000 tâches."
-    },
-    {
-      "question": "Quelle est la solution pour soumettre un groupe de cas nécessitant plus de 1000 métatâches?",
-      "answer": "La solution consiste à utiliser une séquence de commandes `submit.run 1000` suivi de `resubmit.run 1000`, et de répéter `resubmit.run 1000` autant de fois que nécessaire, en s'assurant que chaque commande s'exécute après la fin du groupe précédent."
-    },
-    {
-      "question": "Y a-t-il une alternative moins fastidieuse à la soumission répétée de `resubmit.run 1000` pour un grand nombre de cas?",
-      "answer": "Oui, on peut envisager d'utiliser la fonctionnalité avancée pour resoumettre automatiquement les cas qui ont échoué."
+      "question": "Quelles sont les directives pour choisir la durée d'exécution des métatâches et pour estimer le nombre de métatâches nécessaires pour un groupe de cas META sur les grappes à usage général de l'Alliance?",
+      "answer": "Pour la durée d'exécution des métatâches, elle doit être pas mal plus longue que le temps d'exécution moyen d'un cas individuel (idéalement 100 fois plus) et plus longue que le cas le plus long, mais pas plus de 3 jours. Sur les grappes à usage général de l'Alliance, une durée de 12 ou 24 heures est souvent un bon choix à cause des politiques d'ordonnancement des tâches. Pour le nombre de métatâches, divisez le temps CPU total estimé (avec la marge de sécurité) par la durée d'exécution choisie (en heures), puis arrondissez le résultat à l'entier supérieur."
     }
   ],
-  "generated_at": "2026-04-12T01:26:06.490482+00:00"
+  "generated_at": "2026-04-13T08:29:07.194684+00:00"
 }

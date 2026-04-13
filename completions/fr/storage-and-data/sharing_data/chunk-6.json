@@ -4,77 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Quelles sont les permissions par défaut accordées aux nouveaux fichiers que je crée sur les grappes, d'après la valeur `umask -S` affichée ?",
-      "answer": "Par défaut, les nouveaux fichiers que vous créez peuvent être lus, modifiés et exécutés par vous-même. Les membres du groupe du fichier peuvent les lire et les exécuter, tandis que les autres utilisateurs n'y ont pas accès."
+      "question": "Quelles sont les permissions de fichiers par défaut sur les grappes nationales et comment peut-on les afficher?",
+      "answer": "Les permissions par défaut sont définies par l'attribut `umask`. Sur nos grappes, la valeur par défaut, affichée avec la commande `umask -S`, est `u=rwx,g=rx,o=`. Ça signifie que les nouveaux fichiers que vous créez peuvent être lus, modifiés et exécutés par vous-même (le propriétaire), lus et exécutés par les membres du groupe du fichier, et que les autres utilisateurs n'y ont pas accès."
     },
     {
-      "question": "Est-ce que la modification de la valeur `umask` change les permissions des fichiers que j'ai déjà créés ?",
-      "answer": "Non, l'attribut `umask` s'applique uniquement aux nouveaux fichiers; changer la valeur `umask` ne modifie pas les permissions d'accès aux fichiers existants."
+      "question": "L'attribut `umask` affecte-t-il les permissions des fichiers qui existent déjà, et comment peut-on ajuster les permissions de ces fichiers pour qu'elles correspondent à de nouvelles permissions par défaut?",
+      "answer": "Non, l'attribut `umask` ne s'applique qu'aux **nouveaux** fichiers; changer la valeur de `umask` ne modifie pas les permissions d'accès aux fichiers existants. Pour que les permissions de fichiers existants correspondent aux nouvelles permissions par défaut, vous pouvez utiliser la commande `chmod`. Par exemple, `chmod g-w,o-rx <fichier>` pour un fichier, ou `chmod -R g-w,o-rx <répertoire>` pour un répertoire au complet."
     },
     {
-      "question": "Pour quelles raisons pourrais-je vouloir ajuster mes permissions par défaut définies par `umask` ?",
-      "answer": "Vous pourriez vouloir définir des permissions moins restrictives (par exemple pour permettre à d'autres utilisateurs de lire et exécuter les fichiers) ou plus restrictives (par exemple pour empêcher votre groupe de lire ou exécuter les fichiers)."
-    },
-    {
-      "question": "Comment est-ce que je définis mon attribut `umask` pour une session ou dans mon fichier `.bashrc` ?",
-      "answer": "Vous pouvez définir votre attribut `umask` dans une session ou dans votre fichier `.bashrc` en utilisant la commande `umask <value>`, où `<value>` est une valeur octale."
-    },
-    {
-      "question": "Quelle valeur `umask` dois-je utiliser si je veux que les fichiers soient lus, modifiés et exécutés seulement par le propriétaire ?",
-      "answer": "Vous devriez utiliser la valeur `077`."
-    },
-    {
-      "question": "Si je veux que le propriétaire puisse lire, modifier et exécuter les fichiers, et que le groupe puisse les lire et exécuter, mais que seul le propriétaire puisse les modifier, quelle valeur `umask` est appropriée ?",
-      "answer": "La valeur `umask 027` est appropriée."
-    },
-    {
-      "question": "Comment configurer `umask` pour que le propriétaire et le groupe puissent lire, modifier et exécuter les fichiers ?",
-      "answer": "Vous pouvez utiliser la valeur `umask 007`."
-    },
-    {
-      "question": "Si je souhaite que tout le monde (propriétaire, groupe et autres) puisse lire et exécuter mes fichiers, mais que seul le propriétaire puisse les modifier, quelle valeur `umask` devrais-je appliquer ?",
-      "answer": "Vous devriez appliquer la valeur `umask 022`."
-    },
-    {
-      "question": "Quelle valeur `umask` permet à tous les utilisateurs (propriétaire, groupe et autres) de lire et exécuter les fichiers, mais seulement au propriétaire et au groupe de les modifier ?",
-      "answer": "La valeur `umask 002` permet cette configuration."
-    },
-    {
-      "question": "En plus des permissions directes sur un fichier, quelle est une condition essentielle pour qu'un utilisateur puisse y accéder ?",
-      "answer": "L'utilisateur qui veut avoir accès à un fichier doit avoir la permission d'exécution pour tous les répertoires dans le chemin de ce fichier."
-    },
-    {
-      "question": "Si un fichier a des permissions de groupe, que doit faire un utilisateur pour y avoir accès ?",
-      "answer": "L'utilisateur qui veut avoir accès à un fichier ayant des permissions de groupe doit être membre du groupe du fichier."
-    },
-    {
-      "question": "Peut-on changer les permissions d'un fichier ou d'un répertoire après sa création ? Si oui, avec quelle commande ?",
-      "answer": "Oui, les permissions d'un fichier ou d'un répertoire peuvent être modifiées après leur création avec la commande `chmod`."
-    },
-    {
-      "question": "Outre les permissions standards (propriétaire, groupe, autres), qu'est-ce qui peut aussi influencer l'accès aux fichiers ?",
-      "answer": "L'accès aux fichiers est aussi déterminé par les listes de contrôle d'accès (ACL pour Access Control List)."
-    },
-    {
-      "question": "Les répertoires `/home`, `/project` et `/scratch` sont-ils ouverts aux autres utilisateurs par défaut sur nos grappes ?",
-      "answer": "Non, les permissions d'accès sont restrictives par défaut pour vos répertoires /home, /project et /scratch; ils ne peuvent être accédés par les autres utilisateurs à moins que vous leur ayez accordé le droit d'exécuter."
-    },
-    {
-      "question": "Comment puis-je changer les permissions d'un fichier existant pour qu'elles correspondent aux nouvelles permissions par défaut ?",
-      "answer": "Vous pouvez utiliser la commande `chmod g-w,o-rx <file>`."
-    },
-    {
-      "question": "Comment modifier les permissions d'un répertoire au complet, incluant tous ses fichiers et sous-répertoires, pour qu'elles correspondent aux nouvelles permissions par défaut ?",
-      "answer": "Pour le répertoire au complet, vous pouvez utiliser la commande `chmod -R g-w,o-rx <directory>`."
-    },
-    {
-      "question": "Pourquoi les listes de contrôle d'accès (ACL) sont-elles offertes sur nos systèmes, alors que les permissions Unix existent déjà ?",
-      "answer": "Les ACL sont offertes parce que les systèmes d'exploitation de type Unix ont des possibilités limitées avec seulement trois catégories d'utilisateurs. Les ACL permettent d'accorder la lecture à un utilisateur en particulier qui n'appartient pas à un groupe, sans devoir permettre à tous de lire le fichier."
-    },
-    {
-      "question": "Quelles sont les deux commandes à utiliser pour voir et modifier les listes de contrôle d'accès (ACL) ?",
-      "answer": "Les deux commandes pour gérer les ACL sont `getfacl` pour connaître les permissions définies dans la liste, et `setfacl` pour modifier ces permissions."
+      "question": "Comment les listes de contrôle d'accès (ACL) permettent-elles de gérer le partage de données avec un utilisateur spécifique qui n'est pas dans le même groupe, et quelles commandes sont utilisées pour ça?",
+      "answer": "Les permissions Unix standards sont limitées à trois catégories (propriétaire, groupe, autres), ce qui rend difficile d'accorder des droits d'accès à un utilisateur en particulier qui ne fait pas partie de votre groupe sans les donner à tous. Les listes de contrôle d'accès (ACL pour 'Access Control List') offertes sur nos systèmes nationaux résolvent ce problème en permettant de définir des règles d'accès par utilisateur. Les deux commandes pour gérer les ACL sont `getfacl` pour connaître les permissions définies et `setfacl` pour modifier ces permissions."
     }
   ],
-  "generated_at": "2026-04-12T08:01:47.292616+00:00"
+  "generated_at": "2026-04-13T13:35:50.508144+00:00"
 }

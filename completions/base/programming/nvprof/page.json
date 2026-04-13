@@ -3,61 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Nvprof and on which operating systems is it available?",
-      "answer": "Nvprof is a command-line, light-weight, GUI-less profiler available for Linux, Windows, and Mac OS."
+      "question": "What is Nvprof and what is its primary function?",
+      "answer": "Nvprof is a command-line, GUI-less profiler available for Linux, Windows, and Mac OS, designed to collect and view profiling data of CUDA-related activities on both CPU and GPU, such as kernel execution and memory transfers."
     },
     {
-      "question": "What kind of data can Nvprof collect?",
-      "answer": "It can collect profiling data of CUDA-related activities on both the CPU and GPU, including kernel execution and memory transfers."
+      "question": "What types of CUDA-related activities can Nvprof collect profiling data for on CPU and GPU?",
+      "answer": "Nvprof can collect profiling data for CUDA-related activities like kernel execution and memory transfers on both CPU and GPU."
     },
     {
-      "question": "How are profiling options supplied to Nvprof?",
-      "answer": "Profiling options should be provided via command-line options."
+      "question": "What types of textual reports can Nvprof provide regarding GPU and CPU activity?",
+      "answer": "Nvprof can provide textual reports including a summary of GPU and CPU activity, a trace of GPU and CPU activity, and event collection."
     },
     {
-      "question": "What types of textual reports can Nvprof provide?",
-      "answer": "Nvprof is capable of providing a summary of GPU and CPU activity, a trace of GPU and CPU activity, and event collection."
+      "question": "How can users perform headless profile collection using Nvprof with the Nvidia Visual Profiler?",
+      "answer": "Users can perform headless profile collection by first using Nvprof on a headless node to collect data, and then visualizing the timeline with the Nvidia Visual Profiler."
     },
     {
-      "question": "How does Nvprof facilitate headless profile collection?",
-      "answer": "First, Nvprof is used on a headless node to collect data, then the timeline can be visualized with the Nvidia Visual Profiler."
+      "question": "What initial step is required to use Nvprof on the Béluga and Narval clusters?",
+      "answer": "On Béluga and Narval clusters, the NVIDIA Data Center GPU Manager (DCGM) needs to be disabled before using Nvprof."
     },
     {
-      "question": "What must be done before using Nvprof on Béluga and Narval?",
-      "answer": "The NVIDIA Data Center GPU Manager (DCGM) needs to be disabled during job submission."
+      "question": "How do you disable the NVIDIA Data Center GPU Manager (DCGM) when submitting a job on Béluga or Narval to use Nvprof?",
+      "answer": "To disable DCGM when submitting a job on Béluga or Narval, include `DISABLE_DCGM=1` in your `salloc` command, for example: `DISABLE_DCGM=1 salloc --gres=gpu:1 ...`."
     },
     {
-      "question": "How do you disable DCGM during a job submission on Béluga or Narval?",
-      "answer": "By including `DISABLE_DCGM=1` in your `salloc` command, for example: `DISABLE_DCGM=1 salloc --gres=gpu:1 ...`"
+      "question": "After starting a job on Béluga or Narval, how can a user ensure that the NVIDIA Data Center GPU Manager (DCGM) monitoring service has stopped before using Nvprof?",
+      "answer": "A user can wait for DCGM to stop by running the command: `while [ ! -z \"$(dcgmi -v | grep 'Hostengine build info:')\" ]; do sleep 5; done`."
     },
     {
-      "question": "How can a user verify that the DCGM monitoring service has stopped?",
-      "answer": "A loop can be used to await its stop, checking `dcgmi -v | grep 'Hostengine build info:'` until it returns nothing."
+      "question": "Which type of environment module must be loaded before starting to profile with Nvprof?",
+      "answer": "The appropriate CUDA module needs to be loaded before starting to profile with Nvprof."
     },
     {
-      "question": "What prerequisite module needs to be loaded before profiling with Nvprof?",
-      "answer": "The appropriate CUDA environment module must be loaded."
+      "question": "How can a user check for available CUDA module versions with their currently loaded compiler and MPI modules?",
+      "answer": "A user can find available CUDA modules by running `module avail cuda` or `module -r spider '.*cuda.*'` for a comprehensive list."
     },
     {
-      "question": "How can one find available CUDA module versions?",
-      "answer": "Users can run `module avail cuda` or `module -r spider '.*cuda.*'` for a comprehensive list."
+      "question": "How does one load a specific CUDA module, such as version 10.0, to use with Nvprof?",
+      "answer": "To load a specific CUDA module, such as version 10.0, one would use the command `module load cuda/10.0`."
     },
     {
-      "question": "What environment variable needs to be updated after loading the CUDA module for Nvprof to find CUDA libraries?",
-      "answer": "The `LD_LIBRARY_PATH` environment variable needs to be set to include `$EBROOTCUDA/lib64`."
+      "question": "Why is it necessary to set the `LD_LIBRARY_PATH` environment variable when using Nvprof, and how is it done?",
+      "answer": "It is necessary to set `LD_LIBRARY_PATH` to help Nvprof locate CUDA libraries. This is done by running `export LD_LIBRARY_PATH=$EBROOTCUDA/lib64:$LD_LIBRARY_PATH` after loading the CUDA module."
     },
     {
-      "question": "What is necessary for your code to provide useful information when profiled by Nvprof?",
-      "answer": "Your code needs to be compiled with one of the CUDA compilers, such as `nvcc` for C."
+      "question": "What is a necessary step for compiling code before it can be profiled effectively with Nvprof?",
+      "answer": "To get useful information from Nvprof, the code must first be compiled using one of the CUDA compilers, such as `nvcc` for C."
     },
     {
-      "question": "What is Nvprof's default operating mode?",
-      "answer": "Summary mode is the default operating mode for Nvprof."
+      "question": "What is the default operating mode for Nvprof, and what kind of output does it provide?",
+      "answer": "The default operating mode for Nvprof is Summary mode, which outputs a single result line for each instruction, such as a kernel function or CUDA memory copy/set performed by the application."
     },
     {
-      "question": "What kind of output does Nvprof's Summary mode provide?",
-      "answer": "It outputs a single result line for each instruction, such as a kernel function or CUDA memory copy/set, showing the total, average, minimum, and maximum times for all instances."
+      "question": "In Nvprof's Summary mode, what specific performance metrics are reported for each kernel function or memory copy type?",
+      "answer": "For each kernel function or memory copy type, Nvprof's Summary mode reports the total time of all instances, as well as the average, minimum, and maximum time."
+    },
+    {
+      "question": "How would a user typically run Nvprof to get profiling data for an application named `a.out` in Summary mode?",
+      "answer": "A user would typically run Nvprof in Summary mode using the command `nvprof ./a.out`."
     }
   ],
-  "generated_at": "2026-04-12T03:57:48.658317+00:00"
+  "generated_at": "2026-04-13T10:08:48.621065+00:00"
 }

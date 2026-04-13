@@ -4,73 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Pourquoi est-ce important de bien choisir les paramètres quand on soumet une tâche sur une de vos grappes?",
-      "answer": "C'est important pour éviter le gaspillage des ressources et ne pas causer de problèmes ni pour vous-même ni pour les autres utilisateurs et utilisatrices. Ça aide aussi à ce que votre tâche s'exécute plus vite, qu'elle se termine avec succès et qu'elle produise les résultats attendus pour votre recherche."
+      "question": "Pourquoi est-ce important de bien choisir les paramètres d'une tâche quand on la soumet sur une grappe de calcul ?",
+      "answer": "C'est crucial pour éviter le gaspillage des ressources et ne pas causer de problèmes pour vous-même ou pour les autres utilisateurs et utilisatrices. Ça assure aussi que votre tâche va s'exécuter plus rapidement, qu'elle aura plus de chances de se terminer avec succès et de produire les résultats attendus pour faire avancer votre recherche."
     },
     {
-      "question": "C'est quoi les difficultés qu'on peut rencontrer quand on soumet nos premières tâches de simulation ou d'analyse?",
-      "answer": "Pour les premières tâches, on a souvent de la misère à estimer le temps d'exécution et la quantité de mémoire à demander."
+      "question": "Quels sont les problèmes courants si on estime mal les ressources, comme le temps ou la mémoire, pour une tâche sur une grappe de calcul ?",
+      "answer": "Si une tâche demande trop de ressources, elle va rester plus longtemps en attente dans la queue. Par contre, si vous ne demandez pas assez de ressources, elle pourrait être arrêtée car elle dépasse la limite fixée. Il faut aussi savoir qu'une estimation basée sur la performance d'un ordinateur local peut être trompeuse, car les processeurs et la vitesse d'exécution sont différents sur nos grappes. Des scripts mal conçus peuvent aussi gaspiller des ressources, par exemple si le programme n'est pas scalable, n'utilise pas plusieurs nœuds ou si les processeurs attendent durant les opérations de lecture-écriture."
     },
     {
-      "question": "Quels sont les problèmes courants liés à la demande de ressources pour une tâche?",
-      "answer": "Plus une tâche demande de ressources (temps, mémoire, cœurs CPU, GPU), plus l'ordonnanceur a de la difficulté à les trouver, ce qui fait que la tâche attend plus longtemps dans la queue. Par contre, si on ne demande pas assez de ressources, la tâche pourrait être arrêtée parce qu'elle dépasse la limite demandée."
-    },
-    {
-      "question": "Est-ce qu'on peut se fier à la performance de notre ordinateur local pour estimer les ressources nécessaires sur les grappes?",
-      "answer": "Non, une estimation basée sur la performance d'un ordinateur local risque d'être trompeuse parce que le type de processeur et la vitesse d'exécution sont différents sur les grappes."
-    },
-    {
-      "question": "Comment un script peut-il gaspiller les ressources sur les grappes?",
-      "answer": "Un script peut gaspiller les ressources si le programme n'a pas une scalabilité suffisante pour le nombre de cœurs CPU demandés, s'il n'est pas conçu pour fonctionner avec plusieurs nœuds, ou si les processeurs sont en attente pendant les opérations de lecture-écriture."
-    },
-    {
-      "question": "Quels sont les conseils pour bien démarrer l'estimation des ressources pour les tâches?",
-      "answer": "On suggère de soumettre d'abord quelques tâches de test relativement brèves, par exemple une ou deux heures, avec une quantité de mémoire standard (<code>#SBATCH --mem-per-cpu=2G</code>)."
-    },
-    {
-      "question": "Pourquoi est-ce important de connaître les résultats attendus pour nos tâches de test?",
-      "answer": "Idéalement, il faut connaître les résultats attendus à l'avance pour pouvoir savoir si le logiciel fonctionne correctement durant les tests."
-    },
-    {
-      "question": "Que faire si ma tâche est interrompue parce qu'elle dépasse la limite de temps demandée?",
-      "answer": "Si la tâche est interrompue à cause du temps, il faut doubler la limite de temps demandée et répéter l'opération jusqu'à ce que le temps permette l'exécution complète de la tâche."
-    },
-    {
-      "question": "Comment réagir si ma tâche est arrêtée à cause d'un manque de mémoire (OOM event)?",
-      "answer": "Si vous recevez un message d'erreur 'OOM [out-of-memory] event', doublez la quantité de mémoire demandée et répétez jusqu'à ce que la limite permette l'exécution complète de la tâche."
-    },
-    {
-      "question": "Quel est le bénéfice de faire ces tests initiaux?",
-      "answer": "En faisant ces tests, vous allez vous familiariser avec la durée et la mémoire nécessaires pour certaines analyses, ce qui vous permettra de faire des estimations plus éclairées à l'avenir."
-    },
-    {
-      "question": "Quelle devrait être la durée minimale des tâches qui ne sont pas des tests?",
-      "answer": "La durée des tâches, à part les tests, devrait être d'au moins une heure."
-    },
-    {
-      "question": "Que faire si mes calculs s'effectuent en moins d'une heure?",
-      "answer": "Si vos calculs prennent moins d'une heure, on vous suggère d'utiliser des outils comme GLOST, META ou GNU Parallel pour regrouper plusieurs calculs dans une seule tâche d'au moins une heure. Ça sollicitera moins l'ordonnanceur que des centaines ou des milliers de très courtes tâches."
-    },
-    {
-      "question": "Pourquoi est-ce important d'avoir une estimation précise de la durée de la tâche?",
-      "answer": "Si vous indiquez une durée de cinq jours pour des calculs qui prennent seulement 16 heures, votre tâche attendra beaucoup plus longtemps que si vous demandez une durée plus précise."
-    },
-    {
-      "question": "Comment peut-on connaître la durée réelle d'une tâche?",
-      "answer": "Vous pouvez utiliser des outils de surveillance comme la commande <code>seff</code> et vérifier la valeur du champ <code>Job Wall-clock time</code> dans son résultat."
-    },
-    {
-      "question": "Devrait-on ajouter une marge de temps à l'estimation de la durée d'une tâche?",
-      "answer": "Oui, il est recommandé d'ajouter une marge de 5 ou 10 % de temps à la durée estimée. C'est normal de laisser une marge d'erreur, mais vous gagnerez à être le plus précis possible."
-    },
-    {
-      "question": "Pour les tâches qui durent plus de 48 heures, qu'est-ce qui est recommandé?",
-      "answer": "Pour les tâches qui ont une durée de plus de 48 heures, il faudrait envisager d'utiliser des points de contrôle si votre logiciel le permet."
-    },
-    {
-      "question": "Quel est l'avantage des points de contrôle pour les tâches longues?",
-      "answer": "Les points de contrôle permettent de sauvegarder un instantané de l'état du programme sur le disque. Si un problème (comme une panne) survient, le programme peut être repris à partir du dernier point de contrôle, ce qui fait qu'on perd relativement peu de travail."
+      "question": "Comment peut-on estimer la durée et la quantité de mémoire nécessaires pour les premières tâches sur une grappe de calcul, surtout si elles s'interrompent ?",
+      "answer": "Pour les premières tâches, il est suggéré de soumettre des tests relativement brefs (une ou deux heures) avec une quantité de mémoire standard, comme `#SBATCH --mem-per-cpu=2G`. Si la tâche s'interrompt parce qu'elle excède la limite de temps demandée, doublez cette limite et répétez. Si elle est interrompue pour un manque de mémoire (avec un message d'erreur 'OOM'), doublez la quantité de mémoire demandée et répétez. Ces tests vous aideront à vous familiariser avec les ressources requises."
     }
   ],
-  "generated_at": "2026-04-11T18:35:15.007645+00:00"
+  "generated_at": "2026-04-13T03:00:32.120143+00:00"
 }

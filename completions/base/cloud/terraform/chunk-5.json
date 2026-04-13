@@ -4,69 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What does a successful `terraform init` command indicate?",
-      "answer": "A successful `terraform init` command indicates that Terraform has been initialized and the OpenStack provider plugin has been downloaded, allowing OpenStack stanzas to be handled correctly."
+      "question": "How do you define a minimal OpenStack virtual machine using Terraform?",
+      "answer": "A minimal OpenStack virtual machine (VM) in Terraform is defined using the `openstack_compute_instance_v2` resource, specifying attributes such as `name`, `image_id`, `flavor_id`, `key_pair`, and `security_groups`."
     },
     {
-      "question": "Does `terraform init` test the OpenStack credentials?",
-      "answer": "No, `terraform init` does not test the credentials because this operation doesn’t actually try to connect to the defined provider."
+      "question": "When defining OpenStack resources in Terraform, why is it recommended to always specify image and flavour IDs instead of their names?",
+      "answer": "It is recommended to always specify image and flavour IDs because the ID uniquely defines the state of the resource and will never change. Using names is risky because a name can change or be reused for a different resource, which could cause Terraform to detect a change and rebuild or resize your associated resource, leading to a destructive operation."
     },
     {
-      "question": "What is the recommended practice for specifying flavours and images in Terraform for OpenStack VMs?",
-      "answer": "It is good practice to always specify flavours and images using their IDs, even when Terraform supports using the name."
-    },
-    {
-      "question": "Why is it important to use IDs instead of names for flavours and images in Terraform configurations?",
-      "answer": "The ID of a given image or flavour will never change and is what actually defines the state of the resource. The name, however, can change, which could lead Terraform to detect an updated ID and determine that you want to rebuild or resize the associated resource, a destructive operation."
-    },
-    {
-      "question": "What happens if a flavour or image name changes after being used in a Terraform configuration?",
-      "answer": "If a flavour or image is retired and replaced with another of the same name, Terraform will detect the updated ID the next time it runs and determine that you want to rebuild or resize the associated resource, which is a destructive (and reconstructive) operation."
-    },
-    {
-      "question": "How is a minimal OpenStack VM defined in Terraform?",
-      "answer": "A minimal OpenStack VM can be defined in Terraform using a `resource \"openstack_compute_instance_v2\" \"myvm\"` block, specifying `name`, `image_id`, `flavor_id`, `key_pair`, and `security_groups`."
-    },
-    {
-      "question": "What does a minimal OpenStack VM definition create?",
-      "answer": "A minimal OpenStack VM definition creates a VM with the given name, image, and flavour, and associates it with a key pair and the default security group."
-    },
-    {
-      "question": "What is a crucial tip for users following along with the VM definition example?",
-      "answer": "Users should use their own values for `image_id`, `flavor_id`, and `key_pair`, or the configuration will likely fail."
-    },
-    {
-      "question": "How can one find the `image_id` and `flavor_id` values for an OpenStack VM?",
-      "answer": "These values can be found by using the OpenStack CLI commands like `flavor list` or `image list` in a terminal session, or by following the guide in the appendix for Horizon (the OpenStack web interface)."
-    },
-    {
-      "question": "Are volumes automatically supplied when defining a minimal OpenStack VM in Terraform?",
-      "answer": "No, no volumes are explicitly supplied. A compute instance on our clouds will already have an associated volume, but a persistent instance will probably fail unless there is sufficient empty space in the image itself."
-    },
-    {
-      "question": "What is recommended for persistent VMs regarding volumes?",
-      "answer": "It is recommended that a boot volume be created for VMs using persistent flavours."
-    },
-    {
-      "question": "What is the function of the `terraform plan` command?",
-      "answer": "The `terraform plan` command compiles the Terraform definition and attempts to determine how to reconcile the resulting state with the actual state on the cloud, producing a plan of what it would do if the changes were applied."
-    },
-    {
-      "question": "Why is it important to read the output of `terraform plan` carefully?",
-      "answer": "It is definitely required to check the `terraform plan` output before applying changes to ensure there are no surprises."
-    },
-    {
-      "question": "What does an error about incomplete credentials during a `terraform plan` execution suggest?",
-      "answer": "An error about incomplete credentials suggests that you may have forgotten to define `OS_CLOUD`, source the RC file, or that your `clouds.yaml` file may be missing."
-    },
-    {
-      "question": "What does `(known after apply)` mean in the `terraform plan` output?",
-      "answer": "`known after apply` indicates that the value for that attribute will be determined from the state of newly created resources, which will be queried from OpenStack after the plan is applied."
-    },
-    {
-      "question": "What is the most important line to double-check in the `terraform plan` output?",
-      "answer": "The most important line to double-check in the `terraform plan` output is the last line: 'Plan: X to add, Y to change, Z to destroy.', to ensure the intended number of resources will be added, changed, or destroyed."
+      "question": "What is the purpose of the `terraform plan` command when managing OpenStack infrastructure?",
+      "answer": "The `terraform plan` command compiles the Terraform definition and attempts to determine how to reconcile the desired state with the actual state on the OpenStack cloud. It produces a plan of what actions (e.g., create, change, destroy) Terraform would perform if the changes were applied, allowing users to review potential infrastructure modifications before execution."
     }
   ],
-  "generated_at": "2026-04-12T09:07:08.416052+00:00"
+  "generated_at": "2026-04-13T14:23:37.870113+00:00"
 }

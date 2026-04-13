@@ -4,93 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "What is the current status of P100 GPUs on Graham?",
-      "answer": "P100 GPUs have been decommissioned."
+      "question": "What are the different types of GPUs available on the Graham cluster, and what are their primary characteristics?",
+      "answer": "The Graham cluster offers several GPU types: V100 Volta GPUs, T4 Turing GPUs, and A100 Ampere GPUs. V100 Volta GPUs are successors to the decommissioned P100s, providing approximately double the performance for standard computations and about 8X performance for deep learning tasks that use tensor core computation units. T4 Turing GPUs are designed specifically for deep learning workloads, excelling in single-precision computations with tensor cores and support for reduced-precision integer calculations, though they do not support efficient double-precision computations. Ampere GPUs include A100 and A5000 cards."
     },
     {
-      "question": "Which GPU model succeeded the P100, and what are its performance improvements?",
-      "answer": "The V100 is the successor to the P100. It offers about double the performance for standard computation and about 8X performance for deep learning computations that utilize its tensor core computation units."
+      "question": "What are the allocation guidelines and key features of the Volta GPU nodes on the Graham cluster?",
+      "answer": "The two Volta GPU nodes on the Graham cluster feature a high-bandwidth NVLINK interconnect and are available to all users, with a maximum job duration of seven days. When submitting jobs, it is important to maintain a CPU-to-GPU ratio of 3.5 or less on 28-core nodes (e.g., requesting at most 3 CPU cores for 1 GPU). For the two newest 40-core Volta nodes, users can request up to 5 CPU cores per GPU and should add the `--constraint=cascade,v100` parameter to their job submission script to utilize their NVLINK benefits. These nodes also provide a fast local disk, specified by the `$SLURM_TMPDIR` environment variable, which is recommended for significant I/O operations and for creating temporary Python virtual environments."
     },
     {
-      "question": "What are the key characteristics and target workloads for T4 Turing GPUs?",
-      "answer": "T4 Turing GPUs are the latest cards targeted specifically at deep learning workloads. They do not support efficient double-precision computations but have good performance for single-precision, tensor cores, and support for reduced-precision integer calculations."
-    },
-    {
-      "question": "Are Pascal GPU nodes still available on Graham?",
-      "answer": "No, Pascal GPU nodes are no longer available on Graham."
-    },
-    {
-      "question": "How many Volta nodes does Graham have in total?",
-      "answer": "Graham has a total of 2 Volta nodes."
-    },
-    {
-      "question": "What type of interconnect do the Volta GPU nodes on Graham feature?",
-      "answer": "The Volta GPU nodes on Graham have high bandwidth NVLINK interconnect."
-    },
-    {
-      "question": "What is the maximum job duration for jobs running on Volta nodes?",
-      "answer": "Jobs on Volta nodes have a maximum duration of seven days."
-    },
-    {
-      "question": "What is the recommended CPU to GPU ratio for 28-core Volta nodes on Graham?",
-      "answer": "On 28-core Volta nodes, you should scale the number of CPUs requested, keeping the ratio of CPUs to GPUs at 3.5 or less."
-    },
-    {
-      "question": "For a job utilizing 4 GPUs on a 28-core Volta node, what is the maximum number of CPU cores that should be requested?",
-      "answer": "For a job using 4 GPUs on a 28-core Volta node, you should request at most 14 CPU cores."
-    },
-    {
-      "question": "For a job utilizing 1 GPU on a 28-core Volta node, what is the maximum number of CPU cores that should be requested?",
-      "answer": "For a job with 1 GPU on a 28-core Volta node, you should request at most 3 CPU cores."
-    },
-    {
-      "question": "Are short test jobs allowed to exceed the recommended CPU to GPU ratio on Volta nodes?",
-      "answer": "Yes, users are allowed to run a few short test jobs (shorter than 1 hour) that break this rule to see how their code performs."
-    },
-    {
-      "question": "What is the adjusted CPU to GPU ratio for the two newest 40-core Volta nodes with NVLINK?",
-      "answer": "On the two newest Volta nodes with 40 cores, you can use 5 CPU cores per GPU."
-    },
-    {
-      "question": "How can a user specifically request one of the NVLINK-enabled Volta nodes with 40 cores for a job?",
-      "answer": "To request one of these NVLINK nodes, you should add the `--constraint=cascade,v100` parameter to the job submission script."
-    },
-    {
-      "question": "Is there a fast local disk available on Volta nodes, and how should it be used for I/O intensive jobs?",
-      "answer": "Yes, Volta nodes have a fast local disk. It should be used for jobs if the amount of I/O performed by your job is significant."
-    },
-    {
-      "question": "How do you access the temporary directory on the fast local disk within a job on Volta nodes?",
-      "answer": "Inside the job, the location of the temporary directory on the fast local disk is specified by the environment variable `$SLURM_TMPDIR`."
-    },
-    {
-      "question": "What happens to the files stored in `$SLURM_TMPDIR` after a job on a Volta node finishes?",
-      "answer": "All the files in `$SLURM_TMPDIR` will be removed once the job ends."
-    },
-    {
-      "question": "Can Python virtual environments be created in the temporary directory on Volta nodes?",
-      "answer": "Yes, you can create Python virtual environments in this temporary space for greater efficiency."
-    },
-    {
-      "question": "How do you specify a request for two T4 Turing GPU cards per node in a job submission script?",
-      "answer": "When requesting Turing GPU nodes, you should specify `--gres=gpu:t4:2` for two T4 cards per node."
-    },
-    {
-      "question": "How do you specify a request for two A100 Ampere GPU cards per node in a job submission script?",
-      "answer": "When requesting A100 Ampere GPU nodes, you should specify `--gres=gpu:a100:2` for two A100 cards per node."
-    },
-    {
-      "question": "How do you specify a request for two A5000 Ampere GPU cards per node in a job submission script?",
-      "answer": "When requesting A5000 Ampere GPU nodes, you should specify `--gres=gpu:a5000:2` for two A5000 cards per node."
-    },
-    {
-      "question": "When will the Graham cluster's capacity be reduced, and to what level?",
-      "answer": "Starting January 13, 2025, the Graham cluster will operate at approximately 25% capacity."
-    },
-    {
-      "question": "What is the reason for the reduction in Graham cluster capacity?",
-      "answer": "The Graham cluster's capacity is being reduced until the new system Nibi comes online."
+      "question": "What is the current operational status of the Graham cluster's capacity as of January 2025?",
+      "answer": "Starting January 13, 2025, the Graham cluster began operating at approximately 25% capacity. This reduction will continue until the new Nibi system becomes fully operational."
     }
   ],
-  "generated_at": "2026-04-11T23:22:41.020386+00:00"
+  "generated_at": "2026-04-13T06:48:18.379069+00:00"
 }

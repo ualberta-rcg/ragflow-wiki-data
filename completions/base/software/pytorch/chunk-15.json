@@ -4,57 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "What is the primary use case for Single GPU Data Parallelism?",
-      "answer": "Single GPU Data Parallelism is beneficial for small models combined with very large datasets, especially when training with a small batch size. It helps to increase GPU resource utilization and can provide a speed-up by fitting several model replicas on a single GPU."
+      "question": "What is the purpose of Single GPU Data Parallelism in PyTorch, and in what scenarios is it recommended for use on compute clusters?",
+      "answer": "Single GPU Data Parallelism in PyTorch aims to increase GPU utilization and achieve a speed-up when training a relatively small model with a very large dataset, especially if a small batch size is preferred. While such a model might typically not be advisable for GPU training on compute clusters due to underutilization, this method allows fitting several replicas of the model on a single GPU to maximize resource usage."
     },
     {
-      "question": "When should one avoid training a model on a GPU on HPC clusters?",
-      "answer": "It is not advisable to use a GPU if a model is fairly small, doesn't consume a significant portion of GPU memory, and cannot effectively utilize its compute capacity. In such cases, using one or more CPUs is recommended instead."
+      "question": "How is Single GPU Data Parallelism typically implemented using PyTorch on a compute cluster?",
+      "answer": "Implementation involves activating Nvidia's Multi-Process Service (MPS) and using MPI. Multiple model replicas are placed on a single GPU, with the `--tasks-per-node` parameter in the job script controlling the number of replicas. Within the Python script, `torch.distributed.init_process_group` is used to initialize communications between model replicas, and the model is then wrapped with `torch.nn.parallel.DistributedDataParallel`."
     },
     {
-      "question": "What technologies are utilized to implement Single GPU Data Parallelism in the provided example?",
-      "answer": "Nvidia's Multi-Process Service (MPS) and MPI are used to efficiently place multiple model replicas on a single GPU."
-    },
-    {
-      "question": "How many GPUs are requested in the `pytorch-gpu-mps.sh` SLURM job script?",
-      "answer": "The script requests one GPU using `#SBATCH --gres=gpu:1`."
-    },
-    {
-      "question": "What is the default number of model replicas specified in the `pytorch-gpu-mps.sh` script?",
-      "answer": "The script specifies 8 model replicas per node by default using `#SBATCH --tasks-per-node=8`."
-    },
-    {
-      "question": "Which environment variables are set to activate Nvidia MPS in the `pytorch-gpu-mps.sh` script?",
-      "answer": "The environment variables `CUDA_MPS_PIPE_DIRECTORY` and `CUDA_MPS_LOG_DIRECTORY` are exported, and the `nvidia-cuda-mps-control -d` command is executed to activate Nvidia MPS."
-    },
-    {
-      "question": "What Python packages are installed within the virtual environment for the `pytorch-gpu-mps.sh` job?",
-      "answer": "`torch` and `torchvision` are installed using `pip install --no-index`."
-    },
-    {
-      "question": "Which backend is used for `dist.init_process_group` in the `cifar10-gpu-mps.py` script?",
-      "answer": "The `mpi` backend is used, as specified by `dist.init_process_group(backend=\"mpi\", init_method=args.init_method)`."
-    },
-    {
-      "question": "Why is NCCL not recommended as a backend for distributed training on a single GPU?",
-      "answer": "NCCL does not function on a single GPU due to a hard-coded multi-GPU topology check, making `mpi` or `gloo` more suitable alternatives."
-    },
-    {
-      "question": "How is the neural network model configured for distributed data parallelism on a single GPU in `cifar10-gpu-mps.py`?",
-      "answer": "The model (`net`) is first moved to the CUDA device (`net.cuda()`) and then wrapped with `torch.nn.parallel.DistributedDataParallel(net, device_ids=[current_device])`."
-    },
-    {
-      "question": "What is the purpose of `torch.utils.data.distributed.DistributedSampler` in the `cifar10-gpu-mps.py` script?",
-      "answer": "It is used to ensure that each model replica (process) receives a unique subset of the training data during distributed training."
-    },
-    {
-      "question": "What is the default batch size configured for the `cifar10-gpu-mps.py` script?",
-      "answer": "The default batch size is 512, as indicated by `parser.add_argument('--batch_size', type=int, default=512, help='')`."
-    },
-    {
-      "question": "How can users adjust the number of model replicas placed on the GPU in the `pytorch-gpu-mps.sh` script?",
-      "answer": "Users can change the value of the `#SBATCH --tasks-per-node` parameter (e.g., to 10, 12, or 14) to observe its effect on performance."
+      "question": "Which backend protocols are recommended for `dist.init_process_group` when setting up Single GPU Data Parallelism, and why is NCCL explicitly mentioned as not working?",
+      "answer": "When setting up Single GPU Data Parallelism, `dist.init_process_group` should use either the `backend=\"mpi\"` or `backend=\"gloo\"` protocol. NCCL is explicitly mentioned as not working for this configuration on a single GPU due to a hard-coded multi-GPU topology check within its implementation."
     }
   ],
-  "generated_at": "2026-04-12T05:39:02.560635+00:00"
+  "generated_at": "2026-04-13T11:36:52.832828+00:00"
 }

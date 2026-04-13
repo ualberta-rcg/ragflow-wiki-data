@@ -3,49 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Apache MXNet?",
-      "answer": "Apache MXNet is a deep learning framework designed for both efficiency and flexibility. It allows mixing symbolic and imperative programming, features a dynamic dependency scheduler for automatic parallelization, and includes a graph optimization layer for fast, memory-efficient symbolic execution. It is portable, lightweight, and scalable to many GPUs and machines."
+      "question": "What is Apache MXNet described as in the document?",
+      "answer": "Apache MXNet is a deep learning framework designed for both efficiency and flexibility, allowing users to mix symbolic and imperative programming."
     },
     {
-      "question": "How can I list the available MXNet wheels?",
-      "answer": "You can list the available wheels using the `avail_wheels mxnet` command."
+      "question": "What are the core features of Apache MXNet's architecture?",
+      "answer": "At its core, MXNet includes a dynamic dependency scheduler for automatic parallelization of operations and a graph optimization layer for fast and memory-efficient symbolic execution. It is also portable, lightweight, and scalable."
     },
     {
-      "question": "What are the steps to install MXNet in a Python virtual environment?",
-      "answer": "First, create and activate a Python virtual environment. Second, install MXNet and its Python dependencies using `pip install --no-index mxnet`. Third, validate the installation."
+      "question": "How can users list the available Apache MXNet wheels?",
+      "answer": "Users can list the available Apache MXNet wheels by using the `avail_wheels mxnet` command."
     },
     {
-      "question": "How do I validate an MXNet installation?",
-      "answer": "You can validate it by running `python -c \"import mxnet as mx;print((mx.nd.ones((2, 3))*2).asnumpy());\"` which should output a 2x3 array of twos."
+      "question": "What Python versions are specified as having available Apache MXNet 1.9.1 wheels in the document?",
+      "answer": "According to the document, Apache MXNet 1.9.1 wheels are available for Python versions 3.8, 3.9, and 3.10."
     },
     {
-      "question": "What does the `mxnet-conv-ex.py` script demonstrate?",
-      "answer": "The `mxnet-conv-ex.py` script defines and executes a single Convolution layer, illustrating how to set up symbolic variables, perform a convolution operation, determine the device context (CPU or GPU), bind execution, initialize array data, and perform a forward pass."
+      "question": "What are the steps to install Apache MXNet in a Python virtual environment?",
+      "answer": "To install Apache MXNet, users must first load a Python module, then create and activate a Python virtual environment, and finally, install MXNet and its Python dependencies using `pip install --no-index mxnet`."
     },
     {
-      "question": "What is the recommended approach for training small-scale MXNet models on HPC clusters?",
-      "answer": "For small-scale models, it is strongly recommended to use multiple CPUs instead of a GPU. This prevents unnecessarily blocking GPU resources that other users might need for larger computations and conserves your group's allocation."
+      "question": "How can a user validate an Apache MXNet installation?",
+      "answer": "A user can validate their Apache MXNet installation by running the Python command: `python -c \"import mxnet as mx;print((mx.nd.ones((2, 3))*2).asnumpy());\"`."
     },
     {
-      "question": "Why is it generally discouraged to request a GPU for small MXNet models or datasets on a shared HPC cluster?",
-      "answer": "While GPUs can be faster, for small models or datasets, the speed-up might not be significant compared to CPUs, and the job could use only a small fraction of the GPU's compute capabilities. This unnecessarily blocks a valuable shared resource and uses up your group's allocation, affecting job priority."
+      "question": "What is the purpose of the `mxnet-conv-ex.py` example script provided in the document?",
+      "answer": "The `mxnet-conv-ex.py` script demonstrates how to implement and run a single Convolution layer using Apache MXNet, which can be executed on either a CPU or GPU."
     },
     {
-      "question": "What is the primary function of the `mxnet-conv.sh` submission script for a CPU job?",
-      "answer": "The script submits an MXNet convolutional job to a scheduler (like Slurm), setting job parameters such as name, account, time, CPU cores, and memory. It loads Python, creates and activates a virtual environment, installs MXNet, and then executes the Python example script using MKLDNN on the CPU."
+      "question": "Which backend is utilized by Apache MXNet when performing operations on a CPU, as indicated by the example job scripts?",
+      "answer": "When performing Apache MXNet operations on a CPU, the MKLDNN backend is utilized for optimized performance."
     },
     {
-      "question": "How do the CPU and GPU versions of the `mxnet-conv.sh` script differ for the convolutional example?",
-      "answer": "The GPU version of the `mxnet-conv.sh` script includes the line `#SBATCH --gres=gpu:1` to request a GPU and states it will use cuDNN, whereas the CPU version does not request a GPU and states it will use MKLDNN."
+      "question": "Which backend is utilized by Apache MXNet when performing operations on a GPU, as indicated by the example job scripts?",
+      "answer": "When performing Apache MXNet operations on a GPU, the cuDNN backend is utilized for optimized performance."
     },
     {
-      "question": "How does MXNet achieve high performance with multiple CPUs or a single GPU?",
-      "answer": "MXNet contains parallel implementations of common deep learning operators (like matrix multiplication and convolution). It uses OpenMP and MKLDNN for CPU-based operations, automatically leveraging multi-threading, and CUDA and cuDNN for GPU-based operations, running on the GPU if requested."
+      "question": "What Slurm parameter should be adjusted to specify the number of GPUs for an Apache MXNet job?",
+      "answer": "The Slurm parameter `--gres=gpu:1` (or a different count as needed) should be adjusted to specify the number of GPUs for an Apache MXNet job, typically using one unless it's distributed training."
     },
     {
-      "question": "Which deep learning components are utilized in the `mxnet-example.py` script for training a Convolutional Neural Network on CIFAR10?",
-      "answer": "The `mxnet-example.py` script uses `mxnet.gluon.nn.Sequential` to define the CNN architecture, `SoftmaxCrossEntropyLoss` as the loss criterion, and `mxnet.gluon.Trainer` with an 'sgd' optimizer. It also leverages the `CIFAR10` dataset and `DataLoader` for data management."
+      "question": "How are Deep Learning operators in Apache MXNet parallelized on CPUs and GPUs?",
+      "answer": "Deep Learning operators in Apache MXNet are parallelized using OpenMP and MKLDNN on CPUs, and CUDA and cuDNN on GPUs, automatically leveraging available cores or GPU resources."
+    },
+    {
+      "question": "What is the recommendation for training small-scale models with Apache MXNet on HPC clusters regarding CPU vs. GPU usage?",
+      "answer": "For small-scale models, it is strongly recommended to use multiple CPUs instead of a GPU, as GPUs may be underutilized, blocking resources and wasting allocation on HPC clusters."
+    },
+    {
+      "question": "Why should users avoid requesting a GPU for Apache MXNet jobs with small models on shared HPC environments?",
+      "answer": "Users should avoid requesting a GPU for small models because it can lead to inefficient use of resources, blocking the GPU from other users who need it for large-scale computations, and unnecessarily consuming their group's allocation."
+    },
+    {
+      "question": "How can a user modify the `mxnet-example.sh` Slurm script to run an Apache MXNet training job using only the CPU?",
+      "answer": "To run the Apache MXNet training job using only the CPU, the line `#SBATCH --gres=gpu:1` must be removed from the `mxnet-example.sh` Slurm script."
+    },
+    {
+      "question": "What information does the `mxnet-example.py` script print after training a Convolutional Neural Network?",
+      "answer": "The `mxnet-example.py` script prints the 'Current Loss' during training and the 'Images processed per second' after completing the training loop."
     }
   ],
-  "generated_at": "2026-04-12T02:05:00.459155+00:00"
+  "generated_at": "2026-04-13T08:58:42.175963+00:00"
 }

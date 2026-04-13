@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How do I specify a working directory for an Apptainer container, and what is the recommended practice on Alliance clusters for `salloc` or `sbatch` jobs?",
-      "answer": "You can specify a working directory using the `-W` or `--workdir` option followed by a path. When using Apptainer in an `salloc` or `sbatch` job, or with JupyterHub on Alliance clusters, it is recommended to use `${SLURM_TMPDIR}` for the working directory's location, for example, `-W ${SLURM_TMPDIR}`."
+      "question": "How should I specify a working directory when running Apptainer on clusters using `salloc` or `sbatch` jobs, or JupyterHub, to avoid RAM limitations?",
+      "answer": "When using Apptainer in `salloc`, `sbatch` jobs, or with JupyterHub on clusters, you should use the `-W` or `--workdir` option with `${SLURM_TMPDIR}` for the working directory's location. This workaround is necessary because `/tmp` and similar filesystems typically use RAM, and setting `workdir` to a real disk location like `${SLURM_TMPDIR}` prevents jobs from being killed due to excessive RAM consumption. For example, use `apptainer run -W ${SLURM_TMPDIR} myimage.sif myprogram`."
     },
     {
-      "question": "What options should I use to enable GPU support when running software inside an Apptainer container?",
-      "answer": "To enable GPU support, you must pass the `--nv` option for NVIDIA hardware or `--rocm` for AMD hardware to your Apptainer commands. These options ensure the appropriate `/dev` entries are bind mounted and GPU-related libraries are located and bound, setting the `LD_LIBRARY_PATH` accordingly. For OpenCL specifically, you should also include the bind mount: `-B /etc/OpenCL`."
+      "question": "What Apptainer options are required to enable GPU support for NVIDIA and AMD hardware when running software inside an Apptainer container?",
+      "answer": "To enable GPU support for NVIDIA hardware, you must pass the `--nv` option to Apptainer commands. For AMD hardware, use the `--rocm` option. These options ensure that the appropriate `/dev` entries are bind mounted inside the container, and GPU-related libraries are located and bound from the host, correctly setting the `LD_LIBRARY_PATH` environment variable. Additionally, when using OpenCL, you should include the bind mount `-B /etc/OpenCL`."
     },
     {
-      "question": "What is the difference between the `apptainer run` and `apptainer exec` commands, and which one is recommended?",
-      "answer": "When `apptainer run` launches a container, it first executes the `%runscript` defined for that container (if one exists), and then runs the specific command you provide. The `apptainer exec` command, however, will not run the `%runscript` and only executes the specified command. It is suggested that you always use `apptainer run`."
+      "question": "What is the primary difference between the `apptainer run` and `apptainer exec` commands when executing software within an Apptainer container?",
+      "answer": "The `apptainer run` command first executes the `%runscript` defined for the container (if one exists) and then runs the specific command you provide. In contrast, the `apptainer exec` command will not run the `%runscript`, even if it is defined within the container. The documentation recommends always using `apptainer run`."
     }
   ],
-  "generated_at": "2026-04-12T19:19:54.422008+00:00"
+  "generated_at": "2026-04-13T02:13:49.292985+00:00"
 }

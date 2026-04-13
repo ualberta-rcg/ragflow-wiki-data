@@ -4,61 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of modifying the local SSH configuration file on Linux and macOS?",
-      "answer": "Modifying the local SSH configuration file on Linux and macOS allows you to change the default behaviour of `ssh` and simplify the login procedure."
+      "question": "How can a user simplify the SSH login procedure to an AllianceCan cluster, such as Narval, on Linux or macOS using an SSH key?",
+      "answer": "Users can modify their local `~/.ssh/config` file. To simplify login to Narval, for example, they can add a `Host` block specifying `Host narval`, `User username`, `HostName narval.alliancecan.ca`, and `IdentityFile ~/.ssh/your_private_key`. This configuration allows logging in by simply typing `ssh narval`, and also simplifies the use of `sftp`, `scp`, and `rsync` commands."
     },
     {
-      "question": "Where is the local SSH configuration file located on your machine?",
-      "answer": "The local SSH configuration file is located at `~/.ssh/config` on your local machine."
+      "question": "What is the recommended method for configuring SSH to simplify connections to multiple AllianceCan clusters, such as Narval, Beluga, Graham, and Cedar, on Linux or macOS?",
+      "answer": "To simplify connections to multiple clusters, it's recommended to modify the `Host` block in the `~/.ssh/config` file. Instead of individual entries, list all cluster names (e.g., `Host narval beluga graham cedar`) and use `HostName %h.alliancecan.ca` for dynamic host resolution. Users must also ensure their public SSH key is installed on each cluster separately or utilize CCDB for management."
     },
     {
-      "question": "How can you simplify the command to log into a remote host like `narval.alliancecan.ca` using an SSH key?",
-      "answer": "To simplify the login command, you can add a `Host` block to `~/.ssh/config` on your local machine, specifying `User`, `HostName`, and `IdentityFile`. For example:\n```\n  Host narval\n    User username\n    HostName narval.alliancecan.ca\n    IdentityFile ~/.ssh/your_private_key\n```"
-    },
-    {
-      "question": "After configuring an SSH host, what is the simplified command to log in?",
-      "answer": "After configuring an SSH host with an alias like `narval`, you can log in by simply typing `ssh narval`."
-    },
-    {
-      "question": "Which other commands, besides `ssh`, have their behaviour changed by the local SSH configuration file?",
-      "answer": "The local SSH configuration file also changes the behaviour of `sftp`, `scp`, and `rsync`."
-    },
-    {
-      "question": "Can you provide an example of transferring a file using `scp` after configuring an SSH host alias?",
-      "answer": "Yes, you can transfer files by typing, for example, `scp local_file narval:work/`."
-    },
-    {
-      "question": "How can you configure SSH for multiple clusters, such as Narval, Beluga, Graham, and Cedar, using a single `Host` block?",
-      "answer": "You can modify the `Host` block to list multiple cluster names and use `HostName %h.alliancecan.ca`. For example:\n```\n  Host narval beluga graham cedar\n    [...]\n    HostName %h.alliancecan.ca\n    [...]\n```"
-    },
-    {
-      "question": "What is required for SSH key usage when configuring access to multiple clusters?",
-      "answer": "You need to install your public SSH key on each cluster separately or use CCDB."
-    },
-    {
-      "question": "What configuration parameters in `~/.ssh/config` correspond to the command line options `-X`, `-Y`, and `-A` for `ssh`?",
-      "answer": "The corresponding configuration parameters are `ForwardX11 yes` for `-X` (X11 forwarding), `ForwardX11Trusted yes` for `-Y` (trusted X11 forwarding), and `ForwardAgent yes` for `-A` (agent forwarding)."
-    },
-    {
-      "question": "Why is it generally not recommended to enable X11 forwarding (`ForwardX11 yes`) by default in your SSH configuration file?",
-      "answer": "Enabling X11 forwarding by default for all of your connections can slow down your sessions, especially if your X11 client on your computer is misconfigured."
-    },
-    {
-      "question": "What risk is associated with enabling trusted X11 forwarding (`ForwardX11Trusted yes`) by default?",
-      "answer": "Enabling trusted X11 forwarding comes with a risk: should the server to which you are connecting to be compromised, a privileged user (`root`) could intercept keyboard activity on your local computer. It is recommended to use it only when needed."
-    },
-    {
-      "question": "What is the potential risk of enabling SSH agent forwarding (`ForwardAgent yes`) by default?",
-      "answer": "Should the server to which you are connecting to be compromised, a privileged user (`root`) could use your agent and connect to another host without your knowledge. It is recommended to use agent forwarding only when you need it."
-    },
-    {
-      "question": "What is a recommended practice when using SSH agent forwarding to enhance security?",
-      "answer": "It is recommended to combine SSH agent forwarding with `ssh-askpass` so that any use of your SSH agent triggers a prompt on your computer, preventing usage of your agent without your knowledge."
-    },
-    {
-      "question": "What is the parent page related to this information on SSH configuration?",
-      "answer": "The parent page is SSH."
+      "question": "What are the recommended practices and potential risks associated with enabling X11 forwarding, trusted X11 forwarding, or SSH agent forwarding by default in an SSH configuration file?",
+      "answer": "It is generally not recommended to enable X11 forwarding by default, as it can slow down sessions. Trusted X11 forwarding and SSH agent forwarding should only be used when necessary due to security risks: a compromised server could allow a privileged user to intercept keyboard activity (trusted X11) or use your SSH agent to connect to other hosts without your knowledge (agent forwarding). For agent forwarding, combining it with `ssh-askpass` is also recommended to ensure usage triggers a prompt on your computer."
     }
   ],
-  "generated_at": "2026-04-12T07:25:33.844837+00:00"
+  "generated_at": "2026-04-13T13:05:24.451165+00:00"
 }

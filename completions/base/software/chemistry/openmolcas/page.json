@@ -3,77 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is OpenMolcas?",
-      "answer": "OpenMolcas is a quantum chemistry software package that applies various electronic structure methods, with a key focus on multiconfigurational approaches like CASSCF and CASPT2."
+      "question": "What is OpenMolcas in the context of quantum chemistry software?",
+      "answer": "OpenMolcas is a quantum chemistry software package that includes programs to apply various electronic structure methods to chemical systems, notably focusing on the multiconfigurational approach with methods like CASSCF and CASPT2."
     },
     {
-      "question": "What is the relationship between OpenMolcas and Molcas?",
-      "answer": "OpenMolcas is a large portion of the Molcas codebase that has been released as free and open-source software (FOSS), not a fork or reimplementation."
+      "question": "What is the relationship between OpenMolcas and the original Molcas codebase?",
+      "answer": "OpenMolcas is not a fork or reimplementation of Molcas; it is a significant portion of the Molcas codebase that has been released as free and open-source software (FOSS) under the Lesser General Public License (LGPL)."
     },
     {
-      "question": "Under what license is OpenMolcas released?",
-      "answer": "OpenMolcas is released under the Lesser General Public License (LGPL)."
+      "question": "Why are some parts of the Molcas codebase not included in OpenMolcas?",
+      "answer": "Some parts of Molcas are not included in OpenMolcas due to decisions by their authors to keep them under a different license, or because it was impossible to reach the authors for licensing agreements."
     },
     {
-      "question": "Why are some parts of Molcas not included in OpenMolcas?",
-      "answer": "Some parts of Molcas are not included in OpenMolcas because their authors decided to keep them under a different license, or because reaching the authors was not possible."
+      "question": "How can users access OpenMolcas on national clusters?",
+      "answer": "Users can access OpenMolcas on national clusters by loading the `OpenMolcas` module."
     },
     {
-      "question": "How can users check the available versions of the OpenMolcas module on national clusters?",
-      "answer": "Users can check available versions by using the `module spider openmolcas` command."
+      "question": "How does one check for available versions of the OpenMolcas module on national clusters?",
+      "answer": "To check what versions of the OpenMolcas module are available on national clusters, users can employ the `module spider openmolcas` command."
     },
     {
-      "question": "What scheduler is used on national clusters for submitting OpenMolcas jobs?",
-      "answer": "National clusters use the Slurm scheduler for job submission."
+      "question": "Which job scheduler is used for submitting OpenMolcas jobs on national clusters?",
+      "answer": "The national clusters use the Slurm scheduler for submitting OpenMolcas jobs."
     },
     {
-      "question": "Are parallel OpenMolcas jobs supported on national clusters, and why?",
-      "answer": "Currently, only serial jobs work for OpenMolcas on national clusters because its parallel implementation, which uses Global Array, does not function on these clusters."
+      "question": "What is a key limitation regarding the parallel execution of OpenMolcas jobs on national clusters?",
+      "answer": "Currently, only serial OpenMolcas jobs work on national clusters because its parallel implementation, which relies on Global Array, is not compatible with these clusters."
     },
     {
-      "question": "What command loads the OpenMolcas module in the example serial job script?",
-      "answer": "The command `module load openmolcas/20.10` loads the OpenMolcas module."
+      "question": "What is the purpose of the `PrO2_serial.sh` example script provided for running OpenMolcas jobs?",
+      "answer": "The `PrO2_serial.sh` script serves as an example for submitting a serial OpenMolcas job on national clusters using Slurm, demonstrating how to set job parameters like account, runtime, memory, and OpenMolcas-specific environment variables."
     },
     {
-      "question": "Which environment variables are typically set for a serial OpenMolcas job, according to the example script?",
-      "answer": "Typically, `MOLCAS_NPROCS`, `MOLCAS_MEM`, `MOLCAS_WorkDir`, `MOLCASDISK`, `MOLCASRAMD`, and `MOLCAS_MOLDEN` are set."
+      "question": "What are some of the Slurm SBATCH directives used in the example serial OpenMolcas job script?",
+      "answer": "Key Slurm SBATCH directives in the example script include `--account` (for the user's account), `--ntasks=1` (for a serial job), `--time` (for runtime), `--output` (for the log file), and `--mem-per-cpu` (for memory allocation per CPU)."
     },
     {
-      "question": "What is the function of the `pymolcas PrO2.inp` command in the serial job script?",
-      "answer": "This command executes OpenMolcas, using `PrO2.inp` as the input file for the calculation."
+      "question": "Which OpenMolcas-specific environment variables are typically set for a serial job, as shown in the example script?",
+      "answer": "For a serial OpenMolcas job, environment variables such as `MOLCAS_NPROCS=1`, `MOLCAS_MEM` (around 75% of physical memory), `MOLCAS_WorkDir` (path to input and script files), `MOLCASDISK=0`, `MOLCASRAMD=0`, and `MOLCAS_MOLDEN=ON` are typically set."
     },
     {
-      "question": "What is the purpose of the `&GATEWAY` module in an OpenMolcas input file?",
-      "answer": "The `&GATEWAY` module sets up the structure and basis sets for the chemical system."
+      "question": "What is the primary command used to execute an OpenMolcas job from a Slurm script?",
+      "answer": "The primary command used to execute an OpenMolcas job from a Slurm script is `pymolcas <input_file>`, for example, `pymolcas PrO2.inp`."
     },
     {
-      "question": "What does `AMFI` request within the `&GATEWAY` module?",
-      "answer": "`AMFI` requests Atomic Mean Field Integrals for Spin-Orbit Coupling (SOC)."
+      "question": "In an OpenMolcas input file, what is the role of the `&GATEWAY` module?",
+      "answer": "The `&GATEWAY` module in an OpenMolcas input file is responsible for setting up the molecular structure, defining basis sets, requesting Atomic Mean Field Integrals (AMFI), and specifying the origin of orbital angular momentum."
     },
     {
-      "question": "What does the `&SEWARD` module perform in the OpenMolcas input file?",
-      "answer": "The `&SEWARD` module performs all one and two-electron integrals for the given structure and basis sets."
+      "question": "What type of chemical calculation is performed using the `&RASSCF` module in an OpenMolcas input file?",
+      "answer": "The `&RASSCF` module in an OpenMolcas input file is used to perform a CASSCF or RASSCF calculation, where parameters like spin multiplicity, charge, and the number of states to be calculated are defined."
     },
     {
-      "question": "What type of calculations does the `&RASSCF` module typically perform?",
-      "answer": "The `&RASSCF` module performs CASSCF or RASSCF calculations."
+      "question": "What is the function of the `&RASSI` module in an OpenMolcas input file?",
+      "answer": "The `&RASSI` module performs a state interaction calculation between multiple CASSCF states of different spin, allowing for the calculation of spin-orbit coupling (SOC), matrix elements, and g-values."
     },
     {
-      "question": "What does `Nactel` define in the `&RASSCF` module?",
-      "answer": "`Nactel` defines the number of electrons in RAS2 (active space), holes in RAS1, and electrons in RAS3."
-    },
-    {
-      "question": "What is the purpose of the `&RASSI` module?",
-      "answer": "The `&RASSI` module performs a state interaction calculation between multiple CASSCF states of different spins."
-    },
-    {
-      "question": "What does `SPIN` enable within the `&RASSI` module?",
-      "answer": "`SPIN` turns on Spin-Orbit Coupling (SOC) calculations."
-    },
-    {
-      "question": "What was the `&SINGLE_ANISO` module historically used for in OpenMolcas?",
-      "answer": "The `&SINGLE_ANISO` module was used to calculate magnetic properties, such as crystal field (CF) parameters, susceptibility, and magnetization."
+      "question": "What does 'High Cholesky' refer to within the `&SEWARD` module of an OpenMolcas input file?",
+      "answer": "'High Cholesky' refers to an approximation used by the `&SEWARD` module in an OpenMolcas input file to perform two-electron integrals."
     }
   ],
-  "generated_at": "2026-04-12T04:37:24.625267+00:00"
+  "generated_at": "2026-04-13T10:42:21.193043+00:00"
 }

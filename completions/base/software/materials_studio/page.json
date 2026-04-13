@@ -3,57 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Why isn't Materials Studio installed centrally on clusters by the Alliance?",
-      "answer": "The Alliance does not have permission to install Materials Studio centrally on all clusters."
+      "question": "What is the primary purpose of the Materials Studio installation guide on Alliance clusters?",
+      "answer": "The guide provides instructions for users with a license to install Materials Studio in their account on Alliance clusters, as it is not installed centrally by the Alliance."
     },
     {
-      "question": "What should users do if they are using the default 2020 standard software environment before following these installation instructions?",
-      "answer": "Users need to load an older standard software environment by using a command like `module load StdEnv/2016.4`."
+      "question": "What is a fundamental prerequisite for installing Materials Studio on Alliance clusters?",
+      "answer": "Users must have their own license for Materials Studio to install it on Alliance clusters."
     },
     {
-      "question": "What two things are required to proceed with the installation of Materials Studio 2020 or 2018?",
-      "answer": "You need the archive file containing the installer (e.g., `BIOVIA_2020.MaterialsStudio2020.tar` for 2020) and the IP address (or DNS name) and port of an already configured license server."
+      "question": "Which standard software environment should users load before installing Materials Studio if they are using the default 2020 environment?",
+      "answer": "Users should load `StdEnv/2016.4` before beginning the installation process if they are using the default 2020 standard software environment."
     },
     {
-      "question": "How do you install Materials Studio 2020 once you have the necessary files and license server information?",
-      "answer": "Upload the archive file to your `/home` folder, then run `export MS_LICENSE_SERVER=<port>@<server>` and `eb MaterialsStudio-2020.eb --sourcepath=$HOME`."
+      "question": "What are the two main requirements for installing Materials Studio 2020 on Alliance clusters?",
+      "answer": "Users need the archive file named `BIOVIA_2020.MaterialsStudio2020.tar` and the IP address (or DNS name) and port of an already configured license server."
     },
     {
-      "question": "How do you install Materials Studio 2018 once you have the necessary files and license server information?",
-      "answer": "Upload the archive file to your `/home` folder, then run `export MS_LICENSE_SERVER=<port>@<server>` and `eb /cvmfs/soft.computecanada.ca/easybuild/easyconfigs/m/MaterialsStudio/MaterialsStudio-2018.eb --disable-enforce-checksums --sourcepath=$HOME`."
+      "question": "What are the two main requirements for installing Materials Studio 2018 on Alliance clusters?",
+      "answer": "Users need the archive file named `MaterialsStudio2018.tgz` and the IP address (or DNS name) and port of an already configured license server."
     },
     {
-      "question": "How do you load the Materials Studio 2020 module after a successful installation?",
-      "answer": "After logging out of the cluster and logging back in, you can load the module with `module load materialsstudio/2020`."
+      "question": "Where should the Materials Studio installer archive file be uploaded on the cluster before running the installation commands?",
+      "answer": "The Materials Studio installer archive file should be uploaded to the user's `/home` folder on the cluster they intend to use."
     },
     {
-      "question": "What critical step is required for Materials Studio to access the license server from the compute nodes?",
-      "answer": "You need to contact technical support so they can configure the firewall(s) to allow the software to connect to your license server."
+      "question": "Why do users need to contact technical support after installing Materials Studio on Alliance clusters?",
+      "answer": "Users need to contact technical support so they can configure the firewall(s) to allow the software to connect to the user's license server from the compute nodes."
     },
     {
-      "question": "Who can perform a team installation of Materials Studio for group members?",
-      "answer": "A Principal Investigator (PI) holding the Materials Studio licence can install it once for all their group members."
+      "question": "What is the benefit of a team installation for Materials Studio on Alliance clusters?",
+      "answer": "A team installation allows a Principal Investigator (PI) holding the Materials Studio licence to install it once for all their group members, typically in the `/project` space."
     },
     {
-      "question": "In which directory space should a team installation of Materials Studio typically occur?",
-      "answer": "Team installations are normally stored in the `/project` space."
+      "question": "During a team installation of Materials Studio, what command should a PI use to open the permissions of their project directory for team members?",
+      "answer": "A PI should run `chmod g+rsx $PI_PROJECT_DIR` to open the permissions of their project directory for team members during a team installation."
     },
     {
-      "question": "What command should team members add to their `~/.bashrc` file to access a team-installed Materials Studio?",
+      "question": "What command should team members add to their `~/.bashrc` file to access a team-installed Materials Studio on Alliance clusters?",
       "answer": "Team members may wish to add `module use $PI_PROJECT_DIR/MatStudio2018/modules/2017/Core/` to their `~/.bashrc` file."
     },
     {
-      "question": "What is the purpose of `DSD_MachineList` in the provided Slurm job submission scripts for Materials Studio?",
-      "answer": "It is used to create a list of nodes to be used for the job, formatted for specific MPI implementations like HP-MPI or MPIHOSTLIST."
+      "question": "How should users install versions of Materials Studio earlier than 2018 on Alliance clusters?",
+      "answer": "Versions of Materials Studio earlier than 2018 need to be installed into an Apptainer container."
     },
     {
-      "question": "How are Materials Studio versions earlier than 2018 installed?",
-      "answer": "Earlier versions of Materials Studio need to be installed into an Apptainer container."
+      "question": "What potential restriction might users face when running earlier versions of Materials Studio within an Apptainer container on Alliance clusters?",
+      "answer": "Users might be restricted to whole-node (single-node) jobs because the version of MPI inside the container might not be compatible across multiple nodes."
     },
     {
-      "question": "What potential limitation might exist when running earlier versions of Materials Studio within an Apptainer container?",
-      "answer": "You might be restricted to whole-node (single-node) jobs as the version of MPI inside the container might not be able to be used across nodes."
+      "question": "What command is used to create a list of nodes for a Slurm job in the provided example for Materials Studio 2018 running DMol3?",
+      "answer": "The command `slurm_hl2hl.py --format HP-MPI > $DSD_MachineList` is used to create a list of nodes for a Slurm job in the DMol3 example."
+    },
+    {
+      "question": "What is `DSD_MachineList` used for in the provided Slurm job submission scripts for Materials Studio on Alliance clusters?",
+      "answer": "`DSD_MachineList` is an environment variable that defines a list of nodes to be used for the job, generated by `slurm_hl2hl.py`."
+    },
+    {
+      "question": "Which Materials Studio command is demonstrated in the second Slurm job submission script example?",
+      "answer": "The second Slurm job submission script example demonstrates the `RunCASTEP.sh` command."
     }
   ],
-  "generated_at": "2026-04-12T02:17:39.388636+00:00"
+  "generated_at": "2026-04-13T09:09:56.567443+00:00"
 }

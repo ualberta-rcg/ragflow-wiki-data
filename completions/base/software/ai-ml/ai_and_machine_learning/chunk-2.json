@@ -4,77 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What are the common problems when managing datasets with many small files in machine learning on clusters?",
-      "answer": "When managing large collections of small files, two main issues arise: filesystem quotas on clusters limit the number of filesystem objects, and software can be significantly slowed down by streaming many small files from shared storage like `/project` or `/scratch` to a compute node."
+      "question": "What is the recommended approach for managing large collections of small files, like image datasets, on a distributed filesystem, and why is this important?",
+      "answer": "When dealing with large collections of small files (hundreds of thousands or more, often less than a few hundred kilobytes) on a distributed filesystem, problems can arise due to filesystem quotas limiting the number of objects and significant slowdowns from streaming many small files from `/project` or `/scratch` to a compute node. The recommended approach is to store data in large single-file archives to mitigate these issues."
     },
     {
-      "question": "How should data be stored on a distributed filesystem if it consists of many small files?",
-      "answer": "On a distributed filesystem, data should be stored in large single-file archives."
+      "question": "Why should users employ checkpointing for long-running machine learning computations on the clusters, and what are the benefits?",
+      "answer": "Users should employ checkpointing for long-running machine learning computations to prevent the loss of work in case of an outage and to gain an advantage in job priority, as more nodes are typically available for shorter jobs. For example, a three-day training job should be split into three 24-hour chunks. Most machine learning libraries natively support checkpointing, and a general checkpointing solution is also available if a program does not support it natively."
     },
     {
-      "question": "Where can I find more information about handling large collections of files?",
-      "answer": "You can refer to the documentation on 'Handling large collections of files'."
-    },
-    {
-      "question": "What is the recommended approach for long-running computations on the clusters?",
-      "answer": "For long-running computations, you should use checkpointing. For example, a 3-day training session should be split into three 24-hour chunks."
-    },
-    {
-      "question": "What are the benefits of using checkpointing for long-running jobs?",
-      "answer": "Checkpointing prevents the loss of work in case of an outage and can give you an advantage in terms of job priority, as more nodes are available for shorter jobs."
-    },
-    {
-      "question": "Do machine learning libraries typically support checkpointing?",
-      "answer": "Yes, most machine learning libraries natively support checkpointing."
-    },
-    {
-      "question": "Is there a general checkpointing solution available if my program doesn't support it natively?",
-      "answer": "Yes, a general checkpointing solution is provided if your program does not natively support it."
-    },
-    {
-      "question": "Where can I find examples of checkpointing for PyTorch and TensorFlow?",
-      "answer": "Examples for checkpointing are available for PyTorch and TensorFlow, specifically under 'Checkpointing with PyTorch' and 'Checkpointing with TensorFlow'."
-    },
-    {
-      "question": "When should I consider grouping many similar jobs into one?",
-      "answer": "You should consider grouping many jobs into one if you are performing hyperparameter search, training many variants of the same method, or running many optimization processes of similar duration."
-    },
-    {
-      "question": "What tools are available to help group many similar jobs into one?",
-      "answer": "Tools like META, GLOST, and GNU Parallel are available to help you group many similar jobs into one."
-    },
-    {
-      "question": "What tools can assist with experiment tracking and hyperparameter optimization?",
-      "answer": "Weights & Biases (wandb) and Comet.ml can assist with experiment tracking and hyperparameter optimization."
-    },
-    {
-      "question": "How can Weights & Biases (wandb) and Comet.ml help optimize compute allocation?",
-      "answer": "These tools help by allowing easier tracking and analysis of training runs and by providing Bayesian hyperparameter search capabilities."
-    },
-    {
-      "question": "How do modern deep learning packages handle large-scale training?",
-      "answer": "Modern deep learning packages like Pytorch and TensorFlow include utilities to handle large-scale training natively."
-    },
-    {
-      "question": "Is scaling classic machine learning methods on large datasets widely discussed?",
-      "answer": "No, scaling classic machine learning methods (not deep learning) is not as widely discussed and can often be a frustrating problem to solve."
-    },
-    {
-      "question": "Where can I find guidance on training classic machine learning models on very large datasets?",
-      "answer": "A guide titled 'Large-Scale Machine Learning (Big Data)' contains ideas, practical options, and tutorials to tackle training classic ML models on very large datasets."
-    },
-    {
-      "question": "What causes non-deterministic behaviour in RNN and multi-head attention API calls when using CUDA?",
-      "answer": "RNN and multi-head attention API calls may exhibit non-deterministic behaviour when the cuDNN library is built with CUDA Toolkit 10.2 or higher."
-    },
-    {
-      "question": "How can non-deterministic behaviour in cuDNN RNN and multi-head attention APIs be eliminated?",
-      "answer": "To eliminate non-deterministic behaviour, the user can set a single buffer size in the CUBLAS_WORKSPACE_CONFIG environmental variable, for example, `:16:8` or `:4096:2`."
-    },
-    {
-      "question": "What does setting the CUBLAS_WORKSPACE_CONFIG environmental variable achieve?",
-      "answer": "Setting the CUBLAS_WORKSPACE_CONFIG environmental variable instructs cuBLAS to allocate a specific number of buffers of a certain size in GPU memory, such as eight buffers of 16 KB each or two buffers of 4 MB each."
+      "question": "How can non-deterministic behaviour in RNN and multi-head attention API calls be addressed when using the cuDNN library with CUDA Toolkit 10.2 or higher?",
+      "answer": "To eliminate non-deterministic behaviour in RNN and multi-head attention API calls, which can occur when the cuDNN library is built with CUDA Toolkit 10.2 or higher, users can set the `CUBLAS_WORKSPACE_CONFIG` environmental variable. For instance, setting it to `:16:8` instructs cuBLAS to allocate eight 16 KB buffers, or `:4096:2` allocates two 4 MB buffers in GPU memory, ensuring deterministic behaviour."
     }
   ],
-  "generated_at": "2026-04-11T14:56:41.926458+00:00"
+  "generated_at": "2026-04-13T00:22:48.265283+00:00"
 }

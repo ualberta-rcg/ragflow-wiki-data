@@ -4,73 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce qu'on recommande de faire pour améliorer la performance quand on déploie plusieurs clients CVMFS, par exemple sur une grappe?",
-      "answer": "On vous recommande de déployer sur votre site des serveurs proxies HTTP avec cache externe (forward caching), particulièrement si vous avez plusieurs clients."
+      "question": "Quelles sont les recommandations principales pour déployer plusieurs clients CVMFS sur une grappe de calcul ou dans un laboratoire?",
+      "answer": "Pour déployer plusieurs clients CVMFS, il est recommandé de mettre en place des serveurs proxies HTTP avec cache externe sur votre site pour améliorer la performance, et d'en avoir au moins deux pour assurer la redondance en cas de défaillance. Il est aussi suggéré de synchroniser l'identité du compte de service `cvmfs` de tous les nœuds clients (par exemple, avec LDAP) avant même d'installer CVMFS, ce qui facilite l'utilisation d'une cache externe."
     },
     {
-      "question": "Combien de serveurs proxies locaux devrait-on avoir pour assurer la continuité du service?",
-      "answer": "Règle générale, on devrait disposer d’au moins deux serveurs proxies locaux et préférablement un ou plusieurs autres serveurs proxies supplémentaires à proximité pour prendre la relève en cas de problème, car un seul serveur proxy représente un point individuel de défaillance."
+      "question": "Quelles sont les exigences minimales en matière de système d'exploitation et de processeur pour installer CVMFS?",
+      "answer": "Pour installer CVMFS, un système d'exploitation compatible est requis : Linux (avec un noyau 2.6.32 ou plus pour les environnements 2016 et 2018, ou un noyau 3.2 ou plus pour l'environnement 2020), Windows (avec la version 2 du sous-système Windows pour Linux (WSL) et une distribution Linux avec noyau 2.6.32 ou plus), ou Mac OS (par instance virtuelle seulement). Le processeur doit être de type x86, supportant les jeux d’instructions SSE3, AVX, AVX2 ou AVX512."
     },
     {
-      "question": "Qu'est-ce qu'on recommande de synchroniser sur tous les nœuds clients lorsqu'on déploie plusieurs systèmes CVMFS?",
-      "answer": "On vous recommande de synchroniser l’identité du compte de service `cvmfs` de tous les nœuds clients avec LDAP ou autrement."
-    },
-    {
-      "question": "Quand est-ce qu'on devrait synchroniser l'identité du compte de service `cvmfs`?",
-      "answer": "Ceci devrait être fait avant que CVMFS ne soit installé, surtout si on prévoit utiliser une cache externe."
-    },
-    {
-      "question": "Quelles sont les exigences de base pour le système d'exploitation afin d'utiliser CVMFS?",
-      "answer": "Pour Linux, il faut un noyau 2.6.32 ou plus pour les environnements 2016 et 2018, et un noyau 3.2 ou plus pour l'environnement 2020. Pour Windows, c'est la version 2 du sous-système Windows pour Linux (WSL) avec une distribution Linux ayant un noyau 2.6.32 ou plus. Pour Mac OS, CVMFS est accessible par instance virtuelle seulement."
-    },
-    {
-      "question": "Quelles sont les exigences de base pour le CPU pour utiliser CVMFS?",
-      "answer": "Il faut un CPU x86, pour les jeux d’instructions SSE3, AVX, AVX2 ou AVX512."
-    },
-    {
-      "question": "Quels ordonnanceurs sont recommandés pour une utilisation optimale de CVMFS et une intégration étroite avec les applications OpenMPI?",
-      "answer": "Slurm ou Torque sont recommandés."
-    },
-    {
-      "question": "Quels types d'interconnexion réseau sont recommandés pour les applications parallèles?",
-      "answer": "Ethernet, InfiniBand ou OmniPath sont recommandés."
-    },
-    {
-      "question": "Quelles sont les exigences pour les GPU si on veut utiliser des applications CUDA?",
-      "answer": "Il faut des GPU NVidia avec des pilotes CUDA 7.5 ou plus."
-    },
-    {
-      "question": "Qu'est-ce qu'on peut utiliser pour installer CVMFS si on veut automatiser la configuration?",
-      "answer": "Si vous voulez utiliser Ansible, il existe un rôle client CVMFS pour la configuration de base d’un client CVMFS avec un système RPM. Des scripts sont aussi disponibles pour installer CVMFS sur une instance infonuagique."
-    },
-    {
-      "question": "Où est-ce qu'on recommande de situer la cache locale CVMFS?",
-      "answer": "On recommande que la cache locale CVMFS soit localisée dans un système de fichiers dédié, pour que le stockage ne soit pas partagé avec celui d’autres applications."
-    },
-    {
-      "question": "Quand est-ce qu'on devrait avoir le système de fichiers dédié pour la cache CVMFS?",
-      "answer": "Vous devriez avoir ce système de fichiers dédié avant d’installer CVMFS."
-    },
-    {
-      "question": "Quel est l'emplacement par défaut de la cache locale CVMFS?",
-      "answer": "L'emplacement par défaut est `/var/lib/cvmfs`."
-    },
-    {
-      "question": "Quel paramètre permet de configurer l'emplacement de base de la cache CVMFS?",
-      "answer": "Le paramètre `CVMFS_CACHE_BASE` permet de configurer l'emplacement de base de la cache CVMFS."
-    },
-    {
-      "question": "Où peut-on trouver les directives pour l'installation et la configuration du logiciel CVMFS?",
-      "answer": "Pour l'installation, on peut consulter «Getting the Software». Pour configurer un client, on peut voir «Setting up the Software» et «Client parameters» sur cvmfs.readthedocs.io."
-    },
-    {
-      "question": "Quel répertoire CVMFS est fourni avec la configuration par défaut?",
-      "answer": "Le répertoire `soft.computecanada.ca` est fourni avec la configuration par défaut."
-    },
-    {
-      "question": "Comment peut-on inclure le répertoire `soft.computecanada.ca` dans la configuration client?",
-      "answer": "On peut l'inclure dans la configuration client via le paramètre `CVMFS_REPOSITORIES`."
+      "question": "Avant d'installer CVMFS, quelle est la recommandation concernant la cache locale?",
+      "answer": "Avant d'installer CVMFS, il est recommandé que la cache locale CVMFS, qui se trouve par défaut dans `/var/lib/cvmfs` et qui est configurable avec le paramètre `CVMFS_CACHE_BASE`, soit localisée dans un système de fichiers dédié. Cela permet d'éviter que son espace de stockage ne soit partagé avec d'autres applications."
     }
   ],
-  "generated_at": "2026-04-11T15:49:53.562779+00:00"
+  "generated_at": "2026-04-13T00:58:18.038212+00:00"
 }

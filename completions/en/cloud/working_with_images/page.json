@@ -3,85 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is an image in cloud computing?",
-      "answer": "An image is a file that contains the contents of a virtual disk, often including a base operating system, used to create a volume or an ephemeral disk from which a virtual machine boots."
+      "question": "What is a virtual machine image in the context of cloud computing environments?",
+      "answer": "A virtual machine image is a file that contains the contents of a virtual disk, often including a base operating system, used to create a volume or an ephemeral disk from which a virtual machine boots."
     },
     {
-      "question": "How do images differ from volumes and ephemeral disks regarding portability?",
-      "answer": "Images are portable, meaning they can be downloaded from the cloud, used locally (e.g., with VirtualBox), and then uploaded to another cloud. Volumes and ephemeral disks do not offer this portability."
+      "question": "How do virtual machine images differ from ephemeral disks in terms of their lifecycle and portability?",
+      "answer": "Ephemeral disk files are destroyed when a VM is destroyed, while virtual machine images are portable and can be downloaded, used to create a VM locally, and uploaded to another cloud. Volumes are also not portable in this way."
     },
     {
-      "question": "What are some common virtual disk image formats?",
-      "answer": "Some common formats are raw, qcow2, vmdk, and vdi."
+      "question": "What are some common file formats for virtual machine images?",
+      "answer": "Some commonly encountered formats for virtual machine images are raw, qcow2, vmdk, and vdi."
     },
     {
-      "question": "What security precautions should be taken before sharing virtual machine images?",
-      "answer": "You should remove sensitive information such as public/private keys and configuration files containing passwords."
+      "question": "What security measure should be taken before sharing virtual machine images?",
+      "answer": "Before sharing virtual machine images, sensitive information such as public/private keys and configuration files containing passwords should be removed."
     },
     {
-      "question": "What is a prerequisite for uploading a VirtualBox-created image to our clouds?",
-      "answer": "The image must have cloud-init installed and configured correctly."
+      "question": "What is a prerequisite for uploading a virtual machine image created from a VirtualBox VM to the clouds mentioned in the document?",
+      "answer": "The VirtualBox image must have cloud-init installed and configured correctly before being uploaded to the clouds."
     },
     {
-      "question": "How does the procedure for creating an image from a VM depend on the VM's configuration?",
-      "answer": "The procedure depends on whether the VM is booting from a volume (typically 'p' flavours) or an ephemeral disk (typically 'c' flavours)."
+      "question": "How can a user create an image from a virtual machine that boots from an ephemeral disk using OpenStack command line clients?",
+      "answer": "A user can create an image from a VM booting from an ephemeral disk using the command `openstack server image create <server-name>`."
     },
     {
-      "question": "What OpenStack command is used to create an image from a VM booting from an ephemeral disk?",
-      "answer": "The command `openstack server image create <server-name>` is used."
+      "question": "What is recommended to ensure filesystem consistency when creating an image from a virtual machine?",
+      "answer": "It is recommended that the virtual machine be shut off (not deleted) before an image is created from it to ensure the filesystem is not captured in an inconsistent state."
     },
     {
-      "question": "What parts of a VM are included when creating an image from an ephemeral disk?",
-      "answer": "Only the VM's root drive (e.g., /dev/vda) is included; ephemeral drives and non-boot attached volumes are not."
+      "question": "What are the two main steps involved in sharing an image with another project in OpenStack?",
+      "answer": "The two main steps are for a member of the project owning the image to share it with a second project, and then for a member of the second project to accept the newly shared image."
     },
     {
-      "question": "What is recommended to ensure filesystem consistency when creating an image from a VM?",
-      "answer": "It is recommended that the VM be shut off (not deleted) before an image is created from it."
+      "question": "Which OpenStack command is used by the owning project to share an image with another project, and what information is required?",
+      "answer": "The command `glance member-create <IMAGE_ID> <MEMBER_ID>` is used, requiring the ID of the image to be shared and the ID of the project to share it with."
     },
     {
-      "question": "What are the two main steps involved in sharing an image with another project?",
-      "answer": "A member of the project owning the image must share it, and then a member of the second project must accept the newly shared image."
+      "question": "How does a member of a second project accept a shared virtual machine image in OpenStack?",
+      "answer": "A member in the second project accepts a shared image using the command `glance member-update <IMAGE_ID> <MEMBER_ID> accepted`."
     },
     {
-      "question": "How does an owning project member share an image with another project using the OpenStack command line?",
-      "answer": "They use the command `glance member-create <IMAGE_ID> <MEMBER_ID>`."
+      "question": "What utility and preparatory steps are needed to download a virtual machine image from an OpenStack project?",
+      "answer": "The OpenStack client must be installed, and the OpenStack RC file must be downloaded and sourced."
     },
     {
-      "question": "How does a member of the recipient project accept a shared image?",
-      "answer": "They use the command `glance member-update <IMAGE_ID> <MEMBER_ID> <MEMBER_STATUS>`, setting the status to `accepted`."
+      "question": "What OpenStack command allows a user to download a specific virtual machine image?",
+      "answer": "A user can download a particular image with `openstack image save --file ./<file-name-for-image>.<format> <ID>`."
     },
     {
-      "question": "What command is used to check the status of an image's membership?",
-      "answer": "The command `glance member-list --image-id <IMAGE_ID>` is used."
+      "question": "What command is used to upload a virtual machine image to OpenStack, and what happens if the disk format is not specified?",
+      "answer": "The command `openstack image create --file <path-to-local-file-image> --disk-format <format> <new-image-name>` is used. If the disk format is not specified, the raw format is assumed, which can cause issues if the image is not in raw format."
     },
     {
-      "question": "What are the initial steps for downloading or uploading an image using the OpenStack client?",
-      "answer": "You must install the OpenStack client, download the OpenStack RC file, and source it."
+      "question": "What is VirtualBox and for what purpose might a user convert a cloud image for use with it?",
+      "answer": "VirtualBox is a software package for creating and running virtual machines on a desktop or laptop. A user might convert a cloud image for use with VirtualBox to run a virtual machine locally using an image downloaded from an OpenStack cloud."
     },
     {
-      "question": "How do you list available images in your OpenStack project?",
-      "answer": "You can list available images with the command `openstack image list`."
+      "question": "Which tool is required to convert a QCOW2 virtual machine image to a VMDK format for use with VirtualBox?",
+      "answer": "The `qemu-img` tool is required to convert a QCOW2 virtual machine image to a VMDK format."
     },
     {
-      "question": "What OpenStack command is used to download a specific image?",
-      "answer": "The command `openstack image save --file ./<file-name-for-image>.<format> <ID>` is used."
-    },
-    {
-      "question": "What OpenStack command is used to upload an image from a local machine?",
-      "answer": "The command `openstack image create --file <path-to-local-file-image> --disk-format <format> <new-image-name>` is used."
-    },
-    {
-      "question": "What is VirtualBox and what is its primary function?",
-      "answer": "VirtualBox is a software package that allows users to create and run virtual machines on their desktop or laptop, supporting various operating systems."
-    },
-    {
-      "question": "How can a QCOW2 image downloaded from OpenStack be used with VirtualBox?",
-      "answer": "The QCOW2 image must first be converted to the VMDK format using the `qemu-img` tool, then attached to a new virtual machine in VirtualBox."
-    },
-    {
-      "question": "What command is used to convert a QCOW2 image to VMDK format?",
-      "answer": "The command `qemu-img convert -f qcow2 vdisk.qcow2 -O vmdk vdisk.vmdk` is used for conversion."
+      "question": "How can the `qemu-img` tool be installed on a Debian-based Linux system?",
+      "answer": "The `qemu-img` tool can be installed on a Debian-based Linux system using `sudo apt-get install qemu-utils`."
     }
   ],
-  "generated_at": "2026-04-12T12:03:46.040102+00:00"
+  "generated_at": "2026-04-13T16:24:00.239048+00:00"
 }

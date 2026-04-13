@@ -4,81 +4,17 @@
   "chunk_index": 17,
   "qa_pairs": [
     {
-      "question": "Comment un script de remise en file d'attente pour Fluent indique-t-il qu'une tâche s'est terminée avec succès?",
-      "answer": "Si la tâche Fluent se termine sans erreur, le script affichera le message « Job completed successfully! Exiting now. » et annulera l'exécution de la grappe de tâches avec `scancel $SLURM_ARRAY_JOB_ID`."
+      "question": "Pourquoi devrais-je utiliser la fonction de redémarrage de solution pour les tâches Ansys Fluent sur les grappes de l'Alliance?",
+      "answer": "La fonction de redémarrage de solution est utile pour automatiser la reprise des tâches Ansys Fluent intensives qui nécessitent plus que le maximum de sept jours d'exécution permis sur la plupart des grappes. Elle permet de redémarrer la simulation à partir des fichiers de pas de temps les plus récemment sauvegardés."
     },
     {
-      "question": "Quel message apparaît si une tâche Fluent échoue dans un script configuré pour la remise en file d'attente (requeue)?",
-      "answer": "En cas d'échec d'une tâche Fluent, le script affichera un message similaire à « Job attempt $SLURM_ARRAY_TASK_ID of $SLURM_ARRAY_TASK_COUNT failed due to license or simulation issue! »."
+      "question": "Quels fichiers dois-je modifier ou créer pour configurer une simulation Ansys Fluent en vue d'un redémarrage automatique sur les grappes de l'Alliance?",
+      "answer": "Pour configurer un redémarrage, vous devez avoir un groupe de fichiers <code>sample.cas</code>, <code>sample.dat</code> et <code>sample.jou</code>. Le fichier <code>sample.jou</code> doit être modifié pour inclure <code>/solve/dual-time-iterate 1</code> et <code>/file/auto-save/data-frequency 1</code>. Ensuite, créez un fichier <code>sample-restart.jou</code> à partir de <code>sample.jou</code> et modifiez-le pour qu'il contienne <code>/file/read-cas-data sample-restart</code>, tout en mettant en commentaire la ligne d'initialisation (par exemple, <code>;/solve/initialize/initialize-flow</code>)."
     },
     {
-      "question": "Quand une tâche Fluent est-elle resoumise après un échec dans les scripts avec remise en file d'attente?",
-      "answer": "Une tâche est resoumise si l'essai actuel (`$SLURM_ARRAY_TASK_ID`) est inférieur au nombre total d'essais configurés (`$SLURM_ARRAY_TASK_COUNT`), et le script affichera « Resubmitting job now … »."
-    },
-    {
-      "question": "Que se passe-t-il si toutes les tentatives de remise en file d'attente échouent pour une tâche Fluent?",
-      "answer": "Si toutes les tentatives de remise en file d'attente échouent, le script affichera le message « All job attempts failed exiting now. »."
-    },
-    {
-      "question": "Quel est le but des scripts de « Redémarrage » pour les tâches Fluent?",
-      "answer": "Les scripts de « Redémarrage » sont conçus pour automatiser la reprise des tâches intensives qui dépassent la durée maximale de sept jours allouée sur la plupart des grappes, en redémarrant à partir des fichiers de pas de temps les plus récemment sauvegardés."
-    },
-    {
-      "question": "Quelle est la condition de base pour qu'une simulation Fluent lancée à partir d'un champ initialisé puisse utiliser les scripts de « Redémarrage »?",
-      "answer": "La condition de base est que le premier pas de la simulation puisse être complété avant la fin du temps demandé dans le vecteur de tâches défini en haut du script."
-    },
-    {
-      "question": "Quelle est l'hypothèse faite concernant la valeur du pas de temps dans les scripts de « Redémarrage » Fluent?",
-      "answer": "On suppose que la valeur du pas de temps est fixe."
-    },
-    {
-      "question": "Quels fichiers sont requis au début pour utiliser les scripts de « Redémarrage »?",
-      "answer": "Pour commencer, il faut un ensemble de fichiers `sample.cas`, `sample.dat` et `sample.jou`."
-    },
-    {
-      "question": "Quelles modifications doivent être apportées au fichier `sample.jou` pour l'utiliser avec les scripts de « Redémarrage »?",
-      "answer": "Le fichier `sample.jou` doit contenir les lignes `/solve/dual-time-iterate 1` et `/file/auto-save/data-frequency 1`."
-    },
-    {
-      "question": "Comment créer le fichier de journalisation `sample-restart.jou` pour un redémarrage?",
-      "answer": "On crée le fichier `sample-restart.jou` en copiant le `sample.jou` d'origine avec la commande `cp sample.jou sample-restart.jou`."
-    },
-    {
-      "question": "Quelles modifications sont nécessaires dans `sample-restart.jou` pour lire les données d'un redémarrage?",
-      "answer": "Il faut modifier la ligne `/file/read-cas-data sample` pour qu'elle devienne `/file/read-cas-data sample-restart`."
-    },
-    {
-      "question": "Comment désactiver la ligne d'initialisation dans le fichier `sample-restart.jou`?",
-      "answer": "Il faut mettre en commentaire la ligne d'initialisation en la précédant d'un point-virgule, par exemple `;/solve/initialize/initialize-flow`."
-    },
-    {
-      "question": "Comment doit-on modifier `sample-restart.jou` si les deuxième et troisième pas de temps sont deux fois plus rapides que le pas initial?",
-      "answer": "Il faut modifier `sample-restart.jou` en spécifiant `/solve/dual-time-iterate 2`."
-    },
-    {
-      "question": "Où les fichiers de résultats de chaque pas de temps sont-ils enregistrés par les scripts de « Redémarrage »?",
-      "answer": "Un fichier de résultats pour chaque pas sera enregistré dans le sous-répertoire de sortie."
-    },
-    {
-      "question": "Pourquoi la valeur « 2 » est-elle choisie pour `/solve/dual-time-iterate` dans `sample-restart.jou` lorsque les pas suivants sont plus rapides?",
-      "answer": "La valeur « 2 » est arbitraire, mais elle est choisie pour que la durée de deux pas soit moindre que la durée allouée au vecteur de tâches, ce qui aide à limiter le nombre de redémarrages et la consommation de ressources."
-    },
-    {
-      "question": "Quelle valeur doit-on choisir pour `/solve/dual-time-iterate` si le premier pas de `sample.jou` est déjà basé sur une solution précédente?",
-      "answer": "Dans ce cas, il faut choisir « 1 » plutôt que « 2 », car tous les pas auront probablement besoin du même temps d'exécution."
-    },
-    {
-      "question": "Comment est calculée la durée totale d'une simulation Fluent qui utilise les scripts de « Redémarrage »?",
-      "answer": "La durée totale de la simulation est calculée par la formule `1*Dt + 2*Nrestart*Dt`, où `Dt` est la durée d'un pas et `Nrestart` est le nombre de redémarrages défini dans le script Slurm."
-    },
-    {
-      "question": "Quel est le nombre total de pas (et de fichiers de résultats générés) quand on utilise les scripts de « Redémarrage »?",
-      "answer": "Le nombre total de pas (et de fichiers de résultats générés) sera de `1 + 2*Nrestart`."
-    },
-    {
-      "question": "Quelle est la limite de temps maximale qu'on peut spécifier pour une tâche de redémarrage Fluent avec Slurm?",
-      "answer": "La valeur pour le temps demandé (`#SBATCH --time`) peut aller jusqu'à `07-00:00` jours."
+      "question": "Comment la valeur de <code>/solve/dual-time-iterate</code> dans le fichier <code>sample-restart.jou</code> affecte-t-elle la durée totale et le nombre de fichiers de résultats générés lors de l'utilisation de la fonction de redémarrage de solution pour Ansys Fluent?",
+      "answer": "La valeur de <code>/solve/dual-time-iterate</code> (par exemple, 1 ou 2) détermine le nombre de pas qui seront exécutés avant que la solution ne soit redémarrée. Si cette valeur est 2 (par exemple, si les pas subséquents s'exécutent deux fois plus vite que le pas initial), la solution redémarrera après deux pas. Si elle est 1, elle redémarrera après un pas. La durée totale de la simulation sera calculée comme 1*Dt + X*Nrestart*Dt et le nombre total de pas (ainsi que les fichiers de résultats générés) sera de 1 + X*Nrestart, où X est la valeur de <code>dual-time-iterate</code>, Dt est la durée d'un pas, et Nrestart est le nombre de redémarrages défini dans le script Slurm."
     }
   ],
-  "generated_at": "2026-04-12T16:59:35.905179+00:00"
+  "generated_at": "2026-04-13T01:57:14.221189+00:00"
 }

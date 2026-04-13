@@ -4,17 +4,13 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What are the essential steps to run an Rmpi script named `test.R` on a compute cluster using a job scheduler?",
-      "answer": "To run an Rmpi script, you must first place your R code into a script file (e.g., `test.R`). Next, create a job submission script (e.g., `job.sh`) that specifies resources and loads necessary modules, then uses `mpirun` to execute the R script. Finally, submit the job script to the scheduler using `sbatch job.sh`."
+      "question": "How do you execute an R script that utilizes the `Rmpi` package in a batch job on the clusters?",
+      "answer": "To execute an R script using the `Rmpi` package in a batch job, you need to follow these steps:\n1. Create an R script, for example named `test.R`, that loads the `Rmpi` library, spawns R slaves (e.g., using `mpi.spawn.Rslaves`), executes commands remotely on these slaves (e.g., `mpi.remote.exec`), and then closes the slaves and quits MPI.\n2. Create a job submission script, such as `job.sh`. This script must include SLURM directives for account, number of MPI processes (`--ntasks`), memory per CPU, and time. It also needs to load the necessary modules (e.g., `StdEnv`, `gcc`, `openmpi`, `r`) and export the `R_LIBS` path if you're using locally installed R packages.\n3. The job script's execution command should use `mpirun -np 1 R CMD BATCH test.R test.txt` to launch the R script.\n4. Submit the job using the `sbatch job.sh` command."
     },
     {
-      "question": "What command is used within a `job.sh` submission script to execute an Rmpi script, and what does it mean?",
-      "answer": "Within a `job.sh` submission script, the command `mpirun -np 1 R CMD BATCH test.R test.txt` is used to execute the Rmpi script. Here, `mpirun` initiates the MPI program, `-np 1` specifies that one MPI process will start the R batch job, `R CMD BATCH test.R` runs the R script `test.R` in batch mode, and `test.txt` is where the output from the R script will be directed."
-    },
-    {
-      "question": "Which Rmpi functions are demonstrated in the example `test.R` script, and what is their general purpose?",
-      "answer": "The example `test.R` script demonstrates `mpi.universe.size()` to determine the total number of MPI processes, `mpi.spawn.Rslaves()` to create slave R processes, and `mpi.remote.exec()` to execute commands (like `rnorm`) remotely on these slaves. It also uses `mpi.comm.rank()`, `mpi.comm.size()`, and `mpi.comm.get.parent()` for process identification within the MPI communicator, and concludes with `mpi.close.Rslaves()` and `mpi.quit()` to shut down slaves and finalize the MPI environment, respectively."
+      "question": "What are the essential SLURM directives and commands required in a job submission script for running an Rmpi application on the clusters?",
+      "answer": "A job submission script (e.g., `job.sh`) for an Rmpi application on the clusters requires the following essential SLURM directives and commands:\n*   `#SBATCH --account=def-someacct`: Specifies the supervisor's account.\n*   `#SBATCH --ntasks=5`: Defines the total number of MPI processes to allocate for the job. In this example, 5 MPI processes are requested.\n*   `#SBATCH --mem-per-cpu=2048M`: Sets the memory limit per allocated CPU.\n*   `#SBATCH --time=0-00:15`: Specifies the maximum wall-clock time for the job in DD-HH:MM format.\n*   `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 r/4.5.0`: Loads the required environment, GCC compiler, OpenMPI library, and R module.\n*   `export R_LIBS=~/local/R_libs/`: Sets the environment variable for the R library path, pointing to where custom R packages are installed.\n*   `mpirun -np 1 R CMD BATCH test.R test.txt`: This command launches the R script. The `mpirun -np 1` part indicates that only one MPI process will start the R interpreter, which then internally uses `Rmpi` functions to spawn its own R slaves."
     }
   ],
-  "generated_at": "2026-04-12T20:51:02.065386+00:00"
+  "generated_at": "2026-04-13T12:07:21.300608+00:00"
 }

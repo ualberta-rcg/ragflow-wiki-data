@@ -3,89 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi GAMESS?",
-      "answer": "GAMESS (General Atomic and Molecular Electronic Structure System) est un paquet logiciel de chimie quantique ab initio."
+      "question": "Qu'est-ce que GAMESS et à quoi sert ce paquet logiciel en chimie?",
+      "answer": "GAMESS (General Atomic and Molecular Electronic Structure System) est un paquet logiciel de chimie quantique 'ab initio' utilisé pour effectuer des calculs sur la structure électronique des molécules."
     },
     {
-      "question": "Comment on soumet une tâche GAMESS?",
-      "answer": "Il faut préparer un fichier d'entrée GAMESS et un script pour la tâche, puis soumettre le script à l'ordonnanceur avec la commande `sbatch`."
+      "question": "Quelles sont les étapes initiales pour préparer et soumettre une tâche GAMESS sur une grappe de calcul?",
+      "answer": "La première étape est de préparer un fichier d'entrée GAMESS décrivant la géométrie moléculaire et le calcul, puis de créer un script de soumission spécifiant les ressources de calcul requises. Les deux fichiers doivent être dans le même répertoire."
     },
     {
-      "question": "Qu'est-ce qu'un fichier d'entrée GAMESS doit contenir?",
-      "answer": "Il doit contenir la géométrie moléculaire de la substance et les détails du calcul à effectuer."
+      "question": "Où peut-on trouver de la documentation détaillée sur le format des fichiers d'entrée GAMESS et les mots-clés à utiliser?",
+      "answer": "La documentation officielle de GAMESS est disponible en ligne, et la section 2 du manuel est spécifiquement dédiée à la description du format du fichier d'entrée et des mots-clés."
     },
     {
-      "question": "Où peut-on trouver l'information détaillée sur le format et les mots-clés des fichiers d'entrée GAMESS?",
-      "answer": "La documentation GAMESS, plus spécifiquement la section 2, décrit le format du fichier et les mots-clés."
+      "question": "Quelles sont les directives SBATCH essentielles à inclure dans un script de soumission pour une tâche GAMESS typique?",
+      "answer": "Un script de soumission typique doit inclure les directives SBATCH pour spécifier le nombre de CPUs (--cpus-per-task), la mémoire par CPU (--mem-per-cpu) et le temps d'exécution (--time)."
     },
     {
-      "question": "À quoi sert le script pour la tâche GAMESS?",
-      "answer": "Le script sert à spécifier les ressources de calcul requises, comme le nombre de CPUs, la mémoire et le temps d'exécution."
+      "question": "Comment soumettre un script de tâche GAMESS à l'ordonnanceur sur une grappe de calcul?",
+      "answer": "Pour soumettre une tâche GAMESS, il faut utiliser la commande 'sbatch' suivie du nom du script de soumission, par exemple 'sbatch gamess_job.sh'."
     },
     {
-      "question": "Quels sont les paramètres de ressources configurés dans l'exemple de script `gamess_job.sh` fourni?",
-      "answer": "L'exemple configure 1 CPU par tâche, 4000 Mo de mémoire par CPU, et un temps d'exécution maximum de 30 minutes."
+      "question": "Où sont enregistrés par défaut les fichiers binaires temporaires (fichiers 'scratch') générés par GAMESS lors de l'exécution d'une tâche sur une grappe de calcul, et quelle est l'implication de cet emplacement?",
+      "answer": "Par défaut, les fichiers binaires temporaires sont enregistrés sur le disque local du nœud de calcul (répertoire $SLURM_TMPDIR), offrant la meilleure performance. Il est important de noter que ces données seront supprimées lorsque la tâche sera terminée."
     },
     {
-      "question": "Quelle commande utilise-t-on pour soumettre le script de tâche à l'ordonnanceur?",
-      "answer": "On utilise la commande `sbatch gamess_job.sh`."
+      "question": "Comment peut-on changer l'emplacement des fichiers binaires temporaires de GAMESS si l'espace disque local du nœud de calcul est insuffisant?",
+      "answer": "Si l'espace sur le disque local est insuffisant, on peut modifier la variable d'environnement SCR dans le script de soumission pour utiliser le répertoire /scratch de l'utilisateur, par exemple en la définissant à '$SCRATCH/gamess_${SLURM_JOB_ID}/'."
     },
     {
-      "question": "Où les fichiers binaires temporaires (fichiers scratch) de GAMESS sont-ils enregistrés par défaut?",
-      "answer": "Par défaut, ils sont enregistrés sur le disque local du nœud de calcul, désigné par la variable `$SLURM_TMPDIR`."
+      "question": "Où sont copiés les fichiers de sortie supplémentaires de GAMESS par défaut après l'exécution d'une tâche?",
+      "answer": "Les fichiers de sortie supplémentaires de GAMESS sont copiés à l'endroit désigné par la variable d'environnement USERSCR, qui est par défaut le répertoire $SCRATCH de l'utilisateur."
     },
     {
-      "question": "Est-ce que les données enregistrées dans `$SLURM_TMPDIR` sont conservées après la fin de la tâche?",
-      "answer": "Non, les données de `$SLURM_TMPDIR` sont supprimées lorsque la tâche est terminée."
+      "question": "Quelles sont les limites de l'exécution de calculs GAMESS sur plusieurs CPUs sur une grappe de calcul et pourquoi?",
+      "answer": "GAMESS utilise la parallélisation par sockets, ce qui signifie qu'il ne peut utiliser que les cœurs CPU qui se trouvent sur le même nœud de calcul. De plus, les calculs de chimie quantique ne se transposent généralement pas bien sur un grand nombre de CPUs, ce qui peut rendre l'efficacité faible."
     },
     {
-      "question": "Que faire si l'espace sur le disque local est insuffisant pour les fichiers scratch de GAMESS?",
-      "answer": "On peut utiliser `/scratch` en décommentant et en configurant la variable d'environnement `SCR` dans le script de tâche."
+      "question": "Pourquoi est-il important de faire un test de 'scalabilité' pour déterminer le nombre optimal de CPUs à utiliser pour un calcul GAMESS?",
+      "answer": "Un test de 'scalabilité' est crucial pour comparer les temps d'exécution avec différents nombres de CPUs. Cela permet de trouver un nombre raisonnable de CPUs qui réduit significativement le temps de calcul sans gaspiller de ressources, car utiliser trop de CPUs peut parfois même augmenter le temps d'exécution."
     },
     {
-      "question": "Où sont copiés les fichiers de sortie supplémentaires de GAMESS?",
-      "answer": "Ils sont copiés à l'endroit désigné par la variable d'environnement `USERSCR`, qui par défaut est le répertoire `$SCRATCH` de l'utilisateur."
+      "question": "Pourquoi la gestion de la mémoire est-elle cruciale pour les calculs de chimie quantique avec GAMESS sur une grappe de calcul?",
+      "answer": "Les calculs en chimie quantique sont souvent 'memory bound', nécessitant une grande quantité de mémoire RAM, surtout pour des molécules plus grandes. GAMESS utilise le stockage 'scratch' pour gérer les résultats intermédiaires, mais il est préférable de prévoir une mémoire suffisante pour de meilleures performances."
     },
     {
-      "question": "Comment on demande plusieurs CPUs pour une tâche GAMESS?",
-      "answer": "On spécifie le nombre de CPUs avec le paramètre `--cpus-per-task` dans le script de soumission."
+      "question": "Comment spécifier la quantité de mémoire requise pour une tâche GAMESS dans le script de soumission SBATCH?",
+      "answer": "La quantité de mémoire par CPU est spécifiée avec la directive '--mem-per-cpu' dans le script SBATCH, par exemple '--mem-per-cpu=4000M' est une valeur raisonnable pour les nœuds de base."
     },
     {
-      "question": "Quel est le nombre maximum de cœurs CPU que GAMESS peut utiliser sur un même nœud de calcul, par exemple sur la grappe Graham?",
-      "answer": "GAMESS ne peut utiliser que les cœurs CPU qui se trouvent sur le même nœud, soit un maximum de 32 cœurs CPU par nœud sur Graham."
+      "question": "Comment GAMESS est-il informé de la quantité de mémoire qu'il peut utiliser pour ses calculs via le fichier d'entrée?",
+      "answer": "GAMESS est informé de la quantité de mémoire à utiliser via les options `MWORDS` et `MEMDDI` dans le groupe `$SYSTEM` du fichier d'entrée. `MWORDS` définit la mémoire maximale par cœur, et `MEMDDI` la mémoire totale pour l'interface de données distribuées (DDI)."
     },
     {
-      "question": "Est-ce que les calculs en chimie quantique sont toujours efficaces avec un grand nombre de CPUs?",
-      "answer": "Non, ils ne se transposent pas aussi bien que la mécanique moléculaire classique et leur efficacité dépend du niveau théorique, du nombre d'atomes et des fonctions de base."
+      "question": "Quelle est la signification des options `MWORDS` et `MEMDDI` dans le groupe `$SYSTEM` du fichier d'entrée GAMESS, et comment influencent-elles la consommation de mémoire?",
+      "answer": "`MWORDS` indique la quantité maximale de mémoire que la tâche peut utiliser sur chaque cœur (en millions de mots de 64 bits/8 octets). `MEMDDI` est la quantité totale de mémoire nécessaire pour le DDI (en millions de mots). La mémoire requise sur chaque cœur est donc `MEMDDI/p + MWORDS`, où `p` est le nombre de cœurs-CPU."
     },
     {
-      "question": "Comment on détermine un nombre raisonnable de CPUs à utiliser pour une tâche GAMESS?",
-      "answer": "Il faut exécuter un test de scalabilité en comparant les temps d'exécution avec différents nombres de CPUs pour le même fichier d'entrée."
-    },
-    {
-      "question": "Les calculs en chimie quantique sont-ils exigeants en mémoire vive?",
-      "answer": "Oui, ils sont souvent ''memory bound'' et nécessitent beaucoup de mémoire RAM, surtout pour les grandes molécules et les niveaux théoriques élevés."
-    },
-    {
-      "question": "Comment GAMESS gère-t-il la mémoire face aux grandes exigences des calculs?",
-      "answer": "GAMESS utilise du stockage ''scratch'' pour stocker les résultats intermédiaires et libérer de la mémoire vive, bien que le disque soit plus lent."
-    },
-    {
-      "question": "Quelle est la façon de spécifier la quantité de mémoire pour une tâche GAMESS dans le script de soumission à Slurm?",
-      "answer": "On utilise le paramètre `--mem-per-cpu` avec une valeur comme `4000M`, ce qui est un ratio mémoire-CPU raisonnable."
-    },
-    {
-      "question": "Comment on indique à GAMESS la quantité de mémoire qu'il peut utiliser via le fichier d'entrée?",
-      "answer": "Dans le groupe `$SYSTEM` du fichier d'entrée, on utilise les options `MWORDS` (mémoire max par cœur) et `MEMDDI` (mémoire totale nécessaire pour le DDI)."
-    },
-    {
-      "question": "Quelles sont les unités utilisées pour les options `MWORDS` et `MEMDDI` dans le fichier d'entrée GAMESS?",
-      "answer": "L'unité est de 1 000 000 de mots, où un mot représente 64 bits, soit 8 octets."
-    },
-    {
-      "question": "Comment on résout une erreur de mémoire indiquant que Slurm a dépassé la limite, comme 'Exceeded step/job memory limit'?",
-      "answer": "Il faut soit réduire les valeurs de `MWORDS` ou `MEMDDI` dans le fichier d'entrée, soit augmenter la valeur de `--mem-per-cpu` dans le script de soumission."
+      "question": "Que signifie le message d'erreur 'slurmstepd: error: Exceeded step/job memory limit at some point' dans le fichier de sortie Slurm d'une tâche GAMESS et quelles sont les solutions possibles?",
+      "answer": "Ce message indique que la tâche GAMESS a utilisé plus de mémoire que la quantité demandée à l'ordonnanceur Slurm. Pour y remédier, on peut soit réduire les valeurs de `MWORDS` ou `MEMDDI` dans le fichier d'entrée GAMESS, soit augmenter la valeur de `--mem-per-cpu` dans le script de soumission Slurm."
     }
   ],
-  "generated_at": "2026-04-11T21:53:28.944819+00:00"
+  "generated_at": "2026-04-13T05:37:46.861881+00:00"
 }

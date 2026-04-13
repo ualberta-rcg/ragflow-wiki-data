@@ -4,17 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "How can I list both available and unavailable Python wheels using a `requirements.txt` file?",
-      "answer": "You can use the `avail_wheels` command. To list available wheels based on a `requirements.txt` file, run `avail_wheels -r requirements.txt`. To display wheels that are specified in the `requirements.txt` but are not available, use `avail_wheels -r requirements.txt --not-available`."
+      "question": "How can a user pre-download a Python package on a login node and then install it on a compute node?",
+      "answer": "To pre-download a package like `tensorboardX`, run `pip download --no-deps tensorboardX` on a login node, which saves the wheel file in your working directory. Then, to install it on a compute node, use `pip install tensorboardX-1.9-py2.py3-none-any.whl` (or the actual downloaded filename), ensuring the wheel filename does not end with `linux_x86_64` or `manylinux*_x86_64` as these might not function correctly."
     },
     {
-      "question": "What is the process for pre-downloading a Python package for later installation, and what should I do if the downloaded wheel's filename ends with `linux_x86_64`?",
-      "answer": "To pre-download a package, run `pip download --no-deps <package_name>` on a login node, which will save the package as a `.whl` file in your working directory. If the filename ends with `linux_x86_64` instead of `none-any`, the wheel might not function correctly, and you should contact Technical Support to have it compiled for the systems. Once pre-downloaded, you install it using its file path, for example, `pip install tensorboardX-1.9-py2.py3-none-any.whl`."
+      "question": "What is the recommended method for installing a Python package directly from a remote Git repository, such as GitHub, to ensure a reproducible installation?",
+      "answer": "To install a package from a remote Git repository into an activated virtual environment, use `pip install git+https://git.example.com/MyProject.git@<reference>`. It is crucial to specify a tag (e.g., `v1.0.1`), a short or full commit identifier, or a specific branch/reference rather than the `HEAD` of the repository to guarantee a reproducible installation."
     },
     {
-      "question": "How do I install a Python package directly from a remote Git repository, and why is it important to use a tag or commit ID for reproducible installations?",
-      "answer": "To install a package from a remote Git repository within an activated virtual environment, use a command like `pip install git+https://git.example.com/MyProject.git@v1.0`. It is crucial to use a specific tag (version), commit ID, or other reference, rather than the `HEAD` of the repository, to ensure reproducible installations. Relying on `HEAD` can lead to issues if the repository authors make subsequent changes."
+      "question": "How does one create a local Python wheel from a remote Git repository or from modified source code to ensure job reproducibility or to apply custom changes?",
+      "answer": "To create a local wheel from a remote repository, activate your virtual environment and run `pip wheel --no-deps -w $HOME git+https://git.example.com/MyProject.git@<commit id>`, which builds the wheel in your home directory. If you need to modify source files, first clone the repository, `cd` into it, make your edits, and then run `pip wheel --no-deps -w $HOME .` from within the project directory. Afterwards, install the local wheel using `pip install $HOME/MyProject-1.0.0-py3-none.whl` (replace with the actual filename)."
     }
   ],
-  "generated_at": "2026-04-12T18:19:50.064884+00:00"
+  "generated_at": "2026-04-13T11:49:24.725776+00:00"
 }

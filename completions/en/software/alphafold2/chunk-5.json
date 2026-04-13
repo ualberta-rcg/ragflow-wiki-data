@@ -4,125 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is the primary command used to run AlphaFold 2.3 within the provided submission scripts?",
-      "answer": "The primary command to run AlphaFold 2.3 is `run_alphafold.py`."
+      "question": "How can AlphaFold v2.3 be run on a compute cluster using a SLURM job submission script?",
+      "answer": "To run AlphaFold v2.3 using a SLURM job script, one must first load necessary module dependencies such as `StdEnv/2020`, `gcc/9.3.0`, `openmpi/4.0.3`, `cuda/11.4`, `cudnn/8.2.0`, `kalign/2.03`, `hmmer/3.2.1`, `openmm-alphafold/7.5.1`, `hh-suite/3.3.0`, and `python/3.8`. Subsequently, a Python virtual environment should be created and activated within the `$SLURM_TMPDIR` directory, followed by installing AlphaFold and its dependencies using `pip`. Finally, the `run_alphafold.py` command is executed, specifying parameters like input FASTA paths, output directory, data directory, database preset (e.g., `--db_preset=full_dbs`), model preset (e.g., `--model_preset=multimer`), and explicit paths to various required databases."
     },
     {
-      "question": "Which database preset is specified for AlphaFold 2.3 runs in the submission scripts?",
-      "answer": "The database preset specified for AlphaFold 2.3 runs is `full_dbs`."
+      "question": "What SLURM resource allocations are recommended for an AlphaFold v2.3 job on a cluster?",
+      "answer": "For an AlphaFold v2.3 job, it is recommended to request a maximum of 8 CPU cores (`--cpus-per-task=8`) because AlphaFold is hardcoded not to benefit from more. Users should also allocate 20GB of memory (`--mem=20G`) and specify a walltime, such as 8 hours (`--time=08:00:00`). If using a GPU, one GPU should be requested (`--gres=gpu:1`), as it helps to accelerate only the inference part of the process."
     },
     {
-      "question": "Which model preset is configured for AlphaFold 2.3 runs in the submission scripts?",
-      "answer": "The model preset configured for AlphaFold 2.3 runs is `multimer`."
-    },
-    {
-      "question": "What is the maximum number of CPU cores AlphaFold is hardcoded to use, according to the submission scripts?",
-      "answer": "AlphaFold is hardcoded to use a maximum of 8 CPU cores and doesn't benefit from more, as indicated by `--cpus-per-task=8`."
-    },
-    {
-      "question": "How is the input FASTA file path specified when running AlphaFold 2.3?",
-      "answer": "The input FASTA file path is specified using the `--fasta_paths` argument, for example: `--fasta_paths=${INPUT_DIR}/YourSequence.fasta,${INPUT_DIR}/AnotherSequence.fasta`."
-    },
-    {
-      "question": "Where are the output files stored when running AlphaFold 2.3?",
-      "answer": "The output files are stored in the directory specified by the `--output_dir` argument, which is `${OUTPUT_DIR}`."
-    },
-    {
-      "question": "What is the path to the main data directory required by AlphaFold 2.3?",
-      "answer": "The path to the main data directory is specified by the `--data_dir` argument, which is `${DOWNLOAD_DIR}`."
-    },
-    {
-      "question": "What is the path for the BFD database in AlphaFold 2.3?",
-      "answer": "The path for the BFD database is `${DOWNLOAD_DIR}/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt`."
-    },
-    {
-      "question": "What is the path for the MGnify database for AlphaFold 2.3, specifically its clustered sequences?",
-      "answer": "The path for the MGnify database is `${DOWNLOAD_DIR}/mgnify/mgy_clusters_2022_05.fa`."
-    },
-    {
-      "question": "What is the path for the PDB70 database used by AlphaFold 2.3?",
-      "answer": "The path for the PDB70 database is `${DOWNLOAD_DIR}/pdb70/pdb70`."
-    },
-    {
-      "question": "Where are the template mmCIF files located for AlphaFold 2.3?",
-      "answer": "The template mmCIF files are located in the directory specified by `--template_mmcif_dir`, which is `${DOWNLOAD_DIR}/pdb_mmcif/mmcif_files`."
-    },
-    {
-      "question": "What is the path to the obsolete PDBs file for AlphaFold 2.3?",
-      "answer": "The path to the obsolete PDBs file is `${DOWNLOAD_DIR}/pdb_mmcif/obsolete.dat`."
-    },
-    {
-      "question": "What is the path for the PDB sequence residues database in AlphaFold 2.3?",
-      "answer": "The path for the PDB sequence residues database is `${DOWNLOAD_DIR}/pdb_seqres/pdb_seqres.txt`."
-    },
-    {
-      "question": "What is the path for the UniProt database used by AlphaFold 2.3?",
-      "answer": "The path for the UniProt database is `${DOWNLOAD_DIR}/uniprot/uniprot.fasta`."
-    },
-    {
-      "question": "What is the path for the UniRef30 database for AlphaFold 2.3?",
-      "answer": "The path for the UniRef30 database is `${DOWNLOAD_DIR}/uniref30/UniRef30_2021_03`."
-    },
-    {
-      "question": "What is the path for the UniRef90 database in AlphaFold 2.3?",
-      "answer": "The path for the UniRef90 database is `${DOWNLOAD_DIR}/uniref90/uniref90.fasta`."
-    },
-    {
-      "question": "Which binary path is specified for HHblits when running AlphaFold 2.3?",
-      "answer": "The binary path for HHblits is `${EBROOTHHMINSUITE}/bin/hhblits`."
-    },
-    {
-      "question": "What is the specified path for the HHsearch binary when running AlphaFold 2.3?",
-      "answer": "The specified path for the HHsearch binary is `${EBROOTHHMINSUITE}/bin/hhsearch`."
-    },
-    {
-      "question": "Where is the Jackhmmer binary located for AlphaFold 2.3 execution?",
-      "answer": "The Jackhmmer binary is located at `${EBROOTHMMER}/bin/jackhmmer`."
-    },
-    {
-      "question": "What is the path to the Kalign binary used by AlphaFold 2.3?",
-      "answer": "The path to the Kalign binary is `${EBROOTKALIGN}/bin/kalign`."
-    },
-    {
-      "question": "What is the maximum template date specified for AlphaFold 2.3 runs in the submission scripts?",
-      "answer": "The maximum template date specified is `2022-01-01`."
-    },
-    {
-      "question": "How do you enable GPU relaxation for AlphaFold 2.3?",
-      "answer": "To enable GPU relaxation for AlphaFold 2.3, the argument `--use_gpu_relax=True` should be included in the `run_alphafold.py` command."
-    },
-    {
-      "question": "How do you disable GPU relaxation for AlphaFold 2.3?",
-      "answer": "To disable GPU relaxation for AlphaFold 2.3, the argument `--use_gpu_relax=False` should be included in the `run_alphafold.py` command."
-    },
-    {
-      "question": "What is the recommended memory allocation for an AlphaFold 2.3 job, as per the submission scripts?",
-      "answer": "The recommended memory allocation for an AlphaFold 2.3 job is 20 Gigabytes (`--mem=20G`)."
-    },
-    {
-      "question": "What is the default wall time set for an AlphaFold 2.3 job in the submission scripts?",
-      "answer": "The default wall time set for an AlphaFold 2.3 job is 8 hours (`--time=08:00:00`)."
-    },
-    {
-      "question": "Which specific modules need to be loaded as dependencies for AlphaFold 2.3?",
-      "answer": "The required modules are `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cuda/11.4 cudnn/8.2.0 kalign/2.03 hmmer/3.2.1 openmm-alphafold/7.5.1 hh-suite/3.3.0 python/3.8`."
-    },
-    {
-      "question": "Where is the Python virtual environment created when running AlphaFold 2.3 on a cluster node?",
-      "answer": "The Python virtual environment is created in the `$SLURM_TMPDIR` directory: `virtualenv --no-download ${SLURM_TMPDIR}/env`."
-    },
-    {
-      "question": "How are AlphaFold and its dependencies installed within the virtual environment in the submission scripts?",
-      "answer": "AlphaFold and its dependencies are installed using pip: `pip install --no-index --upgrade pip` and `pip install --no-index --requirement ~/alphafold-requirements.txt`."
-    },
-    {
-      "question": "What is the purpose of the `--gres=gpu:1` directive in an AlphaFold 2.3 GPU submission script?",
-      "answer": "The `--gres=gpu:1` directive requests one GPU, which helps to accelerate the inference part of the AlphaFold job."
-    },
-    {
-      "question": "What is the default job name for AlphaFold runs in the provided SBATCH scripts?",
-      "answer": "The default job name for AlphaFold runs is `alphafold_run`."
+      "question": "How are the AlphaFold database locations and input/output directories specified when running AlphaFold v2.3 with a submission script?",
+      "answer": "When running AlphaFold v2.3 with a submission script, the `DOWNLOAD_DIR`, `INPUT_DIR`, and `OUTPUT_DIR` variables are defined at the start of the script. `DOWNLOAD_DIR` should point to the location of the AlphaFold databases (e.g., `$SCRATCH/alphafold/data` or `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2024_01/`), `INPUT_DIR` specifies the directory for input FASTA files, and `OUTPUT_DIR` is where results will be saved. These variables are then passed as arguments to the `run_alphafold.py` command using flags like `--data_dir`, `--fasta_paths`, and `--output_dir`, along with individual flags for each specific database path."
     }
   ],
-  "generated_at": "2026-04-11T16:34:51.814822+00:00"
+  "generated_at": "2026-04-13T01:31:49.727272+00:00"
 }

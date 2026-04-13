@@ -4,65 +4,13 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What is the name of the submission script for running AlphaFold 2.2 on a GPU?",
-      "answer": "The name of the submission script is `alphafold-gpu.sh`."
+      "question": "What are the essential steps and configurations specified in the `alphafold-gpu.sh` script for running AlphaFold 2.2 with GPU acceleration on a cluster?",
+      "answer": "The `alphafold-gpu.sh` script outlines several essential steps. It configures SLURM job parameters, requesting 8 CPU cores (the maximum beneficial for AlphaFold), 20GB of memory, and one GPU. It loads necessary modules such as `StdEnv/2020`, `gcc/9.3.0`, `cuda/11.4`, and `python/3.8`. A Python virtual environment is then created in `$SLURM_TMPDIR` and AlphaFold, along with its dependencies, is installed within it from a requirements file. Finally, the script executes `run_alphafold.py`, specifying input/output directories, database paths, `model_preset=monomer_casp14`, and enabling GPU relaxation with `--use_gpu_relax=True`."
     },
     {
-      "question": "What is the recommended maximum number of CPU cores to request when running AlphaFold?",
-      "answer": "A maximum of 8 CPU cores should be requested, as AlphaFold does not benefit from using more."
-    },
-    {
-      "question": "Does running AlphaFold with a GPU accelerate the process?",
-      "answer": "Yes, a GPU helps to accelerate the inference part only."
-    },
-    {
-      "question": "What are the default resource requests for the `alphafold-gpu.sh` script for AlphaFold 2.2?",
-      "answer": "The script requests a job name of `alphafold_run`, a walltime of 08:00:00, 8 CPU cores per task, one GPU, and 20G of memory."
-    },
-    {
-      "question": "Which modules must be loaded before running AlphaFold 2.2 on a GPU?",
-      "answer": "The following modules must be loaded: `StdEnv/2020`, `gcc/9.3.0`, `openmpi/4.0.3`, `cuda/11.4`, `cudnn/8.2.0`, `kalign/2.03`, `hmmer/3.2.1`, `openmm-alphafold/7.5.1`, and `python/3.8`."
-    },
-    {
-      "question": "How is a Python virtual environment generated and activated in the AlphaFold 2.2 GPU script?",
-      "answer": "The virtual environment is generated in `$SLURM_TMPDIR` using `virtualenv --no-download ${SLURM_TMPDIR}/env` and then activated with `source ${SLURM_TMPDIR}/env/bin/activate`."
-    },
-    {
-      "question": "What is the command to install AlphaFold and its dependencies within the activated virtual environment for version 2.2?",
-      "answer": "AlphaFold and its dependencies are installed using `pip install --no-index --upgrade pip` and `pip install --no-index --requirement ~/alphafold-requirements.txt`."
-    },
-    {
-      "question": "What `model_preset` is used when running AlphaFold 2.2 on a GPU according to the provided script?",
-      "answer": "The `model_preset` used is `monomer_casp14`."
-    },
-    {
-      "question": "Is GPU relaxation enabled in the AlphaFold 2.2 GPU submission script?",
-      "answer": "Yes, `use_gpu_relax` is set to `True` in the script."
-    },
-    {
-      "question": "How do you submit the `alphafold-gpu.sh` job to the scheduler?",
-      "answer": "The job is submitted using the command `sbatch --job-name alphafold-X alphafold-gpu.sh`."
-    },
-    {
-      "question": "What common error message might you encounter when downloading AlphaFold databases?",
-      "answer": "You might encounter a `Client_loop: send disconnect: Broken pipe` error message."
-    },
-    {
-      "question": "What could be a reason for a 'Broken pipe' error message during database download?",
-      "answer": "It could be as simple as an unusually high number of users working on the login node, leaving less space for you to upload data, though the exact cause is often hard to find."
-    },
-    {
-      "question": "What are some solutions for a 'Broken pipe' error when downloading AlphaFold databases?",
-      "answer": "Solutions include using a terminal multiplexer, using the database already present on the cluster (e.g., `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2023_07/`), or downloading the full database in sections using specific `download_` scripts."
-    },
-    {
-      "question": "How can one view the available scripts for downloading sections of the AlphaFold database?",
-      "answer": "After loading the module and activating your virtual environment, you can type `download_` in your terminal and press the `tab` key twice to visualize all available scripts."
-    },
-    {
-      "question": "What specific database path for AlphaFold is mentioned as an alternative to local download in case of a 'Broken pipe' error?",
-      "answer": "The database available at `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2023_07/` is mentioned as an alternative."
+      "question": "When downloading AlphaFold databases, what troubleshooting steps are suggested if a 'Client_loop: send disconnect: Broken pipe' error message appears?",
+      "answer": "If a 'Client_loop: send disconnect: Broken pipe' error occurs during the download of AlphaFold databases, several solutions are suggested. You can try using a terminal multiplexer to maintain the session. Alternatively, consider using the database already available on the cluster at `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2023_07/`. A third option is to download the database in sections by using specific `download_` scripts, which can be listed by typing `download_` and pressing `tab` twice in your activated virtual environment."
     }
   ],
-  "generated_at": "2026-04-11T16:33:00.242135+00:00"
+  "generated_at": "2026-04-13T01:30:36.628556+00:00"
 }

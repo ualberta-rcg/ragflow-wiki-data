@@ -4,85 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of the `MPI_Finalize` function in MPI programming?",
-      "answer": "The `MPI_Finalize` function is essential for performing any required clean-up operations before an MPI program concludes its execution."
+      "question": "What is the purpose of the `MPI_Finalize` function in an MPI program, and when should it be called?",
+      "answer": "The `MPI_Finalize` function is used to perform any necessary clean-up before an MPI program exits. As a general rule of thumb, it is recommended to call `MPI_Init` as the first statement and `MPI_Finalize` as the last statement of a program."
     },
     {
-      "question": "When should `MPI_Init` and `MPI_Finalize` be called within an MPI program?",
-      "answer": "As a rule of thumb, `MPI_Init` should be the very first statement in an MPI program, and `MPI_Finalize` should be its very last statement."
+      "question": "How do the `MPI_Comm_size` and `MPI_Comm_rank` functions provide information about processes in an MPI job?",
+      "answer": "The `MPI_Comm_size` function reports the total number of processes running as part of an MPI job by assigning this value to its `nproc` result parameter. Similarly, the `MPI_Comm_rank` function reports the unique rank of the calling process, assigning it to its `myrank` result parameter. MPI ranks start from 0, so for N processes, the ranks will range from 0 to N-1."
     },
     {
-      "question": "How is `MPI_Finalize` typically handled in `mpi4py` for Python programs?",
-      "answer": "In `mpi4py`, a termination hook is usually installed, which means explicitly calling `MPI.Finalize()` is not strictly necessary, though it can still be done."
-    },
-    {
-      "question": "What MPI functions are used at runtime to determine a process's rank and the total number of processes in a job?",
-      "answer": "The `MPI_Comm_size` and `MPI_Comm_rank` functions are used at runtime to obtain information about a process's rank and the total number of processes currently running in the job."
-    },
-    {
-      "question": "What information does `MPI_Comm_size` provide?",
-      "answer": "`MPI_Comm_size` reports the total number of processes active as part of the current job, assigning this value to its result parameter, typically `nproc`."
-    },
-    {
-      "question": "What information does `MPI_Comm_rank` provide?",
-      "answer": "`MPI_Comm_rank` reports the unique rank of the calling process, assigning this value to its result parameter, typically `myrank`."
-    },
-    {
-      "question": "What is the numbering convention for ranks in MPI?",
-      "answer": "In MPI, ranks start from 0. Therefore, for `N` processes, the ranks will range from 0 to `N-1`."
-    },
-    {
-      "question": "What is a 'communicator' in the context of MPI?",
-      "answer": "A 'communicator' is an argument to MPI functions, representing a defined group of processes that are capable of exchanging messages with one another."
-    },
-    {
-      "question": "Which predefined communicator value is used throughout this tutorial?",
-      "answer": "For this tutorial, the predefined value `MPI_COMM_WORLD` is consistently used as the communicator, representing all MPI processes launched with the job."
-    },
-    {
-      "question": "Is it possible to create custom communicators in MPI?",
-      "answer": "Yes, it is possible to define and utilize custom communicators, though this topic is considered beyond the scope of this specific tutorial."
-    },
-    {
-      "question": "What is the C language prototype for `MPI_Comm_size`?",
-      "answer": "The C language prototype for `MPI_Comm_size` is `int MPI_Comm_size(MPI_Comm comm, int *nproc);`."
-    },
-    {
-      "question": "What is the C language prototype for `MPI_Comm_rank`?",
-      "answer": "The C language prototype for `MPI_Comm_rank` is `int MPI_Comm_rank(MPI_Comm comm, int *myrank);`."
-    },
-    {
-      "question": "How does Boost (C++) obtain the size of an MPI communicator?",
-      "answer": "In Boost (C++), the size of an MPI communicator is obtained by calling `int mpi::communicator::size();`."
-    },
-    {
-      "question": "How does Boost (C++) obtain the rank of an MPI process?",
-      "answer": "In Boost (C++), the rank of an MPI process is obtained by calling `int mpi::communicator::rank();`."
-    },
-    {
-      "question": "What are the arguments for the `MPI_COMM_SIZE` subroutine in Fortran?",
-      "answer": "In Fortran, the `MPI_COMM_SIZE` subroutine takes three integer arguments: `COMM`, `NPROC`, and `IERR`."
-    },
-    {
-      "question": "What are the arguments for the `MPI_COMM_RANK` subroutine in Fortran?",
-      "answer": "In Fortran, the `MPI_COMM_RANK` subroutine takes three integer arguments: `COMM`, `RANK`, and `IERR`."
-    },
-    {
-      "question": "What is the Fortran 2008 syntax for `MPI_Comm_size`?",
-      "answer": "The Fortran 2008 syntax for `MPI_Comm_size` is `MPI_Comm_size(comm, size, ierr)`, where `comm` is `TYPE(MPI_Comm)`, `size` is `INTEGER`, and `ierr` is an optional `INTEGER`."
-    },
-    {
-      "question": "What is the Fortran 2008 syntax for `MPI_Comm_rank`?",
-      "answer": "The Fortran 2008 syntax for `MPI_Comm_rank` is `MPI_Comm_rank(comm, rank, ierr)`, where `comm` is `TYPE(MPI_Comm)`, `rank` is `INTEGER`, and `ierr` is an optional `INTEGER`."
-    },
-    {
-      "question": "How is the rank of a process retrieved using `mpi4py` in Python?",
-      "answer": "In `mpi4py` for Python, the rank of a process is retrieved using `MPI.Intracomm.Get_rank(self)`."
-    },
-    {
-      "question": "How is the size of a communicator retrieved using `mpi4py` in Python?",
-      "answer": "In `mpi4py` for Python, the size of a communicator is retrieved using `MPI.Intracomm.Get_size(self)`."
+      "question": "What does `MPI_COMM_WORLD` represent in MPI programming, and how is it used in this tutorial?",
+      "answer": "`MPI_COMM_WORLD` is a predefined communicator in MPI, which is a set of all the MPI processes that were started with the job. For the purpose of this tutorial, `MPI_COMM_WORLD` is consistently passed as the `comm` argument to MPI functions."
     }
   ],
-  "generated_at": "2026-04-12T01:51:47.220678+00:00"
+  "generated_at": "2026-04-13T08:48:37.421982+00:00"
 }

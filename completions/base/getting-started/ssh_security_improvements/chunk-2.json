@@ -4,65 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What should users on macOS, Linux, GitBash, or Cygwin do if their SSH client remembers old host keys after changes?",
-      "answer": "If you are using the command line `ssh` command on macOS, Linux, GitBash or Cygwin, you should tell your system to \"forget\" the old host key by running one of the provided `ssh-keygen -R $h` commands for your specific cluster."
+      "question": "When using the command line `ssh` on macOS, Linux, GitBash, or Cygwin, what is the procedure to update my system's known host list after cluster SSH changes and a \"REMOTE HOST IDENTIFICATION HAS CHANGED!\" warning?",
+      "answer": "To resolve the \"REMOTE HOST IDENTIFICATION HAS CHANGED!\" warning, you must first clear the old host key from your system. This is done by running the specific `ssh-keygen -R` command for the cluster you are trying to access (e.g., for Graham: `for h in 2620:123:7002:4::{2..5} 199.241.166.{2..5} {gra-login{1..3},graham,gra-dtn,gra-dtn1,gra-platform,gra-platform1}.{sharcnet,computecanada}.ca; do ssh-keygen -R $h; done`). After running the command, the next time you connect via SSH, you will be prompted to confirm the new host keys. It is critical to only type \"yes\" if the displayed fingerprint matches one found in the \"SSH host key fingerprints\" list; otherwise, do not connect and contact technical support."
     },
     {
-      "question": "What command is used to clear old host keys for the Graham cluster on macOS, Linux, GitBash, or Cygwin?",
-      "answer": "For the Graham cluster, you should run the command: `for h in 2620:123:7002:4::{2..5} 199.241.166.{2..5} {gra-login{1..3},graham,gra-dtn,gra-dtn1,gra-platform,gra-platform1}.{sharcnet,computecanada}.ca; do ssh-keygen -R $h; done`."
+      "question": "If my SSH key previously worked but I am now being asked for a password when connecting to the clusters, what is the likely reason and solution?",
+      "answer": "This likely occurs because older 1024-bit DSA and RSA SSH keys have been disabled for security reasons. To resolve this, you need to generate a new, stronger SSH key. The process for generating this new key and adding its public key to the remote host for authentication is described in the documentation for \"Generating SSH keys in Windows\" or \"Using SSH keys in Linux/macOS,\" depending on your operating system."
     },
     {
-      "question": "What command is used to clear old host keys for the Cedar cluster on macOS, Linux, GitBash, or Cygwin?",
-      "answer": "For the Cedar cluster, you should run the command: `for h in 206.12.124.{2,6} cedar{1,5}.cedar.computecanada.ca cedar.computecanada.ca; do ssh-keygen -R $h; done`."
-    },
-    {
-      "question": "What command is used to clear old host keys for the Beluga cluster on macOS, Linux, GitBash, or Cygwin?",
-      "answer": "For the Beluga cluster, you should run the command: `for h in beluga{,{1..4}}.{computecanada,calculquebec}.ca 132.219.136.{1..4}; do ssh-keygen -R $h; done`."
-    },
-    {
-      "question": "What command is used to clear old host keys for the Mp2 cluster on macOS, Linux, GitBash, or Cygwin?",
-      "answer": "For the Mp2 cluster, you should run the command: `for h in ip{15..20}-mp2.{computecanada,calculquebec}.ca 204.19.23.2{15..20}; do ssh-keygen -R $h; done`."
-    },
-    {
-      "question": "What happens after running the `ssh-keygen -R` command to forget old host keys?",
-      "answer": "Afterwards, the next time you SSH to the cluster you'll be asked to confirm the new host keys."
-    },
-    {
-      "question": "When prompted to confirm new SSH host keys, what action should a user take?",
-      "answer": "Only type yes if the fingerprint displayed matches one listed in the SSH host key fingerprints section. If the fingerprint does not match any on the list, do not accept the connection and contact Technical support with the details."
-    },
-    {
-      "question": "Why might a user's SSH key no longer work, leading to a password prompt?",
-      "answer": "If you're being asked for a password but were using SSH keys previously on the same system, it's likely because 1024-bit DSA & RSA keys have been disabled."
-    },
-    {
-      "question": "What is the solution if a user's SSH key is no longer working because 1024-bit DSA & RSA keys have been disabled?",
-      "answer": "You need to generate a new stronger key. The process depends on your operating system (Windows or Linux/macOS), and you will also need to add your client's new public key to the remote host."
-    },
-    {
-      "question": "What error messages might indicate that a user's SSH client is incompatible with the new configuration?",
-      "answer": "Error messages such as \"Unable to negotiate with [IP address] port 22: no matching cipher found,\" \"no matching key exchange method found,\" or \"no matching mac found\" indicate an incompatible client."
-    },
-    {
-      "question": "What should a user do if they encounter error messages like \"no matching cipher found\" when trying to connect via SSH?",
-      "answer": "You need to upgrade your SSH client to one of the compatible clients shown in the document."
-    },
-    {
-      "question": "What is the general recommendation for updating operating systems and SSH clients to ensure compatibility?",
-      "answer": "We recommend that you update your operating system and SSH client to the latest version compatible with your hardware."
-    },
-    {
-      "question": "Which Linux SSH clients are listed as compatible with the new configuration?",
-      "answer": "Compatible Linux clients include OpenSSH_7.4p1, OpenSSL 1.0.2k-fips (CentOS 7.5, 7.6) and OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.13, OpenSSL 1.0.1f (Ubuntu 14)."
-    },
-    {
-      "question": "How can a user determine the exact version of their SSH client on OS X?",
-      "answer": "You can determine the exact version of your SSH client on OS X using the command `ssh -V`."
-    },
-    {
-      "question": "Which OS X SSH clients are listed as compatible with the new configuration?",
-      "answer": "Compatible OS X clients include OpenSSH 7.4p1, OpenSSL 1.0.2k (Homebrew) and OpenSSH 7.9p1, LibreSSL 2.7.3 (OS X 10.14.5)."
+      "question": "What troubleshooting steps should I take if I encounter \"Unable to negotiate\" error messages (e.g., \"no matching cipher found\") when attempting to connect to the clusters via SSH?",
+      "answer": "If you see \"Unable to negotiate\" error messages, such as \"no matching cipher found,\" \"no matching key exchange method found,\" or \"no matching mac found,\" it indicates that your current SSH client is not compatible with the updated cluster security configuration. The recommended solution is to upgrade your SSH client and operating system to the latest compatible versions. Examples of tested compatible clients include OpenSSH_7.4p1 on CentOS 7.5/7.6 for Linux and OpenSSH 7.4p1 (Homebrew) or OpenSSH 7.9p1 (OS X 10.14.5) for macOS."
     }
   ],
-  "generated_at": "2026-04-12T07:30:27.049950+00:00"
+  "generated_at": "2026-04-13T13:09:22.284594+00:00"
 }

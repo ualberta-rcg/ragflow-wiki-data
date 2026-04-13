@@ -4,89 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Pourquoi est-ce qu'AlphaFold3 doit être exécuté par étapes?",
-      "answer": "AlphaFold3 doit être exécuté par étapes pour séparer le pipeline de données, qui utilise seulement un CPU, du modèle d'inférence, qui demande un GPU. Ceci permet d'optimiser les coûts et l'utilisation des ressources."
+      "question": "Comment est-ce qu'AlphaFold3 devrait être exécuté pour optimiser son fonctionnement sur les grappes, pis pourquoi cette méthode est-elle recommandée?",
+      "answer": "AlphaFold3 devrait être exécuté par étapes, c'est-à-dire en séparant le pipeline de données (pour CPU seulement) du modèle d'inférence (qui demande un GPU). Cette approche est recommandée pour optimiser les coûts pis l'utilisation des ressources."
     },
     {
-      "question": "Quels sont les avantages de l'exécution par étapes d'AlphaFold3?",
-      "answer": "L'exécution par étapes permet d'optimiser les coûts et l'utilisation des ressources en séparant le pipeline de données (CPU) du modèle d'inférence (GPU). Elle permet aussi de cacher les résultats de la recherche de MSA/modèle pour les réutiliser."
-    },
-    {
-      "question": "Quel type de composant informatique est utilisé pour le pipeline de données d'AlphaFold3?",
-      "answer": "Le pipeline de données d'AlphaFold3 est conçu pour utiliser seulement un CPU."
-    },
-    {
-      "question": "Quel composant est requis pour le modèle d'inférence d'AlphaFold3?",
-      "answer": "Le modèle d'inférence d'AlphaFold3 demande un GPU."
-    },
-    {
-      "question": "Est-ce que l'exécution par étapes permet de réutiliser des résultats dans AlphaFold3?",
-      "answer": "Oui, l'exécution par étapes permet de cacher les résultats de la recherche de MSA/modèle, puis de réutiliser le JSON augmenté pour plusieurs inférences différentes ou pour des variations d'autres fonctionnalités, comme un ligand."
-    },
-    {
-      "question": "Où peut-on trouver de la documentation sur les entrées, les sorties et la performance d'AlphaFold3?",
-      "answer": "On peut trouver ces informations sur la page GitHub d'AlphaFold3, dans les documents `input.md` pour les entrées, `output.md` pour les sorties et `performance.md` pour la performance."
-    },
-    {
-      "question": "Quels modules doivent être chargés pour l'étape du pipeline de données (CPU) d'AlphaFold3?",
-      "answer": "Pour l'étape du pipeline de données, il faut charger les modules `StdEnv/2023`, `hmmer/3.4`, `rdkit/2024.03.5` et `python/3.12`."
-    },
-    {
-      "question": "Où est-ce qu'on doit placer les bases de données téléchargées pour le pipeline de données d'AlphaFold3?",
-      "answer": "Les bases de données téléchargées doivent résider dans le répertoire `DOWNLOAD_DIR`, lequel est généralement `$SCRATCH/alphafold/dbs`."
-    },
-    {
-      "question": "Combien de cœurs CPU sont recommandés au maximum pour le pipeline de données d'AlphaFold3?",
-      "answer": "Un maximum de 8 cœurs CPU (`--cpus-per-task=8`) est recommandé, car AlphaFold ne tire pas avantage d'un plus grand nombre pour cette étape."
-    },
-    {
-      "question": "Comment lancer seulement l'étape du pipeline de données d'AlphaFold3?",
-      "answer": "Il faut exécuter la commande `python run_alphafold.py` avec l'argument `--norun_inference`."
-    },
-    {
-      "question": "Où sont initialement générés les fichiers de sortie du pipeline de données et où sont-ils copiés ensuite?",
-      "answer": "Les fichiers de sortie sont initialement générés dans `$SLURM_TMPDIR/alphafold/output` et sont ensuite copiés dans `$SCRATCH/alphafold/output`."
-    },
-    {
-      "question": "Quelle est la compatibilité GPU requise pour l'inférence de modèle d'AlphaFold3?",
-      "answer": "AlphaFold3 prend en charge seulement la capacité de calcul des versions 8.0 et plus récentes, soit pour des GPU A100 et plus performants."
-    },
-    {
-      "question": "Combien de GPU sont nécessaires pour l'étape d'inférence d'AlphaFold3?",
-      "answer": "L'étape d'inférence d'AlphaFold3 ne s'exécute que sur UN A100 ou un GPU plus puissant (`--gpus=a100:1`)."
-    },
-    {
-      "question": "Quels modules additionnels sont requis pour l'étape d'inférence de modèle, comparativement au pipeline de données?",
-      "answer": "En plus des modules pour le pipeline de données, il faut charger `cuda/12.2` et `cudnn/9.2`."
-    },
-    {
-      "question": "Quel argument est utilisé pour exécuter seulement l'étape d'inférence de modèle d'AlphaFold3?",
-      "answer": "Il faut utiliser l'argument `--norun_data_pipeline` avec la commande `python run_alphafold.py` pour exécuter seulement l'étape d'inférence."
-    },
-    {
-      "question": "Comment soumettre indépendamment les tâches du pipeline de données et de l'inférence de modèle?",
-      "answer": "Il faut d'abord soumettre la tâche du pipeline de données avec `sbatch alphafold3-data.sh`, attendre qu'elle soit terminée, puis soumettre la tâche d'inférence avec `sbatch alphafold3-inference.sh`."
-    },
-    {
-      "question": "Comment soumettre les tâches d'AlphaFold3 de manière dépendante?",
-      "answer": "On soumet la tâche de données avec `jid1=$(sbatch alphafold3-data.sh)`, puis la tâche d'inférence avec `jid2=$(sbatch --dependency=afterok:$jid1 alphafold3-inference.sh)`."
-    },
-    {
-      "question": "Que faire si la première étape échoue lorsque les tâches sont soumises de manière dépendante?",
-      "answer": "Si la première étape échoue, il faut annuler manuellement la deuxième étape avec la commande `scancel -u $USER -n alphafold3-inference`."
-    },
-    {
-      "question": "Quelle est une solution si AlphaFold3 manque de mémoire GPU?",
-      "answer": "Si AlphaFold3 manque de mémoire GPU, on peut activer la fonctionnalité de mémoire unifiée (`unified memory`)."
-    },
-    {
-      "question": "Quelles variables d'environnement faut-il configurer pour activer la mémoire unifiée?",
-      "answer": "Il faut configurer `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true` et `export XLA_CLIENT_MEM_FRACTION=2.0` dans le script de soumission."
-    },
-    {
-      "question": "Comment doit-on ajuster la mémoire Slurm si la mémoire unifiée est activée avec un facteur de 2.0 sur un GPU de 40Go?",
-      "answer": "Il faut ajuster la quantité de mémoire allouée à la tâche à 80G (`#SBATCH --mem=80G`), car le facteur 2.0 multiplie la mémoire GPU par deux (2 x 40Go = 80Go)."
+      "question": "Quelles sont les deux étapes distinctes de l'exécution d'AlphaFold3, pis quelles ressources informatiques requièrent-elles?",
+      "answer": "Les deux étapes distinctes sont le pipeline de données, qui roule sur un CPU seulement, pis le modèle d'inférence, qui, lui, exige un GPU pour fonctionner."
     }
   ],
-  "generated_at": "2026-04-12T16:33:05.777237+00:00"
+  "generated_at": "2026-04-13T01:36:29.276023+00:00"
 }

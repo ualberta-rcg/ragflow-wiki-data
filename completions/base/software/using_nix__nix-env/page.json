@@ -3,77 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary function of the `nix-env` command?",
+      "question": "What is the primary purpose of the `nix-env` command for users on Alliance clusters?",
       "answer": "The `nix-env` command is used to manage a per-user Nix environment."
     },
     {
-      "question": "Is `nix-env` a modern or legacy command within the Nix ecosystem?",
-      "answer": "`nix-env` is considered a legacy command that has not yet been replaced by a newer `nix <command>` equivalent."
+      "question": "Is the `nix-env` command considered current or legacy in the Nix ecosystem?",
+      "answer": "The `nix-env` command is a legacy command that has not yet been replaced by a newer `nix <command>` command."
     },
     {
-      "question": "Where should one start to get a general overview of Nix?",
-      "answer": "For an overview of Nix, one should start by consulting the 'Using Nix' page."
+      "question": "How can a user query their current Nix environment to see what compositions are installed?",
+      "answer": "Users can check their currently installed compositions using the `nix-env --query` command."
     },
     {
-      "question": "How can you list the compositions currently installed in your Nix environment?",
-      "answer": "You can list currently installed compositions using the command `nix-env --query`."
+      "question": "What is the command to list all available compositions, including their attribute paths and descriptions, using `nix-env`?",
+      "answer": "To list all available compositions with attribute paths and descriptions, one uses `nix-env --query --available --attr-path --description`."
     },
     {
-      "question": "What command allows you to see all available compositions, including their attribute paths and descriptions?",
-      "answer": "To see all available compositions, including their attribute paths and descriptions, you would use `nix-env --query --available --attr-path --description`."
+      "question": "What is a generally faster alternative to `nix-env --query --available` for locating compositions?",
+      "answer": "The newer `nix search` command is often a faster way to locate compositions as it saves a cache for subsequent invocations."
     },
     {
-      "question": "What is a more efficient alternative for locating compositions compared to `nix-env --query --available`?",
-      "answer": "The newer `nix search` command is often a better way to locate compositions as it saves a cache, making subsequent invocations quite fast."
+      "question": "How does a user install a specific composition, for example, `git` from `nixpkgs`, into their Nix environment?",
+      "answer": "To install a composition like `git` from `nixpkgs`, the user would run `nix-env --install --attr nixpkgs.git`."
     },
     {
-      "question": "How do you install a specific composition, such as 'git', using `nix-env`?",
-      "answer": "You install a composition by using `nix-env --install --attr nixpkgs.git`."
-    },
-    {
-      "question": "What step might be necessary for bash to recognize a newly installed executable from Nix?",
+      "question": "What bash command might be needed to ensure the shell recognizes a newly installed executable after using `nix-env --install`?",
       "answer": "It may be necessary to tell bash to forget remembered executable locations with `hash -r` so it notices the new one."
     },
     {
-      "question": "How do you remove a composition, such as 'subversion', from your Nix environment?",
-      "answer": "You remove a composition using `nix-env --uninstall subversion`."
+      "question": "What command should a user employ to remove a specific composition, such as `subversion`, from their Nix environment?",
+      "answer": "To remove a composition like `subversion`, the command is `nix-env --uninstall subversion`."
     },
     {
-      "question": "What happens to your Nix environment each time you install or remove compositions?",
-      "answer": "Each time compositions are installed or removed, a new environment, referred to as a generation, is created based on the previous environment."
+      "question": "What happens to a user's Nix environment each time compositions are installed or removed?",
+      "answer": "Each time compositions are installed or removed, a new environment is created based off of the previous one."
     },
     {
-      "question": "How can you revert to the immediately preceding environment in Nix?",
-      "answer": "You can revert to the previous environment using the command `nix-env --rollback`."
+      "question": "How can a user quickly revert their Nix environment to the immediately preceding state?",
+      "answer": "A user can quickly revert to the previous environment using the `nix-env --rollback` command."
     },
     {
-      "question": "How do you view a list of all your past Nix environment generations?",
-      "answer": "To view a list of all your past Nix environment generations, you use `nix-env --list-generations`."
+      "question": "What commands allow a user to view a list of all their past Nix environments and then switch to a specific one by number?",
+      "answer": "Users can list all past environments with `nix-env --list-generations` and switch to a specific one using `nix-env --switch-generation <number>`."
     },
     {
-      "question": "How do you switch to a specific past Nix environment generation?",
-      "answer": "You switch to a specific generation using `nix-env --switch-generation <generation_number>`, for example, `nix-env --switch-generation 4`."
+      "question": "What does the 'atomic property' of Nix environments mean for operations like installing or updating compositions?",
+      "answer": "The atomic property means that operations either succeed completely and create a new environment, or they fail and leave the previous environment intact, preventing partial or inconsistent states."
     },
     {
-      "question": "What does it mean that Nix environment operations are 'atomic'?",
-      "answer": "Atomic operations mean that installations or updates either fully succeed, creating a new environment, or completely fail, leaving the previous environment intact without partial changes."
+      "question": "How does Nix handle software that has already been installed once during a subsequent installation request?",
+      "answer": "If the software already exists in the local Nix store from previous installs, Nix reuses it, making subsequent installations much faster."
     },
     {
-      "question": "What happens if a Nix installation is interrupted, for instance, with `CTRL+c`?",
-      "answer": "If an installation is interrupted, the operation doesn't complete, and thus it has no effect on the environment whatsoever, leaving it unchanged."
+      "question": "What is Nix's process for garbage collection, and what action must users take to free up disk space?",
+      "answer": "Nix periodically removes software not accessible from any existing environments, but users must explicitly delete environments they no longer want for Nix to reclaim the space."
     },
     {
-      "question": "Does Nix re-download or rebuild software if it has been installed previously?",
-      "answer": "No, if software already exists in the local Nix store from previous installs, Nix reuses it, making subsequent installations much faster."
-    },
-    {
-      "question": "How does Nix manage disk space by removing unneeded software?",
-      "answer": "Nix periodically performs garbage collection, removing any software not accessible from any existing environments, but environments must be explicitly deleted for space reclamation."
-    },
-    {
-      "question": "How can you delete old Nix environment generations to reclaim disk space?",
-      "answer": "You can delete old generations using `nix-env --delete-generations <period>`, for example, `nix-env --delete-generations 30d` to remove generations older than 30 days."
+      "question": "How can a user delete Nix environments that are, for example, older than 30 days?",
+      "answer": "A user can delete sufficiently old environments using the command `nix-env --delete-generations 30d`."
     }
   ],
-  "generated_at": "2026-04-12T10:07:22.097386+00:00"
+  "generated_at": "2026-04-13T15:12:42.989372+00:00"
 }

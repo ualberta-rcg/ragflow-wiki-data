@@ -4,81 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Comment s'appelle la suite ADF depuis la version de 2020?",
-      "answer": "Depuis la version de 2020, la suite ADF a été renommée AMS."
+      "question": "C'est quoi la suite logicielle SCM, anciennement connue sous le nom d'ADF, et à quoi sert-elle en chimie computationnelle?",
+      "answer": "La suite logicielle SCM (Software for Chemistry and Materials), qui s'appelait ADF (Amsterdam Density Functional) avant 2020, offre des applications ultra performantes pour la recherche en chimie computationnelle. Ça inclut des domaines comme la catalyse (homogène et hétérogène), la chimie inorganique, la chimie des éléments lourds, la biochimie et différents types de spectroscopie."
     },
     {
-      "question": "Quels sont les principaux changements introduits avec la nouvelle version AMS?",
-      "answer": "La nouvelle version AMS comporte des changements importants, notamment dans les formats d'entrée et de sortie."
+      "question": "Sur quel cluster est-ce que le module `adf` est disponible pour les utilisateurs, et pour quelle raison y a-t-il cette restriction?",
+      "answer": "Le module `adf` est seulement installé sur le cluster Graham, et cette restriction est due aux limitations liées à l'octroi des licences. Pour voir les versions d'ADF disponibles, vous pouvez lancer la commande `module spider adf` sur Graham."
     },
     {
-      "question": "Que signifie l'acronyme SCM dans 'SCM (Software for Chemistry and Materials)'?",
-      "answer": "SCM signifie 'Software for Chemistry and Materials'."
-    },
-    {
-      "question": "Quelle était la signification originale de l'acronyme ADF?",
-      "answer": "ADF, à l'origine, signifiait 'Amsterdam Density Functional'."
-    },
-    {
-      "question": "Dans quels domaines de recherche en chimie computationnelle les applications SCM sont-elles performantes?",
-      "answer": "Les applications SCM sont très performantes pour la recherche en chimie computationnelle, notamment dans les domaines de la catalyse (homogène et hétérogène), la chimie inorganique, la chimie des éléments lourds, la biochimie et différents types de spectroscopie."
-    },
-    {
-      "question": "Pouvez-vous nommer quelques produits disponibles dans la suite SCM?",
-      "answer": "Oui, les produits disponibles incluent ADF, ADF-GUI, BAND, BAND-GUI, DFTB, ReaxFF, COSMO-RS, QE-GUI et NBO6."
-    },
-    {
-      "question": "Où le module `adf` est-il seulement installé et pourquoi?",
-      "answer": "Le module `adf` est seulement installé sur Graham en raison de restrictions liées à l'octroi des licences."
-    },
-    {
-      "question": "Comment puis-je connaître les versions disponibles du module `adf` sur Graham?",
-      "answer": "Pour connaître les versions disponibles du module `adf`, vous devez lancer la commande `module spider adf`."
-    },
-    {
-      "question": "Quel système est utilisé pour ordonnancer les tâches soumises sur Graham?",
-      "answer": "Les tâches soumises sur Graham sont ordonnancées par Slurm."
-    },
-    {
-      "question": "Quel est le but du script `mysub.sh` fourni en exemple?",
-      "answer": "Le script `mysub.sh` est un exemple de script Slurm pour soumettre une tâche unique utilisant ADF sur Graham."
-    },
-    {
-      "question": "Combien de nœuds et de cœurs par nœud le script `mysub.sh` demande-t-il?",
-      "answer": "Le script `mysub.sh` demande un nœud (`--nodes=1`) avec 32 cœurs par nœud (`--ntasks-per-node=32`)."
-    },
-    {
-      "question": "Quelle quantité de mémoire est demandée par le script `mysub.sh`?",
-      "answer": "Le script `mysub.sh` demande toute la mémoire disponible sur le nœud (`--mem=0`)."
-    },
-    {
-      "question": "Quel est le temps maximal alloué pour la tâche dans le script `mysub.sh`?",
-      "answer": "Le temps maximal alloué pour la tâche dans `mysub.sh` est de 3 heures (`--time=00-03:00`)."
-    },
-    {
-      "question": "Quelle version d'ADF est chargée par le script `mysub.sh`?",
-      "answer": "Le script `mysub.sh` charge la version 2019.305 du module `adf`."
-    },
-    {
-      "question": "Quel est le nom du fichier d'entrée utilisé par la commande ADF dans `mysub.sh`?",
-      "answer": "Le fichier d'entrée utilisé par la commande ADF dans `mysub.sh` est `adf_test.inp`."
-    },
-    {
-      "question": "Quel type de calcul est défini dans le fichier `adf_test.inp`?",
-      "answer": "Le fichier `adf_test.inp` définit une optimisation de géométrie de l'eau avec des coordonnées délocalisées (WATER Geometry Optimization with Delocalized Coordinates)."
-    },
-    {
-      "question": "Comment peut-on regrouper plusieurs calculs ADF ou BAND dans une seule tâche?",
-      "answer": "Plusieurs calculs peuvent être groupés dans une même tâche avec un script semblable à `GO_H2O.run`, qui exécute plusieurs appels à ADF séquentiellement."
-    },
-    {
-      "question": "Que fait le script `GO_H2O.sh` par rapport à `mysub.sh`?",
-      "answer": "Le script `GO_H2O.sh` est identique à `mysub.sh`, à l’exception de la dernière ligne qui appelle le script `GO_H2O.run` plutôt que d’appeler ADF directement."
-    },
-    {
-      "question": "Quels sont les différents types d'optimisations de géométrie illustrés dans le script `GO_H2O.run`?",
-      "answer": "Le script `GO_H2O.run` illustre des optimisations de géométrie avec des coordonnées délocalisées, des coordonnées cartésiennes avec un nouvel optimiseur et des coordonnées internes (Z-Matrix)."
+      "question": "Comment faire pour soumettre une tâche unique avec ADF sur le cluster Graham en utilisant un script Slurm?",
+      "answer": "Pour soumettre une tâche unique avec ADF sur Graham, il faut utiliser un script Slurm comme `mysub.sh`. Ce script va charger la version spécifique d'ADF (par exemple, `module load adf/2019.305`) après avoir déchargé `openmpi`, puis exécuter directement la commande `ADF` avec votre fichier d'entrée (par exemple, `ADF adf_test.inp`). Les tâches sur Graham sont ordonnancées par Slurm."
     }
   ],
-  "generated_at": "2026-04-11T14:55:20.089274+00:00"
+  "generated_at": "2026-04-13T00:21:59.709664+00:00"
 }

@@ -3,85 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi Gaussian?",
-      "answer": "Gaussian est une application de chimie computationnelle produite par Gaussian, Inc."
+      "question": "Qu'est-ce que Gaussian comme application et à quoi sert-elle sur les grappes de l'Alliance?",
+      "answer": "Gaussian est une application de chimie computationnelle produite par Gaussian, Inc. qui est utilisée pour effectuer divers calculs chimiques."
     },
     {
-      "question": "Sur quels systèmes Gaussian est-il présentement disponible?",
-      "answer": "Gaussian est disponible uniquement sur Nibi et Fir."
+      "question": "Sur quelles grappes de calcul de l'Alliance est-il possible d'utiliser l'application Gaussian?",
+      "answer": "L'application Gaussian est présentement disponible uniquement sur les grappes Nibi et Fir de l'Alliance."
     },
     {
-      "question": "Quel type de parallélisme est pris en charge pour Gaussian sur les systèmes nationaux?",
-      "answer": "Seule l'exécution en parallèle avec multiprocesseur à mémoire partagée est prise en charge, pas le parallélisme grappe/réseau (Linda)."
+      "question": "Quelles sont les limitations de l'exécution en parallèle de Gaussian sur les systèmes nationaux de l'Alliance?",
+      "answer": "Les systèmes nationaux de l'Alliance ne prennent pas en charge le parallélisme grappe/réseau (parallélisme Linda), mais uniquement l'exécution en parallèle avec multiprocesseur à mémoire partagée."
     },
     {
-      "question": "Est-ce qu'une tâche Gaussian peut utiliser plus d'un nœud de calcul?",
-      "answer": "Non, une tâche Gaussian ne peut pas utiliser plus d'un nœud de calcul."
+      "question": "Combien de nœuds de calcul une tâche Gaussian peut-elle utiliser sur les grappes de l'Alliance?",
+      "answer": "Puisque seule la version avec multiprocesseur à mémoire partagée est prise en charge, une tâche Gaussian ne peut pas utiliser plus d'un nœud de calcul."
     },
     {
-      "question": "Quelles sont les conditions de licence pour utiliser Gaussian?",
-      "answer": "Vous devez accepter de ne pas faire partie d'un groupe de recherche concurrent, de ne pas copier ni rendre l'application disponible à un tiers, de reconnaître l'Alliance dans les publications et d'informer l'Alliance de tout changement à ces conditions."
+      "question": "Quelle est la recommandation concernant le nombre de CPU à utiliser pour une tâche Gaussian sur Nibi et Fir?",
+      "answer": "Il est recommandé de ne pas utiliser plus de 32 CPU par tâche, même si les nœuds peuvent avoir plus de CPU, car l'application Gaussian n'est généralement pas efficace au-delà de ce nombre sur un seul nœud."
     },
     {
-      "question": "Comment puis-je accepter les conditions de licence pour Gaussian?",
-      "answer": "Vous devez copier les énoncés de licence dans un courriel et les faire parvenir au soutien technique."
+      "question": "Comment un utilisateur peut-il obtenir l'accès à l'application Gaussian sur les grappes de l'Alliance?",
+      "answer": "Pour obtenir l'accès à Gaussian, l'utilisateur doit envoyer un courriel au soutien technique en acceptant certaines conditions, dont l'absence de développement concurrent, la non-copie et la reconnaissance de l'Alliance."
     },
     {
-      "question": "Comment vérifier les versions de Gaussian disponibles sur les systèmes?",
-      "answer": "Vous pouvez utiliser la commande `module spider gaussian`."
+      "question": "Comment un utilisateur peut-il trouver les versions disponibles de Gaussian et charger le module sur Fir ou Nibi?",
+      "answer": "Pour connaître les versions disponibles, il faut utiliser la commande `module spider gaussian`. Pour charger une version spécifique, on utilise la commande `module load gaussian/version`."
     },
     {
-      "question": "Quel ordonnanceur est utilisé sur les grappes nationales pour soumettre des tâches Gaussian?",
-      "answer": "Les grappes nationales utilisent l'ordonnanceur Slurm."
+      "question": "Quel ordonnanceur est utilisé pour soumettre des tâches Gaussian sur les grappes nationales de l'Alliance?",
+      "answer": "Les grappes nationales de l'Alliance utilisent l'ordonnanceur Slurm pour la soumission des tâches Gaussian."
     },
     {
-      "question": "Combien de cœurs CPU sont recommandés pour une tâche Gaussian, même si un nœud en a plus?",
-      "answer": "Il est recommandé de ne pas utiliser plus de 32 CPU par tâche, sauf si vous pouvez prouver qu'ils seront bien utilisés, à cause de la scalabilité de Gaussian."
+      "question": "Quelle est la principale différence entre l'option de soumission de tâche G16 (G09, G03) et g16 (g09, g03) pour Gaussian, concernant les fichiers d'exécution par défaut?",
+      "answer": "Avec l'option G16, les fichiers d'exécution par défaut sont enregistrés dans `/scratch/username/jobid/` et demeurent disponibles. Avec l'option g16, ils sont enregistrés temporairement dans `$SLURM_TMPDIR` (`/localscratch`) et sont supprimés après la tâche, offrant une exécution plus rapide."
     },
     {
-      "question": "Que faut-il préparer pour soumettre une tâche Gaussian en plus du fichier d'entrée `name.com`?",
-      "answer": "Vous devez préparer un script décrivant les ressources de calcul pour la tâche, qui doit être dans le même répertoire que le fichier d'entrée."
+      "question": "Dans quel cas est-il préférable d'utiliser l'option G16 (G09, G03) plutôt que g16 (g09, g03) pour la soumission d'une tâche Gaussian?",
+      "answer": "Si la taille de vos fichiers d'exécution temporaires est grande ou égale à 3To (la taille de /localscratch partagé), il est préférable d'utiliser l'option G16, car les fichiers persistents dans /scratch sont plus adaptés."
     },
     {
-      "question": "Où sont enregistrés les fichiers d'exécution par défaut (comme .rwf) avec l'option G16 (majuscule)?",
-      "answer": "Ils sont enregistrés dans `/scratch/username/jobid/`."
+      "question": "Comment peut-on exécuter une tâche Gaussian en mode interactif pour des tests, et où ne faut-il pas le faire?",
+      "answer": "Il est possible d'ouvrir une session interactive sur un nœud de calcul avec la commande `salloc` (par exemple, `salloc --time=1:0:0 --cpus-per-task=8 --mem=10g`), mais il n'est pas recommandé d'exécuter des tâches interactives sur un nœud de connexion."
     },
     {
-      "question": "Est-ce que les fichiers d'exécution sont conservés si une tâche G16 (majuscule) n'est pas terminée ou échoue?",
-      "answer": "Oui, les fichiers demeurent dans le répertoire `/scratch/username/jobid/`, et le fichier .rwf peut être récupéré pour redémarrer la tâche."
+      "question": "Comment redémarrer une tâche Gaussian à partir d'un fichier .rwf et pour quels types de calculs est-ce utile?",
+      "answer": "Pour redémarrer une tâche à partir d'un fichier .rwf, il faut indiquer le chemin du fichier avec `%rwf` et modifier la ligne des mots-clés pour qu'elle se lise `#p restart`. C'est utile pour les calculs en une étape comme les fréquences analytiques, CCSD, EOM-CCSD, NMR, et diverses énergies."
     },
     {
-      "question": "Où sont enregistrés les fichiers d'exécution par défaut avec l'option g16 (minuscule)?",
-      "answer": "Ils sont enregistrés temporairement dans `$SLURM_TMPDIR` (`/localscratch/username.jobid.0/`) sur le nœud de calcul."
+      "question": "Pour quel type d'opération une tâche Gaussian peut-elle être redémarrée à partir du fichier .chk?",
+      "answer": "Une tâche Gaussian peut être redémarrée à partir du fichier .chk pour l'optimisation géométrique."
     },
     {
-      "question": "Est-ce que les fichiers d'exécution sont conservés si une tâche g16 (minuscule) est terminée ou échoue?",
-      "answer": "Non, l'ordonnanceur supprime les fichiers quand la tâche est terminée, que ce soit avec ou sans succès."
+      "question": "Où peut-on trouver des exemples de fichiers d'entrée et de scripts de soumission pour Gaussian?",
+      "answer": "Des exemples de fichiers sont disponibles dans le répertoire `/opt/software/gaussian/version/examples/`, où `version` représente la version de Gaussian utilisée, comme `g16.c01`."
     },
     {
-      "question": "Quand devrais-je utiliser l'option G16 plutôt que g16 pour mes tâches?",
-      "answer": "Si la taille de vos fichiers est semblable ou plus grande que l'espace de 3To partagé dans `/localscratch`, vous devriez utiliser l'option G16."
+      "question": "Quelles versions de NBO sont incluses dans les différentes versions de Gaussian mentionnées?",
+      "answer": "NBO7 est inclus uniquement dans la version `g16.c01` avec les mots-clés `nbo6` et `nbo7`. NBO6 est inclus dans les versions `g09.e01` et `g16.b01`."
     },
     {
-      "question": "Comment soumettre un script Slurm pour une tâche Gaussian?",
-      "answer": "Vous utilisez la commande `sbatch mysub.sh`."
-    },
-    {
-      "question": "Comment lancer une session interactive sur un nœud de calcul pour tester Gaussian?",
-      "answer": "Utilisez la commande `salloc --time=1:0:0 --cpus-per-task=8 --mem=10g`."
-    },
-    {
-      "question": "Comment redémarrer une tâche Gaussian à partir d'un fichier .rwf?",
-      "answer": "Vous devez indiquer le chemin `%rwf` vers le fichier précédent dans votre fichier d'entrée, modifier la ligne des mots-clés en `#p restart` et laisser une ligne vide à la fin."
-    },
-    {
-      "question": "Où puis-je trouver des exemples de fichiers d'entrée et de scripts pour Gaussian?",
-      "answer": "Des exemples se trouvent dans `/opt/software/gaussian/version/examples/`, où `version` est la version spécifique de Gaussian."
-    },
-    {
-      "question": "Quelle version de NBO est incluse dans Gaussian g16.c01?",
-      "answer": "NBO7 est inclus dans la version g16.c01, avec l'emploi des mots-clés nbo6 et nbo7."
+      "question": "Où un utilisateur peut-il trouver des solutions pour les messages d'erreur de Gaussian?",
+      "answer": "Un utilisateur peut trouver la solution à plusieurs erreurs en consultant la page dédiée aux messages d'erreur de Gaussian."
     }
   ],
-  "generated_at": "2026-04-11T22:51:39.424375+00:00"
+  "generated_at": "2026-04-13T06:24:11.138839+00:00"
 }

@@ -4,57 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Why does the order of 'Hello World' messages vary when running the provided test program multiple times?",
-      "answer": "The order of 'Hello World' messages varies because the worker threads run asynchronously and compete for access to the standard output during the `printf` call. This competition results in different output orders across multiple program executions."
+      "question": "What are race conditions in parallel programming, and why are they considered unacceptable?",
+      "answer": "Race conditions are situations where a program's output depends on the random order in which asynchronous threads access shared data. They are unacceptable because the parallel version of a program is typically expected to produce results identical to what would be obtained when running it serially."
     },
     {
-      "question": "Why is data synchronization necessary for worker threads in a parallel program?",
-      "answer": "Data synchronization is necessary to avoid 'race conditions', which are situations where a program's output depends on the random order in which asynchronous threads access and modify shared data. Typically, parallel programs should produce results identical to their serial versions, making race conditions unacceptable."
+      "question": "In pthreads, what is a mutex and how is it used to control access to shared data?",
+      "answer": "In pthreads, a mutex (mutual exclusion) is a variable that can be 'locked' or 'owned' by only one thread at a time. A thread must acquire the lock before accessing shared data and then release it after the data has been read or modified. This ensures that the code segment between the lock and unlock calls is executed by only one thread at a time, preventing race conditions. A mutex is declared as `pthread_mutex_t`, initialized with `pthread_mutex_init`, and destroyed with `pthread_mutex_destroy`."
     },
     {
-      "question": "What is a race condition in the context of parallel programming?",
-      "answer": "A race condition occurs when a program's output is determined by the arbitrary timing or order in which asynchronous threads access and modify shared data, often leading to inconsistent or incorrect results."
-    },
-    {
-      "question": "What is a mutex and how does it help prevent race conditions in pthreads?",
-      "answer": "A mutex, derived from 'mutual exclusion', is a variable in pthreads that can be 'locked' or 'owned' by only one thread at a time. It prevents race conditions by ensuring that any code between its lock and unlock calls is executed by only a single thread, thereby synchronizing access to shared data."
-    },
-    {
-      "question": "How do you create and destroy a mutex in a pthreads program?",
-      "answer": "To create a mutex in a pthreads program, you declare a global variable of type `pthread_mutex_t` and initialize it using `pthread_mutex_init`. At the program's conclusion, you release the resources associated with the mutex by calling `pthread_mutex_destroy`."
-    },
-    {
-      "question": "What is the purpose of the `thread_mutex.c` example provided in the document?",
-      "answer": "The `thread_mutex.c` example demonstrates how to serialize access to the standard output channel using a mutex, ensuring that only one thread can print at a time, preventing garbled output from simultaneous `printf` calls."
-    },
-    {
-      "question": "What does it mean for a function call like `pthread_mutex_lock` to be 'blocking'?",
-      "answer": "A 'blocking' function call, such as `pthread_mutex_lock`, means that the thread executing it will pause and wait indefinitely for the requested resource (the mutex in this case) to become available before proceeding. This can potentially lead to deadlocks if not managed carefully."
-    },
-    {
-      "question": "What is a potential issue to consider when using `pthread_mutex_lock` in a program?",
-      "answer": "A potential issue when using `pthread_mutex_lock` is the risk of deadlocks, especially in programs with multiple mutexes controlling access to different global data structures. A deadlock occurs if a thread waits indefinitely for a mutex that never becomes available."
-    },
-    {
-      "question": "Is there a non-blocking alternative to `pthread_mutex_lock`, and how does it behave?",
-      "answer": "Yes, `pthread_mutex_trylock` is a non-blocking alternative. If it fails to acquire the mutex lock, it returns immediately with a non-zero value, indicating that the mutex is currently busy, rather than waiting indefinitely."
-    },
-    {
-      "question": "Why is it recommended to keep serialized code blocks as short as possible?",
-      "answer": "Serialized code blocks should be kept as short as possible because the code within them is executed in a serial manner. Keeping these sections brief helps prevent a reduction in the program's overall parallel performance."
-    },
-    {
-      "question": "What is a `pthread_rwlock_t`, and how does it differ from a standard mutex?",
-      "answer": "A `pthread_rwlock_t` is a read/write lock that allows multiple threads to read a shared variable simultaneously. However, for write access, it behaves like a standard mutex, meaning only one thread can write at a time, and no other threads (readers or writers) can access the variable. A standard mutex allows only one thread to access the variable at any given time, regardless of whether it's reading or writing."
-    },
-    {
-      "question": "How do threads acquire and release read and write locks using `pthread_rwlock_t`?",
-      "answer": "Individual threads can acquire a read lock by calling `pthread_rwlock_rdlock` or a write lock by calling `pthread_rwlock_wrlock`. Both read and write locks are released using `pthread_rwlock_unlock`."
-    },
-    {
-      "question": "What are the initialization and destruction requirements for a `pthread_rwlock_t`?",
-      "answer": "Similar to a mutex, a `pthread_rwlock_t` must be initialized before its first use and subsequently destroyed when it is no longer required during the program's execution."
+      "question": "How does a read/write lock (`pthread_rwlock_t`) differ from a standard mutex in pthreads for synchronizing data access?",
+      "answer": "A read/write lock allows multiple threads to simultaneously read the value of a shared variable. However, for write access, it behaves like a standard mutex, meaning only one thread may have write access, and no other thread (reader or writer) can access the variable concurrently. This contrasts with a standard mutex, which permits only one thread to access the protected data (for either reading or writing) at any given time."
     }
   ],
-  "generated_at": "2026-04-12T05:30:39.760050+00:00"
+  "generated_at": "2026-04-13T11:29:31.844700+00:00"
 }

@@ -3,33 +3,57 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi MrBayes pis à quoi ça sert?",
-      "answer": "MrBayes, c'est un programme qui fait de l'inférence bayésienne et du choix de modèles pour les modèles phylogénétiques et évolutifs, en utilisant les méthodes de Monte Carlo par chaîne de Markov (MCMC) pour estimer la distribution a posteriori des paramètres."
+      "question": "Qu'est-ce que MrBayes et à quoi sert-il?",
+      "answer": "MrBayes est un programme d'inférence bayésienne et de choix de modèles qui utilise les méthodes de Monte Carlo par chaîne de Markov (MCMC) pour estimer la distribution a posteriori des paramètres dans une large gamme de modèles phylogénétiques et évolutifs."
     },
     {
-      "question": "Comment on fait pour trouver les versions de MrBayes qui sont disponibles?",
-      "answer": "Tu peux utiliser la commande `module spider mrbayes` pour voir les modules disponibles."
+      "question": "Comment peut-on trouver les versions de MrBayes disponibles sur un système de calcul de l'Alliance?",
+      "answer": "On peut trouver les modules MrBayes disponibles en utilisant la commande `module spider mrbayes`."
     },
     {
-      "question": "Comment je peux lancer une tâche MrBayes en mode séquentiel?",
-      "answer": "Tu crées un script SLURM en demandant un seul cœur CPU (`--cpus-per-task=1`), tu charges le module MrBayes, puis tu utilises `srun mb [fichier_entrée.nex]`."
+      "question": "Comment configure-t-on un script SLURM pour exécuter MrBayes en mode séquentiel sur un cluster de calcul?",
+      "answer": "Pour une exécution séquentielle, le script SLURM doit demander un seul cœur CPU avec `--cpus-per-task=1`, charger le module MrBayes désiré (ex. `mrbayes/3.2.7`), puis exécuter la commande `srun mb <fichier_entree.nex>`."
     },
     {
-      "question": "Comment MrBayes peut-il travailler en parallèle, mettons avec MPI?",
-      "answer": "Pour le MPI, tu spécifies le nombre total de cœurs CPU désirés avec `--ntasks=[nombre_de_cœurs]` dans ton script SLURM, puis tu lances `srun mb [fichier_entrée.nex]`."
+      "question": "Quel type de fichier est couramment utilisé comme entrée pour MrBayes dans les exemples fournis?",
+      "answer": "Le fichier d'entrée utilisé dans les exemples est `primates.nex`, qui est un fichier fourni avec le programme MrBayes."
     },
     {
-      "question": "Est-ce que MrBayes peut se servir des GPU pis si oui, comment on configure ça?",
-      "answer": "Oui, MrBayes peut utiliser les GPU. Tu dois ajouter `--gpus=1` à ton script SLURM et charger les modules `gcc`, `cuda/12` et `mrbayes/3.2.7`."
+      "question": "Quelles sont les directives SLURM essentielles pour exécuter MrBayes en parallèle en utilisant MPI?",
+      "answer": "Pour une exécution parallèle avec MPI, le script SLURM doit spécifier le nombre total de tâches avec `--ntasks=<nombre_désiré_de_cœurs>` (par exemple `--ntasks=8`), charger le module MrBayes, puis lancer la commande `srun mb <fichier_entree.nex>`."
     },
     {
-      "question": "Pourquoi c'est important d'utiliser des points de contrôle (checkpoints) avec MrBayes pour les longues tâches?",
-      "answer": "Les points de contrôle permettent de diviser les longues tâches en plus petites, ce qui réduit les risques d'interruption par une panne ou de la maintenance, en permettant de reprendre le travail là où il a été arrêté."
+      "question": "Comment peut-on soumettre une tâche MrBayes pour qu'elle utilise un GPU?",
+      "answer": "Pour utiliser un GPU, le script SLURM doit inclure la directive `--gpus=1` et charger les modules `gcc`, `cuda/12` et `mrbayes/3.2.7` avant d'exécuter la commande `srun mb <fichier_entree.nex>`."
     },
     {
-      "question": "Comment on met en place des points de contrôle pour MrBayes en utilisant un vecteur de tâches?",
-      "answer": "Tu prépares des fichiers d'entrée `.nex` pour chaque étape (le deuxième ayant `append=yes`). Ensuite, tu crées un script SLURM avec l'option `--array=1-N%X` pour soumettre les sous-tâches séquentiellement, en utilisant `$SLURM_ARRAY_TASK_ID` pour sélectionner le bon fichier `.nex`."
+      "question": "Pourquoi est-il conseillé d'utiliser des points de contrôle (checkpoints) avec MrBayes pour les tâches de longue durée?",
+      "answer": "Il est recommandé d'utiliser des points de contrôle pour les tâches de longue durée afin de répartir le travail en plusieurs petites tâches, réduisant ainsi la probabilité d'interruption due à des pannes matérielles ou des travaux de maintenance, et permettant de reprendre le calcul là où il s'était arrêté."
+    },
+    {
+      "question": "Comment le mécanisme de points de contrôle de MrBayes est-il configuré pour permettre la reprise d'un calcul?",
+      "answer": "Le mécanisme de points de contrôle utilise des fichiers d'entrée (`.nex`) distincts pour chaque étape du calcul. Le premier fichier lance le calcul initial, et les fichiers subséquents incluent la commande `append=yes` dans la ligne `mcmc` pour reprendre et poursuivre le travail."
+    },
+    {
+      "question": "Quelle directive SLURM est utilisée pour soumettre un ensemble de tâches MrBayes en séquence, comme celles qui utilisent des points de contrôle?",
+      "answer": "Un vecteur de tâches (job array) est utilisé en ajoutant `#SBATCH --array=1-2%1` (par exemple, pour deux sous-tâches, une à la fois) et en utilisant la variable `$SLURM_ARRAY_TASK_ID` dans la commande `srun` pour sélectionner le fichier d'entrée approprié (ex: `job${SLURM_ARRAY_TASK_ID}.nex`)."
+    },
+    {
+      "question": "Quel est le rôle de la commande `cd $SCRATCH` dans les scripts SLURM pour MrBayes?",
+      "answer": "La commande `cd $SCRATCH` permet de changer le répertoire de travail pour le répertoire temporaire de l'utilisateur, ce qui est souvent plus performant pour les opérations d'entrée/sortie intensives et recommandé pour les calculs sur les clusters."
+    },
+    {
+      "question": "Comment spécifie-t-on la quantité de mémoire par cœur de CPU dans un script SLURM pour une tâche MrBayes?",
+      "answer": "On spécifie la mémoire par cœur de CPU avec la directive `#SBATCH --mem-per-cpu=3G` (par exemple pour 3 gigaoctets) dans le script SLURM."
+    },
+    {
+      "question": "Quel est le but de la directive SLURM `--time` dans un script de tâche MrBayes?",
+      "answer": "La directive `--time` (ex: `--time=1:00:00`) est utilisée pour définir la durée maximale autorisée pour l'exécution d'une tâche, après quoi elle sera annulée par le système de gestion de ressources."
+    },
+    {
+      "question": "Quelle commande est utilisée pour soumettre un script de tâche SLURM pour MrBayes au système de gestion de ressources?",
+      "answer": "La commande `sbatch <nom_du_script.sh>` est utilisée pour soumettre un script de tâche SLURM."
     }
   ],
-  "generated_at": "2026-04-12T03:21:15.440768+00:00"
+  "generated_at": "2026-04-13T09:39:03.274466+00:00"
 }

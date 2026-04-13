@@ -4,49 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "How do locally installed software modules become available in the central hierarchy?",
-      "answer": "If a local recipe uses a module naming scheme, such as the `iompi,2018.3` toolchain, the module will become available after loading the corresponding modules like `intel/2018.3` and `openmpi/3.1.2`."
+      "question": "What is the recommended way to install additional modules locally on a system configured with the CVMFS software environment, ensuring they integrate with the central module hierarchy?",
+      "answer": "To install additional modules locally and have them discovered by the central hierarchy, first identify a path for local software (e.g., `/opt/software/easybuild`) and ensure it exists. Then, export the `RSNT_LOCAL_MODULEPATHS` environment variable pointing to its `modules` subdirectory (e.g., `export RSNT_LOCAL_MODULEPATHS=/opt/software/easybuild/modules`). After this, install the software packages using EasyBuild with the `--installpath` option, for example, `eb --installpath /opt/software/easybuild <some easyconfig recipe>`. This approach ensures local software is installed with a hierarchical layout and is automatically found when users load compiler, MPI, and CUDA modules."
     },
     {
-      "question": "What is the purpose of the `LMOD_SYSTEM_DEFAULT_MODULES` environment variable?",
-      "answer": "This environment variable defines which modules are loaded by default. If it is left undefined, the environment will define it to load the `StdEnv` module, which loads a version of the Intel compiler and OpenMPI by default."
+      "question": "What is the purpose of the `LMOD_SYSTEM_DEFAULT_MODULES` environment variable in the CVMFS software environment, and what is its default behaviour if left undefined?",
+      "answer": "The `LMOD_SYSTEM_DEFAULT_MODULES` environment variable defines which modules are loaded by default. If this variable is left undefined, the CVMFS software environment will automatically define it to load the `StdEnv` module, which in turn loads a default version of the Intel compiler and OpenMPI."
     },
     {
-      "question": "How can I define custom default versions of modules or aliases using Lmod?",
-      "answer": "You can define your own `modulerc` file and add it to the `MODULERCFILE` environment variable; this will take precedence over what is defined in the environment."
-    },
-    {
-      "question": "Why does the software environment consider specific system paths?",
-      "answer": "The software environment strives to be as independent from the host operating system as possible, but it takes into account a number of system paths to facilitate interaction with tools installed on the host operating system."
-    },
-    {
-      "question": "What happens if the `/opt/software/modulefiles` path exists?",
-      "answer": "If the `/opt/software/modulefiles` path exists, it will automatically be added to the default `MODULEPATH`, allowing the use of the software environment while also maintaining locally installed modules."
-    },
-    {
-      "question": "What is the effect of having `$HOME/modulefiles` in your home directory?",
-      "answer": "If `$HOME/modulefiles` exists, it will automatically be added to the default `MODULEPATH`, allowing the use of the software environment while also permitting the installation of modules inside home directories."
-    },
-    {
-      "question": "Which system paths are automatically added to the default `PATH`?",
-      "answer": "The paths `/opt/software/slurm/bin`, `/opt/software/bin`, and `/opt/slurm/bin` are all automatically added to the default `PATH`, allowing your own executables to be found."
-    },
-    {
-      "question": "Since when has the environment supported installing additional local modules that are discovered by the central hierarchy?",
-      "answer": "The environment has supported installing additional local modules that are discovered by the central hierarchy since June 2020."
-    },
-    {
-      "question": "What are the steps to install local software packages so they are discovered by the central hierarchy?",
-      "answer": "First, identify a path where you want to install local software (e.g., `/opt/software/easybuild`) and ensure that folder exists. Then, export the environment variable `RSNT_LOCAL_MODULEPATHS` (e.g., `export RSNT_LOCAL_MODULEPATHS=/opt/software/easybuild/modules`). Finally, install the software packages using EasyBuild with `eb --installpath /opt/software/easybuild <some easyconfig recipe>`."
-    },
-    {
-      "question": "What is an important caution for system administrators when performing privileged operations or CVMFS-related tasks?",
-      "answer": "System administrators should ensure that their session does not depend on the software environment when performing privileged system operations or operations related to CVMFS to avoid deadlocks or interference."
-    },
-    {
-      "question": "Are commercial software packages like Intel and Portland Group compilers fully available externally through these instructions?",
-      "answer": "No, commercial software packages such as Intel and Portland Group compilers are not fully available externally. While their modules are available, users will only have access to the redistributable parts, typically shared objects, which are sufficient to run compiled software but not to compile new software."
+      "question": "Why should system administrators avoid depending on the CVMFS software environment when performing privileged system operations or reconfiguring CVMFS?",
+      "answer": "System administrators must ensure their session does not depend on the CVMFS software environment during privileged system operations or CVMFS reconfiguration. This precaution is necessary to prevent circular dependencies, such as YUM losing access to a required Python module during an update, which could lead to deadlocks. Similarly, reconfiguring CVMFS in a session that depends on it could cause the session to interfere with CVMFS operations or hang, thereby ensuring that updates or reconfigurations can complete successfully without encountering such issues."
     }
   ],
-  "generated_at": "2026-04-11T15:46:18.393887+00:00"
+  "generated_at": "2026-04-13T00:56:00.540771+00:00"
 }

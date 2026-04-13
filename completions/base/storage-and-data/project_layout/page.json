@@ -3,69 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "How is the project filesystem organized on the compute clusters?",
-      "answer": "The project filesystem on compute clusters is organized on the basis of groups."
+      "question": "How is the project filesystem organized on Alliance compute clusters?",
+      "answer": "The project filesystem on Alliance compute clusters is organized based on groups."
     },
     {
-      "question": "How do users typically access their project space?",
-      "answer": "Users typically access their project space via symbolic links, which exist in their home directory, usually in the form of `$HOME/projects/group_name`."
+      "question": "How do users typically access their project space on Alliance compute clusters?",
+      "answer": "Users typically access their project space through symbolic links located in their home directory."
     },
     {
-      "question": "Are the project space symbolic link paths the same across all clusters?",
-      "answer": "No, on Rorqual and Trillium clusters, the path takes the form `$HOME/links/projects/group_name`, while on other clusters it is `$HOME/projects/group_name`."
+      "question": "What is the typical path for accessing project space in a user's home directory on Alliance compute clusters, and how does it differ on Rorqual and Trillium clusters?",
+      "answer": "The typical path is `$HOME/projects/group_name`. On Rorqual and Trillium clusters, the path is `$HOME/links/projects/group_name`."
     },
     {
-      "question": "What are the default permissions for group project space and newly created files?",
-      "answer": "The project space is owned by the principal investigator (PI) for the group, with members having read and write permission. However, a newly created file is only readable by group members by default."
+      "question": "What are the default permissions for new files created in a group's project space on Alliance compute clusters?",
+      "answer": "By default, newly created files in a group's project space are only readable by group members."
     },
     {
-      "question": "How can a group create a directory where newly created files are writeable by all group members?",
-      "answer": "A special directory can be created with `mkdir $HOME/projects/def-profname/group_writable` followed by `setfacl -d -m g::rwx $HOME/projects/def-profname/group_writable`."
+      "question": "How can users create a directory in their project space on Alliance compute clusters that allows all group members to write files to it by default?",
+      "answer": "Users can create such a directory by first using `mkdir $HOME/projects/def-profname/group_writable` and then `setfacl -d -m g::rwx $HOME/projects/def-profname/group_writable`."
     },
     {
-      "question": "What are the default storage quotas for a project group, and how can they be increased?",
-      "answer": "A project group has a default quota of 1 TB and 500,000 files, which can be increased up to 40 TB upon request to Technical Support."
+      "question": "What are the default disk and file quotas for a group's project space on Alliance compute clusters?",
+      "answer": "The default quota for a group's project space is 1 TB and 500,000 files."
     },
     {
-      "question": "How do Resource Allocation Competition (RAC) awards affect project quotas?",
-      "answer": "Groups awarded through the annual Resource Allocation Competition may receive significantly higher quotas, which are specific to a particular cluster and normally not transferable."
+      "question": "How can a group increase their project space quota beyond the default limit on Alliance compute clusters?",
+      "answer": "Groups can request an increase to up to 40 TB of space by contacting Technical support. Significantly higher quotas may be awarded through the annual Resource Allocation Competition."
     },
     {
-      "question": "Which command is used to check current disk usage and available space?",
-      "answer": "The `diskusage_report` command is used to check current usage and available disk space."
+      "question": "What command can be used to check current disk usage and available space in a project directory on Alliance compute clusters?",
+      "answer": "The `diskusage_report` command can be used to check current usage and available disk space."
     },
     {
-      "question": "What is the purpose of setting the `setgid` bit on a project directory?",
-      "answer": "Setting the `setgid` bit ensures that files copied or moved to the project space acquire the appropriate group membership, making them count against the expected quota, and that new files and subdirectories inherit the ambient directory's group."
+      "question": "What is the purpose of setting the `setgid` bit on a directory in Alliance compute clusters' project space?",
+      "answer": "Setting the `setgid` bit ensures that every new file and subdirectory created within that directory inherits the same group as the ambient directory, and new subdirectories also receive the `setgid` bit."
     },
     {
-      "question": "How do you set the `setgid` bit on a directory and apply it to existing subdirectories?",
-      "answer": "You can set the `setgid` bit using `chmod g+s <directory name>`. To apply it to existing subdirectories, use `find <directory name> -type d -print0 | xargs -0 chmod g+s`."
+      "question": "How can a user set the `setgid` bit on a directory and its existing subdirectories within their Alliance compute cluster project space?",
+      "answer": "To set it on a directory, use `chmod g+s <directory name>`. To apply it to existing subdirectories, use `find <directory name> -type d -print0 | xargs -0 chmod g+s`."
     },
     {
-      "question": "How can a user temporarily change their default group during an interactive session?",
-      "answer": "The `newgrp` command, such as `newgrp rrg-profname-ab`, can be used to modify the default group for the current session."
+      "question": "How can a user temporarily change their default group for an interactive session on an Alliance compute cluster?",
+      "answer": "A user can use the `newgrp` command, for example, `newgrp rrg-profname-ab`, to change their default group for the current session."
     },
     {
-      "question": "What is a common cause for 'disk quota exceeded' errors on project filesystems?",
-      "answer": "A common cause is files being associated with the wrong group, often the user's personal group which has a small 2 MB quota, instead of the project group."
+      "question": "What is a common cause for 'disk quota exceeded' error messages in project filesystems on Alliance compute clusters?",
+      "answer": "A common cause is files being associated with the wrong group, often the user's personal group, which has a quota of only 2 MB."
     },
     {
-      "question": "How can incorrect group membership for files be fixed to resolve disk quota errors?",
-      "answer": "To fix incorrect group membership, use `find <directory name> -group $USER -print0 | xargs -0 chgrp -h <group>` to change files to the correct project group."
+      "question": "How can users fix files that have been associated with the wrong group and are causing disk quota exceeded errors on Alliance project filesystems?",
+      "answer": "Users can use the command `find <directory name> -group $USER -print0 | xargs -0 chgrp -h <group>` to find and change the group membership of such files."
     },
     {
-      "question": "Where should a PI and their sponsored user store and share data related to a RAC award?",
-      "answer": "They should use the specific directory created for the RAC award in their `projects` directory, such as `~/projects/rrg-sue-ab`."
+      "question": "What are the methods for sharing data with researchers who do not have an Alliance account?",
+      "answer": "Data can be shared with researchers without an Alliance account by using a Globus shared endpoint or by changing file permissions using ACLs if they have an account on the cluster."
     },
     {
-      "question": "What are the methods for sharing data with external researchers who don't have an Alliance account or a sponsored role?",
-      "answer": "Data can be shared by changing file permissions, typically using Access Control Lists (ACLs), or by setting up a Globus shared endpoint for researchers without an Alliance account."
+      "question": "When sharing a subdirectory in an Alliance compute cluster project space, what permissions must external collaborators have on the parent directories?",
+      "answer": "External collaborators will need to have read and execute permission on each of the directories in the filesystem structure leading down to the shared directory."
     },
     {
-      "question": "What is the primary purpose of `scratch`, `home`, and `project` storage spaces?",
-      "answer": "`scratch` space is for private temporary files, `home` space is for small amounts of relatively private data, and `project` space is for shared, persistent, backed-up, and potentially large research group data."
+      "question": "What are the recommended uses for `scratch`, `home`, and `project` spaces on Alliance compute clusters?",
+      "answer": "`scratch` space is for private temporary files, `home` space is for small amounts of relatively private data like job scripts, and `project` space is for shared, persistent, backed-up data for a research group."
+    },
+    {
+      "question": "Where should data related to a Resource Allocation Competition (RAC) award be stored and shared on Alliance compute clusters?",
+      "answer": "Data related to a RAC award should be stored and shared in the dedicated `~/projects/rrg-sue-ab` (or similar) directory that appears in users' `projects` directory."
+    },
+    {
+      "question": "In the Alliance clusters' storage example, where would a Principal Investigator (PI) and their sponsored user share data for their default project?",
+      "answer": "They would share data in the `~/projects/def-sue` (or similar) directory, which points to the same location, `/project/<some random number>`."
     }
   ],
-  "generated_at": "2026-04-12T05:23:26.387034+00:00"
+  "generated_at": "2026-04-13T11:23:30.205751+00:00"
 }

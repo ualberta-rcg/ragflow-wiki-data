@@ -4,93 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is the key difference between a local machine and a cluster when used for machine learning applications?",
-      "answer": "A cluster uses a distributed filesystem, linking many storage devices seamlessly, which is very different from a local machine used for prototyping."
+      "question": "Why are users advised to avoid Anaconda and use virtualenv for machine learning applications on the clusters?",
+      "answer": "Users are advised to avoid Anaconda and instead use virtualenv because CUDA, CuDNN, and other low-level libraries are already pre-installed on the clusters. This makes switching to virtualenv straightforward, as users only need to install the remaining necessary packages."
     },
     {
-      "question": "What is an important consideration for performance when working with files on a cluster?",
-      "answer": "Accessing a file on `/project` may feel the same as accessing one from the current node, but these two IO operations have very different performance implications, making it important to choose wisely where to put your data."
+      "question": "What are the guidelines for selecting the appropriate storage type for machine learning datasets on the clusters, based on their size?",
+      "answer": "For datasets around 10 GB or less, they should ideally fit in the memory of the compute job. For datasets around 100 GB or less, they should be transferred to the local storage of the compute node (available at `$SLURM_TMPDIR`) at the beginning of the job, as this storage is significantly faster and more reliable than shared options. For datasets larger than 100 GB, they must be left in shared storage, such as project space for permanent data or scratch space for potentially faster, temporary storage; however, all shared storage is optimized for low-frequency input/output (I/O)."
     },
     {
-      "question": "Is there a self-paced course available for machine learning on clusters?",
-      "answer": "Yes, a self-paced course titled 'Introduction to Machine Learning' is available from SHARCNET."
-    },
-    {
-      "question": "Where can I find a tutorial for porting my program to a cluster?",
-      "answer": "You can find a tutorial for porting your program for use on one of the clusters by taking 'our tutorial'."
-    },
-    {
-      "question": "Is there a user-made tutorial available for setting up deep learning environments in Python?",
-      "answer": "Yes, a user-made tutorial showing all the necessary steps for setting up local and Alliance environments for deep learning in Python is available."
-    },
-    {
-      "question": "What kind of information can I find in the Python documentation for clusters?",
-      "answer": "The Python documentation provides important information about Python versions, virtual environments on login or compute nodes, `multiprocessing`, Anaconda, and Jupyter."
-    },
-    {
-      "question": "Should users use Anaconda on the clusters for machine learning?",
-      "answer": "No, users are asked to avoid using Anaconda and use virtualenv instead."
-    },
-    {
-      "question": "Why should users avoid Anaconda?",
-      "answer": "Reasons for avoiding Anaconda are explained on the Anaconda page."
-    },
-    {
-      "question": "How easy is it to switch from Anaconda to virtualenv?",
-      "answer": "Switching to virtualenv is easy in most cases; users just need to install the same packages, excluding CUDA, CuDNN, and other low-level libraries that are pre-installed on the clusters."
-    },
-    {
-      "question": "Where can I find useful information for specific machine learning software packages?",
-      "answer": "You should refer to the dedicated page for your machine learning package of choice for information on installation, common pitfalls, and more."
-    },
-    {
-      "question": "What are some of the machine learning packages for which useful information is available?",
-      "answer": "Useful information is available for TensorFlow, PyTorch, Keras, Torch, SpaCy, Scikit-Learn, and SnapML."
-    },
-    {
-      "question": "What range of storage options are available on the clusters?",
-      "answer": "The clusters offer a wide range of storage options, from high-speed temporary local storage to different kinds of long-term storage, allowing users to choose the best option for their needs and usage patterns."
-    },
-    {
-      "question": "Where can I find more documentation about storage and file management?",
-      "answer": "You can refer to the documentation on 'Storage and file management'."
-    },
-    {
-      "question": "What is the recommended storage strategy for datasets around 10 GB or less?",
-      "answer": "For datasets around 10 GB or less, it can likely fit in memory, depending on job memory, and data should not be read from disk during machine learning tasks."
-    },
-    {
-      "question": "What is the recommended storage strategy for datasets around 100 GB or less?",
-      "answer": "For datasets around 100 GB or less, it's recommended to transfer them to the local storage of the compute node at the beginning of the job, as this storage is significantly faster and more reliable than shared storage."
-    },
-    {
-      "question": "What variable designates a temporary directory for each job on a compute node?",
-      "answer": "A temporary directory is available for each job at $SLURM_TMPDIR."
-    },
-    {
-      "question": "What is a potential caveat of using local node storage?",
-      "answer": "A caveat of local node storage is that another user's job might fully utilize it, leaving no space for your job, though you might also get lucky and have a whole terabyte available."
-    },
-    {
-      "question": "What is the recommended storage strategy for datasets larger than 100 GB?",
-      "answer": "If your dataset is larger than 100 GB, you may have to leave it in the shared storage, such as your project space for permanent storage."
-    },
-    {
-      "question": "Is scratch space suitable for permanent data storage?",
-      "answer": "Scratch space can be faster than other shared storage, but it is not intended for permanent storage."
-    },
-    {
-      "question": "What is the recommended frequency for storing and reading data from shared storage (home, project, scratch)?",
-      "answer": "All shared storage (home, project, scratch) is intended for storing and reading at low frequencies, such as one large chunk every 10 seconds, rather than many small chunks every second."
-    },
-    {
-      "question": "What problems can arise when managing large collections of small files in machine learning on clusters?",
-      "answer": "Problems include filesystem quotas limiting the number of filesystem objects and software being significantly slowed down from streaming lots of small files from `/project` or `/scratch` to a compute node."
-    },
-    {
-      "question": "How should data be stored on a distributed filesystem when dealing with many small files?",
-      "answer": "On a distributed filesystem, data should be stored in large single-file archives when dealing with many small files."
+      "question": "What challenges arise when managing machine learning datasets consisting of numerous small files on the clusters, and what is the recommended approach to mitigate these issues?",
+      "answer": "Managing machine learning datasets with hundreds of thousands or more small files (e.g., less than a few hundred kilobytes each) on the clusters can lead to problems such as hitting filesystem quotas and significant performance slowdowns when streaming data from shared storage like `/project` or `/scratch`. To mitigate these issues, it is recommended to store such data in large single-file archives on the distributed filesystem."
     }
   ],
-  "generated_at": "2026-04-11T14:56:32.659712+00:00"
+  "generated_at": "2026-04-13T00:22:40.041549+00:00"
 }

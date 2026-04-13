@@ -3,69 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que Python et quelle est la philosophie principale de sa conception?",
-      "answer": "Python est un langage de programmation interprété dont la philosophie de design repose principalement sur la lisibilité du code, avec une syntaxe simple et une bibliothèque de modules standards très étendue."
+      "question": "Qu'est-ce que Python et pourquoi est-il utile sur les grappes de calcul d'Alliance?",
+      "answer": "Python est un langage de programmation interprété dont la philosophie de design repose sur la lisibilité du code. Sa syntaxe simple et expressive, combinée à une vaste bibliothèque de modules standards, le rend très utile pour diverses applications sur les grappes de calcul d'Alliance."
     },
     {
-      "question": "Comment puis-je connaître les versions de Python disponibles sur les grappes?",
-      "answer": "Pour connaître les versions disponibles, utilisez la commande `module avail python`."
+      "question": "Comment peut-on charger une version spécifique de l'interpréteur Python sur les grappes d'Alliance?",
+      "answer": "Pour charger une version spécifique de l'interpréteur Python, vous devez d'abord connaître les versions disponibles en utilisant `module avail python`, puis charger celle de votre choix avec la commande `module load python/X.Y`, où `X.Y` est la version désirée."
     },
     {
-      "question": "Comment charger une version spécifique de l'interpréteur Python?",
-      "answer": "Vous pouvez charger la version de votre choix avec la commande `module load python/X.Y`, où X.Y représente la version désirée, par exemple `3.13`."
+      "question": "Qu'est-ce que la pile logicielle SciPy et comment l'utilise-t-on sur les systèmes d'Alliance?",
+      "answer": "La pile logicielle SciPy est un module d'environnement qui comprend des paquets scientifiques populaires comme NumPy, SciPy, Matplotlib, IPython et Pandas. Pour l'utiliser, il faut d'abord charger une version de Python, puis le module `scipy-stack`."
     },
     {
-      "question": "Qu'est-ce que la 'pile logicielle SciPy' et comment l'utiliser?",
-      "answer": "La 'pile logicielle SciPy' est un module d'environnement qui comprend NumPy, SciPy, Matplotlib, IPython, pandas et d'autres. Pour l'utiliser, chargez une version de Python, puis `module load scipy-stack`."
+      "question": "Quelle est l'importance des environnements virtuels Python et où devrait-on les créer sur les grappes d'Alliance?",
+      "answer": "Les environnements virtuels Python permettent d'installer facilement des paquets, de gérer plusieurs versions d'un même paquet et de compartimenter les installations pour différents projets. Ils doivent être créés dans votre répertoire `/home` ou `/project`, et jamais dans `$SCRATCH` à cause des risques de destruction partielle."
     },
     {
-      "question": "Pourquoi est-il recommandé d'utiliser des environnements virtuels Python?",
-      "answer": "Les environnements virtuels permettent d'installer facilement des paquets, d'avoir plusieurs versions d'un même paquet ou de compartimenter les installations selon les besoins des projets."
+      "question": "Comment crée-t-on et active-t-on un environnement virtuel Python sur les grappes d'Alliance?",
+      "answer": "Après avoir chargé les modules Python nécessaires, créez l'environnement avec `virtualenv --no-download ~/NOM_ENV`. Pour l'activer, utilisez `source ~/NOM_ENV/bin/activate`. Il est aussi recommandé de mettre à jour `pip` dans l'environnement avec `pip install --no-index --upgrade pip`."
     },
     {
-      "question": "Où ne devrais-je pas créer mon environnement virtuel et pourquoi?",
-      "answer": "Ne créez pas votre environnement virtuel dans le répertoire `$SCRATCH` à cause du risque qu'il soit en partie détruit par la purge automatique du système de fichiers."
+      "question": "Comment l'outil `pip` est-il utilisé pour installer des paquets Python dans un environnement virtuel sur les grappes d'Alliance?",
+      "answer": "Une fois votre environnement virtuel activé, vous pouvez installer des paquets avec `pip install nom_du_paquet`. Il est fortement recommandé d'utiliser l'option `--no-index` pour installer les wheels Python préconstruits et optimisés par Alliance, par exemple `pip install numpy --no-index`."
     },
     {
-      "question": "Comment créer et activer un environnement virtuel?",
-      "answer": "Après avoir chargé un module Python, créez l'environnement avec `virtualenv --no-download ~/ENV`, puis activez-le avec `source ~/ENV/bin/activate`."
+      "question": "Pourquoi est-il parfois préférable de créer des environnements virtuels Python à l'intérieur des tâches SLURM sur les nœuds de calcul d'Alliance?",
+      "answer": "Les systèmes de fichiers parallèles des grappes sont moins efficaces pour les petites opérations fréquentes (comme le chargement de bibliothèques Python). Créer l'environnement virtuel localement dans `$SLURM_TMPDIR` sur le nœud de calcul de la tâche peut être plus rapide et plus efficace, en particulier pour les tâches Python sur un seul nœud."
     },
     {
-      "question": "Comment installer des paquets Python avec 'pip' dans un environnement virtuel?",
-      "answer": "Une fois l'environnement virtuel activé, utilisez la commande `pip install nom_du_paquet`. Il est recommandé d'utiliser l'option `--no-index` pour les paquets disponibles via nos 'wheels'."
+      "question": "Comment peut-on vérifier la disponibilité des wheels Python pour un paquet spécifique sur les grappes d'Alliance?",
+      "answer": "Vous pouvez utiliser la commande `avail_wheels` sur la grappe. Par exemple, `avail_wheels numpy` affichera les versions disponibles de NumPy. Des options comme `--version` ou `--python` permettent de filtrer les résultats."
     },
     {
-      "question": "Quel est l'avantage d'utiliser l'option `--no-index` lors de l'installation de paquets?",
-      "answer": "L'option `--no-index` demande à `pip` de n'installer qu'à partir des paquets de source locale (nos 'wheels'), ce qui assure des paquets optimisés pour nos grappes et évite les problèmes de dépendances manquantes ou conflictuelles."
+      "question": "Comment faire de la programmation parallèle avec le module `multiprocessing` de Python sur un seul nœud de calcul d'Alliance?",
+      "answer": "Le module `multiprocessing` de Python, et en particulier sa classe `Pool`, permet d'exécuter des calculs en parallèle. Il faut veiller à ce que le nombre de processus (`processes`) utilisé corresponde au nombre de cœurs CPU alloués à votre tâche par l'ordonnanceur, que l'on peut obtenir via `os.environ.get('SLURM_CPUS_PER_TASK')`."
     },
     {
-      "question": "Comment puis-je lister les 'wheels' Python disponibles sur la grappe?",
-      "answer": "Vous pouvez lister les 'wheels' disponibles en utilisant la commande `avail_wheels` sur la grappe ou en consultant la page 'Wheels Python'."
+      "question": "Quelles sont les étapes de base pour déboguer un script Python interactif sur les grappes d'Alliance en utilisant `pdb`?",
+      "answer": "Pour déboguer un script avec `pdb` sur une petite tâche interactive, insérez `import pdb; pdb.set_trace()` (ou `breakpoint()`) à l'endroit souhaité dans votre code. Lorsque vous exécutez le script, il s'arrêtera à ce point et vous pourrez utiliser les commandes `pdb` comme `s` (step), `n` (next), `p` (print) et `q` (quit) pour analyser le code."
     },
     {
-      "question": "Comment peut-on créer un environnement virtuel directement dans une tâche Slurm pour améliorer la performance?",
-      "answer": "Vous pouvez créer l'environnement virtuel à l'intérieur de votre tâche en utilisant le disque local du nœud de calcul, typiquement dans `$SLURM_TMPDIR`, et l'activer dans le script de la tâche."
+      "question": "Que faire si un script Python semble se suspendre ou ne répond plus sur les grappes d'Alliance?",
+      "answer": "Vous pouvez utiliser le module `faulthandler` pour obtenir une trace d'erreur après un certain délai, ou inspecter le processus en temps réel avec `py-spy`. Après vous être connecté à la tâche via `srun --overlap --pty --jobid JOBID bash`, utilisez `py-spy top --pid PID` pour voir où le code passe le plus de temps, ou `py-spy dump --pid PID` pour une trace de l'état."
     },
     {
-      "question": "Quel module est recommandé pour la programmation parallèle Python sur un seul nœud de calcul?",
-      "answer": "Le module `multiprocessing`, et particulièrement sa classe `Pool`, est recommandé pour la programmation parallèle sur un seul nœud."
+      "question": "Comment résoudre l'erreur \"Package 'X' requires a different Python: X.Y.Z not in '>=X.Y'\" lors de l'installation d'un paquet Python?",
+      "answer": "Cette erreur indique que la version de Python que vous utilisez n'est pas supportée par le paquet que vous tentez d'installer. La solution est soit de charger une version de Python plus récente et compatible, soit d'essayer d'installer une version antérieure du paquet 'X' qui fonctionne avec votre version actuelle de Python."
     },
     {
-      "question": "Quel outil de débogage Python est suggéré pour l'exploration en profondeur du code sur la grappe?",
-      "answer": "Le débogueur `pdb` est suggéré. Vous pouvez l'activer en ajoutant `import pdb; pdb.set_trace()` ou `breakpoint()` à votre code et en l'exécutant dans une tâche interactive."
+      "question": "Comment résoudre l'erreur \"No matching distribution found for X\" lors de l'installation d'un paquet Python avec `pip`?",
+      "answer": "Cette erreur signifie que `pip` n'a trouvé aucune version du paquet 'X' qui satisfait les exigences (nom, version ou tags). Vérifiez l'orthographe du nom et de la version du paquet. Vous pouvez aussi consulter la commande `avail_wheels` ou la page 'Wheels Python' pour voir si le paquet est disponible sur nos systèmes."
     },
     {
-      "question": "Que dois-je faire si j'obtiens l'erreur 'Package 'X' requires a different Python: X.Y.Z not in '>=X.Y''?",
-      "answer": "Cette erreur indique une incompatibilité de version. Vous devriez utiliser une version de Python plus récente ou installer une version moins récente du paquet 'X'."
+      "question": "Quel est le problème avec les installations locales de paquets Python (avec `--user`) et comment les éviter sur les systèmes d'Alliance?",
+      "answer": "Les installations locales (`pip install --user`) peuvent entraîner des conflits de versions, des problèmes d'importation étranges et un manque de reproductibilité, créant un véritable 'enfer de dépendances'. Il est fortement recommandé d'utiliser des environnements virtuels pour isoler et gérer vos paquets. Pour supprimer une installation locale, utilisez `rm -vr ~/.local/bin ~/.local/lib/python*`."
     },
     {
-      "question": "Pourquoi mon environnement virtuel ne fonctionne-t-il plus du jour au lendemain?",
-      "answer": "Des mises à jour fréquentes de paquets peuvent rendre un environnement virtuel instable. Un environnement créé dans `$SCRATCH` risque aussi d'être détruit. Il est recommandé de 'geler' les versions des paquets et de recréer l'environnement à partir d'un fichier de requis."
-    },
-    {
-      "question": "Pourquoi est-il important d'éviter les installations locales de paquets Python (avec `pip install --user`)?",
-      "answer": "Les installations locales peuvent causer des problèmes d'importation, des conflits de versions (un 'enfer de dépendances') et rendre la gestion et la reproduction des paquets difficiles. Il est préférable d'utiliser des environnements virtuels."
+      "question": "Comment s'assurer que les environnements virtuels Python restent stables et reproductibles sur les grappes d'Alliance malgré les mises à jour fréquentes des paquets?",
+      "answer": "Pour garantir la stabilité et la reproductibilité, spécifiez les versions exactes de vos paquets lors de l'installation (ex: `pip install --no-index 'package1==X.Y'`) et créez un fichier `requirements.txt` avec `pip freeze --local > ~/requirements.txt` pour reproduire cet environnement dans vos tâches."
     }
   ],
-  "generated_at": "2026-04-12T18:21:04.694360+00:00"
+  "generated_at": "2026-04-13T11:50:57.580547+00:00"
 }

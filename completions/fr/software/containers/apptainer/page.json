@@ -3,105 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "À quoi sert cette documentation sur Apptainer, et pourquoi ne remplace-t-elle pas la documentation officielle?",
-      "answer": "Cette page décrit l'utilisation de base d'Apptainer, aborde certains aspects de l'utilisation sur nos systèmes et présente des exemples. Elle ne remplace pas la documentation officielle d'Apptainer car elle ne couvre pas toutes les fonctionnalités, et il est recommandé de consulter les documents officiels pour plus de détails."
+      "question": "Quelle est la principale vocation de la page de documentation sur Apptainer pour les grappes de calcul de l'Alliance?",
+      "answer": "La page vise à décrire l'utilisation de base d'Apptainer sur les systèmes de l'Alliance, à aborder des aspects spécifiques à ces systèmes et à fournir des exemples, sans remplacer la documentation officielle."
     },
     {
-      "question": "Comment puis-je installer Apptainer sur mon ordinateur personnel si j'utilise Windows ou macOS?",
-      "answer": "Pour Windows, vous devez d'abord installer WSL (Windows Subsystem for Linux), puis Apptainer dans le sous-système. Pour macOS, installez une distribution Linux dans une machine virtuelle, puis installez Apptainer à l'intérieur de cette machine virtuelle."
+      "question": "Pourquoi la documentation sur Apptainer des grappes de l'Alliance recommande-t-elle d'utiliser Apptainer plutôt que Singularity, et quelles sont les principales différences entre les deux?",
+      "answer": "Apptainer est la nouvelle désignation de SingularityCE par la Fondation Linux, incluant le support pour DMTCP et l'abandon de certaines options, tout en étant compatible avec les scripts Singularity. Le terme 'singularity' a été remplacé par 'apptainer' dans les exécutables, chemins et variables d'environnement."
     },
     {
-      "question": "Quelles sont les principales différences entre Apptainer et Singularity, et pourquoi devrais-je privilégier Apptainer?",
-      "answer": "La Fondation Linux a renommé SingularityCE (jusqu'à v3.9.5) en Apptainer, avec des modifications comme le support de DMTCP, l'abandon de `--nvccli` et `build --remote`, le remplacement du point de chute SylabsCloud, et le changement des noms d'exécutables, chemins et variables d'environnement de `singularity` à `apptainer`. Vous devriez privilégier Apptainer car c'est la version adoptée et maintenue."
+      "question": "Quelles sont les étapes pour installer Apptainer sur votre ordinateur personnel, que ce soit sous Windows ou macOS?",
+      "answer": "Pour Windows, il faut d'abord installer WSL, puis Apptainer dans le sous-système. Pour macOS, il faut installer une distribution Linux dans une machine virtuelle, puis Apptainer dans cette machine virtuelle."
     },
     {
-      "question": "Apptainer version 1 est-il compatible avec les scripts que j'utilisais avec Singularity?",
-      "answer": "Oui, Apptainer version 1 est compatible avec Singularity, vous pouvez donc continuer à utiliser les mêmes scripts."
+      "question": "Pourquoi Docker n'est-il pas disponible sur les grappes de calcul haute performance de l'Alliance, et quelle solution alternative est proposée pour les images Docker?",
+      "answer": "Docker n'est pas sécuritaire pour les systèmes multi-utilisateurs et n'est donc pas offert sur les grappes. Il est possible de construire une image Apptainer à partir d'une image Docker sur son propre ordinateur, puis de la téléverser sur la grappe."
     },
     {
-      "question": "Pourquoi Docker n'est-il pas offert sur les grappes de calcul haute performance, et quelles sont les alternatives?",
-      "answer": "Docker ne peut être utilisé de manière sécuritaire sur les systèmes multi-utilisateurs, il n'est donc pas offert sur nos grappes. Les alternatives incluent Podman, qui supporte les conteneurs rootless et les fichiers .SIF d'Apptainer (version 4). Vous pouvez aussi construire des images Apptainer à partir d'images Docker sur votre ordinateur personnel."
+      "question": "Avant d'utiliser Apptainer sur les grappes de l'Alliance, de quoi avez-vous besoin?",
+      "answer": "Vous devez avoir une image de votre conteneur (fichier .sif ou répertoire bac à sable) et tous les logiciels nécessaires pour travailler dans le conteneur doivent y être installés ou construits."
     },
     {
-      "question": "Quels sont les prérequis pour utiliser Apptainer sur les grappes de calcul?",
-      "answer": "Vous devez d'abord avoir une image de votre conteneur (un fichier .sif ou un répertoire bac à sable). Vous avez aussi besoin d'installer ou de construire tous les logiciels nécessaires pour travailler dans le conteneur à l'intérieur de celui-ci."
+      "question": "Pourquoi ne peut-on pas utiliser la commande `sudo` pour obtenir des permissions de superutilisateur sur les grappes de l'Alliance pour construire des images Apptainer, et quelles sont les options disponibles?",
+      "answer": "Les grappes n'autorisent pas `sudo`. Les options sont d'installer Linux, Apptainer et `sudo` dans une machine virtuelle sur un ordinateur contrôlé, de demander l'assistance du soutien technique, ou d'utiliser l'option `--fakeroot` d'Apptainer (surtout avec la version 1.1.x ou plus récente)."
     },
     {
-      "question": "Est-il possible d'utiliser la commande `sudo` sur les grappes de calcul pour obtenir des permissions de superutilisateur?",
-      "answer": "Non, l'utilisation de `sudo` n'est pas possible sur les grappes de calcul. Vos options sont d'installer Linux, Apptainer et `sudo` dans une machine virtuelle sur un ordinateur personnel, de demander l'assistance du soutien technique, ou d'utiliser l'option `--fakeroot` d'Apptainer (disponible à partir de la version 1.1.x)."
+      "question": "Comment charge-t-on le module Apptainer par défaut sur les grappes de l'Alliance, et comment peut-on voir les autres versions disponibles?",
+      "answer": "Pour charger la version par défaut, on lance `$ module load apptainer`. Pour voir toutes les versions disponibles, on lance `$ module spider apptainer`."
     },
     {
-      "question": "Quelles sont les restrictions à respecter lors de la construction d'images ou d'overlays Apptainer sur les grappes de calcul, surtout en lien avec les systèmes de fichiers réseau?",
-      "answer": "Il ne faut pas construire une image d'un bac à sable avec `--fakeroot` dans un système de fichiers réseau. Il faut configurer `APPTAINER_CACHEDIR` et `APPTAINER_TMPDIR` pour qu'ils pointent vers un endroit dans un système de fichiers qui n'est pas en réseau (pas de type Lustre/GPFS), car ces derniers n'offrent pas les fonctionnalités nécessaires à la construction de conteneurs, en particulier `--fakeroot`."
+      "question": "Quelles sont les options de ligne de commande importantes à retenir pour exécuter des programmes Apptainer sur les grappes de l'Alliance afin d'éviter les problèmes d'environnement et de mémoire?",
+      "answer": "Les options clés sont `-C` (isoler complètement), `-c` (isoler la plupart des systèmes de fichiers), `-e` (supprimer variables d'environnement) et `-W /path/to/a/workdir` (spécifier un répertoire de travail sur disque physique, souvent `${SLURM_TMPDIR}` sur les grappes) pour éviter les problèmes de mémoire RAM."
     },
     {
-      "question": "Comment puis-je charger le module Apptainer sur une grappe de calcul et voir les versions disponibles?",
-      "answer": "Pour charger la version disponible par défaut, lancez `$ module load apptainer`. Pour connaître toutes les versions disponibles, utilisez `$ module spider apptainer`."
+      "question": "Comment s'assurer que les programmes MPI lancés dans un conteneur Apptainer sur plusieurs nœuds de calcul des grappes de l'Alliance peuvent communiquer efficacement?",
+      "answer": "L'exécution de programmes MPI sur plusieurs nœuds dans un conteneur Apptainer requiert une configuration particulière, souvent décrite dans la documentation officielle d'Apptainer. S'assurer que le nombre de nœuds n'est pas explicitement défini comme étant 1 si l'on veut utiliser plusieurs nœuds."
     },
     {
-      "question": "Quelles sont les options de ligne de commande importantes pour isoler un conteneur d'un environnement hôte sur les grappes de calcul?",
-      "answer": "Les options importantes sont:\n- `-C` : Isole le conteneur actif de tous les systèmes de fichiers, du PID parent, des IPC et de l'environnement.\n- `-c` : Isole le conteneur actif de la plupart des systèmes de fichiers, en n'utilisant qu'un répertoire `/dev` minimal, un répertoire `/tmp` vide et un répertoire `/home` vide.\n- `-e` : Supprime certaines variables de l'environnement de l'interpréteur et configure des paramètres pour une meilleure compatibilité OCI/Docker."
+      "question": "Comment obtenir de l'aide spécifique pour un conteneur Apptainer ou pour une application particulière à l'intérieur de ce conteneur?",
+      "answer": "Pour l'aide générale du conteneur, utilisez `apptainer run-help your-container-name.sif`. Pour une application spécifique, utilisez `apptainer run-help --app appname your-container-name.sif`. La liste des applications peut être obtenue avec `apptainer inspect --list-apps your-container-name.sif`."
     },
     {
-      "question": "Pourquoi l'option `-W` ou `--workdir` est-elle cruciale lors de l'exécution de programmes Apptainer sur les grappes de calcul?",
-      "answer": "L'option `-W` ou `--workdir` est cruciale car les systèmes de fichiers comme `/tmp` sur les grappes utilisent la mémoire RAM et les tâches sont annulées si elles consomment plus de mémoire que ce qui a été alloué. Cette option indique à Apptainer d'utiliser un disque physique pour son répertoire de travail temporaire. Sur nos grappes, le répertoire de travail doit être `${SLURM_TMPDIR}`."
+      "question": "Quelle commande est recommandée pour lancer un logiciel dans un conteneur Apptainer et pourquoi, entre `apptainer run` et `apptainer exec`?",
+      "answer": "`apptainer run` est recommandée car elle lance le conteneur, exécute le script `%runscript` s'il est défini, puis lance la commande spécifiée. `apptainer exec` ne lance pas le script `%runscript`."
     },
     {
-      "question": "Comment faire pour que mon logiciel dans un conteneur utilise des GPU NVIDIA ou AMD?",
-      "answer": "Pour les GPU NVIDIA, utilisez l'option `--nv`. Pour les GPU AMD, utilisez `--rocm`. Ces options s'assurent que les entrées appropriées dans `/dev` sont incluses dans le bind mount, localisent les bibliothèques GPU et configurent la variable d'environnement `LD_LIBRARY_PATH`. L'application doit aussi être compilée pour le GPU. Pour OpenCL, ajoutez `-B /etc/OpenCL`."
+      "question": "Comment peut-on travailler de manière interactive à l'intérieur d'un conteneur Apptainer sur les grappes de l'Alliance?",
+      "answer": "On utilise la commande `apptainer shell votre-conteneur.sif`. Sur les grappes, il faut ajouter des options comme `-C -W $SLURM_TMPDIR -B /home:/cluster_home -B /project -B /scratch` avant le nom du fichier SIF."
     },
     {
-      "question": "Comment puis-je obtenir de l'aide spécifique à un conteneur Apptainer ou lister ses applications?",
-      "answer": "Pour obtenir de l'aide sur un conteneur, utilisez `apptainer run-help your-container-name.sif`. Pour de l'aide sur une application spécifique, ajoutez `--app appname`, comme `apptainer run-help --app appname your-container-name.sif`. Pour lister toutes les applications du conteneur, utilisez `apptainer inspect --list-apps your-container-name.sif`."
+      "question": "Comment s'assurer que les modifications apportées lors d'une session `apptainer shell` sont sauvegardées si l'on utilise une image d'overlay persistant?",
+      "answer": "Il faut passer l'option `-w` ou `--writable` au conteneur, en plus des autres options de ligne de commande, sinon les modifications ne seront pas sauvegardées."
     },
     {
-      "question": "Quelle est la différence entre `apptainer run` et `apptainer exec`, et quelle commande est recommandée?",
-      "answer": "La commande `apptainer run` lance le conteneur, exécute le script `%runscript` s'il est défini, puis la commande spécifiée. `apptainer exec` exécute la commande spécifiée sans exécuter le script `%runscript`. Il est recommandé d'utiliser `apptainer run`."
+      "question": "Pourquoi et comment doit-on utiliser les bind mounts avec Apptainer sur les grappes de l'Alliance pour accéder aux données externes, en particulier avec les options d'isolation?",
+      "answer": "Les options d'isolation comme `-C` ou `-c` empêchent l'accès à l'espace disque de l'hôte. Pour y pallier, il faut explicitement 'bind mount' cet espace avec l'option `-B`, par exemple `-B .` pour le répertoire courant, `-B /project`, ou `-B /scratch`. Pour le répertoire `/home`, il est recommandé d'utiliser `-B /home:/cluster_home`."
     },
     {
-      "question": "Comment travailler interactivement à l'intérieur d'un conteneur Apptainer sur une grappe?",
-      "answer": "Pour travailler interactivement, utilisez la commande `apptainer shell your-container-name.sif`. Sur les grappes, ajoutez des options comme `-C`, `-W $SLURM_TMPDIR`, `-B /project`, `-B /scratch`, et `-B /home:/cluster_home` pour le répertoire `/home` afin d'éviter les interférences avec les logiciels du conteneur."
+      "question": "Quelles sont les différences entre une image Apptainer de type SIF et un répertoire bac à sable (sandbox), et laquelle est généralement recommandée pour l'utilisation sur les grappes de l'Alliance?",
+      "answer": "Un fichier SIF est un fichier compressé, en lecture seule, offrant une meilleure performance et n'impactant pas les quotas de fichiers. Un bac à sable est un répertoire de fichiers non compressés, en lecture-écriture, mais impactant significativement les quotas de fichiers. Le fichier SIF est recommandé pour sa performance et son efficacité."
     },
     {
-      "question": "Que dois-je faire si je veux que les modifications faites dans une session `apptainer shell` soient sauvegardées pour une image d'overlay persistant?",
-      "answer": "Si vous utilisez une image d'un overlay persistant (dans un fichier SIF ou un fichier distinct), vous devez passer l'option `-w` ou `--writable` au conteneur, autrement les modifications faites dans la session `apptainer shell` ne seront pas sauvegardées."
+      "question": "Quelles sont les étapes pour créer un conteneur Apptainer à partir d'un fichier Dockerfile, en supposant que l'on travaille sur un ordinateur personnel avec les permissions nécessaires?",
+      "answer": "Sur un ordinateur personnel, il faut utiliser `docker build -f Dockerfile -t your-tag-name`, puis `docker save your-tag-name -o your-tarball-name.tar`, ensuite `docker image rm your-tag-name`, et enfin `apptainer build --fakeroot your-sif-name.sif docker-archive://your-tarball-name.tar`. Le fichier tar intermédiaire peut ensuite être supprimé."
     },
     {
-      "question": "Comment gérer les démons ou services de longue durée avec Apptainer sur les grappes?",
-      "answer": "Utilisez la commande `apptainer instance` pour lancer des démons. Cette commande assure un nettoyage approprié si la tâche se termine, est annulée ou plante. N'exécutez pas manuellement les démons sans `apptainer instance`. Les démons ne sont exécutés que lorsque la tâche est en marche."
+      "question": "Comment peut-on vider le répertoire cache d'Apptainer pour libérer de l'espace disque?",
+      "answer": "Pour trouver les fichiers du répertoire cache, on utilise `apptainer cache list`. Pour les supprimer, on lance `apptainer cache clean`."
     },
     {
-      "question": "Qu'est-ce qu'un 'bind mount' et comment l'utiliser pour accéder à mes fichiers hors du conteneur sur les grappes?",
-      "answer": "Un 'bind mount' est une fonctionnalité pour avoir accès à l'espace disque à l'extérieur du conteneur. Quand des options d'isolation comme `-C` ou `-c` sont utilisées, il faut explicitement demander le 'bind mount' de cet espace en utilisant l'option `-B`. Par exemple, `-B .` pour le répertoire courant, ou `-B /project -B /scratch` pour les systèmes de fichiers partagés sur les grappes."
-    },
-    {
-      "question": "Pourquoi est-il recommandé de faire un 'bind mount' de `/home` vers `/cluster_home` plutôt que directement vers `/home` dans le conteneur?",
-      "answer": "Il est recommandé d'utiliser `-B /home:/cluster_home` pour s'assurer que les fichiers de configuration et les programmes qui se trouvent dans votre répertoire `/home` sur l'hôte n'interfèrent pas avec les logiciels et configurations du conteneur."
-    },
-    {
-      "question": "Quels sont les deux types d'images Apptainer et lequel est généralement recommandé?",
-      "answer": "Les deux types sont un fichier SIF (Squashfs Image Format) et un répertoire servant de bac à sable (`sandbox`). Le fichier SIF est généralement recommandé car il est compressé, en lecture seule, offre une performance de lecture rapide et est plus compact, avec un impact moindre sur les quotas de fichiers. Un bac à sable est en lecture-écriture mais moins performant et peut entraîner un grand nombre de fichiers."
-    },
-    {
-      "question": "Comment puis-je construire une image SIF ou un bac à sable à partir d'une image Docker existante?",
-      "answer": "Pour construire une image SIF à partir de la plus récente image busybox de Docker, lancez `$ apptainer build bb.sif docker://busybox`. Pour construire un bac à sable, remplacez le nom du fichier SIF par `--sandbox DIR_NAME`, par exemple `$ apptainer build --sandbox bb.dir docker://busybox`."
-    },
-    {
-      "question": "Est-il possible de créer un conteneur Apptainer directement à partir d'un fichier Dockerfile sur les grappes de calcul?",
-      "answer": "Non, les commandes pour créer un conteneur Apptainer à partir d'un Dockerfile ne fonctionnent pas directement sur les grappes de calcul car Docker n'y est pas installé. Vous devez le faire sur un ordinateur personnel où Docker et Apptainer sont installés et où vous disposez des permissions nécessaires (accès `root` ou `sudo`, ou appartenance au groupe `docker` et permission `--fakeroot`)."
-    },
-    {
-      "question": "Décrivez les étapes pour créer un fichier SIF Apptainer à partir d'un Dockerfile sur un ordinateur personnel.",
-      "answer": "Sur un ordinateur avec Docker et Apptainer installés et les permissions nécessaires, les étapes sont:\n1. Construire l'image Docker: `docker build -f Dockerfile -t your-tag-name`\n2. Sauvegarder l'image Docker: `docker save your-tag-name -o your-tarball-name.tar`\n3. Supprimer l'image Docker locale: `docker image rm your-tag-name`\n4. Construire l'image Apptainer à partir du tarball: `apptainer build --fakeroot your-sif-name.sif docker-archive://your-tarball-name.tar`\n5. Supprimer le fichier tarball: `rm your-tarball-name.tar`"
-    },
-    {
-      "question": "Comment gérer le répertoire cache d'Apptainer et vider son contenu?",
-      "answer": "Pour trouver les fichiers du répertoire cache, lancez `apptainer cache list`. Pour supprimer les fichiers et vider le cache, utilisez `apptainer cache clean`."
-    },
-    {
-      "question": "Comment puis-je modifier les répertoires par défaut utilisés par Apptainer pour le cache et les fichiers temporaires?",
-      "answer": "Vous pouvez configurer les variables d'environnement `APPTAINER_CACHEDIR` (pour le cache) et `APPTAINER_TMPDIR` (pour les fichiers temporaires) avant de lancer Apptainer. Par exemple, pour utiliser votre espace `/scratch`, vous feriez: `$ mkdir -p /scratch/$USER/apptainer/{cache,tmp}` puis `$ export APPTAINER_CACHEDIR=\"/scratch/$USER/apptainer/cache\"` et `$ export APPTAINER_TMPDIR=\"/scratch/$USER/apptainer/tmp\"`."
+      "question": "Comment peut-on configurer Apptainer pour qu'il utilise des répertoires cache et temporaires personnalisés, par exemple sur le système de fichiers `/scratch` des grappes de l'Alliance?",
+      "answer": "Avant de lancer Apptainer, on configure les variables d'environnement `APPTAINER_CACHEDIR` et `APPTAINER_TMPDIR` vers les chemins désirés, par exemple en créant des répertoires sous `/scratch/$USER/apptainer/` et en exportant les variables en conséquence."
     }
   ],
-  "generated_at": "2026-04-11T17:34:08.691962+00:00"
+  "generated_at": "2026-04-13T02:15:47.169108+00:00"
 }

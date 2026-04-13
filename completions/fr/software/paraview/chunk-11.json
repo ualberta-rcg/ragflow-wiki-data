@@ -4,57 +4,17 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "Comment faire un rendu séquentiel avec ParaView en mode lots (batch)?",
-      "answer": "Pour un rendu séquentiel, il faut charger le module `paraview/6.0.0` puis soumettre le script de tâche `serial.sh` avec la commande `sbatch serial.sh`."
+      "question": "Comment on fait pour soumettre des tâches de visualisation ParaView en mode lot (batch) sur les grappes d'Alliance, que ce soit pour un rendu séquentiel ou parallèle?",
+      "answer": "Pour un rendu séquentiel, vous devez charger le module ParaView avec `module load paraview/6.0.0`, puis soumettre votre tâche Slurm avec `sbatch serial.sh`. Le script `serial.sh` devrait appeler `pvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py`. Pour un rendu parallèle, c'est la même idée, mais le script `distributed.sh` doit spécifier le nombre de tâches Slurm (par exemple, `--ntasks=4`) et utiliser `srun pvbatch` pour lancer le rendu en parallèle."
     },
     {
-      "question": "Quel est le contenu typique d'un script de tâche séquentielle pour ParaView?",
-      "answer": "Un script de tâche séquentielle (`serial.sh`) pour ParaView devrait spécifier les ressources SLURM comme le temps (`--time=3:0:0`), la mémoire par CPU (`--mem-per-cpu=3600`) et le compte (`--account=def-someuser`), puis exécuter `pvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py`."
+      "question": "Dans quelle situation est-il conseillé de configurer une visualisation ParaView en mode client-serveur sur une machine virtuelle d'un nuage, comme Arbutus, au lieu de le faire directement sur une grappe de calcul?",
+      "answer": "Cette approche est moins courante et on devrait l'utiliser seulement si vous avez besoin d'une configuration personnalisée de ParaView qui n'est pas prise en charge par l'installation standard disponible sur les grappes de calcul de l'Alliance."
     },
     {
-      "question": "Comment faire un rendu parallèle avec ParaView en mode lots (batch)?",
-      "answer": "Pour un rendu parallèle, il faut charger le module `paraview/6.0.0` puis soumettre le script de tâche `distributed.sh` avec la commande `sbatch distributed.sh`."
-    },
-    {
-      "question": "À quoi ressemble un script de tâche parallèle pour ParaView?",
-      "answer": "Un script de tâche parallèle (`distributed.sh`) pour ParaView inclurait les directives SLURM pour le temps (`--time=3:0:0`), la mémoire par CPU (`--mem-per-cpu=3600`), le nombre de tâches (`--ntasks=4`) et le compte (`--account=def-someuser`), et lancerait `srun pvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py`."
-    },
-    {
-      "question": "Dans quelles situations devrait-on utiliser la visualisation client-serveur sur une machine virtuelle?",
-      "answer": "Cette approche est moins courante et ne doit être utilisée que si vous avez besoin d'une configuration personnalisée non prise en charge par ParaView tel qu'installé sur la grappe."
-    },
-    {
-      "question": "Quels sont les prérequis logiciels pour compiler ParaView et VisIt sur une instance CentOS dans le nuage?",
-      "answer": "Sur une instance CentOS, il faut installer les paquets suivants : `xauth wget gcc gcc-c++ ncurses-devel python-devel libxcb-devel`, `patch imake libxml2-python mesa-libGL mesa-libGL-devel`, `mesa-libGLU mesa-libGLU-devel bzip2 bzip2-libs libXt-devel zlib-devel flex byacc`, et créer un lien symbolique avec `sudo ln -s /usr/include/GL/glx.h /usr/local/include/GL/glx.h`."
-    },
-    {
-      "question": "Comment copier sa clé publique SSH vers une machine virtuelle pour simplifier la connexion?",
-      "answer": "À partir de votre ordinateur, vous pouvez lancer la commande `cat ~/.ssh/id_rsa.pub | ssh -i ~/.ssh/cloudwestkey.pem centos@vm.ip.address 'cat >>.ssh/authorized_keys'`."
-    },
-    {
-      "question": "Pourquoi est-il nécessaire de compiler ParaView avec OSMesa sur une machine virtuelle?",
-      "answer": "Comme les machines virtuelles n'ont pas accès à un GPU dans la plupart des cas (par exemple, dans Arbutus), il faut compiler ParaView avec OSMesa pour permettre le rendu hors écran."
-    },
-    {
-      "question": "Quel composant OSMesa active-t-il par défaut et quel est son rôle?",
-      "answer": "La configuration par défaut d'OSMesa active OpenSWR, la librairie logicielle de tramage d'Intel qui permet d'opérer OpenGL."
-    },
-    {
-      "question": "Quels pilotes sont utilisés par le serveur ParaView avec OSMesa pour un rendu sans X hors écran avec un CPU?",
-      "answer": "Le serveur ParaView utilise les pilotes `llvmpipe` et `SWR`."
-    },
-    {
-      "question": "Quel pilote est recommandé pour le rendu hors écran avec OSMesa?",
-      "answer": "Nous recommandons le pilote SWR."
-    },
-    {
-      "question": "Quelles sont les étapes pour compiler `cmake` sur une machine virtuelle?",
-      "answer": "Pour compiler `cmake`, il faut télécharger l'archive `cmake-4.1.1.tar.gz`, l'extraire, naviguer dans le dossier, exécuter `./bootstrap`, puis `make` et enfin `sudo make install`."
-    },
-    {
-      "question": "Quelles sont les étapes pour compiler `llvm` sur une machine virtuelle?",
-      "answer": "Pour compiler `llvm`, il faut télécharger l'archive `LLVM-21.1.0-Linux-X64.tar.xz`, l'extraire, créer un dossier `build` et s'y déplacer, exécuter `cmake` avec les options `-DCMAKE_BUILD_TYPE=Release`, `-DLLVM_BUILD_LLVM_DYLIB=ON`, `-DLLVM_ENABLE_RTTI=ON`, `-DLLVM_INSTALL_UTILS=ON`, `-DLLVM_TARGETS_TO_BUILD:STRING=X86`, puis `make` et `sudo make install`."
+      "question": "Pourquoi est-ce qu'on devrait compiler ParaView avec OSMesa quand on l'installe sur une machine virtuelle dans le nuage, comme celles d'Arbutus, pis c'est quoi l'avantage?",
+      "answer": "Puisque les machines virtuelles dans le nuage, particulièrement celles d'Arbutus, ont généralement pas de GPU, on compile ParaView avec OSMesa pour activer le rendu hors écran (`offscreen rendering`). Ça permet à ParaView d'opérer OpenGL avec des pilotes CPU plus récents et rapides comme OpenSWR et `llvmpipe` pour le tramage, SWR étant celui recommandé pour de meilleures performances."
     }
   ],
-  "generated_at": "2026-04-12T04:57:55.330931+00:00"
+  "generated_at": "2026-04-13T11:00:54.074117+00:00"
 }

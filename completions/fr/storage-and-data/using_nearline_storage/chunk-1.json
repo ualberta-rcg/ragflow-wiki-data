@@ -4,93 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "À quoi sert le système de fichiers /nearline?",
-      "answer": "Le système de fichiers /nearline utilise de l'espace de stockage sur ruban et sert à conserver les données inactives, par exemple les ensembles de données que vous n'avez pas besoin d'utiliser pendant des mois."
+      "question": "À quoi sert le système de fichiers /nearline, pis quel genre de données devrions-nous y entreposer?",
+      "answer": "Le système de fichiers /nearline utilise de l'espace de stockage sur ruban pour conserver les données inactives. Par exemple, c'est parfait pour les ensembles de données que vous n'avez pas besoin d'utiliser pendant des mois."
     },
     {
-      "question": "Quel type de données est-il recommandé de stocker sur /nearline?",
-      "answer": "Il est recommandé de stocker les données inactives, comme les ensembles de données que vous n'avez pas besoin d'utiliser pendant des mois, sur /nearline."
+      "question": "Quelles sont les meilleures pratiques à suivre concernant la taille des fichiers quand on copie des données sur /nearline?",
+      "answer": "Pour la taille des fichiers, il y a quelques règles: les fichiers de moins de ~10Go devraient être regroupés dans des archives (des 'tarballs') avec `tar` ou un autre outil semblable. Ceux de plus de 4To, il faut les diviser en parts de 1To avec un outil comme la commande `split`. Et en général, on ne devrait pas copier de petits fichiers sur /nearline, sauf pour les fichiers d'index."
     },
     {
-      "question": "Quelles sont les règles à suivre concernant la taille des fichiers pour le stockage sur /nearline?",
-      "answer": "Les fichiers de moins de ~10Go devraient être rassemblés dans des fichiers archive (*tarballs*), et les fichiers de plus de 4To devraient être divisés en parts de 1To."
-    },
-    {
-      "question": "Est-il acceptable de copier de petits fichiers directement sur /nearline?",
-      "answer": "Non, il ne faut pas copier de petits fichiers sur /nearline, à l'exception des index."
-    },
-    {
-      "question": "Quel outil est suggéré pour regrouper les petits fichiers avant de les archiver sur /nearline?",
-      "answer": "Il est suggéré d'utiliser `tar` ou un autre outil semblable pour rassembler les fichiers de moins de ~10Go dans des fichiers archive (*tarballs*)."
-    },
-    {
-      "question": "Comment doit-on gérer les fichiers de plus de 4To avant de les mettre sur /nearline?",
-      "answer": "Les fichiers de plus de 4To devraient être divisés en parts de 1To avec un outil comme la commande `split`."
-    },
-    {
-      "question": "Dois-je compresser mes données avant de les copier sur /nearline?",
-      "answer": "Non, il n'est pas nécessaire de compresser les données sur /nearline puisque le système d'archivage sur ruban effectue automatiquement la compression à l'aide de circuits spécialisés."
-    },
-    {
-      "question": "Que se passe-t-il si mes données sont déjà compressées avant d'être copiées sur /nearline?",
-      "answer": "Si vos données sont déjà compressées, elles peuvent être copiées sur /nearline sans problème."
-    },
-    {
-      "question": "Quels outils sont recommandés pour créer un fichier archive pour /nearline?",
-      "answer": "Il est recommandé d'utiliser `tar` ou `dar` pour créer un fichier archive."
-    },
-    {
-      "question": "Où devrais-je créer l'archive pour /nearline pour une meilleure efficacité?",
-      "answer": "Il faut créer l'archive directement sur /nearline, car ceci ne nécessite pas d'espace de stockage supplémentaire et est plus efficace que de la créer sur /scratch ou /project puis de la copier."
-    },
-    {
-      "question": "Que dois-je faire avec les fichiers sources avant de créer une archive pour /nearline?",
-      "answer": "Il faut garder les fichiers sources dans leur système de fichiers d'origine et ne pas les copier sur /nearline avant de créer l'archive."
-    },
-    {
-      "question": "Quelles options de `tar` peuvent être utilisées pour créer des fichiers archive de taille convenable pour plusieurs centaines de Go de données?",
-      "answer": "Avec `tar`, vous pouvez utiliser les options `-M (--multi-volume)` et `-L (--tape-length)` pour produire des fichiers archive de taille convenable pour plusieurs centaines de Go de données."
-    },
-    {
-      "question": "Quelle option de `dar` peut être utilisée pour créer des fichiers archive de taille convenable pour plusieurs centaines de Go de données?",
-      "answer": "Avec `dar`, vous pouvez utiliser l'option `-s (--slice)` pour des fichiers archive de taille convenable pour plusieurs centaines de Go de données."
-    },
-    {
-      "question": "Pourquoi est-il utile de créer un index quand des fichiers sont regroupés dans une archive?",
-      "answer": "Il est utile de créer un index quand des fichiers sont regroupés car il devient difficile de repérer un fichier particulier, ce qui évite de récupérer une grande collection sur ruban pour seulement quelques fichiers."
-    },
-    {
-      "question": "Comment peut-on créer un index avec `tar` au moment où la collection est créée?",
-      "answer": "Vous pouvez créer un index avec `tar` au moment de la création en utilisant la commande `tar cvvf /nearline/def-sponsor/user/mycollection.tar /project/def-sponsor/user/something > /nearline/def-sponsor/user/mycollection.index`, en ajoutant l'option `verbose`."
-    },
-    {
-      "question": "Comment peut-on créer un index avec `tar` si l'archive vient d'être créée?",
-      "answer": "Si l'archive vient d'être créée, vous pouvez créer l'index avec la commande `tar tvvf /nearline/def-sponsor/user/mycollection.tar > /nearline/def-sponsor/user/mycollection.index`."
-    },
-    {
-      "question": "Les fichiers d'index peuvent-ils être enregistrés sur /nearline?",
-      "answer": "Oui, même s'il s'agit souvent de petits fichiers, les fichiers d'index peuvent être enregistrés sur /nearline."
-    },
-    {
-      "question": "Est-ce que les nœuds de calcul peuvent accéder aux données sur /nearline?",
-      "answer": "Non, /nearline n'est pas monté sur les nœuds de calcul, donc nous ne permettons pas que les tâches y lisent des données."
-    },
-    {
-      "question": "Pourquoi l'accès aux données de /nearline est-il restreint pour les nœuds de calcul?",
-      "answer": "L'accès aux données de /nearline est restreint pour les nœuds de calcul parce que l'obtention de données peut prendre un certain temps."
-    },
-    {
-      "question": "Quand est-il préférable d'utiliser un nœud de copie (DTN) pour la création de fichiers archive?",
-      "answer": "Il est préférable d'utiliser un nœud de copie (DTN) si vous pouvez vous connecter à la grappe par un nœud DTN, car la création de fichiers archive exige beaucoup des ressources."
-    },
-    {
-      "question": "Que doit-on faire si un nœud de copie n'est pas disponible pour l'archivage?",
-      "answer": "En l'absence d'un nœud de copie, il faut utiliser un nœud de connexion."
-    },
-    {
-      "question": "Pourquoi est-il recommandé d'utiliser un multiplexeur de terminal pour archiver des collections volumineuses?",
-      "answer": "Il est recommandé d'utiliser un multiplexeur de terminal comme `tmux` pour l'archivage de collections volumineuses afin d'éviter que la session SSH soit interrompue et pour laisser le programme s'exécuter en arrière-plan."
+      "question": "Est-ce nécessaire de compresser mes données avant de les transférer sur le système de fichiers /nearline?",
+      "answer": "Non, c'est pas nécessaire de compresser vos données avant de les mettre sur /nearline. Le système d'archivage sur ruban gère la compression automatiquement avec des circuits spécialisés. Si vos données sont déjà compressées, y'a pas de problème à les copier telles quelles."
     }
   ],
-  "generated_at": "2026-04-12T10:28:13.052418+00:00"
+  "generated_at": "2026-04-13T15:28:59.045423+00:00"
 }

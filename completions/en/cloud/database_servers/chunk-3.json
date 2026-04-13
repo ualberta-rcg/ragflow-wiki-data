@@ -4,101 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What is the naming convention for creating a new MySQL database on the Cedar server?",
-      "answer": "The name of your MySQL database must start with your MySQL username, followed by an underscore. For example, if your username is \"david\", the database name must begin with \"david_\"."
+      "question": "How do users create MySQL databases on the Cedar cluster, and what are the naming conventions for these databases?",
+      "answer": "Users can create multiple MySQL databases on the Cedar cluster. The name of each database must start with the user's MySQL username followed by an underscore (e.g., if the username is \"david\", a database name must begin with \"david_\"). For instance, to create a database named \"david_db1\", the command would be `CREATE DATABASE david_db1;`. These databases are automatically accessible only to the user from the Cedar head node, Cedar compute nodes, and the Cedar Portal."
     },
     {
-      "question": "Can I create multiple MySQL databases on Cedar?",
-      "answer": "Yes, you may create multiple MySQL databases as long as each name starts with your username followed by an underscore."
+      "question": "What is the procedure for sharing a specific table from a MySQL database on the Cedar cluster with another user?",
+      "answer": "To share a table from your MySQL database on the Cedar cluster, you first connect to MySQL using the `mysql` command. Then, use `USE <database_name>;` to specify the database containing the table you want to share. Finally, run the command `GRANT <priv_type> ON <mytable> TO '<user>'@'172.%';`, replacing `<priv_type>` with the type of privilege (e.g., `SELECT` for read-only), `<mytable>` with the table name, and `<user>` with the username of the person you're sharing with. For example, to grant 'SELECT' access on 'mytable' from 'david_db' to 'john', the commands would be `USE david_db;` followed by `GRANT SELECT on mytable to 'john'@'172.%';`."
     },
     {
-      "question": "What command do I use to create a MySQL database on Cedar?",
-      "answer": "To create a database, you would use a command similar to `CREATE DATABASE david_db1;` after connecting to MySQL."
-    },
-    {
-      "question": "Where are my created MySQL databases accessible from on Cedar?",
-      "answer": "Your created MySQL databases are automatically accessible only to you from the Cedar head node, Cedar compute nodes, and the Cedar Portal."
-    },
-    {
-      "question": "What privileges do I have on the MySQL databases I create?",
-      "answer": "You will have full privileges to create SQL objects such as tables and views within your created MySQL databases."
-    },
-    {
-      "question": "How can I see a list of my available MySQL databases?",
-      "answer": "After connecting to MySQL, you can use the command `SHOW DATABASES;` to list available databases."
-    },
-    {
-      "question": "How do I switch to a specific MySQL database to work with it?",
-      "answer": "You can switch to a specific database using the command `USE database_name;`, for example, `USE david_db1;`."
-    },
-    {
-      "question": "Can I share my MySQL data with other users on Cedar?",
-      "answer": "Yes, all MySQL account holders on Cedar can share their own databases."
-    },
-    {
-      "question": "What is the process for sharing a table from my MySQL database with another user?",
-      "answer": "To share a table, you need to connect to MySQL, use the database containing the table, and then run the `GRANT` command specifying the privilege type, table name, and the username of the person you're sharing with, along with their IP address pattern, e.g., `GRANT SELECT on mytable to 'john'@'172.%';`."
-    },
-    {
-      "question": "What command would I use to grant read-only access to a MySQL table called 'mytable' in 'david_db' for a user named 'john'?",
-      "answer": "You would connect to MySQL, then run `USE david_db;` followed by `GRANT SELECT on mytable to 'john'@'172.%';` and then `quit;`."
-    },
-    {
-      "question": "What extensions are available with the Cedar PostgreSQL server?",
-      "answer": "The Cedar PostgreSQL server includes the PostGIS extension."
-    },
-    {
-      "question": "What is the VM name for the Cedar PostgreSQL server?",
-      "answer": "The Cedar PostgreSQL server runs as a VM called \"cedar-pgsql-vm\" with the full name cedar-pgsql-vm.int.cedar.computecanada.ca."
-    },
-    {
-      "question": "How can users connect to the Cedar PostgreSQL server?",
-      "answer": "Users with accounts can connect through the main Cedar head node (cedar.computecanada.ca), Cedar compute nodes, and the Cedar Portal."
-    },
-    {
-      "question": "Is it possible to make an SSH connection directly to the Cedar PostgreSQL server?",
-      "answer": "No, for security reasons, users cannot make an SSH connection to the database server directly."
-    },
-    {
-      "question": "How do I request an account and database on the Cedar PostgreSQL server?",
-      "answer": "You need to send a request to Technical Support with your Alliance username, the amount of database space needed for your project, and whether you require the PostGIS extension."
-    },
-    {
-      "question": "What information should I provide when requesting a PostgreSQL account on Cedar?",
-      "answer": "You should provide your Alliance username, the amount of database space required for your project, and indicate if you need the PostGIS extension for your database."
-    },
-    {
-      "question": "What will be the username for my PostgreSQL account on Cedar?",
-      "answer": "Your PostgreSQL account will have the same username as your Alliance username."
-    },
-    {
-      "question": "What is the typical naming convention for a PostgreSQL database provided to me on Cedar?",
-      "answer": "The name of your database will typically be \"<username>_db\", where <username> is your Alliance username."
-    },
-    {
-      "question": "Can I create my own PostgreSQL database on Cedar?",
-      "answer": "No, you cannot create a PostgreSQL database yourself. You will be given one by the system administrators."
-    },
-    {
-      "question": "What should I do if I need more than one PostgreSQL database?",
-      "answer": "If you require more than one database, you should send a request to Technical Support."
-    },
-    {
-      "question": "Do I need a password to access my PostgreSQL account on Cedar?",
-      "answer": "No, you do not need to supply a password to access your PostgreSQL account."
-    },
-    {
-      "question": "Why should my Alliance password never be used in a PostgreSQL script?",
-      "answer": "For security reasons, your Alliance password must never be required or used in a script, and this also prevents one user from directly accessing another user's database."
-    },
-    {
-      "question": "How do I connect to the PostgreSQL server using the client?",
-      "answer": "You run the \"psql\" client to connect to the PostgreSQL server."
-    },
-    {
-      "question": "What is the recommended way to use a recent version of the PostgreSQL client?",
-      "answer": "It is recommended to load the `postgresql` module by running `module load postgresql` to access a more recent version of the client."
+      "question": "How does a researcher obtain a PostgreSQL account and database on the Cedar cluster, and what information needs to be provided in the request?",
+      "answer": "To obtain a PostgreSQL account and database on the Cedar cluster, a researcher must send a request to Technical Support. The request needs to include their Alliance username, the amount of database space required for their project, and whether they need the PostGIS extension for the database. The system will create the account with the same username as the Alliance username, and the database will typically be named \"<username>_db\". Users cannot create their own databases directly."
     }
   ],
-  "generated_at": "2026-04-11T21:03:19.667993+00:00"
+  "generated_at": "2026-04-13T04:56:06.200883+00:00"
 }

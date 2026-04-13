@@ -4,37 +4,17 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `job_script.sh` file?",
-      "answer": "The `job_script.sh` file serves as the job script that will be submitted to SLURM for all metajobs within your farm."
+      "question": "What is the purpose of the `job_script.sh` file in the META package?",
+      "answer": "The `job_script.sh` file is the job script that is submitted to the SLURM scheduler for all metajobs within your farm. It is automatically created by `farm_init.run` and contains configurations such as account name and metajob runtime."
     },
     {
-      "question": "Which command generates the default version of `job_script.sh`?",
-      "answer": "The default version of `job_script.sh` is created for you by the `farm_init.run` command."
+      "question": "What are the essential modifications a user must make to the `job_script.sh` file?",
+      "answer": "Users must, at minimum, change the account name (specified by the `-A` switch) and set an appropriate metajob runtime (using either the `-t` or `--time` switch). It is important to note that the runtime switch must be included in `job_script.sh` and cannot be passed to `sbatch` as an optional argument to `submit.run`."
     },
     {
-      "question": "Does `job_script.sh` apply to both SIMPLE and META modes?",
-      "answer": "Yes, `job_script.sh` is applicable to both SIMPLE and META modes of operation."
-    },
-    {
-      "question": "What are the default contents of the `job_script.sh` file created by `farm_init.run`?",
-      "answer": "The default `job_script.sh` file contains a shebang (`#!/bin/bash`), SBATCH arguments for runtime (`#SBATCH -t 0-00:10`), memory (`#SBATCH --mem=4G`), and account name (`#SBATCH -A Your_account_name`), followed by the command `task.run`."
-    },
-    {
-      "question": "Which line in `job_script.sh` should not be modified?",
-      "answer": "The line `task.run` in `job_script.sh` should not be changed."
-    },
-    {
-      "question": "What is the default runtime specified in `job_script.sh`?",
-      "answer": "The default runtime specified in `job_script.sh` is `0-00:10` (10 minutes) via `#SBATCH -t 0-00:10`."
-    },
-    {
-      "question": "What is the default memory allocation specified in `job_script.sh`?",
-      "answer": "The default memory allocation specified in `job_script.sh` is 4 gigabytes via `#SBATCH --mem=4G`."
-    },
-    {
-      "question": "What placeholder is used for the account name in the default `job_script.sh`?",
-      "answer": "The placeholder `Your_account_name` is used for the account name in the default `job_script.sh` via `#SBATCH -A Your_account_name`."
+      "question": "How can a user prevent META metajobs from failing due to issues with allocated nodes, such as a malfunctioning GPU?",
+      "answer": "To prevent metajobs from failing due to defective nodes, users can add tests to `job_script.sh` before the `task.run` line. For instance, a check for the presence of an NVidia GPU using `nvidia-smi` can be added, forcing the metajob to exit if no functional GPU is found, thus preventing it from processing and failing cases."
     }
   ],
-  "generated_at": "2026-04-12T01:18:19.314102+00:00"
+  "generated_at": "2026-04-13T08:22:41.352440+00:00"
 }

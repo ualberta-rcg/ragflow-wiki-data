@@ -4,93 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of the CCDB method for installing SSH public keys?",
-      "answer": "The CCDB method makes your public key available on all of our HPC systems, which is convenient and often desired."
+      "question": "How can you install an SSH public key on a specific system rather than making it available on all High-Performance Computing (HPC) systems via the CCDB method?",
+      "answer": "To install an SSH public key on a specific system, you can add the public key to the `~/.ssh/authorized_keys` file located in your home directory on that particular system. For example, to install a key that only works on Fir, you would copy your public key into `~/.ssh/authorized_keys` on Fir. The `ssh-copy-id` command is the most convenient way to perform this operation on systems using OpenSSH."
     },
     {
-      "question": "When would someone choose to install an SSH key using the `authorized_keys` file instead of the CCDB method?",
-      "answer": "You might choose this method if you want to install a key only on a specific system, rather than making it available on all HPC systems."
+      "question": "What is the purpose of an SSH key agent, and how does it improve the use of SSH keys?",
+      "answer": "An SSH key agent is designed to improve both the convenience and security of using SSH keys. While it is crucial to encrypt your private key with a strong passphrase, having to enter this passphrase every time you use the key can be inconvenient. The key agent allows you to enter your passphrase only once when the agent starts up, and thereafter the agent supplies the private key for new connections. This method prevents the unencrypted private key from being stored on permanent storage, making it less vulnerable to being stolen or copied."
     },
     {
-      "question": "How do you install an SSH public key on a specific system using the `authorized_keys` file?",
-      "answer": "You can add your public key to the file `~/.ssh/authorized_keys` in your /home directory on that specific system."
-    },
-    {
-      "question": "What command is recommended for conveniently installing an SSH public key to an `authorized_keys` file on a system with OpenSSH?",
-      "answer": "The `ssh-copy-id` command is the most convenient way to do this. An example would be: `ssh-copy-id -i alliance-key username@fir.alliancecan.ca`."
-    },
-    {
-      "question": "What makes the `authorized_keys` mechanism somewhat fragile?",
-      "answer": "SSH is very particular about the permissions on the `authorized_keys` file, as well as the permissions on your /home directory and the `.ssh` subdirectory."
-    },
-    {
-      "question": "What is the recommended alternative to leaving a private key unencrypted to avoid repeatedly entering a passphrase?",
-      "answer": "It is strongly suggested to use an SSH key agent."
-    },
-    {
-      "question": "How does an SSH key agent work to improve convenience and security?",
-      "answer": "You type the passphrase only once when starting the agent. After that, the agent supplies the private key for new connections, which prevents the unencrypted private key from being stored on permanent storage."
-    },
-    {
-      "question": "Where should SSH key generation operations be performed?",
-      "answer": "Key generation operations should always be performed on your own computer, not on a shared computer like a cluster."
-    },
-    {
-      "question": "What are some optional settings you can use when generating an SSH key with `ssh-keygen`?",
-      "answer": "You can specify a comment for the key, choose the name of the key file, select a different key type, or strengthen certain key types by setting a longer key length."
-    },
-    {
-      "question": "How can you add a comment to an SSH key when generating it?",
-      "answer": "You can use the `-C` option with `ssh-keygen`, for example: `ssh-keygen -C 'Alliance systems'`."
-    },
-    {
-      "question": "How do you specify a custom name for your SSH key files during generation?",
-      "answer": "You can use the `-f` option with `ssh-keygen`, for example: `ssh-keygen -f alliance-key`. This will create `alliance-key` for the private part and `alliance-key.pub` for the public part."
-    },
-    {
-      "question": "If you use a custom file name for your SSH key, how do you specify it when logging in?",
-      "answer": "You must use the `-i` option, like this: `ssh -i alliance-key user@host`."
-    },
-    {
-      "question": "How can you choose a different key type, such as `ed25519`, when generating an SSH key?",
-      "answer": "You can use the `-t` option, for example: `ssh-keygen -t ed25519`."
-    },
-    {
-      "question": "How can you strengthen an RSA key type by setting a longer key length?",
-      "answer": "You can use the `-t rsa-sha2-512` and `-b 4096` options, for example: `ssh-keygen -t rsa-sha2-512 -b 4096`."
-    },
-    {
-      "question": "What is the purpose of SSH key constraints?",
-      "answer": "SSH key constraints allow you to limit what a public key is permitted to do, providing a layer of security by restricting its scope."
-    },
-    {
-      "question": "What actions can a public key perform by default if installed without constraints?",
-      "answer": "By default, a public key installed without constraints can do anything."
-    },
-    {
-      "question": "Can you provide an example of an SSH key constraint that limits the key to performing a specific command?",
-      "answer": "An example is `restrict,command=\"squeue --me\" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx`, which allows the key to only show whether you have any jobs in Slurm."
-    },
-    {
-      "question": "How can an SSH key be constrained to only allow SFTP access?",
-      "answer": "You can use a constraint like `restrict,command=\"/usr/libexec/openssh/sftp-server\" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx`."
-    },
-    {
-      "question": "How can SSH key constraints be used to limit which hosts can connect using a key?",
-      "answer": "The `from` constraint can be used, for example: `restrict,from=\"d24-141-114-17.home.cgocable.net\" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx`."
-    },
-    {
-      "question": "What is the effect of the `restrict` keyword on pty allocation in a key constraint?",
-      "answer": "When the `restrict` keyword is used, it turns off `pty allocation`, which can make an interactive session behave unusually."
-    },
-    {
-      "question": "How can pty allocation be allowed for a source-constrained interactive session?",
-      "answer": "You can explicitly include `pty` in the constraint, for example: `restrict,from=\"d24-141-114-17.home.cgocable.net\",pty ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx`."
-    },
-    {
-      "question": "Where can users find more documentation about SSH key constraints?",
-      "answer": "A large number of these key constraints are documented in the `sshd man` page, which can be accessed by typing `man sshd` on a Linux system."
+      "question": "What are SSH key constraints, and how can they be used to enhance the security or control the functionality of a public key?",
+      "answer": "SSH key constraints are specific directives embedded within a public key's syntax that limit its capabilities or scope. By default, a public key without constraints can perform any action. Constraints can be used to restrict the key to specific commands, such as `restrict,command=\"squeue --me\"` to only show Slurm jobs, or `restrict,command=\"/usr/libexec/openssh/sftp-server\"` to allow only SFTP. Furthermore, constraints like `restrict,from=\"d24-141-114-17.home.cgocable.net\"` can limit which hosts are permitted to connect using that key, significantly minimizing the risk if the key is compromised. These constraints are documented in the `sshd man` page."
     }
   ],
-  "generated_at": "2026-04-12T07:21:06.562629+00:00"
+  "generated_at": "2026-04-13T13:01:25.437763+00:00"
 }

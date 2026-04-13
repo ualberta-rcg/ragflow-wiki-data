@@ -3,85 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Python, according to the document?",
-      "answer": "Python is an interpreted programming language known for its code readability, simple and expressive syntax, and an extensive, easy-to-use standard library. Its capabilities can be extended with third-party packages."
+      "question": "What is Python, and what are its key characteristics as described for Alliance clusters?",
+      "answer": "Python is an interpreted programming language known for its readability, simple and expressive syntax, and extensive standard library. Its capabilities can be extended with third-party packages, which users generally install in their own directories on Alliance clusters."
     },
     {
-      "question": "How can I load a specific version of the Python interpreter on the clusters?",
-      "answer": "First, use `module avail python` to discover available versions, then load your preferred version using `module load python/X.Y`, where `X.Y` represents the version (e.g., `3.13`)."
+      "question": "How can users find and load specific Python versions on Alliance clusters?",
+      "answer": "Users can discover available Python versions using the `module avail python` command and then load a specific version, such as `3.13`, with `module load python/3.13`."
     },
     {
-      "question": "Is it recommended to use the default Python version available when logging into the clusters?",
-      "answer": "No, it's generally not recommended, especially if you need to install Python packages. You should load a specific version required by your programs or the latest available if unsure."
+      "question": "Why should users avoid the default Python version on Alliance clusters when installing packages, and what is the recommended approach?",
+      "answer": "Users should avoid the default Python version because it's generally not suitable for installing packages. It's recommended to determine the required Python version for programs and load the appropriate module, or use the latest available version if unsure, as only the 3 most recent Python versions have prebuilt packages in the wheelhouse."
     },
     {
-      "question": "What is a Python virtual environment and why should I use one?",
-      "answer": "A virtual environment is a tool that allows users to create isolated environments to easily install Python packages, compartmentalize installations for specific projects, or manage multiple versions of the same package without conflicts. It prevents 'dependency hell' that can arise from local installations."
+      "question": "What is the SciPy stack module on Alliance clusters, and which common Python packages does it include?",
+      "answer": "The SciPy stack is an environment module that includes popular packages like NumPy, SciPy, Matplotlib, IPython, pandas, Sympy, and nose, among others, to facilitate scientific computing."
     },
     {
-      "question": "Where should I create my Python virtual environments, and what location should I avoid?",
-      "answer": "You should typically create your virtual environments in your `/home` directory or one of your `/project` directories. Avoid creating them under `$SCRATCH` as they may be partially deleted."
+      "question": "What is the primary purpose of using virtual environments for Python on Alliance clusters?",
+      "answer": "Virtual environments allow users to create isolated environments for Python projects, enabling easy installation of packages, managing multiple versions of the same package, and compartmentalizing installations according to specific project needs."
     },
     {
-      "question": "How do I create and activate a new Python virtual environment?",
-      "answer": "After loading your desired Python module (and optionally `scipy-stack`), create the environment using `virtualenv --no-download ENV`, replacing `ENV` with your chosen directory name. Then, activate it with `source ENV/bin/activate`."
+      "question": "Where should users generally create their Python virtual environments on Alliance clusters, and what location should they avoid?",
+      "answer": "Users should typically create virtual environments in their `/home` directory or a `/project` directory. The `$SCRATCH` directory should be avoided because virtual environments created there may get partially deleted."
     },
     {
-      "question": "How do I install Python packages within an activated virtual environment?",
-      "answer": "Once your virtual environment is activated, you can use the `pip install` command. For example, `pip install numpy` installs the NumPy package. It's also recommended to upgrade `pip` with `pip install --no-index --upgrade pip`."
+      "question": "How does one create and activate a Python virtual environment on Alliance clusters?",
+      "answer": "After loading a Python module (and optionally `scipy-stack`), a virtual environment is created with `virtualenv --no-download ENV`, where `ENV` is the directory name. It is then activated using `source ENV/bin/activate`."
     },
     {
-      "question": "What are Python wheels, and why is using the `--no-index` option recommended when installing them?",
-      "answer": "Python wheels are prebuilt distribution packages. Using `--no-index` tells `pip` to install only from locally available wheels (provided by the system) instead of PyPI. This is recommended because local wheels are compiled by staff, can prevent dependency issues, and are optimized for cluster hardware and libraries."
+      "question": "What is the recommended method for installing third-party Python packages within an activated virtual environment on Alliance clusters?",
+      "answer": "The recommended method is to use the `pip install` command. When a pre-compiled wheel is available on the cluster, users should include the `--no-index` option, for example, `pip install numpy --no-index`."
     },
     {
-      "question": "How can I create virtual environments inside my jobs on a compute node for better performance?",
-      "answer": "For single-node jobs, create the virtual environment in `$SLURM_TMPDIR` (local disk) within your job script, then activate it. This can be faster than running from the parallel filesystem, especially for intensive use of small files."
+      "question": "Why is it recommended to use pre-compiled Python wheels from the Alliance cluster's wheelhouse when installing packages, especially with the `--no-index` option?",
+      "answer": "Using pre-compiled wheels provided by Alliance staff helps prevent issues with missing or conflicting dependencies, as they are optimized for the cluster's hardware and libraries. The `--no-index` option ensures `pip` installs only from these local wheels rather than PyPI."
     },
     {
-      "question": "How do I find out which prebuilt Python wheels are available on the cluster?",
-      "answer": "You can use the `avail_wheels` command on the cluster, or consult the 'Available Python wheels' page."
+      "question": "Why might a user create a Python virtual environment inside a job on an Alliance cluster, and how is this generally done for a single-node job?",
+      "answer": "Creating a virtual environment inside a job, specifically on the compute node's local disk (`$SLURM_TMPDIR`), can circumvent slowdowns caused by parallel filesystems being inefficient with intensive small file operations during software loading. This is achieved by including `virtualenv --no-download $SLURM_TMPDIR/env` and activating it in the job script."
     },
     {
-      "question": "How can I perform parallel programming in Python on a single compute node using the `multiprocessing` module?",
-      "answer": "You can use the `Pool` class from the `multiprocessing` module. Integrate it with SLURM by setting the number of processes to `int(os.environ.get('SLURM_CPUS_PER_TASK',default=1))` to match the cores allocated to your job."
+      "question": "How are virtual environments managed for multi-node Python jobs on Alliance clusters?",
+      "answer": "For multi-node jobs, the virtual environment must be created on each allocated node using `srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF ... EOF` block in the submission script, containing the virtual environment creation and package installation commands. The environment is then activated on the main node before running the script with `srun`."
     },
     {
-      "question": "What is the SciPy stack, and how do I make it available?",
-      "answer": "The SciPy stack is an environment module that includes popular scientific Python packages like NumPy, SciPy, Matplotlib, and pandas. To make it available, load a Python version of your choice and then run `module load scipy-stack`."
+      "question": "How can a user list the available pre-compiled Python wheels on an Alliance cluster?",
+      "answer": "Users can list available wheels by running the command `avail_wheels` on the cluster, which can be filtered by name, version, Python version, or a `requirements.txt` file."
     },
     {
-      "question": "How can I debug my Python code on the clusters?",
-      "answer": "You can use the `pdb` debugger. Add `import pdb; pdb.set_trace()` or `breakpoint()` to your code, then run it in a small interactive job. Useful `pdb` commands include `w` (stack trace), `b` (breakpoint), `s` (step), `n` (next), `p exp` (print expression), `l` (list code), and `c` (continue)."
+      "question": "What is the recommended practice for installing a Python package from a remote Git repository on Alliance clusters to ensure reproducibility?",
+      "answer": "It is important to use a specific tag (version) or a full commit identifier in the installation command, such as `pip install git+https://git.example.com/MyProject.git@v1.0`, rather than the `HEAD` of the repository, to ensure reproducible installations."
     },
     {
-      "question": "What should I do if I get a `ModuleNotFoundError: No module named 'X'` error?",
-      "answer": "First, ensure you haven't modified `PYTHONPATH` or `PATH`, and load modules *before* activating your virtual environment. Then, verify the package is installed (`pip list`), double-check the module name, and ensure it's imported correctly. If issues persist, start with a new virtual environment."
+      "question": "How can users implement parallel programming within a single Python script on an Alliance cluster, ensuring efficient use of allocated CPU cores?",
+      "answer": "Users can utilize the `multiprocessing` module's `Pool` class. To ensure efficient use of allocated cores, the number of processes should be dynamically set using `ncpus = int(os.environ.get('SLURM_CPUS_PER_TASK', default=1))` in the Python script, matching the `--cpus-per-task` specified in the SLURM job script."
     },
     {
-      "question": "I'm getting 'ERROR: No matching distribution found for X' when trying to install a package. What does this mean?",
-      "answer": "This means `pip` couldn't find a package that satisfies your requirements (name, version, or tags). Verify the package name and version are correct. You can also check if the package is available in the local wheelhouse using the `avail_wheels` command."
+      "question": "What debugging tools and commands are available for Python code on Alliance clusters?",
+      "answer": "The `pdb` debugger is available. Users can add `import pdb; pdb.set_trace()` or `breakpoint()` to their code. Useful commands include `w` (stack trace), `b` (breakpoint), `s` (step), `n` (next), `r` (return), `c` (continue), `p exp` (print expression), `l` (list code), and `q` (quit). For Python 3.14+, `python -m pdb --pid <process id>` can attach to a running process."
     },
     {
-      "question": "Why are 'local installations' (`pip install --user`) discouraged, and how can I remove them?",
-      "answer": "Local installations are discouraged because they dump dependencies into a shared space, leading to import issues, runtime problems, and version conflicts ('dependency hell'). To remove them, delete the `~/.local/bin` and `~/.local/lib/python*` directories."
+      "question": "What should a user do if they encounter a \"Package 'X' requires a different Python\" error during package installation on Alliance clusters?",
+      "answer": "This error indicates the loaded Python module is not supported by the package. The user should update to a more recent Python version (e.g., the latest available module) or install an older, compatible version of package 'X'."
     },
     {
-      "question": "How can I install a Python package from a remote Git repository?",
-      "answer": "With an activated virtual environment, use `pip install git+https://git.example.com/MyProject.git@<reference>`. It's crucial to specify a tag, version, or commit ID (e.g., `@v1.0` or `@<commit id>`) for reproducible installations, rather than `HEAD`."
+      "question": "What are common reasons for a \"ModuleNotFoundError\" when importing a Python module on Alliance clusters, and what troubleshooting steps are recommended?",
+      "answer": "Common causes include the package not being installed, a broken virtual environment, or a mismatch between the package name and module import name. Users should avoid modifying `PYTHONPATH` or `PATH`, activate virtual environments only after loading modules, run `pip list` to verify installation, double-check module names, and if in doubt, start with a new virtual environment."
     },
     {
-      "question": "I'm getting 'ERROR: Package 'X' requires a different Python: X.Y.Z not in '>=X.Y''. How do I fix this?",
-      "answer": "This error means your loaded Python version isn't supported by the package. You can fix it by updating to a more recent Python module or by trying to install an older, compatible version of package 'X'."
-    },
-    {
-      "question": "My virtual environment stopped working, or I'm facing 'dependency hell'. What should I do?",
-      "answer": "This can happen due to package updates or if the virtual environment was created in `$SCRATCH` and partially purged. To remedy this, freeze specific packages and their versions by creating a `requirements.txt` file and using it to install packages, ensuring reproducibility. If created in `$SCRATCH`, recreate it in a suitable location."
-    },
-    {
-      "question": "How can I attach to a running Python process for debugging?",
-      "answer": "With Python 3.14 and higher, you can attach to a running process from a different terminal by executing `python -m pdb --pid <process id>`, which will start PDB at the current step."
+      "question": "Why are local Python installations (using `--user`) generally discouraged on Alliance clusters, and what is the recommended alternative?",
+      "answer": "Local installations are discouraged because they can lead to dependency hell, creating import or runtime issues and version conflicts by dumping dependencies into a shared space. Using a virtual environment is the recommended alternative for isolation, reproducibility, and managing different versions across projects."
     }
   ],
-  "generated_at": "2026-04-12T18:18:47.053975+00:00"
+  "generated_at": "2026-04-13T11:48:07.528645+00:00"
 }

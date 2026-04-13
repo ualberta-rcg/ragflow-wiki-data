@@ -4,37 +4,13 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "C'est quoi les paramètres qui peuvent être configurés quand on exécute le script `cifar10-cpu.py`?",
-      "answer": "Les paramètres configurables sont le taux d'apprentissage (`lr`), la taille des lots (`batch_size`) et le nombre de travailleurs (`num_workers`)."
+      "question": "À quoi sert la ligne `torch.set_num_threads(int(os.environ['SLURM_CPUS_PER_TASK']))` dans un script PyTorch qui roule sur nos grappes?",
+      "answer": "Cette ligne permet de configurer le nombre de threads CPU que PyTorch va utiliser pour les opérations parallèles (intra-op), comme le produit matriciel ou les convolutions. Ça s'ajuste en se basant sur la variable d'environnement `SLURM_CPUS_PER_TASK`, ce qui aide à optimiser la performance en s'assurant que PyTorch utilise efficacement les ressources CPU allouées par le système SLURM pour les tâches d'apprentissage profond."
     },
     {
-      "question": "Comment le nombre de fils d'exécution est-il défini dans le script `cifar10-cpu.py` pour PyTorch?",
-      "answer": "Le nombre de fils d'exécution de PyTorch est défini par la valeur de la variable d'environnement `SLURM_CPUS_PER_TASK`, qui est convertie en entier, puis passée à `torch.set_num_threads()`."
-    },
-    {
-      "question": "C'est quoi la structure de la première couche de convolution (`conv1`) dans la classe `Net` du script `cifar10-cpu.py`?",
-      "answer": "La première couche de convolution (`conv1`) a 3 canaux d'entrée, 6 canaux de sortie et utilise un noyau de taille 5x5."
-    },
-    {
-      "question": "Quel type de couche de pooling est utilisé dans la classe `Net` du script `cifar10-cpu.py`?",
-      "answer": "Un `MaxPool2d` (pooling maximal 2D) est utilisé avec une fenêtre de 2x2 et un pas (stride) de 2."
-    },
-    {
-      "question": "Décris la deuxième couche de convolution (`conv2`) dans la classe `Net`.",
-      "answer": "La deuxième couche de convolution (`conv2`) a 6 canaux d'entrée, 16 canaux de sortie et utilise un noyau de taille 5x5."
-    },
-    {
-      "question": "Quelle est la valeur par défaut du taux d'apprentissage (`lr`) dans le script `cifar10-cpu.py`?",
-      "answer": "La valeur par défaut du taux d'apprentissage (`lr`) est 0.1."
-    },
-    {
-      "question": "Quelle est la taille de lot par défaut (`batch_size`) pour l'entraînement du modèle dans `cifar10-cpu.py`?",
-      "answer": "La taille de lot par défaut (`batch_size`) est de 512."
-    },
-    {
-      "question": "Quel est le nombre par défaut de travailleurs (`num_workers`) spécifié pour le chargement des données dans `cifar10-cpu.py`?",
-      "answer": "Le nombre par défaut de travailleurs (`num_workers`) est 0."
+      "question": "Comment PyTorch gère-t-il le parallélisme pour les tâches d'apprentissage profond lorsqu'on utilise plusieurs CPU, et pourquoi est-ce recommandé pour certains modèles?",
+      "answer": "PyTorch gère le parallélisme sur plusieurs CPU de deux façons principales : le parallélisme intra-op, où les opérations d'apprentissage profond sont exécutées en parallèle sur plusieurs cœurs CPU avec des bibliothèques comme OpenMP ou MKL, et le parallélisme inter-op, qui exécute différentes parties du code de manière concurrente. Cette approche est fortement recommandée pour les petits modèles parce qu'elle optimise l'utilisation des cœurs CPU disponibles sur nos grappes, évitant ainsi de monopoliser inutilement les GPU et de réduire la priorité des tâches de collègues."
     }
   ],
-  "generated_at": "2026-04-12T05:45:32.105197+00:00"
+  "generated_at": "2026-04-13T11:42:03.023334+00:00"
 }

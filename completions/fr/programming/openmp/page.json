@@ -3,53 +3,57 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi, OpenMP, et à quoi ça sert?",
-      "answer": "OpenMP (Open Multi-Processing) est une interface de programmation (API) pour le calcul parallèle sur des architectures à mémoire partagée."
+      "question": "Qu'est-ce que OpenMP et à quoi ça sert en informatique?",
+      "answer": "OpenMP (Open Multi-Processing) est une interface de programmation (API) conçue pour le calcul parallèle sur architecture à mémoire partagée, supportée par les langages de programmation C/C++ et Fortran sur plusieurs plateformes."
     },
     {
-      "question": "Sur quelles plateformes et pour quels langages de programmation OpenMP est-il supporté?",
-      "answer": "Il est supporté sur Unix et Windows, pour les langages de programmation C/C++ et Fortran."
+      "question": "Comment OpenMP permet-il de développer des applications parallèles?",
+      "answer": "OpenMP permet de développer rapidement des applications parallèles à fine granularité en insérant des directives dans le code séquentiel. Ces directives déterminent les sections du programme à exécuter en parallèle et gèrent la distribution du travail sur plusieurs fils d'exécution."
     },
     {
-      "question": "Quels sont les trois principaux éléments qui composent l'interface OpenMP?",
-      "answer": "Elle est composée d'un ensemble de directives, d'une bibliothèque logicielle et de variables d'environnement."
+      "question": "Dans le contexte d'OpenMP, qu'est-ce qu'un fil d'exécution (thread)?",
+      "answer": "Un fil d'exécution est la plus petite unité de travail/calcul qu'un système d'exploitation peut programmer. Pour le programmeur, il agit comme un processeur virtuel opérant en séquentiel, permettant d'effectuer du calcul en parallèle."
     },
     {
-      "question": "Quel est le concept fondamental sur lequel OpenMP s'appuie pour réaliser le calcul parallèle?",
-      "answer": "OpenMP est basé sur le concept de fils d'exécution (threads), qui sont la plus petite unité de travail qu'un système d'exploitation peut programmer."
+      "question": "Le nombre de fils d'exécution dans un programme OpenMP doit-il correspondre au nombre de processeurs physiques?",
+      "answer": "Non, le nombre de fils d'exécution n'est pas directement lié au nombre de processeurs physiques. Le système d'exploitation se charge de partager le temps des processeurs disponibles entre les fils, même si l'on peut avoir plus de fils que de processeurs."
     },
     {
-      "question": "Comment on fait pour compiler un programme OpenMP avec un compilateur GNU?",
-      "answer": "Pour la plupart des compilateurs, y compris GNU (GCC), il suffit d'ajouter l'option <tt>-fopenmp</tt> lors de la compilation."
+      "question": "Pourquoi la synchronisation est-elle importante lors de l'utilisation de plusieurs fils d'exécution dans un programme OpenMP?",
+      "answer": "La synchronisation est cruciale car l'ordre d'exécution des calculs par plusieurs fils ne peut être présumé. Les directives de synchronisation d'OpenMP doivent être utilisées pour assurer l'intégrité du code si un ordre déterminé est nécessaire."
     },
     {
-      "question": "Comment insère-t-on les directives OpenMP dans le code Fortran et C?",
-      "answer": "En Fortran, on utilise des sentinelles comme <tt>!$OMP</tt>, et en C, on utilise des pragmas comme <tt>#pragma omp</tt>."
+      "question": "Comment un programmeur compile-t-il un code OpenMP avec les compilateurs GNU ou Intel?",
+      "answer": "La compilation d'un code OpenMP se fait en ajoutant une option spécifique au compilateur. Pour les compilateurs GNU (GCC), c'est `-fopenmp`. Pour ceux d'Intel, ce peut être `-qopenmp`, `-fopenmp` ou `-openmp` selon la version."
     },
     {
-      "question": "Nommez une directive OpenMP courante pour définir une région de code exécutée en parallèle, ainsi qu'une pour distribuer une boucle.",
-      "answer": "La directive <tt>PARALLEL</tt> (ou <tt>parallel</tt>) est pour une section parallèle, et <tt>DO</tt> (Fortran) ou <tt>for</tt> (C/C++) est pour distribuer une boucle."
+      "question": "Comment les directives OpenMP sont-elles insérées dans les programmes Fortran et C/C++?",
+      "answer": "Dans les programmes Fortran, les directives sont insérées à l'aide de sentinelles comme `!$OMP` ou `C$OMP`. En C et C++, elles sont insérées avec un pragma, par exemple `#pragma omp directive`."
     },
     {
-      "question": "Quelle variable d'environnement d'OpenMP est utilisée pour spécifier le nombre de fils d'exécution, et comment on la définit sur Unix?",
-      "answer": "C'est <tt>OMP_NUM_THREADS</tt>. On la définit avec une commande comme <tt>export OMP_NUM_THREADS=4</tt> sur Unix."
+      "question": "Quelle est l'utilité de la variable d'environnement `OMP_NUM_THREADS` dans OpenMP?",
+      "answer": "`OMP_NUM_THREADS` est utilisée pour spécifier le nombre de cœurs (ou fils d'exécution) réservés par machine pour l'exécution d'un programme OpenMP, bien que cela puisse varier pour des applications hybrides OpenMP/MPI."
     },
     {
-      "question": "À quoi sert la variable d'environnement <tt>OMP_SCHEDULE</tt> et quelles sont ses valeurs principales?",
-      "answer": "Elle contrôle comment les boucles sont distribuées entre les fils. Ses valeurs principales sont ''static,n'', ''dynamic,n'', ''guided,n'' et ''auto''."
+      "question": "À quoi sert la variable d'environnement `OMP_SCHEDULE` dans OpenMP et quelles sont ses valeurs?",
+      "answer": "`OMP_SCHEDULE` contrôle la manière dont les boucles et les sections parallèles sont distribuées. Ses valeurs possibles sont `static,n`, `dynamic,n`, `guided,n` et `auto`, où `n` indique le nombre d'itérations par fil d'exécution."
     },
     {
-      "question": "Pourquoi la synchronisation est-elle cruciale en programmation parallèle avec OpenMP?",
-      "answer": "Puisqu'on ne peut pas présumer de l'ordre d'exécution des fils, les directives de synchronisation d'OpenMP sont nécessaires pour assurer l'intégrité du code si un ordre précis est requis."
+      "question": "Quels sont les avantages et les inconvénients des modes de planification `dynamic` ou `guided` de `OMP_SCHEDULE` par rapport au mode `static`?",
+      "answer": "Les modes `dynamic` et `guided` permettent de mieux équilibrer la charge des fils d'exécution en s'ajustant dynamiquement. Cependant, ils empêchent de prévoir l'affinité entre la mémoire et le processeur, ce qui peut poser problème dans une architecture NUMA."
     },
     {
-      "question": "Quelle est l'importance des variables d'affinité comme <tt>KMP_AFFINITY</tt> ou <tt>GOMP_CPU_AFFINITY</tt>?",
-      "answer": "Elles empêchent les fils d'exécution de se déplacer d'un processeur à l'autre, ce qui est particulièrement important dans une architecture NUMA pour des performances optimales en accès mémoire."
+      "question": "Pourquoi la variable d'environnement `OMP_STACKSIZE` est-elle importante pour l'exécution d'un programme OpenMP?",
+      "answer": "`OMP_STACKSIZE` définit la taille de la pile pour chacun des fils d'exécution additionnels créés par OpenMP (la valeur par défaut est 4 Mo). Une taille de pile insuffisante peut entraîner des erreurs de segmentation et des terminaisons anormales du programme."
     },
     {
-      "question": "Qu'est-ce qu'on recommande de faire après avoir parallélisé un logiciel avec OpenMP?",
-      "answer": "On recommande d'effectuer une analyse de sa scalabilité pour en comprendre la performance."
+      "question": "Quelles variables d'environnement spécifiques au compilateur sont importantes pour optimiser les performances en accès mémoire dans les architectures NUMA avec OpenMP?",
+      "answer": "Pour des performances optimales en accès mémoire dans les architectures NUMA, il est important de fixer `OMP_PROC_BIND` et les variables d'affinité comme `KMP_AFFINITY` pour Intel ou `GOMP_CPU_AFFINITY` pour GNU. Ceci empêche les fils d'exécution OpenMP de se déplacer d'un processeur à l'autre."
+    },
+    {
+      "question": "Comment exécute-t-on un programme OpenMP, comme l'exemple \"Hello World\" en C, après la compilation?",
+      "answer": "Après la compilation (ex: `gcc -O3 -fopenmp ompHello.c -o ompHello`), il faut définir le nombre de fils d'exécution via la variable d'environnement `OMP_NUM_THREADS` (ex: `export OMP_NUM_THREADS=4`), puis exécuter le programme (ex: `./ompHello`)."
     }
   ],
-  "generated_at": "2026-04-12T04:35:43.966265+00:00"
+  "generated_at": "2026-04-13T10:41:00.261549+00:00"
 }

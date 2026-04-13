@@ -3,89 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Nextflow?",
-      "answer": "Nextflow is software used for running reproducible scientific workflows, and the term also describes the domain-specific language (DSL) in which these pipelines are written."
+      "question": "What is Nextflow in the context of scientific workflows on Alliance clusters?",
+      "answer": "Nextflow is software for running reproducible scientific workflows, and the term also refers to the domain-specific language (DSL) in which these pipelines are written."
     },
     {
-      "question": "How do I load Nextflow on your systems?",
-      "answer": "You can load Nextflow by using the command `module load nextflow`."
+      "question": "How do users load the Nextflow software module on Alliance cluster systems?",
+      "answer": "Users can load the Nextflow module by running the command `module load nextflow`."
     },
     {
-      "question": "What are nf-core pipelines?",
-      "answer": "nf-core pipelines are published workflows that users can rely on to run scientific analyses without having to build their own."
+      "question": "What are nf-core pipelines and how can they be used on Alliance clusters?",
+      "answer": "nf-core pipelines are published scientific workflows that users can rely on. The document describes a simple configuration to run these pipelines on Alliance systems, using `nf-core/rnaseq` as an example."
     },
     {
-      "question": "What is the initial step for configuring Nextflow on Alliance clusters?",
-      "answer": "The initial step is to set up the configuration file by obtaining the `alliance_canada.config` file and placing it in `~/.nextflow/config`."
+      "question": "Where should the Alliance clusters' configuration file for Nextflow be placed, and how is it obtained?",
+      "answer": "The configuration file for Alliance clusters should be placed in `~/.nextflow/config` and can be obtained from the nf-core GitHub repository using a `curl` command."
     },
     {
-      "question": "How do I obtain the Alliance clusters configuration file for Nextflow?",
-      "answer": "You can obtain it using `curl -o ~/.nextflow/config https://raw.githubusercontent.com/nf-core/configs/refs/heads/master/conf/alliance_canada.config`."
+      "question": "What is the purpose of setting the `$SLURM_ACCOUNT` environment variable when using Nextflow on Alliance clusters?",
+      "answer": "Setting the `$SLURM_ACCOUNT` environment variable to an account name like `def-pname` allows Nextflow to submit jobs to the Slurm queue under the correct account."
     },
     {
-      "question": "Which environment variable needs to be set for Slurm accounts when using Nextflow?",
-      "answer": "The `$SLURM_ACCOUNT` environment variable must be set to your account name, such as `def-pname`."
+      "question": "How do Nextflow profiles work on different Alliance clusters, and what is a specific flag required for Fir?",
+      "answer": "At most Alliance sites, the appropriate Nextflow profile is automatically selected based on the hostname. However, when using the Fir cluster, users must explicitly load the profile using the `-profile fir` flag with the `nextflow` command."
     },
     {
-      "question": "How are Nextflow profiles loaded for different Alliance clusters?",
-      "answer": "For Fir, you must use the `-profile fir` flag with the `nextflow` command; for other sites, the appropriate profile is automatically selected based on the host name."
+      "question": "What is the recommendation regarding running generic Nextflow pipelines on the Trillium cluster?",
+      "answer": "Users are discouraged from running generic Nextflow pipelines or any other general Nextflow pipeline on Trillium, recommending it only if the pipeline was designed specifically for that cluster."
     },
     {
-      "question": "Which Alliance cluster is not recommended for running generic Nextflow pipelines?",
-      "answer": "Trillium is not recommended for running nf-core pipelines or any other generic Nextflow pipeline unless it was specifically designed for Trillium."
+      "question": "What are the steps to install the nf-core tools on an Alliance cluster?",
+      "answer": "To install nf-core, users need to load `python/3.11`, `rust`, and `postgresql` modules, create and activate a Python virtual environment, and then install `nf_core` using `pip install nf_core==2.13`."
     },
     {
-      "question": "What modules are required to install nf-core on an Alliance cluster?",
-      "answer": "Before installing nf-core, you need to load `python/3.11`, `rust`, and `postgresql`."
+      "question": "Why must nf-core pipelines be downloaded on a login node on an Alliance cluster?",
+      "answer": "nf-core pipelines must be downloaded on a login node because some compute nodes on Alliance clusters do not allow internet access."
     },
     {
-      "question": "Why should nf-core be installed on a login node?",
-      "answer": "nf-core pipelines must be downloaded on a login node because some clusters do not allow internet access from the compute nodes."
+      "question": "Where should Nextflow container images be stored on Alliance clusters, and why is this location recommended?",
+      "answer": "Nextflow container images should be stored in the `/project` space, specifically in a directory pointed to by `$NXF_SINGULARITY_CACHEDIR`, because the `$HOME` directory has a small quota and container images tend to be large."
     },
     {
-      "question": "Which container utility does Nextflow integrate well with?",
-      "answer": "Nextflow integrates well with Apptainer."
+      "question": "What is recommended for sharing the `$NXF_SINGULARITY_CACHEDIR` among group members using Nextflow with Apptainer?",
+      "answer": "Users should share the `$NXF_SINGULARITY_CACHEDIR` with other members of their group who plan to use Nextflow with Apptainer to reduce duplication of container images and save storage space."
     },
     {
-      "question": "Where should container images be stored for Nextflow workflows on Alliance clusters?",
-      "answer": "Container images should be stored in `/project` space, pointed to by `NXF_SINGULARITY_CACHEDIR`, as `$HOME` has a small quota, and this directory can be shared with your group."
+      "question": "What types of input files does Nextflow use, and how are they prepared for the `rnaseq` example pipeline?",
+      "answer": "Nextflow uses sequence files and a sample sheet as inputs. For the `rnaseq` example, sequence files are downloaded using `wget`, and a `samplesheet.csv` is manually created or adapted, specifying paths to the sequence files."
     },
     {
-      "question": "What command is used to download an nf-core pipeline and its container images?",
-      "answer": "The `nf-core download` command is used, for example: `nf-core download --container-cache-utilisation amend --container-system singularity --compress none -l docker.io -r ${PL_VERSION} -p 6 ${NFCORE_PL}`."
+      "question": "What are the key elements that need to be adapted in a Nextflow job script for use on an Alliance cluster?",
+      "answer": "A Nextflow job script needs adaptation for the correct pipeline and version, the Apptainer cache path (`NXF_SINGULARITY_CACHEDIR`), the Slurm account (`SLURM_ACCOUNT`), the cluster profile (e.g., `-profile ...,fir`), and the input and output directory paths."
     },
     {
-      "question": "Where are the downloaded container images and pipeline files stored?",
-      "answer": "Container image files go into `$NXF_SINGULARITY_CACHEDIR`, and pipeline files go into `~/scratch/nf-test/nf-core-${NFCORE_PL}_${PL_VERSION}/${FD_VERSION}/`."
+      "question": "How is a Nextflow job script submitted to the Slurm scheduler on an Alliance cluster?",
+      "answer": "After saving the job script (e.g., `nextflow_test.sh`), it is submitted to the Slurm scheduler using the command `sbatch nextflow_test.sh`."
     },
     {
-      "question": "What are the typical inputs for a Nextflow pipeline, such as the `rnaseq` example?",
-      "answer": "Nextflow typically uses sequence files and a sample sheet as inputs."
+      "question": "How can users monitor the progression of their Nextflow pipeline after submission on an Alliance cluster?",
+      "answer": "Users can monitor the pipeline's progression by checking the log file (`nextflow_test.<job_ID>.out`) or by looking at the jobs in the Slurm queue using `sq` or `squeue -u $USER`."
     },
     {
-      "question": "How do I create a `samplesheet.csv` file for the `rnaseq` example?",
-      "answer": "You need to copy and paste the provided text into `~/scratch/nf-test/samplesheet.csv` and change the `<username>` placeholder to your own."
+      "question": "What causes the 'unable to create native thread' error in Nextflow on Alliance clusters, and how can it be resolved?",
+      "answer": "This error is believed to be caused by Java trying to create threads to match the number of physical cores on a machine. Setting `export NXF_OPTS='-XX:ActiveProcessorCount=1'` when executing `nextflow` is reported to solve the problem."
     },
     {
-      "question": "What command is used to launch a Nextflow pipeline using a job script?",
-      "answer": "The `nextflow run` command is used, specifying the pipeline path, profiles, input sample sheet, and output directory."
-    },
-    {
-      "question": "How can I monitor the progression of a Nextflow pipeline run from a job script?",
-      "answer": "You can monitor it from the log file `nextflow_test.<job_ID>.out` or by checking the Slurm queue with `sq` or `squeue -u $USER`."
-    },
-    {
-      "question": "What is a common issue related to Java virtual memory in Nextflow?",
-      "answer": "Nextflow, being written in Java, tends to use a lot of virtual memory, which can lead to an `unable to create native thread` error."
-    },
-    {
-      "question": "How can the `unable to create native thread` error be resolved?",
-      "answer": "Setting the environment variable `export NXF_OPTS='-XX:ActiveProcessorCount=1'` when executing `nextflow` is reported to solve this problem."
-    },
-    {
-      "question": "What is a potential solution for a `SIGBUS` error in Nextflow?",
-      "answer": "Setting the environment variable `NXF_OPTS=\"-Dleveldb.mmap=false\"` when executing `nextflow` is reported to solve the `SIGBUS` error."
+      "question": "What is a reported solution for the `SIGBUS` error sometimes encountered with the Nextflow main process?",
+      "answer": "Setting the environment variable `NXF_OPTS='-Dleveldb.mmap=false'` when executing `nextflow` is reported to solve the `SIGBUS` error."
     }
   ],
-  "generated_at": "2026-04-12T03:49:46.387580+00:00"
+  "generated_at": "2026-04-13T10:02:52.622348+00:00"
 }

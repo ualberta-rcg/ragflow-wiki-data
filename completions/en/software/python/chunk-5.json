@@ -4,13 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How can I create a `requirements.txt` file to ensure reproducibility of my Python virtual environment for jobs?",
-      "answer": "To create a `requirements.txt` file, first load a Python module (e.g., `module load python/3.11`). Then, create and activate a temporary virtual environment (e.g., in `/tmp/$RANDOM`), upgrade `pip`, install your required packages (e.g., `pip install --no-index tensorflow`), and finally run `pip freeze --local > requirements.txt`. After generating the file, you can deactivate and remove the temporary environment. This `requirements.txt` file will list all installed packages and their versions, ensuring your environment is reproducible for future jobs."
+      "question": "How can a `requirements.txt` file be generated for a TensorFlow environment to ensure job reproducibility on the clusters?",
+      "answer": "To generate a `requirements.txt` file for a TensorFlow environment, first load the desired Python module (e.g., `module load python/3.11`). Then, create a temporary virtual environment (e.g., in `/tmp`) using `virtualenv --no-download $ENVDIR`, activate it with `source $ENVDIR/bin/activate`, and upgrade `pip` using `pip install --no-index --upgrade pip`. Next, install TensorFlow with `pip install --no-index tensorflow`. Finally, export the installed packages and their versions to a file using `pip freeze --local > requirements.txt`, then deactivate and remove the temporary environment."
     },
     {
-      "question": "What is the procedure for creating and activating Python virtual environments across multiple nodes in a job submission script?",
-      "answer": "To run scripts across multiple nodes with each node having its own activated virtual environment, first, within your submission script, use `srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash` to create a virtual environment (e.g., `$SLURM_TMPDIR/env`), activate it, upgrade `pip`, and install packages from a `requirements.txt` file on each allocated node. Next, activate the virtual environment specifically on the main node using `source $SLURM_TMPDIR/env/bin/activate;`. Finally, use `srun python myscript.py;` to execute your script, as `srun` will export the activated environment variables."
+      "question": "What are the key requirements for Python packages to be installable when generating a `requirements.txt` file for a reproducible environment on the clusters?",
+      "answer": "All packages specified in the `requirements.txt` file must be available in the Python wheels provided by the cluster. If a specific package's wheel is not available, users may need to pre-download it or contact technical support to request its inclusion in the wheelhouse."
+    },
+    {
+      "question": "What is the procedure for setting up and activating Python virtual environments across multiple nodes for a parallel job on the clusters?",
+      "answer": "To set up virtual environments across multiple nodes for a parallel job, follow these steps in your submission script: 1) Use `srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF ... EOF` to create the virtual environment and install packages (e.g., `virtualenv --no-download $SLURM_TMPDIR/env`, `source $SLURM_TMPDIR/env/bin/activate`, `pip install --no-index --upgrade pip`, `pip install --no-index -r requirements.txt`) on each allocated node. 2) Activate the virtual environment on the main node using `source $SLURM_TMPDIR/env/bin/activate;`. 3) Run your Python script using `srun python myscript.py;`."
     }
   ],
-  "generated_at": "2026-04-12T18:19:22.777007+00:00"
+  "generated_at": "2026-04-13T11:48:53.161375+00:00"
 }

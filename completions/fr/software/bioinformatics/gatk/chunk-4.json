@@ -4,21 +4,13 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Comment on fait pour bâtir une image Apptainer pour une version spécifique de GATK à partir d'une image Docker?",
-      "answer": "Pour bâtir une image Apptainer pour une version spécifique de GATK à partir d'une image Docker, après avoir chargé le module Apptainer (`module load apptainer`), on utilise la commande `apptainer build gatk_VERSION.sif docker://broadinstitute/gatk:VERSION`."
+      "question": "Comment peut-on construire une image Apptainer pour GATK à partir d'une image Docker sur les grappes?",
+      "answer": "Pour construire une image Apptainer pour GATK, il faut d'abord charger le module `apptainer` en lançant la commande `module load apptainer`. Ensuite, on utilise la commande `apptainer build gatk.sif docker://broadinstitute/gatk` pour la version la plus récente, ou `apptainer build gatk_VERSION.sif docker://broadinstitute/gatk:VERSION` pour une version spécifique."
     },
     {
-      "question": "C'est quoi la ligne de commande recommandée pour utiliser GATK via Apptainer dans un script SBATCH?",
-      "answer": "Dans un script SBATCH, la ligne de commande recommandée pour utiliser GATK via Apptainer ressemble à ceci : `module load apptainer` suivi de `apptainer exec -B /home -B /project -B /scratch -B /localscratch <path to the image>/gatk.sif gatk [--java-options \"-Xmx4G\"] ToolName [GATK args]`."
-    },
-    {
-      "question": "Quels répertoires est-ce qu'on devrait lier (bind) avec Apptainer quand on utilise GATK sur nos grappes?",
-      "answer": "Quand on utilise GATK avec Apptainer sur nos grappes, on devrait lier les répertoires `/home`, `/project`, `/scratch` et `/localscratch` en utilisant les options `-B` avec la commande `apptainer exec`."
-    },
-    {
-      "question": "Où est-ce que je peux trouver plus d'information sur Apptainer?",
-      "answer": "Pour avoir plus d'information sur Apptainer, vous pouvez visionner ce séminaire web : [https://www.youtube.com/watch?v=bpmrfVqBowY]."
+      "question": "Quelle est la syntaxe recommandée pour utiliser GATK via une image Apptainer dans un script SBATCH sur les grappes?",
+      "answer": "Dans un script SBATCH, il faut charger le module `apptainer`, puis utiliser la commande `apptainer exec` en spécifiant les répertoires à monter (`-B /home -B /project -B /scratch -B /localscratch`) et le chemin vers l'image Apptainer (.sif), suivi de la commande GATK et de ses arguments. Un exemple serait: `module load apptainer` puis `apptainer exec -B /home -B /project -B /scratch -B /localscratch <chemin_vers_l_image>/gatk.sif gatk [--java-options \"-Xmx4G\"] NomDeLoutil [arguments_GATK]`."
     }
   ],
-  "generated_at": "2026-04-11T21:57:18.278446+00:00"
+  "generated_at": "2026-04-13T05:41:12.953963+00:00"
 }

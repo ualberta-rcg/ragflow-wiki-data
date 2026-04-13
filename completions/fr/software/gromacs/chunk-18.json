@@ -4,49 +4,17 @@
   "chunk_index": 18,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on redémarre une simulation GROMACS qui a été arrêtée?",
-      "answer": "On peut redémarrer une simulation GROMACS en utilisant la même commande `mdrun` que pour la simulation originale, mais il faut ajouter le paramètre `-cpi state.cpt`, où `state.cpt` est le nom du dernier fichier de point de contrôle."
+      "question": "Comment faire pour redémarrer une simulation GROMACS qui a été interrompue?",
+      "answer": "Pour redémarrer une simulation GROMACS, il faut utiliser la même commande `mdrun` que pour la simulation originale et ajouter le paramètre `-cpi` suivi du nom du dernier fichier de point de contrôle (par exemple, `md.cpt`). Depuis la version 4.5, GROMACS tente d'utiliser les fichiers existants par défaut, et s'assure de la cohérence entre les fichiers de sortie et le point de contrôle."
     },
     {
-      "question": "Depuis quelle version `mdrun` essaie-t-il par défaut d'utiliser les fichiers de sortie existants lors d'un redémarrage de simulation?",
-      "answer": "Depuis la version 4.5, `mdrun` essaie par défaut d'utiliser les fichiers existants comme les trajectoires, l'énergie et la journalisation quand on redémarre une simulation."
+      "question": "Quels sont les avantages de diviser une longue simulation GROMACS en plusieurs tâches plus courtes?",
+      "answer": "Diviser une longue simulation GROMACS en plusieurs tâches plus courtes est avantageux, car ces tâches sont moins longues à exécuter. Celles qui durent trois heures ou moins sont éligibles à la planification de remplacement (backfill scheduling), ce qui permet de réduire les temps d'attente et d'optimiser l'utilisation des ressources, autant pour les allocations par défaut (ex. `def-sponsor`) que compétitives (ex. `rrg-sponsor`)."
     },
     {
-      "question": "Quel est le rôle du paramètre `-maxh` de `mdrun` quand on gère une simulation qui va être redémarrée?",
-      "answer": "Le paramètre `-maxh` s'assure que `mdrun` termine bien l'étape en cours et crée un fichier de point de contrôle ainsi que ferme tous les fichiers de sortie de manière cohérente lorsque la durée limite d'exécution est atteinte."
-    },
-    {
-      "question": "Pourquoi est-ce une bonne idée de morceler les simulations en plusieurs tâches courtes?",
-      "answer": "C'est avantageux de diviser les simulations en tâches courtes parce qu'elles s'exécutent moins longtemps, et celles qui durent trois heures ou moins sont même éligibles à la planification de remplacement, ce qui est utile pour les allocations de ressources par défaut ou compétitives."
-    },
-    {
-      "question": "Combien de temps maximum une tâche courte doit-elle durer pour être éligible à la planification de remplacement?",
-      "answer": "Les tâches courtes qui demandent trois heures ou moins sont éligibles à la planification de remplacement."
-    },
-    {
-      "question": "Comment est-ce qu'on peut automatiser le morcellement des simulations GROMACS?",
-      "answer": "On peut automatiser le morcellement des simulations GROMACS en utilisant un vecteur de tâches (job array) avec Slurm."
-    },
-    {
-      "question": "Décrivez le fonctionnement de l'automatisation des points de contrôle avec un vecteur de tâches.",
-      "answer": "Avec un seul appel à `sbatch`, un vecteur de tâches soumet plusieurs tâches courtes; la première commence, et dès qu'elle est finie, la suivante démarre pour reprendre la simulation. Ce processus continue jusqu'à ce que la simulation soit terminée, après quoi les tâches en attente sont annulées automatiquement."
-    },
-    {
-      "question": "Dans le contexte des tâches morcelées, qu'est-ce qui arrive si une simulation se termine avec une erreur?",
-      "answer": "Si une simulation morcelée se termine avec une erreur, le script de tâche va afficher un message et annuler toutes les tâches en attente du vecteur de tâches en utilisant la commande `scancel -t pending $SLURM_ARRAY_JOB_ID`."
-    },
-    {
-      "question": "Que se passe-t-il si une simulation morcelée se termine normalement avant que toutes les tâches du vecteur soient exécutées?",
-      "answer": "Si la simulation se termine normalement avant la fin de toutes les tâches du vecteur, le script va détecter la fin en vérifiant le fichier de journalisation et annuler les tâches en attente."
-    },
-    {
-      "question": "Quel paramètre Slurm est utilisé pour spécifier l'utilisation d'un GPU dans un script de tâche GPU morcelée?",
-      "answer": "Le paramètre Slurm utilisé pour demander un GPU dans un script de tâche GPU morcelée est `#SBATCH --gpus-per-node=1`."
-    },
-    {
-      "question": "Quels modules d'environnement sont chargés dans un script exemple pour une tâche GPU morcelée?",
-      "answer": "Les modules chargés sont `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.2` et `gromacs/2024.4`."
+      "question": "Est-ce qu'il y a une façon d'automatiser les points de contrôle pour des simulations GROMACS sur la grappe?",
+      "answer": "Oui, il est possible d'automatiser les points de contrôle en utilisant un vecteur de tâches (`job array`) avec l'ordonnanceur Slurm. Avec cette méthode, un seul appel `sbatch` soumet plusieurs tâches courtes. La première tâche démarre, et dès qu'elle est terminée, la tâche suivante prend le relais pour reprendre la simulation. Ce processus continue jusqu'à ce que la simulation soit achevée ou que toutes les tâches soumises soient terminées, les tâches en attente étant alors automatiquement annulées."
     }
   ],
-  "generated_at": "2026-04-11T22:42:41.466094+00:00"
+  "generated_at": "2026-04-13T06:16:59.007074+00:00"
 }

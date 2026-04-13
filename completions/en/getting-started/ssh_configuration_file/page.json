@@ -3,49 +3,49 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of modifying the local SSH configuration file on Linux and macOS?",
-      "answer": "The primary purpose is to change the default behaviour of `ssh` and simplify the login procedure."
+      "question": "What is the main purpose of modifying the local SSH configuration file on Linux and macOS?",
+      "answer": "The main purpose of modifying the local SSH configuration file on Linux and macOS is to change the default behaviour of the `ssh` command and simplify the login procedure to servers like Alliance clusters."
     },
     {
-      "question": "Where is the local SSH configuration file typically located on Linux and macOS systems?",
-      "answer": "The local SSH configuration file is located at `~/.ssh/config`."
+      "question": "How can a user simplify logging into an Alliance cluster like Narval using an SSH key?",
+      "answer": "A user can simplify logging into an Alliance cluster like Narval by adding a `Host` entry with `User`, `HostName`, and `IdentityFile` directives to their `~/.ssh/config` file, allowing them to log in with a simple command like `ssh narval`."
     },
     {
-      "question": "How can one simplify a long `ssh` command that includes a username and a private key for connecting to a host like narval.alliancecan.ca?",
-      "answer": "One can add a `Host` block to `~/.ssh/config` including directives like `User`, `HostName`, and `IdentityFile`."
+      "question": "What other commands, besides `ssh`, are affected by configuring an SSH Host entry in the `~/.ssh/config` file?",
+      "answer": "Configuring an SSH Host entry also changes the behaviour of `sftp`, `scp`, and `rsync`, allowing users to transfer files more easily using simplified host aliases."
     },
     {
-      "question": "Which other commands, besides `ssh`, benefit from configurations made in `~/.ssh/config`?",
-      "answer": "The commands `sftp`, `scp`, and `rsync` also benefit from these configurations."
+      "question": "What is the recommended way to configure the `~/.ssh/config` file for frequently logging into multiple Alliance clusters?",
+      "answer": "For frequently logging into multiple Alliance clusters, it is recommended to modify a single `Host` block to include all desired cluster names (e.g., `Host narval beluga graham cedar`) and use `HostName %h.alliancecan.ca`."
     },
     {
-      "question": "How can a user configure their SSH client to easily log into multiple AllianceCan clusters (e.g., narval, beluga, graham, cedar) with a common domain?",
-      "answer": "By using a single `Host` block listing multiple cluster names and setting `HostName %h.alliancecan.ca` in `~/.ssh/config`."
+      "question": "What is required regarding SSH keys when connecting to multiple Alliance clusters?",
+      "answer": "When connecting to multiple Alliance clusters, users need to install their public SSH key on each cluster separately or use CCDB for key management."
     },
     {
-      "question": "What is a prerequisite for using a simplified SSH configuration to connect to multiple clusters?",
-      "answer": "You need to install your public SSH key on each cluster separately or use CCDB."
+      "question": "Which specific command line options for SSH, such as X11 or agent forwarding, can be configured in the `~/.ssh/config` file?",
+      "answer": "The command line options `-X` (X11 forwarding), `-Y` (trusted X11 forwarding), and `-A` (agent forwarding) can be set in the `~/.ssh/config` file using `ForwardX11 yes`, `ForwardX11Trusted yes`, and `ForwardAgent yes` respectively."
     },
     {
-      "question": "Which specific command-line options for SSH forwarding can be configured in the `~/.ssh/config` file?",
-      "answer": "X11 forwarding (`-X`, `-Y`) and agent forwarding (`-A`) can be configured."
+      "question": "Why is it generally not recommended to enable X11 forwarding by default in the SSH configuration file?",
+      "answer": "It is generally not recommended to enable X11 forwarding by default because it can slow down SSH sessions, especially if the X11 client on the user's computer is misconfigured."
     },
     {
-      "question": "Why is it generally not recommended to enable X11 forwarding by default in your SSH configuration?",
-      "answer": "Enabling X11 forwarding by default can slow down sessions, especially if your X11 client on your computer is misconfigured."
+      "question": "What is the security risk associated with enabling trusted X11 forwarding (`ForwardX11Trusted yes`) in the SSH configuration file?",
+      "answer": "The security risk associated with enabling trusted X11 forwarding is that if the connected server is compromised, a privileged user (`root`) could intercept keyboard activity on the user's local computer."
     },
     {
-      "question": "What is the security risk associated with enabling trusted X11 forwarding (`ForwardX11Trusted yes`) by default?",
-      "answer": "If the server is compromised, a privileged user (`root`) could intercept keyboard activity on your local computer."
+      "question": "What is the security concern when enabling SSH agent forwarding (`ForwardAgent yes`) in the `~/.ssh/config` file?",
+      "answer": "When enabling SSH agent forwarding, the security concern is that if the connected server is compromised, a privileged user (`root`) could use the user's agent to connect to another host without their knowledge."
     },
     {
-      "question": "What security concern arises when enabling SSH agent forwarding (`ForwardAgent yes`) by default?",
-      "answer": "If the server is compromised, a privileged user (`root`) could use your agent to connect to another host without your knowledge."
+      "question": "What additional measure is recommended if a user decides to use SSH agent forwarding for increased security?",
+      "answer": "If a user decides to use SSH agent forwarding, it is recommended to combine it with `ssh-askpass` so that any use of the SSH agent triggers a prompt on the user's computer, preventing usage without their knowledge."
     },
     {
-      "question": "What is recommended to mitigate the risks associated with using SSH agent forwarding?",
-      "answer": "It is recommended to combine it with `ssh-askpass` so that any use of your SSH agent triggers a prompt on your computer."
+      "question": "Where is the local SSH configuration file typically located on a user's machine on Linux and macOS?",
+      "answer": "The local SSH configuration file is typically located at `~/.ssh/config` on a user's machine on Linux and macOS."
     }
   ],
-  "generated_at": "2026-04-12T07:25:45.125678+00:00"
+  "generated_at": "2026-04-13T13:05:38.818493+00:00"
 }

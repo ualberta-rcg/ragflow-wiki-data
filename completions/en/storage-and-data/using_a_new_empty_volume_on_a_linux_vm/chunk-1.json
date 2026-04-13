@@ -4,57 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is the general process described for setting up a new volume on most Linux distributions?",
-      "answer": "On most Linux distributions, the steps involve partitioning, formatting, and mounting the newly created volume."
+      "question": "How do I partition, format, and mount a newly created volume on most Linux distributions?",
+      "answer": "To partition a volume, use `sudo fdisk /dev/vdb` and follow the sequence: `n` for new partition, `p` for primary, `1` for partition number, then press `<return>` twice for default first and last sectors, and finally `w` to write the partition table. Next, format the new partition with `sudo mkfs -t ext4 /dev/vdb1`. Then, create a mount point using `sudo mkdir /media/data`. Finally, mount the volume with `sudo mount /dev/vdb1 /media/data`."
     },
     {
-      "question": "What should be done if the volume is not newly created?",
-      "answer": "If the volume is not newly created, the partition and format steps should be skipped as they will result in loss of data. Only the steps to mount the volume should be followed."
+      "question": "How can I configure a Linux VM to automatically mount a volume at boot time?",
+      "answer": "To ensure a volume is mounted automatically when a Linux VM reboots, you need to edit the `/etc/fstab` file. Add a line to it, such as `/dev/vdb1 /media/data ext4 defaults 0 2`. If you are not rebooting immediately, you can mount the device configured in `/etc/fstab` by running `sudo mount -a`."
     },
     {
-      "question": "What command is used to create a partition on a volume?",
-      "answer": "The command `sudo fdisk /dev/vdb` is used to create a partition on a volume."
-    },
-    {
-      "question": "What sequence of commands should be entered into `fdisk` to create a new primary partition?",
-      "answer": "To create a new primary partition, use the sequence of commands: `n` (new partition), `p` (primary), `1` (partition number 1), `<return>` for the first sector (default), `<return>` for the last sector (default), and `w` (write partition table to disk and exit)."
-    },
-    {
-      "question": "How do you format a newly created partition with the ext4 filesystem?",
-      "answer": "You can format a newly created partition with `sudo mkfs -t ext4 /dev/vdb1`."
-    },
-    {
-      "question": "What command is used to create a directory for mounting a device?",
-      "answer": "The command `sudo mkdir /media/data` is used to create a place to mount the device."
-    },
-    {
-      "question": "How do you mount a volume to a specific mount point like `/media/data`?",
-      "answer": "You can mount the volume using the command `sudo mount /dev/vdb1 /media/data`."
-    },
-    {
-      "question": "What happens to a mounted volume if the VM is rebooted?",
-      "answer": "If the VM is rebooted, the volume will need to be remounted."
-    },
-    {
-      "question": "How can a volume be configured to mount automatically at boot time?",
-      "answer": "To cause the VM to mount the volume automatically at boot time, you need to edit `/etc/fstab` and add a line such as `/dev/vdb1 /media/data ext4 defaults 0 2`."
-    },
-    {
-      "question": "What command can be used to mount all devices listed in `/etc/fstab` without rebooting?",
-      "answer": "If you are not rebooting, you can mount all devices just added to `/etc/fstab` with the command `sudo mount -a`."
-    },
-    {
-      "question": "Why is it important to unmount a volume before detaching or removing it?",
-      "answer": "It is best to unmount a volume before detaching or removing it (e.g., to create an image or attach to a different VM) to help prevent data corruption."
-    },
-    {
-      "question": "What command is used to unmount a volume mounted at `/media/data`?",
-      "answer": "To unmount a volume mounted at `/media/data`, use the command `sudo umount /media/data`."
-    },
-    {
-      "question": "Under what circumstances will the `umount` command fail?",
-      "answer": "The `umount` command will fail if files are being accessed on the volume by the operating system or any other program running on the VM, resulting in a 'volume is still busy' message."
+      "question": "What is the recommended procedure for unmounting a volume or device on a Linux VM, and why is it important?",
+      "answer": "It is best to unmount a volume before detaching it from a VM, for example, to create an image or attach it to a different VM, as this helps prevent data corruption. To unmount a previously mounted volume (e.g., at `/media/data`), use the command `sudo umount /media/data`. This command will only succeed if no files on the volume are actively being accessed by the operating system or any other programs running on the VM."
     }
   ],
-  "generated_at": "2026-04-12T10:13:26.214955+00:00"
+  "generated_at": "2026-04-13T15:17:40.268114+00:00"
 }

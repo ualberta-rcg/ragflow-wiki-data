@@ -4,69 +4,13 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `script-flu-bynode+restart.sh` Slurm script?",
-      "answer": "The `script-flu-bynode+restart.sh` script is provided to automate restarting very large Fluent jobs that require more than the typical seven-day maximum runtime window available on most clusters."
+      "question": "What is the primary purpose of the `script-flu-bynode+restart.sh` Slurm script for Ansys Fluent?",
+      "answer": "The `script-flu-bynode+restart.sh` Slurm script is designed to automate the restarting of very large Ansys Fluent jobs that require more than the typical maximum runtime window available on most clusters. It achieves this by restarting simulations from the most recently saved time step files."
     },
     {
-      "question": "What is the default maximum time limit specified in the `script-flu-bynode+restart.sh` Slurm script?",
-      "answer": "The script specifies a default maximum time limit of `07-00:00`, which corresponds to seven days."
-    },
-    {
-      "question": "How many compute nodes are requested by default in the `script-flu-bynode+restart.sh` Slurm script?",
-      "answer": "The script requests 1 compute node by default (`#SBATCH --nodes=1`), noting that Narval clusters have a 1 node maximum for this configuration."
-    },
-    {
-      "question": "What is the default maximum number of cores specified per compute node in the `script-flu-bynode+restart.sh` script?",
-      "answer": "The script specifies a default maximum of 32 cores per compute node (`#SBATCH --ntasks-per-node=32`)."
-    },
-    {
-      "question": "How much memory is allocated per compute node by default in the `script-flu-bynode+restart.sh` script?",
-      "answer": "The script allocates all available memory per compute node by setting `#SBATCH --mem=0`."
-    },
-    {
-      "question": "How many solution restarts are specified by default in the `script-flu-bynode+restart.sh` script?",
-      "answer": "The script specifies 5 solution restarts by default using `#SBATCH --array=1-5%1`, indicating that 2 or more restarts are typical."
-    },
-    {
-      "question": "Which modules need to be loaded to run the `script-flu-bynode+restart.sh` script?",
-      "answer": "The script requires loading `StdEnv/2023` and `ansys/2023R2` (or newer versions)."
-    },
-    {
-      "question": "What variable is used to specify the Fluent version (e.g., 2d, 3d) in the `script-flu-bynode+restart.sh` script?",
-      "answer": "The `MYVERSION` variable is used to specify the Fluent version, with `3d` as the default value."
-    },
-    {
-      "question": "What are the variables for specifying the initial and restart journal files in the `script-flu-bynode+restart.sh` script?",
-      "answer": "The `MYJOUFILE` variable specifies the initial journal filename (`sample.jou`), and `MYJOUFILERES` specifies the journal restart filename (`sample-restart.jou`)."
-    },
-    {
-      "question": "What are the variables for specifying the restart case and data files in the `script-flu-bynode+restart.sh` script?",
-      "answer": "The `MYCASFILERES` variable specifies the case restart filename (`sample-restart.cas.h5`), and `MYDATFILERES` specifies the data restart filename (`sample-restart.dat.h5`)."
-    },
-    {
-      "question": "What additional modules are loaded if the cluster is Narval in the `script-flu-bynode+restart.sh` script?",
-      "answer": "If the `CC_CLUSTER` is `narval`, the script loads `intel/2023` and `intelmpi`."
-    },
-    {
-      "question": "When is the `I_MPI_HYDRA_BOOTSTRAP` environment variable set to `ssh` in the `script-flu-bynode+restart.sh` script?",
-      "answer": "The `I_MPI_HYDRA_BOOTSTRAP` environment variable is set to `ssh` if the Ansys version is 2025 or newer and the cluster is Nibi, or if the cluster is Narval."
-    },
-    {
-      "question": "What is the Fluent command used for a single-node run when starting the first task in the `script-flu-bynode+restart.sh` script?",
-      "answer": "For a single-node run, if it's the first array task (`$SLURM_ARRAY_TASK_ID == 1`), the command used is `fluent -g 2ddp -t $NCORES -mpi=intel -pshmem -i $MYJOUFILE`."
-    },
-    {
-      "question": "How does the `script-flu-bynode+restart.sh` script handle linking the most recent output files for subsequent restarts?",
-      "answer": "If a job completes successfully and is not the last array task, the script creates symbolic links to the most recent output `.cas` and `.dat` files from the `output/` directory, naming them `MYCASFILERES` and `MYDATFILERES` respectively, for the next restart."
-    },
-    {
-      "question": "What happens when the job successfully completes its last array task in the `script-flu-bynode+restart.sh` script?",
-      "answer": "When the job completes successfully and it's the last array task (`$SLURM_ARRAY_TASK_ID` is equal to `$SLURM_ARRAY_TASK_COUNT`), the script prints \"Job completed successfully! Exiting now.\" and then cancels the entire Slurm array job (`scancel $SLURM_ARRAY_JOB_ID`)."
-    },
-    {
-      "question": "What message is displayed if the simulation fails in the `script-flu-bynode+restart.sh` script?",
-      "answer": "If the simulation fails, the script displays the message \"Simulation failed. Exiting …\"."
+      "question": "How does the `script-flu-bynode+restart.sh` Slurm script manage input and output files when restarting an Ansys Fluent simulation?",
+      "answer": "The script uses specific variables to manage files: `MYJOUFILE` for the initial journal file, `MYJOUFILERES` for the restart journal file, `MYCASFILERES` for the restart case file, and `MYDATFILERES` for the restart data file. After a successful job iteration, it automatically links the most recent output `.cas` and `.dat` files from the `output/` directory to `MYCASFILERES` and `MYDATFILERES` respectively, to prepare for subsequent restarts."
     }
   ],
-  "generated_at": "2026-04-12T16:37:21.287946+00:00"
+  "generated_at": "2026-04-13T01:42:15.614843+00:00"
 }

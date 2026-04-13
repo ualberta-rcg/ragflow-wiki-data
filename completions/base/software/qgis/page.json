@@ -3,65 +3,61 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is QGIS and what does it do?",
+      "question": "What is QGIS and what are its primary functions?",
       "answer": "QGIS is a free and open-source cross-platform desktop geographic information system (GIS) application that supports viewing, editing, and analysis of geospatial data."
     },
     {
-      "question": "Are there any important restrictions when using QGIS?",
-      "answer": "Yes, you should never make intense use of QGIS on the login nodes. Instead, submit jobs using the command line or visualize data on an interactive node. Using parallel rendering on login nodes will result in the termination of your session."
+      "question": "What is the important guideline for using QGIS on login nodes on Alliance clusters?",
+      "answer": "Users should never make intense use of QGIS on login nodes. Jobs should be submitted using the command line, and GUI visualization should be done on an interactive node. Using parallel rendering on shared login nodes will result in session termination."
     },
     {
-      "question": "What is the first module users need to load before loading QGIS?",
-      "answer": "Users first need to load the `gcc` module, specifically `gcc/5.4.0`."
+      "question": "What module must be loaded first before loading the QGIS module on Alliance clusters?",
+      "answer": "The `gcc` module, specifically `gcc/5.4.0`, must be loaded first."
     },
     {
-      "question": "How can I load a specific version of the QGIS module?",
-      "answer": "You can load a particular QGIS module using a command like `module load qgis/2.18.24`, after checking available versions with `module spider qgis`."
+      "question": "How can users find all available versions of the QGIS module on Alliance clusters?",
+      "answer": "Users can find available QGIS module versions by running the command `module spider qgis`."
     },
     {
-      "question": "What should I do if a package fails to install because of missing dependencies?",
-      "answer": "You should read the error message carefully for details on additional modules needed, or use `module spider [module_name]` to find module dependencies."
+      "question": "If a QGIS package like \"rgdal\" fails to install, what other modules might be required on Alliance clusters?",
+      "answer": "If a package like \"rgdal\" fails to install, it might require loading the \"gdal\" module, which in turn requires \"nixpkgs\" and \"gcc\"."
     },
     {
-      "question": "How do I execute QGIS processes using the command line?",
-      "answer": "You execute QGIS by running a Python script, typically within a job submission script (e.g., `job.sh`) submitted with `sbatch job.sh`."
+      "question": "How can QGIS be executed in a command-line environment on Alliance clusters?",
+      "answer": "QGIS can be executed by running a Python script, for example, `python qgis_code.py`, typically as part of a job submission script."
     },
     {
-      "question": "What are the key components of a Python script for command-line QGIS execution?",
-      "answer": "A Python script for command-line QGIS execution should set the QGIS installation path, create a `QgsApplication` reference disabling the GUI (`QgsApplication([], False)`), initialize QGIS providers with `qgs.initQgis()`, and clean up with `qgs.exitQgis()` when done."
+      "question": "What is the purpose of the `export QT_QPA_PLATFORM=offscreen` line in a QGIS job submission script on Alliance clusters?",
+      "answer": "This line is used to disable the graphical user interface (GUI) when running QGIS processes in a non-interactive command-line job."
     },
     {
-      "question": "What environment variable is important to set in a job submission script for command-line QGIS?",
-      "answer": "The `QT_QPA_PLATFORM` environment variable should be set to `offscreen` in the job submission script."
+      "question": "Why is it recommended to use an interactive node for visualizing large datasets with the QGIS GUI on Alliance clusters instead of a login node?",
+      "answer": "Interactive nodes offer more runtime and access to more CPU cores (e.g., 40 cores per node) for data exploration and visualization, preventing performance issues on shared login nodes."
     },
     {
-      "question": "Where should I use the QGIS GUI for visualizing large datasets or parallel rendering?",
-      "answer": "You should use interactive nodes for visualizing large datasets and enabling parallel rendering, as login nodes are shared and have runtime limitations."
+      "question": "What are the initial steps to use the QGIS GUI with MobaXTerm on Windows to connect to an Alliance cluster?",
+      "answer": "Users must create an SSH session in MobaXTerm, specify the remote host (e.g., cedar.computecanada.ca), ensure X11 forwarding is enabled (indicated by a green X server logo), then load `gcc` and `qgis` modules in the terminal before typing `qgis`."
     },
     {
-      "question": "What is a prerequisite for using the QGIS GUI?",
-      "answer": "Using the QGIS GUI requires X11 forwarding to be enabled."
+      "question": "What command is used to request an interactive job with X11 forwarding enabled on an Alliance cluster?",
+      "answer": "An interactive job with X11 forwarding can be requested using a command such as `salloc --time=1:0:0 --ntasks=2 --x11 --account=def-someuser`."
     },
     {
-      "question": "How can I ensure X11 forwarding is enabled when connecting with MobaXTerm?",
-      "answer": "After connecting via SSH in MobaXTerm, ensure the X server logo is green to confirm X11 forwarding is enabled."
+      "question": "How can users enable parallel rendering for QGIS layers on an interactive node on Alliance clusters?",
+      "answer": "Users can enable parallel rendering by navigating to \"Settings,\" then \"Options,\" selecting \"Rendering,\" checking the \"Render layers in parallel using many CPU cores\" option, and optionally selecting the number of cores to use."
     },
     {
-      "question": "After loading the necessary modules, how do I start the QGIS GUI?",
-      "answer": "You start the QGIS GUI by typing `qgis` in the terminal."
+      "question": "What command should be used to terminate an interactive job allocation after a QGIS session is complete on an Alliance cluster?",
+      "answer": "Users should type `exit` to terminate the interactive job allocation once they have finished their QGIS session and closed the application."
     },
     {
-      "question": "How do I request an interactive node for using the QGIS GUI with X11 forwarding?",
-      "answer": "You can request an interactive job using a command like `salloc --time=1:0:0 --ntasks=2 --x11 --account=def-someuser`, making sure to include the `--x11` argument."
+      "question": "How can a user check if the `nixpkgs` module is loaded in their environment on Alliance clusters?",
+      "answer": "Users can check if the `nixpkgs` module is loaded by running the command `module list`."
     },
     {
-      "question": "How do I enable parallel rendering of layers within the QGIS GUI on an interactive node?",
-      "answer": "In the QGIS GUI, go to 'Settings', then 'Options', select 'Rendering', and check 'Render layers in parallel using many CPU cores'. You can optionally select the number of cores to use."
-    },
-    {
-      "question": "What command should I use to terminate an interactive node allocation after I'm done with QGIS?",
-      "answer": "To terminate the allocation, type `exit` in the terminal once you have closed the QGIS GUI window."
+      "question": "What is the recommended approach for visualizing data with the QGIS GUI if intense use is required on Alliance clusters?",
+      "answer": "If intense visualization is required with the QGIS GUI, it should be done on an interactive node rather than a login node."
     }
   ],
-  "generated_at": "2026-04-12T06:00:33.528422+00:00"
+  "generated_at": "2026-04-13T11:54:43.160971+00:00"
 }

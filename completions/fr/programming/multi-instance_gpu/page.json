@@ -3,45 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que la technologie Multi-Instance GPU (MIG) et à quoi sert-elle?",
-      "answer": "La technologie MIG permet de partitionner un seul GPU moderne, comme les NVidia A100 et H100, en plusieurs instances virtuelles complètement indépendantes. Chaque instance dispose d'une portion des ressources de calcul et de la mémoire du GPU d'origine, isolée par des protections sur puce."
+      "question": "Qu'est-ce que la technologie multi-instances GPU (MIG) sur les grappes d'Alliance?",
+      "answer": "La technologie MIG permet de partitionner un seul GPU NVidia (comme les A100 et H100) en plusieurs instances, faisant de chacune un GPU virtuel complètement indépendant avec sa propre portion de ressources de calcul et de mémoire."
     },
     {
-      "question": "Quels sont les principaux avantages d'utiliser une instance de GPU via la technologie MIG?",
-      "answer": "Les instances de GPU sont moins gourmandes en ressources, ce qui se traduit par une utilisation plus lente de votre priorité de calcul, permettant d'exécuter plus de tâches avec des temps d'attente plus courts."
+      "question": "Pourquoi est-ce avantageux d'utiliser une instance de GPU avec la technologie MIG plutôt qu'un GPU entier sur les grappes d'Alliance?",
+      "answer": "L'utilisation d'instances de GPU est moins gourmande, ce qui se traduit par une utilisation moins rapide de votre priorité de calcul, permettant d'exécuter plus de tâches avec un temps d'attente plus court."
     },
     {
-      "question": "Quand devrais-je envisager d'utiliser une instance de GPU plutôt qu'un GPU entier?",
-      "answer": "Vous devriez évaluer et tester les tâches qui utilisent moins de la moitié de la puissance de calcul d'un GPU entier et moins de la moitié de sa mémoire disponible. Dans la plupart des cas, ces tâches s'exécuteront aussi rapidement sur une instance tout en consommant moins de la moitié des ressources."
+      "question": "Dans quelles situations devrait-on évaluer et tester des tâches sur une instance de GPU plutôt qu'un GPU entier?",
+      "answer": "Les tâches qui utilisent moins de la moitié de la puissance de calcul d'un GPU entier et moins de la moitié de sa mémoire GPU disponible doivent être évaluées et testées sur une instance."
     },
     {
-      "question": "Quelles sont les limites importantes de la technologie MIG?",
-      "answer": "La technologie MIG ne prend pas en charge la communication interprocessus CUDA via NVLink et NVSwitch, ce qui rend le lancement d'un exécutable sur plusieurs instances MIG inefficace. De plus, les API graphiques (comme OpenGL et Vulkan) ne sont pas prises en charge."
+      "question": "Est-ce que la technologie MIG prend en charge la communication interprocessus CUDA pour le transfert de données?",
+      "answer": "Non, la technologie MIG ne prend pas en charge la communication interprocessus CUDA, ce qui diminue l'efficacité de la communication entre les instances."
     },
     {
-      "question": "Comment le nombre de cœurs CPU et la mémoire système sont-ils liés aux instances de GPU?",
-      "answer": "Les tâches avec GPU qui nécessitent de nombreux cœurs CPU par GPU pourraient nécessiter un GPU entier. Le nombre maximum de cœurs CPU et la mémoire système recommandés par instance dépendent du nombre maximal de cœurs CPU par GPU entier et des profils MIG configurés, qui varient selon les grappes et les nœuds. Le tableau des ratios fournit ces informations."
+      "question": "Le lancement d'un exécutable sur plusieurs instances MIG améliore-t-il la performance?",
+      "answer": "Non, le lancement d'un exécutable sur plusieurs instances MIG à la fois n'améliore pas la performance et doit être évité en raison des limites de la communication interprocessus."
     },
     {
-      "question": "Comment puis-je connaître les gabarits et les noms complets des GPU disponibles sur une grappe spécifique?",
-      "answer": "Pour obtenir la liste, vous pouvez lancer la commande `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\n/g'|cut -d: -f1|sort|uniq`."
+      "question": "Est-ce que les API graphiques comme OpenGL ou Vulkan sont prises en charge par les instances MIG?",
+      "answer": "Non, les API graphiques ne sont pas prises en charge par les instances MIG."
     },
     {
-      "question": "Que représente un nom de profil MIG comme '3g.20gb'?",
-      "answer": "Le nom du profil indique la taille de l'instance. '3g.20gb' signifie que l'instance dispose de 20Go de mémoire GPU et offre une performance équivalente aux 3/8e de la performance de calcul d'un GPU entier."
+      "question": "Quand est-ce qu'une tâche avec GPU pourrait nécessiter un GPU entier au lieu d'une instance en lien avec les cœurs CPU?",
+      "answer": "Les tâches qui nécessitent de nombreux cœurs CPU par GPU peuvent nécessiter un GPU entier, car le nombre maximum de cœurs CPU par instance dépend du nombre maximum de cœurs CPU par GPU entier et des profils MIG configurés."
     },
     {
-      "question": "Comment demander une instance MIG de GPU pour une tâche interactive?",
-      "answer": "Pour une tâche interactive d'une heure demandant une instance de 20Go à 3/8 de la puissance, vous utiliseriez une commande comme `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`."
+      "question": "Comment interpréter le nom d'un profil d'instance MIG, comme `3g.20gb`?",
+      "answer": "Le nom du profil indique la taille de l'instance; par exemple, `3g.20gb` est dotée de 20 Go de mémoire GPU et sa performance est égale aux 3/8e de la performance de calcul d’un GPU entier."
     },
     {
-      "question": "Quels indicateurs peuvent m'aider à déterminer si ma tâche actuelle pourrait bénéficier d'une migration vers une instance MIG?",
-      "answer": "Les indicateurs clés sont une faible consommation d'énergie (TDP), une faible utilisation du GPU (moins de 25%), et une faible utilisation de la mémoire GPU par rapport aux capacités totales du GPU, ainsi que l'utilisation d'un seul cœur CPU. L'historique des tâches sur le portail d'utilisation peut fournir ces données."
+      "question": "Quel est l'impact de l'utilisation de profils MIG moins puissants sur l'allocation et la priorité des tâches sur les grappes d'Alliance?",
+      "answer": "L'utilisation de profils MIG moins puissants aura un impact moindre sur votre allocation et sur la priorité assignée à vos tâches."
     },
     {
-      "question": "Comment puis-je surveiller l'utilisation du GPU en temps réel pour identifier une sous-utilisation?",
-      "answer": "Vous pouvez vous connecter au nœud sur lequel la tâche s'exécute et utiliser la commande `nvidia-smi` pour lire les métriques du GPU en temps réel, ce qui peut aider à identifier une sous-utilisation."
+      "question": "Comment peut-on obtenir la liste de tous les gabarits et profils GPU disponibles sur une grappe spécifique d'Alliance?",
+      "answer": "On peut lancer la commande `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\\n/g'|cut -d: -f1|sort|uniq` pour obtenir la liste."
+    },
+    {
+      "question": "Où peut-on trouver le maximum recommandé de cœurs CPU et de mémoire système par instance de GPU sur les grappes d'Alliance?",
+      "answer": "Ces informations sont disponibles dans le tableau des ratios mentionné dans la section des allocations et de l'ordonnancement de calcul."
+    },
+    {
+      "question": "Comment demander une instance GPU de 20 Go à 3/8 de la puissance pour une tâche interactive d'une durée d'une heure avec 2 cœurs CPU et 40 Go de mémoire système sur une grappe d'Alliance?",
+      "answer": "On utilise la commande `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`."
+    },
+    {
+      "question": "Quels paramètres SBATCH sont nécessaires pour demander une instance GPU de 20 Go à 4/8 de la puissance pour un script de tâches en lot de 24 heures, avec 6 cœurs CPU et 62 Go de mémoire sur une grappe d'Alliance?",
+      "answer": "Il faut inclure dans le script les paramètres SBATCH suivants : `#SBATCH --gpus=a100_4g.20gb:1`, `#SBATCH --cpus-per-task=6`, `#SBATCH --mem=62gb`, et `#SBATCH --time=24:00:00`."
+    },
+    {
+      "question": "Comment la consommation d'énergie d'une tâche GPU peut-elle aider à déterminer si elle devrait être migrée vers une instance MIG?",
+      "answer": "Une faible consommation d'énergie moyenne par rapport à l'enveloppe thermique maximale du GPU entier (par exemple, 100 W sur un A100 de 400 W) est un bon indicateur de sous-utilisation et suggère une migration vers une instance MIG."
+    },
+    {
+      "question": "En plus de la consommation d'énergie, quelles autres métriques liées à l'utilisation du GPU et de la mémoire peuvent aider à identifier une tâche qui pourrait bénéficier d'une instance MIG?",
+      "answer": "L'utilisation du GPU (par exemple, moins de 25% de la puissance de calcul disponible), la quantité maximale de mémoire GPU utilisée et le nombre moyen de cœurs CPU nécessaires sont d'autres indicateurs importants."
+    },
+    {
+      "question": "Quel outil peut-on utiliser pour surveiller l'utilisation d'un GPU en temps réel pour une tâche en cours d'exécution sur une grappe d'Alliance afin d'identifier une sous-utilisation potentielle?",
+      "answer": "On peut se connecter au nœud sur lequel la tâche se trouve et utiliser la commande `nvidia-smi` pour lire les métriques du GPU en temps réel."
     }
   ],
-  "generated_at": "2026-04-12T03:24:47.030284+00:00"
+  "generated_at": "2026-04-13T09:42:12.425368+00:00"
 }

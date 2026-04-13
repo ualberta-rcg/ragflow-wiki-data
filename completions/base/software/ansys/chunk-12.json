@@ -4,29 +4,13 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "What is the purpose and assigned value of the `VENDPORT` variable in the Trillium Slurm script snippet?",
-      "answer": "The `VENDPORT` variable specifies the server vendor port and is assigned the value `1793` in the Trillium Slurm script snippet."
+      "question": "How do users configure Ansys Fluent to use a license server on the Trillium cluster?",
+      "answer": "Users can configure Ansys Fluent to use a license server on the Trillium cluster by establishing SSH tunnels for the FLEXPORT and VENDPORT to the license server via `tri-gw`, and then setting the `ANSYSLMD_LICENSE_FILE` and `ANSYSLI_SERVERS` environment variables to point to `localhost` with the tunnelled ports."
     },
     {
-      "question": "How does the Trillium Slurm script establish secure connections for ANSYS license access using `FLEXPORT` and `VENDPORT`?",
-      "answer": "The script establishes secure connections by creating SSH tunnels to `tri-gw`. It uses the commands `ssh tri-gw -fNL $FLEXPORT:$LICSERVER:$FLEXPORT` for the flex port and `ssh tri-gw -fNL $VENDPORT:$LICSERVER:$VENDPORT` for the vendor port, forwarding them to `localhost`."
-    },
-    {
-      "question": "Which environment variables are set in the script snippet to direct ANSYS license lookups to `localhost` after SSH tunnelling?",
-      "answer": "The script sets two environment variables: `ANSYSLMD_LICENSE_FILE=$FLEXPORT@localhost` and `ANSYSLI_SERVERS=$INTEPORT@localhost`, to direct ANSYS license lookups through the established SSH tunnels to `localhost`."
-    },
-    {
-      "question": "What command is used to generate a machine file for ANSYS Fluent jobs on Trillium, and where is the output saved?",
-      "answer": "The command `slurm_hl2hl.py --format ANSYS-FLUENT` is used to generate the machine file. Its output is redirected to `$SLURM_SUBMIT_DIR/machinefile-$SLURM_JOB_ID` in the job's submission directory."
-    },
-    {
-      "question": "What is the specific role of the `slurm_hl2hl.py` command within the Slurm script for ANSYS Fluent on Trillium?",
-      "answer": "The `slurm_hl2hl.py` command, when executed with `--format ANSYS-FLUENT`, generates a machine file that lists the compute nodes and cores allocated for the ANSYS Fluent job. This file is crucial for enabling distributed parallel execution across multiple nodes."
-    },
-    {
-      "question": "How is the `ANSYSLI_SERVERS` environment variable configured in the Trillium Slurm script snippet, and what observation can be made about the port variable used?",
-      "answer": "The `ANSYSLI_SERVERS` environment variable is configured as `export ANSYSLI_SERVERS=$INTEPORT@localhost`. It's observed that the script uses the `$INTEPORT` variable for the port, although `INTEPORT` is not explicitly defined in the provided snippet, while `VENDPORT` is defined as `1793` directly above its usage in an SSH tunnel."
+      "question": "What are the specific SSH commands and environment variable settings required for Ansys Fluent licensing on the Trillium cluster, as indicated in the provided script snippet?",
+      "answer": "The script snippet indicates that SSH tunnels are established using these commands: `ssh tri-gw -fNL $FLEXPORT:$LICSERVER:$FLEXPORT` and `ssh tri-gw -fNL $VENDPORT:$LICSERVER:$VENDPORT`. Following this, the environment variables for licensing are set with: `export ANSYSLMD_LICENSE_FILE=$FLEXPORT@localhost` and `export ANSYSLI_SERVERS=$INTEPORT@localhost`."
     }
   ],
-  "generated_at": "2026-04-12T16:36:23.674232+00:00"
+  "generated_at": "2026-04-13T01:41:43.647628+00:00"
 }

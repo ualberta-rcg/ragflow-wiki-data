@@ -4,77 +4,13 @@
   "chunk_index": 27,
   "qa_pairs": [
     {
-      "question": "Comment faire pour automatiser les commandes d'injection pour les modèles de phase discrète (DPM) dans Fluent via un fichier journalisation?",
-      "answer": "Vous pouvez automatiser les commandes d'injection DPM en ajoutant des lignes comme `/define/models/dpm/interaction/coupled-calculations yes`, `/define/models/dpm/injections/delete-injection injection-0:1` et `/define/models/dpm/injections/create injection-0:1 no yes file no zinjection01.inj no no no no` à votre fichier journalisation, après l'initialisation de la solution."
+      "question": "Comment peut-on automatiser la gestion des injections DPM (Discrete Phase Models) dans Ansys Fluent via un fichier de journalisation?",
+      "answer": "Pour automatiser les injections DPM dans Fluent, vous pouvez insérer des commandes spécifiques dans votre fichier de journalisation après l'initialisation de la solution. Par exemple, utilisez `/define/models/dpm/interaction/coupled-calculations yes` pour activer l'interaction avec la phase continue, et les commandes `/define/models/dpm/injections/delete-injection injection-0:1` puis `/define/models/dpm/injections/create injection-0:1 no yes file no zinjection01.inj no no no no` pour créer une injection à partir d'un fichier comme 'zinjection01.inj'. Pour vérifier ces configurations, les commandes `/define/models/dpm/injections/list-particles injection-0:1` et `/define/models/dpm/injections/list-injection-properties injection-0:1` sont disponibles. Les détails sur le format des fichiers d'injection DPM sont décrits dans le *2024R2 Fluent Customization Manual, Part III: Solution Mode | Chapter 24: Modeling Discrete Phase*."
     },
     {
-      "question": "Quel est un exemple de format de base pour un fichier d'injection DPM créé manuellement?",
-      "answer": "Un fichier d'injection DPM de base créé manuellement pourrait ressembler à ceci :\n`$ cat zinjection01.inj\n(z=4 12)\n( x y z u v w diamètre t débit massique fréquence massique temps nom )\n(( 2.90e-02 5.00e-03 0.0 -1,00e-03 0,0 0,0 1,00e-04 2,93e+02 1,00e-06 0,0 0,0 0,0 ) injection-0:1 )`"
-    },
-    {
-      "question": "Où puis-je trouver plus de détails sur le format de fichier d'injection stationnaire pour les simulations DPM dans Fluent?",
-      "answer": "Le format de fichier d'injection stationnaire est décrit en détail dans le `2024R2 Fluent Customization Manual, Part III: Solution Mode | Chapter 24: Modeling Discrete Phase | 24.3. Setting Initial Conditions for the Discrete Phase | 24.3.13 Point Properties for File Injections | 24.3.13.1 Steady File Format`."
-    },
-    {
-      "question": "Comment puis-je afficher les options de ligne de commande pour cfx5solve?",
-      "answer": "Vous pouvez afficher le résumé des options de ligne de commande pour cfx5solve en exécutant la commande `cfx5solve -help`."
-    },
-    {
-      "question": "Quelle est la précision par défaut de cfx5solve, et comment peut-on le faire fonctionner en double précision?",
-      "answer": "Par défaut, cfx5solve s'exécute en simple précision. Pour l'exécuter en double précision, il faut ajouter l'option `-double`."
-    },
-    {
-      "question": "L'exécution de cfx5solve en double précision a-t-elle des implications sur les besoins en mémoire?",
-      "answer": "Oui, l'exécution de cfx5solve en double précision doublera également les besoins en mémoire."
-    },
-    {
-      "question": "Quelles sont les tailles maximales de maillage prises en charge par défaut par cfx5solve?",
-      "answer": "Par défaut, cfx5solve prend en charge les maillages jusqu'à 80 millions d'éléments structurés ou 200 millions d'éléments non structurés."
-    },
-    {
-      "question": "Comment puis-je utiliser cfx5solve pour des maillages plus grands, jusqu'à 2 milliards d'éléments?",
-      "answer": "Pour des maillages plus grands (jusqu'à 2 milliards d'éléments), vous devez ajouter l'option `-large` à la commande cfx5solve."
-    },
-    {
-      "question": "Où puis-je trouver des informations détaillées sur l'utilisation des options de cfx5solve pour le partitionneur, l'interpolateur ou le solveur?",
-      "answer": "Vous pouvez consulter le guide d'ANSYS CFX-Solver Manager pour obtenir plus de détails sur l'utilisation des différentes combinaisons d'options pour le partitionneur, l'interpolateur ou le solveur."
-    },
-    {
-      "question": "Quelles sont les directives Slurm minimales pour une tâche CFX sur un seul nœud?",
-      "answer": "Les directives Slurm minimales sont:\n`#SBATCH --account=def-group` (pour spécifier votre compte)\n`#SBATCH --time=00-03:00` (pour spécifier la limite de temps)\n`#SBATCH --nodes=1` (pour un seul nœud)\n`#SBATCH --ntasks-per-node=4` (pour spécifier le nombre de cœurs par nœud)\n`#SBATCH --mem=16G` (pour spécifier la mémoire par nœud)\n`#SBATCH --cpus-per-task=1` (ne pas modifier)."
-    },
-    {
-      "question": "Quelle est la commande `cfx5solve` pour lancer une tâche CFX en parallèle local sur Narval?",
-      "answer": "Sur Narval, la commande est `cfx5solve -def YOURFILE.def -start-method \"Open MPI Local Parallel\" -part $SLURM_CPUS_ON_NODE`."
-    },
-    {
-      "question": "Comment lancer une tâche CFX en parallèle local sur un cluster autre que Narval?",
-      "answer": "Pour un cluster autre que Narval, la commande est `cfx5solve -def YOURFILE.def -start-method \"Intel MPI Local Parallel\" -part $SLURM_CPUS_ON_NODE`."
-    },
-    {
-      "question": "Comment charger les modules nécessaires pour une tâche CFX sur un nœud simple?",
-      "answer": "Il faut charger les modules `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente)."
-    },
-    {
-      "question": "Quelles sont les directives Slurm minimales pour soumettre une tâche CFX sur plusieurs nœuds?",
-      "answer": "Les directives Slurm minimales sont:\n`#SBATCH --account=def-group` (pour spécifier votre compte)\n`#SBATCH --time=00-03:00` (pour spécifier la limite de temps)\n`#SBATCH --nodes=2` (pour spécifier plusieurs nœuds)\n`#SBATCH --ntasks-per-node=64` (pour spécifier tous les cœurs par nœud)\n`#SBATCH --mem=0` (pour utiliser toute la mémoire par nœud)\n`#SBATCH --cpus-per-task=1` (ne pas modifier)."
-    },
-    {
-      "question": "Comment le script Slurm pour plusieurs nœuds détermine-t-il la liste des nœuds pour cfx5solve?",
-      "answer": "Le script utilise `NNODES=$(slurm_hl2hl.py --format ANSYS-CFX)` pour obtenir la liste des nœuds."
-    },
-    {
-      "question": "Quelle est la commande `cfx5solve` pour lancer une tâche CFX en parallèle distribué sur Narval?",
-      "answer": "Sur Narval, la commande est `cfx5solve -def YOURFILE.def -start-method \"Open MPI Distributed Parallel\" -par-dist $NNODES`."
-    },
-    {
-      "question": "Comment lancer une tâche CFX en parallèle distribué sur un cluster autre que Narval?",
-      "answer": "Pour un cluster autre que Narval, il faut d'abord configurer des variables d'environnement (`export I_MPI_HYDRA_BOOTSTRAP=ssh; unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`) puis utiliser la commande `cfx5solve -def YOURFILE.def -start-method \"Intel MPI Distributed Parallel\" -par-dist $NNODES`."
-    },
-    {
-      "question": "Comment s'assurer que toute la mémoire par nœud est utilisée dans une tâche CFX à plusieurs nœuds?",
-      "answer": "Pour utiliser toute la mémoire par nœud, vous devez spécifier la directive Slurm `#SBATCH --mem=0`."
+      "question": "Quelles sont les options de ligne de commande importantes pour le solveur `cfx5solve` d'Ansys CFX, particulièrement en ce qui concerne la précision et la gestion des maillages?",
+      "answer": "Pour `cfx5solve`, les options de ligne de commande sont accessibles via `cfx5solve -help`. Par défaut, le solveur utilise la simple précision (`-single`). Pour passer en double précision, il faut ajouter l'option `-double`, ce qui doublera également les besoins en mémoire. Concernant les maillages, `cfx5solve` supporte jusqu'à 80 millions d'éléments structurés ou 200 millions d'éléments non structurés par défaut. Pour travailler avec des maillages plus grands, allant jusqu'à 2 milliards d'éléments, l'option `-large` doit être spécifiée. Ces options peuvent être combinées pour le partitionneur, l'interpolateur ou le solveur, et des informations détaillées sont disponibles dans le guide d'ANSYS CFX-Solver Manager."
     }
   ],
-  "generated_at": "2026-04-12T17:01:59.316318+00:00"
+  "generated_at": "2026-04-13T01:58:55.785748+00:00"
 }

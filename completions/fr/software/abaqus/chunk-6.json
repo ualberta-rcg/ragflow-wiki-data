@@ -4,45 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "C'est quoi l'avantage d'utiliser les scripts Abaqus pour un répertoire temporaire, comparé à ceux pour le répertoire /project?",
-      "answer": "Les scripts pour le répertoire temporaire sont préférables quand les tâches créent de gros fichiers de redémarrage, parce qu'ils écrivent sur le disque local via la variable d'environnement `SLURM_TMPDIR`. Ça aide à gérer les fichiers volumineux."
+      "question": "Comment doit-on configurer le fichier d'entrée d'une simulation Abaqus pour qu'elle écrive des données de redémarrage par intervalles, particulièrement avec les scripts utilisant un répertoire temporaire?",
+      "answer": "Pour configurer une simulation Abaqus afin d'écrire des données de redémarrage en incréments réguliers (par exemple, toutes les 12 étapes), le fichier d'entrée doit contenir la ligne `*RESTART, WRITE, OVERLAY, FREQUENCY=12`. Si l'on souhaite écrire les données pour un total de 12 incréments, on doit plutôt inclure `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
     },
     {
-      "question": "Comment configurer le fichier d'entrée d'une simulation Abaqus pour écrire des données de redémarrage à intervalles réguliers (N=12) en utilisant le script pour répertoire temporaire?",
-      "answer": "Pour ça, faut ajouter la ligne `*RESTART, WRITE, OVERLAY, FREQUENCY=12` dans le fichier d'entrée de la simulation."
+      "question": "Pourquoi est-il recommandé d'utiliser les scripts de répertoire temporaire avec la variable d'environnement `SLURM_TMPDIR` pour les tâches Abaqus qui génèrent de gros fichiers de redémarrage?",
+      "answer": "Il est préférable que les tâches Abaqus qui créent des fichiers de redémarrage volumineux écrivent sur le disque local via l'utilisation de la variable d'environnement `SLURM_TMPDIR`. Ces scripts permettent aussi de poursuivre les tâches qui ont été interrompues prématurément, que ce soit par la file d'attente Slurm ou une défaillance matérielle inattendue."
     },
     {
-      "question": "Si on veut écrire les données de redémarrage pour un nombre fixe d'incréments, mettons 12, comment ça marche avec le fichier d'entrée?",
-      "answer": "Dans ce cas, le fichier d'entrée doit contenir la ligne `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
-    },
-    {
-      "question": "Quelle commande peut-on utiliser pour vérifier l'information complète sur le redémarrage d'une tâche Abaqus lancée avec un script pour répertoire temporaire?",
-      "answer": "On peut utiliser la commande `egrep -i \"step|start\" testst*.com testst*.msg testst*.sta` pour vérifier l'information sur le redémarrage."
-    },
-    {
-      "question": "Quel est le rôle de la boucle `while sleep 6h; do ... done &` dans les scripts de répertoire temporaire pour les analyses standard?",
-      "answer": "Cette boucle sert à sauvegarder les données de façon périodique (à toutes les 6 heures) dans le répertoire de soumission (`$SLURM_SUBMIT_DIR`) si la tâche est interrompue, par exemple à cause de la limite de temps."
-    },
-    {
-      "question": "Comment relancer une tâche Abaqus qui a été interrompue en utilisant le script de redémarrage pour le répertoire temporaire?",
-      "answer": "Il faut utiliser le script `scriptst2.txt`. L'option `oldjob=testst1` est spécifiée dans la commande Abaqus, et le fichier d'entrée pour le redémarrage doit contenir `*HEADING` et `*RESTART, READ`."
-    },
-    {
-      "question": "Est-ce qu'une tâche Abaqus relancée avec le script de redémarrage pour le répertoire temporaire conserve ses fichiers d'une exécution précédente?",
-      "answer": "Oui, le script copie les fichiers `testst1*` du répertoire de soumission vers le répertoire temporaire (`$SLURM_TMPDIR`) avant de démarrer la tâche de redémarrage."
-    },
-    {
-      "question": "Quelle est la différence dans la commande Abaqus entre les versions 2021 et 2026 ou plus récentes dans les scripts pour répertoire temporaire?",
-      "answer": "Pour la version 2021, la commande Abaqus est précédée de `/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare --fork --pid --mount-proc --user --map-user $USER \\`. Cette partie n'est pas présente pour Abaqus 2026 et les versions subséquentes."
-    },
-    {
-      "question": "Pourquoi la mémoire dans la commande Abaqus est-elle spécifiée comme `$((${SLURM_MEM_PER_NODE}-3072))MB`?",
-      "answer": "Cette valeur ajuste la mémoire totale allouée au nœud (`$SLURM_MEM_PER_NODE`) en déduisant 3072 Mo. C'est une surallocation prudente pour éviter que Abaqus n'utilise toute la mémoire disponible et cause des problèmes de performance ou des arrêts à cause d'un manque de mémoire."
-    },
-    {
-      "question": "Quelle est l'option de parallélisation utilisée par défaut dans les commandes Abaqus des scripts de répertoire temporaire pour un nœud simple?",
-      "answer": "L'option `mp_mode=threads` est utilisée, ce qui indique une parallélisation avec des fils (threads)."
+      "question": "Si une tâche Abaqus a été interrompue et qu'on utilise un script de redémarrage pour un répertoire temporaire (`scriptst2.txt`), comment doit-on préparer le fichier en entrée pour la relancer?",
+      "answer": "Pour redémarrer une tâche Abaqus en utilisant un script de redémarrage pour répertoire temporaire (comme `scriptst2.txt`), le fichier en entrée pour le redémarrage (par exemple, `mystd-sim-restart.inp`) doit simplement contenir les lignes `*HEADING` et `*RESTART, READ`. Aucune autre modification n'est requise dans ce fichier spécifique pour la relance."
     }
   ],
-  "generated_at": "2026-04-11T15:37:17.131106+00:00"
+  "generated_at": "2026-04-13T00:50:47.213869+00:00"
 }

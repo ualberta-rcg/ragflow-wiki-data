@@ -3,69 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of this page?",
-      "answer": "This page provides guidance on submitting jobs to clusters for users already familiar with job scheduling and job scripts."
+      "question": "What is the primary purpose of the \"Submitting jobs\" page on Alliance clusters?",
+      "answer": "This page provides guidance on submitting jobs to Alliance clusters for users already familiar with job scheduling and job scripts."
     },
     {
-      "question": "Which job scheduler is used on the clusters, and what is the fundamental rule for submitting jobs?",
-      "answer": "The Slurm Workload Manager is used, and all jobs must be submitted via the scheduler, with exceptions only for tasks consuming less than 10 CPU-minutes and 4 gigabytes of RAM."
+      "question": "Which job scheduler is used on Alliance clusters?",
+      "answer": "The Slurm Workload Manager is used as the job scheduler on Alliance clusters."
     },
     {
-      "question": "What command is used to submit a job to the Slurm scheduler?",
-      "answer": "The `sbatch` command is used to submit jobs, typically with a job script."
+      "question": "What is the mandatory method for submitting most jobs on Alliance clusters?",
+      "answer": "All jobs must be submitted via the scheduler, with exceptions for compilation and other tasks not expected to consume more than about 10 CPU-minutes and 4 gigabytes of RAM, which may run on a login node."
     },
     {
-      "question": "What are the minimum requirements for directives in a Slurm job script?",
-      "answer": "You must supply at least a time limit (`--time`) for each job, and often an account name (`--account`)."
+      "question": "Which command is used to submit a job to the Slurm scheduler on Alliance clusters?",
+      "answer": "The `sbatch` command is used to submit a job to the Slurm scheduler."
     },
     {
-      "question": "How can users specify job directives, and what is the order of precedence?",
-      "answer": "Directives can be in the job script prefixed with `#SBATCH` or as command-line arguments to `sbatch`. Command-line arguments override script directives, which in turn override environment variables like `SBATCH_ACCOUNT`."
+      "question": "What are the minimum required directives in a Slurm job script on Alliance clusters?",
+      "answer": "Users must supply at least a time limit (`--time`) for each job, and may also need to supply an account name (`--account`)."
     },
     {
-      "question": "How is memory requested in a Slurm job script, and what is the default on general-purpose (GP) clusters?",
-      "answer": "Memory can be requested with `--mem-per-cpu` or `--mem`. On GP clusters, the default is 256 MB per core."
+      "question": "How can users request memory for their jobs on general-purpose (GP) clusters and Trillium within Alliance?",
+      "answer": "On general-purpose clusters, memory can be requested with `--mem-per-cpu` (memory per core) or `--mem` (memory per node). On Trillium, memory specification is not required as whole nodes and all available memory are allocated."
     },
     {
-      "question": "What is the command to list a user's own jobs, and what are the two most common job states?",
-      "answer": "The `sq` command lists only your own jobs. The two most common states are 'PD' for pending and 'R' for running."
+      "question": "How can a user check the status of their own jobs on Alliance clusters?",
+      "answer": "Users can use the `sq` command to list only their own jobs, or `squeue` (which lists all jobs) with appropriate filtering."
     },
     {
-      "question": "Where does job output go by default?",
-      "answer": "By default, output is placed in a file named `slurm-jobID.out` in the directory from which the job was submitted."
+      "question": "Where does the output of a Slurm job go by default on Alliance clusters?",
+      "answer": "By default, job output is placed in a file named \"slurm-\", suffixed with the job ID number and \".out\" (e.g., `slurm-123456.out`), in the directory from which the job was submitted."
     },
     {
-      "question": "Why is it necessary to specify an account name for a job, and how can a user find their account name?",
-      "answer": "Every job must have an associated account name corresponding to a Resource Allocation Project (RAP). Users can find their group name, which serves as the account name, by logging into CCDB and checking 'My Projects -> My Resources and Allocations'."
+      "question": "What is a Resource Allocation Project (RAP) and how does it relate to submitting jobs on Alliance clusters?",
+      "answer": "Every job must have an associated account name corresponding to a Resource Allocation Project (RAP), which defines the computational resources allocated to a user or group."
     },
     {
-      "question": "What is an array job, and how is it useful for submitting multiple related tasks?",
-      "answer": "An array job (or task array) allows submitting a set of jobs with one command, where individual jobs are distinguished by the `$SLURM_ARRAY_TASK_ID` environment variable, ideal for parametric studies or repeated tasks."
+      "question": "How can a user find the correct account name to use with the `--account` directive for a Resource Allocation Project on Alliance clusters?",
+      "answer": "Users can log in to CCDB (ccdb.alliancecan.ca), navigate to \"My Projects -> My Resources and Allocations\", and find the string under the \"Group Name\" column for their project."
     },
     {
-      "question": "How do you request resources for an OpenMP or threaded job?",
-      "answer": "For an OpenMP job, you typically use the `--cpus-per-task` directive to request multiple cores for a single process and set the `OMP_NUM_THREADS` environment variable to `$SLURM_CPUS_PER_TASK`."
+      "question": "What is an array job and how does it function on Alliance clusters?",
+      "answer": "An array job (or task array) allows users to submit a whole set of jobs with one command, where individual jobs are distinguished by the `$SLURM_ARRAY_TASK_ID` environment variable."
     },
     {
-      "question": "When are interactive jobs useful, and what command is used to start one?",
-      "answer": "Interactive jobs are useful for data exploration, interactive console tools, or significant software development/debugging. The `salloc` command is used to start an interactive session."
+      "question": "When might users use an interactive job on Alliance clusters, and how can they start one?",
+      "answer": "Interactive jobs are useful for data exploration at the command line, interactive console tools, or significant software development/debugging. They can be started using the `salloc` command."
     },
     {
-      "question": "How can a user cancel a running or pending job?",
-      "answer": "The `scancel` command is used to cancel jobs, either by job ID (e.g., `scancel <jobid>`) or all jobs for a user (e.g., `scancel -u $USER`)."
+      "question": "How can a user cancel a running or pending job on Alliance clusters?",
+      "answer": "Users can cancel a job using the `scancel` command followed by the job ID, or `scancel -u $USER` to cancel all their jobs."
     },
     {
-      "question": "What are two recommended methods for automatically restarting long-running computations that use checkpointing?",
-      "answer": "Two recommended methods are using Slurm job arrays with a fixed number of restarts or implementing resubmission from the end of the job script itself, provided the application supports checkpointing."
+      "question": "What are the two recommended methods for automatically restarting long-running computations on Alliance clusters that require checkpointing?",
+      "answer": "The two recommended methods are using Slurm job arrays or resubmitting from the end of the job script itself."
     },
     {
-      "question": "What is a common cause of issues with job scripts prepared on Windows, and how can it be resolved?",
-      "answer": "Hidden characters due to Windows end-of-line characters are a common issue. It can be resolved by using `dos2unix` after uploading the script to the cluster."
+      "question": "What is the purpose of including `module purge` in a job script on Alliance clusters?",
+      "answer": "Including `module purge` in a job script ensures a consistent state for each job submission by clearing inherited environment variables from the submitting shell, preventing potential issues with module loading."
     },
     {
-      "question": "What troubleshooting step is recommended to prevent environment variable inheritance from affecting job scripts?",
-      "answer": "It is best to include the line `module purge` in your job script before loading required modules to ensure a consistent state, or use the `--export=none` directive when submitting jobs."
+      "question": "Why might a job appear to hang or produce incomplete output on Alliance clusters?",
+      "answer": "This can be due to aggressive output buffering performed by the Slurm scheduler, which aggregates many output lines before flushing them to the log file, often only writing after the job completes."
+    },
+    {
+      "question": "What are the job duration and quantity limits for clusters like Beluga, Fir, Narval, Nibi, and Rorqual on Alliance?",
+      "answer": "On these clusters, no jobs are permitted longer than 168 hours (7 days), there is a limit of 1000 queued and running jobs per user, and production jobs should have a duration of at least an hour."
     }
   ],
-  "generated_at": "2026-04-12T18:23:42.389244+00:00"
+  "generated_at": "2026-04-13T12:50:06.802354+00:00"
 }

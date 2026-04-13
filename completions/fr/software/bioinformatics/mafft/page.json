@@ -3,45 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi MAFFT, puis à quoi ça sert?",
-      "answer": "MAFFT est un programme d'alignement de séquences multiples conçu pour les systèmes d'exploitation de type Unix."
+      "question": "Qu'est-ce que MAFFT et à quoi sert ce programme d'alignement?",
+      "answer": "MAFFT est un programme d'alignement de séquences multiples conçu pour des systèmes d'exploitation comme Unix."
     },
     {
-      "question": "Quelles sont les différentes méthodes d'alignement que MAFFT propose, et pour quels cas?",
-      "answer": "MAFFT offre plusieurs méthodes, comme une option précise pour environ 200 séquences et FFT-NS-2 qui est plus rapide pour aligner jusqu'à 30 000 séquences."
+      "question": "Quelles sont quelques-unes des méthodes d'alignement offertes par le programme MAFFT?",
+      "answer": "MAFFT offre des méthodes d'alignement précis pour environ 200 séquences et la méthode FFT-NS-2 rapide pour environ 30 000 séquences."
     },
     {
-      "question": "Comment est-ce que MAFFT utilise les ressources quand on le fait rouler sur un seul nœud?",
-      "answer": "Sur un nœud unique, MAFFT est capable de profiter des multiples cœurs disponibles pour ses calculs."
+      "question": "Est-ce que MAFFT peut utiliser plusieurs cœurs sur un seul nœud pour améliorer la performance?",
+      "answer": "Oui, MAFFT peut profiter des cœurs multiples sur des nœuds uniques."
     },
     {
-      "question": "Quelle est la variable d'environnement qui gère le répertoire temporaire pour MAFFT, puis quelle est sa valeur par défaut?",
-      "answer": "La variable MAFFT_TMPDIR est fixée à `$SLURM_TMPDIR/maffttmp` par défaut au moment de charger le module."
+      "question": "À quelle valeur est fixée la variable d'environnement `MAFFT_TMPDIR` lors du chargement du module MAFFT?",
+      "answer": "Au chargement du module MAFFT, la variable d'environnement `MAFFT_TMPDIR` est fixée à `$SLURM_TMPDIR/maffttmp`."
     },
     {
-      "question": "Quels modules faut-il charger pour lancer un calcul MAFFT sur un nœud unique, tel que montré dans l'exemple?",
-      "answer": "Il faut charger les modules `gcc/9.3.0` et `mafft`."
+      "question": "Quels modules sont typiquement chargés avant d'exécuter MAFFT sur un seul nœud, tel que montré dans l'exemple de script?",
+      "answer": "Les modules `gcc/9.3.0` et `mafft` sont typiquement chargés avant d'exécuter MAFFT sur un seul nœud."
     },
     {
-      "question": "Est-ce que MAFFT peut être utilisé pour l'alignement de séquences sur plusieurs nœuds?",
-      "answer": "Oui, MAFFT peut utiliser l'interface MPI pour l'alignement d'un grand nombre de séquences en tirant parti de plusieurs nœuds."
+      "question": "Comment spécifie-t-on le nombre de cœurs CPU pour une tâche MAFFT sur un nœud unique dans un script Slurm?",
+      "answer": "On utilise l'option Slurm `#SBATCH --cpus-per-task=` et on passe la variable `$SLURM_CPUS_PER_TASK` à l'option `--thread` de MAFFT."
     },
     {
-      "question": "Si on modifie le répertoire temporaire pour un travail MAFFT en mode MPI, quelle est l'affaire à considérer?",
-      "answer": "Si le répertoire temporaire est modifié, il faut s'assurer qu'il est partagé par tous les hôtes qui participent au calcul."
+      "question": "MAFFT peut-il utiliser plusieurs nœuds pour l'alignement de séquences très nombreuses?",
+      "answer": "Oui, MAFFT peut utiliser MPI (Message Passing Interface) pour aligner un grand nombre de séquences sur plusieurs nœuds."
     },
     {
-      "question": "Quels modules doit-on charger pour utiliser MAFFT en mode MPI?",
-      "answer": "Pour le mode MPI, il faut charger les modules `gcc/9.3.0` et `mafft-mpi`."
+      "question": "Quelle est la considération importante si le répertoire temporaire (`MAFFT_TMPDIR`) est modifié pour une exécution MAFFT avec MPI?",
+      "answer": "Si le répertoire temporaire est changé pour une exécution MPI, il devra être partagé par tous les hôtes impliqués dans le calcul."
     },
     {
-      "question": "Quelle est la commande de base pour exécuter MAFFT sur un nœud unique en utilisant tous les cœurs alloués?",
-      "answer": "La commande est `mafft --globalpair --thread $SLURM_CPUS_PER_TASK input > output`."
+      "question": "Quel module spécifique doit être chargé pour exécuter MAFFT avec MPI sur plusieurs nœuds?",
+      "answer": "Le module `mafft-mpi` doit être chargé pour utiliser MAFFT avec MPI."
     },
     {
-      "question": "Comment lance-t-on MAFFT en mode MPI avec la commande `srun`?",
-      "answer": "On lance la commande `srun mafft --mpi --large --globalpair --thread $SLURM_CPUS_PER_TASK input > output`."
+      "question": "Quelles sont les options Slurm typiques pour demander des ressources (nœuds, tâches par nœud, cœurs par tâche, mémoire) pour une exécution MAFFT MPI sur deux nœuds?",
+      "answer": "Les options typiques incluent `#SBATCH --nodes=2`, `#SBATCH --ntasks-per-node=4`, `#SBATCH --cpus-per-task=1` et `#SBATCH --mem=12G`."
+    },
+    {
+      "question": "Comment lance-t-on une commande MAFFT pour qu'elle utilise MPI dans un script Slurm?",
+      "answer": "On utilise la commande `srun mafft --mpi ...` et on doit inclure l'option `--mpi` pour MAFFT."
+    },
+    {
+      "question": "Comment spécifie-t-on l'option de paire globale et le nombre de threads à MAFFT lors de son exécution?",
+      "answer": "On utilise l'option `--globalpair` pour une paire globale et l'option `--thread` suivie du nombre de threads désiré."
+    },
+    {
+      "question": "Comment redirige-t-on l'entrée d'un fichier et la sortie vers un autre fichier pour une commande MAFFT dans un script bash?",
+      "answer": "L'entrée est redirigée avec `input` et la sortie est dirigée vers un fichier avec `> output`."
+    },
+    {
+      "question": "Quelle est une durée typique allouée à un travail MAFFT sur un nœud unique dans un script Slurm, selon l'exemple fourni?",
+      "answer": "Une durée typique allouée est `#SBATCH --time=24:00:00`."
+    },
+    {
+      "question": "Quelle est une allocation mémoire typique par nœud pour un travail MAFFT MPI, telle que spécifiée dans un script Slurm?",
+      "answer": "Une allocation mémoire typique est `#SBATCH --mem=12G`."
     }
   ],
-  "generated_at": "2026-04-12T01:11:30.848188+00:00"
+  "generated_at": "2026-04-13T08:16:52.540996+00:00"
 }

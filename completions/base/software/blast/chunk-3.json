@@ -4,33 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How many tasks are specified for the job array?",
-      "answer": "There are 10 tasks specified, ranging from 0 to 9."
+      "question": "What is the purpose of the `--array=0-9` directive in a Slurm job script when running a BLAST search?",
+      "answer": "The `--array=0-9` directive in a Slurm job script creates a job array with 10 tasks, indexed from 0 to 9. This allows for data parallelism, where each task can process a portion of the overall BLAST search."
     },
     {
-      "question": "Which software modules are loaded before running the BLAST tasks in the array?",
-      "answer": "The `gcc/7.3.0` and `blast+/2.9.0` modules are loaded."
+      "question": "Which specific software modules are loaded before executing the BLAST command within a Slurm job array task?",
+      "answer": "Before executing the BLAST command within a Slurm job array task, the `gcc/7.3.0` and `blast+/2.9.0` modules are loaded."
     },
     {
-      "question": "How is the `blastn` command structured to run a query for each task in the array?",
-      "answer": "The `blastn` command is `blastn -db ref.fa -query seq.fa.${SLURM_ARRAY_TASK_ID}`."
-    },
-    {
-      "question": "What is the role of `$SLURM_ARRAY_TASK_ID` in the `blastn` command within the job array?",
-      "answer": "`$SLURM_ARRAY_TASK_ID` is used to provide the index of the current task, allowing the command to reference the corresponding query file (e.g., `seq.fa.0`) and direct output to a specific result file (e.g., `seq.ref.0`)."
-    },
-    {
-      "question": "What is the name of the database used for the `blastn` search in the array job?",
-      "answer": "The `ref.fa` database is used for the `blastn` search."
-    },
-    {
-      "question": "How are the results of each individual `blastn` task saved?",
-      "answer": "The results of each `blastn` task are saved to a file named `seq.ref.${SLURM_ARRAY_TASK_ID}`, where `${SLURM_ARRAY_TASK_ID}` indicates the specific task's index."
-    },
-    {
-      "question": "What specific version of BLAST+ is loaded for use in the array job?",
-      "answer": "BLAST+ version `2.9.0` is loaded for use in the array job."
+      "question": "How does a BLAST job array task identify and use its unique query file for processing?",
+      "answer": "Each BLAST job array task identifies and uses its unique query file by incorporating the `$SLURM_ARRAY_TASK_ID` variable into the filename. For instance, a query file might be named `seq.fa.${SLURM_ARRAY_TASK_ID}`, ensuring each task processes a distinct part of the data."
     }
   ],
-  "generated_at": "2026-04-11T18:20:59.523413+00:00"
+  "generated_at": "2026-04-13T02:49:06.303893+00:00"
 }

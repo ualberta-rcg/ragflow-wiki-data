@@ -4,89 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Which convenience wrapper script allows for certain Slurm commands like `squeue` and `sbatch`?",
-      "answer": "The convenience wrapper script `/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/slurm_commands.sh` allows some Slurm commands, such as `squeue` and `sbatch`."
+      "question": "What are the required constraints for an SSH key to be accepted on an automation node, and can you provide an example of such a key for transferring files?",
+      "answer": "Accepted SSH keys for automation nodes must include the `restrict`, `from=\"pattern-list\"`, and `command=\"COMMAND\"` constraints. For instance, an SSH key specifically configured for file transfers (like `scp`, `sftp`, or `rsync`) would look like this: `restrict,from=\"216.18.209.*\",command=\"/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/transfer_commands.sh\" ssh-ed25519 AAAAC3NzaC1lZDI1NTE6AACAIExK9iTTDGsyqKKzduA46DvIJ9oFKZ/WN5memqG9Invw`. These constraints must be added directly as text in front of your key before uploading it to your CCDB account."
     },
     {
-      "question": "Which convenience wrapper script provides access to all common actions, including file transfers, archiving, and Slurm commands?",
-      "answer": "The convenience wrapper script `/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/allowed_commands.sh` allows all of the common actions mentioned."
+      "question": "Where can I find the hostnames for automation nodes used for unattended connections on each cluster?",
+      "answer": "The hostnames for automation nodes used for unattended connections are specific to each cluster: Fir uses `robot.fir.alliancecan.ca`, Narval uses `robot.narval.alliancecan.ca`, Nibi uses `robot.nibi.alliancecan.ca`, Rorqual uses `robot.rorqual.alliancecan.ca`, tamIA uses `robot.tamia.ecpia.ca`, and Trillium uses `robot2.scinet.utoronto.ca`."
     },
     {
-      "question": "What is a mandatory requirement for an SSH key to be accepted for an automation node?",
-      "answer": "Accepted SSH keys must include all three of the specified constraints."
-    },
-    {
-      "question": "Can you provide an example of an SSH key string specifically configured for file transfers like `scp` or `rsync`?",
-      "answer": "An example of an accepted SSH key for file transfers is: `restrict,from=\"216.18.209.*\",command=\"/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/transfer_commands.sh\" ssh-ed25519 AAAAC3NzaC1lZDI1NTE6AACAIExK9iTTDGsyqKKzduA46DvIJ9oFKZ/WN5memqG9Invw`."
-    },
-    {
-      "question": "What would an accepted SSH key string look like if it only allowed Slurm commands such as `squeue` or `sbatch`?",
-      "answer": "An example of an accepted SSH key for Slurm commands is: `restrict,from=\"216.18.209.*\",command=\"/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/slurm_commands.sh\" ssh-ed25519 AAAAC3NzaC1lZDI1NTE6AACAIExK9iTTDGsyqKKzduA46DvIJ9oFKZ/WN5memqG9Invw`."
-    },
-    {
-      "question": "How should constraints be applied to an SSH key before it is uploaded to the CCDB?",
-      "answer": "The constraints must be added directly as text in front of your key, before uploading the complete string to your account in the CCDB."
-    },
-    {
-      "question": "What is the hostname for the automation node on the Fir cluster?",
-      "answer": "The hostname for the automation node on the Fir cluster is `robot.fir.alliancecan.ca`."
-    },
-    {
-      "question": "What is the hostname for the automation node on the Narval cluster?",
-      "answer": "The hostname for the automation node on the Narval cluster is `robot.narval.alliancecan.ca`."
-    },
-    {
-      "question": "What is the hostname for the automation node on the Nibi cluster?",
-      "answer": "The hostname for the automation node on the Nibi cluster is `robot.nibi.alliancecan.ca`."
-    },
-    {
-      "question": "What is the hostname for the automation node on the Rorqual cluster?",
-      "answer": "The hostname for the automation node on the Rorqual cluster is `robot.rorqual.alliancecan.ca`."
-    },
-    {
-      "question": "What is the hostname for the automation node on the tamIA cluster?",
-      "answer": "The hostname for the automation node on the tamIA cluster is `robot.tamia.ecpia.ca`."
-    },
-    {
-      "question": "What is the hostname for the automation node on the Trillium cluster?",
-      "answer": "The hostname for the automation node on the Trillium cluster is `robot2.scinet.utoronto.ca`."
-    },
-    {
-      "question": "How do you specify a specific private key when using the `ssh` or `scp` commands?",
-      "answer": "You can specify a private key using the `-i` parameter, for example: `ssh -i .ssh/private_key_to_use ...` or `scp -i .ssh/private_key_to_use ...`."
-    },
-    {
-      "question": "How can you specify a particular private key to use with the `rsync` command?",
-      "answer": "With `rsync`, you specify the private key by passing an `ssh` command with the `-i` parameter to `rsync`'s `-e` option, like: `rsync -e \"ssh -i .ssh/private_key_to_use\" ...`."
-    },
-    {
-      "question": "How can you configure your `~/.ssh/config` file for convenient use with an automation node?",
-      "answer": "You can add a host entry in your `~/.ssh/config` file, such as: `host robot\n hostname robot.cluster.alliancecan.ca\n user myrobot\n identityfile ~/.ssh/my-robot-key\n identitiesonly yes\n requesttty no`."
-    },
-    {
-      "question": "If you have configured `robot` in your `~/.ssh/config` file, how would you use `ssh` to execute a command or `rsync` to transfer files?",
-      "answer": "With `robot` configured in `~/.ssh/config`, you can use commands like `ssh robot /usr/bin/ls` or `rsync -a datadir/a robot:scratch/testdata`."
-    },
-    {
-      "question": "What kind of IP addressing issue might occur when connecting to an automation node, especially in a Windows environment?",
-      "answer": "When connecting to an automation node, the SSH client on your computer may choose to use IPv6 addressing over IPv4, which can be an issue if the `restrict,from=` field in your SSH key specifies an IPv4 address mask that doesn't match."
-    },
-    {
-      "question": "Where can users check their IPv4 and IPv6 addresses?",
-      "answer": "Users can check their IPv4 and IPv6 addresses using the website https://test-ipv6.com/."
-    },
-    {
-      "question": "What is an example format for an IPv4 address?",
-      "answer": "An IPv4 address could look like `199.241.166.5`."
-    },
-    {
-      "question": "What is an example format for an IPv6 address?",
-      "answer": "An IPv6 address could look like `2620:123:7002:4::5`."
-    },
-    {
-      "question": "What happens if an SSH key uses an IPv4 address mask like `199.241.166.*` in the CCDB but the SSH client connects via IPv6?",
-      "answer": "If an IPv4 address mask like `199.241.166.*` is used in the CCDB SSH key and the SSH client connects using an IPv6 address, the source address will not match the mask in the key, and the key will not be accepted by the automation node."
+      "question": "What is the potential issue with IPv4 and IPv6 addressing when connecting to an automation node, and how does it affect SSH key authentication?",
+      "answer": "When connecting to an automation node, your SSH client might use IPv6 addressing instead of IPv4, especially in a Windows environment. If your SSH key, uploaded to CCDB, has a `restrict,from=` constraint with an IPv4 address mask (e.g., `199.241.166.*`) but your SSH client connects using an IPv6 address (e.g., `2620:123:7002:4::5`), the source IP address will not match the mask in the key, causing the key to be rejected by the automation node."
     }
   ],
-  "generated_at": "2026-04-11T18:08:00.792034+00:00"
+  "generated_at": "2026-04-13T02:39:10.222341+00:00"
 }

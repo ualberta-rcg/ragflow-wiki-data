@@ -4,41 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "C'est quoi l'avantage d'utiliser le répertoire temporaire `SLURM_TMPDIR` pour des fichiers temporaires pendant l'exécution d'une tâche?",
-      "answer": "L'avantage, c'est que la performance est meilleure parce que le répertoire se trouve localement sur le nœud de calcul."
+      "question": "Pour quelle raison est-ce qu'on utiliserait la variable d'environnement `$SLURM_TMPDIR` lors de l'exécution d'une tâche de calcul, et quelles sont les caractéristiques de cet espace de stockage temporaire?",
+      "answer": "La variable d'environnement `$SLURM_TMPDIR` donne le chemin unique vers un répertoire temporaire situé sur un système de fichiers local rapide sur chacun des nœuds de calcul réservés pour une tâche. Ce répertoire est supprimé avec son contenu quand la tâche se termine, et il est recommandé pour les fichiers temporaires utilisés durant l'exécution, surtout les grandes collections de petits fichiers (moins de 1 Mo), car il offre une meilleure performance grâce à sa localisation locale sur le nœud."
     },
     {
-      "question": "Quand est-ce que le répertoire `SLURM_TMPDIR` est supprimé?",
-      "answer": "Le répertoire `SLURM_TMPDIR` est supprimé avec tout son contenu quand la tâche se termine."
-    },
-    {
-      "question": "Pour quel genre de fichiers le répertoire `SLURM_TMPDIR` est-il particulièrement utile?",
-      "answer": "Il est particulièrement utile pour les grandes collections de petits fichiers, en bas de 1 Mo par fichier."
-    },
-    {
-      "question": "Comment est gérée la capacité de l'espace `SLURM_TMPDIR` sur les nœuds de calcul?",
-      "answer": "Les tâches partagent cet espace sur chaque nœud, pis la capacité disponible dépend des caractéristiques techniques de chaque nœud."
-    },
-    {
-      "question": "Que montre la commande `diskusage_report` pour les répertoires `home` pis `scratch`?",
-      "answer": "Pour les répertoires `home` pis `scratch`, la commande `diskusage_report` donne l'utilisation de l'espace pis des inodes pour chaque utilisateur."
-    },
-    {
-      "question": "Que montre la commande `diskusage_report` pour l'espace `/project`?",
-      "answer": "Pour l'espace `/project`, la commande `diskusage_report` donne plutôt le quota total du groupe, incluant tous les fichiers des membres."
-    },
-    {
-      "question": "Pourquoi c'est difficile d'obtenir la quantité exacte de fichiers par utilisateur dans l'espace `project`?",
-      "answer": "C'est difficile parce que les fichiers d'un utilisateur peuvent être n'importe où dans `project`, pis qu'un utilisateur peut avoir accès à plusieurs projets."
-    },
-    {
-      "question": "Quelle commande peut servir à avoir une estimation de l'utilisation de l'espace pis des inodes par un utilisateur dans l'espace `project` total?",
-      "answer": "On peut utiliser la commande `lfs quota -u $USER /project` pour ça."
-    },
-    {
-      "question": "Comment faire pour estimer le nombre de fichiers dans un répertoire et ses sous-répertoires dans l'espace `project`?",
-      "answer": "On peut faire une estimation avec la commande `lfs find <chemin du répertoire> -type f | wc -l`."
+      "question": "Comment un utilisateur peut-il obtenir une estimation de sa consommation d'espace et du nombre d'inodes dans l'espace `/project` sur les grappes de calcul?",
+      "answer": "Puisque la commande `diskusage_report` indique le quota total du groupe pour l'espace `/project`, un utilisateur peut obtenir une estimation de son utilisation personnelle de l'espace et des inodes en utilisant la commande `lfs quota -u $USER /project`. Pour estimer la quantité de fichiers dans un répertoire (et ses sous-répertoires), on peut employer la commande `lfs find <chemin du répertoire> -type f | wc -l`."
     }
   ],
-  "generated_at": "2026-04-12T08:28:08.893974+00:00"
+  "generated_at": "2026-04-13T13:54:04.253943+00:00"
 }

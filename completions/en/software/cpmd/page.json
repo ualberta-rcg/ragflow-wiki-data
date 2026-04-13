@@ -3,49 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is CPMD used for?",
-      "answer": "CPMD is a plane wave/pseudo-potential DFT code utilized for ab initio molecular dynamics simulations."
+      "question": "What is the primary function of CPMD software on Alliance clusters?",
+      "answer": "CPMD is a plane wave/pseudo-potential DFT code used for ab initio molecular dynamics simulations."
     },
     {
-      "question": "How do users gain access to CPMD on the clusters?",
-      "answer": "Users must send a support request to be added to a specific POSIX group to access CPMD on the clusters."
+      "question": "What is the initial requirement for users to access CPMD software on Alliance clusters?",
+      "answer": "Users must send a support request to be added to the specific POSIX group that grants access to the CPMD software."
     },
     {
-      "question": "Is online registration with CPMD developers still required to use the software?",
-      "answer": "No, registration on the CPMD website is no longer needed, but access on clusters remains protected by a POSIX group."
+      "question": "Which specific modules need to be loaded to use the centrally installed CPMD version 4.3 on Alliance clusters?",
+      "answer": "Users need to load `StdEnv/2020`, `intel/2020.1.217`, `openmpi/4.0.3`, and `cpmd/4.3`."
     },
     {
-      "question": "Which modules need to be loaded to use CPMD 4.3 on the clusters?",
-      "answer": "To use CPMD 4.3, you need to load `StdEnv/2020`, `intel/2020.1.217`, `openmpi/4.0.3`, and `cpmd/4.3`."
+      "question": "Why might a registered CPMD user choose to perform a local installation of the software on an Alliance cluster?",
+      "answer": "A local installation is an option because obtaining source files from CPMD administrators can sometimes take weeks or months, allowing registered users to build the software themselves more quickly."
     },
     {
-      "question": "Under what circumstances might a user opt for a local installation of CPMD?",
-      "answer": "A user might choose a local installation if developer responses for access or support take a long time, sometimes weeks or months."
+      "question": "What is the first step in performing a local installation of CPMD on an Alliance cluster using EasyBuild?",
+      "answer": "The first step is to create a local directory, such as `~/.local/easybuild/sources/c/CPMD`, to store the necessary source files and patches."
     },
     {
-      "question": "Who is eligible to perform a local installation of CPMD?",
-      "answer": "Only registered CPMD users who have access to the CPMD source files can build the software locally."
+      "question": "What types of files are required to be placed in the local source directory for a successful EasyBuild installation of CPMD?",
+      "answer": "All CPMD source tarballs and patches, such as `cpmd-v4.3.tar.gz` and various `patch.to.XXXX` files, must be placed in the local source directory."
     },
     {
-      "question": "What tool is recommended for building CPMD locally in a user's home directory?",
-      "answer": "EasyBuild is the recommended software environment for building CPMD locally."
+      "question": "What is the EasyBuild command used to initiate a local installation of CPMD version 4.3 on an Alliance cluster?",
+      "answer": "The command is `eb CPMD-4.3-iomkl-2020a.eb --rebuild`."
     },
     {
-      "question": "What is the function of the `--rebuild` option when installing CPMD using EasyBuild?",
-      "answer": "The `--rebuild` option forces EasyBuild to ignore any centrally installed CPMD 4.3 and proceed with the installation in the user's home directory."
+      "question": "What is the purpose of the `--rebuild` option in the EasyBuild command when installing CPMD locally?",
+      "answer": "The `--rebuild` option forces EasyBuild to disregard any centrally installed CPMD 4.3 and proceed with the installation in the user's `/home` directory instead."
     },
     {
-      "question": "What are the essential files needed to run a CPMD job?",
-      "answer": "An input file and access to the pseudo-potentials are essential for running a CPMD job."
+      "question": "How can a user verify that their locally installed CPMD is being used after a successful EasyBuild installation?",
+      "answer": "After logging out and logging back in, loading the `cpmd` module and running `which cpmd.x` should show the path to the executable within the user's `~/.local/easybuild/software` directory."
     },
     {
-      "question": "How is a CPMD program executed in parallel if the input and pseudo-potentials are in the same directory?",
-      "answer": "It is executed using the command `srun cpmd.x <input files> > <output file>`."
+      "question": "What two essential components are needed to run a CPMD job using a submission script on an Alliance cluster?",
+      "answer": "An input file and access to the necessary pseudo-potentials are both required to run a CPMD job."
     },
     {
-      "question": "How can one specify a separate location for pseudo-potentials when running a CPMD job?",
-      "answer": "A separate location for pseudo-potentials can be specified with the command `srun cpmd.x <input files> <path to pseudo potentials location> > <output file>`."
+      "question": "What is the command to run a CPMD job in parallel if the input file and pseudo-potentials are in the same directory?",
+      "answer": "The command to run the program in parallel is `srun cpmd.x <input files> > <output file>`."
+    },
+    {
+      "question": "How can a user specify a different location for pseudo-potentials when running a CPMD job using `srun`?",
+      "answer": "Users can specify a different pseudo-potential location by including its path in the `srun` command: `srun cpmd.x <input files> <path to pseudo potentials location> > <output file>`."
+    },
+    {
+      "question": "What kind of information does a typical CPMD input file, like '1-h2-wave.inp', define for a simulation?",
+      "answer": "A typical input file defines simulation parameters such as wave function optimization, convergence criteria, system cell dimensions, cutoff energy, DFT functional, and atomic positions with associated pseudo-potential types."
+    },
+    {
+      "question": "What are the key elements included in a basic SLURM job script for running a CPMD simulation on an Alliance cluster?",
+      "answer": "Key elements include SBATCH directives for resource allocation (e.g., account, nodes, tasks, memory, time), module loading commands for the environment and CPMD, and the `srun` command to execute the CPMD program with specified input and output files."
+    },
+    {
+      "question": "Where can users find more general information about the CPMD software?",
+      "answer": "Users can find more general information on the official CPMD home page at cpmd.org."
     }
   ],
-  "generated_at": "2026-04-11T19:12:47.776722+00:00"
+  "generated_at": "2026-04-13T03:30:58.549107+00:00"
 }

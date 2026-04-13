@@ -4,61 +4,13 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "What is the recommended Slurm script for running a Fluent multinode job by core using Intel MPI?",
-      "answer": "The recommended script is `script-flu-bycore-intel.sh`, found under the 'Multinode (by core)' tab."
+      "question": "What are the essential Slurm directives and module loads required for submitting an Ansys Fluent batch job on Alliance clusters?",
+      "answer": "For an Ansys Fluent batch job, essential Slurm directives include specifying the account (`#SBATCH --account=def-group`), time limit (`#SBATCH --time=DD-HH:MM`), the number of compute nodes (`#SBATCH --nodes`), and the number of tasks per node or total tasks (`#SBATCH --ntasks-per-node` or `--ntasks`). Memory allocation must also be specified (`#SBATCH --mem` or `--mem-per-cpu`). It is crucial to load the standard environment (`module load StdEnv/2023`) and the desired Ansys module version (`module load ansys/2023R2` or newer). Additionally, users must define their journal file name (e.g., `MYJOURNALFILE=sample.jou`) and Fluent version (e.g., `MYVERSION=3d`)."
     },
     {
-      "question": "What are the default SBATCH directives for the `script-flu-bycore-intel.sh` script?",
-      "answer": "The default SBATCH directives for `script-flu-bycore-intel.sh` are: `--account=def-group`, `--time=00-03:00`, `--ntasks=16`, `--mem-per-cpu=4G`, and `--cpus-per-task=1`. The `--nodes=1` directive is commented out, but can be uncommented to specify a single node (up to a maximum of 1 node on Narval)."
-    },
-    {
-      "question": "Which modules should be loaded for the `script-flu-bycore-intel.sh` Fluent job?",
-      "answer": "The script specifies loading `StdEnv/2023` and `ansys/2023R2` (or newer versions). If the cluster is Narval, `intel/2023 intelmpi` modules are also loaded, and `INTELMPI_ROOT` is exported."
-    },
-    {
-      "question": "How does the `script-flu-bycore-intel.sh` script prepare the environment for Intel MPI on certain clusters?",
-      "answer": "If the cluster is Narval, it loads `intel/2023 intelmpi` and exports `INTELMPI_ROOT`. If the Ansys version is 2025 or newer on Nibi, or if it's Narval, it exports `I_MPI_HYDRA_BOOTSTRAP=ssh`."
-    },
-    {
-      "question": "How is the machine file created for a Fluent job using `script-flu-bycore-intel.sh`?",
-      "answer": "The machine file is created by running `slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/machinefile-$SLURM_JOB_ID`."
-    },
-    {
-      "question": "What Fluent command is used for a single-node job in `script-flu-bycore-intel.sh`?",
-      "answer": "For a single-node job, the command is `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`."
-    },
-    {
-      "question": "What Fluent command is used for a multinode job on the Nibi cluster in `script-flu-bycore-intel.sh`?",
-      "answer": "For a multinode job on the Nibi cluster, the command is `fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
-    },
-    {
-      "question": "What is the name of the journal file and the Fluent version specified in the `script-flu-bycore-intel.sh` script?",
-      "answer": "The journal file is `sample.jou` and the Fluent version is `3d` (which can be `2d`, `2ddp`, `3d`, or `3ddp`)."
-    },
-    {
-      "question": "What is the recommended Slurm script for running a Fluent multinode job by node specifically for Narval using Open MPI?",
-      "answer": "The recommended script is `script-flu-bynode-openmpi.sh`, found under the 'Multinode (by node, narval)' tab."
-    },
-    {
-      "question": "What are the SBATCH directives for the `script-flu-bynode-openmpi.sh` script?",
-      "answer": "The SBATCH directives for `script-flu-bynode-openmpi.sh` are: `--account=def-group`, `--time=00-03:00`, `--nodes=1` (specifying '1 or more' compute nodes), `--ntasks-per-node=64` (up to 64 cores per node on Narval), `--mem=0` (allocating all memory per compute node), and `--cpus-per-task=1`."
-    },
-    {
-      "question": "Which modules should be loaded for the `script-flu-bynode-openmpi.sh` Fluent job on Narval?",
-      "answer": "The script specifies loading `StdEnv/2023` and `ansys/2023R2` (or newer versions). It also exports `OPENMPI_ROOT=$EBROOTOPENMPI`."
-    },
-    {
-      "question": "How is the machine file for Open MPI generated in `script-flu-bynode-openmpi.sh`?",
-      "answer": "The machine file is initially created with `slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/mf-$SLURM_JOB_ID`. Then, a loop processes this temporary file to generate `/tmp/machinefile-$SLURM_JOB_ID` in a specific format compatible with Open MPI."
-    },
-    {
-      "question": "What Fluent command is used for a single-node Open MPI job in `script-flu-bynode-openmpi.sh`?",
-      "answer": "For a single-node Open MPI job, the command is `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pshmem -i $MYJOURNALFILE`."
-    },
-    {
-      "question": "What Fluent command is used for a multinode Open MPI job in `script-flu-bynode-openmpi.sh`?",
-      "answer": "For a multinode Open MPI job, the command is `export FI_PROVIDER=verbs` followed by `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
+      "question": "How do Ansys Fluent Slurm scripts differentiate between running a simulation on a single compute node versus multiple nodes, and what cluster-specific MPI settings are applied?",
+      "answer": "Ansys Fluent Slurm scripts use a conditional statement based on the `$SLURM_NNODES` variable to determine if the job is running on a single node or multiple nodes. For a single node (`$SLURM_NNODES == 1`), Fluent utilizes shared memory parallel (`-pshmem`). For multiple nodes, it employs distributed memory parallel, using either `-peth` for the Nibi cluster or `-pib` for other clusters, in conjunction with a machine file generated by the `slurm_hl2hl.py` utility. Cluster-specific MPI settings include loading `intel/2023 intelmpi` and exporting `I_MPI_HYDRA_BOOTSTRAP=ssh` for Narval. The `I_MPI_HYDRA_BOOTSTRAP=ssh` setting is also applied to Nibi clusters when running Ansys versions 2025 or newer."
     }
   ],
-  "generated_at": "2026-04-12T16:35:22.973348+00:00"
+  "generated_at": "2026-04-13T01:41:07.621217+00:00"
 }

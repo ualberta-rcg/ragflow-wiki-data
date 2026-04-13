@@ -3,85 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of this article regarding Hugging Face?",
-      "answer": "This article provides information and tutorials on how to use packages from the Hugging Face ecosystem on our clusters."
+      "question": "What is the main purpose of this article about Hugging Face on Alliance clusters?",
+      "answer": "This article provides information and tutorials on how to use popular open-source software packages from the Hugging Face ecosystem, such as Transformers, Datasets, Evaluate, and Accelerate, on Alliance clusters."
     },
     {
-      "question": "What is the Hugging Face organization?",
-      "answer": "Hugging Face is an organization that builds and maintains popular open-source software packages widely used in Artificial Intelligence research."
+      "question": "What is Hugging Face Transformers used for on Alliance clusters?",
+      "answer": "Hugging Face Transformers is a Python package that provides APIs and tools for easily downloading and training state-of-the-art models pre-trained on various tasks in multiple domains on Alliance clusters."
     },
     {
-      "question": "What is the Transformers package used for?",
-      "answer": "Transformers is a Python package that provides APIs and tools to easily download and train state-of-the-art models, pre-trained on various tasks in multiple domains."
+      "question": "How do you install Hugging Face Transformers in a virtual environment on Alliance clusters?",
+      "answer": "To install Hugging Face Transformers, you first load a Python module, then create and start a virtual environment, and finally use `pip install --no-index transformers` within that environment."
     },
     {
-      "question": "What are the recommended steps to install the Transformers package?",
-      "answer": "To install Transformers, first load a Python module, then create and start a virtual environment, and finally install it using `pip install --no-index transformers`."
+      "question": "Where should pre-trained Hugging Face models be downloaded on an Alliance cluster?",
+      "answer": "Pre-trained Hugging Face models must be downloaded on a login node of the cluster to avoid idle compute time while waiting for resources to download."
     },
     {
-      "question": "On which node should pre-trained models from the Hugging Face model hub be downloaded?",
-      "answer": "Pre-trained models must be downloaded on a login node to avoid idle compute resources while waiting for downloads."
+      "question": "What are the recommended methods for downloading pre-trained Hugging Face models on Alliance clusters?",
+      "answer": "Pre-trained Hugging Face models can be downloaded using Git LFS, the Hugging Face command-line interface (CLI), Python scripts, or by utilizing a Transformers pipeline."
     },
     {
-      "question": "How can one download pre-trained models using `git lfs`?",
-      "answer": "To download models using `git lfs`, load the `git-lfs` module and then clone the desired model repository from the Hugging Face model hub."
+      "question": "How can a downloaded Hugging Face model be loaded from disk within a job without an internet connection on Alliance clusters?",
+      "answer": "To load a downloaded model from disk in a job without internet, you must use the `local_files_only=True` option with `AutoModel.from_pretrained()` and `AutoTokenizer.from_pretrained()`, or specify the model and tokenizer location when using a pipeline."
     },
     {
-      "question": "When loading a model from local files in a Python script, what option should be used to prevent internet download attempts?",
-      "answer": "You should use the `local_files_only=True` option when calling `AutoModel.from_pretrained()` or `AutoTokenizer.from_pretrained()`."
+      "question": "How do you change the default cache directory for Hugging Face Transformers models on an Alliance cluster?",
+      "answer": "You can change the default cache directory for Hugging Face Transformers models by setting the `TRANSFORMERS_CACHE` environment variable before importing anything from the `transformers` package in your Python script."
     },
     {
-      "question": "What environment variable should be set when downloading models with the `huggingface_hub` CLI to prevent failures on the systems?",
-      "answer": "The `HF_HUB_DISABLE_XET` variable should be set to `1` (e.g., `HF_HUB_DISABLE_XET=1`) to avoid using the `hf_xet` package, which currently causes failures."
+      "question": "What is Hugging Face Datasets, and what is its primary function?",
+      "answer": "Hugging Face Datasets is a Python package designed for easily accessing and sharing datasets for Audio, Computer Vision, and Natural Language Processing (NLP) tasks."
     },
     {
-      "question": "Where are pre-trained models downloaded via Python stored by default, and how can this be changed?",
-      "answer": "Models are stored by default in `$HOME/.cache/huggingface/hub`. You can change this by setting the `TRANSFORMERS_CACHE` environment variable before importing from `transformers`."
+      "question": "What is a prerequisite for installing Hugging Face Datasets on Alliance clusters?",
+      "answer": "When installing Hugging Face Datasets, you need to load the Arrow module, as it makes the `pyarrow` package (a dependency of Datasets) available inside your virtual environment. This module must be loaded every time you intend to import the Datasets package."
     },
     {
-      "question": "What is the Datasets package primarily used for?",
-      "answer": "Datasets is a Python package for easily accessing and sharing datasets for Audio, Computer Vision, and Natural Language Processing (NLP) tasks."
+      "question": "How do you load a downloaded Hugging Face dataset in a job where there is no internet connection on an Alliance cluster?",
+      "answer": "To load a dataset in an offline job, set the environment variable `HF_DATASETS_OFFLINE=1` and specify the location of the cache directory where the dataset is stored when calling `load_dataset()`."
     },
     {
-      "question": "What module needs to be loaded when installing or using the Datasets package?",
-      "answer": "The Arrow module needs to be loaded to make the `pyarrow` package, a dependency of Datasets, available inside your virtual environment."
+      "question": "What is Hugging Face Evaluate, and what does it offer?",
+      "answer": "Evaluate is a library for easily evaluating machine learning models and datasets, providing access to dozens of evaluation methods for various domains with a single line of code."
     },
     {
-      "question": "How can a dataset be loaded in a job environment without an internet connection?",
-      "answer": "Set the environment variable `HF_DATASETS_OFFLINE=1` and specify the cache directory location when calling `load_dataset()`."
+      "question": "How do you prepare Hugging Face Evaluate for use in an offline job on an Alliance cluster?",
+      "answer": "Before submitting a job, you must download any evaluators you wish to use on a login node. Then, inside the job on compute nodes without internet, you must set the environment variable `HF_EVALUATE_OFFLINE=1`."
     },
     {
-      "question": "What is the Evaluate library designed to do?",
-      "answer": "Evaluate is a library for easily evaluating machine learning models and datasets, providing access to dozens of evaluation methods across different domains."
+      "question": "How can the default storage location for Hugging Face ecosystem libraries like Transformers, Datasets, and Evaluate be changed on an Alliance cluster?",
+      "answer": "The default storage location for all Hugging Face ecosystem libraries can be changed by pointing the environment variable `HF_HOME` to your desired storage location."
     },
     {
-      "question": "How are evaluators downloaded for the Evaluate package, and where should this occur?",
-      "answer": "Evaluators are downloaded by calling the `evaluate.load()` method on a login node, before submitting a job."
+      "question": "What is Hugging Face Accelerate designed for in PyTorch workflows?",
+      "answer": "Hugging Face Accelerate is a package that enables any PyTorch code to run across any distributed configuration by adding just four lines of code, making training and inference at scale simple, efficient, and adaptable."
     },
     {
-      "question": "What is the Accelerate package's main benefit for PyTorch code?",
-      "answer": "Accelerate enables any PyTorch code to run across any distributed configuration by adding just four lines of code, making training and inference at scale simple, efficient, and adaptable."
+      "question": "What are the common challenges when training Large Language Models (LLMs) on Alliance clusters, and how are they addressed?",
+      "answer": "Common challenges include LLMs being too large for a single GPU's memory and training sets having many small examples. These are addressed by sharding the LLM across multiple GPUs using `accelerate` and reading the dataset from the compute node's local storage (`$SLURM_TMPDIR`) instead of the parallel filesystem."
     },
     {
-      "question": "What is the primary goal of the Large Language Model (LLM) training tutorial?",
-      "answer": "The goal is to illustrate best practices for training LLMs using Hugging Face libraries on the clusters, maximizing infrastructure use and avoiding common pitfalls."
+      "question": "How is the Hugging Face Zephyr-7b-beta model downloaded for LLM training on an Alliance cluster?",
+      "answer": "The Zephyr-7b-beta model is downloaded on a login node to a project directory by loading the `git-lfs` module and then executing `git clone https://huggingface.co/HuggingFaceH4/zephyr-7b-beta`."
     },
     {
-      "question": "What two main factors might hinder LLM training performance, and what strategies are employed to overcome them?",
-      "answer": "Factors include models too large for a single GPU and datasets with many small examples. Strategies involve sharding the LLM across multiple GPUs using Accelerate (FSDP) and reading the dataset from the compute node's local storage."
+      "question": "What is the recommended approach for downloading the ultrachat_200k dataset for LLM training on an Alliance cluster, and where is it initially cached?",
+      "answer": "The ultrachat_200k dataset is downloaded on a login node using a Python script with `datasets.load_dataset()`. It is initially cached in a directory named `ultrachat_dataset` within the project space, with `HF_DATASETS_CACHE` set to this directory."
     },
     {
-      "question": "How is the `ultrachat_200k` dataset prepared for LLM training in the provided tutorial's Python script?",
-      "answer": "The dataset's `messages` are preprocessed by converting them into a chat-templated string using the tokenizer's `apply_chat_template` method."
-    },
-    {
-      "question": "Which Accelerate configuration strategy is used for sharding the LLM across multiple GPUs in the tutorial?",
-      "answer": "The tutorial uses a Fully Sharded Data Parallel (FSDP) strategy, configured via the `fsdp.yaml` file."
-    },
-    {
-      "question": "What is the recommended approach for accessing the `ultrachat_200k` dataset during LLM training jobs to improve performance?",
-      "answer": "The dataset should be copied to `$SLURM_TMPDIR` (the compute node's local storage) and then loaded from there, and stored in the node's memory afterwards."
+      "question": "Which `accelerate` configuration is used for sharding LLMs across multiple GPUs in the provided example on Alliance clusters?",
+      "answer": "The example uses a `Fully Sharded Data Parallel (FSDP)` strategy, configured via a `fsdp.yaml` file, with `accelerate launch` automatically applying this sharding without explicit code in the training script."
     }
   ],
-  "generated_at": "2026-04-11T23:43:38.029978+00:00"
+  "generated_at": "2026-04-13T07:04:22.740287+00:00"
 }

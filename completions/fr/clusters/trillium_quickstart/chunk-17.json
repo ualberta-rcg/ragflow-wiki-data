@@ -4,57 +4,13 @@
   "chunk_index": 17,
   "qa_pairs": [
     {
-      "question": "Quel type de tâche est illustré dans cet exemple de script?",
-      "answer": "Cet exemple illustre une tâche hybride qui combine MPI et OpenMP."
+      "question": "Comment soumettre une tâche hybride MPI/OpenMP sur la grappe Trillium et quelles directives Slurm principales faut-il inclure dans le script?",
+      "answer": "Pour soumettre une tâche hybride MPI/OpenMP, il faut d'abord se positionner dans votre répertoire `$SCRATCH` sur un nœud de connexion CPU, puis utiliser la commande `sbatch hybrid_job.sh` avec le nom de votre script. Le script doit inclure des directives Slurm telles que `#SBATCH --nodes=2` pour demander deux nœuds, `#SBATCH --ntasks-per-node=48` pour 48 tâches MPI par nœud, `#SBATCH --cpus-per-task=4` pour 4 cœurs par tâche, `#SBATCH --time=01:00:00` pour une durée d'une heure, ainsi qu'un nom de tâche et un fichier de sortie."
     },
     {
-      "question": "Quelle est la commande pour soumettre le script d'une tâche hybride MPI/OpenMP?",
-      "answer": "Il faut utiliser la commande `$ sbatch hybrid_job.sh` à partir de votre répertoire `$SCRATCH` sur un nœud de connexion."
-    },
-    {
-      "question": "Que signifie la première ligne `#!/bin/bash` dans le script de tâche hybride?",
-      "answer": "La première ligne `#!/bin/bash` indique qu'il s'agit d'un script bash."
-    },
-    {
-      "question": "Combien de nœuds et de tâches par nœud sont demandés par l'ordonnanceur pour cette tâche hybride?",
-      "answer": "L'ordonnanceur recherche deux nœuds pour exécuter chacun 48 tâches."
-    },
-    {
-      "question": "Combien de fils (threads) par tâche sont spécifiés pour cette tâche hybride?",
-      "answer": "Le script spécifie 4 fils par tâche (`--cpus-per-task=4`)."
-    },
-    {
-      "question": "Quel est le temps d'exécution demandé pour cette tâche hybride?",
-      "answer": "Le temps d'exécution demandé pour cette tâche est d'une heure (`--time=01:00:00`)."
-    },
-    {
-      "question": "Comment s'appelle le fichier de sortie de l'ordonnanceur pour cette tâche hybride?",
-      "answer": "Le fichier de sortie sera nommé `hybrid_output_%j.txt`, où `%j` sera remplacé par l'identifiant de la tâche."
-    },
-    {
-      "question": "Quels sont les modules chargés pour la tâche hybride dans cet exemple?",
-      "answer": "Les modules chargés sont `StdEnv/2023`, `gcc/12.3` et `openmpi/4.1.5`."
-    },
-    {
-      "question": "Quelle variable d'environnement OpenMP est configurée dans le script et à quelle valeur?",
-      "answer": "La variable `OMP_NUM_THREADS` est configurée avec la valeur de `$SLURM_CPUS_PER_TASK`, soit 4."
-    },
-    {
-      "question": "Pourquoi la ligne `source /scinet/vast/etc/vastpreload-openmpi.bash` est-elle importante dans un script MPI/OpenMP?",
-      "answer": "Cette ligne est importante pour optimiser MPI-IO pour le système de fichiers VAST. Il est aussi précisé que pour que ce préchargement fonctionne, il faut utiliser `mpirun` plutôt que `srun`."
-    },
-    {
-      "question": "Quelle commande exécute l'application principale de la tâche hybride?",
-      "answer": "L'application `hybrid_example` est exécutée avec la commande `mpirun --bind-to core --map-by ppr:$RANKS_PER_L3CACHE:l3cache:pe=$OMP_NUM_THREADS ./hybrid_example`."
-    },
-    {
-      "question": "Que fait l'option `--map-by` dans la commande `mpirun` de l'exemple hybride?",
-      "answer": "L'option `--map-by` distribue également les processus et les fils sur l'ensemble des cœurs."
-    },
-    {
-      "question": "Dans le cas où on utiliserait plus de 8 fils par processus pour une tâche hybride, comment devrait-on ajuster l'option `--map-by` de `mpirun`?",
-      "answer": "Si vous utilisez plus de 8 fils par processus mais au plus 24, il faut changer `l3cache` pour `numa`. Si vous utilisez plus de 24 fils par processus, il faut changer pour `socket`."
+      "question": "Une fois les nœuds alloués, quelles sont les étapes suivies par un script de tâche hybride MPI/OpenMP sur Trillium pour configurer l'environnement et lancer l'application?",
+      "answer": "Après l'allocation des nœuds, le script navigue vers le répertoire de soumission (`cd $SLURM_SUBMIT_DIR`), puis il charge les modules nécessaires comme `StdEnv/2023`, `gcc/12.3` et `openmpi/4.1.5`. Il configure ensuite les variables d'environnement OpenMP (`OMP_NUM_THREADS`, `OMP_PLACES`, `OMP_PROC_BIND`) et précharge la bibliothèque `vastpreload-openmpi.bash` pour optimiser MPI-IO. Enfin, il exécute l'application `hybrid_example` via `mpirun` en utilisant des options de liaison spécifiques (`--bind-to core --map-by`) pour une distribution efficace des processus et des fils sur les cœurs."
     }
   ],
-  "generated_at": "2026-04-12T09:51:08.125046+00:00"
+  "generated_at": "2026-04-13T15:00:16.614491+00:00"
 }

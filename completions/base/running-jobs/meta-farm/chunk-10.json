@@ -4,73 +4,13 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "What is the primary function of the `resubmit.run` command in the META package?",
-      "answer": "The `resubmit.run` command is used to analyze `status.*` files, identify cases that failed or never ran, create a new `table.dat_` file with only the cases needing to be rerun, and then launch a new farm to process those pending cases."
+      "question": "What is the purpose of the `resubmit.run` command in the META package, and when can it be used?",
+      "answer": "The `resubmit.run` command in the META package analyzes `status.*` files to identify cases that failed or never ran, such as due to metajob runtime limits. It then creates or overwrites a secondary `table.dat_` file listing only these outstanding cases and launches a new farm to process them. This command can only be executed once all jobs from the original farm run are either completed or killed."
     },
     {
-      "question": "What arguments does the `resubmit.run` command accept?",
-      "answer": "The `resubmit.run` command accepts the number of jobs to submit (`N`), an optional `-auto` switch for automatic resubmission, and other optional `sbatch` arguments, similar to the `submit.run` command."
-    },
-    {
-      "question": "When can a user execute the `resubmit.run` command?",
-      "answer": "A user can only execute `resubmit.run` once all jobs from the original farm run are either completed or have been killed."
-    },
-    {
-      "question": "Which command helps identify specific cases that have failed or did not run correctly?",
-      "answer": "The `Status.run` command (with a capital 'S') is used to display the statuses for all processed cases, which can help in identifying which ones failed or never ran."
-    },
-    {
-      "question": "How can the `Status.run` command assist in quickly finding cases with non-zero exit statuses?",
-      "answer": "By using the optional `-f` argument with `Status.run`, the output will be sorted by exit status, listing cases with non-zero statuses at the bottom for easier identification."
-    },
-    {
-      "question": "What is the purpose of the `-auto` switch when used with `resubmit.run`?",
-      "answer": "The `-auto` switch, when present, instructs the farm to automatically resubmit itself at the end, potentially multiple times, until all cases from `table.dat` have been successfully processed."
-    },
-    {
-      "question": "Do the functionalities of `resubmit.run` apply to both SIMPLE and META modes of operation?",
-      "answer": "Yes, the `resubmit.run` command and its features are applicable to both SIMPLE and META modes of the META package."
-    },
-    {
-      "question": "Under what conditions is SIMPLE mode generally suitable for running computations?",
-      "answer": "SIMPLE mode is suitable when the total number of cases is relatively small, typically less than 500, and each case runs for at least 20 minutes."
-    },
-    {
-      "question": "What are the common problems encountered when using SIMPLE mode for a very large number of cases?",
-      "answer": "When using SIMPLE mode for a very large number of cases, problems can include exceeding cluster limits on the number of jobs a user can have and wasting CPU cycles due to scheduling overheads, especially if individual cases run for less than 20 minutes."
-    },
-    {
-      "question": "What is META mode designed to address?",
-      "answer": "META mode is designed to solve the problems that arise when dealing with a large number of cases, particularly job limits and scheduling overheads, by processing multiple cases per job."
-    },
-    {
-      "question": "How is META mode activated when submitting a farm?",
-      "answer": "META mode is activated by providing a positive integer `N` as the first argument to the `submit.run` command, where `N` represents the desired number of metajobs, which should be significantly smaller than the total number of cases."
-    },
-    {
-      "question": "What is a 'metajob' in the context of META mode?",
-      "answer": "A 'metajob' in META mode is an invocation of the Slurm job scheduler that is capable of processing multiple independent cases from the `table.dat` file."
-    },
-    {
-      "question": "What mechanism does META mode use to efficiently manage cases with varying runtimes?",
-      "answer": "META mode employs a dynamic workload-balancing scheme to efficiently manage cases, ensuring that metajobs are assigned work dynamically as they complete previous tasks."
-    },
-    {
-      "question": "How does META mode implement its dynamic workload balancing?",
-      "answer": "Dynamic workload balancing is implemented by having each metajob execute the `task.run` script. Inside this script, a `while` loop for cases includes a serialized section of code where each job gets the next case to process from `table.dat`, and then executes `single_case.sh` for that case."
-    },
-    {
-      "question": "What are the advantages of using dynamic workload balancing in META mode?",
-      "answer": "Dynamic workload balancing ensures that all metajobs typically finish around the same time, regardless of individual case runtimes, CPU speeds across nodes, or when individual metajobs started. It also means not all metajobs need to start for all cases to be processed."
-    },
-    {
-      "question": "What happens if a metajob fails or crashes while running in META mode?",
-      "answer": "If a metajob dies (e.g., due to a node crash), at most one case will be lost, which can be easily recovered and reprocessed using the `resubmit.run` command."
-    },
-    {
-      "question": "Does META mode guarantee that all the requested metajobs will always run, or that all cases will be processed eventually?",
-      "answer": "Not all requested metajobs will necessarily run, depending on cluster load. However, META mode ensures that all cases will eventually be processed, though it might require using `resubmit.run` to complete particularly large farms."
+      "question": "When should users consider using META mode instead of SIMPLE mode for their computations with the META package, and what benefits does it offer?",
+      "answer": "Users should consider META mode when processing a large number of cases (typically more than 500), especially if each individual case computation is short (less than 20 minutes). META mode is designed to address issues like cluster limits on active jobs and wasted CPU cycles from scheduling overheads associated with many short jobs. It resolves these by submitting a smaller number of \"metajobs,\" each capable of processing multiple cases, which results in dynamic workload balancing across all running metajobs."
     }
   ],
-  "generated_at": "2026-04-12T01:18:48.451094+00:00"
+  "generated_at": "2026-04-13T08:22:57.695242+00:00"
 }

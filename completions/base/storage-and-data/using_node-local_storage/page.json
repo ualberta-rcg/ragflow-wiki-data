@@ -3,65 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `SLURM_TMPDIR` environment variable?",
-      "answer": "When Slurm starts a job, it creates a temporary directory on each assigned node and sets its full path name in the `SLURM_TMPDIR` environment variable."
+      "question": "What is `SLURM_TMPDIR` on Alliance clusters?",
+      "answer": "`SLURM_TMPDIR` is a temporary directory created on each node assigned to a Slurm job, with its full path set in an environment variable."
     },
     {
-      "question": "Why is using `SLURM_TMPDIR` often recommended over network storage like /project, /scratch, or /home?",
-      "answer": "I/O to `SLURM_TMPDIR` is almost always faster than to network storage, especially for frequent small I/O transactions, potentially speeding up jobs with a lot of input and output."
+      "question": "Why is using `SLURM_TMPDIR` beneficial for jobs on Alliance clusters?",
+      "answer": "I/O to `SLURM_TMPDIR` is almost always faster than to network storage (like /project, /scratch, or /home), especially for frequent small I/O transactions, which can make jobs run more quickly."
     },
     {
-      "question": "What is the main drawback of using `SLURM_TMPDIR` compared to network storage?",
-      "answer": "Due to its temporary nature, input must be copied from network storage to `SLURM_TMPDIR` before use, and output must be copied back to network storage before the job ends to preserve it."
+      "question": "What is a key challenge when using `SLURM_TMPDIR` for job input and output on Alliance clusters?",
+      "answer": "Data must be manually copied from network storage to `SLURM_TMPDIR` before it can be read, and output must be copied back to network storage before the job ends to preserve it."
     },
     {
-      "question": "How do you typically copy input data to `SLURM_TMPDIR` for a single-node job?",
-      "answer": "You can use commands like `cp` or `rsync`, for example: `cp /project/def-someone/you/input.files.* $SLURM_TMPDIR/`."
+      "question": "How can users copy input files from network storage to `SLURM_TMPDIR` for their jobs on Alliance clusters?",
+      "answer": "In the simplest case, users can use commands like `cp` or `rsync` to copy files from network storage to `$SLURM_TMPDIR/`."
     },
     {
-      "question": "When might a simple `cp` or `rsync` not be sufficient for copying input to `SLURM_TMPDIR`?",
-      "answer": "It may not work if the input is too large or if it needs to be read by processes on different nodes in a multinode job."
+      "question": "Why is `SLURM_TMPDIR` recommended for creating Python virtual environments within jobs on Alliance clusters?",
+      "answer": "Using an application in a Python virtual environment can generate a large number of small I/O transactions, and creating the environment inside `SLURM_TMPDIR` is recommended to handle this efficiently."
     },
     {
-      "question": "Why is `SLURM_TMPDIR` recommended for Python virtual environments within jobs?",
-      "answer": "Using an application in a Python virtual environment generates a large number of small I/O transactions, making `SLURM_TMPDIR` more efficient than network storage for creating and using them."
+      "question": "What are the three ways to ensure output data from `SLURM_TMPDIR` is preserved if a job might time out on Alliance clusters?",
+      "answer": "Users can request enough runtime, write checkpoints directly to network storage instead of `SLURM_TMPDIR`, or implement a signal trapping function."
     },
     {
-      "question": "What are the ways to ensure output data from `SLURM_TMPDIR` is preserved if a job times out?",
-      "answer": "You can request enough runtime, write checkpoints directly to network storage, or implement a signal trapping function."
+      "question": "What is signal trapping and when is it useful for output management with `SLURM_TMPDIR` on Alliance clusters?",
+      "answer": "Signal trapping allows a job to receive a signal before runtime expires and then copy output from `SLURM_TMPDIR` to network storage. It's useful for uncertain runtime estimates or chaining Slurm jobs."
     },
     {
-      "question": "What is a signal trapping function in the context of `SLURM_TMPDIR` output?",
-      "answer": "It's a shell function designed to copy output from `SLURM_TMPDIR` to network storage, triggered by a signal Slurm sends shortly before the job's runtime expires."
+      "question": "Does signal trapping protect data in `SLURM_TMPDIR` against all types of job interruptions on Alliance clusters?",
+      "answer": "No, signal trapping will not preserve the contents of `SLURM_TMPDIR` in the case of a node failure or certain malfunctions of the network file system."
     },
     {
-      "question": "When is using a signal trapping function particularly useful?",
-      "answer": "It's useful if your runtime estimate is uncertain or if you are chaining multiple Slurm jobs together for a long calculation."
+      "question": "How can files be copied to `SLURM_TMPDIR` on *every* node for a multinode job on Alliance clusters?",
+      "answer": "Users can use the command `srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 cp file [files...] $SLURM_TMPDIR`."
     },
     {
-      "question": "How do you copy files to `SLURM_TMPDIR` on every node in a multinode job?",
-      "answer": "You use `srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 cp file [files...] $SLURM_TMPDIR`."
+      "question": "How can a compressed ZIP archive be extracted to `SLURM_TMPDIR` on *every* node for a multinode job on Alliance clusters?",
+      "answer": "Users can extract a ZIP archive using `srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 unzip archive.zip -d $SLURM_TMPDIR`."
     },
     {
-      "question": "How do you extract a ZIP archive to `SLURM_TMPDIR` on every node in a multinode job?",
-      "answer": "You use `srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 unzip archive.zip -d $SLURM_TMPDIR`."
+      "question": "What is the amount of space available in `SLURM_TMPDIR` on the Trillium cluster?",
+      "answer": "On Trillium, `SLURM_TMPDIR` is implemented as a RAMdisk, so the available space is limited by the node's memory minus the RAM used by the application."
     },
     {
-      "question": "How do you extract a Tarball archive to `SLURM_TMPDIR` on every node in a multinode job?",
-      "answer": "You use `srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 tar -xvf archive.tar.gz -C $SLURM_TMPDIR`."
+      "question": "How much space is typically available in `SLURM_TMPDIR` on the Fir cluster?",
+      "answer": "On the Fir cluster, typically 7T of space is available in `SLURM_TMPDIR`."
     },
     {
-      "question": "How is `SLURM_TMPDIR` implemented on Trillium, and what does this mean for available space?",
-      "answer": "On Trillium, `SLURM_TMPDIR` is implemented as RAMdisk, so the available space is limited by the node's memory minus the RAM used by your application."
+      "question": "What is the available space in `SLURM_TMPDIR` on the Narval cluster?",
+      "answer": "On the Narval cluster, 800G of space is available in `SLURM_TMPDIR`."
     },
     {
-      "question": "What are the general amounts of space available in `SLURM_TMPDIR` on specific general-purpose clusters?",
-      "answer": "Fir offers 7T, Narval offers 800G, Nibi offers 3T, and Rorqual offers 375G."
+      "question": "If a job requests less than a whole node on Alliance clusters, how might the available `SLURM_TMPDIR` space be affected?",
+      "answer": "If a job requests less than a whole node, other jobs may also write to the same filesystem (though in different directories), potentially reducing the space available to your job in `SLURM_TMPDIR`."
     },
     {
-      "question": "Does reserving whole nodes affect the amount of `SLURM_TMPDIR` space available to your job?",
-      "answer": "Yes, if you reserve whole nodes, you can reasonably assume the full listed space is available; otherwise, other jobs on the same filesystem might reduce the space."
+      "question": "Where can users find more detailed information about node characteristics and local disk space for specific clusters like Fir or Narval on Alliance clusters?",
+      "answer": "Users can find more detailed guidance, including information about nodes with more local disk, under 'Node characteristics' on the appropriate cluster's page (e.g., Fir, Narval, Nibi, Rorqual)."
     }
   ],
-  "generated_at": "2026-04-12T10:29:43.454705+00:00"
+  "generated_at": "2026-04-13T15:30:24.475952+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What is the policy regarding submitting jobs from the `/home` filesystem on Cedar, and what alternatives are suggested?",
-      "answer": "As of April 17, 2019, jobs can no longer run from the `/home` filesystem on Cedar to reduce its load and improve interactive work responsiveness. Users should transfer their files to their `/project` or `/scratch` directory and submit jobs from there."
+      "question": "What are the specifications for the NVIDIA V100 GPU nodes available on the Cedar cluster?",
+      "answer": "The Cedar cluster has 192 NVIDIA V100 GPU nodes. Each node features 32 cores, 187 GiB of available memory, two Intel Silver 4216 Cascade Lake CPUs @ 2.1GHz, a 480GB SSD for local storage, and four NVIDIA V100 Volta GPUs, each with 32 GiB of HBM2 memory."
     },
     {
-      "question": "How much local temporary storage is available on Cedar's compute and GPU nodes, and what is the recommended way to access it?",
-      "answer": "Compute nodes (excluding GPU nodes) have two 480GB SSD drives, offering a total raw capacity of 960GB. GPU nodes are equipped with either an 800GB or a 480GB SSD drive. This node-local storage should be utilized via the job-specific directory created by the scheduler, `$SLURM_TMPDIR`."
+      "question": "What is the current policy for submitting jobs on the Cedar cluster regarding the `/home` filesystem, and what directories should be used instead? Additionally, how should users utilize on-node temporary storage?",
+      "answer": "As of April 17, 2019, jobs can no longer be submitted from directories residing in the `/home` filesystem on the Cedar cluster. Users must transfer their job files to either their `/project` or `/scratch` directory and submit jobs from there. For temporary data, all nodes have local (on-node) temporary storage, which should be utilized through the job-specific directory created by the scheduler, accessible via the `$SLURM_TMPDIR` environment variable. Compute nodes (except GPU nodes) have two 480GB SSDs (960GB total), while GPU nodes have either an 800GB or a 480GB SSD drive."
     },
     {
-      "question": "What is the general recommendation for choosing a node type for jobs on Cedar, and when are specific constraints necessary?",
-      "answer": "It is generally recommended not to select a specific node type for jobs, as performance differences between Broadwell, Skylake, or Cascade Lake nodes are typically small compared to job waiting times. However, if a specific node type is required, users can employ constraints like `--constraint=cascade`, `--constraint=skylake`, or `--constraint=broadwell`. For any AVX512 node, use `--constraint=[skylake|cascade]`."
+      "question": "What are the considerations for choosing a node type on the Cedar cluster, particularly regarding node sharing, and how can specific node types be requested?",
+      "answer": "On the Cedar cluster, 48-core nodes are reserved for jobs that require whole nodes, meaning they won't be shared. However, jobs requesting less than 48 cores per node can end up sharing nodes with other jobs, as no 32-core nodes are set aside for whole-node processing. For most applications, it's recommended not to select a specific node type, as performance differences are typically minor compared to job waiting times. If a specific node type is necessary, users can employ constraints like `--constraint=cascade`, `--constraint=skylake`, or `--constraint=broadwell`. For any AVX512 node, the constraint `--constraint=[skylake|cascade]` can be used."
     }
   ],
-  "generated_at": "2026-04-12T18:16:14.787226+00:00"
+  "generated_at": "2026-04-13T03:41:13.219374+00:00"
 }

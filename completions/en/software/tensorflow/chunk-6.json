@@ -4,17 +4,13 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "How is TensorFlow configured for multi-GPU training that spans across multiple nodes on an Alliance cluster?",
-      "answer": "To configure TensorFlow for multi-GPU training across multiple nodes, you must use `tf.distribute.MultiWorkerMirroredStrategy()` in your Python script. This strategy needs `tf.distribute.cluster_resolver.SlurmClusterResolver()` to automatically acquire job information from SLURM, and `tf.distribute.experimental.CommunicationOptions` with `implementation=tf.distribute.experimental.CommunicationImplementation.NCCL` to specify Nvidia's NCCL backend for inter-GPU communication. The setup typically involves a shell script (`config_env.sh`) to load modules and create a Python virtual environment, followed by another script (`launch_training.sh`) to activate the environment and execute the TensorFlow Python training script."
+      "question": "What TensorFlow distribution strategy is recommended for training models across multiple nodes with multiple GPUs on an Alliance cluster, and how does it obtain cluster information and manage inter-GPU communication?",
+      "answer": "For training TensorFlow models across multiple nodes with multiple GPUs, the `tf.distribute.MultiWorkerMirroredStrategy()` is recommended. This strategy uses `tf.distribute.cluster_resolver.SlurmClusterResolver()` to acquire necessary job information from SLURM and specifies `tf.distribute.experimental.CommunicationImplementation.NCCL` for inter-GPU communications."
     },
     {
-      "question": "What is the main purpose of creating model checkpoints during TensorFlow training sessions?",
-      "answer": "Creating model checkpoints during TensorFlow training serves several important purposes: it saves a snapshot of your model at specific points (like after certain iterations or epochs), which is useful for breaking down very long jobs into shorter ones that might get allocated faster on a cluster. Checkpoints also help in avoiding the loss of training progress in the event of unexpected code errors or node failures, allowing you to resume training from the last saved state."
-    },
-    {
-      "question": "How can one implement model checkpoints when training a TensorFlow model using the Keras API?",
-      "answer": "When training a TensorFlow model with the Keras API, model checkpoints can be implemented using the `callbacks` parameter of the `model.fit()` method. You would specify `tf.keras.callbacks.ModelCheckpoint` within this parameter. For instance, `callbacks = [tf.keras.callbacks.ModelCheckpoint(filepath='./ckpt', save_freq='epoch')]` will instruct TensorFlow to create a checkpoint at the end of every training epoch, provided the specified path for the checkpoint exists."
+      "question": "What is the purpose of creating model checkpoints during TensorFlow training, and how are they implemented when using the Keras API?",
+      "answer": "Model checkpoints serve as snapshots of a model at specific points during training, saved to disk, which can be loaded later. They are beneficial for dividing lengthy jobs into shorter, more manageable segments and for safeguarding progress against errors or node failures. With Keras, checkpoints are created by passing `tf.keras.callbacks.ModelCheckpoint` to the `callbacks` parameter of the `model.fit()` method, for example, `callbacks = [tf.keras.callbacks.ModelCheckpoint(filepath=\"./ckpt\", save_freq=\"epoch\")]` to save a checkpoint at the end of each epoch."
     }
   ],
-  "generated_at": "2026-04-12T21:33:33.553943+00:00"
+  "generated_at": "2026-04-13T14:19:09.836876+00:00"
 }

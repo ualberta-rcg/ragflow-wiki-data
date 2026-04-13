@@ -3,61 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Chapel?",
-      "answer": "Chapel is a general-purpose, compiled, high-level parallel programming language with built-in abstractions for shared- and distributed-memory parallelism."
+      "question": "What is Chapel in the context of high-performance computing on Alliance clusters?",
+      "answer": "Chapel is a general-purpose, compiled, high-level parallel programming language with built-in abstractions for both shared-memory and distributed-memory parallelism, ideal for high-performance computing (HPC)."
     },
     {
       "question": "What are the two main styles of parallel programming supported by Chapel?",
-      "answer": "Chapel supports task parallelism, driven by programmer-specified tasks, and data parallelism, where computation is applied to subsets of data elements."
+      "answer": "Chapel supports task parallelism, where parallelism is driven by programmer-specified tasks, and data parallelism, where computation is applied to subsets of data elements."
     },
     {
-      "question": "Who is Chapel ideal for, and what are its key advantages?",
-      "answer": "Chapel is ideal for novice HPC users, striving to merge Python's ease-of-use with the performance of compiled languages like C and Fortran, simplifying parallel code expression."
+      "question": "Why is Chapel considered an intuitive language for novice high-performance computing (HPC) users?",
+      "answer": "Chapel is considered intuitive for novice HPC users because its high-level abstractions simplify learning parallel programming, merging the ease-of-use of Python with the performance of languages like C and Fortran."
     },
     {
-      "question": "What operating systems and hardware platforms does Chapel run on?",
-      "answer": "Chapel is open source and runs on any Unix-like operating system, with hardware support ranging from laptops to large HPC systems."
+      "question": "How does Chapel improve upon traditional parallel programming approaches like MPI?",
+      "answer": "Chapel allows parallel blocks that typically require many lines of MPI code to be expressed in only a few lines, making it more concise and easier to use."
     },
     {
-      "question": "What is a current limitation of Chapel compared to languages like C or Fortran?",
-      "answer": "Chapel has a relatively small user base, meaning many libraries available for C, C++, and Fortran have not yet been implemented in Chapel."
+      "question": "What is a current limitation of using Chapel compared to languages like C, C++, or Fortran?",
+      "answer": "A current limitation of Chapel is its relatively small user base, which means many libraries available for C, C++, and Fortran have not yet been implemented in Chapel."
     },
     {
-      "question": "Where can users find more training materials for Chapel?",
-      "answer": "Users can find more information by watching the Chapel webinars."
+      "question": "Which module provides single-locale (shared-memory) Chapel support on general-purpose Alliance clusters?",
+      "answer": "The `chapel-multicore` module provides single-locale Chapel support on general-purpose Alliance clusters."
     },
     {
-      "question": "Which module provides single-locale (single node, shared-memory only) Chapel support on general-purpose clusters?",
-      "answer": "The `chapel-multicore` module provides single-locale Chapel support."
+      "question": "What are the basic steps to compile and run a single-locale Chapel program interactively on multiple cores within a single node on an Alliance cluster?",
+      "answer": "First, load `gcc` and `chapel-multicore` modules, then use `salloc` to request a single task with multiple CPUs per task, compile the `.chpl` file with `chpl`, and finally run the executable."
     },
     {
-      "question": "How do you test Chapel code on multiple cores within a single node using `salloc`?",
-      "answer": "You would load `gcc` and `chapel-multicore` modules, then use `salloc` specifying `--ntasks=1 --cpus-per-task=3` to allocate resources, compile with `chpl`, and run."
+      "question": "Which module should be loaded for multi-locale (hybrid shared- and distributed-memory) Chapel programming on Alliance InfiniBand clusters?",
+      "answer": "The `chapel-ucx` module is used for multi-locale Chapel programming on Alliance InfiniBand clusters."
     },
     {
-      "question": "Which module is necessary for multi-locale (multiple nodes, hybrid memory) Chapel on InfiniBand clusters?",
-      "answer": "The `chapel-ucx` module is used for multi-locale Chapel on InfiniBand clusters."
+      "question": "What information does the `probeLocales.chpl` example code provide for multi-locale Chapel on an Alliance cluster?",
+      "answer": "The `probeLocales.chpl` example code prints basic information about the allocated locales (nodes) within a job, including locale ID, name, number of processor cores, physical memory, and maximum parallelism."
     },
     {
-      "question": "What is an example of Chapel code that prints basic information about nodes in a multi-locale job?",
-      "answer": "The `probeLocales.chpl` code, which iterates through locales to print details like their ID, name, processor cores, and memory, serves this purpose."
+      "question": "How do you compile and execute a multi-locale Chapel program interactively on multiple nodes after an `salloc` command on an Alliance InfiniBand cluster?",
+      "answer": "After loading `gcc` and `chapel-ucx` and allocating nodes with `salloc`, compile the code using `chpl --fast your_file.chpl` and run it with `./your_executable -nl N`, where N is the number of locales."
     },
     {
-      "question": "How do you allocate resources for an interactive multi-locale Chapel job on 4 nodes with 3 CPUs per task?",
-      "answer": "You load `gcc/12.3` and `chapel-ucx/2.4.0`, then use `salloc --time=0:30:0 --nodes=4 --cpus-per-task=3 --mem-per-cpu=3500 --account=def-someprof`."
+      "question": "Which module is necessary to enable NVIDIA GPU support for multi-locale Chapel programming on Alliance InfiniBand clusters?",
+      "answer": "The `chapel-ucx-cuda` module is necessary to enable NVIDIA GPU support for multi-locale Chapel programming on Alliance InfiniBand clusters."
     },
     {
-      "question": "What module adds NVIDIA GPU support to multi-locale Chapel on InfiniBand clusters?",
-      "answer": "The `chapel-ucx-cuda` module adds NVIDIA GPU support to multi-locale Chapel."
+      "question": "What modules must be loaded to use Chapel with NVIDIA GPU support on an Alliance InfiniBand cluster?",
+      "answer": "To use Chapel with NVIDIA GPU support, you must load the `gcc`, `cuda`, and `chapel-ucx-cuda` modules."
     },
     {
-      "question": "How do you allocate resources for an interactive Chapel job that requires NVIDIA GPU support?",
-      "answer": "You must load the `gcc`, `cuda`, and `chapel-ucx-cuda` modules, then use `salloc` with the `--gpus-per-node=1` option."
+      "question": "What is the `probeGPU.chpl` example designed to illustrate for Chapel programming with GPU support on Alliance clusters?",
+      "answer": "The `probeGPU.chpl` example demonstrates how to use the `GpuDiagnostics` module, identify available GPUs, and run parallel code on either a GPU or a CPU."
     },
     {
-      "question": "What is the recommended method for submitting production Chapel jobs?",
-      "answer": "For production jobs, it's recommended to write a Slurm job submission script and submit it using `sbatch`."
+      "question": "How can users submit Chapel jobs for production workloads on Alliance clusters, regardless of the Chapel configuration?",
+      "answer": "For production Chapel jobs, users should write a Slurm job submission script and submit it using the `sbatch` command."
+    },
+    {
+      "question": "What types of hardware systems can Chapel run on?",
+      "answer": "Chapel is open source and can run on any Unix-like operating system, with hardware support ranging from laptops to large high-performance computing (HPC) systems."
+    },
+    {
+      "question": "Where can users find additional training materials for Chapel programming on Alliance clusters?",
+      "answer": "Users can find additional training materials by watching the Chapel webinars available through the provided link: `https://westgrid.github.io/trainingMaterials/programming/#chapel`."
     }
   ],
-  "generated_at": "2026-04-11T19:36:25.258949+00:00"
+  "generated_at": "2026-04-13T03:49:29.481151+00:00"
 }

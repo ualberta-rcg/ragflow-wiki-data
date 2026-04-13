@@ -4,109 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Does the Alliance install Materials Studio centrally on all clusters?",
-      "answer": "No, the Alliance does not have permission to install Materials Studio centrally on all clusters. Users with a license must install it in their own account."
+      "question": "What are the initial requirements for installing Materials Studio on Alliance clusters?",
+      "answer": "The Alliance does not install Materials Studio centrally, so users must possess a valid licence and install the application in their own account. Before beginning, if you are using the default 2020 standard software environment, you will need to load an older standard software environment by executing `module load StdEnv/2016.4`."
     },
     {
-      "question": "What command should I use if I am running the default 2020 standard software environment before installing Materials Studio?",
-      "answer": "If you are using the default 2020 standard software environment, you will need to use a command like `module load StdEnv/2016.4` before beginning, as the current instructions are only valid for older standard software environments."
+      "question": "What are the specific steps to install Materials Studio 2020 for an individual user on an Alliance cluster?",
+      "answer": "To install Materials Studio 2020, you will need the installer archive, `BIOVIA_2020.MaterialsStudio2020.tar`, and the IP address or DNS name, along with the port of your configured licence server. First, upload the `.tar` file to your `/home` folder on the intended cluster. Next, run the commands `export MS_LICENCE_SERVER=<port>@<server>` and `eb MaterialsStudio-2020.eb --sourcepath=$HOME`. After this process, log out of the cluster and log back in. You can then load the module using `module load materialsstudio/2020`. Lastly, to ensure access to the licence server from compute nodes, you must contact technical support for firewall configuration."
     },
     {
-      "question": "What is required to install Materials Studio 2020?",
-      "answer": "To install Materials Studio 2020, you need the archive file named `BIOVIA_2020.MaterialsStudio2020.tar` and the IP address (or DNS name) and port of an already configured licence server."
-    },
-    {
-      "question": "Where should I upload the installer archive file for Materials Studio 2020?",
-      "answer": "You should upload the `BIOVIA_2020.MaterialsStudio2020.tar` file to your `/home` folder on the cluster you intend to use."
-    },
-    {
-      "question": "What commands should I run after uploading the Materials Studio 2020 archive file?",
-      "answer": "You should run `export MS_LICENSE_SERVER=<port>@<server>` and `eb MaterialsStudio-2020.eb --sourcepath=$HOME`."
-    },
-    {
-      "question": "What steps follow the completion of the Materials Studio 2020 installation commands?",
-      "answer": "Once the commands have completed, you should log out of the cluster and log back in. Then you can load the module."
-    },
-    {
-      "question": "How do I load the Materials Studio 2020 module?",
-      "answer": "You can load the Materials Studio 2020 module with the command `module load materialsstudio/2020`."
-    },
-    {
-      "question": "What must be done to allow Materials Studio 2020 to access the licence server from compute nodes?",
-      "answer": "You will need to contact technical support so that they can configure the firewall(s) to allow the software to connect to your licence server."
-    },
-    {
-      "question": "What is required to install Materials Studio 2018?",
-      "answer": "To install Materials Studio 2018, you need the archive file named `MaterialsStudio2018.tgz` and the IP address (or DNS name) and port of an already configured licence server."
-    },
-    {
-      "question": "Where should I upload the installer archive file for Materials Studio 2018?",
-      "answer": "You should upload the `MaterialsStudio2018.tgz` file to your `/home` folder on the cluster you intend to use."
-    },
-    {
-      "question": "What commands should I run after uploading the Materials Studio 2018 archive file?",
-      "answer": "You should run `export MS_LICENSE_SERVER=<port>@<server>` and `eb /cvmfs/soft.computecanada.ca/easybuild/easyconfigs/m/MaterialsStudio/MaterialsStudio-2018.eb --disable-enforce-checksums --sourcepath=$HOME`."
-    },
-    {
-      "question": "What steps follow the completion of the Materials Studio 2018 installation commands?",
-      "answer": "Once the commands have completed, you should log out of the cluster and log back in. Then you can load the module."
-    },
-    {
-      "question": "How do I load the Materials Studio 2018 module?",
-      "answer": "You can load the Materials Studio 2018 module with the command `module load materialsstudio/2018`."
-    },
-    {
-      "question": "What must be done to allow Materials Studio 2018 to access the licence server from compute nodes?",
-      "answer": "You will need to contact technical support so that they can configure the firewall(s) to allow the software to connect to your licence server."
-    },
-    {
-      "question": "Who can install Materials Studio for a whole group?",
-      "answer": "A Principal Investigator (PI) who holds the Materials Studio licence can install it once for all their group members."
-    },
-    {
-      "question": "Where is team work typically stored, and how does this relate to team installation of Materials Studio?",
-      "answer": "Team work is normally stored in the `/project` space, so you'll need to determine which project directory to use for the installation."
-    },
-    {
-      "question": "How do I determine the actual path of a project directory named A_DIRECTORY for a team installation?",
-      "answer": "You can determine the actual path using the command `PI_PROJECT_DIR=$(readlink -f ~/projects/A_DIRECTORY)`."
-    },
-    {
-      "question": "How do I determine the group of a project directory for a team installation?",
-      "answer": "You can determine the group using the command `PI_GROUP=$(stat -c%G $PI_PROJECT_DIR)`."
-    },
-    {
-      "question": "What is the first step in installing Materials Studio for a team after determining the project directory and group values?",
-      "answer": "The first step is to change the default group to your team's `def-` group, for example, by running `newgrp $PI_GROUP`."
-    },
-    {
-      "question": "How do I open the permissions of my project directory for team access during a team installation?",
-      "answer": "You can open the permissions of your project directory so your team can access it by running `chmod g+rsx $PI_PROJECT_DIR`."
-    },
-    {
-      "question": "How do I create an installation directory within `/project` for a team installation of Materials Studio?",
-      "answer": "You can create an install directory within `/project` by running `mkdir $PI_PROJECT_DIR/MatStudio2018`."
-    },
-    {
-      "question": "What command is used to install Materials Studio for a team?",
-      "answer": "The software can be installed using a command like `MS_LICENSE_SERVER=<port>@<server> eb MaterialsStudio-2018-dummy-dummy.eb --installpath=$PI_PROJECT_DIR/MatStudio2018 --sourcepath=$HOME`."
-    },
-    {
-      "question": "What command must be run before team members can use the team-installed Materials Studio software?",
-      "answer": "Before the software can be run, you must run the command `module use $PI_PROJECT_DIR/MatStudio2018/modules/2017/Core/`."
-    },
-    {
-      "question": "How do team members load the Materials Studio module after it has been team-installed?",
-      "answer": "Team members can load the materialsstudio module by running `module load materialsstudio`."
-    },
-    {
-      "question": "What should team members consider adding to their `~/.bashrc` file for easier access to team-installed Materials Studio?",
-      "answer": "Team members may wish to add the command `module use $PI_PROJECT_DIR/MatStudio2018/modules/2017/Core/` to their `~/.bashrc` file."
-    },
-    {
-      "question": "What is an important note regarding the variables PI_GROUP and PI_PROJECT_DIR in a team installation?",
-      "answer": "It is important to always replace the variables `PI_GROUP` and `PI_PROJECT_DIR` with their appropriate values."
+      "question": "How can a Principal Investigator (PI) install Materials Studio for their entire research group to use on an Alliance cluster?",
+      "answer": "As a PI holding the Materials Studio licence, you can perform a single installation for your group in a `/project` directory. First, determine the actual path of your project directory, setting it as `PI_PROJECT_DIR`, and identify its group, setting it as `PI_GROUP`. Then, change your default group to your team's `def-` group (e.g., `newgrp $PI_GROUP`), open permissions for your project directory (e.g., `chmod g+rsx $PI_PROJECT_DIR`), and create an installation directory within `/project` (e.g., `mkdir $PI_PROJECT_DIR/MatStudio2018`). Finally, install the software using `MS_LICENCE_SERVER=<port>@<server> eb MaterialsStudio-2018-dummy-dummy.eb --installpath=$PI_PROJECT_DIR/MatStudio2018 --sourcepath=$HOME`. For team members to use the software, they need to run `module use $PI_PROJECT_DIR/MatStudio2018/modules/2017/Core/` (which can be added to their `~/.bashrc` file) and then `module load materialsstudio`."
     }
   ],
-  "generated_at": "2026-04-12T02:17:57.043296+00:00"
+  "generated_at": "2026-04-13T09:10:10.785210+00:00"
 }

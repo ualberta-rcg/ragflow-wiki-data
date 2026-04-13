@@ -4,45 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is the purpose of step 3 when using older BUSCO versions available as a module?",
-      "answer": "Step 3 involves editing the configuration file to specify the locations of external tools required by BUSCO. These paths are found in the last section of the configuration file, for example, `partial_busco_config.ini`."
+      "question": "What are the primary settings that need to be edited in the `busco_config.ini` file when configuring BUSCO via the older module method?",
+      "answer": "When using the older module method, the `busco_config.ini` file needs to be edited in its last section to specify the correct paths for various external tools that BUSCO relies on. These tools include `tblastn`, `makeblastdb`, `augustus` (including `etraining` and its Perl scripts like `gff2gbSmallDNA.pl`, `new_species.pl`, `optimize_augustus.pl`), `hmmsearch`, and `Rscript`."
     },
     {
-      "question": "Which external tools' paths are typically specified in the BUSCO configuration file?",
-      "answer": "The BUSCO configuration file specifies paths for external tools such as tblastn, makeblastdb, augustus, augustus etraining, augustus perl scripts (e.g., gff2gbSmallDNA.pl, new_species.pl, optimize_augustus.pl), hmmsearch, and Rscript."
+      "question": "How do you configure the Augustus tool for BUSCO when using the deprecated module installation, and what is a common troubleshooting tip related to its configuration path?",
+      "answer": "To configure Augustus for BUSCO's deprecated module installation, you must copy the Augustus `config` directory from its installed location (e.g., `$EBROOTAUGUSTUS/config`) to a writable location, typically your home directory (e.g., `$HOME/augustus_config`). After copying, you need to export the `AUGUSTUS_CONFIG_PATH` environment variable to point to this new writable location. If you encounter 'Cannot write to Augustus config path' errors, ensure this `config` directory has been copied to a writable spot and that the `AUGUSTUS_CONFIG_PATH` variable is correctly set."
     },
     {
-      "question": "Where is the path for `tblastn` defined in the configuration file?",
-      "answer": "The path for `tblastn` is defined under the `[tblastn]` section in the configuration file, for example: `path = /cvmfs/soft.computecanada.ca/easybuild/software/2017/avx512/Compiler/gcc7.3/blast+/2.7.1/bin/`."
-    },
-    {
-      "question": "What is step 4 in the process of using older BUSCO modules?",
-      "answer": "Step 4 involves copying the Augustus `config` directory to a writable location."
-    },
-    {
-      "question": "What command is used to copy the Augustus `config` directory to a writable location?",
-      "answer": "You can use the command `cp -r $EBROOTAUGUSTUS/config $HOME/augustus_config` to copy the Augustus `config` directory to your home directory."
-    },
-    {
-      "question": "How do you check if the BUSCO module setup is running correctly?",
-      "answer": "To check if the BUSCO module setup is running, you need to export the `BUSCO_CONFIG_FILE` and `AUGUSTUS_CONFIG_PATH` environment variables, then run the test command: `run_BUSCO.py --in $EBROOTBUSCO/sample_data/target.fa --out TEST --lineage_path $EBROOTBUSCO/sample_data/example --mode genome`."
-    },
-    {
-      "question": "What is the expected completion time for the `run_BUSCO.py` test command?",
-      "answer": "The `run_BUSCO.py` test command should take less than 60 seconds to complete."
-    },
-    {
-      "question": "What should be done if BUSCO production runs take longer than 60 seconds?",
-      "answer": "Production runs that take longer than 60 seconds should be submitted to the scheduler."
-    },
-    {
-      "question": "What is the cause of the 'Cannot write to Augustus config path' troubleshooting error?",
-      "answer": "The 'Cannot write to Augustus config path' error occurs if you haven't copied the `config` directory to a writable location and/or haven't exported the `AUGUSTUS_CONFIG_PATH` variable."
-    },
-    {
-      "question": "How do you resolve the 'Cannot write to Augustus config path' error?",
-      "answer": "To resolve this error, you must ensure that you have copied the Augustus `config` directory to a writable location and have exported the `AUGUSTUS_CONFIG_PATH` environment variable correctly."
+      "question": "What are the final steps to verify the BUSCO module installation and run a basic test after configuring the necessary files and paths?",
+      "answer": "To verify the BUSCO module installation, you first need to export the environment variables `BUSCO_CONFIG_FILE` to point to your `busco_config.ini` file (e.g., `$HOME/busco_config.ini`) and `AUGUSTUS_CONFIG_PATH` to your writable Augustus config directory (e.g., `$HOME/augustus_config`). Then, run the `run_BUSCO.py` command with sample data, for instance: `run_BUSCO.py --in $EBROOTBUSCO/sample_data/target.fa --out TEST --lineage_path $EBROOTBUSCO/sample_data/example --mode genome`. This test should complete in under 60 seconds."
     }
   ],
-  "generated_at": "2026-04-11T18:27:38.233217+00:00"
+  "generated_at": "2026-04-13T02:54:30.626258+00:00"
 }

@@ -3,85 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Quels sont les prérequis pour avoir accès à l'environnement infonuagique?",
-      "answer": "Pour accéder à l'environnement infonuagique, vous devez posséder un projet cloud et utiliser un navigateur web compatible comme Firefox ou Chrome. D'autres navigateurs pourraient causer des problèmes."
+      "question": "Quels sont les prérequis essentiels pour avoir accès à l'environnement infonuagique d'Alliance et créer des instances?",
+      "answer": "Pour avoir accès à l'environnement infonuagique d'Alliance, il faut posséder un projet cloud et utiliser un navigateur compatible, comme Firefox ou Chrome."
     },
     {
-      "question": "Comment savoir où trouver les informations pour accéder à mon projet cloud?",
-      "answer": "Vous recevrez un courriel de confirmation avec tous les détails d'accès une fois qu'un projet cloud est associé à votre compte. Assurez-vous de conserver ce courriel."
+      "question": "Comment les utilisateurs peuvent-ils se connecter à leur projet dans l'environnement infonuagique et quelle plateforme est utilisée pour l'accès web aux nuages?",
+      "answer": "Les utilisateurs se connectent via le lien fourni dans le courriel de confirmation, en utilisant leurs identifiants (nom d'utilisateur et mot de passe). La plateforme OpenStack est utilisée pour l'accès web aux nuages et affiche les ressources du projet."
     },
     {
-      "question": "Quel est le navigateur web recommandé si j'ai des problèmes d'accès à l'interface cloud?",
-      "answer": "On vous recommande d'utiliser Firefox ou Chrome. Si vous utilisez Safari, une mise à jour pourrait aider, mais on suggère quand même Firefox ou Chrome."
+      "question": "Pourquoi l'authentification par mot de passe est-elle désactivée pour les instances Linux, et quel est le mécanisme d'authentification requis?",
+      "answer": "Pour des raisons de sécurité, l'authentification par mot de passe est désactivée. Il est nécessaire d'utiliser des paires de clés SSH, où une clé SSH publique est installée sur l'instance et la clé privée correspondante sert à la connexion."
     },
     {
-      "question": "Comment me connecter à l'interface cloud pour ma première instance?",
-      "answer": "Le lien de l'interface se trouve dans votre courriel de confirmation. Utilisez vos identifiants (nom d'utilisateur et mot de passe), pas votre adresse courriel, pour vous connecter."
+      "question": "Quelles sont les étapes pour importer une clé publique SSH existante dans OpenStack pour l'authentification des instances Linux?",
+      "answer": "Pour importer une clé publique SSH, il faut aller dans le menu 'Compute->Paires de clés' dans OpenStack, cliquer sur 'Importer une clé publique', entrer un nom, coller la clé publique (type RSA, sans caractères de fin de ligne ou espaces), puis cliquer sur 'Importer une clé publique'."
     },
     {
-      "question": "Qu'est-ce que le tableau de bord OpenStack?",
-      "answer": "OpenStack est la plateforme web qui permet d'accéder aux nuages. Une fois connecté, le tableau de bord affiche toutes les ressources de votre projet cloud."
+      "question": "Lors du lancement d'une instance Linux dans OpenStack, quelles sont les considérations importantes concernant le nom de l'instance, la source de démarrage et le volume?",
+      "answer": "Le nom de l'instance ne doit contenir aucun caractère spécial ni espace. Pour la source de démarrage, il est recommandé de sélectionner 'Image' et de créer un nouveau volume pour le stockage persistant, d'une taille d'environ 30 Go, en choisissant de ne pas le supprimer après la terminaison de l'instance."
     },
     {
-      "question": "Pourquoi les paires de clés SSH sont importantes pour les instances Linux?",
-      "answer": "Pour des raisons de sécurité, l'authentification par mot de passe est désactivée à la création d'une instance. OpenStack installe une clé SSH publique et vous devez utiliser la clé privée correspondante pour vous connecter."
+      "question": "Quel rôle joue le 'gabarit' lors de la création d'une instance Linux, et comment doit-il être sélectionné?",
+      "answer": "Le 'gabarit' (flavor) définit les spécifications matérielles virtuelles (mémoire, traitement) de l'instance. Il faut sélectionner un gabarit disponible qui est conforme à l'allocation de ressources de votre projet en le déplaçant vers la liste 'Alloué'."
     },
     {
-      "question": "Comment puis-je importer une clé SSH publique existante dans OpenStack?",
-      "answer": "Dans le menu OpenStack, sélectionnez 'Compute->Paires de clés', puis cliquez sur 'Importer une clé publique'. Donnez-lui un nom, collez votre clé publique (type RSA seulement) et cliquez sur 'Importer une clé publique'."
+      "question": "Quelle est la distinction entre une adresse IP privée et une adresse IP publique pour une instance cloud, et quand utilise-t-on chacune?",
+      "answer": "Une adresse IP privée (ex: 192.168.X.Y) permet la communication interne au projet. Une adresse IP publique permet la communication avec l'instance depuis l'extérieur, pour des services ou outils externes, et pour l'accès par nom de domaine."
     },
     {
-      "question": "Est-ce qu'il est recommandé de créer des paires de clés directement dans OpenStack pour les instances Linux?",
-      "answer": "Non, ce n'est pas recommandé car elles ne sont pas créées avec une phrase de passe, ce qui peut compromettre la sécurité."
+      "question": "Comment configurer le pare-feu dans OpenStack pour permettre une connexion SSH sécurisée à une instance Linux à partir d'un ordinateur spécifique?",
+      "answer": "Dans 'Réseau->Groupes de sécurité', sélectionnez le groupe par défaut et gérez ses règles. Ajoutez une règle 'SSH' et remplacez la valeur 'CIDR' par l'adresse IP publique de votre ordinateur suivie de '/32' (ex: `votre-ip/32`), puis cliquez sur 'Ajouter'."
     },
     {
-      "question": "Quelles informations sont nécessaires pour lancer une instance Linux?",
-      "answer": "Faut spécifier le nom de l'instance, la source de démarrage (image), la taille du volume, choisir un système d'exploitation (comme Ubuntu), un gabarit (flavor), un réseau, des groupes de sécurité et une paire de clés SSH."
+      "question": "Comment un utilisateur se connecte-t-il à une instance Linux via SSH depuis un terminal Linux ou Mac, et quels noms d'utilisateur par défaut sont utilisés pour différentes distributions?",
+      "answer": "On ouvre un terminal et on entre la commande `ssh -i /chemin/vers/votre/clé/privée/my_key.key <nom_utilisateur>@<IP_publique_de_votre_serveur>`. Les noms d'utilisateur par défaut sont 'ubuntu' pour Ubuntu, 'debian' pour Debian, 'centos' pour CentOS, 'fedora' pour Fedora, 'almalinux' pour AlmaLinux, et 'rocky' pour Rocky."
     },
     {
-      "question": "Comment assigner une adresse IP publique à mon instance Linux?",
-      "answer": "Dans la page 'Instances' sous 'Compute', cliquez sur l'icône ▼ à la fin de la ligne de votre instance, sélectionnez 'Associer une adresse IP flottante', puis 'Allocation d'IP' et 'Associer'."
+      "question": "Quel outil est recommandé pour établir une connexion SSH à une instance Linux depuis un ordinateur Windows, et comment spécifier la clé privée?",
+      "answer": "MobaXterm est recommandé. Après avoir lancé une nouvelle session SSH, on entre l'adresse IP publique de l'instance, le nom d'utilisateur, puis dans les 'Advanced SSH settings', on coche 'Use private key' et on sélectionne le fichier .pem de la clé privée."
     },
     {
-      "question": "Comment configurer le pare-feu pour permettre la connexion SSH à mon instance Linux?",
-      "answer": "Allez à 'Réseau->Groupes de sécurité', cliquez sur 'Gérer les Règles' pour le groupe par défaut, puis '+Ajouter une règle'. Sélectionnez 'SSH' comme règle et remplacez le CIDR par votre adresse IP /32."
+      "question": "Comment obtenir l'accès à une image Windows Server pour créer une instance dans l'environnement infonuagique d'Alliance, et quelles sont les limitations de licence initiales?",
+      "answer": "Il faut demander l'accès à une image Windows en contactant le soutien technique. L'accès est généralement fourni pour une période d'évaluation de 180 jours, et Alliance ne fournit pas de licences Windows."
     },
     {
-      "question": "Quels sont les noms d'utilisateur par défaut pour se connecter via SSH à une instance Linux selon la distribution?",
-      "answer": "Pour Debian c'est 'debian', Ubuntu c'est 'ubuntu', CentOS c'est 'centos', Fedora c'est 'fedora', AlmaLinux c'est 'almalinux' et Rocky c'est 'rocky'."
+      "question": "Pourquoi est-il conseillé de créer une nouvelle paire de clés directement avec OpenStack pour les instances Windows, et comment sauvegarder le fichier de clé privée?",
+      "answer": "C'est recommandé car les instances Windows cryptent les mots de passe des comptes administrateur avec une clé publique. Il faut créer la paire de clés dans OpenStack, puis sauvegarder le fichier .pem de la clé privée sur son disque."
     },
     {
-      "question": "Comment je me connecte à mon instance Linux via SSH si je suis sous Windows?",
-      "answer": "Vous pouvez utiliser MobaXterm. Lancez l'application, créez une nouvelle session SSH, entrez l'adresse IP publique de l'instance, le nom d'utilisateur (en bas de casse), et spécifiez le fichier de clé privée (.pem) sous 'Advanced SSH settings'."
+      "question": "Quelles sont les spécifications recommandées pour le gabarit et la taille du volume de démarrage lors de la création d'une instance Windows dans OpenStack?",
+      "answer": "Pour une instance Windows, un gabarit comme 'p2-3gb' est recommandé en raison des exigences de l'image. La taille du périphérique pour le disque racine doit être d'au moins 30 Go."
     },
     {
-      "question": "Comment faire pour créer une instance Windows?",
-      "answer": "Vous devez d'abord demander l'accès à une image Windows en contactant le soutien technique. Une fois l'accès obtenu, vous pourrez lancer l'instance à partir du tableau de bord OpenStack."
+      "question": "Que doit-on faire pour finaliser la configuration d'une instance Windows après son premier démarrage, et via quel interface?",
+      "answer": "Après le premier démarrage, il faut sélectionner les paramètres de localisation, de langue et de clavier, et accepter les conditions de la licence. Ces actions se font via la console accessible depuis l'onglet 'Console' de l'instance dans le tableau de bord OpenStack."
     },
     {
-      "question": "Quel type de gabarit est recommandé pour une instance Windows?",
-      "answer": "Le gabarit 'p2-3gb' est recommandé, car l'image Windows est exigeante et nécessite plus de mémoire vive et un disque racine plus grand que les gabarits de type 'c'."
+      "question": "Comment configurer les règles de pare-feu pour permettre la connexion à distance (RDP) à une instance Windows, et quelle est l'importance de restreindre l'accès par adresse IP?",
+      "answer": "Dans 'Accès et Sécurité' sous l'onglet 'Groupes de sécurité', sélectionnez le groupe 'default' et ajoutez une règle prédéfinie pour RDP. Il est crucial de remplacer `0.0.0.0/0` par votre adresse IP spécifique (suivie de '/32') dans le champ 'CIDR' pour éviter de rendre l'instance vulnérable aux attaques."
     },
     {
-      "question": "Quelle taille de disque racine est suggérée pour une instance Windows?",
-      "answer": "Une taille de 30 Go ou plus est suggérée pour le disque racine, car le système d'exploitation seul prend environ 20 Go et plus d'espace est nécessaire pour l'installation."
+      "question": "Comment récupérer le mot de passe d'administrateur pour se connecter à une instance Windows, et quel type de clé privée est requis pour le décrypter?",
+      "answer": "Dans le menu 'Instances', sélectionnez 'Récupérer le mot de passe' pour l'instance. Le mot de passe, crypté avec la clé publique, est déchiffré en sélectionnant votre clé privée (.pem) sauvegardée, qui doit être au format OpenSSH et sans phrase de passe."
     },
     {
-      "question": "Pourquoi est-ce important de configurer les paramètres de localisation et d'accepter la licence après le premier démarrage d'une instance Windows?",
-      "answer": "Le premier démarrage de l'instance Windows ne sera pas complété tant que ces paramètres ne sont pas sélectionnés et que les conditions de la licence ne sont pas acceptées via la console du tableau de bord OpenStack."
-    },
-    {
-      "question": "Comment activer le protocole RDP (Remote Desktop Protocol) pour me connecter à mon instance Windows?",
-      "answer": "Allez à 'Accès et Sécurité', sous l'onglet 'Groupes de sécurité', cliquez sur 'Gérer les règles' pour le groupe 'default', puis '+Ajouter une règle'. Sélectionnez la règle prédéfinie pour RDP et remplacez '0.0.0.0/0' par votre adresse IP /32."
-    },
-    {
-      "question": "Comment récupérer le mot de passe pour me connecter à une instance Windows via un client de bureau à distance?",
-      "answer": "Dans le menu 'Instances', sélectionnez 'Récupérer le mot de passe' pour votre instance. Vous devrez ensuite le décrypter en fournissant le fichier de votre clé privée (.pem)."
-    },
-    {
-      "question": "Quel est le format de clé privée SSH requis pour décrypter le mot de passe d'une instance Windows?",
-      "answer": "Votre clé privée doit être au format OpenSSH et ne pas être protégée par une phrase de passe. Si elle a été créée par OpenStack et téléchargée (.pem), elle est normalement conforme."
+      "question": "Quels clients sont recommandés pour la connexion Bureau à distance à une instance Windows depuis des systèmes Windows ou Linux?",
+      "answer": "Depuis un système Windows, la fonctionnalité 'Connexion Bureau à distance' intégrée est utilisée. Pour un système Linux, le client Remmina est recommandé."
     }
   ],
-  "generated_at": "2026-04-11T19:51:23.765343+00:00"
+  "generated_at": "2026-04-13T04:02:18.745678+00:00"
 }

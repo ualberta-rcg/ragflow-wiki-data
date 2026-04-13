@@ -4,33 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How can software be configured to use a license server via an SSH tunnel on 'localhost'?",
-      "answer": "Software can be configured by setting an environment variable, such as `export MLM_LICENSE_FILE=COMPUTEPORT@localhost`, which tells the software that the license server is on 'localhost' at the specified port."
+      "question": "How should software be configured to use a license server through an SSH tunnel after the tunnel is established?",
+      "answer": "After an SSH tunnel is established, the software should be configured to look for the license server on `localhost` at the chosen local port. This is often achieved by setting an environment variable, such as `export MLM_LICENSE_FILE=COMPUTEPORT@localhost`."
     },
     {
-      "question": "What is the main goal of the provided example job script?",
-      "answer": "The main goal of the provided example job script is to set up an SSH tunnel to contact `licenseserver.institution.ca` at port `9999`."
+      "question": "What is the primary purpose of the provided example job script for SSH tunnelling?",
+      "answer": "The example job script demonstrates how to set up an SSH tunnel within a batch job to connect to a commercial license server (e.g., `licenseserver.institution.ca` at port 9999) from a compute node. It dynamically selects a local port and configures the `MLM_LICENSE_FILE` environment variable to inform the software about the tunnelled license server."
     },
     {
-      "question": "What are the Slurm (SBATCH) resource requests specified in the example job script?",
-      "answer": "The Slurm resource requests in the example job script are for 1 node (`--nodes 1`), 192 tasks (`--ntasks 192`), and a time limit of 3 hours (`--time 3:00:00`)."
-    },
-    {
-      "question": "Which remote host and port are defined for the license server in the example job script?",
-      "answer": "The remote host is `licenseserver.institution.ca` and the remote port is `9999`."
-    },
-    {
-      "question": "How does the example job script determine the local port for the SSH tunnel?",
-      "answer": "The example job script determines the local port by randomly selecting a number between `1024` and `65535` using `shuf -i 1024-65535 -n 1`."
-    },
-    {
-      "question": "What gateway server is specified for the SSH tunnel connection in the example job script?",
-      "answer": "The gateway server specified for the SSH tunnel connection in the example job script is `tri-gw`."
-    },
-    {
-      "question": "How many attempts does the example job script make to establish the SSH tunnel before potentially giving up?",
-      "answer": "The example job script makes up to 10 attempts to establish the SSH tunnel, trying a different random local port each time."
+      "question": "How does the example job script determine the local port number for the SSH tunnel?",
+      "answer": "The example job script uses a `for` loop and the `shuf -i 1024-65535 -n 1` command to randomly select an available local port (`LOCALPORT`) between 1024 and 65535. It then attempts to establish the SSH tunnel with this chosen port, retrying with a different random port if the initial attempt fails."
     }
   ],
-  "generated_at": "2026-04-12T07:34:57.856089+00:00"
+  "generated_at": "2026-04-13T13:13:44.303972+00:00"
 }

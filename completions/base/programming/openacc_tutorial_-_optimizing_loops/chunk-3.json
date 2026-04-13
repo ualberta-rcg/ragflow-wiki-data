@@ -4,53 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What is the function of the `vector` clause in OpenACC?",
-      "answer": "The `vector` clause in OpenACC is used to apply vector-level parallelism to a loop."
+      "question": "In OpenACC, what clauses are available to control the level of parallelism for a loop, and in what order should multiple clauses be specified?",
+      "answer": "OpenACC offers `gang`, `worker`, `vector`, and `seq` clauses to control loop parallelism. The `seq` clause runs a loop sequentially, while the others apply different levels of parallelism. When using multiple clauses for a single loop, they must be specified in a top-down order, meaning `gang` first, followed by `worker`, and `vector` last."
     },
     {
-      "question": "How can an OpenACC loop be made to run sequentially?",
-      "answer": "An OpenACC loop can be made to run sequentially by using the `seq` clause."
+      "question": "How can an OpenACC programmer ensure that a specific parallelism clause, such as `vector` parallelism, is only applied when the code is compiled for a particular type of accelerator, like an NVidia GPU?",
+      "answer": "OpenACC provides the `device_type` clause to specify which type of accelerator a subsequent parallelism clause applies to. For instance, `device_type(nvidia) vector` would apply vector parallelism to a loop exclusively if the code is being compiled for NVidia GPUs."
     },
     {
-      "question": "What is the correct order for applying multiple OpenACC parallelism clauses to a loop?",
-      "answer": "When applying multiple OpenACC parallelism clauses to a loop, they must be specified in a top-down order, with `gang` first and `vector` last."
-    },
-    {
-      "question": "What is the purpose of the `device_type` clause in OpenACC?",
-      "answer": "The `device_type` clause in OpenACC allows you to specify which type of accelerator a subsequent clause applies to, as different accelerators may perform differently based on parallelization."
-    },
-    {
-      "question": "Can you provide an example of how the `device_type` clause is used for NVidia GPUs?",
-      "answer": "For example, the clauses `device_type(nvidia) vector` would apply vector parallelism to the loop only if the code is compiled for NVidia GPUs."
-    },
-    {
-      "question": "How can the size of `vector`, `worker`, and `gang` parallelism levels be explicitly set in OpenACC?",
-      "answer": "Each of the `vector`, `worker`, and `gang` clauses can take a parameter to explicitly state their size. For instance, `worker(32) vector(32)` would create 32 workers to perform computations on vectors of size 32."
-    },
-    {
-      "question": "What are the limitations for `vector` length on NVidia GPUs?",
-      "answer": "For NVidia GPUs, the `vector` length must be a multiple of 32 and cannot exceed 1024."
-    },
-    {
-      "question": "How is the `gang` size determined for NVidia GPUs, and what is its maximum limit?",
-      "answer": "For NVidia GPUs, the `gang` size is determined by multiplying the number of `worker`s by the size of a `vector`. This number cannot be larger than 1024."
-    },
-    {
-      "question": "Why was the compiler's default `vector` length of 128 considered inefficient in the given example?",
-      "answer": "The compiler's default `vector` length of 128 was considered inefficient because the matrix rows only contained 27 elements, leading to wasted computation on 101 elements."
-    },
-    {
-      "question": "How do you control the `vector` length to 32 using a `kernels` directive for an NVidia GPU?",
-      "answer": "To control the `vector` length to 32 using a `kernels` directive for an NVidia GPU, you would add `#pragma acc loop device_type(nvidia) vector(32)` to the inner loop."
-    },
-    {
-      "question": "How is the `vector` length specified when using a `parallel loop` directive in OpenACC?",
-      "answer": "With the `parallel loop` directive, the `vector` length is specified at the level of the top loop using the `vector_length` clause (e.g., `vector_length(32)`), and the `vector` clause is then used on an inner loop to specify vector parallelism."
-    },
-    {
-      "question": "What was the observed impact on runtime on a K20 GPU after manually reducing the `vector` length from 128 to 32?",
-      "answer": "On a K20 GPU, the runtime actually increased from approximately 10 seconds to about 15 seconds after manually reducing the `vector` length to 32."
+      "question": "What are the specific size constraints for OpenACC `vector` length and `gang` size when parallelizing loops for NVidia GPUs?",
+      "answer": "For NVidia GPUs, the `vector` length must be a multiple of 32, with a maximum limit of 1024. The `gang` size, which is determined by multiplying the number of `worker`s by the `vector` size, also cannot exceed 1024."
     }
   ],
-  "generated_at": "2026-04-12T04:16:48.973300+00:00"
+  "generated_at": "2026-04-13T10:25:05.698835+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "What is Tensor Parallelism (TP) in PyTorch, and how does its approach to sharding model layers differ from Fully Sharded Data Parallelism (FSDP)?",
-      "answer": "Tensor Parallelism (TP) is a model sharding method where the computation of a forward or backward pass through a model layer is split across multiple devices, along with the layer's weights. This differs from Fully Sharded Data Parallelism (FSDP) because TP performs computation steps locally on the device where a model shard is placed, meaning individual FSDP layers or sharded model blocks must fit entirely in the memory of a single device, while TP avoids this constraint."
+      "question": "What is Tensor Parallelism (TP) in PyTorch, and how does it differ from Fully Sharded Data Parallelism (FSDP)?",
+      "answer": "Tensor Parallelism (TP) is a model sharding approach where the computation of a forward or backward pass through a model layer is split along with the layers' weights across multiple devices, with computation steps performed locally on each device. This differs from Fully Sharded Data Parallelism (FSDP), where model weights are sharded but may still need to be collected onto a single device during certain computation steps, implying that individual FSDP layers or sharded model blocks must fit entirely within the memory of a single GPU."
     },
     {
-      "question": "What is Pipeline Parallelism (PP) in PyTorch, and how does the use of \"micro-batches\" help optimize its performance?",
-      "answer": "Pipeline Parallelism (PP) is a model sharding approach where groups of consecutive layers of a model are placed on different devices, meaning computations are performed in sequence across these devices. To mitigate the idle time of devices waiting for their turn, PP breaks each input batch into \"micro-batches,\" which are fed to the model sequentially, ensuring all devices remain active as the first micro-batch progresses through the model blocks."
+      "question": "How does Pipeline Parallelism (PP) work to optimize model training across multiple devices?",
+      "answer": "Pipeline Parallelism (PP) is a model sharding approach where a model's consecutive layers are grouped into shards, and each shard is placed on a different device. This means that computations for a forward or backward pass occur sequentially across these devices. To ensure devices remain busy and mitigate idle waiting times, input batches are divided into \"micro-batches\" that are fed to the model in sequence, allowing all devices to continuously perform computations as the first micro-batch progresses through the pipeline."
     },
     {
-      "question": "When performing checkpointing during a distributed PyTorch training program using DistributedDataParallel or Horovod, what is the recommended procedure for saving and loading checkpoints to avoid issues?",
-      "answer": "During distributed training with DistributedDataParallel or Horovod, it's recommended that only one process (e.g., `global_rank == 0`) saves the checkpoint, as all ranks will have the same state. To avoid errors or incorrect results when loading, a `torch.distributed.barrier()` should be used to ensure the checkpoint is fully written to disk before other processes attempt to load it, and `map_location=f\"cuda:{local_rank}\"` should be passed to `torch.load` to ensure tensors are loaded onto the correct GPU for each rank."
+      "question": "Why is it recommended to create model checkpoints during PyTorch training, and what is the process for doing so in a distributed training setup?",
+      "answer": "Creating model checkpoints during PyTorch training is recommended to save the model's state at specific points (e.g., after epochs), which helps in breaking long jobs into shorter, more manageable ones for faster cluster allocation, and prevents the loss of progress due to unexpected errors or node failures. In a distributed training program, checkpoints should only be saved by one process (e.g., rank 0), as all ranks will have the same state. Before loading a checkpoint in a distributed setup, a `torch.distributed.barrier()` should be used to ensure the saving process has completed, and `map_location` should be passed to `torch.load` to ensure tensors are loaded onto the correct GPU for each rank."
     }
   ],
-  "generated_at": "2026-04-12T21:31:42.878441+00:00"
+  "generated_at": "2026-04-13T11:40:20.194814+00:00"
 }

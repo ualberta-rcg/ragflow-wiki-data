@@ -3,81 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the main purpose of this manual?",
-      "answer": "This manual is a beginner's guide on how to port a machine learning job to one of our clusters."
+      "question": "What is the purpose of this guide regarding machine learning jobs on Alliance clusters?",
+      "answer": "This guide serves as a beginner's manual for porting a machine learning job to one of the Alliance clusters."
     },
     {
-      "question": "What is the first step when porting a machine learning job to a cluster?",
-      "answer": "The first step is to remove all graphical display functionality from your program."
+      "question": "What is the first step when porting a machine learning job to an Alliance cluster regarding graphical displays?",
+      "answer": "Users must edit their program so it doesn't use a graphical display, and all graphical results should be written to disk to be visualized on a personal computer after the job finishes."
     },
     {
-      "question": "How should graphical results be handled when running a job on a cluster?",
-      "answer": "All graphical results should be written to disk as image files and visualized on your personal computer after the job is finished."
+      "question": "Why is it important to archive datasets when running machine learning jobs on Alliance clusters?",
+      "answer": "Shared storage on Alliance clusters is optimized for very large files, not lots of small files; archiving data into a format like `tar` prevents enormous numbers of I/O operations and performance issues for all users."
     },
     {
-      "question": "Why is it recommended to archive datasets for machine learning jobs on the clusters?",
-      "answer": "Shared storage on our clusters is not designed to handle lots of small files and is optimized for very large files, so archiving prevents performance issues caused by excessive I/O operations."
+      "question": "How can users archive a dataset named 'mydataset' on an Alliance cluster without compressing it?",
+      "answer": "Users can use the command `tar cf mydataset.tar mydataset/*`."
     },
     {
-      "question": "What is a recommended archive format for datasets?",
-      "answer": "An archive format like `tar` is recommended for datasets."
+      "question": "What is recommended for preparing the environment for a machine learning job on an Alliance cluster?",
+      "answer": "Users should create a virtual environment in their home space and refer to documentation for installing machine learning frameworks like PyTorch and TensorFlow."
     },
     {
-      "question": "What command can be used to archive a directory named `mydataset` without compression?",
-      "answer": "The command `tar cf mydataset.tar mydataset/*` can be used to archive a directory without compression."
+      "question": "Why is it recommended to use an interactive job (`salloc`) before submitting a machine learning job script on an Alliance cluster?",
+      "answer": "Using an interactive job (`salloc`) allows users to diagnose problems more quickly before submitting the job using a script."
     },
     {
-      "question": "What is the third step in preparing a machine learning job for a cluster?",
-      "answer": "The third step is to prepare your virtual environment, typically by creating one in your home space."
+      "question": "What is a crucial recommendation for file I/O during an interactive job on an Alliance cluster?",
+      "answer": "It is crucial to verify that the job reads and writes as much as possible on the compute node's local storage (`$SLURM_TMPDIR`) and as little as possible on the shared filesystems (home, scratch, and project)."
     },
     {
-      "question": "Where can users find detailed documentation for installing and using specific machine learning frameworks like PyTorch and TensorFlow?",
-      "answer": "Users can refer to our documentation pages for PyTorch and TensorFlow for details on installation and usage of machine learning frameworks."
+      "question": "What must a user do to install missing Python modules if their machine learning job is running on a compute node without internet access?",
+      "answer": "Since compute nodes don't have internet access, users must install missing modules from a login node, referring to the documentation on virtual environments."
     },
     {
-      "question": "Why are interactive jobs recommended before submitting a machine learning job with a script?",
-      "answer": "Interactive jobs are recommended for quicker diagnosis of problems before submitting a job using a script."
+      "question": "What is the primary purpose of using the `sbatch` command for machine learning jobs on Alliance clusters?",
+      "answer": "The `sbatch` command is used to submit jobs using a script, allowing them to be entirely automated as a batch process, while interactive jobs are for preparation and debugging."
     },
     {
-      "question": "What is an example command for submitting an interactive job?",
-      "answer": "An example command for submitting an interactive job is `salloc --account=def-someuser --gres=gpu:1 --cpus-per-task=3 --mem=32000M --time=1:00:00`."
+      "question": "What are the key elements that should be included in an `sbatch` script for a machine learning job on an Alliance cluster?",
+      "answer": "Key elements include the account for billing, requested resources (number of CPUs, GPUs, amount of memory, duration), and Bash commands for preparing the environment, transferring data to the compute node, and starting the executable."
     },
     {
-      "question": "How should missing modules be installed when running an interactive job, given that compute nodes lack internet access?",
-      "answer": "Missing modules must be installed from a login node, by referring to our documentation on virtual environments."
+      "question": "What is the recommended number of GPUs to request for a machine learning job on an Alliance cluster, unless otherwise certain?",
+      "answer": "It is recommended to use one single GPU, unless the user is certain their program can utilize several, as TensorFlow and PyTorch typically use just one by default."
     },
     {
-      "question": "What is a crucial verification step once an interactive job has started, regarding file storage?",
-      "answer": "It is crucial to verify that your job reads and writes as much as possible on the compute node's local storage (`$SLURM_TMPDIR`) and as little as possible on the shared filesystems (home, scratch, and project)."
+      "question": "What is the maximum job duration on Béluga clusters compared to Graham and Cedar clusters?",
+      "answer": "The maximum job duration on Béluga is 7 days, while on Graham and Cedar, it is 28 days."
     },
     {
-      "question": "Why must machine learning jobs ultimately be submitted using a script with the `sbatch` command?",
-      "answer": "Jobs must be submitted using a script with `sbatch` so that they can be entirely automated as a batch process, as interactive jobs are only for preparation and debugging."
+      "question": "Where should data be transferred for a machine learning job on an Alliance cluster when using an `sbatch` script?",
+      "answer": "Data should be transferred to the compute node's local storage, accessible via `$SLURM_TMPDIR`, for better performance."
     },
     {
-      "question": "What are the important elements that an `sbatch` script for a machine learning job should include?",
-      "answer": "Important elements include the account to be billed, requested resources (number of CPUs, GPUs, amount of memory, duration), and Bash commands for environment setup, data transfer, and starting the executable."
+      "question": "What is the recommended strategy for checkpointing long-running machine learning jobs on Alliance clusters?",
+      "answer": "It is recommended to checkpoint jobs in 24-hour units, creating a daisy chain of jobs using the `--array` argument to overcome job duration limits and increase the likelihood of starting sooner."
     },
     {
-      "question": "What is the general recommendation for GPU usage in an `sbatch` script for machine learning jobs?",
-      "answer": "It is recommended to use one single GPU unless you are certain your program can utilize several, as TensorFlow and PyTorch typically use only one by default."
-    },
-    {
-      "question": "What does the example `ml-test.sh` script demonstrate in terms of job preparation and execution?",
-      "answer": "The example `ml-test.sh` script demonstrates loading modules (python, cuda, cudnn), activating a virtual environment, preparing data by extracting a tar archive to `$SLURM_TMPDIR/data`, and finally starting the training script."
-    },
-    {
-      "question": "Why is checkpointing recommended for long-running machine learning jobs?",
-      "answer": "Checkpointing ensures that jobs are more likely to start sooner by having shorter durations (e.g., 24-hour units), and allows them to overcome duration limits by creating a daisy chain of jobs."
-    },
-    {
-      "question": "What modifications are needed for a job to support checkpointing and run in a daisy chain?",
-      "answer": "The job submission script or your program needs to be modified so that the job can be interrupted and continued, capable of accessing the most recent checkpoint file, and use the `--array 1-<n_blocs>%1` argument for `sbatch`."
-    },
-    {
-      "question": "How does the example `ml-test-chain.sh` script handle the loading of checkpoints?",
-      "answer": "The example `ml-test-chain.sh` script finds the most recent checkpoint file (e.g., `*.h5` or `*.pt`) in a specified directory and either starts training from scratch if no checkpoint is found, or loads the last checkpoint to resume training."
+      "question": "How can users ensure a long-running machine learning job can be interrupted and resumed on an Alliance cluster?",
+      "answer": "Users must modify their job submission script or their program so that it can access the most recent checkpoint file, allowing the job to be interrupted and continued from that point."
     }
   ],
-  "generated_at": "2026-04-12T09:55:27.128803+00:00"
+  "generated_at": "2026-04-13T15:03:52.041004+00:00"
 }

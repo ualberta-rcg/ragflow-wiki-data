@@ -4,85 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Comment spécifier le nombre de cœurs pour une session de visualisation ParaView multicœur dans JupyterLab?",
-      "answer": "Dans les options du serveur (Server Options), sous 'Nombre de cœurs' (Number of Cores), sélectionnez le nombre de cœurs souhaité, par exemple 4."
+      "question": "Comment est-ce qu'on configure une session de visualisation ParaView avec plusieurs cœurs via JupyterLab sur les grappes d'Alliance?",
+      "answer": "Pour configurer une session de visualisation ParaView avec plusieurs cœurs via JupyterLab, il faut d'abord spécifier le nombre de cœurs souhaité (par exemple, 4) et la mémoire correspondante (par exemple, 14 400 Mo pour 4 cœurs) dans les options du serveur JupyterLab. Une fois la session lancée, vous devez ouvrir un terminal dans votre bureau virtuel, charger le module `paraview/6.0.0`, et démarrer le serveur ParaView avec `mpirun --oversubscribe -np 4 pvserver`. Ensuite, dans un autre terminal du même bureau virtuel, lancez le client ParaView avec `paraview`. Finalement, dans l'interface ParaView, connectez le client au serveur en ajoutant un serveur de type « Client/Server », l'hôte « localhost » et le port « 11111 » (ou celui indiqué par le serveur)."
     },
     {
-      "question": "Quelle est la mémoire recommandée par cœur pour une session ParaView multicœur dans JupyterLab?",
-      "answer": "Pour 4 cœurs, il est suggéré de sélectionner 14 400 Mo de mémoire, ce qui correspond à 3 600 Mo par cœur."
+      "question": "Quelles sont les étapes pour lancer une visualisation ParaView avec un seul cœur en utilisant Open OnDemand sur les grappes Nibi ou Trillium?",
+      "answer": "Pour lancer une visualisation ParaView avec un seul cœur via Open OnDemand sur Nibi ou Trillium, vous devez vous connecter au portail approprié (https://ondemand.sharcnet.ca pour Nibi ou https://ondemand.scinet.utoronto.ca pour Trillium) avec votre compte Alliance. Ensuite, accédez à « Desktop » (sous « Compute Nodes | Nibi Desktop » pour Nibi), spécifiez un compte Slurm pour CPU seulement et demandez 1 CPU. Après le lancement du bureau virtuel, ouvrez un terminal et exécutez `module load paraview/6.0.0` suivi de `paraview` pour démarrer ParaView."
     },
     {
-      "question": "Quelle est la commande pour charger le module ParaView dans un terminal de bureau virtuel JupyterLab en vue d'une visualisation multicœur?",
-      "answer": "Il faut entrer `module load paraview/6.0.0`."
-    },
-    {
-      "question": "Comment démarrer le serveur ParaView pour un rendu parallèle avec 4 cœurs dans une session JupyterLab?",
-      "answer": "Après avoir chargé le module ParaView, lancez la commande `mpirun --oversubscribe -np 4 pvserver`."
-    },
-    {
-      "question": "Quelles informations de connexion le serveur ParaView fournit-il après son lancement?",
-      "answer": "Le serveur affiche des messages comme 'Waiting for client...', 'Connection URL: cs://fc30669:11111' et 'Accepting connection(s): fc30669:11111', indiquant l'hôte et le port pour la connexion."
-    },
-    {
-      "question": "Comment lancer le client ParaView dans un deuxième terminal du bureau virtuel JupyterLab pour une configuration multicœur?",
-      "answer": "Dans le second terminal, chargez le module ParaView (`module load paraview/6.0.0`) puis lancez ParaView avec la commande `paraview`."
-    },
-    {
-      "question": "Quelles sont les étapes pour connecter le client ParaView au serveur parallèle dans JupyterLab?",
-      "answer": "Dans l'interface de ParaView, cliquez sur 'Connect', puis 'Add Server'. Configurez 'Server Type' à 'Client/Server', 'Host' à 'localhost', 'Port' à '11111' et 'Startup Type' à 'Manual'. Ensuite, cliquez de nouveau sur 'Connect'."
-    },
-    {
-      "question": "Comment peut-on vérifier si le rendu parallèle est en cours dans ParaView?",
-      "answer": "Pour vérifier le rendu parallèle, vous pouvez colorer votre ensemble de données avec la variable 'Process Id', car elle n'est pas disponible en mode séquentiel."
-    },
-    {
-      "question": "Quelles grappes informatiques permettent la visualisation à un seul cœur via Open OnDemand?",
-      "answer": "Les grappes Nibi et Trillium permettent la visualisation à un seul cœur via Open OnDemand."
-    },
-    {
-      "question": "Quelles sont les adresses Web pour accéder à Open OnDemand pour Nibi et Trillium?",
-      "answer": "Pour Nibi, l'adresse est `https://ondemand.sharcnet.ca`, et pour Trillium, c'est `https://ondemand.scinet.utoronto.ca`."
-    },
-    {
-      "question": "Après s'être connecté à Open OnDemand, où doit-on naviguer pour lancer une session de bureau pour la visualisation sur Nibi?",
-      "answer": "Il faut aller à 'Desktop' dans le menu, puis sous 'Compute Nodes', choisir 'Nibi Desktop'."
-    },
-    {
-      "question": "Quelles ressources doivent être spécifiées lors du lancement d'un bureau Open OnDemand pour ParaView à un seul cœur?",
-      "answer": "Il faut spécifier un compte Slurm pour CPU seulement et d'autres ressources, incluant 1 CPU."
-    },
-    {
-      "question": "Une fois le bureau Open OnDemand lancé, comment démarre-t-on ParaView pour une visualisation à un seul cœur?",
-      "answer": "Ouvrez un terminal sur le bureau et entrez `module load paraview/6.0.0`, puis `paraview`."
-    },
-    {
-      "question": "Pourquoi ParaView ne peut-il pas utiliser directement plusieurs cœurs pour une visualisation multicœur via Open OnDemand?",
-      "answer": "ParaView n'est pas multifil, donc il ne peut pas utiliser plusieurs cœurs directement."
-    },
-    {
-      "question": "Comment ParaView permet-il le rendu parallèle dans une configuration multicœur via Open OnDemand, même s'il n'est pas multifil?",
-      "answer": "Un client ParaView avec un seul cœur est connecté à un serveur ParaView parallèle."
-    },
-    {
-      "question": "Quelle est la quantité maximale de mémoire et le nombre maximal de cœurs qu'Open OnDemand sur Nibi permet de demander pour la visualisation multicœur?",
-      "answer": "Open OnDemand sur Nibi permet de demander jusqu'à 128 Go de mémoire et jusqu'à 8 cœurs."
-    },
-    {
-      "question": "Si on spécifie 4 cœurs pour une session Open OnDemand, quel type de tâche sera disponible?",
-      "answer": "Vous aurez accès à une tâche MPI avec 4 CPU."
-    },
-    {
-      "question": "Quelles commandes sont utilisées pour démarrer le serveur ParaView pour 4 CPU dans un bureau virtuel Open OnDemand?",
-      "answer": "D'abord, `module load paraview/6.0.0`, puis `mpirun --oversubscribe -np 4 pvserver`."
-    },
-    {
-      "question": "Quel est le port par défaut utilisé par le serveur ParaView pour les connexions client, tel qu'indiqué dans l'exemple?",
-      "answer": "Le port par défaut est `11111`."
-    },
-    {
-      "question": "Comment configure-t-on les paramètres de connexion du client ParaView pour se connecter au serveur parallèle dans Open OnDemand?",
-      "answer": "Dans l'interface de ParaView, réglez 'Server Type' à 'Client/Server', 'Host' à 'localhost', 'Port' à '11111', et 'Startup Type' à 'Manual'."
+      "question": "Comment peut-on effectuer une visualisation ParaView avec plusieurs cœurs en utilisant Open OnDemand sur une grappe?",
+      "answer": "Pour la visualisation avec plusieurs cœurs via Open OnDemand, suivez les mêmes étapes que pour une visualisation séquentielle, mais demandez plus de cœurs (par exemple, jusqu'à 8 sur Nibi) et de mémoire au moment de spécifier les ressources dans Open OnDemand. Une fois sur le bureau virtuel avec une tâche MPI à plusieurs CPU, ouvrez un terminal, chargez le module `paraview/6.0.0` et démarrez le serveur ParaView avec `mpirun --oversubscribe -np 4 pvserver` (en adaptant le nombre de cœurs). Dans un deuxième terminal du même bureau virtuel, lancez le client ParaView avec `paraview`. Enfin, dans l'interface ParaView, connectez le client au serveur en ajoutant un serveur de type « Client/Server » avec l'hôte « localhost » et le port « 11111 », puis cliquez sur « Connect »."
     }
   ],
-  "generated_at": "2026-04-12T04:56:50.506010+00:00"
+  "generated_at": "2026-04-13T10:59:55.280874+00:00"
 }

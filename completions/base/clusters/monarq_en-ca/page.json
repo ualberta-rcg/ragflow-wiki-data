@@ -3,85 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is MonarQ and where was it developed?",
-      "answer": "MonarQ is a 24-qubit superconducting quantum computer developed in Montréal by Anyon Systèmes."
+      "question": "What is the MonarQ quantum computer?",
+      "answer": "MonarQ is a 24-qubit superconducting quantum computer developed by Anyon Systèmes in Montréal."
     },
     {
-      "question": "What is the current status of MonarQ and when is it expected to be operational?",
-      "answer": "MonarQ is currently undergoing maintenance and is expected to be operational in February 2026."
+      "question": "What is the current operational status of the MonarQ quantum computer?",
+      "answer": "MonarQ is currently undergoing maintenance and is expected to be operational in February 2026. In the interim, Calcul Québec offers access to a smaller, similar machine with 6 qubits."
     },
     {
-      "question": "Is there an alternative quantum machine available while MonarQ is under maintenance?",
-      "answer": "Yes, Calcul Québec can offer access to a similar but smaller machine with 6 qubits."
+      "question": "Where is the MonarQ quantum computer located, and which entities developed and host it?",
+      "answer": "MonarQ is located at the École de technologie supérieure (ETS) in Montréal and was developed by Anyon Systèmes."
     },
     {
-      "question": "What is the connection node for MonarQ?",
-      "answer": "The connection node for MonarQ is https://monarq.calculquebec.ca."
+      "question": "What are the general steps required to gain access to the MonarQ quantum computer?",
+      "answer": "To access MonarQ, researchers must fill out a form (completed by the principal investigator), have an Alliance account, meet with the quantum team to discuss project specifics, and then receive access to the MonarQ dashboard to generate an access token."
     },
     {
-      "question": "What are the initial steps to gain access to MonarQ?",
-      "answer": "To begin, the principal investigator must fill out a form, have an Alliance account, meet with the quantum team, and then receive dashboard access to generate an access token."
+      "question": "What is a key prerequisite for researchers to access MonarQ services?",
+      "answer": "Researchers must have an account with the Alliance to gain access to MonarQ."
     },
     {
-      "question": "Who is responsible for completing the initial access form for MonarQ?",
-      "answer": "The principal investigator must complete the initial access form for MonarQ."
+      "question": "What are the main technical specifications of the MonarQ 24-qubit quantum processor?",
+      "answer": "MonarQ features 24 qubits, with a 1-qubit gate fidelity of 99.8% (32ns duration) and a 2-qubit gate fidelity of 96% (90ns duration). It has a coherence time of 4-10µs and a maximum circuit depth of approximately 350 for 1-qubit gates and 115 for 2-qubit gates."
     },
     {
-      "question": "What are the main technical specifications of MonarQ's quantum processor?",
-      "answer": "MonarQ has a 24-qubit quantum processor with a single-qubit gate fidelity of 99.8% (32ns duration) and a two-qubit gate fidelity of 96% (90ns duration)."
+      "question": "How can users access performance metrics for the MonarQ quantum computer?",
+      "answer": "Performance metrics for MonarQ, updated with each calibration, are accessible via the Thunderhead portal, which requires approved access to MonarQ."
     },
     {
-      "question": "How can users access MonarQ's performance metrics?",
-      "answer": "Performance metrics, updated at each calibration, are accessible via the Thunderhead portal, which requires MonarQ access approval."
+      "question": "Which quantum computing software libraries are compatible with MonarQ?",
+      "answer": "MonarQ is natively compatible with the Snowflurry library (written in Julia). PennyLane and Qiskit (Python libraries) are also supported, with a PennyLane-CalculQuébec plugin allowing PennyLane circuits to run on MonarQ."
     },
     {
-      "question": "Which software libraries are recommended for quantum computing with MonarQ?",
-      "answer": "PennyLane (Python), Snowflurry (Julia), and Qiskit (Python) are mentioned as specialized software libraries for quantum computing."
+      "question": "How can users execute PennyLane circuits on MonarQ, considering its native compatibility with Snowflurry?",
+      "answer": "Users can execute PennyLane circuits on MonarQ by using the PennyLane-CalculQuébec plugin, developed by Calcul Québec, which bridges PennyLane's development environment with MonarQ's Snowflurry-based logical gates."
     },
     {
-      "question": "Which software library is MonarQ natively compatible with?",
-      "answer": "MonarQ is natively compatible with Snowflurry, which is written in Julia."
+      "question": "What are the initial prerequisites for getting started with MonarQ once access is granted?",
+      "answer": "Users need to have confirmed access to MonarQ, along with their login credentials, including a username and API token."
     },
     {
-      "question": "How can users run quantum circuits on MonarQ using PennyLane?",
-      "answer": "Users can run quantum circuits on MonarQ using PennyLane through the PennyLane-CalculQuébec plugin developed by Calcul Québec."
+      "question": "How do users connect to the MonarQ quantum computer for operation?",
+      "answer": "MonarQ is exclusively accessible from Narval, a Calcul Québec cluster. Users must connect to Narval via its login node, narval.alliancecan.ca."
     },
     {
-      "question": "What are the prerequisites for getting started with MonarQ after gaining access?",
-      "answer": "The prerequisites include having access to MonarQ and your login credentials, which consist of a username and an API token."
+      "question": "What is the recommended Python environment setup for using PennyLane and the PennyLane-CalculQuébec plugin with MonarQ?",
+      "answer": "Users should create a Python virtual environment (Python 3.11 or later) on Narval, then activate it and install the PennyLane-CalculQuébec plugin using pip, as PennyLane and the plugin are already installed on Narval."
     },
     {
-      "question": "From where is MonarQ exclusively accessible?",
-      "answer": "MonarQ is exclusively accessible from Narval, a Calcul Québec cluster."
+      "question": "How are user credentials and the MonarQ device configured within a Python script for quantum circuit execution?",
+      "answer": "Within a Python script, users create a `CalculQuebecClient` instance with their MonarQ host URL (https://monarq.calculquebec.ca), username, access token (from Thunderhead portal), and project ID. This client is then used to define a PennyLane device, such as `qml.device(\"monarq.default\", client=my_client, wires=3)`."
     },
     {
-      "question": "What is the connection node for Narval?",
-      "answer": "The connection node for Narval is narval.alliancecan.ca."
+      "question": "What is the process for executing a quantum circuit on MonarQ via the scheduler?",
+      "answer": "To execute a quantum circuit on MonarQ, users create a Slurm script (`simple_job.sh`) that runs their Python circuit file (`my_circuit.py`) and then submit it to the scheduler using the `sbatch` command. The circuit's results are written to a file named `slurm-JOBID.out`."
     },
     {
-      "question": "What Python version is recommended for creating the virtual environment for MonarQ?",
-      "answer": "Python 3.11 or later is recommended for creating the virtual environment."
+      "question": "What types of applications is the MonarQ quantum computer best suited for?",
+      "answer": "MonarQ is ideal for calculations requiring small quantities of high-fidelity qubits, making it suitable for developing and testing quantum algorithms, modelling small quantum systems, testing new quantum programming and error correction methods, and fundamental research in quantum computing."
     },
     {
-      "question": "Where can users find their access token for MonarQ?",
-      "answer": "The access token for MonarQ is available from the Thunderhead portal."
-    },
-    {
-      "question": "How are quantum circuits submitted and executed on MonarQ from Narval?",
-      "answer": "Quantum circuits are executed by submitting a Slurm job using the `sbatch` command on Narval, typically via a Slurm script."
-    },
-    {
-      "question": "Where can users find the output of their executed circuit on Narval?",
-      "answer": "The output of the executed circuit is written to a file named `slurm-ID.out`, where ID corresponds to the job ID."
-    },
-    {
-      "question": "What are the primary applications of MonarQ?",
-      "answer": "MonarQ is ideal for calculations requiring small quantities of high-fidelity qubits, such as developing and testing quantum algorithms, modeling small quantum systems, and fundamental quantum computing research."
-    },
-    {
-      "question": "Who should be contacted for general questions or technical support regarding Calcul Québec's quantum services?",
-      "answer": "The quantum team at quantique@calculquebec.ca should be contacted for general questions or technical support."
+      "question": "Where can users find technical support and educational resources for MonarQ and quantum computing?",
+      "answer": "Users can contact the quantum team at quantique@calculquebec.ca for questions. Information on quantum computing and MonarQ programming sessions is listed on Eventbrite."
     }
   ],
-  "generated_at": "2026-04-12T03:10:39.976095+00:00"
+  "generated_at": "2026-04-13T09:29:40.689036+00:00"
 }

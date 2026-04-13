@@ -4,101 +4,17 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "What Abaqus version module is specified as the 'Latest version' in the provided temporary directory script for explicit analysis?",
-      "answer": "The `abaqus/2026` module is specified as the 'Latest version' in the script."
+      "question": "How do Abaqus explicit analysis jobs manage temporary data and scratch files when run on a single node using a temporary directory script?",
+      "answer": "When running an Abaqus explicit analysis job on a single node with a temporary directory script, scratch files are written to the `$SLURM_TMPDIR` location. To prevent data loss in case of job termination or time limits, the script periodically copies all files from `$SLURM_TMPDIR` to `$SLURM_SUBMIT_DIR` every 6 hours and also performs a final copy at the end of the job."
     },
     {
-      "question": "Which environment variables are echoed at the beginning of the `scriptet1.txt` for explicit analysis?",
-      "answer": "The `SLURM_SUBMIT_DIR` and `SLURM_TMPDIR` environment variables are echoed."
+      "question": "What is the process for restarting a single-node Abaqus explicit analysis job that was previously terminated?",
+      "answer": "To restart a terminated single-node Abaqus explicit analysis job, a temporary directory restart script is used. This script first copies relevant files from the previous job into the `$SLURM_TMPDIR` before the analysis begins. The Abaqus command then uses the `recover` option, specifying the new job name (`job=testet2`) and the old job name (`oldjob=testet1`). No modifications to the input file are required for restarting the analysis. Data is periodically saved back to the submit directory every 3 hours and at job completion."
     },
     {
-      "question": "What files are removed at the start of the `scriptet1.txt` in the temporary directory for explicit analysis?",
-      "answer": "The script removes files matching `testet1*` and `testet2*` at the start."
-    },
-    {
-      "question": "Where does the `scriptet1.txt` for explicit analysis change its working directory to?",
-      "answer": "The `scriptet1.txt` changes its working directory to `$SLURM_TMPDIR`."
-    },
-    {
-      "question": "How often does the `scriptet1.txt` for explicit analysis save data from the temporary directory to the submission directory?",
-      "answer": "The script saves data every 6 hours by copying all files from `$SLURM_TMPDIR` to `$SLURM_SUBMIT_DIR`."
-    },
-    {
-      "question": "How is Abaqus launched in `scriptet1.txt` for explicit analysis when `EBVERSIONABAQUS` is 2021?",
-      "answer": "If `EBVERSIONABAQUS` is 2021, Abaqus is launched using `unshare --fork --pid --mount-proc --user --map-user $USER abaqus job=testet1 input=$SLURM_SUBMIT_DIR/myexp-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
-    },
-    {
-      "question": "What command is used to launch Abaqus for explicit analysis in `scriptet1.txt` for versions 2026 or newer?",
-      "answer": "For Abaqus versions 2026 or newer, the command `abaqus job=testet1 input=$SLURM_SUBMIT_DIR/myexp-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"` is used."
-    },
-    {
-      "question": "What is the final data transfer action performed by the `scriptet1.txt` before it finishes?",
-      "answer": "The script performs a final copy of all files from `$SLURM_TMPDIR` to `$SLURM_SUBMIT_DIR`."
-    },
-    {
-      "question": "How can a user specify writing restart data for a total of 12 time increments in an Abaqus input file for explicit analysis?",
-      "answer": "To specify writing restart data for a total of 12 time increments, the user should include `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO` in the input file."
-    },
-    {
-      "question": "What command is used to check for completed restart information for explicit analysis jobs using the `scriptet1.txt`?",
-      "answer": "Users can check for completed restart information using the command `egrep -i \"step|restart\" testet*.com testet*.msg testet*.sta`."
-    },
-    {
-      "question": "What are the default Slurm resource requests in the `scriptet2.txt` for a temporary directory restart script for explicit analysis?",
-      "answer": "The default Slurm requests are an account of `def-group`, a time limit of 6 hours, 8000MB of node memory, 4 CPUs per task, and 1 node."
-    },
-    {
-      "question": "Which Abaqus module is loaded in the `scriptet2.txt` for explicit analysis restarts?",
-      "answer": "The `abaqus/2026` module is loaded as the 'Latest version'."
-    },
-    {
-      "question": "What files are removed before starting a restart job with `scriptet2.txt` for explicit analysis?",
-      "answer": "The script removes `testet2*` and `testet1.lck` files before starting a restart job."
-    },
-    {
-      "question": "How are `testet1` files prepared for a restart job `testet2` in the `scriptet2.txt`?",
-      "answer": "All files matching `testet1*` are copied to `$SLURM_TMPDIR` and renamed to `testet2*` for the restart job."
-    },
-    {
-      "question": "How often does the `scriptet2.txt` for explicit analysis save data to the submission directory during a restart job?",
-      "answer": "The `scriptet2.txt` saves data every 3 hours by copying all files from `$SLURM_TMPDIR` to `$SLURM_SUBMIT_DIR`."
-    },
-    {
-      "question": "What is the Abaqus command used to restart an explicit analysis job named `testet2` from an old job `testet1` in `scriptet2.txt`?",
-      "answer": "The Abaqus command is `abaqus job=testet2 oldjob=testet1 input=$SLURM_SUBMIT_DIR/myexp-sim.inp recover scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
-    },
-    {
-      "question": "Are input file modifications required to restart an explicit analysis using the `scriptet2.txt`?",
-      "answer": "No input file modifications are required to restart the analysis using `scriptet2.txt`."
-    },
-    {
-      "question": "Who is the multiple node computing script (`scriptep1-mpi.txt`) for explicit analysis intended for?",
-      "answer": "It's intended for users with large memory or compute needs and access to large licenses, performing MPI-based computing over an arbitrary range of nodes."
-    },
-    {
-      "question": "Is a restart script available for multiple node explicit analysis jobs?",
-      "answer": "No, a companion template script for performing restarts of multinode explicit analysis jobs is not currently provided due to additional limitations."
-    },
-    {
-      "question": "Which Abaqus versions are supported for use with the multiple node explicit analysis script (`scriptep1-mpi.txt`)?",
-      "answer": "Only Abaqus version 2026 or newer can be used with this script."
-    },
-    {
-      "question": "What are the default Slurm resource requests specified in the `scriptep1-mpi.txt` for multiple node explicit analysis?",
-      "answer": "The default requests include an account of `def-group`, a time limit of 6 hours, 8 tasks (cores), 16000MB memory per CPU, and `cpus-per-task` set to 1."
-    },
-    {
-      "question": "What Abaqus module is loaded in the `scriptep1-mpi.txt` for multiple node explicit analysis?",
-      "answer": "The `abaqus/2026` module is loaded."
-    },
-    {
-      "question": "What command is used to launch Abaqus for multiple node explicit analysis in `scriptep1-mpi.txt`?",
-      "answer": "The command `abaqus job=testep1-mpi input=myexp-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_NTASKS interactive mp_mode=mpi` is used."
-    },
-    {
-      "question": "How is the `mp_host_list` environment variable set up and used in the `scriptep1-mpi.txt` script?",
-      "answer": "The script uses `slurm_hl2hl.py` to generate a host list, formats it into `mp_host_list=[['hostname', count],...]`, exports it, and writes it to `abaqus_v6.env` for Abaqus to use for MPI processes."
+      "question": "What are the requirements and limitations for running Abaqus explicit analysis across multiple nodes using MPI?",
+      "answer": "For MPI-based explicit analysis across multiple nodes, only Abaqus version 2026 or newer can be used. A significant limitation is that companion template scripts for restarting multi-node jobs are not currently provided due to additional usage constraints. The script automatically determines and configures the MPI host list by creating an `mp_host_list` variable in `abaqus_v6.env`."
     }
   ],
-  "generated_at": "2026-04-11T15:33:38.417480+00:00"
+  "generated_at": "2026-04-13T00:48:22.511190+00:00"
 }

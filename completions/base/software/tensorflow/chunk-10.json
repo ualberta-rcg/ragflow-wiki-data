@@ -4,25 +4,13 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "What is the cause of the \"OMP: Error #15\" when the scikit-image library is used with TensorFlow?",
-      "answer": "The \"OMP: Error #15\" occurs because the TensorFlow library attempts to load a bundled version of OMP, which conflicts with the system's version of OMP."
+      "question": "When using TensorFlow with the scikit-image library, what causes the `OMP: Error #15: Initializing libiomp5.so, but found libiomp5.so already initialized` error?",
+      "answer": "This error occurs because the TensorFlow library attempts to load a bundled version of OMP (`libiomp5.so`), which conflicts with the system's installed version of `libiomp5.so`."
     },
     {
-      "question": "How can the \"OMP: Error #15\" conflict between TensorFlow and scikit-image be resolved?",
-      "answer": "The conflict can be resolved by patching the TensorFlow library installation to use the system-wide `libiomp5.so`. This involves navigating to the virtual environment directory, setting an environment variable for `LIBIOMP_PATH`, and then creating symbolic links within the TensorFlow installation."
-    },
-    {
-      "question": "What specific commands are used to apply the workaround for the \"OMP: Error #15\" when using scikit-image with TensorFlow?",
-      "answer": "The specific commands are:\n1. `cd tf_skimage_venv`\n2. `export LIBIOMP_PATH=$(strace python -c 'from skimage.transform import AffineTransform' 2>&1 | grep -v ENOENT | grep -ohP -e '(?<=\")[^\"]+libiomp5.so(?=\")' | xargs realpath)`\n3. `find -path '*_solib_local*' -name libiomp5.so -exec ln -sf $LIBIOMP_PATH {} \\;`"
-    },
-    {
-      "question": "What is the intended outcome of applying the provided workaround for the scikit-image OMP error in TensorFlow?",
-      "answer": "The intended outcome of applying the workaround is to patch the TensorFlow library installation so that it uses the system-wide `libiomp5.so`, thereby resolving the conflict."
-    },
-    {
-      "question": "Before executing the `export` and `find` commands for the scikit-image OMP error workaround, which directory should the user navigate to?",
-      "answer": "The user should navigate to the `tf_skimage_venv` directory before executing the `export` and `find` commands for the workaround."
+      "question": "What is the workaround for the `OMP: Error #15` that appears when TensorFlow's bundled OMP library conflicts with the system version while using scikit-image?",
+      "answer": "The workaround involves patching the TensorFlow library installation to use the system-wide `libiomp5.so`. You should navigate to your virtual environment directory (e.g., `tf_skimage_venv`) and execute the following commands: `export LIBIOMP_PATH=$(strace python -c 'from skimage.transform import AffineTransform' 2>&1 | grep -v ENOENT | grep -ohP -e '(?<=\")[^\"]+libiomp5.so(?=\")' | xargs realpath)` followed by `find -path '*_solib_local*' -name libiomp5.so -exec ln -sf $LIBIOMP_PATH {} \\;`. This creates a symbolic link, ensuring the TensorFlow library uses the system's `libiomp5.so`."
     }
   ],
-  "generated_at": "2026-04-12T09:00:00.213334+00:00"
+  "generated_at": "2026-04-13T14:18:01.298185+00:00"
 }

@@ -4,37 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "How can one manage applications that require a fixed input filename (e.g., `INPUT`) using META-Farm?",
-      "answer": "To manage applications that expect a specific input file name (like `INPUT`), each case should run in its own subdirectory. You'll need to create an input file with the prescribed name in each subdirectory. For example, if your different input files are stored as `/path/to/data.X`, you'd add a line to `single_case.sh` like `cp /path/to/data.$ID INPUT` to copy the correct input for each case."
+      "question": "In META-Farm, how do you handle an application that expects its input from a file with a specific, unchangeable name, such as 'INPUT'?",
+      "answer": "To handle applications requiring a fixed input file name, each case should run in its own subdirectory. Within the `single_case.sh` script, you would add a line, for example `cp /path/to/data.$ID INPUT`, to copy the case-specific input file into that subdirectory, renaming it to the expected `INPUT` file name. The `table.dat` file would then simply list the application name for each case."
     },
     {
-      "question": "What would the `table.dat` content look like for an application that requires a fixed input filename and uses `single_case.sh` to copy the input?",
-      "answer": "For an application that expects a fixed input filename (like `INPUT`), and where `single_case.sh` is used to copy the specific input file, `table.dat` would simply list the application name or its full path repeatedly, for example:\n```\n/path/to/code\n/path/to/code\n...\n```"
+      "question": "How can a user explicitly access individual columns of the `table.dat` cases table from within the `single_case.sh` script when using META-Farm?",
+      "answer": "To explicitly access individual columns from the `table.dat` cases table, modify the `single_case.sh` script. The variable `$COMM` holds the entire line for a given case from `table.dat` (excluding the ID field). Convert `$COMM` into an array using `COMM=( $COMM )`. After this, you can access columns individually as `${COMM[i]}` (where `i` is the zero-based index) or retrieve a range of columns using `${COMM[@]:i:n}`."
     },
     {
-      "question": "What is the default interpretation of each line in the `table.dat` file for META-Farm?",
-      "answer": "By default, each line in `table.dat` is assumed to be an executable statement. This statement typically begins with the executable file's name (if on your `$PATH`) or its full path, followed by any case-specific command-line arguments, or input redirection like `< input.$ID`."
-    },
-    {
-      "question": "How do you enable explicit access to all columns of the cases table within `single_case.sh`?",
-      "answer": "You can enable explicit access by modifying `single_case.sh`. The `$COMM` variable, which holds the line from `table.dat` without the ID field, needs to be converted into an array using `COMM=( $COMM )`. Once converted, individual columns can be accessed as `${COMM[i]}`."
-    },
-    {
-      "question": "Which variables are provided in `single_case.sh` for explicit column access, and what information do they hold?",
-      "answer": "When customizing `single_case.sh` for explicit column access, `$ID` contains the case identifier from the original table, and `$COMM` contains the entire line corresponding to that case `$ID` in the original table, but without the ID field itself."
-    },
-    {
-      "question": "How can one access a specific column from the `COMM` array in `single_case.sh`?",
-      "answer": "After converting `$COMM` into an array using `COMM=( $COMM )`, you can access individual columns by their index, for example, `${COMM[0]}` for the first column, `${COMM[1]}` for the second, and so on, up to `${COMM[Ncol-1]}`."
-    },
-    {
-      "question": "How can a range of columns be accessed from the `COMM` array in `single_case.sh`?",
-      "answer": "A range of columns can be accessed using `${COMM[@]:i:n}`, where `i` is the starting column index (0-based) and `n` is the number of columns to display. To display all columns starting from a specific index `i` (useful for codes with a variable number of arguments), use `${COMM[@]:i}`."
-    },
-    {
-      "question": "If `table.dat` contains `/path/to/IC.1 0.1` and `/path/to/IC.2 0.2 10`, how would you use `single_case.sh` to pass the first column as standard input and subsequent columns as command-line arguments?",
-      "answer": "You would modify `single_case.sh` to call the user code like this:\n```bash\n/path/to/code ${COMM[@]:1} < ${COMM[0]}\n```\nHere, `${COMM[0]}` supplies the standard input file, and `${COMM[@]:1}` passes all columns from the second onwards as command-line arguments to `/path/to/code`."
+      "question": "If a META-Farm application requires both a standard input file and a variable number of command-line arguments, how would this be implemented in `single_case.sh` given a `table.dat` structure where the input file path is the first column and arguments follow?",
+      "answer": "For an application needing both a standard input file and variable command-line arguments, where `table.dat` has the input file path as the first column and arguments after, you'd modify `single_case.sh`. First, convert `$COMM` to an array: `COMM=( $COMM )`. Then, call your user code using a syntax similar to `/path/to/code ${COMM[@]:1} < ${COMM[0]}`, which directs `${COMM[0]}` (the first column) as standard input and passes `${COMM[@]:1}` (all subsequent columns) as command-line arguments."
     }
   ],
-  "generated_at": "2026-04-12T01:31:07.880937+00:00"
+  "generated_at": "2026-04-13T08:32:54.630860+00:00"
 }

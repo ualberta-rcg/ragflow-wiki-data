@@ -4,73 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "How does the `task.run` script track the run-time of each case?",
-      "answer": "The script measures the run-time of each case and records the value as a line in a scratch file named `times`, located in the `/home/$USER/tmp/$NODE.$PID/` directory. All running meta-jobs contribute to this file."
+      "question": "How does the META-Farm package minimize wasted CPU cycles when jobs are at risk of hitting their run-time limits?",
+      "answer": "The META-Farm package minimizes wasted CPU cycles by implementing an intelligent algorithm. It measures the run-time of each case and, after the first 8 cases, calculates a conservative estimate called `dt_cutoff` for individual case run-times. Before commencing a new case, each meta-job assesses if its remaining allocated run-time (`t_finish - t_now`) is greater than `dt_cutoff`. If not, the job exits early, effectively preventing cases from being aborted midway due to the job's run-time limit. The `dt_cutoff` estimate is periodically recomputed at powers of two (e.g., 8, 16, 32 cases) to enhance its accuracy, which on average reduces wasted CPU cycles by a factor of 8."
     },
     {
-      "question": "When does a meta-job first calculate a conservative estimate for individual case run-times, known as `dt_cutoff`?",
-      "answer": "A meta-job calculates `dt_cutoff` after the first 8 cases have been computed."
+      "question": "What useful information is provided to users as a result of META-Farm's waste reduction algorithm?",
+      "answer": "As a useful side effect of the waste reduction algorithm, the individual run-times for all processed cases are recorded. This data is stored in a scratch file named `times` in the `/home/$USER/tmp/$NODE.$PID/` directory. Users can analyze this file to fine-tune their farm setup or for profiling their code."
     },
     {
-      "question": "How is the `dt_cutoff` value determined by a meta-job?",
-      "answer": "A meta-job reads the contents of the `times` file and computes the largest 12.5% quantile for the current distribution of case run-times. This value serves as `dt_cutoff`, a conservative estimate for individual case run-times."
-    },
-    {
-      "question": "Where is the current `dt_cutoff` estimate stored?",
-      "answer": "The current `dt_cutoff` estimate is stored in a file named `dt_cutoff` within the `/home/$USER/tmp/$NODE.$PID/` directory."
-    },
-    {
-      "question": "How do meta-jobs use the `dt_cutoff` value to prevent cases from aborting midway?",
-      "answer": "Each meta-job estimates if it has sufficient time to finish the next case by checking if `t_finish - t_now > dt_cutoff`. If it determines there isn't enough time, it exits early, minimizing the chance of a case aborting due to the job's run-time limit."
-    },
-    {
-      "question": "How often is `dt_cutoff` recomputed to maintain accuracy?",
-      "answer": "`dt_cutoff` is recomputed at every subsequent power of two number of computed cases (e.g., 8, 16, 32, and so on)."
-    },
-    {
-      "question": "What is the average reduction in wasted CPU cycles achieved by this algorithm?",
-      "answer": "The algorithm reduces the amount of CPU cycles wasted due to jobs reaching their run-time limit by a factor of 8, on average."
-    },
-    {
-      "question": "What useful information is generated and stored every time a farm is run?",
-      "answer": "Every time a farm is run, individual run-times for all cases are stored in the `/home/$USER/tmp/$NODE.$PID/times` file."
-    },
-    {
-      "question": "How can the `times` file, containing individual case run-times, be utilized?",
-      "answer": "The `times` file can be analyzed to fine-tune your farm setup, for profiling your code, or for other analytical purposes."
-    },
-    {
-      "question": "What does the error message \"Non-farm directory, or no farm has been submitted; exiting\" indicate?",
-      "answer": "This message indicates that the current directory is either not a farm directory or that the `submit.run` command has not yet been executed for this farm."
-    },
-    {
-      "question": "What are the correct arguments for the `submit.run` command?",
-      "answer": "The correct first argument for `submit.run` is `-1` for SIMPLE mode, or a positive integer `N` (representing the number of requested meta-jobs) for META mode."
-    },
-    {
-      "question": "What action should be taken if the error \"lockfile is not on path; exiting\" occurs?",
-      "answer": "You should ensure that the `lockfile` utility is included in your `$PATH` environment variable, as it is crucial for serialized access of meta-jobs to the `table.dat` file."
-    },
-    {
-      "question": "What does the error message \"Non-farm directory (config.h, job_script.sh, single_case.sh, and/or table.dat are missing); exiting\" mean?",
-      "answer": "This means that the current directory is not a farm directory because essential files such as `config.h`, `job_script.sh`, `single_case.sh`, or `table.dat` are missing. You should either change to the correct farm directory or create the missing files."
-    },
-    {
-      "question": "Why would the error \"-auto option requires resubmit_script.sh file in the root farm directory; exiting\" appear?",
-      "answer": "This error occurs if the `-auto` option is used without the `resubmit_script.sh` file being present in the root farm directory. A sample `resubmit_script.sh` file is typically created automatically by `farm_init.run`."
-    },
-    {
-      "question": "What should be done if the error message \"File table.dat doesn't exist. Exiting\" is displayed?",
-      "answer": "This error means that the `table.dat` file is missing in the current directory, or you are running `submit.run` from outside of one of your farm subdirectories. You need to create the `table.dat` file or navigate to the correct farm directory."
-    },
-    {
-      "question": "What causes the error \"Job runtime sbatch argument (-t or --time) is missing in job_script.sh. Exiting\"?",
-      "answer": "This error occurs when a run-time limit for meta-jobs, specified as an `#SBATCH` argument (like `-t` or `--time`), is not provided within your `job_script.sh` file. The run-time is the only argument that cannot be passed optionally to `submit.run`."
-    },
-    {
-      "question": "What does the error \"Wrong job runtime in job_script.sh - nnn . Exiting\" signify?",
-      "answer": "This message indicates that the run-time argument in your `job_script.sh` file has been formatted incorrectly."
+      "question": "What error message will appear if the `lockfile` utility is not on the system path, and why is this utility essential for the META-Farm package?",
+      "answer": "If the `lockfile` utility is not found on your `$PATH`, the META-Farm package will display the error message \"lockfile is not on path; exiting\". This utility is critical because it ensures serialized access of meta-jobs to the `table.dat` file, preventing two different meta-jobs from attempting to read and process the same line of `table.dat` simultaneously."
     }
   ],
-  "generated_at": "2026-04-12T01:28:55.663037+00:00"
+  "generated_at": "2026-04-13T08:31:20.945310+00:00"
 }

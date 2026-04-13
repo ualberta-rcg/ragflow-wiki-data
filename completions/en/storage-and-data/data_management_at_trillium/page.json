@@ -3,85 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What kind of filesystem is primarily used on SciNet, and what are its performance characteristics?",
-      "answer": "SciNet filesystems, excluding /archive, use GPFS (General Parallel File System), which offers rapid reads and writes for large datasets in parallel. However, it performs poorly with many small files due to a large blocksize (16MB for scratch and project filesystems)."
+      "question": "What is the main purpose of the Storage and File Management page for Alliance clusters?",
+      "answer": "The page aims to help users understand various filesystems and their proper usage to optimize workflows and be good SciNet citizens, specifically describing Niagara filesystems."
     },
     {
-      "question": "Why is accessing many small files inefficient on SciNet's GPFS filesystems?",
-      "answer": "Accessing many small files is inefficient because GPFS performs poorly with such data sets, and small files are wasteful of space given the 16MB blocksize on scratch and project filesystems. For instance, reading one 16MB file is significantly faster than 400 40KB files."
+      "question": "How do the GPFS filesystems on SciNet clusters, such as Niagara and Trillium, generally perform with different types of data access?",
+      "answer": "GPFS filesystems, with the exception of /archive, are high-performance for rapid reads and writes to large datasets in parallel but perform poorly when accessing many small files."
     },
     {
-      "question": "What are recommended I/O strategies for multi-process jobs on SciNet?",
-      "answer": "For multi-process jobs, it's recommended to use MPI-IO (part of the MPI-2 standard) to allow simultaneous file access by different processes, or to use a dedicated I/O process that collects data from other processes and writes it to a single file. Avoid having each process write to its own file."
+      "question": "Why is accessing many small files inefficient on SciNet's GPFS filesystems, and what are the consequences?",
+      "answer": "Accessing many small files is inefficient because the block size for scratch and project filesystems is 16MB, making them wasteful of space. It can also cause directories to be locked in multi-process jobs, reducing parallelism and potentially leading to program crashes due to filesystem timeouts."
     },
     {
-      "question": "What is the primary purpose of the /home filesystem?",
-      "answer": "/home is primarily for individual user files, common software, or small datasets shared within a group, as long as it doesn't exceed individual quotas. It is read-only on compute nodes."
+      "question": "What are the recommended I/O strategies for multi-process jobs on SciNet clusters to avoid performance issues with small files?",
+      "answer": "Recommended strategies include using MPI-IO, which allows files to be opened simultaneously by different processes, or dedicating a process for I/O to which all other processes send their data for writing to a single file."
     },
     {
-      "question": "What is the intended use for the /scratch filesystem, and what happens to its content?",
-      "answer": "/scratch is for temporary or transient files, computation and simulation results, or easily recreatable material. It's purged regularly and has no backups, so final results should be migrated to /project or /archive."
+      "question": "What is the intended use of the /home filesystem on Trillium nodes?",
+      "answer": "The /home filesystem is primarily for individual user files, common software, or small datasets shared within a group, provided they stay within individual quotas. It is read-only on compute nodes."
     },
     {
-      "question": "What is the main purpose of the /project filesystem, and what's a key consideration for its use?",
-      "answer": "/project is for common group software, large static datasets, or material costly to reacquire or regenerate. Material on /project is expected to remain relatively immutable; temporary files should be on /scratch to avoid stress on the backup system. Access is only for groups with RAC allocation."
+      "question": "What is the primary purpose of the /scratch filesystem on Trillium, and what are its key characteristics?",
+      "answer": "/scratch is for temporary or transient files, computation results, and material that can be easily recreated. It is purged regularly, has no backups, and should not be used for high IO or many small files; for those cases, the burst buffer (/bb) should be considered."
     },
     {
-      "question": "What is the /bb (burst buffer) filesystem and when should it be used?",
-      "answer": "/bb, the burst buffer, is a very fast, high-performance alternative to /scratch, made of solid-state drives (SSD). It should be requested if you anticipate high IOPs (Input/Output Operations) or encounter I/O bottlenecks with /scratch or /project."
+      "question": "What is the intended use of the /project filesystem on Trillium, and what important considerations should users keep in mind?",
+      "answer": "/project is for common group software, large static datasets, or material costly to reacquire/regenerate. Its content is expected to remain relatively immutable, and temporary files should be avoided to prevent stress on the TSM backup system. It is only available to groups with RAC allocation."
     },
     {
-      "question": "What is the /archive filesystem used for?",
-      "answer": "/archive is a nearline storage pool used to temporarily offload semi-active material from other filesystems, typically when hitting quotas or as part of a regular workflow. Material can remain there for a few months to a few years, and it's available only to groups with RAC allocation."
+      "question": "What is the Burst Buffer (/bb) on Trillium, and when should it be used?",
+      "answer": "The Burst Buffer (/bb) is a very fast, high-performance SSD-based alternative to /scratch. It should be requested for jobs that anticipate a lot of Input/Output Operations (IOPs) or when I/O bottlenecks are observed on /scratch or /project."
     },
     {
-      "question": "What is /dev/shm (RAMdisk) on Trillium nodes and what are its benefits?",
-      "answer": "/dev/shm is a temporary local filesystem using up to 70% of the node's RAM (202GB). It's much faster than real disk and Burst Buffer, particularly useful for I/O-intensive desktop-computing codes being migrated to HPC, as it avoids parallel filesystem bottlenecks."
+      "question": "What is the purpose of the /archive filesystem on Trillium, and what kind of storage is it?",
+      "answer": "/archive is a nearline storage pool (HPSS, tape-based) intended for temporarily offloading semi-active material from other filesystems or when users hit their quotas. It is for long-term storage and is only available to groups with RAC allocation."
     },
     {
-      "question": "What does the environment variable $SLURM_TMPDIR point to on Trillium compute jobs?",
-      "answer": "On Trillium compute jobs, $SLURM_TMPDIR points to RAMdisk, not local hard drives. The directory is empty at job start and its content is deleted after the job finishes."
+      "question": "What is /dev/shm (RAMdisk) on Trillium nodes, and what is its main advantage?",
+      "answer": "/dev/shm is a temporary local filesystem using up to 70% of a node's RAM (202GB). It is much faster than real disk and burst buffer, making it particularly useful for I/O-intensive codes migrating from desktop computing."
     },
     {
-      "question": "What is $BB_JOB_DIR and when should it be used?",
-      "answer": "$BB_JOB_DIR is a temporary directory created on the burst buffer for every Trillium job, accessible from all job nodes. It's intended for applications generating many small temporary files or high IOPS, especially if they don't fit in RAMdisk."
+      "question": "How does $SLURM_TMPDIR function on Trillium compute jobs, and where is its data stored?",
+      "answer": "On Trillium, $SLURM_TMPDIR points to a RAMdisk, meaning its content is stored in memory. The directory starts empty when a job begins and its content is deleted after the job finishes."
     },
     {
-      "question": "What is the user quota for the $HOME filesystem?",
-      "answer": "The user quota for the $HOME filesystem is 100 GB per user."
+      "question": "What is $BB_JOB_DIR on Trillium, and when should it be used?",
+      "answer": "$BB_JOB_DIR is a temporary, per-job directory created on the burst buffer, accessible from all nodes of a job. It's intended for applications that generate many small temporary files or frequently accessed files (high IOPS) that do not fit in RAMdisk."
     },
     {
-      "question": "Is the $SCRATCH filesystem backed up?",
-      "answer": "No, the $SCRATCH filesystem is not backed up."
+      "question": "What is the purging policy for the /scratch filesystem on Trillium?",
+      "answer": "Files in /scratch that have not been accessed or modified for more than two months are automatically deleted on the 15th of each month to ensure significant space is available for running jobs."
     },
     {
-      "question": "How can users check their disk space usage on SciNet filesystems?",
-      "answer": "Users can use the 'diskUsage' command on login nodes and datamovers, which provides information on home, scratch, project, and archive filesystems, including group usage and changes over time."
+      "question": "How can users check if their files are scheduled for deletion from the /scratch filesystem?",
+      "answer": "Users receive email notifications and shell messages upon login. They can also check the file `/scratch/t/todelete/current` for a file named with their userid and groupid, which lists all files scheduled for deletion."
     },
     {
-      "question": "What is SciNet's purging policy for the /scratch disk?",
-      "answer": "Files on /scratch that haven't been accessed or modified for more than 2 months are automatically deleted on the 15th of each month. Users receive email notifications about files scheduled for deletion on the 1st and around the 12th of the month."
+      "question": "What command can users employ to check their disk space usage on SciNet filesystems?",
+      "answer": "The `diskUsage` command, available on login nodes and datamovers, provides information on usage for home, scratch, project, and archive filesystems, including group usage and changes over time."
     },
     {
-      "question": "How can a user check if their files on /scratch are scheduled for deletion?",
-      "answer": "Users can check for files scheduled for deletion by listing the contents of '/scratch/t/todelete/current' and grepping for their user ID, for example: 'ls -1 /scratch/t/todelete/current |grep xxyz'."
+      "question": "What are the recommended methods for moving data to and from Trillium using rsync/scp, based on data volume?",
+      "answer": "Amounts less than 10GB should be moved through the login nodes, while amounts larger than 10GB should be moved through the datamover nodes (e.g., `nia-datamover1.scinet.utoronto.ca` or `nia-datamover2.scinet.utoronto.ca`) to avoid timeouts."
     },
     {
-      "question": "What are the recommended methods for moving data to and from Trillium?",
-      "answer": "For amounts less than 10GB, use rsync/scp through login nodes (tri-dm{2,3,4}.scinet.utoronto.ca). For amounts larger than 10GB, use rsync/scp through datamover nodes (nia-datamover1.scinet.utoronto.ca, nia-datamover2.scinet.utoronto.ca), or consider using Globus."
+      "question": "What tool is recommended for frequent or large-scale data transfers to and from Trillium and HPSS?",
+      "answer": "Globus, a web-based tool, is recommended for frequent or large-scale data transfers. Trillium's endpoint is \"alliancecan#trillium\", and HPSS's endpoint is \"alliancecan#hpss\"."
     },
     {
-      "question": "What is the Trillium endpoint for Globus data transfers?",
-      "answer": "The Trillium endpoint for Globus data transfers is \"alliancecan#trillium\"."
-    },
-    {
-      "question": "What are Access Control Lists (ACLs) used for at SciNet?",
-      "answer": "ACLs are used to manage file ownership and permissions, allowing users to grant specific permissions (like read, write, execute, or control) to their supervisor, other users within their group, or users from different groups, beyond standard Unix permissions."
-    },
-    {
-      "question": "What are the native GPFS commands for managing ACLs?",
-      "answer": "The native GPFS commands for managing ACLs are 'mmputacl' to set ACLs, 'mmgetacl' to determine current ACL attributes, 'mmdelacl' to remove ACLs, and 'mmeditacl' to create or change ACLs."
+      "question": "How can users manage file ownership and access control lists (ACLs) on SciNet filesystems, specifically with GPFS?",
+      "answer": "Users can employ GPFS native `mmputacl` and `mmgetacl` commands to set POSIX or NFS v4 style ACLs, allowing supervisors or other users/groups to manage or access files with specific permissions."
     }
   ],
-  "generated_at": "2026-04-11T20:54:06.103619+00:00"
+  "generated_at": "2026-04-13T04:49:44.495424+00:00"
 }
