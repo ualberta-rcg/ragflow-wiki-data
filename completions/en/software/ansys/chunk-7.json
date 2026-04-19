@@ -4,17 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "How do users configure a Slurm script to run Ansys Fluent batch jobs on Alliance clusters using the provided \"Multinode (by node)\" Intel MPI script template?",
-      "answer": "To configure an Ansys Fluent multinode batch job using the Intel MPI \"by node\" script template, users must specify the account name (`#SBATCH --account`), the time limit (`#SBATCH --time`), the number of compute nodes (`#SBATCH --nodes`), and the maximum number of cores per node (`#SBATCH --ntasks-per-node`). Memory is typically set to `0` to allocate all available memory per node (`#SBATCH --mem=0`). The script also requires loading the `StdEnv/2023` and `ansys` modules, and defining the `MYJOURNALFILE` (e.g., `sample.jou`) and `MYVERSION` (e.g., `3d`)."
+      "question": "What are the different types of Slurm scripts provided for running Ansys Fluent jobs, as indicated in the documentation?",
+      "answer": "The documentation provides Slurm scripts for \"Multinode (by node)\", \"Multinode (by core)\", \"Multinode (by node, narval)\", and \"Multinode (by core, narval)\" Ansys Fluent jobs."
     },
     {
-      "question": "What are the key differences in configuring an Ansys Fluent Slurm script for a multinode job when using Open MPI on a cluster like Narval, as compared to using Intel MPI on other Alliance clusters?",
-      "answer": "When configuring an Ansys Fluent multinode Slurm job, the choice of MPI implementation affects the script. For Narval using Open MPI, the script needs to explicitly `export OPENMPI_ROOT=$EBROOTOPENMPI` and `export FI_PROVIDER=verbs` before executing Fluent, and the `fluent` command uses `-mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID`. In contrast, for most other Alliance clusters using Intel MPI, the script would handle Intel MPI environment variable setups (e.g., `export INTELMPI_ROOT=$I_MPI_ROOT` if running an Intel MPI script on Narval), and the `fluent` command would use `-mpi=intel` with either `-peth` (for Nibi) or `-pib` (for other clusters), along with `-cnf=/tmp/machinefile-$SLURM_JOB_ID`."
+      "question": "What are the essential Slurm directives that users need to configure in an Ansys Fluent batch script for resource allocation?",
+      "answer": "Essential Slurm directives include `--account` to specify the account name, `--time` for the time limit, `--nodes` for the number of compute nodes, and either `--ntasks-per-node` (for 'by node' scripts) or `--ntasks` (for 'by core' scripts) for the number of cores. Memory allocation is set with `--mem` (for 'by node' scripts) or `--mem-per-cpu` (for 'by core' scripts), and `--cpus-per-task` should generally remain at 1."
     },
     {
-      "question": "When running Ansys Fluent simulations on Alliance clusters, what considerations should guide the choice between \"by node\" and \"by core\" Slurm scripts, and what is the recommendation for optimal mesh partitioning efficiency?",
-      "answer": "\"By node\" Slurm scripts are generally preferred for most Ansys Fluent jobs to minimize solution latency and maximize performance over as few nodes as possible. However, \"by core\" scripts might lead to shorter queue wait times for very large jobs, though they can increase startup time and vulnerability to node failures. For optimal mesh partitioning efficiency, users should aim for at least 10,000 cells per core, ensuring the number of mesh partitions is an integral multiple of the total number of cores requested."
+      "question": "How do the 'Multinode (by node)' and 'Multinode (by core)' Slurm scripts for Ansys Fluent jobs differ in their approach to requesting computational resources?",
+      "answer": "The 'Multinode (by node)' script requests a specific number of compute nodes using `--nodes` and a maximum number of cores per compute node with `--ntasks-per-node`, allocating all memory per node (`--mem=0`). Conversely, the 'Multinode (by core)' script primarily specifies the total number of cores across all nodes using `--ntasks` and defines memory allocation per core with `--mem-per-cpu`, with the `--nodes` directive being optional for explicit node specification."
     }
   ],
-  "generated_at": "2026-04-13T01:48:51.171853+00:00"
+  "generated_at": "2026-04-19T01:27:43.589233+00:00"
 }

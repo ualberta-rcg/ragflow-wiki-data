@@ -4,17 +4,17 @@
   "chunk_index": 35,
   "qa_pairs": [
     {
-      "question": "C'est quoi Ansys Rocky et comment est-ce qu'on peut l'utiliser sur les grappes de l'Alliance?",
-      "answer": "Ansys Rocky est une suite logicielle pour les simulations de fluides qui peut être utilisée sur les grappes de l'Alliance. On peut exécuter des simulations soit en mode graphique, soit en mode non graphique, en utilisant uniquement des processeurs (CPU) ou une combinaison de processeurs et de cartes graphiques (GPU)."
+      "question": "Comment faire fonctionner les tâches Ansys Mechanical APDL avec une accélération GPU sur les grappes de l'Alliance?",
+      "answer": "Pour exécuter des tâches Ansys Mechanical APDL en utilisant l'accélération GPU, il faut se servir des scripts Slurm dédiés, tels que `script-smp-2023-gpu.sh` ou `script-dmp-2023-gpu.sh`. Ces scripts incluent la commande `mapdl` avec l'option `-acc nvidia` et nécessitent la directive `#SBATCH --gpus-per-node=1` (ou la quantité de GPU voulue) pour spécifier l'utilisation des GPU."
     },
     {
-      "question": "Quelle grappe de l'Alliance est compatible avec Ansys Rocky et quelles sont les exigences en matière de licence pour son utilisation?",
-      "answer": "Actuellement, le module Ansys Rocky est seulement installé localement sur la grappe Graham. Si vous utilisez Rocky avec 4 CPU ou plus, vous aurez besoin de licences `rocky_hpc`, lesquelles sont fournies par la licence SHARCNET."
+      "question": "Comment puis-je modifier l'allocation de mémoire par défaut pour mes tâches Ansys APDL?",
+      "answer": "Ansys alloue par défaut 1024 Mo de mémoire totale et 1024 Mo de mémoire pour les bases de données aux tâches APDL. Pour modifier ces valeurs manuellement, vous pouvez ajouter les arguments `-m` (pour la mémoire totale) et/ou `-db` (pour la mémoire des bases de données) à la ligne de commande `mapdl` de vos scripts. Par exemple, pour augmenter la mémoire, vous pourriez ajouter `-m 2048 -db 2048`."
     },
     {
-      "question": "Comment le nombre de CPU requis pour Ansys Rocky change-t-il selon si le problème est couplé ou découplé?",
-      "answer": "Pour les problèmes couplés résolus avec des GPU, il faut demander le nombre maximal de CPU possible sur le même nœud jusqu'à ce que la limite de scalabilité de l'application soit atteinte. Par contre, pour les problèmes découplés autonomes avec des GPU, un nombre minimal de CPU (comme 2 ou 3) est suffisant pour que Rocky fonctionne de manière optimale."
+      "question": "Quelles sont les recommandations concernant le choix entre les scripts de mémoire parallèle partagée (SMP) et de mémoire parallèle distribuée (DMP) pour Ansys Mechanical?",
+      "answer": "Pour Ansys Mechanical, les scripts de mémoire parallèle partagée (SMP) conçus pour un nœud simple offrent généralement une meilleure performance que les scripts de mémoire parallèle distribuée (DMP) pour plusieurs nœuds. Il est donc fortement recommandé d'utiliser les scripts SMP autant que possible pour optimiser l'exécution de vos tâches."
     }
   ],
-  "generated_at": "2026-04-13T02:00:01.322012+00:00"
+  "generated_at": "2026-04-19T01:38:27.829529+00:00"
 }

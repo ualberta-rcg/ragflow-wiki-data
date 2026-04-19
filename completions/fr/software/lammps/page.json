@@ -3,69 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que LAMMPS sur les grappes de calcul d'Alliance?",
-      "answer": "LAMMPS (pour ''large-scale atomic/molecular massively parallel simulator'') est un logiciel classique de dynamique moléculaire distribué par Sandia National Laboratories du ministère de l’Énergie des États-Unis."
+      "question": "Qu'est-ce que LAMMPS et quelle est son origine?",
+      "answer": "LAMMPS, pour \"large-scale atomic/molecular massively parallel simulator\", est un logiciel classique de dynamique moléculaire distribué par les Sandia National Laboratories du ministère de l’Énergie des États-Unis."
     },
     {
-      "question": "Comment la parallélisation est-elle gérée dans LAMMPS?",
-      "answer": "La parallélisation se fait avec MPI et OpenMP, et LAMMPS peut être exécuté sur des GPU."
+      "question": "Comment LAMMPS gère-t-il la parallélisation et l'utilisation des GPU sur les grappes de calcul?",
+      "answer": "La parallélisation dans LAMMPS se fait avec MPI et OpenMP, et le logiciel peut être exécuté sur des GPU."
     },
     {
-      "question": "Où peut-on trouver la liste des champs de force disponibles dans LAMMPS?",
-      "answer": "Les champs de force disponibles sont listés à la section 'Interatomic potentials' du site web de LAMMPS, classés selon leur forme fonctionnelle."
+      "question": "Quels types de champs de force LAMMPS peut-il utiliser pour la modélisation biomoléculaire et des matériaux?",
+      "answer": "Pour les biomolécules, LAMMPS peut utiliser CHARMM, AMBER, OPLS. Pour les matériaux, il peut utiliser EAM, MEAM, Buckingham, Morse, Yukawa, Stillinger-Weber, Tersoff, EDIP, COMB, et SNAP."
     },
     {
-      "question": "Dans quels domaines d'application LAMMPS peut-il être utilisé grâce à la diversité de ses champs de force?",
-      "answer": "LAMMPS peut être utilisé pour la modélisation dans plusieurs domaines d’application, comme les biomolécules, les polymères, les matériaux, les réactions et l’échelle mésoscopique."
+      "question": "Comment peut-on vérifier les versions de LAMMPS disponibles sur les systèmes Alliance et comment sont-elles nommées?",
+      "answer": "Pour connaître les versions disponibles, il faut lancer `module spider lammps`. Les numéros de version comprennent la date de sortie au format AAAAMMJJ."
     },
     {
-      "question": "Comment les potentiels des champs de force peuvent-ils être utilisés ensemble dans LAMMPS?",
-      "answer": "Les potentiels peuvent être combinés dans des systèmes hybrides, par exemple eau sur métal, interfaces polymère/semi-conducteur, ou colloïdes en solution."
+      "question": "Comment charger un module LAMMPS compatible GPU, par exemple une version OpenMP spécifique?",
+      "answer": "Pour charger un module LAMMPS compatible GPU et OpenMP, il faut d'abord charger le module CUDA, puis le module LAMMPS désiré, par exemple: `module load cuda` suivi de `module load lammps-omp/20170331`."
     },
     {
-      "question": "Comment puis-je connaître les versions de LAMMPS disponibles sur les systèmes d'Alliance?",
-      "answer": "Pour connaître les versions disponibles de LAMMPS, il faut lancer la commande <code>module spider lammps</code>."
+      "question": "Quel est le nom de l'exécutable commun pour LAMMPS sur les grappes Alliance, et comment trouver le nom original de l'exécutable d'un module spécifique?",
+      "answer": "Toutes les versions de LAMMPS installées sur les grappes utilisent le lien symbolique `lmp`. Pour connaître le nom original, il faut charger le module et lister les fichiers dans `${EBROOTLAMMPS}/bin/`."
     },
     {
-      "question": "Quel format est utilisé pour les numéros de version de LAMMPS?",
-      "answer": "Les numéros de version de LAMMPS comprennent la date de sortie au format AAAAMMJJ."
+      "question": "Pourquoi une simulation LAMMPS pourrait-elle échouer avec un module donné et comment vérifier les paquets activés?",
+      "answer": "Une simulation peut ne pas fonctionner si un des paquets nécessaires n'a pas été activé lors de la compilation du programme. Pour vérifier les paquets activés, il faut charger le module et lancer `cat ${EBROOTLAMMPS}/list-packages.txt`."
     },
     {
-      "question": "Comment lister les versions de LAMMPS installées et en sélectionner une à utiliser?",
-      "answer": "Il faut exécuter <code>module avail lammps</code> pour connaître les versions installées et sélectionner celle que vous voulez utiliser avec <code>module load</code>."
+      "question": "Pouvez-vous donner un exemple de script de tâche SLURM pour exécuter une simulation LAMMPS de manière séquentielle?",
+      "answer": "Un script de tâche séquentielle typique inclurait `#SBATCH --ntasks=1`, chargerait les modules nécessaires comme `lammps-omp/20210929`, et exécuterait `lmp < lammps.in > lammps_output.txt`."
     },
     {
-      "question": "Comment utiliser LAMMPS avec le support GPU?",
-      "answer": "Pour utiliser LAMMPS avec GPU, le module CUDA doit être chargé avant le module LAMMPS, par exemple <code>module load cuda</code> suivi de <code>module load lammps-omp/20170331</code>."
+      "question": "Quel est le principal facteur qui affecte le temps CPU dans les simulations de dynamique moléculaire avec LAMMPS et comment le logiciel distribue-t-il le travail?",
+      "answer": "Le calcul des interactions de paires entre particules occupe la plus grande part du temps CPU. LAMMPS utilise la méthode de décomposition des domaines pour répartir le travail aux processeurs, en assignant à chacun une partie de la boîte de simulation."
     },
     {
-      "question": "Quel est le lien symbolique utilisé pour exécuter LAMMPS sur les grappes d'Alliance, peu importe la version?",
-      "answer": "Toutes les versions de LAMMPS installées sur les grappes d'Alliance ont le lien symbolique <code>lmp</code>, ce qui permet d'exécuter le programme en faisant appel à <code>lmp</code>."
+      "question": "Pourquoi l'efficacité du CPU peut-elle diminuer dans LAMMPS si on utilise trop de processeurs pour un petit système de particules?",
+      "answer": "Plus le nombre de processeurs est élevé pour un nombre déterminé de particules, plus il y a de petites parties à la boîte de simulation qui s'échangent de l'information, ce qui prolonge le temps de communication et peut causer une faible efficacité du CPU."
     },
     {
-      "question": "Comment connaître les paquets activés (Supported) et non activés (Not Supported) pour un module LAMMPS spécifique?",
-      "answer": "Après avoir chargé un module LAMMPS, il faut lancer <code>cat ${EBROOTLAMMPS}/list-packages.txt</code> pour en connaître le contenu, si le fichier est disponible."
+      "question": "Que faut-il faire avant d'exécuter de grandes simulations LAMMPS pour optimiser la performance?",
+      "answer": "Avant d’exécuter des simulations pour des problèmes d’une certaine taille ou avec des boîtes à plusieurs parties, il est conseillé de faire des tests courts avec un nombre différent de cœurs pour identifier le nombre de cœurs susceptible d’offrir la meilleure efficacité."
     },
     {
-      "question": "Que faire si un fichier <code>list-packages.txt</code> est introuvable pour un module LAMMPS?",
-      "answer": "Si <code>list-packages.txt</code> est introuvable, on peut tenter de déterminer les paquets disponibles en ouvrant le fichier de recette EasyBuild avec <code>$EBROOTLAMMPS/easybuild/LAMMPS*.eb</code>."
+      "question": "Quelles sont les premières étapes pour préparer la compilation du paquet MACE dans LAMMPS avec PyTorch sur les systèmes Alliance (pour CPU)?",
+      "answer": "Il faut d'abord cloner la branche 'mace' du dépôt LAMMPS, charger les modules requis (python, gcc, openmpi, cmake, etc.), puis créer et activer un environnement virtuel Python."
     },
     {
-      "question": "Quel est le principal facteur qui consomme le plus de temps CPU dans les simulations de dynamique moléculaire avec LAMMPS?",
-      "answer": "Le calcul des interactions de paires entre particules est le facteur qui occupe la plus grande part du temps CPU dans les simulations de dynamique moléculaire avec LAMMPS."
+      "question": "Comment installe-t-on PyTorch dans l'environnement virtuel pour la compilation de MACE avec LAMMPS?",
+      "answer": "Une fois l'environnement virtuel activé, on installe PyTorch en utilisant la commande `pip install --no-index 'torch>=2.10.0'`."
     },
     {
-      "question": "Comment LAMMPS répartit-il le travail aux processeurs disponibles?",
-      "answer": "LAMMPS utilise la méthode de décomposition des domaines pour répartir le travail aux processeurs disponibles en assignant à chacun une partie de la boîte de simulation."
+      "question": "Quelle commande CMake est utilisée pour configurer la compilation de MACE dans LAMMPS pour CPU, en incluant le support MPI?",
+      "answer": "La commande est `cmake --fresh -S cmake -B _build -DBUILD_MPI=ON -DPKG_ML-MACE=ON -DCMAKE_PREFIX_PATH=\"$(python -c 'import torch; print(torch.utils.cmake_prefix_path)')\" -DCMAKE_INSTALL_PREFIX=$HOME/lammps-mace -DCMAKE_SKIP_RPATH=ON`."
     },
     {
-      "question": "Pourquoi un nombre élevé de processeurs peut-il réduire l'efficacité CPU dans les simulations LAMMPS?",
-      "answer": "Plus le nombre de processeurs est élevé pour un nombre déterminé de particules, plus il y a de parties à la boîte de simulation qui s’échangent de l’information, ce qui augmente le temps de communication et peut causer une faible efficacité du CPU."
+      "question": "Comment compile-t-on et installe-t-on MACE dans LAMMPS après l'étape de configuration CMake?",
+      "answer": "Après la configuration, la compilation et l'installation s'effectuent avec les commandes `cmake --build _build --parallel 4` et `cmake --install _build/ --prefix=$HOME/lammps-mace`."
     },
     {
-      "question": "Quelle est la recommandation avant d'exécuter des simulations LAMMPS de grande taille?",
-      "answer": "Il est recommandé de faire des tests courts avec différents nombres de cœurs pour identifier le nombre de cœurs susceptible d’offrir la meilleure efficacité avant d’exécuter des simulations de grande taille ou avec des boîtes à plusieurs parties."
+      "question": "Quel est un exemple de script de soumission de tâche SLURM pour exécuter une simulation MACE LAMMPS sur un GPU?",
+      "answer": "Un script typique inclurait des directives SLURM comme `#SBATCH --account MY-ACCOUNT-GPU` et `#SBATCH --gpus=h100_1g.10gb:1`, et exécuterait le simulateur avec `srun $HOME/lammps-mace/bin/lmp -in in.lammps`."
     }
   ],
-  "generated_at": "2026-04-13T07:57:49.181187+00:00"
+  "generated_at": "2026-04-19T02:10:19.748161+00:00"
 }

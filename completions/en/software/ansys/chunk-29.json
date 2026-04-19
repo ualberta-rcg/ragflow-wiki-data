@@ -4,17 +4,17 @@
   "chunk_index": 29,
   "qa_pairs": [
     {
-      "question": "How are Ansys Mechanical (APDL) jobs submitted to a cluster queue using Slurm scripts?",
-      "answer": "Ansys Mechanical APDL jobs can be submitted to the queue by running the `sbatch script-name.sh` command, after generating the input file from within your interactive Workbench Mechanical session by clicking 'Solution -> Tools -> Write Input Files'."
+      "question": "How do users submit Ansys Mechanical APDL jobs that utilize GPUs on Alliance clusters?",
+      "answer": "Users can submit GPU-accelerated Ansys Mechanical APDL jobs using specific Slurm scripts for Shared Memory Parallel (SMP) or Distributed Memory Parallel (DMP). These scripts include SBATCH directives for requesting GPUs, such as `--gpus-per-node=1`, and the `mapdl` command incorporates `-acc nvidia` and `-na $SLURM_GPUS_ON_NODE` to enable GPU acceleration."
     },
     {
-      "question": "What are the default memory allocations for Ansys Mechanical APDL jobs, and how can these be adjusted?",
-      "answer": "Ansys allocates 1024 MB total memory and 1024 MB database memory by default for APDL jobs. These values can be manually specified (or changed) by adding arguments `-m <value>` and/or `-db <value>` to the `mapdl` command line in your Slurm scripts."
+      "question": "How can users adjust the default memory allocation for Ansys Mechanical APDL jobs, and what license-related arguments might be necessary when using a remote institutional license server?",
+      "answer": "Ansys Mechanical APDL jobs allocate 1024 MB total memory and 1024 MB database memory by default. Users can manually specify or change these values by adding `-m <value>` for total memory and/or `-db <value>` for database memory to the `mapdl` command line. When using a remote institutional license server with multiple Ansys licenses, it might also be necessary to add `-p aa_r` or `-ppf anshpc` to the `mapdl` command, depending on the Ansys module being used."
     },
     {
-      "question": "What are the best practices for optimizing performance and ensuring compatibility when running Ansys Mechanical APDL jobs on Alliance clusters?",
-      "answer": "For optimal performance, Shared Memory Parallel (SMP) scripts should be used whenever possible, as they typically perform better than Distributed Memory Parallel (DMP) scripts. It's also crucial to conduct detailed scaling tests before running production jobs to determine the most efficient number of cores and the minimum memory required. To ensure compatibility, the Ansys module loaded in your script should ideally match the version that was used to generate the input file."
+      "question": "What are the performance recommendations for running Ansys Mechanical APDL jobs, particularly regarding the choice between Shared Memory Parallel (SMP) and Distributed Memory Parallel (DMP) scripts, and general best practices?",
+      "answer": "For optimal performance, Shared Memory Parallel (SMP) scripts are generally recommended over Distributed Memory Parallel (DMP) scripts for Ansys Mechanical APDL jobs and should be used whenever possible. As a best practice, users should conduct detailed scaling tests before launching production jobs to determine the most efficient number of cores and the minimum memory required, ensuring optimal resource utilization. Additionally, it's advised that the Ansys module loaded in the script matches the version used to generate the input file to avoid compatibility issues."
     }
   ],
-  "generated_at": "2026-04-13T01:52:14.524333+00:00"
+  "generated_at": "2026-04-19T01:31:11.237795+00:00"
 }

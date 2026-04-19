@@ -4,17 +4,17 @@
   "chunk_index": 18,
   "qa_pairs": [
     {
-      "question": "What is the purpose of Ansys Fluent journal files, and what actions can they automate in a simulation?",
-      "answer": "Ansys Fluent journal files automate simulation tasks using commands from Fluent's Text-User-Interface (TUI). They can control actions such as reading and writing case/data files, running the solver for a specified number of iterations, configuring auto-save settings, generating simulation reports, and cleanly shutting down Fluent. This allows for running a series of simulations under various conditions from a single case file."
+      "question": "What is the primary function of Fluent journal files in Ansys simulations on Alliance clusters?",
+      "answer": "Fluent journal files serve to automate simulations by incorporating commands from Fluent's Text-User-Interface (TUI). These files enable users to modify simulation parameters, load case and data files, execute the solver for a specified number of iterations or time steps, write out simulation results, and generate reports. This functionality facilitates running multiple simulations under different conditions using a single case file."
     },
     {
-      "question": "What are the preliminary steps for preparing a User-Defined Function (UDF) for use with Ansys Fluent on an Alliance cluster?",
-      "answer": "To prepare a UDF, first transfer its source file (e.g., `sampleudf.c`) and any dependencies to the cluster, ensuring the transfer client uses text mode if coming from a Windows machine. The UDF should reside in the same directory as your journal, case, and data files. Crucially, before uploading your case file, verify that no UDFs are configured within Fluent's Interpreted UDFs Dialog Box or UDF Library Manager Dialog Box, as journal file commands should control UDF usage during job submission."
+      "question": "How can one create a Fluent journal file for a steady simulation that reads an input case and data file, runs the solver, and then writes the final output?",
+      "answer": "To create a Fluent journal file for a steady simulation with these requirements, you would include commands such as `/file/confirm-overwrite no` to prevent overwriting without confirmation, `/file/cff-files no` to use the legacy `.cas/.dat` file format (or `yes` for newer `.cas.h5/.dat.h5`), `/file/read-case-data FFF-in` to read the input case and data files, `/solve/iterate 1000` to run the solver for a thousand iterations, and `/file/write-case-data FFF-out` to write the final output data file. Optionally, `/report/summary y \"My_Simulation_Report.txt\"` can be added to generate a simulation report, and `/exit` to cleanly shut down Fluent."
     },
     {
-      "question": "How are User-Defined Functions (UDFs) integrated into Ansys Fluent simulations via journal files using either the interpreted or compiled approach, and what are their main differences?",
-      "answer": "UDFs can be integrated as either interpreted or compiled. Interpreted UDFs are told to Fluent at runtime using a journal command like `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no` before case/data files are read. They require parallelization for parallel jobs. Compiled UDFs must be compiled on an Alliance cluster at least once to create a `libudf` directory, which cannot be copied from other systems. The journal file can either compile (`define/user-defined/compiled-functions compile libudf yes sampleudf.c \"\" \"\"`) or load (`define/user-defined/compiled-functions load libudf`) the library. For efficiency, only the 'load' command should be active for submitted jobs, and compiled UDFs also need parallelization for parallel execution."
+      "question": "What are the steps to set up and use an interpreted User-Defined Function (UDF) with Fluent on an Alliance cluster?",
+      "answer": "To use an interpreted UDF with Fluent, first, transfer your UDF source file (e.g., `sampleudf.c`) and any other necessary dependency files to the cluster, ensuring that if uploaded from a Windows machine, the text mode setting of your transfer client is used. Place the UDF in the same directory as your journal, case, and data files. Next, add the command `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no` into your journal file, specifically before any commands that read or initialize your simulation's case/data files. Crucially, before uploading your case file, verify that neither the Interpreted UDFs Dialog Box nor the UDF Library Manager Dialog Box in the Fluent GUI are configured to use any UDF; this ensures that only the journal file commands control the UDF during job submission. For parallel jobs, the UDF will need to be parallelized."
     }
   ],
-  "generated_at": "2026-04-13T01:50:40.097994+00:00"
+  "generated_at": "2026-04-19T01:29:19.879885+00:00"
 }

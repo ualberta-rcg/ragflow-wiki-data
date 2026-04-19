@@ -4,13 +4,17 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of the `script-flu-bynode+restart.sh` Slurm script for Ansys Fluent?",
-      "answer": "The `script-flu-bynode+restart.sh` Slurm script is designed to automate the restarting of very large Ansys Fluent jobs that require more than the typical maximum runtime window available on most clusters. It achieves this by restarting simulations from the most recently saved time step files."
+      "question": "What is the primary function of the `script-flu-bynode+restart.sh` Slurm script when running Ansys Fluent simulations on a cluster?",
+      "answer": "This script is designed to automate restarting very large Ansys Fluent jobs that might exceed the typical seven-day maximum runtime window available on most clusters. It achieves this by restarting simulations from the most recently saved time step files."
     },
     {
-      "question": "How does the `script-flu-bynode+restart.sh` Slurm script manage input and output files when restarting an Ansys Fluent simulation?",
-      "answer": "The script uses specific variables to manage files: `MYJOUFILE` for the initial journal file, `MYJOUFILERES` for the restart journal file, `MYCASFILERES` for the restart case file, and `MYDATFILERES` for the restart data file. After a successful job iteration, it automatically links the most recent output `.cas` and `.dat` files from the `output/` directory to `MYCASFILERES` and `MYDATFILERES` respectively, to prepare for subsequent restarts."
+      "question": "What file preparations are necessary to configure an Ansys Fluent simulation for automatic restarts using the `script-flu-bynode+restart.sh` script?",
+      "answer": "You need a working set of `sample.cas`, `sample.dat`, and `sample.jou` files. The `sample.jou` file must be edited to include `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`. Additionally, a `sample-restart.jou` file needs to be created (e.g., by copying `sample.jou`) and modified to contain `/file/read-cas-data sample-restart` instead of `/file/read-cas-data sample`, with the initialization line commented out (e.g., `;/solve/initialize/initialize-flow`)."
+    },
+    {
+      "question": "How does the `script-flu-bynode+restart.sh` Slurm script differentiate between an initial run and subsequent restarts of an Ansys Fluent job?",
+      "answer": "The script uses the `$SLURM_ARRAY_TASK_ID` variable to determine the job's phase. If `$SLURM_ARRAY_TASK_ID` is 1, it's considered the initial run, and Fluent is launched using `MYJOUFILE`. For subsequent restarts (when `$SLURM_ARRAY_TASK_ID` is greater than 1), Fluent is launched with `MYJOUFILERES`, and the script updates symbolic links for `MYCASFILERES` and `MYDATFILERES` to point to the most recent output `.cas` and `.dat` files, respectively."
     }
   ],
-  "generated_at": "2026-04-13T01:42:15.614843+00:00"
+  "generated_at": "2026-04-19T01:21:19.760716+00:00"
 }

@@ -881,7 +881,9 @@ Pour indiquer à Fluent d'interpréter votre UDF au moment de l'exécution, ajou
 <span id="Compiled"></span>
 ==== Compilé ====
 
+<div class="mw-translate-fuzzy">
 Pour utiliser cette approche, votre UDF doit être compilée sur une de nos grappes au moins une fois. Cela créera une structure de sous-répertoire libudf contenant la bibliothèque partagée <code>libudf.so</code> requise. Le répertoire libudf ne peut pas être simplement copié d'un système distant (comme votre ordinateur portable) vers l'Alliance car les dépendances de la bibliothèque partagée ne seront pas satisfaites, ce qui fera planter Fluent au démarrage. Cela dit, une fois que vous avez compilé votre UDF sur une de nos grappes, vous pouvez transférer la libudf nouvellement créée vers n'importe quel autre de nos grappes, à condition que votre compte charge la même version du module d'environnement StdEnv. Une fois copiée, l'UDF peut être utilisée en supprimant le commentaire de la deuxième ligne (load) libudf ci-dessous dans votre fichier de journalisation quand une tâche est soumise. Les deux lignes libudf (compile et load) ne doivent pas être laissées sans commentaire lors de la soumission de tâches, sinon votre UDF sera automatiquement (re)compilée pour chaque tâche. Non seulement cette méthode est très inefficace, mais elle peut également entraîner des conflits de build de type « racetime » si plusieurs tâches sont exécutées à partir du même répertoire. Outre la configuration de votre fichier de journalisation pour construire votre UDF, l'interface graphique de Fluent (exécutée sur n'importe quel nœud de calcul ou sur gra-vdi) peut également être utilisée. Pour ce faire, ajoutez le fichier source UDF dans la boîte de dialogue <i>Compiled UDFs</i>, et cliquez sur <i>Build</i>. Lorsque vous utilisez une UDF compilée avec des tâches parallèles, votre fichier source doit être parallélisé comme indiqué dans la section ci-dessous.
+</div>
 
  define/user-defined/compiled-functions compile libudf yes sampleudf.c "" ""
 
@@ -1631,21 +1633,30 @@ Nous décrivons ici comment obtenir l'extension ACT de Ansys Additive Manufactur
 <span id="Run_Additive"></span>
 == Exécuter Additive ==
 
+<span id="OnDemand"></span>
+<div class="mw-translate-fuzzy">
 === Gra-vdi ===
+</div>
 
-Vous pouvez exécuter une seule tâche Ansys Additive Manufacturing sur gra-vdi en utilisant jusqu'à 16 cœurs comme suit&nbsp;: 
+<div class="mw-translate-fuzzy">
+Vous pouvez exécuter une seule tâche Ansys Additive Manufacturing sur gra-vdi en utilisant jusqu'à 16 cœurs comme suit&nbsp;:
+</div>
 
+<div class="mw-translate-fuzzy">
 * Lancez Workbench sur gra-vdi comme décrit ci-dessus dans <i>Additive Manufacturing -> Activer Additive</i>.
 * Cliquez sur <i>File -> Open</i> et sélectionnez <i>test.wbpj</i> puis cliquez sur <i>Open</i>.
 * Cliquez sur <i>View -> Reset workspace</i> si votre écran est gris.
 * Lancez <i>Mechanical, Clear Generated Data</i>, sélectionnez  <i>Distributed</i>, spécifiez <i>Cores</i>.
 * Cliquez sur <i>File -> Save Project -> Solve</i>.
+</div>
 
 Vérifiez l'utilisation :
 * Ouvrez un autre terminal et lancez <code>top -u $USER</code> OU <code>ps u -u $USER | grep ansys</code>.
 * Terminez les processus non nécessaires créés par des tâches précédentes avec  <code>pkill -9 -e -u $USER -f "ansys|mwrpcss|mwfwrapper|ENGINE"</code>.
 
+<div class="mw-translate-fuzzy">
 Veuillez noter que des processus persistants peuvent bloquer les licences entre les sessions de connexion gra-vdi ou provoquer d'autres erreurs inhabituelles lors de la tentative de démarrage de l'interface graphique sur gra-vdi. Bien que cela soit rare, un processus peut rester en mémoire si une session d'interface graphique Ansys (Fluent, Workbench, etc.) n'est pas correctement terminée avant que vncviewer ne soit terminé manuellement ou de manière inattendue, par exemple en raison d'une panne de réseau temporaire ou d'un système de fichiers bloqué. Dans ce dernier cas, les processus peuvent ne pas être tués tant que l'accès normal au disque n'est pas rétabli.
+</div>
 
 <span id="Cluster"></span>
 === Grappe ===

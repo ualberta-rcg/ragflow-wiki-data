@@ -4,17 +4,13 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "In the provided example Slurm script for running a multi-node Fluent job on Narval, what are the default Slurm directives for allocating compute nodes and cores per node?",
-      "answer": "The default Slurm directives in the provided example script for a Fluent job on Narval are `--nodes=1` (though the comment specifies '1 or more') and `--ntasks-per-node=64` (for Narval). The script also includes `--mem=0` to allocate all memory per compute node and `--cpus-per-task=1`."
+      "question": "When configuring a Slurm script for a multinode Fluent job on the Narval cluster using Open MPI, what are the key parameters for requesting computational resources and loading the necessary software modules?",
+      "answer": "For a multinode Fluent job on the Narval cluster with Open MPI (using the \"Multinode (by node, narval)\" script), you should specify `#SBATCH --nodes=1` (or more), `#SBATCH --ntasks-per-node=64` (or less), and `#SBATCH --mem=0` to allocate all memory per compute node. The script also requires loading `module load StdEnv/2023` and `module load ansys/2023R2` (or a newer version)."
     },
     {
-      "question": "How is Ansys Fluent executed in a multi-node parallel environment using Open MPI on the Narval cluster, according to the provided script's logic for more than one node?",
-      "answer": "According to the provided script's logic for executing on more than one node, Ansys Fluent is run with the command `export FI_PROVIDER=verbs fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`. This command leverages Open MPI, utilizes an InfiniBand interconnect (`-pib`), and references a dynamically generated machine file."
-    },
-    {
-      "question": "What Ansys Fluent module versions are specified as compatible with the provided Slurm script for running multi-node jobs on Narval?",
-      "answer": "The provided Slurm script for running multi-node Fluent jobs on Narval loads `StdEnv/2023` and `ansys/2023R2`, specifying that newer versions of the Ansys module are also compatible."
+      "question": "What are the essential Slurm directives and module requirements for submitting a Fluent multinode job, configured by node, to the Trillium cluster?",
+      "answer": "For a multinode Fluent job on the Trillium cluster configured by node, the Slurm script (`script-flu-bynode-intel-tri.sh`) requires `#SBATCH --nodes=1` (or more) and `#SBATCH --ntasks-per-node=16` (up to a maximum of 192 cores per node on Trillium). Memory allocation (`#SBATCH --mem=0`) is typically not explicitly set as Trillium uses all memory per node by default. Necessary modules to load are `StdEnv/2023` and `ansys/2025R2.04` (only 2025R2 or newer works on Trillium)."
     }
   ],
-  "generated_at": "2026-04-13T01:49:14.829769+00:00"
+  "generated_at": "2026-04-19T01:28:00.895404+00:00"
 }

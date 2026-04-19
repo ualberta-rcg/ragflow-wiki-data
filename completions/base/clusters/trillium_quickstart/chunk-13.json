@@ -4,13 +4,17 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "What are the necessary SLURM directives and commands to submit an OpenMP job script to Trillium's CPU subcluster?",
-      "answer": "To submit an OpenMP job on Trillium's CPU subcluster, a job script (e.g., `openmp_job.sh`) should begin with `#!/bin/bash` and include `#SBATCH` directives. Key directives for an OpenMP job example would be `--nodes=1`, `--ntasks=1`, `--cpus-per-task=192`, `--time=01:00:00`, `--job-name=openmp_job`, and `--output=openmp_output_%j.txt`. Within the script, you would change to the submission directory (`cd $SLURM_SUBMIT_DIR`), load required modules like `StdEnv/2023` and `gcc/12.3`, set the `OMP_NUM_THREADS` environment variable (e.g., `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`), and then execute your OpenMP application (e.g., `./openmp_example`). The job is submitted from your `$SCRATCH` directory using the command `sbatch openmp_job.sh`."
+      "question": "What is an example of a SLURM script for submitting an OpenMP job on Trillium's CPU subcluster, and what resources does it request?",
+      "answer": "An example SLURM script for an OpenMP job would include directives such as `#SBATCH --nodes=1`, `#SBATCH --ntasks=1`, `#SBATCH --cpus-per-task=192`, and `#SBATCH --time=01:00:00`. This script requests one node, a single task, 192 CPUs for that task (to run up to 192 OpenMP threads), and a maximum runtime of one hour. The script then changes to the submission directory, loads the `StdEnv/2023` and `gcc/12.3` modules, sets the `OMP_NUM_THREADS` environment variable based on the SLURM CPU allocation, and finally runs the `openmp_example` application."
     },
     {
-      "question": "How is a hybrid MPI/OpenMP job configured and submitted on Trillium's CPU subcluster, including details on SLURM directives and execution environment setup?",
-      "answer": "A hybrid MPI/OpenMP job on Trillium's CPU subcluster is configured via a Bash script (e.g., `hybrid_job.sh`) using specific `#SBATCH` directives. For an example requiring 2 nodes, 48 tasks per node, and 4 CPUs per task, directives would include `--nodes=2`, `--ntasks-per-node=48`, `--cpus-per-task=4`, `--time=01:00:00`, and `--job-name=hybrid_job`. The script sets up the environment by changing to the submission directory (`cd $SLURM_SUBMIT_DIR`), loading modules such as `StdEnv/2023`, `gcc/12.3`, and `openmpi/4.1.5`. Important OpenMP environment variables like `OMP_NUM_THREADS`, `OMP_PLACES`, and `OMP_PROC_BIND` are exported, and `vastpreload-openmpi.bash` is sourced for MPI-IO. The application is then launched using `mpirun` with options like `--bind-to core --map-by ppr:$RANKS_PER_L3CACHE:l3cache:pe=$OMP_NUM_THREADS ./hybrid_example` to ensure proper process and thread distribution. The script must be submitted from your `$SCRATCH` directory using `sbatch hybrid_job.sh`."
+      "question": "In a hybrid MPI/OpenMP job script on Trillium, why is it important to use `mpirun` instead of `srun` when preloading a library for MPI-IO, and what does the `--map-by` option help with?",
+      "answer": "When performing MPI-IO in a hybrid MPI/OpenMP job on Trillium, it is important to use `mpirun` instead of `srun` because the VAST preload library (e.g., `/scinet/vast/etc/vastpreload-openmpi.bash`) only takes effect with `mpirun`. The `--map-by` option in the `mpirun` command helps to spread the MPI processes and OpenMP threads evenly over the available CPU cores, ensuring optimal resource utilization."
+    },
+    {
+      "question": "What are the key SLURM directives and their functions when setting up a hybrid MPI/OpenMP job on Trillium's CPU subcluster, as demonstrated in the example script?",
+      "answer": "For a hybrid MPI/OpenMP job on Trillium's CPU subcluster, key SLURM directives include: `#SBATCH --nodes=2` to request two compute nodes; `#SBATCH --ntasks-per-node=48` to specify 48 MPI tasks on each node; `#SBATCH --cpus-per-task=4` to allocate 4 CPU cores per task for OpenMP threads; and `#SBATCH --time=01:00:00` to set the job's maximum runtime to one hour. These directives instruct SLURM to allocate two nodes, with each node running 48 MPI tasks, and each task utilizing 4 threads, for a total duration of one hour."
     }
   ],
-  "generated_at": "2026-04-13T14:53:50.325541+00:00"
+  "generated_at": "2026-04-19T02:40:02.270334+00:00"
 }

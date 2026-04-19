@@ -4,17 +4,17 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "Quelles sont les méthodes de copie de données recommandées pour la migration, en fonction de la taille des volumes?",
-      "answer": "Pour la migration de très grands volumes de données (plus de 5 To), on recommande d'utiliser Globus. Pour les plus petits volumes, la méthode rsync+ssh est suggérée."
+      "question": "Quelle est la méthode recommandée pour migrer de très grands volumes de données (plus de 5 To) vers le nouveau nuage Arbutus, et quelles sont les étapes principales pour y arriver?",
+      "answer": "Pour la migration de très grands volumes de données (plus de 5 To), la méthode recommandée est d'utiliser le client Globus Connect Personal avec un abonnement Globus Plus. Les étapes principales sont : s'abonner à Globus Connect Personal Plus en contactant globus@tech.alliancecan.ca, activer Globus Connect Personal sur chaque instance touchée par le transfert de données en s'assurant qu'elle possède une adresse IP externe, que son coupe-feu permet la communication par les ports nécessaires, et que l'utilisateur a accès aux données. Enfin, il faut utiliser l'interface Globus (globus.org, globus.calculcanada.ca) pour accéder aux points de chute et transférer les données."
     },
     {
-      "question": "Quelles sont les étapes à suivre pour transférer de très grands volumes de données (plus de 5 To) en utilisant Globus lors d'une migration?",
-      "answer": "Pour transférer de très grands volumes de données avec Globus, il faut d'abord s'abonner à Globus Connect Personal Plus en contactant globus@tech.alliancecan.ca. Ensuite, on doit activer Globus Connect Personal sur chaque instance concernée en s'assurant que l'instance a une adresse IP externe, que le coupe-feu autorise la communication par les ports nécessaires, et que l'utilisateur a accès aux données. Après avoir exécuté Globus Connect Personal en arrière-plan, on crée un point de chute partagé et on procède au transfert des données via l'interface Globus (globus.org ou globus.calculcanada.ca)."
+      "question": "Comment peut-on transférer des petits volumes de données entre des instances du nuage Ouest et du nouveau nuage Arbutus en utilisant rsync et SSH?",
+      "answer": "Pour transférer des petits volumes de données, on peut utiliser la combinaison rsync et SSH. La procédure typique consiste à se connecter avec SSH à l'instance sur le nuage Ouest qui possède le volume principal, puis à lancer rsync sur SSH. Un exemple de commande est : `rsync -avzP -e 'ssh -i ~/.ssh/key.pem' /chemin/local/ utilisateur_distant@hôte_distant:/chemin/vers/fichiers/`. Il faut ensuite vérifier que les données ont bien été copiées dans l'instance sur le nouveau nuage Arbutus, puis supprimer les données sur le nuage Ouest."
     },
     {
-      "question": "Comment peut-on transférer des petits volumes de données en utilisant rsync + ssh pour la migration?",
-      "answer": "Pour transférer des petits volumes de données avec rsync + ssh, il faut se connecter via SSH à l'instance sur le nuage Ouest qui détient le volume principal et noter le chemin absolu à copier. Ensuite, on lance la commande rsync sur SSH, idéalement en utilisant une connexion sans mot de passe avec des clés SSH, comme dans l'exemple `rsync -avzP -e 'ssh -i ~/.ssh/key.pem' /local/path/ remoteuser@remotehost:/path/to/files/`. Une fois la copie terminée, il est important de vérifier que les données ont bien été transférées et de supprimer les anciennes données sur le nuage Ouest."
+      "question": "Quelles sont les configurations post-migration essentielles à effectuer après avoir transféré les données vers une nouvelle instance dans le nuage Arbutus?",
+      "answer": "Après avoir transféré les données vers une nouvelle instance dans le nuage Arbutus, il y a plusieurs configurations post-migration importantes. Celles-ci incluent la mise à jour des règles de pare-feu pour utiliser les nouvelles adresses IP et réseaux si un pare-feu basé sur l'hôte est employé, la collaboration avec le fournisseur DNS pour mettre à jour les entrées DNS des domaines personnalisés, la mise à jour des adresses IP dans les fichiers de configuration (comme `/etc/hosts` ou `/etc/resolv.conf`), la modification des noms d'utilisateur (par exemple, 'root'@'192.168.65.%') dans MySQL, et le renouvellement des certificats TLS Let’s Encrypt si des adresses IP se trouvent dans le Subject Alternate Name (SAM) du certificat. Il est également crucial de tester la configuration une fois toutes ces modifications apportées."
     }
   ],
-  "generated_at": "2026-04-13T02:25:27.154653+00:00"
+  "generated_at": "2026-04-19T01:47:08.972389+00:00"
 }

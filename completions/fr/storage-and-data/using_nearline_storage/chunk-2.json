@@ -4,9 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Pourquoi est-il préférable d'utiliser un nœud de copie (DTN) pour la création de fichiers archive, et que devrions-nous faire si un tel nœud n'est pas disponible?",
-      "answer": "La création de fichiers archive exige beaucoup de ressources, c'est pourquoi il est préférable d'utiliser un nœud de copie (DTN). Si un nœud de copie n'est pas disponible pour se connecter à la grappe, il faut plutôt utiliser un nœud de connexion."
+      "question": "Quels sont les avantages d'utiliser le système de fichiers /nearline pour stocker des données inactives par rapport aux disques ou aux SSD?",
+      "answer": "Le stockage sur ruban via le système /nearline présente plusieurs avantages : un coût par unité de données stockée plus bas, une capacité de stockage qui peut être facilement augmentée par l'achat de rubans additionnels, et une consommation énergétique par unité de données stockée qui est effectivement nulle. Cela permet aussi d'offrir plus de capacité de stockage que sur /project et d'alléger la charge sur ce dernier, améliorant ainsi sa performance."
+    },
+    {
+      "question": "Comment fonctionnent le stockage et la récupération des fichiers sur le système /nearline, et quel est le cycle de vie d'un fichier?",
+      "answer": "Lorsqu'un fichier est créé ou copié sur /nearline, il existe d'abord seulement sur disque. Après environ une journée et s'il répond à certains critères, il est copié sur ruban, se retrouvant alors sur disque et sur ruban. Par la suite, la copie sur disque peut être supprimée, laissant le fichier uniquement sur ruban (on dit qu'il est \"virtualisé\"). Quand un tel fichier est rappelé, il est copié du ruban vers le disque et redevient disponible sur les deux supports. Il est important de noter que la lecture d'un fichier virtuel sur ruban peut prendre entre moins d'une minute et plus d'une heure, selon la taille du fichier et la charge du système."
+    },
+    {
+      "question": "Comment désactiver le mode interactif de la commande `dar` pour archiver des fichiers sur /nearline, et pourquoi est-ce utile?",
+      "answer": "Pour désactiver explicitement le mode interactif de la commande `dar`, il faut utiliser l'option `-Q` (par exemple, `dar -Q`). Normalement, `dar` demande de confirmer certaines opérations dans un terminal. En mode non interactif, il suppose une réponse négative à toutes les questions. Cette pratique est particulièrement utile quand on exécute `dar` dans un multiplexeur de terminal sans surveillance, comme `tmux`, pour éviter que le processus d'archivage ne s'interrompe en attendant une confirmation."
     }
   ],
-  "generated_at": "2026-04-13T15:29:05.957995+00:00"
+  "generated_at": "2026-04-19T02:48:24.388677+00:00"
 }

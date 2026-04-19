@@ -4,17 +4,13 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "Quelles sont les principales différences dans les directives Slurm entre les scripts de soumission Ansys Fluent configurés 'par nœud' et 'par cœur'?",
-      "answer": "Pour les scripts 'par nœud', on spécifie le nombre de nœuds (`#SBATCH --nodes`) et le nombre de tâches par nœud (`#SBATCH --ntasks-per-node`), souvent en allouant toute la mémoire du nœud (`#SBATCH --mem=0`). Pour les scripts 'par cœur', on spécifie le nombre total de cœurs à travers tous les nœuds (`#SBATCH --ntasks`) et la mémoire par cœur (`#SBATCH --mem-per-cpu`), avec la possibilité de ne pas spécifier le nombre de nœuds (`##SBATCH --nodes=1` est commenté) pour laisser Slurm l'optimiser."
+      "question": "Comment faire pour résoudre les problèmes de plantage de Fluent durant la phase initiale de partitionnement automatique du maillage lorsqu'on utilise les scripts Intel standards avec le solveur parallèle?",
+      "answer": "Une solution est d'effectuer manuellement le partitionnement du maillage dans l'interface graphique de Fluent, puis de tenter de soumettre à nouveau la tâche sur la grappe avec les scripts Intel. Cette approche permet d'inspecter les statistiques de partitionnement et de choisir la méthode optimale."
     },
     {
-      "question": "Comment le script Slurm pour Ansys Fluent sur la grappe Trillium gère-t-il les informations de licence, et en quoi est-ce différent des autres grappes?",
-      "answer": "Sur la grappe Trillium, le script configure des tunnels SSH via `tri-gw` pour rediriger les ports Flex (FLEXPORT) et Vendor (VENDPORT) du serveur de licence local vers `localhost`. Il définit ensuite les variables d'environnement `ANSYSLMD_LICENSE_FILE` et `ANSYSLI_SERVERS` pour qu'elles pointent vers `localhost`. Ceci est spécifique à Trillium, tandis que d'autres grappes s'appuient généralement sur un fichier `~/.licenses/ansys.lic` configuré directement avec l'adresse du serveur de licence."
-    },
-    {
-      "question": "Quel est l'exemple de commande Fluent utilisée pour lancer une simulation en parallèle sur un seul nœud de calcul en utilisant Intel MPI dans un script Slurm?",
-      "answer": "Pour lancer Fluent en parallèle sur un seul nœud de calcul avec Intel MPI, le script utilise la commande `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`. `$MYVERSION` spécifie le type de simulation (par exemple, 3d), `$NCORES` correspond au nombre de cœurs alloués, `-mpi=intel` indique l'utilisation d'Intel MPI, `-pshmem` active la mémoire partagée et `-i $MYJOURNALFILE` référence le fichier de journalisation de la simulation."
+      "question": "Quelles sont les conditions à respecter pour obtenir une efficacité optimale lors du partitionnement du maillage dans Fluent?",
+      "answer": "Pour une efficacité optimale, le nombre de partitions du maillage doit être un multiple entier du nombre de cœurs, et il faut s'assurer d'avoir au moins 10 000 cellules par cœur."
     }
   ],
-  "generated_at": "2026-04-13T01:56:12.792752+00:00"
+  "generated_at": "2026-04-19T01:34:55.550905+00:00"
 }

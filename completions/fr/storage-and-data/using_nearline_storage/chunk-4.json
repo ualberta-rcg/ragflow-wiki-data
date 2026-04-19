@@ -4,17 +4,13 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Comment savoir si un fichier sur le système de fichiers /nearline est encore sur disque ou s'il a été archivé sur ruban seulement?",
-      "answer": "Pour vérifier l'état d'un fichier sur /nearline, on utilise la commande `lfs hsm_state <FILE>`. Cette commande indique si le fichier est uniquement sur disque (0x00000000), en cours de copie sur ruban (exists), présent sur disque et sur ruban (exists archived), ou seulement sur ruban (released exists archived), ce qui prendra plus de temps pour l'ouvrir. On peut forcer le rappel d'un fichier du ruban vers le disque sans le lire en utilisant la commande `lfs hsm_restore <FILE>`."
+      "question": "Comment peut-on vérifier si un fichier sur le système de fichiers /nearline est stocké sur disque, sur ruban, ou les deux?",
+      "answer": "Pour savoir si un fichier se trouve sur ruban ou sur disque sur /nearline, on peut utiliser la commande `lfs hsm_state <FILE>`."
     },
     {
-      "question": "Quelles sont les particularités du service /nearline sur la grappe Béluga, notamment concernant l'archivage, la suppression et la restauration de fichiers?",
-      "answer": "Sur la grappe Béluga, l'accès au répertoire /nearline se fait via les nœuds de connexion et les nœuds de copie (DTN). Les fichiers enregistrés dans `~/nearline/PROJECT` sont copiés sur ruban après environ 24 heures. Si un fichier n’est pas modifié pendant le même laps de temps, sa copie sur disque est supprimée, le virtualisant ainsi sur ruban. Si un fichier est supprimé de `~/nearline`, sa copie sur ruban est conservée pendant 60 jours. Pour restaurer ces fichiers, il faut contacter le soutien technique en fournissant le chemin complet et la date de la version désirée. Il est recommandé de conserver une copie de la structure de votre espace /nearline, par exemple avec la commande `ls -R > ~/nearline_contents.txt`."
-    },
-    {
-      "question": "Quelles sont les différentes façons d'accéder au service /nearline sur la grappe Trillium, qui utilise le système HPSS?",
-      "answer": "Sur la grappe Trillium, le service /nearline est géré par HPSS et offre trois méthodes d'accès. Premièrement, vous pouvez soumettre une tâche à l'ordonnanceur Slurm dans une partition archive en utilisant les commandes HPSS `htar` ou `hsi`, ce qui est idéal pour l'automatisation. Deuxièmement, pour un petit nombre de fichiers, il est possible d'utiliser un nœud VFS (virtual file system) en lançant `salloc --time=1:00:00 -pvfsshort`. Finalement, vous pouvez utiliser Globus pour transférer vos fichiers HPSS en spécifiant le point de chute `alliancecan#hpss`, une méthode utile pour un usage occasionnel ou des transferts entre différents sites. Sur Trillium, vos fichiers HPSS se trouvent dans le répertoire `$ARCHIVE`, qui est l'équivalent de `/project`."
+      "question": "Quelles sont les différentes interprétations des sorties de la commande `lfs hsm_state` concernant l'emplacement d'un fichier sur /nearline?",
+      "answer": "La commande `lfs hsm_state` a différentes sorties qui indiquent l'état du fichier. Si la sortie est `<FILE>: (0x00000000)`, ça veut dire que le fichier est seulement sur disque. Si c'est `<FILE>: [...]: exists, [...]`, le fichier est présentement en train d'être copié sur ruban. Une sortie comme `<FILE>: [...]: exists archived, [...]` indique que le fichier se trouve à la fois sur disque et sur ruban. Finalement, si le résultat est `<FILE>: [...]: released exists archived, [...]`, le fichier est seulement sur ruban et son accès prendra plus de temps."
     }
   ],
-  "generated_at": "2026-04-13T15:29:30.539496+00:00"
+  "generated_at": "2026-04-19T02:48:42.696259+00:00"
 }

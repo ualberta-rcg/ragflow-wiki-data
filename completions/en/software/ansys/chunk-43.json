@@ -4,17 +4,13 @@
   "chunk_index": 43,
   "qa_pairs": [
     {
-      "question": "How do you load the Ansys Additive Manufacturing ACT extension to be available for current and future sessions on an Alliance cluster?",
-      "answer": "To load the Ansys AdditiveWizard extension for current and future sessions, click the lower right corner arrow in the AdditiveWizard box within the Extension Manager and select 'Load extension'."
+      "question": "How can a user run a single Ansys Additive Manufacturing job graphically within an OnDemand session?",
+      "answer": "To run an Ansys Additive Manufacturing job graphically in an OnDemand session, first launch Workbench as described in the 'Enable Additive' section of the documentation. Then, click 'File -> Open' and select your project file (e.g., `test.wbpj`), click 'View -> reset workspace' if a grey screen appears, start Mechanical, clear any generated data, tick 'Distributed', and specify the desired number of Cores. Finally, click 'File -> Save Project' and then 'Solve'. To check resource utilization, open another terminal and run `top -u $USER` or `ps u -u $USER | grep ansys`. Be aware that rogue Ansys processes can tie up valuable licenses if sessions are not cleanly terminated."
     },
     {
-      "question": "What are the essential preparation steps for submitting a new Ansys Additive project to a cluster queue?",
-      "answer": "Before submitting a newly uploaded Additive project to a cluster queue, open the simulation with the Workbench GUI in the job's submission directory, save it using the same Ansys module version that will be used for the job, create a Slurm script (changing `Update()` to `UpdateAllDesignPoints()` for parametric studies), and determine optimal cores and memory by submitting several short test jobs. To avoid overwriting the initialized solution between test runs, either change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the Slurm script or save a copy of the original project file and its corresponding `_files` directory."
-    },
-    {
-      "question": "How can a user monitor the resource utilization of an Ansys Additive job running on a cluster?",
-      "answer": "Once an Ansys Additive job has been running for a few minutes on a compute node(s), a snapshot of its resource utilization can be obtained by running the `srun --overlap --jobid=myjobid top -bn1 -u $USER | grep R | grep -v top` command."
+      "question": "What are the necessary steps to prepare and submit an Ansys Additive project to a cluster queue using Slurm, and how can resource utilization be checked for these jobs?",
+      "answer": "To prepare an Ansys Additive project for a cluster queue, first open your simulation with the Workbench GUI in the same directory where your job will be submitted, using the same Ansys module version, and save it again. Next, create a Slurm script, following the guidelines in the 'Cluster Batch Job Submission - WORKBENCH' section. For parametric studies, modify `Update()` to `UpdateAllDesignPoints()` in the Slurm script. To prevent overwriting solutions during scaling tests, either change `Save(Overwrite=True)` to `Save(Overwrite=False)` or create a copy of your original project files. Resource utilization for a running job can be checked by opening another terminal and running `srun --overlap --jobid=myjobid top -bn1 -u $USER | grep R | grep -v top`, replacing `myjobid` with your job's actual ID."
     }
   ],
-  "generated_at": "2026-04-13T01:54:04.562780+00:00"
+  "generated_at": "2026-04-19T01:32:51.253032+00:00"
 }

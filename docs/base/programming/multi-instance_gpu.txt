@@ -121,5 +121,19 @@ It was also launched using a single CPU core. When taking into account these thr
 Another way to monitor the usage of a running job is by [[Running jobs#Attaching_to_a_running_job |attaching to the node]] where the job is currently running and then by using <code>nvidia-smi</code> to read the GPU metrics in real time.
 This will not provide maximum and average values for memory and power usage of the entire job, but it may be helpful to identify and troubleshoot underperforming jobs.
 
+=GPU configuration details= <!--T:28-->
 
+<!--T:29-->
+Note that while NVidia's [https://docs.nvidia.com/datacenter/tesla/mig-user-guide/latest/supported-mig-profiles.html#h100-mig-profiles MIG documentation] speaks in terms of sevenths and eighths of a GPU, the reality is rather more complicated. An H100 SXM5 GPU has a total of 132 processing units (streaming multiprocessors; "SMs"). The number 132 factorizes into 11*3*2*2, which is divisible neither by seven nor by eight. 
+
+<!--T:30-->
+Under MIG, an H100 SXM5's 132 SMs are partitioned into: 
+
+<!--T:31-->
+* '''One''' instance of '''60''' SMs (<code>nvidia_h100_80gb_hbm3_3g.40gb</code>)
+* '''One''' instance of '''32''' SMs (<code>nvidia_h100_80gb_hbm3_2g.20gb</code>)
+* '''Two''' instances of '''16''' SMs (<code>nvidia_h100_80gb_hbm3_1g.10gb</code>)
+
+<!--T:32-->
+leaving eight SMs ''unassigned'' and effectively lost (60+32+16+16+(8) = 124 ''assigned'' + 8 ''unassigned'' = 132). Rather than speaking of eighths then, we should consider a MIGed H100 divided into ''thirty-thirdths'', however unwieldy this may be. What NVidia calls "one eighth" is therefore 4/33 of an H100 GPU, "two eighths" is 8/33 and "three eighths" is 15/33, with 2/33 of the GPU not assigned to any instance.
 </translate>

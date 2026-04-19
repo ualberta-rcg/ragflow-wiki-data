@@ -4,17 +4,13 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "How do I submit a hybrid MPI/OpenMP job on the Trillium CPU subcluster, and what resources would a job requesting two nodes, 48 tasks per node, and 4 CPUs per task receive?",
-      "answer": "To submit a hybrid MPI/OpenMP job on Trillium's CPU subcluster, you create a job script (e.g., `hybrid_job.sh`) containing `#SBATCH` directives that specify resource requirements like `--nodes`, `--ntasks-per-node`, and `--cpus-per-task`. Then, submit this script from your `$SCRATCH` directory on a CPU login node using the command `sbatch hybrid_job.sh`. For a job requesting two nodes, 48 tasks per node, and 4 CPUs per task, SLURM would allocate two nodes, each running 48 MPI tasks, with each task having 4 OpenMP threads, for a total of 192 cores per node, for the specified duration (e.g., 1 hour)."
+      "question": "How do you configure a hybrid MPI/OpenMP job script for submission to the Trillium CPU subcluster, particularly regarding resource allocation and process/thread binding?",
+      "answer": "To configure a hybrid MPI/OpenMP job script for Trillium's CPU subcluster, you must specify `#SBATCH --nodes` (e.g., 2), `#SBATCH --ntasks-per-node` (e.g., 48), and `#SBATCH --cpus-per-task` (e.g., 4) in your job script. It's crucial to export `OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK` and use `mpirun` with explicit binding options, such as `--bind-to core --map-by ppr:$RANKS_PER_L3CACHE:l3cache:pe=$OMP_NUM_THREADS`, to ensure efficient distribution of processes and threads over the cores. The script should also load necessary modules (like `StdEnv/2023`, `gcc`, and `openmpi`) and source `/scinet/vast/etc/vastpreload-openmpi.bash` for MPI-IO optimization."
     },
     {
-      "question": "What are the specific rules for requesting GPUs when submitting jobs to Trillium's GPU subcluster?",
-      "answer": "On Trillium's GPU subcluster, you are only permitted to request exactly one GPU or a multiple of four GPUs. This means you cannot request two or three GPUs (e.g., `--gpus-per-node=2` or `--gpus-per-node=3`). NVIDIA's MIG technology for subdividing a GPU is not supported, but you can use NVIDIA's Multi-Process Service (MPS) to share a GPU among processes within the same job. For single-GPU jobs, use `--gpus-per-node=1`, and for whole-node GPU jobs, use `--gpus-per-node=4`."
-    },
-    {
-      "question": "Why is the `vastpreload` library important for MPI-IO operations when running jobs on Trillium, and how is it utilized?",
-      "answer": "The `vastpreload` library is crucial for optimizing MPI-IO performance with the VAST file system on Trillium. To utilize it, you must source the appropriate preload script within your job script (e.g., `source /scinet/vast/etc/vastpreload-openmpi.bash` for OpenMPI or `vastpreload-intelmpi.bash` for IntelMPI). It is important to note that this library only takes effect when `mpirun` is used to launch your application; it will not work with `srun`."
+      "question": "What are the specific rules and limitations for requesting GPUs when submitting jobs to the Trillium GPU subcluster, and what technologies are not supported?",
+      "answer": "When submitting jobs to the Trillium GPU subcluster, users are strictly allowed to request either exactly 1 GPU or a multiple of 4 GPUs per node using the `--gpus-per-node` option. Requesting 2 or 3 GPUs per node is not permitted. NVIDIA's MIG (Multi-Instance GPU) technology for allocating subdivisions of a GPU is not supported on Trillium. However, users can utilize NVIDIA's Multi-Process Service (MPS) within a job to enable multiple processes to share a single GPU. A single-GPU job allocates a quarter node, providing 24 CPU cores and approximately 188 GiB of RAM."
     }
   ],
-  "generated_at": "2026-04-13T14:56:44.085883+00:00"
+  "generated_at": "2026-04-19T02:42:25.885131+00:00"
 }

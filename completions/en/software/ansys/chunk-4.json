@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How are Ansys service packs indicated in module versions on Alliance clusters?",
-      "answer": "Starting with Ansys 2024, a separate Ansys module will appear on the clusters with a decimal and two digits after the release number whenever a service pack is installed. For example, `module load ansys/2024R1.03` indicates Service Pack 3 for the 2024R1 release. Most users can load the latest service pack by simply doing `module load ansys`."
+      "question": "How are Ansys service packs handled in terms of module loading on the clusters?",
+      "answer": "Starting with Ansys 2024, a separate Ansys module will appear on the clusters with a decimal and two digits after the release number whenever a service pack is installed. For example, `module load ansys/2024R1.03` loads Service Pack 3 for the 2024R1 release. Users can also load the latest module version equipped with the newest installed service pack by simply doing `module load ansys`."
     },
     {
-      "question": "What is the general procedure for running Ansys Fluent jobs on Alliance clusters?",
-      "answer": "To run Fluent on Alliance clusters, you typically prepare the job using Ansys Workbench on your desktop, export the case (and optionally data) files, and transfer them to a `/project` or `/scratch` directory on the cluster. Next, create a journal file to load the case/data, run the solver, and write results. After running the job, you can download the data file and import it back into Fluent."
+      "question": "What is the general procedure for running an Ansys Fluent job on the clusters?",
+      "answer": "First, prepare your Fluent job on a desktop machine and export the 'case' file (and 'data' file, if needed). Then, transfer these files to a `/project` or `/scratch` directory on the cluster. Next, create a 'journal' file to load the case and data files, run the solver, and write the results. After preparing these, submit the job. Once completed, you can download the data file and import it back into Fluent."
     },
     {
-      "question": "Why are special instructions needed for running Ansys parallel jobs on Alliance clusters?",
-      "answer": "Special instructions are required for each Ansys package to start a parallel job on Alliance clusters because the Ansys software suite's multiple implementations of MPI (Message Passing Interface) do not support the Alliance's Slurm scheduler."
+      "question": "What are the considerations when choosing between 'by node' and 'by core' Slurm scripts for Ansys Fluent jobs on the clusters?",
+      "answer": "Most Fluent jobs should use 'by node' scripts to minimize solution latency and maximize performance over as few nodes as possible. Very large jobs might experience less queue waiting time with 'by core' scripts, but these can have significantly longer startup times and increase vulnerability to crashing if run over many nodes. Both script types ensure Fluent uses shared memory for communication on a single node and distributed memory (utilizing MPI) over multiple nodes."
     }
   ],
-  "generated_at": "2026-04-13T01:48:23.466882+00:00"
+  "generated_at": "2026-04-19T01:27:13.110745+00:00"
 }

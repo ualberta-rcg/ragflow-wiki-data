@@ -4,17 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Why is it important to explicitly set the number of threads for Gurobi Python jobs run on the clusters, rather than relying on the default behaviour?",
-      "answer": "It is important to set the number of threads for Gurobi Python jobs because, by default, Gurobi will utilize as many execute threads as there are physical cores on the compute node. This can potentially slow down the job and negatively impact other user jobs running on the same node. To prevent this, users should dynamically generate a `gurobi.env` file to set the threads parameter equal to the number of cores allocated to their job."
+      "question": "Why would a user need to create a Python virtual environment to use Gurobi on the Digital Research Alliance of Canada's systems?",
+      "answer": "Gurobi brings its own version of Python, which does not contain any third-party Python packages except Gurobi itself. To use Gurobi alongside popular Python packages like NumPy, Matplotlib, and Pandas, users need to create a virtual Python environment where both `gurobipy` and other desired packages can be installed."
     },
     {
-      "question": "Why would a user create a Python virtual environment to use Gurobi on Digital Research Alliance of Canada systems?",
-      "answer": "A user would create a Python virtual environment to use Gurobi because Gurobi's own Python version does not contain any third-party Python packages (except Gurobi itself). To use Gurobi together with popular Python packages like NumPy, Matplotlib, or Pandas, a virtual Python environment is needed where both `gurobipy` and other desired packages can be installed."
+      "question": "When submitting a Gurobi Python job, why is it important to dynamically generate a `gurobi.env` file?",
+      "answer": "Dynamically generating a `gurobi.env` file into the working directory for each submitted Gurobi Python job is important to set the 'Threads' parameter equal to the number of cores allocated to that specific job. If this is not done, Gurobi will by default start as many execute threads as there are physical cores on the compute node, potentially slowing down the job and negatively impacting other user jobs running on the same node."
     },
     {
-      "question": "What is the recommended installation method for the Gurobi Python interface for Gurobi versions 11.0.0 and newer on these systems?",
-      "answer": "For Gurobi versions 11.0.0 and newer, the previously recommended `setup.py` method for installing Gurobi for Python is deprecated. The new recommended approach involves downloading a compatible binary wheel from pypi.org, converting it into a format usable with `pip`, and then installing `gurobipy` using `python -m pip install --find-links <wheel-dir> --no-index gurobipy` within a Python virtual environment."
+      "question": "What is the updated installation method for Gurobi for Python versions 11.0.0 and newer in a virtual environment, considering the deprecation of `setup.py`?",
+      "answer": "For Gurobi versions 11.0.0 and newer, the previously recommended `setup.py` method for installing Gurobi for Python is deprecated. The updated approach involves using `pip` to install `gurobipy`. This requires downloading a compatible binary wheel from pypi.org, then using a script (such as `unmanylinuxize.sh`) to convert it into a usable format, and finally installing it within the virtual environment using `python -m pip install --find-links $PWD --no-index gurobipy`."
     }
   ],
-  "generated_at": "2026-04-13T06:53:49.629551+00:00"
+  "generated_at": "2026-04-19T01:59:35.284230+00:00"
 }

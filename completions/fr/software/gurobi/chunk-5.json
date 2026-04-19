@@ -4,17 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on soumet une tâche Gurobi en mode batch sur une grappe pour régler un problème de type LP en utilisant l'outil en ligne de commande `gurobi_cl`?",
-      "answer": "Pour soumettre une tâche Gurobi qui utilise l'interface en ligne de commande (`gurobi_cl`), il faut un script Slurm. Ce script doit charger l'environnement standard et le module Gurobi (par exemple, `module load StdEnv/2020` et `module load gurobi/9.5.0`), puis exécuter la commande `gurobi_cl` en lui passant des paramètres comme le nombre de fils (`Threads`), la méthode d'optimisation (`Method`) et le fichier de résultats (`ResultFile`), en spécifiant le chemin vers le fichier de données LP à résoudre."
+      "question": "Comment soumettre une tâche par lots sur les grappes d'Alliance pour résoudre un problème d'optimisation Gurobi au format LP en utilisant l'interface de ligne de commande?",
+      "answer": "Pour soumettre une tâche par lots qui résout un modèle Gurobi au format LP via l'interface de ligne de commande, il faut créer un script Slurm. Ce script doit spécifier les ressources nécessaires (temps, CPU, mémoire), charger les modules d'environnement standard (`StdEnv`) et le module Gurobi (par exemple `gurobi/9.5.0`). Ensuite, la commande `gurobi_cl` est utilisée en lui passant des paramètres comme le nombre de fils (`Threads`), la méthode d'optimisation (`Method`) et le fichier de résultats (`ResultFile`), ainsi que le chemin vers le fichier `.lp` du modèle. Par exemple, pour un modèle `coins.lp`, la commande serait `gurobi_cl Threads=$SLURM_CPUS_ON_NODE Method=2 ResultFile=coins.sol ${GUROBI_HOME}/examples/data/coins.lp`."
     },
     {
-      "question": "Lorsqu'on soumet une tâche Gurobi en Python en mode batch, pourquoi est-il crucial de spécifier le nombre de fils d'exécution, et comment faire?",
-      "answer": "C'est crucial de spécifier le nombre de fils d'exécution, car si on ne le fait pas, Gurobi va utiliser par défaut tous les cœurs physiques du nœud de calcul. Ça peut ralentir votre tâche et nuire aux performances des autres tâches exécutées sur le même nœud. Pour régler ça, il faut créer un fichier nommé `gurobi.env` dans votre répertoire de travail. Ce fichier doit contenir la ligne `Threads ${SLURM_CPUS_ON_NODE:-1}` pour s'assurer que Gurobi utilise seulement le nombre de cœurs alloués à votre tâche par l'ordonnanceur Slurm."
+      "question": "Pourquoi est-ce important de bien configurer le nombre de fils d'exécution pour les tâches Gurobi Python sur les grappes d'Alliance, et comment ça se fait?",
+      "answer": "Il est vraiment important de configurer le nombre de fils d'exécution pour les tâches Gurobi Python parce que, par défaut, Gurobi risque de lancer autant de fils qu'il y a de cœurs physiques sur le nœud de calcul au lieu d'utiliser le nombre de cœurs alloués à la tâche par l'ordonnanceur. Ça peut ralentir votre tâche et nuire aux performances des autres utilisateurs sur le même nœud. Pour bien faire, vous devez générer un fichier `gurobi.env` dans votre répertoire de travail pour chaque tâche soumise. Ce fichier doit contenir la ligne `Threads ${SLURM_CPUS_ON_NODE:-1}`. Vous pouvez l'ajouter à votre script Slurm avec la commande `echo \"Threads ${SLURM_CPUS_ON_NODE:-1}\" > gurobi.env` juste avant d'appeler votre script Python."
     },
     {
-      "question": "Pourquoi faut-il créer un environnement virtuel Python pour utiliser Gurobi avec d'autres paquets Python sur les grappes de calcul?",
-      "answer": "Gurobi a sa propre version de Python qui ne contient aucun autre paquet tiers. Pour pouvoir utiliser Gurobi avec des bibliothèques Python populaires comme NumPy, Matplotlib ou Pandas, il est essentiel de créer un environnement virtuel Python. Dans cet environnement, vous installerez `gurobipy` et tous les autres paquets Python nécessaires, ce qui vous permettra de gérer vos dépendances sans conflit avec la version système de Python."
+      "question": "Comment puis-je utiliser Gurobi avec d'autres paquets Python comme NumPy ou Pandas sur les systèmes d'Alliance?",
+      "answer": "Pour utiliser Gurobi avec d'autres paquets Python populaires comme NumPy, Matplotlib ou Pandas, il faut créer un environnement virtuel Python. La version de Python intégrée à Gurobi ne contient pas ces paquets tiers. Une fois l'environnement virtuel créé et activé, vous pouvez y installer le paquet `gurobipy` ainsi que tous les autres paquets Python nécessaires (comme `pandas`) via `pip install --no-index`. Cela permet à Gurobi de fonctionner avec les autres bibliothèques dans un environnement contrôlé, assurant la compatibilité et évitant les conflits."
     }
   ],
-  "generated_at": "2026-04-13T06:55:50.849758+00:00"
+  "generated_at": "2026-04-19T02:01:26.940941+00:00"
 }

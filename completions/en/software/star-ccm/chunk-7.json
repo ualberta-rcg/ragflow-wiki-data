@@ -4,17 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "When preparing to run STAR-CCM+ jobs on the Trillium cluster, what specific `ssh` command is used to set up a tunnel for licensing?",
-      "answer": "To set up a licensing tunnel for STAR-CCM+ jobs on the Trillium cluster, the command `ssh tri-gw -L $FLEXPORT:$LICSERVER:$FLEXPORT -L $VENDPORT:$LICSERVER:$VENDPORT -N -f` is used."
+      "question": "What are the `FLEXPORT`, `VENDPORT`, and `LICSERVER` variables used for when submitting a STAR-CCM+ job on the Trillium cluster?",
+      "answer": "In the Trillium Slurm script for STAR-CCM+, these variables specify the static flex port, static vendor port, and hostname of the external license server, respectively, for licensing purposes."
     },
     {
-      "question": "On the Trillium cluster, how is the `CDLMD_LICENSE_FILE` environment variable configured for STAR-CCM+ licensing within a job script?",
-      "answer": "Within a job script on the Trillium cluster, the `CDLMD_LICENSE_FILE` environment variable for STAR-CCM+ licensing is configured using `export CDLMD_LICENSE_FILE=\"$FLEXPORT@127.0.0.1\"`."
+      "question": "How is the `CDLMD_LICENSE_FILE` environment variable configured in the Trillium Slurm script when explicitly defining STAR-CCM+ license server settings?",
+      "answer": "The `CDLMD_LICENSE_FILE` environment variable is explicitly set to `$FLEXPORT@127.0.0.1`, directing the license manager to look for the license server locally via the defined flex port, typically facilitated by an SSH tunnel."
     },
     {
-      "question": "How are STAR-CCM+ temporary files redirected to a job-specific temporary directory on a cluster?",
-      "answer": "STAR-CCM+ temporary files are redirected to a job-specific temporary directory by setting the `STARCCM_TMP` environment variable to `$SLURM_TMPDIR` with the command `export STARCCM_TMP=\"$SLURM_TMPDIR\"`."
+      "question": "What is the purpose of the `ssh` command with port forwarding (`ssh tri-gw -L ... -N -f`) within a STAR-CCM+ Slurm script on the Trillium cluster?",
+      "answer": "The `ssh` command establishes an SSH tunnel from the Trillium cluster's gateway (`tri-gw`) to the specified `LICSERVER`, forwarding both the `FLEXPORT` and `VENDPORT`. This tunnel allows the STAR-CCM+ job on the cluster to communicate securely with the remote license server for software authorization."
     }
   ],
-  "generated_at": "2026-04-13T13:47:11.558677+00:00"
+  "generated_at": "2026-04-19T02:29:13.253632+00:00"
 }

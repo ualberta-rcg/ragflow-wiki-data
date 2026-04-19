@@ -4,17 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "Comment doit-on s'y prendre pour soumettre une tâche MPI sur la grappe de calcul Trillium, et quelles sont les étapes principales à suivre?",
-      "answer": "Pour soumettre une tâche MPI sur la grappe Trillium, il faut commencer par créer un script Bash (par exemple, `mpi_job.sh`) dans votre répertoire `$SCRATCH`. Ce script doit contenir des directives `#SBATCH` pour spécifier les ressources demandées, comme `--nodes=2` (deux nœuds), `--ntasks-per-node=192` (192 tâches par nœud), `--time=01:00:00` (une heure de durée), `--job-name=mpi_job` (le nom de la tâche) et `--output=mpi_output_%j.txt` pour le fichier de sortie. Ensuite, il faut charger les modules d'environnement requis, tels que `StdEnv/2023`, `gcc/12.3` et `openmpi/4.1.5`. Un préchargement de la bibliothèque `vastpreload-openmpi.bash` est aussi crucial pour optimiser le MPI-IO. Finalement, on exécute l'application avec `mpirun ./mpi_example`. La soumission du script se fait à l'aide de la commande `sbatch mpi_job.sh` depuis un nœud de connexion CPU, toujours à partir de votre répertoire `$SCRATCH`."
+      "question": "Comment est-ce qu'on soumet une tâche MPI sur la grappe Trillium, et quelles sont les principales directives à inclure dans le script Slurm?",
+      "answer": "Pour soumettre une tâche MPI sur Trillium, il faut utiliser la commande `sbatch` avec un script shell depuis votre répertoire `$SCRATCH` sur un nœud de connexion. Le script doit contenir des directives `#SBATCH` qui spécifient les ressources, comme le nombre de nœuds (`--nodes`), le nombre de tâches par nœud (`--ntasks-per-node`), la durée (`--time`), le nom de la tâche (`--job-name`) et le fichier de sortie (`--output`). On doit aussi y charger les modules nécessaires comme `StdEnv/2023`, `gcc` et `openmpi`, puis exécuter l'application avec `mpirun`. Il est important d'inclure `source /scinet/vast/etc/vastpreload-openmpi.bash` pour optimiser MPI-IO."
     },
     {
-      "question": "Quelles sont les distinctions principales entre la soumission d'une tâche OpenMP et celle d'une tâche MPI sur la grappe Trillium, en se basant sur les exemples fournis?",
-      "answer": "Les distinctions principales résident dans la configuration des ressources et la méthode d'exécution. Pour une tâche OpenMP, le script `#SBATCH` est configuré pour un seul nœud (`--nodes=1`) et une seule tâche (`--ntasks=1`), mais avec un nombre élevé de cœurs par tâche (`--cpus-per-task=192`), car OpenMP est conçu pour la parallélisation sur un seul nœud. La variable d'environnement `OMP_NUM_THREADS` est ensuite exportée pour correspondre au nombre de CPU demandés. L'application est exécutée directement (par exemple, `./openmp_example`). En revanche, pour une tâche MPI, on demande plusieurs nœuds (`--nodes=2`) et des tâches distribuées sur ces nœuds (`--ntasks-per-node=192`), et l'exécution de l'application se fait via `mpirun`, en plus de nécessiter le préchargement d'une bibliothèque spécifique au MPI-IO."
+      "question": "Dans un script Slurm pour une tâche sur Trillium, à quoi servent les lignes qui commencent par `#SBATCH`?",
+      "answer": "Sur Trillium, les lignes qui commencent par `#SBATCH` dans un script Slurm sont des directives qui sont lues par l'ordonnanceur de tâches Slurm. Elles lui permettent de savoir quelles ressources la tâche requiert, comme le nombre de nœuds, le nombre de tâches par nœud, le temps d'exécution maximal, le nom de la tâche et où écrire les fichiers de sortie."
     },
     {
-      "question": "Pourquoi est-il important de recourir à la commande `mpirun` plutôt qu'à `srun` quand on précharge la bibliothèque `vastpreload-openmpi.bash` pour une tâche MPI sur Trillium?",
-      "answer": "Il est crucial d'utiliser la commande `mpirun` plutôt que `srun` pour que le préchargement de la bibliothèque `vastpreload-openmpi.bash` fonctionne correctement. Cette bibliothèque est spécifiquement conçue pour optimiser les opérations d'entrée/sortie (MPI-IO) avec le système de fichiers VAST sur Trillium, et son bon fonctionnement dépend de l'utilisation de `mpirun` pour lancer l'application MPI."
+      "question": "Lorsqu'on prépare un script de tâche OpenMP pour Trillium, comment s'assure-t-on que l'application utilise efficacement un grand nombre de cœurs CPU?",
+      "answer": "Pour une tâche OpenMP sur Trillium, il faut spécifier un seul nœud (`--nodes=1`) et une seule tâche (`--ntasks=1`), mais demander le nombre maximal de cœurs par tâche, soit 192 (`--cpus-per-task=192`), puisque les tâches CPU utilisent des nœuds entiers. Il est aussi essentiel de charger les modules `StdEnv/2023` et `gcc`, puis d'exporter la variable d'environnement `OMP_NUM_THREADS` avec la valeur de `$SLURM_CPUS_PER_TASK` pour indiquer à l'application OpenMP le nombre de fils à utiliser."
     }
   ],
-  "generated_at": "2026-04-13T14:59:57.874221+00:00"
+  "generated_at": "2026-04-19T02:45:13.969479+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Comment peut-on structurer un script Slurm pour lancer une tâche STAR-CCM+ sur les grappes d'Alliance, comme Nibi, Fir, Narval ou Rorqual ?",
-      "answer": "Pour structurer un script Slurm pour STAR-CCM+, il faut commencer par des directives `#SBATCH` afin de spécifier les ressources comme le compte (`--account`), la durée (`--time`), le nombre de nœuds (`--nodes`), et la mémoire (`--mem`). Ensuite, il faut charger l'environnement standard (`module load StdEnv/2023`) et le module STAR-CCM+ souhaité (par exemple, `module load starccm-mixed/20.04.007`). Il est aussi nécessaire de définir le nom du fichier de simulation (par exemple, `SIM_FILE='mysample.sim'`). La commande d'exécution de `starccm+` variera selon le type de licence : pour une licence POD de Siemens, il faut inclure l'option `-power -podkey $LM_PROJECT`, tandis que pour une licence institutionnelle, ces options ne sont pas nécessaires."
+      "question": "Comment dois-je configurer les ressources de calcul dans un script Slurm pour une tâche STAR-CCM+ sur les grappes de l'Alliance, comme Nibi?",
+      "answer": "Dans le script Slurm, les paramètres de base pour les ressources de calcul sont spécifiés avec des directives `#SBATCH`. Par exemple, pour une tâche sur Nibi, vous devez définir `--account` pour votre groupe, `--time` pour la limite de temps (ex: 00-01:00), `--nodes` (ex: 1 nœud), `--cpus-per-task` (ex: 16 cœurs par tâche), `--mem` (ex: 64G de mémoire par nœud), `--ntasks-per-node` (qui devrait rester à 1) et `--constraint=granite` pour utiliser des nœuds de calcul Intel."
     },
     {
-      "question": "Dans un script Slurm pour STAR-CCM+, comment spécifie-t-on les fichiers d'entrée de simulation et comment gère-t-on les différents types de licences (POD de Siemens ou institutionnelle) ?",
-      "answer": "Pour spécifier le fichier d'entrée de simulation dans un script Slurm STAR-CCM+, on utilise la variable `SIM_FILE`, par exemple `SIM_FILE='mysample.sim'`. On peut aussi spécifier un fichier Java via `JAVA_FILE='mymacros.java'` si besoin. En ce qui concerne les licences, si vous utilisez une licence POD (Power On Demand) de Siemens, la variable d'environnement `LM_PROJECT` doit être configurée (par exemple, `LM_PROJECT='ma_clé_pod_de_22_chiffres'`) et la commande `starccm+` doit inclure les options `-power -podkey $LM_PROJECT`. Pour une licence institutionnelle, il suffit de s'assurer que le fichier `~/.licenses/starccm.lic` est correctement configuré, et la commande `starccm+` ne nécessite pas les options `-power -podkey`."
+      "question": "Comment charger le module STAR-CCM+ et spécifier les fichiers d'entrée pour une simulation dans un script Slurm sur les systèmes de l'Alliance?",
+      "answer": "Pour charger le module STAR-CCM+, il faut d'abord appeler `module load StdEnv/2023`, puis `module load starccm-mixed/20.04.007` (ou une version plus récente ou spécifique). Pour les fichiers d'entrée, vous devez définir la variable `SIM_FILE='mon_fichier.sim'` pour votre fichier de simulation, et si vous utilisez des macros Java, vous pouvez décommenter et spécifier `JAVA_FILE='mes_macros.java'`."
     },
     {
-      "question": "Quelles sont les principales différences entre les scripts Slurm pour les grappes Nibi et Fir/Narval/Rorqual lorsqu'on soumet une tâche STAR-CCM+ ?",
-      "answer": "Bien que les scripts Slurm pour Nibi et Fir/Narval/Rorqual partagent plusieurs similarités, il y a quelques différences notables. Sur Nibi, la directive `#SBATCH --constraint=granite` est utilisée pour les nœuds de calcul Intel (sans GPU) et `STAR_MPI` est défini comme `-mpi intel`. Sur Fir, Narval et Rorqual, le `LM_PROJECT` pour les licences PoD de Siemens est configuré directement dans le script, tandis que sur Nibi, cette configuration se fait dans un bloc conditionnel. De plus, `STAR_MPI` est généralement défini comme `-mpi openmpi` sur Fir/Narval/Rorqual, avec des ajustements pour `FLEXIBLAS` selon le fournisseur du CPU."
+      "question": "Quelle est la procédure pour gérer les licences Siemens Power On Demand (PoD) et institutionnelles dans un script Slurm pour STAR-CCM+?",
+      "answer": "Si vous utilisez une licence PoD de Siemens, vous devez configurer la variable d'environnement `LM_PROJECT` avec votre ID de projet PoD dans le script Slurm. La commande `starccm+` inclura alors les options `-power -podkey $LM_PROJECT`. Pour une licence institutionnelle, le script s'appuiera sur le fichier `~/.licenses/starccm.lic` et lancera `starccm+` sans les options spécifiques au PoD, en assumant que le fichier de licence est correctement configuré."
     }
   ],
-  "generated_at": "2026-04-13T13:48:30.096651+00:00"
+  "generated_at": "2026-04-19T02:30:19.189437+00:00"
 }

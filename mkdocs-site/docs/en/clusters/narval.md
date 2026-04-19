@@ -4,59 +4,56 @@ slug: "narval"
 lang: "en"
 
 source_wiki_title: "Narval/en"
-source_hash: "04002d418372b8a23e8278d14615bc87"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T09:41:06.673601+00:00"
+source_hash: "d89219c6d88345a0812d4a1c1e7c32b2"
+last_synced: "2026-04-18T23:39:30.217451+00:00"
+last_processed: "2026-04-19T00:59:20.961239+00:00"
 
 tags:
   []
 
 keywords:
-  - "Node characteristics"
-  - "compute capacity"
-  - "high-performance interconnect"
-  - "Narval cluster"
-  - "AMD EPYC 7532"
-  - "Intel compilers"
-  - "Monitoring jobs"
-  - "compute job"
-  - "available memory"
-  - "Multi-Instance GPU"
-  - "System memory"
-  - "Narval"
-  - "GPU"
-  - "A100"
-  - "CPU"
+  - "High-performance interconnect"
   - "GPU instance"
-  - "cores"
-  - "AMD EPYC processors"
-  - "Resource usage"
-  - "GPU instances"
-  - "compute nodes"
-  - "InfiniBand"
-  - "GPU memory"
-  - "Lustre filesystem"
+  - "system memory"
   - "CPU cores"
+  - "CPU"
+  - "Intel compilers"
+  - "InfiniBand"
+  - "AMD EPYC 7532"
+  - "monitor jobs"
+  - "compute nodes"
+  - "Narval"
+  - "Multi-Instance GPU"
+  - "Compute Canada"
+  - "monitoring jobs"
+  - "storage"
+  - "Lustre filesystem"
+  - "AMD EPYC processors"
+  - "compute job"
+  - "A100 GPUs"
+  - "Narval cluster"
+  - "resource usage"
+  - "Narval portal"
+  - "available memory"
+  - "CPUs and GPUs"
+  - "Node characteristics"
 
 questions:
-  - "What are the specific job scheduling limits and internet access policies enforced on Narval's compute nodes?"
-  - "What are the differences in capacity, backup policies, and intended use cases among the HOME, SCRATCH, and PROJECT storage filesystems?"
-  - "How is the InfiniBand high-performance interconnect structured to support parallel jobs, and what are the hardware specifications of the compute nodes?"
-  - "How must applications be compiled using Intel compilers to ensure they run correctly on Narval's AMD processors?"
-  - "Which standard software environment and mathematical libraries are currently recommended for use on the Narval cluster?"
-  - "What are the specific Slurm commands required to request either full A100 GPUs or fractional Multi-Instance GPUs?"
-  - "What type and model of CPU is used in the nodes, and what is its clock speed?"
-  - "How much available memory and storage capacity does each node possess?"
-  - "How many total nodes are specified in the characteristics table, and how many cores does each have?"
-  - "What are the compute capacity and memory specifications for the 4g.20gb GPU instance?"
-  - "What is the exact command-line syntax required to request a single 2g.10gb GPU instance for a compute job?"
-  - "Which specific GPU instance version is noted as having fewer available units?"
-  - "Where can users find the maximum recommended number of CPU cores and system memory per GPU instance?"
-  - "What portal allows users to monitor their real-time and past usage of compute nodes, memory, and GPUs?"
-  - "Why is it important for users to monitor their allocated resources and adjust their script files accordingly?"
-  - "Where can users find the maximum recommended number of CPU cores and system memory per GPU instance?"
-  - "What portal allows users to monitor their real-time and past usage of compute nodes, memory, and GPUs?"
-  - "Why is it important for users to monitor their allocated resources and adjust their script files accordingly?"
+  - "What are the specific job duration limits and internet access policies for compute nodes on the Narval cluster?"
+  - "How do the HOME, SCRATCH, and PROJECT storage spaces differ in terms of their intended use, quotas, and backup systems?"
+  - "What are the hardware specifications of Narval's compute nodes and how is its high-performance InfiniBand network structured to handle parallel jobs?"
+  - "What compiler flags should be used or avoided when using Intel compilers for Narval's AMD processors?"
+  - "Which standard software environment and mathematical libraries are currently recommended for the Narval cluster?"
+  - "What Slurm options are required to request either full A100 GPUs or specific Multi-Instance GPU capacities?"
+  - "What specific CPU model and architecture are utilized in the described nodes?"
+  - "How much available memory and storage capacity is provided per node?"
+  - "How many total nodes are included in this hardware configuration?"
+  - "What are the specific A100 GPU instance options and their corresponding command-line flags available for compute jobs?"
+  - "Where can one find the maximum recommended limits for CPU cores and system memory per GPU instance?"
+  - "What is the next topic of focus mentioned in the documentation after configuring the compute job resources?"
+  - "What specific compute resources can users monitor through the Narval portal?"
+  - "How does monitoring past and present jobs benefit users regarding queue times and resource optimization?"
+  - "Why is it important for users to adjust their script files if their requested resources exceed their actual usage?"
 
 status:
   downloaded: true
@@ -67,22 +64,19 @@ status:
   qa_generated: false
 ---
 
-| Property |
-| :------- |
-| Availability: since October 2021 |
-| Login node: **narval.alliancecan.ca** |
-| Globus collection: [Compute Canada - Narval](https://app.globus.org/file-manager?origin_id=a1713da6-098f-40e6-b3aa-034efe8b6e5b) |
-| Data transfer node (rsync, scp, sftp,...): **narval.alliancecan.ca** |
-| Portal: https://portail.narval.calculquebec.ca/ |
+| Key | Value |
+| :--- | :--- |
+| Availability | since October 2021 |
+| Login node | **narval.alliancecan.ca** |
+| Globus collection | **[Compute Canada - Narval](https://app.globus.org/file-manager?origin_id=a1713da6-098f-40e6-b3aa-034efe8b6e5b)** |
+| Data transfer node (rsync, scp, sftp,...) | **narval.alliancecan.ca** |
+| Portal | [https://portail.narval.calculquebec.ca/](https://portail.narval.calculquebec.ca/) |
 
-Narval is a general-purpose cluster designed for a variety of workloads. Built by Dell Canada and CDW Canada, it is located at the [École de technologie supérieure](https://www.etsmtl.ca/en/home) in Montreal. The cluster is named in honour of the [narwhal](https://en.wikipedia.org/wiki/Narwhal), a species of whale which has occasionally been observed in the Gulf of St. Lawrence.
+Narval is a general purpose cluster designed for a variety of workloads. Built by Dell Canada and CDW Canada it is located at the [École de technologie supérieure](https://www.etsmtl.ca/en/home) in Montreal. The cluster is named in honour of the [narwhal](https://en.wikipedia.org/wiki/Narwhal), a species of whale which has occasionally been observed in the Gulf of St. Lawrence.
 
 ## Site-specific policies
 
-By policy, Narval's compute nodes cannot access the internet.
-
-!!! note
-    If you need an exception to this rule, contact [technical support](../support/technical_support.md) explaining what you need and why.
+By policy, Narval's compute nodes cannot access the internet. If you need an exception to this rule, contact [technical support](../support/technical_support.md) explaining what you need and why.
 
 Crontab is not offered on Narval.
 
@@ -90,11 +84,11 @@ Each job on Narval should have a duration of at least one hour (five minutes for
 
 ## Storage
 
-| Storage | Description |
-| :------ | :---------- |
-| HOME<br>Lustre filesystem, 64 TB of space | Location of home directories, each of which has a small fixed quota. You should use the `project` space for larger storage needs. Small per user [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies). There is a daily backup of the home directories. |
-| SCRATCH<br>Lustre filesystem, 5.7 PB of space | Large space for storing temporary files during computations. No backup system in place. Large [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies) per user. There is an [automated purge](../storage-and-data/scratch_purging_policy.md) of older files in this space. |
-| PROJECT<br>Lustre filesystem, 35 PB of space | This space is designed for sharing data among the members of a research group and for storing large amounts of data. Large and adjustable per group [quota](../storage-and-data/storage_and_file_management.md). There is a daily backup of the project space. |
+| Space | Description |
+| :---- | :---------- |
+| HOME  | Lustre filesystem, 64 TB of space <br/> Location of home directories, each of which has a small fixed [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies). <br/> You should use the `project` space for larger storage needs. <br/> There is a daily backup of the home directories. |
+| SCRATCH | Lustre filesystem, 5.7 PB of space <br/> Large space for storing temporary files during computations. <br/> No backup system in place. <br/> Large [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies) per user. <br/> There is an [automated purge](../storage-and-data/scratch_purging_policy.md) of older files in this space. |
+| PROJECT | Lustre filesystem, 35 PB of space <br/> This space is designed for sharing data among the members of a research group and for storing large amounts of data. <br/> Large and adjustable per group [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies). <br/> There is a daily backup of the project space. |
 
 For transferring data via [Globus](../getting-started/globus.md), you should use the endpoint specified at the top of this page, while for tools like [rsync](../getting-started/transferring_data.md#rsync) and [scp](../getting-started/transferring_data.md#scp) you can use a login node.
 
@@ -102,37 +96,32 @@ For transferring data via [Globus](../getting-started/globus.md), you should use
 
 The [InfiniBand](https://en.wikipedia.org/wiki/InfiniBand) [Mellanox HDR](https://www.nvidia.com/en-us/networking/infiniband/qm8700/) network links together all of the nodes of the cluster. Each hub of 40 HDR ports (200 Gb/s) can connect up to 66 nodes with HDR100 (100 Gb/s) with 33 HDR links divided in two (2) by special cables. The seven (7) remaining HDR links allow the hub to be connected to a rack containing the seven (7) central HDR InfiniBand hubs. The islands of nodes are therefore connected by a maximum blocking factor of 33:7 (4.7:1). In contrast, the storage servers are connected by a much lower blocking factor in order to maximize the performance.
 
-In practice, the Narval racks contain islands of 48 or 56 regular CPU nodes. It is therefore possible to run parallel jobs using up to 3584 cores with a non-blocking network. For larger jobs or ones which are distributed in a fragmented manner across the network, the blocking factor is 4.7:1. The interconnect remains a high-performance one nonetheless.
+In practice the Narval racks contain islands of 48 or 56 regular CPU nodes. It is therefore possible to run parallel jobs using up to 3584 cores with a non-blocking network. For larger jobs or ones which are distributed in a fragmented manner across the network, the blocking factor is 4.7:1. The interconnect remains a high-performance one nonetheless.
 
 ## Node characteristics
 
 | nodes | cores | available memory | CPU | storage | GPU |
 | :---- | :---- | :--------------- | :-- | :------ | :-- |
-| 1145 | 64 | 250G or 256000M | 2 x [AMD EPYC 7532 (Zen 2)](https://www.amd.com/en/support/downloads/drivers.html/processors/epyc/epyc-7002-series/amd-epyc-7532.html) @ 2.40 GHz, 256M cache L3 | 1 x 960G SSD | |
-| 33 | 64 | 2009G or 2057500M | 2 x [AMD EPYC 7532 (Zen 2)](https://www.amd.com/en/support/downloads/drivers.html/processors/epyc/epyc-7002-series/amd-epyc-7532.html) @ 2.40 GHz, 256M cache L3 | 1 x 960G SSD | |
-| 3 | 64 | 4000G or 4096000M | 2 x [AMD EPYC 7502 (Zen 2)](https://www.amd.com/en/support/downloads/drivers.html/processors/epyc/epyc-7002-series/amd-epyc-7502.html) @ 2.50 GHz, 128M cache L3 | 1 x 960G SSD | |
-| 159 | 48 | 498G or 510000M | 2 x [AMD EPYC 7413 (Zen 3)](https://www.amd.com/en/support/downloads/drivers.html/processors/epyc/epyc-7003-series/amd-epyc-7413.html) @ 2.65 GHz, 128M cache L3 | 1 x SSD of 3.84 TB | 4 x NVidia A100SXM4 (40 GB memory), connected via NVLink |
+| 1145  | 64    | 250G or 256000M  | 2 x [AMD EPYC 7532 (Zen 2)](https://www.amd.com/en/support/downloads/drivers.html/processors/epyc/epyc-7002-series/amd-epyc-7532.html) @ 2.40 GHz, 256M cache L3 | 1 x 960G SSD | |
+| 33    | 64    | 2009G or 2057500M | 2 x [AMD EPYC 7532 (Zen 2)](https://www.amd.com/en/support/downloads/drivers.html/processors/epyc/epyc-7002-series/amd-epyc-7532.html) @ 2.40 GHz, 256M cache L3 | 1 x 960G SSD | |
+| 3     | 64    | 4000G or 4096000M | 2 x [AMD EPYC 7502 (Zen 2)](https://www.amd.com/en/support/downloads/drivers.html/processors/epyc/epyc-7002-series/amd-epyc-7502.html) @ 2.50 GHz, 128M cache L3 | 1 x 960G SSD | |
+| 159   | 48    | 498G or 510000M  | 2 x [AMD EPYC 7413 (Zen 3)](https://www.amd.com/en/support/downloads/drivers.html/processors/epyc/epyc-7003-series/amd-epyc-7413.html) @ 2.65 GHz, 128M cache L3 | 1 x SSD of 3.84 TB | 4 x NVidia A100SXM4 (40 GB memory), connected via NVLink |
 
 ### AMD processors
-
 #### Supported instructions sets
-
 Narval is equipped with 2nd and 3rd generation AMD EPYC processors which support the [AVX2 instruction set](https://en.wikipedia.org/wiki/Advanced_Vector_Extensions#Advanced_Vector_Extensions_2).
 
 Narval does not however support the [AVX512](https://en.wikipedia.org/wiki/AVX-512) instruction set, in contrast to the nodes of more recent clusters.
 
 #### Intel compilers
-
 Intel compilers can compile applications for Narval's AMD processors with AVX2 and earlier instruction sets. Use the `--march=core-avx2` option to produce executables which are compatible with both Intel and AMD processors.
 
 However, if you have compiled a program on a system which uses Intel processors and you have used one or more options like `-xXXXX`, such as `-xCORE-AVX2`, the compiled program will not work on Narval because the Intel compilers add additional instructions in order to verify that processor used is an Intel product. On Narval, the options `-xHOST` and `-march=native` are equivalent to `-march=pentium` (the old 1993 Pentium) and should **not** be used.
 
 #### Software environments
-
 [StdEnv/2023](../programming/standard_software_environments.md) is the standard software environment on Narval; previous versions (2016 and 2018) have been blocked intentionally. If you need an application only available with an older standard environment, please write to [Technical support](../support/technical_support.md).
 
 #### BLAS and LAPACK libraries
-
 The Intel MKL library works with AMD processors, although not in an optimal way. We now favour the use of the FlexiBLAS library. For more details, please consult the page on [BLAS and LAPACK](../programming/blas_and_lapack.md).
 
 ### GPU instances
@@ -150,14 +139,12 @@ Several GPU nodes are configured with [Multi-Instance GPU technology](../program
 *   **1g.5gb**: 1/8 compute capacity, GPU memory 5 GB
 *   **2g.10gb**: 2/8 compute capacity, GPU memory 10 GB
 *   **3g.20gb**: 3/8 compute capacity, GPU memory 20 GB
-*   **4g.20gb**: 4/8 compute capacity, GPU memory 20 GB (fewer of this version are available)
 
-To request **one and only one** GPU instance for your compute job, options are:
+To request **one and only one** GPU instance for your compute job, options are :
 
 *   **1g.5gb**: `--gpus=a100_1g.5gb:1`
 *   **2g.10gb**: `--gpus=a100_2g.10gb:1`
 *   **3g.20gb**: `--gpus=a100_3g.20gb:1`
-*   **4g.20gb**: `--gpus=a100_4g.20gb:1`
 
 The maximum recommended number of **CPU cores and system memory** per GPU instance is listed in [this table](../running-jobs/allocations_and_compute_scheduling.md#ratios-in-bundles).
 
@@ -170,5 +157,4 @@ You can monitor your usage of
 *   memory,
 *   GPU.
 
-!!! warning
-    It is important that you use the allocated resources and to correct your requests when compute resources are less used or not used at all. For example, if you request 4 cores (CPUs) but use only one, you should adjust the script file accordingly.
+It is important that you use the allocated resources and to correct your requests when compute resources are less used or not used at all. For example, if you request 4 cores (CPUs) but use only one, you should adjust the script file accordingly.

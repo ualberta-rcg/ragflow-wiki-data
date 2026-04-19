@@ -4,13 +4,13 @@
   "chunk_index": 30,
   "qa_pairs": [
     {
-      "question": "How can an Ansys Mechanical (APDL) job be submitted to Alliance clusters using a Slurm script to run in Shared Memory Parallel (SMP) mode with CPU?",
-      "answer": "To submit an Ansys Mechanical (APDL) job in Shared Memory Parallel (SMP) mode to Alliance clusters, you would typically use a Slurm script that loads the `StdEnv/2023` and `ansys/2024R1.03` (or newer) modules. The `mapdl` command should be executed with the `-smp` flag to enable SMP, `-b nolist` for batch mode without listing, `-np` followed by the number of tasks, `-dir` to specify an output directory, and `-i` to provide the input file. For example: `mapdl -smp -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
+      "question": "According to the provided script, what are the essential steps to configure and run an Ansys Mechanical (MAPDL) job using Shared Memory Parallel (SMP) on a CPU cluster?",
+      "answer": "First, you must specify the number of cores with `#SBATCH --tasks=8` and keep `#SBATCH --cpus-per-task=1`. Next, load the necessary environment modules, specifically `StdEnv/2023` and `ansys/2024R1.03`. Before executing the solver, create a job-specific output directory using `mkdir outdir-$SLURM_JOBID`. Finally, run the `mapdl` command with the parameters `mapdl -smp -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
     },
     {
-      "question": "What specific environment variable configuration is required for an Ansys Mechanical (APDL) Shared Memory Parallel (SMP) job running on the Cedar cluster?",
-      "answer": "For an Ansys Mechanical (APDL) Shared Memory Parallel (SMP) job running on the Cedar cluster, an additional environment variable needs to be set within the Slurm script: `export LD_LIBRARY_PATH=$EBROOTGCC/../lib/gcc`. This ensures that the necessary GCC libraries are accessible for the Ansys executable on the Cedar cluster."
+      "question": "Is there a specific environment variable setting required for Ansys Mechanical (MAPDL) Shared Memory Parallel (SMP) CPU jobs running on the Cedar cluster, and if so, what is it?",
+      "answer": "Yes, if the job is running on the Cedar cluster (i.e., when `$CC_CLUSTER` is `cedar`), the `LD_LIBRARY_PATH` environment variable needs to be exported to `$EBROOTGCC/../lib/gcc`."
     }
   ],
-  "generated_at": "2026-04-13T01:44:17.241651+00:00"
+  "generated_at": "2026-04-19T01:23:24.733621+00:00"
 }

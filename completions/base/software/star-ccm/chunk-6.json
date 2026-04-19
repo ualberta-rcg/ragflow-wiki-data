@@ -4,17 +4,13 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "What are the specific configurations required to run STAR-CCM+ jobs on the Trillium cluster, particularly concerning license file settings and temporary file handling?",
-      "answer": "On the Trillium cluster, you need to redirect temporary output files by setting `export STARCCM_TMP=\"$SLURM_TMPDIR\"`. For licensing, the `CDLMD_LICENSE_FILE` is set to `\"$FLEXPORT@127.0.0.1\"`, and an `ssh` command (`ssh tri-gw -L $FLEXPORT:$LICSERVER:$FLEXPORT -L $VENDPORT:$LICSERVER:$VENDPORT -N -f`) is used for port forwarding to the license server. The job script also includes a retry mechanism (up to 5 attempts) to overcome initial license failures when launching Star-CCM+."
+      "question": "When using an institutional license server for STAR-CCM+ on the Trillium cluster, how are the license server details configured for job submission?",
+      "answer": "On the Trillium cluster, researchers using an institutional license server for STAR-CCM+ must explicitly define the `FLEXPORT`, `VENDPORT`, and `LICSERVER` variables within their Slurm script. An SSH tunnel is then established using the command `ssh tri-gw -L $FLEXPORT:$LICSERVER:$FLEXPORT -L $VENDPORT:$LICSERVER:$VENDPORT -N -f` to ensure the license server's flex and static vendor ports are reachable."
     },
     {
-      "question": "What methods are recommended for running STAR-CCM+ in graphical mode, and what initial setup is required for users with a Power-on-Demand (PoD) license?",
-      "answer": "For running STAR-CCM+ in graphical mode, it is recommended to use an OnDemand or JupyterLab system to start a remote desktop. Users with a Power-on-Demand (PoD) license must configure the `~/.licenses/starccm.lic` file and set the `LM_PROJECT` environment variable to their 22-digit PoD license key by running `export LM_PROJECT='22digit-PoD-License-Key'` before launching `starccm+`."
-    },
-    {
-      "question": "How does one launch a graphical session of STAR-CCM+ using an OnDemand desktop, and what are the commands for running it in serial or parallel mode for versions 18.04.008 or newer?",
-      "answer": "To launch STAR-CCM+ graphically via OnDemand, first access the OnDemand portal (e.g., `https://ondemand.sharcnet.ca` for NIBI or `https://ondemand.scinet.utoronto.ca` for Trillium). After opening a terminal within the OnDemand desktop, load the environment module (`module load StdEnv/2023`) and the desired STAR-CCM+ module (e.g., `module load starccm-mixed/20.06.010`). For serial execution (Process Options=\"Serial\"), use `starccm+ -rr server`. For parallel execution on the local host (Process Options=\"Parallel on Local Host\"), use `starccm+ -rr server -np 2 -mpi openmpi40`."
+      "question": "What are the recommended methods for running STAR-CCM+ in graphical mode on Alliance clusters, and what is a key licensing step for Power-on-Demand (PoD) users?",
+      "answer": "It is recommended to use an OnDemand or JupyterLab system to start a remote desktop for graphical use of STAR-CCM+ on Alliance clusters. For research groups with a Power-on-Demand (PoD) license, they must export the `LM_PROJECT` environment variable, setting it to their 22-digit PoD License Key, before launching `starccm+`."
     }
   ],
-  "generated_at": "2026-04-13T13:45:12.222698+00:00"
+  "generated_at": "2026-04-19T02:27:36.273586+00:00"
 }

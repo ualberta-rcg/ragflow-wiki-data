@@ -4,13 +4,17 @@
   "chunk_index": 29,
   "qa_pairs": [
     {
-      "question": "How can I prevent an Ansys Workbench batch job from overwriting an existing solution after it completes on an Alliance cluster?",
-      "answer": "To avoid writing the solution when a running job successfully completes, change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of the Slurm script for your Ansys Workbench batch job."
+      "question": "When running Ansys Workbench jobs using a Slurm script, how can one prevent the solution from being overwritten upon successful job completion, particularly when conducting scaling tests on an Alliance cluster?",
+      "answer": "To prevent the solution from being overwritten, change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of the Workbench Slurm script. This modification makes it easier to evaluate how well the simulation scales when increasing the number of tasks, as the initialized solution will not be affected by each test run."
     },
     {
-      "question": "What is the procedure to generate an APDL input file from an interactive Ansys Workbench Mechanical session?",
-      "answer": "Within your interactive Ansys Workbench Mechanical session, click \"Solution -> Tools -> Write Input Files\", then specify \"File name: YOURAPDLFILE.inp\" and \"Save as type: APDL Input Files (*.inp)\"."
+      "question": "How is an input file for Ansys Mechanical APDL generated from an interactive Workbench Mechanical session on an Alliance cluster?",
+      "answer": "An input file for Ansys Mechanical APDL can be generated from within your interactive Workbench Mechanical session by clicking `Solution -> Tools -> Write Input Files`. You should then specify the `File name:` as `YOURAPDLFILE.inp` and select `APDL Input Files (*.inp)` as the `Save as type:`."
+    },
+    {
+      "question": "What is the command-line syntax for running an Ansys Mechanical APDL job in Shared Memory Parallel (SMP) mode within a Slurm batch script on an Alliance cluster?",
+      "answer": "The command to run an Ansys Mechanical APDL job in Shared Memory Parallel (SMP) mode is `mapdl -smp -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`. This command should be placed in a Slurm batch script after loading the necessary modules and creating an output directory."
     }
   ],
-  "generated_at": "2026-04-13T01:44:09.836612+00:00"
+  "generated_at": "2026-04-19T01:23:12.901613+00:00"
 }

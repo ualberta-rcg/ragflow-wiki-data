@@ -4,13 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Sur certaines grappes de calcul, quelle commande peut-on utiliser pour obtenir un sommaire de l'état des fichiers dans l'espace /nearline, et comment s'appelle la colonne qui indique leur emplacement?",
-      "answer": "Sur certaines grappes, la commande à utiliser est `diskusage_report --nearline --per_user --all_users`. Le rapport inclura une colonne nommée `Location` qui décrit l'emplacement des données."
+      "question": "Comment est-ce que je peux forcer le rappel d'un fichier qui est stocké sur ruban vers le disque sur les grappes d'Alliance, sans avoir à le lire?",
+      "answer": "Pour forcer le rappel d'un fichier du ruban vers le disque sans le lire, vous pouvez utiliser la commande `lfs hsm_restore <FILE>`."
     },
     {
-      "question": "Qu'est-ce que les statuts de `Location` comme `On disk and tape`, `Modified, will be archived again`, et `Archiving in progress` veulent dire dans le rapport des fichiers /nearline?",
-      "answer": "Dans le rapport d'utilisation des disques pour /nearline, ces statuts de `Location` signifient: \n*   `On disk and tape`: les données sont disponibles sur disque.\n*   `Modified, will be archived again`: la dernière version des données est sur disque.\n*   `Archiving in progress`: les données sont en train d'être copiées ou déplacées sur ruban."
+      "question": "Quelles sont les spécificités du service /nearline sur la grappe Béluga en ce qui concerne l'accès, le stockage et la restauration de fichiers?",
+      "answer": "Sur la grappe Béluga, l'accès au répertoire /nearline se fait par les nœuds de connexion et les nœuds de transfert de données (DTN). Les fichiers enregistrés dans votre répertoire `~/nearline/PROJECT` sont copiés sur ruban après environ 24 heures. Si un fichier n'est pas modifié pendant une période similaire, sa copie sur disque est supprimée, le virtualisant sur ruban. En cas de suppression, la copie sur ruban est conservée pendant 60 jours, et pour la restaurer, vous devez contacter le soutien technique en fournissant le chemin complet et la date du fichier."
+    },
+    {
+      "question": "Quelles sont les différentes méthodes d'accès au service /nearline (HPSS) sur la grappe Trillium, et où se trouvent les fichiers?",
+      "answer": "Sur la grappe Trillium, le service /nearline est géré par HPSS. Vous pouvez y accéder de trois manières : en soumettant une tâche à l'ordonnanceur Slurm avec les commandes HPSS `htar` ou `hsi` dans une des partitions archive; en utilisant un nœud VFS (système de fichiers virtuel) via la commande `salloc --time=1:00:00 -pvfsshort` pour un petit nombre de fichiers; ou en utilisant Globus avec le point de chute `alliancecan#hpss`. Vos fichiers HPSS se trouvent dans le répertoire `$ARCHIVE`."
     }
   ],
-  "generated_at": "2026-04-13T15:29:38.985454+00:00"
+  "generated_at": "2026-04-19T02:48:51.380079+00:00"
 }

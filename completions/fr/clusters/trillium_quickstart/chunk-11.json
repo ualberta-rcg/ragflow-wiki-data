@@ -4,17 +4,17 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "Où est-ce que les tâches sur la grappe Trillium doivent écrire leurs fichiers de sortie et pourquoi?",
-      "answer": "Les tâches sur Trillium doivent écrire leurs fichiers de sortie dans le répertoire `/scratch` parce que les répertoires `/home` et `/project` sont en lecture seule sur les nœuds de calcul. Il est aussi recommandé de soumettre la tâche depuis le répertoire `$SCRATCH` pour que les fichiers de sortie de l'ordonnanceur y soient également écrits."
+      "question": "Où est-ce que les fichiers de sortie des tâches doivent être écrits sur la grappe Trillium, et pourquoi?",
+      "answer": "Sur Trillium, les fichiers de sortie des tâches doivent être écrits dans le répertoire `/scratch`. C'est nécessaire parce que les systèmes de fichiers `/home` et `/project` sont en lecture seule sur les nœuds de calcul, et le répertoire `/scratch` est un système de fichiers parallèle rapide."
     },
     {
-      "question": "Comment fonctionne l'ordonnancement des tâches sur la grappe Trillium en ce qui concerne l'utilisation des nœuds CPU et des GPU?",
-      "answer": "Sur la sous-grappe de CPU, toutes les tâches doivent utiliser des nœuds entiers, ce qui correspond à un minimum de 192 cœurs, et ces cœurs doivent être utilisés efficacement, par exemple en regroupant plusieurs tâches indépendantes. Sur la sous-grappe de GPU, l'ordonnanceur permet de demander soit un nœud entier (4 GPU), soit un seul GPU (équivalent à un quart de nœud avec 24 cœurs et environ 188 GiB de RAM), et le partage de GPU via MIG n'est pas pris en charge, mais HyperQ / MPS peut être utilisé."
+      "question": "Quelle est la particularité de l'ordonnancement des tâches sur la sous-grappe de CPU de Trillium, et comment doit-on gérer l'utilisation des cœurs?",
+      "answer": "Sur la sous-grappe de CPU de Trillium, on ne peut pas demander un nombre précis de cœurs, car toutes les tâches doivent utiliser des nœuds entiers. Chaque nœud de calcul CPU a 192 cœurs. Pour les utiliser efficacement, il faut regrouper plusieurs tâches indépendantes dans un seul script si on exécute des tâches séquentielles ou à faible nombre de cœurs."
     },
     {
-      "question": "Est-ce que les utilisateurs doivent spécifier la quantité de mémoire (RAM) requise lorsqu'ils soumettent une tâche sur Trillium?",
-      "answer": "Non, les utilisateurs ne doivent pas indiquer la quantité de mémoire requise, car elle est allouée automatiquement. Les tâches CPU reçoivent toujours `N × 768 GiB` de RAM (où `N` est le nombre de nœuds), et les tâches sur un nœud GPU entier obtiennent la même quantité, tandis que celles sur un seul GPU reçoivent 1/4 de la mémoire, soit 188 GiB."
+      "question": "Comment l'allocation des ressources GPU et de la mémoire fonctionne-t-elle sur la sous-grappe de GPU de Trillium, et est-il possible de demander une quantité de mémoire spécifique?",
+      "answer": "Sur la sous-grappe de GPU de Trillium, l'ordonnanceur permet de demander un nœud entier (4 GPU) ou un seul GPU, ce qui équivaut à un quart de nœud avec 24 cœurs et environ 188 GiB de RAM. Il ne faut pas indiquer la quantité de mémoire requise, car les tâches CPU reçoivent `N × 768GB` de RAM et les tâches GPU reçoivent une proportion fixe de cette mémoire (188 GiB pour un GPU unique ou 755 GiB pour un nœud GPU entier)."
     }
   ],
-  "generated_at": "2026-04-13T14:59:16.537173+00:00"
+  "generated_at": "2026-04-19T02:44:43.076845+00:00"
 }

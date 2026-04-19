@@ -4,17 +4,13 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of the Fluent solution restart scripts on Alliance clusters?",
-      "answer": "The Fluent solution restart scripts are designed to automate the restarting of very large jobs that require more than the typical seven-day maximum runtime window, by resuming simulations from the most recently saved time step files."
+      "question": "What is the primary function of the `script-flu-bycore+restart.sh` script within the Ansys Fluent documentation?",
+      "answer": "The `script-flu-bycore+restart.sh` script is designed to automate the restarting of very large Ansys Fluent jobs that might exceed the typical seven-day maximum runtime limit available on most clusters. It restarts simulations from the most recently saved time step files."
     },
     {
-      "question": "How should users prepare their journal files to utilize Fluent's solution restart feature?",
-      "answer": "To use the solution restart feature, users must modify their initial `sample.jou` file to include `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`. A separate `sample-restart.jou` file should then be created, containing `/file/read-cas-data sample-restart` and with the initialization line commented out, such as `; /solve/initialize/initialize-flow`."
-    },
-    {
-      "question": "When using Fluent solution restart scripts, how is the total simulation time and number of output files determined?",
-      "answer": "Assuming a fixed time step size (Dt) and that the `sample-restart.jou` specifies two iterations, the total simulation time will be 1*Dt + 2*Nrestart*Dt. The total number of time steps and corresponding output files will be 1 + 2*Nrestart, where Nrestart represents the number of solution restarts specified in the script."
+      "question": "How does the `script-flu-bycore+restart.sh` script manage job restarts and file handling for Ansys Fluent simulations?",
+      "answer": "The script utilizes Slurm job arrays, indicated by `#SBATCH --array=1-5%1`, to manage a series of restart attempts. For the initial run (`$SLURM_ARRAY_TASK_ID == 1`), it executes the `MYJOUFILE`. For subsequent runs, it uses the `MYJOUFILERES`. If a job completes successfully and is not the final attempt, it creates symbolic links (`ln -sfv`) from the most recent output case (`.cas`) and data (`.dat`) files in the `output/` directory to predefined restart files (`MYCASFILERES` and `MYDATFILERES`), allowing the next job array task to continue from the latest solution state."
     }
   ],
-  "generated_at": "2026-04-13T01:50:16.310054+00:00"
+  "generated_at": "2026-04-19T01:28:57.105525+00:00"
 }

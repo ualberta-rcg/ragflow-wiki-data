@@ -3,65 +3,85 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Ansys, and what is the Alliance's role in providing access to it on their clusters?",
-      "answer": "Ansys is a software suite used for engineering simulation and 3-D design. The Alliance serves as a hosting provider, installing Ansys on its clusters, but does not offer a universal license to all users; access typically requires an existing institutional, faculty, or departmental license."
+      "question": "What is Ansys, and what are some of its included packages?",
+      "answer": "Ansys is an engineering simulation and 3-D design software suite that includes packages such as Ansys Fluent and Ansys CFX."
     },
     {
-      "question": "How can users configure their Ansys license file on Alliance clusters?",
-      "answer": "Users can specify their license server by creating a file named `~/.licenses/ansys.lic` in their home directory. This file should contain `setenv(\"ANSYSLMD_LICENSE_FILE\", \"FLEXPORT@LICSERVER\")`, where `FLEXPORT` and `LICSERVER` are replaced with the appropriate values for their specific license server."
+      "question": "How is Ansys software licensed on Alliance clusters?",
+      "answer": "While Ansys software is installed on Alliance clusters, a generic license isn't provided. Users typically utilize existing licenses from their institutions, faculties, or departments, which requires their license server to be reachable by Alliance compute nodes."
     },
     {
-      "question": "What are the specific `LICSERVER` and `FLEXPORT` values for configuring the SHARCNET Ansys license on Alliance clusters?",
-      "answer": "To use the SHARCNET Ansys license on Alliance clusters, users should configure their `ansys.lic` file with `LICSERVER` as `license1.computecanada.ca` and `FLEXPORT` as `1055`."
+      "question": "How do users configure their Ansys license file on an Alliance cluster to specify a license server?",
+      "answer": "Users can create a file named `$HOME/.licenses/ansys.lic` in their home folder, containing two lines to set `ANSYSLMD_LICENSE_FILE` with the appropriate `FLEXPORT` and `LICSERVER` values for their server."
     },
     {
-      "question": "What is the process for setting up a local institutional Ansys license server for use with an Alliance cluster if it has never been used before?",
-      "answer": "Beyond obtaining the Ansys flex port and the license server's hostname, users must also get the statically configured vendor port and confirm the server name's IP resolution. This information, along with the target Alliance cluster, must be sent to technical support for firewall configuration on both ends."
+      "question": "What are the recommended `LICSERVER` and `FLEXPORT` values for the SHARCNET Ansys license server on Alliance clusters?",
+      "answer": "For the SHARCNET Ansys license, the `LICSERVER` is `license1.computecanada.ca` and the `FLEXPORT` is `1055`."
     },
     {
-      "question": "How do users check if their Ansys license configuration is correctly set up and working on an Alliance cluster?",
-      "answer": "To verify the license, users should `cd /tmp`, allocate a compute node using `salloc`, load the `StdEnv` and `ansys` modules, and then run `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\"`. A 'Success' output indicates correct configuration."
+      "question": "What additional information is required from a local Ansys license server administrator if the server has never been set up for use with an Alliance cluster?",
+      "answer": "Beyond the `FLEXPORT` and `LICSERVER` hostname, users also need the statically configured vendor port (`VENDPORT`) and confirmation that the server's `<servername>` resolves to the same IP address as `LICSERVER` on the cluster."
     },
     {
-      "question": "What is the version compatibility policy for Ansys simulation files on Alliance clusters?",
-      "answer": "Ansys simulations are generally forward compatible but not backward compatible. This means files created with an older Ansys version can typically be loaded and run with a newer version, but newer version files are unlikely to run reliably with older Ansys releases."
+      "question": "How can a user verify if their Ansys license file is correctly configured and functioning on an Alliance cluster?",
+      "answer": "Users can run a sequence of commands on a compute node, including `module load StdEnv/2023; module load ansys/2025R2.04; $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE` and check for 'Success' output, which indicates 'ansyslmd: UP'."
     },
     {
-      "question": "How are Ansys service packs managed as modules on Alliance clusters?",
-      "answer": "Starting with Ansys 2024, separate modules are provided for each service pack (e.g., `ansys/2024R1.03`). Users can load a specific service pack version or `module load ansys` to automatically load the latest available service pack."
+      "question": "What is the version compatibility policy for Ansys simulations?",
+      "answer": "Ansys simulations are typically forward compatible but not backwards compatible, meaning simulations created with an older version can generally run on newer versions, but not the other way around."
     },
     {
-      "question": "Why are special Slurm submission scripts required for running parallel Ansys jobs on Alliance clusters?",
-      "answer": "Ansys includes multiple MPI implementations that do not natively support the Alliance's Slurm scheduler. Therefore, custom Slurm scripts are necessary to correctly launch and manage parallel computations for each Ansys package on the clusters."
+      "question": "How are Ansys service packs managed on Alliance clusters starting with Ansys 2024?",
+      "answer": "Beginning with Ansys 2024, a separate Ansys module is installed for each service pack (e.g., `ansys/2024R1.03`), allowing users to load specific service pack versions. Loading `module load ansys` will typically load the latest available service pack."
     },
     {
-      "question": "What are the essential steps for submitting an Ansys Fluent batch job on an Alliance cluster?",
-      "answer": "The essential steps include preparing the job in Ansys Workbench on a desktop, exporting case and data files, transferring these files to the cluster's `/project` or `/scratch` filesystem, creating a 'journal' file to automate the solver, submitting the job with a Slurm script, and finally downloading the processed data."
+      "question": "Why are specific instructions required for submitting Ansys parallel jobs to the Slurm scheduler on Alliance clusters?",
+      "answer": "Ansys software includes multiple MPI implementations, but none natively support the Slurm scheduler, necessitating special instructions for each Ansys package to correctly initiate a parallel job."
     },
     {
-      "question": "What are the best practices for using User-Defined Functions (UDFs) with Ansys Fluent parallel jobs on Alliance clusters?",
-      "answer": "UDF source files should be transferred in text mode and placed in the job directory. For parallel jobs, UDFs must be 'parallelized' by adding specific compiler directives, predicates, and reduction macros to control how processes execute the UDF code, ensuring efficient and stable operation."
+      "question": "What are the primary steps to run an Ansys Fluent job in batch mode on an Alliance cluster?",
+      "answer": "The process involves preparing the Fluent job on a desktop, exporting case and data files, transferring them to a cluster filesystem, creating a journal file for solver commands, and then submitting the job to the queue."
     },
     {
-      "question": "How can users access Ansys programs like Fluent or Workbench in a graphical user interface (GUI) on Alliance clusters?",
-      "answer": "Users can access Ansys GUIs through OnDemand or Jupyterhub desktop links specific to Alliance clusters. After launching a desktop session and loading the Ansys module, they can start programs like Fluent or Workbench from the terminal, configuring environment variables (e.g., `HOOPS_PICTURE`, `I_MPI_HYDRA_BOOTSTRAP`) as needed, especially if a GPU was requested for acceleration."
+      "question": "What types of Slurm scripts are available for Ansys Fluent jobs on Alliance clusters to manage specific job characteristics?",
+      "answer": "Alliance provides general purpose 'by node' and 'by core' scripts, as well as specialized scripts for license requeue (to handle license shortages) and solution restart (for jobs exceeding typical runtime limits)."
     },
     {
-      "question": "What are the main characteristics of the SHARCNET Ansys license for Alliance researchers?",
-      "answer": "The SHARCNET Ansys license is free for academic, publishable research by any Alliance researcher on any system. It covers products like HF, EM, Mechanical, CFD, Rocky, and LS-DYNA, allows up to 16 simultaneous jobs, and a total of 512 HPC cores. It is oversubscribed, so jobs might occasionally fail due to license shortages, requiring manual resubmission."
+      "question": "How are User-Defined Functions (UDFs) handled for Ansys Fluent simulations on Alliance clusters?",
+      "answer": "Users must transfer their UDF source files to the cluster and include commands in their journal file to either interpret or compile the UDF. For parallel jobs, UDFs also need to be parallelized using compiler directives, predicates, and reduction macros."
     },
     {
-      "question": "How can researchers check their current Ansys license usage on Alliance clusters and what steps can be taken if licenses are unexpectedly held?",
-      "answer": "Researchers can check their license usage by running `lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\"` after SSHing into a cluster and loading the Ansys module. If licenses are unexpectedly held by 'rogue processes,' researchers can close desktop sessions, cancel salloc sessions, or run `pkill -9 -e -u $USER -f \"ansys\"` on the affected node to release them."
+      "question": "How can users access Ansys programs in graphical mode on Alliance clusters?",
+      "answer": "Users can access Ansys programs graphically via OnDemand or Jupyterhub desktop links for specific Alliance clusters (e.g., NIBI, FIR, RORQUAL, NARVAL, TRILLIUM), configuring resources for an interactive desktop session, and then loading the Ansys module."
     },
     {
-      "question": "What is Ansys Rocky and how should users load and run it for batch simulations on Alliance clusters, especially considering GPU acceleration?",
-      "answer": "Ansys Rocky is Discrete Element Method (DEM) software for particle simulation. Users should load it via the main `ansys/2025R1` (or newer) module, not the deprecated `ansysrocky` module. For batch simulations, users must export its path (`export PATH=$EBROOTANSYS/v251/rocky:$PATH`) and then use the `Rocky --simulate` command with `--ncpus` and `--use-gpu` (and `--gpu-num`) options for CPU-only or GPU-accelerated runs, respectively."
+      "question": "What environment variables should be set to run Ansys Fluent graphically from an OnDemand desktop on a Compute Node without a GPU on Alliance clusters (for version 2025R1 or newer)?",
+      "answer": "Users should set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi) and `HOOPS_PICTURE=opengl2-mesa` in the Fluent Launcher's Environment Tab before clicking 'Start'."
     },
     {
-      "question": "What general advice is provided for optimizing Ansys job performance and resource utilization on Alliance clusters?",
-      "answer": "Users are advised to conduct scaling tests before submitting long production jobs to determine the optimal number of cores and minimum memory required. Parallel jobs should aim for at least 50% CPU utilization, and single-node (Shared Memory Parallel - SMP) scripts are generally preferred over multinode (Distributed Memory Parallel - DMP) scripts for better performance when feasible."
+      "question": "What are the general terms of use for the SHARCNET Ansys license available to Alliance researchers?",
+      "answer": "The SHARCNET Ansys license is free for publishable academic research by any Alliance researcher on any Alliance system, with strict prohibition against private or commercial use. It allows a maximum of 16 simultaneous jobs, totaling up to 512 HPC cores, and is oversubscribed."
+    },
+    {
+      "question": "How can an Alliance researcher check the current usage of the SHARCNET Ansys license for their username and all users?",
+      "answer": "After SSHing into a cluster and loading the Ansys module, researchers can use the command `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\" | grep -v \" Total of 0 licenses in use\"`."
+    },
+    {
+      "question": "What products are covered by the SHARCNET Ansys Multiphysics Campus Solution license, and what popular Ansys-related software is not?",
+      "answer": "The license covers products like HF, EM, Electronics HPC, Mechanical, CFD, ROCKY, and LS-DYNA. Lumerical software is not covered, and while SpaceClaim is technically covered, it is not installed due to the lack of a Linux version."
+    },
+    {
+      "question": "What is the process to enable the Ansys Additive Manufacturing ACT extension within a Workbench project on an Alliance cluster?",
+      "answer": "The process involves downloading the `AdditiveWizard.wbex` file, uploading it to the cluster, starting Workbench graphically, opening the Extension Manager, installing the `wbex` file, and then loading the extension for the current and future sessions."
+    },
+    {
+      "question": "Where can users find official Ansys documentation and additional learning resources?",
+      "answer": "Official documentation for recent Ansys versions is available at `https://ansyshelp.ansys.com/`, developer documentation at `https://developer.ansys.com Portal`, and learning resources include Ansys HowTo videos, the Educator Hub, and the Webinar series."
+    },
+    {
+      "question": "What is the recommendation for handling Ansys Workbench simulations that frequently fail to start due to license shortages?",
+      "answer": "If license shortages are the primary cause of job failures, users can modify their Slurm script to requeue the job (e.g., up to 4 times). However, it is crucial to monitor and inspect Slurm output files to confirm failures are license-related, as requeuing non-license failures will waste compute time."
     }
   ],
-  "generated_at": "2026-04-13T01:47:52.865006+00:00"
+  "generated_at": "2026-04-19T01:26:40.188358+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "How can users request an interactive session on the Trillium cluster for testing purposes if a `debugjob` command does not provide enough time or resources?",
-      "answer": "Users can request an interactive session from the regular queue for longer or more resource-intensive tests by using the `salloc` command. This command allows specifying parameters such as the number of nodes (`--nodes=N`), the duration in hours (`--time=M:00:00`), and optionally the number of GPUs per node (`--ngpus-per-node=G`) or X11 forwarding for graphical applications (`--x11`). It's important to note that jobs submitted with `salloc` might take longer to start and count towards a user's allocation."
+      "question": "How can users request an interactive session for testing jobs that exceed the duration allowed by `debugjob` on the Trillium cluster?",
+      "answer": "Users can request an interactive session for longer test jobs using the `salloc` command. For CPU test jobs, the command format is `$ salloc --export=NONE --nodes=N --time=M:00:00 [--ngpus-per-node=G] [--x11]`, where `N` is the number of nodes, `M` is the number of hours, `G` is the number of GPUs per node (if applicable), and `--x11` enables graphical applications."
     },
     {
-      "question": "What is the primary command for submitting jobs to the Trillium cluster's scheduler, and what are the associated requirements for job scripts and login nodes?",
-      "answer": "The primary command for submitting jobs to the Trillium cluster's SLURM scheduler is `sbatch jobscript.sh`, which is executed on a login node. CPU compute jobs must be submitted from a CPU login node, while GPU compute jobs must be submitted from the GPU login node. The `jobscript.sh` file must contain lines starting with `#SBATCH` to specify the resources required for the job, such as nodes, tasks, and wall time. The SLURM scheduler then places the job into the queue and manages its execution on compute nodes based on resource availability and job priority."
+      "question": "What is the primary command used to submit jobs to the Trillium cluster's scheduler, and from which nodes should CPU and GPU jobs be submitted?",
+      "answer": "The `sbatch` command is used to submit jobs to the Trillium cluster's SLURM scheduler, typically with `$ sbatch jobscript.sh`. CPU compute jobs must be submitted from CPU login nodes, while GPU compute jobs must be submitted from the GPU login node."
     },
     {
-      "question": "What are the specific restrictions regarding file system access for job output on Trillium's compute nodes, and what is the recommended practice for submitting jobs to adhere to these rules?",
-      "answer": "On Trillium's compute nodes, job output must be written exclusively to the scratch file system. This is because the home (`$HOME`) and project (`$PROJECT`) directories are only available for reading on these nodes. To comply with this restriction and ensure that job output files are written successfully, it is recommended that users submit their jobs from their `$SCRATCH` directory, as this is where SLURM will default to writing output files."
+      "question": "What are the specific requirements for job output and job script submission directories on Trillium compute nodes due to its design for large parallel jobs?",
+      "answer": "On Trillium, job output must be written to the scratch file system (`$SCRATCH`) because home and project directories are read-only on compute nodes. Consequently, users should generally submit their jobs from their `$SCRATCH` directory to ensure output files are written correctly, as SLURM's default output location is the submission directory."
     }
   ],
-  "generated_at": "2026-04-13T14:55:42.476311+00:00"
+  "generated_at": "2026-04-19T02:41:44.434064+00:00"
 }

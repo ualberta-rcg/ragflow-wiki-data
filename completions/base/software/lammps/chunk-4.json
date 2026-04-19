@@ -4,13 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "What is the breakdown of computational time for a LAMMPS simulation of 4000 atoms running on 12 MPI tasks, and what is the primary reason for this distribution?",
-      "answer": "For a LAMMPS simulation with 4000 atoms using 12 MPI tasks, the code spent 46.45% of the time computing pair interactions and 44.5% in communications between the processors. This high communication percentage is attributed to dividing a small system into a large number of small boxes, which increases inter-processor communication."
+      "question": "According to the LAMMPS performance analysis, what is the impact of increasing the number of processors on the balance between communication time and pair interaction computation time?",
+      "answer": "According to the LAMMPS performance analysis, increasing the number of processors in molecular dynamics simulations leads to a rise in communication time between processors, which can significantly reduce CPU efficiency. For instance, a system of 4000 particles run with 12 MPI tasks showed communication consuming 44.5% of the total time, almost equalling the 46.45% spent on pair interactions. This indicates that using many processors for a small system can lead to low efficiency due to the overhead of inter-processor communication, emphasizing the need for users to test different core counts to find an optimal balance for their specific problem size."
     },
     {
-      "question": "According to the provided performance summary, what was the total loop time and overall CPU utilization for a LAMMPS simulation involving 25000 steps with 4000 atoms on 12 processors?",
-      "answer": "For a LAMMPS simulation running 25000 steps with 4000 atoms on 12 processors, the total loop time was 15.4965. The overall CPU utilization was 90.2% with 12 MPI tasks and 1 OpenMP thread."
+      "question": "What are the initial steps for compiling the MACE branch of LAMMPS with PyTorch support from a login node?",
+      "answer": "The initial steps to compile the MACE branch of LAMMPS with PyTorch support involve creating a dedicated directory (e.g., `~/lammps-mace`), navigating to your `$SCRATCH` space, cloning the `mace` branch from the ACEsuit/lammps GitHub repository with `--depth=1`, and then checking out a specific commit, such as `4d222cb`, for future reference."
+    },
+    {
+      "question": "What modules and Python environment setup are required to configure MACE in LAMMPS for a CPU build?",
+      "answer": "For a CPU build of MACE in LAMMPS, you first need to load several modules including `python/3.14`, `gcc`, `openmpi`, `flexiblas`, `cmake`, `fftw`, `eigen`, `protobuf`, `abseil`, `flatbuffers`, `opencv`, `sleef`, and `xnnpack`. Following this, a Python virtual environment must be created and activated using `virtualenv --clear ~/lammps-mace/ENV` and `source ~/lammps-mace/ENV/bin/activate`, after which `pip` and `torch` (specifically `torch>=2.10.0`) are installed within this environment, ensuring `--no-index` and `--upgrade pip` are used."
     }
   ],
-  "generated_at": "2026-04-13T07:56:21.754303+00:00"
+  "generated_at": "2026-04-19T02:08:15.113290+00:00"
 }

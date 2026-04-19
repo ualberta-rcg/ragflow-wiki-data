@@ -4,27 +4,24 @@ slug: "advanced_job_submission"
 lang: "en"
 
 source_wiki_title: "Advanced Job Submission/en"
-source_hash: "f31be4d0da4bdd3d8c11846dcb0deb4b"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T04:51:57.679708+00:00"
+source_hash: "208ff20c46f01f99bfe5ef5b510e9b06"
+last_synced: "2026-04-18T23:39:30.217451+00:00"
+last_processed: "2026-04-19T00:32:48.416258+00:00"
 
 tags:
   []
 
 keywords:
+  - "compute tasks"
   - "inter-job dependencies"
   - "Slurm"
-  - "compute tasks"
-  - "heterogeneous jobs"
   - "Job Arrays"
+  - "heterogeneous jobs"
 
 questions:
-  - "What are the recommended tools for managing and executing a large number of compute tasks or parameter sweeps?"
-  - "How can you configure Slurm jobs to run sequentially based on the completion status of previous jobs?"
-  - "What is the method for requesting different CPU and memory resources for different processes within a single heterogeneous Slurm job?"
-  - "What are the recommended tools for managing and executing a large number of compute tasks or parameter sweeps?"
-  - "How can you configure Slurm jobs to run sequentially based on the completion status of previous jobs?"
-  - "What is the method for requesting different CPU and memory resources for different processes within a single heterogeneous Slurm job?"
+  - "What tools are available for managing numerous compute tasks, such as parameter sweeps or multiple file processing?"
+  - "How can inter-job dependencies be configured in Slurm to ensure a job only starts after a previous one has successfully completed?"
+  - "How do you specify different CPU and memory requirements for different processes within a single heterogeneous Slurm job?"
 
 status:
   downloaded: true
@@ -39,10 +36,10 @@ status:
 
 The following tools are helpful when you need to process multiple files with or without different parameter combinations (*parameter sweep*):
 
-*   **[Job Arrays](job_arrays.md)**: to submit several similar jobs in one single script, an ideal method when each job exceeds one hour and the number of jobs is under one thousand;
-*   **[GNU Parallel](gnu_parallel.md)**: to run and manage several short calculations, including parameter sweeps, on a single node reserved via a parallel job;
-*   **[GLOST](glost.md)**: the *Greedy Launcher Of Small Tasks* uses [MPI](../software/mpi.md) and a manager-worker architecture to progressively run a long list of serial jobs on the CPU cores reserved via a parallel job;
-*   **[META](meta-farm.md)**: a suite of scripts designed in SHARCNET to automate high-throughput computing (running a large number of related serial, parallel, or GPU calculations).
+*   **[Job Arrays](job_arrays.md)**: to submit several compute tasks in one single script, an ideal method when each job exceeds one hour and the number of jobs is under one thousand;
+*   **[GNU Parallel](gnu_parallel.md)**: to run and manage several short compute tasks, including parameter sweeps, on a single node reserved via a parallel job;
+*   **[GLOST](glost.md)**: the *Greedy Launcher Of Small Tasks* uses [MPI](../software/mpi.md) and a manager-worker architecture to progressively run a long list of serial tasks on CPU cores reserved via a parallel job;
+*   **[META](meta-farm.md)**: a suite of scripts designed at SHARCNET to automate high-throughput computing (running a large number of related serial, parallel, or GPU calculations).
 
 ## Inter-job dependencies
 
@@ -53,25 +50,25 @@ JOBID1=$(sbatch --parsable job1.sh)           # Save the first job ID
 sbatch --dependency=afterok:$JOBID1 job2.sh   # Depends on the first job
 ```
 
-!!! note "Notes"
-    *   Multiple jobs can have the same dependency (multiple jobs waiting after one job).
-    *   A job can have multiple dependencies (one job waiting after multiple jobs).
-    *   There are multiple types of dependencies: `after`, `afterany`, `afterok`, `afternotok`, etc. For more details, see the `--dependency` option on the [official `sbatch` documentation page](https://slurm.schedmd.com/sbatch.html#OPT_dependency).
+!!! note
+    *   Multiple jobs can have the same dependency (multiple jobs waiting for one job).
+    *   A job can have multiple dependencies (one job waiting for multiple jobs).
+    *   There are multiple types of dependencies: `after`, `afterany`, `afterok`, `afternotok`, etc. For more details, see the [`--dependency` option on the official `sbatch` documentation page](https://slurm.schedmd.com/sbatch.html#OPT_dependency).
 
 ## Heterogeneous jobs
 
 The Slurm scheduler supports [heterogeneous jobs](https://slurm.schedmd.com/heterogeneous_jobs.html). This could be very useful if you know in advance that your [MPI](../software/mpi.md) application will require more CPU cores and more memory for the main process than for the other processes.
 
-For example, if the main process requires 8 cores and a total of 32GB of RAM, while the other processes only require 1 core and 1GB of RAM, we can specify both types of requirements in a job script:
+For example, if the main process requires 8 cores and a total of 32 GB of RAM, while the other processes only require 1 core and 1 GB of RAM, we can specify both types of requirements in a job script:
 
-```bash title="heterogeneous_mpi_job.sh"
+````sh linenums "heterogeneous_mpi_job.sh"
 #!/bin/bash
 #SBATCH --ntasks=1 --cpus-per-task=8 --mem-per-cpu=4000M
 #SBATCH hetjob
 #SBATCH --ntasks=15 --cpus-per-task=1 --mem-per-cpu=1000M
 
 srun --cpus-per-task=8 : --cpus-per-task=1 application.exe
-```
+````
 
 Or we can separate resource requests with a colon (`:`) on the `sbatch` command line:
 

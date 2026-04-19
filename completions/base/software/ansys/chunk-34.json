@@ -4,13 +4,17 @@
   "chunk_index": 34,
   "qa_pairs": [
     {
-      "question": "What is the command-line execution for an Ansys Rocky CPU-only simulation within a Slurm script, and what do its parameters signify?",
-      "answer": "The command for an Ansys Rocky CPU-only simulation is `Rocky --simulate “mysim.rocky” --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=0`. Here, `--simulate` specifies the Rocky project file (e.g., \"mysim.rocky\"), `--resume=1` indicates resuming the simulation, `--ncpus=$SLURM_CPUS_PER_TASK` dynamically sets the number of CPUs based on the Slurm allocation, and `--use-gpu=0` explicitly disables GPU usage for a CPU-only run."
+      "question": "What is the purpose of the provided Slurm script for Ansys Rocky?",
+      "answer": "The Slurm script is designed to run an Ansys Rocky simulation in a CPU-only configuration on a compute cluster. It specifies resource requests and sets up the necessary software environment."
     },
     {
-      "question": "What are the required Slurm directives and environmental setup steps for running an Ansys Rocky CPU-only simulation job on the Alliance clusters?",
-      "answer": "To run an Ansys Rocky CPU-only simulation, the Slurm script must include directives such as `#SBATCH --account=account` (e.g., `def-account` or `rrg-account`), `#SBATCH --time=00-02:00` (time limit), `#SBATCH --mem=24G` (total memory for cores), `#SBATCH --cpus-per-task=6` (number of cores), and `#SBATCH --nodes=1` (requesting a single node). Additionally, it's necessary to load the `StdEnv/2023` and `ansys/2025R1` modules (or newer versions) and export the Rocky path using `export PATH=$EBROOTANSYS/v251/rocky:$PATH`."
+      "question": "What modules need to be loaded and what path needs to be exported to run Ansys Rocky with the `ansys/2025R1` module according to the example Slurm script?",
+      "answer": "To run Ansys Rocky, the `StdEnv/2023` and `ansys/2025R1` modules need to be loaded. Additionally, the `PATH` environment variable must be exported to include `$EBROOTANSYS/v251/rocky` to ensure the Rocky executable can be found."
+    },
+    {
+      "question": "How does the example Slurm script configure and execute a CPU-only Ansys Rocky simulation?",
+      "answer": "The script uses the `Rocky` command with the `--simulate` option to specify the project file (e.g., `mysim.rocky`), `--resume=1` to potentially resume a simulation, `--ncpus=$SLURM_CPUS_PER_TASK` to allocate the requested number of CPUs, and crucially, `--use-gpu=0` to ensure the simulation runs exclusively on CPUs."
     }
   ],
-  "generated_at": "2026-04-13T01:45:06.267681+00:00"
+  "generated_at": "2026-04-19T01:24:09.861751+00:00"
 }

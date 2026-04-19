@@ -4,13 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "How do I install `gurobipy` within a Python virtual environment for Gurobi versions 10.0.3 and older on Digital Research Alliance of Canada systems?",
-      "answer": "To install `gurobipy` for Gurobi versions 10.0.3 and older, first load the `gurobi/10.0.3` and `python` modules, then create and activate a virtual environment, for instance, `~/env_gurobi`, using `virtualenv --no-download ~/env_gurobi` followed by `source ~/env_gurobi/bin/activate`. Next, install any other required Python packages, such as `pandas`, with `pip install --no-index pandas`. Finally, to install `gurobipy`, you must copy the `lib` and `setup.py` files from `$EBROOTGUROBI` to a temporary, writable directory like `/tmp/$USER`, change to that directory, and then run `python setup.py install`, as direct installation under `$EBROOTGUROBI` will fail due to read-only file system errors."
+      "question": "What is the initial process for setting up a Python virtual environment to use Gurobi alongside other Python packages on Digital Research Alliance of Canada systems?",
+      "answer": "To begin, users need to load the Gurobi and Python modules. Subsequently, they must create a virtual environment, for example, `~/env_gurobi` using `virtualenv --no-download ~/env_gurobi`, and then activate it with `source ~/env_gurobi/bin/activate`. After activation, any additional Python packages, such as `pandas`, can be installed using `pip install --no-index <package_name>`."
     },
     {
-      "question": "What is the process for installing `gurobipy` in a Python virtual environment for Gurobi versions 11.0.0 and newer on Digital Research Alliance of Canada systems?",
-      "answer": "For Gurobi versions 11.0.0 and newer (e.g., 11.0.1), the `setup.py` method for installing `gurobipy` is deprecated. Begin by loading the `gurobi/11.0.1` and `python` modules, then create and activate a virtual environment. Install any other necessary Python packages, like `pandas`, using `pip install --no-index pandas`. To install `gurobipy`, you will need to use a custom `unmanylinuxize.sh` script. First, download this script from GitHub (`wget https://raw.githubusercontent.com/ComputeCanada/wheels_builder/main/unmanylinuxize.sh`) and make it executable (`chmod u+rx unmanylinuxize.sh`). Then, execute the script, providing the package name, version, and the full HTTPS link to the compatible `gurobipy` wheel file from pypi.org (e.g., `gurobipy-11.0.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl`). After the script converts the wheel, install it into your environment using `python -m pip install --find-links $PWD --no-index gurobipy`."
+      "question": "How do you install the `gurobipy` package within a Python virtual environment for Gurobi versions 10.0.3 and older on Digital Research Alliance of Canada systems?",
+      "answer": "For Gurobi versions 10.0.3 and older, after setting up and activating your virtual environment and installing other Python packages, the installation of `gurobipy` requires a workaround due to a read-only file system error. Users should create a temporary directory (e.g., `/tmp/$USER`), copy the `lib` and `setup.py` files from `$EBROOTGUROBI` into it, navigate to that temporary directory, and then run `python setup.py install`."
+    },
+    {
+      "question": "What is the recommended installation method for `gurobipy` in a Python virtual environment for Gurobi versions 11.0.0 and newer on Digital Research Alliance of Canada systems?",
+      "answer": "For Gurobi versions 11.0.0 and newer, the `setup.py` method is deprecated. After creating and activating your virtual environment and installing other Python packages, users need to download the `unmanylinuxize.sh` script, make it executable, and run it with `--package gurobipy`, `--version` (e.g., 11.0.1), and a specific `--url` for the wheel file (obtained from pypi.org). Finally, `gurobipy` is installed using `python -m pip install --find-links $PWD --no-index gurobipy`."
     }
   ],
-  "generated_at": "2026-04-13T06:52:15.757844+00:00"
+  "generated_at": "2026-04-19T01:58:04.482743+00:00"
 }

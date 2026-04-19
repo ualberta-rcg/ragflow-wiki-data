@@ -4,17 +4,17 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "Comment peut-on demander une session interactive de longue durée pour faire des tests sur la grappe Trillium, si la commande `debugjob` n'est pas suffisante?",
-      "answer": "Si vos tests interactifs dépassent les limites de temps de `debugjob`, vous pouvez demander une session interactive à partir de la file d'attente standard en utilisant la commande `salloc`. Pour une tâche de test CPU, la commande serait `salloc --export=NONE --nodes=N --time=M:00:00 [--ngpus-per-node=G] [--x11]`, où `N` est le nombre de nœuds, `M` le nombre d'heures et `G` le nombre de GPU si applicable. Il faut noter que ces tâches peuvent prendre plus de temps à démarrer et sont comptabilisées dans votre allocation."
+      "question": "Comment puis-je demander une session interactive pour des tests plus longs sur la grappe Trillium, si la commande `debugjob` ne suffit pas?",
+      "answer": "Si vos tâches de test requièrent plus de temps que ce que permet `debugjob` sur Trillium, vous pouvez demander une session interactive à partir de la file d'attente standard en utilisant la commande `salloc`. Pour une tâche de test CPU, la commande serait `$ salloc --export=NONE --nodes=N --time=M:00:00 [--ngpus-per-node=G] [--x11]`, où 'N' représente le nombre de nœuds, 'M' le nombre d'heures d'exécution, 'G' le nombre de GPU par nœud (si applicable), et `--x11` est pour les applications graphiques. Il faut noter que ces tâches peuvent prendre plus de temps à démarrer et qu'elles sont comptabilisées dans votre allocation."
     },
     {
-      "question": "Quelle commande doit-on utiliser pour soumettre une tâche en lot (batch job) à l'ordonnanceur SLURM sur la grappe Trillium, et de quel type de nœud doit-on la soumettre?",
-      "answer": "Pour soumettre une tâche en lot à l'ordonnanceur SLURM sur Trillium, vous devez utiliser la commande `sbatch jobscript.sh` à partir d'un nœud de connexion. Les tâches CPU doivent être soumises depuis les nœuds de connexion CPU, et les tâches GPU depuis le nœud de connexion GPU. Le script `jobscript.sh` doit contenir des directives `#SBATCH` qui spécifient les ressources requises par votre tâche."
+      "question": "Quel ordonnanceur de tâches est utilisé sur la grappe Trillium et comment soumettre une tâche?",
+      "answer": "La grappe Trillium utilise SLURM comme ordonnanceur de tâches. Pour soumettre une tâche, vous devez utiliser la commande `sbatch` sur un nœud de connexion, comme ceci : `$ sbatch jobscript.sh`. Le script de tâche (`jobscript.sh`) doit inclure des lignes commençant par `#SBATCH` qui spécifient les ressources nécessaires. Ces tâches s'exécuteront ensuite sur les nœuds de calcul de Trillium."
     },
     {
-      "question": "Sur la grappe Trillium, pourquoi les données de sortie des tâches doivent-elles absolument être écrites dans le système de fichiers `/scratch`?",
-      "answer": "Il est obligatoire d'écrire les données de sortie des tâches dans le répertoire `/scratch` sur Trillium parce que les systèmes de fichiers `/home` et `/project` sont en mode lecture seule sur les nœuds de calcul. `/scratch` est un système de fichiers parallèle rapide spécifiquement conçu pour la lecture et l'écriture de données pendant l'exécution des tâches."
+      "question": "Quelle est la règle concernant l'emplacement des fichiers de sortie des tâches sur les nœuds de calcul de Trillium?",
+      "answer": "Sur Trillium, les données de sortie de vos tâches doivent absolument être écrites dans le système de fichiers `/scratch`. C'est une exigence parce que les répertoires `/home` et `/project` sont en lecture seulement sur les nœuds de calcul. Il est donc recommandé de soumettre vos tâches à partir de votre répertoire `$SCRATCH` pour que les fichiers de sortie par défaut y soient écrits."
     }
   ],
-  "generated_at": "2026-04-13T14:58:53.185006+00:00"
+  "generated_at": "2026-04-19T02:44:20.418143+00:00"
 }

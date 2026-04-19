@@ -4,13 +4,17 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "Comment faire pour migrer un grand volume amorçable depuis le nuage Arbutus Ouest vers le nouveau nuage Arbutus en utilisant la commande `dd` ?",
-      "answer": "Pour migrer un grand volume amorçable avec la commande `dd`, il faut créer des instances temporaires sur les nuages Ouest et Arbutus (idéalement CentOS 7 avec le plus petit gabarit) et leur assigner des adresses IP flottantes. Sur l'instance Ouest, installez `epel-release`, `pv` et `screen`. Sur l'instance Arbutus, exécutez `chmod u+s /bin/dd`. Vous devez copier la clé privée SSH qui sert à vous connecter à l'instance temporaire Arbutus sur l'instance temporaire Ouest et vérifier les règles de sécurité SSH. Ensuite, créez un volume vide de même taille sur Arbutus, attachez-le à l'instance temporaire Arbutus, puis attachez le volume à copier de Ouest à l'instance temporaire Ouest (en s'assurant de ne pas supprimer le volume si l'instance d'origine est détachée). Finalement, dans l'instance temporaire Ouest, utilisez la commande `screen` suivie de `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem centos@xxx.xx.xx.xx \"dd bs=16M of=/dev/vdb\"` en ajustant les paramètres pour votre configuration. Il est important de sauvegarder vos données avant de commencer cette procédure."
+      "question": "Quelle est la commande à utiliser pour copier un grand volume de données d'une instance temporaire sur le nuage Ouest vers une instance temporaire sur le nouveau nuage Arbutus en se servant de `dd` et SSH?",
+      "answer": "Pour copier un grand volume, vous devez exécuter la commande suivante sur l'instance temporaire Ouest : `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem centos@xxx.xx.xx.xx \"dd bs=16M of=/dev/vdb\"`. Il faut s'assurer d'adapter l'adresse IP, la taille du volume et le chemin de la clé SSH selon votre configuration. La commande `screen` est aussi recommandée pour maintenir la session active."
     },
     {
-      "question": "Quelles sont les étapes pour migrer une instance éphémère d'Arbutus Ouest vers le nouveau nuage Arbutus en se servant de la commande `dd` ?",
-      "answer": "Pour migrer une instance éphémère en utilisant la commande `dd`, connectez-vous d'abord à l'instance active sur le nuage Arbutus Ouest via SSH, et fermez autant de services que possible, ne laissant que SSH. Installez ensuite le CLI OpenStack en tant qu'administrateur (root) en exécutant `yum install epel-release python-devel python-pip gcc` suivi de `pip install python-openstackclient`. Copiez le fichier RC d'Arbutus vers l'instance et faites-en un `source`. Après avoir vérifié que le disque racine est bien `/dev/vda` (avec `df`), créez une image à partir de ce disque à l'aide de la commande `dd if=/dev/vda | openstack image create --private --container-format bare --disk-format raw \"ephemeralmigrate\"`. Cette image sera visible dans l'interface Arbutus sous 'Compute -> Images' et pourra être utilisée pour lancer de nouvelles instances. Après avoir migré et testé vos instances, n'oubliez pas de supprimer les anciennes instances et volumes sur le nuage Ouest."
+      "question": "Comment migrer une instance éphémère du nuage Ouest vers le nouveau nuage Arbutus en utilisant l'utilitaire `dd`?",
+      "answer": "Pour migrer une instance éphémère avec `dd`, il faut d'abord se connecter à l'instance active sur le nuage Ouest via SSH, puis fermer le plus de services possible, en ne gardant que SSH. Ensuite, installez le CLI OpenStack si ce n'est pas déjà fait, copiez et sourcez le fichier RC d'Arbutus, identifiez le disque racine (souvent `/dev/vda1`), puis créez une image à partir de ce disque avec la commande `dd if=/dev/vda | openstack image create --private --container-format bare --disk-format raw \"ephemeralmigrate\"`."
+    },
+    {
+      "question": "Quelles sont les méthodes de copie de données recommandées pour une migration vers le nouveau nuage Arbutus, en fonction de la taille des volumes?",
+      "answer": "Pour les très grands volumes de données (plus de 5 To), la méthode recommandée est Globus. Pour les plus petits volumes, il est suggéré d'utiliser `rsync + ssh`, car cette méthode offre de bonnes vitesses de transfert et travaille de manière incrémentale."
     }
   ],
-  "generated_at": "2026-04-13T02:25:07.142483+00:00"
+  "generated_at": "2026-04-19T01:46:41.944179+00:00"
 }

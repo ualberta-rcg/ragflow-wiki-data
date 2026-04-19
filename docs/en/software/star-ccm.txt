@@ -4,17 +4,17 @@
 [https://mdx.plm.automation.siemens.com/star-ccm-plus STAR-CCM+] is a multidisciplinary engineering simulation suite to model acoustics, fluid dynamics, heat transfer, rheology, multiphase flows, particle flows, solid mechanics, reacting flows, electrochemistry, and electromagnetics. It is developed by Siemens.
 
 = License limitations =
-The Alliance has the authorization to host STAR-CCM+ binaries on the clusters. However will need to purchase a license from [https://www.plm.automation.siemens.com/global/en/buy/ Siemens] in order to use this software. There are two [https://community.sw.siemens.com/s/article/How-faculty-members-in-academic-institutions-can-get-access-to-Simcenter-STAR-CCM options].  Most research groups purchase a remotely hosted [https://community.sw.siemens.com/s/question/0D54O00006FKu39SAD/licensing-how-power-on-demand-pod-licensing-for-starccm-works Power-on-Demand (PoD)] license since it simply requires a license key to use.  Alternatively a locally hosted license server can be setup and managed at your institution provided it can be accessed through the firewall from the cluster where jobs will be run.
+The Alliance is authorized to host STAR-CCM+ binaries on its clusters. Researchers will need to purchase a license from [https://www.plm.automation.siemens.com/global/en/buy/ Siemens] in order to use the software. There are two [https://community.sw.siemens.com/s/article/How-faculty-members-in-academic-institutions-can-get-access-to-Simcenter-STAR-CCM options].  Most research groups will purchase a [https://community.sw.siemens.com/s/question/0D54O00006FKu39SAD/licensing-how-power-on-demand-pod-licensing-for-starccm-works Power-on-Demand (PoD)] license which simply connects to a remotely hosted license server and requires only a license key to use.  The second option is more complex and requires setting up and then managing a locally hosted institutional license server along with the purchase of a Simcenter STAR-CCM+ academic pack.  For this to work the local firewall will need to be opened by the local network administrator so the servers flex and static vendor ports are both reachable from the NAT nodes of the Alliance cluster(s) where jobs are to be run.  To get a list of NAT nodes [[Technical_support|submit a ticket]] including the names of the Alliance cluster(s) you will be using, your license server hostname or ip address, and its flex and static vendor port numbers.  The outbound firewall from the cluster(s) may also need to be opened.  This will be done automatically for you as part of the ticket process if its determined to be required.
 
 == Configuring your account ==
 To configure your account to use a license server with the Star-CCM+ module, create a license file <code>$HOME/.licenses/starccm.lic</code> with the following layout:
-{{File|name=starccm.lic|contents=SERVER <server> ANY <port>
+{{File|name=starccm.lic|contents=SERVER <server> ANY <flexport>
 USE_SERVER}}
-where <code><server></code> and <code><port></code> should be changed to specify the hostname (or ip address) and the static vendor port of the license server respectively.  Note that manually setting <code>CDLMD_LICENSE_FILE</code> equal to <port>@<server> in your slurm script is not required;  Instead, when a Star-CCM+ module is loaded this variable is automatically set to your <i>$HOME/.licenses/starccm.lic</i> file.
+where <code><server></code> and <code><flexport></code> should be changed to specify the hostname (or ip address) and the static vendor port of the license server respectively.  Note that manually setting <code>CDLMD_LICENSE_FILE</code> equal to <port>@<server> in your slurm script is not required since this variable is automatically set whenever a starccm module is loaded.
 
-=== POD license file ===
+=== PoD license file ===
 
-To run jobs researchers with a Power-on-Demand (PoD) license must manually set the <code>LM_PROJECT</code> environment variable to your <i>22digit-PoD-License-Key</i> as shown in the sample slurm scripts below.  Also a <code>~/.licenses/starccm.lic</code> file should be configured on each cluster where jobs are to be run as follows :
+To run jobs researchers with a Power-on-Demand (PoD) license must manually set the <code>LM_PROJECT</code> environment variable to your <i>22digit-PoD-License-Key</i> as shown in the sample slurm scripts below.  The following <code>~/.licenses/starccm.lic</code> file must also be configured on each cluster where jobs are to be run :
 {{File|name=starccm.lic|contents=SERVER flex.cd-adapco.com ANY 1999
 USE_SERVER}}
 

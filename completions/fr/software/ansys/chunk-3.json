@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Pour utiliser un serveur de licence Ansys déjà configuré sur les grappes de calcul, quelles informations dois-je obtenir de mon administrateur de licences et comment dois-je les utiliser?",
-      "answer": "Si votre serveur de licence Ansys est déjà configuré, vous devez obtenir trois informations de votre administrateur de licences : le nom d'hôte complet (LICSERVER) du serveur, le port flex (FLEXPORT), habituellement 1055, et le port d'interconnexion (INTEPORT), habituellement 2325. Ensuite, vous devez configurer votre fichier `~/.licenses/ansys.lic` en y ajoutant ces valeurs selon le modèle `FILE: ansys.lic`."
+      "question": "Quelles informations est-ce qu'on doit recueillir auprès de l'administrateur de serveur de licences Ansys pour configurer le fichier `~/.licenses/ansys.lic` quand le serveur est déjà prêt à être utilisé sur la grappe?",
+      "answer": "Pour configurer le fichier `~/.licenses/ansys.lic` d'un serveur de licence Ansys déjà prêt à l'emploi sur une grappe, vous devez obtenir de votre administrateur de serveur de licences les trois éléments suivants : le nom d'hôte complet (LICSERVER) du serveur, le port flex (FLEXPORT) pour Ansys (habituellement 1055) et le port d'interconnexion (INTEPORT) (habituellement 2325)."
     },
     {
-      "question": "Si mon serveur de licence Ansys local n'a jamais été configuré pour être utilisé sur les grappes de calcul, quelles informations supplémentaires, en plus du nom d'hôte et des ports, dois-je demander à l'administrateur?",
-      "answer": "En plus du nom d'hôte et des ports habituels, vous devrez obtenir le numéro de port statique du fournisseur (VENDPORT) et la confirmation que `<servername>` (trouvé dans la première ligne du fichier de licence avec le format `SERVER <servername> <host id> <lmgrd port>`) se résoudra à la même adresse IP que LICSERVER sur les grappes. Si `<servername>` ne répond pas à cette exigence, il faudra demander à votre administrateur de licence de le remplacer."
+      "question": "Si un serveur de licence Ansys local n'a jamais été configuré pour une grappe, quelles informations supplémentaires faut-il obtenir en plus du LICSERVER, FLEXPORT et INTEPORT?",
+      "answer": "Si un serveur de licence Ansys local n'a jamais été configuré pour une grappe, vous devrez obtenir de l'administrateur, en plus des trois éléments habituels, le numéro de port statique du fournisseur (VENDPORT) et la confirmation que le `<servername>` se résoudra à la même adresse IP que le LICSERVER sur nos grappes. `<servername>` se trouve dans la première ligne du fichier de licence avec le format `SERVER <servername> <host id> <lmgrd port>`."
     },
     {
-      "question": "Comment puis-je valider si mon fichier `ansys.lic` est correctement configuré et opérationnel sur une grappe de calcul, et qu'est-ce que les résultats « Success » ou « Fail » indiquent?",
-      "answer": "Pour vérifier la configuration de votre `ansys.lic`, vous devez copier et exécuter la séquence de commandes suivante sur la grappe : `cd /tmp; salloc --time=1:0:0 --mem=1000M --account=def-YOURUSERID; module load StdEnv/2023; module load ansys/2023R2; $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE 1> /dev/null && echo Success || echo Fail`. Si la commande retourne « Success », cela signifie que la licence devrait fonctionner pour vos tâches. Si elle retourne « Fail », il y a un problème de configuration qui empêchera probablement vos tâches de s'exécuter."
+      "question": "Comment peut-on vérifier si la configuration du fichier `ansys.lic` pour Ansys est correcte et fonctionnelle sur une grappe de calcul?",
+      "answer": "Pour vérifier si le fichier `ansys.lic` est bien configuré et fonctionne correctement sur une grappe, il faut se connecter à la grappe, puis copier et coller la séquence de commandes suivantes dans un terminal, en remplaçant 'YOURUSERID' par votre identifiant: `cd /tmp`, `salloc --time=1:0:0 --mem=1000M --account=def-YOURUSERID`, `module load StdEnv/2023; module load ansys/2023R2`, et enfin `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE 1> /dev/null && echo Success || echo Fail`. Un `Success` indique que la licence est fonctionnelle."
     }
   ],
-  "generated_at": "2026-04-13T01:55:05.938052+00:00"
+  "generated_at": "2026-04-19T01:33:55.168026+00:00"
 }

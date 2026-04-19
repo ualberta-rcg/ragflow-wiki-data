@@ -3,69 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que la technologie multi-instances GPU (MIG) sur les grappes d'Alliance?",
-      "answer": "La technologie MIG permet de partitionner un seul GPU NVidia (comme les A100 et H100) en plusieurs instances, faisant de chacune un GPU virtuel complètement indépendant avec sa propre portion de ressources de calcul et de mémoire."
+      "question": "Qu'est-ce que la technologie MIG (Multi-Instance GPU) pour les GPU NVidia A100 et H100?",
+      "answer": "La technologie MIG permet de partitionner un seul GPU en plusieurs instances, faisant ainsi de chacune un GPU virtuel complètement indépendant avec sa propre portion des ressources de calcul et de la mémoire."
     },
     {
-      "question": "Pourquoi est-ce avantageux d'utiliser une instance de GPU avec la technologie MIG plutôt qu'un GPU entier sur les grappes d'Alliance?",
-      "answer": "L'utilisation d'instances de GPU est moins gourmande, ce qui se traduit par une utilisation moins rapide de votre priorité de calcul, permettant d'exécuter plus de tâches avec un temps d'attente plus court."
+      "question": "Quels sont les avantages d'utiliser une instance de GPU plutôt qu'un GPU entier sur les grappes Alliance?",
+      "answer": "Les instances de GPU sont moins gourmandes, réduisent l'utilisation de votre priorité de calcul, et permettent d'exécuter plus de tâches avec des temps d'attente plus courts."
     },
     {
-      "question": "Dans quelles situations devrait-on évaluer et tester des tâches sur une instance de GPU plutôt qu'un GPU entier?",
-      "answer": "Les tâches qui utilisent moins de la moitié de la puissance de calcul d'un GPU entier et moins de la moitié de sa mémoire GPU disponible doivent être évaluées et testées sur une instance."
+      "question": "Dans quels cas devrais-je envisager de migrer une tâche vers une instance de GPU sur les grappes Alliance?",
+      "answer": "Les tâches qui utilisent moins de la moitié de la puissance de calcul d'un GPU entier et moins de la moitié de sa mémoire disponible devraient être évaluées et testées sur une instance."
     },
     {
-      "question": "Est-ce que la technologie MIG prend en charge la communication interprocessus CUDA pour le transfert de données?",
-      "answer": "Non, la technologie MIG ne prend pas en charge la communication interprocessus CUDA, ce qui diminue l'efficacité de la communication entre les instances."
+      "question": "Quelle est une limitation majeure de la technologie MIG concernant la communication interprocessus sur les grappes Alliance?",
+      "answer": "La technologie MIG ne prend pas en charge la communication interprocessus CUDA, ce qui diminue l'efficacité de la communication entre les instances."
     },
     {
-      "question": "Le lancement d'un exécutable sur plusieurs instances MIG améliore-t-il la performance?",
-      "answer": "Non, le lancement d'un exécutable sur plusieurs instances MIG à la fois n'améliore pas la performance et doit être évité en raison des limites de la communication interprocessus."
+      "question": "Est-il permis d'utiliser plusieurs instances MIG à la fois dans une même tâche sur les grappes Alliance?",
+      "answer": "Non, il n'est pas permis d'utiliser plusieurs instances MIG simultanément dans une même tâche, et toute soumission de ce type est rejetée."
     },
     {
-      "question": "Est-ce que les API graphiques comme OpenGL ou Vulkan sont prises en charge par les instances MIG?",
+      "question": "Quelles sont les solutions si une tâche nécessite des ressources équivalentes à plusieurs instances MIG sur les grappes Alliance?",
+      "answer": "Vous pouvez demander une instance plus puissante, un GPU entier ou plusieurs GPU, utiliser MPS, ou contacter le soutien technique pour obtenir de l'aide."
+    },
+    {
+      "question": "Les API graphiques (comme OpenGL ou Vulkan) sont-elles prises en charge par les instances MIG sur les grappes Alliance?",
       "answer": "Non, les API graphiques ne sont pas prises en charge par les instances MIG."
     },
     {
-      "question": "Quand est-ce qu'une tâche avec GPU pourrait nécessiter un GPU entier au lieu d'une instance en lien avec les cœurs CPU?",
-      "answer": "Les tâches qui nécessitent de nombreux cœurs CPU par GPU peuvent nécessiter un GPU entier, car le nombre maximum de cœurs CPU par instance dépend du nombre maximum de cœurs CPU par GPU entier et des profils MIG configurés."
+      "question": "Quand un GPU entier peut-il être nécessaire même si une tâche utilise des GPU, plutôt qu'une instance, sur les grappes Alliance?",
+      "answer": "Les tâches avec GPU qui nécessitent de nombreux cœurs CPU par GPU peuvent nécessiter un GPU entier, car le nombre maximum de cœurs CPU par instance dépend des configurations des grappes."
     },
     {
-      "question": "Comment interpréter le nom d'un profil d'instance MIG, comme `3g.20gb`?",
-      "answer": "Le nom du profil indique la taille de l'instance; par exemple, `3g.20gb` est dotée de 20 Go de mémoire GPU et sa performance est égale aux 3/8e de la performance de calcul d’un GPU entier."
+      "question": "Sur quelles grappes Alliance la technologie MIG est-elle disponible et avec quels GPU?",
+      "answer": "La technologie MIG est disponible sur Narval (GPU NVIDIA A100-40gb) et sur Rorqual, Nibi, Fir (GPU NVIDIA H100-80gb)."
     },
     {
-      "question": "Quel est l'impact de l'utilisation de profils MIG moins puissants sur l'allocation et la priorité des tâches sur les grappes d'Alliance?",
-      "answer": "L'utilisation de profils MIG moins puissants aura un impact moindre sur votre allocation et sur la priorité assignée à vos tâches."
+      "question": "Comment le nom d'un profil MIG H100 indique-t-il les ressources allouées, par exemple 'H100-1g.10gb'?",
+      "answer": "Le nom du profil indique la taille de l'instance; par exemple, 'H100-1g.10gb' signifie 1/8e de la puissance de calcul et 10Go de mémoire."
     },
     {
-      "question": "Comment peut-on obtenir la liste de tous les gabarits et profils GPU disponibles sur une grappe spécifique d'Alliance?",
-      "answer": "On peut lancer la commande `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\\n/g'|cut -d: -f1|sort|uniq` pour obtenir la liste."
+      "question": "Comment puis-je obtenir la liste de toutes les instances MIG disponibles sur une grappe Alliance spécifique?",
+      "answer": "Vous pouvez lancer la commande `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\n/g'|cut -d: -f1|sort|uniq`."
     },
     {
-      "question": "Où peut-on trouver le maximum recommandé de cœurs CPU et de mémoire système par instance de GPU sur les grappes d'Alliance?",
-      "answer": "Ces informations sont disponibles dans le tableau des ratios mentionné dans la section des allocations et de l'ordonnancement de calcul."
+      "question": "Comment demander une instance MIG de 20Go à 3/8e de la puissance pour une tâche interactive d'une heure sur une grappe Alliance?",
+      "answer": "Utilisez la commande `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`."
     },
     {
-      "question": "Comment demander une instance GPU de 20 Go à 3/8 de la puissance pour une tâche interactive d'une durée d'une heure avec 2 cœurs CPU et 40 Go de mémoire système sur une grappe d'Alliance?",
-      "answer": "On utilise la commande `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`."
+      "question": "Quelles métriques d'utilisation GPU peuvent aider à déterminer si une tâche devrait utiliser une instance MIG sur les grappes Alliance?",
+      "answer": "La consommation d'énergie du GPU, l'utilisation du GPU et l'utilisation de la mémoire GPU sont de bons indicateurs pour évaluer si une tâche est sous-utilisée sur un GPU entier."
     },
     {
-      "question": "Quels paramètres SBATCH sont nécessaires pour demander une instance GPU de 20 Go à 4/8 de la puissance pour un script de tâches en lot de 24 heures, avec 6 cœurs CPU et 62 Go de mémoire sur une grappe d'Alliance?",
-      "answer": "Il faut inclure dans le script les paramètres SBATCH suivants : `#SBATCH --gpus=a100_4g.20gb:1`, `#SBATCH --cpus-per-task=6`, `#SBATCH --mem=62gb`, et `#SBATCH --time=24:00:00`."
+      "question": "Comment peut-on surveiller l'utilisation du GPU en temps réel pour une tâche en cours d'exécution sur une grappe Alliance?",
+      "answer": "Vous pouvez vous connecter au nœud sur lequel la tâche se trouve et utiliser la commande `nvidia-smi` pour lire les métriques du GPU."
     },
     {
-      "question": "Comment la consommation d'énergie d'une tâche GPU peut-elle aider à déterminer si elle devrait être migrée vers une instance MIG?",
-      "answer": "Une faible consommation d'énergie moyenne par rapport à l'enveloppe thermique maximale du GPU entier (par exemple, 100 W sur un A100 de 400 W) est un bon indicateur de sous-utilisation et suggère une migration vers une instance MIG."
-    },
-    {
-      "question": "En plus de la consommation d'énergie, quelles autres métriques liées à l'utilisation du GPU et de la mémoire peuvent aider à identifier une tâche qui pourrait bénéficier d'une instance MIG?",
-      "answer": "L'utilisation du GPU (par exemple, moins de 25% de la puissance de calcul disponible), la quantité maximale de mémoire GPU utilisée et le nombre moyen de cœurs CPU nécessaires sont d'autres indicateurs importants."
-    },
-    {
-      "question": "Quel outil peut-on utiliser pour surveiller l'utilisation d'un GPU en temps réel pour une tâche en cours d'exécution sur une grappe d'Alliance afin d'identifier une sous-utilisation potentielle?",
-      "answer": "On peut se connecter au nœud sur lequel la tâche se trouve et utiliser la commande `nvidia-smi` pour lire les métriques du GPU en temps réel."
+      "question": "Est-ce que l'appellation 'huitièmes' pour les profils MIG des GPU H100 est une représentation exacte de la division des processeurs (SM)?",
+      "answer": "Non, c'est plus complexe. Un GPU H100 SXM5 a un total de 132 processeurs (SM), et la division réelle est en trente-troisièmes, avec certains SM non assignés et donc perdus."
     }
   ],
-  "generated_at": "2026-04-13T09:42:12.425368+00:00"
+  "generated_at": "2026-04-19T02:12:45.163128+00:00"
 }

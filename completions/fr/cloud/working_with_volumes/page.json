@@ -3,69 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Dans le contexte des nuages d'Alliance, qu'est-ce qu'un volume de stockage?",
-      "answer": "Un volume fournit un espace de stockage persistant qui n'est pas détruit même quand l'instance à laquelle il est attaché est terminée."
+      "question": "Qu'est-ce qu'un volume de stockage sur les nuages d'Alliance et comment les données y sont-elles protégées?",
+      "answer": "Un volume est un espace de stockage qui persiste même après l'arrêt d'une machine virtuelle. Sur les nuages d'Alliance, les volumes utilisent le stockage Ceph avec triple réplication ou des codes d'effacement pour garantir l'intégrité des données en cas de panne matérielle."
     },
     {
-      "question": "Comment le stockage est-il géré dans les nuages d'Alliance, notamment pour la protection contre les défaillances de matériel?",
-      "answer": "Le stockage est assuré par Ceph, utilisant soit la triple réplication, soit des codes d'effacement pour la protection contre les défaillances matérielles."
+      "question": "Quels sont les différents types de volumes de stockage offerts sur Arbutus et quelles sont leurs principales caractéristiques?",
+      "answer": "Sur Arbutus, les volumes de type 'rbd1' sont stockés sur des disques durs mécaniques avec codes d'effacement pour réduire les coûts. Les volumes 'high_performance' sont sur disques NVMe SSD avec triple réplication pour de meilleures performances."
     },
     {
-      "question": "Quelles sont les différences entre les types de volume 'Default' et 'OS or Database' sur le nuage Arbutus d'Alliance?",
-      "answer": "Sur Arbutus, le type 'Default' utilise des codes d'effacement pour réduire les coûts, tandis que le type 'OS or Database' utilise la triple réplication pour une meilleure protection."
+      "question": "Quelles informations doit-on spécifier lors de la création d'un nouveau volume de stockage via le tableau de bord OpenStack?",
+      "answer": "Lors de la création d'un volume, il faut spécifier le 'Nom du volume', choisir 'Aucune source, volume vide', 'Pas de type de volume', la 'Taille (Gio)' (par exemple, 40), et laisser la 'Zone de disponibilité' à 'nova'."
     },
     {
-      "question": "Quelles sont les étapes pour créer un nouveau volume de stockage via le tableau de bord OpenStack sur les nuages d'Alliance?",
-      "answer": "Il faut cliquer sur '+ Créer un volume', puis remplir les champs comme le nom du volume, la source ('Aucune source, volume vide'), la taille en Gio, et choisir 'nova' comme zone de disponibilité."
+      "question": "Qu'est-ce que l'action 'attacher un volume' signifie dans le contexte des instances OpenStack?",
+      "answer": "Attacher un volume signifie l'associer à une instance, ce qui le rend accessible, un peu comme insérer une clé USB ou ajouter un disque externe à un ordinateur."
     },
     {
-      "question": "Que signifie 'attacher' un volume à une instance dans l'environnement des nuages d'Alliance et comment le faire via le tableau de bord?",
-      "answer": "Attacher un volume signifie l'associer à une instance. Pour ce faire, depuis la page 'Volume' du tableau de bord, sélectionnez 'Gérer les attachements' et choisissez l'instance appropriée."
+      "question": "Dans quelles circonstances est-il nécessaire de formater un nouveau volume, et quelle prudence doit-on observer?",
+      "answer": "Un nouveau volume doit être formaté avant d'être utilisé pour enregistrer des fichiers. Il faut être très prudent car le formatage efface toute l'information qui s'y trouve, ce qui peut avoir d'importantes répercussions."
     },
     {
-      "question": "Quelles précautions faut-il prendre concernant le formatage d'un volume de stockage sur les nuages d'Alliance?",
-      "answer": "Il ne faut pas formater un volume déjà utilisé, car cela effacerait toutes les données. Un nouveau volume doit être formaté avant usage pour pouvoir y enregistrer des fichiers."
+      "question": "Comment peut-on monter un volume de stockage sur une instance Linux après l'avoir attaché?",
+      "answer": "Pour monter un volume sur une instance Linux, on utilise une commande comme `sudo mount /dev/vdb1 /mnt`, ce qui crée une association logique entre le système de fichiers du volume et le répertoire `/mnt` de l'instance."
     },
     {
-      "question": "Qu'est-ce que 'monter' un volume signifie pour une instance Linux et comment peut-on s'assurer qu'il soit monté automatiquement au démarrage sur un nuage d'Alliance?",
-      "answer": "Monter un volume crée une association logique entre son système de fichiers et la structure des fichiers de l'instance. Pour un montage automatique, il faut ajouter une ligne avec l'UUID du dispositif au fichier /etc/fstab."
+      "question": "Comment s'assurer qu'un volume de stockage est automatiquement monté au démarrage d'une instance Linux?",
+      "answer": "Pour qu'un volume se monte automatiquement au démarrage, il faut ajouter une ligne au fichier `/etc/fstab` de l'instance, en utilisant l'UUID du dispositif obtenu avec la commande `blkid`."
     },
     {
-      "question": "Pourquoi est-il recommandé de démarrer une instance depuis un volume plutôt que depuis une image sur les nuages d'Alliance?",
-      "answer": "Démarrer depuis un volume offre une redondance protégeant l'instance des défaillances matérielles, car une instance démarrée depuis une image est stockée localement et pourrait être perdue en cas de problème sur la machine."
+      "question": "Pourquoi est-il généralement recommandé de démarrer une instance OpenStack depuis un volume plutôt que d'une image?",
+      "answer": "Démarrer une instance depuis un volume est recommandé pour des services persistants car le stockage du volume procure une redondance, protégeant l'instance des défaillances matérielles, contrairement aux instances démarrées depuis une image sur le disque local."
     },
     {
-      "question": "Lors du démarrage d'une instance à partir d'un volume sur les nuages d'Alliance, quelle option de persistance est préférable pour le volume créé?",
-      "answer": "Il est préférable de ne jamais cocher la case 'Supprimer le volume lors de la suppression de l'instance' afin que le volume puisse être supprimé manuellement plus tard et ne soit pas perdu avec l'instance."
+      "question": "Quelle option doit-on éviter de cocher lors de la création d'une instance démarrée depuis un volume pour assurer la persistance du volume?",
+      "answer": "Il est préférable de ne jamais cocher la case 'Supprimer le volume lors de la suppression de l'instance' pour que le volume persiste et puisse être supprimé manuellement plus tard."
     },
     {
-      "question": "Dans quel but créer une image à partir d'un volume de stockage dans l'environnement OpenStack d'Alliance?",
-      "answer": "Créer une image depuis un volume permet de le télécharger pour une copie de sécurité ou pour créer une instance sur un autre nuage comme VirtualBox."
+      "question": "Dans quel but peut-on créer une image à partir d'un volume existant?",
+      "answer": "Créer une image à partir d'un volume permet de télécharger l'image pour l'utiliser comme copie de sécurité, ou pour créer une instance sur un autre nuage ou avec un autre outil comme VirtualBox."
     },
     {
-      "question": "Quelles sont les étapes pour créer une image à partir d'un volume via le tableau de bord OpenStack, et quel format de disque est recommandé pour le nuage OpenStack?",
-      "answer": "Sous 'Projet->Volumes', sélectionnez le volume, puis 'Charger dans l'image'. Entrez un nom et choisissez QCOW2 comme format de disque, car il est compact et efficace avec OpenStack."
+      "question": "Quelles sont les étapes pour créer une image à partir d'un volume en utilisant le tableau de bord OpenStack?",
+      "answer": "Il faut sélectionner le volume sous 'Projet->Volumes', choisir 'Charger dans l'image' dans la colonne 'Actions', entrer un nom pour la nouvelle image, sélectionner le 'Format du disque' (QCOW2 est recommandé), puis cliquer sur 'Charger'."
     },
     {
-      "question": "Quel est l'avantage du clonage d'un volume par rapport à la création d'une image pour copier des volumes dans le même nuage OpenStack?",
-      "answer": "Le clonage est plus rapide et demande moins d'échange de données, ce qui en fait le moyen recommandé pour copier des volumes au sein du même nuage."
+      "question": "Quel format de disque est recommandé pour les images OpenStack et pourquoi?",
+      "answer": "QCOW2 est le format de disque recommandé pour le nuage OpenStack car il est relativement plus compact que 'Raw' et plus efficace avec OpenStack. Pour Virtualbox, les formats vmdk ou vdi sont préférables."
     },
     {
-      "question": "Quelle est une précaution importante à prendre avant de cloner un volume sur les nuages d'Alliance?",
-      "answer": "Il est fortement recommandé de terminer l'instance avant de cloner un volume pour éviter que l'état du volume cloné soit incohérent si le volume source est modifié pendant le processus."
+      "question": "Quelle est la méthode recommandée pour copier des volumes dans le même nuage et pourquoi?",
+      "answer": "Le clonage est le moyen recommandé pour la copie de volumes dans le même nuage, car il est plus rapide et demande moins d'échange de données que de créer une image puis un nouveau volume."
     },
     {
-      "question": "Comment peut-on cloner un volume de stockage en utilisant le client ligne de commande OpenStack?",
-      "answer": "Il faut utiliser la commande `openstack volume create --source <source-volume-id> --size <size-of-new-volume> <name-of-new-volume>`."
+      "question": "Quelle précaution importante doit-on prendre avant de cloner un volume pour assurer l'intégrité des données?",
+      "answer": "Il est fortement recommandé de terminer l'instance avant de cloner un volume pour éviter que l'état du volume cloné soit incohérent par rapport au volume source si ce dernier a été modifié pendant le processus de clonage."
     },
     {
-      "question": "Quelles vérifications sont essentielles avant de détacher un volume de stockage d'une instance sur les nuages d'Alliance pour éviter la corruption de données?",
-      "answer": "Avant de détacher, il est important de vérifier si des fichiers du volume sont utilisés par le système d'exploitation ou des applications. Il est recommandé de fermer l'instance ou de démonter le volume."
+      "question": "Quelles vérifications sont essentielles avant de détacher un volume pour éviter la corruption de données?",
+      "answer": "Avant de détacher un volume, il est important de vérifier si des fichiers de ce volume sont utilisés par le système d'exploitation ou des applications actives. Il est recommandé de démonter le volume ou de fermer l'instance pour éviter la corruption."
     },
     {
-      "question": "Comment détacher un volume de démarrage (/dev/vda) d'une instance sur les nuages d'Alliance, comparativement à un volume de données (/dev/vdb)?",
-      "answer": "Pour un volume de démarrage (/dev/vda), il faut d'abord détacher l'instance. Pour un volume de données (/dev/vdb, etc.), il suffit de sélectionner 'Gérer les attachements' puis 'Détacher le volume' via le tableau de bord."
+      "question": "Comment détacher un volume de démarrage (identifié comme '/dev/vda') sur OpenStack?",
+      "answer": "Pour détacher un volume de démarrage ('/dev/vda'), il est obligatoire de détacher l'instance à laquelle il est lié au préalable, sinon une erreur 'Impossible de déconnecter le volume' sera affichée."
     }
   ],
-  "generated_at": "2026-04-13T16:28:02.538381+00:00"
+  "generated_at": "2026-04-19T02:49:10.255444+00:00"
 }

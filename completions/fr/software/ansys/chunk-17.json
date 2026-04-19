@@ -4,17 +4,13 @@
   "chunk_index": 17,
   "qa_pairs": [
     {
-      "question": "Pourquoi devrais-je utiliser la fonction de redémarrage de solution pour les tâches Ansys Fluent sur les grappes de l'Alliance?",
-      "answer": "La fonction de redémarrage de solution est utile pour automatiser la reprise des tâches Ansys Fluent intensives qui nécessitent plus que le maximum de sept jours d'exécution permis sur la plupart des grappes. Elle permet de redémarrer la simulation à partir des fichiers de pas de temps les plus récemment sauvegardés."
+      "question": "À quoi servent les scripts Fluent qui incluent l'option `--array` pour la « remise en file d'attente » dans les tâches Slurm, et pourquoi ne sont-ils pas recommandés pour toutes les simulations?",
+      "answer": "Ces scripts Fluent, avec l'option `--array` de Slurm, permettent de remettre automatiquement en file d'attente les tâches qui échouent, par exemple à cause d'un manque de licence, en les retentant plusieurs fois. Ils ne sont pas conseillés pour les simulations qui peuvent planter après un long temps d'exécution ou celles qui se terminent avec des avertissements dans le journal, car la simulation serait relancée inutilement depuis le début à chaque échec, gaspillant ainsi des ressources de calcul."
     },
     {
-      "question": "Quels fichiers dois-je modifier ou créer pour configurer une simulation Ansys Fluent en vue d'un redémarrage automatique sur les grappes de l'Alliance?",
-      "answer": "Pour configurer un redémarrage, vous devez avoir un groupe de fichiers <code>sample.cas</code>, <code>sample.dat</code> et <code>sample.jou</code>. Le fichier <code>sample.jou</code> doit être modifié pour inclure <code>/solve/dual-time-iterate 1</code> et <code>/file/auto-save/data-frequency 1</code>. Ensuite, créez un fichier <code>sample-restart.jou</code> à partir de <code>sample.jou</code> et modifiez-le pour qu'il contienne <code>/file/read-cas-data sample-restart</code>, tout en mettant en commentaire la ligne d'initialisation (par exemple, <code>;/solve/initialize/initialize-flow</code>)."
-    },
-    {
-      "question": "Comment la valeur de <code>/solve/dual-time-iterate</code> dans le fichier <code>sample-restart.jou</code> affecte-t-elle la durée totale et le nombre de fichiers de résultats générés lors de l'utilisation de la fonction de redémarrage de solution pour Ansys Fluent?",
-      "answer": "La valeur de <code>/solve/dual-time-iterate</code> (par exemple, 1 ou 2) détermine le nombre de pas qui seront exécutés avant que la solution ne soit redémarrée. Si cette valeur est 2 (par exemple, si les pas subséquents s'exécutent deux fois plus vite que le pas initial), la solution redémarrera après deux pas. Si elle est 1, elle redémarrera après un pas. La durée totale de la simulation sera calculée comme 1*Dt + X*Nrestart*Dt et le nombre total de pas (ainsi que les fichiers de résultats générés) sera de 1 + X*Nrestart, où X est la valeur de <code>dual-time-iterate</code>, Dt est la durée d'un pas, et Nrestart est le nombre de redémarrages défini dans le script Slurm."
+      "question": "Comment configure-t-on les simulations Ansys Fluent pour un redémarrage automatique sur les grappes de l'Alliance, en particulier pour les tâches de longue durée?",
+      "answer": "Pour un redémarrage automatique, il faut préparer les scripts Slurm avec l'option `--array` pour spécifier le nombre de redémarrages. Ensuite, modifiez le fichier `sample.jou` pour qu'il contienne `/solve/dual-time-iterate 1` et `/file/auto-save/data-frequency 1`. Créez un fichier `sample-restart.jou` qui lira les données du pas de temps précédent (`/file/read-cas-data sample-restart`) et commentez la ligne d'initialisation. Ceci permet à la simulation de reprendre à partir des données sauvegardées."
     }
   ],
-  "generated_at": "2026-04-13T01:57:14.221189+00:00"
+  "generated_at": "2026-04-19T01:36:06.971754+00:00"
 }

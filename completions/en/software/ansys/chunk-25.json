@@ -4,13 +4,17 @@
   "chunk_index": 25,
   "qa_pairs": [
     {
-      "question": "How do I submit a multinode distributed parallel Ansys CFX job on an Alliance cluster?",
-      "answer": "To submit a multinode distributed parallel Ansys CFX job on an Alliance cluster, you'll need a Slurm script. This script should load `StdEnv/2023` and `ansys/2023R2` (or a newer Ansys module version). The core command is `cfx5solve -def YOURFILE.def -start-method \"MPI Distributed Parallel\" -par-dist $NNODES`, where `$NNODES` is determined by `slurm_hl2hl.py --format ANSYS-CFX`. Key Slurm directives in the script include specifying the account (`--account`), time limit (`--time`), number of compute nodes (`--nodes`, set to 2 or more for multinode), tasks per node (`--ntasks-per-node=192` to use all cores), and memory (`--mem=0` to use all memory)."
+      "question": "How do you run Ansys CFX in multinode distributed parallel mode on Alliance clusters like Narval or Fir using a Slurm script?",
+      "answer": "To run Ansys CFX in multinode distributed parallel mode on Alliance clusters like Narval or Fir, the Slurm script should load the `StdEnv/2023` and `ansys/2023R2` (or newer) modules. The job is then launched with the command `cfx5solve -def YOURFILE.def -start-method \"Open MPI Distributed Parallel\" -par-dist $NNODES`."
     },
     {
-      "question": "What are the specific MPI `start-method` configurations for running Ansys CFX in a distributed parallel mode on different Alliance clusters?",
-      "answer": "When running Ansys CFX in distributed parallel mode on Alliance clusters, the `start-method` in the `cfx5solve` command depends on the cluster. For Narval or Fir clusters, you should use `\"Open MPI Distributed Parallel\"`. For other Alliance clusters, the `start-method` is `\"Intel MPI Distributed Parallel\"`, and you must also set the environment variable `export I_MPI_HYDRA_BOOTSTRAP=ssh` and unset `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`."
+      "question": "What Slurm options should be specified in a script for an Ansys CFX multinode distributed parallel job, particularly for nodes, tasks per node, and memory, on Alliance clusters?",
+      "answer": "For an Ansys CFX multinode distributed parallel job on Alliance clusters, the recommended Slurm options include `--nodes=2` (or more), `--ntasks-per-node=192` (to use all cores per compute node), `--mem=0` (to use all memory on each compute node), `--account=def-group`, `--time=00-03:00`, and `--cpus-per-task=1`."
+    },
+    {
+      "question": "How do you initiate an Ansys CFX distributed parallel job on Alliance clusters other than Narval or Fir, and what environment variables are used in the Slurm script?",
+      "answer": "To initiate an Ansys CFX distributed parallel job on Alliance clusters other than Narval or Fir, the Slurm script must first export `I_MPI_HYDRA_BOOTSTRAP=ssh` and `unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`. The job is then launched using the command `cfx5solve -def YOURFILE.def -start-method \"Intel MPI Distributed Parallel\" -par-dist $NNODES`."
     }
   ],
-  "generated_at": "2026-04-13T01:51:39.924082+00:00"
+  "generated_at": "2026-04-19T01:30:25.678171+00:00"
 }

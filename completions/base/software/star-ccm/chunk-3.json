@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How do you specify the input simulation file when submitting a STAR-CCM+ batch job on Alliance clusters?",
-      "answer": "To specify the input simulation file for a STAR-CCM+ batch job, you should set the `SIM_FILE` variable in your SLURM script to the name of your simulation file, for example, `SIM_FILE='mySample.sim'`."
+      "question": "How can a user allocate resources for a STAR-CCM+ batch job on the Nibi cluster using a Slurm script?",
+      "answer": "A user can specify resources for a STAR-CCM+ job on the Nibi cluster using `#SBATCH` directives in their Slurm script. For example, `#SBATCH --nodes=1` requests one node, `#SBATCH --cpus-per-task=16` requests 16 cores per task, `#SBATCH --mem=64G` allocates 64GB of memory per node, and `#SBATCH --constraint=granite` restricts the job to Intel CPU-only base nodes."
     },
     {
-      "question": "When running a STAR-CCM+ batch job on Alliance clusters, how is a Siemens Power-on-Demand (PoD) license key provided?",
-      "answer": "To use a Siemens Power-on-Demand (PoD) license for a STAR-CCM+ batch job, you must manually set the `LM_PROJECT` environment variable within your SLURM script to your unique 22-digit PoD license key, for example: `LM_PROJECT='22digit-PoD-License-Key'`."
+      "question": "What are the key differences in configuring and launching a STAR-CCM+ job when using a Power-on-Demand (PoD) license compared to an institutional license server on an Alliance cluster?",
+      "answer": "When using a PoD license, researchers must manually set the `LM_PROJECT` environment variable to their 22-digit PoD License Key (e.g., `LM_PROJECT='22digit-PoD-License-Key'`) and ensure a `~/.licenses/starccm.lic` file is configured with `SERVER flex.cd-adapco.com ANY 1999` and `USE_SERVER`. For institutional license servers, the `LM_PROJECT` variable should not be set. Instead, the `starccm.lic` file must specify the local server's hostname or IP address and static vendor port (e.g., `SERVER <server> ANY <flexport>`). The `starccm+` command executed also differs, with PoD licenses using `-power -podkey $LM_PROJECT`, while institutional licenses rely on the `CDLMD_LICENSE_FILE` setting."
     },
     {
-      "question": "How does a STAR-CCM+ batch job script determine whether to use a Siemens Power-on-Demand (PoD) license server or a local institutional license server on Alliance clusters?",
-      "answer": "A STAR-CCM+ batch job script determines the license server by checking if the `LM_PROJECT` environment variable is set. If `LM_PROJECT` contains a value (indicating a PoD key), the Siemens PoD license server is used. Otherwise, the script assumes an institutional license server and references the `~/.licenses/starccm.lic` file for configuration."
+      "question": "How does a Slurm script for STAR-CCM+ jobs on the Nibi cluster automatically adapt its MPI and Flexiblas settings based on the CPU vendor?",
+      "answer": "The Slurm script on the Nibi cluster automatically detects the CPU vendor (either `GenuineIntel` or `AuthenticAMD`) using the `lscpu` command. If the CPU is Intel, `STAR_MPI` is set to `intel`, and `FLEXIBLAS` or `STAR_FLEXIBLAS` is configured for `StarMKL`. If the CPU is AMD, `STAR_MPI` is set to `openmpi40`, and `FLEXIBLAS` or `STAR_FLEXIBLAS` is configured for `StarAOCL`. Additionally, for STAR-CCM+ versions older than 20, the `STAR_UCX` variable is set to `-xsystemucx` regardless of the CPU vendor."
     }
   ],
-  "generated_at": "2026-04-13T13:44:47.334388+00:00"
+  "generated_at": "2026-04-19T02:27:09.939485+00:00"
 }

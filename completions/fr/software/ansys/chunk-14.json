@@ -4,17 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "Comment configurer Ansys Fluent pour utiliser un serveur de licence local sur la grappe Trillium, sachant que le fichier `~/.licenses/ansys.lic` est ignoré dans ce cas précis?",
-      "answer": "Sur la grappe Trillium, pour Ansys Fluent, le script de soumission utilise des paramètres de serveur de licence (`LICSERVER`, `FLEXPORT`, `VENDPORT`) définis directement dans le script Slurm, par exemple `LICSERVER=license1.computecanada.ca`, `FLEXPORT=1055` et `VENDPORT=1793`. Le script met ensuite en place des tunnels SSH pour acheminer les requêtes de licence via `localhost`, remplaçant ainsi la configuration de `~/.licenses/ansys.lic`."
+      "question": "Comment configure-t-on les informations de licence Ansys Fluent directement dans un script Slurm pour le cluster Trillium, au lieu d'utiliser le fichier `~/.licenses/ansys.lic` ?",
+      "answer": "Pour configurer les informations de licence Ansys Fluent directement dans un script Slurm pour le cluster Trillium, vous devez définir les variables `LICSERVER`, `FLEXPORT` et `VENDPORT` dans le script. Ensuite, utilisez des commandes `ssh tri-gw -fNL` pour rediriger les ports Flex et Vendor vers `localhost`. Enfin, exportez `ANSYSLMD_LICENSE_FILE` et `ANSYSLI_SERVERS` en utilisant les ports redirigés sur `localhost`."
     },
     {
-      "question": "Quelles sont les exigences pour les répertoires `~/.ansys`, `~/.fluentconf` et le fichier `~/.flrecent` afin qu'Ansys Fluent puisse fonctionner correctement sur la grappe Trillium?",
-      "answer": "Pour qu'Ansys Fluent fonctionne sur Trillium, il faut s'assurer que des liens symboliques (soft links) vers des répertoires et fichiers inscriptibles existent pour `~/.ansys`, `~/.fluentconf` et `~/.flrecent`. Si ces liens n'existent pas, il faut les créer en exécutant des commandes comme `ln -s $SCRATCH/.ansys ~/.ansys` après avoir supprimé tout répertoire ou fichier existant avec le même nom, pour garantir que les répertoires nécessaires sont bien configurés et accessibles en écriture."
+      "question": "Quelles sont les vérifications et les configurations requises pour les répertoires `~/.ansys`, `~/.fluentconf` et `~/.flrecent` avant de lancer une tâche Ansys Fluent sur le cluster Trillium ?",
+      "answer": "Avant de soumettre une tâche Ansys Fluent sur le cluster Trillium, le script vérifie si les répertoires `~/.ansys`, `~/.fluentconf` et le fichier `~/.flrecent` sont des liens symboliques (symlinks) pointant vers des emplacements accessibles en écriture sous `$SCRATCH`. Si ce n'est pas le cas, le script affichera une erreur et exigera que vous créiez ces liens, par exemple en exécutant `ln -s $SCRATCH/.ansys ~/.ansys` pour `.ansys`. Si les liens existent, le script s'assure que les répertoires correspondants dans `$SCRATCH` sont créés et que le fichier `.flrecent` existe."
     },
     {
-      "question": "Dans quel contexte devrait-on utiliser les scripts de \"remise en file d'attente pour obtenir la licence\" pour les tâches Ansys Fluent sur les grappes de Calcul Canada, et quand faut-il les éviter?",
-      "answer": "Les scripts de \"remise en file d'attente pour obtenir la licence\" sont conçus pour les tâches Ansys Fluent qui se terminent normalement sans erreurs de simulation, mais qui nécessitent souvent plusieurs tentatives pour obtenir une licence disponible. Il faut les éviter pour les simulations qui ont tendance à planter pendant l'exécution ou à générer des avertissements, car cela entraînerait la répétition inutile de ces simulations défectueuses jusqu'à atteindre la limite du nombre de tentatives spécifié par le paramètre `#SBATCH --array`."
+      "question": "Quand devrait-on utiliser les scripts Slurm de « remise en file d'attente pour obtenir la licence » pour les tâches Ansys Fluent, et dans quels cas ne sont-ils pas recommandés ?",
+      "answer": "Les scripts Slurm de « remise en file d'attente pour obtenir la licence » pour Ansys Fluent sont conçus exclusivement pour les tâches qui se terminent normalement, sans erreurs, mais qui rencontrent des difficultés à démarrer en raison d'un manque de licences disponibles. Ils réessayent de soumettre la tâche plusieurs fois si la licence n'est pas obtenue. Par contre, il est fortement déconseillé de les utiliser pour des tâches Fluent qui risquent de planter pendant l'exécution ou de se terminer avec des avertissements, car cela entraînerait la répétition inutile de simulations qui échouent pour d'autres raisons."
     }
   ],
-  "generated_at": "2026-04-13T01:56:43.995589+00:00"
+  "generated_at": "2026-04-19T01:35:43.461384+00:00"
 }

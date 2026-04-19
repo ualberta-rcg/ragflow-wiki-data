@@ -4,13 +4,13 @@
   "chunk_index": 20,
   "qa_pairs": [
     {
-      "question": "Quelles sont les meilleures pratiques recommandées pour soumettre des tâches qui utilisent un GPU sur la grappe Trillium?",
-      "answer": "Pour les tâches avec GPU sur Trillium, il ne faut pas spécifier de quantité de mémoire (`--mem`), car elle est fixe par GPU (192GB) ou par nœud (768GB). Il est important d'indiquer toujours le nombre de nœuds et `--gpus-per-node=4` pour les tâches sur un nœud entier ou sur plusieurs nœuds. De plus, on recommande de charger uniquement les modules nécessaires, d'être explicite quant aux versions des logiciels (par exemple, `cuda/12.6` plutôt que simplement `cuda`), de tester d'abord sur un seul GPU avant d'utiliser plusieurs GPU ou nœuds, et de surveiller l'utilisation avec `nvidia-smi` pour s'assurer que les GPU sont pleinement exploités."
+      "question": "Quelles sont les meilleures pratiques pour s'assurer de la reproductibilité et de l'efficacité lors de l'exécution de tâches GPU sur la grappe Trillium?",
+      "answer": "Pour assurer une meilleure reproductibilité des tâches GPU sur Trillium, il est recommandé de spécifier explicitement les versions des logiciels utilisés (par exemple, `cuda/12.6` plutôt que `cuda` générique). Avant de passer à des configurations avec plusieurs GPU ou nœuds, il faut d'abord tester le code sur un seul GPU. De plus, il est essentiel de surveiller l'utilisation des GPU avec la commande `nvidia-smi` pour s'assurer qu'ils sont pleinement exploités."
     },
     {
-      "question": "Quelles commandes SLURM peut-on utiliser pour faire le suivi de l'état et des performances des tâches soumises à la file d'attente sur Trillium?",
-      "answer": "Une fois qu'une tâche est soumise à la file d'attente sur Trillium, on peut utiliser plusieurs commandes SLURM pour la surveiller. `squeue` affiche toutes les tâches dans la file (on peut utiliser `squeue -u $USER` pour voir seulement ses propres tâches). `squeue -j JOBID` montre l'état actuel d'une tâche spécifique, et `squeue --start -j JOBID` donne une estimation du moment où une tâche en attente devrait démarrer. Pour annuler une tâche, on utilise `scancel JOBID`. Pendant l'exécution, `jobperf JOBID` produit un instantané en temps réel de l'utilisation du CPU et de la mémoire. Enfin, `sacct` permet de consulter les informations sur les tâches passées, y compris le début, la durée, l'utilisation des nœuds et l'état de sortie."
+      "question": "Quelles commandes SLURM peut-on utiliser sur Trillium pour surveiller l'état et la performance des tâches soumises?",
+      "answer": "Pour surveiller les tâches sur Trillium, on peut utiliser plusieurs commandes SLURM : `squeue` pour voir toutes les tâches en file d'attente (ou `squeue -u $USER` pour ses propres tâches), `squeue -j JOBID` pour connaître l'état d'une tâche spécifique, et `squeue --start -j JOBID` pour obtenir une estimation du démarrage d'une tâche en attente. Pour les tâches en cours, `jobperf JOBID` fournit un instantané en temps réel de l'utilisation du CPU et de la mémoire. Enfin, `sacct` affiche les informations sur les tâches passées, et `scancel JOBID` permet d'annuler une tâche soumise."
     }
   ],
-  "generated_at": "2026-04-13T15:00:44.498238+00:00"
+  "generated_at": "2026-04-19T02:45:59.386839+00:00"
 }

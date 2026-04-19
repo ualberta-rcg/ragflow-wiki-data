@@ -1,53 +1,35 @@
 <languages />
 <span id="Managing_numerous_compute_tasks"></span>
-<div class="mw-translate-fuzzy">
-== Soumettre plusieurs tâches de calcul ==
-</div>
+== Gérer de nombreux cas de calcul ==
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-The following tools are helpful when you need to process multiple files with or without different parameter combinations (''parameter sweep''):
-</div>
+Les outils suivants sont utiles pour traiter plusieurs fichiers, avec ou sans différentes combinaisons de paramètres (<i>parameter sweep</i>)&nbsp;:
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-* <b>[[Job_arrays|Job Arrays]]</b>: to submit several similar jobs in one single script, an ideal method when each job exceeds one hour and the number of jobs is under one thousand;
-* <b>[[GNU_Parallel|GNU Parallel]]</b>: to run and manage several short calculations, including parameter sweeps, on a single node reserved via a parallel job;
-* <b>[[GLOST]]</b>: the <i>Greedy Launcher Of Small Tasks</i> uses [[MPI]] and a manager-worker architecture to progressively run a long list of serial jobs on the CPU cores reserved via a parallel job;
-* <b>[[META-Farm|META]]</b>: a suite of scripts designed in SHARCNET to automate high-throughput computing (running a large number of related serial, parallel, or GPU calculations).
-</div>
+* <b>[[Job_arrays/fr|Vecteurs de tâches]]</b> : pour soumettre plusieurs tâches similaires dans un seul script, une méthode idéale lorsque chaque tâche dure plus d’une heure et que leur nombre est inférieur à mille;
+* <b>[[GNU_Parallel/fr|GNU Parallel]]</b> : pour exécuter et gérer plusieurs calculs courts, y compris des ''parameter sweeps'', sur un nœud réservé via une tâche parallèle;
+* <b>[[GLOST/fr|GLOST]]</b> (<i>Greedy Launcher Of Small Tasks)</i> : utilise [[MPI/fr|MPI]] et une architecture gestionnaire-travailleur pour exécuter progressivement une longue liste de tâches séquentielles sur les cœurs CPU réservés via une tâche parallèle;
+* <b>[[META-Farm/fr|META]]</b> : une suite de scripts conçus chez SHARCNET pour automatiser le calcul à haut débit (exécution d’un grand nombre de calculs séquentiels, parallèles ou GPU).
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-== Inter-job dependencies ==
-</div>
+<span id="Inter-job_dependencies"></span>
+== Dépendance entre les tâches ==
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-While Slurm jobs are the building blocks for compute pipelines, inter-job dependencies are the links and relationships between the steps of a pipeline. For example, if two different jobs need to run one after the other, the second job ''depends'' on the first one. The second could depend on the start time, the end time or the final status of the first job. Typically, we want the second job to be started only once the first job has succeeded. For example:
-</div>
+Alors que les tâches Slurm constituent les éléments de base des pipelines de calcul, les dépendances entre les tâches sont les liens et les relations entre les étapes d’un pipeline. Par exemple, si deux tâches différentes doivent s’exécuter l’une après l’autre, la seconde dépend de la première. La seconde tâche peut dépendre de l’heure de début, l’heure de fin ou le statut final de la première tâche. En général, on souhaite que la seconde tâche ne démarre qu'une fois la première terminée avec succès. Par exemple,
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
 {{Commands
 |JOBID1{{=}}$(sbatch --parsable job1.sh)           # Save the first job ID
 |sbatch --dependency{{=}}afterok:$JOBID1 job2.sh   # Depends on the first job
 }}
-</div>
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-Notes
-* Multiple jobs can have the same dependency (multiple jobs waiting after one job).
-* A job can have multiple dependencies (one job waiting after multiple jobs).
-* There are multiple types of dependencies: <code>after</code>, <code>afterany</code>, <code>afterok</code>, <code>afternotok</code>, etc. For more details, see the <code>--dependency</code> option on the [https://slurm.schedmd.com/sbatch.html#OPT_dependency official <code>sbatch</code> documentation page].
-</div>
+Remarques
+* Plusieurs tâches peuvent avoir la même dépendance (plusieurs tâches en attente d'une seule tâche).
+* Une tâche peut avoir plusieurs dépendances (une tâche en attente de plusieurs tâches).
+* Il existe plusieurs types de dépendances&nbsp;: <code>after</code>, <code>afterany</code>, <code>afterok</code>, <code>afternotok</code>, etc. Pour plus de détails, voir l'option <code>--dependency</code> à la [https://slurm.schedmd.com/sbatch.html#OPT_dependency page officielle de documentation <code>sbatch</code> ].
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-== Heterogeneous jobs ==
-</div>
+<span id="Heterogeneous_jobs"></span>
+== Tâches hétérogènes ==
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-The Slurm scheduler supports [https://slurm.schedmd.com/heterogeneous_jobs.html heterogeneous jobs]. This could be very useful if you know in advance that your [[MPI]] application will require more CPU cores and more memory for the main process than for the other processes.
-</div>
+L'ordonnanceur Slurm prend en charge les tâches hétérogènes, ce qui peut s'avérer très utile si vous savez à l'avance que votre application MPI nécessitera davantage de cœurs CPU et de mémoire pour le processus principal que pour les autres processus.
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-For example, if the main process requires 8 cores and a total of 32GB of RAM, while the other processes only require 1 core and 1GB of RAM, we can specify both types of requirements in a job script:
-</div>
+Par exemple, si le processus principal nécessite 8 cœurs et un total de 32Go de RAM, tandis que les autres processus ne nécessitent que 1 cœur et 1Go de RAM, nous pouvons spécifier les deux types d'exigences dans un même script de tâche.
 
 {{File
   |name=heterogeneous_mpi_job.sh
@@ -61,9 +43,7 @@ For example, if the main process requires 8 cores and a total of 32GB of RAM, wh
 srun --cpus-per-task=8 : --cpus-per-task=1 application.exe
 }}
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-Or we can separate resource requests with a colon (<code>:</code>) on the <code>sbatch</code> command line:
-</div>
+Nous pouvons aussi séparer les demandes de ressources par un deux-points (<code>:</code>) sur la ligne de commande <code>sbatch</code>.
 
 {{Command
 |sbatch --ntasks{{=}}1 --cpus-per-task{{=}}8 --mem-per-cpu{{=}}4000M : --ntasks{{=}}15 --cpus-per-task{{=}}1 --mem-per-cpu{{=}}1000M  mpi_job.sh

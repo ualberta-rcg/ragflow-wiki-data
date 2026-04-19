@@ -4,13 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What are the recommended methods for copying data between instances in the Legacy Arbutus Cloud and the New Arbutus Cloud, and when should each method be used?",
-      "answer": "For very large data volumes (e.g., greater than 5TB), Globus is recommended. For smaller data volumes, `rsync + ssh` is suggested, as it provides good transfer speeds and can work incrementally."
+      "question": "What are the recommended approaches for copying data between Legacy Arbutus Cloud and New Arbutus Cloud instances during a migration?",
+      "answer": "For very large data volumes (e.g., greater than 5 TB), Globus is recommended. For smaller volumes, `rsync` combined with SSH provides good transfer speeds and supports incremental copying."
     },
     {
-      "question": "When migrating a large bootable volume from Legacy Arbutus to New Arbutus, how can the `dd` command be used with SSH to create an exact copy of the volume?",
-      "answer": "To create an exact copy of a large bootable volume, you can execute a command like `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@xxx.xx.xx.xx \"sudo dd bs=16M of=/dev/vdb\"` on the temporary Legacy Arbutus instance. This pipes the disk image from the source volume (`/dev/vdb`) over SSH to the destination volume (`/dev/vdb`) on the temporary New Arbutus instance, using `pv` for progress monitoring and requiring password-less SSH login."
+      "question": "What are the key steps for using Globus to migrate large data volumes between Arbutus Cloud instances?",
+      "answer": "The process involves three main steps: first, request a Globus Connect Personal Plus subscription; second, enable Globus Connect Personal on each cloud instance involved in the transfer by installing the client, adjusting firewall rules, and creating a shared endpoint; and third, use any Globus Interface to access both endpoints and transfer the data."
+    },
+    {
+      "question": "How is the `rsync` command utilized with SSH to transfer small data volumes when migrating between Arbutus Cloud instances?",
+      "answer": "To transfer small data volumes, you SSH to the Legacy Arbutus instance which has the principal volume attached, note the absolute path of the data, and then execute an `rsync` command over SSH. This command uses an SSH key for password-less login to copy files from the local path on the Legacy instance to the remote path on the New Arbutus instance. Considering the IPv6 GUA network in OpenStack is also suggested for potentially improved data transfer performance."
     }
   ],
-  "generated_at": "2026-04-13T02:22:51.175025+00:00"
+  "generated_at": "2026-04-19T01:44:21.246294+00:00"
 }

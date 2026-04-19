@@ -4,13 +4,13 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "What is the primary function of Fluent requeue scripts on Alliance clusters, and under what circumstances should they be employed?",
-      "answer": "Fluent requeue scripts on Alliance clusters are designed to automatically resubmit jobs that have failed due to license shortages. They should be used for Fluent jobs that typically complete without errors but frequently encounter issues in obtaining a license. It is crucial to monitor these jobs, as these scripts are not recommended for simulations that may fail due to non-license-related problems, such as divergence, which would lead to wasted computational time."
+      "question": "What is the purpose of the licence requeue scripts for Fluent jobs on Alliance clusters, and when should they be used?",
+      "answer": "Licence requeue scripts are designed for Fluent jobs that frequently fail to start due to licence shortages. They use the `--array` option in the Slurm script to automatically resubmit the job up to a specified number of attempts, aiming to acquire an available licence. However, these scripts are not recommended for Fluent jobs that might crash due to simulation issues, as they would repeatedly run the failed simulation from the beginning, leading to lost compute time."
     },
     {
-      "question": "How do Fluent solution restart scripts facilitate running simulations beyond the standard seven-day time limit on Alliance clusters, and what preparatory steps are needed for journal files?",
-      "answer": "Fluent solution restart scripts automate the process of restarting very large jobs, enabling them to run beyond the typical seven-day maximum runtime limit on Alliance clusters. This is achieved by restarting simulations from the most recently saved time step files. Users must prepare their `sample.jou` file by adding the commands `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`. A `sample-restart.jou` file must then be created (typically by copying `sample.jou`) and modified to use `/file/read-cas-data sample-restart` instead of `sample`, and any initialization lines, such as `;/solve/initialize/initialize-flow`, should be commented out. Adjusting the `dual-time-iterate` value in `sample-restart.jou` (e.g., to '2') can minimize the number of computationally expensive restarts if subsequent time steps are known to run faster."
+      "question": "How can users restart very large Fluent jobs that require more than the typical maximum runtime window on Alliance clusters?",
+      "answer": "To automate restarting very large Fluent jobs that exceed typical runtime limits (e.g., seven days), users should utilize the provided solution restart scripts. This involves restarting the simulation from the most recently saved time step files. Key steps include having `sample.cas`, `sample.dat`, and `sample.jou` files, modifying `sample.jou` to include `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`, and creating a `sample-restart.jou` file to read `sample-restart` data and comment out the initialization line. The Slurm script's `--array` value is used to specify the number of solution restarts."
     }
   ],
-  "generated_at": "2026-04-13T01:42:07.794491+00:00"
+  "generated_at": "2026-04-19T01:21:11.695590+00:00"
 }

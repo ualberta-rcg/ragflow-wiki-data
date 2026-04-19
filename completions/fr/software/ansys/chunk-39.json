@@ -4,13 +4,17 @@
   "chunk_index": 39,
   "qa_pairs": [
     {
-      "question": "Pourquoi est-ce que le logiciel Fluent peut planter au démarrage sur la grappe Nibi et quel est le message d'erreur typique associé à ce problème?",
-      "answer": "Fluent peut planter au démarrage sur la grappe Nibi si la variable d'environnement `I_MPI_HYDRA_BOOTSTRAP=ssh` n'est pas configurée correctement lors de l'utilisation d'Intel MPI dans une session de bureau On Demand. Le message d'erreur typique est lié à l'incapacité de configurer les proxys de démarrage, indiquant des problèmes comme 'Error setting up the bootstrap proxies'."
+      "question": "Comment est-ce qu'on peut accéder aux programmes Ansys en mode graphique sur les grappes de l'Alliance?",
+      "answer": "Les utilisateurs peuvent exécuter les programmes Ansys de manière interactive en mode graphique sur les nœuds de calcul des grappes ou sur les nœuds VDI de Graham. L'accès se fait via les plateformes Open OnDemand propres à chaque grappe, comme Nibi (ondemand.sharcnet.ca), Fir (jupyterhub.fir.alliancecan.ca), Rorqual (jupyterhub.rorqual.alliancecan.ca), Narval (jupyterhub.narval.alliancecan.ca/) ou Trillium (ondemand.scinet.utoronto.ca). Une fois la session de bureau interactive lancée et les modules Ansys chargés, les programmes peuvent être démarrés."
     },
     {
-      "question": "Quelles sont les commandes à utiliser pour lancer CFX en mode graphique à partir d'un Bureau On Demand, en fonction de si un GPU a été demandé ou non?",
-      "answer": "Pour lancer CFX à partir d'un Bureau On Demand, il faut d'abord charger le module `StdEnv/2023 ansys/2025R1` (ou une version plus ancienne). Ensuite, si aucun GPU n'a été demandé, la commande est `cfx5 -graphics mesa`. Si un GPU a été demandé, la commande est `cfx5 -graphics ogl`."
+      "question": "Quelles sont les variables d'environnement spécifiques à configurer lorsqu'on démarre Ansys Fluent en mode graphique sur un nœud de calcul sans GPU, à travers un bureau On Demand?",
+      "answer": "Pour démarrer Ansys Fluent en mode graphique sur un nœud de calcul sans GPU via un bureau On Demand, chargez d'abord les modules `StdEnv/2023` et `ansys/2025R1` (ou une version plus récente), puis lancez Fluent. Quand le panneau contextuel \"Fluent Launcher\" apparaît, cliquez sur l'onglet \"Environment\". Il faut alors ajouter les paramètres de variable d'environnement suivants : `I_MPI_HYDRA_BOOTSTRAP=ssh` (obligatoire sur Nibi) et `HOOPS_PICTURE=opengl2-mesa` (pour la version 2025R1 ou plus récente) ou `HOOPS_PICTURE=null` (pour la version 2024R2 ou plus ancienne). Ensuite, cliquez sur le bouton `Start`."
+    },
+    {
+      "question": "Comment démarre-t-on Ansys CFX en mode graphique à partir d'un bureau On Demand, selon qu'un GPU a été demandé ou non pour la session?",
+      "answer": "Pour démarrer Ansys CFX depuis un bureau On Demand, il faut d'abord charger les modules `StdEnv/2023` et `ansys/2025R1` (ou une version plus ancienne). Si vous n'avez pas demandé de GPU pour votre session de bureau, utilisez la commande `cfx5 -graphics mesa`. Si un GPU a été demandé pour votre session, la commande à utiliser est `cfx5 -graphics ogl`."
     }
   ],
-  "generated_at": "2026-04-13T02:00:41.324208+00:00"
+  "generated_at": "2026-04-19T01:38:57.158534+00:00"
 }

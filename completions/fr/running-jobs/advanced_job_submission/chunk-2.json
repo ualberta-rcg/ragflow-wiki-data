@@ -1,0 +1,20 @@
+{
+  "doc_key": "fr/advanced_job_submission",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Quels outils sont offerts pour gérer une grande quantité de tâches de calcul, et dans quelles situations devrait-on les utiliser?",
+      "answer": "Plusieurs outils sont disponibles pour traiter de nombreux cas de calcul. Les **vecteurs de tâches** sont idéaux pour soumettre jusqu'à un millier de tâches similaires dans un seul script, surtout quand chaque tâche dure plus d'une heure. **GNU Parallel** est pratique pour exécuter et gérer plusieurs calculs plus courts, incluant les 'parameter sweeps', sur un nœud réservé. **GLOST** (Greedy Launcher Of Small Tasks) utilise MPI et une architecture gestionnaire-travailleur pour lancer progressivement une longue liste de tâches séquentielles sur les cœurs CPU réservés. Enfin, **META-Farm** est une suite de scripts conçue par SHARCNET pour automatiser le calcul à haut débit, qu'il s'agisse de calculs séquentiels, parallèles ou GPU."
+    },
+    {
+      "question": "Comment peut-on gérer les dépendances entre les tâches Slurm et pourquoi est-ce important dans un pipeline de calcul?",
+      "answer": "Les dépendances entre les tâches Slurm sont essentielles pour établir des liens et des relations entre les étapes d'un pipeline de calcul, garantissant ainsi que les tâches s'exécutent dans un ordre spécifique. Par exemple, pour qu'une deuxième tâche ne démarre qu'après la réussite de la première, on peut utiliser la commande `sbatch --dependency=afterok:$JOBID1 job2.sh`, où `$JOBID1` est l'identifiant de la première tâche. Il existe plusieurs types de dépendances, comme `after`, `afterany`, `afterok` et `afternotok`, pour s'adapter à différents scénarios."
+    },
+    {
+      "question": "Qu'est-ce qu'une tâche hétérogène dans Slurm et comment peut-on la configurer pour une application MPI?",
+      "answer": "Une tâche hétérogène dans Slurm permet de spécifier des exigences de ressources différentes pour divers processus au sein d'une même tâche, ce qui est très utile si, par exemple, une application MPI nécessite davantage de cœurs CPU et de mémoire pour son processus principal que pour les autres. Pour la configurer, vous pouvez définir les exigences distinctes dans votre script de tâche en utilisant l'option `#SBATCH hetjob` et en séparant les groupes de ressources avec un deux-points (`:`) sur des lignes `#SBATCH` séparées. Il est aussi possible de séparer ces demandes de ressources par un deux-points (`:`) directement sur la ligne de commande `sbatch`."
+    }
+  ],
+  "generated_at": "2026-04-19T01:18:41.779396+00:00"
+}

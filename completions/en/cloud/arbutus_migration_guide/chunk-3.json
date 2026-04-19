@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What specific modifications are required for the OpenStack RC file downloaded from the new Arbutus Cloud environment?",
-      "answer": "After downloading the new RC file from Arbutus Cloud, you must add the following lines: `export OS_AUTH_TYPE=v3websso`, `export OS_IDENTITY_PROVIDER=atmosphere`, `export OS_PROTOCOL=openid`, and `export OS_PROJECT_DOMAIN_NAME=default`. You also need to remove lines containing `export OS_USER_DOMAIN_NAME=\"atmosphere\"` and the prompt for entering your OpenStack password."
+      "question": "What are the preliminary steps required to prepare your environment for migrating virtual machine instances from the legacy Arbutus Cloud to the new Arbutus Cloud, focusing on OpenStack RC files, SSH keys, and security groups?",
+      "answer": "To prepare for migration, you must first get and copy OpenStack RC files from both Legacy and New Arbutus, modifying the New Arbutus file as specified in the \"New Arbutus RC File Modifications\" section. Test these files by sourcing them in a shell and running a simple OpenStack command like `openstack volume list`. Next, migrate your SSH keys by copying public key values from the Legacy Arbutus Horizon dashboard (Compute -> Key Pairs) and importing them into the New Arbutus Horizon dashboard (Compute -> Key Pairs) or using the CLI (`openstack keypair create --public-key <public-keyfile> <name>`). Finally, migrate security groups and rules by noting existing ones on Legacy Arbutus (Network -> Security Groups) and re-creating them on the New Arbutus Cloud via the Horizon dashboard or CLI. Remember not to delete default Egress security rules for IPv4 and IPv6."
     },
     {
-      "question": "How can users migrate their SSH keys from the legacy Arbutus Cloud to the new Arbutus Cloud using the Horizon dashboard?",
-      "answer": "To migrate SSH keys via the Horizon dashboard, first, on the legacy Arbutus Cloud, navigate to \"Compute -> Key Pairs\", click on the key pair you wish to migrate, and copy its public key value. Then, on the new Arbutus Cloud's Horizon dashboard, go to \"Compute -> Key Pairs\", click \"Import Public Key\", give your Key Pair a name, and paste the public key copied from the legacy Arbutus Cloud. This process should be repeated for all necessary keys."
+      "question": "After downloading an OpenStack RC file from the New Arbutus Cloud, what specific lines need to be added and removed to properly configure it for authentication?",
+      "answer": "To configure a New Arbutus RC file, you must add the following lines: `export OS_AUTH_TYPE=v3websso`, `export OS_IDENTITY_PROVIDER=atmosphere`, `export OS_PROTOCOL=openid`, and `export OS_PROJECT_DOMAIN_NAME=default`. Additionally, you need to remove lines containing `export OS_USER_DOMAIN_NAME=\"atmosphere\"` (and its associated `if` statement) and the interactive password prompt (`echo \"Please enter your OpenStack Password for project...\"`)."
     },
     {
-      "question": "What steps are involved in migrating security groups and their associated rules from the legacy Arbutus Cloud to the new Arbutus Cloud?",
-      "answer": "To migrate security groups, on the legacy Arbutus Cloud, navigate to \"Network -> Security Groups\" and note all existing security groups and their associated rules. Then, on the new Arbutus Cloud, re-create these security groups and their rules as needed under \"Network -> Security Groups\". It is crucial not to delete any default Egress security rules for IPv4 and IPv6, as doing so can cause issues with instances retrieving configuration data."
+      "question": "What are the steps to create a Python virtual environment and install the necessary OpenStack Client packages for managing resources on the New Arbutus Cloud?",
+      "answer": "To set up the OpenStack Client, first create a Python virtual environment using the command `python3 -m venv openstack`. Then, activate this environment by running `source openstack/bin/activate`. Finally, install the required packages, including the OpenStack Client itself, by executing `pip install python-openstackclient keystoneauth-websso python-manilaclient` within the activated virtual environment."
     }
   ],
-  "generated_at": "2026-04-13T02:22:11.484681+00:00"
+  "generated_at": "2026-04-19T01:43:39.720150+00:00"
 }

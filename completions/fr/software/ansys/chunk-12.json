@@ -4,17 +4,13 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "Comment Ansys Fluent est-il lancé pour des tâches sur plusieurs nœuds sur la grappe Nibi, en utilisant le script Intel MPI 'par nœud'?",
-      "answer": "Pour lancer Ansys Fluent sur plusieurs nœuds de la grappe Nibi avec le script Intel MPI 'par nœud', la commande à utiliser est `fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
+      "question": "Comment configure-t-on et lance-t-on Ansys Fluent pour une exécution parallèle sur plusieurs nœuds des grappes de l'Alliance, en tenant compte des interfaces réseau comme l'Ethernet ou l'Infiniband?",
+      "answer": "Pour l'exécution parallèle d'Ansys Fluent sur plusieurs nœuds de calcul, il faut d'abord générer un fichier de machines avec `slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/machinefile-$SLURM_JOB_ID`. Ensuite, le lancement de Fluent dépend de la grappe : sur la grappe Nibi, la commande utilise `fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE` pour l'interface Ethernet, tandis que sur les autres grappes, c'est `fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE` pour l'Infiniband."
     },
     {
-      "question": "En dehors de la grappe Nibi, quelle est la commande pour lancer Fluent pour des tâches sur plusieurs nœuds avec le script Intel MPI 'par nœud'?",
-      "answer": "Pour les grappes autres que Nibi, quand on utilise le script Intel MPI 'par nœud' pour des tâches sur plusieurs nœuds, Fluent est lancé avec la commande `fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
-    },
-    {
-      "question": "Quel est le titre du script alternatif pour Fluent qui est présenté spécifiquement pour la grappe Narval, suivant le script 'Plusieurs nœuds (par nœud)'?",
-      "answer": "Le script alternatif pour Fluent spécifiquement présenté pour la grappe Narval, juste après le script 'Plusieurs nœuds (par nœud)', est intitulé 'Plusieurs nœuds (par nœud, Narval)'."
+      "question": "Quelles sont les étapes spécifiques pour exécuter Ansys Fluent avec OpenMPI sur la grappe Narval?",
+      "answer": "Pour exécuter Ansys Fluent avec OpenMPI sur la grappe Narval, il faut d'abord charger l'environnement de base (`StdEnv/2023`) et le module Ansys désiré (par exemple, `ansys/2023R2`). Ensuite, il faut spécifier la racine d'OpenMPI en définissant `export OPENMPI_ROOT=$EBROOTOPENMPI`. La création du fichier de machines se fait en deux temps : `slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/mf-$SLURM_JOB_ID`, suivi d'une boucle pour formater ce fichier (`for i in ... >> /tmp/machinefile-$SLURM_JOB_ID`). Enfin, pour les tâches multi-nœuds, il faut exporter `export FI_PROVIDER=verbs` et lancer Fluent avec `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
     }
   ],
-  "generated_at": "2026-04-13T01:56:23.989810+00:00"
+  "generated_at": "2026-04-19T01:35:11.792646+00:00"
 }

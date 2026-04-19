@@ -1,0 +1,20 @@
+{
+  "doc_key": "en/lammps",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "After configuring MACE in LAMMPS, how does one compile it, install it into a local directory, and perform a quick test to verify the installation?",
+      "answer": "To compile MACE in LAMMPS after configuration, use `cmake --build _build --parallel 4`. Then, install it into your local `lammps-mace` directory with `cmake --install _build/ --prefix=$HOME/lammps-mace`. To quickly test the installation, deactivate the virtual environment, purge modules, and run `~/lammps-mace/bin/lmp -h`."
+    },
+    {
+      "question": "What is an example Slurm job submission script for running a MACE-enabled LAMMPS simulation on a CPU cluster?",
+      "answer": "An example Slurm script for a CPU cluster would include directives such as `#SBATCH --job-name lammps-mace`, `#SBATCH --account MY-ACCOUNT-CPU`, `#SBATCH --nodes=1`, `#SBATCH --ntasks=4`, `#SBATCH --cpus-per-task=1`, `#SBATCH --mem-per-cpu=3500M`, and `#SBATCH --time=01:00:00`. The OMP_NUM_THREADS environment variable should be exported, and the simulation executed using `srun $HOME/lammps-mace/bin/lmp -in in.lammps`."
+    },
+    {
+      "question": "How does one submit a MACE-enabled LAMMPS job to a GPU cluster using a Slurm script, including the necessary directives for requesting GPU resources?",
+      "answer": "To submit a MACE-enabled LAMMPS job to a GPU cluster, a Slurm script would require directives such as `#SBATCH --job-name lammps-mace`, `#SBATCH --account MY-ACCOUNT-GPU`, `#SBATCH --nodes=1`, `#SBATCH --ntasks=4`, `#SBATCH --cpus-per-task=1`, `#SBATCH --mem-per-cpu=3500M`, `#SBATCH --gpus=h100_1g.10gb:1`, and `#SBATCH --time=01:00:00`. After exporting OMP_NUM_THREADS, the simulation is executed with `srun $HOME/lammps-mace/bin/lmp -in in.lammps`. The `--gpus` directive is specifically used to request GPU resources."
+    }
+  ],
+  "generated_at": "2026-04-19T02:09:49.931185+00:00"
+}

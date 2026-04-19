@@ -4,17 +4,13 @@
   "chunk_index": 27,
   "qa_pairs": [
     {
-      "question": "How can a user prevent an Ansys Workbench batch job from overwriting the solution file, which is useful for scaling tests on an Alliance cluster?",
-      "answer": "To prevent an Ansys Workbench batch job from overwriting the solution file upon successful completion, change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of your Slurm script. This modification is beneficial for scaling tests, as it allows you to easily evaluate how well the simulation performs when increasing the number of cores without having the initialized solution overwritten by each test job."
+      "question": "How do you submit an Ansys Workbench job to a Slurm queue using a script configured for `StdEnv/2020`?",
+      "answer": "To submit an Ansys Workbench job, first prepare your Workbench project file (e.g., `YOURPROJECT.wbpj`). Then, use a Slurm script like `script-wbpj-2020.sh`, which loads `StdEnv/2020` and `ansys/2022R2` (or older Ansys module versions). This script specifies resources like time and memory, and uses the command `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj` to execute the project. For scaling tests, it's recommended to change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of the script to avoid overwriting the solution with each test run."
     },
     {
-      "question": "What is the procedure for generating an input file for an Ansys Mechanical (APDL) job on an Alliance cluster?",
-      "answer": "An Ansys Mechanical (APDL) input file can be generated from within an interactive Workbench Mechanical session. To do this, click on `Solution -> Tools -> Write Input Files`, then specify a `File name:` like `YOURAPDLFILE.inp` and choose `APDL Input Files (*.inp)` as the `Save as type:`. Once created, these APDL jobs can then be submitted to the queue using the `sbatch script-name.sh` command."
-    },
-    {
-      "question": "What are the key Slurm script settings and commands required to run a Shared Memory Parallel (SMP) Ansys Mechanical (APDL) job on an Alliance cluster's CPU nodes?",
-      "answer": "For a Shared Memory Parallel (SMP) Ansys Mechanical (APDL) job on an Alliance cluster's CPU nodes, the Slurm script should specify `--account` (your project account), `--time` (job time limit), `--mem` (total memory for all cores), `--nodes=1` (as SMP typically runs on a single node), and `--tasks` (the number of cores). After loading the `StdEnv/2023` and `ansys/2024R1.03` modules (or newer), the job is executed using the `mapdl` command with parameters such as `-smp`, `-b nolist`, `-np $SLURM_NTASKS`, `-dir outdir-$SLURM_JOBID`, and `-i YOURAPDLFILE.inp`. On the Cedar cluster, you may also need to set `export LD_LIBRARY_PATH=$EBROOTGCC/../lib/gcc`."
+      "question": "How do you generate an input file for Ansys Mechanical APDL, and what are the basic commands for submitting CPU-based Shared Memory Parallel (SMP) and Distributed Memory Parallel (DMP) jobs using Slurm scripts?",
+      "answer": "Ansys Mechanical APDL input files (e.g., `YOURAPDLFILE.inp`) can be generated from within your interactive Workbench Mechanical session by clicking `Solution -> Tools -> Write Input Files`. For CPU-based Shared Memory Parallel (SMP) jobs, a Slurm script would use the command `mapdl -smp -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`, typically with `--nodes=1`. For Distributed Memory Parallel (DMP) jobs, the command would be `mapdl -dis -mpi intelmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp` (using Intel MPI, for example, on the Beluga cluster) or `mapdl -dis -mpi openmpi ...` (for other clusters with Open MPI). Both types of jobs typically load `StdEnv/2023` and `ansys/2024R1.03` (or `2023R2`)."
     }
   ],
-  "generated_at": "2026-04-13T01:51:59.429111+00:00"
+  "generated_at": "2026-04-19T01:30:51.152179+00:00"
 }

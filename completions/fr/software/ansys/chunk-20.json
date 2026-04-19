@@ -4,13 +4,13 @@
   "chunk_index": 20,
   "qa_pairs": [
     {
-      "question": "Comment faut-il configurer un script Slurm pour automatiser le redémarrage des simulations Fluent sur les grappes de l'Alliance?",
-      "answer": "Pour automatiser le redémarrage des simulations Fluent, votre script Slurm doit inclure la directive `#SBATCH --array=1-5%1` afin de spécifier le nombre de tentatives de redémarrage (l'exemple montre 5 tentatives). Vous devrez également définir des variables pour le fichier de journal principal (`MYJOUFILE`), le fichier de journal de redémarrage (`MYJOUFILERES`), et les fichiers de cas et de données de redémarrage (`MYCASFILERES` et `MYDATFILERES`). Le script contient une logique pour gérer les tâches à nœud unique ou multiple, et à chaque tentative, il met à jour les liens symboliques vers les fichiers de cas et de données les plus récents, ce qui permet à la simulation de reprendre à partir du dernier état sauvegardé."
+      "question": "Qu'est-ce qui se passe dans le script de redémarrage Ansys Fluent si une tâche de simulation se termine avec succès?",
+      "answer": "Si une tâche de simulation Ansys Fluent se termine sans erreur, le script affiche le message \"Job completed successfully! Exiting now.\" (La tâche est complétée avec succès! On quitte maintenant.) et annule la tâche Slurm en tableau correspondante."
     },
     {
-      "question": "Quel est le rôle principal des fichiers de journalisation Fluent et comment peut-on y spécifier le format des fichiers de cas et de données?",
-      "answer": "Les fichiers de journalisation Fluent servent principalement à automatiser les commandes de l'interface TUI (Text User Interface), ce qui permet de modifier des paramètres de simulation comme la température ou la pression, et d'exécuter des séries de simulations avec différentes conditions. Pour spécifier le format des fichiers de cas et de données, vous utilisez la commande `/file/cff-files` dans le fichier de journalisation. Par exemple, `/file/cff-files no` utilise les formats `.cas/.dat` (par défaut pour les modules jusqu'à 2019R3), tandis que `/file/cff-files yes` utilise les formats plus récents et efficaces `.cas.h5/.dat.h5` (à partir de la version 2020R1)."
+      "question": "Quel message le script de redémarrage Ansys Fluent affiche-t-il si la simulation rencontre un problème?",
+      "answer": "Si la simulation échoue, le script indique le problème en affichant le message \"Simulation failed. Exiting …\" (Échec de la simulation. On sort…)."
     }
   ],
-  "generated_at": "2026-04-13T01:57:41.198716+00:00"
+  "generated_at": "2026-04-19T01:36:37.538781+00:00"
 }

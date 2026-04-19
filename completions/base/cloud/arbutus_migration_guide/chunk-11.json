@@ -4,17 +4,17 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "What is the recommended method for transferring small data volumes between a Legacy Arbutus instance and a New Arbutus instance, and what are the general steps involved?",
-      "answer": "For smaller data volumes, `rsync + ssh` is recommended for its transfer speeds and incremental capabilities. The process typically involves SSHing into the Legacy Arbutus instance, noting the absolute path you wish to copy, executing an `rsync` command over SSH (assuming password-less login via SSH keys has been set up), and then verifying the data has been successfully copied on the New Arbutus instance before deleting the data from the Legacy Arbutus Cloud. It's also recommended to consider using the IPv6 GUA network in OpenStack for potentially improved data transfer performance."
+      "question": "What are the recommended methods for copying data between instances in the Legacy Arbutus Cloud and the New Arbutus Cloud, based on the size of the data volumes?",
+      "answer": "For very large data volumes (e.g., greater than 5TB), Globus is the recommended method. For smaller data volumes, `rsync + ssh` provides good transfer speeds and can work incrementally. When using `rsync`, considering the IPv6 GUA network in OpenStack is advised for potentially improved performance."
     },
     {
-      "question": "What post-transfer configuration activities might be necessary after migrating data to a new instance in the New Arbutus Cloud?",
-      "answer": "After transferring data to a new instance, several post-transfer configurations may be required. These include updating firewall rules for any new IP addresses and networks (if a host-based firewall is used), working with your DNS provider to update DNS entries for custom domains, updating IP addresses in various configuration files (e.g., `/etc/hosts`, `/etc/resolv.conf`, MySQL config), altering usernames in databases like MySQL, renewing Let’s Encrypt TLS certificates if they contain IP addresses, and thoroughly testing the new configuration."
+      "question": "After migrating data to a new instance in the New Arbutus Cloud, what post-transfer configuration activities might be required?",
+      "answer": "Post-transfer activities may include updating firewall rules if a host-based firewall is used, working with your DNS provider to update custom domain DNS entries, updating IP addresses in configuration files such as `/etc/hosts` or `/etc/resolv.conf`, altering usernames in MySQL, and renewing Let's Encrypt TLS certificates. Thorough testing of the configuration is also necessary, and users should be informed once migration is complete."
     },
     {
-      "question": "How do you migrate CephFS Shared Filesystem data from Legacy Arbutus Cloud to New Arbutus Cloud, and what are the specific considerations for creating new shares?",
-      "answer": "To migrate CephFS Shared Filesystem data, the recommended procedure involves creating an equivalent share in New Arbutus for each legacy share, mounting both shares to separate locations on the same virtual machine in New Arbutus Cloud, and then using a data copy tool like `rsync` (e.g., `rsync -avp /mnt/old-share/ /mnt/new-share/`) to transfer the data and ensure integrity. When creating new shares, you must use the New Arbutus Cloud web UI, create a separate `ceph.conf` file (e.g., `ceph-new.conf`), update the `mon_host` config value for the new share in this file, and include `conf=/etc/ceph/ceph-new.conf` as an extra value when mounting the new share. For large transfers, using `screen` or `tmux` is advised to maintain the session."
+      "question": "What is the recommended procedure for migrating data between a Legacy Arbutus Cloud CephFS Shared Filesystem and a New Arbutus Cloud CephFS Shared Filesystem?",
+      "answer": "The recommended procedure for migrating data between CephFS shares involves three main steps: first, create an equivalent share in the New Arbutus Cloud for each legacy share; second, mount both the legacy and the newly created shares to separate mount locations on the same virtual machine in the New Arbutus Cloud; and third, use a data copy tool like `rsync` to transfer the data from the old share to the new one, ensuring data integrity. Important differences for creating the new share include using the New Arbutus Cloud web UI, creating a separate `ceph-new.conf` file with an updated `mon_host` value, and specifying this new configuration file in the mount command."
     }
   ],
-  "generated_at": "2026-04-13T02:21:14.039400+00:00"
+  "generated_at": "2026-04-19T01:42:40.913047+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "Quels outils sont disponibles pour la gestion de l'exécution de nombreuses tâches de calcul ou de balayages de paramètres avec Slurm, et dans quelles situations est-ce qu'on les utilise généralement?",
-      "answer": "Pour gérer de multiples tâches de calcul ou des balayages de paramètres, plusieurs outils sont utiles : les **Job Arrays** sont idéaux pour soumettre plusieurs tâches similaires dans un seul script, surtout quand chaque tâche dépasse une heure et qu'il y en a moins de mille. **GNU Parallel** permet d'exécuter et de gérer plusieurs calculs courts sur un seul nœud. **GLOST** utilise MPI pour exécuter progressivement une longue liste de tâches sérielles sur les cœurs de CPU réservés par une tâche parallèle. Enfin, **META** est une suite de scripts qui automatise le calcul à haut débit pour un grand nombre de calculs reliés, qu'ils soient sériels, parallèles ou GPU."
+      "question": "Quels outils sont disponibles pour gérer un grand nombre de tâches de calcul, surtout lorsqu'il s'agit de traiter plusieurs fichiers ou de faire des « parameter sweeps » sur les clusters de l'Alliance?",
+      "answer": "Pour gérer de nombreux cas de calcul, les outils disponibles incluent les « Vecteurs de tâches » pour soumettre plusieurs tâches similaires (idéal pour des tâches de plus d'une heure et moins de mille), « GNU Parallel » pour exécuter et gérer plusieurs calculs courts et des « parameter sweeps », « GLOST » qui utilise MPI pour exécuter progressivement une longue liste de tâches séquentielles, et « META » qui est une suite de scripts conçus pour automatiser le calcul à haut débit."
     },
     {
-      "question": "Avec Slurm, comment est-ce qu'on fait pour qu'une tâche démarre seulement après qu'une autre tâche spécifique ait fini avec succès?",
-      "answer": "Pour s'assurer qu'une tâche Slurm ne démarre qu'après qu'une autre ait terminé avec succès, on utilise les dépendances inter-tâches. La méthode courante consiste à soumettre la première tâche et à en sauvegarder l'identifiant (JOBID). Ensuite, on soumet la deuxième tâche en utilisant l'option `--dependency=afterok:$JOBID1`, où `$JOBID1` est l'identifiant de la première tâche. Ça garantit que la deuxième tâche attendra que la première ait terminé sans erreur avant de commencer."
+      "question": "Comment peut-on s'assurer qu'une tâche Slurm ne démarre qu'après qu'une autre tâche ait complété avec succès?",
+      "answer": "Pour gérer les dépendances entre les tâches Slurm, vous pouvez utiliser l'option `--dependency` avec la commande `sbatch`. Par exemple, pour qu'une deuxième tâche (`job2.sh`) ne débute qu'une fois la première tâche (`job1.sh`) terminée avec succès, vous devriez d'abord soumettre la première tâche et en sauvegarder l'ID (`JOBID1=$(sbatch --parsable job1.sh)`), puis soumettre la deuxième tâche en spécifiant la dépendance : `sbatch --dependency=afterok:$JOBID1 job2.sh`."
     },
     {
-      "question": "C'est quoi, au juste, une tâche hétérogène dans Slurm, et pourquoi ça pourrait être avantageux pour certaines applications?",
-      "answer": "Une tâche hétérogène dans Slurm, c'est une tâche qui permet de spécifier des exigences en ressources différentes (comme le nombre de cœurs de CPU et la mémoire) pour les divers composants au sein de la même tâche. C'est super avantageux si vous savez d'avance, par exemple, qu'une application MPI nécessitera plus de cœurs et de mémoire pour son processus principal que pour les autres processus. Ça permet d'optimiser l'allocation des ressources en attribuant précisément ce dont chaque partie de l'application a besoin, évitant ainsi le gaspillage."
+      "question": "Comment Slurm gère-t-il les tâches où différents processus d'une même application nécessitent des ressources différentes, comme plus de cœurs CPU ou de mémoire pour le processus principal?",
+      "answer": "Slurm prend en charge les « tâches hétérogènes », ce qui est utile lorsque votre application MPI requiert des cœurs CPU et de la mémoire inégaux pour les différents processus. On peut spécifier ces exigences distinctes dans un même script de tâche en utilisant une directive `#SBATCH hetjob` entre les spécifications de ressources pour le processus principal et celles des autres processus, ou en séparant les demandes de ressources par un deux-points (`) sur la ligne de commande `sbatch`."
     }
   ],
-  "generated_at": "2026-04-13T01:09:14.264001+00:00"
+  "generated_at": "2026-04-19T01:18:30.525040+00:00"
 }

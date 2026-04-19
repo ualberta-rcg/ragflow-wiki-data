@@ -4,13 +4,13 @@
   "chunk_index": 33,
   "qa_pairs": [
     {
-      "question": "What specific library configuration is required for Ansys Mechanical (APDL) Distributed Memory Parallel (DMP) GPU jobs when running on the Cedar cluster?",
-      "answer": "On the Cedar cluster, for Ansys Mechanical (APDL) Distributed Memory Parallel (DMP) GPU jobs, a symbolic link must be created for the `libstdc++.so.6.0.29` library (from the GCC installation path) to the job's unique output directory. Subsequently, the `LD_LIBRARY_PATH` environment variable needs to be exported to include this output directory."
+      "question": "How are Ansys Mechanical APDL (MAPDL) Distributed Memory Parallel (DMP) GPU simulations launched and configured on the Beluga cluster?",
+      "answer": "On the Beluga cluster, Ansys Mechanical APDL (MAPDL) DMP GPU simulations are launched using the `mapdl` command. This involves setting `export KMP_AFFINITY=none` to disable KMP affinity, using Intel MPI (`-mpi intelmpi`), specifying NVIDIA accelerators (`-acc nvidia`) with the number of GPUs determined by `$SLURM_GPUS_ON_NODE`. The command runs in batch mode without listing (`-b nolist`), uses a specified number of processes (`-np $SLURM_NTASKS`), directs output to `outdir-$SLURM_JOBID`, and takes `YOURAPDLFILE.inp` as input."
     },
     {
-      "question": "How do the MPI implementations differ for Ansys Mechanical (APDL) Distributed Memory Parallel (DMP) GPU jobs between the Beluga cluster and other Alliance clusters?",
-      "answer": "For Ansys Mechanical (APDL) Distributed Memory Parallel (DMP) GPU jobs, the Beluga cluster utilizes Intel MPI and requires `export KMP_AFFINITY=none`. Other Alliance clusters, conversely, use Open MPI. Both configurations also necessitate `export ANSGPU_PRINTDEVICES=1`."
+      "question": "What specific environment configurations are required for running Ansys Mechanical APDL (MAPDL) Distributed Memory Parallel (DMP) GPU jobs on the Cedar cluster?",
+      "answer": "For Ansys Mechanical APDL (MAPDL) DMP GPU jobs on the Cedar cluster, it's necessary to create a symbolic link for `libstdc++.so.6.0.29` from `$EBROOTGCC/../lib/gcc/` to the job's output directory (`$PWD/outdir-$SLURM_JOBID`). Subsequently, the `LD_LIBRARY_PATH` environment variable must be updated to include this new directory. Additionally, `export ANSGPU_PRINTDEVICES=1` is set to enable printing GPU device information during the simulation."
     }
   ],
-  "generated_at": "2026-04-13T01:44:50.939146+00:00"
+  "generated_at": "2026-04-19T01:24:03.954316+00:00"
 }

@@ -9,38 +9,35 @@ Les tâches qui utilisent moins de la moitié de la puissance de calcul d'un GPU
 
 Voir [[Multi-Instance GPU/fr#Quand_migrer_une_tâche_sur_une_instance|Quand migrer une tâche sur une instance]] ci-dessous.
 
-<div class="mw-translate-fuzzy">
 = Limites de la technologie =
-[https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#application-considerations  La technologie MIG ne prend pas en charge] la [https://developer.nvidia.com/docs/drive/drive-os/6.0.8.1/public/drive-os-linux-sdk/common/topics/nvsci_nvsciipc/Inter-ProcessCommunication1.html communication interprocessus CUDA] qui optimise le transfert de données via NVLink et NVSwitch. Cette limite diminue aussi l'efficacité de la communication entre les instances. En conséquence, <b>le lancement d'un exécutable sur plusieurs MIG à la fois n'améliore pas la performance et doit être évité.</b>
-</div>
+[https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#application-considerations  La technologie MIG ne prend pas en charge] la [https://developer.nvidia.com/docs/drive/drive-os/6.0.8.1/public/drive-os-linux-sdk/common/topics/nvsci_nvsciipc/Inter-ProcessCommunication1.html communication interprocessus CUDA] qui optimise le transfert de données via NVLink et NVSwitch. Cette limite diminue aussi l'efficacité de la communication entre les instances. Par conséquent, <b>il n'est pas permis d'utiliser plusieurs instances MIG à la fois dans une même tâche</b>; toute soumission d'une telle tâche est donc rejetée.
+<br>
+Si vous pensez avoir besoin de plusieurs instances MIG, vous pouvez&nbsp;:
+* Demander une instance plus puissante, par exemple, une instance de taille 3g au lieu de trois instances de taille 1g.
+*Demander un GPU entier ou plusieurs GPU.
+*Utiliser [[Hyper-Q_/_MPS/fr|MPS]] plutôt que MIG.
+* [[Technical support/fr|Écrivez au soutien technique]] en expliquant pourquoi vous voulez exécuter votre application sur plusieurs instances MIG; nous vous assisterons pour trouver une solution.
 
-<div class="mw-translate-fuzzy">
 Veuillez noter que les API graphiques ne sont pas prises en charge (par exemple OpenGL, Vulkan, etc.); voir [https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#application-considerations Application Considerations].
-</div>
 
 Les tâches avec GPU qui nécessitent de nombreux cœurs CPU par GPU peuvent également nécessiter un GPU entier au lieu d'une instance. Le nombre maximum de cœurs CPU par instance dépend du 
 [[Allocations_and_compute_scheduling/fr#Ratios_dans_les_bundles|nombre maximum de cœurs CPU par GPU entier]] et des [https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#a100-profiles profils MIG qui sont configurés]. Ces deux caractéristiques varient d'une grappe à l'autre et d'un nœud GPU à l'autre.
 
-<div class="mw-translate-fuzzy">
 = Configurations disponibles =
 [https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#supported-mig-profiles Plusieurs configurations et profils MIG sont possibles], mais les profils suivants dépendent du système&nbsp;:
-* [[Narval#Instances _GPU|Narval|NVIDIA A100-40gb pour Narval]]
-* [[Rorqual#Instances _GPU|NVIDIA H100-80gb pour Rorqual]]
-* Nibi:
-** nvidia_h100_80gb_hbm3_1g.10gb
-** nvidia_h100_80gb_hbm3_2g.20gb
-** nvidia_h100_80gb_hbm3_3g.40gb
-</div>
+* [[Narval#Instances_GPU|Narval, GPU NVIDIA A100-40gb]]
+* [[Rorqual#Instances_GPU|Rorqual, GPU NVIDIA H100-80gb]]
+* [[Nibi/fr#Instances_GPU|Nibi, GPU NVIDIA H100-80gb]]
+* [[Fir#GPU instances|Fir, GPU NVIDIA H100-80gb]]
 
-<div class="mw-translate-fuzzy">
-Le nom du profil indique la taille de l'instance, par exemple <code>3g.20gb</code> est dotée de 20Go de mémoire GPU et sa performance est égale aux 3/8<sup>e</sup> de la performance de calcul d’un GPU entier. Le fait de nécessiter moins de puissance diminue l’impact sur votre allocation et sur la priorité assignée à vos tâches.
-</div>
+Le nom du profil indique la taille de l'instance. 
+* <b>H100-1g.10gb</b> : 1/8<sup>e</sup> de la puissance de calcul et 10Go de mémoire
+* <b>H100-2g.20gb</b>: 2/8<sup>e</sup> de la puissance de calcul et 20Go de mémoire
+* <b>H100-3g.40gb</b>: 3/8<sup>e</sup> de la puissance de calcul et 40Go de mémoire
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-Using less powerful profiles will have a lower impact on your allocation and priority.
-</div>
+Le fait d'utiliser des profils moins puissants diminue l'impact sur votre allocation et votre priorité.
 
-Pour la liste de tous les gabarits (et le nom complet des GPU) sur une grappe en particulier, lancez
+Pour la liste de toutes les instances MIG disponibles (et le nom complet des GPU) sur une grappe en particulier, lancez
 
 {{Command|sinfo -o "%G"{{!}}grep gpu{{!}}sed 's/gpu://g'{{!}}sed 's/),/\n/g'{{!}}cut -d: -f1{{!}}sort{{!}}uniq}}
 
@@ -50,14 +47,14 @@ Pour connaître le maximum recommandé de cœurs CPU et de mémoire système par
 <span id="Job_examples"></span>
 = Exemples =
 
-Pour demander une instance de 20Go à 3/8 de la puissance pour une tâche interactive d’une durée d’une (1) heure&nbsp;:
+Pour demander une instance de 20Go à 3/8<sup>e</sup> de la puissance pour une tâche interactive d’une durée d’une (1) heure&nbsp;:
  
 {{Command2
 |prompt=[name@narval ~]$
 |salloc --account{{=}}def-someuser --gpus{{=}}a100_3g.20gb:1 --cpus-per-task{{=}}2 --mem{{=}}40gb --time{{=}}1:0:0
 }}
 
-Pour demander une instance de 20Go à 4/8 de la puissance pour un script de tâches en lot d’une durée de 24&nbsp;heures qui utilise le maximum recommandé de cœurs et de mémoire système&nbsp:
+Pour demander une instance de 20Go à 4/8<sup>e</sup> de la puissance pour un script de tâches en lot d’une durée de 24&nbsp;heures qui utilise le maximum recommandé de cœurs et de mémoire système&nbsp;:
 
 {{File
   |name=a100_4g.20gb_mig_job.sh
@@ -94,6 +91,21 @@ Il faut aussi tenir compte de la quantité maximale de mémoire GPU et de la qua
 [[File:ExampleGPUMemory.png|400px|frame|left|Utilisation de la mémoire du GPU A100]]
 <br clear=all> <!-- This is to prevent the next section from filling to the right of the image. -->
 
-La tâche a aussi été lancée en utilisant un seul cœur de processeur. En tenant compte de ces trois métriques, nous voyons que la tâche pourrait facilement s'exécuter sur une instance de 3&nbsp;g.20&nbsp;Go ou de 4&nbsp;g.20&nbsp;Go avec de la puissance et de la mémoire à revendre. 
+La tâche a aussi été lancée en utilisant un seul cœur de processeur. En tenant compte de ces trois métriques, nous voyons que la tâche pourrait facilement s'exécuter sur une instance de 3g.20gb avec de la puissance et de la mémoire à revendre. 
 
 Un autre moyen de [[Running jobs/fr#Surveillance_d'une_tâche_en_cours |surveiller l'utilisation d'une tâche en cours d'exécution]] consiste à se connecter au nœud sur lequel la tâche se trouve et utiliser <code>nvidia-smi</code> pour lire les métriques du GPU en temps réel. Cela ne fournira pas de valeurs maximales et moyennes pour la mémoire et la puissance de toute la tâche, mais pourrait être utile pour identifier une sous-utilisation du GPU.
+
+<span id="GPU_configuration_details"></span>
+=Détails sur la configuration=
+
+Dans [https://docs.nvidia.com/datacenter/tesla/mig-user-guide/latest/supported-mig-profiles.html#h100-mig-profiles la documentation de NVidia], il est question de septièmes et de huitièmes de GPU, mais la réalité est plus complexe. Un GPU H100 SXM5 a un total de 132 processeurs (SM pour ''streaming multiprocessors''). Le nombre 132 est le produit de 11*3*2*2, et ne se divise ni par sept, ni par huit. 
+
+Les 132 SM d'un MIG de configuration H100 SXM5 sont partitionnés ainsi&nbsp;: 
+
+* '''une''' instance de '''60''' SM (<code>nvidia_h100_80gb_hbm3_3g.40gb</code>)
+* '''une''' instance de '''32''' SM (<code>nvidia_h100_80gb_hbm3_2g.20gb</code>)
+* '''deux''' instances de '''16''' SM (<code>nvidia_h100_80gb_hbm3_1g.10gb</code>)
+
+ce qui laisse huit SM qui ne sont pas assignés et donc perdus.<br>
+(60+32+16+16+(8) = 124 ''assignés'' + 8 ''non assignés'' = 132).<br>
+Il serait préférable, mais pas très commode, de considérer un MIG H100 comme étant divisé en trente-troisièmes. Ce que NVidia considère comme étant un huitième représente donc 4/33<sup>e</sup> du GPU H100, deux huitièmes étant 8/33<sup>e</sup> et trois huitièmes étant 15/33<sup>e</sup>, laissant 2/33<sup>e</sup> du GPU non assignés à une instance.

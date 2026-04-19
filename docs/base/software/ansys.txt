@@ -975,7 +975,7 @@ define/user-defined/interpreted-functions "sampleudf.c" "cpp" 10000 no
 ==== Compiled ==== <!--T:522-->
 
 <!--T:6773-->
-To use this approach, your UDF must be compiled on an Alliance cluster at least once.  Doing so will create a libudf subdirectory structure containing the required <code>libudf.so</code> shared library.   The libudf directory cannot simply be copied from a remote system (such as your laptop) to the Alliance since the library dependencies of the shared library will not be satisfied, resulting in fluent crashing on startup.  That said, once you have compiled your UDF on an Alliance cluster, you can transfer the newly created libudf to any other Alliance cluster, providing your account loads the same StdEnv environment module version.  Once copied, the UDF can be used by uncommenting the second (load) libudf line below in your journal file when submitting jobs to the cluster.  Both (compile and load) libudf lines should not be left uncommented in your journal file when submitting jobs on the cluster, otherwise your UDF will automatically (re)compiled for each and every job.  Not only is this highly inefficient, but it will also lead to racetime-like build conflicts if multiple jobs are run from the same directory. Besides configuring your journal file to build your UDF, the fluent gui (run on any cluster compute node or gra-vdi) may also be used.  To do this, you would navigate to the Compiled UDFs Dialog Box, add the UDF source file and click Build.   When using a compiled UDF with parallel jobs, your source file should be parallelized as discussed in the section below.
+To use this approach, your UDF must be compiled on an Alliance cluster at least once.  Doing so will create a libudf subdirectory structure containing the required <code>libudf.so</code> shared library.   The libudf directory cannot simply be copied from a remote system (such as your laptop) to the Alliance since the library dependencies of the shared library will not be satisfied, resulting in fluent crashing on startup.  That said, once you have compiled your UDF on an Alliance cluster, you can transfer the newly created libudf to any other Alliance cluster, providing your account loads the same StdEnv environment module version.  Once copied, the UDF can be used by uncommenting the second (load) libudf line below in your journal file when submitting jobs to the cluster.  Both (compile and load) libudf lines should not be left uncommented in your journal file when submitting jobs on the cluster, otherwise your UDF will automatically (re)compiled for each and every job.  Not only is this highly inefficient, but it will also lead to racetime-like build conflicts if multiple jobs are run from the same directory. Besides configuring your journal file to build your UDF, the fluent gui may also be used.  To do this, navigate to the Compiled UDFs Dialog Box, add the UDF source file and click Build.   When using a compiled UDF with parallel jobs, your source file should be parallelized as discussed in the section below.
 
  <!--T:6774-->
 define/user-defined/compiled-functions compile libudf yes sampleudf.c "" ""
@@ -1698,13 +1698,13 @@ This section describes how to make the Ansys Additive Manufacturing ACT extensio
 
 == Run Additive == <!--T:128-->
 
-=== Gra-vdi === <!--T:130-->
+=== OnDemand === <!--T:130-->
 
 <!--T:132-->
-A user can run a single Ansys Additive Manufacturing job on gra-vdi with up to 16 cores as follows: 
+A user can run a single Ansys Additive Manufacturing job in an graphical OnDemand session by doing:
 
 <!--T:134-->
-* Start Workbench on Gra-vdi as described above in <b>Enable Additive</b>.
+* Start Workbench as described above in <b>Enable Additive</b>.
 * click File -> Open and select <i>test.wbpj</i> then click Open
 * click View -> reset workspace if you get a grey screen
 * start Mechanical, Clear Generated Data, tick Distributed, specify Cores
@@ -1716,7 +1716,7 @@ Check utilization:
 * kill rogue processes from previous runs:  <code>pkill -9 -e -u $USER -f "ansys|mwrpcss|mwfwrapper|ENGINE"</code>
 
 <!--T:2851-->
-Please note that rogue processes can persistently tie up licenses between gra-vdi login sessions or cause other unusual errors when trying to start gui programs on gra-vdi.  Although rare, rogue processes can occur if an ansys gui session (fluent, workbench, etc) is not cleanly terminated by the user before vncviewer is terminated either manually or unexpectedly - for instance due to a transient network outage or hung filesystem.  If the latter is to blame then the processes may not by killable until normal disk access is restored.
+Please note that rogue ansys related processes can persistently continue tie up valuable licenses inside a running OnDemand login node sessions if an ansys gui session (fluent, workbench, mechanical, etc) is not cleanly terminated by the user or is terminated unexpectedly by a network outage or hung filesystem.  If the latter is to blame the processes may not by killable until normal disk access is restored.
 
 ===Cluster=== <!--T:141-->
 

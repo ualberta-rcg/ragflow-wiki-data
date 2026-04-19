@@ -4,17 +4,13 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "À quoi sert l'utilitaire `dd` lors de la migration d'instances infonuagiques associées à des volumes entre le nuage Ouest et le nouveau nuage Arbutus?",
-      "answer": "L'utilitaire `dd` est utilisé pour créer une image à partir d'un disque attaché à une instance ou pour réaliser une copie identique d'un volume, surtout pour les volumes amorçables. Pour les grands volumes où l'utilisation d'images n'est pas recommandée, `dd` sert à produire une copie exacte des données du volume."
+      "question": "Si on souhaite migrer une instance associée à un volume vers le nouveau nuage Arbutus en créant une image à l'aide de l'utilitaire `dd` sur une instance temporaire, quelles sont les étapes principales à suivre?",
+      "answer": "La procédure implique de démarrer une instance temporaire sur le nuage Ouest pour y installer le CLI OpenStack. Ensuite, il faut supprimer l'instance source (sans supprimer son volume associé), puis attacher ce volume à l'instance temporaire. À partir de là, la commande `dd if=/dev/vdb | openstack image create --private --container-format bare --disk-format raw \"nomimage\"` permet de créer une image du volume. Cette image sera ensuite disponible dans l'interface Arbutus et pourra servir à lancer de nouvelles instances, en n'oubliant pas de créer un nouveau volume persistant au moment du lancement."
     },
     {
-      "question": "Quelles sont les étapes pour créer une image à partir d'un volume sur le nuage Ouest et la téléverser vers le nouveau nuage Arbutus en utilisant la méthode `dd` avec une instance temporaire?",
-      "answer": "Pour créer une image d'un volume avec `dd` et la transférer, il faut d'abord lancer une instance temporaire (comme p1-1.5gb) sur le nuage Ouest. Connectez-vous via SSH, installez le CLI OpenStack (`python-openstackclient`) en tant que root, et copiez puis sourcez le fichier RC d'Arbutus. Ensuite, supprimez l'instance originale associée au volume (sans supprimer le volume) et attachez ce volume à l'instance temporaire Ouest. Utilisez la commande `dd` (par exemple, `dd if=/dev/vdb`) pour créer une image (ex: \"volumemigrate\") et la téléverser directement sur Arbutus via le CLI OpenStack (`openstack image create`). L'image sera ensuite visible dans l'interface Arbutus pour créer de nouveaux volumes ou lancer des instances."
-    },
-    {
-      "question": "Avant de migrer de grands volumes en utilisant la méthode `dd` via SSH, quelles sont les configurations préalables nécessaires sur les instances temporaires Ouest et Arbutus?",
-      "answer": "Pour préparer les instances temporaires, vous devez en créer une sur le nuage Ouest et une autre sur le nouveau nuage Arbutus, en utilisant un gabarit minimal (comme p1-1.5gb) et CentOS 7. Assignez ensuite des adresses IP flottantes aux deux instances pour les connexions SSH. Sur l'instance temporaire Ouest, installez les paquets `epel-release`, `pv` et `screen`. Sur l'instance temporaire Arbutus, exécutez la commande `chmod u+s /bin/dd`. Il est aussi crucial de copier la clé privée SSH nécessaire à la connexion entre les instances et de vérifier que les règles de sécurité SSH permettent cette connexion."
+      "question": "Comment procéder pour la migration de grands volumes entre le nuage Ouest et le nouveau nuage Arbutus en utilisant la commande `dd` et SSH, étant donné que l'utilisation d'images n'est pas recommandée pour ce type de volume?",
+      "answer": "Pour migrer de grands volumes, il faut d'abord créer des instances temporaires sur les nuages Ouest et Arbutus, toutes deux sous CentOS 7 et avec des adresses IP flottantes. Sur l'instance temporaire Ouest, installez les paquets `epel-release`, `pv` et `screen`. Sur l'instance temporaire Arbutus, exécutez `chmod u+s /bin/dd`. Il est ensuite nécessaire de copier la clé privée SSH de l'instance Ouest vers l'instance Arbutus pour la connexion. Pour chaque volume à déplacer : créez un volume vide de même taille sur Arbutus et attachez-le à l'instance temporaire Arbutus. Puis, attachez le volume source du nuage Ouest à l'instance temporaire Ouest. Finalement, exécutez la commande `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem centos@xxx.xx.xx.xx \"dd bs=16M of=/dev/vdb\"` depuis l'instance temporaire Ouest, idéalement en utilisant `screen` pour maintenir la session."
     }
   ],
-  "generated_at": "2026-04-13T02:24:55.859437+00:00"
+  "generated_at": "2026-04-19T01:46:29.437486+00:00"
 }

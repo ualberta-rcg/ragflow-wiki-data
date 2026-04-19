@@ -4,17 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Quels sont les trois principaux scénarios de migration offerts pour le transfert de ressources entre le nuage Ouest et le nouveau nuage Arbutus?",
-      "answer": "Pour la migration du nuage Ouest au nouveau nuage Arbutus, il y a trois scénarios généraux à considérer : la migration manuelle ou orchestrée, la migration d’instances associées à des volumes, et la migration d’instances éphémères. Le choix du scénario dépend de votre configuration actuelle."
+      "question": "Quelles sont les étapes générales pour migrer manuellement ou de façon orchestrée des instances et des volumes vers le nouveau nuage Arbutus?",
+      "answer": "Pour une migration manuelle ou orchestrée, il faut d'abord copier les images personnalisées (ou en créer de nouvelles) du nuage Ouest vers Arbutus, installer et configurer les services sur les nouvelles instances, puis copier les données. Ensuite, on assigne des adresses IP flottantes aux nouvelles instances et on met à jour les enregistrements DNS. Finalement, on met fin aux anciennes instances et on supprime les anciens volumes."
     },
     {
-      "question": "Quelles sont les étapes générales d'une migration manuelle ou orchestrée d'instances et de volumes vers le nouveau nuage Arbutus?",
-      "answer": "Les grandes lignes de la procédure pour une migration manuelle ou orchestrée sont : copier les images Glance personnalisées du nuage Ouest à Arbutus (ou commencer avec une nouvelle image de base), installer et configurer les services sur la ou les instances, copier les données des anciennes vers les nouvelles instances, assigner des adresses IP flottantes aux nouvelles instances et mettre à jour les DNS, et finalement mettre fin aux anciennes instances et supprimer les anciens volumes."
+      "question": "Quelles modifications sont nécessaires dans le fichier RC (Runtime Configuration) du nouveau nuage Arbutus après l'avoir téléchargé, pour qu'il fonctionne correctement avec les outils en ligne de commande d'OpenStack?",
+      "answer": "Après avoir téléchargé le fichier RC du nouveau nuage Arbutus, il faut ajouter les lignes `export OS_AUTH_TYPE=v3websso`, `export OS_IDENTITY_PROVIDER=atmosphere`, `export OS_PROTOCOL=openid` et `export OS_PROJECT_DOMAIN_NAME=default`. Il faut aussi supprimer les lignes qui gèrent `OS_USER_DOMAIN_NAME` et celles qui demandent le mot de passe OpenStack à l'utilisateur."
     },
     {
-      "question": "Comment créer un groupe de sécurité et ajouter une règle pour le port HTTP 80 en utilisant l'interface en ligne de commande (CLI) d'OpenStack?",
-      "answer": "Pour créer un groupe de sécurité via le CLI, utilisez la commande `openstack security group create <nom-du-groupe>`. Ensuite, pour ajouter une règle autorisant le port HTTP 80, exécutez `openstack security group rule create --proto tcp --remote-ip 0.0.0.0/0 --dst-port 80 <nom-du-groupe>`."
+      "question": "Comment faire pour créer des groupes de sécurité et leurs règles, et ensuite les lister, en utilisant l'interface en ligne de commande (CLI) d'OpenStack sur le nuage Arbutus?",
+      "answer": "Pour créer un groupe de sécurité via le CLI, on utilise la commande `openstack security group create <group-name>`. Pour ajouter une règle, comme pour le port HTTP 80, on tape `openstack security group rule create --proto tcp --remote-ip 0.0.0.0/0 --dst-port 80 <group-name>`. Pour visualiser les groupes de sécurité, on fait `openstack security group list`, et pour voir les règles d'un groupe, c'est `openstack security group rule list`."
     }
   ],
-  "generated_at": "2026-04-13T02:24:11.950232+00:00"
+  "generated_at": "2026-04-19T01:45:44.029379+00:00"
 }

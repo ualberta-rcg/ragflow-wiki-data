@@ -4,17 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of the Ansys Fluent Solution Restart scripts on Alliance clusters?",
-      "answer": "These scripts are provided to automate the restarting of very large Ansys Fluent jobs that require more than the typical seven-day maximum runtime window available on most clusters."
+      "question": "What is the main purpose of the Fluent solution restart scripts, and what problem do they address?",
+      "answer": "The main purpose of the Fluent solution restart scripts is to automate the restarting of very large jobs that exceed the typical maximum runtime window, such as a seven-day limit, available on most clusters. This allows simulations to continue from the most recently saved time step files."
     },
     {
-      "question": "What are the fundamental requirements and initial setup steps for using the Ansys Fluent Solution Restart scripts?",
-      "answer": "A fundamental requirement is that the first time step of the simulation must be able to complete within the requested job array time limit. To begin, a working set of `sample.cas`, `sample.dat`, and `sample.jou` files must be present."
+      "question": "What specific modifications are required for Fluent journal files to enable the solution restart functionality?",
+      "answer": "To enable solution restart functionality, the initial `sample.jou` file must be edited to include `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`. A separate `sample-restart.jou` file needs to be created, where `/file/read-cas-data sample` is replaced with `/file/read-cas-data sample-restart`, and the initialization line (e.g., `; /solve/initialize/initialize-flow`) is commented out. Optionally, `sample-restart.jou` can specify `/solve/dual-time-iterate 2` if subsequent time steps are expected to be faster."
     },
     {
-      "question": "How should journal files be modified to prepare for both the initial and restart phases of an Ansys Fluent solution restart job?",
-      "answer": "For the initial run, the `sample.jou` file should be edited to contain `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`. For subsequent restarts, a `sample-restart.jou` file should be created by copying `sample.jou`. This restart journal file needs to be edited to contain `/file/read-cas-data sample-restart` instead of `/file/read-cas-data sample`, and any initialization line should be commented out (e.g., with a semicolon). Additionally, the `/solve/dual-time-iterate` value in `sample-restart.jou` can be adjusted, for example to `2`, to minimize computationally expensive solution restarts, ensuring that the specified number of steps fits within the job array time limit."
+      "question": "How are Slurm parameters used, and how does the script manage output files to facilitate Fluent solution restarts?",
+      "answer": "Slurm parameters like `--time` (e.g., `07-00:00` for a seven-day limit) and `--array` (e.g., `1-5%1` to specify the number of solution restarts) are used. To manage output files for continuation, the script creates symbolic links (`$MYCASFILERES` and `$MYDATFILERES`) that point to the most recent `.cas` and `.dat` output files from the `output/` subdirectory, ensuring that subsequent restarts begin from the latest saved state."
     }
   ],
-  "generated_at": "2026-04-13T01:50:06.099613+00:00"
+  "generated_at": "2026-04-19T01:28:49.325671+00:00"
 }

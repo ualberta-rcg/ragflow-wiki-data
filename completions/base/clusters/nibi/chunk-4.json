@@ -4,13 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How can users access the Nibi cluster through a web browser?",
-      "answer": "Users can access the Nibi cluster via Open OnDemand (OOD), a web-based platform. To log in, one should navigate to `https://ondemand.sharcnet.ca/`, sign in with multi-factor authentication (MFA), and then they will be presented with options to open a Bash shell terminal or launch a remote desktop session."
+      "question": "How can users access JupyterLab on the Nibi cluster?",
+      "answer": "Users can access JupyterLab on the Nibi cluster interactively via the Nibi Open OnDemand (OOD) web portal (https://ondemand.sharcnet.ca). There are two main options: \n1.  **Pre-configured environment:** After logging into the OOD portal, click “Compute Node,” select “Nibi JupyterLab,” complete the request form with your requirements, then click “Launch” and “Connect to Jupyter” once the session is running.\n2.  **Self-built Python virtual environment:** Log into the OOD portal, click “Compute Node,” select “Compute Desktop,” complete the request form, and launch the remote desktop. On the Linux desktop, open a terminal, create or activate your Python virtual environment, install JupyterLab if it's not present (`pip install --no-index jupyterlab`), and then launch it with `jupyter-lab --notebook-dir $HOME`."
     },
     {
-      "question": "Is it possible to use JupyterLab on the Nibi cluster, and how is it accessed?",
-      "answer": "Yes, users can run JupyterLab interactively on the Nibi cluster. This is done through the Nibi Open OnDemand portal, which is accessible at `https://ondemand.sharcnet.ca/`."
+      "question": "What is the process for recovering accidentally deleted files from `/home` or `/project` on the Nibi cluster?",
+      "answer": "On the Nibi cluster, a backup mechanism takes snapshots of your files on `/home` and `/project` every 30 minutes, and these snapshots are saved for two weeks. If you accidentally delete a file, you can use the `oops` command to check the current directory or a specified directory for deleted files in snapshots. To recover a file, copy it from the path returned by `oops` using standard tools like `cp`. It's important to note that snapshots are read-only, so you cannot delete or change files directly within them; you must copy them first. Also, any changes made to a file after the most recent snapshot will not be recoverable if the file is deleted."
+    },
+    {
+      "question": "How are AMD MI300A nodes typically scheduled on the Nibi cluster, and what is the user's responsibility when utilizing them?",
+      "answer": "AMD MI300A nodes on the Nibi cluster are currently scheduled as full nodes. It is the user's responsibility to ensure that processes within their job run with correct core and memory binding for optimal performance. An example Slurm job script for these nodes specifies `--nodes=1`, `--ntasks=4`, `--cpus-per-task=24`, `--gpus=mi300a:4`, and users can verify GPU availability using the `rocm-smi` command."
     }
   ],
-  "generated_at": "2026-04-13T10:05:48.279600+00:00"
+  "generated_at": "2026-04-19T02:17:48.731886+00:00"
 }

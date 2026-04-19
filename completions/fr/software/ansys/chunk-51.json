@@ -4,17 +4,13 @@
   "chunk_index": 51,
   "qa_pairs": [
     {
-      "question": "Comment faut-il faire pour installer l'extension Ansys Additive Manufacturing (AdditiveWizard.wbex) sur une grappe et l'activer dans Workbench?",
-      "answer": "Pour installer l'extension AdditiveWizard.wbex, vous devez d'abord la télécharger du catalogue Ansys et la téléverser sur la grappe où vous comptez l'utiliser. Ensuite, lancez Workbench, ouvrez votre fichier de projet, puis accédez au gestionnaire d'extensions via la page ACT Start. Là, cliquez sur le signe plus sous la barre de recherche pour sélectionner et installer votre fichier AdditiveWizard.wbex. Une fois installée, cliquez sur la boîte AdditiveWizard pour la charger pour la session en cours, ou utilisez la flèche pour la charger par défaut pour toutes les sessions futures."
+      "question": "Comment puis-je vérifier l'utilisation de ma licence Ansys sur une grappe de l'Alliance ?",
+      "answer": "Pour vérifier le nombre de licences Ansys utilisées sous votre nom d'utilisateur et l'utilisation globale, vous devez d'abord charger le module Ansys. Ensuite, exécutez la commande suivante dans un terminal : `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of\\\\|$USER\" | grep -v \" Total of 0 licenses in use\"`."
     },
     {
-      "question": "Comment exécuter une tâche Ansys Additive Manufacturing sur gra-vdi en utilisant jusqu'à 16 cœurs?",
-      "answer": "Vous pouvez exécuter une tâche Ansys Additive Manufacturing sur gra-vdi en utilisant jusqu'à 16 cœurs. Pour ce faire, lancez Workbench sur gra-vdi, ouvrez votre fichier de projet (par exemple, 'test.wbpj'), puis, si nécessaire, réinitialisez l'espace de travail via 'View -> Reset workspace'. Ensuite, dans Mechanical, sélectionnez 'Clear Generated Data', choisissez l'option 'Distributed' et spécifiez le nombre de cœurs. Finalement, sauvegardez le projet ('File -> Save Project') et lancez la solution ('Solve')."
-    },
-    {
-      "question": "Quelles sont les étapes de préparation nécessaires avant de soumettre un projet Ansys Additive Manufacturing à la file d'attente d'une grappe?",
-      "answer": "Avant de soumettre un projet Ansys Additive Manufacturing à la file d'attente d'une grappe, il faut d'abord ouvrir la simulation avec l'interface graphique de Workbench dans le répertoire où la tâche sera soumise, puis l'enregistrer de nouveau en utilisant la même version du module Ansys que celle prévue pour la tâche. Ensuite, il faut créer un script Slurm (référez-vous à la section Workbench de « Soumettre des tâches en lot sur nos grappes »), en remplaçant `Update()` par `UpdateAllDesignPoints()` si vous voulez faire des études paramétriques. Pour déterminer la quantité optimale de cœurs et de mémoire, il est recommandé de lancer plusieurs courtes tâches de test. Pour éviter de devoir effacer manuellement la solution et recréer les points de conception entre chaque test, vous pouvez modifier `Save(Overwrite=True)` en `Save(Overwrite=False)` dans le script Slurm, ou bien conserver une copie des fichiers `YOURPROJECT.wbpj` et `YOURPROJECT_files` d'origine."
+      "question": "Quelles informations sont affichées quand on vérifie l'état des licences Ansys avec la commande `lmutil lmstat` ?",
+      "answer": "La commande `lmutil lmstat` affiche le nombre total de licences émises pour un produit (par exemple, anshpc, cfd_base), le nombre total de licences en cours d'utilisation par tous les utilisateurs, et spécifiquement les licences utilisées par votre nom d'utilisateur, incluant le nœud, la version, l'heure de début et le nombre de licences consommées par vos tâches."
     }
   ],
-  "generated_at": "2026-04-13T02:02:27.293804+00:00"
+  "generated_at": "2026-04-19T01:40:27.366445+00:00"
 }

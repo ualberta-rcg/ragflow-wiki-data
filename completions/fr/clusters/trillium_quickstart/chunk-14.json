@@ -4,13 +4,13 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "Quels sont les facteurs qui influencent le temps d'attente d'une tâche dans la file d'attente sur la sous-grappe de CPU de Trillium?",
-      "answer": "Le temps d'attente d'une tâche dépend de plusieurs facteurs, notamment la taille de l'allocation attribuée à votre groupe, la quantité de ressources que vous avez utilisées récemment, le nombre de nœuds et le temps d'exécution que vous avez demandés pour votre tâche, ainsi que le nombre total de tâches qui sont déjà en attente dans la file."
+      "question": "Quelles sont les étapes pour soumettre une tâche MPI sur la grappe Trillium en utilisant le script d'exemple fourni?",
+      "answer": "Pour soumettre une tâche MPI sur Trillium, vous devez d'abord créer un script bash. Les lignes débutant par `#SBATCH` servent de directives pour l'ordonnanceur, spécifiant des requêtes comme le nombre de nœuds (ici, 2), le nombre de tâches par nœud (192), et la durée de la tâche (1 heure). Le script change ensuite le répertoire de soumission (`$SLURM_SUBMIT_DIR`), charge les modules nécessaires (`StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`), et précharge la bibliothèque `vastpreload-openmpi.bash` si l'E/S MPI est utilisée. Finalement, l'application `mpi_example` est exécutée via `mpirun`. La commande de soumission est `$ sbatch mpi_job.sh` à partir de votre répertoire `$SCRATCH`."
     },
     {
-      "question": "Comment peut-on soumettre une tâche MPI sur la sous-grappe de CPU de Trillium, et quelles sont les composantes essentielles du script de cette tâche?",
-      "answer": "Pour soumettre une tâche MPI, on utilise la commande `sbatch jobscript.sh` depuis votre répertoire `$SCRATCH` sur un nœud de connexion CPU. Le script de tâche doit débuter par `#!/bin/bash`, inclure des directives `#SBATCH` pour spécifier les ressources comme le nombre de nœuds (`--nodes`), les tâches par nœud (`--ntasks-per-node`), la durée (`--time`), le nom de la tâche (`--job-name`) et le fichier de sortie (`--output`). Il faut aussi y charger les modules nécessaires (ex: `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`), et s'assurer d'inclure la ligne `source /scinet/vast/etc/vastpreload-openmpi.bash` pour optimiser l'I/O MPI, avant d'exécuter l'application avec `mpirun`."
+      "question": "Quels sont les facteurs qui peuvent influencer le temps d'attente d'une tâche dans la file d'attente de la grappe Trillium?",
+      "answer": "Le temps d'attente d'une tâche dans la file d'attente de Trillium est influencé par plusieurs facteurs. Ceux-ci incluent la taille de l'allocation de ressources de votre groupe, la quantité de ressources que vous avez utilisées récemment, le nombre de nœuds et le temps d'exécution que vous avez demandés, ainsi que le nombre total de tâches en attente."
     }
   ],
-  "generated_at": "2026-04-13T14:59:43.542283+00:00"
+  "generated_at": "2026-04-19T02:45:05.734764+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "Can users submit new jobs from Trillium's compute nodes or datamover nodes?",
-      "answer": "No, jobs cannot be submitted from compute nodes or datamover nodes on Trillium. This restriction is implemented to prevent accidentally spawning many jobs, which could overload the scheduler and the backup process."
+      "question": "Can users submit new jobs directly from compute nodes or datamover nodes on the Trillium cluster?",
+      "answer": "No, jobs cannot be submitted from compute nodes or datamover nodes on Trillium. This restriction is implemented to prevent the accidental spawning of many jobs, which could overload the scheduler and the backup process."
     },
     {
-      "question": "How are CPU cores and memory allocated for jobs on Trillium's CPU subcluster, and what should users do if their job requires fewer cores than allocated?",
-      "answer": "On Trillium's CPU subcluster, jobs are always allocated full nodes, meaning a minimum of 192 cores are available for each CPU job. Memory requests are ignored, as CPU jobs always receive N × 768GiB of RAM, where N is the number of nodes. If a job underutilizes the 192 cores, users must still effectively use all cores by bundling multiple independent tasks into one job script."
+      "question": "How does Trillium's job scheduler handle resource requests for CPU and GPU jobs, particularly regarding core and GPU allocation?",
+      "answer": "On Trillium's CPU subcluster, all jobs must utilize full nodes, meaning a minimum of 192 cores are at a job's disposal. For the GPU subcluster, the scheduler allows requests for either a whole number of nodes (each containing 4 GPUs) or a single GPU. A single GPU request amounts to a quarter node, with 24 cores and approximately 188 GiB of RAM. Trillium does not support requesting a specific number of cores less than a full node, nor does it support NVIDIA's MIG technology for fractional GPU scheduling."
     },
     {
-      "question": "How are GPUs and memory allocated for jobs on Trillium's GPU subcluster, and does Trillium support NVIDIA's MIG technology?",
-      "answer": "On Trillium's GPU subcluster, the scheduler allows users to request either a whole number of nodes (each containing 4 GPUs) or a single GPU. A single-GPU job amounts to a quarter node, with 24 cores and about 188GiB of RAM. Memory requests using `--mem` are ignored, with full GPU node jobs receiving 755GiB. Trillium does not support NVIDIA's MIG technology for fractional GPU allocation, but users can employ Hyper-Q / MPS within their jobs."
+      "question": "Are memory requests explicitly considered by the Trillium job scheduler?",
+      "answer": "No, memory requests are ignored on Trillium. CPU jobs automatically receive N × 768 GiB of RAM, where N is the number of nodes requested. GPU full-node jobs receive the same amount of memory, while single-GPU jobs are allocated 1/4 of the memory, which is 188 GiB."
     }
   ],
-  "generated_at": "2026-04-13T14:55:54.971070+00:00"
+  "generated_at": "2026-04-19T02:41:55.356722+00:00"
 }

@@ -4,13 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Même si l'utilisation de FlexiBLAS est recommandée, comment peut-on configurer un compilateur Intel (comme `ifort` ou `icc`) pour qu'il utilise directement l'implémentation Intel MKL pour BLAS et LAPACK?",
-      "answer": "Pour utiliser directement Intel MKL avec un compilateur Intel, il faut remplacer les options de compilation `-lblas` et `-llapack` par `-mkl=sequential` si on ne souhaite pas utiliser de fils d'exécution internes, ou simplement par `-mkl` pour activer l'utilisation de fils d'exécution internes. Cela garantit que l'implémentation MKL de BLAS/LAPACK sera employée."
+      "question": "Quelle est l'implémentation de BLAS/LAPACK par défaut sur la grappe Nibi et les autres systèmes mentionnés, si la variable FLEXIBLAS n'est pas configurée?",
+      "answer": "Sur la grappe Nibi, Intel MKL est utilisé par défaut lorsque la variable `FLEXIBLAS` n'est pas définie. Sur les autres systèmes, l'implémentation configurée par défaut est `aocl` via la variable `FLEXIBLAS=aocl`."
     },
     {
-      "question": "Comment faire pour utiliser directement les bibliothèques Intel MKL lorsqu'on emploie un compilateur non-Intel, tel que la GCC, et quel outil peut aider à résoudre les problèmes de références non définies?",
-      "answer": "Quand on utilise un compilateur non-Intel, il faut lister explicitement les bibliothèques MKL requises durant l'étape d'édition du logiciel. Pour faciliter cette tâche et aider à déterminer les options de compilation et d'édition appropriées, Intel met à disposition l'outil 'MKL Link Advisor'. Cet outil est également utile pour diagnostiquer les erreurs de 'undefined reference' qui pourraient survenir, même avec les compilateurs Intel et l'option `-mkl`."
+      "question": "Comment un utilisateur peut-il configurer directement la bibliothèque Intel MKL avec un compilateur Intel, comme `ifort` ou `icc`, pour son projet?",
+      "answer": "Pour utiliser directement la bibliothèque Intel MKL avec un compilateur Intel (par exemple, `ifort`, `icc`, `icpc`), il faut remplacer les options de compilateur et d'éditeur (`-lblas` et `-llapack`) par `-mkl=sequential` si on ne veut pas de fils d'exécution internes, ou par `-mkl` si on souhaite en utiliser."
+    },
+    {
+      "question": "Quel est l'outil recommandé pour aider à la configuration de la bibliothèque Intel MKL avec des compilateurs non-Intel, et à quoi d'autre sert-il?",
+      "answer": "Pour les compilateurs autres que ceux d'Intel, comme la GCC, il faut lister explicitement les bibliothèques MKL requises durant l'étape d'édition. Intel propose l'outil 'MKL Link Advisor' pour aider à déterminer ces options. Cet outil est aussi utile pour résoudre les erreurs de type 'undefined reference' avec les compilateurs Intel et l'option `-mkl`."
     }
   ],
-  "generated_at": "2026-04-13T02:52:17.154461+00:00"
+  "generated_at": "2026-04-19T01:49:38.317870+00:00"
 }

@@ -4,13 +4,17 @@
   "chunk_index": 17,
   "qa_pairs": [
     {
-      "question": "Comment soumettre une tâche hybride MPI/OpenMP sur la grappe Trillium et quelles directives Slurm principales faut-il inclure dans le script?",
-      "answer": "Pour soumettre une tâche hybride MPI/OpenMP, il faut d'abord se positionner dans votre répertoire `$SCRATCH` sur un nœud de connexion CPU, puis utiliser la commande `sbatch hybrid_job.sh` avec le nom de votre script. Le script doit inclure des directives Slurm telles que `#SBATCH --nodes=2` pour demander deux nœuds, `#SBATCH --ntasks-per-node=48` pour 48 tâches MPI par nœud, `#SBATCH --cpus-per-task=4` pour 4 cœurs par tâche, `#SBATCH --time=01:00:00` pour une durée d'une heure, ainsi qu'un nom de tâche et un fichier de sortie."
+      "question": "Qu'est-ce qu'une tâche hybride MPI/OpenMP, et comment l'exemple fourni configure-t-il les ressources requises pour la grappe Trillium?",
+      "answer": "Une tâche hybride MPI/OpenMP combine l'utilisation de l'interface de passage de messages (MPI) pour la communication entre les processus (potentiellement sur différents nœuds) et d'OpenMP pour le multithreading au sein d'un seul nœud ou processus. Dans l'exemple donné pour Trillium, la tâche demande deux nœuds, avec 48 tâches MPI par nœud, et chaque tâche MPI utilise 4 fils de processeur (threads OpenMP). Cette configuration est conçue pour utiliser efficacement 192 cœurs par nœud, soit un nœud CPU Trillium complet (48 tâches * 4 fils = 192 cœurs)."
     },
     {
-      "question": "Une fois les nœuds alloués, quelles sont les étapes suivies par un script de tâche hybride MPI/OpenMP sur Trillium pour configurer l'environnement et lancer l'application?",
-      "answer": "Après l'allocation des nœuds, le script navigue vers le répertoire de soumission (`cd $SLURM_SUBMIT_DIR`), puis il charge les modules nécessaires comme `StdEnv/2023`, `gcc/12.3` et `openmpi/4.1.5`. Il configure ensuite les variables d'environnement OpenMP (`OMP_NUM_THREADS`, `OMP_PLACES`, `OMP_PROC_BIND`) et précharge la bibliothèque `vastpreload-openmpi.bash` pour optimiser MPI-IO. Enfin, il exécute l'application `hybrid_example` via `mpirun` en utilisant des options de liaison spécifiques (`--bind-to core --map-by`) pour une distribution efficace des processus et des fils sur les cœurs."
+      "question": "Comment soumettre le script d'exemple d'une tâche hybride MPI/OpenMP sur la grappe Trillium, et à partir de quel répertoire cela doit-il être fait?",
+      "answer": "Pour soumettre le script d'exemple d'une tâche hybride MPI/OpenMP sur la grappe Trillium, vous devez utiliser la commande `sbatch hybrid_job.sh` depuis un nœud de connexion. Il est important de soumettre ce script à partir de votre répertoire `$SCRATCH`."
+    },
+    {
+      "question": "Quelles sont les principales directives `SBATCH` utilisées dans le script d'exemple d'une tâche hybride MPI/OpenMP, et que spécifient-elles à l'ordonnanceur Slurm?",
+      "answer": "Dans le script d'exemple pour une tâche hybride MPI/OpenMP, les principales directives `SBATCH` et leur signification sont les suivantes :\n- `--nodes=2` : demande d'allouer 2 nœuds de calcul.\n- `--ntasks-per-node=48` : indique de lancer 48 tâches MPI par nœud.\n- `--cpus-per-task=4` : assigne 4 cœurs (fils OpenMP) par tâche MPI.\n- `--time=01:00:00` : fixe la durée d'exécution maximale de la tâche à 1 heure.\n- `--job-name=hybrid_job` : donne le nom 'hybrid_job' à la tâche.\n- `--output=hybrid_output_%j.txt` : redirige la sortie de la tâche vers un fichier nommé 'hybrid_output_' suivi de l'identifiant de la tâche.\n- `--mail-type=FAIL` : configure l'envoi d'un courriel si la tâche échoue."
     }
   ],
-  "generated_at": "2026-04-13T15:00:16.614491+00:00"
+  "generated_at": "2026-04-19T02:45:31.876102+00:00"
 }

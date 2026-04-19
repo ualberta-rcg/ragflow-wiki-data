@@ -4,13 +4,13 @@
   "chunk_index": 32,
   "qa_pairs": [
     {
-      "question": "Comment peut-on lancer une simulation Ansys Mechanical APDL en mode parallèle à mémoire partagée (SMP) sur les grappes de l'Alliance, et quels sont les éléments clés du script Slurm à utiliser?",
-      "answer": "Pour lancer une simulation Ansys Mechanical APDL en mode SMP, il faut utiliser un script Slurm, comme `script-smp-2023-cpu.sh`. Ce script doit d'abord charger l'environnement standard (`StdEnv/2023`) et le module Ansys désiré (par exemple `ansys/2024R1.03`). La commande `mapdl -smp` est ensuite utilisée avec des options comme `-b nolist` pour le mode batch, `-np $SLURM_NTASKS` pour spécifier le nombre de cœurs à utiliser et `-i YOURAPDLFILE.inp` pour le fichier d'entrée APDL. Il est important de noter que sur la grappe Cedar, il est nécessaire d'exporter la variable `LD_LIBRARY_PATH` pour inclure la bibliothèque `lib/gcc`."
+      "question": "Quelle est la configuration de nœud recommandée pour exécuter les tâches Ansys Workbench avec le script fourni ?",
+      "answer": "Pour exécuter des tâches Ansys Workbench avec ce script, il est recommandé d'utiliser un seul nœud de calcul (`#SBATCH --nodes=1`), car le mode multinœud n'est pas pris en charge."
     },
     {
-      "question": "Quelles sont les étapes pour exécuter une simulation Ansys Mechanical APDL en mode parallèle à mémoire distribuée (DMP) sur les grappes de l'Alliance, et comment les configurations MPI varient-elles selon les grappes?",
-      "answer": "Pour exécuter une simulation Ansys Mechanical APDL en mode DMP, on utilise un script Slurm comme `script-dmp-2023-cpu.sh`. Après avoir chargé les modules `StdEnv/2023` et `ansys/2024R1.03`, la commande `mapdl -dis` est employée. La configuration MPI dépend de la grappe: sur Beluga, il faut utiliser `-mpi intelmpi` et exporter `KMP_AFFINITY=none`. Sur les autres grappes, comme Cedar, on utilise `-mpi openmpi`. De plus, pour Cedar, il faut créer un lien symbolique pour `libstdc++.so.6.0.29` dans le répertoire de sortie et exporter `LD_LIBRARY_PATH` pour inclure ce répertoire."
+      "question": "Dans ce script, comment est configuré le parallélisme de la mémoire pour Ansys Workbench lorsqu'il est exécuté sur un seul nœud ?",
+      "answer": "Dans ce script, le parallélisme de la mémoire (`MEMPAR`) est réglé à 0, ce qui correspond au mode de mémoire partagée (SMP - Shared Memory Parallel), étant donné que la tâche est exécutée sur un seul nœud."
     }
   ],
-  "generated_at": "2026-04-13T01:59:41.086537+00:00"
+  "generated_at": "2026-04-19T01:38:01.994064+00:00"
 }

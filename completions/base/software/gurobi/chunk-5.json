@@ -4,17 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Why is it necessary to use a Python virtual environment when working with Gurobi on the clusters?",
-      "answer": "Gurobi includes its own version of Python, which does not contain any third-party Python packages like NumPy, Matplotlib, or Pandas. To use Gurobi alongside these popular packages, you need to create a virtual Python environment where both `gurobipy` and the other desired packages can be installed."
+      "question": "When submitting a Gurobi Python job to a cluster, how should the number of threads be configured, and why is this important?",
+      "answer": "When submitting a Gurobi Python job, it is important to dynamically generate a `gurobi.env` file in the working directory that sets the 'Threads' parameter equal to the number of cores allocated for the job (e.g., `echo \"Threads ${SLURM_CPUS_ON_NODE:-1}\" > gurobi.env`). This is crucial because, by default, Gurobi will attempt to use all physical cores on a compute node, which can slow down the job and negatively impact other user jobs running on the same node."
     },
     {
-      "question": "When running a Gurobi Python job on a cluster, why should users explicitly set the number of threads, and how can this be done in a Slurm script?",
-      "answer": "Users should explicitly set the number of threads to prevent Gurobi from defaulting to using as many execute threads as there are physical cores on the compute node. This default behaviour can slow down the job and negatively impact other user jobs running on the same node. In a Slurm script, this is achieved by dynamically generating a `gurobi.env` file in the working directory that sets the `Threads` parameter to match the number of cores allocated to the job, for example, by including the line `echo \"Threads ${SLURM_CPUS_ON_NODE:-1}\" > gurobi.env`."
-    },
-    {
-      "question": "What are the different installation methods for `gurobipy` within a Python virtual environment for Gurobi versions 10 (and older) versus Gurobi versions 11 (and newer) on the clusters?",
-      "answer": "For Gurobi versions 10 (and older), the installation involves copying the Gurobi `lib` and `setup.py` files to a temporary location (e.g., `/tmp/$USER`) and then running `python setup.py install` from that location within the activated virtual environment. For Gurobi versions 11 (and newer), the `setup.py` method is deprecated. Instead, users must download a compatible binary wheel from `pypi.org`, use a provided script like `unmanylinuxize.sh` to convert the wheel into a usable format, and then install it with `python -m pip install --find-links $PWD --no-index gurobipy` within the activated virtual environment."
+      "question": "Why is it necessary to use a Python virtual environment when running Gurobi alongside other Python packages such as NumPy, Matplotlib, or Pandas on the clusters?",
+      "answer": "A Python virtual environment is necessary because Gurobi brings its own version of Python, which does not contain any third-party Python packages. To use Gurobi together with popular Python packages like NumPy, Matplotlib, or Pandas, users must create a virtual Python environment where both `gurobipy` and the desired third-party packages can be installed."
     }
   ],
-  "generated_at": "2026-04-13T06:52:07.024812+00:00"
+  "generated_at": "2026-04-19T01:57:57.008737+00:00"
 }

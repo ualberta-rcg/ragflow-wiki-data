@@ -4,13 +4,13 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What is the recommended method for migrating very large data volumes (e.g., greater than 5TB) between Arbutus Cloud instances, and what is the initial step to set it up?",
-      "answer": "For very large data volumes, Globus is the recommended migration method. The initial step is to request a Globus Connect Personal Plus subscription by sending an email with your information to globus@tech.alliancecan.ca and following the instructions in the invitation you receive."
+      "question": "What is the recommended method for migrating very large data volumes (greater than 5TB) between cloud instances?",
+      "answer": "For very large data volumes (e.g., greater than 5TB), Globus is the recommended method. The process involves requesting a Globus Connect Personal Plus subscription, enabling Globus Connect Personal on each cloud instance involved in the data transfer (which includes installing it, adjusting firewall rules for necessary ports, ensuring an external IP, and running it as a background process), and then using any Globus Interface (like globus.org or globus.computecanada.ca) to access the created endpoints and transfer data. (Page T:40, T:38)"
     },
     {
-      "question": "When migrating large bootable volumes from Legacy Arbutus to New Arbutus Cloud using the Linux 'dd' command, what command is executed on the temporary Legacy Arbutus instance to perform the data transfer?",
-      "answer": "To perform the data transfer using the Linux 'dd' command, after setting up temporary instances, SSH keys, and attaching volumes, you execute the following command on the temporary Legacy Arbutus instance: `screen sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@xxx.xx.xx.xx \"sudo dd bs=16M of=/dev/vdb\"`. This command assumes the source volume on Legacy Arbutus is `/dev/vdb`, the volume size is 96G, the SSH key is `key.pem`, and `xxx.xx.xx.xx` is the IP address of the temporary New Arbutus instance where the destination volume is attached as `/dev/vdb`."
+      "question": "How can a user migrate a large volume between a Legacy Arbutus instance and a New Arbutus instance using the Linux 'dd' command?",
+      "answer": "To migrate a large volume using 'dd', first copy your SSH private key to the temporary Legacy Arbutus instance and ensure SSH security rules allow it to connect to the temporary New Arbutus instance. For each volume to be moved, create an empty volume of the same size on New Arbutus (marking it bootable if needed) and attach it to the temporary New Arbutus instance. Also, attach the source volume from Legacy Arbutus to the temporary Legacy Arbutus instance (you might need to delete the instance it's currently attached to, but do NOT delete the volume). Finally, on the temporary Legacy Arbutus instance, execute a command such as `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@xxx.xx.xx.xx \"sudo dd bs=16M of=/dev/vdb\"`. This command assumes the source volume is `/dev/vdb`, the size is 96G, `key.pem` is the SSH key, and `xxx.xx.xx.xx` is the New Arbutus instance's IP address. Using `screen` is recommended to maintain the session. Once complete, you'll have an exact copy of the volume on New Arbutus. (Page T:43)"
     }
   ],
-  "generated_at": "2026-04-13T02:20:59.895720+00:00"
+  "generated_at": "2026-04-19T01:42:26.967700+00:00"
 }

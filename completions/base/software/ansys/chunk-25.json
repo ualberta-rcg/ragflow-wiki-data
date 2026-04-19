@@ -4,17 +4,17 @@
   "chunk_index": 25,
   "qa_pairs": [
     {
-      "question": "How can users automate the definition and interaction settings for Discrete Phase Model (DPM) injections in Ansys Fluent via a journal file?",
-      "answer": "Users can automate DPM injection settings in Ansys Fluent journal files by including commands such as `/define/models/dpm/interaction/coupled-calculations yes` to enable continuous phase interaction. Injections can be managed by commands like `/define/models/dpm/injections/delete-injection injection-0:1` to remove an existing one, and `/define/models/dpm/injections/create injection-0:1 no yes file no zinjection01.inj no no no no` to create a new injection from a specified file. After creation, commands like `/define/models/dpm/injections/list-particles injection-0:1` can be used to list its properties."
+      "question": "What are some of the key command-line options available for running the Ansys CFX solver (`cfx5solve`)?",
+      "answer": "When running `cfx5solve`, you can use `-help` to see all available options. By default, it runs in single precision; to use double precision, add the `-double` option, which will also double memory requirements. For very large meshes, up to 2 billion elements, the `-large` option can be used. These options can also be specified for the Partitioner, Interpolator, or Solver components, and further details are available in the ANSYS CFX-Solver Manager User's Guide."
     },
     {
-      "question": "What command-line options are available for `cfx5solve` in Ansys CFX to manage precision and large meshes?",
-      "answer": "To run `cfx5solve` in double precision, users should add the `-double` option to the command line, which will also double memory requirements. For simulations involving larger meshes, specifically those with up to 2 billion elements, the `-large` option should be used. A comprehensive list of all command-line options can be viewed by executing `cfx5solve -help` after loading the appropriate Ansys module."
+      "question": "How do you set up a Slurm script for parallel execution of Ansys CFX across multiple compute nodes on Alliance clusters, and what considerations are there for MPI implementation?",
+      "answer": "To run Ansys CFX across multiple nodes, you would typically use a script based on the `script-cfx-multiple.sh` template. It requires specifying multiple compute nodes (e.g., `#SBATCH --nodes=2`) and usually allocates all cores and memory per node (e.g., `#SBATCH --ntasks-per-node=192`, `#SBATCH --mem=0`). The script uses `slurm_hl2hl.py --format ANSYS-CFX` to dynamically get the node information for distributed parallel processing. For Narval or Fir clusters, 'Open MPI Distributed Parallel' is used, while for other clusters, 'Intel MPI Distributed Parallel' is used, often requiring `export I_MPI_HYDRA_BOOTSTRAP=ssh`."
     },
     {
-      "question": "How do you submit a multi-node parallel Ansys CFX job to an Alliance cluster using a Slurm script?",
-      "answer": "To submit a multi-node CFX job, create a Slurm script that specifies the account, time limit, and requests two or more compute nodes with `ntasks-per-node` set to utilize all cores. After loading `StdEnv/2023` and an `ansys` module, the script determines the number of nodes (`NNODES`) using `slurm_hl2hl.py --format ANSYS-CFX`. The `cfx5solve` command then executes the job, using `\"Open MPI Distributed Parallel\"` for clusters like Narval or Fir, and `\"Intel MPI Distributed Parallel\"` with specific Intel MPI environment variables (`export I_MPI_HYDRA_BOOTSTRAP=ssh`, `unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`) for other clusters."
+      "question": "How can Discrete Phase Model (DPM) settings and particle injection definitions be automated within an Ansys Fluent journal file?",
+      "answer": "DPM settings and injections can be automated by adding specific commands to the journal file after solution initialization. For example, to enable interaction with the continuous phase, you would use `/define/models/dpm/interaction/coupled-calculations yes`. To define particle injections, you can use `/define/models/dpm/injections/create`, often referencing an external injection text file (e.g., `zinjection01.inj`), which specifies properties like position, velocity, and mass flow rate. The format for these injection files is detailed in the '2024R2 Fluent Customization Manual'."
     }
   ],
-  "generated_at": "2026-04-13T01:43:37.538650+00:00"
+  "generated_at": "2026-04-19T01:22:31.524746+00:00"
 }

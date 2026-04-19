@@ -4,17 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "How do you submit a hybrid MPI/OpenMP job script on Trillium's CPU login node?",
-      "answer": "To submit a hybrid MPI/OpenMP job script on Trillium's CPU login node, you should navigate to your `$SCRATCH` directory and then use the command `sbatch hybrid_job.sh`."
+      "question": "What is the purpose of the `--map-by` option within the `mpirun` command when running a hybrid MPI/OpenMP job on the Trillium cluster?",
+      "answer": "When running a hybrid MPI/OpenMP application on the Trillium cluster, the `--map-by` option in the `mpirun` command helps to distribute the processes and threads evenly across the available CPU cores. While the SLURM scheduler informs `mpirun` about the number of processes to execute, `--map-by` provides the necessary guidance for optimal placement of these processes and their associated threads."
     },
     {
-      "question": "What is the purpose of the `--map-by` option when running a hybrid MPI/OpenMP application with `mpirun` on Trillium?",
-      "answer": "When running a hybrid MPI/OpenMP application, the `--map-by` option is used with `mpirun` to help spread the processes and threads evenly over the cores on Trillium's compute nodes."
+      "question": "For hybrid MPI/OpenMP jobs on Trillium that utilize MPI-IO tuning for the VAST file system, why is it crucial to use `mpirun` instead of `srun`?",
+      "answer": "For hybrid MPI/OpenMP jobs on Trillium that require MPI-IO tuning through a library like `/scinet/vast/etc/vastpreload-openmpi.bash`, it is crucial to use the `mpirun` command for execution. The VAST preload library, which optimizes MPI-IO performance, is designed to take effect specifically with `mpirun` and will not function correctly if `srun` is used instead."
     },
     {
-      "question": "How should the process and thread mapping strategy be adjusted based on the number of threads per process in a hybrid MPI/OpenMP job on Trillium?",
-      "answer": "In a hybrid MPI/OpenMP job on Trillium, if there are more than 8 and at most 24 threads per process, you should change 'l3cache' to 'numa' in the `mpirun` command's `--map-by` option. If there are more than 24 threads, you should change it to 'socket'."
+      "question": "How should the core binding strategy for a hybrid MPI/OpenMP job on Trillium be adjusted in the `mpirun` command based on the number of threads per process?",
+      "answer": "The core binding strategy for a hybrid MPI/OpenMP job on Trillium, specified by the `--map-by` option in the `mpirun` command, should be adjusted according to the number of threads per process. For up to 8 threads per process, `l3cache` should be used. If there are more than 8 but at most 24 threads per process, `l3cache` should be changed to `numa`. For jobs requiring more than 24 threads per process, it should be changed to `socket`."
     }
   ],
-  "generated_at": "2026-04-13T14:54:01.637988+00:00"
+  "generated_at": "2026-04-19T02:40:18.914937+00:00"
 }

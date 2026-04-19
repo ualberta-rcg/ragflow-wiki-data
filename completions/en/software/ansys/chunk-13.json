@@ -4,17 +4,13 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of the solution restart scripts for Fluent jobs on Alliance clusters?",
-      "answer": "The solution restart scripts are designed to automate the process of restarting very large Fluent jobs that exceed the typical seven-day maximum runtime window available on most Alliance clusters. They achieve this by restarting simulations from the most recently saved time step files."
+      "question": "What is the purpose of Fluent's license requeue Slurm scripts, and when are they recommended for use?",
+      "answer": "Fluent's license requeue Slurm scripts are designed for jobs that frequently fail to start due to license shortages but are otherwise known to complete successfully. They automatically resubmit the job (up to a specified number of times, e.g., five attempts) if a license checkout problem occurs. These scripts are not recommended for jobs that might crash due to simulation errors, as this would result in repeated, failed computations and wasted compute time."
     },
     {
-      "question": "What initial journal file modifications are required to set up automated solution restarts for Fluent jobs on Alliance clusters?",
-      "answer": "To set up automated solution restarts, you need existing `sample.cas`, `sample.dat`, and `sample.jou` files. First, edit `sample.jou` to include `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`. Then, create `sample-restart.jou` by copying `sample.jou`, changing `/file/read-cas-data sample` to `/file/read-cas-data sample-restart`, and commenting out the initialization line (e.g., `;/solve/initialize/initialize-flow`)."
-    },
-    {
-      "question": "How can the number of iterations per time step be adjusted to optimize the solution restart process for Fluent jobs on Alliance clusters?",
-      "answer": "To optimize the solution restart process and minimize computationally expensive restarts, you can edit the `sample-restart.jou` file to specify `/solve/dual-time-iterate N`. The value of N (e.g., 1 or 2) should be chosen such that the time required for N steps comfortably fits within the job array's time limit. For example, if subsequent time steps are known to run twice as fast as the initial one, setting N to 2 would restart the solution after every two time steps."
+      "question": "How do Fluent's solution restart scripts automate the continuation of long-running simulations, and what file preparations are necessary for their use?",
+      "answer": "Fluent's solution restart scripts automate the continuation of very large jobs that exceed typical runtime limits by restarting from the most recently saved time step files. To use them, you must have `sample.cas`, `sample.dat`, and `sample.jou` files. The `sample.jou` file needs `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`, and a `sample-restart.jou` file must be created from `sample.jou`, replacing `/file/read-cas-data sample` with `/file/read-cas-data sample-restart` and commenting out any initialization lines. The `dual-time-iterate` value in `sample-restart.jou` should be chosen so that the specified number of time steps completes comfortably within the job array's time limit, minimizing computationally expensive restarts."
     }
   ],
-  "generated_at": "2026-04-13T01:49:47.229577+00:00"
+  "generated_at": "2026-04-19T01:28:32.587008+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How does a STAR-CCM+ job running on an Alliance cluster determine the total number of processing cores to utilize for its execution?",
-      "answer": "The total number of cores, referred to as `NCORE`, is determined by multiplying the values of the Slurm environment variables `SLURM_NNODES` (number of nodes), `SLURM_CPUS_PER_TASK` (CPUs per task), and `SLURM_NTASKS_PER_NODE` (tasks per node)."
+      "question": "When running STAR-CCM+ jobs on Alliance clusters like Fir, Narval, or Rorqual, what environment variable is used to specify the input simulation filename?",
+      "answer": "The `SIM_FILE` environment variable should be set to your input simulation filename, for example, `SIM_FILE='mySample.sim'`."
     },
     {
-      "question": "How do the Slurm scripts for STAR-CCM+ on Alliance clusters differentiate between using a Siemens Power-on-Demand (PoD) licence and an institutional licence?",
-      "answer": "The scripts check if the `LM_PROJECT` environment variable is set. If `LM_PROJECT` contains a 22-digit PoD licence key, the job will use a Siemens PoD licence. If `LM_PROJECT` is not set, the script assumes an institutional licence server will be used."
+      "question": "How do researchers specify their Siemens Power-on-Demand (PoD) license key in a STAR-CCM+ Slurm script for clusters like Fir, Narval, or Rorqual?",
+      "answer": "Researchers with a Siemens Power-on-Demand (PoD) license must manually set the `LM_PROJECT` environment variable to their 22-digit PoD license key, for example, `LM_PROJECT='22digit-PoD-License-Key'`."
     },
     {
-      "question": "For STAR-CCM+ jobs on the Trillium cluster utilizing an institutional licence server, what specific network configuration is used to connect to the server?",
-      "answer": "On the Trillium cluster, the script explicitly defines `FLEXPORT`, `VENDPORT`, and `LICSERVER` variables. It then sets `CDLMD_LICENCE_FILE` to `\"$FLEXPORT@127.0.0.1\"` and uses an SSH command with port forwarding (`ssh tri-gw -L $FLEXPORT:$LICSERVER:$FLEXPORT -L $VENDPORT:$LICSERVER:$VENDPORT -N -f`) to tunnel the licence traffic to the remote institutional licence server."
+      "question": "How does the STAR-CCM+ Slurm script on Fir, Narval, or Rorqual clusters adjust its `FLEXIBLAS` and `STAR_MPI` settings based on the CPU vendor?",
+      "answer": "The script checks the `RSNT_CPU_VENDOR_ID`. If it's Intel, `FLEXIBLAS` is set to `StarMKL` and `STAR_MPI` to `intel`. If it's AMD, `FLEXIBLAS` is set to `StarAOCL` and `STAR_MPI` defaults to `openmpi`."
     }
   ],
-  "generated_at": "2026-04-13T13:46:46.790377+00:00"
+  "generated_at": "2026-04-19T02:28:57.388276+00:00"
 }

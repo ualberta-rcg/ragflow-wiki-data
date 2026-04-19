@@ -4,17 +4,13 @@
   "chunk_index": 42,
   "qa_pairs": [
     {
-      "question": "Comment faire pour copier et exécuter les exemples d'Antennas d'Ansys EDT sur une grappe, comme Graham?",
-      "answer": "Pour copier les exemples d'Antennas, vous devez vous connecter à une grappe (par exemple Graham), puis charger le module `ansysedt/2023R2`. Ensuite, créez les répertoires nécessaires et copiez les fichiers des exemples en utilisant les commandes suivantes: `mkdir -p ~/Ansoft/$EBVERSIONANSYSEDT; cd ~/Ansoft/$EBVERSIONANSYSEDT; rm -rf Antennas; cp -a $EBROOTANSYSEDT/v232/Linux64/Examples/HFSS/Antennas ~/Ansoft/$EBVERSIONANSYSEDT`. Pour exécuter un exemple, ouvrez un fichier `.aedt` dans l'interface graphique, effectuez une \"Validation Check\" puis \"Analyze All\". En cas de problème ou de plantage, vous pouvez tenter de relancer les processus avec `pkill -9 -u $USER -f \"ansys*|mono|mwrpcss|apip-standalone-service\"` et réinitialiser la configuration avec `rm -rf ~/.mw`."
+      "question": "Comment faire pour lancer des programmes Ansys avec une interface graphique en utilisant la redirection X de SSH?",
+      "answer": "Pour lancer un programme Ansys en mode graphique avec SSH, vous devez d'abord vous connecter à la grappe en activant la redirection X (par exemple, `ssh -Y votre_nom_utilisateur@graham.computecanada.ca`). Une fois connecté, réservez un nœud de calcul avec le support X11 (par exemple, `salloc --x11 --time=1:00:00 --mem=16G --cpus-per-task=4 --account=def-mon_groupe`). Après la connexion au nœud de calcul, vérifiez si l'affichage X fonctionne en exécutant `xclock`. Si l'horloge s'affiche, vous pouvez charger le module Ansys souhaité et démarrer le programme."
     },
     {
-      "question": "Lorsque Fluent plante au démarrage avec une erreur Intel MPI et \"bstrap_proxy\" lors de l'utilisation d'une session de bureau Open OnDemand (OOD) sur la grappe Nibi, quelle est la cause et comment résoudre le problème?",
-      "answer": "Ce problème survient si la variable d'environnement `I_MPI_HYDRA_BOOTSTRAP=ssh` n'est pas configurée correctement sur Nibi lors du démarrage de Fluent avec Intel MPI à partir d'une session de bureau OOD. Pour le résoudre, il faut complètement quitter Fluent, éteindre Workbench, puis redémarrer la session en s'assurant que cette variable est correctement définie."
-    },
-    {
-      "question": "Quelles sont les différentes manières de lancer Ansys Rocky en mode graphique sur les grappes de l'Alliance, et quelles sont les informations importantes concernant ses versions et la licence SHARCNET?",
-      "answer": "Pour lancer Ansys Rocky en mode graphique, vous devez d'abord charger un module approprié, comme `ansysrocky/2023R2` ou `ansys/2025R1`, puis exécuter `Rocky` pour que le module lise le fichier `~/licenses/ansys.lic`, ou `Rocky-gui` pour choisir entre un serveur CMC ou SHARCNET. Les versions 2024R2 et antérieures ne sont disponibles que sur gra-vdi et les grappes Graham. L'installation des versions 2025R1 et plus récentes est fournie par le module Ansys sur toutes les grappes, mais elles ne sont pas encore prises en charge par le serveur de licence SHARCNET. La licence SHARCNET inclut Rocky et son utilisation est gratuite pour la recherche."
+      "question": "Quelles sont les limites et les recommandations si on utilise SSH pour les interfaces graphiques des programmes Ansys?",
+      "answer": "L'utilisation de la redirection X via SSH pour les interfaces graphiques d'Ansys n'est pas testée ni officiellement prise en charge, et elle dépend d'une configuration adéquate de votre serveur d'affichage X local. Les temps de réponse interactifs sont souvent jugés inacceptables, et le démarrage des programmes peut être très lent (par exemple, 40 minutes via SSH contre 34 secondes avec VNC). Cette méthode est principalement envisagée si votre objectif se limite à des opérations de menu de base ou à l'exécution de calculs sans rendu graphique complexe."
     }
   ],
-  "generated_at": "2026-04-13T02:01:15.411492+00:00"
+  "generated_at": "2026-04-19T01:39:20.149947+00:00"
 }

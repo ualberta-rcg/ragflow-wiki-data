@@ -82,16 +82,16 @@ title: Home
 | **Cedar Cloud** | :material-check-circle:{ style="color: green" } Operational |
 | **Graham Cloud** | :material-check-circle:{ style="color: green" } Operational |
 | **Nibi** | :material-check-circle:{ style="color: green" } Operational |
-| **Fir** | :material-alert:{ style="color: orange" } Filesystem problem |
+| **Fir** | :material-check-circle:{ style="color: green" } Operational |
 | **Rorqual** | :material-alert:{ style="color: orange" } Rorqual est en ligne avec certains services qui ne sont pas encore prêts |
-| **Arbutus** | :material-check-circle:{ style="color: green" } Operational |
+| **Arbutus** | :material-alert:{ style="color: orange" } Arbutus Power Maintenance |
 | **Béluga** | :material-alert:{ style="color: orange" } Decommissioning: 2026 End of Service Timeline |
 | **Juno** | :material-check-circle:{ style="color: green" } Operational |
 | **Killarney** | :material-check-circle:{ style="color: green" } Operational |
 | **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
 | **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-04-12 21:26 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-04-19 01:15 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -101,18 +101,16 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 
 | Date | Event | Link |
 |------|-------|------|
-| Apr 13 | En savoir plus sur l'École de printemps 2026 [Séance d'information] | [Details](https://www.eventbrite.ca/e/1985944084216) |
-| Apr 13 | Data Bites - Licensing Your Research Data | [Register](https://libcal.library.ubc.ca/event/3972469) |
-| Apr 14 | Neural network programming: lecture 3 | [Details](https://scinet.courses/1400) |
-| Apr 14 | Introducing the National Data Space for Sensitive Data in Social Sciences | [Details](https://crdcn.ca/events/introducing-the-national-data-space-for-sensitive-data-in-social-sciences/) |
-| Apr 15 | Open OnDemand on Trillium | [Details](https://scinet.courses/1401) |
-| Apr 15 | Introduction to Git and GitHub | [Register](https://libcal.library.ubc.ca/event/4000626) |
-| Apr 16 | Neural network programming: lecture 4 | [Details](https://scinet.courses/1400) |
-| Apr 16 | Présentation de l’Espace de données national pour les données sensibles en sciences sociales | [Details](https://crdcn.ca/events/presentation-de-lespace-de-donnees-national-pour-les-donnees-sensibles-en-sciences-sociales/?lang=fr) |
-| Apr 16 | GPU Python: Numba JIT compilation to CUDA kernels [course] | [Register](https://forms.gle/E6XyX4Q3H6hXDwUM7) |
-| Apr 17 | The Secret Life of Data | [Register](https://ualberta.libcal.com/event/4012303) |
+| Apr 20 | Data Bites - Introduction to Data Management Plans (DMPs) | [Register](https://libcal.library.ubc.ca/event/3972480) |
+| Apr 20 | Cybersecurity Incident Response - Session 1 | [Details](https://engagedri-ca.zoom.us/meeting/register/vT012rvSSiSx_-e29V_jJg) |
+| Apr 21 | Neural network programming: lecture 5 | [Details](https://scinet.courses/1400) |
+| Apr 21 | Typst: a new markup typesetting system [webinar] | [Register](https://forms.gle/Uu1o42F9k6Vh7oCz6) |
+| Apr 21 | Emerging Scholars Webinar - Spring 2026 | [Details](https://crdcn.ca/events/emerging-scholars-webinar-spring-2026/) |
+| Apr 22 | Intégrité 360° : pour une science qui inspire confiance - Aspects éthiques de l’utilisation de l’intelligence artificielle en recherche | [Details](https://www.chusj.org/fr/Calendrier-salle-presse/calendrier/Evenements/CDR/2026/Integrite-360%C2%B0-pour-une-science-qui-inspire-co-(1)) |
+| Apr 22 | Hosting a Project Website on GitHub: Introduction to Minimal Computing and Static Websites | [Details](https://engagedri-ca.zoom.us/meeting/register/NV9JvDLLRSW97xj90W1EpA) |
+| Apr 22 | GIS in Tidyverse, an introduction to the R sf package | [Details](https://training.computeontario.ca/courses/course/view.php?id=206) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-04-12 21:26 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-04-19 01:15 UTC.*</small>
 
 ---
 

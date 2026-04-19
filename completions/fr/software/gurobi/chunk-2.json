@@ -4,17 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Comment puis-je minimiser l'utilisation des licences Gurobi lorsque je soumets un grand nombre de tâches en boucle sur les grappes d'Alliance Recherche?",
-      "answer": "Pour réduire la charge sur le serveur de licences Gurobi et assurer un démarrage progressif de vos tâches, il est recommandé d'utiliser l'option de dépendance `after` de l'ordonnanceur Slurm. Cela permet d'enchaîner les soumissions de tâches, minimisant ainsi la fréquence d'utilisation des licences. Il faut aussi savoir qu'il y a une limite de 10 000 utilisations de licences Gurobi par grappe sur une période de 24 heures."
+      "question": "Pourquoi est-il recommandé d'utiliser un « démarrage progressif » quand on soumet plusieurs tâches Gurobi en boucle à l'ordonnanceur Slurm, et quelle est la limite d'utilisation des licences?",
+      "answer": "Il est recommandé d'utiliser un démarrage progressif afin de minimiser la fréquence d'utilisation des licences et la charge sur le serveur de licences Gurobi, ce qui améliore la performance des tâches et la réactivité du serveur. Pour ce faire, on peut utiliser l'option de dépendance `after` de l'ordonnanceur Slurm. La limite est de 10 000 utilisations de licences Gurobi par grappe sur une période de 24 heures."
     },
     {
-      "question": "Quelles sont les différentes façons d'utiliser Gurobi de manière interactive sur une grappe d'Alliance Recherche?",
-      "answer": "Après avoir demandé une allocation interactive avec `salloc` et chargé le module Gurobi, vous pouvez utiliser Gurobi de deux façons principales. Vous pouvez employer l'outil en ligne de commande `gurobi_cl` pour exécuter des commandes directement, ou vous pouvez lancer l'interpréteur interactif `gurobi.sh` pour une session plus guidée où vous entrez les commandes Gurobi une par une."
-    },
-    {
-      "question": "Comment soumettre un script Gurobi en tant que tâche par lots sur une grappe d'Alliance Recherche?",
-      "answer": "Une fois que votre script Slurm est prêt pour exécuter Gurobi, vous pouvez le soumettre à la file d'attente en utilisant la commande `sbatch nom-du-script.sh`. Pour vérifier l'état de vos tâches soumises dans la file d'attente, vous pouvez ensuite utiliser la commande `sq`."
+      "question": "Comment soumettre une tâche Gurobi en mode batch sur une grappe et comment configurer le nombre de fils d'exécution pour un script Gurobi Python?",
+      "answer": "Pour soumettre une tâche Gurobi en mode batch, on utilise la commande `sbatch script-name.sh` une fois que votre script Slurm est prêt. Pour un script Gurobi Python, il est essentiel de créer un fichier `gurobi.env` dans le répertoire de travail en utilisant une commande comme `echo \"Threads ${SLURM_CPUS_ON_NODE:-1}\" > gurobi.env`. Ceci s'assure que le nombre de fils d'exécution correspond aux cœurs alloués à la tâche par l'ordonnanceur Slurm, évitant ainsi un ralentissement de la tâche et une nuisance potentielle aux autres utilisateurs sur le même nœud."
     }
   ],
-  "generated_at": "2026-04-13T06:55:23.378739+00:00"
+  "generated_at": "2026-04-19T02:00:58.798807+00:00"
 }

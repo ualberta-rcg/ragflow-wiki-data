@@ -4,13 +4,13 @@
   "chunk_index": 23,
   "qa_pairs": [
     {
-      "question": "À quoi servent les fichiers de journalisation dans Ansys Fluent et comment configurer les formats de fichiers?",
-      "answer": "Les fichiers de journalisation dans Ansys Fluent permettent de regrouper toutes les commandes de l'interface TUI (Text User Interface). Ils servent à modifier des paramètres de simulation, tels que la température, la pression ou la vitesse du flux, afin d'effectuer des séries de simulations. Pour les modules jusqu'à la version 2019R3, les fichiers de journalisation utilisent par défaut les formats .cas/.dat en spécifiant `/file/cff-files no`. Pour les versions à partir de 2020R1, les formats plus efficaces .cas.h5/.dat.h5 sont configurés avec `/file/cff-files yes`."
+      "question": "À quoi servent les fichiers de journalisation avec Ansys Fluent?",
+      "answer": "Les fichiers de journalisation avec Ansys Fluent peuvent contenir toutes les commandes de l'interface TUI (Text User Interface). On les utilise pour modifier des paramètres de simulation comme la température, la pression ou la vitesse du flux, ce qui permet de faire une série de simulations sous différentes conditions en changeant juste le fichier de journalisation."
     },
     {
-      "question": "Comment configurer les fonctions UDF (User-Defined Functions) dans Ansys Fluent, et quelle est la différence entre les UDF interprétées et compilées?",
-      "answer": "Pour configurer une UDF, vous devez d'abord transférer le fichier source de votre UDF (par exemple, `sampleudf.c`) et tous les fichiers de dépendance nécessaires vers la grappe, en utilisant le mode texte si le transfert se fait depuis Windows vers Linux. Le fichier UDF doit être placé dans le même répertoire que vos fichiers de journalisation, de cas et de données. Avant de soumettre votre tâche, assurez-vous que les boîtes de dialogue 'Interpreted UDFs' et 'UDF Library Manager' de l'interface graphique de Fluent ne sont pas déjà configurées pour une UDF.\n\nLes UDF interprétées sont indiquées à Fluent au moment de l'exécution en ajoutant la ligne de commande `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no` à votre fichier de journalisation avant la lecture des fichiers de cas/données.\n\nPour les UDF compilées, le fichier source doit être compilé sur une de nos grappes au moins une fois pour créer la bibliothèque partagée `libudf.so`. Une fois compilée, vous pouvez charger l'UDF en ajoutant la commande `define/user-defined/compiled-functions load libudf` à votre fichier de journalisation. Il est recommandé de ne pas inclure simultanément les commandes de compilation et de chargement dans le même fichier de journalisation pour les tâches soumises afin d'éviter l'inefficacité et les conflits."
+      "question": "Quelle configuration est nécessaire dans un fichier de journalisation pour qu'Ansys Fluent utilise les formats de fichiers .cas.h5 et .dat.h5 à partir de la version 2020R1?",
+      "answer": "Pour qu'Ansys Fluent utilise les formats de fichiers .cas.h5 et .dat.h5, qui sont plus efficaces à partir de la version 2020R1, il faut inclure la configuration `/file/cff-files yes` dans le fichier de journalisation. Avant 2020R1, le réglage par défaut était `/file/cff-file no` pour les formats .cas et .dat."
     }
   ],
-  "generated_at": "2026-04-13T01:58:14.399806+00:00"
+  "generated_at": "2026-04-19T01:36:56.488431+00:00"
 }

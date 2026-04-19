@@ -4,17 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Why is it important to minimize Gurobi license checkout attempts on the Digital Research Alliance of Canada clusters, and how can users ensure this?",
-      "answer": "Minimizing Gurobi license checkout attempts is crucial because all checkouts are handled by a single license server located in Ontario, making each attempt costly in time. Limiting checkouts improves job performance and the responsiveness of the license server for all users. Users should ensure their program makes only a single license checkout and reuses this license token throughout the job's lifetime. Additionally, when submitting many Gurobi jobs in a loop, users should use a sample Slurm script (or equivalent) with the `after` dependency option to start jobs gradually, thereby minimizing the license checkout rate."
+      "question": "How can users access and utilize Gurobi in an interactive session on the Digital Research Alliance of Canada clusters?",
+      "answer": "To use Gurobi interactively, first request an allocation using the `salloc` command (e.g., `salloc --time=1:00:0 --cpus-per-task=8 --mem=1G --account=def-xyz`). Once an allocation is granted, load the Gurobi module with `module load gurobi`. Users can then interact with Gurobi through its command-line tool (`gurobi_cl`) to solve problems directly or launch the Gurobi interactive shell (`gurobi.sh`) to read models, set parameters (like threads, method, result file), optimize, and inspect results."
     },
     {
-      "question": "How can users submit a Gurobi problem as a batch job on the cluster using Slurm, and what command is used to check its status?",
-      "answer": "To submit a Gurobi problem as a batch job on the cluster, users must first prepare a Slurm script for the Gurobi problem. This script is then submitted to the queue by running the `sbatch script-name.sh` command. The status of the jobs in the queue can subsequently be checked by running the `sq` command."
-    },
-    {
-      "question": "What are the two primary ways to use Gurobi interactively on the Digital Research Alliance of Canada clusters, and how does a user initiate them?",
-      "answer": "Users can interact with Gurobi on the clusters either through the Gurobi command-line tool (`gurobi_cl`) or the Gurobi interactive shell (`gurobi.sh`). To initiate either, a user first needs to allocate interactive compute resources using a command like `salloc --time=1:00:0 --cpus-per-task=8 --mem=1G --account=def-xyz`, and then load the Gurobi module using `module load gurobi`. After these steps, `gurobi_cl` can be run with specific arguments, or the Gurobi interactive shell can be started by typing `gurobi.sh`."
+      "question": "What is the procedure for submitting a Gurobi optimization problem as a batch job on a Digital Research Alliance of Canada cluster using Slurm?",
+      "answer": "After preparing a Slurm script for your Gurobi problem, submit it to the queue using the command `sbatch script-name.sh`. The script typically includes Slurm directives (e.g., `#SBATCH --account=def-group`, `#SBATCH --time=0-00:30`, `#SBATCH --cpus-per-task=8`, `#SBATCH --mem=4G`), module loading commands (e.g., `module load StdEnv/2020`, `module load gurobi/9.5.0`), and the Gurobi execution command, such as `gurobi_cl` with relevant parameters (e.g., `Threads=$SLURM_CPUS_ON_NODE Method=2 ResultFile=coins.sol`). The status of submitted jobs can be monitored with the `sq` command."
     }
   ],
-  "generated_at": "2026-04-13T06:51:43.373677+00:00"
+  "generated_at": "2026-04-19T01:57:40.224063+00:00"
 }

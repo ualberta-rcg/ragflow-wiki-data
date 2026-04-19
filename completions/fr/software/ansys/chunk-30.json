@@ -4,17 +4,17 @@
   "chunk_index": 30,
   "qa_pairs": [
     {
-      "question": "Comment soumettre un projet Ansys Workbench à la file d'attente d'une grappe en utilisant un script Slurm, et quelles considérations faut-il prendre en compte pour les tests de scalabilité?",
-      "answer": "Pour soumettre un projet Ansys Workbench à la file d'attente, il faut d'abord initialiser le fichier de projet. Ça implique de se connecter à la grappe avec TigerVNC, d'ouvrir le projet dans Workbench, de sélectionner « Clear All Generated Data » (Effacer toutes les données générées), puis de quitter Workbench sans sauvegarder les modifications. Ensuite, on personnalise un des scripts Slurm fournis (par exemple, `script-wbpj-2023.sh`) et on le lance avec la commande `sbatch`. Le script utilise la commande `runwb2 -B -E \"Update()\" -F VOTREPROJET.wbpj`. Pour éviter que la solution ne soit écrasée à chaque exécution lors des tests de scalabilité, il est recommandé de modifier `Save(Overwrite=True)` en `Save(Overwrite=False)` dans la dernière ligne du script Slurm."
+      "question": "Comment doit-on préparer un fichier de projet Ansys Workbench avant de le soumettre pour la première fois sur une grappe de calcul?",
+      "answer": "Pour initialiser un fichier de projet Ansys Workbench avant sa première soumission, vous devez d'abord vous connecter à la grappe avec TigerVNC. Ensuite, dans le répertoire du fichier de projet (ex: YOURPROJECT.wbpj), lancez Workbench avec la même version du module Ansys qui a été utilisée pour créer le projet. Ouvrez le projet via 'File -> Open', faites un clic droit sur 'Setup' dans la fenêtre principale et sélectionnez 'Clear All Generated Data'. Finalement, quittez Workbench en cliquant sur 'File -> Exit' et, lorsque la fenêtre contextuelle apparaît, choisissez 'No' pour ne pas sauvegarder les modifications."
     },
     {
-      "question": "Comment générer un fichier d'entrée pour une tâche Ansys Mechanical APDL à partir de l'interface graphique de Workbench?",
-      "answer": "Pour générer un fichier d'entrée pour une tâche Ansys Mechanical APDL, vous devez être dans une session interactive Workbench Mechanical. Cliquez sur le menu « Solution », puis sur « Tools » (Outils), et finalement sur « Write Input Files » (Écrire les fichiers d'entrée). Dans la fenêtre qui apparaît, spécifiez le nom du fichier sous `File name:` (Nom du fichier), par exemple `VOTREFICHIERAPDL.inp`, et choisissez `Save as type:` (Enregistrer sous le type) pour les fichiers APDL en entrée (`*.inp`)."
+      "question": "Quelle est l'alternative aux scripts Slurm pour exécuter les simulations Ansys Workbench, et pourquoi serait-elle préférable?",
+      "answer": "Une alternative est de lancer les simulations Ansys Workbench directement à partir de l'interface graphique native de Workbench. C'est souvent plus intuitif que de soumettre des tâches avec un script Slurm, car il est désormais possible de réserver un nœud de calcul avec jusqu'à 96 cœurs, 768 Go de mémoire et 8 heures d'exécution pour une session de bureau OnDemand."
     },
     {
-      "question": "Quelle est la procédure pour soumettre une tâche Ansys Mechanical APDL à la file d'attente d'une grappe en utilisant un script Slurm, et quels sont les points à surveiller?",
-      "answer": "Une fois que le fichier d'entrée APDL est généré, vous pouvez soumettre la tâche à la file d'attente en personnalisant un des scripts Slurm fournis, comme `script-smp-2023-cpu.sh` pour le mode `Shared Memory Parallel (SMP)` ou `script-dmp-2023-cpu.sh` pour le mode `Distributed Memory Parallel (DMP)`. Vous lancez ensuite la tâche avec la commande `sbatch script-name.sh`. Il est crucial de charger un module Ansys dont la version correspond idéalement à celle utilisée pour générer le fichier d'entrée. Il est aussi fortement recommandé d'effectuer des tests de scalabilité détaillés pour déterminer le nombre optimal de cœurs et la quantité minimale de mémoire avant de lancer des tâches de production. Les scripts SMP sont généralement plus performants que les scripts DMP et devraient être privilégiés lorsque c'est possible."
+      "question": "Comment peut-on soumettre un fichier de projet Ansys Workbench à la file d'attente sur une grappe à l'aide d'un script Slurm?",
+      "answer": "Pour soumettre un fichier de projet Ansys Workbench à la file d'attente, il faut d'abord personnaliser un des scripts Slurm disponibles (comme 'script-wbpj-202X.sh') en fonction de vos besoins. Une fois le script ajusté, vous pouvez lancer la commande `sbatch script-wbpj-202X.sh`."
     }
   ],
-  "generated_at": "2026-04-13T01:59:26.569404+00:00"
+  "generated_at": "2026-04-19T01:37:51.276731+00:00"
 }

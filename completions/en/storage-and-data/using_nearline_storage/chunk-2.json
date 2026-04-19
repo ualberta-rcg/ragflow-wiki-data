@@ -4,17 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What are the main advantages of using /nearline storage compared to /project storage?",
-      "answer": "Using /nearline storage offers much greater volumes of storage at a lower cost per unit of data. Additionally, it helps reduce the load on /project storage by keeping inactive data off it, which improves /project's performance."
+      "question": "How does the /nearline filesystem manage the lifecycle of files from initial storage to retrieval from tape?",
+      "answer": "When a file is initially copied to or created on /nearline, it resides only on disk. After approximately a day, if it meets specific criteria, the file is copied to tape, making it available on both disk and tape. Subsequently, the disk copy may be deleted, leaving the file 'virtualized' only on tape. If a virtualized file is recalled, it is copied back from tape to disk, returning it to the state of being available on both disk and tape."
     },
     {
-      "question": "How does the /nearline system manage the lifecycle of a file from initial storage to retrieval?",
-      "answer": "When a file is first copied to /nearline, it exists only on disk. After a period (typically around a day, or longer on Nibi), the system copies the file to tape, making it available on both disk and tape. Subsequently, if the file remains unchanged, its disk copy may be deleted, leaving the file 'virtualized' solely on tape. When a virtualized file is accessed, it is copied back from tape to disk, a process that can take from less than a minute to over an hour, depending on various factors."
+      "question": "How can users determine the storage location of a file on the /nearline filesystem, and what are the performance implications of accessing files stored only on tape?",
+      "answer": "Users can determine a file's state using the `lfs hsm_state <FILE>` command, which indicates if it's on disk, in progress of being archived, on both disk and tape, or only on tape. For an overview of all files, some clusters support the `diskusage_report --nearline --per_user --all_users` command. When a file is 'virtualized' (only on tape), reading it will cause the process to block while the file is retrieved from the tape library and copied back to disk, which can take from less than a minute to over an hour, depending on the file size and demand on the tape system. Consequently, users should expect longer transfer times when moving data from /nearline."
     },
     {
-      "question": "How can a user determine the current location or state of a specific file within the /nearline system?",
-      "answer": "Users can determine a file's state using the `lfs hsm_state <FILE>` command, which will show if the file is only on disk, in the process of archiving, exists on both disk and tape, or is only on tape ('released exists archived'). For an overview of all files' states, some clusters support the `diskusage_report --nearline --per_user --all_users` command."
+      "question": "What are the specific characteristics of the /nearline service on the Trillium cluster, and what methods are available for accessing it?",
+      "answer": "On the Trillium cluster, the /nearline service is implemented as HPSS. There are three primary methods for access: submitting HPSS-specific commands (like `htar` or `hsi`) as Slurm jobs in the archive partitions, using a VFS (Virtual File System) node via the command `salloc --time=1:00:00 -pvfsshort`, or by using Globus for transfers to and from HPSS using the `alliancecan#hpss` endpoint. HPSS files on Trillium are found in the `$ARCHIVE` directory, which functions similarly to `$PROJECT` but with `/project` replaced by `/archive`."
     }
   ],
-  "generated_at": "2026-04-13T15:28:13.371703+00:00"
+  "generated_at": "2026-04-19T02:47:36.869854+00:00"
 }

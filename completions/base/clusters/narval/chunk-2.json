@@ -4,17 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What are the specifications of the GPU-equipped nodes on the Narval cluster?",
-      "answer": "The Narval cluster features 159 GPU nodes, each equipped with 48 cores, 498G or 510000M of available memory, two AMD EPYC 7413 (Zen 3) CPUs clocked at 2.65 GHz, and a 3.84T SSD. These nodes also include four NVidia A100SXM4 GPUs, each with 40GB of memory, connected via NVLink."
+      "question": "What are the specifications of the GPU-enabled nodes on the Narval cluster?",
+      "answer": "The Narval cluster has 159 GPU-enabled nodes. Each of these nodes features 48 cores, 498G (or 510000M) of available memory, two AMD EPYC 7413 (Zen 3) processors clocked at 2.65 GHz with 128M L3 cache, a 3.84T SSD for storage, and four NVidia A100SXM4 GPUs, each with 40G of memory, connected via NVLink."
     },
     {
-      "question": "Which advanced vector extensions are supported by the AMD EPYC processors on the Narval cluster, and which are not?",
-      "answer": "The AMD EPYC 2nd and 3rd generation processors on the Narval cluster support AVX2 instructions. However, the Narval cluster does not support AVX512 instructions."
+      "question": "What are the guidelines for using Intel compilers to compile applications for the AMD processors on the Narval cluster, considering instruction set support?",
+      "answer": "The AMD EPYC processors (2nd and 3rd generation) on the Narval cluster support AVX2 instructions but do not support AVX512. When using Intel compilers, it is recommended to use the `-march=core-avx2` option to ensure compatibility with both Intel and AMD processors and to limit instructions to AVX2 and older sets. You should avoid using `-xXXXX` options (like `-xCORE-AVX2`) because they add checks for Intel processors, which will prevent applications from running on Narval. Also, do not use `-xHOST` or `-march=native` as they default to an outdated Pentium instruction set."
     },
     {
-      "question": "What is the recommended method for compiling applications for Narval's AMD processors using Intel compilers?",
-      "answer": "When using Intel compilers to build applications for Narval's AMD processors, it is recommended to use the `-march=core-avx2` option. This ensures executables are compatible with both Intel and AMD processors by limiting to AVX2 and older instruction sets. Options such as `-xXXXX` (e.g., `-xCORE-AVX2`), `-xHOST`, or `-march=native` should not be used, as they can lead to incompatibility or suboptimal performance."
+      "question": "What is the default standard software environment on the Narval cluster, and which BLAS and LAPACK library is recommended for optimal performance?",
+      "answer": "The default standard software environment on the Narval cluster is `StdEnv/2023`; older versions (2016 and 2018) are blocked. While the Intel MKL library functions on the AMD processors, it is not optimal. Therefore, the use of FlexiBLAS is now favoured for BLAS and LAPACK operations to achieve better performance. Users requiring software from older standard environments should contact technical support."
     }
   ],
-  "generated_at": "2026-04-13T09:52:28.064135+00:00"
+  "generated_at": "2026-04-19T02:14:28.807023+00:00"
 }

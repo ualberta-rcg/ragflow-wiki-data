@@ -4,13 +4,17 @@
   "chunk_index": 33,
   "qa_pairs": [
     {
-      "question": "Comment soumettre une tâche Ansys Mechanical (APDL) sur les grappes et quelle est la meilleure stratégie de parallélisation pour optimiser la performance?",
-      "answer": "Pour soumettre une tâche Ansys Mechanical (APDL) sur une grappe, il faut utiliser la commande `sbatch` avec un script approprié. Les scripts sont disponibles pour la mémoire parallèle partagée (SMP) et la mémoire parallèle distribuée (DMP). Les scripts SMP sur un seul nœud offrent généralement une meilleure performance que les scripts DMP sur plusieurs nœuds et devraient être privilégiés autant que possible."
+      "question": "Comment générer un fichier d'entrée pour une tâche Mechanical APDL à partir de l'interface de Workbench ?",
+      "answer": "Pour générer un fichier d'entrée pour une tâche Mechanical APDL, vous devez le faire dans votre session interactive Workbench Mechanical. Cliquez sur l'option « Solution », puis sur « Tools » et ensuite sur « Write Input Files ». Vous devrez alors spécifier le « File name » comme YOURAPDLFILE.inp et le « Save as type » pour les fichiers APDL en entrée (*.inp)."
     },
     {
-      "question": "Quels sont les paramètres de mémoire par défaut pour les tâches Ansys APDL, comment les ajuster, et faut-il considérer des arguments de licence additionnels avec un serveur de licence institutionnel?",
-      "answer": "Par défaut, Ansys alloue 1024 Mo de mémoire totale et 1024 Mo pour les bases de données aux tâches APDL. Pour ajuster ces valeurs, vous pouvez ajouter les arguments `-m` (pour la mémoire totale) et/ou `-db` (pour la mémoire des bases de données) à la ligne de commande `mapdl` dans vos scripts (par exemple, `-m 4096 -db 2048`). Si vous utilisez un serveur de licence de votre établissement qui offre plusieurs licences Ansys, il pourrait être nécessaire d'ajouter des arguments comme `-p aa_r` ou `-ppf anshpc`, selon le module que vous utilisez."
+      "question": "Sur quelles grappes les scripts Slurm pour Ansys Mechanical ont-ils été testés ?",
+      "answer": "Les scripts Slurm pour Ansys Mechanical ont été testés sur les grappes Graham, Narval, Cedar et Béluga de l'Alliance."
+    },
+    {
+      "question": "Comment empêcher une tâche Workbench de réécrire la solution quand elle se termine avec succès ?",
+      "answer": "Pour éviter que la solution ne soit réécrite à la fin d'une tâche Workbench qui se termine avec succès, vous devez modifier la dernière ligne de votre script Slurm. Remplacez <code>Save(Overwrite=True)</code> par <code>Save(Overwrite=False)</code>. Ça fera en sorte que la solution initialisée ne sera pas écrasée par chaque tâche de test."
     }
   ],
-  "generated_at": "2026-04-13T01:59:50.954472+00:00"
+  "generated_at": "2026-04-19T01:38:08.727405+00:00"
 }

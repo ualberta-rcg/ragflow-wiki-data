@@ -4,13 +4,13 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "How do users launch a Fluent multinode job on the Narval cluster using OpenMPI?",
-      "answer": "To launch a Fluent multinode job on the Narval cluster with OpenMPI, users must load the `StdEnv/2023` and `ansys/2023R2` (or newer) modules. The `OPENMPI_ROOT` environment variable needs to be explicitly exported. The job script then generates a machine file using `slurm_hl2hl.py --format ANSYS-FLUENT`, which is subsequently passed to the `fluent` command via the `-mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID` options."
+      "question": "How do you launch a multi-node Ansys Fluent job on the Narval cluster using OpenMPI, according to the provided Slurm script?",
+      "answer": "The Slurm script for Narval configures OpenMPI by exporting `OPENMPI_ROOT` and generates a machine file using `slurm_hl2hl.py`. For multi-node execution, it then exports `FI_PROVIDER=verbs` and executes Fluent with the command: `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`. For single-node jobs, it uses `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pshmem -i $MYJOURNALFILE` instead."
     },
     {
-      "question": "When submitting a Fluent multinode job on the Trillium cluster, how is the Ansys license server configured within the Slurm script?",
-      "answer": "For Fluent multinode jobs on the Trillium cluster, the Slurm script explicitly defines the `LICSERVER` (e.g., `license1.computecanada.ca`), `FLEXPORT` (e.g., `1055`), and `VENDPORT` (e.g., `1793`). SSH tunnelling is then established to forward these ports to `localhost` using `ssh tri-gw -fNL ...` commands. Finally, the `ANSYSLMD_LICENSE_FILE` and `ANSYSLI_SERVERS` environment variables are set to point to `localhost` with the respective `FLEXPORT` and `INTEPORT` values, ensuring compute nodes can reach the license server."
+      "question": "In a Slurm script for Ansys Fluent on the Trillium cluster, how are licence server details specified and connected, and what directory prerequisites are enforced?",
+      "answer": "Licence server details (`LICSERVER`, `FLEXPORT`, `VENDPORT`) are explicitly defined within the Slurm script. SSH tunnelling is then used to establish connections to the licence server via the `tri-gw` gateway, setting `ANSYSLMD_LICENSE_FILE` and `ANSYSLI_SERVERS` to point to `localhost`. Before running Fluent, the script verifies that `~/.ansys`, `~/.fluentconf` (directories), and `~/.flrecent` (file) are symbolically linked to writable locations in `$SCRATCH`. If these links are not found, the script creates the necessary directories and file in `$SCRATCH`, and if the links still do not exist, it aborts the job with an error."
     }
   ],
-  "generated_at": "2026-04-13T01:41:34.202291+00:00"
+  "generated_at": "2026-04-19T01:20:40.090859+00:00"
 }

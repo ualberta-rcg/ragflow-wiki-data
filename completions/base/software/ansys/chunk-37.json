@@ -4,17 +4,17 @@
   "chunk_index": 37,
   "qa_pairs": [
     {
-      "question": "How do users start Ansys Fluent in graphical mode from an On Demand Desktop, and what environment variables are necessary, especially when using a GPU or on the Nibi cluster?",
-      "answer": "To start Fluent from an On Demand Desktop, users should first load the `StdEnv/2023 ansys/2025R1` modules, then run `fluent`. In the Fluent Launcher popup, on the Environment Tab, set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi). For graphics, use `HOOPS_PICTURE=opengl2` for Ansys version 2025R1 or newer when a GPU is requested, or `HOOPS_PICTURE=opengl` for 2024R2 or older. If no GPU is requested, use `HOOPS_PICTURE=opengl2-mesa` for 2025R1 or newer, or `HOOPS_PICTURE=null` for 2024R2 or older."
+      "question": "How do users start Ansys Fluent graphically on an OnDemand Desktop, and what environment variables are needed for different GPU configurations?",
+      "answer": "To launch Ansys Fluent graphically on an OnDemand Desktop, first load the appropriate module (e.g., `module load StdEnv/2023 ansys/2025R1`), then run `fluent`. When the Fluent Launcher appears, go to the Environment Tab. For Ansys version 2025R1 or newer, set `HOOPS_PICTURE=opengl2-mesa` if no GPU was requested, or `HOOPS_PICTURE=opengl2` if a GPU was requested. For Ansys version 2024R2 or older, use `HOOPS_PICTURE=null` for no GPU, or `HOOPS_PICTURE=opengl` with a GPU. Additionally, on the Nibi cluster, `I_MPI_HYDRA_BOOTSTRAP=ssh` is required."
     },
     {
-      "question": "What are the command-line arguments for launching Ansys CFX and Mechanical APDL (Mapdl) in graphical mode from an On Demand Desktop, and how is Workbench started graphically?",
-      "answer": "To launch CFX graphically, load the `StdEnv/2023 ansys/2025R1` (or older) modules, then use `cfx5 -graphics mesa` if no GPU was requested, or `cfx5 -graphics ogl` if a GPU was requested. For Mechanical APDL, after loading `StdEnv/2023 ansys/2022R2` (or newer), use `mapdl -g` or `launcher`. To start Workbench on an On Demand Desktop, load `StdEnv/2023 ansys/2025R1` and run `runwb2 -oglmesa` if no GPU was requested, or simply `runwb2` if a GPU was requested (e.g., a t4 GPU on Nibi for accelerated graphics)."
+      "question": "What are the instructions for launching Ansys Workbench graphically on an Alliance cluster's OnDemand Desktop, and how should Fluent be configured if launched from within Workbench?",
+      "answer": "To launch Ansys Workbench graphically on an OnDemand Desktop, load the module (e.g., `module load StdEnv/2023 ansys/2025R1`). If no GPU was requested, use the command `runwb2 -oglmesa`. If a GPU was requested (e.g., a `t4 (15GB)` GPU on Nibi for accelerated graphics), simply use `runwb2`. When starting Fluent from within Workbench, navigate to `Fluid Flow (Fluent)` then `Setup`. In the Fluent Launcher's Environment Tab, set `I_MPI_HYDRA_BOOTSTRAP=ssh` (if on Nibi) and configure `HOOPS_PICTURE` based on the Ansys version and GPU availability as described for standalone Fluent."
     },
     {
-      "question": "What critical environment variable needs to be set when running Ansys Fluent in an OnDemand Compute Desktop session on the Nibi cluster, especially when using Intel MPI, and what happens if it's not configured?",
-      "answer": "When running Fluent in an OnDemand Compute Desktop session on Nibi with Intel MPI, it is critical to set the environment variable `I_MPI_HYDRA_BOOTSTRAP=ssh`. If this variable is not set properly, Fluent will crash on startup, producing an error output indicating an inability to run `bstrap_proxy` and set up bootstrap proxies. To resolve this, users must completely exit Fluent, shut down Workbench (if applicable), and restart the process after correctly setting the environment variable."
+      "question": "What critical environment variable must be set when running Fluent with Intel MPI from an OnDemand Compute Desktop session on the Nibi cluster, and what error occurs if it is omitted?",
+      "answer": "When running Fluent with Intel MPI from an OnDemand Compute Desktop session on the Nibi cluster, the `I_MPI_HYDRA_BOOTSTRAP=ssh` environment variable must be properly set. If this variable is not configured correctly, Fluent will crash on startup, producing an error message related to being unable to run `bstrap_proxy` and issues setting up bootstrap proxies. If this occurs, users should completely exit Fluent, shut down Workbench, and restart the process with the correct environment variable in place."
     }
   ],
-  "generated_at": "2026-04-13T01:45:47.820307+00:00"
+  "generated_at": "2026-04-19T01:24:33.732547+00:00"
 }

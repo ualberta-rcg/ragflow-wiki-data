@@ -4,58 +4,54 @@ slug: "openstack_command_line_clients"
 lang: "base"
 
 source_wiki_title: "OpenStack command line clients"
-source_hash: "353e58800e4b243dde4083cc54bf6953"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T10:05:23.135033+00:00"
+source_hash: "72223d073a56269b81695d8550688138"
+last_synced: "2026-04-18T23:39:30.217451+00:00"
+last_processed: "2026-04-19T01:02:27.346188+00:00"
 
 tags:
   - cloud
 
 keywords:
-  - "command group"
-  - "command-line interfaces"
-  - "create"
-  - "command line tool"
-  - "glance"
   - "server command group"
-  - "add volume"
-  - "installation"
-  - "add security group"
-  - "security group"
-  - "image"
-  - "OpenStack"
   - "volume"
-  - "OpenStack RC File"
-  - "object"
+  - "OpenStack command line tool"
+  - "OpenStack"
+  - "create"
   - "nova"
-  - "cinder"
+  - "security group"
+  - "commands"
+  - "Command-line interfaces"
+  - "python-openstackclient"
+  - "OpenStack RC file"
+  - "container"
   - "store account"
-  - "network"
-  - "available commands"
-  - "delete"
-  - "list"
-  - "administrator"
+  - "glance"
+  - "CLI installation"
+  - "cinder"
+  - "image"
   - "command groups"
+  - "network"
+  - "command group"
+  - "delete"
+  - "object"
+  - "administrators"
 
 questions:
-  - "How can the OpenStack command line client be installed across different Linux distributions?"
-  - "What is the process for connecting the command line client to an OpenStack project using an environment setup file?"
-  - "How do users execute commands and access the built-in help system within the OpenStack CLI?"
-  - "What are the primary command groups categorized in this reference document?"
-  - "What specific subcommands are available for managing network-related components like IPs and security groups?"
-  - "According to the hidden notes in the text, which two command groups are considered not widely publicized?"
-  - "What happens when a non-administrator attempts to use a restricted command?"
-  - "Why are the available commands organized into specific command groups?"
-  - "What are the specific commands included within the \"server\" command group?"
-  - "What are the specific commands listed under the \"object\" category?"
-  - "Which commands are used specifically for managing a \"store account\"?"
-  - "What general operations, such as saving or listing, are common across the different sections of this command reference?"
+  - "How do you install the OpenStack command line client on different Linux distributions or without administrative privileges?"
+  - "What steps are required to authenticate and connect the command line client to your OpenStack project using an RC file?"
+  - "How do you execute commands and access the built-in help documentation within the OpenStack CLI tool?"
+  - "What are the different command groups categorized in this text?"
+  - "Which specific sub-commands are available for managing IP addresses and security groups?"
+  - "What common actions are shared across the majority of the listed command groups?"
+  - "How can a user access the help documentation for a specific command within a command group?"
+  - "Why might a user receive an error message when attempting to execute certain commands?"
+  - "What are some examples of commands included in the \"server\" command group?"
+  - "What features or commands are referred to as not being widely publicized in the text?"
+  - "What are the specific commands associated with the container category?"
+  - "Which actions or commands are listed under the object category?"
   - "Why might a user choose to use the separate component commands instead of the unified openstack command?"
-  - "What additional installation steps are required to use the separate command-line interfaces?"
-  - "Which specific OpenStack functionalities correspond to the nova, glance, cinder, and heat commands?"
-  - "Why might a user choose to use the separate component commands instead of the unified openstack command?"
-  - "What additional installation steps are required to use the separate command-line interfaces?"
-  - "Which specific OpenStack functionalities correspond to the nova, glance, cinder, and heat commands?"
+  - "What additional installation steps are required to use the separate OpenStack component commands?"
+  - "Which specific command-line tools are used for managing servers, images, volumes, and orchestration in OpenStack?"
 
 status:
   downloaded: true
@@ -89,21 +85,20 @@ pip install python-openstackclient
 ```bash
 sudo dnf install python-openstackclient
 ```
-
 !!! note
     If you do not have administrative privileges and cannot use the OS package manager, then you will need to install Python and [pip](https://pip.pypa.io/en/latest/installing/) by other means. Once installed, you can get the command line tools installed into your home space like so:
 
     ```bash
     pip install --user python-openstackclient
     ```
-
     The install location is probably already included in your `$PATH`, but you can double check whether `~/.bashrc` or `~/.bash_profile` contains the following line `PATH=$PATH:$HOME/.local/bin:$HOME/bin`.
 
-**SDK**
+### SDK
 If you wish to explore the [OpenStack API for Python](http://docs.openstack.org/user-guide/sdk.html), add `export PYTHONPATH=${HOME}/.local/lib/python2.7/site-packages/:${PYTHONPATH}` to your `.bashrc` file. Adjust the `python2.7` phrase to match the Python version you have installed.
 
 ## Connecting CLI to OpenStack
-Your command line client must now be told how to find your OpenStack project on our clouds. The most convenient way to do this is to download an OpenStack environment setup file. On the OpenStack dashboard go to Project-> API Access-> Download OpenStack RC File.
+Your command line client must now be told how to find your OpenStack project on our clouds.
+The most convenient way to do this is to download an OpenStack environment setup file. On the OpenStack dashboard go to Project-> API Access-> Download OpenStack RC File. If you are connecting to Arbutus (not legacy Arbutus) you will need to make some additional changes to your RC file described here: [New Arbutus RC File Modifications](arbutus_migration_guide.md#new-arbutus-rc-file-modifications).
 
 Then source the file with something like
 ```bash
@@ -114,7 +109,7 @@ It will ask you for your OpenStack password, which is simply your CCDB password.
 openstack image list
 ```
 
-If you switch between different RC files you should be careful of environment variables which may still be set from the previous RC file; these may cause your OpenStack client commands to fail. Either ensure that all environment variables set in the RC file are unset with `unset <variable-name>`, or start a fresh new session without any of the RC environment variables set.
+If you switch between different RC files you should be careful of environment variables which may still be set from the previous RC file, these may cause your OpenStack client commands to fail. Either ensure that all environment variables set in the RC file are unset with `unset <variable-name>`, or start a fresh new session without any of the RC environment variables set.
 
 ## Executing commands
 The CLI tool can be used interactively by typing
@@ -125,12 +120,13 @@ and then issuing commands at the prompt. Alternatively the commands can be issue
 ```bash
 openstack server list
 ```
-When running in interactive mode a list of available commands can be seen by typing `help` at the OpenStack prompt. The available commands are categorized by groups; many of the most commonly used groups are listed below. A list of commands belonging to a command group can be obtained by typing `help <command group>`. To get help on a particular command (e.g., options and arguments of the command) one can type `help <command group> <command>`. Note that many commands are available only to OpenStack administrators and will return an error message if a non-administrator tries using it. For this reason a list of available commands grouped by command groups is provided below to allow one to easily identify commands available to the average user.
+When running in interactive mode a list of available commands can be seen by typing `help` at the OpenStack prompt. The available commands are categorized by groups; many of the most commonly used groups are listed below. A list of commands belonging to a command group can be obtained by typing `help <command group>`. To get help on a particular command (e.g. options and arguments of the command) one can type `help <command group> <command>`. Note that many commands are available only to OpenStack administrators and will return an error message if a non-administrator tries using it. For this reason a list of available commands grouped by command groups is provided below to allow one to easily identify commands available to the average user.
 
 ## Command groups
 ### `server` command group
-|     |     |     |     |
-|-----|-----|-----|-----|
+
+| Command | Command | Command | Command |
+|---|---|---|---|
 | `add security group` | `migrate` | `resume` | `unlock` |
 | `add volume` | `pause` | `set` | `unpause` |
 | `create` | `reboot` | `shelve` | `unrescue` |
@@ -141,32 +137,37 @@ When running in interactive mode a list of available commands can be seen by typ
 | `lock` | `resize` | `suspend` | |
 
 ### `volume` command group
-|     |     |
-|-----|-----|
+
+| Command | Command |
+|---|---|
 | `create` | `set` |
 | `delete` | `show` |
 | `list` | `unset` |
 
 ### `console` command group
-|     |     |
-|-----|-----|
+
+| Command | Command |
+|---|---|
 | `log show` | `url show` |
 
 ### `flavor` command group
-|     |     |
-|-----|-----|
+
+| Command | Command |
+|---|---|
 | `list` | `show` |
 
 ### `image` command group
-|     |     |
-|-----|-----|
+
+| Command | Command |
+|---|---|
 | `create` | `save` |
 | `delete` | `set` |
 | `list` | `show` |
 
 ### `ip` command group
-|     |     |
-|-----|-----|
+
+| Command | Command |
+|---|---|
 | `fixed add` | `floating list` |
 | `fixed remove` | `floating pool list` |
 | `floating add` | `floating remove` |
@@ -174,28 +175,32 @@ When running in interactive mode a list of available commands can be seen by typ
 | `floating delete` | |
 
 ### `keypair` command group
-|     |     |
-|-----|-----|
+
+| Command | Command |
+|---|---|
 | `create` | `list` |
 | `delete` | `show` |
 
 ### `network` command group
-|     |     |
-|-----|-----|
+
+| Command | Command |
+|---|---|
 | `create` | `set` |
 | `delete` | `show` |
 | `list` | |
 
 ### `snapshot` command group
-|     |     |
-|-----|-----|
+
+| Command | Command |
+|---|---|
 | `create` | `set` |
 | `delete` | `show` |
 | `list` | `unset` |
 
 ### `security group` command group
-|     |     |
-|-----|-----|
+
+| Command | Command |
+|---|---|
 | `create` | `rule list` |
 | `delete` | `rule show` |
 | `list` | `set` |
@@ -203,9 +208,10 @@ When running in interactive mode a list of available commands can be seen by typ
 | `rule delete` | |
 
 ### `limits` command group
-|     |
-|-----|
-| `show` |
+
+| Command | |
+|---|---|
+| `show` | |
 
 ## Separate Command-line interfaces
 In addition to the `openstack` command described above which incorporates much of the total functionality available into one command there are also individual commands to work with the separate components of OpenStack which often have extra functionality. These separate commands are installed at the same time as the `openstack` command, as described above, so no further installation is required to use them. A list of the commands for working with common components of OpenStack are:

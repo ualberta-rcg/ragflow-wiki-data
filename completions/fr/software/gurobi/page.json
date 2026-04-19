@@ -3,69 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que Gurobi et à quoi sert-il sur les grappes de l'Alliance?",
-      "answer": "Gurobi est une suite logicielle commerciale qui permet de résoudre des problèmes complexes d'optimisation sur les grappes de calcul de l'Alliance."
+      "question": "Qu'est-ce que le logiciel Gurobi et à quoi sert-il sur les grappes de l'Alliance de recherche numérique?",
+      "answer": "Gurobi est une suite logicielle commerciale qui permet de résoudre des problèmes complexes d'optimisation sur les grappes de l'Alliance."
     },
     {
-      "question": "Sur quelles grappes de l'Alliance la licence gratuite de Gurobi est-elle disponible?",
-      "answer": "La licence gratuite de Gurobi est disponible sur Nibi, Fir, Rorqual et Trillium."
+      "question": "Sur quelles grappes de l'Alliance la licence gratuite de Gurobi est-elle disponible et quelles sont ses limitations?",
+      "answer": "La licence gratuite de Gurobi est disponible sur Nibi, Fir, Rorqual et Trillium. Elle permet 4096 utilisations simultanées et l'optimisation distribuée sur un maximum de 100 nœuds."
     },
     {
-      "question": "Quelles sont les limitations de la licence gratuite de Gurobi sur les grappes de l'Alliance?",
-      "answer": "La licence gratuite permet 4096 utilisations simultanées (avec jetons) et l'optimisation distribuée sur un maximum de 100 nœuds. Plusieurs tâches peuvent être exécutées en simultané."
-    },
-    {
-      "question": "Comment puis-je obtenir l'accès à la licence Gurobi sur les systèmes de l'Alliance?",
-      "answer": "Vous devez accepter l'entente d'utilisation académique (Academic Usage Agreement) et l'envoyer par courriel au soutien technique. L'accès sera activé après quelques jours."
+      "question": "Comment un utilisateur peut-il obtenir et activer la licence académique de Gurobi sur les systèmes de l'Alliance?",
+      "answer": "Vous devez envoyer un courriel au soutien technique avec l'entente \"Academic Usage Agreement\" dûment complétée, en spécifiant votre nom d'utilisateur Alliance et votre institution, puis attendre quelques jours pour l'activation."
     },
     {
       "question": "Est-il nécessaire de créer un fichier de licence spécifique pour Gurobi sur les grappes de l'Alliance?",
-      "answer": "Non, il n'est pas nécessaire de créer le fichier `~/.licenses/gurobi.lic`. Les paramètres sont configurés par défaut lorsqu'un module Gurobi est chargé."
+      "answer": "Non, il n'est pas nécessaire de créer le fichier `~/.licenses/gurobi.lic`. Les paramètres de licence sont configurés par défaut lorsqu'un module Gurobi est chargé."
     },
     {
-      "question": "Comment puis-je vérifier si mon compte est bien configuré pour utiliser Gurobi sur les grappes de l'Alliance?",
-      "answer": "Vous pouvez lancer la commande `module load gurobi; gurobi_cl 1> /dev/null && echo Success || echo Fail`. Si vous obtenez 'Success', vous pouvez l'utiliser."
+      "question": "Comment un utilisateur peut-il vérifier si son compte a bien accès à la licence Gurobi sur une grappe de l'Alliance?",
+      "answer": "Pour vérifier l'accès, il faut charger le module Gurobi (`module load gurobi`) puis lancer la commande `gurobi_cl 1> /dev/null && echo Success || echo Fail`. Si 'Success' s'affiche, vous pouvez utiliser Gurobi."
     },
     {
-      "question": "Que dois-je faire si le test de ma licence Gurobi retourne 'Fail' sur les grappes de l'Alliance?",
-      "answer": "Vérifiez et supprimez un fichier `~/.license/gurobi` s'il existe, ou supprimez/commentez toute variable d'environnement GUROBI dans vos fichiers bashrc/bash_profile. Si le problème persiste, contactez le soutien technique."
+      "question": "Que faire si le test de la licence Gurobi sur une grappe de l'Alliance retourne \"Fail\"?",
+      "answer": "Vérifiez et supprimez le fichier `~/.license/gurobi` s'il existe, ou commentez toute variable d'environnement GUROBI dans `~/.bashrc` ou `~/.bash_profile`. Si le problème persiste, contactez le soutien technique."
     },
     {
-      "question": "Pourquoi est-il important de minimiser les demandes de licence Gurobi et comment y parvenir sur les grappes de l'Alliance?",
-      "answer": "C'est important pour améliorer les performances de vos tâches et la réactivité du serveur de licences. Il faut s'assurer que votre programme n'effectue qu'une seule demande de licence et réutilise ce jeton, et utiliser un démarrage progressif pour les soumissions de tâches en boucle avec Slurm."
+      "question": "Pourquoi est-il important de minimiser le nombre de demandes de licence Gurobi sur les grappes de l'Alliance?",
+      "answer": "Il est important de limiter les demandes pour améliorer les performances des tâches et la réactivité du serveur de licences, qui est distant, afin d'éviter les échecs aléatoires et intermittents."
     },
     {
-      "question": "Quelle est la limite quotidienne d'utilisations de licences Gurobi par grappe sur l'Alliance?",
-      "answer": "Il y a une limite de 10 000 utilisations de licences Gurobi par grappe sur une période de 24 heures."
+      "question": "Comment les programmes Gurobi peuvent-ils minimiser les demandes de licence pour éviter de surcharger le serveur de l'Alliance?",
+      "answer": "Les programmes devraient effectuer une seule demande de licence et réutiliser ce jeton pendant toute la vie de la tâche. Des documentations spécifiques sont disponibles pour C++ et Python sur le site de Gurobi."
     },
     {
-      "question": "Comment lancer une allocation interactive pour utiliser Gurobi sur la ligne de commande sur une grappe de l'Alliance?",
-      "answer": "Vous devez d'abord demander une allocation avec `salloc`, puis charger le module Gurobi et utiliser la commande `gurobi_cl`, par exemple: `salloc --time=1:00:0 --cpus-per-task=8 --mem=1G --account=def-xyz` suivi de `module load gurobi` et `gurobi_cl`."
+      "question": "Quelle est la limite quotidienne d'utilisations de licences Gurobi par grappe sur les systèmes de l'Alliance?",
+      "answer": "La limite est de 10 000 utilisations de licences Gurobi par grappe sur une période de 24 heures."
     },
     {
-      "question": "Lors de l'utilisation de Gurobi avec Python via Slurm sur une grappe de l'Alliance, comment s'assurer que Gurobi utilise le bon nombre de cœurs?",
-      "answer": "Il faut générer un fichier `gurobi.env` dans le répertoire de travail avec la ligne `echo \"Threads ${SLURM_CPUS_ON_NODE:-1}\" > gurobi.env` avant d'exécuter le script Python. Ceci assure que le nombre de fils d'exécution correspond aux cœurs alloués par Slurm."
+      "question": "Comment soumettre une tâche Gurobi en lots à l'ordonnanceur Slurm sur une grappe de l'Alliance?",
+      "answer": "Une fois que votre script Slurm est prêt, soumettez-le avec la commande `sbatch script-name.sh`. L'état de vos tâches peut être vérifié avec la commande `sq`."
+    },
+    {
+      "question": "Comment s'assurer que les tâches Gurobi utilisant l'interface Python utilisent le nombre correct de cœurs alloués par l'ordonnanceur Slurm sur une grappe de l'Alliance?",
+      "answer": "Il faut créer un fichier `gurobi.env` dans le répertoire de travail avec le paramètre `Threads` défini à `${SLURM_CPUS_ON_NODE:-1}` pour chaque tâche soumise."
     },
     {
       "question": "Pourquoi est-il recommandé d'utiliser des environnements virtuels Python avec Gurobi sur les grappes de l'Alliance?",
-      "answer": "Gurobi a sa propre version de Python qui ne contient pas d'autres paquets tiers. Les environnements virtuels Python permettent d'utiliser Gurobi avec d'autres paquets comme NumPy, Matplotlib ou Pandas."
+      "answer": "Gurobi a sa propre version de Python sans paquets tiers. Les environnements virtuels permettent d'utiliser Gurobi avec d'autres paquets Python populaires comme NumPy, Matplotlib ou Pandas."
     },
     {
-      "question": "Comment installer le paquet `gurobipy` dans un environnement virtuel Python pour les versions de Gurobi 10.0.3 et plus anciennes?",
-      "answer": "Après avoir chargé les modules `gurobi` et `python` et activé votre environnement virtuel, vous devez copier les fichiers de Gurobi (`lib`, `setup.py`) dans un répertoire temporaire, puis exécuter `python setup.py install` à partir de ce répertoire temporaire."
+      "question": "Comment installer le paquet `gurobipy` dans un environnement virtuel Python pour les versions 10.0.3 et plus anciennes de Gurobi sur les grappes de l'Alliance?",
+      "answer": "Après avoir créé et activé l'environnement virtuel, il faut copier les fichiers `lib` et `setup.py` de Gurobi dans un répertoire temporaire (ex: `/tmp/$USER`), puis exécuter `python setup.py install` depuis ce répertoire."
     },
     {
-      "question": "Comment installer le paquet `gurobipy` dans un environnement virtuel Python pour les versions de Gurobi 11.0.1 et plus récentes sur les grappes de l'Alliance?",
-      "answer": "Après avoir activé votre environnement virtuel et installé d'autres paquets nécessaires, vous devez utiliser le script `unmanylinuxize.sh` (disponible via `wget`) avec l'URL du fichier wheel de `gurobipy` depuis PyPI, puis installer la roue localement avec `python -m pip install --find-links $PWD --no-index gurobipy`."
+      "question": "Quelle est la méthode recommandée pour installer le paquet `gurobipy` dans un environnement virtuel Python pour les versions 11.0.0 et plus récentes de Gurobi sur les grappes de l'Alliance?",
+      "answer": "L'installation se fait via `pip` après avoir téléchargé et converti la roue binaire compatible de `pypi.org` en utilisant un script `unmanylinuxize.sh` fourni par l'Alliance, en spécifiant l'URL de la roue."
     },
     {
-      "question": "Comment exécuter un script Python personnalisé utilisant Gurobi dans un environnement virtuel via une tâche Slurm sur les grappes de l'Alliance?",
-      "answer": "Votre script Slurm doit charger les modules `StdEnv` et `gurobi`, activer votre environnement virtuel Python, générer le fichier `gurobi.env` pour définir les threads, puis exécuter votre script Python."
+      "question": "Comment exécuter un script Python personnalisé utilisant Gurobi dans un environnement virtuel via un script Slurm sur une grappe de l'Alliance?",
+      "answer": "Le script Slurm doit charger les modules `StdEnv` et `gurobi`, activer l'environnement virtuel avec `source ~/env_gurobi/bin/activate`, définir les \"Threads\" dans `gurobi.env`, et ensuite exécuter le script Python."
     },
     {
-      "question": "Comment utiliser Gurobi avec Java sur les grappes de l'Alliance?",
-      "answer": "Vous devez charger les modules Java et Gurobi, puis ajouter l'option `-Djava.library.path=$EBROOTGUROBI/lib` à votre commande `java` pour localiser les bibliothèques Gurobi, par exemple `java -Djava.library.path=$EBROOTGUROBI/lib -Xmx4g -jar my_java_file.jar`."
+      "question": "Quelles sont les étapes pour utiliser Gurobi avec Java sur les systèmes de l'Alliance?",
+      "answer": "Il faut charger un module Java et un module Gurobi, puis ajouter l'option `-Djava.library.path=$EBROOTGUROBI/lib` à la commande Java pour permettre à l'environnement Java de localiser les bibliothèques Gurobi."
+    },
+    {
+      "question": "Où trouver des informations sur la manière de citer le logiciel Gurobi dans une publication académique?",
+      "answer": "Les informations sur la citation de Gurobi pour une publication académique se trouvent sur le centre d'aide de Gurobi, dans l'article 'How do I cite Gurobi software for an academic publication?'."
+    },
+    {
+      "question": "Où peut-on obtenir de l'aide pour utiliser Gurobi spécifiquement sur les grappes de l'Alliance de recherche numérique?",
+      "answer": "Pour obtenir de l'aide concernant l'utilisation de Gurobi sur les grappes de l'Alliance, il faut soumettre un billet au soutien technique."
     }
   ],
-  "generated_at": "2026-04-13T06:55:02.485971+00:00"
+  "generated_at": "2026-04-19T02:00:40.799082+00:00"
 }

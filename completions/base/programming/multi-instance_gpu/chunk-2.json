@@ -4,17 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How can a user request a specific Multi-Instance GPU (MIG) instance for an interactive job?",
-      "answer": "A user can request a Multi-Instance GPU (MIG) instance for an interactive job using the `salloc` command. For example, to request an A100 GPU instance with 3/8 power and 20GB memory, along with 2 CPU cores and 40GB system memory for one hour, the command would be: `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`."
+      "question": "How can a user request an A100 Multi-Instance GPU (MIG) instance for an interactive job or a batch job?",
+      "answer": "To request an A100 GPU instance for an interactive job, for example, with 3/8 computing power and 20GB memory for one hour, you can use the `salloc` command: `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`. For a 24-hour batch job requiring an A100 instance with 4/8 power and 20GB memory, along with recommended CPU cores and system memory, an SBATCH script would include `#SBATCH --gpus=a100_4g.20gb:1`, `#SBATCH --cpus-per-task=6`, and `#SBATCH --mem=62gb`."
     },
     {
-      "question": "What key metrics should be evaluated to determine if an existing job is suitable for running on a Multi-Instance GPU (MIG) instance instead of a full GPU?",
-      "answer": "To determine if an existing job is suitable for a Multi-Instance GPU (MIG) instance, you should evaluate its power consumption, GPU functionality utilization, maximum GPU memory usage, and the average number of CPU cores required. Jobs that use less than half of the computing power and memory of a full GPU are often good candidates for an instance."
-    },
-    {
-      "question": "How can users monitor the GPU metrics of a running job in real-time on a compute node?",
-      "answer": "Users can monitor the GPU metrics of a running job in real-time by attaching to the node where the job is currently running and then using the `nvidia-smi` command. This method is helpful for identifying and troubleshooting underperforming jobs, though it doesn't provide maximum and average values for the entire job's duration."
+      "question": "What metrics should be evaluated to determine if an existing job could be more efficiently run on a Multi-Instance GPU (MIG) instance instead of a full GPU?",
+      "answer": "To determine if a job could be more efficiently run on a MIG instance, you should evaluate its power consumption, GPU functionality utilization, maximum GPU memory usage, and the average number of CPU cores required. For instance, a job requesting a full A100 GPU (400W max TDP) but only using 100W on average, with less than 25% GPU utilization and a maximum of 3GB GPU memory out of 40GB, and launched with a single CPU core, could likely run on a smaller instance like a 3g.20GB or 4g.20GB GPU instance."
     }
   ],
-  "generated_at": "2026-04-13T09:41:00.284384+00:00"
+  "generated_at": "2026-04-19T02:11:37.186114+00:00"
 }

@@ -1,0 +1,16 @@
+{
+  "doc_key": "base/lammps",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "What are the steps to install PyTorch within a Python virtual environment when compiling MACE in LAMMPS for GPU usage?",
+      "answer": "To install PyTorch for MACE in LAMMPS for GPU usage, you first need to create and activate a Python virtual environment using `virtualenv --clear ~/lammps-mace/ENV && source ~/lammps-mace/ENV/bin/activate`. Once the environment is active, install PyTorch by running `pip install --no-index --upgrade pip` followed by `pip install --no-index 'torch>=2.10.0'`. It is important to note that the CUDA version loaded (e.g., cuda 12.9) should match what PyTorch was built against."
+    },
+    {
+      "question": "What are the essential SLURM directives and commands for submitting a MACE in LAMMPS job that utilizes a GPU on a cluster?",
+      "answer": "For submitting a MACE in LAMMPS job utilizing a GPU, essential SLURM directives in the job script include `#SBATCH --job-name lammps-mace`, `#SBATCH --account MY-ACCOUNT-GPU`, `#SBATCH --nodes=1`, `#SBATCH --ntasks=4`, `#SBATCH --cpus-per-task=1`, `#SBATCH --mem-per-cpu=3500M`, `#SBATCH --gpus=h100_1g.10gb:1`, `#SBATCH --time=01:00:00`, and `#SBATCH --mail-type=FAIL`. The command `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK` should be used to set the number of OpenMP threads, and the job is executed with `srun $HOME/lammps-mace/bin/lmp -in in.lammps`."
+    }
+  ],
+  "generated_at": "2026-04-19T02:08:33.849578+00:00"
+}

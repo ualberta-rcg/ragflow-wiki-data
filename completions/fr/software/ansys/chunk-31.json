@@ -4,13 +4,13 @@
   "chunk_index": 31,
   "qa_pairs": [
     {
-      "question": "Comment puis-je configurer le parallélisme de la mémoire (SMP ou DMP) et le nombre de cœurs pour une tâche Ansys Workbench sur les grappes de calcul ?",
-      "answer": "Pour configurer le parallélisme de la mémoire, définissez la variable `MEMPAR` à 0 pour le parallélisme à mémoire partagée (SMP) ou à 1 pour le parallélisme à mémoire distribuée (DMP). Le nombre de cœurs est déterminé par la variable `SLURM_NTASKS`. Ces valeurs sont ensuite utilisées pour modifier le fichier `SolveHandlers.xml` d'Ansys, situé dans votre répertoire d'application Ansys, à l'aide de commandes `sed`."
+      "question": "Comment faire pour lancer Ansys CFX en mode parallèle distribué sur plusieurs nœuds de calcul des grappes de l'Alliance?",
+      "answer": "Pour exécuter Ansys CFX en parallèle distribué sur plusieurs nœuds, il faut utiliser la commande `cfx5solve` avec l'option `-start-method` suivie de \"Open MPI Distributed Parallel\" pour la grappe Narval, ou \"Intel MPI Distributed Parallel\" pour les autres grappes. Il faut aussi spécifier le nombre de nœuds avec l'option `-par-dist`, en utilisant la variable `$NNODES` qui est déterminée par le script Slurm."
     },
     {
-      "question": "Quelles variables d'environnement sont importantes à définir lors de l'exécution d'Ansys Workbench ?",
-      "answer": "Il est important de définir `export KMP_AFFINITY=disabled` pour désactiver l'affinité KMP, et `export I_MPI_HYDRA_BOOTSTRAP=ssh` est nécessaire pour le démarrage du bootstrap MPI."
+      "question": "Y a-t-il des différences dans la manière de démarrer Ansys CFX en parallèle sur la grappe Narval par rapport aux autres grappes de l'Alliance?",
+      "answer": "Oui, il y a une différence. Sur la grappe Narval, Ansys CFX utilise \"Open MPI Distributed Parallel\" comme méthode de démarrage. Pour les autres grappes, il utilise \"Intel MPI Distributed Parallel\" et requiert également de définir la variable d'environnement `I_MPI_HYDRA_BOOTSTRAP` à `ssh` et de supprimer `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`."
     }
   ],
-  "generated_at": "2026-04-13T01:59:31.621357+00:00"
+  "generated_at": "2026-04-19T01:37:56.347623+00:00"
 }

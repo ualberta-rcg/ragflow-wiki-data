@@ -4,13 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Pourquoi est-il préférable de démarrer une instance à partir d'un volume plutôt que d'une image, et quelles sont les options pour le faire?",
-      "answer": "Il est fortement recommandé de démarrer une instance à partir d'un volume pour créer un service persistant. Contrairement à une instance démarrée depuis une image qui est stockée sur le disque local et pourrait être perdue en cas de problème, le stockage du volume procure une redondance qui protège l'instance des défaillances matérielles. Pour ce faire, on peut démarrer à partir d'une image en créant un nouveau volume, à partir d'un volume existant, ou à partir d'un instantané (snapshot) qui crée aussi un nouveau volume. Lors du lancement d'une instance avec une nouvelle image, il est important de ne pas cocher la case 'Supprimer le volume lors de la suppression de l'instance' pour que le volume persiste."
+      "question": "Comment faire pour qu'un volume soit monté automatiquement au démarrage d'une instance sur un système Linux?",
+      "answer": "Pour monter un volume automatiquement au démarrage d'une instance, il faut ajouter une ligne au fichier `/etc/fstab` avec les détails du volume. Avant ça, vous pouvez utiliser la commande `blkid` pour trouver l'UUID du dispositif. Ensuite, vous ajoutez une ligne comme celle-ci: `/dev/disk/by-uuid/anananan-anan-anana-anan-ananananana /mnt auto defaults,nofail 0 3`, en remplaçant l'UUID générique par celui de votre volume."
     },
     {
-      "question": "Quel est l'intérêt de créer une image à partir d'un volume et comment procède-t-on avec le tableau de bord OpenStack?",
-      "answer": "Créer une image à partir d'un volume est utile pour télécharger l'image comme copie de sécurité ou pour créer une instance sur un autre service infonuagique, comme VirtualBox. Avant de pouvoir créer l'image d'un volume, celui-ci doit être détaché de son instance. Dans le cas d'un volume de démarrage, l'instance doit être supprimée en s'assurant que la case 'Supprimer le volume lors de la suppression de l'instance' n'a pas été cochée. Avec le tableau de bord OpenStack, on doit aller sous 'Projet->Volumes', sélectionner le volume désiré, puis choisir 'Charger dans l'image' dans la colonne 'Actions'. Il faut ensuite entrer un nom pour la nouvelle image et choisir un format de disque, le QCOW2 étant recommandé pour OpenStack."
+      "question": "Pourquoi est-il conseillé de démarrer une instance depuis un volume plutôt que depuis une image dans un environnement de cloud?",
+      "answer": "Il est recommandé de démarrer une instance depuis un volume pour assurer la persistance du service. Une instance démarrée depuis une image est stockée sur le disque local de la machine qui l'héberge, ce qui la rend vulnérable à une perte en cas de problème matériel sur cette machine. Un volume offre une redondance, ce qui protège l'instance contre les défaillances matérielles et garantit sa stabilité."
+    },
+    {
+      "question": "Quelle est la marche à suivre pour créer une image à partir d'un volume existant en utilisant le tableau de bord OpenStack?",
+      "answer": "Pour créer une image à partir d'un volume avec le tableau de bord OpenStack, le volume doit d'abord être détaché de l'instance. Si c'est un volume de démarrage, l'instance doit être supprimée, en s'assurant que la case 'Supprimer le volume lors de la suppression de l'instance' n'a pas été cochée. Ensuite, sous 'Projet->Volumes', sélectionnez le volume, puis dans la colonne 'Actions', choisissez 'Charger dans l'image' du menu déroulant. Entrez un nom pour la nouvelle image et sélectionnez le format du disque. QCOW2 est recommandé pour OpenStack, ou vmdk/vdi si vous prévoyez d'utiliser l'image avec VirtualBox, puis cliquez sur 'Charger'."
     }
   ],
-  "generated_at": "2026-04-13T16:28:22.087259+00:00"
+  "generated_at": "2026-04-19T02:49:25.682450+00:00"
 }

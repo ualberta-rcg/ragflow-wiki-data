@@ -4,17 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Comment puis-je lister tous les gabarits et les noms complets des GPU disponibles sur une grappe de calcul en particulier?",
-      "answer": "Pour obtenir la liste de tous les gabarits et les noms complets des GPU sur une grappe spécifique, vous pouvez lancer la commande suivante : `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\\n/g'|cut -d: -f1|sort|uniq`."
+      "question": "Quels sont les profils d'instances MIG disponibles pour les GPU H100 et quelles sont leurs caractéristiques en termes de puissance de calcul et de mémoire?",
+      "answer": "Pour les GPU H100, les profils d'instances MIG disponibles sont les suivants : H100-1g.10gb qui offre 1/8<sup>e</sup> de la puissance de calcul et 10Go de mémoire, H100-2g.20gb qui fournit 2/8<sup>e</sup> de la puissance de calcul et 20Go de mémoire, et H100-3g.40gb qui propose 3/8<sup>e</sup> de la puissance de calcul et 40Go de mémoire."
     },
     {
-      "question": "Comment faire pour demander une instance de GPU spécifique pour une tâche interactive sur une grappe de calcul?",
-      "answer": "Pour demander une instance de GPU pour une tâche interactive, vous utiliseriez la commande `salloc`. Par exemple, pour une instance de 20Go à 3/8 de la puissance pour une durée d'une heure, la commande serait : `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`."
+      "question": "Comment faire pour demander une instance GPU A100 de 20Go avec 3/8<sup>e</sup> de la puissance pour une tâche interactive d’une heure, en spécifiant 2 cœurs CPU et 40Go de mémoire?",
+      "answer": "Pour demander une telle instance, on utilise la commande `salloc` de cette manière : `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`."
     },
     {
-      "question": "Quels indicateurs devrais-je considérer pour déterminer si une tâche de calcul devrait plutôt être exécutée sur une instance de GPU au lieu d'un GPU entier?",
-      "answer": "Pour savoir si une tâche doit être migrée sur une instance de GPU, il faut consulter l'historique de vos tâches. Les principaux indicateurs à évaluer sont la consommation d’énergie du GPU, l'utilisation générale du GPU, la quantité maximale de mémoire GPU utilisée et la quantité moyenne de cœurs CPU nécessaires. Si votre tâche n'utilise qu'une fraction des ressources d'un GPU entier, une instance pourrait être plus efficace, consommant moins de votre priorité de calcul."
+      "question": "Quels sont les indicateurs à surveiller pour déterminer si une tâche devrait rouler sur une instance MIG plutôt que sur un GPU entier?",
+      "answer": "Pour savoir si une tâche devrait utiliser une instance MIG, il faut regarder l'historique de vos tâches sur le portail d'utilisation de Narval. Les indicateurs importants sont la consommation d'énergie du GPU, son taux d'utilisation, la quantité maximale de mémoire GPU consommée et le nombre moyen de cœurs CPU nécessaires à la tâche. Si une tâche utilise moins de la moitié de la puissance de calcul et de la mémoire disponible d'un GPU entier, elle est une bonne candidate pour une instance."
     }
   ],
-  "generated_at": "2026-04-13T09:42:28.357587+00:00"
+  "generated_at": "2026-04-19T02:13:01.303802+00:00"
 }

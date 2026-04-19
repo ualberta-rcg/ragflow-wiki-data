@@ -1,0 +1,20 @@
+{
+  "doc_key": "fr/lammps",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "Quels modules doit-on charger pour configurer et compiler LAMMPS avec MACE pour un usage sur GPU?",
+      "answer": "Pour configurer MACE et compiler LAMMPS avec le support GPU, il faut charger les modules suivants : `python/3.14`, `gcc`, `openmpi`, `flexiblas`, `cmake`, `fftw`, `eigen`, `protobuf`, `abseil`, `flatbuffers`, `cuda/12.9`, `cusparselt`, `cudnn`, `nccl`, `magma`, `opencv`, `cudss`, `sleef` et `xnnpack`. Il est important de noter que la version `cuda 12.9` est utilisée pour qu'elle corresponde à celle avec laquelle PyTorch a été compilé."
+    },
+    {
+      "question": "Une fois les modules chargés et l'environnement virtuel Python configuré, comment configure-t-on, compile-t-on et installe-t-on MACE dans LAMMPS pour le GPU?",
+      "answer": "Après avoir chargé les modules requis et configuré l'environnement virtuel Python, la première étape est de configurer MACE en exécutant la commande `cmake` suivante : `cmake --fresh -S cmake -B _build -DBUILD_MPI=ON -DPKG_ML-MACE=ON -DCMAKE_PREFIX_PATH=\"$(python -c 'import torch; print(torch.utils.cmake_prefix_path)')\" -DCMAKE_INSTALL_PREFIX=$HOME/lammps-mace -DCMAKE_SKIP_RPATH=ON -DTORCH_CUDA_ARCH_LIST=\"9.0\"`. Ensuite, pour compiler et installer le logiciel dans un répertoire local `lammps-mace`, il faut lancer les commandes : `cmake --build _build --parallel 4` et `cmake --install _build/ --prefix=$HOME/lammps-mace`."
+    },
+    {
+      "question": "Comment peut-on tester rapidement l'installation de LAMMPS avec MACE après la compilation et l'installation sur une grappe?",
+      "answer": "Pour effectuer un test rapide de l'installation, il faut d'abord désactiver votre environnement virtuel Python avec `deactivate`, puis purger tous les modules chargés à l'aide de la commande `module purge`. Finalement, vous pouvez vérifier l'exécutable en lançant `~/lammps-mace/bin/lmp -h`."
+    }
+  ],
+  "generated_at": "2026-04-19T02:11:02.716430+00:00"
+}

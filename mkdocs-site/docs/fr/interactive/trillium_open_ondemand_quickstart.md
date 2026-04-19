@@ -4,97 +4,97 @@ slug: "trillium_open_ondemand_quickstart"
 lang: "fr"
 
 source_wiki_title: "Trillium Open OnDemand Quickstart/fr"
-source_hash: "aa0884a2244ec1401f7fca7f89b9112e"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T12:08:26.895165+00:00"
+source_hash: "e1396023469ea6b43d20f01ab32d0f19"
+last_synced: "2026-04-18T23:39:30.217451+00:00"
+last_processed: "2026-04-19T01:10:21.904615+00:00"
 
 tags:
   []
 
 keywords:
-  - "node"
-  - "interface web"
-  - "binaries"
-  - "détenir une licence"
-  - "implémentées strictement"
-  - "Intel CascadeLake"
-  - "job submission"
-  - "application"
-  - "hardware"
-  - "Open Composer"
-  - "Globus"
-  - "History tab"
-  - "submitted jobs"
-  - "browser tab"
-  - "limites demandées"
-  - "Open OnDemand"
-  - "Interactive Sessions"
-  - "Software modules"
-  - "bouton Globus"
-  - "Interactive Apps"
-  - "terminal access"
-  - "Accès via terminal"
-  - "monitor performance"
-  - "Job monitoring"
-  - "Slurm job script"
-  - "environment variable"
-  - "environnement virtuel"
-  - "lancer une application"
-  - "Interactive sessions"
-  - "Trillium"
-  - "error logs"
-  - "Octave"
-  - "filter jobs"
-  - "user quota alerts"
-  - "Interactive applications"
-  - "Slurm Job"
-  - "Graphical User Interface"
-  - "téléverser des fichiers"
-  - "JupyterHub"
-  - "Trillium Desktop"
-  - "job status"
-  - "explorateur de fichiers"
-  - "system issue alerts"
-  - "Jupyter Hub"
+  - "limites"
+  - "Applications installées"
   - "gestion des fichiers"
+  - "journalisation des erreurs"
+  - "quotas de l'utilisateur"
+  - "interface web de Globus"
+  - "navigateur"
+  - "GPU NVIDIA H100"
+  - "licence"
+  - "terminal web"
+  - "Trillium Shell Access"
+  - "fenêtre de terminal"
+  - "exécuter des commandes"
+  - "Interfaces graphiques"
+  - "my.SciNet"
+  - "Slurm"
+  - "ordonnanceur"
+  - "My Interactive Sessions"
+  - "Trillium"
+  - "bouton Globus"
+  - "Ordonnanceur Slurm"
+  - "Modules logiciels"
+  - "Trillium Desktop"
+  - "SciNet"
+  - "CPU Intel CascadeLake"
+  - "statistiques de performance"
+  - "Open Composer"
+  - "Applications interactives"
+  - "environnement virtuel"
+  - "chemin d'accès"
+  - "Suivi des tâches"
+  - "navigateur Open OnDemand"
+  - "interface ligne de commande"
+  - "lancer une application"
+  - "JupyterHub"
+  - "nœud"
+  - "Open OnDemand"
+  - "temporairement surpassées"
+  - "suivi des tâches"
+  - "grappe"
+  - "Sessions interactives"
+  - "Débogage"
+  - "soumettre une tâche"
+  - "se connecter"
+  - "matériel"
+  - "Job ID"
+  - "Accès via terminal"
+  - "script du modèle"
 
 questions:
-  - "Comment doit-on procéder pour rendre fonctionnels les environnements virtuels Python existants sur le site OnDemand de Trillium ?"
-  - "Quelles sont les étapes et les méthodes d'authentification requises pour se connecter au portail Open OnDemand ?"
-  - "Quelles sont les fonctionnalités offertes par l'explorateur de fichiers et quelle alternative est recommandée pour téléverser des fichiers de plus de 10 Go ?"
-  - "Quel est le rôle principal de l'application Open Composer pour la soumission de tâches en lots sur la grappe Trillium ?"
-  - "Quels paramètres spécifiques peuvent être configurés dans l'interface avant de soumettre un script de tâche au planificateur ?"
-  - "Comment les utilisateurs peuvent-ils surveiller l'état de leurs tâches soumises et filtrer les résultats dans l'onglet Historique ?"
-  - "Où se trouve le bouton permettant d'accéder à Globus dans l'explorateur de fichiers ?"
-  - "Quels identifiants doivent être utilisés pour se connecter à l'interface web de Globus ?"
-  - "Quel est le lien entre le chemin d'accès affiché dans Open OnDemand et celui ouvert dans Globus ?"
-  - "How can a user navigate to monitor their submitted jobs in Open Composer?"
-  - "What are the specific statuses that can be displayed for jobs in the History tab?"
-  - "How can users filter their job list and access more detailed information about individual jobs?"
-  - "How can a user modify and resubmit a previously run job using the Open Composer interface?"
-  - "What tools and filters are available in the job monitoring interface to track and view details of active jobs?"
-  - "What parameters can be configured when launching an interactive application, and how do you connect to the session once it starts?"
-  - "Comment peut-on annuler une tâche interactive à partir de la page des sessions ?"
-  - "Quelles sont les applications actuellement prises en charge et quelle est la procédure pour en faire installer de nouvelles ?"
-  - "Quelles sont les étapes à suivre pour lancer un logiciel avec interface graphique (comme Octave) en utilisant l'environnement Trillium Desktop ?"
-  - "How does the application behave when it is opened in a new browser tab?"
-  - "For what purposes might a user need terminal access to the node running the application?"
-  - "What specific steps must a user take to open the terminal window within their browser?"
-  - "Comment peut-on afficher la liste des binaires d'Octave à l'aide des variables d'environnement ?"
-  - "Quelle interface spécifique est présentée dans la Figure 10 pour l'utilisation d'Octave ?"
-  - "Quelle méthode d'accès alternative au système est illustrée par la Figure 11 ?"
-  - "How do users access the web-based command-line terminal and browse available software modules in Trillium?"
-  - "What is the process for debugging errors in an interactive session and what specific details should be provided to SciNet support?"
-  - "What are the primary differences in features, resource limits, and hardware between Open OnDemand and the decommissioned Jupyter Hub?"
-  - "Which of the compared systems supports system issue alerts, user quota alerts, and error logs?"
-  - "How does the hardware capacity, specifically regarding CPU cores and RAM, differ between the two environments?"
-  - "What are the exact specifications of the NVIDIA GPU hardware available in the second configuration?"
-  - "Pourquoi les limites de JupyterHub peuvent-elles être temporairement surpassées ?"
-  - "Que faut-il faire concernant les limites avant de lancer une application ?"
-  - "Quelle condition préalable est exigée concernant la licence d'utilisation ?"
-  - "Pourquoi les limites de JupyterHub peuvent-elles être temporairement surpassées ?"
-  - "Que faut-il faire concernant les limites avant de lancer une application ?"
-  - "Quelle condition préalable est exigée concernant la licence d'utilisation ?"
+  - "Comment doit-on procéder pour rendre fonctionnels les environnements virtuels Python existants sur la nouvelle plateforme Trillium ?"
+  - "Quelles sont les étapes et les méthodes d'authentification nécessaires pour se connecter au tableau de bord du portail Open OnDemand ?"
+  - "Quelles sont les fonctionnalités offertes par le navigateur de fichiers et quelle solution est recommandée pour téléverser des fichiers de plus de 10 Go ?"
+  - "Comment peut-on configurer et soumettre une tâche en lots à l'aide de l'interface d'Open Composer ?"
+  - "Quelles adaptations l'utilisateur doit-il apporter aux scripts modèles pour qu'ils répondent à ses besoins et respectent les limites de l'ordonnanceur ?"
+  - "Comment l'onglet « History » permet-il de faire le suivi de l'état et des performances des tâches soumises ?"
+  - "Où se trouve le bouton Globus dans l'interface ?"
+  - "Que se passe-t-il lorsqu'on clique sur le bouton Globus ?"
+  - "Quelle est la relation entre le chemin d'accès affiché dans Open OnDemand et celui ouvert dans Globus ?"
+  - "Quelles informations spécifiques sont affichées lorsqu'on clique sur la colonne « Job ID » ?"
+  - "Pour quelles raisons le message « Not found or not permitted » peut-il apparaître à l'écran ?"
+  - "Quelle action est permise par la fenêtre qui s'ouvre en cliquant sur « Application » ?"
+  - "Comment modifier et soumettre de nouveau une tâche existante dans Open Composer, et quelles sont les applications prises en charge par cet outil ?"
+  - "Quelles sont les méthodes disponibles dans l'interface pour filtrer, trier et surveiller l'état de toutes ses tâches actives ou en attente ?"
+  - "Comment configurer les paramètres de ressources, lancer et se connecter à une session d'application interactive directement depuis son navigateur web ?"
+  - "Quelles sont les applications prises en charge par défaut et comment procéder pour en faire installer de nouvelles ?"
+  - "Comment utiliser Trillium Desktop pour exécuter un logiciel doté d'une interface graphique qui n'est pas installé comme application interactive ?"
+  - "Quelle est la marche à suivre pour accéder à l'interface en ligne de commande via le terminal web d'Open OnDemand ?"
+  - "Comment ouvrir une fenêtre de terminal dans le navigateur pour exécuter des commandes sur le nœud ?"
+  - "Quel symbole permet d'identifier le bouton d'accès au terminal situé à côté de l'option \"Host\" ?"
+  - "Quelle est la procédure à suivre pour mettre fin à une tâche depuis la page \"My Interactive Sessions\" ?"
+  - "Quel outil Open OnDemand propose-t-il pour interagir avec la grappe via une interface en ligne de commande ?"
+  - "Quelles sont les étapes précises à suivre dans le menu pour ouvrir ce terminal web ?"
+  - "Que permet d'accomplir la nouvelle fenêtre de terminal qui s'ouvre dans le navigateur ?"
+  - "Comment peut-on consulter et charger les différents modules logiciels disponibles dans l'environnement Trillium ?"
+  - "Quelle est la procédure à suivre pour accéder aux journaux d'erreurs d'une session interactive et quelles informations doivent être transmises au soutien technique ?"
+  - "Quelles sont les principales différences de fonctionnalités et de capacités matérielles entre le nouveau système Open OnDemand et l'ancien JupyterHub ?"
+  - "Comment les deux environnements se différencient-ils en matière de gestion des quotas utilisateurs et de journalisation des erreurs ?"
+  - "Quelle est la configuration matérielle exacte du premier système décrit dans le document ?"
+  - "Quelles sont les différentes options de processeurs (CPU), de mémoire vive (RAM) et de cartes graphiques (GPU) proposées par le second système ?"
+  - "Pourquoi les limites d'utilisation de JupyterHub peuvent-elles être temporairement dépassées ?"
+  - "Quelle action est-il nécessaire d'effectuer avant de lancer une application ?"
+  - "Quelle condition préalable concernant la licence est exigée pour l'utilisateur ?"
 
 status:
   downloaded: true
@@ -109,22 +109,22 @@ Cette page décrit le service Open OnDemand sur Trillium. Pour l'information gé
 
 ## Porter un environnement virtuel sur Open OnDemand
 
-!!! important
-    **IMPORTANT** : En raison du changement de système d’exploitation et de pile logicielle, vos noyaux d’environnement virtuel Python existants risquent de ne pas fonctionner immédiatement sur le site OnDemand. Vous devriez pouvoir activer vos environnements Python dans un terminal Trillium (voir ci-dessous [Accès via terminal](#accès-via-terminal)), avec tous les modules Trillium requis chargés, puis exécuter la commande **`venv2jup`** pour les rendre fonctionnels.
+!!! warning "Important"
+    En raison du changement de système d’exploitation et de pile logicielle, vos noyaux d’environnement virtuel Python existants risquent de ne pas fonctionner immédiatement sur le site OnDemand. Vous devriez pouvoir activer vos environnements Python dans un terminal Trillium (voir [Accès via terminal](#accès-via-terminal) ci-dessous), avec tous les modules Trillium requis chargés, puis exécuter la commande `venv2jup` pour les rendre fonctionnels.
 
 ## Introduction
 
 Ce guide décrit les étapes de base pour démarrer avec le portail Open OnDemand de SciNet.
 
-Open OnDemand (OOD) est une plateforme web qui donne accès à un large éventail d'applications scientifiques et de ressources informatiques, telles que Jupyter Lab, R Studio et Visual Studio Code. Elle vous permet d'interagir avec Trillium via un navigateur web, sans avoir à installer de logiciel sur votre ordinateur. Vous pourrez gérer des fichiers, soumettre et suivre des tâches, et exécuter des applications de manière interactive. Pour plus d'information, consultez le site web [https://openondemand.org](https://openondemand.org).
+Open OnDemand (OOD) est une plateforme web qui donne accès à un large éventail d'applications scientifiques et de ressources informatiques, telles que JupyterLab, R Studio et Visual Studio Code. Elle vous permet d'interagir avec Trillium via un navigateur web, sans avoir à installer de logiciel sur votre ordinateur. Vous pourrez gérer des fichiers, soumettre et suivre des tâches, et exécuter des applications de manière interactive. Pour plus d'information, consultez [https://openondemand.org](https://openondemand.org).
 
 ## Se connecter au portail Open OnDemand
 
-Pour accéder au portail Open OnDemand, ouvrez un navigateur web et allez à la page [https://ondemand.scinet.utoronto.ca](https://ondemand.scinet.utoronto.ca). Saisissez votre nom d'utilisateur et votre mot de passe avec l'Alliance, puis effectuez l'authentification multifacteur via Duo ou YubiKey. La connexion étant établie, le tableau de bord Open OnDemand sera affiché. Vous pourrez alors accéder aux différents outils et applications disponibles.
+Pour accéder au portail Open OnDemand, ouvrez un navigateur web et allez à la page https://ondemand.scinet.utoronto.ca. Saisissez votre nom d'utilisateur et votre mot de passe avec l'Alliance, puis effectuez l'authentification multifacteur via Duo ou YubiKey. La connexion étant établie, le tableau de bord Open OnDemand sera affiché. Vous pourrez alors accéder aux différents outils et applications disponibles.
 
 ## Gestion des fichiers
 
-La plateforme Open OnDemand propose un explorateur permettant de gérer vos fichiers et répertoires dans le système de fichiers. Pour y accéder, cliquez sur l'onglet **Fichiers** et sélectionnez le répertoire à gérer dans le menu déroulant (`HOME`, `SCRATCH` ou `PROJECT`). L'explorateur de fichiers sera affiché et vous pourrez :
+La plateforme Open OnDemand propose un navigateur qui permet de gérer vos fichiers et répertoires dans le système de fichiers. Pour y accéder, cliquez sur l'onglet *Fichiers* et sélectionnez le répertoire à gérer dans le menu déroulant (`HOME`, `SCRATCH` ou `PROJECT`). Le navigateur sera affiché et vous pourrez :
 
 *   Naviguer dans vos répertoires
 *   Téléverser et télécharger des fichiers
@@ -132,145 +132,147 @@ La plateforme Open OnDemand propose un explorateur permettant de gérer vos fich
 *   Supprimer des fichiers et répertoires
 *   Modifier des fichiers existants
 
-Les quotas de stockage peuvent aussi être affichés en cliquant sur le lien **Quotas de stockage** dans l'onglet **Fichiers**.
+Vous pouvez aussi faire afficher les quotas de stockage en cliquant sur le lien *Quotas de stockage* sous l'onglet *Fichiers*.
 
 ### Téléverser des fichiers
 
-La taille maximale des fichiers à téléverser est présentement de 10 Go. Pour téléverser un fichier plus volumineux ou si vous rencontrez des problèmes de téléversement (par exemple, en raison d'une mauvaise connexion Internet), utilisez [Globus](../getting-started/globus.md). Un bouton **Globus** est disponible en haut à droite de l'explorateur de fichiers. Cliquez sur ce bouton pour faire afficher l'interface web de Globus où vous pourrez vous connecter avec votre nom d'utilisateur et votre mot de passe avec l'Alliance. Le chemin d'accès affiché dans le navigateur Open OnDemand sera identique à celui ouvert dans Globus.
+La taille maximale des fichiers que vous pouvez téléverser est présentement de 10 Go. Pour téléverser un fichier plus volumineux ou si vous rencontrez des problèmes de téléversement (par exemple, en raison d'une mauvaise connexion Internet), utilisez [Globus](../getting-started/globus.md). Un bouton Globus est disponible dans l'interface. Cliquez sur ce bouton pour faire afficher l'interface web de Globus où vous pourrez vous connecter avec votre nom d'utilisateur et votre mot de passe pour votre compte. Le chemin d'accès affiché dans le navigateur Open OnDemand sera identique à celui ouvert dans Globus.
 
 ## Soumettre une tâche
 
-Open OnDemand offre également une interface permettant de soumettre des tâches en lots à Trillium. Ceci peut s'avérer utile lorsque vous avez besoin de plus de ressources que celles fournies par les tâches interactives, par exemple un accès exclusif à 192 cœurs et 755 Go de mémoire sur un nœud de calcul Trillium.
+Open OnDemand offre également une interface qui permet de soumettre des tâches en lots à Trillium. Ceci peut s'avérer utile lorsque vous avez besoin de plus de ressources que celles fournies par les tâches interactives, par exemple un accès exclusif à 192 cœurs et 755 Go de mémoire sur un nœud de calcul de Trillium.
 
-L'application [Open Composer](https://github.com/RIKEN-RCCS/OpenComposer) offre une suite de scripts de modèles de tâches Slurm qui peuvent être soumis directement au planificateur Trillium. Elle fournit également une interface pour surveiller vos tâches soumises, via l'onglet **Historique**. Vous pouvez accéder à Open Composer en naviguant dans le menu déroulant **Tâches** et en sélectionnant **Open Composer** ou en cliquant sur l'un des modèles de tâches Slurm, par exemple **Tâche Slurm MPI**, **Tâche Slurm OpenMP** et **Tâche Slurm MPI/OpenMP hybride**.
+L'application [Open Composer](https://github.com/RIKEN-RCCS/OpenComposer) offre plusieurs scripts modèles que vous pouvez soumettre directement à l'ordonnanceur. Elle offre aussi sous l'onglet *Historique*, une interface pour faire le suivi des tâches que vous avez soumises.
+Vous avez accès à Open Composer sous le menu déroulant *Tâches* ou en cliquant sur un modèle de script.
 
-Une fois que vous avez sélectionné un modèle de tâche, vous serez dirigé vers la page de soumission de tâche. Celle-ci est divisée entre les paramètres de tâche à gauche et le script de tâche lui-même à droite. Les paramètres de tâche vous permettent de contrôler les ressources que votre tâche utilisera, telles que le nombre de nœuds, le nombre de tâches par nœud, le temps d'exécution (`wall clock time`) et le nom du fichier de sortie. La section du script de tâche affiche le script qui sera soumis au planificateur. Toute modification apportée aux paramètres de tâche sera automatiquement reflétée dans le script de tâche. Vous pouvez également modifier le script de tâche directement si vous le souhaitez.
+Une fois le modèle sélectionné, la page de soumission de tâche est affichée. Celle-ci est en deux parties : les paramètres de la tâche à gauche et le script à droite. Les paramètres vous permettent de contrôler les ressources utilisées, comme le nombre de nœuds, le nombre de tâches par nœud, la durée d'exécution et le nom du fichier de sortie. Le script affiche le texte qui sera soumis à l'ordonnanceur. Toute modification apportée aux paramètres se reflète automatiquement dans le script. Vous pouvez également modifier le script directement.
 
-Les champs supplémentaires en haut de la page vous permettent de modifier la manière dont votre tâche est soumise :
+Les champs dans le haut de la page servent à modifier la manière dont la tâche sera soumise.
 
-*   **Emplacement du script** (`Script Location`) : Spécifie le répertoire où le script de tâche sera sauvegardé et d'où votre tâche sera exécutée.
-*   **Nom du script** (`Script Name`) : Spécifie le nom du fichier de script de tâche.
-*   **Nom de la tâche** (`Job Name`) : Spécifie le nom de la tâche qui apparaîtra dans la file d'attente des tâches.
-*   **Grappe** (`Cluster`) : Vous permet de changer la grappe à laquelle soumettre votre tâche, par exemple Trillium (par défaut) ou Trillium-GPU. La sélection de Trillium-GPU fournira un paramètre de tâche supplémentaire pour demander des ressources GPU.
+*   *Emplacement du script* indique le répertoire dans lequel le script sera sauvegardé et la tâche sera exécutée.
+*   *Nom du script* indique le nom du fichier qui contient le script pour la tâche.
+*   *Nom de la tâche* indique le nom de la tâche tel qu'il sera dans la queue.
+*   *Grappe* permet de choisir la grappe sur laquelle la tâche sera soumise, par exemple Trillium (par défaut) ou Trillium-GPU. En sélectionnant Trillium-GPU, un paramètre s'ajoutera pour demander des ressources GPU.
 
-Une fois que vous êtes satisfait de votre script de tâche, cliquez sur le bouton **Soumettre** pour soumettre la tâche au planificateur et enregistrer votre script à l'**Emplacement du script**. Si votre tâche a été soumise avec succès, vous verrez un message de confirmation en haut de la page avec votre ID de tâche.
+Une fois que votre script est bien défini, cliquez sur le bouton *Soumettre* pour soumettre la tâche à l'ordonnanceur et enregistrer le script dans *Emplacement du script*. Si tout se passe bien, une confirmation s'affichera, incluant l'identifiant de la tâche.
 
-!!! note "Note"
-    Les scripts de modèles fournis dans Open Composer sont des exemples de base pour vous aider à démarrer. Vous devrez modifier davantage le script de tâche pour l'adapter à vos besoins spécifiques, comme le chargement des modules requis et la spécification des fichiers d'entrée/sortie. Le script de tâche doit toujours se conformer aux limites définies par le planificateur Slurm de Trillium. Veuillez consulter la [documentation de Trillium](https://docs.alliancecan.ca/wiki/Trillium_Quickstart#Trillium_specific_restrictions) pour plus d'informations sur la rédaction des scripts de tâche.
+!!! note "Remarque"
+    Les scripts modèles sont des exemples de base que vous devrez adapter à vos besoins spécifiques, notamment en chargeant les modules requis et en spécifiant les fichiers d’entrée/sortie. Le script doit également respecter les limites imposées par l'ordonnanceur Slurm. Voir [Restrictions particulières à Trillium](../clusters/trillium_quickstart.md#restrictions-particulières-à-trillium) pour plus d’information sur la rédaction des scripts.
 
 ### Suivi des tâches dans Open Composer
 
-Pour surveiller vos tâches soumises dans Open Composer, naviguez vers l'onglet **Historique**. Ceci affichera une liste de toutes vos tâches soumises, ainsi que leur statut : En file d'attente (`Queued`), En cours d'exécution (`Running`), Terminée (`Completed`), Échouée (`Failed`). Vous pouvez filtrer les tâches en utilisant la boîte de texte **Filtre** en haut à droite ou en utilisant les cases à cocher ci-dessous. Cliquer sur différents champs de colonne donnera différentes informations sur la tâche :
+Sous l'onglet *Historique* se trouve la liste de toutes vos tâches, avec leur état (en attente, en cours d'exécution, terminée, échec). Pour raffiner une recherche, utilisez le champ *Filtre* ou cliquez dans les cases à cocher ci-dessous. En cliquant sur les différentes colonnes, des informations spécifiques à chaque tâche seront affichées.
 
-*   **ID de tâche** (`Job ID`) : Ouvre la tâche dans [my.SciNet](https://my.scinet.utoronto.ca/), qui affiche les statistiques de performance et des informations Slurm plus détaillées sur la tâche. Note : my.SciNet peut afficher « Introuvable ou non autorisé » si la tâche n'a pas encore démarré ou a été annulée.
-*   **Application** (`Application`) : Ouvre l'éditeur de script de tâche du modèle que vous avez utilisé.
-*   **Emplacement du script** (`Script Location`) : Ouvre une fenêtre d'explorateur de fichiers OOD à l'emplacement du script de tâche. Cliquer sur la petite icône de terminal ouvrira un terminal à l'emplacement du script de tâche.
-*   **Nom du script** (`Script Name`) : Affiche le script de tâche qui a été soumis au planificateur.
+*   *Identifiant de tâche* affiche la tâche dans [my.SciNet](https://my.scinet.utoronto.ca/) avec les statistiques de performance et des détails au sujet de Slurm. Le message *Introuvable ou non autorisé* paraît si la tâche est encore en attente ou si elle a été supprimée.
+*   *Application* affiche une fenêtre pour modifier le script du modèle utilisé.
+*   *Emplacement du script* ouvre une fenêtre de l'endroit où se trouve le script. Cliquez sur l'icône de terminal pour ouvrir un terminal au même endroit.
+*   *Nom du script* affiche le script soumis à l'ordonnanceur.
 
-Pour resoumettre ou modifier une tâche précédemment exécutée, cliquez sur le script de tâche sous la colonne **Nom du script** et cliquez sur **Charger les paramètres** (`Load Parameters`). Ceci vous ramènera à la page de soumission de tâche où d'autres modifications peuvent être apportées à la tâche.
+Pour modifier ou soumettre de nouveau une tâche déjà soumise, cliquez sur le script dans la colonne *Nom du script* puis sur *Charger les paramètres*. La page de soumission de la tâche sera affichée et vous pourrez faire les modifications voulues.
 
 ### Applications prises en charge
 
-Présentement, Open Composer prend en charge les applications suivantes :
+Présentement, Open Composer prend en charge les applications suivantes pour l'ordonnanceur Slurm :
 
-*   Tâche Slurm MPI
-*   Tâche Slurm OpenMP
-*   Tâche Slurm MPI/OpenMP hybride
-*   Tâche Slurm Python
-*   Tâche Slurm R
-*   Tâche Slurm VASP
+*   [MPI](../software/mpi.md)
+*   [OpenMP](../programming/openmp.md)
+*   Hybrid MPI/OpenMP
+*   [Python](../software/python.md)
+*   [R](../software/r.md)
+*   [VASP](../software/vasp.md)
 
 ## Suivi des tâches
 
-Pour obtenir un aperçu de toutes vos tâches en file d'attente, vous pouvez utiliser l'interface de suivi des tâches. Naviguez vers l'onglet **Tâches** et sélectionnez **Tâches actives** (`Active Jobs`). Vous pouvez filtrer les tâches en utilisant la boîte de texte **Filtre** en haut à droite. Les colonnes peuvent également être triées en cliquant sur les en-têtes de colonne, par exemple vous pouvez trier par statut de tâche (en cours d'exécution, terminée, échouée, etc.). Cliquer sur `>` à gauche d'une tâche vous montrera plus de détails sur celle-ci, comme l'heure de début/fin, la liste des nœuds et le compte facturé, etc. Vous voudrez peut-être aussi afficher toutes les tâches en file d'attente, vous pouvez le faire en cliquant sur le menu déroulant en haut à droite et en sélectionnant **Toutes les tâches** (`All Jobs`). Une vue plus détaillée de vos tâches peut toujours être trouvée en utilisant le [portail myscinet](https://my.scinet.utoronto.ca).
+Pour obtenir un aperçu de toutes vos tâches en attente, utilisez l'interface de suivi des tâches. Sous l'onglet *Tâches*, sélectionnez *Tâches actives*. Vous pouvez utiliser le champ de texte *Filtre* en haut à droite. Pour trier une colonne, cliquez sur son en-tête, par exemple par statut (en cours, terminée, échec, etc.). Cliquez sur le bouton à gauche d'une tâche pour obtenir des informations supplémentaires, telles que l'heure de début et de fin, la liste des nœuds et le compte auquel se rapporte l'utilisation des ressources. Pour afficher toutes les tâches en attente, cliquez sur le menu déroulant en haut à droite et sélectionnez *Toutes les tâches*. Une vue plus détaillée de vos tâches est disponible sur [le portail myscinet](https://my.scinet.utoronto.ca).
 
-### Applications interactives
+## Applications interactives
 
-Open OnDemand propose également des applications interactives qui peuvent être exécutées directement depuis votre navigateur web. Pour accéder aux applications, naviguez vers l'onglet **Applications interactives** (`Interactive Apps`) et sélectionnez l'application que vous souhaitez exécuter dans le menu déroulant. Cela vous mènera ensuite à la page de soumission de tâche où vous pourrez choisir des paramètres de tâche tels que :
+Open OnDemand offre aussi des applications interactives exécutables directement depuis votre navigateur web. Sous l'onglet *Applications interactives*, sélectionnez l'application voulue dans le menu déroulant. Ceci affiche la page de soumission des tâches, où vous pouvez choisir les paramètres de votre tâche, par exemple :
 
-*   Durée de la tâche en heures
-*   Nombre de cœurs
-*   Quantité de mémoire à allouer (Go)
-*   Ressources GPU (**Note** : Seul le profil **h100_1.10** [MIG](https://docs.alliancecan.ca/wiki/Multi-Instance_GPU) est actuellement disponible, il fournit 10 Go de mémoire et 1/8 des ressources de calcul d'un GPU NVIDIA H100 complet.)
-*   M'avertir par courriel lorsque la tâche démarre
+*   durée de la tâche (en heures)
+*   nombre de cœurs demandé
+*   quantité de mémoire allouée (en Go)
+*   ressources GPU (Le seul [profil MIG disponible présentement est **h100_1.10**](../programming/multi-instance_gpu.md) qui offre 10 Go de mémoire et 1/8^e^ de la puissance d'un GPU NVIDIA H100 entier.)
+*   courriel indiquant le début de la tâche
 
-Lorsque vous avez choisi vos paramètres de tâche, cliquez sur le bouton **Lancer** (`Launch`) pour soumettre votre tâche à la file d'attente. Vous serez dirigé vers la page **Mes sessions interactives** (`My Interactive Sessions`) où vous pourrez voir le statut de votre tâche, c'est-à-dire en file d'attente, en cours d'exécution ou terminée. Une fois que la tâche a été assignée à un nœud et est en cours d'exécution, vous pouvez cliquer sur le bouton **Se connecter à...** (`Connect to ...`) pour lancer l'application. L'application s'ouvrira dans un nouvel onglet de votre navigateur, et vous pourrez interagir avec elle comme si elle s'exécutait localement.
+Après avoir sélectionné les paramètres de votre tâche, cliquez sur le bouton *Lancer* pour l'ajouter à la file d'attente. La page *Mes sessions interactives* sera affichée où vous pouvez consulter l'état de votre tâche (en file d'attente, en cours d'exécution ou terminée). Une fois la tâche affectée à un nœud et en cours d'exécution, cliquez sur le bouton *Connecter à ...* pour lancer l'application. Celle-ci s'ouvre dans un nouvel onglet où vous pouvez travailler avec la tâche comme si elle était exécutée localement.
 
-Si vous souhaitez un accès terminal au nœud où l'application est en cours d'exécution, pour surveiller les performances par exemple, vous pouvez cliquer sur le bouton à côté de **Hôte** (`Host`) commençant par `>_`. Ceci ouvrira une fenêtre de terminal dans votre navigateur où vous pourrez exécuter des commandes directement sur le nœud.
+Pour accéder au terminal du nœud sur lequel l'application s'exécute, par exemple pour en surveiller les performances, cliquez sur le bouton situé à côté de *Hôte* commençant par `>_`. Une fenêtre de terminal s'ouvrira alors dans votre navigateur où vous pouvez exécuter directement des commandes sur le nœud.
 
-Si pour une raison quelconque vous souhaitez annuler la tâche, vous pouvez le faire en cliquant sur le bouton rouge **Supprimer** (`Delete`) dans le panneau de tâche de la page **Mes sessions interactives**.
+Si vous souhaitez mettre fin à la tâche pour une quelconque raison, vous pouvez le faire en cliquant sur le bouton rouge *Supprimer* dans le panneau de la tâche, sur la page *Mes sessions interactives*.
 
 ### Applications installées
 
-Les applications suivantes sont prises en charge :
+Les applications suivantes sont prises en charge :
 
-*   [Jupyter Lab/Notebook](https://jupyter.org)
+*   [JupyterLab/Notebook](https://jupyter.org)
 *   [Rstudio](https://posit.co/products/open-source/rstudio/?sid=1)
 *   [VSCode](https://code.visualstudio.com)
 *   Trillium Desktop
 *   [ParaView](https://www.paraview.org)
 *   [Forge DDT/MAP](https://www.linaroforge.com)
 *   [MATLAB](https://www.mathworks.com/products/matlab.html)
-*   [SAS](https://www.sas.com/en_ca/home.html)<sup>4</sup>
-*   [Stata](https://www.stata.com)<sup>4</sup>
+*   [SAS](https://www.sas.com/en_ca/home.html)^4^
+*   [Stata](https://www.stata.com)^4^
 *   [Open Composer](https://github.com/RIKEN-RCCS/OpenComposer)
 
 Pour faire installer d'autres applications, écrivez à [support@scinet.utoronto.ca](mailto:support@scinet.utoronto.ca).
 
 ## Interfaces graphiques
 
-Si vous souhaitez exécuter un logiciel doté d'une interface graphique utilisateur (IGU) et qui n'est pas encore installé comme application interactive, tel qu'Octave ou Blender, vous pouvez le faire en utilisant l'application **Trillium Desktop**. Cette application fournit un environnement de bureau à distance auquel vous pouvez accéder via votre navigateur web. Dans l'exemple suivant, nous allons exécuter l'IGU d'Octave :
+Si vous souhaitez exécuter un logiciel doté d'une interface graphique et qui n'est pas installé comme application interactive, par exemple Octave ou Blender, vous pouvez utiliser l'application Trillium Desktop. Cette application fournit un environnement de bureau à distance accessible via votre navigateur web. Dans l'exemple suivant, nous exécutons l'interface graphique d'Octave.
 
-1.  Naviguez vers l'onglet **Applications interactives** et sélectionnez **Trillium Desktop** dans le menu déroulant.
-2.  Vous serez dirigé vers la page de soumission de tâche. Choisissez le nombre de cœurs et la quantité de mémoire que vous souhaitez allouer pour votre session en plus de la durée de votre tâche en heures. Cliquez ensuite sur le bouton **Lancer** pour soumettre votre tâche à la file d'attente.
-3.  Ceci vous mènera à la page **Mes sessions interactives**. Une fois votre tâche en cours d'exécution, vous avez la possibilité d'améliorer la **Qualité d'image** (`Image Quality`) et la **Compression d'image** (`Image Compression`) de la session de bureau. Selon la vitesse de votre connexion Internet, vous pouvez réduire ces paramètres pour améliorer les performances et la réactivité du bureau. Cliquez sur le bouton **Se connecter au bureau Trillium** (`Connect to Trillium Desktop`) pour lancer l'environnement de bureau à distance dans un nouvel onglet.
-4.  Une fois l'environnement de bureau chargé, ouvrez une fenêtre de terminal en utilisant le raccourci du bureau et chargez les modules requis pour Octave :
-    ```bash
-    module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 octave/7.2.0
-    ```
-5.  Lancez maintenant l'IGU d'Octave en tapant `octave --gui` dans la fenêtre de terminal.
+1.  Sous l'onglet *Applications interactives*, sélectionnez Trillium Desktop dans le menu déroulant.
+2.  Dans la page de soumission des tâches qui s'affiche, choisissez le nombre de cœurs et la quantité de mémoire à allouer à votre session, ainsi que la durée de la tâche (en heures). Cliquez ensuite sur le bouton *Lancer* pour ajouter votre tâche à la file d'attente.
+3.  La page *Mes sessions interactives* sera affichée. Une fois votre tâche en cours d'exécution, vous pourrez améliorer la qualité et la compression de l'image de la session de bureau. Dépendant de la vitesse de votre connexion Internet, vous pouvez réduire ces paramètres pour améliorer les performances et la réactivité du bureau. Cliquez sur le bouton *Connecter au bureau Trillium* pour lancer l'environnement de bureau distant dans un nouvel onglet.
+    *   Une fois que l'environnement de bureau est chargé, ouvrez une fenêtre de terminal à l'aide du raccourci sur le bureau et chargez les modules nécessaires à Octave.
+        ```bash
+        module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 octave/7.2.0
+        ```
+    *   Lancez ensuite l'interface graphique d'Octave en saisissant `octave --gui` dans la fenêtre de terminal.
 
-Vous devriez maintenant voir l'IGU d'Octave apparaître dans l'environnement de bureau à distance. Vous pouvez utiliser cette méthode pour exécuter d'autres applications IGU également, assurez-vous simplement de charger les modules appropriés avant de lancer l'application. Les applications peuvent avoir différentes façons de lancer leur IGU, veuillez donc vous référer à la documentation de l'application pour plus d'informations. Vous pouvez voir la liste des binaires installés pour une application donnée en consultant sa variable d'environnement, par exemple exécutez `ls $EBROOTOCTAVE/bin` pour voir la liste des binaires d'Octave.
+L'interface graphique d'Octave devrait maintenant apparaître dans l'environnement de bureau distant. Vous pouvez utiliser cette méthode pour exécuter d'autres applications graphiques; assurez-vous simplement de charger les modules appropriés avant de lancer l'application. Les applications peuvent avoir différentes méthodes pour lancer leur interface graphique; veuillez consulter la documentation pour chacune des applications. Pour voir la liste des binaires installés pour une application particulière en consultant sa variable d'environnement, ici pour la liste des binaires Octave, lancez
+`ls $EBROOTOCTAVE/bin`
 
 ## Accès via terminal
 
-Parfois, vous préférerez peut-être utiliser un terminal pour interagir avec Trillium, Open OnDemand fournit un terminal basé sur le web que vous pouvez utiliser pour accéder à l'interface de ligne de commande. Pour accéder au terminal, naviguez vers l'onglet **Grappes** (`Clusters`) et sélectionnez **Accès Shell Trillium** (`Trillium Shell Access`). Ceci ouvrira un nouvel onglet dans votre navigateur avec une fenêtre de terminal où vous pourrez exécuter des commandes comme vous le feriez dans une session de terminal ordinaire.
+Si vous préférez utiliser un terminal pour interagir avec la grappe, Open OnDemand met à votre disposition un terminal web pour accéder à l'interface ligne de commande. Pour ce faire, rendez-vous dans l'onglet *Grappes* et sélectionnez *Accès au Shell Trillium*. Une nouvelle fenêtre de terminal s'ouvrira alors dans votre navigateur, où vous pouvez exécuter des commandes comme dans une session de terminal classique.
 
 ## Modules logiciels
 
-Trillium dispose d'une grande variété de logiciels accessibles via des modules. Ils peuvent être chargés dans vos sessions interactives, votre terminal ou vos scripts de tâche dans Open Composer. Vous pouvez consulter les modules disponibles et leurs versions en utilisant l'application **Navigateur de modules** (`Module Browser`), accessible depuis l'onglet **Grappes** dans la barre de navigation. Le navigateur de modules fournit également une commande que vous pouvez exécuter dans le terminal pour charger un module particulier, ce qui peut être utile lors de la rédaction de scripts de tâche par exemple.
+Trillium offre plusieurs logiciels accessibles via des modules. Ces modules peuvent être chargés dans vos sessions interactives, votre terminal ou vos scripts de tâches dans Open Composer. Vous pouvez consulter les modules disponibles et leurs versions grâce à l'application *Navigateur de modules*, sous l'onglet *Grappes* de la barre de navigation. Le navigateur de modules fournit également une commande à exécuter dans le terminal pour charger un module spécifique, ce qui peut s'avérer utile lors de la rédaction de scripts de tâches.
 
 ## Débogage
 
-Si vous rencontrez des erreurs lors de l'utilisation d'une tâche interactive Open OnDemand, vous pouvez consulter les journaux pour plus d'informations. Pour accéder aux journaux, naviguez vers l'onglet **Mes sessions interactives** et trouvez votre session active. Cliquez sur le lien `output.log` pour ouvrir un onglet séparé qui affiche la sortie de votre tâche. Ce fichier contient la sortie standard et les messages d'erreur générés par la tâche, ce qui peut vous aider à identifier tout problème survenu pendant la session. Lorsque vous soumettez un billet au support SciNet, veuillez inclure le fichier `output.log`, votre **ID de session** (`Session ID`), qui est affiché comme une longue chaîne de caractères, par exemple `8feb45fa-bc65-4846-8398-2a73c1bf8e5a`, et toute autre information pertinente pour nous aider à vous assister plus efficacement.
+Si vous rencontrez des erreurs lors de l'utilisation d'une tâche interactive, vous pouvez consulter les fichiers de journalisation. Pour y accéder, rendez-vous sous l'onglet *Mes sessions interactives* et sélectionnez votre session active. Cliquez sur le lien `output.log` pour ouvrir un nouvel onglet affichant la sortie de votre tâche. Ce fichier contient la sortie standard et les messages d'erreur générés par la tâche, ce qui peut vous aider à identifier les problèmes qui seraient survenus pendant la session. Lorsque vous écrivez au soutien technique SciNet ([support@scinet.utoronto.ca](mailto:support@scinet.utoronto.ca)), veuillez inclure le fichier `output.log`, votre *Identifiant de session* (une longue chaîne de caractères, par exemple *8feb45fa-bc65-4846-8398-2a73c1bf8e5a*) et toute autre information pertinente afin de nous permettre de vous aider plus efficacement.
 
-## Comparaison avec Jupyter Hub
+## Comparaison avec JupyterHub
 
-| Fonctionnalité              | Jupyter Hub (retiré du service)             | Open OnDemand                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| :-------------------------- | :------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Authentification            | mot de passe                                | mot de passe + MFA                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| Première installation       | 2017                                        | 2025                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| Dernière mise à jour        | 2021                                        | 2025                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| Prend en charge           | Jupyter Notebook, JupyterLab (R, Python, Julia) | Jupyter Notebook, JupyterLab (R, Python), Rstudio, VSCode, Desktop, SAS<sup>4</sup>, Stata<sup>4</sup>, ParaView, Forge DDT/MAP, MATLAB                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Démarrer et continuer plus tard | Oui                                         | Oui<sup>1</sup>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Terminal de commande        | Non                                         | Oui                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| Gestion des fichiers        | Oui (limité)                                | Oui                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| Suivi des tâches           | Non                                         | Oui                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| Soumission des tâches       | Non                                         | Oui                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| Limite de cœurs            | 8 cœurs<sup>2</sup>                           | 20 cœurs (8 pour la mémoire haute performance)<sup>3</sup>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| Limite de mémoire           | 48 Go<sup>2</sup>                             | 85 Go (500 Go pour la mémoire haute performance)<sup>3</sup>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| Limites de temps            | 3 jours<sup>2</sup>                           | 3 jours<sup>3</sup>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| Système d'exploitation      | CentOS 7                                    | RockyLinux 9                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| Pile logicielle             | NiaEnv, CCEnv                               | CCEnv                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| Alertes de problèmes système | Non                                         | Oui                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| Alertes de quota utilisateur | Non                                         | Oui                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| Journaux d'erreurs         | Non                                         | Oui                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| Matériel                    | 1 x CPU avec 40 cœurs Intel "CascadeLake" à 2,5 GHz, 1 To de RAM | 62 x CPU avec 40 cœurs Intel "CascadeLake" à 2,5 GHz, 180 Go de RAM (par défaut)<br>3 x CPU avec 40 cœurs Intel "CascadeLake" à 2,5 GHz, 1 To de RAM (mémoire haute performance)<br>4 x GPU NVIDIA H100 de 80 Go, avec un CPU AMD EPYC 9654 à 96 cœurs à 2,4 GHz, 810 Go de RAM |
+| Fonctionnalité | JupyterHub (hors service définitivement) | Open OnDemand |
+|---|---|---|
+| Authentification | Mot de passe | Mot de passe et authentification multifacteur |
+| Première installation | 2017 | 2025 |
+| Plus récente mise à jour | 2021 | 2025 |
+| Applications prises en charge | Jupyter Notebook, JupyterLab (R, Python, Julia) | Jupyter Notebook, JupyterLab (R, Python), Rstudio, VSCode, Desktop, SAS^4^, Stata^4^, ParaView, Forge DDT/MAP, MATLAB |
+| Arrêt et reprise | Oui | Oui^1^ |
+| Terminal de commande | Non | Oui |
+| Gestion des fichiers | Oui (limitée) | Oui |
+| Suivi des tâches | Non | Oui |
+| Soumission des tâches | Non | Oui |
+| Nombre maximal de cœurs | 8 cœurs^2^ | 20 cœurs (8 pour mémoire forte)^3^ |
+| Mémoire maximale | 48 Go^2^ | 85 Go (500 Go pour mémoire forte)^3^ |
+| Durée maximale | 3 jours^2^ | 3 jours^3^ |
+| Système d'exploitation | CentOS 7 | RockyLinux 9 |
+| Piles logicielles | NiaEnv, CCEnv | CCEnv |
+| Notification des problèmes système | Non | Oui |
+| Notification des quotas | Non | Oui |
+| Journalisation des erreurs | Non | Oui |
+| Matériel | 1 x CPU de 40 cœurs Intel "CascadeLake" à 2,5 GHz, 1 To de RAM | 62 x CPU de 40 cœurs Intel CascadeLake à 2,5 GHz, 180 Go de RAM (par défaut)<br>3 x CPU de 40 cœurs Intel CascadeLake à 2,5 GHz, 1 To de RAM (mémoire forte)<br> 4 x GPU NVIDIA H100 80 GB<br> 1 x CPU de 6 cœurs AMD EPYC 9654 à 2,4 GHz, 810 Go de RAM |
 
-<sup>1</sup> À l'intérieur des limites demandées.
+^1^ À l'intérieur des limites demandées.
 
-<sup>2</sup> Parce que les limites pour JupyterHub n'ont pas été implémentées très strictement, elles peuvent temporairement être dépassées.
+^2^ Parce que les limites pour JupyterHub n'ont pas été implémentées très strictement, elles peuvent temporairement être surpassées.
 
-<sup>3</sup> Demander les limites avant de lancer une application.
+^3^ Demander les limites avant de lancer une application.
 
-<sup>4</sup> Vous devez détenir une licence.
+^4^ Vous devez détenir une licence.

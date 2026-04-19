@@ -4,17 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How do users specify their input simulation file and any optional Java macros for a STAR-CCM+ batch job on Alliance clusters like Fir, Narval, or Rorqual?",
-      "answer": "Users specify their input simulation filename by setting the `SIM_FILE` variable, for example, `SIM_FILE='mySample.sim'`. To include optional Java macros, mesh, run, or step commands, they should uncomment and define the `BATCH_CMD` variable, for instance, `BATCH_CMD='myMacro.java,run'`."
+      "question": "How do researchers set up their license to run STAR-CCM+ batch jobs on Alliance clusters, distinguishing between Power-on-Demand (PoD) and institutional licenses?",
+      "answer": "For Power-on-Demand (PoD) licenses, researchers must manually set the `LM_PROJECT` environment variable to their 22-digit PoD License Key within their Slurm script. Additionally, a `~/.licenses/starccm.lic` file must be configured on each cluster where jobs are to be run, containing `SERVER flex.cd-adapco.com ANY 1999` followed by `USE_SERVER`.\n\nFor local institutional licenses, the `LM_PROJECT` line in the Slurm script should be commented out. A `~/.licenses/starccm.lic` file is required, containing `SERVER <server> ANY <flexport>` and `USE_SERVER`, where `<server>` is the hostname or IP address and `<flexport>` is the static vendor port of the license server. On the Trillium cluster specifically, institutional license settings involve explicitly defining `FLEXPORT`, `VENDPORT`, and `LICSERVER` variables, which are then used to set `CDLMD_LICENSE_FILE` and establish an SSH tunnel for port forwarding."
     },
     {
-      "question": "What are the key differences in configuring STAR-CCM+ for Siemens Power-on-Demand (PoD) licenses versus institutional license servers in Slurm batch scripts for Fir, Narval, or Rorqual clusters?",
-      "answer": "For a Siemens Power-on-Demand (PoD) license, users must manually set the `LM_PROJECT` environment variable to their 22-digit PoD license key, for example, `LM_PROJECT='22digit-PoD-License-Key'`. This line should be commented out if an institutional license server is used. The script then checks the `CDLMD_LICENSE_FILE` for institutional license server details and invokes `starccm+` accordingly, either with `-power -podkey $LM_PROJECT` for PoD or without those specific options for an institutional server."
-    },
-    {
-      "question": "How is STAR-CCM+ licensing configured for batch jobs on the Trillium cluster when using an institutional license server?",
-      "answer": "On the Trillium cluster, when using an institutional license server, the `LM_PROJECT` variable should be commented out. Instead, specific variables are used: `FLEXPORT` (server static flex port, e.g., 1999), `VENDPORT` (server static vendor port, e.g., 2099), and `LICSERVER` (license server hostname, e.g., `flex.cd-adapco.com`). The `CDLMD_LICENSE_FILE` is exported as `\"$FLEXPORT@127.0.0.1\"`, and an `ssh` command (`ssh tri-gw -L $FLEXPORT:$LICSERVER:$FLEXPORT -L $VENDPORT:$LICSERVER:$VENDPORT -N -f`) is executed to forward the necessary ports. The `starccm+` command is then invoked without the `-power -podkey` options."
+      "question": "What are the key differences in Slurm script configuration for running STAR-CCM+ on the Trillium cluster compared to Fir, Narval, or Rorqual clusters?",
+      "answer": "The Trillium cluster's Slurm scripts have several specific configurations. They are set up to use `--cpus-per-task=192` and `--mem=0` (indicating all available memory), whereas the Fir, Narval, and Rorqual clusters typically specify `--cpus-per-task=16` and `--mem=64G`. For institutional licenses on Trillium, the script explicitly defines `FLEXPORT`, `VENDPORT`, and `LICSERVER` variables, which are then used to configure `CDLMD_LICENSE_FILE` and establish an SSH tunnel using `ssh tri-gw -L <FLEXPORT>:<LICSERVER>:<FLEXPORT> -L <VENDPORT>:<LICSERVER>:<VENDPORT> -N -f`. Furthermore, the Trillium script includes a `while` loop that attempts to start STAR-CCM+ up to five times, acting as a workaround for potential license failures."
     }
   ],
-  "generated_at": "2026-04-13T13:45:03.196936+00:00"
+  "generated_at": "2026-04-19T02:27:29.126230+00:00"
 }

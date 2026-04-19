@@ -4,17 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What are the primary advantages of using the /nearline storage system compared to traditional disk or solid-state (SSD) media?",
-      "answer": "The /nearline storage system, which utilizes tape as its medium, offers several key advantages: a lower cost per unit of data stored, the ability to easily expand storage volume by purchasing more tapes, and effectively zero energy consumption per unit of data stored. Furthermore, it allows for much greater storage volumes than /project and helps improve /project's performance by offloading inactive data."
+      "question": "What are the primary advantages of using tape-based storage, such as the /nearline system, compared to disk or solid-state (SSD) media?",
+      "answer": "Tape-based storage like /nearline offers several key advantages: a lower cost per unit of data stored, the ability to easily expand storage volume by acquiring more tapes, and effectively zero energy consumption per unit of data stored. These benefits allow for much greater storage volumes on /nearline than on /project, and storing inactive data off of /project also reduces its load and improves overall performance."
     },
     {
-      "question": "How does a file's state progress within the /nearline system, and what commands can be used to determine its current location or archiving status?",
-      "answer": "When a file is first copied to /nearline, it exists only on disk. After approximately a day, and if it meets certain criteria, the system copies it to tape, at which point it exists on both disk and tape. After a further period, the disk copy may be deleted, leaving the file only on tape (it becomes 'virtualized'). If a virtualized file is accessed, it is copied back from tape to disk, a process that can take from less than a minute to over an hour. To check the state of all files on /nearline, some clusters support the command `diskusage_report --nearline --per_user --all_users`. For an individual file, its state can be determined using the `lfs hsm_state <FILE>` command, which can indicate if it's 'On disk and tape', 'Archiving in progress', or 'On tape'."
+      "question": "How does a file progress through its lifecycle when stored on the /nearline system, from initial copy to full virtualization on tape, and then subsequent recall?",
+      "answer": "When a file is first copied to or created on /nearline, it initially resides only on disk. After approximately a day, if it meets specific criteria, the system copies the file to tape, meaning it exists on both disk and tape. After a further period, the disk copy may be deleted, resulting in the file being stored solely on tape (known as being 'virtualized'). Should a virtualized file be recalled, it is copied back from tape to disk, returning it to the state where it exists on both disk and tape."
     },
     {
-      "question": "On the Béluga cluster, what is the retention policy for files deleted from a user's `~/nearline` directory, and how can a user request a file restoration?",
-      "answer": "On the Béluga cluster, if a file is deleted from a user's `~/nearline` directory, the tape copy of that file is retained for up to 60 days. To restore such a file, a user must contact technical support and provide the full path to the file(s) as well as the desired version by date. Users are advised to retain a copy of their complete `~/nearline` directory structure (e.g., by running `ls -R > ~/nearline_contents.txt`) to assist in identifying file locations for restoration."
+      "question": "How can a user determine the current storage location of a file within the /nearline system, and is it possible to proactively restore a file from tape without actually accessing its content?",
+      "answer": "Users can check whether a file is on disk, tape, or both using the `lfs hsm_state <FILE>` command, which reports various states such as 'only on disk', 'in progress of being copied to tape', 'both on disk and tape', or 'on tape but no longer on disk'. To explicitly force a file to be recalled from tape back to disk without actually reading its content, users can utilize the `lfs hsm_restore <FILE>` command."
     }
   ],
-  "generated_at": "2026-04-13T15:27:17.400793+00:00"
+  "generated_at": "2026-04-19T02:46:40.701460+00:00"
 }

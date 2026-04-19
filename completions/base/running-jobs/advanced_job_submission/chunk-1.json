@@ -4,17 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What tools are available for managing numerous compute tasks, and for what specific scenarios is each tool best suited?",
-      "answer": "When managing numerous compute tasks, several tools are available: Job Arrays are ideal for submitting several similar jobs (each over an hour, under 1000 jobs) in one script. GNU Parallel is used for running and managing short calculations or parameter sweeps on a single reserved node. GLOST (Greedy Launcher Of Small Tasks) utilizes MPI and a manager-worker architecture to progressively run a long list of serial jobs on reserved CPU cores. META is a SHARCNET-designed suite of scripts for automating high-throughput computing of many related serial, parallel, or GPU calculations."
+      "question": "What tools are available on a compute cluster for managing numerous compute tasks, such as processing multiple files or performing parameter sweeps, and what are their typical use cases?",
+      "answer": "For managing numerous compute tasks like processing multiple files or performing parameter sweeps, several tools are available. Job Arrays are ideal for submitting several compute tasks in one script when each job exceeds one hour and the number of jobs is under one thousand. GNU Parallel is used for running and managing several short compute tasks, including parameter sweeps, on a single reserved node. GLOST (Greedy Launcher Of Small Tasks) utilizes MPI and a manager-worker architecture to progressively run a long list of serial tasks on reserved CPU cores. META is a suite of scripts from SHARCNET designed to automate high-throughput computing, managing a large number of related serial, parallel, or GPU calculations."
     },
     {
-      "question": "How can one establish a dependency between Slurm jobs so that a subsequent job only begins after a preceding job has successfully completed?",
-      "answer": "To establish an inter-job dependency where a second Slurm job starts only after a first job has successfully completed, you can use the `--dependency=afterok:` option with `sbatch`. First, save the Job ID of the initial job (e.g., `JOBID1=$(sbatch --parsable job1.sh)`), then submit the second job with the dependency specified as `sbatch --dependency=afterok:$JOBID1 job2.sh`."
+      "question": "In the context of Slurm compute pipelines, what are inter-job dependencies, and how can they be used to ensure jobs run in a specific order?",
+      "answer": "Inter-job dependencies are the links and relationships between steps in a Slurm compute pipeline, where one job's execution relies on the status or completion of another. For instance, a second job can be made to depend on the first, typically starting only after the first job has successfully completed. This can be specified using options like `--dependency=afterok:$JOBID1`, where `$JOBID1` is the ID of the preceding job. A single job can depend on multiple jobs, and multiple jobs can also depend on a single job, with various dependency types available such as `after`, `afterany`, `afterok`, and `afternotok`."
     },
     {
-      "question": "What are heterogeneous jobs in the context of Slurm, and how can resource requirements be specified for different processes within such a job?",
-      "answer": "Heterogeneous jobs in Slurm refer to applications, such as MPI applications, where different processes (e.g., a main process versus other processes) require varying amounts of CPU cores and memory. Resource requirements can be specified within a job script by separating different resource requests with `#SBATCH hetjob` directives. For instance, one can define `#SBATCH --ntasks=1 --cpus-per-task=8 --mem-per-cpu=4000M` for the main process, followed by `#SBATCH hetjob` and then `#SBATCH --ntasks=15 --cpus-per-task=1 --mem-per-cpu=1000M` for other processes. Alternatively, these resource requests can be separated by a colon (':') on the `sbatch` command line."
+      "question": "What is a 'heterogeneous job' in the Slurm scheduler, and how can it be advantageous for an MPI application?",
+      "answer": "A 'heterogeneous job' in the Slurm scheduler allows different processes or components within a single job to request varying amounts of resources, such as CPU cores and memory. This is particularly advantageous for MPI applications where, for example, the main process might require significantly more CPU cores and RAM than the other processes. By defining these differing resource requirements within the job script (using `#SBATCH hetjob`) or on the `sbatch` command line (separating resource requests with a colon `:`), users can optimize resource allocation and improve efficiency."
     }
   ],
-  "generated_at": "2026-04-13T01:08:24.423881+00:00"
+  "generated_at": "2026-04-19T01:17:39.546960+00:00"
 }

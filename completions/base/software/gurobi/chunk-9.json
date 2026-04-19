@@ -4,13 +4,13 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What is the recommended method for installing the `gurobipy` Python package for Gurobi versions 11.0.0 and newer within a Python virtual environment on Compute Canada systems?",
-      "answer": "For Gurobi versions 11.0.0 and newer, after loading the appropriate Gurobi and Python modules and activating your virtual environment, you need to use a specialized script. First, install any other necessary Python packages (e.g., pandas for NumPy). Then, download `unmanylinuxize.sh`, make it executable, and run it, providing the specific Gurobi package name, version, and the direct URL to the `gurobipy` wheel file from pypi.org. This script converts the wheel into a format usable on the Linux systems. Finally, install the newly converted wheel file into your virtual environment using `python -m pip install --find-links $PWD --no-index gurobipy`."
+      "question": "How do users install the `gurobipy` package for Gurobi versions 11.0.0 and newer within a Python virtual environment on Digital Research Alliance of Canada systems, considering the Linux systems' gentoo prefix setup?",
+      "answer": "To install `gurobipy` for Gurobi versions 11.0.0 and newer in a Python virtual environment, first load the `gurobi/11.0.1` and `python` modules, then create and activate your virtual environment (e.g., `~/env_gurobi`). Next, download the `unmanylinuxize.sh` script, make it executable, and run it, specifying the package name (`gurobipy`), version (e.g., `11.0.1`), and the direct URL to the compatible binary wheel from pypi.org. Finally, install the converted wheel using `python -m pip install --find-links $PWD --no-index gurobipy`."
     },
     {
-      "question": "How can a custom Python script that uses Gurobi and a virtual environment be submitted as a batch job to the Slurm scheduler?",
-      "answer": "To submit a custom Gurobi Python script within a virtual environment to the Slurm scheduler, create a Slurm batch script (e.g., `my_slurm_script.sh`). This script should first specify SBATCH directives for your account, time limit, nodes, CPUs per task, and memory. Inside the script, load the `StdEnv` and `gurobi` modules, and optionally `scipy-stack` if required. Crucially, set the `Threads` parameter by echoing `\"Threads ${SLURM_CPUS_ON_NODE:-1}\"` into `gurobi.env`, then activate your virtual environment (e.g., `source ~/env_gurobi/bin/activate`), and finally execute your Python script using `python my_gurobi_script.py`."
+      "question": "How can a custom Gurobi Python script that utilizes a virtual environment be submitted as a batch job to the Slurm scheduler on Digital Research Alliance of Canada systems?",
+      "answer": "To submit a Gurobi Python script (e.g., `my_gurobi_script.py`) using a virtual environment as a Slurm batch job, create a Slurm script (e.g., `my_slurm_script.sh`). This script should define Slurm directives (`#SBATCH`), load the `StdEnv/2023` and `gurobi/11.0.1` modules, then set the Gurobi `Threads` parameter by echoing `\"Threads ${SLURM_CPUS_ON_NODE:-1}\"` into a `gurobi.env` file. Crucially, activate your Python virtual environment (e.g., `source ~/env_gurobi/bin/activate`) before executing your Python script with `python my_gurobi_script.py`. The job can then be submitted using `sbatch my_slurm_script.sh`."
     }
   ],
-  "generated_at": "2026-04-13T06:52:41.499712+00:00"
+  "generated_at": "2026-04-19T01:58:31.893837+00:00"
 }

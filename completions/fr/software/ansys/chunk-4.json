@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on peut vérifier si la licence Ansys est bien configurée et fonctionne correctement sur un nœud de calcul?",
-      "answer": "Pour vérifier la configuration et le bon fonctionnement de la licence Ansys sur un nœud de calcul, il faut d'abord se rendre dans le répertoire `/tmp`, allouer des ressources avec la commande `salloc --time=1:0:0 --mem=1000M --account=def-YOURUSERID`, charger les modules `StdEnv/2023` et `ansys/2025R2.04`, puis exécuter la commande `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\"`."
+      "question": "Comment puis-je vérifier si le fichier de licence Ansys (`ansys.lic`) est bien configuré et fonctionne correctement sur un nœud de calcul de l'Alliance Canada?",
+      "answer": "Pour vérifier la configuration de votre licence, vous devez vous connecter à un nœud de calcul et exécuter les commandes suivantes dans votre terminal. D'abord, allez dans un répertoire temporaire avec `cd /tmp`. Ensuite, allouez une session interactive avec `salloc --time=1:0:0 --mem=1000M --account=def-VOTREIDUTILISATEUR` (en remplaçant VOTREIDUTILISATEUR par votre identifiant). Puis, chargez les modules requis, comme `module load StdEnv/2023; module load ansys/2025R2.04`. Enfin, lancez la commande de vérification de licence: `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\" 1> /dev/null && echo Success || echo Fail`."
     },
     {
-      "question": "Quelle commande Linux est utilisée pour lancer l'outil de vérification de l'état de la licence Ansys après avoir chargé les modules sur un nœud de calcul?",
-      "answer": "Après avoir chargé les modules `StdEnv/2023` et `ansys/2025R2.04` sur un nœud de calcul, la commande pour vérifier l'état de la licence Ansys est `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\"`."
+      "question": "Que signifient les messages « Success » ou « Fail » qui apparaissent après avoir effectué la vérification de la licence Ansys?",
+      "answer": "Un message « Success » (Succès) indique que les extractions de licences devraient fonctionner normalement lorsque vous soumettez vos tâches à la file d'attente. Inversement, un message « Fail » (Échec) signifie qu'il y a un problème avec la configuration de la licence, et vos tâches échoueront probablement."
     },
     {
-      "question": "Qu'est-ce qu'un message de « Success » indique après avoir exécuté la vérification de la licence Ansys sur un nœud de calcul?",
-      "answer": "Un message de « Success » indique que les demandes de licence Ansys devraient fonctionner sans problème lors de la soumission de tâches à la file d'attente."
+      "question": "Quelle précaution faut-il prendre concernant la version du module Ansys lors de la vérification de la licence?",
+      "answer": "Pour éviter des problèmes, assurez-vous d'utiliser la même version du module Ansys pour la vérification de la licence que celle qui sera chargée par votre script de soumission de tâches. Un décalage de version avec le serveur de licence distant pourrait entraîner des problèmes lors des tests."
     }
   ],
-  "generated_at": "2026-04-13T01:55:14.379399+00:00"
+  "generated_at": "2026-04-19T01:34:04.555693+00:00"
 }

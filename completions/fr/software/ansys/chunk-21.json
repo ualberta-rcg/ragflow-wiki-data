@@ -4,13 +4,17 @@
   "chunk_index": 21,
   "qa_pairs": [
     {
-      "question": "Pourquoi devrais-je utiliser les scripts de redémarrage pour mes simulations Ansys Fluent sur les grappes de l'Alliance?",
-      "answer": "Les scripts de redémarrage sont utiles pour automatiser la continuation de simulations Fluent qui s'étirent sur une longue période et pourraient dépasser la limite de temps maximale autorisée sur les grappes, qui est souvent de sept jours. Ils permettent de reprendre la simulation à partir des fichiers de pas de temps les plus récemment sauvegardés."
+      "question": "Comment est-ce qu'on peut automatiser le redémarrage d'une simulation Ansys Fluent sur les grappes de Calcul Canada si elle dépasse la limite de temps allouée pour une tâche?",
+      "answer": "Pour automatiser le redémarrage de tâches Fluent intensives qui exigent plus que le maximum de sept jours d'exécution, on doit d'abord préparer un fichier de cas initial, un fichier de données et un fichier de journalisation (`sample.jou`). Ensuite, on crée un fichier de journalisation de redémarrage (`sample-restart.jou`) qui lit le fichier de cas-données de redémarrage (`/file/read-cas-data sample-restart`) et on met en commentaire l'initialisation. On ajuste aussi les commandes `/solve/dual-time-iterate` et `/file/auto-save/data-frequency` dans le fichier de journalisation. Le nombre de redémarrages est spécifié par l'option `--array` dans le script Slurm."
     },
     {
-      "question": "Quels sont les fichiers requis et les étapes de préparation pour un redémarrage de simulation Ansys Fluent?",
-      "answer": "Pour redémarrer une simulation Fluent, vous avez besoin des fichiers `sample.cas`, `sample.dat` et `sample.jou`. Le fichier `sample.jou` initial doit contenir les commandes `/solve/dual-time-iterate 1` et `/file/auto-save/data-frequency 1`. Vous devez aussi créer un `sample-restart.jou` (copie de `sample.jou`) qui utilise `/file/read-cas-data sample-restart` et dont la ligne d'initialisation est commentée, par exemple, `;/solve/initialize/initialize-flow`."
+      "question": "À quoi servent les fichiers de journalisation dans Ansys Fluent et comment peut-on s'en servir pour gérer les simulations?",
+      "answer": "Les fichiers de journalisation Ansys Fluent contiennent toutes les commandes de l'interface TUI (Text User Interface) et peuvent être utilisés pour modifier des paramètres de simulation comme la température, la pression ou la vitesse du flux. En modifiant simplement les paramètres dans le fichier de journalisation, on peut effectuer une série de simulations sous différentes conditions, ce qui est très pratique pour l'expérimentation et l'automatisation."
+    },
+    {
+      "question": "Quels sont les formats de fichiers de cas et de données par défaut pour Fluent, et comment on configure les versions plus récentes pour utiliser des formats plus efficaces?",
+      "answer": "Jusqu'à la version 2019R3, les formats de fichiers de cas et de données par défaut de Fluent étaient `.cas` et `.dat`. Pour les versions à partir de 2020R1, les formats `.cas.h5` et `.dat.h5` sont plus efficaces. Pour utiliser ces formats plus récents, il faut configurer l'option `/file/cff-files yes` dans le fichier de journalisation, au lieu de `/file/cff-files no` qui est pour les formats legacy."
     }
   ],
-  "generated_at": "2026-04-13T01:57:50.205468+00:00"
+  "generated_at": "2026-04-19T01:36:46.122029+00:00"
 }

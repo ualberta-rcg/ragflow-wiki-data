@@ -4,17 +4,17 @@
   "chunk_index": 29,
   "qa_pairs": [
     {
-      "question": "Comment configurer et soumettre une tâche Ansys CFX sur plusieurs nœuds de calcul en utilisant un script Slurm sur les grappes de l'Alliance?",
-      "answer": "Pour configurer et soumettre une tâche Ansys CFX sur plusieurs nœuds de calcul, vous devez utiliser un script Slurm. Ce script doit spécifier l'accouplement (`--account`), la limite de temps (`--time`), le nombre de nœuds (`--nodes`), le nombre de tâches par nœud (`--ntasks-per-node`) et l'utilisation de toute la mémoire par nœud (`--mem=0`). Il doit ensuite charger les modules `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente). Pour exécuter la tâche, vous utilisez `cfx5solve -def VOTREFICHIER.def` et, si la grappe est Narval, la méthode de démarrage \"Open MPI Distributed Parallel\" (`-start-method \"Open MPI Distributed Parallel\"`) avec le paramètre `-par-dist $NNODES`. Pour les autres grappes, utilisez la méthode \"Intel MPI Distributed Parallel\" (`-start-method \"Intel MPI Distributed Parallel\"`) et exportez `I_MPI_HYDRA_BOOTSTRAP=ssh`."
+      "question": "Comment puis-je afficher les options de ligne de commande disponibles pour le solveur Ansys CFX (`cfx5solve`) sur les grappes de l'Alliance?",
+      "answer": "Pour voir le résumé des options de ligne de commande pour le solveur Ansys CFX, il suffit d'exécuter la commande `cfx5solve -help` dans votre terminal sur la grappe."
     },
     {
-      "question": "Quelles étapes faut-il suivre pour initialiser un fichier de projet Ansys Workbench avant de le soumettre pour la première fois en mode batch sur une grappe de calcul?",
-      "answer": "Avant de soumettre un fichier de projet Ansys Workbench en mode batch pour la première fois, vous devez l'initialiser. D'abord, connectez-vous à la grappe avec TigerVNC. Ensuite, dans le répertoire où se trouve votre fichier de projet (par exemple, `VOTREPROJET.wbpj`), lancez Workbench en utilisant la même version du module Ansys que celle utilisée pour créer le projet. Ouvrez votre projet via `Fichier -> Ouvrir`. Dans la fenêtre principale de Workbench, faites un clic droit sur `Setup` et sélectionnez `Effacer toutes les données générées` (`Clear All Generated Data`). Enfin, quittez Workbench en cliquant sur `Fichier -> Quitter` et, quand on vous demande si vous voulez sauvegarder le projet modifié, cliquez sur `Non`. Une fois Workbench fermé, vous pouvez soumettre la tâche avec un script Slurm."
+      "question": "Comment doit-on configurer `cfx5solve` pour les calculs en double précision ou pour les maillages contenant un très grand nombre d'éléments?",
+      "answer": "Pour exécuter `cfx5solve` en double précision, vous devez ajouter l'option `-double` à votre commande, ce qui doublera également les besoins en mémoire. Pour gérer des maillages plus grands, qui peuvent aller jusqu'à 2 milliards d'éléments, ajoutez l'option `-large`."
     },
     {
-      "question": "Est-ce qu'on peut exécuter des simulations Ansys Workbench directement à partir de l'interface graphique sur un nœud de calcul, et si oui, quels sont les avantages?",
-      "answer": "Oui, il est possible d'exécuter des simulations Ansys Workbench directement à partir de l'interface graphique native d'une session de bureau OnDemand sur un nœud de calcul. C'est une option plus intuitive comparativement à la soumission d'une tâche via un script Slurm. Ces sessions de bureau OnDemand peuvent réserver un nœud de calcul avec jusqu'à 96 cœurs, 768 Go de mémoire et une durée d'exécution de 8 heures, offrant ainsi une flexibilité considérable pour les simulations interactives."
+      "question": "Quelles sont les principales différences entre les scripts Slurm pour exécuter Ansys CFX sur un nœud simple par rapport à plusieurs nœuds sur les grappes de l'Alliance?",
+      "answer": "Pour les tâches sur un nœud simple, le script Slurm spécifie `--nodes=1` et utilise la méthode de démarrage 'Open MPI Local Parallel' ou 'Intel MPI Local Parallel' avec `-part $SLURM_CPUS_ON_NODE`. Pour les tâches sur plusieurs nœuds, le script indique `--nodes=2` ou plus, et la méthode de démarrage sera 'Open MPI Distributed Parallel' ou 'Intel MPI Distributed Parallel' avec `-par-dist $NNODES`. De plus, pour Intel MPI sur plusieurs nœuds, il faut définir les variables d'environnement `export I_MPI_HYDRA_BOOTSTRAP=ssh` et `unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`."
     }
   ],
-  "generated_at": "2026-04-13T01:59:15.983723+00:00"
+  "generated_at": "2026-04-19T01:37:44.536935+00:00"
 }

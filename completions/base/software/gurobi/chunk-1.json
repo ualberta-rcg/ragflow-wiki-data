@@ -4,13 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What steps must a user take to obtain and activate a Gurobi license for non-commercial use on Digital Research Alliance of Canada clusters?",
-      "answer": "To obtain a Gurobi license for non-commercial research on Digital Research Alliance of Canada systems, users must first agree to the academic usage conditions. They need to contact support, providing their Alliance username and academic institution, and confirm that their research will be published. Once added to the license file (which typically takes a few days), the required settings are configured automatically when a Gurobi module is loaded on any cluster, so users do not need to create a `~/.licenses/gurobi.lic` file."
+      "question": "What are the conditions for using the free Gurobi license on Digital Research Alliance of Canada clusters, and which clusters support it?",
+      "answer": "A free Gurobi license is supported on the Nibi, Narval, Fir, Rorqual, and Trillium clusters. Users must agree to an academic usage agreement, confirming that the license will only be used for non-commercial research projects intended for publication in publicly available articles. To obtain access, users need to contact support with a completed agreement."
     },
     {
-      "question": "Why is it crucial to minimize Gurobi license checkouts when running jobs on Digital Research Alliance of Canada clusters, and what are the recommended strategies to achieve this?",
-      "answer": "Minimizing Gurobi license checkouts is crucial because all checkouts are handled by a single remote license server located in Ontario, making each contact time-consuming and impacting overall server responsiveness. To improve job performance and server stability for all users, programs should make only a single license checkout per job and reuse that license token throughout the job's duration, rather than checking out a license for each Gurobi invocation. For submitting many jobs, it is recommended to use a gradual submission script with Slurm's `after` dependency to minimize the license checkout rate, adhering to a limit of no more than 10,000 Gurobi license checkouts/jobs per cluster over a 24-hour period."
+      "question": "How can users verify if their username has been successfully added to the Gurobi license on Digital Research Alliance of Canada clusters, and what steps should be taken if the verification fails?",
+      "answer": "To verify, log into any cluster and run the command: `module load gurobi; gurobi_cl 1> /dev/null && echo Success || echo Fail`. If it returns \"Fail,\" check for and remove any `~/.license/gurobi` file. Also, check for and remove or comment out any environment variables containing GUROBI in your `~/.bashrc` or `~/.bash_profile` files, then logout, log back in, reload the Gurobi module, and run the test again. If it still fails, contact support for assistance."
+    },
+    {
+      "question": "Why is it important to minimize Gurobi license checkouts on the Digital Research Alliance of Canada clusters, and what are the recommended practices for achieving this?",
+      "answer": "Minimizing Gurobi license checkouts is crucial because all checkouts are handled by a single remote license server, making frequent contact time-costly and potentially impacting job performance and server responsiveness for all users. Users should ensure their programs make only one license checkout per job and reuse that token throughout the job's lifetime. For submitting many jobs in a loop, a sample script utilizing Slurm's `after` dependency option is recommended to start jobs gradually, thus minimizing the license checkout rate. Exceeding 10,000 Gurobi license checkouts (or 5,000 jobs if two licenses are required per job) over a 24-hour period on a cluster is not requested."
     }
   ],
-  "generated_at": "2026-04-13T06:51:34.262262+00:00"
+  "generated_at": "2026-04-19T01:57:29.543682+00:00"
 }

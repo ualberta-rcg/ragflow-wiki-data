@@ -4,17 +4,17 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "Quelles sont les partitions disponibles et leurs limites spécifiques pour les tâches utilisant des GPU sur la grappe Trillium?",
-      "answer": "Sur Trillium, il y a deux partitions principales pour les tâches GPU: 'calcul' et 'débogage'. Pour la partition 'calcul avec GPU', les utilisateurs peuvent soumettre jusqu'à 150 tâches en cours et 500 tâches soumises et en cours. La taille minimale d'une tâche est d'un quart de nœud (24 cœurs / 1 GPU), et la plus grande taille recommandée est de 5 nœuds par défaut (480 cœurs / 20 GPU) ou 25 nœuds avec une allocation (2400 cœurs / 100 GPU), avec une durée maximale de 24 heures. Pour la partition 'test avec GPU' (débogage), la limite est d'une tâche en cours et d'une tâche soumise et en cours. La taille minimale est également d'un quart de nœud (24 cœurs / 1 GPU), et la taille maximale est de 2 nœuds (192 cœurs / 8 GPU), avec une durée maximale de 2 heures pour 1 GPU ou 30 minutes pour 8 GPU."
+      "question": "Quelles sont les limites principales pour soumettre des tâches de calcul avec GPU sur la grappe Trillium?",
+      "answer": "Pour la partition de 'calcul avec GPU' sur Trillium, vous pouvez avoir jusqu'à 150 tâches en cours et 500 tâches soumises et en cours. La plus petite taille de tâche est d'un quart de nœud (24 cœurs / 1 GPU), et la plus grande taille recommandée peut aller jusqu'à 25 nœuds (2400 cœurs / 100 GPU) si vous avez une allocation. Les tâches peuvent s'exécuter pour une durée minimale de 15 minutes et maximale de 24 heures."
     },
     {
-      "question": "Quelles sont les meilleures pratiques à suivre pour soumettre et optimiser des tâches qui utilisent des GPU sur la grappe Trillium?",
-      "answer": "Pour optimiser les tâches GPU sur Trillium, il est recommandé de ne pas spécifier l'option `--mem` dans vos scripts, car la mémoire est fixe (192 GiB par GPU ou 768 GiB par nœud). Il faut toujours indiquer le nombre de nœuds et utiliser `--gpus-per-node=4` pour les tâches sur un nœud entier ou sur plusieurs nœuds. Chargez seulement les modules logiciels nécessaires et soyez explicite quant aux versions (par exemple, `cuda/12.6` au lieu de `cuda` générique) pour assurer la reproductibilité. Il est aussi conseillé de tester votre code sur un seul GPU avant de l'étendre à plusieurs GPU ou nœuds, et de surveiller l'utilisation avec la commande `nvidia-smi` pour garantir une pleine utilisation des GPU."
+      "question": "Comment doit-on spécifier le nombre de GPU à utiliser lors de la soumission d'une tâche sur la sous-grappe de GPU de Trillium, et y a-t-il des restrictions particulières?",
+      "answer": "Sur Trillium, vous pouvez demander soit un seul GPU en utilisant `--gpus-per-node=1`, soit un multiple de quatre GPU avec `--gpus-per-node=4` pour un nœud entier (ou plus pour plusieurs nœuds). Il n'est pas possible de demander 2 ou 3 GPU par nœud, ni d'utiliser la technologie NVIDIA MIG pour allouer une fraction d'un GPU."
     },
     {
-      "question": "Comment un utilisateur peut-il surveiller l'état et les performances de ses tâches GPU après les avoir soumises à la file d'attente de Trillium?",
-      "answer": "Pour suivre l'état de vos tâches GPU sur Trillium, vous pouvez utiliser plusieurs commandes SLURM. `squeue` vous montre les tâches en file d'attente (ajoutez `-u $USER` pour voir les vôtres), tandis que `squeue -j JOBID` affiche le statut d'une tâche spécifique. Pour avoir une idée du temps de démarrage d'une tâche en attente, utilisez `squeue --start -j JOBID`. Pour annuler une tâche, c'est `scancel JOBID`. Pour un suivi en temps réel de l'utilisation du CPU et de la mémoire d'une tâche en cours, utilisez `jobperf JOBID`. Et pour vérifier spécifiquement l'état et l'utilisation des GPU sur un nœud GPU, la commande `nvidia-smi` est très utile. Finalement, `sacct` permet de consulter les informations sur les tâches terminées."
+      "question": "Quelles sont les meilleures pratiques à suivre pour optimiser les tâches utilisant des GPU sur Trillium?",
+      "answer": "Pour les tâches GPU sur Trillium, il ne faut pas spécifier la quantité de mémoire avec l'option `--mem`, car la mémoire est fixe (192 Go par GPU ou 768 Go par nœud). Il est recommandé d'indiquer toujours le nombre de nœuds et `--gpus-per-node=4` pour les tâches sur un nœud entier ou plusieurs nœuds. Il faut aussi charger uniquement les modules nécessaires, être explicite quant aux versions des logiciels (par exemple, `cuda/12.6` plutôt que simplement `cuda`), tester sur un seul GPU avant de passer à plusieurs GPU ou nœuds, et surveiller l'utilisation avec la commande `nvidia-smi` pour s'assurer que les GPU sont pleinement utilisés."
     }
   ],
-  "generated_at": "2026-04-13T15:00:35.733033+00:00"
+  "generated_at": "2026-04-19T02:45:50.645767+00:00"
 }

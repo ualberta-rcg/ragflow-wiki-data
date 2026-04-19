@@ -4,17 +4,17 @@
   "chunk_index": 17,
   "qa_pairs": [
     {
-      "question": "What is the purpose of Fluent solution restart scripts on Alliance clusters, and what are the initial file requirements for setting them up?",
-      "answer": "Fluent solution restart scripts are designed to automate the restarting of very large jobs that may exceed the typical seven-day maximum runtime window available on most Alliance clusters. To use them, you must have a working set of `sample.cas`, `sample.dat`, and `sample.jou` files. Your initial `sample.jou` file needs to be configured with `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1` to ensure regular saving. Additionally, a `sample-restart.jou` file must be created from `sample.jou`, modified to read the restart case-data (`/file/read-cas-data sample-restart`), and have the initialization line commented out."
+      "question": "What is the primary purpose of the Fluent \"Solution restart\" Slurm script, such as the `Multinode (by core + restart)` script?",
+      "answer": "The primary purpose of the Fluent \"Solution restart\" Slurm script is to automate the restarting of very large simulation jobs that might require more time than the typical seven-day maximum runtime allowed on most clusters. It ensures that jobs continue from the most recently saved time step files."
     },
     {
-      "question": "How should the `dual-time-iterate` setting be configured in a Fluent restart journal file to optimize long-running simulations, and how does this affect total simulation time and output files?",
-      "answer": "To optimize restarts for long-running Fluent simulations, you should edit your `sample-restart.jou` file to specify `/solve/dual-time-iterate N`, where N is chosen such that the time for N steps fits comfortably within the Slurm job array time limit. For example, if subsequent time steps are expected to run twice as fast as the initial one, you might choose `N=2`. This approach minimizes computationally expensive solution restarts. The total simulation time will be `1*Dt + N*Nrestart*Dt`, and the total number of time steps (and output files generated) will be `1 + N*Nrestart`, where `Dt` is the time step size and `Nrestart` is the number of solution restarts specified in the Slurm script."
+      "question": "How does a Fluent \"Solution restart\" Slurm script, like the `Multinode (by core + restart)` example, manage the initial run versus subsequent restarts, and how does it handle simulation data for continuity?",
+      "answer": "The script uses the `SLURM_ARRAY_TASK_ID` variable to manage runs: if `SLURM_ARRAY_TASK_ID` is 1, it executes the initial journal file (`MYJOUFILE`). For any subsequent array tasks (when `SLURM_ARRAY_TASK_ID` is greater than 1), it executes a dedicated restart journal file (`MYJOUFILERES`). To maintain continuity, after each successful array task, the script creates symbolic links (`MYCASFILERES` and `MYDATFILERES`) that point to the most recent output `.cas` and `.dat` files, allowing the next restart attempt to pick up from the latest saved state."
     },
     {
-      "question": "What is the primary function of Fluent journal files, and how can they be configured to use specific output file formats on Alliance clusters?",
-      "answer": "Fluent journal files allow users to include virtually any command from Fluent's Text-User-Interface (TUI) to automate tasks, change simulation parameters like temperature, pressure, and flow speed, or run a series of simulations under different conditions using a single case file. To configure the output file format, you use the `/file/cff-files` command within the journal file: set it to `no` to use the legacy `.cas/.dat` file format (default for module versions 2019R3 or older), or set it to `yes` to use the more efficient `.cas.h5/.dat.h5` file format (default for module versions 2020R1 or newer)."
+      "question": "What is the function of Fluent journal files, and what are the two main file formats that can be specified within them for simulation input/output?",
+      "answer": "Fluent journal files allow users to automate Fluent operations by incorporating Text-User-Interface (TUI) commands, which can be used to modify simulation parameters, run solvers, and manage output. For input/output files, journal files can be configured to use either the legacy `.cas/.dat` file format (by setting `/file/cff-files no` for module versions 2019R3 or older) or the more efficient `.cas.h5/.dat.h5` file format (by setting `/file/cff-files yes` for module versions 2020R1 or newer)."
     }
   ],
-  "generated_at": "2026-04-13T01:50:28.196496+00:00"
+  "generated_at": "2026-04-19T01:29:04.360807+00:00"
 }

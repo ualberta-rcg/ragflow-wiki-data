@@ -4,57 +4,70 @@ slug: "nibi"
 lang: "base"
 
 source_wiki_title: "Nibi"
-source_hash: "c4a70ddacfbc969cdeeb07442c7cb2e4"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T09:47:36.431312+00:00"
+source_hash: "6e0f3fc05bafcd66dd9f2ae87b3c9347"
+last_synced: "2026-04-18T23:39:30.217451+00:00"
+last_processed: "2026-04-19T01:00:41.323785+00:00"
 
 tags:
   []
 
 keywords:
-  - "Nibi Open OnDemand"
-  - "unified memory"
-  - "Slurm options"
-  - "Open OnDemand"
-  - "NVIDIA GPUs"
-  - "Compute Desktop"
-  - "remote desktop environment"
-  - "web interface"
-  - "CDNA3-based GPUs"
-  - "MIG technology"
-  - "nvidia_h100_80gb_hbm3"
-  - "Python virtual environment"
-  - "cluster access"
-  - "Parallel storage"
+  - "SHARCNET"
   - "GPU instances"
-  - "Interconnect fabric"
-  - "Nibi cluster"
-  - "Snapshots"
   - "H100 GPUs"
-  - "Nibi"
-  - "CPU cores"
-  - "H100-80gb"
   - "JupyterLab"
+  - "AMD MI300A nodes"
+  - "NVIDIA GPUs"
+  - "Nibi Open OnDemand"
+  - "deleted file"
+  - "cluster access"
+  - "nvidia_h100_80gb_hbm3"
+  - "Nibi cluster"
+  - "remote desktop environment"
+  - "snapshot"
+  - "dont_delete_me.txt"
+  - "Nibi"
+  - "MIG technology"
+  - "file recovery"
+  - "help ticket"
+  - "backup"
+  - "oops command"
+  - "unified memory"
+  - "deleted files"
+  - "read-only"
+  - "web interface"
+  - "Parallel storage"
+  - "snapshots"
+  - "Interconnect fabric"
+  - "instance names"
+  - "Slurm options"
+  - "Python virtual environment"
+  - "H100-80gb"
+  - "recover a file"
+  - "Open OnDemand"
 
 questions:
-  - "What are the primary hardware specifications and hosting details of the Nibi computing cluster?"
-  - "How does Nibi's storage system handle space accounting and the experimental limits for the /scratch directory?"
-  - "What type of interconnect fabric does Nibi use, and what are the different configurations of compute nodes available to users?"
-  - "What Slurm commands are required to request full H100 GPUs versus specific Multi-Instance GPU (MIG) slices for a compute job?"
-  - "What are the storage policies on the Nibi cluster regarding default project directories and user scratch quotas?"
-  - "How can users access the Nibi cluster and its remote desktop or JupyterLab environments through a web browser?"
-  - "What architectural feature do the CDNA3-based GPUs share within their socket?"
-  - "Which specific GPU model is listed as an available instance in the provided table?"
-  - "What are the various naming conventions used to identify the H100-80gb GPU instance?"
+  - "What are the primary hardware specifications and hosting details of the Nibi cluster?"
+  - "How does Nibi's storage system handle space accounting and what is the experimental mechanism used for the /scratch directory?"
+  - "What type of interconnect fabric does Nibi use, and how can users optimize multi-node jobs for better network performance?"
+  - "Where can users find the instructions for utilizing the shared unified memory?"
+  - "What specific GPU model is listed as available in the instances table?"
+  - "What are the different naming conventions provided for the H100-80gb GPU instance?"
+  - "How do users format Slurm commands to request either full H100 GPUs or specific Multi-Instance GPU (MIG) slices for their compute jobs?"
+  - "What are the specific policies and limits regarding user directory creation in the project space and scratch storage quotas on the Nibi cluster?"
+  - "How can users access the Nibi cluster's terminal and remote desktop environment through a web browser using Open OnDemand?"
+  - "What are the two different methods for launching an interactive JupyterLab session via the Nibi Open OnDemand portal?"
+  - "What are the scheduling requirements and user responsibilities when running jobs on the AMD MI300A nodes?"
+  - "How does the snapshot backup mechanism work on Nibi, and how can users utilize the oops command to recover accidentally deleted files?"
   - "How does the platform simplify access to the cluster for its users?"
-  - "What are the required steps to successfully log in to Nibi?"
-  - "What specific tools and session options are available to users through the platform's interface?"
-  - "What are the two different methods for launching and running JupyterLab interactively through the Nibi Open OnDemand portal?"
-  - "What remote desktop environment has replaced the Virtual Desktop Infrastructure (VDI) on Nibi, and what benefits does it offer?"
-  - "How can a user utilize the snapshot backup mechanism and the `oops` command to recover accidentally deleted files?"
-  - "What are the two different methods for launching and running JupyterLab interactively through the Nibi Open OnDemand portal?"
-  - "What remote desktop environment has replaced the Virtual Desktop Infrastructure (VDI) on Nibi, and what benefits does it offer?"
-  - "How can a user utilize the snapshot backup mechanism and the `oops` command to recover accidentally deleted files?"
+  - "What are the required steps and authentication methods to log in to Nibi?"
+  - "What specific tools and environments, such as JupyterLab, are available through the user interface once logged in?"
+  - "What is the purpose of the `oops` command in this terminal session?"
+  - "How does the user successfully restore the accidentally deleted file `dont_delete_me.txt`?"
+  - "According to the system output, under what conditions must a user submit a help ticket to recover a deleted file?"
+  - "Under what condition are changes to a file permanently unrecoverable?"
+  - "How do you use the `oops` command to find and recover a deleted file?"
+  - "What are the restrictions and rules for interacting with files stored in snapshots?"
 
 status:
   downloaded: true
@@ -65,13 +78,15 @@ status:
   qa_generated: false
 ---
 
-| Availability: | since 31 July 2025
-| SSH login node: | nibi.alliancecan.ca
-| Automation node: | *robot.nibi.alliancecan.ca*
-| Web interface: | [ondemand.sharcnet.ca](https://ondemand.sharcnet.ca)
-| Globus collection: | [alliancecan#nibi](https://app.globus.org/file-manager?origin_id=07baf15f-d7fd-4b6a-bf8a-5b5ef2e229d3)
-| Data transfer node (rsync, scp, sftp,...): | use login nodes
-| Portal: | [portal.nibi.sharcnet.ca](https://portal.nibi.sharcnet.ca)
+| Feature                 | Value                                                              |
+| :---------------------- | :----------------------------------------------------------------- |
+| Availability            | since 31 July 2025                                                 |
+| SSH login node          | `nibi.alliancecan.ca`                                              |
+| Automation node         | *robot.nibi.alliancecan.ca*                                        |
+| Web interface           | [ondemand.sharcnet.ca](https://ondemand.sharcnet.ca)               |
+| Globus collection       | [alliancecan#nibi](https://app.globus.org/file-manager?origin_id=07baf15f-d7fd-4b6a-bf8a-5b5ef2e229d3) |
+| Data transfer node      | use login nodes                                                    |
+| Portal                  | [portal.nibi.sharcnet.ca](https://portal.nibi.sharcnet.ca)         |
 
 Nibi, the Anishinaabemowin word for water, is a general purpose cluster of 134,400 CPU cores and 288 H100 NVIDIA GPUs. Built by [Hypertec](https://www.hypertec.com/), the cluster is hosted and operated by [SHARCNET](https://www.sharcnet.ca/) at University of Waterloo.
 
@@ -85,14 +100,15 @@ Parallel storage: 25 petabytes, all [SSD](https://en.wikipedia.org/wiki/Solid-st
     Nibi is using a new, experimental mechanism for handling `/scratch`. As on all systems, you have a soft and hard limit, but on Nibi, the soft limit is low (1TB), and you have a 60-day grace period. After the grace period expires, the soft limit is enforced (no further file creation/expansion). To fix this, your usage must drop below the soft limit.
 
 ## Interconnect fabric
-* Nokia 200/400G ethernet
-    * 200 Gbit/s network bandwidth for CPU nodes.
-    * 200 Gbit/s non-blocking network bandwidth between all Nvidia GPU nodes.
-    * 200 Gbit/s network bandwidth between all AMD GPU nodes.
-    * 24x100 Gbit/s connection to the VAST storage nodes.
-    * 2:1 blocking at 400 Gbit/s uplinks for all compute nodes.
+*   Nokia 200/400G ethernet
+    *   200 Gbit/s network bandwidth for CPU nodes.
+    *   200 Gbit/s non-blocking network bandwidth between all Nvidia GPU nodes.
+    *   200 Gbit/s network bandwidth between all AMD GPU nodes.
+    *   24x100 Gbit/s connection to the VAST storage nodes.
+    *   2:1 blocking at 400 Gbit/s uplinks for all compute nodes.
 
 The topology of the network is described in the file:
+
 `/etc/slurm/topology.conf`
 
 For better performance of tightly coupled multi-node jobs, you may constrain them to use only one network switch, by adding this option to your job submission script:
@@ -104,40 +120,40 @@ For better performance of tightly coupled multi-node jobs, you may constrain the
 ## Node characteristics
 | nodes | cores | available memory | node-local storage | CPU | GPU |
 | :---- | :---- | :--------------- | :----------------- | :-- | :-- |
-| 700 | 192 | 748G or 766000M | 3T | 2 x Intel 6972P @ 2.4 GHz, 384MB cache L3 | |
-| 10 | 192 | 6000G or 6144000M | 3T | 2 x Intel 6972P @ 2.4 GHz, 384MB cache L3 | |
-| 36 | 112 | 2000G or 2048000M | 11T | 2 x Intel 8570 @ 2.1 GHz, 300MB cache L3 | 8 x Nvidia H100 SXM (80 GB), connected via NVLink |
-| 6 | 96 | 495G or 507000M | 3T | 4 x AMD MI300A @ 2.1GHz (Zen4+CDNA3) | The CPU cores and CDNA3-based GPUs are in the same socket and share a *unified memory*. |
+| 700   | 192   | 748G or 766000M  | 3T                 | 2 x Intel 6972P @ 2.4 GHz, 384MB cache L3 | |
+| 10    | 192   | 6000G or 6144000M | 3T                 | 2 x Intel 6972P @ 2.4 GHz, 384MB cache L3 | |
+| 36    | 112   | 2000G or 2048000M | 11T                | 2 x Intel 8570 @ 2.1 GHz, 300MB cache L3 | 8 x Nvidia H100 SXM (80 GB), connected via NVLink |
+| 6     | 96    | 495G or 507000M  | 3T                 | 4 x AMD MI300A @ 2.1GHz (Zen4+CDNA3) | The CPU cores and CDNA3-based GPUs are in the same socket and share a unified memory. See section below for use instructions. |
 
 ### GPU instances
 Available GPU instance names are:
 
-| Model Category | Instance Type | Short name | Without unit | By memory | Full name |
-| :------------- | :------------ | :--------- | :----------- | :-------- | :-------- |
-| **GPU** | **H100-80gb** | `h100` | `h100` | `h100_80gb` | `nvidia_h100_80gb_hbm3` |
-| **MIG** | **H100-1g.10gb** | `h100_1g.10gb` | `h100_1.10` | `h100_10gb` | `nvidia_h100_80gb_hbm3_1g.10gb` |
-| | **H100-2g.20gb** | `h100_2g.20gb` | `h100_2.20` | `h100_20gb` | `nvidia_h100_80gb_hbm3_2g.20gb` |
-| | **H100-3g.40gb** | `h100_3g.40gb` | `h100_3.40` | `h100_40gb` | `nvidia_h100_80gb_hbm3_3g.40gb` |
+| GPU Type | Model or Instance | Short name           | Without unit | By memory | Full name                         |
+| :------- | :---------------- | :------------------- | :----------- | :-------- | :-------------------------------- |
+| **GPU**  | **H100-80gb**     | `h100`               | `h100`       | `h100_80gb` | `nvidia_h100_80gb_hbm3`           |
+| **MIG**  | **H100-1g.10gb**  | `h100_1g.10gb`       | `h100_1.10`  | `h100_10gb` | `nvidia_h100_80gb_hbm3_1g.10gb`   |
+| **MIG**  | **H100-2g.20gb**  | `h100_2g.20gb`       | `h100_2.20`  | `h100_20gb` | `nvidia_h100_80gb_hbm3_2g.20gb`   |
+| **MIG**  | **H100-3g.40gb**  | `h100_3g.40gb`       | `h100_3.40`  | `h100_40gb` | `nvidia_h100_80gb_hbm3_3g.40gb`   |
 
 To request one or more full H100 GPUs, you need to use one of the following Slurm options:
 
-* **One H100-80gb**: `--gpus=h100:1` or `--gpus=h100_80gb:1`
-* **Multiple H100-80gb** per node:
-    * `--gpus-per-node=h100:2`
-    * `--gpus-per-node=h100:3`
-    * `--gpus-per-node=h100:4`
-* **For multiple full H100 GPUs** spread anywhere: `--gpus=h100:n` (replace n with the number of GPUs you want)
+*   **One H100-80gb**: `--gpus=h100:1` or `--gpus=h100_80gb:1`
+*   **Multiple H100-80gb** per node:
+    *   `--gpus-per-node=h100:2`
+    *   `--gpus-per-node=h100:3`
+    *   `--gpus-per-node=h100:4`
+*   **For multiple full H100 GPUs** spread anywhere: `--gpus=h100:n` (replace n with the number of GPUs you want)
 
 Approximately half of the GPU nodes are configured with [MIG technology](../programming/multi-instance_gpu.md), and only 3 GPU instance sizes are available:
 
-* **H100-1g.10gb**: 1/8th of the computing power with 10GB GPU memory
-* **H100-2g.20gb**: 2/8th of the computing power with 20GB GPU memory
-* **H100-3g.40gb**: 3/8th of the computing power with 40GB GPU memory
+*   **H100-1g.10gb**: 1/8th of the computing power with 10GB GPU memory
+*   **H100-2g.20gb**: 2/8th of the computing power with 20GB GPU memory
+*   **H100-3g.40gb**: 3/8th of the computing power with 40GB GPU memory
 To request **one and only one GPU instance** for your compute job, use the corresponding option:
 
-* **H100-1g.10gb**: `--gpus=h100_1g.10gb:1`
-* **H100-2g.20gb**: `--gpus=h100_2g.20gb:1`
-* **H100-3g.40gb**: `--gpus=h100_3g.40gb:1`
+*   **H100-1g.10gb**: `--gpus=h100_1g.10gb:1`
+*   **H100-2g.20gb**: `--gpus=h100_2g.20gb:1`
+*   **H100-3g.40gb**: `--gpus=h100_3g.40gb:1`
 The maximum recommended number of CPU cores and system memory per GPU instance is listed [in this table](../running-jobs/allocations_and_compute_scheduling.md#ratios-in-bundles).
 
 ## Site specifics
@@ -148,10 +164,10 @@ All nodes on Nibi have Internet access; no special firewall permission or proxyi
 User directories are no longer created by default on `/project`. Users can always create their own directories in the group's `/project` using `mkdir`. This allows groups to decide how their `/project` is organised for sharing data amongst group members.
 
 ### Scratch quota
-An 1 TB soft quota on scratch applies to each user. This soft quota can be exceeded for up to 60 days after which no additional files may be written to scratch. Files may be written again once the user has removed or deleted enough files to bring their total scratch use under 1 TB. See the [Storage and file management](../storage-and-data/storage_and_file_management.md) for more information.
+A 1 TB soft quota on scratch applies to each user. This soft quota can be exceeded for up to 60 days, after which no additional files may be written to scratch. Files may be written again once the user has removed or deleted enough files to bring their total scratch use under 1 TB. See the [Storage and file management](../storage-and-data/storage_and_file_management.md) for more information.
 
 ### Access through Open OnDemand (OOD)
-One can now access the Nibi cluster simply through a web browser. Nibi uses Open OnDemand (OOD), a web-based platform that simplifies cluster access by providing a web interface to the login nodes and a remote desktop environment. To log in to Nibi, go to https://ondemand.sharcnet.ca/, sign in with MFA; you will see a user-friendly interface offering options to open a Bash shell terminal or launch a remote desktop session.
+One can now access the Nibi cluster simply through a web browser. Nibi uses Open OnDemand (OOD), a web-based platform that simplifies cluster access by providing a web interface to the login nodes and a remote desktop environment. To log in to Nibi, go to <https://ondemand.sharcnet.ca/>, sign in with MFA; you will see a user-friendly interface offering options to open a Bash shell terminal or launch a remote desktop session.
 
 ### Use of JupyterLab via OOD
 You can run JupyterLab interactively via the Nibi Open OnDemand [portal](https://ondemand.sharcnet.ca).
@@ -172,22 +188,43 @@ After completing the form with your requirement details, click “Launch” to s
 
 On the Compute desktop, right-click the mouse in any blank area; a shortcut menu appears. Select "Open in Terminal" to open a terminal window, where you can create or activate your Python virtual environment that has JupyterLab installed.
 
-If you do not have JupyterLab installed in the Python virtual environment, which you would like to work with, you can have it installed with the command:
+If you do not have JupyterLab installed in the Python virtual environment, which you would like to work with, you can install it with the command:
 
 ```bash
-(your_python_ENV) [username@<node>.nibi]$ pip install --no-index jupyterlab
+pip install --no-index jupyterlab
 ```
 
 Then, you can launch JupyterLab from your Python virtual environment with the command:
 
 ```bash
-(your_python_ENV) [username@<node>.nibi]$ jupyter-lab --notebook-dir $HOME
+jupyter-lab --notebook-dir $HOME
 ```
 
 You will see JupyterLab is opened in the web browser on the Desktop with your `$HOME` contents listed in the file browser panel on JupyterLab.
 
 ### Support for VDI via OOD
 Nibi no longer offers Virtual Desktop Infrastructure (VDI). Instead, it provides a remote desktop environment through the [portal](https://ondemand.sharcnet.ca/) of Open OnDemand (OOD), offering improved hardware performance and software support.
+
+### AMD MI300A nodes
+
+These should be currently scheduled as full nodes. It is the user's responsibility to make sure the processes inside the job run with correct core and memory binding. Here is a representative job script that uses 4 processes.
+
+```sh title="simple_job.sh"
+#!/bin/bash
+#SBATCH --account=def-someuser
+#SBATCH --nodes=1
+#SBATCH --ntasks=4
+#SBATCH --cpus-per-task=24
+#SBATCH --gpus=mi300a:4
+#SBATCH --mem=100g
+#SBATCH --time=00:02:00
+
+# verify GPUS are available (optional)
+
+rocm-smi
+
+# run program compiled with ROCm support for MI300A
+```
 
 ### Oops, I accidentally deleted my files, what should I do?
 A backup mechanism on Nibi takes a snapshot of your files on `/home` and `/project` every 30 minutes and saves the snapshots for two weeks. If you accidentally delete a file, you may be able to retrieve it from these snapshots, providing the file was deleted less than two weeks ago. However, if one makes changes to a file after the most recent snapshot then deletes it, the changes cannot be recovered.

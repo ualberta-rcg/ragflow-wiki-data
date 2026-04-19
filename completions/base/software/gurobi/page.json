@@ -3,85 +3,85 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the purpose of Gurobi software on Digital Research Alliance of Canada clusters?",
-      "answer": "Gurobi is a commercial software suite used for solving complex optimization problems, and this page describes its non-commercial use on Alliance clusters."
+      "question": "What is Gurobi and what is its primary use on Alliance clusters?",
+      "answer": "Gurobi is a commercial software suite for solving complex optimization problems, primarily used on Alliance clusters for non-commercial research."
     },
     {
-      "question": "Which Digital Research Alliance of Canada clusters support Gurobi software, and what are its general license limits?",
-      "answer": "Gurobi is supported on Nibi, Narval, Fir, Rorqual, and Trillium clusters. The license provides 4096 simultaneous uses (tokens) and permits distributed optimization with up to 100 nodes."
+      "question": "On which Alliance clusters is a free Gurobi license provided?",
+      "answer": "A free Gurobi license is provided on the Nibi, Narval, Fir, Rorqual, and Trillium clusters."
     },
     {
-      "question": "What is required to obtain a free license to use Gurobi software on Digital Research Alliance of Canada systems?",
-      "answer": "Users must contact support and provide a completed academic usage agreement to be added to the license file."
+      "question": "What are the limitations of the Gurobi license on Alliance clusters regarding simultaneous uses and distributed optimization?",
+      "answer": "The Gurobi license on Alliance clusters provides 4096 simultaneous uses (tokens) and permits distributed optimization with up to 100 nodes."
     },
     {
-      "question": "What are the conditions for academic use of Gurobi on Digital Research Alliance of Canada systems?",
-      "answer": "Users must agree to use the Gurobi license solely for non-commercial research projects intended for publication in publicly available articles."
+      "question": "What is the key condition users must agree to for using the Gurobi license on Digital Research Alliance of Canada systems?",
+      "answer": "Users must agree to only use the Gurobi license for non-commercial research project(s) to be published in publicly available article(s)."
+    },
+    {
+      "question": "What is the process to gain access to the Gurobi license on Alliance clusters?",
+      "answer": "Users must contact support and include a completed academic usage agreement with their Alliance username and academic institution. They will then be added to the license file within a few days."
     },
     {
       "question": "Do users need to create a `~/.licenses/gurobi.lic` file to use Gurobi on Alliance clusters?",
-      "answer": "No, the required settings for using the Gurobi license are configured by default when a Gurobi module is loaded on any cluster."
+      "answer": "No, users do not need to create this file as the required settings are configured by default when a Gurobi module is loaded on any cluster."
     },
     {
-      "question": "How can a user verify if their username has been successfully added to the Alliance Gurobi license on a cluster?",
-      "answer": "After logging into a cluster and loading the Gurobi module, run `gurobi_cl 1> /dev/null && echo Success || echo Fail`. 'Success' indicates the license is active."
+      "question": "How can users verify if their username has been successfully added to the Alliance Gurobi license?",
+      "answer": "Users can verify by loading the `gurobi` module and running `gurobi_cl 1> /dev/null && echo Success || echo Fail` on any cluster."
     },
     {
-      "question": "What steps should a user take if the Gurobi license test returns 'Fail' on an Alliance cluster?",
-      "answer": "First, remove any `~/.license/gurobi` file if it exists, then reload the Gurobi module and retest. If it still fails, check for environment variables containing 'GUROBI' in `~/.bashrc` or `~/.bash_profile`, comment or remove them, then log out, log in, reload the module, and retest. If issues persist, contact support."
+      "question": "Why is it important to minimize Gurobi license checkouts when running jobs on Alliance clusters?",
+      "answer": "It is important to limit license checkout attempts because all Gurobi license checkouts are handled by a single remote server, and frequent checkouts are costly in time and can negatively impact the server's responsiveness for all users."
     },
     {
-      "question": "Why is it important to minimize Gurobi license checkout attempts on Digital Research Alliance of Canada clusters, and how can this be achieved?",
-      "answer": "Minimizing checkouts improves job performance and license server responsiveness, preventing intermittent failures for all users. This can be achieved by ensuring programs make a single license checkout per job and reuse the token, and by gradually submitting many jobs to the scheduler."
+      "question": "What is the recommended approach for a program to handle Gurobi license checkouts during a job on Alliance clusters?",
+      "answer": "Programs should make only a single Gurobi license checkout and reuse that license token throughout the lifetime of the job, rather than checking out a license for each invocation."
     },
     {
-      "question": "Are there any limits on Gurobi license checkouts or job submissions on Alliance clusters?",
-      "answer": "Yes, users are requested to perform no more than 10,000 Gurobi license checkouts/jobs on a cluster over a 24-hour period. If a program requires two licenses per job, this translates to no more than 5,000 jobs per day."
+      "question": "What is the recommended method for submitting many Gurobi jobs to the scheduler gradually on Alliance clusters?",
+      "answer": "Users should use a Slurm script with the `after` dependency option to ensure jobs start gradually, thereby minimizing the license checkout rate and load on the license server."
     },
     {
-      "question": "How can users access Gurobi command-line tools interactively on an Alliance cluster?",
-      "answer": "Users can access Gurobi command-line tools by first requesting an interactive allocation using `salloc`, then loading the Gurobi module and executing `gurobi_cl` commands."
+      "question": "What is the maximum number of Gurobi license checkouts or jobs requested per cluster over a 24-hour period on Alliance clusters?",
+      "answer": "Currently, no more than 10,000 Gurobi license checkouts/jobs are requested per cluster over a 24-hour period."
     },
     {
-      "question": "How can users access the Gurobi interactive shell on an Alliance cluster?",
-      "answer": "Users can access the Gurobi interactive shell by first requesting an interactive allocation using `salloc`, then loading the Gurobi module and running `gurobi.sh`."
+      "question": "How can users run Gurobi from the command line in an interactive allocation on an Alliance cluster?",
+      "answer": "Users can request an interactive allocation using `salloc`, load the `gurobi` module, and then execute `gurobi_cl` commands."
     },
     {
-      "question": "What is the general procedure for submitting a Gurobi batch job to the queue on an Alliance cluster?",
-      "answer": "After preparing a Slurm script for the Gurobi problem, users can submit it to the queue using the `sbatch script-name.sh` command."
+      "question": "Why should the `Threads` parameter be dynamically set in Gurobi Python jobs on Alliance clusters?",
+      "answer": "The `Threads` parameter should be dynamically set to prevent Gurobi from defaulting to using all physical cores on a compute node, which could slow down the job and negatively impact other user jobs."
     },
     {
-      "question": "When running Gurobi Python batch jobs on Alliance clusters, how should the number of threads be configured?",
-      "answer": "Users should dynamically generate a `gurobi.env` file in the working directory that sets the `Threads` parameter equal to `SLURM_CPUS_ON_NODE` to prevent Gurobi from starting too many threads by default."
+      "question": "Can Gurobi be used with other popular Python packages like NumPy and Pandas on Alliance clusters?",
+      "answer": "Yes, Gurobi can be used with other Python packages by creating a virtual Python environment, installing the desired third-party packages, and then installing `gurobipy` into that environment."
     },
     {
-      "question": "Why might a user need to use Gurobi within a Python virtual environment on Digital Research Alliance of Canada clusters?",
-      "answer": "Gurobi's own Python distribution lacks third-party packages like NumPy or Pandas, so a virtual environment allows installing both `gurobipy` and other desired Python packages together."
+      "question": "What is the recommended installation method for `gurobipy` in a Python virtual environment for Gurobi versions 11.0.0 and newer on Alliance clusters?",
+      "answer": "For Gurobi versions 11.0.0 and newer, users should download a compatible binary wheel from `pypi.org`, convert it using the `unmanylinuxize.sh` script, and then install it with `python -m pip install --find-links $PWD --no-index gurobipy`."
     },
     {
-      "question": "How is the `gurobipy` package installed into a Python virtual environment for Gurobi versions 10.0.3 and older on Alliance systems?",
-      "answer": "After creating and activating the virtual environment, copy the `$EBROOTGUROBI/lib` and `setup.py` files to a writable directory (e.g., `/tmp/$USER`), change to that directory, and then run `python setup.py install`."
+      "question": "How do users run a Python script that uses Gurobi within an activated virtual environment on Alliance clusters?",
+      "answer": "After activating the virtual environment and loading necessary modules like `gurobi` and `scipy-stack`, users can run their Python script using `python your_script.py`."
     },
     {
-      "question": "What is the procedure for installing `gurobipy` into a Python virtual environment for Gurobi versions 11.0.0 and newer on Alliance systems?",
-      "answer": "After creating and activating the virtual environment, users must download the `unmanylinuxize.sh` script, use it to convert the appropriate Gurobi wheel file (obtained from `pypi.org`) into a usable format, and then install it with `python -m pip install --find-links $PWD --no-index gurobipy`."
+      "question": "How do users integrate Gurobi with Java applications on Alliance clusters?",
+      "answer": "To use Gurobi with Java, users need to load a Java module and a Gurobi module, then add `-Djava.library.path=$EBROOTGUROBI/lib` to their Java command to allow the Java virtual environment to find the Gurobi libraries."
     },
     {
-      "question": "How does a user execute a Gurobi Python script within a previously configured virtual environment on an Alliance cluster?",
-      "answer": "First, load the Gurobi module and any other necessary modules, then activate the virtual environment using `source ~/env_gurobi/bin/activate`, and finally run the script with `python my_gurobi_script.py`."
+      "question": "Where can users find resources for using Gurobi with Jupyter notebooks?",
+      "answer": "Users can find resources by visiting Gurobi's website, under 'Resources' and 'Code and Modeling Examples', or by searching 'Jupyter Notebooks' on support.gurobi.com."
     },
     {
-      "question": "What steps are required to use Gurobi with Java on Alliance clusters?",
-      "answer": "Users need to load a Java module along with the Gurobi module, and add the option `-Djava.library.path=$EBROOTGUROBI/lib` to their Java command to allow the Java virtual environment to find the Gurobi libraries."
+      "question": "Where can users find information on how to cite Gurobi software for academic publications?",
+      "answer": "Information on how to cite Gurobi software for academic publications can be found on the Gurobi Help Center."
     },
     {
-      "question": "Where can users find resources or examples for using Gurobi with Jupyter notebooks on Digital Research Alliance of Canada systems?",
-      "answer": "Users can find resources on the Gurobi website under 'Resources', 'Code and Modeling Examples', and 'Optimization with Python – Jupyter Notebook Modeling Examples', or by searching 'Jupyter Notebooks' on `support.gurobi.com`."
-    },
-    {
-      "question": "Where can users find information on how to properly cite Gurobi software for academic publications?",
-      "answer": "Users can find citation guidelines on the Gurobi support page: 'How do I cite Gurobi software for an academic publication?'"
+      "question": "Where can users find general help and official documentation for Gurobi, and how can they get support for Gurobi on Alliance clusters?",
+      "answer": "The Gurobi general Help Center and official online documentation are available on the Gurobi website. For help using Gurobi on the Alliance clusters, users should submit a ticket to technical support."
     }
   ],
-  "generated_at": "2026-04-13T06:51:25.639286+00:00"
+  "generated_at": "2026-04-19T01:57:21.977881+00:00"
 }

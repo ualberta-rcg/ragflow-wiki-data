@@ -5,39 +5,39 @@ lang: "base"
 
 source_wiki_title: "C++"
 source_hash: "c7b09b188074cbdf67fb8065e597ea0e"
-last_synced: "2026-04-12T21:18:48.865179+00:00"
-last_processed: "2026-04-12T21:22:40.143045+00:00"
+last_synced: "2026-04-18T23:39:30.217451+00:00"
+last_processed: "2026-04-19T00:45:02.230151+00:00"
 
 tags:
   []
 
 keywords:
-  - "standard library"
-  - "concurrency"
-  - "atomic operations"
-  - "Intel compiler"
-  - "ABI"
-  - "compiler optimization"
-  - "C++ programming language"
-  - "GCC compiler"
-  - "Linking"
   - "C/C++"
-  - "volatile"
-  - "synchronization"
-  - "Optimization"
+  - "Intel"
+  - "Compiler support"
+  - "GCC"
+  - "ABI"
+  - "Standard library"
+  - "C++ programming language"
+  - "Compilers"
   - "ISO C++ standards"
-  - "compiler support"
+  - "volatile"
+  - "Concurrency and memory models"
+  - "C11/C++11 atomic operations"
+  - "high-performance computing"
+  - "Optimization"
+  - "synchronization"
 
 questions:
-  - "What is the release cycle of ISO C++ standards, and what are the primary benefits of compiling code with newer standards like C++11 or later?"
-  - "How do C++ compilers typically handle standard library implementations on Linux systems, and why is this important for system configuration?"
-  - "What is the specific meaning of the volatile keyword in C++, and why should it never be used for synchronization in high-performance computing?"
-  - "What are the potential risks of using the -O3 optimization option in the GCC compiler, and what are the recommended alternatives?"
-  - "How can developers resolve linking failures caused by ABI changes when mixing older precompiled libraries with code compiled on GCC 5.1 or higher?"
-  - "Which command-line options should be used with Intel C/C++ compilers to ensure safe and standards-compliant floating-point operations?"
-  - "What is the specific, rare use case for declaring a variable as volatile in high-performance computing code?"
-  - "Why is it strongly advised to avoid using volatile for synchronization, and what mechanisms should be used instead?"
-  - "How does the functionality of the volatile keyword in C/C++ contrast with its behavior in other programming languages such as Java?"
+  - "How has the ISO C++ standard evolved since its creation, and why is it highly recommended to compile concurrent code using C++11 or newer?"
+  - "How do C++ compilers typically handle Standard Library implementations on Linux systems, and what precautions should users take regarding library paths?"
+  - "What are the specific meanings and pitfalls of using the volatile keyword in C++, particularly regarding synchronization and optimization?"
+  - "What are the potential risks of using the -O3 optimization option in the GCC compiler, and what safer alternatives are recommended?"
+  - "How does the ABI change introduced in GCC version 5.1 affect linking with older precompiled binaries, and how can developers resolve this issue?"
+  - "Why might the default floating-point optimizations in Intel C/C++ compilers be considered unsafe, and which compiler options ensure standards compliance?"
+  - "What is the rare, legitimate use case for declaring a variable as volatile in high-performance computing code?"
+  - "What are the recommended alternatives to using the volatile keyword for synchronization in C/C++?"
+  - "How does the behavior of the volatile keyword in C/C++ differ from its implementation in other programming languages like Java?"
 
 status:
   downloaded: true
@@ -78,7 +78,7 @@ If you are new to C++ or need an update then start by checking out the ISO C++ a
 
 ## Pitfalls
 ### The `volatile` keyword
-The reader should note that `volatile` in C and C++ have very specific meanings, e.g., see [this page](http://en.cppreference.com/w/cpp/language/cv). Needing to use `volatile` in C/C++ code is a rare event. Within high-performance computing code, `volatile` in rare instances might be used to declare a variable in order tell the compiler to not optimize away load/store side-effects from/to that variable. That said, **never** use volatile for synchronization: instead, use C11/C++11 atomic operations and locks, etc. Finally, know `volatile` in other programming languages, e.g., Java, is often different than in C/C++. Typically the latter would be implemented in C/C++ using synchronization constructs.
+The reader should note that `volatile` in C and C++ have very specific meanings, e.g., see [this page](http://en.cppreference.com/w/cpp/language/cv). Needing to use `volatile` in C/C++ code is a rare event. Within high-performance computing code, `volatile` in rare instances might be used to declare a variable in order to tell the compiler to not optimize away load/store side-effects from/to that variable. That said, **never** use volatile for synchronization: instead, use C11/C++11 atomic operations and locks, etc. Finally, know `volatile` in other programming languages, e.g., Java, is often different than in C/C++. Typically the latter would be implemented in C/C++ using synchronization constructs.
 
 ### Compilers
 #### GCC
@@ -86,7 +86,7 @@ The reader should note that `volatile` in C and C++ have very specific meanings,
 The GCC compiler's -O3 option includes possibly unsafe optimizations for some types of code (e.g., code relying on aliasing). If unsure, compile and optimize code using the -O2 option instead. If you've more time, read the man page (e.g., `man g++`) and unset the appropriate options by searching for "-O3" to see which options are turned on and turn off the settings that are not safe.
 
 ##### Linking with older previously compiled binaries
-The transition from GCC version 4.9 to version 5.1 introduced a major change to its ABI. If all source code including all dependent libraries is recompiled using the same version of the compiler then there will be no issues. If different compilers are used, the ABI change may cause linking to fail. The latter is likely to occur if you are linking to precompiled libraries provided in a vendor's product. If this occurs, you can use GCC's Dual ABI feature to tell GCC to use the old ABI in order for your application to link properly with those legacy libraries, e.g., you would pass `-D_GLIBCXX_USE_CXX11_ABI=0` to GCC if using GCC v5.1 or higher to link to libraries built using the older ABI.
+The transition from GCC version 4.9 to version 5.1 introduced a major change to its ABI. If all source code including all dependent libraries is recompiled using the same version of the compiler then there will be no issues. If different compilers are used, the ABI change may cause linking to fail. The latter is likely to occur if you are linking to precompiled libraries provided in a vendor's product. If this occurs, you can use GCC's [Dual ABI](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html) feature to tell GCC to use the old ABI in order for your application to link properly with those legacy libraries, e.g., you would pass `-D_GLIBCXX_USE_CXX11_ABI=0` to GCC if using GCC v5.1 or higher to link to libraries built using the older ABI.
 
 An example of how the ABI is affected by various GCC command-line options here: [GCC C++ Dual ABI](gcc_c___dual_abi.md).
 

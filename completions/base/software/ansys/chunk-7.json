@@ -4,17 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "After preparing an Ansys Fluent job on a desktop machine, what are the recommended steps to run it on the Alliance clusters?",
-      "answer": "The recommended steps include exporting the 'case' file (e.g., `FFF-1.cas.gz`) and, if continuing a previous calculation, the 'data' file (e.g., `FFF-1.dat.gz`). These files should then be transferred to a directory on the `/project` or `/scratch` filesystem on the cluster. Next, a 'journal' file must be created to load the case and data files, run the solver, and write the results. Finally, after running the job, users can download the resulting data file and import it back into Fluent."
+      "question": "What are the essential steps to prepare and execute an Ansys Fluent job on an Alliance cluster?",
+      "answer": "To run an Ansys Fluent job on an Alliance cluster, first prepare your job using Fluent on your desktop, then export the \"case\" file (e.g., `FFF-1.cas.gz`) and, if continuing a previous calculation, also export the \"data\" file (e.g., `FFF-1.dat.gz`). Next, transfer these files to a directory on the `/project` or `/scratch` filesystem on the cluster. After transferring, create a \"journal\" file that loads the case and data files, runs the solver, and writes the results. Finally, after the job runs, you can download the data file back to your desktop."
     },
     {
-      "question": "In the context of running Ansys Fluent jobs on the Alliance clusters, what is the primary purpose of a journal file?",
-      "answer": "The primary purpose of a journal file is to automate the Ansys Fluent simulation process on the clusters. It contains commands that instruct Fluent to load the case file (and optionally the data file), execute the solver, and finally write out the results. Users must customize the journal file to adjust filenames and the desired number of iterations for their specific simulation."
+      "question": "How can a user address Fluent jobs that frequently fail to start due to license shortages on an Alliance cluster?",
+      "answer": "If Fluent jobs frequently fail to start due to license shortages, users can modify their Slurm script to requeue the job up to 4 times. However, it is strongly recommended to monitor and inspect each Slurm output file to confirm that requeues are indeed due to license issues. If a job is requeued because of a simulation problem (e.g., divergence), the user should immediately kill the job progression with `scancel jobid` and correct the underlying issue to avoid wasting compute time."
     },
     {
-      "question": "If an Ansys Fluent job frequently fails to start on the Alliance clusters due to license shortages, what modification can be made to the Slurm script to address this, and what is a crucial consideration when using this feature?",
-      "answer": "If an Ansys Fluent job frequently fails due to license shortages, users can modify their Slurm script to automatically requeue the job (up to 4 times) by using the 'by node + requeue' or 'by core + requeue' script tabs. A crucial consideration is that this feature will also requeue jobs that fail due to non-license-related issues, such as divergence. Therefore, it is strongly recommended to monitor and inspect each Slurm output file to confirm that requeue attempts are indeed license-related. If a simulation issue is identified, the job should be immediately manually killed with `scancel jobid`, and the problem corrected."
+      "question": "What are the primary types of Slurm scripts recommended for running Fluent jobs on an Alliance cluster, and what are their characteristics?",
+      "answer": "For Fluent jobs on an Alliance cluster, there are generally two types of Slurm scripts: 'by node' and 'by core'. Most Fluent jobs should use the 'by node' script to minimize solution latency and maximize performance over as few nodes as possible. This script is ideal for jobs that can efficiently utilize all cores on a single node or a small number of nodes. For very large jobs, a 'by core' script might result in less queue waiting time, but these jobs may experience significantly longer startup times and are more vulnerable to crashing if compute nodes fail during the simulation. Both script types ensure Fluent uses shared memory for communication on a single node and distributed memory (MPI with HPC interconnect) when running across multiple nodes."
     }
   ],
-  "generated_at": "2026-04-13T01:40:53.645546+00:00"
+  "generated_at": "2026-04-19T01:20:04.745714+00:00"
 }

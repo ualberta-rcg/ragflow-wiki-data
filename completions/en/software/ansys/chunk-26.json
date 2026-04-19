@@ -4,13 +4,13 @@
   "chunk_index": 26,
   "qa_pairs": [
     {
-      "question": "How do you submit an Ansys Workbench project in batch mode on a single compute node using a Slurm script with StdEnv/2023?",
-      "answer": "To submit an Ansys Workbench project (e.g., `YOURPROJECT.wbpj`) in batch mode on a single compute node, you would use a Slurm script that first loads `StdEnv/2023` and the appropriate Ansys module. The core command for execution is `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj`, which updates the project, saves it, and runs it in batch mode."
+      "question": "How are parallelization settings configured and applied when running an Ansys Workbench project in batch mode on a single compute node?",
+      "answer": "To configure parallelization for an Ansys Workbench batch job on a single compute node, the `SolveHandlers.xml` file is modified. The script sets the `MEMPAR` variable to `0` for Shared Memory Parallel (SMP) and uses `sed` commands to update the `SolveHandlers.xml` file with this `MEMPAR` value and the `SLURM_NTASKS` (number of cores) allocated to the job. It also sets `UserConfigured` to \"1\". After setting environment variables like `KMP_AFFINITY=disabled` and `I_MPI_HYDRA_BOOTSTRAP=ssh`, the Workbench project is executed in batch mode using `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj`."
     },
     {
-      "question": "What parallel processing settings are configured in the `SolveHandlers.xml` file for an Ansys Workbench batch job running on a single compute node?",
-      "answer": "For an Ansys Workbench batch job running on a single compute node, the `SolveHandlers.xml` file is modified to configure parallel settings. The `Distribute` setting is set to `0` for Shared Memory Parallel (SMP), the maximum number of processors is set to the value of `$SLURM_NTASKS`, and the `UserConfigured` flag is set to `1`."
+      "question": "Which specific file is targeted for modification to define processor and parallelization type settings for an Ansys Workbench batch job, and what values are set?",
+      "answer": "The `SolveHandlers.xml` file, located at `~/.mw/Application Data/Ansys/v[VERSION_NUMBER]/SolveHandlers.xml` (where `[VERSION_NUMBER]` is derived from `EBROOTANSYS`), is modified. In this file, the `MEMPAR` value is set to `0` to enable Shared Memory Parallel (SMP) execution, and the `SLURM_NTASKS` value is used to specify the maximum number of processors (`MaxNumber`) for the solution. Additionally, the `UserConfigured` attribute within this XML file is set to `\"1\"`."
     }
   ],
-  "generated_at": "2026-04-13T01:51:49.152615+00:00"
+  "generated_at": "2026-04-19T01:30:36.185649+00:00"
 }

@@ -3,77 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the Nibi cluster, and what is its primary purpose on Alliance clusters?",
-      "answer": "The Nibi cluster, named after the Anishinaabemowin word for water, is a general-purpose cluster comprising 134,400 CPU cores and 288 H100 NVIDIA GPUs, hosted and operated by SHARCNET at the University of Waterloo."
+      "question": "What is the Nibi cluster?",
+      "answer": "Nibi is a general-purpose cluster named after the Anishinaabemowin word for water, comprising 134,400 CPU cores and 288 H100 NVIDIA GPUs, hosted and operated by SHARCNET at the University of Waterloo."
     },
     {
-      "question": "Since when has the Nibi cluster been available for use?",
-      "answer": "The Nibi cluster has been available since July 31, 2025."
+      "question": "When will the Nibi cluster be available for use?",
+      "answer": "The Nibi cluster will be available starting July 31, 2025."
     },
     {
-      "question": "What are the primary methods for accessing the Nibi cluster?",
-      "answer": "Users can access the Nibi cluster via an SSH login node (nibi.alliancecan.ca), an automation node (robot.nibi.alliancecan.ca), a web interface (ondemand.sharcnet.ca), and a Globus collection (alliancecan#nibi). Data transfers can also use the login nodes."
+      "question": "How can users access the Nibi cluster via SSH?",
+      "answer": "Users can access the Nibi cluster via SSH using the login node `nibi.alliancecan.ca`."
     },
     {
-      "question": "Describe the parallel storage system on the Nibi cluster.",
-      "answer": "The Nibi cluster features 25 petabytes of all-SSD parallel storage from VAST Data, designated for the `/home`, `/project`, and `/scratch` directories."
+      "question": "What type of storage does the Nibi cluster utilize, and for which file systems?",
+      "answer": "The Nibi cluster uses 25 petabytes of all-SSD parallel storage from VAST Data for `/home`, `/project`, and `/scratch` file systems."
     },
     {
-      "question": "How does the Nibi cluster's VAST Data storage system handle space accounting for quotas?",
-      "answer": "On Nibi, users are 'charged' for the apparent size of their files, which differs from some Lustre configurations that transparently compress files and charge for the space used after compression."
+      "question": "How does Nibi's storage space accounting for quotas differ from some Lustre configurations?",
+      "answer": "Nibi's VAST Data storage charges for the apparent size of files, unlike some Lustre configurations that transparently compress files and charge for the space used after compression."
     },
     {
       "question": "What is the specific policy for the `/scratch` quota on the Nibi cluster?",
-      "answer": "The Nibi cluster imposes a 1 TB soft quota on `/scratch` for each user, with a 60-day grace period. After this period, the soft limit is enforced, preventing further file creation or expansion until usage drops below 1 TB."
+      "answer": "Users on the Nibi cluster have a 1 TB soft quota on `/scratch` with a 60-day grace period, after which no further file creation or expansion is allowed until usage drops below the soft limit."
     },
     {
-      "question": "What type of interconnect fabric does the Nibi cluster utilize, and what are its key bandwidths?",
-      "answer": "The Nibi cluster uses Nokia 200/400G ethernet, providing 200 Gbit/s network bandwidth for CPU nodes, 200 Gbit/s non-blocking bandwidth between all Nvidia GPU nodes, 200 Gbit/s for all AMD GPU nodes, and a 24x100 Gbit/s connection to the VAST storage nodes."
+      "question": "What are the network bandwidths for CPU and GPU nodes on the Nibi cluster?",
+      "answer": "The Nibi cluster features 200 Gbit/s network bandwidth for CPU nodes and 200 Gbit/s non-blocking network bandwidth between all Nvidia and AMD GPU nodes, using Nokia 200/400G ethernet."
     },
     {
       "question": "How can users optimize performance for tightly coupled multi-node jobs on the Nibi cluster?",
-      "answer": "For improved performance of tightly coupled multi-node jobs on Nibi, users can constrain them to use only one network switch by adding `#SBATCH --switches=1` to their job submission script."
+      "answer": "Users can optimize performance for tightly coupled multi-node jobs on the Nibi cluster by constraining them to use only one network switch, by adding `#SBATCH --switches=1` to their job submission script."
     },
     {
-      "question": "What are the characteristics of the nodes available on the Nibi cluster for CPU-intensive tasks?",
-      "answer": "The Nibi cluster offers nodes with 192 CPU cores (2 x Intel 6972P @ 2.4 GHz) with either 748G or 6000G of available memory and 3T of node-local storage."
+      "question": "What are the characteristics of the node types available on the Nibi cluster?",
+      "answer": "The Nibi cluster offers nodes with 192 CPU cores and 748G/6000G memory, nodes with 112 CPU cores and 2000G memory plus 8 Nvidia H100 SXM GPUs, and nodes with 96 CPU cores and 495G memory plus 4 AMD MI300A GPUs."
     },
     {
-      "question": "How can users request full NVIDIA H100 GPUs for their jobs on the Nibi cluster?",
-      "answer": "To request full H100-80gb GPUs on Nibi, users can use Slurm options such as `--gpus=h100:1` for one, `--gpus-per-node=h100:2` for multiple per node, or `--gpus=h100:n` for multiple GPUs spread anywhere."
+      "question": "How can a user request a full H100-80gb GPU for a job on the Nibi cluster using Slurm?",
+      "answer": "To request one full H100-80gb GPU on the Nibi cluster, a user can use Slurm options like `--gpus=h100:1` or `--gpus=h100_80gb:1`. For multiple GPUs, `--gpus-per-node=h100:X` or `--gpus=h100:n` can be used."
     },
     {
-      "question": "What Multi-Instance GPU (MIG) options are available for H100 GPUs on Nibi, and how are they requested?",
-      "answer": "Approximately half of Nibi's GPU nodes support MIG technology, offering H100-1g.10gb (1/8th computing power, 10GB memory), H100-2g.20gb (2/8th power, 20GB memory), and H100-3g.40gb (3/8th power, 40GB memory) instances, requested using options like `--gpus=h100_1g.10gb:1`."
+      "question": "What are the available Multi-Instance GPU (MIG) sizes for H100 GPUs on the Nibi cluster?",
+      "answer": "The Nibi cluster offers H100 MIG instances in three sizes: H100-1g.10gb (1/8th computing power, 10GB GPU memory), H100-2g.20gb (2/8th power, 20GB memory), and H100-3g.40gb (3/8th power, 40GB memory)."
     },
     {
-      "question": "Is internet access available from the compute nodes on the Nibi cluster, and are there any special requirements?",
-      "answer": "Yes, all nodes on the Nibi cluster have internet access, and no special firewall permission or proxying is necessary."
+      "question": "Do compute nodes on the Nibi cluster have internet access, and are special configurations required?",
+      "answer": "Yes, all nodes on the Nibi cluster have Internet access, and no special firewall permissions or proxying are necessary."
     },
     {
-      "question": "How is project space managed for user groups on the Nibi cluster?",
-      "answer": "On Nibi, user directories are not created by default on `/project`. Instead, users can create their own directories in their group's `/project` space using `mkdir`, allowing groups to decide how their data is organised for sharing."
+      "question": "How is the `/project` space managed for user groups on the Nibi cluster?",
+      "answer": "On the Nibi cluster, user directories are not created by default on `/project`; groups can organize their `/project` space using `mkdir` to facilitate data sharing among members."
     },
     {
-      "question": "What is Open OnDemand (OOD), and how can it be used to access the Nibi cluster?",
-      "answer": "Open OnDemand (OOD) is a web-based platform that simplifies Nibi cluster access through a web browser (https://ondemand.sharcnet.ca/). After signing in, it provides a user-friendly interface for launching a Bash shell terminal or a remote desktop session."
+      "question": "How can users access the Nibi cluster through a web browser?",
+      "answer": "Users can access the Nibi cluster through a web browser using Open OnDemand (OOD) at `https://ondemand.sharcnet.ca/`, which provides a web interface for login nodes and a remote desktop environment."
     },
     {
-      "question": "How can a user launch a JupyterLab session with a pre-configured environment on the Nibi cluster using Open OnDemand?",
-      "answer": "To launch a pre-configured JupyterLab session on Nibi via Open OnDemand, users select 'Compute Node' then 'Nibi JupyterLab' from the top menu, fill out the request form, and click 'Connect to Jupyter' once the session's status changes to Running."
+      "question": "What are the two options for running JupyterLab via Open OnDemand on the Nibi cluster?",
+      "answer": "Users on the Nibi cluster can run JupyterLab via OOD using either a pre-configured environment accessed through the 'Nibi JupyterLab' option or by launching a 'Compute Desktop' and setting up JupyterLab in a self-built Python virtual environment."
     },
     {
-      "question": "How can a user run JupyterLab from their own Python virtual environment on Nibi using Open OnDemand?",
-      "answer": "Users can launch a 'Compute Desktop' session via Open OnDemand, open a terminal on the desktop, activate their Python virtual environment, install JupyterLab if needed with `pip install --no-index jupyterlab`, and then launch it using `jupyter-lab --notebook-dir $HOME`."
+      "question": "How can a user recover accidentally deleted files from `/home` or `/project` on the Nibi cluster?",
+      "answer": "Users on the Nibi cluster can use the `oops` command to find and recover accidentally deleted files from `/home` and `/project` within two weeks, as snapshots are taken every 30 minutes."
     },
     {
-      "question": "What mechanism is in place on the Nibi cluster for recovering accidentally deleted files from `/home` and `/project`?",
-      "answer": "Nibi employs a backup mechanism that takes snapshots of files on `/home` and `/project` every 30 minutes, retaining these snapshots for two weeks, allowing users to retrieve accidentally deleted files within that period."
+      "question": "What is the purpose of the `oops` command on the Nibi cluster?",
+      "answer": "On the Nibi cluster, the `oops` command helps users locate files that have been deleted but are still available in snapshots of their `/home` and `/project` directories for up to two weeks."
     },
     {
-      "question": "What command should users utilize on Nibi to find and recover deleted files from snapshots?",
-      "answer": "Users should use the `oops` command on Nibi to check for deleted files in snapshots within the current directory or a specified directory, then use a standard tool like `cp` to copy the file from the path returned by `oops` to recover it."
+      "question": "Does the Nibi cluster offer Virtual Desktop Infrastructure (VDI)?",
+      "answer": "No, the Nibi cluster no longer offers VDI but instead provides an improved remote desktop environment through its Open OnDemand portal."
     }
   ],
-  "generated_at": "2026-04-13T10:06:29.085214+00:00"
+  "generated_at": "2026-04-19T02:18:25.738347+00:00"
 }

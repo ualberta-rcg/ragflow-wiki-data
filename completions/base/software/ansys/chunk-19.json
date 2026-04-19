@@ -4,13 +4,17 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the \"Multinode (by core + restart)\" Slurm script for Ansys Fluent simulations?",
-      "answer": "This Slurm script is designed for Ansys Fluent jobs that require restarting, particularly for very large simulations needing to run beyond the typical seven-day maximum runtime window on Alliance clusters. It automates restarting simulations from the most recently saved time step files."
+      "question": "What is the purpose of the \"Multinode (by core + restart)\" Slurm script for Ansys Fluent on Alliance clusters?",
+      "answer": "The \"Multinode (by core + restart)\" Slurm script is designed to automate the restarting of very large Ansys Fluent jobs that exceed the typical seven-day maximum runtime window available on most clusters. It manages job restarts by using the most recently saved time step files, allowing long simulations to be completed over multiple job submissions."
     },
     {
-      "question": "How can a user configure a Fluent journal file to utilize either the legacy or the more efficient file format for simulation results?",
-      "answer": "Users can configure their Fluent journal file by setting `/file/cff-files no` to use the legacy `.cas/.dat` format (default for module versions 2019R3 or older) or by setting `/file/cff-files yes` to use the more efficient `.cas.h5/.dat.h5` format (default for module versions 2020R1 or newer)."
+      "question": "How do I configure an Ansys Fluent simulation for automated restarts using the \"Multinode (by core + restart)\" Slurm script?",
+      "answer": "To configure a simulation for automated restarts, you must first create an initial journal file (e.g., `sample.jou`) and a separate restart journal file (e.g., `sample-restart.jou`). The restart journal file should read `sample-restart` instead of `sample` and have the initialization line commented out. Within the Slurm script, you will specify `MYVERSION`, `MYJOUFILE`, `MYJOUFILERES`, `MYCASFILERES`, and `MYDATFILERES`. The `#SBATCH --array` directive determines the total number of desired solution restarts."
+    },
+    {
+      "question": "What is an Ansys Fluent journal file and how can it be used in simulations?",
+      "answer": "An Ansys Fluent journal file is a text file capable of including any command from Fluent's Text-User-Interface (TUI). These files allow users to automate simulation tasks such as loading case files, running solvers, and writing results. They can also be used to conduct parametric studies by dynamically changing simulation parameters like temperature, pressure, or flow speed with a single case file, simply by adjusting the parameters within the journal file."
     }
   ],
-  "generated_at": "2026-04-13T01:42:41.791632+00:00"
+  "generated_at": "2026-04-19T01:21:39.769916+00:00"
 }

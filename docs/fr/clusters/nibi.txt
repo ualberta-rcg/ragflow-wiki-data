@@ -56,7 +56,7 @@ Pour améliorer la performance des tâches multi-nœuds fortement couplées, vou
 |-
 |  36 || 112 || 2000G ou 2048000M || 11T || 2 x Intel 8570 @ 2.1GHz, cache L3 de 300Mo || 8 x Nvidia H100 SXM (80Go), connexion via NVLink
 |-
-|   6 ||  96 || 495G ou 507000M || 3T || 4 x AMD MI300A @ 2.1GHz (Zen4+CDNA3) || Les cœurs CPU et les GPU de l'architecture CDNA3 sont dans le même socket et partagent la même mémoire unifiée.
+|   6 ||  96 || 495G ou 507000M || 3T || 4 x AMD MI300A @ 2.1GHz (Zen4+CDNA3) || Les cœurs CPU et les GPU de l'architecture CDNA3 sont dans le même socket et partagent la même mémoire unifiée. Pour les instructions d'utilisation, voir la section ci-dessous.
 |}
 == Instances GPU ==
 '''Noms des instances GPU disponibles'''
@@ -165,6 +165,32 @@ JupyterLab s'ouvre dans le navigateur sur le bureau et le contenu de votre espac
 
 ==Prise en charge de VDI via OOD==
 Nibi n'offre plus d'infrastructure de bureau virtuel (VDI), mais fournit un environnement de bureau à distance via le [https://ondemand.sharcnet.ca/ portail Open OnDemand (OOD)] avec des performances matérielles et une prise en charge logicielle améliorées.
+
+<span id="AMD_MI300A_nodes"></span>
+==Nœuds AMD MI300A==
+
+Ceux-ci sont présentement des nœuds entiers. Vous avez la responsabilité de vous assurer que les processus de la tâche sont exécutés avec des liaisons correctes des cœurs et de la mémoire. Dans l'exemple suivant, le script utilise quatre processus.
+
+{{File
+  |name=simple_job.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash
+#SBATCH --account=def-someuser
+#SBATCH --nodes=1
+#SBATCH --ntasks=4
+#SBATCH --cpus-per-task=24
+#SBATCH --gpus=mi300a:4
+#SBATCH --mem=100g
+#SBATCH --time=00:02:00
+
+# verify GPUS are available (optional)
+
+rocm-smi
+
+# run program compiled with ROCm support for MI300A
+
+}}
 
 ==Récupérer des fichiers supprimés==
 Nibi dispose d'un système de sauvegarde qui crée un instantané de vos fichiers dans /home et /project toutes les 30 minutes; ces instantanés sont sauvegardés pour une période de deux semaines. Si vous supprimez accidentellement un fichier, vous pourrez peut-être le récupérer à partir de ces instantanés, à condition qu'il ait été supprimé il y a moins de deux semaines. Cependant, si vous modifiez un fichier après la dernière sauvegarde, pour ensuite le supprimer, il ne pourra pas être récupéré.

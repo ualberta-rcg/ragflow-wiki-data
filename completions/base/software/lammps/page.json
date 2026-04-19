@@ -3,73 +3,85 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is LAMMPS, and which organization is responsible for its distribution?",
-      "answer": "LAMMPS, which stands for Large-scale Atomic / Molecular Massively Parallel Simulator, is a classical molecular dynamics code distributed by Sandia National Laboratories, a US Department of Energy laboratory."
+      "question": "What is LAMMPS, the Large-scale Atomic / Molecular Massively Parallel Simulator, and what is its primary purpose?",
+      "answer": "LAMMPS is a classical molecular dynamics code designed for large-scale atomic and molecular simulations, parallelized to run efficiently on many processors."
     },
     {
-      "question": "What parallelization technologies does LAMMPS utilize, and can it run on GPUs?",
-      "answer": "LAMMPS is parallelized with MPI (Message Passing Interface) and OpenMP, and it is capable of running on GPUs."
+      "question": "Which organization distributes the LAMMPS molecular dynamics code?",
+      "answer": "LAMMPS is distributed by Sandia National Laboratories, a US Department of Energy laboratory."
     },
     {
-      "question": "How are force fields for LAMMPS classified, and what types of biomolecular and materials modeling are supported by the software?",
-      "answer": "LAMMPS force fields are classified by functional form (e.g., pairwise potentials, many-body potentials) and support a wide range of modeling types including biomolecules (e.g., CHARMM, AMBER), polymers, materials (e.g., EAM, MEAM), reactions (e.g., ReaxFF), and mesoscale simulations."
+      "question": "Where can users find official documentation, the project website, and the mailing list for LAMMPS?",
+      "answer": "The project website is http://lammps.sandia.gov/, documentation is at http://lammps.sandia.gov/doc/Manual.html, and the mailing list is at http://lammps.sandia.gov/mail.html."
     },
     {
-      "question": "Can LAMMPS accommodate combinations of different potentials for simulations involving hybrid systems?",
-      "answer": "Yes, LAMMPS allows for combinations of potentials, which is useful for simulating hybrid systems such as water on metal surfaces, polymer/semiconductor interfaces, or colloids in solution."
+      "question": "What parallelization technologies, such as MPI and OpenMP, does LAMMPS leverage, and what hardware, like GPUs, does it support?",
+      "answer": "LAMMPS is parallelized with MPI and OpenMP, and it is capable of running on GPUs."
     },
     {
-      "question": "On Alliance clusters, how can a user check which versions of LAMMPS are installed?",
-      "answer": "Users can check installed LAMMPS versions on Alliance systems by running `module spider lammps` or `module avail lammps` in their terminal."
+      "question": "What diverse types of modelling and force fields are supported by LAMMPS, making it suitable for various applications?",
+      "answer": "LAMMPS supports a large number of force fields suitable for biomolecules (CHARMM, AMBER), polymers (all-atom, coarse-grain), materials (EAM, MEAM, Tersoff), reactions (ReaxFF), and mesoscale systems (granular, DPD), including combinations for hybrid systems."
     },
     {
-      "question": "What is the format for LAMMPS version numbers used on Alliance systems?",
-      "answer": "LAMMPS version numbers on Alliance systems are based on their release dates and follow the YYYYMMDD format."
+      "question": "How can users check which versions of LAMMPS are installed on Alliance systems using the module environment?",
+      "answer": "Users can run `module spider lammps` or `module avail lammps` to see the installed versions of LAMMPS on Alliance systems."
     },
     {
-      "question": "For a specific LAMMPS release date on Alliance clusters, why might there be multiple modules available, and what do these different modules represent?",
-      "answer": "Different modules for the same LAMMPS release signify varying build configurations with different packages enabled, such as those built with MPI, USER-OMP, or USER-INTEL support, or with GPU support."
+      "question": "What is the version numbering format for LAMMPS releases installed on Alliance clusters?",
+      "answer": "LAMMPS version numbers are based on their release dates and follow the YYYYMMDD format."
     },
     {
-      "question": "What steps must a user take to utilize a GPU-enabled version of LAMMPS on Alliance clusters?",
-      "answer": "To use a GPU-enabled version of LAMMPS, a user must first load the CUDA module before loading the specific LAMMPS module."
+      "question": "For a specific LAMMPS release, how are different build configurations, such as those with MPI, USER-OMP, or USER-INTEL support, made available as modules on Alliance systems?",
+      "answer": "For each LAMMPS release, multiple modules may be available, for example, `lammps/YYYYMMDD` (MPI), `lammps-omp/YYYYMMDD` (USER-OMP), and `lammps-user-intel/YYYYMMDD` (USER-INTEL)."
     },
     {
-      "question": "What is the standardized symbolic link for the LAMMPS executable on Alliance clusters, and how can a user determine the original executable name for a loaded module?",
-      "answer": "The standardized symbolic link for the LAMMPS executable on Alliance clusters is `lmp`. To find the original name, a user can load the LAMMPS module and then list the files in the `${EBROOTLAMMPS}/bin` directory."
+      "question": "What is the procedure for loading a GPU-enabled version of LAMMPS on Alliance clusters?",
+      "answer": "To use a GPU-enabled LAMMPS version, users must first load the CUDA module, then load the desired LAMMPS module, for example: `module load cuda` followed by `module load lammps-omp/20170331`."
     },
     {
-      "question": "How can users determine which packages are enabled or disabled for a particular LAMMPS module they have loaded on Alliance clusters?",
-      "answer": "For some LAMMPS modules, users can run `cat ${EBROOTLAMMPS}/list-packages.txt`. If that file is not found, they may be able to check the `general_packages` block in the EasyBuild recipe file, `$EBROOTLAMMPS/easybuild/LAMMPS*.eb`."
+      "question": "What is the purpose of the `lmp` symbolic link for prebuilt LAMMPS versions on Alliance clusters, and how can one determine the original executable name?",
+      "answer": "The `lmp` symbolic link provides a consistent way to execute LAMMPS regardless of the module chosen. The original executable name can be found by listing files in the `${EBROOTLAMMPS}/bin` directory after loading the module."
     },
     {
-      "question": "What are the essential sections and commands found in a LAMMPS input file for a basic 3D Lennard-Jones melt simulation?",
-      "answer": "An essential LAMMPS input file for a 3D Lennard-Jones melt simulation typically includes commands for units, atom style, lattice setup, region definition, atom creation, mass assignment, velocity initialization, pair style and coefficients, neighbor list settings, integration fixes, thermodynamic output, and the simulation run command."
+      "question": "Why are there different LAMMPS modules for the same release on Alliance clusters, and how can users verify which specific packages are enabled or disabled within a loaded module?",
+      "answer": "Different modules exist because not all of LAMMPS's approximately 60 packages can be enabled in a single executable. Users can check enabled packages by running `cat ${EBROOTLAMMPS}/list-packages.txt` or examining the EasyBuild recipe file if the list is not found."
     },
     {
-      "question": "On an Alliance cluster, what are the key elements of a SLURM batch script for running a serial LAMMPS job?",
-      "answer": "A SLURM batch script for a serial LAMMPS job typically includes `#SBATCH` directives for one task (`--ntasks=1`), memory (`--mem-per-cpu`), and time (`--time`), followed by loading environment modules (e.g., `StdEnv`, `intel`, `openmpi`, `lammps-omp`), and then executing `lmp < lammps.in > lammps_output.txt`."
+      "question": "In molecular dynamics simulations using LAMMPS, what is identified as the primary factor consuming most of the CPU time?",
+      "answer": "Most of the CPU time in molecular dynamics simulations with LAMMPS is spent computing pair interactions between particles."
     },
     {
-      "question": "In molecular dynamics simulations using LAMMPS, what is the main component that consumes most of the CPU time, and how does the software manage this computational load?",
-      "answer": "Most of the CPU time in LAMMPS molecular dynamics simulations is spent computing pair interactions between particles. LAMMPS manages this computational load by using domain decomposition to split the simulation box and distribute the work among available processors."
+      "question": "How does LAMMPS distribute work among available processors using domain decomposition, and what is the consequence of using more processors on communication time?",
+      "answer": "LAMMPS uses domain decomposition, assigning a part of the simulation box to each processor. As the number of processors increases for a given number of particles, more parts of the simulation box must exchange data, which increases communication time and can lead to lower CPU efficiency."
     },
     {
-      "question": "How does increasing the number of processors impact communication time in LAMMPS simulations, and what is the consequence for CPU efficiency?",
-      "answer": "As the number of processors increases for a given number of particles, more parts of the simulation box must exchange data, leading to increased communication time between processors and potentially lower CPU efficiency."
+      "question": "Before initiating extensive LAMMPS simulations, what steps are recommended to optimize performance and efficiency?",
+      "answer": "Before extensive simulations, users should run short tests using different numbers of cores to find a suitable number of cores that will approximately maximize the simulation's efficiency."
     },
     {
-      "question": "What is the recommended approach to optimize performance before running extensive LAMMPS simulations?",
-      "answer": "Before initiating extensive LAMMPS simulations, it is recommended to run short performance tests using different numbers of cores to find a suitable core count that will approximately maximize the efficiency of the simulation."
+      "question": "What is a common reason for low CPU efficiency in LAMMPS simulations, particularly when using a large number of MPI tasks for a relatively small system?",
+      "answer": "Low CPU efficiency can result from a large fraction of time spent in communication between processors, often caused by dividing a small system into too many small boxes when using a high number of cores."
     },
     {
-      "question": "For LAMMPS simulations, why might using an excessive number of cores for a small system result in low CPU efficiency?",
-      "answer": "Using too many cores for a small system means the simulation box is divided into many small parts. This leads to a disproportionately large fraction of time being spent on communication between processors rather than useful computation, thus significantly reducing CPU efficiency."
+      "question": "What does 'MACE in LAMMPS' refer to, and why might a user need to compile it?",
+      "answer": "'MACE in LAMMPS' refers to integrating the MACE machine learning potential with LAMMPS. Users might need to compile it to utilize this specific functionality with PyTorch, often requiring a local build due to specific software dependencies or custom configurations."
     },
     {
-      "question": "When preparing an MPI LAMMPS job on an Alliance cluster, what modules should typically be loaded?",
-      "answer": "For an MPI LAMMPS job on an Alliance cluster, users should generally load modules such as `StdEnv`, a specific `intel` compiler version, an `openmpi` version, and the appropriate `lammps-omp` or `lammps` module for the desired release."
+      "question": "What are the initial steps, including cloning a specific branch, for compiling MACE in LAMMPS with PyTorch from a login node?",
+      "answer": "The initial steps involve creating a directory, changing to the `$SCRATCH` directory, and cloning the `mace` branch of the LAMMPS repository using `git clone --branch=mace --depth=1 https://github.com/ACEsuit/lammps`."
+    },
+    {
+      "question": "When compiling MACE in LAMMPS with PyTorch, what are the key differences in loaded modules and CMake configuration options between CPU and GPU builds?",
+      "answer": "For GPU compilation, additional CUDA-related modules like `cuda/12.9`, `cusparselt`, `cudnn`, and `nccl` are loaded. The CMake configuration for GPU also includes `-DTORCH_CUDA_ARCH_LIST=\"9.0\"` to specify the CUDA architecture."
+    },
+    {
+      "question": "What is an example SLURM script for submitting a CPU job that utilizes a locally compiled MACE-enabled LAMMPS instance?",
+      "answer": "A CPU job script would include `SBATCH` directives for CPU resources (e.g., `--ntasks=4`, `--mem-per-cpu=3500M`) and execute the locally compiled `lmp` executable using `srun $HOME/lammps-mace/bin/lmp -in in.lammps`."
+    },
+    {
+      "question": "What is an example SLURM script for submitting a GPU job that utilizes a locally compiled MACE-enabled LAMMPS instance, including specification for GPU resources?",
+      "answer": "A GPU job script would include `SBATCH` directives for GPU resources (e.g., `--gpus=h100_1g.10gb:1`) in addition to CPU and memory specifications, and execute the locally compiled `lmp` executable using `srun $HOME/lammps-mace/bin/lmp -in in.lammps`."
     }
   ],
-  "generated_at": "2026-04-13T07:55:49.836207+00:00"
+  "generated_at": "2026-04-19T02:07:39.901954+00:00"
 }

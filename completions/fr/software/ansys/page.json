@@ -3,69 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "À quoi sert la suite logicielle Ansys sur les grappes de calcul de l'Alliance?",
-      "answer": "Ansys est une suite logicielle de conception 3D et de simulation, qui comprend des applications comme Ansys Fluent et Ansys CFX."
+      "question": "Qu'est-ce qu'Ansys et quelles sont ses applications principales sur les grappes de l'Alliance?",
+      "answer": "Ansys est une suite logicielle pour la conception 3D et la simulation, qui inclut des applications comme Ansys Fluent et Ansys CFX, disponibles sur les grappes de l'Alliance."
     },
     {
-      "question": "Comment est gérée la licence Ansys sur les grappes de calcul de l'Alliance?",
-      "answer": "L'Alliance n'a pas de licence généralisée pour Ansys. Les utilisateurs doivent posséder une licence via leur établissement et s'assurer que les nœuds de calcul peuvent communiquer avec leur serveur de licence."
+      "question": "Comment les utilisateurs peuvent-ils obtenir une licence pour utiliser Ansys sur les grappes de l'Alliance si l'accès généralisé n'est pas fourni?",
+      "answer": "Les utilisateurs doivent posséder une licence via leur établissement, faculté ou département, et l'équipe technique de l'Alliance coordinera la communication entre les nœuds de calcul et le serveur de licence."
     },
     {
-      "question": "Comment les utilisateurs peuvent-ils configurer leur propre serveur de licence Ansys sur les grappes de l'Alliance?",
-      "answer": "Il faut créer un fichier nommé `~/.licenses/ansys.lic` dans le répertoire personnel, contenant les valeurs de FLEXPORT, INTEPORT et LICSERVER spécifiques au serveur de l'utilisateur."
+      "question": "Comment configurer un fichier de licence Ansys local (`~/.licenses/ansys.lic`) sur les grappes de l'Alliance?",
+      "answer": "Il faut créer un fichier `$HOME/.licenses/ansys.lic` contenant `setenv(\"ANSYSLMD_LICENSE_FILE\", \"FLEXPORT@LICSERVER\")` avec les valeurs appropriées pour FLEXPORT et LICSERVER de votre serveur."
     },
     {
-      "question": "Quels sont les détails de configuration pour utiliser la licence SHARCNET Ansys sur les grappes de l'Alliance?",
-      "answer": "Pour la licence SHARCNET, le fichier `~/.licenses/ansys.lic` doit contenir `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license3.sharcnet.ca\")` et `setenv(\"ANSYSLI_SERVERS\", \"2325@license3.sharcnet.ca\")`."
+      "question": "Quels sont les détails du serveur de licence SHARCNET pour Ansys et quelles sont les règles d'utilisation sur les grappes de l'Alliance?",
+      "answer": "La licence SHARCNET est gratuite pour la recherche universitaire publiable, inclut la solution Multiphysics Campus avec HF, EM, Electronics HPC, Mechanical, CFD, Rocky et LS-DYNA, et a des limites d'utilisation de cœurs HPC par utilisateur."
     },
     {
-      "question": "Comment vérifier si la configuration de licence Ansys est correcte et fonctionne sur une grappe de calcul de l'Alliance?",
-      "answer": "Il faut exécuter une séquence de commandes `salloc`, `module load ansys`, puis `lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\"`. Le message 'Success' indique que la licence fonctionne."
+      "question": "Comment vérifier la validité de la configuration de votre licence Ansys sur une grappe de l'Alliance?",
+      "answer": "Vous pouvez exécuter une séquence de commandes Slurm (`salloc`, `module load ansys`) suivie de `$EBROOTANSYS/v.../lmutil lmstat -c $ANSYSLMD_LICENSE_FILE` et vérifier la sortie pour 'Success'."
     },
     {
-      "question": "Les simulations Ansys sont-elles compatibles entre différentes versions sur les grappes de l'Alliance?",
-      "answer": "Les simulations sont typiquement compatibles avec des versions postérieures, mais non avec des versions antérieures. Une simulation créée avec une version moins récente devrait fonctionner avec une version plus récente."
+      "question": "Quelle est la règle de compatibilité des versions pour les simulations Ansys sur les grappes de l'Alliance?",
+      "answer": "Les simulations Ansys sont généralement compatibles avec les versions postérieures (plus récentes), mais ne sont pas compatibles avec les versions antérieures."
+    },
+    {
+      "question": "Comment les \"service packs\" sont-ils gérés pour les modules Ansys sur les grappes de l'Alliance?",
+      "answer": "À partir d'Ansys 2024, les modules Ansys avec un \"service pack\" sont identifiés par une décimale et deux chiffres (ex: `ansys/2024R1.03`), permettant aux utilisateurs de charger la version souhaitée."
     },
     {
       "question": "Quelle est la procédure habituelle pour soumettre une tâche Ansys Fluent en mode lot sur les grappes de l'Alliance?",
-      "answer": "Il faut préparer la tâche avec Fluent, exporter les fichiers de cas et de données, les transférer sur la grappe, créer un fichier de journalisation et soumettre la tâche avec un script Slurm."
+      "answer": "Il faut préparer la tâche dans Fluent Workbench, exporter les fichiers de cas et de données, les transférer sur `/project` ou `/scratch`, créer un fichier de journalisation, puis soumettre la tâche avec un script Slurm."
     },
     {
-      "question": "Quand faut-il utiliser les scripts de remise en file d'attente pour Ansys Fluent sur les grappes de l'Alliance?",
-      "answer": "Ces scripts sont utiles pour les tâches Fluent qui se terminent normalement, mais qui nécessitent souvent plusieurs tentatives pour obtenir une licence. Ils ne sont pas recommandés si la tâche peut planter ou générer des avertissements."
+      "question": "Que sont les fichiers de journalisation Fluent et à quoi servent-ils pour les simulations sur les grappes de l'Alliance?",
+      "answer": "Les fichiers de journalisation Fluent contiennent des commandes de l'interface TUI (Text User Interface) qui permettent d'automatiser des séries de simulations ou de modifier des paramètres, comme la température ou la pression."
     },
     {
-      "question": "Comment configurer une simulation Ansys Fluent pour qu'elle redémarre automatiquement en cas de longue durée sur les grappes de l'Alliance?",
-      "answer": "Il faut modifier le fichier de journalisation pour inclure l'auto-sauvegarde des données et le redémarrage à partir des fichiers sauvegardés, puis utiliser un script Slurm avec l'option `--array` pour spécifier le nombre de redémarrages."
+      "question": "Comment peut-on exécuter Ansys Workbench en mode graphique sur les grappes de l'Alliance?",
+      "answer": "On doit se connecter via un bureau OnDemand (VNC) sur un nœud de calcul ou VDI, charger le module Ansys, puis lancer `runwb2` en ajustant les variables d'environnement (`HOOPS_PICTURE`, `QTWEBENGINE_DISABLE_SANDBOX`) selon la présence d'un GPU."
     },
     {
-      "question": "À quoi servent les fichiers de journalisation dans Ansys Fluent sur les grappes de l'Alliance?",
-      "answer": "Les fichiers de journalisation contiennent des commandes de l'interface TUI de Fluent pour automatiser des modifications de paramètres de simulation, lancer le solveur et enregistrer les résultats, ce qui permet d'effectuer des séries de simulations."
+      "question": "Comment vérifier l'utilisation des licences Ansys par les utilisateurs sur les grappes de l'Alliance?",
+      "answer": "Il faut se connecter à une grappe (ex: Graham), charger le module Ansys, puis exécuter `lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\"`."
     },
     {
-      "question": "Comment utiliser une fonction définie par l'utilisateur (UDF) avec Ansys Fluent sur les grappes de l'Alliance?",
-      "answer": "Il faut transférer le fichier source de l'UDF sur la grappe, le placer dans le répertoire de travail, puis ajouter des commandes au fichier de journalisation pour l'interpréter ou le compiler. Pour les tâches parallèles, l'UDF doit être parallélisée."
+      "question": "Que faire si des licences Ansys restent bloquées sous mon nom d'utilisateur sur gra-vdi après la fin d'une session graphique?",
+      "answer": "Vous devez vous connecter au nœud gra-vdi en question (ex: gra-vdi3 ou gra-vdi4) et exécuter `pkill -9 -e -u $USER -f \"ansys\"` dans un terminal pour libérer les licences."
     },
     {
-      "question": "Quelle préparation est requise avant de soumettre un projet Ansys Workbench en mode lot sur les grappes de l'Alliance?",
-      "answer": "Il faut d'abord se connecter en mode graphique (par exemple avec TigerVNC), ouvrir le projet dans Workbench, faire un clic droit sur 'Setup' et sélectionner 'Clear All Generated Data', puis quitter Workbench sans sauvegarder."
+      "question": "Comment activer l'extension Ansys Additive Manufacturing dans Workbench sur les grappes de l'Alliance?",
+      "answer": "Il faut télécharger `AdditiveWizard.wbex` depuis le catalogue Ansys, le téléverser sur la grappe, lancer Workbench, ouvrir le gestionnaire d'extensions (ACT Start > Manage Extensions), installer le fichier .wbex, puis charger l'extension."
     },
     {
-      "question": "Comment accéder aux programmes Ansys en mode graphique sur les grappes de calcul de l'Alliance?",
-      "answer": "Les programmes Ansys sont accessibles interactivement en mode graphique via les services Open OnDemand (OOD) sur les nœuds de calcul des grappes ou sur les nœuds VDI de Graham, en configurant une session de bureau."
+      "question": "Quel est le principal avantage d'utiliser les scripts Slurm \"par nœud\" pour les tâches Fluent à usage général sur les grappes de l'Alliance?",
+      "answer": "Les scripts \"par nœud\" sont recommandés pour minimiser le temps d'attente et maximiser la performance en utilisant le moins de nœuds possible, ce qui est généralement plus efficace que les scripts \"par cœur\"."
     },
     {
-      "question": "Quelles sont les limites d'utilisation de la licence SHARCNET Ansys pour les utilisateurs de l'Alliance?",
-      "answer": "En octobre 2024, la limite est de 8 tâches et 512 cœurs HPC par utilisateur, collectivement sur toutes les grappes et applications, pour la recherche universitaire publiable."
-    },
-    {
-      "question": "Comment activer et utiliser l'extension Ansys Additive Manufacturing dans Workbench sur les grappes de l'Alliance?",
-      "answer": "Il faut télécharger le fichier `AdditiveWizard.wbex`, le téléverser sur la grappe, puis l'installer et le charger via le gestionnaire d'extensions dans l'interface graphique de Workbench."
-    },
-    {
-      "question": "Où peut-on trouver de l'aide et de la documentation officielle pour Ansys sur les grappes de l'Alliance?",
-      "answer": "La documentation officielle est disponible sur le site web d'Ansys, ainsi que des ressources d'apprentissage comme le blog, les vidéos 'HowTo', le 'Educator Hub' et les séries de webinaires."
+      "question": "Comment les fonctions UDF (User-Defined Functions) doivent-elles être préparées pour une utilisation en parallèle avec Ansys Fluent sur les grappes de l'Alliance?",
+      "answer": "Avant d'être utilisées avec des tâches parallèles, les UDF doivent être parallélisées en ajoutant des directives de compilation, des prédicats et des macros de réduction au fichier source, comme décrit dans le manuel de personnalisation de Fluent."
     }
   ],
-  "generated_at": "2026-04-13T01:54:40.551355+00:00"
+  "generated_at": "2026-04-19T01:33:34.066603+00:00"
 }

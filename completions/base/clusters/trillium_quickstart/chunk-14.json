@@ -4,17 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "When submitting jobs for the GPU subcluster on Trillium, how many GPUs can a user request per node?",
-      "answer": "On Trillium's GPU subcluster, users are only allowed to request exactly 1 GPU or a multiple of 4 GPUs per node. Requests for 2 or 3 GPUs per node are not permitted, and NVIDIA's MIG technology for subdividing a GPU is not supported. However, within a job, NVIDIA's Multi-Process Service (MPS) can be used to share a GPU among processes."
+      "question": "What are the specific rules and limitations for requesting GPUs when submitting jobs to the Trillium GPU subcluster?",
+      "answer": "On Trillium's GPU subcluster, users are restricted to requesting exactly 1 GPU or a multiple of 4 GPUs. It is not possible to request 2 or 3 GPUs. NVIDIA's MIG technology, which allows for subdividing a GPU, is not supported. However, users can utilize NVIDIA's Multi-Process Service (MPS) within their jobs to share a GPU among multiple processes."
     },
     {
-      "question": "What are the job limits for GPU compute jobs submitted to the 'compute' partition on Trillium?",
-      "answer": "For GPU compute jobs in Trillium's 'compute' partition, users can have a limit of 150 running jobs and 500 submitted jobs (including running ones). The minimum job size is 1/4 node (24 cores / 1 GPU), while the maximum size is 5 nodes (480 cores / 20 GPUs) by default, or up to 25 nodes (2400 cores / 100 GPUs) with an allocation. The minimum walltime is 15 minutes, and the maximum walltime is 24 hours."
+      "question": "What are the maximum resource limits for GPU compute jobs running in the 'compute' partition on Trillium?",
+      "answer": "For GPU compute jobs in the 'compute' partition, users are allowed a maximum of 150 running jobs and 500 submitted jobs (including those running). The maximum job size is 5 nodes (480 cores/20 GPUs) by default, or up to 25 nodes (2400 cores/100 GPUs) for groups with a RAC allocation. The maximum walltime for these jobs is 24 hours."
     },
     {
-      "question": "What are the basic SLURM directives required for a single-GPU job script on Trillium?",
-      "answer": "A basic SLURM script for a single-GPU job on Trillium should include the following directives: `#SBATCH --job-name=single_gpu_job` for the job's name, `#SBATCH --output=single_gpu_job_%j.out` to specify the output file, `#SBATCH --nodes=1` to request one node, `#SBATCH --gpus-per-node=1` to request a single GPU, and `#SBATCH --time=HH:MM:SS` to set the maximum runtime for the job."
+      "question": "How do you submit a single-GPU job on the Trillium GPU subcluster, and what are the essential SLURM directives for such a job script?",
+      "answer": "To submit a single-GPU job on the Trillium GPU subcluster, you create a Bash script containing SLURM directives to specify job parameters, then submit it using `sbatch`. Essential directives include `--job-name` for a name, `--output` for the output file, `--nodes=1` to request one node, `--gpus-per-node=1` to request a single GPU, and `--time` for the maximum runtime. For example:\n```bash\n#!/bin/bash\n#SBATCH --job-name=single_gpu_job\n#SBATCH --output=single_gpu_job_%j.out\n#SBATCH --nodes=1\n#SBATCH --gpus-per-node=1\n#SBATCH --time=00:30:00\nmodule load StdEnv/2023 cuda/12.6 python/3.11.5\nsource ~/myenv/bin/activate\nsrun nvidia-smi\nsrun python my_script.py\n```"
     }
   ],
-  "generated_at": "2026-04-13T14:53:56.457327+00:00"
+  "generated_at": "2026-04-19T02:40:10.663927+00:00"
 }

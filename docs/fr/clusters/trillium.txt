@@ -3,17 +3,20 @@
 |-
 | Disponibilité : 7 août 2025
 |-
-| Nœuds de connexion :
-sous-grappe de CPU, '''trillium.alliancecan.ca''' 
+| Nœuds de connexion
+* sous-grappe de CPU, '''trillium.alliancecan.ca''' 
 
-sous-grappe de GPU, '''trillium-gpu.alliancecan.ca'''
+* sous-grappe de GPU, '''trillium-gpu.alliancecan.ca'''
 |-
 |Collections Globus : '''[https://app.globus.org/file-manager?origin_id=ad462f99-8436-42b4-adc6-3644e36c1b67 alliancecan#trillium]'''&nbsp;(système de fichiers)
 '''[https://app.globus.org/file-manager?origin_id=c55ce750-19d6-4a42-9c30-6a58f06bec7a alliancecan#hpss]''' (archive/nearline)
 |-
-|Nœud de copie (rsync, scp, sftp,...) : '''tri-dm{1,2,3,4}.scinet.utoronto.ca'''
+|Nœuds de copie (rsync, scp, sftp,...) : '''tri-dm{1,2,3,4}.scinet.utoronto.ca'''
 |-
-|Nœud d'automatisation : '''robot{1,2,3,4}.scinet.utoronto.ca'''
+|Nœuds d'automatisation
+* sous-grappe de CPU, '''robot{1,2,3,4}.scinet.utoronto.ca'''
+
+* sous-grappe de GPU, '''trig-robot1.scinet.utoronto.ca'''
 |-
 |Open OnDemand : [https://ondemand.scinet.utoronto.ca ondemand.scinet.utoronto.ca] (inclut JupyterLab)
 |-
@@ -22,12 +25,9 @@ sous-grappe de GPU, '''trillium-gpu.alliancecan.ca'''
 
 La grappe Trillium est conçue pour prendre en charge des tâches massivement parallèles. Construite par Lenovo Canada, elle est hébergée par SciNet à l'Université de Toronto.
 
-L'utilisation de Trillum est semblable à celle des autres grappes nationales  avec cependant certaines particularités. Pour les détails, voir [[Trillium Quickstart|Trillium&nbsp;: Guide de démarrage]].
+L'utilisation de Trillium est semblable à celle des autres grappes nationales  avec cependant certaines particularités. Pour les détails, voir [[Trillium Quickstart/fr|Trillium&nbsp;: Guide de démarrage]].
 
-Si vous aviez accès à Niagara, nous vous encourageons fortement de prendre connaissance de la page [[Transition from Niagara to Trillium/fr|Transition de Niagara à Trillium]].
-
-=Installation et transition=
-En raison de la capacité d'alimentation électrique et de refroidissement, une portion importante de la grappe Niagara sera fermée pendant une période intermédiaire afin d'effectuer les tests d'acceptation et la transition vers le nouveau système. Nous vous tiendrons au courant lorsque nous aurons une meilleure idée du calendrier d'installation de Trillium.
+Si vous aviez accès à Niagara, nous vous encourageons fortement à prendre connaissance de la page [[Transition from Niagara to Trillium/fr|Transition de Niagara vers Trillium]].
 
 =Stockage=
 Stockage parallèle : 29 pétaoctets, SSD NVMe de VAST Data.
@@ -46,14 +46,14 @@ Stockage parallèle : 29 pétaoctets, SSD NVMe de VAST Data.
 ! GPU 
 |-
 | '''trillium.alliancecan.ca''' 
-|1224 || 192 ||749G ou 767000M || 2 x AMD EPYC 9655 (Zen 5) @ 2.6 GHz, cache L3 de 384MB || |
+|1224 || 192 ||749G ou 767000M || 2 x AMD EPYC 9655 (Zen 5) @ 2.6 GHz, cache L3 de 384Mo || |
 |-
 | trillium&#8209;'''gpu'''.alliancecan.ca 
 |63
 |96
 |749G ou 767000M
-| 1 x AMD EPYC 9654 (Zen 4) @ 2.4 GHz,  cache L3 de 384MB
-| 4 x NVidia H100 SXM (80GB de mémoire), connexion via NVLink
+| 1 x AMD EPYC 9654 (Zen 4) @ 2.4 GHz,  cache L3 de 384Mo
+| 4 x NVidia H100 SXM (80Go de mémoire), connexion via NVLink
 |}
 
 <span id="Technical_details"></span>
@@ -62,29 +62,100 @@ Stockage parallèle : 29 pétaoctets, SSD NVMe de VAST Data.
 <span id="Cooling_and_energy_efficiency"></span>
 == Refroidissement et efficacité énergétique ==
 
-Le refroidissement se fait par une eau de 35 à 40&nbsp;°C, ce qui a les effets suivants%nbsp;:
+Le refroidissement se fait par une eau de 35 à 40&nbsp;°C, ce qui a les effets suivants&nbsp;:
 
 * indicateur d'efficacité énergétique (PUE) sous 1.03; 
 * refroidisseurs à sec en circuit fermé, sans tours d'évaporation et consommation de nouvelle eau;
-* excédent de chaleur utilisé par des installations voisines pour minimiser l'empreinte énergétique.
+* excédent de chaleur réutilisé pour le chauffage d'installations voisines afin de minimiser l'empreinte écologique.
 
 <span id="Storage_system"></span>
 ==Système de stockage==
 
-Le système de fichiers VAST haute performance est composé d'un pool de stockage unifié de 29PB soutenu par NVMe avec les caractéristiques suivantes&nbsp;: 
+Le système de fichiers VAST haute performance est composé d'un ensemble de stockage unifié de 29Po soutenu par NVMe avec les caractéristiques suivantes&nbsp;: 
 
-* capacité effective de 29PB (dédupliquée via VAST);
+* capacité effective de 29Po (dédupliquée via VAST);
 * capacité de mémoire flash brute de 16.7PB;
-* bande passante de 714GB/s en lecture et de 275GB/s en écriture;
+* bande passante de 714Go/s en lecture et de 275Go/s en écriture;
 * 10 millions d'IOPS en lecture et 2 millions d'IOPS en écriture;
-* protocoles d'accès POSIX et S3 sous un espace de nommage unifié;
+* protocoles d'accès POSIX et S3 avec un espace de noms unifié;
 * 48 CBoxes et 14 DBoxes pour les services de données.
 
 <span id="Backup_and_archive_storage"></span>
 == Sauvegarde et archivage ==
 
-L'archivage sur ruban /nearline HPSS dispose de 114PB additionnels.
+L'archivage sur ruban /nearline HPSS dispose de 114Po additionnels.
 
 * Archivage en deux copies dans des bibliothèques géographiquement distinctes;
 * utilisé à des fins de sauvegarde et d'archivage;
 * sauvegardes gérées par le logiciel Atempo.
+
+<span id="Site_specifics"></span>
+= Particularités =
+
+Il ne faut pas présumer que Trillium fonctionne comme les autres grappes.
+Bien que la conformité soit élevée, il y a certaines différences en matière de conception et de politiques parce que Trillium a été conçue pour le calcul à grande échelle.
+
+La description donnée ici n'est pas complète; pour les détails, voir [[Trillium Quickstart/fr|Trillium&nbsp;: Guide de démarrage]].
+
+<span id="Logging_in"></span>
+==Se connecter==
+
+* Il n'est pas possible de se connecter avec un mot de passe; vous devez utiliser [[SSH Keys/fr|des clés SSH]] et [[Multifactor authentication/fr|l'authentification multifacteur]].
+* Les sous-grappes de CPU et de GPU n'ont pas les mêmes nœuds de connexion ni les mêmes nœuds d'automatisation.
+
+==Accès à l'internet==
+* Il n'est pas possible de se connecter à l'internet à partir d'un nœud de calcul.
+* Cependant, les applications interactives OnDemand ont accès à l'internet.
+
+<span id="Home_space"></span>
+==Espace /home==
+
+* Votre répertoire <code>$HOME</code> peut contenir jusqu'à 100Go ou 1&nbsp;million de fichiers.
+
+* Les tâches de calcul ne peuvent pas écrire dans <code>$HOME</code>.
+
+* Cependant, les applications interactives OnDemand peuvent écrire dans <code>HOME</code>.
+
+<span id="Project_space"></span>
+==Espace /project==
+
+* Les liens vers vos espaces /project se trouvent dans le répertoire <code>$HOME/links</code>.
+
+* Par défaut, votre compte fournit un espace /project de 1To pour votre groupe.
+
+* Il n'est pas possible d'obtenir plus d'espace /project via le service d'accès rapide.
+
+les tâches de calcul ne peuvent pas écrire dans <code>$PROJECT</code>
+
+<span id="Scratch_space"></span>
+==Espace /scratch==
+
+* Le quota est de 25To pour chaque utilisateur; cependant, vous devriez supprimer les données non utilisées.
+
+* Aucune procédure de purge n'est établie; cependant, une politique de purge pourrait éventuellement être adoptée.
+
+<span id="Nearline_space"></span>
+==Espace /nearline==
+
+* Sur Trillium, le stockage /nearline n'est pas monté sur les nœuds; pour y accéder, il faut soumettre une tâche sur la partition Slurm [https://docs.scinet.utoronto.ca/index.php/HPSS HPSS] ou encore via [[Globus/fr|Globus]].
+
+<span id="Local_disk_space"></span>
+==Espace disque local==
+
+* Les nœuds de Trillium n'offrent pas de stockage local.
+
+* Dans certains cas vous pouvez utiliser le disque RAM; pour ce faire, la variable d'environnement <code>$SLURM_TMPDIR</code> pointe sur un répertoire du disque RAM.
+
+<span id="Access_through_Open_OnDemand_(OOD)"></span>
+==Accès via Open OnDemand (OOD)==
+
+* En remplacement de JupyterHub, Trillium est configurée avec [[Trillium Open OnDemand Quickstart/fr| OpenOnDemand]] qui prend en charge plusieurs applications utilisées dans votre navigateur, par exemple JupyterLab, VS Code, RStudio, MATLAB, ParaView et le débogueur DDT. Open OnDemand fournit aussi un terminal et peut être utilisé pour soumettre des tâches à l’ordonnanceur.
+
+<span id="Job_scheduling"></span>
+==Ordonnancement==
+
+* Les ressources de la sous-grappe de CPU sont allouées par nœuds entiers de 192 cœurs.
+
+* Les ressources de la sous-grappe de GPU sont allouées par nœuds entiers ou par GPU entiers; les GPU multi-instances (MIG) ne sont pas possibles.
+
+Pour plus d'information sur l'ordonnancement, voir [[Trillium Quickstart/fr|Trillium : Guide de démarrage]].

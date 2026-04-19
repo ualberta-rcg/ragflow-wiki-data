@@ -57,7 +57,7 @@ For better performance of tightly coupled multi-node jobs, you may constrain the
 |-
 |  36 || 112 || 2000G or 2048000M || 11T || 2 x Intel 8570 @ 2.1 GHz, 300MB cache L3 || 8 x Nvidia H100 SXM (80 GB), connected via NVLink
 |-
-|   6 ||  96 || 495G or 507000M || 3T || 4 x AMD MI300A @ 2.1GHz (Zen4+CDNA3) || The CPU cores and CDNA3-based GPUs are in the same socket and share a unified memory.
+|   6 ||  96 || 495G or 507000M || 3T || 4 x AMD MI300A @ 2.1GHz (Zen4+CDNA3) || The CPU cores and CDNA3-based GPUs are in the same socket and share a unified memory.  See section below for use instructions.
 |}
 == GPU instances ==
 Available GPU instance names are:
@@ -166,6 +166,31 @@ You will see JupyterLab is opened in the web browser on the Desktop with your $H
 
 ==Support for VDI via OOD==
 Nibi no longer offers Virtual Desktop Infrastructure (VDI). Instead, it provides a remote desktop environment through the [https://ondemand.sharcnet.ca/ portal] of Open OnDemand (OOD), offering improved hardware performance and software support.
+
+==AMD MI300A nodes==
+
+These should be currently scheduled as full nodes.  It is the user's responsibility to make sure the processes inside the job run with correct core and memory binding.  Here is a representative job script that uses 4 processes.
+
+{{File
+  |name=simple_job.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash
+#SBATCH --account=def-someuser
+#SBATCH --nodes=1
+#SBATCH --ntasks=4
+#SBATCH --cpus-per-task=24
+#SBATCH --gpus=mi300a:4
+#SBATCH --mem=100g
+#SBATCH --time=00:02:00
+
+# verify GPUS are available (optional)
+
+rocm-smi
+
+# run program compiled with ROCm support for MI300A
+
+}}
 
 ==Oops, I accidentally deleted my files, what should I do?==
 A backup mechanism on Nibi takes a snapshot of your files on <code>/home</code> and <code>/project</code> every 30 minutes and saves the snapshots for two weeks.  If you accidentally delete a file, you may be able to retrieve it from these snapshots, providing the file was deleted less than two weeks ago.  However, if one makes changes to a file after the most recent snapshot then deletes it, the changes cannot be recovered.

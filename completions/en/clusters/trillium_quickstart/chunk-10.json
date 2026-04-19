@@ -4,13 +4,17 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "What are the specific job limits and characteristics for CPU compute jobs submitted to the 'compute' partition on Trillium?",
-      "answer": "For CPU compute jobs on Trillium's 'compute' partition, users can have a limit of 150 running jobs and 500 submitted jobs (including those already running). Each job must utilize a minimum of 1 node (192 cores). The maximum job size is 10 nodes (1920 cores) by default, but can extend to 128 nodes (24576 cores) if a specific allocation is in place. The minimum allowed walltime for these jobs is 15 minutes, and the maximum walltime is 24 hours."
+      "question": "What are the key distinctions between the 'compute' and 'debug' partitions for CPU jobs on the Trillium cluster, particularly concerning their limits on running jobs, maximum job size, and walltime?",
+      "answer": "For CPU jobs on Trillium, the 'compute' partition is designed for general compute jobs, allowing up to 150 running jobs and 500 submitted jobs per user. It supports jobs from 1 node (192 cores) up to 10 nodes (1920 cores) by default, or 128 nodes (24576 cores) with a specific allocation, with a walltime between 15 minutes and 24 hours. In contrast, the 'debug' partition is intended for testing and troubleshooting. It restricts users to only 1 running and 1 submitted job at a time, with a maximum size of 2 nodes (384 cores) and a walltime limit of 1 hour."
     },
     {
-      "question": "How do you submit an MPI (Message Passing Interface) job to Trillium's CPU subcluster, and what are the essential components of its job script?",
-      "answer": "To submit an MPI job to Trillium's CPU subcluster, you must first be in your `$SCRATCH` directory on a CPU login node, then execute the command `$ sbatch mpi_job.sh`. The job script (`mpi_job.sh`) must begin with `#!/bin/bash` and include `#SBATCH` directives to specify resources, such as `--nodes` (e.g., 2), `--ntasks-per-node` (e.g., 192), `--time` (e.g., 01:00:00), `--job-name`, and `--output`. Inside the script, it's crucial to `cd $SLURM_SUBMIT_DIR`, load necessary modules like `StdEnv/2023`, `gcc/12.3`, and `openmpi/4.1.5`, and for MPI-IO performance, `source /scinet/vast/etc/vastpreload-openmpi.bash`. Finally, the MPI application is launched using `mpirun ./mpi_example`."
+      "question": "What are the general steps required to submit an MPI job to the CPU subcluster on the Trillium cluster, including the necessary SLURM directives and submission location?",
+      "answer": "To submit an MPI job to the Trillium CPU subcluster, first create a bash script with SLURM directives such as `--nodes`, `--ntasks-per-node`, `--time`, `--job-name`, `--output`, and `--mail-type`. An example script requests 2 nodes, 192 tasks per node, for 1 hour. Inside the script, change to the submission directory (`$SLURM_SUBMIT_DIR`), load necessary modules (e.g., `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`), and, if performing MPI-IO, preload the VAST library (`source /scinet/vast/etc/vastpreload-openmpi.bash`). Finally, run your MPI application using `mpirun`. The script must be submitted from your `$SCRATCH` directory on a CPU login node using the command `sbatch jobscript.sh`."
+    },
+    {
+      "question": "How is an OpenMP job script configured for the Trillium CPU subcluster, including the required SLURM directives and environment variable settings?",
+      "answer": "An OpenMP job script for Trillium's CPU subcluster begins with `#!/bin/bash` and includes SLURM directives (`#SBATCH`) such as `--nodes=1`, `--ntasks=1`, `--cpus-per-task=192`, `--time=01:00:00`, `--job-name`, `--output`, and `--mail-type`. The script should change to the submission directory (`$SLURM_SUBMIT_DIR`), load required modules like `StdEnv/2023` and `gcc/12.3`, and set the `OMP_NUM_THREADS` environment variable to `$SLURM_CPUS_PER_TASK` to match the allocated CPU cores. Finally, the OpenMP application is executed, for example, `./openmp_example` or `srun ./openmp_example`. This script is submitted from the `$SCRATCH` directory on a CPU login node using `sbatch openmp_job.sh`."
     }
   ],
-  "generated_at": "2026-04-13T14:56:19.561391+00:00"
+  "generated_at": "2026-04-19T02:42:06.316937+00:00"
 }

@@ -4,24 +4,24 @@ slug: "scheduling_policy_updates"
 lang: "base"
 
 source_wiki_title: "Scheduling policy updates"
-source_hash: "d7e555e8bd1745e446a1e6a5580d25e2"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T11:22:34.175362+00:00"
+source_hash: "e8b66869959780eca8d3707426d5ffdd"
+last_synced: "2026-04-18T23:39:30.217451+00:00"
+last_processed: "2026-04-19T01:04:16.145966+00:00"
 
 tags:
   []
 
 keywords:
-  - "job submission commands"
-  - "salloc"
-  - "sbatch"
-  - "srun"
+  - "GPU requests"
+  - "Sub-allocations"
   - "job scheduling policies"
+  - "RAC allocations"
+  - "Multi-Instance GPU"
 
 questions:
-  - "What is the intended purpose of this page regarding job scheduling policies?"
-  - "Which specific job submission commands might experience behavioral changes due to the updated policies?"
-  - "What specific details are expected to be recorded alongside the description of a policy change?"
+  - "What is the primary purpose of the page regarding job scheduling policies and submission commands?"
+  - "When are the RAC 2026 accounts and sub-allocations scheduled to be activated for the different clusters?"
+  - "What new requirements and restrictions are being introduced for GPU job requests?"
 
 status:
   downloaded: true
@@ -32,13 +32,39 @@ status:
   qa_generated: false
 ---
 
-# Scheduling policy updates
+This page is intended to record when changes to [job scheduling policies](job_scheduling_policies.md) are made which might change the behaviour of job submission commands (sbatch, salloc, srun).
 
-!!! info "Not Yet Populated"
-    This page is intended to record when changes to [job scheduling policies](job_scheduling_policies.md) are made which might change the behaviour of job submission commands (`sbatch`, `salloc`, `srun`). As of now, specific updates are not yet available here.
+## Account related changes
 
-* description of change
-    * cluster: date
-* description of change
-    * cluster: date
-    * cluster: date
+### RAC allocations
+
+*   RAC 2026 accounts activated
+    *   fir: 2026-04-06
+    *   nibi: 2026-04-06
+    *   narval: 2026-04-07
+    *   rorqual: 2026-04-07
+
+### Other policy changes on accounts
+
+*   Sub-allocations enabled
+    *   fir: 2026-04-06
+    *   nibi: 2026-04-06
+    *   narval: 2026-04-07
+    *   rorqual: 2026-04-07
+
+## CPU jobs related changes
+
+(None at the moment)
+
+## GPU jobs related changes
+
+*   All GPU requests must specify a GPU or [instance](../programming/multi-instance_gpu.md) model
+    *   fir: 2026-04-06
+    *   nibi: 2026-04-06
+    *   narval: [not done yet]
+    *   rorqual: 2026-04-17
+*   Multiple [MIGs](../programming/multi-instance_gpu.md) cannot be requested in a single job
+    *   fir: 2026-04-06
+    *   nibi: 2026-04-06
+    *   narval: [not done yet]
+    *   rorqual: 2026-04-17

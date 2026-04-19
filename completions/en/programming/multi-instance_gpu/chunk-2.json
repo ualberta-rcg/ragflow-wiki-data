@@ -4,17 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How can a user request a specific NVIDIA A100 GPU instance, such as one with 3/8 power and 20GB memory, for a one-hour interactive job?",
-      "answer": "To request an NVIDIA A100 GPU instance (e.g., a100_3g.20gb) for a one-hour interactive job, a user would use the `salloc` command with appropriate parameters. An example command would be: `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`."
+      "question": "How can one request a specific NVIDIA Multi-Instance GPU (MIG) instance for an interactive job using the `salloc` command?",
+      "answer": "To request an instance with 3/8th power and 20GB memory for a 1-hour interactive job, you would use the command: `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`."
     },
     {
-      "question": "What key metrics should users evaluate to determine if their jobs are good candidates for running on a GPU instance instead of a full GPU?",
-      "answer": "Users should evaluate power consumption, GPU functionality utilization, maximum GPU memory usage, and the average number of CPU cores required. For instance, a job requesting a full A100 GPU but only using 100W (out of 400W max TDP), less than 25% GPU utilization, 3GB of 40GB GPU memory, and a single CPU core is a strong candidate for a smaller GPU instance like a 3g.20GB or 4g.20GB."
+      "question": "What metrics should be considered to determine if a job would be more efficiently run on a Multi-Instance GPU (MIG) instance rather than a full GPU?",
+      "answer": "To determine if a job should use a MIG instance, one should assess power consumption, GPU functionality utilization, the maximum amount of GPU memory used, and the average number of CPU cores required. For example, a job that used only 100W average power, less than 25% GPU utilization, a maximum of 3GB GPU memory, and a single CPU core from a full A100 GPU could easily run on a 3g.20GB or 4g.20GB GPU instance with resources to spare."
     },
     {
-      "question": "How can users monitor the GPU metrics of a running job in real-time, beyond checking historical data on the Narval usage portal?",
-      "answer": "Users can monitor the GPU metrics of a running job in real-time by attaching to the compute node where the job is currently executing and then using the `nvidia-smi` command. This provides immediate data, though it does not offer maximum or average values for the entire job's duration."
+      "question": "How is an NVIDIA H100 SXM5 GPU actually partitioned into Multi-Instance GPU (MIG) instances, considering its 132 streaming multiprocessors (SMs)?",
+      "answer": "Under MIG, an H100 SXM5 GPU's 132 SMs are partitioned into one instance of 60 SMs (<code>nvidia_h100_80gb_hbm3_3g.40gb</code>), one instance of 32 SMs (<code>nvidia_h100_80gb_hbm3_2g.20gb</code>), and two instances of 16 SMs each (<code>nvidia_h100_80gb_hbm3_1g.10gb</code>). This partitioning leaves eight SMs unassigned, making NVIDIA's general terms of 'eighths' less accurate, with 'thirty-thirdths' being a more precise way to describe the division."
     }
   ],
-  "generated_at": "2026-04-13T09:41:42.910218+00:00"
+  "generated_at": "2026-04-19T02:12:21.478542+00:00"
 }

@@ -4,17 +4,13 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "Quelle est la procédure recommandée pour migrer les données d'un système de fichiers partagé CephFS de l'ancien nuage Arbutus vers le nouveau nuage Arbutus?",
-      "answer": "Pour migrer les données d'un système de fichiers partagé CephFS, il est recommandé de créer d'abord une grappe de stockage équivalente dans le nouveau nuage Arbutus. Ensuite, montez les deux grappes (l'ancienne et la nouvelle) à des emplacements distincts sur la même machine virtuelle dans le nouveau nuage Arbutus. Finalement, utilisez un outil de copie de données comme `rsync` pour transférer les données de l'ancienne grappe vers la nouvelle, en vous assurant de l'intégrité des données."
+      "question": "Quelle est la procédure recommandée pour transférer les données d'un système de fichiers partagé CephFS de l'ancien nuage Arbutus vers le nouveau?",
+      "answer": "Pour migrer les données d'un système de fichiers partagé CephFS, il est suggéré de créer une ressource équivalente pour chaque partage de l'ancien nuage Arbutus sur le nouveau. Ensuite, montez les deux partages (l'ancien et le nouveau) à des emplacements distincts sur la même machine virtuelle du nouveau nuage. Finalement, utilisez un outil de copie de données, comme `rsync` (avec les drapeaux `-avp`), pour transférer les données de l'ancien partage vers le nouveau. Il faut aussi créer un fichier `ceph.conf` distinct pour le nouveau partage et y mettre à jour la valeur `mon_host` avec les nouvelles adresses IP, puis spécifier ce nouveau fichier de configuration lors du montage."
     },
     {
-      "question": "Quelles sont les principales différences à considérer lors de la configuration d'une grappe de stockage CephFS dans le nouveau nuage Arbutus comparativement à l'ancienne version?",
-      "answer": "Lors de la configuration d'une grappe CephFS dans le nouveau nuage Arbutus, vous devez créer la grappe et les clés d'accès via l'interface web du nouveau nuage. Il faut aussi créer un fichier `ceph.conf` séparé, comme `ceph-new.conf`, et y mettre à jour la valeur de configuration `mon_host`. De plus, une valeur supplémentaire (`conf=/etc/ceph/ceph-new.conf`) est requise après l'option `-o` dans la commande de montage pour spécifier ce nouveau fichier de configuration."
-    },
-    {
-      "question": "Quels sont les points d'accès (endpoints) pour le stockage objet de l'ancien et du nouveau nuage Arbutus, et y a-t-il des précautions à prendre concernant les listes de contrôle d'accès (ACLs) des buckets?",
-      "answer": "Le point d'accès pour le nouveau nuage Arbutus est `https://object-arbutus.alliancecan.ca`, et pour l'ancien nuage Arbutus, c'est `https://object-arbutus.cloud.computecanada.ca`. Il est important de faire preuve de prudence avec les ACLs des buckets, car la plupart des outils de migration ne les copient pas correctement. Vous devrez donc les recréer dans le nouvel environnement, ou les accès seront par défaut privés à l'initialisation."
+      "question": "Quelles sont les particularités de la migration du stockage objet de l'ancien nuage Arbutus vers le nouveau, et quels sont les points importants à considérer?",
+      "answer": "La migration du stockage objet vers le nouveau nuage Arbutus concerne un service distinct et séparé de l'ancien. Il est important de noter que la gestion des conteneurs et des objets se fait exclusivement dans le nouvel environnement. Il faut faire attention aux listes de contrôle d'accès (ACLs) des conteneurs, car la plupart des outils ne les copient pas, et les recréer au besoin. Les identifiants uniques universels (UUIDs) des utilisateurs et des projets seront différents. Le nouveau stockage objet utilise des locataires (tenants), ce qui fait que les collisions de noms de conteneurs ne se produisent qu'au sein d'un projet individuel. L'outil rclone est recommandé pour cette migration."
     }
   ],
-  "generated_at": "2026-04-13T02:25:39.130324+00:00"
+  "generated_at": "2026-04-19T01:47:17.064730+00:00"
 }

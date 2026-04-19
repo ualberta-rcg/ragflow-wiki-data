@@ -4,13 +4,13 @@
   "chunk_index": 28,
   "qa_pairs": [
     {
-      "question": "In an Ansys Workbench Slurm script, how is the type of parallelization (Shared Memory Parallel or Distributed Memory Parallel) determined and configured?",
-      "answer": "The Slurm script determines the parallelization type by checking the `$SLURM_NNODES` environment variable. If `$SLURM_NNODES` is 1, it configures for Shared Memory Parallel (SMP). Otherwise, for more than one node, it configures for Distributed Memory Parallel (DMP). This setting is then applied to the Ansys Workbench configuration."
+      "question": "How is the type of memory parallelism (Shared Memory Parallel or Distributed Memory Parallel) configured in an Ansys Workbench SLURM script based on the number of requested nodes?",
+      "answer": "In an Ansys Workbench SLURM script, if only one compute node (`$SLURM_NNODES == 1`) is requested, the `MEMPAR` variable is set to 0 for Shared Memory Parallel (SMP). If multiple compute nodes are requested, `MEMPAR` is set to 1 for Distributed Memory Parallel (DMP). This `MEMPAR` value is then used to update the `SolveHandlers.xml` configuration file."
     },
     {
-      "question": "What Ansys Workbench configuration file is modified by the Slurm script to set parallelization parameters, and what information is updated within it?",
-      "answer": "The Slurm script modifies the `SolveHandlers.xml` file, typically located at `~/.mw/Application\\ Data/Ansys/[version_directory]/SolveHandlers.xml`. Within this file, the script updates the `<Distribute>` parameter to specify either Shared Memory Parallel (0) or Distributed Memory Parallel (1) based on the number of requested nodes, and also sets the `<MaxNumber>` of processors to the value of `$SLURM_NTASKS`."
+      "question": "What is the purpose of the `rm -fv *_files/.lock` command included in an Ansys Workbench SLURM script?",
+      "answer": "The `rm -fv *_files/.lock` command in an Ansys Workbench SLURM script is used to forcefully remove any existing lock files found within the project directories."
     }
   ],
-  "generated_at": "2026-04-13T01:44:02.675146+00:00"
+  "generated_at": "2026-04-19T01:23:01.735355+00:00"
 }

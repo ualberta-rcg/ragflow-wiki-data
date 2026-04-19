@@ -3,61 +3,57 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Quelles sont les méthodes recommandées pour gérer plusieurs tâches de calcul sur les grappes de calcul d'Alliance quand on doit traiter de nombreux fichiers ou utiliser différentes combinaisons de paramètres?",
-      "answer": "Il existe plusieurs outils utiles, notamment les tableaux de tâches (Job Arrays), GNU Parallel, GLOST (Greedy Launcher Of Small Tasks) et META (une suite de scripts conçue par SHARCNET)."
+      "question": "Dans un contexte de calcul scientifique sur les grappes Alliance, à quoi servent les outils décrits dans la section \"Gérer de nombreux cas de calcul\"?",
+      "answer": "Ces outils sont conçus pour aider à traiter plusieurs fichiers et à effectuer des balayages de paramètres (parameter sweeps), c'est-à-dire exécuter des calculs avec différentes combinaisons de paramètres."
     },
     {
-      "question": "Quand est-il idéal d'utiliser les tableaux de tâches (Job Arrays) pour soumettre des calculs sur les grappes d'Alliance?",
-      "answer": "Les tableaux de tâches sont idéaux pour soumettre plusieurs tâches similaires dans un seul script, surtout quand chaque tâche dépasse une heure et que leur nombre est inférieur à mille."
+      "question": "Qu'est-ce qu'un \"Vecteur de tâches\" dans le contexte des systèmes de gestion de tâches comme Slurm sur les grappes Alliance, et quand est-il conseillé de l'utiliser?",
+      "answer": "Les \"Vecteurs de tâches\" permettent de soumettre plusieurs tâches similaires dans un seul script. C'est une méthode idéale lorsque chaque tâche dure plus d'une heure et que leur nombre est inférieur à mille."
     },
     {
-      "question": "À quoi sert GNU Parallel sur les grappes de calcul d'Alliance et dans quel contexte est-il le plus utile?",
-      "answer": "GNU Parallel sert à exécuter et gérer plusieurs calculs courts, incluant les balayages de paramètres, sur un seul nœud réservé via une tâche parallèle."
+      "question": "Pour quel type de scénario de calcul l'outil \"GNU Parallel\" est-il recommandé sur un nœud réservé dans l'environnement Slurm?",
+      "answer": "\"GNU Parallel\" est recommandé pour exécuter et gérer plusieurs calculs courts, y compris des balayages de paramètres (parameter sweeps), sur un nœud réservé via une tâche parallèle."
     },
     {
-      "question": "Qu'est-ce que GLOST (Greedy Launcher Of Small Tasks) et comment fonctionne-t-il pour exécuter des tâches sur les grappes de calcul d'Alliance?",
-      "answer": "GLOST utilise MPI et une architecture de gestionnaire-travailleur pour exécuter progressivement une longue liste de tâches série sur les cœurs de CPU réservés par une tâche parallèle."
+      "question": "Comment fonctionne \"GLOST\" (Greedy Launcher Of Small Tasks) pour gérer de nombreuses tâches séquentielles sur les cœurs CPU réservés?",
+      "answer": "\"GLOST\" utilise MPI et une architecture gestionnaire-travailleur pour exécuter progressivement une longue liste de tâches séquentielles sur les cœurs CPU réservés via une tâche parallèle."
     },
     {
-      "question": "Quel est le but de la suite de scripts META développée par SHARCNET pour les grappes de calcul d'Alliance?",
-      "answer": "META est une suite de scripts conçue pour automatiser le calcul à haut débit, c'est-à-dire l'exécution d'un grand nombre de calculs sériels, parallèles ou GPU liés."
+      "question": "Quel est l'objectif de la suite de scripts \"META\" (META-Farm), développée chez SHARCNET, dans le contexte des grappes Alliance?",
+      "answer": "La suite de scripts \"META\" vise à automatiser le calcul à haut débit, ce qui implique l'exécution d'un grand nombre de calculs séquentiels, parallèles ou GPU."
     },
     {
-      "question": "À quoi servent les interdépendances entre les tâches Slurm dans les pipelines de calcul sur les grappes d'Alliance?",
-      "answer": "Les interdépendances servent de liens et de relations entre les étapes d'un pipeline, permettant, par exemple, qu'une seconde tâche ne démarre qu'après la réussite d'une première."
+      "question": "Que signifie le concept de \"dépendance entre les tâches\" dans un pipeline de calcul utilisant l'ordonnanceur Slurm sur les grappes Alliance?",
+      "answer": "Les dépendances entre les tâches sont les liens et les relations entre les étapes d'un pipeline de calcul, indiquant qu'une tâche doit s'exécuter avant qu'une autre ne puisse démarrer, souvent en fonction du statut final de la première."
     },
     {
-      "question": "Comment spécifier qu'une tâche Slurm (par exemple, job2.sh) doit démarrer seulement après la réussite d'une autre tâche (par exemple, job1.sh) en utilisant la commande `sbatch`?",
-      "answer": "On peut utiliser la commande `sbatch --dependency=afterok:$JOBID1 job2.sh`, où `$JOBID1` est l'identifiant de la première tâche enregistrée avec `sbatch --parsable job1.sh`."
+      "question": "Comment peut-on configurer une tâche Slurm pour qu'elle ne démarre qu'après la réussite d'une autre tâche spécifique?",
+      "answer": "On peut utiliser la commande `sbatch --dependency=afterok:$JOBID1 job2.sh`, où `$JOBID1` est l'identifiant de la première tâche et `job2.sh` est le script de la tâche dépendante."
     },
     {
-      "question": "Est-il possible pour plusieurs tâches d'attendre la complétion d'une seule tâche dans Slurm?",
-      "answer": "Oui, plusieurs tâches peuvent avoir la même dépendance, ce qui signifie qu'elles attendent toutes après la complétion d'une seule tâche."
+      "question": "Est-il possible que plusieurs tâches Slurm attendent la fin d'une seule autre tâche, et inversement, qu'une tâche attende plusieurs autres tâches?",
+      "answer": "Oui, plusieurs tâches peuvent avoir la même dépendance (plusieurs tâches en attente d'une seule), et une tâche peut avoir plusieurs dépendances (une tâche en attente de plusieurs)."
     },
     {
-      "question": "Est-ce qu'une tâche Slurm peut dépendre de plusieurs autres tâches avant de démarrer?",
-      "answer": "Oui, une tâche peut avoir plusieurs dépendances, attendant ainsi la complétion de multiples tâches avant de pouvoir s'exécuter."
+      "question": "Quels sont quelques-uns des types de dépendances de tâches que l'on peut spécifier avec l'option `--dependency` dans Slurm?",
+      "answer": "Quelques types de dépendances incluent `after`, `afterany`, `afterok` (après succès), et `afternotok` (après échec). Pour plus de détails, il faut consulter la documentation officielle de `sbatch`."
     },
     {
-      "question": "Quels sont les différents types de dépendances disponibles avec l'option `--dependency` dans Slurm?",
-      "answer": "Les types de dépendances incluent `after`, `afterany`, `afterok` et `afternotok`, parmi d'autres, pour gérer les conditions de démarrage des tâches."
+      "question": "Dans quel cas l'utilisation de \"tâches hétérogènes\" est-elle particulièrement avantageuse avec l'ordonnanceur Slurm sur les grappes Alliance?",
+      "answer": "L'utilisation de tâches hétérogènes est très utile si une application MPI nécessite à l'avance des ressources (cœurs CPU, mémoire) différentes pour son processus principal comparativement à ses autres processus."
     },
     {
-      "question": "Qu'est-ce qu'une tâche hétérogène dans Slurm et quand peut-elle être utile pour des applications comme MPI?",
-      "answer": "Une tâche hétérogène est une fonctionnalité du planificateur Slurm qui permet de spécifier des exigences de ressources différentes pour divers processus au sein d'une même tâche, ce qui est très utile si une application MPI nécessite plus de cœurs CPU et de mémoire pour le processus principal que pour les autres processus."
+      "question": "Comment peut-on spécifier des exigences de ressources différentes pour le processus principal et les autres processus dans un script Slurm pour une tâche hétérogène?",
+      "answer": "On utilise `#SBATCH hetjob` et on définit des lignes `#SBATCH` distinctes pour chaque ensemble d'exigences, par exemple `--ntasks=1 --cpus-per-task=8 --mem-per-cpu=4000M` pour le processus principal et `--ntasks=15 --cpus-per-task=1 --mem-per-cpu=1000M` pour les autres."
     },
     {
-      "question": "Donnez un exemple concret de situation où les tâches hétérogènes Slurm seraient avantageuses pour une application MPI.",
-      "answer": "Si le processus principal d'une application MPI requiert 8 cœurs et un total de 32 Go de RAM, tandis que les autres processus n'ont besoin que d'un seul cœur et 1 Go de RAM chacun, les tâches hétérogènes permettent de spécifier ces besoins distincts de ressources."
+      "question": "Est-il possible de définir les demandes de ressources pour une tâche hétérogène directement sur la ligne de commande `sbatch`, et si oui, comment?",
+      "answer": "Oui, on peut séparer les demandes de ressources pour les différents processus par un deux-points (:) sur la ligne de commande `sbatch`, par exemple `sbatch --ntasks=1 --cpus-per-task=8 --mem-per-cpu=4000M : --ntasks=15 --cpus-per-task=1 --mem-per-cpu=1000M mpi_job.sh`."
     },
     {
-      "question": "Comment peut-on spécifier les requêtes de ressources pour une tâche hétérogène directement dans un script de tâche Slurm?",
-      "answer": "On peut spécifier les requêtes en utilisant des lignes `SBATCH` séparées par `#SBATCH hetjob`, par exemple: `#SBATCH --ntasks=1 --cpus-per-task=8 --mem-per-cpu=4000M` suivi de `#SBATCH hetjob` puis des requêtes pour les autres processus."
-    },
-    {
-      "question": "Comment peut-on séparer les requêtes de ressources pour différentes parties d'une tâche hétérogène directement sur la ligne de commande `sbatch`?",
-      "answer": "On peut séparer les requêtes de ressources pour les différentes parties de la tâche hétérogène en utilisant un deux-points (deux-points) `:` sur la ligne de commande `sbatch`."
+      "question": "Comment la commande `srun` doit-elle être structurée pour exécuter une application MPI dans le cadre d'une tâche hétérogène sur Slurm?",
+      "answer": "La commande `srun` doit utiliser le deux-points (:) pour séparer les options de ressources pour le processus principal et celles des autres processus, par exemple `srun --cpus-per-task=8 : --cpus-per-task=1 application.exe`."
     }
   ],
-  "generated_at": "2026-04-13T01:09:03.687740+00:00"
+  "generated_at": "2026-04-19T01:18:22.659457+00:00"
 }

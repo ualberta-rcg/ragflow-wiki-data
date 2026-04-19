@@ -4,17 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `slurm_hl2hl.py` script within an Ansys Fluent Slurm job submission script?",
-      "answer": "The `slurm_hl2hl.py` script is used to generate a machine file, typically named `/tmp/machinefile-$SLURM_JOB_ID`, which details the hostlist and core assignments required for Ansys Fluent's distributed parallel execution."
+      "question": "When running an Ansys Fluent job on a single compute node within an Alliance cluster, what are the key parameters used in the `fluent` command?",
+      "answer": "For a single-node Ansys Fluent job, the `fluent` command uses parameters such as `-g $MYVERSION` to specify the version, `-t $NCORES` for the number of cores, `-mpi=intel` for Intel MPI, `-pshmem` for shared memory parallel, and `-i $MYJOURNALFILE` to indicate the journal file."
     },
     {
-      "question": "How does an Ansys Fluent Slurm script on Alliance clusters configure MPI differently for single-node versus multi-node parallel jobs?",
-      "answer": "For single-node jobs, the script configures Ansys Fluent to use Intel MPI with shared memory parallel (`-pshmem`). For multi-node jobs, it utilizes Intel MPI with distributed memory parallel, specifying Ethernet (`-peth`) for the Nibi cluster or InfiniBand (`-pib`) for other clusters, and references a dynamically generated machine file."
+      "question": "What is the purpose of the `slurm_hl2hl.py` command in an Ansys Fluent Slurm job script for parallel execution?",
+      "answer": "The `slurm_hl2hl.py --format ANSYS-FLUENT` command is used to generate a machine file, which is then directed to `/tmp/machinefile-$SLURM_JOB_ID`. This machine file is crucial for enabling distributed parallel computation for Ansys Fluent across multiple nodes."
     },
     {
-      "question": "What specific Intel MPI environment variable adjustments are made for Ansys Fluent jobs running on the Narval cluster, or on the Nibi cluster with Ansys versions 2025 or newer?",
-      "answer": "For these particular cluster and Ansys version combinations, the `I_MPI_HYDRA_BOOTSTRAP` environment variable is set to `ssh`, and `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS` is unset. Additionally, if the cluster is Narval, the `intel/2023` and `intelmpi` modules are loaded, and `INTELMPI_ROOT` is exported."
+      "question": "How do the `fluent` command parameters for multi-node execution on the 'nibi' cluster differ from those used for a single-node job?",
+      "answer": "For multi-node execution on the 'nibi' cluster, the `fluent` command includes `-mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID` to specify Intel MPI with an Ethernet interconnect and a generated machine file. In contrast, a single-node job uses `-mpi=intel -pshmem` for shared memory parallel, which does not require a machine file or an interconnect specification."
     }
   ],
-  "generated_at": "2026-04-13T01:42:00.557449+00:00"
+  "generated_at": "2026-04-19T01:21:01.998713+00:00"
 }

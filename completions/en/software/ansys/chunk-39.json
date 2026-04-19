@@ -5,16 +5,16 @@
   "qa_pairs": [
     {
       "question": "How do I configure my `ansys.lic` file to use the SHARCNET Ansys license on an Alliance cluster?",
-      "answer": "To use the SHARCNET Ansys license on any Alliance cluster, you need to configure your `ansys.lic` file by adding the line `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license1.computecanada.ca\")` to `~/.licenses/ansys.lic`. The previous server, `license3.sharcnet.ca`, was permanently shut down as of February 2026."
+      "answer": "To use the SHARCNET Ansys license on any Alliance cluster, you should configure your `ansys.lic` file by including the line `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license1.computecanada.ca\")` within it."
     },
     {
-      "question": "How can I check the number of Ansys licenses currently in use by my username and by all users on an Alliance cluster?",
-      "answer": "To check Ansys license usage, log in to a cluster (e.g., `ssh nibi.alliancecan.ca`), load the `ansys` module, and then execute the command: `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil \\lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of\\\\|$USER\" | grep -v \" Total of 0 licenses in use\"`. This command will display the number of licenses in use by your username and the total in use by all users."
+      "question": "How can an Alliance user check the current usage of SHARCNET Ansys licenses, both for their own username and for all users?",
+      "answer": "To check the number of Ansys licenses in use by your username and the total in use by all users, you need to SSH into an Alliance cluster (e.g., `ssh nibi.alliancecan.ca`), then load the Ansys module, and finally execute the command `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil \\ lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\" | grep -v \" Total of 0 licenses in use\"`."
     },
     {
-      "question": "What is the `anshpc` license feature, and how does its oversubscription affect parallel Ansys jobs on Alliance clusters?",
-      "answer": "The `anshpc` license feature is part of the SHARCNET Ansys license, which allows researchers to run up to 16 simultaneous jobs using a total of 512 `anshpc` cores across all clusters. However, the overall SHARCNET license pool of 1986 `anshpc` licenses is oversubscribed. This means that if a large number of `anshpc` licenses are already in use by other researchers, a new parallel job requiring a significant number of cores (e.g., a 400-core job needing 396 `anshpc` licenses) might fail to start due to a license shortage, even if the user is within their individual 512-core limit. In such cases, users must either wait for licenses to become available or reduce their job's core request and resubmit."
+      "question": "What occurs if an Alliance user submits an Ansys job that requires more `anshpc` licenses than are currently available in the SHARCNET license pool?",
+      "answer": "If an Ansys parallel job attempts to start but there are insufficient `anshpc` licenses available in the SHARCNET license pool, the job will fail to start. The user's options are to either wait for a sufficient number of `anshpc` licenses to become available or reduce the job size and resubmit it immediately."
     }
   ],
-  "generated_at": "2026-04-13T01:53:25.835414+00:00"
+  "generated_at": "2026-04-19T01:32:20.030046+00:00"
 }
