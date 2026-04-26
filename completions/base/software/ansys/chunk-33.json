@@ -4,13 +4,13 @@
   "chunk_index": 33,
   "qa_pairs": [
     {
-      "question": "How are Ansys Mechanical APDL (MAPDL) Distributed Memory Parallel (DMP) GPU simulations launched and configured on the Beluga cluster?",
-      "answer": "On the Beluga cluster, Ansys Mechanical APDL (MAPDL) DMP GPU simulations are launched using the `mapdl` command. This involves setting `export KMP_AFFINITY=none` to disable KMP affinity, using Intel MPI (`-mpi intelmpi`), specifying NVIDIA accelerators (`-acc nvidia`) with the number of GPUs determined by `$SLURM_GPUS_ON_NODE`. The command runs in batch mode without listing (`-b nolist`), uses a specified number of processes (`-np $SLURM_NTASKS`), directs output to `outdir-$SLURM_JOBID`, and takes `YOURAPDLFILE.inp` as input."
+      "question": "How do you configure and run Ansys Mechanical APDL in Distributed Memory Parallel (DMP) mode with GPUs on the Cedar cluster?",
+      "answer": "On the Cedar cluster, to run Ansys Mechanical APDL in Distributed Memory Parallel (DMP) mode with GPUs, you must first create a symbolic link for `libstdc++.so.6.0.29` in your job's output directory (`$PWD/outdir-$SLURM_JOBID`) and then export this directory to your `LD_LIBRARY_PATH`. You also need to set `ANSGPU_PRINTDEVICES=1`. The `mapdl` command should use Open MPI (`-mpi openmpi`), along with `-dis` for distributed memory, `-acc nvidia` for GPU acceleration, `-na $SLURM_GPUS_ON_NODE` for the number of GPUs, `-np $SLURM_NTASKS` for the number of tasks, and specify an input file like `YOURAPDLFILE.inp`."
     },
     {
-      "question": "What specific environment configurations are required for running Ansys Mechanical APDL (MAPDL) Distributed Memory Parallel (DMP) GPU jobs on the Cedar cluster?",
-      "answer": "For Ansys Mechanical APDL (MAPDL) DMP GPU jobs on the Cedar cluster, it's necessary to create a symbolic link for `libstdc++.so.6.0.29` from `$EBROOTGCC/../lib/gcc/` to the job's output directory (`$PWD/outdir-$SLURM_JOBID`). Subsequently, the `LD_LIBRARY_PATH` environment variable must be updated to include this new directory. Additionally, `export ANSGPU_PRINTDEVICES=1` is set to enable printing GPU device information during the simulation."
+      "question": "What specific configurations are required to run Ansys Mechanical APDL in Distributed Memory Parallel (DMP) mode with GPUs on the Beluga cluster?",
+      "answer": "When running Ansys Mechanical APDL in Distributed Memory Parallel (DMP) mode with GPUs on the Beluga cluster, you need to export `ANSGPU_PRINTDEVICES=1` and set `KMP_AFFINITY=none`. The `mapdl` command must specify Intel MPI (`-mpi intelmpi`), along with `-dis` for distributed memory, `-acc nvidia` for GPU acceleration, `-na $SLURM_GPUS_ON_NODE` for the number of GPUs, `-np $SLURM_NTASKS` for the number of tasks, and an input file like `YOURAPDLFILE.inp`. For clusters other than Beluga, Open MPI is used instead."
     }
   ],
-  "generated_at": "2026-04-19T01:24:03.954316+00:00"
+  "generated_at": "2026-04-26T00:31:36.293252+00:00"
 }

@@ -4,13 +4,17 @@
   "chunk_index": 43,
   "qa_pairs": [
     {
-      "question": "How can a user run a single Ansys Additive Manufacturing job graphically within an OnDemand session?",
-      "answer": "To run an Ansys Additive Manufacturing job graphically in an OnDemand session, first launch Workbench as described in the 'Enable Additive' section of the documentation. Then, click 'File -> Open' and select your project file (e.g., `test.wbpj`), click 'View -> reset workspace' if a grey screen appears, start Mechanical, clear any generated data, tick 'Distributed', and specify the desired number of Cores. Finally, click 'File -> Save Project' and then 'Solve'. To check resource utilization, open another terminal and run `top -u $USER` or `ps u -u $USER | grep ansys`. Be aware that rogue Ansys processes can tie up valuable licenses if sessions are not cleanly terminated."
+      "question": "What are the steps to enable the Ansys Additive Manufacturing ACT extension for a project on an Alliance cluster?",
+      "answer": "To enable the Ansys Additive Manufacturing ACT extension, you must first download the `AdditiveWizard.wbex` file from `https://catalog.ansys.com/` and upload it to the cluster. Then, start Workbench and open your project file. Navigate to the ACT Start Page, open the Extension Manager, and install the `AdditiveWizard.wbex` file. Finally, click to highlight the `AdditiveWizard` box and select `Load extension` to load it for current and future sessions."
     },
     {
-      "question": "What are the necessary steps to prepare and submit an Ansys Additive project to a cluster queue using Slurm, and how can resource utilization be checked for these jobs?",
-      "answer": "To prepare an Ansys Additive project for a cluster queue, first open your simulation with the Workbench GUI in the same directory where your job will be submitted, using the same Ansys module version, and save it again. Next, create a Slurm script, following the guidelines in the 'Cluster Batch Job Submission - WORKBENCH' section. For parametric studies, modify `Update()` to `UpdateAllDesignPoints()` in the Slurm script. To prevent overwriting solutions during scaling tests, either change `Save(Overwrite=True)` to `Save(Overwrite=False)` or create a copy of your original project files. Resource utilization for a running job can be checked by opening another terminal and running `srun --overlap --jobid=myjobid top -bn1 -u $USER | grep R | grep -v top`, replacing `myjobid` with your job's actual ID."
+      "question": "How can a user run a single Ansys Additive Manufacturing job graphically using an OnDemand session?",
+      "answer": "To run a single Ansys Additive Manufacturing job graphically in an OnDemand session, you should first start Workbench, then open your project file (ending in `.wbpj`). If the screen appears grey, click `View -> reset workspace`. Next, start Mechanical, clear any generated data, tick `Distributed`, specify the desired number of cores, and then click `File -> Save Project -> Solve`."
+    },
+    {
+      "question": "What preparatory steps are required before submitting an Ansys Additive Manufacturing project to a cluster queue using a Slurm script?",
+      "answer": "Before submitting a new Additive project to a cluster queue, open the simulation with the Workbench GUI in the job's submission directory, ensuring you use the same Ansys module version that will be used for the job, and then save it again. Afterwards, create a Slurm script, customizing it as explained in the `Cluster Batch Job Submission - WORKBENCH` section. For parametric studies, modify `Update()` to `UpdateAllDesignPoints()` in your Slurm script. To avoid overwriting solutions during test runs, either change `Save(Overwrite=True)` to `Save(Overwrite=False)` or create a copy of your original project file and its associated directory."
     }
   ],
-  "generated_at": "2026-04-19T01:32:51.253032+00:00"
+  "generated_at": "2026-04-26T00:39:55.324907+00:00"
 }

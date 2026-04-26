@@ -77,8 +77,7 @@ title: Home
 | Service | Status |
 |---------|--------|
 | **Vulcan** | :material-check-circle:{ style="color: green" } Operational |
-| **Trillium** | :material-check-circle:{ style="color: green" } Operational |
-| **Narval** | :material-check-circle:{ style="color: green" } Operational |
+| **Narval** | :material-calendar:{ style="color: blue" } 2026-05-01 |
 | **Cedar Cloud** | :material-check-circle:{ style="color: green" } Operational |
 | **Graham Cloud** | :material-check-circle:{ style="color: green" } Operational |
 | **Nibi** | :material-check-circle:{ style="color: green" } Operational |
@@ -86,12 +85,12 @@ title: Home
 | **Rorqual** | :material-alert:{ style="color: orange" } Rorqual est en ligne avec certains services qui ne sont pas encore prêts |
 | **Arbutus** | :material-alert:{ style="color: orange" } Arbutus Power Maintenance |
 | **Béluga** | :material-alert:{ style="color: orange" } Decommissioning: 2026 End of Service Timeline |
-| **Juno** | :material-check-circle:{ style="color: green" } Operational |
+| **Juno** | :material-calendar:{ style="color: blue" } 2026-05-01 |
 | **Killarney** | :material-check-circle:{ style="color: green" } Operational |
 | **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
 | **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-04-19 01:15 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-04-26 00:25 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -101,16 +100,17 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 
 | Date | Event | Link |
 |------|-------|------|
-| Apr 20 | Data Bites - Introduction to Data Management Plans (DMPs) | [Register](https://libcal.library.ubc.ca/event/3972480) |
-| Apr 20 | Cybersecurity Incident Response - Session 1 | [Details](https://engagedri-ca.zoom.us/meeting/register/vT012rvSSiSx_-e29V_jJg) |
-| Apr 21 | Neural network programming: lecture 5 | [Details](https://scinet.courses/1400) |
-| Apr 21 | Typst: a new markup typesetting system [webinar] | [Register](https://forms.gle/Uu1o42F9k6Vh7oCz6) |
-| Apr 21 | Emerging Scholars Webinar - Spring 2026 | [Details](https://crdcn.ca/events/emerging-scholars-webinar-spring-2026/) |
-| Apr 22 | Intégrité 360° : pour une science qui inspire confiance - Aspects éthiques de l’utilisation de l’intelligence artificielle en recherche | [Details](https://www.chusj.org/fr/Calendrier-salle-presse/calendrier/Evenements/CDR/2026/Integrite-360%C2%B0-pour-une-science-qui-inspire-co-(1)) |
-| Apr 22 | Hosting a Project Website on GitHub: Introduction to Minimal Computing and Static Websites | [Details](https://engagedri-ca.zoom.us/meeting/register/NV9JvDLLRSW97xj90W1EpA) |
-| Apr 22 | GIS in Tidyverse, an introduction to the R sf package | [Details](https://training.computeontario.ca/courses/course/view.php?id=206) |
+| Apr 27 | Cybersecurity Incident Response - Session 2 | [Details](https://engagedri-ca.zoom.us/meeting/register/kmTb0ziJSZCZBorWFLAlCw) |
+| Apr 28 | Neural network programming: lecture 7 | [Details](https://scinet.courses/1400) |
+| Apr 28 | Introduction to Python Two Day Intensive | [Register](https://libcal.library.ubc.ca/event/4011258) |
+| Apr 30 | Neural network programming: lecture 8 | [Details](https://scinet.courses/1400) |
+| Apr 30 | GPU programming with Chapel [course] | [Register](https://forms.gle/g4zFsPzHaFBtJyRe8) |
+| May 04 | HPC: Shell Basics | [Details](https://www.ualberta.ca/en/information-services-and-technology/research-computing/training.html) |
+| May 04 | RDM Jumpstart | [Details](https://alliance-rdm-gdr.github.io/rdm-jumpstart-registration/) |
+| May 05 | Neural network programming: lecture 9 | [Details](https://scinet.courses/1400) |
+| May 05 | HPC: Scripting Basics | [Details](https://www.ualberta.ca/en/information-services-and-technology/research-computing/training.html) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-04-19 01:15 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-04-26 00:25 UTC.*</small>
 
 ---
 

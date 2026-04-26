@@ -4,17 +4,17 @@
   "chunk_index": 35,
   "qa_pairs": [
     {
-      "question": "How do I submit an Ansys Rocky simulation job with GPU acceleration using a Slurm script on the Alliance clusters?",
-      "answer": "To submit an Ansys Rocky GPU-based simulation job, you can use a Slurm script similar to `script-rocky-gpu.sh`. This script requires you to specify your account, time limit, total memory for cores, number of cores per task, GPU type and quantity (e.g., `--gres=gpu:v100:2`), and request a single node. You must load `StdEnv/2023` and `ansys/2025R1` (or newer versions), then export the path to Rocky (`export PATH=$EBROOTANSYS/v251/rocky:$PATH`), and finally execute Rocky with the command: `Rocky --simulate “mysim.rocky” --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=1 --gpu-num=$SLURM_GPUS_ON_NODE`."
+      "question": "When submitting a GPU-based Ansys Rocky simulation on an Alliance cluster, what are the essential Slurm directives and Rocky command-line options required in the submission script?",
+      "answer": "A GPU-based Ansys Rocky simulation script requires `#SBATCH` directives for `--account`, `--time`, `--mem`, `--cpus-per-task`, `--gres=gpu:[type]:[quantity]`, and `--nodes=1`. The Rocky command, executed after loading the `StdEnv` and `ansys` modules and exporting the Rocky path, should include `--simulate \"mysim.rocky\"`, `--resume=1`, `--ncpus=$SLURM_CPUS_PER_TASK`, `--use-gpu=1`, and `--gpu-num=$SLURM_GPUS_ON_NODE`."
     },
     {
-      "question": "How can a user access Ansys programs in graphical mode on Alliance clusters?",
-      "answer": "Users can access Ansys programs in graphical mode by clicking on one of the provided OnDemand or Jupyterhub desktop links for specific clusters such as NIBI, FIR, RORQUAL, NARVAL, or TRILLIUM. After configuring the required resources for the interactive desktop session and launching it, an Ansys module needs to be loaded. If using a Jupyter Lab desktop, this can be done via the left-hand menu; for an OnDemand desktop, manually type `module load ansys/version` on the command line. Subsequent sections provide specific advice for setting environment variables and arguments depending on whether a GPU resource was specified."
+      "question": "How can Alliance researchers launch Ansys programs in a graphical user interface (GUI) environment on the clusters?",
+      "answer": "Alliance researchers can run Ansys programs in graphical mode using either an OnDemand or Jupyterhub desktop environment. Specific access links are provided for Nibi, Fir, Rorqual, Narval, and Trillium. After launching a desktop session and configuring resources (including GPU resources if accelerated graphics or computations are needed), users must load the appropriate Ansys module. To start programs like Fluent, CFX, or Workbench, specific environment variables and arguments (such as `HOOPS_PICTURE` for Mesa or VirtualGL) may need to be set depending on whether a GPU resource was requested."
     },
     {
-      "question": "When starting Ansys Fluent graphically on an OnDemand desktop with a GPU on the NIBI cluster, what environment variables must be configured?",
-      "answer": "When starting an OnDemand desktop on NIBI with a requested GPU (specifically a full `h100 (80GB)` to ensure VirtualGL environment variables are automatically set), you need to open a terminal, load the required modules (`module load StdEnv/2023 ansys/2025R1`), and then run `fluent`. In the Fluent Launcher's Environment Tab, you must set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on NIBI) and `HOOPS_PICTURE=opengl2` for Ansys 2025R1 or newer versions. For Ansys 2024R2 or older, `HOOPS_PICTURE=opengl` should be used instead."
+      "question": "What specific environment variable configurations are necessary for starting Ansys Fluent graphically on an OnDemand Desktop, differentiating between sessions with and without GPU acceleration?",
+      "answer": "To start Ansys Fluent graphically on an OnDemand Desktop, first load `module load StdEnv/2023 ansys/2025R2.04`. Then, in the Fluent Launcher's Environment Tab, copy and paste the following settings:\n*   **Compute Node (no GPU requested)**: Set `HOOPS_PICTURE=opengl2-mesa` (for Ansys 2025R1 or newer) or `HOOPS_PICTURE=x11/lin` (for Ansys 2024R2.04 or older). On Nibi with Intel MPI, `I_MPI_HYDRA_BOOTSTRAP=ssh` is also required.\n*   **Compute Node (with GPU requested)**: Ensure `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi) and set `HOOPS_PICTURE=opengl2-mesa` (for Ansys 2025R1 or newer) or `HOOPS_PICTURE=opengl` (for Ansys 2024R2.04 or older). On Nibi, selecting a full `h100 (80GB)` GPU ensures VirtualGL environment variables are automatically set. If graphics become corrupted, setting `HOOPS_PICTURE=null` can disable the graphics panel while maintaining menu functionality."
     }
   ],
-  "generated_at": "2026-04-19T01:24:17.666409+00:00"
+  "generated_at": "2026-04-26T00:31:54.078736+00:00"
 }

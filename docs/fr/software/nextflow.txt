@@ -31,8 +31,10 @@ Configurez la variable d'environnement <code>$SLURM_ACCOUNT</code> pour un  nom 
 export SLURM_ACCOUNT=def-pname
 </syntaxhighlight>
 
+<div class="mw-translate-fuzzy">
 Cette configuration contient des profils pour Fir, Narval, Nibi, Rorqual et Trillium. Si vous utilisez ce fichier de configuration sur Fir, vous devez charger le profil avec l'indicateur <code>-profile fir</code> de la commande <code>nextflow</code>.
-Sur les autres sites, le profil approprié est sélectionné automatiquement en fonction du nom de l'hôte. Il garantit qu'il n'y a pas plus de 100&nbsp;tâches dans la file d'attente Slurm et que 60&nbsp;tâches maximum sont soumises par minute. Il contient des informations spécifiques à la grappe qui sont nécessaires à Nextflow, par exemple que les machines Rorqual disposent de 192&nbsp;cœurs et de 750GB&nbsp;de RAM, avec une durée maximale d'une semaine (168&nbsp;heures). 
+Sur les autres sites, le profil approprié est sélectionné automatiquement en fonction du nom de l'hôte. Il garantit qu'il n'y a pas plus de 100&nbsp;tâches dans la file d'attente Slurm et que 60&nbsp;tâches maximum sont soumises par minute. Il contient des informations spécifiques à la grappe qui sont nécessaires à Nextflow, par exemple que les machines Rorqual disposent de 192&nbsp;cœurs et de 750GB&nbsp;de RAM, avec une durée maximale d'une semaine (168&nbsp;heures).
+</div> 
 
 '''Il n'est pas recommmandé d’exécuter des pipelines nf-core ou tout autre pipeline Nextflow générique sur Trillium. Ceux-ci devraient être exécutés sur [[Trillium/fr|Trillium]] uniquement s’ils ont été conçus spécifiquement pour Trillium.'''
 
@@ -140,6 +142,7 @@ Pour en savoir plus sur l'exemple et les feuilles <code>rnaseq</code>, voir [htt
 <span id="Step_5._Create_a_job_script"></span>
 ====Étape 5. Créer un script de tâche ====
 
+<div class="mw-translate-fuzzy">
 Voici un exemple de script à utiliser sur Fir.
 Adaptez=le pour utiliser les éléments suivants&nbsp;:
 * pipeline (<code>NFCORE_PL</code>) et version (<code>PL_VERSION, FD_VERSION</code>)
@@ -147,6 +150,7 @@ Adaptez=le pour utiliser les éléments suivants&nbsp;:
 * compte Slurm (<code>SLURM_ACCOUNT</code>)
 * grappe (<code>-profile ...,fir</code>)
 * chemins pour <code>--input</code> et <code>--output</code>
+</div>
 
 <source lang="bash">
 #!/bin/bash
@@ -164,10 +168,12 @@ export FD_VERSION=3_21_0
 export NXF_SINGULARITY_CACHEDIR=/project/<def-group>/NXF_SINGULARITY_CACHEDIR
 export SLURM_ACCOUNT=def-pname
 
+<div class="mw-translate-fuzzy">
 nextflow run nf-core-${NFCORE_PL}_${PL_VERSION}/${FD_VERSION}/ \
  -profile test,singularity,fir \
  --input ~/scratch/nf-test/input/samplesheet.csv --outdir ~/scratch/nf-test/output
 </source>
+</div>
 
 Enregistrez le script de tâche dans <code>~/scratch/nf-test/nextflow_test.sh</code>, puis soumettez-le avec <code>sbatch nextflow_test.sh</code> pour lancer l'exécution du test. 
 

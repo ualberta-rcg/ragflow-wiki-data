@@ -4,17 +4,17 @@
   "chunk_index": 39,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on peut accéder aux programmes Ansys en mode graphique sur les grappes de l'Alliance?",
-      "answer": "Les utilisateurs peuvent exécuter les programmes Ansys de manière interactive en mode graphique sur les nœuds de calcul des grappes ou sur les nœuds VDI de Graham. L'accès se fait via les plateformes Open OnDemand propres à chaque grappe, comme Nibi (ondemand.sharcnet.ca), Fir (jupyterhub.fir.alliancecan.ca), Rorqual (jupyterhub.rorqual.alliancecan.ca), Narval (jupyterhub.narval.alliancecan.ca/) ou Trillium (ondemand.scinet.utoronto.ca). Une fois la session de bureau interactive lancée et les modules Ansys chargés, les programmes peuvent être démarrés."
+      "question": "Comment peut-on utiliser les programmes Ansys avec une interface graphique sur les grappes de calcul ou les nœuds VDI de Graham?",
+      "answer": "Les programmes Ansys peuvent être utilisés en mode graphique interactif directement sur les nœuds de calcul des grappes ou sur les nœuds VDI de Graham. L'accès se fait via des portails web comme Open OnDemand ou JupyterHub, spécifiques à chaque grappe (NIBI, FIR, RORQUAL, NARVAL, TRILLIUM), où il faut configurer les ressources nécessaires pour la session de bureau interactive, incluant une ressource GPU si des graphiques accélérés ou des calculs intenses sont prévus."
     },
     {
-      "question": "Quelles sont les variables d'environnement spécifiques à configurer lorsqu'on démarre Ansys Fluent en mode graphique sur un nœud de calcul sans GPU, à travers un bureau On Demand?",
-      "answer": "Pour démarrer Ansys Fluent en mode graphique sur un nœud de calcul sans GPU via un bureau On Demand, chargez d'abord les modules `StdEnv/2023` et `ansys/2025R1` (ou une version plus récente), puis lancez Fluent. Quand le panneau contextuel \"Fluent Launcher\" apparaît, cliquez sur l'onglet \"Environment\". Il faut alors ajouter les paramètres de variable d'environnement suivants : `I_MPI_HYDRA_BOOTSTRAP=ssh` (obligatoire sur Nibi) et `HOOPS_PICTURE=opengl2-mesa` (pour la version 2025R1 ou plus récente) ou `HOOPS_PICTURE=null` (pour la version 2024R2 ou plus ancienne). Ensuite, cliquez sur le bouton `Start`."
+      "question": "Quelles sont les étapes pour démarrer Ansys Fluent en mode graphique à partir d'un bureau On Demand sur une grappe, et quels paramètres environnementaux sont requis sans GPU?",
+      "answer": "Pour démarrer Ansys Fluent à partir d'un bureau On Demand, il faut d'abord ouvrir une fenêtre de terminal et charger les modules `StdEnv/2023` et `ansys/2025R1` (ou une version plus récente) avec la commande `module load StdEnv/2023 ansys/2025R1`, puis exécuter `fluent`. Quand le panneau Fluent Launcher apparaît, il faut cliquer sur l'onglet 'Environment' et y copier les variables d'environnement appropriées. Sans GPU et pour la version 2025R1 ou plus récente, il faut spécifier `HOOPS_PICTURE=opengl2-mesa`. Pour la version 2024R2 ou plus ancienne, c'est `HOOPS_PICTURE=null`. Sur Nibi, si Intel MPI est utilisé, il est aussi impératif de configurer `I_MPI_HYDRA_BOOTSTRAP=ssh` pour éviter que Fluent ne plante."
     },
     {
-      "question": "Comment démarre-t-on Ansys CFX en mode graphique à partir d'un bureau On Demand, selon qu'un GPU a été demandé ou non pour la session?",
-      "answer": "Pour démarrer Ansys CFX depuis un bureau On Demand, il faut d'abord charger les modules `StdEnv/2023` et `ansys/2025R1` (ou une version plus ancienne). Si vous n'avez pas demandé de GPU pour votre session de bureau, utilisez la commande `cfx5 -graphics mesa`. Si un GPU a été demandé pour votre session, la commande à utiliser est `cfx5 -graphics ogl`."
+      "question": "Que se passe-t-il si la variable d'environnement `I_MPI_HYDRA_BOOTSTRAP=ssh` n'est pas correctement définie pour Fluent sur la grappe Nibi lors d'une session On Demand Desktop sans GPU et avec Intel MPI?",
+      "answer": "Si la variable `I_MPI_HYDRA_BOOTSTRAP=ssh` n'est pas correctement définie sur la grappe Nibi lorsque Fluent est lancé à partir d'une session On Demand Desktop sans GPU et que Intel MPI est utilisé, Fluent plantera au démarrage et affichera une erreur liée à l'incapacité d'exécuter `bstrap_proxy`. Pour corriger le problème, il faut quitter Fluent et Workbench complètement, puis redémarrer le processus avec la variable correctement configurée."
     }
   ],
-  "generated_at": "2026-04-19T01:38:57.158534+00:00"
+  "generated_at": "2026-04-26T00:45:46.193464+00:00"
 }

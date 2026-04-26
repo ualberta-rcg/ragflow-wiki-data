@@ -4,17 +4,13 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What software modules must be loaded when running an Ansys Fluent job using the provided multinode (by node) Slurm script?",
-      "answer": "When running an Ansys Fluent job with the provided multinode (by node) Slurm script, you must load `StdEnv/2023` and `ansys/2023R2` (or a newer version of Ansys)."
+      "question": "On which Alliance clusters and under what conditions is the `I_MPI_HYDRA_BOOTSTRAP` environment variable explicitly set to `ssh` for Ansys Fluent jobs?",
+      "answer": "The `I_MPI_HYDRA_BOOTSTRAP` environment variable is set to `ssh` for Ansys Fluent jobs on the Narval cluster, or on the Nibi cluster when using Ansys versions 2025R1 or newer."
     },
     {
-      "question": "Which variables need to be specified by the user in this Ansys Fluent multinode (by node) Slurm script?",
-      "answer": "In this Ansys Fluent multinode (by node) Slurm script, the user needs to specify `MYJOURNALFILE` with the name of their journal file and `MYVERSION` to indicate whether the simulation is 2D, 2D double precision, 3D, or 3D double precision."
-    },
-    {
-      "question": "How does the provided Ansys Fluent multinode (by node) Slurm script adjust environment variables specifically for the Narval and Nibi clusters?",
-      "answer": "For the Narval cluster, the script loads `intel/2023` and `intelmpi`, exports `INTELMPI_ROOT` from `I_MPI_ROOT`, and then unsets `I_MPI_ROOT`. Additionally, for Ansys versions 2025 or newer on the Nibi cluster, or for any Ansys version on the Narval cluster, it exports `I_MPI_HYDRA_BOOTSTRAP=ssh` and unsets `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`."
+      "question": "How does Ansys Fluent handle parallel execution differently for single-node versus multi-node jobs using Intel MPI on Alliance clusters?",
+      "answer": "For single-node jobs, Ansys Fluent uses shared memory parallel (`-pshmem`) with Intel MPI. For multi-node jobs, it uses distributed memory parallel with Intel MPI and a generated machinefile. Specifically, on the Nibi cluster, it utilizes Ethernet (`-peth`), while on other clusters, it uses InfiniBand (`-pib`)."
     }
   ],
-  "generated_at": "2026-04-19T01:20:21.169495+00:00"
+  "generated_at": "2026-04-26T00:28:18.789935+00:00"
 }

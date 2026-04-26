@@ -4,13 +4,13 @@
   "chunk_index": 34,
   "qa_pairs": [
     {
-      "question": "Quelles sont les configurations particulières requises pour Ansys Mechanical (MAPDL) sur la grappe Cedar, d'après cet extrait de script pour les tâches parallèles à mémoire distribuée (DMP)?",
-      "answer": "D'après l'extrait de script, lorsque Ansys Mechanical (MAPDL) est utilisé sur la grappe Cedar en mode parallèle à mémoire distribuée (DMP), un lien symbolique (`ln -s`) est créé pour la librairie `libstdc++.so.6.0.29` du compilateur GCC. Ce lien est placé dans le répertoire de sortie de la tâche (`outdir-$SLURM_JOBID`), et ce même répertoire est ensuite ajouté à la variable d'environnement `LD_LIBRARY_PATH` pour s'assurer que les dépendances de la librairie sont bien trouvées."
+      "question": "Comment puis-je exécuter une tâche Ansys Mechanical (MAPDL) en mode parallèle à mémoire distribuée (DMP) sur les grappes de l'Alliance, comme Beluga ou Cedar?",
+      "answer": "Pour lancer une tâche Ansys Mechanical (MAPDL) en mode parallèle à mémoire distribuée (DMP), vous devez utiliser la commande `mapdl -dis`. Il faut spécifier l'implémentation MPI appropriée : `intelmpi` est utilisé pour la grappe Beluga, tandis que `openmpi` est utilisé pour les autres grappes comme Cedar. La tâche lira votre fichier d'entrée `YOURAPDLFILE.inp` et enregistrera les résultats dans un répertoire de sortie unique pour le job, par exemple `outdir-$SLURM_JOBID`."
     },
     {
-      "question": "Comment le logiciel Ansys Mechanical (MAPDL) est-il configuré pour la grappe Beluga lors d'une exécution en parallèle à mémoire distribuée (DMP), tel qu'indiqué dans le script?",
-      "answer": "Pour la grappe Beluga, lorsqu'on exécute Ansys Mechanical (MAPDL) en mode parallèle à mémoire distribuée (DMP), la variable d'environnement `KMP_AFFINITY` est réglée à `none`. La commande `mapdl` est ensuite lancée avec Intel MPI (`-mpi intelmpi`), sans liste (`-b nolist`), en spécifiant le nombre de cœurs alloués (`-np $SLURM_NTASKS`), le répertoire de sortie (`-dir outdir-$SLURM_JOBID`) et le fichier d'entrée (`-i YOURAPDLFILE.inp`)."
+      "question": "Quelle est la configuration spécifique nécessaire pour faire fonctionner Ansys Mechanical (MAPDL) en mode DMP sur la grappe Cedar?",
+      "answer": "Sur la grappe Cedar, pour exécuter Ansys Mechanical (MAPDL) en mode DMP, il est nécessaire d'ajouter un lien symbolique vers la bibliothèque `libstdc++.so.6.0.29` et d'exporter `LD_LIBRARY_PATH` pour qu'il pointe vers le répertoire de sortie de la tâche (`$PWD/outdir-$SLURM_JOBID`). Cette étape est une solution de contournement pour des problèmes de dépendances de bibliothèques sur cette grappe."
     }
   ],
-  "generated_at": "2026-04-19T01:38:18.732774+00:00"
+  "generated_at": "2026-04-26T00:45:08.941429+00:00"
 }

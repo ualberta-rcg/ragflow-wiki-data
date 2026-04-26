@@ -4,17 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "What is the main purpose of the Fluent solution restart scripts, and what problem do they address?",
-      "answer": "The main purpose of the Fluent solution restart scripts is to automate the restarting of very large jobs that exceed the typical maximum runtime window, such as a seven-day limit, available on most clusters. This allows simulations to continue from the most recently saved time step files."
+      "question": "What is the primary purpose of the \"Multinode (by node + restart)\" Slurm script for Fluent simulations?",
+      "answer": "The script is designed to automate the restarting of very large Fluent jobs that would otherwise exceed the typical seven-day maximum runtime window available on most clusters. It achieves this by restarting simulations from the most recently saved time step files."
     },
     {
-      "question": "What specific modifications are required for Fluent journal files to enable the solution restart functionality?",
-      "answer": "To enable solution restart functionality, the initial `sample.jou` file must be edited to include `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`. A separate `sample-restart.jou` file needs to be created, where `/file/read-cas-data sample` is replaced with `/file/read-cas-data sample-restart`, and the initialization line (e.g., `; /solve/initialize/initialize-flow`) is commented out. Optionally, `sample-restart.jou` can specify `/solve/dual-time-iterate 2` if subsequent time steps are expected to be faster."
+      "question": "What preliminary steps are required for Fluent journal files to be compatible with the \"Multinode (by node + restart)\" Slurm script?",
+      "answer": "To use this script, your initial `sample.jou` file must include the commands `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`. Additionally, a separate `sample-restart.jou` file needs to be created by copying `sample.jou`, then editing `sample-restart.jou` to specify `/file/read-cas-data sample-restart` and commenting out any initialization lines (e.g., `; /solve/initialize/initialize-flow`)."
     },
     {
-      "question": "How are Slurm parameters used, and how does the script manage output files to facilitate Fluent solution restarts?",
-      "answer": "Slurm parameters like `--time` (e.g., `07-00:00` for a seven-day limit) and `--array` (e.g., `1-5%1` to specify the number of solution restarts) are used. To manage output files for continuation, the script creates symbolic links (`$MYCASFILERES` and `$MYDATFILERES`) that point to the most recent `.cas` and `.dat` output files from the `output/` subdirectory, ensuring that subsequent restarts begin from the latest saved state."
+      "question": "How does the \"Multinode (by node + restart)\" Slurm script manage the flow of a simulation across multiple restart tasks?",
+      "answer": "The script uses Slurm array tasks. The first array task (`SLURM_ARRAY_TASK_ID == 1`) executes the initial journal file (`MYJOUFILE`). For all subsequent tasks, it runs the restart-specific journal file (`MYJOUFILERES`). After each successful step, it automatically creates symbolic links to the most recent output `.cas` and `.dat` files, naming them `MYCASFILERES` and `MYDATFILERES` respectively. These linked files then serve as the starting point for the next restart task in the array."
     }
   ],
-  "generated_at": "2026-04-19T01:28:49.325671+00:00"
+  "generated_at": "2026-04-26T00:36:14.281289+00:00"
 }

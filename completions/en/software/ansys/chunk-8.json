@@ -4,13 +4,13 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "How can Fluent be executed on compute nodes using Intel MPI with specific network interfaces, referring to a machine file and a journal file?",
-      "answer": "Fluent can be executed using either the `peth` (Ethernet) or `pib` (InfiniBand) interconnects with Intel MPI. The command format is `fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE` or `fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`. Both commands utilize a dynamically generated machine file and a specified journal file for input."
+      "question": "How do you submit an Ansys Fluent job to run on multiple nodes on the Narval cluster using a Slurm script?",
+      "answer": "To submit an Ansys Fluent job for multinode execution on the Narval cluster, you would use a Slurm script like the `script-flu-bynode-openmpi.sh` template. This script requires you to specify the account, time limit, number of compute nodes (1 or more), and cores per node (up to 64 on Narval). It loads the `StdEnv/2023` and `ansys/2023R2` (or newer) modules. For execution on multiple nodes, it uses Open MPI, setting `FI_PROVIDER=verbs`, and the `fluent` command specifies `-mpi=openmpi -pib` along with a machine file (`-cnf=/tmp/machinefile-$SLURM_JOB_ID`) and your journal file (`-i $MYJOURNALFILE`)."
     },
     {
-      "question": "What is the purpose of the Slurm script located under the \"Multinode (by node, narval)\" tab in the documentation?",
-      "answer": "The script under the \"Multinode (by node, narval)\" tab is a bash script designed for submitting jobs to a Slurm scheduler. It specifies a default account (`def-group`) and sets a time limit (`00-03:00`) for the job."
+      "question": "What are the essential Slurm parameters that need to be configured in a script for running Ansys Fluent jobs across multiple nodes?",
+      "answer": "When configuring a Slurm script for Ansys Fluent jobs that run across multiple nodes, the essential parameters to specify include `#SBATCH --account` for your group, `#SBATCH --time` to set the job's time limit (e.g., `dd-hh:mm`), `#SBATCH --nodes` to define the number of compute nodes, `#SBATCH --ntasks-per-node` to specify the number of cores to use per compute node, and `#SBATCH --mem` to indicate the total memory required per compute node (setting it to `0` allocates all available memory). Additionally, `#SBATCH --cpus-per-task=1` should be included but not changed."
     }
   ],
-  "generated_at": "2026-04-19T01:27:52.026630+00:00"
+  "generated_at": "2026-04-26T00:35:22.116687+00:00"
 }

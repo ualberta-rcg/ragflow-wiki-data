@@ -3,61 +3,53 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary function of the OpenStack command line tool?",
-      "answer": "The OpenStack command line tool allows users to perform many actions available through the OpenStack dashboard graphical user interface (GUI) and provides additional functionality that the dashboard does not."
+      "question": "What is the primary purpose of the OpenStack command-line tool, and what are its key advantages over the OpenStack dashboard GUI?",
+      "answer": "The OpenStack command-line tool allows users to perform many actions available through the OpenStack dashboard GUI, while also providing some unique functionalities not found in the dashboard. It can be used from any machine with an internet connection and the client installed."
     },
     {
-      "question": "What are the main requirements for using the OpenStack command line client?",
-      "answer": "To use the OpenStack command line client, you need an internet connection and the client software installed on your machine, whether it's a virtual machine or a physical one."
+      "question": "How can users install the OpenStack command-line tools on a Linux machine with administrative privileges for different distributions?",
+      "answer": "On Ubuntu, use `sudo apt-get install python python-dev python-pip` followed by `sudo pip install python-openstackclient`. For CentOS 7, run `yum install epel-release`, `yum install gcc python python-dev python2-pip`, then `pip install python-openstackclient`. On Fedora, use `sudo dnf install python-openstackclient`."
     },
     {
-      "question": "How can users install the OpenStack command line tools on a Linux machine?",
-      "answer": "The OpenStack command line tools, which are Python-based, can be installed using pre-built packages specific to different Linux distributions or via `pip` if Python and `pip` are already installed."
+      "question": "What is the recommended installation method for the OpenStack command-line tools if a user does not have administrative privileges on their Linux machine?",
+      "answer": "If administrative privileges are unavailable, users should first install Python and pip by other means, and then use `pip install --user python-openstackclient` to install the command-line tools into their home space."
     },
     {
-      "question": "How can a user install the OpenStack command line tools if they do not have administrative privileges on their Linux machine?",
-      "answer": "If administrative privileges are not available, users can install the OpenStack command line tools into their home space by using `pip install --user python-openstackclient`, after ensuring Python and `pip` are installed by other means."
+      "question": "How do users configure their environment to connect the OpenStack command-line client to their OpenStack project?",
+      "answer": "Users must download an OpenStack environment setup file (RC file) from the OpenStack dashboard (Project -> API Access), then source the file using `source <project name>-openrc.sh`. They will be prompted for their OpenStack password, which is their CCDB password."
     },
     {
-      "question": "How do you connect the OpenStack command line client to your OpenStack project on our clouds?",
-      "answer": "To connect the OpenStack command line client, you should download an OpenStack environment setup file (RC file) from the OpenStack dashboard (Project -> API Access -> Download OpenStack RC File) and then source it using a command like `source <project name>-openrc.sh`."
+      "question": "What specific modification is required for the OpenStack RC file when connecting to the new Arbutus cloud?",
+      "answer": "When connecting to the new Arbutus cloud, users need to make additional changes to their OpenStack RC file as described in the \"New Arbutus RC File Modifications\" section of the Arbutus Migration Guide."
     },
     {
-      "question": "What password is required when sourcing the OpenStack RC file to connect the CLI client?",
-      "answer": "When sourcing the OpenStack RC file, the client will ask for your OpenStack password, which is simply your CCDB password."
+      "question": "What should a user be cautious about when switching between different OpenStack RC files?",
+      "answer": "Users should be cautious about environment variables that might still be set from a previously sourced RC file, as these can cause OpenStack client commands to fail. It's recommended to unset variables or start a fresh new session."
     },
     {
-      "question": "How can a user test if their OpenStack command line interface setup is working correctly after connecting?",
-      "answer": "Users can test their OpenStack command line interface setup by typing `openstack image list` after successfully sourcing the RC file."
+      "question": "What are the two main ways to execute commands using the OpenStack command-line tool?",
+      "answer": "Commands can be executed interactively by typing `openstack` and then issuing commands at the prompt, or as one-off commands by preceding the command with `openstack`, such as `openstack server list`."
     },
     {
-      "question": "What caution should be exercised when switching between different OpenStack RC files?",
-      "answer": "When switching RC files, users should be careful of environment variables that may still be set from the previous file, as these can cause commands to fail. It's recommended to unset old variables or start a fresh new session."
+      "question": "How can users access help information for command groups and specific commands within the OpenStack command-line interface?",
+      "answer": "Users can type `help` at the OpenStack prompt to see available command groups, `help <command group>` to list commands within a specific group, and `help <command group> <command>` to get details like options and arguments for a particular command."
     },
     {
-      "question": "In what ways can commands be executed using the OpenStack command line tool?",
-      "answer": "Commands can be executed interactively by typing `openstack` and then issuing commands at the prompt, or as one-off commands by preceding them with `openstack`, for example, `openstack server list`."
+      "question": "Which OpenStack command group is primarily used for managing virtual machine instances, and what are some common actions it supports?",
+      "answer": "The `server` command group is used for managing virtual machine instances, supporting actions such as `create`, `delete`, `start`, `stop`, `reboot`, `suspend`, `pause`, `resize`, and `list`."
     },
     {
-      "question": "How can users find help or a list of available commands within the OpenStack CLI?",
-      "answer": "In interactive mode, users can type `help` for a list of available command groups, `help <command group>` for commands within a specific group, or `help <command group> <command>` for options and arguments of a particular command."
+      "question": "What types of operations can users perform using the `image` command group in the OpenStack CLI?",
+      "answer": "The `image` command group allows users to `create`, `delete`, `list`, `save`, `set`, and `show` images within their OpenStack project."
     },
     {
-      "question": "Can you name some of the commonly used command groups available in the OpenStack command line tool for average users?",
-      "answer": "Some commonly used command groups for average users include `server`, `volume`, `image`, `keypair`, `network`, `snapshot`, and `security group`."
+      "question": "What capabilities does the `security group` command group offer for managing network access in OpenStack?",
+      "answer": "The `security group` command group allows users to `create`, `delete`, `list`, `set`, and `show` security groups, as well as `create`, `delete`, `list`, and `show` rules within those security groups."
     },
     {
-      "question": "Are there separate command-line interfaces available for specific OpenStack components?",
-      "answer": "Yes, in addition to the comprehensive `openstack` command, there are individual command-line interfaces for specific components, such as `nova` for working with servers, `glance` for images, `cinder` for volumes, and `heat` for orchestration."
-    },
-    {
-      "question": "Do the separate command-line interfaces for specific OpenStack components require additional installation steps?",
-      "answer": "No, the separate command-line interfaces like `nova`, `glance`, `cinder`, and `heat` are installed automatically at the same time as the main `openstack` command, so no further installation is required to use them."
-    },
-    {
-      "question": "How can a user set up their environment to explore the OpenStack API for Python (SDK)?",
-      "answer": "To explore the OpenStack API for Python, a user should add `export PYTHONPATH=${HOME}/.local/lib/python2.7/site-packages/:${PYTHONPATH}` to their `.bashrc` file, adjusting `python2.7` to match their installed Python version."
+      "question": "What are some of the separate, dedicated command-line interfaces available for OpenStack components, and what functionality do they provide?",
+      "answer": "Dedicated CLIs include `nova` for working with servers, `glance` for images, `cinder` for volumes, and `heat` for orchestration. These commands are installed alongside the main `openstack` command and often provide extra functionality for their respective components."
     }
   ],
-  "generated_at": "2026-04-19T02:20:42.452623+00:00"
+  "generated_at": "2026-04-26T01:05:14.938265+00:00"
 }

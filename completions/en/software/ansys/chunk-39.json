@@ -4,17 +4,17 @@
   "chunk_index": 39,
   "qa_pairs": [
     {
-      "question": "How do I configure my `ansys.lic` file to use the SHARCNET Ansys license on an Alliance cluster?",
-      "answer": "To use the SHARCNET Ansys license on any Alliance cluster, you should configure your `ansys.lic` file by including the line `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license1.computecanada.ca\")` within it."
+      "question": "What are the limitations for individual researchers when using the SHARCNET Ansys license on Alliance clusters, and what should be done if the license pool is oversubscribed?",
+      "answer": "Each researcher can run a maximum of 16 simultaneous Ansys jobs, utilizing up to 512 HPC cores across all Alliance clusters. Common core combinations include 1x512, 2x256, 4x128, 8x64, or 16x32, or full node combinations like 1x384, 2x192, or 1x192 cores. The SHARCNET license is oversubscribed, meaning jobs may fail on startup if the 1986 `anshpc` licenses are heavily in use, requiring manual resubmission. If license shortages increase, the `anshpc` core limit per researcher may decrease to 384. Researchers needing more than 512 HPC cores should use a local institutional Ansys license server or contact technical support to purchase additional licenses."
     },
     {
-      "question": "How can an Alliance user check the current usage of SHARCNET Ansys licenses, both for their own username and for all users?",
-      "answer": "To check the number of Ansys licenses in use by your username and the total in use by all users, you need to SSH into an Alliance cluster (e.g., `ssh nibi.alliancecan.ca`), then load the Ansys module, and finally execute the command `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil \\ lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\" | grep -v \" Total of 0 licenses in use\"`."
+      "question": "How should a researcher configure their Ansys license file (`ansys.lic`) to use the SHARCNET Ansys license on any Alliance cluster?",
+      "answer": "To use the SHARCNET Ansys license, researchers must configure their `ansys.lic` file by creating or editing `~/.licenses/ansys.lic` to contain the following line:\n`setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license1.computecanada.ca\")`"
     },
     {
-      "question": "What occurs if an Alliance user submits an Ansys job that requires more `anshpc` licenses than are currently available in the SHARCNET license pool?",
-      "answer": "If an Ansys parallel job attempts to start but there are insufficient `anshpc` licenses available in the SHARCNET license pool, the job will fail to start. The user's options are to either wait for a sufficient number of `anshpc` licenses to become available or reduce the job size and resubmit it immediately."
+      "question": "What command can be used to check the number of Ansys licenses currently in use by a specific researcher and the total number in use by all users on a SHARCNET cluster?",
+      "answer": "To query Ansys license usage, log into a SHARCNET cluster (e.g., `ssh nibi.alliancecan.ca`), load the Ansys module, and then execute the following command sequence:\n`module load ansys`\n`$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\" | grep -v \" Total of 0 licenses in use\"`"
     }
   ],
-  "generated_at": "2026-04-19T01:32:20.030046+00:00"
+  "generated_at": "2026-04-26T00:39:21.214365+00:00"
 }

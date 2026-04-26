@@ -4,17 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "When running Nextflow pipelines on Alliance clusters, where should the container images be stored, and why is this location recommended?",
-      "answer": "Container images for Nextflow pipelines should be stored in a cache directory within `/project/<def-group>/` space, typically set via the `NXF_SINGULARITY_CACHEDIR` environment variable. This is recommended because workflow images are large and would quickly exceed the small quota of your `$HOME` directory. Storing them in `/project` space also allows for sharing the cached images with other members of your group, reducing duplication and saving space."
+      "question": "How do users configure the Apptainer cache directory for Nextflow on Alliance clusters, and why is this configuration important?",
+      "answer": "Users should create a directory in their `/project` space, such as `/project/<def-group>/NXF_SINGULARITY_CACHEDIR`, and then set the `NXF_SINGULARITY_CACHEDIR` environment variable to point to this location. It is important to use `/project` space instead of `$HOME` because workflow container images tend to be large, and `$HOME` has a smaller storage quota. This directory will store container images, and sharing it with other group members can help reduce duplication and save space. The `export` command can also be added to `~/.bashrc` for convenience."
     },
     {
-      "question": "How are nf-core pipelines and their associated container images downloaded for use on Alliance clusters, and where are the two main components stored after the download?",
-      "answer": "To download an nf-core pipeline and its container images, you use the `nf-core download` command (e.g., `nf-core download --container-cache-utilisation amend --container-system singularity --compress none -l docker.io -r ${PL_VERSION} -p 6 ${NFCORE_PL}`). This process downloads two main components: 1) Container image files are stored in the directory specified by the `NXF_SINGULARITY_CACHEDIR` environment variable (e.g., `/project/<def-group>/NXF_SINGULARITY_CACHEDIR`). 2) Pipeline files are placed in a folder within `~/scratch/nf-test/`, specifically `~/scratch/nf-test/nf-core-${NFCORE_PL}_${PL_VERSION}/${FD_VERSION}` (e.g., `~/scratch/nf-test/nf-core-rnaseq_3.21.0/3_21_0`)."
-    },
-    {
-      "question": "What types of input files are required for the `rnaseq` Nextflow pipeline, and how can a user obtain the necessary sequence files for the example pipeline?",
-      "answer": "The `rnaseq` Nextflow pipeline requires sequence files and a sample sheet as inputs. For the example `rnaseq` pipeline, you can download the necessary sequence files (e.g., `.fastq.gz` files) by navigating to `~/scratch/nf-test/input` and using `wget` commands to retrieve them from the `nf-core/test-datasets/rnaseq/testdata/GSE110004/` GitHub repository."
+      "question": "What are the steps to download an nf-core pipeline, specifically the `rnaseq` example, along with its associated container images, for use with Nextflow?",
+      "answer": "To download the `rnaseq` pipeline and its container images, first set environment variables for the pipeline name and version, for example: `export NFCORE_PL=rnaseq` and `export PL_VERSION=3.21.0`. Then, load the necessary modules: `module load nextflow` and `module load apptainer`. Navigate to a desired working directory (e.g., `~/scratch/nf-test`) and run the `nf-core download` command: `nf-core download --container-cache-utilisation amend --container-system singularity --compress none -l docker.io -r ${PL_VERSION} -p 6 ${NFCORE_PL}`. You will be prompted to include nf-core's default institutional configuration files; type 'Y' to confirm. This process stores container image files in the directory pointed to by `$NXF_SINGULARITY_CACHEDIR` and pipeline files in a specific subfolder within your working directory, such as `~/scratch/nf-test/nf-core-rnaseq_3.21.0/3_21_0` for the example."
     }
   ],
-  "generated_at": "2026-04-13T10:01:54.420143+00:00"
+  "generated_at": "2026-04-26T01:02:00.389191+00:00"
 }

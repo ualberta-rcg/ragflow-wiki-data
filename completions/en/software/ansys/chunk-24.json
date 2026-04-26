@@ -4,17 +4,13 @@
   "chunk_index": 24,
   "qa_pairs": [
     {
-      "question": "What are the required steps to prepare an Ansys Workbench job for submission to a Slurm queue on an Alliance cluster?",
-      "answer": "To prepare an Ansys Workbench job for submission, first open an OnDemand desktop on the target cluster (e.g., Nibi). Navigate to your project directory containing the `YOURPROJECT.wbpj` file and remove any old `_ProjectScratch` cache directory. Load the Ansys module version you intend to use (e.g., `module load ansys/2025R2.04`). Open the Workbench GUI with your project file using `runwb2 -f YOURPROJECT.wbpj` and decline to recover the project if prompted. Right-click on 'Model' in the Project Schematic window, select 'Reset', and confirm to delete local and generated data. Finally, save and exit Workbench, declining to save modifications if asked, before submitting your job with a Slurm script."
+      "question": "What steps are involved in preparing an Ansys Workbench job for submission to a Slurm queue on an Alliance cluster?",
+      "answer": "To prepare an Ansys Workbench job for Slurm submission, you must first initialize it. This involves opening an OnDemand desktop on the target cluster (e.g., Nibi), navigating to your project's directory, removing the `_ProjectScratch` cache, loading the appropriate Ansys module (e.g., `ansys/2025R2.04`), opening the Workbench GUI with `runwb2 -f YOURPROJECT.wbpj`, right-clicking on 'Model' in the Project Schematic to select 'Reset', saving the project, and then exiting Workbench."
     },
     {
-      "question": "What are the key Slurm parameters and commands used to execute a single-node Ansys Workbench project via a Slurm script on an Alliance cluster?",
-      "answer": "For a single-node Ansys Workbench project, a Slurm script typically includes `#SBATCH` directives to specify the account (`--account=def-account`), time limit (`--time=DD-HH:MM`), total memory (`--mem=16G`), and number of cores (`--ntasks=4`), with `#SBATCH --nodes=1` being crucial as multi-node is not supported. The script should load the appropriate `StdEnv` and Ansys module (e.g., `module load StdEnv/2023 ansys/2023R2`). It then configures Workbench's parallelization and processor settings within `SolveHandlers.xml` to match the Slurm allocation. Essential environment variables such as `export KMP_AFFINITY=disabled` and `export I_MPI_HYDRA_BOOTSTRAP=ssh` are set. Finally, the job is launched using `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj`."
-    },
-    {
-      "question": "Can Ansys Workbench simulations be run directly from the graphical user interface (GUI) on an Alliance cluster, and what are the benefits of this approach?",
-      "answer": "Yes, Ansys Workbench simulations can be run directly from its native GUI on an Alliance cluster. This is possible when a Compute Node, with up to 96 cores, 768GB of memory, and an 8-hour runtime, can be reserved for an OnDemand desktop session. Running simulations directly from the GUI offers a more intuitive alternative compared to submitting the job to the queue with a Slurm script."
+      "question": "What are the primary methods for executing Ansys Workbench simulations on Alliance clusters?",
+      "answer": "Users can execute Ansys Workbench simulations on Alliance clusters in two primary ways: by submitting a customized Slurm script to the job queue, or by running the simulations directly within the Workbench's native graphical user interface (GUI) during an OnDemand desktop session. Running via the GUI is often more intuitive, especially when a Compute Node with up to 96 cores, 768GB memory, and an 8-hour runtime can be reserved."
     }
   ],
-  "generated_at": "2026-04-19T01:30:17.307293+00:00"
+  "generated_at": "2026-04-26T00:37:24.049904+00:00"
 }

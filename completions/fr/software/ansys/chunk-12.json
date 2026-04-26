@@ -4,13 +4,13 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "Comment configure-t-on et lance-t-on Ansys Fluent pour une exécution parallèle sur plusieurs nœuds des grappes de l'Alliance, en tenant compte des interfaces réseau comme l'Ethernet ou l'Infiniband?",
-      "answer": "Pour l'exécution parallèle d'Ansys Fluent sur plusieurs nœuds de calcul, il faut d'abord générer un fichier de machines avec `slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/machinefile-$SLURM_JOB_ID`. Ensuite, le lancement de Fluent dépend de la grappe : sur la grappe Nibi, la commande utilise `fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE` pour l'interface Ethernet, tandis que sur les autres grappes, c'est `fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE` pour l'Infiniband."
+      "question": "Quelles sont les configurations spécifiques requises pour faire rouler Ansys Fluent avec Intel MPI sur la grappe Nibi, surtout si on utilise les versions 2025 ou plus récentes d'Ansys?",
+      "answer": "Pour les versions d'Ansys 2025 ou plus récentes sur la grappe Nibi (ou Narval), vous devez exporter la variable d'environnement `I_MPI_HYDRA_BOOTSTRAP=ssh` et annuler `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`. De plus, quand Fluent est lancé sur Nibi, la commande utilise l'option `-peth` avec Intel MPI."
     },
     {
-      "question": "Quelles sont les étapes spécifiques pour exécuter Ansys Fluent avec OpenMPI sur la grappe Narval?",
-      "answer": "Pour exécuter Ansys Fluent avec OpenMPI sur la grappe Narval, il faut d'abord charger l'environnement de base (`StdEnv/2023`) et le module Ansys désiré (par exemple, `ansys/2023R2`). Ensuite, il faut spécifier la racine d'OpenMPI en définissant `export OPENMPI_ROOT=$EBROOTOPENMPI`. La création du fichier de machines se fait en deux temps : `slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/mf-$SLURM_JOB_ID`, suivi d'une boucle pour formater ce fichier (`for i in ... >> /tmp/machinefile-$SLURM_JOB_ID`). Enfin, pour les tâches multi-nœuds, il faut exporter `export FI_PROVIDER=verbs` et lancer Fluent avec `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
+      "question": "Quand on soumet une tâche Fluent à l'ordonnanceur Slurm avec Intel MPI sur plusieurs nœuds, quelle est la différence de commande de lancement entre la grappe Nibi et les autres grappes?",
+      "answer": "Lors du lancement de Fluent avec Intel MPI sur plusieurs nœuds, la grappe Nibi utilise l'option `-peth` dans la commande de Fluent. Pour les autres grappes, c'est l'option `-pib` qui est employée."
     }
   ],
-  "generated_at": "2026-04-19T01:35:11.792646+00:00"
+  "generated_at": "2026-04-26T00:42:08.810163+00:00"
 }

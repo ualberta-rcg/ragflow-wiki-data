@@ -4,64 +4,64 @@
   "qa_pairs": [
     {
       "question": "What is the Vienna ab initio Simulation Package (VASP) used for in atomic scale materials modelling?",
-      "answer": "VASP is a computer program used for electronic structure calculations and quantum mechanical molecular dynamics from first principles in atomic scale materials modelling."
+      "answer": "VASP is a computer program for atomic scale materials modelling, specifically used for electronic structure calculations and quantum mechanical molecular dynamics from first principles."
     },
     {
-      "question": "What is the primary licensing requirement for using VASP on Alliance clusters?",
-      "answer": "VASP can only be used by research groups that have obtained a license from the developers, VASP Software GmbH, typically through their PI (principal investigator)."
+      "question": "What is the primary prerequisite for research groups to use VASP on Alliance clusters?",
+      "answer": "Research groups must be licensed by the VASP Software GmbH developers. The Principal Investigator (PI) needs to register on the VASP website and obtain a license."
     },
     {
-      "question": "What information must a user provide to Technical Support to gain access to prebuilt VASP binaries on Alliance clusters like Fir, Nibi, or Trillium?",
-      "answer": "Users must provide their PI's name, email, department, and institution, along with the VASP license version (e.g., 4, 5, or 6), license number, and an updated list of licensed users."
+      "question": "What specific information must a user provide to Alliance Technical Support to gain access to prebuilt VASP binaries on clusters like Fir, Nibi, or Trillium?",
+      "answer": "Users must provide the license holder's (PI's) name, email, department, institution, the VASP license version (e.g., VASP version 4, 5, or 6), the license number, and an updated list of licensed users."
     },
     {
-      "question": "If a research group has a VASP version 4 license, are they permitted to use VASP version 5 or 6 on Alliance clusters?",
-      "answer": "No, a VASP version 4 license does not permit the use of version 5 or 6. However, a version 5 license permits version 4, and a version 6 license permits versions 5 and 4."
+      "question": "If a research group has a VASP version 4 license, are they permitted to use version 5 or 6?",
+      "answer": "No, a VASP version 4 license does not permit the use of version 5 or 6. However, a version 5 license allows the use of version 4, and a version 6 license allows the use of versions 5 and 4."
     },
     {
-      "question": "Why is the Alliance unable to provide a general VASP installation across its entire infrastructure?",
-      "answer": "VASP Software GmbH's licensing model, which grants licenses only to groups hired by a single legal entity, is incompatible with the Alliance's operational structure, preventing widespread installation."
+      "question": "Why does Alliance have restrictions on providing VASP widely across its infrastructure?",
+      "answer": "VASP Software GmbH's licensing model, which grants licenses only to groups hired by a single legal entity, is incompatible with Alliance's operational structure, and attempts to negotiate a broader agreement were unsuccessful."
     },
     {
-      "question": "How can users load a specific prebuilt VASP module, such as `vasp/6.4.2`, on Fir and Nibi clusters?",
-      "answer": "Users should first load the required dependencies, such as `module load StdEnv/2023 intel/2023.2.1 intelmpi/2021.9.0`, and then load the VASP module with `module load vasp/6.4.2`."
+      "question": "How do users load the prebuilt VASP version 6.4.2 on the Fir and Nibi clusters?",
+      "answer": "To load VASP 6.4.2 on Fir and Nibi, users must first load `module load StdEnv/2023 intel/2023.2.1 intelmpi/2021.9.0` and then `module load vasp/6.4.2`."
     },
     {
-      "question": "Where are the pseudopotential files located for VASP on Cedar and Graham clusters once the VASP module is loaded?",
-      "answer": "The pseudopotential files are located in `$EBROOTVASP/pseudopotentials/` on Cedar and Graham clusters."
+      "question": "Where can users find the pseudopotential files for VASP on Alliance clusters like Cedar and Graham once the VASP module is loaded?",
+      "answer": "All pseudopotential files are located in `$EBROOTVASP/pseudopotentials/` on Cedar and Graham after the VASP module has been loaded."
     },
     {
-      "question": "What are some of the executable programs available for VASP-5.4.4 or 6.1.0 with CUDA support, and what calculations are they typically used for?",
-      "answer": "For VASP-5.4.4 and 6.1.0 with CUDA support, `vasp_gpu` is used for standard NVT calculations with gamma and non-gamma k-points, and `vasp_gpu_ncl` is used for NPT calculations with gamma and non-gamma k-points."
+      "question": "What are the executable programs for VASP-5.4.4 and 6.1.0 when running without CUDA support?",
+      "answer": "Without CUDA support, the executables are `vasp_std` for standard NVT calculations with non-gamma k-points, `vasp_gam` for standard NVT calculations with only gamma points, and `vasp_ncl` for NPT calculations with non-gamma k-points."
     },
     {
-      "question": "What is recommended practice when running VASP-GPU jobs to optimize performance and resource usage on Alliance clusters?",
-      "answer": "It is highly recommended to perform a benchmark using one or two GPUs for one's specific system to ensure maximum performance and avoid wasting computer resources, as adding more GPUs may not always yield significant gains."
+      "question": "What is the recommendation for users running Vasp-GPU executables to ensure optimal performance?",
+      "answer": "Users are highly recommended to perform a benchmark using one or two GPUs to ensure they achieve maximum performance from GPU usage and avoid wasting computer resources, as GPU calculations are more expensive."
     },
     {
-      "question": "What are the four essential input files required for a VASP job?",
-      "answer": "The four essential input files for a VASP job are INCAR, KPOINTS, POSCAR, and POTCAR."
+      "question": "What is the purpose of the `makeparam` executable available with VASP-4.6?",
+      "answer": "The `makeparam` executable for VASP-4.6 is used to estimate the memory required to run VASP for a particular cluster."
     },
     {
-      "question": "How can users estimate the required memory for a VASP job before submitting it on Alliance clusters?",
-      "answer": "Users can run `makeparam` in an interactive job submission to estimate memory, or check the maximum stack size used by previously completed jobs for a more accurate estimate."
+      "question": "How can users determine the memory requirements for their VASP jobs?",
+      "answer": "Users can prepare their input files and run `makeparam` in an interactive job submission for an estimate. For more accuracy, they should check the maximum stack size used by their completed jobs."
     },
     {
-      "question": "What command would a licensed user run to build a specific version of VASP, like `VASP-6.4.2-iimpi-2023a.eb`, in their home directory on Alliance clusters, assuming they have access to the VASP source code?",
-      "answer": "A user would run the EasyBuild command `eb -f VASP-6.4.2-iimpi-2023a.eb --sourcepath=[SOURCEPATH]`, replacing `[SOURCEPATH]` with the directory containing the VASP source code."
+      "question": "What are the four essential input files that VASP uses for its calculations?",
+      "answer": "VASP uses four input files: INCAR, KPOINTS, POSCAR, and POTCAR."
     },
     {
-      "question": "What extensions are incorporated into some of the prebuilt VASP versions available on Alliance clusters?",
-      "answer": "Some prebuilt VASP versions incorporate the Transition State Tools (VTSTtools) and VASPsol extensions."
+      "question": "If a prebuilt VASP version is not suitable, what are the options for users to obtain a specific version on Alliance clusters?",
+      "answer": "Users can either build VASP themselves using EasyBuild commands if they are licensed and have access to the source code, or they can contact Technical Support to request that a specific version be built and installed."
     },
     {
-      "question": "What are the key `SBATCH` directives to include in a Slurm job script when requesting a GPU for a VASP job, for instance, on the Cedar cluster?",
-      "answer": "Key `SBATCH` directives include `--account=<ACCOUNT>`, `--cpus-per-task=1`, `--gres=gpu:p100:1` (for a P100 GPU on Cedar), `--mem=3GB`, and `--time=0-00:05`."
+      "question": "How can a licensed user build VASP themselves using EasyBuild on Alliance clusters?",
+      "answer": "Licensed users with VASP source code access can build it in their `/home` directory using the EasyBuild command `eb -f [RECIPE NAME] --sourcepath=[SOURCEPATH]`, where `[SOURCEPATH]` is the directory containing the source code."
     },
     {
-      "question": "What are the two main options available to users who need a version of VASP that is not already prebuilt on the Alliance clusters?",
-      "answer": "Users can either build the desired VASP version themselves according to their license terms or contact Technical support to request that it be built and installed."
+      "question": "Which two extensions have been incorporated into VASP on the Alliance clusters?",
+      "answer": "The two extensions incorporated into VASP are Transition State Tools (VTSTtools) and VASPsol."
     }
   ],
-  "generated_at": "2026-04-13T15:38:08.947562+00:00"
+  "generated_at": "2026-04-26T01:09:11.678724+00:00"
 }

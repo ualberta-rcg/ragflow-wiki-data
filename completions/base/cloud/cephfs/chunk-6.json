@@ -4,17 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "How is CephFS configured for permanent mounting on a virtual machine (VM), and what are the important mount options, especially for SD4H/Juno systems?",
-      "answer": "CephFS can be permanently mounted by adding an entry to the `/etc/fstab` file on the VM. For example, an entry for an SD4H/Juno system would look like `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw,nofail 0 2`. Key options include `nofail`, which ensures the system boots even if the CephFS service is down, and `mds_namespace` (e.g., `cephfs_4_2`), which is mandatory for SD4H/Juno. Other options such as `noatime`, `_netdev`, `rw`, and `x-systemd.device-timeout`/`x-systemd.mount-timeout` are performance tweaks. It's important to note the non-standard colon (`:`) preceding the device path is deliberate."
+      "question": "How can a CephFS device be permanently mounted on a VM using `/etc/fstab`?",
+      "answer": "To permanently mount a CephFS device, you need to add an entry to the VM's `/etc/fstab` file. For Arbutus, an example entry is `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,nofail 0 2`. For SD4H/Juno, the entry includes additional options such as `mds_namespace` and `x-systemd` timeouts: `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw,nofail 0 2`. The `nofail` option ensures the system boots even if the CephFS service is down, and the `mds_namespace` option is required for SD4H/Juno."
     },
     {
-      "question": "What are the steps to mount a CephFS share directly in a user's home directory on a virtual machine using `ceph-fuse`, and what prerequisites are there?",
-      "answer": "To mount CephFS in a user's home directory via `ceph-fuse`, first install the `ceph-fuse` library using `sudo dnf install ceph-fuse` (for Red Hat family distributions). Next, ensure the `user_allow_other` option in `/etc/fuse.conf` is uncommented to allow user space mounts to be accessible to other users. Then, create a mount point directory, for example, `mkdir ~/my_cephfs`. Finally, execute the mount command, such as `ceph-fuse my_cephfs/ --id=MyCephFS-RW --conf=~/ceph.conf --keyring=~/ceph.keyring --client-mountpoint=/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c`. The `--id`, `--conf`, and `--keyring` parameters refer to the client name and paths to the `ceph.conf` and `ceph.keyring` files, respectively."
+      "question": "What is the command-line procedure for mounting a CephFS device?",
+      "answer": "A CephFS device can be mounted directly from the command line using `sudo mount`. For Arbutus, the command is `sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW`. On SD4H/Juno, the command includes additional options for better performance and compatibility: `sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw`."
     },
     {
-      "question": "Can a single CephFS share on OpenStack offer varying levels of access for different hosts or users, and are there any limitations regarding its availability?",
-      "answer": "Yes, a single CephFS share can support multiple user keys, enabling more granular access control, such as providing read-only access to some hosts while others have read-write privileges. However, the CephFS service is exclusively available to hosts operating within the OpenStack cluster and cannot be accessed by hosts outside of it."
+      "question": "How can a CephFS filesystem be mounted in user space using `ceph-fuse`?",
+      "answer": "To mount CephFS in user space using `ceph-fuse`, first install the `ceph-fuse` library with `sudo dnf install ceph-fuse`. Next, uncomment the `user_allow_other` line in the `/etc/fuse.conf` file to allow user-space access. Finally, create a mount point directory (e.g., `mkdir ~/my_cephfs`) and then execute the `ceph-fuse` command with the appropriate client ID, configuration file, keyring file, and client mount point, for example: `ceph-fuse my_cephfs/ --id=MyCephFS-RW --conf=~/ceph.conf --keyring=~/ceph.keyring --client-mountpoint=/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c`."
     }
   ],
-  "generated_at": "2026-04-13T03:44:50.405316+00:00"
+  "generated_at": "2026-04-26T00:51:32.205650+00:00"
 }

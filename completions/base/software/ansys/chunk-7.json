@@ -4,17 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "What are the essential steps to prepare and execute an Ansys Fluent job on an Alliance cluster?",
-      "answer": "To run an Ansys Fluent job on an Alliance cluster, first prepare your job using Fluent on your desktop, then export the \"case\" file (e.g., `FFF-1.cas.gz`) and, if continuing a previous calculation, also export the \"data\" file (e.g., `FFF-1.dat.gz`). Next, transfer these files to a directory on the `/project` or `/scratch` filesystem on the cluster. After transferring, create a \"journal\" file that loads the case and data files, runs the solver, and writes the results. Finally, after the job runs, you can download the data file back to your desktop."
+      "question": "What is the primary function of a journal file when running Ansys Fluent simulations on Alliance clusters?",
+      "answer": "A journal file is used to load the case file (and optionally the data file), run the solver, and finally write the simulation results. Users must adjust the filenames and desired number of iterations within this file."
     },
     {
-      "question": "How can a user address Fluent jobs that frequently fail to start due to license shortages on an Alliance cluster?",
-      "answer": "If Fluent jobs frequently fail to start due to license shortages, users can modify their Slurm script to requeue the job up to 4 times. However, it is strongly recommended to monitor and inspect each Slurm output file to confirm that requeues are indeed due to license issues. If a job is requeued because of a simulation problem (e.g., divergence), the user should immediately kill the job progression with `scancel jobid` and correct the underlying issue to avoid wasting compute time."
+      "question": "How should users handle Ansys Fluent jobs that frequently fail to start due to license shortages on Alliance clusters?",
+      "answer": "If Ansys Fluent jobs frequently fail due to license shortages, users should consider modifying their Slurm script to requeue the job up to four times. It is strongly recommended to monitor the Slurm output files to confirm that each requeue attempt is due to a license issue, as simulations failing for other reasons will also be requeued, leading to lost compute time. If a simulation issue is identified, the job progression should be manually killed with `scancel jobid`."
     },
     {
-      "question": "What are the primary types of Slurm scripts recommended for running Fluent jobs on an Alliance cluster, and what are their characteristics?",
-      "answer": "For Fluent jobs on an Alliance cluster, there are generally two types of Slurm scripts: 'by node' and 'by core'. Most Fluent jobs should use the 'by node' script to minimize solution latency and maximize performance over as few nodes as possible. This script is ideal for jobs that can efficiently utilize all cores on a single node or a small number of nodes. For very large jobs, a 'by core' script might result in less queue waiting time, but these jobs may experience significantly longer startup times and are more vulnerable to crashing if compute nodes fail during the simulation. Both script types ensure Fluent uses shared memory for communication on a single node and distributed memory (MPI with HPC interconnect) when running across multiple nodes."
+      "question": "What are the general recommendations for choosing between 'by node' and 'by core' Slurm scripts for Ansys Fluent jobs on Alliance clusters?",
+      "answer": "Most Ansys Fluent jobs should use the 'by node' script to minimize solution latency and maximize performance over as few nodes as possible. However, 'by core' scripts might lead to shorter queue wait times for very large jobs, though they can have significantly longer startup times and increase vulnerability to crashes if compute nodes fail during the simulation. For optimal efficiency, the number of mesh partitions should be an integral multiple of the number of cores, with at least 10,000 cells per core."
     }
   ],
-  "generated_at": "2026-04-19T01:20:04.745714+00:00"
+  "generated_at": "2026-04-26T00:27:56.374169+00:00"
 }

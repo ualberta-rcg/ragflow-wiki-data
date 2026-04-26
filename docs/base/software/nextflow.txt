@@ -42,8 +42,7 @@ export SLURM_ACCOUNT=def-pname
 </syntaxhighlight>
 
 <!--T:19-->
-This configuration contains profiles for Fir, Narval, Nibi, Rorqual, and Trillium. If you use this configuration file at Fir you must load the profile using the <code>-profile fir</code> flag to the <code>nextflow</code> command.
-At other sites the appropriate profile is automatically selected based on the host name. It ensures that there are no more than 100 jobs in the Slurm queue and that no more than 60 jobs are submitted per minute. It contains cluster-specific information that Nextflow needs, for example that Rorqual machines have 192 cores and 750 GB of RAM with a maximum time limit of one week (168 hours). 
+This configuration contains profiles for Fir, Narval, Nibi, Rorqual, and Trillium. The appropriate cluster configuration is automatically selected based on the <code>$CC_CLUSTER</code> environment variable. It ensures that there are no more than 100 jobs in the Slurm queue and that no more than 60 jobs are submitted per minute. It contains cluster-specific information that Nextflow needs, for example that Rorqual machines have 192 cores and 750 GB of RAM with a maximum time limit of one week (168 hours). 
 
 <!--T:36-->
 '''We discourage you from running nf-core pipelines or any other generic Nextflow pipeline on Trillium.''' We recommend running a pipeline on [[Trillium]] only if it was designed specifically for Trillium.
@@ -177,7 +176,6 @@ Adapt the script to use the correct:
 * pipeline (<code>NFCORE_PL</code>) and version (<code>PL_VERSION, FD_VERSION</code>)
 * Apptainer cache path (<code>NXF_SINGULARITY_CACHEDIR</code>)
 * Slurm account (<code>SLURM_ACCOUNT</code>)
-* cluster (<code>-profile ...,fir</code>)
 * paths for <code>--input</code> and <code>--output</code>
 
 <!--T:54-->
@@ -200,7 +198,7 @@ export SLURM_ACCOUNT=def-pname
 
 <!--T:56-->
 nextflow run nf-core-${NFCORE_PL}_${PL_VERSION}/${FD_VERSION}/ \
- -profile test,singularity,fir \
+ -profile test,singularity \
  --input ~/scratch/nf-test/input/samplesheet.csv --outdir ~/scratch/nf-test/output
 </source>
 

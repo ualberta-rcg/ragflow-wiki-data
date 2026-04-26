@@ -1,5 +1,3 @@
-{{Draft}}
-
 ZFS is a combined [https://en.wikipedia.org/wiki/File_system file system] and [https://en.wikipedia.org/wiki/Logical_Volume_Manager_(Linux) logical volume manager] designed by [https://en.wikipedia.org/wiki/Sun_Microsystems Sun Microsystems]. ZFS can scale to very large file system sizes and supports compression.
 
 ZFS greatly simplifies the process of increasing a filesystem size as required. The simpliest approach is to add new volumes to your VM and then add them to your ZFS filesystem to grow the size of your file system. This can be done while the filesystem is live and file IO is occuring on the filesystem.
@@ -79,6 +77,13 @@ zpools can be further subdived into datasets. A dataset allows you to operate on
 [name@server]$ sudo zfs create data/www
 </source>
 
+==Listing zpools==
+The existing pools can be listed with the command <code>zpool list</code>.
+<source lang="console">
+[name@server]$ zpool list
+NAME           SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+data            19G   156K    19G        -         -     0%     0%  1.00x    ONLINE  -
+</source>
 ==Growing a zpool==
 Growing a zpool is a relatively simple task when compared to other file systems and logical volume mangers. It is a two step process 1) add a new volume to your VM and 2) add the new device to your zpool that's it. Below is the command to add a new device to the zpool <code>data</code>.
 <source lang="console">

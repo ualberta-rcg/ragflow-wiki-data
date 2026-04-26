@@ -4,17 +4,17 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "When running a Fluent job on the Trillium cluster, what directories and files must be properly configured, and what actions are required if they are missing or not writable?",
-      "answer": "For Fluent jobs on the Trillium cluster, users must ensure symbolic links exist for `~/.ansys`, `~/.fluentconf`, and `~/.flrecent` pointing to writable locations in their `$SCRATCH` directory. If these links are missing or incorrect, an error will occur, and users must remove any existing files or directories with those names and then create symbolic links like `ln -s $SCRATCH/.ansys ~/.ansys`, `ln -s $SCRATCH/.fluentconf ~/.fluentconf`, and `ln -s $SCRATCH/.flrecent ~/.flrecent` before resubmitting the job."
+      "question": "What is the primary use case for the \"License requeue\" Slurm scripts in Ansys Fluent?",
+      "answer": "The \"License requeue\" Slurm scripts are specifically designed for Ansys Fluent jobs that typically run to completion without errors but frequently require multiple attempts to successfully obtain a license."
     },
     {
-      "question": "For Fluent jobs on Alliance clusters, when is it appropriate to use the license requeue scripts, and what are the key scenarios where they should be avoided?",
-      "answer": "License requeue scripts for Fluent jobs should only be used when jobs are known to complete without errors but frequently fail to start due to temporary license shortages, requiring multiple attempts to check out a license. These scripts are not recommended for jobs that might run for extended periods before crashing or for jobs that complete but generate unresolved journal file warnings, as such issues would cause the simulation to repeatedly restart from the beginning, leading to wasted compute time."
+      "question": "When should users avoid using the \"License requeue\" scripts for Ansys Fluent simulations?",
+      "answer": "Users should avoid these scripts for Ansys Fluent jobs that are prone to crashing after long run times or that complete with unresolved warnings in the journal file. This is because such simulations would be repeatedly restarted from the beginning, leading to wasted compute time, until the maximum number of requeue attempts is reached."
     },
     {
-      "question": "In a Slurm script for a Fluent job on an Alliance cluster, how do you specify the maximum number of times a job should attempt to requeue itself due to a license issue?",
-      "answer": "The maximum number of requeue attempts for a Fluent job in a Slurm script is specified using the `#SBATCH --array` parameter. For example, `#SBATCH --array=1-5%1` indicates that the job will attempt to requeue itself up to 5 times if it encounters a license issue during startup."
+      "question": "How do the \"License requeue\" scripts for Ansys Fluent determine the number of times a job will be resubmitted?",
+      "answer": "The number of requeue attempts for an Ansys Fluent job using these scripts is specified by the `#SBATCH --array` directive in the Slurm script. For example, `#SBATCH --array=1-5%1` would allow for up to five requeue attempts."
     }
   ],
-  "generated_at": "2026-04-19T01:20:53.204142+00:00"
+  "generated_at": "2026-04-26T00:28:50.521535+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Comment installe-t-on les outils `nf-core` sur une de nos grappes de l'Alliance?",
-      "answer": "Pour installer les outils `nf-core`, il faut d'abord se connecter à un nœud de connexion, car certaines grappes ne permettent pas l'accès à Internet depuis les nœuds de calcul. Ensuite, on exécute les commandes suivantes: `module purge`, `module load python/3.11`, `module load rust`, `module load postgresql`, `python -m venv nf-core-env`, `source nf-core-env/bin/activate`, et finalement `python -m pip install nf_core==2.13`. L'installation peut prendre quelques minutes."
+      "question": "Comment procède-t-on pour installer les outils nf-core sur un nœud de connexion d'un cluster d'Alliance?",
+      "answer": "Pour installer les outils nf-core, il faut d'abord se connecter à un nœud de connexion. Ensuite, on exécute les commandes suivantes dans l'ordre : `module purge`, `module load python/3.11`, `module load rust`, `module load postgresql`, `python -m venv nf-core-env`, `source nf-core-env/bin/activate`, et finalement `python -m pip install nf_core==2.13`. Cette installation, qui utilise `pip` pour les paquets Python, peut prendre quelques minutes."
     },
     {
-      "question": "Où devrait-on stocker les images des conteneurs utilisées par Nextflow avec Apptainer sur les systèmes de l'Alliance, et pourquoi?",
-      "answer": "Les images des conteneurs utilisées par Nextflow avec Apptainer devraient être stockées dans un répertoire de cache créé sous `/project/<votre_groupe>/NXF_SINGULARITY_CACHEDIR`. C'est parce que ces images sont généralement volumineuses, et l'espace personnel (`$HOME`) a une capacité limitée. De plus, stocker le cache dans `/project` permet de le partager avec les membres de votre groupe, réduisant ainsi la duplication et l'utilisation de l'espace disque."
+      "question": "Pourquoi est-ce recommandé de stocker les images Apptainer de Nextflow dans le répertoire /project plutôt que dans mon répertoire personnel, et comment configurer ce cache?",
+      "answer": "Il est recommandé de stocker les images Apptainer de Nextflow dans le répertoire `/project` parce que ces images sont généralement volumineuses, et le répertoire personnel (`$HOME`) a une capacité limitée. Utiliser `/project` permet également de partager ce dossier avec les membres de votre groupe pour éviter la duplication et économiser de l'espace. Pour configurer le cache, vous devez créer un répertoire et définir la variable d'environnement `NXF_SINGULARITY_CACHEDIR` comme suit : `mkdir /project/<votre_groupe_def>/NXF_SINGULARITY_CACHEDIR` et `export NXF_SINGULARITY_CACHEDIR=/project/<votre_groupe_def>/NXF_SINGULARITY_CACHEDIR`. Vous pouvez ajouter la commande `export` à votre fichier `~/.bashrc` pour plus de commodité."
     },
     {
-      "question": "Quelles sont les étapes pour télécharger un pipeline nf-core spécifique et ses images de conteneur, en prenant l'exemple du pipeline `rnaseq`?",
-      "answer": "Pour télécharger un pipeline comme `rnaseq` et ses images de conteneur, il faut d'abord définir les variables d'environnement `NFCORE_PL` (par ex. `rnaseq`) et `PL_VERSION` (par ex. `3.21.0`), puis charger les modules `nextflow` et `apptainer`. Ensuite, on doit naviguer vers un répertoire de travail (par ex. `~/scratch/nf-test`) et exécuter la commande `nf-core download --container-cache-utilisation amend --container-system singularity --compress none -l docker.io -r ${PL_VERSION} -p 6 ${NFCORE_PL}`. Il faut répondre 'Y' à la question concernant l'inclusion des fichiers de configuration institutionnels. Les images du conteneur seront enregistrées dans `$NXF_SINGULARITY_CACHEDIR` et les fichiers du pipeline dans un sous-répertoire du répertoire de travail, par exemple `~/scratch/nf-test/nf-core-rnaseq_3.21.0/3_21_0`."
+      "question": "Quand on télécharge un pipeline nf-core comme `rnaseq` en utilisant la commande `nf-core download`, qu'est-ce qui est spécifiquement téléchargé et où sont stockés ces différents éléments?",
+      "answer": "Lorsque vous exécutez la commande `nf-core download` pour un pipeline tel que `rnaseq`, deux composantes principales sont téléchargées. Premièrement, les fichiers des images du conteneur sont placés dans le répertoire spécifié par la variable d'environnement `$NXF_SINGULARITY_CACHEDIR`. Deuxièmement, les fichiers du pipeline eux-mêmes, incluant sa version spécifique, sont stockés dans un sous-répertoire de votre dossier de travail, par exemple `~/scratch/nf-test/nf-core-rnaseq_3.21.0/3_21_0`."
     }
   ],
-  "generated_at": "2026-04-13T10:04:26.648367+00:00"
+  "generated_at": "2026-04-26T01:04:28.335963+00:00"
 }

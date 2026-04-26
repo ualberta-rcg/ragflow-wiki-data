@@ -4,55 +4,53 @@ slug: "managing_your_cloud_resources_with_openstack"
 lang: "en"
 
 source_wiki_title: "Managing your cloud resources with OpenStack/en"
-source_hash: "633525e305709c12ec5bacd0313bca84"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T09:00:01.831782+00:00"
+source_hash: "274035e4cf0bd918b7151588d87ed4f1"
+last_synced: "2026-04-25T23:42:08.699101+00:00"
+last_processed: "2026-04-26T00:19:13.127382+00:00"
 
 tags:
   - cloud
 
 keywords:
-  - "CIDR rules"
-  - "cloudInit"
-  - "Virtual machines"
-  - "Security groups"
-  - "default security group"
-  - "public key string"
-  - "Dashboard"
-  - "cloud-config"
-  - "creating new VMs"
-  - "OpenStack"
   - "VM access"
-  - "public key"
-  - "default user"
-  - "user configuration"
-  - "YAML formatting"
-  - "sudo permission"
-  - "instance log"
-  - "Projects"
   - "SSH keys"
-  - "internet"
+  - "default user"
+  - "Virtual Machine"
+  - "OpenStack"
+  - "Virtual machines"
+  - "creating new VMs"
+  - "default security group"
+  - "Projects"
+  - "CIDR rules"
+  - "VM log"
+  - "Security groups"
+  - "Dashboard"
+  - "YAML"
+  - "SSH Keys"
+  - "cloudInit"
+  - "ssh_authorized_keys"
   - "rules"
+  - "sudo permission"
+  - "internet"
+  - "white space formatting"
+  - "cloud-config"
 
 questions:
-  - "What is OpenStack and what primary functions does it serve in managing cloud resources and virtual machines?"
-  - "How do OpenStack projects organize users and resources, and what role do Primary Investigators (PIs) play in their management?"
-  - "How do availability zones and security groups function to control hardware placement and network traffic for virtual machines?"
-  - "How can you effectively manage and restrict access to your virtual machines using security groups and Ingress/Egress rules?"
-  - "What is CIDR, and how does its notation (such as /24 or /32) determine the specific range of IP addresses allowed in a security rule?"
-  - "How can cloudInit be utilized during the initial launch of a virtual machine to automate the creation and configuration of user accounts and SSH keys?"
-  - "What types of network access are permitted by the rules in the default security group?"
-  - "Why does a virtual machine need outbound internet access according to the text?"
+  - "What is OpenStack and what are its primary functions in managing cloud resources?"
+  - "How do OpenStack projects function in terms of resource quotas, user permissions, and ownership?"
+  - "What is the purpose of security groups, and how does the default security group handle network traffic for virtual machines?"
+  - "How should security groups and rules be managed to effectively restrict and control access to virtual machines?"
+  - "What is CIDR notation, and how does appending different bit numbers (such as /24, /32, or /0) affect IP address matching?"
+  - "How can cloudInit be utilized during the initial launch of an instance to customize user accounts and permissions?"
+  - "What specific types of network access are allowed and blocked by the rules in the default security group?"
+  - "For what purposes does the default security group allow a virtual machine to access the internet?"
   - "What potential issues can occur if rules are removed from the default security group?"
-  - "Why is whitespace formatting particularly important when defining public keys in this YAML configuration?"
-  - "What happens to the default user of the newly created VM when a custom cloudInit script is specified?"
-  - "Why is it essential to grant sudo permissions to at least one user defined in the configuration script?"
-  - "How can you configure a cloud-config file to add new users with SSH keys while preserving the default distribution user?"
-  - "Where can you find the logs to verify that the public SSH keys were correctly added to the new users after the VM spawns?"
-  - "How do the newly created users log into the virtual machine once the setup and verification are complete?"
-  - "How can you configure a cloud-config file to add new users with SSH keys while preserving the default distribution user?"
-  - "Where can you find the logs to verify that the public SSH keys were correctly added to the new users after the VM spawns?"
-  - "How do the newly created users log into the virtual machine once the setup and verification are complete?"
+  - "What specific whitespace formatting rule must be followed when adding a public key string in the YAML configuration?"
+  - "How does specifying a cloudInit script affect the default user accounts on a newly created VM?"
+  - "Why is it essential to include a user with sudo permissions, and how can multiple users be added to the configuration?"
+  - "How can you configure a VM to add new users with specific SSH keys while preserving the default distribution user?"
+  - "Where can you find the logs to verify that the public SSH keys have been successfully added for the new users?"
+  - "What method do the newly created users use to log into the virtual machine once the setup is complete?"
 
 status:
   downloaded: true
@@ -67,7 +65,7 @@ status:
 
 OpenStack is the software suite used on our clouds to control hardware resources such as computers, storage, and networking. It allows the creation and management of virtual machines ("VMs" or "instances"), which act like separate individual machines, by emulation in software. This allows complete control over the computing environment, from choosing an operating system to software installation and configuration. Diverse use cases are supported, from hosting websites to creating virtual clusters. More documentation on OpenStack can be found at the [OpenStack website](http://docs.openstack.org/).
 
-This page describes how to perform common tasks encountered while working with OpenStack. It is assumed that you have already read [Cloud Quick Start](cloud_quick_start.md) and understand the basic operations of launching and connecting to a VM. Most tasks can be performed using either the dashboard (as described below), the [OpenStack command-line clients](openstack_command_line_clients.md), or a tool called [Terraform](terraform.md); however, some tasks require using command-line tools, for example [sharing an image with another project](working_with_images.md#sharing-an-image-with-another-project).
+This page describes how to perform common tasks encountered while working with OpenStack. It is assumed that you have already read [Cloud Quick Start](cloud_quick_start.md) and understand the basic operations of launching and connecting to a VM. Most tasks can be performed using either the dashboard (as described below), the [OpenStack command line clients](openstack_command_line_clients.md), or a tool called [Terraform](terraform.md); however, some tasks require using command line tools, for example [sharing an image with another project](working_with_images.md#sharing-an-image-with-another-project).
 
 ## Working with the dashboard
 The web browser user interface used to manage your cloud resources, as described in most of our documentation, is referred to as the "dashboard". The dashboard is developed under an OpenStack sub-project referred to as Horizon. Horizon and dashboard might be used interchangeably. The dashboard is well documented [here](https://docs.openstack.org/horizon/latest/). This documentation lists all of the options available on the dashboard, what they do, and how to navigate the system.
@@ -75,7 +73,7 @@ The web browser user interface used to manage your cloud resources, as described
 ## Projects
 OpenStack projects group VMs together and provide a quota out of which VMs and related resources can be created. A project is unique to a particular cloud. All accounts which are members of a project have the same level of permissions, meaning anyone can create or delete a VM within a project if they are a member. You can view the projects you are a member of by logging into an OpenStack dashboard for the clouds you have access to (see [Cloud systems](cloud.md#cloud-systems) for a list of cloud URLs). The active **project name** will be displayed in the top left of the dashboard, to the right of the cloud logo. If you are a member of more than one project, you can switch between active projects by clicking on the drop-down menu and selecting the project's name.
 
-Depending on your allocation, your project may be limited to certain types of VM [flavours](virtual_machine_flavors.md). For example, compute allocations will generally only allow "c" flavours, while persistent allocations will generally only allow "p" flavours.
+Depending on your allocation, your project may be limited to certain types of VM [flavors](virtual_machine_flavors.md). For example, compute allocations will generally only allow "c" flavors, while persistent allocations will generally only allow "p" flavors.
 
 Projects can be thought of as owned by primary investigators (PIs) and new projects and quota adjustments can only be requested by PIs. In addition, requests for access to an existing project must be confirmed by the PI owning the project.
 
@@ -89,7 +87,7 @@ Please see [this page](working_with_images.md) for more information about creati
 Please see [this page](working_with_vms.md) for more information about managing certain characteristics of your VMs in the dashboard.
 
 ## Availability zones
-Availability zones allow you to indicate what group of physical hardware you would like your VM to run on. On Beluga and Graham clouds, there is only one availability zone, *nova*, so there isn't any choice in the matter. However, on Arbutus there are three availability zones: *Compute*, *Persistent_01*, and *Persistent_02*. The *Compute* and *Persistent* zones only run compute or persistent [flavours](virtual_machine_flavors.md) respectively (see [Virtual machine flavours](virtual_machine_flavors.md)). Using two persistent zones can present an advantage; for example, two instances of a website can run in two different zones to ensure its continuous availability in the case where one of the sites goes down.
+Availability zones allow you to indicate what group of physical hardware you would like your VM to run on. On Beluga and Graham clouds, there is only one availability zone, *nova*, so there isn't any choice in the matter. However, on Arbutus there are three availability zones: *Compute*, *Nova*, and *Persistent*. The *Compute* and *Persistent* zones only run compute or persistent flavours respectively (see [Virtual machine flavors](virtual_machine_flavors.md)). Using two persistent zones can present an advantage; for example, two instances of a website can run in two different zones to ensure its continuous availability in the case where one of the sites goes down.
 
 ## Security groups
 A security group is a set of rules to control network traffic into and out of your virtual machines. To manage security groups, go to *Project -> Network -> Security Groups*. You will see a list of currently defined security groups. If you have not previously defined any security groups, there will be a single default security group.
@@ -97,15 +95,9 @@ A security group is a set of rules to control network traffic into and out of yo
 To add or remove rules from a security group, click *Manage Rules* beside that group. When the group description is displayed, you can add or remove rules by clicking the *+Add Rule* and *Delete Rule* buttons.
 
 ### Default security group
-The **default security group** contains rules which allow a VM access out to the internet, for example, to download operating system upgrades or package installations, but does not allow another machine to access it, except for other VMs belonging to the same default security group.
-
-!!! warning
-    We recommend you do not remove rules from the default security group as this may cause problems when creating new VMs.
-
-The default security group rules should be present:
+The **default security group** contains rules which allow a VM access out to the internet, for example to download operating system upgrades or package installations, but does not allow another machine to access it, except for other VMs belonging to the same default security group. We recommend you do not remove rules from the default security group as this may cause problems when creating new VMs. The following default security group rules should be present:
 *   2 Egress rules to allow your instance to access an outside network without any limitation; there is one rule for IPV4 and one for IPV6.
 *   2 Ingress rules to allow communication for all the VMs that belong to that security group, for both IPV4 and IPV6.
-
 It is safe to add rules to the default security group and you may recall that we did this in [Cloud Quick Start](cloud_quick_start.md) by either adding security rules for [SSH](cloud_quick_start.md#network-settings) or [RDP (see *Firewall, add rules to allow RDP* under the Windows tab)](cloud_quick_start.md) to your default security group so that you could connect to your VM.
 
 ### Managing security groups
@@ -141,13 +133,7 @@ users:
       - <Lemieux's public key goes here>
 ```
 
-!!! tip
-    For more about the YAML format used by cloudInit, see [YAML Preview](http://www.yaml.org/spec/1.2/spec.html#Preview). Note that YAML is very picky about white space formatting, so that there must be a space after the "-" before your public key string.
-
-!!! warning
-    This configuration overwrites the default user that is added when no cloudInit script is specified, so the users listed in this configuration script will be the *only* users on the newly created VM. It is therefore vital to have at least one user with sudo permission.
-
-More users can be added by simply including more `- name: username` sections.
+For more about the YAML format used by cloudInit, see [YAML Preview](http://www.yaml.org/spec/1.2/spec.html#Preview). Note that YAML is very picky about white space formatting, so there must be a space after the "-" before your public key string. Also, this configuration overwrites the default user that is added when no cloudInit script is specified, so the users listed in this configuration script will be the *only* users on the newly created VM. It is therefore vital to have at least one user with sudo permission. More users can be added by simply including more `- name: username` sections.
 
 If you wish to preserve the default user created by the distribution (users `debian`, `centos`, `ubuntu`, *etc.*), use the following form:
 
@@ -166,9 +152,9 @@ users:
       - <Lemieux's public key goes here>
 ```
 
-After the VM has finished spawning, look at the log to ensure that the public keys have been added correctly for those users. The log can be found by clicking on the name of the instance on the "Compute -> Instances" panel and then selecting the "log" tab. The log should show something like this:
+After the VM has finished spawning, look at the log to ensure that the public keys have been added correctly for those users. The log can be found by clicking on the name of the instance on the "Compute -> Instances" panel and then selecting the "log" tab. The log should contain entries similar to this:
 
-```
+```text
  ci-info: ++++++++Authorized keys from /home/gretzky/.ssh/authorized_keys for user gretzky++++++++
  ci-info: +---------+-------------------------------------------------+---------+------------------+
  ci-info: | Keytype |                Fingerprint (md5)                | Options |     Comment      |
@@ -179,8 +165,8 @@ After the VM has finished spawning, look at the log to ensure that the public ke
  ci-info: +---------+-------------------------------------------------+---------+------------------+
  ci-info: | Keytype |                Fingerprint (md5)                | Options |     Comment      |
  ci-info: +---------+-------------------------------------------------+---------+------------------+
- | ssh-rsa | ad:a6:35:fc:2a:17:c9:02:cd:59:38:c9:18:dd:15:19 |    -    | rsa-key-20160229 |
- +---------+-------------------------------------------------+---------+------------------+
+ ci-info: | ssh-rsa | ad:a6:35:fc:2a:17:c9:02:cd:59:38:c9:18:dd:15:19 |    -    | rsa-key-20160229 |
+ ci-info: +---------+-------------------------------------------------+---------+------------------+
 ```
 
 Once this is done, users can log into the VM with their private keys as usual (see [SSH Keys](../getting-started/ssh_keys.md)).

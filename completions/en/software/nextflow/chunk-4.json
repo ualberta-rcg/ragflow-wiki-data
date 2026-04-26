@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How do you prepare and submit a Nextflow job script to run an nf-core pipeline, such as `rnaseq`, on a Fir cluster?",
-      "answer": "To prepare a Nextflow job script for an nf-core pipeline like `rnaseq` on a Fir cluster, you need to define environment variables such as `NFCORE_PL`, `PL_VERSION`, `FD_VERSION`, `NXF_SINGULARITY_CACHEDIR`, and `SLURM_ACCOUNT`. The `nextflow run` command in the script must specify the pipeline path, include profiles like `test,singularity,fir`, and define input and output directories. Once the script, for example `~/scratch/nf-test/nextflow_test.sh`, is ready, you submit it to the Slurm scheduler using the command `sbatch nextflow_test.sh`."
+      "question": "After preparing a Nextflow job script for the `rnaseq` pipeline on an Alliance cluster like Fir, how do you submit it and monitor its progress?",
+      "answer": "Save your job script, for example as `~/scratch/nf-test/nextflow_test.sh`, and then submit it to Slurm using the command `sbatch nextflow_test.sh`. You can track the pipeline's progress by examining the log file named `nextflow_test.<job_ID>.out` or by checking the Slurm queue with `sq` or `squeue -u $USER`."
     },
     {
-      "question": "After submitting a Nextflow job script, how can a user monitor the pipeline's progression and check the status of associated jobs?",
-      "answer": "After submitting a Nextflow job script, you can monitor the pipeline's progression by reviewing the log file, which is typically named `nextflow_test.<job_ID>.out`. To check the status of your jobs within the Slurm queue, you can use the commands `sq` or `squeue -u $USER`."
+      "question": "What is a common cause of the \"unable to create native thread\" error when running Nextflow, and how can it be resolved?",
+      "answer": "This `java.lang.OutOfMemoryError` typically occurs because Java tries to create a number of threads that matches the physical cores of a machine, potentially exceeding limits. To resolve this, set the environment variable `export NXF_OPTS='-XX:ActiveProcessorCount=1'` before executing Nextflow."
     },
     {
-      "question": "What are common known issues when running Nextflow pipelines, and what are the recommended solutions for 'unable to create native thread' and 'SIGBUS' errors?",
-      "answer": "Common issues when running Nextflow pipelines include high virtual memory usage by Java and potential conflicts with AWS configurations. For the 'unable to create native thread' error, which is often caused by Java trying to create too many threads, the recommended solution is to set the environment variable `export NXF_OPTS='-XX:ActiveProcessorCount=1'` before executing `nextflow`. For a `SIGBUS` error, setting `export NXF_OPTS='-Dleveldb.mmap=false'` when executing `nextflow` is reported to solve the problem."
+      "question": "How can users resolve a `SIGBUS` error that might occur from the Nextflow main process?",
+      "answer": "Users who encounter a `SIGBUS` error can often resolve it by setting the environment variable `NXF_OPTS=\"-Dleveldb.mmap=false\"` when executing Nextflow."
     }
   ],
-  "generated_at": "2026-04-13T10:03:24.636718+00:00"
+  "generated_at": "2026-04-26T01:03:25.401527+00:00"
 }

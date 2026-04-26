@@ -4,13 +4,13 @@
   "chunk_index": 20,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce qui se passe dans le script de redémarrage Ansys Fluent si une tâche de simulation se termine avec succès?",
-      "answer": "Si une tâche de simulation Ansys Fluent se termine sans erreur, le script affiche le message \"Job completed successfully! Exiting now.\" (La tâche est complétée avec succès! On quitte maintenant.) et annule la tâche Slurm en tableau correspondante."
+      "question": "Comment le script identifie-t-il les fichiers de cas et de données les plus récents pour relancer une simulation Fluent ?",
+      "answer": "Le script utilise les commandes `ls -ltr`, `grep`, `tail -n1` et `awk` pour trouver les fichiers de cas (.cas) et de données (.dat) les plus récents dans le répertoire `output`. Il crée ensuite des liens symboliques (`ln -sfv`) vers ces fichiers, en les nommant `$MYCASFILERES` et `$MYDATFILERES` respectivement, pour préparer le redémarrage de la simulation."
     },
     {
-      "question": "Quel message le script de redémarrage Ansys Fluent affiche-t-il si la simulation rencontre un problème?",
-      "answer": "Si la simulation échoue, le script indique le problème en affichant le message \"Simulation failed. Exiting …\" (Échec de la simulation. On sort…)."
+      "question": "Comment le script gère-t-il la fin d'une simulation, qu'elle soit réussie ou non ?",
+      "answer": "Si la simulation se termine avec succès (indiqué par un code de sortie de zéro), le script affiche « Job completed successfully! Exiting now. » et annule la tâche Slurm en cours (`scancel $SLURM_ARRAY_JOB_ID`). Si la simulation échoue, il affiche « Simulation failed. Exiting … » et le script se termine."
     }
   ],
-  "generated_at": "2026-04-19T01:36:37.538781+00:00"
+  "generated_at": "2026-04-26T00:43:29.196185+00:00"
 }

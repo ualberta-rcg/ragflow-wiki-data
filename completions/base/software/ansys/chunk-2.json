@@ -4,17 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What steps are required to use a local institutional Ansys license server with an Alliance cluster?",
-      "answer": "There are two scenarios for using a local institutional Ansys license server. If the server's network/firewall connections are already established for use on an Alliance cluster (meaning it's 'Ready to use'), you should contact your local Ansys license server administrator to obtain the Ansys flex port (FLEXPORT, typically 1055) and the fully qualified hostname (LICSERVER) of the license server. You then configure your `~/.licenses/ansys.lic` file with these values. If the server has never been set up for use with an Alliance cluster ('Setup required'), you'll also need to get the statically configured vendor port (VENDPORT) of the license server, and confirmation that the `<servername>` (found in the first line of your license file) resolves to the same IP address as LICSERVER on the cluster. Send FLEXPORT, LICSERVER, VENDPORT, and the desired Alliance cluster to technical support for firewall configuration on the cluster side. They will provide an IP range for your local network administrator to open the firewall into your license server for Ansys connections on the FLEXPORT and VENDPORT ports."
+      "question": "How can users on an Alliance cluster configure their `ansys.lic` file to utilize a local institutional Ansys license server that has already established network and firewall connections?",
+      "answer": "To configure the `ansys.lic` file, users must contact their local Ansys license server administrator to obtain two key pieces of information: the configured Ansys flex port (FLEXPORT) number (often 1055) and the fully qualified hostname (LICSERVER) of the license server. These values are then plugged into the `FILE: ansys.lic` template, which should be created in the user's `~/.licenses/` directory."
     },
     {
-      "question": "How can I test if my `ansys.lic` file is correctly configured and working with its license server on an Alliance cluster?",
-      "answer": "To test your `ansys.lic` configuration, first navigate to `/tmp` on a login node and then allocate a compute node using `salloc --time=1:0:0 --mem=1000M --account=def-YOURUSERID`. Once on the compute node, load the necessary modules with `module load StdEnv/2023; module load ansys/2025R2.04`. Finally, execute the command: `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\" 1> /dev/null && echo Success || echo Fail`. A 'Success' output confirms that license checkouts should work, while 'Fail' indicates a problem with the licensing setup that will likely cause jobs to fail."
+      "question": "What is the process to verify if the `ansys.lic` file is properly configured and functioning with an Ansys license server on an Alliance cluster?",
+      "answer": "To test the `ansys.lic` configuration, users should execute a specific sequence of commands on the cluster where jobs will be submitted. This involves navigating to `/tmp`, allocating a compute node using `salloc` (e.g., `salloc --time=1:0:0 --mem=1000M --account=def-YOURUSERID`), loading the `StdEnv/2023` and a compatible `ansys` module (e.g., `ansys/2025R2.04`), and then running `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\" 1> /dev/null && echo Success || echo Fail`. A \"Success\" output confirms that license checkouts should work for submitted jobs."
     },
     {
-      "question": "What are the general rules for Ansys simulation file compatibility between different software versions?",
-      "answer": "Ansys simulations are typically forward compatible but not backward compatible. This means that simulations created using an older version of Ansys are expected to load and run correctly with any newer version (e.g., a simulation from Ansys 2022R2 should work with Ansys 2023R2). However, attempting to run a simulation created with a newer version using an older Ansys version is not supported and will likely lead to random error messages or crashes."
+      "question": "What is the general rule for Ansys simulation compatibility when using different software versions on Alliance clusters?",
+      "answer": "Ansys simulations exhibit forward compatibility but not backward compatibility. This means that a simulation created with an older version of Ansys is expected to load and run correctly with any newer version (e.g., ansys/2022R2 with ansys/2023R2). Conversely, attempting to run a simulation created with a newer Ansys version using an older version is not supported and may result in random error messages or program crashes."
     }
   ],
-  "generated_at": "2026-04-19T01:19:29.147232+00:00"
+  "generated_at": "2026-04-26T00:27:27.058739+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "What are the required steps to install the CephFS client and its dependencies on a Debian-family Linux distribution, such as Debian, Ubuntu, or Mint?",
-      "answer": "To install the CephFS client on a Debian-family Linux distribution, first determine your distro's codename using `lsb_release -sc`. Then, add the Ceph repository using `sudo apt-add-repository 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`. If this command gives an error, revert it with `sudo add-apt-repository -r 'deb https://download.ceph.com/debian-tentacle/ {codename} main'` and proceed. Finally, install the necessary packages with `sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
+      "question": "How do users install the necessary CephFS client packages on Red Hat-based and Debian-based Linux distributions?",
+      "answer": "For Red Hat family distributions (e.g., RHEL, CentOS, Fedora, Rocky, Alma), users first need to install the `epel-release` package using `sudo dnf install epel-release`, then install the client and its dependencies with `sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`. For Debian family distributions (e.g., Debian, Ubuntu, Mint), users first add the Ceph repository for their specific distribution's codename, then install with `sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
     },
     {
-      "question": "Which configuration files are required to set up a CephFS client on a VM, and what information needs to be included in them?",
-      "answer": "Two main configuration files are required: `/etc/ceph/ceph.conf` and `/etc/ceph/ceph.keyring`. The `ceph.conf` file contains global settings, including the `mon host` details specific to your cloud environment (e.g., Arbutus or SD4H/Juno), and other parameters like `client reconnect stale = true`, `debug client = 0/2`, `fuse big writes = true`, and `quota = true`. The `ceph.keyring` file stores the client's access key and client name (e.g., `[client.MyCephFS-RW]`), which are obtained from the access rules section of your CephFS share on the OpenStack project web page."
+      "question": "What configuration files are essential for the CephFS client, and what specific information do they contain?",
+      "answer": "Once the client is installed, users need to create a `ceph.conf` file, typically located at `/etc/ceph/ceph.conf`. This file includes global settings, such as `admin socket`, `client reconnect stale`, `debug client`, `fuse big writes`, `mon host` (which varies by cloud, e.g., Arbutus versus SD4H/Juno), and `quota = true`. Additionally, a `ceph.keyring` file at `/etc/ceph/ceph.keyring` is required to store the client's access credentials, specifically the `client.MyCephFS-RW` name and its corresponding `<Access Key>`, both found under the access rules on the OpenStack project's share webpage."
     },
     {
-      "question": "How can a CephFS filesystem be permanently mounted on a VM using the `/etc/fstab` file, and what specific details are needed for this entry?",
-      "answer": "To permanently mount a CephFS filesystem on a VM, you first need to create a mount point directory, such as `/cephfs`. Then, add an entry to the `/etc/fstab` file. This entry requires the share's `Path` (which uniquely starts with `:`), the chosen mount point, `ceph` as the filesystem type, and the client name (e.g., `name=MyCephFS-RW`). For SD4H/Juno, specific options like `mds_namespace=cephfs_4_2` and `x-systemd.device-timeout=30` are also required, while `nofail` is generally recommended to ensure the system boots even if the CephFS service is temporarily unavailable."
+      "question": "How can a CephFS share be mounted on a VM after the client is configured?",
+      "answer": "After client configuration, users must create a mount point directory on their host, such as `/cephfs`. To permanently mount the CephFS device, an entry can be added to the VM's `/etc/fstab` file, specifying the share's path (e.g., `:/volumes/_nogroup/...`), the mount point, `ceph` as the filesystem type, and options like `name=MyCephFS-RW,nofail`. For a temporary mount from the command line, users can use `sudo mount -t ceph :/volumes/_nogroup/... /cephfs/ -o name=MyCephFS-RW`. Note that the path starts with a non-standard colon, and specific mount options like `mds_namespace` may be required for certain systems like SD4H/Juno."
     }
   ],
-  "generated_at": "2026-04-13T03:44:29.123275+00:00"
+  "generated_at": "2026-04-26T00:51:15.522307+00:00"
 }

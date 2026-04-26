@@ -4,17 +4,13 @@
   "chunk_index": 21,
   "qa_pairs": [
     {
-      "question": "What is the primary function of Fluent journal files and how are they utilized in Ansys Fluent simulations on Alliance clusters?",
-      "answer": "Fluent journal files contain commands from Fluent's Text-User-Interface (TUI) that automate simulation steps, such as loading case files, running the solver, and writing results. They can also be used to modify simulation parameters like temperature, pressure, or flow speed. On Alliance clusters, these journal files are used to run a series of simulations under various conditions with a single case file, often as part of a Slurm batch job submission."
+      "question": "What is the primary purpose of a Fluent journal file, and what are some common commands it can contain?",
+      "answer": "Fluent journal files automate simulation workflows by executing commands from Fluent's Text-User-Interface (TUI). They can include commands to load input case and data files, set simulation parameters, run the solver for a specified number of iterations, manage file overwrites, and write final output data files or simulation reports."
     },
     {
-      "question": "What is the significance of the `/file/cff-files` command in a Fluent journal file, and when should its value be adjusted?",
-      "answer": "The `/file/cff-files` command in a Fluent journal file determines whether Fluent uses the legacy `.cas/.dat` file format or the more efficient `.cas.h5/.dat.h5` format. Setting it to `no` (e.g., `/file/cff-files no`) forces the use of the legacy format, which was the default for Ansys module versions 2019R3 or older. For module versions 2020R1 or newer, it should be changed to `yes` (e.g., `/file/cff-files yes`) to leverage the H5 file format, which is the default for these newer versions."
-    },
-    {
-      "question": "Describe the two methods for incorporating User-Defined Functions (UDFs) into Ansys Fluent simulations on Alliance clusters.",
-      "answer": "There are two methods for incorporating UDFs: interpreted and compiled. For **interpreted UDFs**, the source file (e.g., `sampleudf.c`) is interpreted at runtime by Fluent by adding a command like `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no` to your journal file before reading the simulation files. For **compiled UDFs**, the UDF source file must first be compiled on an Alliance cluster to create a `libudf.so` shared library in a `libudf` subdirectory. This `libudf` directory can then be copied to other Alliance clusters if the `StdEnv` environment module versions are compatible. In your journal file, you would either use `define/user-defined/compiled-functions compile libudf yes sampleudf.c \"\" \"\"` for initial compilation or, more efficiently, `define/user-defined/compiled-functions load libudf` to load an already compiled library."
+      "question": "What are the two primary approaches for integrating a User-Defined Function (UDF) into an Ansys Fluent simulation, and what is the first common step for both?",
+      "answer": "The two primary approaches for UDFs are 'Interpreted' and 'Compiled'. For both, the first common step is to transfer the UDF source file (e.g., `sampleudf.c`) and any dependencies to the Alliance cluster, ensuring that the transfer is done in text mode when uploading from a Windows machine. This file should be placed in the same directory as your journal, case, and data files. Afterwards, the appropriate UDF command must be added to your Fluent journal file before any simulation case/data files are read."
     }
   ],
-  "generated_at": "2026-04-19T01:21:57.472809+00:00"
+  "generated_at": "2026-04-26T00:29:57.301895+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 34,
   "qa_pairs": [
     {
-      "question": "How do you start the Mechanical APDL (MAPDL) graphical user interface (GUI) on an Alliance cluster's OnDemand Desktop?",
-      "answer": "To start the Mechanical APDL GUI from the command line of a terminal window on an OnDemand Desktop, first load the appropriate module (e.g., `module load StdEnv/2023 ansys/2022R2` or newer versions), then run either `mapdl -g` or `launcher` and click the `RUN` button."
+      "question": "How do you launch Ansys Workbench graphically on an Alliance On Demand Desktop session without requesting a GPU?",
+      "answer": "To launch Ansys Workbench graphically on an Alliance On Demand Desktop without a GPU, first ensure you've selected a Compute Node without a GPU for your session, which will use Mesa software emulation for OpenGL calls. Then, open a terminal window on the desktop and load the necessary module (e.g., `module load StdEnv/2023 ansys/2025R2.04`). Finally, execute the command `runwb2` to start Workbench."
     },
     {
-      "question": "When using an OnDemand Desktop on an Alliance cluster without a GPU, what are the steps to launch Ansys Workbench and then subsequently start Fluent within Workbench?",
-      "answer": "To launch Ansys Workbench on an OnDemand Desktop without a GPU, first load the environment with `module load StdEnv/2023 ansys/2025R1` (or newer), then run `runwb2 -oglmesa`. To start Fluent from within Workbench, click `Fluid Flow (Fluent)` in the Analysis Menu, then `Setup`. In the Fluent Launcher's Environment Tab, copy and paste these settings: `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi), `HOOPS_PICTURE=opengl2-mesa` (for 2025R1 or newer), or `HOOPS_PICTURE=null` (for 2024R2 or older), then click `Start`."
+      "question": "What environment variable settings are required when starting Ansys Fluent from within Workbench on the Nibi cluster via an On Demand Desktop?",
+      "answer": "When starting Ansys Fluent from within Workbench on the Nibi cluster via an On Demand Desktop, you must set `I_MPI_HYDRA_BOOTSTRAP=ssh` in the Fluent Launcher's Environment Tab. Additionally, for Ansys versions 2025R1 or newer, set `HOOPS_PICTURE=opengl2-mesa` (optional). For versions 2024R2.04 to 2023R2, leave `HOOPS_PICTURE` blank, and for version 2022R2, set `HOOPS_PICTURE=null`. These settings apply whether a GPU was requested for the desktop session or not."
     },
     {
-      "question": "What is the procedure for launching Ansys Workbench and then Fluent from within it on a Nibi OnDemand Desktop when a GPU is requested for graphical acceleration?",
-      "answer": "When configuring your Nibi OnDemand Desktop session for GPU acceleration, select a full `h100 (80GB)` GPU. Once the desktop appears, open a terminal, load the module with `module load StdEnv/2023 ansys/2025R1` (or newer), and run `runwb2`. To start Fluent from Workbench, click `Fluid Flow (Fluent)` in the Analysis Menu, then `Setup`. In the Fluent Launcher's Environment Tab, include `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi only), and set `HOOPS_PICTURE=opengl2` (for 2025R1 or newer) or `HOOPS_PICTURE=opengl` (for 2024R2 or older), then click `Start`. Failure to set `I_MPI_HYDRA_BOOTSTRAP=ssh` on Nibi with Intel MPI will cause Fluent to crash."
+      "question": "What error message will appear if the `I_MPI_HYDRA_BOOTSTRAP=ssh` environment variable is not correctly set when launching Ansys Fluent with Intel MPI on the Nibi cluster?",
+      "answer": "If `I_MPI_HYDRA_BOOTSTRAP=ssh` is not properly set on the Nibi cluster when starting Ansys Fluent with Intel MPI, Fluent will crash on startup, producing error output such as `[mpiexec@g4.nibi.sharcnet] Error: Unable to run bstrap_proxy on g4.nibi.sharcnet (pid 2251587, exit code 256)` and `[mpiexec@g4.nibi.sharcnet] Error setting up the bootstrap proxies`. If this occurs, you must completely exit Fluent, shut down Workbench, and restart the process after ensuring the variable is correctly configured."
     }
   ],
-  "generated_at": "2026-04-19T01:31:45.464876+00:00"
+  "generated_at": "2026-04-26T00:38:46.277895+00:00"
 }

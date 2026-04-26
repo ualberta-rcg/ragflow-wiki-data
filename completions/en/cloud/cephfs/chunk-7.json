@@ -4,13 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "Why is there a non-standard colon (':') before the device path when mounting a CephFS device on a virtual machine?",
-      "answer": "The colon (':') before the device path is a required part of the CephFS mount command and is explicitly noted as intentional, not a typo."
+      "question": "How can CephFS be permanently mounted on an OpenStack VM using the `fstab` file?",
+      "answer": "To permanently mount CephFS on a VM, an entry should be added to the `/etc/fstab` file. This entry specifies the device path, the mount point (e.g., `/cephfs/`), the filesystem type (`ceph`), and relevant options such as `name=MyCephFS-RW,nofail`. For SD4H/Juno systems, additional options like `mds_namespace=cephfs_4_2` are also required."
     },
     {
-      "question": "What are the specific mount options for CephFS required for SD4H/Juno systems, and what is the function of the `nofail` option?",
-      "answer": "For SD4H/Juno systems, the `mds_namespace` option is required when mounting CephFS. Other options, such as `x-systemd.device-timeout`, `x-systemd.mount-timeout`, `noatime`, and `_netdev`, are performance tweaks. The `nofail` option ensures that the system will successfully boot even if the CephFS service is unavailable or unreachable."
+      "question": "What is the purpose of the colon (`:`) preceding the device path in a CephFS `fstab` entry?",
+      "answer": "The colon (`:`) before the device path in the CephFS `fstab` entry is intentional and not a typo. It is a non-standard but required syntax for mounting a CephFS device."
+    },
+    {
+      "question": "What are the primary differences in `fstab` mount options for CephFS when configuring it on Arbutus versus SD4H/Juno OpenStack VMs?",
+      "answer": "For Arbutus VMs, CephFS `fstab` entries commonly use options like `name=MyCephFS-RW,nofail`. For SD4H/Juno VMs, additional options are necessary, including `mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw`. The `mds_namespace` option is specifically required for SD4H/Juno."
     }
   ],
-  "generated_at": "2026-04-13T03:46:19.006763+00:00"
+  "generated_at": "2026-04-26T00:52:51.911758+00:00"
 }

@@ -3,57 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que Nextflow et à quoi sert-il sur les systèmes d'Alliance Canada?",
-      "answer": "Nextflow est un logiciel qui permet d'exécuter des flux de travail scientifiques reproductibles. Le terme Nextflow décrit à la fois le langage spécifique au domaine (DSL) pour écrire les pipelines et le logiciel pour les interpréter."
+      "question": "Qu'est-ce que Nextflow et à quoi sert ce logiciel sur les grappes d'Alliance?",
+      "answer": "Nextflow est un logiciel conçu pour exécuter des flux de travail scientifiques reproductibles. Le terme Nextflow fait référence à la fois au langage spécifique au domaine (DSL) pour écrire des pipelines et au logiciel qui les interprète."
     },
     {
-      "question": "Comment les utilisateurs peuvent-ils initialiser l'utilisation de Nextflow sur les grappes d'Alliance Canada?",
-      "answer": "Pour utiliser Nextflow, il faut d'abord charger le module avec la commande `module load nextflow`."
+      "question": "Comment les utilisateurs peuvent-ils charger le module Nextflow sur les systèmes d'Alliance?",
+      "answer": "Pour charger le module Nextflow, les utilisateurs doivent exécuter la commande `module load nextflow`."
     },
     {
-      "question": "Quelles sont les cinq étapes clés pour exécuter un pipeline nf-core, tel que `nf-core/rnaseq`, sur les systèmes d'Alliance Canada?",
-      "answer": "Les cinq étapes clés sont: préparer le fichier de configuration, installer nf-core, télécharger les images du conteneur et le pipeline, préparer les données en entrée, et créer un script pour la tâche."
+      "question": "Quelles sont les étapes générales pour exécuter un pipeline nf-core comme 'rnaseq' sur une grappe d'Alliance?",
+      "answer": "Les cinq étapes générales sont : préparer le fichier de configuration, installer nf-core, télécharger les images du conteneur et le pipeline, préparer les données d'entrée, et créer un script pour la tâche."
     },
     {
-      "question": "Comment télécharger et configurer le fichier de configuration Nextflow spécifique pour les grappes d'Alliance Canada?",
-      "answer": "Il faut télécharger le fichier `alliance_canada.config` depuis GitHub avec `curl` et le placer dans `~/.nextflow/config`. De plus, la variable d'environnement `SLURM_ACCOUNT` doit être exportée dans `~/.bashrc` avec le nom de compte approprié."
+      "question": "Comment configurer le fichier de configuration de Nextflow pour les grappes d'Alliance Canada?",
+      "answer": "Il faut télécharger le fichier `alliance_canada.config` depuis GitHub de nf-core et le placer dans `~/.nextflow/config` en utilisant `curl -o ~/.nextflow/config https://raw.githubusercontent.com/nf-core/configs/refs/heads/master/conf/alliance_canada.config`."
     },
     {
-      "question": "Y a-t-il des restrictions ou des recommandations pour exécuter des pipelines Nextflow sur la grappe Trillium?",
-      "answer": "Oui, il n'est pas recommandé d'exécuter des pipelines nf-core ou tout autre pipeline Nextflow générique sur Trillium, à moins qu'ils n'aient été spécifiquement conçus pour cette grappe."
+      "question": "Est-il recommandé d'exécuter des pipelines nf-core génériques sur la grappe Trillium?",
+      "answer": "Non, il n'est pas recommandé d'exécuter des pipelines nf-core ou d'autres pipelines Nextflow génériques sur Trillium, à moins qu'ils n'aient été spécifiquement conçus pour cette grappe."
     },
     {
-      "question": "Pourquoi l'installation de `nf-core` doit-elle se faire sur un nœud de connexion sur les grappes d'Alliance Canada?",
-      "answer": "Il est nécessaire d'installer `nf-core` sur un nœud de connexion, car certaines grappes ne permettent pas l'accès à Internet à partir des nœuds de calcul."
+      "question": "Où faut-il installer le paquet nf-core et pourquoi?",
+      "answer": "Le paquet nf-core doit être installé sur un nœud de connexion, car certaines grappes ne permettent pas l'accès à Internet à partir des nœuds de calcul, ce qui est nécessaire pour l'installation."
     },
     {
-      "question": "Quels modules et commandes sont nécessaires pour installer l'outil `nf-core` dans un environnement virtuel Python?",
-      "answer": "Il faut charger les modules `python/3.11`, `rust` et `postgresql`, puis créer et activer un environnement virtuel (`python -m venv nf-core-env`) et finalement installer `nf_core==2.13` avec `python -m pip install nf_core==2.13`."
+      "question": "Quels modules sont requis pour installer le paquet Python 'nf-core' dans un environnement virtuel?",
+      "answer": "Les modules requis sont `python/3.11`, `rust` et `postgresql`, suivis de la création et l'activation d'un environnement virtuel Python, puis de l'installation avec `python -m pip install nf_core==2.13`."
     },
     {
-      "question": "Où est-il recommandé de stocker les images de conteneur Apptainer (Singularity) pour Nextflow sur les systèmes d'Alliance Canada et pourquoi?",
-      "answer": "Il est recommandé de les stocker dans un répertoire de cache sous `/project` (par exemple, `NXF_SINGULARITY_CACHEDIR=/project/<def-group>/NXF_SINGULARITY_CACHEDIR`) car les images sont volumineuses et l'espace personnel ($HOME) est limité. Ce dossier peut aussi être partagé avec le groupe."
+      "question": "Pourquoi est-il important de stocker le cache des images Apptainer (`NXF_SINGULARITY_CACHEDIR`) dans le répertoire `/project` plutôt que dans le répertoire personnel ($HOME) lors de l'utilisation de Nextflow?",
+      "answer": "Il est important de stocker le cache des images Apptainer dans le répertoire `/project` parce que les images de flux de travail sont généralement volumineuses, et le répertoire personnel ($HOME) a une capacité limitée. Cela permet aussi de partager le dossier avec les membres du groupe."
     },
     {
-      "question": "Quels types de fichiers sont nécessaires comme entrées pour un pipeline Nextflow et comment les préparer pour l'exemple `rnaseq`?",
-      "answer": "Nextflow utilise des fichiers de séquences (comme des fichiers `.fastq.gz`) et une feuille d'échantillons (`samplesheet.csv`). Pour l'exemple `rnaseq`, des fichiers `.fastq.gz` sont téléchargés via `wget` et un exemple de `samplesheet.csv` est créé manuellement en spécifiant les chemins d'accès."
+      "question": "Quels sont les deux composants principaux téléchargés par la commande `nf-core download`?",
+      "answer": "La commande `nf-core download` télécharge les fichiers des images du conteneur dans `NXF_SINGULARITY_CACHEDIR` et les fichiers de pipelines dans un sous-répertoire spécifique du répertoire de travail, comme `~/scratch/nf-test/nf-core-rnaseq_3.21.0/3_21_0`."
     },
     {
-      "question": "Quels sont les paramètres essentiels à adapter dans un script de tâche Slurm pour exécuter un pipeline Nextflow sur une grappe d'Alliance Canada?",
-      "answer": "Il faut adapter le nom et la version du pipeline, le chemin de la cache Apptainer, le compte Slurm, le profil spécifique de la grappe (par exemple, `fir`), ainsi que les chemins pour les fichiers d'entrée (`--input`) et de sortie (`--outdir`)."
+      "question": "Comment les données d'entrée sont-elles préparées pour le pipeline `rnaseq` en exemple?",
+      "answer": "Nextflow utilise des fichiers de séquences (FASTQ) et une feuille d'échantillons. Pour l'exemple, des fichiers FASTQ sont téléchargés depuis un dépôt de test, et une feuille d'échantillons (samplesheet.csv) est créée manuellement avec les chemins d'accès aux fichiers."
     },
     {
-      "question": "Comment soumettre un script de tâche Nextflow à l'ordonnanceur Slurm et comment suivre sa progression?",
-      "answer": "Le script de tâche est soumis avec `sbatch mon_script_nextflow.sh`. La progression peut être suivie dans le fichier journal `nextflow_test.<job_ID>.out` ou en utilisant les commandes Slurm `sq` ou `squeue -u $USER`."
+      "question": "Quels paramètres clés doivent être adaptés dans un script de tâche Slurm pour exécuter un pipeline Nextflow sur une grappe d'Alliance?",
+      "answer": "Il faut adapter le nom et la version du pipeline (NFCORE_PL, PL_VERSION, FD_VERSION), le chemin de la cache Apptainer (NXF_SINGULARITY_CACHEDIR), le compte Slurm (SLURM_ACCOUNT), le profil de la grappe (par exemple, `-profile test,singularity,fir`), et les chemins pour les données d'entrée (`--input`) et de sortie (`--outdir`)."
     },
     {
-      "question": "Comment résoudre l'erreur `java.lang.OutOfMemoryError: unable to create native thread` qui peut survenir avec Nextflow?",
-      "answer": "Cette erreur, souvent due au fait que Java tente de créer trop de fils, est généralement résolue en exécutant `nextflow` avec la variable d'environnement `export NXF_OPTS='-XX:ActiveProcessorCount=1'`."
+      "question": "Comment un utilisateur peut-il surveiller la progression d'un pipeline Nextflow soumis via Slurm?",
+      "answer": "La progression peut être suivie dans le fichier journal `nextflow_test.<job_ID>.out`, et les tâches dans la file d'attente Slurm peuvent être examinées avec les commandes `sq` ou `squeue -u $USER`."
     },
     {
-      "question": "Quelle est la solution pour les erreurs `SIGBUS` rencontrées avec le processus principal de Nextflow?",
-      "answer": "Pour résoudre les erreurs `SIGBUS`, il faut définir la variable d'environnement `NXF_OPTS=\"-Dleveldb.mmap=false\"` lors de l'exécution de `nextflow`."
+      "question": "Quelle est la solution pour l'erreur `java.lang.OutOfMemoryError: unable to create native thread` qui peut survenir avec Nextflow?",
+      "answer": "Cette erreur, souvent causée par Java tentant de créer trop de fils, est généralement résolue en exécutant Nextflow avec la variable d'environnement `export NXF_OPTS='-XX:ActiveProcessorCount=1'`."
+    },
+    {
+      "question": "Comment résoudre les erreurs `SIGBUS` signalées avec le processus principal de Nextflow?",
+      "answer": "Pour résoudre les erreurs `SIGBUS`, il faut définir la variable d'environnement `NXF_OPTS=\"-Dleveldb.mmap=false\"` lors de l'exécution de Nextflow."
+    },
+    {
+      "question": "Pourquoi la variable d'environnement `$SLURM_ACCOUNT` doit-elle être configurée dans le fichier `~/.bashrc` pour Nextflow?",
+      "answer": "La variable `$SLURM_ACCOUNT` doit être configurée dans `~/.bashrc` pour spécifier le nom du compte Slurm à utiliser par Nextflow, ce qui est essentiel pour la soumission des tâches aux grappes d'Alliance."
     }
   ],
-  "generated_at": "2026-04-13T10:04:01.482714+00:00"
+  "generated_at": "2026-04-26T01:04:03.609014+00:00"
 }

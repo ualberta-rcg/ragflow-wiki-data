@@ -4,13 +4,13 @@
   "chunk_index": 18,
   "qa_pairs": [
     {
-      "question": "In a Slurm script designed for Ansys Fluent solution restarts on Alliance clusters, how are the case and data files updated to point to the most recent output for the next restart attempt?",
-      "answer": "The script creates symbolic links, `MYCASFILERES` and `MYDATFILERES`, which point to the most recently saved `.cas` and `.dat` files located in the `output` subdirectory for the next restart."
+      "question": "How are Fluent jobs configured for solution restart, initiated from the most recent saved time step files on Alliance clusters?",
+      "answer": "When a Fluent job is configured for solution restart, the script creates symbolic links to the most recent saved time step files. Specifically, it uses commands like `ln -sfv output/$(ls -ltr output {{!}} grep .cas {{!}} tail -n1 {{!}} awk '{print $9}') $MYCASFILERES` and `ln -sfv output/$(ls -ltr output {{!}} grep .dat {{!}} tail -n1 {{!}} awk '{print $9}') $MYDATFILERES` to link the latest case and data files from the `output` directory to the respective restart filenames."
     },
     {
-      "question": "What actions does a Slurm script take when an Ansys Fluent job, configured for solution restart, successfully completes on Alliance clusters?",
-      "answer": "If a job configured for solution restart completes successfully, the script will output \"Job completed successfully! Exiting now.\" and then cancel the entire associated Slurm job array using `scancel $SLURM_ARRAY_JOB_ID` to prevent further restarts."
+      "question": "What messages are displayed when a Fluent job utilizing a solution restart script either completes successfully or encounters a simulation failure?",
+      "answer": "If a Fluent job completes successfully, the message 'Job completed successfully! Exiting now.' is displayed, and the job array is cancelled. If the simulation fails, the message 'Simulation failed. Exiting …' is displayed."
     }
   ],
-  "generated_at": "2026-04-19T01:21:31.902495+00:00"
+  "generated_at": "2026-04-26T00:29:32.637532+00:00"
 }

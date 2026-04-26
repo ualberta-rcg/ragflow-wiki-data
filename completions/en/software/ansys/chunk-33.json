@@ -4,13 +4,17 @@
   "chunk_index": 33,
   "qa_pairs": [
     {
-      "question": "How can a user launch Ansys programs in graphical mode on Alliance clusters such as Rorqual, Narval, or Trillium?",
-      "answer": "To launch Ansys programs graphically, users can access OnDemand or Jupyterhub desktop environments specific to their cluster (e.g., `https://jupyterhub.rorqual.alliancecan.ca` for Rorqual, `https://jupyterhub.narval.alliancecan.ca/` for Narval, or `https://ondemand.scinet.utoronto.ca` for Trillium). Once on the job submission web page, configure the required resources, including a GPU if accelerated graphics or computations are needed. After the desktop launches, load an Ansys module—either by clicking the left-hand menu for a Jupyter Lab desktop or by manually typing `module load ansys/version` on the command line for an OnDemand desktop."
+      "question": "How do I launch Ansys programs in graphical mode on an Alliance cluster?",
+      "answer": "To run Ansys programs graphically, you first need to access an OnDemand or Jupyterhub desktop via the provided links for specific clusters like Nibi, Rorqual, Narval, or Trillium. On the job submission web page, configure the required resources for your interactive desktop session, making sure to specify a GPU resource if accelerated graphics or computations are needed. Once your desktop loads, load an Ansys module either by clicking the left-hand menu on a Jupyter Lab powered desktop, or by manually typing `module load ansys/version` on the command line for an OnDemand desktop."
     },
     {
-      "question": "When using an OnDemand Desktop on an Alliance cluster, what are the steps and specific environment variable settings required to start Ansys Fluent graphically, both with and without a GPU?",
-      "answer": "To start Ansys Fluent graphically from the command line of an OnDemand Desktop, first load the necessary modules, such as `module load StdEnv/2023 ansys/2025R1`, and then run the command `fluent`. When the Fluent Launcher popup appears, click the 'Environment Tab' to configure environment variables:\n\n*   **For a Compute Node with no GPU requested**: Set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi) and `HOOPS_PICTURE=opengl2-mesa` for Ansys version 2025R1 or newer (or `HOOPS_PICTURE=null` for 2024R2 or older).\n*   **For a Compute Node with a GPU requested**: On Nibi, you must select a full `h100 (80GB)` GPU when starting your OnDemand Desktop. Then, set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi) and `HOOPS_PICTURE=opengl2` for Ansys version 2025R1 or newer (or `HOOPS_PICTURE=opengl` for 2024R2 or older).\n\nAfter setting the appropriate variables, click the 'Start' button."
+      "question": "What steps and environment variables are required to start Ansys Fluent graphically on an OnDemand Desktop on an Alliance cluster without requesting a GPU?",
+      "answer": "To start Ansys Fluent from the command line of an OnDemand Desktop without a GPU, open a terminal window and first run `module load StdEnv/2023 ansys/2025R2.04` (or your desired version), then `fluent`. When the Fluent Launcher popup selector panel appears, click the Environment Tab and copy/paste the following environment variables: `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi), `HOOPS_PICTURE=opengl2-mesa` (for version 2025R1 or newer), `HOOPS_PICTURE=` (leave blank for versions 2024R2.04 through 2023R2), or `HOOPS_PICTURE=null` (for version 2022R2). Finally, click the `Start` button."
+    },
+    {
+      "question": "What causes Ansys Fluent to crash on the Nibi cluster if I'm using an OnDemand Compute Desktop session, and how can I fix it?",
+      "answer": "Ansys Fluent will crash on startup on the Nibi cluster, producing an error like \"Unable to run bstrap_proxy,\" if the environment variable `I_MPI_HYDRA_BOOTSTRAP=ssh` is not properly set when Fluent is launched from within an OnDemand Compute Desktop session, especially when Intel MPI is used. To fix this, ensure that `I_MPI_HYDRA_BOOTSTRAP=ssh` is correctly configured in the Fluent Launcher's Environment Tab. If this error occurs, you must completely exit Fluent, shut down Workbench, and restart the process from the beginning."
     }
   ],
-  "generated_at": "2026-04-19T01:31:38.431467+00:00"
+  "generated_at": "2026-04-26T00:38:39.837834+00:00"
 }

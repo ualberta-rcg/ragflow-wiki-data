@@ -4,17 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "How do you mount a CephFS share directly from the command line on an OpenStack VM, such as Arbutus or SD4H/Juno?",
-      "answer": "To mount a CephFS share directly from the command line:\n*   On an Arbutus VM, use: `sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW`\n*   On an SD4H/Juno VM, use: `sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw`"
+      "question": "How can a user directly mount a CephFS device from the command line on an OpenStack VM, specifically for both Arbutus and SD4H/Juno systems?",
+      "answer": "To directly mount a CephFS device from the command line, use the `sudo mount` command. For Arbutus, the command is `sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW`. For SD4H/Juno, the command includes additional options: `sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw`."
     },
     {
-      "question": "What are the steps to mount a CephFS share in user space using `ceph-fuse`?",
-      "answer": "To mount a CephFS share in a user's home directory via `ceph-fuse`, first install `ceph-fuse` using `sudo dnf install ceph-fuse`. Next, enable user-space mounting by uncommenting `user_allow_other` in the `/etc/fuse.conf` file. Then, create a mount point directory, for example, `mkdir ~/my_cephfs`. Finally, execute the mount command: `ceph-fuse ~/my_cephfs/ --id=MyCephFS-RW --conf=~/ceph.conf --keyring=~/ceph.keyring --client-mountpoint=/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c`. The `--id` parameter specifies the client name, and the `ceph.conf` and `ceph.keyring` files should contain the same information as for a Ceph kernel mount."
+      "question": "What is the function of the `nofail` option when configuring a CephFS mount?",
+      "answer": "The `nofail` option ensures that the system will boot successfully even if the CephFS service is down or unreachable, preventing boot failures due to an unavailable mount."
     },
     {
-      "question": "Can a CephFS share have multiple user keys for access, and is the CephFS service available to hosts outside of the OpenStack cluster?",
-      "answer": "Yes, a particular CephFS share can have more than one user key provisioned. This allows for more granular access to the filesystem, for example, granting some hosts read-only access. However, this CephFS service is not available to hosts outside of the OpenStack cluster."
+      "question": "How can a user mount CephFS directly into their home directory using `ceph-fuse`?",
+      "answer": "To mount CephFS in a user's home directory using `ceph-fuse`, first install the `ceph-fuse` library (e.g., `sudo dnf install ceph-fuse`). Then, uncomment `user_allow_other` in the `/etc/fuse.conf` file. Finally, create a mount point in your home directory (e.g., `mkdir ~/my_cephfs`) and execute a command similar to `ceph-fuse my_cephfs/ --id=MyCephFS-RW --conf=~/ceph.conf --keyring=~/ceph.keyring --client-mountpoint=/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c`. The `ceph.conf` and `ceph.keyring` files should contain the same content as for a kernel mount."
     }
   ],
-  "generated_at": "2026-04-13T03:46:13.735513+00:00"
+  "generated_at": "2026-04-26T00:52:45.770687+00:00"
 }

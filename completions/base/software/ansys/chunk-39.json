@@ -4,13 +4,17 @@
   "chunk_index": 39,
   "qa_pairs": [
     {
-      "question": "What are the terms of use and limitations for the SHARCNET Ansys license available to Alliance researchers?",
-      "answer": "The SHARCNET Ansys license is free for academic use by any Alliance researcher on any Alliance system, supporting Publishable Academic Research (commercial use is strictly prohibited). It includes products such as HF, EM, Electronics HPC, Mechanical, CFD, ROCKY, and LS-DYNA, without solver or geometry limits. Researchers can run a maximum of 16 simultaneous jobs, utilizing up to a total of 512 HPC cores across all clusters. However, the license is oversubscribed, meaning jobs may occasionally fail on startup due to license shortages, requiring manual resubmission. If license shortages become more frequent, the individual core limit for researchers may be reduced from 512 to 384."
+      "question": "When using an OnDemand desktop on the Nibi cluster, how do you start Ansys Workbench with GPU acceleration?",
+      "answer": "To start Ansys Workbench with GPU acceleration on an OnDemand desktop on the Nibi cluster, you must select a `t4 (15GB)` GPU from the GPU selector pulldown list when configuring your OnDemand desktop session. This action automatically sets up the necessary VirtualGL environment variables. Once your desktop is ready, open a terminal, load the module `StdEnv/2023 ansys/2025R2.04` (or a newer version), and then execute `runwb2`."
     },
     {
-      "question": "What common issue can cause Ansys Fluent to crash on startup when launched from an OnDemand Compute Desktop session on the Nibi cluster, especially when using Intel MPI, and how is it resolved?",
-      "answer": "Ansys Fluent commonly crashes on startup in an OnDemand Compute Desktop session on the Nibi cluster, particularly with Intel MPI, if the `I_MPI_HYDRA_BOOTSTRAP=ssh` environment variable is not correctly set. To resolve this, you must set `I_MPI_HYDRA_BOOTSTRAP=ssh` within the Environment Tab of the Fluent Launcher popup selector panel before clicking the 'Start' button. If a crash occurs, you should fully exit Fluent, cleanly shut down Workbench, and then restart the process."
+      "question": "What specific environment variable must be manually set on the Nibi cluster to prevent Ansys Fluent from crashing during startup when using the default Intel MPI within an OnDemand Compute Desktop session?",
+      "answer": "When using the Nibi cluster, the environment variable `I_MPI_HYDRA_BOOTSTRAP=ssh` must be manually set. If this variable is not configured, Ansys Fluent will crash upon startup when run with the default Intel MPI within OnDemand Compute Desktop sessions."
+    },
+    {
+      "question": "If Ansys Workbench applications exhibit corrupted graphics when started from a Jupyterhub Desktop, what steps can be taken to resolve this issue by running Workbench in Mesa mode?",
+      "answer": "To resolve corrupted graphics in Ansys Workbench applications when using a Jupyterhub Desktop, you can create a custom desktop icon to start Workbench in Mesa mode. First, exit Workbench and open a terminal. Then, copy the default Workbench icon by running `cd ~/Desktop; cp -p $(realpath workbench.desktop) workbench-mesa.desktop`. Next, edit the newly created `~/Desktop/workbench-mesa.desktop` file using a text editor like `nano`, changing all instances of `runwb2` to `runwb2 -oglmesa`. Save the changes, then refresh the Jupyter desktop by pressing `control-R`. The new icon will appear, and double-clicking it will launch Workbench in Mesa mode."
     }
   ],
-  "generated_at": "2026-04-19T01:24:49.218738+00:00"
+  "generated_at": "2026-04-26T00:32:32.634333+00:00"
 }

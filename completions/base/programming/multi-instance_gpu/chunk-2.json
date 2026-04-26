@@ -4,13 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How can a user request an A100 Multi-Instance GPU (MIG) instance for an interactive job or a batch job?",
-      "answer": "To request an A100 GPU instance for an interactive job, for example, with 3/8 computing power and 20GB memory for one hour, you can use the `salloc` command: `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`. For a 24-hour batch job requiring an A100 instance with 4/8 power and 20GB memory, along with recommended CPU cores and system memory, an SBATCH script would include `#SBATCH --gpus=a100_4g.20gb:1`, `#SBATCH --cpus-per-task=6`, and `#SBATCH --mem=62gb`."
+      "question": "What metrics should be considered when determining if a computing job is suitable for a Multi-Instance GPU (MIG) instance rather than a full GPU?",
+      "answer": "To identify if a job is suitable for a Multi-Instance GPU (MIG) instance, you should evaluate its power consumption, GPU functionality utilization, maximum GPU memory usage, and the average number of CPU cores required. Low usage across these metrics suggests the job could run efficiently on a MIG instance. Information on current and past jobs can be found on the Narval usage portal, and real-time monitoring can be done using `nvidia-smi` when attaching to a running job's node."
     },
     {
-      "question": "What metrics should be evaluated to determine if an existing job could be more efficiently run on a Multi-Instance GPU (MIG) instance instead of a full GPU?",
-      "answer": "To determine if a job could be more efficiently run on a MIG instance, you should evaluate its power consumption, GPU functionality utilization, maximum GPU memory usage, and the average number of CPU cores required. For instance, a job requesting a full A100 GPU (400W max TDP) but only using 100W on average, with less than 25% GPU utilization and a maximum of 3GB GPU memory out of 40GB, and launched with a single CPU core, could likely run on a smaller instance like a 3g.20GB or 4g.20GB GPU instance."
+      "question": "How can a user request a specific Multi-Instance GPU (MIG) instance, such as an A100 3g.20gb or A100 4g.20gb, for an interactive or batch job on a compute cluster?",
+      "answer": "For an interactive job, you can request an instance of power 3/8 and size 20GB (e.g., an A100 3g.20gb) using a command like: `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`. For a batch job, you would include similar parameters in an SBATCH script, such as: `#!/bin/bash\n#SBATCH --account=def-someuser\n#SBATCH --gpus=a100_4g.20gb:1\n#SBATCH --cpus-per-task=6\n#SBATCH --mem=62gb\n#SBATCH --time=24:00:00`."
+    },
+    {
+      "question": "How are the streaming multiprocessors (SMs) partitioned within an H100 SXM5 GPU when using Multi-Instance GPU (MIG) technology, and why is this different from NVIDIA's typical description?",
+      "answer": "An H100 SXM5 GPU has a total of 132 streaming multiprocessors (SMs). Under MIG, these are partitioned into one instance of 60 SMs (H100-3g.40gb), one instance of 32 SMs (H100-2g.20gb), and two instances of 16 SMs each (H100-1g.10gb). This partitioning leaves 8 SMs unassigned and effectively lost. This differs from NVIDIA's documentation which often speaks in terms of sevenths and eighths, because 132 is not divisible by seven or eight, making 'thirty-thirdths' a more accurate, albeit unwieldy, way to describe the actual partitioning."
     }
   ],
-  "generated_at": "2026-04-19T02:11:37.186114+00:00"
+  "generated_at": "2026-04-26T01:01:03.491889+00:00"
 }

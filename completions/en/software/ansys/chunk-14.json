@@ -4,17 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the solution restart scripts for Fluent jobs on Alliance clusters?",
-      "answer": "Solution restart scripts are provided to automate restarting very large Fluent jobs that require more than the typical seven-day maximum runtime window available on most Alliance clusters."
+      "question": "What is the primary reason for using the \"Solution restart\" feature in Ansys Fluent when running jobs on Alliance clusters?",
+      "answer": "The \"Solution restart\" feature in Ansys Fluent is primarily used to automate the restarting of very large jobs that require more than the typical seven-day maximum runtime window available on most clusters. This allows jobs to continue from the most recently saved time step files."
     },
     {
-      "question": "How is the total simulation time calculated for Fluent jobs using solution restart scripts, assuming the initial time step runs at a certain speed and subsequent steps are twice as fast?",
-      "answer": "If the initial time step completes within the requested job array time limit and subsequent time steps run twice as fast, the total simulation time is calculated as `1*Dt + 2*Nrestart*Dt`. Here, `Dt` represents the time step size, and `Nrestart` is the number of solution restarts specified in the script."
+      "question": "When configuring Ansys Fluent jobs for solution restarts, how should the initial and restart journal files be set up?",
+      "answer": "To configure Ansys Fluent jobs for solution restarts, the initial `sample.jou` file should include commands such as `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`. A `sample-restart.jou` file must also be created (e.g., by copying `sample.jou`), where `/file/read-cas-data sample` is replaced with `/file/read-cas-data sample-restart`, and any initialization line (e.g., `/solve/initialize/initialize-flow`) is commented out with a semicolon. If subsequent time steps are expected to run faster, the `dual-time-iterate` value in `sample-restart.jou` can be adjusted, for instance, to `2`."
     },
     {
-      "question": "What is the maximum time limit that can be requested for a Fluent solution restart job using Slurm scripts?",
-      "answer": "The Slurm time window for a Fluent solution restart job can be specified up to a maximum of \"#SBATCH --time=07-00:00\" days."
+      "question": "How are the total simulation time and the total number of time steps calculated when employing the solution restart feature for Ansys Fluent jobs?",
+      "answer": "When the solution restart feature is used for Ansys Fluent jobs, the total simulation time is calculated as `1*Dt + 2*Nrestart*Dt`, where `Dt` represents the standard fixed time step size and `Nrestart` is the number of solution restarts specified in the script. The total number of time steps (which corresponds to the number of output files generated) will be `1 + 2*Nrestart`. The time resource requested in the Slurm script should ensure the initial and subsequent time steps complete comfortably within the maximum allowed time, which can be up to \"07-00:00\" days."
     }
   ],
-  "generated_at": "2026-04-19T01:28:36.968836+00:00"
+  "generated_at": "2026-04-26T00:36:06.287981+00:00"
 }

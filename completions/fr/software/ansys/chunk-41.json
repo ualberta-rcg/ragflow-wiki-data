@@ -4,17 +4,17 @@
   "chunk_index": 41,
   "qa_pairs": [
     {
-      "question": "Comment lance-t-on le logiciel Ansys CFX en mode graphique depuis un bureau à la demande (On Demand Desktop) sur les grappes de l'Alliance?",
-      "answer": "Il faut d'abord charger le module `StdEnv/2023 ansys/2025R1` (ou une version plus ancienne). Ensuite, si aucun GPU n'a été demandé lors du démarrage du bureau, on utilise la commande `cfx5 -graphics mesa`. Si un GPU a été demandé, la commande est `cfx5 -graphics ogl`."
+      "question": "Comment lancer Ansys CFX en mode graphique à partir d'un bureau On Demand, et quels arguments de commande faut-il spécifier selon la présence ou non d'un GPU?",
+      "answer": "Pour démarrer Ansys CFX à partir d'un bureau On Demand, vous devez d'abord charger le module `StdEnv/2023 ansys/2025R1` (ou une version antérieure). Ensuite, si aucun GPU n'a été demandé, utilisez la commande `cfx5 -graphics mesa`. Si un GPU a été demandé, utilisez plutôt `cfx5 -graphics ogl`."
     },
     {
-      "question": "Quelles commandes doit-on utiliser pour démarrer l'interface graphique de Mechanical APDL (Mapdl) sur un nœud de calcul, que ce soit via un bureau à la demande ou un bureau Jupyter Lab?",
-      "answer": "Après avoir chargé le module `StdEnv/2023 ansys/2022R2` (ou une version plus récente), on peut lancer l'interface directement avec `mapdl -g` ou passer par le démarreur (`launcher`) et cliquer sur le bouton `RUN`."
+      "question": "Quelles sont les étapes pour démarrer Ansys Workbench en mode graphique sur un bureau On Demand, et y a-t-il des commandes additionnelles nécessaires pour Ansys Mechanical ou CFD-Post?",
+      "answer": "Pour démarrer Ansys Workbench, chargez d'abord le module `StdEnv/2023 ansys/2022R2` (ou une version plus récente). Si vous utilisez Ansys Mechanical, lancez `xfwm4 --replace &` avant Workbench. Si vous utilisez CFD-Post, exportez la variable `QTWEBENGINE_DISABLE_SANDBOX=1`. Ensuite, exécutez simplement `runwb2`. Il est important de noter que pour les analyses parallèles sur un nœud simple, il ne faut pas cocher l'option 'Distributed' et spécifier un nombre de cœurs égal à votre session salloc moins un. Si les menus déroulants de Workbench ne répondent pas, lancez `xfwm4 --replace`."
     },
     {
-      "question": "Quels sont les problèmes rencontrés lors de l'exécution d'applications graphiques Ansys à distance via SSH sur les grappes de l'Alliance, et quelle méthode est suggérée à la place?",
-      "answer": "L'exécution graphique via SSH n'est ni testée ni supportée. Cette approche peut entraîner des temps de réponse interactifs inacceptables pour des tâches de base et des démarrages de programme très lents (par exemple, 40 minutes pour SSH contre 34 secondes pour VNC). Pour une meilleure performance, il est fortement recommandé d'utiliser VNC ou les sessions de bureau à la demande (On Demand Desktop ou Jupyter Lab Desktop)."
+      "question": "Quels sont les inconvénients et les problèmes potentiels liés à l'utilisation de la redirection X via SSH pour exécuter des programmes graphiques ANSYS sur les grappes de l'Alliance, comparativement à l'utilisation de VNC?",
+      "answer": "La redirection X via SSH pour exécuter des programmes graphiques ANSYS n'est ni testée ni prise en charge, car elle dépend d'une configuration spécifique du serveur d'affichage X sur votre système local. Généralement, les temps de réponse interactifs sont jugés inacceptables, même pour des opérations de menu de base, et les temps d'attente pour démarrer les programmes avec interface graphique peuvent être très longs. Par exemple, un test a montré qu'il fallait 40 minutes pour obtenir l'interface graphique via SSH, alors que vncviewer ne prenait que 34 secondes. Bien que cela puisse être suffisant si votre seul objectif est d'ouvrir une simulation et d'effectuer des opérations de menu de base ou d'exécuter des calculs, VNC offre une expérience beaucoup plus rapide et fiable."
     }
   ],
-  "generated_at": "2026-04-19T01:39:12.828114+00:00"
+  "generated_at": "2026-04-26T00:46:05.751122+00:00"
 }

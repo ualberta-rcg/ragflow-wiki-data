@@ -4,17 +4,17 @@
   "chunk_index": 23,
   "qa_pairs": [
     {
-      "question": "In Ansys Fluent, how can Discrete Phase Model (DPM) injections be automated using a journal file, and what is the typical structure of a basic injection text file for this purpose?",
-      "answer": "To automate Discrete Phase Model (DPM) injections within Ansys Fluent using a journal file, you can include commands such as `/define/models/dpm/interaction/coupled-calculations yes`, `/define/models/dpm/injections/delete-injection injection-0:1`, and `/define/models/dpm/injections/create injection-0:1 no yes file no zinjection01.inj no no no no`. A basic injection text file, like `zinjection01.inj`, often follows a steady format with particle properties defined as: `(z=4 12) ( x y z u v w diameter t mass-flow mass frequency time name ) (( 2.90e-02 5.00e-03 0.0 -1.00e-03 0.0 0.0 1.00e-04 2.93e+02 1.00e-06 0.0 0.0 0.0 ) injection-0:1 )`."
+      "question": "How can Discrete Phase Model (DPM) injections be automated in Ansys Fluent using a journal file?",
+      "answer": "DPM injections can be automated by including specific commands in the journal file after solution initialization. This involves enabling coupled calculations, deleting existing injections, creating new injections from a specified file (e.g., `zinjection01.inj`), and then listing particle and injection properties. An example sequence of commands is `/define/models/dpm/interaction/coupled-calculations yes`, `/define/models/dpm/injections/delete-injection injection-0:1`, and `/define/models/dpm/injections/create injection-0:1 no yes file no zinjection01.inj no no no no`."
     },
     {
-      "question": "How can users view the command-line options for the `cfx5solve` executable in Ansys CFX, and what are the specific options for setting calculation precision and enabling support for large meshes?",
-      "answer": "To view all available command-line options for `cfx5solve` in Ansys CFX, users should first load the appropriate module version and then execute `cfx5solve -help` in the terminal. Key options include `-single` to run in single precision (which is the default), `-double` to run in double precision (which doubles memory requirements), and `-large` to enable support for meshes with up to 2 billion elements (compared to the default limits of 80 million structured or 200 million unstructured elements)."
+      "question": "How can a user view the available command-line options for `cfx5solve` in Ansys CFX?",
+      "answer": "To view a summary of `cfx5solve` command-line options, a user should first load the same module version that will be used in their Slurm script, and then run the command `cfx5solve -help` in the terminal."
     },
     {
-      "question": "When submitting Ansys CFX jobs to an Alliance cluster via Slurm, how are parallel runs configured for both single-node and multi-node scenarios, and what are the essential Slurm script commands for these configurations?",
-      "answer": "For single-node parallel execution of Ansys CFX on an Alliance cluster, a Slurm script should specify `--nodes=1` and use a command like `cfx5solve -def YOURFILE.def -start-method \"Open MPI Local Parallel\" -part $SLURM_CPUS_ON_NODE` (for Narval or Fir clusters) or `\"Intel MPI Local Parallel\"` (for other clusters). For multi-node parallel execution, the script would specify `--nodes=2` (or more) and use `cfx5solve -def YOURFILE.def -start-method \"Open MPI Distributed Parallel\" -par-dist $NNODES` (for Narval or Fir) or `\"Intel MPI Distributed Parallel\"` (for other clusters), where `NNODES` is determined by `$(slurm_hl2hl.py --format ANSYS-CFX)`."
+      "question": "What command-line options are available for running Ansys CFX's `cfx5solve` with double precision or for simulations involving very large meshes?",
+      "answer": "By default, `cfx5solve` runs in single precision. To run in double precision, add the `-double` option to the command; however, this will also double memory requirements. For simulations with meshes containing up to 2 billion elements (exceeding the default limits), the `-large` option should be added to the command."
     }
   ],
-  "generated_at": "2026-04-19T01:30:08.860117+00:00"
+  "generated_at": "2026-04-26T00:37:17.017357+00:00"
 }

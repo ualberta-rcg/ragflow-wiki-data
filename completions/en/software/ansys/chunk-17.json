@@ -4,17 +4,13 @@
   "chunk_index": 17,
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of the Fluent \"Solution restart\" Slurm script, such as the `Multinode (by core + restart)` script?",
-      "answer": "The primary purpose of the Fluent \"Solution restart\" Slurm script is to automate the restarting of very large simulation jobs that might require more time than the typical seven-day maximum runtime allowed on most clusters. It ensures that jobs continue from the most recently saved time step files."
+      "question": "What is the purpose of the Slurm script that includes `--array=1-5%1` for Fluent simulations on Alliance clusters, and how does it manage job restarts?",
+      "answer": "This Slurm script is designed to automate the restart of very large Fluent jobs that might exceed typical runtime limits, such as the seven-day maximum available on most clusters. The `--array=1-5%1` directive specifies up to 5 solution restarts. After the initial job completes (for `SLURM_ARRAY_TASK_ID == 1`), subsequent array tasks (`SLURM_ARRAY_TASK_ID > 1`) restart the simulation from the most recent saved data. This is achieved by symbolically linking the latest output `.cas` and `.dat` files to `sample-restart.cas.h5` and `sample-restart.dat.h5`, respectively, allowing the Fluent solver to pick up from the last saved state."
     },
     {
-      "question": "How does a Fluent \"Solution restart\" Slurm script, like the `Multinode (by core + restart)` example, manage the initial run versus subsequent restarts, and how does it handle simulation data for continuity?",
-      "answer": "The script uses the `SLURM_ARRAY_TASK_ID` variable to manage runs: if `SLURM_ARRAY_TASK_ID` is 1, it executes the initial journal file (`MYJOUFILE`). For any subsequent array tasks (when `SLURM_ARRAY_TASK_ID` is greater than 1), it executes a dedicated restart journal file (`MYJOUFILERES`). To maintain continuity, after each successful array task, the script creates symbolic links (`MYCASFILERES` and `MYDATFILERES`) that point to the most recent output `.cas` and `.dat` files, allowing the next restart attempt to pick up from the latest saved state."
-    },
-    {
-      "question": "What is the function of Fluent journal files, and what are the two main file formats that can be specified within them for simulation input/output?",
-      "answer": "Fluent journal files allow users to automate Fluent operations by incorporating Text-User-Interface (TUI) commands, which can be used to modify simulation parameters, run solvers, and manage output. For input/output files, journal files can be configured to use either the legacy `.cas/.dat` file format (by setting `/file/cff-files no` for module versions 2019R3 or older) or the more efficient `.cas.h5/.dat.h5` file format (by setting `/file/cff-files yes` for module versions 2020R1 or newer)."
+      "question": "What is the function of Fluent journal files, and what is the significance of the `/file/cff-files` command within them?",
+      "answer": "Fluent journal files serve to automate simulations by incorporating commands from Fluent's Text-User-Interface (TUI). Users can employ these commands to modify simulation parameters, such as temperature or pressure, enabling a series of simulations to be run with a single case file. The `/file/cff-files` command in a journal file controls the file format for reading and writing Fluent case and data files. Setting it to `no` uses the legacy `.cas/.dat` format (default for Ansys module versions 2019R3 or older), while setting it to `yes` enables the more efficient `.cas.h5/.dat.h5` format (default for Ansys module versions 2020R1 or newer)."
     }
   ],
-  "generated_at": "2026-04-19T01:29:04.360807+00:00"
+  "generated_at": "2026-04-26T00:36:32.709517+00:00"
 }

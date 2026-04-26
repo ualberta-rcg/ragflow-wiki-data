@@ -4,60 +4,68 @@
   "qa_pairs": [
     {
       "question": "What is Multi-Instance GPU (MIG) technology on Alliance clusters?",
-      "answer": "Multi-Instance GPU (MIG) is a technology that allows partitioning a single GPU into multiple independent virtual GPU instances, each receiving a portion of the original GPU's computational resources and memory, detached from other instances by on-chip protections."
+      "answer": "Multi-Instance GPU (MIG) is a technology that allows partitioning a single GPU into multiple independent virtual GPU instances, each with a portion of the original GPU's computational resources and memory, isolated by on-chip protections."
     },
     {
-      "question": "What are the benefits of using Multi-Instance GPU (MIG) instances on Alliance clusters?",
-      "answer": "Using GPU instances is less wasteful, usage is billed accordingly, jobs use less of your allocated priority, allowing more jobs to be executed, and resulting in shorter wait times."
+      "question": "What are the benefits of using GPU instances created with Multi-Instance GPU (MIG) technology on Alliance clusters?",
+      "answer": "Using GPU instances is less wasteful, leading to a lower impact on allocated priority, which allows users to execute more jobs and experience shorter wait times."
     },
     {
-      "question": "When should a job on Alliance clusters be evaluated for use with a Multi-Instance GPU (MIG) instance instead of a full GPU?",
-      "answer": "Jobs that use less than half of the computing power of a full GPU and less than half of the available memory should be evaluated and tested on a MIG instance."
+      "question": "How should researchers decide between using a full GPU or a Multi-Instance GPU (MIG) instance for their jobs on Alliance clusters?",
+      "answer": "Jobs that use less than half of a full GPU's computing power and less than half of its available memory should be evaluated and tested on a MIG instance, as they often run just as fast while consuming fewer resources."
     },
     {
-      "question": "What is a significant limitation of Multi-Instance GPU (MIG) technology regarding data transfers between GPUs on Alliance clusters?",
-      "answer": "MIG technology does not support CUDA Inter-Process Communication (IPC), which optimizes data transfers between GPUs over NVLink and NVSwitch, and this limitation reduces communication efficiency between instances."
+      "question": "What is a key limitation of Multi-Instance GPU (MIG) technology regarding inter-process communication on Alliance clusters?",
+      "answer": "MIG technology does not support CUDA Inter-Process Communication (IPC), which optimizes data transfers between GPUs over NVLink and NVSwitch, reducing communication efficiency between instances."
     },
     {
-      "question": "Are users permitted to request more than one Multi-Instance GPU (MIG) instance in a single job on Alliance clusters?",
-      "answer": "No, requesting more than one MIG instance in a job is not permitted and such a job will be rejected at submission time."
+      "question": "Is it permissible to request more than one Multi-Instance GPU (MIG) instance in a single job on Alliance clusters?",
+      "answer": "No, requesting more than one MIG instance in a job is not permitted and such jobs will be rejected at submission time due to communication efficiency limitations."
     },
     {
       "question": "What alternatives are available if a user feels they need more than one Multi-Instance GPU (MIG) instance for a job on Alliance clusters?",
-      "answer": "Users can request a larger instance, request an entire GPU or multiple GPUs, use MPS rather than MIG, or contact support for assistance."
+      "answer": "Users can request a larger instance, an entire GPU or multiple GPUs, use job arrays, META-Farm, GNU Parallel, GLOST, or MPS, or contact support for assistance."
     },
     {
-      "question": "Are graphic APIs like OpenGL and Vulkan supported when using Multi-Instance GPU (MIG) instances on Alliance clusters?",
-      "answer": "No, graphic APIs such as OpenGL and Vulkan are not supported when using Multi-Instance GPU (MIG) instances."
+      "question": "Are graphic APIs like OpenGL and Vulkan supported by Multi-Instance GPU (MIG) technology on Alliance clusters?",
+      "answer": "No, graphic APIs such as OpenGL and Vulkan are not supported by MIG technology."
     },
     {
-      "question": "What factor determines the maximum number of CPU cores available per Multi-Instance GPU (MIG) instance on Alliance clusters?",
-      "answer": "The maximum number of CPU cores per instance depends on the number of cores per full GPU and on the configured MIG profiles, both of which vary between clusters and GPU nodes."
+      "question": "On which Alliance clusters are Multi-Instance GPU (MIG) configurations supported?",
+      "answer": "MIG configurations are supported on Narval (NVIDIA A100-40gb), Rorqual (NVIDIA H100-80gb), Nibi (NVIDIA H100-80gb), and Fir (NVIDIA H100-80gb)."
     },
     {
-      "question": "Which Alliance clusters support Multi-Instance GPU (MIG) configurations?",
-      "answer": "Narval (with NVIDIA A100-40gb GPUs), Rorqual (with NVIDIA H100-80gb GPUs), Nibi (with NVIDIA H100-80gb GPUs), and Fir (with NVIDIA H100-80gb GPUs) clusters support MIG configurations."
+      "question": "How are Multi-Instance GPU (MIG) profiles named, and what do the names signify for H100 GPUs on Alliance clusters?",
+      "answer": "The profile name describes the instance size; for example, H100-1g.10gb signifies 1/8th of the computing power with 10GB GPU memory, H100-2g.20gb signifies 2/8th with 20GB, and H100-3g.40gb signifies 3/8th with 40GB."
     },
     {
-      "question": "What are some example Multi-Instance GPU (MIG) profiles for NVIDIA H100 GPUs and what do they represent?",
-      "answer": "Examples include H100-1g.10gb (1/8th computing power with 10GB GPU memory), H100-2g.20gb (2/8th computing power with 20GB GPU memory), and H100-3g.40gb (3/8th computing power with 40GB GPU memory)."
+      "question": "How do less powerful Multi-Instance GPU (MIG) profiles affect a user's allocation and priority on Alliance clusters?",
+      "answer": "Using less powerful MIG profiles will have a lower impact on a user's allocation and priority."
     },
     {
-      "question": "How can users list all available Multi-Instance GPU (MIG) flavours and full-size GPU names on a given Alliance cluster?",
-      "answer": "Users can run the command `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\\n/g'|cut -d: -f1|sort|uniq` to list all available MIG flavours and full-size GPU names."
+      "question": "What Slurm command can be used to request an interactive job using a Multi-Instance GPU (MIG) instance of power 3/8 with 20GB memory for one hour on an Alliance cluster?",
+      "answer": "An example command is `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`."
     },
     {
-      "question": "What metrics should users consider to determine if a job on Alliance clusters would benefit from using a Multi-Instance GPU (MIG) instance?",
-      "answer": "Key metrics to consider are power consumption, GPU functionality utilization, the maximum amount of GPU memory, and the average number of CPU cores required to run the job."
+      "question": "What metrics should users consider when trying to determine if a job would be more efficient using a Multi-Instance GPU (MIG) instance instead of a full GPU on Alliance clusters?",
+      "answer": "Users should consider GPU power consumption, GPU functionality utilization, maximum GPU memory usage, and the average number of CPU cores required by the job."
     },
     {
-      "question": "How can users monitor the usage of a running job to determine if it's suitable for a Multi-Instance GPU (MIG) instance on Alliance clusters?",
-      "answer": "Users can attach to the node where the job is currently running and then use `nvidia-smi` to read real-time GPU metrics, which can help identify and troubleshoot underperforming jobs."
+      "question": "How can GPU power consumption help determine if a job is suitable for a Multi-Instance GPU (MIG) instance on Alliance clusters?",
+      "answer": "If a job requests a full GPU but only uses a small fraction of its maximum TDP (e.g., 100W average out of 400W maximum for an A100), it indicates that the job might run efficiently on a smaller MIG instance."
     },
     {
-      "question": "How does the actual partitioning of an H100 SXM5 GPU into Multi-Instance GPU (MIG) instances differ from NVIDIA's 'eighths' terminology on Alliance clusters?",
-      "answer": "While NVIDIA speaks in 'eighths,' an H100 SXM5 GPU's 132 streaming multiprocessors are partitioned into one 60 SM instance (3g.40gb), one 32 SM instance (2g.20gb), and two 16 SM instances (1g.10gb), leaving 8 SMs unassigned, making 'thirty-thirdths' a more precise but unwieldy description."
+      "question": "What memory and CPU metrics are important when deciding to use a Multi-Instance GPU (MIG) instance for a job on Alliance clusters?",
+      "answer": "Users should look at the maximum amount of GPU memory used and the average number of CPU cores required; if these are significantly less than what a full GPU offers, a MIG instance might be appropriate."
+    },
+    {
+      "question": "How can users monitor the usage of a running job in real-time to assess its suitability for a Multi-Instance GPU (MIG) instance on Alliance clusters?",
+      "answer": "Users can attach to the node where the job is running and use the `nvidia-smi` command to read GPU metrics in real-time."
+    },
+    {
+      "question": "How are the 132 streaming multiprocessors (SMs) of an H100 SXM5 GPU partitioned into Multi-Instance GPU (MIG) instances on Alliance clusters?",
+      "answer": "An H100 SXM5 GPU's 132 SMs are partitioned into one 60 SM instance (3g.40gb), one 32 SM instance (2g.20gb), and two 16 SM instances (1g.10gb), leaving eight SMs unassigned."
     }
   ],
-  "generated_at": "2026-04-19T02:11:22.995502+00:00"
+  "generated_at": "2026-04-26T01:00:44.386394+00:00"
 }

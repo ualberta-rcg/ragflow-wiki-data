@@ -4,17 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "Comment configure-t-on les informations de licence Ansys Fluent directement dans un script Slurm pour le cluster Trillium, au lieu d'utiliser le fichier `~/.licenses/ansys.lic` ?",
-      "answer": "Pour configurer les informations de licence Ansys Fluent directement dans un script Slurm pour le cluster Trillium, vous devez définir les variables `LICSERVER`, `FLEXPORT` et `VENDPORT` dans le script. Ensuite, utilisez des commandes `ssh tri-gw -fNL` pour rediriger les ports Flex et Vendor vers `localhost`. Enfin, exportez `ANSYSLMD_LICENSE_FILE` et `ANSYSLI_SERVERS` en utilisant les ports redirigés sur `localhost`."
+      "question": "Comment configurer la licence Ansys spécifiquement pour une tâche sur la grappe Trillium?",
+      "answer": "Pour la grappe Trillium, les paramètres de licence tels que le nom d'hôte du serveur (`LICSERVER`), le port flex (`FLEXPORT`) et le port du fournisseur (`VENDPORT`) sont définis directement dans le script de soumission. Des tunnels SSH sont ensuite établis via `tri-gw` pour accéder à ce serveur de licence, et les variables d'environnement `ANSYSLMD_LICENSE_FILE` et `ANSYSLI_SERVERS` sont configurées localement pour utiliser ces tunnels."
     },
     {
-      "question": "Quelles sont les vérifications et les configurations requises pour les répertoires `~/.ansys`, `~/.fluentconf` et `~/.flrecent` avant de lancer une tâche Ansys Fluent sur le cluster Trillium ?",
-      "answer": "Avant de soumettre une tâche Ansys Fluent sur le cluster Trillium, le script vérifie si les répertoires `~/.ansys`, `~/.fluentconf` et le fichier `~/.flrecent` sont des liens symboliques (symlinks) pointant vers des emplacements accessibles en écriture sous `$SCRATCH`. Si ce n'est pas le cas, le script affichera une erreur et exigera que vous créiez ces liens, par exemple en exécutant `ln -s $SCRATCH/.ansys ~/.ansys` pour `.ansys`. Si les liens existent, le script s'assure que les répertoires correspondants dans `$SCRATCH` sont créés et que le fichier `.flrecent` existe."
+      "question": "Quels sont les répertoires nécessaires pour les tâches Ansys Fluent sur la grappe Trillium et comment les préparer si elles sont manquantes?",
+      "answer": "Pour les tâches Ansys Fluent sur la grappe Trillium, il est essentiel d'avoir des liens symboliques vers des répertoires inscriptibles dans `$SCRATCH` pour `.ansys`, `.fluentconf` et `.flrecent` dans votre répertoire personnel (`$HOME`). Si ces liens n'existent pas, il faut les créer en exécutant des commandes comme `ln -s $SCRATCH/.ansys ~/.ansys`."
     },
     {
-      "question": "Quand devrait-on utiliser les scripts Slurm de « remise en file d'attente pour obtenir la licence » pour les tâches Ansys Fluent, et dans quels cas ne sont-ils pas recommandés ?",
-      "answer": "Les scripts Slurm de « remise en file d'attente pour obtenir la licence » pour Ansys Fluent sont conçus exclusivement pour les tâches qui se terminent normalement, sans erreurs, mais qui rencontrent des difficultés à démarrer en raison d'un manque de licences disponibles. Ils réessayent de soumettre la tâche plusieurs fois si la licence n'est pas obtenue. Par contre, il est fortement déconseillé de les utiliser pour des tâches Fluent qui risquent de planter pendant l'exécution ou de se terminer avec des avertissements, car cela entraînerait la répétition inutile de simulations qui échouent pour d'autres raisons."
+      "question": "Dans quel but utilise-t-on la fonction de « Remise en file d'attente pour obtenir la licence » pour les tâches Ansys Fluent, et quelles sont ses contraintes?",
+      "answer": "Cette fonction sert à resoumettre automatiquement les tâches Ansys Fluent qui échouent au démarrage en raison d'un manque de licences, jusqu'à un nombre maximal de tentatives. Par contre, elle n'est pas recommandée pour les simulations qui pourraient planter pour d'autres raisons ou qui génèrent des avertissements en fin d'exécution, car elle relancerait inutilement ces calculs à partir du début."
     }
   ],
-  "generated_at": "2026-04-19T01:35:43.461384+00:00"
+  "generated_at": "2026-04-26T00:42:30.539464+00:00"
 }

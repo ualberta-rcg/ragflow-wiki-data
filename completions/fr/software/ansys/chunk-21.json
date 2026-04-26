@@ -4,17 +4,17 @@
   "chunk_index": 21,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on peut automatiser le redémarrage d'une simulation Ansys Fluent sur les grappes de Calcul Canada si elle dépasse la limite de temps allouée pour une tâche?",
-      "answer": "Pour automatiser le redémarrage de tâches Fluent intensives qui exigent plus que le maximum de sept jours d'exécution, on doit d'abord préparer un fichier de cas initial, un fichier de données et un fichier de journalisation (`sample.jou`). Ensuite, on crée un fichier de journalisation de redémarrage (`sample-restart.jou`) qui lit le fichier de cas-données de redémarrage (`/file/read-cas-data sample-restart`) et on met en commentaire l'initialisation. On ajuste aussi les commandes `/solve/dual-time-iterate` et `/file/auto-save/data-frequency` dans le fichier de journalisation. Le nombre de redémarrages est spécifié par l'option `--array` dans le script Slurm."
+      "question": "Comment les utilisateurs peuvent-ils automatiser le redémarrage d'une simulation Fluent sur les grappes de calcul de l'Alliance, notamment pour les tâches de longue durée ou en cas d'échec de licence?",
+      "answer": "Pour automatiser le redémarrage d'une simulation Fluent, il faut configurer un script Slurm avec l'option `#SBATCH --array=1-N%1`, où `N` indique le nombre maximum de tentatives ou de pas de temps. Ce script utilise des fichiers de journalisation spécifiques pour l'initialisation et pour les redémarrages, et crée des liens symboliques vers les derniers fichiers de données et de cas de sortie pour reprendre la simulation. Si une tentative échoue, le script relance la tâche, mais il est recommandé de vérifier les journaux pour s'assurer que l'échec est dû à un problème de licence et non à une divergence de la simulation, afin d'éviter de gaspiller des ressources."
     },
     {
-      "question": "À quoi servent les fichiers de journalisation dans Ansys Fluent et comment peut-on s'en servir pour gérer les simulations?",
-      "answer": "Les fichiers de journalisation Ansys Fluent contiennent toutes les commandes de l'interface TUI (Text User Interface) et peuvent être utilisés pour modifier des paramètres de simulation comme la température, la pression ou la vitesse du flux. En modifiant simplement les paramètres dans le fichier de journalisation, on peut effectuer une série de simulations sous différentes conditions, ce qui est très pratique pour l'expérimentation et l'automatisation."
+      "question": "À quoi servent les fichiers de journalisation Fluent et comment les chercheurs peuvent-ils les utiliser pour contrôler leurs simulations?",
+      "answer": "Les fichiers de journalisation Fluent contiennent toutes les commandes de l'interface TUI (Text User Interface) et permettent de contrôler les simulations. Les chercheurs peuvent les utiliser pour modifier des paramètres (comme la température ou la pression), pour exécuter une série de simulations sous différentes conditions, ou pour automatiser des actions telles que la lecture et l'écriture de fichiers de cas et de données, le lancement du solveur pour un nombre précis d'itérations, et la génération de rapports de simulation. Ces fichiers sont essentiels pour les tâches soumises en lot sur les grappes."
     },
     {
-      "question": "Quels sont les formats de fichiers de cas et de données par défaut pour Fluent, et comment on configure les versions plus récentes pour utiliser des formats plus efficaces?",
-      "answer": "Jusqu'à la version 2019R3, les formats de fichiers de cas et de données par défaut de Fluent étaient `.cas` et `.dat`. Pour les versions à partir de 2020R1, les formats `.cas.h5` et `.dat.h5` sont plus efficaces. Pour utiliser ces formats plus récents, il faut configurer l'option `/file/cff-files yes` dans le fichier de journalisation, au lieu de `/file/cff-files no` qui est pour les formats legacy."
+      "question": "Quels sont les formats de fichiers de cas et de données supportés par Fluent et comment peut-on configurer le format à utiliser dans un fichier de journalisation?",
+      "answer": "Fluent supporte les formats de fichiers de cas et de données traditionnels `.cas/.dat` et les formats plus récents et efficaces `.cas.h5/.dat.h5` disponibles à partir de la version 2020R1. Pour utiliser les formats traditionnels, la ligne `/file/cff-files no` doit être incluse dans le fichier de journalisation. Pour les formats plus récents, il faut spécifier `/file/cff-files yes`."
     }
   ],
-  "generated_at": "2026-04-19T01:36:46.122029+00:00"
+  "generated_at": "2026-04-26T00:43:39.871751+00:00"
 }

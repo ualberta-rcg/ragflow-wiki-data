@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How are Ansys service packs handled in terms of module loading on the clusters?",
-      "answer": "Starting with Ansys 2024, a separate Ansys module will appear on the clusters with a decimal and two digits after the release number whenever a service pack is installed. For example, `module load ansys/2024R1.03` loads Service Pack 3 for the 2024R1 release. Users can also load the latest module version equipped with the newest installed service pack by simply doing `module load ansys`."
+      "question": "How are Ansys service packs identified in module versions on the clusters, and how can a user load the latest available service pack?",
+      "answer": "Starting with Ansys 2024, service packs are indicated by a decimal and two digits after the release number in module versions; for example, `ansys/2024R1.03` for Service Pack 3. To load the latest module version with the most recent installed service pack, users can simply use the command `module load ansys`."
     },
     {
-      "question": "What is the general procedure for running an Ansys Fluent job on the clusters?",
-      "answer": "First, prepare your Fluent job on a desktop machine and export the 'case' file (and 'data' file, if needed). Then, transfer these files to a `/project` or `/scratch` directory on the cluster. Next, create a 'journal' file to load the case and data files, run the solver, and write the results. After preparing these, submit the job. Once completed, you can download the data file and import it back into Fluent."
+      "question": "What is the typical procedure for running an Ansys Fluent job on the clusters?",
+      "answer": "To run an Ansys Fluent job, first prepare your job in Ansys Workbench on your desktop and export the 'case' file (e.g., `FFF-1.cas.gz`) and, if continuing a previous calculation, the 'data' file (e.g., `FFF-1.dat.gz`). Then, transfer these files to the `/project` or `/scratch` filesystem on the cluster. Create a 'journal' file to load the case and data, run the solver, and write results. If jobs frequently fail due to license shortages, consider modifying your script to requeue the job up to four times, monitoring output to ensure failures are license-related. After the job runs, download the data file and import it back into Fluent."
     },
     {
-      "question": "What are the considerations when choosing between 'by node' and 'by core' Slurm scripts for Ansys Fluent jobs on the clusters?",
-      "answer": "Most Fluent jobs should use 'by node' scripts to minimize solution latency and maximize performance over as few nodes as possible. Very large jobs might experience less queue waiting time with 'by core' scripts, but these can have significantly longer startup times and increase vulnerability to crashing if run over many nodes. Both script types ensure Fluent uses shared memory for communication on a single node and distributed memory (utilizing MPI) over multiple nodes."
+      "question": "Why do Ansys packages require special instructions for starting parallel jobs on the clusters, and what are the two main types of general-purpose Fluent Slurm scripts?",
+      "answer": "Ansys software's MPI implementations do not support the Alliance's Slurm scheduler, which necessitates special instructions for starting parallel jobs. For Fluent, there are two main types of general-purpose Slurm scripts: 'by node' scripts are recommended for most jobs to minimize solution latency and maximize performance on fewer nodes, while 'by core' scripts might reduce queue wait times for very large jobs, though they may have longer startup times and be more vulnerable to node failures."
     }
   ],
-  "generated_at": "2026-04-19T01:27:13.110745+00:00"
+  "generated_at": "2026-04-26T00:34:45.673692+00:00"
 }

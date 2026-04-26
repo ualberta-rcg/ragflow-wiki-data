@@ -5,12 +5,16 @@
   "qa_pairs": [
     {
       "question": "How do you attach the CephFS network to a virtual machine (VM) on SD4H/Juno using the OpenStack command-line client?",
-      "answer": "To attach the CephFS network to a VM on SD4H/Juno using the OpenStack command-line client, first list your servers with `openstack server list` to identify the ID of the target VM. Once you have the VM ID, execute the command `openstack server add network <VM_ID> CephFS-Network`, substituting `<VM_ID>` with the actual ID of your virtual machine."
+      "answer": "To attach the CephFS network to a VM on SD4H/Juno using the OpenStack command-line client, first list the servers using `openstack server list` to identify the ID of your target VM. Then, execute the command `openstack server add network <VM_ID> CephFS-Network`, replacing `<VM_ID>` with the actual ID of your virtual machine. You can confirm the network attachment by listing the servers again."
     },
     {
-      "question": "What are the steps to install the required Ceph client packages on a Red Hat family Linux distribution, such as Enterprise Linux 9, for connecting to CephFS?",
-      "answer": "To install the necessary Ceph client packages on a Red Hat family Linux distribution like Enterprise Linux 9, follow these steps: First, create a `/etc/yum.repos.d/ceph.repo` file to configure the Ceph repository, pointing to the `rpm-tentacle/el9/$basearch` base URL for the latest stable release (as of April 2026, `tentacle`). Next, install the EPEL repository by running `sudo dnf install epel-release`. Finally, install the Ceph client and its dependencies using the command: `sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
+      "question": "What steps are required to install the CephFS client packages on a Red Hat family Linux VM, such as Enterprise Linux 9 or its derivatives?",
+      "answer": "For a Red Hat family Linux VM (e.g., Enterprise Linux 9 and its derivatives), the following steps are needed to install CephFS client packages:\n1. Create a `/etc/yum.repos.d/ceph.repo` file with the Ceph Tentacle repository details, specifying the base URL like `http://download.ceph.com/rpm-tentacle/el9/$basearch`.\n2. Install the EPEL repository by running `sudo dnf install epel-release`.\n3. Install the necessary Ceph client packages using `sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
+    },
+    {
+      "question": "How do you install the CephFS client on a Debian family Linux VM, such as Debian, Ubuntu, or Mint?",
+      "answer": "To install the CephFS client on a Debian family Linux VM (e.g., Debian, Ubuntu, Mint), first determine your distribution's codename using `lsb_release -sc`. Then, add the Ceph Tentacle repository by executing `sudo apt-add-repository 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`, substituting `{codename}` with your distribution's specific codename. If this command results in an error, revert it with `sudo add-apt-repository -r 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`. Finally, install the required packages using `sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
     }
   ],
-  "generated_at": "2026-04-13T03:44:20.466016+00:00"
+  "generated_at": "2026-04-26T00:51:07.152554+00:00"
 }

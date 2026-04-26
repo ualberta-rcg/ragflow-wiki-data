@@ -4,17 +4,13 @@
   "chunk_index": 28,
   "qa_pairs": [
     {
-      "question": "What Slurm resource directives are specified in this script for an Ansys Mechanical Distributed Memory Parallel (DMP) CPU job?",
-      "answer": "The script specifies `--ntasks=8` for the total number of cores and `--cpus-per-task=1`. It also includes optional directives for `--nodes=2` and `--ntasks-per-node=4`."
+      "question": "How can a user submit an Ansys Mechanical (MAPDL) job using Distributed Memory Parallel (DMP) on an Alliance cluster with a Slurm script, and what are the typical resource allocations?",
+      "answer": "To submit an Ansys Mechanical (MAPDL) job using Distributed Memory Parallel (DMP) on an Alliance cluster with a Slurm script, a user needs to include Slurm directives for resource allocation, load the required Ansys modules, create an output directory, and then execute the `mapdl` command. Typical resource allocations in the Slurm script specify the account (e.g., `--account=def-account`), time limit (e.g., `--time=00-03:00`), memory per CPU (e.g., `--mem-per-cpu=4G`), and the total number of cores across all nodes (e.g., `--ntasks=8`). The script loads `StdEnv/2023` and an Ansys module like `ansys/2024R1.03`. The `mapdl` command uses the `-dis` flag for distributed memory, specifies the MPI type, runs without a listing file (`-b nolist`), uses the allocated number of tasks (`-np $SLURM_NTASKS`), directs output to a specific directory, and references the APDL input file."
     },
     {
-      "question": "Which software modules are loaded for an Ansys Mechanical DMP CPU job according to this script?",
-      "answer": "The script loads the `StdEnv/2023` module followed by the `ansys/2024R1.03` module."
-    },
-    {
-      "question": "What special handling is implemented for the Cedar cluster within this Ansys Mechanical DMP CPU job script?",
-      "answer": "For the Cedar cluster, the script creates a symbolic link for `libstdc++.so.6.0.29` within the job's output directory, which is named `outdir-$SLURM_JOBID`."
+      "question": "What cluster-specific settings are applied when running Ansys Mechanical (MAPDL) in Distributed Memory Parallel (DMP) mode on the Cedar or Beluga Alliance clusters?",
+      "answer": "When running Ansys Mechanical (MAPDL) in Distributed Memory Parallel (DMP) mode on the Cedar cluster, a symbolic link to `libstdc++.so.6.0.29` from the GCC library path is created in the job's output directory, and this directory is then added to the `LD_LIBRARY_PATH` environment variable. For the Beluga cluster, the `KMP_AFFINITY` environment variable is set to `none`, and the `mapdl` command is configured to use `intelmpi`. For other clusters, the default MPI implementation for `mapdl` is `openmpi`."
     }
   ],
-  "generated_at": "2026-04-19T01:31:01.691930+00:00"
+  "generated_at": "2026-04-26T00:38:03.851675+00:00"
 }

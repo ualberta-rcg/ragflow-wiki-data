@@ -73,7 +73,7 @@ The Alliance is a hosting provider for AnsysEDT. This means we have the software
 
 ### Configuring your license file
 
-Specify your AnsysEDT license server by creating a file named `$HOME/.licenses/ansys.lic` consisting of two lines. See [Configuring your license file](ansys.md#configuring-your-license-file) on the Ansys wiki page for further details.
+Specify your AnsysEDT license server by creating a file named `$HOME/.licenses/ansys.lic` consisting of two lines. See [Configuring your license file](ansys.md) on the Ansys wiki page for further details.
 
 ## Cluster batch job submission
 

@@ -4,17 +4,17 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "What is the primary function of the `script-flu-bynode+restart.sh` Slurm script when running Ansys Fluent simulations on a cluster?",
-      "answer": "This script is designed to automate restarting very large Ansys Fluent jobs that might exceed the typical seven-day maximum runtime window available on most clusters. It achieves this by restarting simulations from the most recently saved time step files."
+      "question": "What is the purpose of the `script-flu-bynode+restart.sh` Slurm script in Ansys Fluent, and what is the maximum runtime it supports?",
+      "answer": "This Slurm script is designed for Ansys Fluent jobs that require automatic restarts from the most recently saved time step files. It's particularly useful for very large simulations that might exceed the typical seven-day maximum runtime window on most clusters. The example script shows a maximum time limit of \"07-00:00\" (seven days)."
     },
     {
-      "question": "What file preparations are necessary to configure an Ansys Fluent simulation for automatic restarts using the `script-flu-bynode+restart.sh` script?",
-      "answer": "You need a working set of `sample.cas`, `sample.dat`, and `sample.jou` files. The `sample.jou` file must be edited to include `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`. Additionally, a `sample-restart.jou` file needs to be created (e.g., by copying `sample.jou`) and modified to contain `/file/read-cas-data sample-restart` instead of `/file/read-cas-data sample`, with the initialization line commented out (e.g., `;/solve/initialize/initialize-flow`)."
+      "question": "How does the `script-flu-bynode+restart.sh` Slurm script differentiate between an initial Fluent simulation run and subsequent restart runs, and what files are essential for this process?",
+      "answer": "The script differentiates between initial and restart runs using the `SLURM_ARRAY_TASK_ID` variable. For the first task (`SLURM_ARRAY_TASK_ID == 1`), it executes the initial journal file (`MYJOUFILE`). For all subsequent tasks, it uses a restart journal file (`MYJOUFILERES`). Essential for this process are the `MYCASFILERES` and `MYDATFILERES`, which are symbolically linked to the most recent output case and data files to ensure the simulation continues from the correct point."
     },
     {
-      "question": "How does the `script-flu-bynode+restart.sh` Slurm script differentiate between an initial run and subsequent restarts of an Ansys Fluent job?",
-      "answer": "The script uses the `$SLURM_ARRAY_TASK_ID` variable to determine the job's phase. If `$SLURM_ARRAY_TASK_ID` is 1, it's considered the initial run, and Fluent is launched using `MYJOUFILE`. For subsequent restarts (when `$SLURM_ARRAY_TASK_ID` is greater than 1), Fluent is launched with `MYJOUFILERES`, and the script updates symbolic links for `MYCASFILERES` and `MYDATFILERES` to point to the most recent output `.cas` and `.dat` files, respectively."
+      "question": "What are the key Slurm `#SBATCH` directives to configure for Ansys Fluent jobs using the \"Multinode (by node + restart)\" script, especially when long runtimes and automatic restarts are needed?",
+      "answer": "For Ansys Fluent jobs using the \"Multinode (by node + restart)\" Slurm script, key `#SBATCH` directives include:\n- `--account=def-group`: To specify the project account.\n- `--time=07-00:00`: To set the job's maximum time limit, supporting up to seven days.\n- `--nodes=1`: To specify the number of compute nodes (the example shows 1, but the script supports multinode operation).\n- `--ntasks-per-node=32`: To specify the maximum number of cores to use per compute node.\n- `--mem=0`: To allocate all available memory on the compute node(s).\n- `--array=1-5%1`: To enable automatic job restarts, specifying the number of restart attempts (e.g., 5 in this example)."
     }
   ],
-  "generated_at": "2026-04-19T01:21:19.760716+00:00"
+  "generated_at": "2026-04-26T00:29:17.547097+00:00"
 }

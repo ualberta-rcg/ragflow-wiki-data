@@ -4,13 +4,13 @@
   "chunk_index": 26,
   "qa_pairs": [
     {
-      "question": "How are parallelization settings configured and applied when running an Ansys Workbench project in batch mode on a single compute node?",
-      "answer": "To configure parallelization for an Ansys Workbench batch job on a single compute node, the `SolveHandlers.xml` file is modified. The script sets the `MEMPAR` variable to `0` for Shared Memory Parallel (SMP) and uses `sed` commands to update the `SolveHandlers.xml` file with this `MEMPAR` value and the `SLURM_NTASKS` (number of cores) allocated to the job. It also sets `UserConfigured` to \"1\". After setting environment variables like `KMP_AFFINITY=disabled` and `I_MPI_HYDRA_BOOTSTRAP=ssh`, the Workbench project is executed in batch mode using `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj`."
+      "question": "How is the `SolveHandlers.xml` file configured when running an Ansys Workbench project in batch mode on a single node?",
+      "answer": "The `SolveHandlers.xml` file is modified to set the parallelization mode to `$MEMPAR` and the maximum number of processors to `$SLURM_NTASKS`. Additionally, the `UserConfigured` setting within the file is changed from \"0\" to \"1\"."
     },
     {
-      "question": "Which specific file is targeted for modification to define processor and parallelization type settings for an Ansys Workbench batch job, and what values are set?",
-      "answer": "The `SolveHandlers.xml` file, located at `~/.mw/Application Data/Ansys/v[VERSION_NUMBER]/SolveHandlers.xml` (where `[VERSION_NUMBER]` is derived from `EBROOTANSYS`), is modified. In this file, the `MEMPAR` value is set to `0` to enable Shared Memory Parallel (SMP) execution, and the `SLURM_NTASKS` value is used to specify the maximum number of processors (`MaxNumber`) for the solution. Additionally, the `UserConfigured` attribute within this XML file is set to `\"1\"`."
+      "question": "What environment variables are exported, and what is the final command used to execute an Ansys Workbench project in batch mode on a single node?",
+      "answer": "The environment variables `KMP_AFFINITY=disabled` and `I_MPI_HYDRA_BOOTSTRAP=ssh` are exported. The project is then executed using the command `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj`, which runs Workbench in batch mode, updates the project, and saves it."
     }
   ],
-  "generated_at": "2026-04-19T01:30:36.185649+00:00"
+  "generated_at": "2026-04-26T00:37:43.953537+00:00"
 }

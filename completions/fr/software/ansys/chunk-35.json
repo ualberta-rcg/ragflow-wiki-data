@@ -4,17 +4,17 @@
   "chunk_index": 35,
   "qa_pairs": [
     {
-      "question": "Comment faire fonctionner les tâches Ansys Mechanical APDL avec une accélération GPU sur les grappes de l'Alliance?",
-      "answer": "Pour exécuter des tâches Ansys Mechanical APDL en utilisant l'accélération GPU, il faut se servir des scripts Slurm dédiés, tels que `script-smp-2023-gpu.sh` ou `script-dmp-2023-gpu.sh`. Ces scripts incluent la commande `mapdl` avec l'option `-acc nvidia` et nécessitent la directive `#SBATCH --gpus-per-node=1` (ou la quantité de GPU voulue) pour spécifier l'utilisation des GPU."
+      "question": "Comment est-ce qu'on soumet une tâche Ansys Mechanical APDL en mode \"Shared Memory Parallel\" (SMP) avec accélération GPU sur une grappe?",
+      "answer": "Pour soumettre une tâche Ansys Mechanical APDL en mode SMP avec GPU, il faut utiliser un script Slurm comme `script-smp-2023-gpu.sh`. Ce script devrait spécifier le compte, la durée, la mémoire (par exemple, `--mem=32G`), le nombre de cœurs (`--ntasks=8`), un seul nœud (`--nodes=1`), un cœur par tâche (`--cpus-per-task=1`), et le nombre de GPU par nœud (`--gpus-per-node=1`). Après avoir chargé les modules `StdEnv/2023` et `ansys/2024R1.03` (ou une version plus récente), la commande `mapdl` est exécutée avec les options `-smp -acc nvidia` pour le calcul GPU, en indiquant le répertoire de sortie et le fichier d'entrée APDL."
     },
     {
-      "question": "Comment puis-je modifier l'allocation de mémoire par défaut pour mes tâches Ansys APDL?",
-      "answer": "Ansys alloue par défaut 1024 Mo de mémoire totale et 1024 Mo de mémoire pour les bases de données aux tâches APDL. Pour modifier ces valeurs manuellement, vous pouvez ajouter les arguments `-m` (pour la mémoire totale) et/ou `-db` (pour la mémoire des bases de données) à la ligne de commande `mapdl` de vos scripts. Par exemple, pour augmenter la mémoire, vous pourriez ajouter `-m 2048 -db 2048`."
+      "question": "Comment est-ce qu'on soumet une tâche Ansys Mechanical APDL en mode \"Distributed Memory Parallel\" (DMP) avec accélération GPU?",
+      "answer": "Pour soumettre une tâche Ansys Mechanical APDL en mode DMP avec GPU, vous utiliseriez un script Slurm similaire à `script-dmp-2023-gpu.sh`. Ce script devrait inclure les directives `--account`, `--time`, `--mem-per-cpu` (mémoire par cœur), le nombre de nœuds (`--nodes`), le nombre de cœurs par nœud (`--ntasks-per-node`), un cœur par tâche (`--cpus-per-task=1`), et le nombre de GPU par nœud (`--gpus-per-node=1`). Après avoir chargé les modules `StdEnv/2023` et `ansys/2024R1.03` (ou une version plus récente), la commande `mapdl` est lancée avec les options `-dis -acc nvidia` et le MPI approprié (Intel MPI pour Beluga, Open MPI pour les autres grappes comme Cedar), en dirigeant la sortie vers un répertoire spécifié et en utilisant le fichier d'entrée APDL."
     },
     {
-      "question": "Quelles sont les recommandations concernant le choix entre les scripts de mémoire parallèle partagée (SMP) et de mémoire parallèle distribuée (DMP) pour Ansys Mechanical?",
-      "answer": "Pour Ansys Mechanical, les scripts de mémoire parallèle partagée (SMP) conçus pour un nœud simple offrent généralement une meilleure performance que les scripts de mémoire parallèle distribuée (DMP) pour plusieurs nœuds. Il est donc fortement recommandé d'utiliser les scripts SMP autant que possible pour optimiser l'exécution de vos tâches."
+      "question": "C'est quoi les paramètres de mémoire par défaut pour les tâches Ansys APDL, pis comment on peut les ajuster manuellement?",
+      "answer": "Par défaut, Ansys alloue 1024 Mo de mémoire totale et 1024 Mo de mémoire pour les bases de données aux tâches APDL. Vous pouvez ajuster ces valeurs manuellement en ajoutant les arguments `-m` suivi de la mémoire totale désirée et/ou `-db` suivi de la mémoire désirée pour les bases de données (les deux en Mo) à la ligne de commande `mapdl` dans votre script de soumission Slurm."
     }
   ],
-  "generated_at": "2026-04-19T01:38:27.829529+00:00"
+  "generated_at": "2026-04-26T00:45:21.079593+00:00"
 }

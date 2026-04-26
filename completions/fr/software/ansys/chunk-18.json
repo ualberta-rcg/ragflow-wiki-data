@@ -4,13 +4,17 @@
   "chunk_index": 18,
   "qa_pairs": [
     {
-      "question": "Comment configurer les fichiers de journalisation pour redémarrer des simulations Ansys Fluent et continuer à partir des pas précédents?",
-      "answer": "Pour redémarrer des simulations Ansys Fluent à partir d'une solution précédente, il faut configurer deux fichiers de journalisation : `sample.jou` et `sample-restart.jou`. Dans `sample.jou`, ajoutez les lignes `/solve/dual-time-iterate 1` et `/file/auto-save/data-frequency 1`. Pour `sample-restart.jou`, modifiez-le pour qu'il contienne `/file/read-cas-data sample-restart` au lieu de `/file/read-cas-data sample`, et mettez en commentaire la ligne d'initialisation (par exemple, `; /solve/initialize/initialize-flow`). Si les pas suivants sont deux fois plus rapides que le pas initial, changez `/solve/dual-time-iterate 1` à `/solve/dual-time-iterate 2` dans `sample-restart.jou`."
+      "question": "Dans le cadre des simulations Fluent, quelle est la distinction entre les fichiers « sample.jou » et « sample-restart.jou » lors d'un redémarrage?",
+      "answer": "Le fichier « sample.jou » est utilisé pour le premier pas de la simulation, tandis que le fichier « sample-restart.jou » sert pour les pas suivants. Pour le redémarrage, « sample-restart.jou » doit être configuré pour lire le fichier « sample-restart » et pour ne pas initialiser le flot, par exemple en commentant la ligne correspondante."
     },
     {
-      "question": "Comment la durée totale d'une simulation Fluent est-elle affectée lorsque l'on utilise la fonction de redémarrage avec l'ordonnanceur Slurm?",
-      "answer": "Lorsque la fonction de redémarrage est utilisée avec l'ordonnanceur Slurm pour des simulations Fluent, la durée totale de la simulation est calculée comme `1*Dt + 2*Nrestart*Dt`. Ici, `Dt` représente la durée d'un pas de temps, et `Nrestart` est le nombre de redémarrages défini dans le script Slurm. Le nombre total de pas de la simulation sera de `1 + 2*Nrestart`. Il est crucial de s'assurer que le pas initial et les pas suivants se terminent dans la fenêtre de temps allouée par Slurm, laquelle peut aller jusqu'à 7 jours (<code>#SBATCH --time=07-00:00</code>)."
+      "question": "Comment calcule-t-on la durée totale et le nombre de pas d'une simulation Fluent redémarrée, en considérant que le deuxième pas et les suivants sont deux fois plus rapides que le pas initial?",
+      "answer": "La durée totale de la simulation est calculée par la formule `1*Dt + 2*Nrestart*Dt`, où « Dt » représente la durée d'un pas et « Nrestart » est le nombre de redémarrages défini dans le script Slurm. Le nombre total de pas sera `1 + 2*Nrestart`."
+    },
+    {
+      "question": "Quel est le temps maximal alloué pour une tâche de simulation Fluent sur l'ordonnanceur Slurm?",
+      "answer": "Le temps maximal alloué pour une tâche de simulation Fluent sur l'ordonnanceur Slurm peut aller jusqu'à sept jours (<code>07-00:00</code> jours)."
     }
   ],
-  "generated_at": "2026-04-19T01:36:15.506987+00:00"
+  "generated_at": "2026-04-26T00:43:01.921496+00:00"
 }

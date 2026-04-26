@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Where should Nextflow container images be stored on a system, and what is the reasoning behind this recommendation?",
-      "answer": "Nextflow container images should be stored in `/project` space because workflow images tend to be large, and storing them in your `$HOME` directory could exceed its small quota. This location also facilitates sharing the folder with other group members to reduce duplication and save space."
+      "question": "Where should Nextflow container images be stored on the system, and why is this location preferred over a user's home directory?",
+      "answer": "Nextflow container images should be stored in the `/project` space, as indicated by the `$NXF_SINGULARITY_CACHEDIR` environment variable. This is preferred over a user's `$HOME` directory because workflow images tend to be big, and home directories have a small quota. It is also recommended to share this folder with other members of your group to reduce duplication and save space."
     },
     {
-      "question": "When downloading an nf-core pipeline like `rnaseq`, where do the different components (container images and pipeline files) get stored on the system?",
-      "answer": "When an nf-core pipeline like `rnaseq` is downloaded, the container image files are stored in the directory specified by the `$NXF_SINGULARITY_CACHEDIR` environment variable, while the pipeline files themselves are placed into the `~/scratch/nf-test/nf-core-${NFCORE_PL}_${PL_VERSION}` folder, which includes the version number."
+      "question": "What command is used to download `nf-core` pipelines and their associated container images, and where are these components stored after downloading?",
+      "answer": "To download an `nf-core` pipeline and its container images, you use the command `nf-core download --container-cache-utilisation amend --container-system singularity --compress none -l docker.io -r ${PL_VERSION} -p 6 ${NFCORE_PL}`. After the download, container image files go into the directory specified by `$NXF_SINGULARITY_CACHEDIR`, and the pipeline files are stored in a versioned folder like `~/scratch/nf-test/nf-core-${NFCORE_PL}_${PL_VERSION}/${FD_VERSION}` (e.g., `~/scratch/nf-test/nf-core-rnaseq_3.21.0/3_21_0`)."
     },
     {
-      "question": "What are the essential input file types required for a Nextflow `rnaseq` pipeline, and how are they typically prepared?",
-      "answer": "Nextflow requires sequence files and a sample sheet as inputs for the `rnaseq` pipeline. Sequence files are typically downloaded using `wget` commands into a `~/scratch/nf-test/input` directory, and a `samplesheet.csv` file is prepared in `~/scratch/nf-test/` by populating it with a provided template and replacing the placeholder username with your own."
+      "question": "What are the required input files for a Nextflow `rnaseq` pipeline, and how are example input files prepared?",
+      "answer": "Nextflow `rnaseq` pipelines require sequence files and a sample sheet as inputs. For an example run, sequence files can be downloaded using `wget` commands into a `~/scratch/nf-test/input` directory. A sample sheet is prepared by copying a provided template into `~/scratch/nf-test/samplesheet.csv` and then changing the `<username>` placeholder to your actual username."
     }
   ],
-  "generated_at": "2026-04-13T10:03:12.497727+00:00"
+  "generated_at": "2026-04-26T01:03:18.867999+00:00"
 }

@@ -4,13 +4,13 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Une fois le script de tâche Nextflow sauvegardé, comment est-ce qu'on le soumet pour exécution et comment on suit sa progression sur les grappes de calcul?",
-      "answer": "Pour soumettre un script de tâche Nextflow, comme `nextflow_test.sh`, il faut utiliser la commande `sbatch nextflow_test.sh`. Une fois lancé, Nextflow démarre sur le nœud de calcul et achemine les tâches à l'ordonnanceur Slurm. La progression peut être suivie dans le fichier journal `nextflow_test.<job_ID>.out`, ou en examinant les tâches dans la file d'attente Slurm avec `sq` ou `squeue -u $USER`."
+      "question": "Comment fait-on pour lancer un pipeline Nextflow sur une grappe d'Alliance et en suivre la progression une fois qu'il est soumis ?",
+      "answer": "Pour lancer un pipeline Nextflow, il faut d'abord enregistrer votre script de tâche, par exemple sous le nom `nextflow_test.sh`, puis le soumettre à l'ordonnanceur avec la commande `sbatch nextflow_test.sh`. Une fois le pipeline démarré sur un nœud de calcul, il achemine les tâches à Slurm. On peut suivre la progression en consultant le fichier journal `nextflow_test.<job_ID>.out` ou en examinant les tâches dans la file d'attente Slurm avec les commandes `sq` ou `squeue -u $USER`."
     },
     {
-      "question": "Quelles sont les erreurs courantes avec Nextflow qui sont liées à la mémoire ou aux threads, et quelles sont les solutions pour ces problèmes?",
-      "answer": "Deux erreurs courantes ont été identifiées. Si un message `java.lang.OutOfMemoryError: unable to create native thread` apparaît, cela est souvent dû au fait que Java tente de créer trop de fils. La solution est d'exécuter `nextflow` avec la variable d'environnement `export NXF_OPTS='-XX:ActiveProcessorCount=1'`. Des erreurs `SIGBUS` du processus principal de Nextflow ont aussi été signalées et sont généralement résolues en définissant la variable d'environnement `NXF_OPTS=\"-Dleveldb.mmap=false\"` lors de l'exécution de `nextflow`."
+      "question": "Quels sont les problèmes courants ou les points d'attention importants lorsqu'on utilise Nextflow sur les grappes d'Alliance, et comment certains de ces problèmes peuvent-ils être résolus ?",
+      "answer": "Nextflow est écrit en Java, ce qui signifie qu'il peut consommer beaucoup de mémoire virtuelle et potentiellement causer des problèmes si exécuté à partir d'un nœud de connexion. De plus, une configuration AWS présente dans votre répertoire `~/.aws` peut empêcher le téléchargement de jeux de données de test. Deux erreurs spécifiques ont été identifiées : l'erreur `java.lang.OutOfMemoryError: unable to create native thread`, qui est souvent résolue en exécutant Nextflow avec `export NXF_OPTS='-XX:ActiveProcessorCount=1'`. La deuxième est l'erreur `SIGBUS`, qui peut être contournée en définissant la variable d'environnement `NXF_OPTS=\"-Dleveldb.mmap=false\"` lors de l'exécution de Nextflow."
     }
   ],
-  "generated_at": "2026-04-13T10:04:48.830343+00:00"
+  "generated_at": "2026-04-26T01:04:47.933572+00:00"
 }

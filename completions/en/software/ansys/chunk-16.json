@@ -4,13 +4,13 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "What is the primary function of the `script-flu-bycore+restart.sh` script within the Ansys Fluent documentation?",
-      "answer": "The `script-flu-bycore+restart.sh` script is designed to automate the restarting of very large Ansys Fluent jobs that might exceed the typical seven-day maximum runtime limit available on most clusters. It restarts simulations from the most recently saved time step files."
+      "question": "What is the main function of the `script-flu-bycore+restart.sh` Slurm script in the context of Ansys Fluent simulations?",
+      "answer": "The `script-flu-bycore+restart.sh` Slurm script is primarily designed to run Ansys Fluent simulations that require automatic solution restarts, particularly for jobs exceeding standard runtime limits. It utilizes a 'by core' allocation strategy, distributing tasks across multiple compute nodes or within a single node, and leverages Slurm's array job feature to manage these sequential restarts."
     },
     {
-      "question": "How does the `script-flu-bycore+restart.sh` script manage job restarts and file handling for Ansys Fluent simulations?",
-      "answer": "The script utilizes Slurm job arrays, indicated by `#SBATCH --array=1-5%1`, to manage a series of restart attempts. For the initial run (`$SLURM_ARRAY_TASK_ID == 1`), it executes the `MYJOUFILE`. For subsequent runs, it uses the `MYJOUFILERES`. If a job completes successfully and is not the final attempt, it creates symbolic links (`ln -sfv`) from the most recent output case (`.cas`) and data (`.dat`) files in the `output/` directory to predefined restart files (`MYCASFILERES` and `MYDATFILERES`), allowing the next job array task to continue from the latest solution state."
+      "question": "How does the `script-flu-bycore+restart.sh` Slurm script manage the restarting of an Ansys Fluent simulation from a previous state?",
+      "answer": "The script uses Slurm's array job feature, specified by `#SBATCH --array=1-5%1`, to orchestrate multiple restart attempts. For the initial job (`$SLURM_ARRAY_TASK_ID == 1`), it executes Fluent with the primary journal file (`MYJOUFILE`). For subsequent restarts, it uses a dedicated restart journal file (`MYJOUFILERES`) and dynamically creates symbolic links (`ln -sfv`) to the most recent output `.cas` and `.dat` files from the `output/` directory, naming them `MYCASFILERES` and `MYDATFILERES`. This process ensures that each subsequent job in the array continues the simulation from the latest saved solution state."
     }
   ],
-  "generated_at": "2026-04-19T01:28:57.105525+00:00"
+  "generated_at": "2026-04-26T00:36:24.272539+00:00"
 }

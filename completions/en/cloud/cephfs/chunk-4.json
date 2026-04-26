@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How does one install the required Ceph client and dependency packages on a VM running a Debian-family operating system, such as Debian, Ubuntu, or Mint?",
-      "answer": "To install the Ceph client and its dependencies on a Debian-family system, first determine your distro's codename using `lsb_release -sc`. Then, add the appropriate repository by running `sudo apt-add-repository 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`, replacing `{codename}` with your actual codename. Finally, install the packages with the command: `sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
+      "question": "What are the steps to install the CephFS client and its dependencies on a Debian-based VM?",
+      "answer": "First, determine your distro's codename using `lsb_release -sc`. Then, add the Ceph Tentacle repository with `sudo apt-add-repository 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`. If this command returns an error, revert it using `sudo add-apt-repository -r 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`. Finally, install the necessary packages by running `sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
     },
     {
-      "question": "What are the two essential configuration files for the Ceph client, and what specific information must be included in each for a successful setup?",
-      "answer": "The two essential configuration files for the Ceph client are `/etc/ceph/ceph.conf` and `/etc/ceph/ceph.keyring`. The `ceph.conf` file must contain `mon host` details, which vary between Arbutus and SD4H/Juno clouds, along with other global and client-specific settings. The `ceph.keyring` file is used to store authentication credentials and must include the client name (e.g., `client.MyCephFS-RW`) and its corresponding `key` (Access Key), both of which are obtained from the access rules section on your OpenStack project web page."
+      "question": "After installing the CephFS client on a VM, how are the `ceph.conf` and `ceph.keyring` files configured to enable client access?",
+      "answer": "To configure client access, create a `/etc/ceph/ceph.conf` file, specifying the appropriate `mon host` entries based on whether your cloud is Arbutus or SD4H/Juno, and include `quota = true` under the `[client]` section. Additionally, create a `/etc/ceph/ceph.keyring` file with an entry for your client name (e.g., `[client.MyCephFS-RW]`) and its corresponding `key = <Access Key>`. Both the client name and access key are obtained from the access rules section on your OpenStack project's web page."
     },
     {
-      "question": "What are the steps to permanently mount a CephFS device on a virtual machine by modifying the `/etc/fstab` file?",
-      "answer": "To permanently mount a CephFS device, first create a mount point directory on your host, for example, `/cephfs`, using `mkdir /cephfs`. Next, retrieve the connection information from the share details page, specifically the portion of the `Path` that starts with a colon (e.g., `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c`). Finally, add an entry to the VM's `/etc/fstab` file. For Arbutus, the entry would be similar to `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,nofail 0 2`. For SD4H/Juno, additional options like `mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw,nofail` are required. The `nofail` option ensures the system boots even if the CephFS service is temporarily unavailable."
+      "question": "What is the procedure to permanently mount a CephFS share on a VM, specifically detailing the `fstab` entry and required information?",
+      "answer": "To permanently mount a CephFS share, first create a mount point directory on your host, for example, `/cephfs`. Then, add an entry to your VM's `/etc/fstab` file. The entry should start with the share's path (e.g., `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c`), followed by the mount point `/cephfs/`, the filesystem type `ceph`, and options such as `name=MyCephFS-RW,nofail`. For SD4H/Juno, `mds_namespace=cephfs_4_2` is also required, along with other performance tweaks. The share's path, client name, and access key are found in the share details on your project's OpenStack web page."
     }
   ],
-  "generated_at": "2026-04-13T03:45:56.107037+00:00"
+  "generated_at": "2026-04-26T00:52:30.008080+00:00"
 }

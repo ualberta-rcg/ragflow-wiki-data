@@ -4,17 +4,17 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "À quoi servent les scripts Slurm présentés dans cette section pour Ansys Fluent sur les grappes de l'Alliance?",
-      "answer": "Ces scripts Slurm sont conçus pour soumettre des tâches Ansys Fluent sur les grappes de Calcul Canada, permettant des simulations en parallèle avec mémoire partagée sur un seul nœud ou avec mémoire distribuée sur plusieurs nœuds."
+      "question": "Comment soumettre un travail Ansys Fluent sur plusieurs nœuds en utilisant Intel MPI sur les grappes de l'Alliance, et quels sont les éléments clés à configurer dans le script Slurm fourni pour une exécution « par nœud » ?",
+      "answer": "Pour soumettre un travail Ansys Fluent sur plusieurs nœuds avec Intel MPI, il faut utiliser un script Slurm comme celui de la section « Plusieurs nœuds (par nœud) ». Les éléments clés à configurer incluent le nom du compte (`#SBATCH --account`), la limite de temps (`#SBATCH --time`), le nombre de nœuds de calcul (`#SBATCH --nodes`), le nombre de cœurs par nœud (`#SBATCH --ntasks-per-node`), et la mémoire par nœud (`#SBATCH --mem`). Le script charge les modules `StdEnv/2023` et `ansys/2023R2` (ou plus récent). Il est aussi nécessaire de spécifier le nom du fichier journal (`MYJOURNALFILE`) et la version de Fluent (`MYVERSION`, par exemple `3d`, `2d`, `2ddp` ou `3ddp`)."
     },
     {
-      "question": "Quels sont les paramètres essentiels qu'un utilisateur doit configurer dans un script Slurm pour une tâche Ansys Fluent?",
-      "answer": "L'utilisateur doit absolument spécifier le compte (avec `#SBATCH --account`), la durée maximale de la tâche (`#SBATCH --time`), le nombre de nœuds de calcul (`#SBATCH --nodes`), le nombre de tâches ou de cœurs par nœud (`#SBATCH --ntasks-per-node` ou `#SBATCH --ntasks`), la mémoire allouée (`#SBATCH --mem` ou `#SBATCH --mem-per-cpu`), le nom du fichier journal (`MYJOURNALFILE`), et le type de version Fluent (par exemple, `3d`) (`MYVERSION`)."
+      "question": "Quelles sont les configurations MPI spécifiques pour exécuter Ansys Fluent sur un seul nœud versus plusieurs nœuds sur les grappes de l'Alliance, en particulier pour les versions plus récentes d'Ansys ou sur le cluster Nibi ?",
+      "answer": "Pour une exécution sur un seul nœud, Ansys Fluent utilise l'option `-pshmem` (mémoire partagée) avec Intel MPI. Pour une exécution sur plusieurs nœuds, le script utilise `-peth` (Ethernet) pour des clusters comme Nibi, ou `-pib` (InfiniBand) pour les autres, en se basant sur un fichier de machines (`machinefile`) généré par `slurm_hl2hl.py`. De plus, pour les versions d'Ansys 2025 et ultérieures sur Nibi, ou sur Narval, la variable d'environnement `I_MPI_HYDRA_BOOTSTRAP` doit être exportée à `ssh` pour assurer un démarrage correct."
     },
     {
-      "question": "Quelle est la principale différence entre les scripts de soumission Ansys Fluent 'par nœud' et 'par cœur' pour plusieurs nœuds, et quand devrait-on utiliser l'un ou l'autre?",
-      "answer": "Les scripts 'par nœud' (comme `script-flu-bynode-intel.sh`) sont généralement préférables pour minimiser le temps d'attente et maximiser la performance en utilisant moins de nœuds mais plus de cœurs par nœud. Les scripts 'par cœur' (`script-flu-bycore-intel.sh`) pourraient réduire le temps d'attente pour les tâches nécessitant beaucoup de cœurs, mais le démarrage d'une tâche multi-nœuds peut prendre beaucoup plus de temps, ce qui en diminue l'efficacité."
+      "question": "Quelles sont les principales distinctions entre les scripts Slurm « par nœud » et « par cœur » pour soumettre des tâches Ansys Fluent sur les grappes de l'Alliance, et quand devrait-on choisir l'un plutôt que l'autre ?",
+      "answer": "Les scripts « par nœud » (comme `script-flu-bynode-intel.sh`) sont généralement préférables pour minimiser le temps d'attente et maximiser la performance en utilisant le moins de nœuds possible, en spécifiant `#SBATCH --nodes` et `#SBATCH --ntasks-per-node`. Ils utilisent la mémoire partagée pour un nœud et la mémoire distribuée pour plusieurs nœuds. Les scripts « par cœur » (comme `script-flu-bycore-intel.sh`) peuvent être plus efficaces pour les tâches demandant beaucoup de cœurs CPU, car ils spécifient un nombre total de cœurs (`#SBATCH --ntasks`) et la mémoire par cœur (`#SBATCH --mem-per-cpu`). Cependant, le démarrage d'une tâche « par cœur » sur plusieurs nœuds peut prendre plus de temps et augmente la probabilité de défaillance si un nœud fait défaut."
     }
   ],
-  "generated_at": "2026-04-19T01:34:50.934328+00:00"
+  "generated_at": "2026-04-26T00:41:55.151131+00:00"
 }

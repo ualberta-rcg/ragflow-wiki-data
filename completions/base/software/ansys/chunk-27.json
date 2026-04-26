@@ -4,17 +4,17 @@
   "chunk_index": 27,
   "qa_pairs": [
     {
-      "question": "How do I prepare an Ansys Workbench project for submission as a Slurm job on Alliance clusters?",
-      "answer": "Before submitting an Ansys Workbench job via a Slurm script, you must initialize the project once. This involves opening an OnDemand desktop on the target cluster, navigating to your project directory, removing the old project cache (`rm -rf _ProjectScratch`), loading the required Ansys module, and opening the Workbench GUI with your project file (`runwb2 -f YOURPROJECT.wbpj`). Decline any project recovery prompts. Inside Workbench, right-click 'Model' in the Project Schematic, select 'Reset', and confirm to delete local and generated data. Then, save the file (`File -> Save`), exit Workbench (`File -> Exit`), and when prompted, choose 'No' to save modifications to the project. Finally, quit Workbench before submitting your job."
+      "question": "What are the essential steps to initialize an Ansys Workbench project on an Alliance cluster before submitting it as a Slurm job?",
+      "answer": "Before submitting an Ansys Workbench job to an Alliance cluster's Slurm queue, it must be initialized. This involves: opening an OnDemand desktop on the target cluster, navigating to your project directory, removing the old project cache with `rm -rf _ProjectScratch`, loading the Ansys module version (e.g., `module load ansys/2025R2.04`), and then opening the Workbench GUI with `runwb2 -f YOURPROJECT.wbpj`. If prompted to recover the project, answer \"No\". Next, right-click on \"Model\" in the Project Schematic, select \"Reset,\" and confirm with \"Ok.\" Finally, save the project via \"File -> Save\" and then exit Workbench using \"File -> Exit,\" answering \"No\" when asked to save any modifications."
     },
     {
-      "question": "What are the key considerations for running Ansys Workbench simulations directly in the GUI compared to submitting them as batch jobs on Alliance clusters?",
-      "answer": "Running Ansys Workbench simulations directly within the native GUI from an OnDemand desktop session can be a more intuitive option than submitting batch jobs, especially since Compute Nodes can now be reserved for up to 96 cores, 768GB of memory, and 8 hours of runtime in such sessions. This allows users to leverage the interactive environment for their simulations when feasible, while batch jobs are typically used for longer or more complex runs requiring Slurm scheduling."
+      "question": "How is Ansys CFX configured to run in a distributed parallel manner across multiple compute nodes on Alliance clusters using a Slurm script?",
+      "answer": "To run Ansys CFX in a multinode distributed parallel setup on Alliance clusters using a Slurm script, the script first captures the number of allocated nodes using `NNODES=$(slurm_hl2hl.py --format ANSYS-CFX)`. For clusters like Narval or Fir, the `cfx5solve` command is executed with `-start-method \"Open MPI Distributed Parallel\" -par-dist $NNODES`. For other clusters, it uses `-start-method \"Intel MPI Distributed Parallel\" -par-dist $NNODES`, preceded by setting `export I_MPI_HYDRA_BOOTSTRAP=ssh` and unsetting `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`."
     },
     {
-      "question": "How is memory parallelism configured for a single-node Ansys Workbench job when using a Slurm script?",
-      "answer": "For a single-node Ansys Workbench job submitted via a Slurm script, shared memory parallelism (SMP) is typically configured. Within the Slurm script, if `SLURM_NNODES` is 1, the `MEMPAR` variable should be set to 0. This value, along with the total number of cores requested (`SLURM_NTASKS`), is then used to modify the `SolveHandlers.xml` configuration file to ensure Workbench uses shared memory parallel mode for the specified number of processors."
+      "question": "When setting up a Slurm script for a single-node Ansys Workbench job on an Alliance cluster, how is the parallelization type and number of processors configured?",
+      "answer": "For single-node Ansys Workbench jobs submitted via Slurm scripts on an Alliance cluster, the parallelization type and processor count are configured by modifying a configuration file. The script determines if it's a single-node job (`SLURM_NNODES == 1`) and sets `MEMPAR` to 0 for Shared Memory Parallel (SMP). It then uses `sed` commands to update the `SolveHandlers.xml` file, specifying this parallelization type and the total number of cores (`$SLURM_NTASKS`) allocated by Slurm."
     }
   ],
-  "generated_at": "2026-04-19T01:22:49.977110+00:00"
+  "generated_at": "2026-04-26T00:30:42.255770+00:00"
 }

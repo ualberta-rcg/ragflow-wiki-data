@@ -4,17 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "Comment est-ce que ce script de tâche configure et lance un pipeline Nextflow sur un cluster?",
-      "answer": "Ce script commence par charger les modules `python/3.11`, `apptainer` et `nextflow`, active un environnement Python virtuel (`nf-core-env`), puis définit des variables d'environnement comme le nom du pipeline (`NFCORE_PL`), la version et le répertoire de cache Apptainer (`NXF_SINGULARITY_CACHEDIR`). Finalement, il exécute le pipeline `rnaseq` en utilisant la commande `nextflow run` avec les profils `test`, `singularity` et `fir`, en spécifiant les chemins d'entrée (`--input`) et de sortie (`--outdir`)."
+      "question": "Comment crée-t-on et soumet-on un script de tâche Nextflow pour le pipeline `rnaseq` sur une grappe de l'Alliance, comme Fir?",
+      "answer": "Pour créer un script de tâche, comme celui enregistré sous `~/scratch/nf-test/nextflow_test.sh`, il faut spécifier des directives SLURM telles que `--time=08:00:00`, `--cpus-per-task=4` et `--mem=16G`. Le script doit ensuite charger les modules nécessaires (`python/3.11`, `apptainer`, `nextflow`), activer l'environnement virtuel Python `nf-core-env`, et exporter les variables d'environnement comme `NFCORE_PL`, `PL_VERSION`, `NXF_SINGULARITY_CACHEDIR` et `SLURM_ACCOUNT`. La commande `nextflow run` est ensuite utilisée avec des profils (par exemple `test,singularity,fir`) et les chemins d'entrée/sortie appropriés. Le script est finalement soumis à l'ordonnanceur Slurm avec la commande `sbatch nextflow_test.sh`."
     },
     {
-      "question": "Quelles ressources Slurm sont demandées pour l'exécution de cette tâche, selon les directives du script?",
-      "answer": "Pour cette tâche Slurm, le script demande une durée d'exécution de 8 heures (`#SBATCH --time=08:00:00`), 4 cœurs de processeur par tâche (`#SBATCH --cpus-per-task=4`) et 16 gigaoctets (Go) de mémoire vive (`#SBATCH --mem=16G`)."
+      "question": "Quelles sont les ressources Slurm qui sont demandées par le script de tâche Nextflow d'exemple pour le pipeline `rnaseq` sur la grappe Fir?",
+      "answer": "Le script de tâche d'exemple pour Fir demande les ressources Slurm suivantes : un temps d'exécution maximal de 8 heures (`--time=08:00:00`), 4 cœurs de CPU par tâche (`--cpus-per-task=4`) et 16 gigaoctets de mémoire (`--mem=16G`)."
     },
     {
-      "question": "Quels sont les profils Nextflow spécifiques qui sont activés lors de l'exécution du pipeline dans cet exemple de script?",
-      "answer": "Lors de l'exécution du pipeline dans ce script, les profils Nextflow spécifiques activés sont `test`, `singularity` et `fir`, comme indiqué par l'option `-profile test,singularity,fir`."
+      "question": "Quels modules et environnements logiciels doivent être chargés ou activés dans un script de tâche Nextflow d'exemple avant d'exécuter un pipeline?",
+      "answer": "Dans le script de tâche d'exemple, il faut charger le module `python/3.11` et activer l'environnement virtuel Python `nf-core-env`. Ensuite, les modules `apptainer` et `nextflow` doivent être chargés. Il est également nécessaire d'exporter des variables d'environnement clés telles que `NFCORE_PL`, `PL_VERSION`, `FD_VERSION`, `NXF_SINGULARITY_CACHEDIR` et `SLURM_ACCOUNT`."
     }
   ],
-  "generated_at": "2026-04-13T10:04:59.203538+00:00"
+  "generated_at": "2026-04-26T01:04:55.975327+00:00"
 }

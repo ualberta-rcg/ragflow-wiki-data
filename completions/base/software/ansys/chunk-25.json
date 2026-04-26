@@ -4,17 +4,17 @@
   "chunk_index": 25,
   "qa_pairs": [
     {
-      "question": "What are some of the key command-line options available for running the Ansys CFX solver (`cfx5solve`)?",
-      "answer": "When running `cfx5solve`, you can use `-help` to see all available options. By default, it runs in single precision; to use double precision, add the `-double` option, which will also double memory requirements. For very large meshes, up to 2 billion elements, the `-large` option can be used. These options can also be specified for the Partitioner, Interpolator, or Solver components, and further details are available in the ANSYS CFX-Solver Manager User's Guide."
+      "question": "What is the command to view a summary of command-line options for `cfx5solve` in Ansys CFX?",
+      "answer": "You can view a summary of command-line options for `cfx5solve` in Ansys CFX by first manually loading the relevant module version (e.g., `module load ansys/2023R2`) and then running `cfx5solve -help` on the command line."
     },
     {
-      "question": "How do you set up a Slurm script for parallel execution of Ansys CFX across multiple compute nodes on Alliance clusters, and what considerations are there for MPI implementation?",
-      "answer": "To run Ansys CFX across multiple nodes, you would typically use a script based on the `script-cfx-multiple.sh` template. It requires specifying multiple compute nodes (e.g., `#SBATCH --nodes=2`) and usually allocates all cores and memory per node (e.g., `#SBATCH --ntasks-per-node=192`, `#SBATCH --mem=0`). The script uses `slurm_hl2hl.py --format ANSYS-CFX` to dynamically get the node information for distributed parallel processing. For Narval or Fir clusters, 'Open MPI Distributed Parallel' is used, while for other clusters, 'Intel MPI Distributed Parallel' is used, often requiring `export I_MPI_HYDRA_BOOTSTRAP=ssh`."
+      "question": "How do you configure Ansys CFX to run in double precision or support very large meshes?",
+      "answer": "To run `cfx5solve` in double precision, you should add the `-double` option, which will also increase memory requirements. For very large meshes, up to 2 billion elements, you can add the `-large` option. These options can be specified for the Partitioner, Interpolator, or Solver, with further details available in the ANSYS CFX-Solver Manager User's Guide."
     },
     {
-      "question": "How can Discrete Phase Model (DPM) settings and particle injection definitions be automated within an Ansys Fluent journal file?",
-      "answer": "DPM settings and injections can be automated by adding specific commands to the journal file after solution initialization. For example, to enable interaction with the continuous phase, you would use `/define/models/dpm/interaction/coupled-calculations yes`. To define particle injections, you can use `/define/models/dpm/injections/create`, often referencing an external injection text file (e.g., `zinjection01.inj`), which specifies properties like position, velocity, and mass flow rate. The format for these injection files is detailed in the '2024R2 Fluent Customization Manual'."
+      "question": "How do the Slurm scripts for Ansys CFX manage MPI implementations for single and multinode jobs on different Alliance clusters?",
+      "answer": "For single-node Ansys CFX jobs, the Slurm scripts use 'Open MPI Local Parallel' on Narval and Fir clusters, and 'Intel MPI Local Parallel' on other clusters. For multinode jobs, 'Open MPI Distributed Parallel' is used on Narval and Fir, while 'Intel MPI Distributed Parallel' is used on other clusters. For Intel MPI, additional environment variables like `export I_MPI_HYDRA_BOOTSTRAP=ssh` and `unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS` are set."
     }
   ],
-  "generated_at": "2026-04-19T01:22:31.524746+00:00"
+  "generated_at": "2026-04-26T00:30:25.016029+00:00"
 }

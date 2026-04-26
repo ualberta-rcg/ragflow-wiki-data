@@ -4,17 +4,17 @@
   "chunk_index": 22,
   "qa_pairs": [
     {
-      "question": "How are interpreted User-Defined Functions (UDFs) integrated into Ansys Fluent simulations on an Alliance cluster?",
-      "answer": "To integrate an interpreted UDF into an Ansys Fluent simulation, you must add a specific command line to your journal file before the case or data files are read or initialized. This command is `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no`, where `sampleudf.c` should be replaced with your source file's name. The UDF source file must be in the same directory as the journal file, and any existing managed definitions in the case file should be removed by resaving it in the Fluent GUI. For parallel jobs, an interpreted UDF will also need to be parallelized."
+      "question": "How do you set up an interpreted User-Defined Function (UDF) for Ansys Fluent jobs on an Alliance cluster?",
+      "answer": "To set up an interpreted UDF, you must add a specific command line to your journal file before the case or data files are read or initialized. For example, use `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no`, replacing \"sampleudf.c\" with your source file's name. The UDF source file needs to be in the same directory as the journal file. For parallel jobs, the interpreted UDF must also be parallelized."
     },
     {
-      "question": "What is the process for using a compiled User-Defined Function (UDF) with Ansys Fluent on an Alliance cluster, and what are the key considerations?",
-      "answer": "To use a compiled UDF with Ansys Fluent, the UDF must first be compiled on an Alliance cluster to create a `libudf` subdirectory containing the `libudf.so` shared library. This `libudf` directory can then be transferred to other Alliance clusters if the same `StdEnv` module version is loaded. In your journal file, uncomment the `define/user-defined/compiled-functions load libudf` command to load the compiled library. It's crucial not to leave both the compile and load commands uncommented in your journal file for job submissions, as this will lead to inefficient recompilation for every job and potential build conflicts. Compiled UDFs also require parallelization for parallel jobs."
+      "question": "What are the key steps and considerations for using a compiled User-Defined Function (UDF) with Ansys Fluent on an Alliance cluster?",
+      "answer": "To use a compiled UDF, it must first be compiled on an Alliance cluster, which creates a `libudf` subdirectory containing `libudf.so`. This `libudf` directory cannot be copied from a remote system (e.g., a laptop) due to library dependencies but can be transferred between Alliance clusters if the same `StdEnv` environment module version is loaded. To use the compiled UDF, uncomment the `define/user-defined/compiled-functions load libudf` line in your journal file. It is inefficient and can cause conflicts to have both compile and load commands uncommented, as this would recompile the UDF for every job. Compiled UDFs also need to be parallelized for parallel Fluent jobs."
     },
     {
-      "question": "Why is it necessary to parallelize a User-Defined Function (UDF) for Ansys Fluent parallel jobs, and where can researchers find detailed instructions for this process?",
-      "answer": "It is necessary to parallelize a User-Defined Function (UDF) for Ansys Fluent parallel jobs (both single-node Shared Memory Parallel (SMP) and multi-node Message Passing Interface (MPI)) to control how specific parts of the UDF code run across different processes. Failure to do so can result in slow performance or immediate crashes. The parallelization procedure involves adding compiler directives, predicates, and reduction macros to your serial UDF. Detailed instructions for this process can be found in \"Part I: Chapter 7: Parallel Considerations\" of the Ansys 2024 Fluent Customization Manual."
+      "question": "Why is it necessary to parallelize a User-Defined Function (UDF) for Ansys Fluent parallel jobs, and where can researchers find detailed instructions for doing so?",
+      "answer": "Parallelizing a UDF is necessary for Fluent parallel jobs (both single-node SMP and multi-node MPI) to control how different processes (host and/or compute) execute specific parts of the UDF code. Failure to parallelize can lead to slow performance or crashes. The process involves adding compiler directives, predicates, and reduction macros to your serial UDF to ensure it runs efficiently in both serial and parallel modes. Detailed instructions are available in `Part I: Chapter 7: Parallel Considerations` of the Ansys 2024 `Fluent Customization Manual`."
     }
   ],
-  "generated_at": "2026-04-19T01:22:05.590887+00:00"
+  "generated_at": "2026-04-26T00:30:05.279249+00:00"
 }

@@ -4,13 +4,17 @@
   "chunk_index": 44,
   "qa_pairs": [
     {
-      "question": "How can I terminate rogue Ansys processes that are still consuming licenses on an Alliance cluster or desktop node?",
-      "answer": "To terminate rogue Ansys processes that are unexpectedly consuming licenses, you can either close the desktop session, scancel the salloc session, or open a terminal window on the affected node and issue the command `pkill -9 -e -u $USER -f \"ansys\"`. This action will immediately return any held Ansys licenses to the SHARCNET license server, making them available for use again by yourself or other researchers."
+      "question": "If a user runs two Fluent jobs, one with 8 cores and another with 32 cores, on a SHARCNET Ansys license, how many `anshpc` licenses will be consumed? What happens if there are insufficient licenses for a new job?",
+      "answer": "For an 8-core Fluent job and a 32-core Fluent job, a total of 32 `anshpc` licenses are consumed: (8-4) for the first job and (32-4) for the second. If a new job attempts to start and requires more `anshpc` licenses than are currently available in the SHARCNET license pool, it will fail to start. In such a scenario, the user has two options: either wait for a sufficient number of `anshpc` licenses to become available, or reduce the job size to require fewer licenses and resubmit it immediately."
     },
     {
-      "question": "What are the initial steps to enable the Ansys Additive Manufacturing ACT extension for use in an Ansys Workbench project on an Alliance cluster?",
-      "answer": "To enable the Ansys Additive Manufacturing ACT extension, you must first download the `AdditiveWizard.wbex` file from the Ansys catalog and upload it to the cluster. Next, start Ansys Workbench in graphical mode, open your project file, then navigate to the ACT Start Page and open the Extension Manager. From there, click the box with the large '+' sign to install your `AdditiveWizard.wbex` file. Finally, highlight the `AdditiveWizard` box and select 'Load extension' to activate it for current and future sessions."
+      "question": "What should a user do if Ansys licenses are unexpectedly still in use by their username on a cluster desktop or compute node?",
+      "answer": "If Ansys licenses are unexpectedly tied up, often due to an Ansys graphical program not shutting down cleanly or a job crashing, the user should kill all potentially responsible rogue Ansys processes. This can be achieved by closing the desktop, cancelling the `salloc` session, or opening a terminal window on the affected node and issuing the command `pkill -9 -e -u $USER -f \"ansys\"`. This action will immediately return the held Ansys licenses to the SHARCNET license server, making them available for use again."
+    },
+    {
+      "question": "What is the process for making the Ansys Additive Manufacturing ACT extension available for use in a project on an Alliance cluster?",
+      "answer": "To make the Ansys Additive Manufacturing ACT extension available, first download the `AdditiveWizard.wbex` file from the Ansys catalog and upload it to the cluster where it will be used. Next, start Workbench in graphical mode, open your project file, and navigate to the ACT Start Page. From there, click 'Manage Extensions' to open the Extension Manager. Click the '+' sign to install the `AdditiveWizard.wbex` file, and then highlight the AdditiveWizard box to load the extension for the current session. Alternatively, click the lower right corner arrow in the AdditiveWizard box and select 'Load extension' to load it for both current and future sessions."
     }
   ],
-  "generated_at": "2026-04-19T01:25:33.707468+00:00"
+  "generated_at": "2026-04-26T00:33:12.433515+00:00"
 }

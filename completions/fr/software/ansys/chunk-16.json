@@ -4,13 +4,17 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "Dans un script Slurm pour Ansys Fluent, à quoi sert la directive `#SBATCH --array` pour la gestion des licences?",
-      "answer": "La directive `#SBATCH --array` dans un script Slurm pour Fluent, comme `#SBATCH --array=1-5%1`, est utilisée pour spécifier le nombre de tentatives de remise en file d'attente pour un travail. C'est pratique si le démarrage échoue à cause d'un problème de licence."
+      "question": "À quoi sert le script Slurm fourni dans le document pour Ansys Fluent?",
+      "answer": "Le script Slurm fourni est conçu pour soumettre des tâches Ansys Fluent en utilisant plusieurs nœuds de calcul, et il intègre un mécanisme de remise en file d'attente automatique en cas de problèmes de licence ou de simulation."
     },
     {
-      "question": "Quels modules spécifiques et quelles configurations d'environnement sont chargés pour la grappe Narval lorsque ce script Slurm pour Fluent est utilisé?",
-      "answer": "Lorsque ce script Slurm pour Fluent est utilisé sur la grappe Narval (`$CC_CLUSTER == narval`), il charge les modules `intel/2023` et `intelmpi`. Il définit également la variable d'environnement `INTELMPI_ROOT` et annule la définition de `I_MPI_ROOT`."
+      "question": "Quels sont les principaux paramètres personnalisables dans ce script Slurm pour une tâche Ansys Fluent?",
+      "answer": "Dans ce script, les principaux paramètres qu'on peut personnaliser sont le nom du fichier journal (`MYJOURNALFILE`), le type de version Fluent (par exemple, '2d' ou '3d' via `MYVERSION`), le nombre d'essais de remise en file d'attente (`#SBATCH --array`), le compte utilisateur (`#SBATCH --account`) et la limite de temps allouée à la tâche (`#SBATCH --time`)."
+    },
+    {
+      "question": "Comment le script gère-t-il le chargement des modules et la configuration de l'interface MPI pour les différentes grappes?",
+      "answer": "Le script charge `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente). Spécifiquement pour la grappe Narval, il charge `intel/2023 intelmpi` et configure `INTELMPI_ROOT`. De plus, pour les grappes Nibi ou Narval avec une version d'Ansys égale ou supérieure à 2025, il configure `I_MPI_HYDRA_BOOTSTRAP` pour l'exécution d'Intel MPI."
     }
   ],
-  "generated_at": "2026-04-19T01:35:58.899779+00:00"
+  "generated_at": "2026-04-26T00:42:45.796243+00:00"
 }

@@ -4,17 +4,13 @@
   "chunk_index": 34,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the provided Slurm script for Ansys Rocky?",
-      "answer": "The Slurm script is designed to run an Ansys Rocky simulation in a CPU-only configuration on a compute cluster. It specifies resource requests and sets up the necessary software environment."
+      "question": "How can a user run an Ansys Rocky CPU-only simulation using a Slurm script?",
+      "answer": "To run an Ansys Rocky CPU-only simulation with a Slurm script, users must first load the `StdEnv/2023` and `ansys/2025R1` modules, or newer versions. The script then sets the `PATH` environment variable to locate the Rocky executable. The simulation is executed using the `Rocky` command with arguments such as `--simulate` (specifying the project file, e.g., `mysim.rocky`), `--resume=1`, `--ncpus=$SLURM_CPUS_PER_TASK` to utilize the allocated CPU cores, and `--use-gpu=0` to disable GPU usage."
     },
     {
-      "question": "What modules need to be loaded and what path needs to be exported to run Ansys Rocky with the `ansys/2025R1` module according to the example Slurm script?",
-      "answer": "To run Ansys Rocky, the `StdEnv/2023` and `ansys/2025R1` modules need to be loaded. Additionally, the `PATH` environment variable must be exported to include `$EBROOTANSYS/v251/rocky` to ensure the Rocky executable can be found."
-    },
-    {
-      "question": "How does the example Slurm script configure and execute a CPU-only Ansys Rocky simulation?",
-      "answer": "The script uses the `Rocky` command with the `--simulate` option to specify the project file (e.g., `mysim.rocky`), `--resume=1` to potentially resume a simulation, `--ncpus=$SLURM_CPUS_PER_TASK` to allocate the requested number of CPUs, and crucially, `--use-gpu=0` to ensure the simulation runs exclusively on CPUs."
+      "question": "What Slurm directives are used to allocate resources for an Ansys Rocky CPU-only job, as demonstrated in the provided script?",
+      "answer": "The Slurm script uses the following `#SBATCH` directives to allocate resources for an Ansys Rocky CPU-only job: `--account` to specify the billing account (e.g., `def` or `rrg`), `--time` for the job's time limit (e.g., `00-02:00` for 2 hours), `--mem` for the total memory allocated for cores (e.g., `24G`), `--cpus-per-task` to define the number of CPU cores to use (e.g., `6`), and `--nodes=1` to request a single compute node."
     }
   ],
-  "generated_at": "2026-04-19T01:24:09.861751+00:00"
+  "generated_at": "2026-04-26T00:31:44.050919+00:00"
 }

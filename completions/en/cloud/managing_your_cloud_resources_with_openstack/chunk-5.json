@@ -4,13 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How can one add new users to a virtual machine (VM) using cloudInit while ensuring the default user created by the distribution is also preserved?",
-      "answer": "To preserve the default user (e.g., `debian`, `centos`, `ubuntu`) when adding new users via cloudInit, include `- default` in the `users` section of your cloudInit script. This entry should be placed before the configurations for your additional users. For example, to add users 'gretzky' and 'lemieux' while preserving the default user, your script would look like this:\n```yaml\n#cloud-config\nusers:\n  - default\n  - name: gretzky\n    shell: /bin/bash\n    sudo: ALL=(ALL) NOPASSWD:ALL\n    ssh_authorized_keys:\n      - <Gretzky's public key goes here>\n  - name: lemieux\n    shell: /bin/bash\n    ssh_authorized_keys:\n      - <Lemieux's public key goes here>\n```\nThis configuration ensures that both the default user and the newly defined users are present on the VM, with specified permissions and SSH keys."
+      "question": "How can I add new users to a virtual machine using cloudInit while preserving the existing default distribution user?",
+      "answer": "To add new users while keeping the default user (such as `debian`, `centos`, or `ubuntu`) on a virtual machine, you should include `- default` under the `users:` section in your `cloud-config` script, followed by the new user definitions."
     },
     {
-      "question": "After a virtual machine (VM) is launched with cloudInit to add new users, how can one verify that the public keys for those users have been added correctly?",
-      "answer": "To verify that public keys have been correctly added for the new users after a VM has spawned, you need to check the VM's log. Navigate to the \"Compute->Instances\" panel in the OpenStack dashboard, click on the name of the instance, and then select the \"log\" tab. The log should display `ci-info` messages confirming the authorized keys for each user, indicating the path to their `authorized_keys` file and the fingerprint of the added SSH key."
+      "question": "What details should be included when defining new users in a cloudInit script for a virtual machine, specifically regarding SSH keys and permissions?",
+      "answer": "When defining new users in a `cloud-config` script, you should specify the user's `name`, `shell` (e.g., `/bin/bash`), `sudo` permissions (e.g., `ALL=(ALL) NOPASSWD:ALL` for sudo access), and their `ssh_authorized_keys` as a list of public keys."
+    },
+    {
+      "question": "After a virtual machine has launched with a cloudInit script to add new users, how can I confirm that the public keys for those users were correctly added?",
+      "answer": "To confirm that public keys for new users have been correctly added after a VM launches, navigate to the \"Compute->Instances\" panel, click on the instance name, and then select the \"log\" tab. The log should display `ci-info` messages indicating that the authorized keys have been set up for each user."
     }
   ],
-  "generated_at": "2026-04-13T09:08:21.047339+00:00"
+  "generated_at": "2026-04-26T00:59:08.711956+00:00"
 }

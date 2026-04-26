@@ -4,17 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "When running an Ansys Fluent job on a single compute node within an Alliance cluster, what are the key parameters used in the `fluent` command?",
-      "answer": "For a single-node Ansys Fluent job, the `fluent` command uses parameters such as `-g $MYVERSION` to specify the version, `-t $NCORES` for the number of cores, `-mpi=intel` for Intel MPI, `-pshmem` for shared memory parallel, and `-i $MYJOURNALFILE` to indicate the journal file."
+      "question": "What is the purpose of the `script-flu-bycore+requeue.sh` Slurm script?",
+      "answer": "The `script-flu-bycore+requeue.sh` Slurm script is designed for Fluent jobs running across multiple nodes, allocating resources on a per-core basis. It includes a mechanism to automatically requeue the job up to five times if it fails due to a license shortage or simulation issue."
     },
     {
-      "question": "What is the purpose of the `slurm_hl2hl.py` command in an Ansys Fluent Slurm job script for parallel execution?",
-      "answer": "The `slurm_hl2hl.py --format ANSYS-FLUENT` command is used to generate a machine file, which is then directed to `/tmp/machinefile-$SLURM_JOB_ID`. This machine file is crucial for enabling distributed parallel computation for Ansys Fluent across multiple nodes."
+      "question": "How does the `script-flu-bycore+requeue.sh` Slurm script handle job failures?",
+      "answer": "The `script-flu-bycore+requeue.sh` Slurm script is configured to manage job failures by automatically requeueing the job. The `#SBATCH --array=1-5%1` directive specifies that the job can be re-attempted up to five times, particularly useful for failures caused by license shortages."
     },
     {
-      "question": "How do the `fluent` command parameters for multi-node execution on the 'nibi' cluster differ from those used for a single-node job?",
-      "answer": "For multi-node execution on the 'nibi' cluster, the `fluent` command includes `-mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID` to specify Intel MPI with an Ethernet interconnect and a generated machine file. In contrast, a single-node job uses `-mpi=intel -pshmem` for shared memory parallel, which does not require a machine file or an interconnect specification."
+      "question": "What are the recommended Slurm resource allocations within the `script-flu-bycore+requeue.sh` script?",
+      "answer": "The `script-flu-bycore+requeue.sh` Slurm script recommends specifying the account (e.g., `--account=def-group`), a time limit (e.g., `--time=00-03:00`), the total number of cores across all nodes (e.g., `--ntasks=16`), and memory per core (e.g., `--mem-per-cpu=4G`). The `#SBATCH --cpus-per-task=1` setting should not be changed."
     }
   ],
-  "generated_at": "2026-04-19T01:21:01.998713+00:00"
+  "generated_at": "2026-04-26T00:28:57.897745+00:00"
 }

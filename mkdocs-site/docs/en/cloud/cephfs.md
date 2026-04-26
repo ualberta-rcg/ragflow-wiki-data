@@ -4,72 +4,68 @@ slug: "cephfs"
 lang: "en"
 
 source_wiki_title: "CephFS/en"
-source_hash: "037ad1071d1298f1fd9551bc0b95d355"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T06:12:48.655719+00:00"
+source_hash: "2904e78d1130bc99e6fa34f81c4f5a2c"
+last_synced: "2026-04-25T23:42:08.699101+00:00"
+last_processed: "2026-04-26T00:15:47.086301+00:00"
 
 tags:
   - cloud
 
 keywords:
+  - "ceph"
+  - "OpenStack"
+  - "Debian family"
+  - "ha4-15gb"
+  - "non-standard colon"
+  - "CephFS client"
+  - "Access rules"
+  - "OpenStack cluster"
+  - "ceph.keyring"
+  - "Ceph client"
+  - "booted from volume"
+  - "mount"
+  - "VM configuration"
+  - "CephFS"
+  - "cephfs client"
   - "repository"
   - "user space"
-  - "booted from volume"
-  - "namespace option"
-  - "Access rule"
-  - "CephFS client"
-  - "VM configuration"
-  - "lsb_release"
-  - "Virtual Machine"
-  - "prune-dtn1"
-  - "OpenStack"
-  - "fstab"
-  - "ceph-fuse"
-  - "ha4-15gb"
-  - "device path"
-  - "nofail option"
-  - "CephFS service"
-  - "Red Hat family"
-  - "ceph.keyring"
-  - "Ceph"
+  - "MyCephFS-RW"
+  - "/etc/fstab"
+  - "Share creation"
   - "ceph.conf"
-  - "CephFS"
-  - "apt-add-repository"
-  - "mount options"
-  - "Share configuration"
-  - "OpenStack cluster"
-  - "ACTIVE"
-  - "distro codename"
-  - "ceph client"
+  - "network attachment"
   - "test_network"
-  - "mount"
-  - "Debian family"
+  - "mount options"
+  - "package installation"
+  - "cephfs"
+  - "dependencies"
+  - "ACTIVE"
+  - "ceph-fuse"
+  - "prune-dtn1"
+  - "device path"
 
 questions:
-  - "What information must be provided when requesting a CephFS quota from the cloud support team?"
-  - "What are the steps and required parameters to create a new CephFS share and its corresponding access rule in the OpenStack interface?"
-  - "How does the process of attaching the CephFS network to a virtual machine differ between the Arbutus and SD4H/Juno environments?"
-  - "What is the name and current operational status of the instance?"
-  - "What are the specific IP addresses and network assigned to this server?"
-  - "How is the instance booted, and what hardware flavor does it use?"
-  - "How can you attach the CephFS network to a specific Virtual Machine using OpenStack CLI commands?"
-  - "What repository configurations and packages are required to install the CephFS client on Red Hat family distributions like Enterprise Linux 9?"
-  - "How do you add the correct Ceph repository for Debian family distributions using the distribution's codename?"
-  - "What packages must be installed to set up the CephFS client and its dependencies?"
-  - "Where can a user find the monitor information, client name, and access key required to configure the ceph.conf and ceph.keyring files?"
-  - "How do you permanently mount the CephFS device using the /etc/fstab file, and what specific syntax or options are required?"
-  - "How can a user find their Linux distribution's codename according to the text?"
-  - "What bash command is provided to add the Ceph 'debian-tentacle' repository?"
-  - "How should a user revert the repository addition if the initial command produces an error?"
-  - "What are the specific command-line differences when mounting CephFS directly on Arbutus compared to SD4H/Juno?"
-  - "What steps and configuration changes are required to mount CephFS in user space using ceph-fuse?"
-  - "How can granular access control be implemented for a shared filesystem, and what are the network limitations for accessing this service?"
-  - "Why is there a non-standard colon before the device path in the configuration?"
-  - "What is the required mount option for SD4H/Juno systems, and what are the other options used for?"
-  - "How does the nofail option protect the system's boot process if the CephFS service is unreachable?"
-  - "What are the specific command-line differences when mounting CephFS directly on Arbutus compared to SD4H/Juno?"
-  - "What steps and configuration changes are required to mount CephFS in user space using ceph-fuse?"
-  - "How can granular access control be implemented for a shared filesystem, and what are the network limitations for accessing this service?"
+  - "What information must be included in the email request to obtain a new CephFS quota?"
+  - "What are the specific steps and parameters required to create a CephFS share and generate an access key within the OpenStack interface?"
+  - "How does the procedure for attaching the CephFS network to a virtual machine differ between the Arbutus and SD4H/Juno environments?"
+  - "What is the current operational status of the instance named \"prune-dtn1\"?"
+  - "What are the specific IP addresses and network assigned to this instance?"
+  - "What hardware flavor is allocated to the instance, and how is its boot image configured?"
+  - "How can you attach a specific network, such as the CephFS network, to a Virtual Machine using the OpenStack command-line interface?"
+  - "What repository configurations and specific packages are required to install the CephFS client on Enterprise Linux 9 and its derivatives?"
+  - "What command is used to add the Ceph repository for Debian-family distributions based on their specific release codename?"
+  - "What command is used to install the necessary Ceph libraries and dependencies?"
+  - "Where can a user locate the monitor information, client name, and access key needed for the configuration files?"
+  - "How do you permanently mount the CephFS filesystem to the host machine using the fstab file?"
+  - "Which specific Ceph packages and dependencies should be installed using the dnf package manager?"
+  - "How can a user find their distribution codename when setting up the repository for Debian family systems?"
+  - "What command is used to add the Ceph repository to a Debian-based distribution once the codename is known?"
+  - "How do the required CephFS mount options differ between systems like Arbutus and SD4H/Juno?"
+  - "What are the necessary steps and configuration changes needed to mount CephFS in user space using ceph-fuse?"
+  - "How can provisioning multiple user keys provide more granular access control to a specific CephFS share?"
+  - "What is the significance of the non-standard colon (`:`) placed before the device path in the configuration?"
+  - "Which system configuration file is being modified to mount the file system in the provided text?"
+  - "What specific mount options and timeouts are applied to the CephFS volume in this setup?"
 
 status:
   downloaded: true
@@ -89,32 +85,36 @@ This is a fairly technical procedure that assumes basic Linux skills for creatin
 ## Request access to shares
 
 If you do not already have a quota for the service, you will need to request this through [cloud@tech.alliancecan.ca](mailto:cloud@tech.alliancecan.ca). In your request please provide the following:
-* OpenStack project name
-* amount of quota required (in GB)
-* number of shares required
+
+*   OpenStack project name
+*   amount of quota required (in GB)
+*   number of shares required
 
 ## OpenStack configuration: Create a CephFS share
 
-**Create the share:**
-In *Project* --> *Share* --> *Shares*, click on *+Create Share*.
-*Share Name* = enter a name that identifies your project (e.g. *project-name-shareName*)
-*Share Protocol* = CephFS
-*Size* = size you need for this share
-*Share Type* = cephfs (or cephfs-ec42 on SD4H/Juno)
-*Availability Zone* = nova
-Do not check *Make visible for all* (or *Make visible to users from all projects* on SD4H/Juno), otherwise the share will be accessible by all users in all projects.
-Click on the *Create* button.
+### Create the share.
 
-**Create an access rule to generate an access key:**
-In *Project* --> *Share* --> *Shares* --> *Actions* column, select *Manage Rules* from the drop-down menu.
+In *Project --> Share --> Shares*, click on *+Create Share*.
+*   *Share Name* = enter a name that identifies your project (e.g., *project-name-shareName*)
+*   *Share Protocol* = CephFS
+*   *Size* = size you need for this share
+*   *Share Type* = cephfs (or cephfs-ec42 on SD4H/Juno)
+*   *Availability Zone* = nova
+*   Do not check *Make visible for all* (or *Make visible to users from all projects* on SD4H/Juno), otherwise the share will be accessible by all users in all projects.
+*   Click on the *Create* button.
+
+### Create an access rule to generate an access key.
+
+In *Project --> Share --> Shares --> Actions* column, select *Manage Rules* from the drop-down menu.
 Click on the *+Add Rule* button (right of the page).
-*Access Type* = cephx
-*Access Level* = select *read-write* or *read-only* (you can create multiple rules for either access level if required)
-*Access To* = select a key name that describes the key. This name is important because it will be used in the CephFS client configuration on the VM; on this page, we use *MyCephFS-RW*.
+*   *Access Type* = cephx
+*   *Access Level* = select *read-write* or *read-only* (you can create multiple rules for either access level if required)
+*   *Access To* = select a key name that describes the key. This name is important because it will be used in the CephFS client configuration on the VM; on this page, we use *MyCephFS-RW*.
 
-**Note the share details which you will need later:**
-In *Project* --> *Share* --> *Shares*, click on the name of the share.
-In the *Share Overview*, note the three elements circled in red in the image above: *Path*, which will be used in the mount command on the VM; the *Access to*, which will be the client name; and the *Access Key* that will let the VM's client connect.
+### Note the share details you will need later.
+
+In *Project --> Share --> Shares*, click on the name of the share.
+In the *Share Overview*, note the following elements: *Path*, which will be used in the mount command on the VM; the *Access to*, which will be the client name; and the *Access Key* that will let the VM's client connect.
 
 ## Attach the CephFS network to your VM
 
@@ -126,14 +126,16 @@ On `Arbutus`, the CephFS network is already exposed to your VM; there is nothing
 
 On `SD4H/Juno`, you need to explicitly attach the CephFS network to the VM.
 
-**With the Web GUI:**
-For each VM you need to attach, select *Instance* --> *Action* --> *Attach interface*, select the CephFS-Network, leave the *Fixed IP Address* box empty.
+#### With the Web GUI
 
-**With the [OpenStack client](openstack_command_line_clients.md):**
+For each VM you need to attach, select *Instance --> Action --> Attach interface*, select the CephFS-Network, leave the *Fixed IP Address* box empty.
+
+#### With the [OpenStack client](openstack_command_line_clients.md)
+
 List the servers and select the ID of the server you need to attach to the CephFS.
 
 ```bash
-$ openstack server list
+$ openstack  server list 
 +--------------------------------------+--------------+--------+-------------------------------------------+--------------------------+----------+
 | ID                                   | Name         | Status | Networks                                  | Image                    | Flavor   |
 +--------------------------------------+--------------+--------+-------------------------------------------+--------------------------+----------+
@@ -146,8 +148,8 @@ $ openstack server list
 Select the ID of the VM you want to attach; we will pick the first one here and run:
 
 ```bash
-$ openstack server add network 1b2a3c21-c1b4-42b8-9016-d96fc8406e04 CephFS-Network
-$ openstack server list
+$ openstack  server add network 1b2a3c21-c1b4-42b8-9016-d96fc8406e04 CephFS-Network
+$ openstack  server list 
 +--------------------------------------+--------------+--------+---------------------------------------------------------------------+--------------------------+----------+
 | ID                                   | Name         | Status | Networks                                                            | Image                    | Flavor   |
 +--------------------------------------+--------------+--------+---------------------------------------------------------------------+--------------------------+----------+
@@ -159,18 +161,18 @@ $ openstack server list
 
 We can see that the CephFS network is attached to the first VM.
 
-## VM configuration: Install and configure CephFS client
+## VM configuration: install and configure CephFS client
 
 ### Required packages for the Red Hat family (RHEL, CentOS, Fedora, Rocky, Alma)
 
 Check the available releases at [https://download.ceph.com/](https://download.ceph.com/) and look for recent `rpm-*` directories.
 As of April 2026, `tentacle` is the latest stable release.
 The compatible distributions (distros) are listed at [https://download.ceph.com/rpm-tentacle/](https://download.ceph.com/rpm-tentacle/).
-Here we show configuration examples for `Enterprise Linux 9`.
+Here we show configuration examples for `Enterprise Linux 9` and derivatives. As of April 2026, the CephFS client is not available for `Enterprise Linux 10` and derivatives.
 
-**Install relevant repositories for access to Ceph client packages:**
+#### Install relevant repositories for access to Ceph client packages:
 
-```ini title="/etc/yum.repos.d/ceph.repo"
+````ini title="/etc/yum.repos.d/ceph.repo"
 [Ceph]
 name=Ceph packages for $basearch
 baseurl=http://download.ceph.com/rpm-tentacle/el9/$basearch
@@ -194,137 +196,151 @@ enabled=1
 gpgcheck=1
 type=rpm-md
 gpgkey=https://download.ceph.com/keys/release.asc
-```
+````
 
-The EPEL repo also needs to be in place:
+The epel repo also needs to be in place.
 ```bash
 sudo dnf install epel-release
 ```
 
-You can now install the Ceph lib, CephFS client, and other dependencies:
+You can now install the Ceph lib, CephFS client and other dependencies:
+
 ```bash
 sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse
 ```
 
 ### Required packages for the Debian family (Debian, Ubuntu, Mint, etc.)
 
-You can get the repository once you have figured out your distro `{codename}` with `lsb_release -sc`:
+You can get the repository once you have figured out your distro `{codename}` with `lsb_release -sc`.
+
 ```bash
 sudo apt-add-repository 'deb https://download.ceph.com/debian-tentacle/ {codename} main'
 ```
+
 If the previous command gave an error, revert it with the following command and go to the next step:
+
 ```bash
 sudo add-apt-repository -r 'deb https://download.ceph.com/debian-tentacle/ {codename} main'
 ```
 
-You can now install the Ceph lib, CephFS client, and other dependencies:
+You can now install the Ceph lib, CephFS client and other dependencies:
+
 ```bash
 sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse
 ```
 
 ### Configure Ceph client
 
-Once the client is installed, you can create a `ceph.conf` file.
-Note the different `mon host` for the different cloud.
+!!! note
+    Note the different `mon host` for the different cloud.
 
 === "Arbutus"
 
-    ```ini title="/etc/ceph/ceph.conf"
-    [global]
-    admin socket = /var/run/ceph/$cluster-$name-$pid.asok
-    client reconnect stale = true
-    debug client = 0/2
-    fuse big writes = true
-    mon host = [v2:134.87.15.61:3300/0,v1:134.87.15.61:6789/0] [v2:134.87.15.62:3300/0,v1:134.87.15.62:6789/0] [v2:134.87.15.63:3300/0,v1:134.87.15.63:6789/0]
-    [client]
-    quota = true
-    ```
+````ini title="/etc/ceph/ceph.conf"
+[global]
+admin socket = /var/run/ceph/$cluster-$name-$pid.asok
+client reconnect stale = true
+debug client = 0/2
+fuse big writes = true
+mon host = [v2:134.87.15.61:3300/0,v1:134.87.15.61:6789/0] [v2:134.87.15.62:3300/0,v1:134.87.15.62:6789/0] [v2:134.87.15.63:3300/0,v1:134.87.15.63:6789/0]
+[client]
+quota = true
+````
 
 === "SD4H/Juno"
 
-    ```ini title="/etc/ceph/ceph.conf"
-    [global]
-    admin socket = /var/run/ceph/$cluster-$name-$pid.asok
-    client reconnect stale = true
-    debug client = 0/2
-    fuse big writes = true
-    mon host = 10.65.0.10:6789,10.65.0.12:6789,10.65.0.11:6789
-    [client]
-    quota = true
-    ```
+````ini title="/etc/ceph/ceph.conf"
+[global]
+admin socket = /var/run/ceph/$cluster-$name-$pid.asok
+client reconnect stale = true
+debug client = 0/2
+fuse big writes = true
+mon host = 10.65.0.10:6789,10.65.0.12:6789,10.65.0.11:6789
+[client]
+quota = true
+````
 
 You can find the monitor information in the share details *Path* field that will be used to mount the volume. If the value of the web page is different than what is seen here, it means that the wiki page is out of date.
 
-You also need to put your client name and secret in the `ceph.keyring` file:
+You also need to put your client name and secret in the `ceph.keyring` file.
 
-```ini title="/etc/ceph/ceph.keyring"
+````ini title="/etc/ceph/ceph.keyring"
 [client.MyCephFS-RW]
     key = <Access Key>
-```
+````
 
 Again, the access key and client name (here MyCephFS-RW) are found under the access rules on your project web page.
-Look for *Project* --> *Share* --> *Shares*, then click on the name of the share.
+Look for *Project --> Share --> Shares*, then click on the name of the share.
 
-**Retrieve the connection information from the share page for your connection:**
-* Open up the share details by clicking on the name of the share in the *Shares* page.
-* Copy the portion of the *Path* of the share that starts with `:` which we will use to mount the filesystem (for example `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c`, is used here).
+#### Retrieve the connection information from the share page:
 
-**Mount the filesystem:**
-* Create a mount point directory somewhere in your host (`/cephfs`, is used here):
-    ```bash
-    mkdir /cephfs
-    ```
-* You can use the Ceph driver to permanently mount your CephFS device by adding the following in the VM fstab:
+*   Open up the share details by clicking on the name of the share in the *Shares* page.
+*   Copy the portion of the *Path* of the share that starts with `:` which we will use to mount the filesystem (for example `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c`, is used here).
+
+#### Mount the filesystem
+
+*   Create a mount point directory somewhere in your host (`/cephfs`, is used here).
+
+```bash
+mkdir /cephfs
+```
+
+*   You can use the Ceph driver to permanently mount your CephFS device by adding the following in the VM fstab.
 
 === "Arbutus"
 
-    ```text title="/etc/fstab"
-    :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,nofail 0  2
-    ```
+````text title="/etc/fstab"
+:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,nofail 0  2
+````
 
 === "SD4H/Juno"
 
-    ```text title="/etc/fstab"
-    :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw,nofail 0  2
-    ```
+````text title="/etc/fstab"
+:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw,nofail 0  2
+````
 
-!!! note
+!!! warning
     Notice the non-standard `:` before the device path. It is not a typo!
-    The mount options are different on different systems.
-    The namespace option is required for SD4H/Juno, while other options are performance tweaks. The `nofail` option ensures that the system will boot even in the unlikely case that the CephFS service is down or unreachable.
+
+The mount options are different on different systems.
+The namespace option is required for SD4H/Juno, while other options are performance tweaks. The `nofail` option ensures that the system will boot even in the unlikely case that the CephFS service is down or unreachable.
 
 You can also do the mount directly from the command line:
 
 === "Arbutus"
 
-    ```bash
-    sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW
-    ```
+```bash
+sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW
+```
 
 === "SD4H/Juno"
 
-    ```bash
-    sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw
-    ```
+```bash
+sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw
+```
 
-CephFS can also be mounted directly in user space via `ceph-fuse`.
+CephFS can also be mounted directly in user space via ceph-fuse.
 
-Install the `ceph-fuse` lib:
+Install the `ceph-fuse` lib.
+
 ```bash
 sudo dnf install ceph-fuse
 ```
-Let the FUSE mount be accessible in user space by uncommenting `user_allow_other` in the `fuse.conf` file:
 
-```text title="/etc/fuse.conf"
+Let the fuse mount be accessible in userspace by uncommenting `user_allow_other` in the `fuse.conf` file.
+
+````text title="/etc/fuse.conf"
 # mount_max = 1000
 user_allow_other
-```
+````
 
 You can now mount CephFS in a user’s home:
+
 ```bash
 mkdir ~/my_cephfs
 ceph-fuse my_cephfs/ --id=MyCephFS-RW --conf=~/ceph.conf --keyring=~/ceph.keyring   --client-mountpoint=/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c
 ```
+
 Note that the client name is here the `--id`. The `ceph.conf` and `ceph.keyring` content are exactly the same as for the Ceph kernel mount.
 
 ## Notes
