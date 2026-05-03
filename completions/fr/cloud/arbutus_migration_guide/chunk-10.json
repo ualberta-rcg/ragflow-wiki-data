@@ -4,17 +4,13 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "Quelle est la commande à utiliser pour copier un grand volume de données d'une instance temporaire sur le nuage Ouest vers une instance temporaire sur le nouveau nuage Arbutus en se servant de `dd` et SSH?",
-      "answer": "Pour copier un grand volume, vous devez exécuter la commande suivante sur l'instance temporaire Ouest : `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem centos@xxx.xx.xx.xx \"dd bs=16M of=/dev/vdb\"`. Il faut s'assurer d'adapter l'adresse IP, la taille du volume et le chemin de la clé SSH selon votre configuration. La commande `screen` est aussi recommandée pour maintenir la session active."
+      "question": "Comment procède-t-on pour migrer de grands volumes amorçables du nuage Ouest vers le nouveau nuage Arbutus en utilisant la commande `dd`?",
+      "answer": "Pour ça, il faut d'abord créer des instances temporaires sur les deux nuages. On attache le volume source à copier de l'ancien nuage à l'instance temporaire Ouest, et un volume vide de la même taille, identifié comme amorçable, à l'instance temporaire Arbutus. Ensuite, sur l'instance temporaire Ouest, on exécute une commande comme `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem centos@xxx.xx.xx.xx \"dd bs=16M of=/dev/vdb\"` pour copier les données. Ça permet d'obtenir une copie identique du volume sur Arbutus."
     },
     {
-      "question": "Comment migrer une instance éphémère du nuage Ouest vers le nouveau nuage Arbutus en utilisant l'utilitaire `dd`?",
-      "answer": "Pour migrer une instance éphémère avec `dd`, il faut d'abord se connecter à l'instance active sur le nuage Ouest via SSH, puis fermer le plus de services possible, en ne gardant que SSH. Ensuite, installez le CLI OpenStack si ce n'est pas déjà fait, copiez et sourcez le fichier RC d'Arbutus, identifiez le disque racine (souvent `/dev/vda1`), puis créez une image à partir de ce disque avec la commande `dd if=/dev/vda | openstack image create --private --container-format bare --disk-format raw \"ephemeralmigrate\"`."
-    },
-    {
-      "question": "Quelles sont les méthodes de copie de données recommandées pour une migration vers le nouveau nuage Arbutus, en fonction de la taille des volumes?",
-      "answer": "Pour les très grands volumes de données (plus de 5 To), la méthode recommandée est Globus. Pour les plus petits volumes, il est suggéré d'utiliser `rsync + ssh`, car cette méthode offre de bonnes vitesses de transfert et travaille de manière incrémentale."
+      "question": "Quelle est la procédure pour migrer une instance éphémère du nuage Ouest vers le nouveau nuage Arbutus à l'aide de l'utilitaire `dd`?",
+      "answer": "D'abord, on se connecte à l'instance éphémère active sur le nuage Ouest avec SSH et on ferme la plupart des services, sauf SSH. Ensuite, on installe le CLI OpenStack si ce n'est pas déjà fait, on copie et source le fichier RC du nouveau nuage Arbutus. On identifie le disque racine de l'instance (souvent `/dev/vda`) et on utilise l'utilitaire `dd` pour en créer une image. On télécharge cette image directement vers Arbutus avec la commande `dd if=/dev/vda | openstack image create --private --container-format bare --disk-format raw \"ephemeralmigrate\"`. Cette image-là peut ensuite être utilisée pour lancer une nouvelle instance sur Arbutus."
     }
   ],
-  "generated_at": "2026-04-19T01:46:41.944179+00:00"
+  "generated_at": "2026-05-03T01:25:53.247429+00:00"
 }

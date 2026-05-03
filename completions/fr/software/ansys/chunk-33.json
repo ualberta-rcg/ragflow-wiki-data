@@ -4,17 +4,17 @@
   "chunk_index": 33,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on génère un fichier d'entrée pour Ansys Mechanical APDL?",
-      "answer": "Le fichier d'entrée pour Ansys Mechanical APDL se génère à partir d'une session interactive Workbench Mechanical. Il faut cliquer sur ''Solution -> Tools -> Write Input Files'', puis spécifier un nom pour le fichier (par exemple, YOURAPDLFILE.inp) et choisir le type de fichier comme étant un fichier APDL en entrée (*.inp)."
+      "question": "Comment peut-on générer un fichier d'entrée pour les tâches Ansys Mechanical APDL à partir de Workbench?",
+      "answer": "Pour générer un fichier d'entrée APDL à partir de votre session interactive Workbench Mechanical, vous devez cliquer sur \"Solution\", ensuite \"Tools\", puis \"Write Input Files\". Là, vous spécifiez \"File name:\" comme `YOURAPDLFILE.inp` et \"Save as type:\" comme \"fichiers APDL en entrée (*.inp)\"."
     },
     {
-      "question": "Comment soumet-on une tâche Ansys Mechanical APDL à la queue Slurm sur les grappes de l'Alliance?",
-      "answer": "Une fois que le fichier d'entrée APDL est généré, une tâche peut être soumise à la queue Slurm en utilisant la commande `sbatch script-name.sh`, où `script-name.sh` est le script Slurm configuré pour la tâche. Des exemples de scripts sont fournis pour les configurations en mémoire parallèle partagée (SMP) et en mémoire distribuée parallèle (DMP), incluant le support pour CPU et GPU."
+      "question": "Quelles sont les options de parallélisation disponibles pour les tâches Ansys Mechanical APDL sur les grappes, et quelle est la différence entre la mémoire partagée et la mémoire distribuée?",
+      "answer": "Pour les tâches Ansys Mechanical APDL, deux options de parallélisation sont offertes sur les grappes : la mémoire parallèle partagée (SMP) pour un seul nœud, et la mémoire parallèle distribuée (DMP) pour plusieurs nœuds. En mode SMP, les tâches utilisent la commande `mapdl -smp` et partagent la mémoire d'un seul nœud, offrant généralement une meilleure performance. En mode DMP, les tâches utilisent `mapdl -dis` et distribuent la charge sur plusieurs nœuds avec MPI (OpenMPI ou Intel MPI selon la grappe), ce qui est utile pour les calculs plus intenses."
     },
     {
-      "question": "Quelles sont les recommandations pour optimiser l'exécution parallèle des tâches Ansys Mechanical APDL sur les grappes de l'Alliance?",
-      "answer": "Pour optimiser l'exécution des tâches Ansys Mechanical APDL, il est recommandé d'utiliser les scripts pour nœud simple avec mémoire parallèle partagée (SMP) autant que possible, car ils offrent généralement une meilleure performance que les scripts à mémoire parallèle distribuée (DMP) sur plusieurs nœuds. Avant de lancer des tâches en production, il est crucial d'effectuer des tests de mise à l'échelle détaillés pour trouver le nombre optimal de cœurs et la quantité minimale de mémoire requise. De plus, pour éviter les problèmes de compatibilité, le module Ansys chargé dans le script Slurm devrait idéalement correspondre à la version utilisée pour générer le fichier d'entrée."
+      "question": "Y a-t-il des particularités à considérer pour les grappes Cedar et Béluga lorsqu'on exécute Ansys Mechanical APDL en mode mémoire parallèle distribuée (DMP)?",
+      "answer": "Oui, il y a des configurations spécifiques pour les grappes Cedar et Béluga en mode DMP. Sur Cedar, il faut créer un lien symbolique (`ln -s`) vers `libstdc++.so.6.0.29` et ajuster la variable `LD_LIBRARY_PATH`. Sur Béluga, il faut exporter la variable `KMP_AFFINITY=none` et utiliser `intel-mpi` pour le solveur (`-mpi intelmpi`), alors que d'autres grappes comme Graham, Narval et Cedar utilisent généralement `openmpi`."
     }
   ],
-  "generated_at": "2026-04-26T00:45:02.850297+00:00"
+  "generated_at": "2026-05-03T01:16:36.438715+00:00"
 }

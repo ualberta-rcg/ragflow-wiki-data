@@ -1,0 +1,67 @@
+{
+  "doc_key": "fr/dummy_wheel",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce que sont les « dummy wheels » sur l'infrastructure de calcul de l'Alliance?",
+      "answer": "Les « dummy wheels » sont des fichiers de paquets Python qui agissent comme des repères pour des paquets populaires disponibles sur PyPI, mais qui sont plutôt offerts comme des modules directement sur l'infrastructure de l'Alliance."
+    },
+    {
+      "question": "Quel est le but des « dummy wheels » sur l'infrastructure de calcul de l'Alliance?",
+      "answer": "Ils servent à indiquer qu'un paquet Python populaire est déjà disponible via un module système plutôt que d'avoir à être installé par pip, et sont étiquetés avec une version locale comme `+dummy.computecanada`."
+    },
+    {
+      "question": "Pouvez-vous donner des exemples de paquets Python qui utilisent des « dummy wheels » sur l'infrastructure de l'Alliance?",
+      "answer": "Oui, des exemples incluent `pyarrow` (pour Arrow), `opencv_python` (pour OpenCV) et `MPI4py`."
+    },
+    {
+      "question": "Que se passe-t-il lorsque `pip` tente de sélectionner un « dummy wheel » lors d'une installation sur l'infrastructure de l'Alliance?",
+      "answer": "Lorsque `pip` sélectionne un « dummy wheel », ça génère une erreur parce qu'il ne peut pas trouver de correspondance pour l'exigence du paquet. Ce comportement est considéré comme normal."
+    },
+    {
+      "question": "Quelles sont les trois raisons principales pour lesquelles une erreur de « dummy wheel » peut survenir sur l'infrastructure de l'Alliance?",
+      "answer": "Les trois raisons principales sont : le module sous-jacent n'a pas été chargé, la version du module chargé ne correspond pas à la version requise, ou le module chargé ne supporte pas la version de Python utilisée."
+    },
+    {
+      "question": "Comment résoudre une erreur de « dummy wheel » si le module requis (comme Arrow) n'a pas été chargé dans un environnement virtuel sur l'infrastructure de l'Alliance?",
+      "answer": "Il faut désactiver votre environnement virtuel, charger le module nécessaire (par exemple `module load gcc arrow/x.y.z python/x.y.z`), réactiver l'environnement virtuel, puis relancer votre commande `pip install`."
+    },
+    {
+      "question": "Quelle est la séquence de commandes pour charger le module Arrow après avoir désactivé un environnement virtuel afin de résoudre un problème de « dummy wheel » sur l'infrastructure de l'Alliance?",
+      "answer": "D'abord, désactivez votre environnement virtuel avec `test $VIRTUAL_ENV && deactivate`. Ensuite, chargez le module avec `module load gcc arrow/x.y.z python/x.y.z`. Réactivez l'environnement avec `source <env>/bin/activate`, puis relancez `pip install <package>`."
+    },
+    {
+      "question": "Comment puis-je déterminer la version spécifique d'un paquet (comme `pyarrow`) requise par un autre paquet dépendant lorsque je rencontre une erreur de « dummy wheel » sur l'infrastructure de l'Alliance?",
+      "answer": "Pour trouver la version requise, vous devez examiner la sortie de la commande `pip install --no-index <paquet_dépendant>`, en cherchant une ligne telle que `(from pyarrow>=21.0.0->datasets)` qui indique l'exigence de version."
+    },
+    {
+      "question": "Si la commande `python -c \"import pyarrow\"` n'affiche rien dans le terminal sur l'infrastructure de l'Alliance, qu'est-ce que cela signifie?",
+      "answer": "Cela signifie que l'importation de `pyarrow` a été réussie et que le module fournit bien `pyarrow` pour la version de Python utilisée."
+    },
+    {
+      "question": "Comment vérifier si `pip` reconnaît `pyarrow` comme étant disponible sur l'infrastructure de l'Alliance?",
+      "answer": "Vous pouvez vérifier si `pip` reconnaît `pyarrow` en utilisant la commande `pip list | grep pyarrow`. Si une entrée apparaît, `pyarrow` est disponible et vu par `pip`."
+    },
+    {
+      "question": "Pourquoi est-il important de vérifier les \"bindings\" Python lors du dépannage d'erreurs de « dummy wheel » sur l'infrastructure de l'Alliance?",
+      "answer": "C'est important car un module chargé peut ne pas avoir les « bindings » Python nécessaires pour la version de Python que vous utilisez, ce qui empêcherait l'importation du paquet même si le module est chargé."
+    },
+    {
+      "question": "Qu'arrive-t-il si j'utilise une version du module `arrow` plus ancienne que celle requise par un paquet dépendant sur l'infrastructure de l'Alliance?",
+      "answer": "L'utilisation d'une version antérieure du module `arrow` entraînera l'installation du « dummy wheel », car le module chargé ne satisfera pas aux exigences de version du paquet dépendant."
+    },
+    {
+      "question": "Quel est le format de l'étiquette de version locale pour les « dummy wheels » sur l'infrastructure de l'Alliance?",
+      "answer": "L'étiquette de version locale est typiquement `+dummy.computecanada`, comme dans `pyarrow-23.0.1+dummy.computecanada-py3-none-any.whl`."
+    },
+    {
+      "question": "Quel est le comportement attendu de `pip` quand il ne trouve pas de correspondance pour une exigence de paquet qui est en fait un « dummy wheel » sur l'infrastructure de l'Alliance?",
+      "answer": "Le comportement attendu est que `pip` génère une erreur, ce qui est normal, car le « dummy wheel » est un substitut pour un module existant plutôt qu'un paquet installable par `pip`."
+    },
+    {
+      "question": "Comment puis-je réactiver mon environnement virtuel après l'avoir désactivé pour charger un module sur l'infrastructure de l'Alliance?",
+      "answer": "Pour réactiver votre environnement virtuel, utilisez la commande `source <env>/bin/activate`, en remplaçant `<env>` par le chemin de votre environnement virtuel."
+    }
+  ],
+  "generated_at": "2026-05-03T01:53:43.895326+00:00"
+}

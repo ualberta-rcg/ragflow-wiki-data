@@ -4,13 +4,17 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "What is the recommended method for migrating large volumes, especially bootable ones, between Legacy Arbutus and New Arbutus Clouds when image-based or rsync methods are not suitable?",
-      "answer": "For large volumes, particularly bootable ones, where image-based methods are not recommended, the `dd` command can be used to make an identical copy of a volume from Legacy Arbutus on New Arbutus. Prior to beginning the process, it is always important to back up any critical data."
+      "question": "When using the `dd` command to migrate a large volume from a legacy cloud instance to a new Arbutus Cloud instance, what is the specific command executed on the temporary legacy instance to initiate the data transfer, assuming a 96 GB source volume attached as `/dev/vdb`?",
+      "answer": "The command to execute on the temporary legacy instance is: `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@xxx.xx.xx.xx \"sudo dd bs=16M of=/dev/vdb\"`. This command copies a 96GB volume from `/dev/vdb` on the legacy instance to `/dev/vdb` on the new Arbutus Cloud instance, using `key.pem` for SSH authentication to the destination IP `xxx.xx.xx.xx`. The `bs=16M` sets the block size."
     },
     {
-      "question": "What are the initial setup requirements for performing a large volume migration using the Linux 'dd' command between Legacy and New Arbutus Clouds?",
-      "answer": "To prepare for migrating large volumes using the Linux 'dd' command, you must first create a temporary p1-1.5gb instance on both the Legacy and New Arbutus Clouds, assign floating IP addresses to both instances for SSH access, install the `epel-release`, `pv`, and `screen` packages on the temporary Legacy Arbutus instance, and execute the command `chmod u+s /bin/dd` on the temporary New Arbutus instance."
+      "question": "When performing a large volume migration between a legacy cloud instance and a new Arbutus Cloud instance using the `dd` command over SSH, why is it recommended to use the `screen` command?",
+      "answer": "The `screen` command is recommended during large volume migrations to keep the SSH session alive in case of disconnections, ensuring the data transfer process continues uninterrupted even if the user's SSH client connection drops."
+    },
+    {
+      "question": "In the context of migrating large volumes using Linux `dd` over SSH, what are the respective roles of `dd`, `pv`, and `ssh` in the provided migration command?",
+      "answer": "In the migration command, `dd` is used to read data from the source volume on the legacy instance and write it to the destination volume on the new Arbutus Cloud instance. `pv` (Pipe Viewer) displays a progress bar and throughput rate during the data transfer. `ssh` securely transmits the data stream from the legacy instance to the new Arbutus Cloud instance, where another `dd` command receives and writes the data to the destination volume."
     }
   ],
-  "generated_at": "2026-04-19T01:42:18.156542+00:00"
+  "generated_at": "2026-05-03T01:21:34.269428+00:00"
 }

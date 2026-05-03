@@ -4,27 +4,24 @@ slug: "quantumatk"
 lang: "en"
 
 source_wiki_title: "QuantumATK/en"
-source_hash: "6a0fa7f6800e3a8fdfe8f62527300182"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T10:42:26.608453+00:00"
+source_hash: "a79f9fa8750509b5403a7693f73300f9"
+last_synced: "2026-05-02T23:50:34.269007+00:00"
+last_processed: "2026-05-03T00:46:16.331749+00:00"
 
 tags:
   []
 
 keywords:
   - "QuantumATK"
-  - "license server"
-  - "atomic-scale modeling"
-  - "licensing"
-  - "CMC"
+  - "Licensing"
+  - "License server"
+  - "CMC license setup"
+  - "Atomic-scale modeling"
 
 questions:
-  - "What is the primary purpose of the QuantumATK software and how does it benefit research and development?"
-  - "What are the different ways a user can obtain a valid license to run QuantumATK on the provided clusters?"
-  - "How should users configure their license file and network settings to ensure the compute nodes can successfully communicate with their specific license server?"
-  - "What is the primary purpose of the QuantumATK software and how does it benefit research and development?"
-  - "What are the different ways a user can obtain a valid license to run QuantumATK on the provided clusters?"
-  - "How should users configure their license file and network settings to ensure the compute nodes can successfully communicate with their specific license server?"
+  - "What is QuantumATK and how does it benefit research and development in high-tech industries?"
+  - "What are the available options for researchers to obtain a valid license to use QuantumATK on the hosting provider's clusters?"
+  - "How do users technically configure their own license file or a CMC license to ensure the compute nodes can access the license server?"
 
 status:
   downloaded: true
@@ -46,19 +43,22 @@ Once the legal aspects are worked out for licensing, there will be remaining tec
 ### Configuring your own license file
 Our module for QuantumATK is designed to look for license information in a few places. One of those places is your home folder. If you have your own license server, you can write the information to access it in the following format:
 
-```bash title="quantumatk.lic"
+```bash :file: quantumatk.lic
 SERVER <server> ANY <port>
 USE_SERVER
 ```
 
-and put this file in the folder `$HOME/.licenses/` where `<server>` is your license server and `<port>` is the port number of the license server. Note that firewall changes will need to be done on both our side and your side. To arrange this, send an email containing the service port and IP address of your floating QuantumATK license server to [Technical support](../../support/technical_support.md).
+and put this file in the folder `$HOME/.licenses/` where `<server>` is your license server and `<port>` is the port number of the license server.
+
+!!! warning "Firewall Configuration"
+    Firewall changes will need to be done on both our side and your side. To arrange this, send an email containing the service port and IP address of your floating QuantumATK license server to [Technical support](../../support/technical_support.md).
 
 #### CMC License Setup
 Researchers who purchase a QuantumATK license subscription from CMC may use the following settings in their `quantumatk.lic` file:
 
-*   Fir: `SERVER 172.26.0.101 ANY 6053`
-*   Narval: `SERVER 10.100.64.10 ANY 6053`
-*   Rorqual: `SERVER 10.100.64.10 ANY 6053`
-*   Trillium: `SERVER nia-cmc ANY 6053`
+- Fir: `SERVER 172.26.0.101 ANY 6053`
+- Narval: `SERVER 10.100.64.10 ANY 6053`
+- Rorqual: `SERVER 10.100.64.10 ANY 6053`
+- Trillium: `SERVER scinet-cmc ANY 6053`
 
 If initial license checkout attempts fail, create a support case with [CMC](https://www.cmc.ca/support/).

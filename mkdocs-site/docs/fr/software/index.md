@@ -46,7 +46,7 @@ Auto-generated index for `fr/software`.
 - [Dask](dask.md)
 - [Dedalus](dedalus.md)
 - [Dl Poly](dl_poly.md)
-- [Dummywheel](dummywheel.md)
+- [Dummy Wheel](dummy_wheel.md)
 - [Fenics](fenics.md)
 - [Fir](fir.md)
 - [Fmriprep](fmriprep.md)

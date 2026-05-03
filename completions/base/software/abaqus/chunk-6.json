@@ -4,13 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "How do you submit an Abaqus Standard Analysis job to an Alliance cluster that restarts a previous simulation, utilizes a temporary directory for scratch files, and runs on a single node?",
-      "answer": "To submit an Abaqus Standard Analysis job that restarts a simulation, uses a temporary directory for scratch files, and runs on a single node, you would use a Slurm script such as `scriptst2.txt`. This script is configured to load the `abaqus/2026` module, copy previous job files (`testst1*`) to `$SLURM_TMPDIR`, create a scratch subdirectory, and then execute Abaqus with `job=testst2`, `oldjob=testst1`, and specify `scratch=$SLURM_TMPDIR/scratch`. The script also includes a loop to save data back to the submission directory (`$SLURM_SUBMIT_DIR`) periodically and upon completion, to prevent data loss. The restart input file (`mystd-sim-restart.inp`) must contain `*HEADING` and `*RESTART, READ`."
+      "question": "What is the primary function of the temporary directory script for Abaqus Standard Analysis, and what is a key benefit of its design?",
+      "answer": "The primary function of the temporary directory script (e.g., `scriptst1.txt`) for Abaqus Standard Analysis is to submit single-node, thread-based simulations that utilize the `SLURM_TMPDIR` for scratch space. A key benefit of its design is that it helps manage jobs that generate large restart files by writing them to local disk for improved I/O performance. It also includes a mechanism to periodically copy data from the temporary directory back to the submission directory to mitigate data loss in case of early job termination."
     },
     {
-      "question": "How can a user with large computational needs submit an MPI-based Abaqus Standard Analysis job that uses multiple compute nodes on an Alliance cluster?",
-      "answer": "Users with large memory or compute requirements can submit an MPI-based Abaqus Standard Analysis job across multiple compute nodes on an Alliance cluster using a Slurm script like `scriptsp1-mpi.txt`. This script is specifically designed for Abaqus version 2026 or newer and automatically determines the node range. Key Slurm parameters include `--ntasks` for the total number of cores and `--mem-per-cpu` for memory per core. The script dynamically generates an `mp_host_list` using `slurm_hl2hl.py` and exports it to `abaqus_v6.env`, which Abaqus then uses to distribute the computation via MPI. It's important to note that a dedicated restart script for multi-node jobs is not currently provided due to additional limitations."
+      "question": "How do you restart a previously terminated Abaqus Standard Analysis job on an Alliance cluster when it was configured to use a temporary directory script?",
+      "answer": "To restart a terminated Abaqus Standard Analysis job that used a temporary directory script, you should use the corresponding \"temporary directory restart script\" (e.g., `scriptst2.txt`). This script first copies relevant files from the old job to the `SLURM_TMPDIR` and then executes the Abaqus command with `job=testst2 oldjob=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim-restart.inp`. Additionally, the restart input file (`mystd-sim-restart.inp`) must contain the lines `*HEADING` and `*RESTART, READ`."
+    },
+    {
+      "question": "Are there provided template scripts for restarting Abaqus Standard Analysis jobs that run across multiple compute nodes?",
+      "answer": "No, template scripts to perform restarts for Abaqus Standard Analysis jobs running on multiple nodes are not currently provided due to additional limitations on their use. Only Abaqus version 2026 or newer can be used for multi-node standard analysis."
     }
   ],
-  "generated_at": "2026-04-13T00:44:05.481956+00:00"
+  "generated_at": "2026-05-03T00:55:49.957812+00:00"
 }

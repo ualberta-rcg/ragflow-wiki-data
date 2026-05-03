@@ -4,17 +4,13 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "À quoi sert le script Slurm fourni dans le document pour Ansys Fluent?",
-      "answer": "Le script Slurm fourni est conçu pour soumettre des tâches Ansys Fluent en utilisant plusieurs nœuds de calcul, et il intègre un mécanisme de remise en file d'attente automatique en cas de problèmes de licence ou de simulation."
+      "question": "Quelles sont les configurations spécifiques requises pour faire rouler Ansys Fluent sur la grappe Narval, particulièrement en ce qui concerne l'environnement MPI?",
+      "answer": "Pour utiliser Ansys Fluent sur la grappe Narval, il faut charger les modules `intel/2023` et `intelmpi`. Il est aussi nécessaire de définir la variable d'environnement `I_MPI_HYDRA_BOOTSTRAP=ssh` et de retirer la variable `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`."
     },
     {
-      "question": "Quels sont les principaux paramètres personnalisables dans ce script Slurm pour une tâche Ansys Fluent?",
-      "answer": "Dans ce script, les principaux paramètres qu'on peut personnaliser sont le nom du fichier journal (`MYJOURNALFILE`), le type de version Fluent (par exemple, '2d' ou '3d' via `MYVERSION`), le nombre d'essais de remise en file d'attente (`#SBATCH --array`), le compte utilisateur (`#SBATCH --account`) et la limite de temps allouée à la tâche (`#SBATCH --time`)."
-    },
-    {
-      "question": "Comment le script gère-t-il le chargement des modules et la configuration de l'interface MPI pour les différentes grappes?",
-      "answer": "Le script charge `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente). Spécifiquement pour la grappe Narval, il charge `intel/2023 intelmpi` et configure `INTELMPI_ROOT`. De plus, pour les grappes Nibi ou Narval avec une version d'Ansys égale ou supérieure à 2025, il configure `I_MPI_HYDRA_BOOTSTRAP` pour l'exécution d'Intel MPI."
+      "question": "Comment le script de soumission des tâches Ansys Fluent crée-t-il un fichier de machine, et quelle est l'utilité de ce fichier?",
+      "answer": "Le script génère un fichier de machine pour Ansys Fluent en utilisant la commande `slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/machinefile-$SLURM_JOB_ID`. Ce fichier est ensuite utilisé par Fluent pour répartir les calculs sur les nœuds de calcul alloués."
     }
   ],
-  "generated_at": "2026-04-26T00:42:45.796243+00:00"
+  "generated_at": "2026-05-03T01:14:08.050991+00:00"
 }

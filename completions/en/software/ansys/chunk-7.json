@@ -4,17 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the provided Slurm script named `script-flu-bynode-intel.sh` for Ansys Fluent?",
-      "answer": "The `script-flu-bynode-intel.sh` is a Slurm batch job script designed to run Ansys Fluent simulations in parallel on compute nodes. It is optimized for a \"by node\" allocation strategy, meaning it requests a specific number of nodes and cores per node, and utilizes Intel MPI."
+      "question": "What are the two main types of general-purpose Slurm scripts available for submitting Ansys Fluent jobs on Alliance clusters, and when would you use each?",
+      "answer": "The two main types of general-purpose Slurm scripts for Ansys Fluent are 'Multinode (by node)' and 'Multinode (by core)'. The 'by node' script is typically used to minimize solution latency and maximize performance across as few nodes as possible. The 'by core' script, while potentially having longer startup times, might be suitable for very large jobs to reduce queue wait times."
     },
     {
-      "question": "How can a user customize the Ansys Fluent version, journal file, and simulation dimension when using the `script-flu-bynode-intel.sh` Slurm script?",
-      "answer": "In the `script-flu-bynode-intel.sh` Slurm script, the Ansys Fluent module version is specified by `module load ansys/2023R2` (users can update this to newer versions). The journal file for the simulation is customized by setting the `MYJOURNALFILE` variable (e.g., `MYJOURNALFILE=sample.jou`), and the simulation dimension (e.g., 2d, 2ddp, 3d, or 3ddp) is set by modifying the `MYVERSION` variable (e.g., `MYVERSION=3d`)."
+      "question": "How does the Fluent command-line execution differ within Slurm scripts when running a job on a single compute node compared to multiple compute nodes?",
+      "answer": "When running Ansys Fluent on a single compute node, the command includes `-pshmem` for shared memory parallel execution. For multiple nodes, the command uses distributed memory parallel options, specifically `-peth` for the Nibi cluster or `-pib` for other clusters, along with `-cnf=/tmp/machinefile-$SLURM_JOB_ID` to specify the machine file."
     },
     {
-      "question": "What Slurm resource allocation directives are included in the `script-flu-bynode-intel.sh` for a single-node Ansys Fluent job?",
-      "answer": "For a single-node Ansys Fluent job, the `script-flu-bynode-intel.sh` uses `#SBATCH --nodes=1` to request one compute node, `#SBATCH --ntasks-per-node=32` to specify up to a maximum of 32 cores per node, and `#SBATCH --mem=0` to allocate all available memory on that compute node. It also includes `#SBATCH --time=00-03:00` for a 3-hour time limit and `#SBATCH --account=def-group` for specifying the account name."
+      "question": "Which MPI implementations are used for running Ansys Fluent on Alliance clusters, and what are the associated module loads and Fluent command options?",
+      "answer": "Ansys Fluent supports Intel MPI and Open MPI on Alliance clusters. For Intel MPI, you typically load `intel/2023 intelmpi` and use `-mpi=intel` in the Fluent command. On the Narval cluster, `INTELMPI_ROOT` is also exported. For Open MPI (e.g., on Narval), the `openmpi` module is loaded, and `-mpi=openmpi` is used in the Fluent command, with `FI_PROVIDER=verbs` also exported for multinode jobs."
     }
   ],
-  "generated_at": "2026-04-26T00:35:05.647781+00:00"
+  "generated_at": "2026-05-03T01:06:34.944406+00:00"
 }

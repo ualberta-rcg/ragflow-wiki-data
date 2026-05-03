@@ -4,41 +4,38 @@ slug: "vllm"
 lang: "base"
 
 source_wiki_title: "VLLM"
-source_hash: "0becbb349f2bcf9525bd83d0267ec942"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T12:32:29.747405+00:00"
+source_hash: "240daa845d08703cb9f62c5eef6bacd3"
+last_synced: "2026-05-02T23:50:34.269007+00:00"
+last_processed: "2026-05-03T00:52:12.411051+00:00"
 
 tags:
   []
 
 keywords:
-  - "Slurm"
-  - "multi-node cluster"
-  - "Ray"
-  - "Large language models"
   - "LLM"
+  - "Large Language Models"
+  - "Ray"
   - "Multiple Nodes"
-  - "Installation"
-  - "tensor_parallel_size"
-  - "GPUs"
-  - "vLLM"
   - "Hugging Face Hub"
+  - "Slurm"
   - "generated text"
+  - "tensor_parallel_size"
+  - "Inference"
+  - "multi-node cluster"
+  - "vLLM"
+  - "GPUs"
   - "Job submission"
 
 questions:
-  - "What is vLLM and what are its primary features for large language models?"
-  - "What are the recommended steps to install vLLM and its dependencies using a Python virtual environment?"
-  - "How should users download models and submit a job for inference across multiple GPUs using vLLM?"
-  - "What framework does vLLM rely on to manage splitting models across multiple nodes?"
-  - "What specific roles do the `config_env.sh` and `launch_ray.sh` scripts play in setting up the multi-node environment?"
-  - "How should the `tensor_parallel_size` parameter be configured in the Python script to properly utilize the allocated hardware?"
-  - "How is the `tensor_parallel_size` parameter used to configure the number of GPUs for the LLM in the provided code?"
-  - "What steps are taken in the script to generate and display the text outputs from the given prompts?"
-  - "How does the multiple nodes configuration distribute the model across GPUs compared to the single node setup?"
-  - "What framework does vLLM rely on to manage splitting models across multiple nodes?"
-  - "What specific roles do the `config_env.sh` and `launch_ray.sh` scripts play in setting up the multi-node environment?"
-  - "How should the `tensor_parallel_size` parameter be configured in the Python script to properly utilize the allocated hardware?"
+  - "What are the recommended steps and dependencies for installing vLLM in a virtual environment?"
+  - "Why is it advised to download Hugging Face models on a login node before submitting an inference job?"
+  - "How do you configure a Python script to split vLLM model inference across multiple GPUs on a single node?"
+  - "What framework does vLLM rely on to manage the distribution of models across multiple nodes?"
+  - "How do the provided shell scripts coordinate the setup of the Ray head node and the connection of worker nodes within the Slurm environment?"
+  - "According to the Python script, how must the `tensor_parallel_size` parameter be configured when initializing the LLM?"
+  - "How is the tensor parallel size configured when initializing the LLM in the provided code?"
+  - "What steps are taken in the code loop to extract and print the prompt and its corresponding generated text?"
+  - "How does the multiple nodes example distribute the model across GPUs compared to the single node setup?"
 
 status:
   downloaded: true
@@ -51,67 +48,73 @@ status:
 
 [vLLM](https://github.com/vllm-project/vllm) is a community-driven project that provides high-throughput and memory-efficient inference and serving for large language models (LLMs). It supports various decoding algorithms, quantizations, parallelism, and models from Hugging Face and other sources.
 
-## Installation
+# Installation
 
-### Latest available wheels
+## Latest available wheels
 To see the latest version of vLLM that we have built:
 ```bash
 avail_wheels "vllm"
 ```
 For more information, see [Available wheels](../python.md#available-wheels).
 
-### Installing our wheel
+## Installing our wheel
 The preferred option is to install it using the Python [wheel](https://pythonwheels.com/) as follows:
-1. Load dependencies, load a Python and OpenCV [modules](../../programming/utiliser_des_modules.md),
-```bash
-module load opencv/4.11 python/3.12
-```
-2. Create and start a temporary [virtual environment](../python.md#creating-and-using-a-virtual-environment).
-```bash
-virtualenv --no-download ~/vllm_env
-source ~/vllm_env/bin/activate
-```
-3. Install vLLM in the virtual environment and its Python dependencies.
-```bash
-pip install --no-index --upgrade pip
-pip install --no-index vllm==X.Y.Z
-```
-where `X.Y.Z` is the exact desired version, for instance `0.8.4`.
-You can omit to specify the version in order to install the latest one available from the wheelhouse.
 
-4. Freeze the environment and requirements set.
-```bash
-pip freeze > ~/vllm-requirements.txt
-```
-5. Deactivate the environment.
-```bash
-deactivate
-```
-6. Clean up and remove the virtual environment.
-```bash
-rm -r ~/vllm_env
-```
+1.  Load dependencies, load a Python and OpenCV [modules](../../programming/utiliser_des_modules.md).
+    ```bash
+    module load opencv/4.13 python/3.13
+    ```
 
-## Job submission
+2.  Create and start a temporary [virtual environment](../python.md#creating-and-using-a-virtual-environment).
+    ```bash
+    virtualenv --no-download ~/vllm_env
+    source ~/vllm_env/bin/activate
+    ```
 
-### Before submitting a job: Downloading models
+3.  Install vLLM in the virtual environment and its Python dependencies.
+    ```bash
+    (vllm_env) [name@server ~]$ pip install --no-index --upgrade pip
+    (vllm_env) [name@server ~]$ pip install --no-index vllm==X.Y.Z
+    ```
+    where `X.Y.Z` is the exact desired version, for instance `0.8.4`.
+    You can omit to specify the version in order to install the latest one available from the wheelhouse.
+
+4.  Freeze the environment and requirements set.
+    ```bash
+    (vllm_env) [name@server ~]$ pip freeze > ~/vllm-requirements.txt
+    ```
+
+5.  Deactivate the environment.
+    ```bash
+    (vllm_env) [name@server ~]$ deactivate
+    ```
+
+6.  Clean up and remove the virtual environment.
+    ```bash
+    rm -r ~/vllm_env
+    ```
+
+# Job submission
+
+## Before submitting a job: Downloading models
 
 Models loaded for inference on vLLM will typically come from the [Hugging Face Hub](https://huggingface.co/docs/hub/models-the-hub).
 
-The following is an example of how to use the command line tool from the Hugging Face to download a model. Note that models must be downloaded on a login node to avoid idle compute while waiting for resources to download. Also note that models will be cached at by default at `$HOME/.cache/huggingface/hub`. For more information on how to change the default cache location, as well as other means of downloading models, please see our article on the [Hugging Face ecosystem](huggingface.md).
+The following is an example of how to use the command-line tool from Hugging Face to download a model. Note that models must be downloaded on a login node to avoid idle compute while waiting for resources to download. Also note that models will be cached by default at `$HOME/.cache/huggingface/hub`. For more information on how to change the default cache location, as well as other means of downloading models, please see our article on the [Hugging Face ecosystem](huggingface.md).
 
 ```bash
-module load python/3.12
+module load python/3.13
 virtualenv --no-download temp_env && source temp_env/bin/activate
 pip install --no-index huggingface_hub
 huggingface-cli download facebook/opt-125m
 rm -r temp_env
 ```
 
-### Single Node
-The following is an example of how to submit a job that performs inference on a model split across 2 GPUs. If your model `fits entirely inside one GPU`, change the Python script below to call `LLM(<model name>)` without extra arguments.
+## Single Node
 
-This example **assumes you have pre-downloaded** the model `facebook/opt-125m` as described on the previous section.
+The following is an example of how to submit a job that performs inference on a model split across 2 GPUs. If your model **fits entirely inside one GPU**, change the Python script below to call `LLM(<model name>)` without extra arguments.
+
+This example **assumes you have pre-downloaded** the model `facebook/opt-125m` as described in the previous section.
 
 ```bash title="vllm-example.sh"
 #!/bin/bash
@@ -122,7 +125,7 @@ This example **assumes you have pre-downloaded** the model `facebook/opt-125m` a
 #SBATCH --time=0-00:05
 #SBATCH --output=%N-%j.out
 
-module load python/3.12 gcc opencv/4.11
+module load python/3.13 opencv/4.13
 virtualenv --no-download $SLURM_TMPDIR/env
 source $SLURM_TMPDIR/env/bin/activate
 
@@ -153,7 +156,8 @@ for output in outputs:
     print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}")
 ```
 
-### Multiple Nodes
+## Multiple Nodes
+
 The following example revisits the single node example above, but splits the model across 4 GPUs over 2 separate nodes, i.e., 2 GPUs per node.
 
 Currently, vLLM relies on [Ray](../ray.md) to manage splitting models over multiple nodes. The code example below contains the necessary steps to start a [multi-node Ray cluster](../ray.md) and run vLLM on top of it:
@@ -170,7 +174,7 @@ Currently, vLLM relies on [Ray](../ray.md) to manage splitting models over multi
 
 ## Create a virtualenv and install Ray on all nodes ##
 
-module load gcc python/3.12 arrow/19 opencv/4.11
+module load gcc python/3.13 arrow/24 opencv/4.13
 
 srun -N $SLURM_NNODES -n $SLURM_NNODES config_env.sh
 
@@ -204,7 +208,7 @@ Where the script `config_env.sh` is:
 ```bash title="config_env.sh"
 #!/bin/bash
 
-module load python/3.12 gcc opencv/4.11 arrow/19
+module load python/3.13 opencv/4.13 arrow/24
 
 virtualenv --no-download $SLURM_TMPDIR/ENV
 

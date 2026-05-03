@@ -4,13 +4,13 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "What is the recommended action if an Ansys job fails with the error message 'ERROR: A link to a writable .fluentconf directory does not exist'?",
-      "answer": "If you encounter the error 'ERROR: A link to a writable .fluentconf directory does not exist', you should first remove any existing `~/.fluentconf` directory. Then, create a symbolic link by running the command `ln -s $SCRATCH/.fluentconf ~/.fluentconf` to ensure a writable directory is available in your `$SCRATCH` space."
+      "question": "What steps should be taken if an Ansys Fluent job on an Alliance cluster fails with an error indicating that a link to a writable `.ansys` directory, `.fluentconf` directory, or `.flrecent` file does not exist?",
+      "answer": "If an Ansys Fluent job fails due to these errors, you need to ensure that the specified directories or files in your home folder are symbolic links to writable locations in your `$SCRATCH` directory. First, remove any existing `.ansys`, `.fluentconf`, or `.flrecent` files/directories from your home folder. Then, create the symbolic links by running the following commands: `ln -s $SCRATCH/.ansys ~/.ansys`, `ln -s $SCRATCH/.fluentconf ~/.fluentconf`, and `ln -s $SCRATCH/.flrecent ~/.flrecent`. After creating these links, you can resubmit your job."
     },
     {
-      "question": "How can a user resolve the error 'ERROR: A link to a writable .flrecent file does not exist' when submitting an Ansys job?",
-      "answer": "To resolve the 'ERROR: A link to a writable .flrecent file does not exist' error, you need to remove any existing `~/.flrecent` file. After that, create a symbolic link to a writable file in your `$SCRATCH` directory using the command `ln -s $SCRATCH/.flrecent ~/.flrecent`. Once this is done, you can resubmit your job."
+      "question": "Why is it necessary to create symbolic links for `.ansys`, `.fluentconf`, and `.flrecent` to the `$SCRATCH` directory when running Ansys Fluent jobs on an Alliance cluster?",
+      "answer": "Creating symbolic links for `.ansys`, `.fluentconf`, and `.flrecent` to the `$SCRATCH` directory (e.g., `ln -s $SCRATCH/.ansys ~/.ansys`) is necessary to provide writable locations for Ansys Fluent's configuration and runtime data. The error messages indicate that the job will abort if these directories or the file in the user's home folder are not writable or don't exist as proper links. By linking them to `$SCRATCH`, which is a high-performance and writable filesystem, you ensure the application has the required permissions and storage to operate correctly on the cluster."
     }
   ],
-  "generated_at": "2026-04-26T00:28:44.620224+00:00"
+  "generated_at": "2026-05-03T01:00:11.164863+00:00"
 }

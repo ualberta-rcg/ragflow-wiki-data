@@ -4,17 +4,17 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "What steps are required to enable Globus Connect Personal on cloud instances for data transfer?",
-      "answer": "To enable Globus Connect Personal on each cloud instance involved in data transfer, users must read the relevant guides and install the client. The instance's configuration needs to be adjusted by ensuring it has an external IP address, that firewall rules permit communication on the necessary ports, and that the user running Globus Connect Personal has access to data on the instances’ storage systems. Finally, Globus Connect Personal should be run as a background process in user space, and as a Globus Connect Personal Plus subscriber, a shared endpoint must be created on one or both VMs."
+      "question": "What method is recommended for copying small data volumes between instances when migrating to the new Arbutus Cloud?",
+      "answer": "For small data volumes, the document recommends using `rsync + ssh` for transferring data between instances in the legacy and new Arbutus Clouds. This method offers good transfer speeds and can work incrementally, similar to Globus."
     },
     {
-      "question": "What configuration adjustments are necessary on virtual machines to ensure they can communicate with the Globus Service when using Globus Connect Personal?",
-      "answer": "To enable communication with the Globus Service, each virtual machine must have an external IP address, and its firewall rules must permit communication on the necessary ports. Additionally, the user account running Globus Connect Personal on the instance needs to have access to the data stored on the instance's storage systems."
+      "question": "How can data transfer performance be improved when using `rsync + ssh` to migrate data in OpenStack?",
+      "answer": "Data transfer performance can potentially be improved by using the IPv6 GUA network in OpenStack. This is a VLAN network that bypasses the OpenStack Neutron component, which can lead to better speeds when moving data with `rsync`."
     },
     {
-      "question": "After setting up Globus Connect Personal and creating shared endpoints, what is the next step to transfer data between cloud instances?",
-      "answer": "Once Globus Connect Personal is set up and shared endpoints are created, users can access both endpoints using any Globus Interface, such as globus.org or globus.computecanada.ca, and then proceed to transfer data by following the provided data transfer manuals."
+      "question": "What is the typical use case or process for migrating data using `rsync + ssh` between a legacy instance and a new instance?",
+      "answer": "A typical use case involves first SSHing to the legacy instance with the principal volume attached and noting the absolute path of the data to be copied. Then, execute `rsync` over SSH (assuming password-less login via SSH keys is set up between instances). Finally, verify that the data has been successfully copied to the instance in the new cloud and delete the data from the legacy cloud."
     }
   ],
-  "generated_at": "2026-04-19T01:42:33.697836+00:00"
+  "generated_at": "2026-05-03T01:21:45.771109+00:00"
 }

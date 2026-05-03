@@ -4,17 +4,17 @@
   "chunk_index": 18,
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of Fluent journal files in Ansys, and what types of commands can they contain?",
-      "answer": "Fluent journal files are used to automate simulations by including commands from Fluent's Text-User-Interface (TUI). They can modify simulation parameters like temperature or pressure, enable running a series of simulations under various conditions with a single case file, load case and data files, execute the solver, and write results. The Fluent User's Guide provides a comprehensive list of all available commands."
+      "question": "What is the primary purpose of Fluent journal files, and what are some common commands they can include to automate simulations?",
+      "answer": "Fluent journal files serve to automate simulations by executing commands from Fluent's Text-User-Interface (TUI). They can include commands to overwrite files, specify legacy or modern file formats, read input case and data files, run the solver for a set number of iterations, write output data files, and generate simulation reports. They can also be used to change simulation parameters, allowing for a series of simulations under different conditions with a single case file."
     },
     {
-      "question": "How are output files managed in Ansys Fluent journal files, and how can the file format for case and data files be specified?",
-      "answer": "Fluent journal files manage output through commands such as `/file/confirm-overwrite no` to prevent accidental overwrites. For automatic saving, commands like `/file/auto-save/data-frequency` and `/file/auto-save/retain-most-recent-files` control the frequency and retention of data files, while `/file/auto-save/root-name` specifies the output directory and naming convention. To set the file format, use `/file/cff-files no` for legacy `.cas/.dat` files (default in versions 2019R3 or older) or `/file/cff-files yes` for the more efficient `.cas.h5/.dat.h5` format (default in versions 2020R1 or newer)."
+      "question": "How do you set up and configure a User-Defined Function (UDF) for an interpreted Fluent simulation on an Alliance cluster?",
+      "answer": "To set up an interpreted UDF, first transfer your UDF source file (e.g., `sampleudf.c`) and any additional dependency files to the cluster, placing them in the same directory as your journal, case, and data files. Ensure the file transfer uses text mode if coming from a Windows machine. In your journal file, add the command `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no` before any commands that read in or initialize your simulation's case/data files. Additionally, verify that the Interpreted UDFs Dialog Box or the UDF Library Manager Dialog Box in the Fluent GUI are not configured to use any UDF, ensuring the journal file commands are in control."
     },
     {
-      "question": "What steps are involved in using an Interpreted User-Defined Function (UDF) in an Ansys Fluent simulation through a journal file?",
-      "answer": "To use an Interpreted UDF, first transfer your UDF source file (e.g., `sampleudf.c`) and any dependency files to the cluster, ensuring text mode is used for transfers from Windows. Place the UDF in the same directory as your journal, case, and data files. Before uploading your case file, confirm that no UDFs are pre-configured in the Fluent GUI. Finally, add the command `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no` to your journal file before commands that read or initialize the simulation's case or data files."
+      "question": "What is the process for utilizing a compiled User-Defined Function (UDF) in Fluent on an Alliance cluster, and what specific steps are required to parallelize a UDF for parallel jobs?",
+      "answer": "To use a compiled UDF, it must first be compiled on an Alliance cluster, which creates a `libudf` subdirectory containing the necessary `libudf.so` shared library. This `libudf` directory can then be transferred and used on other Alliance clusters, provided the same `StdEnv` environment module version is loaded. In your journal file, you would typically use the command `define/user-defined/compiled-functions load libudf`. It is crucial not to leave both the compile and load commands uncommented, as this would inefficiently recompile the UDF for every job. For parallel Fluent jobs (both single node SMP and multinode MPI), a UDF must be parallelized by adding compiler directives, predicates, and reduction macros to its source code. This ensures proper execution across processes, as failure to parallelize will result in slow performance or immediate crashes. Detailed guidance on parallelization can be found in Part I: Chapter 7 of the Ansys 2024 Fluent Customization Manual."
     }
   ],
-  "generated_at": "2026-04-26T00:36:40.974301+00:00"
+  "generated_at": "2026-05-03T01:08:14.094714+00:00"
 }

@@ -5,39 +5,39 @@ lang: "base"
 
 source_wiki_title: "C++"
 source_hash: "c7b09b188074cbdf67fb8065e597ea0e"
-last_synced: "2026-04-25T23:42:08.699101+00:00"
-last_processed: "2026-04-26T00:14:14.308477+00:00"
+last_synced: "2026-05-02T23:50:34.269007+00:00"
+last_processed: "2026-05-03T00:39:51.335880+00:00"
 
 tags:
   []
 
 keywords:
-  - "atomic operations"
-  - "Standard library"
-  - "Intel"
-  - "Compiler support"
-  - "GCC"
-  - "C++ programming language"
-  - "Compilers"
-  - "Optimization"
-  - "synchronization"
+  - "C++"
   - "compiler optimization"
-  - "Concurrency and memory models"
   - "C/C++"
   - "volatile"
+  - "compiler support"
+  - "volatile keyword"
+  - "Optimization options"
+  - "Intel compilers"
+  - "synchronization"
   - "ISO C++ standards"
-  - "ABI"
+  - "GCC compiler"
+  - "C++ ABI"
+  - "atomic operations"
+  - "Linking binaries"
+  - "standard library"
 
 questions:
-  - "How has the ISO C++ standard evolved over time, and what is its current release cycle?"
-  - "Why is it important to use C++11 or newer standards when dealing with concurrent code and compiler optimizations?"
-  - "What are the common pitfalls associated with the `volatile` keyword in C++, and what should be used instead for synchronization?"
-  - "What are the potential risks of using the -O3 optimization flag in the GCC compiler, and what safer alternatives are recommended?"
-  - "How can developers resolve linking failures caused by the C++ ABI changes introduced between GCC versions 4.9 and 5.1 when using legacy libraries?"
-  - "Why might the default floating-point optimizations in Intel C/C++ compilers be problematic, and which command-line options ensure standards-compliant behavior?"
-  - "What is the primary purpose of using the `volatile` keyword in high-performance computing code?"
-  - "Why should developers avoid using `volatile` for synchronization, and what alternatives are recommended?"
-  - "How does the behavior of the `volatile` keyword in C/C++ differ from its implementation in other programming languages like Java?"
+  - "What is the release cycle of ISO C++ standards and what are the major versions released since 1998?"
+  - "Why is it highly recommended to compile concurrent C++ code using the C++11 standard or newer?"
+  - "What is the proper use case for the `volatile` keyword in C++, and why should it be avoided for synchronization?"
+  - "What are the potential risks of using the GCC compiler's -O3 option, and what alternatives are recommended for safer compilation?"
+  - "How can developers resolve linking failures caused by ABI changes when using newer GCC versions with older precompiled libraries?"
+  - "Which command-line options should be used with Intel C/C++ compilers to ensure safe and standards-compliant floating-point operations?"
+  - "In what specific scenarios, such as within high-performance computing, is the volatile keyword appropriately used in C/C++?"
+  - "Why should volatile never be used for synchronization in C/C++, and what mechanisms should be used instead?"
+  - "How does the behavior of the volatile keyword in C/C++ differ from its implementation in other programming languages like Java?"
 
 status:
   downloaded: true
@@ -65,17 +65,16 @@ Another reason to use the newer compiler and standards possible with C++ code is
 Various compilers implement various language features differently. Compiler releases at times only partially implement a specific ISO C++ standard. This can sometimes be frustrating when compiling code with a compiler that does not yet implement a specific language feature. Fortunately there is a wiki page covering virtually all major C++ compilers and [listing the earlier compiler version implementing specific language features](http://en.cppreference.com/w/cpp/compiler_support) at cppreference.com. This page also provides reference links to each compiler's web site concerning the details of such.
 
 ### Standard library implementation
-
 It is important to realize that many C++ compilers under Linux do not actually provide their own implementation of the C++ Standard Library under certain operating systems (especially Linux). Instead these compilers will use one that is normally installed on the system. Typically this implies that libstdc++, which is distributed with GCC, is used.
 
-!!! note "Note"
+!!! note
     While you need not worry about this, this is a reason C++ compilers other than GCC on systems across Compute Canada must be configured by administrators to use a specific version of libstdc++ as several versions of GCC (and therefore libstdc++) are typically installed on a system. If such is set improperly, then there may be issues. This is also a reason why users should **never** hard-code paths to administrator-installed libraries in order to compile software.
 
 The GCC documentation has a section which details [Standard Library components are supported in libstdc++](https://gcc.gnu.org/onlinedocs/libstdc++/manual/status.html).
 
 ## New to C++ or need an update?
 
-If you are new to C++ or need an update then start by checking out the ISO C++ advocacy site's [Get Started](https://isocpp.org/get-started) page --especially its recommended books. All of these books are excellent.
+If you are new to C++ or need an update then start by checking out the ISO C++ advocacy site's [Get Started](https://isocpp.org/get-started) page — especially its recommended books. All of these books are excellent.
 
 ## Pitfalls
 ### The `volatile` keyword
@@ -87,7 +86,7 @@ The reader should note that `volatile` in C and C++ have very specific meanings,
 The GCC compiler's -O3 option includes possibly unsafe optimizations for some types of code (e.g., code relying on aliasing). If unsure, compile and optimize code using the -O2 option instead. If you've more time, read the man page (e.g., `man g++`) and unset the appropriate options by searching for "-O3" to see which options are turned on and turn off the settings that are not safe.
 
 ##### Linking with older previously compiled binaries
-The transition from GCC version 4.9 to version 5.1 introduced a major change to its ABI. If all source code including all dependent libraries is recompiled using the same version of the compiler then there will be no issues. If different compilers are used, the ABI change may cause linking to fail. The latter is likely to occur if you are linking to precompiled libraries provided in a vendor's product. If this occurs, you can use GCC's Dual ABI feature (see [Free Software Foundation. The GNU C++ Library, Chapter 3](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html)) to tell GCC to use the old ABI in order for your application to link properly with those legacy libraries, e.g., you would pass `-D_GLIBCXX_USE_CXX11_ABI=0` to GCC if using GCC v5.1 or higher to link to libraries built using the older ABI.
+The transition from GCC version 4.9 to version 5.1 introduced a major change to its ABI. If all source code including all dependent libraries is recompiled using the same version of the compiler then there will be no issues. If different compilers are used, the ABI change may cause linking to fail. The latter is likely to occur if you are linking to precompiled libraries provided in a vendor's product. If this occurs, you can use GCC's Dual ABI feature to tell GCC to use the old ABI in order for your application to link properly with those legacy libraries, e.g., you would pass `-D_GLIBCXX_USE_CXX11_ABI=0` to GCC if using GCC v5.1 or higher to link to libraries built using the older ABI.
 
 An example of how the ABI is affected by various GCC command-line options here: GCC C++ Dual ABI.
 
@@ -95,3 +94,6 @@ Generally speaking, the C++ ABI is frequently updated. One should assume each ma
 
 #### Intel
 Intel C/C++ compilers may default to using possibly unsafe optimizations for floating-point operations. Users using the Intel compilers should read the Intel man pages (e.g., `man icpc`) and are recommended to use one of two options, `-fp-model precise` or `-fp-model source`, for ANSI/ISO/IEEE standards-compliant floating-point support. For more details, read this Intel slideshow called, [Floating-point control in the Intel compiler and libraries](https://software.intel.com/sites/default/files/article/326703/fp-control-2012-08.pdf).
+
+## References
+*   Free Software Foundation. The GNU C++ Library, Chapter 3. [https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html)

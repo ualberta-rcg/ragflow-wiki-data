@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Comment faire pour soumettre une tâche VASP qui utilise des GPU en vous servant du script d'exemple `vasp_gpu_job.sh`?",
-      "answer": "Pour soumettre une tâche VASP avec des GPU, vous devez utiliser le script `vasp_gpu_job.sh`. Ce script demande un (1) cœur CPU, 3 Go de mémoire et un (1) GPU de type p100, qui est disponible uniquement sur la grappe Cedar. Il est important de remplacer `<ACCOUNT>` par le nom de votre compte Slurm et `<VERSION>` par la version de VASP désirée. L'exécutable VASP spécifique doit aussi être indiqué pour `<VASP>`. Pour soumettre la tâche, placez vos fichiers d'entrée VASP (INCAR, KPOINTS, POSCAR et POTCAR) dans un répertoire distinct, puis utilisez la commande `sbatch vasp_gpu_job.sh` à partir de ce répertoire."
+      "question": "Comment soumettre une tâche VASP qui utilise des GPU sur les grappes de calcul, et quels sont les fichiers d'entrée requis pour VASP?",
+      "answer": "Pour soumettre une tâche VASP qui utilise des GPU, vous pouvez utiliser un script de tâche Slurm comme l'exemple `vasp_gpu_job.sh`. Ce script demande typiquement un (1) cœur CPU, un (1) GPU de type p100 (disponible uniquement sur Cedar), et 3Go de mémoire. Il faut charger les modules nécessaires comme `intel`, `cuda`, `openmpi` et la version spécifique de VASP. L'exécution de VASP se fait avec `srun`. Les quatre fichiers d'entrée essentiels pour VASP sont INCAR, KPOINTS, POSCAR et POTCAR, et il est recommandé de les préparer dans un répertoire distinct pour chaque tâche."
     },
     {
-      "question": "Quels sont les fichiers d'entrée que VASP utilise pour effectuer ses calculs?",
-      "answer": "VASP utilise quatre fichiers d'entrée principaux, soit INCAR, KPOINTS, POSCAR et POTCAR. Il est préférable de préparer ces fichiers d'entrée dans un répertoire différent pour chaque tâche."
+      "question": "Si je dispose d'une licence VASP et du code source, comment puis-je construire ma propre version de VASP sur les grappes de calcul?",
+      "answer": "Si vous avez une licence VASP valide et accès au code source, vous pouvez construire et installer plusieurs versions de VASP dans votre répertoire `/home` sur toutes les grappes de calcul. Pour ce faire, utilisez la commande EasyBuild suivante : `eb -f [NOM DE LA RECETTE] --sourcepath=[CHEMIN_DU_SOURCE]`. Le `[CHEMIN_DU_SOURCE]` doit spécifier l'emplacement du répertoire contenant le code source de VASP, et le `[NOM DE LA RECETTE]` est le nom d'une des recettes EasyBuild disponibles pour VASP."
     },
     {
-      "question": "Si j'ai une licence VASP et accès au code source, comment puis-je installer plusieurs versions de VASP dans mon répertoire personnel sur les grappes?",
-      "answer": "Si vous disposez d'une licence VASP et avez accès au code source, vous pouvez installer plusieurs versions de VASP dans votre répertoire `/home` sur toutes les grappes en utilisant les commandes EasyBuild. La commande à utiliser est `eb -f [NOM DE LA RECETTE] --sourcepath=[CHEMIN DU FICHIER SOURCE]`, où `[CHEMIN DU FICHIER SOURCE]` est le répertoire contenant le code source de VASP et `[NOM DE LA RECETTE]` est le nom de la recette EasyBuild correspondante. Une fois l'opération terminée, vous pourrez charger et exécuter VASP à l'aide des commandes `module`."
+      "question": "Comment peut-on estimer la quantité de mémoire nécessaire pour une tâche VASP avant de la soumettre?",
+      "answer": "Pour estimer la quantité de mémoire requise pour votre tâche VASP, vous pouvez préparer tous vos fichiers d'entrée et ensuite exécuter la commande `makeparam` dans une tâche interactive. La valeur de mémoire obtenue sera utile pour vos exécutions futures. Pour une estimation encore plus précise, il est aussi conseillé de vérifier la taille maximale de la pile de mémoire pour des tâches VASP complétées similaires et d'utiliser cette valeur pour demander la quantité de mémoire par processeur."
     }
   ],
-  "generated_at": "2026-04-26T01:10:56.446518+00:00"
+  "generated_at": "2026-05-03T01:51:26.895593+00:00"
 }

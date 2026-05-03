@@ -4,17 +4,17 @@
   "chunk_index": 31,
   "qa_pairs": [
     {
-      "question": "How do you configure a Slurm script to run an Ansys Mechanical APDL job in Distributed Memory Parallel (DMP) mode using CPUs on an Alliance cluster?",
-      "answer": "To configure a Slurm script for an Ansys Mechanical APDL job in Distributed Memory Parallel (DMP) mode using CPUs, you need to load `StdEnv/2023` and `ansys/2024R1.03`. The script should specify your account, time limit, memory per core (`--mem-per-cpu`), and total number of cores (`--ntasks`). The `mapdl` command will use `-dis` for distributed memory. For the Beluga cluster, `intelmpi` is used along with `export KMP_AFFINITY=none`, while other clusters use `openmpi`. On the Cedar cluster, an additional step involves creating an `outdir-$SLURM_JOBID` directory and linking `libstdc++.so.6.0.29` to adjust the `LD_LIBRARY_PATH`."
+      "question": "How do I submit an Ansys Mechanical (MAPDL) job using Distributed Memory Parallel (DMP) with CPUs on an Alliance cluster?",
+      "answer": "To submit an Ansys Mechanical (MAPDL) job using Distributed Memory Parallel (DMP) with CPUs, you would use a Slurm script (e.g., `script-dmp-2023-cpu.sh`). This script should load `StdEnv/2023` and `ansys/2024R1.03`. For the Beluga cluster, set `export KMP_AFFINITY=none` and use `intelmpi`. For other clusters, use `openmpi`. The core command for MAPDL would be `mapdl -dis -mpi <mpi_type> -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
     },
     {
-      "question": "What is the process for submitting an Ansys Mechanical APDL job in Shared Memory Parallel (SMP) mode with GPU acceleration to an Alliance cluster?",
-      "answer": "To submit an Ansys Mechanical APDL job in Shared Memory Parallel (SMP) mode with GPU acceleration, your Slurm script must load `StdEnv/2023` and `ansys/2024R1.03`. You'll need to specify your account, time limit, total memory (`--mem`), number of cores (`--tasks`), and request GPUs using `#SBATCH --gpus-per-node=1` (adjust quantity as needed). An environment variable `export ANSGPU_PRINTDEVICES=1` should be set. The `mapdl` command will include `-smp` for shared memory, `-acc nvidia` for GPU acceleration, `-na $SLURM_GPUS_ON_NODE` for the number of GPUs, and specify an output directory with `-dir outdir-$SLURM_JOBID` and the input file with `-i YOURAPDLFILE.inp`. For the Cedar cluster, you also need to set `export LD_LIBRARY_PATH=$EBROOTGCC/../lib/gcc`."
+      "question": "What is the Slurm script configuration for running an Ansys Mechanical (MAPDL) job using Shared Memory Parallel (SMP) with GPU acceleration?",
+      "answer": "For an Ansys Mechanical (MAPDL) job using Shared Memory Parallel (SMP) with GPU acceleration, you'd use a script like `script-smp-2023-gpu.sh`. Key `#SBATCH` directives include `--nodes=1`, `--ntasks=8` (for cores), and `--gpus-per-node=1` to request GPU resources. You must load `StdEnv/2023` and `ansys/2024R1.03`. Before the `mapdl` command, set `export ANSGPU_PRINTDEVICES=1`. The `mapdl` command itself uses `-smp -acc nvidia -na $SLURM_GPUS_ON_NODE -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
     },
     {
-      "question": "What are the specific cluster-dependent considerations when running Ansys Mechanical APDL jobs in Distributed Memory Parallel (DMP) mode with GPUs on Alliance clusters?",
-      "answer": "When running Ansys Mechanical APDL jobs in Distributed Memory Parallel (DMP) mode with GPUs, cluster-specific configurations are crucial. For the Beluga cluster, `intelmpi` is used, and `export KMP_AFFINITY=none` must be set. For other Alliance clusters, `openmpi` is typically used. Regardless of the cluster, you must load `StdEnv/2023` and `ansys/2024R1.03`, specify GPU resources (`--gpus-per-node`), and set `export ANSGPU_PRINTDEVICES=1`. On the Cedar cluster, a specific `LD_LIBRARY_PATH` adjustment by linking `libstdc++.so.6.0.29` is also required for proper execution."
+      "question": "How can I submit an Ansys Mechanical (MAPDL) job that utilizes Distributed Memory Parallel (DMP) with GPU acceleration on an Alliance cluster?",
+      "answer": "To submit an Ansys Mechanical (MAPDL) job with Distributed Memory Parallel (DMP) and GPU acceleration, use a Slurm script (e.g., `script-dmp-2023-gpu.sh`). Essential `#SBATCH` directives include `--nodes` (e.g., `1`), `--ntasks-per-node`, and `--gpus-per-node=1`. The script requires `module load StdEnv/2023` and `module load ansys/2024R1.03`. You also need to `export ANSGPU_PRINTDEVICES=1`. For the Beluga cluster, set `export KMP_AFFINITY=none` and use `intelmpi`; for other clusters, use `openmpi`. The `mapdl` command structure is `mapdl -dis -acc nvidia -na $SLURM_GPUS_ON_NODE -mpi <mpi_type> -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
     }
   ],
-  "generated_at": "2026-04-26T00:31:19.891305+00:00"
+  "generated_at": "2026-05-03T01:02:49.938038+00:00"
 }

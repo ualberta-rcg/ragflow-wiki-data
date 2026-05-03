@@ -4,13 +4,13 @@
   "chunk_index": 37,
   "qa_pairs": [
     {
-      "question": "What environment variables are required to launch Ansys Fluent graphically from an OnDemand Desktop session on the Nibi cluster when a full `h100 (80GB)` GPU has been requested for accelerated graphics?",
-      "answer": "When launching Ansys Fluent graphically from an OnDemand Desktop on the Nibi cluster with a requested `h100 (80GB)` GPU, you must set the following environment variables in the Fluent Launcher's Environment Tab: `I_MPI_HYDRA_BOOTSTRAP=ssh` (as it is required on Nibi) and `HOOPS_PICTURE=opengl2-mesa` for Ansys version 2025R1 or newer, or `HOOPS_PICTURE=opengl` for version 2024R2.04 or older. After configuring these, click the `Start` button. Choosing a full `h100 (80GB)` GPU ensures that VirtualGL environment variables are automatically set up for OpenGL graphics acceleration."
+      "question": "When launching Ansys Fluent or Ansys Workbench with Fluent from an OnDemand desktop session on the Nibi cluster with GPU acceleration, what configuration steps and environment variables are required?",
+      "answer": "To use hardware-accelerated graphics with Fluent on the Nibi cluster's OnDemand desktop, you must first choose a `t4 (15GB)` GPU from the GPU selector pulldown list for your session. This selection automatically configures the environment variables needed by VirtualGL for accelerated OpenGL graphics. Once your desktop appears, open a terminal window, load the required Ansys module (e.g., `module load StdEnv/2023 ansys/2025R2.04`), and then manually set the environment variable `I_MPI_HYDRA_BOOTSTRAP=ssh`. For Ansys Fluent versions 2025R1 or newer, also set `HOOPS_PICTURE=opengl2`. It is critical to manually set `I_MPI_HYDRA_BOOTSTRAP=ssh` on the Nibi cluster when Intel MPI is used, as Fluent will otherwise crash."
     },
     {
-      "question": "Why might Ansys Fluent crash when launched inside an OnDemand Compute Desktop session on the Nibi cluster using Intel MPI, and what action can prevent this?",
-      "answer": "Ansys Fluent may crash upon startup inside an OnDemand Compute Desktop session on the Nibi cluster when using Intel MPI because the environment variable `I_MPI_HYDRA_BOOTSTRAP=ssh` is not manually set. To prevent this, you must manually set `I_MPI_HYDRA_BOOTSTRAP=ssh` in the Fluent Launcher's Environment Tab or the terminal before launching Fluent. If a crash occurs, you must completely exit Fluent, cleanly shut down Workbench, and restart the process."
+      "question": "How does one launch Ansys CFX or Mechanical APDL (Mapdl) graphically from an OnDemand desktop?",
+      "answer": "To launch Ansys CFX from an OnDemand desktop, first load the appropriate module (e.g., `module load StdEnv/2023 ansys/2025R1`). Then, if no GPU was requested for the desktop session, run `cfx5 -graphics mesa`. If a GPU was requested, use `cfx5 -graphics ogl`. For Mechanical APDL (Mapdl), load the Ansys module (e.g., `module load StdEnv/2023 ansys/2022R2`) and then either run `mapdl -g` or use the `launcher` command and click the `RUN` button."
     }
   ],
-  "generated_at": "2026-04-26T00:32:17.472462+00:00"
+  "generated_at": "2026-05-03T01:03:45.636412+00:00"
 }

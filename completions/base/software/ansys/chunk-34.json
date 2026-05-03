@@ -4,13 +4,13 @@
   "chunk_index": 34,
   "qa_pairs": [
     {
-      "question": "How can a user run an Ansys Rocky CPU-only simulation using a Slurm script?",
-      "answer": "To run an Ansys Rocky CPU-only simulation with a Slurm script, users must first load the `StdEnv/2023` and `ansys/2025R1` modules, or newer versions. The script then sets the `PATH` environment variable to locate the Rocky executable. The simulation is executed using the `Rocky` command with arguments such as `--simulate` (specifying the project file, e.g., `mysim.rocky`), `--resume=1`, `--ncpus=$SLURM_CPUS_PER_TASK` to utilize the allocated CPU cores, and `--use-gpu=0` to disable GPU usage."
+      "question": "How do you execute an Ansys Rocky simulation in non-GUI (headless) mode using either a CPU-only or GPU-based Slurm script on an Alliance cluster?",
+      "answer": "To run an Ansys Rocky simulation in non-GUI (headless) mode, you use the `Rocky --headless --simulate` command within your Slurm script. For a CPU-only simulation, include `--use-gpu=0` and specify the number of CPUs with `--ncpus=$SLURM_CPUS_PER_TASK`. For a GPU-based simulation, include `--use-gpu=1` along with `--ncpus=$SLURM_CPUS_PER_TASK`, and ensure your Slurm script requests GPU resources (e.g., `#SBATCH --gpus=h100:1`). In both cases, you must specify the input file, for example, `mySim.rocky`."
     },
     {
-      "question": "What Slurm directives are used to allocate resources for an Ansys Rocky CPU-only job, as demonstrated in the provided script?",
-      "answer": "The Slurm script uses the following `#SBATCH` directives to allocate resources for an Ansys Rocky CPU-only job: `--account` to specify the billing account (e.g., `def` or `rrg`), `--time` for the job's time limit (e.g., `00-02:00` for 2 hours), `--mem` for the total memory allocated for cores (e.g., `24G`), `--cpus-per-task` to define the number of CPU cores to use (e.g., `6`), and `--nodes=1` to request a single compute node."
+      "question": "In an Ansys Rocky Slurm script, how do you configure it to start a new simulation versus resuming an existing one?",
+      "answer": "You configure this using the `RESUME` variable in your Slurm script. If you set `RESUME=0`, the script will start a new simulation and automatically remove any previous results located in the `$INPUTFILE.files/simulation` directory. If you set `RESUME=1`, the script will resume the simulation from its last saved state without deleting prior data."
     }
   ],
-  "generated_at": "2026-04-26T00:31:44.050919+00:00"
+  "generated_at": "2026-05-03T01:03:17.115696+00:00"
 }

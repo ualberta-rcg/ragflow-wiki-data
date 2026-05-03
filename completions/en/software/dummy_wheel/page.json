@@ -1,0 +1,59 @@
+{
+  "doc_key": "en/dummy_wheel",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What are Dummy Wheels in the context of Python package management on this infrastructure?",
+      "answer": "Dummy Wheels are placeholder files in the wheelhouse for popular Python packages that are available on PyPI but are provided as modules on the infrastructure."
+    },
+    {
+      "question": "How are Dummy Wheels for Python packages identified within the wheelhouse?",
+      "answer": "They are identified by a local version tag, such as `+dummy.computecanada`, which is appended to the package name and version (e.g., `pyarrow-23.0.1+dummy.computecanada-py3-none-any.whl`)."
+    },
+    {
+      "question": "What is the expected outcome when `pip` selects a Dummy Wheel for a Python package?",
+      "answer": "When `pip` selects a Dummy Wheel, it will raise an error because it cannot find a match for the requirement, which is considered normal behaviour."
+    },
+    {
+      "question": "What are some common examples of Python packages for which Dummy Wheels exist on this infrastructure?",
+      "answer": "Common examples include `pyarrow` (Arrow), `opencv_python` (OpenCV), and `MPI4py`."
+    },
+    {
+      "question": "What are the primary reasons a Dummy Wheel error might occur when attempting to install Python packages via `pip` on this infrastructure?",
+      "answer": "A Dummy Wheel error typically occurs because the necessary module was not loaded, the loaded module's version does not meet the requested version from a dependent package, or the loaded module does not support the Python version being used."
+    },
+    {
+      "question": "If a Dummy Wheel error indicates that a required module was not loaded, what is the recommended troubleshooting process?",
+      "answer": "To resolve this, deactivate any virtual environment, load the required modules (e.g., `gcc`, `arrow/x.y.z`, `python/x.y.z`), re-activate the virtual environment, and then re-run the `pip install` command."
+    },
+    {
+      "question": "How can a user identify the specific version requirement of a dependent Python package (e.g., `pyarrow`) that led to a Dummy Wheel being installed?",
+      "answer": "The user can find the asked requirement by running `pip install --no-index <package>` and looking for a line in the output like `(from pyarrow>=21.0.0->datasets)`."
+    },
+    {
+      "question": "How can a user verify if a loaded module on the infrastructure provides the necessary Python bindings for a package such as `pyarrow`?",
+      "answer": "One can quickly verify by running `python -c \"import pyarrow\"`; if nothing displays, the import was successful. Alternatively, `pip list | grep pyarrow` can be used to check if `pip` sees it."
+    },
+    {
+      "question": "What command should a user employ to deactivate their virtual environment before loading required modules to resolve a Dummy Wheel error?",
+      "answer": "The command `test $VIRTUAL_ENV && deactivate` should be used to deactivate a virtual environment."
+    },
+    {
+      "question": "Following the deactivation of a virtual environment, what is the command syntax for loading modules like `gcc`, `arrow`, and `python` to address a Dummy Wheel issue?",
+      "answer": "The command syntax is `module load gcc arrow/x.y.z python/x.y.z`, where `x.y.z` represents the specific version needed for each module."
+    },
+    {
+      "question": "Why would a Dummy Wheel be installed by `pip` if the version of the corresponding loaded module does not satisfy the requirements of a dependent package?",
+      "answer": "A Dummy Wheel is installed if the loaded module's version does not meet the requirement (e.g., `pyarrow>=21.0.0`) of a dependent package, as `pip` cannot find a suitable version of the actual module and falls back to the placeholder."
+    },
+    {
+      "question": "When troubleshooting a Dummy Wheel error, what does it signify if the command `python -c \"import pyarrow\"` executes without displaying any output?",
+      "answer": "If the command `python -c \"import pyarrow\"` displays nothing, it signifies that the import was successful, and the module provides `pyarrow` for the Python module being used."
+    },
+    {
+      "question": "In the context of verifying Python package availability, what does it indicate if `pip list | grep pyarrow` returns no entry for `pyarrow`?",
+      "answer": "If `pip list | grep pyarrow` shows no entry, it indicates that `pyarrow` is not available or not seen by `pip` in the current environment."
+    }
+  ],
+  "generated_at": "2026-05-03T01:53:20.204019+00:00"
+}

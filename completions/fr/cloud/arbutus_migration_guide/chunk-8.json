@@ -4,17 +4,13 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "Quelle méthode alternative est présentée pour la migration d'instances associées à des volumes?",
-      "answer": "La méthode alternative présentée pour la migration d'instances associées à des volumes utilise l'utilitaire Linux 'dd'."
+      "question": "Quand on utilise l'option `dd` de Linux pour migrer une instance associée à un volume, quelles sont les premières étapes à suivre avant de créer l'image du disque ?",
+      "answer": "Pour commencer, il faut lancer une instance temporaire sur le nuage Ouest, en utilisant un petit gabarit comme p1-1.5gb, et idéalement avec CentOS 7. Après s'être connecté à cette instance via SSH, il faut y installer le CLI OpenStack et copier le fichier RC d'Arbutus, puis le sourcer pour pouvoir se connecter à l'API OpenStack."
     },
     {
-      "question": "Quelle est la première étape pour la migration d'une instance associée à un volume en utilisant l'option Linux 'dd'?",
-      "answer": "La première étape est de lancer une instance sur le nuage Ouest avec le plus petit gabarit possible, comme un p1-1.5gb, en utilisant un système d'exploitation tel que CentOS 7, qui servira de serveur de migration temporaire."
-    },
-    {
-      "question": "Quel logiciel doit être installé sur l'instance temporaire créée pour la migration avec l'option Linux 'dd'?",
-      "answer": "Il faut installer l'interface en ligne de commande (CLI) OpenStack sur l'instance temporaire. Cela implique d'abord d'installer 'epel-release', 'python-devel', 'python-pip', et 'gcc' avec 'yum', puis d'exécuter 'pip install python-openstackclient'."
+      "question": "Une fois qu'une instance associée à un volume a été supprimée (sans supprimer le volume) et que son volume est attaché à un serveur de migration temporaire, comment créer une image du disque avec l'utilitaire `dd` ?",
+      "answer": "Il faut d'abord identifier l'accélérateur auquel le volume est attaché (généralement /dev/vdb ou /dev/vdc). Ensuite, on peut utiliser la commande `dd if=/dev/vdb | openstack image create --private --container-format bare --disk-format raw \"nomdelimage\"` pour créer une image à partir du disque, en remplaçant `/dev/vdb` et le nom de l'image selon vos besoins."
     }
   ],
-  "generated_at": "2026-04-19T01:46:11.825924+00:00"
+  "generated_at": "2026-05-03T01:25:29.837625+00:00"
 }

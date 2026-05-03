@@ -4,13 +4,17 @@
   "chunk_index": 17,
   "qa_pairs": [
     {
-      "question": "Comment peut-on configurer un script Slurm pour Ansys Fluent afin de soumettre automatiquement les tâches à nouveau si elles échouent en raison de problèmes de licence, et quelles sont les limites de cette approche ?",
-      "answer": "Les scripts Slurm comme « Plusieurs nœuds (par nœud + remise en attente) » ou « Plusieurs nœuds (par cœur + remise en attente) » incluent la directive `#SBATCH --array=1-5%1` pour spécifier le nombre de tentatives de remise en file d'attente (par exemple, 5 tentatives). Ces scripts sont spécifiquement recommandés pour les tâches Fluent qui échouent fréquemment au démarrage à cause d'un manque de licence, mais qui sont autrement stables. Il est déconseillé de les utiliser pour des simulations qui pourraient planter pour d'autres raisons ou se terminer avec des avertissements, car cela entraînerait une consommation inutile de temps de calcul par des redémarrages inefficaces. Il est important de vérifier les fichiers de sortie de l'ordonnanceur pour distinguer les échecs dus aux licences de ceux dus à la simulation elle-même."
+      "question": "Quel est le but principal de la fonctionnalité « Redémarrage » pour les tâches Ansys Fluent sur les grappes de l'Alliance?",
+      "answer": "Le but principal de la fonctionnalité « Redémarrage » est d'automatiser le redémarrage des tâches intensives Ansys Fluent qui demandent plus que le maximum de sept jours d'exécution permis sur la plupart des grappes, en reprenant les calculs à partir des fichiers de pas de temps les plus récemment sauvegardés."
     },
     {
-      "question": "Quelles sont les étapes pour automatiser le redémarrage de tâches Ansys Fluent de longue durée sur les grappes de l'Alliance qui dépassent la durée d'exécution maximale, et quelles modifications doivent être apportées aux fichiers de journalisation ?",
-      "answer": "Pour automatiser le redémarrage de tâches Ansys Fluent de longue durée, on utilise les scripts Slurm « Plusieurs nœuds (par nœud + redémarrage) » ou « Plusieurs nœuds (par cœur + redémarrage) ». Ces scripts permettent de reprendre la simulation à partir des fichiers de pas de temps les plus récents. Au départ, il faut avoir les fichiers `sample.cas`, `sample.dat` et `sample.jou`. Le fichier `sample.jou` doit inclure `/solve/dual-time-iterate 1` et `/file/auto-save/data-frequency 1`. Ensuite, un fichier `sample-restart.jou` est créé avec `cp sample.jou sample-restart.jou`. Dans ce nouveau fichier, on remplace `/file/read-cas-data sample` par `/file/read-cas-data sample-restart` et on commente la ligne d'initialisation (par exemple, `; /solve/initialize/initialize-flow`). Si les pas suivants sont deux fois plus rapides que le pas initial, on modifie `sample-restart.jou` pour spécifier `/solve/dual-time-iterate 2`, ce qui aide à limiter les redémarrages gourmands en ressources."
+      "question": "Quels fichiers sont essentiels à avoir en place avant de configurer des tâches Ansys Fluent pour un redémarrage automatisé sur les grappes?",
+      "answer": "Avant de configurer des tâches Ansys Fluent pour un redémarrage automatisé sur les grappes, il est essentiel d'avoir les fichiers `sample.cas`, `sample.dat` et `sample.jou` dans votre répertoire de travail."
+    },
+    {
+      "question": "Comment les fichiers `sample.jou` et `sample-restart.jou` devraient-ils être modifiés pour permettre le redémarrage d'une solution pour une simulation Ansys Fluent?",
+      "answer": "Pour permettre le redémarrage, le fichier `sample.jou` doit inclure les commandes `/solve/dual-time-iterate 1` et `/file/auto-save/data-frequency 1`. Ensuite, un fichier `sample-restart.jou` (une copie de `sample.jou`) doit être créé, puis modifié pour remplacer `/file/read-cas-data sample` par `/file/read-cas-data sample-restart` et la ligne d'initialisation doit être mise en commentaire, par exemple avec `;/solve/initialize/initialize-flow`. Si les pas subséquents sont exécutés deux fois plus vite, modifiez `sample-restart.jou` pour qu'il contienne `/solve/dual-time-iterate 2`."
     }
   ],
-  "generated_at": "2026-04-26T00:42:55.377035+00:00"
+  "generated_at": "2026-05-03T01:14:17.025642+00:00"
 }

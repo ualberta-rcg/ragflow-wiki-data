@@ -4,13 +4,13 @@
   "chunk_index": 17,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the Slurm script that includes `--array=1-5%1` for Fluent simulations on Alliance clusters, and how does it manage job restarts?",
-      "answer": "This Slurm script is designed to automate the restart of very large Fluent jobs that might exceed typical runtime limits, such as the seven-day maximum available on most clusters. The `--array=1-5%1` directive specifies up to 5 solution restarts. After the initial job completes (for `SLURM_ARRAY_TASK_ID == 1`), subsequent array tasks (`SLURM_ARRAY_TASK_ID > 1`) restart the simulation from the most recent saved data. This is achieved by symbolically linking the latest output `.cas` and `.dat` files to `sample-restart.cas.h5` and `sample-restart.dat.h5`, respectively, allowing the Fluent solver to pick up from the last saved state."
+      "question": "How are long-running Ansys Fluent jobs, which exceed typical runtime limits, automatically restarted on an Alliance cluster?",
+      "answer": "Long-running Ansys Fluent jobs are automatically restarted using Slurm array jobs. The initial run (determined by `SLURM_ARRAY_TASK_ID == 1`) uses a primary journal file, while subsequent restarts utilize a separate restart journal file. The process involves linking the most recent output `.cas` and `.dat` files from the previous run as input for the next restart, ensuring the simulation continues from the latest saved time step."
     },
     {
-      "question": "What is the function of Fluent journal files, and what is the significance of the `/file/cff-files` command within them?",
-      "answer": "Fluent journal files serve to automate simulations by incorporating commands from Fluent's Text-User-Interface (TUI). Users can employ these commands to modify simulation parameters, such as temperature or pressure, enabling a series of simulations to be run with a single case file. The `/file/cff-files` command in a journal file controls the file format for reading and writing Fluent case and data files. Setting it to `no` uses the legacy `.cas/.dat` format (default for Ansys module versions 2019R3 or older), while setting it to `yes` enables the more efficient `.cas.h5/.dat.h5` format (default for Ansys module versions 2020R1 or newer)."
+      "question": "What is the function of journal files in Ansys Fluent, and which file formats do they support for input/output on Alliance clusters?",
+      "answer": "Fluent journal files allow users to execute commands from Fluent's Text-User-Interface (TUI) to modify simulation parameters, such as temperature or flow speed, or to run a series of simulations under various conditions with a single case file. Regarding file formats, journal files can be configured using `/file/cff-files no` to utilize the legacy `.cas/.dat` format (default for module versions 2019R3 or older), or `/file/cff-files yes` for the more efficient `.cas.h5/.dat.h5` format (default for module versions 2020R1 or newer)."
     }
   ],
-  "generated_at": "2026-04-26T00:36:32.709517+00:00"
+  "generated_at": "2026-05-03T01:08:03.128726+00:00"
 }

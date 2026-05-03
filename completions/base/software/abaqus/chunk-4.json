@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Which version of the Abaqus module is recommended for use in a Slurm script, and which one should be discontinued?",
-      "answer": "Users should load the `abaqus/2026` module, as it is the latest recommended version. The `abaqus/2021` module should be discontinued."
+      "question": "How are Abaqus jobs configured for single-node computing, specifically for versions 2021 and 2026 or newer, on an Alliance cluster?",
+      "answer": "For Abaqus 2021 and 2026 or newer, jobs are configured using the `abaqus` command with `job=testsp1`, `input=mystd-sim.inp`, `scratch=$SLURM_TMPDIR`, `cpus=$SLURM_CPUS_ON_NODE`, `interactive`, and `mp_mode=threads`. The memory is set by `memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`, and GPU usage can be enabled by uncommenting the `gpus=$SLURM_GPUS_ON_NODE` line."
     },
     {
-      "question": "How can a user specify a particular node type or request GPU resources in an Abaqus Slurm script?",
-      "answer": "Users can specify a particular node type by uncommenting and modifying the line `#SBATCH --constraint=granite`. To request GPU resources, such as an h100 GPU, they should uncomment `#SBATCH --gpus-per-node=h100:1`."
+      "question": "How is the memory for an Abaqus job calculated in the provided single-node Slurm script snippets?",
+      "answer": "The memory for an Abaqus job is calculated by subtracting 3072MB from the total memory available per node, as indicated by the parameter `memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"` in the Abaqus command."
     },
     {
-      "question": "What environment variables are unset or exported in the provided Abaqus Slurm script example, and what is the typical value for `MPI_IC_ORDER`?",
-      "answer": "In the Abaqus Slurm script example, `SLURM_GTIDS` is unset. The `MPI_IC_ORDER` environment variable is exported with the value `'tcp'`. Additionally, `LM_LICENSE_FILE` and `ABAQUSLM_LICENSE_FILE` are echoed, indicating their importance for license configuration."
+      "question": "How do you specify writing restart data in the input file for Abaqus standard analysis jobs?",
+      "answer": "To write restart data, you can specify either `*RESTART, WRITE, OVERLAY, FREQUENCY=12` in the input file to write every 12 time increments, or `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO` to write for a total of 12 time increments."
     }
   ],
-  "generated_at": "2026-04-13T00:43:41.939462+00:00"
+  "generated_at": "2026-05-03T00:55:28.444873+00:00"
 }

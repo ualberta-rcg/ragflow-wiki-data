@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How are Ansys service packs identified in module versions on the clusters, and how can a user load the latest available service pack?",
-      "answer": "Starting with Ansys 2024, service packs are indicated by a decimal and two digits after the release number in module versions; for example, `ansys/2024R1.03` for Service Pack 3. To load the latest module version with the most recent installed service pack, users can simply use the command `module load ansys`."
+      "question": "How are Ansys service packs managed and accessed on the clusters, and what are the implications for users?",
+      "answer": "Starting with Ansys 2024, service packs introduce separate Ansys modules on the clusters, identified by a decimal and two digits after the release number (e.g., `ansys/2024R1.03`). While `module load ansys` will load the latest version with the most recent service pack, individual service pack modules allow users to continue with a specific version if consistency with previous computations is needed. Service packs bring extensive changes, though they are not expected to impact numerical results."
     },
     {
-      "question": "What is the typical procedure for running an Ansys Fluent job on the clusters?",
-      "answer": "To run an Ansys Fluent job, first prepare your job in Ansys Workbench on your desktop and export the 'case' file (e.g., `FFF-1.cas.gz`) and, if continuing a previous calculation, the 'data' file (e.g., `FFF-1.dat.gz`). Then, transfer these files to the `/project` or `/scratch` filesystem on the cluster. Create a 'journal' file to load the case and data, run the solver, and write results. If jobs frequently fail due to license shortages, consider modifying your script to requeue the job up to four times, monitoring output to ensure failures are license-related. After the job runs, download the data file and import it back into Fluent."
+      "question": "What is the typical procedure for running an Ansys Fluent job on an Alliance cluster?",
+      "answer": "To run an Ansys Fluent job on a cluster, first prepare your simulation in Ansys Workbench on your desktop, then export the 'case' and 'data' files. Transfer these files to a directory on the cluster's `/project` or `/scratch` filesystem. Next, create a 'journal' file to load the case/data, run the solver, and write the results. After the job runs, you can download the generated data file and import it back into Fluent. If jobs frequently fail due to license shortages, consider modifying your script to requeue the job (up to 4 times), but ensure to monitor the Slurm output to confirm license-related failures, not simulation issues."
     },
     {
-      "question": "Why do Ansys packages require special instructions for starting parallel jobs on the clusters, and what are the two main types of general-purpose Fluent Slurm scripts?",
-      "answer": "Ansys software's MPI implementations do not support the Alliance's Slurm scheduler, which necessitates special instructions for starting parallel jobs. For Fluent, there are two main types of general-purpose Slurm scripts: 'by node' scripts are recommended for most jobs to minimize solution latency and maximize performance on fewer nodes, while 'by core' scripts might reduce queue wait times for very large jobs, though they may have longer startup times and be more vulnerable to node failures."
+      "question": "What are the primary types of Slurm scripts for Ansys Fluent jobs on clusters, and when should each be used?",
+      "answer": "For Ansys Fluent jobs, 'by node' scripts are generally recommended to minimize solution latency and maximize performance by utilizing as few nodes as possible. Alternatively, 'by core' scripts can be used for very large jobs, which might reduce queue wait times, but they can also lead to significantly longer startup times and increase the vulnerability to crashing if compute nodes fail. Both script types are designed to handle shared memory communication for single-node runs and distributed memory (using MPI) for multi-node execution."
     }
   ],
-  "generated_at": "2026-04-26T00:34:45.673692+00:00"
+  "generated_at": "2026-05-03T01:06:14.802548+00:00"
 }

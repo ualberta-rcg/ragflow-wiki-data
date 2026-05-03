@@ -4,13 +4,17 @@
   "chunk_index": 25,
   "qa_pairs": [
     {
-      "question": "Comment doit-on procéder pour utiliser une fonction définie par l'utilisateur (UDF) en mode interprété dans Ansys Fluent sur les grappes de l'Alliance?",
-      "answer": "Pour utiliser une UDF interprétée dans Fluent, il faut ajouter la commande `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no` dans le fichier journal, avant que les fichiers cas/dat ne soient lus ou initialisés. Vous devez remplacer `sampleudf.c` par le nom de votre fichier source. Il est crucial que l'UDF se trouve dans le même répertoire que le fichier de journalisation. Pour les tâches parallèles, l'UDF devra être parallélisée."
+      "question": "Comment utiliser une fonction UDF interprétée avec Fluent sur les grappes de l'Alliance?",
+      "answer": "Pour utiliser une UDF interprétée, vous devez ajouter la ligne de commande `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no` à votre fichier journal Fluent, avant que les fichiers cas/dat ne soient lus ou initialisés. Il faut remplacer `sampleudf.c` par le nom de votre fichier source et vous assurer que le fichier UDF est dans le même répertoire que le fichier de journalisation. Pour les tâches parallèles, l'UDF devra être parallélisée."
     },
     {
-      "question": "Quelles sont les étapes pour utiliser une fonction définie par l'utilisateur (UDF) compilée avec Ansys Fluent sur les grappes de l'Alliance?",
-      "answer": "Pour utiliser une UDF compilée, il faut d'abord la compiler au moins une fois sur une de nos grappes. Ça va créer une structure de sous-répertoire `libudf` qui contient la bibliothèque partagée `libudf.so`. Ce répertoire `libudf` peut être transféré vers d'autres grappes, pourvu que votre compte charge la même version du module d'environnement `StdEnv`. Ensuite, dans votre fichier journal, il faut ajouter la commande `define/user-defined/compiled-functions load libudf` pour charger la bibliothèque. Il est important de ne pas laisser les commandes de compilation et de chargement actives en même temps pour chaque tâche afin d'éviter des recompilations inutiles. Si vous utilisez une UDF compilée avec des tâches parallèles, votre fichier source doit être parallélisé."
+      "question": "Quelles sont les spécificités pour utiliser une fonction UDF compilée avec Fluent sur les grappes de l'Alliance?",
+      "answer": "Pour utiliser une UDF compilée, elle doit d'abord être compilée sur une de nos grappes au moins une fois. Ceci créera un sous-répertoire `libudf` contenant la bibliothèque partagée `libudf.so` nécessaire. Ce répertoire `libudf` ne peut pas être copié d'un système distant. Une fois compilé sur une grappe, le `libudf` peut être transféré vers n'importe quelle autre grappe si le même module d'environnement `StdEnv` est chargé. Pour l'utiliser, ajoutez la commande `define/user-defined/compiled-functions load libudf` dans votre fichier journal, mais évitez d'avoir à la fois les commandes de compilation et de chargement actives pour chaque soumission afin d'optimiser l'efficacité."
+    },
+    {
+      "question": "Pourquoi est-il essentiel de paralléliser une fonction UDF pour qu'elle fonctionne correctement avec Fluent en mode parallèle?",
+      "answer": "Il est essentiel de paralléliser une UDF avant de l'utiliser avec une tâche Fluent parallèle (SMP ou MPI) pour contrôler quels processus (hôte et/ou calcul) exécutent des parties spécifiques du code UDF sur la grappe. Sans cette parallélisation, Fluent risquerait de fonctionner lentement ou de planter immédiatement. La procédure d'instrumentation, qui consiste à ajouter des directives de compilation, des prédicats et des macros de réduction, est décrite en détail dans le `Fluent Customization Manual, Part I: Chapter 7: Parallel Considerations`."
     }
   ],
-  "generated_at": "2026-04-26T00:44:05.234314+00:00"
+  "generated_at": "2026-05-03T01:15:28.312837+00:00"
 }

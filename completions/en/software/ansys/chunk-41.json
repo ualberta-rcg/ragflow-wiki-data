@@ -4,17 +4,17 @@
   "chunk_index": 41,
   "qa_pairs": [
     {
-      "question": "According to the Ansys license query example, how many `anshpc` licenses were in use, and how many were consumed by the user 'roberpj' for their two jobs?",
-      "answer": "The example shows that a total of 1600 `anshpc` licenses were in use out of 1986 issued. The user 'roberpj' consumed 4 `anshpc` licenses for one job and 28 `anshpc` licenses for another, totalling 32 `anshpc` licenses."
+      "question": "How can a user check the status of Ansys licenses on an Alliance cluster, including the number of licenses they are using and the total number of licenses in use by all users?",
+      "answer": "To check the status of Ansys licenses on an Alliance cluster, a user should first SSH into a login node (e.g., `ssh nibi.alliancecan.ca`). Then, load the Ansys module and execute the command `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of\\\\|$USER\" | grep -v \" Total of 0 licenses in use\"`. This command will display details about the `anshpc` licenses in use by their username and the total licenses utilized by all users."
     },
     {
-      "question": "What is the maximum number of `anshpc` cores an Alliance researcher can use concurrently with the SHARCNET Ansys license, and what should be done if a job fails due to license shortages?",
-      "answer": "An Alliance researcher can run a maximum of 16 simultaneous jobs using a total of up to 512 `anshpc` cores across all clusters with the SHARCNET Ansys license. If a job fails to start due to license shortages, for example, if the license pool is oversubscribed, the researcher will need to manually resubmit their job to the queue."
+      "question": "When running Ansys Fluent jobs on an Alliance cluster, how are `anshpc` licenses calculated, and what options does a user have if a job fails to start due to a shortage of these licenses?",
+      "answer": "For Ansys Fluent jobs on an Alliance cluster, `anshpc` licenses are calculated by subtracting 4 from the number of cores requested for the job (e.g., an 8-core job uses 4 licenses, while a 32-core job uses 28 licenses). If a job fails to start because of insufficient `anshpc` licenses, the user has two main options: they can either wait for a sufficient number of licenses to become available or reduce the job size to require fewer licenses and then resubmit it immediately."
     },
     {
-      "question": "If Ansys licenses are unexpectedly tied up by rogue processes on an Alliance cluster, what steps can a user take to release them?",
-      "answer": "To release Ansys licenses unexpectedly held by rogue processes, a user can either close the desktop session, scancel the interactive `salloc` session, or open a terminal window on the affected node and issue the command `pkill -9 -e -u $USER -f \"ansys\"`. This action will terminate all potentially responsible Ansys processes, returning the licenses to the SHARCNET license server for availability."
+      "question": "What steps should a user take if they discover that Ansys licenses are unexpectedly being held by rogue processes on an Alliance cluster?",
+      "answer": "If Ansys licenses are unexpectedly tied up by rogue processes, perhaps due to an unclean shutdown of an Ansys GUI program or a crashed interactive session on an Alliance cluster, the user should take action to kill these processes. This can be done by either closing the desktop session, cancelling the `salloc` session, or opening a terminal window on the affected node and issuing the command `pkill -9 -e -u $USER -f \"ansys\"`. Executing this command should promptly return any held Ansys licenses to the SHARCNET license server, making them available again."
     }
   ],
-  "generated_at": "2026-04-26T00:39:44.821456+00:00"
+  "generated_at": "2026-05-03T01:11:12.751113+00:00"
 }

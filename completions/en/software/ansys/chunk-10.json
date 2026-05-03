@@ -4,17 +4,17 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "How do you configure Ansys license settings specifically for running Fluent jobs on the Trillium cluster?",
-      "answer": "For Fluent jobs on the Trillium cluster, the `~/.licenses/ansys.lic` file is not used. Instead, you must explicitly set the license server hostname (`LICSERVER`), flex port (`FLEXPORT`), and vendor port (`VENDPORT`) within your Slurm script. The script then establishes SSH tunnels to forward these ports to `localhost`, and sets the `ANSYSLMD_LICENSE_FILE` and `ANSYSLI_SERVERS` environment variables to point to `FLEXPORT@localhost` and `VENDPORT@localhost`, respectively."
+      "question": "What is the main purpose of the \"License requeue\" scripts for Ansys Fluent jobs on Alliance clusters?",
+      "answer": "The \"License requeue\" scripts are designed for Ansys Fluent jobs that are known to complete normally without generating any errors in the output, but typically require multiple requeue attempts to acquire a license."
     },
     {
-      "question": "What are the requirements for Ansys Fluent to write to its configuration and temporary directories when submitting a job on the Trillium cluster?",
-      "answer": "On the Trillium cluster, Ansys Fluent requires writable directories for its configuration files. If `~/.ansys`, `~/.fluentconf`, or `~/.flrecent` do not exist or are not writable, you must remove any existing ones and create symbolic links from your `$HOME` directory to writable locations within your `$SCRATCH` directory. For example, you would use `ln -s $SCRATCH/.ansys ~/.ansys`."
+      "question": "When should users avoid using the \"License requeue\" scripts for Ansys Fluent jobs?",
+      "answer": "Users should not use these scripts for Fluent jobs that may run for a long time before crashing or that run to completion but contain unresolved journal file warnings. In these cases, the simulations would be repeatedly rerun from the beginning until the maximum number of requeue attempts is reached, wasting compute time."
     },
     {
-      "question": "What is the purpose of the license requeue mechanism for Ansys Fluent jobs, and when is it appropriate to use?",
-      "answer": "The license requeue mechanism for Ansys Fluent jobs, configured using a Slurm `--array` setting (e.g., `--array=1-5%1`), is intended to automatically resubmit jobs that fail to start due to temporary license shortages. It is only recommended for Fluent jobs that are known to complete normally without generating errors, as it will repeatedly restart simulations that fail due to non-license-related issues, potentially wasting compute time. Monitoring Slurm output files is crucial to confirm failures are license-related."
+      "question": "What specific file and directory setup is required for Ansys Fluent jobs on the Trillium cluster if a user encounters errors related to `.ansys`, `.fluentconf`, or `.flrecent`?",
+      "answer": "If a user encounters errors indicating a missing link to a writable `.ansys` or `.fluentconf` directory, or a `.flrecent` file, they must remove any existing non-link version and then create symbolic links from `$HOME/.ansys` to `$SCRATCH/.ansys`, `$HOME/.fluentconf` to `$SCRATCH/.fluentconf`, and `$HOME/.flrecent` to `$SCRATCH/.flrecent`, respectively. This ensures that the required files and directories are writable for Ansys."
     }
   ],
-  "generated_at": "2026-04-26T00:35:38.880047+00:00"
+  "generated_at": "2026-05-03T01:07:07.659088+00:00"
 }

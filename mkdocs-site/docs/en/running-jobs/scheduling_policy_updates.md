@@ -4,24 +4,24 @@ slug: "scheduling_policy_updates"
 lang: "en"
 
 source_wiki_title: "Scheduling policy updates/en"
-source_hash: "0d61021cdcac907e5220b5db66730bfa"
-last_synced: "2026-04-18T23:39:30.217451+00:00"
-last_processed: "2026-04-19T01:04:25.370889+00:00"
+source_hash: "7d07a78f6e68a850217d0ea271735e84"
+last_synced: "2026-05-02T23:50:34.269007+00:00"
+last_processed: "2026-05-03T00:46:44.522604+00:00"
 
 tags:
   []
 
 keywords:
-  - "job submission commands"
   - "job scheduling policies"
-  - "RAC allocations"
   - "Multi-Instance GPU"
+  - "Slurm"
+  - "RAC allocations"
   - "GPU jobs"
 
 questions:
-  - "Which job submission commands might experience a change in behavior due to the policy updates recorded on this page?"
-  - "What are the specific activation dates for the RAC 2026 accounts and sub-allocations across the fir, nibi, narval, and rorqual clusters?"
-  - "What new requirements and limitations have been implemented regarding the specification of GPU models and Multi-Instance GPUs (MIGs) for GPU jobs?"
+  - "Which job submission commands are potentially affected by the scheduling policy changes detailed on this page?"
+  - "When were the RAC allocations and sub-allocations activated for the Fir, Nibi, Narval, and Rorqual clusters?"
+  - "What specific requirements and limitations must now be followed when requesting GPU jobs or MIG instances?"
 
 status:
   downloaded: true
@@ -32,39 +32,39 @@ status:
   qa_generated: false
 ---
 
-This page is intended to record when changes to [job scheduling policies](job_scheduling_policies.md) are made which might change the behaviour of job submission commands (`sbatch`, `salloc`, `srun`).
+This page records changes to [job scheduling policies](job_scheduling_policies.md) which might affect the behaviour of job submission commands `sbatch`, `salloc`, and `srun`.
 
-## Account related changes
+## Accounts
 
 ### RAC allocations
 
-*   RAC 2026 accounts activated
-    *   fir: 2026-04-06
-    *   nibi: 2026-04-06
-    *   narval: 2026-04-07
-    *   rorqual: 2026-04-07
+* RAC 2026 accounts activated
+    * Fir: 2026-04-06
+    * Nibi: 2026-04-06
+    * Narval: 2026-04-07
+    * Rorqual: 2026-04-07
 
-### Other policy changes on accounts
+### Other account updates
 
-*   Sub-allocations enabled
-    *   fir: 2026-04-06
-    *   nibi: 2026-04-06
-    *   narval: 2026-04-07
-    *   rorqual: 2026-04-07
+* Sub-allocations available
+    * Fir: 2026-04-06
+    * Nibi: 2026-04-06
+    * Narval: 2026-04-07
+    * Rorqual: 2026-04-07
 
-## CPU jobs related changes
+## CPU jobs
 
-(None at the moment)
+(none as of May 1, 2026)
 
-## GPU jobs related changes
+## GPU jobs
 
-*   All GPU requests must specify a GPU or [instance](../programming/multi-instance_gpu.md) model
-    *   fir: 2026-04-06
-    *   nibi: 2026-04-06
-    *   narval: [not done yet]
-    *   rorqual: 2026-04-17
-*   Multiple [MIGs](../programming/multi-instance_gpu.md) cannot be requested in a single job
-    *   fir: 2026-04-06
-    *   nibi: 2026-04-06
-    *   narval: [not done yet]
-    *   rorqual: 2026-04-17
+* All GPU requests must [specify a GPU model](using_gpus_with_slurm.md#introduction) or an [instance model](../programming/multi-instance_gpu.md)
+    * Fir: 2026-04-06
+    * Nibi: 2026-04-06
+    * Narval: (coming soon)
+    * Rorqual: 2026-04-17
+* Only one [MIG instance](../programming/multi-instance_gpu.md) may be requested at a time
+    * Fir: 2026-04-06
+    * Nibi: 2026-04-06
+    * Narval: (coming soon)
+    * Rorqual: 2026-04-17

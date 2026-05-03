@@ -4,13 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "On which Alliance clusters and under what conditions is the `I_MPI_HYDRA_BOOTSTRAP` environment variable explicitly set to `ssh` for Ansys Fluent jobs?",
-      "answer": "The `I_MPI_HYDRA_BOOTSTRAP` environment variable is set to `ssh` for Ansys Fluent jobs on the Narval cluster, or on the Nibi cluster when using Ansys versions 2025R1 or newer."
+      "question": "When running Ansys Fluent on the Nibi or Narval clusters, what specific MPI environment variable needs to be set, especially for Ansys versions 2025 or newer?",
+      "answer": "When running Ansys Fluent on the Nibi or Narval clusters, particularly with Ansys versions 2025 or newer, the `I_MPI_HYDRA_BOOTSTRAP` environment variable needs to be set to `ssh`. Additionally, `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS` should be unset."
     },
     {
-      "question": "How does Ansys Fluent handle parallel execution differently for single-node versus multi-node jobs using Intel MPI on Alliance clusters?",
-      "answer": "For single-node jobs, Ansys Fluent uses shared memory parallel (`-pshmem`) with Intel MPI. For multi-node jobs, it uses distributed memory parallel with Intel MPI and a generated machinefile. Specifically, on the Nibi cluster, it utilizes Ethernet (`-peth`), while on other clusters, it uses InfiniBand (`-pib`)."
+      "question": "What is the command to launch an Ansys Fluent simulation on a single compute node using an Intel MPI setup with shared memory parallel (SMP)?",
+      "answer": "To launch an Ansys Fluent simulation on a single compute node using an Intel MPI setup with shared memory parallel, the command is `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`. Here, `$MYVERSION` specifies the dimensionality (e.g., 2d, 3d), `$NCORES` is the number of cores, and `$MYJOURNALFILE` is the journal file for the simulation."
+    },
+    {
+      "question": "How does the command to launch a multi-node Ansys Fluent simulation differ between the Nibi cluster and other clusters, assuming an Intel MPI setup and a machinefile?",
+      "answer": "For multi-node Ansys Fluent simulations using Intel MPI and a machinefile, the command differs based on the cluster. On the Nibi cluster, you would use `fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`. For other clusters, the command would be `fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`. The main difference is the MPI process interconnect type (`-peth` for Nibi, `-pib` for others)."
     }
   ],
-  "generated_at": "2026-04-26T00:28:18.789935+00:00"
+  "generated_at": "2026-05-03T00:59:43.025889+00:00"
 }

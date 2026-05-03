@@ -1,0 +1,20 @@
+{
+  "doc_key": "base/dummy_wheel",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What are Dummy Wheels and what is their purpose on this infrastructure?",
+      "answer": "Dummy Wheels exist in the wheelhouse to provide placeholders for some popular Python packages that are available on PyPI but as modules on our infrastructure. They are all tagged with a local version (`dummy`), for instance: `pyarrow-23.0.1+dummy.computecanada-py3-none-any.whl`."
+    },
+    {
+      "question": "What are the common reasons an error occurs when `pip` selects a dummy wheel for a package like PyArrow, and is this error considered normal?",
+      "answer": "Yes, when a dummy wheel is selected by `pip`, it will raise an error because `pip` could not find a match for the requirement; this is considered normal. This indicates that either the associated module (e.g., Arrow for PyArrow) was not loaded, the loaded module's version does not meet the requested version from a dependent package, or the loaded module does not support the Python version being used."
+    },
+    {
+      "question": "If a \"module not loaded\" error occurs when a dummy wheel is selected for a Python package, like `pyarrow`, what steps should be taken to resolve it?",
+      "answer": "To resolve a \"module not loaded\" error, first deactivate any virtual environment using `test $VIRTUAL_ENV && deactivate`. Next, load the necessary module, for example, `module load gcc arrow/x.y.z python/x.y.z`, where `x.y.z` is the version needed. Then, reactivate your previously created virtual environment with `source <env>/bin/activate`, and finally, re-run your `pip install <package>` command."
+    }
+  ],
+  "generated_at": "2026-05-03T01:53:01.383679+00:00"
+}

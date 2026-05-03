@@ -4,13 +4,13 @@
   "chunk_index": 18,
   "qa_pairs": [
     {
-      "question": "How are Fluent jobs configured for solution restart, initiated from the most recent saved time step files on Alliance clusters?",
-      "answer": "When a Fluent job is configured for solution restart, the script creates symbolic links to the most recent saved time step files. Specifically, it uses commands like `ln -sfv output/$(ls -ltr output {{!}} grep .cas {{!}} tail -n1 {{!}} awk '{print $9}') $MYCASFILERES` and `ln -sfv output/$(ls -ltr output {{!}} grep .dat {{!}} tail -n1 {{!}} awk '{print $9}') $MYDATFILERES` to link the latest case and data files from the `output` directory to the respective restart filenames."
+      "question": "How does the script handle linking the latest simulation output files for a Fluent job restart?",
+      "answer": "The script creates symbolic links to the most recently generated `.cas` and `.dat` files found within the `output/` directory. These links are named `$MYCASFILERES` and `$MYDATFILERES`, respectively, pointing to the latest relevant output files."
     },
     {
-      "question": "What messages are displayed when a Fluent job utilizing a solution restart script either completes successfully or encounters a simulation failure?",
-      "answer": "If a Fluent job completes successfully, the message 'Job completed successfully! Exiting now.' is displayed, and the job array is cancelled. If the simulation fails, the message 'Simulation failed. Exiting …' is displayed."
+      "question": "How does the script report the outcome of a Fluent job and what action is taken upon successful completion?",
+      "answer": "If a Fluent job completes successfully within a Slurm array, the script will output the message \"Job completed successfully! Exiting now.\" and then cancel the entire Slurm array job using the `scancel $SLURM_ARRAY_JOB_ID` command. If the simulation fails, it will output \"Simulation failed. Exiting …\"."
     }
   ],
-  "generated_at": "2026-04-26T00:29:32.637532+00:00"
+  "generated_at": "2026-05-03T01:01:00.743317+00:00"
 }

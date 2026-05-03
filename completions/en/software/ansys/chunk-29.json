@@ -4,17 +4,17 @@
   "chunk_index": 29,
   "qa_pairs": [
     {
-      "question": "How can I run Mechanical APDL (MAPDL) jobs with GPU acceleration on Alliance clusters?",
-      "answer": "To run Mechanical APDL (MAPDL) jobs with GPU acceleration on Alliance clusters, you can utilize either Shared Memory Parallel (SMP) or Distributed Memory Parallel (DMP) Slurm scripts. For SMP with GPU, use a script like `script-smp-2023-gpu.sh`, which typically requests 32GB of memory, 8 cores, and 1 GPU per node. The `mapdl` command should include options such as `-smp -acc nvidia -na $SLURM_GPUS_ON_NODE`. For DMP with GPU, use a script like `script-dmp-2023-gpu.sh`, which might request 4GB of memory per core and specifies cores per node and 1 GPU per node. The `mapdl` command includes `-dis -acc nvidia -na $SLURM_GPUS_ON_NODE` and specifies the MPI implementation, such as `-mpi intelmpi` for Beluga or `-mpi openmpi` for other clusters. Both approaches require loading `StdEnv/2023` and an Ansys module (e.g., `ansys/2024R1.03`), and setting `export ANSGPU_PRINTDEVICES=1`."
+      "question": "How do I run Ansys Mechanical (APDL) jobs with GPU acceleration in Shared Memory Parallel (SMP) mode using a Slurm script on an Alliance cluster?",
+      "answer": "To run an Ansys Mechanical (APDL) job with GPU acceleration in Shared Memory Parallel (SMP) mode, you can use a Slurm script like `script-smp-2023-gpu.sh`. This script requires you to specify your account, time limit, memory for all cores, the number of cores (`--ntasks`), and the number and type of GPUs per node (e.g., `#SBATCH --gpus-per-node=1`). You should load the `StdEnv/2023` and a compatible `ansys` module (e.g., `ansys/2024R1.03`). The `mapdl` command should include options such as `-smp`, `-acc nvidia`, `-na $SLURM_GPUS_ON_NODE`, and `-np $SLURM_NTASKS`, directing output to a job-specific directory and specifying your APDL input file."
     },
     {
-      "question": "What are the default memory allocations for Mechanical APDL (MAPDL) jobs, and how can these values be modified?",
-      "answer": "By default, Ansys Mechanical APDL (MAPDL) jobs allocate 1024 MB for total memory and 1024 MB for database memory. You can manually specify or change these values by adding arguments to the `mapdl` command line in your Slurm scripts. Use `-m <value>` to set the total memory and `-db <value>` for the database memory, where `<value>` is in megabytes."
+      "question": "What are the default memory allocations for Ansys Mechanical (APDL) jobs, and how can they be adjusted in Slurm scripts?",
+      "answer": "Ansys Mechanical (APDL) jobs are allocated 1024 MB of total memory and 1024 MB of database memory by default. These values can be manually specified or changed by adding arguments `-m <value>` for total memory and/or `-db <value>` for database memory to the `mapdl` command line within your Slurm scripts."
     },
     {
-      "question": "What recommendations are provided for optimizing Mechanical APDL (MAPDL) job performance on Alliance clusters?",
-      "answer": "To optimize Mechanical APDL (MAPDL) job performance on Alliance clusters, it's generally advised to use single-node (SMP Shared Memory Parallel) scripts whenever possible, as they typically offer better performance than multinode (DIS Distributed Memory Parallel) scripts. Before executing production jobs, conduct thorough scaling tests to identify the optimal number of cores and the minimum memory required for your specific simulation. Additionally, ensure that the Ansys module loaded in your script matches the version used to generate the APDL input file to avoid compatibility issues. Depending on your license server and Ansys module, adding `-p aa_r` or `-ppf anshpc` to the `mapdl` command might also be necessary."
+      "question": "Which type of parallel job, Shared Memory Parallel (SMP) or Distributed Memory Parallel (DMP), is generally recommended for Ansys Mechanical (APDL) on Alliance clusters for optimal performance?",
+      "answer": "For optimal performance, the single node (SMP Shared Memory Parallel) scripts are typically recommended for Ansys Mechanical (APDL) jobs on Alliance clusters whenever possible, as they generally perform better than the multinode (DIS Distributed Memory Parallel) scripts."
     }
   ],
-  "generated_at": "2026-04-26T00:38:14.049474+00:00"
+  "generated_at": "2026-05-03T01:09:47.735723+00:00"
 }

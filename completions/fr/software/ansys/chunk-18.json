@@ -4,17 +4,17 @@
   "chunk_index": 18,
   "qa_pairs": [
     {
-      "question": "Dans le cadre des simulations Fluent, quelle est la distinction entre les fichiers « sample.jou » et « sample-restart.jou » lors d'un redémarrage?",
-      "answer": "Le fichier « sample.jou » est utilisé pour le premier pas de la simulation, tandis que le fichier « sample-restart.jou » sert pour les pas suivants. Pour le redémarrage, « sample-restart.jou » doit être configuré pour lire le fichier « sample-restart » et pour ne pas initialiser le flot, par exemple en commentant la ligne correspondante."
+      "question": "Comment doit-on configurer les fichiers de journalisation pour Fluent afin de gérer le redémarrage d'une simulation, et quelle est la formule pour calculer la durée totale de la simulation?",
+      "answer": "Pour configurer les fichiers de journalisation en vue d'un redémarrage de simulation dans Fluent, vous devez commencer avec les fichiers `sample.cas`, `sample.dat` et `sample.jou`. Le fichier `sample.jou` doit inclure les commandes `/solve/dual-time-iterate 1` et `/file/auto-save/data-frequency 1`. Ensuite, créez un fichier `sample-restart.jou` (une copie de `sample.jou`) et modifiez-le pour qu'il contienne `/file/read-cas-data sample-restart` au lieu de `/file/read-cas-data sample`, en commentant la ligne d'initialisation. Si les pas suivants sont prévus pour être deux fois plus rapides, spécifiez `/solve/dual-time-iterate 2`. La durée totale de la simulation est calculée par la formule `1*Dt + 2*Nrestart*Dt`, où `Dt` représente la durée d'un pas et `Nrestart` est le nombre de redémarrages spécifié dans le script Slurm."
     },
     {
-      "question": "Comment calcule-t-on la durée totale et le nombre de pas d'une simulation Fluent redémarrée, en considérant que le deuxième pas et les suivants sont deux fois plus rapides que le pas initial?",
-      "answer": "La durée totale de la simulation est calculée par la formule `1*Dt + 2*Nrestart*Dt`, où « Dt » représente la durée d'un pas et « Nrestart » est le nombre de redémarrages défini dans le script Slurm. Le nombre total de pas sera `1 + 2*Nrestart`."
+      "question": "Quelle est la durée maximale allouée pour une tâche Fluent soumise à Slurm lorsqu'on utilise la fonctionnalité de redémarrage de solution sur les grappes de calcul?",
+      "answer": "La durée maximale allouée pour une tâche Fluent soumise à Slurm, quand on utilise la fonctionnalité de redémarrage de solution, peut aller jusqu'à 7 jours. Il faut s'assurer que la valeur spécifiée pour le temps demandé dans le script Slurm (`#SBATCH --time`) permet au pas initial et aux pas suivants de se terminer dans cette fenêtre de temps."
     },
     {
-      "question": "Quel est le temps maximal alloué pour une tâche de simulation Fluent sur l'ordonnanceur Slurm?",
-      "answer": "Le temps maximal alloué pour une tâche de simulation Fluent sur l'ordonnanceur Slurm peut aller jusqu'à sept jours (<code>07-00:00</code> jours)."
+      "question": "Dans le cadre d'un redémarrage de solution avec Fluent, pourquoi et dans quelles circonstances devrait-on choisir '1' plutôt que '2' pour le paramètre `dual-time-iterate` dans le fichier de journalisation `sample-restart.jou`?",
+      "answer": "Dans le contexte d'un redémarrage de solution avec Fluent, on devrait choisir '1' plutôt que '2' pour le paramètre `dual-time-iterate` dans le fichier `sample-restart.jou` si le premier pas de `sample.jou` est déjà basé sur une solution précédente. Dans ce cas, il est probable que tous les pas de la simulation, y compris le pas initial et les pas suivants, nécessiteront un temps d'exécution similaire. Le choix de '2' est généralement réservé aux situations où les pas suivants sont estimés être deux fois plus rapides que le pas initial."
     }
   ],
-  "generated_at": "2026-04-26T00:43:01.921496+00:00"
+  "generated_at": "2026-05-03T01:14:27.723054+00:00"
 }

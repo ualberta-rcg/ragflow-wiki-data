@@ -4,13 +4,13 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "What is the main function of the `script-flu-bycore+restart.sh` Slurm script in the context of Ansys Fluent simulations?",
-      "answer": "The `script-flu-bycore+restart.sh` Slurm script is primarily designed to run Ansys Fluent simulations that require automatic solution restarts, particularly for jobs exceeding standard runtime limits. It utilizes a 'by core' allocation strategy, distributing tasks across multiple compute nodes or within a single node, and leverages Slurm's array job feature to manage these sequential restarts."
+      "question": "How do the Fluent Slurm scripts for multinode jobs manage simulation restarts after a successful time step, and what files are involved in this process?",
+      "answer": "Upon the successful completion of a Fluent job array task, the script checks if more restart attempts are configured. If additional restarts are needed, it creates symbolic links for the designated restart case file (MYCASFILERES) and data file (MYDATFILERES) to the most recently generated output `.cas` and `.dat` files. This process allows subsequent job array tasks to continue the simulation from the latest saved state."
     },
     {
-      "question": "How does the `script-flu-bycore+restart.sh` Slurm script manage the restarting of an Ansys Fluent simulation from a previous state?",
-      "answer": "The script uses Slurm's array job feature, specified by `#SBATCH --array=1-5%1`, to orchestrate multiple restart attempts. For the initial job (`$SLURM_ARRAY_TASK_ID == 1`), it executes Fluent with the primary journal file (`MYJOUFILE`). For subsequent restarts, it uses a dedicated restart journal file (`MYJOUFILERES`) and dynamically creates symbolic links (`ln -sfv`) to the most recent output `.cas` and `.dat` files from the `output/` directory, naming them `MYCASFILERES` and `MYDATFILERES`. This process ensures that each subsequent job in the array continues the simulation from the latest saved solution state."
+      "question": "What Slurm directives are essential for configuring a multinode Fluent job that utilizes a restart mechanism, as demonstrated in the provided script snippet?",
+      "answer": "Essential Slurm directives for configuring such a job include `--account` to specify the billing account, `--time` for the job's time limit (e.g., `00-03:00`), `--ntasks` for the total number of cores, `--mem-per-cpu` for memory allocation per core, and critically, `--array` to define the number of simulation restart attempts (e.g., `1-5%1` for up to 5 attempts)."
     }
   ],
-  "generated_at": "2026-04-26T00:36:24.272539+00:00"
+  "generated_at": "2026-05-03T01:07:54.993504+00:00"
 }

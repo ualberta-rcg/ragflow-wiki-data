@@ -4,17 +4,13 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "How can I configure a Slurm script to run a multinode Ansys Fluent job on the Narval cluster, using Open MPI and allocating resources by node?",
-      "answer": "To configure a Slurm script for a multinode Ansys Fluent job on the Narval cluster using Open MPI and node-based resource allocation, you would specify `#SBATCH --nodes=1` (or more) and `#SBATCH --ntasks-per-node=64` (Narval 64 or less). Ensure `module load StdEnv/2023` and `module load ansys/2023R2` (or newer versions) are specified. The script should export `OPENMPI_ROOT=$EBROOTOPENMPI` and, for multinode execution, `export FI_PROVIDER=verbs`. The Fluent command for a multinode job would then be `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
+      "question": "What are the Slurm parameters and Fluent command options for running a multinode Ansys Fluent job using Open MPI on the Narval cluster?",
+      "answer": "To run a multinode Ansys Fluent job on the Narval cluster using Open MPI, you should specify the following Slurm parameters: at least `--nodes=1`, `--ntasks-per-node=64` (or less), and `--mem=0` to allocate all memory per compute node. You need to load the `StdEnv/2023` and `ansys/2023R2` (or newer) modules. Additionally, set `export OPENMPI_ROOT=$EBROOTOPENMPI` and `export FI_PROVIDER=verbs`. The Fluent command for multinode operation should be structured as `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
     },
     {
-      "question": "What are the memory allocation options for Ansys Fluent jobs on the Narval cluster when submitting a multinode job via a Slurm script?",
-      "answer": "When submitting a multinode Ansys Fluent job on the Narval cluster via a Slurm script, you have two primary memory allocation options. If allocating resources \"by node\", you can specify `#SBATCH --mem=0`, which allocates all available memory per compute node. If allocating resources \"by core\", you can specify `#SBATCH --mem-per-cpu=4G` to allocate 4 GB of memory per core."
-    },
-    {
-      "question": "What Ansys module version is required for running Fluent jobs on the Trillium cluster, and what is the maximum number of cores per node that can be requested?",
-      "answer": "For running Ansys Fluent jobs on the Trillium cluster, only the `ansys/2025R2.04` module version or newer is supported. The maximum number of cores per node that can be specified for these jobs is 192."
+      "question": "What specific Ansys module version is required for running Ansys Fluent on the Trillium cluster, and what local environment setup is necessary for project files?",
+      "answer": "To run Ansys Fluent on the Trillium cluster, you must use the `ansys/2025R2.04` module or any newer version, as older versions are not supported. For local environment setup, you need to ensure that symbolic links to writable directories/files exist in your `$SCRATCH` directory for `~/.ansys`, `~/.fluentconf`, and `~/.flrecent`. For example, for `.ansys`, if it doesn't exist or isn't a link, you would run `ln -s $SCRATCH/.ansys ~/.ansys` after removing any existing `.ansys` file. Trillium typically allocates all memory per node by default."
     }
   ],
-  "generated_at": "2026-04-26T00:35:31.676012+00:00"
+  "generated_at": "2026-05-03T01:06:58.882032+00:00"
 }

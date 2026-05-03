@@ -102,7 +102,7 @@ If you wish to explore the [OpenStack API for Python](http://docs.openstack.org/
 
 ## Connecting CLI to OpenStack
 Your command line client must now be told how to find your OpenStack project on our clouds. The most convenient way to do this is to download an OpenStack environment setup file. On the OpenStack dashboard, go to Project -> API Access -> Download OpenStack RC File.
-If you are connecting to the new Arbutus cloud (not legacy Arbutus), you will need to make some additional changes to your RC file described here: [New Arbutus RC File Modifications](arbutus_migration_guide.md#new-arbutus-rc-file-modifications).
+If you are connecting to the new Arbutus cloud (not legacy Arbutus), you will need to make some additional changes to your RC file described here: [New Arbutus RC File Modifications](arbutus_migration_guide.md).
 
 Then source the file with something like:
 ```bash

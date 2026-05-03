@@ -4,17 +4,13 @@
   "chunk_index": 44,
   "qa_pairs": [
     {
-      "question": "If a user runs two Fluent jobs, one with 8 cores and another with 32 cores, on a SHARCNET Ansys license, how many `anshpc` licenses will be consumed? What happens if there are insufficient licenses for a new job?",
-      "answer": "For an 8-core Fluent job and a 32-core Fluent job, a total of 32 `anshpc` licenses are consumed: (8-4) for the first job and (32-4) for the second. If a new job attempts to start and requires more `anshpc` licenses than are currently available in the SHARCNET license pool, it will fail to start. In such a scenario, the user has two options: either wait for a sufficient number of `anshpc` licenses to become available, or reduce the job size to require fewer licenses and resubmit it immediately."
+      "question": "How can one resolve a situation where Ansys licenses are unexpectedly still in use by a username on an Alliance cluster, even after a job or session has ended?",
+      "answer": "If Ansys licenses are unexpectedly tied up by rogue processes on a desktop or compute node—for instance, due to an unclean shutdown of an Ansys GUI program or a crash in an interactive `salloc` session—you can kill all potentially responsible Ansys processes. This can be achieved by closing the desktop, cancelling the `salloc` session, or by opening a terminal window on the affected node and issuing the command `pkill -9 -e -u $USER -f \"ansys\"`. Any Ansys licenses held open should then be immediately returned to the SHARCNET license server, becoming available for use again."
     },
     {
-      "question": "What should a user do if Ansys licenses are unexpectedly still in use by their username on a cluster desktop or compute node?",
-      "answer": "If Ansys licenses are unexpectedly tied up, often due to an Ansys graphical program not shutting down cleanly or a job crashing, the user should kill all potentially responsible rogue Ansys processes. This can be achieved by closing the desktop, cancelling the `salloc` session, or opening a terminal window on the affected node and issuing the command `pkill -9 -e -u $USER -f \"ansys\"`. This action will immediately return the held Ansys licenses to the SHARCNET license server, making them available for use again."
-    },
-    {
-      "question": "What is the process for making the Ansys Additive Manufacturing ACT extension available for use in a project on an Alliance cluster?",
-      "answer": "To make the Ansys Additive Manufacturing ACT extension available, first download the `AdditiveWizard.wbex` file from the Ansys catalog and upload it to the cluster where it will be used. Next, start Workbench in graphical mode, open your project file, and navigate to the ACT Start Page. From there, click 'Manage Extensions' to open the Extension Manager. Click the '+' sign to install the `AdditiveWizard.wbex` file, and then highlight the AdditiveWizard box to load the extension for the current session. Alternatively, click the lower right corner arrow in the AdditiveWizard box and select 'Load extension' to load it for both current and future sessions."
+      "question": "What are the required steps to enable the Ansys Additive Manufacturing ACT extension for use in a project on an Alliance cluster?",
+      "answer": "To enable the Ansys Additive Manufacturing ACT extension, first ensure your `~/.licenses/ansys.lic` file is configured to point to a license server that holds a valid Ansys Mechanical License. Then, download the `AdditiveWizard.wbex` file from `https://catalog.ansys.com/` and upload it to the cluster where it will be used. Next, start Ansys Workbench, open your project file (ending in `.wbpj`), navigate to the ACT Start Page, and click 'Manage Extensions'. From the Extension Manager, install the `AdditiveWizard.wbex` file. Finally, click the lower right corner arrow in the AdditiveWizard box and select 'Load extension' to load it for both current and future sessions."
     }
   ],
-  "generated_at": "2026-04-26T00:33:12.433515+00:00"
+  "generated_at": "2026-05-03T01:04:41.481086+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 41,
   "qa_pairs": [
     {
-      "question": "Comment lancer Ansys CFX en mode graphique à partir d'un bureau On Demand, et quels arguments de commande faut-il spécifier selon la présence ou non d'un GPU?",
-      "answer": "Pour démarrer Ansys CFX à partir d'un bureau On Demand, vous devez d'abord charger le module `StdEnv/2023 ansys/2025R1` (ou une version antérieure). Ensuite, si aucun GPU n'a été demandé, utilisez la commande `cfx5 -graphics mesa`. Si un GPU a été demandé, utilisez plutôt `cfx5 -graphics ogl`."
+      "question": "Qu'est-ce qu'il faut faire si Fluent plante au démarrage dans une session de bureau On Demand sur la grappe Nibi quand on utilise intelmpi?",
+      "answer": "Quand vous utilisez Fluent sur la grappe Nibi, il faut régler manuellement la variable d'environnement <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code>. Sinon, Fluent va planter si vous le démarrez à l'intérieur d'une session de bureau On Demand quand intelmpi est utilisé."
     },
     {
-      "question": "Quelles sont les étapes pour démarrer Ansys Workbench en mode graphique sur un bureau On Demand, et y a-t-il des commandes additionnelles nécessaires pour Ansys Mechanical ou CFD-Post?",
-      "answer": "Pour démarrer Ansys Workbench, chargez d'abord le module `StdEnv/2023 ansys/2022R2` (ou une version plus récente). Si vous utilisez Ansys Mechanical, lancez `xfwm4 --replace &` avant Workbench. Si vous utilisez CFD-Post, exportez la variable `QTWEBENGINE_DISABLE_SANDBOX=1`. Ensuite, exécutez simplement `runwb2`. Il est important de noter que pour les analyses parallèles sur un nœud simple, il ne faut pas cocher l'option 'Distributed' et spécifier un nombre de cœurs égal à votre session salloc moins un. Si les menus déroulants de Workbench ne répondent pas, lancez `xfwm4 --replace`."
+      "question": "Comment lance-t-on Ansys CFX en mode graphique depuis un bureau On Demand, selon qu'on a demandé un GPU ou non?",
+      "answer": "Pour lancer CFX depuis un bureau On Demand, vous devez charger le module approprié, comme <code>module load StdEnv/2023 ansys/2025R1</code>. Ensuite, si vous n'avez pas demandé de GPU, utilisez <code>cfx5 -graphics mesa</code>. Si vous avez demandé un GPU, utilisez <code>cfx5 -graphics ogl</code>."
     },
     {
-      "question": "Quels sont les inconvénients et les problèmes potentiels liés à l'utilisation de la redirection X via SSH pour exécuter des programmes graphiques ANSYS sur les grappes de l'Alliance, comparativement à l'utilisation de VNC?",
-      "answer": "La redirection X via SSH pour exécuter des programmes graphiques ANSYS n'est ni testée ni prise en charge, car elle dépend d'une configuration spécifique du serveur d'affichage X sur votre système local. Généralement, les temps de réponse interactifs sont jugés inacceptables, même pour des opérations de menu de base, et les temps d'attente pour démarrer les programmes avec interface graphique peuvent être très longs. Par exemple, un test a montré qu'il fallait 40 minutes pour obtenir l'interface graphique via SSH, alors que vncviewer ne prenait que 34 secondes. Bien que cela puisse être suffisant si votre seul objectif est d'ouvrir une simulation et d'effectuer des opérations de menu de base ou d'exécuter des calculs, VNC offre une expérience beaucoup plus rapide et fiable."
+      "question": "Quelles sont les étapes pour démarrer Ansys Workbench en mode graphique et que faire si les menus déroulants d'Ansys Mechanical ne répondent pas?",
+      "answer": "Pour lancer Workbench en mode graphique, chargez le module <code>StdEnv/2023 ansys/2022R2</code> (ou une version plus récente), puis lancez <code>runwb2</code>. Si vous utilisez Ansys Mechanical et que les menus déroulants ne répondent pas correctement, lancez <code>xfwm4 --replace &</code> sur la ligne de commande avant de démarrer Workbench. Vous pouvez aussi configurer <code>xfce4-session</code> comme session par défaut en modifiant <code>$HOME/.vnc/xstartup</code>."
     }
   ],
-  "generated_at": "2026-04-26T00:46:05.751122+00:00"
+  "generated_at": "2026-05-03T01:17:39.167395+00:00"
 }

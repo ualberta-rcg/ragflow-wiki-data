@@ -51,7 +51,7 @@ Auto-generated index for `base/software`.
 - [Dedalus](dedalus.md)
 - [Delft3D](delft3d.md)
 - [Dl Poly](dl_poly.md)
-- [Dummywheel](dummywheel.md)
+- [Dummy Wheel](dummy_wheel.md)
 - [Fenics](fenics.md)
 - [Fir](fir.md)
 - [Firedrake](firedrake.md)

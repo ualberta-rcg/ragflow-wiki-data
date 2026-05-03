@@ -4,13 +4,13 @@
   "chunk_index": 28,
   "qa_pairs": [
     {
-      "question": "How do you load the Ansys module for Ansys Workbench jobs on Alliance clusters?",
-      "answer": "To load the Ansys module for Ansys Workbench jobs, you should use the command `module load StdEnv/2023 ansys/2023R2` or a newer version of the Ansys module."
+      "question": "When configuring an Ansys Workbench job in a Slurm script, how is the type of parallelization (shared memory or distributed memory) determined and applied?",
+      "answer": "The type of parallelization for an Ansys Workbench job in a Slurm script is determined by the number of allocated compute nodes. If only one node is requested (`$SLURM_NNODES == 1`), the `MEMPAR` variable is set to 0 for Shared Memory Parallel (SMP). If multiple nodes are requested, `MEMPAR` is set to 1 for Distributed Memory Parallel (DMP). This `MEMPAR` value, along with the total number of tasks (`$SLURM_NTASKS`), is then applied by modifying the `SolveHandlers.xml` configuration file, which is located within the user's Ansys application data directory."
     },
     {
-      "question": "How is parallel processing configured for Ansys Workbench jobs on Alliance clusters based on the number of compute nodes requested in a Slurm script?",
-      "answer": "For Ansys Workbench jobs, if a single compute node is requested (`SLURM_NNODES` == 1), Shared Memory Parallel (SMP) is configured by setting the `MEMPAR` variable to 0. If multiple compute nodes are requested, Distributed Memory Parallel (DMP) is used by setting `MEMPAR` to 1. These settings, along with the maximum number of processors, are then applied by modifying the `SolveHandlers.xml` file."
+      "question": "What is the purpose of the `SolveHandlers.xml` file when running Ansys Workbench jobs on Alliance clusters via Slurm scripts?",
+      "answer": "The `SolveHandlers.xml` file is a crucial configuration file for Ansys Workbench jobs on Alliance clusters. Its purpose in Slurm scripts is to dynamically configure the parallel processing settings for the simulation. Specifically, the script modifies this file to specify whether the job should utilize Shared Memory Parallel (SMP) or Distributed Memory Parallel (DMP) and to set the maximum number of processors (`$SLURM_NTASKS`) that Ansys Workbench will use for the solution."
     }
   ],
-  "generated_at": "2026-04-26T00:30:48.226075+00:00"
+  "generated_at": "2026-05-03T01:02:16.436754+00:00"
 }

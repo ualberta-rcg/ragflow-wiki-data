@@ -4,17 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Quels sont les profils d'instances MIG disponibles pour les GPU H100 et quelles sont leurs caractéristiques en termes de puissance de calcul et de mémoire?",
-      "answer": "Pour les GPU H100, les profils d'instances MIG disponibles sont les suivants : H100-1g.10gb qui offre 1/8<sup>e</sup> de la puissance de calcul et 10Go de mémoire, H100-2g.20gb qui fournit 2/8<sup>e</sup> de la puissance de calcul et 20Go de mémoire, et H100-3g.40gb qui propose 3/8<sup>e</sup> de la puissance de calcul et 40Go de mémoire."
+      "question": "Quelles sont les configurations d'instances MIG de type H100 et leurs spécifications en termes de puissance de calcul et de mémoire?",
+      "answer": "Pour les instances de type H100, les profils disponibles sont :\n- **H100-1g.10gb** : représente 1/8e de la puissance de calcul et dispose de 10 Go de mémoire.\n- **H100-2g.20gb** : offre 2/8e de la puissance de calcul et 20 Go de mémoire.\n- **H100-3g.40gb** : fournit 3/8e de la puissance de calcul et 40 Go de mémoire.\nUtiliser des profils moins puissants aide à réduire l'impact sur votre allocation et votre priorité."
     },
     {
-      "question": "Comment faire pour demander une instance GPU A100 de 20Go avec 3/8<sup>e</sup> de la puissance pour une tâche interactive d’une heure, en spécifiant 2 cœurs CPU et 40Go de mémoire?",
-      "answer": "Pour demander une telle instance, on utilise la commande `salloc` de cette manière : `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`."
+      "question": "Comment puis-je soumettre une tâche interactive qui requiert une instance MIG A100-3g.20gb sur un cluster, comme Narval, pour une durée d'une heure?",
+      "answer": "Pour demander une instance A100-3g.20gb (20 Go de mémoire à 3/8e de la puissance) pour une tâche interactive d’une durée d’une heure, vous pouvez utiliser la commande `salloc` comme suit :\n`salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`\nCette commande spécifie le compte d'utilisateur, le type d'instance GPU, le nombre de cœurs CPU par tâche, la quantité de mémoire système et la durée de la tâche."
     },
     {
-      "question": "Quels sont les indicateurs à surveiller pour déterminer si une tâche devrait rouler sur une instance MIG plutôt que sur un GPU entier?",
-      "answer": "Pour savoir si une tâche devrait utiliser une instance MIG, il faut regarder l'historique de vos tâches sur le portail d'utilisation de Narval. Les indicateurs importants sont la consommation d'énergie du GPU, son taux d'utilisation, la quantité maximale de mémoire GPU consommée et le nombre moyen de cœurs CPU nécessaires à la tâche. Si une tâche utilise moins de la moitié de la puissance de calcul et de la mémoire disponible d'un GPU entier, elle est une bonne candidate pour une instance."
+      "question": "Quels sont les indicateurs clés à surveiller pour déterminer si une tâche GPU devrait être exécutée sur une instance MIG plutôt que sur un GPU entier?",
+      "answer": "Pour savoir si une tâche devrait être migrée vers une instance MIG, vous devriez examiner :\n1.  **La consommation d'énergie du GPU** : Si votre tâche utilise un GPU entier mais ne consomme qu'une petite fraction de sa puissance maximale, elle pourrait être un bon candidat.\n2.  **L'utilisation du GPU** : Vérifiez le pourcentage d'utilisation des capacités de calcul du GPU. Si elle est constamment inférieure à 25-50%, une instance pourrait suffire.\n3.  **La mémoire GPU** : Observez la quantité maximale de mémoire GPU utilisée par votre tâche. Si elle est significativement inférieure à la mémoire totale du GPU, une instance plus petite serait appropriée.\n4.  **Les cœurs CPU nécessaires** : Considérez la quantité moyenne de cœurs CPU requise. Une tâche avec peu de cœurs CPU peut bien s'adapter à une instance.\nVous pouvez consulter l'historique de vos tâches sur le portail d'utilisation de Narval ou utiliser `nvidia-smi` pour surveiller en temps réel."
     }
   ],
-  "generated_at": "2026-04-19T02:13:01.303802+00:00"
+  "generated_at": "2026-05-03T01:38:12.220559+00:00"
 }

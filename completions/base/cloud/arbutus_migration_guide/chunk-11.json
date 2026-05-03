@@ -4,17 +4,17 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "What are the recommended methods for copying data between instances in the Legacy Arbutus Cloud and the New Arbutus Cloud, based on the size of the data volumes?",
-      "answer": "For very large data volumes (e.g., greater than 5TB), Globus is the recommended method. For smaller data volumes, `rsync + ssh` provides good transfer speeds and can work incrementally. When using `rsync`, considering the IPv6 GUA network in OpenStack is advised for potentially improved performance."
+      "question": "What post-transfer configurations might be needed after migrating data to a new Arbutus Cloud instance?",
+      "answer": "After migrating your data to a new Arbutus Cloud instance, you may need to perform several post-transfer configurations. These include updating firewall rules if a host-based firewall (e.g., iptables, firewalld) is used, working with your DNS provider to update DNS entries for any custom domains (e.g., www.myarbutusproject.ca), updating IP addresses in configuration files (e.g., /etc/hosts, /etc/resolv.conf), altering usernames in databases like MySQL, and renewing Let’s Encrypt Transport Layer Security (TLS) certificates, especially if IP addresses are in the certificate’s Subject Alternate Name (SAM). Finally, thorough testing of the configuration is essential."
     },
     {
-      "question": "After migrating data to a new instance in the New Arbutus Cloud, what post-transfer configuration activities might be required?",
-      "answer": "Post-transfer activities may include updating firewall rules if a host-based firewall is used, working with your DNS provider to update custom domain DNS entries, updating IP addresses in configuration files such as `/etc/hosts` or `/etc/resolv.conf`, altering usernames in MySQL, and renewing Let's Encrypt TLS certificates. Thorough testing of the configuration is also necessary, and users should be informed once migration is complete."
+      "question": "What is the recommended procedure for migrating data between legacy and new Arbutus Cloud CephFS shared filesystems?",
+      "answer": "To migrate data between legacy and new Arbutus Cloud CephFS shared filesystems, the recommended procedure involves creating an equivalent share in the new Arbutus Cloud for each legacy share. Both the old and new shares should then be mounted to separate locations on the same virtual machine in the new Arbutus Cloud. A data copy tool, such as `rsync` with the `a`, `v`, and `P` flags, should be used to transfer data from the old share to the new one, ensuring data integrity. Key differences for new shares include creating them via the new Arbutus Cloud web UI, using a distinct `ceph.conf` file (e.g., `ceph-new.conf`), updating the `mon_host` config value in that new file, and specifying `conf=/etc/ceph/ceph-new.conf` in the mount command for the new share."
     },
     {
-      "question": "What is the recommended procedure for migrating data between a Legacy Arbutus Cloud CephFS Shared Filesystem and a New Arbutus Cloud CephFS Shared Filesystem?",
-      "answer": "The recommended procedure for migrating data between CephFS shares involves three main steps: first, create an equivalent share in the New Arbutus Cloud for each legacy share; second, mount both the legacy and the newly created shares to separate mount locations on the same virtual machine in the New Arbutus Cloud; and third, use a data copy tool like `rsync` to transfer the data from the old share to the new one, ensuring data integrity. Important differences for creating the new share include using the New Arbutus Cloud web UI, creating a separate `ceph-new.conf` file with an updated `mon_host` value, and specifying this new configuration file in the mount command."
+      "question": "What are the key considerations when migrating data to the New Arbutus Cloud Object Storage?",
+      "answer": "When migrating data to the New Arbutus Cloud Object Storage, it's important to remember that it is a distinct and separate service from the legacy system, requiring intentional data migration. While legacy bucket management remains with the old cloud, new buckets and objects are managed exclusively in the new environment. You can use various methods and tools, but be cautious with bucket ACLs (Access Control Lists), as most tools don't preserve them, and they may need recreation. Also, any user or project UUIDs you reference will be different. The new Object Storage uses tenants, so bucket name collisions are confined to individual projects. For unauthenticated S3 access, the tenant ID (which is identical to the OpenStack Project ID) must be specified in the URL."
     }
   ],
-  "generated_at": "2026-04-19T01:42:40.913047+00:00"
+  "generated_at": "2026-05-03T01:21:54.525882+00:00"
 }

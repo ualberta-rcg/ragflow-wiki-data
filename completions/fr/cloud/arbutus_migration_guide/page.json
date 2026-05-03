@@ -3,77 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Pourquoi doit-on migrer les instances virtuelles et autres ressources infonuagiques de l'ancien nuage Arbutus vers le nouveau nuage Arbutus amélioré?",
-      "answer": "Il est impératif de migrer toutes les ressources infonuagiques vers le nouveau nuage Arbutus, car le système précédent deviendra hors service au cours de l'année 2026."
+      "question": "Quel est l'objectif principal de ce document concernant le nuage Arbutus?",
+      "answer": "Ce document vise à fournir l'information nécessaire pour la migration des instances virtuelles (VM) de l'ancien nuage Arbutus vers la nouvelle version améliorée du nuage Arbutus."
     },
     {
-      "question": "Quelle est la date limite pour migrer toutes les ressources infonuagiques, comme les instances et les volumes de stockage, de l'ancien nuage Arbutus vers le nouveau?",
-      "answer": "La date limite pour migrer vos ressources est fixée au 31 août 2026."
+      "question": "Quelle est la date limite pour la migration des ressources vers le nouveau nuage Arbutus, et quand l'ancien système deviendra-t-il hors service?",
+      "answer": "La date limite pour migrer les ressources est le 31 août 2026. Le système précédent deviendra hors service au cours de 2026."
     },
     {
-      "question": "Qui est responsable de gérer la migration des instances virtuelles vers le nouveau nuage Arbutus?",
-      "answer": "Puisque les utilisateurs connaissent bien leur travail, il est recommandé de gérer eux-mêmes la migration vers le nouveau nuage en fonction de leurs logiciels et de leur disponibilité."
+      "question": "Qui est responsable de la gestion de la migration des ressources infonuagiques vers le nouveau nuage Arbutus?",
+      "answer": "Les utilisateurs sont responsables de gérer eux-mêmes la migration de leurs ressources vers le nouveau nuage."
     },
     {
-      "question": "À quelle adresse courriel peut-on écrire pour discuter de la meilleure approche de migration vers le nouveau nuage Arbutus avec l'équipe technique?",
-      "answer": "On peut écrire à cloud@tech.alliancecan.ca pour discuter de la meilleure approche de migration avec l'équipe technique."
+      "question": "Quelles sont les questions clés à se poser pour planifier la migration de ses ressources vers le nouveau nuage Arbutus?",
+      "answer": "Il faut identifier les ressources à migrer, distinguer les instances éphémères de celles basées sur des volumes, repérer les volumes de plus de 150Go, déterminer si des outils d'automatisation ou des entrées DNS personnalisées sont utilisés, choisir l'interface OpenStack (tableau de bord ou CLI), vérifier les comptes d'équipe, planifier les interruptions de service et soumettre une demande si les ressources proviennent de l'accès rapide."
     },
     {
-      "question": "Quels types de ressources devraient être identifiés avant de planifier une migration vers le nouveau nuage Arbutus?",
-      "answer": "Il faut lister toutes les ressources à migrer, identifier séparément les instances basées sur des volumes et les instances éphémères, et noter les volumes de plus de 150 Go."
+      "question": "Quel est le premier conseil important pour préparer l'environnement de migration vers le nouveau nuage Arbutus, concernant la sécurité des données?",
+      "answer": "Il est crucial de faire une copie de sauvegarde de toutes les données importantes, car le nuage n'effectue pas de sauvegardes d'instances, malgré les systèmes de stockage redondants."
     },
     {
-      "question": "Que faut-il considérer concernant les interruptions de service lors de la migration de ressources vers le nouveau nuage Arbutus?",
-      "answer": "Selon l'étendue des éléments à migrer, l'interruption peut durer de quelques heures à quelques jours; il faut donc planifier qui doit en être informé et quand le projet peut gérer cette interruption."
+      "question": "Comment un utilisateur devrait-il préparer son environnement pour utiliser les outils en ligne de commande OpenStack afin de migrer entre l'ancien et le nouveau nuage Arbutus?",
+      "answer": "Il faut télécharger les fichiers RC pour les deux nuages, les copier sur le serveur de migration (cloudmigration.calculcanada.ca), puis ouvrir deux sessions sur ce serveur, faire un 'source' de chaque fichier RC dans sa session respective et utiliser la commande 'screen' pour éviter les déconnexions."
     },
     {
-      "question": "Que doit faire un utilisateur dont les ressources ont été allouées via le service d'accès rapide pour la migration vers le nouveau nuage Arbutus?",
-      "answer": "Si les ressources ont été allouées via le service d'accès rapide, l'utilisateur devra soumettre une demande de migration à cloud@tech.alliancecan.ca."
+      "question": "Comment les clés SSH et les groupes de sécurité sont-ils migrés de l'ancien nuage Arbutus vers le nouveau?",
+      "answer": "Les clés SSH peuvent être migrées en copiant la clé publique via le tableau de bord Horizon (Compute -> Paires de clés) ou via la CLI. Les groupes de sécurité et leurs règles doivent être reproduits manuellement ou via la CLI sur le nouveau nuage, en prenant note de ne pas supprimer les règles de sortie (Egress) par défaut."
     },
     {
-      "question": "Quelle est la première étape cruciale à effectuer avant de migrer des instances vers le nouveau nuage Arbutus?",
-      "answer": "Il est très important de faire une copie de sauvegarde des données importantes, car le nuage est doté de systèmes de stockage redondants, mais les instances ne sont pas sauvegardées."
+      "question": "Quelles modifications sont nécessaires au fichier RC téléchargé du nouveau nuage Arbutus pour une authentification correcte avec les outils en ligne de commande?",
+      "answer": "Il faut ajouter les lignes 'export OS_AUTH_TYPE=v3websso', 'export OS_IDENTITY_PROVIDER=atmosphere', 'export OS_PROTOCOL=openid', et 'export OS_PROJECT_DOMAIN_NAME=default', et supprimer les lignes concernant OS_USER_DOMAIN_NAME et la saisie du mot de passe."
     },
     {
-      "question": "Comment doit-on gérer les clés SSH lors de la migration d'instances virtuelles vers le nouveau nuage Arbutus?",
-      "answer": "Les clés SSH doivent être migrées en copiant leur clé publique depuis l'ancien nuage Ouest vers la section 'Paires de clés' du nouveau nuage Arbutus via le tableau de bord Horizon ou le CLI."
+      "question": "Quelles sont les étapes générales d'une migration manuelle ou orchestrée d'instances et de volumes vers le nouveau nuage Arbutus?",
+      "answer": "Les étapes incluent la copie des images personnalisées, l'installation et la configuration des services sur les nouvelles instances, la copie des données, l'assignation de nouvelles adresses IP flottantes, la mise à jour des DNS, puis la suppression des anciennes instances et volumes."
     },
     {
-      "question": "Quelles modifications doivent être apportées au fichier RC du nouveau nuage Arbutus après son téléchargement pour l'utilisation avec les outils en ligne de commande?",
-      "answer": "Il faut ajouter les lignes `export OS_AUTH_TYPE=v3websso`, `export OS_IDENTITY_PROVIDER=atmosphere`, `export OS_PROTOCOL=openid`, et `export OS_PROJECT_DOMAIN_NAME=default`, et supprimer les lignes contenant `OS_USER_DOMAIN_NAME` et la lecture du mot de passe."
+      "question": "Quelle est la méthode recommandée pour la migration d'instances associées à des volumes de moins de 150Go?",
+      "answer": "Pour les volumes de moins de 150Go, la migration avec des images Glance est recommandée, impliquant la création d'une image du volume sur l'ancien nuage, le téléchargement, le téléversement sur le nouveau nuage, puis la création d'un volume à partir de cette image."
     },
     {
-      "question": "Quelles sont les trois catégories générales de scénarios de migration des ressources de l'ancien nuage Arbutus vers le nouveau?",
-      "answer": "Les trois scénarios de migration sont la migration manuelle ou orchestrée, la migration d'instances associées à des volumes et la migration d'instances éphémères."
+      "question": "Comment migrer de très grands volumes de données (plus de 5 To) entre l'ancien et le nouveau nuage Arbutus?",
+      "answer": "Pour les volumes de plus de 5To, Globus est recommandé, nécessitant un abonnement Globus Connect Personal Plus, l'activation de Globus Connect Personal sur les instances, la configuration des pare-feu et l'utilisation de l'interface Globus pour les transferts."
     },
     {
-      "question": "Quelle méthode de copie de données est recommandée pour les très grands volumes (plus de 5 To) lors de la migration vers le nouveau nuage Arbutus?",
-      "answer": "Pour les très grands volumes (plus de 5 To), la méthode la plus simple est d'utiliser Globus Connect Personal avec un abonnement Globus Plus."
+      "question": "Quelle est la méthode recommandée pour copier de plus petits volumes de données entre des instances sur l'ancien et le nouveau nuage Arbutus?",
+      "answer": "Pour les plus petits volumes, l'utilisation de rsync avec SSH est recommandée, permettant un transfert incrémentiel des données après s'être connecté à l'instance source et en utilisant une connexion sans mot de passe via des clés SSH."
     },
     {
-      "question": "Quelle méthode de copie de données est suggérée pour les petits volumes lors de la migration de l'ancien nuage vers le nouveau Arbutus?",
-      "answer": "Pour les plus petits volumes, `rsync + ssh` offre de bonnes vitesses de transfert et travaille de manière incrémentale, ce qui en fait une méthode recommandée."
+      "question": "Quelles sont les activités de configuration courantes requises après la migration de données vers une nouvelle instance sur le nuage Arbutus?",
+      "answer": "Les activités incluent la mise à jour des règles de pare-feu, des entrées DNS, des adresses IP dans les fichiers de configuration, des noms d'utilisateur dans les bases de données, le renouvellement des certificats TLS, et des tests approfondis de la configuration."
     },
     {
-      "question": "Quelles sont quelques-unes des configurations post-migration qui pourraient être requises après le transfert de données vers une nouvelle instance Arbutus?",
-      "answer": "Cela peut inclure la mise à jour des règles de pare-feu, des entrées DNS, des adresses IP dans les fichiers de configuration, l'altération des noms d'utilisateur dans les bases de données et le renouvellement des certificats TLS."
+      "question": "Comment un utilisateur doit-il migrer un système de fichiers partagé CephFS de l'ancien vers le nouveau nuage Arbutus?",
+      "answer": "Il faut créer une part équivalente sur le nouveau nuage, monter les deux parts (ancienne et nouvelle) sur la même machine virtuelle du nouveau nuage, puis utiliser 'rsync' pour transférer les données, en faisant attention aux fichiers de configuration 'ceph.conf' spécifiques au nouveau nuage."
     },
     {
-      "question": "Comment migrer un système de fichiers partagé CephFS de l'ancien nuage Arbutus vers le nouveau?",
-      "answer": "Il faut créer un partage équivalent dans le nouveau nuage, monter les deux partages sur la même machine virtuelle dans le nouveau nuage, puis utiliser un outil comme `rsync` pour transférer les données."
+      "question": "Quelles sont les considérations importantes et les outils recommandés pour la migration de stockage objet de l'ancien au nouveau nuage Arbutus?",
+      "answer": "Le stockage objet du nouveau nuage est un service distinct; il faut être prudent avec les ACL de compartiment qui ne sont généralement pas copiées par les outils. Le nouveau nuage utilise des 'tenants' (ID de projet OpenStack). L'outil 'rclone' est recommandé, en configurant des identifiants S3 pour les deux environnements."
     },
     {
-      "question": "Quel outil est recommandé pour migrer des données vers le stockage objet du nouveau nuage Arbutus si l'utilisateur n'est pas familier avec les options?",
-      "answer": "L'outil `rclone` est recommandé pour la migration des données vers le stockage objet du nouveau nuage Arbutus."
+      "question": "Qui contacter pour obtenir de l'assistance technique concernant la migration vers le nuage Arbutus?",
+      "answer": "Pour une demande d'assistance technique, il faut écrire à cloud@tech.alliancecan.ca."
     },
     {
-      "question": "Est-il permis de partager des comptes OpenStack avec d'autres membres de l'équipe lors de la migration vers le nouveau nuage Arbutus?",
-      "answer": "Non, le partage de compte est strictement interdit; toute personne ayant besoin d'un compte doit en faire la demande via le CCDB."
+      "question": "Si des membres d'une équipe ont besoin d'un compte OpenStack pour le nouveau nuage Arbutus, quelle est la procédure?",
+      "answer": "Toute personne ayant besoin d'un compte doit en faire la demande via le CCDB (Canadian Common Database)."
     },
     {
-      "question": "Quelles sont les adresses URL pour le tableau de bord OpenStack du nuage Arbutus de la génération précédente et du nouveau nuage Arbutus?",
-      "answer": "L'URL de la génération précédente est https://arbutus.cloud.computecanada.ca et celle du nouveau nuage Arbutus est https://arbutus.alliancecan.ca/."
+      "question": "Quelle méthode de migration est spécifiquement requise pour les volumes de plus de 150Go?",
+      "answer": "Les volumes de plus de 150Go doivent être migrés à l'aide de Globus."
     }
   ],
-  "generated_at": "2026-04-19T01:45:10.003750+00:00"
+  "generated_at": "2026-05-03T01:24:20.105449+00:00"
 }

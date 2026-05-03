@@ -4,17 +4,13 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "Pourquoi utiliser les scripts Slurm intitulés « Plusieurs nœuds (par nœud + redémarrage) » ou « Plusieurs nœuds (par cœur + redémarrage) » pour les simulations Ansys Fluent?",
-      "answer": "Ces scripts sont conçus pour automatiser le redémarrage des simulations Ansys Fluent qui sont trop intensives et pourraient dépasser le temps d'exécution maximal permis sur les grappes, en reprenant les calculs à partir des fichiers de pas de temps les plus récemment sauvegardés."
+      "question": "À quoi servent les scripts Slurm de redémarrage pour les simulations Ansys Fluent sur les grappes de l'Alliance ?",
+      "answer": "Ces scripts automatisent le redémarrage de simulations Ansys Fluent qui nécessitent plus que le maximum de sept jours d'exécution permis sur la plupart des grappes, en reprenant les calculs à partir des fichiers de pas de temps les plus récents sauvegardés."
     },
     {
-      "question": "Comment le nombre de redémarrages pour une simulation Ansys Fluent est-il spécifié dans ces scripts Slurm?",
-      "answer": "Le nombre de redémarrages de la solution est spécifié dans le script Slurm en utilisant la directive `#SBATCH --array=1-X%Y`, où 'X' représente le nombre total de tentatives de redémarrage. Par exemple, `#SBATCH --array=1-5%1` permet cinq tentatives de redémarrage."
-    },
-    {
-      "question": "Quelles modifications doivent être apportées aux fichiers de journalisation Fluent (`.jou`) pour activer la fonction de redémarrage avec les scripts Slurm mentionnés?",
-      "answer": "Le fichier `sample.jou` doit être modifié pour inclure les commandes `/solve/dual-time-iterate 1` et `/file/auto-save/data-frequency 1`. Ensuite, un fichier `sample-restart.jou` doit être créé à partir de `sample.jou` et modifié pour utiliser `/file/read-cas-data sample-restart` au lieu de `sample` et pour commenter la ligne d'initialisation, par exemple `; /solve/initialize/initialize-flow`."
+      "question": "Quelles sont les étapes pour préparer les fichiers journalisés (<code>.jou</code>) de Fluent avant d'utiliser les scripts de redémarrage pour les tâches Ansys sur les grappes ?",
+      "answer": "Premièrement, il faut s'assurer d'avoir les fichiers <code>sample.cas</code>, <code>sample.dat</code> et <code>sample.jou</code>. Le fichier <code>sample.jou</code> doit être modifié pour inclure les commandes <code>/solve/dual-time-iterate 1</code> et <code>/file/auto-save/data-frequency 1</code>. Ensuite, on doit créer un fichier <code>sample-restart.jou</code> à partir de <code>sample.jou</code>, puis y remplacer <code>/file/read-cas-data sample</code> par <code>/file/read-cas-data sample-restart</code> et commenter la ligne d'initialisation avec un point-virgule (par exemple, <code>;/solve/initialize/initialize-flow</code>)."
     }
   ],
-  "generated_at": "2026-04-26T00:43:15.433657+00:00"
+  "generated_at": "2026-05-03T01:14:38.472901+00:00"
 }

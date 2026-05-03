@@ -4,17 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "Quels outils d'automatisation est-ce qu'on peut utiliser pour la migration des instances sur le nuage Arbutus et est-ce qu'ils fonctionnent différemment du nuage Ouest?",
-      "answer": "Vous pouvez utiliser des outils comme Ansible, Terraform ou Heat pour orchestrer la migration de vos instances. Si vous les utilisiez déjà sur l'ancien nuage Ouest, ils devraient fonctionner de la même manière sur le nouveau nuage Arbutus."
+      "question": "Qu'est-ce qu'une instance associée à des volumes dans le contexte d'une migration infonuagique vers le nouveau nuage Arbutus et quelle est une bonne pratique pour gérer ce type d'instance?",
+      "answer": "Une instance associée à des volumes est une instance infonuagique qui est rattachée à un volume persistant. Ce volume contient le système d'exploitation et toutes les données nécessaires à l'instance. Pour une meilleure gestion, il est considéré comme une bonne pratique de créer des volumes distincts pour le système d'exploitation et pour les données."
     },
     {
-      "question": "Qu'est-ce qu'une instance associée à des volumes et dans quelle situation devrait-on privilégier la méthode de migration avec des images Glance?",
-      "answer": "Une instance associée à des volumes est rattachée à un volume persistant qui contient le système d'exploitation et les données nécessaires. La méthode de migration avec des images Glance est recommandée pour les volumes de moins de 150 Go."
+      "question": "Pour la migration d'instances associées à des volumes vers le nouveau nuage Arbutus, quelle méthode est préconisée pour les volumes de moins de 150 Go et pourquoi?",
+      "answer": "Pour les volumes de moins de 150 Go, la migration avec des images Glance est recommandée. Cette approche implique de créer une image du volume existant sur le nuage Ouest, de la télécharger sur un serveur de migration, puis de la téléverser vers le nouveau nuage Arbutus pour ensuite créer un volume et le lier à une nouvelle instance. Pour les volumes plus grands, la migration manuelle ou orchestrée est préférée."
     },
     {
-      "question": "Quelles sont les premières étapes pour migrer une instance associée à un volume en utilisant l'utilitaire 'dd' de Linux?",
-      "answer": "Pour migrer une instance associée à un volume avec l'utilitaire 'dd', il faut d'abord lancer une instance temporaire sur le nuage Ouest, y installer le CLI OpenStack, puis copier et activer le fichier RC du nuage Arbutus. Ensuite, on supprime l'instance d'origine (sans supprimer le volume) et on attache ce volume au serveur de migration temporaire pour créer une image avec 'dd'."
+      "question": "Quels outils d'orchestration ou méthodes alternatives peuvent être utilisés pour la migration des instances et volumes vers le nouveau nuage Arbutus, en particulier pour les grands volumes?",
+      "answer": "Pour orchestrer la migration, des outils comme Ansible, Terraform ou Heat peuvent être utilisés; ils devraient fonctionner de la même manière sur Arbutus que sur le nuage Ouest. Pour les volumes de plus de 150 Go où la méthode Glance n'est pas recommandée, la migration manuelle ou orchestrée est préférable. Une autre option, surtout pour les volumes amorçables (bootable), est d'utiliser l'utilitaire Linux 'dd' pour créer une copie identique."
     }
   ],
-  "generated_at": "2026-04-19T01:46:04.323139+00:00"
+  "generated_at": "2026-05-03T01:25:22.189010+00:00"
 }

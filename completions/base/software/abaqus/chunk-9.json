@@ -4,17 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "How do Abaqus solvers support parallelization for explicit analysis, and what types of scripts are provided for running these jobs on Alliance clusters?",
-      "answer": "Abaqus solvers support both thread-based and MPI-based parallelization for explicit analysis. Scripts are provided for running these job types on single or multiple nodes, though template scripts for multinode job restarts are not currently provided pending further testing."
+      "question": "What are the requirements for running Abaqus Standard Analysis in MPI-based mode on multiple compute nodes, and which Abaqus software version is supported for this configuration?",
+      "answer": "Users with large memory or compute needs and access to large licenses can utilize MPI-based computing for Abaqus Standard Analysis across an arbitrary range of nodes. For this configuration, only Abaqus version 2026 or newer may be used."
     },
     {
-      "question": "How can a user configure and submit a single-node explicit analysis job in Abaqus on an Alliance cluster?",
-      "answer": "To configure and submit a single-node explicit analysis job, a user should create a Slurm script that loads the required Abaqus module (e.g., `abaqus/2026`). The script defines job parameters like account, time, memory (`--mem=8000M`), CPUs per task (`--cpus-per-task=4`), and ensures a single node (`--nodes=1`). The Abaqus command is then executed with `mp_mode=threads`, specifying the job name, input file, scratch directory, and CPU/memory parameters, for example: `abaqus job=testep1 input=myexp-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
+      "question": "Are template scripts available to perform restart operations for multi-node Abaqus Standard Analysis jobs or Abaqus Explicit Analysis jobs?",
+      "answer": "No, companion template scripts for restarting multi-node Abaqus Standard Analysis jobs are not provided due to additional limitations. Similarly, template scripts to perform multi-node job restarts for Abaqus Explicit Analysis are also not currently provided, pending further testing."
     },
     {
-      "question": "How do you restart a single-node explicit analysis job in Abaqus on an Alliance cluster?",
-      "answer": "To restart a single-node explicit analysis job, a Slurm script is used which loads the Abaqus module (e.g., `abaqus/2026`). The script then executes the Abaqus command with the `recover` option, specifying a new `job` name and the `oldjob` name from the previous run (e.g., `abaqus job=testep2 oldjob=testep1 input=myexp-sim.inp recover`). It is also necessary to copy the relevant output files from the previous `testep1` job to the current job's directory, and no modifications to the input file are typically required for the restart."
+      "question": "How can a user submit a single-node Abaqus Explicit Analysis job, and what is the recommended Abaqus module version?",
+      "answer": "A user can submit a single-node Abaqus Explicit Analysis job using a project directory script, which employs thread-based parallelization (`mp_mode=threads`). The recommended Abaqus module to load for this is `abaqus/2026`."
     }
   ],
-  "generated_at": "2026-04-13T00:44:30.033642+00:00"
+  "generated_at": "2026-05-03T00:56:17.004424+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "Quelle est la méthode recommandée pour migrer de très grands volumes de données (plus de 5 To) vers le nouveau nuage Arbutus, et quelles sont les étapes principales pour y arriver?",
-      "answer": "Pour la migration de très grands volumes de données (plus de 5 To), la méthode recommandée est d'utiliser le client Globus Connect Personal avec un abonnement Globus Plus. Les étapes principales sont : s'abonner à Globus Connect Personal Plus en contactant globus@tech.alliancecan.ca, activer Globus Connect Personal sur chaque instance touchée par le transfert de données en s'assurant qu'elle possède une adresse IP externe, que son coupe-feu permet la communication par les ports nécessaires, et que l'utilisateur a accès aux données. Enfin, il faut utiliser l'interface Globus (globus.org, globus.calculcanada.ca) pour accéder aux points de chute et transférer les données."
+      "question": "Quelles sont les méthodes de copie de données recommandées pour les transferts de volumes entre les nuages, en fonction de leur taille?",
+      "answer": "Pour la migration de données entre les nuages, le document recommande deux méthodes selon la taille des volumes: Globus est suggéré pour les très grands volumes (ceux de plus de 5 To), tandis que rsync + ssh est préconisé pour les plus petits volumes."
     },
     {
-      "question": "Comment peut-on transférer des petits volumes de données entre des instances du nuage Ouest et du nouveau nuage Arbutus en utilisant rsync et SSH?",
-      "answer": "Pour transférer des petits volumes de données, on peut utiliser la combinaison rsync et SSH. La procédure typique consiste à se connecter avec SSH à l'instance sur le nuage Ouest qui possède le volume principal, puis à lancer rsync sur SSH. Un exemple de commande est : `rsync -avzP -e 'ssh -i ~/.ssh/key.pem' /chemin/local/ utilisateur_distant@hôte_distant:/chemin/vers/fichiers/`. Il faut ensuite vérifier que les données ont bien été copiées dans l'instance sur le nouveau nuage Arbutus, puis supprimer les données sur le nuage Ouest."
+      "question": "Quelles sont les étapes à suivre pour transférer des volumes de données de plus de 5 To en utilisant Globus Connect Personal Plus?",
+      "answer": "Pour transférer de très grands volumes (plus de 5 To) avec Globus Connect Personal Plus, vous devez d'abord vous abonner à Globus Connect Personal Plus en écrivant à globus@tech.alliancecan.ca et en suivant les directives. Ensuite, il faut activer et configurer Globus Connect Personal sur chaque instance concernée, en s'assurant que l'instance a une adresse IP externe, que le coupe-feu permet la communication par les ports nécessaires, et que l'utilisateur a accès aux données. Il faut exécuter Globus Connect Personal en arrière-plan et créer un point de chute partagé. Finalement, les données peuvent être transférées via l'interface Globus (globus.org, globus.calculcanada.ca)."
     },
     {
-      "question": "Quelles sont les configurations post-migration essentielles à effectuer après avoir transféré les données vers une nouvelle instance dans le nuage Arbutus?",
-      "answer": "Après avoir transféré les données vers une nouvelle instance dans le nuage Arbutus, il y a plusieurs configurations post-migration importantes. Celles-ci incluent la mise à jour des règles de pare-feu pour utiliser les nouvelles adresses IP et réseaux si un pare-feu basé sur l'hôte est employé, la collaboration avec le fournisseur DNS pour mettre à jour les entrées DNS des domaines personnalisés, la mise à jour des adresses IP dans les fichiers de configuration (comme `/etc/hosts` ou `/etc/resolv.conf`), la modification des noms d'utilisateur (par exemple, 'root'@'192.168.65.%') dans MySQL, et le renouvellement des certificats TLS Let’s Encrypt si des adresses IP se trouvent dans le Subject Alternate Name (SAM) du certificat. Il est également crucial de tester la configuration une fois toutes ces modifications apportées."
+      "question": "Comment puis-je utiliser rsync et SSH pour copier des petits volumes de données lors d'une migration de nuage?",
+      "answer": "Pour les plus petits volumes, rsync + ssh est recommandé. Il faut se connecter via SSH à l'instance sur le nuage Ouest qui contient le volume principal, puis noter le chemin absolu des données à copier. Ensuite, lancez la commande rsync sur SSH, par exemple: `rsync -avzP -e 'ssh -i ~/.ssh/key.pem' /local/path/ remoteuser@remotehost:/path/to/files/`. Une fois la copie terminée, vérifiez l'intégrité des données sur l'instance Arbutus et supprimez les données sur le nuage Ouest."
     }
   ],
-  "generated_at": "2026-04-19T01:47:08.972389+00:00"
+  "generated_at": "2026-05-03T01:26:11.133390+00:00"
 }

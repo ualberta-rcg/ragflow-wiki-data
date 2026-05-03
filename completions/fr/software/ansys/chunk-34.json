@@ -4,13 +4,17 @@
   "chunk_index": 34,
   "qa_pairs": [
     {
-      "question": "Comment puis-je exécuter une tâche Ansys Mechanical (MAPDL) en mode parallèle à mémoire distribuée (DMP) sur les grappes de l'Alliance, comme Beluga ou Cedar?",
-      "answer": "Pour lancer une tâche Ansys Mechanical (MAPDL) en mode parallèle à mémoire distribuée (DMP), vous devez utiliser la commande `mapdl -dis`. Il faut spécifier l'implémentation MPI appropriée : `intelmpi` est utilisé pour la grappe Beluga, tandis que `openmpi` est utilisé pour les autres grappes comme Cedar. La tâche lira votre fichier d'entrée `YOURAPDLFILE.inp` et enregistrera les résultats dans un répertoire de sortie unique pour le job, par exemple `outdir-$SLURM_JOBID`."
+      "question": "Quand on lance une simulation Ansys Mechanical (MAPDL) en mode parallèle distribué (DMP) sur la grappe Cedar, quelles étapes sont nécessaires pour gérer les dépendances de bibliothèques?",
+      "answer": "Pour une simulation Ansys Mechanical en mode parallèle distribué sur la grappe Cedar, vous devez créer un répertoire de sortie (`mkdir outdir-$SLURM_JOBID`), puis créer un lien symbolique pour le fichier `libstdc++.so.6.0.29` dans ce répertoire, et enfin exporter `LD_LIBRARY_PATH` pour qu'il pointe vers ce nouveau répertoire."
     },
     {
-      "question": "Quelle est la configuration spécifique nécessaire pour faire fonctionner Ansys Mechanical (MAPDL) en mode DMP sur la grappe Cedar?",
-      "answer": "Sur la grappe Cedar, pour exécuter Ansys Mechanical (MAPDL) en mode DMP, il est nécessaire d'ajouter un lien symbolique vers la bibliothèque `libstdc++.so.6.0.29` et d'exporter `LD_LIBRARY_PATH` pour qu'il pointe vers le répertoire de sortie de la tâche (`$PWD/outdir-$SLURM_JOBID`). Cette étape est une solution de contournement pour des problèmes de dépendances de bibliothèques sur cette grappe."
+      "question": "Y a-t-il une variable d'environnement spécifique à configurer pour les tâches Ansys Mechanical en parallèle distribué sur la grappe Beluga?",
+      "answer": "Oui, sur la grappe Beluga, il faut s'assurer que la variable d'environnement `KMP_AFFINITY` est définie à `none` en utilisant la commande `export KMP_AFFINITY=none`."
+    },
+    {
+      "question": "Quelle est la commande de base pour démarrer une simulation Ansys Mechanical (MAPDL) en mode parallèle distribué sur une grappe de calcul, en utilisant un fichier d'entrée APDL?",
+      "answer": "La commande de base pour lancer une simulation Ansys Mechanical (MAPDL) en mode parallèle distribué est `mapdl -dis -mpi intelmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`. Il faut s'assurer d'utiliser le bon type de MPI (ici `intelmpi`) et de remplacer `YOURAPDLFILE.inp` par le nom de votre fichier d'entrée."
     }
   ],
-  "generated_at": "2026-04-26T00:45:08.941429+00:00"
+  "generated_at": "2026-05-03T01:16:43.859844+00:00"
 }

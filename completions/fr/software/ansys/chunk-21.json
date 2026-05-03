@@ -4,17 +4,13 @@
   "chunk_index": 21,
   "qa_pairs": [
     {
-      "question": "Comment les utilisateurs peuvent-ils automatiser le redémarrage d'une simulation Fluent sur les grappes de calcul de l'Alliance, notamment pour les tâches de longue durée ou en cas d'échec de licence?",
-      "answer": "Pour automatiser le redémarrage d'une simulation Fluent, il faut configurer un script Slurm avec l'option `#SBATCH --array=1-N%1`, où `N` indique le nombre maximum de tentatives ou de pas de temps. Ce script utilise des fichiers de journalisation spécifiques pour l'initialisation et pour les redémarrages, et crée des liens symboliques vers les derniers fichiers de données et de cas de sortie pour reprendre la simulation. Si une tentative échoue, le script relance la tâche, mais il est recommandé de vérifier les journaux pour s'assurer que l'échec est dû à un problème de licence et non à une divergence de la simulation, afin d'éviter de gaspiller des ressources."
+      "question": "À quoi servent les fichiers de journalisation (journal files) dans Ansys Fluent et comment les configure-t-on pour différents formats de fichiers?",
+      "answer": "Les fichiers de journalisation dans Ansys Fluent contiennent toutes les commandes de l'interface TUI (Text User Interface). Ils permettent de modifier des paramètres de simulation comme la température, la pression ou la vitesse du flux, ce qui facilite l'exécution de séries de simulations sous diverses conditions. Pour la configuration des formats de fichiers, les versions d'Ansys jusqu'à 2019R3 utilisent la commande <code>/file/cff-file no</code> pour les formats .cas/.dat. À partir de la version 2020R1, les formats plus efficaces .cas.h5/.dat.h5 sont configurés avec <code>/file/cff-files yes</code>."
     },
     {
-      "question": "À quoi servent les fichiers de journalisation Fluent et comment les chercheurs peuvent-ils les utiliser pour contrôler leurs simulations?",
-      "answer": "Les fichiers de journalisation Fluent contiennent toutes les commandes de l'interface TUI (Text User Interface) et permettent de contrôler les simulations. Les chercheurs peuvent les utiliser pour modifier des paramètres (comme la température ou la pression), pour exécuter une série de simulations sous différentes conditions, ou pour automatiser des actions telles que la lecture et l'écriture de fichiers de cas et de données, le lancement du solveur pour un nombre précis d'itérations, et la génération de rapports de simulation. Ces fichiers sont essentiels pour les tâches soumises en lot sur les grappes."
-    },
-    {
-      "question": "Quels sont les formats de fichiers de cas et de données supportés par Fluent et comment peut-on configurer le format à utiliser dans un fichier de journalisation?",
-      "answer": "Fluent supporte les formats de fichiers de cas et de données traditionnels `.cas/.dat` et les formats plus récents et efficaces `.cas.h5/.dat.h5` disponibles à partir de la version 2020R1. Pour utiliser les formats traditionnels, la ligne `/file/cff-files no` doit être incluse dans le fichier de journalisation. Pour les formats plus récents, il faut spécifier `/file/cff-files yes`."
+      "question": "Comment peut-on automatiser le redémarrage d'une simulation Ansys Fluent qui dépasse la limite de temps maximale autorisée sur les grappes de calcul de l'Alliance?",
+      "answer": "Pour automatiser le redémarrage de tâches Fluent intensives qui excèdent la limite maximale d'exécution (souvent sept jours) sur nos grappes, il faut d'abord préparer un groupe de fichiers <code>sample.cas</code>, <code>sample.dat</code> et <code>sample.jou</code>. Le fichier <code>sample.jou</code> initial doit inclure les commandes <code>/solve/dual-time-iterate 1</code> et <code>/file/auto-save/data-frequency 1</code>. Ensuite, un fichier de journalisation de redémarrage nommé <code>sample-restart.jou</code> doit être créé en modifiant <code>sample.jou</code> pour y inclure <code>/file/read-cas-data sample-restart</code> et en commentant la ligne d'initialisation (par exemple, <code>;/solve/initialize/initialize-flow</code>). Si les pas de temps subséquents s'exécutent deux fois plus vite, on peut spécifier <code>/solve/dual-time-iterate 2</code> dans <code>sample-restart.jou</code> afin de réduire le nombre de redémarrages qui consomment beaucoup de ressources."
     }
   ],
-  "generated_at": "2026-04-26T00:43:39.871751+00:00"
+  "generated_at": "2026-05-03T01:15:01.519437+00:00"
 }

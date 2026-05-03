@@ -4,17 +4,13 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "Comment configurer la licence Ansys spécifiquement pour une tâche sur la grappe Trillium?",
-      "answer": "Pour la grappe Trillium, les paramètres de licence tels que le nom d'hôte du serveur (`LICSERVER`), le port flex (`FLEXPORT`) et le port du fournisseur (`VENDPORT`) sont définis directement dans le script de soumission. Des tunnels SSH sont ensuite établis via `tri-gw` pour accéder à ce serveur de licence, et les variables d'environnement `ANSYSLMD_LICENSE_FILE` et `ANSYSLI_SERVERS` sont configurées localement pour utiliser ces tunnels."
+      "question": "Quelles sont les étapes de configuration nécessaires pour les tâches Fluent sur la grappe Trillium, notamment en ce qui concerne les répertoires de configuration ?",
+      "answer": "Pour que Fluent fonctionne sur la grappe Trillium, il faut s'assurer que des répertoires comme `.ansys`, `.fluentconf` et `.flrecent` sont accessibles en écriture. Si ce n'est pas le cas, il faut les lier symboliquement à votre répertoire `$SCRATCH` en utilisant des commandes comme `ln -s $SCRATCH/.ansys ~/.ansys`."
     },
     {
-      "question": "Quels sont les répertoires nécessaires pour les tâches Ansys Fluent sur la grappe Trillium et comment les préparer si elles sont manquantes?",
-      "answer": "Pour les tâches Ansys Fluent sur la grappe Trillium, il est essentiel d'avoir des liens symboliques vers des répertoires inscriptibles dans `$SCRATCH` pour `.ansys`, `.fluentconf` et `.flrecent` dans votre répertoire personnel (`$HOME`). Si ces liens n'existent pas, il faut les créer en exécutant des commandes comme `ln -s $SCRATCH/.ansys ~/.ansys`."
-    },
-    {
-      "question": "Dans quel but utilise-t-on la fonction de « Remise en file d'attente pour obtenir la licence » pour les tâches Ansys Fluent, et quelles sont ses contraintes?",
-      "answer": "Cette fonction sert à resoumettre automatiquement les tâches Ansys Fluent qui échouent au démarrage en raison d'un manque de licences, jusqu'à un nombre maximal de tentatives. Par contre, elle n'est pas recommandée pour les simulations qui pourraient planter pour d'autres raisons ou qui génèrent des avertissements en fin d'exécution, car elle relancerait inutilement ces calculs à partir du début."
+      "question": "Dans quel cas doit-on utiliser les scripts 'Remise en file d'attente pour obtenir la licence' pour les tâches Ansys Fluent, et quand ne sont-ils pas recommandés ?",
+      "answer": "Ces scripts sont conçus pour les tâches Fluent qui se terminent normalement sans erreurs, mais qui échouent souvent au démarrage à cause d'un manque de licences, permettant ainsi de les soumettre plusieurs fois. Par contre, il n'est pas recommandé de les utiliser pour des tâches qui plantent après une longue période ou qui génèrent des avertissements dans le journal, car cela risquerait de relancer inutilement des simulations défectueuses."
     }
   ],
-  "generated_at": "2026-04-26T00:42:30.539464+00:00"
+  "generated_at": "2026-05-03T01:13:54.286035+00:00"
 }

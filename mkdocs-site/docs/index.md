@@ -76,21 +76,19 @@ title: Home
 
 | Service | Status |
 |---------|--------|
-| **Vulcan** | :material-check-circle:{ style="color: green" } Operational |
-| **Narval** | :material-calendar:{ style="color: blue" } 2026-05-01 |
+| **Narval** | :material-close-circle:{ style="color: red" } 2026-05-01 |
 | **Cedar Cloud** | :material-check-circle:{ style="color: green" } Operational |
 | **Graham Cloud** | :material-check-circle:{ style="color: green" } Operational |
 | **Nibi** | :material-check-circle:{ style="color: green" } Operational |
 | **Fir** | :material-check-circle:{ style="color: green" } Operational |
-| **Rorqual** | :material-alert:{ style="color: orange" } Rorqual est en ligne avec certains services qui ne sont pas encore prêts |
+| **Rorqual** | :material-close-circle:{ style="color: red" } 2026-05-01 |
 | **Arbutus** | :material-alert:{ style="color: orange" } Arbutus Power Maintenance |
 | **Béluga** | :material-alert:{ style="color: orange" } Decommissioning: 2026 End of Service Timeline |
-| **Juno** | :material-calendar:{ style="color: blue" } 2026-05-01 |
+| **Juno** | :material-close-circle:{ style="color: red" } 2026-05-01 |
 | **Killarney** | :material-check-circle:{ style="color: green" } Operational |
 | **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
-| **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-04-26 00:25 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-05-03 00:53 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -100,17 +98,17 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 
 | Date | Event | Link |
 |------|-------|------|
-| Apr 27 | Cybersecurity Incident Response - Session 2 | [Details](https://engagedri-ca.zoom.us/meeting/register/kmTb0ziJSZCZBorWFLAlCw) |
-| Apr 28 | Neural network programming: lecture 7 | [Details](https://scinet.courses/1400) |
-| Apr 28 | Introduction to Python Two Day Intensive | [Register](https://libcal.library.ubc.ca/event/4011258) |
-| Apr 30 | Neural network programming: lecture 8 | [Details](https://scinet.courses/1400) |
-| Apr 30 | GPU programming with Chapel [course] | [Register](https://forms.gle/g4zFsPzHaFBtJyRe8) |
-| May 04 | HPC: Shell Basics | [Details](https://www.ualberta.ca/en/information-services-and-technology/research-computing/training.html) |
 | May 04 | RDM Jumpstart | [Details](https://alliance-rdm-gdr.github.io/rdm-jumpstart-registration/) |
 | May 05 | Neural network programming: lecture 9 | [Details](https://scinet.courses/1400) |
-| May 05 | HPC: Scripting Basics | [Details](https://www.ualberta.ca/en/information-services-and-technology/research-computing/training.html) |
+| May 05 | OpenStack command line in action: VMs in minutes [webinar] | [Register](https://forms.gle/5x14VjMbaifFbAze6) |
+| May 05 | Students deserve Research Data Management! Teaching with the RDM Educators Kit | [Register](https://libcal.mcmaster.ca/event/3920114) |
+| May 06 | Why the Trillium Cluster is Different | [Details](https://training.computeontario.ca/courses/course/view.php?id=267) |
+| May 07 | Neural network programming: lecture 10 | [Details](https://scinet.courses/1400) |
+| May 07 | Gen-AI with JAX for simulation data [course] | [Register](https://forms.gle/HJ9teThx7cZezcV97) |
+| May 07 | Introduction to Voyant Tools | [Register](https://libcal.library.ubc.ca/event/4008279) |
+| May 11 | DataCite US/CA Community Call: DataCite DOI Case Studies | [Details](https://lyrasis.zoom.us/meeting/register/Ax-4HPSTQzSnzlezTMNbKA#/registration) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-04-26 00:25 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-05-03 00:53 UTC.*</small>
 
 ---
 

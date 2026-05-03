@@ -4,17 +4,17 @@
   "chunk_index": 20,
   "qa_pairs": [
     {
-      "question": "How can users avoid Abaqus license shortage problems when submitting multiple jobs on Alliance clusters?",
-      "answer": "To prevent license shortage issues with multiple Abaqus jobs, users should employ a job dependency, a job array, or set up a Slurm email notification. This allows them to know when a job completes before manually submitting another one, ensuring optimal license utilization."
+      "question": "What is the default behaviour of an Abaqus job on an Alliance cluster when it's submitted to the queue but there aren't enough license tokens available?",
+      "answer": "By default, if an Abaqus job is submitted to a cluster's queue and there aren't enough license tokens, the job will enter a \"Running\" state from the scheduler's perspective (`squeue`). However, it will remain idle on a compute node, waiting for a license, which will negatively impact the user's account priority as if the job were actively performing computations."
     },
     {
-      "question": "How should users determine and specify memory and CPU resources in their Slurm scripts for Abaqus jobs to ensure optimal utilization?",
-      "answer": "For completed Abaqus jobs, use the `seff JobNumber` command to check 'Memory Utilized', 'Memory Efficiency', 'CPU Utilized', and 'CPU Efficiency'. If efficiency is below approximately 90%, adjust the `--mem=` or `--cpus-per-task=` settings in your Slurm script. For running jobs, use `srun --overlap --jobid=JOBID --pty top -d 5 -u $USER` on the compute node to monitor '%CPU', '%MEM', and 'RES' for each Abaqus parent process."
+      "question": "How can a user configure their Abaqus job to immediately terminate if insufficient license tokens are available, rather than entering an idle queued state on a compute node?",
+      "answer": "To ensure an Abaqus job immediately terminates when there are insufficient license tokens, the user should create a text file named `abaqus_v6.env` in their submit directory containing the single line: `lmlicensequeuing=OFF`."
     },
     {
-      "question": "What is the current status of the Western Abaqus license, and what are the implications for Western researchers on Alliance clusters?",
-      "answer": "The Western Abaqus license server (license4.sharcnet.ca) has been shut down and retired, meaning all Abaqus license checkout requests on the Dusky cluster from this server will currently fail. Western researchers are advised to use the SHARCNET License instead and should contact the Western Abaqus license server administrator, jmilner@robarts.ca, to inquire about using the Western Abaqus license once a replacement server is ready."
+      "question": "What is the method for an Abaqus job to wait for a specified duration in a queued state for a license before automatically terminating if a license does not become available?",
+      "answer": "A user can specify a finite wait time in minutes for an Abaqus job by adding the line `lmhanglimit=X` (where X is the number of minutes) to the `abaqus_v6.env` file in their submit directory. If a license is not acquired within the specified time, the job will be dequeued by the license server and terminated by Slurm."
     }
   ],
-  "generated_at": "2026-04-13T00:46:09.456422+00:00"
+  "generated_at": "2026-05-03T00:57:50.382298+00:00"
 }

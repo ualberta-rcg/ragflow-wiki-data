@@ -4,17 +4,13 @@
   "chunk_index": 30,
   "qa_pairs": [
     {
-      "question": "How do you run an Ansys Mechanical APDL job in Shared Memory Parallel (SMP) mode using a Slurm script on an Alliance cluster?",
-      "answer": "To run an Ansys Mechanical APDL job in SMP mode, you would use the `mapdl` command with the `-smp` flag, for example: `mapdl -smp -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`. This command also sets an output directory named `outdir-$SLURM_JOBID` and uses your specified input file."
+      "question": "How do you submit an Ansys Mechanical (MAPDL) job using Shared Memory Parallel (SMP) on an Alliance compute cluster with CPUs?",
+      "answer": "To submit an Ansys Mechanical (MAPDL) job using Shared Memory Parallel (SMP) with CPUs, you would typically use a Slurm script. This script should load `StdEnv/2023` and an Ansys module like `ansys/2024R1.03` (or newer). The core command to run the simulation is `mapdl -smp -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`, where `$SLURM_NTASKS` specifies the number of cores requested via `#SBATCH --tasks`. An output directory named `outdir-$SLURM_JOBID` will be created for the job."
     },
     {
-      "question": "What modules are required to be loaded in a Slurm script to run Ansys Mechanical APDL?",
-      "answer": "You need to load `StdEnv/2023` and `ansys/2024R1.03` (or a newer version of the Ansys module) in your Slurm script."
-    },
-    {
-      "question": "What specific environment variable configuration is necessary when running Ansys Mechanical APDL on the Cedar cluster?",
-      "answer": "When running on the Cedar cluster, you must include `[[ \"$CC_CLUSTER\" = cedar ]] && export LD_LIBRARY_PATH=$EBROOTGCC/../lib/gcc` in your Slurm script to correctly set the `LD_LIBRARY_PATH`."
+      "question": "What specific environment variable modification is necessary for running Ansys Mechanical (MAPDL) jobs on the Cedar cluster?",
+      "answer": "For Ansys Mechanical (MAPDL) jobs on the Cedar cluster, the `LD_LIBRARY_PATH` environment variable needs to be set. This is achieved by including `export LD_LIBRARY_PATH=$EBROOTGCC/../lib/gcc` in your Slurm script, specifically when the `CC_CLUSTER` variable is `cedar`."
     }
   ],
-  "generated_at": "2026-04-26T00:31:08.817993+00:00"
+  "generated_at": "2026-05-03T01:02:37.229847+00:00"
 }

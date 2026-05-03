@@ -3,61 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is OpenMM and what is its primary design philosophy?",
-      "answer": "OpenMM is an open-source molecular dynamics toolkit designed for flexibility and programmability, primarily used via Python."
+      "question": "What is OpenMM and what is its primary purpose in molecular dynamics?",
+      "answer": "OpenMM is an open-source molecular dynamics toolkit designed for flexibility and programmability, used via Python for running simulations and integrating into custom workflows."
     },
     {
-      "question": "What are the main advantages of using OpenMM for molecular dynamics simulations?",
-      "answer": "OpenMM offers a flexible Python interface, a high-level plugin framework for ML-driven potentials, efficient execution on CPUs and GPUs for HPC, native support for major biomolecular formats (AMBER, GROMACS, CHARMM), and an active open-source plugin ecosystem."
+      "question": "What existing biomolecular file formats can OpenMM natively read and simulate?",
+      "answer": "OpenMM can natively read and simulate systems prepared with AMBER, GROMACS, and CHARMM formats."
     },
     {
-      "question": "What are some limitations or weak points of OpenMM compared to other molecular dynamics engines?",
-      "answer": "OpenMM can be slower than highly optimized classical MM engines (like GROMACS, AMBER) for large-scale production runs, its flexibility can add complexity for hybrid ML/MM simulations, and specialized trajectory analysis may require external tools."
+      "question": "What kind of potentials does OpenMM's plugin architecture support for simulations?",
+      "answer": "OpenMM's plugin architecture supports integration with machine-learning potentials, including TorchMD-Net, MACE, TorchANI, AIMNet2, and DeepMD, for general-purpose or hybrid ML/MM simulations."
     },
     {
-      "question": "How do users load the OpenMM environment module on Alliance clusters?",
-      "answer": "Users can load the OpenMM environment module using the command: `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 openmm/8.4.0 ambertools/25.0`."
+      "question": "What are some key strengths of using OpenMM for molecular dynamics simulations?",
+      "answer": "Key strengths of OpenMM include its flexible Python interface, high-level plugin framework for ML-driven potentials, efficient execution on CPUs and GPUs for HPC, native support for major biomolecular formats, and its open-source nature with an active plugin ecosystem."
     },
     {
-      "question": "Is the `ambertools` module always necessary when using OpenMM on Alliance clusters?",
+      "question": "What are some identified weaknesses of OpenMM compared to other molecular mechanics engines?",
+      "answer": "OpenMM is slower than highly optimized classical MM engines (like GROMACS, AMBER) for large-scale production runs, its flexibility can add complexity for hybrid ML/MM simulations, and specialized trajectory analysis may require external tools."
+    },
+    {
+      "question": "Which environment modules are typically loaded to use OpenMM version 8.4.0 on Alliance clusters?",
+      "answer": "To use OpenMM 8.4.0 on Alliance clusters, users typically load `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `openmm/8.4.0`."
+    },
+    {
+      "question": "Is the `ambertools` module always required when using OpenMM, and if not, when is it needed?",
       "answer": "No, the `ambertools` module is optional and only required if you plan to simulate AMBER-prepared systems with OpenMM."
     },
     {
       "question": "Why might a user create a Python virtual environment when working with OpenMM?",
-      "answer": "A Python virtual environment is useful if a user wants to install extra packages, such as machine-learning potentials, for use with OpenMM."
+      "answer": "A user might create a Python virtual environment when working with OpenMM if they want to install extra packages, such as machine-learning potentials."
     },
     {
-      "question": "What types of input files can OpenMM directly read for setting up biomolecular simulations?",
-      "answer": "OpenMM can directly read Amber topology and coordinate/restart files, as well as respective GROMACS or CHARMM formats, without requiring AmberTools for the latter two."
+      "question": "What preparation steps are recommended for AMBER systems before transferring files to HPC for OpenMM simulations?",
+      "answer": "It is recommended to ensure your AMBER system is equilibrated and minimized in Amber or another package before transferring the files to HPC for OpenMM simulations."
     },
     {
-      "question": "What is a recommended preparation step for a system before transferring files to an HPC cluster for an OpenMM simulation?",
-      "answer": "It is recommended to ensure your system is equilibrated and minimized in Amber or another package before transferring files to HPC for an OpenMM simulation."
+      "question": "What are the common Slurm directives used in a job script for an OpenMM simulation requiring one GPU?",
+      "answer": "Common Slurm directives include `#SBATCH --cpus-per-task=1`, `#SBATCH --gpus=h100:1`, `#SBATCH --mem-per-cpu=4000`, and `#SBATCH --time=0-01:00:00`."
     },
     {
-      "question": "What are the typical `SBATCH` directives included in a job script for running an OpenMM simulation on one GPU on Alliance clusters?",
-      "answer": "Typical `SBATCH` directives include `--cpus-per-task=1`, `--gpus=h100:1`, `--mem-per-cpu=4000`, and `--time=0-01:00:00`."
+      "question": "What is the primary function of the example Python simulation script (`openmm_input.py`) provided for OpenMM?",
+      "answer": "The primary function of the example Python simulation script is to load Amber parameter and restart files, build the OpenMM simulation system, set up the integrator, and run the molecular dynamics."
     },
     {
-      "question": "What is the primary function of the example Python simulation script provided for OpenMM?",
-      "answer": "The example Python script loads Amber parameter and restart files, builds the OpenMM simulation system, sets up the integrator, and runs the molecular dynamics."
+      "question": "In the example OpenMM Python script, which classes are used to handle temperature and pressure control during a simulation?",
+      "answer": "In the example OpenMM Python script, `LangevinMiddleIntegrator` is used for temperature control, and `MonteCarloBarostat` is used for pressure control."
     },
     {
-      "question": "What OpenMM components are used in the example Python script to manage simulation parameters and outputs?",
-      "answer": "The script uses classes like `LangevinMiddleIntegrator` for dynamics, `MonteCarloBarostat` for pressure control, `Platform.getPlatformByName(\"CUDA\")` for GPU execution, and `StateDataReporter`, `NetCDFReporter`, and `RestartReporter` for outputting simulation data."
+      "question": "Which reporting mechanisms are demonstrated in the example OpenMM Python script for outputting simulation data?",
+      "answer": "The example OpenMM Python script demonstrates `StateDataReporter` for printing simulation state to `sys.stdout`, `NetCDFReporter` for saving trajectory data, and `RestartReporter` for saving restart files."
     },
     {
-      "question": "Where can users find a guide for optimizing OpenMM job performance on Alliance clusters?",
-      "answer": "Users can consult the 'Molecular Dynamics Performance Guide' created by a team at ACENET, which includes information specific to OpenMM performance on Alliance clusters."
+      "question": "Where can users find resources for benchmarking OpenMM and other molecular dynamics software on Alliance clusters?",
+      "answer": "Users can find a Molecular Dynamics Performance Guide created by ACENET, available online, which helps determine optimal conditions for AMBER, GROMACS, NAMD, and OpenMM jobs on Alliance clusters."
     },
     {
-      "question": "How many CPUs are typically required per GPU for OpenMM when running on the CUDA platform?",
-      "answer": "OpenMM on the CUDA platform typically requires only one CPU per GPU because it does not use CPUs for calculations."
+      "question": "What is the general recommendation regarding CPU usage for OpenMM simulations on the CUDA platform?",
+      "answer": "OpenMM on the CUDA platform requires only one CPU per GPU because it does not use CPUs for calculations."
     },
     {
-      "question": "What are the recommendations regarding running OpenMM on multiple GPUs on Alliance clusters?",
-      "answer": "While OpenMM can use several GPUs, the most efficient way to run simulations is usually with a single GPU. A slight speedup is observed on multiple GPUs in nodes with NvLink, but there is very little speedup without NvLink (e.g., on P100 GPUs)."
+      "question": "How does OpenMM's performance generally scale with multiple GPUs on Alliance clusters?",
+      "answer": "While OpenMM can use several GPUs, the most efficient way to run simulations is generally to use a single GPU. However, on nodes with NvLink (where GPUs are connected directly), OpenMM runs slightly faster on multiple GPUs, but without NvLink, there is very little speedup."
     }
   ],
-  "generated_at": "2026-04-13T10:36:21.453757+00:00"
+  "generated_at": "2026-05-03T01:38:53.281823+00:00"
 }

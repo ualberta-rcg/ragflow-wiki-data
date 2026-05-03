@@ -4,13 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Comment peut-on surveiller les métriques d'un GPU en temps réel pour une tâche en cours d'exécution afin de déceler une sous-utilisation et voir si on pourrait passer à une instance MIG?",
-      "answer": "Pour surveiller l'utilisation du GPU d'une tâche en cours d'exécution en temps réel, il faut se connecter au nœud où se trouve la tâche et utiliser la commande `nvidia-smi`. Par contre, cet outil ne donne pas les valeurs maximales ou moyennes pour la mémoire et la puissance sur toute la durée de la tâche, mais il est utile pour identifier une sous-utilisation."
+      "question": "Comment est-ce qu'on peut surveiller l'utilisation du GPU d'une tâche en cours d'exécution en temps réel?",
+      "answer": "Pour ça, il faut se connecter au nœud où la tâche roule et utiliser la commande `nvidia-smi` pour lire les métriques du GPU en direct. Ça aide à voir si le GPU est sous-utilisé, même si ça donne pas les valeurs maximales ou moyennes de puissance et de mémoire pour toute la tâche."
     },
     {
-      "question": "Comment sont réellement partitionnés les processeurs de flux (SM) d'un GPU NVIDIA H100 SXM5 pour les configurations de GPU multi-instances (MIG)?",
-      "answer": "Un GPU H100 SXM5 compte 132 processeurs de flux (SM). Ils sont partitionnés pour les configurations MIG comme suit : une instance de 60 SM (<code>nvidia_h100_80gb_hbm3_3g.40gb</code>), une instance de 32 SM (<code>nvidia_h100_80gb_hbm3_2g.20gb</code>), et deux instances de 16 SM (<code>nvidia_h100_80gb_hbm3_1g.10gb</code>). Cela signifie que 8 SM ne sont pas assignés et sont perdus."
+      "question": "Comment sont partitionnés les 132 processeurs (SM pour *streaming multiprocessors*) d'un GPU H100 SXM5 dans une configuration MIG (Multi-Instance GPU)?",
+      "answer": "Les 132 SM sont partitionnés en une instance de 60 SM (`nvidia_h100_80gb_hbm3_3g.40gb`), une instance de 32 SM (`nvidia_h100_80gb_hbm3_2g.20gb`) et deux instances de 16 SM chacune (`nvidia_h100_80gb_hbm3_1g.10gb`), laissant 8 SM qui ne sont pas assignés et sont donc perdus."
+    },
+    {
+      "question": "Pourquoi, en réalité, il serait plus précis de parler de \"trente-troisièmes\" plutôt que de \"huitièmes\" quand on décrit la division d'un GPU H100 en instances MIG?",
+      "answer": "C'est parce qu'un GPU H100 SXM5 compte 132 processeurs (SM), un nombre qui ne se divise pas juste par sept ou huit. Par exemple, ce que NVidia appelle un huitième représente en fait 4/33<sup>e</sup> du GPU H100, et non un huitième exact."
     }
   ],
-  "generated_at": "2026-04-19T02:13:22.915923+00:00"
+  "generated_at": "2026-05-03T01:38:32.109316+00:00"
 }

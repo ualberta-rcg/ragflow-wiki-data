@@ -3,61 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Qu'est-ce qu'OpenMM et quelle est sa principale utilité en simulation moléculaire?",
-      "answer": "OpenMM est une boîte d'outils conçue pour la simulation moléculaire, qui peut être utilisée comme application autonome ou comme bibliothèque pour effectuer des simulations. Il se distingue par sa grande flexibilité pour les champs de force personnalisés et les algorithmes de résolution."
+      "question": "Qu'est-ce qu'OpenMM et qu'est-ce qui en fait un outil remarquable pour la simulation moléculaire?",
+      "answer": "OpenMM est une boîte d'outils conçue pour la simulation moléculaire qui se distingue par sa grande flexibilité pour les champs de force et les algorithmes, son ouverture et son excellente performance, surtout avec les GPU récents. On peut l'utiliser comme application autonome ou comme bibliothèque."
     },
     {
-      "question": "Quelles sont les forces principales d'OpenMM par rapport à d'autres outils de simulation moléculaire?",
-      "answer": "OpenMM se démarque par son interface Python flexible, son cadre de plugins pour les potentiels basés sur l'apprentissage automatique, son exécution efficace sur les CPU et GPU pour le calcul haute performance, son support natif des formats biomoléculaires majeurs (AMBER, GROMACS, CHARMM) et son statut de logiciel libre avec un écosystème actif."
+      "question": "Quelles sont les principales forces d'OpenMM pour la simulation moléculaire sur les plateformes de calcul haute performance?",
+      "answer": "Les forces d'OpenMM incluent une interface Python flexible, un cadre de plugins de haut niveau, une exécution efficace sur CPU et GPU, un support natif pour les formats biomoléculaires majeurs (AMBER, GROMACS, CHARMM) et son statut de logiciel libre avec un écosystème actif."
     },
     {
-      "question": "Quels sont les points faibles d'OpenMM lorsqu'on le compare à d'autres moteurs de dynamique moléculaire classiques?",
-      "answer": "OpenMM est plus lent que les moteurs MM classiques très optimisés (comme GROMACS ou AMBER) pour les simulations de production à grande échelle. Sa flexibilité peut ajouter de la complexité pour les simulations hybrides ML/MM, et l'analyse de trajectoire spécialisée peut exiger des outils externes."
+      "question": "Quels sont les points faibles d'OpenMM comparé à d'autres moteurs de dynamique moléculaire classique?",
+      "answer": "OpenMM peut être plus lent que des moteurs très optimisés comme GROMACS ou AMBER pour de grosses simulations de production. Sa flexibilité peut complexifier les simulations hybrides ML/MM, et l'analyse de trajectoire spécialisée peut nécessiter des outils externes."
     },
     {
-      "question": "Quels modules d'environnement sont requis pour lancer OpenMM sur les grappes de calcul d'Alliance?",
-      "answer": "Pour utiliser OpenMM, il faut charger les modules `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6` et `openmm/8.4.0`. Le module `ambertools/25.0` est facultatif."
+      "question": "Quels modules d'environnement doivent être chargés pour utiliser OpenMM en version 8.4.0 sur une grappe d'Alliance avec CUDA?",
+      "answer": "Il faut charger les modules `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6` et `openmm/8.4.0`. Le module `ambertools/25.0` est optionnel."
     },
     {
-      "question": "Dans quel cas est-il nécessaire de charger le module `ambertools` avec OpenMM?",
-      "answer": "Le module `ambertools` est nécessaire uniquement si vous prévoyez de simuler des systèmes qui ont été préparés avec AMBER."
+      "question": "Quand le module `ambertools` est-il nécessaire lorsqu'on utilise OpenMM pour une simulation?",
+      "answer": "Le module `ambertools` est requis seulement si l'on prévoit de simuler des systèmes qui ont été préparés à l'aide d'AMBER."
     },
     {
-      "question": "Pourquoi pourrait-on créer un environnement virtuel Python lorsqu'on utilise OpenMM?",
-      "answer": "Un environnement virtuel Python est utile si vous souhaitez installer des paquets supplémentaires, comme des potentiels basés sur l'apprentissage automatique (ML)."
+      "question": "Quel type de préparation est requis pour les fichiers d'entrée avant de les utiliser avec OpenMM sur un système de calcul haute performance?",
+      "answer": "Il faut s'assurer que le système est équilibré et minimisé dans Amber ou un autre logiciel avant de transférer les fichiers vers le système de calcul haute performance."
     },
     {
-      "question": "Quels formats de fichiers d'entrée OpenMM peut-il lire directement pour les simulations?",
-      "answer": "OpenMM peut lire directement les fichiers de topologie et de coordonnées/redémarrage d'Amber, ainsi que les formats respectifs des systèmes GROMACS ou CHARMM."
+      "question": "Comment soumettre une tâche de simulation OpenMM qui utilise un GPU sur un système HPC avec SLURM?",
+      "answer": "Pour soumettre une tâche OpenMM avec un GPU, il faut créer un script SLURM qui charge les modules d'environnement requis, puis exécute un script Python qui configurera et lancera la simulation OpenMM."
     },
     {
-      "question": "Quelle est l'étape préparatoire cruciale pour les fichiers d'entrée avant de les transférer sur un système de calcul haute performance pour OpenMM?",
-      "answer": "Il est crucial de s'assurer que le système a été équilibré et minimisé, que ce soit avec Amber ou un autre logiciel, avant de transférer les fichiers d'entrée vers la plateforme de calcul haute performance."
+      "question": "Quelles sont les ressources typiques demandées dans un script SLURM d'exemple pour une tâche OpenMM sur GPU?",
+      "answer": "Un script d'exemple demande 1 CPU par tâche, 1 GPU de type h100, 4000 Mo de mémoire par CPU et une limite de temps d'une heure (0-01:00:00)."
     },
     {
-      "question": "Comment soumettre une tâche de simulation OpenMM qui utilise un GPU sur une grappe de calcul d'Alliance?",
-      "answer": "Pour soumettre une tâche OpenMM avec un GPU, on utilise un script SLURM (par exemple, `submit_openmm.cuda.sh`) qui spécifie les ressources (GPU, CPU, mémoire, temps) et exécute un script Python de simulation, comme `openmm_input.py`."
+      "question": "Que fait le script Python `openmm_input.py` dans le contexte d'une simulation OpenMM?",
+      "answer": "Le script `openmm_input.py` charge les fichiers d'entrée (par exemple, Amber), crée le système de simulation OpenMM, configure l'intégrateur et le barostat, définit les propriétés de la plateforme (comme CUDA), ajoute des reporters pour suivre la simulation et exécute les dynamiques."
     },
     {
-      "question": "Quel est le rôle du script Python `openmm_input.py` dans un exemple de soumission de tâche OpenMM?",
-      "answer": "Le script `openmm_input.py` charge les fichiers d'entrée, crée le système de simulation OpenMM, configure l'intégrateur et d'autres paramètres physiques (température, pression, coupure), et exécute la dynamique de la simulation."
+      "question": "Quels paramètres de simulation sont définis dans l'exemple de script Python pour OpenMM?",
+      "answer": "L'exemple de script définit le nombre d'étapes (6000), le pas de temps (2.0 femtosecondes), la température (310 Kelvin), la pression (1 atmosphère) et la coupure non-liée (8.0 angströms)."
     },
     {
-      "question": "Quels sont les paramètres de simulation typiques configurés dans un script OpenMM comme `openmm_input.py`?",
-      "answer": "Les paramètres typiques incluent le nombre d'étapes (nsteps), le pas de temps (dt), la température, la pression, le rayon de coupure (cutoff), la méthode non-liée (PME), l'intégrateur (LangevinMiddleIntegrator), le barostat (MonteCarloBarostat) et les propriétés de la plateforme (par exemple, CUDA)."
+      "question": "Où peut-on trouver un guide de performance pour les simulations de dynamique moléculaire avec des logiciels comme OpenMM, AMBER, GROMACS et NAMD?",
+      "answer": "Le guide « Molecular Dynamics Performance Guide », créé par une équipe d'ACENET, fournit des informations sur les conditions optimales pour exécuter ces tâches sur leurs grappes."
     },
     {
-      "question": "Quelles sont les exigences en CPU pour OpenMM sur la plateforme CUDA afin d'obtenir des performances optimales?",
-      "answer": "Sur la plateforme CUDA, OpenMM ne nécessite qu'un seul CPU par GPU, car les CPU ne sont pas utilisés pour les calculs principaux."
+      "question": "Combien de CPU OpenMM nécessite-t-il par GPU sur les plateformes CUDA et quelle en est la raison?",
+      "answer": "Sur les plateformes CUDA, OpenMM n'a besoin que d'un CPU par GPU, car les CPU ne sont pas utilisés pour les calculs de la simulation."
     },
     {
-      "question": "OpenMM peut-il utiliser plusieurs GPU et est-ce toujours avantageux en termes de performance?",
-      "answer": "Oui, OpenMM peut utiliser plusieurs GPU dans un nœud, mais il est généralement plus efficace d'effectuer les simulations avec un seul GPU. La vitesse de simulation n'augmente que légèrement sur les nœuds avec NvLink (où les GPU sont directement connectés) et très peu sans NvLink."
+      "question": "Comment OpenMM se comporte-t-il avec plusieurs GPU dans un même nœud, et est-ce toujours une stratégie efficace pour améliorer les performances?",
+      "answer": "OpenMM peut utiliser plusieurs GPU dans un nœud, mais il est généralement plus efficace de faire les simulations avec un seul GPU, car l'augmentation de vitesse avec plusieurs GPU est souvent légère, surtout sans NvLink."
     },
     {
-      "question": "Où peut-on trouver des informations sur l'optimisation des performances des simulations de dynamique moléculaire sur les grappes de calcul d'Alliance?",
-      "answer": "Le 'Molecular Dynamics Performance Guide' créé par ACENET décrit les conditions optimales pour exécuter des tâches avec AMBER, GROMACS, NAMD et OpenMM sur les grappes de calcul."
+      "question": "Quel est l'impact de la technologie NvLink sur les performances des simulations OpenMM utilisant plusieurs GPU?",
+      "answer": "La vitesse de simulation avec plusieurs GPU est légèrement augmentée sur les nœuds équipés de NvLink, où les GPU sont directement connectés. Sans NvLink, l'augmentation de vitesse est très faible."
+    },
+    {
+      "question": "Quel est un prérequis courant pour les systèmes GROMACS ou CHARMM avant de les utiliser avec OpenMM?",
+      "answer": "Pour les systèmes GROMACS ou CHARMM, OpenMM peut lire leurs formats respectifs directement, sans avoir besoin du module AmberTools."
     }
   ],
-  "generated_at": "2026-04-13T10:37:55.648105+00:00"
+  "generated_at": "2026-05-03T01:40:13.490059+00:00"
 }

@@ -4,17 +4,13 @@
   "chunk_index": 29,
   "qa_pairs": [
     {
-      "question": "Quelles sont les options de base disponibles pour exécuter le solveur CFX, et comment les connaître ?",
-      "answer": "Pour obtenir un résumé des options de ligne de commande de CFX, vous pouvez utiliser la commande `cfx5solve -help`. Par défaut, `cfx5solve` fonctionne en simple précision, mais vous pouvez ajouter l'option `-double` pour la double précision, ce qui doublera les besoins en mémoire. Pour gérer les maillages plus grands (jusqu'à 2 milliards d'éléments), l'option `-large` est disponible. Il est recommandé de consulter le guide d'ANSYS CFX-Solver Manager pour plus de détails sur les différentes combinaisons d'options pour le partitionneur, l'interpolateur ou le solveur."
+      "question": "Quelles options de ligne de commande peut-on utiliser avec `cfx5solve` pour gérer la précision des calculs ou la taille des maillages dans ANSYS CFX?",
+      "answer": "Par défaut, `cfx5solve` s'exécute en simple précision, mais on peut ajouter l'option `-double` pour utiliser la double précision, ce qui augmente aussi les besoins en mémoire. Pour les maillages de plus grande taille, allant jusqu'à 2 milliards d'éléments, l'option `-large` doit être ajoutée. Sans cette option, la limite est de 80 millions d'éléments structurés ou 200 millions d'éléments non structurés."
     },
     {
-      "question": "Comment lancer une simulation Ansys CFX sur un seul nœud de calcul en utilisant un script Slurm ?",
-      "answer": "Pour lancer une simulation Ansys CFX sur un seul nœud, vous devriez utiliser le script `script-local.sh`. Ce script spécifie un seul nœud de calcul (`#SBATCH --nodes=1`) et le nombre de cœurs par nœud. Pour les grappes Narval, il utilise la méthode de démarrage \"Open MPI Local Parallel\", tandis que pour les autres grappes, il utilise \"Intel MPI Local Parallel\"."
-    },
-    {
-      "question": "Comment soumettre une tâche Ansys CFX qui utilise plusieurs nœuds de calcul via un script Slurm, et quelles sont les configurations spécifiques requises ?",
-      "answer": "Pour soumettre une tâche Ansys CFX sur plusieurs nœuds de calcul, vous devriez utiliser le script `script-cfx-multiple.sh`. Ce script est configuré pour demander plusieurs nœuds (`#SBATCH --nodes=2` ou plus) et utilise tous les cœurs par nœud (`#SBATCH --ntasks-per-node=64`). Sur la grappe Narval, il utilise la méthode de démarrage \"Open MPI Distributed Parallel\". Pour les autres grappes, il utilise \"Intel MPI Distributed Parallel\" et nécessite d'exporter `I_MPI_HYDRA_BOOTSTRAP=ssh` et de désactiver `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`."
+      "question": "Comment est-ce qu'on lance une simulation ANSYS CFX en parallèle sur les grappes avec un script Slurm, que ce soit sur un seul nœud ou sur plusieurs?",
+      "answer": "Pour lancer une simulation CFX en parallèle, il faut d'abord charger les modules `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente). Pour une exécution sur un seul nœud, la commande `cfx5solve` utilisera `-start-method \"Open MPI Local Parallel\"` sur Narval ou `-start-method \"Intel MPI Local Parallel\"` sur les autres grappes, en spécifiant le nombre de cœurs avec `-part $SLURM_CPUS_ON_NODE`. Pour une exécution sur plusieurs nœuds, la commande sera `-start-method \"Open MPI Distributed Parallel\"` sur Narval ou `-start-method \"Intel MPI Distributed Parallel\"` sur les autres grappes, et il faudra spécifier le nombre de nœuds avec `-par-dist $NNODES` (où `$NNODES` est obtenu via `slurm_hl2hl.py --format ANSYS-CFX`)."
     }
   ],
-  "generated_at": "2026-04-26T00:44:32.227938+00:00"
+  "generated_at": "2026-05-03T01:16:02.033880+00:00"
 }

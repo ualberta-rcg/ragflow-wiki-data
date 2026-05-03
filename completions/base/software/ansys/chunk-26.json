@@ -4,13 +4,17 @@
   "chunk_index": 26,
   "qa_pairs": [
     {
-      "question": "How should a Slurm script be configured for running Ansys CFX simulations across multiple compute nodes on an Alliance cluster?",
-      "answer": "For multinode Ansys CFX simulations, a Slurm script should specify `--nodes=2` or more, `--ntasks-per-node=192` to utilize all cores per compute node, `--mem=0` to allocate all memory on each compute node, and `--cpus-per-task=1`, which should not be changed."
+      "question": "What is the purpose of the provided Slurm script named `script-cfx-multiple.sh`?",
+      "answer": "The `script-cfx-multiple.sh` Slurm script is designed to submit Ansys CFX jobs for multinode distributed parallel execution on Alliance clusters."
     },
     {
-      "question": "Which software modules are recommended for loading in a Slurm script to run Ansys CFX jobs on an Alliance cluster?",
-      "answer": "To run Ansys CFX jobs in a Slurm script, you should load the `StdEnv/2023` module and an `ansys/2023R2` or newer module version. Note that `StdEnv/2020` and `2021R2` are deprecated."
+      "question": "Which Slurm parameters and module versions are recommended for configuring a multinode Ansys CFX job?",
+      "answer": "For a multinode Ansys CFX job, it is recommended to set Slurm parameters such as `--nodes` (two or more compute nodes), `--ntasks-per-node=192` (to use all cores per node), `--mem=0` (to use all memory on each node), and `--cpus-per-task=1`. Additionally, you should load the `StdEnv/2023` and `ansys/2023R2` (or newer) module versions."
+    },
+    {
+      "question": "How does the multinode Ansys CFX Slurm script adapt its MPI settings for different Alliance clusters?",
+      "answer": "The multinode Ansys CFX Slurm script dynamically selects the MPI implementation based on the cluster. For `narval` or `fir` clusters, it uses \"Open MPI Distributed Parallel\". For other clusters, it configures \"Intel MPI Distributed Parallel\" and sets `export I_MPI_HYDRA_BOOTSTRAP=ssh`."
     }
   ],
-  "generated_at": "2026-04-26T00:30:31.991102+00:00"
+  "generated_at": "2026-05-03T01:01:59.748356+00:00"
 }

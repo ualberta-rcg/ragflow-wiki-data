@@ -4,17 +4,17 @@
   "chunk_index": 39,
   "qa_pairs": [
     {
-      "question": "When using an OnDemand desktop on the Nibi cluster, how do you start Ansys Workbench with GPU acceleration?",
-      "answer": "To start Ansys Workbench with GPU acceleration on an OnDemand desktop on the Nibi cluster, you must select a `t4 (15GB)` GPU from the GPU selector pulldown list when configuring your OnDemand desktop session. This action automatically sets up the necessary VirtualGL environment variables. Once your desktop is ready, open a terminal, load the module `StdEnv/2023 ansys/2025R2.04` (or a newer version), and then execute `runwb2`."
+      "question": "When using an OnDemand desktop, how do I start Ansys Workbench and then Ansys Fluent with accelerated graphics on the Nibi cluster?",
+      "answer": "To launch Ansys Workbench with accelerated graphics on the Nibi cluster via an OnDemand desktop, you must first select a 't4 (15GB)' GPU from the GPU selector list when starting your OnDemand session. This ensures the necessary environment variables for accelerated OpenGL graphics are automatically configured. Once your desktop appears, open a terminal window, load the Ansys module (e.g., `module load StdEnv/2023 ansys/2025R2.04`), and then run `runwb2`. To start Fluent from within Workbench, click 'Fluid Flow (Fluent)' and then 'Setup'. In the Fluent Launcher's Environment Tab, manually set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi) and `HOOPS_PICTURE=opengl2` (for Ansys 2025R1 or newer), then click the `Start` button."
     },
     {
-      "question": "What specific environment variable must be manually set on the Nibi cluster to prevent Ansys Fluent from crashing during startup when using the default Intel MPI within an OnDemand Compute Desktop session?",
-      "answer": "When using the Nibi cluster, the environment variable `I_MPI_HYDRA_BOOTSTRAP=ssh` must be manually set. If this variable is not configured, Ansys Fluent will crash upon startup when run with the default Intel MPI within OnDemand Compute Desktop sessions."
+      "question": "What critical environment variable must be manually set to prevent Ansys Fluent from crashing when launched inside an OnDemand Compute Desktop session on the Nibi cluster, especially when using Intel MPI?",
+      "answer": "When running Ansys Fluent on the Nibi cluster, the environment variable `I_MPI_HYDRA_BOOTSTRAP=ssh` must be manually set. Failure to do so when the default Intel MPI is used will cause Fluent to crash on startup, producing error output such as 'Error: Unable to run bstrap_proxy'. To recover from this, you must completely exit Fluent, cleanly shut down Workbench, and then restart the process, ensuring the variable is set."
     },
     {
-      "question": "If Ansys Workbench applications exhibit corrupted graphics when started from a Jupyterhub Desktop, what steps can be taken to resolve this issue by running Workbench in Mesa mode?",
-      "answer": "To resolve corrupted graphics in Ansys Workbench applications when using a Jupyterhub Desktop, you can create a custom desktop icon to start Workbench in Mesa mode. First, exit Workbench and open a terminal. Then, copy the default Workbench icon by running `cd ~/Desktop; cp -p $(realpath workbench.desktop) workbench-mesa.desktop`. Next, edit the newly created `~/Desktop/workbench-mesa.desktop` file using a text editor like `nano`, changing all instances of `runwb2` to `runwb2 -oglmesa`. Save the changes, then refresh the Jupyter desktop by pressing `control-R`. The new icon will appear, and double-clicking it will launch Workbench in Mesa mode."
+      "question": "If Ansys Workbench or Fluent graphics appear corrupted on a Jupyter Lab desktop session without a GPU, what is the recommended workaround?",
+      "answer": "If graphics appear unusable due to corruption when starting Ansys Workbench or Fluent on a Jupyter Lab desktop without a GPU, you can create a custom desktop icon to launch Workbench in Mesa mode. First, exit Workbench, then open a terminal window. Copy and paste `cd ~/Desktop; cp -p $(realpath workbench.desktop) workbench-mesa.desktop` into the terminal. Next, edit the newly created file `~/Desktop/workbench-mesa.desktop` (e.g., using `nano`) and change all instances of `runwb2` to `runwb2 -oglmesa`, then save the changes. Refresh the Jupyter desktop (by pressing `control-R`) for the new icon to appear. For Fluent specifically, you may also try setting the `HOOPS_PICTURE=opengl2-mesa` variable in the Fluent Launcher window."
     }
   ],
-  "generated_at": "2026-04-26T00:32:32.634333+00:00"
+  "generated_at": "2026-05-03T01:04:05.320787+00:00"
 }

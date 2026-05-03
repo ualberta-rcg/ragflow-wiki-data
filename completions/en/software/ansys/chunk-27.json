@@ -4,17 +4,17 @@
   "chunk_index": 27,
   "qa_pairs": [
     {
-      "question": "How do users submit an Ansys Workbench project (`.wbpj`) as a batch job to the queue using a Slurm script?",
-      "answer": "Users must first initialize the project by opening it in an OnDemand desktop GUI, resetting the model, saving it, and then exiting Workbench. Afterward, they can submit the job using a Slurm script (e.g., `script-wbpj-2023.sh` or `script-wbpj-2020.sh`), which typically loads the appropriate Ansys module and executes the command `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj` to update and save the project."
+      "question": "How can a user prevent an Ansys Workbench job from overwriting its solution when running a Slurm script, especially when performing scaling tests?",
+      "answer": "To prevent an Ansys Workbench job from overwriting its solution, particularly for scaling tests, users should change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of their Workbench Slurm script. This modification helps in evaluating scaling performance by ensuring the initialized solution is not overwritten by subsequent test jobs."
     },
     {
-      "question": "When running an Ansys Workbench batch job, what modification can be made to the Slurm script to prevent the solution from being overwritten upon successful job completion?",
-      "answer": "To prevent the solution from being overwritten, users should change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the `runwb2` command within the last line of the Workbench Slurm script. This modification is particularly useful for scaling tests as it ensures the initialized solution remains intact for subsequent runs."
+      "question": "What is the process for generating an input file for an Ansys Mechanical (APDL) job from an interactive Workbench Mechanical session?",
+      "answer": "To generate an input file for an Ansys Mechanical (APDL) job, users need to open an interactive Workbench Mechanical session. From there, they click on `Solution -> Tools -> Write Input Files`. They then specify the `File name` (e.g., `YOURAPDLFILE.inp`) and select `APDL Input Files (*.inp)` as the `Save as type`."
     },
     {
-      "question": "What are the steps to submit a Shared Memory Parallel (SMP) CPU job for Ansys Mechanical (APDL) to the queue using a Slurm script?",
-      "answer": "First, generate the APDL input file (`YOURAPDLFILE.inp`) from an interactive Workbench Mechanical session by selecting `Solution -> Tools -> Write Input Files`. Then, create a Slurm script, such as `script-smp-2023-cpu.sh`, which loads the `StdEnv/2023` and a compatible `ansys` module (e.g., `ansys/2024R1.03`). The script will create an output directory and execute the `mapdl` command with the `-smp` option, specifying the number of cores with `-np $SLURM_NTASKS` and the input file with `-i YOURAPDLFILE.inp`. For the Cedar cluster, the `LD_LIBRARY_PATH` also needs to be set."
+      "question": "For Ansys Mechanical (APDL) jobs on Alliance clusters, which type of parallelization is generally recommended for optimal performance, Shared Memory Parallel (SMP) or Distributed Memory Parallel (DMP)?",
+      "answer": "For Ansys Mechanical (APDL) jobs on Alliance clusters, Shared Memory Parallel (SMP) scripts are generally recommended over Distributed Memory Parallel (DMP) scripts, as SMP typically performs better. Users should utilize SMP whenever feasible."
     }
   ],
-  "generated_at": "2026-04-26T00:37:53.858562+00:00"
+  "generated_at": "2026-05-03T01:09:29.829313+00:00"
 }

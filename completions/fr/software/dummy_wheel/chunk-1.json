@@ -1,0 +1,20 @@
+{
+  "doc_key": "fr/dummy_wheel",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "Dans le contexte de l'infrastructure de Calcul Canada, qu'est-ce qu'un 'Dummy Wheel' et quel est son rôle principal ?",
+      "answer": "Un 'Dummy Wheel' est un fichier de substitution (placeholder) qui existe dans le wheelhouse pour des paquets Python populaires disponibles sur PyPI, mais qui sont plutôt fournis comme modules sur notre infrastructure. Ils sont identifiés par un tag de version local comme '+dummy', par exemple: `pyarrow-23.0.1+dummy.computecanada-py3-none-any.whl`. Son rôle est d'indiquer que ces paquets sont gérés différemment."
+    },
+    {
+      "question": "Lorsqu'un 'Dummy Wheel' est sélectionné par pip, pourquoi cela génère-t-il une erreur, et est-ce une situation normale ?",
+      "answer": "Pip signale une erreur lorsqu'il sélectionne un 'Dummy Wheel' parce qu'il ne peut pas trouver une correspondance directe pour la dépendance requise. Oui, c'est une erreur normale et attendue. Cela signifie généralement que le module sous-jacent (comme 'arrow' pour 'pyarrow') n'est pas chargé, que sa version ne correspond pas à celle demandée, ou qu'il ne prend pas en charge la version de Python utilisée."
+    },
+    {
+      "question": "Si je rencontre une erreur liée à un 'Dummy Wheel' parce qu'un module essentiel, comme 'arrow' pour 'pyarrow', n'est pas chargé, quelles étapes dois-je suivre pour résoudre ce problème ?",
+      "answer": "Pour résoudre un problème de module non chargé, vous devez d'abord désactiver votre environnement virtuel Python (avec `test $VIRTUAL_ENV && deactivate`). Ensuite, chargez le module requis (par exemple, avec `module load gcc arrow/x.y.z python/x.y.z` en remplaçant 'x.y.z' par les versions nécessaires). Après cela, réactivez votre environnement virtuel (avec `source <env>/bin/activate`) et relancez votre commande `pip install`."
+    }
+  ],
+  "generated_at": "2026-05-03T01:53:53.014097+00:00"
+}

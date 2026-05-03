@@ -4,17 +4,13 @@
   "chunk_index": 23,
   "qa_pairs": [
     {
-      "question": "How can Discrete Phase Model (DPM) injections be automated in Ansys Fluent using a journal file?",
-      "answer": "DPM injections can be automated by including specific commands in the journal file after solution initialization. This involves enabling coupled calculations, deleting existing injections, creating new injections from a specified file (e.g., `zinjection01.inj`), and then listing particle and injection properties. An example sequence of commands is `/define/models/dpm/interaction/coupled-calculations yes`, `/define/models/dpm/injections/delete-injection injection-0:1`, and `/define/models/dpm/injections/create injection-0:1 no yes file no zinjection01.inj no no no no`."
+      "question": "How can Discrete Phase Model (DPM) injections be automated in Ansys Fluent using journal file commands, and what is the typical format for a steady injection text file?",
+      "answer": "To automate DPM injections in Ansys Fluent, journal file commands can be added to your journal file after solution initialization. For example, you can use `/define/models/dpm/interaction/coupled-calculations yes` to enable interaction with the continuous phase, and `/define/models/dpm/injections/create injection-0:1 no yes file no zinjection01.inj no no no no` to create an injection from a file. A basic manually created steady injection text file, like `zinjection01.inj`, generally includes a header for `z` values, followed by a line defining particle properties such as `x`, `y`, `z` coordinates, `u`, `v`, `w` velocities, `diameter`, `temperature`, `mass-flow`, `mass`, `frequency`, `time`, and a `name` for the injection, all enclosed in parentheses. The precise format is detailed in the `2024R2 Fluent Customization Manual` under the 'Steady File Format' subsection."
     },
     {
-      "question": "How can a user view the available command-line options for `cfx5solve` in Ansys CFX?",
-      "answer": "To view a summary of `cfx5solve` command-line options, a user should first load the same module version that will be used in their Slurm script, and then run the command `cfx5solve -help` in the terminal."
-    },
-    {
-      "question": "What command-line options are available for running Ansys CFX's `cfx5solve` with double precision or for simulations involving very large meshes?",
-      "answer": "By default, `cfx5solve` runs in single precision. To run in double precision, add the `-double` option to the command; however, this will also double memory requirements. For simulations with meshes containing up to 2 billion elements (exceeding the default limits), the `-large` option should be added to the command."
+      "question": "How do users submit Ansys CFX jobs for parallel computation on Alliance clusters using Slurm scripts, and what are the primary command-line options available for the `cfx5solve` solver?",
+      "answer": "Ansys CFX jobs can be submitted to Alliance clusters for parallel computation using Slurm scripts. For single-node parallel execution, the `cfx5solve` command typically uses `-start-method \"Open MPI Local Parallel\"` (for `narval` or `fir` clusters) or `\"Intel MPI Local Parallel\"` (for other clusters), along with `-part $SLURM_CPUS_ON_NODE` to specify the number of cores. For multi-node distributed parallel execution, the command uses `-start-method \"Open MPI Distributed Parallel\"` or `\"Intel MPI Distributed Parallel\"` and `-par-dist $NNODES`, where `NNODES` is determined using `slurm_hl2hl.py`. Key command-line options for `cfx5solve` include `-def YOURFILE.def` to specify the definition file, `-single` for single precision (the default), `-double` for double precision (which doubles memory requirements), and `-large` to support meshes with up to 2 billion elements. A comprehensive list of command-line options can be viewed by running `cfx5solve -help` after loading the relevant Ansys module."
     }
   ],
-  "generated_at": "2026-04-26T00:37:17.017357+00:00"
+  "generated_at": "2026-05-03T01:08:52.888260+00:00"
 }

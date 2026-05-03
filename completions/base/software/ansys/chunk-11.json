@@ -4,13 +4,13 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "How do I submit a Fluent job to the Narval cluster using a 'by core' allocation with Open MPI?",
-      "answer": "To submit a multinode Fluent job to the Narval cluster, allocated by core and utilizing Open MPI, you would use a Slurm script like `script-flu-bycore-openmpi.sh`. This script requires you to specify your account, time limit, total number of cores (`--ntasks`), and memory per CPU (`--mem-per-cpu`). You must load the `StdEnv/2023` and `ansys/2023R2` (or newer) modules. Additionally, you need to define your journal file (`MYJOURNALFILE`) and the Fluent version (e.g., `3d` for `MYVERSION`). The script handles setting the `OPENMPI_ROOT`, generating a machinefile, and executing `fluent` using `openmpi` with shared memory for single-node jobs (`-pshmem`) or an InfiniBand interconnect (`-pib`) with the generated machinefile (`-cnf`) for multi-node jobs."
+      "question": "How do I submit a multinode Fluent job on the Narval cluster using OpenMPI, distributing cores across multiple nodes?",
+      "answer": "To submit a multinode Fluent job on the Narval cluster using OpenMPI, you would use a Slurm script that loads `StdEnv/2023` and `ansys/2023R2` (or newer versions). You must specify the total number of cores with `--ntasks` and memory per CPU with `--mem-per-cpu`. The script automatically prepares a machine file and then executes Fluent using OpenMPI, for example: `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE` for multiple nodes, which also sets `FI_PROVIDER=verbs`."
     },
     {
-      "question": "What are the specific requirements and setup steps for running a Fluent job on the Trillium cluster using a 'by node' allocation?",
-      "answer": "For running a Fluent job on the Trillium cluster with a 'by node' allocation, your Slurm script, such as `script-flu-bynode-intel-tri.sh`, must load the `StdEnv/2023` module and `ansys/2025R2.04` or a newer version, as only these are compatible with Trillium. Critically, before the Fluent execution, the script verifies the existence of symbolic links in your `$HOME` directory for `.ansys`, `.fluentconf`, and `.flrecent`. If these links are missing, an error will be reported, and the job will abort. To resolve this, you must remove any existing files/directories with these names and create symbolic links to a writable directory within your `$SCRATCH` space (e.g., `ln -s $SCRATCH/.ansys ~/.ansys`). The script will then prepare a machinefile and execute Fluent using Intel MPI, selecting shared memory (`-pshmem`) for single-node tasks or an InfiniBand interconnect (`-pib`) with the machinefile (`-cnf`) for multi-node tasks. It's important to note that Trillium nodes allocate all memory by default, so the `--mem=0` parameter should not be uncommented in your Slurm script."
+      "question": "What are the specific requirements and initial setup steps for running a multinode Fluent job on the Trillium cluster, particularly concerning home directory configurations?",
+      "answer": "When running a multinode Fluent job on the Trillium cluster, you must load `StdEnv/2023` and `ansys/2025R2.04` (only 2025R2 or newer works on Trillium). Before the Fluent command executes, the Slurm script performs checks to ensure that writable symbolic links exist for `.ansys`, `.fluentconf` directories, and an `.flrecent` file within your `$HOME` directory, pointing them to `$SCRATCH`. If these links are not found or cannot be created, the job will abort with an error message."
     }
   ],
-  "generated_at": "2026-04-26T00:28:39.526800+00:00"
+  "generated_at": "2026-05-03T01:00:03.545646+00:00"
 }

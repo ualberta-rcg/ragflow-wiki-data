@@ -4,17 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is vLLM, and what are its key features?",
-      "answer": "vLLM is a community-driven project that provides high-throughput and memory-efficient inference and serving for large language models (LLMs). It supports various decoding algorithms, quantizations, parallelism, and models from Hugging Face and other sources."
+      "question": "What is vLLM, and what capabilities does it offer for large language models?",
+      "answer": "vLLM is a community-driven project designed to provide high-throughput and memory-efficient inference and serving for large language models (LLMs). It supports various decoding algorithms, quantizations, parallelism, and models from Hugging Face and other sources."
     },
     {
-      "question": "What is the preferred method for installing vLLM using its Python wheel, including the necessary steps for environment setup and cleanup?",
-      "answer": "The preferred method to install vLLM using its Python wheel involves several steps: First, load the `opencv/4.11` and `python/3.12` modules. Next, create and start a temporary virtual environment using `virtualenv --no-download ~/vllm_env` and `source ~/vllm_env/bin/activate`. Then, install vLLM and its Python dependencies within this virtual environment by running `pip install --no-index --upgrade pip` followed by `pip install --no-index vllm==X.Y.Z` (where `X.Y.Z` is the desired version, or it can be omitted to install the latest). After installation, you can freeze the environment with `pip freeze > ~/vllm-requirements.txt`, deactivate it using `deactivate`, and finally clean up by removing the virtual environment with `rm -r ~/vllm_env`."
+      "question": "What is the preferred method for installing vLLM, and what are the initial steps for setting it up?",
+      "answer": "The preferred method for installing vLLM is using a Python wheel. The initial steps involve loading the `opencv` and `python/3.13` modules, followed by creating and activating a temporary Python virtual environment (e.g., `~/vllm_env`). Once the virtual environment is active, vLLM can be installed using `pip install --no-index vllm==X.Y.Z`, where `X.Y.Z` can be a specific version or omitted for the latest available."
     },
     {
-      "question": "How are models typically downloaded for vLLM inference, and what are the important considerations regarding download location and caching?",
-      "answer": "Models for vLLM inference are typically sourced from the Hugging Face Hub. It's important to download these models on a login node to prevent idle compute time while waiting for resources. By default, these models are cached at `$HOME/.cache/huggingface/hub`. An example download process involves loading `python/3.12`, creating a temporary virtual environment, installing `huggingface_hub` with `pip install --no-index huggingface_hub`, and then using `huggingface-cli download facebook/opt-125m` to get the model, followed by removing the temporary environment."
+      "question": "What steps are required before submitting a vLLM inference job, and how do you configure a single-node job for GPU usage?",
+      "answer": "Before submitting a vLLM job, you must download the large language model, typically from the Hugging Face Hub, using a login node to prevent compute idle time. Models are cached at `$HOME/.cache/huggingface/hub` by default. For a single-node job performing inference, you would create a SLURM batch script (`vllm-example.sh`) that loads `python/3.13` and `opencv/4.13` modules, sets up a temporary virtual environment, installs vLLM from `vllm-requirements.txt`, and executes a Python script (`vllm-example.py`). Within the Python script, you initialize `LLM(model=\"<model name>\", tensor_parallel_size=<number of GPUs>)`, ensuring `tensor_parallel_size` matches the number of GPUs requested in your SLURM script. If the model fits on a single GPU, `tensor_parallel_size` can be omitted."
     }
   ],
-  "generated_at": "2026-04-13T15:41:02.068984+00:00"
+  "generated_at": "2026-05-03T01:52:19.312129+00:00"
 }

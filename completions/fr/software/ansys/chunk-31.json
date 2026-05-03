@@ -4,13 +4,13 @@
   "chunk_index": 31,
   "qa_pairs": [
     {
-      "question": "Comment peut-on lancer une simulation ANSYS CFX en mode parallèle distribué sur plusieurs nœuds sur les grappes de l'Alliance, en tenant compte des spécificités de la grappe Narval?",
-      "answer": "Pour lancer ANSYS CFX en mode parallèle distribué sur plusieurs nœuds, il faut utiliser la commande `cfx5solve`. Sur la grappe Narval, la méthode de démarrage est « Open MPI Distributed Parallel », tandis que sur les autres grappes, c'est « Intel MPI Distributed Parallel ». Dans les deux cas, le fichier de définition est spécifié avec l'option `-def` et le nombre de nœuds avec l'option `-par-dist`."
+      "question": "Comment faire pour soumettre une tâche Ansys CFX qui utilise plusieurs nœuds sur une grappe de Calcul Canada en utilisant un script Slurm?",
+      "answer": "Pour soumettre une tâche Ansys CFX sur plusieurs nœuds, il faut utiliser un script Slurm configuré avec des directives comme `--account`, `--time` (par exemple, 00-03:00), `--nodes` (au moins 2), `--ntasks-per-node` (pour spécifier tous les cœurs par nœud, par exemple 64 pour Narval), `--mem=0` (pour allouer toute la mémoire par nœud de calcul) et `--cpus-per-task=1`. Le script doit charger les modules `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente) et ensuite appeler `cfx5solve` avec la méthode de démarrage parallèle distribuée appropriée, soit \"Open MPI Distributed Parallel\" pour la grappe Narval ou \"Intel MPI Distributed Parallel\" pour les autres grappes, en utilisant le nombre de nœuds déterminé par `slurm_hl2hl.py`."
     },
     {
-      "question": "Quelle commande est utilisée pour définir le nombre de nœuds (`NNODES`) pour une exécution en parallèle distribué d'ANSYS CFX, comme indiqué dans les scripts Slurm?",
-      "answer": "La commande utilisée pour définir le nombre de nœuds (`NNODES`) pour une exécution en parallèle distribué d'ANSYS CFX est `NNODES=$(slurm_hl2hl.py --format ANSYS-CFX)`. Cette commande assigne la valeur du nombre de nœuds à la variable `NNODES`."
+      "question": "Quelle implémentation MPI (Message Passing Interface) est utilisée par Ansys CFX pour le calcul parallèle distribué sur les différentes grappes de Calcul Canada?",
+      "answer": "Pour le calcul parallèle distribué avec Ansys CFX, la grappe Narval utilise l'implémentation \"Open MPI Distributed Parallel\". Pour les autres grappes, c'est l'implémentation \"Intel MPI Distributed Parallel\" qui est utilisée. Dans ce dernier cas, il est important d'exporter `I_MPI_HYDRA_BOOTSTRAP=ssh` et d'annuler `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`."
     }
   ],
-  "generated_at": "2026-04-26T00:44:47.786899+00:00"
+  "generated_at": "2026-05-03T01:16:21.268661+00:00"
 }

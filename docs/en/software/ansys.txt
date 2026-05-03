@@ -29,40 +29,32 @@ The following table provides established values for the CMC and SHARCNET license
 |fir
 |<code>172.26.0.101</code>
 |<code>6624</code>
-| <span style="Color:red">[https://www.cmc.ca/ansys-academic-research-software/ Discontinue use]</span> (to be shutdown May1/2026)
+| <span style="Color:red">[https://www.cmc.ca/ansys-academic-research-software/ Discontinue use]</span> (shutdown Apr 23, 2026)
 |-
 | CMC
 | narval/rorqual
 | <code>10.100.64.10</code>
 | <code>6624</code>
-| <span style="Color:red">[https://www.cmc.ca/ansys-academic-research-software/ Discontinue use]</span> (to be shutdown May1/2026)
+| <span style="Color:red">[https://www.cmc.ca/ansys-academic-research-software/ Discontinue use]</span> (shutdown Apr 23, 2026)
 |-
 | CMC
 | nibi
 | <code>10.25.1.56</code>
 | <code>6624</code>
-| <span style="Color:red">[https://www.cmc.ca/ansys-academic-research-software/ Discontinue use]</span> (to be shutdown May1/2026)
+| <span style="Color:red">[https://www.cmc.ca/ansys-academic-research-software/ Discontinue use]</span> (shutdown Apr 23, 2026)
 |-
 | CMC
 | trillium
 | scinet-cmc
 | <code>6624</code>
-| <span style="Color:red">[https://www.cmc.ca/ansys-academic-research-software/ Discontinue use]</span> (to be shutdown May1/2026)
+| <span style="Color:red">[https://www.cmc.ca/ansys-academic-research-software/ Discontinue use]</span> (shutdown Apr 23, 2026)
 |-
 | SHARCNET
-| nibi/fir/narval/rorqual
+| nibi/fir/narval/rorqual/trillium
 | <code>license1.computecanada.ca</code>
 | <code>1055</code>
 | 
-|-
-| SHARCNET
-| trillium
-| <code>[https://docs.alliancecan.ca/wiki/SSH_tunnelling#Contacting_a_license_server_from_a_compute_node localhost]</code>
-| <code>1055</code>
-| 
 |}
-
-Researchers who purchase a new CMC license subscription must [https://www.cmc.ca/support/ submit] your Alliance account username otherwise license checkouts will fail. The number of cores that can be used with a CMC license is described in the <i>Other Tricks and Tips</i> sections of the [https://www.cmc.ca/?s=Other+Tricks+and+Tips&lang=en/ Ansys Electronics Desktop and  Ansys Mechanical/Fluids quick start guides].
 
 === Local license servers  ===
 
@@ -336,17 +328,7 @@ module load ansys/2025R2.04      # only 2025R2 or newer works on trillium
 MYJOURNALFILE=sample.jou         # Specify your journal file name
 MYVERSION=3d                     # Specify 2d, 2ddp, 3d or 3ddp
 
-# These settings are used instead of your ~/.licenses/ansys.lic
-LICSERVER=license1.computecanada.ca   # Specify license server hostname
-FLEXPORT=1055                         # Specify server flex port
-VENDPORT=1793                         # Specify server vendor port
-
 # ------- do not change any lines below --------
-
-ssh tri-gw -fNL $FLEXPORT:$LICSERVER:$FLEXPORT
-ssh tri-gw -fNL $VENDPORT:$LICSERVER:$VENDPORT
-export ANSYSLMD_LICENSE_FILE=$FLEXPORT@localhost
-export ANSYSLI_SERVERS=$INTEPORT@localhost
 
 slurm_hl2hl.py --format ANSYS-FLUENT > $SLURM_SUBMIT_DIR/machinefile-$SLURM_JOB_ID
 NCORES=$SLURM_NTASKS
@@ -1153,7 +1135,7 @@ Besides being able to run simulations in gui mode (as discussed in the Graphical
 
 === Slurm scripts ===
 
-To get a full listing of command line options run <code>Rocky -h</code> on the command line after loading any rocky module.  Note that it is currently necessary to set your path to Rocky (as is shown in the scripts below) for the Rocky command to be found. The path will be included in future module version installs and ansys/2025R1 when updated at such time this message will be removed.  If Rocky is being run with gpus to solving coupled problems, the number of cpus you should request from slurm (on the same node) should be increased to a maximum until the scalability limit of the coupled application is reached.   If however Rocky is being run with gpus to solve standalone uncoupled problems, then only a minimal number of cpus should be requested that will allow be sufficient for Rocky to still run optimally.  For instance only 2cpus or possibly 3cpus may be required.  When Rocky is run with >= 4 cpus then <I>rocky_hpc</I> licenses will be required which the SHARCNET license does provide.  The scripts below have not been tested since the clusters were updated across the Alliance in fall 2025 therefore some adjustments maybe required.  
+To get a full listing of command line options run <code>Rocky -h</code> on the command line after loading the ansys module.  If Rocky is being run with gpus to solve a coupled problem, the number of cpus requested from slurm should be increased to a maximum until the scalability limit of the coupled application is reached. If Rocky is being run with gpus to solve a standalone uncoupled problem, then a minimal number of cpus should be requested for Rocky to run optimally. The two slurm scripts below show how to run a basic standalone Rocky simulation.  Some customizations maybe required to run them on different clusters.
 
 <tabs>
 <tab name="CPU only">
@@ -1163,36 +1145,52 @@ To get a full listing of command line options run <code>Rocky -h</code> on the c
 |contents=
 #!/bin/bash
 
-#SBATCH --account=account      # Specify your account (def or rrg)
+#SBATCH --account=account      # Specify account (def or rrg)
 #SBATCH --time=00-02:00        # Specify time (DD-HH:MM)
 #SBATCH --mem=24G              # Specify total memory for cores
-#SBATCH --cpus-per-task=6      # Specify number of cores to use
+#SBATCH --cpus-per-task=8      # Specify number of cores to use
 #SBATCH --nodes=1              # Request one node (do not change)
 
-module load StdEnv/2023 ansys/2025R1       # or newer versions
-export PATH=$EBROOTANSYS/v251/rocky:$PATH
+module load StdEnv/2023 ansys/2025R2.04   # Specify 2025R1 or newer versions
 
-Rocky --simulate “mysim.rocky” --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=0
+INPUTFILE="mySim.rocky"                   # Specify input filename
+rm -f $INPUTFILE.lock
+
+RESUME=0                                  # Specify 0 or 1
+if [ $RESUME -eq 0 ]; then
+  rm -rf $INPUTFILE.files/simulation      # Removes previous results
+  Rocky --headless --simulate --resume=0 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=0 $INPUTFILE
+else
+  Rocky --headless --simulate --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=0 $INPUTFILE
+fi
 }}
 </tab>
 <tab name="GPU based">
 {{File
-|name=script-rocky-gpu.sh
+|name=script-rocky-gpu.sh0
 |lang="bash"
 |contents=
 #!/bin/bash
 
-#SBATCH --account=account      # Specify your account (def or reg)
+#SBATCH --account=account      # Specify account (def or rrg)
 #SBATCH --time=00-01:00        # Specify time (DD-HH:MM)
 #SBATCH --mem=24G              # Specify total memory for cores
-#SBATCH --cpus-per-task=6      # Specify number of cores to use
-#SBATCH --gres=gpu:v100:2      # Specify gpu type : gpu quantity
+#SBATCH --cpus-per-task=4      # Specify number of cores to use
+#SBATCH --gpus=h100:1          # Specify gpu type : gpu quantity
 #SBATCH --nodes=1              # Request one node (do not change)
 
-module load StdEnv/2023 ansys/2025R1       # or newer versions
-export PATH=$EBROOTANSYS/v251/rocky:$PATH
+module load StdEnv/2023 ansys/2025R2.04   # Specify 2025R1 or newer versions
 
-Rocky --simulate “mysim.rocky” --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=1 --gpu-num=$SLURM_GPUS_ON_NODE
+INPUTFILE="mySim.rocky"                   # Specify input filename
+rm -f $INPUTFILE.lock
+
+RESUME=0                                  # Specify 0 or 1
+if [ $RESUME -eq 0 ]; then
+  rm -rf $INPUTFILE.files/simulation      # Removes previous results
+  Rocky --headless --simulate --resume=0 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=1 $INPUTFILE
+else
+  Rocky --headless --simulate --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=1 $INPUTFILE
+fi
 }}
 </tab>
 </tabs>
@@ -1203,9 +1201,9 @@ Slurm scripts for using AnsysEDT is provided in a separate wiki page [https://do
 
 = Graphical use =
 
-To run Ansys programs in graphical mode click on one of the following OnDemand or Jupyterhub desktop links :
+To run Ansys programs in graphical mode using an OnDemand or Jupyterhub desktop click one of the following links :
 
- [https://docs.alliancecan.ca/wiki/Nibi#Access_through_Open_OnDemand_(OOD) NIBI]: <code>https://ondemand.sharcnet.ca</code>
+  [https://docs.alliancecan.ca/wiki/Nibi#Access_through_Open_OnDemand_(OOD) NIBI]: <code>https://ondemand.sharcnet.ca</code>
  [https://docs.alliancecan.ca/wiki/Fir FIR]: <code>https://jupyterhub.fir.alliancecan.ca</code>
  [https://docs.alliancecan.ca/wiki/Rorqual RORQUAL]: <code>https://jupyterhub.rorqual.alliancecan.ca</code>
  [https://docs.alliancecan.ca/wiki/Narval NARVAL]:  <code>https://jupyterhub.narval.alliancecan.ca/</code>
@@ -1220,26 +1218,24 @@ To start Ansys Fluent from the command line of an On Demand Desktop, open a term
 ::: <code>module load StdEnv/2023 ansys/2025R2.04</code>
 ::: <code>fluent</code>
 
-When the Fluent Launcher popup selector panel appears, click the Environment Tab and copy/paste the following environment variable settings, depending on whether you started your On Demand session with a GPU for graphical acceleration. Do not include the text between the round brackets (as these are comments) and do not put export in front of any variable names.  The <i>null</i> setting means a graphics console window tab will not be created when the gui starts since interactive graphics is no longer supported for the version however it should still be possible to perform normal menu operations and interactively run jobs.
+When the Fluent Launcher popup selector panel appears, click the Environment Tab and copy/paste the following environment variable settings, depending on whether you started your On Demand session with a GPU for graphical acceleration. Do not include the text between the round brackets (as these are comments) and do not put export in front of any variable names.  If the graphics console window becomes corrupted when starting the gui, restart fluent setting <i>HOOPS_PICTURE=null</i> to disable creation of the Graphics panel. 
 
 <b>Compute Node (no GPU requested)</b>
 
-:::: <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> &nbsp;&nbsp;&nbsp;&nbsp; (required on nibi)
-:::: <code>HOOPS_PICTURE=opengl2-mesa</code> &nbsp;&nbsp; (version 2025R1 or newer)
-:::: <code>HOOPS_PICTURE=</code> [leave blank]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (version 2024R2.04 -> 2023R2)
-:::: <code>HOOPS_PICTURE=<i>null</i></code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (version 2022R2)
+::: <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> &nbsp;&nbsp;&nbsp;&nbsp; (required on nibi w/ intelmpi)
+::: <code>HOOPS_PICTURE=opengl2-mesa</code> &nbsp;&nbsp; (version 2025R1 or newer)
+::: <code>HOOPS_PICTURE=x11/lin</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   (version 2024R2.04 or older)
 ::: Click the <code>Start</code> button
 
 <b>Compute Node (with GPU requested)</b>
 
-::: When starting an OnDemand Desktop on nibi that requests a GPU you must currently choose a full <code>h100 (80GB)</code> GPU so the required VirtualGL environment variables are automatically setup in the Deskop environment required to enable OpenGL graphics calls to be accelerated with OpenGL. 
-:::: <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> &nbsp;&nbsp;&nbsp;&nbsp; (required on nibi)
-:::: <code>HOOPS_PICTURE=opengl2-mesa</code> &nbsp;&nbsp; (version 2025R1 or newer)
-:::: <code>HOOPS_PICTURE=opengl</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (version 2024R2.04 -> 2023R2)
-:::: <code>HOOPS_PICTURE=<i>null</i></code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (version 2022R2)
+To use hardware accelerated graphics with fluent on nibi cluster choose a <b>t4 (15GB)</b> from the GPU selector pulldown list for your OnDemand desktop session.  Doing this will ensure the environment variables used by VirtualGL to enable accelerated OpenGL graphics calls are automatically setup inside your Deskop environment for the current session.  Once your desktop appears, open a terminal window and start workbench as follows :
+::: <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> &nbsp;&nbsp;&nbsp;&nbsp; (required on nibi)
+::: <code>HOOPS_PICTURE=opengl2</code> &nbsp;&nbsp; (version 2025R1 or newer)
+::: <code>HOOPS_PICTURE=opengl</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (version 2024R2.04 or older)
 ::: Click the <code>Start</code> button
 
-If <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> is not set properly on nibi when fluent is started from within OOD Compute Desktop sessions and  intelmpi is used then fluent will crash on startup producing the following error output.  Should this occur completely exit fluent, shutdown workbench and start over again.
+NOTE: When running fluent on the Nibi cluster, the environment variable <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> must be manually set; otherwise, fluent will crash when started inside OOD Compute Desktop sessions when intelmpi is used.  Error output such as the following will be created.  Should this occur, completely exit fluent, cleanly shut down workbench and start over again.
  [mpiexec@g4.nibi.sharcnet] Error: Unable to run bstrap_proxy on g4.nibi.sharcnet (pid 2251587, exit code 256)
  [mpiexec@g4.nibi.sharcnet] poll_for_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:157): check exit codes error
  [mpiexec@g4.nibi.sharcnet] HYD_dmx_poll_wait_for_proxy_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:206): poll for  event error
@@ -1266,7 +1262,7 @@ The following steps for starting the Mechanical APDL gui from the command line o
 
 This sections shows howto start workbench (and optionally fluent) on either an On Demand Desktop or Jupyter Lab Desktop.
 
-==== On Demand Desktop ====
+==== OnDemand Desktop ====
 
 <b>Compute Node (no GPU requested) or Basic Desktop</b>
 
@@ -1285,13 +1281,13 @@ If accelerated graphics is required on nibi cluster then choose <b>t4 (15GB)</b>
 ::: <code>module load StdEnv/2023 ansys/2025R2.04</code>
 ::: <code>runwb2</code>
 
-To start fluent from within workbench click <code>Fluid Flow (Fluent) or (Fluent with Fluent Meshing)</code> in the left hand Analysis Menu, then click <code>Setup</code> in the center canvas <code>Fluid Flow (Fluent)</code> popup.  Once the <code>Fluent Launcher</code> selector panel popup appears, click the Environment Tab and copy/paste the following environment variable settings.
-::: <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> &nbsp;&nbsp;&nbsp;&nbsp; (required on nibi cluster only)
-::: <code>HOOPS_PICTURE=opengl2-mesa</code> &nbsp;&nbsp; (optional for 2025R1 or newer)
+To start fluent from within workbench, click <code>Fluid Flow (Fluent) or (Fluent with Fluent Meshing)</code> in the left hand Analysis Menu, then click <code>Setup</code> in the center canvas <code>Fluid Flow Fluent)</code> popup.  Once the <code>Fluent Launcher</code> selector panel popup appears, click the Environment Tab and copy/paste the following environment variable settings.
+::: <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> &nbsp;&nbsp;&nbsp; (required on nibi cluster only)
+::: <code>HOOPS_PICTURE=opengl2</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(optional for 2025R1 or newer)
 ::: Click the <code>Start</code> button
 
-<div style="background-color: #000000; color: #ffffff; padding: 20px;">
-When using nibi cluster if <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> is not set and intelmpi is used then fluent will crash on startup producing  the following sample error output.  If this occurs close fluent, shutdown workbench and start over from the beginning.
+<div style="background-color: #000000; color: #ffffff; padding: 5px;">
+When using nibi cluster <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> must be manually set when the default intelmpi is used otherwiose fluent will crash on startup producing error output such as the following.  To recover from this close fluent, shutdown workbench and try again.
  [mpiexec@g4.nibi.sharcnet] Error: Unable to run bstrap_proxy on g4.nibi.sharcnet (pid 2251587, exit code 256)
  [mpiexec@g4.nibi.sharcnet] poll_for_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:157): check exit codes error
  [mpiexec@g4.nibi.sharcnet] HYD_dmx_poll_wait_for_proxy_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:206): poll for  event error
@@ -1299,20 +1295,29 @@ When using nibi cluster if <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> is not set and
  [mpiexec@g4.nibi.sharcnet] Error setting up the bootstrap proxies
 </div>
 
-==== Jupyter Lab Desktop ====
+==== Jupyterhub Desktop ====
 
 <b>Compute Node (no GPU requested)</b>
 
 ::: Click to load ansys/2025R1 (or newer version) in the Desktop left hand side menu
-::: Click the "Workbench (VNC)" icon located in the Jupyter Lab desktop center window
-::: Since the default icon is configured for a gpu node, we must customize it so
-::: workbench can be restart in mesa mode.  To proceed, Exit the Workbench desktop,
-::: open a terminal window, and run the following commands on the command line:
-::: cd ~/Desktop; cp -p $(realpath workbench.desktop) workbench-mesa.desktop
-::: then edit workbench-mesa.desktop and change runwb2 -> runwb2 -oglmesa
-::: Save the file then click your newly customized icon to start workbench.
-::: Note the workbench icon that you created will persist for future sessions
-::: until manually deleted with: rm -f ~/Desktop/workbench-mesa.desktop
+::: Click the "Workbench (VNC)" icon located in the Jupyter Lab desktop center window.
+:::: If the graphics of any application (such as fluent) started within workbench
+:::: appear unusable due to corrupted graphics then try carrying out the following
+:::: steps.  They will create a custom <code>runwb2</code> desktop icon so that workbench
+:::: can be started mesa mode.  If the one of the applications that you will be starting 
+:::: in workbench is fluent then when the Fluent launcher starts you may also try setting
+:::: <code>HOOPS_PICTURE=opengl2-mesa</code> variable in the Fluent Launcher window.
+::: To proceed, exit Workbench and then open a terminal window.  Copy paste the following
+::: command into the Remote Clipboard located in the top right corner of your jupyter desktop. 
+::: Now the commands can be pasted into terminal ie)
+::: <code>cd ~/Desktop; cp -p $(realpath workbench.desktop) workbench-mesa.desktop</code>
+::: Open the newly created file in a text editor such as nano by doing the following:
+::: <code>nano ~/Desktop/workbench-mesa.desktop</code>.  Change all instances of <code>runwb2</code>
+::: to  <code>runwb2 -oglmesa</code> and then exit the editor saving the changes.  Now REFRESH
+::: the Jupyter desktop by pressing the key combination <i>control-R</i>.  The new icon should now
+::: appear in the desktop along with the original workbench icon. Double click it to start workbench.
+::: The new icon will persist for future sessions until manually deleted with the command
+::: <code>rm -f ~/Desktop/workbench-mesa.desktop</code>.
 
 <b>Compute Node (with GPU requested)</b>
 
@@ -1325,13 +1330,12 @@ When using nibi cluster if <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> is not set and
 ::: <code>ensight -X</code>
 
 === Rocky ===
-::: <code>module load StdEnv/2023 ansys/2025R1</code> (or newer versions)
-::: <code>export PATH=$EBROOTANSYS/v251/rocky:$PATH</code> (path to be included in future module versions)
+::: <code>module load StdEnv/2023 ansys/2025R2.04</code> (or 2025R1, 2025R1.02, 2025R2)
 ::: <code>Rocky</code> The ansys module handles reading your ~/licenses/ansys.lic<br>
-::: <code>RockySolver</code> Run rocky solver directly from command line (add -h for help, untested)
-::: <code>RockySchedular</code> Start rocky schedular gui to submit/run jobs on present node (untested)
+::: <code>RockySolver</code> Run the solver directly from command line (untested)
+::: <code>RockySchedular</code> Start the schedular gui to submit/run jobs on present node (untested)
+::: o Rocky supports GPU-accelerated computing, however this capability is currently untested
 ::: o The SHARCNET license includes Rocky and is therefore free for all researchers to use
-::: o Rocky supports GPU-accelerated computing however this capability not been tested or documented yet
 
 == Electronics ==
 

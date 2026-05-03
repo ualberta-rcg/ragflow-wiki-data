@@ -4,13 +4,13 @@
   "chunk_index": 25,
   "qa_pairs": [
     {
-      "question": "How can one submit an Ansys CFX simulation job across multiple compute nodes using a Slurm script?",
-      "answer": "To submit an Ansys CFX simulation job across multiple compute nodes using a Slurm script, you must specify the account, time limit, number of nodes (two or more), and use all cores and memory per node. The script should load `StdEnv/2023` and `ansys/2023R2` (or newer modules). Depending on the cluster (`narval` or `fir` versus others), the `cfx5solve` command will use either \"Open MPI Distributed Parallel\" or \"Intel MPI Distributed Parallel\" respectively, along with the `-def YOURFILE.def` and `-par-dist $NNODES` options, where `$NNODES` is determined by `slurm_hl2hl.py --format ANSYS-CFX`."
+      "question": "What are the essential Slurm script configurations for running ANSYS CFX in multinode distributed parallel mode on Alliance clusters such as Narval or Fir?",
+      "answer": "To run ANSYS CFX in multinode distributed parallel mode on Narval or Fir clusters, a Slurm script should load the `StdEnv/2023` and `ansys/2023R2` (or newer) modules. The `cfx5solve` command should use `-start-method \"Open MPI Distributed Parallel\"` and include `-par-dist $NNODES` for distributed parallel processing, where `NNODES` is determined by `$(slurm_hl2hl.py --format ANSYS-CFX)`."
     },
     {
-      "question": "What specific Slurm directives are necessary for configuring a multinode Ansys CFX job?",
-      "answer": "For a multinode Ansys CFX job, the necessary Slurm directives are: `--account=def-group` to specify the account, `--time=00-03:00` for the time limit, `--nodes=2` (or more) for the number of compute nodes, `--ntasks-per-node=192` to use all cores on each node, `--mem=0` to use all memory on each node, and `--cpus-per-task=1`."
+      "question": "In an ANSYS CFX Slurm script for multinode jobs, what is the function of the `NNODES=$(slurm_hl2hl.py --format ANSYS-CFX)` command?",
+      "answer": "The command `NNODES=$(slurm_hl2hl.py --format ANSYS-CFX)` is used to determine the number of compute nodes allocated by the Slurm scheduler for the job. This value is then passed to the `cfx5solve` command using the `-par-dist $NNODES` option to ensure ANSYS CFX utilizes the allocated distributed parallel resources correctly."
     }
   ],
-  "generated_at": "2026-04-26T00:37:31.976078+00:00"
+  "generated_at": "2026-05-03T01:09:11.233370+00:00"
 }

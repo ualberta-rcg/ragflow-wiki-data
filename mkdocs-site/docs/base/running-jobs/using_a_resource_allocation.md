@@ -4,71 +4,68 @@ slug: "using_a_resource_allocation"
 lang: "base"
 
 source_wiki_title: "Using a resource allocation"
-source_hash: "6be94b31d22af594a617cccc7c7e0815"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T12:21:38.610156+00:00"
+source_hash: "9e11a9078c563549d1a8ad7406d5bcb0"
+last_synced: "2026-05-02T23:50:34.269007+00:00"
+last_processed: "2026-05-03T00:49:46.347610+00:00"
 
 tags:
   []
 
 keywords:
-  - "associated PI"
-  - "Sponsored users"
-  - "Resource Allocation Projects"
-  - "CCDB"
+  - "Trillium"
   - "RAC award"
-  - "RAP membership page"
-  - "RAC application"
-  - "Alliance CCDB registration"
-  - "Cloud RAP"
-  - "technical support"
-  - "OpenStack projects"
   - "cloud allocation"
-  - "Resource Allocation Project"
-  - "general-purpose cluster"
-  - "Add Members"
+  - "RAP membership page"
+  - "CCRI"
+  - "granted resources"
   - "RAP membership"
-  - "In bulk"
-  - "cloud resources"
-  - "new PI"
-  - "Principal Investigators"
-  - "Resource Allocation Competition"
-  - "sponsored user roles"
-  - "RAP"
   - "Allocations"
-  - "allocation"
-  - "compute allocation"
-  - "co-PIs"
-  - "allocated storage"
+  - "Principal Investigators"
+  - "Alliance CCDB"
   - "sponsored users"
-  - "storage allocation"
+  - "RAC projects"
+  - "Cloud RAP"
+  - "RAC allocations"
+  - "RAP memberships"
+  - "Sponsored users"
+  - "In bulk"
+  - "allocated storage"
+  - "Manage RAP Memberships"
+  - "Add Members"
+  - "Resource Allocation Project"
+  - "sponsored user roles"
+  - "Cloud resources"
+  - "General-purpose clusters"
   - "OpenStack tenants"
+  - "CCDB"
+  - "Resource Allocation Competition"
+  - "co-PIs"
+  - "Resource Allocation Projects"
+  - "compute allocation"
+  - "associated PI"
 
 questions:
-  - "What is the Resource Allocation Competition (RAC) and when can Principal Investigators expect to be notified of their award status?"
-  - "What are the key differences between a Default Resource Allocation Project (RAP) and a RAC RAP in terms of creation and naming conventions?"
-  - "What is the process for students and collaborators to obtain their own accounts and access the awarded resources as sponsored users?"
-  - "Under what circumstances might more than one tab apply to a user's cluster allocation?"
-  - "Who is granted default access to a RAC award through the Alliance CCDB registration?"
-  - "How does being listed as a co-PI on a RAC application affect a person's access to the allocation?"
-  - "How can a user manage their Resource Allocation Project (RAP) memberships and add new users or co-PIs to their allocation?"
-  - "What is the proper procedure for specifying group names when submitting compute jobs for RAC-awarded research versus default research?"
-  - "How are storage allocations structured within the `/project` directory, and what tool is recommended for transferring substantial amounts of data to them?"
-  - "How must a user specify their group when submitting a job to the scheduler if they have more than one Principal Investigator (PI)?"
-  - "How are the `/project` and `/nearline` storage allocations accessed and managed on the Niagara cluster?"
-  - "What are the differences between default RAPs and RAC RAPs regarding cloud resource allocations, and how can a PI manage user memberships for these projects?"
-  - "How does the system visually indicate that a new member has been successfully added?"
-  - "What is the process for simultaneously adding a new PI along with their sponsored users or co-PIs?"
-  - "What steps should be taken if the desired user's name does not appear in the bulk addition list?"
-  - "What level of access does membership in a Cloud RAP provide to OpenStack tenants?"
-  - "Where can users find detailed instructions on how to log in and use a specific cloud?"
-  - "Who should be contacted if a user experiences login difficulties or is uncertain about their cloud allocation?"
-  - "How can you add an associated PI and their sponsored users to your RAP if they were not included in the original RAC application?"
-  - "What automatic access rights are granted to any new member added to a RAP for a cloud project?"
-  - "What actions can be taken to manage the status of existing members, such as promoting or removing them?"
-  - "What level of access does membership in a Cloud RAP provide to OpenStack tenants?"
-  - "Where can users find detailed instructions on how to log in and use a specific cloud?"
-  - "Who should be contacted if a user experiences login difficulties or is uncertain about their cloud allocation?"
+  - "What is the Resource Allocation Competition (RAC) and when are Principal Investigators typically notified of their application results?"
+  - "What are the main differences between a Default Resource Allocation Project (RAP) and a RAC RAP in terms of resource priority and naming conventions?"
+  - "How must students, employees, or collaborators register for their own Alliance accounts under a Principal Investigator's sponsorship?"
+  - "What are the names of the general-purpose clusters listed in the text?"
+  - "In what situation would more than one tab apply to a user?"
+  - "Which specific types of allocations and projects is the information in this section intended for?"
+  - "How can a Principal Investigator manage and add new members to their Resource Allocation Project (RAP) through the CCDB portal?"
+  - "What is the proper method for specifying the correct account group name when submitting compute jobs to the scheduler?"
+  - "What are the recommended practices and directory structures for utilizing allocated storage spaces like `/project` and transferring large amounts of data?"
+  - "How can a Principal Investigator (PI) add new members, such as sponsored users or co-PIs, to a Resource Allocation Project (RAP)?"
+  - "How do users specify their group when submitting a job to the scheduler, and how do they locate their allocated `/project` and `/nearline` storage?"
+  - "What are the key differences in naming conventions and user access rules between cloud resources allocated via the Rapid Access Service (RAS) and the Resource Allocation Competition (RAC)?"
+  - "What is the URL where users must log in to begin managing their RAP memberships?"
+  - "Which menu option and drop-down list must be selected to locate a specific Resource Allocation Project (RAP)?"
+  - "What specific user identifier is required to add a new member, and how does the system visually confirm the successful addition?"
+  - "How can you add an associated PI and their sponsored user roles to your RAP if they were not included in the original RAC application?"
+  - "What level of access do new members automatically receive when added to a RAP, and how can their roles be managed?"
+  - "Where can users find information on logging into the cloud, and what should they do if they experience login difficulties?"
+  - "How do you navigate to the page that allows you to add co-PIs and their associated sponsored user roles in bulk?"
+  - "What steps should be taken if the user you wish to add is not listed on the bulk addition page?"
+  - "What specific identifier is required to add a member individually on the RAP membership page?"
 
 status:
   downloaded: true
@@ -81,11 +78,12 @@ status:
 
 # Introduction to RAC
 
-This page is a guide for Principal Investigators (PIs) who have applied to the Alliance's [Resource Allocation Competition (RAC)](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/resource-allocation-competition), a peer-reviewed process to grant priority access to storage and compute resources beyond what can be obtained via the [Rapid Access Service](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/rapid-access-service).
+This page is a guide for Principal Investigators (PIs) who have applied to the Alliance's [Resource Allocation Competition (RAC)](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/resource-allocation-competition), peer-reviewed processed to grant priority access to storage and compute resources beyond what can be obtained via the [Rapid Access Service](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/rapid-access-service).
 
 Your award may have come from one of these processes:
-* Resources for Research Groups (RRG)
-* Research Platforms and Portals (RPP)
+
+*   Resources for Research Groups (RRG)
+*   Research Platforms and Portals (RPP)
 
 You will be notified of the results of your application before the start of the new RAC year. The RAC year typically begins the first week of April, so you should expect notification sometime in March. You and your sponsored users can begin to use the awarded resources at the beginning of the RAC year.
 
@@ -94,13 +92,14 @@ You will be notified of the results of your application before the start of the 
 Alliance resources are made available to PIs through Resource Allocation Projects (RAP). Each RAP has a project identifier (RAPI) and an associated group name.
 
 In general, there are two main types of RAPs:
-*   **Default RAP**: A default RAP is automatically created when a PI role is activated. Default quotas and Rapid Access Service quotas for storage and cloud resources are managed via this default RAP. The Default RAP allows PIs and sponsored users to make opportunistic use of compute resources with the default (that is, the lowest) priority. The default RAPI typically takes the form `abc-123-aa` and has an associated group name that follows the convention `def-profname`.
-*   **RAC RAP**: This RAP is created when the PI receives an award through the Resource Allocation Competition. The RAC RAPI typically takes the form `abc-123-ab`, with an associated group name that follows the convention `rrg-profname` or `rpp-profname` for HPC resources, or `cpp-profname` or `crg-profname` for cloud resources.
 
-A RAC award consists of one or more **allocations**. Each allocation consists of a resource (such as `graham-cpu`, `graham-gpu`, `graham-storage`) and an amount, and has a designation like `abc-123-aa-001`.
+*   Default RAP: A default RAP is automatically created when a PI role is activated. Default quotas and Rapid Access Service quotas for storage and cloud resources are managed via this default RAP. The Default RAP allows PIs and sponsored users to make opportunistic use of compute resources with the default (that is, the lowest) priority. The default RAPI typically takes the form `abc-123-aa` and has an associated group name that follows the convention `def-profname`.
+*   RAC RAP: This RAP is created when the PI receives an award through the Resource Allocation Competition. The RAC RAPI typically takes the form `abc-123-ab`, with an associated group name that follows the convention `rrg-profname` or `rpp-profname` for HPC resources, or `cpp-profname` or `crg-profname` for cloud resources.
+
+A RAC award consists of one or more **allocations**. Each allocation consists of a resource (such as `nibi-cpu`, `nibi-gpu`, `nibi-storage`) and an amount, and has a designation like `abc-123-aa-001`.
 
 You can find RAPIs and their corresponding group names and allocations by visiting the [CCDB portal](https://ccdb.alliancecan.ca).
-See [Running jobs: Accounts and projects](running_jobs.md#accounts-and-projects) for an illustration.
+See [Running jobs: Accounts and projects](running_jobs.md#accounts-and-projects).
 
 For more details about RAP and RAP memberships, visit the [CCDB FAQ page](../getting-started/frequently_asked_questions_about_the_ccdb.md)
 
@@ -110,19 +109,25 @@ Alliance accounts are *per person:* Account sharing is strictly forbidden. Each 
 
 # Information on each resource
 
-For more information, please click on the tab below corresponding to where you have been granted resources. **General-purpose clusters** are [Béluga](../clusters/béluga.md), [Cedar](../clusters/cedar.md), and [Graham](../clusters/graham.md). More than one tab may apply if, for example, you have been granted an allocation on both [Niagara](../clusters/national_systems.md) and a general-purpose cluster.
+For more information, please click on the tab below corresponding to where you have been granted resources. *General-purpose clusters* are [Rorqual](../clusters/rorqual.md), [Fir](../software/fir.md), [Nibi](../clusters/nibi.md) and [Narval](../clusters/narval.md). More than one tab may apply if, for example, you have been granted an allocation on both [Trillium](../clusters/trillium.md) and a general-purpose cluster.
 
 === "General-purpose clusters"
 
 ### Who can use the allocation?
+
+!!! note
+    Information in this section is for RAC allocations and RAC projects.
 
 By default, every role that you have sponsored through your Alliance CCDB registration has access to your RAC award. Any co-PIs that were listed on your RAC application will also have access.
 
 If desired, you can select which users may use your allocation. To do so:
 
 1.  Log in at https://ccdb.alliancecan.ca/
-2.  From the *My Account* menu, select *Manage RAP Memberships*. This will take you to https://ccdb.alliancecan.ca/resource_allocation_projects/members. In the Resource Allocation Project (RAP) drop-down list on this page, select the RAP to which you want to add members.
+
+2.  From the *My Account* menu, select *Manage RAP Memberships.* This will take you to https://ccdb.alliancecan.ca/resource_allocation_projects/members. In the Resource Allocation Project (RAP) drop-down list on this page, select the RAP to which you want to add members.
+
 3.  To add a new member, go to *Add Members* and enter the CCRI of the user you want to add. Once added, you will see the new member highlighted in yellow.
+
 4.  If you add a new PI as a member, you can add any of their sponsored users or co-PIs at the same time. Go to *Add Members* and click on the *In bulk* link: this will take you to a new page where you can add all or several of the roles associated with that PI at once. If you do not see the name of the user that you are looking for in that list, then click on *Cancel* to go back to the RAP membership page and return to step 3.
 
 RAP membership is represented as a group in LDAP. It defines a group of users that are authorized to submit jobs against the RAPI (which is the ID of the RAP) and share files within the same Unix group.
@@ -137,17 +142,17 @@ See [Running jobs: Accounts and projects](running_jobs.md#accounts-and-projects)
 
 If you have substantial amounts of data to transfer to an Alliance cluster in order to use your storage allocation, we strongly recommend the use of [Globus](../getting-started/globus.md).
 
-#### `/project`
+#### /project
 
 A `/project` storage allocation on a general-purpose cluster is created as a directory of the form `/project/<group-name>`, e.g., `/project/rrg-profname-ab`, and an associated quota defining the amount of data that can be stored in the directory. Files pertaining to the research described in the RAC application should be stored there by all sponsored users. More guidance on the use of `/project` space can be found at [Project layout](../storage-and-data/project_layout.md) and [Sharing data](../storage-and-data/sharing_data.md).
 
 Note that you will also have default project space of the form `/project/def-profname`. You may wish to move data from that default project space to the RRG or RPP `/project` directory, if the data pertains to the research described in the RAC application.
 
-#### `/nearline`
+#### /nearline
 
 Please see [Using nearline storage](../storage-and-data/using_nearline_storage.md).
 
-=== "Niagara"
+=== "Trillium"
 
 ### Who can use the allocation?
 
@@ -156,8 +161,11 @@ By default, every role that you have sponsored through your Alliance CCDB regist
 If desired, you can select which users may use your allocation. To do so:
 
 1.  Log in at https://ccdb.alliancecan.ca/
+
 2.  From the *My Account* menu, select *Manage RAP Memberships*. This will take you to https://ccdb.alliancecan.ca/resource_allocation_projects/members. In the Resource Allocation Project (RAP) drop-down list on this page, select the RAP to which you want to add members.
+
 3.  To add a new member, go to *Add Members* and enter the CCRI of the user you want to add. Once added, you will see the new member highlighted in yellow.
+
 4.  If you add a new PI as a member, you can add any of their sponsored users or co-PIs at the same time. Go to *Add Members* and click on the *In bulk* link: this will take you to a new page where you can add all or several of the roles associated with that PI at once. If you do not see the name of the user that you are looking for in that list, then click on *Cancel* to go back to the RAP membership page and return to step 3.
 
 RAP membership is represented as a group in LDAP. It defines a group of users that are authorized to submit jobs against the RAPI (which is the ID of the RAP) and share files within the same Unix group.
@@ -172,33 +180,35 @@ See [Running jobs: Accounts and projects](running_jobs.md#accounts-and-projects)
 
 If you have substantial amounts of data to transfer to the cluster in order to use your storage allocation, we strongly recommend the use of [Globus](../getting-started/globus.md).
 
-#### `/project`
+#### /project
 
 The location of a `/project` storage allocation on Niagara should be found by using the environment variable `$PROJECT`. This variable will point to a user-specific directory in the research group's project space.
 
-#### `/nearline`
+#### /nearline
 
 A `/nearline` allocation on Niagara means space in HPSS. Please see [Using nearline storage](../storage-and-data/using_nearline_storage.md).
 
 === "Cloud"
-
 Cloud resources allocated via the Rapid Access Service (RAS) use the default RAP.
 
 Cloud resources allocated via the Resource Allocation Competition are awarded through a RAC RAP which follows a different naming convention than default projects. The group name of RAC RAPs with cloud allocations typically takes the form of `crg-profname` (for cloud resources allocated to a research group) or `cpp-profname` (for cloud resources allocated to a research platform or portal).
 
 ### Who can use the allocation?
-
 If you have an active cloud resource allocation, you should already have a RAP and therefore access to the particular cloud on which you have an allocation.
 
-*   **Default RAP**: Cloud resources granted to you via RAS are allocated through your default RAP. All your activated sponsored user roles are always members of your default RAP. That is, confirming sponsorship of a user confers on them membership in your default RAP. However, you can at any time deactivate any role you sponsor.
-*   **RAC RAP**: By default, only the PI is added as a member of a RAP associated with cloud resources allocated via the Resource Allocation Competition. If desired, you can add sponsored users and/or other active Alliance users as members to the RAP. Only members added to your RAP can use your cloud allocation.
+*   Default RAP: Cloud resources granted to you via RAS are allocated through your default RAP. All your activated sponsored user roles are always members of your default RAP. That is, confirming sponsorship of a user confers on them membership in your default RAP. However, you can at any time deactivate any role you sponsor.
+*   RAC RAP: By default, only the PI is added as a member of a RAP associated with cloud resources allocated via the Resource Allocation Competition. If desired, you can add sponsored users and/or other active Alliance users as members to the RAP. Only members added to your RAP can use your cloud allocation.
 
 If desired, you can select which users may use your allocation. To do so:
 
 1.  Log in at https://ccdb.alliancecan.ca/
+
 2.  From the *My Account* menu, select *Manage RAP Memberships*. This will take you to https://ccdb.alliancecan.ca/resource_allocation_projects/members. In the Resource Allocation Project (RAP) drop-down list on this page, select the RAP to which you want to add members.
+
 3.  Go to *Add Members*, and click on the *In bulk* link: this will take you to a new page that will allow you to easily add co-PIs and any of their associated sponsored user roles.
+
 4.  If the *In bulk* page in step 3 above does not show the name of the user that you want to add, then click on *Cancel* to go back to the RAP membership page. Once there, go to the *Add Members* section, and enter the CCRI of the member in the *One by one using a CCRI* field.
+
 5.  Following step 4 will allow you to add an associated PI that was not included as co-PI in your RAC application. Once a new PI is added as a member to your RAP using this process, you will be able to add any of their associated sponsored user roles through the *In bulk* mechanism explained in step 3.
 
 !!! important

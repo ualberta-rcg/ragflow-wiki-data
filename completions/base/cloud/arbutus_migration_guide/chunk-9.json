@@ -4,13 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What is the recommended method for migrating very large data volumes (greater than 5TB) between cloud instances?",
-      "answer": "For very large data volumes (e.g., greater than 5TB), Globus is the recommended method. The process involves requesting a Globus Connect Personal Plus subscription, enabling Globus Connect Personal on each cloud instance involved in the data transfer (which includes installing it, adjusting firewall rules for necessary ports, ensuring an external IP, and running it as a background process), and then using any Globus Interface (like globus.org or globus.computecanada.ca) to access the created endpoints and transfer data. (Page T:40, T:38)"
+      "question": "What are the recommended methods for migrating ephemeral instances in the Arbutus Cloud?",
+      "answer": "For migrating ephemeral instances, which are instances without a backing volume, the document refers to the methods outlined in the \"Migration using Glance images and volume snapshots\" section and the \"Alternative method: Migrating a volume-backed instance using Linux 'dd'\" section."
     },
     {
-      "question": "How can a user migrate a large volume between a Legacy Arbutus instance and a New Arbutus instance using the Linux 'dd' command?",
-      "answer": "To migrate a large volume using 'dd', first copy your SSH private key to the temporary Legacy Arbutus instance and ensure SSH security rules allow it to connect to the temporary New Arbutus instance. For each volume to be moved, create an empty volume of the same size on New Arbutus (marking it bootable if needed) and attach it to the temporary New Arbutus instance. Also, attach the source volume from Legacy Arbutus to the temporary Legacy Arbutus instance (you might need to delete the instance it's currently attached to, but do NOT delete the volume). Finally, on the temporary Legacy Arbutus instance, execute a command such as `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@xxx.xx.xx.xx \"sudo dd bs=16M of=/dev/vdb\"`. This command assumes the source volume is `/dev/vdb`, the size is 96G, `key.pem` is the SSH key, and `xxx.xx.xx.xx` is the New Arbutus instance's IP address. Using `screen` is recommended to maintain the session. Once complete, you'll have an exact copy of the volume on New Arbutus. (Page T:43)"
+      "question": "What is the recommended approach for copying very large data volumes (greater than 5TB) between cloud instances, and what are the initial steps to enable it?",
+      "answer": "For very large data volumes (greater than 5TB), Globus is the recommended approach. The initial steps involve requesting a Globus Connect Personal Plus subscription by emailing globus@tech.alliancecan.ca, and then enabling Globus Connect Personal on each cloud instance involved in the data transfer. This requires installing the client, ensuring each VM has an external IP address, configuring firewall rules, and running Globus Connect Personal as a background process."
+    },
+    {
+      "question": "Which method is suggested for transferring small data volumes between cloud instances, and what is a potential benefit of using a specific network?",
+      "answer": "For small data volumes, `rsync + ssh` is suggested because it offers good transfer speeds and can work incrementally. When using `rsync`, it is recommended to consider using the IPv6 GUA network in OpenStack, as this VLAN network bypasses the OpenStack Neutron component, potentially providing improved data transfer performance."
     }
   ],
-  "generated_at": "2026-04-19T01:42:26.967700+00:00"
+  "generated_at": "2026-05-03T01:21:40.930478+00:00"
 }

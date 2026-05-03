@@ -4,17 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Quelles sont les étapes générales pour migrer manuellement ou de façon orchestrée des instances et des volumes vers le nouveau nuage Arbutus?",
-      "answer": "Pour une migration manuelle ou orchestrée, il faut d'abord copier les images personnalisées (ou en créer de nouvelles) du nuage Ouest vers Arbutus, installer et configurer les services sur les nouvelles instances, puis copier les données. Ensuite, on assigne des adresses IP flottantes aux nouvelles instances et on met à jour les enregistrements DNS. Finalement, on met fin aux anciennes instances et on supprime les anciens volumes."
+      "question": "Quelles modifications sont requises pour le fichier RC après l'avoir téléchargé du nouveau nuage Arbutus?",
+      "answer": "Après avoir téléchargé le fichier RC du nouveau nuage Arbutus, il faut ajouter les lignes suivantes : `export OS_AUTH_TYPE=v3websso`, `export OS_IDENTITY_PROVIDER=atmosphere`, `export OS_PROTOCOL=openid`, et `export OS_PROJECT_DOMAIN_NAME=default`. Il est aussi nécessaire de supprimer les lignes qui contiennent `export OS_USER_DOMAIN_NAME` et celles qui demandent la saisie du mot de passe OpenStack."
     },
     {
-      "question": "Quelles modifications sont nécessaires dans le fichier RC (Runtime Configuration) du nouveau nuage Arbutus après l'avoir téléchargé, pour qu'il fonctionne correctement avec les outils en ligne de commande d'OpenStack?",
-      "answer": "Après avoir téléchargé le fichier RC du nouveau nuage Arbutus, il faut ajouter les lignes `export OS_AUTH_TYPE=v3websso`, `export OS_IDENTITY_PROVIDER=atmosphere`, `export OS_PROTOCOL=openid` et `export OS_PROJECT_DOMAIN_NAME=default`. Il faut aussi supprimer les lignes qui gèrent `OS_USER_DOMAIN_NAME` et celles qui demandent le mot de passe OpenStack à l'utilisateur."
+      "question": "Comment s'assurer de l'intégrité des données et éviter leur corruption lors d'une migration de services vers le nouveau nuage Arbutus?",
+      "answer": "Pour éviter la corruption ou la non-conformité des données après une migration, il est recommandé de fermer tous les services actifs, puis de fermer l'instance elle-même avant de commencer le transfert. De plus, il est crucial de s'assurer que le TTL (Time To Live) de vos enregistrements DNS est bas, car les adresses IP flottantes seront modifiées et un TTL bas permettra une propagation rapide des changements."
     },
     {
-      "question": "Comment faire pour créer des groupes de sécurité et leurs règles, et ensuite les lister, en utilisant l'interface en ligne de commande (CLI) d'OpenStack sur le nuage Arbutus?",
-      "answer": "Pour créer un groupe de sécurité via le CLI, on utilise la commande `openstack security group create <group-name>`. Pour ajouter une règle, comme pour le port HTTP 80, on tape `openstack security group rule create --proto tcp --remote-ip 0.0.0.0/0 --dst-port 80 <group-name>`. Pour visualiser les groupes de sécurité, on fait `openstack security group list`, et pour voir les règles d'un groupe, c'est `openstack security group rule list`."
+      "question": "Comment préparer un environnement virtuel pour l'installation du client OpenStack et des paquets nécessaires sur le nouveau nuage Arbutus?",
+      "answer": "Pour installer le client OpenStack et les paquets essentiels dans un environnement virtuel, il faut d'abord créer l'environnement avec la commande `$ python3 -m venv openstack`. Ensuite, il faut l'activer en tapant `$ source openstack/bin/activate`, puis installer les paquets requis avec `$ pip install python-openstackclient keystoneauth-websso python-manilaclient`."
     }
   ],
-  "generated_at": "2026-04-19T01:45:44.029379+00:00"
+  "generated_at": "2026-05-03T01:25:03.627309+00:00"
 }

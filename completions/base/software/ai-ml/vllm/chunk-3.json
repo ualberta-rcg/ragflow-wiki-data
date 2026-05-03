@@ -4,13 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "In a vLLM single-node job running inference on a model split across multiple GPUs, how should the `tensor_parallel_size` parameter be configured in the `LLM` object?",
-      "answer": "For a vLLM single-node job where a model is split across multiple GPUs, the `tensor_parallel_size` parameter in the `LLM` object should be set to the total number of GPUs allocated for that job. For instance, if the job uses 2 GPUs, `tensor_parallel_size` would be set to `2`."
+      "question": "How is the `tensor_parallel_size` parameter configured when instantiating the `LLM` class for a single-node vLLM job?",
+      "answer": "For a single-node vLLM job, the `tensor_parallel_size` parameter should be set to the total number of GPUs allocated for your job, as demonstrated by `LLM(model=\"facebook/opt-125m\",tensor_parallel_size=2)` for a job using 2 GPUs."
     },
     {
-      "question": "How does the multiple-node vLLM inference example described in the document differ from the single-node example regarding GPU and node allocation?",
-      "answer": "The multiple-node vLLM inference example differs from the single-node example by splitting the model across 4 GPUs, which are distributed over 2 separate nodes, with each node utilizing 2 GPUs."
+      "question": "What is the purpose of the `tensor_parallel_size` parameter when instantiating the `LLM` class in vLLM?",
+      "answer": "The `tensor_parallel_size` parameter is used to define the number of GPUs across which a large language model will be split for inference. For example, `tensor_parallel_size=2` splits the model across two GPUs."
+    },
+    {
+      "question": "How does the GPU allocation for model splitting change between a single-node and a multi-node vLLM job, based on the provided examples?",
+      "answer": "In the provided examples, a single-node vLLM job might split a model across 2 GPUs. In contrast, a multi-node example demonstrates splitting a model across a greater number, specifically 4 GPUs, which are distributed over 2 separate nodes, with 2 GPUs allocated per node."
     }
   ],
-  "generated_at": "2026-04-13T15:41:16.942341+00:00"
+  "generated_at": "2026-05-03T01:52:36.620027+00:00"
 }
