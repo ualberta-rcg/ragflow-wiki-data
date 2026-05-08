@@ -8,7 +8,7 @@
 
 ---
 
-## Description
+## 🧰 Description
 
 Automated pipeline that mirrors the [Digital Research Alliance of Canada](https://docs.alliancecan.ca/) MediaWiki documentation into a **RAGFlow** knowledge base, converts it to a searchable **MkDocs Material** site with AI-generated metadata, and produces **fine-tuning training data** — all driven by content hashing so only changed documents are reprocessed.
 
@@ -26,7 +26,7 @@ Automated pipeline that mirrors the [Digital Research Alliance of Canada](https:
 
 ---
 
-## Architecture
+## 🏗️ Architecture
 
 ### Pipeline Stages
 
@@ -79,7 +79,7 @@ When a source document changes, its `source_hash` updates. Each downstream stage
 
 ---
 
-## Repository Structure
+## 🛠️ Repository Structure
 
 ```
 ragflow-wiki-data/
@@ -125,7 +125,7 @@ ragflow-wiki-data/
 
 ---
 
-## Quick Start
+## 🚀 Quick Start
 
 ### Prerequisites
 
@@ -227,7 +227,7 @@ Runs all 9 stages, commits results, and deploys to GitHub Pages. Manual dispatch
 
 ---
 
-## Adding Additional Data Sources
+## 🧪 Adding Additional Data Sources
 
 The pipeline is modular. To add a new data source:
 
