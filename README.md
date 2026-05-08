@@ -79,7 +79,7 @@ When a source document changes, its `source_hash` updates. Each downstream stage
 
 ---
 
-## 🛠️ Repository Structure
+## ⚙️ Repository Structure  
 
 ```
 ragflow-wiki-data/
@@ -187,7 +187,7 @@ BATCH_SIZE=5 python scripts/convert-to-mkdocs.py
 
 ---
 
-## GitHub Actions
+## 🛠️ GitHub Actions
 
 ### Full Pipeline (`full-pipeline.yml`)
 
@@ -241,7 +241,7 @@ The pipeline is modular. To add a new data source:
 
 ---
 
-## Training Data
+## 🗄️ Training Data
 
 The pipeline produces `training-data.jsonl` — a consolidated file of all Q&A pairs in OpenAI chat fine-tuning format:
 
@@ -259,7 +259,7 @@ Generated from page-level (10-20 Q&A) and chunk-level (2-3 Q&A) completions acro
 
 ---
 
-## Content Filtering
+## 🚫 Content Filtering
 
 Low-value pages are automatically skipped during sync and conversion (`scripts/shared.py`):
 
@@ -271,7 +271,7 @@ Low-value pages are automatically skipped during sync and conversion (`scripts/s
 
 ---
 
-## References
+## 🔗 References
 
 * [Digital Research Alliance of Canada](https://alliancecan.ca/)
 * [Alliance Documentation (Source)](https://docs.alliancecan.ca/)
