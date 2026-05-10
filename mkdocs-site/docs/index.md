@@ -76,19 +76,21 @@ title: Home
 
 | Service | Status |
 |---------|--------|
-| **Narval** | :material-close-circle:{ style="color: red" } 2026-05-01 |
+| **Vulcan** | :material-check-circle:{ style="color: green" } Operational |
+| **Trillium** | :material-check-circle:{ style="color: green" } Operational |
+| **Narval** | :material-check-circle:{ style="color: green" } Operational |
 | **Cedar Cloud** | :material-check-circle:{ style="color: green" } Operational |
 | **Graham Cloud** | :material-check-circle:{ style="color: green" } Operational |
 | **Nibi** | :material-check-circle:{ style="color: green" } Operational |
-| **Fir** | :material-check-circle:{ style="color: green" } Operational |
-| **Rorqual** | :material-close-circle:{ style="color: red" } 2026-05-01 |
+| **Fir** | :material-alert:{ style="color: orange" } Planned Outage |
+| **Rorqual** | :material-calendar:{ style="color: blue" } 2026-06-01 |
 | **Arbutus** | :material-alert:{ style="color: orange" } Arbutus Power Maintenance |
-| **Béluga** | :material-alert:{ style="color: orange" } Decommissioning: 2026 End of Service Timeline |
-| **Juno** | :material-close-circle:{ style="color: red" } 2026-05-01 |
+| **Juno** | :material-check-circle:{ style="color: green" } Operational |
 | **Killarney** | :material-check-circle:{ style="color: green" } Operational |
 | **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
+| **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-05-03 00:53 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-05-10 00:12 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -99,16 +101,16 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 | Date | Event | Link |
 |------|-------|------|
 | May 04 | RDM Jumpstart | [Details](https://alliance-rdm-gdr.github.io/rdm-jumpstart-registration/) |
-| May 05 | Neural network programming: lecture 9 | [Details](https://scinet.courses/1400) |
-| May 05 | OpenStack command line in action: VMs in minutes [webinar] | [Register](https://forms.gle/5x14VjMbaifFbAze6) |
-| May 05 | Students deserve Research Data Management! Teaching with the RDM Educators Kit | [Register](https://libcal.mcmaster.ca/event/3920114) |
-| May 06 | Why the Trillium Cluster is Different | [Details](https://training.computeontario.ca/courses/course/view.php?id=267) |
-| May 07 | Neural network programming: lecture 10 | [Details](https://scinet.courses/1400) |
-| May 07 | Gen-AI with JAX for simulation data [course] | [Register](https://forms.gle/HJ9teThx7cZezcV97) |
-| May 07 | Introduction to Voyant Tools | [Register](https://libcal.library.ubc.ca/event/4008279) |
 | May 11 | DataCite US/CA Community Call: DataCite DOI Case Studies | [Details](https://lyrasis.zoom.us/meeting/register/Ax-4HPSTQzSnzlezTMNbKA#/registration) |
+| May 12 | Neural network programming: lecture 11 | [Details](https://scinet.courses/1400) |
+| May 12 | Research Communications: Photography Basics | [Register](https://ualberta.libcal.com/event/4018950) |
+| May 12 | Data Management Plan Bootcamp (In-Person) | [Register](https://libcal.mcmaster.ca/event/3920115) |
+| May 13 | Introduction to Podcasting | [Register](https://libcal.library.ubc.ca/event/4008285) |
+| May 14 | Neural network programming: lecture 12 | [Details](https://scinet.courses/1400) |
+| May 14 | High-performance R - Part 1 [course] | [Register](https://forms.gle/NfQf4UTtG82RzFBP6) |
+| May 14 | Data Bites - Introduction to Manual Data De-identification | [Register](https://libcal.library.ubc.ca/event/4007624) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-05-03 00:53 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-05-10 00:12 UTC.*</small>
 
 ---
 

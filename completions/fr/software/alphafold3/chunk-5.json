@@ -2,15 +2,6 @@
   "doc_key": "fr/alphafold3",
   "level": "chunk",
   "chunk_index": 5,
-  "qa_pairs": [
-    {
-      "question": "Comment peut-on soumettre les deux étapes d'exécution d'AlphaFold3 à l'ordonnanceur, soit de manière indépendante, soit avec des dépendances?",
-      "answer": "Pour soumettre les tâches d'AlphaFold3, vous devez d'abord lancer l'étape de pipeline de données (CPU) et ensuite l'étape d'inférence de modèle (GPU). Si vous souhaitez soumettre les tâches indépendamment, vous lancez d'abord `sbatch alphafold3-data.sh`, attendez la fin de cette tâche, puis soumettez `sbatch alphafold3-inference.sh`. Pour des tâches dépendantes, vous pouvez capturer l'ID de la première tâche avec `jid1=$(sbatch alphafold3-data.sh)` et ensuite soumettre la deuxième tâche avec `jid2=$(sbatch --dependency=afterok:$jid1 alphafold3-inference.sh)`. Advenant un échec de la première étape, il faudra annuler manuellement la deuxième étape avec `scancel -u $USER -n alphafold3-inference`."
-    },
-    {
-      "question": "Que faut-il faire si on rencontre des problèmes de mémoire insuffisante sur le GPU lors de l'exécution d'AlphaFold3, notamment avec un grand nombre de jetons ou sur un GPU avec une mémoire plus limitée?",
-      "answer": "Si AlphaFold3 manque de mémoire GPU, par exemple avec plus de 5120 jetons ou sur un A100 de 40Go, vous pouvez activer la fonctionnalité de mémoire unifiée. Pour ce faire, vous devez ajouter les variables d'environnement suivantes dans le script de soumission de l'étape d'inférence (`alphafold3-inference.sh`): `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true` et `export XLA_CLIENT_MEM_FRACTION=2.0` (ou une valeur plus élevée si nécessaire). Il est aussi crucial d'ajuster la quantité de mémoire allouée à la tâche en conséquence dans les paramètres Slurm, par exemple en utilisant `#SBATCH --mem=80G`."
-    }
-  ],
-  "generated_at": "2026-04-13T01:36:45.951028+00:00"
+  "qa_pairs": [],
+  "generated_at": "2026-05-10T00:15:56.128935+00:00"
 }

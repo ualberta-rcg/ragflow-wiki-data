@@ -2,19 +2,6 @@
   "doc_key": "base/ansys",
   "level": "chunk",
   "chunk_index": 16,
-  "qa_pairs": [
-    {
-      "question": "What is the main objective of the `Multinode (by node + restart)` Slurm script (e.g., `script-flu-bynode+restart.sh`) for Ansys Fluent?",
-      "answer": "The primary objective of this script is to automate the restarting of very large Ansys Fluent jobs that may exceed the typical seven-day maximum runtime window on Alliance clusters. It allows the simulation to restart from the most recently saved time step files, ensuring the job can continue running over extended periods."
-    },
-    {
-      "question": "How does the `Multinode (by node + restart)` Slurm script manage multiple restarts of an Ansys Fluent simulation?",
-      "answer": "The script uses the `#SBATCH --array=1-5%1` directive to specify a job array, which defines the number of solution restarts (e.g., 5 attempts). The `SLURM_ARRAY_TASK_ID` variable differentiates between the initial run (when `SLURM_ARRAY_TASK_ID == 1`) and subsequent restarts. If it's the first run, it uses `MYJOUFILE`; otherwise, it uses `MYJOUFILERES`. After each successful run, if more restarts are needed, it updates symbolic links (`ln -sfv`) for `MYCASFILERES` and `MYDATFILERES` to point to the latest output files, allowing the next array task to continue the simulation."
-    },
-    {
-      "question": "Which Ansys Fluent files are required for the `Multinode (by node + restart)` Slurm script to function, and how are they used?",
-      "answer": "The script requires `MYJOUFILE` (e.g., `sample.jou`) for the initial simulation run and `MYJOUFILERES` (e.g., `sample-restart.jou`) for subsequent restarts. Additionally, `MYCASFILERES` (e.g., `sample-restart.cas.h5`) and `MYDATFILERES` (e.g., `sample-restart.dat.h5`) are used as symbolic links to the most recent output case and data files, respectively. These links ensure that each restart continues from the latest saved state of the simulation."
-    }
-  ],
-  "generated_at": "2026-05-03T01:00:42.165294+00:00"
+  "qa_pairs": [],
+  "generated_at": "2026-05-10T00:18:02.382599+00:00"
 }

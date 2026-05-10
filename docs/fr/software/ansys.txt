@@ -1219,16 +1219,10 @@ Par défaut, Ansys alloue aux tâches APDL 1024Mo de mémoire totale et 1024Mo d
 
 == Rocky ==
 
-<div class="mw-translate-fuzzy">
-En plus de pouvoir exécuter des simulations en mode graphique (comme indiqué dans la section <i>Mode graphique</i> ci-dessous), [https://www.ansys.com/products/fluids/ansys-rocky Ansys Rocky] peut également exécuter des simulations en mode non graphique. Les deux modes prennent en charge l'exécution de Rocky avec des processeurs uniquement ou avec des processeurs et [https://www.ansys.com/blog/mastering-multi-gpu-ansys-rocky-software-enhancing-its-performance des GPU]. Dans la section ci-dessous, deux exemples de scripts sont fournis où chacun serait soumis à la file d'attente de Graham avec la commande habituelle <code>sbatch</code>. Au moment de la rédaction de cet article, aucun des deux scripts n'a été testé et des modifications seraient probablement nécessaires. Il est important de noter que ces scripts ne sont utilisables que sur Graham puisque le module Rocky qu'ils chargent tous les deux n'est (pour le moment) installé que sur Graham localement.
-</div>
+This section provides sample slurm scripts to solve standalone non-coupled Rocky simulations in a cluster queue. Both scripts are configured with RESUME=0 so simulations are solved from the beginning by default.  To restart a partially completed simulation set RESUME=1 and resubmit the script to the queue.  To get a full listing of command line options run <code>Rocky -h</code> on the command line after loading the ansys module.  Since a lock file is generated every time a simulation is started, only one job should be submitted at a time from the same directory. Regarding which script to use, while all simulations should be tested independently, for a basic test case the GPU only script was found to outperform the CPU only script by a factor of 3.5x. Further increases in resources beyond 6cpus (for the CPU only script) or 2cpu + 1g (1/7 of a H100 gpu for the GPU based script) provided no further speedup based on scaling testing for either script.   Given these results it appears likely the GPU based script will provide significantly faster solution times compared to just using CPUS for other standalone Rocky simulations.  As shown in on each cluster wiki page or as summarized on in https://docs.alliancecan.ca/wiki/Allocations_and_compute_scheduling#Ratios_in_bundles all clusters but narval have H100 gpus.  Therefore when using the GPU script on Narval the <code>--gpus</code> slurm option should be changed to instead request an a100 gpu.  Note that at this time only Rocky with the <code>ansys/2025R2|2.04</code> modules have been tested but not the <code>ansys/2025R1|1.02</code> modules yet.
 
 <span id="Slurm_scripts"></span>
 === Scripts pour l'ordonnanceur Slurm ===
-
-<div class="mw-translate-fuzzy">
-Pour obtenir une liste complète des options de ligne de commande, exécutez <code>Rocky -h</code> sur la ligne de commande après avoir chargé un module Rocky (seul ansysrocky/2023R2 est présentement disponible sur Graham). En ce qui concerne l'utilisation de Rocky avec des GPU pour résoudre des problèmes couplés, le nombre de CPU que vous devez demander (sur le même nœud) doit être augmenté au maximum jusqu'à ce que la limite de scalabilité de l'application couplée soit atteinte. D'autre part, si Rocky est exécuté avec des GPU pour résoudre des problèmes découplés autonomes, seul un nombre minimal de CPU doit être demandé, ce qui permettra à Rocky de fonctionner de manière optimale; par exemple, seuls 2 ou éventuellement 3 CPU peuvent être nécessaires. Enfin, lorsque Rocky est exécuté avec 4 ou plus CPU, des licences <I>rocky_hpc</I> seront nécessaires, ce que fournit la licence SHARCNET.
-</div>
 
 <tabs>
 <tab name="CPU seulement">
@@ -1274,7 +1268,7 @@ fi
 </tab>
 <tab name="GPU based">
 {{File
-|name=script-rocky-gpu.sh0
+|name=script-rocky-gpu.sh
 |lang="bash"
 |contents=
 #!/bin/bash

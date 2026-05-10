@@ -2,19 +2,6 @@
   "doc_key": "base/ansys",
   "level": "chunk",
   "chunk_index": 29,
-  "qa_pairs": [
-    {
-      "question": "How are Ansys Workbench Slurm scripts configured to specify parallelization type and the number of processors for a job?",
-      "answer": "Ansys Workbench Slurm scripts configure parallelization and processor count by using `sed` commands to modify the `SolveHandlers.xml` file. The `MEMPAR` variable is set to `0` for Shared Memory Parallel (SMP) on a single node or `1` for Distributed Memory Parallel (DMP) across multiple nodes, updating the `Distribute` setting. The `MaxNumber` of `Processors` is set to the value of `$SLURM_NTASKS` to specify the number of cores. Additionally, `KMP_AFFINITY=disabled` and `I_MPI_HYDRA_BOOTSTRAP=ssh` are exported as environment variables."
-    },
-    {
-      "question": "How can a user prevent an Ansys Workbench job from overwriting its solution upon successful completion when submitted via a Slurm script?",
-      "answer": "To prevent an Ansys Workbench job from overwriting its solution, a user should change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the `runwb2` command within the last line of their Slurm script. This modification is particularly useful for scaling tests, as it ensures the initialized solution remains unchanged across multiple test runs."
-    },
-    {
-      "question": "What is the general procedure for submitting an Ansys Mechanical APDL job using a Slurm script on the Alliance clusters, and what are some key command-line options?",
-      "answer": "Ansys Mechanical APDL jobs are submitted to the queue by executing `sbatch script-name.sh`. The input file (`.inp`) is typically generated from an interactive Workbench Mechanical session by selecting `Solution -> Tools -> Write Input Files`. The core command to run the simulation is `mapdl`. Key command-line options include `-smp` for Shared Memory Parallel or `-dis` for Distributed Memory Parallel, `-np $SLURM_NTASKS` to specify the number of cores, `-dir outdir-$SLURM_JOBID` for an output directory, and `-i YOURAPDLFILE.inp` for the input file. For GPU-accelerated runs, `-acc nvidia -na $SLURM_GPUS_ON_NODE` is added. Default memory allocations (1024 MB total, 1024 MB database) can be adjusted using `-m` and `-db` arguments, respectively."
-    }
-  ],
-  "generated_at": "2026-05-03T01:02:28.457165+00:00"
+  "qa_pairs": [],
+  "generated_at": "2026-05-10T00:19:36.436555+00:00"
 }

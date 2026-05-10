@@ -2,15 +2,6 @@
   "doc_key": "en/trillium_quickstart",
   "level": "chunk",
   "chunk_index": 13,
-  "qa_pairs": [
-    {
-      "question": "How do you configure a hybrid MPI/OpenMP job script for submission to the Trillium CPU subcluster, particularly regarding resource allocation and process/thread binding?",
-      "answer": "To configure a hybrid MPI/OpenMP job script for Trillium's CPU subcluster, you must specify `#SBATCH --nodes` (e.g., 2), `#SBATCH --ntasks-per-node` (e.g., 48), and `#SBATCH --cpus-per-task` (e.g., 4) in your job script. It's crucial to export `OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK` and use `mpirun` with explicit binding options, such as `--bind-to core --map-by ppr:$RANKS_PER_L3CACHE:l3cache:pe=$OMP_NUM_THREADS`, to ensure efficient distribution of processes and threads over the cores. The script should also load necessary modules (like `StdEnv/2023`, `gcc`, and `openmpi`) and source `/scinet/vast/etc/vastpreload-openmpi.bash` for MPI-IO optimization."
-    },
-    {
-      "question": "What are the specific rules and limitations for requesting GPUs when submitting jobs to the Trillium GPU subcluster, and what technologies are not supported?",
-      "answer": "When submitting jobs to the Trillium GPU subcluster, users are strictly allowed to request either exactly 1 GPU or a multiple of 4 GPUs per node using the `--gpus-per-node` option. Requesting 2 or 3 GPUs per node is not permitted. NVIDIA's MIG (Multi-Instance GPU) technology for allocating subdivisions of a GPU is not supported on Trillium. However, users can utilize NVIDIA's Multi-Process Service (MPS) within a job to enable multiple processes to share a single GPU. A single-GPU job allocates a quarter node, providing 24 CPU cores and approximately 188 GiB of RAM."
-    }
-  ],
-  "generated_at": "2026-04-19T02:42:25.885131+00:00"
+  "qa_pairs": [],
+  "generated_at": "2026-05-10T00:39:58.220046+00:00"
 }

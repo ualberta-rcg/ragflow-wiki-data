@@ -2,15 +2,6 @@
   "doc_key": "fr/arbutus_migration_guide",
   "level": "chunk",
   "chunk_index": 14,
-  "qa_pairs": [
-    {
-      "question": "Quelle est la procédure recommandée pour migrer les données d'un système de fichiers partagé CephFS de l'ancien nuage Arbutus vers le nouveau nuage Arbutus?",
-      "answer": "Pour migrer les données d'un système de fichiers partagé CephFS, il est recommandé de suivre ces étapes:\n1.  Pour chaque partage de l'ancien nuage Arbutus, créez un partage équivalent dans le nouveau nuage Arbutus.\n2.  Montez les deux partages (l'ancien et le nouveau) sur des emplacements distincts de la même instance virtuelle dans le nouveau nuage Arbutus.\n3.  Utilisez un outil de copie de données comme `rsync` pour transférer les données de l'ancien partage vers le nouveau, en vous assurant de l'intégrité des données.\nLors de la création du partage équivalent dans le nouveau nuage, assurez-vous de le faire via l'interface web du nouveau nuage Arbutus, de créer un fichier `ceph.conf` distinct (par exemple, `ceph-new.conf`), et de mettre à jour la valeur `mon_host` dans ce nouveau fichier de configuration avec les nouvelles adresses IP (`134.87.15.61:6789,134.87.15.62:6789,134.87.15.63:6789`). Lorsque vous montez le nouveau partage, ajoutez `conf=/etc/ceph/ceph-new.conf` à la commande de montage. Il est conseillé d'utiliser `screen` ou `tmux` pour de gros transferts via `rsync -avp`."
-    },
-    {
-      "question": "Comment migrer les données du stockage objet de l'ancien nuage Arbutus vers le nouveau stockage objet Arbutus?",
-      "answer": "Le nouveau stockage objet Arbutus est un service distinct, donc toutes les données désirées doivent être migrées intentionnellement. La gestion des conteneurs (buckets) et des objets dans le nouvel environnement se fait exclusivement via l'interface du nouveau nuage Arbutus.\nUne méthode recommandée est d'utiliser `rclone` en suivant ces étapes:\n1.  Installez `rclone`.\n2.  Créez des identifiants S3 dans les deux environnements Arbutus (l'ancien et le nouveau).\n3.  Configurez un fichier `rclone.conf` avec des entrées pour les points d'accès (endpoints) de l'ancien et du nouveau stockage, en incluant les clés d'accès (`access_key_id`) et secrètes (`secret_access_key`) pour chaque environnement.\n4.  Lancez la commande de synchronisation `rclone sync legacy: renewal:`.\nNotez que `rclone` ne copie pas les listes de contrôle d'accès (ACLs) des conteneurs, ce qui signifie que l'accès sera initialement privé dans le nouvel emplacement. De plus, les identifiants d'utilisateur ou de projet (UUIDs) seront différents dans le nouveau nuage Arbutus. Pour l'accès public sans authentification aux conteneurs, l'identifiant du locataire (identique à l'ID de projet OpenStack) doit être spécifié dans l'URL."
-    }
-  ],
-  "generated_at": "2026-05-03T01:26:23.493133+00:00"
+  "qa_pairs": [],
+  "generated_at": "2026-05-10T00:27:16.630060+00:00"
 }

@@ -2,15 +2,6 @@
   "doc_key": "base/arbutus_migration_guide",
   "level": "chunk",
   "chunk_index": 7,
-  "qa_pairs": [
-    {
-      "question": "How can a volume-backed instance be migrated using the Linux 'dd' utility as an alternative method on the Arbutus Cloud?",
-      "answer": "To migrate a volume-backed instance using the Linux 'dd' utility, first launch a temporary migration host on the legacy cloud with the smallest flavour possible (e.g., p1-1.5gb, assuming a Linux distribution like AlmaLinux 9). Log into this instance via SSH and install the OpenStack CLI in a root shell. Then, copy your OpenStack RC file from the new cloud to this temporary migration host and source it to verify connection to the new OpenStack API. Delete the instance to be moved, but ensure you do *not* delete its attached volume. In the legacy cloud web UI, attach this freed volume to the temporary migration host. Finally, use the `dd` utility to create an image from the attached volume (e.g., `dd if=/dev/vdb | openstack image create --private --container-format bare --disk-format raw \"volumemigrate\"`). This image can then be used in the new cloud web UI to launch new instances or create new volumes."
-    },
-    {
-      "question": "What is the recommended procedure for migrating *large* volumes between the legacy and new Arbutus Clouds using the Linux 'dd' command, especially for bootable volumes?",
-      "answer": "For large volumes where image-based methods are not recommended, or when `rsync` isn't possible (e.g., for a bootable volume), the `dd` command can be used to make an identical copy on the new cloud. The procedure involves: first, creating a temporary instance on both the legacy and new clouds (e.g., p1-1.5gb), and assigning both floating IP addresses that you can SSH into. Next, install `epel-release`, `pv`, and `screen` packages on the temporary legacy instance, and run `chmod u+s /bin/dd` on the temporary new instance. Copy the SSH private key used for logging into the temporary new instance to the temporary legacy instance, ensuring SSH security rules allow communication. For each volume to be moved, create an empty volume of the same size on the new cloud (marking it bootable if necessary) and attach it to the temporary new instance. Then, attach the volume from the legacy cloud you want to copy to the temporary legacy instance (you may need to delete the instance it was attached to, but *not* the volume). Finally, on the temporary legacy instance, execute a command such as `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@xxx.xx.xx.xx \"sudo dd bs=16M of=/dev/vdb\"` to stream the data to the new cloud. Once complete, you'll have an exact copy of the volume on the new cloud, ready to launch instances."
-    }
-  ],
-  "generated_at": "2026-05-03T01:21:23.399508+00:00"
+  "qa_pairs": [],
+  "generated_at": "2026-05-10T00:23:00.747111+00:00"
 }

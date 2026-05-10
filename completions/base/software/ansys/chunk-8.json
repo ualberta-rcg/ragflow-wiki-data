@@ -2,19 +2,6 @@
   "doc_key": "base/ansys",
   "level": "chunk",
   "chunk_index": 8,
-  "qa_pairs": [
-    {
-      "question": "What are the key differences between the \"Multinode (by node)\" and \"Multinode (by core)\" Slurm scripts for running Ansys Fluent jobs on Alliance clusters, and when should a user choose one over the other?",
-      "answer": "The \"Multinode (by node)\" script (`script-flu-bynode-intel.sh`) is generally recommended for most Ansys Fluent jobs to minimize solution latency and maximize performance using as few nodes as possible. It specifies `--nodes` and `--ntasks-per-node`, allocating all available memory per node (`--mem=0`). In contrast, the \"Multinode (by core)\" script (`script-flu-bycore-intel.sh`) is better suited for very large jobs that might experience shorter queue times, as it specifies the total number of cores (`--ntasks`) and memory per core (`--mem-per-cpu`). However, very large jobs utilizing many nodes may have significantly longer startup times and are more susceptible to crashing if compute nodes fail during the simulation. Both script types are designed to use shared memory (`-pshmem`) for single-node runs or distributed memory (MPI with `-peth` or `-pib`) for multiple nodes."
-    },
-    {
-      "question": "How are MPI implementations and communication methods configured for Ansys Fluent jobs using the provided Slurm scripts on Alliance clusters, specifically for the `narval` and `nibi` clusters?",
-      "answer": "The Slurm scripts for Ansys Fluent employ conditional logic to configure MPI based on the cluster. For the `narval` cluster, the Intel MPI script loads `intel/2023 intelmpi` and sets `INTELMPI_ROOT`. The Open MPI script for `narval` exports `OPENMPI_ROOT`, and for multi-node operations, it sets `FI_PROVIDER=verbs`. Fluent commands utilize either `-mpi=intel` or `-mpi=openmpi`. For jobs running on a single node, shared memory communication (`-pshmem`) is used. For multi-node jobs, Intel MPI uses `-peth` for the `nibi` cluster or `-pib` for other clusters, while Open MPI typically uses `-pib`. Furthermore, for Ansys versions 2025 or newer running on `nibi`, or any version on `narval`, the `I_MPI_HYDRA_BOOTSTRAP=ssh` environment variable is exported for Intel MPI."
-    },
-    {
-      "question": "What are the essential Slurm parameters used to request resources in an Ansys Fluent \"Multinode (by core)\" job script, and what is the purpose of each?",
-      "answer": "The essential Slurm parameters for requesting resources in an Ansys Fluent \"Multinode (by core)\" job script are:\n*   `#SBATCH --account=def-group`: Specifies the billing account under which the job's resource usage will be tracked.\n*   `#SBATCH --time=00-03:00`: Sets the maximum wall-clock time limit for the job in `DD-HH:MM` format (e.g., 3 hours).\n*   `#SBATCH --ntasks=16`: Defines the total number of CPU cores that will be allocated for the job across all requested nodes.\n*   `#SBATCH --mem-per-cpu=4G`: Specifies the amount of memory, in gigabytes, that will be allocated for each requested CPU core.\n*   `#SBATCH --cpus-per-task=1`: This parameter should not be altered, as it is a fixed requirement for Fluent's MPI configuration within these scripts."
-    }
-  ],
-  "generated_at": "2026-05-03T00:59:35.403882+00:00"
+  "qa_pairs": [],
+  "generated_at": "2026-05-10T00:17:04.388132+00:00"
 }

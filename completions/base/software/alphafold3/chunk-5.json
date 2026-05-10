@@ -2,15 +2,6 @@
   "doc_key": "base/alphafold3",
   "level": "chunk",
   "chunk_index": 5,
-  "qa_pairs": [
-    {
-      "question": "How are AlphaFold3 jobs submitted to the scheduler on the clusters, and what are the two methods for submission?",
-      "answer": "AlphaFold3 jobs can be submitted to the scheduler using the `sbatch` command. There are two primary methods: submitting independent jobs by first running `sbatch alphafold3-data.sh` and then, once it's complete, running `sbatch alphafold3-inference.sh`; or submitting dependent jobs where the inference stage waits for the data stage to complete successfully, using `jid1=$(sbatch alphafold3-data.sh)` followed by `jid2=$(sbatch --dependency=afterok:$jid1 alphafold3-inference.sh)`."
-    },
-    {
-      "question": "What steps should be taken if AlphaFold3's model inference stage encounters an 'Out of memory (GPU)' error, especially when using larger inputs or GPUs with less memory?",
-      "answer": "If AlphaFold3's inference stage experiences an 'Out of memory (GPU)' error, particularly with inputs larger than 5,120 tokens or GPUs with less memory (e.g., an A100 with 40 GB), you can enable unified memory. This involves adding the environment variables `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true`, and `export XLA_CLIENT_MEM_FRACTION=2.0` to your inference submission script, and adjusting the `memory` allocated to your job accordingly, for instance, by setting `#SBATCH --mem=80G`."
-    }
-  ],
-  "generated_at": "2026-04-13T01:34:48.289820+00:00"
+  "qa_pairs": [],
+  "generated_at": "2026-05-10T00:14:25.495855+00:00"
 }

@@ -2,15 +2,6 @@
   "doc_key": "en/arbutus_migration_guide",
   "level": "chunk",
   "chunk_index": 7,
-  "qa_pairs": [
-    {
-      "question": "How can a volume-backed instance be migrated from the legacy Arbutus Cloud to the new Arbutus Cloud using the Linux 'dd' utility to create an image?",
-      "answer": "To migrate a volume-backed instance using the Linux 'dd' utility to create an image, first launch a temporary migration host instance on the legacy cloud and install the OpenStack CLI. Copy and source your new cloud RC file on this host. Delete the original instance to be moved, but ensure its attached volume is retained. Attach this legacy volume to the temporary migration host. Then, use the `dd` utility to create an image from the attached disk (e.g., `dd if=/dev/vdb | openstack image create --private --container-format bare --disk-format raw \"volumemigrate\"`). This image will then be available in the new cloud's Compute -> Images section for launching new instances or creating volumes."
-    },
-    {
-      "question": "What is the recommended method for migrating large volumes from the legacy Arbutus Cloud to the new Arbutus Cloud using the Linux 'dd' command when image-based methods are not suitable?",
-      "answer": "For large volumes where image-based migration or `rsync` is not feasible, the `dd` command can be used to create an identical copy on the new cloud. This method involves creating temporary instances on both the legacy and new clouds and assigning them floating IP addresses for SSH access. For each volume to be moved, create an empty volume of the same size on the new cloud and attach it to the new temporary instance, marking it as bootable if necessary. Attach the legacy volume to the temporary legacy instance. Finally, from the temporary legacy instance, execute a command like `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@xxx.xx.xx.xx \"sudo dd bs=16M of=/dev/vdb\"` to directly copy the data over SSH."
-    }
-  ],
-  "generated_at": "2026-05-03T01:23:13.145747+00:00"
+  "qa_pairs": [],
+  "generated_at": "2026-05-10T00:24:43.638441+00:00"
 }
