@@ -1,6 +1,6 @@
 <img src="./assets/ua_logo_green_rgb.png" alt="University of Alberta Logo" width="50%" />
 
-# University of Alberta - RAGFlow Wiki Data
+# RAGFlow Wiki Data
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 [![MkDocs Site](https://img.shields.io/badge/Docs-Live-blue?style=flat-square)](https://ualberta-rcg.github.io/ragflow-wiki-data/)
