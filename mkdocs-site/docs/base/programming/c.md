@@ -5,39 +5,39 @@ lang: "base"
 
 source_wiki_title: "C++"
 source_hash: "c7b09b188074cbdf67fb8065e597ea0e"
-last_synced: "2026-05-02T23:50:34.269007+00:00"
-last_processed: "2026-05-03T00:39:51.335880+00:00"
+last_synced: "2026-05-17T14:59:09.465984+00:00"
+last_processed: "2026-05-17T15:17:53.585021+00:00"
 
 tags:
   []
 
 keywords:
-  - "C++"
-  - "compiler optimization"
-  - "C/C++"
-  - "volatile"
-  - "compiler support"
-  - "volatile keyword"
-  - "Optimization options"
-  - "Intel compilers"
-  - "synchronization"
-  - "ISO C++ standards"
-  - "GCC compiler"
-  - "C++ ABI"
   - "atomic operations"
-  - "Linking binaries"
-  - "standard library"
+  - "volatile"
+  - "C/C++"
+  - "Optimization"
+  - "Compilers"
+  - "ISO C++ standards"
+  - "compiler support"
+  - "ABI"
+  - "high-performance computing"
+  - "Intel compiler"
+  - "volatile keyword"
+  - "concurrency and memory models"
+  - "C++"
+  - "synchronization"
+  - "GCC"
 
 questions:
-  - "What is the release cycle of ISO C++ standards and what are the major versions released since 1998?"
-  - "Why is it highly recommended to compile concurrent C++ code using the C++11 standard or newer?"
-  - "What is the proper use case for the `volatile` keyword in C++, and why should it be avoided for synchronization?"
-  - "What are the potential risks of using the GCC compiler's -O3 option, and what alternatives are recommended for safer compilation?"
-  - "How can developers resolve linking failures caused by ABI changes when using newer GCC versions with older precompiled libraries?"
-  - "Which command-line options should be used with Intel C/C++ compilers to ensure safe and standards-compliant floating-point operations?"
-  - "In what specific scenarios, such as within high-performance computing, is the volatile keyword appropriately used in C/C++?"
-  - "Why should volatile never be used for synchronization in C/C++, and what mechanisms should be used instead?"
+  - "What is the release cycle for ISO C++ standards, and why is it highly recommended to compile code using C++11 or a newer standard?"
+  - "How do many C++ compilers operating under Linux handle the implementation of the C++ Standard Library?"
+  - "What is the proper use case for the volatile keyword in C++, and why should it never be used for synchronization?"
+  - "What is the primary purpose of using the volatile keyword in high-performance computing code?"
+  - "Why should the volatile keyword be avoided for synchronization, and what alternatives are recommended instead?"
   - "How does the behavior of the volatile keyword in C/C++ differ from its implementation in other programming languages like Java?"
+  - "What are the potential risks of using the -O3 optimization option in the GCC compiler, and what are the recommended alternatives for safe compilation?"
+  - "How does the ABI change introduced in GCC version 5.1 affect linking with older precompiled binaries, and how can the Dual ABI feature be used to resolve these issues?"
+  - "Why might the default floating-point optimizations in Intel C/C++ compilers be problematic, and which compiler options should be used to ensure standards-compliant support?"
 
 status:
   downloaded: true
@@ -74,11 +74,11 @@ The GCC documentation has a section which details [Standard Library components a
 
 ## New to C++ or need an update?
 
-If you are new to C++ or need an update then start by checking out the ISO C++ advocacy site's [Get Started](https://isocpp.org/get-started) page — especially its recommended books. All of these books are excellent.
+If you are new to C++ or need an update then start by checking out the ISO C++ advocacy site's [Get Started](https://isocpp.org/get-started) page --especially its recommended books. All of these books are excellent.
 
 ## Pitfalls
 ### The `volatile` keyword
-The reader should note that `volatile` in C and C++ have very specific meanings, e.g., see [this page](http://en.cppreference.com/w/cpp/language/cv). Needing to use `volatile` in C/C++ code is a rare event. Within high-performance computing code, `volatile` in rare instances might be used to declare a variable in order tell the compiler to not optimize away load/store side-effects from/to that variable. That said, **never** use volatile for synchronization: instead, use C11/C++11 atomic operations and locks, etc. Finally, know `volatile` in other programming languages, e.g., Java, is often different than in C/C++. Typically the latter would be implemented in C/C++ using synchronization constructs.
+The reader should note that `volatile` in C and C++ have very specific meanings, e.g., see [this page](http://en.cppreference.com/w/cpp/language/cv). Needing to use `volatile` in C/C++ code is a rare event. Within high-performance computing code, `volatile` in rare instances might be used to declare a variable in order to tell the compiler to not optimize away load/store side-effects from/to that variable. That said, **never** use volatile for synchronization: instead, use C11/C++11 atomic operations and locks, etc. Finally, know `volatile` in other programming languages, e.g., Java, is often different than in C/C++. Typically the latter would be implemented in C/C++ using synchronization constructs.
 
 ### Compilers
 #### GCC
@@ -86,7 +86,7 @@ The reader should note that `volatile` in C and C++ have very specific meanings,
 The GCC compiler's -O3 option includes possibly unsafe optimizations for some types of code (e.g., code relying on aliasing). If unsure, compile and optimize code using the -O2 option instead. If you've more time, read the man page (e.g., `man g++`) and unset the appropriate options by searching for "-O3" to see which options are turned on and turn off the settings that are not safe.
 
 ##### Linking with older previously compiled binaries
-The transition from GCC version 4.9 to version 5.1 introduced a major change to its ABI. If all source code including all dependent libraries is recompiled using the same version of the compiler then there will be no issues. If different compilers are used, the ABI change may cause linking to fail. The latter is likely to occur if you are linking to precompiled libraries provided in a vendor's product. If this occurs, you can use GCC's Dual ABI feature to tell GCC to use the old ABI in order for your application to link properly with those legacy libraries, e.g., you would pass `-D_GLIBCXX_USE_CXX11_ABI=0` to GCC if using GCC v5.1 or higher to link to libraries built using the older ABI.
+The transition from GCC version 4.9 to version 5.1 introduced a major change to its ABI. If all source code including all dependent libraries is recompiled using the same version of the compiler then there will be no issues. If different compilers are used, the ABI change may cause linking to fail. The latter is likely to occur if you are linking to precompiled libraries provided in a vendor's product. If this occurs, you can use GCC's Dual ABI[^1] feature to tell GCC to use the old ABI in order for your application to link properly with those legacy libraries, e.g., you would pass `-D_GLIBCXX_USE_CXX11_ABI=0` to GCC if using GCC v5.1 or higher to link to libraries built using the older ABI.
 
 An example of how the ABI is affected by various GCC command-line options here: GCC C++ Dual ABI.
 
@@ -95,5 +95,6 @@ Generally speaking, the C++ ABI is frequently updated. One should assume each ma
 #### Intel
 Intel C/C++ compilers may default to using possibly unsafe optimizations for floating-point operations. Users using the Intel compilers should read the Intel man pages (e.g., `man icpc`) and are recommended to use one of two options, `-fp-model precise` or `-fp-model source`, for ANSI/ISO/IEEE standards-compliant floating-point support. For more details, read this Intel slideshow called, [Floating-point control in the Intel compiler and libraries](https://software.intel.com/sites/default/files/article/326703/fp-control-2012-08.pdf).
 
+[^1]: Free Software Foundation. The GNU C++ Library, Chapter 3. https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html
+
 ## References
-*   Free Software Foundation. The GNU C++ Library, Chapter 3. [https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html)

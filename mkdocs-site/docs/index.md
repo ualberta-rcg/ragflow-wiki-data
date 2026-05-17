@@ -91,7 +91,7 @@ title: Home
 | **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
 | **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-05-17 00:19 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-05-17 15:34 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -112,7 +112,7 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 | May 25 | Data Bites - File Naming Best Practices for Research Data | [Register](https://libcal.library.ubc.ca/event/4016251) |
 | May 26 | Digital Scholarship Tools: 3D Design Basics | [Register](https://ualberta.libcal.com/event/4018974) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-05-17 00:19 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-05-17 15:34 UTC.*</small>
 
 ---
 

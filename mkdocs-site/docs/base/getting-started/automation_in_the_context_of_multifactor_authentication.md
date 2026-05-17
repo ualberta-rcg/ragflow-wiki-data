@@ -4,65 +4,23 @@ slug: "automation_in_the_context_of_multifactor_authentication"
 lang: "base"
 
 source_wiki_title: "Automation in the context of multifactor authentication"
-source_hash: "12038ced4b3537237777e5926c26f95c"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T05:35:18.739420+00:00"
+source_hash: "26b9a2a072677bc285fa11a8805ff453"
+last_synced: "2026-05-17T14:59:09.465984+00:00"
+last_processed: "2026-05-17T15:15:25.567708+00:00"
 
 tags:
   []
 
 keywords:
-  - "Paramiko"
-  - "allowed commands"
-  - "CCDB"
-  - "automation node"
-  - "IPv4/IPv6"
-  - "file commands"
-  - "IPv4 vs IPv6"
-  - "constrained SSH keys"
-  - "automated workflow"
-  - "archiving commands"
-  - "address mask"
-  - "SSH connection"
-  - "Slurm commands"
-  - "IPv6 address"
-  - "automation nodes"
-  - "SSH key"
-  - "computecanada"
-  - "IPv4 address"
-  - "Python"
-  - "git commands"
-  - "wrapper scripts"
-  - "SSH keys"
-  - "authentication"
-
-questions:
-  - "Why are automation nodes required for automated workflows, and what is the process for requesting access to them?"
-  - "What specific constraints must be applied to the SSH keys used for authenticating on an automation node?"
-  - "How does the `command=` constraint work, and what types of convenience wrapper scripts are provided to manage allowed actions?"
-  - "What specific constraints and formatting must be applied to an SSH key before uploading it for restricted automated tasks?"
-  - "How can a user configure their SSH client or commands to ensure the correct private key is used for unattended connections?"
-  - "Why might an IPv6 connection cause an authentication failure if the SSH key's \"from=\" field is configured with an IPv4 address mask?"
-  - "What types of commands are permitted by the archiving_commands.sh script?"
-  - "Which script is responsible for allowing file manipulation commands such as mv, cp, or rm?"
-  - "How is the use of the git command enabled according to the provided directory structure?"
-  - "What website can be used to check your current IP addresses?"
-  - "What do the provided examples of IPv4 and IPv6 addresses look like?"
-  - "What connection problem occurs if an IPv4 mask is placed in the CCDB SSH key while the client connects using an IPv6 address?"
-  - "How can a user determine whether their SSH connection to an automation node is using IPv4 or IPv6?"
-  - "What are the recommended solutions to resolve IP addressing conflicts when connecting to the automation node?"
-  - "What specific installation command is required to ensure the Python Paramiko module supports Ed25519 SSH keys?"
-  - "How can a user determine whether their SSH connection to an automation node is using IPv4 or IPv6?"
-  - "What are the recommended solutions to resolve IP addressing conflicts when connecting to the automation node?"
-  - "What specific installation command is required to ensure the Python Paramiko module supports Ed25519 SSH keys?"
+  []
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: true
+  keywords_generated: false
   ragflow_synced: true
-  qa_generated: false
+  qa_generated: true
 ---
 
 An automated workflow which involves some outside machine connecting to a cluster without human intervention cannot make use of a second authentication factor. In order to execute such a workflow now that MFA is a requirement, you must request access to an **automation node**. An automation node does not require the use of a second factor, but is much more limited than a regular login node in terms of the type of authentication it accepts and the types of actions that it can be used to perform.
@@ -72,7 +30,7 @@ An automated workflow which involves some outside machine connecting to a cluste
 If you need to make use of an automated workflow for your research, contact our [technical support](../support/technical_support.md) and request access to an automation node. When contacting us, please explain in detail the type of automation you intend to use. Tell us what commands will be executed and what tools or libraries you will be using to manage the automation.
 
 ### Available only through constrained SSH keys
-The only accepted means of authentication for the automation nodes is through [SSH keys uploaded to the CCDB](ssh_keys.md#using-ccdb). SSH keys written in your *.ssh/authorized_keys* file are not accepted. Please follow the rule of 'one SSH key per use.' Do not reuse the key for interactive login. Instead, generate a new SSH key specifically for your automation workflow. In addition, the SSH keys **must** obey the following constraints.
+The only accepted means of authentication for the automation nodes is through [SSH keys uploaded to the CCDB](ssh_keys.md#using-ccdb). SSH keys written in your `~/.ssh/authorized_keys` file are not accepted. Please follow the rule of 'one SSH key per use.' Do not reuse the key for interactive login. Instead, generate a new SSH key specifically for your automation workflow. In addition, the SSH keys **must** obey the following constraints.
 
 #### `restrict`
 This constraint disables port forwarding, agent forwarding, and X11 forwarding. It also disables the pseudo teletype (PTY), blocking most interactive workloads. This is required because these automation nodes are not intended to be used to start long-running or interactive processes. Regular login nodes must be used instead.
@@ -83,8 +41,10 @@ This constraint specifies that the key can only be used from IP addresses that m
 #### `command="COMMAND"`
 This constraint forces the command `COMMAND` to be executed when the connection is established. This is so that you may restrict which commands can be used with this key.
 
+Any path in the `COMMAND` may be absolute (that is from `/`) or relative to the home directory.
+
 ### Convenience wrapper scripts to use for `command=`
-`command` constraints can specify any command, but they are most useful when using a wrapper script which will accept or reject commands based on which command is being called. You can write your own script, but for convenience, we provide a number of such scripts which allow common actions. These scripts are defined in [this git repository](https://github.com/ComputeCanada/software-stack-custom/tree/main/bin/computecanada/allowed_commands).
+`command` constraints can specify any command, but they are most useful when using a wrapper script which will accept or reject commands based on which command is being called. You can write your own script, but for convenience, we provide a number of such scripts which allow common actions. These scripts are defined in [this Git repository](https://github.com/ComputeCanada/software-stack-custom/tree/main/bin/computecanada/allowed_commands).
 
 *   `/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/transfer_commands.sh` allows only file transfers, such as `scp`, `sftp` or `rsync`.
 *   `/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/archiving_commands.sh` allows commands to archive files, such as `gzip`, `tar` or `dar`.
@@ -99,7 +59,7 @@ For example, the following key would be accepted, and could only be used for tra
 ```text
 restrict,from="216.18.209.*",command="/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/transfer_commands.sh" ssh-ed25519 AAAAC3NzaC1lZDI1NTE6AACAIExK9iTTDGsyqKKzduA46DvIJ9oFKZ/WN5memqG9Invw
 ```
-while this one would only allow Slurm commands (squeue, scancel, sbatch, scontrol, sq):
+while this one would only allow Slurm commands (`squeue`, `scancel`, `sbatch`, `scontrol`, `sq`):
 ```text
 restrict,from="216.18.209.*",command="/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/slurm_commands.sh" ssh-ed25519 AAAAC3NzaC1lZDI1NTE6AACAIExK9iTTDGsyqKKzduA46DvIJ9oFKZ/WN5memqG9Invw
 ```
@@ -150,8 +110,7 @@ rsync -a datadir/a robot:scratch/testdata
 ```
 
 ## IPv4 vs IPv6 issue
-
-When connecting to an automation node, the SSH client on your computer may choose to use the **IPv6 addressing** over the older **IPv4**.
+When connecting to an automation node the SSH client on your computer may choose to use the **IPv6 addressing** over the older **IPv4**.
 This seems to be more probable in a Windows environment.
 If this is the case you have to make sure that the IP address mask you put in the `restrict,from=` field of the key
 matches the type your computer will be using when connecting to the node.
@@ -166,7 +125,6 @@ your SSH client will be connecting to the automation node using IPv6 address, th
 and the key will not be accepted by the automation node.
 
 ### How to identify the problem
-
 If you are having difficulties to make the SSH connection to an automation node work,
 try this test command:
 ```bash
@@ -191,7 +149,6 @@ debug1: Connecting to robot.rorqual.alliancecan.ca [2620:123:7002:4::5] port 22.
 then IPv6 is being used to make the connection.
 
 ### Possible solutions
-
 *   You can make the SSH client to **explicitly use either IPv4 or IPv6** using the `-4` and `-6` options, respectively, to match the format you used for the key in CCDB.
 
 *   You can try using an **IP address instead of the name** to point to the automation node. Using Rorqual example, try using the
@@ -205,7 +162,6 @@ then IPv6 is being used to make the connection.
     How to disable IPv6 will depend on your operating system.
 
 ## Automation using Python and Paramiko
-
 If you are using the [Paramiko Python module](https://www.paramiko.org/index.html) to automate your workflow, this is how you can make it work with the automation nodes:
 ```python
 # ====================================================================================================
@@ -235,11 +191,11 @@ print("".join(stdout.readlines()))
 ssh.close()
 # ====================================================================================================
 ```
-This code connects to the automation node on **Rorqual** using an key specified in CCDB and
+This code connects to the automation node on **Rorqual** using a key specified in CCDB and
 executes the `ls -l` command to get the list of files.
 Then prints the list to the screen.
 
-Note that it is important to **install Paramiko** with the
+Note that it is important to install Paramiko with the
 ```bash
 pip install paramiko[all]
 ```

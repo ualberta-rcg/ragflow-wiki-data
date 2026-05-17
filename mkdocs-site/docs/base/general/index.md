@@ -16,6 +16,7 @@ Auto-generated index for `base/general`.
 - [Including A Source Code File Within The Wiki](including_a_source_code_file_within_the_wiki.md)
 - [Including Source Code Within The Wiki](including_source_code_within_the_wiki.md)
 - [Meltdown And Spectre Bugs](meltdown_and_spectre_bugs.md)
+- [Metrix En Ca](metrix_en-ca.md)
 - [Page Translation](page_translation.md)
 - [Technical Documentation](technical_documentation.md)
 - [Terminology](terminology.md)

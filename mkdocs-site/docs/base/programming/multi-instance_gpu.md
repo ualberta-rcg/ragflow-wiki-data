@@ -4,79 +4,48 @@ slug: "multi-instance_gpu"
 lang: "base"
 
 source_wiki_title: "Multi-Instance GPU"
-source_hash: "dcf95e80be8a50c6723f7a133a15ed00"
-last_synced: "2026-04-25T23:42:08.699101+00:00"
-last_processed: "2026-04-26T00:20:15.489878+00:00"
+source_hash: "2c1523e5bcdaaef515b2a779193e872d"
+last_synced: "2026-05-17T14:59:09.465984+00:00"
+last_processed: "2026-05-17T15:24:12.069146+00:00"
 
 tags:
   []
 
 keywords:
-  - "streaming multiprocessors"
-  - "processing units"
-  - "SMs"
-  - "NVIDIA"
-  - "MIG"
-  - "GPU configuration"
-  - "NVidia MIG documentation"
-  - "power consumption"
-  - "H100 SXM5"
-  - "H100"
-  - "CPU cores"
-  - "instances"
-  - "MIG profiles"
-  - "unassigned SMs"
-  - "GPU instances"
-  - "computing power"
-  - "H100 SXM5 GPU"
-  - "Multi-Instance GPU"
-  - "MIGs"
-  - "allocation and priority"
-  - "GPU memory"
-  - "GPU utilization"
-
-questions:
-  - "What is Multi-Instance GPU (MIG) technology and what are the primary benefits of using it instead of a full GPU?"
-  - "What are the key technical limitations and restrictions when submitting jobs to MIG instances?"
-  - "How are MIG profiles configured, and what do the profile names indicate about the allocated computing power and memory?"
-  - "How can a user request a specific fractional GPU instance, such as a 3g.20gb or 4g.20gb, for interactive or batch jobs?"
-  - "What performance metrics should be evaluated to determine if a job is suitable for a fractional GPU instance instead of a full GPU?"
-  - "Why is the division of an H100 GPU into sevenths or eighths technically more complicated than NVIDIA's MIG documentation suggests?"
-  - "What are the computing power and memory specifications for the different H100 GPU profiles?"
-  - "How does selecting a less powerful GPU profile affect a user's allocation and priority?"
-  - "How can a user list all the available MIG flavors and full-size GPU names on a given cluster?"
-  - "How does NVidia's MIG documentation describe the fractional division of a GPU?"
-  - "How many streaming multiprocessors are contained within an H100 SXM5 GPU?"
-  - "Why does the mathematical factorization of the GPU's processing units complicate the documentation's claims?"
-  - "How are the 132 Streaming Multiprocessors (SMs) of an H100 SXM5 partitioned into different instances under MIG?"
-  - "What happens to the remaining eight SMs after the instances are assigned, and why are they considered effectively lost?"
-  - "Why does the text argue that the partitioned H100 GPU should be measured in \"thirty-thirdths\" rather than NVIDIA's terminology of \"eighths\"?"
+  []
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: true
+  keywords_generated: false
   ragflow_synced: true
-  qa_generated: false
+  qa_generated: true
 ---
 
-Many programs are unable to fully use modern GPUs such as NVIDIA [A100s](https://www.nvidia.com/en-us/data-center/a100/) and [H100s](https://www.nvidia.com/en-us/data-center/h100s/). [Multi-Instance GPU (MIG)](https://www.nvidia.com/en-us/technologies/multi-instance-gpu/) is a technology that allows partitioning a single GPU into multiple [instances](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#terminology), making each one a completely independent virtual GPU. Each of the GPU instances gets a portion of the original GPU's computational resources and memory, all detached from the other instances by on-chip protections.
+Many programs are unable to fully use modern GPUs such as NVIDIA [A100s](https://www.nvidia.com/en-us/data-center/a100/) and [H100s](https://www.nvidia.com/en-us/data-center/h100/). [Multi-Instance GPU (MIG)](https://www.nvidia.com/en-us/technologies/multi-instance-gpu/) is a technology that allows partitioning a single GPU into multiple [instances](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#terminology), making each one a completely independent virtual GPU. Each of the GPU instances gets a portion of the original GPU's computational resources and memory, all detached from the other instances by on-chip protections.
 
-Using GPU instances is less wasteful, and usage is billed accordingly. Jobs submitted on such instances use less of your allocated priority compared to a full GPU; you will then be able to execute more jobs and have shorter wait times.
+!!! note
+    Using GPU instances is less wasteful, and usage is billed accordingly. Jobs submitted on such instances use less of your allocated priority compared to a full GPU; you will then be able to execute more jobs and have shorter wait times.
 
 ## Choosing between a full GPU and a GPU instance
-Jobs that use less than half of the computing power of a full GPU and less than half of the available memory should be evaluated and tested on an instance. In most cases, these jobs will run just as fast and consume less than half of the computing resource.
+
+!!! tip
+    Jobs that use less than half of the computing power of a full GPU and less than half of the available memory should be evaluated and tested on an instance. In most cases, these jobs will run just as fast and consume less than half of the computing resource.
 
 See section [Finding which of your jobs should use an instance](#finding-which-of-your-jobs-should-use-an-instance) for more details.
 
 ## Limitations
-[The MIG technology does not support](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#application-considerations) [CUDA Inter-Process Communication (IPC)](https://developer.nvidia.com/docs/drive/drive-os/6.0.8.1/public/drive-os-linux-sdk/common/topics/nvsci_nvsciipc/Inter-ProcessCommunication1.html), which optimizes data transfers between GPUs over NVLink and NVSwitch. This limitation also reduces communication efficiency between instances. Consequently, **requesting more than one MIG instance in a job is not permitted**. Such a job will be rejected at submission time. If you feel you need more than one MIG instance, then either:
-*   Request a larger instance (e.g. a 3g instead of three 1g instances).
-*   Request an entire GPU or multiple GPUs.
-*   Consider whether you can avoid requesting multiple MIGs using a [job array](../running-jobs/job_arrays.md), [META-Farm](../running-jobs/meta-farm.md), [GNU Parallel](../running-jobs/gnu_parallel.md), or [GLOST](../running-jobs/glost.md).
-*   Use [MPS](../software/hyper-q___mps.md) rather than MIG.
-*   [Contact Support](../support/technical_support.md) explaining the reason you want to try running on multiple MIGs. An analyst can help you find an efficient alternative, or arrange a scheduling exception for you.
+
+!!! warning
+    [The MIG technology does not support](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#application-considerations) [CUDA Inter-Process Communication (IPC)](https://developer.nvidia.com/docs/drive/drive-os/6.0.8.1/public/drive-os-linux-sdk/common/topics/nvsci_nvsciipc/Inter-ProcessCommunication1.html), which optimizes data transfers between GPUs over NVLink and NVSwitch. This limitation also reduces communication efficiency between instances.
+    Consequently, **requesting more than one MIG instance in a job is not permitted**. Such a job will be rejected at submission time.
+    If you feel you need more than one MIG instance, then either:
+    *   Request a larger instance (e.g., a 3g instead of three 1g instances).
+    *   Request an entire GPU or multiple GPUs.
+    *   Consider whether you can avoid requesting multiple MIGs using a [job array](../running-jobs/job_arrays.md), [META-Farm](../running-jobs/meta-farm.md), [GNU Parallel](../running-jobs/gnu_parallel.md), or [GLOST](../running-jobs/glost.md).
+    *   Use [MPS](../software/hyper-q___mps.md) rather than MIG.
+    *   [Contact Support](../support/technical_support.md) explaining the reason you want to try running on multiple MIGs. An analyst can help you find an efficient alternative, or arrange a scheduling exception for you.
 
 Graphic APIs are not supported (for example, OpenGL, Vulkan, etc.); see [Application Considerations](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#application-considerations).
 
@@ -96,7 +65,7 @@ The profile name describes the size of the instance.
 
 Using less powerful profiles will have a lower impact on your allocation and priority.
 
-To list all the flavours of MIGs (plus the full size GPU names) available on a given cluster, one can run the following command:
+To list all the flavours of MIGs (plus the full-size GPU names) available on a given cluster, one can run the following command:
 
 ```bash
 sinfo -o "%G"|grep gpu|sed 's/gpu://g'|sed 's/),/\n/g'|cut -d: -f1|sort|uniq
@@ -114,7 +83,7 @@ salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb
 
 *   Requesting an instance of power 4/8 and size 20GB for a 24-hour batch job using the maximum recommended number of cores and system memory:
 
-```bash title="a100_4g.20gb_mig_job.sh"
+```sh title="a100_4g.20gb_mig_job.sh"
 #!/bin/bash
 #SBATCH --account=def-someuser
 #SBATCH --gpus=a100_4g.20gb:1
@@ -130,9 +99,9 @@ nvidia-smi
 
 You can find information on current and past jobs on the Narval usage portal (writing in progress).
 
-Power consumption is a good indicator of the total computing power requested from the GPU. For example, a job requested a full A100 GPU with a maximum TDP of 400W, but only used 100W on average. This average usage is only 50W more than the idle electric consumption, indicating underutilization.
+Power consumption is a good indicator of the total computing power requested from the GPU. For example, a job requested a full A100 GPU with a maximum TDP of 400W, but logs showed it only used 100W on average, which is only 50W more than the idle electric consumption. This indicates significant underutilization of the GPU's power.
 
-GPU functionality utilization may also provide insights into GPU usage when power consumption alone is insufficient. For this example job, utilization metrics show that the job used less than 25% of the available computing power of a full A100 GPU.
+GPU functionality utilization may also provide insights on the usage of the GPU in cases where power consumption is not sufficient. For this example job, utilization metrics indicated that the job used less than 25% of the available computing power of a full A100 GPU.
 
 The final metrics to consider are the maximum amount of GPU memory and the average number of CPU cores required to run the job. For this example, the job used a maximum of 3GB of GPU memory out of the 40GB available on a full A100 GPU.
 
@@ -150,4 +119,4 @@ Under MIG, an H100 SXM5's 132 SMs are partitioned into:
 *   **One** instance of **32** SMs (`nvidia_h100_80gb_hbm3_2g.20gb`)
 *   **Two** instances of **16** SMs (`nvidia_h100_80gb_hbm3_1g.10gb`)
 
-leaving eight SMs *unassigned* and effectively lost (60+32+16+16+(8) = 124 *assigned* + 8 *unassigned* = 132). Rather than speaking of eighths then, we should consider a MIGed H100 divided into *thirty-thirdths*, however unwieldy this may be. What NVIDIA calls "one eighth" is therefore 4/33 of an H100 GPU, "two eighths" is 8/33 and "three eighths" is 15/33, with 2/33 of the GPU not assigned to any instance.
+leaving eight SMs *unassigned* and effectively lost (60+32+16+16+(8) = 124 *assigned* + 8 *unassigned* = 132). Rather than speaking of eighths then, we should consider a MIGed H100 divided into *thirty-thirds*, however unwieldy this may be. What NVIDIA calls "one eighth" is therefore 4/33 of an H100 GPU, "two eighths" is 8/33 and "three eighths" is 15/33, with 2/33 of the GPU not assigned to any instance.

@@ -2,6 +2,19 @@
   "doc_key": "base/c",
   "level": "chunk",
   "chunk_index": 3,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:51:42.721777+00:00"
+  "qa_pairs": [
+    {
+      "question": "What is the recommended approach when using the GCC compiler's `-O3` optimization option?",
+      "answer": "The GCC compiler's `-O3` option includes optimizations that may be unsafe for certain types of code, particularly those relying on aliasing. If you are unsure, it is recommended to compile and optimize your code using the `-O2` option instead. For more detailed control, you can read the `man` page (e.g., `man g++`) to identify and disable specific unsafe optimizations enabled by `-O3`."
+    },
+    {
+      "question": "What issue can arise when linking C++ code compiled with different GCC versions, and how can it be addressed?",
+      "answer": "A major change to the GCC Application Binary Interface (ABI) was introduced during the transition from GCC version 4.9 to 5.1, and the C++ ABI is generally updated frequently with major compiler releases. This can cause linking failures if an application is compiled with a newer GCC version while linking against libraries compiled with an older one. The general solution is to either consistently use the same compiler version for all source code and dependent libraries, or to recompile older binaries from source with the newer compiler. For GCC v5.1 or higher, you can use the Dual ABI feature by passing `-D_GLIBCXX_USE_CXX11_ABI=0` to link with libraries built using the older ABI."
+    },
+    {
+      "question": "What is the concern with floating-point optimizations in Intel C/C++ compilers, and what options should users employ for standards compliance?",
+      "answer": "Intel C/C++ compilers may default to using potentially unsafe optimizations for floating-point operations. To ensure ANSI/ISO/IEEE standards-compliant floating-point support, users should consult the Intel man pages (e.g., `man icpc`) and are recommended to use either the `-fp-model precise` or `-fp-model source` options when compiling."
+    }
+  ],
+  "generated_at": "2026-05-17T15:37:05.043553+00:00"
 }

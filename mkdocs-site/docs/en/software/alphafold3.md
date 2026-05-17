@@ -4,58 +4,21 @@ slug: "alphafold3"
 lang: "en"
 
 source_wiki_title: "AlphaFold3/en"
-source_hash: "e8f647fbbc07858c35523a715f1eac90"
-last_synced: "2026-04-12T15:59:52.668416+00:00"
-last_processed: "2026-04-12T16:17:49.351951+00:00"
+source_hash: "28ad47a27934030b74cc58b0400be636"
+last_synced: "2026-05-17T14:59:09.465984+00:00"
+last_processed: "2026-05-17T15:03:59.810745+00:00"
 
 tags:
   - software
 
 keywords:
-  - "Python virtual environment"
-  - "AlphaFold3"
-  - "sbatch"
-  - "Model inference"
-  - "augmented JSON"
-  - "A100 GPU"
-  - "Data pipeline"
-  - "XLA flags"
-  - "unified memory"
-  - "Model parameters"
-  - "performance"
-  - "multiple inferences"
-  - "GPU memory"
-  - "Databases"
-  - "ligand"
-  - "Alphafold3"
-  - "run_alphafold.py"
-  - "Running in stages"
-  - "job submission"
-  - "AlphaFold 3"
-  - "SLURM submission script"
-
-questions:
-  - "What are the steps required to set up the Python virtual environment and install the dependencies for AlphaFold3?"
-  - "How do users obtain the necessary model parameters and databases, and where must the databases be stored?"
-  - "Why is it recommended to run AlphaFold3 in stages, and what is the difference between the data pipeline and model inference?"
-  - "What is the maximum number of CPU cores recommended for the AlphaFold3 data pipeline stage?"
-  - "What specific GPU hardware is required to successfully run the AlphaFold3 model inference script?"
-  - "How do the provided bash scripts manage the virtual environment and dependencies required to execute AlphaFold3?"
-  - "How can the augmented JSON be used to run multiple inferences with different seeds or feature variations like ligands?"
-  - "What specific documentation links are provided for understanding the inputs and outputs of AlphaFold3?"
-  - "Where can one find reference information regarding the performance of AlphaFold3?"
-  - "What is the purpose of setting the `XLA_FLAGS` environment variable to disable Triton GEMM in this script?"
-  - "How do the `XLA_PYTHON_CLIENT_PREALLOCATE` and `XLA_CLIENT_MEM_FRACTION` variables manage GPU memory allocation for AlphaFold 3?"
-  - "What are the required directory arguments needed to successfully execute the `run_alphafold.py` script?"
-  - "How can you submit both independent and dependent jobs for the AlphaFold3 data and inference stages using the scheduler?"
-  - "What manual step must be taken if the initial data pipeline stage of a dependent job fails?"
-  - "Which environment variables and memory settings need to be adjusted to enable unified memory and prevent GPU out-of-memory errors?"
+  []
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: true
+  keywords_generated: false
   ragflow_synced: true
   qa_generated: true
 ---
@@ -78,71 +41,73 @@ AlphaFold2 is still available. Documentation is [here](alphafold2.md).
 
 1. Load AlphaFold3 dependencies.
 
-    ```bash
-    module load StdEnv/2023 hmmer-alphafold3/3.4 rdkit/2024.03.5 python/3.12
-    ```
+```bash
+module load StdEnv/2023 hmmer-alphafold3/3.4 rdkit/2024.03.5 python/3.12
+```
 
 2. Download run script.
 
-    Choose the appropriate version:
+### 3.0.2
+```bash
+wget https://raw.githubusercontent.com/google-deepmind/alphafold3/refs/tags/v3.0.2/run_alphafold.py
+```
 
-    - For version 3.0.1:
-        ```bash
-        wget https://raw.githubusercontent.com/google-deepmind/alphafold3/refs/tags/v3.0.1/run_alphafold.py
-        ```
-    - For version 3.0.0:
-        ```bash
-        wget https://raw.githubusercontent.com/google-deepmind/alphafold3/23e3d46d4ca126e8731e8c0cbb5673e9a848ceb5/run_alphafold.py
-        ```
+### 3.0.1
+```bash
+wget https://raw.githubusercontent.com/google-deepmind/alphafold3/refs/tags/v3.0.1/run_alphafold.py
+```
+
+### 3.0.0
+```bash
+wget https://raw.githubusercontent.com/google-deepmind/alphafold3/23e3d46d4ca126e8731e8c0cbb5673e9a848ceb5/run_alphafold.py
+```
 
 3. Create and activate a Python virtual environment.
 
-    ```bash
-    virtualenv --no-download ~/alphafold3_env
-    source ~/alphafold3_env/bin/activate
-    ```
+```bash
+virtualenv --no-download ~/alphafold3_env
+source ~/alphafold3_env/bin/activate
+```
 
 4. Install a specific version of AlphaFold3 and its Python dependencies.
 
-    ```bash
-    pip install --no-index --upgrade pip
-    pip install --no-index alphafold3==X.Y.Z
-    ```
-
-    where `X.Y.Z` is the exact desired version, for instance `3.0.0`.
-    You can omit to specify the version in order to install the latest one available from the wheelhouse.
+```bash
+(alphafold3_env) [name@server ~] pip install --no-index --upgrade pip
+(alphafold3_env) [name@server ~] pip install --no-index alphafold3==X.Y.Z
+```
+where `X.Y.Z` is the exact desired version, for instance `3.0.0`.
+You can omit to specify the version in order to install the latest one available from the wheelhouse.
 
 5. Build data.
 
-    ```bash
-    build_data
-    ```
-
-    This will create data files inside your virtual environment.
+```bash
+(alphafold3_env) [name@server ~] build_data
+```
+This will create data files inside your virtual environment.
 
 6. Validate it.
 
-    ```bash
-    python run_alphafold.py --help
-    ```
+```bash
+(alphafold3_env) [name@server ~] python run_alphafold.py --help
+```
 
 7. Freeze the environment and requirements set.
 
-    ```bash
-    pip freeze > ~/alphafold3-requirements.txt
-    ```
+```bash
+(alphafold3_env) [name@server ~] pip freeze > ~/alphafold3-requirements.txt
+```
 
 8. Deactivate the environment.
 
-    ```bash
-    deactivate
-    ```
+```bash
+(alphafold3_env) [name@server ~] deactivate
+```
 
 9. Clean up and remove the virtual environment.
 
-    ```bash
-    rm -r ~/alphafold3_env
-    ```
+```bash
+rm -r ~/alphafold3_env
+```
 
 The virtual environment will be created in your job instead.
 
@@ -157,23 +122,23 @@ Note that AlphaFold3 requires a set of databases.
 
 1. Download the fetch script
 
-    ```bash
-    wget https://raw.githubusercontent.com/google-deepmind/alphafold3/refs/heads/main/fetch_databases.sh
-    ```
+```bash
+wget https://raw.githubusercontent.com/google-deepmind/alphafold3/refs/heads/main/fetch_databases.sh
+```
 
 2. Download the databases
 
-    ```bash
-    mkdir -p $SCRATCH/alphafold/dbs
-    bash fetch_databases.sh $SCRATCH/alphafold/dbs
-    ```
+```bash
+mkdir -p $SCRATCH/alphafold/dbs
+bash fetch_databases.sh $SCRATCH/alphafold/dbs
+```
 
 ## Running AlphaFold3 in stages
-AlphaFold3 must be run in [stages](https://github.com/google-deepmind/alphafold3/blob/main/docs/performance.md#running-the-pipeline-in-stages), that is:
+Alphafold3 must be run in [stages](https://github.com/google-deepmind/alphafold3/blob/main/docs/performance.md#running-the-pipeline-in-stages), that is:
 1. Splitting the CPU-only data pipeline from model inference (which requires a GPU), to optimise cost and resource usage.
 2. Caching the results of MSA/template search, then reusing the augmented JSON for multiple different inferences across seeds or across variations of other features (e.g. a ligand).
 
-For reference on AlphaFold3:
+For reference on Alphafold3:
 * see [inputs](https://github.com/google-deepmind/alphafold3/blob/main/docs/input.md)
 * see [outputs](https://github.com/google-deepmind/alphafold3/blob/main/docs/output.md)
 * see [performance](https://github.com/google-deepmind/alphafold3/blob/main/docs/performance.md)
@@ -231,7 +196,7 @@ cp -vr $OUTPUT_DIR $SCRATCH/alphafold/output
 Edit the following submission script according to your needs.
 
 !!! warning "Compatibility"
-    AlphaFold3 **only** supports compute capability 8.0 or greater, that is **A100s or greater**.
+    Alphafold3 **only** support compute capability 8.0 or greater, that is **A100s or greater**.
 
 ```bash title="alphafold3-inference.sh"
 #!/bin/bash
@@ -240,7 +205,7 @@ Edit the following submission script according to your needs.
 #SBATCH --account=def-someprof    # adjust this to match the accounting group you are using to submit jobs
 #SBATCH --time=08:00:00           # adjust this to match the walltime of your job
 #SBATCH --cpus-per-task=1         # AlphaFold has no benefit to use more for the inference stage
-#SBATCH --gpus=a100:1             # AlphaFold3 inference only runs on ONE A100 or greater.
+#SBATCH --gpus=a100:1             # Alphafold3 inference only runs on ONE A100 or greater.
 #SBATCH --mem=20G                 # adjust this according to the memory you need
 
 # Load modules dependencies.
@@ -288,7 +253,7 @@ Then, submit the jobs to the scheduler.
 sbatch alphafold3-data.sh
 ```
 
-Wait until it completes, then submit the second stage:
+Wait until it complete, then submit the second stage:
 
 ```bash
 sbatch alphafold3-inference.sh
@@ -301,7 +266,6 @@ jid1=$(sbatch alphafold3-data.sh)
 jid2=$(sbatch --dependency=afterok:$jid1 alphafold3-inference.sh)
 sq
 ```
-
 If the first stage fails, you will have to manually cancel the second stage:
 
 ```bash
