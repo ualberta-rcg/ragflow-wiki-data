@@ -1,67 +1,6 @@
 {
   "doc_key": "fr/ansys",
   "level": "page",
-  "qa_pairs": [
-    {
-      "question": "Qu'est-ce que la suite logicielle Ansys utilisée sur les grappes de l'Alliance?",
-      "answer": "Ansys est une suite logicielle pour la conception 3D et la simulation, incluant des applications comme Ansys Fluent et Ansys CFX, hébergée sur les grappes de l'Alliance."
-    },
-    {
-      "question": "Comment fonctionne la licence Ansys sur les grappes de l'Alliance?",
-      "answer": "Bien que la suite Ansys soit hébergée, l'accès généralisé n'est pas permis. Les utilisateurs doivent posséder une licence d'établissement, de faculté ou de département, et notre équipe technique coordonnera la communication entre les nœuds de calcul et le serveur de licence de l'utilisateur."
-    },
-    {
-      "question": "Comment configurer un fichier de licence Ansys personnel sur les grappes de l'Alliance?",
-      "answer": "Il faut créer un fichier nommé `$HOME/.licenses/ansys.lic` et y insérer les valeurs FLEXPORT, INTEPORT et LICSERVER de votre serveur de licence, par exemple `setenv(\"ANSYSLMD_LICENSE_FILE\", \"FLEXPORT@LICSERVER\")`."
-    },
-    {
-      "question": "Comment vérifier qu'une licence Ansys est correctement configurée et fonctionne sur une grappe de l'Alliance?",
-      "answer": "Il faut se connecter à la grappe, allouer des ressources avec `salloc`, charger les modules `StdEnv/2023` et `ansys/VERSION`, puis exécuter `$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE`."
-    },
-    {
-      "question": "Quelle est la procédure habituelle pour soumettre une tâche Ansys Fluent en lot sur les grappes de Calcul Canada?",
-      "answer": "Il faut préparer la tâche dans Fluent Workbench sur votre ordinateur, exporter les fichiers de cas et de données, les transférer vers `/project` ou `/scratch` sur la grappe, créer un fichier de journalisation, puis soumettre la tâche avec un script Slurm."
-    },
-    {
-      "question": "Quelle est la compatibilité des versions de simulation Ansys entre elles?",
-      "answer": "Les simulations Ansys sont généralement compatibles avec les versions postérieures (une simulation créée avec une version plus ancienne devrait fonctionner avec une plus récente), mais pas avec les versions antérieures (une simulation créée avec une version plus récente ne fonctionnera pas avec une plus ancienne)."
-    },
-    {
-      "question": "Quand faut-il utiliser les scripts Slurm Fluent 'par nœud' plutôt que 'par cœur'?",
-      "answer": "La plupart des tâches Fluent devraient utiliser le script 'par nœud' pour minimiser le temps d'attente et maximiser la performance en utilisant le moins de nœuds possible. Les tâches demandant beaucoup de cœurs pourraient attendre moins longtemps avec le script 'par cœur', mais le démarrage peut être plus long et le risque de défaillance est plus élevé."
-    },
-    {
-      "question": "Comment utiliser une fonction UDF (User-Defined Function) interprétée avec Ansys Fluent sur les grappes de l'Alliance?",
-      "answer": "Copiez le fichier source UDF dans le répertoire de travail, puis ajoutez la ligne `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no` à votre fichier de journalisation Fluent avant de lire ou d'initialiser les fichiers cas/dat."
-    },
-    {
-      "question": "Comment utiliser une fonction UDF (User-Defined Function) compilée avec Ansys Fluent sur les grappes de l'Alliance?",
-      "answer": "L'UDF doit être compilée au moins une fois sur une grappe pour créer le répertoire `libudf`. Ensuite, pour la soumission de tâches, ajoutez la ligne `define/user-defined/compiled-functions load libudf` au fichier de journalisation, sans la ligne de compilation pour éviter les recompilations répétées."
-    },
-    {
-      "question": "Quelles sont les limitations de la licence Ansys SHARCNET pour les chercheurs de l'Alliance?",
-      "answer": "La licence SHARCNET est gratuite pour la recherche universitaire publiable. Elle inclut les produits HF, EM, Electronics HPC, Mechanical, CFD, Rocky et LS-DYNA. L'utilisation à des fins commerciales est interdite. La limite est de 8 tâches et 512 cœurs HPC par utilisateur (collectivement sur toutes les grappes) depuis octobre 2024."
-    },
-    {
-      "question": "Comment accéder aux programmes Ansys en mode graphique sur les grappes de l'Alliance?",
-      "answer": "Les programmes Ansys peuvent être exécutés interactivement en mode graphique sur les nœuds de calcul des grappes ou sur les nœuds VDI de Graham via Open OnDemand (OOD) ou Jupyterhub. Il faut démarrer une session de bureau interactive et charger le module Ansys souhaité."
-    },
-    {
-      "question": "Comment démarrer Ansys Fluent en mode graphique sur un nœud de calcul sans GPU via un bureau On Demand?",
-      "answer": "Chargez `module load StdEnv/2023 ansys/2025R1`, puis exécutez `fluent`. Dans le panneau Fluent Launcher, sous l'onglet Environment, définissez `I_MPI_HYDRA_BOOTSTRAP=ssh` (requis sur Nibi) et `HOOPS_PICTURE=opengl2-mesa` (pour 2025R1+) ou `HOOPS_PICTURE=null` (pour 2024R2 ou moins récentes), puis cliquez sur 'Start'."
-    },
-    {
-      "question": "Quelles sont les étapes pour configurer et lancer une simulation Ansys Additive Manufacturing sur les grappes de l'Alliance?",
-      "answer": "D'abord, configurez votre fichier `~/.licenses/ansys.lic` vers un serveur de licence valide. Téléchargez l'extension `AdditiveWizard.wbex`, téléversez-la sur la grappe, démarrez Workbench en mode graphique, ouvrez le gestionnaire d'extensions, installez l'extension, puis chargez-la pour la session ou par défaut."
-    },
-    {
-      "question": "Comment soumettre un projet Ansys Workbench en lot sur une grappe de l'Alliance?",
-      "answer": "Il faut d'abord initialiser le fichier de projet sur un nœud de calcul avec VNC, ouvrir le projet dans Workbench, effacer les données générées, sauvegarder le projet, puis utiliser un script Slurm personnalisé avec la commande `runwb2 -B -E \"Update()\" -F YOURPROJECT.wbpj`."
-    },
-    {
-      "question": "Où trouver la documentation officielle et les ressources d'apprentissage pour Ansys?",
-      "answer": "La documentation officielle pour les versions récentes (2024R1+) est disponible sur ansyshelp.ansys.com. Des ressources supplémentaires incluent le portail Ansys Developer, les vidéos Ansys HowTo, le Ansys Educator Hub et les séries de webinaires Ansys Academic."
-    }
-  ],
-  "generated_at": "2026-05-03T01:11:55.701799+00:00"
+  "qa_pairs": [],
+  "generated_at": "2026-05-17T00:35:23.318053+00:00"
 }

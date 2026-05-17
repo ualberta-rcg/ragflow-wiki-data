@@ -2,19 +2,6 @@
   "doc_key": "fr/ansys",
   "level": "chunk",
   "chunk_index": 13,
-  "qa_pairs": [
-    {
-      "question": "Comment configurer et soumettre une tâche Ansys Fluent qui s'exécute sur plusieurs nœuds de calcul de la grappe Narval en utilisant Open MPI, d'après les scripts d'exemple fournis?",
-      "answer": "Pour soumettre une tâche Ansys Fluent sur plusieurs nœuds de la grappe Narval avec Open MPI, il faut spécifier les ressources Slurm comme le temps limite (par exemple, `#SBATCH --time=00-03:00`), le nombre de nœuds (par exemple, `#SBATCH --nodes=1` ou plus, tel que mentionné dans le commentaire), et le nombre de cœurs par nœud (par exemple, `#SBATCH --ntasks-per-node=64` pour Narval). Ensuite, on doit charger les modules `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente), définir le fichier de journalisation (`MYJOURNALFILE`) et la version de simulation (`MYVERSION`). Enfin, il faut s'assurer que `OPENMPI_ROOT` est exporté et que la commande `fluent` est lancée avec les options `-mpi=openmpi`, `-pib`, et en spécifiant le fichier de machine (`-cnf=/tmp/machinefile-$SLURM_JOB_ID`) pour les tâches sur plusieurs nœuds, en plus d'exporter `FI_PROVIDER=verbs`."
-    },
-    {
-      "question": "Quelles sont les configurations spécifiques et les vérifications de répertoire requises pour exécuter une tâche Ansys Fluent sur la grappe Trillium, d'après le script d'exemple 'script-flu-bynode-intel-tri.sh'?",
-      "answer": "Pour exécuter une tâche Ansys Fluent sur la grappe Trillium, le script d'exemple 'script-flu-bynode-intel-tri.sh' indique qu'il faut utiliser une version d'Ansys de `2025R2.04` ou plus récente. De plus, il est crucial de soumettre la tâche à partir du répertoire `$SCRATCH/some/dir` (`cd $SLURM_SUBMIT_DIR`) et de s'assurer que des liens symboliques accessibles en écriture existent dans votre répertoire personnel (`$HOME`) pour les dossiers `.ansys`, `.fluentconf` et le fichier `.flrecent`. Si ces liens n'existent pas ou sont incorrects, le script propose de les créer en utilisant des commandes comme `ln -s $SCRATCH/.ansys ~/.ansys` avant de resoumettre la tâche."
-    },
-    {
-      "question": "Quelle est la distinction entre les scripts Slurm «par nœud» et «par cœur» pour les tâches Ansys Fluent, et quand est-il préférable d'utiliser l'un plutôt que l'autre?",
-      "answer": "La distinction entre les scripts Slurm «par nœud» et «par cœur» pour Ansys Fluent repose sur la stratégie d'allocation des ressources. Les scripts «par nœud» sont généralement recommandés pour minimiser le temps d'attente dans la file d'attente et maximiser la performance en utilisant le moins de nœuds possible. Par contre, les scripts «par cœur» pourraient réduire le temps d'attente pour des tâches exigeantes en cœurs CPU, mais leur démarrage sur plusieurs nœuds peut être beaucoup plus long, diminuant leur efficacité. De plus, les tâches intensives réparties sur un grand nombre de nœuds avec l'approche «par cœur» sont plus susceptibles de planter si un nœud de calcul échoue. Il est donc préférable d'utiliser le script «par nœud» pour la plupart des tâches, sauf si des tests de scalabilité montrent un avantage significatif pour le script «par cœur» dans des cas spécifiques où l'attente en file d'attente est un facteur limitant."
-    }
-  ],
-  "generated_at": "2026-05-03T01:13:47.263657+00:00"
+  "qa_pairs": [],
+  "generated_at": "2026-05-17T00:36:57.833245+00:00"
 }

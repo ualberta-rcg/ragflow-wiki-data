@@ -90,65 +90,42 @@ Nous remarquons que le réseau CephFS est attaché à la première instance.
 <span id="VM_configuration:_install_and_configure_CephFS_client"></span>
 == Configuration d'une instance : installer et configurer un client CephFS ==
 
-<div class="mw-translate-fuzzy">
 === Paquets requis pour la famille Red Hat (RHEL, CentOS, Fedora, Rocky, Alma ) ===
 Vérifiez quelles versions sont disponibles sur [https://download.ceph.com/ https://download.ceph.com/] et trouvez les répertoires <code>rpm-*</code> récents.
-Depuis juillet 2024, <code>quincy</code> est la plus récente version stable. 
-Les distributions compatibles sont listées dans [https://download.ceph.com/rpm-quincy/ https://download.ceph.com/rpm-quincy/].
-Nous montrons ici des exemples de configurations pour <code>Enterprise Linux 8</code> et <code>Enterprise Linux 9</code>.
-</div>
+Depuis avril 2026, <code>tentacle</code> est la plus récente version stable. 
+Les distributions compatibles sont listées dans [https://download.ceph.com/rpm-tentacle/ https://download.ceph.com/rpm-tentacle/].
+Nous montrons ici des exemples de configurations pour <code>Enterprise Linux 9</code> et ses dérivées. Depuis avril 2026, le client CephFS n'est plus disponible pour <code>Enterprise Linux 10</code> et ses dérivées
 
 ;  Installation des dépôts de paquets donnant accès aux paquets d'un client Ceph
 
-<div class="mw-translate-fuzzy">
-<tabs>
-<tab name="Enterprise Linux 8 - el8">
 {{File
   |name=/etc/yum.repos.d/ceph.repo
   |lang="ini"
   |contents=
 [Ceph]
 name=Ceph packages for $basearch
-baseurl=http://download.ceph.com/rpm-quincy/el8/$basearch
+baseurl=http://download.ceph.com/rpm-tentacle/el9/$basearch
 enabled=1
 gpgcheck=1
 type=rpm-md
 gpgkey=https://download.ceph.com/keys/release.asc
-</div>
 
-<div class="mw-translate-fuzzy">
 [Ceph-noarch]
 name=Ceph noarch packages
-baseurl=http://download.ceph.com/rpm-quincy/el8/noarch
+baseurl=http://download.ceph.com/rpm-tentacle/el9/noarch
 enabled=1
 gpgcheck=1
 type=rpm-md
 gpgkey=https://download.ceph.com/keys/release.asc
-</div>
 
-<div class="mw-translate-fuzzy">
 [ceph-source]
 name=Ceph source packages
-baseurl=http://download.ceph.com/rpm-quincy/el8/SRPMS
+baseurl=http://download.ceph.com/rpm-tentacle/el9/SRPMS
 enabled=1
 gpgcheck=1
 type=rpm-md
 gpgkey=https://download.ceph.com/keys/release.asc
 }}
-</tab>
-<tab name="Enterprise Linux 9 - el9">
-{{File
-  |name=/etc/yum.repos.d/ceph.repo
-  |lang="ini"
-  |contents=
-[Ceph]
-name=Ceph packages for $basearch
-baseurl=http://download.ceph.com/rpm-quincy/el9/$basearch
-enabled=1
-gpgcheck=1
-type=rpm-md
-gpgkey=https://download.ceph.com/keys/release.asc
-</div>
 
 Le répertoire epel doit être présent.
  sudo dnf install epel-release
@@ -156,16 +133,14 @@ Le répertoire epel doit être présent.
 Vous pouvez maintenant installer ceph lib, cephfs client et autres dépendances.
  sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse
 
-<div class="mw-translate-fuzzy">
 === Paquets requis pour la famille Debian (Debian, Ubuntu, Mint, etc.) ===
 Pour avoir le dépôt de paquets, trouvez-le <code>{codename}</code> pour votre distribution avec <code>lsb_release -sc</code>
 <source lang='bash'>
-sudo apt-add-repository 'deb https://download.ceph.com/debian-quincy/ {codename} main'</source>
+sudo apt-add-repository 'deb https://download.ceph.com/debian-tentacle/ {codename} main'</source>
 Si la commande précédente produit une erreur, utilisez plutôt la commande suivante, puis passez à la prochaine étape.
 <source lang='bash'>
-sudo add-apt-repository -r 'deb https://download.ceph.com/debian-quincy/ {codename} main'
+sudo add-apt-repository -r 'deb https://download.ceph.com/debian-tentacle/ {codename} main'
 </source>
-</div>
 
 Vous pouvez maintenant installer ceph lib, cephfs client et les autres dépendances.
 <source lang='bash'>
@@ -175,7 +150,6 @@ Vous pouvez maintenant installer ceph lib, cephfs client et les autres dépendan
 <span id="Configure_ceph_client"></span>
 === Configurer le client ceph ===
 
-<div class="mw-translate-fuzzy">
 Quand le client est installé, créez le fichier <code>ceph.conf</code>.
 La valeur de <code>mon host</code> est différente selon le nuage. 
 <tabs>
@@ -189,7 +163,7 @@ admin socket = /var/run/ceph/$cluster-$name-$pid.asok
 client reconnect stale = true
 debug client = 0/2
 fuse big writes = true
-mon host = 10.30.201.3:6789,10.30.202.3:6789,10.30.203.3:6789
+mon host = [v2:134.87.15.61:3300/0,v1:134.87.15.61:6789/0] [v2:134.87.15.62:3300/0,v1:134.87.15.62:6789/0] [v2:134.87.15.63:3300/0,v1:134.87.15.63:6789/0]
 [client]
 quota = true
 }}
@@ -210,7 +184,6 @@ quota = true
 }}
 </tab>
 </tabs>
-</div>
 
 Les informations sur le moniteur trouvent dans le champ <i>Path</i> des détails du partage qui sera utilisé pour monter le volume. Si la valeur de la page Web est différente de ce qui est montré ici, cela signifie que la page wiki n'est pas à jour. 
 

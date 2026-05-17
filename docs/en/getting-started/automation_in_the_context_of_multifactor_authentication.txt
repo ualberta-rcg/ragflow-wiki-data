@@ -16,7 +16,9 @@ This constraint disables port forwarding, agent forwarding, and X11 forwarding. 
 This constraint specifies that the key can only be used from IP addresses that match the patterns. This is to ensure that this key is not used from computers other than the ones intended. The pattern list must include only IP addresses that fully specify at least the network class, the network, and the subnet, which are the first three elements of an IP address, for example, <code>x.y.*.*</code> would not be accepted, but <code>x.y.z.*</code> would be accepted. Also, the IP address must be a ''public'' IP address; thus anything like <code>10.0.0.0 – 10.255.255.255</code>, <code>172.16.0.0 – 172.31.255.255</code> and <code>192.168.0.0 – 192.168.255.255</code> is incorrect. You can use a site like [https://whatismyipaddress.com/ What Is My IP Address?] or the shell command <code>curl ifconfig.me</code> to learn your public IP address.
 
 === <code>command="COMMAND"</code> ===
-This constraint forces the command <code>COMMAND</code> to be executed when the connection is established. This is so that you may restrict which commands can be used with this key. 
+This constraint forces the command <code>COMMAND</code> to be executed when the connection is established. This is so that you may restrict which commands can be used with this key.
+
+Any path in the <code>COMMAND</code> may be absolute (that is from <code>/</code>) or relative to the home directory.
 
 == Convenience wrapper scripts to use for <code>command=</code> ==
 <code>command</code> constraints can specify any command, but they are most useful when using a wrapper script which will accept or reject commands based on which command is being called. You can write your own script, but for convenience, we provide a number of such scripts which allow common actions. These scripts are defined in [https://github.com/ComputeCanada/software-stack-custom/tree/main/bin/computecanada/allowed_commands this git repository].

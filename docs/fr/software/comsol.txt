@@ -47,9 +47,9 @@ Si vous ne pouvez pas obtenir la licence, demandez de l'assistance en cliquant s
 <span id="Checking_license_use"></span>
 == Vérifier l'utilisation des licences ==
 
-Pour déterminer le nombre de licences utilisées par vos tâches COMSOL en cours d'exécution, il faut interroger le serveur de licences. Comme indiqué [https://www.comsol.com/support/knowledgebase/1142 | ici], cela peut se faire à l'aide de la commande <code>lmstat</code>. Cependant, cette commande n'étant pas installée par défaut avec COMSOL, la solution de contournement suivante, qui utilise la commande <code>lmutil</code> du module Ansys le plus récent, peut être exécutée sur n'importe quel nœud de connexion. Si vous utilisez le fichier standard <code>~/.licenses/comsol.lic</code> pour identifier le serveur de licences, cette méthode devrait fonctionner, mais le délai de réponse peut atteindre une minute si le serveur est occupé.
+Pour déterminer le nombre de licences utilisées par vos tâches COMSOL en cours d'exécution, il faut interroger le serveur de licences.  Comme décrit dans [https://www.comsol.com/supportknowledgebase/1142], ceci peut se faire avec la commande <code>lmutil</code>. Cependant, cette commande n'étant pas installée par défaut avec COMSOL, vous pouvez utiliser la commande ci-dessous. Pour ce faire, copiez-collez simplement cette commande dans la fenêtre de terminal d'un nœud de connexion et appuyez sur Entrée. La commande lira <code>~/.licenses/comsol.lic</code> pour déterminer le serveur COMSOL utilisé et peut prendre environ 30 secondes. Bien qu'elle fonctionne sur tous les nœuds de connexion de Nibi, Narval, Rorqual ou Trillium si vous avez une licence CMC, elle peut ne pas fonctionner dépendant de la configuration des serveurs des différents établissements.
 
-  [l2 (login-node):~] module load ansys; $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c ~/.licenses/comsol.lic -a | sed '/^$/d' | egrep 'License|UP|$USER|Total of'  | grep -v 'Total of 0'
+   touch ~/.licenses/ansys.lic; module load ansys; $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c ~/.licenses/comsol.lic -a | sed '/^$/d' | egrep 'License|UP|$USER|Total of'  | grep -v 'Total of 0'; module unload ansys
 
 <span id="Installed_products"></span>
 == Produits installés ==

@@ -2,19 +2,6 @@
   "doc_key": "base/abaqus",
   "level": "chunk",
   "chunk_index": 5,
-  "qa_pairs": [
-    {
-      "question": "What are the different ways to specify how restart data should be written in an Abaqus input file for a simulation, and how can one check for completed restart information?",
-      "answer": "In an Abaqus input file, restart data can be written every N time increments by specifying `*RESTART, WRITE, OVERLAY, FREQUENCY=12`. Alternatively, to write restart data for a total number of increments, one can use `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`. To check for completed restart information, you can use the command `egrep -i \"step|start\" testsp*.com testsp*.msg testsp*.sta`."
-    },
-    {
-      "question": "When running an Abaqus Standard Analysis on a single node on an Alliance cluster, what is the purpose of the `temporary directory script`, and how does it ensure data is saved when running long jobs?",
-      "answer": "The `temporary directory script` for Abaqus Standard Analysis is designed for single-node jobs that generate large restart files, benefiting from writing data to the local disk via the `SLURM_TMPDIR` environment variable. To prevent data loss for long jobs that might reach their maximum requested runtime, the script includes a background loop that periodically saves all generated files from the temporary directory (`$SLURM_TMPDIR`) back to the job's submission directory (`$SLURM_SUBMIT_DIR`) every six hours. This ensures that even if the job terminates early, data is regularly copied and available in the project directory."
-    },
-    {
-      "question": "How is an Abaqus Standard Analysis restart job configured and submitted on a single node using a project directory restart script on an Alliance cluster?",
-      "answer": "To configure and submit an Abaqus Standard Analysis restart job on a single node using a project directory restart script, you would typically use a Slurm batch script (`scriptsp2.txt`). This script specifies resources like CPU cores (`--cpus-per-task=4`) and memory (`--mem=8G`), and loads the appropriate Abaqus module (e.g., `abaqus/2026`). The core Abaqus command for a restart job will include `job=testsp2` (for the new job), `oldjob=testsp1` (referencing the previous job's output), and `input=mystd-sim-restart.inp` (for the restart input file). This restart input file must contain `*HEADING` and `*RESTART, READ` directives to instruct Abaqus to continue the analysis from previously saved restart data."
-    }
-  ],
-  "generated_at": "2026-05-03T00:55:39.170398+00:00"
+  "qa_pairs": [],
+  "generated_at": "2026-05-17T00:21:24.142893+00:00"
 }

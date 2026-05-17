@@ -2,15 +2,6 @@
   "doc_key": "en/ansys",
   "level": "chunk",
   "chunk_index": 21,
-  "qa_pairs": [
-    {
-      "question": "How does one use a compiled User-Defined Function (UDF) for Ansys Fluent on an Alliance cluster, and what are the key considerations for its setup?",
-      "answer": "To use a compiled UDF on an Alliance cluster, it must first be compiled on that cluster, which generates a `libudf` subdirectory containing the necessary `libudf.so` shared library. It is crucial not to copy this `libudf` directory from a remote system (like your laptop) to the Alliance cluster, as the required library dependencies will not be met, potentially causing Fluent to crash. Once compiled on an Alliance cluster, the `libudf` directory can be transferred to other Alliance clusters, provided your account loads the same `StdEnv` environment module version. In your journal file, you can use `define/user-defined/compiled-functions compile libudf yes sampleudf.c \"\" \"\"` to compile the UDF, or `define/user-defined/compiled-functions load libudf` to load an already compiled UDF. To prevent inefficient recompilation for every job and potential build conflicts, both lines should not be uncommented simultaneously in the journal file when submitting jobs."
-    },
-    {
-      "question": "What is required to prepare a User-Defined Function (UDF) for effective use with a parallel Ansys Fluent job on an Alliance cluster?",
-      "answer": "For a User-Defined Function (UDF) to work efficiently with parallel Ansys Fluent jobs, whether they are single-node Shared Memory Parallel (SMP) or multi-node Message Passing Interface (MPI) jobs on an Alliance cluster, the UDF must be parallelized. This involves instrumenting the serial UDF source code by adding compiler directives, predicates, and reduction macros. This process controls which processes (host and/or compute) execute specific parts of the UDF code. Failure to parallelize the UDF can lead to significantly slower execution or immediate crashes. The goal is to develop a single UDF that performs optimally in both serial and parallel Fluent environments. Detailed guidance on this parallelization procedure can be found in \"Part I: Chapter 7: Parallel Considerations\" of the Ansys 2024 Fluent Customization Manual."
-    }
-  ],
-  "generated_at": "2026-05-03T01:08:34.314224+00:00"
+  "qa_pairs": [],
+  "generated_at": "2026-05-17T00:32:19.485016+00:00"
 }

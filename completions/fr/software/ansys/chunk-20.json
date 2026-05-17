@@ -2,19 +2,6 @@
   "doc_key": "fr/ansys",
   "level": "chunk",
   "chunk_index": 20,
-  "qa_pairs": [
-    {
-      "question": "Dans un script Slurm pour Ansys Fluent avec gestion de redémarrage, comment le script identifie-t-il le fichier de données le plus récent à utiliser pour reprendre la simulation?",
-      "answer": "Pour reprendre la simulation, le script crée un lien symbolique vers le fichier de données le plus récent trouvé dans le répertoire `output` en utilisant la commande `ln -sfv output/$(ls -ltr output {{!}} grep .dat {{!}} tail -n1 {{!}} awk '{print $9}') $MYDATFILERES`."
-    },
-    {
-      "question": "Que se passe-t-il si la simulation Fluent échoue dans un script Slurm configuré pour le redémarrage?",
-      "answer": "Si la simulation Fluent échoue (c'est-à-dire si le code de retour de la dernière commande n'est pas 0), le script affichera le message « Simulation failed. Exiting now. » et mettra fin à l'exécution de la tâche."
-    },
-    {
-      "question": "Comment le script Slurm détermine-t-il si un job Fluent est terminé avec succès ou s'il doit être redémarré lorsqu'il fait partie d'un tableau de tâches?",
-      "answer": "Le script vérifie le code de retour de la dernière commande. Si le code est 0 et qu'il reste d'autres étapes à effectuer dans le tableau de tâches (`$SLURM_ARRAY_TASK_ID -lt $SLURM_ARRAY_TASK_COUNT`), le job est redémarré à partir des fichiers de données les plus récents. S'il n'y a plus d'étapes à effectuer et que le code est 0, le job est considéré comme terminé avec succès, et le script l'annule (`scancel $SLURM_ARRAY_JOB_ID`)."
-    }
-  ],
-  "generated_at": "2026-05-03T01:14:51.864215+00:00"
+  "qa_pairs": [],
+  "generated_at": "2026-05-17T00:37:48.774578+00:00"
 }
