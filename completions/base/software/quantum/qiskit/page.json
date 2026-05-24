@@ -3,61 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Qiskit and what is its primary purpose?",
-      "answer": "Qiskit is an open-source quantum programming library developed by IBM in Python, designed for building, simulating, and executing quantum circuits."
+      "question": "What is Qiskit, and what is its purpose in quantum programming?",
+      "answer": "Qiskit is an open-source quantum programming library developed by IBM in Python, used for building, simulating, and executing quantum circuits, similar to PennyLane and Snowflurry."
     },
     {
-      "question": "What are the initial module dependencies required to install Qiskit on Alliance clusters?",
-      "answer": "To install Qiskit, users must load the `StdEnv/2023`, `gcc`, `python/3.11`, and `symengine/0.11.2` modules."
+      "question": "What are the initial module dependencies required before installing Qiskit on an Alliance cluster?",
+      "answer": "Users must load `StdEnv/2023`, `gcc`, `python/3.11`, and `symengine/0.11.2` modules before installing Qiskit."
     },
     {
-      "question": "How does a user create and activate a Python virtual environment for a Qiskit installation on Alliance clusters?",
-      "answer": "A user can create and activate a Python virtual environment by running the command `virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate`."
+      "question": "How do you create and activate a Python virtual environment for Qiskit installation on an Alliance cluster?",
+      "answer": "To create and activate a Python virtual environment, execute the command `virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate`."
     },
     {
-      "question": "How can a user install a specific version of Qiskit and Qiskit Aer within their virtual environment?",
-      "answer": "Users can install specific versions by running `pip install --no-index qiskit==X.Y.Z qiskit_aer==X.Y.Z`, replacing `X.Y.Z` with their desired version number."
+      "question": "How can specific versions of Qiskit and its related packages, such as `qiskit_aer`, be installed?",
+      "answer": "Specific versions can be installed using `pip install --no-index qiskit==X.Y.Z qiskit_aer==X.Y.Z`, where `X.Y.Z` represents the desired version number. Omitting the version number installs the latest available version."
     },
     {
-      "question": "How can a user validate that Qiskit has been successfully installed in their virtual environment?",
-      "answer": "To validate the installation, a user can execute `python -c 'import qiskit'` in their active virtual environment."
+      "question": "What command is used to validate that Qiskit has been successfully installed in a virtual environment?",
+      "answer": "To validate the Qiskit installation, execute `python -c 'import qiskit'` within the activated virtual environment."
     },
     {
-      "question": "What is the recommended method to save the installed Qiskit environment and its dependencies?",
-      "answer": "It is recommended to freeze the environment and its dependencies by running `pip freeze --local > ~/qiskit_requirements.txt`."
+      "question": "How can the installed Qiskit packages and their dependencies be saved into a requirements file?",
+      "answer": "The installed packages and dependencies can be saved into a requirements file by running `pip freeze --local > ~/qiskit_requirements.txt`."
     },
     {
-      "question": "When submitting a Qiskit job to the SLURM scheduler on an Alliance cluster, where should the virtual environment be created?",
-      "answer": "When submitting a Qiskit job to the SLURM scheduler, the virtual environment should be created within the `$SLURM_TMPDIR` directory."
+      "question": "When running a Qiskit job on an Alliance cluster using an SBATCH script, where should the Python virtual environment be created?",
+      "answer": "For running a Qiskit job on a cluster, the Python virtual environment should be created in `$SLURM_TMPDIR` using `virtualenv --no-download ${SLURM_TMPDIR}/env`."
     },
     {
-      "question": "What is MonarQ, and how does the `qiskit-calculquebec` plugin facilitate its use with Qiskit?",
-      "answer": "MonarQ is part of Calcul Québec's infrastructure. The `qiskit-calculquebec` plugin allows for direct integration, enabling the development and execution of Qiskit circuits on MonarQ."
+      "question": "How are Qiskit and its dependencies installed within an SBATCH script when running on an Alliance cluster?",
+      "answer": "Within an SBATCH script, Qiskit and its dependencies are installed by first upgrading pip, then running `pip install --no-index --requirement ~/qiskit_requirements.txt`."
     },
     {
-      "question": "What are the required Python module dependencies for installing the `qiskit-calculquebec` plugin?",
-      "answer": "The primary required module dependency for installing the `qiskit-calculquebec` plugin is `python/3.11`."
+      "question": "What is the purpose of the `qiskit-calculquebec` plugin when using Qiskit with MonarQ?",
+      "answer": "The `qiskit-calculquebec` plugin allows users to develop and execute Qiskit circuits directly on Calcul Québec’s MonarQ infrastructure."
     },
     {
-      "question": "Does installing the `qiskit-calculquebec` plugin automatically install Qiskit as well?",
-      "answer": "Yes, installing `qiskit-calculquebec` automatically installs Qiskit itself."
+      "question": "Does installing `qiskit-calculquebec` automatically install Qiskit?",
+      "answer": "Yes, `qiskit-calculquebec` automatically installs Qiskit as part of its own installation process."
     },
     {
-      "question": "What credentials are required to initialize the MonarQ backend for Qiskit, and where can the access token be found?",
-      "answer": "To initialize the MonarQ backend, users need their `username`, `access_token` (available via the Thunderhead portal), the `host` (`https://monarq.calculquebec.ca`), and a `project_id`."
+      "question": "What Python packages need to be installed to enable Qiskit to work with MonarQ, in addition to the initial module dependencies?",
+      "answer": "To use Qiskit with MonarQ, users need to install `qiskit-calculquebec` and `qiskit-ibm-runtime` within their Python virtual environment."
     },
     {
-      "question": "Why is transpilation an important step when executing Qiskit circuits on the MonarQ backend?",
-      "answer": "Transpilation is crucial to adapt the Qiskit circuit to MonarQ's specific connectivity and native quantum gates."
+      "question": "What specific information is required to initialize the MonarQ backend for Qiskit-Calcul Québec?",
+      "answer": "To initialize the MonarQ backend, users need their `username`, `access_token` (available via the Thunderhead portal), the `host` (`https://monarq.calculquebec.ca`), and their `project_id`."
     },
     {
-      "question": "Which sampler is recommended for executing Qiskit circuits that include measurements on the MonarQ backend?",
-      "answer": "The `SamplerV2` is recommended for executing Qiskit circuits that include measurements on the MonarQ backend."
+      "question": "Why is transpilation necessary when executing Qiskit circuits with MonarQ?",
+      "answer": "Transpilation is necessary to adapt the Qiskit circuit to MonarQ’s specific connectivity and native gates."
     },
     {
-      "question": "What is the maximum number of 'shots' that can be specified when executing a circuit on MonarQ?",
-      "answer": "The maximum number of 'shots' that can be specified when executing a circuit on MonarQ is 1024."
+      "question": "What is the recommended sampler for executing Qiskit circuits that include measurements on MonarQ?",
+      "answer": "The use of `SamplerV2` is recommended for executing Qiskit circuits that include measurements on MonarQ."
+    },
+    {
+      "question": "What is the maximum number of shots that can be set for circuit execution with MonarQ?",
+      "answer": "The maximum number of shots that can be set for circuit execution with MonarQ is 1024."
     }
   ],
-  "generated_at": "2026-04-13T11:57:37.925724+00:00"
+  "generated_at": "2026-05-24T01:29:57.406257+00:00"
 }

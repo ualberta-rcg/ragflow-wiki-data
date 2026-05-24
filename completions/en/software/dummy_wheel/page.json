@@ -3,57 +3,57 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What are Dummy Wheels in the context of Python package management on this infrastructure?",
-      "answer": "Dummy Wheels are placeholder files in the wheelhouse for popular Python packages that are available on PyPI but are provided as modules on the infrastructure."
+      "question": "What are dummy wheels in the context of Python packages on Alliance clusters?",
+      "answer": "Dummy wheels are placeholder files for popular Python packages that are available on PyPI but are also provided as modules on the Alliance infrastructure, tagged with a local version like `+dummy.computecanada`."
     },
     {
-      "question": "How are Dummy Wheels for Python packages identified within the wheelhouse?",
-      "answer": "They are identified by a local version tag, such as `+dummy.computecanada`, which is appended to the package name and version (e.g., `pyarrow-23.0.1+dummy.computecanada-py3-none-any.whl`)."
+      "question": "Why are dummy wheels used on Alliance clusters for certain Python packages?",
+      "answer": "They are used to provide placeholders for Python packages that are available via PyPI but are also managed as modules on the computational infrastructure, helping to integrate system-wide installations with user environments."
     },
     {
-      "question": "What is the expected outcome when `pip` selects a Dummy Wheel for a Python package?",
-      "answer": "When `pip` selects a Dummy Wheel, it will raise an error because it cannot find a match for the requirement, which is considered normal behaviour."
+      "question": "Can you provide examples of Python packages that utilize dummy wheels on the Alliance infrastructure?",
+      "answer": "Examples of Python packages that use dummy wheels on the Alliance infrastructure include PyArrow, opencv_python, and MPI4py."
     },
     {
-      "question": "What are some common examples of Python packages for which Dummy Wheels exist on this infrastructure?",
-      "answer": "Common examples include `pyarrow` (Arrow), `opencv_python` (OpenCV), and `MPI4py`."
+      "question": "What kind of error message indicates that a dummy wheel has been selected by pip on Alliance clusters?",
+      "answer": "When a dummy wheel is selected by pip, it typically raises an error indicating that pip could not find a match for the requirement, which is considered a normal error in this context."
     },
     {
-      "question": "What are the primary reasons a Dummy Wheel error might occur when attempting to install Python packages via `pip` on this infrastructure?",
-      "answer": "A Dummy Wheel error typically occurs because the necessary module was not loaded, the loaded module's version does not meet the requested version from a dependent package, or the loaded module does not support the Python version being used."
+      "question": "What are the common reasons why a \"normal error\" related to a dummy wheel might occur when installing a Python package on an Alliance cluster?",
+      "answer": "Common reasons for this normal error include the required module (like Arrow) not being loaded, the loaded module's version not meeting the package's requirements, or the loaded module not supporting the Python version in use (missing Python bindings)."
     },
     {
-      "question": "If a Dummy Wheel error indicates that a required module was not loaded, what is the recommended troubleshooting process?",
-      "answer": "To resolve this, deactivate any virtual environment, load the required modules (e.g., `gcc`, `arrow/x.y.z`, `python/x.y.z`), re-activate the virtual environment, and then re-run the `pip install` command."
+      "question": "How does one resolve the error if a Python module, such as Arrow, was not loaded, causing a dummy wheel issue on an Alliance cluster?",
+      "answer": "To resolve this, one should deactivate the virtual environment, load the necessary module (e.g., `module load gcc arrow/x.y.z python/x.y.z`), re-activate the virtual environment, and then re-run the `pip install` command."
     },
     {
-      "question": "How can a user identify the specific version requirement of a dependent Python package (e.g., `pyarrow`) that led to a Dummy Wheel being installed?",
-      "answer": "The user can find the asked requirement by running `pip install --no-index <package>` and looking for a line in the output like `(from pyarrow>=21.0.0->datasets)`."
+      "question": "What specific steps should be followed to load a missing module like Arrow to resolve a dummy wheel error in a Python virtual environment on an Alliance cluster?",
+      "answer": "The steps are: deactivate your virtual environment, load the specific Arrow and Python modules with `module load gcc arrow/x.y.z python/x.y.z`, re-activate your virtual environment, and then re-run the `pip install <package>` command."
     },
     {
-      "question": "How can a user verify if a loaded module on the infrastructure provides the necessary Python bindings for a package such as `pyarrow`?",
-      "answer": "One can quickly verify by running `python -c \"import pyarrow\"`; if nothing displays, the import was successful. Alternatively, `pip list | grep pyarrow` can be used to check if `pip` sees it."
+      "question": "How can one identify if a dummy wheel error is due to a mismatch in package or module versions on an Alliance cluster?",
+      "answer": "This can be identified by looking at the output of `pip install --no-index <package>`, specifically for lines indicating version requirements such as `(from pyarrow>=21.0.0->datasets)`, which shows the minimum required version."
     },
     {
-      "question": "What command should a user employ to deactivate their virtual environment before loading required modules to resolve a Dummy Wheel error?",
-      "answer": "The command `test $VIRTUAL_ENV && deactivate` should be used to deactivate a virtual environment."
+      "question": "What does it mean if the loaded module does not have Python bindings when troubleshooting a dummy wheel error on an Alliance cluster?",
+      "answer": "If the loaded module lacks Python bindings, it means that the specific version of the module loaded does not provide the necessary components for the Python interpreter to import and use the corresponding Python package (e.g., `pyarrow`)."
     },
     {
-      "question": "Following the deactivation of a virtual environment, what is the command syntax for loading modules like `gcc`, `arrow`, and `python` to address a Dummy Wheel issue?",
-      "answer": "The command syntax is `module load gcc arrow/x.y.z python/x.y.z`, where `x.y.z` represents the specific version needed for each module."
+      "question": "How can a user verify if a Python module, like pyarrow, has been successfully imported and is available in their current Python environment on an Alliance cluster?",
+      "answer": "Users can verify this by running `python -c \"import pyarrow\"`; if no output is displayed, the import was successful. Alternatively, `pip list | grep pyarrow` can be used to check if `pip` sees the package."
     },
     {
-      "question": "Why would a Dummy Wheel be installed by `pip` if the version of the corresponding loaded module does not satisfy the requirements of a dependent package?",
-      "answer": "A Dummy Wheel is installed if the loaded module's version does not meet the requirement (e.g., `pyarrow>=21.0.0`) of a dependent package, as `pip` cannot find a suitable version of the actual module and falls back to the placeholder."
+      "question": "If `pip list | grep pyarrow` shows no entry, what does that indicate about the availability of pyarrow in the current Python environment on an Alliance cluster?",
+      "answer": "If `pip list | grep pyarrow` shows no entry, it indicates that `pyarrow` is not available or not seen by `pip` in the current Python environment."
     },
     {
-      "question": "When troubleshooting a Dummy Wheel error, what does it signify if the command `python -c \"import pyarrow\"` executes without displaying any output?",
-      "answer": "If the command `python -c \"import pyarrow\"` displays nothing, it signifies that the import was successful, and the module provides `pyarrow` for the Python module being used."
+      "question": "What is the naming convention for dummy wheels on the Alliance infrastructure?",
+      "answer": "Dummy wheels are tagged with a local version, for example, `pyarrow-23.0.1+dummy.computecanada-py3-none-any.whl`, where `+dummy.computecanada` identifies it as a dummy wheel."
     },
     {
-      "question": "In the context of verifying Python package availability, what does it indicate if `pip list | grep pyarrow` returns no entry for `pyarrow`?",
-      "answer": "If `pip list | grep pyarrow` shows no entry, it indicates that `pyarrow` is not available or not seen by `pip` in the current environment."
+      "question": "When troubleshooting a dummy wheel error, why is it important to deactivate and then re-activate the virtual environment after loading a module on an Alliance cluster?",
+      "answer": "Deactivating and then re-activating the virtual environment ensures that the environment properly registers the newly loaded module and its associated paths, making it available for `pip` and Python processes within that environment."
     }
   ],
-  "generated_at": "2026-05-03T01:53:20.204019+00:00"
+  "generated_at": "2026-05-24T01:41:39.569256+00:00"
 }

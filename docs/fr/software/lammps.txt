@@ -225,27 +225,27 @@ Dans le dernier tableau, le temps de communication est comparé au temps de calc
 !16 ||  56.69  || 20.18 || 56.70  || 20.18 || 56.97 || 19.80 || 56.41 || 20.38
 |}
 
-= MACE in LAMMPS =
-== Compiling MACE in LAMMPS with PyTorch ==
-1. From a login node, first clone the branch <tt>mace</tt>:
+= MACE dans LAMMPS =
+== Compilation de MACE dans LAMMPS avec PyTorch ==
+1. À partir d'un un nœud de connexion, clonez la branche <tt>mace</tt>.
 {{Commands
 |mkdir ~/lammps-mace
 |cd $SCRATCH
 |git clone --branch{{=}}mace --depth{{=}}1 https://github.com/ACEsuit/lammps && cd lammps
 |git checkout 4d222cb  # current HEAD commit from banch
 }}
-And identify a commit for future reference.
+Identifiez ensuite un ''commit'' pour référence future.
 
 <tabs>
 <tab name="CPU">
-2. Load required modules to configure MACE and build
+2. Chargez les modules requis pour configurer MACE et le ''build''.
 {{Command|module load python/3.14 gcc openmpi flexiblas cmake fftw eigen protobuf abseil flatbuffers opencv sleef xnnpack
 }}
 
-3. Create and activate a [[Python#Creating_and_using_a_virtual_environment|Python virtual environment]]:
+3. Créez et activez un  [[Python/fr#Créer_et_utiliser_un_environnement_virtuel|environnement virtuel Python]].
 {{Command|virtualenv --clear ~/lammps-mace/ENV && source ~/lammps-mace/ENV/bin/activate}}
 
-4. Install PyTorch in this virtual environment:
+4. Installez PyTorch dans l'environnement virtuel.
 {{Commands
 |prompt=(ENV) [name@server ~]
 |
@@ -253,22 +253,22 @@ pip install --no-index --upgrade pip
 pip install --no-index 'torch>{{=}}2.10.0'
 }}
 
-5. Configure MACE
+5. Configurez MACE.
 {{Command
 |prompt=(ENV) [name@server ~]
 |cmake --fresh -S cmake -B _build -DBUILD_MPI{{=}}ON -DPKG_ML-MACE{{=}}ON -DCMAKE_PREFIX_PATH{{=}}"$(python -c 'import torch; print(torch.utils.cmake_prefix_path)')" -DCMAKE_INSTALL_PREFIX{{=}}$HOME/lammps-mace -DCMAKE_SKIP_RPATH{{=}}ON
 }}
 </tab>
 <tab name="GPU">
-2. Load required modules to configure MACE and build
+2. Chargez les modules requis pour configurer MACE et le ''build''.
 {{Command|module load python/3.14 gcc openmpi flexiblas cmake fftw eigen protobuf abseil flatbuffers cuda/12.9 cusparselt cudnn nccl magma opencv cudss sleef xnnpack
 }}
-Here we are using cuda 12.9 since it matches what PyTorch was built against.
+Ici, nous utilisons cuda 12.9 parce que cela correspond au ''build'' de PyTorch.
 
-3. Create and activate a [[Python#Creating_and_using_a_virtual_environment|Python virtual environment]]:
+3. Créez et activez un  [[Python/fr#Créer_et_utiliser_un_environnement_virtuel|environnement virtuel Python]].
 {{Command|virtualenv --clear ~/lammps-mace/ENV && source ~/lammps-mace/ENV/bin/activate}}
 
-4. Install PyTorch in this virtual environment:
+4. Installez PyTorch dans l'environnement virtuel.
 {{Commands
 |prompt=(ENV) [name@server ~]
 |
@@ -276,7 +276,7 @@ pip install --no-index --upgrade pip
 pip install --no-index 'torch>{{=}}2.10.0'
 }}
 
-5. Configure MACE
+5. Configurez MACE.
 {{Command
 |prompt=(ENV) [name@server ~]
 |cmake --fresh -S cmake -B _build -DBUILD_MPI{{=}}ON -DPKG_ML-MACE{{=}}ON -DCMAKE_PREFIX_PATH{{=}}"$(python -c 'import torch; print(torch.utils.cmake_prefix_path)')" -DCMAKE_INSTALL_PREFIX{{=}}$HOME/lammps-mace -DCMAKE_SKIP_RPATH{{=}}ON -DTORCH_CUDA_ARCH_LIST{{=}}"9.0"
@@ -284,14 +284,14 @@ pip install --no-index 'torch>{{=}}2.10.0'
 </tab>
 </tabs>
 
-6. Compile and install into a local <tt>lammps-mace</tt> directory
+6. Compilez et installez dans un répertoire  <tt>lammps-mace</tt> local.
 {{Commands
 |prompt=(ENV) [name@server ~]
 |cmake --build _build --parallel 4
 |cmake --install _build/ --prefix{{=}}$HOME/lammps-mace
 }}
 
-7. Quick test
+7. Faites un test rapide.
 {{Commands
 |prompt=(ENV) [name@server ~]
 |deactivate
@@ -299,7 +299,7 @@ pip install --no-index 'torch>{{=}}2.10.0'
 |~/lammps-mace/bin/lmp -h
 }}
 
-== Job Submission Examples ==
+== Exemples ==
 <tabs>
 <tab name=CPU>
 {{File

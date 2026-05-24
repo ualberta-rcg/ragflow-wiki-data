@@ -1,6 +1,79 @@
 {
   "doc_key": "fr/nextcloud",
   "level": "page",
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T01:01:24.107744+00:00"
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce que le service Nextcloud de l'Alliance et à quoi sert-il principalement?",
+      "answer": "Le service Nextcloud de l'Alliance est une solution de stockage et de partage de données, similaire à Dropbox, conçue pour les ensembles de données relativement modestes jusqu'à 100 Go par utilisateur."
+    },
+    {
+      "question": "Quelles informations d'identification doit-on utiliser pour se connecter au serveur Nextcloud de l'Alliance?",
+      "answer": "Pour vous connecter au serveur Nextcloud de l'Alliance, vous devez utiliser le nom d'utilisateur et le mot de passe de votre compte avec l'Alliance."
+    },
+    {
+      "question": "Quelle est la limite de stockage par défaut pour le service Nextcloud de l'Alliance, et quelle solution est recommandée pour des ensembles de données plus volumineux?",
+      "answer": "Le quota fixe pour le service Nextcloud de l'Alliance est de 100 Go par utilisateur. Pour les grands ensembles de données, l'utilisation de Globus est recommandée."
+    },
+    {
+      "question": "Quelle est la particularité du service Nextcloud SHARCNET et comment peut-on obtenir un quota de stockage supérieur?",
+      "answer": "Le Nextcloud SHARCNET peut être monté directement sur la grappe Nibi, permettant l'accès à vos fichiers sans transfert manuel. Pour obtenir un quota plus élevé, il faut écrire à help@sharcnet.ca."
+    },
+    {
+      "question": "Quelles sont les méthodes d'accès disponibles pour interagir avec les services Nextcloud de l'Alliance et SHARCNET?",
+      "answer": "Les services Nextcloud sont accessibles via l'interface web, le client Nextcloud Desktop Synchronization, les applications mobiles Nextcloud et tout client WebDAV."
+    },
+    {
+      "question": "Quelle est la politique de sauvegarde des données pour le service Nextcloud de l'Alliance, et celle pour Nextcloud SHARCNET?",
+      "answer": "Pour Nextcloud Alliance, la sauvegarde des données est effectuée une fois par jour sans copie sur support externe. Pour Nextcloud SHARCNET, les données sont sauvegardées une fois par jour sur ruban."
+    },
+    {
+      "question": "Quelle est la différence fondamentale entre l'utilisation d'un client WebDAV et le client de synchronisation Nextcloud pour la gestion de fichiers?",
+      "answer": "Les clients WebDAV montent le stockage Nextcloud sur l'ordinateur sans copier les fichiers localement, modifiant directement les fichiers sur le serveur. Le client de synchronisation, quant à lui, copie les fichiers localement, permettant de travailler hors ligne et de synchroniser les modifications avec le serveur par la suite."
+    },
+    {
+      "question": "Comment peut-on partager des fichiers ou des répertoires avec d'autres utilisateurs enregistrés dans la base de données de l'Alliance (CCDB) via Nextcloud?",
+      "answer": "Pour partager avec des utilisateurs CCDB, il faut sélectionner le fichier ou répertoire et entrer le prénom, le nom ou le nom d'utilisateur de la personne, ou le nom d'un groupe CCDB."
+    },
+    {
+      "question": "Est-il possible de partager des fichiers Nextcloud avec des personnes qui n'ont pas de compte avec l'Alliance, et comment cela fonctionne-t-il?",
+      "answer": "Oui, il est possible de partager des fichiers avec des personnes externes à l'Alliance en utilisant l'option 'Share link', qui leur envoie une notification avec le lien pour accéder au fichier."
+    },
+    {
+      "question": "Quel est l'avantage principal de l'utilisation de l'outil `rclone` pour transférer des fichiers avec Nextcloud par rapport à `curl`?",
+      "answer": "L'avantage principal de `rclone` est qu'il permet de configurer un service de stockage distant une seule fois, cryptant et enregistrant les détails de l'hôte et le mot de passe, ce qui évite de les entrer à chaque commande, contrairement à `curl`."
+    },
+    {
+      "question": "L'outil `rclone` est-il disponible sur les grappes de calcul de l'Alliance, et est-il nécessaire de l'installer?",
+      "answer": "Oui, `rclone` est disponible sur les grappes de l'Alliance et n'a pas besoin d'être installé manuellement; il se trouve dans le chemin de l'environnement logiciel."
+    },
+    {
+      "question": "Quelle est la commande à utiliser avec `curl` pour téléverser un fichier local vers un répertoire Nextcloud?",
+      "answer": "La commande `curl` pour téléverser un fichier est : `curl -k -u <username> -T <filename> https://nextcloud.computecanada.ca/remote.php/webdav/`."
+    },
+    {
+      "question": "Comment peut-on télécharger un fichier depuis Nextcloud vers son poste de travail local en utilisant la commande `curl`?",
+      "answer": "Pour télécharger un fichier avec `curl`, la commande est : `curl -k -u <username> https://nextcloud.computecanada.ca/remote.php/webdav/<filename> -o <filename>`."
+    },
+    {
+      "question": "Quelle est l'adresse URL générale à utiliser pour monter un répertoire Nextcloud sur un ordinateur en passant par un client WebDAV?",
+      "answer": "L'adresse URL générale à utiliser est `https://nextcloud.computecanada.ca/remote.php/webdav/`."
+    },
+    {
+      "question": "Où est physiquement situé le serveur du service Nextcloud de l'Alliance?",
+      "answer": "Le serveur du service Nextcloud de l'Alliance est situé à l'Université Simon-Fraser, à Burnaby, en Colombie-Britannique."
+    },
+    {
+      "question": "Où est physiquement situé le serveur du service Nextcloud SHARCNET?",
+      "answer": "Le serveur du service Nextcloud SHARCNET est situé à l'Université de Waterloo, en Ontario."
+    },
+    {
+      "question": "Les données échangées entre les ordinateurs locaux et le service Nextcloud de l'Alliance sont-elles sécurisées, et si oui, comment?",
+      "answer": "Oui, les données échangées entre les ordinateurs locaux et le service Nextcloud de l'Alliance sont toutes chiffrées pour assurer leur sécurité."
+    },
+    {
+      "question": "Quelles sont les principales étapes pour configurer un nouveau service distant 'nextcloud' avec `rclone` pour le service Nextcloud de l'Alliance?",
+      "answer": "Il faut lancer `rclone config`, choisir de créer un nouveau service distant ('n'), nommer le profil (ex: 'nextcloud'), sélectionner 'WebDAV' comme type de stockage, entrer l'URL `https://nextcloud.computecanada.ca/remote.php/dav/files/<your CCDB username>`, choisir 'Nextcloud' comme type de site WebDAV, puis entrer le nom d'utilisateur CCDB et le mot de passe."
+    }
+  ],
+  "generated_at": "2026-05-24T01:26:10.726954+00:00"
 }

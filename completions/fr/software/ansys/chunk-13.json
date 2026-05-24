@@ -2,6 +2,15 @@
   "doc_key": "fr/ansys",
   "level": "chunk",
   "chunk_index": 13,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:36:57.833245+00:00"
+  "qa_pairs": [
+    {
+      "question": "Comment peut-on exécuter une tâche Ansys Fluent sur la grappe Narval en utilisant OpenMPI pour un calcul sur plusieurs nœuds, et quels sont les paramètres importants à considérer pour le script Slurm?",
+      "answer": "Pour exécuter Fluent sur plusieurs nœuds de la grappe Narval avec OpenMPI, utilisez un script Slurm configuré pour plusieurs nœuds. Les directives `SBATCH` importantes incluent `--nodes=1` (ou plus), `--ntasks-per-node=64` (ou moins pour Narval) et `--mem=0` pour allouer toute la mémoire disponible par nœud. Vous devez charger les modules `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente). Avant d'exécuter Fluent, assurez-vous d'exporter `OPENMPI_ROOT=$EBROOTOPENMPI` et, pour plusieurs nœuds, `export FI_PROVIDER=verbs`. La commande `fluent` devrait ressembler à ceci : `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
+    },
+    {
+      "question": "Quels sont les prérequis spécifiques pour soumettre une tâche Ansys Fluent sur la grappe Trillium, notamment en ce qui concerne la version du module Ansys et la configuration des répertoires de l'utilisateur?",
+      "answer": "Pour soumettre une tâche Ansys Fluent sur la grappe Trillium, vous devez impérativement utiliser le module `ansys/2025R2.04` ou une version plus récente, car les versions antérieures ne sont pas compatibles. De plus, il est essentiel de vérifier que des liens symboliques vers des répertoires inscriptibles pour `.ansys`, `.fluentconf`, et un fichier `.flrecent` existent dans votre répertoire de base (`$HOME`). S'ils n'existent pas ou ne pointent pas vers une zone inscriptible (comme `$SCRATCH`), le script Slurm affichera des erreurs et arrêtera la tâche. Par exemple, il faut créer ces liens avec des commandes comme `ln -s $SCRATCH/.ansys ~/.ansys`."
+    }
+  ],
+  "generated_at": "2026-05-24T01:09:56.017229+00:00"
 }

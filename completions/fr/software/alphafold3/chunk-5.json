@@ -2,6 +2,15 @@
   "doc_key": "fr/alphafold3",
   "level": "chunk",
   "chunk_index": 5,
-  "qa_pairs": [],
-  "generated_at": "2026-05-10T00:15:56.128935+00:00"
+  "qa_pairs": [
+    {
+      "question": "Comment faire pour soumettre les deux étapes d'AlphaFold3 (le pipeline de données et l'inférence de modèle) comme des tâches dépendantes avec l'ordonnanceur SLURM?",
+      "answer": "Pour soumettre la tâche du pipeline de données (alphafold3-data.sh) et en faire dépendre la tâche d'inférence (alphafold3-inference.sh), vous devez d'abord lancer la tâche de données avec `jid1=$(sbatch alphafold3-data.sh)`. Ensuite, vous soumettez la tâche d'inférence en la rendant dépendante de la réussite de la première étape avec la commande `jid2=$(sbatch --dependency=afterok:$jid1 alphafold3-inference.sh)`. Vous pouvez ensuite vérifier le statut des tâches avec `sq`."
+    },
+    {
+      "question": "Si je rencontre un problème de mémoire GPU insuffisante en exécutant AlphaFold3, par exemple sur une carte A100 avec 40 Go de mémoire, comment puis-je le régler?",
+      "answer": "Pour régler une erreur de mémoire GPU insuffisante, surtout sur un A100 de 40 Go, vous pouvez activer la mémoire unifiée. Il faut ajouter les variables d'environnement `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true` et `export XLA_CLIENT_MEM_FRACTION=2.0` dans votre script de soumission pour l'étape d'inférence. N'oubliez pas non plus d'ajuster la quantité de mémoire allouée à votre tâche en conséquence, par exemple en modifiant `#SBATCH --mem=80G`."
+    }
+  ],
+  "generated_at": "2026-05-24T01:01:00.137828+00:00"
 }

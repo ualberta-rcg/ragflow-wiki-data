@@ -2,6 +2,19 @@
   "doc_key": "en/ansys",
   "level": "chunk",
   "chunk_index": 10,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:30:59.958119+00:00"
+  "qa_pairs": [
+    {
+      "question": "What specific directory links are required for running Fluent jobs on the Trillium cluster, and what happens if they are not configured?",
+      "answer": "When running Fluent jobs on the Trillium cluster, you must ensure that symbolic links to writable directories exist for `~/.ansys`, `~/.fluentconf`, and a file for `~/.flrecent` within your `$SCRATCH` directory. If these links are not properly set up, the job will abort with an error message instructing you to create them by running commands like `ln -s $SCRATCH/.ansys ~/.ansys`."
+    },
+    {
+      "question": "What is the main purpose of the license requeue scripts provided for Fluent jobs on Alliance clusters?",
+      "answer": "The license requeue scripts are primarily used for Fluent jobs that are known to complete normally without generating any errors but frequently fail to start due to temporary license shortages. These scripts allow for automatic resubmission of the job (up to a specified number of attempts) until a license can be successfully checked out."
+    },
+    {
+      "question": "For which types of Fluent jobs are license requeue scripts not recommended, and what are the associated risks?",
+      "answer": "License requeue scripts are not recommended for Fluent jobs that may run for a long time before crashing or complete with unresolved journal file warnings. If used with such jobs, the simulations will be repeated from the beginning until the maximum number of requeue attempts is reached, which can result in significant lost compute time. It is strongly advised to monitor and inspect each Slurm output file to confirm that any requeue attempt is indeed license-related."
+    }
+  ],
+  "generated_at": "2026-05-24T01:02:49.611917+00:00"
 }

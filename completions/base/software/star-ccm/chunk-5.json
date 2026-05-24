@@ -4,13 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How do researchers set up their license to run STAR-CCM+ batch jobs on Alliance clusters, distinguishing between Power-on-Demand (PoD) and institutional licenses?",
-      "answer": "For Power-on-Demand (PoD) licenses, researchers must manually set the `LM_PROJECT` environment variable to their 22-digit PoD License Key within their Slurm script. Additionally, a `~/.licenses/starccm.lic` file must be configured on each cluster where jobs are to be run, containing `SERVER flex.cd-adapco.com ANY 1999` followed by `USE_SERVER`.\n\nFor local institutional licenses, the `LM_PROJECT` line in the Slurm script should be commented out. A `~/.licenses/starccm.lic` file is required, containing `SERVER <server> ANY <flexport>` and `USE_SERVER`, where `<server>` is the hostname or IP address and `<flexport>` is the static vendor port of the license server. On the Trillium cluster specifically, institutional license settings involve explicitly defining `FLEXPORT`, `VENDPORT`, and `LICSERVER` variables, which are then used to set `CDLMD_LICENSE_FILE` and establish an SSH tunnel for port forwarding."
+      "question": "What environment variable must be set for a Power-on-Demand (PoD) license when running STAR-CCM+ jobs on Alliance clusters via SLURM scripts, and how is it used in the `starccm+` command?",
+      "answer": "For Power-on-Demand (PoD) licenses, researchers must manually set the `LM_PROJECT` environment variable to their 22-digit PoD License Key. This variable is then used in the `starccm+` command with the `-podkey $LM_PROJECT` option, as seen in the sample SLURM scripts for clusters like Fir, Narval, and Rorqual."
     },
     {
-      "question": "What are the key differences in Slurm script configuration for running STAR-CCM+ on the Trillium cluster compared to Fir, Narval, or Rorqual clusters?",
-      "answer": "The Trillium cluster's Slurm scripts have several specific configurations. They are set up to use `--cpus-per-task=192` and `--mem=0` (indicating all available memory), whereas the Fir, Narval, and Rorqual clusters typically specify `--cpus-per-task=16` and `--mem=64G`. For institutional licenses on Trillium, the script explicitly defines `FLEXPORT`, `VENDPORT`, and `LICSERVER` variables, which are then used to configure `CDLMD_LICENSE_FILE` and establish an SSH tunnel using `ssh tri-gw -L <FLEXPORT>:<LICSERVER>:<FLEXPORT> -L <VENDPORT>:<LICSERVER>:<VENDPORT> -N -f`. Furthermore, the Trillium script includes a `while` loop that attempts to start STAR-CCM+ up to five times, acting as a workaround for potential license failures."
+      "question": "What is the primary difference in how Power-on-Demand (PoD) licenses for STAR-CCM+ are configured and accessed on the Trillium cluster compared to Fir, Narval, or Rorqual clusters when using SLURM scripts?",
+      "answer": "On the Trillium cluster, PoD licenses for STAR-CCM+ are configured using explicit environment variables (`FLEXPORT`, `VENDPORT`, `LICSERVER`) and an `ssh` tunnel via `tri-gw` to forward these license ports. This setup is used instead of relying on the `~/.licenses/starccm.lic` file. Additionally, the Trillium script includes a retry loop to mitigate potential license failures. In contrast, Fir, Narval, and Rorqual clusters primarily rely on setting the `LM_PROJECT` environment variable and require a `~/.licenses/starccm.lic` file."
     }
   ],
-  "generated_at": "2026-04-19T02:27:29.126230+00:00"
+  "generated_at": "2026-05-24T01:32:10.815836+00:00"
 }

@@ -2,6 +2,19 @@
   "doc_key": "fr/ansys",
   "level": "chunk",
   "chunk_index": 32,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:39:15.813370+00:00"
+  "qa_pairs": [
+    {
+      "question": "Comment soumettre une tâche Ansys Workbench sur un seul nœud à l'aide de l'ordonnanceur Slurm?",
+      "answer": "Pour soumettre une tâche Ansys Workbench sur un seul nœud avec l'ordonnanceur Slurm, il faut d'abord créer un script Slurm. Ce script doit spécifier le compte, le temps alloué, la mémoire, et le nombre de cœurs. Ensuite, le programme `runwb2` est lancé en mode batch avec les options `-B -E \"Update()\" -F YOURPROJECT.wbpj` pour exécuter la mise à jour du projet."
+    },
+    {
+      "question": "Quels sont les paramètres Slurm importants à configurer pour exécuter Ansys Workbench sur un nœud de calcul unique?",
+      "answer": "Pour exécuter Ansys Workbench sur un nœud de calcul unique, les paramètres Slurm clés à configurer sont : `#SBATCH --nodes=1` (obligatoire pour un nœud simple), `#SBATCH --account=def-account` pour votre compte, `#SBATCH --time=00-03:00` pour la durée, `#SBATCH --mem=16G` pour la mémoire totale (ou `0` pour toute la mémoire du nœud), et `#SBATCH --ntasks=4` pour le nombre de cœurs."
+    },
+    {
+      "question": "Comment le script Slurm fourni configure-t-il Ansys Workbench pour une exécution en parallèle à mémoire partagée sur un seul nœud?",
+      "answer": "Le script configure Ansys Workbench pour une exécution en parallèle à mémoire partagée sur un nœud unique en définissant la variable `MEMPAR=0` si le nombre de nœuds (`SLURM_NNODES`) est 1. Il modifie ensuite le fichier `SolveHandlers.xml` pour ajuster la valeur de `Distribute` à `0` (indiquant SMP) et le `MaxNumberProcessors` au nombre de cœurs (`$SLURM_NTASKS`) demandé."
+    }
+  ],
+  "generated_at": "2026-05-24T01:12:29.450330+00:00"
 }

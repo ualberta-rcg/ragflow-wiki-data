@@ -2,6 +2,15 @@
   "doc_key": "fr/ansys",
   "level": "chunk",
   "chunk_index": 41,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:40:21.184468+00:00"
+  "qa_pairs": [
+    {
+      "question": "Comment puis-je démarrer l'interface graphique d'Ansys Workbench sur un de nos clusters, et y a-t-il des particularités à connaître pour son utilisation?",
+      "answer": "Pour lancer l'interface graphique d'Ansys Workbench sur un de nos clusters, vous devez d'abord charger le module `StdEnv/2023 ansys/2022R2` (ou une version plus récente). Si vous utilisez Ansys Mechanical et que les menus déroulants ne répondent pas correctement, il est nécessaire de lancer `xfwm4 --replace &` sur la ligne de commande avant de démarrer Workbench. Pour les utilisateurs de CFD-Post, vous devrez aussi exporter la variable d'environnement `QTWEBENGINE_DISABLE_SANDBOX=1`. Ensuite, vous pouvez démarrer Workbench avec la commande `runwb2`. Il est important de noter que lorsque vous exécutez en parallèle un programme d'analyse comme Mechanical ou Fluent sur un nœud simple, il ne faut pas cocher la case \"Distributed\" et vous devriez spécifier un nombre de cœurs égal au nombre de cœurs de votre session `salloc` moins un. Pour configurer `xfwm4` par défaut, vous pouvez modifier votre fichier `~/.vnc/xstartup` et remplacer `mate-session` par `xfce4-session`."
+    },
+    {
+      "question": "Quels sont les problèmes et les limitations liés à l'utilisation de SSH pour exécuter les interfaces graphiques des programmes Ansys sur nos grappes, et pourquoi est-il préférable d'utiliser VNC?",
+      "answer": "L'exécution de programmes Ansys avec interface graphique via SSH et redirection X vers votre ordinateur local n'est ni testée ni supportée. Cette approche est fortement déconseillée, car les temps de réponse interactifs sont généralement inacceptables, surtout pour les tâches qui nécessitent du rendu graphique. Par exemple, des tests ont montré qu'il fallait 40 minutes pour obtenir l'interface graphique avec SSH, alors que `vncviewer` ne prenait que 34 secondes. Bien que cette méthode puisse être envisagée si votre seul objectif est d'ouvrir une simulation pour des opérations de menu de base ou pour exécuter des calculs, VNC est fortement recommandé pour une expérience interactive beaucoup plus fluide. Si vous souhaitez tout de même tenter l'approche SSH, voici les étapes de base : 1) connectez-vous avec `ssh -Y username@graham.computecanada.ca`; 2) allouez des ressources avec `salloc --x11 --time=1:00:00 --mem=16G --cpus-per-task=4 [--gpus-per-node=1] --account=def-mygroup`; 3) une fois connecté à un nœud de calcul, essayez d'exécuter `xclock`. Si l'horloge apparaît sur votre bureau, chargez le module Ansys souhaité et essayez d'exécuter le programme."
+    }
+  ],
+  "generated_at": "2026-05-24T01:14:00.496758+00:00"
 }

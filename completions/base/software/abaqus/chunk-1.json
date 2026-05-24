@@ -2,6 +2,19 @@
   "doc_key": "base/abaqus",
   "level": "chunk",
   "chunk_index": 1,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:20:55.509695+00:00"
+  "qa_pairs": [
+    {
+      "question": "How does one configure their Abaqus license file for use on Alliance clusters?",
+      "answer": "Users must create a file named `$HOME/.licenses/abaqus.lic` containing the line `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"port@server\")`. The `port@server` part should be replaced with the flexlm port number and the server's IP address or fully qualified hostname of their Abaqus license server. For legacy version 6.14.1, `ABAQUSLM_LICENSE_FILE` should be replaced with `LM_LICENSE_FILE`."
+    },
+    {
+      "question": "What information is required to set up an institutional Abaqus license server for remote use on an Alliance cluster, and who should be contacted?",
+      "answer": "If an institutional Abaqus license is not yet set up for use on an Alliance cluster, users must contact technical support. They need to provide three items: the flexlm port number, the static vendor port number, and the IP address of their Abaqus license server. A special license agreement between SIMULIA and the institution is also generally required before a local license can be used remotely on Alliance hardware."
+    },
+    {
+      "question": "What options are available to manage Abaqus license queuing behaviour on Alliance clusters, and how are they configured?",
+      "answer": "Users can choose between two options to prevent jobs from idling indefinitely while waiting for a license. The first option is to terminate a job immediately if licenses are insufficient, configured by creating an `abaqus_v6.env` file in the submit directory with the line `lmlicensequeuing=OFF`. The second option is to set a finite wait time (e.g., 1 minute) before termination, by adding the line `lmhanglimit=1` to the `abaqus_v6.env` file. If licenses do not become available within the specified time, the job will be dequeued and terminated by Slurm."
+    }
+  ],
+  "generated_at": "2026-05-24T00:57:06.474203+00:00"
 }

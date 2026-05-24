@@ -2,6 +2,19 @@
   "doc_key": "en/ansys",
   "level": "chunk",
   "chunk_index": 13,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:31:21.738704+00:00"
+  "qa_pairs": [
+    {
+      "question": "When should I consider using the license requeue scripts for Fluent jobs on the Alliance clusters?",
+      "answer": "You should use the license requeue scripts for Fluent jobs that are known to complete normally without generating errors in the output but frequently require multiple attempts to check out a license. It is strongly recommended to monitor Slurm output files to confirm that any requeued attempts are due to license issues, not simulation failures, as these scripts will repeat the simulation from the beginning."
+    },
+    {
+      "question": "What is the primary purpose of the solution restart scripts for Fluent jobs on Alliance clusters?",
+      "answer": "The solution restart scripts are provided to automate the restarting of very large Fluent jobs that may exceed the typical seven-day maximum runtime window available on most clusters. These scripts allow jobs to be restarted from the most recent saved time step files, provided the initial time step can be completed within the requested job array time limit."
+    },
+    {
+      "question": "What specific modifications are required in Fluent journal files to enable automated solution restarts for jobs on Alliance clusters?",
+      "answer": "To enable automated solution restarts, your initial `sample.jou` file must contain `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`. A separate `sample-restart.jou` file should then be created (by copying `sample.jou`), modified to include `/file/read-cas-data sample-restart`, and have any initialization line commented out, for example, `;/solve/initialize/initialize-flow`."
+    }
+  ],
+  "generated_at": "2026-05-24T01:03:10.803214+00:00"
 }

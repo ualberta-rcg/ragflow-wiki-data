@@ -4,17 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Dans un script Slurm pour exécuter STAR-CCM+ sur les grappes de l'Alliance, comment spécifie-t-on le fichier de simulation d'entrée et le fichier de macros Java optionnel?",
-      "answer": "Le fichier de simulation d'entrée est spécifié en définissant la variable `SIM_FILE`, par exemple `SIM_FILE='monsample.sim'`. Pour les macros Java optionnelles, il faut décommenter et définir la variable `JAVA_FILE`, par exemple `#JAVA_FILE='mesmacros.java'` devient `JAVA_FILE='mesmacros.java'`."
+      "question": "Quelles sont les directives Slurm (SBATCH) indispensables à inclure dans un script pour soumettre une tâche STAR-CCM+ sur les grappes Fir, Narval ou Rorqual?",
+      "answer": "Les directives SBATCH essentielles sont: `#SBATCH --account=def-group` pour spécifier le compte, `#SBATCH --time=00-01:00` pour la limite de temps, `#SBATCH --nodes=1` pour le nombre de nœuds, `#SBATCH --cpus-per-task=16` pour les cœurs par tâche, `#SBATCH --mem=64G` pour la mémoire par nœud, et `#SBATCH --ntasks-per-node=1` (cette dernière valeur ne doit pas être changée)."
     },
     {
-      "question": "Comment doit-on configurer la variable d'environnement `LM_PROJECT` dans un script Slurm pour STAR-CCM+ lorsqu'on utilise une licence Siemens Power on Demand (PoD) sur les grappes Fir, Narval ou Rorqual?",
-      "answer": "Pour une licence Siemens PoD sur les grappes Fir, Narval ou Rorqual, il faut décommenter et spécifier votre clé PoD Siemens de 22 chiffres pour la variable `LM_PROJECT` dans le script Slurm. Par exemple, `# LM_PROJECT='ma22chiffresclepod'` doit être changé pour `LM_PROJECT='votre22chiffresclepod'`."
+      "question": "Comment spécifie-t-on le fichier de simulation d'entrée et les commandes de lot optionnelles (comme des macros Java ou des étapes de maillage/exécution) dans un script Slurm pour une tâche STAR-CCM+ sur les grappes Fir, Narval ou Rorqual?",
+      "answer": "Le fichier de simulation d'entrée est spécifié en ajustant la variable `SIM_FILE='mySample.sim'`. Pour les commandes de lot, telles que les macros Java ou les étapes, il faut décommenter et configurer la variable `BATCH_CMD='myMacro.java,run'` avec les commandes appropriées."
     },
     {
-      "question": "Quelles sont les configurations spécifiques à la grappe Niagara pour l'utilisation des licences STAR-CCM+ dans un script Slurm, notamment pour les licences Power on Demand de Siemens, et comment gère-t-on l'accès au serveur de licences?",
-      "answer": "Pour la grappe Niagara, la variable `LM_PROJECT` doit être définie avec votre clé PoD Siemens. De plus, des variables comme `FLEXPORT`, `VENDPORT` et `LICSERVER` doivent être configurées (ex: `FLEXPORT=1999`, `VENDPORT=2099`, `LICSERVER=flex.cd-adapco.com`). L'accès au serveur de licences est géré par un tunnel SSH via `ssh tri-gw -L $FLEXPORT:$LICSERVER:$FLEXPORT -L $VENDPORT:$LICSERVER:$VENDPORT -N -f`, et `CDLMD_LICENSE_FILE` est redirigé localement vers `127.0.0.1`."
+      "question": "Pour utiliser STAR-CCM+ sur les grappes Fir, Narval ou Rorqual via un script Slurm, quelle est la différence de configuration de licence entre une licence Power-on-Demand (PoD) et un serveur de licence institutionnel local?",
+      "answer": "Pour une licence Power-on-Demand (PoD), la variable d'environnement `LM_PROJECT` doit être configurée avec votre clé de licence Siemens PoD (`LM_PROJECT='22digit-PoD-License-Key'`). La commande `starccm+` inclura alors les options `-power -podkey $LM_PROJECT`. Si vous utilisez un serveur de licence institutionnel, la ligne `LM_PROJECT` doit être commentée, et le script s'appuiera sur la variable `CDLMD_LICENSE_FILE` qui est automatiquement configurée au chargement du module, sans les options `-power -podkey`."
     }
   ],
-  "generated_at": "2026-04-19T02:30:36.818292+00:00"
+  "generated_at": "2026-05-24T01:35:29.684116+00:00"
 }

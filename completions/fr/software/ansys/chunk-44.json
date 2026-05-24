@@ -2,6 +2,19 @@
   "doc_key": "fr/ansys",
   "level": "chunk",
   "chunk_index": 44,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:40:42.888365+00:00"
+  "qa_pairs": [
+    {
+      "question": "Comment puis-je copier et exécuter les exemples de projets 'Antennas' pour Ansys EDT 2023R2 sur une grappe de calcul, comme Graham?",
+      "answer": "Pour copier et exécuter les exemples 'Antennas' d'Ansys EDT 2023R2, connectez-vous à une grappe (par exemple Graham), puis lancez les commandes suivantes :\n1. Chargez le module Ansys EDT : `module load ansysedt/2023R2`\n2. Créez les répertoires nécessaires : `mkdir -p ~/Ansoft/$EBVERSIONANSYSEDT; cd ~/Ansoft/$EBVERSIONANSYSEDT; rm -rf Antennas`\n3. Copiez les exemples : `cp -a $EBROOTANSYSEDT/v232/Linux64/Examples/HFSS/Antennas ~/Ansoft/$EBVERSIONANSYSEDT`\nUne fois copiés, ouvrez un fichier .aedt, cliquez sur 'HFSS -> Validation Check', puis 'Project -> Analyze All' pour lancer la simulation. Pour quitter sans sauvegarder, utilisez 'File -> Close -> No'."
+    },
+    {
+      "question": "Que doit-on faire si le programme Ansys EDT plante et ne redémarre pas sur une grappe de calcul?",
+      "answer": "Si Ansys EDT plante et ne redémarre pas, vous pouvez essayer les commandes suivantes pour arrêter les processus et réinitialiser la configuration :\n1. Arrêter les processus Ansys en cours : `pkill -9 -u $USER -f \"ansys*|mono|mwrpcss|apip-standalone-service\"`\n2. Supprimer les fichiers de configuration : `rm -rf ~/.mw` (Ansys EDT utilisera la configuration initiale lors de son prochain lancement)."
+    },
+    {
+      "question": "Comment lancer le logiciel Rocky en mode graphique sur les grappes de Calcul Canada, et quelles versions sont supportées?",
+      "answer": "Pour lancer Rocky en mode graphique, vous devez charger le module Ansys approprié et utiliser la commande 'Rocky' ou 'Rocky-gui'. Voici les options de chargement de module :\n* `module load ansysrocky/2023R2 StdEnv/2020 ansys/2023R2`\n* `module load ansysrocky/2024R2.0 StdEnv/2023 ansys/2024R2.04`\n* `module load StdEnv/2023 ansys/2025R1`\n\nAprès avoir chargé le module, vous pouvez lancer Rocky avec :\n* `Rocky` (le module Ansys lit le fichier `~/licenses/ansys.lic`)\n* `Rocky-gui` (cette option des modules locaux ansysrocky permet de sélectionner un serveur CMC ou SHARCNET)\n\nNotez que les versions 2024R2 ou moins récentes ne fonctionnent que sur gra-vdi et les grappes Graham, et l'installation sur les autres grappes est prévue pour juin. Les versions 2025R1 et plus récentes sont fournies dans le module Ansys sur toutes les grappes, mais ne sont pas encore prises en charge par le serveur de licence SHARCNET."
+    }
+  ],
+  "generated_at": "2026-05-24T01:14:27.154627+00:00"
 }

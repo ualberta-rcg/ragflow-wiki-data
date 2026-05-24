@@ -4,13 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi, le CVMFS, pis à quoi ça sert principalement dans le domaine de la distribution logicielle?",
-      "answer": "Le CVMFS, pour \"CERN Virtual Machine File System\", c'est un système de distribution de logiciels distribué en lecture seule, implémenté comme un système de fichiers POSIX. Ça a été créé à l'origine pour les expériences du grand collisionneur de hadrons au CERN. Son but premier était de fournir du logiciel aux machines virtuelles pis de remplacer les zones d'installation de logiciels partagés sur un paquet de sites informatiques."
+      "question": "Qu'est-ce que CVMFS et à quoi sert-il?",
+      "answer": "CVMFS, ou CERN Virtual Machine File System, est un système de distribution de logiciels distribué en lecture seule, implémenté comme un système de fichiers POSIX via FUSE avec transport HTTP. Il a été conçu à l'origine au CERN pour fournir des logiciels aux machines virtuelles et remplacer les zones d'installation partagées, mais son utilisation s'est étendue pour distribuer des logiciels, des données et d'autres contenus de manière rapide, évolutive et fiable à travers le monde."
     },
     {
-      "question": "Peux-tu expliquer comment le CVMFS assure une bonne évolutivité pis une grande robustesse, et comment le contenu est-il géré et mis en cache?",
-      "answer": "Absolument! Le CVMFS est vraiment évolutif pis robuste grâce à sa mise en cache hiérarchique, ce qui aide aussi à minimiser le trafic réseau. En gros, la strate 0 contient la copie principale du référentiel. Plusieurs serveurs de strate 1 répliquent ce contenu-là. Des serveurs proxy HTTP mettent en cache les requêtes des clients vers la strate 1. Pis finalement, les clients CVMFS téléchargent les fichiers à la demande dans leurs caches locaux, qui peuvent être à deux niveaux (comme un cache SSD rapide pis un plus gros cache HDD). Ça permet aussi la tolérance aux pannes en cas de problème avec un serveur, puisque les clients basculent automatiquement vers le prochain disponible."
+      "question": "Quels sont les principaux avantages ou caractéristiques de l'utilisation de CVMFS pour la distribution de logiciels?",
+      "answer": "CVMFS offre plusieurs avantages clés, comme la gestion d'une seule copie de logiciel utilisable sur plusieurs sites, l'exécution d'applications sans exigences spécifiques sur la distribution ou la version de Linux du nœud client, le découplage de la pile logicielle et du système d'exploitation, une gestion des versions du contenu avec possibilité de restauration, la propagation automatique et atomique des mises à jour, la récupération de fichiers via le protocole HTTP sans ouverture de ports, et une haute tolérance aux pannes grâce à des serveurs redondants et une mise en cache hiérarchique."
+    },
+    {
+      "question": "Comment fonctionne la hiérarchie de distribution et de mise en cache du contenu avec CVMFS?",
+      "answer": "La hiérarchie de CVMFS est conçue pour la mise à l'échelle et la robustesse. La strate 0 contient la copie principale du référentiel. Plusieurs serveurs de strate 1 répliquent le contenu de la strate 0. Des serveurs proxy HTTP mettent en cache les requêtes réseau des clients vers les serveurs de la strate 1. Enfin, le client CVMFS télécharge les fichiers à la demande dans des caches locaux, qui peuvent être à deux niveaux (comme un cache SSD rapide et un grand cache HDD) ou un cache partagé par une grappe."
     }
   ],
-  "generated_at": "2026-04-13T03:39:19.225464+00:00"
+  "generated_at": "2026-05-24T01:20:50.165844+00:00"
 }

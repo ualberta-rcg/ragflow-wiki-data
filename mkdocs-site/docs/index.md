@@ -77,21 +77,17 @@ title: Home
 | Service | Status |
 |---------|--------|
 | **Vulcan** | :material-check-circle:{ style="color: green" } Operational |
-| **Trillium** | :material-calendar:{ style="color: blue" } Planned Outage of Compute Nodes |
-| **Narval** | :material-check-circle:{ style="color: green" } Operational |
+| **Narval** | :material-alert:{ style="color: orange" } Rolling update of Nvidia drivers to 580 |
 | **Cedar Cloud** | :material-check-circle:{ style="color: green" } Operational |
-| **Graham Cloud** | :material-check-circle:{ style="color: green" } Operational |
 | **Nibi** | :material-check-circle:{ style="color: green" } Operational |
-| **Fir** | :material-check-circle:{ style="color: green" } Operational |
-| **Rorqual** | :material-calendar:{ style="color: blue" } 2026-06-01 |
-| **Arbutus** | :material-alert:{ style="color: orange" } Arbutus Power Maintenance |
+| **Fir** | :material-alert:{ style="color: orange" } `ptrace` unavailable − `ptrace` indisponible |
+| **Rorqual** | :material-alert:{ style="color: orange" } Rolling update of Nvidia drivers to 580 |
+| **Arbutus** | :material-check-circle:{ style="color: green" } Operational |
 | **Béluga** | :material-alert:{ style="color: orange" } Decommissioning: 2026 End of Service Timeline |
-| **Juno** | :material-check-circle:{ style="color: green" } Operational |
-| **Killarney** | :material-check-circle:{ style="color: green" } Operational |
 | **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
 | **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-05-17 15:34 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-05-24 00:55 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -101,18 +97,16 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 
 | Date | Event | Link |
 |------|-------|------|
-| May 19 | Research Communications: Photo Editing with Photoshop | [Register](https://ualberta.libcal.com/event/4019033) |
-| May 19 | Two Paths to Python Dashboards: Shiny vs Dash [webinar] | [Register](https://forms.gle/LsiKPRsZajrUqAwZA) |
-| May 19 | Data Deposit Bootcamp (In-Person) | [Register](https://libcal.mcmaster.ca/event/3920116) |
-| May 19 | Introduction to the Unix Shell | [Register](https://libcal.library.ubc.ca/event/4023222) |
-| May 20 | Pourquoi la gestion des données? | [Register](https://pbuq.libcal.com/event/4022816) |
-| May 20 | RAiD Global Community Meeting - Americas | [Details](https://lyrasis.zoom.us/meeting/register/z2xvhqPxTESemX2H-3jvNQ) |
-| May 20 | Introduction to Digital Storytelling with Twine | [Register](https://libcal.library.ubc.ca/event/4008286) |
-| May 21 | High-performance R - Part 2 [course] | [Register](https://forms.gle/NfQf4UTtG82RzFBP6) |
 | May 25 | Data Bites - File Naming Best Practices for Research Data | [Register](https://libcal.library.ubc.ca/event/4016251) |
 | May 26 | Digital Scholarship Tools: 3D Design Basics | [Register](https://ualberta.libcal.com/event/4018974) |
+| May 28 | Introduction to Mapmaking with QGIS | [Register](https://libcal.library.ubc.ca/event/4017109) |
+| May 28 | Research Communications: Video Editing With Premiere Pro | [Register](https://ualberta.libcal.com/event/4019035) |
+| May 29 | Creating Digital Exhibits: A Survey of Tools | [Register](https://libcal.library.ubc.ca/event/4008284) |
+| Jun 01 | Bioinformatics: Analysis of RNA-sequencing Data | [Details](https://training.computeontario.ca/courses/course/view.php?id=31) |
+| Jun 01 | Overview of training opportunity in the School and beyond | [Details](https://training.computeontario.ca/courses/course/view.php?id=34) |
+| Jun 01 | Interactive Computing with Open OnDemand | [Details](https://training.computeontario.ca/courses/course/view.php?id=39) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-05-17 15:34 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-05-24 00:55 UTC.*</small>
 
 ---
 

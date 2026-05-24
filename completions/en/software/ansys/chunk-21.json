@@ -2,6 +2,19 @@
   "doc_key": "en/ansys",
   "level": "chunk",
   "chunk_index": 21,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:32:19.485016+00:00"
+  "qa_pairs": [
+    {
+      "question": "How do I use a compiled User-Defined Function (UDF) with Ansys Fluent on an Alliance cluster, and what are the prerequisites?",
+      "answer": "To use a compiled UDF on an Alliance cluster, it must first be compiled directly on an Alliance cluster, which generates a `libudf` subdirectory containing the necessary `libudf.so` shared library. Copying this `libudf` directory from a remote system, like your laptop, is not supported. Once compiled on an Alliance cluster, this `libudf` directory can be transferred to other Alliance clusters, provided your account loads the same `StdEnv` environment module version. In your journal file, uncomment the `define/user-defined/compiled-functions load libudf` line to use the UDF. Avoid uncommenting both the compile and load lines, as recompiling for every job is inefficient and can lead to build conflicts. Alternatively, you can compile the UDF via the Fluent GUI by navigating to the 'Compiled UDFs Dialog Box', adding the UDF source file, and clicking 'Build'."
+    },
+    {
+      "question": "What is required to use a User-Defined Function (UDF) in a parallel Ansys Fluent job on an Alliance cluster?",
+      "answer": "Before a User-Defined Function (UDF) can be used effectively with a parallel Ansys Fluent job, whether it's a single-node Shared Memory Parallel (SMP) or a multi-node Message Passing Interface (MPI) job, it must be parallelized. This parallelization involves instrumenting your serial UDF by adding compiler directives, predicates, and reduction macros. Failing to do so can result in Fluent running slowly or even crashing immediately. The objective is to create a single UDF that performs efficiently in both serial and parallel Fluent modes. Detailed information on this process is available in 'Part I: Chapter 7: Parallel Considerations' of the Ansys 2024 'Fluent Customization Manual'."
+    },
+    {
+      "question": "How can Discrete Phase Model (DPM) User-Defined Functions (UDFs) be used to customize particle injections in Ansys Fluent, and how can this process be automated via a journal file?",
+      "answer": "DPM UDFs can customize particle injections in Ansys Fluent by allowing users to define 'Point Properties' such as source position, initial trajectory, mass flow rate, time duration, and temperature. This can be done through the GUI by going to the 'Physics panel', selecting 'Discrete Phase', opening the 'Discrete Phase Model' box, clicking the 'Injections' button, and then creating an injection where 'Point Properties' can be input, or by selecting 'file' as the 'Injection Type' to read an injection text file (e.g., with a .inj extension). To automate this process within a journal file after solution initialization, commands such as `/define/models/dpm/interaction/coupled-calculations yes` can be added to enable updating DPM source terms, followed by commands like `/define/models/dpm/injections/create injection-0:1 no yes file no zinjection01.inj no no no no` to create and define injections from a specified file, and then `/define/models/dpm/injections/list-particles injection-0:1` and `/define/models/dpm/injections/list-injection-properties injection-0:1` to list their properties."
+    }
+  ],
+  "generated_at": "2026-05-24T01:04:17.062922+00:00"
 }

@@ -2,6 +2,15 @@
   "doc_key": "fr/ansys",
   "level": "chunk",
   "chunk_index": 35,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:39:37.685928+00:00"
+  "qa_pairs": [
+    {
+      "question": "Comment puis-je soumettre une tâche Ansys Mechanical APDL qui utilise le parallélisme distribué avec des GPU sur les grappes de Calcul Canada?",
+      "answer": "Pour soumettre une tâche Ansys Mechanical APDL en parallélisme distribué avec des GPU, vous devriez utiliser un script Slurm similaire à `script-dmp-2023-gpu.sh`. Ce script nécessite de spécifier votre compte (`#SBATCH --account`), la limite de temps (`#SBATCH --time`), la mémoire par cœur (`#SBATCH --mem-per-cpu`), le nombre de nœuds (`#SBATCH --nodes`), le nombre de cœurs par nœud (`#SBATCH --ntasks-per-node`), et la quantité de GPU par nœud (`#SBATCH --gpus-per-node`). Assurez-vous de charger les modules `StdEnv/2023` et `ansys/2024R1.03` (ou une version plus récente). Pour les grappes comme Cedar, il faut configurer `LD_LIBRARY_PATH` et pour Béluga, il faut exporter `KMP_AFFINITY=none`. La commande principale pour lancer la simulation est `mapdl -dis -acc nvidia -na $SLURM_GPUS_ON_NODE -mpi intelmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp` (ou `openmpi` au lieu de `intelmpi` selon la grappe)."
+    },
+    {
+      "question": "Quelles sont les recommandations générales pour optimiser les tâches Ansys Mechanical APDL sur les grappes de Calcul Canada, notamment en ce qui concerne la mémoire, les tests de scalabilité et le choix de la méthode de parallélisation?",
+      "answer": "Pour optimiser les tâches Ansys Mechanical APDL, il est important de considérer plusieurs aspects. Par défaut, Ansys alloue 1024 Mo de mémoire totale et 1024 Mo pour les bases de données; vous pouvez ajuster ces valeurs avec les arguments `-m` et `-db` dans la commande `mapdl` si nécessaire. Avant de lancer des tâches de production, il est fortement recommandé d'effectuer des tests détaillés de scalabilité. Cela implique de soumettre de courtes tâches de test avec différentes configurations de cœurs et de mémoire pour identifier le nombre optimal de cœurs et la quantité minimale de mémoire requise. Généralement, les scripts utilisant la mémoire parallèle partagée (SMP, pour un seul nœud) offrent de meilleures performances que ceux utilisant la mémoire parallèle distribuée (DMP, pour plusieurs nœuds), et devraient être privilégiés chaque fois que possible. Enfin, pour éviter les problèmes de compatibilité, assurez-vous que la version du module Ansys chargée dans votre script correspond à la version utilisée pour générer le fichier d'entrée APDL."
+    }
+  ],
+  "generated_at": "2026-05-24T01:12:59.784936+00:00"
 }

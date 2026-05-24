@@ -4,54 +4,80 @@ slug: "nextcloud"
 lang: "en"
 
 source_wiki_title: "Nextcloud/en"
-source_hash: "b5af04e515662b2943e15cf8490d864c"
-last_synced: "2026-05-17T14:59:09.465984+00:00"
-last_processed: "2026-05-17T15:27:29.385855+00:00"
+source_hash: "40b2c25a75c44295d5233d2ff2ae1391"
+last_synced: "2026-05-24T00:00:16.123503+00:00"
+last_processed: "2026-05-24T00:45:54.803633+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Nextcloud"
+  - "Mac"
+  - "rclone"
+  - "SHARCNET"
+  - "cloud storage"
+  - "Alliance"
+  - "WebDAV"
+  - "Map Network Drive"
+  - "Synchronization client"
+  - "WebDAV URL"
+  - "Windows"
+  - "Cyberduck"
+  - "curl"
+
+questions:
+  - "What is the Alliance Nextcloud service, and what is the default storage quota allocated to users?"
+  - "What are the key differences between the standard Alliance Nextcloud service and the SHARCNET Nextcloud service?"
+  - "What are the various methods and clients users can utilize to access, synchronize, or mount their Nextcloud files?"
+  - "What is the main difference between using a WebDAV client and a Synchronization client to access Nextcloud storage?"
+  - "How do you configure and use command-line tools like curl and rclone to upload or download files?"
+  - "What methods can be used to share files with registered users and external collaborators who do not have an Alliance account?"
+  - "How do you authenticate and connect to the WebDAV server using a Mac?"
+  - "What specific steps and URL are required to map a WebDAV network drive on a Windows system?"
+  - "What alternative third-party client is recommended for both OSX and Windows users?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
+  keywords_generated: true
   ragflow_synced: true
-  qa_generated: true
+  qa_generated: false
 ---
 
-We provide Nextcloud, a Dropbox-like cloud storage service, for all Alliance users. You can use your Alliance username and password to log in to the [Nextcloud server](https://nextcloud.computecanada.ca/). A complete [Nextcloud user manual](https://docs.nextcloud.com/server/19/Nextcloud_User_Manual.pdf) is available from the [official Nextcloud documentation](https://docs.nextcloud.com/). A manual is also available as a PDF document under your account once you connect. All data transfers between local devices and Alliance's Nextcloud are encrypted.
+We provide Nextcloud, a Dropbox-like cloud storage service, for all Alliance users. You can use your Alliance username and password to log into the [Nextcloud server](https://nextcloud.computecanada.ca/). A complete [Nextcloud user manual](https://docs.nextcloud.com/server/19/Nextcloud_User_Manual.pdf) is available from the [official Nextcloud documentation](https://docs.nextcloud.com/). A manual is also available as a PDF document under your account once you connect. All data transfers between local devices and Alliance's Nextcloud are encrypted.
 
-The Nextcloud service is aimed at users with relatively small datasets (up to 100 GB). For users requiring additional storage options, an alternative Nextcloud service is available through SHARCNET. For details, see the [SHARCNET's Nextcloud service description](#sharcnet's-nextcloud-service-description) section. For anything larger, we recommend using the [Globus](../getting-started/globus.md) service.
+The Nextcloud service is aimed at users with relatively small datasets (up to 100 GB). For users requiring additional storage options, an alternative Nextcloud service is available through SHARCNET (see [SHARCNET Nextcloud service description](#sharcnet-nextcloud-service-description) below). For anything larger, we recommend using the [Globus](../getting-started/globus.md) service.
 
 If you are not familiar with the concept of Nextcloud, you may try the [demo on the Nextcloud website](https://try.nextcloud.com/).
 
-We recommend taking this opportunity to take a look at your data and do some cleanup: remove data you no longer need, check with whom you share your data, etc.
+!!! tip
+    We recommend taking this opportunity to take a look at your data and do some cleanup: remove data you no longer need, check with whom you share your data, etc.
 
 ## Alliance Nextcloud service description
 
 *   **Server URL:** https://nextcloud.computecanada.ca
-*   **Server Location:** Simon Fraser University, Burnaby, BC
-*   **Fixed Quota:** 100 GB per user
-*   **Backup Policy:** Daily backup without offsite copy
-*   **Access Methods:** Web interface, Nextcloud Desktop Sync Client, Nextcloud mobile apps, and any WebDAV client
+*   **Server location:** Simon Fraser University, Burnaby, BC
+*   **Fixed quota:** 100 GB per user
+*   **Backup policy:** Daily backup without offsite copy
+*   **Access methods:** Web interface, Nextcloud Desktop Sync Client, Nextcloud mobile apps, and any WebDAV client
 *   **Documentation:** [PDF](https://docs.nextcloud.com/server/19/Nextcloud_User_Manual.pdf) and [online](https://docs.nextcloud.com/)
 
-## SHARCNET's Nextcloud service description
-Nextcloud is a web-based file storage and sharing service, similar to OneDrive, Google Drive, or Dropbox, but hosted securely on Alliance infrastructure. It allows you to store, access, and share your research files from any device through a browser or desktop client. It can also be mounted directly on the Nibi cluster, allowing you to access your files without needing to transfer them manually. Users are allocated 100 GB by default; researchers requiring additional storage may submit a request for a quota increase.
-*   **URL:** https://nextcloud.sharcnet.ca/
-*   **Storage:** 100GB per user
-*   **Location:** University of Waterloo, Waterloo, ON
-*   **Backups:** Daily to tape library
-*   **Access:** Web, Desktop, Mobile, Nibi Cluster (Rclone-WebDAV)
+## SHARCNET Nextcloud service description
+
+SHARCNET's Nextcloud can be mounted directly on the Nibi cluster, allowing you to access your files without needing to transfer them manually. Users are allocated 100 GB by default; researchers requiring additional storage may submit a request for a quota increase to [help@sharcnet.ca](mailto:help@sharcnet.ca). For more information about this service, you may check the documentation [link](https://helpwiki.sharcnet.ca/wiki/Nextcloud_User_Guide).
+
+*   **Server URL:** https://nextcloud.sharcnet.ca/
+*   **Server location:** University of Waterloo, Waterloo, ON
+*   **Fixed quota:** 100 GB per user
+*   **Backup policy:** Daily to tape library
+*   **Access methods:** Web interface, Nextcloud Desktop Sync Client, Nextcloud mobile apps, and any WebDAV client
 *   **Documentation:** https://helpwiki.sharcnet.ca/wiki/Nextcloud_User_Guide
 
 ## Using the Nextcloud web interface
 
-To use the web interface, log in to Alliance [Nextcloud](https://nextcloud.computecanada.ca) from a web browser using your Alliance username and password. You can upload and download files between Nextcloud and your mobile device or computer, edit files, and share files with other Alliance users. For more information, see the [Nextcloud user manual](https://docs.nextcloud.com/server/19/Nextcloud_User_Manual.pdf).
+To use the web interface, log into Alliance [Nextcloud](https://nextcloud.computecanada.ca) from a web browser using your Alliance username and password. You can upload and download files between Nextcloud and your mobile device or computer, edit files, and share files with other Alliance users. For more information, see the [Nextcloud user manual](https://docs.nextcloud.com/server/19/Nextcloud_User_Manual.pdf).
 
 ## Using Nextcloud Desktop Synchronization Client and mobile apps
 
@@ -59,15 +85,15 @@ You can [download the Nextcloud Desktop Sync Client or Nextcloud mobile apps](ht
 
 ## Using WebDAV clients
 
-In general, you can use any WebDAV clients to "mount" a Nextcloud folder to your computer using the following WebDAV URL: https://nextcloud.computecanada.ca/remote.php/webdav/
+In general, you can use any WebDAV clients to "mount" a Nextcloud folder to your computer using the following WebDAV URL: `https://nextcloud.computecanada.ca/remote.php/webdav/`
 
 Once mounted, you can drag and drop files between the WebDAV drive and your local computer.
 
 **Mac OSX:** Select Go -> Connect to the Server, enter the WebDAV URL for the Server Address, and click Connect. You will be asked for your username and password to log in. After authentication, you will see a WebDAV drive on your Mac.
 
-**Windows:** Use the "Map Network Drive ..." option, select a drive letter, then use WebDAV URL https://nextcloud.computecanada.ca/remote.php/webdav/ in the Folder field.
+**Windows:** Use the "Map Network Drive ..." option, select a drive letter, then use WebDAV URL `https://nextcloud.computecanada.ca/remote.php/webdav/` in the Folder field.
 
-You may also consider using Cyberduck or other clients instead. [Cyberduck](https://cyberduck.io/) is available for OSX and Windows.
+You may also consider using [Cyberduck](https://cyberduck.io/) or other clients instead. Cyberduck is available for OSX and Windows.
 
 **Linux:** There are many WebDAV applications available for Linux. Consult the [Nextcloud user manual](https://docs.nextcloud.com/server/19/Nextcloud_User_Manual.pdf) for recommendations.
 
@@ -79,7 +105,7 @@ When you connect with a Synchronization client, the first thing the client does 
 
 ## Using UNIX command line tools
 
-You can use any available WebDAV command line clients, like [curl](https://curl.haxx.se/) and [cadaver](http://www.webdav.org/cadaver/), to copy files between your Unix computer and Nextcloud. Command line tools are useful when you want to copy data between a remote server you log in to and Nextcloud.
+You can use any available WebDAV command line clients, like [curl](https://curl.haxx.se/) and [cadaver](http://www.webdav.org/cadaver/), to copy files between your Unix computer and Nextcloud. Command line tools are useful when you want to copy data between a remote server you log into and Nextcloud.
 
 `curl` is usually installed on Mac OSX and Linux systems and can be used to upload and download files using a URL.
 
@@ -101,7 +127,7 @@ Unlike [curl](https://curl.haxx.se/), [rclone](https://rclone.org) lets you crea
 
 First, [install rclone on your computer if it has a Unix-like environment](https://rclone.org/install/).
 
-If used from our clusters, please note that it is not necessary to install `rclone` as it is already available:
+If used from our clusters, please note that it is not necessary to install rclone as it is already available:
 
 ```bash
 $ [name@server ~] $ which rclone
@@ -116,7 +142,7 @@ $ rclone config
 
 You now have the option to edit an existing remote device, create a new remote device, delete a remote device, and so on. Let's say we want to create a new remote service profile called *nextcloud*:
 
-```text
+```bash
 choose "n"  for "New remote"
 Enter name for new remote --> nextcloud
 Type of storage to configure --> 52 / WebDAV
@@ -157,5 +183,4 @@ $ rclone copy nextcloud:remote/path/file .
 
 ## Sharing files using Nextcloud
 
-When you select a file or directory to share, type the user’s first name, last name, or username and the list of matched users registered in CCDB will be displayed in “Firstname Lastname (username)” format. Please review the name carefully as some are very similar; if in doubt, enter the username which is unique. You can also share files with a group using their CCDB group name (default, RPP, RRG, or other shared groups).
-To share a file with people who don’t have an Alliance account, use the *Share link* option and provide their email address. Nextcloud will send an email notification with a link to access the file.
+When you select a file or directory to share, type the user’s first name, last name, or username and the list of matched users registered in CCDB will be displayed in “Firstname Lastname (username)” format. Please review the name carefully as some are very similar; in doubt, enter the username which is unique. You can also share files with a group using their CCDB group name (default, RPP, RRG, or other shared groups). To share a file with people who don’t have an Alliance account, use the *Share link* option and provide their email address. Nextcloud will send an email notification with a link to access the file.

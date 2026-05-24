@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Comment dois-je configurer les ressources de calcul dans un script Slurm pour une tâche STAR-CCM+ sur les grappes de l'Alliance, comme Nibi?",
-      "answer": "Dans le script Slurm, les paramètres de base pour les ressources de calcul sont spécifiés avec des directives `#SBATCH`. Par exemple, pour une tâche sur Nibi, vous devez définir `--account` pour votre groupe, `--time` pour la limite de temps (ex: 00-01:00), `--nodes` (ex: 1 nœud), `--cpus-per-task` (ex: 16 cœurs par tâche), `--mem` (ex: 64G de mémoire par nœud), `--ntasks-per-node` (qui devrait rester à 1) et `--constraint=granite` pour utiliser des nœuds de calcul Intel."
+      "question": "Comment doit-on configurer un script Slurm pour lancer une tâche STAR-CCM+ sur une grappe Alliance, par exemple Nibi ou Fir/Narval/Rorqual?",
+      "answer": "Pour configurer un script Slurm pour STAR-CCM+, il faut d'abord charger l'environnement standard (`module load StdEnv/2023`) et le module STAR-CCM+ désiré (par exemple, `module load starccm-mixed/20.06.010`). Ensuite, il faut spécifier le fichier de simulation d'entrée (`SIM_FILE`). Si vous utilisez une licence Power-on-Demand (PoD), vous devez définir la variable `LM_PROJECT` avec votre clé de licence Siemens PoD. Enfin, la commande `starccm+` est exécutée avec les options appropriées pour votre type de licence, le nombre de cœurs et l'architecture du processeur de la grappe."
     },
     {
-      "question": "Comment charger le module STAR-CCM+ et spécifier les fichiers d'entrée pour une simulation dans un script Slurm sur les systèmes de l'Alliance?",
-      "answer": "Pour charger le module STAR-CCM+, il faut d'abord appeler `module load StdEnv/2023`, puis `module load starccm-mixed/20.04.007` (ou une version plus récente ou spécifique). Pour les fichiers d'entrée, vous devez définir la variable `SIM_FILE='mon_fichier.sim'` pour votre fichier de simulation, et si vous utilisez des macros Java, vous pouvez décommenter et spécifier `JAVA_FILE='mes_macros.java'`."
+      "question": "Quelle est la différence dans la configuration des scripts Slurm pour une licence Power-on-Demand (PoD) et une licence institutionnelle de STAR-CCM+ sur les grappes Alliance?",
+      "answer": "Pour une licence Power-on-Demand (PoD), il est nécessaire de configurer la variable d'environnement `LM_PROJECT` avec votre clé de licence Siemens PoD dans le script Slurm, et la commande `starccm+` inclura alors les options `-power -podkey $LM_PROJECT`. Par contre, pour une licence institutionnelle locale, la ligne qui définit `LM_PROJECT` doit être commentée, et la commande `starccm+` s'exécute sans les options `-power` ou `-podkey`, en s'appuyant sur le fichier `~/.licenses/starccm.lic` configuré au préalable."
     },
     {
-      "question": "Quelle est la procédure pour gérer les licences Siemens Power On Demand (PoD) et institutionnelles dans un script Slurm pour STAR-CCM+?",
-      "answer": "Si vous utilisez une licence PoD de Siemens, vous devez configurer la variable d'environnement `LM_PROJECT` avec votre ID de projet PoD dans le script Slurm. La commande `starccm+` inclura alors les options `-power -podkey $LM_PROJECT`. Pour une licence institutionnelle, le script s'appuiera sur le fichier `~/.licenses/starccm.lic` et lancera `starccm+` sans les options spécifiques au PoD, en assumant que le fichier de licence est correctement configuré."
+      "question": "Y a-t-il des configurations spécifiques ou des astuces à connaître pour exécuter des tâches STAR-CCM+ sur la grappe Niagara, surtout concernant la gestion des licences ou la stabilité?",
+      "answer": "Oui, sur la grappe Niagara, en plus de charger les modules requis et de définir `LM_PROJECT` pour une licence PoD, il est crucial de configurer explicitement les ports (`FLEXPORT`, `VENDPORT`) et le serveur de licence (`LICSERVER`). Un tunnel SSH (`ssh tri-gw -L ...`) est également mis en place pour acheminer les requêtes de licence. De plus, le script Slurm sur Niagara intègre une boucle de re-tentative (jusqu'à 5 fois) pour lancer `starccm+`, une astuce pour contourner les problèmes potentiels de démarrage liés à la licence."
     }
   ],
-  "generated_at": "2026-04-19T02:30:19.189437+00:00"
+  "generated_at": "2026-05-24T01:35:09.089752+00:00"
 }

@@ -3,37 +3,26 @@
 [[Category:Software]]
 [https://mdx.plm.automation.siemens.com/star-ccm-plus STAR-CCM+] est une suite logicielle de simulation utilisée dans plusieurs spécialités de génie. Elle permet la modélisation dans des domaines variés dont l'acoustique, la dynamique des fluides, le transfert thermique, la rhéologie, l'écoulement polyphasique, le flux de particules, la mécanique des solides, les fluides réactifs, l'électrochimie et l'électromagnétisme.
 
-<div class="mw-translate-fuzzy">
 = Limites de la licence = 
-Les binaires STAR-CCM+ sont installés sur nos serveurs, mais nous n'avons pas de licence pour utilisation générale; vous devez donc posséder votre propre licence.
-Vous pouvez acheter une licence POD (<i>Power On Demand</i>) directement de [https://www.plm.automation.siemens.com/global/en/buy/ Siemens]. Autrement, vous pouvez utiliser une licence locale hébergée par votre établissement pourvu que le pare-feu permette à la grappe où les tâches seront exécutées d'y accéder.
-</div>
+Nous avons l'autorisation d'héberger les binaires STAR-CCM+ sur nos grappes. Pour utiliser le logiciel, vous devez acquérir une licence auprès de  [https://www.plm.automation.siemens.com/global/en/buy/ Siemens]. [https://community.sw.siemens.com/s/article/How-faculty-members-in-academic-institutions-can-get-access-to-Simcenter-STAR-CCM Deux options sont disponibles]. La plupart des groupes de recherche opteront pour une  [https://community.sw.siemens.com/s/question/0D54O00006FKu39SAD/licensing-how-power-on-demand-pod-licensing-for-starccm-works licence Power-on-Demand (PoD)], qui se connecte simplement à un serveur de licence distant et ne nécessite qu'une clé de licence. La seconde option est plus complexe et nécessite la configuration et la gestion d'un serveur de licence institutionnel hébergé localement, ainsi que l'achat d'un pack académique Simcenter STAR-CCM+. Votre serveur de licence STAR-CCM+ devra être reconfiguré. Vous devez demander à l'admnistrateur du serveur de licence de votre établissement d'ouvrir les '''deux''' ports fournisseurs (flexible et statique) pour qu'ils puissent être rejoints à partir des nœuds NAT (''Network Address Translation'') des grappes que vous voulez utiliser. Pour obtenir la liste des nœuds NAT à fournir à votre administrateur, écrivez au [[Technical support/fr|soutien technique]] en indiquant 1) le nom de la ou des grappes 2) le nom de l'hôte (FQDN) ou l'adresse IP publique du serveur de license STAR-CCM+ et les numéros des plorts flexoible et statique.
 
-<div class="mw-translate-fuzzy">
 == Configurer votre compte ==
 Afin de configurer votre compte pour utiliser un serveur de licence avec le module Star-CCM+, créez le fichier  <code>$HOME/.licenses/starccm.lic</code> comme suit&nbsp;: 
-{{File|name=starccm.lic|contents=SERVER <server> ANY <port>
+{{File|name=starccm.lic|contents=SERVER <server> ANY <flexport>
 USE_SERVER}}
-où <code>server</code> et <code>port</code> sont remplacés respectivement par le nom de l'hôte (ou l'adresse IP) et le port statique du fournisseur du serveur de licence. Il n'est pas nécessaire de définir manuellement <code>CDLMD_LICENSE_FILE</code> comme étant égal à <port>@<server> dans votre script slurm; au lieu de cela, lorsqu'un module Star-CCM+ est chargé, cette variable est automatiquement spécifiée dans votre fichier <i>$HOME/.licenses/starccm.lic</i>.
-</div>
+où <code>server</code> et <code>flexport</code> sont remplacés respectivement par le nom de l'hôte (ou l'adresse IP) et le port statique du fournisseur du serveur de licence. Il n'est pas nécessaire de définir manuellement <code>CDLMD_LICENSE_FILE</code> comme étant égal à <port>@<server> dans votre script slurm puisque cette variable est automatiquement configurée quand un module Star-CCM+ est chargé.
 
 <span id="PoD_license_file"></span>
-<div class="mw-translate-fuzzy">
-=== Fichier pour une licence POD ===
-</div>
+=== Fichier pour une licence PoD ===
 
-<div class="mw-translate-fuzzy">
-Si vous avez acheté une licence POD de [https://www.plm.automation.siemens.com/global/en/buy/ Siemens] votre variable d'environnement <code>LM_PROJECT</code> doit être manuellement configurée comme étant égale à <I>YOUR CD-ADAPCO PROJECT ID</i> dans votre script slurm. De plus, le fichier <code>~/.licenses/starccm.lic</code> doit être configuré comme suit sur toutes les grappes.
+Si vous avez acheté une licence POD, votre variable d'environnement <code>LM_PROJECT</code> doit être manuellement configurée comme étant égale à <I>YOUR CD-ADAPCO PROJECT ID</i> dans votre script slurm. De plus, le fichier <code>~/.licenses/starccm.lic</code> doit être configuré comme suit sur toutes les grappes.
 {{File|name=starccm.lic|contents=SERVER flex.cd-adapco.com ANY 1999
 USE_SERVER}}
-</div>
 
 <span id="Cluster_batch_job_submission"></span>
 = Soumettre des tâches en lot sur nos grappes = 
 
-<div class="mw-translate-fuzzy">
-Quand vous soumettez des tâches sur une grappe pour la première fois, vous devrez configurer votre environnement pour l’utilisation de votre licence. Si vous utilisez le serveur de licences distant <i>pay-on-usage</i> de Siemens, créez le fichier <code>~/.licenses/starccm.lic</code>  comme décrit ci-dessus dans <i>Fichier pour une licence POD</i>; ceci devrait fonctionner immédiatement. Par contre, si vous utilisez un serveur de licence de votre établissement, créez d'abord le fichier <code>~/.licenses/starccm.lic</code> et soumettez une demande d'assistance au [[Technical support/fr|soutien technique]].  Nous vous aiderons à coordonner les modifications du pare-feu réseau nécessaires pour y accéder (en supposant que le serveur n'a jamais été configuré pour communiquer via la grappe de l'Alliance que vous voulez utiliser). Si vous rencontrez toujours des problèmes pour faire fonctionner la licence, essayez de supprimer ou de renommer le fichier <code>~/.flexlmrc</code> car les chemins de recherche et/ou les paramètres précédents du serveur de licence pourraient y être stockés. Notez que des fichiers de sortie de tâches déjà exécutées peuvent s'accumuler dans des répertoires cachés nommés <code>.star-version_number</code> et consommer ainsi votre quota. Ceux-ci peuvent être supprimés périodiquement en exécutant périodiquement <code>rm -ri ~/.starccm*</code> et en répondant <i>oui</i> à l'affichage de l'invite.
-</div>
+Avant de soumettre des tâches sur une grappe, vous devez configurer un fichier <code>~/.licenses/starccm.lic</code> sur chaque grappe où vous exécuterez des tâches. Si vous disposez d'une licence PoD, les modifications de pare-feu requises ont déjà été effectuées sur toutes nos grappes. Cependant, si vous utilisez un serveur de licence institutionnel local, vous devrez soumettre une [[Technical support/fr|demande d'assistance au soutien technique]] pour demander la modification ponctuelle du pare-feu réseau entre la ou les grappes et votre serveur de licence local. Si vous rencontrez toujours des problèmes pour faire fonctionner la licence, essayez de supprimer ou de renommer le fichier <code>~/.flexlmrc</code> car les chemins de recherche et/ou les paramètres précédents du serveur de licence pourraient y être stockés. Notez que des fichiers de sortie de tâches déjà exécutées peuvent s'accumuler dans des répertoires cachés nommés <code>.star-version_number</code> et consommer ainsi votre quota. Ceux-ci peuvent être supprimés en exécutant périodiquement <code>rm -ri ~/.starccm*</code> et en répondant <i>oui</i> à l'affichage de l'invite.
 
 <span id="Slurm_scripts"></span>
 == Scripts pour l'ordonnanceur ==
@@ -46,36 +35,28 @@ Quand vous soumettez des tâches sur une grappe pour la première fois, vous dev
 |contents=
 #!/bin/bash
 
-<div class="mw-translate-fuzzy">
 #SBATCH --account=def-group   # Specify some account
 #SBATCH --time=00-01:00       # Time limit: dd-hh:mm
 #SBATCH --nodes=1             # Specify 1 or more nodes
 #SBATCH --cpus-per-task=16    # Specify cores per node (192 max)
 #SBATCH --mem=64G             # Specify memory per node (0 max)
 #SBATCH --ntasks-per-node=1   # Do not change this value
-#SBATCH --constraint=granite  # Use intel compute nodes (no gpu)
+#SBATCH --constraint=granite  # Use intel cpu only base nodes
 #SBATCH --switches=1          # Use 1 network switch (optional)
-</div>
 
 module load StdEnv/2023
 
-<div class="mw-translate-fuzzy">
-#module load starccm/20.04.007-R8    # Specify 18.04.009, 18.06.007, 19.04.009,
-module load starccm-mixed/20.04.007  # 19.06.009, 20.02.008, 20.04.007 or newer
+#module load starccm/20.06.010-R8    # Load 18.04.009, 18.06.007, 19.04.009,
+module load starccm-mixed/20.06.010  # 19.06.009, 20.02.008, 20.04.007 or newer
 module list
-</div>
 
-<div class="mw-translate-fuzzy">
-SIM_FILE='mysample.sim'       # Specify your input sim filename
-#JAVA_FILE='mymacros.java'    # Uncomment to specify an input java filename
-</div>
+SIM_FILE='mySample.sim'        # Specify your input sim filename
+#BATCH_CMD='myMacro.java,run'  # Uncomment to specify java macros, mesh, run, step
 
-<div class="mw-translate-fuzzy">
-export STARCCM_TMP="${SCRATCH}/.starccm-${EBVERSIONSTARCCM}"
-mkdir -p "$STARCCM_TMP"
-</div>
+# Comment the next line when using a local institutional license server
+LM_PROJECT='22digit-PoD-License-Key'  # Specify your Siemens PoD Key here
 
-slurm_hl2hl.py --format STAR-CCM+ > machinefile-$SLURM_JOB_ID
+# ------- no changes required below this line --------
 
 # Redirect from ~/.star-VERSION# to $SLURM_TMPDIR
 export STARCCM_TMP="$SLURM_TMPDIR"
@@ -85,21 +66,35 @@ NCORE=$((SLURM_NNODES * SLURM_CPUS_PER_TASK * SLURM_NTASKS_PER_NODE))
 
 NCORE=$((SLURM_NTASKS * SLURM_CPUS_PER_TASK))
 
-<div class="mw-translate-fuzzy">
-export FLEXIBLAS=StarMKL
-echo "FLEXIBLAS=$FLEXIBLAS"
-STAR_MPI="-mpi intel"
-STAR_FABRIC="-fabric tcp"
-</div>
+CPU_VENDOR=$(lscpu {{!}} awk '/Vendor ID/{print $3}')
+echo "CPU_VENDOR= $CPU_VENDOR"
+if [ "$CPU_VENDOR" == GenuineIntel ]; then
+  if [ "${EBVERSIONSTARCCM:0:2}" -lt 20 ]; then
+    STAR_UCX="-xsystemucx"
+    export FLEXIBLAS=StarMKL
+  else
+    STAR_FLEXIBLAS="-flexiblaslib MKL"
+  fi
+  STAR_MPI="-mpi intel"
+  STAR_FABRIC="-fabric tcp"
+elif [ "$CPU_VENDOR" == AuthenticAMD ]; then
+  if [ "${EBVERSIONSTARCCM:0:2}" -lt 20 ]; then
+    STAR_UCX="-xsystemucx"
+    export FLEXIBLAS=StarAOCL
+  else
+    STAR_FLEXIBLAS="-flexiblaslib AOCL" 
+    STAR_PRELOAD="-ldpreload /usr/lib64/libdrm_amdgpu.so.1" 
+  fi
+  STAR_MPI="-mpi openmpi40"
+fi
 
-<div class="mw-translate-fuzzy">
 if [ -n "$LM_PROJECT" ]; then
    echo "Siemens PoD license server ..."
-   starccm+ -jvmargs -Xmx4G -jvmargs -Djava.io.tmpdir=$SLURM_TMPDIR -batch -power -podkey $LM_PROJECT -np $NCORE -nbuserdir $SLURM_TMPDIR -machinefile $SLURM_TMPDIR/machinefile $JAVA_FILE $SIM_FILE $STAR_MPI $STAR_FABRIC
+   starccm+ -jvmargs "-Xmx4G -Djava.io.tmpdir=$SLURM_TMPDIR" -batch $BATCH_CMD -power -podkey $LM_PROJECT -np $NCORE -nbuserdir $SLURM_TMPDIR -machinefile $SLURM_TMPDIR/machinefile $JAVA_FILE $SIM_FILE $STAR_MPI $STAR_UCX $STAR_FABRIC $STAR_FLEXIBLAS $STAR_PRELOAD
 else
    echo "Institutional license server ..."
    [ $(command -v lmutil) ] && lmutil lmstat -c ~/.licenses/starccm.lic -a {{!}} egrep "license1{{!}}UP{{!}}use{{!}}$USER"; echo
-   starccm+ -jvmargs -Xmx4G -jvmargs -Djava.io.tmpdir=$SLURM_TMPDIR -batch -np $NCORE -nbuserdir $SLURM_TMPDIR -machinefile $SLURM_TMPDIR/machinefile $JAVA_FILE $SIM_FILE $STAR_MPI $STAR_FABRIC
+   starccm+ -jvmargs "-Xmx4G -Djava.io.tmpdir=$SLURM_TMPDIR" -batch $BATCH_CMD -np $NCORE -nbuserdir $SLURM_TMPDIR -machinefile $SLURM_TMPDIR/machinefile $JAVA_FILE $SIM_FILE $STAR_MPI $STAR_UCX $STAR_FABRIC $STAR_FLEXIBLAS $STAR_PRELOAD
 fi
 }}
 </tab>
@@ -109,35 +104,25 @@ fi
 |lang="bash"
 |contents=
 #!/bin/bash
-</div>
 
-<div class="mw-translate-fuzzy">
 #SBATCH --account=def-group   # Specify some account
 #SBATCH --time=00-01:00       # Time limit: dd-hh:mm
 #SBATCH --nodes=1             # Specify 1 or more nodes
 #SBATCH --cpus-per-task=16    # Specify cores per node (192 max)
 #SBATCH --mem=64G             # Specify memory per node (0 max)
 #SBATCH --ntasks-per-node=1   # Do not change this value
-##SBATCH --constraint=genoa   # Uncomment on rorqual (optional)
-</div>
 
 module load StdEnv/2023
 
-<div class="mw-translate-fuzzy">
-#module load starccm/20.04.007-R8    # Specify 18.04.009, 18.06.007, 19.04.009,
-module load starccm-mixed/20.04.007  # 19.06.009, 20.02.008, 20.04.007 or newer
+#module load starccm/20.06.010-R8    # Specify 18.04.009, 18.06.007, 19.04.009,
+module load starccm-mixed/20.06.010  # 19.06.009, 20.02.008, 20.04.007 or newer
 module list
-</div>
 
-<div class="mw-translate-fuzzy">
-SIM_FILE='mysample.sim'       # Specify your input sim filename
-#JAVA_FILE='mymacros.java'    # Uncomment to specify an input java filename
-</div>
+SIM_FILE='mySample.sim'        # Specify your input sim filename
+#BATCH_CMD='myMacro.java,run'  # Uncomment to specify java macros, mesh, run, step
 
-<div class="mw-translate-fuzzy">
 # Comment the next line when using an institutional license server
-LM_PROJECT='my22digitpodkey'  # Specify your Siemens Power on Demand (PoD) Key
-</div>
+LM_PROJECT='22digit-PoD-License-Key'  # Specify your Siemens PoD Key here
 
 # ------- no changes required below this line --------
 
@@ -166,14 +151,13 @@ if [ "${EBVERSIONSTARCCM:0:2}" -lt 20 ]; then
   STAR_UCX="-xsystemucx"
 fi
 
-<div class="mw-translate-fuzzy">
 if [ -n "$LM_PROJECT" ]; then
    echo "Siemens PoD license server ..."
-   starccm+ -jvmargs -Xmx4G -jvmargs -Djava.io.tmpdir=$SLURM_TMPDIR -batch -power -podkey $LM_PROJECT -np $NCORE -nbuserdir $SLURM_TMPDIR -machinefile $SLURM_TMPDIR/machinefile $JAVA_FILE $SIM_FILE $STAR_MPI $STAR_FABRIC
+   starccm+ -jvmargs "-Xmx4G -Djava.io.tmpdir=$SLURM_TMPDIR" -batch $BATCH_CMD -power -podkey $LM_PROJECT -np $NCORE -nbuserdir $SLURM_TMPDIR -machinefile $SLURM_TMPDIR/machinefile $SIM_FILE $STAR_MPI $STAR_UCX
 else
    echo "Institutional license server ..."
    [ $(command -v lmutil) ] && lmutil lmstat -c ~/.licenses/starccm.lic -a {{!}} egrep "license1{{!}}UP{{!}}use{{!}}$USER"; echo
-   starccm+ -jvmargs -Xmx4G -jvmargs -Djava.io.tmpdir=$SLURM_TMPDIR -batch -np $NCORE -nbuserdir $SLURM_TMPDIR -machinefile $SLURM_TMPDIR/machinefile $JAVA_FILE $SIM_FILE $STAR_MPI $STAR_FABRIC
+   starccm+ -jvmargs "-Xmx4G -Djava.io.tmpdir=$SLURM_TMPDIR" -batch $BATCH_CMD -np $NCORE -nbuserdir $SLURM_TMPDIR -machinefile $SLURM_TMPDIR/machinefile $SIM_FILE $STAR_MPI $STAR_UCX
 fi
 }}
 </tab>
@@ -183,16 +167,14 @@ fi
 |lang="bash"
 |contents=
 #!/bin/bash
-</div>
 
-<div class="mw-translate-fuzzy">
 #SBATCH --account=def-group   # Specify some account
 #SBATCH --time=00-01:00       # Time limit: dd-hh:mm
 #SBATCH --nodes=1             # Specify 1 or more nodes
 #SBATCH --cpus-per-task=192   # Specify cores per node (192 max)
 #SBATCH --mem=0               # Specify memory per node (0 max)
 #SBATCH --ntasks-per-node=1   # Do not change this value
-</div>
+#SBATCH --output=slurm-%j.out # Writes to slurm-$SLURM_JOB_ID.out
 
 }}
 </tab>
@@ -205,21 +187,15 @@ fi
 
 module load StdEnv/2023
 
-<div class="mw-translate-fuzzy">
-#module load starccm/20.04.007-R8    # Specify 18.04.009, 18.06.007, 19.04.009,
-module load starccm-mixed/20.04.007  # 19.06.009, 20.02.008, 20.04.007 or newer
+#module load starccm/20.06.010-R8    # Specify 18.04.009, 18.06.007, 19.04.009,
+module load starccm-mixed/20.06.010  # 19.06.009, 20.02.008, 20.04.007 or newer
 module list
-</div>
 
-<div class="mw-translate-fuzzy">
-SIM_FILE='mysample.sim'       # Specify input sim filename
-#JAVA_FILE='mymacros.java'    # Uncomment to specify an input java filename
-</div>
+SIM_FILE='mySample.sim'        # Specify your input sim filename
+#BATCH_CMD='myMacro.java,run'  # Uncomment to specify java macros, mesh, run, step
 
-<div class="mw-translate-fuzzy">
 # Comment the next line when using an institutional license server
-LM_PROJECT='my22digitpodkey'  # Specify your Siemens Power on Demand (PoD) Key
-</div>
+LM_PROJECT='22digit-PoD-License-Key'  # Specify your Siemens PoD Key here
 
 # These settings are used instead of your ~/.licenses/starccm.lic
 # (settings shown will use the cd-adapco pod license server)
@@ -271,42 +247,45 @@ exit $RET
 <span id="Graphical_use"></span>
 = Mode graphique =
 
-<div class="mw-translate-fuzzy">
-Pour travailler en mode graphique, nous recommandons d'utiliser un système [[Nibi/fr#Accès_via_Open_OnDemand_(OOD)|OnDemand]] ou JupyterLab pour démarrer un bureau distant. En plus de configurer <code>~/.licenses/starccm.lic</code>, les groupes qui possèdent une licence POD devraient aussi exécuter <code>export LM_PROJECT='CD-ADAPCO PROJECT ID'</code> avant <code>starccm+</code>, comme dans les exemples ci-dessous; selon le type de licence, il faut aussi ajouter d'autres options comme <b>-power</b>.  La commande <code>module avail starccm-mixed</code> affiche les versions de starccm qui sont disponibles dans l'environnement standard (StdEnv) que vous avez chargé. Autrement, la commande <code>module spider starccm-mixed</code> affiche toutes les versions de modules qui sont disponibles dans toutes les versions de modules StdEnv.
-</div>  
+Pour travailler en mode graphique, nous recommandons d'utiliser un système [[Nibi/fr#Accès_via_Open_OnDemand_(OOD)|OnDemand]] ou JupyterLab pour démarrer un bureau distant. En plus de configurer <code>~/.licenses/starccm.lic</code>, les groupes qui possèdent une licence PoD devraient aussi exécuter <code>export LM_PROJECT='22digit-PoD-License-Key'</code> avant <code>starccm+</code>, comme dans les exemples ci-dessous; selon le type de licence, il faut aussi ajouter d'autres options comme <b>-power</b>. La commande <code>module avail starccm-mixed</code> affiche les versions de starccm qui peuvent être chargées dans l'environnement standard (StdEnv) qui est en place (2020 ou 2023). Autrement, la commande <code>module spider starccm-mixed</code> affiche toutes les versions <i>mixed</i> et <i>R8</i>  des modules qui peuvent être chargés dans les deux versions des modules d'environnement variable qui peuvent être utilisées (2020 ou 2023).  
 
-<div class="mw-translate-fuzzy">
 == OnDemand ==
-1. Sur votre ordinateur, connectez-vous à un système OnDemand en entrant une des adresses URL dans le navigateur&nbsp;:<br>
- [https://docs.alliancecan.ca/wiki/Nibi#Access_through_Open_OnDemand_(OOD) NIBI]: <code>https://ondemand.sharcnet.ca</code>
-  FIR: <code>https://jupyterhub.fir.alliancecan.ca</code>
- NARVAL: <code> https://portail.narval.calculquebec.ca/</code>
- RORQUAL: <code>https://jupyterhub.rorqual.alliancecan.ca</code>
+1. Pour démarrer une session de bureau OnDemand, cliquez sur l'un des liens OnDemand suivants&nbsp;:<br>
+  [https://docs.alliancecan.ca/wiki/Nibi#Access_through_Open_OnDemand_(OOD) NIBI]: <code>https://ondemand.sharcnet.ca</code>
  TRILLIUM: <code>https://ondemand.scinet.utoronto.ca</code>
-2. Sur votre ordinateur, ouvrez une fenêtre de terminal avec une des commandes suivantes&nbsp;:
-: <b>STAR-CCM+ 18.04.008 (ou versions plus récentes)</b>
-:: <code>module load StdEnv/2023</code>  (par défault)
-:: <code>module load starccm-mixed/20.04.007</code> **OU** <code>starccm/20.04.007-R8</code>
-:: starccm+ -rr server
-: <b>STAR-CCM+ 15.04.010</b> --> <b>18.02.008 (plages de versions)</b>
-:: <code>module load StdEnv/2020</code> (non pris en charge)
-:: <code>module load starccm-mixed/15.04.010</code> **OU** <code>starccm/15.04.010-R8</code>
-:: starccm+ -mesa
-</div>
+:: <code>module load starccm-mixed/20.06.010</code> **OU** <code>starccm/20.06.010-R8</code>
+:: <code>starccm+ -rr server</code> &emsp; (options,"Serial")
+:: <code>starccm+ -rr server -np 2 -mpi openmpi40</code> &emsp; (options,"Parallel on Local Host")
+: <b>STAR-CCM+ 15.04.010</b> &#8594; <b>17.06.008 (toutes les versions)</b>
+:: <code>module load StdEnv/2020</code> (retiré)
+:: <code>module load starccm-mixed/17.06.008</code> **OU** <code>starccm/17.06.008-R8</code>
+:: <code>starccm+</code>  &emsp; (options, "Serial")
+:: <code>starccm+ -np 2</code> &emsp; (options, "Parallel on Local Host")
 
-<div class="mw-translate-fuzzy">
+== JupyterLab ==
+1. Démarrez une session JupyterHub Desktop en cliquant sur l'un des liens JupyterHub suivants :<br>
+FIR : <code>https://jupyterhub.fir.alliancecan.ca</code>
+NARVAL : <code>https://portail.narval.calculquebec.ca/</code>
+RORQUAL : <code>https://jupyterhub.rorqual.alliancecan.ca</code><br>
+2. Cliquez sur l'icône d'engrenage des modules logiciels située en bas du menu de sélection vertical le plus à gauche.<br>
+3. Sélectionnez un module StarCCM tel que <code>starccm-mixed/20.06.010</code> **OU** <code>starccm/20.06.010-R8</code> et cliquez sur ''Load''.<br>
+4. Sélectionnez <code>StarCCM+ Mixed (VNC)</code> **OU** Icône StarCCM (VNC) apparaissant sur le bureau.<br>
+5. Pour exécuter StarCCM+ avec plusieurs cœurs&nbsp;:
+: Cliquez sur ''File->New''. Le panneau de configuration <i>Create a File</i> devrait apparaître.
+: Modifiez ''Serial Process Option''  en cliquant sur le bouton ''<b>Parallel on Local Host</b>''.
+: Ajoutez <code>-mpi openmpi40</code> à la fin de la chaîne ''<b>Command</b>' située dans le bas du panneau.
+: Enfin, cliquez sur le bouton <b>OK</b>. L’interface graphique de StarCCM+ devrait s’afficher.
+
 == VncViewer ==
-</div>
 
-<div class="mw-translate-fuzzy">
+Les instructions suivantes sont valides pour les anciens systèmes.
+
 1. [[VNC/fr|Connectez-vous à un nœud de connexion ou un nœud de calcul avec TigerVNC]].<br>
 2. Sur votre ordinateur, ouvrez une nouvelle fenêtre de terminal et lancez une des commandes suivantes&nbsp;:
 : <b>STAR-CCM+ 18.04.008 (ou versions plus récentes)</b>
-:: <code>module load StdEnv/2023</code>  (par défaut)
-:: <code>module load starccm-mixed/20.04.007</code> **OU** <code>starccm/20.04.007-R8</code>
-:: starccm+ -rr server
-: <b>STAR-CCM+ 15.04.010</b> --> <b>18.02.008 (plage de versions)</b>
-:: <code>module load StdEnv/2020</code> (non pris en charge)
-:: <code>module load starccm-mixed/17.02.007</code> **OU** <code>starccm/17.02.007-R8</code>
-::  starccm+
-</div>
+:: <code>module load StdEnv/2023</code>  (par défaut):: <code>module load starccm-mixed/20.06.010</code> **OU** <code>starccm/20.06.010-R8</code>
+:: <code>starccm+ -rr server</code> ** OU ** <code>starccm+ -rr server -np 2 -mpi openmpi40</code>
+: <b>STAR-CCM+ 15.04.010</b> &#8594; <b>17.06.008 (toutes les versions)</b>
+:: <code>module load StdEnv/2020</code> (retiré)
+:: <code>module load starccm-mixed/17.06.008</code> **OU** <code>starccm/17.06.008-R8</code>
+:: <code>starccm+</code>

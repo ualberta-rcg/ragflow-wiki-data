@@ -2,6 +2,19 @@
   "doc_key": "fr/alphafold3",
   "level": "chunk",
   "chunk_index": 2,
-  "qa_pairs": [],
-  "generated_at": "2026-05-10T00:15:34.685172+00:00"
+  "qa_pairs": [
+    {
+      "question": "Pourquoi est-ce qu'AlphaFold3 doit être exécuté en plusieurs étapes, et non pas d'un seul coup?",
+      "answer": "AlphaFold3 doit être exécuté par étapes pour optimiser les coûts et l'utilisation des ressources. Cela permet de séparer le pipeline de données, qui n'utilise que le CPU, du modèle d'inférence, qui requiert un GPU. En plus, on peut cacher les résultats de la recherche de MSA ou de modèle pour les réutiliser dans des inférences subséquentes."
+    },
+    {
+      "question": "Quelles sont les ressources CPU et mémoire nécessaires pour l'étape du pipeline de données d'AlphaFold3 sur une grappe?",
+      "answer": "Pour l'étape du pipeline de données d'AlphaFold3, il faut allouer un maximum de 8 cœurs de CPU par tâche (`--cpus-per-task=8`) et 64 Go de mémoire vive (`--mem=64G`). Il est important de noter que AlphaFold n'offre pas d'avantages à utiliser plus de 8 cœurs pour cette étape, qui ne fait pas l'inférence."
+    },
+    {
+      "question": "Quelles sont les exigences spécifiques en matière de carte graphique (GPU) et de mémoire pour l'étape d'inférence du modèle d'AlphaFold3?",
+      "answer": "Pour l'étape d'inférence du modèle d'AlphaFold3, il est primordial d'utiliser un GPU A100 ou plus performant, avec une capacité de calcul de version 8.0 ou plus récente (`--gpus=a100:1`). Le script recommande d'allouer un seul cœur de CPU (`--cpus-per-task=1`) et 20 Go de mémoire vive (`--mem=20G`). Cette étape ne lance pas le pipeline de données."
+    }
+  ],
+  "generated_at": "2026-05-24T01:00:40.315356+00:00"
 }

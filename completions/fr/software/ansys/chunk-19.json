@@ -2,6 +2,19 @@
   "doc_key": "fr/ansys",
   "level": "chunk",
   "chunk_index": 19,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:37:41.495725+00:00"
+  "qa_pairs": [
+    {
+      "question": "À quoi sert principalement le script Slurm fourni pour Ansys Fluent sur les grappes de Calcul Canada?",
+      "answer": "Ce script est conçu pour automatiser le redémarrage des simulations Ansys Fluent de longue durée sur les grappes de l'Alliance, surtout pour les tâches qui pourraient dépasser la limite de temps d'exécution maximale. Il utilise les tableaux de tâches Slurm pour soumettre à nouveau la tâche, en reprenant à partir des fichiers de sortie les plus récemment sauvegardés."
+    },
+    {
+      "question": "Comment le script Slurm gère-t-il le redémarrage d'une simulation Ansys Fluent à partir de l'endroit où elle s'est arrêtée?",
+      "answer": "Le script utilise des tableaux de tâches Slurm (`#SBATCH --array`) pour gérer plusieurs tentatives ou segments d'une simulation. Lors d'un redémarrage, il lie automatiquement les fichiers de cas (`.cas`) et de données (`.dat`) de sortie les plus récents (par exemple, `MYCASFILERES` et `MYDATFILERES`) afin qu'ils soient utilisés comme entrées pour la tâche suivante du tableau, ce qui permet à la simulation de continuer à partir de son dernier état sauvegardé."
+    },
+    {
+      "question": "Quelle est la différence dans l'utilisation des fichiers de journalisation entre le premier lancement d'une simulation Ansys Fluent et les redémarrages subséquents avec ce script Slurm?",
+      "answer": "Pour la toute première exécution d'une simulation (identifiée par `SLURM_ARRAY_TASK_ID == 1`), le script utilise le fichier de journalisation initial désigné par `MYJOUFILE` (par exemple, `sample.jou`). Pour toutes les tentatives de redémarrage subséquentes au sein du tableau de tâches, il emploie un fichier de journalisation spécifique au redémarrage, `MYJOUFILERES` (par exemple, `sample-restart.jou`), qui est configuré pour lire les fichiers de cas et de données précédemment sauvegardés."
+    }
+  ],
+  "generated_at": "2026-05-24T01:10:50.981266+00:00"
 }

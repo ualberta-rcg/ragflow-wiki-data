@@ -4,43 +4,40 @@ slug: "computational_chemistry"
 lang: "base"
 
 source_wiki_title: "Computational chemistry"
-source_hash: "cf6ad0d0cd7e118ad73e0e74a173d19e"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T06:29:50.338131+00:00"
+source_hash: "9585b8bc412480dab917b9c96dc2fb2b"
+last_synced: "2026-05-24T00:00:16.123503+00:00"
+last_processed: "2026-05-24T00:42:56.761637+00:00"
 
 tags:
   - computationalchemistry
 
 keywords:
-  - "cheminformatics"
-  - "Open Babel"
-  - "Ab initio"
-  - "Density functional"
+  - "density-functional models"
   - "RDKit"
+  - "Molecular mechanics"
+  - "Molecular dynamics"
   - "CheMPS2"
+  - "Computational chemistry"
+  - "PCMSolver"
   - "Open3DQSAR"
   - "Libxc"
-  - "density-functional models"
+  - "Open Babel"
   - "quantum chemistry"
-  - "Molecular dynamics"
-  - "PCMSolver"
-  - "Computational chemistry"
-  - "Molecular mechanics"
+  - "Density functional"
+  - "Ab initio"
   - "Spglib"
+  - "molecular modeling"
 
 questions:
   - "What is computational chemistry and what is its primary purpose?"
-  - "How do the main computational chemistry methods differ in terms of accuracy, computational cost, and applicability?"
-  - "What categories of software tools are typically used to conduct and visualize computational chemistry simulations?"
+  - "How do the different computational chemistry methods, such as ab initio and molecular mechanics, compare in terms of accuracy, applicability, and cost?"
+  - "What types of physical and biological systems can be simulated using molecular dynamics, and what are some examples of software tools used for these tasks?"
   - "What are the primary functions and scientific fields supported by the Open Babel toolset?"
-  - "Which programming languages are utilized in the RDKit collection for cheminformatics and machine learning?"
-  - "What specific scientific models and structural properties are PCMSolver and Spglib designed to help developers analyze?"
-  - "What is the primary function of the CheMPS2 library in the context of quantum chemistry?"
-  - "In what type of computational models is the Libxc library typically utilized?"
-  - "How does the Open3DQSAR tool facilitate pharmacophore exploration?"
-  - "What are the primary functions and scientific fields supported by the Open Babel toolset?"
-  - "Which programming languages are utilized in the RDKit collection for cheminformatics and machine learning?"
-  - "What specific scientific models and structural properties are PCMSolver and Spglib designed to help developers analyze?"
+  - "What is the main purpose of RDKit, and which programming languages is it written in?"
+  - "How do PCMSolver and Spglib assist developers in modeling specific physical and structural properties?"
+  - "What is the primary function of the CheMPS2 library in the context of ab initio quantum chemistry?"
+  - "In what specific type of computational models is the Libxc library utilized?"
+  - "How does the Open3DQSAR tool facilitate pharmacophore exploration according to its description?"
 
 status:
   downloaded: true
@@ -54,17 +51,16 @@ status:
 [Computational chemistry](https://en.wikipedia.org/wiki/Computational_chemistry) is a branch of chemistry that incorporates the results of theoretical chemistry into computer programs to calculate the structures and properties of molecules and solids.
 
 Most computer programs in the field offer a large number of methods, which can be broadly grouped in terms of the trade-off between accuracy, applicability, and cost.
-*   [ab initio](https://en.wikipedia.org/wiki/Ab_initio_quantum_chemistry_methods) methods, based entirely on first principles, tend to be broadly applicable but very costly in terms of CPU time; they are therefore mostly applied to systems with a small number of particles.
+*   [*Ab initio*](https://en.wikipedia.org/wiki/Ab_initio_quantum_chemistry_methods) methods, based entirely on first principles, tend to be broadly applicable but very costly in terms of CPU time; they are therefore mostly applied to systems with a small number of particles.
 *   [Semi-empirical](https://en.wikipedia.org/wiki/Semi-empirical_quantum_chemistry_method) methods give accurate results for a narrower range of cases, but are also typically much faster than *ab initio* methods.
 *   [Density functional](https://en.wikipedia.org/wiki/Density_functional_theory) methods may be thought of as a compromise in cost between *ab initio* and semi-empirical methods. The cost-accuracy trade-off is very good and density functional methods have therefore become very widely used in recent years.
 *   [Molecular mechanics](https://en.wikipedia.org/wiki/Molecular_mechanics) methods, based on classical mechanics instead of quantum mechanics, are faster but more narrowly applicable. They use a force field that can be optimized using *ab initio* and/or experimental data to reproduce the properties of the materials. Because of the low cost, molecular mechanics methods are frequently used for molecular dynamics calculations and can be applied to systems of thousands or even millions of particles.
 
-!!! note
-    Molecular dynamics calculations are extremely useful in the study of biological systems. Please see the [Biomolecular simulation](../molecular-sim/biomolecular_simulation.md) page for a list of the resources relevant to this area of research, but bear in mind that the distinction is artificial and many tools are applicable to both biological and non-biological systems. They can be used to simulate glasses, metals, liquids, supercooled liquids, granular materials, complex materials, etc.
+Molecular dynamics calculations are extremely useful in the study of biological systems. Please see the [Biomolecular simulation](../molecular-sim/biomolecular_simulation.md) page for a list of the resources relevant to this area of research, but bear in mind that the distinction is artificial and many tools are applicable to both biological and non-biological systems. They can be used to simulate glasses, metals, liquids, supercooled liquids, granular materials, complex materials, etc.
 
-### Notes on installed software
+## Notes on installed software
 
-#### Applications
+### Applications
 
 *   [ABINIT](../abinit.md)
 *   [ADF](../adf.md)/[AMS](../ams.md)
@@ -95,18 +91,16 @@ Most computer programs in the field offer a large number of methods, which can b
 *   [VASP](../vasp.md)
 *   [XTB (Extended Tight Binding)](https://www.chemie.uni-bonn.de/pctc/mulliken-center/software/xtb)
 
-An automatically generated list of all the versions installed on Compute Canada systems can be found on [Available software](../../programming/available_software.md).
+An automatically generated list of all the versions installed on our systems can be found on [Available software](../../programming/available_software.md).
 
-#### Visualization tools
-
+### Visualization tools
 *   [Molden](https://www.theochem.ru.nl/molden/), a visualization tool for use in conjunction with GAMESS, Gaussian and other applications.
 *   [VMD](../visualization.md#vmd), an open-source molecular visualization program for displaying, animating, and analyzing large biomolecular systems in 3D.
 *   [VisIt](../visualization.md#visit), a general-purpose 3D visualization tool (a [gallery](https://wci.llnl.gov/simulation/computer-codes/visit/gallery) presents examples from chemistry).
-See [Visualization](../visualization.md) for more about producing visualizations on Compute Canada clusters.
+See [Visualization](../visualization.md) for more about producing visualizations on our clusters.
 
-#### Other tools
-
-*   [CheMPS2](https://github.com/SebWouters/CheMPS2), a "library which contains a spin-adapted implementation of the density matrix renormalization group (DMRG) for *ab initio* quantum chemistry."
+### Other tools
+*   [CheMPS2](https://github.com/SebWouters/CheMPS2), a "library which contains a spin-adapted implementation of the density matrix renormalization group (DMRG) for ab initio quantum chemistry."
 *   [Libxc](http://www.tddft.org/programs/octopus/wiki/index.php/Libxc), a library used in density-functional models.
 *   [Open3DQSAR](http://open3dqsar.sourceforge.net/?Home), a "tool aimed at pharmacophore exploration by high-throughput chemometric analysis of molecular interaction fields."
 *   [Open Babel](../open_babel.md), a set of tools to enable one "to search, convert, analyze, or store data from molecular modeling, chemistry, solid-state materials, biochemistry, or related areas."

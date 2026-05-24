@@ -2,6 +2,15 @@
   "doc_key": "fr/ansys",
   "level": "chunk",
   "chunk_index": 21,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:37:56.086063+00:00"
+  "qa_pairs": [
+    {
+      "question": "Si ma simulation Ansys Fluent sur une de nos grappes dépasse la limite de temps allouée, comment puis-je configurer un script Slurm pour qu'elle puisse redémarrer automatiquement à partir des dernières données sauvegardées ?",
+      "answer": "Pour redémarrer une simulation Ansys Fluent qui excède la limite de temps, vous devez utiliser un script Slurm configuré pour le redémarrage. Ce script exploite des fichiers de journalisation distincts : un (`MYJOUFILE`) pour le premier pas de la simulation et un autre (`MYJOUFILERES`) pour les redémarrages subséquents. La variable `$SLURM_ARRAY_TASK_ID` permet de distinguer le premier lancement (quand elle vaut 1) des redémarrages. Pour le premier pas, le fichier de journalisation initial (`sample.jou`) doit contenir les commandes `/solve/dual-time-iterate 1` et `/file/auto-save/data-frequency 1`. Pour les redémarrages, le fichier de journalisation de redémarrage (`sample-restart.jou`) doit inclure `/file/read-cas-data sample-restart` et la ligne d'initialisation (`/solve/initialize/initialize-flow`) doit être commentée. Les fichiers `MYCASFILERES` et `MYDATFILERES` sont utilisés pour pointer vers les fichiers de cas et de données les plus récents lors du redémarrage."
+    },
+    {
+      "question": "Quel est le rôle des fichiers de journalisation dans Ansys Fluent, et quelles sont les configurations à prendre en compte concernant les formats de fichiers de simulation?",
+      "answer": "Les fichiers de journalisation dans Ansys Fluent servent à consigner toutes les commandes de l'interface TUI (Text User Interface). Ils permettent d'automatiser des séries de simulations, en modifiant des paramètres comme la température, la pression ou la vitesse du flux, ce qui rend possible l'exécution de multiples simulations sous différentes conditions sans intervention manuelle. Concernant les formats de fichiers, les versions des modules Ansys jusqu'à 2019R3 utilisaient par défaut les formats `.cas/.dat`, ce qui était configuré avec la ligne `/file/cff-files no` dans le fichier de journalisation. À partir de 2020R1, les formats `.cas.h5/.dat.h5`, plus efficaces, sont pris en charge en utilisant la configuration `/file/cff-files yes`."
+    }
+  ],
+  "generated_at": "2026-05-24T01:11:07.783491+00:00"
 }

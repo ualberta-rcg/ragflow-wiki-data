@@ -2,6 +2,15 @@
   "doc_key": "en/ansys",
   "level": "chunk",
   "chunk_index": 17,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:31:50.605897+00:00"
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of Fluent solution restart scripts on Alliance clusters, and what are the main prerequisites for using them to automate long-running simulations?",
+      "answer": "Fluent solution restart scripts are provided to automate restarting very large jobs that require more than the typical maximum runtime window available on most Alliance clusters. These jobs are restarted from the most recent saved time step files. Key prerequisites include: ensuring the first time step can be completed within the requested job array time limit, using a standard fixed time step size, and having a working set of `sample.cas`, `sample.dat`, and `sample.jou` files. Additionally, a `sample-restart.jou` file must be created and edited to contain `/file/read-cas-data sample-restart` and have the initialization line commented out. The `sample.jou` file should also include `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`."
+    },
+    {
+      "question": "What is the primary function of Fluent journal files, and how do they handle different file formats for simulation data on Alliance clusters?",
+      "answer": "Fluent journal files are used to include commands from Fluent's Text-User-Interface (TUI), allowing users to automate simulations. These commands can modify simulation parameters such as temperature, pressure, and flow speed, enabling the execution of a series of simulations under various conditions with a single case file. Regarding file formats, journal files can be configured to use either the legacy `.cas/.dat` format (default for module versions 2019R3 or older) by setting `/file/cff-files no`, or the more efficient `.cas.h5/.dat.h5` file format (default for module versions 2020R1 or newer) by setting `/file/cff-files yes`."
+    }
+  ],
+  "generated_at": "2026-05-24T01:03:48.477175+00:00"
 }

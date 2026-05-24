@@ -4,17 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "Comment crée-t-on et soumet-on un script de tâche Nextflow pour le pipeline `rnaseq` sur une grappe de l'Alliance, comme Fir?",
-      "answer": "Pour créer un script de tâche, comme celui enregistré sous `~/scratch/nf-test/nextflow_test.sh`, il faut spécifier des directives SLURM telles que `--time=08:00:00`, `--cpus-per-task=4` et `--mem=16G`. Le script doit ensuite charger les modules nécessaires (`python/3.11`, `apptainer`, `nextflow`), activer l'environnement virtuel Python `nf-core-env`, et exporter les variables d'environnement comme `NFCORE_PL`, `PL_VERSION`, `NXF_SINGULARITY_CACHEDIR` et `SLURM_ACCOUNT`. La commande `nextflow run` est ensuite utilisée avec des profils (par exemple `test,singularity,fir`) et les chemins d'entrée/sortie appropriés. Le script est finalement soumis à l'ordonnanceur Slurm avec la commande `sbatch nextflow_test.sh`."
+      "question": "Une fois que le script de tâche Nextflow est prêt, comment est-ce qu'on le soumet pour lancer l'exécution du test sur un système de l'Alliance?",
+      "answer": "Vous devez d'abord enregistrer le script de tâche, par exemple à l'emplacement `~/scratch/nf-test/nextflow_test.sh`, puis le soumettre en utilisant la commande `sbatch nextflow_test.sh`."
     },
     {
-      "question": "Quelles sont les ressources Slurm qui sont demandées par le script de tâche Nextflow d'exemple pour le pipeline `rnaseq` sur la grappe Fir?",
-      "answer": "Le script de tâche d'exemple pour Fir demande les ressources Slurm suivantes : un temps d'exécution maximal de 8 heures (`--time=08:00:00`), 4 cœurs de CPU par tâche (`--cpus-per-task=4`) et 16 gigaoctets de mémoire (`--mem=16G`)."
+      "question": "Qu'arrive-t-il après la soumission d'un script de tâche Nextflow avec la commande `sbatch`?",
+      "answer": "Une fois le script soumis, Nextflow est démarré sur le nœud de calcul et achemine ensuite les tâches à l'ordonnanceur Slurm dès qu'elles sont prêtes à être traitées."
     },
     {
-      "question": "Quels modules et environnements logiciels doivent être chargés ou activés dans un script de tâche Nextflow d'exemple avant d'exécuter un pipeline?",
-      "answer": "Dans le script de tâche d'exemple, il faut charger le module `python/3.11` et activer l'environnement virtuel Python `nf-core-env`. Ensuite, les modules `apptainer` et `nextflow` doivent être chargés. Il est également nécessaire d'exporter des variables d'environnement clés telles que `NFCORE_PL`, `PL_VERSION`, `FD_VERSION`, `NXF_SINGULARITY_CACHEDIR` et `SLURM_ACCOUNT`."
+      "question": "Comment peut-on suivre la progression d'un pipeline Nextflow après l'avoir lancé sur les grappes de l'Alliance?",
+      "answer": "Vous pouvez suivre la progression du pipeline en consultant le fichier journal `nextflow_test.<job_ID>.out` ou en vérifiant les tâches dans la file d'attente Slurm à l'aide des commandes `sq` ou `squeue -u $USER`."
     }
   ],
-  "generated_at": "2026-04-26T01:04:55.975327+00:00"
+  "generated_at": "2026-05-24T01:27:49.646386+00:00"
 }

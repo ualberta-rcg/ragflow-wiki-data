@@ -2,6 +2,19 @@
   "doc_key": "en/ansys",
   "level": "chunk",
   "chunk_index": 41,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:34:44.150670+00:00"
+  "qa_pairs": [
+    {
+      "question": "How are `anshpc` licenses calculated for Ansys Fluent jobs submitted to Alliance clusters, based on the number of cores utilized?",
+      "answer": "For Ansys Fluent jobs running on Alliance clusters, the number of `anshpc` licenses consumed is typically calculated as the number of cores requested minus four. For instance, an 8-core Fluent job would use 4 `anshpc` licenses, and a 32-core job would use 28 `anshpc` licenses. This feature is generously oversubscribed to allow large jobs, but actual availability can vary depending on total licenses in use."
+    },
+    {
+      "question": "What actions should a user take if their Ansys job on an Alliance cluster fails to start due to an `anshpc` license shortage?",
+      "answer": "If an Ansys job fails to start because of an `anshpc` license shortage, a user has two primary options: wait for a sufficient number of licenses to become available in the shared pool, or reduce the job's core count and resubmit it immediately. The `lmutil` command can be used to query current license availability."
+    },
+    {
+      "question": "How can a user release Ansys licenses that are unexpectedly held by 'rogue' processes on an Alliance compute node or desktop session?",
+      "answer": "To release Ansys licenses held by 'rogue' processes (e.g., from an unclean shutdown of a GUI program or a crashed job), a user can close their desktop session, `scancel` an interactive `salloc` session, or open a terminal window on the affected node and issue the command `pkill -9 -e -u $USER -f \"ansys\"`. This action will immediately return the held Ansys licenses to the SHARCNET license server, making them available again."
+    }
+  ],
+  "generated_at": "2026-05-24T01:07:04.977495+00:00"
 }

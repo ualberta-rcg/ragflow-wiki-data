@@ -2,6 +2,19 @@
   "doc_key": "en/ansys",
   "level": "chunk",
   "chunk_index": 29,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:33:17.369376+00:00"
+  "qa_pairs": [
+    {
+      "question": "How can users submit Ansys Mechanical (APDL) jobs to a cluster using GPUs in a shared memory parallel configuration?",
+      "answer": "Users can submit Ansys Mechanical (APDL) jobs to a cluster with GPUs in a shared memory parallel (SMP) configuration by using a Slurm script. This script should load the appropriate Ansys module (e.g., `ansys/2024R1.03`), create an output directory, and then execute the `mapdl` command. The `mapdl` command needs arguments like `-smp` for shared memory parallel, `-acc nvidia` for GPU acceleration, `-na $SLURM_GPUS_ON_NODE` to specify the number of GPUs per node, `-np $SLURM_NTASKS` for the number of cores, and `-i YOURAPDLFILE.inp` to specify the input file. For example, a script might include `#SBATCH --gpus-per-node=1` and `mapdl -smp -acc nvidia -na $SLURM_GPUS_ON_NODE -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
+    },
+    {
+      "question": "What are the default memory allocations for Ansys Mechanical (APDL) jobs, and how can a user adjust these settings in their Slurm script?",
+      "answer": "Ansys Mechanical (APDL) jobs are allocated 1024 MB of total memory and 1024 MB of database memory by default. Users can manually specify or change these values by adding the arguments `-m` for total memory and `-db` for database memory to the `mapdl` command line in their Slurm scripts. For instance, to set 2048 MB total memory and 1500 MB database memory, the command would include `-m 2048 -db 1500`."
+    },
+    {
+      "question": "What is the recommended approach for optimizing the performance of Ansys Mechanical (APDL) jobs on a cluster?",
+      "answer": "For optimizing performance, it's recommended to perform detailed scaling tests before running production jobs to ensure the optimal number of cores and minimum amount of memory are specified in your Slurm scripts. Generally, single node (SMP Shared Memory Parallel) scripts are expected to perform better than multinode (DMP Distributed Memory Parallel) scripts, so SMP should be used whenever possible. Additionally, the Ansys module version loaded in the script should ideally match the version used to generate the APDL input file to avoid compatibility issues."
+    }
+  ],
+  "generated_at": "2026-05-24T01:05:27.317383+00:00"
 }

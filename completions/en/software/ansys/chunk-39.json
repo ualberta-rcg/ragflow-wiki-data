@@ -2,6 +2,19 @@
   "doc_key": "en/ansys",
   "level": "chunk",
   "chunk_index": 39,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:34:29.689703+00:00"
+  "qa_pairs": [
+    {
+      "question": "What are the conditions and limitations for using the SHARCNET Ansys license on Alliance clusters?",
+      "answer": "The SHARCNET Ansys license is available free for academic use by any Alliance researcher on any Alliance system for publishable academic research, but it is strictly prohibited for private or commercial purposes. The license covers products such as HF, EM, Electronics HPC, Mechanical, CFD, ROCKY, and LS-DYNA, though Lumerical software is not included, and SpaceClaim, despite being technically covered, is not installed as there is no Linux version. Each researcher is permitted to run a maximum of 16 simultaneous jobs, utilizing a total of up to 512 HPC cores across all clusters. This can include various combinations like 1x512, 2x256, 4x128, 8x64, or 16x32 cores."
+    },
+    {
+      "question": "How do Alliance researchers configure their environment to use the SHARCNET Ansys license?",
+      "answer": "To use the SHARCNET Ansys license on any Alliance cluster, researchers must configure their `ansys.lic` file. This involves creating a file named `~/.licenses/ansys.lic` in their home folder with the following content: `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license1.computecanada.ca\")`."
+    },
+    {
+      "question": "What actions should be taken if an Ansys job fails to start due to a SHARCNET license shortage, and how can researchers check the current license usage?",
+      "answer": "If an Ansys job fails to start because the SHARCNET license pool is oversubscribed, researchers will need to manually resubmit their job to the queue. If license shortages increase over time, the total `anshpc` core limit per researcher may be decreased from 512 to 384. To check the number of Ansys licenses currently in use by your username and the total in use by all users, log into a cluster (e.g., Nibi) and run the following commands:\n```bash\nmodule load ansys\n$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil \\\nlmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\" | grep -v \" Total of 0 licenses in use\"\n```\nIf more than 512 HPC cores are required for research, users should consider using a local institutional Ansys License server or open a technical support ticket to inquire about purchasing additional licenses for the SHARCNET license pool."
+    }
+  ],
+  "generated_at": "2026-05-24T01:06:46.037445+00:00"
 }

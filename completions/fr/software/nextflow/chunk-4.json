@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Comment faire pour télécharger les fichiers de séquences nécessaires à l'exemple de pipeline `rnaseq` dans Nextflow?",
-      "answer": "Pour télécharger les fichiers de séquences d'entrée requis pour l'exemple `rnaseq`, vous devez d'abord créer et vous déplacer dans le répertoire `~/scratch/nf-test/input` en utilisant `mkdir -p input && cd input`. Ensuite, il faut exécuter une série de commandes `wget` pour récupérer les fichiers `.fastq.gz` spécifiques au projet GSE110004 à partir du dépôt `nf-core/test-datasets` sur GitHub."
+      "question": "Comment est-ce qu'on prépare les fichiers d'entrée, comme la feuille d'échantillons, pour un pipeline Nextflow `rnaseq` sur les grappes d'Alliance?",
+      "answer": "Pour préparer les fichiers d'entrée d'un pipeline Nextflow `rnaseq`, vous devez d'abord télécharger les fichiers de séquences nécessaires en utilisant des commandes `wget` dans le répertoire `~/scratch/nf-test/input`. Ensuite, il faut créer une feuille d'échantillons (`samplesheet.csv`) dans `~/scratch/nf-test/` en copiant et collant le modèle fourni et en remplaçant le `<username>` par votre nom d'utilisateur dans les chemins d'accès des fichiers."
     },
     {
-      "question": "Comment préparer une feuille d'échantillons (`samplesheet.csv`) pour le pipeline `rnaseq` et où faut-il la sauvegarder?",
-      "answer": "Pour préparer une feuille d'échantillons, vous devez copier le code de l'exemple fourni et le coller dans un nouveau fichier nommé `~/scratch/nf-test/samplesheet.csv`. N'oubliez pas de remplacer le `<username>` par votre propre nom d'utilisateur dans les chemins des fichiers à l'intérieur de la feuille. Cette feuille contient des colonnes comme `sample`, `fastq_1`, `fastq_2` et `strandedness`."
+      "question": "Quels sont les éléments qu'on doit adapter dans un script de tâche Nextflow avant de l'exécuter sur une grappe comme Fir?",
+      "answer": "Avant de soumettre un script de tâche Nextflow, il est important de l'adapter en précisant plusieurs éléments. Il faut notamment configurer le pipeline (`NFCORE_PL`) et sa version (`PL_VERSION, FD_VERSION`), le chemin d'accès de la cache Apptainer (`NXF_SINGULARITY_CACHEDIR`), votre compte Slurm (`SLURM_ACCOUNT`), ainsi que les chemins pour les données d'entrée (`--input`) et de sortie (`--outdir`)."
     },
     {
-      "question": "Quels sont les paramètres essentiels à configurer ou à adapter dans un script de tâche Nextflow, comme l'exemple pour la grappe Fir, avant de le soumettre?",
-      "answer": "Dans un script de tâche Nextflow, il est crucial d'adapter plusieurs éléments importants. Ces éléments comprennent le nom et la version du pipeline (variables `NFCORE_PL`, `PL_VERSION`, `FD_VERSION`), le chemin de la cache Apptainer (`NXF_SINGULARITY_CACHEDIR`), le compte Slurm (`SLURM_ACCOUNT`), le profil spécifique à la grappe (par exemple, `-profile ...,fir`), ainsi que les chemins pour les fichiers d'entrée (`--input`) et de sortie (`--output`)."
+      "question": "Une fois qu'on a préparé un script de tâche Nextflow, comment est-ce qu'on le soumet pour qu'il s'exécute sur une grappe?",
+      "answer": "Après avoir enregistré le script de tâche, par exemple sous le nom `~/scratch/nf-test/nextflow_test.sh`, vous pouvez le soumettre à l'ordonnanceur Slurm pour lancer l'exécution du pipeline en utilisant la commande `sbatch nextflow_test.sh`."
     }
   ],
-  "generated_at": "2026-04-26T01:04:34.758155+00:00"
+  "generated_at": "2026-05-24T01:27:34.644299+00:00"
 }

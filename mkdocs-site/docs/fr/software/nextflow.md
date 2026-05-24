@@ -4,62 +4,63 @@ slug: "nextflow"
 lang: "fr"
 
 source_wiki_title: "Nextflow/fr"
-source_hash: "a3ad7be2182b246f4990d4d5219bb3fe"
-last_synced: "2026-04-25T23:42:08.699101+00:00"
-last_processed: "2026-04-26T00:22:06.024900+00:00"
+source_hash: "a12abad21d803283475f23d052cfaee1"
+last_synced: "2026-05-24T00:00:16.123503+00:00"
+last_processed: "2026-05-24T00:47:21.018733+00:00"
 
 tags:
   - software
 
 keywords:
-  - "Nextflow"
-  - "samplesheet"
-  - "fichiers d'entrée"
-  - "pipeline"
-  - "nœud de connexion"
-  - "temps d'exécution"
-  - "rnaseq"
-  - "nextflow"
-  - "fichiers de séquences"
-  - "Apptainer"
-  - "nf-core rnaseq"
-  - "flux de travail"
+  - "feuille d'échantillons"
   - "fichier de configuration"
-  - "SBATCH"
-  - "Slurm"
-  - "configurations de conteneurs"
-  - "pipelines"
-  - "problèmes connus"
-  - "nœuds de calcul"
-  - "apptainer"
-  - "configuration"
-  - "pipeline rnaseq"
-  - "images de conteneur"
-  - "script de tâche"
   - "nf-core"
+  - "fichiers de séquences"
+  - "grappes"
+  - "Problèmes connus"
+  - "Slurm"
+  - "flux de travail"
+  - "images du conteneur"
+  - "sbatch"
+  - "fastq.gz"
+  - "NXF_OPTS"
+  - "nœuds de calcul"
+  - "pipeline"
+  - "rnaseq"
+  - "exécution du test"
+  - "télécharger"
+  - "Installer nf-core"
+  - "samplesheet"
+  - "nœud de connexion"
+  - "pipeline rnaseq"
+  - "Configuration"
+  - "Apptainer"
+  - "script de tâche"
+  - "pipelines nf-core"
+  - "Nextflow"
 
 questions:
-  - "Qu'est-ce que le logiciel Nextflow et comment peut-on le charger sur le système ?"
-  - "Quelles sont les instructions à suivre pour préparer correctement le fichier de configuration et l'environnement (comme la variable SLURM_ACCOUNT) ?"
-  - "Pourquoi est-il obligatoire de télécharger les pipelines nf-core depuis un nœud de connexion plutôt qu'à partir d'un nœud de calcul ?"
-  - "Quels types de variations de temps peut-on observer lors de l'utilisation du pipeline ?"
-  - "Sur quel type de nœud doit-on obligatoirement télécharger les pipelines nf-core ?"
-  - "Quelle restriction technique liée à Internet affecte certains nœuds de calcul des grappes ?"
-  - "Comment installer l'outil nf-core et quels sont les modules prérequis nécessaires sur le nœud de connexion ?"
-  - "Pourquoi est-il fortement recommandé de définir la variable $NXF_SINGULARITY_CACHEDIR vers le répertoire /project plutôt que de stocker les images dans l'espace personnel ?"
-  - "Quelles sont les deux composantes principales téléchargées par la commande \"nf-core download\" et dans quels répertoires respectifs sont-elles sauvegardées ?"
-  - "Comment préparer le fichier `samplesheet.csv` en utilisant les données de test téléchargées ?"
-  - "Quelles sont les variables spécifiques à adapter dans le script de tâche Slurm pour la grappe Fir ?"
-  - "Quels modules et environnements virtuels doivent être chargés avant de lancer le pipeline Nextflow ?"
-  - "Quels sont les différents types de configurations mentionnés dans le texte ?"
-  - "Quels fichiers spécifiques Nextflow utilise-t-il en entrée lors de l'étape de préparation ?"
-  - "Quelle commande permet de se placer dans le répertoire nécessaire pour télécharger les fichiers de l'exemple rnaseq ?"
-  - "Comment soumettre un script de tâche Nextflow à l'ordonnanceur Slurm et suivre sa progression ?"
-  - "Quels problèmes peuvent survenir lors de l'utilisation de Nextflow sur un nœud de connexion ou en présence d'une configuration AWS ?"
-  - "Quelles variables d'environnement faut-il définir pour résoudre les erreurs spécifiques telles que \"unable to create native thread\" et \"SIGBUS\" ?"
-  - "Quelles sont les ressources de calcul (temps, processeurs et mémoire) allouées par les directives SLURM dans ce script ?"
-  - "Quels modules et environnements virtuels doivent être chargés pour préparer l'exécution du programme ?"
-  - "Quel pipeline nf-core spécifique est configuré dans les variables d'environnement et quelle version est utilisée ?"
+  - "Qu'est-ce que Nextflow et quelle est sa fonction principale dans la gestion des flux de travail scientifiques ?"
+  - "Quelles sont les étapes requises pour préparer correctement le fichier de configuration et l'environnement Slurm sur les grappes ?"
+  - "Pourquoi l'installation de nf-core et le téléchargement des pipelines doivent-ils être effectués impérativement sur un nœud de connexion ?"
+  - "Quel est l'objectif principal de l'étape décrite dans ce document ?"
+  - "Pourquoi est-il impératif d'effectuer le téléchargement des pipelines sur un nœud de connexion plutôt que sur un nœud de calcul ?"
+  - "Quelles commandes spécifiques doivent être exécutées pour préparer l'environnement avant l'installation de nf-core ?"
+  - "Pourquoi est-il nécessaire de charger les modules rust et postgresql lors de la création de l'environnement Python pour nf-core ?"
+  - "Pourquoi est-il fortement recommandé de configurer le répertoire de cache des images Singularity ($NXF_SINGULARITY_CACHEDIR) dans /project plutôt que dans l'espace personnel ($HOME) ?"
+  - "Quelles sont les deux composantes principales téléchargées par la commande nf-core download et dans quels répertoires respectifs sont-elles stockées ?"
+  - "Comment doit-on configurer le fichier `samplesheet.csv` pour lier correctement les fichiers de séquençage téléchargés ?"
+  - "Quels modules et variables d'environnement doivent être définis dans le script de tâche avant de lancer Nextflow ?"
+  - "Quelle est la commande à utiliser pour soumettre le script de tâche Slurm et démarrer l'exécution du pipeline ?"
+  - "Quels types de fichiers sont nécessaires en entrée selon le texte ?"
+  - "Quel est le but exact des commandes bash fournies dans l'exemple ?"
+  - "Pour quel type d'analyse spécifique ces données sont-elles téléchargées ?"
+  - "Comment peut-on suivre la progression d'un pipeline Nextflow et examiner les tâches soumises à l'ordonnanceur Slurm ?"
+  - "Quels problèmes généraux peuvent survenir en lien avec la consommation de mémoire de Java ou la présence d'une configuration AWS ?"
+  - "Quelles variables d'environnement doivent être configurées pour résoudre les erreurs spécifiques \"unable to create native thread\" et \"SIGBUS\" ?"
+  - "Quels sont les paramètres et les profils spécifiés lors de l'exécution de la commande Nextflow ?"
+  - "Dans quel emplacement exact et sous quel nom de fichier le script de tâche doit-il être sauvegardé ?"
+  - "Quelle est la commande requise pour soumettre le script et démarrer l'exécution du test ?"
 
 status:
   downloaded: true
@@ -70,7 +71,7 @@ status:
   qa_generated: false
 ---
 
-[Nextflow](https://www.nextflow.io) est un logiciel servant à exécuter des flux de travail scientifiques reproductibles. Le terme *Nextflow* est utilisé pour décrire à la fois le langage spécifique à un domaine (DSL) dans lequel les pipelines sont écrits et le logiciel utilisé pour interpréter ces flux de travail.
+[Nextflow](https://www.nextflow.io) est un logiciel permettant d'exécuter des flux de travail scientifiques reproductibles. Le terme *Nextflow* est utilisé pour décrire à la fois le langage spécifique au domaine (DSL) dans lequel les pipelines sont écrits et le logiciel utilisé pour interpréter ces flux de travail.
 
 ## Utilisation
 
@@ -78,46 +79,47 @@ Chargez le module Nextflow avec `module load nextflow`.
 
 Bien que vous puissiez créer votre propre flux de travail, vous pouvez également utiliser les pipelines [nf-core](https://nf-co.re/) qui sont publiés. Nous décrivons ici une configuration simple qui vous permettra d'exécuter des pipelines nf-core sur nos systèmes et vous aidera à configurer correctement Nextflow pour vos propres pipelines.
 
-Dans notre exemple, nous utilisons le pipeline `nf-core/rnaseq` en 5 étapes :
+Dans notre exemple, nous utilisons le pipeline `nf-core/rnaseq` dans les 5 étapes.
 
-*   Étape 1 : Préparer le fichier de configuration
-*   Étape 2 : Installer nf-core
-*   Étape 3 : Télécharger les images du conteneur et le pipeline
-*   Étape 4 : Préparer les données en entrée
-*   Étape 5 : Créer un script pour la tâche
+*   Étape 1, Préparer le fichier de configuration
+*   Étape 2, Installer nf-core
+*   Étape 3, Télécharger les images du conteneur et le pipeline
+*   Étape 4, Préparer les données en entrée
+*   Étape 5, Créer un script pour la tâche
 
-### Étape 1 : Préparer le fichier de configuration
+### Étape 1, Préparer le fichier de configuration
 
-Vous pouvez obtenir un fichier de configuration destiné à nos grappes de [nf-core](https://github.com/nf-core/configs/blob/master/conf/alliance_canada.config) et le placer dans `~/.nextflow/config` comme suit :
+Vous pouvez obtenir de [nf-core](https://github.com/nf-core/configs/blob/master/conf/alliance_canada.config) un fichier de configuration pour nos grappes et le placer dans `~/.nextflow/config` comme suit :
 
 ```bash
 curl -o ~/.nextflow/config https://raw.githubusercontent.com/nf-core/configs/refs/heads/master/conf/alliance_canada.config
 ```
 
-Configurez la variable d'environnement `$SLURM_ACCOUNT` avec un nom de compte que vous pouvez utiliser; ceci devrait avoir l'allure de `def-pname` et se faire dans le fichier `~/.bashrc`.
+Configurez la variable d'environnement `$SLURM_ACCOUNT` pour un nom de compte que vous pouvez utiliser; ceci devrait ressembler à `def-pname` et se faire dans le fichier `~/.bashrc`.
 
 ```bash
 export SLURM_ACCOUNT=def-pname
 ```
 
-!!! note
-    Cette configuration comprend des profils pour Fir, Narval, Nibi, Rorqual et Trillium. Si vous utilisez ce fichier de configuration sur Fir, vous devez charger le profil en utilisant l'option `--profile fir` avec la commande `nextflow`. Sur les autres sites, le profil approprié est sélectionné automatiquement selon le nom d'hôte. Il assure qu'il n'y a pas plus de 100 tâches en file d'attente Slurm et qu'un maximum de 60 tâches sont soumises par minute. Il contient des informations spécifiques à la grappe requises par Nextflow, par exemple que les machines Rorqual sont équipées de 192 cœurs et de 750 Go de RAM, avec une durée maximale d'une semaine (168 heures).
+Cette configuration contient des profils pour Fir, Narval, Nibi, Rorqual et Trillium. La configuration particulière à la grappe se fait automatiquement par la variable d'environnement `$CC_CLUSTER`. Ceci fait en sorte qu'il n'y a pas plus de 100 tâches dans la file d'attente Slurm et que 60 tâches maximum sont soumises par minute. Le fichier de configuration contient des informations spécifiques à la grappe qui sont nécessaires à Nextflow, par exemple que les machines Rorqual disposent de 192 cœurs et de 750 Go de RAM, avec une durée maximale d'une semaine (168 heures).
 
-!!! warning "Important"
-    Il n'est pas recommandé d'exécuter des pipelines nf-core ou tout autre pipeline Nextflow générique sur Trillium. Ceux-ci devraient être exécutés sur [Trillium](../clusters/trillium.md) seulement s'ils ont été conçus spécifiquement pour Trillium.
+!!! warning
+    **Il n'est pas recommandé d’exécuter des pipelines nf-core ou tout autre pipeline Nextflow générique sur Trillium. Ceux-ci devraient être exécutés sur [Trillium](../clusters/trillium.md) uniquement s’ils ont été conçus spécifiquement pour Trillium.**
 
 La configuration est liée au système sur lequel se fait l'exécution, mais elle est également liée au pipeline lui-même. Dans cet exemple rnaseq, `cpu = 1` est la valeur par défaut, mais certaines étapes du pipeline peuvent en utiliser plus. Cela peut devenir assez compliqué et les étiquettes dans le fichier `nf-core-rnaseq_3.21.0/3_21_0/conf/base.config` sont utilisées par le pipeline à l'interne pour identifier une étape avec une configuration autre que celle par défaut. Nous n'abordons pas ce sujet ici, mais sachez qu'en modifiant ces étiquettes, vous pourriez observer des différences importantes dans le temps de mise en file d'attente et le temps d'exécution du pipeline.
 
-### Étape 2 : Installer nf-core
+### Étape 2, Installer nf-core
 
 Pour utiliser les pipelines nf-core sur une de nos grappes, il est nécessaire de les télécharger sur un nœud de connexion, car certaines grappes ne permettent pas l'accès à Internet à partir des nœuds de calcul.
-Exécutez la commande suivante **sur un nœud de connexion** pour installer `nf-core`.
+
+!!! important
+    Exécutez la commande suivante **sur un nœud de connexion** pour installer `nf-core`.
 
 ```bash
 module purge
 module load python/3.11
-module load rust         # Les nouvelles installations de nf-core généreront une erreur si rust n'est pas chargé.
-module load postgresql   # Les modules Python qui listent psycopg2 comme dépendance pourraient planter sans postgresql ici.
+module load rust         # New nf-core installations will error out if rust hasn't been loaded
+module load postgresql   # Python modules which list psycopg2 as a dependency may crash without postgresql here.
 python -m venv nf-core-env
 source nf-core-env/bin/activate
 python -m pip install nf_core==2.13
@@ -125,7 +127,7 @@ python -m pip install nf_core==2.13
 
 Pour faciliter la configuration, nous utilisons `pip` pour installer un paquet [Python](python.md). L'installation des outils nf-core peut être longue; cette étape peut prendre plusieurs minutes.
 
-### Étape 3 : Télécharger les images du conteneur et le pipeline
+### Étape 3, Télécharger les images du conteneur et le pipeline
 
 Définissez le nom du pipeline à tester, puis chargez Nextflow et l'utilitaire [Apptainer](containers/apptainer.md).
 Nextflow s'intègre parfaitement à Apptainer.
@@ -145,7 +147,8 @@ mkdir /project/<def-group>/NXF_SINGULARITY_CACHEDIR
 export NXF_SINGULARITY_CACHEDIR=/project/<def-group>/NXF_SINGULARITY_CACHEDIR
 ```
 
-Nextflow stockera les images dans le répertoire indiqué par `$NXF_SINGULARITY_CACHEDIR`; comme Apptainer est dérivé de Singularity, le nom de la variable n'a pas changé. Les images de flux de travail étant généralement volumineuses, ne les stockez pas dans votre espace personnel (`$HOME`) en raison de sa capacité limitée.
+Nextflow stockera les images dans le répertoire indiqué par `$NXF_SINGULARITY_CACHEDIR`; comme Apptainer est dérivé de Singularity, le nom de la variable n'a pas changé.
+Les images de flux de travail étant généralement volumineuses, ne les stockez pas dans votre espace personnel (`$HOME`) en raison de sa capacité limitée.
 Stockez-les plutôt dans `/project`.
 
 Partagez ce dossier avec les membres de votre groupe qui utiliseront Nextflow avec Apptainer, afin de réduire la duplication et utiliser moins d'espace.
@@ -156,20 +159,21 @@ Pour télécharger le pipeline `rnaseq` et les images du conteneur, lancez :
 ```bash
 cd ~/scratch
 mkdir -p nf-test && cd nf-test
-nf-core download --container-cache-utilisation amend --container-system singularity --compress none -l docker.io -r ${PL_VERSION} -p 6 ${NFCORE_PL}
+nf-core download --container-cache-utilisation amend --container-system singularity --compress none -l docker.io -r ${PL_VERSION}  -p 6  ${NFCORE_PL}
 ```
 
-À la question *« Include the nf-core's default institutional configuration files into the download? (Y/n) »*, répondez `Y`.
+À la question `Include the nf-core's default institutional configuration files into the download? (Y/n)`, répondez Y.
 
-!!! important "Important"
+!!! note "IMPORTANT!"
     Ceci télécharge deux composantes de `rnaseq` :
 
     1.  Les fichiers des images du conteneur vont dans `$NXF_SINGULARITY_CACHEDIR`.
     2.  Les fichiers de pipelines vont dans le répertoire `~/scratch/nf-test/nf-core-${NFCORE_PL}_${PL_VERSION}` avec le numéro de version `X_X_X`. Dans notre exemple, le pipeline est stocké dans `~/scratch/nf-test/nf-core-rnaseq_3.21.0/3_21_0`. Notez que le nom de répertoire `nf-core-rnaseq_3.21.0/3_21_0` doit être inclus quand `nextflow run` est appelé dans le script de la tâche (voir l'étape 5 ci-dessous).
 
-Au lancement du pipeline, Nextflow tiendra compte du fichier `nextflow.config` dans le répertoire de travail ainsi que du fichier `~/.nextflow/config` (s'il existe) dans votre répertoire personnel afin de contrôler l'exécution du flux. Les pipelines nf-core ont tous une configuration par défaut, une configuration de test et des configurations de conteneurs (Singularity, Podman, etc.).
+Au lancement du pipeline, Nextflow tiendra compte du fichier `nextflow.config` dans le répertoire de travail ainsi que du fichier `~/.nextflow/config` (s'il existe) dans votre répertoire personnel afin de contrôler l'exécution du flux.
+Les pipelines nf-core ont tous une configuration par défaut, une configuration de test et des configurations de conteneurs (Singularity, Podman, etc.).
 
-### Étape 4 : Préparer les fichiers d'entrée
+### Étape 4, Préparer les fichiers d'entrée
 
 Nextflow utilise en entrée des fichiers de séquences et une feuille d'échantillons (*sample sheet*).
 Pour télécharger les fichiers de séquences nécessaires à notre exemple rnaseq, exécutez :
@@ -190,7 +194,7 @@ wget https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE
 wget https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357076_2.fastq.gz
 ```
 
-Pour préparer un exemple de feuille, copiez et collez le code suivant dans `~/scratch/nf-test/samplesheet.csv`, puis remplacez `<username>` par votre nom d'utilisateur.
+Pour préparer un exemple de feuille, copiez et collez le code suivant dans `~/scratch/nf-test/samplesheet.csv`, puis remplacez le nom de l'utilisateur par le vôtre.
 
 ```text
 sample,fastq_1,fastq_2,strandedness
@@ -206,16 +210,15 @@ RAP1_IAA_30M_REP1,/home/<username>/scratch/nf-test/input/SRR6357076_1.fastq.gz,/
 Vous pouvez bien sûr utiliser vos propres données.
 Pour en savoir plus sur l'exemple et les feuilles `rnaseq`, voir [la documentation](https://nf-co.re/rnaseq/3.2/docs/usage).
 
-### Étape 5 : Créer un script de tâche
+### Étape 5, Créer un script de tâche
 
-!!! tip
-    Voici un exemple de script à utiliser sur Fir.
-    Adaptez-le en tenant compte des éléments suivants :
-    *   le pipeline (`NFCORE_PL`) et la version (`PL_VERSION`, `FD_VERSION`)
-    *   le chemin du répertoire cache d'Apptainer (`NXF_SINGULARITY_CACHEDIR`)
-    *   le compte Slurm (`SLURM_ACCOUNT`)
-    *   la grappe (`-profile ...,fir`)
-    *   les chemins pour `--input` et `--output`
+Voici un exemple de script à utiliser sur Fir.
+Adaptez-le pour utiliser les éléments suivants :
+
+*   pipeline (`NFCORE_PL`) et version (`PL_VERSION`, `FD_VERSION`)
+*   chemin de la cache Apptainer (`NXF_SINGULARITY_CACHEDIR`)
+*   compte Slurm (`SLURM_ACCOUNT`)
+*   chemins pour `--input` et `--output`
 
 ```bash
 #!/bin/bash
@@ -234,7 +237,7 @@ export NXF_SINGULARITY_CACHEDIR=/project/<def-group>/NXF_SINGULARITY_CACHEDIR
 export SLURM_ACCOUNT=def-pname
 
 nextflow run nf-core-${NFCORE_PL}_${PL_VERSION}/${FD_VERSION}/ \
- -profile test,singularity,fir \
+ -profile test,singularity \
  --input ~/scratch/nf-test/input/samplesheet.csv --outdir ~/scratch/nf-test/output
 ```
 
@@ -245,6 +248,7 @@ Nextflow est maintenant démarré sur le nœud de calcul. Ceci achemine les tâc
 Vous pouvez suivre la progression du pipeline dans le fichier journal `nextflow_test.<job_ID>.out`. Vous pouvez également examiner les tâches dans la file d'attente Slurm avec `sq` ou `squeue -u $USER`.
 
 Pour plus d'information sur les configurations et les profils, voir :
+
 *   [Configuration](https://www.nextflow.io/docs/latest/config.html)
 *   [Configuration du pipeline](https://nf-co.re/docs/usage/getting_started/configuration#basic-configuration-profiles)
 
@@ -252,9 +256,10 @@ Pour plus d'information sur les configurations et les profils, voir :
 
 Notez que Nextflow est principalement écrit en Java, un langage qui consomme beaucoup de mémoire virtuelle. Sur certaines grappes, cela peut poser problème lors de l'exécution à partir d'un nœud de connexion.
 
-Faites attention si vous avez une configuration AWS dans votre répertoire `~/.aws`, car Nextflow pourrait signaler qu'il ne peut pas télécharger l'ensemble de données de test du pipeline avec votre identifiant par défaut.
+!!! warning
+    Prenez garde si vous avez une configuration AWS dans votre répertoire `~/.aws`, car Nextflow pourrait signaler qu'il ne peut pas télécharger l'ensemble de données de test du pipeline avec votre identifiant par défaut.
 
-### Message « unable to create native thread »
+### Message *unable to create native thread*
 
 Nous avons constaté l'erreur suivante :
 
@@ -263,13 +268,15 @@ java.lang.OutOfMemoryError: unable to create native thread: possibly out of memo
 [error][gc,task] GC Failed to create worker thread
 ```
 
-Nous croyons que l'erreur survient lorsque Java tente de créer autant de fils que le nombre de cœurs physiques de l'ordinateur.
+Nous croyons que l'erreur se produit quand Java tente de créer autant de fils que le nombre de cœurs physiques de l'ordinateur.
 Il semble que l'erreur est résolue quand `nextflow` est exécuté avec `export NXF_OPTS='-XX:ActiveProcessorCount=1'`.
 
 ### SIGBUS
 
 Des erreurs `SIGBUS` du processus principal de Nextflow ont été signalées.
 Nous soupçonnons que c'est à cause des problèmes Nextflow suivants :
+
 *   [https://github.com/nextflow-io/nextflow/issues/842](https://github.com/nextflow-io/nextflow/issues/842)
 *   [https://github.com/nextflow-io/nextflow/issues/2774](https://github.com/nextflow-io/nextflow/issues/2774)
+
 Le fait de définir la variable d'environnement `NXF_OPTS="-Dleveldb.mmap=false"` à l'exécution de `nextflow` semble résoudre le problème.

@@ -2,6 +2,19 @@
   "doc_key": "base/abaqus",
   "level": "chunk",
   "chunk_index": 6,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:21:31.304678+00:00"
+  "qa_pairs": [
+    {
+      "question": "How is an Abaqus standard analysis job configured to utilize a temporary directory for scratch files when run on a single compute node in a cluster environment?",
+      "answer": "When submitting an Abaqus standard analysis job, you can direct scratch files to a temporary directory by including `scratch=$SLURM_TMPDIR/scratch` in the `abaqus` command. The provided script also implements a mechanism to periodically save data from `$SLURM_TMPDIR` back to `$SLURM_SUBMIT_DIR` every six hours, and performs a final save upon job completion, to prevent data loss due to time limits."
+    },
+    {
+      "question": "What are the methods for specifying how Abaqus should write restart data in the input file?",
+      "answer": "You can specify how Abaqus writes restart data in the input file using one of two methods: to write restart data every N (e.g., 12) time increments, use `*RESTART, WRITE, OVERLAY, FREQUENCY=12`; alternatively, to write restart data for a total of N (e.g., 12) time increments, specify `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
+    },
+    {
+      "question": "What is the process for restarting an Abaqus standard analysis job that uses a temporary directory on a single compute node?",
+      "answer": "To restart an Abaqus standard analysis job using a temporary directory, first ensure that existing files from the previous job (e.g., `testst1*`) are copied into the `$SLURM_TMPDIR`. Then, execute the Abaqus command using `job=testst2`, `oldjob=testst1`, and an `input` file that contains `*HEADING` and `*RESTART, READ`. The script also includes periodic saving of data from the temporary directory back to the submission directory."
+    }
+  ],
+  "generated_at": "2026-05-24T00:57:46.888049+00:00"
 }

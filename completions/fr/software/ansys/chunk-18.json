@@ -2,6 +2,19 @@
   "doc_key": "fr/ansys",
   "level": "chunk",
   "chunk_index": 18,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:37:34.160758+00:00"
+  "qa_pairs": [
+    {
+      "question": "Comment devrais-je modifier le fichier `sample-restart.jou` pour redémarrer une simulation Ansys Fluent à partir d'une solution précédente?",
+      "answer": "Pour redémarrer une simulation Ansys Fluent à partir d'une solution précédente, il faut modifier le fichier `sample-restart.jou` en remplaçant `/file/read-cas-data sample` par `/file/read-cas-data sample-restart` et en commentant la ligne d'initialisation (par exemple, `; /solve/initialize/initialize-flow`). On peut aussi ajuster `/solve/dual-time-iterate` à 2 si les pas suivants sont deux fois plus rapides que le pas initial."
+    },
+    {
+      "question": "Comment calcule-t-on la durée totale d'une simulation et le nombre total de pas lorsque l'on utilise la fonction de redémarrage de solution pour Ansys Fluent, en supposant qu'on choisisse 2 pour la valeur du pas après le premier?",
+      "answer": "En supposant que la valeur 2 est choisie pour le pas après le premier, la durée totale de la simulation sera `1*Dt + 2*Nrestart*Dt`, où `Nrestart` est le nombre de redémarrages défini dans le script Slurm. Le nombre total de pas (et de fichiers de résultats générés) sera de `1 + 2*Nrestart`."
+    },
+    {
+      "question": "Quelle est la limite de temps maximale pour les tâches Slurm lorsqu'on configure un redémarrage de solution pour Ansys Fluent sur nos grappes?",
+      "answer": "La valeur pour le temps demandé dans le script Slurm, spécifiée par `--time`, peut aller jusqu'à `07-00:00` jours pour les tâches de redémarrage de solution Ansys Fluent."
+    }
+  ],
+  "generated_at": "2026-05-24T01:10:36.376319+00:00"
 }

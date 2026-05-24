@@ -60,7 +60,7 @@ Creating a tar or dar file for a large volume of data can be resource-intensive.
 === Use a terminal multiplexer === <!--T:67-->
 
 <!--T:68-->
-Archiving large file collections can take several hours or even days. Your SSH session might be interrupted before your program finishes, or you might want to close your session, keep your program running in the background, and come back to it later. Run <code>tar</code> or <code>dar</code> in [[Prolonging_terminal_sessions#Terminal_multiplexers|a terminal multiplexer]] such as <code>tmux</code> to manage these issues.
+Archiving large file collections can take several hours or even days. Your SSH session might be interrupted before your program finishes, or you might want to close your session, keep your program running in the background, and come back to it later. Run <code>tar</code> or <code>dar</code> in [[Prolonging_terminal_sessions#Terminal_multiplexers|a terminal multiplexer]] such as <code>tmux</code> or a utility such as [https://www.networkworld.com/article/967925/how-the-linux-screen-tool-can-save-your-tasks-and-your-sanity-if-ssh-is-interrupted.html <code>screen</code>] to manage these issues.
 
 === Use <code>dar</code> in non-interactive mode === <!--T:69-->
 
@@ -76,7 +76,7 @@ Tape as a storage medium has these advantages over disk and solid-state (SSD) me
 # Energy consumption per unit of data stored is effectively zero.
 
 <!--T:45-->
-Consequently we can offer much greater volumes of storage on /nearline than we can on /project.  Also, keeping inactive data ''off'' of /project reduces the load and improves its performance.
+Consequently we can offer much greater capacity of storage on /nearline than we can on /project.  Also, keeping inactive data ''off'' of /project reduces the load and backup demands and improves its performance.
 
 == How it works == <!--T:46-->
 
@@ -137,26 +137,34 @@ You can explicitly force a file to be recalled from tape without actually readin
 
 <!--T:10-->
 <tabs>
-<tab name="Béluga">
+<tab name="Fir">
 /nearline is only accessible as a directory on login nodes and on DTNs (''Data Transfer Nodes'').
 
 <!--T:11-->
-To use /nearline, just put files into your <tt>~/nearline/PROJECT</tt> directory. After a period of time (24 hours as of February 2019), they will be copied onto tape. If the file remains unchanged for another period (24 hours as of February 2019), the copy on disk will be removed, making the file virtualized on tape. 
+To use /nearline, just put files into your <code>~/nearline/PROJECT</code> directory. After a period of time (24 hours), they will be copied onto tape. If the file remains unchanged for another period (24 hours), the copy on disk will be removed, making the file virtualized on tape. 
 
 <!--T:8-->
-If you accidentally (or deliberately) delete a file from <tt>~/nearline</tt>, the tape copy will be retained for up to 60 days. To restore such a file contact [[technical support]] with the full path for the file(s) and desired version (by date), just as you would for restoring a [[Storage and file management#Filesystem quotas and policies|backup]]. Note that since you will need the full path for the file, it is important for you to retain a copy of the complete directory structure of your /nearline space. For example, you can run the command <tt>ls -R > ~/nearline_contents.txt</tt> from the <tt>~/nearline/PROJECT</tt> directory so that you have a copy of the location of all the files.
-</tab>
-
-<!--T:20-->
-<tab name="Nibi">
-/nearline service similar to that on Béluga, except:
-# It may take longer than 24 hours for the first tape copy of the data to be created.
-# The disk copy will not be erased (leaving only the tape copies) until 60 days have passed.
+If you accidentally (or deliberately) delete a file from <code>~/nearline</code>, the tape copy will be retained for up to 60 days. To restore such a file contact [[technical support]] with the full path for the file(s) and desired version (by date), just as you would for restoring a [[Storage and file management#Filesystem quotas and policies|backup]]. Note that since you will need the full path for the file, it is important for you to retain a copy of the complete directory structure of your /nearline space. For example, you can run the command <code>ls -R > ~/nearline_contents.txt</code> from the <code>~/nearline/PROJECT</code> directory so that you have a copy of the location of all the files.
 </tab>
 
 <!--T:60-->
 <tab name="Narval">
-/nearline service similar to that on Béluga.
+/nearline service similar to that on Fir, except:
+# The files on /nearline are backed-up daily, but they are not necessarily migrated to tape.
+## Only the oldest and largest files are migrated to tape.
+</tab>
+
+<!--T:20-->
+<tab name="Nibi">
+/nearline service similar to that on Fir, except:
+# It may take longer than 24 hours for the first tape copy of the data to be created.
+# The disk copy will not be erased (leaving only the tape copies) until 60 days have passed.
+</tab>
+
+<tab name="Rorqual">
+/nearline service similar to that on Fir, except:
+# Your nearline spaces are in <code>~/links/nearlines</code>.
+# As of April 2026, the files on /nearline are backed-up daily, but they are not getting migrated to tape yet.
 </tab>
 
 <!--T:17-->
@@ -165,10 +173,10 @@ HPSS is the /nearline service on Trillium.<br/>
 There are three methods to access the service:
 
 <!--T:12-->
-1. By submitting HPSS-specific commands <tt>htar</tt> or <tt>hsi</tt> to the Slurm scheduler as a job in one of the archive partitions; see [https://docs.scinet.utoronto.ca/index.php/HPSS the HPSS documentation] for detailed examples. Using job scripts offers the benefit of automating /nearline transfers and is the best method if you use HPSS regularly. Your HPSS files can be found in the $ARCHIVE directory, which is like $PROJECT but with ''/project'' replaced by ''/archive''. 
+1. By submitting HPSS-specific commands <code>htar</code> or <code>hsi</code> to the Slurm scheduler as a job in one of the archive partitions; see [https://docs.scinet.utoronto.ca/index.php/HPSS the HPSS documentation] for detailed examples. Using job scripts offers the benefit of automating /nearline transfers and is the best method if you use HPSS regularly. Your HPSS files can be found in the $ARCHIVE directory, which is like $PROJECT but with ''/project'' replaced by ''/archive''. 
 
 <!--T:13-->
-2. To manage a small number of files in HPSS, you can use the VFS (''Virtual File System'') node, which is accessed with the command <tt>salloc --time=1:00:00 -pvfsshort</tt>. Your HPSS files can be found in the $ARCHIVE directory, which is like $PROJECT but with ''/project'' replaced by ''/archive''. 
+2. To manage a small number of files in HPSS, you can use the VFS (''Virtual File System'') node, which is accessed with the command <code>salloc --time=1:00:00 -pvfsshort</code>. Your HPSS files can be found in the $ARCHIVE directory, which is like $PROJECT but with ''/project'' replaced by ''/archive''. 
 
 <!--T:14-->
 3. By using [[Globus]] for transfers to and from HPSS using the endpoint <b>alliancecan#hpss</b>. This is useful for occasional usage and for transfers to and from other sites.

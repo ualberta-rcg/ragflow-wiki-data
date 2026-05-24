@@ -2,6 +2,19 @@
   "doc_key": "fr/ansys",
   "level": "chunk",
   "chunk_index": 25,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:38:25.021942+00:00"
+  "qa_pairs": [
+    {
+      "question": "Comment configurer Fluent pour qu'il interprète une fonction définie par l'utilisateur (UDF) au moment de l'exécution sur les grappes de l'Alliance?",
+      "answer": "Pour indiquer à Fluent d'interpréter ton UDF, il faut ajouter la ligne de commande `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no` dans ton fichier de journalisation avant la lecture ou l'initialisation des fichiers de cas et de données. Assure-toi que le fichier source de ton UDF se trouve dans le même répertoire que le fichier de journalisation."
+    },
+    {
+      "question": "Quelles sont les considérations pour utiliser une fonction définie par l'utilisateur (UDF) compilée avec Ansys Fluent sur les grappes de Calcul Canada? Peut-on réutiliser une UDF compilée sur différentes grappes?",
+      "answer": "Pour utiliser une UDF compilée, tu dois la compiler au moins une fois sur une de nos grappes. Ça va créer un sous-répertoire `libudf` qui contient la bibliothèque partagée `libudf.so` nécessaire. Une fois compilée, tu peux transférer ce répertoire `libudf` vers n'importe quelle autre de nos grappes, à condition que ton compte utilise la même version du module d'environnement `StdEnv`. Pour l'utiliser, il faut charger l'UDF dans ton fichier de journalisation avec la commande `define/user-defined/compiled-functions load libudf`."
+    },
+    {
+      "question": "Pourquoi est-il crucial de paralléliser une fonction définie par l'utilisateur (UDF) lorsqu'on l'utilise avec des tâches Fluent exécutées en parallèle sur les grappes de l'Alliance?",
+      "answer": "Il est crucial de paralléliser une UDF pour des tâches Fluent en parallèle (que ce soit SMP à nœud unique ou MPI à nœuds multiples) afin d'éviter que Fluent ne roule lentement ou ne plante complètement. La parallélisation permet de contrôler quels processus exécutent des parties spécifiques du code UDF, assurant ainsi que l'UDF s'exécute efficacement en mode séquentiel et parallèle."
+    }
+  ],
+  "generated_at": "2026-05-24T01:11:34.439921+00:00"
 }

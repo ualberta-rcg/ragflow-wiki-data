@@ -2,6 +2,19 @@
   "doc_key": "fr/ansys",
   "level": "chunk",
   "chunk_index": 9,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:36:28.736901+00:00"
+  "qa_pairs": [
+    {
+      "question": "Quelles sont les étapes générales pour exécuter une simulation Ansys Fluent sur une grappe de calcul de l'Alliance?",
+      "answer": "Pour exécuter Ansys Fluent sur une grappe de calcul, vous devez d'abord préparer votre tâche sur votre ordinateur avec Ansys Workbench jusqu'à l'étape des calculs. Ensuite, exportez les fichiers de cas et de données de Fluent (souvent en format FFF-1.cas.gz et FFF-1.dat.gz) et transférez-les vers le système de fichiers /project ou /scratch de la grappe, en les renommant pour faciliter le repérage. Créez un fichier de journalisation pour charger les fichiers, lancer le solveur et enregistrer les résultats. Si la tâche échoue en raison d'un manque de licence, vous pouvez configurer le script pour qu'elle soit remise en file d'attente. Une fois la tâche terminée, téléchargez le fichier de données et importez-le dans Fluent pour analyse."
+    },
+    {
+      "question": "Qu'est-ce qu'il faut faire si une tâche Ansys Fluent ne démarre pas à cause d'un problème de licence sur une grappe de calcul?",
+      "answer": "Si une tâche Ansys Fluent ne démarre pas en raison d'un problème de licence, vous pouvez modifier votre script Slurm pour que la tâche soit remise en file d'attente, jusqu'à quatre fois. Cependant, il est crucial de vérifier les fichiers de sortie de l'ordonnanceur pour s'assurer que la remise en attente est bien due à un problème de licence et non à une défaillance de la simulation (comme une divergence). Si la simulation échoue pour d'autres raisons, annulez immédiatement la tâche avec `scancel jobid` pour éviter de gaspiller du temps de calcul et corrigez le problème."
+    },
+    {
+      "question": "Lors de la soumission de tâches Fluent sur une grappe de calcul, quelles sont les considérations pour choisir entre un script Slurm 'par nœud' et un script 'par cœur'?",
+      "answer": "Pour la plupart des tâches Fluent, il est recommandé d'utiliser le script 'par nœud' afin de minimiser le temps d'attente et de maximiser la performance en utilisant le moins de nœuds possible. Les tâches qui demandent beaucoup de cœurs CPU pourraient potentiellement avoir un temps d'attente réduit avec le script 'par cœur', mais le démarrage d’une tâche utilisant plusieurs nœuds peut être beaucoup plus long, ce qui en diminue l'intérêt. Il est également important de noter que les tâches intensives réparties sur un grand nombre de nœuds sont plus susceptibles de planter si un nœud de calcul fait défaut. Les scripts 'par nœud' utilisent la mémoire partagée pour un seul nœud et la mémoire distribuée pour plusieurs nœuds, tandis que les scripts 'par cœur' gèrent le nombre total de cœurs à travers tous les nœuds."
+    }
+  ],
+  "generated_at": "2026-05-24T01:09:14.126406+00:00"
 }

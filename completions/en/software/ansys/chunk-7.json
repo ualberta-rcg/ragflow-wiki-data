@@ -2,6 +2,19 @@
   "doc_key": "en/ansys",
   "level": "chunk",
   "chunk_index": 7,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:30:38.251610+00:00"
+  "qa_pairs": [
+    {
+      "question": "What is the recommended Slurm script for general-purpose Ansys Fluent jobs on Alliance clusters, and what are its primary resource allocation directives?",
+      "answer": "The `script-flu-bynode-intel.sh` is generally recommended for Fluent jobs to minimize solution latency and maximize performance using as few nodes as possible. Key Slurm directives in this script include `--account=def-group` for specifying the account, `--time=00-03:00` for the time limit, `--nodes=1` (though it can scale, it's a 1-node maximum on Narval for this script), `--ntasks-per-node=32` for specifying the maximum number of cores per compute node, and `--mem=0` to allocate all available memory per compute node."
+    },
+    {
+      "question": "When should an Ansys Fluent user choose the \"Multinode (by core)\" Slurm script over the \"Multinode (by node)\" script for their job submission?",
+      "answer": "An Ansys Fluent user might choose the \"Multinode (by core)\" script (e.g., `script-flu-bycore-intel.sh`) for very large jobs as it may lead to less waiting time in the queue. However, users should be aware that this approach can result in significantly longer job startup times and makes simulations more vulnerable to crashing if compute nodes fail, especially when running over an unspecified number of potentially many nodes. The \"Multinode (by node)\" script is generally preferred to minimize solution latency and maximize performance over fewer nodes."
+    },
+    {
+      "question": "How can a user configure an Ansys Fluent Slurm script to use Open MPI on the Narval cluster, and what issue might this approach help resolve?",
+      "answer": "To use Open MPI for Ansys Fluent on the Narval cluster, a user should employ a script like `script-flu-bynode-openmpi.sh`. This involves loading `StdEnv/2023` and `ansys/2023R2` (or newer versions) and explicitly exporting `OPENMPI_ROOT=$EBROOTOPENMPI`. The Fluent command itself then specifies `-mpi=openmpi`. This configuration provides a more robust alternative if Fluent encounters crashes during the initial auto mesh partitioning phase when using the standard Intel-based scripts with the parallel solver."
+    }
+  ],
+  "generated_at": "2026-05-24T01:02:13.861882+00:00"
 }

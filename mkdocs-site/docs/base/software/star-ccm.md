@@ -4,78 +4,80 @@ slug: "star-ccm"
 lang: "base"
 
 source_wiki_title: "Star-CCM+"
-source_hash: "d2c0e0dbcc6c1878b6087ec65cd7770f"
-last_synced: "2026-04-18T23:39:30.217451+00:00"
-last_processed: "2026-04-19T01:05:11.169751+00:00"
+source_hash: "cf843841508d3fe5c95c1f526d027a5a"
+last_synced: "2026-05-24T00:00:16.123503+00:00"
+last_processed: "2026-05-24T00:50:21.088569+00:00"
 
 tags:
   - software
 
 keywords:
-  - "JupyterLab"
-  - "bash script"
-  - "SBATCH directives"
-  - "PoD Key"
-  - "Siemens PoD license"
-  - "R8 module"
-  - "SLURM_SUBMIT_DIR"
-  - "StdEnv"
-  - "license server"
-  - "STAR-CCM+"
-  - "module load"
-  - "Slurm scripts"
-  - "MPI"
-  - "Parallel on Local Host"
-  - "quota space"
+  - "SLURM_TMPDIR"
+  - "graphical mode"
   - "NIBI"
-  - "Power-on-Demand license"
-  - "hidden directories"
-  - "OnDemand"
+  - "bash"
+  - "Slurm"
+  - "starccm_job"
+  - "Siemens PoD License"
+  - "Parallel on Local Host"
+  - "JupyterLab"
+  - "Terminal"
+  - "License server"
+  - "machinefile"
+  - "desktop session"
+  - "quota space"
+  - "Cluster batch job submission"
+  - "module load"
   - "TRILLIUM"
-  - "Fir/Narval/Rorqual"
-  - "job submission"
-  - "Slurm job script"
-  - "SBATCH"
-  - "JupyterHub"
   - "batch script"
-  - "StdEnv module"
-  - "starccm_job-fnr-nogpu.sh"
-  - "OnDemand desktop session"
+  - "Batch script"
+  - "starccm jobs"
+  - "PoD license"
+  - "SBATCH"
+  - "Power-on-Demand license"
+  - "OnDemand"
   - "starccm"
+  - "Open OnDemand"
+  - "Siemens PoD license"
+  - "Bash"
+  - "Slurm scripts"
+  - "slurm"
+  - "STAR-CCM+"
   - "SLURM"
   - "VncViewer"
-  - "engineering simulation"
-  - "License server"
-  - "Bash script"
+  - "StdEnv module"
+  - "temporary output files"
+  - "StdEnv"
+  - "MPI"
 
 questions:
-  - "What is STAR-CCM+ and what types of engineering simulations can it model?"
-  - "What are the two licensing options available for researchers, and how do their network and firewall requirements differ?"
-  - "How must a user configure their account files and Slurm script environment variables to run a job using a Power-on-Demand (PoD) license?"
-  - "Why is it necessary to periodically remove the hidden directories named `~/.star-version_number`?"
-  - "What specific command should be executed to delete the accumulated Star-CCM+ files and free up quota space?"
-  - "Which `#SBATCH` parameters are configured in the provided Slurm script example?"
-  - "How are the Slurm job resources, such as nodes, memory, and CPU cores, configured in the script?"
-  - "How does the script differentiate between Intel and AMD CPUs to configure the appropriate MPI and FlexiBLAS settings?"
-  - "What is the difference in the STAR-CCM+ execution command when using a Siemens Power-on-Demand (PoD) license key versus a local institutional license server?"
-  - "What specific environment variables and software components are being passed to the execution command in the first part of the text?"
-  - "For which specific high-performance computing clusters and hardware configurations is this bash script intended?"
-  - "What are the exact Slurm resource allocation parameters requested in the script's header?"
-  - "How are the computational resources, such as CPU cores and memory, specified in the SLURM batch script for the STAR-CCM+ job?"
-  - "What is the difference in the execution command when using a Siemens Power-on-Demand (PoD) license key versus an institutional license server?"
-  - "How does the script dynamically adjust the MPI and FLEXIBLAS environment variables based on the detected CPU vendor?"
-  - "How do you configure the license settings and server ports in the script to run STAR-CCM+?"
-  - "Why does the provided script include a while loop that attempts to start the STAR-CCM+ job up to five times?"
-  - "What are the recommended methods and necessary configuration steps for running STAR-CCM+ in graphical mode?"
-  - "What is the purpose of the variable \"e\" and why must its value remain unchanged?"
-  - "How does the script configure the naming convention for the Slurm job output file?"
-  - "Which specific software environments and versions are loaded to run the application?"
-  - "Which StdEnv module versions support the loading of R8 module versions?"
-  - "What is the first step required to start an OnDemand desktop session?"
-  - "What are the specific URLs provided for accessing the NIBI and TRILLIUM systems via OnDemand?"
-  - "How do the terminal commands for launching STAR-CCM+ differ between version 18.04.008 (or newer) and the older 15.04.010 to 17.06.008 version range?"
-  - "What are the specific steps required to configure and run STAR-CCM+ with multiple cores within a JupyterLab session?"
-  - "What is the legacy procedure for connecting to a node and launching the software using a VncViewer client?"
+  - "What is the STAR-CCM+ software suite and what types of engineering simulations can it model?"
+  - "What are the differences in setup requirements between using a Power-on-Demand (PoD) license and a locally hosted institutional license server?"
+  - "How must a user configure their account files and environment variables to successfully submit a cluster batch job using a PoD license?"
+  - "Why do starccm jobs consume valuable quota space over time?"
+  - "What command can be used to safely remove the accumulated temporary starccm files?"
+  - "What job scheduling system is used in the provided script example to run starccm jobs?"
+  - "How does the script configure the SLURM job resources and load the necessary STAR-CCM+ modules?"
+  - "How does the script differentiate between Intel and AMD CPUs to apply specific MPI and FlexiBLAS optimizations?"
+  - "What are the differences in the STAR-CCM+ execution command when using a Siemens Power-on-Demand (PoD) license versus a local institutional license?"
+  - "What environment variables and parameters are used to configure the main execution command for the simulation?"
+  - "Which specific high-performance computing clusters is this batch script intended for, and does it utilize GPUs?"
+  - "How are the SLURM resource allocations, specifically the billing account and time limit, defined in the script header?"
+  - "How does the script configure the SLURM resource allocations, such as nodes, cores, and memory, for the STAR-CCM+ job?"
+  - "What is the difference in how the script handles a Siemens Power-on-Demand (PoD) license versus an institutional license server?"
+  - "How does the script dynamically adjust the MPI and FLEXIBLAS environment variables based on whether the CPU vendor is Intel or AMD?"
+  - "How are the license server settings and PoD key configured for a STAR-CCM+ batch job?"
+  - "What workaround does the script use to handle potential license checkout failures when starting the software?"
+  - "What are the recommended methods and required configurations for running STAR-CCM+ in graphical mode?"
+  - "How does the script configure the output file for the SLURM job?"
+  - "Which directory does the script change to before executing the main tasks?"
+  - "What specific software modules and versions are being loaded for this job?"
+  - "Which StdEnv module versions allow the loading of the i> and R8 module versions?"
+  - "What action must a user take to start an OnDemand desktop session?"
+  - "What are the specific URLs provided for accessing the NIBI and TRILLIUM OnDemand links?"
+  - "What are the specific terminal commands required to load and run different versions of STAR-CCM+ serially or in parallel?"
+  - "What are the step-by-step instructions for starting and configuring a multi-core STAR-CCM+ session using JupyterLab?"
+  - "How can a user connect to a node and launch STAR-CCM+ using the legacy VncViewer method?"
 
 status:
   downloaded: true
@@ -86,12 +88,12 @@ status:
   qa_generated: false
 ---
 
-[STAR-CCM+](https://mdx.plm.automation.siemens.com/star-ccm-plus) is a multidisciplinary engineering simulation suite to model acoustics, fluid dynamics, heat transfer, rheology, multiphase flows, particle flows, solid mechanics, reacting flows, electrochemistry, and electromagnetism. It is developed by Siemens.
+STAR-CCM+ is a multidisciplinary engineering simulation suite developed by Siemens to model acoustics, fluid dynamics, heat transfer, rheology, multiphase flows, particle flows, solid mechanics, reacting flows, electrochemistry, and electromagnetics.
 
-## License limitations
-The Alliance is authorized to host STAR-CCM+ binaries on its clusters. Researchers will need to purchase a license from [Siemens](https://www.plm.automation.siemens.com/global/en/buy/) in order to use the software. There are two [options](https://community.sw.siemens.com/s/article/How-faculty-members-in-academic-institutions-can-get-access-to-Simcenter-STAR-CCM). Most research groups will purchase a [Power-on-Demand (PoD)](https://community.sw.siemens.com/s/question/0D54O00006FKu39SAD/licensing-how-power-on-demand-pod-licensing-for-starccm-works) license which simply connects to a remotely hosted license server and requires only a license key to use. The second option is more complex and requires setting up and then managing a locally hosted institutional license server along with the purchase of a Simcenter STAR-CCM+ academic pack. For this to work, the local firewall will need to be opened by the local network administrator so the servers flex and static vendor ports are both reachable from the NAT nodes of the Alliance cluster(s) where jobs are to be run. To get a list of NAT nodes [submit a ticket](../support/technical_support.md) including the names of the Alliance cluster(s) you will be using, your license server hostname or IP address, and its flex and static vendor port numbers. The outbound firewall from the cluster(s) may also need to be opened. This will be done automatically for you as part of the ticket process if it's determined to be required.
+# License limitations
+The Alliance is authorized to host STAR-CCM+ binaries on its clusters. Researchers will need to purchase a license from [Siemens](https://www.plm.automation.siemens.com/global/en/buy/) in order to use the software. There are two [options](https://community.sw.siemens.com/s/article/How-faculty-members-in-academic-institutions-can-get-access-to-Simcenter-STAR-CCM). Most research groups will purchase a [Power-on-Demand (PoD) license](https://community.sw.siemens.com/s/question/0D54O00006FKu39SAD/licensing-how-power-on-demand-pod-licensing-for-starccm-works) which simply connects to a remotely hosted license server and requires only a license key to use. The second option is more complex and requires setting up and then managing a locally hosted institutional license server along with the purchase of a Simcenter STAR-CCM+ academic pack. For this to work, the local firewall of your STAR-CCM+ license server will need to be reconfigured. You will need to ask the administrator of your license server at your institution to open its flex and static vendor ports so they are BOTH reachable from the Network Address Translation (NAT) nodes for each of the Alliance clusters that you will be using. To get a list of NAT nodes for your administrator [submit a ticket](../support/technical_support.md) including 1) the names of ALL of the Alliance clusters you will be using 2) the hostname (FQDN) or public IP address of your STAR-CCM+ license server along with its flex and static vendor port numbers.
 
-### Configuring your account
+## Configuring your account
 To configure your account to use a license server with the Star-CCM+ module, create a license file `$HOME/.licenses/starccm.lic` with the following layout:
 
 ```text title="starccm.lic"
@@ -101,7 +103,7 @@ USE_SERVER
 
 where `<server>` and `<flexport>` should be changed to specify the hostname (or IP address) and the static vendor port of the license server respectively. Note that manually setting `CDLMD_LICENSE_FILE` equal to `<port>@<server>` in your Slurm script is not required since this variable is automatically set whenever a starccm module is loaded.
 
-#### PoD license file
+### PoD license file
 To run jobs, researchers with a Power-on-Demand (PoD) license must manually set the `LM_PROJECT` environment variable to your *22digit-PoD-License-Key* as shown in the sample Slurm scripts below. The following `~/.licenses/starccm.lic` file must also be configured on each cluster where jobs are to be run:
 
 ```text title="starccm.lic"
@@ -109,13 +111,13 @@ SERVER flex.cd-adapco.com ANY 1999
 USE_SERVER
 ```
 
-## Cluster batch job submission
-Before submitting jobs on a cluster, you must set up a `~/.licenses/starccm.lic` file on each cluster where you will run jobs. If you have a PoD license then the required firewall changes have already been done on all of the Alliance clusters. If however you will be using a local institutional license server then you will need to [submit a problem ticket](../support/technical_support.md) to request the one-time network firewall changes be made between the cluster(s) and your local license server. If you have problems getting the licensing to work then try removing or renaming file `~/.flexlmrc` since previous search paths and/or license server settings may be stored in it.
+# Cluster batch job submission
+Before submitting jobs on a cluster, you must set up a `~/.licenses/starccm.lic` file on each cluster where you will run jobs. If you have a PoD license, then the required firewall changes have already been made on all of the Alliance clusters. If however, you will be using a local institutional license server, then you will need to [submit a problem ticket](../support/technical_support.md) to request the one-time network firewall changes be made between the cluster(s) and your local license server. If you have problems getting the licensing to work, then try removing or renaming file `~/.flexlmrc` since previous search paths and/or license server settings may be stored in it.
 
 !!! warning
-    Temporary output files from starccm jobs runs may accumulate in hidden directories named `~/.star-version_number` consuming valuable quota space. These can be removed by periodically running `rm -ri ~/.starccm*` and replying yes when prompted.
+    Temporary output files from starccm jobs runs may accumulate in hidden directories named `~/.star-version_number`, consuming valuable quota space. These can be removed by periodically running `rm -ri ~/.starccm*` and replying yes when prompted.
 
-### Slurm scripts
+## Slurm scripts
 
 === "Nibi"
     ```bash title="starccm_job-nibi-nogpu.sh"
@@ -186,7 +188,6 @@ Before submitting jobs on a cluster, you must set up a `~/.licenses/starccm.lic`
        starccm+ -jvmargs "-Xmx4G -Djava.io.tmpdir=$SLURM_TMPDIR" -batch $BATCH_CMD -np $NCORE -nbuserdir $SLURM_TMPDIR -machinefile $SLURM_TMPDIR/machinefile $JAVA_FILE $SIM_FILE $STAR_MPI $STAR_UCX $STAR_FABRIC $STAR_FLEXIBLAS $STAR_PRELOAD
     fi
     ```
-
 === "Fir/Narval/Rorqual"
     ```bash title="starccm_job-fnr-nogpu.sh"
     #!/bin/bash
@@ -246,7 +247,6 @@ Before submitting jobs on a cluster, you must set up a `~/.licenses/starccm.lic`
        starccm+ -jvmargs "-Xmx4G -Djava.io.tmpdir=$SLURM_TMPDIR" -batch $BATCH_CMD -np $NCORE -nbuserdir $SLURM_TMPDIR -machinefile $SLURM_TMPDIR/machinefile $SIM_FILE $STAR_MPI $STAR_UCX
     fi
     ```
-
 === "Trillium"
     ```bash title="starccm_job-trillium-nogpu.sh"
     #!/bin/bash
@@ -318,12 +318,12 @@ Before submitting jobs on a cluster, you must set up a `~/.licenses/starccm.lic`
     exit $RET
     ```
 
-## Graphical use
-To run starccm+ in graphical mode, it is recommended to use an [OnDemand](https://docs.alliancecan.ca/wiki/nibi#access_through_open_ondemand_(ood)) or JupyterLab system to start a remote desktop. In addition to configuring `~/.licenses/starccm.lic`, research groups with a POD license should also run `export LM_PROJECT='22digit-PoD-License-Key'` before starting `starccm+` as shown below. Additional command-line options such as **-power** may also need to be appended depending on your license type. Note that running `module avail starccm` will display all *mixed* and *R8* versions that are available to load within the StdEnv/version you currently have loaded (e.g., 2020 or 2023). Alternatively, running `module spider starccm` will show all *mixed* and *R8* module versions available to load within both StdEnv module versions that could be loaded (e.g., 2020 and 2023).
+# Graphical use
+To run starccm+ in graphical mode, it is recommended to use an [OnDemand](https://docs.alliancecan.ca/wiki/nibi.md#access-through-open-ondemand-ood) or JupyterLab system to start a remote desktop. In addition to configuring `~/.licenses/starccm.lic`, research groups with a POD license should also run `export LM_PROJECT='22digit-PoD-License-Key'` before starting `starccm+`. Additional command-line options such as **-power** may also need to be appended depending on your license type. Note that running `module avail starccm` will display all *mixed* and *R8* versions that are available to load within the StdEnv/version you currently have loaded (e.g., 2020 or 2023). Alternatively, running `module spider starccm` will show all *mixed* and *R8* module versions available to load within both StdEnv module versions that could be loaded (e.g., 2020 and 2023).
 
-### OnDemand
+## OnDemand
 1.  To start an OnDemand desktop session click one of the following OnDemand links:
-    *   [NIBI](https://docs.alliancecan.ca/wiki/nibi#access_through_open_ondemand_(ood)): `https://ondemand.sharcnet.ca`
+    *   [NIBI](https://docs.alliancecan.ca/wiki/nibi.md#access-through-open-ondemand-ood): `https://ondemand.sharcnet.ca`
     *   TRILLIUM: `https://ondemand.scinet.utoronto.ca`
 2.  Open a new terminal window in your desktop and run one of:
     *   **STAR-CCM+ 18.04.008 (or newer versions)**
@@ -331,27 +331,27 @@ To run starccm+ in graphical mode, it is recommended to use an [OnDemand](https:
         *   `module load starccm-mixed/20.06.010` **OR** `starccm/20.06.010-R8`
         *   `starccm+ -rr server` (Process Options="Serial")
         *   `starccm+ -rr server -np 2 -mpi openmpi40` (Process Options="Parallel on Local Host")
-    *   **STAR-CCM+ 15.04.010 -> 17.06.008 (version range)**
-        *   `module load StdEnv/2020` (retired)
+    *   **STAR-CCM+ 15.04.010** &#8594; **17.06.008 (version range)**
+        *   `module load StdEnv/2020`
         *   `module load starccm-mixed/17.06.008` **OR** `starccm/17.06.008-R8`
         *   `starccm+` (Process Options="Serial")
         *   `starccm+ -np 2` (Process Options="Parallel on Local Host")
 
-### JupyterLab
+## JupyterLab
 1.  Start a JupyterHub desktop session by clicking one of the following JupyterHub links:
     *   FIR: `https://jupyterhub.fir.alliancecan.ca`
     *   NARVAL: `https://portail.narval.calculquebec.ca/`
     *   RORQUAL: `https://jupyterhub.rorqual.alliancecan.ca`
-2.  Click the hexagon-shaped **Software Modules** gear icon located at the bottom of the leftmost vertical icon selector menu.
-3.  Highlight a starccm module such as `starccm-mixed/20.06.010` **OR** `starccm/20.06.010-R8` and click **Load**.
-4.  Click the rectangular `StarCCM+ Mixed(VNC)` **OR** `StarCCM (VNC)` icon that appears in desktop.
-5.  To run StarCCM+ with multiple cores for compute purposes:
-    *   Click **File -> New** and a *Create a File* configurator panel should appear.
+2.  Click the Software Modules gear icon located at the bottom of the left-hand vertical icon selector menu.
+3.  Highlight a starccm module such as `starccm-mixed/20.06.010` **OR** `starccm/20.06.010-R8` and click Load.
+4.  Click the `StarCCM+ Mixed(VNC)` **OR** `StarCCM (VNC)` icon that appears in the desktop environment.
+5.  To run StarCCM+ with multiple cores for compute purposes;
+    *   Click File -> New and a *Create a File* configurator panel should appear.
     *   Change the default Serial Process Option by instead ticking the **Parallel on Local Host** radio button.
     *   Add `-mpi openmpi40` to the end of the **Command:** string located at the bottom of the panel.
     *   Finally, click the **OK** button and the starccm+ GUI should appear.
 
-### VncViewer
+## VncViewer
 These instructions are retained for legacy purposes only:
 
 1.  Connect with a VncViewer client to a login or compute node by following [TigerVNC](../interactive/vnc.md).
@@ -360,7 +360,7 @@ These instructions are retained for legacy purposes only:
         *   `module load StdEnv/2023` (default)
         *   `module load starccm-mixed/20.06.010` **OR** `starccm/20.06.010-R8`
         *   `starccm+ -rr server` **OR** `starccm+ -rr server -np 2 -mpi openmpi40`
-    *   **STAR-CCM+ 15.04.010 -> 17.06.008 (version range)**
-        *   `module load StdEnv/2020` (retired)
+    *   **STAR-CCM+ 15.04.010** &#8594; **17.06.008 (version range)**
+        *   `module load StdEnv/2020`
         *   `module load starccm-mixed/17.06.008` **OR** `starccm/17.06.008-R8`
         *   `starccm+`

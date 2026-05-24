@@ -2,6 +2,19 @@
   "doc_key": "en/ansys",
   "level": "chunk",
   "chunk_index": 27,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:33:02.945380+00:00"
+  "qa_pairs": [
+    {
+      "question": "How can an Ansys Workbench job be submitted to a queue using a Slurm script on an Alliance cluster?",
+      "answer": "Before submitting an Ansys Workbench job, it must be initialized once by opening an OnDemand desktop, navigating to the project directory, removing the `_ProjectScratch` directory, loading the Ansys module, and opening the Workbench GUI with `runwb2 -f YOURPROJECT.wbpj`. Inside Workbench, right-click `Model` and select `Reset`, then `File -> Save` and `File -> Exit`, choosing `No` when prompted to save modified project. After these steps, a customized Slurm script can be submitted using the `sbatch script-name.sh` command."
+    },
+    {
+      "question": "What is the procedure for generating an input file for Ansys Mechanical (APDL) jobs?",
+      "answer": "To generate an input file for Ansys Mechanical (APDL) jobs, you can use your interactive Workbench Mechanical session. Click `Solution -> Tools -> Write Input Files`, then specify `File name:` as `YOURAPDLFILE.inp` and select `Save as type:` as `APDL Input Files (*.inp)`."
+    },
+    {
+      "question": "Why might a user want to change the `Save(Overwrite=True)` setting to `Save(Overwrite=False)` in a Workbench Slurm script?",
+      "answer": "Changing `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of a Workbench Slurm script prevents the solution from being overwritten when a job successfully completes. This is particularly useful for performing scaling tests, as it allows users to determine how well the simulation scales when the number of tasks (`#SBATCH --ntasks`) is increased without overwriting the initialized solution from each test job."
+    }
+  ],
+  "generated_at": "2026-05-24T01:05:11.726750+00:00"
 }

@@ -2,6 +2,19 @@
   "doc_key": "en/ansys",
   "level": "chunk",
   "chunk_index": 9,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:30:52.693582+00:00"
+  "qa_pairs": [
+    {
+      "question": "What are the Slurm script requirements for running a multinode Fluent job on the Narval cluster using an OpenMPI configuration?",
+      "answer": "For a multinode Fluent job on the Narval cluster with OpenMPI, the Slurm script specifies directives such as `--nodes=1` (or more), `--ntasks-per-node=64` (maximum for Narval), `--mem=0` to allocate all memory per compute node, and `--cpus-per-task=1`. It loads `StdEnv/2023` and `ansys/2023R2` (or newer), exports `OPENMPI_ROOT`, and sets `FI_PROVIDER=verbs` when running Fluent with `-mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID`."
+    },
+    {
+      "question": "How do you configure a Slurm script to run a Fluent simulation on the Trillium cluster in a multinode (by node) setup?",
+      "answer": "To run a Fluent simulation on the Trillium cluster in a multinode setup, the Slurm script includes `#SBATCH` directives such as `--nodes=1` (or more) and `--ntasks-per-node=16` (maximum 192 on Trillium). It loads `StdEnv/2023` and `ansys/2025R2.04` (only 2025R2 or newer works on Trillium). The script also includes checks to create symbolic links for `.ansys`, `.fluentconf`, and `.flrecent` in the user's `$HOME` directory pointing to `$SCRATCH` if they don't exist, which is crucial for job execution. Fluent is executed with `-mpi=intel -pib -cnf=$SLURM_SUBMIT_DIR/machinefile-$SLURM_JOB_ID`."
+    },
+    {
+      "question": "What is the primary difference in MPI configuration for running multinode Fluent jobs on the Narval cluster compared to the Trillium cluster, based on the provided Slurm scripts?",
+      "answer": "The primary difference in MPI configuration is that multinode Fluent jobs on the Narval cluster are set up to use OpenMPI, as indicated by `export OPENMPI_ROOT=$EBROOTOPENMPI` and the Fluent command using `-mpi=openmpi`. Conversely, on the Trillium cluster, multinode Fluent jobs are configured for Intel MPI, with the Fluent command specifying `-mpi=intel`."
+    }
+  ],
+  "generated_at": "2026-05-24T01:02:39.684293+00:00"
 }

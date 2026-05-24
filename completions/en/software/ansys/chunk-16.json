@@ -2,6 +2,19 @@
   "doc_key": "en/ansys",
   "level": "chunk",
   "chunk_index": 16,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:31:43.405241+00:00"
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the `script-flu-bycore+restart.sh` Slurm script for Ansys Fluent?",
+      "answer": "This Slurm script is designed to automate restarting very large Ansys Fluent simulations that require more than the typical seven-day maximum runtime window available on most Alliance clusters. It manages job restarts from the most recent saved time step files, using a 'by core' allocation strategy."
+    },
+    {
+      "question": "How do users configure and manage solution restarts for Ansys Fluent simulations using the `script-flu-bycore+restart.sh` Slurm script?",
+      "answer": "Users must prepare a working set of `sample.cas`, `sample.dat`, and `sample.jou` files. They also need to create a restart journal file (`sample-restart.jou`) that reads `sample-restart.cas-data` and comments out the initialization line. The script utilizes the Slurm job array (`#SBATCH --array=1-5%1`) to define the number of solution restarts. For the initial run, it uses `MYJOUFILE`, and for subsequent runs, it uses `MYJOUFILERES` after creating symbolic links to the most recent output case and data files."
+    },
+    {
+      "question": "What are the essential Slurm parameters that users need to configure when submitting an Ansys Fluent job with solution restart using the `script-flu-bycore+restart.sh` script?",
+      "answer": "Users must configure the `#SBATCH --account` for their project, `#SBATCH --time` to set the time limit for each job array task, `#SBATCH --ntasks` for the total number of cores across all nodes, `#SBATCH --mem-per-cpu` for memory allocation per core, and `#SBATCH --array` to specify the desired number of solution restarts (e.g., `1-5%1` for 5 attempts). Other parameters like `--nodes` and `--cpus-per-task` are also important but may have default values or specific recommendations."
+    }
+  ],
+  "generated_at": "2026-05-24T01:03:39.336551+00:00"
 }

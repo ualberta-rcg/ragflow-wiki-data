@@ -2,6 +2,19 @@
   "doc_key": "en/ansys",
   "level": "chunk",
   "chunk_index": 24,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:32:41.196910+00:00"
+  "qa_pairs": [
+    {
+      "question": "What steps are required to initialize an Ansys Workbench job before submitting it to a Slurm queue on a cluster?",
+      "answer": "To initialize an Ansys Workbench job before submitting it to a Slurm queue, first open an OnDemand desktop on the target cluster (e.g., Nibi). In a terminal window, navigate to your project directory, remove the old `_ProjectScratch` cache, and load the appropriate Ansys module (e.g., `ansys/2025R2.04`). Open the Workbench GUI with your project file by issuing `runwb2 -f YOURPROJECT.wbpj`, answering 'No' if prompted to recover the project. Then, in the Project Schematic window, right-click on 'Model', select 'Reset', and confirm the data deletion. Finally, select 'File -> Save' and then 'File -> Exit' from the top menu, choosing 'No' when asked to save modifications upon exiting."
+    },
+    {
+      "question": "What are the recommended methods for running Ansys Workbench simulations on an Alliance cluster, and which method is considered more intuitive for users?",
+      "answer": "Users can run Ansys Workbench simulations on an Alliance cluster either by submitting jobs to the queue using Slurm scripts or by running them directly from the Workbench native GUI within an OnDemand desktop session. Running simulations directly from the Workbench GUI is generally considered a more intuitive option, especially since OnDemand desktop sessions can now reserve compute nodes with up to 96 cores, 768GB memory, and 8 hours of runtime."
+    },
+    {
+      "question": "When performing scaling tests for an Ansys Workbench simulation submitted via a Slurm script, how can one prevent the solution from being overwritten after the job successfully completes?",
+      "answer": "To prevent the solution from being overwritten after an Ansys Workbench job successfully completes, which is useful for scaling tests, a user should modify the last line of their Slurm script. Specifically, change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj` command."
+    }
+  ],
+  "generated_at": "2026-05-24T01:04:45.113763+00:00"
 }

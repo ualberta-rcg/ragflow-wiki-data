@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Comment procède-t-on pour installer les outils nf-core sur un nœud de connexion d'un cluster d'Alliance?",
-      "answer": "Pour installer les outils nf-core, il faut d'abord se connecter à un nœud de connexion. Ensuite, on exécute les commandes suivantes dans l'ordre : `module purge`, `module load python/3.11`, `module load rust`, `module load postgresql`, `python -m venv nf-core-env`, `source nf-core-env/bin/activate`, et finalement `python -m pip install nf_core==2.13`. Cette installation, qui utilise `pip` pour les paquets Python, peut prendre quelques minutes."
+      "question": "Où est-ce qu'on devrait stocker les images de conteneurs pour Nextflow quand on utilise Apptainer sur les grappes d'Alliance, pis pourquoi?",
+      "answer": "Les images de conteneurs doivent être stockées dans le répertoire désigné par la variable d'environnement `$NXF_SINGULARITY_CACHEDIR`, idéalement dans l'espace `/project/<def-group>`. On évite de les mettre dans le répertoire personnel (`$HOME`) parce qu'elles sont généralement très volumineuses et pourraient saturer l'espace disponible. Les stocker dans `/project` permet aussi de les partager facilement avec les membres de votre groupe, réduisant la duplication et l'utilisation d'espace."
     },
     {
-      "question": "Pourquoi est-ce recommandé de stocker les images Apptainer de Nextflow dans le répertoire /project plutôt que dans mon répertoire personnel, et comment configurer ce cache?",
-      "answer": "Il est recommandé de stocker les images Apptainer de Nextflow dans le répertoire `/project` parce que ces images sont généralement volumineuses, et le répertoire personnel (`$HOME`) a une capacité limitée. Utiliser `/project` permet également de partager ce dossier avec les membres de votre groupe pour éviter la duplication et économiser de l'espace. Pour configurer le cache, vous devez créer un répertoire et définir la variable d'environnement `NXF_SINGULARITY_CACHEDIR` comme suit : `mkdir /project/<votre_groupe_def>/NXF_SINGULARITY_CACHEDIR` et `export NXF_SINGULARITY_CACHEDIR=/project/<votre_groupe_def>/NXF_SINGULARITY_CACHEDIR`. Vous pouvez ajouter la commande `export` à votre fichier `~/.bashrc` pour plus de commodité."
+      "question": "Quelles sont les étapes pour télécharger le pipeline nf-core `rnaseq` et ses images de conteneurs sur les systèmes d'Alliance?",
+      "answer": "Pour télécharger le pipeline nf-core `rnaseq` et ses images de conteneurs, il faut d'abord définir les variables `NFCORE_PL=rnaseq` et `PL_VERSION=3.21.0`. Ensuite, on doit charger les modules `nextflow` et `apptainer`. Après avoir créé un répertoire de cache pour les images (par exemple, `/project/<def-group>/NXF_SINGULARITY_CACHEDIR`) et défini la variable d'environnement `NXF_SINGULARITY_CACHEDIR` en conséquence, on se place dans un répertoire de travail comme `~/scratch/nf-test` et on lance la commande `nf-core download --container-cache-utilisation amend --container-system singularity --compress none -l docker.io -r ${PL_VERSION} -p 6 ${NFCORE_PL}`. Il faut répondre 'Y' à la question sur l'inclusion des fichiers de configuration par défaut."
     },
     {
-      "question": "Quand on télécharge un pipeline nf-core comme `rnaseq` en utilisant la commande `nf-core download`, qu'est-ce qui est spécifiquement téléchargé et où sont stockés ces différents éléments?",
-      "answer": "Lorsque vous exécutez la commande `nf-core download` pour un pipeline tel que `rnaseq`, deux composantes principales sont téléchargées. Premièrement, les fichiers des images du conteneur sont placés dans le répertoire spécifié par la variable d'environnement `$NXF_SINGULARITY_CACHEDIR`. Deuxièmement, les fichiers du pipeline eux-mêmes, incluant sa version spécifique, sont stockés dans un sous-répertoire de votre dossier de travail, par exemple `~/scratch/nf-test/nf-core-rnaseq_3.21.0/3_21_0`."
+      "question": "Quels types de fichiers d'entrée sont requis par Nextflow, pis comment on prépare ces fichiers pour le pipeline `rnaseq`?",
+      "answer": "Nextflow utilise des fichiers de séquences et une feuille d'échantillons (aussi appelée 'sample sheet') comme entrées. Pour l'exemple du pipeline `rnaseq`, on prépare les fichiers de séquences en téléchargeant des fichiers `.fastq.gz` via `wget` depuis un dépôt de données de test. Ensuite, on crée manuellement un fichier `samplesheet.csv` qui contient les informations sur les échantillons et les chemins d'accès à ces fichiers de séquences, en s'assurant de remplacer `<username>` par son propre nom d'utilisateur."
     }
   ],
-  "generated_at": "2026-04-26T01:04:28.335963+00:00"
+  "generated_at": "2026-05-24T01:27:26.301129+00:00"
 }

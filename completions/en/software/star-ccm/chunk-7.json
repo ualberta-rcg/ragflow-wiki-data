@@ -4,17 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "What are the `FLEXPORT`, `VENDPORT`, and `LICSERVER` variables used for when submitting a STAR-CCM+ job on the Trillium cluster?",
-      "answer": "In the Trillium Slurm script for STAR-CCM+, these variables specify the static flex port, static vendor port, and hostname of the external license server, respectively, for licensing purposes."
+      "question": "What are the `FLEXPORT`, `VENDPORT`, and `LICSERVER` variables used for in the Trillium Slurm script for STAR-CCM+?",
+      "answer": "In the Trillium Slurm script for STAR-CCM+, `FLEXPORT` specifies the server's static flex port, `VENDPORT` specifies the server's static vendor port, and `LICSERVER` specifies the license server's hostname."
     },
     {
-      "question": "How is the `CDLMD_LICENSE_FILE` environment variable configured in the Trillium Slurm script when explicitly defining STAR-CCM+ license server settings?",
-      "answer": "The `CDLMD_LICENSE_FILE` environment variable is explicitly set to `$FLEXPORT@127.0.0.1`, directing the license manager to look for the license server locally via the defined flex port, typically facilitated by an SSH tunnel."
+      "question": "How is the `CDLMD_LICENSE_FILE` environment variable configured for STAR-CCM+ on the Trillium cluster?",
+      "answer": "The `CDLMD_LICENSE_FILE` environment variable is set to \"$FLEXPORT@127.0.0.1\" on the Trillium cluster, using the static flex port specified by `FLEXPORT`."
     },
     {
-      "question": "What is the purpose of the `ssh` command with port forwarding (`ssh tri-gw -L ... -N -f`) within a STAR-CCM+ Slurm script on the Trillium cluster?",
-      "answer": "The `ssh` command establishes an SSH tunnel from the Trillium cluster's gateway (`tri-gw`) to the specified `LICSERVER`, forwarding both the `FLEXPORT` and `VENDPORT`. This tunnel allows the STAR-CCM+ job on the cluster to communicate securely with the remote license server for software authorization."
+      "question": "What is the purpose of the `ssh` command `ssh tri-gw -L $FLEXPORT:$LICSERVER:$FLEXPORT -L $VENDPORT:$LICSERVER:$VENDPORT -N -f` in the Trillium Slurm script for STAR-CCM+?",
+      "answer": "This `ssh` command establishes local port forwarding through `tri-gw` to the specified license server (`LICSERVER`) for both the flex port (`FLEXPORT`) and the vendor port (`VENDPORT`), allowing the Trillium cluster to reach the license server for STAR-CCM+."
     }
   ],
-  "generated_at": "2026-04-19T02:29:13.253632+00:00"
+  "generated_at": "2026-05-24T01:34:07.941449+00:00"
 }

@@ -2,6 +2,19 @@
   "doc_key": "base/abaqus",
   "level": "chunk",
   "chunk_index": 20,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:23:11.636189+00:00"
+  "qa_pairs": [
+    {
+      "question": "What options are available to prevent Abaqus jobs from waiting indefinitely for a license on an Alliance cluster, thereby wasting resources?",
+      "answer": "Users have two primary options: first, they can create an `abaqus_v6.env` file in their submit directory containing `lmlicensequeuing=OFF`, which will cause the job to terminate immediately if licenses are unavailable. Second, they can specify a finite wait time in minutes, for example, `lmhanglimit=1`, in the `abaqus_v6.env` file. If sufficient licenses do not become available within this specified time, the job will be dequeued and terminated by Slurm."
+    },
+    {
+      "question": "What are the consequences of an Abaqus job being queued for a license on an Alliance cluster?",
+      "answer": "When an Abaqus job is queued for a license, it enters a \"Running\" state from the perspective of the Slurm scheduler. This means the job will sit idle on a compute node, consuming available resources and depreciating the user's fair share level, as if it were actively performing computations, even though it is just waiting for a license."
+    },
+    {
+      "question": "How can users effectively optimize the memory and CPU specifications for their Abaqus Slurm jobs on Alliance clusters?",
+      "answer": "For completed jobs, users can use `seff JobNumber` to check \"Memory Utilized,\" \"Memory Efficiency,\" \"CPU (time) Utilized,\" and \"CPU Efficiency.\" If memory or CPU efficiency is below approximately 90%, the `#SBATCH --mem=` or `#SBATCH --cpus-per-task=` settings in the Slurm script should be adjusted. For running jobs, `srun --overlap --jobid=JOBID --pty top -d 5 -u $USER` allows users to monitor `%CPU`, `%MEM`, and `RES` for Abaqus processes on the compute node, helping to identify and tune resource usage."
+    }
+  ],
+  "generated_at": "2026-05-24T00:59:49.660834+00:00"
 }

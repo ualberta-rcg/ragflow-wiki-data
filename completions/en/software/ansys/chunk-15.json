@@ -2,6 +2,19 @@
   "doc_key": "en/ansys",
   "level": "chunk",
   "chunk_index": 15,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:31:36.179089+00:00"
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of the 'Multinode (by node + restart)' Slurm script for Ansys Fluent jobs on Alliance clusters?",
+      "answer": "This script automates restarting very large Ansys Fluent jobs that might require more than the typical seven-day maximum runtime available on most clusters. It restarts simulations from the most recent saved time step files, allowing long computations to be completed iteratively."
+    },
+    {
+      "question": "What preparation steps are required for the journal files and the simulation case to enable the restart functionality in the Ansys Fluent Slurm script?",
+      "answer": "To enable restart functionality, you must prepare an initial `sample.jou` file with `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`. Additionally, create a `sample-restart.jou` file by copying `sample.jou`, then modify it to read `/file/read-cas-data sample-restart` instead of `sample`, and comment out any initialisation lines. The `dual-time-iterate` value in the restart journal can be adjusted (e.g., to 2) to minimise computationally expensive solution restarts."
+    },
+    {
+      "question": "Which Slurm directives are used in the 'Multinode (by node + restart)' script to manage the iterative restarts of an Ansys Fluent job?",
+      "answer": "The `--array=1-5%1` Slurm directive is crucial, as it specifies the number of solution restarts (e.g., 5 attempts in the example). Each task in the array corresponds to a job attempt, with `SLURM_ARRAY_TASK_ID` differentiating between the initial run (ID 1) and subsequent restarts. Other important directives include `--account` for billing, `--time` for the time limit of each array task, and resource allocation directives like `--nodes` and `--ntasks-per-node`."
+    }
+  ],
+  "generated_at": "2026-05-24T01:03:28.112951+00:00"
 }

@@ -2,6 +2,19 @@
   "doc_key": "en/ansys",
   "level": "chunk",
   "chunk_index": 33,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:33:46.300022+00:00"
+  "qa_pairs": [
+    {
+      "question": "How do I run Ansys programs in a graphical user interface (GUI) mode on Alliance clusters?",
+      "answer": "Users can run Ansys programs in GUI mode by accessing an OnDemand or Jupyterhub desktop session on clusters such as Nibi, Fir, Rorqual, Narval, or Trillium. After configuring the required resources for your interactive desktop session and launching it, you need to load an Ansys module. If you started a Jupyter Lab desktop, load it via the left-hand menu; otherwise, manually type 'module load ansys/version' on the command line. Specific environment variables or arguments may then be required when starting Ansys programs, depending on whether a GPU resource was specified for the desktop session."
+    },
+    {
+      "question": "What are the steps to launch Ansys Fluent in graphical mode from an OnDemand desktop, and what environment variables are required for different GPU settings?",
+      "answer": "To launch Ansys Fluent from an OnDemand desktop, first open a terminal window and load the Ansys module using `module load StdEnv/2023 ansys/2025R2.04`, then run `fluent`. When the Fluent Launcher appears, click the Environment Tab. If no GPU was requested for the desktop session, set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi with Intel MPI) and `HOOPS_PICTURE` to `opengl2-mesa` (for Ansys 2025R1 or newer) or `x11/lin` (for Ansys 2024R2.04 or older). If a GPU was requested, ensure `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi) and set `HOOPS_PICTURE` to `opengl2` (for Ansys 2025R1 or newer) or `opengl` (for Ansys 2024R2.04 or older). Finally, click the 'Start' button."
+    },
+    {
+      "question": "Why is the `I_MPI_HYDRA_BOOTSTRAP=ssh` environment variable important when running Fluent on the Nibi cluster, and what issue can arise if it's not set?",
+      "answer": "When running Fluent on the Nibi cluster, the environment variable `I_MPI_HYDRA_BOOTSTRAP=ssh` must be manually set if Intel MPI is used, especially within OnDemand Compute Desktop sessions. Failure to set this variable will cause Fluent to crash on startup, producing error messages such as `Error: Unable to run bstrap_proxy`, indicating a problem with the MPI bootstrap process."
+    }
+  ],
+  "generated_at": "2026-05-24T01:05:54.676751+00:00"
 }
