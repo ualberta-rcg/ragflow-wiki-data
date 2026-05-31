@@ -4,17 +4,17 @@
   "chunk_index": 18,
   "qa_pairs": [
     {
-      "question": "Comment devrais-je modifier le fichier `sample-restart.jou` pour redémarrer une simulation Ansys Fluent à partir d'une solution précédente?",
-      "answer": "Pour redémarrer une simulation Ansys Fluent à partir d'une solution précédente, il faut modifier le fichier `sample-restart.jou` en remplaçant `/file/read-cas-data sample` par `/file/read-cas-data sample-restart` et en commentant la ligne d'initialisation (par exemple, `; /solve/initialize/initialize-flow`). On peut aussi ajuster `/solve/dual-time-iterate` à 2 si les pas suivants sont deux fois plus rapides que le pas initial."
+      "question": "À quoi sert le script Slurm `script-flu-bycore+restart.sh` pour les simulations Fluent?",
+      "answer": "Le script Slurm `script-flu-bycore+restart.sh` est conçu pour automatiser le redémarrage de simulations Ansys Fluent sur nos grappes, en particulier pour les tâches de longue durée qui pourraient dépasser le temps alloué. Il permet de reprendre les calculs à partir des fichiers de données les plus récemment sauvegardés, en utilisant une allocation par cœur sur plusieurs nœuds de calcul."
     },
     {
-      "question": "Comment calcule-t-on la durée totale d'une simulation et le nombre total de pas lorsque l'on utilise la fonction de redémarrage de solution pour Ansys Fluent, en supposant qu'on choisisse 2 pour la valeur du pas après le premier?",
-      "answer": "En supposant que la valeur 2 est choisie pour le pas après le premier, la durée totale de la simulation sera `1*Dt + 2*Nrestart*Dt`, où `Nrestart` est le nombre de redémarrages défini dans le script Slurm. Le nombre total de pas (et de fichiers de résultats générés) sera de `1 + 2*Nrestart`."
+      "question": "Comment le script Slurm `script-flu-bycore+restart.sh` différencie-t-il la première exécution d'une simulation Fluent des redémarrages subséquents?",
+      "answer": "Le script utilise la variable d'environnement Slurm `$SLURM_ARRAY_TASK_ID`. Si cette variable est égale à 1, le script lance la simulation avec le fichier journal initial (`MYJOUFILE`). Pour les redémarrages subséquents, quand `$SLURM_ARRAY_TASK_ID` est supérieur à 1, il charge la simulation à l'aide du fichier journal spécifié pour les redémarrages (`MYJOUFILERES`), qui pointe vers les derniers fichiers de cas et de données (`MYCASFILERES`, `MYDATFILERES`)."
     },
     {
-      "question": "Quelle est la limite de temps maximale pour les tâches Slurm lorsqu'on configure un redémarrage de solution pour Ansys Fluent sur nos grappes?",
-      "answer": "La valeur pour le temps demandé dans le script Slurm, spécifiée par `--time`, peut aller jusqu'à `07-00:00` jours pour les tâches de redémarrage de solution Ansys Fluent."
+      "question": "Comment le script Slurm `script-flu-bycore+restart.sh` utilise-t-il la directive `--array` pour gérer les redémarrages de simulations Ansys Fluent?",
+      "answer": "La directive Slurm `--array=1-5%1` est configurée dans le script pour orchestrer les redémarrages de la simulation. `1-5` indique qu'il y aura un maximum de cinq tentatives de redémarrage (de 1 à 5), et `%1` assure qu'une seule tâche du tableau est exécutée à la fois. Ce mécanisme permet de relancer la simulation si elle n'a pas été complétée lors d'une tentative précédente, en reprenant là où elle s'est arrêtée."
     }
   ],
-  "generated_at": "2026-05-24T01:10:36.376319+00:00"
+  "generated_at": "2026-05-31T01:28:54.605691+00:00"
 }

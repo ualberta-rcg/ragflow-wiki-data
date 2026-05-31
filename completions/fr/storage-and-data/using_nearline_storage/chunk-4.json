@@ -4,13 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Comment peut-on vérifier si un fichier sur le système de fichiers /nearline est stocké sur disque, sur ruban, ou les deux?",
-      "answer": "Pour savoir si un fichier se trouve sur ruban ou sur disque sur /nearline, on peut utiliser la commande `lfs hsm_state <FILE>`."
+      "question": "Comment faire pour restaurer des fichiers qui ont été accidentellement supprimés de mon répertoire /nearline sur la grappe Fir?",
+      "answer": "Sur la grappe Fir, si vous supprimez des fichiers de votre répertoire `~/nearline`, une copie sur ruban est conservée pendant 60 jours. Pour les restaurer, vous devez contacter le soutien technique en fournissant le chemin complet et la version (avec la date) des fichiers. Il est fortement conseillé de conserver une copie de la structure de votre espace /nearline à l'aide de la commande `ls -R > ~/nearline_contents.txt`."
     },
     {
-      "question": "Quelles sont les différentes interprétations des sorties de la commande `lfs hsm_state` concernant l'emplacement d'un fichier sur /nearline?",
-      "answer": "La commande `lfs hsm_state` a différentes sorties qui indiquent l'état du fichier. Si la sortie est `<FILE>: (0x00000000)`, ça veut dire que le fichier est seulement sur disque. Si c'est `<FILE>: [...]: exists, [...]`, le fichier est présentement en train d'être copié sur ruban. Une sortie comme `<FILE>: [...]: exists archived, [...]` indique que le fichier se trouve à la fois sur disque et sur ruban. Finalement, si le résultat est `<FILE>: [...]: released exists archived, [...]`, le fichier est seulement sur ruban et son accès prendra plus de temps."
+      "question": "Quelles sont les particularités du service /nearline sur la grappe Narval, comparativement à celui de Fir?",
+      "answer": "Sur la grappe Narval, le service /nearline est semblable à celui de Fir, mais tous les fichiers ne sont pas nécessairement copiés sur ruban. Seulement les plus gros fichiers et les plus anciens sont transférés sur ruban, bien que tous les fichiers dans /nearline soient sauvegardés à chaque jour."
+    },
+    {
+      "question": "Quelles sont les différentes méthodes d'accès au service /nearline (HPSS) sur la grappe Trillium?",
+      "answer": "Sur la grappe Trillium, le service /nearline est HPSS et il y a trois façons d'y accéder : 1. Soumettre une tâche à l'ordonnanceur Slurm dans une des partitions archive avec les commandes HPSS `htar` ou `hsi`. 2. Utiliser un nœud VFS (virtual file system) via la commande `salloc --time=1:00:00 -pvfsshort` pour un petit nombre de fichiers. 3. Transférer vos fichiers HPSS en utilisant Globus avec le point de chute `alliancecan#hpss`. Dans tous les cas, vos fichiers HPSS se trouvent dans le répertoire `$ARCHIVE`."
     }
   ],
-  "generated_at": "2026-04-19T02:48:42.696259+00:00"
+  "generated_at": "2026-05-31T02:06:01.591361+00:00"
 }

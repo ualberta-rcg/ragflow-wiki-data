@@ -4,13 +4,13 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "Comment la mémoire est-elle allouée pour une tâche d'analyse explicite Abaqus sur un nœud simple, tel qu'indiqué dans le script?",
-      "answer": "Selon le script, la mémoire est allouée pour la tâche Abaqus en soustrayant 3072 Mo de la mémoire totale disponible par nœud (`$SLURM_MEM_PER_NODE`). Cette valeur ajustée est ensuite transmise au paramètre `memory` de la commande Abaqus."
+      "question": "Comment soumettre une tâche d'analyse explicite Abaqus sur un seul nœud de calcul en utilisant un répertoire temporaire sur les grappes d'Alliance?",
+      "answer": "Pour soumettre une tâche d'analyse explicite sur un seul nœud de calcul en utilisant un répertoire temporaire, vous pouvez utiliser un script Slurm comme le `scriptet1.txt`. Ce script charge le module `abaqus/2026` (ou une version antérieure comme `abaqus/2021` avec des commandes spécifiques), configure les variables d'environnement pour les licences, et lance Abaqus en spécifiant le répertoire temporaire `$SLURM_TMPDIR` comme `scratch` et en sauvegardant les données dans le répertoire de soumission toutes les 6 heures."
     },
     {
-      "question": "À quoi sert le paramètre `scratch` dans la commande Abaqus utilisée pour l'analyse explicite dans le script fourni?",
-      "answer": "Le paramètre `scratch` est utilisé pour spécifier un répertoire temporaire où Abaqus peut écrire ses fichiers temporaires pendant la simulation. Dans ce script, il est configuré pour utiliser la variable d'environnement Slurm `$SLURM_TMPDIR` ou `$SLURM_TMPDIR/scratch` pour les versions plus récentes d'Abaqus."
+      "question": "Si une simulation d'analyse explicite Abaqus sur un nœud unique est interrompue, comment peut-on la redémarrer en utilisant un script Slurm et un répertoire temporaire?",
+      "answer": "Pour redémarrer une simulation d'analyse explicite Abaqus interrompue sur un nœud unique, il faut utiliser un script de redémarrage tel que le `scriptet2.txt`. Ce script copie les fichiers de la tâche originale (par exemple, `testet1*`) vers le répertoire temporaire `$SLURM_TMPDIR` et exécute Abaqus avec l'option `recover`, en indiquant la nouvelle tâche (`job=testet2`) et l'ancienne tâche (`oldjob=testet1`). Pour l'analyse explicite, le fichier d'entrée (`input=myexp-sim.inp`) ne requiert aucune modification pour le redémarrage."
     }
   ],
-  "generated_at": "2026-04-13T00:51:49.970149+00:00"
+  "generated_at": "2026-05-31T01:11:10.598333+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "Quelles sont les étapes générales pour exécuter une simulation Ansys Fluent sur une grappe de calcul de l'Alliance?",
-      "answer": "Pour exécuter Ansys Fluent sur une grappe de calcul, vous devez d'abord préparer votre tâche sur votre ordinateur avec Ansys Workbench jusqu'à l'étape des calculs. Ensuite, exportez les fichiers de cas et de données de Fluent (souvent en format FFF-1.cas.gz et FFF-1.dat.gz) et transférez-les vers le système de fichiers /project ou /scratch de la grappe, en les renommant pour faciliter le repérage. Créez un fichier de journalisation pour charger les fichiers, lancer le solveur et enregistrer les résultats. Si la tâche échoue en raison d'un manque de licence, vous pouvez configurer le script pour qu'elle soit remise en file d'attente. Une fois la tâche terminée, téléchargez le fichier de données et importez-le dans Fluent pour analyse."
+      "question": "Quelle est la recommandation générale pour soumettre des tâches Fluent sur les grappes de l'Alliance en utilisant les scripts Slurm, surtout en ce qui concerne l'allocation des nœuds?",
+      "answer": "Il est généralement recommandé d'utiliser le script \"par nœud\" pour les tâches Fluent afin de minimiser le temps d'attente et d'optimiser la performance en utilisant le moins de nœuds possible."
     },
     {
-      "question": "Qu'est-ce qu'il faut faire si une tâche Ansys Fluent ne démarre pas à cause d'un problème de licence sur une grappe de calcul?",
-      "answer": "Si une tâche Ansys Fluent ne démarre pas en raison d'un problème de licence, vous pouvez modifier votre script Slurm pour que la tâche soit remise en file d'attente, jusqu'à quatre fois. Cependant, il est crucial de vérifier les fichiers de sortie de l'ordonnanceur pour s'assurer que la remise en attente est bien due à un problème de licence et non à une défaillance de la simulation (comme une divergence). Si la simulation échoue pour d'autres raisons, annulez immédiatement la tâche avec `scancel jobid` pour éviter de gaspiller du temps de calcul et corrigez le problème."
+      "question": "Dans quelles situations le script Fluent Slurm \"par cœur\" pourrait-il être avantageux, et quels sont ses inconvénients potentiels?",
+      "answer": "Le script \"par cœur\" peut potentiellement réduire le temps d'attente dans la file pour les tâches gourmandes en CPU. Cependant, le démarrage d'une tâche utilisant plusieurs nœuds peut prendre considérablement plus de temps, et ces tâches sont plus susceptibles de planter si un nœud de calcul fait défaut pendant la simulation."
     },
     {
-      "question": "Lors de la soumission de tâches Fluent sur une grappe de calcul, quelles sont les considérations pour choisir entre un script Slurm 'par nœud' et un script 'par cœur'?",
-      "answer": "Pour la plupart des tâches Fluent, il est recommandé d'utiliser le script 'par nœud' afin de minimiser le temps d'attente et de maximiser la performance en utilisant le moins de nœuds possible. Les tâches qui demandent beaucoup de cœurs CPU pourraient potentiellement avoir un temps d'attente réduit avec le script 'par cœur', mais le démarrage d’une tâche utilisant plusieurs nœuds peut être beaucoup plus long, ce qui en diminue l'intérêt. Il est également important de noter que les tâches intensives réparties sur un grand nombre de nœuds sont plus susceptibles de planter si un nœud de calcul fait défaut. Les scripts 'par nœud' utilisent la mémoire partagée pour un seul nœud et la mémoire distribuée pour plusieurs nœuds, tandis que les scripts 'par cœur' gèrent le nombre total de cœurs à travers tous les nœuds."
+      "question": "Comment configurer une tâche Fluent multi-nœuds sur la grappe Narval en utilisant l'implémentation OpenMPI via un script Slurm?",
+      "answer": "Pour une tâche Fluent multi-nœuds sur Narval avec OpenMPI, il faut utiliser le script approprié qui spécifie `#SBATCH --ntasks-per-node=64` (ou moins), charge les modules `StdEnv/2023` et `ansys/2023R2` (ou plus récent), exporte `OPENMPI_ROOT`, et définit `FI_PROVIDER=verbs` pour les tâches multi-nœuds. La commande `fluent` sera lancée avec l'option `-mpi=openmpi`."
     }
   ],
-  "generated_at": "2026-05-24T01:09:14.126406+00:00"
+  "generated_at": "2026-05-31T01:27:32.600072+00:00"
 }

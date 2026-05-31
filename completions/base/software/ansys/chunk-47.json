@@ -2,6 +2,19 @@
   "doc_key": "base/ansys",
   "level": "chunk",
   "chunk_index": 47,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:29:22.868258+00:00"
+  "qa_pairs": [
+    {
+      "question": "How do I install and manage the Additive Manufacturing ACT extension within Ansys Workbench on an Alliance cluster?",
+      "answer": "To manage Additive Manufacturing ACT extensions:\n1. Open your project file (.wbpj) in the Workbench GUI after starting Workbench as described in the 'Graphical use' section.\n2. Click on the ACT start page and then the ACT home page tab.\n3. Click 'Manage Extensions' to open the extensions manager.\n4. To install: Click the box with the large '+' sign under the search bar, then navigate to select and install your downloaded 'AdditiveWizard.wbex' file.\n5. To load for the current session: Click to highlight the 'AdditiveWizard' box.\n6. To load for current and future sessions: Click the lower right corner arrow in the 'AdditiveWizard' box and select 'Load extension'.\n7. To unload for the current session: Click to un-highlight the 'AdditiveWizard' box.\n8. To prevent loading in future sessions: Click the lower right corner arrow in the 'AdditiveWizard' box and select 'Do not load as default'."
+    },
+    {
+      "question": "What are the steps to run a single Ansys Additive Manufacturing job graphically in an OnDemand session on an Alliance cluster?",
+      "answer": "To run a single Ansys Additive Manufacturing job in a graphical OnDemand session:\n1. Start Workbench as described in the 'Enabling Additive' section.\n2. Click on 'File' > 'Open', select your 'test.wbpj' project file, and click 'Open'.\n3. If you encounter a grey screen, click on 'View' > 'reset workspace'.\n4. Start Mechanical, clear any generated data, tick 'Distributed', and specify the desired number of cores.\n5. Click on 'File' > 'Save Project' > 'Solve'.\nAfter the job is running, you can check its utilization by opening another terminal and running `top -u $USER` or `ps u -u $USER | grep ansys`. If necessary, kill rogue processes from previous runs using `pkill -9 -e -u $USER -f \"ansys|mwrpcss|mwfwrapper|ENGINE\"` to free up licenses."
+    },
+    {
+      "question": "How should an Ansys Additive project be prepared and submitted to a cluster queue for batch job execution?",
+      "answer": "Before submitting a newly uploaded Additive project to a cluster queue using `sbatch`, follow these preparation steps:\n1. Open your simulation with the Workbench GUI in the same directory where your job will be submitted, using the same Ansys module version that will be used for the job, and then save it again.\n2. Create a Slurm script as explained in the 'Cluster Batch Job Submission - WORKBENCH' section.\n3. For parametric studies, change `Update()` to `UpdateAllDesignPoints()` in your Slurm script.\n4. To avoid manually clearing the solution and recreating design points between test runs, either change `Save(Overwrite=True)` to `Save(Overwrite=False)` in your Slurm script, or save a copy of your original `.wbpj` file and its corresponding `_files` directory.\n5. Optionally, you can create and manually run a replay file on the cluster in the respective test case directory between runs. A single replay file can be adapted for different directories by editing its internal `FilePath` setting in a text editor. An example command for running a replay file is `module load ansys/2019R3; rm -f test_files/.lock; runwb2 -R myreplay.wbjn`."
+    }
+  ],
+  "generated_at": "2026-05-31T01:19:35.872033+00:00"
 }

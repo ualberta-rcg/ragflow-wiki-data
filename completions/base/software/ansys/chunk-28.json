@@ -2,6 +2,19 @@
   "doc_key": "base/ansys",
   "level": "chunk",
   "chunk_index": 28,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:27:05.639716+00:00"
+  "qa_pairs": [
+    {
+      "question": "How can one configure the parallel processing mode and core count for an Ansys Workbench job using a Slurm script on an Alliance cluster?",
+      "answer": "To configure an Ansys Workbench job's parallel processing mode and core count, a Slurm script uses `sed` commands to modify the `SolveHandlers.xml` file. The script sets `MEMPAR` to `0` for Shared Memory Parallel (SMP) or `1` for Distributed Memory Parallel (DMP), and uses `SLURM_NTASKS` to specify the total number of cores. These values are then updated in the `.AnsysSolution` and `.Processors` settings within the XML."
+    },
+    {
+      "question": "When performing scaling tests for an Ansys Workbench job on an Alliance cluster, how can you prevent the job from overwriting the solution upon successful completion?",
+      "answer": "To prevent an Ansys Workbench job from overwriting the solution during scaling tests, you should change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of the Slurm script. This modification ensures that the initialized solution is not overwritten by each test job, simplifying the evaluation of simulation scalability."
+    },
+    {
+      "question": "What is the process for generating and submitting an Ansys Mechanical APDL input file for execution on an Alliance cluster?",
+      "answer": "An Ansys Mechanical APDL input file, typically with a `.inp` extension (e.g., `YOURAPDLFILE.inp`), is generated within an interactive Workbench Mechanical session by selecting `Solution -> Tools -> Write Input Files`. Once generated, these APDL jobs can be submitted to the Alliance cluster's queue using the `sbatch script-name.sh` command, utilizing pre-configured Slurm scripts for parallel execution."
+    }
+  ],
+  "generated_at": "2026-05-31T01:17:15.818478+00:00"
 }

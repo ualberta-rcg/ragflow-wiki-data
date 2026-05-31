@@ -4,13 +4,17 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "What Abaqus module version is designated as the 'Latest version' in this script example?",
-      "answer": "The `abaqus/2026` module is designated as the 'Latest version' in this script example. The `abaqus/2021` module is marked for discontinuation."
+      "question": "What type of Abaqus analysis is demonstrated in the provided single-node Slurm scripts, and for which computing scenario are they designed?",
+      "answer": "The Slurm scripts provided demonstrate how to run Abaqus Explicit Analysis jobs. They are designed for single-node computing scenarios and include examples for both initial job submission and restarting previously terminated analyses."
     },
     {
-      "question": "What are the specified Slurm resource requirements for memory, CPUs, and nodes in this example script?",
-      "answer": "The script specifies `--mem=8000M` for node memory (indicating more than 5GB), `--cpus-per-task=4` for the number of cores (indicating more than 1 core), and `--nodes=1` for a single node."
+      "question": "How can a previously terminated Abaqus Explicit Analysis job be restarted on a single node using a project directory script?",
+      "answer": "To restart an Abaqus Explicit Analysis job on a single node using a project directory script, you would use a Slurm script that executes the `abaqus` command with `job=<new_job_name>`, `oldjob=<previous_job_name>`, and `recover` options. For example: `abaqus job=testep2 oldjob=testep1 input=myexp-sim.inp recover ...`. No modifications to the input file are required for this type of restart."
+    },
+    {
+      "question": "What is the primary benefit of using a 'temporary directory script' for Abaqus Explicit Analysis jobs, and how does it manage job files?",
+      "answer": "The primary benefit of using a 'temporary directory script' for Abaqus Explicit Analysis jobs is to optimize performance when dealing with large restart files. These scripts leverage the `SLURM_TMPDIR` environment variable to write data to the local disk of the compute node. Data management involves copying input files to `$SLURM_TMPDIR` at the start of the job and then copying output files back to the submission directory (`$SLURM_SUBMIT_DIR`) periodically during the job and upon its completion."
     }
   ],
-  "generated_at": "2026-04-13T00:48:09.843034+00:00"
+  "generated_at": "2026-05-31T01:07:30.838165+00:00"
 }

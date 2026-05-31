@@ -4,33 +4,21 @@ slug: "services_d_informatique_quantique"
 lang: "fr"
 
 source_wiki_title: "Services d'informatique quantique/fr"
-source_hash: "706dac88f94795228f2140ee4602036e"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T11:27:44.269987+00:00"
+source_hash: "57e49a95081a42de5202afaf3c2e09ca"
+last_synced: "2026-05-31T00:03:42.418098+00:00"
+last_processed: "2026-05-31T00:53:53.952882+00:00"
 
 tags:
   []
 
 keywords:
-  - "MonarQ"
-  - "logiciels de calcul quantique"
-  - "informatique quantique"
-  - "Calcul Québec"
-  - "qubits"
-
-questions:
-  - "Quelles sont les caractéristiques de l'ordinateur quantique MonarQ et comment les utilisateurs peuvent-ils y accéder ?"
-  - "Dans quels domaines de recherche l'informatique quantique offre-t-elle des applications prometteuses selon le texte ?"
-  - "Quels logiciels, formations et services d'accompagnement sont proposés par l'équipe pour soutenir les projets en calcul quantique ?"
-  - "Quelles sont les caractéristiques de l'ordinateur quantique MonarQ et comment les utilisateurs peuvent-ils y accéder ?"
-  - "Dans quels domaines de recherche l'informatique quantique offre-t-elle des applications prometteuses selon le texte ?"
-  - "Quels logiciels, formations et services d'accompagnement sont proposés par l'équipe pour soutenir les projets en calcul quantique ?"
+  []
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: true
+  keywords_generated: false
   ragflow_synced: true
   qa_generated: false
 ---
@@ -41,11 +29,11 @@ Notre équipe d'analystes en informatique quantique offre expertise, accompagnem
 
 Pour démarrer avec MonarQ, référez-vous à [Premiers pas sur MonarQ](../../clusters/monarq.md#premiers-pas-sur-monarq).
 
-!!! info "Qu’est-ce que le calcul quantique?"
-    Un ordinateur quantique exploite les caractéristiques des particules quantiques (qubits), notamment la superposition d'états; les interférences constructives et destructives; et l'intrication. Grâce à ces propriétés, un nouveau paradigme de calcul est en place, promettant une plus grande parallélisation pour la résolution de problèmes complexes qui restent insolubles pour les systèmes informatiques classiques.
+**Qu’est-ce que le calcul quantique?**
+
+Un ordinateur quantique exploite les caractéristiques des particules quantiques (qubits), notamment la superposition d'états; les interférences constructives et destructives; et l'intrication. Grâce à ces propriétés, un nouveau paradigme de calcul est en place, promettant une plus grande parallélisation pour la résolution de problèmes complexes qui restent insolubles pour les systèmes informatiques classiques.
 
 ## Applications
-
 L'optimisation de problèmes complexes est l'un des domaines les plus prometteurs pour le calcul quantique et peut s'appliquer à plusieurs domaines de recherche :
 *   Apprentissage automatique : l’ordinateur quantique pourrait permettre de réduire les temps d’apprentissage et les délais de traitement.
 *   Finances : l'ordinateur quantique pourrait accélérer l'évaluation de risques de portefolios et la détection de fraudes.
@@ -68,7 +56,6 @@ Notre équipe d’analystes vous propose des sessions de formation théorique et
 Les formations présentement offertes sont :
 *   CIQ101, Introduction à la théorie du calcul quantique
 *   CIQ102, Introduction à la programmation quantique avec PennyLane
-*   MNQ101, Premiers pas sur MonarQ, l'ordinateur quantique de Calcul Québec
 
 ## Aide à la recherche et soutien technique
 

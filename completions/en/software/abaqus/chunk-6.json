@@ -4,17 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the provided Slurm script for Abaqus simulations?",
-      "answer": "This Slurm script serves as a prototype for submitting thread-based parallel Abaqus Standard Analysis simulations to a single compute node on an Alliance cluster. It is suitable for jobs expected to run for less than one day."
+      "question": "What is the primary purpose of using 'temporary directory scripts' for Abaqus standard analysis jobs on Alliance clusters?",
+      "answer": "Temporary directory scripts are primarily designed for single-node Abaqus jobs that run for longer than one day or generate substantial restart files. They improve efficiency by directing the writing of restart data to the local disk via the `SLURM_TMPDIR` environment variable."
     },
     {
-      "question": "What computational resources does the given Slurm script request for an Abaqus job?",
-      "answer": "The script requests the 'def-group' account, a maximum runtime of 6 hours, 4 CPU cores per task, 8GB of total memory, and exactly one compute node for the Abaqus job."
+      "question": "How can a user configure their Abaqus input file to write restart data at specific intervals when using a temporary directory script for standard analysis?",
+      "answer": "To write restart data every N=12 time increments, specify `*RESTART, WRITE, OVERLAY, FREQUENCY=12` in the input file. Alternatively, to write restart data for a total of 12 time increments, specify `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
     },
     {
-      "question": "Which Abaqus software version is loaded by default in this Slurm script, and what is its status?",
-      "answer": "The script loads `abaqus/2026`, which is specified as the 'Latest version'. Older versions like `abaqus/2021` are marked for discontinuation."
+      "question": "What are the key considerations and limitations for running multi-node Abaqus standard analysis jobs using MPI-based computing on Alliance clusters?",
+      "answer": "Multi-node Abaqus standard analysis jobs are suitable for users with significant memory or compute demands and access to large licenses. Only Abaqus version 2026 or newer can be used for these MPI-based scripts. It is important to note that companion template scripts for restarting multi-node jobs are not provided due to additional limitations."
     }
   ],
-  "generated_at": "2026-04-13T00:47:35.448073+00:00"
+  "generated_at": "2026-05-31T01:06:59.408551+00:00"
 }

@@ -4,17 +4,13 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "Comment faire pour lancer Abaqus en mode graphique sur les grappes de calcul en utilisant Open OnDemand, et comment vérifier la disponibilité des licences nécessaires?",
-      "answer": "Pour lancer Abaqus en mode graphique via Open OnDemand, vous devez d'abord lancer une session sur votre bureau, puis ouvrir une nouvelle fenêtre de terminal. Ensuite, chargez le module `abaqus/2026`. Selon que vous utilisiez un nœud sans GPU ou un nœud GPU sans prise en charge de VirtualGL, exécutez `abaqus cae -mesa`. Si vous êtes sur un nœud GPU qui prend en charge VirtualGL et que vous désirez de meilleures performances graphiques, lancez simplement `abaqus cae`. Avant de lancer, assurez-vous qu'une licence de calcul non utilisée est disponible en vérifiant avec la commande `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | grep \"Users of cae\"`."
+      "question": "Comment peut-on calculer la mémoire par cœur (`mem-per-cpu`) pour les scripts Slurm qui utilisent plusieurs nœuds quand une valeur est spécifiée pour `mp_host_split`?",
+      "answer": "Si une valeur pour `mp_host_split` est spécifiée (supérieure à 1), la valeur de `mem-per-cpu` peut être estimée en multipliant l'estimation de mémoire la plus élevée par le nombre de nœuds, puis par la valeur de `mp_host_split`, et en divisant le résultat par le nombre de tâches (`ntasks`)."
     },
     {
-      "question": "Quelles sont les particularités de la licence Abaqus de SHARCNET et comment faire pour y avoir accès?",
-      "answer": "La licence Abaqus de SHARCNET est valide jusqu'au 17 janvier 2026. Elle inclut une licence gratuite limitée de 2 jetons de calcul et 35 jetons d'exécution, avec des plafonds de 10 jetons par utilisateur et de 15 par groupe, surtout pour les tests. Des jetons dédiés sont aussi disponibles à l'achat; pour un devis, il faut contacter le soutien technique. Cette licence ne peut être utilisée que sur le matériel SHARCNET, comme les grappes Nibi et Dusky, ou le système SHARCNET OOD. Pour y avoir accès, chaque utilisateur doit contacter le soutien technique en précisant que la demande concerne les systèmes SHARCNET et en copiant-collant l'accord de licence fourni dans le document, avec ses nom, prénom et nom d'utilisateur."
-    },
-    {
-      "question": "Quelle est la nouveauté concernant le module Abaqus/2026 dans l'environnement par défaut StdEnv/2023, et quel impact cela a-t-il sur les scripts Slurm?",
-      "answer": "Un nouveau module pour Abaqus/2026 est installé dans l'environnement par défaut StdEnv/2023. Cette version corrige la source de l'erreur `*** buffer overflow detected ***` qui survenait avec Abaqus/2021 sur les grappes récentes. De ce fait, tous les scripts Slurm existants doivent être modifiés pour être adaptés à Abaqus/2026. Le module contient la version initiale 'Abaqus 2026 Golden', et un module de mises à niveau 'Abaqus 2026 FP.CFA.2606' sera installé prochainement."
+      "question": "Quelle contrainte doit-on respecter pour la valeur de `mp_host_split` dans Abaqus, et comment peut-on gérer un scénario où cette contrainte poserait problème?",
+      "answer": "`mp_host_split` doit être inférieur ou égal au nombre de cœurs par nœud attribués par Slurm lors de l'exécution, sinon Abaqus va planter. Pour contrôler ce scénario, on peut retirer le commentaire de la ligne qui permet de spécifier une valeur pour `tasks-per-node`."
     }
   ],
-  "generated_at": "2026-04-13T00:52:54.324640+00:00"
+  "generated_at": "2026-05-31T01:12:07.337641+00:00"
 }

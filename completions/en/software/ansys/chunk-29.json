@@ -4,17 +4,17 @@
   "chunk_index": 29,
   "qa_pairs": [
     {
-      "question": "How can users submit Ansys Mechanical (APDL) jobs to a cluster using GPUs in a shared memory parallel configuration?",
-      "answer": "Users can submit Ansys Mechanical (APDL) jobs to a cluster with GPUs in a shared memory parallel (SMP) configuration by using a Slurm script. This script should load the appropriate Ansys module (e.g., `ansys/2024R1.03`), create an output directory, and then execute the `mapdl` command. The `mapdl` command needs arguments like `-smp` for shared memory parallel, `-acc nvidia` for GPU acceleration, `-na $SLURM_GPUS_ON_NODE` to specify the number of GPUs per node, `-np $SLURM_NTASKS` for the number of cores, and `-i YOURAPDLFILE.inp` to specify the input file. For example, a script might include `#SBATCH --gpus-per-node=1` and `mapdl -smp -acc nvidia -na $SLURM_GPUS_ON_NODE -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
+      "question": "How can one run Ansys Mechanical APDL jobs using GPUs in a distributed memory parallel setup on an Alliance cluster?",
+      "answer": "To run Ansys Mechanical APDL jobs with GPUs in a distributed memory parallel (DMP) setup, users must configure a Slurm script. Key steps include loading the `StdEnv/2023` and an Ansys module (e.g., `ansys/2024R1.03`), specifying GPU resources using `--gpus-per-node`, and setting `export ANSGPU_PRINTDEVICES=1`. The `mapdl` command should be invoked with `-dis -acc nvidia -na $SLURM_GPUS_ON_NODE -mpi [intelmpi or openmpi] -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`. For Cedar clusters, an additional step involves creating a symbolic link to `libstdc++.so.6.0.29` and exporting `LD_LIBRARY_PATH`. On Beluga, `export KMP_AFFINITY=none` is also set, and `intelmpi` is used, whereas `openmpi` is used for other clusters."
     },
     {
-      "question": "What are the default memory allocations for Ansys Mechanical (APDL) jobs, and how can a user adjust these settings in their Slurm script?",
-      "answer": "Ansys Mechanical (APDL) jobs are allocated 1024 MB of total memory and 1024 MB of database memory by default. Users can manually specify or change these values by adding the arguments `-m` for total memory and `-db` for database memory to the `mapdl` command line in their Slurm scripts. For instance, to set 2048 MB total memory and 1500 MB database memory, the command would include `-m 2048 -db 1500`."
+      "question": "What are the default memory allocations for Ansys APDL jobs, and how can these values be manually adjusted?",
+      "answer": "Ansys APDL jobs are allocated 1024 MB of total memory and 1024 MB of database memory by default. Users can manually adjust these values by adding `-m <total_memory_MB>` and/or `-db <database_memory_MB>` arguments to the `mapdl` command line in their Slurm scripts."
     },
     {
-      "question": "What is the recommended approach for optimizing the performance of Ansys Mechanical (APDL) jobs on a cluster?",
-      "answer": "For optimizing performance, it's recommended to perform detailed scaling tests before running production jobs to ensure the optimal number of cores and minimum amount of memory are specified in your Slurm scripts. Generally, single node (SMP Shared Memory Parallel) scripts are expected to perform better than multinode (DMP Distributed Memory Parallel) scripts, so SMP should be used whenever possible. Additionally, the Ansys module version loaded in the script should ideally match the version used to generate the APDL input file to avoid compatibility issues."
+      "question": "What are the recommended strategies for optimizing the performance of Ansys Mechanical APDL jobs on Alliance clusters?",
+      "answer": "To optimize performance for Ansys Mechanical APDL jobs, it is recommended to conduct detailed scaling tests before running production jobs to identify the most efficient number of cores and the minimum required memory. Single-node (Shared Memory Parallel or SMP) scripts generally offer better performance than multi-node (Distributed Memory Parallel or DMP) scripts and should be prioritized when possible. Additionally, ensuring that the Ansys module version loaded in the script matches the version used to generate the input file helps prevent compatibility issues."
     }
   ],
-  "generated_at": "2026-05-24T01:05:27.317383+00:00"
+  "generated_at": "2026-05-31T01:24:25.535706+00:00"
 }

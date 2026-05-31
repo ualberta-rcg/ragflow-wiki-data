@@ -75,14 +75,10 @@ Remarque : JupiterHub peut aussi être configuré pour afficher une interface sp
 La description de l'interface JupyterLab se trouve maintenant à la [[JupyterLab/fr|page JupyterLab]].
 
 <span id="Troubleshooting"></span>
-<div class="mw-translate-fuzzy">
 = Messages d'erreur =
-</div>
 
 <span id="&quot;Spawn_failed:_Timeout&quot;"></span>
-<div class="mw-translate-fuzzy">
-== Spawn failed: Timeout ==
-</div>
+== ''Spawn failed: Timeout'' ==
 
 Les erreurs avec JupyterHub sont généralement causées par l'ordonnanceur de tâches sous-jacent qui ne répond pas ou qui est incapable de trouver les ressources appropriées pour votre session, par exemple
 
@@ -93,28 +89,27 @@ Les erreurs avec JupyterHub sont généralement causées par l'ordonnanceur de t
 ** Il est possible qu'aucune ressource ne soit disponible à ce moment. Vérifiez si un problème est rapporté dans la page de l'[https://status.alliancecan.ca/ État des systèmes] et essayez de nouveau plus tard.
 
 <span id="&quot;Authentication_error:_Error_403&quot;"></span>
-<div class="mw-translate-fuzzy">
-== Erreur d'authentification 403 ==
-</div>
+== ''Authentication error: Error 403'' ==
 
 Cette erreur survient quand votre compte ou votre accès à la grappe n'est plus valide.
 # Vérifiez si votre [https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/gestion-de-compte/renouvellements-de-compte <b>compte a été renouvelé et qu'il est actif</b>]
 # Assurez-vous  [https://ccdb.alliancecan.ca/me/access_services <b>d'avoir activé votre accès à la grappe.</b>]
 
-== Startup hangs ==
+<span id="Startup_hangs"></span>
+== Suspension au démarrage ==
 
-If JupyterHub posts the message "Your server is starting up.  You will be redirected automatically when it's ready for you" and stays there indefinitely:
-* Check for the problems described above under "Spawn failed: Timeout".
-* If none of those seem to apply, log on to the cluster with an ordinary SSH client (since JH doesn't work).
-* Use <code>sq</code> to identify the Slurm job corresponding to your JupyterHub session.
-* Cancel the Slurm job with <code>scancel</code>.
-* Delete hidden Jupyter files with 
+Si JupyterHub affiche le message ''Your server is starting up.  You will be redirected automatically when it's ready for you'',
+* vérifiez si votre problème correspond à un de ceux qui sont décrits dans ''Spawn failed: Timeout'' plus haut'';
+* si aucun de ces problèmes ne semble s'appliquer, connectez-vous à la grappe avec un client SSH standard (puisque JupyterHub ne fonctionne pas);
+* utilisez <code>sq</code> pour identifier la tâche Slurm correspondant à votre session JupyterHub;
+* annulez la tâche Slurm avec <code>scancel</code>;
+* supprimez les fichiers cachés de Jupyter avec 
 <source>
  cd ~
  rm -r .local/share/jupyter
  rm -r .jupyter
 </source>
-* Try again.  (Jupyter will recreate the hidden files.)
+* essayez de nouveau (Jupyter recréera les fichiers cachés).
 
 <span id="References"></span>
 = Références =

@@ -1,0 +1,20 @@
+{
+  "doc_key": "fr/using_nearline_storage",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "Sur la grappe Fir, comment sont gérés les fichiers dans le répertoire `/nearline` et quelles sont les règles concernant leur archivage sur ruban et leur suppression?",
+      "answer": "Sur la grappe Fir, les fichiers sont enregistrés dans votre répertoire `~/nearline/PROJECT`. Ils sont copiés sur ruban après environ 24 heures. Si un fichier n'est pas modifié pendant 24 heures, sa copie sur disque est supprimée, ce qui le « virtualise » sur ruban. Si un fichier est supprimé de `~/nearline` (volontairement ou accidentellement), sa copie sur ruban est conservée pendant 60 jours, et pour la restaurer, il faut contacter le soutien technique en mentionnant le chemin complet et la date de la version. Il est aussi recommandé de conserver une copie de la structure de votre espace `/nearline`."
+    },
+    {
+      "question": "Pour la grappe Trillium, quelles sont les différentes manières d'accéder aux services HPSS, qui servent de service `/nearline`?",
+      "answer": "Pour la grappe Trillium, le service `/nearline` est géré par HPSS, et il y a trois méthodes d'accès principales. Premièrement, vous pouvez soumettre une tâche Slurm dans une des partitions d'archive en utilisant les commandes HPSS `htar` ou `hsi`. Deuxièmement, pour un petit nombre de fichiers, vous pouvez utiliser un nœud VFS via la commande `salloc --time=1:00:00 -pvfsshort`. Finalement, pour un usage occasionnel ou des transferts entre HPSS et d'autres sites, vous pouvez utiliser Globus avec le point de chute `alliancecan#hpss`. Dans tous les cas, vos fichiers HPSS se trouvent dans le répertoire `$ARCHIVE`."
+    },
+    {
+      "question": "Quelles sont les différences majeures dans la gestion du service `/nearline` sur la grappe Nibi, comparé à la grappe Fir?",
+      "answer": "Sur la grappe Nibi, bien que le service `/nearline` soit semblable à celui de Fir, il y a deux différences clés. La création de la première copie des données sur ruban pourrait prendre plus de 24 heures, et la copie sur disque des fichiers ne sera pas effacée avant 60 jours, ce qui signifie qu'elle reste disponible plus longtemps sur le disque avant de ne reposer que sur ruban."
+    }
+  ],
+  "generated_at": "2026-05-31T02:06:25.605537+00:00"
+}

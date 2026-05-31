@@ -4,17 +4,17 @@
   "chunk_index": 30,
   "qa_pairs": [
     {
-      "question": "Comment faut-il initialiser un fichier de projet Workbench avant de le soumettre pour la première fois sur une grappe?",
-      "answer": "Pour initialiser un fichier de projet Workbench, il faut d'abord se connecter à la grappe avec TigerVNC, lancer Workbench dans le même répertoire que le fichier de projet en utilisant la même version du module Ansys, ouvrir le projet, puis faire un clic droit sur \"Setup\" et sélectionner \"Clear All Generated Data\". Ensuite, on clique sur \"File -> Exit\" pour quitter Workbench, et on refuse de sauvegarder les modifications avant de soumettre la tâche avec un script."
+      "question": "Comment peut-on soumettre une tâche Ansys Mechanical (APDL) à la file d'attente Slurm sur les grappes de l'Alliance canadienne de recherche (Alliance)?",
+      "answer": "Pour soumettre une tâche Ansys Mechanical (APDL), vous devez d'abord générer le fichier d'entrée APDL (.inp) depuis votre session interactive Workbench Mechanical en sélectionnant 'Solution -> Tools -> Write Input Files'. Ensuite, vous pouvez soumettre la tâche à la file d'attente en utilisant la commande `sbatch script-name.sh` avec un script Slurm personnalisé."
     },
     {
-      "question": "Est-ce qu'il existe une alternative pour exécuter les simulations Workbench sans utiliser de scripts Slurm?",
-      "answer": "Oui, il est possible de réserver un nœud de calcul avec jusqu'à 96 cœurs, 768 Go de mémoire et 8 heures de temps d'exécution pour une session de bureau OnDemand. Dans ce cas, on peut envisager d'exécuter les simulations directement à partir de l'interface graphique native de Workbench, ce qui est souvent plus intuitif que de soumettre la tâche à la file d'attente avec un script Slurm."
+      "question": "Quelles sont les considérations importantes pour optimiser la performance et la compatibilité des tâches Ansys Mechanical soumises via des scripts Slurm sur les grappes de l'Alliance?",
+      "answer": "Pour une performance optimale, il est recommandé d'utiliser les scripts pour nœud simple avec mémoire parallèle partagée (SMP) autant que possible, car ils offrent généralement une meilleure performance que les scripts pour plusieurs nœuds avec mémoire parallèle distribuée (DMP). De plus, pour prévenir les problèmes de compatibilité, le module Ansys chargé dans votre script devrait idéalement correspondre à la version utilisée pour générer le fichier d'entrée. Il est aussi conseillé d'effectuer des tests de scalabilité avant les tâches en production."
     },
     {
-      "question": "Comment soumettre un fichier de projet Ansys Workbench à la file d'attente de la grappe en utilisant l'ordonnanceur Slurm?",
-      "answer": "Pour soumettre un fichier de projet Ansys Workbench à la file d'attente Slurm, vous devez personnaliser l'un des scripts Slurm fournis, comme `script-wbpj-202X.sh`, puis lancer la commande `sbatch script-wbpj-202X.sh`."
+      "question": "Lors des tests de scalabilité d'un projet Ansys Workbench sur les grappes de l'Alliance, quelle modification peut être apportée au script Slurm pour éviter d'écraser la solution initialisée à chaque exécution de test?",
+      "answer": "Pour éviter d'écraser la solution initialisée à chaque exécution lors des tests de scalabilité d'un projet Ansys Workbench, vous devriez remplacer la commande `Save(Overwrite=True)` par `Save(Overwrite=False)` dans la dernière ligne du script Slurm. Cette modification garantit que la solution initiale ne sera pas écrasée lorsque vous augmentez la valeur de `#SBATCH --ntasks` pour évaluer la mise à l'échelle de la simulation."
     }
   ],
-  "generated_at": "2026-05-24T01:12:13.063747+00:00"
+  "generated_at": "2026-05-31T01:30:39.924000+00:00"
 }

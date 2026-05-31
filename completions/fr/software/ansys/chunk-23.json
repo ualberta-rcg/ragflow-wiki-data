@@ -4,13 +4,17 @@
   "chunk_index": 23,
   "qa_pairs": [
     {
-      "question": "À quoi servent les fichiers de journalisation dans Ansys Fluent ?",
-      "answer": "Les fichiers de journalisation dans Fluent contiennent des commandes de l'interface TUI (Text User Interface) qui servent à automatiser les simulations. Ils permettent de modifier des paramètres de simulation comme la température, la pression ou la vitesse de flux pour exécuter une série de simulations sous différentes conditions."
+      "question": "Comment peut-on indiquer à Fluent d'interpréter une fonction définie par l'utilisateur (UDF) au moment de l'exécution, et quelle commande doit-on ajouter au fichier de journalisation pour ce faire?",
+      "answer": "Pour demander à Fluent d'interpréter votre UDF (User-Defined Function) lors de l'exécution, il faut ajouter la ligne de commande suivante dans votre fichier de journalisation avant que les fichiers cas/dat ne soient lus ou initialisés: `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no`. Assurez-vous de remplacer `sampleudf.c` par le nom de votre fichier source et que l'UDF se trouve dans le même répertoire que le fichier de journalisation."
     },
     {
-      "question": "Comment doit-on configurer Fluent pour utiliser les formats de fichiers de simulation plus efficaces ?",
-      "answer": "Pour utiliser les formats de fichiers plus efficaces .cas.h5/.dat.h5, disponibles à partir de la version 2020R1 de Fluent, il faut configurer le fichier de journalisation avec la commande `/file/cff-files yes`. Pour les versions antérieures à 2019R3, le paramètre par défaut `/file/cff-file no` utilise les formats .cas/.dat."
+      "question": "Pourquoi est-ce qu'une fonction définie par l'utilisateur (UDF) doit être compilée directement sur une grappe de l'Alliance avant d'être utilisée, et comment peut-on la charger une fois compilée?",
+      "answer": "Une UDF doit être compilée directement sur une de nos grappes de l'Alliance car cela crée une structure de sous-répertoire `libudf` contenant la bibliothèque partagée `libudf.so` requise. Copier ce répertoire depuis un système distant ne fonctionnerait pas, car les dépendances de la bibliothèque partagée ne seraient pas satisfaites, ce qui ferait planter Fluent. Une fois compilée, l'UDF peut être chargée en supprimant le commentaire de la ligne `define/user-defined/compiled-functions load libudf` dans votre fichier de journalisation lors de la soumission d'une tâche."
+    },
+    {
+      "question": "Pourquoi est-il crucial de paralléliser une fonction définie par l'utilisateur (UDF) avant de l'utiliser avec des tâches Fluent parallèles sur les grappes de l'Alliance?",
+      "answer": "Il est crucial de paralléliser une UDF pour les tâches Fluent parallèles afin de contrôler quels processus (hôte et/ou calcul) exécutent des parties spécifiques du code UDF. Sans cette parallélisation, Fluent fonctionnera lentement, au mieux, ou plantera immédiatement, au pire. La documentation officielle de Fluent fournit des détails sur la procédure d'instrumentation pour ajouter des directives de compilation, des prédicats et des macros de réduction à votre UDF séquentielle."
     }
   ],
-  "generated_at": "2026-05-24T01:11:18.899333+00:00"
+  "generated_at": "2026-05-31T01:29:38.084365+00:00"
 }

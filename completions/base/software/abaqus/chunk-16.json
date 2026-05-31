@@ -4,17 +4,17 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "When running multi-node Abaqus jobs with `mp_host_split` greater than 1, how is the `mem-per-cpu` value determined?",
-      "answer": "The `mem-per-cpu` value can be roughly determined by multiplying the largest memory estimate from the output .dat file by the number of nodes and the `mp_host_split` value, then dividing that product by the total number of tasks."
+      "question": "What is the primary purpose of intentionally lowering the `--mem=` value in an Abaqus Slurm script when the `MEMORY TO OPERATIONS REQUIRED MINIMIZE I/O (MRMIO)` is high?",
+      "answer": "The primary purpose of lowering the `--mem=` value is to reduce the amount of physical memory (RES) made available to Abaqus, which can help avoid long queue wait times associated with large `MRMIO` values. This approach requires evaluating the simulation's performance impact."
     },
     {
-      "question": "What is an important constraint regarding the `mp_host_split` parameter in Abaqus multi-process simulations?",
-      "answer": "The `mp_host_split` value must be less than or equal to the number of cores per node assigned by Slurm at runtime; otherwise, Abaqus will terminate."
+      "question": "What is the critical memory threshold for an Abaqus simulation, and what happens if the available resident memory falls below it?",
+      "answer": "The critical memory threshold is the `MINIMUM MEMORY REQUIRED (MMR)`. If the resident memory (RES) dips below this `MMR` value, Abaqus will exit due to an Out of Memory (OOM) error."
     },
     {
-      "question": "How can a user control the scenario where `mp_host_split` might exceed the available cores per node in a Slurm script?",
-      "answer": "Users can control this scenario by uncommenting and specifying a value for `tasks-per-node` in their Slurm script."
+      "question": "How can a user determine an acceptable `--mem=` value for an Abaqus simulation if its `MEMORY TO OPERATIONS REQUIRED MINIMIZE I/O (MRMIO)` is significantly large, for instance, 96GB?",
+      "answer": "If `MRMIO` is 96GB, a user should try running a series of short test jobs with varying `--mem=` values, such as `8G, 16G, 32G, 64G`, until an acceptable minimal performance impact is found. It's important to note that smaller `--mem=` values will result in increasingly larger scratch space being used by temporary files."
     }
   ],
-  "generated_at": "2026-05-24T00:59:14.512616+00:00"
+  "generated_at": "2026-05-31T01:04:38.730626+00:00"
 }

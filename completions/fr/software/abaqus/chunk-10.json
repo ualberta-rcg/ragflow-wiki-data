@@ -4,17 +4,17 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "Comment puis-je relancer une simulation d'analyse explicite Abaqus sur un nœud simple?",
-      "answer": "Pour relancer une simulation d'analyse explicite Abaqus sur un nœud simple, vous devez utiliser le script de redémarrage approprié. Par exemple, dans le script `scriptep2.txt`, la commande Abaqus est exécutée avec l'option `recover`, comme ceci : `abaqus job=testep2 input=myexp-sim.inp recover`. Il est important de noter que le fichier d'entrée ne requiert aucune modification pour ce type de redémarrage."
+      "question": "Dans un script Slurm pour une tâche Abaqus, comment spécifie-t-on le nombre total de cœurs de processeur et la mémoire allouée par cœur?",
+      "answer": "Pour une tâche Abaqus, on spécifie le nombre total de cœurs de processeur avec la directive `#SBATCH --ntasks=8` et la mémoire par cœur avec `#SBATCH --mem-per-cpu=4G`."
     },
     {
-      "question": "Quel est le rôle de la variable `SLURM_TMPDIR` dans les scripts Abaqus pour l'analyse explicite sur un nœud simple?",
-      "answer": "Dans les scripts Abaqus pour l'analyse explicite sur un nœud simple, la variable `SLURM_TMPDIR` est cruciale pour gérer les fichiers temporaires. Elle est utilisée pour s'assurer que les tâches qui génèrent des fichiers de redémarrage volumineux écrivent ces données sur le disque local (`scratch=$SLURM_TMPDIR`), ce qui peut améliorer les performances en réduisant les entrées/sorties réseau."
+      "question": "Quelle version du logiciel Abaqus est chargée dans ce script Slurm et quelle commande est utilisée pour ce faire?",
+      "answer": "La version `abaqus/2026` est chargée dans ce script à l'aide de la commande `module load abaqus/2026`."
     },
     {
-      "question": "Comment est-ce que la mémoire est allouée pour les tâches d'analyse explicite Abaqus sur un nœud simple?",
-      "answer": "Pour les tâches d'analyse explicite Abaqus sur un nœud simple, la mémoire est allouée en spécifiant le paramètre `memory` dans la commande Abaqus. La syntaxe utilisée est `memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`. Ceci signifie que la mémoire allouée correspond à la mémoire totale disponible par nœud (`SLURM_MEM_PER_NODE`) moins un décalage de 3072 Mo, une valeur prudente pour surallouer légèrement la mémoire demandée à Slurm."
+      "question": "Pourquoi la directive Slurm `#SBATCH --cpus-per-task=1` est-elle spécifiée comme ne devant pas être modifiée dans ce script?",
+      "answer": "La directive `#SBATCH --cpus-per-task=1` indique d'utiliser un seul cœur de processeur par tâche. Le commentaire `# Do not change !` précise qu'il ne faut pas la modifier, ce qui suggère que cette configuration est essentielle pour le bon fonctionnement de la tâche Abaqus dans ce contexte spécifique."
     }
   ],
-  "generated_at": "2026-04-13T00:51:33.812856+00:00"
+  "generated_at": "2026-05-31T01:10:49.420218+00:00"
 }

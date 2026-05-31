@@ -77,17 +77,17 @@ title: Home
 | Service | Status |
 |---------|--------|
 | **Vulcan** | :material-check-circle:{ style="color: green" } Operational |
-| **Narval** | :material-alert:{ style="color: orange" } Rolling update of Nvidia drivers to 580 |
+| **Trillium** | :material-check-circle:{ style="color: green" } Operational |
 | **Cedar Cloud** | :material-check-circle:{ style="color: green" } Operational |
-| **Nibi** | :material-check-circle:{ style="color: green" } Operational |
-| **Fir** | :material-alert:{ style="color: orange" } `ptrace` unavailable − `ptrace` indisponible |
-| **Rorqual** | :material-alert:{ style="color: orange" } Rolling update of Nvidia drivers to 580 |
-| **Arbutus** | :material-check-circle:{ style="color: green" } Operational |
+| **Graham Cloud** | :material-check-circle:{ style="color: green" } Operational |
+| **Fir** | :material-alert:{ style="color: orange" } Filesystem problem |
+| **Arbutus** | :material-alert:{ style="color: orange" } Legacy Arbutus Control Plane Maintenance |
 | **Béluga** | :material-alert:{ style="color: orange" } Decommissioning: 2026 End of Service Timeline |
-| **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
+| **Juno** | :material-check-circle:{ style="color: green" } Operational |
+| **Killarney** | :material-calendar:{ style="color: blue" } Planned Outage |
 | **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-05-24 00:55 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-05-31 01:00 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -97,16 +97,16 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 
 | Date | Event | Link |
 |------|-------|------|
-| May 25 | Data Bites - File Naming Best Practices for Research Data | [Register](https://libcal.library.ubc.ca/event/4016251) |
-| May 26 | Digital Scholarship Tools: 3D Design Basics | [Register](https://ualberta.libcal.com/event/4018974) |
-| May 28 | Introduction to Mapmaking with QGIS | [Register](https://libcal.library.ubc.ca/event/4017109) |
-| May 28 | Research Communications: Video Editing With Premiere Pro | [Register](https://ualberta.libcal.com/event/4019035) |
-| May 29 | Creating Digital Exhibits: A Survey of Tools | [Register](https://libcal.library.ubc.ca/event/4008284) |
 | Jun 01 | Bioinformatics: Analysis of RNA-sequencing Data | [Details](https://training.computeontario.ca/courses/course/view.php?id=31) |
-| Jun 01 | Overview of training opportunity in the School and beyond | [Details](https://training.computeontario.ca/courses/course/view.php?id=34) |
+| Jun 01 | Overview of training opportunities in the School and beyond | [Details](https://training.computeontario.ca/courses/course/view.php?id=34) |
 | Jun 01 | Interactive Computing with Open OnDemand | [Details](https://training.computeontario.ca/courses/course/view.php?id=39) |
+| Jun 01 | UBC ARC 101: Getting Started with UBC ARC Services | [Details](https://events.teams.microsoft.com/event/eaa41515-d464-43c2-a70b-659f0786aafa@2fff08c9-91d4-4fc8-bbdd-dd59b7414ddb) |
+| Jun 01 | Unix shell [summer school] | [Details](https://sfu26.netlify.app) |
+| Jun 01 | AI Showcase | [Details](https://training.computeontario.ca/courses/course/view.php?id=40) |
+| Jun 01 | Bioinformatics: Long-read Sequencing Applications | [Details](https://training.computeontario.ca/courses/course/view.php?id=30) |
+| Jun 01 | Data Bites - Choosing File Formats for Research Data | [Register](https://libcal.library.ubc.ca/event/4016252) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-05-24 00:55 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-05-31 01:00 UTC.*</small>
 
 ---
 

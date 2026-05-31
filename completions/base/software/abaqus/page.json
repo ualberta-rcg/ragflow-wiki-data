@@ -3,77 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Abaqus FEA software?",
-      "answer": "Abaqus FEA is a software suite used for finite element analysis and computer-aided engineering."
+      "question": "What is Abaqus FEA software used for on Alliance clusters?",
+      "answer": "Abaqus FEA is a software suite used for finite element analysis and computer-aided engineering on Alliance clusters."
     },
     {
-      "question": "How do I configure my Abaqus license for use on an Alliance cluster?",
-      "answer": "You need to create a file named `$HOME/.licenses/abaqus.lic` containing `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"port@server\")`, replacing `port@server` with your license server's specific details."
+      "question": "Do users need to provide their own license to use Abaqus software modules on Alliance clusters?",
+      "answer": "Yes, users must provide their own license to use Abaqus software modules on Alliance clusters."
     },
     {
-      "question": "What information should I provide to Alliance technical support if my Abaqus license needs additional configuration for cluster use?",
-      "answer": "You should provide the flexlm port number, the static vendor port number, and the IP address of your Abaqus license server."
+      "question": "How do users configure their account to use a FLEXnet-based Abaqus license server on an Alliance cluster?",
+      "answer": "Users must create a file named `~/.licenses/abaqus.lic` containing the fully qualified hostname and license manager daemon port number (e.g., `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"LMGRD-PORT-NUMBER@FLEXnet-SERVER-HOSTNAME\")`)."
     },
     {
-      "question": "What is a key requirement for using a local Abaqus license remotely on Alliance hardware?",
-      "answer": "A special license agreement generally needs to be negotiated and signed by SIMULIA and your institution."
+      "question": "What files need to be configured to use a DSLS-based Abaqus license server on an Alliance cluster?",
+      "answer": "Users need to configure `abaqus_v6.env` and `DSLicSrv.txt` files, ensuring `abaqus_v6.env` contains the absolute path to `DSLicSrv.txt`."
     },
     {
-      "question": "How do I configure Abaqus to use a local DSLS-based institutional license server instead of a FLEXnet server on Alliance clusters?",
-      "answer": "You must create two text files in your simulation submit directory: `abaqus_v6.env` with `license_server_type=DSLS` and `dsls_license_config=\"/path/to/DSLicSrv.txt\"`, and `DSLicSrv.txt` with `YOUR-SERVER-HOSTNAME:PORT-NUMBER`."
+      "question": "What information is needed for Alliance system administrators to set up a new Abaqus license server for cluster use?",
+      "answer": "For FLEXnet, the lmgrd and static vendor port numbers are needed. For DSLS, the administrative and licensing client port numbers are needed, along with the server's fully qualified domain name or IPV4 address."
     },
     {
-      "question": "How can I prevent an Abaqus job from indefinitely waiting for a license on an Alliance cluster?",
-      "answer": "You can create an `abaqus_v6.env` file in your submit directory with `lmlicensequeuing=OFF` to terminate the job immediately, or `lmhanglimit=1` to specify a finite wait time (e.g., 1 minute) before termination."
+      "question": "How can users prevent Abaqus jobs from idling indefinitely on an Alliance cluster while waiting for a license?",
+      "answer": "Users can either terminate a job immediately if licenses are unavailable by adding `lmlicensequeuing=OFF` to `abaqus_v6.env`, or specify a finite wait time (e.g., `lmhanglimit=1` for 1 minute) in the same file."
     },
     {
-      "question": "Which Abaqus module is currently recommended for use on Alliance clusters, and why?",
-      "answer": "The `abaqus/2026` module is recommended as it resolves a buffer overflow error found in `abaqus/2021` on recent clusters."
+      "question": "Which version of Abaqus is recommended for use on Alliance clusters and why?",
+      "answer": "Abaqus/2026 is now installed in the default `StdEnv/2023` environment and is recommended because it resolves a buffer overflow error present in `abaqus/2021` on recent clusters."
     },
     {
-      "question": "What types of parallel simulations can be submitted for Abaqus on Alliance clusters?",
-      "answer": "Both thread-based and MPI-based parallel simulations can be submitted to single or multiple compute nodes."
+      "question": "What types of parallel simulations can be submitted as Abaqus jobs on Alliance clusters using Slurm scripts?",
+      "answer": "Users can submit thread-based and MPI-based parallel simulations for both Standard and Explicit Analysis types, to single or multiple compute nodes."
     },
     {
-      "question": "When should I use temporary directory scripts for Abaqus jobs on Alliance clusters?",
-      "answer": "You should use temporary directory scripts for single-node jobs that create large restart files, as they benefit from writing to local disk through the `SLURM_TMPDIR` environment variable."
+      "question": "What is the main advantage of using temporary directory scripts for Abaqus jobs with large restart files on Alliance clusters?",
+      "answer": "Temporary directory scripts help jobs that create large restart files by writing them to the local disk using the `SLURM_TMPDIR` environment variable, which can improve performance."
     },
     {
-      "question": "How can I estimate the required Slurm node memory for an Abaqus simulation to run fully in RAM on Alliance clusters?",
-      "answer": "You can find an estimate in the `test.dat` output file under 'MEMORY TO MINIMIZE I/O' or by interactively running the simulation and monitoring `RES` memory usage with `top` or `ps` commands."
+      "question": "What types of Abaqus jobs are suitable for multiple node computing on Alliance clusters?",
+      "answer": "Jobs that require large memory or extensive compute resources beyond a single node's capacity, and have access to large licenses, should use MPI scripts for multiple node computing."
     },
     {
-      "question": "What are the recommended methods for running Abaqus in graphical mode on the Alliance platform?",
-      "answer": "The recommended methods are using OpenOnDemand or JupyterLab desktop sessions."
+      "question": "How can a user estimate the total Slurm node memory required for a single-process Abaqus simulation on an Alliance cluster?",
+      "answer": "The Abaqus output `test.dat` file provides 'MEMORY TO MINIMIZE I/O' estimates, or users can monitor memory usage (VIRT and RES columns) with the `top` command during an interactive run on a compute node."
     },
     {
-      "question": "How do I start Abaqus in graphical mode using OpenOnDemand on an Alliance cluster, and what are the options for GPU usage?",
-      "answer": "Load the Abaqus module in an OnDemand terminal and run `abaqus cae`. Use `abaqus cae -mesa` if on a node without a GPU or VirtualGL support; otherwise, run `abaqus cae` for better performance with GPU and VirtualGL support."
+      "question": "What are the recommended methods for running Abaqus graphical applications on Alliance clusters?",
+      "answer": "It is recommended to use an OpenOnDemand or JupyterLab desktop session to run Abaqus graphical applications; VncViewer is considered obsolete."
     },
     {
-      "question": "What is the current status and capacity of the free SHARCNET Abaqus license for Alliance researchers?",
-      "answer": "The SHARCNET license is operational until January 17, 2027, offering 3 CAE and 54 execute tokens with usage limits of 1 CAE/user, 10 tokens/user, and 15 tokens/group."
+      "question": "How can a user check the availability of Abaqus CAE licenses on an Alliance cluster?",
+      "answer": "Users can check license availability by running the command `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | grep \"Users of cae\"`."
     },
     {
-      "question": "What steps are required to gain access to the free SHARCNET Abaqus license on Alliance clusters?",
-      "answer": "You must contact technical support, mention it's for SHARCNET systems, and include a copy of the 'Abaqus SHARCNET Academic License User Agreement' statement with your full name and username."
+      "question": "What are the conditions for using the SHARCNET Abaqus academic license on Alliance clusters?",
+      "answer": "Users must confirm they will only use the software on SHARCNET hardware, for academic purposes in affiliation with a Canadian degree-granting institution, and for education, institutional, instruction, or experimental/theoretical/digital research work."
     },
     {
-      "question": "How can I check the status of the SHARCNET Abaqus license server for started and queued jobs?",
-      "answer": "After logging into a SHARCNET cluster like Nibi and loading the Abaqus module, run `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"`."
+      "question": "How is the SHARCNET Abaqus license configured for use on Alliance systems like Nibi or the SHARCNET OOD desktop system?",
+      "answer": "Users must update their `~/.licenses/abaqus.lic` file to include `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27050@license1.computecanada.ca\")`."
     },
     {
-      "question": "What happens if an Abaqus job is 'queued' for a license on the SHARCNET server?",
-      "answer": "A queued job is in the Slurm 'Running' state but is idle on a compute node, waiting for a license. This consumes CPU time and impacts your account priority until licenses become available."
+      "question": "How can a user query the SHARCNET Abaqus license server for current usage and queued jobs on an Alliance cluster?",
+      "answer": "After logging into Nibi and loading the Abaqus module, users can run `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"`."
     },
     {
-      "question": "Is the Western Abaqus license currently functional on Alliance clusters?",
-      "answer": "No, the Western Abaqus license server has been shut down, and a replacement is being worked on. Researchers are advised to use the SHARCNET License in the interim."
+      "question": "How does the Abaqus license token usage scale with the number of cores requested on Alliance clusters?",
+      "answer": "The number of tokens required is `floor[5 X CORES^0.422]`, with one additional token for each GPU used."
     },
     {
-      "question": "What is the approximate relationship between the number of cores and Abaqus tokens required for a job?",
-      "answer": "The number of tokens required is approximately `floor[5 X CORES^0.422]`, with one additional token needed for each GPU used."
+      "question": "What is the current status of the Western Abaqus license for use on Alliance clusters?",
+      "answer": "The Western Abaqus license server (license4.sharcnet.ca) has been shut down and retired, so license checkout requests from this server on the Dusky cluster currently fail, with a replacement server being developed."
     }
   ],
-  "generated_at": "2026-05-24T00:56:55.817261+00:00"
+  "generated_at": "2026-05-31T01:02:23.598529+00:00"
 }

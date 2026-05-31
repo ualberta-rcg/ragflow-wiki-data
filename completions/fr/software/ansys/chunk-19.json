@@ -4,17 +4,17 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "À quoi sert principalement le script Slurm fourni pour Ansys Fluent sur les grappes de Calcul Canada?",
-      "answer": "Ce script est conçu pour automatiser le redémarrage des simulations Ansys Fluent de longue durée sur les grappes de l'Alliance, surtout pour les tâches qui pourraient dépasser la limite de temps d'exécution maximale. Il utilise les tableaux de tâches Slurm pour soumettre à nouveau la tâche, en reprenant à partir des fichiers de sortie les plus récemment sauvegardés."
+      "question": "À quoi servent les fichiers de journalisation Fluent et comment peuvent-ils être utilisés pour gérer des simulations sur les grappes de l'Alliance?",
+      "answer": "Les fichiers de journalisation Fluent peuvent contenir toutes les commandes de l'interface TUI (Text User Interface). Ils sont utilisés pour modifier des paramètres de simulation, comme la température ou la vitesse du flux, et permettent ainsi d'effectuer des séries de simulations sous différentes conditions en modifiant simplement le fichier de journalisation. Pour plus de détails et la liste des commandes, il faut consulter le guide d'utilisation de Fluent."
     },
     {
-      "question": "Comment le script Slurm gère-t-il le redémarrage d'une simulation Ansys Fluent à partir de l'endroit où elle s'est arrêtée?",
-      "answer": "Le script utilise des tableaux de tâches Slurm (`#SBATCH --array`) pour gérer plusieurs tentatives ou segments d'une simulation. Lors d'un redémarrage, il lie automatiquement les fichiers de cas (`.cas`) et de données (`.dat`) de sortie les plus récents (par exemple, `MYCASFILERES` et `MYDATFILERES`) afin qu'ils soient utilisés comme entrées pour la tâche suivante du tableau, ce qui permet à la simulation de continuer à partir de son dernier état sauvegardé."
+      "question": "Comment les fichiers de journalisation Fluent doivent-ils être configurés pour utiliser les formats de fichiers de cas et de données appropriés (par exemple, .cas/.dat ou .cas.h5/.dat.h5) sur les grappes de l'Alliance, selon la version de Fluent?",
+      "answer": "Pour les modules Ansys Fluent jusqu'à la version 2019R3, les fichiers de journalisation doivent être configurés avec la commande `/file/cff-files no` pour utiliser les formats par défaut .cas/.dat. Pour les versions à partir de 2020R1, qui emploient les formats .cas.h5/.dat.h5 plus efficaces, la configuration doit être `/file/cff-files yes`."
     },
     {
-      "question": "Quelle est la différence dans l'utilisation des fichiers de journalisation entre le premier lancement d'une simulation Ansys Fluent et les redémarrages subséquents avec ce script Slurm?",
-      "answer": "Pour la toute première exécution d'une simulation (identifiée par `SLURM_ARRAY_TASK_ID == 1`), le script utilise le fichier de journalisation initial désigné par `MYJOUFILE` (par exemple, `sample.jou`). Pour toutes les tentatives de redémarrage subséquentes au sein du tableau de tâches, il emploie un fichier de journalisation spécifique au redémarrage, `MYJOUFILERES` (par exemple, `sample-restart.jou`), qui est configuré pour lire les fichiers de cas et de données précédemment sauvegardés."
+      "question": "Dans le script Slurm destiné aux tâches Fluent à plusieurs nœuds (par cœur + redémarrage) sur les grappes de l'Alliance, à quoi sert l'option `#SBATCH --array=1-5%1`?",
+      "answer": "Dans le script Slurm pour les tâches Fluent à plusieurs nœuds avec redémarrage, l'option `#SBATCH --array=1-5%1` est utilisée pour spécifier le nombre de redémarrages de la solution. Dans cet exemple, cela permet de tenter la simulation jusqu'à 5 fois, en redémarrant la tâche à partir des fichiers de données les plus récemment sauvegardés si elle échoue ou atteint sa limite de temps alloué."
     }
   ],
-  "generated_at": "2026-05-24T01:10:50.981266+00:00"
+  "generated_at": "2026-05-31T01:29:06.972177+00:00"
 }

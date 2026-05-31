@@ -3,69 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que Qiskit, selon la documentation d'IBM Quantum?",
-      "answer": "Qiskit est une bibliothèque de programmation quantique à code source ouvert, développée en Python par IBM, qui permet de construire, simuler et exécuter des circuits quantiques."
+      "question": "Qu'est-ce que Qiskit et à quoi sert-il sur les grappes d'Alliance?",
+      "answer": "Qiskit est une bibliothèque open source de programmation quantique développée en Python par IBM. Elle permet de construire, de simuler et d'exécuter des circuits quantiques, de manière similaire à PennyLane et Snowflurry."
     },
     {
-      "question": "Quelles sont les premières étapes pour installer Qiskit sur une grappe?",
-      "answer": "Les premières étapes sont de charger les dépendances de modules comme `StdEnv/2023`, `gcc`, `python/3.11` et `symengine/0.11.2`, puis de créer et d'activer un environnement virtuel Python."
+      "question": "Quelles sont les dépendances logicielles initiales à charger sur une grappe d'Alliance avant d'installer Qiskit?",
+      "answer": "Pour installer Qiskit, il faut charger les modules StdEnv/2023, gcc, python/3.11 et symengine/0.11.2."
     },
     {
-      "question": "Comment installer une version spécifique de Qiskit et de ses packages, comme `qiskit_aer`, dans un environnement virtuel Python?",
-      "answer": "Il faut utiliser la commande `pip install --no-index qiskit==X.Y.Z qiskit_aer==X.Y.Z`, où `X.Y.Z` représente le numéro de la version. Pour la plus récente, on n'indique pas de version."
+      "question": "Comment crée-t-on et active-t-on un environnement virtuel Python pour Qiskit sur une grappe d'Alliance?",
+      "answer": "On crée et active un environnement virtuel Python en utilisant la commande `virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate`."
     },
     {
-      "question": "Comment valider l'installation de Qiskit après l'avoir installée dans un environnement virtuel?",
-      "answer": "On peut valider l'installation en exécutant la commande Python `python -c 'import qiskit'` depuis l'environnement activé."
+      "question": "Comment installer une version spécifique de Qiskit et `qiskit_aer` via `pip` dans un environnement virtuel sur une grappe d'Alliance?",
+      "answer": "Dans l'environnement virtuel activé, on exécute `pip install --no-index --upgrade pip` puis `pip install --no-index qiskit==X.Y.Z qiskit_aer==X.Y.Z`, où `X.Y.Z` est le numéro de version désiré."
     },
     {
-      "question": "Comment figer les dépendances d'un environnement Qiskit afin de les réutiliser plus tard ou pour une installation sur une grappe?",
-      "answer": "On utilise la commande `pip freeze --local > ~/qiskit_requirements.txt` pour sauvegarder les dépendances dans un fichier."
+      "question": "Comment peut-on valider que Qiskit a été correctement installé dans un environnement virtuel sur une grappe d'Alliance?",
+      "answer": "On valide l'installation en exécutant la commande Python `import qiskit` dans l'environnement virtuel."
     },
     {
-      "question": "Quelles informations sont essentielles à inclure dans un script SLURM pour exécuter une tâche Qiskit sur une grappe de calcul?",
-      "answer": "Un script SLURM doit inclure le nom du compte (`#SBATCH --account`), le temps alloué (`#SBATCH --time`), le nombre de CPU par tâche (`#SBATCH --cpus-per-task`) et la mémoire par CPU (`#SBATCH --mem-per-cpu`)."
+      "question": "Comment enregistrer les dépendances d'un environnement Qiskit installé dans un fichier sur une grappe d'Alliance?",
+      "answer": "On peut figer l'environnement et ses dépendances en exécutant `pip freeze --local > ~/qiskit_requirements.txt`."
     },
     {
-      "question": "Comment configurer l'environnement virtuel et installer Qiskit à partir d'un fichier de dépendances dans un script SLURM?",
-      "answer": "Il faut générer l'environnement virtuel dans `$SLURM_TMPDIR`, l'activer, puis installer les dépendances avec `pip install --no-index --requirement ~/qiskit_requirements.txt`."
+      "question": "Comment charger les modules requis et gérer l'environnement virtuel pour une tâche Qiskit soumise via SLURM sur une grappe d'Alliance?",
+      "answer": "Dans le script SLURM, il faut charger les modules `StdEnv/2023 gcc python/3.11 symengine/0.11.2`, puis créer et activer l'environnement virtuel dans `$SLURM_TMPDIR` avec `virtualenv --no-download ${SLURM_TMPDIR}/env` et `source ${SLURM_TMPDIR}/env/bin/activate`."
     },
     {
-      "question": "Qu'est-ce que MonarQ et comment peut-il être utilisé avec Qiskit?",
-      "answer": "MonarQ est une infrastructure de Calcul Québec qui peut être utilisée avec Qiskit via le plugiciel `qiskit-calculquebec` pour développer et exécuter des circuits quantiques."
+      "question": "Quel est le rôle du plugiciel `qiskit-calculquebec` lors de l'utilisation de Qiskit avec MonarQ?",
+      "answer": "Le plugiciel `qiskit-calculquebec` permet de développer et d'exécuter directement des circuits Qiskit sur l'infrastructure de Calcul Québec via MonarQ."
     },
     {
-      "question": "Quelles sont les étapes pour installer les dépendances nécessaires à l'utilisation de Qiskit avec MonarQ?",
-      "answer": "Il faut charger le module `python/3.11`, créer et activer un environnement virtuel, puis installer `qiskit-calculquebec` et `qiskit-ibm-runtime` via pip."
+      "question": "Quelles sont les étapes d'installation des dépendances pour utiliser Qiskit avec MonarQ sur une grappe d'Alliance?",
+      "answer": "Les étapes incluent le chargement du module `python/3.11`, la création et l'activation d'un environnement virtuel, l'amélioration de `pip`, et l'installation de `qiskit-calculquebec` et `qiskit-ibm-runtime` via `pip`."
     },
     {
-      "question": "Le plugiciel `qiskit-calculquebec` installe-t-il automatiquement Qiskit?",
+      "question": "Est-ce que l'installation du plugiciel `qiskit-calculquebec` inclut l'installation de Qiskit lui-même?",
       "answer": "Oui, le plugiciel `qiskit-calculquebec` installe automatiquement Qiskit."
     },
     {
-      "question": "Quels identifiants et informations sont nécessaires pour se connecter à MonarQ et initialiser le client et le backend Qiskit?",
-      "answer": "Il faut un nom d'utilisateur, un jeton d'accès, l'adresse hôte `https://monarq.calculquebec.ca` et un identifiant de projet."
-    },
-    {
-      "question": "Où peut-on obtenir le jeton d'accès requis pour utiliser MonarQ avec Qiskit?",
+      "question": "Où peut-on trouver le jeton d'accès nécessaire pour configurer le client MonarQ avec Qiskit?",
       "answer": "Le jeton d'accès est disponible via le portail Thunderhead."
     },
     {
-      "question": "Quelles sont les étapes principales pour exécuter un circuit Qiskit sur le backend MonarQ?",
-      "answer": "Les étapes principales sont la transpilation du circuit pour l'adapter au backend et l'exécution via un échantillonneur (SamplerV2)."
+      "question": "Quelle est l'adresse de l'hôte à utiliser pour se connecter au backend MonarQ avec Qiskit?",
+      "answer": "L'adresse de l'hôte est `https://monarq.calculquebec.ca`."
     },
     {
-      "question": "Pourquoi la transpilation est-elle une étape nécessaire avant d'exécuter un circuit Qiskit sur MonarQ?",
-      "answer": "La transpilation est nécessaire pour adapter le circuit à la connectivité et aux portes natives spécifiques du backend MonarQ."
+      "question": "Pourquoi la transpilation est-elle une étape nécessaire avant d'exécuter un circuit Qiskit sur le backend MonarQ?",
+      "answer": "La transpilation est nécessaire pour adapter le circuit quantique à la connectivité et aux portes natives spécifiques du backend MonarQ."
     },
     {
-      "question": "Quel est l'échantillonneur recommandé pour l'exécution de circuits Qiskit avec mesures sur MonarQ?",
-      "answer": "L'utilisation de `SamplerV2` est recommandée pour l'exécution de circuits avec mesures sur MonarQ."
+      "question": "Quel `Sampler` est recommandé pour l'exécution de circuits Qiskit avec des mesures sur MonarQ?",
+      "answer": "L'utilisation de `SamplerV2` de `qiskit_ibm_runtime` est recommandée pour l'exécution de circuits avec des mesures sur MonarQ."
     },
     {
-      "question": "Quel est le nombre maximum de 'shots' (mesures) que l'on peut ajuster lors de l'exécution d'un circuit Qiskit sur MonarQ?",
-      "answer": "Le nombre maximum de 'shots' (mesures) que l'on peut ajuster lors de l'exécution d'un circuit sur MonarQ est de 1024."
+      "question": "Quelle est la limite maximale pour le nombre de `shots` (mesures répétées) lors de l'exécution d'un circuit Qiskit sur MonarQ?",
+      "answer": "Le nombre de `shots` peut être ajusté selon les besoins, avec un maximum de 1024."
     }
   ],
-  "generated_at": "2026-04-13T11:59:03.118178+00:00"
+  "generated_at": "2026-05-31T01:56:04.344751+00:00"
 }

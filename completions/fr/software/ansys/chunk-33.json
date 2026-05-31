@@ -4,13 +4,17 @@
   "chunk_index": 33,
   "qa_pairs": [
     {
-      "question": "Comment générer un fichier d'entrée pour les tâches Ansys Mechanical APDL avant de les soumettre à l'ordonnanceur Slurm sur les grappes?",
-      "answer": "Pour générer le fichier d'entrée pour les tâches Ansys Mechanical APDL, il faut le faire dans une session interactive de Workbench Mechanical en cliquant sur « Solution -> Tools -> Write Input Files ». Il faut ensuite spécifier le nom du fichier, par exemple « YOURAPDLFILE.inp », et s'assurer que le type d'enregistrement est défini pour les fichiers APDL en entrée (*.inp)."
+      "question": "Comment soumettre des tâches Ansys Mechanical APDL à la file d'attente Slurm sur les grappes de l'Alliance?",
+      "answer": "Pour soumettre une tâche Ansys Mechanical APDL, il faut d'abord générer le fichier d'entrée (par exemple, `YOURAPDLFILE.inp`) via l'interface Workbench Mechanical. Ensuite, les tâches APDL peuvent être soumises à la file d'attente Slurm en utilisant la commande `sbatch script-name.sh` avec les scripts d'ordonnanceur fournis. Il est conseillé que la version du module Ansys chargée dans le script corresponde à celle utilisée pour générer le fichier d'entrée afin d'éviter les problèmes de compatibilité."
     },
     {
-      "question": "Quels sont les types de scripts Slurm disponibles pour les tâches Ansys Mechanical (APDL) sur les grappes, et lequel est recommandé pour une meilleure performance?",
-      "answer": "Il existe des scripts pour la mémoire parallèle partagée (SMP) et pour la mémoire parallèle distribuée (DMP). Les scripts pour nœud simple avec mémoire parallèle partagée (SMP) sont préférables, car ils offrent une meilleure performance et devraient être utilisés autant que possible."
+      "question": "Quelle est la différence entre la mémoire parallèle partagée (SMP) et la mémoire parallèle distribuée (DMP) pour Ansys Mechanical APDL, et lequel est généralement recommandé sur les grappes de l'Alliance?",
+      "answer": "La mémoire parallèle partagée (SMP) est utilisée pour les tâches qui s'exécutent sur un seul nœud de calcul, tandis que la mémoire parallèle distribuée (DMP) est conçue pour les tâches s'étendant sur plusieurs nœuds. Il est recommandé d'utiliser les scripts SMP chaque fois que possible sur les grappes de l'Alliance, car ils offrent généralement une meilleure performance que les scripts DMP."
+    },
+    {
+      "question": "Y a-t-il des configurations spécifiques ou des variables d'environnement requises pour exécuter Ansys Mechanical APDL sur la grappe Cedar?",
+      "answer": "Oui, sur la grappe Cedar, il est nécessaire de définir la variable d'environnement `LD_LIBRARY_PATH` à `$EBROOTGCC/../lib/gcc`. Pour les scripts DMP (CPU et GPU), il faut aussi créer un lien symbolique vers `libstdc++.so.6.0.29` dans le répertoire de sortie pour que l'exécution se fasse correctement."
     }
   ],
-  "generated_at": "2026-05-24T01:12:37.992731+00:00"
+  "generated_at": "2026-05-31T01:31:09.401551+00:00"
 }

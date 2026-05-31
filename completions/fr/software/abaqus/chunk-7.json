@@ -4,13 +4,13 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "Pourquoi privilégier l'utilisation d'un script Abaqus avec un répertoire temporaire, tel que `SLURM_TMPDIR`, pour exécuter des simulations?",
-      "answer": "C'est avantageux pour les tâches Abaqus qui génèrent beaucoup de fichiers de redémarrage ou d'autres fichiers temporaires volumineux. Ça leur permet d'écrire ces fichiers sur le disque local du nœud de calcul via la variable d'environnement `SLURM_TMPDIR`, ce qui peut améliorer les performances en réduisant les entrées/sorties sur les systèmes de fichiers partagés."
+      "question": "Comment puis-je redémarrer une simulation Abaqus d'analyse standard sur un nœud simple en utilisant un script Slurm?",
+      "answer": "Pour redémarrer une simulation Abaqus d'analyse standard sur un nœud simple, votre script Slurm doit spécifier le travail précédent avec `oldjob=NOM_ANCIEN_TRAVAIL` et utiliser un fichier d'entrée de redémarrage (par exemple, `input=mystd-sim-restart.inp`). Le fichier d'entrée de redémarrage (`mystd-sim-restart.inp`) doit minimalement contenir les lignes `*HEADING` et `*RESTART, READ`."
     },
     {
-      "question": "Dans un script Abaqus utilisant un répertoire temporaire (`SLURM_TMPDIR`), comment les données de simulation sont-elles sauvegardées pour éviter les pertes en cas d'atteinte de la limite de temps?",
-      "answer": "Le script comprend une boucle qui, toutes les six heures, copie automatiquement et en arrière-plan tous les fichiers du répertoire temporaire vers le répertoire de soumission (`$SLURM_SUBMIT_DIR`). Cette méthode permet de préserver les données en cas d'interruption inattendue de la tâche. De plus, à la fin de la tâche, tous les fichiers sont copiés une dernière fois vers le répertoire de soumission."
+      "question": "Dans les scripts Slurm pour Abaqus, pourquoi est-ce préférable d'utiliser le répertoire temporaire `$SLURM_TMPDIR` pour les tâches qui créent de gros fichiers de redémarrage?",
+      "answer": "Il est préférable d'utiliser le répertoire temporaire `$SLURM_TMPDIR` pour les tâches Abaqus qui génèrent de gros fichiers de redémarrage, car cela permet d'écrire sur le disque local, ce qui peut améliorer considérablement les performances. Les scripts sont conçus pour copier les fichiers d'entrée du répertoire de soumission (`$SLURM_SUBMIT_DIR`) vers `$SLURM_TMPDIR` au début de la tâche, et ensuite copier les données sauvegardées périodiquement et les résultats finaux vers le répertoire de soumission."
     }
   ],
-  "generated_at": "2026-04-13T00:51:00.053923+00:00"
+  "generated_at": "2026-05-31T01:10:27.044681+00:00"
 }

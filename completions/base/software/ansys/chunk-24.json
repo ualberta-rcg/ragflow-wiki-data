@@ -2,6 +2,15 @@
   "doc_key": "base/ansys",
   "level": "chunk",
   "chunk_index": 24,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:26:36.768874+00:00"
+  "qa_pairs": [
+    {
+      "question": "In Ansys Fluent, what are the steps to configure a Discrete Phase Model (DPM) injection through the graphical user interface (GUI) and enable its interaction with the continuous phase?",
+      "answer": "To configure a DPM injection in the Ansys Fluent GUI, first open the `Discrete Phase Model` box from the `Physics panel -> Discrete Phase`. Click the `Injections` button, then `Create` to open the `Set Injection Properties` dialog. Here, you can choose an `Injection Type` (such as single, group, surface, or flat-fan-atomizer) and input the corresponding `Point Properties` values, or select `File` to read from an injection text file (e.g., with a `.dpm` or `.inj` extension). Once the injection is confirmed, return to the `Discrete Phase Model` dialog box and select `Interaction with Continuous Phase` to enable updating DPM source terms every flow iteration. This setting can be saved in your case file."
+    },
+    {
+      "question": "How can the setup for a Discrete Phase Model (DPM) injection and its interaction with the continuous phase be automated using journal file commands in Ansys Fluent?",
+      "answer": "The setup for a DPM injection and its interaction with the continuous phase can be automated by adding specific commands to a journal file after the solution initialization. For instance, to enable interaction with the continuous phase and create an injection from a file named `zinjection01.inj`, you would include the following commands in your journal file:\n`/define/models/dpm/interaction/coupled-calculations yes`\n`/define/models/dpm/injections/delete-injection injection-0:1`\n`/define/models/dpm/injections/create injection-0:1 no yes file no zinjection01.inj no no no no`\n`/define/models/dpm/injections/list-particles injection-0:1`\n`/define/models/dpm/injections/list-injection-properties injection-0:1`\nThis automates the process of loading an injection file and enabling the coupled calculations."
+    }
+  ],
+  "generated_at": "2026-05-31T01:16:43.314551+00:00"
 }

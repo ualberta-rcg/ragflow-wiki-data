@@ -4,13 +4,17 @@
   "chunk_index": 34,
   "qa_pairs": [
     {
-      "question": "Comment lancer une simulation Ansys Mechanical (MAPDL) en mode parallèle à mémoire distribuée (DMP) avec des processeurs (CPU) sur les grappes de calcul de l'Alliance?",
-      "answer": "Pour lancer une simulation Ansys Mechanical (MAPDL) en mode parallèle à mémoire distribuée (DMP) avec des CPU, il faut utiliser la commande `mapdl -dis`. L'implémentation MPI utilisée dépend de la grappe: `intelmpi` est spécifiée pour le cluster Beluga, tandis que `openmpi` est utilisée pour les autres grappes. Il est aussi nécessaire de charger le module `ansys/2024R1.03` (ou une version plus récente) au préalable."
+      "question": "Comment la variable d'environnement `LD_LIBRARY_PATH` est-elle configurée lors de l'exécution d'Ansys Mechanical (APDL) en mode parallèle distribué avec GPU sur la grappe Cedar?",
+      "answer": "Sur la grappe Cedar, la variable `LD_LIBRARY_PATH` est configurée pour inclure un lien symbolique vers une version spécifique de `libstdc++.so.6.0.29` dans le répertoire `outdir` de la tâche (`$PWD/outdir-$SLURM_JOBID`), ainsi que le chemin `$EBROOTGCC/../lib/gcc`."
     },
     {
-      "question": "Quelles sont les configurations ou variables d'environnement spécifiques requises pour les grappes Cedar et Beluga lors de l'exécution de Ansys Mechanical (MAPDL) en mode parallèle à mémoire distribuée (DMP)?",
-      "answer": "Sur le cluster Cedar, il faut créer un lien symbolique vers la bibliothèque `libstdc++.so.6.0.29` et exporter la variable d'environnement `LD_LIBRARY_PATH` pour que le programme trouve les bonnes dépendances. Pour le cluster Beluga, la variable d'environnement `KMP_AFFINITY` doit être définie à `none` (`export KMP_AFFINITY=none`) avant d'exécuter la simulation."
+      "question": "Quelle implémentation MPI est utilisée pour Ansys Mechanical (APDL) en mode parallèle distribué avec GPU sur la grappe Béluga, et quelle variable d'environnement est spécifiquement définie?",
+      "answer": "Sur la grappe Béluga, Ansys Mechanical (APDL) utilise l'implémentation `intelmpi` en mode parallèle distribué avec GPU. La variable d'environnement `KMP_AFFINITY` doit être définie à `none`."
+    },
+    {
+      "question": "Quelle variable d'environnement faut-il définir pour afficher les dispositifs GPU lors de l'exécution d'Ansys Mechanical (APDL) avec accélération GPU sur les grappes de l'Alliance?",
+      "answer": "Pour afficher les dispositifs GPU, il faut exporter la variable d'environnement `ANSGPU_PRINTDEVICES` avec la valeur `1`."
     }
   ],
-  "generated_at": "2026-05-24T01:12:48.587701+00:00"
+  "generated_at": "2026-05-31T01:31:15.935013+00:00"
 }

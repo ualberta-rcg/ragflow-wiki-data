@@ -4,13 +4,13 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "Dans les scripts Slurm pour Abaqus, quel est le rôle de la valeur de 3072 Mo soustraite de la mémoire totale d'un nœud lors de la spécification des ressources pour une tâche à nœud unique?",
-      "answer": "Cette soustraction de 3072 Mo est une surallocation prudente codée en dur dans les scripts afin de s'assurer qu'Abaqus dispose de suffisamment de mémoire résidente (RES), en compensant la différence habituelle entre la mémoire virtuelle et la mémoire résidente sur les nœuds de calcul."
+      "question": "Comment peut-on relancer une tâche Abaqus sur un seul nœud, en particulier si elle utilise un répertoire temporaire pour ses données?",
+      "answer": "Pour relancer une tâche Abaqus sur un seul nœud qui écrivait ses données dans un répertoire temporaire (`$SLURM_TMPDIR`), il faut utiliser un script de redémarrage spécifique. Ce script commence par copier les fichiers de la tâche précédente (ex: `testst1*`) dans le `$SLURM_TMPDIR`. Le fichier d'entrée pour la reprise de la simulation (ex: `mystd-sim-restart.inp`) doit absolument inclure les directives `*HEADING` et `*RESTART, READ`. De plus, le script sauvegarde régulièrement et à la fin de l'exécution les nouveaux fichiers (ex: `testst2*`) vers votre répertoire de soumission (`$SLURM_SUBMIT_DIR`)."
     },
     {
-      "question": "Quel contenu spécifique doit être inclus dans le fichier d'entrée d'une simulation Abaqus si l'on souhaite redémarrer la tâche à partir d'un répertoire temporaire?",
-      "answer": "Le fichier d'entrée pour le redémarrage doit absolument contenir les lignes `*HEADING` et `*RESTART, READ`."
+      "question": "Quelles sont les conditions et les restrictions pour soumettre des tâches Abaqus qui s'exécutent sur plusieurs nœuds de calcul en utilisant MPI?",
+      "answer": "Les tâches Abaqus qui requièrent de multiples nœuds de calcul via MPI sont conçues pour les simulations gourmandes en mémoire et en calcul, et nécessitent une licence compatible. Seules les versions d'Abaqus `2026` et plus récentes sont prises en charge pour ce type de configuration. Il est important de noter qu'un script de redémarrage pour les tâches multi-nœuds n'est pas fourni, car cette approche présente des limitations supplémentaires. Le script configure automatiquement la liste des hôtes MPI et utilise le mode `mp_mode=mpi`."
     }
   ],
-  "generated_at": "2026-04-13T00:51:10.783916+00:00"
+  "generated_at": "2026-05-31T01:10:35.743231+00:00"
 }

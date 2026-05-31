@@ -4,17 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on ajoute un barostat Monte Carlo à un système de simulation OpenMM?",
-      "answer": "Pour ajouter un barostat Monte Carlo, il faut d'abord créer une instance de `MonteCarloBarostat` en spécifiant la pression, la température et une fréquence (ici, 50). Ensuite, on l'ajoute au système de simulation en appelant la méthode `system.addForce(barostat)`."
+      "question": "Quel est le rôle des CPU lorsque OpenMM exécute des simulations sur une plateforme CUDA, et quelles sont les implications pour l'allocation des ressources?",
+      "answer": "Sur la plateforme CUDA, OpenMM n'a besoin que d'un CPU par GPU parce que les CPU ne sont pas utilisés pour les calculs. Cela signifie qu'il est plus efficace d'allouer seulement un CPU par GPU lors de la soumission de tâches."
     },
     {
-      "question": "Comment configure-t-on la plateforme CUDA pour une simulation OpenMM et quelles propriétés peut-on y spécifier?",
-      "answer": "On configure la plateforme CUDA en appelant `Platform.getPlatformByName(\"CUDA\")`. Les propriétés spécifiques à CUDA sont définies dans un dictionnaire (`prop`), incluant `CudaPrecision=\"mixed\"`, `UseCpuPme='false'` (pour ne pas utiliser le CPU pour les calculs PME), `DeterministicForces=\"false\"` et l'indice de l'appareil (`DeviceIndex`) qui est tiré de la variable d'environnement `CUDA_VISIBLE_DEVICES`."
-    },
-    {
-      "question": "Quels sont les éléments requis pour créer l'objet de simulation principal dans OpenMM?",
-      "answer": "Pour créer l'objet de simulation OpenMM (`app.Simulation`), on a besoin de la topologie du système (`amber_sys.topology`), du système configuré (`system`), de l'intégrateur (`integrator`), de la plateforme d'exécution choisie (`platform`) et des propriétés spécifiques de cette plateforme (`prop`)."
+      "question": "Comment la performance des simulations OpenMM est-elle affectée lors de l'utilisation de plusieurs GPU sur les grappes de calcul, particulièrement en fonction de la présence ou de l'absence de NvLink?",
+      "answer": "OpenMM est généralement plus efficace avec un seul GPU pour les simulations. La vitesse de simulation peut être légèrement augmentée avec plusieurs GPU sur les nœuds équipés de NvLink, où les GPU sont directement connectés. Cependant, sans NvLink, comme avec les GPU P100, l'augmentation de la vitesse de simulation est très faible."
     }
   ],
-  "generated_at": "2026-05-24T01:29:37.481458+00:00"
+  "generated_at": "2026-05-31T01:54:33.664327+00:00"
 }

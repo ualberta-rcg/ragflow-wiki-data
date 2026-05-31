@@ -3,61 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is AnsysEDT and what types of simulation solutions does it bundle?",
-      "answer": "AnsysEDT bundles electromagnetics simulation solutions like Ansys HFSS, Ansys Maxwell, Ansys Q3D Extractor, Ansys SIwave, and Ansys Icepak, which leverage electrical CAD (ECAD) and mechanical CAD (MCAD) workflows."
+      "question": "What is AnsysEDT and what types of electromagnetics simulation solutions does it bundle?",
+      "answer": "AnsysEDT bundles electromagnetics simulation solutions such as Ansys HFSS, Ansys Maxwell, Ansys Q3D Extractor, Ansys SIwave, and Ansys Icepak, using electrical CAD (ECAD) and mechanical CAD (MCAD) workflows."
     },
     {
-      "question": "How does the Alliance provide AnsysEDT access and licensing on its clusters?",
-      "answer": "The Alliance provides AnsysEDT as a hosting provider, installing the software on its clusters, but it does not offer a generic license for everyone. Users typically need to utilize license servers from their own institutions, faculties, or departments."
+      "question": "Does the Alliance provide a generic software license for AnsysEDT on its clusters?",
+      "answer": "No, the Alliance is a hosting provider and does not offer a generic license for AnsysEDT accessible to everyone. Users typically need to use licenses from their institutions, faculties, or departments."
     },
     {
-      "question": "What are the prerequisites for using an institution's AnsysEDT license server from Alliance cluster compute nodes?",
-      "answer": "Network changes are required to ensure the institution's license server can be reached from the Alliance cluster compute nodes. Once configured, the Ansys software can check out licenses after loading the `ansysedt` module."
+      "question": "What are the prerequisites for using an institutional license server with AnsysEDT on Alliance clusters?",
+      "answer": "Network changes are required to enable the license server to be reached from the cluster compute nodes, and legal aspects regarding license usage need to be resolved."
     },
     {
-      "question": "How do users configure their AnsysEDT license file on an Alliance cluster?",
-      "answer": "Users must create a file named `$HOME/.licenses/ansys.lic` consisting of two lines to specify their AnsysEDT license server."
+      "question": "How can a user configure their AnsysEDT license file on an Alliance cluster?",
+      "answer": "Users must create a file named `$HOME/.licenses/ansys.lic` consisting of two lines that specify their AnsysEDT license server."
     },
     {
-      "question": "How can AnsysEDT be run interactively in batch (non-GUI) mode on an Alliance cluster?",
-      "answer": "To run AnsysEDT interactively in batch mode, users first start an `salloc` session with options for time, tasks, memory, and account, then copy and paste the `ansysedt` command from `script-local-cmd.sh`, manually specifying their AEDT input file."
+      "question": "How can a user run AnsysEDT interactively in batch (non-GUI) mode on an Alliance cluster?",
+      "answer": "First, start an `salloc` session with specified options (e.g., time, tasks, memory, account), and then copy and paste the full `ansysedt` command found in the last line of `script-local-cmd.sh`, ensuring `$YOUR_AEDT_FILE` is manually specified."
     },
     {
-      "question": "What modifications are necessary for the provided generic Slurm scripts before submitting AnsysEDT jobs on Alliance clusters?",
-      "answer": "Before use, the generic Slurm scripts require users to specify the simulation time, memory, number of cores, and replace `YOUR_AEDT_FILE` with their actual input file name."
+      "question": "What Slurm command is used to submit AnsysEDT jobs to a cluster queue on an Alliance cluster?",
+      "answer": "Jobs are submitted to a cluster queue using the `sbatch script-name.sh` command."
     },
     {
-      "question": "How can users obtain a full listing of command-line options for AnsysEDT on an Alliance cluster?",
-      "answer": "A full listing of command-line options can be obtained by starting AnsysEDT in graphical mode with either `ansysedt -help` or `ansysedt -Batchoptionhelp`, which will display scrollable graphical popups."
+      "question": "What key parameters must be specified in AnsysEDT Slurm scripts before job submission on an Alliance cluster?",
+      "answer": "Before submission, users must specify the simulation time, memory, number of cores, and replace `YOUR_AEDT_FILE` with their input file name."
     },
     {
-      "question": "What is the general process for running AnsysEDT in graphical mode on an Alliance cluster?",
-      "answer": "To run AnsysEDT graphically, users connect to an OnDemand or JupyterLab system via a web browser, open a new terminal, load `StdEnv/2023` and an `ansysedt` module, and then type `ansysedt` to launch the GUI."
+      "question": "How can a user obtain a full listing of command-line options for AnsysEDT on an Alliance cluster?",
+      "answer": "A full listing of command-line options can be obtained by starting AnsysEDT in graphical mode and running `ansysedt -help` or `ansysedt -Batchoptionhelp` to get scrollable graphical popups."
     },
     {
-      "question": "What initial settings should be configured in AnsysEDT's graphical interface when first running it via OnDemand on an Alliance cluster?",
-      "answer": "Users should navigate to `Tools -> Options -> HPC and Analysis Options -> Edit`, untick `Use Automatic Settings`, and ensure the `Machine` tab settings align with the requested desktop resources like tasks, cores, GPUs, and RAM."
+      "question": "What environment modules are typically required to use AnsysEDT on Alliance clusters?",
+      "answer": "Users typically need to load `StdEnv/2023` and then the specific AnsysEDT module, such as `ansysedt/2024R2.1` or `ansysedt/2023R2`."
     },
     {
-      "question": "How can users access and run the 2024R2.1 AnsysEDT Antennas examples in graphical mode on an Alliance cluster?",
-      "answer": "Users can copy the examples by loading `ansysedt/2024R2.1`, creating `~/Ansoft/$EBVERSIONANSYSEDT`, and then copying `$EBROOTANSYSEDT/v242/Linux64/Examples/HFSS/Antennas` to that directory. To run, they open an example `.aedt` file, perform a validation check, set mesh/solution options to defaults, and then initiate the simulation."
+      "question": "What are the primary methods for running AnsysEDT in graphical mode on Alliance clusters?",
+      "answer": "AnsysEDT can be run in graphical mode using an OnDemand or JupyterLab system to start a remote desktop."
     },
     {
-      "question": "What steps should a user take if AnsysEDT crashes and fails to restart on an Alliance cluster?",
-      "answer": "If AnsysEDT crashes and won't restart, users should first run `pkill -9 -u $USER -f \"ansys*|mono|mwrpcss|apip-standalone-service\"` to terminate related processes, and then `rm -rf ~/.mw` to remove configuration files, which prompts AnsysEDT to re-run first-time setup on the next launch."
+      "question": "What are the initial steps to access AnsysEDT graphically through an OnDemand system on an Alliance cluster?",
+      "answer": "Connect to an OnDemand system via a specified URL in a laptop browser, open a new terminal, load the necessary `StdEnv` and `ansysedt` modules, and then type `ansysedt` in the terminal."
     },
     {
-      "question": "Who is eligible to use the SHARCNET Ansys license for AnsysEDT on Alliance clusters?",
-      "answer": "Any researcher can use the SHARCNET Ansys license, which includes AnsysEDT, for free on any Alliance cluster."
+      "question": "What AnsysEDT settings should a user verify or configure in the graphical interface on an Alliance cluster to match requested desktop resources?",
+      "answer": "Users should navigate to `Tools -> Options -> HPC and Analysis Options -> Edit`, untick `Use Automatic Settings`, and ensure the settings in the `Machine` tab (e.g., Tasks, Cores, GPUs, RAM) correspond to their requested desktop resources."
     },
     {
-      "question": "How should a SHARCNET user configure their `ansys.lic` file to use the SHARCNET Ansys license for AnsysEDT on an Alliance cluster?",
-      "answer": "A SHARCNET user's `~/.licenses/ansys.lic` file should contain two lines: `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license3.sharcnet.ca\")` and `setenv(\"ANSYSLI_SERVERS\", \"2325@license3.sharcnet.ca\")`."
+      "question": "How can a user retrieve the 2024R2.1 Antennas examples for AnsysEDT on an Alliance cluster?",
+      "answer": "Users should load the `ansysedt/2024R2.1` module, create a directory like `~/Ansoft/$EBVERSIONANSYSEDT`, and then copy the Antennas example directory from `$EBROOTANSYSEDT/v242/Linux64/Examples/HFSS/Antennas` into it."
     },
     {
-      "question": "Which Alliance cluster OnDemand URLs are available for graphical access to AnsysEDT?",
-      "answer": "Available OnDemand URLs include `https://ondemand.sharcnet.ca` for NIBI, `https://jupyterhub.fir.alliancecan.ca` for FIR, `https://portail.narval.calculquebec.ca/` for NARVAL, `https://jupyterhub.rorqual.alliancecan.ca` for RORQUAL, and `https://ondemand.scinet.utoronto.ca` for TRILLIUM."
+      "question": "What troubleshooting steps should a user take if AnsysEDT crashes and won't restart in graphical mode on an Alliance cluster?",
+      "answer": "Users should run `pkill -9 -u $USER -f \"ansys*|mono|mwrpcss|apip-standalone-service\"` and then `rm -rf ~/.mw` to clear previous configurations."
+    },
+    {
+      "question": "Can researchers on any Alliance cluster use the SHARCNET AnsysEDT license, and is there a cost associated with it?",
+      "answer": "Yes, researchers on any Alliance cluster can use the SHARCNET AnsysEDT license for free."
+    },
+    {
+      "question": "How should the `ansys.lic` file be configured to use the SHARCNET AnsysEDT license on an Alliance cluster?",
+      "answer": "The `~/.licenses/ansys.lic` file should contain `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license3.sharcnet.ca\")` and `setenv(\"ANSYSLI_SERVERS\", \"2325@license3.sharcnet.ca\")`."
     }
   ],
-  "generated_at": "2026-05-03T01:19:43.357061+00:00"
+  "generated_at": "2026-05-31T01:35:11.334418+00:00"
 }

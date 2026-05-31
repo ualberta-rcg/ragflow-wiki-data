@@ -4,17 +4,17 @@
   "chunk_index": 36,
   "qa_pairs": [
     {
-      "question": "C'est quoi Ansys Rocky et comment est-ce qu'on l'utilise sur les grappes de calcul?",
-      "answer": "Ansys Rocky est une suite logicielle conçue pour résoudre des simulations autonomes non couplées. Sur les grappes de calcul, les simulations Rocky sont habituellement exécutées à l'aide de scripts Slurm soumis dans une file d'attente."
+      "question": "Comment contrôler le comportement de redémarrage d'une simulation Rocky dans un script Slurm sur les grappes de l'Alliance?",
+      "answer": "Dans un script Slurm pour les simulations Rocky, la variable `RESUME` permet de contrôler si une simulation doit redémarrer ou non. Si `RESUME` est réglé à `0`, la simulation part de zéro et tous les résultats précédents sont supprimés. Si `RESUME` est réglé à `1`, la simulation reprendra à partir de son état précédemment sauvegardé."
     },
     {
-      "question": "Quelle est la méthode recommandée pour exécuter les simulations Rocky sur les grappes de l'Alliance en termes de matériel (CPU ou GPU), et quelles sont les allocations de ressources optimales?",
-      "answer": "Pour les simulations Rocky, l'utilisation d'un script basé sur les GPU est généralement recommandée, car il peut être jusqu'à 3,5 fois plus rapide qu'un script basé uniquement sur les CPU pour un cas test de base. Pour une performance optimale, il n'est pas nécessaire d'utiliser plus de 6 cœurs pour un script CPU seul, ou plus de 2 cœurs et 1/7 d'un GPU H100 pour un script basé sur GPU, car aucune amélioration de vitesse supplémentaire n'a été observée au-delà de ces limites. Sur la grappe Narval, il faut demander un GPU a100 au lieu d'un H100."
+      "question": "Comment peut-on démarrer les programmes Ansys en mode graphique sur les nœuds de calcul des grappes de l'Alliance, comme Fluent ou CFX?",
+      "answer": "Pour démarrer les programmes Ansys en mode graphique sur les grappes de l'Alliance, il faut accéder aux bureaux Open OnDemand ou JupyterLab disponibles via les portails spécifiques des grappes (par exemple, Nibi, Fir, Rorqual, Narval ou Trillium). Après avoir configuré les ressources nécessaires pour la session interactive, incluant l'allocation d'un GPU si des graphiques ou des calculs accélérés sont prévus, il faut charger un module Ansys (par exemple, `module load ansys/version`). Ensuite, on lance le programme Ansys souhaité, comme `fluent` ou `cfx5`, en ajustant les paramètres graphiques si nécessaire, par exemple en utilisant `-graphics mesa` ou `-graphics ogl` pour CFX, selon la disponibilité d'un GPU."
     },
     {
-      "question": "Comment faire pour redémarrer une simulation Ansys Rocky qui a été partiellement complétée sur une grappe de calcul?",
-      "answer": "Pour redémarrer une simulation Ansys Rocky qui est partiellement complétée, vous devez mettre la variable <code>RESUME</code> à <code>1</code> dans le script Slurm, puis soumettre de nouveau le script dans la file d'attente."
+      "question": "Quelles sont les étapes spécifiques pour lancer Ansys Fluent en mode graphique interactif sur un bureau OnDemand sans GPU sur une grappe de l'Alliance, et y a-t-il une configuration particulière à prévoir pour la grappe Nibi?",
+      "answer": "Pour lancer Ansys Fluent en mode graphique interactif sur un bureau OnDemand sans GPU, il faut d'abord charger les modules `StdEnv/2023` et `ansys/2025R2.04` (ou une version plus récente) dans une fenêtre de terminal, puis exécuter la commande `fluent`. Dans la fenêtre contextuelle Fluent Launcher, sous l'onglet \"Environment\", il faut régler la variable `HOOPS_PICTURE` à `opengl2-mesa` pour les versions 2025R1 ou plus récentes, ou à `x11/lin` pour les versions 2024R2.04 ou antérieures. Spécifiquement pour la grappe Nibi, si Intel MPI est utilisé, la variable d'environnement `I_MPI_HYDRA_BOOTSTRAP=ssh` doit être configurée manuellement avant de lancer Fluent pour éviter des plantages au démarrage."
     }
   ],
-  "generated_at": "2026-05-24T01:13:08.005953+00:00"
+  "generated_at": "2026-05-31T01:31:37.947877+00:00"
 }

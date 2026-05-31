@@ -4,17 +4,17 @@
   "chunk_index": 27,
   "qa_pairs": [
     {
-      "question": "How can an Ansys Workbench job be submitted to a queue using a Slurm script on an Alliance cluster?",
-      "answer": "Before submitting an Ansys Workbench job, it must be initialized once by opening an OnDemand desktop, navigating to the project directory, removing the `_ProjectScratch` directory, loading the Ansys module, and opening the Workbench GUI with `runwb2 -f YOURPROJECT.wbpj`. Inside Workbench, right-click `Model` and select `Reset`, then `File -> Save` and `File -> Exit`, choosing `No` when prompted to save modified project. After these steps, a customized Slurm script can be submitted using the `sbatch script-name.sh` command."
+      "question": "How do you submit an Ansys Workbench job to a queue using a Slurm script on Alliance clusters, and what is a key configuration option for preventing solution overwriting during scaling tests?",
+      "answer": "To submit an Ansys Workbench job, you must first initialize it by preparing your project file graphically in Workbench, then customize a Slurm script (e.g., `script-wbpj-2023.sh` or `script-wbpj-2020.sh`), and finally run `sbatch script-name.sh`. To prevent the solution from being overwritten by each test job during scaling tests, you should change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of the Slurm script."
     },
     {
-      "question": "What is the procedure for generating an input file for Ansys Mechanical (APDL) jobs?",
-      "answer": "To generate an input file for Ansys Mechanical (APDL) jobs, you can use your interactive Workbench Mechanical session. Click `Solution -> Tools -> Write Input Files`, then specify `File name:` as `YOURAPDLFILE.inp` and select `Save as type:` as `APDL Input Files (*.inp)`."
+      "question": "How are Ansys Mechanical APDL input files generated from Workbench and subsequently submitted as jobs to a Slurm queue on Alliance clusters, considering different parallel processing options?",
+      "answer": "Ansys Mechanical APDL input files (e.g., `YOURAPDLFILE.inp`) are generated from within an interactive Workbench Mechanical session by clicking on `Solution -> Tools -> Write Input Files` and specifying the file name and type. These APDL jobs can then be submitted to the queue using the `sbatch script-name.sh` command with specific Slurm scripts configured for either shared memory parallel (SMP) or distributed memory parallel (DMP) execution, on both CPU and GPU resources."
     },
     {
-      "question": "Why might a user want to change the `Save(Overwrite=True)` setting to `Save(Overwrite=False)` in a Workbench Slurm script?",
-      "answer": "Changing `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of a Workbench Slurm script prevents the solution from being overwritten when a job successfully completes. This is particularly useful for performing scaling tests, as it allows users to determine how well the simulation scales when the number of tasks (`#SBATCH --ntasks`) is increased without overwriting the initialized solution from each test job."
+      "question": "What are the default memory allocations for Ansys Mechanical APDL jobs, and what important considerations should be taken into account for optimal performance and licensing when running these jobs on Alliance clusters?",
+      "answer": "Ansys Mechanical APDL jobs allocate 1024 MB total memory and 1024 MB database memory by default. For optimal performance, users should conduct detailed scaling tests before running production jobs to determine the most efficient number of cores and minimum memory required. When utilizing a remote institutional license server with multiple Ansys licenses, it may be necessary to add arguments like `-p aa_r` or `-ppf anshpc` to the `mapdl` command. To prevent compatibility issues, the Ansys module loaded in your script should ideally match the version used to generate the input file."
     }
   ],
-  "generated_at": "2026-05-24T01:05:11.726750+00:00"
+  "generated_at": "2026-05-31T01:24:06.618803+00:00"
 }

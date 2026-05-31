@@ -4,17 +4,13 @@
   "chunk_index": 21,
   "qa_pairs": [
     {
-      "question": "What happens if an Abaqus job on an Alliance cluster is submitted but there aren't enough licenses available for it to run immediately?",
-      "answer": "If an Abaqus job is submitted to an Alliance cluster without immediate access to sufficient tokens, it will enter an idle \"queued\" state on a compute node, waiting for licenses."
+      "question": "How should the Abaqus license file be configured on Alliance clusters if an Abaqus job fails with a \"Segmentation fault\" error when using `abaqus/202X` modules?",
+      "answer": "If an Abaqus job fails with the error message `[*** ABAQUS/eliT_CheckLicense rank 0 terminated by signal 11 (Segmentation fault)]` while using `abaqus/202X` modules, you should verify that your `abaqus.lic` file contains `ABAQUSLM_LICENSE_FILE`."
     },
     {
-      "question": "What are the negative consequences of an Abaqus job being in an idle \"queued\" state while waiting for licenses on an Alliance cluster?",
-      "answer": "When an Abaqus job is in an idle \"queued\" state awaiting a license, it wastes available compute resources and depreciates the user's fair share level, similar to if the job were actively performing computations."
-    },
-    {
-      "question": "How can a user determine if their Abaqus job on a SHARCNET cluster is in an idle \"queued\" state due to license unavailability?",
-      "answer": "A user can determine if their Abaqus job is in an idle \"queued\" state by checking the SHARCNET license server output. For example, using `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"` will show jobs that are \"queued for X licenses\"."
+      "question": "What is the procedure for querying the SHARCNET license server for Abaqus license usage on the Nibi cluster?",
+      "answer": "To query the SHARCNET license server on the Nibi cluster, first log in using `ssh nibi.alliancecan.ca`. Next, load the standard environment and Abaqus modules by running `module load StdEnv/2020` followed by `module load abaqus`. Then, you can check for started and queued jobs using the command: `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"`."
     }
   ],
-  "generated_at": "2026-05-24T00:59:55.257366+00:00"
+  "generated_at": "2026-05-31T01:05:16.138968+00:00"
 }

@@ -4,17 +4,13 @@
   "chunk_index": 23,
   "qa_pairs": [
     {
-      "question": "What journal file commands are used to configure Discrete Phase Model (DPM) injections in Ansys Fluent, and what is the format of a basic steady injection text file?",
-      "answer": "To configure DPM injections in Ansys Fluent via a journal file, you can use commands such as `/define/models/dpm/interaction/coupled-calculations yes` to enable interaction with the continuous phase, `/define/models/dpm/injections/delete-injection injection-0:1` to remove an existing injection, and `/define/models/dpm/injections/create injection-0:1 no yes file no zinjection01.inj no no no no` to create a new injection from a text file. A basic steady injection text file, like `zinjection01.inj`, follows a specific format which includes a header `(z=4 12)` and then particle properties such as `( x y z u v w diameter t mass-flow mass frequency time name )` followed by their values, for example: `(( 2.90e-02 5.00e-03 0.0 -1.00e-03 0.0 0.0 1.00e-04 2.93e+02 1.00e-06 0.0 0.0 0.0 ) injection-0:1 )`. This format is further detailed in the `2024R2 Fluent Customization Manual`."
+      "question": "How can a user view the available command-line options for `cfx5solve` and what are some important options for running Ansys CFX simulations?",
+      "answer": "To view available command-line options for `cfx5solve`, users should first load the appropriate Ansys module and then run `cfx5solve -help`. Important options include `-single` for single-precision calculations (the default), `-double` for double-precision calculations (which doubles memory requirements), and `-large` for handling larger meshes up to 2 billion elements (compared to the default support for 80 million structured or 200 million unstructured elements)."
     },
     {
-      "question": "What are some key command-line options for the `cfx5solve` program in Ansys CFX, and what do they do?",
-      "answer": "To see a full list of command-line options for `cfx5solve` in Ansys CFX, you can run `cfx5solve -help` after loading the appropriate module. Key options include `-single`, which is the default for single-precision calculations, and `-double`, which enables double-precision and doubles memory requirements. For simulations with larger meshes, such as up to 2 billion elements (compared to default limits of 80 million structured or 200 million unstructured), the `-large` option can be used. These options can be specified for the Partitioner, Interpolator, or Solver components."
-    },
-    {
-      "question": "How do Slurm scripts for Ansys CFX differ when configured for single-node versus multinode parallel execution on Alliance clusters?",
-      "answer": "For single-node parallel execution of Ansys CFX on an Alliance cluster, Slurm scripts typically specify `#SBATCH --nodes=1` and use `cfx5solve` with a local parallel start method, such as `-start-method \"Open MPI Local Parallel\"` or `\"Intel MPI Local Parallel\"`, partitioning with `-part $SLURM_CPUS_ON_NODE`. For multinode parallel execution, the script would request multiple nodes (e.g., `#SBATCH --nodes=2`), often specifying full cores per node with `#SBATCH --ntasks-per-node=192` (or similar, depending on the cluster). The `cfx5solve` command then uses a distributed parallel start method, such as `-start-method \"Open MPI Distributed Parallel\" -par-dist $NNODES` or `\"Intel MPI Distributed Parallel\" -par-dist $NNODES`, where `$NNODES` is determined by `slurm_hl2hl.py --format ANSYS-CFX`. Additionally, for Intel MPI distributed parallel jobs, environment variables like `export I_MPI_HYDRA_BOOTSTRAP=ssh` and `unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS` may be set."
+      "question": "When submitting CFX jobs to Alliance clusters, how are the Slurm scripts configured for parallel execution across single and multiple compute nodes, and which MPI implementations are typically used?",
+      "answer": "For single-node CFX jobs, Slurm scripts specify `cfx5solve -start-method \"Open MPI Local Parallel\"` on Narval or Fir clusters, and `\"Intel MPI Local Parallel\"` on other clusters. For multi-node jobs, they use `\"Open MPI Distributed Parallel\"` on Narval or Fir, and `\"Intel MPI Distributed Parallel\"` on other clusters. For Intel MPI, the `I_MPI_HYDRA_BOOTSTRAP=ssh` environment variable is exported."
     }
   ],
-  "generated_at": "2026-05-24T01:04:35.150705+00:00"
+  "generated_at": "2026-05-31T01:23:25.764124+00:00"
 }

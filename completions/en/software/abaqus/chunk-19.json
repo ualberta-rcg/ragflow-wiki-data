@@ -4,13 +4,17 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "What are the consequences of submitting multiple Abaqus jobs that collectively require more compute tokens than a user possesses, and what are the recommended solutions to prevent this?",
-      "answer": "If a user submits multiple Abaqus jobs that collectively demand more compute tokens than they have available, the scheduler might start these jobs on compute nodes, even though they cannot acquire the necessary licenses. These jobs will then enter an idle 'queued' state, waiting for licenses, which results in wasted allocated resources and can negatively impact the user's fair share level. To avoid such license shortage problems, users should utilize job dependencies, job arrays, or configure Slurm email notifications to be alerted when a job completes before manually submitting another."
+      "question": "How do I configure my `abaqus.lic` file to use the SHARCNET Abaqus license on Alliance clusters?",
+      "answer": "To use the free SHARCNET Abaqus license, which is available on SHARCNET systems like the Nibi and Dusky clusters or the SHARCNET OOD desktop system, you must update your `~/.licenses/abaqus.lic` file. The file should contain the line `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27050@license1.computecanada.ca\")`. Please note that the old `license3.sharcnet.ca` server is no longer operational."
     },
     {
-      "question": "How can a user effectively evaluate and optimize the memory and CPU resources allocated for their Abaqus jobs on a Slurm cluster?",
-      "answer": "To evaluate and optimize resources, for completed Abaqus jobs, a user can use the `seff JobNumber` command, which provides details on 'Memory Utilized,' 'Memory Efficiency,' 'CPU (time) Utilized,' and 'CPU Efficiency.' If memory or CPU efficiency is below approximately 90%, the `##SBATCH --mem=` or `##SBATCH --cpus-per-task=` settings in the Slurm script should be adjusted; specifically, memory should be decreased if underutilized, and CPU settings should be optimized based on scaling tests. For running jobs, the `srun --overlap --jobid=JOBID --pty top -d 5 -u $USER` command allows monitoring of %CPU, %MEM, and the resident memory size (RES) for each Abaqus parent process on the compute node."
+      "question": "What command can I use to check the status of Abaqus licenses and jobs on the SHARCNET license server?",
+      "answer": "To check the SHARCNET license server for started and queued Abaqus jobs, first log into the Nibi cluster (e.g., `ssh nibi.alliancecan.ca`), load the `StdEnv/2020` and `abaqus` modules. Then, run the command `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"`."
+    },
+    {
+      "question": "What does it mean if an Abaqus job is reported as \"queued\" on the SHARCNET license server, and what is its impact?",
+      "answer": "If an Abaqus job is reported as \"queued\" by the SHARCNET license server, it means the job has entered the \"Running\" state from Slurm's perspective (e.g., `squeue -j jobid`) but is actually idle on a compute node, waiting for a license. This state impacts your account priority as if the job were actively consuming CPU time, even though it's waiting. The job will only commence computations once enough licenses become available."
     }
   ],
-  "generated_at": "2026-04-13T00:49:20.787117+00:00"
+  "generated_at": "2026-05-31T01:08:47.574207+00:00"
 }

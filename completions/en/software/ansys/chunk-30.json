@@ -4,17 +4,13 @@
   "chunk_index": 30,
   "qa_pairs": [
     {
-      "question": "What is recommended for optimizing resource use when running Ansys Mechanical jobs on Alliance clusters?",
-      "answer": "Users should conduct detailed scaling tests before launching production Ansys Mechanical jobs to determine the optimal number of cores and the minimum amount of memory needed. This ensures that the limited licenses and hardware are used as efficiently as possible, and that total job run and startup times are minimized."
+      "question": "How can users run standalone Rocky simulations on an Alliance cluster, and how can they restart a partially completed simulation?",
+      "answer": "Standalone non-coupled Rocky simulations can be solved in a cluster queue using provided Slurm scripts. By default, these scripts are configured with `RESUME=0` to solve simulations from the beginning. To restart a partially completed simulation, users should set the `RESUME` parameter to `1` in their script and resubmit it to the queue."
     },
     {
-      "question": "Which type of parallel script, single node (SMP Shared Memory Parallel) or multinode (DIS Distributed Memory Parallel), is generally recommended for Ansys Mechanical jobs, and why?",
-      "answer": "For Ansys Mechanical jobs, single node (SMP Shared Memory Parallel) scripts are generally recommended over multinode (DIS Distributed Memory Parallel) scripts because they typically offer better performance and should be utilized whenever feasible."
-    },
-    {
-      "question": "What is the recommendation regarding Ansys module version compatibility when submitting Ansys Mechanical jobs?",
-      "answer": "To help avoid compatibility issues when running Ansys Mechanical jobs, the Ansys module loaded in the submission script should ideally match the version of Ansys used to generate the input file."
+      "question": "What are the performance differences and GPU recommendations for running Rocky simulations on Alliance clusters?",
+      "answer": "For a basic test case, the GPU-only script for Rocky simulations was found to outperform the CPU-only script by a factor of 3.5x, suggesting GPU-based scripts will generally provide significantly faster solution times. Scaling tests showed no further speedup beyond 6 CPUs for the CPU-only script, or 2 CPUs + 1/7 of an H100 GPU for the GPU-based script. Most Alliance clusters have H100 GPUs, but users on Narval should change the `--gpus` Slurm option to request an a100 GPU when using the GPU script."
     }
   ],
-  "generated_at": "2026-05-24T01:05:32.268037+00:00"
+  "generated_at": "2026-05-31T01:24:33.353644+00:00"
 }

@@ -4,13 +4,17 @@
   "chunk_index": 41,
   "qa_pairs": [
     {
-      "question": "Comment puis-je démarrer l'interface graphique d'Ansys Workbench sur un de nos clusters, et y a-t-il des particularités à connaître pour son utilisation?",
-      "answer": "Pour lancer l'interface graphique d'Ansys Workbench sur un de nos clusters, vous devez d'abord charger le module `StdEnv/2023 ansys/2022R2` (ou une version plus récente). Si vous utilisez Ansys Mechanical et que les menus déroulants ne répondent pas correctement, il est nécessaire de lancer `xfwm4 --replace &` sur la ligne de commande avant de démarrer Workbench. Pour les utilisateurs de CFD-Post, vous devrez aussi exporter la variable d'environnement `QTWEBENGINE_DISABLE_SANDBOX=1`. Ensuite, vous pouvez démarrer Workbench avec la commande `runwb2`. Il est important de noter que lorsque vous exécutez en parallèle un programme d'analyse comme Mechanical ou Fluent sur un nœud simple, il ne faut pas cocher la case \"Distributed\" et vous devriez spécifier un nombre de cœurs égal au nombre de cœurs de votre session `salloc` moins un. Pour configurer `xfwm4` par défaut, vous pouvez modifier votre fichier `~/.vnc/xstartup` et remplacer `mate-session` par `xfce4-session`."
+      "question": "Concernant le logiciel Ansys Rocky, sur quelles grappes est-il disponible et y a-t-il des particularités par version sur les systèmes de l'Alliance?",
+      "answer": "Les versions d'Ansys Rocky 2024R2 et antérieures sont seulement disponibles sur les grappes gra-vdi et Graham. Pour les versions 2025R1 et plus récentes, Rocky est fourni sur toutes les grappes par le module Ansys, mais il n'est pas encore pris en charge par le serveur de licence SHARCNET. Il est aussi bon de savoir que sur gra-vdi, Rocky ne peut utiliser que les CPU, car il n'y a qu'un seul GPU dédié aux graphiques."
     },
     {
-      "question": "Quels sont les problèmes et les limitations liés à l'utilisation de SSH pour exécuter les interfaces graphiques des programmes Ansys sur nos grappes, et pourquoi est-il préférable d'utiliser VNC?",
-      "answer": "L'exécution de programmes Ansys avec interface graphique via SSH et redirection X vers votre ordinateur local n'est ni testée ni supportée. Cette approche est fortement déconseillée, car les temps de réponse interactifs sont généralement inacceptables, surtout pour les tâches qui nécessitent du rendu graphique. Par exemple, des tests ont montré qu'il fallait 40 minutes pour obtenir l'interface graphique avec SSH, alors que `vncviewer` ne prenait que 34 secondes. Bien que cette méthode puisse être envisagée si votre seul objectif est d'ouvrir une simulation pour des opérations de menu de base ou pour exécuter des calculs, VNC est fortement recommandé pour une expérience interactive beaucoup plus fluide. Si vous souhaitez tout de même tenter l'approche SSH, voici les étapes de base : 1) connectez-vous avec `ssh -Y username@graham.computecanada.ca`; 2) allouez des ressources avec `salloc --x11 --time=1:00:00 --mem=16G --cpus-per-task=4 [--gpus-per-node=1] --account=def-mygroup`; 3) une fois connecté à un nœud de calcul, essayez d'exécuter `xclock`. Si l'horloge apparaît sur votre bureau, chargez le module Ansys souhaité et essayez d'exécuter le programme."
+      "question": "Pour utiliser Ansys EDT avec plus de quatre cœurs pour des calculs haute performance sur les grappes de l'Alliance, quelle configuration unique est requise dans l'interface graphique?",
+      "answer": "Pour configurer Ansys EDT afin d'utiliser plus de quatre cœurs, vous devez ouvrir le logiciel, puis aller dans le menu \"Tools\" (Outils) et sélectionner \"Options\". Ensuite, naviguez vers \"HPC and Analysis Options\" (Options HPC et d'analyse) puis \"Options\" à nouveau, et changez l'option \"HPC License\" (Licence HPC) à \"Pool\" (Regroupement)."
+    },
+    {
+      "question": "Si Ansys EDT plante et ne redémarre pas correctement sur les grappes, quelles commandes peut-on utiliser pour forcer sa réinitialisation?",
+      "answer": "En cas de plantage d'Ansys EDT qui empêche son redémarrage, vous pouvez essayer les commandes suivantes dans un terminal : `pkill -9 -u $USER -f \"ansys*|mono|mwrpcss|apip-standalone-service\"` pour éliminer tous les processus Ansys persistants, suivi de `rm -rf ~/.mw` pour réinitialiser la configuration utilisateur du logiciel."
     }
   ],
-  "generated_at": "2026-05-24T01:14:00.496758+00:00"
+  "generated_at": "2026-05-31T01:32:17.463011+00:00"
 }

@@ -47,7 +47,7 @@ Comme la création de fichiers archive exige beaucoup des ressources, il est pr�
 <span id="Use_a_terminal_multiplexer"></span>
 === Utiliser un multiplexeur de terminal ===
 
-L'archivage de collections volumineuses de fichiers peut prendre plusieurs heures, voire même plusieurs jours. Votre session SSH peut être interrompue avant la fin du programme d'archivage, ou vous pouvez vouloir fermer votre session, laisser le programme s'exécuter en arrière-plan et y revenir plus tard. Pour éviter ce genre de problème, exécutez <code>tar</code> ou <code>dar</code> dans [[Prolonging_terminal_sessions/fr#Multiplexeur_de_terminal|un multiplexeur de terminal]] tel que <code>tmux</code>.
+L'archivage de collections volumineuses de fichiers peut prendre plusieurs heures, voire même plusieurs jours. Votre session SSH peut être interrompue avant la fin du programme d'archivage, ou vous pouvez vouloir fermer votre session, laisser le programme s'exécuter en arrière-plan et y revenir plus tard. Pour éviter ce genre de problème, exécutez <code>tar</code> ou <code>dar</code> dans [[Prolonging_terminal_sessions/fr#Multiplexeur_de_terminal|un multiplexeur de terminal]] tel que <code>tmux</code>; vous pouvez aussi utiliser [https://www.networkworld.com/article/967925/how-the-linux-screen-tool-can-save-your-tasks-and-your-sanity-if-ssh-is-interrupted.html <code>screen</code>].
 
 <span id="Use_dar_in_non-interactive_mode"></span>
 === Utiliser <code>dar</code> en mode non interactif ===
@@ -62,7 +62,7 @@ Les avantages du stockage sur ruban par rapport aux disques et aux SSD (<i>solid
 * la capacité de stockage peut être facilement augmentée par l'achat de rubans additionnels;
 * la consommation énergétique par unité de données stockée est effectivement nulle.
 
-Par conséquent, nous pouvons offrir beaucoup plus de capacité de stockage sur /nearline que sur /project. De plus, le fait de ne pas stocker de données inactives sur /project allège la charge et améliore la performance.
+Par conséquent, nous pouvons offrir beaucoup plus de capacité de stockage sur /nearline que sur /project. De plus, le fait de ne pas stocker de données inactives sur /project allège la charge, réduit le besoin de sauvegarde et améliore la performance.
 
 <span id="How_it_works"></span>
 == Fonctionnement ==
@@ -114,31 +114,38 @@ Vous pouvez forcer le rappel d'un fichier sur ruban sans le lire avec la command
 === Spécificités de chaque grappe ===
 
 <tabs>
-<tab name="Béluga">
+<tab name="Fir">
 L'accès au répertoire /nearline se fait par les nœuds de connexion et les DTN (''Data Transfer Nodes'').
 
-Enregistrez vos fichiers dans votre répertoire <tt>~/nearline/PROJECT</tt>. Ils seront copiés sur ruban après un certain temps (24 heures en date de février 2019). Si le fichier n’est pas modifié pendant un certain temps (24 heures en date de février 2019), la copie sur disque sera supprimée, virtualisant ainsi le fichier sur ruban. 
+Enregistrez vos fichiers dans votre répertoire <code>~/nearline/PROJECT</code>. Ils seront copiés sur ruban après un certain temps (24 heures). Si le fichier n’est pas modifié pendant un certain temps (24 heures), la copie sur disque sera supprimée, virtualisant ainsi le fichier sur ruban. 
 
-Lorsque vous supprimez un fichier de <tt>~/nearline</tt> volontairement ou par accident, la copie sur ruban est conservée pour 60 jours. Pour restaurer ces fichiers, vous devez contacter le [[technical support/fr|soutien technique]] en mentionnant le chemin complet et la version (avec la date), de la même manière que vous procéderiez pour restaurer une [[Storage and file management/fr#Quotas_et_politiques|copie de sauvegarde]]. Il est donc important que vous conserviez une copie de la structure complète de votre espace /nearline. La commande <tt>ls -R > ~/nearline_contents.txt</tt> lancée du répertoire <tt>~/nearline/PROJECT</tt> vous permettra de voir où sont situés les fichiers dans votre espace /nearline.
-</tab>
-
-<tab name="Nibi">
-Le service /nearline est semblable à celui de Béluga, sauf que
-# la création de la première copie sur bande des données pourrait prendre plus que 24 heures,
-# la copie sur disque ne sera pas effacée (pour ne laisser que la copie sur bande) avant 60 jours.
+Lorsque vous supprimez un fichier de <code>~/nearline</code> volontairement ou par accident, la copie sur ruban est conservée pour 60 jours. Pour restaurer ces fichiers, vous devez contacter le [[technical support/fr|soutien technique]] en mentionnant le chemin complet et la version (avec la date), de la même manière que vous procéderiez pour restaurer une [[Storage and file management/fr#Quotas_et_politiques|copie de sauvegarde]]. Il est donc important que vous conserviez une copie de la structure complète de votre espace /nearline. La commande <code>ls -R > ~/nearline_contents.txt</code> lancée du répertoire <code>~/nearline/PROJECT</code> vous permettra de voir où sont situés les fichiers dans votre espace /nearline.
 </tab>
 
 <tab name="Narval">
-Le service /nearline est semblable à celui de Béluga.
+Le service /nearline est semblable à celui de Fir, sauf que
+# les fichiers dans /nearline sont sauvegardés à chaque jour, mais ne sont pas nécessairement copiés sur ruban.
+## Seulement les plus gros fichiers et les plus anciens fichiers sont copiés sur ruban.
 </tab>
+
+<tab name="Nibi">
+Le service /nearline est semblable à celui de Fir, sauf que
+# la création de la première copie sur ruban des données pourrait prendre plus que 24 heures,
+# la copie sur disque ne sera pas effacée (pour ne laisser que la copie sur ruban) avant 60 jours.
+</tab>
+
+<tab name="Rorqual">
+Le service /nearline est semblable à celui de Fir, sauf que 
+# les espaces nearline se trouvent dans <code>~/links/nearlines</code>,
+# depuis avril 2026, les fichiers dans /nearline  sont sauvegardés à chaque jour, mais ne sont pas encore copiés sur ruban.
 
 <tab name="Trillium">
 HPSS est le service /nearline pour Trillium.<br/>
 Les méthodes d'accès sont
 
-1. Dans une des partitions archive, soumettre une tâche à l’ordonnanceur Slurm avec les commandes HPSS <tt>htar</tt> ou <tt>hsi</tt>; pour des exemples, voyez la [https://docs.scinet.utoronto.ca/index.php/HPSS documentation HPSS]. Travailler avec des scripts offre l’avantage de pouvoir automatiser les transferts; il s’agit de la meilleure méthode si vous utilisez HPSS régulièrement. Vos fichiers HPSS se trouvent dans le répertoire $ARCHIVE, qui est semblable à $PROJECT, mais où ''/project'' est remplacé par ''/archive''. 
+1. Dans une des partitions archive, soumettre une tâche à l’ordonnanceur Slurm avec les commandes HPSS <code>htar</code> ou <code>hsi</code>; pour des exemples, voyez la [https://docs.scinet.utoronto.ca/index.php/HPSS documentation HPSS]. Travailler avec des scripts offre l’avantage de pouvoir automatiser les transferts; il s’agit de la meilleure méthode si vous utilisez HPSS régulièrement. Vos fichiers HPSS se trouvent dans le répertoire $ARCHIVE, qui est semblable à $PROJECT, mais où ''/project'' est remplacé par ''/archive''. 
 
-2. Utiliser le nœud VFS (''virtual file system'') par la commande <tt>salloc --time=1:00:00 -pvfsshort</tt> quand vous avez peu de fichiers HPSS. Vos fichiers HPSS se trouvent dans le répertoire $ARCHIVE, qui est semblable à $PROJECT, mais où ''/project'' est remplacé par ''/archive''. 
+2. Utiliser le nœud VFS (''virtual file system'') par la commande <code>salloc --time=1:00:00 -pvfsshort</code> quand vous avez peu de fichiers HPSS. Vos fichiers HPSS se trouvent dans le répertoire $ARCHIVE, qui est semblable à $PROJECT, mais où ''/project'' est remplacé par ''/archive''. 
 
 3. Utilisez [[Globus/fr|Globus]] pour transférer vos fichiers HPSS avec le point de chute (''endpoint'') <b>alliancecan#hpss</b>. Cette méthode est utile pour un usage occasionnel ou pour les transferts entre HPSS et les autres sites.
 

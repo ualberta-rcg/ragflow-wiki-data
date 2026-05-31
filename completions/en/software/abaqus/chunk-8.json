@@ -4,17 +4,17 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "How do I submit a single-node Abaqus Explicit analysis job using a project directory script on an Alliance cluster?",
-      "answer": "To submit a single-node Abaqus Explicit analysis job using a project directory script, you need a Slurm script that specifies the account (`--account=def-group`), time limit (`--time=00-06:00`), memory (`--mem=8000M`), number of CPUs per task (`--cpus-per-task=4`), and number of nodes (`--nodes=1`). The script should load the `abaqus/2026` module and then execute the Abaqus job using a command similar to: `abaqus job=testep1 input=myexp-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
+      "question": "What is the purpose of the multiple node computing script for Abaqus Standard Analysis?",
+      "answer": "The multiple node computing script for Abaqus Standard Analysis is intended for users who have significant memory or compute needs and access to large licenses. It facilitates MPI-based computing across an arbitrary range of nodes, which are ideally determined automatically by the scheduler."
     },
     {
-      "question": "How can an Abaqus Explicit analysis job be configured to write restart data for a specific total number of time increments within the input file?",
-      "answer": "To configure an Abaqus Explicit analysis job to write restart data for a specific total number of time increments, you should add the following line to your input file: `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
+      "question": "Which versions of Abaqus are compatible with the multiple node computing script for Standard Analysis?",
+      "answer": "Only Abaqus 2026 or newer versions can be used with the multiple node computing script for Standard Analysis."
     },
     {
-      "question": "What is the purpose of using a temporary directory script for single-node Abaqus Explicit analysis jobs, and how does it manage data saving?",
-      "answer": "A temporary directory script for single-node Abaqus Explicit analysis jobs is used to benefit from writing large restart files to the local disk via the `SLURM_TMPDIR` environment variable. The script manages data saving by first changing the working directory to `$SLURM_TMPDIR`, then periodically copying all files from `$SLURM_TMPDIR` back to the job's submission directory (`$SLURM_SUBMIT_DIR`) every 6 hours. A final copy of all generated files is also performed from `$SLURM_TMPDIR` to `$SLURM_SUBMIT_DIR` once the Abaqus job completes."
+      "question": "Are restart scripts available for multinode Abaqus Standard Analysis jobs?",
+      "answer": "No, a companion template script for restarting multinode Abaqus Standard Analysis jobs is not provided due to additional limitations regarding their use."
     }
   ],
-  "generated_at": "2026-04-13T00:47:58.120313+00:00"
+  "generated_at": "2026-05-31T01:07:11.537128+00:00"
 }

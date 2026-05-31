@@ -4,13 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "Comment on installe PyTorch pour compiler MACE dans LAMMPS pour une utilisation CPU?",
-      "answer": "Pour installer PyTorch, il faut d'abord mettre à jour pip en exécutant `pip install --no-index --upgrade pip`. Ensuite, installez PyTorch en utilisant la commande `pip install --no-index 'torch>=2.10.0'`."
+      "question": "Quels modules doit-on charger pour préparer l'environnement en vue de la compilation de MACE dans LAMMPS pour une utilisation sur GPU, et quelle est la particularité de la version de CUDA?",
+      "answer": "Pour configurer et compiler MACE dans LAMMPS pour des GPU, il faut charger plusieurs modules, notamment `python/3.14`, `gcc`, `openmpi`, `flexiblas`, `cmake`, `fftw`, `eigen`, `protobuf`, `abseil`, `flatbuffers`, `cuda/12.9`, `cusparselt`, `cudnn`, `nccl`, `magma`, `opencv`, `cudss`, `sleef` et `xnnpack`. Il est spécifié que la version `cuda/12.9` est utilisée parce qu'elle correspond à la compilation de PyTorch."
     },
     {
-      "question": "Quelles sont les options principales de CMake pour configurer MACE dans LAMMPS lors d'une compilation pour CPU?",
-      "answer": "Pour configurer MACE, la commande CMake principale est `cmake --fresh -S cmake -B _build`. Les options importantes à inclure sont `-DBUILD_MPI=ON` pour l'intégration de MPI, `-DPKG_ML-MACE=ON` pour activer le paquet MACE, `-DCMAKE_PREFIX_PATH=\"$(python -c 'import torch; print(torch.utils.cmake_prefix_path)')\"` pour spécifier le chemin de PyTorch, `-DCMAKE_INSTALL_PREFIX=$HOME/lammps-mace` pour le répertoire d'installation local, et `-DCMAKE_SKIP_RPATH=ON`."
+      "question": "Comment s'y prend-on pour installer PyTorch et configurer MACE via CMake pour la compilation de LAMMPS sur GPU?",
+      "answer": "Après avoir créé et activé un environnement virtuel Python (`virtualenv --clear ~/lammps-mace/ENV && source ~/lammps-mace/ENV/bin/activate`), on installe PyTorch en utilisant `pip install --no-index --upgrade pip` suivi de `pip install --no-index 'torch>=2.10.0'`. Ensuite, on configure MACE avec la commande `cmake --fresh -S cmake -B _build -DBUILD_MPI=ON -DPKG_ML-MACE=ON -DCMAKE_PREFIX_PATH=\"$(python -c 'import torch; print(torch.utils.cmake_prefix_path)')\" -DCMAKE_INSTALL_PREFIX=$HOME/lammps-mace -DCMAKE_SKIP_RPATH=ON -DTORCH_CUDA_ARCH_LIST=\"9.0\"`."
+    },
+    {
+      "question": "Quels sont les paramètres essentiels d'un script de tâche Slurm pour lancer une simulation LAMMPS utilisant MACE compilé localement sur un GPU?",
+      "answer": "Pour lancer une simulation LAMMPS avec MACE compilé localement sur un GPU, le script Slurm doit inclure plusieurs directives, comme `#SBATCH --job-name lammps-mace`, `#SBATCH --account MY-ACCOUNT-GPU`, `#SBATCH --nodes=1`, `#SBATCH --ntasks=4`, `#SBATCH --cpus-per-task=1`, `#SBATCH --mem-per-cpu=3500M`, `#SBATCH --gpus=h100_1g.10gb:1` et `#SBATCH --time=01:00:00`. L'exportation de `OMP_NUM_THREADS` est aussi requise (`export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`), et la commande d'exécution est `srun $HOME/lammps-mace/bin/lmp -in in.lammps`."
     }
   ],
-  "generated_at": "2026-05-24T01:24:27.207595+00:00"
+  "generated_at": "2026-05-31T01:48:16.064975+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 49,
   "qa_pairs": [
     {
-      "question": "Quelles sont les limites actuelles pour l'utilisation des licences Ansys par un seul utilisateur sur les grappes SHARCNET?",
-      "answer": "Depuis octobre 2024, un utilisateur peut collectivement exécuter jusqu'à 8 tâches Ansys et utiliser un total de 512 cœurs HPC sur toutes les grappes et pour toutes les applications, durant une période de test visant à offrir plus de flexibilité."
+      "question": "Si j'ai des licences Ansys qui sont utilisées sans que je les utilise activement, par exemple sur un nœud gra-vdi, comment puis-je les libérer?",
+      "answer": "Pour libérer des licences Ansys qui semblent utilisées sans justification avec votre nom d'utilisateur, ce qui peut arriver si le logiciel n'a pas été correctement fermé sur gra-vdi, vous devez vous connecter au nœud concerné. Une fois connecté, ouvrez une fenêtre de terminal et exécutez la commande <code>pkill -9 -e -u $USER -f \"ansys\"</code> pour arrêter les processus Ansys et libérer vos licences. Si vous êtes sur gra-vdi, n'oubliez pas de préciser le nom complet de l'hôte (gra-vdi3.sharcnet.ca ou grav-vdi4.sharcnet.ca) lors de la connexion, car ces nœuds vous sont assignés au hasard."
     },
     {
-      "question": "Comment configurer mon fichier `ansys.lic` pour pouvoir utiliser la licence SHARCNET sur les grappes de l'Alliance?",
-      "answer": "Pour utiliser la licence SHARCNET, vous devez configurer votre fichier `~/.licenses/ansys.lic` en y ajoutant les deux lignes suivantes : `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license3.sharcnet.ca\")` et `setenv(\"ANSYSLI_SERVERS\", \"2325@license3.sharcnet.ca\")`."
+      "question": "Quelles sont les étapes pour activer l'extension Ansys Additive Manufacturing (ACT) pour l'utiliser dans un projet sur une grappe?",
+      "answer": "Pour activer l'extension Ansys Additive Manufacturing (ACT), vous devez d'abord télécharger le fichier <code>AdditiveWizard.wbex</code> depuis https://catalog.ansys.com/, puis le téléverser sur la grappe. Ensuite, dans l'interface Workbench, ouvrez votre projet, cliquez sur la page ACT Start pour afficher l'onglet ACT Home, puis sur <i>Manage Extensions</i>. À partir de là, cliquez sur la boîte avec le signe + sous la barre de recherche, sélectionnez et installez le fichier <code>AdditiveWizard.wbex</code>. Enfin, pour charger l'extension, cochez la boîte <i>AdditiveWizard</i> pour la session en cours, ou cliquez sur la flèche en bas à droite de la boîte et choisissez <i>Load extension</i> pour les sessions futures."
     },
     {
-      "question": "Comment puis-je vérifier le nombre de licences Ansys utilisées par mon nom d'utilisateur et par l'ensemble des utilisateurs sur les grappes SHARCNET?",
-      "answer": "Pour vérifier le nombre de licences utilisées, connectez-vous à une grappe via SSH (par exemple, `ssh graham.computecanada.ca`), puis chargez le module Ansys (`module load ansys`) et exécutez la commande `lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\"`."
+      "question": "Comment préparer un projet Ansys Additive pour le soumettre à la file d'attente d'une grappe à l'aide d'un script Slurm?",
+      "answer": "Avant de soumettre un projet Additive fraîchement téléchargé à la file d'attente d'une grappe, ouvrez votre simulation avec l'interface graphique de Workbench dans le répertoire où la tâche sera soumise, puis enregistrez-la de nouveau, en utilisant la même version du module Ansys. Ensuite, créez un script Slurm personnalisé. Pour les études paramétriques, remplacez <code>Update()</code> par <code>UpdateAllDesignPoints()</code> dans le script. Pour éviter d'avoir à effacer manuellement les solutions entre les tests et recréer tous les points de conception dans Workbench, vous pouvez soit remplacer <code>Save(Overwrite=True)</code> par <code>Save(Overwrite=False)</code> dans le script, soit conserver une copie du fichier <code>YOURPROJECT.wbpj</code> et du répertoire <code>YOURPROJECT_files</code> d'origine."
     }
   ],
-  "generated_at": "2026-05-24T01:14:57.634521+00:00"
+  "generated_at": "2026-05-31T01:33:23.556969+00:00"
 }

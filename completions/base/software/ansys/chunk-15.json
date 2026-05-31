@@ -2,6 +2,19 @@
   "doc_key": "base/ansys",
   "level": "chunk",
   "chunk_index": 15,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:25:31.807468+00:00"
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of the solution restart scripts for Fluent jobs on Alliance clusters?",
+      "answer": "The solution restart scripts are designed to automate the restarting of very large Fluent jobs that require more than the typical seven-day maximum runtime window available on most clusters, by resuming from the most recently saved timestep files."
+    },
+    {
+      "question": "How does one prepare the `sample.jou` and `sample-restart.jou` files to enable solution restarts for Fluent simulations on Alliance clusters?",
+      "answer": "To prepare for solution restarts, the `sample.jou` file must include `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`. A `sample-restart.jou` file is then created by copying `sample.jou`, editing it to contain `/file/read-cas-data sample-restart` instead of `sample`, and commenting out the initialization line (e.g., `;/solve/initialize/initialize-flow`)."
+    },
+    {
+      "question": "When configuring Fluent solution restart jobs, what considerations should be made when setting the `/solve/dual-time-iterate` value to optimize computational efficiency?",
+      "answer": "The `/solve/dual-time-iterate` value should be chosen to ensure that the specified number of steps comfortably fits within the job array time limit, thereby minimizing computationally expensive solution restarts. For example, if the second and subsequent timesteps run twice as fast as the initial timestep, adding `/solve/dual-time-iterate 2` to the `sample-restart.jou` file is recommended. If the first timestep starts from a converged (previous) solution, choosing `1` is more appropriate."
+    }
+  ],
+  "generated_at": "2026-05-31T01:15:29.281472+00:00"
 }

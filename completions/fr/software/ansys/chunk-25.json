@@ -4,17 +4,17 @@
   "chunk_index": 25,
   "qa_pairs": [
     {
-      "question": "Comment configurer Fluent pour qu'il interprète une fonction définie par l'utilisateur (UDF) au moment de l'exécution sur les grappes de l'Alliance?",
-      "answer": "Pour indiquer à Fluent d'interpréter ton UDF, il faut ajouter la ligne de commande `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no` dans ton fichier de journalisation avant la lecture ou l'initialisation des fichiers de cas et de données. Assure-toi que le fichier source de ton UDF se trouve dans le même répertoire que le fichier de journalisation."
+      "question": "Comment peut-on définir l'injection d'un ensemble de particules dans une simulation Fluent qui utilise des fonctions définies par l'utilisateur (UDF) basées sur les Modèles de Phase Discrète (DPM)?",
+      "answer": "L'injection d'un ensemble de particules dans une simulation Fluent avec des UDF basées sur les DPM peut être définie de deux manières principales. On peut le faire via l'interface graphique en accédant au panneau \"Physics --> Discrete Phase\", puis en cliquant sur le bouton \"Injections\" et en spécifiant les \"Point Properties\" dans la boîte de dialogue \"Set Injection Properties\". Une autre façon est de lire un fichier texte d'injection; pour ce faire, on sélectionne \"File\" dans le menu déroulant \"Injection Type\" de la boîte de dialogue \"Set Injection Properties\", puis on indique un fichier d'échantillon d'injection (.dpm) ou un fichier texte d'injection créé manuellement (.inj)."
     },
     {
-      "question": "Quelles sont les considérations pour utiliser une fonction définie par l'utilisateur (UDF) compilée avec Ansys Fluent sur les grappes de Calcul Canada? Peut-on réutiliser une UDF compilée sur différentes grappes?",
-      "answer": "Pour utiliser une UDF compilée, tu dois la compiler au moins une fois sur une de nos grappes. Ça va créer un sous-répertoire `libudf` qui contient la bibliothèque partagée `libudf.so` nécessaire. Une fois compilée, tu peux transférer ce répertoire `libudf` vers n'importe quelle autre de nos grappes, à condition que ton compte utilise la même version du module d'environnement `StdEnv`. Pour l'utiliser, il faut charger l'UDF dans ton fichier de journalisation avec la commande `define/user-defined/compiled-functions load libudf`."
+      "question": "Quels types de propriétés sont généralement spécifiés pour l'injection de particules dans les Modèles de Phase Discrète (DPM) avec Fluent?",
+      "answer": "Pour l'injection d'un ensemble de particules dans les Modèles de Phase Discrète (DPM) avec Fluent, on spécifie des \"Point Properties\". Celles-ci incluent des variables comme la position de la source, la trajectoire initiale, le débit massique, la durée et la température, adaptées au type d'injection choisi."
     },
     {
-      "question": "Pourquoi est-il crucial de paralléliser une fonction définie par l'utilisateur (UDF) lorsqu'on l'utilise avec des tâches Fluent exécutées en parallèle sur les grappes de l'Alliance?",
-      "answer": "Il est crucial de paralléliser une UDF pour des tâches Fluent en parallèle (que ce soit SMP à nœud unique ou MPI à nœuds multiples) afin d'éviter que Fluent ne roule lentement ou ne plante complètement. La parallélisation permet de contrôler quels processus exécutent des parties spécifiques du code UDF, assurant ainsi que l'UDF s'exécute efficacement en mode séquentiel et parallèle."
+      "question": "Après avoir configuré l'injection de particules dans l'interface graphique de Fluent pour une simulation DPM, comment peut-on automatiser ces étapes via un fichier de journalisation?",
+      "answer": "Une fois l'injection confirmée dans l'interface graphique, les étapes peuvent être automatisées en ajoutant des commandes spécifiques au fichier de journalisation après l'initialisation de la solution. Par exemple, des commandes comme `/define/models/dpm/interaction/coupled-calculations yes` pour activer les calculs couplés, ou `/define/models/dpm/injections/create` pour créer des injections à partir d'un fichier, peuvent être utilisées. On peut aussi lister les propriétés et les particules des injections avec des commandes similaires dans le fichier de journalisation."
     }
   ],
-  "generated_at": "2026-05-24T01:11:34.439921+00:00"
+  "generated_at": "2026-05-31T01:29:56.130250+00:00"
 }

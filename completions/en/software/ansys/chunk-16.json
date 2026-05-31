@@ -4,17 +4,17 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `script-flu-bycore+restart.sh` Slurm script for Ansys Fluent?",
-      "answer": "This Slurm script is designed to automate restarting very large Ansys Fluent simulations that require more than the typical seven-day maximum runtime window available on most Alliance clusters. It manages job restarts from the most recent saved time step files, using a 'by core' allocation strategy."
+      "question": "What is the primary function of the provided Slurm script named `script-flu-bycore+restart.sh` for ANSYS Fluent?",
+      "answer": "This Slurm script is designed to automate the process of running ANSYS Fluent simulations on Alliance clusters, specifically using a multinode, 'by core' configuration with a solution restart mechanism. It's intended for jobs that may exceed typical runtime limits, allowing them to continue from the most recently saved timestep files."
     },
     {
-      "question": "How do users configure and manage solution restarts for Ansys Fluent simulations using the `script-flu-bycore+restart.sh` Slurm script?",
-      "answer": "Users must prepare a working set of `sample.cas`, `sample.dat`, and `sample.jou` files. They also need to create a restart journal file (`sample-restart.jou`) that reads `sample-restart.cas-data` and comments out the initialization line. The script utilizes the Slurm job array (`#SBATCH --array=1-5%1`) to define the number of solution restarts. For the initial run, it uses `MYJOUFILE`, and for subsequent runs, it uses `MYJOUFILERES` after creating symbolic links to the most recent output case and data files."
+      "question": "How does the `script-flu-bycore+restart.sh` Fluent script manage the continuation of a simulation from previous timesteps?",
+      "answer": "The script uses Slurm's job array feature (e.g., `#SBATCH --array=1-5%1`) to handle multiple restart attempts or time steps. The initial array task (`SLURM_ARRAY_TASK_ID == 1`) starts the simulation using the `MYJOUFILE`. For all subsequent tasks, it employs a restart journal file (`MYJOUFILERES`). After a successful step, it automatically creates symbolic links to the latest output `.cas` and `.dat` files, designating them as `MYCASFILERES` and `MYDATFILERES` for the next restart iteration. If all specified restart attempts are completed, the entire job array is then cancelled."
     },
     {
-      "question": "What are the essential Slurm parameters that users need to configure when submitting an Ansys Fluent job with solution restart using the `script-flu-bycore+restart.sh` script?",
-      "answer": "Users must configure the `#SBATCH --account` for their project, `#SBATCH --time` to set the time limit for each job array task, `#SBATCH --ntasks` for the total number of cores across all nodes, `#SBATCH --mem-per-cpu` for memory allocation per core, and `#SBATCH --array` to specify the desired number of solution restarts (e.g., `1-5%1` for 5 attempts). Other parameters like `--nodes` and `--cpus-per-task` are also important but may have default values or specific recommendations."
+      "question": "What are the essential user-defined variables and files that need to be configured within the `script-flu-bycore+restart.sh` script for a Fluent simulation?",
+      "answer": "Users must configure several key variables and files: `MYJOURNALFILE` (for the initial run, e.g., `sample.jou`), `MYJOUFILERES` (for restart runs, e.g., `sample-restart.jou`), and `MYVERSION` (specifying the Fluent dimensionality, such as `3d` or `2ddp`). Additionally, Slurm parameters like `account`, `time`, `ntasks`, `mem-per-cpu`, and the `array` value (which dictates the number of solution restarts) must be set. The initial journal file should also be prepared with commands like `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`, and a `sample-restart.jou` must be created to read `sample-restart` case-data and omit initialization."
     }
   ],
-  "generated_at": "2026-05-24T01:03:39.336551+00:00"
+  "generated_at": "2026-05-31T01:22:27.791913+00:00"
 }

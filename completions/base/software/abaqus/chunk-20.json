@@ -4,17 +4,17 @@
   "chunk_index": 20,
   "qa_pairs": [
     {
-      "question": "What options are available to prevent Abaqus jobs from waiting indefinitely for a license on an Alliance cluster, thereby wasting resources?",
-      "answer": "Users have two primary options: first, they can create an `abaqus_v6.env` file in their submit directory containing `lmlicensequeuing=OFF`, which will cause the job to terminate immediately if licenses are unavailable. Second, they can specify a finite wait time in minutes, for example, `lmhanglimit=1`, in the `abaqus_v6.env` file. If sufficient licenses do not become available within this specified time, the job will be dequeued and terminated by Slurm."
+      "question": "How can a user check the SHARCNET Abaqus license server for current usage, including active and queued jobs?",
+      "answer": "To check the SHARCNET Abaqus license server for started and queued jobs, users can log into the Nibi cluster, load Abaqus, and then run the command: `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"`."
     },
     {
-      "question": "What are the consequences of an Abaqus job being queued for a license on an Alliance cluster?",
-      "answer": "When an Abaqus job is queued for a license, it enters a \"Running\" state from the perspective of the Slurm scheduler. This means the job will sit idle on a compute node, consuming available resources and depreciating the user's fair share level, as if it were actively performing computations, even though it is just waiting for a license."
+      "question": "What does it mean when an Abaqus job is reported as 'queued' by the SHARCNET license server, and how does it affect a user's account?",
+      "answer": "When an Abaqus job is reported as 'queued' by the SHARCNET license server, it means the job has started on a compute node and is in a 'Running' state from the Slurm scheduler's perspective, but it is idle and waiting for an available license. This state consumes compute resources and negatively impacts the user's account priority, similar to a job actively performing computations."
     },
     {
-      "question": "How can users effectively optimize the memory and CPU specifications for their Abaqus Slurm jobs on Alliance clusters?",
-      "answer": "For completed jobs, users can use `seff JobNumber` to check \"Memory Utilized,\" \"Memory Efficiency,\" \"CPU (time) Utilized,\" and \"CPU Efficiency.\" If memory or CPU efficiency is below approximately 90%, the `#SBATCH --mem=` or `#SBATCH --cpus-per-task=` settings in the Slurm script should be adjusted. For running jobs, `srun --overlap --jobid=JOBID --pty top -d 5 -u $USER` allows users to monitor `%CPU`, `%MEM`, and `RES` for Abaqus processes on the compute node, helping to identify and tune resource usage."
+      "question": "What are the two options for preventing an Abaqus job from idling indefinitely on an Alliance cluster while waiting for a license?",
+      "answer": "To prevent an Abaqus job from idling indefinitely while waiting for a license, users have two options: (1) create a file named `abaqus_v6.env` in the submit directory with the line `lmlicensequeuing=OFF` to make the job terminate immediately if licenses are unavailable, or (2) add `lmhanglimit=X` to the `abaqus_v6.env` file, where `X` specifies the number of minutes the job will wait in a queued state for a license before automatically terminating."
     }
   ],
-  "generated_at": "2026-05-24T00:59:49.660834+00:00"
+  "generated_at": "2026-05-31T01:05:10.057411+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 23,
   "qa_pairs": [
     {
-      "question": "Comment faire pour éviter les problèmes de pénurie de licences Abaqus lorsqu'on soumet plusieurs tâches qui requièrent des jetons coûteux?",
-      "answer": "Pour éviter les pénuries de licences lors de la soumission de plusieurs tâches Abaqus, il est recommandé d'utiliser des dépendances de tâches (job dependencies), des vecteurs de tâches (job arrays) ou de configurer des notifications par courriel Slurm. Ces méthodes permettent de savoir quand une tâche est terminée avant d'en soumettre une autre manuellement, évitant ainsi que des tâches restent en file d'attente sans jetons disponibles."
+      "question": "Comment puis-je vérifier l'état des licences Abaqus sur le serveur de licences SHARCNET, incluant les tâches lancées et celles en attente?",
+      "answer": "Pour interroger le serveur de licences SHARCNET, vous devez d'abord vous connecter à Nibi via SSH (`ssh nibi.alliancecan.ca`), puis charger les modules StdEnv/2020 et Abaqus. Ensuite, vous pouvez utiliser la commande `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"` pour voir les tâches lancées et celles en file d'attente."
     },
     {
-      "question": "Comment s'assurer de l'utilisation optimale des jetons Abaqus et des ressources de calcul (mémoire et cœurs CPU) dans les scripts Slurm?",
-      "answer": "Pour garantir une utilisation optimale, il est important de spécifier avec précision la mémoire et le nombre de cœurs (ncpus) requis dans votre script Slurm. Pour les tâches terminées, utilisez la commande `seff JobNumber` pour vérifier la mémoire utilisée et son efficacité; si elle est inférieure à 90%, diminuez la valeur du paramètre `#SBATCH --mem=`. Pour le CPU, si l'efficacité est inférieure à 90%, testez la scalabilité pour trouver le nombre optimal de CPU et mettez à jour `#SBATCH --cpus-per-task=`. Pour les tâches en cours, utilisez `srun --overlap --jobid=JOBID --pty top -d 5 -u $USER` pour surveiller l'utilisation du CPU (%CPU), de la mémoire (%MEM) et de la mémoire résidente (RES)."
+      "question": "Que signifie le fait qu'une tâche Abaqus soit mise en file d'attente pour une licence sur le serveur de licences SHARCNET?",
+      "answer": "Lorsqu'une tâche Abaqus est en file d'attente pour une licence sur le serveur SHARCNET, ça veut dire que la tâche a atteint l'état 'R (running)' selon Slurm (comme indiqué par `squeue -j jobid` ou `sacct -j jobid`), mais elle est inactive sur un nœud de calcul, attendant qu'une licence soit disponible. Ça a le même impact sur la priorité de votre compte que si la tâche effectuait des calculs et consommait du temps CPU. La tâche va démarrer dès que suffisamment de licences seront libérées."
     },
     {
-      "question": "Quelle est la correspondance entre le nombre de cœurs de CPU et les jetons Abaqus requis pour une tâche, et un GPU a-t-il une incidence sur cette correspondance?",
-      "answer": "La correspondance cœur-jeton est donnée par la formule `TOKENS = floor[5 X CORES^0.422]`. Chaque GPU utilisé pour une tâche nécessite un jeton additionnel, en plus de ceux calculés pour les cœurs de CPU."
+      "question": "Quelles sont les stratégies recommandées pour prévenir les problèmes de pénurie de licences quand on soumet plusieurs tâches Abaqus qui nécessitent des jetons coûteux?",
+      "answer": "Pour éviter les problèmes de pénurie de licences lors de la soumission de plusieurs tâches Abaqus avec des jetons coûteux, il est suggéré d'utiliser soit des dépendances de tâches (pour que les tâches s'exécutent séquentiellement), des vecteurs de tâches (pour gérer plusieurs tâches similaires), ou de configurer des notifications par courriel Slurm. Ces notifications vous avisent quand une tâche est terminée, vous permettant ainsi de soumettre la prochaine manuellement sans gaspiller de ressources."
     }
   ],
-  "generated_at": "2026-04-13T00:53:26.468289+00:00"
+  "generated_at": "2026-05-31T01:12:37.589169+00:00"
 }

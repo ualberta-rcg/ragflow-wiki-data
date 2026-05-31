@@ -1,6 +1,83 @@
 {
   "doc_key": "base/ansys",
   "level": "page",
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:23:43.153544+00:00"
+  "qa_pairs": [
+    {
+      "question": "What is Ansys, and what role does the Alliance play in its availability on their clusters?",
+      "answer": "Ansys is a software suite for engineering simulation and 3-D design. The Alliance acts as a hosting provider, installing the software on its clusters, but generally does not provide generic licenses accessible to everyone; users typically need to bring their own institutional licenses."
+    },
+    {
+      "question": "How do users configure their Ansys license file on Alliance clusters?",
+      "answer": "Users must create a file named `$HOME/.licenses/ansys.lic` in their home folder. They then customize this file by replacing `FLEXPORT` and `LICSERVER` with the appropriate values for their specific license server."
+    },
+    {
+      "question": "What information is needed from an Ansys server administrator to use a local institutional license server on an Alliance cluster if the network connection hasn't been set up before?",
+      "answer": "Users need the Ansys flex port (FLEXPORT) number, the fully qualified hostname (LICSERVER), and the statically configured Ansys vendor port (VENDPORT) number. This information should be sent to technical support so Alliance system administrators can open outbound firewalls and provide cluster NAT nodes' IP addresses for the local network administrator to configure their server's firewall."
+    },
+    {
+      "question": "What are the key details regarding the SHARCNET Ansys license available to Alliance researchers?",
+      "answer": "The SHARCNET Ansys license is free for academic use by any Alliance researcher on any Alliance system for publishable academic research. It has no solver or geometry limits and covers products like HF, EM, Electronics HPC, Mechanical, CFD, and ROCKY."
+    },
+    {
+      "question": "What are the current usage limits for the SHARCNET Ansys license on Alliance clusters, and what is the upcoming change?",
+      "answer": "Currently, each researcher can run a maximum of 16 simultaneous jobs using up to 512 HPC cores across all clusters. However, due to oversubscription, the total 'anshpc' core limit per researcher will decrease from 512 to 384 on April 1, 2026."
+    },
+    {
+      "question": "How does version compatibility generally work for Ansys simulations on Alliance clusters?",
+      "answer": "Ansys simulations are typically forward compatible, meaning older version simulations can load and run with newer Ansys versions. However, they are not backward compatible, so running newer simulations with older Ansys versions will likely result in errors or crashes."
+    },
+    {
+      "question": "How are Ansys service packs handled on Alliance clusters starting with Ansys 2024?",
+      "answer": "Starting with Ansys 2024, a separate Ansys module will appear on the clusters with a decimal and two digits following the release number for each service pack installed, such as `ansys/2024R1.03`. Users can load the latest service pack using `module load ansys` or a specific version if needed."
+    },
+    {
+      "question": "Why do Ansys packages require special instructions for parallel job submission on Alliance clusters?",
+      "answer": "Ansys software suite includes multiple MPI implementations for parallel computation, but none of them natively support the Slurm scheduler used on Alliance clusters. This necessitates specific instructions for starting parallel jobs for each Ansys package."
+    },
+    {
+      "question": "What is the typical workflow for running a Fluent job on an Alliance cluster?",
+      "answer": "The workflow involves preparing the Fluent job on a desktop, exporting the case and data files, transferring them to a `/project` or `/scratch` directory on the cluster, creating a journal file to automate the simulation, and then submitting the job using a Slurm script."
+    },
+    {
+      "question": "When should the \"license requeue\" Slurm scripts be used for Fluent jobs on Alliance clusters, and what are the caveats?",
+      "answer": "These scripts should only be used for Fluent jobs that are known to complete normally but often require multiple attempts to check out licenses. They are not recommended for jobs that might crash or have unresolved warnings, as requeuing will repeat the simulation from the beginning, leading to wasted compute time."
+    },
+    {
+      "question": "What is the purpose of Fluent journal files, and what file formats can they specify?",
+      "answer": "Fluent journal files automate simulations by loading case and data files, running the solver, and writing results. They can also include any command from Fluent's Text User Interface (TUI) to change simulation parameters. They can specify either the legacy `.cas/.dat` file format or the more efficient `.cas.h5/.dat.h5` format."
+    },
+    {
+      "question": "What is the difference between interpreted and compiled User-Defined Functions (UDFs) in Ansys Fluent on Alliance clusters?",
+      "answer": "Interpreted UDFs are specified and interpreted at runtime via a journal file command. Compiled UDFs must first be compiled on an Alliance cluster to create a shared library, which can then be loaded by Fluent via a journal file command for subsequent runs."
+    },
+    {
+      "question": "What steps are required to initialize an Ansys Workbench project before submitting it as a batch job on an Alliance cluster?",
+      "answer": "Users must start an OnDemand desktop, navigate to their project directory, remove any old project cache, load the Ansys module, open the Workbench GUI with their project file, reset the Model, save, and then exit Workbench without saving further modifications."
+    },
+    {
+      "question": "How can an APDL input file be generated for Ansys Mechanical jobs on Alliance clusters?",
+      "answer": "An APDL input file can be generated from within an interactive Workbench Mechanical session by clicking on 'Solution -> Tools -> Write Input Files' and specifying a file name with the `.inp` extension."
+    },
+    {
+      "question": "How can a user restart a partially completed Rocky simulation in a cluster queue on Alliance clusters?",
+      "answer": "To restart a partially completed Rocky simulation, the `RESUME` parameter in the Slurm script should be set to `1` (instead of `0`) before resubmitting the script to the queue."
+    },
+    {
+      "question": "How can users run Ansys programs in graphical mode on Alliance clusters, and what kind of desktop environment is recommended?",
+      "answer": "Users can run Ansys programs graphically using an OnDemand or JupyterHub desktop. It is recommended to specify a GPU resource for the desktop session if accelerated graphics or computations will be performed."
+    },
+    {
+      "question": "What specific environment variable must be set when running Ansys Fluent in graphical mode on the Nibi cluster using OnDemand desktop sessions with intelmpi?",
+      "answer": "The environment variable `I_MPI_HYDRA_BOOTSTRAP=ssh` must be manually set for Fluent to avoid crashing when started inside OOD Compute Desktop sessions using intelmpi on the Nibi cluster."
+    },
+    {
+      "question": "What steps are involved in making the Ansys Additive Manufacturing ACT extension available for use in a project on an Alliance cluster?",
+      "answer": "Users must download the `AdditiveWizard.wbex` file from the Ansys catalog, upload it to the cluster, then open their project in the Workbench GUI, navigate to the Extensions Manager, and install and load the `AdditiveWizard` extension."
+    },
+    {
+      "question": "Where can users find help resources and documentation for Ansys software on Alliance clusters?",
+      "answer": "Users can access official documentation on the Ansys website (some requiring login), the Ansys Developer Portal, Ansys HowTo videos, the Ansys Educator Hub, and the Ansys Webinar series."
+    }
+  ],
+  "generated_at": "2026-05-31T01:13:36.748475+00:00"
 }

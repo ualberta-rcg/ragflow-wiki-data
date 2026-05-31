@@ -4,13 +4,17 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "How do you run an Abaqus explicit analysis job using thread-based parallelization with specific resource allocations on an Alliance cluster, for Abaqus version 2026 or newer?",
-      "answer": "To run an Abaqus explicit analysis job for version 2026 or newer using thread-based parallelization, you would use a command similar to: `abaqus job=testet1 input=$SLURM_SUBMIT_DIR/myexp-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`. This specifies the job name, input file path, scratch directory, number of CPUs from the node, interactive mode, and allocates memory as the node's total memory minus 3072 MB."
+      "question": "What is the purpose of the Abaqus explicit analysis \"temporary directory script\" (scriptet1.txt) for single node computing on Alliance clusters?",
+      "answer": "The \"temporary directory script\" (scriptet1.txt) is designed to run Abaqus explicit analysis jobs on a single compute node. It utilizes the `SLURM_TMPDIR` for scratch files, benefiting from local disk I/O, and includes a mechanism to periodically copy generated files back to the `SLURM_SUBMIT_DIR` to ensure data persistence even if the job is terminated early."
     },
     {
-      "question": "What is the correct syntax to include in an Abaqus input file to write restart data for a total of 12 time increments?",
-      "answer": "To write restart data for a total of 12 time increments, you should include the following line in your Abaqus input file: `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
+      "question": "How can a user configure an Abaqus explicit analysis job to write restart data at specific intervals within the input file on an Alliance cluster?",
+      "answer": "To configure an Abaqus explicit analysis job to write restart data, users can specify `*RESTART, WRITE, OVERLAY, FREQUENCY=12` in their input file to write data every 12 time increments. Alternatively, to write restart data for a total of 12 time increments, they would specify `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
+    },
+    {
+      "question": "Which Abaqus versions are supported by the explicit analysis Slurm scripts on Alliance clusters, and what is the recommended version?",
+      "answer": "The explicit analysis Slurm scripts support both `abaqus/2026` and `abaqus/2021`. However, `abaqus/2026` is the latest version and is recommended for use, while the use of `abaqus/2021` is marked for discontinuation."
     }
   ],
-  "generated_at": "2026-05-24T00:58:38.559366+00:00"
+  "generated_at": "2026-05-31T01:04:03.945978+00:00"
 }

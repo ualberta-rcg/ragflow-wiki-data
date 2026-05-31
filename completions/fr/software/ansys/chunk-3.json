@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Comment faire pour configurer un serveur de licence ANSYS qui a déjà été préparé pour être utilisé sur une de nos grappes?",
-      "answer": "Pour configurer un serveur de licence ANSYS déjà prêt à être utilisé sur une grappe, vous devez contacter votre administrateur de serveur de licences ANSYS et obtenir les trois informations suivantes: le nom d'hôte complet (LICSERVER) du serveur, le port flex (FLEXPORT) pour ANSYS (habituellement 1055) et le port d'interconnexion (INTEPORT, habituellement 2325). Une fois ces informations recueillies, vous devez configurer votre fichier `~/.licenses/ansys.lic` en y entrant ces valeurs selon le modèle fourni."
+      "question": "Comment puis-je configurer un serveur de licences Ansys de mon établissement sur les grappes d'Alliance, si les connexions réseau et les pare-feu sont déjà configurés?",
+      "answer": "Pour utiliser un serveur de licences Ansys local dont les connexions réseau et pare-feu sont déjà configurées pour nos grappes, vous devez contacter votre administrateur de serveur de licence ANSYS. Demandez-lui le numéro de port flexible Ansys configuré (FLEXPORT), généralement 1055, et le nom d'hôte complet (LICSERVER) du serveur de licence. Ensuite, configurez votre fichier `~/.licenses/ansys.lic` en y insérant ces valeurs."
     },
     {
-      "question": "Quelles informations supplémentaires doit-on obtenir auprès de l'administrateur si un serveur de licence ANSYS local n'a jamais été configuré pour être utilisé sur une grappe?",
-      "answer": "Si un serveur de licence ANSYS local n'a jamais été configuré pour être utilisé sur une grappe, en plus des trois éléments d'information mentionnés précédemment (LICSERVER, FLEXPORT, INTEPORT), vous devrez également obtenir le numéro de port statique du fournisseur (VENDPORT). De plus, il est crucial d'obtenir une confirmation que le nom du serveur (`<servername>`) se résoudra à la même adresse IP que le LICSERVER sur nos grappes. Si ce n'est pas le cas, vous devrez demander à l'administrateur de licence de le modifier pour qu'il corresponde."
+      "question": "Quelles sont les étapes pour configurer un serveur de licence Ansys local de mon établissement sur les grappes d'Alliance si celui-ci n'a jamais été configuré auparavant?",
+      "answer": "Pour configurer un nouveau serveur de licence Ansys local, vous devrez obtenir de votre administrateur de serveur de licence les renseignements suivants : le numéro de port flexible Ansys (FLEXPORT), le nom d'hôte complet (LICSERVER), le port fournisseur (VENDPORT) configuré statiquement, et la confirmation que le nom du serveur correspond à la même adresse IP que LICSERVER sur la grappe. Envoyez ces informations au soutien technique d'Alliance en précisant la grappe sur laquelle vous souhaitez exécuter Ansys. Un administrateur ouvrira le pare-feu sortant de la grappe. Vous devrez ensuite transmettre la plage d'adresses IP fournie par notre équipe à votre administrateur réseau local pour qu'il ouvre le pare-feu de votre serveur de licence aux connexions Ansys sur les ports FLEXPORT et VENDPORT."
     },
     {
-      "question": "Quelle est la procédure pour vérifier si la configuration de la licence ANSYS fonctionne correctement sur une grappe?",
-      "answer": "Pour vérifier si la configuration de votre licence ANSYS est fonctionnelle, vous devez copier et coller une séquence de commandes sur la grappe où vous prévoyez soumettre vos tâches. Il faut remplacer `YOURUSERID` et s'assurer que la version du module ANSYS que vous chargez pour le test (`module load ansys/VERSION`) est la même que celle que votre script de tâche utilisera. Si la sortie indique \"Success\", cela signifie que les extractions de licences devraient fonctionner. Si la sortie est \"Fail\", il y a un problème avec la configuration de la licence."
+      "question": "Comment est-ce que je peux vérifier si mon fichier `ansys.lic` est correctement configuré et que ma licence Ansys fonctionne comme il faut sur une grappe d'Alliance?",
+      "answer": "Pour vérifier la configuration de votre fichier `ansys.lic` et le fonctionnement de votre serveur de licence, exécutez la séquence de commandes suivantes sur la grappe où vous voulez soumettre des tâches :\n```bash\n[login-node:~] cd /tmp\n[login-node:/tmp] salloc --time=1:0:0 --mem=1000M --account=def-YOURUSERID\n[compute-node/tmp] module load StdEnv/2023; module load ansys/2025R2.04\n[compute-node:/tmp] $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\" 1> /dev/null && echo Success || echo Fail\n```\nUn résultat `Success` indique que les requêtes de licence devraient fonctionner, tandis qu'un `Fail` signale un problème."
     }
   ],
-  "generated_at": "2026-05-24T01:08:25.866738+00:00"
+  "generated_at": "2026-05-31T01:26:50.277017+00:00"
 }

@@ -4,13 +4,17 @@
   "chunk_index": 40,
   "qa_pairs": [
     {
-      "question": "How are `anshpc` licenses consumed by Fluent jobs on Alliance clusters, and what is the total number of `anshpc` licenses available in the SHARCNET pool?",
-      "answer": "Fluent jobs on Alliance clusters consume `anshpc` licenses at a rate of (number of cores - 4). For example, an 8-core job uses 4 licenses (8-4=4), and a 32-core job uses 28 licenses (32-4=28). The SHARCNET license pool has a total of 1986 `anshpc` licenses."
+      "question": "How can I check the current usage of Ansys licenses, particularly the `anshpc` feature, on an Alliance cluster, and what information does the output provide?",
+      "answer": "To check Ansys license usage, log in to an Alliance cluster (e.g., `ssh nibi.alliancecan.ca`), load the Ansys module, and then run the `lmutil lmstat` command as shown in the documentation. The output will display the total number of `anshpc` licenses issued, the total currently in use by all users, and a breakdown of licenses held by your specific username across your running jobs. For example, it will indicate which cluster nodes are using licenses, the number of licenses each job consumes, and the start time."
     },
     {
-      "question": "What occurs when an Alliance cluster job attempts to start but there are insufficient `anshpc` licenses available, and what are the possible remedies?",
-      "answer": "If a job requires more `anshpc` licenses than are currently available in the SHARCNET pool, it will fail to start. To remedy this, the user can either wait for a sufficient number of `anshpc` licenses to become available or reduce the job's core count to require fewer licenses and resubmit it immediately."
+      "question": "When submitting an Ansys Fluent job on an Alliance cluster, how are `anshpc` licenses consumed by a user's jobs?",
+      "answer": "For each Ansys Fluent job submitted, the number of `anshpc` licenses consumed is typically calculated as `total_cores_requested - 4`. For instance, an 8-core Fluent job would use 4 `anshpc` licenses (8-4), and a 32-core Fluent job would use 28 `anshpc` licenses (32-4). This calculation contributes to the overall total of `anshpc` licenses in use and affects the availability for other jobs."
+    },
+    {
+      "question": "What steps should a user take if they suspect rogue Ansys processes are unexpectedly holding onto licenses on an Alliance cluster, preventing new jobs from starting?",
+      "answer": "If Ansys licenses are unexpectedly tied up by rogue processes, possibly due to an unclean shutdown of a GUI program or a crash during an interactive `salloc` session, you should first try to close the desktop session or `scancel` the `salloc` session. If licenses are still held, open a terminal window on the affected node and issue the command: `pkill -9 -e -u $USER -f \"ansys\"`. This action will terminate all relevant Ansys rogue processes, immediately returning any held licenses to the SHARCNET license server for general availability."
     }
   ],
-  "generated_at": "2026-05-24T01:06:53.200230+00:00"
+  "generated_at": "2026-05-31T01:25:34.858979+00:00"
 }

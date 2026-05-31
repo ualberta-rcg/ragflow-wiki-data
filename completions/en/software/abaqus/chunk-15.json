@@ -4,13 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "How can one estimate the `mem-per-cpu` value for multi-node Abaqus jobs on Slurm clusters?",
-      "answer": "To estimate the required `mem-per-cpu` value for multi-node Abaqus jobs, first consult the memory estimates per compute process found in the output .dat file of completed jobs. If the `mp_host_split` parameter is not specified or is set to 1, calculate `mem-per-cpu` by multiplying the largest memory estimate by the number of nodes, then dividing by the number of `ntasks`. If `mp_host_split` is greater than 1, multiply the largest memory estimate by the number of nodes and the `mp_host_split` value, then divide by the number of `ntasks`."
+      "question": "How can users estimate the total Slurm node memory required for an Abaqus simulation to run entirely in RAM?",
+      "answer": "An estimate for the total Slurm node memory (`--mem=`) required for an Abaqus simulation to run fully in RAM (without being virtualized to scratch disk) can be obtained by examining the Abaqus output `test.dat` file. This file provides \"MINIMUM MEMORY REQUIRED\" and \"MEMORY TO MINIMIZE I/O\" values. Alternatively, users can run the simulation interactively on a compute node and then monitor the memory use with the `top` or `ps` command."
     },
     {
-      "question": "What are the recommended platforms for running Abaqus in graphical mode within the Alliance computing environment, and how are they used?",
-      "answer": "The recommended platforms for running Abaqus in graphical mode at the Alliance are OpenOnDemand or JupyterLab. For OpenOnDemand, users start a desktop session, open a terminal, load the `abaqus/2026` module, and then launch Abaqus with `abaqus cae` (if a GPU with VirtualGL support is available) or `abaqus cae -mesa` (otherwise). For JupyterLab, users start a JupyterHub desktop session, select and load the `abaqus/2026` module, and then click the 'Abaqus (VNC)' icon that appears."
+      "question": "What do \"MINIMUM MEMORY REQUIRED\" (MMR) and \"MEMORY TO MINIMIZE I/O\" (MRMIO) refer to in Abaqus memory estimates from the `test.dat` file?",
+      "answer": "In Abaqus memory estimates from the `test.dat` file, \"MINIMUM MEMORY REQUIRED\" (MMR) indicates the lowest amount of memory needed for the simulation to run without an Out of Memory (OOM) error. \"MEMORY TO MINIMIZE I/O\" (MRMIO) represents the amount of memory required to keep the simulation fully in RAM and prevent it from using scratch disk, thereby minimizing I/O operations."
+    },
+    {
+      "question": "What steps are involved in interactively monitoring the memory usage of an Abaqus simulation on an Alliance cluster compute node?",
+      "answer": "To interactively monitor memory usage on a compute node, first obtain an allocation using `salloc --time=0:30:00 --cpus-per-task=8 --mem=64G --account=def-piname`, load the Abaqus module (`module load abaqus/2021`), and start the simulation with `abaqus job=test input=Sample.inp scratch=$SLURM_TMPDIR cpus=8 mp_mode=threads interactive`. Then, `ssh` into the assigned compute node (e.g., `ssh c50`) and run `top -u $USER`. Users should monitor the `VIRT` (virtual memory) and `RES` (resident memory) columns in `top` until stable peak memory values are observed."
     }
   ],
-  "generated_at": "2026-04-13T00:48:50.128346+00:00"
+  "generated_at": "2026-05-31T01:08:16.246754+00:00"
 }

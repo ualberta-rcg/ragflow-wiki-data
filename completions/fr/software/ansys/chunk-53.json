@@ -4,13 +4,13 @@
   "chunk_index": 53,
   "qa_pairs": [
     {
-      "question": "Comment faire pour installer l'extension AdditiveWizard d'Ansys Additive Manufacturing sur les grappes de calcul?",
-      "answer": "Pour installer l'extension AdditiveWizard, tu dois d'abord la télécharger à partir de https://catalog.ansys.com/ et la téléverser sur la grappe. Après, tu lances Workbench, tu ouvres ton fichier de projet, puis tu accèdes au gestionnaire d'extensions en cliquant sur la page 'ACT Start', puis sur 'Manage Extensions'. Là, tu cliques sur la boîte avec le signe '+' sous la barre de recherche et tu sélectionnes ton fichier AdditiveWizard.wbex pour l'installer."
+      "question": "Comment faire pour vérifier l'utilisation des ressources par une tâche Ansys en cours d'exécution sur les nœuds de calcul des grappes?",
+      "answer": "Pour obtenir un instantané de l'utilisation des ressources par une tâche Ansys en cours d'exécution sur un ou plusieurs nœuds de calcul, il faut utiliser la commande `srun` avec `top -bn1 -u $USER`. Par exemple, on peut exécuter `srun --overlap --jobid=monjobid top -bn1 -u $USER | grep R | grep -v top`."
     },
     {
-      "question": "Quelles sont les étapes pour exécuter une tâche Ansys Additive Manufacturing via l'interface graphique sur le nœud gra-vdi et comment gérer les processus persistants?",
-      "answer": "Pour exécuter une tâche sur gra-vdi, tu dois lancer Workbench comme décrit dans la section 'Additive Manufacturing -> Activer Additive'. Ensuite, tu cliques sur 'File -> Open' pour sélectionner ton fichier 'test.wbpj', et si l'écran est gris, tu cliques sur 'View -> Reset workspace'. Tu lances 'Mechanical', tu fais 'Clear Generated Data', tu sélectionnes 'Distributed' et tu spécifies le nombre de cœurs. Finalement, tu cliques sur 'File -> Save Project' et 'Solve'. Pour vérifier l'utilisation ou terminer des processus persistants, ouvre un autre terminal et lance `top -u $USER` ou `ps u -u $USER | grep ansys`. Pour arrêter les processus non nécessaires, utilise la commande `pkill -9 -e -u $USER -f \"ansys|mwrpcss|mwfwrapper|ENGINE\"`, ce qui aide à libérer les licences bloquées."
+      "question": "Quelles sont les étapes à suivre pour réaliser des tests de scalabilité pour une simulation Ansys sur les grappes de calcul?",
+      "answer": "Pour effectuer des tests de scalabilité, il faut d'abord obtenir le « Job Wall-clock time » d'une tâche complétée avec la commande `seff jobid`. Par la suite, on soumet des tâches courtes en doublant le nombre de cœurs. Tant que le « Wall-clock time » diminue d'environ 50%, on peut continuer d'augmenter le nombre de cœurs."
     }
   ],
-  "generated_at": "2026-05-24T01:15:34.752156+00:00"
+  "generated_at": "2026-05-31T01:33:56.957120+00:00"
 }

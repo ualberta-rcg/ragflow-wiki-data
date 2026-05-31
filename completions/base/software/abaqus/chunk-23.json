@@ -4,13 +4,17 @@
   "chunk_index": 23,
   "qa_pairs": [
     {
-      "question": "How are Abaqus tokens allocated for CPU cores and GPUs when running simulations on Alliance clusters?",
-      "answer": "Abaqus tokens are allocated based on the number of CPU cores using the formula `TOKENS = floor[5 X CORES^0.422]`. For example, 1 core uses 5 tokens, 2 cores use 6 tokens, and 4 cores use 8 tokens. Additionally, each GPU utilized requires 1 additional token."
+      "question": "What options are available to prevent Abaqus jobs on Alliance clusters from indefinitely waiting for an available license?",
+      "answer": "Users have two options to manage Abaqus license queuing behaviour. They can create an `abaqus_v6.env` file in their submit directory with `lmlicensequeuing=OFF` to terminate a job immediately if no licenses are available. Alternatively, they can specify a finite wait time in minutes, such as `lmhanglimit=1`, in the `abaqus_v6.env` file. If enough licenses do not become available within that time, the job will be dequeued and terminated by Slurm."
     },
     {
-      "question": "What is the current operational status of the Western Abaqus license server, and for whom and where can the Western Abaqus license be used on Alliance hardware?",
-      "answer": "The Western Abaqus license server (license4.sharcnet.ca) is currently offline and retired, which means all license checkout requests on the Dusky cluster from this server will fail. A replacement server is in progress, but in the interim, Western researchers should use the SHARCNET license. Historically, the Western site license was exclusively for Western researchers and could only be used on hardware located at Western's campus, with the Dusky cluster being the only one that satisfied this condition."
+      "question": "How can users optimize the memory and CPU settings in their Slurm scripts for Abaqus jobs on Alliance clusters?",
+      "answer": "To optimize memory and CPU settings for Abaqus jobs, users should submit short test jobs and check their utilization. For completed jobs, use `seff JobNumber` to review \"Memory Utilized\" and \"Memory Efficiency.\" If memory efficiency is below 90%, decrease the `#SBATCH --mem=` setting in their Slurm script. Similarly, if \"CPU Efficiency\" is below 90%, perform scaling tests to find the optimal number of CPUs and update the `#SBATCH --cpus-per-task=` setting. For running jobs, use `srun --overlap --jobid=<JobNumber> --pty top -d 5 -u $USER` to monitor CPU, memory, and resident memory usage."
+    },
+    {
+      "question": "How are Abaqus tokens allocated for CPU cores and GPUs when running simulations?",
+      "answer": "Abaqus tokens are allocated based on CPU cores using the formula `TOKENS = floor[5 X CORES^0.422]`. Additionally, each GPU utilized in a simulation requires one extra Abaqus token."
     }
   ],
-  "generated_at": "2026-05-24T01:00:09.247605+00:00"
+  "generated_at": "2026-05-31T01:05:30.127457+00:00"
 }

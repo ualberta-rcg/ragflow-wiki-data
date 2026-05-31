@@ -65,12 +65,14 @@ Il est possible d’utiliser directement [[MonarQ]] avec Qiskit via le plugiciel
 
 * Note : '''qiskit-calculquebec''' installe automatiquement Qiskit.
 
-=== Initialisation du backend MonarQ ===
+=== Initialisation du backend MonarQ et exécution du circuit ===
 
 * Étape 2 : Configurer vos identifiants et le backend
 ** Créez un client avec vos identifiants. Votre jeton est disponible via le portail Thunderhead.
 ** Le <i>host</i> est '''<nowiki>https://monarq.calculquebec.ca</nowiki>.'''
 ** Initialisez ensuite le backend MonarQ.
+
+* Étape 3 : Transpiler et exécuter le circuit
 
 {{Fichier
   |name=qiskit_example.py
@@ -96,16 +98,7 @@ qc = QuantumCircuit(2)
 qc.h(0)
 qc.cx(0, 1)
 qc.measure_all()
-}}
 
-=== Exécution du circuit ===
-
-* Étape 3 : Transpiler et exécuter le circuit
-
-{{Fichier
-  |name=qiskit_example.py
-  |lang="python"
-  |contents=
 from qiskit_ibm_runtime import SamplerV2 as Sampler
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 
@@ -119,6 +112,7 @@ job = sampler.run([transpiled_qc], shots=1000)
 
 result = job.result()
 print(result[0].data.meas.get_counts())
+
 }}
 
 === Notes ===

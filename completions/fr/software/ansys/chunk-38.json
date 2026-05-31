@@ -4,17 +4,17 @@
   "chunk_index": 38,
   "qa_pairs": [
     {
-      "question": "Comment spécifie-t-on la quantité et le type de GPU à utiliser dans un script Slurm pour une simulation Rocky?",
-      "answer": "Dans un script Slurm pour une simulation Rocky, on spécifie la quantité et le type de GPU avec la directive `#SBATCH --gres=gpu:v100:2` pour demander deux GPU V100."
+      "question": "Comment peut-on lancer Ansys Fluent en mode graphique sur un bureau OnDemand sans utiliser de GPU ?",
+      "answer": "Pour lancer Ansys Fluent en mode graphique sans GPU sur un bureau OnDemand, il faut d'abord charger les modules pertinents (par exemple, `module load StdEnv/2023 ansys/2025R2.04`), puis taper `fluent`. Ensuite, dans le panneau de sélection de Fluent Launcher, sous l'onglet « Environment », vous devez configurer la variable d'environnement `HOOPS_PICTURE`. Utilisez `HOOPS_PICTURE=opengl2-mesa` pour Ansys 2025R1 ou plus récent, ou `HOOPS_PICTURE=x11/lin` pour la version 2024R2.04 ou plus ancienne. Si les graphiques sont corrompus, réessayez en mettant `HOOPS_PICTURE=null`. N'oubliez pas que sur la grappe Nibi, si vous utilisez Intel MPI, la variable `I_MPI_HYDRA_BOOTSTRAP=ssh` doit être configurée manuellement pour éviter que Fluent ne plante au démarrage."
     },
     {
-      "question": "Le module `ansysrocky/2023R2` a-t-il toujours eu ce nom sur la grappe Graham, et si non, quand a-t-il été modifié?",
-      "answer": "Non, le module `ansysrocky/2023R2` pour Rocky sur la grappe Graham s'appelait auparavant `rocky2023R2` et a été renommé le 24 avril 2025."
+      "question": "Quel paramètre d'environnement spécifique doit être configuré manuellement pour éviter qu'Ansys Fluent ne plante au démarrage sur la grappe Nibi lorsque l'on utilise Intel MPI dans une session de bureau OnDemand ?",
+      "answer": "Pour éviter qu'Ansys Fluent ne plante au démarrage sur la grappe Nibi, il faut configurer manuellement la variable d'environnement `I_MPI_HYDRA_BOOTSTRAP=ssh`. Cette configuration est essentielle car sans elle, Fluent plantera si Intel MPI est utilisé dans les sessions de bureau OnDemand."
     },
     {
-      "question": "Est-ce que les modules `ansysrocky/2023R2` et `ansysrocky/2024R2.0` pour Rocky sont disponibles sur toutes les grappes de Calcul Canada?",
-      "answer": "Non, les modules `ansysrocky/2023R2` et `ansysrocky/2024R2.0` sont uniquement disponibles sur la grappe Graham."
+      "question": "Quelles commandes faut-il utiliser pour démarrer Ansys CFX en mode graphique depuis un bureau OnDemand, selon qu'un GPU a été demandé ou non lors du lancement du bureau ?",
+      "answer": "Pour démarrer Ansys CFX en mode graphique depuis un bureau OnDemand, vous devez d'abord charger le module approprié, par exemple `module load StdEnv/2023 ansys/2025R1` (ou une version antérieure). Ensuite, si aucun GPU n'a été demandé lors du démarrage du bureau, utilisez la commande `cfx5 -graphics mesa`. Si un GPU a été demandé, utilisez plutôt `cfx5 -graphics ogl`."
     }
   ],
-  "generated_at": "2026-05-24T01:13:21.142466+00:00"
+  "generated_at": "2026-05-31T01:31:55.751009+00:00"
 }

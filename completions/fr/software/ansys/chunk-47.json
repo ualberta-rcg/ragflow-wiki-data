@@ -4,17 +4,17 @@
   "chunk_index": 47,
   "qa_pairs": [
     {
-      "question": "Quelles sont les restrictions d'utilisation de la licence Ansys de SHARCNET ?",
-      "answer": "La licence Ansys de SHARCNET est offerte gratuitement pour la recherche universitaire publiable par les chercheurs et chercheuses de l'Alliance sur les systèmes de l'Alliance. Il est strictement interdit de l'utiliser pour produire des résultats à des fins commerciales privées."
+      "question": "Comment est-ce qu'on configure le fichier de licence `ansys.lic` pour utiliser la licence de SHARCNET sur les grappes de l'Alliance?",
+      "answer": "Pour utiliser la licence de SHARCNET sur les grappes de l'Alliance, il faut configurer le fichier `~/.licenses/ansys.lic` en y ajoutant les lignes suivantes :\n`setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license3.sharcnet.ca\")`\n`setenv(\"ANSYSLI_SERVERS\", \"2325@license3.sharcnet.ca\")`"
     },
     {
-      "question": "Quels sont les produits Ansys inclus dans la licence SHARCNET et combien de licences anshpc sont disponibles pour les tâches parallèles ?",
-      "answer": "La licence Ansys de SHARCNET, mise à niveau en mai 2020, comprend les produits HF, EM, Electronics HPC, Mechanical, CFD, Rocky et LS-DYNA. Elle inclut également un groupe de 1986 licences anshpc pour le soutien des grandes tâches parallèles."
+      "question": "Quelle commande doit-on utiliser pour connaître le nombre de licences Ansys utilisées par un utilisateur et par tous les utilisateurs sur les grappes de l'Alliance, spécifiquement avec la licence SHARCNET?",
+      "answer": "Pour vérifier l'utilisation des licences SHARCNET associées à votre nom d'utilisateur et par l'ensemble des utilisateurs, connectez-vous d'abord à une grappe (par exemple `ssh nibi.alliancecan.ca`), chargez le module Ansys (`module load ansys`), puis exécutez la commande suivante : `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of\\\\|$USER\" | grep -v \" Total of 0 licenses in use\"`."
     },
     {
-      "question": "Quelles sont les limites actuelles par utilisateur pour l'exécution de tâches Ansys avec la licence SHARCNET sur toutes les grappes ?",
-      "answer": "En date d'octobre 2024, la limite a été augmentée à 8 tâches et un total de 512 cœurs HPC par utilisateur, collectivement sur toutes les grappes et pour toutes les applications, pour une période de test."
+      "question": "Si des licences Ansys sont utilisées sans justification sous le nom d'utilisateur d'une personne sur une grappe de l'Alliance, par exemple suite à une fermeture incorrecte, comment peut-elle libérer ces licences?",
+      "answer": "Si vous remarquez que des licences sont utilisées sans justification sous votre nom d'utilisateur (ce qui peut arriver si Ansys n'a pas été fermé correctement, surtout sur gra-vdi), vous devez vous connecter au nœud concerné (en spécifiant le nom complet de l'hôte, comme `gra-vdi3.sharcnet.ca` ou `gra-vdi4.sharcnet.ca`) et exécuter la commande `pkill -9 -e -u $USER -f \"ansys\"` dans un terminal pour libérer vos licences."
     }
   ],
-  "generated_at": "2026-05-24T01:14:44.893493+00:00"
+  "generated_at": "2026-05-31T01:33:04.263022+00:00"
 }

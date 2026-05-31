@@ -4,17 +4,13 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Comment doit-on configurer le fichier d'entrée d'une simulation Abaqus pour qu'elle écrive des données de redémarrage par intervalles, particulièrement avec les scripts utilisant un répertoire temporaire?",
-      "answer": "Pour configurer une simulation Abaqus afin d'écrire des données de redémarrage en incréments réguliers (par exemple, toutes les 12 étapes), le fichier d'entrée doit contenir la ligne `*RESTART, WRITE, OVERLAY, FREQUENCY=12`. Si l'on souhaite écrire les données pour un total de 12 incréments, on doit plutôt inclure `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
+      "question": "Quelles sont les ressources informatiques de base spécifiées dans cet exemple de script Slurm?",
+      "answer": "Ce script Slurm demande qu'une tâche soit exécutée sur un seul nœud (`#SBATCH --nodes=1`), avec 4 cœurs de processeur par tâche (`#SBATCH --cpus-per-task=4`), 8 Go de mémoire totale (`#SBATCH --mem=8G`) et une durée maximale de 6 heures (`#SBATCH --time=00-06:00`)."
     },
     {
-      "question": "Pourquoi est-il recommandé d'utiliser les scripts de répertoire temporaire avec la variable d'environnement `SLURM_TMPDIR` pour les tâches Abaqus qui génèrent de gros fichiers de redémarrage?",
-      "answer": "Il est préférable que les tâches Abaqus qui créent des fichiers de redémarrage volumineux écrivent sur le disque local via l'utilisation de la variable d'environnement `SLURM_TMPDIR`. Ces scripts permettent aussi de poursuivre les tâches qui ont été interrompues prématurément, que ce soit par la file d'attente Slurm ou une défaillance matérielle inattendue."
-    },
-    {
-      "question": "Si une tâche Abaqus a été interrompue et qu'on utilise un script de redémarrage pour un répertoire temporaire (`scriptst2.txt`), comment doit-on préparer le fichier en entrée pour la relancer?",
-      "answer": "Pour redémarrer une tâche Abaqus en utilisant un script de redémarrage pour répertoire temporaire (comme `scriptst2.txt`), le fichier en entrée pour le redémarrage (par exemple, `mystd-sim-restart.inp`) doit simplement contenir les lignes `*HEADING` et `*RESTART, READ`. Aucune autre modification n'est requise dans ce fichier spécifique pour la relance."
+      "question": "Est-ce que ce script Slurm est conçu pour un calcul distribué sur plusieurs nœuds?",
+      "answer": "Non, la directive Slurm `#SBATCH --nodes=1` indique clairement que ce script est configuré pour un calcul sur un seul nœud, et non pour une tâche distribuée sur plusieurs nœuds."
     }
   ],
-  "generated_at": "2026-04-13T00:50:47.213869+00:00"
+  "generated_at": "2026-05-31T01:10:20.309996+00:00"
 }

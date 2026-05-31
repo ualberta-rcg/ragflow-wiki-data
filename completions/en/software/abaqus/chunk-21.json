@@ -4,17 +4,17 @@
   "chunk_index": 21,
   "qa_pairs": [
     {
-      "question": "Who is eligible to use the Western Abaqus site license and on which computing resources?",
-      "answer": "The Western Abaqus site license is restricted to Western researchers and can only be utilized on hardware located at Western's campus. Currently, only the Dusky cluster meets this requirement, excluding Nibi and SHARCNET OOD systems."
+      "question": "How can users prevent Abaqus jobs from indefinitely waiting for a license on Alliance clusters?",
+      "answer": "Users have two options to manage Abaqus license queuing. They can disable queuing entirely by creating an `abaqus_v6.env` file in their submit directory with `lmlicensequeuing=OFF`, which will cause the job to terminate immediately if no licenses are available. Alternatively, they can specify a finite wait time, for instance, `lmhanglimit=1` for one minute, after which the job will be dequeued and terminated if a license isn't acquired within that period."
     },
     {
-      "question": "What is the process for a Western researcher to obtain access to the Western Abaqus license?",
-      "answer": "To obtain access, Western researchers need to contact the Western Abaqus license server administrator at jmilner@robarts.ca. They will need to provide their username and may be required to make arrangements for purchasing tokens."
+      "question": "What is the recommended approach for optimizing memory and CPU settings for Abaqus Slurm jobs on Alliance clusters?",
+      "answer": "To optimize Slurm script resources for Abaqus jobs, users should submit a few short test jobs. For completed jobs, the `seff JobNumber` command can be used to check 'Memory Utilized' and 'Memory Efficiency'; if efficiency is below approximately 90%, the `#SBATCH --mem=` setting should be reduced. Similarly, 'CPU Efficiency' from `seff JobNumber` or monitoring running jobs with `srun --overlap --jobid=<JobNumber> --pty top -d 5 -u $USER` helps determine the optimal `#SBATCH --cpus-per-task=` value through scaling tests."
     },
     {
-      "question": "If problems occur after configuring the Abaqus license file for the Western server, what steps should be taken to get support?",
-      "answer": "If problems arise, users should submit a problem ticket to technical support. The ticket must specify that they are using the Abaqus Western license on the Dusky cluster and include the failed job number along with any applicable error messages."
+      "question": "What is the current operational status of the Western Abaqus license server for users on Alliance clusters, and what alternative is suggested?",
+      "answer": "The Western Abaqus license server (license4.sharcnet.ca) has been shut down and retired, meaning all Abaqus license checkout requests from the Western/Robarts Abaqus license server on the Dusky cluster will currently fail. Users are advised to use the SHARCNET License instead, after following the prescribed procedure to request access."
     }
   ],
-  "generated_at": "2026-04-13T00:49:32.095121+00:00"
+  "generated_at": "2026-05-31T01:09:00.835885+00:00"
 }

@@ -4,13 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How is the MonarQ backend initialized within a Qiskit program, as demonstrated in the provided Python example?",
-      "answer": "To initialize the MonarQ backend in a Qiskit program, one first needs to import `CalculQuebecClient` and `MonarQBackend` from their respective `qiskit_calculquebec` modules. Then, credentials such as `user`, `access_token`, `host` (set to `https://monarq.calculquebec.ca`), and `project_id` are defined. These credentials are used to create an instance of `CalculQuebecClient`, which is subsequently passed to the `MonarQBackend` constructor to initialize the backend."
+      "question": "How is a quantum circuit executed on the MonarQ backend using Qiskit?",
+      "answer": "To execute a quantum circuit on the MonarQ backend using Qiskit, you first create a `CalculQuebecClient` and a `MonarQBackend` using your credentials and the host. A `QuantumCircuit` is then defined. This circuit must be transpiled using a pass manager, such as `generate_preset_pass_manager`, to adapt it to MonarQ's native connectivity. Finally, a `SamplerV2` is initialized with the MonarQ backend, and the transpiled circuit is run with a specified number of shots, for example, 1000. The execution results can then be retrieved from the job."
     },
     {
-      "question": "What specific credentials and host information are required to create a `CalculQuebecClient` when initializing the MonarQ backend for Qiskit?",
-      "answer": "To create a `CalculQuebecClient` for the MonarQ backend, the required credentials include a `user` (username), an `access_token`, a `host` set to `https://monarq.calculquebec.ca`, and a `project_id`. These four pieces of information are passed as arguments to the `CalculQuebecClient` constructor."
+      "question": "What is the purpose of transpilation when running a Qiskit circuit with the MonarQ backend?",
+      "answer": "Transpilation is required to adapt the quantum circuit to MonarQ's native connectivity and ports, which ensures that the circuit can be executed correctly on the MonarQ infrastructure."
+    },
+    {
+      "question": "What are the recommendations for running Qiskit circuits with measurements on the MonarQ backend, specifically regarding the sampler and the number of shots?",
+      "answer": "When running Qiskit circuits with measures on the MonarQ backend, it is recommended to use `SamplerV2`. The number of shots, which determines the number of times the circuit is run, can be adjusted as needed, with a maximum limit of 1024 shots."
     }
   ],
-  "generated_at": "2026-04-13T11:58:41.561511+00:00"
+  "generated_at": "2026-05-31T01:55:50.608109+00:00"
 }

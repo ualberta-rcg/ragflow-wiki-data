@@ -4,13 +4,13 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "What is the primary function of the `script-flu-bynode-openmpi.sh` script provided for Ansys Fluent on the Narval cluster?",
-      "answer": "The `script-flu-bynode-openmpi.sh` script is designed to submit Ansys Fluent jobs that run across multiple compute nodes on the Narval cluster. It specifically leverages Open MPI for distributed parallel processing to minimize solution latency and maximize performance."
+      "question": "What are the necessary Slurm directives and module loads to run an Ansys Fluent parallel job across multiple nodes on the Narval cluster using Open MPI?",
+      "answer": "To run an Ansys Fluent parallel job across multiple nodes on the Narval cluster using Open MPI, you need to include Slurm directives such as `--account=def-group`, `--time` (e.g., `00-03:00`), `--nodes` (set to 1 or more, as indicated by the script's logic), `--ntasks-per-node` (up to 64 for Narval), `--mem=0`, and `--cpus-per-task=1`. You must also load the `StdEnv/2023` and `ansys/2023R2` (or newer) modules. Additionally, the `FI_PROVIDER=verbs` environment variable needs to be exported for multinode Open MPI execution."
     },
     {
-      "question": "Which Slurm parameters and environment variables are essential for configuring a multinode Ansys Fluent job using Open MPI on the Narval cluster, according to the provided script?",
-      "answer": "For a multinode Ansys Fluent job using Open MPI on the Narval cluster, essential Slurm parameters include `#SBATCH --nodes` (set to 1 or more), `#SBATCH --ntasks-per-node` (up to 64 for Narval), `#SBATCH --mem=0` (to allocate all memory per compute node), and `#SBATCH --cpus-per-task=1`. The script also loads `StdEnv/2023` and `ansys/2023R2` (or newer) modules. Key environment variables set for multinode execution are `export OPENMPI_ROOT=$EBROOTOPENMPI` and `export FI_PROVIDER=verbs`."
+      "question": "How is the Ansys Fluent command structured within a Slurm script for a multinode Open MPI job on the Narval cluster?",
+      "answer": "For a multinode Open MPI job on the Narval cluster, the Ansys Fluent command in the Slurm script will typically be `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`. This command uses the specified Fluent version (`$MYVERSION`), total number of cores (`$NCORES`), specifies Open MPI (`-mpi=openmpi`), utilizes InfiniBand (`-pib`), reads node configuration from a generated machine file (`-cnf=/tmp/machinefile-$SLURM_JOB_ID`), and executes commands from a journal file (`-i $MYJOURNALFILE`)."
     }
   ],
-  "generated_at": "2026-05-24T01:02:24.944925+00:00"
+  "generated_at": "2026-05-31T01:21:22.032799+00:00"
 }

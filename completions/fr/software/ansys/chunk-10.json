@@ -4,17 +4,17 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "Dans un script Slurm pour Ansys Fluent, comment une tâche est-elle configurée pour rouler sur un seul nœud de calcul versus plusieurs nœuds, et quelles sont les options MPI utilisées?",
-      "answer": "Pour une tâche Ansys Fluent sur un seul nœud de calcul, la commande utilise l'option `-pshmem` (mémoire partagée parallèle) avec `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`. Si la tâche doit s'exécuter sur plusieurs nœuds, elle utilise alors l'option `-cnf=/tmp/machinefile-$SLURM_JOB_ID` avec `-mpi=intel -peth` pour les grappes comme Nibi, ou `-mpi=intel -pib` pour d'autres, pour la mémoire distribuée parallèle. Ces scripts exigent que les modules `StdEnv/2023` et `ansys/2023R2` (ou plus récent) soient chargés."
+      "question": "Comment puis-je configurer un script Slurm pour soumettre une tâche Fluent en utilisant Open MPI sur la grappe Narval avec l'approche 'par nœud'?",
+      "answer": "Pour configurer un script Slurm Fluent avec Open MPI sur la grappe Narval en mode 'par nœud', il faut spécifier votre compte (`#SBATCH --account`), une limite de temps (`#SBATCH --time`, par exemple `00-03:00`), le nombre de nœuds de calcul (`#SBATCH --nodes`, 1 ou plus) et le nombre de cœurs par nœud (`#SBATCH --ntasks-per-node`, jusqu'à 64 sur Narval). Vous devez aussi charger les modules `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente), définir le nom de votre fichier de journal (`MYJOURNALFILE=sample.jou`) et la version Fluent (par exemple, `MYVERSION=3d`). Le script utilisera ensuite la commande `fluent` avec les options `-mpi=openmpi`, `-pshmem` pour un seul nœud ou `-pib` avec un fichier de machine généré pour plusieurs nœuds."
     },
     {
-      "question": "À quoi servent les variables `MYJOURNALFILE` et `MYVERSION` dans les scripts Slurm pour soumettre des tâches Ansys Fluent sur les grappes de l'Alliance?",
-      "answer": "Dans les scripts Slurm pour Ansys Fluent, la variable `MYJOURNALFILE` est utilisée pour spécifier le nom de votre fichier journal Fluent, qui contient les commandes pour l'exécution de la simulation. La variable `MYVERSION` sert à définir la dimension de la simulation, comme \"2d\", \"2ddp\", \"3d\" ou \"3ddp\"."
+      "question": "Quelles sont les particularités à prendre en compte lorsqu'on soumet une tâche Fluent sur la grappe Trillium en utilisant un script Slurm 'par nœud'?",
+      "answer": "Lorsqu'on soumet une tâche Fluent sur la grappe Trillium avec un script Slurm 'par nœud', il faut s'assurer de charger le module `ansys/2025R2.04` (ou une version plus récente, car seules ces versions fonctionnent sur Trillium). Une particularité est que le script inclut des vérifications et des instructions pour créer des liens symboliques vers des répertoires inscriptibles dans `$SCRATCH` (`~/.ansys`, `~/.fluentconf`, `~/.flrecent`). Si ces liens n'existent pas, la tâche s'arrêtera avec un message d'erreur, vous demandant de les créer avant de resoumettre le travail."
     },
     {
-      "question": "Quelles sont les configurations spécifiques requises dans les scripts Slurm pour Ansys Fluent lorsque des tâches sont soumises aux grappes Narval ou Nibi?",
-      "answer": "Pour la grappe Narval, les scripts Fluent doivent charger les modules `intel/2023` et `intelmpi`, et les variables d'environnement `INTELMPI_ROOT` et `I_MPI_HYDRA_BOOTSTRAP` doivent être configurées. De même, pour les versions d'Ansys 2025 ou plus récentes sur Nibi, la variable `I_MPI_HYDRA_BOOTSTRAP=ssh` doit être exportée. Ces configurations sont cruciales pour assurer le bon démarrage des processus MPI."
+      "question": "Quels sont les principaux paramètres que je peux personnaliser dans un script Slurm pour soumettre une tâche Fluent?",
+      "answer": "Les principaux paramètres personnalisables dans un script Slurm pour soumettre une tâche Fluent incluent le compte (`#SBATCH --account`), la limite de temps (`#SBATCH --time`), le nombre de nœuds de calcul (`#SBATCH --nodes`), le nombre de cœurs par nœud (`#SBATCH --ntasks-per-node`) ou le nombre total de cœurs (`#SBATCH --ntasks`), et la mémoire totale (`#SBATCH --mem`) ou la mémoire par cœur (`#SBATCH --mem-per-cpu`). Il faut aussi spécifier le nom du fichier de journalisation (`MYJOURNALFILE`) et le type de version Fluent (par exemple, `2d`, `2ddp`, `3d` ou `3ddp` pour `MYVERSION`)."
     }
   ],
-  "generated_at": "2026-05-24T01:09:25.472808+00:00"
+  "generated_at": "2026-05-31T01:27:44.573802+00:00"
 }

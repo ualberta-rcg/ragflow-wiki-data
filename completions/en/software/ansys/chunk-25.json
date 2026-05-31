@@ -4,17 +4,17 @@
   "chunk_index": 25,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the provided Slurm script for ANSYS CFX?",
-      "answer": "The provided Slurm script is designed to submit multinode distributed parallel jobs for ANSYS CFX on Alliance clusters. It manages resource allocation and selects the appropriate MPI implementation based on the cluster being used."
+      "question": "Before submitting an Ansys Workbench job to a Slurm queue on an Alliance cluster, what are the essential initialization steps a user must complete?",
+      "answer": "To initialize an Ansys Workbench job, a user must first start an OnDemand desktop, navigate to their project directory, and remove any old `_ProjectScratch` directory. They then load the appropriate Ansys module (e.g., `ansys/2025R2.04`), open the Workbench GUI with their project file (`runwb2 -f YOURPROJECT.wbpj`), answering 'No' to any recovery prompt. Next, they right-click on 'Model' in the 'Project Schematic' window, select 'Reset', and confirm 'Ok' to delete local and generated data. Finally, they save the project (`File -> Save`), exit Workbench (`File -> Exit`), and answer 'No' when prompted to save modifications."
     },
     {
-      "question": "Which MPI implementations does the multinode ANSYS CFX Slurm script utilize, and on which specific clusters?",
-      "answer": "For multinode ANSYS CFX jobs, the script uses \"Open MPI Distributed Parallel\" on Narval or Fir clusters. For other clusters, it employs \"Intel MPI Distributed Parallel\" and requires the `I_MPI_HYDRA_BOOTSTRAP=ssh` environment variable."
+      "question": "On an Alliance cluster, is it more common or recommended to run Ansys Workbench simulations directly from its native graphical user interface (GUI) or by submitting them as batch jobs using Slurm scripts?",
+      "answer": "It is now recommended to consider running Ansys Workbench simulations directly from within the native GUI during an OnDemand desktop session when possible. This is considered a more intuitive option compared to submitting the job to the queue with a Slurm script, especially since OnDemand desktop sessions can now reserve significant resources, including up to 96 cores, 768 GB of memory, and 8 hours of runtime."
     },
     {
-      "question": "What software modules are required to be loaded for the multinode ANSYS CFX Slurm script to function correctly?",
-      "answer": "To run the multinode ANSYS CFX Slurm script, `StdEnv/2023` and `ansys/2023R2` (or a newer ANSYS module version) must be loaded."
+      "question": "How are parallelization settings, such as shared memory parallel (SMP) or distributed memory parallel (DMP), configured within a Slurm script for an Ansys Workbench job on an Alliance cluster?",
+      "answer": "Parallelization settings for an Ansys Workbench job within a Slurm script are configured by modifying the `SolveHandlers.xml` file. The script determines if the job runs on a single node (SMP) or multiple nodes (DMP) by setting a `MEMPAR` variable to `0` for SMP or `1` for DMP based on `$SLURM_NNODES`. The number of processors is then set using the `$SLURM_NTASKS` variable. These values are applied to the `SolveHandlers.xml` file located in `~/.mw/Application Data/Ansys/...` using `sed` commands."
     }
   ],
-  "generated_at": "2026-05-24T01:04:50.639297+00:00"
+  "generated_at": "2026-05-31T01:23:47.035185+00:00"
 }

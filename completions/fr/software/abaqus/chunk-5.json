@@ -4,17 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on soumet une simulation Abaqus standard sur un nœud simple en utilisant un script Slurm configuré pour le répertoire `/project`?",
-      "answer": "Pour soumettre une simulation Abaqus standard sur un nœud simple via un script Slurm pour le répertoire `/project`, vous devez spécifier le compte (`#SBATCH --account`), la durée de la tâche (`#SBATCH --time`), le nombre de cœurs par tâche (`#SBATCH --cpus-per-task`), la mémoire totale requise (`#SBATCH --mem`), et le nombre de nœuds (`#SBATCH --nodes=1`). Ensuite, le script doit charger le module Abaqus pertinent (par exemple, `module load abaqus/2026`) et lancer la commande Abaqus en indiquant le nom du travail (`job=`), le fichier d'entrée (`input=`), le répertoire temporaire (`scratch=$SLURM_TMPDIR`), le nombre de cœurs (`cpus=$SLURM_CPUS_ON_NODE`), le mode de parallélisation par threads (`mp_mode=threads`) et la mémoire allouée (`memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`)."
+      "question": "Qu'est-ce qui peut causer l'interruption prématurée d'une tâche Abaqus sur les grappes de l'Alliance?",
+      "answer": "Une tâche Abaqus peut être interrompue prématurément pour plusieurs raisons, notamment si elle atteint son temps d'exécution maximal demandé avant de se terminer et est arrêtée par la file d'attente, ou si le nœud de calcul sur lequel la tâche était exécutée tombe en panne en raison d'une défaillance matérielle inattendue."
     },
     {
-      "question": "Quelles sont les lignes à ajouter dans le fichier d'entrée d'une simulation Abaqus pour configurer l'écriture ou la lecture de données de redémarrage lors d'une analyse standard sur un nœud simple?",
-      "answer": "Pour écrire les données de redémarrage en incréments de N=12, le fichier d'entrée doit contenir la ligne `*RESTART, WRITE, OVERLAY, FREQUENCY=12`. Si vous voulez écrire les données de redémarrage pour un total de 12 incréments, vous devez plutôt utiliser la ligne `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`. Pour redémarrer une tâche interrompue, le fichier d'entrée de redémarrage doit inclure les lignes `*HEADING` et `*RESTART, READ`."
+      "question": "À quoi servent les scripts de redémarrage pour les tâches Abaqus sur les grappes de l'Alliance?",
+      "answer": "Les scripts de redémarrage sont conçus pour reprendre les tâches Abaqus qui ont été interrompues prématurément, peu importe la raison (par exemple, dépassement du temps limite ou panne de nœud), afin de poursuivre le calcul."
     },
     {
-      "question": "Pourquoi est-il préférable d'utiliser le répertoire temporaire `$SLURM_TMPDIR` pour les tâches Abaqus qui génèrent de gros fichiers de redémarrage?",
-      "answer": "Il est préférable d'utiliser le répertoire temporaire `$SLURM_TMPDIR` pour les tâches Abaqus qui produisent des fichiers de redémarrage volumineux afin d'écrire ces données sur le disque local du nœud de calcul. Cela réduit la charge sur le système de fichiers partagé, améliore les performances en limitant les opérations d'entrée/sortie (E/S) et permet une meilleure gestion des fichiers temporaires. Les scripts utilisant `$SLURM_TMPDIR` incluent également un mécanisme pour sauvegarder périodiquement les données vers le répertoire de soumission (`$SLURM_SUBMIT_DIR`) en cas de dépassement de la durée allouée pour la tâche."
+      "question": "Peut-on modifier une tâche Abaqus de différentes manières pour la redémarrer ou la faire évoluer, en dehors de l'utilisation des scripts de redémarrage standards?",
+      "answer": "Oui, il est possible d'effectuer d'autres types de redémarrage en modifiant davantage le fichier d'entrée (non montré) de la tâche. Cela permet de continuer une tâche avec des étapes supplémentaires ou de modifier l'analyse, mais il faut consulter la documentation spécifique à la version d'Abaqus pour plus de détails."
     }
   ],
-  "generated_at": "2026-04-13T00:50:37.488949+00:00"
+  "generated_at": "2026-05-31T01:10:12.995492+00:00"
 }

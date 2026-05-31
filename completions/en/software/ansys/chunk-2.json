@@ -4,13 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What steps are required to use a local institutional ANSYS license server that has already been configured for use on an Alliance cluster?",
-      "answer": "To use an already configured local institutional ANSYS license server on an Alliance cluster, you must first contact your local Ansys license server administrator. They will provide two pieces of information: the configured Ansys flex port (FLEXPORT) number, which is commonly 1055, and the fully qualified hostname (LICSERVER) of the license server. Once you have these values, you can configure your `~/.licenses/ansys.lic` file by inserting these values into the provided template."
+      "question": "How do Alliance cluster users configure their Ansys license file (~/.licenses/ansys.lic) to connect to a local institutional server that has never been used on the clusters before?",
+      "answer": "To use a local Ansys license server with an Alliance cluster whose network/firewall connections have never been set up, users must obtain the Ansys flex port (FLEXPORT), the fully qualified hostname (LICSERVER), and the statically configured Ansys vendor port (VENDPORT) from their Ansys server administrator. This information, along with the specific Alliance cluster to be used, should be emailed to technical support. An Alliance system administrator will then open the outbound cluster firewall and provide a range of IP addresses (cluster NAT nodes) that need to be given to the local network administrator. The local network administrator must then open the FLEXPORT and VENDPORT ports on the local server firewall to allow connections from these IP addresses and verify that the `SERVER` line in the Ansys license file contains a resolvable `LICSERVER` or `IP_ADDRESS` value."
     },
     {
-      "question": "What specific information is needed from a local Ansys license server administrator to set up an existing license for use on an Alliance cluster?",
-      "answer": "You need to obtain two specific pieces of information from your local Ansys license server administrator: the configured Ansys flex port (FLEXPORT) number, which is commonly 1055, and the fully qualified hostname (LICSERVER) of the license server."
+      "question": "How can an Alliance cluster user verify if their Ansys license file is correctly configured and working with their license server for submitting jobs?",
+      "answer": "To test the Ansys license setup, users should log into the cluster, navigate to `/tmp`, and allocate an interactive session using `salloc`. Once on a compute node, they need to load the standard environment and the Ansys module (e.g., `module load StdEnv/2023; module load ansys/2025R2.04`). Then, run the command: `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\" 1> /dev/null && echo Success || echo Fail`. A `Success` output indicates that license checkouts should work, while `Fail` suggests a problem with the licensing setup."
+    },
+    {
+      "question": "Are Ansys simulations backward compatible between different software versions on Alliance clusters?",
+      "answer": "No, Ansys simulations are generally not backward compatible. Simulations created using an older version of Ansys (e.g., `ansys/2022R2`) are expected to load and run smoothly with any newer version (e.g., `ansys/2023R2`). However, attempting to run a simulation created with a newer version on an older version is not supported and will likely lead to random error messages or crashes. To identify the Ansys version used to create a Fluent case file, users can `grep` the file for clues."
     }
   ],
-  "generated_at": "2026-05-24T01:01:36.645274+00:00"
+  "generated_at": "2026-05-31T01:20:34.330367+00:00"
 }

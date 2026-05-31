@@ -3,77 +3,85 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is Nearline storage on Alliance clusters?",
-      "answer": "Nearline is a tape-based filesystem intended for inactive data that users do not expect to access for months."
+      "question": "What is the primary purpose of the /nearline filesystem on Alliance clusters?",
+      "answer": "The /nearline filesystem is a tape-based system intended for inactive data, which users do not expect to access for months."
     },
     {
-      "question": "What type of data is most suitable for storage in /nearline on Alliance clusters?",
-      "answer": "Datasets that users do not expect to access for months are good candidates to be stored in /nearline."
+      "question": "What type of data is best suited for storage in /nearline on Alliance clusters?",
+      "answer": "Datasets that are not expected to be accessed for several months are good candidates for storage in /nearline."
     },
     {
-      "question": "What are the recommended file size guidelines for storing data in /nearline on Alliance clusters?",
-      "answer": "Files smaller than approximately 10GB should be combined into archive files, and files larger than 4TB should be split into 1TB chunks."
+      "question": "What are the guidelines for storing small files in /nearline on Alliance clusters?",
+      "answer": "Files smaller than approximately 10GB should be combined into archive files (tarballs), with the exception of index files."
     },
     {
-      "question": "Which tools are recommended for creating archive files for /nearline storage on Alliance clusters, and what is a key best practice for their use?",
-      "answer": "`tar` or `dar` are recommended for creating archive files, and a key best practice is to create the archive directly in /nearline to avoid additional storage space and improve efficiency."
+      "question": "What are the guidelines for storing extremely large files in /nearline on Alliance clusters?",
+      "answer": "Files larger than 4TB should be split into chunks of 1TB using the `split` command or a similar tool."
     },
     {
-      "question": "Why is it important to create an index for archived files stored in /nearline on Alliance clusters?",
-      "answer": "Creating an index helps avoid restoring an entire large collection from tape when only one or a few individual files are needed, making it easier to find specific files."
+      "question": "Which tools are recommended for creating archive files for /nearline on Alliance clusters?",
+      "answer": "`tar` or `dar` are recommended tools for creating archive files."
     },
     {
-      "question": "Can users read data directly from /nearline in a job context on compute nodes on Alliance clusters?",
-      "answer": "No, reading from /nearline is not permitted in a job context because /nearline is not mounted on compute nodes, due to the uncertain amount of time data retrieval may take."
+      "question": "Where should users create archive files for /nearline on Alliance clusters to ensure efficiency?",
+      "answer": "Users should create archive files directly in /nearline, as this is more efficient and does not require additional storage space on /scratch or /project."
     },
     {
-      "question": "Where should resource-intensive archiving tasks for /nearline, such as creating large `tar` or `dar` files, be performed on Alliance clusters?",
-      "answer": "These tasks should be performed on a data-transfer node (DTN) on clusters that have them, or on a login node if no DTNs are available."
+      "question": "Why is it recommended to create an index for archived files stored in /nearline on Alliance clusters, and how can one be created?",
+      "answer": "An index helps to find individual files without restoring an entire collection. It can be created by saving the `verbose` output of `tar` when creating or listing the archive to a `.index` file."
     },
     {
-      "question": "Why should users employ a terminal multiplexer like `tmux` or `screen` when archiving large file collections to /nearline on Alliance clusters?",
-      "answer": "A terminal multiplexer allows archiving programs to continue running in the background, even if the SSH session is interrupted or closed, which is useful for tasks that can take several hours or days."
+      "question": "Are index files for archived collections exempt from the small file restrictions in /nearline on Alliance clusters?",
+      "answer": "Yes, index files are an exception to the rule about small files on /nearline and it is acceptable to store them there."
     },
     {
-      "question": "What are the primary advantages of using tape as a storage medium for /nearline compared to disk and solid-state (SSD) media on Alliance clusters?",
-      "answer": "Tape offers a lower cost per unit of data, easily expandable data volume by buying more tapes, and effectively zero energy consumption per unit of data stored."
+      "question": "Can data stored in /nearline on Alliance clusters be directly accessed from compute nodes?",
+      "answer": "No, reading from /nearline is not permitted in a job context, and /nearline is not mounted on compute nodes due to uncertain data retrieval times."
     },
     {
-      "question": "Describe the four-stage lifecycle of a file stored in /nearline, from creation to being entirely on tape, on Alliance clusters.",
-      "answer": "The file first exists only on disk, then it's copied to tape (on both disk and tape), after which the disk copy may be deleted (only on tape), and when recalled, it's copied from tape back to disk."
+      "question": "Where should users perform resource-intensive archiving tasks for large volumes of data on Alliance clusters?",
+      "answer": "Resource-intensive archiving should be done on a data-transfer node (DTN) if available, or on a login node if the cluster has no DTN nodes."
     },
     {
-      "question": "What impact does transferring data from /nearline using tools like Globus have on expected transfer times on Alliance clusters?",
-      "answer": "Users should expect longer transfer times from /nearline because data on tape gets automatically restored to disk upon reading, and each file restoration can hang the transfer for minutes to hours."
+      "question": "What tool is recommended for managing long-running archiving processes in /nearline on Alliance clusters?",
+      "answer": "A terminal multiplexer such as `tmux` or `screen` is recommended to keep archiving programs running even if the SSH session is interrupted."
     },
     {
-      "question": "How can users determine the storage state of their files on /nearline on Alliance clusters, specifically whether they are on disk, tape, or both?",
-      "answer": "Users can use the `lfs hsm_state <FILE>` command to check the hierarchical storage manager state of individual files, or for an overview, some clusters support `diskusage_report --nearline --per_user --all_users`."
+      "question": "Why is it recommended to use `dar -Q` for archiving in /nearline on Alliance clusters?",
+      "answer": "`dar -Q` explicitly disables interactivity, preventing `dar` from asking for confirmation of operations, which is useful in unattended terminal multiplexer sessions."
     },
     {
-      "question": "What does the `lfs hsm_state` command output `[...]: released exists archived, [...]` signify for a file on /nearline on Alliance clusters?",
-      "answer": "This output signifies that the file is on tape but no longer on disk, meaning there will be a lag when attempting to open it."
+      "question": "What are the main advantages of using /nearline storage compared to disk or SSD media on Alliance clusters?",
+      "answer": "Advantages include lower cost per unit of data, easy expansion of data volume, and effectively zero energy consumption per unit of data stored."
     },
     {
-      "question": "How can a user explicitly force a file to be recalled from tape to disk without actually reading it on /nearline on Alliance clusters?",
+      "question": "How does the data migration process work when a file is stored in /nearline on Alliance clusters?",
+      "answer": "Files are first created on disk, then copied to tape after a period, may have their disk copy deleted (becoming virtualized on tape), and are copied back to disk when recalled."
+    },
+    {
+      "question": "How can users check the hierarchical storage manager (HSM) state of a file in /nearline on Alliance clusters?",
+      "answer": "Users can check the HSM state of a file using the `lfs hsm_state <FILE>` command, which shows if a file is on disk, tape, or both."
+    },
+    {
+      "question": "How can a user explicitly force a file to be recalled from tape to disk in /nearline on Alliance clusters without reading it?",
       "answer": "A user can explicitly force a file recall from tape using the command `lfs hsm_restore <FILE>`."
     },
     {
-      "question": "What are the different methods for accessing the /nearline service (HPSS) on the Trillium cluster?",
-      "answer": "Access methods include submitting HPSS-specific commands (`htar` or `hsi`) to the Slurm scheduler, using the VFS (Virtual File System) node, or utilizing Globus for transfers with the `alliancecan#hpss` endpoint."
+      "question": "What should users expect regarding transfer times when moving data from /nearline using tools like Globus on Alliance clusters?",
+      "answer": "Users should expect longer transfer times from /nearline because data on tape gets automatically restored to disk upon reading, and each file restoration can take minutes to hours."
     },
     {
-      "question": "What happens if a user accidentally deletes a file from their `~/nearline` directory on the Fir cluster?",
-      "answer": "If a file is deleted from `~/nearline` on the Fir cluster, the tape copy will be retained for up to 60 days, and it can be restored by contacting technical support with the full file path and desired version."
+      "question": "What are the specific access and retention policies for /nearline on the Fir cluster?",
+      "answer": "On Fir, /nearline is accessible on login nodes and DTNs, files are copied to tape after 24 hours, disk copies are removed after another 24 hours, and deleted tape copies are retained for up to 60 days."
     },
     {
-      "question": "What is an exception to the general rule about not sending small files to /nearline on Alliance clusters?",
-      "answer": "Index files, which help manage bundled archives, are an exception and are permitted to be stored in /nearline even if they are small."
+      "question": "How can users access the /nearline service, known as HPSS, on the Trillium cluster?",
+      "answer": "On Trillium, HPSS can be accessed by submitting `htar` or `hsi` commands to Slurm, using the VFS node (`salloc --time=1:00:00 -pvfsshort`), or through Globus using the `alliancecan#hpss` endpoint."
     },
     {
-      "question": "How should `dar` be used in an unattended terminal multiplexer for /nearline operations on Alliance clusters?",
-      "answer": "It is recommended to explicitly disable `dar`'s interactivity with `dar -Q` when running it in an unattended terminal multiplexer, as `dar` assumes a “no” answer to questions in non-interactive mode."
+      "question": "What are some key differences in how /nearline operates on the Narval, Nibi, and Rorqual clusters compared to Fir?",
+      "answer": "On Narval, only the oldest and largest files are migrated to tape; on Nibi, initial tape copy and disk copy erasure take longer; and on Rorqual, nearline spaces are in `~/links/nearlines` and files were not migrated to tape as of April 2026."
     }
   ],
-  "generated_at": "2026-05-24T01:39:16.904447+00:00"
+  "generated_at": "2026-05-31T02:03:40.462815+00:00"
 }

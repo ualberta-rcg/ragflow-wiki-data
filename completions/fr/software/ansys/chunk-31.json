@@ -4,13 +4,17 @@
   "chunk_index": 31,
   "qa_pairs": [
     {
-      "question": "Comment lancer une simulation ANSYS CFX en mode parallèle distribué sur les grappes de l'Alliance?",
-      "answer": "Pour lancer une simulation ANSYS CFX en mode parallèle distribué, il faut utiliser la commande `cfx5solve` avec l'option `-start-method` pour spécifier la méthode MPI (soit \"Open MPI Distributed Parallel\" pour Narval, soit \"Intel MPI Distributed Parallel\" pour les autres grappes) et l'option `-par-dist` pour indiquer le nombre de nœuds (`$NNODES`), qui est obtenu via `NNODES=$(slurm_hl2hl.py --format ANSYS-CFX)`."
+      "question": "Quel est le but du paramètre `MEMPAR=1` dans ce script de configuration pour Ansys Workbench?",
+      "answer": "Il sert à indiquer que la solution Ansys doit utiliser le calcul parallèle à mémoire distribuée (DMP)."
     },
     {
-      "question": "Quelles sont les configurations spécifiques requises pour exécuter ANSYS CFX en parallèle distribué sur la grappe Narval par rapport aux autres grappes de l'Alliance?",
-      "answer": "Sur la grappe Narval, on utilise la méthode de démarrage \"Open MPI Distributed Parallel\". Pour les autres grappes, il faut utiliser \"Intel MPI Distributed Parallel\" comme méthode de démarrage. De plus, pour les grappes autres que Narval, il est nécessaire d'exporter la variable d'environnement `I_MPI_HYDRA_BOOTSTRAP=ssh` et d'annuler `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`."
+      "question": "Quel fichier est modifié par ce script pour configurer les paramètres des tâches Ansys Workbench?",
+      "answer": "Le script modifie le fichier `SolveHandlers.xml`, qui se trouve généralement dans un chemin comme `~/.mw/Application Data/Ansys/<répertoire_de_version>/SolveHandlers.xml`."
+    },
+    {
+      "question": "Comment ce script configure-t-il le nombre de processeurs pour une tâche Ansys Workbench?",
+      "answer": "Le script utilise une commande `sed` pour mettre à jour le fichier `SolveHandlers.xml`, en définissant le nombre maximal de processeurs (`MaxNumber`) à la valeur de la variable `$SLURM_NTASKS`."
     }
   ],
-  "generated_at": "2026-05-24T01:12:20.681750+00:00"
+  "generated_at": "2026-05-31T01:30:49.237597+00:00"
 }

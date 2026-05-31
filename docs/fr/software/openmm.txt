@@ -1,34 +1,33 @@
 <languages />
 [[Category:Software]][[Category:BiomolecularSimulation]]
-<div class="mw-translate-fuzzy">
 =Introduction=
-OpenMM<ref name="OpenMM_home">Site Web OpenMM : https://openmm.org/</ref> est une boîte d'outils conçue pour la simulation moléculaire. On peut l'utiliser seule comme application pour effectuer des simulations ou comme bibliothèque que vous appelez à partir de votre code. OpenMM est un paquet unique de par sa très grande flexibilité des champs de force personnalisés et des algorithmes de résolution (ou d’intégration), son ouverture et son excellente performance, en particulier avec les GPU récents.
-</div>
+OpenMM<ref name="OpenMM_home">Page d'accueil d'OpenMM : https://openmm.org/</ref> est une boîte à outils de dynamique moléculaire open source conçue pour offrir flexibilité et programmabilité. Utilisée via Python, elle propose des classes applicatives pour l'exécution de simulations ainsi qu'une API de bas niveau permettant d'intégrer OpenMM directement dans le code pour des flux de travail personnalisés. OpenMM peut lire et simuler nativement des systèmes préparés avec AMBER, GROMACS et CHARMM, permettant ainsi une réutilisation en continu des configurations biomoléculaires existantes. Son architecture de plugiciels prend en charge l'intégration avec des outils d'apprentissage automatique, tels que TorchMD-Net, MACE, TorchANI, AIMNet2 et DeepMD, pour des simulations ML/MM à usage général ou hybrides.
 
-== Strengths ==
-* Flexible Python interface with both high-level classes and low-level API access for custom workflows.
-* High-level plugin framework for ML-driven potentials and hybrid simulations.
-* Efficient execution on CPUs and GPUs, suitable for HPC platforms.
-* Native support for major biomolecular formats (AMBER, GROMACS, CHARMM).
-* Open-source with an active ecosystem of plugins for ML and advanced force fields.
+== Points forts ==
+* Interface Python flexible offrant à la fois des classes de haut niveau et un accès API de bas niveau pour des flux de travail personnalisés.
+* Framework de plugiciels de haut niveau pour les potentiels pilotés par l'apprentissage automatique et les simulations hybrides.
+* Exécution efficace avec CPU et GPU, adaptée aux plateformes de calcul haute performance.
+* Prise en charge native des principaux formats biomoléculaires (AMBER, GROMACS, CHARMM).
+* Logiciel libre avec un écosystème actif de plugiciels pour l'apprentissage automatique et les champs de force avancés.
 
-== Weak points ==
-* Slower than highly optimized classical MM engines (GROMACS, AMBER) for large-scale production runs.
-* Flexibility can add complexity for hybrid ML/MM simulations.
-* Specialized trajectory analysis may require external tools.
+== Points faibles==
+* Plus lent que les moteurs MM classiques hautement optimisés (GROMACS, AMBER) pour les simulations de grande envergure.
+* La flexibilité peut ajouter de la complexité pour les simulations hybrides ML/MM.
+* L'analyse de trajectoires spécialisée peut nécessiter des outils externes.
 
 <span id="Environment_modules"></span>
 = Modules d'environnement =
 
  $ <code>module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 openmm/8.4.0 ambertools/25.0</code>
 
-Reamrque : Le module ambertools est optionnel, sauf si vous voulez simuler des systèmes préparées par AMBER.
+Remarque : Le module ambertools est optionnel, sauf si vous voulez simuler des systèmes préparés par AMBER.
 
-Optionally, create a Python virtual environment if you want to install extra packages (e.g., ML potentials).
+Si vous voulez utiliser plus de paquets (par exemple MLPotential), vous pouvez aussi créer un environnement virtuel Python.
 
-= Preparing input files =
+<span id="Preparing_input_files"></span>
+= Préparation des fichiers d'entrée=
 
-OpenMM can directly read Amber topology and coordinate/restart files if simulating AMBER systems.
+OpenMM peut lire directement les fichiers de topologie et de coordonnées/redémarrage Amber lors de la simulation de systèmes AMBER.
 
 Assurez-vous que votre système est équillibré et minimisé avec Amber ou autre, avant de transférer des fichiers à une grappe de calcul.
 

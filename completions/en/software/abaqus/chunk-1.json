@@ -4,17 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "How do users configure their Abaqus license to run on Alliance clusters, and what additional steps are needed for remote server access?",
-      "answer": "Users must configure their Abaqus license by logging into a cluster and creating a file named `$HOME/.licenses/abaqus.lic`. This file should contain the line `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"port@server\")`, with `port@server` replaced by the flexlm port number and server IP address (or fully qualified hostname) of their Abaqus license server. For legacy version 6.14.1, `ABAQUSLM_LICENSE_FILE` should be replaced with `LM_LICENSE_FILE`. For remote server access, users need to contact technical support, providing their flexlm port number, static vendor port number, and the IP address of their Abaqus license server. This allows Alliance and local system administrators to make necessary configuration changes, including opening the local server firewall to connections from the cluster on both ports. Additionally, a special license agreement must generally be negotiated and signed by SIMULIA and the user's institution for remote use on Alliance hardware."
+      "question": "What is required for a user to utilize Abaqus software modules on Alliance clusters?",
+      "answer": "To use Abaqus software modules on Alliance clusters, users must provide their own license."
     },
     {
-      "question": "What is the newest Abaqus module available in the StdEnv/2023 environment, and what are its key improvements and implications for users?",
-      "answer": "A new module for `abaqus/2026` is now installed into the default StdEnv/2023 environment. This version resolves the \"*** buffer overflow detected ***\" error previously experienced with `abaqus/2021` on recent clusters. All Slurm scripts provided on the wiki page have been updated to work with both `abaqus/2026` and `abaqus/2021` where possible, and researchers are advised to likewise update their personal Slurm scripts. The `abaqus/2026` module contains the initial \"Abaqus 2026 Golden\" release, with \"Abaqus 2026 FP.CFA.2606\" updates expected in a subsequent module named `abaqus/2026.2606`."
+      "question": "What are the two types of Abaqus license servers supported on Alliance clusters, and what are the primary configuration files for each?",
+      "answer": "The two types of Abaqus license servers supported on Alliance clusters are FLEXnet-based (also known as FlexLM) and DSLS (Dassault Systèmes License Server). For FLEXnet, a single file named `~/.licenses/abaqus.lic` must be created. For DSLS, two text files, `abaqus_v6.env` and `DSLicSrv.txt`, need to be configured."
     },
     {
-      "question": "What types of Slurm scripts are available for Abaqus job submission on Alliance clusters, and under what circumstances should a user opt for a 'restart script' or a 'temporary directory script'?",
-      "answer": "For Abaqus job submission on Alliance clusters, prototype Slurm scripts are available for thread-based and MPI-based parallel simulations, categorised as 'project directory scripts', 'restart scripts', and 'temporary directory scripts'. A user should opt for a 'restart script' to continue jobs that have been terminated prematurely, such as those killed by the queue for exceeding their maximum requested runtime or due to a compute node crash. 'Temporary directory scripts' are beneficial for single-node jobs that generate large restart files, as they utilize the `SLURM_TMPDIR` environment variable to write these files to the local disk, which can improve performance."
+      "question": "How can users prevent Abaqus jobs from waiting indefinitely for a license when queuing on Alliance clusters?",
+      "answer": "Users can modify the license queuing behaviour to prevent jobs from waiting indefinitely. One option is to terminate a job immediately if licenses are unavailable by creating an `abaqus_v6.env` file containing `lmlicensequeuing=OFF`. Another option is to specify a finite wait time, for instance, 1 minute, by adding `lmhanglimit=1` to the `abaqus_v6.env` file; if licenses are not available within that time, the job will be dequeued and terminated by Slurm."
     }
   ],
-  "generated_at": "2026-04-13T00:46:56.758854+00:00"
+  "generated_at": "2026-05-31T01:06:12.390129+00:00"
 }

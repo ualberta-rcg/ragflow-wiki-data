@@ -2,6 +2,19 @@
   "doc_key": "base/ansys",
   "level": "chunk",
   "chunk_index": 11,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:25:02.849273+00:00"
+  "qa_pairs": [
+    {
+      "question": "What are the specific setup requirements for running an Ansys Fluent multinode job on the Trillium cluster, particularly concerning home directory configurations?",
+      "answer": "When running an Ansys Fluent multinode job on the Trillium cluster, users must utilize Ansys module version 2025R2 or newer. A critical setup involves ensuring that symbolic links to writable `.ansys`, `.fluentconf` directories and a `.flrecent` file exist in the user's `$HOME` directory, pointing to locations within their `$SCRATCH` directory. For example, if these don't exist, one would remove any old versions and then create symbolic links like `ln -s $SCRATCH/.ansys ~/.ansys` to prevent job abortion errors related to permissions."
+    },
+    {
+      "question": "What is the primary purpose of the Fluent license requeue scripts, and in what situations should they be avoided?",
+      "answer": "Fluent license requeue scripts are designed to automatically resubmit jobs that are prone to failing on startup due to license shortages, allowing them to eventually acquire a license and complete normally. These scripts are not recommended for Fluent jobs that might crash after a long runtime or complete with unresolved journal file warnings, as they would repeatedly restart the problematic simulation from the beginning, leading to wasted compute time."
+    },
+    {
+      "question": "When submitting a Fluent multinode job on the Narval cluster using the 'by core' script with OpenMPI, what are the key environment variables and `fluent` command options used for parallel execution?",
+      "answer": "For Fluent multinode jobs on the Narval cluster using the 'by core' script with OpenMPI, the `OPENMPI_ROOT` environment variable is exported. For parallel execution across multiple nodes, `FI_PROVIDER=verbs` is exported, and the `fluent` command uses options such as `-g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`. This configures Fluent to use OpenMPI with InfiniBand (pib) for inter-node communication, guided by a dynamically generated machinefile."
+    }
+  ],
+  "generated_at": "2026-05-31T01:15:01.125769+00:00"
 }

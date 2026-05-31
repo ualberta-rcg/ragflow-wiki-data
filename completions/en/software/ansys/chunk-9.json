@@ -4,17 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What are the Slurm script requirements for running a multinode Fluent job on the Narval cluster using an OpenMPI configuration?",
-      "answer": "For a multinode Fluent job on the Narval cluster with OpenMPI, the Slurm script specifies directives such as `--nodes=1` (or more), `--ntasks-per-node=64` (maximum for Narval), `--mem=0` to allocate all memory per compute node, and `--cpus-per-task=1`. It loads `StdEnv/2023` and `ansys/2023R2` (or newer), exports `OPENMPI_ROOT`, and sets `FI_PROVIDER=verbs` when running Fluent with `-mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID`."
+      "question": "What is a sample SLURM script for running a multinode Fluent job on the Narval cluster using Open MPI, configured to use 64 cores per node?",
+      "answer": "A sample SLURM script for running a multinode Fluent job on the Narval cluster using Open MPI is `script-flu-bynode-openmpi.sh`. This script is configured with `#SBATCH --time=00-03:00`, can specify 1 or more compute nodes (`#SBATCH --nodes=1` with an explanatory comment), and uses up to 64 cores per node (`#SBATCH --ntasks-per-node=64`). It allocates all memory per compute node (`#SBATCH --mem=0`). It loads `StdEnv/2023` and `ansys/2023R2` (or newer versions). The script uses Open MPI (`-mpi=openmpi`) and sets the `FI_PROVIDER=verbs` environment variable for multinode execution, running a specified journal file (e.g., `sample.jou`) with a Fluent version (e.g., `3d`)."
     },
     {
-      "question": "How do you configure a Slurm script to run a Fluent simulation on the Trillium cluster in a multinode (by node) setup?",
-      "answer": "To run a Fluent simulation on the Trillium cluster in a multinode setup, the Slurm script includes `#SBATCH` directives such as `--nodes=1` (or more) and `--ntasks-per-node=16` (maximum 192 on Trillium). It loads `StdEnv/2023` and `ansys/2025R2.04` (only 2025R2 or newer works on Trillium). The script also includes checks to create symbolic links for `.ansys`, `.fluentconf`, and `.flrecent` in the user's `$HOME` directory pointing to `$SCRATCH` if they don't exist, which is crucial for job execution. Fluent is executed with `-mpi=intel -pib -cnf=$SLURM_SUBMIT_DIR/machinefile-$SLURM_JOB_ID`."
+      "question": "How should a user configure a SLURM script to submit a multinode Fluent job to the Trillium cluster, and what Ansys module version is required?",
+      "answer": "To submit a multinode Fluent job to the Trillium cluster, a SLURM script such as `script-flu-bynode-intel-tri.sh` can be used. This script loads `StdEnv/2023` and specifically requires `ansys/2025R2.04` or newer, as only these versions work on Trillium. It can specify 1 or more compute nodes (`#SBATCH --nodes=1` with an explanatory comment) and up to 192 cores per node (`#SBATCH --ntasks-per-node=16` is given as an example, with 192 being the maximum for Trillium). Memory allocation defaults to using all memory per node. The script takes a journal file (e.g., `sample.jou`) and a Fluent version (e.g., `3d`) as parameters, and utilizes Intel MPI for execution."
     },
     {
-      "question": "What is the primary difference in MPI configuration for running multinode Fluent jobs on the Narval cluster compared to the Trillium cluster, based on the provided Slurm scripts?",
-      "answer": "The primary difference in MPI configuration is that multinode Fluent jobs on the Narval cluster are set up to use OpenMPI, as indicated by `export OPENMPI_ROOT=$EBROOTOPENMPI` and the Fluent command using `-mpi=openmpi`. Conversely, on the Trillium cluster, multinode Fluent jobs are configured for Intel MPI, with the Fluent command specifying `-mpi=intel`."
+      "question": "What are the essential configurable parameters that users should define in their Fluent SLURM scripts when running simulations on Alliance clusters?",
+      "answer": "When running Fluent simulations on Alliance clusters, users should configure several essential parameters in their SLURM scripts. These include: `#SBATCH --account` to specify the account name, `#SBATCH --time` for the job's time limit, `#SBATCH --nodes` to set the number of compute nodes, and either `#SBATCH --ntasks-per-node` (cores per node) or `#SBATCH --ntasks` (total cores). Memory allocation is specified using `#SBATCH --mem` (total memory) or `#SBATCH --mem-per-cpu` (memory per core). Users must also load the appropriate environment modules, such as `StdEnv/2023` and a specific Ansys module version (e.g., `ansys/2023R2` or newer). Finally, `MYJOURNALFILE` defines the Fluent journal file name (e.g., `sample.jou`), and `MYVERSION` specifies the Fluent dimension/precision (e.g., `2d`, `2ddp`, `3d`, `3ddp`)."
     }
   ],
-  "generated_at": "2026-05-24T01:02:39.684293+00:00"
+  "generated_at": "2026-05-31T01:21:35.580564+00:00"
 }

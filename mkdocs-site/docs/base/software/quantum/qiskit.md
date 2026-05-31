@@ -4,43 +4,21 @@ slug: "qiskit"
 lang: "base"
 
 source_wiki_title: "Qiskit"
-source_hash: "8fdbdcd821d0d5034a87b0ef02d07e19"
-last_synced: "2026-05-24T00:00:16.123503+00:00"
-last_processed: "2026-05-24T00:49:08.973232+00:00"
+source_hash: "ba7dcfe42bd7fed1f5809f66ba98b5df"
+last_synced: "2026-05-31T00:03:42.418098+00:00"
+last_processed: "2026-05-31T00:51:42.813152+00:00"
 
 tags:
   []
 
 keywords:
-  - "grappe de calcul"
-  - "Calcul Québec"
-  - "Installer les dépendances"
-  - "MonarQ"
-  - "qiskit-calculquebec"
-  - "Qiskit"
-  - "backend MonarQ"
-  - "circuit quantique"
-  - "environnement virtuel"
-  - "Python"
-  - "transpilation"
-  - "programmation quantique"
-
-questions:
-  - "Qu'est-ce que Qiskit et quelles sont ses principales fonctionnalités en programmation quantique ?"
-  - "Quelles sont les étapes requises pour configurer l'environnement et exécuter un script Qiskit sur une grappe de calcul avec SLURM ?"
-  - "Comment installer et utiliser le plugiciel permettant d'exécuter des circuits Qiskit sur l'infrastructure MonarQ de Calcul Québec ?"
-  - "Comment configure-t-on les identifiants et le backend MonarQ avec le client Calcul Québec ?"
-  - "Pourquoi l'étape de transpilation est-elle indispensable avant d'exécuter un circuit quantique sur MonarQ ?"
-  - "Quelles sont les recommandations et les limites techniques, telles que le nombre maximum de tirs (shots) et l'outil d'échantillonnage à utiliser, lors de l'exécution du circuit ?"
-  - "Comment procéder à l'installation des dépendances et de l'environnement virtuel Python ?"
-  - "Quel paquet spécifique installe automatiquement la bibliothèque Qiskit ?"
-  - "Quel backend doit être initialisé une fois les dépendances installées ?"
+  []
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: true
+  keywords_generated: false
   ragflow_synced: true
   qa_generated: false
 ---
@@ -48,32 +26,38 @@ status:
 [Qiskit](https://docs.quantum.ibm.com/) is an open-source quantum programming library developed in Python by IBM. Like [PennyLane](pennylane.md) and [Snowflurry](snowflurry.md), it allows you to build, simulate, and execute quantum circuits.
 
 ## Installation
-1.  Load Qiskit's dependencies.
+1. Load Qiskit's dependencies.
     ```bash
     module load StdEnv/2023 gcc python/3.11 symengine/0.11.2
     ```
-2.  Create and activate a [Python virtual environment](../python.md).
+
+2. Create and activate a [Python virtual environment](../python.md).
     ```bash
     virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate
     ```
-3.  Install a specific version of Qiskit.
+
+3. Install a specific version of Qiskit.
     ```bash
-    (ENV) [name@server ~]$ pip install --no-index --upgrade pip
-    (ENV) [name@server ~]$ pip install --no-index qiskit==X.Y.Z qiskit_aer==X.Y.Z
+    # (ENV) [name@server ~]
+    pip install --no-index --upgrade pip
+    pip install --no-index qiskit==X.Y.Z qiskit_aer==X.Y.Z
     ```
-    where `X.Y.Z` represents the version number, for example `1.4.0`. To install the latest version available on our clusters, do not specify a version. Here, we have only imported `qiskit` and `qiskit_aer`. You can add other Qiskit software depending on your needs by following the structure `qiskit_package==X.Y.Z` where `qiskit_package` represents the desired software, for example `qiskit-finance`. The currently available wheels are listed on the [Python Wheels](../../programming/available_python_wheels.md) page.
-4.  Validate the Qiskit installation.
+    where `X.Y.Z` represents the version number, for example `1.4.0`. To install the latest version available on our clusters, do not specify a version. Here, we have only imported `qiskit` and `qiskit_aer`. You can add other Qiskit software depending on your needs by following the `qiskit_package==X.Y.Z` structure, where `qiskit_package` represents the desired software, for example `qiskit-finance`. The wheels currently available are listed on the [Python Wheels](../../programming/available_python_wheels.md) page.
+
+4. Validate the Qiskit installation.
     ```bash
-    (ENV)[name@server ~]$ python -c 'import qiskit'
-    ```
-5.  Freeze the environment and dependencies.
-    ```bash
-    (ENV)[name@server ~]$ pip freeze --local > ~/qiskit_requirements.txt
+    # (ENV) [name@server ~]
+    python -c 'import qiskit'
     ```
 
-## Execute Qiskit on a Cluster
+5. Freeze the environment and dependencies.
+    ```bash
+    # (ENV) [name@server ~]
+    pip freeze --local > ~/qiskit_requirements.txt
+    ```
 
-```sh linenums="1" title="script.sh"
+## Run Qiskit on a Cluster
+```sh title="script.sh"
 #!/bin/bash
 #SBATCH --account=def-someuser # specify your account name
 #SBATCH --time=00:15:00        # modify if necessary
@@ -83,26 +67,24 @@ status:
 # Load module dependencies.
 module load StdEnv/2023 gcc python/3.11 symengine/0.11.2 
 
-# Generate the virtual environment in $SLURM_TMPDIR.
-virtualenv --no-download ${SLURM_TMPDIR}/env
-source ${SLURR_TMPDIR}/env/bin/activate  
+# Generate the virtual environment in $SLURM_TMPDIR.                                                                                                         
+virtualenv --no-download ${SLURM_TMPDIR}/env                                                                                                                   
+source ${SLURM_TMPDIR}/env/bin/activate  
 
-# Install Qiskit and its dependencies.
-pip install --no-index --upgrade pip
+# Install Qiskit and its dependencies.                                                                                                                                                                                                                                                                                    
+pip install --no-index --upgrade pip                                                                                                                            
 pip install --no-index --requirement ~/qiskit_requirements.txt
 
-# Modify the Qiskit program.
+# Modify the Qiskit program.                                                                                                                                                                       
 python qiskit_example.py
 ```
 You can then [submit your job to the scheduler](../../running-jobs/running_jobs.md).
 
 ## Use Qiskit with MonarQ
-
 It is possible to use [MonarQ](../../clusters/monarq.md) directly with Qiskit via the `qiskit-calculquebec` plugin. This plugin allows you to develop and execute Qiskit circuits on Calcul Québec's infrastructure.
 
-### Installation of Dependencies
-
-*   Step 1: Install dependencies
+### Install Dependencies
+* Step 1: Install dependencies
     ```bash
     module load python/3.11
     virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate
@@ -112,17 +94,17 @@ It is possible to use [MonarQ](../../clusters/monarq.md) directly with Qiskit vi
     python -c "import qiskit; import qiskit_calculquebec"
     ```
 
-!!! note
-    **qiskit-calculquebec** automatically installs Qiskit.
+* Note: **qiskit-calculquebec** automatically installs Qiskit.
 
-### Initializing the MonarQ Backend
+### Initialize MonarQ Backend and Execute Circuit
+* Step 2: Configure your credentials and the backend
+    * Create a client with your credentials. Your token is available via the Thunderhead portal.
+    * The *host* is `https://monarq.calculquebec.ca`.
+    * Then, initialize the MonarQ backend.
 
-*   Step 2: Configure your credentials and the backend
-    *   Create a client with your credentials. Your token is available via the Thunderhead portal.
-    *   The *host* is `https://monarq.calculquebec.ca`.
-    *   Then, initialize the MonarQ backend.
+* Step 3: Transpile and execute the circuit
 
-```python linenums="1" title="qiskit_example.py"
+```python title="qiskit_example.py"
 import qiskit
 from qiskit import QuantumCircuit
 from qiskit_calculquebec.API.client import CalculQuebecClient
@@ -131,7 +113,7 @@ from qiskit_calculquebec.backends import MonarQBackend
 # Credentials
 user = "username"
 access_token = "token"
-host = "host"
+host = "https://monarq.calculquebec.ca"
 project_id = "project_id"
 
 # Client and backend creation
@@ -143,13 +125,7 @@ qc = QuantumCircuit(2)
 qc.h(0)
 qc.cx(0, 1)
 qc.measure_all()
-```
 
-### Circuit Execution
-
-*   Step 3: Transpile and execute the circuit
-
-```python linenums="1" title="qiskit_example.py"
 from qiskit_ibm_runtime import SamplerV2 as Sampler
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 
@@ -166,7 +142,6 @@ print(result[0].data.meas.get_counts())
 ```
 
 ### Notes
-
-*   Transpilation is necessary to adapt the circuit to MonarQ's connectivity and native gates.
-*   The number of *shots* can be adjusted as needed (maximum: 1024).
-*   Using **SamplerV2** is recommended for executing circuits with measurements.
+* Transpilation is necessary to adapt the circuit to MonarQ's connectivity and native gates.
+* The number of *shots* can be adjusted as needed (maximum: 1024).
+* The use of **SamplerV2** is recommended for executing circuits with measurements.

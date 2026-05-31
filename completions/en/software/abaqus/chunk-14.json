@@ -4,13 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "What is the purpose of adjusting the `#SBATCH --mem=` value in a Slurm script for Abaqus simulations?",
-      "answer": "Adjusting the `#SBATCH --mem=` value in a Slurm script for Abaqus simulations helps balance queue wait times and I/O performance. While it's ideal to allocate enough memory to meet the \"MEMORY TO MINIMIZE I/O\" (MRMIO) value to prevent writing to scratch disk, reducing `--mem=` can lead to shorter wait times. However, the resident memory (RES) must not dip below the \"MINIMUM MEMORY REQUIRED\" (MMR) value, or Abaqus will encounter an Out of Memory (OOM) error and terminate."
+      "question": "How can users estimate the necessary Slurm node memory for a single-process Abaqus simulation to prevent excessive disk I/O on Alliance clusters?",
+      "answer": "Users can estimate the required Slurm node memory by checking the \"MEMORY TO MINIMIZE I/O\" (MRMIO) value in the Abaqus `test.dat` output file. Alternatively, they can monitor the \"VIRT\" (virtual memory) and \"RES\" (resident memory) columns using the `top` command during an interactive simulation. To fully meet the MRMIO, sufficient non-swapped physical memory (RES) must be available, often requiring a slight over-allocation (e.g., 3072MB) in the Slurm `--mem` setting. Reducing `--mem` below MRMIO will increase scratch disk usage but can lower queue wait times, provided the RES does not drop below the \"MINIMUM MEMORY REQUIRED\" (MMR) to avoid Out of Memory errors."
     },
     {
-      "question": "How can researchers experimentally determine the optimal `#SBATCH --mem=` setting for an Abaqus simulation that has a large \"MEMORY TO MINIMIZE I/O\" (MRMIO) value?",
-      "answer": "If an Abaqus simulation has a large \"MEMORY TO MINIMIZE I/O\" (MRMIO) value, researchers can determine the optimal `#SBATCH --mem=` setting by running a series of short test jobs with progressively lower memory allocations, such as `#SBATCH --mem=8G, 16G, 32G, 64G`. This process aims to find an acceptable minimal performance impact while still avoiding long queue wait times, ensuring that the resident memory (RES) does not fall below the \"MINIMUM MEMORY REQUIRED\" (MMR) to prevent Out of Memory (OOM) errors."
+      "question": "How does a user determine the appropriate `mem-per-cpu` value for multi-node Abaqus Slurm scripts, considering memory estimates from completed jobs?",
+      "answer": "The `mem-per-cpu` value for multi-node Abaqus Slurm scripts can be roughly calculated based on memory estimates provided in the output `.dat` file of completed jobs. If `mp_host_split` is not specified or set to 1, multiply the largest per-process memory estimate by the number of nodes, then divide by the total `ntasks`. If `mp_host_split` is greater than 1, multiply the largest memory estimate by the number of nodes, then by `mp_host_split`, and finally divide by the total `ntasks`. It's crucial that `mp_host_split` does not exceed the number of cores per node assigned by Slurm at runtime to prevent Abaqus from terminating."
+    },
+    {
+      "question": "What are the recommended platforms for running Abaqus graphical applications on Alliance clusters, and how does one launch Abaqus CAE on OpenOnDemand?",
+      "answer": "For running Abaqus graphical applications on Alliance clusters, it is recommended to use OpenOnDemand or JupyterLab. To launch Abaqus CAE on OpenOnDemand, first start an OpenOnDemand desktop session, then open a new terminal, load the Abaqus module (e.g., `module load abaqus/2026`), and finally start the application using `abaqus cae`. If you are on a node without a GPU or without VirtualGL support, append the `-mesa` option: `abaqus cae -mesa`."
     }
   ],
-  "generated_at": "2026-04-13T00:48:42.963441+00:00"
+  "generated_at": "2026-05-31T01:08:06.484700+00:00"
 }

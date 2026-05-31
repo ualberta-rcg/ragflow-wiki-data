@@ -4,13 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Quel est l'avantage principal d'installer le plugiciel `qiskit-calculquebec` lorsqu'on veut utiliser Qiskit sur l'infrastructure de Calcul Québec?",
-      "answer": "L'avantage principal d'installer le plugiciel `qiskit-calculquebec` est qu'il prend en charge l'installation automatique de Qiskit, ce qui simplifie le processus de configuration."
+      "question": "Comment initialise-t-on le backend MonarQ dans Qiskit afin de pouvoir exécuter des circuits sur l'infrastructure de Calcul Québec, et quels identifiants sont nécessaires pour ce faire?",
+      "answer": "Pour initialiser le backend MonarQ, il faut d'abord créer un client (`CalculQuebecClient`) en utilisant votre nom d'utilisateur (`user`), votre jeton d'accès (`access_token`) disponible via le portail Thunderhead, l'hôte (`https://monarq.calculquebec.ca`) et l'ID de votre projet (`project_id`). Une fois le client créé, vous pouvez initialiser le backend MonarQ (`MonarQBackend`) en lui passant le nom 'monarq' et l'objet client."
     },
     {
-      "question": "Quelles informations sont nécessaires pour configurer et initialiser le backend MonarQ avec Qiskit, et où peut-on trouver son jeton d'accès?",
-      "answer": "Pour configurer et initialiser le backend MonarQ, il faut créer un client avec vos identifiants, soit votre nom d'utilisateur, votre jeton d'accès et votre ID de projet. Le jeton d'accès est disponible via le portail Thunderhead, et le serveur hôte à spécifier est `https://monarq.calculquebec.ca`."
+      "question": "Quelle est la fonction de la transpilation pour les circuits Qiskit destinés à être exécutés sur le backend MonarQ, et pourquoi est-ce une étape obligatoire?",
+      "answer": "La transpilation est essentielle pour adapter le circuit quantique à la connectivité spécifique et aux portes natives de l'infrastructure MonarQ. Sans cette adaptation, le circuit ne pourrait pas être exécuté correctement. Elle se réalise en générant un gestionnaire de passe de transpilation (`generate_preset_pass_manager`) adapté au backend, puis en l'appliquant au circuit quantique."
+    },
+    {
+      "question": "Une fois qu'un circuit Qiskit est transpilé pour MonarQ, comment procède-t-on à son exécution, quel outil est privilégié pour cette tâche, et est-il possible d'ajuster le nombre de mesures (shots)?",
+      "answer": "Pour exécuter un circuit transpilé sur MonarQ, il est recommandé d'utiliser `SamplerV2`. On l'initialise en spécifiant le backend MonarQ (`Sampler(mode=backend)`), puis on soumet le circuit transpilé à l'exécution en indiquant le nombre de mesures désiré, par exemple `sampler.run([transpiled_qc], shots=1000). Le nombre de *shots* peut être ajusté selon les besoins, avec un maximum de 1024."
     }
   ],
-  "generated_at": "2026-04-13T11:59:27.707096+00:00"
+  "generated_at": "2026-05-31T01:56:25.644741+00:00"
 }

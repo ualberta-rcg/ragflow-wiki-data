@@ -4,17 +4,13 @@
   "chunk_index": 20,
   "qa_pairs": [
     {
-      "question": "What is the current status of the Western/Robarts Abaqus license server for the Dusky cluster?",
-      "answer": "The `license4` machine, which served as the Western/Robarts Abaqus license server, has been shut down and retired. As a result, all Abaqus license checkout requests on the Dusky cluster using this server are currently failing. A replacement server is currently being developed."
+      "question": "What is the default behaviour when an Abaqus job on an Alliance cluster requires more licenses than are available?",
+      "answer": "By default, if an Abaqus job needs more licenses than are currently accessible, it will be placed in a 'queued' state on a compute node. From Slurm's perspective, this job will appear to be 'Running' (R) and will consume CPU time, potentially affecting the user's account priority, while it waits for licenses to become available."
     },
     {
-      "question": "What alternative license can Western researchers use for Abaqus on the Dusky cluster while the Western/Robarts license server is unavailable?",
-      "answer": "In the meantime, Western researchers can use the SHARCNET License for Abaqus on the Dusky cluster. They need to follow the provided procedure in the documentation to request access to it."
-    },
-    {
-      "question": "Who should Western researchers contact to inquire about using the Western Abaqus license, and what information should they provide?",
-      "answer": "Western researchers should contact the Western Abaqus license server administrator, `jmilner@robarts.ca`, to inquire about using the Western Abaqus license. They will need to provide their username and may need to make arrangements to purchase tokens."
+      "question": "What are the two options for configuring an Abaqus job to avoid indefinitely waiting for licenses on an Alliance cluster?",
+      "answer": "There are two options to modify the default license queuing behaviour for an Abaqus job on an Alliance cluster: \n1.  **Terminate immediately:** Create an `abaqus_v6.env` file in the job's submit directory containing the line `lmlicensequeuing=OFF`. This will cause the job to terminate right away if there are not enough licenses, preventing it from entering a queued state.\n2.  **Specify a finite wait time:** Add the line `lmhanglimit=X` to the `abaqus_v6.env` file, where `X` is the number of minutes the job should wait for a license. If sufficient licenses do not become available within the specified time, the job will be dequeued by the license server and subsequently terminated by Slurm."
     }
   ],
-  "generated_at": "2026-04-13T00:49:26.599527+00:00"
+  "generated_at": "2026-05-31T01:08:53.165521+00:00"
 }

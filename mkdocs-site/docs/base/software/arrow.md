@@ -4,49 +4,26 @@ slug: "arrow"
 lang: "base"
 
 source_wiki_title: "Arrow"
-source_hash: "1956d396e044365a92a1e45c9e2a21a7"
-last_synced: "2026-05-24T00:00:16.123503+00:00"
-last_processed: "2026-05-24T00:39:45.655150+00:00"
+source_hash: "8379bb6609dca9ff2c0b3bb7c736c069"
+last_synced: "2026-05-31T00:03:42.418098+00:00"
+last_processed: "2026-05-31T00:40:54.604204+00:00"
 
 tags:
   - software
 
 keywords:
-  - "Apache Arrow"
-  - "Apache Parquet"
-  - "Python virtual environment"
-  - "ModuleNotFoundError"
-  - "PyArrow"
-  - "install.packages"
-  - "bindings"
-  - "R"
-  - "in-memory data"
-  - "Troubleshooting"
-  - "module load"
-  - "arrow"
-  - "R bindings"
-
-questions:
-  - "What is Apache Arrow and what are its primary features for handling in-memory data?"
-  - "How do you load, import, and verify the PyArrow module and its Parquet format support in Python?"
-  - "What are the specific steps and environment variables required to install and load the Arrow bindings for R?"
-  - "What are the primary causes of the \"ModuleNotFoundError: No module named 'pyarrow'\" error?"
-  - "What is the correct sequence of steps to resolve the PyArrow import error when using a Python virtual environment?"
-  - "How can a user verify that the PyArrow module is correctly installed and accessible to Python?"
-  - "How do you install the arrow bindings in R according to the provided instructions?"
-  - "What specific environment modules must be loaded before using the installed bindings?"
-  - "Which command is used to load the arrow library within R after the setup is complete?"
+  []
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: true
+  keywords_generated: false
   ragflow_synced: true
   qa_generated: false
 ---
 
-[Apache Arrow](https://arrow.apache.org/) is a cross-language development platform for in-memory data. It uses a standardized language-independent columnar memory format for flat and hierarchical data, organized for efficient analytic operations. It also provides computational libraries and zero-copy streaming messaging and interprocess communication. Languages currently supported include C, C++, C#, Go, Java, JavaScript, MATLAB, Python, R, Ruby, and Rust.
+[Apache Arrow](https://arrow.apache.org/) is a cross-language development platform for in-memory data. It uses a standardized language-independent columnar memory format for flat and hierarchical data, organised for efficient analytic operations. It also provides computational libraries and zero-copy streaming messaging and interprocess communication. Languages currently supported include C, C++, C#, Go, Java, JavaScript, MATLAB, Python, R, Ruby, and Rust.
 
 ## CUDA
 Arrow is also available with CUDA.
@@ -57,147 +34,152 @@ where `X.Y.Z` represents the desired version.
 
 ## Python bindings
 The module contains bindings for multiple Python versions.
-To discover which are the compatible Python versions, run
+To discover which are the compatible Python versions, run:
 ```bash
 module spider arrow/X.Y.Z
 ```
 where `X.Y.Z` represents the desired version.
 
-Or search for **pyarrow** directly, by running
+Or search for *pyarrow* directly, by running:
 ```bash
 module spider pyarrow
 ```
 
 ### PyArrow
-The Arrow Python bindings (also named **PyArrow**) have first-class integration with NumPy, Pandas, and built-in Python objects. They are based on the C++ implementation of Arrow.
+The Arrow Python bindings (also named *PyArrow*) have first-class integration with NumPy, Pandas, and built-in Python objects. They are based on the C++ implementation of Arrow.
 
-1. Load the required modules.
-```bash
-module load gcc arrow/X.Y.Z python/3.11
-```
-where `X.Y.Z` represents the desired version.
+1.  Load the required modules.
+    ```bash
+    module load gcc arrow/X.Y.Z python/3.11
+    ```
+    where `X.Y.Z` represents the desired version.
 
-2. Import PyArrow.
-```bash
-python -c "import pyarrow"
-```
+2.  Import PyArrow.
+    ```bash
+    python -c "import pyarrow"
+    ```
 If the command displays nothing, the import was successful.
 
 For more information, see the [Arrow Python](https://arrow.apache.org/docs/python/) documentation.
 
-#### Fulfilling other Python package dependency
-Other Python packages depend on PyArrow in order to be installed.
-With the `arrow` module loaded, your package dependency for `pyarrow` will be satisfied.
+#### Fulfilling other Python package dependencies
+Other Python packages depend on PyArrow in order to be installed. With the `arrow` module loaded, your package dependency for `pyarrow` will be satisfied.
 ```bash
 pip list | grep pyarrow
 ```
-```text
+Output:
+```
 pyarrow    17.0.0
 ```
-If `pip list` shows an entry, then `pyarrow` is available and seen by `pip`. Otherwise, in case of no entry, `pyarrow` is not available.
+
+If `pip list` shows an entry, then `pyarrow` is available and seen by `pip`. Otherwise, if there is no entry, `pyarrow` is not available.
 
 #### Apache Parquet format
 The [Parquet](http://parquet.apache.org/) file format is available.
 
-To import the Parquet module, execute the previous steps for `pyarrow`, then run
+To import the Parquet module, execute the previous steps for `pyarrow`, then run:
 ```bash
 python -c "import pyarrow.parquet"
 ```
 If the command displays nothing, the import was successful.
 
 ## R bindings
-The Arrow package exposes an interface to the Arrow C++ library to access many of its features in R. This includes support for analyzing large, multi-file datasets ([open_dataset()](https://arrow.apache.org/docs/r/reference/open_dataset.html)), working with individual Parquet files ([read_parquet()](https://arrow.apache.org/docs/r/reference/read_parquet.html), [write_parquet()](https://arrow.apache.org/docs/r/reference/write_parquet.html)) and Feather files ([read_feather()](https://arrow.apache.org/docs/r/reference/read_feather.html), [write_feather()](https://arrow.apache.org/docs/r/reference/write_feather.html)), as well as lower-level access to the Arrow memory and messages.
+The Arrow package exposes an interface to the Arrow C++ library to access many of its features in R. This includes support for analysing large, multi-file datasets ([open_dataset()](https://arrow.apache.org/docs/r/reference/open_dataset.html)), working with individual Parquet files ([read_parquet()](https://arrow.apache.org/docs/r/reference/read_parquet.html), [write_parquet()](https://arrow.apache.org/docs/r/reference/write_parquet.html)) and Feather files ([read_feather()](https://arrow.apache.org/docs/r/reference/read_feather.html), [write_feather()](https://arrow.apache.org/docs/r/reference/write_feather.html)), as well as lower-level access to the Arrow memory and messages.
 
 ### Installation
-1. Load the required modules.
-```bash
-module load StdEnv/2020 gcc/9.3.0 arrow/8 r/4.1 boost/1.72.0
-```
+1.  Load the required modules.
+    ```bash
+    module load StdEnv/2020 gcc/9.3.0 arrow/8 r/4.1 boost/1.72.0
+    ```
 
-2. Specify the local installation directory.
-```bash
-mkdir -p ~/.local/R/$EBVERSIONR/
-export R_LIBS=~/.local/R/$EBVERSIONR/
-```
+2.  Specify the local installation directory.
+    ```bash
+    mkdir -p ~/.local/R/$EBVERSIONR/
+    export R_LIBS=~/.local/R/$EBVERSIONR/
+    ```
 
-3. Export the required variables to ensure you are using the system installation.
-```bash
-export PKG_CONFIG_PATH=$EBROOTARROW/lib/pkgconfig
-export INCLUDE_DIR=$EBROOTARROW/include
-export LIB_DIR=$EBROOTARROW/lib
-```
+3.  Export the required variables to ensure you are using the system installation.
+    ```bash
+    export PKG_CONFIG_PATH=$EBROOTARROW/lib/pkgconfig
+    export INCLUDE_DIR=$EBROOTARROW/include
+    export LIB_DIR=$EBROOTARROW/lib
+    ```
 
-4. Install the bindings.
-```bash
-R -e 'install.packages("arrow", repos="https://cloud.r-project.org/")'
-```
+4.  Install the bindings.
+    ```bash
+    R -e 'install.packages("arrow", repos="https://cloud.r-project.org/")'
+    ```
 
 ### Usage
 After the bindings are installed, they have to be loaded.
 
-1. Load the required modules.
-```bash
-module load StdEnv/2020 gcc/9.3.0 arrow/8 r/4.1
-```
+1.  Load the required modules.
+    ```bash
+    module load StdEnv/2020 gcc/9.3.0 arrow/8 r/4.1
+    ```
 
-2. Load the library.
-```bash
-R -e "library(arrow)"
-```
-```text
-> library("arrow")
-Attaching package: 'arrow'
-```
-For more information, see the [Arrow R documentation](https://arrow.apache.org/docs/r/index.html)
+2.  Load the library.
+    ```bash
+    R -e "library(arrow)"
+    ```
+    Output:
+    ```
+    > library("arrow")
+    Attaching package: ‘arrow’
+    ```
+
+For more information, see the [Arrow R documentation](https://arrow.apache.org/docs/r/index.html).
 
 ## Troubleshooting
 
-## **This is a normal error generated by this dummy wheel.**
-See [this dummy wheel](dummy_wheel.md#this-is-a-normal-error-generated-by-this-dummy-wheel) section.
+### This is a normal error generated by this dummy wheel.
+See [the Dummy wheel page](dummy_wheel.md#this-is-a-normal-error-generated-by-this-dummy-wheel).
 
-## ModuleNotFoundError: No module named 'pyarrow'
-When importing the `pyarrow`, one may get the following error:
+### ModuleNotFoundError: No module named 'pyarrow'
+When importing `pyarrow`, one may get the following error:
 ```bash
 python -c "import pyarrow"
 ```
-```text
+Output:
+```
 Traceback (most recent call last):
   File "<string>", line 1, in <module>
 ModuleNotFoundError: No module named 'pyarrow'
 ```
 This usually means one of the following cases:
-1. [A module for Arrow was not loaded.](#module-arrow-not-loaded)
-2. [A Python module was not loaded.](#python-module-not-loaded)
+1.  [A module for Arrow was not loaded.](#module-arrow-not-loaded)
+2.  [A Python module was not loaded.](#python-module-not-loaded)
 
-### Module Arrow not loaded
+#### Module Arrow not loaded
 Find a *compatible* `arrow` module and load it. See [PyArrow](#pyarrow).
 
-### Python module not loaded
+#### Python module not loaded
 When omitting to load a Python module, and activating a virtual environment, the Python bindings will not be available, hence resulting in `pyarrow` not being seen.
 
-Solution:
+##### Solution:
 
-1. Deactivate the Python virtual environment.
-```bash
-test $VIRTUAL_ENV && deactivate
-```
-!!! note
-    If you had a virtual environment activated, it is important to deactivate it first, then load the module, before reactivating the virtual environment.
+1.  Deactivate the Python virtual environment.
+    ```bash
+    test $VIRTUAL_ENV && deactivate
+    ```
+    !!! note
+        If you had a virtual environment activated, it is important to deactivate it first, then load the module, before reactivating the virtual environment.
 
-2. Load the module.
-```bash
-module load arrow/x.y.z python/x.y.z
-```
+2.  Load the module.
+    ```bash
+    module load arrow/x.y.z python/x.y.z
+    ```
 
-3. Check that it is visible by `pip`.
-```bash
-pip list | grep pyarrow
-```
-```text
-pyarrow            23.0.1
-```
-and is accessible for your currently loaded Python module.
-```bash
-python -c 'import pyarrow'
-```
-If no errors are raised, then everything is OK!
+3.  Check that it is visible by `pip`:
+    ```bash
+    pip list | grep pyarrow
+    ```
+    Output:
+    ```
+    pyarrow            23.0.1
+    ```
+    and is accessible for your currently loaded Python module:
+    ```bash
+    python -c 'import pyarrow'
+    ```
+    If no errors are raised, then everything is OK!

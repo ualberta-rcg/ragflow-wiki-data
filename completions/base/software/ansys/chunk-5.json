@@ -2,6 +2,15 @@
   "doc_key": "base/ansys",
   "level": "chunk",
   "chunk_index": 5,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:24:19.489435+00:00"
+  "qa_pairs": [
+    {
+      "question": "How are Ansys service packs managed on Alliance clusters, specifically regarding module loading, and what is the reasoning behind this approach?",
+      "answer": "Starting with Ansys 2024, a separate Ansys module will appear on the clusters with a decimal and two digits following the release number when a service pack is installed. For example, `module load ansys/2024R1.03` would load service pack 3 for the 2024R1 release. Most users can load the latest module version with `module load ansys`. This approach allows users to continue using an initial release or earlier service pack if computations have already been done with it, as service packs can introduce extensive changes, even if not expected to impact numerical results."
+    },
+    {
+      "question": "What is the recommended procedure for running an Ansys Fluent job on Alliance clusters, starting from job preparation on a desktop machine?",
+      "answer": "To run an Ansys Fluent job on Alliance clusters, first prepare the job using Ansys Workbench on your desktop. Then, export the case file (and data file, if continuing a previous calculation) and transfer these files to a `/project` or `/scratch` directory on the cluster. Next, create a journal file that loads the case/data, runs the solver, and writes the results. After creating the journal file, submit the job to the cluster. If jobs frequently fail due to license shortages, consider modifying your script to requeue the job automatically, while carefully monitoring output for simulation-related failures. Finally, after the job runs, download the data file to import it back into Fluent."
+    }
+  ],
+  "generated_at": "2026-05-31T01:14:17.567724+00:00"
 }

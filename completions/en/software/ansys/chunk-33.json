@@ -4,17 +4,17 @@
   "chunk_index": 33,
   "qa_pairs": [
     {
-      "question": "How do I run Ansys programs in a graphical user interface (GUI) mode on Alliance clusters?",
-      "answer": "Users can run Ansys programs in GUI mode by accessing an OnDemand or Jupyterhub desktop session on clusters such as Nibi, Fir, Rorqual, Narval, or Trillium. After configuring the required resources for your interactive desktop session and launching it, you need to load an Ansys module. If you started a Jupyter Lab desktop, load it via the left-hand menu; otherwise, manually type 'module load ansys/version' on the command line. Specific environment variables or arguments may then be required when starting Ansys programs, depending on whether a GPU resource was specified for the desktop session."
+      "question": "How can users run Ansys programs in graphical mode on Alliance clusters like Nibi, Fir, Rorqual, Narval, or Trillium?",
+      "answer": "Users can run Ansys programs in graphical mode by accessing an OnDemand or JupyterHub desktop for their specific cluster. After configuring the necessary resources for the interactive session (including a GPU if accelerated graphics or computations are needed) and launching the desktop, they must load the appropriate Ansys module. This can be done via the left-hand menu on a JupyterLab desktop or by typing `module load ansys/version` in the terminal on an OnDemand desktop."
     },
     {
-      "question": "What are the steps to launch Ansys Fluent in graphical mode from an OnDemand desktop, and what environment variables are required for different GPU settings?",
-      "answer": "To launch Ansys Fluent from an OnDemand desktop, first open a terminal window and load the Ansys module using `module load StdEnv/2023 ansys/2025R2.04`, then run `fluent`. When the Fluent Launcher appears, click the Environment Tab. If no GPU was requested for the desktop session, set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi with Intel MPI) and `HOOPS_PICTURE` to `opengl2-mesa` (for Ansys 2025R1 or newer) or `x11/lin` (for Ansys 2024R2.04 or older). If a GPU was requested, ensure `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi) and set `HOOPS_PICTURE` to `opengl2` (for Ansys 2025R1 or newer) or `opengl` (for Ansys 2024R2.04 or older). Finally, click the 'Start' button."
+      "question": "What specific environment variables are required to successfully start Ansys Fluent with hardware-accelerated graphics on a Nibi cluster OnDemand desktop?",
+      "answer": "To start Ansys Fluent with hardware-accelerated graphics on a Nibi cluster OnDemand desktop, users must first select a t4 (15GB) GPU for their session. Once the desktop is running, they need to open a terminal, load the Ansys module (e.g., `module load StdEnv/2023 ansys/2025R2.04`), then launch `fluent`. In the Fluent Launcher's \"Environment\" tab, they must manually set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi) and `HOOPS_PICTURE=opengl2` (for Ansys version 2025R1 or newer) or `HOOPS_PICTURE=opengl` (for version 2024R2.04 or older)."
     },
     {
-      "question": "Why is the `I_MPI_HYDRA_BOOTSTRAP=ssh` environment variable important when running Fluent on the Nibi cluster, and what issue can arise if it's not set?",
-      "answer": "When running Fluent on the Nibi cluster, the environment variable `I_MPI_HYDRA_BOOTSTRAP=ssh` must be manually set if Intel MPI is used, especially within OnDemand Compute Desktop sessions. Failure to set this variable will cause Fluent to crash on startup, producing error messages such as `Error: Unable to run bstrap_proxy`, indicating a problem with the MPI bootstrap process."
+      "question": "Why might Ansys Fluent crash upon startup when run inside an OOD Compute Desktop session on the Nibi cluster, and what is the solution?",
+      "answer": "Ansys Fluent might crash upon startup within an OOD Compute Desktop session on the Nibi cluster, especially when using intelmpi, if the `I_MPI_HYDRA_BOOTSTRAP=ssh` environment variable is not manually set. This typically results in an \"Error: Unable to run bstrap_proxy\" message. To resolve this, users must manually set `I_MPI_HYDRA_BOOTSTRAP=ssh` in the Fluent Launcher's \"Environment\" tab, and if the crash has already occurred, they should completely exit Fluent, cleanly shut down Workbench if used, and then restart the process."
     }
   ],
-  "generated_at": "2026-05-24T01:05:54.676751+00:00"
+  "generated_at": "2026-05-31T01:24:49.677633+00:00"
 }

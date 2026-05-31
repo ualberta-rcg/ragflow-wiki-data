@@ -4,17 +4,13 @@
   "chunk_index": 32,
   "qa_pairs": [
     {
-      "question": "Comment soumettre une tâche Ansys Workbench sur un seul nœud à l'aide de l'ordonnanceur Slurm?",
-      "answer": "Pour soumettre une tâche Ansys Workbench sur un seul nœud avec l'ordonnanceur Slurm, il faut d'abord créer un script Slurm. Ce script doit spécifier le compte, le temps alloué, la mémoire, et le nombre de cœurs. Ensuite, le programme `runwb2` est lancé en mode batch avec les options `-B -E \"Update()\" -F YOURPROJECT.wbpj` pour exécuter la mise à jour du projet."
+      "question": "Comment puis-je soumettre une tâche Ansys Mechanical (APDL) en mode parallèle à mémoire partagée (SMP) sur une grappe de calcul de l'Alliance en utilisant Slurm?",
+      "answer": "Pour soumettre une tâche Ansys Mechanical (APDL) en mode parallèle à mémoire partagée (SMP) sur une grappe de l'Alliance, vous devez configurer un script Slurm. Les directives principales incluent la spécification de votre compte (`#SBATCH --account=def-account`), d'une limite de temps (`#SBATCH --time=00-03:00`), de la mémoire totale (`#SBATCH --mem=32G`), d'un seul nœud (`#SBATCH --nodes=1`), du nombre de cœurs (`#SBATCH --tasks=8`) et de 1 CPU par tâche (`#SBATCH --cpus-per-task=1`). Ensuite, chargez les modules `StdEnv/2023` et `ansys/2024R1.03` (ou une version plus récente), puis exécutez la commande `mapdl -smp -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp` en remplaçant `YOURAPDLFILE.inp` par votre fichier d'entrée APDL."
     },
     {
-      "question": "Quels sont les paramètres Slurm importants à configurer pour exécuter Ansys Workbench sur un nœud de calcul unique?",
-      "answer": "Pour exécuter Ansys Workbench sur un nœud de calcul unique, les paramètres Slurm clés à configurer sont : `#SBATCH --nodes=1` (obligatoire pour un nœud simple), `#SBATCH --account=def-account` pour votre compte, `#SBATCH --time=00-03:00` pour la durée, `#SBATCH --mem=16G` pour la mémoire totale (ou `0` pour toute la mémoire du nœud), et `#SBATCH --ntasks=4` pour le nombre de cœurs."
-    },
-    {
-      "question": "Comment le script Slurm fourni configure-t-il Ansys Workbench pour une exécution en parallèle à mémoire partagée sur un seul nœud?",
-      "answer": "Le script configure Ansys Workbench pour une exécution en parallèle à mémoire partagée sur un nœud unique en définissant la variable `MEMPAR=0` si le nombre de nœuds (`SLURM_NNODES`) est 1. Il modifie ensuite le fichier `SolveHandlers.xml` pour ajuster la valeur de `Distribute` à `0` (indiquant SMP) et le `MaxNumberProcessors` au nombre de cœurs (`$SLURM_NTASKS`) demandé."
+      "question": "Quelle est la configuration de variable d'environnement spécifique requise pour les tâches Ansys Mechanical SMP sur la grappe Cedar?",
+      "answer": "Pour les tâches Ansys Mechanical SMP sur la grappe Cedar, il est nécessaire d'exporter la variable d'environnement `LD_LIBRARY_PATH` comme suit : `export LD_LIBRARY_PATH=$EBROOTGCC/../lib/gcc`. Cette configuration est généralement conditionnelle, s'appliquant uniquement lorsque le cluster est identifié comme Cedar (`[[ \"$CC_CLUSTER\" = cedar ]]`)."
     }
   ],
-  "generated_at": "2026-05-24T01:12:29.450330+00:00"
+  "generated_at": "2026-05-31T01:30:59.616601+00:00"
 }

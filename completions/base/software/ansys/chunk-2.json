@@ -2,6 +2,19 @@
   "doc_key": "base/ansys",
   "level": "chunk",
   "chunk_index": 2,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:23:57.834531+00:00"
+  "qa_pairs": [
+    {
+      "question": "What information is needed and what steps must be taken to configure a local institutional Ansys license server for use on an Alliance cluster?",
+      "answer": "To configure a local institutional Ansys license server on an Alliance cluster, you need the Ansys flex port (FLEXPORT) number and the fully qualified hostname (LICSERVER) from your Ansys server administrator. You then use these to create or update your `~/.licenses/ansys.lic` file. If the network connection between your server and the Alliance cluster has not been previously set up, you will also need the statically configured Ansys vendor port (VENDPORT) number. In this case, send all three pieces of information to Alliance technical support, indicating which cluster you plan to use, so that necessary firewall configurations can be coordinated between Alliance and your local network administrators."
+    },
+    {
+      "question": "How can a user check if their Ansys license file is properly configured and functioning on an Alliance cluster?",
+      "answer": "To check the Ansys license configuration on an Alliance cluster, a user should execute the following commands after logging in and allocating a compute node: `module load StdEnv/2023; module load ansys/2025R2.04` (or the specific Ansys module version they intend to use), followed by `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\" 1> /dev/null && echo Success || echo Fail`. A \"Success\" output indicates that license checkouts should work, while \"Fail\" suggests a problem with the licensing setup."
+    },
+    {
+      "question": "What are the compatibility rules for Ansys simulation files across different software versions on Alliance clusters?",
+      "answer": "Ansys simulations are typically forward compatible but not backward compatible. This means that simulation files created using an older version of Ansys, such as ansys/2022R2, are expected to load and run correctly with any newer version, like ansys/2023R2. Conversely, attempting to run a simulation created with a newer version using an older Ansys version will likely lead to errors or crashes. If unsure about the Ansys version used for a Fluent case file, users can `grep` the file for clues (e.g., `grep -ia fluent combustor.cas`)."
+    }
+  ],
+  "generated_at": "2026-05-31T01:14:01.312196+00:00"
 }

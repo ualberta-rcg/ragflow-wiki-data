@@ -4,13 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Comment puis-je lancer une tâche AnsysEDT en mode batch sur un nœud simple en utilisant un script Slurm sur les grappes Alliance?",
-      "answer": "Pour lancer une tâche AnsysEDT en mode batch sur un nœud simple, vous devez d'abord spécifier le nom de votre fichier d'entrée avec `YOUR_AEDT_FILE=\"NomDuFichier.aedt\"`. Ensuite, il faut charger les modules d'environnement standard (`module load StdEnv/2023`) et la version d'AnsysEDT désirée (`module load ansysedt/2023R2` ou plus récente). Finalement, la commande `ansysedt` doit être exécutée avec les options nécessaires, notamment le fichier d'entrée (`-batchsolve \"$YOUR_AEDT_FILE\"`), et des paramètres pour le calcul distribué et les options de batch."
+      "question": "Comment est-ce qu'on peut travailler en mode graphique avec AnsysEDT sur les grappes de l'Alliance, en utilisant un système OnDemand ?",
+      "answer": "Pour travailler avec AnsysEDT en mode graphique, il faut commencer par se connecter à un système OnDemand comme Nibi, FIR, Narval, Rorqual ou Trillium via leur adresse web respective. Une fois sur le bureau à distance, on ouvre un terminal et on charge les modules `StdEnv/2023` et `ansysedt/2024R2.1` (ou `ansysedt/2023R2`). Finalement, on tape `ansysedt` dans le terminal et on attend que l'interface graphique s'affiche."
     },
     {
-      "question": "Comment accéder et utiliser AnsysEDT en mode graphique sur les grappes Alliance via les nœuds VDI?",
-      "answer": "Pour utiliser AnsysEDT en mode graphique, vous devez d'abord vous connecter à un système OnDemand en utilisant l'une des URL fournies (par exemple, `https://ondemand.sharcnet.ca` pour NIBI ou `https://portail.narval.calculquebec.ca/` pour Narval). Une fois connecté, ouvrez une nouvelle fenêtre de terminal. Chargez ensuite les modules nécessaires, soit `module load StdEnv/2023` et `module load ansysedt/2024R2.1` (ou `ansysedt/2023R2`). Enfin, tapez simplement `ansysedt` dans le terminal et attendez que l'interface graphique démarre."
+      "question": "Quelles configurations doivent être ajustées dans AnsysEDT quand on l'utilise en mode graphique pour la première fois via OnDemand ?",
+      "answer": "Lors de la première utilisation en mode graphique, il faut cliquer sur `Tools -> Options -> HPC and Analysis Options -> Edit` dans l'interface d'AnsysEDT. Dans le panneau `Analysis Configurations` qui apparaît, décochez la case `Use Automatic Settings`. Vérifiez ensuite que la configuration sous l'onglet `Machine` correspond aux ressources demandées, par exemple le nombre de tâches, de cœurs, de GPU et la RAM, puis cochez `Enabled`. Pour finir, cliquez sur OK deux fois pour sauvegarder ces ajustements."
+    },
+    {
+      "question": "Si AnsysEDT plante ou ne veut plus démarrer quand on l'utilise en mode graphique, quelles sont les étapes à suivre pour résoudre le problème ?",
+      "answer": "Si AnsysEDT plante et ne peut pas être redémarré, vous pouvez essayer d'exécuter les commandes suivantes dans un terminal. D'abord, utilisez `pkill -9 -u $USER -f \"ansys*|mono|mwrpcss|apip-standalone-service\"` pour forcer l'arrêt de tous les processus Ansys. Ensuite, supprimez le répertoire de configuration temporaire avec `rm -rf ~/.mw`. Ça va permettre à AnsysEDT de relancer la configuration initiale au prochain démarrage."
     }
   ],
-  "generated_at": "2026-04-13T02:05:20.388378+00:00"
+  "generated_at": "2026-05-31T01:36:26.883544+00:00"
 }

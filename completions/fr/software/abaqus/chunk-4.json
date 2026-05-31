@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on lance une simulation Abaqus standard pour un nœud simple en mode fils, en se fiant au script fourni?",
-      "answer": "Pour lancer une simulation Abaqus standard en mode fils sur un nœud simple, la commande Abaqus inclut les paramètres `job=testsp1`, `input=mystd-sim.inp`, `scratch=$SLURM_TMPDIR`, `cpus=$SLURM_CPUS_ON_NODE`, `interactive`, et `mp_mode=threads`. La mémoire est allouée en utilisant `memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
+      "question": "Comment les tâches Abaqus qui demandent beaucoup de mémoire ou de ressources de calcul devraient-elles être traitées sur les grappes de l'Alliance?",
+      "answer": "Les tâches Abaqus qui exigent beaucoup de mémoire ou de ressources de calcul (plus que la capacité d'un nœud simple) devraient utiliser les scripts MPI dans les sections pour nœuds multiples. Ces scripts sont conçus pour distribuer le calcul sur un ensemble de nœuds déterminé automatiquement par l'ordonnanceur."
     },
     {
-      "question": "Quelle est la stratégie d'allocation de mémoire spécifiée dans le script Abaqus pour les tâches de simulation standard sur un nœud simple?",
-      "answer": "La stratégie d'allocation de mémoire spécifiée est de déduire 3072 Mo de la mémoire totale disponible par nœud, soit `memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`. Cela permet de laisser une marge pour d'autres processus système."
+      "question": "Quelles sont les recommandations avant de soumettre des tâches Abaqus de longue durée sur les grappes de l'Alliance?",
+      "answer": "Avant de lancer des tâches Abaqus de longue durée, il est recommandé d'exécuter de courts tests présentant peu de scalabilité. Ces tests aident à déterminer la durée réelle d'exécution et les exigences en mémoire en fonction du nombre optimal de cœurs (comme 2, 4, 8, etc.)."
     },
     {
-      "question": "Y a-t-il une différence dans la façon de lancer une tâche Abaqus entre la version 2021 et les versions 2026 ou plus récentes, selon les exemples de script?",
-      "answer": "Oui, pour Abaqus 2021, la commande est précédée de `'/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare --fork --pid --mount-proc --user --map-user $USER'`. Par contre, pour les versions 2026 et ultérieures, la commande `abaqus` est exécutée directement sans ce préfixe."
+      "question": "Comment peut-on configurer un fichier d'entrée Abaqus pour écrire des données de redémarrage par incréments de 12?",
+      "answer": "Pour écrire les données de redémarrage en incréments de N=12, le fichier d'entrée Abaqus doit inclure la ligne suivante : `*RESTART, WRITE, OVERLAY, FREQUENCY=12`."
     }
   ],
-  "generated_at": "2026-04-13T00:50:26.873639+00:00"
+  "generated_at": "2026-05-31T01:10:06.559039+00:00"
 }

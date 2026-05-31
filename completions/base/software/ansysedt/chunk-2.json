@@ -4,13 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How can a user launch AnsysEDT in graphical mode on an Alliance cluster?",
-      "answer": "To launch AnsysEDT in graphical mode, users should first connect to an OnDemand or JupyterLab system to start a remote desktop. From a new terminal window in the desktop, load the `StdEnv/2023` module, then load either `ansysedt/2024R2.1` or `ansysedt/2023R2`. Finally, type `ansysedt` in the terminal and wait for the graphical user interface (GUI) to start."
+      "question": "How can a user access and run AnsysEDT in graphical mode on Alliance clusters?",
+      "answer": "To run AnsysEDT graphically, users should connect to an OnDemand or JupyterLab system by navigating to a specific URL in their browser (e.g., `https://ondemand.sharcnet.ca` for NIBI). After launching a new terminal window in the remote desktop, they need to load the `StdEnv/2023` module followed by either `ansysedt/2024R2.1` or `ansysedt/2023R2`, and then type `ansysedt` to start the graphical user interface."
     },
     {
-      "question": "How does one submit an AnsysEDT batch job to an Alliance cluster using a Slurm script with an options file?",
-      "answer": "To submit an AnsysEDT batch job using a Slurm script with an options file, first create a script like `script-local-opt.sh`. In this script, specify Slurm parameters such as account, time, memory, and number of tasks. Load the `StdEnv/2023` module and the desired `ansysedt` module (e.g., `ansysedt/2024R2.1`). Define your input AEDT file (e.g., `YOUR_AEDT_FILE=\"TransientGeoRadar.aedt\"`) and create an options file (e.g., `Options.txt`) containing configurations like `TempDirectory`, `HPCLicenseType`, and `HFSS/EnableGPU`. The job is then submitted using the command `sbatch script-local-opt.sh`."
+      "question": "What configuration steps are required for AnsysEDT's HPC and Analysis Options when running it graphically for the first time?",
+      "answer": "After launching AnsysEDT graphically, these steps only need to be performed once: click `Tools -> Options -> HPC and Analysis Options -> Edit`. In the Analysis Configuration panel that appears, untick `Use Automatic Settings`. Ensure that the settings in the `Machine` tab, such as Tasks, Cores, GPUs, and RAM, align with the requested desktop resources. Finally, click `OK` to save any changes and close both the Analysis Configuration and HPC and Analysis Options panels."
+    },
+    {
+      "question": "If AnsysEDT crashes and won't restart when used in graphical mode, what commands can be used to troubleshoot the issue?",
+      "answer": "If AnsysEDT crashes and cannot be restarted in graphical mode, you can run two commands in your terminal: First, execute `pkill -9 -u $USER -f \"ansys*|mono|mwrpcss|apip-standalone-service\"` to terminate any hanging Ansys-related processes. Second, run `rm -rf ~/.mw` to remove the AnsysEDT configuration directory, which will prompt the software to re-run its first-time configuration upon the next startup."
     }
   ],
-  "generated_at": "2026-04-26T00:48:31.907999+00:00"
+  "generated_at": "2026-05-31T01:34:27.644131+00:00"
 }

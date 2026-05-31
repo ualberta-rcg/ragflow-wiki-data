@@ -4,13 +4,17 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "Comment lancer une tâche d'analyse explicite Abaqus, comme « testep1 », sur un nœud simple en utilisant la version 2026 ou plus récente, d'après l'extrait de script fourni?",
-      "answer": "Pour lancer une tâche d'analyse explicite Abaqus telle que « testep1 » avec la version 2026 ou plus récente sur un nœud simple, il faut utiliser la commande `abaqus job=testep1 input=myexp-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`. Cette commande configure l'exécution en mode interactif avec des threads, en utilisant les ressources CPU du nœud (`$SLURM_CPUS_ON_NODE`) et une partie de la mémoire disponible sur le nœud, avec un répertoire temporaire défini par `$SLURM_TMPDIR`."
+      "question": "Quelles méthodes de parallélisation les solveurs d'analyse explicite d'Abaqus supportent-ils sur les grappes Alliance?",
+      "answer": "Les solveurs d'analyse explicite d'Abaqus prennent en charge la parallélisation avec les fils (threads) et avec MPI sur les grappes Alliance."
     },
     {
-      "question": "D'après l'extrait de script, comment la mémoire est-elle configurée pour une tâche d'analyse explicite Abaqus s'exécutant en mode threads sur un nœud simple?",
-      "answer": "La mémoire pour une tâche Abaqus en mode threads sur un nœud simple est configurée en soustrayant 3072 Mo de la mémoire totale disponible par nœud (`$SLURM_MEM_PER_NODE`). Cette valeur calculée est ensuite passée au paramètre `memory` de la commande Abaqus pour la simulation."
+      "question": "Comment peut-on soumettre une tâche d'analyse explicite sur un nœud simple en utilisant un script Slurm pour le répertoire `/project` sur les grappes de l'Alliance, et quelle version d'Abaqus est recommandée?",
+      "answer": "Pour soumettre une tâche d'analyse explicite sur un nœud simple, il faut utiliser un script Slurm comme le `scriptep1.txt`. Ce script spécifie le compte (`#SBATCH --account=def-group`), la limite de temps (`#SBATCH --time=00-06:00`), la mémoire (`#SBATCH --mem=8000M`) et le nombre de cœurs par tâche (`#SBATCH --cpus-per-task=4`). Il est recommandé de charger le module `abaqus/2026`. Le script lance Abaqus avec des paramètres comme `job=testep1`, `input=myexp-sim.inp`, `scratch=$SLURM_TMPDIR`, `cpus=$SLURM_CPUS_ON_NODE`, `interactive`, `mp_mode=threads` et `memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
+    },
+    {
+      "question": "Comment configure-t-on le fichier d'entrée Abaqus pour écrire les données de redémarrage pour une analyse explicite, et comment vérifier ces informations par la suite?",
+      "answer": "Pour écrire les données de redémarrage pour un total de 12 incréments dans une analyse explicite, le fichier d'entrée Abaqus doit contenir la ligne `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`. Pour vérifier l'information complète sur le redémarrage, il faut utiliser la commande `egrep -i \"step|restart\" testep*.com testep*.msg testep*.sta`."
     }
   ],
-  "generated_at": "2026-04-13T00:51:42.897083+00:00"
+  "generated_at": "2026-05-31T01:10:58.367028+00:00"
 }

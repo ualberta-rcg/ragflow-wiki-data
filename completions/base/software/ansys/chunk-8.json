@@ -2,6 +2,19 @@
   "doc_key": "base/ansys",
   "level": "chunk",
   "chunk_index": 8,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:24:41.170246+00:00"
+  "qa_pairs": [
+    {
+      "question": "What are the primary types of Slurm scripts available for running Ansys Fluent jobs on Alliance clusters, and when should each be used?",
+      "answer": "The documentation provides \"by node\" and \"by core\" scripts for Ansys Fluent jobs. The \"by node\" script is generally recommended to minimize solution latency and maximize performance over as few nodes as possible. The \"by core\" script might allow very large jobs to wait less in the queue, but can have significantly longer startup times and be more vulnerable to crashing if compute nodes fail during the simulation. Both script types ensure Fluent uses shared memory for communication when run on a single node and distributed memory (MPI) when run over multiple nodes."
+    },
+    {
+      "question": "What specific configurations or modules are required when running Ansys Fluent jobs on the Narval cluster, according to the provided Slurm scripts?",
+      "answer": "For Narval, the Slurm scripts for Ansys Fluent specifically load `intel/2023 intelmpi` and set `export INTELMPI_ROOT=$I_MPI_ROOT` before unsetting `I_MPI_ROOT`. Additionally, for Ansys versions 2025 and newer, or specifically on Narval, the environment variable `I_MPI_HYDRA_BOOTSTRAP=ssh` is exported, and `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS` is unset. For multinode jobs, `fluent` utilizes either `-mpi=intel -pib` or `-mpi=openmpi -pib` with a dynamically generated machine file. Open MPI based scripts for Narval also export `OPENMPI_ROOT=$EBROOTOPENMPI` and `FI_PROVIDER=verbs` for multinode execution."
+    },
+    {
+      "question": "How are the Ansys Fluent version, journal file, and simulation dimension specified within the provided Slurm batch scripts for job submission?",
+      "answer": "In the Ansys Fluent Slurm batch scripts, the desired Ansys module version (e.g., `ansys/2023R2` or newer) is loaded using the `module load` command. The journal file for the simulation is specified by setting the `MYJOURNALFILE` variable (e.g., `MYJOURNALFILE=sample.jou`). The simulation's dimension and precision (e.g., 2d, 2ddp, 3d, or 3ddp) are defined by setting the `MYVERSION` variable."
+    }
+  ],
+  "generated_at": "2026-05-31T01:14:36.856504+00:00"
 }

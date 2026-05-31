@@ -4,13 +4,13 @@
   "chunk_index": 32,
   "qa_pairs": [
     {
-      "question": "What command-line options are used to run a Rocky simulation with GPU acceleration via the provided Slurm script?",
-      "answer": "The GPU-based Slurm script for Rocky simulations uses the `Rocky` command with several options, including `--headless` for non-graphical execution, `--simulate` to perform the simulation, `--resume=X` (where X is 0 or 1) to either start fresh or restart, `--ncpus=$SLURM_CPUS_PER_TASK` to specify the number of CPU cores, and importantly, `--use-gpu=1` to enable GPU acceleration. The specific input file is defined by the `INPUTFILE` variable."
+      "question": "How do you start or resume a Rocky simulation using a GPU on an Alliance cluster?",
+      "answer": "To start a new Rocky simulation using a GPU on an Alliance cluster, set the `RESUME` variable to `0` in your Slurm script. This will remove any previous simulation results and initiate a fresh run with the command `Rocky --headless --simulate --resume=0 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=1 $INPUTFILE`. To resume a partially completed Rocky simulation, set the `RESUME` variable to `1`, which will execute `Rocky --headless --simulate --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=1 $INPUTFILE`."
     },
     {
-      "question": "How does one manage restarting or completely re-running a Rocky simulation using the GPU-based Slurm script?",
-      "answer": "In the provided GPU-based Slurm script for Rocky, the `RESUME` variable controls this behaviour. Setting `RESUME=0` will cause the script to remove any previous simulation results (by `rm -rf $INPUTFILE.files/simulation`) and start the simulation from the beginning. Setting `RESUME=1` will instruct the `Rocky` solver to resume a partially completed simulation."
+      "question": "What is the function of the `RESUME` variable in a Rocky simulation script?",
+      "answer": "The `RESUME` variable in a Rocky simulation script dictates whether the simulation will start from the beginning or continue from a previous state. When `RESUME=0`, any prior simulation results are deleted (`rm -rf $INPUTFILE.files/simulation`), and the simulation is started anew. When `RESUME=1`, the simulation attempts to resume from its last checkpoint."
     }
   ],
-  "generated_at": "2026-05-24T01:05:47.211409+00:00"
+  "generated_at": "2026-05-31T01:24:42.979912+00:00"
 }

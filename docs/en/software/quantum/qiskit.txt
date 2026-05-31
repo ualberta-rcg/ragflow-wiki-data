@@ -66,13 +66,15 @@ You can use [[MonarQ]] directly with Qiskit via the qiskit-calculquebec plugin. 
 
 * Note: '''qiskit-calculquebec''' installs Qiskit automatically.
 
-<span id="Initialisation_du_backend_MonarQ"></span>
-=== MonarQ backend initialisation ===
+<span id="Initialisation_du_backend_MonarQ_et_exécution_du_circuit"></span>
+=== MonarQ backend initialisation and circuit execution ===
 
 * Step 2: Set up your credentials and the backend
 ** Create a client using your credentials. Your token is available via the Thunderhead portal.
 ** The <i>host</i> is ‘’'<nowiki>https://monarq.calculquebec.ca</nowiki>.‘’'
 ** Then initialize the MonarQ backend.
+
+* Step 3: Transpile and run the circuit
 
 {{Fichier
   |name=qiskit_example.py
@@ -98,21 +100,11 @@ qc = QuantumCircuit(2)
 qc.h(0)
 qc.cx(0, 1)
 qc.measure_all()
-}}
 
-<span id="Exécution_du_circuit"></span>
-=== Running the circuit ===
-
-* Step 3: Transpile and run the circuit
-
-{{Fichier
-  |name=qiskit_example.py
-  |lang="python"
-  |contents=
 from qiskit_ibm_runtime import SamplerV2 as Sampler
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 
-# Transpilation tailored to the backend
+# Backend adapted transpilation
 pm = generate_preset_pass_manager(optimization_level=3, backend=backend)
 transpiled_qc = pm.run(qc)
 
@@ -122,6 +114,7 @@ job = sampler.run([transpiled_qc], shots=1000)
 
 result = job.result()
 print(result[0].data.meas.get_counts())
+
 }}
 
 === Notes ===

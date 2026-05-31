@@ -4,17 +4,13 @@
   "chunk_index": 17,
   "qa_pairs": [
     {
-      "question": "Pourquoi utiliser les scripts de redémarrage pour les simulations Ansys Fluent sur les grappes de Calcul Canada?",
-      "answer": "Les scripts de redémarrage automatisent la reprise de tâches intensives qui durent plus que les sept jours maximum permis sur la plupart des grappes. Ils permettent de redémarrer la simulation à partir des fichiers de pas de temps les plus récemment sauvegardés."
+      "question": "Pourquoi devrais-je utiliser les scripts Slurm de redémarrage pour mes simulations Ansys Fluent sur les grappes de calcul de l'Alliance?",
+      "answer": "Ces scripts sont conçus pour automatiser le redémarrage des tâches Fluent intensives qui nécessitent plus que la limite de sept jours d'exécution permise sur la plupart des grappes. Ils permettent à une simulation de reprendre à partir des fichiers de valeur de pas de temps les plus récemment sauvegardés."
     },
     {
-      "question": "Quels fichiers sont nécessaires pour utiliser la fonction de redémarrage de solution pour Ansys Fluent, pis quelles modifications sont requises pour les fichiers de journalisation?",
-      "answer": "Pour utiliser cette fonction, t'as besoin d'avoir les fichiers <code>sample.cas</code>, <code>sample.dat</code> et <code>sample.jou</code>. Tu dois modifier <code>sample.jou</code> pour qu'il contienne <code>/solve/dual-time-iterate 1</code> et <code>/file/auto-save/data-frequency 1</code>. Ensuite, tu crées un fichier <code>sample-restart.jou</code> à partir de <code>sample.jou</code> et tu y changes la ligne de lecture du fichier de cas pour <code>/file/read-cas-data sample-restart</code>. Faut aussi que tu mettes en commentaire la ligne d'initialisation, par exemple <code>;/solve/initialize/initialize-flow</code>."
-    },
-    {
-      "question": "Comment les scripts de redémarrage de solution influencent-ils le temps total de simulation et le nombre de fichiers de résultats générés quand on fait tourner Ansys Fluent?",
-      "answer": "Si tu configures ton <code>sample-restart.jou</code> pour que les pas suivants s'exécutent deux fois plus vite que le pas initial (en spécifiant <code>/solve/dual-time-iterate 2</code>), la durée totale de la simulation sera 1*Dt + 2*Nrestart*Dt, où Dt est la durée d'un pas et Nrestart est le nombre de redémarrages défini dans ton script Slurm. Le nombre total de pas, et donc de fichiers de résultats générés, sera de 1 + 2*Nrestart."
+      "question": "Quelles modifications spécifiques doivent être apportées aux fichiers de journalisation (`sample.jou` et `sample-restart.jou`) pour activer la fonctionnalité de redémarrage des simulations Fluent?",
+      "answer": "Vous devez modifier le fichier `sample.jou` pour inclure les commandes `/solve/dual-time-iterate 1` et `/file/auto-save/data-frequency 1`. Ensuite, copiez `sample.jou` pour créer `sample-restart.jou` et modifiez ce dernier pour qu'il contienne `/file/read-cas-data sample-restart` au lieu de `sample`, et mettez en commentaire la ligne d'initialisation, par exemple `;/solve/initialize/initialize-flow`."
     }
   ],
-  "generated_at": "2026-05-24T01:10:27.980994+00:00"
+  "generated_at": "2026-05-31T01:28:44.572279+00:00"
 }

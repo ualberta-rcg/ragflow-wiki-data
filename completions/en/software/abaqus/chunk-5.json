@@ -4,17 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of using a \"temporary directory script\" for Abaqus jobs on an Alliance cluster?",
-      "answer": "The \"temporary directory script\" is primarily used for single-node Abaqus jobs that are expected to create large restart files. It optimizes performance by writing these files to the local disk, accessed via the `SLURM_TMPDIR` environment variable, rather than to network storage."
+      "question": "How do you execute a standard Abaqus analysis job on a single node using a project directory script?",
+      "answer": "To run a standard Abaqus analysis job on a single node, you first load the required Abaqus module (e.g., `abaqus/2026`). Then, you use the `abaqus` command with parameters such as `job` (for the job name), `input` (for the input file), `scratch` (for temporary files, often set to `$SLURM_TMPDIR`), `cpus` (for the number of CPUs per node), `mp_mode=threads` for thread-based parallelization, and `memory` (calculated as `${SLURM_MEM_PER_NODE}-3072)MB`). For Abaqus 2021 and older, the `abaqus` command is prefixed with `/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare`."
     },
     {
-      "question": "How do you configure an Abaqus job to write restart data within the input file, and how can you check for the completion of this restart information?",
-      "answer": "To configure an Abaqus job to write restart data, you can include `*RESTART, WRITE, OVERLAY, FREQUENCY=N` in the input file to write data every N time increments, or `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=N, TIME MARKS=NO` for a total of N time increments. To check for completed restart information, you can use the command `egrep -i \"step|start\" testst*.com testst*.msg testst*.sta`."
-    },
-    {
-      "question": "In an Abaqus 'temporary directory script' on an Alliance cluster, what mechanism is in place to periodically save data from the temporary directory to the job's main submission directory?",
-      "answer": "The 'temporary directory script' includes a background process that runs a `while` loop, executing `cp -fv * $SLURM_SUBMIT_DIR 2>/dev/null` every six hours. This periodically copies all files from the `$SLURM_TMPDIR` back to the `$SLURM_SUBMIT_DIR`, helping to prevent data loss if a job terminates early due to time limits or node failures."
+      "question": "What is the procedure to restart a standard Abaqus analysis job from a project directory on a single node?",
+      "answer": "To restart a standard Abaqus analysis job on a single node from a project directory, begin by loading the appropriate Abaqus module (e.g., `abaqus/2026`). Then, execute the `abaqus` command, specifying `job=testsp2` for the new job name, `oldjob=testsp1` to link to the previous job, and `input=mystd-sim-restart.inp` for the restart input file. This restart input file must contain `*HEADING` and `*RESTART, READ` directives. Similar to a new job, you also specify scratch directory, CPUs, thread mode, and memory allocation."
     }
   ],
-  "generated_at": "2026-04-13T00:47:27.770463+00:00"
+  "generated_at": "2026-05-31T01:06:50.023541+00:00"
 }

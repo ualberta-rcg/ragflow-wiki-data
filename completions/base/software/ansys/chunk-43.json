@@ -2,6 +2,19 @@
   "doc_key": "base/ansys",
   "level": "chunk",
   "chunk_index": 43,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:28:53.939880+00:00"
+  "qa_pairs": [
+    {
+      "question": "How should a user configure their `ansys.lic` file to use the SHARCNET Ansys license on any Alliance cluster?",
+      "answer": "To use the SHARCNET Ansys license on any Alliance cluster, users should configure their `ansys.lic` file in their `~/.licenses/` directory with the following line: `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license1.computecanada.ca\")`. The `license3.sharcnet.ca` server was shut down in February 2026."
+    },
+    {
+      "question": "What command can be used to check the number of Ansys licenses currently in use by a user and all other users on an Alliance cluster?",
+      "answer": "To check Ansys license usage, log in to a cluster (e.g., `ssh nibi.alliancecan.ca`), load the Ansys module (`module load ansys`), and then run the command: `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\" | grep -v \" Total of 0 licenses in use\"`."
+    },
+    {
+      "question": "How are `anshpc` licenses calculated for Ansys Fluent jobs on Alliance clusters, and what are the options if there aren't enough licenses available?",
+      "answer": "For Ansys Fluent jobs, `anshpc` licenses are calculated as (number of cores - 4). For example, an 8-core job uses 4 licenses, and a 32-core job uses 28 licenses. If a job attempts to start and there aren't enough licenses available in the SHARCNET license pool (e.g., a 400-core job requiring 396 licenses when only 386 are free), it will fail to start. Users can either wait for sufficient licenses to become available or reduce their job size and resubmit it immediately."
+    }
+  ],
+  "generated_at": "2026-05-31T01:19:02.829018+00:00"
 }

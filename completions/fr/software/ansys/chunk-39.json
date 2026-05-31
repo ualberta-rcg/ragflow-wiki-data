@@ -4,17 +4,13 @@
   "chunk_index": 39,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on peut accéder aux programmes Ansys de manière interactive en mode graphique sur les grappes de Calcul Canada?",
-      "answer": "Les programmes Ansys comme Fluent, CFX ou Workbench peuvent être exécutés interactivement en mode graphique sur les nœuds de calcul des grappes ou sur les nœuds VDI de Graham. L'accès se fait généralement via une page web de soumission de tâches accessible depuis des plateformes comme Open OnDemand (OOD) ou JupyterHub, spécifiques à chaque grappe. Il faut y configurer les ressources nécessaires pour une session de bureau interactive et s'assurer de spécifier une ressource GPU si des graphiques accélérés ou des calculs intensifs sont prévus. Une fois le bureau chargé, il faut charger le module Ansys approprié."
+      "question": "Sur un nœud de calcul sans GPU, quelles variables d'environnement faut-il configurer pour lancer Ansys Fluent en mode graphique, incluant les paramètres pour les versions 2025R1+ et 2024R2-?",
+      "answer": "Pour lancer Fluent en mode graphique sur un nœud de calcul sans GPU, il faut configurer `I_MPI_HYDRA_BOOTSTRAP=ssh` (ce qui est obligatoire sur Nibi avec Intel MPI). Pour les versions 2025R1 ou plus récentes de Fluent, on doit utiliser `HOOPS_PICTURE=opengl2-mesa`, et pour les versions 2024R2.04 ou plus anciennes, on utilise `HOOPS_PICTURE=x11/lin`."
     },
     {
-      "question": "Quelles variables d'environnement spécifiques doit-on configurer pour lancer Ansys Fluent en mode graphique depuis une session de bureau OnDemand lorsqu'aucun GPU n'a été demandé?",
-      "answer": "Lorsque vous lancez Ansys Fluent en mode graphique depuis une session de bureau OnDemand sans avoir demandé de GPU, après avoir chargé le module `StdEnv/2023 ansys/2025R1` (ou une version plus récente) et démarré Fluent, il faut ajouter les variables d'environnement suivantes dans l'onglet \"Environment\" du panneau de lancement de Fluent : `I_MPI_HYDRA_BOOTSTRAP=ssh` (obligatoire sur la grappe Nibi) et `HOOPS_PICTURE=opengl2-mesa` (pour la version 2025R1 ou plus récente) ou `HOOPS_PICTURE=null` (pour la version 2024R2 ou plus ancienne)."
-    },
-    {
-      "question": "Quel est le problème courant si Fluent plante au démarrage dans une session de bureau OnDemand sur la grappe Nibi lors de l'utilisation d'Intel MPI, et comment peut-on le résoudre?",
-      "answer": "Si Fluent plante au démarrage dans une session de bureau OnDemand sur la grappe Nibi avec Intel MPI, cela est souvent dû à la variable d'environnement `I_MPI_HYDRA_BOOTSTRAP` qui n'est pas définie. Pour y remédier, il faut la configurer manuellement à `I_MPI_HYDRA_BOOTSTRAP=ssh`. Si l'erreur se produit, il est conseillé de quitter complètement Fluent, d'arrêter Workbench proprement, puis de tout redémarrer après avoir réglé cette variable."
+      "question": "Si la fenêtre de la console graphique de Fluent devient corrompue au moment de lancer l'interface graphique, quelle est la solution pour résoudre ce problème d'affichage?",
+      "answer": "Si la fenêtre de la console graphique devient corrompue au démarrage de l'interface graphique, il faut redémarrer Fluent en configurant la variable d'environnement `HOOPS_PICTURE=null`. Cela aura pour effet de désactiver la création du panneau graphique et devrait corriger le problème."
     }
   ],
-  "generated_at": "2026-05-24T01:13:37.958462+00:00"
+  "generated_at": "2026-05-31T01:32:02.350564+00:00"
 }
