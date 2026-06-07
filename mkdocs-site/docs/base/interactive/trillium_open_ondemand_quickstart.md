@@ -4,9 +4,9 @@ slug: "trillium_open_ondemand_quickstart"
 lang: "base"
 
 source_wiki_title: "Trillium Open OnDemand Quickstart"
-source_hash: "f39ee49e559c0bd9004458c97b245906"
-last_synced: "2026-05-31T00:03:42.418098+00:00"
-last_processed: "2026-05-31T00:54:35.557084+00:00"
+source_hash: "fd46520e45639b6c21bc34d4bcce0cb2"
+last_synced: "2026-06-07T00:07:37.701416+00:00"
+last_processed: "2026-06-07T00:23:49.404935+00:00"
 
 tags:
   []
@@ -19,28 +19,28 @@ status:
   converted: true
   tagged: false
   keywords_generated: false
-  ragflow_synced: true
+  ragflow_synced: false
   qa_generated: false
 ---
 
 This page is specifically for the Open OnDemand service attached to Trillium. General information on the Open OnDemand instances in the clusters of the Alliance can be found on [Open OnDemand](open_ondemand.md).
 
-# Porting existing virtual environments to Open OnDemand
+## Porting existing virtual environments to Open OnDemand
 
 !!! important
-    Because of the change of operating system and software stack, your existing virtual environment kernels for Python may not work right away in the OnDemand site. You should be able to activate your Python environments in a Trillium terminal (see [Terminal access](#terminal-access) below), with all required Trillium modules loaded, and then issue the command **`venv2jup`** to get them working correctly.
+    Because of the change of operating system and software stack, your existing virtual environment kernels for Python may not work right away in the OnDemand site. You should be able to activate your Python environments in a Trillium terminal (see [Terminal access](trillium_open_ondemand_quickstart.md#terminal-access)) below, with all required Trillium modules loaded, and then issue the command **`venv2jup`** to get them working correctly.
 
-# Introduction
+## Introduction
 
 This guide will walk you through the basic steps to get started with the SciNet Open OnDemand portal. Open OnDemand (OOD) is a web-based platform that provides access to a wide range of scientific applications and computing resources, such as JupyterLab, R Studio, and Visual Studio Code. It allows you to interact with Trillium through a web browser instead of via a terminal, without the need to install any software on your local machine. You will be able to perform file management, submit/monitor jobs and run applications interactively. More information on this project can be found at [https://openondemand.org](https://openondemand.org).
 
-# Logging into the Open OnDemand portal
+## Logging into the Open OnDemand portal
 
-To access the Open OnDemand portal, open a web browser and navigate to the following page: https://ondemand.scinet.utoronto.ca. You will be prompted to enter your Alliance username and password, followed by a second factor authentication via Duo or Yubikey. Once you have logged in, you will be taken to the Open OnDemand dashboard, which displays various tools and applications available on the platform.
+To access the Open OnDemand portal, open a web browser and navigate to the following page: https://ondemand.scinet.utoronto.ca. You will be prompted to enter your Alliance username and password, followed by a second factor authentication via Duo or Yubikey. Once you have logged in, you will be taken to the Open OnDemand dashboard. From here you can access the various tools and applications available on the platform.
 
 *   [Dashboard Video Tutorial](https://youtu.be/XRozBBKwA8c?si=fmks5--qaAfm6Zat&t=1316)
 
-# File management
+## File management
 
 The Open OnDemand platform provides a file browser that allows you to manage your files and directories on the filesystem. To access the file browser, click on the **Files** tab and select which directory you want to manage from the drop-down (`HOME`, `SCRATCH` or `PROJECT`). You will be taken to the file browser interface, where you can:
 
@@ -52,20 +52,20 @@ The Open OnDemand platform provides a file browser that allows you to manage you
 
 Storage quotas can also be displayed by clicking on the **Storage Quotas** link in the **Files** tab.
 
-## Uploading files
+### Uploading files
 
 The current file size upload limit is 10GB. If you need to upload a file larger than this or are facing upload issues due to a bad internet connection for example, please try using [Globus](https://docs.scinet.utoronto.ca/index.php/Globus). There is a Globus button in the file browser at the top right, which will take you to the Globus web interface where you can log in with your Alliance username and password. The path navigated to in the Open OnDemand file browser will be the same path opened in Globus.
 
 *   [File Browser Video Tutorial](https://youtu.be/XRozBBKwA8c?si=e6Z2PvHRsCVmTKAQ&t=1510)
 
-# Interactive applications
+## Interactive applications
 
 Open OnDemand also features interactive applications that can be run directly from your web browser. To access the applications, navigate to the **Interactive Apps** tab and select the application you want to run from the drop-down. This will then bring you to the job submission page where you can choose job parameters such as:
 
 *   Length of job in hours
 *   Number of cores
 *   Amount of memory to allocate (GB)
-*   GPU resources (!!! note: only the `h100_1.10` [MIG](../programming/multi-instance_gpu.md) profile is currently available, which provides 10GB of memory and 1/8 of the compute power of a full NVIDIA H100 GPU. [Requesting a GPU Video Tutorial](https://youtu.be/XRozBBKwA8c?si=64jipPoV-5ZzQpky&t=3025))
+*   GPU resources (**Note**: only the **h100_1.10** [MIG](../programming/multi-instance_gpu.md) profile is currently available, which provides 10GB of memory and 1/8 of the compute power of a full NVIDIA H100 GPU. [Requesting a GPU Video Tutorial](https://youtu.be/XRozBBKwA8c?si=64jipPoV-5ZzQpky&t=3025))
 *   Notify me by email when the job starts
 
 When you have chosen your job parameters click on the **Launch** button to submit your job to the queue. You will be taken to the **My Interactive Sessions** page where you can see the status of your job, i.e. queued, running or completed. Once the job has been assigned a node and is running, you can click on the **Connect to ...** button to launch the application. The application will open in a new tab in your browser, and you can interact with it as if it was running locally.
@@ -76,7 +76,7 @@ If for whatever reason you would like to kill the job, you can do so by clicking
 
 *   [Interactive Apps Video Tutorial](https://youtu.be/XRozBBKwA8c?si=9Fapd_d6jiNT6QqA&t=2118)
 
-## Installed applications
+### Installed applications
 
 We currently support the following applications:
 
@@ -88,8 +88,8 @@ We currently support the following applications:
 *   [Forge DDT/MAP](https://www.linaroforge.com)
 *   [MATLAB](https://www.mathworks.com/products/matlab.html)
 *   [Ovito](https://www.ovito.org)
-*   [SAS](https://www.sas.com/en_ca/home.html)[^4]
-*   [Stata](https://www.stata.com)[^4]
+*   [SAS](https://www.sas.com/en_ca/home.html)^4^
+*   [Stata](https://www.stata.com)^4^
 *   [Open Composer](https://github.com/RIKEN-RCCS/OpenComposer)
 
 If you would like an application installed please email us at [support@scinet.utoronto.ca](mailto:support@scinet.utoronto.ca).
@@ -97,7 +97,39 @@ If you would like an application installed please email us at [support@scinet.ut
 *   [Jupyter Lab Video Tutorial](https://youtu.be/XRozBBKwA8c?si=Xxvu96XYVMNHocq8&t=2469)
 *   [Trillium Desktop Video Tutorial](https://youtu.be/XRozBBKwA8c?si=qvh56f5fvJpp5jrg&t=3117)
 
-# Running an application GUI
+### JupyterLab Configuration
+
+There are two ways to run JupyterLab:
+
+**Option 1**: Working with the default Python 3 (ipykernel)
+
+The default kernel comes with the following Python packages pre-installed: numpy, redis, jwcrypto, jupyterlmod, matplotlib, h5py, cython, pandas, ipympl, jupyterlab_favorites and jupyter-resource-usage. You can start a JupyterLab session with the default kernel and use these packages without any additional configuration. If you need to use other packages that are not listed above, you can load the required modules prior to starting your kernel by using the Software Modules tab located at the far left of the interface. If your kernel is already running you will need to shut it down and start it again for the changes to take effect by clicking Kernel > Shut Down Kernel in the top menu.
+
+If you want to use a Python package that is not installed by default or included as a software module, you can create a Python virtual environment with the required packages installed and run it as a JupyterLab kernel (see **Option 2** below).
+
+**Option 2**: Working with a custom [Python virtual environment](../software/python.md#creating-and-using-a-virtual-environment)
+
+From a terminal (started either in JupyterLab or by clicking **Cluster** -> **Trillium Shell Access** from the OnDemand navigation bar) you can create your own Python virtual environment and install the packages you need. For example, to create a virtual environment called `myenv` and install the `numpy` package, you can run the following commands:
+
+```bash
+[username@tri-login01]$ module load python/3.14.2
+[username@tri-login01]$ virtualenv --no-download ~/.virtualenvs/myenv
+[username@tri-login01]$ source ~/.virtualenvs/myenv/bin/activate
+```
+
+```bash
+(myenv)[username@tri-login01]$ pip install numpy
+```
+
+To turn this into a JupyterLab kernel, run the `venv2jup` command from within the activated virtual environment:
+
+```bash
+(myenv)[username@tri-login01]$ venv2jup
+```
+
+When you start a JupyterLab session, you should now see your virtual environment, `myenv`, as a kernel option.
+
+## Running an application GUI
 
 If you would like to run software that has a graphical user interface (GUI) and is not yet installed as an interactive application, such as Octave or Blender, you can do so using the **Trillium Desktop** application. This app provides a remote desktop environment that you can access through your web browser. In the following example, we will run Octave's GUI:
 
@@ -114,7 +146,7 @@ You should now see Octave's GUI appear in the remote desktop environment. You ca
 
 *   [Octave GUI Video Tutorial](https://youtu.be/XRozBBKwA8c?si=qvh56f5fvJpp5jrg&t=3117)
 
-# Job submission
+## Job submission
 
 Open OnDemand also provides a job submission interface that allows you to submit batch jobs to Trillium. This can be useful when you need more resources than the interactive jobs provide, i.e. exclusive access to 192 cores and 755GB of memory on a Trillium compute node.
 
@@ -135,7 +167,7 @@ Note: The template scripts provided in Open Composer are basic examples to get y
 
 *   [Open Composer Video Tutorial](https://youtu.be/XRozBBKwA8c?si=r5vcEw-lgM7xSJ6_&t=4263)
 
-## Monitoring jobs in Open Composer
+### Monitoring jobs in Open Composer
 
 To monitor your submitted jobs in Open Composer, navigate to the **History** tab. This will display a list of all your submitted jobs, along with their status: Queued, Running, Completed, Failed. You can filter the jobs by using the **Filter** text box at the top right or by using the checkboxes below. Clicking on different column fields will give different information about the job:
 
@@ -146,7 +178,7 @@ To monitor your submitted jobs in Open Composer, navigate to the **History** tab
 
 To resubmit or modify a previously run job click on the job script under the **Script Name** column and click **Load Parameters**. This will take you back to the job submission page where further modifications can be made to the job.
 
-## Supported applications
+### Supported applications
 
 Open Composer currently supports the following applications for Slurm jobs:
 
@@ -157,27 +189,26 @@ Open Composer currently supports the following applications for Slurm jobs:
 *   [R](../software/r.md)
 *   [VASP](../software/vasp.md)
 
-# Job monitoring
+## Job monitoring
 
-To get an overview of all your jobs in the queue you can use the job monitoring interface. Navigate to the **Jobs** tab and select **Active Jobs**. You can filter the jobs by using the **Filter** text box at the top right. Columns can also be sorted by clicking on the column headers, for example you can sort by job status (running, completed, failed, etc.). Clicking on `>` to the left of a job will show you more details about the job, such as the start/end time, node list and account charged, etc. You might also want to show all jobs in the queue, you can do this by clicking on the drop-down menu at the top right and selecting **All Jobs**. A more detailed view of your jobs can still be found using the [myscinet portal](https://my.scinet.utoronto.ca).
+To get an overview of all your jobs in the queue you can use the job monitoring interface. Navigate to the **Jobs** tab and select **Active Jobs**. You can filter the jobs by using the **Filter** text box at the top right. Columns can also be sorted by clicking on the column headers, for example you can sort by job status (running, completed, failed, etc.). Clicking on `>` to the left of a job will show you more details about the job, such as the start/end time, node list and account charged, etc. You might also want to show all jobs in the queue; you can do this by clicking on the drop-down menu at the top right and selecting **All Jobs**. A more detailed view of your jobs can still be found using the [myscinet portal](https://my.scinet.utoronto.ca).
 
 *   [Active Jobs Video Tutorial](https://youtu.be/XRozBBKwA8c?si=rf_JMYBFz9ytpkR_&t=1818)
 
-# Terminal access
+## Terminal access
 
 Sometimes you might prefer to use a terminal to interact with Trillium. Open OnDemand provides a web-based terminal that you can use to access the command-line interface. To access the terminal, navigate to the **Clusters** tab and select **Trillium Shell Access**. This will open a new tab in your browser with a terminal window where you can run commands as you would in a regular terminal session.
 
 *   [Terminal Access Video Tutorial](https://youtu.be/XRozBBKwA8c?si=REh17mvUn8q50iys&t=1904)
 
-# Software modules
-
+## Software modules
 Trillium has a wide variety of software that can be accessed via modules. They can be loaded in your interactive sessions, terminal or job scripts in Open Composer. You can view the available modules and their versions using the **Module Browser** app, which can be accessed from the **Clusters** tab in the navigation bar. The module browser also provides a command that you can run in the terminal to load a particular module, which can be useful when writing job scripts for example.
 
-# Debugging errors
+## Debugging errors
 
-If you encounter any errors while using an interactive Open OnDemand job, you can check the logs for more information. To access the logs, navigate to the **My Interactive Sessions** tab and find your active session. Click on the `output.log` link to open a separate tab which displays the output of your job. This file contains the standard output and error messages generated by the job, which can help you identify any issues that may have occurred during the session. If you require further assistance, click on the support ticket button shown in your job's session card. Please include the `output.log` file and any other relevant information to help us assist you more effectively.
+If you encounter any errors while using an interactive Open OnDemand job, you can check the logs for more information. To access the logs, navigate to the **My Interactive Sessions** tab and find your active session. Click on the `output.log` link (available in your job's session card) to open a separate tab which displays the output of your job. This file contains the standard output and error messages generated by the job, which can help you identify any issues that may have occurred during the session. If you require further assistance, click on the support ticket button shown in your job's session card. Please include the `output.log` file and any other relevant information to help us assist you more effectively.
 
-# Video tutorials
+## Video tutorials
 
 *   [Dashboard](https://youtu.be/XRozBBKwA8c?si=fmks5--qaAfm6Zat&t=1316)
 *   [File Browser](https://youtu.be/XRozBBKwA8c?si=e6Z2PvHRsCVmTKAQ&t=1510)
@@ -188,30 +219,33 @@ If you encounter any errors while using an interactive Open OnDemand job, you ca
 *   [Terminal Access](https://youtu.be/XRozBBKwA8c?si=REh17mvUn8q50iys&t=1904)
 *   [Job Monitoring](https://youtu.be/XRozBBKwA8c?si=rf_JMYBFz9ytpkR_&t=1818)
 
-# Differences compared to the JupyterHub
+## Differences compared to the JupyterHub
 
-| Feature                       | JupyterHub (decommissioned)          | Open OnDemand                                                                                                                                                                                                                                        |
-| :---------------------------- | :----------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| *authentication*              | password                             | password + MFA                                                                                                                                                                                                                                       |
-| *first installed*             | 2017                                 | 2025                                                                                                                                                                                                                                                 |
-| *last update*                 | 2021                                 | 2025                                                                                                                                                                                                                                                 |
-| *supports*                    | Jupyter Notebook, JupyterLab (R, Python, Julia) | Jupyter Notebook, JupyterLab (R, Python), Rstudio, VSCode, Desktop, SAS[^4], Stata[^4], ParaView, Forge DDT/MAP, MATLAB                                                                                                                              |
-| *start and continue later*    | Yes                                  | Yes[^1]                                                                                                                                                                                                                                              |
-| *command terminal*            | No                                   | Yes                                                                                                                                                                                                                                                  |
-| *file management*             | Yes (limited)                        | Yes                                                                                                                                                                                                                                                  |
-| *monitor jobs*                | No                                   | Yes                                                                                                                                                                                                                                                  |
-| *submit jobs*                 | No                                   | Yes                                                                                                                                                                                                                                                  |
-| *core limit*                  | 8 cores[^2]                          | 20 cores (8 for high memory)[^3]                                                                                                                                                                                                                     |
-| *memory limit*                | 48 GB[^2]                            | 85 GB (500 GB for high memory)[^3]                                                                                                                                                                                                                   |
-| *time limits*                 | 3 days[^2]                           | 3 days[^3]                                                                                                                                                                                                                                           |
-| *operating system*            | CentOS 7                             | RockyLinux 9                                                                                                                                                                                                                                         |
-| *software stack*              | NiaEnv, CCEnv                        | CCEnv                                                                                                                                                                                                                                                |
-| *system issue alerts*         | No                                   | Yes                                                                                                                                                                                                                                                  |
-| *user quota alerts*           | No                                   | Yes                                                                                                                                                                                                                                                  |
-| *error logs*                  | No                                   | Yes                                                                                                                                                                                                                                                  |
-| *hardware*                    | 1 x CPU with 40 Intel "CascadeLake" cores at 2.5 GHz, 1TB RAM | 62 x CPU with 40 Intel "CascadeLake" cores at 2.5 GHz, 180GB RAM (default)<br>3 x CPU with 40 Intel "CascadeLake" cores at 2.5 GHz, 1TB RAM (high memory)<br> 4 x NVIDIA H100 80GB GPUs, with 96-core AMD EPYC 9654 CPU at 2.4 GHz, 810GB RAM |
+| Feature                 | JupyterHub (decommissioned)                         | Open OnDemand                                                                                                                                                                             |
+| :---------------------- | :-------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| *authentication*        | password                                            | password + MFA                                                                                                                                                                            |
+| *first installed*       | 2017                                                | 2025                                                                                                                                                                                      |
+| *last update*           | 2021                                                | 2025                                                                                                                                                                                      |
+| *supports*              | Jupyter Notebook, JupyterLab (R, Python, Julia)     | Jupyter Notebook, JupyterLab (R, Python), Rstudio, VSCode, Desktop, SAS^4^, Stata^4^, ParaView, Forge DDT/MAP, MATLAB                                                                           |
+| *start and continue later* | Yes                                                 | Yes^1^                                                                                                                                                                                    |
+| *command terminal*      | No                                                  | Yes                                                                                                                                                                                       |
+| *file management*       | Yes (limited)                                       | Yes                                                                                                                                                                                       |
+| *monitor jobs*          | No                                                  | Yes                                                                                                                                                                                       |
+| *submit jobs*           | No                                                  | Yes                                                                                                                                                                                       |
+| *core limit*            | 8 cores^2^                                          | 20 cores (8 for high memory)^3^                                                                                                                                                           |
+| *memory limit*          | 48 GB^2^                                            | 85 GB (500 GB for high memory)^3^                                                                                                                                                         |
+| *time limits*           | 3 days^2^                                           | 3 days^3^                                                                                                                                                                                 |
+| *operating system*      | CentOS 7                                            | RockyLinux 9                                                                                                                                                                              |
+| *software stack*        | NiaEnv, CCEnv                                       | CCEnv                                                                                                                                                                                     |
+| *system issue alerts*   | No                                                  | Yes                                                                                                                                                                                       |
+| *user quota alerts*     | No                                                  | Yes                                                                                                                                                                                       |
+| *error logs*            | No                                                  | Yes                                                                                                                                                                                       |
+| *hardware*              | 1 x CPU with 40 Intel "CascadeLake" cores at 2.5 GHz, 1TB RAM | 62 x CPU with 40 Intel "CascadeLake" cores at 2.5 GHz, 180GB RAM (default)<br>3 x CPU with 40 Intel "CascadeLake" cores at 2.5 GHz, 1TB RAM (high memory)<br> 4 x NVIDIA H100 80GB GPUs, with 96-core AMD EPYC 9654 CPU at 2.4 GHz, 810GB RAM |
 
-[^1]: Within the requested limits.
-[^2]: Limits on JupyterHub were not implemented very strictly, so you could temporarily exceed these.
-[^3]: Limits need to be requested before starting an application.
-[^4]: Only for users with a license for these products.
+^1^ Within the requested limits.
+
+^2^ Limits on JupyterHub were not implemented very strictly, so you could temporarily exceed these.
+
+^3^ Limits need to be requested before starting an application.
+
+^4^ Only for users with a license for these products.
