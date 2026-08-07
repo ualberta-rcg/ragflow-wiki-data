@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 from bs4 import BeautifulSoup
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-URL = "https://explora.alliancecan.ca/events"
+URL = "https://explora.alliancecan.ca/events.json"
 OUTPUT_DIR = REPO_ROOT / "docs" / "events"
 CONFIG_DIR = REPO_ROOT / "config"
 STATE_FILE = CONFIG_DIR / "processing-state.json"
@@ -37,21 +37,13 @@ def save_state(state: dict):
 
 
 def fetch_events():
-    """Fetch and parse events from JSON-LD."""
-    resp = requests.get(URL)
+    """Fetch events from the JSON API (page 1 = next 10 by start date)."""
+    resp = requests.get(URL, timeout=30, headers={
+        "User-Agent": "ragflow-wiki-data/1.0",
+        "Accept": "application/json",
+    })
     resp.raise_for_status()
-    soup = BeautifulSoup(resp.text, "html.parser")
-    
-    events = []
-    for script in soup.find_all("script", type="application/ld+json"):
-        try:
-            data = json.loads(script.string)
-            if isinstance(data, dict) and data.get("@type") == "Event":
-                events.append(data)
-        except Exception:
-            continue
-    
-    return events
+    return resp.json()
 
 
 def main():
