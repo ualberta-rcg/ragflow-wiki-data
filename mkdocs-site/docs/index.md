@@ -86,7 +86,7 @@ title: Home
 | **Juno** | :material-check-circle:{ style="color: green" } Operational |
 | **Killarney** | :material-calendar:{ style="color: blue" } Planned Outage |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-06-07 00:24 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-08-07 19:45 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -96,18 +96,18 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 
 | Date | Event | Link |
 |------|-------|------|
-| Jun 08 | An Introduction to OpenFoam | [Details](https://training.computeontario.ca/courses/course/view.php?id=60) |
-| Jun 08 | System Security - Defensive Techniques | [Details](https://training.computeontario.ca/courses/course/view.php?id=42) |
-| Jun 08 | Extracting Information from Health Data using AI | [Details](https://training.computeontario.ca/courses/course/view.php?id=29) |
-| Jun 08 | Reproducible Research: Practices and Tools | [Details](https://training.computeontario.ca/courses/course/view.php?id=44) |
-| Jun 08 | Data security | [Details](https://training.computeontario.ca/courses/course/view.php?id=58) |
-| Jun 08 | Data Bites - Creating README Files for Research Data | [Register](https://libcal.library.ubc.ca/event/4016253) |
-| Jun 08 | Leveraging Large Language Models for Academic Research: Opportunities, Workflows, and Responsible Use | [Details](https://training.computeontario.ca/courses/course/view.php?id=54) |
-| Jun 09 | C as a Second Language (Session 1 of 2) | [Details](https://training.computeontario.ca/courses/course/view.php?id=37) |
-| Jun 09 | From Policy to Practice: Preparing for the Data Deposit Requirement of the Tri-Agency RDM Policy | [Details](https://training.computeontario.ca/courses/course/view.php?id=50) |
-| Jun 09 | REBs & DRI | [Details](https://training.computeontario.ca/courses/course/view.php?id=45) |
+| TBD | Untitled | [Details](https://engagedri-ca.zoom.us/meeting/register/9IzhEFYzSPSGh2-ZnvqZ9w) |
+| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4043881) |
+| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4043885) |
+| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4017152) |
+| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4043886) |
+| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4017153) |
+| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4023376) |
+| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4043888) |
+| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4043887) |
+| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4043889) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-06-07 00:24 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-08-07 19:45 UTC.*</small>
 
 ---
 
