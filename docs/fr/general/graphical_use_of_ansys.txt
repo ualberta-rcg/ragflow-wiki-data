@@ -10,180 +10,141 @@ Pour utiliser un programme Ansys en mode graphique, cliquez sur un des liens ci-
  [[Open OnDemand Quickstart|TRILLIUM]], <code>https://ondemand.scinet.utoronto.ca</code>
 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-A job submission web page should appear in your browser.  Configure the resources required for your interactive desktop session and click on ''Launch'' or ''Start''.  If either accelerated graphics or computations will be conducted from within your desktop session, be sure to specify a GPU resource.  Load an Ansys module on the desktop.  If you started a JupyterLab-powered desktop, this can be done by clicking in the menu on the left; however, if you started an OnDemand desktop manually, type <code>module load ansys/version</code> on the command line.  To start one of the common Ansys programs such as Fluent, CFX, Workbench, and so forth, refer to the following sections which provide advice for setting environment variables and arguments required by VirtualGL or Mesa-based graphical environments, depending on whether a node with a GPU resource was specified or not.
-</div>  
+Une page web de soumission de tâche devrait s'afficher dans votre navigateur. Configurez les ressources nécessaires à votre session de bureau interactive et cliquez sur ''Launch'' ou ''Start''. Si vous prévoyez d'effectuer des calculs ou des rendus graphiques accélérés dans votre session de bureau, spécifiez une ressource GPU. Chargez un module Ansys sur le bureau. Si vous avez lancé un bureau JupyterLab, cliquez sur l'icône correspondante dans le menu de gauche; autrement, si vous avez lancé un bureau OnDemand manuellement, entrez <code>module load ansys/version</code> dans la ligne de commande. Pour lancer l'un des programmes Ansys courants tels que Fluent, CFX, Workbench, etc., reportez-vous aux sections suivantes qui fournissent des conseils sur la configuration des variables d'environnement et des arguments requis par les environnements graphiques VirtualGL ou Mesa, selon qu'un nœud avec GPU a été spécifié ou non.  
 
 === Fluent === 
 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-To start Ansys Fluent from the command line on an OnDemand desktop, open a terminal window and run
-</div>
+Pour utiliser Ansys Fluent à partir de la ligne de commande sur un bureau OnDemand, ouvrez une fenêtre de terminal et exécutez
 
 
 ::: <code>module load StdEnv/2023 ansys/2025R2.04</code>
 ::: <code>fluent</code>
 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-When the Fluent Launcher popup selector panel appears, click on the ''Environment tab'' and copy/paste the environment variable settings from one of the following two subsections, depending on whether you started your OnDemand session with a GPU for graphical acceleration. Do not include the text in parentheses as these are comments, and do not put <code>export</code> in front of any variable name. If the graphics console window becomes corrupted when starting the GUI, restart Fluent, setting <code>HOOPS_PICTURE=null</code> to disable the creation of the graphics panel.
-</div>
+Lorsque le panneau de sélection du lanceur Fluent apparaît, cliquez sur l'onglet ''Environment'' et copiez-collez les paramètres des variables d'environnement de l'une des deux sous-sections suivantes, selon que vous ayez démarré votre session OnDemand avec un GPU ou non. N'incluez pas le texte entre parenthèses, car il s'agit de commentaires, et n'ajoutez pas `<code>export</code>` devant le nom d'une variable. Si la fenêtre de la console graphique est corrompue au démarrage de l'interface graphique, redémarrez Fluent en définissant `<code>HOOPS_PICTURE=null</code>` pour désactiver la création du panneau graphique.
 
-<b>Compute Node (sans GPU)</b>
+<b>Nœud de calcul (sans GPU)</b>
 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-::: <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> &nbsp;&nbsp;&nbsp;&nbsp; (required on Nibi w/ intelmpi)
-::: <code>HOOPS_PICTURE=opengl2-mesa</code> &nbsp;&nbsp; (version 2025R1 or newer)
-::: <code>HOOPS_PICTURE=x11/lin</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   (version 2024R2.04 or older)
-::: Click on the ''Start'' button.
-</div>
+::: <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> &nbsp;&nbsp;&nbsp;&nbsp; (requis sur Nibi avec intelmpi)
+::: <code>HOOPS_PICTURE=opengl2-mesa</code> &nbsp;&nbsp; (versions 2025R1 et suivantes)
+::: <code>HOOPS_PICTURE=x11/lin</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   (versions 2024R2.04 ou précédentes)
+::: Cliquez sur le bouton ''Start''.
 
 
 <b>Nœud de calcul (avec GPU)</b>
 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-To use hardware accelerated graphics with Fluent on Nibi, choose a t4 (15GB) from the GPU selector pulldown list for your OnDemand desktop session.  Doing this ensures that the environment variables used by VirtualGL to enable accelerated OpenGL graphics calls are automatically set up inside your desktop environment for the current session.  Once your desktop appears, open a terminal window and start Workbench as follows
-::: <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> &nbsp;&nbsp;&nbsp;&nbsp; (required on Nibi)
-::: <code>HOOPS_PICTURE=opengl2</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (version 2025R1 or newer)
-::: <code>HOOPS_PICTURE=opengl</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (version 2024R2.04 or older)
-::: Click on the ''Start'' button.
-</div>
+Pour utiliser l'accélération graphique avec Fluent sur Nibi, sélectionnez un t4 (15Go) dans la liste déroulante de sélection du GPU pour votre session de bureau OnDemand. Ceci fait en sorte que les variables d'environnement utilisées par VirtualGL pour activer l'accélération des appels OpenGL sont automatiquement configurées dans votre environnement de bureau pour la session en cours. Une fois votre bureau affiché, ouvrez une fenêtre de terminal et lancez Workbench comme suit&nbsp;:
+::: <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> (requis sur Nibi)
+::: <code>HOOPS_PICTURE=opengl2</code> (versions 2025R1 ou suivantes)
+::: <code>HOOPS_PICTURE=opengl</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (versions 2024R2.04 ou précédentes)
+::: Cliquez sur le bouton ''Start''.
 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-NOTE: When running Fluent on Nibi, the environment variable <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> must be manually set; otherwise, Fluent will crash when started inside OOD Compute Desktop sessions when intelmpi is used.  Error output such as the following will be created.  Should this occur, completely exit Fluent, cleanly shut down Workbench and start over.
- [mpiexec@g4.nibi.sharcnet] Error: Unable to run bstrap_proxy on g4.nibi.sharcnet (pid 2251587, exit code 256)
+REMARQUE : Lors de l’exécution de Fluent sur Nibi, la variable d’environnement <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> doit être définie manuellement, autrement Fluent plantera au démarrage dans les sessions OOD si IntelMPI est utilisé. Un message d’erreur similaire au suivant sera généré. Si cela se produit, quittez complètement Fluent, fermez Workbench proprement et redémarrez-le.
  [mpiexec@g4.nibi.sharcnet] poll_for_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:157): check exit codes error
  [mpiexec@g4.nibi.sharcnet] HYD_dmx_poll_wait_for_proxy_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:206): poll for  event error
  [mpiexec@g4.nibi.sharcnet] HYD_bstrap_setup (../../../../../src/pm/i_hydra/libhydra/bstrap/src/intel/i_hydra_bstrap.c:1063): error waiting for event
  [mpiexec@g4.nibi.sharcnet] Error setting up the bootstrap proxies
-</div>
 
 === CFX === 
 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-When starting CFX from an OnDemand desktop, the following arguments may be specified on the terminal window command line.  Use <code>ogl</code> if you requested a GPU when the desktop was started and use <code>mesa</code> if you did not.
-</div>
+Au lancement de CFX à partir d'un bureau OnDemand, les arguments suivants peuvent être spécifiés dans la ligne de commande de la fenêtre de terminal. Utilisez <code>ogl</code> si vous avez demandé un GPU au démarrage du bureau et <code>mesa</code> dans le cas contraire.
 
 
-<div class="mw-translate-fuzzy">
-::: <code>cfx5 -graphics mesa</code>   (sans GPU requested)
-::: <code>cfx5 -graphics ogl</code>    (avec GPU requested)
-</div>
+::: <code>cfx5 -graphics mesa</code>   (sans  GPU )
+::: <code>cfx5 -graphics ogl</code>   &nbsp; (avec GPU)
 
 
 === Mapdl === 
 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-The following steps for starting the Mechanical APDL GUI from the command line of a terminal window should work regardless  of whether you have started your OnDemand desktop on a compute node with or without a GPU.
-</div>
+Pour démarrer l'interface graphique de Mechanical APDL à partir de la ligne de commande d'une fenêtre de terminal, les étapes suivantes  devraient fonctionner, que vous ayez démarré votre bureau OnDemand sur un nœud de calcul avec ou sans GPU.
 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-::: <code>module load StdEnv/2023 ansys/2022R2</code> (or newer versions)
-::: <code>mapdl -g</code>, or,
-::: <code>launcher</code> then click on the <code>RUN</code> button
-</div>
+::: <code>module load StdEnv/2023 ansys/2022R2</code> (ou versions plus récentes)
+::: <code>mapdl -g</code>, ou
+::: <code>launcher</code> puis cliquez sur le bouton ''Run''
 
 
 === Workbench === 
 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-This section shows how to start Workbench (and optionally Fluent) on either an OnDemand desktop or a JupyterLab desktop.
-</div>
+Nous décrivons ici comment démarrer Workbench (et éventuellement Fluent) sur un bureau OnDemand ou un bureau JupyterLab.
 
 <span id="OnDemand_desktop"></span>
 ==== Bureau OnDemand==== 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-<b>Compute node (no GPU requested) or basic desktop</b>
-</div>
+<b>Nœud de calcul (sans GPU) ou bureau de base</b>
 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-If accelerated graphics are not required for your desktop session, specify ''GPU Node'' to select a compute node without a GPU for your OOD session.  Doing this uses Mesa software emulation for opengl calls, instead of running on a more expensive and difficult to reserve GPU node.
+Si l'accélération graphique n'est pas requise pour votre session de bureau, spécifiez ''GPU Node'' pour sélectionner un nœud de calcul sans GPU pour votre session OOD. Ceci utilise l'émulation logicielle Mesa pour les appels OpenGL, au lieu d'exécuter le programme sur un nœud GPU plus coûteux et plus difficile à réserver.
 ::: <code>module load StdEnv/2023 ansys/2025R2.04</code>
 ::: <code>runwb2</code>
-</div>
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-To start Fluent from within Workbench, click on ''Fluid Flow (Fluent)'' or ''Fluent with Fluent Meshing'' in the ''Analysis'' menu on the left, and click on ''Setup'' in the centre canvas ''Fluid Flow (Fluent)'' popup.  Once the ''Fluent Launcher'' selector panel popup appears, click on the ''Environment'' tab and copy/paste the following environment variable settings:
-::: <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> &nbsp;&nbsp;&nbsp;&nbsp; (required on the Nibi cluster only when using intelmpi)
-::: <code>HOOPS_PICTURE=opengl2-mesa</code> &nbsp;&nbsp; (optional for 2025R1 or newer)
-::: Click on the ''Start'' button.
-</div>
+Pour lancer Fluent à partir de Workbench, cliquez sur ''Fluid Flow (Fluent)'' ou ''Fluent with Fluent Meshing'' dans le menu de gauche ''Analysis'' puis cliquez sur ''Setup'' au centre de la fenêtre contextuelle ''Fluid Flow (Fluent)''.  Dans le panneau  de sélection ''Fluent Launcher'' affiché, cliquez sur l'onglet ''Environment'' et copiez-collez les paramètres de variables d'environnement suivants&nbsp;:
+::: <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> (requis uniquement sur Nibi pour l'utilisation d'IntelMPI)
+::: <code>HOOPS_PICTURE=opengl2-mesa</code> (facultatif pour 2025R1 ou versions suivantes)
+::: Cliquez sur le bouton ''Start''.
 
 
 <b>Nœud de calcul (avec GPU)</b>
 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-If accelerated graphics are required on the Nibi cluster, choose t4 (15GB) from the GPU selector pulldown list for your OnDemand desktop session.  Doing this will ensure that the environment variables used by VirtualGL to enable accelerated OpenGL graphics calls are automatically set up inside your desktop environment for the current session.  Once your desktop appears, open a terminal window and start Workbench as follows
+Pour utiliser l'accélération graphique sur Nibi, sélectionnez un t4 (15Go) dans la liste déroulante de sélection du GPU pour votre session de bureau OnDemand. Ceci fait en sorte que les variables d'environnement utilisées par VirtualGL pour activer l'accélération des appels OpenGL sont automatiquement configurées dans votre environnement de bureau pour la session en cours. Une fois votre bureau affiché, ouvrez une fenêtre de terminal et lancez Workbench comme suit&nbsp;:
 ::: <code>module load StdEnv/2023 ansys/2025R2.04</code>
 ::: <code>runwb2</code>
-</div>
 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-To start Fluent from within Workbench, click on ''Fluid Flow (Fluent)'' or ''Fluent with Fluent Meshing'' in the left-hand ''Analysis'' menu, and click on ''Setup'' in the centre canvas ''Fluid Flow Fluent'' popup.  Once the ''Fluent Launcher'' selector panel popup appears, click on the ''Environment'' tab and copy/paste the following environment variable settings.
-::: <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> &nbsp;&nbsp;&nbsp; (required on the Nibi cluster only)
-::: <code>HOOPS_PICTURE=opengl2</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(optional for 2025R1 or newer)
-::: Click on the ''Start'' button.
-</div>
+Pour lancer Fluent à partir de Workbench, cliquez sur ''Fluid Flow (Fluent)'' ou ''Fluent with Fluent Meshing'' dans le menu de gauche ''Analysis'' puis cliquez sur ''Setup'' au centre de la fenêtre contextuelle ''Fluid Flow (Fluent)''.  Dans le panneau  de sélection ''Fluent Launcher'' affiché, cliquez sur l'onglet ''Environment'' et copiez-collez les paramètres de variables d'environnement suivants&nbsp;:
+::: <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> (requis uniquement sur Nibi)
+::: <code>HOOPS_PICTURE=opengl2-mesa</code> (facultatif pour 2025R1 ou versions suivantes)
+::: Cliquez sur le bouton ''Start''.
 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-==== JupyterHub desktop ====
-</div> 
+<span id="JupyterHub_desktop"></span>
+==== Bureau JupyterHub ==== 
 
 
-<div class="mw-translate-fuzzy">
-==== Bureau JupyterHub ====
-</div>
-
-
-<div class="mw-translate-fuzzy">
 <b>Nœud de calcul (sans GPU)</b>
-</div>
-
-<div lang="en" dir="ltr" class="mw-content-ltr">
-<b>Compute node (with GPU requested)</b>
-</div>
 
 
-<div class="mw-translate-fuzzy">
+1. Dans le menu du bureau à gauche, cliquez pour charger Ansys/2025R1 (ou une version plus récente).
+2. Cliquez sur l'icône ''Workbench (VNC)'' située dans la fenêtre centrale de JupyterLab.
+: Si l'affichage d'une application (comme Fluent) lancée depuis Workbench semble corrompu et inutilisable, suivez les étapes suivantes pour créer une icône personnalisée ''runwb2'' sur le bureau afin de pouvoir démarrer Workbench en mode Mesa. Si l'une des applications que vous allez lancer dans Workbench est Fluent, vous pouvez également essayer de <br>
+::définir la variable <code>HOOPS_PICTURE=opengl2-mesa</code>  dans la fenêtre ''Fluent Launcher'' au lancement de Fluent<br>
+::définir la variable <code>HOOPS_PICTURE=opengl2-mesa</code> dans la fenêtre ''Fluent Launcher''.<br> 
+3. Quittez Workbench et ouvrez une fenêtre de terminal. Copiez/collez la commande suivante dans le ''Remote Clipboard'' situé en haut à droite de votre bureau Jupyter <code>cd ~/Desktop; cp -p $(realpath workbench.desktop) workbench-mesa.desktop</code>. <br>
+4. Ouvrez le fichier nouvellement créé dans un éditeur de texte tel que nano avec
+:<code>nano ~/Desktop/workbench-mesa.desktop</code><br>
+5. Modifiez toutes les occurrences de ''runwb2'' et fermez l'éditeur en enregistrant les modifications.<br>
+6. Actualisez le bureau Jupyter en appuyant sur la combinaison de touches <i>Ctrl+R</i>. La nouvelle icône devrait maintenant apparaître sur le bureau, à côté de l'icône Workbench d'origine. Double-cliquez dessus pour démarrer Workbench. La nouvelle icône restera affichée pour les sessions suivantes jusqu'à ce que vous la supprimiez manuellement avec
+:<code>rm -f ~/Desktop/workbench-mesa.desktop</code>
+
 <b>Nœud de calcul (avec GPU)</b>
-</div>
 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
+::: Cliquez pour charger ansys/2025R1 (ou versions suivantes).
+::: Cliquez sur l'icône Workbench (VNC) qui se trouve dans la fenêtre centrale du bureau JupyterLab.
+
+
 === Ensight ===
 ::: <code>module load StdEnv/2023 ansys/2022R2; A=222; B=5.12.6</code>
 ::: <code>export LD_LIBRARY_PATH=$EBROOTANSYS/v$A/CEI/apex$A/machines/linux_2.6_64/qt-$B/lib</code>
 ::: <code>ensight -X</code>
-</div>
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
 === Rocky ===
-Load the following modules
- <code>module load StdEnv/2023 ansys/2025R2.04</code> (or 2025R1, 2025R1.02, 2025R2)
-*The Rocky command starts Rocky in graphical mode.
-* The <code>RockySolver</code> command runs the solver directly from the command line.
-* The <code>RockySchedular</code> GUI starts a GUI to submit/run jobs on the current node.
-</div>
+Chargez les modules sivants&nbsp;:
+ <code>module load StdEnv/2023 ansys/2025R2.04</code> (ou 2025R1, 2025R1.02, 2025R2)
+*La commande <code>Rocky</code> lance Rocky en mode graphique.
+* La commande <code>RockySolver</code> exécute le solveur directement sur la ligne de commande.
+* La commande <code>RockySchedular</code> lance une interface graphique pour soumettre et exécuter des tâches sur le nœud actif.
 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-== Electronics ==
-</div> 
+== Electronics == 
 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-See [[AnsysEDT| our AnsysEDT wiki page]].
-</div>
+Voir notre page wiki [[AnsysEDT/fr|AnsysEDT]].

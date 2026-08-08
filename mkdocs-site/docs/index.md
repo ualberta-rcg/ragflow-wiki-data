@@ -82,7 +82,7 @@ title: Home
 | **Cedar Cloud** | :material-check-circle:{ style="color: green" } Operational |
 | **Graham Cloud** | :material-check-circle:{ style="color: green" } Operational |
 | **Nibi** | :material-alert:{ style="color: orange" } Reduced throughput / power shedding |
-| **Fir** | :material-alert:{ style="color: orange" } Filesystem problem |
+| **Fir** | :material-check-circle:{ style="color: green" } Operational |
 | **Rorqual** | :material-check-circle:{ style="color: green" } Operational |
 | **Arbutus** | :material-check-circle:{ style="color: green" } Operational |
 | **Juno** | :material-check-circle:{ style="color: green" } Operational |
@@ -90,7 +90,7 @@ title: Home
 | **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
 | **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-08-07 23:14 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-08-08 23:37 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -111,7 +111,7 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 | TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4043887) |
 | TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4043889) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-08-07 23:14 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-08-08 23:37 UTC.*</small>
 
 ---
 
