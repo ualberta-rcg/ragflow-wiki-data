@@ -297,19 +297,27 @@ def main():
         print(f"Force mode: cleared ragflow_source_hash on {cleared} docs")
         save_state(state)
 
-    # Connect to RAGFlow
+# Connect to RAGFlow
     print(f"\nConnecting to RAGFlow...")
     try:
         rag = RAGFlow(api_key=RAGFLOW_API_KEY, base_url=RAGFLOW_BASE_URL)
-        datasets = rag.list_datasets()
+        datasets = rag.list_datasets(name="alliance-docs")
         if not datasets:
-            print("ERROR: No datasets found in RAGFlow")
+            print("ERROR: dataset 'alliance-docs' not found")
+            print(f"Available: {[d.name for d in rag.list_datasets()]}")
             return 1
         dataset = datasets[0]
-        print(f"Using dataset: {dataset.name}")
+        print(f"Using dataset: {dataset.name} ({dataset.id})")
     except Exception as e:
         print(f"ERROR: Could not connect to RAGFlow: {e}")
         return 1
+
+    prior = state.get("ragflow_dataset_id")
+    if prior and prior != dataset.id:
+        print(f"ERROR: state was synced against dataset {prior}, now resolving to {dataset.id}")
+        print("Refusing to run. Verify the dataset, then re-run with --force if intentional.")
+        return 1
+    state["ragflow_dataset_id"] = dataset.id
 
     # --verify: find docs that claim synced but are missing from RAGFlow
     if args.verify:
