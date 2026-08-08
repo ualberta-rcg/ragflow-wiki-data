@@ -83,14 +83,16 @@ We can see that the CephFS network is attached to the first VM.
 
 == VM configuration: install and configure CephFS client ==
 
-=== Required packages for the Red Hat family (RHEL, CentOS, Fedora, Rocky, Alma ) ===
+=== Required packages for the Red Hat Enterprise Linux family (RHEL, CentOS, Fedora, Rocky, Alma ) ===
 Check the available releases at [https://download.ceph.com/ https://download.ceph.com/] and look for recent <code>rpm-*</code> directories.
-As of April 2026, <code>tentacle</code> is the latest stable release. 
+As of June 2026, <code>tentacle</code> is the latest stable release. 
 The compatible distributions (distros) are listed at [https://download.ceph.com/rpm-tentacle/ https://download.ceph.com/rpm-tentacle/].
-Here we show configuration examples for <code>Enterprise Linux 9</code> and derivatives. As of April 2026, the CephFS client is not available for <code>Enterprise Linux 10</code> and derivatives.
 
-; Install relevant repositories for access to ceph client packages:
+==== Add the Ceph software repository ====
+Depending on the version of Enterprise Linux you are running, add the follwowing file:
 
+<tabs>
+<tab name="el9">
 {{File
   |name=/etc/yum.repos.d/ceph.repo
   |lang="ini"
@@ -119,12 +121,54 @@ gpgcheck=1
 type=rpm-md
 gpgkey=https://download.ceph.com/keys/release.asc
 }}
+</tab>
+<tab name="el10">
+{{File
+  |name=/etc/yum.repos.d/ceph.repo
+  |lang="ini"
+  |contents=
+[Ceph]
+name=Ceph packages for $basearch
+baseurl=http://download.ceph.com/rpm-tentacle/el10/$basearch
+enabled=1
+gpgcheck=1
+type=rpm-md
+gpgkey=https://download.ceph.com/keys/release.asc
 
-The epel repo also needs to be in place
+[Ceph-noarch]
+name=Ceph noarch packages
+baseurl=http://download.ceph.com/rpm-tentacle/el10/noarch
+enabled=1
+gpgcheck=1
+type=rpm-md
+gpgkey=https://download.ceph.com/keys/release.asc
+
+[ceph-source]
+name=Ceph source packages
+baseurl=http://download.ceph.com/rpm-tentacle/el10/SRPMS
+enabled=1
+gpgcheck=1
+type=rpm-md
+gpgkey=https://download.ceph.com/keys/release.asc
+}}
+</tab>
+</tabs>
+
+==== Install relevant repositories for access to ceph client packages ====
+Install the Extra Packages for Enterprise Linux (EPEL) repository:
  sudo dnf install epel-release
+
+If you are running el10 you need to temporarily disable the default cryptographic policy due to how the Ceph packages are signed:
+ sudo update-crypto-policies --set LEGACY
+
+Import the Ceph project's public key needed to verify the cryptographic signatures on the software packages:
+  sudo rpm --import 'https://download.ceph.com/keys/release.asc'
 
 You can now install the ceph lib, cephfs client and other dependencies:
  sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse
+
+If you disabled the default cryptographic policy, you should restore the default cryptographic policy
+  sudo update-crypto-policies --set DEFAULT
 
 === Required packages for the Debian family (Debian, Ubuntu, Mint, etc.) ===
 You can get the repository once you have figured out your distro <code>{codename}</code> with <code>lsb_release -sc</code>

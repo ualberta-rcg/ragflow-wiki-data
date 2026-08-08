@@ -2,6 +2,19 @@
   "doc_key": "fr/arbutus_migration_guide",
   "level": "chunk",
   "chunk_index": 13,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:47:09.840686+00:00"
+  "qa_pairs": [
+    {
+      "question": "Quelle est la procédure recommandée pour migrer les données d'un système de fichiers partagé CephFS de l'ancien au nouveau nuage Arbutus?",
+      "answer": "Pour chaque point de partage du nuage précédent, il faut créer un point de partage équivalent dans le nouveau nuage. Ensuite, montez les deux points de partage sur des emplacements de montage distincts sur la même machine virtuelle dans le nouveau nuage, puis utilisez un outil de copie de données tel que rsync pour transférer les données du précédent vers le nouveau point de partage."
+    },
+    {
+      "question": "Quelles sont les différences importantes à considérer lors de la création et du montage d'un nouveau point de partage CephFS dans le nouveau nuage Arbutus, comparativement à l'ancien?",
+      "answer": "Lors de la création d'un point de partage équivalent dans le nouveau nuage, il faut le créer ainsi que les clés d'accès via la nouvelle interface web. Il est aussi nécessaire de créer un fichier `ceph.conf` distinct, comme ''ceph-new.conf'', de mettre à jour la valeur de configuration `mon_host` uniquement dans ce nouveau fichier, et d'ajouter l'option ''conf=/etc/ceph/ceph-new.conf'' après l'option `-o` dans la commande `mount` pour spécifier le nouveau fichier de configuration lors du montage."
+    },
+    {
+      "question": "Quel est l'outil recommandé et quelles options doit-on utiliser pour copier les données entre les points de partage CephFS durant la migration, et comment l'exécute-t-on?",
+      "answer": "Pour transférer les données entre les points de partage CephFS, l'outil recommandé est rsync avec les options `a`, `v` et `p`. La commande s'exécute comme suit : `rsync -avp /mnt/old-share/ /mnt/new-share/`."
+    }
+  ],
+  "generated_at": "2026-08-07T23:40:25.780532+00:00"
 }

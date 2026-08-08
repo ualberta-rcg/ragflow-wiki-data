@@ -1,0 +1,20 @@
+{
+  "doc_key": "base/cluster_batch_job_submission_with_ansys",
+  "level": "chunk",
+  "chunk_index": 10,
+  "qa_pairs": [
+    {
+      "question": "What is the main function of the `script-flu-bynode+restart.sh` Slurm script for Ansys Fluent?",
+      "answer": "The `script-flu-bynode+restart.sh` Slurm script is designed to run Ansys Fluent jobs on multiple compute nodes, with the added functionality of automating solution restarts. This allows simulations to continue from a previous state, which is particularly useful for jobs exceeding typical runtime limits or needing multiple attempts."
+    },
+    {
+      "question": "How does the `script-flu-bynode+restart.sh` script differentiate between an initial simulation run and a subsequent restart?",
+      "answer": "The script utilizes the Slurm `--array` directive (e.g., `#SBATCH --array=1-5%1`) to manage multiple job attempts or restarts. It uses the `$SLURM_ARRAY_TASK_ID` environment variable: if it's the first task (ID `== 1`), it executes the initial journal file (`MYJOUFILE`). For all subsequent tasks (ID `> 1`), it uses the restart journal file (`MYJOUFILERES`) to continue the simulation."
+    },
+    {
+      "question": "What are the required user-defined variables and key Slurm directives in the `script-flu-bynode+restart.sh` script?",
+      "answer": "Key user-defined variables include `MYVERSION` (e.g., `3d` for the Fluent version), `MYJOUFILE` (the initial journal filename), `MYJOUFILERES` (the journal filename for restarts), `MYCASFILERES` (the case restart filename), and `MYDATFILERES` (the data restart filename). Essential Slurm directives are `--account`, `--time`, `--nodes`, `--ntasks-per-node`, `--mem`, `--cpus-per-task`, and especially `--array` to specify the number of solution restarts."
+    }
+  ],
+  "generated_at": "2026-08-08T01:07:14.441702+00:00"
+}

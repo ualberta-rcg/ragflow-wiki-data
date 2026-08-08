@@ -4,17 +4,17 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "How do I load a specific GROMACS version, such as `gromacs/2025.4`, for CPU-only execution within the `StdEnv/2023` environment?",
-      "answer": "To load `gromacs/2025.4` for CPU-only execution in the `StdEnv/2023` environment, you would use the command: `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2025.4`. CPU-only versions are available in both single- and double precision, with the exception of GROMACS 2019.3, where double precision is not available for AVX512."
+      "question": "What specific issue should users be aware of when running GROMACS versions 2020.0 to 2021.5 on Volta or newer generation GPUs?",
+      "answer": "GROMACS versions 2020.0 through 2021.5 contain a bug that could perturb the virial calculation and lead to incorrect pressure coupling when the `mdrun` option `-update gpu` is manually selected on Volta or newer generation GPUs (i.e., V100, T4, A100, and H100)."
     },
     {
-      "question": "For GROMACS versions 5.x, 2016.x, and newer, what do the different binary names like `gmx`, `gmx_mpi`, `gmx_d`, and `gmx_mpi_d` indicate?",
-      "answer": "For GROMACS versions 5.x, 2016.x, and newer, the binaries indicate:\n*   `gmx`: mixed (\"single\") precision GROMACS with OpenMP (threading) but without MPI.\n*   `gmx_mpi`: mixed (\"single\") precision GROMACS with OpenMP and MPI.\n*   `gmx_d`: double precision GROMACS with OpenMP but without MPI.\n*   `gmx_mpi_d`: double precision GROMACS with OpenMP and MPI.\nGPU-enabled versions are typically only available with single precision."
+      "question": "How does one load a specific GROMACS version, such as 2025.4, for CPU-only or GPU-accelerated molecular dynamics simulations using environment modules?",
+      "answer": "To load GROMACS 2025.4 for CPU-only simulations, use the command: `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2025.4`. For GPU-accelerated simulations, the `cuda` module must be loaded first, using: `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 gromacs/2025.4`. It's important to note that GPU-enabled versions are only available with single precision."
     },
     {
-      "question": "When running GROMACS on whole nodes, what is the recommended practice for setting `--ntasks-per-node` and `--cpus-per-task` in a SLURM job script, and how should domain decomposition issues be handled?",
-      "answer": "Generally, the product of `--ntasks-per-node` and `--cpus-per-task` should match the number of CPU cores of the cluster’s compute nodes. If GROMACS reports an error about domain decomposition being impossible given the system size and requested number of domains, you should halve `--ntasks-per-node` and double `--cpus-per-task`."
+      "question": "For GROMACS versions 5.x, 2016.x, and newer, what are the different binary names and their corresponding functionalities regarding precision and parallelization?",
+      "answer": "For GROMACS 5.x, 2016.x, and newer, the available binaries are:\n* `gmx`: Mixed (\"single\") precision GROMACS with OpenMP (threading) but without MPI.\n* `gmx_mpi`: Mixed (\"single\") precision GROMACS with OpenMP and MPI.\n* `gmx_d`: Double precision GROMACS with OpenMP but without MPI.\n* `gmx_mpi_d`: Double precision GROMACS with OpenMP and MPI."
     }
   ],
-  "generated_at": "2026-04-13T06:04:15.166685+00:00"
+  "generated_at": "2026-08-07T23:58:40.675623+00:00"
 }

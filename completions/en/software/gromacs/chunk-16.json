@@ -4,17 +4,17 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "How can a GROMACS molecular dynamics simulation be configured to gracefully shut down and create a checkpoint file before reaching its allocated time limit?",
-      "answer": "To ensure a GROMACS simulation gracefully finishes and creates a checkpoint file before its walltime, you should use the `mdrun` parameter `-maxh` to specify the requested walltime. This should be used in conjunction with the Slurm `#SBATCH --time` directive, for example, `#SBATCH --time=24:00` with `gmx mdrun -maxh 24`."
+      "question": "How does GROMACS distribute non-bonded interactions across multiple CPU cores, and what factors can affect its parallel performance?",
+      "answer": "GROMACS utilizes Domain Decomposition (DD) to distribute the computation of non-bonded Particle-Particle (PP) interactions across several CPU cores. This process involves dividing the simulation box into domains along the X, Y, and/or Z axes, with each domain assigned to an MPI process. Performance can decline if the communication overhead becomes substantial relative to the size or volume of a domain, leading to a significant drop in parallel scaling. GROMACS addresses this using Dynamic Load Balancing, which can automatically shift domain boundaries (with `-dlb auto` as the default `mdrun` parameter) to optimize efficiency. Domains cannot be smaller in any direction than the longest cutoff radius."
     },
     {
-      "question": "What command-line option is used to restart an existing GROMACS simulation from a checkpoint file?",
-      "answer": "To restart an existing GROMACS simulation, use the `mdrun` command with the `-cpi state.cpt` parameter, where `state.cpt` is the filename of the most recent checkpoint file. By default, `mdrun` will attempt to append to existing output files and verify their consistency."
+      "question": "What is the Particle-Mesh-Ewald (PME) method in GROMACS, and how is its performance managed, especially concerning MPI processes and GPUs?",
+      "answer": "The Particle-Mesh-Ewald (PME) method in GROMACS is used to calculate long-range non-bonded interactions, those extending beyond the cutoff radius. Since PME requires global communication, its performance can suffer when many MPI processes are involved in calculating both short-range (PP) and long-range interactions. To optimize this, GROMACS can dedicate specific MPI processes (PME-ranks) to PME calculations; by default, `mdrun` employs this strategy for 12 or more total MPI processes, though the `-npme` parameter allows manual selection. GROMACS also attempts to automatically balance the workload between PP and PME ranks by increasing the cutoff radius (since version 4.6), which effectively shifts work to PME ranks without altering the simulation result. As of GROMACS version 2018, PME can be offloaded to GPUs, although the initial implementation (version 2018.1) had limitations, such as dedicating only a single GPU rank to PME."
     },
     {
-      "question": "What is the advantage of using Slurm job arrays for checkpointing GROMACS simulations?",
-      "answer": "Using Slurm job arrays for checkpointing GROMACS simulations allows for the automation of splitting long simulations into multiple shorter jobs. This reduces the wait time in the queue, especially for jobs requesting three hours or less which are eligible for backfill scheduling, and enables the simulation to resume automatically from a checkpoint file with sequential jobs."
+      "question": "How can OpenMP threads be used to improve GROMACS simulation performance, and what are the recommended configurations?",
+      "answer": "OpenMP threads can be used to further enhance GROMACS simulation performance once the parallel scaling limits of Domain Decomposition with MPI processes have been reached. They function by distributing the work of a single MPI process (rank) across multiple CPU cores. To configure OpenMP threads, you should use Slurm's `--cpus-per-task` parameter in your job script (for both `#SBATCH` and `srun`) and either set the `OMP_NUM_THREADS` environment variable (recommended, e.g., `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"`) or specify it directly with the `mdrun` parameter `-ntomp`. GROMACS developers generally recommend between 2 and 6 OpenMP threads per MPI process, though a higher number of `cpus-per-task` might be beneficial for jobs running on a very large number of nodes."
     }
   ],
-  "generated_at": "2026-04-13T06:10:43.276006+00:00"
+  "generated_at": "2026-08-08T00:04:22.150246+00:00"
 }

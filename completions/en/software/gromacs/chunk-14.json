@@ -4,17 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of the `mdrun -multidir` option in GROMACS when running simulations on a GPU?",
-      "answer": "The `mdrun -multidir` option in GROMACS allows for running multiple similar simulations concurrently on a single GPU, which is particularly useful when a single simulation cannot fully utilize recent GPU models like the Nvidia A100 or H100."
+      "question": "What is the primary benefit of using GROMACS's checkpointing ability for long simulations?",
+      "answer": "The primary benefit of using GROMACS's checkpointing ability for long simulations is to split them into multiple shorter jobs. This approach helps reduce queue waiting times, as jobs requesting 3 hours or less are eligible for backfill scheduling, which improves efficiency."
     },
     {
-      "question": "For what specific types of GROMACS simulations is the `mdrun -multidir` option recommended?",
-      "answer": "The `mdrun -multidir` option is recommended for multiple similar simulations, such as repeating the same simulation to gain more conformational space sampling, simulating various protein variants, multiple small ligands with the same protein, different temperatures or ionic concentrations, or for ensemble-based simulations like replica exchange."
+      "question": "How can users automate the process of restarting GROMACS simulations from checkpoints using job arrays?",
+      "answer": "Users can automate GROMACS simulation checkpointing by employing a job array script. A single `sbatch` command submits multiple short jobs, where only the first is initially eligible to start. As each job completes, the next automatically becomes eligible to start and resume the simulation from the most recent checkpoint, continuing until the simulation is finished or all jobs are complete, at which point any pending jobs are cancelled."
     },
     {
-      "question": "What is the recommended approach for running GROMACS simulations on a GPU if the simulations are dissimilar or if only a single simulation is being run?",
-      "answer": "If simulations are dissimilar (e.g., differing by more than 10% in atom count or having different shapes/compositions) or if only a single simulation is being run, using a Multi-Instance GPU (MIG) instance (a fraction of a GPU) is the preferred solution, rather than the `mdrun -multidir` option."
+      "question": "Why is it beneficial to submit GROMACS jobs with a walltime of 3 hours or less when utilizing checkpointing?",
+      "answer": "Submitting GROMACS jobs with a walltime of 3 hours or less is beneficial when using checkpointing because these shorter jobs are eligible for backfill scheduling. This allows them to start sooner by utilizing otherwise idle resources, reducing overall waiting times, and is particularly advantageous for research groups with default resource allocations."
     }
   ],
-  "generated_at": "2026-04-13T06:10:26.751803+00:00"
+  "generated_at": "2026-08-08T00:04:04.339469+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 17,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `-maxh` parameter when running GROMACS `mdrun` simulations?",
-      "answer": "The `mdrun -maxh` parameter informs GROMACS of the requested walltime for a job, prompting the program to gracefully conclude the current timestep when it reaches 99% of the specified time limit. This ensures that a new checkpoint file is created, and all output files (like trajectories, energy, and log files) are properly closed."
+      "question": "Why would a user employ a Slurm job array to checkpoint a GROMACS simulation on a computing cluster?",
+      "answer": "A user would employ a Slurm job array to checkpoint a GROMACS simulation to split a long simulation over multiple shorter jobs. This approach is beneficial because shorter jobs typically experience less waiting time in the queue, with jobs requesting three hours or less even being eligible for backfill scheduling. The job array automates this process, submitting multiple short jobs where the next one becomes eligible and resumes the simulation as soon as the previous one has completed, continuing until the simulation is entirely finished."
     },
     {
-      "question": "How do you restart a GROMACS simulation using a checkpoint file?",
-      "answer": "To restart a GROMACS simulation, use the same `mdrun` command as the original simulation and include the `-cpi state.cpt` parameter, where `state.cpt` refers to the most recent checkpoint file. By default (since version 4.5), `mdrun` will append to existing output files and check their consistency, discarding any timesteps newer than the checkpoint file if necessary."
+      "question": "What specific GROMACS `mdrun` options are crucial for restarting a simulation from a checkpoint within a Slurm job array script?",
+      "answer": "Within a Slurm job array script, the crucial GROMACS `mdrun` options for restarting a simulation from a checkpoint are `-cpi` and `-maxh`. The `-cpi \"$simname.cpt\"` option is used to specify the checkpoint file from which the simulation should resume. The `-maxh $nhours` option instructs `mdrun` to gracefully conclude the current timestep when it reaches 99% of the allocated walltime, ensuring that a consistent checkpoint file is written before the job ends."
     },
     {
-      "question": "What advantage does using Slurm job arrays offer for checkpointing long GROMACS simulations?",
-      "answer": "Using Slurm job arrays for checkpointing GROMACS simulations allows long simulations to be divided into multiple shorter jobs. This is advantageous because shorter jobs typically experience less queue waiting time, especially those under three hours, which are eligible for backfill scheduling. This strategy enables automated continuation of simulations across multiple jobs until completion, optimizing the use of computational resources and scheduling policies."
+      "question": "How do the provided job array scripts ensure that pending GROMACS jobs are automatically cancelled if a simulation either finishes or encounters an error?",
+      "answer": "The provided job array scripts ensure automatic cancellation of pending jobs through conditional logic. If the `gmx mdrun` command exits with a non-zero status, indicating an error, the script will echo an error message and execute `scancel -t pending $SLURM_ARRAY_JOB_ID` to cancel all remaining jobs in the array. Similarly, after `mdrun` completes, the script checks the `simname.log` file for a specific line confirming that a checkpoint was written at the final step (`grep \"^Writing checkpoint, step $nsteps at \" \"$simname.log\"`). If this line is found, it signifies the simulation has finished, and `scancel -t pending $SLURM_ARRAY_JOB_ID` is used to cancel any subsequent pending jobs."
     }
   ],
-  "generated_at": "2026-04-13T06:05:29.425979+00:00"
+  "generated_at": "2026-08-07T23:59:51.766952+00:00"
 }

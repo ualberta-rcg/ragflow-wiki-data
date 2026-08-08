@@ -4,13 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How do I submit a VASP job that utilizes a GPU on a Slurm-managed cluster?",
-      "answer": "You can submit a VASP job using a Slurm script like `vasp_gpu_job.sh`. Key directives in this script include `--cpus-per-task=1` for CPU processes, `--gres=gpu:p100:1` to request one P100 GPU (valid on Cedar), `--mem=3GB` for memory, and `--time=0-00:05` for the job's runtime. The script also loads required modules such as `intel/2020.1.217`, `cuda/11.0`, `openmpi/4.0.3`, and the specific VASP version, then runs VASP using `mpirun <VASP>`."
+      "question": "What are the necessary input files for a VASP job, and how should a VASP job be submitted?",
+      "answer": "VASP uses four input files: INCAR, KPOINTS, POSCAR, and POTCAR. It is best practice to prepare these files in a separate directory for each job. To submit the job from that directory, use the command `sbatch vasp_job.sh`."
     },
     {
-      "question": "Which Slurm directive is used to request a P100 GPU for a VASP job, and on which cluster is this GPU type primarily available?",
-      "answer": "To request a P100 GPU for a VASP job, the Slurm directive `--gres=gpu:p100:1` is used. This specific GPU type (P100) is valid only for the Cedar cluster. For other clusters, you would need to consult their documentation for available GPU types."
+      "question": "How can users estimate the memory requirements for a VASP job?",
+      "answer": "To estimate memory, users should first prepare all input files and then run `makeparam` in an interactive job submission. The output of `makeparam` can be used as the required memory for the subsequent run. For more precise estimates for future jobs, users should check the maximum stack size used by previously completed jobs and apply that as the memory requirement per processor."
+    },
+    {
+      "question": "How can a user with a VASP license and access to the source code install different versions of VASP in their home directory on the clusters?",
+      "answer": "Users with a VASP license and access to the VASP source code can install various versions in their `/home` directory on all clusters using EasyBuild commands. The command format is `eb -f [RECIPE NAME] --sourcepath=[SOURCEPATH]`, where `[SOURCEPATH]` specifies the directory containing the VASP source code, and `[RECIPE NAME]` refers to the name of the EasyBuild recipe. The source code can be downloaded from the official VASP website."
     }
   ],
-  "generated_at": "2026-04-26T01:08:35.731257+00:00"
+  "generated_at": "2026-08-08T00:57:11.836568+00:00"
 }

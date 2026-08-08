@@ -1,6 +1,87 @@
 {
   "doc_key": "en/arbutus_migration_guide",
   "level": "page",
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:43:54.705654+00:00"
+  "qa_pairs": [
+    {
+      "question": "What is the main purpose of the document detailing Arbutus Cloud migration?",
+      "answer": "The document describes how to migrate virtual machine (VM) instances and other cloud resources from the legacy Arbutus Cloud to the new Arbutus Cloud."
+    },
+    {
+      "question": "Why is migration from the legacy Arbutus Cloud necessary for users?",
+      "answer": "Migration is necessary because the legacy Arbutus Cloud will be decommissioned in 2026."
+    },
+    {
+      "question": "What is the deadline for RAS and RAC projects to complete their migration to the new Arbutus Cloud?",
+      "answer": "The deadline for both RAS and RAC projects to migrate to the new Arbutus Cloud is August 31, 2026."
+    },
+    {
+      "question": "What is the first crucial step recommended for users when planning their cloud migration from the legacy Arbutus Cloud?",
+      "answer": "Users should create a list of all resources, such as instances and volumes, which require migration, deleting any that are no longer needed."
+    },
+    {
+      "question": "How should volumes larger than 150 GB be migrated from the legacy Arbutus Cloud to the new Arbutus Cloud?",
+      "answer": "Volumes over 150 GB should be migrated using Globus."
+    },
+    {
+      "question": "If a user has used automated deployment systems like Terraform or Ansible on the legacy Arbutus Cloud, what is recommended for the migration process to the new Arbutus Cloud?",
+      "answer": "If automated deployment systems like Terraform or Ansible were used on the legacy Arbutus Cloud, the same automation tools should be used for the migration to the new Arbutus Cloud."
+    },
+    {
+      "question": "What action is required for custom DNS entries during the migration to the new Arbutus Cloud?",
+      "answer": "Custom DNS entries will need to be updated because the new Arbutus Cloud uses different floating IP address ranges."
+    },
+    {
+      "question": "What is a prerequisite for all users who need access to resources on the new Arbutus Cloud?",
+      "answer": "All users who need access must have an active account with the Alliance and should apply on CCDB if they don't already have one."
+    },
+    {
+      "question": "Who is responsible for creating backups of critical data before beginning a migration on the Arbutus Cloud?",
+      "answer": "Project owners are responsible for creating backups of any critical data before migration, as the Arbutus Cloud teams do not make backups or copies of instances."
+    },
+    {
+      "question": "What specific modifications are required for the RC file downloaded from the new Arbutus Cloud?",
+      "answer": "Users must add `export OS_AUTH_TYPE=v3websso`, `export OS_IDENTITY_PROVIDER=atmosphere`, `export OS_PROTOCOL=openid`, and `export OS_PROJECT_DOMAIN_NAME=default`, while removing lines containing `OS_USER_DOMAIN_NAME` and the password prompt."
+    },
+    {
+      "question": "How can users migrate their SSH keys from the legacy Arbutus Horizon dashboard to the new Arbutus Horizon dashboard?",
+      "answer": "Users can navigate to 'Compute -> Key Pairs' on both dashboards, copy the public key value from the legacy cloud, and then import it into the new cloud."
+    },
+    {
+      "question": "What is the recommended method for migrating volume-backed instances with volumes less than 150GB in size from the legacy Arbutus Cloud?",
+      "answer": "For volume-backed instances with volumes less than 150GB, migration using Glance images is the recommended method."
+    },
+    {
+      "question": "What is the recommended method for migrating large bootable volumes from the legacy Arbutus Cloud when image-based methods are not suitable?",
+      "answer": "The `dd` command can be used to make an identical copy of a bootable volume from the legacy cloud to the new Arbutus Cloud."
+    },
+    {
+      "question": "What tool is recommended for copying very large data volumes (e.g., greater than 5TB) between cloud instances during migration?",
+      "answer": "Globus is recommended for copying very large data volumes, specifically using the Globus Connect Personal client with a Globus Plus subscription."
+    },
+    {
+      "question": "What tool is recommended for transferring small data volumes between instances during the Arbutus Cloud migration, and what network consideration is mentioned for performance?",
+      "answer": "For small data volumes, `rsync + ssh` is recommended, and using the IPv6 GUA network in OpenStack is suggested for potentially improved data transfer performance."
+    },
+    {
+      "question": "What are some common post-transfer activities required after migrating data to a new instance on the Arbutus Cloud?",
+      "answer": "Post-transfer configurations may include updating firewall rules, DNS entries, IP addresses in configuration files, altering database usernames, and renewing TLS certificates."
+    },
+    {
+      "question": "What procedure is recommended to ensure data integrity when migrating data between legacy and new CephFS shares on the Arbutus Cloud?",
+      "answer": "Users should create equivalent shares in the new cloud, mount both legacy and new shares to separate locations on the same virtual machine in the new cloud, and then use `rsync` to transfer data."
+    },
+    {
+      "question": "Which tool is recommended for migrating object storage data between the legacy and new Arbutus Clouds if a user is unsure which one to use?",
+      "answer": "Rclone is recommended for migrating object storage data, although it does not copy bucket ACLs."
+    },
+    {
+      "question": "What should users be aware of regarding bucket ACLs when migrating object storage to the new Arbutus Cloud?",
+      "answer": "Most tools, including rclone, do not preserve bucket ACLs, so they may need to be recreated in the new environment, and user or project UUIDs will differ."
+    },
+    {
+      "question": "Who should users contact if they have questions or need support during their Arbutus Cloud migration?",
+      "answer": "Support requests can be sent to cloud@tech.alliancecan.ca."
+    }
+  ],
+  "generated_at": "2026-08-07T23:37:21.017156+00:00"
 }

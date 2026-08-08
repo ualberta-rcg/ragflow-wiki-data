@@ -1,0 +1,16 @@
+{
+  "doc_key": "base/cluster_batch_job_submission_with_ansys",
+  "level": "chunk",
+  "chunk_index": 8,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the `SBATCH --array` directive in the `script-flu-bycore+requeue.sh` Slurm script when running an Ansys Fluent job?",
+      "answer": "The `SBATCH --array=1-5%1` directive in the `script-flu-bycore+requeue.sh` Slurm script is used to specify a job array, which enables the automatic requeueing of an Ansys Fluent job. This functionality is primarily intended for jobs that frequently fail to start due to license shortages, allowing for multiple attempts (e.g., up to 5 attempts as shown) to acquire a license without manual resubmission."
+    },
+    {
+      "question": "How does the `script-flu-bycore+requeue.sh` Slurm script configure resources for an Ansys Fluent job running on an Alliance cluster?",
+      "answer": "The `script-flu-bycore+requeue.sh` Slurm script configures resources using several `SBATCH` directives: `--time=00-03:00` sets a time limit of 3 hours; `--ntasks=16` specifies a total of 16 cores across all allocated nodes; `--mem-per-cpu=4G` allocates 4 GB of memory for each core; and `--cpus-per-task=1` indicates that each task uses one CPU. The script also loads the `StdEnv/2023` and `ansys/2023R2` modules, and defines the journal file (`MYJOURNALFILE=sample.jou`) and Fluent version (`MYVERSION=3d`) for the simulation. Fluent is then executed using the specified number of cores and an appropriate Intel MPI configuration, adapting for single-node or multi-node execution."
+    }
+  ],
+  "generated_at": "2026-08-08T01:06:59.949126+00:00"
+}

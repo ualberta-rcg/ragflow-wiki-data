@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How do researchers submit a standard Abaqus analysis job to a single compute node on the Alliance clusters?",
-      "answer": "Researchers can submit a standard Abaqus analysis job to a single compute node using a Slurm script like `scriptsp1.txt`. This script typically specifies account, time, CPU cores per task, total memory, and requests one node. It loads the Abaqus module (e.g., `abaqus/2026`), unsets `SLURM_GTIDS`, exports `MPI_IC_ORDER='tcp'`, and then executes the Abaqus command with parameters such as `job`, `input`, `scratch` (using `$SLURM_TMPDIR`), `cpus` (using `$SLURM_CPUS_ON_NODE`), `interactive`, `mp_mode=threads`, and `memory` (calculated as `$((${SLURM_MEM_PER_NODE}-3072))MB`). The script includes conditional execution for Abaqus versions 2021 and 2026 or newer."
+      "question": "For Abaqus jobs that demand significant memory or computational resources exceeding a single compute node's capacity, what approach should users take on Alliance clusters, and what preparatory steps are recommended?",
+      "answer": "Users should utilize MPI scripts provided in the multiple node sections to distribute computing across arbitrary node ranges determined by the scheduler. It is recommended to run short scaling test jobs to establish optimal wall-clock times and memory requirements based on the number of cores (e.g., 2, 4, 8) before executing any lengthy jobs."
     },
     {
-      "question": "How can a researcher restart a previously run standard Abaqus analysis job on a single compute node?",
-      "answer": "To restart a previously run standard Abaqus analysis job on a single compute node, a researcher should use a Slurm script similar to `scriptsp2.txt`. This script is configured like a standard submission but includes `oldjob=testsp1` to reference the previous job's data and `input=mystd-sim-restart.inp` for the restart input file. The restart input file (`mystd-sim-restart.inp`) must contain `*HEADING` and `*RESTART, READ` directives to instruct Abaqus to continue the analysis from the last saved state."
+      "question": "What types of parallelization are supported by Abaqus solvers for Standard Analysis jobs?",
+      "answer": "Abaqus solvers support both thread-based and MPI-based parallelization for Standard Analysis type jobs."
     },
     {
-      "question": "Which Abaqus versions are available for use on the Alliance clusters, and which is the recommended version?",
-      "answer": "The Abaqus versions `abaqus/2026` and `abaqus/2021` are available for use on the Alliance clusters for standard analysis. `abaqus/2026` is the latest version and is recommended, while `abaqus/2021` is noted for discontinuation and requires a different execution path (`/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare`). Users should update their personal Slurm scripts to work with `abaqus/2026`."
+      "question": "What is an example of a basic Slurm script for running a single-node Abaqus Standard Analysis job using the `abaqus/2026` module?",
+      "answer": "A basic Slurm script for a single-node Abaqus Standard Analysis job using `abaqus/2026` would include SBATCH directives to specify the account (`#SBATCH --account=def-group`), time limit (`#SBATCH --time=00-06:00`), CPUs per task (`#SBATCH --cpus-per-task=4`), total memory (`#SBATCH --mem=8G`), and nodes (`#SBATCH --nodes=1`). It would then load `module load abaqus/2026` and execute the `abaqus` command with `job=testsp1`, `input=mystd-sim.inp`, `scratch=$SLURM_TMPDIR`, `cpus=$SLURM_CPUS_ON_NODE`, `interactive`, `mp_mode=threads`, and a calculated `memory` value."
     }
   ],
-  "generated_at": "2026-05-31T01:02:54.374121+00:00"
+  "generated_at": "2026-08-07T23:19:35.509037+00:00"
 }

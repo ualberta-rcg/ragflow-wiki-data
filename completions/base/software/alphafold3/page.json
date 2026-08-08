@@ -1,6 +1,71 @@
 {
   "doc_key": "base/alphafold3",
   "level": "page",
-  "qa_pairs": [],
-  "generated_at": "2026-05-10T00:13:50.055209+00:00"
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of the AlphaFold v3.0 documentation page on Alliance clusters?",
+      "answer": "The page discusses how to use AlphaFold v3.0 on Alliance clusters."
+    },
+    {
+      "question": "Where can users find the source code and documentation for AlphaFold3?",
+      "answer": "The source code and documentation for AlphaFold3 can be found on its GitHub page."
+    },
+    {
+      "question": "How should users cite AlphaFold3 when disclosing findings from its use?",
+      "answer": "Any publication disclosing findings from using AlphaFold3's source code or model parameters should cite the AlphaFold3 paper using the provided DOI."
+    },
+    {
+      "question": "How can users list the available versions of AlphaFold3 on Alliance clusters?",
+      "answer": "Users can list available AlphaFold3 versions on Alliance clusters using the `avail_wheels alphafold3` command."
+    },
+    {
+      "question": "What are the initial module dependencies required to set up AlphaFold3 on Alliance clusters?",
+      "answer": "Users need to load `StdEnv/2023`, `hmmer-alphafold3/3.4`, `rdkit/2025.09.4`, and `python/3.12` modules."
+    },
+    {
+      "question": "What should a user do if they encounter an RDKit version error when installing the AlphaFold3 Python package?",
+      "answer": "If an RDKit error occurs, the user should reload the `rdkit` module with the specific version mentioned in the error message."
+    },
+    {
+      "question": "How do users download the `run_alphafold.py` script for AlphaFold3 on Alliance clusters?",
+      "answer": "Users can download the `run_alphafold.py` script by using `wget` with the appropriate URL for their desired AlphaFold3 version (e.g., v3.0.4) from the Google DeepMind GitHub repository."
+    },
+    {
+      "question": "What are the steps to create and activate a Python virtual environment for AlphaFold3?",
+      "answer": "Users must run `virtualenv --no-download ~/alphafold3_env` to create the environment and then `source ~/alphafold3_env/bin/activate` to activate it."
+    },
+    {
+      "question": "Where must AlphaFold3 model parameters be stored on Alliance clusters?",
+      "answer": "AlphaFold3 model parameters must be stored in the user's `$SCRATCH` directory."
+    },
+    {
+      "question": "What terms must users accept before downloading the AlphaFold3 model parameters?",
+      "answer": "Users must accept the AlphaFold3 WEIGHTS_TERMS_OF_USE.md terms before downloading the model parameters."
+    },
+    {
+      "question": "Where must AlphaFold3 databases be stored on Alliance clusters?",
+      "answer": "The AlphaFold3 databases must be stored in the user's `$SCRATCH` directory."
+    },
+    {
+      "question": "Why is it recommended to run AlphaFold3 in stages on Alliance clusters?",
+      "answer": "Running AlphaFold3 in stages (splitting CPU-only data pipeline from GPU-intensive model inference) optimizes cost and resource usage, and allows caching MSA/template search results for reuse."
+    },
+    {
+      "question": "What resources are typically required for the AlphaFold3 data pipeline (CPU stage) on Alliance clusters?",
+      "answer": "The AlphaFold3 data pipeline typically requires a maximum of 8 CPUs, 64GB of memory, and a time limit of 8 hours, and uses a virtual environment generated in `$SLURM_TMPDIR`."
+    },
+    {
+      "question": "What resources are typically required for the AlphaFold3 model inference (GPU stage) on Alliance clusters?",
+      "answer": "The AlphaFold3 model inference typically requires 1 CPU, 1 A100 (or more recent) GPU, 20GB of memory, and a time limit of 8 hours, and uses a virtual environment generated in `$SLURM_TMPDIR`."
+    },
+    {
+      "question": "How can users submit AlphaFold3 data pipeline and model inference jobs sequentially on Alliance clusters?",
+      "answer": "Users can submit the data pipeline job first (`sbatch alphafold3-data.sh`) and then wait for it to complete before submitting the inference job (`sbatch alphafold3-inference.sh`), or submit them as dependent jobs using `sbatch --dependency=afterok:$jid1`."
+    },
+    {
+      "question": "How can users address 'Out of memory' errors during AlphaFold3 GPU inference for large inputs or GPUs with less memory?",
+      "answer": "Users can enable unified memory by setting `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true`, and `export XLA_CLIENT_MEM_FRACTION=2.0` in their inference script, and adjusting the job's allocated memory (e.g., `#SBATCH --mem=80G`) accordingly."
+    }
+  ],
+  "generated_at": "2026-08-07T23:29:08.785740+00:00"
 }

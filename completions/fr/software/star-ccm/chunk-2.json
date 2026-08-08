@@ -4,13 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Si je rencontre des problèmes avec la licence de STAR-CCM+, quelle étape de dépannage devrais-je considérer, et pourquoi est-ce pertinent?",
-      "answer": "Si vous avez des problèmes de licence avec STAR-CCM+, vous devriez essayer de supprimer ou de renommer le fichier `~/.flexlmrc`, car il pourrait contenir d'anciens chemins de recherche ou des paramètres de serveur de licence qui causent des conflits."
+      "question": "Comment doit-on configurer son compte pour utiliser un serveur de licence Star-CCM+ sur une grappe d'Alliance, et quel fichier est nécessaire pour ce faire?",
+      "answer": "Pour configurer votre compte avec un serveur de licence Star-CCM+, vous devez créer le fichier `$HOME/.licenses/starccm.lic`. Ce fichier doit contenir `SERVER <server> ANY <flexport> USE_SERVER`, où `<server>` est le nom d'hôte ou l'adresse IP de votre serveur de licence et `<flexport>` est le port statique du fournisseur du serveur de licence. La variable `CDLMD_LICENSE_FILE` est automatiquement configurée au chargement du module Star-CCM+, donc pas besoin de la définir manuellement."
     },
     {
-      "question": "Comment puis-je m'assurer que les fichiers de sortie cachés de STAR-CCM+ n'utilisent pas trop d'espace dans mon quota de stockage sur les grappes d'Alliance?",
-      "answer": "Pour éviter que les fichiers de sortie de tâches précédentes de STAR-CCM+ ne s'accumulent dans des répertoires cachés comme `.star-version_number` et consomment votre quota, vous pouvez exécuter la commande `rm -ri ~/.starccm*` de façon régulière et répondre « oui » lorsque l'invite s'affiche."
+      "question": "Si j'ai une licence Power-on-Demand (PoD) pour Star-CCM+, quelles sont les configurations spécifiques à appliquer à mon script Slurm et à mon fichier de licence sur les grappes d'Alliance?",
+      "answer": "Avec une licence PoD, vous devez configurer manuellement la variable d'environnement `LM_PROJECT` dans votre script Slurm en lui attribuant votre \"CD-ADAPCO PROJECT ID\". De plus, le fichier `~/.licenses/starccm.lic` doit être configuré sur toutes les grappes avec le contenu `SERVER flex.cd-adapco.com ANY 1999 USE_SERVER`."
+    },
+    {
+      "question": "Quelles sont les différences de configuration de pare-feu entre une licence PoD et un serveur de licence institutionnel local pour Star-CCM+ sur les grappes d'Alliance, et comment dépanner les problèmes de licence?",
+      "answer": "Pour une licence PoD, les modifications de pare-feu requises ont déjà été effectuées sur toutes les grappes. Par contre, si vous utilisez un serveur de licence institutionnel local, vous devrez soumettre une demande d'assistance au soutien technique pour demander une modification ponctuelle du pare-feu réseau. Si vous rencontrez des problèmes pour faire fonctionner la licence, essayez de supprimer ou de renommer le fichier `~/.flexlmrc`."
     }
   ],
-  "generated_at": "2026-05-24T01:34:57.349808+00:00"
+  "generated_at": "2026-08-08T00:35:31.229626+00:00"
 }

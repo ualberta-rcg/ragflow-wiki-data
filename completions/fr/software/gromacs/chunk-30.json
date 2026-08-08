@@ -4,13 +4,17 @@
   "chunk_index": 30,
   "qa_pairs": [
     {
-      "question": "C'est quoi, CP2K?",
-      "answer": "CP2K est un progiciel de chimie quantique et de physique du solide."
+      "question": "À quoi sert GROMACS-LS et quelle est la bibliothèque incluse dans ce module?",
+      "answer": "GROMACS-LS sert à calculer des champs de contraintes locaux à partir de simulations de dynamique moléculaire. La bibliothèque MDStress est incluse dans le module GROMACS-LS."
     },
     {
-      "question": "Quel type de simulations GROMACS peut-il faire en collaboration avec CP2K?",
-      "answer": "Depuis 2022, GROMACS peut être compilé pour prendre en charge les simulations hybrides quantiques-classiques (QM/MM) en utilisant CP2K."
+      "question": "Si une version récente de GROMACS a servi à simuler une trajectoire, mais qu'une version plus ancienne de GROMACS-LS (comme la 2016.3) ne peut pas lire le fichier .tpr correspondant, comment peut-on contourner ce problème?",
+      "answer": "Pour contourner ce problème, on doit créer un nouveau fichier .tpr. Pour ce faire, il faut utiliser la commande `gmx_LS grompp` ou `gmx grompp` de la version 2016.6 de GROMACS, en se basant sur les mêmes fichiers d'entrée d'origine (comme les fichiers .mdp, topol.top, .itp, .gro). Le nouveau fichier .tpr sera alors compatible avec GROMACS-LS 2016.3."
+    },
+    {
+      "question": "Quelles modifications sont nécessaires dans les fichiers .mdp si l'on génère un nouveau fichier .tpr pour GROMACS-LS 2016.3 à partir de simulations plus récentes?",
+      "answer": "Si les fichiers .mdp de la simulation plus récente utilisent des mots-clés ou des fonctionnalités qui n'étaient pas disponibles en 2016 (par exemple, `pcouple = C-rescale`), il faut les modifier ou les supprimer. Par exemple, `pcouple = C-rescale` devrait être remplacé par `pcouple = Berendsen`. De plus, la directive `cutoff-scheme = group` mentionnée dans la documentation n'est plus pertinente, car GROMACS 2016 prend en charge `cutoff-scheme = Verlet` et le schéma 'group' a été retiré de GROMACS 2020."
     }
   ],
-  "generated_at": "2026-04-13T06:18:47.007451+00:00"
+  "generated_at": "2026-08-08T00:10:07.121628+00:00"
 }

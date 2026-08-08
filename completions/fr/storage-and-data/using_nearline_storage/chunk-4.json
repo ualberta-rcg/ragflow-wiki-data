@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Comment faire pour restaurer des fichiers qui ont été accidentellement supprimés de mon répertoire /nearline sur la grappe Fir?",
-      "answer": "Sur la grappe Fir, si vous supprimez des fichiers de votre répertoire `~/nearline`, une copie sur ruban est conservée pendant 60 jours. Pour les restaurer, vous devez contacter le soutien technique en fournissant le chemin complet et la version (avec la date) des fichiers. Il est fortement conseillé de conserver une copie de la structure de votre espace /nearline à l'aide de la commande `ls -R > ~/nearline_contents.txt`."
+      "question": "Comment faire pour vérifier l'état des fichiers dans mes espaces /nearline sur les grappes, et que signifient les différents statuts?",
+      "answer": "Pour avoir un aperçu général de l'état des fichiers dans vos espaces /nearline, certaines grappes peuvent utiliser la commande `diskusage_report --nearline --per_user --all_users`. Les valeurs possibles pour la `Location` sont : `On disk and tape` (les données sont disponibles sur disque), `Modified, will be archived again` (la dernière version des données est sur disque), `Archiving in progress` (les données sont en train d'être copiées ou déplacées sur ruban), et `On tape` (les données sont seulement sur ruban).\n\nPour un fichier spécifique, la commande `lfs hsm_state <FILE>` indique si un fichier est sur ruban ou sur disque. Par exemple : un fichier qui se trouve seulement sur disque est affiché avec `(0x00000000)`. Si un fichier est en train d'être copié sur ruban, il affichera `exists, [...]`. S'il se trouve à la fois sur disque et sur ruban, c'est `exists archived, [...]`. Finalement, si le fichier se trouve seulement sur ruban, il affichera `released exists archived, [...]`, et l'ouvrir prendra plus de temps."
     },
     {
-      "question": "Quelles sont les particularités du service /nearline sur la grappe Narval, comparativement à celui de Fir?",
-      "answer": "Sur la grappe Narval, le service /nearline est semblable à celui de Fir, mais tous les fichiers ne sont pas nécessairement copiés sur ruban. Seulement les plus gros fichiers et les plus anciens sont transférés sur ruban, bien que tous les fichiers dans /nearline soient sauvegardés à chaque jour."
+      "question": "Quelles sont les implications quand on transfère des données à partir de /nearline, et pourquoi les transferts sont-ils plus lents?",
+      "answer": "Quand vous transférez des données à partir de /nearline, il faut s'attendre à ce que le processus prenne plus de temps. Cela s'explique par le fait que les données qui sont stockées exclusivement sur ruban doivent être automatiquement restaurées sur le disque avant d'être lues pour le transfert. Étant donné que l'accès aux données sur ruban est relativement lent, chaque restauration de fichier peut ralentir le transfert de quelques minutes à quelques heures."
     },
     {
-      "question": "Quelles sont les différentes méthodes d'accès au service /nearline (HPSS) sur la grappe Trillium?",
-      "answer": "Sur la grappe Trillium, le service /nearline est HPSS et il y a trois façons d'y accéder : 1. Soumettre une tâche à l'ordonnanceur Slurm dans une des partitions archive avec les commandes HPSS `htar` ou `hsi`. 2. Utiliser un nœud VFS (virtual file system) via la commande `salloc --time=1:00:00 -pvfsshort` pour un petit nombre de fichiers. 3. Transférer vos fichiers HPSS en utilisant Globus avec le point de chute `alliancecan#hpss`. Dans tous les cas, vos fichiers HPSS se trouvent dans le répertoire `$ARCHIVE`."
+      "question": "Comment peut-on forcer la restauration d'un fichier de /nearline qui est uniquement sur ruban pour le ramener sur le disque sans avoir à le lire?",
+      "answer": "Pour forcer le rappel d'un fichier qui se trouve seulement sur ruban et le ramener sur le disque sans avoir à le lire, vous pouvez utiliser la commande `lfs hsm_restore <FILE>`."
     }
   ],
-  "generated_at": "2026-05-31T02:06:01.591361+00:00"
+  "generated_at": "2026-08-08T00:56:08.734223+00:00"
 }

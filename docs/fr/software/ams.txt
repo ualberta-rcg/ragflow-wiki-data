@@ -139,22 +139,23 @@ eor
 # Le nom du fichier de point de sauvegarde est ams.rkf plutôt que TAPE13 dans les versions ADF précédentes.
 Pour plus d'information, consultez [https://www.scm.com/support/ SCM Support].
 
-==AMS-GUI==
-===Nibi===
+<span id="Running_AMS-GUI_on_Nibi"></span>
+==AMS-GUI sur Nibi==
 
-Sur un nœud de calcul de Nibi (durée limite de 8 heures), AMS peut être utilisée interactivement en mode graphique via OnDemand en suivant ces étapes&nbsp;:
+Pour utiliser AMS en mode graphique sur OnDemand Compute Node Desktop, suivez ces étapes&nbsp;:
 
 # Connectez-vous à [https://ondemand.sharcnet.ca ondemand.sharcnet.ca].
-# Sélectionnez ''Nibi Desktop'' dans ''Compute' (dans le haut).
-# Sélectionnez vos options (sélectionnez 1 cœur pour une visualisation; ne sélectionnez pas ''Enable VirtualGL'') et cliquez sur ''Launcher''.
-# Sélectionnez ''Launcher Nibi Desktop'' une fois que la tâche est lancée.
-# Faites un clic droit sur le bureau et sélectionnez ''Open it Terminal''.
-# Sélectionnez ''MATE Terminal'' dans le menu ''System Tools'' sous ''Applications''.
+# Dans le menu déroulant du haut, sélectionnez ''Compute Node->Compute Desktop''.
+# Pour la visualisation, entrez les valeurs ''Computers=1'', ''Cores=1'', ''GPU=None'' et cliquez sur ''Launch''.
+# Quand l’état du bureau passe de ''Queued'' à ''Running'', appuyez sur ''Launch Nibi Desktop''.
+# Quand le bureau est affiché, sélectionnez ''Applications->System Tools->MATE Terminal''.
 # <code>module unload openmpi</code>
-# <code>module load ams</code>
-# <code>amsinput & </code> (créer des fichers d'entrée)
-# <code>amsview & </code>(visualiser les résultats)
+# <code>module load ams</code> (pour changer la version courante)
+# <code>export SCM_OPENGL_SOFTWARE=1</code> (pour activer le rendu logiciel)
+# <code>amsinput</code> ou <code>amsview</code>
 
-Si vous devez sélectionner ''Enable VirtualGL'' pour un autre programme que vous utilisez, vous devez d'abord le désactiver pour AMS en le lançant avec <code>LD_PRELOAD= amsinput</code>.
+Par contre, si vous avez spécifié GPU=t4 (15GB) au lancement du bureau, utilisez plutôt
 
-Sur OnDemand, Nibi Desktop est utilisé pour exécuter des applications AMS-GUI pour, par exemple, créer les fichiers d'entrée et visualiser les résultats. Veuillez ne pas y exécuter de tâches régulières ou des tâches interactives de longue durée. Sélectionnez un seul cœur ainsi qu'une quantité de mémoire et un temps d'exécution raisonnables.
+<code>LD_PRELOAD= amsinput</code> or <code>LD_PRELOAD= amsview</code>
+
+&#9758; Pour sélectionner un ou plusieurs atomes, gardez MAJ enfoncée puis cliquez.

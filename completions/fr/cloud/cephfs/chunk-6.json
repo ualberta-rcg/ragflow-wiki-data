@@ -2,6 +2,15 @@
   "doc_key": "fr/cephfs",
   "level": "chunk",
   "chunk_index": 6,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:56:36.908572+00:00"
+  "qa_pairs": [
+    {
+      "question": "Comment le fichier de clés `ceph.keyring` devrait-il être configuré pour un client CephFS sur une instance OpenStack?",
+      "answer": "Le fichier `ceph.keyring` doit contenir le nom du client et la clé d'accès pour le point de partage CephFS. Par exemple, si le nom du client est 'MyCephFS-RW', le contenu du fichier ressemblerait à ceci :\n```ini\n[client.MyCephFS-RW]\n    key = <Access Key>\n```\nCes informations (le nom du client et la clé d'accès) sont disponibles dans les règles d'accès de votre projet sur la page web d'OpenStack. Vous les trouverez en allant à *Project --> Share --> Shares* et en cliquant sur le nom du point de partage concerné."
+    },
+    {
+      "question": "Comment monter un point de partage CephFS de manière permanente sur une instance OpenStack en utilisant `/etc/fstab`, et quelles sont les différences entre les environnements Arbutus et SD4H/Juno?",
+      "answer": "Pour monter un point de partage CephFS de façon permanente, il faut d'abord créer un répertoire de montage sur votre hôte (par exemple, `/cephfs` avec la commande `mkdir /cephfs`). Ensuite, ajoutez une entrée au fichier `/etc/fstab` de votre instance. Le chemin d'accès au volume requis, comme `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c`, doit être récupéré de la partie 'Path' des détails du point de partage dans l'interface web OpenStack.\n\nPour un environnement **Arbutus**, l'entrée dans `/etc/fstab` pourrait être :\n```\n:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,nofail 0  2\n```\n\nPour un environnement **SD4H/Juno**, des options additionnelles sont nécessaires, notamment `mds_namespace` :\n```\n:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw,nofail 0  2\n```\nL'option `nofail` assure que l'instance pourra démarrer même si CephFS n'est pas disponible."
+    }
+  ],
+  "generated_at": "2026-08-07T23:51:13.256576+00:00"
 }

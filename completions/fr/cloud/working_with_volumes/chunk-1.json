@@ -4,17 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi un volume de stockage dans le contexte des services info-nuagiques de l'Alliance, et qu'est-ce qui en garantit l'intégrité?",
-      "answer": "Un volume est un espace de stockage qui persiste et n'est pas détruit même quand une machine virtuelle est arrêtée. Sur nos nuages, l'intégrité des données est garantie par l'utilisation du stockage Ceph avec une triple réplication ou des codes d'effacement, ce qui protège contre les pannes matérielles."
+      "question": "C'est quoi un volume dans le contexte des nuages de calcul, et quels sont les types de volumes disponibles sur Arbutus, pis comment sont-ils gérés pour l'intégrité des données?",
+      "answer": "Un volume, c'est un espace de stockage qui ne s'efface pas quand une machine virtuelle s'arrête. Sur Arbutus, y'a deux types principaux : les volumes 'rbd1' qui sont sur des disques durs mécaniques pis qui utilisent des codes d'effacement pour l'intégrité des données à moindre coût. Les volumes 'high_performance' eux, sont sur des disques NVMe SSD pis utilisent la triple réplication, ce qui est moins efficace pour le stockage mais donne de meilleures performances. En général, nos nuages utilisent le stockage Ceph avec triple réplication ou des codes d'effacement pour s'assurer que les données restent intactes si y'a une panne matérielle."
     },
     {
-      "question": "Quels sont les types de volumes de stockage offerts sur la plateforme Arbutus, et quelles sont les différences entre eux?",
-      "answer": "Sur Arbutus, il y a deux types de volumes principaux. Les volumes de type ''rbd1'' sont stockés sur des disques durs mécaniques et utilisent des codes d'effacement pour réduire les coûts. Les volumes de type ''high_performance'' sont stockés sur des disques NVMe SSD et utilisent la triple réplication, offrant de meilleures performances même si c'est moins efficace en termes de stockage."
+      "question": "Quelles sont les étapes à suivre pour créer un nouveau volume en utilisant le tableau de bord dans un environnement infonuagique?",
+      "answer": "Pour créer un nouveau volume, faut cliquer sur le bouton '+ Créer un volume' dans le tableau de bord. Après, tu remplis les champs suivants : un 'Nom du volume' (comme 'data'), une 'Description' (c'est optionnel), tu choisis 'Aucune source, volume vide' pour la 'Source du volume', et 'Pas de type de volume' pour le 'Type'. Ensuite, tu indiques la 'Taille (Gio)' que tu veux (par exemple, 40 Gio), et tu laisses la 'Zone de disponibilité' à 'nova'. Finalement, tu cliques sur le bouton 'Créer un volume' pour confirmer."
     },
     {
-      "question": "Comment faire pour créer un nouveau volume de stockage via l'interface du tableau de bord?",
-      "answer": "Pour créer un volume, il faut cliquer sur le bouton '+ Créer un volume' dans le tableau de bord. Ensuite, on remplit les champs obligatoires comme le 'Nom du volume' (par exemple, <code>data</code>), on sélectionne 'Aucune source, volume vide' pour la 'Source du volume', on laisse généralement 'Pas de type de volume' pour le 'Type', on spécifie la 'Taille (Gio)' désirée (comme <code>40</code>), et on choisit <code>nova</code> comme 'Zone de disponibilité' avant de cliquer sur 'Créer un volume'."
+      "question": "Qu'est-ce que ça veut dire \"attacher\" et \"monter\" un volume à une instance, pis qu'est-ce qu'il faut faire attention quand on formate un nouveau volume?",
+      "answer": "\"Attacher\" un volume, c'est l'associer à une instance, un peu comme brancher une clé USB. Ça se fait via le tableau de bord en sélectionnant 'Gérer les attachements' pis en choisissant l'instance. \"Monter\" un volume, c'est créer un lien logique entre son système de fichiers pis les répertoires de l'instance, comme avec la commande `sudo mount /dev/vdb1 /mnt`. Par contre, il faut faire hyper attention avec le formatage : **NE PAS FORMATER** un volume s'il a déjà été utilisé parce que ça efface TOUTES les données. Un nouveau volume doit être formaté avant d'être utilisé, mais seulement si c'est la première fois qu'on s'en sert pour enregistrer des fichiers."
     }
   ],
-  "generated_at": "2026-04-19T02:49:17.640276+00:00"
+  "generated_at": "2026-08-08T01:03:02.479864+00:00"
 }

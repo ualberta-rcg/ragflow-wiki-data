@@ -4,17 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What are the primary advantages of using /nearline storage for data, especially compared to disk or solid-state (SSD) media?",
-      "answer": "The primary advantages of /nearline storage, which is tape-based, include lower cost per unit of data stored, easily expandable storage capacity through buying more tapes, and effectively zero energy consumption per unit of data stored. Additionally, it allows for much greater storage capacity than /project, and keeping inactive data off /project reduces its load and backup demands, improving its performance."
+      "question": "When archiving files to /nearline, what is the purpose of creating an index, and what `tar` commands can be used to generate one?",
+      "answer": "Creating an index for archived files on /nearline helps avoid having to restore an entire large collection from tape when you only need one or a few of the files. You can create an index when first creating an archive by redirecting the verbose output, such as with `tar cvvf /nearline/def-sponsor/user/mycollection.tar /project/def-sponsor/user/something > /nearline/def-sponsor/user/mycollection.index`. If the archive already exists, you can generate an index using a command like `tar tvvf /nearline/def-sponsor/user/mycollection.tar > /nearline/def-sponsor/user/mycollection.index`."
     },
     {
-      "question": "How does the /nearline system manage the lifecycle of a file between disk and tape storage?",
-      "answer": "When a file is initially copied to or created on /nearline, it exists only on disk. After approximately a day, if it meets certain criteria, the system copies it to tape, making it available on both disk and tape. Subsequently, the disk copy may be deleted, resulting in the file existing solely on tape, a state known as 'virtualized'. If such a virtualized file is recalled or accessed, it is copied back from tape to disk, returning it to the state of being present on both disk and tape."
+      "question": "Can data on /nearline be accessed directly from compute nodes during a job, and what is the reasoning behind this policy?",
+      "answer": "No, data on /nearline cannot be accessed directly from compute nodes in a job context. /nearline is not mounted on compute nodes because data retrieval from this tape-based filesystem may take an uncertain amount of time, which can range from less than a minute to over an hour, depending on file size and system demand."
     },
     {
-      "question": "How can users check the current state or location of their files on /nearline, and what commands are available for managing these states?",
-      "answer": "Users can check whether a file has been moved to tape or is still on disk using the `lfs hsm_state <FILE>` command, which reports states like 'only on disk', 'in progress of being copied to tape', 'both on disk and tape', or 'only on tape'. Some clusters also support the `diskusage_report --nearline --per_user --all_users` command for an overview of all files' states. To explicitly force a file to be recalled from tape to disk without reading it, the `lfs hsm_restore <FILE>` command can be used."
+      "question": "What are the recommended best practices for creating large archive files on /nearline, especially considering resource usage and long-running operations?",
+      "answer": "For creating large archive files on /nearline, it is recommended to perform the `tar` or `dar` operations on a data-transfer node (DTN) if available; otherwise, use a login node, as these tasks can be resource-intensive. To manage long-running archiving operations that might take several hours or even days, use a terminal multiplexer such as `tmux` or `screen` to prevent SSH session interruptions and allow the process to continue running in the background. When using `dar` in an unattended terminal multiplexer, it's also recommended to explicitly disable interactivity with `dar -Q`."
     }
   ],
-  "generated_at": "2026-05-31T02:03:54.087207+00:00"
+  "generated_at": "2026-08-08T00:53:45.463458+00:00"
 }

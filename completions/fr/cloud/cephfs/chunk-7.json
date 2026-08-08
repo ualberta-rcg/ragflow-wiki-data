@@ -2,6 +2,19 @@
   "doc_key": "fr/cephfs",
   "level": "chunk",
   "chunk_index": 7,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:56:44.032700+00:00"
+  "qa_pairs": [
+    {
+      "question": "Quand on configure un point de montage CephFS pour qu'il soit permanent, est-ce que le caractère deux-points (<code>:</code>) devant le chemin d'accès au périphérique est une erreur, et à quoi sert l'option <code>nofail</code>?",
+      "answer": "Non, le caractère deux-points (<code>:</code>) devant le chemin d'accès au périphérique n'est pas une erreur de frappe; il est intentionnel. Quant à l'option <code>nofail</code>, elle sert à garantir que le système d'exploitation peut quand même démarrer même si le CephFS n'est pas disponible ou ne peut pas être rejoint, ce qui est une mesure de sécurité contre les blocages au démarrage."
+    },
+    {
+      "question": "Comment est-ce qu'on peut monter un système de fichiers CephFS directement en ligne de commande sur une instance Arbutus, et quels sont les paramètres de base à inclure?",
+      "answer": "Sur une instance Arbutus, on peut monter un CephFS directement avec la commande suivante: <code>sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW</code>. Les paramètres essentiels à inclure sont le chemin d'accès au périphérique CephFS (qui commence par <code>:</code>), le point de montage local (ici <code>/cephfs/</code>) et le nom du client spécifié avec <code>-o name=MyCephFS-RW</code>."
+    },
+    {
+      "question": "Est-ce qu'il est possible de monter CephFS directement dans l'espace utilisateur, et si oui, quelles sont les étapes pour le faire avec <code>ceph-fuse</code> dans son répertoire <code>home</code>?",
+      "answer": "Oui, c'est possible de monter CephFS directement dans l'espace utilisateur via <code>ceph-fuse</code>. Pour ce faire, il faut d'abord installer la bibliothèque <code>ceph-fuse</code> avec <code>sudo dnf install ceph-fuse</code>. Ensuite, il faut décommenter la ligne <code>user_allow_other</code> dans le fichier <code>/etc/fuse.conf</code>. Puis, on crée un répertoire pour le point de montage, comme <code>mkdir ~/my_cephfs</code>. Finalement, on utilise la commande <code>ceph-fuse my_cephfs/ --id=MyCephFS-RW --conf=~/ceph.conf --keyring=~/ceph.keyring --client-mountpoint=/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c</code> pour le montage, en s'assurant que <code>ceph.conf</code> et <code>ceph.keyring</code> contiennent les bonnes informations de configuration et la clé d'accès."
+    }
+  ],
+  "generated_at": "2026-08-07T23:51:26.718773+00:00"
 }

@@ -4,13 +4,13 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "For a multinode (by core) Ansys Fluent job on an Alliance cluster, what are the recommended Slurm parameters for specifying resources such as time, cores, and memory?",
-      "answer": "For a multinode (by core) Ansys Fluent job, the example Slurm script recommends a time limit of 3 hours (`#SBATCH --time=00-03:00`), specifying the total number of cores across all nodes (e.g., `#SBATCH --ntasks=16`), and allocating memory per core (e.g., `#SBATCH --mem-per-cpu=4G`). The `#SBATCH --cpus-per-task=1` parameter should not be changed."
+      "question": "What are the steps to run a single Ansys Additive Manufacturing job in a graphical OnDemand session, and how can users check resource utilization or kill rogue processes?",
+      "answer": "To run a single Ansys Additive Manufacturing job in a graphical OnDemand session, first start Workbench. Then, click on 'File -> Open', select your project file (e.g., 'test.wbpj'), and click 'Open'. If you encounter a grey screen, click 'View -> reset workspace'. Next, start Mechanical, clear generated data, tick 'Distributed', and specify the number of cores. Finally, click on 'File -> Save Project -> Solve'. To check utilization, open another terminal and run `top -u $USER` or `ps u -u $USER | grep ansys`. To kill rogue processes from previous runs, use the command `pkill -9 -e -u $USER -f \"ansys|mwrpcss|mwfwrapper|ENGINE\"`."
     },
     {
-      "question": "What modules should be loaded in a Slurm script to prepare the environment for an Ansys Fluent job on an Alliance cluster?",
-      "answer": "To prepare the environment for an Ansys Fluent job on an Alliance cluster, the Slurm script should load the `StdEnv/2023` module (or newer) and the `ansys/2023R2` module (or newer versions)."
+      "question": "What preparations are necessary before submitting a new or uploaded Ansys Additive Manufacturing project to a cluster queue?",
+      "answer": "Before submitting a new or uploaded Ansys Additive project to a cluster queue, you must first open the simulation with the Workbench GUI in the same directory from which your job will be submitted, and then save it again, ensuring you use the same Ansys module version that will be used for the job. Next, create a Slurm script. To perform parametric studies, change `Update()` to `UpdateAllDesignPoints()` in the Slurm script. To determine the optimal number of cores and memory, submit several short test jobs. To avoid needing to manually clear the solution and recreate all design points in Workbench between each test run, either change `Save(Overwrite=True)` to `Save(Overwrite=False)` or save a copy of the original project file (e.g., YOURPROJECT.wbpj) and its corresponding directory (e.g., YOURPROJECT_files)."
     }
   ],
-  "generated_at": "2026-05-31T01:14:51.144241+00:00"
+  "generated_at": "2026-08-07T23:33:23.363067+00:00"
 }

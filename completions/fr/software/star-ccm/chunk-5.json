@@ -4,17 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Quelles sont les directives Slurm (SBATCH) indispensables à inclure dans un script pour soumettre une tâche STAR-CCM+ sur les grappes Fir, Narval ou Rorqual?",
-      "answer": "Les directives SBATCH essentielles sont: `#SBATCH --account=def-group` pour spécifier le compte, `#SBATCH --time=00-01:00` pour la limite de temps, `#SBATCH --nodes=1` pour le nombre de nœuds, `#SBATCH --cpus-per-task=16` pour les cœurs par tâche, `#SBATCH --mem=64G` pour la mémoire par nœud, et `#SBATCH --ntasks-per-node=1` (cette dernière valeur ne doit pas être changée)."
+      "question": "Comment spécifier la clé de licence pour une licence Power-on-Demand (PoD) de Siemens lors de l'exécution de STAR-CCM+ sur les grappes Fir, Narval ou Rorqual?",
+      "answer": "Pour une licence PoD, vous devez définir la variable d'environnement `LM_PROJECT` dans votre script SLURM en lui attribuant votre clé de licence PoD Siemens à 22 chiffres. La ligne à ajouter ou modifier ressemble à `LM_PROJECT='22digit-PoD-License-Key'`."
     },
     {
-      "question": "Comment spécifie-t-on le fichier de simulation d'entrée et les commandes de lot optionnelles (comme des macros Java ou des étapes de maillage/exécution) dans un script Slurm pour une tâche STAR-CCM+ sur les grappes Fir, Narval ou Rorqual?",
-      "answer": "Le fichier de simulation d'entrée est spécifié en ajustant la variable `SIM_FILE='mySample.sim'`. Pour les commandes de lot, telles que les macros Java ou les étapes, il faut décommenter et configurer la variable `BATCH_CMD='myMacro.java,run'` avec les commandes appropriées."
+      "question": "Comment le script SLURM pour STAR-CCM+ fait-il la distinction entre une licence Power-on-Demand (PoD) et une licence institutionnelle sur les grappes Fir, Narval ou Rorqual, et comment cela influence-t-il le lancement du logiciel?",
+      "answer": "Le script vérifie si la variable `LM_PROJECT` est définie. Si c'est le cas, il assume une licence PoD et exécute la commande `starccm+` avec les options `-power -podkey $LM_PROJECT`. Autrement, il considère qu'il s'agit d'une licence institutionnelle, s'appuie sur la configuration du fichier `~/.licenses/starccm.lic` et n'ajoute pas ces options spécifiques au lancement de `starccm+`. Dans le cas d'une licence institutionnelle, il tente aussi d'afficher l'état du serveur de licence via `lmutil`."
     },
     {
-      "question": "Pour utiliser STAR-CCM+ sur les grappes Fir, Narval ou Rorqual via un script Slurm, quelle est la différence de configuration de licence entre une licence Power-on-Demand (PoD) et un serveur de licence institutionnel local?",
-      "answer": "Pour une licence Power-on-Demand (PoD), la variable d'environnement `LM_PROJECT` doit être configurée avec votre clé de licence Siemens PoD (`LM_PROJECT='22digit-PoD-License-Key'`). La commande `starccm+` inclura alors les options `-power -podkey $LM_PROJECT`. Si vous utilisez un serveur de licence institutionnel, la ligne `LM_PROJECT` doit être commentée, et le script s'appuiera sur la variable `CDLMD_LICENSE_FILE` qui est automatiquement configurée au chargement du module, sans les options `-power -podkey`."
+      "question": "Comment STAR-CCM+ optimise-t-il l'utilisation des bibliothèques de calcul numérique et des interfaces de communication (MPI) en fonction du type de processeur sur les grappes Fir, Narval ou Rorqual?",
+      "answer": "Le script détecte le fournisseur du processeur. Si le processeur est Intel, la variable `FLEXIBLAS` est définie sur `StarMKL` et `STAR_MPI` sur `intel`. Si le processeur est AMD, `FLEXIBLAS` est défini sur `StarAOCL` et `STAR_MPI` sur `openmpi`. Cette adaptation permet d'utiliser les bibliothèques et les implémentations MPI optimisées pour l'architecture CPU spécifique, ce qui améliore les performances du logiciel."
     }
   ],
-  "generated_at": "2026-05-24T01:35:29.684116+00:00"
+  "generated_at": "2026-08-08T00:35:57.599182+00:00"
 }

@@ -4,17 +4,13 @@
   "chunk_index": 25,
   "qa_pairs": [
     {
-      "question": "Comment GROMACS optimise-t-il son exécution pour les différentes architectures de processeurs (CPU) disponibles sur les grappes de calcul?",
-      "answer": "GROMACS utilise des fonctions optimisées, appelées « kernel functions », pour calculer les interactions non liées à courte portée. Ces fonctions sont choisies en fonction des jeux d’instructions SIMD (comme AVX, AVX2 ou AVX512) supportés par l'architecture des CPU de la grappe. L'équipe de support s'occupe de compiler GROMACS en sélectionnant la version qui correspond à l'architecture du système quand un module GROMACS est chargé, et le logiciel avertit si la fonction choisie est sous-optimale."
+      "question": "C'est quoi l'objectif des modules GROMACS-PLUMED, pis comment ça fonctionne avec GROMACS?",
+      "answer": "Les modules `gromacs-plumed` sont des versions de GROMACS qui ont été patchées pour intégrer la bibliothèque PLUMED. Ça permet d'exécuter des simulations métadynamiques. Pour les versions de GROMACS 2025 et plus récentes, la bibliothèque PLUMED native est déjà activée, donc vous avez juste à charger un module `plumed` après le module `gromacs` régulier. Mais pour les versions plus anciennes, vous devez charger un module `gromacs-plumed` spécifique, comme `gromacs-plumed/2022.6`, par exemple."
     },
     {
-      "question": "Quels sont les principaux outils offerts par GROMACS pour l'analyse des résultats de simulation, et quels types de fichiers produisent-ils généralement?",
-      "answer": "GROMACS propose une multitude d'outils intégrés pour le post-traitement et l'analyse des simulations. Ces commandes lisent typiquement des fichiers de trajectoire (comme XTC, TNG ou TRR) et des fichiers de coordonnées (GRO, PDB, TPR). Elles génèrent souvent des graphiques au format XVG, qui peuvent être visualisés avec l'outil Grace ou analysés directement via des scripts ou des feuilles de calcul, étant donné qu'il s'agit de fichiers texte."
-    },
-    {
-      "question": "Comment les paquets Python MDAnalysis et MDTraj facilitent-ils l'analyse des simulations GROMACS, et quels sont leurs avantages?",
-      "answer": "MDAnalysis et MDTraj sont deux paquets Python offerts sous forme de « wheels » précompilés qui peuvent lire et écrire les fichiers de trajectoires (TRR, XTC) et de coordonnées de GROMACS, ainsi que ceux d'autres paquets de dynamique moléculaire. Ils offrent plusieurs fonctions d'analyse fréquemment utilisées, un langage de sélection d'atomes polyvalent, et exposent les coordonnées des trajectoires. Ces paquets facilitent l'écriture d'outils d'analyse personnalisés et leur intégration avec les bibliothèques Python de science des données comme NumPy, SciPy, Pandas et Matplotlib/Pyplot."
+      "question": "Si j'utilise une version de GROMACS-PLUMED datant de 2022.6, quels modules dois-je charger pour la faire fonctionner, que ce soit sur un CPU ou un GPU?",
+      "answer": "Pour la version `gromacs-plumed/2022.6` sur un CPU, vous devez charger les modules `StdEnv/2020  gcc/9.3.0  openmpi/4.0.3  gromacs-plumed/2022.6`. Si vous voulez l'utiliser avec un GPU (CUDA), il faut plutôt charger `StdEnv/2020  gcc/9.3.0  cuda/11.4  openmpi/4.0.3  gromacs-plumed/2022.6`."
     }
   ],
-  "generated_at": "2026-04-13T06:18:03.650184+00:00"
+  "generated_at": "2026-08-08T00:09:29.564803+00:00"
 }

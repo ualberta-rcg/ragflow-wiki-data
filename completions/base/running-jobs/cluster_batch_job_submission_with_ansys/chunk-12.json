@@ -1,0 +1,16 @@
+{
+  "doc_key": "base/cluster_batch_job_submission_with_ansys",
+  "level": "chunk",
+  "chunk_index": 12,
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of the provided Slurm script for Ansys Fluent, and what key Slurm directives configure its resources for a multinode, by-core job with solution restart?",
+      "answer": "The script is designed to run Ansys Fluent simulations in a distributed memory parallel environment, specifically enabling solution restarts. Key Slurm directives used to configure resources include `#SBATCH --ntasks=16` to specify the total number of cores across all nodes, `#SBATCH --mem-per-cpu=4G` for memory allocation per core, and `#SBATCH --array=1-5%1` to define the number of solution restart attempts or time steps."
+    },
+    {
+      "question": "How does the provided Slurm script for Ansys Fluent manage the execution of initial runs versus subsequent solution restarts within a job array?",
+      "answer": "The script differentiates between initial runs and restarts using the `$SLURM_ARRAY_TASK_ID` variable. For the first run in the array (`$SLURM_ARRAY_TASK_ID == 1`), Ansys Fluent is executed using the initial journal file specified by `MYJOUFILE`. For all subsequent runs within the array, representing solution restarts, Fluent utilizes the restart journal file defined by `MYJOUFILERES`. This conditional logic applies whether the job is running on a single node or multiple nodes."
+    }
+  ],
+  "generated_at": "2026-08-08T01:07:31.792335+00:00"
+}

@@ -2,6 +2,15 @@
   "doc_key": "en/arbutus_migration_guide",
   "level": "chunk",
   "chunk_index": 5,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:44:30.210894+00:00"
+  "qa_pairs": [
+    {
+      "question": "When migrating a volume-backed instance from the legacy Arbutus Cloud to the new Arbutus Cloud using the `dd` utility, how do you create an image from a detached volume?",
+      "answer": "After detaching the volume from the original instance and attaching it to a temporary migration host on the legacy cloud, you can create an image using the `dd` utility with a command such as: `dd if=/dev/vdb | openstack image create --private --container-format bare --disk-format raw \"volumemigrate\"`. This process will create an image that can then be utilized in the new Arbutus Cloud."
+    },
+    {
+      "question": "What is the recommended method for migrating large volumes from the legacy Arbutus Cloud to the new Arbutus Cloud when image-based migration methods are not suitable, and what are some initial setup requirements?",
+      "answer": "For large volumes, particularly bootable ones, where image-based methods are not recommended, the `dd` command can be used to create an identical copy on the new cloud. Initial setup involves creating a temporary instance on both the legacy and new clouds (e.g., p1-1.5gb flavour), assigning them floating IP addresses, and installing necessary packages like `epel-release`, `pv`, and `screen` on the temporary legacy instance."
+    }
+  ],
+  "generated_at": "2026-08-07T23:37:59.158501+00:00"
 }

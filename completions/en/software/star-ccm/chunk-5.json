@@ -4,17 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How do researchers specify the input simulation file and optional Java macros within a Slurm batch script for STAR-CCM+ jobs on Alliance clusters?",
-      "answer": "Researchers should specify the input simulation filename by assigning it to the `SIM_FILE` variable. For optional Java macros, the `BATCH_CMD` variable can be uncommented and set, for instance, to `myMacro.java,run`."
+      "question": "How does the STAR-CCM+ job script on Fir, Narval, or Rorqual clusters configure the `FLEXIBLAS` and `STAR_MPI` environment variables based on the CPU vendor?",
+      "answer": "On Fir, Narval, or Rorqual clusters, the STAR-CCM+ job script determines the CPU vendor ID. If the CPU is Intel, `FLEXIBLAS` is set to `StarMKL` and `STAR_MPI` to `intel`. If it's AMD, `FLEXIBLAS` is set to `StarAOCL`. Otherwise, `FLEXIBLAS` defaults to `NETLIB` and `STAR_MPI` to `openmpi`."
     },
     {
-      "question": "What are the key differences in configuring license access for Power-on-Demand (PoD) versus institutional licenses when running STAR-CCM+ batch jobs on Alliance clusters like Fir, Narval, or Rorqual?",
-      "answer": "For Power-on-Demand (PoD) licenses, researchers must manually set the `LM_PROJECT` environment variable to their 22-digit PoD License Key in the Slurm script. For institutional licenses, the `LM_PROJECT` variable should be commented out, and the system will instead rely on the `~/.licenses/starccm.lic` file for license server configuration."
+      "question": "When running STAR-CCM+ on Fir, Narval, or Rorqual clusters, how does the `starccm+` execution command change depending on whether a Siemens Power-on-Demand (PoD) license or a local institutional license server is used?",
+      "answer": "If a Siemens Power-on-Demand (PoD) license is used, the `starccm+` command includes the `-power` and `-podkey $LM_PROJECT` options, where `$LM_PROJECT` is your 22-digit PoD license key. For an institutional license server, these specific `-power` and `-podkey` options are omitted from the `starccm+` command."
     },
     {
-      "question": "Does the Trillium cluster have any unique requirements for configuring STAR-CCM+ licensing in a Slurm batch script compared to other Alliance clusters?",
-      "answer": "Yes, for the Trillium cluster, the Slurm script explicitly defines `FLEXPORT`, `VENDPORT`, and `LICSERVER` variables for the license server. It also uses an `ssh` command with local port forwarding (`ssh tri-gw -L ...`) to tunnel the license server connection, which replaces the settings from the `~/.licenses/starccm.lic` file for this cluster."
+      "question": "What command is used in the STAR-CCM+ job script on Fir, Narval, or Rorqual clusters to verify connectivity to the license server and its port?",
+      "answer": "The `nmap $server -Pn -p $port` command is used to check the network connectivity to the specified license server (`$server`) and its associated port (`$port`). The `grep -v '^$'` filters out empty lines from the `nmap` output."
     }
   ],
-  "generated_at": "2026-05-24T01:33:50.923444+00:00"
+  "generated_at": "2026-08-08T00:34:13.174057+00:00"
 }

@@ -4,13 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What environment variable is automatically configured when an `ls-dyna` or `ls-dyna-mpi` module is loaded, and what path is it set to?",
-      "answer": "When you load an `ls-dyna` or `ls-dyna-mpi` module, the system automatically sets the `LSTC_FILE` variable to `/home/$USER.licenses/ls-dyna.lic`."
+      "question": "What is the relationship between Ansys and LS-DYNA licensing, particularly concerning the types of license servers used?",
+      "answer": "Ansys purchased the Livermore Software Technology Corporation (LSTC), the developer of LS-DYNA, in 2019. Consequently, LS-DYNA licenses issued by Ansys since that time use Ansys license servers. Legacy LSTC licenses that run on LSTC license servers are now also available from Ansys."
     },
     {
-      "question": "Why is specifying the license server through the `ls-dyna.lic` file recommended for users with an LSTC license server on the cluster?",
-      "answer": "This approach is recommended for users with a license hosted on an LSTC license server because it ensures that identical license server settings are automatically applied to all jobs submitted on the cluster, eliminating the need to specify them in each individual Slurm script or environment."
+      "question": "What are the two methods for configuring an LS-DYNA job script to use a license from an LSTC license server?",
+      "answer": "Users have two options to specify an LSTC license server:\n1.  **Option 1 (Recommended):** Create a file named `ls-dyna.lic` in the `$HOME/.licenses/` directory on each cluster. This file should contain `#LICENSE_TYPE: network` and `#LICENSE_SERVER:<port>@<server>`, where `<port>` is an integer and `<server>` is the hostname of your LSTC license server. The LS-DYNA module system automatically picks up these values.\n2.  **Option 2:** Set the environment variables `export LSTC_LICENSE=network` and `export LSTC_LICENSE_SERVER=<port>@<server>` directly in your Slurm scripts. These variables will take priority over any values in your `~/.licenses/ls-dyna.lic` file, but the `~/.licenses/ls-dyna.lic` file must still exist (even if empty) for LS-DYNA modules to load successfully."
     }
   ],
-  "generated_at": "2026-04-13T07:59:27.664935+00:00"
+  "generated_at": "2026-08-08T00:16:15.235301+00:00"
 }

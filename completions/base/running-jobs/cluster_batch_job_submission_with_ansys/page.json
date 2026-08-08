@@ -1,0 +1,75 @@
+{
+  "doc_key": "base/cluster_batch_job_submission_with_ansys",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Why are specific instructions provided for running parallel Ansys jobs on Alliance clusters?",
+      "answer": "Specific instructions are needed because the MPI implementations included with the Ansys software suite do not support the Alliance clusters' Slurm scheduler."
+    },
+    {
+      "question": "What is the typical procedure for preparing and submitting an Ansys Fluent job to an Alliance cluster?",
+      "answer": "Users typically prepare the job on a desktop, export case and data files, transfer them to a `/project` or `/scratch` directory, create a journal file, and then submit the job using a Slurm script."
+    },
+    {
+      "question": "When running Ansys Fluent on Alliance clusters, what is the primary recommendation for Slurm script usage to optimize performance?",
+      "answer": "The 'by node' script is generally recommended to minimize solution latency and maximize performance, especially when using as few nodes as possible."
+    },
+    {
+      "question": "What are the best practices for configuring mesh partitioning in Ansys Fluent jobs for optimal efficiency on Alliance clusters?",
+      "answer": "The number of mesh partitions should be an integral multiple of the number of cores, and for optimal efficiency, ensure at least 10,000 cells per core."
+    },
+    {
+      "question": "What unique setup steps are required for Trillium users submitting Ansys Fluent jobs?",
+      "answer": "Trillium users must ensure that writable symbolic links exist for `~/.ansys`, `~/.fluentconf`, and `~/.flrecent`, pointing to directories within their `/scratch` space, before submitting jobs."
+    },
+    {
+      "question": "When is it appropriate to use 'license requeue' scripts for Ansys Fluent jobs, and what cautionary measure should be taken?",
+      "answer": "These scripts are suitable for jobs known to complete normally but frequently fail to start due to license shortages. Users must monitor Slurm output to confirm requeues are license-related, as other failures will also trigger costly repetitions."
+    },
+    {
+      "question": "How do 'solution restart' scripts extend the runtime for large Ansys Fluent jobs on Alliance clusters?",
+      "answer": "They automate the process of restarting simulations from the most recently saved timestep files, allowing jobs to run beyond typical maximum Slurm time limits, such as seven days."
+    },
+    {
+      "question": "How can users configure Ansys Fluent journal files to change simulation parameters and specify output file formats?",
+      "answer": "Journal files can include any Fluent Text User Interface (TUI) command to modify parameters. The command `/file/cff-files no` or `/file/cff-files yes` specifies whether to use legacy (.cas/.dat) or more efficient (.cas.h5/.dat.h5) file formats, respectively."
+    },
+    {
+      "question": "What critical steps are involved in preparing and using User-Defined Functions (UDFs) with Ansys Fluent on an Alliance cluster?",
+      "answer": "Users must transfer the UDF source file using text mode, add specific commands to the journal file before reading case/data files, and ensure the UDF is parallelized with compiler directives, predicates, and reduction macros if used in parallel. Compiled UDFs must be built on an Alliance cluster."
+    },
+    {
+      "question": "What are some important command-line options available for `cfx5solve` in Ansys CFX, and how can users find more information?",
+      "answer": "Important options include `-single` (default precision), `-double` (for double precision, doubles memory), and `-large` (for meshes up to 2 billion elements). A full list can be obtained by running `cfx5solve -help`."
+    },
+    {
+      "question": "What is the mandatory initialization procedure for Ansys Workbench jobs on an Alliance cluster before submitting them via Slurm?",
+      "answer": "Users must start an OnDemand desktop, navigate to the project directory, remove `_ProjectScratch`, load the Ansys module, open the project GUI with `runwb2`, reset the Model, save, exit without saving modifications, and then quit Workbench."
+    },
+    {
+      "question": "Can Ansys Workbench simulations be run directly from the GUI on Alliance clusters, and what are the advantages?",
+      "answer": "Yes, compute nodes can be reserved for OnDemand desktop sessions, allowing simulations to run directly from the Workbench native GUI, which offers a more intuitive option than submitting jobs via Slurm scripts."
+    },
+    {
+      "question": "How do users obtain an input file for an Ansys Mechanical (APDL) job from an interactive Workbench Mechanical session?",
+      "answer": "Within an interactive Workbench Mechanical session, users can click on `Solution -> Tools -> Write Input Files`, then specify a file name and save it as an APDL Input File (*.inp)."
+    },
+    {
+      "question": "What type of parallelization is generally preferred for Ansys Mechanical (APDL) jobs on Alliance clusters, and why?",
+      "answer": "Shared memory parallel (SMP) scripts typically perform better than distributed memory parallel (DMP) scripts and should be used whenever possible."
+    },
+    {
+      "question": "How do users control whether an Ansys Rocky simulation starts from the beginning or resumes from a partially completed state?",
+      "answer": "In the Slurm script, users set the `RESUME` variable to `0` to start from the beginning (which removes previous results) or `1` to restart a partially completed simulation."
+    },
+    {
+      "question": "What is a significant performance consideration for running Ansys Rocky simulations on Alliance clusters?",
+      "answer": "GPU-based scripts have been found to significantly outperform CPU-only scripts for basic test cases, suggesting faster solution times when GPUs are utilized. Users on Narval should request a100 GPUs."
+    },
+    {
+      "question": "Where can users find specific Slurm scripts for Ansys Electronics Desktop (AnsysEDT) on Alliance clusters?",
+      "answer": "Slurm scripts for AnsysEDT are provided on a dedicated page titled 'AnsysEDT'."
+    }
+  ],
+  "generated_at": "2026-08-08T01:05:50.870115+00:00"
+}

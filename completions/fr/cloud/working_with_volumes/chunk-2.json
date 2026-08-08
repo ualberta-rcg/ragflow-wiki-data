@@ -4,17 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Comment faire pour qu'un volume soit monté automatiquement au démarrage d'une instance sur un système Linux?",
-      "answer": "Pour monter un volume automatiquement au démarrage d'une instance, il faut ajouter une ligne au fichier `/etc/fstab` avec les détails du volume. Avant ça, vous pouvez utiliser la commande `blkid` pour trouver l'UUID du dispositif. Ensuite, vous ajoutez une ligne comme celle-ci: `/dev/disk/by-uuid/anananan-anan-anana-anan-ananananana /mnt auto defaults,nofail 0 3`, en remplaçant l'UUID générique par celui de votre volume."
+      "question": "C'est quoi l'avantage de démarrer une instance à partir d'un volume au lieu d'une image?",
+      "answer": "Il est recommandé de démarrer une instance depuis un volume pour assurer la persistance et la redondance du service. Les volumes éphémères créés à partir d'une image ne sont pas sauvegardés et peuvent être perdus si l'instance est supprimée, si le sous-système de disques de l'hyperviseur fait défaut ou si l'instance doit être évacuée. Le stockage du volume, lui, protège l'instance des défaillances matérielles."
     },
     {
-      "question": "Pourquoi est-il conseillé de démarrer une instance depuis un volume plutôt que depuis une image dans un environnement de cloud?",
-      "answer": "Il est recommandé de démarrer une instance depuis un volume pour assurer la persistance du service. Une instance démarrée depuis une image est stockée sur le disque local de la machine qui l'héberge, ce qui la rend vulnérable à une perte en cas de problème matériel sur cette machine. Un volume offre une redondance, ce qui protège l'instance contre les défaillances matérielles et garantit sa stabilité."
+      "question": "Comment peut-on s'assurer qu'un volume se monte automatiquement au démarrage d'une instance sur un nuage OpenStack?",
+      "answer": "Pour monter automatiquement un volume au démarrage d'une instance, vous devez d'abord lancer la commande `blkid` pour trouver l'UUID du dispositif. Ensuite, ajoutez une ligne au fichier `/etc/fstab`, comme `/dev/disk/by-uuid/anananan-anan-anana-anan-ananananana /mnt auto defaults,nofail 0 3`, en remplaçant le UUID générique par celui de votre volume."
     },
     {
-      "question": "Quelle est la marche à suivre pour créer une image à partir d'un volume existant en utilisant le tableau de bord OpenStack?",
-      "answer": "Pour créer une image à partir d'un volume avec le tableau de bord OpenStack, le volume doit d'abord être détaché de l'instance. Si c'est un volume de démarrage, l'instance doit être supprimée, en s'assurant que la case 'Supprimer le volume lors de la suppression de l'instance' n'a pas été cochée. Ensuite, sous 'Projet->Volumes', sélectionnez le volume, puis dans la colonne 'Actions', choisissez 'Charger dans l'image' du menu déroulant. Entrez un nom pour la nouvelle image et sélectionnez le format du disque. QCOW2 est recommandé pour OpenStack, ou vmdk/vdi si vous prévoyez d'utiliser l'image avec VirtualBox, puis cliquez sur 'Charger'."
+      "question": "Quelles sont les étapes pour créer une image à partir d'un volume existant en utilisant le tableau de bord d'OpenStack?",
+      "answer": "Pour créer une image à partir d'un volume via le tableau de bord, le volume doit d'abord être détaché de l'instance (sauf pour les volumes de démarrage où l'instance doit être supprimée, en s'assurant que l'option de suppression du volume n'était pas cochée à la création). Ensuite, sous 'Projet -> Volumes', sélectionnez le volume. Dans la colonne 'Actions', choisissez 'Charger dans l'image' du menu déroulant. Entrez un nom pour la nouvelle image, sélectionnez le 'Format du disque' (QCOW2 pour OpenStack ou vmdk/vdi pour VirtualBox) et cliquez sur 'Charger'."
     }
   ],
-  "generated_at": "2026-04-19T02:49:25.682450+00:00"
+  "generated_at": "2026-08-08T01:03:10.977803+00:00"
 }

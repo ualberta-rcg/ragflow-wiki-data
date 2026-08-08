@@ -2,6 +2,19 @@
   "doc_key": "fr/trillium_quickstart",
   "level": "chunk",
   "chunk_index": 11,
-  "qa_pairs": [],
-  "generated_at": "2026-05-10T00:41:55.333702+00:00"
+  "qa_pairs": [
+    {
+      "question": "Quelle est la politique d'ordonnancement des ressources (cœurs CPU et GPU) sur la grappe Trillium, et quelles sont les particularités par rapport à d'autres systèmes?",
+      "answer": "Sur la sous-grappe de CPU, toutes les tâches doivent utiliser des nœuds entiers, ce qui signifie que la taille minimale d'une tâche CPU est de 192 cœurs. Pour la sous-grappe de GPU, chaque nœud contient 4 GPU, et l'ordonnanceur permet de demander soit un nombre entier de nœuds, soit un seul GPU, ce dernier équivalant à un quart de nœud avec 24 cœurs et environ 188 GiB de RAM. Il n'est pas possible de demander un nombre particulier de cœurs CPU, et Trillium ne prend pas en charge la planification de fractions de GPU avec MIG comme sur d'autres grappes, mais HyperQ / MPS peut être utilisé."
+    },
+    {
+      "question": "Puis-je soumettre de nouvelles tâches à partir d'un nœud de calcul ou d'un nœud de copie sur la grappe Trillium?",
+      "answer": "Non, les tâches ne peuvent pas être soumises depuis les nœuds de calcul, ni depuis les nœuds de copie. Cette restriction est mise en place pour éviter de générer accidentellement un grand nombre de tâches et de surcharger l'ordonnanceur et le processus de sauvegarde."
+    },
+    {
+      "question": "Comment le compte pour l'ordonnanceur est-il déterminé par défaut pour les tâches sur Trillium, et comment peut-on le modifier?",
+      "answer": "Par défaut, les tâches s'exécuteront avec l'allocation attribuée à votre groupe ou, à défaut, avec une allocation du service d'accès rapide. Si vous disposez de plusieurs allocations, il est fortement recommandé de spécifier explicitement le compte à utiliser en ajoutant l'option `--account=ACCOUNT_NAME` à votre script de tâche ou à votre commande de soumission."
+    }
+  ],
+  "generated_at": "2026-08-08T00:51:58.403221+00:00"
 }

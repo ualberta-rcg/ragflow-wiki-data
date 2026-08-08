@@ -4,13 +4,17 @@
   "chunk_index": 18,
   "qa_pairs": [
     {
-      "question": "What are the permitted and prohibited uses of SIMULIA Academic Software with tokens from the SHARCNET license server?",
-      "answer": "Permitted uses for SIMULIA Academic Software with SHARCNET license tokens include education, institutional, or instruction purposes, and experimental, theoretical, and/or digital research work aimed at acquiring new knowledge, up to the proof-of-concept stage in a laboratory. Prohibited uses are commercial or contract-related purposes where results are not publishable."
+      "question": "How can a user check the SHARCNET license server for Abaqus job statuses, including information on started, queued, and reserved licenses?",
+      "answer": "To check the SHARCNET license server for started and queued jobs, as well as reservations by purchasing groups, a user can run the command: `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued|RESERVATION\"`."
     },
     {
-      "question": "What institutional affiliation is required to use SIMULIA Academic Software with tokens from the SHARCNET license server?",
-      "answer": "Users must be affiliated with a Canadian degree-granting academic institution to use SIMULIA Academic Software with tokens from the SHARCNET license server."
+      "question": "When an Abaqus job on a cluster is reported as \"queued\" by the SHARCNET license server, what does this signify about its state and impact on the user's account?",
+      "answer": "When an Abaqus job is listed as \"queued\" by the SHARCNET license server, it indicates that the job has transitioned to a 'Running' state from the Slurm scheduler's viewpoint (e.g., `squeue -j jobid`), but it is actually idle on a compute node, awaiting an available license. This idle state will still negatively affect the user's account priority, similar to how an actively computing job would, by consuming CPU time."
+    },
+    {
+      "question": "According to the provided example, what happens if a user submits multiple Abaqus jobs but has an insufficient number of compute tokens available on the SHARCNET license server?",
+      "answer": "The example demonstrates that if a user submits multiple Abaqus jobs (e.g., two 6-core jobs needing 12 tokens each) with an insufficient number of compute tokens (e.g., only 10 available), the first job will acquire the available tokens and begin running. The second job, lacking access to tokens, will enter an idle \"queued\" state. This situation wastes allocated compute resources and depreciates the user's fair share level, as the job is considered 'Running' by the scheduler even though it's waiting for a license."
     }
   ],
-  "generated_at": "2026-05-31T01:08:39.945167+00:00"
+  "generated_at": "2026-08-07T23:25:01.354375+00:00"
 }

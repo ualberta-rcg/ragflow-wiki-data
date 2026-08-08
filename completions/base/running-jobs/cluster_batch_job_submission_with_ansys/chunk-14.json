@@ -1,0 +1,20 @@
+{
+  "doc_key": "base/cluster_batch_job_submission_with_ansys",
+  "level": "chunk",
+  "chunk_index": 14,
+  "qa_pairs": [
+    {
+      "question": "What is the main purpose of Fluent journal files in Ansys simulations, and what types of commands can they include?",
+      "answer": "Fluent journal files automate the simulation process by loading case files, running the solver, and writing results. They can contain virtually any command from Fluent's Text User Interface (TUI), allowing users to adjust simulation parameters such as temperature, pressure, or flow speed, and run multiple simulations under different conditions with a single case file."
+    },
+    {
+      "question": "What are the essential initial steps for preparing and transferring a User-Defined Function (UDF) for use with Fluent on an Alliance cluster?",
+      "answer": "First, you must transfer your UDF source file, like `sampleudf.c`, and any dependent files to the cluster. Ensure the text mode setting of your transfer client is used, especially when uploading from Windows, so Fluent can read the file correctly. The UDF should be placed in the same directory as your journal, case, and data files. Crucially, before uploading your case file to the cluster, confirm that neither the 'Interpreted UDFs' nor the 'UDF Library Manager' dialog boxes in the Fluent GUI are configured to use any UDF; this ensures that only the journal file commands control the UDF when jobs are submitted."
+    },
+    {
+      "question": "How can a Fluent journal file be configured to use an interpreted User-Defined Function (UDF) during a simulation run?",
+      "answer": "To configure a Fluent journal file to interpret a UDF at runtime, you need to add a specific command line before the case/data files are read or initialized. The command is `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no`, where `sampleudf.c` should be replaced with the actual name of your UDF source file. It's also important to open your case file in the Fluent GUI, remove any managed definitions, and resave it to ensure this journal command is the sole control for UDF usage during the Fluent run."
+    }
+  ],
+  "generated_at": "2026-08-08T01:07:48.834273+00:00"
+}

@@ -4,13 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Where can users find information about the latest Ansys release, such as Ansys 2026 R1?",
-      "answer": "Information for the latest Ansys release, like Ansys 2026 R1, can be found on the Ansys website's release highlights page."
+      "question": "How should an Alliance researcher configure their `ansys.lic` file to use the SHARCNET Ansys license on any Alliance cluster, considering that `license3.sharcnet.ca` is no longer operational?",
+      "answer": "To use the SHARCNET Ansys license on any Alliance cluster, a researcher must configure their `~/.licenses/ansys.lic` file with the following line:\n`setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license1.computecanada.ca\")`"
     },
     {
-      "question": "How can users find information about previous Ansys releases or specific features, such as GPU support for a particular version?",
-      "answer": "Users can find posts for previous Ansys releases on the Ansys blog by scrolling to the FILTERS search bar and inputting queries like 'What’s New Fluent 2024 GPU' to find relevant documents. Alternatively, the Press Release search bar is also a good way to find release-specific information."
+      "question": "What command sequence can an Alliance researcher use to check the number of Ansys licenses currently in use by their username and the total in use by all users on an Alliance cluster like Nibi?",
+      "answer": "To query the number of Ansys licenses in use by a researcher's username and the total by all users, they can run the following commands on a cluster:\n```bash\nssh nibi.alliancecan.ca\nmodule load ansys\n$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil \\\nlmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of\\\\|$USER\" | grep -v \" Total of 0 licenses in use\"\n```"
+    },
+    {
+      "question": "When Ansys jobs are submitted on Alliance clusters, how are `anshpc` licenses consumed, and what options does a user have if a new job fails to start due to a license shortage?",
+      "answer": "`anshpc` licenses are consumed based on the number of cores requested for a job, typically calculated as (cores - 4) licenses for a Fluent job example. If a new job (e.g., a 400-core parallel job requiring 396 `anshpc` licenses) attempts to start and there are insufficient licenses available (e.g., only 386 remaining from a total pool of 1986), the job will fail. The user's options are to either wait for a sufficient number of licenses to become available or reduce the job size to fewer cores (e.g., 390 cores or less) and resubmit immediately."
     }
   ],
-  "generated_at": "2026-05-31T01:20:55.803979+00:00"
+  "generated_at": "2026-08-07T23:34:45.704029+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 20,
   "qa_pairs": [
     {
-      "question": "Pourquoi est-ce une bonne stratégie de morceler les simulations GROMACS en plusieurs tâches plus courtes?",
-      "answer": "Morceler les simulations en tâches plus courtes est avantageux parce que les tâches de trois heures ou moins sont éligibles à la planification de remplacement, ce qui réduit le temps d'attente avant le lancement et optimise l'utilisation des ressources, même avec des allocations par défaut."
+      "question": "Comment est-ce qu'on mesure la performance d'une simulation avec GROMACS?",
+      "answer": "La performance d'une simulation avec GROMACS se mesure généralement par le nombre de nanosecondes de trajectoire qui peuvent être simulées en une journée, exprimé en ns/jour."
     },
     {
-      "question": "Comment automatiser le processus de morcellement et de redémarrage des simulations GROMACS en utilisant les vecteurs de tâches?",
-      "answer": "Pour automatiser ce processus, on utilise un vecteur de tâches (job array) via un seul appel à `sbatch`. Ce système soumet plusieurs tâches courtes, où seule la première démarre, et les suivantes reprennent la simulation dès que la précédente se termine. Les tâches en attente sont automatiquement annulées si la simulation est complétée ou si elle rencontre une erreur."
+      "question": "Qu'est-ce que la scalabilité parallèle dans le contexte de GROMACS et comment est-elle évaluée?",
+      "answer": "La scalabilité parallèle indique à quel point les ressources de calcul sont utilisées efficacement. Elle est mesurée par la formule S = p<sub>N</sub> / ( N * p<sub>1</sub> ), où p<sub>N</sub> représente la performance avec 'N' cœurs CPU et p<sub>1</sub> est la performance avec un seul cœur CPU. Idéalement, une scalabilité linéaire (S = 1) signifie que la performance augmente proportionnellement au nombre de cœurs CPU."
     },
     {
-      "question": "Quels paramètres de la commande `gmx mdrun` sont essentiels pour gérer le redémarrage et la complétion propre des simulations GROMACS dans le cadre du morcellement?",
-      "answer": "Pour redémarrer une simulation, il faut utiliser le paramètre `-cpi state.cpt`, où `state.cpt` est le fichier de point de contrôle le plus récent. Pour assurer une fermeture propre et la création d'un nouveau point de contrôle avant la limite de temps de la tâche Slurm, il faut aussi spécifier le paramètre `-maxh` avec la durée en heures."
+      "question": "Quel est le rôle de la décomposition des domaines dans les simulations GROMACS?",
+      "answer": "GROMACS utilise la décomposition des domaines (DD) pour distribuer le calcul des interactions non liantes entre particules (PP) sur plusieurs cœurs CPU. Cette méthode découpe la boîte de simulation en plusieurs domaines le long des axes X, Y ou Z, et attribue chacun de ces domaines à un processus MPI, ce qui aide à l'exécution en parallèle."
     }
   ],
-  "generated_at": "2026-04-13T06:17:15.578113+00:00"
+  "generated_at": "2026-08-08T00:08:54.351887+00:00"
 }

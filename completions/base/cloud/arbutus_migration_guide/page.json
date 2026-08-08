@@ -1,6 +1,75 @@
 {
   "doc_key": "base/arbutus_migration_guide",
   "level": "page",
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:42:12.451678+00:00"
+  "qa_pairs": [
+    {
+      "question": "What is the main purpose of this document regarding the Arbutus Cloud?",
+      "answer": "This document describes how to migrate virtual machine (VM) instances from the legacy Arbutus Cloud to the new Arbutus Cloud."
+    },
+    {
+      "question": "Why is it necessary to migrate cloud resources from the legacy Arbutus Cloud?",
+      "answer": "Migration is necessary for all cloud resources currently on the legacy Arbutus Cloud because it will be decommissioned in 2026."
+    },
+    {
+      "question": "What is the deadline for all RAS and RAC projects to migrate to the new Arbutus Cloud?",
+      "answer": "The deadline for both RAS and RAC projects to migrate to the new Arbutus Cloud is August 31, 2026."
+    },
+    {
+      "question": "Who is primarily responsible for migrating instances from the legacy Arbutus Cloud to the new Arbutus Cloud?",
+      "answer": "Users are recommended to migrate their instances themselves, according to their own application requirements and schedule. Project owners are responsible for creating any necessary backups."
+    },
+    {
+      "question": "What key questions should users answer when planning their cloud migration from the legacy Arbutus Cloud?",
+      "answer": "Users should identify resources needing migration, determine if instances are volume-backed or ephemeral, identify volumes over 150 GB (for Globus), note if automation tools were used, check custom DNS entries, decide on OpenStack dashboard or CLI use, ensure active Alliance accounts, plan for outages, and for RAS projects, submit a migration request."
+    },
+    {
+      "question": "What are the URLs for accessing the legacy and new Arbutus Cloud OpenStack dashboards?",
+      "answer": "The legacy Arbutus Cloud URL is `https://arbutus.cloud.computecanada.ca`, and the new Arbutus Cloud URL is `https://arbutus.alliancecan.ca/`."
+    },
+    {
+      "question": "What preparatory steps are required before starting the migration to the new Arbutus Cloud?",
+      "answer": "Users must back up critical data, download and configure OpenStack RC files for both clouds, test RC file access, migrate SSH keys, migrate security groups and rules, and plan an outage window."
+    },
+    {
+      "question": "What specific lines must be added to the RC file downloaded from the new Arbutus Cloud?",
+      "answer": "Users must add `export OS_AUTH_TYPE=v3websso`, `export OS_IDENTITY_PROVIDER=atmosphere`, `export OS_PROTOCOL=openid`, and `export OS_PROJECT_DOMAIN_NAME=default`."
+    },
+    {
+      "question": "What are the three general migration scenarios outlined for the Arbutus Cloud?",
+      "answer": "The three general migration scenarios are Manual or Orchestrated migration, Migrating volume-backed instances, and Migrating ephemeral instances."
+    },
+    {
+      "question": "What method is recommended for migrating volume-backed instances with volumes less than 150 GB in the Arbutus Cloud?",
+      "answer": "Migration using Glance images is recommended for volume-backed instances with volumes less than 150 GB."
+    },
+    {
+      "question": "How are large volumes (over 150 GB) typically migrated from the legacy Arbutus Cloud?",
+      "answer": "For large volumes, copying data using rsync or the Linux 'dd' command is recommended, especially for bootable volumes, instead of image-based methods."
+    },
+    {
+      "question": "Which tools are recommended for copying data between instances in the two Arbutus Clouds, based on data volume size?",
+      "answer": "For very large volumes (e.g., greater than 5TB), Globus is recommended, while for small data volumes, rsync + ssh provides good transfer speeds."
+    },
+    {
+      "question": "What are the prerequisites for using Globus to transfer data between Arbutus Cloud instances?",
+      "answer": "Users need a Globus Connect Personal Plus subscription, Globus Connect Personal enabled on each cloud instance, VMs with external IP addresses, correct firewall rules, and the Globus Connect Personal user must have access to the data."
+    },
+    {
+      "question": "What post-transfer activities might be required after migrating data to the new Arbutus Cloud instances?",
+      "answer": "Post-transfer activities may include updating host-based firewall rules, updating DNS entries, updating IP addresses in configuration files, altering usernames in databases, and renewing TLS certificates."
+    },
+    {
+      "question": "How should users migrate data from the legacy CephFS shared filesystem to the new CephFS shared filesystem on the new Arbutus Cloud?",
+      "answer": "Users should create an equivalent share in the new cloud, mount both shares to separate locations on the same virtual machine in the new cloud, and then use `rsync` to transfer the data."
+    },
+    {
+      "question": "What is the recommended tool for migrating object storage data to the new Arbutus Cloud, and what is its main limitation?",
+      "answer": "Rclone is recommended, but it does not copy bucket ACLs, meaning all access will initially default to private in the new location."
+    },
+    {
+      "question": "Where can users get help if they encounter issues during the Arbutus Cloud migration process?",
+      "answer": "Support requests can be sent to `cloud@tech.alliancecan.ca`."
+    }
+  ],
+  "generated_at": "2026-08-07T23:35:40.602140+00:00"
 }

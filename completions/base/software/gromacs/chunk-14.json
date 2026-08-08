@@ -4,17 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "What are the recommended methods for running multiple molecular dynamics simulations on a single GPU with GROMACS?",
-      "answer": "There are two main methods for running multiple simulations on a single GPU with GROMACS: using the `mdrun -multidir` option for similar simulations (e.g., repeating the same simulation or simulating multiple protein variants), or utilizing a Multi-Instance GPU (MIG) instance (a fraction of a GPU) for single or dissimilar simulations (e.g., systems with different sizes or compositions). When using `mdrun -multidir`, you must adjust `--ntasks-per-node` and `--cpus-per-task` to ensure one task per simulation while maintaining a constant total number of CPU cores. It's important to note that the built-in `mdrun -multidir` option is generally preferred over Hyper-Q/MPS for GROMACS, as it achieves the same functionality more efficiently."
+      "question": "When preparing a GROMACS simulation, what essential files are required to create a `tpr` (portable binary run input) file?",
+      "answer": "To create a `tpr` file, which contains the starting structure, molecular topology, and simulation parameters, you need a coordinate file (e.g., `.gro`, `.pdb`, or `.cpt`), a system topology (`.top`) file that defines the force field, and a run parameter (`.mdp`) file specifying the simulation options."
     },
     {
-      "question": "What types of files are required to set up and run a GROMACS molecular dynamics simulation, and how are they created?",
-      "answer": "To run a GROMACS simulation, you first need to create a `.tpr` (portable binary run input) file. This file is generated using the `gmx grompp` command (or `grompp` for versions older than 5.0) and requires three essential input files: a coordinate file (such as `.gro`, `.pdb`, or `.cpt`) defining the starting structure; a system topology (`.top`) file, which specifies the force field and how its parameters apply to the simulated system (often incorporating individual molecular topologies from `.itp` files); and a run parameter (`.mdp`) file, which details all simulation parameters. It is crucial to use the same GROMACS version for both `grompp` and `mdrun` to prevent unexpected simulation results."
+      "question": "What is the purpose of using the `mdrun` parameter `-maxh` in a GROMACS simulation, especially for long-running jobs?",
+      "answer": "The `mdrun` parameter `-maxh` is used to inform GROMACS of the requested walltime for a job. This allows the program to gracefully finish the current timestep when it reaches 99% of the specified walltime, ensuring a new checkpoint file is created and all output files (like trajectories, energy, and log files) are properly closed."
     },
     {
-      "question": "How can users manage long-running GROMACS molecular dynamics simulations to ensure they complete within job walltime limits and can be restarted?",
-      "answer": "To manage long-running GROMACS simulations that may exceed job walltime limits, users should implement a checkpointing strategy. First, maximize job access by requesting shorter walltimes (e.g., 24 or 72 hours are often good trade-offs between waiting time and running time). Second, use the `mdrun` parameter `-maxh` to instruct the program to gracefully finish the current timestep when approaching 99% of the requested walltime. This ensures a consistent checkpoint file (`.cpt`) and proper closure of all output files (trajectories, energy- and log-files). To restart a simulation, use the identical `mdrun` command as the original, adding the `-cpi state.cpt` parameter, where `state.cpt` is the filename of the most recent checkpoint file. GROMACS will then append to existing output files and verify consistency."
+      "question": "For GROMACS molecular dynamics simulations that are expected to run longer than the maximum job walltime and require restarting, what strategy should be employed regarding job walltime to optimize resource access?",
+      "answer": "For long GROMACS simulations requiring restarts, it is advisable to maximize the number of nodes accessible by choosing shorter running times for your jobs. Requesting a walltime of 24 hours or 72 hours (three days) is often a good trade-off between the waiting time in the job queue and the actual running time of the simulation."
     }
   ],
-  "generated_at": "2026-04-13T06:05:10.100999+00:00"
+  "generated_at": "2026-08-07T23:59:30.428865+00:00"
 }

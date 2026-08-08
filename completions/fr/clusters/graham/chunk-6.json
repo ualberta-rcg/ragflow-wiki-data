@@ -4,17 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Comment faire pour utiliser le disque local rapide sur les nœuds GPU Volta du cluster Graham, surtout pour les tâches qui demandent beaucoup d'opérations d'entrée-sortie?",
-      "answer": "Pour les tâches gourmandes en E/S sur les nœuds GPU Volta de Graham, on devrait utiliser le disque local rapide. La variable d'environnement `$SLURM_TMPDIR` indique le répertoire temporaire sur ce disque. Vous pouvez y copier vos fichiers de données au début de votre script et y déplacer vos résultats à la fin. L'avantage, c'est que tout le contenu de `$SLURM_TMPDIR` est automatiquement supprimé à la fin de la tâche, et on peut même y créer des environnements virtuels Python pour une meilleure efficacité."
+      "question": "Sur le cluster Graham, combien de nœuds GPU Volta sont disponibles, et quelle est la durée d'exécution maximale permise pour une tâche sur ces nœuds?",
+      "answer": "Le cluster Graham compte deux nœuds GPU Volta au total. Les tâches sur ces nœuds sont disponibles pour tous les utilisateurs, avec une durée d'exécution maximale de 7 jours."
     },
     {
-      "question": "Comment doit-on spécifier la demande de GPU Turing ou Ampere lorsqu'on soumet une tâche sur le cluster Graham?",
-      "answer": "Pour demander des GPU Turing, il faut utiliser l'option `--gres=gpu:t4:2` dans votre script de soumission Slurm, demandant deux cartes T4 par nœud. Si vous travaillez avec des GPU Ampere, les options sont `--gres=gpu:a100:2` ou `--gres=gpu:a5000:2`, spécifiant deux cartes Ampere par nœud, selon le modèle dont vous avez besoin."
+      "question": "Quel est le ratio recommandé de cœurs CPU par GPU pour les tâches s'exécutant sur les nœuds Volta de 28 cœurs du cluster Graham?",
+      "answer": "Pour les nœuds Volta de 28 cœurs sur Graham, il est recommandé d'appliquer un ratio CPU/GPU d'au plus 3.5. Par exemple, si une tâche utilise 4 GPU, il faudrait demander au plus 14 cœurs CPU, et pour 1 GPU, au plus 3 cœurs CPU."
     },
     {
-      "question": "Quelle est la situation actuelle concernant la capacité du cluster Graham, et pour combien de temps cela va-t-il durer?",
-      "answer": "À compter du 13 janvier 2025, la capacité du cluster Graham est réduite à environ 25% de sa capacité normale. Cette limitation restera en place jusqu'à ce que le nouveau système, Nibi, soit entièrement disponible et opérationnel."
+      "question": "Comment un utilisateur peut-il spécifier qu'une tâche doit s'exécuter sur un des deux plus récents nœuds GPU Volta de 40 cœurs sur le cluster Graham?",
+      "answer": "Pour cibler un des deux plus récents nœuds GPU Volta de 40 cœurs sur Graham, l'utilisateur doit ajouter le paramètre `constraint=cascade,v100` au script de soumission de la tâche."
     }
   ],
-  "generated_at": "2026-04-13T06:50:54.061183+00:00"
+  "generated_at": "2026-08-08T00:15:35.373737+00:00"
 }

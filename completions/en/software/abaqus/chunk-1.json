@@ -4,17 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is required for a user to utilize Abaqus software modules on Alliance clusters?",
-      "answer": "To use Abaqus software modules on Alliance clusters, users must provide their own license."
+      "question": "What is Abaqus FEA, and what is the licensing requirement for its use on Alliance clusters?",
+      "answer": "Abaqus FEA is a software suite for finite element analysis and computer-aided engineering. While Abaqus software modules are available on the Alliance clusters, users must provide their own license."
     },
     {
-      "question": "What are the two types of Abaqus license servers supported on Alliance clusters, and what are the primary configuration files for each?",
-      "answer": "The two types of Abaqus license servers supported on Alliance clusters are FLEXnet-based (also known as FlexLM) and DSLS (Dassault Systèmes License Server). For FLEXnet, a single file named `~/.licenses/abaqus.lic` must be created. For DSLS, two text files, `abaqus_v6.env` and `DSLicSrv.txt`, need to be configured."
+      "question": "How do users configure their account to use a FLEXnet-based Abaqus license server on an Alliance cluster?",
+      "answer": "To configure an account for a FLEXnet-based Abaqus license server, a file named `~/.licenses/abaqus.lic` must be created. This file needs to specify the fully qualified hostname of the FLEXnet server and its license manager daemon port number. These details are then assigned to the `ABAQUSLM_LICENSE_FILE` environment variable when an Abaqus module is loaded. For older versions like 6.14.1, `ABAQUSLM_LICENSE_FILE` should be changed to `LM_LICENSE_FILE`."
     },
     {
-      "question": "How can users prevent Abaqus jobs from waiting indefinitely for a license when queuing on Alliance clusters?",
-      "answer": "Users can modify the license queuing behaviour to prevent jobs from waiting indefinitely. One option is to terminate a job immediately if licenses are unavailable by creating an `abaqus_v6.env` file containing `lmlicensequeuing=OFF`. Another option is to specify a finite wait time, for instance, 1 minute, by adding `lmhanglimit=1` to the `abaqus_v6.env` file; if licenses are not available within that time, the job will be dequeued and terminated by Slurm."
+      "question": "What is the procedure for setting up Abaqus to use a DSLS (Dassault Systèmes License Server) on an Alliance cluster?",
+      "answer": "To use a DSLS license server, two text files, `abaqus_v6.env` and `DSLicSrv.txt`, must be configured. The `abaqus_v6.env` file, which can be placed in each Abaqus working directory or a single copy in the home directory, must contain the absolute path to the `DSLicSrv.txt` file. Alternatively, users can set `export DSLS_CONFIG=/path/to/DSLicSrv.txt` for every job. The `DSLicSrv.txt` file specifies the DSLS server hostname and licensing client port number."
     }
   ],
-  "generated_at": "2026-05-31T01:06:12.390129+00:00"
+  "generated_at": "2026-08-07T23:22:38.515538+00:00"
 }

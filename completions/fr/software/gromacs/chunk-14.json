@@ -4,17 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "Pourquoi les simulations GROMACS classiques n'exploitent-elles pas toujours pleinement les modèles de GPU récents comme les Nvidia A100 et H100, et quelles sont les deux solutions recommandées pour optimiser l'utilisation de ces ressources?",
-      "answer": "Les simulations GROMACS classiques ne peuvent exploiter pleinement les modèles de GPU récents (comme les Nvidia A100 et H100) que si le système moléculaire est très volumineux (des millions d'atomes), sinon, une part importante des ressources de calcul allouées est gaspillée. Pour résoudre ce problème, deux solutions sont recommandées: la première est d'exécuter plusieurs simulations similaires sur un seul GPU à l'aide de l'option `mdrun -multidir`, et la deuxième est d'utiliser une instance MIG (une fraction de GPU) plutôt qu'un GPU complet."
+      "question": "Pourquoi est-ce que les méthodes comme l'exécution de plusieurs simulations sur un GPU ou l'utilisation d'une instance MIG sont importantes pour les simulations GROMACS?",
+      "answer": "Ces méthodes sont importantes parce que les GPU récents, comme les Nvidia A100 et H100, ne sont pas pleinement exploités par GROMACS, à moins que les systèmes moléculaires soient très gros (des millions d'atomes). Du coup, une simulation classique sur un tel GPU gaspille une bonne partie des ressources de calcul allouées."
     },
     {
-      "question": "Dans quel contexte est-il conseillé d'utiliser l'option `mdrun -multidir` pour gérer plusieurs simulations GROMACS sur un seul GPU, et quelle est l'importance de la similarité entre ces simulations?",
-      "answer": "Il est conseillé d'utiliser l'option `mdrun -multidir` lorsque vous exécutez plusieurs simulations similaires, par exemple pour répéter la même simulation afin d'obtenir un échantillonnage plus précis de l'espace conformationnel, pour simuler plusieurs variants de protéines ou différents ligands, ou encore pour des simulations basées sur des ensembles comme l'échange de répliques. La similarité des simulations est cruciale pour assurer un équilibrage de charge adéquat; si les simulations sont dissemblables, certaines pourraient progresser et se terminer plus rapidement, ce qui entraînerait un gaspillage de ressources."
+      "question": "Comment peut-on lancer plusieurs simulations GROMACS similaires sur un même GPU de façon efficace, et dans quel cas est-ce la bonne approche?",
+      "answer": "Pour ça, on peut utiliser l'option `mdrun -multidir` de GROMACS. C'est la solution idéale quand on a plusieurs simulations qui se ressemblent, par exemple pour répéter la même simulation, pour simuler plusieurs variants de protéines ou pour des simulations basées sur les ensembles. Par contre, il faut s'assurer que les simulations sont semblables pour un bon équilibrage de charge, sinon ça peut entraîner un gaspillage des ressources."
     },
     {
-      "question": "Quand est-il préférable d'opter pour une instance MIG (une fraction de GPU) plutôt que d'utiliser un GPU complet pour les simulations GROMACS?",
-      "answer": "Il est préférable d'utiliser une instance MIG si vous n'avez qu'une seule simulation à exécuter ou si vos simulations sont dissemblables. Cela inclut des scénarios où les systèmes ont des tailles différentes (plus de 10% d'écart dans le nombre d'atomes) ou des formes et compositions variées, comme une protéine membranaire et une protéine soluble."
+      "question": "Dans quelles situations un utilisateur devrait-il opter pour une instance MIG (une fraction de GPU) pour ses simulations GROMACS, au lieu d'exécuter plusieurs simulations avec l'option `-multidir`?",
+      "answer": "L'utilisation d'une instance MIG est préférable si vous n'avez qu'une seule simulation à faire ou si vos simulations sont dissemblables. C'est le cas, par exemple, pour des systèmes de tailles différentes (une différence de plus de 10% dans le nombre d'atomes) ou des systèmes de formes ou de compositions différentes, comme une protéine membranaire et une protéine soluble."
     }
   ],
-  "generated_at": "2026-04-13T06:16:27.497439+00:00"
+  "generated_at": "2026-08-08T00:08:15.175757+00:00"
 }

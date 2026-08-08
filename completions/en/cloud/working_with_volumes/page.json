@@ -3,69 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of a volume on Alliance clouds, such as Arbutus?",
-      "answer": "A volume provides storage that is not destroyed when a virtual machine (VM) is terminated on Alliance clouds."
+      "question": "What is the primary purpose of a volume on Alliance clouds?",
+      "answer": "A volume provides storage that is not destroyed when a virtual machine (VM) is terminated."
     },
     {
-      "question": "What storage technology do volumes on Alliance clouds use, and how do they ensure data safety?",
-      "answer": "Volumes use Ceph storage with either a 3-fold replication factor or erasure codes to provide safety against hardware failure."
+      "question": "What storage technology do volumes on Alliance clouds use, and what mechanisms are in place for data safety?",
+      "answer": "Volumes on Alliance clouds use Ceph storage and employ either a 3-fold replication factor or erasure codes to protect against hardware failure."
     },
     {
-      "question": "What are the two types of volumes available on Arbutus, and what are their key characteristics?",
-      "answer": "On Arbutus, the `rbd1` volume type uses spinning disk hard drives and erasure codes, while the `high_performance` volume type uses solid state NVMe drives with a 3-fold replication factor for better performance."
+      "question": "What are the two types of volumes available on Arbutus, and how do they differ in terms of storage and performance?",
+      "answer": "On Arbutus, the `rbd1` volume type uses spinning disk hard drives with erasure codes for data safety, while the `high_performance` volume type uses solid-state NVMe drives with 3-fold replication for higher performance."
     },
     {
-      "question": "What are the essential fields a user must fill out when creating a new volume on an OpenStack dashboard?",
-      "answer": "Users must typically fill in the Volume Name, select 'No source, empty volume' as the Volume Source, specify the Size (GiB), and choose 'nova' for the Availability Zone."
+      "question": "What are the essential fields to fill out when creating a new volume through the OpenStack dashboard?",
+      "answer": "The essential fields are Volume Name, Volume Source (`No source, empty volume`), Type (`No volume type`), Size (GiB), and Availability Zone (`nova`)."
     },
     {
-      "question": "What are the main steps involved in making a newly created volume usable on a virtual machine (VM) in an OpenStack environment?",
-      "answer": "The main steps include attaching the volume to the VM, formatting the volume (if it's new), and then mounting it within the VM's filesystem."
+      "question": "Explain the difference between attaching, formatting, and mounting a volume on a virtual machine.",
+      "answer": "Attaching a volume associates it with a VM; formatting prepares a new volume to store directories and files, erasing any existing data; and mounting logically maps the volume's file structure within the VM's directory structure."
     },
     {
-      "question": "When should a user avoid formatting an attached volume on an OpenStack virtual machine?",
-      "answer": "A user should avoid formatting an attached volume if it is an existing volume that has been previously used to store data, as formatting erases all existing information."
+      "question": "What is the recommended procedure for auto-mounting a volume when a virtual machine boots on a Linux VM?",
+      "answer": "To auto-mount a volume on a Linux VM, you need to use the `blkid` command to find the volume's UUID and then add a line with its details to the `/etc/fstab` file."
     },
     {
-      "question": "How can a user configure a volume to automatically mount on a Linux virtual machine (VM) after a reboot?",
-      "answer": "To automatically mount a volume, a user needs to edit the `/etc/fstab` file on the Linux VM, adding a line that includes the volume's UUID (found using `blkid`) and the desired mount point."
+      "question": "Why is it safer to boot a virtual machine from a volume instead of directly from an image on Alliance clouds?",
+      "answer": "Booting from a volume is safer because volume storage has redundancy, protecting the VM from hardware failure, whereas VMs booted directly from an image are stored on the local disk of the hypervisor and are not backed up."
     },
     {
-      "question": "Why is it recommended to boot a virtual machine (VM) from a volume rather than directly from an image on Alliance clusters?",
-      "answer": "It is recommended to boot from a volume for persistent machines because volume storage has redundancy, protecting the VM from hardware failure, unlike VMs stored on the local disk of the actual machine."
+      "question": "What should you be mindful of regarding the 'Delete on Terminate' option when creating a new volume as part of launching a VM?",
+      "answer": "To ensure the volume persists longer than the VM, you should ensure the 'Delete on Terminate' box is not checked when creating the volume as part of launching the VM; it's better to leave it unchecked and manually delete the volume later if unsure."
     },
     {
-      "question": "What should a user ensure if they want a boot volume to persist longer than the virtual machine it's attached to?",
-      "answer": "If creating a boot volume, the user should ensure that the 'Delete on Terminate' box is not checked during the VM launch process, allowing the volume to persist even if the VM is deleted."
+      "question": "What is the primary purpose of creating an image from a volume, and what disk formats are recommended?",
+      "answer": "Creating an image from a volume allows for saving it as a backup or for deploying a VM on a different cloud; QCOW2 is recommended for OpenStack, while VMDK or VDI are better for VirtualBox."
     },
     {
-      "question": "What is the primary purpose of creating an image from a volume, and when would a user typically do this?",
-      "answer": "Creating an image from a volume allows a user to download it, typically for backup purposes or to launch a VM on a different cloud or with virtualization software like VirtualBox."
+      "question": "What is a crucial prerequisite for creating an image from a volume, especially if it's a boot volume?",
+      "answer": "A volume must first be detached from a virtual machine; if it's a boot (root) volume, the VM must be terminated/deleted, provided 'Delete Volume on Instance Delete' was not checked."
     },
     {
-      "question": "What are the recommended disk formats when creating an image from a volume for use within OpenStack versus with VirtualBox?",
-      "answer": "QCOW2 is recommended for use within the OpenStack cloud, while VMDK or VDI formats are often better suited for use with VirtualBox."
+      "question": "When should one consider cloning a volume instead of creating an image from it to make a copy within the same cloud?",
+      "answer": "Cloning is recommended for copying volumes within the same cloud because it is much faster and requires less data movement than creating an image and then a new volume from that image."
     },
     {
-      "question": "What is a critical prerequisite for creating an image from a volume using the OpenStack dashboard?",
-      "answer": "Before creating an image from a volume, it must first be detached from a VM. If it's a boot (root) volume, the VM must be terminated/deleted, ensuring 'Delete Volume on Instance Delete' was not checked."
+      "question": "What is an important step to take before cloning a volume to ensure data consistency?",
+      "answer": "It is highly recommended to shut down your virtual machine before creating a clone of its volume to prevent the newly created volume from being in an inconsistent state if there was ongoing writing to the source volume."
     },
     {
-      "question": "When is cloning a volume recommended, and what is its advantage over creating an image and then a new volume?",
-      "answer": "Cloning a volume is recommended for copying volumes, especially for testing purposes on a persistent VM, as it is much faster and requires less data movement than creating an image first."
+      "question": "What is the command-line client command used to clone a volume?",
+      "answer": "The command-line client command to clone a volume is `openstack volume create --source <source-volume-id> --size <size-of-new-volume> <name-of-new-volume>`."
     },
     {
-      "question": "What important recommendation should be followed before cloning a volume to ensure data consistency?",
-      "answer": "It is highly recommended to shut down the virtual machine (VM) before creating a clone of its volume to prevent the newly created volume from being in an inconsistent state due to ongoing writes."
+      "question": "What precautions should be taken before detaching a volume from a virtual machine?",
+      "answer": "Before detaching a volume, you must ensure that the operating system and other programs on the VM are not accessing files on that volume, either by unmounting the volume or shutting down the VM, to prevent data corruption."
     },
     {
-      "question": "What steps should be taken before detaching a volume from a virtual machine (VM) to avoid data corruption?",
-      "answer": "Before detaching, users should ensure the operating system and other programs on the VM are not accessing files on the volume, either by shutting down the VM or unmounting the volume."
-    },
-    {
-      "question": "Is it possible to detach a boot volume (attached to `/dev/vda`) from a virtual machine without deleting the VM?",
-      "answer": "No, if a volume is attached as a boot volume (`/dev/vda`), the attached VM must be deleted before the volume can be detached; otherwise, an 'Unable to detach volume' error will occur."
+      "question": "What is the difference in detaching a boot volume (`/dev/vda`) compared to a data volume (`/dev/vdb`, etc.)?",
+      "answer": "A boot volume (`/dev/vda`) requires the attached VM to be deleted before it can be detached, whereas data volumes (`/dev/vdb`, etc.) can be detached without deleting the VM they are attached to."
     }
   ],
-  "generated_at": "2026-04-13T16:27:05.629988+00:00"
+  "generated_at": "2026-08-08T01:01:50.904410+00:00"
 }

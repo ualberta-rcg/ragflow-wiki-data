@@ -4,17 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What information is needed and what steps must be taken to configure a local institutional Ansys license server for use on an Alliance cluster?",
-      "answer": "To configure a local institutional Ansys license server on an Alliance cluster, you need the Ansys flex port (FLEXPORT) number and the fully qualified hostname (LICSERVER) from your Ansys server administrator. You then use these to create or update your `~/.licenses/ansys.lic` file. If the network connection between your server and the Alliance cluster has not been previously set up, you will also need the statically configured Ansys vendor port (VENDPORT) number. In this case, send all three pieces of information to Alliance technical support, indicating which cluster you plan to use, so that necessary firewall configurations can be coordinated between Alliance and your local network administrators."
+      "question": "What are the necessary connection details for accessing the SHARCNET Ansys license server from Alliance clusters such as Nibi, Fir, Narval, Rorqual, and Trillium?",
+      "answer": "To connect to the SHARCNET Ansys license server, the LICSERVER value is `license1.computecanada.ca` and the FLEXPORT value is `1055`."
     },
     {
-      "question": "How can a user check if their Ansys license file is properly configured and functioning on an Alliance cluster?",
-      "answer": "To check the Ansys license configuration on an Alliance cluster, a user should execute the following commands after logging in and allocating a compute node: `module load StdEnv/2023; module load ansys/2025R2.04` (or the specific Ansys module version they intend to use), followed by `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\" 1> /dev/null && echo Success || echo Fail`. A \"Success\" output indicates that license checkouts should work, while \"Fail\" suggests a problem with the licensing setup."
+      "question": "If an institutional Ansys license server's network and firewall connections are already established with an Alliance cluster, what information does a user need to obtain from their Ansys server administrator to configure their license?",
+      "answer": "Users need to contact their Ansys server administrator to get the Ansys flex port (FLEXPORT) number, typically 1055, and the fully qualified hostname (LICSERVER). Once obtained, these values are used to configure the `~/.licenses/ansys.lic` file."
     },
     {
-      "question": "What are the compatibility rules for Ansys simulation files across different software versions on Alliance clusters?",
-      "answer": "Ansys simulations are typically forward compatible but not backward compatible. This means that simulation files created using an older version of Ansys, such as ansys/2022R2, are expected to load and run correctly with any newer version, like ansys/2023R2. Conversely, attempting to run a simulation created with a newer version using an older Ansys version will likely lead to errors or crashes. If unsure about the Ansys version used for a Fluent case file, users can `grep` the file for clues (e.g., `grep -ia fluent combustor.cas`)."
+      "question": "What is the procedure for setting up an Ansys license server from a local institution to be used with an Alliance cluster if the network/firewall connections have never been configured before?",
+      "answer": "To set up a local Ansys license server for the first time, you must first obtain three pieces of information from your Ansys server administrator: the Ansys flex port (FLEXPORT) number, the fully qualified hostname (LICSERVER), and the statically configured Ansys vendor port (VENDPORT) number. These details, along with the specific Alliance cluster you intend to use, should be emailed to Alliance technical support. An Alliance system administrator will then open the outbound cluster firewall and provide a range of cluster NAT node IP addresses. You must then give these IP addresses to your local network administrator, who will open the local server's firewall for the FLEXPORT and VENDPORT to allow connections from the Alliance IPs, and ensure the `SERVER` line in your Ansys license file is resolvable from the remote cluster."
     }
   ],
-  "generated_at": "2026-05-31T01:14:01.312196+00:00"
+  "generated_at": "2026-08-07T23:32:20.337247+00:00"
 }

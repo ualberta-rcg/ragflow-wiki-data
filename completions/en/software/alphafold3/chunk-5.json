@@ -2,6 +2,15 @@
   "doc_key": "en/alphafold3",
   "level": "chunk",
   "chunk_index": 5,
-  "qa_pairs": [],
-  "generated_at": "2026-05-10T00:15:10.901710+00:00"
+  "qa_pairs": [
+    {
+      "question": "How are the data pipeline and model inference stages for AlphaFold3 jobs submitted to the scheduler, particularly when ensuring they run sequentially and dependently?",
+      "answer": "AlphaFold3 jobs are typically run in two stages. To ensure sequential and dependent execution, first submit the data pipeline job using `jid1=$(sbatch alphafold3-data.sh)`. Then, submit the model inference job with a dependency on the first job's successful completion using `jid2=$(sbatch --dependency=afterok:$jid1 alphafold3-inference.sh)`. If the first stage fails, the second stage must be manually cancelled with `scancel -u $USER -n alphafold3-inference`."
+    },
+    {
+      "question": "What steps should be taken to resolve 'Out of memory (GPU)' errors when running AlphaFold3 model inference, especially for large inputs or on GPUs with 40 GB of memory?",
+      "answer": "To address 'Out of memory (GPU)' errors during AlphaFold3 model inference, particularly for inputs larger than 5,120 tokens or on GPUs like an A100 with 40 GB of memory, users can enable unified memory. This is done by adding the environment variables `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true`, and `export XLA_CLIENT_MEM_FRACTION=2.0` to the inference stage submission script, and subsequently adjusting the job's memory allocation (e.g., `#SBATCH --mem=80G`) to accommodate the increased usage."
+    }
+  ],
+  "generated_at": "2026-08-07T23:30:56.904217+00:00"
 }

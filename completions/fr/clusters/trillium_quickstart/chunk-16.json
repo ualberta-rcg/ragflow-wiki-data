@@ -2,6 +2,15 @@
   "doc_key": "fr/trillium_quickstart",
   "level": "chunk",
   "chunk_index": 16,
-  "qa_pairs": [],
-  "generated_at": "2026-05-10T00:42:31.109892+00:00"
+  "qa_pairs": [
+    {
+      "question": "Comment soumettre une tâche hybride MPI/OpenMP sur la grappe Trillium, et quelles ressources sont demandées dans l'exemple de script?",
+      "answer": "Pour soumettre une tâche hybride MPI/OpenMP sur Trillium, il faut utiliser la commande `sbatch hybrid_job.sh` à partir de votre répertoire `$SCRATCH` sur un nœud de connexion. Le script d'exemple demande deux nœuds (`--nodes=2`), 48 tâches MPI par nœud (`--ntasks-per-node=48`), et chaque tâche utilise 4 cœurs (`--cpus-per-task=4`). La tâche a une durée maximale d'une heure (`--time=01:00:00`), est nommée `hybrid_job`, et les sorties sont redirigées vers `hybrid_output_%j.txt`. Un courriel est aussi envoyé en cas d'échec de la tâche (`--mail-type=FAIL`)."
+    },
+    {
+      "question": "Quelles sont les étapes qu'effectue l'ordonnanceur Slurm une fois qu'il a alloué les ressources pour une tâche hybride MPI/OpenMP, selon l'exemple fourni?",
+      "answer": "Une fois que Slurm a alloué les deux nœuds demandés pour une tâche hybride MPI/OpenMP, il exécute le script en lot qui procède comme suit: il change le répertoire de travail vers celui de soumission (`$SLURM_SUBMIT_DIR`), charge les modules d'environnement nécessaires (`StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`), configure les variables d'environnement OpenMP (telles que `OMP_NUM_THREADS`, `OMP_PLACES`, `OMP_PROC_BIND`), précharge une bibliothèque pour optimiser les opérations MPI-IO avec le système de fichiers VAST, puis exécute l'application `hybrid_example` à l'aide de `mpirun` avec des options spécifiques pour la distribution des processus et des fils sur les cœurs alloués."
+    }
+  ],
+  "generated_at": "2026-08-08T00:52:33.719256+00:00"
 }

@@ -1,0 +1,20 @@
+{
+  "doc_key": "en/graphical_use_of_ansys",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "What are the steps to start Ansys Fluent from within Workbench on an OnDemand desktop session if no GPU was requested?",
+      "answer": "If accelerated graphics are not required for your desktop session, first load the Ansys module (e.g., `module load StdEnv/2023 ansys/2025R2.04`) and then run `runwb2` from a terminal. To start Fluent from Workbench, click 'Fluid Flow (Fluent)' or 'Fluent with Fluent Meshing' in the left-hand 'Analysis' menu, click 'Setup,' and in the 'Fluent Launcher' popup, go to the 'Environment' tab. There, copy/paste `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on the Nibi cluster only when using intelmpi) and `HOOPS_PICTURE=opengl2-mesa` (optional for 2025R1 or newer), then click 'Start.'"
+    },
+    {
+      "question": "How do you launch Ansys Fluent from within Workbench on an OnDemand desktop session with GPU acceleration on the Nibi cluster?",
+      "answer": "First, choose 't4 (15GB)' from the GPU selector pulldown list for your OnDemand desktop session on the Nibi cluster. Once your desktop appears, open a terminal window, load the Ansys module (e.g., `module load StdEnv/2023 ansys/2025R2.04`), and then run `runwb2`. To start Fluent from within Workbench, click 'Fluid Flow (Fluent)' or 'Fluent with Fluent Meshing' in the left-hand 'Analysis' menu, click 'Setup,' and in the 'Fluent Launcher' popup, go to the 'Environment' tab. Copy/paste `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on the Nibi cluster only) and `HOOPS_PICTURE=opengl2` (optional for 2025R1 or newer), then click 'Start.'"
+    },
+    {
+      "question": "What steps should be taken if graphics appear corrupted when running an application within Workbench on a JupyterHub desktop session without a GPU?",
+      "answer": "If graphics appear corrupted, you can try two approaches. If you are starting Fluent, set the `HOOPS_PICTURE=opengl2-mesa` variable in the 'Fluent Launcher' window. Alternatively, you can create a custom Workbench desktop icon to start Workbench in Mesa mode: exit Workbench, open a terminal, and copy `cd ~/Desktop; cp -p $(realpath workbench.desktop) workbench-mesa.desktop`. Then, open `~/Desktop/workbench-mesa.desktop` in a text editor (e.g., nano) and change all instances of `runwb2` to enable Mesa mode. Save your changes, then refresh the Jupyter desktop by pressing 'control-R' for the new icon to appear."
+    }
+  ],
+  "generated_at": "2026-08-08T01:10:53.189655+00:00"
+}

@@ -4,13 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Pourquoi est-il suggéré d'utiliser un multiplexeur de terminal pour l'archivage de fichiers volumineux sur les grappes?",
-      "answer": "L'archivage de gros volumes de fichiers peut prendre plusieurs heures, voire des jours, et votre session SSH pourrait être interrompue avant la fin du processus. Utiliser un multiplexeur de terminal comme `tmux` ou `screen` permet au programme d'archivage de continuer à s'exécuter en arrière-plan, même si votre session est coupée, et vous pouvez y revenir plus tard."
+      "question": "Pourquoi est-il recommandé de créer un index pour les fichiers regroupés, comme ceux archivés avec `tar` sur le système /nearline, et comment peut-on en créer un ?",
+      "answer": "Quand des fichiers sont regroupés, par exemple avec `tar`, ça devient difficile de repérer un fichier en particulier sans avoir à récupérer toute la collection. Pour éviter ça, on peut construire un index au moment où l'archive est créée. Pour une nouvelle archive, la commande pourrait être `tar cvvf /nearline/def-sponsor/user/mycollection.tar /project/def-sponsor/user/something > /nearline/def-sponsor/user/mycollection.index`. Si l'archive vient d'être faite, vous pouvez créer l'index avec `tar tvvf /nearline/def-sponsor/user/mycollection.tar > /nearline/def-sponsor/user/mycollection.index`. Les fichiers d'index peuvent être enregistrés sur /nearline, mais il faut savoir que sur Nibi, ils ne sont ni sauvegardés ni archivés sur ruban. Si vous avez besoin de sauvegarder vos fichiers d'index, utilisez un autre espace de stockage comme /project."
     },
     {
-      "question": "Quels sont les outils recommandés pour s'assurer que les processus d'archivage de longue durée ne sont pas interrompus sur les grappes?",
-      "answer": "Pour éviter l'interruption des programmes d'archivage comme `tar` ou `dar` qui peuvent durer longtemps, il est recommandé d'utiliser un multiplexeur de terminal. Des outils comme `tmux` ou `screen` permettent d'exécuter ces commandes en arrière-plan et de maintenir la session active."
+      "question": "Pourquoi le système de fichiers /nearline n'est-il pas accessible ou monté sur les nœuds de calcul ?",
+      "answer": "Le système de fichiers /nearline n'est pas monté sur les nœuds de calcul parce que la récupération des données de /nearline peut prendre un certain temps. Pour cette raison, les tâches soumises aux nœuds de calcul n'ont pas la permission d'y lire des données."
+    },
+    {
+      "question": "Quand on archive des collections de fichiers volumineuses sur /nearline, qui peuvent prendre des heures, quelles sont les pratiques recommandées pour s'assurer que le processus se déroule bien ?",
+      "answer": "Pour archiver des collections de fichiers volumineuses, il est préférable d'utiliser un nœud de copie (DTN) plutôt qu'un nœud de connexion, car ces opérations exigent beaucoup de ressources. Si un nœud de copie n'est pas disponible, utilisez un nœud de connexion. De plus, étant donné que l'archivage peut prendre plusieurs heures, voire plusieurs jours, il est recommandé d'exécuter `tar` ou `dar` dans un multiplexeur de terminal comme `tmux` ou `screen`. Cela permet à la tâche de continuer à rouler même si votre session SSH est interrompue ou si vous devez la fermer."
     }
   ],
-  "generated_at": "2026-05-31T02:05:41.772874+00:00"
+  "generated_at": "2026-08-08T00:55:52.944584+00:00"
 }

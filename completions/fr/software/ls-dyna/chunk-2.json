@@ -4,13 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Quel est le moyen recommandé de configurer une licence LSTC pour LS-DYNA sur les grappes de l'Alliance, et pourquoi cette méthode est-elle préférable?",
-      "answer": "Pour configurer une licence LSTC, il est recommandé de créer un petit fichier nommé `ls-dyna.lic` contenant les informations de votre serveur de licence (type de licence réseau et l'adresse du serveur). Ce fichier doit être placé dans le répertoire `$HOME/.licenses/` sur chaque grappe où vous prévoyez soumettre des tâches. Cette approche est recommandée parce que les paramètres de licence seront automatiquement utilisés par toutes vos tâches, sans que vous ayez à les spécifier dans chaque script ou à les définir dans votre environnement."
+      "question": "Comment les licences LS-DYNA sont-elles gérées sur les grappes de calcul, compte tenu de l'acquisition de LSTC par Ansys?",
+      "answer": "Depuis l'acquisition de Livermore Software Technology Corporation (LSTC) par Ansys en 2019, les licences LS-DYNA émises après cette date utilisent des serveurs de licences Ansys, tandis que les licences plus anciennes de LSTC, qui s'appuyaient sur un serveur de licences LSTC, sont maintenant également disponibles via Ansys."
     },
     {
-      "question": "Comment LS-DYNA récupère-t-il automatiquement les informations de licence à partir du fichier `ls-dyna.lic` lorsqu'on utilise une licence LSTC sur les grappes de l'Alliance?",
-      "answer": "Notre système de modules définit la variable d'environnement `LSTC_FILE` pour qu'elle pointe vers `/home/$USER.licenses/ls-dyna.lic` chaque fois que vous chargez le module `ls-dyna` ou `ls-dyna-mpi`. LS-DYNA utilise ensuite cette variable pour trouver et lire le fichier `ls-dyna.lic` lors de son exécution, récupérant ainsi les informations de licence nécessaires."
+      "question": "Quelle est la méthode recommandée pour configurer une licence LS-DYNA hébergée sur un serveur de licences LSTC sur les grappes de l'Alliance?",
+      "answer": "La méthode recommandée consiste à créer un petit fichier nommé <tt>ls-dyna.lic</tt> dans le répertoire <tt>$HOME/.licenses/</tt> de chaque grappe. Ce fichier doit contenir les lignes <code>#LICENSE_TYPE: network</code> et <code>#LICENSE_SERVER:&lt;port&gt;@&lt;server&gt;</code>, où <port> est le numéro de port et <server> est le nom d'hôte de votre serveur de licence LSTC. Cette approche est recommandée car les paramètres seront automatiquement utilisés par toutes les tâches soumises, sans avoir besoin de les spécifier à chaque fois."
+    },
+    {
+      "question": "Existe-t-il une autre façon de configurer une licence LS-DYNA si elle est hébergée sur un serveur de licences LSTC, en dehors de la création d'un fichier?",
+      "answer": "Oui, une autre option est de spécifier le serveur de licence en définissant les variables d'environnement <code>export LSTC_LICENSE=network</code> et <code>export LSTC_LICENSE_SERVER=&lt;port&gt;@&lt;server&gt;</code> directement dans vos scripts. Ces variables d'environnement priment sur les valeurs du fichier <tt>~/.licenses/ls-dyna.lic</tt>, mais ce dernier doit tout de même exister (même s'il est vide) pour que les modules LS-DYNA se chargent correctement."
     }
   ],
-  "generated_at": "2026-04-13T08:03:09.024130+00:00"
+  "generated_at": "2026-08-08T00:18:41.008341+00:00"
 }

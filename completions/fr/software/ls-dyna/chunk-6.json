@@ -4,17 +4,13 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Comment soumet-on une tâche LS-DYNA en mode MPP en spécifiant un nombre précis de nœuds de calcul entiers sur les grappes de l'Alliance?",
-      "answer": "Pour soumettre une tâche LS-DYNA en mode MPP en spécifiant un nombre de nœuds entiers, il faut utiliser un script comme `script-mpp-bynode.sh`. Ce script demande de définir le nombre de cœurs par nœud via `--ntasks-per-node` (par exemple, 192 pour Narval, Nibi, Fir ou Trillium) et le nombre de nœuds via `--nodes`. La mémoire est configurée à `0` pour utiliser toute la mémoire par nœud de calcul. Une fois les modules chargés (`StdEnv/2023`, `intel/2023.2.1`, `ls-dyna-mpi/12.2.1`), la tâche est lancée avec `srun ls-dyna_d` ou `mpirun` selon la version de EasyBuild."
+      "question": "Comment soumettre une tâche LS-DYNA en parallèle avec passage de messages (MPP) en spécifiant un nombre précis de nœuds de calcul entiers sur les grappes de l'Alliance Canadienne?",
+      "answer": "Pour soumettre une tâche LS-DYNA MPP en spécifiant des nœuds de calcul entiers, il faut utiliser un script Slurm comme le `script-mpp-bynode.sh`. Dans ce script, vous devrez définir les paramètres `#SBATCH --ntasks-per-node` pour indiquer tous les cœurs par nœud (par exemple, 192 pour Narval, Nibi, Fir ou Trillium), `#SBATCH --nodes` pour spécifier le nombre de nœuds (1 ou plus) et `#SBATCH --mem=0` pour utiliser toute la mémoire disponible par nœud. L'exécution se fait ensuite avec `srun ls-dyna_d i=airbag.deploy.k memory=200M`."
     },
     {
-      "question": "Quelle est la méthode pour soumettre des tâches LS-DYNA MPP en spécifiant le nombre total de cœurs, et quel avantage cela procure-t-il par rapport à la spécification du nombre de nœuds?",
-      "answer": "Pour soumettre des tâches LS-DYNA MPP en spécifiant le nombre total de cœurs, on utilise un script comme `script-mpp-bycore.sh`. Il faut y définir le nombre total de cœurs avec `--ntasks` (par exemple, 64) et la mémoire par cœur avec `--mem-per-cpu` (par exemple, 2G). L'avantage de cette approche, c'est que l'ordonnanceur peut déterminer le nombre optimal de nœuds de calcul pour minimiser le temps d'attente dans la file d'attente. Il est important que la valeur de `mem-per-cpu` soit assez élevée pour que le processeur principal puisse bien décomposer et gérer les calculs."
-    },
-    {
-      "question": "Pourquoi est-ce qu'on recommande de faire des tests de scalabilité pour les simulations LS-DYNA, et comment peut-on obtenir les statistiques de performance d'une tâche?",
-      "answer": "Il est conseillé de faire des tests de scalabilité pour les simulations LS-DYNA parce que le logiciel pourrait ne pas utiliser efficacement un très grand nombre de cœurs en parallèle. Ces tests aident à déterminer le nombre maximal de cœurs pouvant être utilisés avant que la performance ne commence à se dégrader. Pour avoir les statistiques des travaux de test, comme le temps d'exécution total, l'efficacité CPU et l'efficacité de la mémoire, on peut utiliser la commande `seff jobnumber` ou un portail comme celui de Nibi. Il est crucial d'exécuter ces tests avec la simulation réelle et sur la grappe où les exécutions de production complètes seront réalisées pour obtenir des résultats fiables."
+      "question": "Quel est l'avantage de soumettre une tâche LS-DYNA MPP en spécifiant le nombre total de cœurs, et comment doit-on configurer la mémoire par cœur dans ce cas?",
+      "answer": "L'avantage de soumettre une tâche LS-DYNA MPP en spécifiant le nombre total de cœurs est que ça permet à l'ordonnanceur de déterminer le nombre optimal de nœuds de calcul, ce qui aide à minimiser le temps d'attente dans la file d'attente. Pour ce faire, on utilise le paramètre `#SBATCH --ntasks` pour le nombre total de cœurs et `#SBATCH --mem-per-cpu` pour la mémoire par cœur dans le script Slurm. Il est crucial que la valeur de `mem-per-cpu` soit suffisamment élevée pour permettre au processeur principal de bien décomposer et gérer les calculs."
     }
   ],
-  "generated_at": "2026-04-13T08:03:57.707178+00:00"
+  "generated_at": "2026-08-08T00:19:18.665436+00:00"
 }

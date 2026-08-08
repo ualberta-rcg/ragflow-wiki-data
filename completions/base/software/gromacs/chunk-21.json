@@ -4,17 +4,17 @@
   "chunk_index": 21,
   "qa_pairs": [
     {
-      "question": "What factors influence the optimal performance of GROMACS `mdrun` simulations?",
-      "answer": "The optimal parameters for GROMACS `mdrun` simulations depend significantly on the system's size (number of particles, size, and shape of the simulation box) and the simulation parameters, such as cutoffs and the use of the Particle-Mesh-Ewald (PME) method for long-range electrostatics. GROMACS also outputs performance information and statistics in the `md.log` file, which helps identify bottlenecks and suggests improvements."
+      "question": "How can OpenMP threads be used to improve GROMACS performance, and what is the recommended number of threads?",
+      "answer": "OpenMP threads can enhance GROMACS performance, especially when Domain Decomposition with MPI processes reaches its scaling limit. To utilize them, specify <code>--cpus-per-task</code> in your Slurm job script (for both <code>#SBATCH</code> and <code>srun</code>) and set the <code>OMP_NUM_THREADS</code> environment variable or use the <code>-ntomp</code> mdrun parameter. GROMACS developers generally recommend between 2 and 6 OpenMP threads per MPI process (cpus-per-task)."
     },
     {
-      "question": "How does GROMACS use Domain Decomposition for parallel processing, and what challenges can arise?",
-      "answer": "GROMACS utilizes Domain Decomposition (DD) to distribute the computation of non-bonded Particle-Particle (PP) interactions across multiple CPU cores. This involves dividing the simulation box into domains along the X, Y, and/or Z axes, with each domain assigned to an MPI process. This method works well until the communication overhead becomes significant relative to the domain's size, at which point parallel scaling can drop, and performance may even decrease with more domains. GROMACS can use Dynamic Load Balancing (defaulting to `-dlb auto`) to adjust domain boundaries and mitigate this, but domains cannot be smaller than the longest cutoff radius."
+      "question": "How does GROMACS optimize its performance for different CPU architectures, such as those supporting AVX, AVX2, or AVX512 instruction sets?",
+      "answer": "GROMACS optimizes performance for various CPU architectures by using specialized kernel functions for computing the real-space portion of short-range, non-bonded interactions. These functions leverage SIMD instruction sets like AVX, AVX2, and AVX512. When a GROMACS module is loaded into your environment, an appropriate AVX/AVX2/AVX512 version is automatically chosen based on the cluster's CPU architecture. GROMACS also reports the supported SIMD instruction set in its log file and will issue a warning if a suboptimal kernel function is selected."
     },
     {
-      "question": "What is the Particle-Mesh-Ewald (PME) method in GROMACS, and how does GROMACS optimize its performance in parallel simulations?",
-      "answer": "The Particle-Mesh-Ewald (PME) method is employed in GROMACS to calculate long-range non-bonded interactions. Because PME requires global communication, performance can degrade when many MPI processes simultaneously handle both short-range (PP) and long-range (PME) interactions. To optimize this, GROMACS `mdrun` by default dedicates a number of MPI processes to PME calculations (PME-ranks) if there are 12 or more total MPI processes; this can be manually set using the `-npme` parameter. To address 'Load Imbalance' between PP and PME ranks, GROMACS can automatically adjust by increasing the cutoff radius (since version 4.6), a feature that can be disabled with `-notunepme`. PME calculations can also be offloaded to GPUs since version 2018, though the 2018.1 implementation had some limitations."
+      "question": "What tools are available within GROMACS for post-processing and analysis of molecular dynamics simulation results, and what file formats do they commonly use?",
+      "answer": "GROMACS provides a wide array of tools for common post-processing and analysis tasks. These tools typically read trajectory files in XTC, TNG, or TRR formats, along with coordinate files such as GRO, PDB, or TPR. They often generate plots in the XVG format, which can be used as inputs for the Grace plotting tool (<code>xmgrace</code>). As XVG files are simple text files, they can also be processed with scripts or imported into other spreadsheet programs."
     }
   ],
-  "generated_at": "2026-04-13T06:05:55.636546+00:00"
+  "generated_at": "2026-08-08T00:00:22.896070+00:00"
 }

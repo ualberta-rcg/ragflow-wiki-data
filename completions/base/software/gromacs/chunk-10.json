@@ -4,13 +4,17 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "What is the relationship between domain decomposition and the `--ntasks-per-node` parameter in GROMACS, especially on compute nodes with numerous CPU cores?",
-      "answer": "On clusters with a large number of CPU cores per compute node, domain decomposition can become a limiting factor when choosing the `--ntasks-per-node` value. The larger a system is, the more it can be divided into smaller regions, which allows for larger `--ntasks-per-node` values."
+      "question": "What is the primary function of the provided SLURM job scripts for GROMACS on clusters such as Narval, Nibi, and Trillium?",
+      "answer": "The primary function of these scripts is to enable efficient execution of GROMACS molecular dynamics simulations across entire compute nodes, utilizing parallel processing with MPI tasks and OpenMP threads on the specified clusters."
     },
     {
-      "question": "What action should be taken if GROMACS reports an error indicating that domain decomposition is impossible due to the system size and requested number of domains?",
-      "answer": "If GROMACS reports an error about domain decomposition being impossible given the system size and requested number of domains, you should halve the `--ntasks-per-node` value and double the `--cpus-per-task` value."
+      "question": "Which environment modules are necessary to load when running GROMACS version 2025.4 on CPU-only whole nodes within the StdEnv/2023 environment?",
+      "answer": "To run GROMACS 2025.4 on CPU-only whole nodes in the StdEnv/2023 environment, the following modules must be loaded after a `module purge`: `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `gromacs/2025.4`."
+    },
+    {
+      "question": "How are MPI tasks and OpenMP threads configured in the example SLURM job scripts for running GROMACS on a whole node on clusters like Nibi or Trillium?",
+      "answer": "On clusters like Nibi or Trillium, the example scripts configure 96 MPI tasks per node (`--ntasks-per-node=96`) and 2 OpenMP threads per MPI task (`--cpus-per-task=2`). This setup results in a total of 192 CPU cores per node (96 MPI tasks multiplied by 2 OpenMP threads per task). The `OMP_NUM_THREADS` environment variable is also set using the value from `SLURM_CPUS_PER_TASK`."
     }
   ],
-  "generated_at": "2026-04-13T06:04:27.941588+00:00"
+  "generated_at": "2026-08-07T23:58:56.915957+00:00"
 }

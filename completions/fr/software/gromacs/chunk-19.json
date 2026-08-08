@@ -4,17 +4,13 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "Comment relance-t-on une simulation GROMACS si elle a été arrêtée ou a atteint sa durée limite?",
-      "answer": "On peut relancer une simulation en utilisant la même commande `mdrun` que pour la simulation originale, en y ajoutant le paramètre `-cpi state.cpt`, où `state.cpt` est le nom du dernier fichier de point de contrôle."
+      "question": "Pour les simulations GROMACS sur GPU, comment est-ce qu'on peut morceler une tâche en plusieurs exécutions consécutives à l'aide d'un vecteur de tâches Slurm, et quels sont les éléments clés du script de soumission pour ça?",
+      "answer": "Pour morceler une simulation GROMACS sur GPU, on utilise un vecteur de tâches Slurm avec l'option `--array=1-20%1` qui permet d'exécuter jusqu'à 20 tâches en séquence, une à la fois. Le script de soumission, comme `gromacs_job_checkpoint.sh`, doit spécifier les ressources GPU (`--gpus-per-node=1`), le nombre de cœurs OpenMP par tâche (`--cpus-per-task=4`), la durée de chaque sous-tâche (`--time=03:00:00`), et charger les modules nécessaires incluant `cuda` et `gromacs`. La commande `gmx mdrun` est lancée avec les options `-cpi \"$simname.cpt\"` pour redémarrer à partir d'un point de contrôle et `-maxh $nhours` pour que la simulation se termine proprement avant la limite de temps. Des conditions sont aussi incluses pour annuler les tâches en attente si la simulation se termine ou s'il y a une erreur."
     },
     {
-      "question": "Quel est le comportement par défaut de `mdrun` en GROMACS quand on redémarre une simulation avec des fichiers de sortie déjà existants, et depuis quelle version ce comportement a-t-il été introduit?",
-      "answer": "Depuis la version 4.5, `mdrun` tente par défaut d'utiliser les fichiers existants comme les trajectoires, l'énergie et la journalisation. GROMACS vérifie la cohérence entre ces fichiers de sortie et rejette au besoin les étapes plus récentes que le fichier de point de contrôle."
-    },
-    {
-      "question": "Quelle est l'utilité du paramètre `-maxh` de `mdrun` en GROMACS en ce qui concerne la cohérence des fichiers de contrôle et de sortie?",
-      "answer": "Le paramètre `-maxh` fait en sorte que les fichiers de contrôle et de sortie soient cohérents au moment où la simulation atteint la durée limite d'exécution."
+      "question": "À quoi sert le guide 'Molecular Dynamics Performance Guide' mentionné dans la section 'Performance' du document?",
+      "answer": "Le 'Molecular Dynamics Performance Guide' (Guide de performance en dynamique moléculaire) a été créé par une équipe d'ACENET. Son but est de décrire les conditions optimales pour exécuter des tâches sur nos grappes de calcul avec différents logiciels de simulation, comme AMBER, GROMACS, NAMD et OpenMM, en mettant l'accent sur l'optimisation de la performance."
     }
   ],
-  "generated_at": "2026-04-13T06:17:06.061674+00:00"
+  "generated_at": "2026-08-08T00:08:49.725206+00:00"
 }

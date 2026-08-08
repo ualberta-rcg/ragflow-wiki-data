@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How does the `LSTC_MEMORY=AUTO` setting influence memory allocation for explicit analysis in LS-DYNA jobs?",
-      "answer": "For explicit analysis, the `LSTC_MEMORY=AUTO` setting enables memory to be dynamically extended beyond the specified word setting, potentially increasing by up to 25% if necessary, starting from the initial allocation."
+      "question": "How do you prepare and submit single-node LS-DYNA jobs on an Alliance cluster?",
+      "answer": "To run LS-DYNA jobs on a single compute node, you can list available modules using the command `module spider ls-dyna`. Once configured, jobs are submitted to the queue using the command `sbatch script-smp.sh`."
     },
     {
-      "question": "What is considered the ideal memory allocation for implicit LS-DYNA jobs running on a single compute node?",
-      "answer": "For implicit jobs on a single compute node, 12GB of memory is considered ideal, which represents 75% of the total 16GB RAM typically reserved for the job."
+      "question": "What is the function of the `LSTC_MEMORY=AUTO` environment variable when running LS-DYNA jobs, and for which analysis types is it suitable?",
+      "answer": "The `LSTC_MEMORY=AUTO` setting allows memory to be dynamically extended beyond the specified `memory` word setting within LS-DYNA. This option is suitable for explicit analysis, such as metal forming simulations, but it is not recommended for crash analysis. When `LSTC_MEMORY=AUTO` is uncommented, it allows a starting amount of memory to extend up to 25% if necessary for explicit problems."
     },
     {
-      "question": "How can one calculate the total memory setting for Slurm and the memory parameter value in megawords for LS-DYNA jobs, considering both double and single precision solutions?",
-      "answer": "For both implicit and explicit analysis, the total memory setting for Slurm in GB is determined by multiplying the estimated total solver memory in GB by 25%. The memory parameter value in megawords is calculated as (0.75 * memGB / 8Bytes/w) * 1000M for double precision, and (0.75 * memGB / 4Bytes/w) * 1000M for single precision solutions."
+      "question": "How is the memory specified for LS-DYNA single-node jobs within both the Slurm script and the LS-DYNA command itself, considering single or double precision solvers?",
+      "answer": "For both implicit and explicit analysis, once an estimate for the total solver memory is determined in gigabytes (GB), the total memory setting for Slurm (`--mem`) should be chosen such that the LS-DYNA solver memory represents 75% of the total memory reserved for the job. The `memory` parameter value for LS-DYNA, specified in megawords, can be calculated as `(0.75 * memGB / 8 Bytes/word) * 1000M` for double precision solutions or `(0.75 * memGB / 4 Bytes/word) * 1000M` for single precision solutions, where `memGB` refers to the total memory reserved by Slurm (`--mem`)."
     }
   ],
-  "generated_at": "2026-04-13T07:59:48.519789+00:00"
+  "generated_at": "2026-08-08T00:16:35.139731+00:00"
 }

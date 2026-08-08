@@ -4,13 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What are the recommended SLURM resource allocation settings for a STAR-CCM+ job on the Nibi cluster?",
-      "answer": "For a STAR-CCM+ job on the Nibi cluster, the recommended SLURM resource allocation settings include a time limit of `00-01:00`, 1 node (`#SBATCH --nodes=1`), 16 CPUs per task (`#SBATCH --cpus-per-task=16`), and 64 GB of memory per node (`#SBATCH --mem=64G`). Additionally, `#SBATCH --ntasks-per-node=1` should be used, and the `--constraint=granite` specifies the use of Intel CPU-only base nodes."
+      "question": "How do researchers specify the license type for a STAR-CCM+ batch job on Alliance clusters like Nibi, Fir, Narval, or Rorqual?",
+      "answer": "To specify the license type for a STAR-CCM+ batch job, researchers using a Power-on-Demand (PoD) license must manually set the `LM_PROJECT` environment variable to their 22-digit PoD License Key. If `LM_PROJECT` is not set, the job will use an institutional license server configuration."
     },
     {
-      "question": "How are Power-on-Demand (PoD) and institutional licenses configured for STAR-CCM+ within a SLURM job script on the Nibi cluster?",
-      "answer": "For a Power-on-Demand (PoD) license on the Nibi cluster, you must manually set the `LM_PROJECT` environment variable to your 22-digit PoD license key (e.g., `LM_PROJECT='22digit-PoD-License-Key'`) within your SLURM script. If you are using a local institutional license server, the `LM_PROJECT` line should be commented out, and the licensing configuration relies on a `~/.licenses/starccm.lic` file, which specifies the license server's hostname (or IP address) and its static vendor (flex) port."
+      "question": "On the Nibi Alliance cluster, how do the CPU vendor (Intel or AMD) and STAR-CCM+ version influence the configuration of a batch job?",
+      "answer": "On the Nibi cluster, the CPU vendor affects the `STAR_MPI`, `STAR_FABRIC`, `FLEXIBLAS`, and `STAR_UCX` parameters. For Intel CPUs, `STAR_MPI` is set to \"-mpi intel\" and `STAR_FABRIC` to \"-fabric tcp\". For AMD CPUs, `STAR_MPI` is set to \"-mpi openmpi40\". The `FLEXIBLAS` setting (`StarMKL` for Intel, `StarAOCL` for AMD) and the use of `STAR_UCX=\"-xsystemucx\"` depend on whether the `STARCCM` version is less than 20. Additionally, AMD CPUs may use `STAR_PRELOAD=\"-ldpreload /usr/lib64/libdrm_amdgpu.so.1\"`."
     }
   ],
-  "generated_at": "2026-05-24T01:31:51.636518+00:00"
+  "generated_at": "2026-08-08T00:32:38.205100+00:00"
 }

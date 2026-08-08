@@ -1,0 +1,16 @@
+{
+  "doc_key": "base/cluster_batch_job_submission_with_ansys",
+  "level": "chunk",
+  "chunk_index": 18,
+  "qa_pairs": [
+    {
+      "question": "How does one configure a Slurm script to run an Ansys CFX job on a single compute node?",
+      "answer": "To configure a Slurm script for an Ansys CFX job on a single compute node, you must specify `#SBATCH --nodes=1`. You should also define the number of cores per node with `#SBATCH --ntasks-per-node` (e.g., 4) and total memory with `#SBATCH --mem` (e.g., 16G). After loading the `StdEnv/2023` and `ansys/2023R2` (or newer) modules, the `cfx5solve` command is used. The `-start-method` will be \"Open MPI Local Parallel\" for Narval or Fir clusters, and \"Intel MPI Local Parallel\" for other clusters. The number of partitions for the local parallel job is specified by `-part $SLURM_CPUS_ON_NODE`."
+    },
+    {
+      "question": "What are the main differences in Slurm script configuration between running an Ansys CFX job on a single node versus multiple nodes?",
+      "answer": "For a single-node Ansys CFX job, the Slurm script specifies `#SBATCH --nodes=1` and allows for explicit definition of `#SBATCH --ntasks-per-node` and `#SBATCH --mem`. The `cfx5solve` command uses a \"Local Parallel\" start method. In contrast, for multi-node jobs, the script requires `#SBATCH --nodes` to be set to 2 or more, and typically uses `#SBATCH --ntasks-per-node=192` to utilize all cores per node and `#SBATCH --mem=0` to allocate all memory. The `cfx5solve` command employs a \"Distributed Parallel\" start method and uses `slurm_hl2hl.py` to determine the number of nodes for distributed parallelism (`-par-dist $NNODES`). Additionally, multi-node Intel MPI jobs on clusters other than Narval or Fir require specific environment variable settings like `export I_MPI_HYDRA_BOOTSTRAP=ssh`."
+    }
+  ],
+  "generated_at": "2026-08-08T01:08:16.657033+00:00"
+}

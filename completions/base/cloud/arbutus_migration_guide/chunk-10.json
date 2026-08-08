@@ -2,6 +2,19 @@
   "doc_key": "base/arbutus_migration_guide",
   "level": "chunk",
   "chunk_index": 10,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:43:23.460947+00:00"
+  "qa_pairs": [
+    {
+      "question": "What happens to bucket ACLs and user/project UUIDs when migrating object storage to the new Arbutus Cloud?",
+      "answer": "When migrating object storage to the new Arbutus Cloud, bucket ACLs (Access Control Lists) typically need to be recreated because most migration tools do not preserve them. Additionally, any user or project UUIDs referenced will be different in the new Arbutus Cloud."
+    },
+    {
+      "question": "How does object storage in the new Arbutus Cloud handle bucket names and unauthenticated public access?",
+      "answer": "In the new Arbutus Cloud, object storage uses tenants, meaning bucket name collisions are confined to individual projects. For public access to buckets without authentication, the tenant must be explicitly specified in the URL. The Tenant ID is identical to the OpenStack Project ID, and the URL for unauthenticated S3 access follows the format `https://object-arbutus.alliancecan.ca/<tenant-id>:<bucket-name>/<object-name>`."
+    },
+    {
+      "question": "What tool is recommended for migrating object storage to the new Arbutus Cloud, and what is its main limitation?",
+      "answer": "The document recommends rclone for migrating object storage to the new Arbutus Cloud. Its main limitation is that rclone will not copy bucket ACLs, so all access to the migrated buckets will initially default to private in the new location."
+    }
+  ],
+  "generated_at": "2026-08-07T23:36:59.123240+00:00"
 }

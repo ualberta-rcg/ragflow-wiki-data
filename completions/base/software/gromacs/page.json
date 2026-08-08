@@ -3,77 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is GROMACS?",
-      "answer": "GROMACS is a versatile software package used to perform molecular dynamics for systems ranging from hundreds to millions of particles. It's primarily designed for biochemical molecules like proteins, lipids, and nucleic acids, but its speed also makes it suitable for non-biological systems such as polymers."
+      "question": "What is GROMACS, and what types of systems is it primarily designed for?",
+      "answer": "GROMACS is a versatile software package used to perform molecular dynamics simulations for systems containing hundreds to millions of particles. It's primarily designed for biochemical molecules like proteins, lipids, and nucleic acids, but its speed for nonbonded interactions also makes it suitable for non-biological systems such as polymers."
     },
     {
-      "question": "What are the primary strengths of using GROMACS for molecular dynamics simulations?",
-      "answer": "GROMACS provides extremely high performance, excellent CUDA-based GPU acceleration (for Nvidia GPUs with compute capability >= 2.0), a large selection of flexible tools for trajectory analysis, and supports parallel execution using standard MPI or Thread MPI. It is also free software under the GNU LGPL."
+      "question": "What are the main strengths of using GROMACS for molecular dynamics simulations?",
+      "answer": "GROMACS offers extremely high performance, excellent CUDA-based GPU acceleration for Nvidia compute capability >= 2.0 (Fermi or later), a large selection of flexible tools for trajectory analysis, and supports parallel execution via MPI or 'Thread MPI'. It is also free software under the GNU LGPL."
     },
     {
-      "question": "What are some identified weak points or limitations of GROMACS?",
-      "answer": "GROMACS does not perform extensive on-the-fly analysis, which can make obtaining non-standard simulation information challenging. Different versions may have significant differences in methods and default parameters, complicating result reproduction. Additionally, some bundled tools may contain bugs or implement poorly documented methods."
+      "question": "What are some of the known limitations or weak points of GROMACS?",
+      "answer": "GROMACS performs limited on-the-fly analysis, making it challenging to obtain non-standard information. Different versions can have significant differences in simulation methods and default parameters, making result reproduction difficult. Additionally, some bundled tools and utilities may contain bugs or poorly documented methods, requiring reconfirmation of results with independent methods."
     },
     {
-      "question": "How does GROMACS utilize GPUs for accelerating simulations?",
-      "answer": "GROMACS supports CUDA-based GPU acceleration on Nvidia GPUs with compute capability >= 2.0. It automatically uses any found GPUs and relies on a balance between CPU and GPU performance. To enable GPU acceleration, the 'cutoff-scheme' in the .mdp file must be set to 'verlet', which is the default in version 5.0 and later."
+      "question": "How do users load a GROMACS module on Alliance clusters for CPU-only execution using the `StdEnv/2023` environment?",
+      "answer": "To load a GROMACS module for CPU-only execution on Alliance clusters using `StdEnv/2023`, for example version 2025.4, users would run the command: `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2025.4`."
     },
     {
-      "question": "Which environment modules are required to run GROMACS version 2025.4 with GPU support on an Alliance cluster using `StdEnv/2023`?",
-      "answer": "To run GROMACS 2025.4 with GPU support using `StdEnv/2023`, the following modules need to be loaded: `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `gromacs/2025.4`."
+      "question": "How can users enable GPU acceleration for GROMACS on Alliance clusters, and what is a key configuration change needed for older versions?",
+      "answer": "To enable GPU acceleration, users must load the appropriate `cuda` module before the GROMACS module. For GROMACS versions before 4.6, the `cutoff-scheme` variable in the `mdp` file must be changed from `group` to `verlet` to utilize GPU acceleration, with `verlet` becoming the default in version 5.0 and newer."
     },
     {
-      "question": "What change is required in the GROMACS `.mdp` file to enable GPU acceleration for versions before 5.0?",
-      "answer": "For GROMACS versions before 5.0, to utilize GPU acceleration, the `cutoff-scheme` variable in the `.mdp` file must be changed from `group` to `verlet`."
+      "question": "What is a significant bug identified in GROMACS versions 2020.0 through 2021.5 when used with certain GPUs and the `mdrun -update gpu` option?",
+      "answer": "GROMACS versions 2020.0 to 2021.5 contain a bug when run on Volta or newer generation GPUs (V100, T4, A100, H100) with the `mdrun -update gpu` option. This bug could perturb the virial calculation, potentially leading to incorrect pressure coupling, although GROMACS developers note it might be rare as it's not enabled by default."
     },
     {
-      "question": "What are the main GROMACS binaries and their functions for versions 5.x and newer releases?",
-      "answer": "For GROMACS 5.x and newer, the four main binaries are: `gmx` (mixed precision, OpenMP, no MPI), `gmx_mpi` (mixed precision, OpenMP, MPI), `gmx_d` (double precision, OpenMP, no MPI), and `gmx_mpi_d` (double precision, OpenMP, MPI)."
+      "question": "What are the primary GROMACS binaries for versions 5.x, 2016.x, and newer, and what do their suffixes indicate?",
+      "answer": "For GROMACS 5.x and newer, the main binaries are `gmx` (mixed/single precision, OpenMP), `gmx_mpi` (mixed/single precision, OpenMP, MPI), `gmx_d` (double precision, OpenMP), and `gmx_mpi_d` (double precision, OpenMP, MPI)."
     },
     {
-      "question": "What files are essential for preparing a GROMACS simulation's portable binary run input (`.tpr`) file?",
-      "answer": "To create a `.tpr` file using the `gmx grompp` command, you need a coordinate file with the starting structure (e.g., .gro, .pdb, .cpt), a system topology (`.top`) file (which may include other .itp files), and a run parameter (`.mdp`) file."
+      "question": "What files are required to create a GROMACS `tpr` (portable binary run input) file?",
+      "answer": "To create a `tpr` file using `gmx grompp`, users need a coordinate file (e.g., `.gro`, `.pdb`), a system topology (`.top`) file that defines the force field and parameters, and a run parameter (`.mdp`) file containing simulation options."
     },
     {
-      "question": "How can users manage long-running GROMACS simulations on Alliance clusters that might exceed job walltime limits?",
-      "answer": "Users should request a shorter walltime (e.g., 24 or 72 hours) and use the `mdrun` parameter `-maxh` to instruct the program to gracefully finish the current timestep and create a checkpoint file when nearing 99% of the requested walltime."
+      "question": "How can users effectively manage long-running GROMACS simulations that exceed the maximum walltime on Alliance clusters?",
+      "answer": "Users should maximize the number of available nodes by requesting a shorter walltime (e.g., 24 or 72 hours) and use the `mdrun -maxh` parameter to instruct GROMACS to gracefully finish the current timestep and create a checkpoint file before the job's time limit is reached."
     },
     {
-      "question": "How do you restart a GROMACS simulation from a checkpoint file on an Alliance cluster?",
-      "answer": "To restart a GROMACS simulation, use the same `mdrun` command as the original simulation and add the `-cpi state.cpt` parameter, where `state.cpt` is the filename of the most recent checkpoint file. GROMACS will append to existing output files by default."
+      "question": "How are GROMACS simulations restarted from a checkpoint file?",
+      "answer": "Simulations can be restarted by running the same `mdrun` command as the original simulation and adding the `-cpi state.cpt` parameter, where `state.cpt` is the most recent checkpoint file. GROMACS will append to existing output files and verify their consistency."
     },
     {
-      "question": "What is the purpose of 'Domain Decomposition' in GROMACS parallel simulations?",
-      "answer": "GROMACS uses Domain Decomposition to distribute the work of solving non-bonded Particle-Particle (PP) interactions across multiple CPU cores. This is achieved by dividing the simulation box into domains, with each domain assigned to an MPI process."
+      "question": "What is the benefit of using SLURM job arrays for checkpointing GROMACS simulations?",
+      "answer": "Using SLURM job arrays for checkpointing allows users to split a long simulation into multiple shorter jobs, which wait less in the queue and are eligible for backfill scheduling. The array automates the process, submitting a series of jobs where each subsequent job resumes from the previous one's checkpoint."
     },
     {
-      "question": "What is the recommended range for the number of OpenMP threads per MPI process for optimal GROMACS performance?",
-      "answer": "According to GROMACS developers, the optimum number of OpenMP threads per MPI process (which corresponds to `--cpus-per-task` in Slurm) is typically between 2 and 6. For jobs running on a very large number of nodes, larger numbers might also be worth trying."
+      "question": "What is 'Domain Decomposition' in GROMACS, and how does it relate to MPI processes?",
+      "answer": "Domain Decomposition is a method GROMACS uses to distribute the work of calculating non-bonded Particle-Particle interactions across multiple CPU cores. It divides the simulation box into smaller domains, assigning each to an MPI process, which helps with parallel scaling until communication overhead becomes too large."
     },
     {
-      "question": "What analysis tools are available for post-processing GROMACS simulation results on Alliance clusters?",
-      "answer": "GROMACS provides a large number of built-in tools for post-processing, which often generate `.xvg` files usable by plotting tools like Grace. Additionally, VMD is available for molecular visualization and analysis, and Python packages like MDAnalysis and MDTraj are offered for custom analysis and integration with data-science libraries."
+      "question": "How can OpenMP threads be utilized to improve GROMACS performance beyond the scaling limits of MPI processes?",
+      "answer": "Once Domain Decomposition reaches its scaling limit, performance can be further enhanced by using OpenMP threads. This involves spreading the work of an MPI process over multiple CPU cores using Slurm's `--cpus-per-task` parameter and setting the `OMP_NUM_THREADS` environment variable or the `mdrun -ntomp` parameter, with 2 to 6 threads per MPI process generally considered optimal."
     },
     {
-      "question": "What is GROMACS-Plumed, and how does it extend GROMACS functionality?",
-      "answer": "GROMACS-Plumed refers to versions of GROMACS that have been patched with the PLUMED open-source library. This library adds capabilities for free energy calculations in molecular systems, enabling meta-dynamics and other enhanced sampling simulations. GROMACS versions 2025 and newer have native PLUMED support."
+      "question": "What are the recommended solutions for fully utilizing recent GPU models like Nvidia A100 and H100 when running GROMACS simulations that might not be large enough on their own?",
+      "answer": "The recommended solutions are to either run multiple similar simulations on a single GPU using `mdrun -multidir` to ensure proper load balancing, or to use a Multi-Instance GPU (MIG) instance, which allocates a fraction of a GPU, especially for single or dissimilar simulations."
     },
     {
-      "question": "What is the key difference between G_MMPBSA and gmx_MMPBSA for free energy calculations using GROMACS files?",
-      "answer": "G_MMPBSA is an older tool whose development stalled in April 2016, making it compatible only with GROMACS 5.1.x. In contrast, gmx_MMPBSA is a newer tool based on AMBER's MMPBSA.py, which is compatible with current versions of GROMACS and AmberTools."
-    },
-    {
-      "question": "Are there any specific warnings or considerations for GROMACS versions 2020.0 to 2021.5 when running on newer GPUs?",
-      "answer": "Yes, GROMACS versions 2020.0 up to and including 2021.5 contain a bug when used on Volta or newer generation GPUs (V100, T4, A100, H100) with the `mdrun` option `-update gpu`. This bug could perturb the virial calculation and lead to incorrect pressure coupling."
-    },
-    {
-      "question": "What is GROMACS-LS used for, and what are its main limitations?",
-      "answer": "GROMACS-LS, which includes the MDStress library, is used for calculating local stress fields from molecular dynamics simulations. Its limitations include requiring double precision, not supporting MPI, SIMD hardware acceleration, or GPUs, and only being able to use a single CPU core, making it significantly slower than standard GROMACS."
-    },
-    {
-      "question": "What are the two recommended solutions for efficiently utilizing recent GPU models like Nvidia A100 and H100 with GROMACS?",
-      "answer": "The two recommended solutions are: running multiple similar simulations on a single GPU using `mdrun -multidir` (preferred for similar simulations), or utilizing a Multi-Instance GPU (MIG) instance (preferred for a single simulation or dissimilar simulations)."
+      "question": "What is `gmx_MMPBSA`, and how does it compare to `G_MMPBSA` for free energy calculations?",
+      "answer": "`gmx_MMPBSA` is a tool based on AMBER's MMPBSA.py, designed for end-state free energy calculations using GROMACS files. It is compatible with current versions of GROMACS and AmberTools, unlike the older `G_MMPBSA`, which is no longer supported and only works with GROMACS 5.1.x due to stalled development."
     }
   ],
-  "generated_at": "2026-04-13T06:03:08.097798+00:00"
+  "generated_at": "2026-08-07T23:57:39.172867+00:00"
 }

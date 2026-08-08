@@ -4,17 +4,13 @@
   "chunk_index": 18,
   "qa_pairs": [
     {
-      "question": "How do you start an Abaqus graphical session using JupyterLab on Alliance clusters?",
-      "answer": "To start an Abaqus graphical session via JupyterLab, first, initiate a JupyterHub desktop session using one of the provided links, such as FIR, NARVAL, or RORQUAL. Next, in the left-hand side 'Available Module' section, highlight an Abaqus module (e.g., `abaqus/2026`) and click 'Load'. An 'Abaqus (VNC)' icon will then appear on your desktop, which you can click to automatically launch Abaqus in a remote Jupyter desktop."
+      "question": "How can a user check the status of Abaqus licenses and queued jobs on the SHARCNET license server?",
+      "answer": "To check the SHARCNET Abaqus license server for started and queued jobs, including reservations by purchasing groups, a user should log into the Nibi cluster, load Abaqus, and then run the command `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued|RESERVATION\"`. To specifically check the availability of CAE, Standard, and Explicit Abaqus products, the command `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | grep \"Users of\" | egrep \"cae|standard|explicit\"` can be used."
     },
     {
-      "question": "What are the specific JupyterHub links available for starting an Abaqus session on Alliance clusters?",
-      "answer": "You can start a JupyterHub desktop session for Abaqus on Alliance clusters using these links: FIR at `https://jupyterhub.fir.alliancecan.ca`, NARVAL at `https://portail.narval.calculquebec.ca/`, or RORQUAL at `https://jupyterhub.rorqual.alliancecan.ca`."
-    },
-    {
-      "question": "After starting a JupyterHub desktop session, what is the next step to launch Abaqus?",
-      "answer": "After starting a JupyterHub desktop session, you need to highlight an Abaqus module, such as `abaqus/2026`, in the left-hand side 'Available Module' section. Once highlighted, click on 'Load' to make an 'Abaqus (VNC)' icon appear on the desktop, which you can then click to launch the application."
+      "question": "What does it mean if an Abaqus job is reported as \"queued\" on the SHARCNET license server, and what are the implications?",
+      "answer": "When an Abaqus job is reported as \"queued\" on the SHARCNET license server, it indicates that the job has transitioned to the \"R\"unning state according to Slurm (e.g., `squeue -j jobid` or `sacct -j jobid`), but it is actually sitting idle on a compute node, awaiting an available license. This idle state significantly impacts the user's account priority as if the job were performing computations and consuming CPU time, and it leads to valuable resources being wasted while the job waits."
     }
   ],
-  "generated_at": "2026-05-31T01:04:55.325928+00:00"
+  "generated_at": "2026-08-07T23:21:34.663614+00:00"
 }

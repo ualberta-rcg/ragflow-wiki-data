@@ -4,13 +4,17 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "What resource specifications are defined for a GROMACS whole-node job in this example SLURM script?",
-      "answer": "The SLURM script requests one node, 96 MPI tasks per node, 2 OpenMP threads per MPI task (totalling 192 CPUs per node), 2000 MB of memory per CPU, and a time limit of 1 hour (0-01:00)."
+      "question": "What are the constraints for configuring GROMACS simulations on GPUs, specifically regarding the number of MPI tasks and OpenMP threads?",
+      "answer": "For GROMACS 2018.2, the number of `--tasks-per-node` must always be the same as, or a multiple of, the number of GPUs (`--gpus-per-node`). GROMACS will not run GPU simulations with only 1 OpenMP thread unless forced by setting the `-ntomp` option, and GROMACS developers suggest the optimum number of `--cpus-per-task` is between 2 and 6. It's also advised to avoid requesting a larger fraction of CPUs and memory than the fraction of GPUs requested in a node."
     },
     {
-      "question": "Which environment modules are required to run GROMACS version 2025.4 for a whole-node job, as shown in the provided SLURM script?",
-      "answer": "According to the SLURM script, the following environment modules need to be loaded: `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `gromacs/2025.4`."
+      "question": "Why might GROMACS simulations not fully utilize recent GPU models like the Nvidia A100 or H100, and what is a recommended solution?",
+      "answer": "GROMACS and other MD simulation programs are unable to fully use recent GPU models such as the Nvidia A100 and H100 unless the molecular system is very large (millions of atoms), leading to a significant fraction of allocated computational resources being wasted. One recommended solution is to run multiple similar simulations on a single GPU using the `mdrun -multidir` option."
+    },
+    {
+      "question": "When should the `mdrun -multidir` option be used for GROMACS simulations on a GPU, and what job script adjustments are necessary?",
+      "answer": "The `mdrun -multidir` option is the preferred solution when running multiple *similar* GROMACS simulations on a single GPU, such as repeating simulations for more sampling, simulating multiple protein variants, ligands, temperatures, or for ensemble-based simulations like replica exchange. When using this option, you must adjust `--ntasks-per-node` to have one task per simulation, while the total number of CPU cores (`--ntasks-per-node` multiplied by `--cpus-per-task`) should remain constant to ensure proper load balancing."
     }
   ],
-  "generated_at": "2026-04-13T06:04:46.240111+00:00"
+  "generated_at": "2026-08-07T23:59:12.382861+00:00"
 }

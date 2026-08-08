@@ -1,0 +1,20 @@
+{
+  "doc_key": "base/cluster_batch_job_submission_with_ansys",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of the solution restart scripts for Ansys Fluent jobs on clusters?",
+      "answer": "The solution restart scripts are provided to automate restarting very large Ansys Fluent jobs that require more than the typical seven-day maximum runtime window available on most clusters. Jobs are restarted from the most recently saved timestep files."
+    },
+    {
+      "question": "What are the fundamental requirements and initial setup steps for utilizing Fluent solution restart scripts for long-running jobs?",
+      "answer": "A fundamental requirement is that the first timestep must be completed within the requested job array time limit when starting a simulation from an initialized solution field. To begin, a working set of `sample.cas`, `sample.dat`, and `sample.jou` files must be present."
+    },
+    {
+      "question": "How should a Fluent journal file be modified to enable solution restarts, and what is the strategy to optimize the restart process?",
+      "answer": "To enable solution restarts, first edit your `sample.jou` file to contain `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`. Then, create a restart journal file by copying `sample.jou` to `sample-restart.jou` and editing `sample-restart.jou` to contain `/file/read-cas-data sample-restart` instead of `/file/read-cas-data sample`. Also, comment out the initialization line (e.g., `; /solve/initialize/initialize-flow`). To optimize the process, if your second and subsequent timesteps are known to run twice as fast as the initial timestep, add `/solve/dual-time-iterate 2` to the `sample-restart.jou` file. This minimizes the number of solution restarts, which are computationally expensive, by allowing more timesteps to complete per restart."
+    }
+  ],
+  "generated_at": "2026-08-08T01:07:06.651994+00:00"
+}

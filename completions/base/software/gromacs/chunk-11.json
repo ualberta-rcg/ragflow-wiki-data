@@ -4,13 +4,17 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "What is the specific Slurm configuration for running a GROMACS simulation on a whole node on the Narval cluster, according to the provided job script?",
-      "answer": "For a GROMACS simulation on a Narval whole node, the Slurm job script requests one node (`#SBATCH --nodes=1`), 32 MPI tasks per node (`#SBATCH --ntasks-per-node=32`), and 2 OpenMP threads per MPI task (`#SBATCH --cpus-per-task=2`). This configuration totals 64 CPUs per node, allocates 2000 MB of memory per CPU (`#SBATCH --mem-per-cpu=2000M`), and sets a time limit of 1 hour (`#SBATCH --time=0-01:00`)."
+      "question": "How do I submit a GROMACS job using a single GPU with 4 OpenMP threads?",
+      "answer": "To submit a GROMACS job using a single GPU and 4 OpenMP threads, you can use a SLURM job script. The script should request one GPU per node (`#SBATCH --gpus-per-node=1`), four OpenMP threads per MPI process (`#SBATCH --cpus-per-task=4`), a memory limit of 2000MB per CPU core (`#SBATCH --mem-per-cpu=2000M`), and a time limit (e.g., `#SBATCH --time=0:30:00`). You'll need to load the appropriate modules such as `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `gromacs/2025.4`, set `OMP_NUM_THREADS`, and then execute `gmx mdrun -ntomp ${SLURM_CPUS_PER_TASK:-1} -deffnm md`."
     },
     {
-      "question": "Which modules are required to run GROMACS version 2025.4 on a whole compute node using the example Slurm scripts provided?",
-      "answer": "To run GROMACS version 2025.4 on a whole compute node using the provided example Slurm scripts, you need to load `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `gromacs/2025.4`."
+      "question": "What should I consider regarding efficiency when running GROMACS simulations with multiple GPUs?",
+      "answer": "When running GROMACS simulations, using more than a single GPU typically leads to poor efficiency. It is important to carefully test and compare the performance of both multi-GPU and single-GPU configurations before deciding to use more than one GPU for your simulations."
+    },
+    {
+      "question": "Are there any known bugs in specific GROMACS versions when running with GPUs of Volta or newer generations, and under what conditions might they occur?",
+      "answer": "Yes, GROMACS versions from 2020.0 up to and including 2021.5 contain a bug that could have perturbed the virial calculation and led to incorrect pressure coupling when used on GPUs of Volta or newer generations (such as V100, T4, and A100). This issue only arises when the `mdrun` option `-update gpu` is manually selected, as this update method is not enabled by default in GROMACS. While the developers haven't observed it often in testing, it's a known vulnerability."
     }
   ],
-  "generated_at": "2026-04-13T06:04:39.749660+00:00"
+  "generated_at": "2026-08-07T23:59:05.818924+00:00"
 }

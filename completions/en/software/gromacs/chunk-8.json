@@ -4,17 +4,17 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "How are GROMACS modules loaded for CPU-only execution, specifically for the `StdEnv/2023` and `StdEnv/2020` environments?",
-      "answer": "To load a GROMACS module for CPU-only execution, you would use the `module load` command. For example, for the `StdEnv/2023` environment, use `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2025.4`. For the `StdEnv/2020` environment, use `module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2023.2`."
+      "question": "What is the primary purpose of the provided SLURM job scripts for GROMACS?",
+      "answer": "The primary purpose of these SLURM job scripts is to execute GROMACS molecular dynamics simulations efficiently by utilizing an entire compute node on various clusters such as Narval, Rorqual, Fir, Nibi, or Trillium."
     },
     {
-      "question": "For GROMACS versions 5.x, 2016.x, and newer, what are the primary binary names and their corresponding functionalities regarding precision, OpenMP, and MPI?",
-      "answer": "For GROMACS versions 5.x, 2016.x, and newer, the primary binaries and their functionalities are:\n*   `gmx`: mixed (\"single\") precision GROMACS with OpenMP (threading) but without MPI.\n*   `gmx_mpi`: mixed (\"single\") precision GROMACS with OpenMP and MPI.\n*   `gmx_d`: double precision GROMACS with OpenMP but without MPI.\n*   `gmx_mpi_d`: double precision GROMACS with OpenMP and MPI."
+      "question": "How do the SLURM job scripts configure CPU and memory resources for GROMACS simulations on different compute nodes?",
+      "answer": "The SLURM job scripts request one compute node (`--nodes=1`) and allocate either 32 MPI tasks per node for Narval or 96 MPI tasks per node for Rorqual, Fir, Nibi, and Trillium (`--ntasks-per-node`). Each MPI task is assigned 2 OpenMP threads (`--cpus-per-task=2`), resulting in a total of 64 or 192 CPUs per node respectively. Memory allocation is set at 2000 MB per CPU (`--mem-per-cpu=2000M`), and the time limit is one hour (`--time=0-01:00`)."
     },
     {
-      "question": "Are GROMACS versions with GPU support available in both single and double precision?",
-      "answer": "No, GROMACS versions that support GPUs are only available with single precision. CPU-only versions, however, are generally available in both single and double precision, with the specific exception of version 2019.3 for AVX512, which does not offer double precision."
+      "question": "Which software modules are loaded to set up the environment for running GROMACS 2025.4 in these whole-node SLURM job scripts?",
+      "answer": "To prepare the environment for running GROMACS 2025.4, the SLURM job scripts first use `module purge` to clear existing modules, then load `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `gromacs/2025.4`."
     }
   ],
-  "generated_at": "2026-04-13T06:09:25.835269+00:00"
+  "generated_at": "2026-08-08T00:03:11.453454+00:00"
 }

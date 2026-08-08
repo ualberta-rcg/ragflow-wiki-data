@@ -1,0 +1,20 @@
+{
+  "doc_key": "base/graphical_use_of_ansys",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "How do I launch Ansys Workbench on an OnDemand desktop, both with and without a GPU?",
+      "answer": "To launch Ansys Workbench on an OnDemand desktop, whether or not a GPU has been requested, first load the necessary modules by typing `module load StdEnv/2023 ansys/2025R2.04` in a terminal window. Then, start Workbench by running the command `runwb2`. If accelerated graphics are required on the Nibi cluster, ensure you choose a t4 (15GB) GPU from the selector when setting up your OnDemand desktop session, which will automatically configure VirtualGL environment variables for accelerated OpenGL."
+    },
+    {
+      "question": "What environment variables are required to launch Ansys Fluent from within Workbench on an OnDemand desktop?",
+      "answer": "When launching Ansys Fluent from within Workbench on an OnDemand desktop, after clicking 'Setup' in the 'Fluid Flow (Fluent)' popup, access the 'Environment' tab in the 'Fluent Launcher' selector panel. For a compute node without a GPU, set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi when using intelmpi) and optionally `HOOPS_PICTURE=opengl2-mesa` (for Ansys 2025R1 or newer). For a compute node with a GPU, set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi) and optionally `HOOPS_PICTURE=opengl2` (for Ansys 2025R1 or newer). After setting these, click the 'Start' button."
+    },
+    {
+      "question": "How can corrupted graphics be resolved when running Ansys applications within Workbench on a JupyterHub desktop without a GPU?",
+      "answer": "If the graphics of an Ansys application (such as Fluent) launched within Workbench appear corrupted on a JupyterHub desktop without a GPU, you can create a custom desktop icon to start Workbench in Mesa mode. First, exit Workbench, then open a terminal window and copy/paste `cd ~/Desktop; cp -p $(realpath workbench.desktop) workbench-mesa.desktop`. Next, open the newly created file with `nano ~/Desktop/workbench-mesa.desktop`, change all instances of `runwb2`, and then save and exit the editor. Finally, refresh the Jupyter desktop by pressing Control-R, and double-click the new `workbench-mesa.desktop` icon. Alternatively, when starting Fluent, you may also try setting the `HOOPS_PICTURE=opengl2-mesa` variable in the 'Fluent Launcher' window."
+    }
+  ],
+  "generated_at": "2026-08-08T01:09:50.839188+00:00"
+}

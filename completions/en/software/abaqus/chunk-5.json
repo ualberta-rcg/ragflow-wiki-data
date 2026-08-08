@@ -4,13 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How do you execute a standard Abaqus analysis job on a single node using a project directory script?",
-      "answer": "To run a standard Abaqus analysis job on a single node, you first load the required Abaqus module (e.g., `abaqus/2026`). Then, you use the `abaqus` command with parameters such as `job` (for the job name), `input` (for the input file), `scratch` (for temporary files, often set to `$SLURM_TMPDIR`), `cpus` (for the number of CPUs per node), `mp_mode=threads` for thread-based parallelization, and `memory` (calculated as `${SLURM_MEM_PER_NODE}-3072)MB`). For Abaqus 2021 and older, the `abaqus` command is prefixed with `/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare`."
+      "question": "How do you run a new Abaqus Standard Analysis job for version 2026 or newer on a single node within a project directory on an Alliance cluster?",
+      "answer": "For Abaqus version 2026 or newer, a Slurm script would include `module load abaqus/2026` and execute the command `abaqus job=testsp1 input=mystd-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`. Optionally, one can uncomment `#gpus=$SLURM_GPUS_ON_NODE` to utilize a GPU. The Slurm script also defines resources such as `--account`, `--time`, `--cpus-per-task` (e.g., 4), `--mem` (e.g., 8G), and `--nodes=1`."
     },
     {
-      "question": "What is the procedure to restart a standard Abaqus analysis job from a project directory on a single node?",
-      "answer": "To restart a standard Abaqus analysis job on a single node from a project directory, begin by loading the appropriate Abaqus module (e.g., `abaqus/2026`). Then, execute the `abaqus` command, specifying `job=testsp2` for the new job name, `oldjob=testsp1` to link to the previous job, and `input=mystd-sim-restart.inp` for the restart input file. This restart input file must contain `*HEADING` and `*RESTART, READ` directives. Similar to a new job, you also specify scratch directory, CPUs, thread mode, and memory allocation."
+      "question": "What is the correct syntax to specify restart data in an Abaqus input file for Standard Analysis jobs?",
+      "answer": "To write restart data every N=12 time increments, specify `*RESTART, WRITE, OVERLAY, FREQUENCY=12` in the input file. Alternatively, to write restart data for a total of 12 time increments, specify `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
+    },
+    {
+      "question": "How does one restart a previously run Abaqus Standard Analysis job on a single node using a project directory script?",
+      "answer": "To restart a Standard Analysis job, a Slurm script for Abaqus 2026 or newer would execute the command `abaqus job=testsp2 oldjob=testsp1 input=mystd-sim-restart.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`. The restart input file (`mystd-sim-restart.inp`) must contain the lines `*HEADING` and `*RESTART, READ`."
     }
   ],
-  "generated_at": "2026-05-31T01:06:50.023541+00:00"
+  "generated_at": "2026-08-07T23:23:08.607188+00:00"
 }

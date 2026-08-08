@@ -3,61 +3,77 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que STAR-CCM+ et à quelles fins est-il utilisé sur les grappes d'Alliance?",
-      "answer": "STAR-CCM+ est une suite logicielle de simulation d'ingénierie utilisée pour modéliser des domaines variés comme l'acoustique, la dynamique des fluides, le transfert thermique, la mécanique des solides et l'électromagnétisme."
+      "question": "À quoi sert le logiciel STAR-CCM+ sur les grappes de calcul de l'Alliance?",
+      "answer": "STAR-CCM+ est une suite logicielle de simulation utilisée en ingénierie pour la modélisation dans divers domaines tels que l'acoustique, la dynamique des fluides, le transfert thermique, la rhéologie, et la mécanique des solides."
     },
     {
-      "question": "Est-il nécessaire d'acquérir une licence pour utiliser STAR-CCM+ sur les grappes d'Alliance?",
-      "answer": "Oui, même si les binaires sont hébergés sur les grappes d'Alliance, vous devez acquérir une licence directement auprès de Siemens pour pouvoir utiliser le logiciel."
+      "question": "Quelles sont les deux principales options de licence disponibles pour utiliser STAR-CCM+ sur les grappes de l'Alliance?",
+      "answer": "Les deux options sont une licence Power-on-Demand (PoD) qui se connecte à un serveur de licence distant, ou une licence institutionnelle locale qui requiert la configuration et la gestion d'un serveur de licence hébergé localement."
     },
     {
-      "question": "Quelles sont les deux options de licence disponibles pour STAR-CCM+ et quelle est la plus courante pour les groupes de recherche?",
-      "answer": "Les deux options sont la licence Power-on-Demand (PoD) et l'achat d'un pack académique avec serveur de licence institutionnel local. La licence PoD est la plus courante car elle est plus simple à configurer."
+      "question": "Qu'est-ce qu'une licence Power-on-Demand (PoD) pour STAR-CCM+ et comment fonctionne-t-elle sur les grappes de l'Alliance?",
+      "answer": "Une licence PoD est une option où le logiciel se connecte à un serveur de licence distant de Siemens, nécessitant seulement une clé de licence pour son utilisation, sans configuration complexe de serveur local."
     },
     {
-      "question": "Que doit faire l'administrateur d'un serveur de licence institutionnel STAR-CCM+ pour permettre l'accès depuis les grappes d'Alliance?",
-      "answer": "L'administrateur doit ouvrir les deux ports fournisseurs (flexible et statique) pour qu'ils soient accessibles depuis les nœuds NAT (Network Address Translation) des grappes d'Alliance."
+      "question": "Quels sont les prérequis pour une licence institutionnelle STAR-CCM+ en termes de configuration de pare-feu sur les grappes de l'Alliance?",
+      "answer": "L'administrateur du serveur de licence de l'établissement doit ouvrir les deux ports fournisseurs (flexible et statique) pour qu'ils soient accessibles depuis les nœuds NAT des grappes de l'Alliance."
     },
     {
-      "question": "Comment les utilisateurs peuvent-ils obtenir la liste des nœuds NAT à fournir à leur administrateur de licence STAR-CCM+?",
-      "answer": "Il faut contacter le soutien technique d'Alliance en indiquant le nom des grappes, le nom d'hôte ou l'adresse IP publique du serveur de licence STAR-CCM+, et les numéros de ports flexible et statique."
+      "question": "À qui faut-il s'adresser pour obtenir la liste des nœuds NAT afin de configurer le pare-feu pour une licence institutionnelle STAR-CCM+?",
+      "answer": "Il faut écrire au soutien technique de l'Alliance en indiquant le nom des grappes, le nom d'hôte (FQDN) ou l'adresse IP publique du serveur de licence STAR-CCM+, et les numéros des ports flexible et statique."
     },
     {
-      "question": "Comment configure-t-on le fichier de licence `starccm.lic` pour utiliser un serveur de licence STAR-CCM+ sur les grappes d'Alliance?",
-      "answer": "Il faut créer le fichier `~/.licenses/starccm.lic` avec le contenu `SERVER <server> ANY <flexport>` et `USE_SERVER`, en remplaçant `<server>` et `<flexport>` par les informations de votre serveur."
+      "question": "Comment configurer le fichier `~/.licenses/starccm.lic` pour un serveur de licence STAR-CCM+ institutionnel général sur les grappes de l'Alliance?",
+      "answer": "Il faut créer le fichier avec `SERVER <serveur> ANY <port_flexible>` et `USE_SERVER`, où <serveur> est le nom d'hôte ou l'adresse IP et <port_flexible> est le port statique du fournisseur du serveur de licence."
     },
     {
-      "question": "Quelle configuration est spécifique pour une licence PoD (Power-on-Demand) de STAR-CCM+ dans un script Slurm?",
-      "answer": "La variable d'environnement `LM_PROJECT` doit être configurée manuellement avec votre ID de projet CD-ADAPCO dans le script Slurm, et le fichier `~/.licenses/starccm.lic` doit pointer vers `flex.cd-adapco.com` sur le port `1999`."
+      "question": "Quelle est la configuration spécifique du fichier `~/.licenses/starccm.lic` requise pour une licence Power-on-Demand (PoD) de STAR-CCM+ sur les grappes de l'Alliance?",
+      "answer": "Le fichier `~/.licenses/starccm.lic` doit être configuré avec `SERVER flex.cd-adapco.com ANY 1999` et `USE_SERVER` sur toutes les grappes."
     },
     {
-      "question": "Que doit-on faire avant de soumettre des tâches en lot STAR-CCM+ sur une grappe d'Alliance, concernant la licence?",
-      "answer": "Il faut configurer un fichier `~/.licenses/starccm.lic` sur chaque grappe où les tâches seront exécutées. Pour un serveur institutionnel local, une demande d'assistance est nécessaire pour le pare-feu."
+      "question": "Quelle variable d'environnement doit être configurée manuellement dans un script Slurm pour une licence PoD de STAR-CCM+?",
+      "answer": "La variable d'environnement `LM_PROJECT` doit être configurée manuellement comme étant l'identifiant du projet CD-ADAPCO (clé de licence PoD) dans votre script Slurm."
     },
     {
-      "question": "Comment peut-on résoudre les problèmes de licence persistants avec STAR-CCM+ lors de l'exécution de tâches en lot?",
-      "answer": "Vous pouvez essayer de supprimer ou de renommer le fichier `~/.flexlmrc`, car il pourrait stocker des chemins de recherche ou des paramètres de serveur de licence obsolètes."
+      "question": "Avant de soumettre des tâches STAR-CCM+ en lot sur une grappe de l'Alliance, quelle configuration est essentielle?",
+      "answer": "Il est essentiel de configurer un fichier `~/.licenses/starccm.lic` sur chaque grappe où vous prévoyez d'exécuter des tâches STAR-CCM+."
     },
     {
-      "question": "Comment gérer les fichiers de sortie temporaires de STAR-CCM+ qui consomment le quota de stockage sur les grappes?",
-      "answer": "Les fichiers s'accumulent dans des répertoires cachés nommés `.star-version_number`. Ils peuvent être supprimés périodiquement en exécutant la commande `rm -ri ~/.starccm*`."
+      "question": "Si des problèmes de licence persistent lors de l'exécution de tâches STAR-CCM+ sur une grappe, quelle action de dépannage est recommandée?",
+      "answer": "Il est conseillé d'essayer de supprimer ou de renommer le fichier `~/.flexlmrc`, car il pourrait contenir des chemins de recherche ou des paramètres de serveur de licence obsolètes."
     },
     {
-      "question": "Quelles sont les variables essentielles à spécifier dans un script Slurm pour soumettre une tâche STAR-CCM+?",
-      "answer": "Outre les ressources Slurm (`--account`, `--time`, `--nodes`, etc.), il faut spécifier `SIM_FILE` pour le fichier d'entrée de simulation, et `LM_PROJECT` pour les licences PoD."
+      "question": "Comment peut-on gérer les fichiers de sortie de tâches STAR-CCM+ qui s'accumulent dans les répertoires cachés et consomment le quota de stockage?",
+      "answer": "Ces fichiers peuvent être supprimés périodiquement en exécutant la commande `rm -ri ~/.starccm*` et en répondant 'oui' à l'invite affichée."
     },
     {
-      "question": "Quelle est la méthode recommandée pour utiliser STAR-CCM+ en mode graphique sur les grappes d'Alliance?",
-      "answer": "Il est recommandé d'utiliser un système Open OnDemand (OOD) ou JupyterLab pour lancer une session de bureau distante."
+      "question": "Quels sont les modules principaux à charger dans un script Slurm pour utiliser STAR-CCM+ sur les grappes de l'Alliance?",
+      "answer": "Il faut charger le module d'environnement standard, comme `module load StdEnv/2023`, suivi du module STAR-CCM+ désiré, par exemple `module load starccm-mixed/21.02.008`."
     },
     {
-      "question": "Comment lancer une session graphique parallèle de STAR-CCM+ via JupyterLab sur une grappe d'Alliance?",
-      "answer": "Après avoir chargé le module StarCCM+, lancez l'application, puis dans l'interface graphique, cliquez sur 'File->New', changez 'Serial Process Option' à 'Parallel on Local Host', ajoutez '-mpi openmpi40' à la commande et cliquez sur OK."
+      "question": "Dans un script Slurm pour STAR-CCM+, comment spécifier le fichier de simulation d'entrée à utiliser?",
+      "answer": "Le nom du fichier de simulation d'entrée doit être assigné à la variable `SIM_FILE` dans le script Slurm, par exemple `SIM_FILE='mySample.sim'`."
     },
     {
-      "question": "Comment peut-on vérifier les versions disponibles des modules STAR-CCM+ sur les grappes d'Alliance?",
-      "answer": "La commande `module avail starccm-mixed` affiche les versions qui peuvent être chargées avec l'environnement standard actuel, et `module spider starccm-mixed` affiche toutes les versions disponibles (mixed et R8)."
+      "question": "Quels sont les systèmes recommandés pour utiliser STAR-CCM+ en mode graphique sur les grappes de l'Alliance?",
+      "answer": "Il est recommandé d'utiliser un système Open OnDemand (OOD) ou JupyterLab pour démarrer un bureau distant et accéder à STAR-CCM+ en mode graphique."
+    },
+    {
+      "question": "Comment démarrer une session STAR-CCM+ en mode graphique via OnDemand sur Nibi ou Trillium?",
+      "answer": "Après avoir accédé à la page OnDemand de la grappe et chargé le module STAR-CCM+, vous pouvez exécuter `starccm+ -rr server` pour le mode série ou `starccm+ -rr server -np 2 -mpi openmpi40` pour le parallèle local."
+    },
+    {
+      "question": "Quelles sont les étapes pour démarrer une session graphique STAR-CCM+ via JupyterLab sur Fir, Narval ou Rorqual?",
+      "answer": "Après s'être connecté à JupyterHub, il faut charger un module StarCCM via l'icône des modules logiciels, puis sélectionner 'StarCCM+ Mixed (VNC)' ou l'icône StarCCM (VNC) apparaissant sur le bureau."
+    },
+    {
+      "question": "Comment exécuter STAR-CCM+ avec plusieurs cœurs en mode graphique via JupyterLab?",
+      "answer": "Dans l'interface graphique de STAR-CCM+, allez dans 'File->New', changez l'option 'Serial Process Option' en 'Parallel on Local Host', ajoutez `-mpi openmpi40` à la chaîne 'Command' et cliquez sur 'OK'."
+    },
+    {
+      "question": "Comment vérifier les versions de STAR-CCM+ disponibles et les modules d'environnement standard supportés sur les grappes de l'Alliance?",
+      "answer": "La commande `module avail starccm-mixed` affiche les versions chargeables avec l'environnement standard actuel, et `module spider starccm-mixed` montre toutes les versions 'mixed' et 'R8' pour StdEnv 2020 ou 2023."
     }
   ],
-  "generated_at": "2026-05-24T01:34:40.690020+00:00"
+  "generated_at": "2026-08-08T00:35:13.862388+00:00"
 }

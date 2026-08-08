@@ -2,6 +2,15 @@
   "doc_key": "base/arbutus_migration_guide",
   "level": "chunk",
   "chunk_index": 6,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:42:54.932377+00:00"
+  "qa_pairs": [
+    {
+      "question": "What is the process for migrating large volumes from the legacy Arbutus Cloud to the new Arbutus Cloud using the Linux 'dd' command?",
+      "answer": "To migrate large volumes using the `dd` command, first back up any important data. Next, create temporary instances (p1-1.5gb) on both the legacy and new clouds, and assign them floating IPs for SSH access. On the temporary legacy instance, install `epel-release`, `pv`, and `screen` packages. On the temporary new instance, run `chmod u+s /bin/dd`. Copy your SSH private key to the temporary legacy instance and ensure SSH security rules permit connections between the instances. For each volume to be moved, create an empty volume of the same size on the new cloud (marking it bootable if needed) and attach it to the new temporary instance. Attach the legacy volume you wish to copy to the temporary legacy instance. Finally, on the temporary legacy instance, execute a command similar to `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@xxx.xx.xx.xx \"sudo dd bs=16M of=/dev/vdb\"` within a `screen` session to maintain connection. Once complete, an exact copy of the volume will be available on the new cloud."
+    },
+    {
+      "question": "When is Globus recommended for copying data between instances in the legacy and new Arbutus Clouds, and what are the initial steps to set it up?",
+      "answer": "Globus is recommended for copying very large data volumes, specifically those greater than 5TB, between instances in the legacy and new Arbutus Clouds. The initial setup involves requesting a Globus Connect Personal Plus subscription by emailing `globus@tech.alliancecan.ca`. After receiving and following the invitation, you must enable Globus Connect Personal on each cloud instance involved in the transfer. This includes installing the client, ensuring each VM has an external IP address, configuring firewall rules to permit communication on necessary ports, ensuring the user running Globus Connect Personal has data access, and running the client as a background process. Finally, as a Globus Connect Personal Plus subscriber, you create a shared endpoint on one or both virtual machines."
+    }
+  ],
+  "generated_at": "2026-08-07T23:36:29.862179+00:00"
 }

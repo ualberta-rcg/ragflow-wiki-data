@@ -4,17 +4,17 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the Abaqus explicit analysis \"temporary directory script\" (scriptet1.txt) for single node computing on Alliance clusters?",
-      "answer": "The \"temporary directory script\" (scriptet1.txt) is designed to run Abaqus explicit analysis jobs on a single compute node. It utilizes the `SLURM_TMPDIR` for scratch files, benefiting from local disk I/O, and includes a mechanism to periodically copy generated files back to the `SLURM_SUBMIT_DIR` to ensure data persistence even if the job is terminated early."
+      "question": "What is the primary function of the `scriptet2.txt` Slurm script for Abaqus on Alliance clusters?",
+      "answer": "The `scriptet2.txt` script is a temporary directory restart script designed for Abaqus explicit analysis jobs on Alliance clusters. Its main function is to facilitate the restarting of previously interrupted explicit analysis simulations, especially those that write large restart files to a local temporary disk."
     },
     {
-      "question": "How can a user configure an Abaqus explicit analysis job to write restart data at specific intervals within the input file on an Alliance cluster?",
-      "answer": "To configure an Abaqus explicit analysis job to write restart data, users can specify `*RESTART, WRITE, OVERLAY, FREQUENCY=12` in their input file to write data every 12 time increments. Alternatively, to write restart data for a total of 12 time increments, they would specify `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
+      "question": "How is an Abaqus explicit analysis job restarted using the `scriptet2.txt` Slurm script on Alliance clusters?",
+      "answer": "To restart an Abaqus explicit analysis job using `scriptet2.txt`, the script first copies relevant files from the previous run (e.g., `testet1*`) to the `$SLURM_TMPDIR` (temporary directory). The Abaqus command is then executed with `job=testet2`, `oldjob=testet1`, and the crucial `recover` option, which enables the continuation of the analysis from the previous state without needing modifications to the input file (`myexp-sim.inp`)."
     },
     {
-      "question": "Which Abaqus versions are supported by the explicit analysis Slurm scripts on Alliance clusters, and what is the recommended version?",
-      "answer": "The explicit analysis Slurm scripts support both `abaqus/2026` and `abaqus/2021`. However, `abaqus/2026` is the latest version and is recommended for use, while the use of `abaqus/2021` is marked for discontinuation."
+      "question": "How does the `scriptet2.txt` Slurm script ensure that data is saved for long-running Abaqus explicit analysis jobs using temporary directories on Alliance clusters?",
+      "answer": "The `scriptet2.txt` script includes a background loop (`while sleep 3h; do cp -f * $SLURM_SUBMIT_DIR 2>/dev/null; done &`) that periodically copies all files from the temporary scratch directory (`$SLURM_TMPDIR`) back to the original job submission directory (`$SLURM_SUBMIT_DIR`). This mechanism prevents data loss by regularly saving intermediate results, particularly important for jobs that might be terminated before completion due to time limits or node failures."
     }
   ],
-  "generated_at": "2026-05-31T01:04:03.945978+00:00"
+  "generated_at": "2026-08-07T23:20:46.366981+00:00"
 }

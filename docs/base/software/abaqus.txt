@@ -3,7 +3,8 @@
 __FORCETOC__
 <translate>
 <!--T:1-->
-[https://www.3ds.com/products-services/simulia/products/abaqus/ Abaqus FEA] is a software suite for finite element analysis and computer-aided engineering.
+<b><u>TRANSLATOR'S NOTE FROM JUNE 2026: This page is currently being reviewed.</u></b>
+<br><br>[https://www.3ds.com/products-services/simulia/products/abaqus/ Abaqus FEA] is a software suite for finite element analysis and computer-aided engineering.
 
 = Licensing = <!--T:20975-->
 
@@ -54,17 +55,19 @@ If your license server was never set up for use on an Alliance cluster, some add
 * Fully qualified domain name or IPV4 address of your new Abaqus server
 You will be sent a list of cluster IP addresses (known as NAT nodes) so that your administrator can open the local server firewall to allow connections from the cluster on both ports. Please note that a special license agreement must generally be negotiated and signed by both SIMULIA and your institution before a campus license may be legally used on Alliance hardware located remotely at another institution.
 
+<!--T:30995-->
 == License queuing ==
 The default setup for the license server is to queue jobs started on the cluster by Slurm if not enough tokens are available. There are two options to alter this behaviour ie) so jobs don't sit idle on a cluster compute node waiting for a license indefinitely wasting valuable resources. The first option is to terminate a job immediately if not enough licenses are available, therefore never entering a queue. To specify this setting, create a text file named abaqus_v6.env in either your /home OR working (submit) directory containing the line: <code>lmlicensequeuing=OFF</code>. The second option is to specify a finite wait time where the job can enter into a queued state on the license server such as 1 minute by adding the line: <code>lmhanglimit=1</code>. If within 1 minute sufficient licenses do not come available then the job will be dequeud by the license server and in turn be terminated by Slurm.  For each option, messages will be printed at the bottom of the Slurm output file as shown in [[Abaqus#Example|the Example below]].
 
 = Version notes = <!--T:30980--> 
 
-== 2026 == <!--T:20981--> 
+== 2026 == <!--T:30996-->
 
-<!--T:3-->
+<!--T:30997-->
 A new module <code>abaqus/2026</code> containing the initial <i>Abaqus 2026 Golden/GA</i> release has been installed into the default StdEnv/2023 environment.  Another module named abaqus/2026.2614 containing the latest SIMULIA Established Products 2026 Fix Packs currently at level FD02 (FP.2614) will be made available as soon as possible. To verify your setup run the following :
 
- module load abaqus/2026
+ <!--T:30998-->
+module load abaqus/2026
  module load intel/2024
  abaqus verify -all
 
@@ -72,9 +75,9 @@ A new module <code>abaqus/2026</code> containing the initial <i>Abaqus 2026 Gold
 All tests should Succeed except for CAE (unless you log into an ondemand/juypter graphical desktop
 ) and TOSCA (unless you set <code>export FED_DSFLEX_LICENSE_CONFIG=port@hostname</code>) before running the verification.
 
-== 2021 == <!--T:20981--> 
+== 2021 == <!--T:30999-->
 
-<!--T:3-->
+<!--T:31000-->
 Its recommended to discontinue use of <code>abaqus/2021</code> installed under the previous StdEnv/2020 since this legacy version generates *** buffer overflow detected *** error on all recent clusters.  To workaround this problem an unshare workaround has been added into each slurm script found in this wiki.  This however only works on single node jobs and does not guarantee accurate results.
 
 = Cluster job submission = <!--T:20931-->

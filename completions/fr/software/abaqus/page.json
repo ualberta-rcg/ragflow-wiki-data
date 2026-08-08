@@ -3,85 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Qu'est-ce que le progiciel Abaqus FEA disponible sur les grappes de l'Alliance?",
-      "answer": "Abaqus FEA est un progiciel commercial utilisé pour l'analyse d'éléments finis et l'ingénierie assistée par ordinateur."
+      "question": "Qu'est-ce qu'Abaqus FEA et où est-il disponible sur les grappes de l'Alliance?",
+      "answer": "Abaqus FEA est un progiciel commercial d'analyse par éléments finis et d'ingénierie assistée par ordinateur. Il est disponible sur les grappes de l'Alliance, mais les utilisateurs doivent fournir leur propre licence."
     },
     {
-      "question": "Doit-on fournir sa propre licence pour utiliser les modules Abaqus sur les grappes de l'Alliance?",
-      "answer": "Oui, les utilisateurs doivent fournir leur propre licence pour les modules Abaqus disponibles sur les grappes de l'Alliance."
+      "question": "Quelles sont les exigences générales de licence pour utiliser Abaqus FEA sur les grappes de l'Alliance?",
+      "answer": "Pour utiliser Abaqus sur les grappes de l'Alliance, vous devez posséder votre propre licence. Il existe deux types de serveurs de licences, FLEXnet et DSLS, chacun ayant des procédures de configuration spécifiques."
     },
     {
-      "question": "Comment configure-t-on une licence FLEXnet personnelle pour Abaqus sur les grappes de l'Alliance?",
-      "answer": "Il faut se connecter à chaque grappe, créer un fichier `$HOME/.licenses/abaqus.lic` contenant la ligne `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"port@server\")`, puis remplacer `port@server` par le numéro de port FlexLM et l'adresse IP de votre serveur de licence Abaqus."
+      "question": "Comment configurer Abaqus pour utiliser un serveur de licences FLEXnet sur les grappes de l'Alliance?",
+      "answer": "Pour un serveur FLEXnet, vous devez créer un fichier `$HOME/.licenses/abaqus.lic` sur chaque grappe que vous utilisez, contenant la ligne `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"port@server\")`. Remplacez `port@server` par le numéro du port flexlm et l'adresse IP de votre serveur de licence."
     },
     {
-      "question": "Comment configurer Abaqus pour utiliser un serveur de licence DSLS de son établissement sur les grappes de l'Alliance?",
-      "answer": "Vous devez créer les fichiers `abaqus_v6.env` et `DSLicSrv.txt` dans le répertoire de soumission de votre simulation. `abaqus_v6.env` doit contenir `license_server_type=DSLS` et `dsls_license_config=\"/home/<username>/DSLicSrv.txt\"`, et `DSLicSrv.txt` doit contenir `DSLS-SERVER-HOSTNAME:LICENSING-CLIENT-PORT-NUMBER`."
+      "question": "Quel est le processus pour configurer Abaqus avec un serveur de licences DSLS pour les simulations sur les grappes de l'Alliance?",
+      "answer": "Pour un serveur DSLS, il faut créer les fichiers `abaqus_v6.env` et `DSLicSrv.txt` dans le répertoire de soumission de votre simulation. `abaqus_v6.env` doit contenir `license_server_type=DSLS` et `dsls_license_config=\"/home/<username>/DSLicSrv.txt\"` (ou `DSLicSrv.txt` si le fichier est dans le même répertoire de soumission), et `DSLicSrv.txt` doit contenir `DSLS-SERVER-HOSTNAME:LICENSING-CLIENT-PORT-NUMBER`."
     },
     {
-      "question": "Quelles informations sont nécessaires pour qu'un nouveau serveur de licence Abaqus soit configuré pour fonctionner avec une grappe de l'Alliance?",
-      "answer": "Pour un serveur FLEXnet, il faut le numéro de port FlexLM et le numéro de port statique du fournisseur. Pour un serveur DSLS, le numéro de port administratif et le numéro de port client de licence. Dans les deux cas, le nom de domaine complet ou l'adresse IPV4 du serveur Abaqus est requis, et ces informations doivent être envoyées au soutien technique."
+      "question": "Que doit faire un utilisateur si sa licence Abaqus n'est pas encore configurée pour une grappe de l'Alliance en particulier?",
+      "answer": "Si votre licence Abaqus n'est pas configurée pour une grappe, vous devez contacter le soutien technique de l'Alliance en fournissant le numéro du port flexlm, le numéro du port statique et l'adresse IP de votre serveur de licence. Une entente spéciale avec SIMULIA pourrait également être nécessaire."
     },
     {
-      "question": "Comment empêcher une tâche Abaqus de rester indéfiniment en attente de licence sur une grappe de l'Alliance?",
-      "answer": "Pour qu'une tâche se termine immédiatement si aucune licence n'est disponible, il faut créer un fichier `abaqus_v6.env` dans le répertoire de soumission contenant la ligne `lmlicensequeuing=OFF`."
+      "question": "Comment peut-on empêcher les tâches Abaqus de rester inactives en file d'attente de licence sur une grappe de l'Alliance?",
+      "answer": "Vous pouvez créer un fichier `abaqus_v6.env` dans votre répertoire personnel ou de soumission avec `lmlicensequeuing=OFF` pour terminer la tâche immédiatement si les licences sont insuffisantes. Une autre option est d'utiliser `lmhanglimit=X` pour spécifier une durée maximale (en minutes) pendant laquelle la tâche attendra une licence avant d'être annulée."
     },
     {
-      "question": "Comment spécifier une durée maximale d'attente pour une licence Abaqus sur une grappe de l'Alliance?",
-      "answer": "Vous pouvez spécifier une durée d'attente finie en minutes en ajoutant la ligne `lmhanglimit=X` (où X est le nombre de minutes) au fichier `abaqus_v6.env` dans le répertoire de soumission."
+      "question": "Quelle version d'Abaqus est recommandée pour les grappes de l'Alliance, et que doit-on savoir sur les versions plus anciennes comme Abaqus/2021?",
+      "answer": "La version `abaqus/2026` est la version la plus récente et recommandée. L'utilisation d'`abaqus/2021` est déconseillée car elle peut générer des erreurs de dépassement de tampon (`buffer overflow detected`) sur les grappes récentes, et un contournement existe seulement pour les tâches sur un seul nœud, sans garantie de résultats précis."
     },
     {
-      "question": "Quelle version d'Abaqus est recommandée sur les grappes de l'Alliance et pourquoi?",
-      "answer": "La version `abaqus/2026` est recommandée car elle résout l'erreur de dépassement de tampon (`buffer overflow detected`) qui se produisait avec les versions antérieures comme `abaqus/2021` sur les grappes récentes."
+      "question": "Quelles sont les lignes directrices générales pour soumettre des tâches Abaqus en mode lots (batch) sur les grappes de l'Alliance via Slurm?",
+      "answer": "Des scripts Slurm prototypes sont fournis pour les simulations parallèles sur un ou plusieurs nœuds de calcul, utilisant des fils ou MPI. Pour les tâches de courte durée sur un nœud simple, un script de répertoire /project peut suffire. Pour les tâches plus longues ou celles générant des fichiers de redémarrage volumineux, il est recommandé d'utiliser des scripts de redémarrage et d'écrire sur le disque local via `SLURM_TMPDIR`."
     },
     {
-      "question": "Où peut-on trouver des scripts Slurm prototypes pour soumettre des simulations Abaqus sur les grappes de l'Alliance?",
-      "answer": "Des prototypes de scripts Slurm sont disponibles sur la page et sont généralement accessibles dans les sections pour un nœud simple, sous l'onglet 'script pour le répertoire /project'."
+      "question": "Quand est-il recommandé d'utiliser des scripts de redémarrage pour les simulations Abaqus sur les grappes de l'Alliance?",
+      "answer": "Il est préférable d'utiliser des scripts de redémarrage pour les tâches de longue durée afin de pouvoir reprendre les simulations interrompues prématurément (par exemple, par la file d'attente ou une défaillance matérielle). Les tâches créant des fichiers de redémarrage volumineux devraient écrire sur le disque local via le `$SLURM_TMPDIR`."
     },
     {
-      "question": "Quand est-il recommandé d'utiliser des scripts de redémarrage pour les tâches Abaqus sur les grappes de l'Alliance?",
-      "answer": "Il est préférable d'utiliser des scripts de redémarrage pour les tâches de longue durée ou pour poursuivre des tâches qui ont été interrompues prématurément, que ce soit par le gestionnaire de files d'attente ou une défaillance matérielle."
+      "question": "Comment peut-on estimer les besoins en mémoire pour une simulation Abaqus à processus unique sur une grappe de l'Alliance?",
+      "answer": "L'estimation de la mémoire pour un nœud Slurm peut être trouvée dans le fichier de sortie Abaqus `test.dat` sous `MEMORY TO MINIMIZE I/O`. Alternativement, vous pouvez exécuter la simulation de manière interactive sur un nœud de calcul et surveiller la consommation de mémoire (RES et VIRT) avec les commandes `ps` ou `top`."
     },
     {
-      "question": "Pourquoi devrais-je écrire les fichiers de redémarrage volumineux d'Abaqus sur le disque local (via SLURM_TMPDIR) sur les grappes de l'Alliance?",
-      "answer": "Pour de meilleures performances et pour éviter d'encombrer le stockage /project, les tâches qui créent des fichiers de redémarrage volumineux devraient écrire sur le disque local via la variable d'environnement `SLURM_TMPDIR`."
+      "question": "Comment peut-on estimer la mémoire requise pour les simulations Abaqus à processus multiples sur les grappes de l'Alliance?",
+      "answer": "Pour les simulations à processus multiples, les estimations de mémoire (par processus de calcul) pour minimiser les E/S sont fournies dans le fichier de sortie `.dat`. La valeur `mem-per-cpu` peut être estimée en multipliant l'estimation de mémoire la plus élevée par le nombre de nœuds, puis en divisant par le nombre de tâches (`ntasks`), potentiellement ajusté par `mp_host_split` si spécifié."
     },
     {
-      "question": "Quand faut-il envisager d'utiliser des scripts Abaqus pour nœuds multiples sur les grappes de l'Alliance?",
-      "answer": "Les tâches qui exigent beaucoup de mémoire ou de ressources de calcul, au-delà de la capacité d'un nœud simple, devraient utiliser les scripts MPI dans les sections pour nœuds multiples."
+      "question": "Quelles sont les méthodes recommandées pour utiliser Abaqus en mode graphique sur les grappes de l'Alliance?",
+      "answer": "Les méthodes recommandées sont Open OnDemand ou JupyterLab. Pour Open OnDemand, lancez une session, chargez le module Abaqus (ex. `abaqus/2026`) et lancez `abaqus cae` (ou `abaqus cae -mesa` si sans GPU ou si VirtualGL n'est pas pris en charge). VncViewer est une approche obsolète."
     },
     {
-      "question": "Comment peut-on estimer les besoins en mémoire pour une simulation Abaqus à processus simple sur les grappes de l'Alliance?",
-      "answer": "Une estimation peut être trouvée dans le fichier de sortie `test.dat` d'Abaqus sous 'MEMORY TO MINIMIZE I/O' ou en exécutant la simulation de manière interactive sur un nœud de calcul et en surveillant la consommation de mémoire avec `ps` ou `top`."
+      "question": "Quels sont les détails de la licence Abaqus de SHARCNET disponible sur les grappes de l'Alliance?",
+      "answer": "La licence SHARCNET est une licence gratuite limitée renouvelée jusqu'au 17 janvier 2026, offrant 2 jetons de calcul et 35 jetons d'exécution, avec des limites de 10 jetons par utilisateur et 15 jetons par groupe. Elle est réservée au matériel SHARCNET et nécessite une entente d'utilisateur spécifique."
     },
     {
-      "question": "Comment estimer la valeur `mem-per-cpu` pour les scripts Slurm multinœuds avec Abaqus?",
-      "answer": "Multipliez l'estimation de mémoire la plus élevée par le nombre de nœuds, puis divisez par le nombre de tâches (`ntasks`). Si `mp_host_split` est spécifié, multipliez aussi par sa valeur avant de diviser par `ntasks`."
+      "question": "Comment un utilisateur peut-il demander l'accès et configurer la licence Abaqus de SHARCNET sur les systèmes de l'Alliance?",
+      "answer": "Pour obtenir l'accès, vous devez contacter le soutien technique de l'Alliance, préciser que la demande concerne les systèmes SHARCNET et copier-coller l'accord de licence fourni dans la documentation, en y indiquant votre nom et votre nom d'utilisateur. Ensuite, configurez votre fichier `~/.licenses/abaqus.lic` avec `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27050@license1.computecanada.ca\")`."
     },
     {
-      "question": "Quelles sont les méthodes recommandées pour utiliser Abaqus avec une interface graphique sur les grappes de l'Alliance?",
-      "answer": "Il est recommandé d'utiliser Open OnDemand ou JupyterLab pour travailler avec des applications graphiques Abaqus."
+      "question": "Comment vérifier l'utilisation et le statut de la file d'attente de la licence Abaqus de SHARCNET sur les grappes de l'Alliance?",
+      "answer": "Après vous être connecté à un système SHARCNET (ex. Nibi) et avoir chargé le module Abaqus, vous pouvez utiliser la commande `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"` pour voir les tâches actives et en attente de licence."
     },
     {
-      "question": "Comment lancer Abaqus en mode graphique via Open OnDemand sur les grappes de l'Alliance?",
-      "answer": "Après avoir lancé une session OnDemand et chargé le module Abaqus (par exemple, `module load abaqus/2026`), lancez l'application avec `abaqus cae` ou `abaqus cae -mesa` si vous êtes sur un nœud sans GPU ou avec un GPU non pris en charge par VirtualGL."
+      "question": "Quelle est la correspondance entre le nombre de cœurs et les jetons Abaqus consommés pour les simulations?",
+      "answer": "La relation est définie par la formule TOKENS = floor[5 X CORES^0.422]. Par exemple, 1 cœur utilise 5 jetons, 4 cœurs utilisent 8 jetons, 16 cœurs utilisent 16 jetons, et ainsi de suite. Chaque GPU nécessite un jeton additionnel."
     },
     {
-      "question": "Quelles sont les limites de la licence Abaqus gratuite de SHARCNET sur le matériel SHARCNET de l'Alliance?",
-      "answer": "Elle offre 2 jetons de calcul et 35 jetons d'exécution, avec des limites d'utilisation de 10 jetons par utilisateur et 15 jetons par groupe. Elle est destinée aux tests et à une utilisation légère."
-    },
-    {
-      "question": "Quel est le processus pour obtenir l'accès à la licence Abaqus de SHARCNET sur les grappes de l'Alliance?",
-      "answer": "Vous devez contacter le soutien technique de l'Alliance, préciser que la demande est pour SHARCNET et copier-coller un accord de licence en y inscrivant vos nom, prénom et nom d'utilisateur."
-    },
-    {
-      "question": "Comment interroger le serveur de licences SHARCNET pour vérifier l'état des licences Abaqus?",
-      "answer": "Après vous être connecté à Nibi et avoir chargé le module Abaqus, vous pouvez utiliser la commande `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a` avec `egrep` pour filtrer les informations sur les utilisateurs, les tâches démarrées ou en file d'attente."
-    },
-    {
-      "question": "Comment les jetons Abaqus sont-ils attribués en fonction du nombre de cœurs sur les grappes de l'Alliance?",
-      "answer": "Le nombre de jetons est approximativement `floor[5 X CORES^0.422]`, avec un jeton additionnel requis par GPU."
+      "question": "Quel est le statut actuel de la licence Abaqus de Western pour une utilisation sur les grappes de l'Alliance?",
+      "answer": "La licence Abaqus de Western est actuellement hors service, car la machine `license4` a été retirée. Toutes les demandes d'accès à cette licence échoueront. La licence SHARCNET est une alternative temporaire, et un serveur de remplacement est en préparation pour Western."
     }
   ],
-  "generated_at": "2026-05-31T01:09:34.350146+00:00"
+  "generated_at": "2026-08-07T23:25:42.907589+00:00"
 }

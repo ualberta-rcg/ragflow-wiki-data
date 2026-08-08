@@ -4,17 +4,17 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "Pourquoi est-il déconseillé d'utiliser Hyper-Q/MPS avec GROMACS?",
-      "answer": "Il faut éviter d'utiliser Hyper-Q/MPS avec GROMACS parce que l'option intégrée `mdrun -multidir` permet d'obtenir la même fonctionnalité de manière plus efficace."
+      "question": "Pourquoi les simulations de dynamique moléculaire (MD) avec GROMACS nécessitent-elles souvent d'être redémarrées?",
+      "answer": "Les simulations de dynamique moléculaire avec GROMACS prennent souvent plus de temps à se compléter que la durée maximale permise en temps réel pour une tâche, ce qui oblige à les redémarrer."
     },
     {
-      "question": "Quel type de fichier est requis pour démarrer une simulation avec GROMACS?",
-      "answer": "Pour lancer une simulation GROMACS, il faut un fichier d'entrée binaire appelé « tpr » (pour « portable binary run input file »)."
+      "question": "Dans le contexte des simulations de dynamique moléculaire avec GROMACS, à quoi sert le paramètre `-maxh` de la commande `gmx mdrun`?",
+      "answer": "Le paramètre `-maxh` de la commande `gmx mdrun` indique au programme la durée en temps réel pour que l'étape en cours se termine correctement, habituellement à 99% de la durée allouée. Ça permet à `mdrun` de créer un fichier de point de contrôle (checkpoint file) et de bien fermer tous les fichiers de sortie (trajectoires, énergie, journalisation, etc.)."
     },
     {
-      "question": "Quelles informations sont stockées dans un fichier d'entrée .tpr pour une simulation GROMACS?",
-      "answer": "Un fichier .tpr regroupe la structure de simulation de départ, la topologie moléculaire et l'ensemble des paramètres nécessaires à la simulation."
+      "question": "Comment faire pour redémarrer une simulation GROMACS interrompue sur un cluster?",
+      "answer": "Pour redémarrer une simulation GROMACS, on utilise la même commande `gmx mdrun` que pour la simulation originale, en ajoutant le paramètre `-cpi state.cpt`. `state.cpt` doit être le nom du dernier fichier de point de contrôle. Depuis la version 4.5, `mdrun` tente par défaut d'utiliser les fichiers existants et vérifie leur cohérence."
     }
   ],
-  "generated_at": "2026-04-13T06:16:39.812539+00:00"
+  "generated_at": "2026-08-08T00:08:26.883824+00:00"
 }

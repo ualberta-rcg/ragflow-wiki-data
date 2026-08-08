@@ -4,17 +4,13 @@
   "chunk_index": 23,
   "qa_pairs": [
     {
-      "question": "Comment puis-je vérifier l'état des licences Abaqus sur le serveur de licences SHARCNET, incluant les tâches lancées et celles en attente?",
-      "answer": "Pour interroger le serveur de licences SHARCNET, vous devez d'abord vous connecter à Nibi via SSH (`ssh nibi.alliancecan.ca`), puis charger les modules StdEnv/2020 et Abaqus. Ensuite, vous pouvez utiliser la commande `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"` pour voir les tâches lancées et celles en file d'attente."
+      "question": "Comment doit-on configurer le fichier de licences Abaqus pour utiliser la licence de Western sur la grappe Dusky?",
+      "answer": "Pour configurer le fichier de licences Abaqus pour la licence de Western sur la grappe Dusky, il faut créer ou modifier le fichier `~/.licenses/abaqus.lic` pour qu'il contienne les lignes suivantes:\n`prepend_path(\"LM_LICENSE_FILE\",\"27000@license4.sharcnet.ca\")`\n`prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27000@license4.sharcnet.ca\")`"
     },
     {
-      "question": "Que signifie le fait qu'une tâche Abaqus soit mise en file d'attente pour une licence sur le serveur de licences SHARCNET?",
-      "answer": "Lorsqu'une tâche Abaqus est en file d'attente pour une licence sur le serveur SHARCNET, ça veut dire que la tâche a atteint l'état 'R (running)' selon Slurm (comme indiqué par `squeue -j jobid` ou `sacct -j jobid`), mais elle est inactive sur un nœud de calcul, attendant qu'une licence soit disponible. Ça a le même impact sur la priorité de votre compte que si la tâche effectuait des calculs et consommait du temps CPU. La tâche va démarrer dès que suffisamment de licences seront libérées."
-    },
-    {
-      "question": "Quelles sont les stratégies recommandées pour prévenir les problèmes de pénurie de licences quand on soumet plusieurs tâches Abaqus qui nécessitent des jetons coûteux?",
-      "answer": "Pour éviter les problèmes de pénurie de licences lors de la soumission de plusieurs tâches Abaqus avec des jetons coûteux, il est suggéré d'utiliser soit des dépendances de tâches (pour que les tâches s'exécutent séquentiellement), des vecteurs de tâches (pour gérer plusieurs tâches similaires), ou de configurer des notifications par courriel Slurm. Ces notifications vous avisent quand une tâche est terminée, vous permettant ainsi de soumettre la prochaine manuellement sans gaspiller de ressources."
+      "question": "Que faut-il faire si on rencontre un problème en utilisant la licence Abaqus de Western sur la grappe Dusky?",
+      "answer": "Si un problème survient en utilisant la licence Abaqus de Western sur Dusky, il faut écrire au soutien technique. Dans le courriel, il faut mentionner que vous utilisez la licence du site Western sur Dusky, ajouter le numéro de la tâche qui pose problème et copier les messages d'erreur s'il y en a."
     }
   ],
-  "generated_at": "2026-05-31T01:12:37.589169+00:00"
+  "generated_at": "2026-08-07T23:28:56.346745+00:00"
 }

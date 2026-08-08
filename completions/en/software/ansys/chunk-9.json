@@ -4,17 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What is a sample SLURM script for running a multinode Fluent job on the Narval cluster using Open MPI, configured to use 64 cores per node?",
-      "answer": "A sample SLURM script for running a multinode Fluent job on the Narval cluster using Open MPI is `script-flu-bynode-openmpi.sh`. This script is configured with `#SBATCH --time=00-03:00`, can specify 1 or more compute nodes (`#SBATCH --nodes=1` with an explanatory comment), and uses up to 64 cores per node (`#SBATCH --ntasks-per-node=64`). It allocates all memory per compute node (`#SBATCH --mem=0`). It loads `StdEnv/2023` and `ansys/2023R2` (or newer versions). The script uses Open MPI (`-mpi=openmpi`) and sets the `FI_PROVIDER=verbs` environment variable for multinode execution, running a specified journal file (e.g., `sample.jou`) with a Fluent version (e.g., `3d`)."
+      "question": "How do you run a single Ansys Additive Manufacturing job in a graphical OnDemand session on an Alliance cluster?",
+      "answer": "To run a single Ansys Additive Manufacturing job in a graphical OnDemand session, start Workbench, open your project file, then start Mechanical, clear generated data, tick 'Distributed', specify the desired number of cores, and finally click 'File -> Save Project -> Solve'."
     },
     {
-      "question": "How should a user configure a SLURM script to submit a multinode Fluent job to the Trillium cluster, and what Ansys module version is required?",
-      "answer": "To submit a multinode Fluent job to the Trillium cluster, a SLURM script such as `script-flu-bynode-intel-tri.sh` can be used. This script loads `StdEnv/2023` and specifically requires `ansys/2025R2.04` or newer, as only these versions work on Trillium. It can specify 1 or more compute nodes (`#SBATCH --nodes=1` with an explanatory comment) and up to 192 cores per node (`#SBATCH --ntasks-per-node=16` is given as an example, with 192 being the maximum for Trillium). Memory allocation defaults to using all memory per node. The script takes a journal file (e.g., `sample.jou`) and a Fluent version (e.g., `3d`) as parameters, and utilizes Intel MPI for execution."
+      "question": "What preparation steps are required before submitting a newly uploaded Ansys Additive project to a cluster queue for batch job execution?",
+      "answer": "Before submitting an Ansys Additive project to a cluster queue, you must open and save your simulation with the Workbench GUI in the same directory where the job will be submitted, using the same Ansys module version as the job. Additionally, create a Slurm script (changing `Update()` to `UpdateAllDesignPoints()` for parametric studies), and determine the optimal number of cores and memory by submitting several short test jobs. For testing, either change `Save(Overwrite=True)` to `Save(Overwrite=False)` or save a copy of your original project files."
     },
     {
-      "question": "What are the essential configurable parameters that users should define in their Fluent SLURM scripts when running simulations on Alliance clusters?",
-      "answer": "When running Fluent simulations on Alliance clusters, users should configure several essential parameters in their SLURM scripts. These include: `#SBATCH --account` to specify the account name, `#SBATCH --time` for the job's time limit, `#SBATCH --nodes` to set the number of compute nodes, and either `#SBATCH --ntasks-per-node` (cores per node) or `#SBATCH --ntasks` (total cores). Memory allocation is specified using `#SBATCH --mem` (total memory) or `#SBATCH --mem-per-cpu` (memory per core). Users must also load the appropriate environment modules, such as `StdEnv/2023` and a specific Ansys module version (e.g., `ansys/2023R2` or newer). Finally, `MYJOURNALFILE` defines the Fluent journal file name (e.g., `sample.jou`), and `MYVERSION` specifies the Fluent dimension/precision (e.g., `2d`, `2ddp`, `3d`, `3ddp`)."
+      "question": "Why is it important to terminate rogue Ansys processes on an OnDemand login node, and what command can be used to do so?",
+      "answer": "It's important to terminate rogue Ansys processes because they can persistently tie up valuable licenses in a running OnDemand login node session if an Ansys GUI session is not cleanly terminated or crashes. To kill these processes, open another terminal and run `pkill -9 -e -u $USER -f \"ansys|mwrpcss|mwfwrapper|ENGINE\"`."
     }
   ],
-  "generated_at": "2026-05-31T01:21:35.580564+00:00"
+  "generated_at": "2026-08-07T23:35:12.063945+00:00"
 }

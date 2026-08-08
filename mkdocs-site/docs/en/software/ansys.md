@@ -4,9 +4,9 @@ slug: "ansys"
 lang: "en"
 
 source_wiki_title: "Ansys/en"
-source_hash: "e4e6c32306100c687b2213d1adaf5145"
-last_synced: "2026-05-31T00:03:42.418098+00:00"
-last_processed: "2026-05-31T00:36:36.102571+00:00"
+source_hash: "1823558c59c81f148740ee41fe0743cb"
+last_synced: "2026-08-07T19:46:17.777436+00:00"
+last_processed: "2026-08-07T22:17:06.269750+00:00"
 
 tags:
   - software
@@ -25,51 +25,39 @@ status:
 
 [Ansys](http://www.ansys.com/) is a software suite for engineering simulation and 3-D design. It includes packages such as [Ansys Fluent](https://www.ansys.com/products/fluids/ansys-fluent) and [Ansys CFX](http://www.ansys.com/products/fluids/ansys-cfx).
 
-# Licensing
-
+## Licensing
 The Alliance is a hosting provider for Ansys. This means that we have the software installed on our clusters, but we do not provide a generic license accessible to everyone. However, many institutions, faculties, and departments already have licenses that can be used on our clusters. Once the legal aspects are worked out for licensing, there will be remaining technical aspects. The license server on your end will need to be reachable by our compute nodes. This will require our technical team to get in touch with the technical people managing your license software. In some cases, this has already been done. You should then be able to load the Ansys module, and it should find its license automatically. If this is not the case, please contact our [technical support](../support/technical_support.md) to arrange this.
 
-## Configuring your license file
+### Configuring your license file
+Our module for Ansys is designed to look for license information in a few places. One of those places is your `/home` folder. You can specify your license server by creating a file named `$HOME/.licenses/ansys.lic` with the following contents. Customize the file by replacing FLEXPORT and LICSERVER with the appropriate values for your server.
 
-Our module for Ansys is designed to look for license information in a few places. One of those places is your `/home` folder. You can specify your license server by creating a file named `$HOME/.licenses/ansys.lic`. Customize the file by replacing FLEXPORT and LICSERVER with the appropriate values for your server.
-
-```ini title=".licenses/ansys.lic"
-setenv("ANSYSLMD_LICENSE_FILE", "**FLEXPORT**@**LICSERVER**")
+```bash title="ansys.lic"
+setenv("ANSYSLMD_LICENSE_FILE", "FLEXPORT@LICSERVER")
 ```
 
-The following table provides established values for the CMC and SHARCNET license servers. To use a different server, locate the corresponding value as explained in [Local license servers](#local-license-servers) below.
+The following table provides established values for the SHARCNET license server.
 
-| License   | System/Cluster                   | LICSERVER                   | FLEXPORT | NOTES                                                                         |
-| :-------- | :------------------------------- | :-------------------------- | :------- | :---------------------------------------------------------------------------- |
-| CMC       | Fir                              | `172.26.0.101`              | `6624`   | [Discontinue use](https://www.cmc.ca/ansys-academic-research-software/) (shut down April 23, 2026) |
-| CMC       | Narval/Rorqual                   | `10.100.64.10`              | `6624`   | [Discontinue use](https://www.cmc.ca/ansys-academic-research-software/) (shut down April 23, 2026) |
-| CMC       | Nibi                             | `10.25.1.56`                | `6624`   | [Discontinue use](https://www.cmc.ca/ansys-academic-research-software/) (shut down April 23, 2026) |
-| CMC       | Trillium                         | `scinet-cmc`                | `6624`   | [Discontinue use](https://www.cmc.ca/ansys-academic-research-software/) (shut down April 23, 2026) |
-| SHARCNET  | Nibi/Fir/Narval/Rorqual/Trillium | `license1.computecanada.ca` | `1055`   |                                                                               |
+| License  | System/Cluster          | LICSERVER                  | FLEXPORT | NOTES                 |
+| :------- | :---------------------- | :------------------------- | :------- | :-------------------- |
+| SHARCNET | Nibi/Fir/Narval/Rorqual/Trillium | `license1.computecanada.ca` | `1055`   | currently operational |
 
-### Local license servers
+#### Local license servers
+Before a local institutional Ansys license server can be used on our clusters, firewall changes will need to be done on both the server and the cluster sides. For many Ansys servers, this work has already been done and they can be used by following the steps in the [Ready to use](#ready-to-use) section below. For Ansys servers that have never been used on our clusters, an additional step must be done as shown in the [Setup required](#setup-required) section also below.
 
-Before a local institutional Ansys license server can be used on our clusters, firewall changes will need to be done on both the server and the cluster sides. For many Ansys servers, this work has already been done and they can be used by following the steps in the [Ready to use](#ready-to-use) section below. For Ansys servers that have never been used on our clusters, an additional step must be done as explained in the [Setup required](#setup-required) section also below.
-
-#### Ready to use
-
+##### Ready to use
 To use a local institutional Ansys license server with an Alliance cluster whose network/firewall connections have already been set up, contact your Ansys server administrator and get the following pieces of information for the license server:
-
 1.  the Ansys flex port (FLEXPORT) number, commonly 1055
 2.  the fully qualified hostname (LICSERVER)
 
 Now, configure your `~/.licenses/ansys.lic` file by plugging in the values, and you are done.
 
-#### Setup required
-
+##### Setup required
 To use a local Ansys license server with an Alliance cluster whose network/firewall connection have never been set up before, you will also need to get the following from your ANSYS server administrator:
-
 3.  the statically configured Ansys vendor port (VENDPORT) number.
 
-Send items 1 to 3 by email to [technical support](../support/technical_support.md) and mention which Alliance cluster you want to run Ansys jobs on. An Alliance system administrator will then open the outbound cluster firewall (if necessary) so license checkout requests can reach your license server from the cluster's compute nodes. A range of IP addresses (known as cluster NAT nodes) will then be sent back to you. Give these IP addresses to your local network administrator and request the local server firewall FLEXPORT and VENDPORT ports be opened to allow connections from all of them. Also ask the administrator to check that the line containing `SERVER <servername> <host id> <lmgrd port>` found at the top of the Ansys license file contains either LICSERVER or IP_ADDRESS for the `<servername>` value as this must be resolvable from the remote cluster.
+Send items 1-3 by email to [technical support](../support/technical_support.md) and mention which Alliance cluster you want to run Ansys jobs on. An Alliance system administrator will then open the outbound cluster firewall (if necessary) so license checkout requests can reach your license server from the cluster's compute nodes. A range of IP addresses (known as cluster NAT nodes) will then be sent back to you. Give these IP addresses to your local network administrator and request the local server firewall FLEXPORT and VENDPORT ports be opened to allow connections from all of them. Also ask the administrator to check that the line containing `` `SERVER <servername> <host id> <lmgrd port>` `` found at the top of the Ansys license file contains either LICSERVER or IP_ADDRESS for the `<servername>` value as this must be resolvable from the remote cluster.
 
-## Checking out a license
-
+### Checking out a license
 To test if your `ansys.lic` is configured and working properly with your license server, run the following sequence of commands on the cluster where you will be submitting jobs.
 
 ```bash
@@ -78,1308 +66,84 @@ salloc --time=1:0:0 --mem=1000M --account=def-YOURUSERID
 module load StdEnv/2023; module load ansys/2025R2.04
 $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep "ansyslmd: UP" 1> /dev/null && echo Success || echo Fail
 ```
+`Success` output indicates license checkouts should work when jobs are submitted to the queue.
+`Fail` output indicates a problem with the licensing setup somewhere, and jobs will likely fail.
 
-!!! success "Successful license checkout"
-    A `Success` output indicates license checkouts should work when jobs are submitted to the queue.
-
-!!! failure "License checkout problem"
-    A `Fail` output indicates a problem with the licensing setup somewhere, and jobs will likely fail.
-
-If there is an Ansys license server checkout problem, the following message will appear in Slurm output files when Fluent jobs are started by Slurm scripts in the queue **OR** when Fluent is started interactively, simply by doing the following:
+If there is an Ansys license server checkout problem, the following message will appear in Slurm output files when Fluent jobs are started by Slurm scripts in the queue *OR* when Fluent is started interactively, simply by doing the following:
 
 ```bash
 fluent -g 2d -n 2
 ```
+```text
+Connected License Server List:	<Shared_Web_License_Server>
+Hit return to exit.
+```
 
-> Connected License Server List:	<Shared_Web_License_Server>
-> Hit return to exit.
-
-# Version compatibility
-
-Ansys simulations are typically forward compatible, but **not** backward compatible. This means that simulations created using an older version of Ansys can be expected to load and run fine with any newer version. For example, a simulation created and saved with `ansys/2022R2` should load and run smoothly with `ansys/2023R2`, but **not** the other way around. While it may be possible to start a simulation running with an older version, random error messages or crashing will likely occur. Regarding Fluent simulations, if you cannot recall which version of Ansys was used to create your case file, try grepping it as follows to look for clues:
+## Version compatibility
+Ansys simulations are typically forward compatible, but **NOT** backward compatible. This means that simulations created using an older version of Ansys can be expected to load and run fine with any newer version. For example, a simulation created and saved with `ansys/2022R2` should load and run smoothly with `ansys/2023R2`, but **NOT** the other way around. While it may be possible to start a simulation running with an older version, random error messages or crashing will likely occur. Regarding Fluent simulations, if you cannot recall which version of Ansys was used to create your case file, try grepping it as follows to look for clues:
 
 ```bash
 grep -ia fluent combustor.cas
 ```
-
+```text
+   (0 "fluent15.0.7  build-id: 596")
 ```
-  (0 "fluent15.0.7  build-id: 596")
-```
-
 ```bash
 grep -ia fluent cavity.cas.h5
 ```
-
+```text
+   ANSYS_FLUENT 24.1 Build 1018
 ```
-  ANSYS_FLUENT 24.1 Build 1018
-```
 
-## Platform support
-
+### Platform support
 Ansys provides [detailed platform support information](https://www.ansys.com/it-solutions/platform-support/previous-releases) describing software/hardware compatibility for the current and previous releases. This is of special interest since it shows which packages are supported under Windows, but not under Linux, and thus not on the Alliance clusters (e.g., SpaceClaim).
 
-## What's new
-
+### What's new
 Information for the latest Ansys release can be found [here](https://www.ansys.com/products/release-highlights) (Ansys 2026 R1, as of May 2026). Posts for previous releases can be found on the [Ansys blog](https://www.ansys.com/blog) and then scrolling down to the FILTERS search bar. Inputting for example *What’s New Fluent 2024 GPU* should pull up a document containing the latest GPU support information for that release. The [Press Release](https://www.ansys.com/news-center/press-releases) search bar is also a good way to find release-specific information.
 
-## Service packs
+### Service packs
+Starting with Ansys 2024, a separate Ansys module will appear on the clusters with a decimal and two digits following the release number whenever a service pack is installed over the initial release. For example, the initial 2024 release with no service pack applied may be loaded with `` `module load ansys/2024R1` `` while a module with service pack 3 applied will be loaded with `` `module load ansys/2024R1.03` ``. If a service pack is already available by the time a new release is to be installed, only a module for that service pack number will most likely be installed, unless a request to install the initial release is also received.
 
-Starting with Ansys 2024, a separate Ansys module will appear on the clusters with a decimal and two digits following the release number whenever a service pack is installed over the initial release. For example, the initial 2024 release with no service pack applied may be loaded with `module load ansys/2024R1` while a module with service pack 3 applied will be loaded with `module load ansys/2024R1.03`. If a service pack is already available by the time a new release is to be installed, only a module for that service pack number will most likely be installed, unless a request to install the initial release is also received.
+Most users will likely want to load the latest module version equipped with the latest installed service pack, which can be achieved with `` `module load ansys` ``. While it's not expected service packs will impact numerical results, the changes they make are extensive and so, if computations have already been done with the initial release or an earlier service pack, some groups may prefer to continue using it. Having separate modules for each service pack makes this possible. Starting with Ansys 2024R1, a detailed description of what each service pack does can be found by searching this [link](https://storage.ansys.com/staticfiles/cp/Readme/release2024R1/info_combined.pdf) for *Service Pack Details*. Future versions will presumably be similarly searchable by manually modifying the version number.
 
-Most users will likely want to load the latest module version equipped with the latest installed service pack, which can be achieved with `module load ansys`. While it's not expected service packs will impact numerical results, the changes they make are extensive and so, if computations have already been done with the initial release or an earlier service pack, some groups may prefer to continue using it. Having separate modules for each service pack makes this possible. Starting with Ansys 2024R1, a detailed description of what each service pack does can be found by searching this [link](https://storage.ansys.com/staticfiles/cp/Readme/release2024R1/info_combined.pdf) for *Service Pack Details*. Future versions will presumably be similarly searchable by manually modifying the version number.
+## Cluster batch job submission
+[Cluster batch job submission with Ansys](../running-jobs/cluster_batch_job_submission_with_ansys.md)
 
-# Cluster batch job submission
+## Graphical use
+[Graphical use of Ansys](../general/graphical_use_of_ansys.md)
 
-The Ansys software suite comes with multiple implementations of MPI to support parallel computation. Unfortunately, none of them support our [Slurm scheduler](../running-jobs/running_jobs.md). For this reason, we need special instructions on how to start a parallel job for each Ansys package. In the sections below, we give examples of submission scripts for some of the packages. While Slurm scripts should work on all clusters, Trillium users may need to make some additional [changes covered here](https://docs.scinet.utoronto.ca/index.php).
+## Site-specific usage
+### SHARCNET license
+The SHARCNET Ansys license is free for academic use by **any** Alliance researcher on **any** Alliance system. The installed software does not have any solver or geometry limits. The SHARCNET license may be used for ***Publishable Academic Research***, but not for any private/commercial purposes as this is strictly prohibited by the license terms. The SHARCNET Ansys license is based on the Multiphysics Campus Solution and includes products such as: HF, EM, Electronics HPC, Mechanical, CFD, ROCKY and LS-DYNA as described [here](https://www.ansys.com/academic/educator-tools/academic-product-portfolio). Lumerical software is included in recent Ansys module versions, however it is NOT covered by the SHARCNET license. SpaceClaim software is not installed with any Ansys module since there is no Linux version available; it is technically covered by the SHARCNET license however.
 
-## Fluent
-
-Typically, you would use the following procedure to run Fluent on one of our clusters:
-
-1.  Prepare your Fluent job using Fluent from the Ansys Workbench on your desktop machine, up to the point where you would run the calculation.
-2.  Export the case file with *File > Export > Case...* or find the folder where Fluent saves your project's files. The case file will often have a name like FFF-1.cas.gz.
-3.  If you already have data from a previous calculation, which you want to continue, export a data file as well (*File > Export > Data...*) or find it in the same project folder (FFF-1.dat.gz).
-4.  [Transfer](../getting-started/transferring_data.md) the case file (and if needed the data file) to a directory on the [/project](../storage-and-data/project_layout.md) or [/scratch](../storage-and-data/storage_and_file_management.md#storage-types) filesystem on the cluster. When exporting, you can save the file(s) under a more instructive name than FFF-1.\*, or rename them when they are uploaded.
-5.  Now you need to create a journal file. Its purpose is to load the case file (and optionally the data file), run the solver, and finally write the results. See examples below and remember to adjust the filenames and desired number of iterations.
-6.  If jobs frequently fail to start due to license shortages and manual resubmission of failed jobs is not convenient, consider modifying your script to requeue your job (up to 4 times) as shown under the *by node + requeue* tab further below. Be aware that doing this will also requeue simulations that fail due to other related issues (such as divergence), resulting in wasted compute time. Therefore, it is strongly recommended to monitor and inspect each Slurm output file to confirm that each requeue attempt is license-related. When it is determined that a job is requeued due to a simulation issue, immediately kill the job progression manually with `scancel jobid` and correct the problem.
-7.  After [running the job](../running-jobs/running_jobs.md), you can download the data file and import it back into Fluent with *File > Import > Data...*.
-
-### Slurm scripts
-
-#### General purpose
-
-Most Fluent jobs should use the following *by node* script to minimize solution latency and maximize performance over as few nodes as possible. Very large jobs might wait less in the queue if they use a *by core* script; however, the startup time of a job using many nodes can be significantly longer, thus offsetting some of the benefits. In addition, be aware that running large jobs over an unspecified number of very many nodes will make them far more vulnerable to crashing if any of the compute nodes fail during the simulation. The scripts will ensure Fluent uses shared memory for communication when run on a single node, and distributed memory (utilizing MPI and the appropriate HPC interconnect) when run over multiple nodes. The two Narval tabs may be useful to provide a more robust alternative if Fluent crashes during the initial automatic mesh partitioning phase when using the standard intel-based scripts with the parallel solver. The other option would be to manually perform the mesh partitioning in the Fluent GUI, then try to run the job again on the cluster with the intel scripts. Doing so will allow you to inspect the partition statistics and specify the partitioning method to obtain an optimal result. The number of mesh partitions should be an integral multiple of the number of cores; for optimal efficiency, ensure at least 10000 cells per core.
-
-##### Multinode (by node)
-
-```bash title="script-flu-bynode-intel.sh"
-#!/bin/bash
-
-#SBATCH --account=def-group   # Specify account name
-#SBATCH --time=00-03:00       # Specify time limit dd-hh:mm
-#SBATCH --nodes=1             # Specify number of compute nodes (narval 1 node max)
-#SBATCH --ntasks-per-node=32  # Specify upto maximum number of cores per compute node
-#SBATCH --mem=0               # Specify memory per compute node (0 allocates all memory)
-#SBATCH --cpus-per-task=1     # Do not change
-
-module load StdEnv/2023       # Do not change
-module load ansys/2023R2      # or newer versions
-
-MYJOURNALFILE=sample.jou      # Specify your journal file name
-MYVERSION=3d                  # Specify 2d, 2ddp, 3d or 3ddp
-
-# ------- do not change any lines below --------
-
-if [[ "$CC_CLUSTER" == narval ]]; then
- module load intel/2023 intelmpi
- export INTELMPI_ROOT=$I_MPI_ROOT
- unset I_MPI_ROOT
-fi
-
-if [[ ("${EBVERSIONANSYS//R*}" -ge 2025 && "${CC_CLUSTER}" == nibi) || "${CC_CLUSTER}" == narval ]]; then
- export I_MPI_HYDRA_BOOTSTRAP=ssh
- unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS
-fi
-
-slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/machinefile-$SLURM_JOB_ID
-NCORES=$SLURM_NTASKS
-
-if [ "$SLURM_NNODES" == 1 ]; then
- fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE
-else
- if [[ "${CC_CLUSTER}" == nibi ]]; then
-   fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE
- else
-   fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE
- fi
-fi
-```
-
-##### Multinode (by core)
-
-```bash title="script-flu-bycore-intel.sh"
-#!/bin/bash
-
-#SBATCH --account=def-group   # Specify account
-#SBATCH --time=00-03:00       # Specify time limit dd-hh:mm
-##SBATCH --nodes=1            # Uncomment to specify (narval 1 node max)
-#SBATCH --ntasks=16           # Specify total number of cores across all nodes
-#SBATCH --mem-per-cpu=4G      # Specify memory per core
-#SBATCH --cpus-per-task=1     # Do not change
-
-module load StdEnv/2023       # Do not change
-module load ansys/2023R2      # or newer versions
-
-MYJOURNALFILE=sample.jou      # Specify your journal file name
-MYVERSION=3d                  # Specify 2d, 2ddp, 3d or 3ddp
-
-# ------- do not change any lines below --------
-
-if [[ "$CC_CLUSTER" == narval ]]; then
- module load intel/2023 intelmpi
- export INTELMPI_ROOT=$I_MPI_ROOT
- unset I_MPI_ROOT
-fi
-
-if [[ ("${EBVERSIONANSYS//R*}" -ge 2025 && "${CC_CLUSTER}" == nibi) || "${CC_CLUSTER}" == narval ]]; then
- export I_MPI_HYDRA_BOOTSTRAP=ssh
- unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS
-fi
-
-slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/machinefile-$SLURM_JOB_ID
-NCORES=$SLURM_NTASKS
-
-if [ "$SLURM_NNODES" == 1 ]; then
- fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE
-else
- if [[ "${CC_CLUSTER}" == nibi ]]; then
-   fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE
- else
-   fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE
- fi
-fi
-```
-
-##### Multinode (by node, Narval)
-
-```bash title="script-flu-bynode-openmpi.sh"
-#!/bin/bash
-
-#SBATCH --account=def-group   # Specify account name
-#SBATCH --time=00-03:00       # Specify time limit dd-hh:mm
-#SBATCH --nodes=1             # Specify number of compute nodes (1 or more)
-#SBATCH --ntasks-per-node=64  # Specify number of cores per node (narval 64 or less)
-#SBATCH --mem=0               # Do not change (allocate all memory per compute node)
-#SBATCH --cpus-per-task=1     # Do not change
-
-module load StdEnv/2023       # Do not change
-module load ansys/2023R2      # or newer versions
-
-MYJOURNALFILE=sample.jou      # Specify your journal file name
-MYVERSION=3d                  # Specify 2d, 2ddp, 3d or 3ddp
-
-# ------- do not change any lines below --------
-
-export OPENMPI_ROOT=$EBROOTOPENMPI
-slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/mf-$SLURM_JOB_ID
-for i in `cat /tmp/mf-$SLURM_JOB_ID | uniq`; do echo "${i}:$(cat /tmp/mf-$SLURM_JOB_ID | grep $i | wc -l)" >> /tmp/machinefile-$SLURM_JOB_ID; done
-NCORES=$SLURM_NTASKS
-
-if [ "$SLURM_NNODES" == 1 ]; then
- fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pshmem -i $MYJOURNALFILE
-else
- export FI_PROVIDER=verbs
- fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE
-fi
-```
-
-##### Multinode (by core, Narval)
-
-```bash title="script-flu-bycore-openmpi.sh"
-#!/bin/bash
-
-#SBATCH --account=def-group   # Specify account name
-#SBATCH --time=00-03:00       # Specify time limit dd-hh:mm
-##SBATCH --nodes=1            # Uncomment to specify number of compute nodes (1 or more)
-#SBATCH --ntasks=16           # Specify total number of cores across all nodes
-#SBATCH --mem-per-cpu=4G      # Specify memory per core
-#SBATCH --cpus-per-task=1     # Do not change
-
-module load StdEnv/2023       # Do not change     
-module load ansys/2023R2      # or newer versions
-
-MYJOURNALFILE=sample.jou      # Specify your journal file name
-MYVERSION=3d                  # Specify 2d, 2ddp, 3d or 3ddp
-
-# ------- do not change any lines below --------
-
-export OPENMPI_ROOT=$EBROOTOPENMPI
-slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/mf-$SLURM_JOB_ID
-for i in `cat /tmp/mf-$SLURM_JOB_ID | uniq`; do echo "${i}:$(cat /tmp/mf-$SLURM_JOB_ID | grep $i | wc -l)" >> /tmp/machinefile-$SLURM_JOB_ID; done
-NCORES=$SLURM_NTASKS
-
-if [ "$SLURM_NNODES" == 1 ]; then
- fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pshmem -i $MYJOURNALFILE
-else
- export FI_PROVIDER=verbs
- fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE
-fi
-```
-
-##### Multinode (by node, Trillium)
-
-```bash title="script-flu-bynode-intel-tri.sh"
-#!/bin/bash
-
-#SBATCH --account=def-group      # Specify account name
-#SBATCH --time=00-03:00          # Specify time limit dd-hh:mm
-#SBATCH --nodes=1                # Specify number of compute nodes (1 or more)
-#SBATCH --ntasks-per-node=16     # Specify number cores per node (max 192 on trillium)
-##SBATCH --mem=0                 # Do not uncomment (be default trillium uses all memory per node)
-#SBATCH --cpus-per-task=1        # Do not change (required parameter)
-#SBATCH --output=slurm-%j.out    # Writes to slurm-$SLURM_JOB_ID.out
-
-cd $SLURM_SUBMIT_DIR             # Submit from $SCRATCH/some/dir
-
-module load StdEnv/2023          # Do not change
-module load ansys/2025R2.04      # only 2025R2 or newer works on trillium
-
-MYJOURNALFILE=sample.jou         # Specify your journal file name
-MYVERSION=3d                     # Specify 2d, 2ddp, 3d or 3ddp
-
-# ------- do not change any lines below --------
-
-slurm_hl2hl.py --format ANSYS-FLUENT > $SLURM_SUBMIT_DIR/machinefile-$SLURM_JOB_ID
-NCORES=$SLURM_NTASKS
-
-if [ ! -L "$HOME/.ansys" ]; then
-  echo "ERROR: A link to a writable .ansys directory does not exist."
-  echo 'Remove ~/.ansys if one exists and then run: ln -s $SCRATCH/.ansys ~/.ansys'
-  echo "Then try submitting your job again. Aborting the current job now!"
-elif [ ! -L "$HOME/.fluentconf" ]; then
-  echo "ERROR: A link to a writable .fluentconf directory does not exist."
-  echo 'Remove ~/.fluentconf if one exists and run: ln -s $SCRATCH/.fluentconf ~/.fluentconf'
-  echo "Then try submitting your job again. Aborting the current job now!"
-elif [ ! -L "$HOME/.flrecent" ]; then
-  echo "ERROR: A link to a writable .flrecent file does not exist."
-  echo 'Remove ~/.flrecent if one exists and then run: ln -s $SCRATCH/.flrecent ~/.flrecent'
-  echo "Then try submitting your job again. Aborting the current job now!"
-else
-  mkdir -pv $SCRATCH/.ansys
-  mkdir -pv $SCRATCH/.fluentconf
-  touch $SCRATCH/.flrecent
-  if [ "$SLURM_NNODES" == 1 ]; then
-   fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE
-  else
-   fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=$SLURM_SUBMIT_DIR/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE
-  fi
-fi
-```
-
-#### License requeue
-
-The scripts in this section should only be used with Fluent jobs that are known to complete normally without generating any errors in the output, but typically require multiple requeue attempts to check out licenses. They are not recommended for Fluent jobs that may 1) run for a long time before crashing 2) run to completion but contain unresolved journal file warnings, since in both cases the simulations will be repeated from the beginning until the maximum number of requeue attempts specified by the `array` value is reached. For these types of jobs, the general purpose scripts above should be used instead.
-
-##### Multinode (by node + requeue)
-
-```bash title="script-flu-bynode+requeue.sh"
-#!/bin/bash
-
-#SBATCH --account=def-group   # Specify account
-#SBATCH --time=00-03:00       # Specify time limit dd-hh:mm
-#SBATCH --nodes=1             # Specify number of compute nodes (narval 1 node max)
-#SBATCH --ntasks-per-node=32  # Specify upto maximum number of cores per compute node
-#SBATCH --mem=0               # Specify memory per compute node (0 allocates all memory)
-#SBATCH --cpus-per-task=1     # Do not change
-#SBATCH --array=1-5%1         # Specify number of requeue attempts (2 or more, 5 is shown)
-
-module load StdEnv/2023       # Do not change
-module load ansys/2023R2      # Specify version (or newer)
-
-MYJOURNALFILE=sample.jou      # Specify your journal file name
-MYVERSION=3d                  # Specify 2d, 2ddp, 3d or 3ddp
-
-# ------- do not change any lines below --------
-
-if [[ "$CC_CLUSTER" == narval ]]; then
- module load intel/2023 intelmpi
- export INTELMPI_ROOT=$I_MPI_ROOT
- unset I_MPI_ROOT
-fi
-
-if [[ ("${EBVERSIONANSYS//R*}" -ge 2025 && "${CC_CLUSTER}" == nibi) || "${CC_CLUSTER}" == narval ]]; then
- export I_MPI_HYDRA_BOOTSTRAP=ssh
- unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS
-fi
-
-slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/machinefile-$SLURM_JOB_ID
-NCORES=$SLURM_NTASKS
-
-if [ "$SLURM_NNODES" == 1 ]; then
- fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE
-else
- if [[ "${CC_CLUSTER}" == nibi ]]; then
-   fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE
- else
-   fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE
- fi
-fi
-if [ $? -eq 0 ]; then
-    echo "Job completed successfully! Exiting now."
-    scancel $SLURM_ARRAY_JOB_ID
-else
-    echo "Job attempt $SLURM_ARRAY_TASK_ID of $SLURM_ARRAY_TASK_COUNT failed due to license or simulation issue!"
-    if [ $SLURM_ARRAY_TASK_ID -lt $SLURM_ARRAY_TASK_COUNT ]; then
-       echo "Resubmitting job now …"
-    else
-       echo "All job attempts failed exiting now."
-    fi
-fi
-```
-
-##### Multinode (by core + requeue)
-
-```bash title="script-flu-bycore+requeue.sh"
-#!/bin/bash
-
-#SBATCH --account=def-group   # Specify account
-#SBATCH --time=00-03:00       # Specify time limit dd-hh:mm
-##SBATCH --nodes=1            # Uncomment to specify (narval 1 node max) 
-#SBATCH --ntasks=16           # Specify total number of cores
-#SBATCH --mem-per-cpu=4G      # Specify memory per core
-#SBATCH --cpus-per-task=1     # Do not change
-#SBATCH --array=1-5%1         # Specify number of requeue attempts (2 or more, 5 is shown)
-
-module load StdEnv/2023       # Do not change
-module load ansys/2023R2      # Specify version (or newer)
-
-MYJOURNALFILE=sample.jou      # Specify your journal file name
-MYVERSION=3d                  # Specify 2d, 2ddp, 3d or 3ddp
-
-# ------- do not change any lines below --------
-
-if [[ "$CC_CLUSTER" == narval ]]; then
- module load intel/2023 intelmpi
- export INTELMPI_ROOT=$I_MPI_ROOT
- unset I_MPI_ROOT
-fi
-
-if [[ ("${EBVERSIONANSYS//R*}" -ge 2025 && "${CC_CLUSTER}" == nibi) || "${CC_CLUSTER}" == narval ]]; then
- export I_MPI_HYDRA_BOOTSTRAP=ssh
- unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS
-fi
-
-slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/machinefile-$SLURM_JOB_ID
-NCORES=$SLURM_NTASKS
-
-if [ "$SLURM_NNODES" == 1 ]; then
- fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE
-else
- if [[ "${CC_CLUSTER}" == nibi ]]; then
-   fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE
- else
-   fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE
- fi
-fi
-if [ $? -eq 0 ]; then
-    echo "Job completed successfully! Exiting now."
-    scancel $SLURM_ARRAY_JOB_ID
-else
-    echo "Job attempt $SLURM_ARRAY_TASK_ID of $SLURM_ARRAY_TASK_COUNT failed due to license or simulation issue!"
-    if [ $SLURM_ARRAY_TASK_ID -lt $SLURM_ARRAY_TASK_COUNT ]; then
-       echo "Resubmitting job now …"
-    else
-       echo "All job attempts failed exiting now."
-    fi
-fi
-```
-
-#### Solution restart
-
-The following scripts are provided to automate restarting very large jobs that require more than the typical seven-day maximum runtime window available on most clusters. Jobs are restarted from the most recently saved timestep files. A fundamental requirement is that the first timestep can be completed within the requested job array time limit (specified at the top of your Slurm script) when starting a simulation from an initialized solution field. It is assumed that a standard fixed timestep size is being used. To begin, a working set of `sample.cas`, `sample.dat` and `sample.jou` files must be present. Next, edit your `sample.jou` file to contain `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`. Then, create a restart journal file with `cp sample.jou sample-restart.jou` and edit the `sample-restart.jou` file to contain `/file/read-cas-data sample-restart` instead of `/file/read-cas-data sample`. Also comment out the initialization line with a semicolon, for example `;/solve/initialize/initialize-flow`. If your second and subsequent timesteps are known to run twice as fast as the initial timestep, edit the `sample-restart.jou` file to add `/solve/dual-time-iterate 2`. By adding this specification, the solution will only be restarted after two timesteps have been completed following the initial timestep. An output file for each timestep will still be saved in the output subdirectory. The value 2 is arbitrary but should be chosen so that the time for 2 steps fits within the job array time limit. Doing so minimizes the number of solution restarts which are computationally expensive. If the first timestep performed by `sample.jou` starts from a converged (previous) solution, choose 1 instead of 2, since likely all timesteps will require a similar amount of walltime to complete. Assuming 2 is chosen, the total time of simulation to be completed will be `1*Dt+2*Nrestart*Dt` where `Nrestart` is the number of solution restarts specified in the script. The total number of timesteps (and hence the number of output files generated) will therefore be `1+2*Nrestart`. The value for the time resource request should be chosen so that the initial timestep and subsequent timesteps will complete comfortably within the Slurm time window specifiable up to a maximum of `#SBATCH --time=07-00:00` days.
-
-##### Multinode (by node + restart)
-
-```bash title="script-flu-bynode+restart.sh"
-#!/bin/bash
-
-#SBATCH --account=def-group   # Specify account
-#SBATCH --time=07-00:00       # Specify time limit dd-hh:mm
-#SBATCH --nodes=1             # Specify number of compute nodes (narval 1 node max)
-#SBATCH --ntasks-per-node=32  # Specify upto maximum number of cores per compute node
-#SBATCH --mem=0               # Specify memory per compute node (0 allocates all memory)
-#SBATCH --cpus-per-task=1     # Do not change
-#SBATCH --array=1-5%1         # Specify number of solution restarts (2 or more, 5 is shown)
-
-module load StdEnv/2023       # Do not change
-module load ansys/2023R2      # Specify version (or newer)
-
-MYVERSION=3d                        # Specify 2d, 2ddp, 3d or 3ddp
-MYJOUFILE=sample.jou                # Specify your journal filename
-MYJOUFILERES=sample-restart.jou     # Specify journal restart filename
-MYCASFILERES=sample-restart.cas.h5  # Specify cas restart filename
-MYDATFILERES=sample-restart.dat.h5  # Specify dat restart filename
-
-# ------- do not change any lines below --------
-
-if [[ "$CC_CLUSTER" == narval ]]; then
- module load intel/2023 intelmpi
- export INTELMPI_ROOT=$I_MPI_ROOT
- unset I_MPI_ROOT
-fi
-
-if [[ ("${EBVERSIONANSYS//R*}" -ge 2025 && "${CC_CLUSTER}" == nibi) || "${CC_CLUSTER}" == narval ]]; then
- export I_MPI_HYDRA_BOOTSTRAP=ssh
- unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS
-fi
-
-slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/machinefile-$SLURM_JOB_ID
-NCORES=$SLURM_NTASKS
-
-if [ "$SLURM_NNODES" == 1 ]; then
-  if [ "$SLURM_ARRAY_TASK_ID" == 1 ]; then
-    fluent -g 2ddp -t $NCORES -mpi=intel -pshmem -i $MYJOUFILE
-  else
-    fluent -g 2ddp -t $NCORES -mpi=intel -pshmem -i $MYJOUFILERES
-  fi
-else 
-  if [ "$SLURM_ARRAY_TASK_ID" == 1 ]; then
-   if [[ "${CC_CLUSTER}" == nibi ]]; then
-     fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -ssh -i $MYJOUFILE
-   else
-     fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -ssh -i $MYJOUFILE
-   fi
-  else
-   if [[ "${CC_CLUSTER}" == nibi ]]; then
-     fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -ssh -i $MYJOUFILERES
-   else
-     fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -ssh -i $MYJOUFILERES
-   fi
-  fi
-fi
-if [ $? -eq 0 ]; then
-    echo
-    echo "SLURM_ARRAY_TASK_ID  = $SLURM_ARRAY_TASK_ID"
-    echo "SLURM_ARRAY_TASK_COUNT = $SLURM_ARRAY_TASK_COUNT"
-    echo
-    if [ $SLURM_ARRAY_TASK_ID -lt $SLURM_ARRAY_TASK_COUNT ]; then
-      echo "Restarting job with the most recent output dat file …"
-      ln -sfv output/$(ls -ltr output | grep .cas | tail -n1 | awk '{print $9}') $MYCASFILERES
-      ln -sfv output/$(ls -ltr output | grep .dat | tail -n1 | awk '{print $9}') $MYDATFILERES
-      ls -lh cavity* output/*
-    else
-      echo "Job completed successfully! Exiting now."
-      scancel $SLURM_ARRAY_JOB_ID
-     fi
-else
-     echo "Simulation failed. Exiting …"
-fi
-```
-
-##### Multinode (by core + restart)
-
-```bash title="script-flu-bycore+restart.sh"
-#!/bin/bash
-
-#SBATCH --account=def-group   # Specify account
-#SBATCH --time=00-03:00       # Specify time limit dd-hh:mm
-##SBATCH --nodes=1            # Uncomment to specify (narval 1 node max)
-#SBATCH --ntasks=16           # Specify total number of cores
-#SBATCH --mem-per-cpu=4G      # Specify memory per core
-#SBATCH --cpus-per-task=1     # Do not change
-#SBATCH --array=1-5%1         # Specify number of restart aka time steps (2 or more, 5 is shown)
-
-module load StdEnv/2023       # Do not change
-module load ansys/2023R2      # Specify version (or newer)
-
-MYVERSION=3d                        # Specify 2d, 2ddp, 3d or 3ddp
-MYJOUFILE=sample.jou                # Specify your journal filename
-MYJOUFILERES=sample-restart.jou     # Specify journal restart filename
-MYCASFILERES=sample-restart.cas.h5  # Specify cas restart filename
-MYDATFILERES=sample-restart.dat.h5  # Specify dat restart filename
-
-# ------- do not change any lines below --------
-
-if [[ "$CC_CLUSTER" == narval ]]; then
- module load intel/2023 intelmpi
- export INTELMPI_ROOT=$I_MPI_ROOT
- unset I_MPI_ROOT
-fi
-
-if [[ ("${EBVERSIONANSYS//R*}" -ge 2025 && "${CC_CLUSTER}" == nibi) || "${CC_CLUSTER}" == narval ]]; then
- export I_MPI_HYDRA_BOOTSTRAP=ssh
- unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS
-fi
-
-slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/machinefile-$SLURM_JOB_ID
-NCORES=$SLURM_NTASKS
-
-if [ "$SLURM_NNODES" == 1 ]; then
-  if [ "$SLURM_ARRAY_TASK_ID" == 1 ]; then
-    fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -I $MYFILEJOU
-  else
-    fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -I $MYFILEJOURES
-  fi
-else 
-  if [ "$SLURM_ARRAY_TASK_ID" == 1 ]; then
-    if [[ "${CC_CLUSTER}" == nibi ]]; then
-      fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOUFILE
-    else
-      fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOUFILE
-    fi
-  else
-    if [[ "${CC_CLUSTER}" == nibi ]]; then
-      fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOUFILERES
-    else
-      fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOUFILERES
-    fi
-  fi
-fi
-if [ $? -eq 0 ]; then
-    echo
-    echo "SLURM_ARRAY_TASK_ID  = $SLURM_ARRAY_TASK_ID"
-    echo "SLURM_ARRAY_TASK_COUNT = $SLURM_ARRAY_TASK_COUNT"
-    echo
-    if [ $SLURM_ARRAY_TASK_ID -lt $SLURM_ARRAY_TASK_COUNT ]; then
-      echo "Restarting job with the most recent output dat file"
-      ln -sfv output/$(ls -ltr output | grep .cas | tail -n1 | awk '{print $9}') $MYCASFILERES
-      ln -sfv output/$(ls -ltr output | grep .dat | tail -n1 | awk '{print $9}') $MYDATFILERES
-      ls -lh cavity* output/*
-    else
-      echo "Job completed successfully! Exiting now."
-      scancel $SLURM_ARRAY_JOB_ID
-     fi
-else
-     echo "Simulation failed. Exiting now."
-fi
-```
-
-### Journal files
-
-Fluent journal files can include basically any command from Fluent's Text User Interface (TUI); commands can be used to change simulation parameters like temperature, pressure, and flow speed. You can then run a series of simulations under different conditions with a single case file, by only changing the parameters in the journal file. Refer to the [Fluent User's Guide](https://ansyshelp.ansys.com/public/account/secured?returnurl=/Views/Secured/corp/v242/en/flu_ug/flu_ug.html) for more information, and a list of all commands that can be used. The following journal files are set up with `/file/cff-files no` to use the legacy .cas/.dat file format (the default in module versions 2019R3 or older). Set this to `/file/cff-files yes` instead to use the more efficient .cas.h5/.dat.h5 file format (the default in module versions 2020R1 or newer).
-
-#### Journal file (steady, case)
-
-```ini title="sample1.jou"
-; SAMPLE FLUENT JOURNAL FILE - STEADY SIMULATION
-; ----------------------------------------------
-; lines beginning with a semicolon are comments
-
-; Overwrite files by default
-/file/confirm-overwrite no
-
-; Preferentially read/write files in legacy format
-/file/cff-files no
-
-; Read input case and data files
-/file/read-case-data FFF-in
-
-; Run the solver for this many iterations
-/solve/iterate 1000
-
-; Overwrite output files by default
-/file/confirm-overwrite n
-
-; Write final output data file
-/file/write-case-data FFF-out
-
-; Write simulation report to file (optional)
-/report/summary y "My_Simulation_Report.txt"
-
-; Cleanly shutdown fluent
-/exit
-```
-
-#### Journal file (steady, case + data)
-
-```ini title="sample2.jou"
-; SAMPLE FLUENT JOURNAL FILE - STEADY SIMULATION
-; ----------------------------------------------
-; lines beginning with a semicolon are comments
-
-; Overwrite files by default
-/file/confirm-overwrite no
-
-; Preferentially read/write files in legacy format
-/file/cff-files no
-
-; Read input files
-/file/read-case-data FFF-in
-
-; Write a data file every 100 iterations
-/file/auto-save/data-frequency 100
-
-; Retain data files from 5 most recent iterations
-/file/auto-save/retain-most-recent-files y
-
-; Write data files to output sub-directory (appends iteration)
-/file/auto-save/root-name output/FFF-out
-
-; Run the solver for this many iterations
-/solve/iterate 1000
-
-; Write final output case and data files
-/file/write-case-data FFF-out
-
-; Write simulation report to file (optional)
-/report/summary y "My_Simulation_Report.txt"
-
-; Cleanly shutdown fluent
-/exit
-```
-
-#### Journal file (transient)
-
-```ini title="sample3.jou"
-; SAMPLE FLUENT JOURNAL FILE - TRANSIENT SIMULATION
-; -------------------------------------------------
-; lines beginning with a semicolon are comments
-
-; Overwrite files by default
-/file/confirm-overwrite no
-
-; Preferentially read/write files in legacy format
-/file/cff-files no
-
-; Read the input case file
-/file/read-case FFF-transient-inp
-
-; For continuation (restart) read in both case and data input files
-;/file/read-case-data FFF-transient-inp
-
-; Write a data (and maybe case) file every 100 time steps
-/file/auto-save/data-frequency 100
-/file/auto-save/case-frequency if-case-is-modified
-
-; Retain only the most recent 5 data (and maybe case) files
-/file/auto-save/retain-most-recent-files y
-
-; Write to output sub-directory (appends flowtime and timestep)
-/file/auto-save/root-name output/FFF-transient-out-%10.6f
-
-; ##### Settings for Transient simulation :  #####
-
-; Set the physical time step size
-/solve/set/time-step 0.0001
-
-; Set the number of iterations for which convergence monitors are reported
-/solve/set/reporting-interval 1
-
-; ##### End of settings for Transient simulation #####
-
-; Initialize using the hybrid initialization method
-/solve/initialize/hyb-initialization
-
-; Set max number of iters per time step and number of time steps
-;/solve/set/max-iterations-per-time-step 75
-;/solve/dual-time-iterate 1000 ,
-/solve/dual-time-iterate 1000 75
-
-; Write final case and data output files
-/file/write-case-data FFF-transient-out
-
-; Write simulation report to file (optional)
-/report/summary y Report_Transient_Simulation.txt
-
-; Cleanly shutdown fluent
-/exit
-```
-
-### UDFs
-
-The first step is to transfer your user-defined function or UDF (namely the `sampleudf.c` source file and any additional dependency files) to the cluster. When uploading from a Windows machine, be sure the text mode setting of your transfer client is used, otherwise Fluent won't be able to read the file properly on the Linux cluster. The UDF should be placed in the directory where your journal, cas, and dat files reside. Next, add one of the following commands into your journal file before the commands that read in your simulation cas/dat files. Regardless of whether you use the interpreted or compiled UDF approach, before uploading your cas file onto the cluster, please check that neither the *Interpreted UDFs* dialog box or the *UDF Library Manager* dialog box are configured to use any UDF; this will ensure that only the journal file commands are in control when jobs are submitted.
-
-#### Interpreted
-
-To tell Fluent to interpret your UDF at runtime, add the following command line into your journal file before the cas/dat files are read or initialized. The filename `sampleudf.c` should be replaced with the name of your source file. The command remains the same whether the simulation is being run in serial or parallel. To ensure the UDF can be found in the same directory as the journal file, open your cas file in the Fluent GUI, remove any managed definitions, and resave it. Doing this ensures only the following command/method is in control when Fluent runs. To use an interpreted UDF with parallel jobs, it will need to be parallelized as described in the section below.
-
-```ini
-define/user-defined/interpreted-functions "sampleudf.c" "cpp" 10000 no
-```
-
-#### Compiled
-
-To use this approach, your UDF must be compiled on an Alliance cluster at least once. Doing so will create a `libudf` subdirectory structure containing the required `libudf.so` shared library. The `libudf` directory cannot simply be copied from a remote system (such as your laptop) to the cluster since the library dependencies of the shared library will not be satisfied, resulting in Fluent crashing on startup. That said, once you have compiled your UDF on an Alliance cluster, you can transfer the newly created `libudf` to any other Alliance cluster, providing your account loads the same StdEnv environment module version. Once copied, the UDF can be used by uncommenting the second (load) `libudf` line below in your journal file when submitting jobs to the cluster. Both (compile and load) `libudf` lines should not be left uncommented in your journal file when submitting jobs on the cluster, otherwise your UDF will automatically be (re)compiled for each and every job. Not only is this highly inefficient, but it will also lead to racetime-like build conflicts if multiple jobs are run from the same directory. Besides configuring your journal file to build your UDF, the Fluent GUI may also be used. To do this, navigate to the *Compiled UDFs* dialog box, add the UDF source file and click on *Build*. When using a compiled UDF with parallel jobs, your source file should be parallelized as discussed in the section below.
-
-```ini
-define/user-defined/compiled-functions compile libudf yes sampleudf.c "" ""
-```
-
-and/or
-
-```ini
-define/user-defined/compiled-functions load libudf
-```
-
-#### Parallel
-
-Before a UDF can be used with a Fluent parallel job (single node SMP and multinode MPI), it will need to be parallelized. By doing this we control how/which processes (host and/or compute) run specific parts of the UDF code when Fluent is run in parallel on the cluster. The instrumenting procedure involves adding compiler directives, predicates, and reduction macros into your working serial UDF. Failure to do so will result in Fluent running slow at best, or immediately crashing at worst. The end result will be a single UDF that runs efficiently when Fluent is used in both serial and parallel mode. The topic is described in detail in [Parallel Considerations](https://ansyshelp.ansys.com/public/account/secured?returnurl=//////Views/Secured/corp/v242/en/flu_udf/flu_udf_ChapParallelUDFUsage.html?q=parallel%20considerations).
-
-#### DPM
-
-UDFs can be used to customize Discrete Phase Models (DPM) as described in
-*   [2024R2 Fluent User's Guide](https://ansyshelp.ansys.com/public/account/secured?returnurl=/Views/Secured/corp/v242/en/flu_ug/flu_ug.html): *Part III: Solution Mode | Chapter 24: Modeling Discrete Phase | 24.2 Steps for Using the Discrete Phase Models| 24.2.6 User-Defined Functions*, and
-*   [2024R2 Fluent Customization Manual](https://ansyshelp.ansys.com/public/account/secured?returnurl=//////Views/Secured/corp/v242/en/flu_udf/flu_udf.html): *Part I: Creating and Using User Defined Functions | Chapter 2: DEFINE Macros | 2.5 Discrete Phase Model (DPM) DEFINE Macros*.
-
-Before a DMP-based UDF can be worked into a simulation, the injection of a set of particles must be defined by specifying *Point Properties* with variables such as source position, initial trajectory, mass flow rate, time duration, temperature, and so forth, depending on the injection type. This can be done in the GUI by clicking on *Physics panel --> Discrete Phase* to open the *Discrete Phase Model* box and then clicking on the *Injections* button. Doing so will open an *Injections* dialog box where one or more injections can be created by clicking on the *Create* button. The *Set Injection Properties* dialog which appears will contain an *Injection Type* pulldown where available types are single, group, surface, and flat-fan-atomizer. If you select any of these, you can then select the *Point Properties* tab to input the corresponding value fields. Another way to specify the *Point Properties* would be to read an injection text file. To do this, select *File* from the *Injection Type* pulldown, specify the *Injection Name* to be created, and click on the *File* button (located beside the *OK* button at the bottom of the dialog). Here, either an *Injection Sample File* (with a .dpm extension) or a manually created injection text file can be selected. To select the file in the Select File dialog box that change the File of type pull down to All Files (*), then highlight the file which could have any arbitrary name but commonly has an .inj extension, click the OK button. Assuming there are no problems with the file, no console error or warning message will appear. As you will be returned to the *Injections* dialog box, you should see the same injection name that you specified in the *Set Injection Properties* dialog and be able to list its particles and properties in the console. Next, open the *Discrete Phase Model* dialog box and select *Interaction with Continuous Phase* which will enable updating DPM source terms every flow iteration. This setting can be saved in your cas file or added via the journal file. Once the injection is confirmed working in the GUI, the steps can be automated by adding commands to the journal file after the solution initialization, for example:
-
-```ini
-/define/models/dpm/interaction/coupled-calculations yes
-/define/models/dpm/injections/delete-injection injection-0:1
-/define/models/dpm/injections/create injection-0:1 no yes file no zinjection01.inj no no no no
-/define/models/dpm/injections/list-particles injection-0:1
-/define/models/dpm/injections/list-injection-properties injection-0:1
-```
-where a basic manually created injection steady file format might look like
-
-```
-$ cat zinjection01.inj
-(z=4 12)
-( x          y        z    u         v    w    diameter  t         mass-flow  mass  frequency  time name )
-(( 2.90e-02  5.00e-03 0.0 -1.00e-03  0.0  0.0  1.00e-04  2.93e+02  1.00e-06   0.0   0.0        0.0 ) injection-0:1 )
-```
-Note that injection files for DPM simulations are generally set up for either steady or unsteady particle tracking where the format of the former is described in [2024R2 Fluent Customization Manual](https://ansyshelp.ansys.com/public/account/secured?returnurl=//////Views/Secured/corp/v242/en/flu_udf/flu_udf.html) *Part III: Solution Mode | Chapter 24: Modeling Discrete Phase | 24.3. Setting Initial Conditions for the Discrete Phase | 24.3.13 Point Properties for File Injections | 24.3.13.1 Steady File Format*.
-
-## CFX
-
-### Slurm scripts
-
-A summary of command-line options can be printed by running `cfx5solve -help` where the same module version loaded in your Slurm script should be first manually loaded. By default `cfx5solve` will run in single precision (`-single`). To run in double precision add the `-double` option, noting that doing so will also double memory requirements. By default `cfx5solve` can support meshes with up to 80 million elements (structured) or 200 million elements (unstructured). For larger meshes with up to 2 billion elements, add the `-large` option. Various combinations of these options can be specified for the Partitioner, Interpolator or Solver. Consult the [ANSYS CFX-Solver Manager User's Guide](https://ansyshelp.ansys.com/public/Views/Secured/corp/v251/en/pdf/Ansys_CFX-Solver_Manager_Users_Guide.pdf) for further details.
-
-#### Single node
-
-```bash title="script-cfx-local.sh"
-#!/bin/bash
-
-#SBATCH --account=def-group   # Specify account name
-#SBATCH --time=00-03:00       # Specify time limit dd-hh:mm
-#SBATCH --nodes=1             # Do not change
-#SBATCH --ntasks-per-node=4   # Specify number of cores
-#SBATCH --mem=16G             # Specify total memory
-#SBATCH --cpus-per-task=1     # Do not change
-
-#module load StdEnv/2020      # Uncomment to use (deprecated)     
-#module load 2021R2           # Specify 2021R2 only
-
-module load StdEnv/2023
-module load ansys/2023R2      # Or newer module versions
-
-# append additional cfx5solve command line options as required
-if [[ "$CC_CLUSTER" = narval || "$CC_CLUSTER" == fir ]]; then
-  cfx5solve -def YOURFILE.def -start-method "Open MPI Local Parallel" -part $SLURM_CPUS_ON_NODE
-else
-  cfx5solve -def YOURFILE.def -start-method "Intel MPI Local Parallel" -part $SLURM_CPUS_ON_NODE
-fi
-```
-
-#### Multinode
-
-```bash title="script-cfx-multiple.sh"
-#!/bin/bash
-
-#SBATCH --account=def-group   # Specify account name
-#SBATCH --time=00-03:00       # Specify time limit dd-hh:mm
-#SBATCH --nodes=2             # Specify multiple compute nodes (2 or more)
-#SBATCH --ntasks-per-node=192 # Use all cores per compute node (do not change)
-#SBATCH --mem=0               # Use all memory on each compute node (do not change)
-#SBATCH --cpus-per-task=1     # Do not change
-
-#module load StdEnv/2020      # Uncomment to use (deprecated)     
-#module load 2021R2           # Specify 2021R2 only
-
-module load StdEnv/2023
-module load ansys/2023R2      # Or newer module versions
-
-NNODES=$(slurm_hl2hl.py --format ANSYS-CFX)
-
-# append additional cfx5solve command line options as required
-if [[ "$CC_CLUSTER" = narval || "$CC_CLUSTER" == fir ]]; then
-  cfx5solve -def YOURFILE.def -start-method "Open MPI Distributed Parallel" -par-dist $NNODES
-else
-  export I_MPI_HYDRA_BOOTSTRAP=ssh
-  unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS
-  cfx5solve -def YOURFILE.def -start-method "Intel MPI Distributed Parallel" -par-dist $NNODES
-fi
-```
-
-## Workbench
-
-Before submitting a Workbench job to the queue with a Slurm script, you must initialize it once as described in the following steps.
-
-1.  On the cluster where you will submit Workbench jobs, start an [OnDemand desktop](../interactive/open_ondemand.md#logging-into-the-open-ondemand-portal).
-2.  Once the desktop appears, open a terminal window and cd into the directory containing your `YOURPROJECT.wbpj` file.
-3.  Remove the old project cache directory by running `rm -rf _ProjectScratch` as this can be very large from previous runs.
-4.  Open a terminal window and load the module version that you will be using in your Slurm script for example `module load ansys/2025R2.04`.
-5.  Open the Workbench GUI with your project file. This can be done by issuing `runwb2 -f YOURPROJECT.wbpj` directly from the command line. If and when a popup appears asking *Do you want to recover the project before opening...* answer **No**.
-6.  In the context menu popup that should appear in the centre *Project Schematic* window, right-click on *Model* and select *Reset*. When Ansys Workbench pops up a warning that *This operation will delete the operations local and generated data* click on **Ok** to accept and proceed.
-7.  In the top menu bar pulldown, select *File -> Save* then *File -> Exit* to shut down Workbench.
-8.  In the Ansys Workbench popup, when asked *The current project has been modified. Do you want to save it?*, click on the **No** button.
-9.  Quit Workbench and submit your job using one of the Slurm scripts shown below.
-
-Since a compute node with up to 96cores, 768GB memory and 8hours runtime can now be reserved for an OnDemand desktop session, consider running your Workbench simulations directly from within the Workbench native GUI when possible. This is a more intuitive option compared to submitting the job to the queue with a Slurm script.
-
-### Slurm scripts
-
-A project file can be submitted to the queue by customizing one of the following scripts and then running the `sbatch script-wbpj-202X.sh` command.
-
-#### Single node (StdEnv/2023)
-
-```bash title="script-wbpj-2023.sh"
-#!/bin/bash
-
-#SBATCH --account=def-account
-#SBATCH --time=00-03:00                # Time (DD-HH:MM)
-#SBATCH --mem=16G                      # Specify total memory
-#SBATCH --ntasks=4                     # Specify number of cores
-#SBATCH --nodes=1                      # Do not change (multi-node not supported)
-##SBATCH --exclusive                   # Uncomment ONLY for scaling testing
-##SBATCH --constraint=broadwell        # Uncomment to specify an available node type
-
-module load StdEnv/2023 ansys/2023R2   # OR newer Ansys module versions
-
-if [ "$SLURM_NNODES" == 1 ]; then
-  MEMPAR=0                             # Set to 0 for SMP (shared memory parallel)
-else
-  MEMPAR=1                             # Set to 1 for DMP (distributed memory parallel)
-fi
-
-rm -fv *_files/.lock
-MWFILE=~/.mw/Application\ Data/Ansys/`basename $(find $EBROOTANSYS/v* -maxdepth 0 -type d)`/SolveHandlers.xml
-sed -re "s/(.AnsysSolution>+)[a-zA-Z0-9]*(<\/Distribute.)/\1$MEMPAR\2/" -i "$MWFILE"
-sed -re "s/(.Processors>+)[a-zA-Z0-9]*(<\/MaxNumber.)/\1$SLURM_NTASKS\2/" -i "$MWFILE"
-sed -i "s!UserConfigured=\"0\"!UserConfigured=\"1\"!g" "$MWFILE"
-
-export KMP_AFFINITY=disabled
-export I_MPI_HYDRA_BOOTSTRAP=ssh
-
-runwb2 -B -E "Update();Save(Overwrite=True)" -F YOURPROJECT.wbpj
-```
-
-#### Single node (StdEnv/2020)
-
-```bash title="script-wbpj-2020.sh"
-#!/bin/bash
-
-#SBATCH --account=def-account
-#SBATCH --time=00-03:00                # Time (DD-HH:MM)
-#SBATCH --mem=16G                      # Specify total memory
-#SBATCH --ntasks=4                     # Specify number of cores
-#SBATCH --nodes=1                      # Do not change (multi-node not supported)
-##SBATCH --exclusive                   # Uncomment ONLY for scaling testing
-##SBATCH --constraint=broadwell        # Uncomment to specify an available node type
-
-module load StdEnv/2020 ansys/2022R2   # OR older Ansys module versions
-
-if [ "$SLURM_NNODES" == 1 ]; then
-  MEMPAR=0                             # Set to 0 for SMP (shared memory parallel)
-else
-  MEMPAR=1                             # Set to 1 for DMP (distributed memory parallel)
-fi
-
-rm -fv *_files/.lock
-MWFILE=~/.mw/Application\ Data/Ansys/`basename $(find $EBROOTANSYS/v* -maxdepth 0 -type d)`/SolveHandlers.xml
-sed -re "s/(.AnsysSolution>+)[a-zA-Z0-9]*(<\/Distribute.)/\1$MEMPAR\2/" -i "$MWFILE"
-sed -re "s/(.Processors>+)[a-zA-Z0-9]*(<\/MaxNumber.)/\1$SLURM_NTASKS\2/" -i "$MWFILE"
-sed -i "s!UserConfigured=\"0\"!UserConfigured=\"1\"!g" "$MWFILE"
-
-export KMP_AFFINITY=disabled
-export I_MPI_HYDRA_BOOTSTRAP=ssh
-
-runwb2 -B -E "Update();Save(Overwrite=True)" -F YOURPROJECT.wbpj
-```
-
-To avoid writing the solution when a running job successfully completes, change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of the above Slurm script. Doing this makes it easier to determine how well the simulation scales when `#SBATCH --ntasks` is increased, since the initialized solution will not be overwritten by each test job.
-
-## Mechanical
-
-The input file can be generated from within your interactive Workbench Mechanical session by clicking on *Solution -> Tools -> Write Input Files* then specifying *File name:* `YOURAPDLFILE.inp` and *Save as type:* APDL Input Files (`*.inp`). APDL jobs can then be submitted to the queue with the `sbatch script-name.sh` command.
-
-### Slurm scripts
-
-In the following scripts, lines beginning with `##SBATCH` are commented.
-
-#### Shared memory Parallel (CPU)
-
-```bash title="script-smp-2023-cpu.sh"
-#!/bin/bash
-#SBATCH --account=def-account   # Specify your account
-#SBATCH --time=00-03:00         # Specify time (DD-HH:MM)
-#SBATCH --mem=32G               # Specify memory for all cores
-#SBATCH --nodes=1               # Do not change
-#SBATCH --tasks=8               # Specify number of cores
-#SBATCH --cpus-per-task=1       # Do not change
-
-module load StdEnv/2023
-#module load ansys/2023R2
-module load ansys/2024R1.03
-
-mkdir outdir-$SLURM_JOBID
-[[ "$CC_CLUSTER" = cedar ]] && export LD_LIBRARY_PATH=$EBROOTGCC/../lib/gcc
-
-mapdl -smp -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp
-```
-
-#### Distributed memory parallel (CPU)
-
-```bash title="script-dmp-2023-cpu.sh"
-#!/bin/bash
-#SBATCH --account=def-account   # Specify your account
-#SBATCH --time=00-03:00         # Specify time (DD-HH:MM)
-#SBATCH --mem-per-cpu=4G        # Specify memory per core
-##SBATCH --nodes=2              # Specify number of nodes (optional)
-#SBATCH --ntasks=8              # Specify number of cores
-##SBATCH --ntasks-per-node=4    # Specify cores per node (optional)
-#SBATCH --cpus-per-task=1       # Do not change
-
-module load StdEnv/2023
-#module load ansys/2023R2
-module load ansys/2024R1.03
-
-mkdir outdir-$SLURM_JOBID
-if [[ "$CC_CLUSTER" = cedar ]]; then
- ln -s $EBROOTGCC/../lib/gcc/libstdc++.so.6.0.29 $PWD/outdir-$SLURM_JOBID/libstdc++.so.6.0.29
- export LD_LIBRARY_PATH=$PWD/outdir-$SLURM_JOBID
-fi
-
-if [[ "$CC_CLUSTER" = beluga  ]]; then
-  export KMP_AFFINITY=none
-  mapdl -dis -mpi intelmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp
-else
-  mapdl -dis -mpi openmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp
-fi
-```
-
-#### Shared memory parallel (GPU)
-
-```bash title="script-smp-2023-gpu.sh"
-#!/bin/bash
-#SBATCH --account=def-account    # Specify your account
-#SBATCH --time=00-03:00          # Specify time (DD-HH:MM)
-#SBATCH --mem=32G                # Specify memory for all cores
-#SBATCH --ntasks=8               # Specify number of cores
-#SBATCH --nodes=1                # Do not change
-#SBATCH --cpus-per-task=1        # Do not change
-#SBATCH --gpus-per-node=1        # Specify [gputype:]quantity
-##SBATCH --gpus-per-node=h100:1  # Temporarily required on mini-graham
-##SBATCH --partition=debug       # Temporarily required on mini-graham
-
-module load StdEnv/2023
-#module load ansys/2023R2
-module load ansys/2024R1.03
-
-mkdir outdir-$SLURM_JOBID
-[[ "$CC_CLUSTER" = cedar ]] && export LD_LIBRARY_PATH=$EBROOTGCC/../lib/gcc
-
-export ANSGPU_PRINTDEVICES=1
-mapdl -smp -acc nvidia -na $SLURM_GPUS_ON_NODE -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID  -i YOURAPDLFILE.inp
-```
-
-#### Distributed memory parallel (GPU)
-
-```bash title="script-dmp-2023-gpu.sh"
-#!/bin/bash
-#SBATCH --account=def-account    # Specify your account
-#SBATCH --time=00-03:00          # Specify time (DD-HH:MM)
-#SBATCH --mem-per-cpu=4G         # Specify memory per core
-#SBATCH --nodes=1                # Specify number of nodes
-#SBATCH --ntasks-per-node=8      # Specify cores per node
-#SBATCH --cpus-per-task=1        # Do not change
-#SBATCH --gpus-per-node=1        # Specify [gputype:]quantity
-##SBATCH --gpus-per-node=h100:1  # Temporarily required on mini-graham
-##SBATCH --partition=debug       # Temporarily required on mini-graham
-
-module load StdEnv/2023
-#module load ansys/2023R2
-module load ansys/2024R1.03
-
-mkdir outdir-$SLURM_JOBID
-if [[ "$CC_CLUSTER" = cedar ]]; then
- ln -s $EBROOTGCC/../lib/gcc/libstdc++.so.6.0.29 $PWD/outdir-$SLURM_JOBID/libstdc++.so.6.0.29
- export LD_LIBRARY_PATH=$PWD/outdir-$SLURM_JOBID
-fi
-
-export ANSGPU_PRINTDEVICES=1
-if [[ "$CC_CLUSTER" = beluga  ]]; then 
-  export KMP_AFFINITY=none
-  mapdl -dis -acc nvidia -na $SLURM_GPUS_ON_NODE -mpi intelmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp
-else
-  mapdl -dis -acc nvidia -na $SLURM_GPUS_ON_NODE -mpi openmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp
-fi
-```
-
-Ansys allocates 1024 MB total memory and 1024 MB database memory by default for APDL jobs. These values can be manually specified (or changed) by adding arguments `-m 1024` and/or `-db 1024` to the mapdl command line in the above scripts. When using a remote institutional license server with multiple Ansys licenses, it may be necessary to add `-p aa_r` or `-ppf anshpc`, depending on which Ansys module you are using. As always, perform detailed scaling tests before running production jobs to ensure that the optimal number of cores and minimum amount memory is specified in your scripts. The single node (SMP shared memory parallel) scripts will typically perform better than the multinode (DIS distributed memory parallel) scripts and therefore should be used whenever possible. To help avoid compatibility issues, the Ansys module loaded in your script should ideally match the version used to generate the input file.
-
-```
-[gra-login2:~/testcase] cat YOURAPDLFILE.inp | grep version
-! ANSYS input file written by Workbench version 2019 R3
-```
-
-## Rocky
-
-This section provides sample Slurm scripts to solve standalone non-coupled Rocky simulations in a cluster queue. Both scripts are configured with `RESUME=0` so simulations are solved from the beginning by default. To restart a partially completed simulation, set `RESUME=1` and resubmit the script to the queue. To get a full listing of command line options, run `Rocky -h` on the command line after loading the Ansys module. Since a lock file is generated every time a simulation is started, only one job should be submitted at a time from the same directory. Regarding which script to use, while all simulations should be tested independently, for a basic test case the GPU only script was found to outperform the CPU only script by a factor of 3.5x. Further increases in resources beyond `6cpus` (for the CPU only script) or `2cpu + 1g` (1/7 of a H100 GPU for the GPU based script) provided no further speedup based on scaling testing for either script. Given these results, it appears likely that the GPU-based script will provide significantly faster solution times compared to just using CPUs for other standalone Rocky simulations. As shown in on each cluster wiki page or as summarized under [Ratios in bundles](../running-jobs/allocations_and_compute_scheduling.md#ratios-in-bundles), all clusters but Narval have H100 GPUs. Therefore, when using the GPU script on Narval, the `--gpus` Slurm option should be changed to request an `a100 GPYU` instead. Note that as of May 2026, only Rocky with the `ansys/2025R2|2.04` modules have been tested but not the `ansys/2025R1|1.02` modules yet.
-
-### Slurm scripts
-
-#### CPU only
-
-```bash title="script-rocky-cpu.sh"
-#!/bin/bash
-
-#SBATCH --account=account      # Specify account (def or rrg)
-#SBATCH --time=00-02:00        # Specify time (DD-HH:MM)
-#SBATCH --mem=24G              # Specify total memory for cores
-#SBATCH --cpus-per-task=6      # Specify number of cores to use
-#SBATCH --nodes=1              # Request one node (do not change)
-
-module load StdEnv/2023 ansys/2025R2.04   # Specify 2025R1 or newer versions
-
-INPUTFILE="mySim.rocky"                   # Specify input filename
-rm -f $INPUTFILE.lock                     # Removes old lock files
-
-RESUME=0                                  # Specify 0 or 1
-if [ $RESUME -eq 0 ]; then
-  rm -rf $INPUTFILE.files/simulation      # Removes previous results
-  Rocky --headless --simulate --resume=0 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=0 $INPUTFILE
-else
-  Rocky --headless --simulate --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=0 $INPUTFILE
-fi
-```
-
-#### GPU-based
-
-```bash title="script-rocky-gpu.sh"
-#!/bin/bash
-
-#SBATCH --account=account      # Specify account (def or rrg)
-#SBATCH --time=00-01:00        # Specify time (DD-HH:MM)
-#SBATCH --mem=24G              # Specify total memory for cores
-#SBATCH --cpus-per-task=2      # Specify number of cores to use
-#SBATCH --gpus=h100_1g.10gb:1  # Specify a100_1g.5gb:1 on narval
-#SBATCH --nodes=1              # Request one node (do not change)
-
-module load StdEnv/2023 ansys/2025R2.04   # Specify 2025R1 or newer versions
-
-INPUTFILE="mySim.rocky"                   # Specify input filename
-rm -f $INPUTFILE.lock                     # Removes old lock files
-
-RESUME=0                                  # Specify 0 or 1
-if [ $RESUME -eq 0 ]; then
-  rm -rf $INPUTFILE.files/simulation      # Removes previous results
-  Rocky --headless --simulate --resume=0 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=1 $INPUTFILE
-else
-  Rocky --headless --simulate --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=1 $INPUTFILE
-fi
-```
-
-## Electronics
-
-Slurm scripts for using AnsysEDT are provided in [this specific page](ansysedt.md).
-
-# Graphical use
-
-To run Ansys programs in graphical mode using an OnDemand or JupyterHub desktop, click on one of the following links:
-
-*   [NIBI](../clusters/nibi.md#access-through-open-ondemand-ood): `https://ondemand.sharcnet.ca`
-*   [FIR](fir.md): `https://jupyterhub.fir.alliancecan.ca`
-*   [RORQUAL](../clusters/rorqual.md): `https://jupyterhub.rorqual.alliancecan.ca`
-*   [Narval](../clusters/narval.md): `https://jupyterhub.narval.alliancecan.ca/`
-*   TRILLIUM: `https://ondemand.scinet.utoronto.ca`
-
-A job submission web page should appear in your browser. Configure the resources required for your interactive desktop session and click on *Launch* or *Start*. If either accelerated graphics or computations will be conducted from within your desktop session, be sure to specify a GPU resource. Load an Ansys module on the desktop. If you started a JupyterLab powered desktop, this can be done by clicking on the left-hand menu, or if you started an OnDemand desktop manually, type `module load ansys/version` on the command line. To start one of the common Ansys programs such as Fluent, CFX, Workbench, and so forth, refer to the following section which provides advice for setting environment variables and arguments required by VirtualGL or Mesa-based graphical environments, depending on whether a node with a GPU resource was specified or not.
-
-### Fluent
-
-To start Ansys Fluent from the command line on an OnDemand desktop, open a terminal window and run:
-
-```bash
-module load StdEnv/2023 ansys/2025R2.04
-fluent
-```
-
-When the Fluent Launcher popup selector panel appears, click on the *Environment* tab and copy/paste the following environment variable settings, depending on whether you started your OnDemand session with a GPU for graphical acceleration. Do not include the text in parentheses as these are comments, and do not put `export` in front of any variable name. If the graphics console window becomes corrupted when starting the GUI, restart Fluent setting `HOOPS_PICTURE=null` to disable the creation of the graphics panel.
-
-#### Compute node (no GPU requested)
-
-```bash
-# Environment variables for Fluent Launcher (no GPU)
-I_MPI_HYDRA_BOOTSTRAP=ssh    # (required on Nibi w/ intelmpi)
-HOOPS_PICTURE=opengl2-mesa   # (version 2025R1 or newer)
-HOOPS_PICTURE=x11/lin        # (version 2024R2.04 or older)
-# Click on the 'Start' button.
-```
-
-#### Compute node (with GPU requested)
-
-To use hardware accelerated graphics with Fluent on Nibi, choose a t4 (15GB) from the GPU selector pulldown list for your OnDemand desktop session. Doing this ensures that the environment variables used by VirtualGL to enable accelerated OpenGL graphics calls are automatically set up inside your desktop environment for the current session. Once your desktop appears, open a terminal window and start Workbench as follows:
-
-```bash
-# Environment variables for Fluent Launcher with GPU
-I_MPI_HYDRA_BOOTSTRAP=ssh   # (required on Nibi)
-HOOPS_PICTURE=opengl2       # (version 2025R1 or newer)
-HOOPS_PICTURE=opengl        # (version 2024R2.04 or older)
-# Click on the 'Start' button.
-```
-
-!!! warning "Fluent crash on Nibi with `intelmpi`"
-    When running Fluent on Nibi, the environment variable `I_MPI_HYDRA_BOOTSTRAP=ssh` must be manually set; otherwise, Fluent will crash when started inside OOD Compute Desktop sessions when `intelmpi` is used. Error output such as the following will be created. Should this occur, completely exit Fluent, cleanly shut down Workbench and start over.
-
-    ```
-    [mpiexec@g4.nibi.sharcnet] Error: Unable to run bstrap_proxy on g4.nibi.sharcnet (pid 2251587, exit code 256)
-    [mpiexec@g4.nibi.sharcnet] poll_for_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:157): check exit codes error
-    [mpiexec@g4.nibi.sharcnet] HYD_dmx_poll_wait_for_proxy_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:206): poll for event error
-    [mpiexec@g4.nibi.sharcnet] HYD_bstrap_setup (../../../../../src/pm/i_hydra/libhydra/bstrap/src/intel/i_hydra_bstrap.c:1063): error waiting for event
-    [mpiexec@g4.nibi.sharcnet] Error setting up the bootstrap proxies
-    ```
-
-### CFX
-
-When starting CFX from an OnDemand desktop, the following arguments may be specified on the terminal window command line, depending on whether a GPU was requested when the desktop was started.
-
-```bash
-module load StdEnv/2023 ansys/2025R1   # (or older)
-cfx5 -graphics mesa                   # (no GPU requested)
-cfx5 -graphics ogl                    # (with GPU requested)
-```
-
-### Mapdl
-
-The following steps for starting the Mechanical APDL GUI from the command line of a terminal window should work regardless if you have started your OnDemand desktop on a compute node with or without a GPU.
-
-```bash
-module load StdEnv/2023 ansys/2022R2   # (or newer versions)
-mapdl -g
-launcher # then click on the 'RUN' button
-```
-
-### Workbench
-
-This section shows how to start Workbench (and optionally Fluent) on either an OnDemand desktop or a JupyterLab desktop.
-
-#### OnDemand desktop
-
-##### Compute node (no GPU requested) or basic desktop
-
-If accelerated graphics are not required for your desktop session, specify *GPU Node* to select a compute node without a GPU for your OOD session. Doing this uses Mesa software emulation for opengl calls, instead of running on a more expensive and difficult to reserve GPU node.
-
-```bash
-module load StdEnv/2023 ansys/2025R2.04
-runwb2
-```
-
-To start Fluent from within Workbench, click on *Fluid Flow (Fluent)* or *Fluent with Fluent Meshing* in the left-hand *Analysis* menu, and click on *Setup* in the centre canvas *Fluid Flow (Fluent)* popup. Once the *Fluent Launcher* selector panel popup appears, click on the *Environment* tab and copy/paste the following environment variable settings:
-
-```bash
-# Environment variables for Fluent Launcher (no GPU)
-I_MPI_HYDRA_BOOTSTRAP=ssh    # (required on the Nibi cluster only)
-HOOPS_PICTURE=opengl2-mesa   # (optional for 2025R1 or newer)
-# Click on the 'Start' button.
-```
-
-##### Compute node (with GPU requested)
-
-If accelerated graphics are required on the Nibi cluster, choose t4 (15GB) from the GPU selector pulldown list for your OnDemand desktop session. Doing this will ensures that the environment variables used by VirtualGL to enable accelerated OpenGL graphics calls are automatically set up inside your desktop environment for the current session. Once your desktop appears, open a terminal window and start Workbench as follows:
-
-```bash
-module load StdEnv/2023 ansys/2025R2.04
-runwb2
-```
-
-To start Fluent from within Workbench, click on *Fluid Flow (Fluent)* or *Fluent with Fluent Meshing* in the left-hand *Analysis* menu, and click on *Setup* in the centre canvas *Fluid Flow Fluent* popup. Once the *Fluent Launcher* selector panel popup appears, click on the *Environment* tab and copy/paste the following environment variable settings.
-
-```bash
-# Environment variables for Fluent Launcher (with GPU)
-I_MPI_HYDRA_BOOTSTRAP=ssh    # (required on the Nibi cluster only)
-HOOPS_PICTURE=opengl2        # (optional for 2025R1 or newer)
-# Click on the 'Start' button.
-```
-
-!!! warning "Fluent crash on Nibi with `intelmpi`"
-    When using the Nibi cluster, `I_MPI_HYDRA_BOOTSTRAP=ssh` must be manually set when the default `intelmpi` is used, otherwise Fluent will crash on startup producing error output such as the following. To recover from this, close Fluent, shut down Workbench, and try again.
-
-    ```
-    [mpiexec@g4.nibi.sharcnet] Error: Unable to run bstrap_proxy on g4.nibi.sharcnet (pid 2251587, exit code 256)
-    [mpiexec@g4.nibi.sharcnet] poll_for_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:157): check exit codes error
-    [mpiexec@g4.nibi.sharcnet] HYD_dmx_poll_wait_for_proxy_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:206): poll for  event error
-    [mpiexec@g4.nibi.sharcnet] HYD_bstrap_setup (../../../../../src/pm/i_hydra/libhydra/bstrap/src/intel/i_hydra_bstrap.c:1063): error waiting for event
-    [mpiexec@g4.nibi.sharcnet] Error setting up the bootstrap proxies
-    ```
-
-#### Jupyterhub desktop
-
-##### Compute node (no GPU requested)
-
-1.  Click to load `ansys/2025R1` (or newer version) in the Desktop left-hand side menu.
-2.  Click on the *Workbench (VNC)* icon located in the JupyterLab desktop centre window.
-3.  If the graphics of any application (such as Fluent) started within Workbench appear unusable because they seem corrupted, try carrying out the following steps. They will create a custom `runwb2` desktop icon so that Workbench can be started in Mesa mode. If Fluent is one of the applications you will be starting in Workbench, you may also try setting the `HOOPS_PICTURE=opengl2-mesa` variable in the Fluent Launcher window when the Fluent launcher starts.
-    To proceed, exit Workbench and open a terminal window. Copy/paste the following command into the *Remote Clipboard* located in the top right corner of your Jupyter desktop.
-    Now the commands can be pasted into the terminal, i.e.:
-
-    ```bash
-    cd ~/Desktop; cp -p $(realpath workbench.desktop) workbench-mesa.desktop
-    ```
-
-    Open the newly created file in a text editor such as `nano` by doing the following:
-
-    ```bash
-    nano ~/Desktop/workbench-mesa.desktop
-    ```
-
-    Change all instances of `runwb2` to `runwb2 -oglmesa` and exit the editor, saving the changes. Now REFRESH the Jupyter desktop by pressing the key combination *control-R*. The new icon should now appear on the desktop along with the original Workbench icon. Double-click on it to start Workbench.
-    The new icon will persist for future sessions until manually deleted with the command:
-
-    ```bash
-    rm -f ~/Desktop/workbench-mesa.desktop
-    ```
-
-##### Compute node (with GPU requested)
-
-1.  Click to load `ansys/2025R1` (or newer version) in the Desktop left-hand side menu.
-2.  Click the *Workbench (VNC)* icon located in the JupyterLab desktop centre window.
-
-### Ensight
-
-```bash
-module load StdEnv/2023 ansys/2022R2; A=222; B=5.12.6
-export LD_LIBRARY_PATH=$EBROOTANSYS/v$A/CEI/apex$A/machines/linux_2.6_64/qt-$B/lib
-ensight -X
-```
-
-### Rocky
-
-```bash
-module load StdEnv/2023 ansys/2025R2.04 # (or 2025R1, 2025R1.02, 2025R2)
-Rocky       # The Rocky command starts Rocky in standalone GUI mode
-RockySolver # Run the solver directly from the command line (**not tested**)
-RockySchedular # GUI to interactively submit/run jobs on present node (**not tested**)
-```
-
-*   The Ansys module handles reading your `~/licenses/ansys.lic` file
-*   The SHARCNET Ansys license includes Rocky and is therefore free to use.
-
-## Electronics
-
-Information describing how to run AnsysEDT in graphical mode may be found [in this page](ansysedt.md).
-
-# Site-specific usage
-
-## SHARCNET license
-
-The SHARCNET Ansys license is free for academic use by **any** Alliance researcher on **any** Alliance system. The installed software does not have any solver or geometry limits. The SHARCNET license may be used for ***Publishable Academic Research***, but not for any private/commercial purposes as this is strictly prohibited by the license terms. The SHARCNET Ansys license is based on the Multiphysics Campus Solution and includes products such as: HF, EM, Electronics HPC, Mechanical, CFD, ROCKY and LS-DYNA as described [here](https://www.ansys.com/academic/educator-tools/academic-product-portfolio). Lumerical software is included in recent Ansys module versions, however it is **NOT** covered by the SHARCNET license. SpaceClaim software is not installed with any Ansys module since there is no Linux version available; it is technically covered by the SHARCNET license however.
-
-!!! note icon:material-axe
+!!! tip
     Scaling tests should be run before launching long jobs to determine the optimal scalable job size so that the limited licenses and hardware is used as efficiently as possible, and total job run and startup times are minimized. Parallel jobs that do not achieve at least 50% CPU utilization will probably be flagged by the system, resulting in a follow up by an Alliance team member.
 
-### License limits
-
+##### License limits
 The SHARCNET Ansys license is made available on a first come first serve basis. It currently permits each researcher to run a maximum of simultaneous 16 jobs using a total of up to 512 HPC cores across all clusters, therefore any of the following maximum job size combinations can be run simultaneously: 1x512, 2x256, 4x128, 8x64, 16x32 or more commonly one of these full node combinations: 1x384, 2x192 or 1x192 cores. Note however that the SHARCNET license is oversubscribed so there is potential for jobs to fail on startup if all (or nearly all) of the 1986 `anshpc` licenses in the SHARCNET license pool are in use. Should this occur, you will need to manually resubmit your job to the queue. As there have been an increasing number of license shortage (DENIED) instances where jobs fail on startup, the total `anshpc` core limit per researcher will be decreased from 512 to 384 on April 1, 2026. If you need to use more than 384 HPC cores for your research, either use the local Ansys License server at your institution if one is available, OR open a ticket to request purchasing additional licenses for the SHARCNET license and these would be reserved for your own or your groups exclusive use.
 
-### License file
-
-As of February 2026, the license3.sharcnet.ca license server has been permanently shut down. To use the SHARCNET Ansys license on any Alliance cluster, simply configure your `ansys.lic` file as follows:
+##### License file
+As of February 2026, the `license3.sharcnet.ca` license server has been permanently shut down. To use the SHARCNET Ansys license on any Alliance cluster, simply configure your `ansys.lic` file as follows:
 
 ```bash
-cat ~/.licenses/ansys.lic
-```
-```bash
+[username@cluster:~] cat ~/.licenses/ansys.lic
 setenv("ANSYSLMD_LICENSE_FILE", "1055@license1.computecanada.ca")
 ```
 
-### License query
-
+##### License query
 To show the number of Ansys licenses in use by your username and the total in use by all users, run:
 
 ```bash
 ssh nibi.alliancecan.ca
 module load ansys
 $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil \
-lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep "Users of\\|$USER" | grep -v " Total of 0 licenses in use"
+lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep "Users of\|${USER}" | grep -v " Total of 0 licenses in use"
 ```
 
-### Example
+##### Example
+Consider the case where a user submits an 8-core Fluent job and 32-core Fluent job. Once both jobs start running, the user runs the `lmutil` query command and the output shown next is generated. We see that a total of (8-4) + (32-4) = 32 `anshpc` licenses are used by the two jobs. As a result the total number of licenses increases from 1568 to 1600 so that only (1986-1600) = 386 of them remain available for additional jobs submitted by all users. Therefore, if a 400-core parallel job attempts to start at that moment, it will fail to start since (400-4) = 396 `anshpc` licenses would be required. The user has two options, either wait for a sufficient number of licenses to come available OR reduce the job size to 390 cores or less and resubmit immediately. This example focuses on the `anshpc` feature since it is most generously overcommitted to allow any user to submit the largest job possible, but it also shows that the actual number of licenses available per user may sometimes be far less than the 512 per user limit would suggest.
 
-Consider the case where a user submits an 8-core Fluent job and 32-core Fluent job. Once both jobs start running, the user runs the `lmutil` query command and the output shown below is generated. Here, we see that a total of (8-4) + (32-4) = 32 `anshpc` licenses are used by the two jobs. As a result the total number of licenses increases from 1568 to 1600 so that only (1986-1600) = 386 of them remain available for additional jobs submitted by all users. Therefore, if a 400-core parallel job attempts to start at that moment, it will fail to start since (400-4) = 396 `anshpc` licenses would be required. The user has two options, either wait for a sufficient number of licenses to come available OR reduce the job size to 390 cores or less and resubmit immediately. This example focuses on the `anshpc` feature since it is most generously overcommitted to allow any user to submit the largest job possible, but it also shows that the actual number of licenses available per user may sometimes be far less than the 512 per user limit would suggest.
-
-```
+```console
 [l2(nibi):~] sq
            JOBID     USER        ACCOUNT           NAME  ST  TIME_LEFT NODES CPUS MIN_MEM NODELIST (REASON)
         10161023  roberpj   cc-debug_cpu script-flu-int   R    2:57:19     4    8     N/A      4G c[630-633] (None)
@@ -1388,7 +152,7 @@ Consider the case where a user submits an 8-core Fluent job and 32-core Fluent j
 [l2(nibi):~] module load ansys
 [l2(nibi):~]
 [l2(nibi):~] $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil  \
-             lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep "Users of\\|$USER" | grep -v " Total of 0 licenses in use"
+             lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep "Users of\|$USER" | grep -v " Total of 0 licenses in use"
 Users of anshpc:  (Total of 1986 licenses issued;  Total of 1600 licenses in use)
    roberpj c630 c630.nibi.sharcnet 1238925 (v2025.0506) (license1.computecanada.ca/1055 2579), start Wed 3/11 16:46, 4 licenses, PID: 1239140
    roberpj c627 c627.nibi.sharcnet 509821 (v2025.0506) (license1.computecanada.ca/1055 5716), start Wed 3/11 16:48, 28 licenses, PID: 510058
@@ -1408,72 +172,59 @@ Users of elec_solve_level1:  (Total of 275 licenses issued;  Total of 1 license 
 Users of elec_solve_level2:  (Total of 275 licenses issued;  Total of 1 license in use)
 ```
 
-!!! tip icon:material-detective
-    A rare situation can occur where the output from the license query command reveals there are some Ansys licenses unexpectedly still in use by your username on some desktop or compute node. This would happen if, for instance, an Ansys GUI program run on a remote desktop node was not shut down cleanly, leaving some Ansys processes still running, or an Ansys program crashes on a cluster compute node inside an `salloc` session that was being run interactively from the command line, once again leaving some rogue Ansys processes still running. To kill all potentially responsible Ansys rogue processes, either close the desktop, `scancel` the `salloc` session, or simply open a terminal window on the affected node and issue the `pkill -9 -e -u $USER -f "ansys"` command. Any Ansys licenses that were being held open should immediately be returned to the SHARCNET license server and become available for use again by yourself or other researchers.
+!!! caution
+    A rare situation can occur where the output from the license query command reveals there are some Ansys licenses unexpectedly still in use by your username on some desktop or compute node. This would happen if for instance an Ansys GUI program run on a remote desktop node was not shut down cleanly, leaving some Ansys processes still running, or an Ansys program crashes on a cluster compute node inside an `salloc` session that was being run interactively from the command line, once again leaving some rogue Ansys processes still running. To kill all potentially responsible Ansys rogue processes, either close the desktop, `scancel` the `salloc` session, or simply open a terminal window on the affected node and issue the `pkill -9 -e -u $USER -f "ansys"` command. Any Ansys licenses that were being held open should immediately be returned to the SHARCNET license server and become available for use again by yourself or other researchers.
 
-# Additive Manufacturing
-
+## Additive Manufacturing
 To get started, configure your `~/.licenses/ansys.lic` file to point to a license server that has a valid Ansys Mechanical license. This must be done on all systems where you plan to run the software.
 
-## Enabling Additive
-
+### Enabling Additive
 This section describes how to make the Ansys Additive Manufacturing ACT extension available for use in your project. The steps must be performed on each cluster for each Ansys module version where the extension will be used. Any extensions needed by your project will also need to be installed on the cluster as described below. If you get warnings about missing un-needed extensions (such as ANSYSMotion), uninstall them from your project.
 
-### Downloading extensions
-
+#### Downloading extensions
 *   download `AdditiveWizard.wbex` from [https://catalog.ansys.com/](https://catalog.ansys.com/),
 *   upload `AdditiveWizard.wbex` to the cluster where it will be used.
 
-### Starting Workbench
-
-*   follow the Workbench section in [Graphical use above](#graphical-use),
+#### Starting Workbench
+*   follow the Workbench section in [Graphical use](#graphical-use),
 *   *File -> Open* your project file (ending in `.wbpj`) into the Workbench GUI.
 
-### Opening the extensions manager
-
+#### Opening the extensions manager
 *   click on the ACT start page and the ACT home page tab will open,
 *   click *Manage Extensions* and the extensions manager will open.
 
-### Installing extensions
-
-*   click on the box with the large + sign under the search bar,
+#### Installing extensions
+*   click on the box with the large `+` sign under the search bar,
 *   navigate to select and install your `AdditiveWizard.wbex` file.
 
-### Loading extensions
-
+#### Loading extensions
 *   click to highlight the *AdditiveWizard* box (loads the AdditiveWizard extension for the current session only),
 *   click on the lower right corner arrow in the *AdditiveWizard* box and select *Load extension* (loads the extension for current AND future sessions).
 
-### Unloading extensions
-
+#### Unloading extensions
 *   click to un-highlight the *AdditiveWizard* box (unloads extension for the current session only),
 *   click on the lower right corner arrow in the *AdditiveWizard* box and select *Do not load as default* (extension will not load for future sessions).
 
-## Running Additive
-
-### OnDemand
-
+### Running Additive
+#### OnDemand
 You can run a single Ansys Additive Manufacturing job in a graphical OnDemand session by following these steps:
 
 *   Start Workbench as described above in Enabling Additive;
-*   click on *File -> Open*, select `test.wbpj` and click on *Open*;
+*   click on *File -> Open*, select *test.wbpj* and click on *Open*;
 *   click on *View -> reset workspace* if you get a grey screen;
 *   start Mechanical, clear generated data, tick *Distributed*, specify cores;
 *   click on *File -> Save Project -> Solve*.
 
-#### Check utilization
+**Check utilization**
+*   open another terminal and run `` `top -u $USER` `` **OR** `` `ps u -u $USER | grep ansys` ``,
+*   kill rogue processes from previous runs with `` `pkill -9 -e -u $USER -f "ansys|mwrpcss|mwfwrapper|ENGINE"` ``.
 
-*   open another terminal and run `top -u $USER` **OR** `ps u -u $USER | grep ansys`,
-*   kill rogue processes from previous runs with `pkill -9 -e -u $USER -f "ansys|mwrpcss|mwfwrapper|ENGINE"`.
+Please note that rogue Ansys-related processes can persistently tie up valuable licenses inside a running OnDemand login node session if an Ansys GUI session (Fluent, Workbench, Mechanical, etc.) is not cleanly terminated or is terminated unexpectedly by a network outage or a hung filesystem. If the latter is to blame, the processes may not be killable until normal disk access is restored.
 
-!!! warning
-    Please note that rogue Ansys-related processes can persistently tie up valuable licenses inside a running OnDemand login node session if an Ansys GUI session (Fluent, Workbench, Mechanical, etc.) is not cleanly terminated or is terminated unexpectedly by a network outage or a hung filesystem. If the latter is to blame, the processes may not be killable until normal disk access is restored.
+#### Cluster
+**Project preparation**
 
-### Cluster
-
-#### Project preparation
-
-Before submitting a newly uploaded Additive project to a cluster queue (with `sbatch scriptname`), certain preparations must be done. To begin, open your simulation with the Workbench GUI (as described in the Enabling Additive section above) in the same directory that your job will be submitted from and then save it again. Be sure to use the same Ansys module version that will be used for the job. Next, create a Slurm script (as explained in the Cluster Batch Job Submission - WORKBENCH section above). To perform parametric studies, change `Update()` to `UpdateAllDesignPoints()` in the Slurm script. Determine the optimal number of cores and memory by submitting several short test jobs. To avoid needing to manually clear the solution **and** recreate all the design points in Workbench between each test run, either 1) change `Save(Overwrite=True)` to `Save(Overwrite=False)` or 2) save a copy of the original `YOURPROJECT.wbpj` file and corresponding `YOURPROJECT_files` directory. Optionally, create and then manually run a replay file on the cluster in the respective test case directory between each run, noting that a single replay file can be used in different directories by opening it in a text editor and changing the internal `FilePath` setting.
+Before submitting a newly uploaded Additive project to a cluster queue (with `sbatch scriptname`), certain preparations must be done. To begin, open your simulation with the Workbench GUI (as described in the Enabling Additive section above) in the same directory that your job will be submitted from and then save it again. Be sure to use the same Ansys module version that will be used for the job. Next, create a Slurm script (as explained in the [Cluster batch job submission with Ansys](../running-jobs/cluster_batch_job_submission_with_ansys.md) section above). To perform parametric studies, change `` `Update()` `` to `` `UpdateAllDesignPoints()` `` in the Slurm script. Determine the optimal number of cores and memory by submitting several short test jobs. To avoid needing to manually clear the solution **and** recreate all the design points in Workbench between each test run, either 1) change `` `Save(Overwrite=True)` `` to `` `Save(Overwrite=False)` `` or 2) save a copy of the original `YOURPROJECT.wbpj` file and corresponding `YOURPROJECT_files` directory. Optionally, create and then manually run a replay file on the cluster in the respective test case directory between each run, noting that a single replay file can be used in different directories by opening it in a text editor and changing the internal `FilePath` setting.
 
 ```bash
 module load ansys/2019R3
@@ -1481,11 +232,11 @@ rm -f test_files/.lock
 runwb2 -R myreplay.wbjn
 ```
 
-#### Resource utilization
+**Resource utilization**
 
-Once your Additive job has been running for a few minutes, a snapshot of its resource utilization on the compute node(s) can be obtained with the `srun` command. Sample output corresponding to an eight-core submission script is shown next.
+Once your Additive job has been running for a few minutes, a snapshot of its resource utilization on the compute node(s) can be obtained with the `srun` command. Sample output corresponding to an eight-core submission script is shown next. We see that two nodes were selected by the scheduler:
 
-```
+```console
 [gra-login1:~] srun --overlap --jobid=myjobid top -bn1 -u $USER | grep R | grep -v top
   PID USER   PR  NI    VIRT    RES    SHR S  %CPU %MEM    TIME+  COMMAND
 22843 demo   20   0 2272124 256048  72796 R  88.0  0.2  1:06.24  ansys.e
@@ -1499,17 +250,16 @@ Once your Additive job has been running for a few minutes, a snapshot of its res
  4306 demo   20   0 2734720 431532  95180 R 100.0  0.3  1:06.57  ansys.e
 ```
 
-#### Scaling tests
+**Scaling tests**
 
-After a job completes, its wall-clock time can be obtained with `seff myjobid`. Using this value, scaling tests can be performed by submitting short test jobs with an increasing number of cores. If the wall-clock time decreases by ~50% when the number of cores is doubled, additional cores may be considered.
+After a job completes, its wall-clock time can be obtained with `` `seff myjobid` ``. Using this value, scaling tests can be performed by submitting short test jobs with an increasing number of cores. If the wall-clock time decreases by ~50% when the number of cores is doubled, additional cores may be considered.
 
-# Help resources
-
+## Help resources
 The official full documentation for recent versions Ansys 202[4|5]R[1|2] is available [here](https://ansyshelp.ansys.com/public/account/secured?returnurl=/Views/Secured/main_page.html?lang=en). Documentation for older versions such as Ansys 2023R[1|2] however requires [login](https://ansyshelp.ansys.com/). Developer documentation can be found in the [Ansys Developer Portal](https://developer.ansys.com). Additional learning resources include the [Ansys HowTo videos](https://www.youtube.com/@AnsysHowTo/videos), the [Ansys Educator Hub](https://innovationspace.ansys.com/educator-hub/) and the [Ansys Webinar series](https://www.ansys.com/events/ansys-academic-webinar-series).
 
-!!! caution "X over SSH Legacy Note"
-    Some programs can be run remotely on a cluster compute node by forwarding X over SSH to your local desktop. Unlike VNC, this approach is not tested and not supported since it relies on a properly set up X display server for your particular operating system OR the selection, installation and configuration of a suitable X client emulator package such as MobaXterm. Most users will find interactive response times unacceptably slow for basic menu tasks, let alone for more complex tasks such as those involving graphics rendering. Startup times for GUI programs can also be very slow depending on your Internet connection. For example, in one test it took 40 minutes to fully start the GUI over SSH while starting it with `vncviewer` required only 34 seconds. Despite the potential slowness, using this method to connect may still be of interest if your only goal is to open a simulation and perform some basic menu operations or run some calculations, and response delays can be tolerated. The basic steps are given here as a starting point:
+!!! warning "XoverSSH Legacy Note"
+    Some programs can be run remotely on a cluster compute node by forwarding X over SSH to your local desktop. Unlike VNC, this approach is not tested and not supported since it relies on a properly set up X display server for your particular operating system OR the selection, installation and configuration of a suitable X client emulator package such as MobaXterm. Most users will find interactive response times unacceptably slow for basic menu tasks, let alone for more complex tasks such as those involving graphics rendering. Startup times for GUI programs can also be very slow depending on your Internet connection. For example, in one test it took 40 minutes to fully start the GUI over SSH while starting it with vncviewer required only 34 seconds. Despite the potential slowness, using this method to connect may still be of interest if your only goal is to open a simulation and perform some basic menu operations or run some calculations, and response delays can be tolerated. The basic steps are given here as a starting point:
 
     1.  `ssh -Y username@alliancecan.ca`
     2.  `salloc --x11 --time=1:00:00 --mem=16G --cpus-per-task=4 [--gpus-per-node=1] --account=def-mygroup`
-    3.  Once connected onto a compute node, try running `xclock`. If the clock appears on your desktop, proceed to load the desired Ansys module and try running the program.
+    3.  Once connected onto a compute node, try running `xclock`. If `xclock` displays on your desktop, proceed to load the desired Ansys module and try running the program.

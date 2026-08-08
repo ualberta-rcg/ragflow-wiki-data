@@ -4,17 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "How is an Abaqus explicit analysis job configured for recovery when using version 2026 or newer, according to this script snippet?",
-      "answer": "For Abaqus version 2026 or newer, an explicit analysis job is configured for recovery by executing the `abaqus` command with `job=testet2`, specifying an input file from `$SLURM_SUBMIT_DIR/myexp-sim.inp`, and including the `recover` option. The scratch directory is set to `$SLURM_TMPDIR`, CPU usage to `$SLURM_CPUS_ON_NODE`, and it runs in interactive mode using `mp_mode=threads`."
+      "question": "What factors influence how Abaqus allocates memory and uses scratch disk space during a simulation?",
+      "answer": "Abaqus's memory allocation and scratch disk usage depend on the \"MEMORY\" parameter, the amount of physical memory available on the machine, and the \"MEMORY TO MINIMIZE I/O\" (MRMIO) value. If the memory upper limit exceeds MRMIO, actual memory usage will be close to the estimated MRMIO value, resulting in minimal scratch disk usage. Otherwise, the actual memory used will be close to the specified memory limit, and scratch disk usage will be roughly proportional to the difference between MRMIO and the memory upper limit. An accurate estimate of the scratch disk space required is not possible."
     },
     {
-      "question": "What is the memory allocation strategy for an Abaqus job, as shown in this particular script snippet?",
-      "answer": "The memory for an Abaqus job is allocated by taking the value of `SLURM_MEM_PER_NODE` and subtracting 3072MB. This is specified by the `memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"` parameter."
+      "question": "What platforms are recommended for running graphical Abaqus applications on Alliance clusters?",
+      "answer": "It is recommended to use an OpenOnDemand or JupyterLab desktop session for running graphical Abaqus applications at the Alliance."
     },
     {
-      "question": "After an Abaqus job completes, what file operation occurs with the generated files according to this script snippet?",
-      "answer": "After the Abaqus job finishes, all generated files (`*`) are copied from the current working directory to the directory specified by `$SLURM_SUBMIT_DIR`."
+      "question": "How do you launch Abaqus in graphical mode using OpenOnDemand at the Alliance, and what are the options for GPU usage?",
+      "answer": "To launch Abaqus graphically via OpenOnDemand: first, start an OnDemand desktop session (e.g., using `https://ondemand.sharcnet.ca` for Nibi). Next, open a new terminal window within your desktop and load the Abaqus module (e.g., `module load abaqus/2026`). To start the application, use `abaqus cae -mesa` if you are on a node without a GPU or a node with a GPU but without VirtualGL support. If better graphical performance is required on a node with a GPU and VirtualGL support, start Abaqus without the `-mesa` option (i.e., `abaqus cae`). For Nibi OnDemand, selecting a full h100 (80GB) GPU from the GPU pulldown is necessary for this option."
     }
   ],
-  "generated_at": "2026-05-31T01:04:31.627152+00:00"
+  "generated_at": "2026-08-07T23:21:14.042542+00:00"
 }

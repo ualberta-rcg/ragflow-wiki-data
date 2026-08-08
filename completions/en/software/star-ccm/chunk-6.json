@@ -4,13 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "What specific workaround is implemented in the Slurm scripts for the Trillium cluster to address STAR-CCM+ license failures?",
-      "answer": "For the Trillium cluster, the Slurm script includes a workaround that retries starting STAR-CCM+ up to five times (`while [ $i -le 5 ] && [ $RET -ne 0 ]; do ... done`) in case of initial license failures, pausing briefly between attempts."
+      "question": "How are STAR-CCM+ license server settings configured for jobs on the Trillium cluster?",
+      "answer": "On the Trillium cluster, license server settings for STAR-CCM+ are configured directly within the Slurm script. This involves setting environment variables such as `FLEXPORT`, `VENDPORT`, and `LICSERVER` to specify the license server's hostname and port numbers, rather than using the `~/.licenses/starccm.lic` file. For Power-on-Demand (PoD) licenses, the script typically uses `flex.cd-adapco.com` with ports `1999` and `2099`."
     },
     {
-      "question": "What methods are recommended for running STAR-CCM+ in graphical mode on the Alliance clusters, and what additional step is required for research groups using a Power-on-Demand (PoD) license?",
-      "answer": "It is recommended to use an OnDemand or JupyterLab system to start a remote desktop for graphical use of STAR-CCM+. For research groups with a Power-on-Demand (PoD) license, they must also set the `LM_PROJECT` environment variable to their 22-digit PoD license key (e.g., `export LM_PROJECT='22digit-PoD-License-Key'`) before starting `starccm+` in graphical mode, in addition to configuring `~/.licenses/starccm.lic`."
+      "question": "What is the function of the SSH command used in a STAR-CCM+ Slurm script on the Trillium cluster?",
+      "answer": "The `ssh tri-gw -L ... -N -f` command in a STAR-CCM+ Slurm script on the Trillium cluster is used for SSH port forwarding. This establishes tunnels for the specified flex and static vendor ports from the remote license server, making them reachable locally (at `127.0.0.1`) for license validation during job execution."
+    },
+    {
+      "question": "What mechanism does the Trillium Slurm script use to address potential STAR-CCM+ license startup failures?",
+      "answer": "The Trillium Slurm script incorporates a retry mechanism to handle STAR-CCM+ license startup failures. It attempts to launch the `starccm+` command up to five times within a `while` loop, checking the exit status after each attempt. If the previous attempt was unsuccessful, it pauses briefly before the first retry."
     }
   ],
-  "generated_at": "2026-05-24T01:34:01.673229+00:00"
+  "generated_at": "2026-08-08T00:34:21.505534+00:00"
 }

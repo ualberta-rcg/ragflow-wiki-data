@@ -4,13 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the license requeue feature for Fluent jobs on Alliance clusters?",
-      "answer": "The license requeue feature allows Fluent jobs to be automatically resubmitted to the queue up to four times if they initially fail to start due to license shortages."
+      "question": "What configuration is required for the `ansys.lic` file to use the SHARCNET Ansys license on an Alliance cluster?",
+      "answer": "To use the SHARCNET Ansys license on any Alliance cluster, you must configure your `~/.licenses/ansys.lic` file to include the line `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license1.computecanada.ca\")`. The `license3.sharcnet.ca` license server was permanently shut down in February 2026."
     },
     {
-      "question": "What is a potential drawback of using the license requeue feature for Fluent jobs, and how should users mitigate it?",
-      "answer": "A potential drawback is that the feature will also requeue simulations that fail due to other issues, such as divergence, leading to wasted compute time. Users should mitigate this by monitoring and inspecting each Slurm output file to confirm that requeue attempts are license-related. If a job is requeued due to a simulation issue, users should immediately kill the job progression manually with `scancel jobid` and correct the problem."
+      "question": "How can an Alliance cluster user check the number of Ansys licenses currently in use by their username and the total licenses in use by all users?",
+      "answer": "To check Ansys license usage, log in to an Alliance cluster (e.g., `ssh nibi.alliancecan.ca`), load the Ansys module (`module load ansys`), and then run the command: `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of\\\\|$USER\" | grep -v \" Total of 0 licenses in use\"`."
+    },
+    {
+      "question": "If an Ansys job on an Alliance cluster fails to start due to a SHARCNET `anshpc` license shortage, what actions can a user take, and how are `anshpc` licenses typically consumed by parallel jobs?",
+      "answer": "If an Ansys job fails to start due to a SHARCNET `anshpc` license shortage, the user has two options: either wait for a sufficient number of licenses to become available and then manually resubmit the job, or reduce the job's requested core count to fit the current available licenses and resubmit immediately. `anshpc` licenses are consumed by parallel jobs by taking the number of requested cores minus 4 (e.g., an 8-core job uses 4 `anshpc` licenses, and a 32-core job uses 28 `anshpc` licenses)."
     }
   ],
-  "generated_at": "2026-05-31T01:14:21.890895+00:00"
+  "generated_at": "2026-08-07T23:32:48.081775+00:00"
 }

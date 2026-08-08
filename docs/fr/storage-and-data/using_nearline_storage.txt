@@ -10,7 +10,7 @@ S'il n'est pas efficace de récupérer des petits fichiers enregistrés sur ruba
 
 * les fichiers de moins de ~10Go devraient être rassemblés dans des fichiers archive (<i>tarballs</i>) avec [[A tutorial on 'tar'/fr|tar]] ou un autre [[Archiving and compressing files/fr|outil semblable]];
 * les fichiers de plus de 4To devraient être divisés en parts de 1To avec un outil comme [[A_tutorial_on_'tar'/fr#Fractionner_des_fichiers |la commande  <code>split</code>]];
-* NE COPIEZ PAS DE PETITS FICHIERS SUR /NEARLINE, à l'exception des index (voir <i>Créer un index</i> ci-dessous).
+* NE COPIEZ PAS DE PETITS FICHIERS SUR /NEARLINE, à l'exception des index (voir <i>Créer un index</i> ci-dessous). Sur Nibi, les fichiers d'index et les autres petits fichiers sur /nearline ne sont pas sauvegardés ni archivés sur ruban. Si vos fichiers d'index doivent être sauvegardés, utilisez un autre espace de stockage comme /project.
 
 <span id="Use_tar_or_dar"></span>
 === Choisir entre tar et dar ===
@@ -32,7 +32,7 @@ Si l'archive vient d'être créée, la commande suivante (avec tar dans cet exem
 
  {{Command|tar tvvf /nearline/def-sponsor/user/mycollection.tar > /nearline/def-sponsor/user/mycollection.index}}
 
-Même s'il s'agit souvent de petits fichiers, les fichiers d'index peuvent être enregistrés sur /nearline.
+Même s'il s'agit souvent de petits fichiers, les fichiers d'index peuvent être enregistrés sur /nearline.  Sur Nibi, les fichiers d'index et les autres petits fichiers sur /nearline ne sont pas sauvegardés ni archivés sur ruban. Si vos fichiers d'index doivent être sauvegardés, utilisez un autre espace de stockage.
 
 <span id="No_access_from_compute_nodes"></span>
 === Pas d'accès à partir des nœuds de calcul ===
@@ -132,6 +132,7 @@ Le service /nearline est semblable à celui de Fir, sauf que
 Le service /nearline est semblable à celui de Fir, sauf que
 # la création de la première copie sur ruban des données pourrait prendre plus que 24 heures,
 # la copie sur disque ne sera pas effacée (pour ne laisser que la copie sur ruban) avant 60 jours.
+# les fichiers d'index et les autres petits fichiers ne sont pas sauvegardés ni migrés sur ruban.
 </tab>
 
 <tab name="Rorqual">

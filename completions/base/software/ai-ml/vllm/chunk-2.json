@@ -4,17 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Which technology does vLLM currently rely on to manage the splitting of large language models (LLMs) across multiple computational nodes?",
-      "answer": "vLLM relies on Ray to manage the process of splitting LLMs over multiple nodes for distributed inference."
+      "question": "How does one download a large language model from the Hugging Face Hub for use with vLLM inference?",
+      "answer": "To download a model like 'facebook/opt-125m' for vLLM, you should load `python/3.13`, create and activate a temporary virtual environment (e.g., `temp_env`), then `pip install --no-index huggingface_hub`. Afterwards, use the command `huggingface-cli download facebook/opt-125m`. It is important to download models on a login node to avoid idle compute, and models are cached by default at `$HOME/.cache/huggingface/hub`. Finally, remove the temporary environment."
     },
     {
-      "question": "What are the primary scripts used in the provided example for submitting and running a multi-node vLLM job?",
-      "answer": "The main scripts involved are `vllm-multinode-example.sh` (the SLURM job submission script), `config_env.sh` (for setting up the virtual environment and installing Ray), `launch_ray.sh` (for starting Ray worker nodes), and `vllm_example.py` (the Python script that performs the vLLM inference)."
+      "question": "What is an example of submitting a vLLM inference job on a single node that splits a model across two GPUs?",
+      "answer": "An example of a single-node vLLM job involves a SLURM batch script (e.g., `vllm-example.sh`) that requests `2` GPUs per task and sets up a virtual environment in `$SLURM_TMPDIR`. This script then executes a Python script (e.g., `vllm-example.py`). The Python script imports `LLM` from vLLM and initializes it with the model name (e.g., `facebook/opt-125m`) and `tensor_parallel_size=2` to explicitly utilize two GPUs for inference. This setup assumes the model has been pre-downloaded."
     },
     {
-      "question": "When configuring vLLM for multi-node execution, what is the correct value for the `tensor_parallel_size` parameter in the `LLM` constructor within the Python inference script?",
-      "answer": "For multi-node execution, the `tensor_parallel_size` parameter in the `LLM` constructor within the `vllm_example.py` script must be set to the *total* number of GPUs across all nodes allocated for the job."
+      "question": "How does vLLM facilitate splitting a large language model for inference across multiple compute nodes?",
+      "answer": "For splitting a large language model across multiple compute nodes, vLLM relies on Ray to manage the distributed setup. An example involves a multi-node SLURM batch script (e.g., `vllm-multinode-example.sh`) which first configures a virtual environment and installs Ray on all nodes. It then starts a Ray cluster by designating a head node and launching worker nodes. The vLLM Python script executed within this environment must set the `tensor_parallel_size` parameter in the `LLM` initialization to the total number of GPUs across all participating nodes (e.g., `4` for a model split across 4 GPUs over 2 nodes)."
     }
   ],
-  "generated_at": "2026-05-03T01:52:28.258863+00:00"
+  "generated_at": "2026-08-08T01:00:26.000865+00:00"
 }

@@ -4,49 +4,21 @@ slug: "technical_support"
 lang: "fr"
 
 source_wiki_title: "Technical support/fr"
-source_hash: "5876fa91da96082830f65e8182239d59"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T11:52:51.576526+00:00"
+source_hash: "1be3efaab606807256ca2e1f8deebc57"
+last_synced: "2026-08-07T19:46:17.777436+00:00"
+last_processed: "2026-08-07T23:00:25.305178+00:00"
 
 tags:
   []
 
 keywords:
-  - "soutien technique"
-  - "version du logiciel"
-  - "texte brut"
-  - "date et heure"
-  - "commandes actives"
-  - "base de données CCDB"
-  - "demandes d'assistance"
-  - "renseignements à fournir"
-  - "mot de passe"
-  - "captures d'écran"
-  - "adresses de courriel"
-  - "grappe"
-  - "requête de soutien technique"
-  - "accès aux fichiers"
-  - "grappe Rorqual"
-
-questions:
-  - "Quelles vérifications préalables et bonnes pratiques de rédaction faut-il suivre avant d'envoyer une demande d'assistance ?"
-  - "Comment choisir la bonne adresse courriel pour envoyer sa requête en fonction du type de problème rencontré ?"
-  - "Quels renseignements spécifiques et formats de fichiers doivent être inclus dans le message pour aider l'équipe technique à résoudre le problème ?"
-  - "Quelles sont les règles de sécurité et les limites de taille à respecter lors de l'envoi de pièces jointes au soutien technique ?"
-  - "Comment peut-on autoriser l'équipe de soutien à accéder à ses fichiers et données sans les joindre directement au courriel ?"
-  - "Quels éléments d'information essentiels devrait-on inclure dans sa requête pour décrire efficacement un problème technique, selon l'exemple fourni ?"
-  - "Quels détails concernant le logiciel, les commandes et le moment de l'incident doivent être communiqués lors du signalement d'un problème ?"
-  - "Quel format de données est recommandé pour transmettre les informations techniques et quels types de fichiers faut-il éviter de joindre ?"
-  - "Vers quelle section de la foire aux questions l'utilisateur est-il dirigé pour obtenir des informations supplémentaires sur le copier-coller ?"
-  - "Quelles sont les règles de sécurité et les limites de taille à respecter lors de l'envoi de pièces jointes au soutien technique ?"
-  - "Comment peut-on autoriser l'équipe de soutien à accéder à ses fichiers et données sans les joindre directement au courriel ?"
-  - "Quels éléments d'information essentiels devrait-on inclure dans sa requête pour décrire efficacement un problème technique, selon l'exemple fourni ?"
+  []
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: true
+  keywords_generated: false
   ragflow_synced: true
   qa_generated: false
 ---
@@ -55,11 +27,12 @@ status:
 
 *   Avant de nous contacter, vérifiez d'abord la page sur [l'état des grappes](https://status.computecanada.ca) pour savoir si votre problème a déjà été rapporté à notre équipe technique. Consultez aussi notre site wiki qui offre souvent des solutions pratiques. Si vous avez toujours besoin de nous contacter, utilisez les adresses de courriel listées ci-dessous.
 *   Assurez-vous que l'adresse courriel que vous utilisez est enregistrée sous votre [compte](https://ccdb.computecanada.ca/email). De cette façon, notre système de billets d'assistance peut automatiquement vous reconnaître.
-*   Énoncez précisément et clairement votre problème ou votre question (voir [l'exemple d'une requête de soutien technique](#exemple-dune-requete-de-soutien-technique)).
-*   Dans la ligne d'objet de votre message, évitez les énoncés vagues comme *J'ai un problème* ou *Ça ne fonctionne pas*; le temps de résolution sera plus long, car nous devrons vous contacter pour avoir toute l'information. Assurez-vous d'inclure tous les [renseignements à fournir avec votre requête](#renseignements-a-fournir-avec-une-requete).
+*   Énoncez précisément et clairement votre problème ou votre question (voir [l'exemple d'une requête de soutien technique](#exemple-dune-requête-de-soutien-technique)).
+*   Dans la ligne d'objet de votre message, évitez les énoncés vagues comme *J'ai un problème* ou *Ça ne fonctionne pas*; le temps de résolution sera plus long car nous devrons vous contacter pour avoir toute l'information. Assurez-vous d'inclure tous les [renseignements à fournir avec votre requête](#renseignements-à-fournir-avec-une-requête).
 *   Dans la ligne d'objet de votre message, indiquez le nom de la grappe et une courte description du problème, par exemple *Erreurs pour la tâche 123456 sur la grappe Rorqual*; nous pourrons ainsi cerner plus rapidement le problème.
 *   Si vous nous contactez à partir d'une adresse de courriel que nous connaissons, notre système de requêtes d'assistance vous identifiera immédiatement comme utilisateur. Assurez-vous de fournir toutes les adresses de courriel que vous utilisez dans le profil de votre compte d'utilisateur dans notre base de données.
 *   Créez une nouvelle requête pour chaque problème qui n'est pas relié à une requête antérieure.
+*   **Ne faites pas de copier-coller du contenu d'outils d'intelligence artificielle** (par exemple ChatGPT, Claude). Reformulez-le dans vos propres mots.
 
 ### Adresses de courriel
 
@@ -77,19 +50,21 @@ Veuillez choisir l'adresse qui correspond le mieux à votre besoin :
 Afin de nous aider à mieux vous servir, veuillez inclure les renseignements suivants dans votre demande :
 *   le nom de la grappe
 *   le numéro de la tâche
-*   le script de soumission de la tâche : donnez le chemin complet pour le script; copiez-collez le script dans votre message; ou envoyez le script en pièce jointe
-*   tous les fichiers de sortie contenant des erreurs : donnez le chemin complet pour le ou les fichiers; copiez-collez le ou les fichiers dans votre message; ou envoyez le ou les fichiers en pièce jointe
+*   le script de soumission de la tâche : donnez le chemin complet pour le script; copiez-collez le script dans votre message; ou envoyer le script en pièce jointe
+*   tous les fichiers de sortie contenant des erreurs : donnez le chemin complet pour le ou les fichiers; copiez-collez le ou les fichiers dans votre message; ou envoyer le ou les fichiers en pièce jointe
 *   les commandes actives au moment où le problème est survenu
 *   le nom et la version du logiciel que vous vouliez utiliser
 *   la date et l'heure auxquelles le problème est survenu
 *   évitez de joindre des captures d'écran ou autres fichiers de graphiques si ce n'est pas nécessaire; la version en texte brut est habituellement plus utile (commandes, scripts, etc.); pour plus d'information, voir [Copier-Coller](../getting-started/frequently_asked_questions.md#copier-coller)
-*   énoncez clairement vos attentes dans votre courriel en mentionnant si nous devons accéder à vos données, copier ou modifier vos fichiers, examiner et possiblement modifier votre compte, etc. Par exemple, plutôt que de joindre des fichiers à votre courriel, vous pouvez nous indiquer où ils se trouvent dans votre compte et nous accorder la permission d'y accéder (si nous avons déjà accès à vos fichiers via la base de données CCDB, il n'est pas nécessaire de nous accorder à nouveau la permission d'accès)
+*   énoncez clairement vos attentes dans votre courriel en mentionnant si nous devons accéder vos données, copier ou modifier vos fichiers, examiner et possible modifier votre compte, etc. Par exemple, plutôt que de joindre des fichiers à votre courriel, vous pouvez nous indiquer où ils se trouvent dans votre compte et nous accorder la permission d'y accéder (si nous avons déjà accès à vos fichiers via CCDB, il n'est pas nécessaire de nous accorder à nouveau la permission d'accès)
 
 ## Points importants
 
-!!! warning "Points importants"
-    *   **N'envoyez jamais un mot de passe.**
-    *   Les fichiers joints ne doivent pas dépasser 40Mo au total.
+!!! warning
+    **N'envoyez jamais un mot de passe.**
+
+!!! note
+    Les fichiers joints ne doivent pas dépasser 40Mo au total.
 
 ## Exemple d'une requête de soutien technique
 
@@ -112,13 +87,13 @@ J'avais chargé les modules suivants :
 
 [asmith@cedar5]$ module list
 Currently Loaded Modules:
-  1) CCconfig   2) gentoo/2023 (S)   3) gcccore/.12.3 (H)
-  4) gcc/12.3 (t)   5) hwloc/2.9.1   6) ucx/1.14.1
-  7) libfabric/1.18.0   8) pmix/4.2.4   9) ucc/1.2.0
-  10) openmpi/4.1.5 (m)  11) flexiblas/3.3.1  12) aocl-blas/5.1
+  1) CCconfig   2) gentoo/2023 (S)   3) gcccore/.12.3 (H)   
+  4) gcc/12.3 (t)   5) hwloc/2.9.1   6) ucx/1.14.1   
+  7) libfabric/1.18.0   8) pmix/4.2.4   9) ucc/1.2.0  
+  10) openmpi/4.1.5 (m)  11) flexiblas/3.3.1  12) aocl-blas/5.1  
   13) aocl-lapack/5.1  14) StdEnv/2023 (S)  15) mii/1.1.2
 
-La tâche a été exécutée rapidement et les fichiers `exemple-123456.out` et `exemple-123456.err` ont été générés. Il n'y avait pas de contenu dans le fichier `exemple-123456.out`, mais il y avait un message dans `exemple-123456.err`
+La tâche a été exécutée rapidement et les fichiers exemple-123456.out et exemple-123456.err ont été générés. Il n'y avait pas de contenu dans le fichier exemple-123456.out, mais il y avait un message dans exemple-123456.err
 
 [asmith@rorqual2 scheduling]$ cat myjob-123456.err
 slurmstepd: error: *** JOB 123456 ON cdr692 CANCELLED AT 2018-09-06T15:19:16 DUE TO TIME LIMIT ***

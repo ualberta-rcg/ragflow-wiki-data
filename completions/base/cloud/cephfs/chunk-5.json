@@ -4,13 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What are the names and base URLs for the Ceph client package repositories that need to be configured for Enterprise Linux 9 systems?",
-      "answer": "For Enterprise Linux 9 systems, three Ceph client package repositories are required: `[Ceph]` with a base URL of `http://download.ceph.com/rpm-tentacle/el9/$basearch`, `[Ceph-noarch]` with a base URL of `http://download.ceph.com/rpm-tentacle/el9/noarch`, and `[ceph-source]` with a base URL of `http://download.ceph.com/rpm-tentacle/el9/SRPMS`. All these repositories require a GPG check with the key `https://download.ceph.com/keys/release.asc`."
+      "question": "How can a CephFS filesystem be permanently mounted on an OpenStack virtual machine (VM), and what are the specific considerations for Arbutus and SD4H/Juno platforms?",
+      "answer": "To permanently mount a CephFS filesystem, first create a mount point directory (e.g., `/cephfs`). Then, add an entry to the `/etc/fstab` file on your VM. For Arbutus, an example entry is `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,nofail 0 2`. For SD4H/Juno, the entry requires additional options: `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw,nofail 0 2`. Ensure you use the correct share path (starting with `:`) and client name from your share details, noting that the `nofail` option helps ensure system boot even if the CephFS service is unavailable."
     },
     {
-      "question": "Is there an additional repository, besides the Ceph-specific ones, that must be configured to install Ceph client packages on systems like Enterprise Linux 9?",
-      "answer": "Yes, the `epel-release` repository also needs to be configured and installed on systems like Enterprise Linux 9 to install Ceph client packages."
+      "question": "What are the command-line instructions to directly mount a CephFS share on an OpenStack virtual machine (VM) for both Arbutus and SD4H/Juno platforms?",
+      "answer": "To directly mount a CephFS share from the command line, you must first create a mount point directory (e.g., `/cephfs`). For Arbutus, use `sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW`. For SD4H/Juno, the command includes additional mount options: `sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw`. Ensure the share path and client name match your specific configuration."
+    },
+    {
+      "question": "How can a CephFS filesystem be mounted directly in user space using `ceph-fuse` on an OpenStack virtual machine (VM)?",
+      "answer": "To mount CephFS in user space using `ceph-fuse`, first install the `ceph-fuse` library by running `sudo dnf install ceph-fuse`. Next, uncomment the `user_allow_other` line in the `/etc/fuse.conf` file to allow user-space mounts. Finally, create a mount directory in your user's home (e.g., `~/my_cephfs`) and execute the command `ceph-fuse my_cephfs/ --id=MyCephFS-RW --conf=~/ceph.conf --keyring=~/ceph.keyring --client-mountpoint=/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c`. The client name corresponds to the `--id`, and the `ceph.conf` and `ceph.keyring` files should contain the correct configuration and access key."
     }
   ],
-  "generated_at": "2026-04-26T00:51:22.092615+00:00"
+  "generated_at": "2026-08-07T23:48:39.304913+00:00"
 }

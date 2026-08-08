@@ -4,17 +4,17 @@
   "chunk_index": 17,
   "qa_pairs": [
     {
-      "question": "How do you determine the required Slurm `mem-per-cpu` value for multi-node Abaqus jobs?",
-      "answer": "To determine the required Slurm `mem-per-cpu` for multi-node Abaqus scripts, first get the memory estimates (per compute process) needed to minimize I/O from the output `.dat` file of completed jobs. If `mp_host_split` is not specified or is set to 1, you can roughly determine the `mem-per-cpu` by multiplying the largest memory estimate by the number of nodes and then dividing by the number of `ntasks`. If `mp_host_split` is specified and greater than 1, you can roughly determine the `mem-per-cpu` by multiplying the largest memory estimate by the number of nodes and by the value of `mp_host_split`, then dividing by the number of tasks. Note that `mp_host_split` must be less than or equal to the number of cores per node assigned by Slurm at runtime."
+      "question": "What are the specific conditions under which users can utilize SIMULIA Academic Software with tokens from the SHARCNET license server?",
+      "answer": "Users can utilize SIMULIA Academic Software with tokens from the SHARCNET license server only under these conditions: on SHARCNET hardware where the software is installed; in affiliation with a Canadian degree-granting academic institution; for education, institutional, or instruction purposes, not for commercial or contract-related purposes where results are not publishable; and for experimental, theoretical, and/or digital research work aimed at acquiring new knowledge up to the point of proof-of-concept in a laboratory."
     },
     {
-      "question": "What are the steps to run Abaqus graphically using OpenOnDemand at the Alliance?",
-      "answer": "To run Abaqus graphically using OpenOnDemand, first start an OnDemand desktop session via one of the provided links (e.g., Nibi or TRILLIUM). Next, open a new terminal window within your desktop and load the Abaqus module, for example, by typing `module load abaqus/2026`. Then, start the application in graphical mode using the `cae` option. If you are on a node without a GPU or a node with a GPU but lacking VirtualGL support, append the `mesa` option (e.g., `abaqus cae -mesa`). For better graphical performance on a GPU node with VirtualGL support, start Abaqus without the `-mesa` option (e.g., `abaqus cae`), ensuring a full H100 (80GB) GPU is selected if using Nibi OnDemand. Finally, there must be at least one unused CA license available to start Abaqus in GUI mode."
+      "question": "How should a user configure their Abaqus license file to use the free SHARCNET license on systems like Nibi or Dusky clusters?",
+      "answer": "To configure the license file for the free SHARCNET license, a user must update their `~/.licenses/abaqus.lic` file. It should contain the line `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27050@license1.computecanada.ca\")`. This configuration is only valid for SHARCNET systems, including the Nibi and Dusky clusters or the SHARCNET OOD desktop system."
     },
     {
-      "question": "How do users access Abaqus in graphical mode through JupyterLab at the Alliance?",
-      "answer": "To access Abaqus in graphical mode through JupyterLab, users should first start a JupyterHub desktop session by clicking one of the provided JupyterHub links (e.g., FIR, NARVAL, or RORQUAL). Once in the session, highlight an Abaqus module, such as `abaqus/2026`, in the left-hand side \"Available Module\" section. After clicking \"Load\" for the highlighted module, an \"Abaqus (VNC)\" icon will appear in the desktop. Clicking this icon will automatically start Abaqus in the remote Jupyter desktop environment."
+      "question": "After loading the Abaqus module on the Nibi cluster, what command can be used to check the SHARCNET license server for currently started and queued jobs?",
+      "answer": "To check the SHARCNET license server for started and queued jobs after logging into the Nibi cluster and loading Abaqus, you can use the command: `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"`."
     }
   ],
-  "generated_at": "2026-05-31T01:04:48.496389+00:00"
+  "generated_at": "2026-08-07T23:21:27.887245+00:00"
 }

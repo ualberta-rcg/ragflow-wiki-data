@@ -1,0 +1,20 @@
+{
+  "doc_key": "base/alphafold3",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "How can an 'Out of memory (GPU)' error be resolved when running AlphaFold3 on Alliance clusters, particularly with large inputs or GPUs with less memory?",
+      "answer": "To resolve an 'Out of memory (GPU)' error when running AlphaFold3, especially with inputs larger than 5,120 tokens or on GPUs with less memory (like an A100 with 40 GB), you can enable unified memory. This is done by adding the environment variables `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true`, and `export XLA_CLIENT_MEM_FRACTION=2.0` (adjusting the fraction as needed) to your inference stage submission script, and then adjusting the job's allocated memory accordingly, for instance, `#SBATCH --mem=80G` if `XLA_CLIENT_MEM_FRACTION` is set to 2.0 with a 40 GB GPU."
+    },
+    {
+      "question": "Which specific environment variables should be added to the AlphaFold3 inference stage submission script to enable unified memory?",
+      "answer": "To enable unified memory for the AlphaFold3 inference stage, you must add the following environment variables to your submission script: `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true`, and `export XLA_CLIENT_MEM_FRACTION=2.0`. Note that the `XLA_CLIENT_MEM_FRACTION` value should be adjusted based on your specific requirements."
+    },
+    {
+      "question": "What `SBATCH` memory adjustment is recommended when enabling unified memory for AlphaFold3 inference with `XLA_CLIENT_MEM_FRACTION=2.0` on a 40 GB A100 GPU?",
+      "answer": "When enabling unified memory for AlphaFold3 inference and setting `XLA_CLIENT_MEM_FRACTION=2.0` on a GPU with 40 GB of memory, it is recommended to adjust the memory allocated for your job in the SBATCH script to `#SBATCH --mem=80G`."
+    }
+  ],
+  "generated_at": "2026-08-07T23:29:59.793547+00:00"
+}

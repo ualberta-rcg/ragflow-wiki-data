@@ -4,9 +4,9 @@ slug: "metrix"
 lang: "en"
 
 source_wiki_title: "Metrix/en"
-source_hash: "904c7ad3359cf824b72b759615de14a6"
-last_synced: "2026-06-07T00:07:37.701416+00:00"
-last_processed: "2026-06-07T00:22:00.059743+00:00"
+source_hash: "8b7197dc79af13096107e89921cf3ac4"
+last_synced: "2026-08-07T19:46:17.777436+00:00"
+last_processed: "2026-08-07T22:45:12.640340+00:00"
 
 tags:
   []
@@ -23,159 +23,172 @@ status:
   qa_generated: false
 ---
 
-# Summary
+## Summary
 
-The Metrix portal is a website for Alliance users. It collects information on compute nodes and management servers, to interactively generate data so you can track your resource usage (CPUs, GPUs, memory, filesystems) in real time.
+The Metrix portal is a website for Alliance users. It collects information on compute nodes and management servers to interactively generate data, allowing you to track your resource usage (CPUs, GPUs, memory, filesystems) in real time.
 
+| Cluster | Metrix Portal URL |
+| :------ | :---------------- |
 | Rorqual | [https://metrix.rorqual.alliancecan.ca](https://metrix.rorqual.alliancecan.ca) |
-| :------ | :---------------------------------------------------------------------- |
-| Narval  | [https://portail.narval.calculquebec.ca](https://portail.narval.calculquebec.ca) |
-| Nibi    | [https://portal.nibi.sharcnet.ca](https://portal.nibi.sharcnet.ca)       |
+| Narval | [http://metrix.narval.alliancecan.ca](http://metrix.narval.alliancecan.ca) |
+| Nibi    | [https://portal.nibi.sharcnet.ca](https://portal.nibi.sharcnet.ca) |
+| tamIA   | [https://portail.tamia.ecpia.ca](https://portail.tamia.ecpia.ca) |
+| Vulcan  | [http://metrix.vulcan.alliancecan.ca](http://metrix.vulcan.alliancecan.ca) |
 
 **Filesystem performance**
 
-Here you have the metrics for bandwidths and metadata operations, along with viewing options (last week, last day, and last hour).
+This section provides graphs for bandwidths and metadata operations, with viewing options for the last week, last day, and last hour.
 
 **Login nodes**
 
-Under this tab are presented usage statistics for CPUs, memory, system load, and network, with viewing options (last week, last day, and last hour).
+Under this tab, usage statistics for CPUs, memory, system load, and network are presented, with viewing options for the last week, last day, and last hour.
 
 **Scheduler**
 
-This tab shows statistics for the cluster's allocated cores and GPUs, with viewing options (last week, last day, and last hour).
+This tab shows statistics for the cluster's allocated cores and GPUs, with viewing options for the last week, last day, and last hour.
 
 **Scientific software**
 
-These metrics show the software most frequently used, with CPU cores and GPUs.
+This section presents graphs showing the most frequently used software, along with CPU core and GPU usage.
 
 **Data transfer nodes**
 
 Bandwidth statistics for data transfer nodes are shown under this tab.
 
-# User portal
+## User portal
 
-Under this tab, you find your quotas for the filesystems, followed by your 10 last jobs. You can select a job by its number to see the details. Also, by clicking on **More details**, you are redirected to the *Job statistics* tab, where all your jobs are listed.
+Under this tab, you can find your quotas for the filesystems, followed by your 10 most recent jobs. You can select a job by its number to see the details. Additionally, by clicking on `(More details)`, you are redirected to the *Job statistics* tab, where all your jobs are listed.
 
-# Job statistics
+## Job statistics
 
-The first block shows your current usage (CPU cores, memory, and GPUs). These statistics represent the average usage by all currently running jobs. You can easily compare the resources allocated to you with those you actually use.
+The first block shows your current usage (CPU cores, memory, and GPUs). These statistics represent the average usage by all currently running jobs. This allows you to easily compare the resources allocated to you with those you actually use.
 
-The portal also provides an average usage over the last few days.
+The interface then provides a graph showing average usage over the last few days.
 
-Next, your activity on the filesystems is represented, detailing the number of disk write commands performed (input/output operations per second) and the amount of data transferred to the servers over a given period (Bandwidth).
+It also presents your activity on the filesystems, including the number of disk write commands you have performed (input/output operations per second or IOPS) and the amount of data transferred to the servers over a given period (Bandwidth).
 
-The next section lists all your jobs, including those already started, currently running, or pending. You can filter jobs by their status (OOM, completed, running, etc.) and search by job ID or job name. An option is also available to quickly navigate between pages.
+This section lists all your jobs—those you have already started, which are currently running, or pending. You can filter jobs by their status (e.g., OOM, completed, running) and search by job ID or job name. Navigation options allow you to quickly move between pages.
 
-## CPU jobs
+### CPU jobs
 
-The job name, its number, your username, and the status are displayed. Details of your submission script can be viewed by clicking on **Show submitted job script**. If the job was launched in interactive mode, the submission script will not be available.
+At the top, you can see the job name, its number, your username, and its status. Details of your submission script are displayed by clicking the `Show submitted job script` button. If the job was launched in interactive mode, the submission script will not be available.
 
-The working directory and the submission command can be seen by clicking on **Show submit command**.
+The working directory and the submission command can be seen by clicking the `Show submit command` button.
 
-The next section shows information on the scheduler. To display the information on your CPU account, click on your account number.
+The next section shows information on the scheduler. To display information on your CPU account, click on your account number within this section.
 
-In the **Ressources** section, you can review the resources used by your job by comparing the **Allocated** and **Used** columns for the listed parameters.
+In the **Resources** section, you can compare the **Allocated** and **Used** columns for various parameters to see the resources consumed by your job.
 
-The CPU usage is shown, detailing the CPU cores you have requested over time. You can select specific cores to view. This information is not available for very short jobs.
+The **CPU** graph tracks the CPU cores requested by your job over time. You can select specific cores to view.
 
-Memory usage is displayed, showing the memory you requested over time.
+!!! note
+    This graph is not available for very short jobs.
 
-The **Processes and threads** section provides different parameters. For a multithread job, the sum of *Running threads* and *Sleeping threads* should not exceed twice the number of cores requested. However, some *Sleeping threads* are normal for certain types of programs (Java, Matlab, commercial software, or complex programs). The section also includes parameters for program applications that have been executed over time.
+The memory usage graph illustrates the consumption of requested memory over time.
 
-Filesystem usage by the current job, rather than the entire node, is detailed. This includes the number of I/O operations per second (IOPS) and the data transfer rate between the job and the filesystem over time. This information helps identify periods of high or low filesystem activity.
+The **Processes and threads** graph displays various parameters. For a multithreaded job, the sum of `Running threads` and `Sleeping threads` should ideally not exceed twice the number of requested cores. However, the presence of `Sleeping threads` is normal for certain types of programs (e.g., Java, MATLAB, commercial software, or complex applications). This graph also includes a parameter showing program applications executed over time.
 
-Resource statistics for the entire node may be inaccurate if the node is shared by multiple users. The data tracks the evolution of bandwidth used by the job over time, in relation to software, licenses, etc. It also shows the evolution of network bandwidth used by a job or set of jobs via the Infiniband network, over time, allowing observation of periods of massive data transfer (e.g., reading/writing on a filesystem (Lustre), MPI communication between nodes).
+Filesystem usage for the current job (not the entire node) is presented. This includes graphs for the number of I/O operations per second (IOPS) and the data transfer rate between the job and the filesystem over time, helping to identify periods of high or low filesystem activity.
 
-The evolution of the number of input/output operations per second (IOPS) performed on the local disk over time is provided. Additionally, the evolution of the bandwidth used on the local disk over time, representing the amount of data read or written per second, is tracked.
+!!! warning
+    Resource statistics for the entire node may be inaccurate if the node is shared by multiple users.
+The interface provides insights into node-wide resource usage, including the evolution of job bandwidth over time (in relation to factors like software and licenses), and network bandwidth usage by a job or set of jobs via the Infiniband network. This allows observation of periods of massive data transfer (e.g., reading/writing on a Lustre filesystem, MPI communication between nodes).
 
-Usage of local disk space
+Local disk performance metrics are displayed, showing the evolution of input/output operations per second (IOPS) and the bandwidth (amount of data read or written per second) over time.
 
-Power consumption
+Usage of local disk space.
 
-## CPU jobs (job arrays)
+Power consumption.
 
-The display for a CPU job in an array is the same as for a regular CPU job, with the addition of an **Other jobs in the array** section. This section lists other job numbers that are part of the job array, along with their status, name, start time, and finish time.
+### CPU jobs (job arrays)
 
-## GPU jobs
+The interface for a CPU job within an array is identical to that of a regular CPU job, with the addition of an **Other jobs in the array** section. This section lists other job numbers belonging to the same job array, along with their status, name, start time, and finish time.
 
-The job name, its number, your username, and the status are displayed. Details of your submission script can be viewed by clicking on **Show submitted job script**. If the job was launched in interactive mode, the submission script will not be available.
+### GPU jobs
 
-The working directory and the submission command are shown by clicking on **Show submit command**.
+At the top, you can see the job name, its number, your username, and its status. Details of your submission script are displayed by clicking the `Show submitted job script` button. If the job was launched in interactive mode, the submission script will not be available.
 
-The next section shows information on the scheduler. To display the information on your GPU account, click on your account number.
+The working directory and submission command are shown by clicking the `Show submit command` button.
 
-In the **Ressources** section, you can review the resources used by your job by comparing the **Allocated** and **Used** columns for the listed parameters.
+The next section shows information on the scheduler. To display information on your GPU account, click on your account number within this section.
 
-The CPU usage is shown, detailing the CPU cores you have requested over time. You can select specific cores to view. This information is not available for very short jobs.
+In the **Resources** section, you can compare the **Allocated** and **Used** columns for various parameters to see the resources consumed by your job.
 
-The usage of memory requested for CPUs is displayed, over time.
+The **CPU** graph tracks the CPU cores requested by your job over time. You can select specific cores to view.
 
-The **Processes and threads** section shows different parameters.
+!!! note
+    This graph is not available for very short jobs.
 
-Filesystem usage by the current job, rather than the entire node, is detailed. This includes the number of I/O operations per second (IOPS) and the data transfer rate between the job and the filesystem over time. This information helps identify periods of high or low filesystem activity.
+The memory usage graph illustrates the consumption of requested memory for CPUs over time.
 
-GPU usage is shown, detailing several metrics. The *Streaming Multiprocessors* (SM) setting indicates the percentage of time taken by the GPU to execute a warp (a group of consecutive threads) in the last sampling, ideally around 80%. *SM occupancy*, defined as the ratio between the number of warps assigned to an SM and the maximum number of warps an SM can handle, is generally expected around 50%. The *Tensor* setting should be as high as possible, as it represents the GPU component optimized for multiplications and convolutions of multidimensional matrices. Finally, for FP64, FP32, and FP16 floating-point operations, significant activity should ideally be observed on only one of these, depending on the precision specified by your code.
+The **Processes and threads** graph displays various parameters.
 
-Memory used by the GPU is tracked. Additionally, the GPU's memory access cycles, indicating the percentage of cycles during which the device's memory interface is active sending or receiving data, are also shown.
+Filesystem usage for the current job (not the entire node) is presented. This includes graphs for the number of I/O operations per second (IOPS) and the data transfer rate between the job and the filesystem over time, helping to identify periods of high or low filesystem activity.
 
-The evolution of the GPU's power consumption (in watts) over time is displayed.
+The Metrix portal provides detailed GPU usage statistics, including metrics for *Streaming Multiprocessors* (SM), which show the percentage of time a GPU spends executing a warp (a group of consecutive threads) in the last sampling (ideally around 80%). *SM occupancy*, defined as the ratio between the number of warps assigned to an SM and the maximum number of warps an SM can handle, is generally expected to be around 50%. The *Tensor* setting should be as high as possible, as it indicates the use of GPU components optimized for multidimensional matrix operations. Finally, for floating-point operations (FP64, FP32, FP16), significant activity on only one of these should be observed, depending on your code's specified precision.
 
-GPU bandwidth on the PCIe bus (or PCI Express, for Peripheral Component Interconnect Express) is also shown.
+GPU memory usage is monitored, including the amount of memory consumed by the GPU and the percentage of cycles during which the device's memory interface is active sending or receiving data (GPU memory access cycles).
 
-For statistics on the resources of the entire node, please note that they may be inaccurate if the node is shared among multiple users. Data tracks the evolution of bandwidth used by the job over time, in relation to software, licenses, etc. It also shows the evolution of network bandwidth used by a job or set of jobs via the Infiniband network, over time, allowing observation of periods of massive data transfer (e.g., reading/writing to a filesystem (Lustre), MPI communication between nodes).
+The GPU's power consumption (in watts) over time is displayed.
 
-The evolution of the number of input/output operations per second (IOPS) performed on the local disk over time is provided. Additionally, the evolution of the bandwidth used on the local disk over time, representing the amount of data read or written per second, is tracked.
+GPU bandwidth on the PCIe (Peripheral Component Interconnect Express) bus is also shown.
 
-Usage of local disk space
+!!! warning
+    Node-wide resource statistics may be inaccurate if the node is shared among multiple users.
+However, the interface provides insights into the evolution of job bandwidth over time (in relation to factors like software and licenses), and network bandwidth usage by a job or set of jobs via the Infiniband network. This allows observation of periods of massive data transfer (e.g., reading/writing to a Lustre filesystem, MPI communication between nodes).
 
-Power consumption
+Local disk performance metrics are displayed, showing the evolution of input/output operations per second (IOPS) and the bandwidth (amount of data read or written per second) over time.
 
-# Account statistics
+Usage of local disk space.
 
-The *Account Statistics* section details your group's usage, divided into CPU and GPU subsections.
+Power consumption.
 
-## CPU accounts
+## Account statistics
 
-The total number of CPU cores requested by your group, along with their corresponding usage over the past few months, is displayed. You can also track your priority status, which varies based on your usage.
+The *Account Statistics* section is divided into two subsections: CPU and GPU, displaying your group's overall usage.
 
-Applications used most frequently
+### CPU accounts
 
-The resources used by each user in your group are listed.
+This section presents the total CPU cores requested by your group and their usage over the past few months. Your priority status, which varies based on usage, can also be tracked.
 
-The CPU cores wasted by each user over time are tracked.
+Applications used most frequently are shown.
 
-The memory used by each user in your group is displayed.
+Resources used by each user in your group are listed here.
 
-The memory wasted by each user is shown.
+The interface provides a graph illustrating the CPU cores wasted by each user over time.
 
-Your activity on the filesystems is represented, detailing the number of disk write commands performed (input/output operations per second (IOPS)) and the amount of data transferred to the servers over a given period (Bandwidth).
+Memory usage by each user in your group is displayed.
 
-A list of the last jobs run by all members of the group is available.
+The interface also shows a graph illustrating the memory wasted by each user.
 
-## GPU accounts
+Your group's activity on the filesystems is represented by metrics such as the number of disk write commands performed (input/output operations per second (IOPS)) and the amount of data transferred to the servers over a given period (Bandwidth).
 
-The total GPU requests for your group, along with their usage over the past few months, are displayed. You can also track your priority, which varies based on your usage.
+A list of the last jobs run by all members of the group is provided.
 
-The software most frequently used is shown.
+### GPU accounts
 
-The resources used by each user in your group are listed.
+This section displays the total GPU requests for your group and their usage over the past few months. Your priority status, which varies based on usage, can also be tracked.
 
-The quantity of GPUs wasted by each user is tracked.
+The interface provides a graph illustrating the most frequently used software.
 
-The CPU allocated and used by your GPU jobs is displayed.
+Resources used by each user in your group are listed here.
 
-The CPUs wasted by your GPU jobs are tracked.
+A graph illustrates the quantity of GPUs wasted by each user.
 
-The memory used by each user in your group is displayed.
+CPU resources allocated and used by your GPU jobs are displayed.
 
-The memory wasted by each user is shown.
+A graph illustrates the CPUs wasted by your GPU jobs.
 
-Your activity on the filesystems is represented, detailing the number of disk write commands performed (input/output operations per second (IOPS)) and the amount of data transferred to the servers over a given period (Bandwidth).
+Memory used by each user in your group is displayed.
 
-A list of the last jobs run by your group is available.
+A graph illustrates the memory wasted by each user.
 
-# Cloud statistics
+Your group's activity on the filesystems is represented by metrics such as the number of disk write commands performed (input/output operations per second (IOPS)) and the amount of data transferred to the servers over a given period (Bandwidth).
 
-The *Your Instances* table displays all virtual machines associated with your account. The *Flavor* column refers to the virtual machine type, and the *UUID* column is a unique identifier assigned to each virtual machine.
+The last jobs run by your group are listed here.
 
-Each virtual machine has its own usage statistics (CPU cores, memory, disk bandwidth, IOPS, and network bandwidth) that can be shown for the last month, week, day, or hour.
+## Cloud statistics
+
+The *Your Instances* table lists all virtual machines associated with your account. The *Flavor* column indicates the virtual machine type, and the *UUID* column provides a unique identifier for each virtual machine.
+
+Each virtual machine features its own usage statistics, including CPU cores, memory, disk bandwidth, IOPS, and network bandwidth. These statistics can be viewed for various periods, such as the last month, week, day, or hour.

@@ -386,7 +386,7 @@ L'exécution d'une simulation requiert un fichier d'entrée binaire ''tpr'' (''p
 
 La commande <code>gmx grompp</code> crée les fichiers tpr; pour les versions antérieures à 5.0, la commande est <code>grompp</code>. Vous avez besoin des fichiers suivants&nbsp;:
 * Le fichier de coordonnées avec la structure de départ; les formats de fichiers valides sont  ''.gro'', ''.pdb'' oo ''.cpt'' (point de contrôle GROMACS).
-* Le fichier de topologie du système au format ''top'';  celui-ci détermine le champ de force et la façon dont les paramètres du champ de force s'appliquent au système simulé. Les topologies des parties individuelles du système simulé (soit les molécules) sont placées dans des fichiers ''itp '' distincts et sont incluses dans le fichier ''top'' avec la commande <code>#include</code>.
+* Le fichier de topologie du système (''top'');  celui-ci détermine le champ de force et la façon dont les paramètres du champ de force s'appliquent au système simulé. Les topologies des parties individuelles du système simulé (soit les molécules) sont placées dans des fichiers ''itp '' distincts et sont incluses dans le fichier ''top'' avec la commande <code>#include</code>.
 *  Le fichier ''mdp'' des paramètres d'exécution. Consultez le guide GROMACS pour la description détaillée des options.
 
 Les fichiers ''trp'' sont portables et peuvent donc être groupés (''grompp-ed'') sur une grappe, copiés sur une autre grappe et utilisés comme fichier d'entrée pour ''mdrun''.  Utilisez toujours la même version GROMACS pour ''grompp'' et ''mdrun''.  Même si ''mdrun'' peut utiliser des fichiers ''tpr'' créés avec une version antérieure de ''grompp'', la simulation peut donner des résultats inattendus.
@@ -560,7 +560,7 @@ Idéalement, la performance s'accroît de façon linéaire avec le nombre de cœ
 <span id="MPI_processes_/_Slurm_tasks_/_Domain_decomposition"></span>
 == Processus MPI / Tâches Slurm / Décomposition des domaines ==
 
-La façon la plus simple d'augmenter le nombre de processus MPI (''MPI-ranks'' dans la documentation GROMACS) est d'utiliser les options Slurm <code>--ntasks</code> ou <code>--ntasks-per-node</code> Slurm dans le script.  
+Pour spécifier le nombre de processus MPI (''MPI-ranks'' dans la documentation GROMACS), utilisez une des options Slurm <code>--ntasks</code> ou <code>--ntasks-per-node</code> Slurm dans votre script de tâche.
 
 GROMACS utilise la méthode de '''décomposition des domaines'''<ref name="perf-background" /> (DD) 
 pour distribuer sur plusieurs cœurs CPU la solution des interactions non liantes entre particules (PP). Ceci s'effectue en découpant en domaines la boite de simulation selon les axes X, Y et/ou Z  et en assignant chacun des domaines à un processus MPI.
@@ -576,11 +576,11 @@ Dans chaque direction, un domaine ne peut pas être plus petit que le plus long 
 
 La sommation d'Ewald (PME ou ''particle mesh Ewald method'') est souvent employée pour le calcul des interactions non liantes à distance, soit les interactions qui dépassent le rayon de coupure. Puisque cette méthode nécessite une communication globale, la performance peut se dégrader rapidement lorsque plusieurs processus MPI sont impliqués à la fois dans le calcul des interactions rapprochées protéine-protéine (PP) et des interactions à distance (PME). Pour éviter cette baisse de performance, des processus MPI traiteront uniquement des interactions PME.
 
-Avec un total de plus de 12 processus MPI, mdrun utilise par défaut une méthode heuristique pour attribuer ces processus au calcul des interactions PME. Le nombre de rangs PME peut être sélectionné manuellement avec le paramètre mdrun <code>-npme</code>.
+Avec un total de 12 ou plus de processus MPI, mdrun utilise par défaut une méthode heuristique pour attribuer ces processus au calcul des interactions PME. Le nombre de rangs PME peut être sélectionné manuellement avec le paramètre mdrun <code>-npme</code>.
 
 Dans le cas d'un débalancement de charge important entre les rangs PP et PME (c'est-à-dire que les rangs PP travaillent plus que les rangs PME au cours d'une étape), le travail peut être redirigé des rangs PP aux rangs PME en augmentant le rayon de coupure. Ceci n'aura aucun effet sur le résultat puisque la somme des forces (ou énergies) des interactions rapprochées et de celles à distance demeure la même pour une étape particulière. À partir de la version 4.6, mdrun tente de faire ceci automatiquement, sauf si le paramètre <code>-notunepme</code> est utilisé.
 
-À partir de la version 2018, les interactions PME peuvent être redirigées vers un GPU (voir ci-dessous), mais la version 2018.1 présente toutefois plusieurs contraintes<ref name="gpu-pme-2018.1">[http://manual.gromacs.org/documentation/2018.1/user-guide/mdrun-performance.html#gpu-accelerated-calculation-of-pme GROMACS User-Guide: GPU accelerated calculation of PME]</ref> dont le fait qu'un seul rang GPU peut être dédié aux PME.
+À partir de la version 2018, les interactions PME peuvent être redirigées vers un GPU (voir ci-dessous), mais la version 2018.1 présente toujours plusieurs contraintes<ref name="gpu-pme-2018.1">[http://manual.gromacs.org/documentation/2018.1/user-guide/mdrun-performance.html#gpu-accelerated-calculation-of-pme GROMACS User-Guide: GPU accelerated calculation of PME]</ref> dont le fait qu'un seul rang GPU peut être dédié aux PME.
 
 <span id="OpenMP_threads_/_CPUs-per-task"></span>
 == Fils OpenMP / Nombre de CPU par tâche ==
@@ -590,7 +590,7 @@ Aussi, définissez la variable <i>OMP_NUM_THREADS'</i> avec
 <code>export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-1}"</code> (recommandé)
 ou le paramètre mdrun <code>-ntomp ${SLURM_CPUS_PER_TASK:-1}</code>.
 
-Selon les programmeurs de GROMACS le nombre optimal de fils OpenMP par processus MPI (CPU par tâche) se situe habituellement entre 2 et 6. Cependant, il vaut la peine d'augmenter le nombre de CPU par tâche dans le cas de tâches exécutées sur un nombre élevé de nœuds.
+Selon les programmeurs de GROMACS le nombre optimal de fils OpenMP par processus MPI (CPU par tâche) se situe habituellement entre 2 et 6. Cependant, il vaut la peine d'augmenter encore plus le nombre de CPU par tâche dans le cas de tâches exécutées sur un nombre élevé de nœuds.
 
 Surtout dans les cas où la méthode PME n'est pas employée, il n'est pas nécessaire de se soucier de ''PP-PME Load Imbalance''; nous pouvons sélectionner 2 ou 4 ''ntasks-per-node'' et définir ''cpus-per-task'' par une valeur où ''ntasks-per-node * cpus-per-task'' correspond au nombre de cœurs CPU dans un nœud de calcul.
 
@@ -705,7 +705,7 @@ Les ressources suivantes sont pour les simulations QM/MM avec cette combinaison 
 
 * Documentation GROMACS, [https://manual.gromacs.org/documentation/current/reference-manual/special/qmmm.html Hybrid Quantum-Classical simulations (QM/MM) with CP2K interface].
 * BioExcel, [https://docs.bioexcel.eu/qmmm_bpg/ CP2K QM/MM Best Practices Guide].
-* BioExcel, atelier [https://docs.bioexcel.eu/2021-04-22-qmmm-gromacs-cp2k/ QM/MM with GROMACS + CP2K]<br>Comprend un tutoriel sur comment préparer et faire exécuter des simulations QM/MM et des liens vers des vidéos théoriques sur YouTube. Le tutoriel est conçu pour les ressources de CIP de BioExcel (European Centre of Excellence for Computational Biomolecular Research), mais peut être suivi sur nos systèmes avec quelques légères modifications. <br>En particulier, il faut remplacer <code>gmx_cp2k</code> par <code>gmx_mpi</code> (mixte précision) ou <code>gmx_mpi_d</code> (double précision) et modifier les scripts de tâches qui sont aussi pris en charge par Slurm.
+* BioExcel, atelier [https://docs.bioexcel.eu/2021-04-22-qmmm-gromacs-cp2k/ QM/MM with GROMACS + CP2K]<br>Comprend un tutoriel sur comment préparer et faire exécuter des simulations QM/MM et des liens vers des vidéos théoriques sur YouTube. Le tutoriel est conçu pour les ressources de CIP de BioExcel (European Centre of Excellence for Computational Biomolecular Research), mais peut être suivi sur nos systèmes avec quelques légères modifications. <br>En particulier, il faut remplacer <code>gmx_cp2k</code> par <code>gmx_mpi</code> (mixte précision) ou <code>gmx_mpi_d</code> (double précision) et ajuster les scripts de tâches qui sont aussi pris en charge par Slurm.
 :* [https://github.com/bioexcel/2022-06-16-gromacs-cp2k-tutorial GitHub Repository], comprend un fichier en exemple pour le tutoriel de BioExcel.
 * Site Web de CP2K, [https://www.cp2k.org/tools:gromacs GROMACS-CP2K integration].
 
@@ -727,7 +727,7 @@ Par conséquent, GROMACS-LS 2016.3 peut être utilisé pour traiter des simulati
 Remarques :
 
 * Étant donné que le manuel a été écrit pour GROMACS-LS v4.5.5 et que les commandes de base ont changé dans la version 5, vous devez utiliser des commandes comme <code>gmx_LS mdrun</code> et <code>gmx_LS trjconv</code> au lieu de <code>mdrun_LS</code> et <code>trjconv_LS</code>.
-* GROMACS-LS nécessite d'être compilé en double précision, ne prend pas en charge MPI, l'accélération matérielle SIMD, ni les GPU et est donc beaucoup plus lent que la version non optimisée de GROMACS. Il ne peut utiliser qu'un seul cœur CPU.
+* GROMACS-LS doit être compilé en double précision et ne prend pas en charge MPI, l'accélération matérielle SIMD, ni les GPU et est donc beaucoup plus lent que la version non optimisée de GROMACS. Il ne peut utiliser qu'un seul cœur CPU.
 * Contrairement aux autres versions corrigées de GROMACS, les modules <code>gromacs-ls/2016.3</code> et <code>gromacs/2016.6</code> peuvent être chargés en même temps.
 
 {| class="wikitable sortable"
@@ -761,7 +761,7 @@ est une version modifiée de GROMACS pour calculer des courbes de diffusion de r
 et pour effectuer des simulations de dynamique moléculaire pilotées par SAXS/SANS.
 
 Veuillez vous référer à la [https://cbjh.gitlab.io/gromacs-swaxs-docs/ documentation GROMACS-SWAXS] pour des tutoriels et pour 
-la description des fonctionnalités (options d'entrée et de sortie de mdrun, options mpd, utilisation des commandes <code>gmx genscatt</code>
+la description des fonctionnalités (options d'entrée et de sortie de mdrun, options mdp, utilisation des commandes <code>gmx genscatt</code>
 et <code>gmx genenv</code>) qui ont été ajoutées aux fonctionnalités GROMACS usuelles.
 
 {| class="wikitable sortable"

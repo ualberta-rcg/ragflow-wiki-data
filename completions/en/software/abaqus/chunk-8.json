@@ -4,17 +4,17 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the multiple node computing script for Abaqus Standard Analysis?",
-      "answer": "The multiple node computing script for Abaqus Standard Analysis is intended for users who have significant memory or compute needs and access to large licenses. It facilitates MPI-based computing across an arbitrary range of nodes, which are ideally determined automatically by the scheduler."
+      "question": "When performing a single-node Abaqus Standard Analysis, what is the process for restarting a job using a temporary directory, and what key elements should be included in the Slurm script for this operation?",
+      "answer": "To restart a single-node Abaqus Standard Analysis job using a temporary directory, the Slurm script first copies existing `testst1*` files to `$SLURM_TMPDIR`, creates a `scratch` subdirectory there, and changes the working directory to `$SLURM_TMPDIR`. A `while` loop is included to periodically save `testst2*` data back to `$SLURM_SUBMIT_DIR` every six hours. The `abaqus` command is then executed with `job=testst2`, `oldjob=testst1`, `input=$SLURM_SUBMIT_DIR/mystd-sim-restart.inp`, `scratch=$SLURM_TMPDIR/scratch`, `cpus=$SLURM_CPUS_ON_NODE`, `interactive`, and `mp_mode=threads`. The memory is set to `memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`. Finally, after the Abaqus command completes, `testst2*` files are copied back to `$SLURM_SUBMIT_DIR`."
     },
     {
-      "question": "Which versions of Abaqus are compatible with the multiple node computing script for Standard Analysis?",
-      "answer": "Only Abaqus 2026 or newer versions can be used with the multiple node computing script for Standard Analysis."
+      "question": "For an Abaqus Standard Analysis job restart script, what specific content must the restart input file contain?",
+      "answer": "The restart input file for an Abaqus Standard Analysis job must contain two specific lines: `*HEADING` and `*RESTART, READ`."
     },
     {
-      "question": "Are restart scripts available for multinode Abaqus Standard Analysis jobs?",
-      "answer": "No, a companion template script for restarting multinode Abaqus Standard Analysis jobs is not provided due to additional limitations regarding their use."
+      "question": "When performing Abaqus Standard Analysis, are there any limitations regarding the use of restart scripts for jobs running across multiple nodes?",
+      "answer": "Yes, there are limitations. A companion template script to perform restarts of multi-node Abaqus Standard Analysis jobs is not provided due to additional limitations on how they can be used. Furthermore, only Abaqus/2026 or newer versions may be used with multi-node computing scripts."
     }
   ],
-  "generated_at": "2026-05-31T01:07:11.537128+00:00"
+  "generated_at": "2026-08-07T23:23:37.597284+00:00"
 }

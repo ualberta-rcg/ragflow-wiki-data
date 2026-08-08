@@ -4,17 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Comment doit-on configurer un script Slurm pour lancer une tâche STAR-CCM+ sur une grappe Alliance, par exemple Nibi ou Fir/Narval/Rorqual?",
-      "answer": "Pour configurer un script Slurm pour STAR-CCM+, il faut d'abord charger l'environnement standard (`module load StdEnv/2023`) et le module STAR-CCM+ désiré (par exemple, `module load starccm-mixed/20.06.010`). Ensuite, il faut spécifier le fichier de simulation d'entrée (`SIM_FILE`). Si vous utilisez une licence Power-on-Demand (PoD), vous devez définir la variable `LM_PROJECT` avec votre clé de licence Siemens PoD. Enfin, la commande `starccm+` est exécutée avec les options appropriées pour votre type de licence, le nombre de cœurs et l'architecture du processeur de la grappe."
+      "question": "Quel est le but des exemples de scripts Slurm pour STAR-CCM+ et quelles sont les étapes essentielles pour en préparer un pour exécution sur une grappe comme Nibi?",
+      "answer": "Les exemples de scripts Slurm pour STAR-CCM+ sont conçus pour soumettre des tâches en lot sur les grappes de calcul. Pour préparer un script, il faut spécifier les ressources demandées (comme le compte, le temps limite, le nombre de nœuds, le nombre de cœurs par tâche et la mémoire) à l'aide des directives `#SBATCH`. Ensuite, il faut charger les modules d'environnement (ex. `StdEnv/2023`) et le module STAR-CCM+ (ex. `starccm-mixed/21.02.008`). Enfin, il est nécessaire de définir le nom du fichier d'entrée de simulation (`SIM_FILE`) et de configurer la licence selon le type utilisé."
     },
     {
-      "question": "Quelle est la différence dans la configuration des scripts Slurm pour une licence Power-on-Demand (PoD) et une licence institutionnelle de STAR-CCM+ sur les grappes Alliance?",
-      "answer": "Pour une licence Power-on-Demand (PoD), il est nécessaire de configurer la variable d'environnement `LM_PROJECT` avec votre clé de licence Siemens PoD dans le script Slurm, et la commande `starccm+` inclura alors les options `-power -podkey $LM_PROJECT`. Par contre, pour une licence institutionnelle locale, la ligne qui définit `LM_PROJECT` doit être commentée, et la commande `starccm+` s'exécute sans les options `-power` ou `-podkey`, en s'appuyant sur le fichier `~/.licenses/starccm.lic` configuré au préalable."
-    },
-    {
-      "question": "Y a-t-il des configurations spécifiques ou des astuces à connaître pour exécuter des tâches STAR-CCM+ sur la grappe Niagara, surtout concernant la gestion des licences ou la stabilité?",
-      "answer": "Oui, sur la grappe Niagara, en plus de charger les modules requis et de définir `LM_PROJECT` pour une licence PoD, il est crucial de configurer explicitement les ports (`FLEXPORT`, `VENDPORT`) et le serveur de licence (`LICSERVER`). Un tunnel SSH (`ssh tri-gw -L ...`) est également mis en place pour acheminer les requêtes de licence. De plus, le script Slurm sur Niagara intègre une boucle de re-tentative (jusqu'à 5 fois) pour lancer `starccm+`, une astuce pour contourner les problèmes potentiels de démarrage liés à la licence."
+      "question": "Comment la licence est-elle configurée spécifiquement dans un script Slurm pour STAR-CCM+, en distinguant entre une licence Power-on-Demand (PoD) et un serveur de licence institutionnel?",
+      "answer": "Dans un script Slurm pour STAR-CCM+, pour une licence Power-on-Demand (PoD), vous devez décommenter la ligne `LM_PROJECT='22digit-PoD-License-Key'` et remplacer la valeur par votre clé PoD Siemens. Si vous utilisez un serveur de licence institutionnel local, cette ligne doit rester commentée; le script s'appuiera alors sur la configuration du fichier `~/.licenses/starccm.lic` et la commande `starccm+` sera exécutée sans les options spécifiques au PoD, comme `-power -podkey`."
     }
   ],
-  "generated_at": "2026-05-24T01:35:09.089752+00:00"
+  "generated_at": "2026-08-08T00:35:39.705396+00:00"
 }

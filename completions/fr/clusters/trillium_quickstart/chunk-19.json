@@ -2,6 +2,15 @@
   "doc_key": "fr/trillium_quickstart",
   "level": "chunk",
   "chunk_index": 19,
-  "qa_pairs": [],
-  "generated_at": "2026-05-10T00:42:52.589464+00:00"
+  "qa_pairs": [
+    {
+      "question": "Quelles sont les meilleures pratiques à suivre lorsqu'on soumet des tâches utilisant des GPU sur la grappe Trillium?",
+      "answer": "Pour les tâches avec GPU sur Trillium, il ne faut pas spécifier la quantité de mémoire (`--mem`), car la mémoire est fixe (192GB par GPU ou 768GB par nœud). Il est essentiel de toujours indiquer le nombre de nœuds et d'utiliser `--gpus-per-node=4` pour les tâches sur un nœud entier ou sur plusieurs nœuds. Il est recommandé de charger uniquement les modules logiciels nécessaires et d'être explicite quant aux versions des logiciels (par exemple, `cuda/12.6` plutôt que `cuda`). Il est également conseillé de tester sur un seul GPU avant d'augmenter le nombre de GPU ou de nœuds et de surveiller l'utilisation avec `nvidia-smi` pour s'assurer que les GPU sont pleinement utilisés."
+    },
+    {
+      "question": "Comment soumettre une tâche qui utilise un seul GPU sur la grappe Trillium?",
+      "answer": "Pour soumettre une tâche utilisant un seul GPU sur Trillium, vous devez créer un script de tâche (`.sh`) avec les directives SLURM suivantes en tête :\n- `#SBATCH --job-name=single_gpu_job` pour le nom de la tâche.\n- `#SBATCH --output=single_gpu_job_%j.out` pour le fichier de sortie, où `%j` est l'identifiant de la tâche.\n- `#SBATCH --nodes=1` pour demander un nœud.\n- `#SBATCH --gpus-per-node=1` pour demander un seul GPU.\n- `#SBATCH --time=00:30:00` pour définir le temps d'exécution maximal (par exemple, 30 minutes).\n\nDans le script, après avoir défini les modules nécessaires (comme `StdEnv/2023`, `cuda/12.6`, `python/3.11.5`) et activé votre environnement Python si besoin, vous pouvez ajouter `nvidia-smi` pour vérifier l'allocation du GPU et `python my_script.py` pour lancer votre charge de travail. Enfin, soumettez le script avec la commande `sbatch votre_script.sh` depuis le nœud de connexion GPU."
+    }
+  ],
+  "generated_at": "2026-08-08T00:52:58.583211+00:00"
 }

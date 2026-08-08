@@ -3,53 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the Nibi cluster, and who operates it?",
-      "answer": "Nibi is a general purpose cluster of 134,400 CPU cores and 288 H100 NVIDIA GPUs, hosted and operated by SHARCNET at the University of Waterloo."
+      "question": "What is the Nibi cluster, and what are its main components?",
+      "answer": "Nibi is a general-purpose cluster of 134,400 CPU cores and 288 H100 NVIDIA GPUs. It is built by Hypertec, hosted, and operated by SHARCNET at the University of Waterloo."
     },
     {
-      "question": "How can users access the Nibi cluster's web interface?",
-      "answer": "Users can access the Nibi cluster through its web interface, Open OnDemand, at https://ondemand.sharcnet.ca."
+      "question": "How do researchers request access to the Nibi cluster?",
+      "answer": "Researchers must request access in CCDB by navigating to Resources --> Access Systems, selecting Nibi from the list, and choosing \"I request access\". Access can take up to one hour to be enabled."
     },
     {
-      "question": "What type of parallel storage is available on the Nibi cluster, and for which directories?",
-      "answer": "The Nibi cluster provides 25 petabytes of all-SSD parallel storage from VAST Data for the /home, /project, and /scratch directories."
+      "question": "What type of storage is available on the Nibi cluster, and what is its capacity?",
+      "answer": "The Nibi cluster provides 25 petabytes of parallel SSD storage from VAST Data for the /home, /project, and /scratch directories."
     },
     {
-      "question": "How does space accounting for quotas differ on Nibi's VAST storage compared to some Lustre configurations?",
-      "answer": "On Nibi's VAST storage, users are charged for the apparent size of their files, unlike some Lustre configurations that charge for space used after transparent compression."
+      "question": "How does space accounting for quotas work on Nibi's VAST Data storage?",
+      "answer": "On Nibi's VAST Data storage, users are charged for the apparent size of their files, which differs from some Lustre configurations that charge for space used after transparent compression."
     },
     {
-      "question": "What is the /scratch quota policy on the Nibi cluster?",
-      "answer": "Users on Nibi have a 1 TB soft quota on /scratch with a 60-day grace period, after which file creation or expansion is prevented until usage drops below the soft limit."
+      "question": "What is the /scratch quota policy for users on the Nibi cluster?",
+      "answer": "Each user on the Nibi cluster has a 1 TB soft quota on /scratch with a 60-day grace period. After this period, no further file creation or expansion is permitted until the user's total /scratch use drops below 1 TB."
     },
     {
-      "question": "How can a user constrain a tightly coupled multinode job to a single network switch for better performance on the Nibi cluster?",
-      "answer": "To constrain a job to a single network switch on the Nibi cluster, users can add `#SBATCH --switches=1` to their job submission script."
+      "question": "What are the network bandwidth specifications for Nibi's interconnect fabric?",
+      "answer": "Nibi's interconnect fabric utilizes Nokia 200/400G ethernet, providing 200 Gbit/s for CPU nodes, 200 Gbit/s non-blocking for Nvidia GPU nodes, 200 Gbit/s for AMD GPU nodes, and 24x100 Gbit/s connectivity to the VAST storage nodes."
     },
     {
-      "question": "What are the specifications of the nodes equipped with GPUs on the Nibi cluster?",
-      "answer": "Nibi has 36 nodes with 8 x Nvidia H100 SXM (80 GB) GPUs and 6 nodes with 4 x AMD MI300A GPUs, alongside varying CPU cores, memory, and node-local storage."
+      "question": "How can users request full H100-80gb GPUs for their compute jobs on Nibi?",
+      "answer": "To request full H100-80gb GPUs on Nibi, users can use Slurm options such as `--gpus=h100:1` for a single GPU, `--gpus-per-node=h100:2` for multiple GPUs per node, or `--gpus=h100:n` for multiple GPUs spread across the cluster."
     },
     {
-      "question": "How can a user request a single full H100-80gb GPU for a compute job on the Nibi cluster using Slurm?",
-      "answer": "To request a single full H100-80gb GPU on the Nibi cluster, users should use the Slurm option `--gpus=h100:1` or `--gpus=h100_80gb:1`."
+      "question": "What are the available Multi-Instance GPU (MIG) sizes for H100 GPUs on Nibi, and how are they requested?",
+      "answer": "Nibi offers H100 MIG instances in sizes: H100-1g.10gb (1/8th power, 10GB memory), H100-2g.20gb (2/8th power, 20GB memory), and H100-3g.40gb (3/8th power, 40GB memory). They are requested using Slurm options like `--gpus=h100_1g.10gb:1` for a single instance."
     },
     {
-      "question": "What are the available GPU instance sizes for Multi-Instance GPU (MIG) technology on the Nibi cluster's H100 GPUs?",
-      "answer": "The available MIG instance sizes for H100 GPUs on Nibi are H100-1g.10gb (1/8th computing power, 10GB memory), H100-2g.20gb (2/8th power, 20GB memory), and H100-3g.40gb (3/8th power, 40GB memory)."
+      "question": "Does Nibi provide internet access from its compute nodes?",
+      "answer": "Yes, all nodes on Nibi have internet access, and no special firewall permission or proxying is required."
     },
     {
-      "question": "How can users run JupyterLab interactively on the Nibi cluster using Open OnDemand?",
-      "answer": "Users can run JupyterLab interactively on Nibi via Open OnDemand by logging into the portal, clicking 'Compute Node', then selecting either 'Nibi JupyterLab' for a pre-configured environment or 'Compute Desktop' to set up a self-built Python virtual environment."
+      "question": "How can users access the Nibi cluster through a web browser?",
+      "answer": "Users can access the Nibi cluster via Open OnDemand (OOD) at `https://ondemand.sharcnet.ca/`. This web-based platform provides a user-friendly interface for login nodes and a remote desktop environment, requiring multifactor authentication."
     },
     {
-      "question": "What is a critical requirement for code to function correctly on the AMD MI300A nodes on the Nibi cluster?",
-      "answer": "Code must be compiled with ROCm support to use the AMD MI300A nodes properly on Nibi; code compiled with CUDA will not work."
+      "question": "What are the two options for running JupyterLab via Open OnDemand on the Nibi cluster?",
+      "answer": "Users can run JupyterLab on Nibi via Open OnDemand using either a pre-configured environment (by selecting 'Nibi JupyterLab' from the 'Compute Node' menu) or a self-built Python virtual environment (by launching a 'Compute Desktop' session and installing/launching JupyterLab within a terminal)."
     },
     {
-      "question": "How can users recover accidentally deleted files from /home and /project directories on the Nibi cluster?",
-      "answer": "Users can recover accidentally deleted files from /home and /project on Nibi by using the `oops` command to find the file in snapshots (saved for two weeks) and then copying it back using `cp`."
+      "question": "What is the primary compilation requirement for using AMD MI300A nodes on the Nibi cluster?",
+      "answer": "Code must be compiled with ROCm to properly utilize the AMD MI300A nodes on Nibi; code compiled with CUDA will not function with these GPUs."
+    },
+    {
+      "question": "How can users recover accidentally deleted files from /home and /project on the Nibi cluster?",
+      "answer": "Nibi takes snapshots of files on /home and /project every 30 minutes, saving them for two weeks. Users can use the `oops` command to find deleted files and then copy them from the snapshot path to recover them."
+    },
+    {
+      "question": "What is the SSH login node address and the web interface portal address for the Nibi cluster?",
+      "answer": "The SSH login node for the Nibi cluster is `nibi.alliancecan.ca`, and the web interface portal for Open OnDemand is `https://ondemand.sharcnet.ca/`."
+    },
+    {
+      "question": "What is the general availability date for the Nibi cluster?",
+      "answer": "The Nibi cluster has been available since July 31, 2025."
     }
   ],
-  "generated_at": "2026-05-31T01:49:15.311453+00:00"
+  "generated_at": "2026-08-08T00:24:22.205453+00:00"
 }

@@ -4,13 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What initial setup is required before a local institutional Ansys license server can be used on Alliance clusters?",
-      "answer": "Before a local institutional Ansys license server can be used on Alliance clusters, firewall changes need to be made on both the server and the cluster sides."
+      "question": "How can a user verify if their Ansys license file (`ansys.lic`) is correctly configured and working with the license server on an Alliance cluster?",
+      "answer": "To test if your ansys.lic is configured and working properly with your license server, run the following sequence of commands on the cluster where you will be submitting jobs: `cd /tmp`, then `salloc --time=1:0:0 --mem=1000M --account=def-YOURUSERID`, then `module load StdEnv/2023; module load ansys/2025R2.04`, and finally `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\" 1> /dev/null && echo Success || echo Fail`. A \"Success\" output indicates license checkouts should work, while a \"Fail\" output indicates a problem with the licensing setup."
     },
     {
-      "question": "How are local institutional Ansys license servers categorized for use with Alliance clusters, and what does each category imply?",
-      "answer": "Local institutional Ansys license servers are categorized into two types: those where the necessary firewall changes have already been made (\"Ready to use\") and those that have never been used on Alliance clusters and require additional setup (\"Setup required\"). The \"Ready to use\" servers can be accessed by following specific instructions, while \"Setup required\" servers necessitate an extra step to complete their configuration."
+      "question": "What message indicates an Ansys license server checkout problem when running Fluent jobs on an Alliance cluster?",
+      "answer": "If there is an Ansys license server checkout problem, the message \"Connected License Server List: <Shared_Web_License_Server> Hit return to exit.\" will appear in Slurm output files when Fluent jobs are started by Slurm scripts in the queue or when Fluent is started interactively."
+    },
+    {
+      "question": "What is the general rule for Ansys simulation file compatibility between different versions, and how can one determine the Ansys version used to create a Fluent case file?",
+      "answer": "Ansys simulations are typically forward compatible but not backward compatible, meaning simulations created with an older version of Ansys can usually be loaded and run fine with any newer version, but not the other way around. To find clues about which Ansys version was used to create a Fluent case file, you can grep it, for example: `grep -ia fluent combustor.cas` or `grep -ia fluent cavity.cas.h5`."
     }
   ],
-  "generated_at": "2026-05-31T01:14:05.683526+00:00"
+  "generated_at": "2026-08-07T23:32:27.132198+00:00"
 }

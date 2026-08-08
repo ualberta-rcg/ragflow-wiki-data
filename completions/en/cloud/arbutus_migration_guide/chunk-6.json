@@ -2,6 +2,15 @@
   "doc_key": "en/arbutus_migration_guide",
   "level": "chunk",
   "chunk_index": 6,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:44:37.353038+00:00"
+  "qa_pairs": [
+    {
+      "question": "What methods are recommended for copying data between Arbutus Cloud instances, distinguishing between large and small volumes?",
+      "answer": "For very large volumes (e.g., greater than 5TB), Globus is recommended. For small data volumes, `rsync + ssh` is suggested, with a consideration for using the IPv6 GUA network for potentially improved transfer performance."
+    },
+    {
+      "question": "How can a large volume be copied from a legacy Arbutus Cloud instance to a new Arbutus Cloud instance using the `dd` command and SSH?",
+      "answer": "To copy a large volume, you first need to create temporary instances on both the legacy and new clouds, assign them floating IPs for SSH access, and attach the respective volumes. On the temporary legacy instance, install `pv` and `screen`. Then, execute a command similar to `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@xxx.xx.xx.xx \"sudo dd bs=16M of=/dev/vdb\"`. The `screen` command is recommended to prevent session disconnections during the transfer."
+    }
+  ],
+  "generated_at": "2026-08-07T23:38:05.888298+00:00"
 }

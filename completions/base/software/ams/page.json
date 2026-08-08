@@ -3,65 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is AMS (Amsterdam Modeling Suite) and what research areas does it support?",
-      "answer": "AMS (Amsterdam Modeling Suite), originally named ADF (Amsterdam Density Functional), is SCM Software for Chemistry and Materials, offering computational chemistry tools for research areas like homogeneous and heterogeneous catalysis, inorganic chemistry, heavy element chemistry, various types of spectroscopy, and biochemistry."
+      "question": "What is AMS (Amsterdam Modeling Suite) software on Alliance clusters and what research areas does it support?",
+      "answer": "AMS (Amsterdam Modeling Suite) is SCM Software for Chemistry and Materials, offering computational chemistry tools for research areas such as homogeneous and heterogeneous catalysis, inorganic chemistry, heavy element chemistry, various types of spectroscopy, and biochemistry."
     },
     {
-      "question": "What are some of the full SCM module products available as part of AMS?",
-      "answer": "Some of the full SCM module products available include ADF, ADF-GUI, BAND, BAND-GUI, DFTB, ReaxFF, COSMO-RS, QE-GUI, and NBO6."
+      "question": "Which SCM module products are available as part of the AMS suite on Alliance clusters?",
+      "answer": "The full SCM module products available include ADF, ADF-GUI, BAND, BAND-GUI, DFTB, ReaxFF, COSMO-RS, QE-GUI, and NBO6."
     },
     {
-      "question": "On which Alliance cluster is the `ams` module installed for users?",
-      "answer": "The `ams` module is installed on the Nibi cluster."
+      "question": "How can a user check available versions of the `ams` module on the Nibi cluster?",
+      "answer": "Users can check available versions by using the `module spider ams` command in their terminal."
     },
     {
-      "question": "What are the licensing restrictions for using AMS on Nibi?",
-      "answer": "The AMS license on Nibi is an Academic Computing Centre license owned by SHARCNET, which prohibits its use for consulting services or commercial purposes."
+      "question": "What are the licensing restrictions for using AMS software on Nibi?",
+      "answer": "The AMS license on Nibi is an Academic Computing Center license owned by SHARCNET, which prohibits using the software for consulting services or for purposes that have a commercial nature."
     },
     {
-      "question": "How can users check the available versions of the `ams` module on Nibi?",
-      "answer": "Users can check the available versions of the `ams` module on Nibi by using the command `module spider ams`."
+      "question": "What scheduler is used for submitting AMS jobs on Alliance clusters, and where can users find detailed information about job submission?",
+      "answer": "The Slurm scheduler is used for submitting AMS jobs. Detailed information about submitting jobs can be found in the 'Running jobs' documentation."
     },
     {
-      "question": "What scheduler do Alliance clusters like Nibi use for submitting computational jobs?",
-      "answer": "Alliance clusters like Nibi use the Slurm scheduler for job submission."
+      "question": "In the `H2O_adf.sh` example script for AMS on Nibi, how many CPUs are requested, and what is the recommended practice for CPU allocation?",
+      "answer": "The `H2O_adf.sh` example script requests 32 CPUs on one node for an MPI job. Users are advised to use a reasonable number of CPUs instead of simply running a full-node job unless the job's efficient scalability to 192 CPUs has been demonstrated."
     },
     {
-      "question": "What is a recommended practice regarding CPU allocation for an AMS job on Nibi?",
-      "answer": "It is recommended to use a reasonable number of CPUs rather than running a full-node job on Nibi, unless it has been demonstrated that the job scales efficiently to 192 CPUs."
+      "question": "What is the purpose of `export SCM_TMPDIR=$SLURM_TMPDIR` in an AMS job script like `H2O_adf.sh`?",
+      "answer": "This command sets the `SCM_TMPDIR` environment variable to `SLURM_TMPDIR`, which directs AMS to use the local disk for temporary files during the job."
     },
     {
-      "question": "Which module commands are typically used in a Slurm job script to run AMS?",
-      "answer": "A typical Slurm job script for AMS includes `module unload openmpi` and `module load ams/2025.102`."
+      "question": "What is an important change to note regarding input files for AMS compared to previous ADF versions?",
+      "answer": "The input for AMS is different from ADF, meaning previous ADF input files will not run for the new AMS. Some examples can be found in `/opt/software/ams/2025.102/examples/`."
     },
     {
-      "question": "How can a user ensure that temporary AMS job files utilize the local disk on a compute node?",
-      "answer": "A user can ensure temporary AMS job files use the local disk by adding `export SCM_TMPDIR=$SLURM_TMPDIR` to their Slurm job script."
+      "question": "Where are the output files from an AMS job saved, and what is the default subdirectory name if `AMS_JOBNAME` is not defined?",
+      "answer": "Except for the output `.log` file, all other files are saved in a subdirectory named `AMS_JOBNAME.results`. If `AMS_JOBNAME` is not defined in the input `.run` file, the default name is `ams.results`."
     },
     {
-      "question": "What are some key differences between AMS input and previous ADF input files?",
-      "answer": "The input for AMS is different from ADF, meaning old ADF input files will not work with AMS. Users should use `$AMSBIN/ams` instead of `$ADFBIN/adf`, and the restart file is `ams.rkf` instead of `TAPE13`."
+      "question": "What is the name of the restart file in AMS, and how does it compare to previous ADF versions?",
+      "answer": "The restart file name in AMS is `ams.rkf`, which is different from `TAPE13` used in previous ADF versions."
     },
     {
-      "question": "Where are the output files (excluding the log file) from an AMS job saved?",
-      "answer": "Except for the output `.log` file, all other files from an AMS job are saved in a subdirectory named `AMS_JOBNAME.results`, or `ams.results` if `AMS_JOBNAME` is not defined in the input run file."
+      "question": "What is the purpose of the `SnO_EFG_band.run` example script provided for AMS?",
+      "answer": "The `SnO_EFG_band.run` example script demonstrates the calculation of the electric field gradient (EFG) using the BAND engine, including scalar relativistic options for heavy atoms like Sn."
     },
     {
-      "question": "How can users run AMS-GUI applications, such as `amsinput` or `amsview`, interactively on Nibi?",
-      "answer": "Users can run AMS-GUI interactively on Nibi via OnDemand by logging into `ondemand.sharcnet.ca`, selecting 'Nibi Desktop', launching the desktop, opening a terminal, loading the `ams` module, and then running `amsinput &` or `amsview &`."
+      "question": "How can users access the graphical user interface (GUI) for AMS on Nibi?",
+      "answer": "Users can access the AMS-GUI by logging into `ondemand.sharcnet.ca`, selecting 'Compute Node' then 'Compute Desktop', specifying resources, launching the Nibi Desktop, opening a MATE Terminal, loading the `ams` module, and then running `amsinput` or `amsview`."
     },
     {
-      "question": "What is the primary purpose of using OnDemand Nibi Desktop for AMS-GUI applications?",
-      "answer": "OnDemand Nibi Desktop is primarily intended for AMS-GUI applications such as making input files and visualizing results, not for running regular or long interactive jobs."
+      "question": "What environment variable needs to be set to enable software rendering when running AMS-GUI on Nibi without a GPU?",
+      "answer": "When running AMS-GUI without a GPU, users should set `export SCM_OPENGL_SOFTWARE=1` to enable software rendering."
     },
     {
-      "question": "What command modification is needed if `VirtualGL` is enabled and interfering with AMS-GUI applications?",
-      "answer": "If `VirtualGL` is enabled and interfering, AMS-GUI applications should be started with `LD_PRELOAD= amsinput` or `LD_PRELOAD= amsview` to disable `VirtualGL` for AMS."
+      "question": "How do the commands differ for launching `amsinput` or `amsview` when a GPU is specified for the OnDemand Nibi Desktop?",
+      "answer": "If 'GPU=t4 (15GB)' was specified when starting the OnDemand Nibi Desktop, the commands should be `LD_PRELOAD= amsinput` or `LD_PRELOAD= amsview`. Otherwise, it's `amsinput` or `amsview` after setting `SCM_OPENGL_SOFTWARE=1`."
     },
     {
-      "question": "Where can users find more usage information and examples for AMS?",
-      "answer": "Users can find more usage information in the manuals on SCM Support at `scm.com/support/`, and examples are available in `/opt/software/ams/2025.102/examples/`."
+      "question": "How do users select one or more atoms within the AMS-GUI?",
+      "answer": "To select one or more atoms in the AMS-GUI, users need to press `SHIFT` and then click."
+    },
+    {
+      "question": "Where can users find the official manuals and more usage information for AMS?",
+      "answer": "Users can find the official manuals and more usage information on the SCM Support website at `https://www.scm.com/support/`."
     }
   ],
-  "generated_at": "2026-04-13T00:28:27.508644+00:00"
+  "generated_at": "2026-08-07T23:16:50.950941+00:00"
 }

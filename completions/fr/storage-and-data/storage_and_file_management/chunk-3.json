@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Quels sont les principaux types d'espaces de stockage offerts sur les grappes de calcul, et à quoi sert chacun d'eux ?",
-      "answer": "Les ressources de stockage comprennent les types suivants : HOME (pour le code source, les petits fichiers de paramètres et les scripts), PROJECT (pour le partage de données entre les membres d'un groupe et les données relativement statiques), SCRATCH (pour les opérations intensives de lecture/écriture de gros fichiers temporaires), NEARLINE (pour les données inactives sur bande) et SLURM_TMPDIR (un répertoire temporaire et rapide sur les nœuds de calcul pour la durée d'une tâche)."
+      "question": "Quel est le but du système de stockage NEARLINE?",
+      "answer": "Le système de stockage NEARLINE est un système de fichiers sur bande qui est utilisé pour entreposer les données inactives. C'est l'option idéale pour les jeux de données auxquels on ne prévoit pas d'accéder avant plusieurs mois."
     },
     {
-      "question": "Pour quel type d'utilisation l'espace de stockage SCRATCH est-il le plus approprié, et quelles sont les précautions à prendre lorsqu'on l'utilise ?",
-      "answer": "L'espace SCRATCH est le meilleur choix pour les opérations intensives de lecture/écriture de gros fichiers (plus de 100 Mo par fichier) et devrait être utilisé uniquement pour les fichiers temporaires qui peuvent être facilement recréés, comme les fichiers de point de contrôle ou les données en sortie d'une tâche. Il est crucial de noter qu'il n'y a pas de copie de sauvegarde pour cet espace, et les fichiers plus anciens sont susceptibles d'être purgés, donc il ne faut pas y stocker de données importantes ou permanentes."
+      "question": "Qu'est-ce que la variable d'environnement `$SLURM_TMPDIR` et comment devrait-on l'utiliser?",
+      "answer": "Pendant qu'une tâche est en cours d'exécution, la variable d'environnement `$SLURM_TMPDIR` donne accès à un répertoire temporaire unique et rapide sur chaque nœud de calcul réservé pour cette tâche. Ce répertoire et son contenu sont supprimés automatiquement une fois la tâche terminée, donc il doit être utilisé seulement pour les fichiers temporaires créés pendant l'exécution de la tâche. Son avantage principal est la meilleure performance puisqu'il est local au nœud de calcul, et il est particulièrement adapté pour les grandes collections de petits fichiers (moins de 1 Mo par fichier)."
     },
     {
-      "question": "Comment un utilisateur peut-il vérifier l'espace disque utilisé et disponible pour ses répertoires `home`, `scratch` et `project` sur une grappe ?",
-      "answer": "Pour vérifier l'espace disque utilisé et disponible, ainsi que le nombre de fichiers, pour les systèmes de fichiers `home`, `scratch` et `project` sur les grappes, un utilisateur doit se connecter à la grappe par SSH et entrer la commande `diskusage_report` à l'invite."
+      "question": "Comment un utilisateur peut-il vérifier son utilisation individuelle de l'espace disque et des inodes dans l'espace /project sur une grappe?",
+      "answer": "Pour obtenir une estimation de l'utilisation de l'espace et des inodes par un utilisateur dans l'espace /project total, on peut utiliser la commande `lfs quota -u $USER /project`. Pour avoir une estimation du nombre de fichiers dans un répertoire et ses sous-répertoires, on peut utiliser la commande `lfs find <chemin du répertoire> -type f | wc -l`."
     }
   ],
-  "generated_at": "2026-04-13T13:53:49.173079+00:00"
+  "generated_at": "2026-08-08T00:39:43.943366+00:00"
 }

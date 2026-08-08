@@ -5,22 +5,26 @@
 Le logiciel [http://www.lstc.com LS-DYNA] est disponible sur toutes nos grappes. Il a [http://www.lstc.com/applications plusieurs applications] en multiphysique, en mécanique des fluides, en transfert thermique et en dynamique des fluides. Les analyses peuvent s'effectuer  sur des phénomènes distincts ou sur des simulations de phénomènes multiples comme le stress thermique ou l'interaction fluide-structure.  LSTC a été acquis par Ansys et LS-DYNA pourrait éventuellement être offert uniquement via le module Ansys. Pour le moment, nous recommandons l'utilisation que nous décrivons ici.  
 
 = Licence =
-Nous fournissons l'hébergement pour LS-DYNA; le logiciel est installé sur nos grappes, mais nous n'avons pas une licence générique fournissant l'accès à tous, ni de service d'hébergement de licences. Cependant, plusieurs établissements, facultés et départements possèdent des licences qui peuvent être utilisées sur nos grappes. Avant d'utiliser ces licences, il peut être nécessaire d'effectuer des modifications de réseau pour garantir son accessibilité à partir des nœuds de calcul. Dans les cas où une licence a déjà été utilisée sur une grappe en particulier, ces modifications ont peut-être déjà été effectuées. Si vous ne parvenez pas à localiser ou à obtenir une licence de votre campus, contactez [https://www.cmc.ca/support/CMC Microsystems]. Les licences achetées auprès de CMC n'ont pas de frais généraux liés à l'hébergement d'un serveur de licences local puisqu'elles sont hébergées sur un système de serveur distant que CMC gère avec l'avantage supplémentaire d'être utilisables n'importe où. Si vous avez votre propre serveur et avez besoin d'un devis pour une licence gérée localement, vous pouvez contacter [https://simutechgroup.com Simutech] ou contacter Ansys directement. SHARCNET ne fournit actuellement pas de licence LS-DYNA gratuite, ni aucun service d'hébergement de licence.
+Nous fournissons l'hébergement pour LS-DYNA; le logiciel est installé par des modules sur nos grappes, mais nous n'avons pas de licence LS-DYNA fournissant l'accès à tous, ni de service d'hébergement pour LS-DYNA. Cependant, plusieurs établissements, facultés et départements possèdent des licences qui peuvent être utilisées sur nos grappes. Si aucune licence locale n'est disponible, SHARCNET octroie un nombre limité de licences gratuites, attribuées selon le principe du premier arrivé, premier servi, comme décrit ci-dessous. 
 
 <span id="Initial_setup_and_testing"></span>
 === Configuration initiale et test ===
 
-Si votre serveur de licences n'a jamais  été utilisé sur la grappe où vos tâches seront exécutées, des modifications devront être apportées du côté de l'Alliance et de celui de l'établissement. Pour ce faire, faites parvenir à notre [[Technical support/fr|soutien technique]] le numéro du port et l'adresse IP de votre serveur de licence flottante. Pour vérifier le fonctionnement du fichier de licence, lancez
+Si votre serveur de licences n'a jamais  été utilisé sur une grappe, des modifications devront être apportées du côté de l'Alliance et de celui de l'établissement. Pour ce faire, faites parvenir à notre [[Technical support/fr|soutien technique]] le numéro du port et l'adresse IP de votre serveur de licence flottante. Pour vérifier le bon fonctionnement du fichier de licence, utilisez les commandes
 
- <code>module load ls-dyna
- ls-dyna_s or ls-dyna_d</code>
+ <code>touch ~/.licenses/ls-dyna.lic
+ module load ls-dyna
+ export LSTC_LICENSE=network|ansys
+ export LSTC_LICENSE_SERVER=<port>@<server>, or
+ export ANSYSLMD_LICENSE_FILE=<port>@<server>
+ ls-dyna_s, or ls-dyna_d</code>
 
-Il n'est pas nécessaire de spécifier un fichier d'entrée ou des arguments pour exécuter ce test. L'entête de sortie doit contenir une valeur (non vide) pour <code>Licensed to:</code>, à l'exception des serveurs de licences CMC. Appuyez sur ^C pour quitter le programme et revenir en ligne de commande.
+Il n'est pas nécessaire de spécifier un fichier d'entrée ou des arguments pour exécuter ce test. L'entête de sortie doit contenir une valeur (non vide) pour <code>Licensed to:</code>. Appuyez sur ^C pour quitter le programme et revenir en ligne de commande.
 
 <span id="Configuring_your_license"></span>
 == Configuration de votre licence ==
 
-Ansys a acheté en 2019 Livermore Software Technology Corporation (LSTC), développeur de LS-DYNA. Les licences LS-DYNA émises par Ansys depuis cette date utilisent des <b>serveurs de licences Ansys</b>. Les licences émises par LSTC peuvent toujours utiliser un <b>serveur de licences LSTC</b>. Une licence LS-DYNA peut aussi être obtenue de [https://www.cmc.ca/CMC Microsystems]. Nous expliquons ici comment configurer votre compte ou votre script de tâche dans chacun de ces cas. 
+En 2019, Ansys a acheté Livermore Software Technology Corporation (LSTC), développeur de LS-DYNA. Les licences LS-DYNA émises par Ansys depuis cette date utilisent des <b>serveurs de licences Ansys</b>. Les licences moins récentes de LSTC utilisant un <b>serveur de licences LSTC</b> spnt maintenant disponibles via ANSYS. Nous expliquons ici comment configurer votre compte ou votre script de tâche dans chacun de ces cas. 
 
 <span id="LSTC_license"></span>
 === Licence LSTC === 
@@ -42,32 +46,21 @@ Option 2) Spécifiez votre serveur de licence en définissant les deux variables
  export LSTC_LICENSE_SERVER=<port>@<server>
 où <port> est un nombre entier et <server> est le nom d'hôte ou l'adresse IP de votre serveur de licence LSTC. Ces variables auront la priorité sur toutes les valeurs spécifiées dans votre fichier <code>~/.licenses/ls-dyna.lic</code> qui doit exister (même s'il est vide) pour que tout module <code>ls-dyna</code> ou <code>ls-dyna-mpi</code> soit correctement chargé; pour vous assurer qu'il existe, exécutez <code>touch ~/.licenses/ls-dyna.lic</code> en ligne de commande pour chaque grappe sur laquelle vous soumettrez des tâches. Pour plus de détails, consultez [https://lsdyna.ansys.com/download-install-overview/ la documentation officielle].
 
-<span id="Ansys_license"></span>
-=== Licence Ansys === 
+<span id="ANSYS_license"></span>
+=== Licence ANSYS === 
 
 Si votre licence LS-DYNA est hébergée sur un serveur de licence Ansys, définissez les deux variables d'environnement suivantes dans vos scripts&nbsp;:
  export LSTC_LICENSE=ansys
  export ANSYSLMD_LICENSE_FILE=<port>@<server>
 où <port> est un nombre entier et <server> est le nom d'hôte ou l'adresse IP de votre serveur de licence Ansys. Ces variables ne peuvent pas être définies dans votre fichier <code>~/.licenses/ls-dyna.lic</code>. Le fichier doit cependant exister (même s'il est vide) pour que tout module <code>ls-dyna</code> puisse se charger. Pour vous en assurer, exécutez <code>touch ~/.licenses/ls-dyna.lic</code> en ligne de commande (ou à chaque fois dans vos scripts). Notez que seules les versions de module >= 12.2.1 fonctionneront avec les serveurs de licence Ansys.
 
-==== SHARCNET ==== 
+<b>SHARCNET</b> 
 
-La licence Ansys de SHARCNET prend en charge l'exécution de tâches SMP (<i>Shared Memory Parallel</i>) et MPP (<i>Message Passing Parallel</i>) de LS-DYNA. Elle peut être utilisée librement par n'importe qui (sur une base limitée au nombre de cœurs et de tâches) sur la grappe Nibi en ajoutant les lignes suivantes dans votre script&nbsp;:
- export LSTC_LICENSE=ansys
- export ANSYSLMD_LICENSE_FILE=1055@license1.computecanada.ca
+La licence de SHARCNET permet d'exécuter des tâches LS-DYNA SMP sur '''un seul nœud''' ou des tâches MPP  avec de nombreux cœurs grâce à la fonctionnalité <code>dysmp</code> de la licence. Cependant, elle ne permet pas d'exécuter des tâches LS-DYNA MPP à mémoire distribuée sur plusieurs nœuds, car elle ne dispose pas de la fonctionnalité <code>mppdyna</code> requise. Vous pouvez utiliser librement la licence SHARCNET pour exécuter jusqu'à 5 tâches lsdyna simultanées avec 288 cœurs, sans aucune limitation logicielle interne, contrairement aux licences étudiantes ou pédagogiques. Ces limites peuvent être modifiées en fonction de la charge sur la licence afin d'optimiser la disponibilité et seront mises à jour ici le cas échéant. Par exemple, vous pouvez soumettre et exécuter présentement une tâche sur un nœud complet de 192 cœurs et une tâche sur la moitié d'un nœud de 96 cœurs, avec une taille de maillage illimitée. La licence SHARCNET est exclusivement réservée à la recherche académique et aux publications associées. Pour utiliser la licence SHARCNET sur la grappe  pour exécuter des tâches LS-DYNA, ajoutez les lignes suivantes à votre script Slurm&nbsp;:
 
-<span id="CMC_license"></span>
-=== Licence CMC === 
+export LSTC_LICENSE=ansys
 
-Si votre licence a été achetée de CMC, définissez les deux variables d'environnement suivantes selon la grappe utilisée&nbsp;:
- export LSTC_LICENSE=ansys
- Fir :      export ANSYSLMD_LICENSE_FILE=6624@172.26.0.101
- Nibi :     export ANSYSLMD_LICENSE_FILE=6624@10.25.1.56
- Narval :   export ANSYSLMD_LICENSE_FILE=6624@10.100.64.10
- Rorqual :  export ANSYSLMD_LICENSE_FILE=6624@10.100.64.10
- Trillium:  export ANSYSLMD_LICENSE_FILE=6624@scinet-cmc
-
-où les différentes adresses IP correspondent aux serveurs CADpass respectifs. Aucune modification du pare-feu n'est requise pour utiliser une licence CMC sur une grappe, car elles ont déjà été effectuées. Étant donné que le serveur CMC distant qui héberge les licences LS-DYNA est basé sur Ansys, ces variables ne peuvent pas être définies dans votre fichier <code>~/.licenses/ls-dyna.lic</code>. Le fichier doit cependant exister (même s'il est vide) pour que tout module <code>ls-dyna</code> puisse se charger. Pour vous assurer que c'est le cas, exécutez <code>touch ~/.licenses/ls-dyna.lic</code> en ligne de commande (ou à chaque fois dans vos scripts). Notez que seules les versions de module >= 13.1.1 fonctionneront avec les serveurs de licence Ansys.
+export ANSYSLMD_LICENSE_FILE=1055@license1.computecanada.ca
 
 <span id="Cluster_job_submission"></span>
 = Soumettre des tâches sur une grappe =

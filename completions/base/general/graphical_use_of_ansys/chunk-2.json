@@ -1,0 +1,20 @@
+{
+  "doc_key": "base/graphical_use_of_ansys",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What environment variables should be configured to launch Ansys Fluent on an OnDemand desktop's compute node without requesting a GPU, and which Ansys versions do these settings apply to?",
+      "answer": "To run Ansys Fluent on a compute node without a GPU, navigate to the 'Environment' tab in the Fluent Launcher. You should set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi with intelmpi). For the `HOOPS_PICTURE` variable, use `opengl2-mesa` if running Ansys version 2025R1 or newer, or `x11/lin` for version 2024R2.04 or older. After configuring these, click the 'Start' button."
+    },
+    {
+      "question": "How do you enable hardware-accelerated graphics for Ansys Fluent on the Nibi cluster through an OnDemand desktop, and what specific environment variables are involved?",
+      "answer": "To use hardware-accelerated graphics with Fluent on the Nibi cluster, first select 't4 (15GB)' from the GPU selector pulldown list during your OnDemand desktop session setup. This action automatically configures the necessary VirtualGL environment variables. Once your desktop appears, open a terminal window. Within the Fluent Launcher's 'Environment' tab, ensure `I_MPI_HYDRA_BOOTSTRAP=ssh` is set (required on Nibi). For the `HOOPS_PICTURE` variable, use `opengl2` for Ansys version 2025R1 or newer, or `opengl` for version 2024R2.04 or older. Finally, click the 'Start' button."
+    },
+    {
+      "question": "What is the consequence of not manually setting the `I_MPI_HYDRA_BOOTSTRAP=ssh` environment variable when running Ansys Fluent on the Nibi cluster with intelmpi?",
+      "answer": "When running Ansys Fluent on the Nibi cluster in an OnDemand Compute Desktop session, if the `I_MPI_HYDRA_BOOTSTRAP=ssh` environment variable is not manually set, Fluent will crash, particularly when intelmpi is in use. This crash is typically accompanied by error output indicating an inability to run `bstrap_proxy`. Should this occur, users must completely exit Fluent, shut down Workbench cleanly, and restart the entire process after setting the variable."
+    }
+  ],
+  "generated_at": "2026-08-08T01:09:30.761285+00:00"
+}

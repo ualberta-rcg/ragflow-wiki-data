@@ -4,65 +4,37 @@ slug: "getting_started"
 lang: "fr"
 
 source_wiki_title: "Getting started/fr"
-source_hash: "56d5568557005a434aa2e7ef4d4d9ee9"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T07:40:18.511612+00:00"
+source_hash: "768570c838a0fe32ee03bee67f4cf9b2"
+last_synced: "2026-08-07T19:46:17.777436+00:00"
+last_processed: "2026-08-07T22:40:06.529168+00:00"
 
 tags:
   []
 
 keywords:
-  - "soutien technique"
-  - "environnement infonuagique"
-  - "Rorqual"
-  - "SSH"
-  - "tâches massivement parallèles"
-  - "grappes de CHP"
-  - "CCDB"
-  - "systèmes disponibles"
-  - "Nibi"
-  - "superordinateur"
-  - "Trillium"
-  - "grappe"
-  - "activités de formation"
-  - "logiciels"
-
-questions:
-  - "Comment trouve-t-on son nom d'utilisateur et son mot de passe pour se connecter aux systèmes ?"
-  - "Quels sont les différents systèmes informatiques offerts et quelles sont leurs utilités spécifiques ?"
-  - "Quelles ressources et documentations sont mises à la disposition des utilisateurs pour s'initier au calcul informatique de pointe ou utiliser des logiciels spécialisés ?"
-  - "Pourquoi le terme « grappe » est-il privilégié pour désigner l'architecture de ces superordinateurs ?"
-  - "Quelles informations techniques l'équipe de soutien doit-elle connaître pour identifier les ressources adaptées aux besoins d'un utilisateur ?"
-  - "Quels sont les partenaires régionaux qui offrent des activités de formation et sous quelles formes sont-elles proposées ?"
-  - "Quels types de nœuds et d'accélérateurs sont disponibles sur les grappes Nibi et Rorqual ?"
-  - "Quelle méthode doit-on utiliser pour se connecter aux grappes et que se passe-t-il lors de la première connexion ?"
-  - "Pour quel type de tâches spécifiques la grappe homogène Trillium a-t-elle été conçue ?"
-  - "Pourquoi le terme « grappe » est-il privilégié pour désigner l'architecture de ces superordinateurs ?"
-  - "Quelles informations techniques l'équipe de soutien doit-elle connaître pour identifier les ressources adaptées aux besoins d'un utilisateur ?"
-  - "Quels sont les partenaires régionaux qui offrent des activités de formation et sous quelles formes sont-elles proposées ?"
+  []
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: true
+  keywords_generated: false
   ragflow_synced: true
   qa_generated: false
 ---
 
-## Qu'est-ce que vous voulez faire?
-
-*   Si vous ne possédez pas de compte, consultez :
+## Que voulez-vous faire?
+*   Si vous ne possédez pas de compte, voyez
     *   [Demander un compte CCDB](apply_for_a_ccdb_account.md)
     *   [Authentification multifacteur](multifactor_authentication.md)
-    *   [Foire aux questions sur le portail CCDB](frequently_asked_questions_about_the_ccdb.md)
-*   Si vous avez de l'expérience en calcul de haute performance (CHP) et que vous voulez vous connecter à une grappe, vous voudrez savoir :
+    *   [Foire aux questions sur le portail CCDB](frequently_asked_questions_about_the_ccdb.md).
+*   Si vous avez de l'expérience en CHP et que vous voulez vous connecter à une grappe, vous voudrez savoir
     *   quels sont les [systèmes disponibles](#quels-sont-les-systèmes-disponibles);
     *   quels sont les [logiciels disponibles](../programming/available_software.md);
     *   comment [utiliser les modules](../programming/utiliser_des_modules.md);
     *   comment [soumettre une tâche](../running-jobs/running_jobs.md);
     *   comment les [systèmes de fichiers](../storage-and-data/storage_and_file_management.md) sont organisés.
-*   Pour vous initier au CHP :
+*   Pour vous initier au CHP
     *   apprenez comment vous [connecter à nos grappes de CHP via SSH](ssh.md);
     *   lisez cette [introduction à Linux](linux_introduction.md);
     *   voyez comment [transférer des données](transferring_data.md), soit vers nos systèmes, soit en provenance de ceux-ci.
@@ -82,23 +54,20 @@ status:
 Pour toute autre question, vous pouvez utiliser le champ de recherche dans le coin supérieur droit de la présente page, consulter [notre documentation technique](../general/technical_documentation.md) ou encore [nous joindre par courriel](../support/technical_support.md).
 
 ## Mot de passe et nom d'utilisateur
-
 Votre **mot de passe** pour vous connecter est le même que celui que vous utilisez pour [vous connecter à CCDB](https://ccdb.alliancecan.ca/). Votre nom d'utilisateur est affiché au haut de la page d'accueil CCDB.
 
 ## Quels sont les systèmes disponibles?
+Pour demander l'accès à un ou plusieurs de nos systèmes, visitez le [portail CCDB](https://ccdb.alliancecan.ca/me/access_systems). Sur le portail, naviguez vers l'onglet ''Ressources'', puis cliquez sur ''Accès aux systèmes''. Les systèmes disponibles incluent : [Arbutus](../cloud/cloud_resources.md), [Fir](../software/fir.md), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md), [Rorqual](../clusters/rorqual.md) et [Trillium](../clusters/trillium.md).
 
-Vous pouvez [demander la permission d'accès](https://ccdb.alliancecan.ca/me/access_systems) à un ou plusieurs de nos systèmes : [Arbutus](../cloud/cloud_resources.md), [Fir](../software/fir.md), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md), [Rorqual](../clusters/rorqual.md) et [Trillium](../clusters/trillium.md).
+*   [Arbutus](../cloud/cloud_resources.md#nuage-arbutus) est un nuage pour configurer et exécuter des instances virtuelles. Pour savoir comment y accéder, voyez [Service infonuagique](../cloud/cloud.md).
 
-*   [Arbutus](../cloud/cloud_resources.md#nuage-arbutus) est un nuage pour configurer et exécuter des instances virtuelles. Pour savoir comment y accéder, consultez [Service infonuagique](../cloud/cloud.md).
-
-*   Les grappes d'usage général (superordinateurs) [Fir](../software/fir.md), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md) et [Rorqual](../clusters/rorqual.md) comportent divers types de nœuds dont certains à large mémoire et d'autres avec accélérateurs comme des GPU. Pour vous y connecter, utilisez [SSH](ssh.md). Un répertoire personnel (`/home`) est automatiquement créé quand vous vous connectez pour la première fois.
+*   Les grappes d'usage général (superordinateurs) [Fir](../software/fir.md), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md) et [Rorqual](../clusters/rorqual.md) comportent divers types de nœuds, dont certains à large mémoire et d'autres avec accélérateurs comme des GPU. Pour vous y connecter, utilisez [SSH](ssh.md). Un répertoire personnel (/home) est automatiquement créé quand vous vous connectez pour la première fois.
 
 *   [Trillium](../clusters/trillium.md) est une grappe homogène conçue pour les **tâches massivement parallèles** (plus de 1000 cœurs).
 
-Pour désigner un superordinateur, nous privilégions le terme *grappe* qui représente mieux l'architecture de nos systèmes; plusieurs ordinateurs distincts (*nœuds*) forment une unité semblable à une grappe.
+Pour désigner un superordinateur, nous privilégions le terme ''grappe'' qui représente mieux l'architecture de nos systèmes; plusieurs ordinateurs distincts (''nœuds'') forment une unité semblable à une grappe.
 
 ### Quels sont les systèmes qui répondent à mes besoins?
-
 Répondre à cette question n'est pas facile puisqu'ils peuvent subvenir à un large éventail de besoins. Si vous avez besoin de clarifications, n'hésitez pas à communiquer avec le [soutien technique](../support/technical_support.md).
 
 Les questions suivantes nous aideront à identifier les ressources pertinentes :
@@ -112,23 +81,22 @@ Les questions suivantes nous aideront à identifier les ressources pertinentes :
 Si vous ne connaissez pas les réponses à ces questions, notre équipe technique peut vous guider et vous indiquer les ressources appropriées.
 
 ## Quelles sont les activités de formation?
-
 La plupart des ateliers sont organisés par nos partenaires régionaux; ils sont offerts en ligne ou en personne et pour tous les niveaux d'expertise.
-
+<br>
 *   WestDRI (Colombie-Britannique et provinces des Prairies)
     *   [site web Training Materials](https://training.westdri.ca), cliquez sur l'image pour *Upcoming sessions* ou explorez le menu de navigation dans le haut de la page
     *   [UAlberta ARC Bootcamp](https://www.ualberta.ca/information-services-and-technology/research-computing/bootcamps.html)
 *   [SHARCNET](https://www.sharcnet.ca) (Ontario)
-    *   [Calendrier](https://www.sharcnet.ca/my/news/calendar)
+    *   [Calendar](https://www.sharcnet.ca/my/news/calendar)
     *   [YouTube](http://youtube.sharcnet.ca/)
-    *   [Ateliers en ligne](https://training.sharcnet.ca/)
+    *   [Online Workshops](https://training.sharcnet.ca/)
 *   [SciNet](https://www.scinethpc.ca) (Ontario)
-    *   [Site d'éducation](https://education.scinet.utoronto.ca)
+    *   [Education Site](https://education.scinet.utoronto.ca)
     *   [YouTube](https://www.youtube.com/c/SciNetHPCattheUniversityofToronto)
 *   [Calcul Québec](https://www.calculquebec.ca/en/) (Québec)
     *   [Événements](https://calculquebec.eventbrite.ca/)
     *   [Formation](https://www.calculquebec.ca/services-aux-chercheurs/formation/)
 *   [ACENET](https://www.ace-net.ca/) (provinces de l'Atlantique)
-    *   [Formation](https://www.ace-net.ca/training.html)
+    *   [Training](https://www.ace-net.ca/training.html)
     *   [YouTube](https://www.youtube.com/@ACENETDRI)
 Voir aussi la liste des [événements de formation sur Explora](https://explora.alliancecan.ca/events).

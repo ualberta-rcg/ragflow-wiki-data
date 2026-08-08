@@ -4,13 +4,13 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "Comment puis-je redémarrer une simulation Abaqus d'analyse standard sur un nœud simple en utilisant un script Slurm?",
-      "answer": "Pour redémarrer une simulation Abaqus d'analyse standard sur un nœud simple, votre script Slurm doit spécifier le travail précédent avec `oldjob=NOM_ANCIEN_TRAVAIL` et utiliser un fichier d'entrée de redémarrage (par exemple, `input=mystd-sim-restart.inp`). Le fichier d'entrée de redémarrage (`mystd-sim-restart.inp`) doit minimalement contenir les lignes `*HEADING` et `*RESTART, READ`."
+      "question": "C'est quoi le but du script Slurm « scriptst1.txt » pour Abaqus qui est fourni ici?",
+      "answer": "Le script « scriptst1.txt » est conçu pour soumettre des simulations d'analyse standard Abaqus sur un nœud simple. Il gère l'écriture des fichiers temporaires et de redémarrage dans un répertoire temporaire (``$SLURM_TMPDIR``) afin d'optimiser les performances et de sauvegarder les données régulièrement en cas de dépassement de temps ou de défaillance."
     },
     {
-      "question": "Dans les scripts Slurm pour Abaqus, pourquoi est-ce préférable d'utiliser le répertoire temporaire `$SLURM_TMPDIR` pour les tâches qui créent de gros fichiers de redémarrage?",
-      "answer": "Il est préférable d'utiliser le répertoire temporaire `$SLURM_TMPDIR` pour les tâches Abaqus qui génèrent de gros fichiers de redémarrage, car cela permet d'écrire sur le disque local, ce qui peut améliorer considérablement les performances. Les scripts sont conçus pour copier les fichiers d'entrée du répertoire de soumission (`$SLURM_SUBMIT_DIR`) vers `$SLURM_TMPDIR` au début de la tâche, et ensuite copier les données sauvegardées périodiquement et les résultats finaux vers le répertoire de soumission."
+      "question": "Comment est-ce qu'on peut configurer le fichier d'entrée Abaqus pour qu'il écrive des données de redémarrage?",
+      "answer": "Pour configurer Abaqus afin qu'il écrive des données de redémarrage, vous pouvez ajouter une ligne comme « ``*RESTART, WRITE, OVERLAY, FREQUENCY=12`` » dans votre fichier d'entrée pour des incréments de 12. Si vous voulez écrire pour un total de 12 incréments, vous utiliseriez plutôt « ``*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`` »."
     }
   ],
-  "generated_at": "2026-05-31T01:10:27.044681+00:00"
+  "generated_at": "2026-08-07T23:26:41.822781+00:00"
 }

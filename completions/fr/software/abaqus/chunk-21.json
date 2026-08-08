@@ -4,13 +4,17 @@
   "chunk_index": 21,
   "qa_pairs": [
     {
-      "question": "Comment faire pour lancer COMSOL en utilisant JupyterLab sur les grappes de l'Alliance, comme Rorqual?",
-      "answer": "Pour lancer COMSOL avec JupyterLab, vous devez d'abord ouvrir une session JupyterHub en accédant à l'URL spécifique de la grappe, par exemple `https://jupyterhub.rorqual.alliancecan.ca` pour Rorqual. Une fois sur le bureau Jupyter, sélectionnez un module COMSOL, comme `comsol/6`, dans la section « Available Module » à gauche, puis cliquez sur « Load ». Une fois que l'icône `Comsol (VNC)` apparaît sur le bureau, cliquez dessus pour démarrer COMSOL automatiquement sur votre bureau Jupyter à distance."
+      "question": "Qu'arrive-t-il si un utilisateur soumet des tâches Abaqus qui demandent plus de jetons de licence que ce qui est disponible sur les grappes de l'Alliance, et quelles en sont les conséquences?",
+      "answer": "Si un utilisateur soumet plusieurs tâches Abaqus nécessitant plus de jetons de licence que ce qui est disponible, la première tâche pourra obtenir les licences nécessaires et démarrer. Les tâches suivantes qui n'auront pas accès à des jetons resteront en attente sur un nœud de calcul (état 'R' dans Slurm). Cela gaspille les ressources de calcul et réduit la juste part de l'utilisateur, car la tâche occupe un nœud sans effectuer de calculs jusqu'à ce qu'une licence soit libérée."
     },
     {
-      "question": "Quelles sont les adresses URL à utiliser pour se connecter à JupyterHub sur les grappes FIR, NARVAL et RORQUAL de l'Alliance?",
-      "answer": "Pour vous connecter à JupyterHub sur les grappes de l'Alliance, vous devez utiliser les adresses URL suivantes : pour FIR, c'est `https://jupyterhub.fir.alliancecan.ca` ; pour NARVAL, c'est `https://portail.narval.calculquebec.ca/` ; et pour RORQUAL, c'est `https://jupyterhub.rorqual.alliancecan.ca`."
+      "question": "Comment peut-on configurer les tâches Abaqus pour éviter qu'elles n'attendent indéfiniment une licence sur un nœud de calcul, gaspillant ainsi les ressources?",
+      "answer": "Pour empêcher les tâches Abaqus d'attendre indéfiniment une licence sur un nœud de calcul, deux options sont possibles en créant un fichier `abaqus_v6.env` dans le répertoire de soumission avant de lancer la tâche :\n1.  **Terminaison immédiate :** Ajoutez la ligne `lmlicensequeuing=OFF` au fichier. La tâche se terminera immédiatement s'il n'y a pas assez de licences disponibles, sans entrer dans une file d'attente pour la licence.\n2.  **Temps d'attente limité :** Ajoutez la ligne `lmhanglimit=X` (où X est le nombre de minutes) au fichier. La tâche entrera dans un état d'attente pour la licence et se terminera automatiquement si une licence n'est pas disponible dans le délai spécifié (par exemple, 1 minute avec `lmhanglimit=1`)."
+    },
+    {
+      "question": "Comment optimiser l'utilisation de la mémoire et des cœurs de CPU pour les tâches Abaqus soumises via Slurm sur les grappes de calcul?",
+      "answer": "Pour optimiser l'utilisation des ressources Slurm, il faut ajuster les requêtes de mémoire et de CPU dans le script. Pour les tâches **terminées**, utilisez la commande `seff JobNumber` pour vérifier l'utilisation et l'efficacité de la mémoire et du CPU. Si l'efficacité de la mémoire ou du CPU est inférieure à 90 %, réduisez respectivement les valeurs `#SBATCH --mem=` ou `#SBATCH --cpus-per-task=` après avoir effectué des tests de mise à l'échelle. Pour les tâches **en cours d'exécution**, utilisez la commande `srun --overlap --jobid=NUMÉRO_DE_TÂCHE --pty top -d 5 -u $USER` pour surveiller le pourcentage de CPU, le pourcentage de mémoire et la taille de la mémoire résidente (RES) pour chaque processus Abaqus sur le nœud de calcul."
     }
   ],
-  "generated_at": "2026-05-31T01:12:23.084398+00:00"
+  "generated_at": "2026-08-07T23:28:44.670438+00:00"
 }

@@ -3,73 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is STAR-CCM+ used for on Alliance clusters?",
-      "answer": "STAR-CCM+ is a multidisciplinary engineering simulation suite used to model acoustics, fluid dynamics, heat transfer, rheology, multiphase flows, particle flows, solid mechanics, reacting flows, electrochemistry, and electromagnetics."
+      "question": "What is STAR-CCM+ and what is its purpose?",
+      "answer": "STAR-CCM+ is a multidisciplinary engineering simulation suite developed by Siemens, used for modelling acoustics, fluid dynamics, heat transfer, rheology, multiphase flows, particle flows, solid mechanics, reacting flows, electrochemistry, and electromagnetics."
     },
     {
-      "question": "What kind of license do researchers need to use STAR-CCM+ on Alliance clusters?",
-      "answer": "Researchers need to purchase a license from Siemens, as the Alliance is only authorized to host the STAR-CCM+ binaries on its clusters."
+      "question": "What are the two main licensing options for using STAR-CCM+ on Alliance clusters?",
+      "answer": "The two main licensing options are purchasing a Power-on-Demand (PoD) license that connects to a remotely hosted server, or setting up and managing a locally hosted institutional license server with a Simcenter STAR-CCM+ academic pack."
     },
     {
-      "question": "What are the two main licensing options available for STAR-CCM+ on Alliance clusters?",
-      "answer": "The two main options are a Power-on-Demand (PoD) license, which connects to a remotely hosted license server, and a locally hosted institutional license, which requires setting up and managing a local license server."
+      "question": "What information is needed to request firewall changes for a local institutional STAR-CCM+ license server on Alliance clusters?",
+      "answer": "To request firewall changes, users need to submit a ticket including the names of all Alliance clusters to be used, the hostname (FQDN) or public IP address of their STAR-CCM+ license server, and its flex and static vendor port numbers."
     },
     {
-      "question": "What firewall adjustments are necessary for a locally hosted institutional STAR-CCM+ license server to work with Alliance clusters?",
-      "answer": "The local firewall of the license server needs to be reconfigured to open its flex and static vendor ports so they are both reachable from the Network Address Translation (NAT) nodes for each Alliance cluster being used."
+      "question": "How do users configure their Alliance account to use a generic STAR-CCM+ license server?",
+      "answer": "Users must create a license file named `~/.licenses/starccm.lic` with the layout `SERVER <server> ANY <flexport>` where `<server>` is the hostname or IP address and `<flexport>` is the static vendor port of the license server."
     },
     {
-      "question": "How do users submit a ticket to get NAT node information for their institutional STAR-CCM+ license server from Alliance technical support?",
-      "answer": "Users must submit a ticket including the names of all Alliance clusters they will use, the hostname (FQDN) or public IP address of their STAR-CCM+ license server, and its flex and static vendor port numbers."
+      "question": "What specific configuration is required for users with a Power-on-Demand (PoD) license for STAR-CCM+ on Alliance clusters?",
+      "answer": "Researchers with a PoD license must manually set the `LM_PROJECT` environment variable to their 22-digit PoD license key and configure a `~/.licenses/starccm.lic` file with the content `SERVER flex.cd-adapco.com ANY 1999`."
     },
     {
-      "question": "How is a user's account configured to use a STAR-CCM+ license server on Alliance clusters?",
-      "answer": "Users must create a license file named `~/.licenses/starccm.lic` with the server hostname (or IP address) and the static vendor port specified."
+      "question": "What common step is required on each Alliance cluster before submitting STAR-CCM+ batch jobs?",
+      "answer": "Before submitting jobs, users must set up a `~/.licenses/starccm.lic` file on each cluster where they plan to run jobs."
     },
     {
-      "question": "What specific content should the `~/.licenses/starccm.lic` file contain for a Power-on-Demand (PoD) license?",
-      "answer": "For a PoD license, the `~/.licenses/starccm.lic` file must contain `SERVER flex.cd-adapco.com ANY 1999` and `USE_SERVER`."
-    },
-    {
-      "question": "Which environment variable needs to be manually set for STAR-CCM+ jobs when using a Power-on-Demand (PoD) license?",
-      "answer": "The `LM_PROJECT` environment variable must be manually set to the 22-digit PoD License Key."
-    },
-    {
-      "question": "What is a common troubleshooting step if STAR-CCM+ licensing issues occur during job submission on Alliance clusters?",
+      "question": "What should a user do if they encounter licensing problems when submitting STAR-CCM+ jobs?",
       "answer": "If licensing problems occur, users should try removing or renaming the `~/.flexlmrc` file, as it may contain previous search paths or license server settings."
     },
     {
-      "question": "How can users clean up temporary output files generated by STAR-CCM+ jobs on Alliance clusters?",
-      "answer": "Temporary output files from STAR-CCM+ jobs that accumulate in hidden directories like `~/.star-version_number` can be removed by periodically running `rm -ri ~/.starccm*`."
+      "question": "How can users manage temporary output files generated by STAR-CCM+ jobs to avoid consuming valuable quota space?",
+      "answer": "Temporary output files accumulating in hidden directories like `~/.star-version_number` can be removed by periodically running the command `rm -ri ~/.starccm*` and confirming when prompted."
     },
     {
-      "question": "What are the recommended methods for using STAR-CCM+ in graphical mode on Alliance clusters?",
-      "answer": "It is recommended to use an OnDemand or JupyterLab system to start a remote desktop for graphical use of STAR-CCM+."
+      "question": "What are the recommended methods for running STAR-CCM+ in graphical mode on Alliance clusters?",
+      "answer": "It is recommended to use an OnDemand or JupyterLab system to start a remote desktop for running STAR-CCM+ in graphical mode."
     },
     {
-      "question": "How do users load the STAR-CCM+ module for newer versions (18.04.008 or newer) when using an OnDemand desktop session?",
-      "answer": "Users should first load `module load StdEnv/2023`, then load either `starccm-mixed/<version>` or `starccm/<version>-R8`."
+      "question": "How does a user load the appropriate modules to run STAR-CCM+ version 18.04.008 or newer in graphical mode via OnDemand?",
+      "answer": "Users should load `StdEnv/2023` and then either `starccm-mixed/21.02.008` or `starccm/21.02.008-R8` before starting `starccm+`."
     },
     {
-      "question": "What are the steps to run STAR-CCM+ with multiple cores in parallel on a local host within a JupyterLab desktop session?",
-      "answer": "In JupyterLab, after loading the STAR-CCM+ module, click the StarCCM+ VNC icon, then in the 'Create a File' configurator, tick 'Parallel on Local Host', add `-mpi openmpi40` to the 'Command:' string, and click OK."
+      "question": "How can users see all available 'mixed' and 'R8' versions of the STAR-CCM+ module on Alliance clusters?",
+      "answer": "Running `module avail starccm` will display all available versions within the currently loaded `StdEnv`, while `module spider starccm` will show all versions available across both `StdEnv/2020` and `StdEnv/2023`."
     },
     {
-      "question": "Is it necessary to manually set the `CDLMD_LICENSE_FILE` environment variable in a Slurm script when using the STAR-CCM+ module?",
-      "answer": "No, manually setting `CDLMD_LICENSE_FILE` is not required because this variable is automatically set whenever a starccm module is loaded."
+      "question": "What are the Slurm directives commonly used in STAR-CCM+ job submission scripts for Alliance clusters?",
+      "answer": "Common Slurm directives include `--account`, `--time`, `--nodes`, `--cpus-per-task`, `--mem`, and `--ntasks-per-node`."
     },
     {
-      "question": "What are the `SBATCH` directives to specify for a STAR-CCM+ job on the Nibi cluster with 16 CPUs and 64GB of memory per node?",
-      "answer": "The `SBATCH` directives would be `#SBATCH --nodes=1`, `#SBATCH --cpus-per-task=16`, and `#SBATCH --mem=64G`."
+      "question": "What environment variable is automatically set when a STAR-CCM+ module is loaded, making manual setting in a Slurm script unnecessary?",
+      "answer": "The `CDLMD_LICENSE_FILE` environment variable is automatically set when a STAR-CCM+ module is loaded, so manually setting `<port>@<server>` in a Slurm script is not required."
     },
     {
-      "question": "What specific command line options are used to run STAR-CCM+ with a Power-on-Demand (PoD) license in a batch job?",
-      "answer": "For a PoD license, the command includes `-power -podkey $LM_PROJECT` where `$LM_PROJECT` is set to the 22-digit PoD License Key."
+      "question": "How do you start STAR-CCM+ in parallel mode on a local host when using OnDemand?",
+      "answer": "To run in parallel on a local host, after loading the necessary modules, use the command `starccm+ -rr server -np <number_of_processors> -mpi openmpi40` (for newer versions) or `starccm+ -np <number_of_processors>` (for older versions)."
     },
     {
-      "question": "What is the workaround implemented in the Slurm script for the Trillium cluster to address license failures for STAR-CCM+?",
-      "answer": "The Trillium Slurm script includes a loop that attempts to start STAR-CCM+ up to five times until the exit status is equal to 0, with a short delay before subsequent attempts."
+      "question": "What is the primary difference in STAR-CCM+ license server interaction when submitting batch jobs with a PoD license versus an institutional license on Alliance clusters?",
+      "answer": "With a PoD license, firewall changes are pre-configured on all Alliance clusters. For an institutional license, users must submit a problem ticket to technical support to request one-time network firewall changes between the cluster(s) and their local license server."
     }
   ],
-  "generated_at": "2026-05-24T01:33:04.489386+00:00"
+  "generated_at": "2026-08-08T00:33:28.795311+00:00"
 }

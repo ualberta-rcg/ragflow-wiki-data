@@ -2,6 +2,19 @@
   "doc_key": "fr/trillium_quickstart",
   "level": "chunk",
   "chunk_index": 20,
-  "qa_pairs": [],
-  "generated_at": "2026-05-10T00:42:59.755407+00:00"
+  "qa_pairs": [
+    {
+      "question": "Quelles sont les meilleures pratiques à suivre pour soumettre des tâches qui utilisent des GPU sur la grappe Trillium?",
+      "answer": "Pour les tâches avec GPU sur Trillium, il faut toujours spécifier le nombre de nœuds et `--gpus-per-node=4` pour les tâches sur un nœud entier ou sur plusieurs nœuds. Il est aussi important de charger seulement les modules nécessaires et d'être explicite sur les versions des logiciels (par exemple, `cuda/12.6` plutôt que simplement `cuda`) pour une meilleure reproductibilité. Avant de passer à des GPU ou nœuds multiples, il est recommandé de tester sur un seul GPU. Finalement, surveillez l'utilisation avec `nvidia-smi` pour garantir que les GPU sont pleinement utilisés."
+    },
+    {
+      "question": "Comment peut-on surveiller l'état et la performance d'une tâche soumise à la file d'attente sur la grappe Trillium?",
+      "answer": "Pour surveiller l'état et la performance d'une tâche soumise à la file d'attente sur Trillium, on peut utiliser plusieurs commandes SLURM. La commande `squeue` montre toutes les tâches dans la file; pour voir uniquement vos propres tâches, utilisez `squeue -u $USER`. Pour les détails sur une tâche en particulier, incluant les nœuds alloués et les ressources, utilisez `scontrol show job JOBID`. `squeue --start -j JOBID` donne une estimation du moment où une tâche en attente devrait démarrer. De plus, `jobperf JOBID` produit un instantané en temps réel de l'utilisation du CPU et de la mémoire pendant que la tâche est exécutée."
+    },
+    {
+      "question": "Comment annuler une tâche déjà soumise à la file d'attente sur Trillium?",
+      "answer": "Pour annuler une tâche déjà soumise à la file d'attente sur Trillium, vous devez utiliser la commande `scancel JOBID`, en remplaçant `JOBID` par l'identifiant de la tâche que vous souhaitez annuler."
+    }
+  ],
+  "generated_at": "2026-08-08T00:53:05.439496+00:00"
 }

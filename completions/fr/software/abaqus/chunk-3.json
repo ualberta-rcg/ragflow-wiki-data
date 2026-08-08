@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Si un serveur de licences Abaqus n'a jamais été configuré pour une utilisation sur une grappe de l'Alliance, quelles informations faut-il fournir au soutien technique pour que les administrateurs puissent effectuer les changements nécessaires?",
-      "answer": "Pour configurer un nouveau serveur de licences Abaqus sur une grappe de l'Alliance, les utilisateurs doivent fournir au soutien technique le numéro de port flexlm et le numéro de port statique du fournisseur (pour les serveurs FLEXnet), ou le numéro de port administratif et le numéro de port client de la licence (pour les serveurs DSLS), ainsi que le nom de domaine complet ou l'adresse IPV4 de leur serveur Abaqus. Ces informations permettent aux administrateurs de l'Alliance et aux administrateurs locaux d'ouvrir les pare-feu nécessaires."
+      "question": "Comment faire pour que ma tâche Abaqus ne reste pas indéfiniment en attente d'une licence sur un nœud de calcul des grappes de l'Alliance, afin d'éviter de gaspiller des ressources?",
+      "answer": "Pour éviter qu'une tâche Abaqus ne reste inactive en attente d'une licence, il y a deux options. La première est de faire en sorte que la tâche se termine immédiatement si aucune licence n'est disponible, en créant un fichier nommé `abaqus_v6.env` dans votre répertoire personnel (`/home`) ou de soumission, et en y ajoutant la ligne `lmlicensequeuing=OFF`. La deuxième option est de spécifier un temps d'attente limité pour la licence, par exemple 1 minute, en ajoutant la ligne `lmhanglimit=1` au même fichier. Si les licences ne deviennent pas disponibles dans le temps imparti, la tâche sera retirée de la file d'attente et terminée par Slurm."
     },
     {
-      "question": "Comment peut-on empêcher les tâches Abaqus sur les grappes de l'Alliance de rester indéfiniment en attente d'une licence, ce qui gaspille des ressources de calcul?",
-      "answer": "Il y a deux options pour modifier le comportement par défaut de la file d'attente des licences. On peut créer un fichier texte nommé `abaqus_v6.env` dans le répertoire personnel ou de soumission avec la ligne `lmlicensequeuing=OFF` pour que la tâche se termine immédiatement si aucune licence n'est disponible. Sinon, on peut spécifier un temps d'attente limité, comme 1 minute, en ajoutant la ligne `lmhanglimit=1` au même fichier; si la licence n'est pas disponible dans ce délai, la tâche sera retirée de la file d'attente et arrêtée par Slurm."
+      "question": "Quelle version d'Abaqus est recommandée pour une utilisation sur les grappes de l'Alliance, et y a-t-il des problèmes connus avec les versions plus anciennes?",
+      "answer": "La version `abaqus/2026` est la plus récente et est installée dans l'environnement par défaut `StdEnv/2023`. Il est recommandé de ne plus utiliser `abaqus/2021` car cette version plus ancienne génère des erreurs de débordement de tampon (`buffer overflow detected`) sur les grappes récentes. Un correctif utilisant `unshare` a été ajouté aux scripts Slurm pour `abaqus/2021`, mais il ne fonctionne que pour les tâches sur un seul nœud et ne garantit pas des résultats précis."
     },
     {
-      "question": "Quelle est la principale amélioration apportée par le nouveau module `abaqus/2026` sur les grappes de l'Alliance, et quelle action les utilisateurs doivent-ils entreprendre s'ils migrent depuis des versions antérieures?",
-      "answer": "Le nouveau module `abaqus/2026`, installé dans l'environnement par défaut `StdEnv/2023`, corrige l'erreur de \"buffer overflow detected\" qui survenait avec `abaqus/2021` sur les grappes récentes. Les utilisateurs qui migrent vers cette nouvelle version doivent modifier leurs scripts Slurm existants pour s'assurer de leur compatibilité."
+      "question": "Comment puis-je soumettre une tâche Abaqus en lots sur les grappes de l'Alliance, surtout si ma simulation génère de gros fichiers de redémarrage?",
+      "answer": "Pour soumettre des tâches Abaqus en lots, des scripts Slurm prototypes sont disponibles pour les simulations parallèles. Pour les tâches sur un nœud simple de moins de 24 heures, on peut utiliser les 'scripts pour le répertoire /project'. Si votre tâche dure plus longtemps ou crée des fichiers de redémarrage volumineux, il est fortement recommandé d'utiliser les 'scripts pour répertoire temporaire' qui exploitent la variable d'environnement `SLURM_TMPDIR` pour écrire les données sur le disque local, ce qui est plus efficace. Ces scripts permettent de redémarrer les tâches qui ont été interrompues."
     }
   ],
-  "generated_at": "2026-05-31T01:09:59.696685+00:00"
+  "generated_at": "2026-08-07T23:26:05.539285+00:00"
 }

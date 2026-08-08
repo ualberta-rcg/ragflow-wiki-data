@@ -4,65 +4,21 @@ slug: "working_with_volumes"
 lang: "en"
 
 source_wiki_title: "Working with volumes/en"
-source_hash: "c65559056c20203520873ec694b3f0b8"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T13:41:33.820425+00:00"
+source_hash: "ce6e032a58ef0174a2703582cbcc6577"
+last_synced: "2026-08-07T19:46:17.777436+00:00"
+last_processed: "2026-08-07T23:09:46.232215+00:00"
 
 tags:
   - cloud
 
 keywords:
-  - "mounting information"
-  - "corrupted state"
-  - "openstack volume create"
-  - "boot volume"
-  - "attached VM"
-  - "OpenStack command line clients"
-  - "/etc/fstab"
-  - "blkid command"
-  - "OpenStack dashboard"
-  - "detaching a volume"
-  - "Virtual Machine"
-  - "unmount the volume"
-  - "Creating an image from a volume"
-  - "Detaching a volume"
-  - "Booting from a volume"
-  - "Formatting a volume"
-  - "VM"
-  - "Mounting a volume"
-  - "Volume"
-  - "Cloning a volume"
-  - "detach volume"
-  - "auto-mount"
-  - "UUID"
-  - "Attaching a volume"
-  - "Manage Attachments"
-
-questions:
-  - "What is a volume in this cloud environment, and how do the available storage types differ in terms of hardware and data replication?"
-  - "What are the specific steps required to create a new volume and attach it to a virtual machine via the dashboard?"
-  - "Why must you be careful when formatting a volume, and how can you configure a mounted volume to persist across virtual machine reboots?"
-  - "Why is it considered safer to boot a virtual machine from a volume rather than directly from an image?"
-  - "What are the differences between creating an image from a volume and cloning a volume, and when should each method be used?"
-  - "What precautions must be taken before detaching a volume from a virtual machine to prevent data corruption?"
-  - "How can you view mounting information and find the UUID of a device?"
-  - "What is the correct format for adding a device to the /etc/fstab file for auto-mounting?"
-  - "Where can you find more detailed instructions on how to edit the fstab file?"
-  - "What is the OpenStack command used to create a new volume from an existing source volume?"
-  - "What are the potential risks of detaching a volume while it is still being accessed by the operating system or running programs?"
-  - "What specific actions can be taken to safely prepare a virtual machine before detaching a volume?"
-  - "How do you locate the volumes associated with your project in the OpenStack dashboard?"
-  - "Why might you receive an \"Unable to detach volume\" error, and how does the attachment point (e.g., /dev/vda vs. /dev/vdb) affect the detachment process?"
-  - "What specific sequence of actions must be selected from the drop-down menu to finalize the detachment of a volume?"
-  - "How do you locate the volumes associated with your project in the OpenStack dashboard?"
-  - "Why might you receive an \"Unable to detach volume\" error, and how does the attachment point (e.g., /dev/vda vs. /dev/vdb) affect the detachment process?"
-  - "What specific sequence of actions must be selected from the drop-down menu to finalize the detachment of a volume?"
+  []
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: true
+  keywords_generated: false
   ragflow_synced: true
   qa_generated: false
 ---
@@ -71,7 +27,7 @@ A volume provides storage which is not destroyed when a VM is terminated. On our
 
 ## Creating a volume
 
-To create a volume click on and fill in the following fields:
+To create a volume, proceed to the 'Create Volume' interface and fill in the following fields:
 
 *   *Volume Name*: `data`, for example
 *   *Description*: (optional)
@@ -83,7 +39,6 @@ To create a volume click on and fill in the following fields:
 Finally, click on the blue *Create Volume* button at the bottom.
 
 ## Mounting a volume on a VM
-
 ### Attaching a volume
 
 *   **Attaching** is the process of associating a volume with a VM. This is analogous to inserting a USB key or plugging an external drive into your personal computer.
@@ -91,14 +46,11 @@ Finally, click on the blue *Create Volume* button at the bottom.
 *   At the right-hand end of the line describing the volume is the *Actions* column; from the drop-down menu, select *Manage Attachments*.
 *   In the *Attach to Instance* drop-down menu, select a VM.
 *   Click on the blue *Attach Volume* button.
-
 Attaching should complete in a few seconds. Then the volumes page will show the newly created volume attached to your selected VM on `/dev/vdb` or some similar location.
 
 ### Formatting a newly created volume
 
-!!! warning
-    **DO NOT FORMAT** if you are attaching an existing volume. Instead you can skip this step as the volume would have already been formatted if you had been previously using it to store data.
-
+*   **DO NOT FORMAT** if you are attaching an existing volume. Instead you can skip this step as the volume would have already been formatted if you had been previously using it to store data.
 *   **Formatting** erases all existing information on a volume and therefore should be done with care.
 *   Formatting is the process of preparing a volume to store directories and files.
 *   Before a newly created and attached volume can be used, it must be formatted.
@@ -108,13 +60,11 @@ Attaching should complete in a few seconds. Then the volumes page will show the 
 
 *   **Mounting** is the process of mapping the volume's directory and file structure logically within the VM's directory and file structure.
 *   To mount the volume, use a command similar to `[name@server ~]$ sudo mount /dev/vdb1 /mnt` depending on the device name, disk layout, and the desired mount point in your filesystem.
-
-This command makes the volume's directory and file structure available under the VM's /mnt directory. However, when the virtual machine reboots, the volume will need to be re-mounted using the same `mount` command.
+This command makes the volume's directory and file structure available under the VM's `/mnt` directory. However, when the virtual machine reboots, the volume will need to be re-mounted using the same `mount` command.
 
 It is possible to automatically mount volumes when a virtual machine boots. This requires editing the file named `/etc/fstab` to contain a new line with details about how the volume should be mounted.
 
-To view mounting information, use the 'blkid' command
-
+To view mounting information, use the `blkid` command:
 ```bash
 blkid
 ```
@@ -127,12 +77,16 @@ Based on the UUID, add a line to `/etc/fstab` like this:
 
 Where 'anananan-anan-anana-anan-ananananana' is substituted with UUID of the device you wish to auto-mount.
 
-For more details about how to edit this file see this [Ubuntu community help page](https://help.ubuntu.com/community/Fstab).
+For details on how to edit this file, see this [Ubuntu community help page](https://help.ubuntu.com/community/Fstab).
 
 ## Booting from a volume
 
+!!! warning "Attention"
+    Booting from an image creates a fast, ephemeral volume which is local to the hypervisor. However, ephemeral volumes are not backed up. The volume will be lost if the instance is deleted, if the hypervisor's highly available disk array fails, or if the instance needs to be evacuated.
+
 If you want to run a persistent machine, it is safest to boot from a volume. When you boot a VM from an image rather than a volume, the VM is stored on the local disk of the actual machine running the VM. If something goes wrong with that machine or its disk, the VM may be lost. Volume storage has redundancy, which protects the VM from hardware failure. Typically when booting from a volume VM flavours starting with the letter p are used (see [Virtual machine flavours](virtual_machine_flavors.md)).
 
+For details on storage options, see this [Cloud storage options](cloud_storage_options.md).
 There are several ways to boot a VM from a volume. You can
 *   boot from an image, creating a new volume, or
 *   boot from a pre-existing volume, or
@@ -153,7 +107,7 @@ Large images (more than 10-20GB) may be very slow to create, upload, and otherwi
 ### Using the dashboard
 
 1.  Click on the *Volumes* left-hand menu.
-2.  Under the volume you wish to create an image of click on the drop-down *Actions* menu and select *Upload to Image*.
+2.  Under the volume you wish to create an image of, click on the drop-down *Actions* menu and select *Upload to Image*.
 3.  Choose a name for your new image.
 4.  Choose a disk format. QCOW2 is recommended for using within the OpenStack cloud as it is relatively compact compared to *Raw* and works well with OpenStack. If you wish to use the image with Virtualbox, the *vmdk* or *vdi* image formats might be better suited.
 5.  Finally, click on *Upload*.
@@ -161,35 +115,25 @@ Large images (more than 10-20GB) may be very slow to create, upload, and otherwi
 ### Using the command line client
 
 The [command line client](openstack_command_line_clients.md) can do this:
-
 ```bash
 openstack image create --disk-format <format> --volume <volume_name> <image_name>
 ```
-
 where
 *   `<format>` is the disk format (two possible values are [qcow2](https://en.wikipedia.org/wiki/Qcow) and [vmdk](https://en.wikipedia.org/wiki/VMDK)),
 *   `<volume_name>` can be found from the OpenStack dashboard by clicking on the volume name, and
 *   `<image_name>` is a name you choose for the image.
-
 You can then [download the image](working_with_images.md#downloading-an-image).
 
 ## Cloning a volume
 
-Cloning is the recommended method for copying volumes. While it is possible to make an image of an existing volume and use it to create a new volume, cloning is much faster and requires less movement of data behind the scenes. This method is handy if you have a persistent VM and you want to test out something before doing it on your production site.
-
-!!! warning
-    It is highly recommended to shut down your VM before creating a clone of the volume as the newly created volume may be left in an inconsistent state if there was writing to the source volume during the time the clone was created.
-
-To create a clone you must use the [command line client](openstack_command_line_clients.md) with this command
-
+Cloning is the recommended method for copying volumes. While it is possible to make an image of an existing volume and use it to create a new volume, cloning is much faster and requires less movement of data behind the scenes. This method is handy if you have a persistent VM and you want to test out something before doing it on your production site. It is highly recommended to shut down your VM before creating a clone of the volume as the newly created volume may be left in an inconsistent state if there was writing to the source volume during the time the clone was created. To create a clone you must use the [command line client](openstack_command_line_clients.md) with this command
 ```bash
 openstack volume create --source <source-volume-id> --size <size-of-new-volume> <name-of-new-volume>
 ```
 
 ## Detaching a volume
 
-!!! warning
-    Before detaching a volume, it is important to make sure that the operating system and other programs running on your VM are not accessing files on this volume. If so, the detached volume can be left in a corrupted state or the programs could show unexpected behaviours. To avoid this, you can either shut down the VM before you detach the volume or [unmount the volume](../storage-and-data/using_a_new_empty_volume_on_a_linux_vm.md#unmounting-a-volume-or-device).
+Before detaching a volume, it is important to make sure that the operating system and other programs running on your VM are not accessing files on this volume. If so, the detached volume can be left in a corrupted state or the programs could show unexpected behaviours. To avoid this, you can either shut down the VM before you detach the volume or [unmount the volume](../storage-and-data/using_a_new_empty_volume_on_a_linux_vm.md#unmounting-a-volume-or-device).
 
 To detach a volume, log in to the OpenStack dashboard (see the [list of links to our cloud systems](cloud.md#cloud-systems)) and select the project containing the volume you wish to detach. Selecting *Volumes -> Volumes* displays the project’s volumes. For each volume, the *Attached to* column indicates where the volume is attached.
 

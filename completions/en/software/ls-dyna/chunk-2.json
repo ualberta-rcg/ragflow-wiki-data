@@ -4,13 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How do you specify an LSTC license server using environment variables for LS-DYNA jobs?",
-      "answer": "To specify an LSTC license server using environment variables, you need to set `LSTC_LICENSE=network` and `LSTC_LICENSE_SERVER=<port>@<server>` in your Slurm scripts. In these variables, `<port>` is an integer number and `<server>` is the hostname or IP address of your LSTC license server."
+      "question": "What are the two recommended methods for specifying an LSTC license server when running LS-DYNA jobs on Alliance clusters?",
+      "answer": "Users can specify their LSTC license server by either creating an `ls-dyna.lic` file in the `$HOME/.licenses/` directory with the license server details, or by setting the `LSTC_LICENSE=network` and `LSTC_LICENSE_SERVER=<port>@<server>` environment variables in their Slurm scripts. The file-based approach is recommended as it automatically applies settings to all jobs without needing to be specified in each script."
     },
     {
-      "question": "Is the `~/.licenses/ls-dyna.lic` file required when configuring an LSTC license server with environment variables, and how do you ensure it exists?",
-      "answer": "Yes, even when using environment variables to specify an LSTC license server, the `~/.licenses/ls-dyna.lic` file must exist (even if empty) for any `ls-dyna` or `ls-dyna-mpi` module to successfully load. The environment variables will take priority over any values in this file. To ensure the file exists, run `touch ~/.licenses/ls-dyna.lic` once on the command line on each cluster where you plan to submit jobs."
+      "question": "How do users configure their job scripts to use an Ansys license server for LS-DYNA on Alliance clusters?",
+      "answer": "To configure LS-DYNA for an Ansys license server, users must set the following environment variables in their Slurm scripts: `export LSTC_LICENSE=ansys` and `export ANSYSLMD_LICENSE_FILE=<port>@<server>`. Additionally, a (possibly empty) `~/.licenses/ls-dyna.lic` file must exist for the `ls-dyna` module to load, and only module versions 12.2.1 or newer are compatible with Ansys license servers."
+    },
+    {
+      "question": "What are the key features and restrictions of the SHARCNET Ansys license for LS-DYNA, and how can a researcher access it?",
+      "answer": "The SHARCNET Ansys license supports single-node SMP or MPP LS-DYNA jobs with many cores, allowing researchers to run up to 5 simultaneous jobs with 288 cores for academic research. However, it does not support multi-node distributed memory MPP LS-DYNA jobs because it lacks the `mppdyna` feature. To utilize this license, researchers must include `export LSTC_LICENSE=ansys` and `export ANSYSLMD_LICENSE_FILE=1055@license1.computecanada.ca` in their Slurm scripts."
     }
   ],
-  "generated_at": "2026-04-13T08:01:16.718822+00:00"
+  "generated_at": "2026-08-08T00:17:40.553388+00:00"
 }

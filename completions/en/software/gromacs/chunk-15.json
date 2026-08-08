@@ -4,17 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "How can a user run multiple similar GROMACS simulations concurrently on a single GPU on a cluster like Narval?",
-      "answer": "On a cluster like Narval, you can run multiple similar GROMACS simulations on a single GPU by using the `mdrun -multidir` option. This involves requesting one GPU per node (`#SBATCH --gpus-per-node=1`), setting the number of MPI tasks per node (`#SBATCH --ntasks-per-node`) equal to the number of simulations, and adjusting the number of OpenMP threads per MPI task (`#SBATCH --cpus-per-task`) to maintain a constant total number of CPU cores. An example would be `srun gmx_mpi mdrun -ntomp ${SLURM_CPUS_PER_TASK:-1} -deffnm md -multidir sim1 sim2 sim3`."
+      "question": "In GROMACS, what are the definitions of \"simulation performance\" and \"parallel scaling\"?",
+      "answer": "GROMACS' simulation performance is quantified by the number of nanoseconds of MD-trajectory that can be simulated within a day (ns/day). Parallel scaling measures how effectively compute resources are utilized and is defined by the formula S = pN / (N * p1), where pN is the performance using N CPU cores and p1 is the performance using one CPU core. Ideally, for linear scaling, S should equal 1."
     },
     {
-      "question": "When is it recommended to use a Multi-Instance GPU (MIG) instance instead of a full GPU for GROMACS simulations?",
-      "answer": "Using a Multi-Instance GPU (MIG) instance (a fraction of a GPU) is the preferred solution for GROMACS simulations when you have a single simulation or when your simulations are dissimilar. Examples of dissimilar simulations include systems with more than a 10% difference in the number of atoms, or systems with varying shapes or compositions, such as a membrane-bound versus a soluble protein."
+      "question": "How does GROMACS use Domain Decomposition to distribute computational work, and what factors can limit its effectiveness?",
+      "answer": "GROMACS uses Domain Decomposition (DD) to distribute the work of solving non-bonded Particle-Particle (PP) interactions across multiple CPU cores. This involves cutting the simulation box along its axes into domains, with each domain assigned to one MPI process. Its effectiveness can be limited when the time required for communication becomes significant relative to the size (number of particles and volume) of a domain, leading to a drop in parallel scaling or even decreased performance with more domains. Domains also cannot be smaller in any direction than the longest cutoff radius."
     },
     {
-      "question": "What types of files are necessary to create a portable binary run input (`.tpr`) file for a GROMACS simulation?",
-      "answer": "To create a `.tpr` file using the `gmx grompp` command for a GROMACS simulation, you need three essential file types: a coordinate file containing the starting structure (e.g., `.gro`, `.pdb`, or `.cpt`), a system topology (`.top`) file that defines the force field parameters (often including individual molecule topologies from `.itp` files), and a run parameter (`.mdp`) file which specifies the simulation options."
+      "question": "What is the Particle-Mesh-Ewald (PME) method used for in GROMACS, and how is its performance managed in parallel simulations?",
+      "answer": "The Particle-Mesh-Ewald (PME) method in GROMACS is used to calculate long-range non-bonded interactions beyond the cutoff radius. To manage performance in parallel simulations, GROMACS dedicates specific MPI processes, known as PME-ranks, to only perform PME calculations, especially when 12 or more MPI processes are used, to avoid performance degradation from global communication. Users can manually set the number of PME ranks using the `-npme` parameter. GROMACS also attempts to automatically balance the load between PP and PME ranks by adjusting the cutoff radius, unless this is disabled with the `-notunepme` parameter."
     }
   ],
-  "generated_at": "2026-04-13T06:10:37.545728+00:00"
+  "generated_at": "2026-08-08T00:04:10.727213+00:00"
 }

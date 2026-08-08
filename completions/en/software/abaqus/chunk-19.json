@@ -4,17 +4,17 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "How do I configure my `abaqus.lic` file to use the SHARCNET Abaqus license on Alliance clusters?",
-      "answer": "To use the free SHARCNET Abaqus license, which is available on SHARCNET systems like the Nibi and Dusky clusters or the SHARCNET OOD desktop system, you must update your `~/.licenses/abaqus.lic` file. The file should contain the line `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27050@license1.computecanada.ca\")`. Please note that the old `license3.sharcnet.ca` server is no longer operational."
+      "question": "What is the consequence of an Abaqus job entering a 'queued' state on an Alliance cluster when insufficient licenses are available?",
+      "answer": "When an Abaqus job queues because of unavailable licenses, it is considered by Slurm to be in a 'Running' state. This means the job remains idle on a compute node, consuming valuable cluster resources and negatively affecting the user's fair share level, as if it were actively performing computations."
     },
     {
-      "question": "What command can I use to check the status of Abaqus licenses and jobs on the SHARCNET license server?",
-      "answer": "To check the SHARCNET license server for started and queued Abaqus jobs, first log into the Nibi cluster (e.g., `ssh nibi.alliancecan.ca`), load the `StdEnv/2020` and `abaqus` modules. Then, run the command `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"`."
+      "question": "How can a user configure an Abaqus job on an Alliance cluster to terminate immediately if an insufficient number of licenses are available, rather than queuing indefinitely?",
+      "answer": "To prevent an Abaqus job from queuing indefinitely and instead terminate immediately if licenses are insufficient, users must create an `abaqus_v6.env` text file in their submit directory containing the line `lmlicensequeuing=OFF`."
     },
     {
-      "question": "What does it mean if an Abaqus job is reported as \"queued\" on the SHARCNET license server, and what is its impact?",
-      "answer": "If an Abaqus job is reported as \"queued\" by the SHARCNET license server, it means the job has entered the \"Running\" state from Slurm's perspective (e.g., `squeue -j jobid`) but is actually idle on a compute node, waiting for a license. This state impacts your account priority as if the job were actively consuming CPU time, even though it's waiting. The job will only commence computations once enough licenses become available."
+      "question": "What is an alternative method to manage Abaqus license queuing on an Alliance cluster, allowing a job to wait for a limited time before terminating?",
+      "answer": "An alternative method is to specify a finite wait time in minutes for a job to acquire a license. This is done by adding the line `lmhanglimit=N` (where N is the number of minutes) to an `abaqus_v6.env` file in the submit directory. If licenses do not become available within the specified time, the job will be dequeued by the license server and subsequently terminated by Slurm."
     }
   ],
-  "generated_at": "2026-05-31T01:08:47.574207+00:00"
+  "generated_at": "2026-08-07T23:25:08.883638+00:00"
 }

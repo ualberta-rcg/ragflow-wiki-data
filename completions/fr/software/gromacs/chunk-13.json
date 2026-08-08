@@ -4,17 +4,17 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "Comment soumettre une tâche GROMACS sur une grappe de calcul pour qu'elle utilise un GPU?",
-      "answer": "Pour soumettre une tâche GROMACS avec un GPU, il faut inclure des directives SLURM dans votre script, telles que `#SBATCH --gpus-per-node=1` pour demander un GPU par nœud et `#SBATCH --cpus-per-task=4` pour définir le nombre de fils OpenMP par processus MPI. Vous devez aussi charger les modules d'environnement appropriés, incluant `cuda` et la version de GROMACS, avant d'exécuter la commande `gmx mdrun` avec l'option `-ntomp` si nécessaire."
+      "question": "Quel est le principal défi rencontré lorsqu'on utilise GROMACS avec les modèles de GPU récents comme les Nvidia A100 et H100?",
+      "answer": "Le principal défi est que GROMACS et d'autres logiciels de simulation de dynamique moléculaire ne peuvent pas exploiter pleinement les modèles de GPU récents, à moins que le système moléculaire ne soit très volumineux (des millions d'atomes), ce qui peut gaspiller une part importante des ressources de calcul allouées."
     },
     {
-      "question": "Quelles sont les considérations importantes ou les contraintes à prendre en compte lorsqu'on travaille avec des GPU dans GROMACS?",
-      "answer": "Il est important de noter que l'utilisation de plusieurs GPU peut souvent mener à une efficacité moindre, d'où l'importance de faire des tests comparatifs. Pour GROMACS, des contraintes s'appliquent, notamment le fait que `--tasks-per-node` doit être un multiple du nombre de GPU demandés (`--gres=gpu:`). Le nombre optimal de `--cpus-per-task` est généralement entre 2 et 6, et il faut éviter de demander une fraction de CPU ou de mémoire plus grande que la fraction de GPU allouée."
+      "question": "Comment peut-on optimiser l'utilisation d'un GPU puissant lorsqu'on veut exécuter plusieurs simulations GROMACS similaires?",
+      "answer": "Pour optimiser l'utilisation, la solution idéale est d'exécuter plusieurs simulations sur un seul GPU en utilisant l'option `mdrun -multidir`. C'est parfait pour répéter la même simulation, simuler plusieurs variants de protéines, ou faire des études à différentes températures ou concentrations ioniques."
     },
     {
-      "question": "Existe-t-il un bogue connu dans certaines versions de GROMACS lorsque des GPU de nouvelle génération sont utilisés?",
-      "answer": "Oui, les versions de GROMACS de 2020.0 à 2021.5 inclusivement contiennent un bogue. Ce problème survient lorsqu'elles sont utilisées avec des GPU de génération Volta ou plus récentes (comme les V100, T4 et A100) et l'option `-update gpu` de `mdrun`. Ce bogue pourrait perturber le calcul viriel et potentiellement fausser le raccord de pression, bien que les développeurs n'aient pas observé l'erreur en pratique lors de leurs tests."
+      "question": "Si on a une seule simulation GROMACS ou des simulations qui sont pas mal différentes, quelle est la meilleure façon d'utiliser un GPU sans gaspiller les ressources?",
+      "answer": "Dans ce cas, la meilleure façon est d'utiliser une instance MIG (une fraction du GPU) plutôt qu'un GPU complet. C'est idéal pour des simulations uniques ou quand les simulations ont des systèmes de tailles ou de compositions différentes."
     }
   ],
-  "generated_at": "2026-04-13T06:16:17.995872+00:00"
+  "generated_at": "2026-08-08T00:08:05.659036+00:00"
 }

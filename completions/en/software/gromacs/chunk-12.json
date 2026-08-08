@@ -4,13 +4,17 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "How do you configure a GROMACS job to utilize an entire compute node on a cluster like Rorqual, Fir, Nibi, or Trillium, including the necessary environment modules and resource requests?",
-      "answer": "To configure a GROMACS job for an entire node on clusters such as Rorqual, Fir, Nibi, or Trillium, you would typically request 1 node (`--nodes=1`), 96 MPI tasks per node (`--ntasks-per-node=96`), and 2 OpenMP threads per MPI task (`--cpus-per-task=2`), resulting in a total of 192 CPUs per node. A common memory allocation is 2000 MB per CPU (`--mem-per-cpu=2000M`) with a time limit of 1 hour (`--time=0-01:00`). The required environment modules are `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `gromacs/2025.4`. OpenMP threads are enabled by `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"`, and the simulation is launched using `srun --cpus-per-task=$OMP_NUM_THREADS gmx_mpi mdrun -deffnm md`."
+      "question": "What essential files are required to create a portable binary run input (.tpr) file for a GROMACS simulation?",
+      "answer": "To create a .tpr file, one needs the coordinate file with the starting structure, the system topology (.top) file, and the run parameter (.mdp) file."
     },
     {
-      "question": "What are the required Slurm resource requests and environment modules for running a GROMACS simulation on a single GPU?",
-      "answer": "For a GROMACS simulation on a single GPU, the Slurm script needs to request 1 GPU per node (`--gpus-per-node=1`), specify 4 OpenMP threads per MPI process (`--cpus-per-task=4`), allocate 2000 MB of memory per CPU core (`--mem-per-cpu=2000M`), and set a time limit, for example, 30 minutes (`--time=0:30:00`). The necessary environment modules to load include `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `gromacs/2025.4`. The OpenMP threads are set with `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"`, and the `gmx mdrun` command includes `-ntomp ${SLURM_CPUS_PER_TASK:-1}`."
+      "question": "Are GROMACS portable binary run input (.tpr) files compatible across different versions of `grompp` and `mdrun`?",
+      "answer": "While .tpr files are portable and `mdrun` is able to use files that have been created with an older version of `grompp`, it is always recommended to use the same version for both `grompp` and `mdrun` to avoid unexpected simulation results."
+    },
+    {
+      "question": "How can GROMACS simulations that exceed a job's maximum walltime be managed to ensure graceful completion and allow for restarting?",
+      "answer": "To manage long GROMACS simulations, you should use the `mdrun` parameter `-maxh` to tell the program the requested walltime. This ensures it gracefully finishes the current timestep when reaching 99% of this walltime, creating a new checkpoint file and properly closing all output files."
     }
   ],
-  "generated_at": "2026-04-13T06:10:02.082732+00:00"
+  "generated_at": "2026-08-08T00:03:42.918004+00:00"
 }

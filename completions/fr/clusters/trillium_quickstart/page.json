@@ -1,6 +1,67 @@
 {
   "doc_key": "fr/trillium_quickstart",
   "level": "page",
-  "qa_pairs": [],
-  "generated_at": "2026-05-10T00:40:36.757973+00:00"
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce que la grappe Trillium et quelles sont ses composantes principales?",
+      "answer": "La grappe Trillium est conçue pour prendre en charge des tâches massivement parallèles. Elle est composée d'une sous-grappe de CPU, d'une sous-grappe de GPU et d'un système de stockage NVMe VAST unifié."
+    },
+    {
+      "question": "Comment un utilisateur peut-il obtenir l'accès à la grappe Trillium de l'Alliance de recherche numérique du Canada?",
+      "answer": "Pour obtenir l'accès à Trillium, un utilisateur doit posséder un compte CCDB actif, puis demander l'accès via la section 'Ressources → Accès aux systèmes → onglet HPC' du portail CCDB."
+    },
+    {
+      "question": "Quelles sont les deux principales méthodes pour se connecter à la grappe Trillium?",
+      "answer": "Les deux principales méthodes pour se connecter à Trillium sont via un navigateur avec Open OnDemand (recommandé pour les débutants) ou via un terminal avec SSH."
+    },
+    {
+      "question": "Quelles sont les exigences pour l'authentification SSH à Trillium?",
+      "answer": "L'authentification SSH à Trillium est uniquement autorisée via des clés SSH téléversées dans le CCDB, et l'utilisateur doit connaître l'interpréteur Linux."
+    },
+    {
+      "question": "Quels sont les répertoires de stockage principaux disponibles sur Trillium et à quoi servent-ils?",
+      "answer": "Les répertoires de stockage principaux sont `/home` (configurations et fichiers personnels), `/scratch` (espace temporaire haute vitesse pour les données de tâches) et `/project` (espace partagé pour les projets d'équipe)."
+    },
+    {
+      "question": "Comment les logiciels sont-ils gérés sur la grappe Trillium?",
+      "answer": "Trillium utilise des modules d'environnement pour gérer les compilateurs, les bibliothèques et autres progiciels, permettant de modifier dynamiquement l'environnement pour accéder à différentes versions de logiciels."
+    },
+    {
+      "question": "Quelles sont les bonnes pratiques recommandées pour le chargement des modules logiciels sur Trillium?",
+      "answer": "Il est conseillé de charger les modules manuellement ou dans des scripts de tâche, d'éviter de les charger dans le fichier `.bashrc`, et de spécifier les versions complètes pour une meilleure reproductibilité."
+    },
+    {
+      "question": "Comment les utilisateurs peuvent-ils tester et déboguer leur code avant de soumettre une tâche sur Trillium?",
+      "answer": "Les tests légers peuvent être exécutés sur les nœuds de connexion. Pour des tests plus exigeants, les utilisateurs peuvent demander une tâche de débogage interactive avec la commande `debugjob` ou une session interactive via la file d'attente standard avec `salloc`."
+    },
+    {
+      "question": "Quel ordonnanceur de tâches est utilisé sur Trillium et comment les tâches sont-elles soumises?",
+      "answer": "Trillium utilise SLURM comme ordonnanceur de tâches. Les tâches sont soumises depuis un nœud de connexion à l'aide de la commande `sbatch` avec un script de tâche."
+    },
+    {
+      "question": "Quelles sont les restrictions particulières concernant les tâches soumises sur la grappe Trillium?",
+      "answer": "Les données de sortie des tâches doivent être écrites dans `/scratch`, les tâches ne peuvent pas être soumises depuis les nœuds de calcul, l'ordonnancement se fait par nœud entier ou par GPU entier, et les requêtes de mémoire sont ignorées (toute la mémoire allouée est donnée)."
+    },
+    {
+      "question": "Quelle est la taille minimale d'une tâche CPU sur Trillium et combien de cœurs cela représente-t-il?",
+      "answer": "La taille minimale d'une tâche CPU sur Trillium est d'un nœud entier, ce qui représente 192 cœurs."
+    },
+    {
+      "question": "Combien de GPU sont disponibles par nœud sur la sous-grappe GPU de Trillium, et quelles sont les options d'allocation pour les tâches?",
+      "answer": "Chaque nœud GPU sur Trillium est équipé de 4 GPU. L'ordonnanceur permet de demander soit un seul GPU, soit un multiple de quatre GPU (un nœud entier)."
+    },
+    {
+      "question": "Pourquoi est-il impératif d'écrire les données de sortie des tâches dans le système de fichiers `/scratch` sur Trillium?",
+      "answer": "Il est impératif d'écrire les données de sortie des tâches dans `/scratch` car les systèmes de fichiers `/home` et `/project` sont en lecture seule sur les nœuds de calcul."
+    },
+    {
+      "question": "Quelles commandes SLURM peuvent être utilisées pour suivre l'état des tâches soumises et en cours sur Trillium?",
+      "answer": "Les commandes `squeue` (pour la file d'attente), `scontrol show job JOBID` (pour les détails d'une tâche), `squeue --start -j JOBID` (pour une estimation de démarrage), `scancel JOBID` (pour annuler une tâche), et `jobperf JOBID` (pour le suivi CPU/mémoire en temps réel) peuvent être utilisées."
+    },
+    {
+      "question": "Comment les utilisateurs peuvent-ils consulter les informations et les données de performance de leurs tâches passées sur Trillium?",
+      "answer": "Les informations sur les tâches passées et leur utilisation des ressources, y compris les données de performance, peuvent être consultées via le portail my.SciNet."
+    }
+  ],
+  "generated_at": "2026-08-08T00:50:33.286519+00:00"
 }

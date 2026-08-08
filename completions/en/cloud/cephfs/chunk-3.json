@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How do you attach the CephFS network to an OpenStack VM using the OpenStack command-line client on SD4H/Juno?",
-      "answer": "To attach the CephFS network to an OpenStack VM on SD4H/Juno using the OpenStack command-line client, you first need to identify the VM's ID by running `openstack server list`. Once you have the VM's ID, execute the command `openstack server add network <VM_ID> CephFS-Network`, replacing `<VM_ID>` with the actual ID of your virtual machine. You can verify that the network has been successfully attached by running `openstack server list` again."
+      "question": "What are the steps to install the necessary Ceph client packages and their repositories on a Red Hat Enterprise Linux (RHEL) family system?",
+      "answer": "To install the Ceph client packages on a RHEL-based system, first install the Extra Packages for Enterprise Linux (EPEL) repository using `sudo dnf install epel-release`. If you are running el10, temporarily disable the default cryptographic policy with `sudo update-crypto-policies --set LEGACY`. Next, import the Ceph project's public key using `sudo rpm --import 'https://download.ceph.com/keys/release.asc'`. Finally, install the Ceph client and its dependencies with `sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`. If the cryptographic policy was temporarily disabled, remember to restore it afterwards with `sudo update-crypto-policies --set DEFAULT`."
     },
     {
-      "question": "What are the required steps to install the CephFS client on a VM running a Red Hat family Linux distribution, such as RHEL 9, CentOS, Fedora, Rocky, or Alma?",
-      "answer": "To install the CephFS client on a VM running a Red Hat family Linux distribution (like Enterprise Linux 9), you must first configure the relevant repositories. Create or edit the `/etc/yum.repos.d/ceph.repo` file with the following contents, ensuring the `baseurl` points to the correct Ceph release (e.g., `http://download.ceph.com/rpm-tentacle/el9/$basearch` for Enterprise Linux 9 and the `tentacle` release). Additionally, ensure the `epel-release` repository is installed by running `sudo dnf install epel-release`. Finally, install the necessary CephFS client packages and dependencies with the command `sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`. Please note that as of April 2026, the CephFS client is not available for Enterprise Linux 10."
+      "question": "How can one install the Ceph client and its dependencies on a Debian-based Linux system?",
+      "answer": "For Debian-based systems, first add the Ceph repository by using `sudo apt-add-repository 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`, replacing `{codename}` with your distro's codename (which can be found using `lsb_release -sc`). If this command results in an error, revert it with `sudo add-apt-repository -r 'deb https://download.ceph.com/debian-tentacle/ {codename} main'` and proceed to the next step. After adding the repository, install the ceph lib, cephfs client, and other dependencies using `sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
     },
     {
-      "question": "How can you install the CephFS client on a VM running a Debian family Linux distribution, such as Debian, Ubuntu, or Mint?",
-      "answer": "To install the CephFS client on a VM running a Debian family Linux distribution, first determine your distro's codename by executing `lsb_release -sc`. Then, add the Ceph repository by running `sudo apt-add-repository 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`, substituting `{codename}` with your distribution's actual codename. If this command returns an error, revert it using `sudo add-apt-repository -r 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`. After setting up the repository, install the CephFS client and its dependencies with the command `sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
+      "question": "How do you configure the `ceph.conf` file for a Ceph client on the Arbutus cloud environment?",
+      "answer": "To configure the Ceph client on Arbutus, you need to create the `/etc/ceph/ceph.conf` file with the following content:\n```ini\n[global]\nadmin socket = /var/run/ceph/$cluster-$name-$pid.asok\nclient reconnect stale = true\ndebug client = 0/2\nfuse big writes = true\nmon host = [v2:134.87.15.61:3300/0,v1:134.87.15.61:6789/0] [v2:134.87.15.62:3300/0,v1:134.87.15.62:6789/0] [v2:134.87.15.63:3300/0,v1:134.87.15.63:6789/0]\n[client]\nquota = true\n```\nThis file specifies global settings and the monitor hosts for the Arbutus cloud."
     }
   ],
-  "generated_at": "2026-04-26T00:52:19.940986+00:00"
+  "generated_at": "2026-08-07T23:49:33.381189+00:00"
 }

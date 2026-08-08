@@ -4,13 +4,17 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "Quel est le problème identifié dans les versions de GROMACS 2020.0 à 2021.5 lorsqu'elles sont utilisées avec des GPU récents et l'option `-update gpu`?",
-      "answer": "Un bogue peut perturber le calcul viriel et fausser le raccord de pression. Cette erreur est rare, n'étant pas activée par défaut, mais elle peut survenir dans les simulations où l'option `-update gpu` a été explicitement sélectionnée avec des GPU de génération Volta ou plus récentes (comme les V100, T4, A100 et H100)."
+      "question": "Quel est le bogue connu avec les versions de GROMACS allant de 2020.0 à 2021.5 lorsqu'elles sont utilisées avec des GPU de génération Volta ou plus récente?",
+      "answer": "Un bogue affecte les versions de GROMACS de 2020.0 à 2021.5 inclusivement lorsqu'elles sont utilisées avec des GPU de génération Volta ou plus récente (comme les V100, T4, A100 et H100) et l'option `-update gpu` de `mdrun`. Ce bogue aurait pu perturber le calcul viriel et fausser le raccord de pression. Toutefois, comme la mise à jour sur le GPU n'est pas activée par défaut, l'erreur est rare et ne se manifeste que si l'option `-update gpu` est explicitement sélectionnée."
     },
     {
-      "question": "Où peut-on trouver des détails supplémentaires sur le bogue lié aux calculs viriels dans GROMACS avec certains GPU?",
-      "answer": "Plus d'information sur ce bogue est disponible sur GitLab, en consultant l'enjeu #4393 du projet GROMACS."
+      "question": "Comment faire pour charger les modules GROMACS pour une simulation qui utilise seulement les CPU ou pour une simulation accélérée par GPU, en utilisant l'environnement `StdEnv/2023`?",
+      "answer": "Pour une simulation qui utilise seulement les CPU, vous devez utiliser la commande `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2025.4`. Si vous voulez que la simulation utilise les GPU, il faut d'abord charger le module `cuda` en plus des autres, par exemple avec `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 gromacs/2025.4`."
+    },
+    {
+      "question": "Quels sont les différents binaires de GROMACS disponibles pour les versions 5.x, 2016.x et suivantes, et quelle est la fonction de chacun?",
+      "answer": "Pour les versions 5.x, 2016.x et ultérieures de GROMACS, quatre binaires principaux sont disponibles : `gmx` pour la précision mixte (simple) avec OpenMP sans MPI; `gmx_mpi` pour la précision mixte (simple) avec OpenMP et MPI; `gmx_d` pour la double précision avec OpenMP sans MPI; et `gmx_mpi_d` pour la double précision avec OpenMP et MPI."
     }
   ],
-  "generated_at": "2026-04-13T06:15:25.328860+00:00"
+  "generated_at": "2026-08-08T00:07:24.361030+00:00"
 }

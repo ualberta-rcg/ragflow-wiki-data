@@ -19,11 +19,18 @@ AlphaFold2 est encore disponible ([[AlphaFold2|voir la documentation]]).
 == Créer un fichier des dépendances requises ==
 
 1. Chargez les dépendances de AlphaFold3.
-{{Command|module load StdEnv/2023 hmmer-alphafold3/3.4 rdkit/2024.03.5 python/3.12
+{{Command|module load StdEnv/2023 hmmer-alphafold3/3.4 rdkit/2025.09.4 python/3.12
 }}
+
+Les différentes versions d'AlphaFold3 requièrent différentes versions de RDKit. Si un message d'erreur s'affiche à l'installation du paquet Python <code>alphafold3</code> (voir ci-dessous), téléchargez de nouveau le module <code>rdkit</code> avec la version mentionnée dans le message d'erreur.
 
 2. Téléchargez le script d'exécution.
 <tabs>
+<tab name="3.0.4">
+{{Command
+|wget https://raw.githubusercontent.com/google-deepmind/alphafold3/refs/tags/v3.0.4/run_alphafold.py
+}}
+</tab>
 <tab name="3.0.2">
 {{Command
 |wget https://raw.githubusercontent.com/google-deepmind/alphafold3/refs/tags/v3.0.2/run_alphafold.py
@@ -53,7 +60,7 @@ AlphaFold2 est encore disponible ([[AlphaFold2|voir la documentation]]).
 |pip install --no-index --upgrade pip
 |pip install --no-index alphafold3{{=}}{{=}}X.Y.Z
 }}
-où <code>X.Y.Z</code> est la version spécifique, par exemple <code>3.0.0</code>.
+où <code>X.Y.Z</code> est la version spécifique, par exemple <code>3.0.4</code>.
 N'entrez pas le numéro de la version si vous voulez installer la plus récente.
 
 5. Compilez les données nécessaires.
@@ -89,13 +96,21 @@ Ceci crée des fichiers de données dans l'environnement virtuel.
 L'environnement virtuel sera plutôt créé dans votre tâche.
 
 == Modèle ==
-Vous pouvez demander le modèle à Google. Le délai de réponse est de 2 à 3 jours ouvrables.
-Voir [https://github.com/google-deepmind/alphafold3?tab=readme-ov-file Obtaining Model Parameters].
+AlphaFold3 utilise des paramètres de modèle pour l'inférence. Avant de télécharger le modèle, il faut accepter les conditions d'utilisation; voir  [https://github.com/google-deepmind/alphafold3/blob/main/WEIGHTS_TERMS_OF_USE.md].
+
+<b>Important :</b> Les paramètres du modèle doivent résider dans votre répertoire <code>$SCRATCH</code>.
+
+Téléchargez le modèle avec
+
+{{Commands
+|mkdir -p $SCRATCH/alphafold/models
+|wget https://storage.googleapis.com/alphafold3/af3.bin.zst -P $SCRATCH/alphafold/models/
+}}
 
 == Bases de données ==
-AlphaFold3 nécessite un ensemble de bases de données.
+AlphaFold3 utilise un ensemble de bases de données pour son pipeline de données.
 
-<b>Important :</b> Les bases de données doivent résider dans le répertoire <code>$SCRATCH</code>.
+<b>Important :</b> Les bases de données doivent résider dans votre répertoire <code>$SCRATCH</code>.
 
 1. Téléchargez le script de téléchargement.
 {{Command
@@ -118,8 +133,41 @@ Pour des références, voir
 * [https://github.com/google-deepmind/alphafold3/blob/main/docs/output.md outputs]
 * [https://github.com/google-deepmind/alphafold3/blob/main/docs/performance.md performance]
 
-=== 1. Pipeline de données (CPU) ===
-Modifiez le script suivant selon vos besoins.
+L'exemple suivant montre comment replier une protéine homodimère de 70kDa (identifiant PDB [https://www.rcsb.org/structure/2PV7 2PV7]). Il s'agit du  [https://github.com/google-deepmind/alphafold3/tree/main#installation-and-running-your-first-prediction même exemple] que celui fourni dans la documentation d'AlphaFold3, mais adapté à nos grappes et divisé en deux étapes.
+
+<span id="Input_file"></span>
+=== Fichier d'entrée ===
+
+Créez un répertoire pour le fichier d'entrée.
+
+{{Commands
+|mkdir -p $SCRATCH/alphafold/input
+}}
+
+Dans le nouveau répertoire, ajoutez le fichier d'entrée suivant.
+
+{{File
+|name=fold_input.json
+|lang="json"
+|contents=
+{
+  "name": "2PV7",
+  "sequences": [
+    {
+      "protein": {
+        "id": ["A", "B"],
+        "sequence": "GMRESYANENQFGFKTINSDIHKIVIVGGYGKLGGLFARYLRASGYPISILDREDWAVAESILANADVVIVSVPINLTLETIERLKPYLTENMLLADLTSVKREPLAKMLEVHTGAVLGLHPMFGADIASMAKQVVVRCDGRFPERYEWLLEQIQIWGAKIYQTNATEHDHNMTYIQALRHFSTFANGLHLSKQPINLANLLALSSPIYRLELAMIGRLFAQDAELYADIIMDKSENLAVIETLKQTYDEALTFFENNDRQGFIDAFHKVRDWFGDYSEQFLKESRQLLQQANDLKQG"
+      }
+    }
+  ],
+  "modelSeeds": [1],
+  "dialect": "alphafold3",
+  "version": 1
+}
+}}
+
+=== Pipeline de données (CPU) ===
+Modifiez le script de tâche selon vos besoins.
 {{File
 |name=alphafold3-data.sh
 |lang="bash"
@@ -156,26 +204,20 @@ export XLA_FLAGS="--xla_gpu_enable_triton_gemm=false"
 # Edit with the proper arguments and run your commands.
 # run_alphafold.py --help
 python run_alphafold.py \
-    --db_dir=$DOWNLOAD_DIR \
+    --db_dir=$DB_DIR \
     --input_dir=$INPUT_DIR \
     --output_dir=$OUTPUT_DIR \
     --jax_compilation_cache_dir=$HOME/.cache \
     --nhmmer_n_cpu=$SLURM_CPUS_PER_TASK \
     --jackhmmer_n_cpu=$SLURM_CPUS_PER_TASK \
     --norun_inference  # Run data stage
-
-# copy back
-mkdir $SCRATCH/alphafold/output
-cp -vr $OUTPUT_DIR $SCRATCH/alphafold/output
 }}
 
-=== 2. Inférence de modèle ===
-Modifiez le script suivant selon vos besoins.
+Le pipeline de données enregistre dans un sous-répertoire de <code>$OUTPUT_DIR</code>, nommé selon la balise <code>name</code> du fichier d'entrée, ici <code>2PV7</code>.
 
-{{Warning
-|title=Compatibilité
-|content=Alphafold3 prend en charge seulement la capacité de calcul des versions 8.0 et plus récentes, soit pour des '''A100s et plus performants'''.
-}}
+=== Inférence de modèle (GPU)===
+Modifiez le script de tâche suivant selon vos besoins.
+
 {{File
 |name=alphafold3-inference.sh
 |lang="bash"
@@ -183,18 +225,19 @@ Modifiez le script suivant selon vos besoins.
 #!/bin/bash
 
 #SBATCH --job-name=alphafold3-inference
-#SBATCH --account=def-someprof    # adjust this to match the accounting group you are using to submit jobs
-#SBATCH --time=08:00:00           # adjust this to match the walltime of your job
-#SBATCH --cpus-per-task=1         # AlphaFold has no benefit to use more for the inference stage
-#SBATCH --gpus=a100:1             # Alphafold3 inference only runs on ONE A100 or greater.
-#SBATCH --mem=20G                 # adjust this according to the memory you need
+#SBATCH --account=def-someprof  # set the accounting group you use to submit jobs
+#SBATCH --time=08:00:00         # set the time limit for your job
+#SBATCH --cpus-per-task=1       # AlphaFold3 inference uses a single core
+#SBATCH --gpus=a100:1           # Alphafold3 inference uses a single (A100 or more recent) GPU
+#SBATCH --mem=20G               # set the memory needed for your job
 
 # Load modules dependencies.
-module load StdEnv/2023 hmmer-alphafold3/3.4 rdkit/2024.03.5 python/3.12 cuda/12.2 cudnn/9.2
+module load StdEnv/2023 hmmer-alphafold3/3.4 rdkit/2025.09.4 python/3.12 cuda/12.2 cudnn/9.2
 
-DOWNLOAD_DIR=$SCRATCH/alphafold/dbs    # set the appropriate path to your downloaded data
-INPUT_DIR=$SCRATCH/alphafold/input     # set the appropriate path to your input data, following the data stage.
-OUTPUT_DIR=$SCRATCH/alphafold/output   # set the appropriate path to your output data
+MODEL_DIR=$SCRATCH/alphafold/models             # downloaded model parameters
+INPUT_DIR=$SCRATCH/alphafold/data-output/2PV7   # intermediate directory created by the data pipeline
+OUTPUT_DIR=$SCRATCH/alphafold/inference-output  # final output directory for inference
+mkdir -p $OUTPUT_DIR
 
 # Generate your virtual environment in $SLURM_TMPDIR.
 virtualenv --no-download $SLURM_TMPDIR/env
@@ -217,15 +260,15 @@ export XLA_CLIENT_MEM_FRACTION=0.95
 # Edit with the proper arguments and run your commands.
 # run_alphafold.py --help
 python run_alphafold.py \
-    --db_dir=$DOWNLOAD_DIR \
+    --model_dir=$MODEL_DIR \
     --input_dir=$INPUT_DIR \
     --output_dir=$OUTPUT_DIR \
     --jax_compilation_cache_dir=$HOME/.cache \
     --norun_data_pipeline  # Run inference stage
 }}
 
-<span id="3._Job_submission"></span>
-=== 3. Soumettre une tâche ===
+<span id="Job_submission"></span>
+=== Soumettre une tâche ===
 
 Soumettez la tâche à l'ordonnanceur.
 
@@ -252,7 +295,7 @@ Si la première étape échoue, vous devez annuler manuellement la deuxième ét
 
 == Dépannage ==
 === Mémoire insuffisante (GPU) ===
-Si vous voulez exécuter AlphaFold3 avec plus de 5120 jetons ou sur un GPU de mémoire moindre,  (par exemple sur un A100 avec 40Go de mémoire), vous pouvez activer la fonctionnalité de [https://github.com/google-deepmind/alphafold3/blob/main/docs/performance.md#unified-memory mémoire unifiée].
+Si vous voulez exécuter AlphaFold3 avec plus de 5120 jetons ou sur un GPU de mémoire moindre (par exemple sur un A100 avec 40Go de mémoire), vous pouvez activer la fonctionnalité de [https://github.com/google-deepmind/alphafold3/blob/main/docs/performance.md#unified-memory mémoire unifiée].
 
 Dans le script de soumission à l'étape d'inférence, ajoutez les variables d'environnement suivantes&nbsp;:
 <syntaxhighlight lang="bash">

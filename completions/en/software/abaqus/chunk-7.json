@@ -4,13 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "How does the provided script manage scratch data for an Abaqus job running on an Alliance cluster?",
-      "answer": "The script creates a `scratch` subdirectory within the `SLURM_TMPDIR` environment variable's path and then changes the current working directory to `SLURM_TMPDIR` to handle temporary and scratch data for the Abaqus job."
+      "question": "What are the key Slurm directives and Abaqus command parameters for submitting a single-node Abaqus Standard Analysis job that utilizes a temporary directory for scratch data?",
+      "answer": "For a single-node Abaqus Standard Analysis job using a temporary directory, essential Slurm directives include `--account=def-group`, `--time=00-06:00`, `--cpus-per-task=4`, `--mem=8G`, and `--nodes=1`. The Abaqus command typically uses parameters such as `job=testst1`, `input=$SLURM_SUBMIT_DIR/mystd-sim.inp`, `scratch=$SLURM_TMPDIR/scratch`, `cpus=$SLURM_CPUS_ON_NODE`, `interactive`, `mp_mode=threads`, and `memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`. The script also handles creating the scratch directory within `$SLURM_TMPDIR` and copying data back to the submit directory upon completion."
     },
     {
-      "question": "What mechanism is used in the script to periodically save data to prevent loss due to time limits?",
-      "answer": "The script employs a background `while sleep 6h` loop that, every six hours, copies all files from the current working directory (which is `SLURM_TMPDIR`) to the job's submission directory (`SLURM_SUBMIT_DIR`), ensuring data is saved before the job potentially reaches its time limit."
+      "question": "How can a user restart a single-node Abaqus Standard Analysis job that was initially configured to use a temporary directory for scratch data?",
+      "answer": "To restart a single-node Abaqus Standard Analysis job that used a temporary directory, a restart script is employed. This script first copies the output files from the previous job (e.g., `testst1*`) into the `$SLURM_TMPDIR` and then changes the working directory to `$SLURM_TMPDIR`. The Abaqus command for restarting should specify `job=testst2`, `oldjob=testst1`, `input=$SLURM_SUBMIT_DIR/mystd-sim-restart.inp`, and maintain the `scratch=$SLURM_TMPDIR/scratch` parameter. The restart input file (`mystd-sim-restart.inp`) must contain the lines `*HEADING` and `*RESTART, READ`."
+    },
+    {
+      "question": "How do you configure an Abaqus input file to write restart data at specific time increments or for a total number of increments?",
+      "answer": "To write Abaqus restart data every N=12 time increments, include the line `*RESTART, WRITE, OVERLAY, FREQUENCY=12` in your input file. Alternatively, to write restart data for a total of 12 time increments, specify `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO` in the input file. After the job runs, you can check for completed restart information by running `egrep -i \"step|start\" testst*.com testst*.msg testst*.sta`."
     }
   ],
-  "generated_at": "2026-05-31T01:07:06.324386+00:00"
+  "generated_at": "2026-08-07T23:23:26.204355+00:00"
 }

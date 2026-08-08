@@ -1,0 +1,20 @@
+{
+  "doc_key": "base/cluster_batch_job_submission_with_ansys",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "What are the common configurations for Slurm scripts used to run Ansys Fluent in multinode environments on the Narval cluster with Open MPI?",
+      "answer": "Slurm scripts for Ansys Fluent on the Narval cluster using Open MPI typically include `StdEnv/2023` and `ansys/2023R2` (or newer) module loads. They export `OPENMPI_ROOT=$EBROOTOPENMPI`, specify a journal file (`MYJOURNALFILE`) and Fluent version (`MYVERSION`), and generate a machinefile using `slurm_hl2hl.py`. The `fluent` command is executed with `-mpi=openmpi`. For multinode execution, the `FI_PROVIDER=verbs` environment variable is set, and `-pib -cnf=/tmp/machinefile-$SLURM_JOB_ID` is used, whereas single node runs use `-pshmem`."
+    },
+    {
+      "question": "What Slurm directives are used to allocate resources in the 'Multinode (by core, Narval)' script for Ansys Fluent?",
+      "answer": "The 'Multinode (by core, Narval)' Slurm script for Ansys Fluent allocates resources using the following directives: `--account=def-group` for the account, `--time=00-03:00` for the time limit, `--ntasks=16` to specify the total number of cores across all nodes, `--mem-per-cpu=4G` for memory per core, and `--cpus-per-task=1`. The script also indicates that `--nodes=1` can be uncommented to specify the number of compute nodes."
+    },
+    {
+      "question": "How does the 'Multinode (by node, Narval)' Slurm script for Ansys Fluent differentiate its `fluent` command execution based on whether it's running on a single node or multiple nodes?",
+      "answer": "In the 'Multinode (by node, Narval)' Slurm script for Ansys Fluent, if the job is running on a single node (`$SLURM_NNODES == 1`), the `fluent` command uses `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pshmem -i $MYJOURNALFILE`. If running on multiple nodes, it first exports `FI_PROVIDER=verbs` and then executes `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
+    }
+  ],
+  "generated_at": "2026-08-08T01:06:37.331162+00:00"
+}

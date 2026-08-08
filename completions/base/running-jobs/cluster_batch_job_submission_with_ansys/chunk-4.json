@@ -1,0 +1,20 @@
+{
+  "doc_key": "base/cluster_batch_job_submission_with_ansys",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the `slurm_hl2hl.py` command within Ansys Fluent Slurm scripts?",
+      "answer": "The `slurm_hl2hl.py` command is used to generate a machine file, typically output to `/tmp/machinefile-$SLURM_JOB_ID` or `/tmp/mf-$SLURM_JOB_ID`, which is crucial for managing parallel computations in Ansys Fluent jobs."
+    },
+    {
+      "question": "How does the \"Multinode (by node)\" Ansys Fluent Slurm script differentiate between single-node and multi-node execution for Intel MPI jobs on clusters like Nibi?",
+      "answer": "For single-node jobs, the \"Multinode (by node)\" Ansys Fluent script uses `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE` for shared memory parallel (SMP). For multi-node execution on the Nibi cluster, it uses `fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE` for distributed memory parallel (DMP) over Ethernet. For other clusters, it uses InfiniBand (`-pib`)."
+    },
+    {
+      "question": "When using the \"Multinode (by node, Narval)\" Slurm script, what are the distinct Fluent execution commands for single-node versus multi-node simulations?",
+      "answer": "For single-node simulations, the \"Multinode (by node, Narval)\" script executes Fluent using `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pshmem -i $MYJOURNALFILE` for shared memory parallel. For multi-node simulations, it first exports `FI_PROVIDER=verbs` and then executes Fluent using `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE` for distributed memory parallel via InfiniBand."
+    }
+  ],
+  "generated_at": "2026-08-08T01:06:24.279521+00:00"
+}

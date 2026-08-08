@@ -2,6 +2,19 @@
   "doc_key": "fr/arbutus_migration_guide",
   "level": "chunk",
   "chunk_index": 5,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:46:12.768699+00:00"
+  "qa_pairs": [
+    {
+      "question": "Quelles sont les modifications à apporter au fichier RC (Runtime Configuration) pour le nouveau nuage Arbutus après l'avoir téléchargé?",
+      "answer": "Après avoir téléchargé le fichier RC du nouveau nuage Arbutus, il faut ajouter les lignes `export OS_AUTH_TYPE=v3websso`, `export OS_IDENTITY_PROVIDER=atmosphere`, `export OS_PROTOCOL=openid` et `export OS_PROJECT_DOMAIN_NAME=default`. Il faut aussi supprimer les lignes qui contiennent `export OS_USER_DOMAIN_NAME=\"atmosphere\"` et les lignes qui demandent le mot de passe OpenStack."
+    },
+    {
+      "question": "Quelles sont les étapes générales à suivre pour effectuer une migration manuelle ou orchestrée d'instances et de volumes vers le nouveau nuage Arbutus?",
+      "answer": "Les étapes générales pour une migration manuelle ou orchestrée incluent la copie des images personnalisées ou le démarrage avec une nouvelle image de base, l'installation et la configuration des services sur les nouvelles instances, la copie des données des anciennes vers les nouvelles instances, l'assignation d'adresses IP flottantes et la mise à jour des DNS, puis la suppression des anciennes instances et des volumes. Ces étapes peuvent être effectuées manuellement ou orchestrées avec des outils comme Ansible, Terraform ou Heat."
+    },
+    {
+      "question": "Comment procéder pour la migration d'une instance associée à un volume de moins de 150 Go en utilisant des images Glance?",
+      "answer": "Pour migrer une instance associée à un volume de moins de 150 Go avec des images Glance, il faut d'abord ouvrir deux sessions SSH (une pour l'ancien nuage et une pour le nouveau) et installer l'interface de ligne de commande OpenStack sur l'instance du nuage précédent. Ensuite, on doit fermer l'instance du nuage précédent, détacher le volume, créer une image à partir de ce volume, la télécharger, puis la charger sur le nouveau nuage. Finalement, un volume peut être créé à partir de cette image sur le nouveau nuage, et les anciennes ressources peuvent être supprimées après validation."
+    }
+  ],
+  "generated_at": "2026-08-07T23:39:28.176762+00:00"
 }

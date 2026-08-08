@@ -4,17 +4,17 @@
   "chunk_index": 20,
   "qa_pairs": [
     {
-      "question": "In GROMACS simulations, what is Domain Decomposition and how does it help distribute computational work across multiple CPU cores?",
-      "answer": "GROMACS uses Domain Decomposition (DD) to distribute the calculation of non-bonded Particle-Particle (PP) interactions across multiple CPU cores. This is achieved by dividing the simulation box along its X, Y, and/or Z axes into smaller domains, with each domain assigned to one MPI process. This method helps parallelize the workload, though its effectiveness can decrease if communication time between processes becomes too large relative to the domain's size or number of particles."
+      "question": "What is the current support status for GROMACS-PLUMED modules that run on the `StdEnv/2018` and `StdEnv/2016` software environments?",
+      "answer": "The `StdEnv/2018` and `StdEnv/2016` software environments, along with their associated GROMACS-PLUMED modules, are no longer supported. These environments are considered deprecated."
     },
     {
-      "question": "When using GROMACS, how does the Particle-Mesh-Ewald (PME) method for long-range interactions affect performance, and how can dedicated MPI processes mitigate potential issues?",
-      "answer": "The Particle-Mesh-Ewald (PME) method is used in GROMACS to calculate long-range non-bonded interactions. As PME requires global communication, its performance can degrade quickly when many MPI processes are involved in both short-range (PP) and long-range (PME) calculations. To address this, GROMACS's `mdrun` by default dedicates a number of MPI processes specifically to PME calculations (PME-ranks) when there are 12 or more total MPI processes, which helps balance the workload and improve efficiency. The `-npme` parameter can also be used to manually select the number of PME ranks."
+      "question": "What modules would a user load to run GROMACS-PLUMED v2019.6 for CPU computations in the now-deprecated `StdEnv/2018.3` environment?",
+      "answer": "To run GROMACS-PLUMED v2019.6 for CPU computations in the deprecated `StdEnv/2018.3` environment, a user would load the following modules: `StdEnv/2018.3 gcc/7.3.0 openmpi/3.1.2 gromacs-plumed/2019.6`."
     },
     {
-      "question": "What is the purpose of using OpenMP threads in GROMACS simulations, and how are they configured to improve performance?",
-      "answer": "OpenMP threads in GROMACS are used to further improve performance once Domain Decomposition with MPI processes reaches its scaling limit. They spread the work of a single MPI process over more than one CPU core. To configure them, users should utilize Slurm's `--cpus-per-task` parameter in the job script, and either set the `OMP_NUM_THREADS` environment variable or use the `mdrun` parameter `-ntomp`. GROMACS developers generally recommend between 2 and 6 OpenMP threads per MPI process for optimal performance."
+      "question": "What were the compilation notes for GROMACS-PLUMED v2018.1 when running on GPUs within the deprecated `StdEnv/2016.4` environment?",
+      "answer": "GROMACS-PLUMED v2018.1 for GPUs in the deprecated `StdEnv/2016.4` environment was compiled using GCC and FFTW libraries."
     }
   ],
-  "generated_at": "2026-04-13T06:11:11.882591+00:00"
+  "generated_at": "2026-08-08T00:04:48.386631+00:00"
 }

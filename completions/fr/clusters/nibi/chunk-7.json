@@ -4,17 +4,13 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "Quel est le système de sauvegarde en place sur la grappe Nibi pour les fichiers des répertoires /home et /project, et quelles sont les limites de récupération?",
-      "answer": "La grappe Nibi dispose d'un système de sauvegarde qui crée un instantané de vos fichiers dans /home et /project toutes les 30 minutes. Ces instantanés sont conservés pendant deux semaines, ce qui permet de récupérer des fichiers supprimés accidentellement durant cette période. Cependant, si un fichier est modifié après la dernière sauvegarde puis supprimé, il ne pourra pas être récupéré."
+      "question": "Comment peut-on récupérer un fichier qu'on a effacé par erreur sur la grappe Nibi?",
+      "answer": "Pour récupérer un fichier effacé sur la grappe Nibi, on peut utiliser la commande `oops` pour trouver l'emplacement du fichier dans les instantanés (snapshots). Une fois qu'on a le chemin du fichier (par exemple, `./.snapshot/backup_2026-04-01_18_00_00_UTC/dont_delete_me.txt`), on le copie ensuite à l'aide de la commande `cp` vers le répertoire où on veut le restaurer, comme `cp ./.snapshot/backup_2026-04-01_18_00_00_UTC/dont_delete_me.txt .` pour le remettre dans le répertoire courant."
     },
     {
-      "question": "Quelle est la procédure pour récupérer un fichier que j'ai supprimé par erreur sur la grappe Nibi en utilisant la commande `oops`?",
-      "answer": "Pour récupérer un fichier supprimé, vous pouvez utiliser la commande `oops` pour trouver le chemin de l'instantané dans le répertoire courant ou dans un répertoire spécifié. Une fois que vous avez le chemin, vous devez copier le fichier depuis l'instantané (qui est en lecture seule) vers votre répertoire en utilisant une commande standard comme `cp`. Par exemple, si `oops` vous donne `./.snapshot/backup_2026-04-01_18_00_00_UTC/mon_fichier.txt`, vous ferez `cp ./.snapshot/backup_2026-04-01_18_00_00_UTC/mon_fichier.txt .`."
-    },
-    {
-      "question": "Comment puis-je configurer un script Slurm pour soumettre une tâche sur un nœud AMD MI300A de la grappe Nibi, en incluant la demande de GPU, de mémoire et de temps?",
-      "answer": "Pour soumettre une tâche sur un nœud AMD MI300A, vous devez inclure les options suivantes dans votre script Slurm : `--account=def-someuser` pour le compte, `--nodes=1` pour un seul nœud, `--ntasks=4` pour quatre tâches, `--cpus-per-task=24` pour 24 cœurs CPU par tâche, `--gpus=mi300a:4` pour quatre GPU MI300A, `--mem=100g` pour 100 Go de mémoire et `--time=00:02:00` pour une durée de deux minutes. Vous pouvez aussi ajouter `rocm-smi` pour vérifier si les GPU sont disponibles."
+      "question": "Quelle commande faut-il utiliser pour voir la liste des fichiers supprimés qui sont encore disponibles dans les instantanés sur la grappe Nibi?",
+      "answer": "Pour voir la liste des fichiers supprimés qui se trouvent dans les instantanés sur la grappe Nibi, on utilise la commande `oops`."
     }
   ],
-  "generated_at": "2026-05-31T01:52:42.333452+00:00"
+  "generated_at": "2026-08-08T00:27:33.375603+00:00"
 }

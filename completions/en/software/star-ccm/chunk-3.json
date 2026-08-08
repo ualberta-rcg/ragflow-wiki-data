@@ -4,13 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How do researchers specify their Power-on-Demand (PoD) license key when submitting a STAR-CCM+ batch job on the Nibi cluster?",
-      "answer": "Researchers with a Power-on-Demand (PoD) license must manually set the `LM_PROJECT` environment variable within their SLURM script to their 22-digit PoD license key. For example, `LM_PROJECT='22digit-PoD-License-Key'`."
+      "question": "When submitting a STAR-CCM+ job on an Alliance cluster like Nibi, how do researchers specify their Power-on-Demand (PoD) license key?",
+      "answer": "Researchers must manually set the `LM_PROJECT` environment variable to their 22-digit PoD license key within their Slurm script. This variable is then used in the `starccm+` command line when running the job."
     },
     {
-      "question": "How does the provided SLURM script for STAR-CCM+ on the Nibi cluster adapt its configuration for Intel versus AMD CPUs?",
-      "answer": "The SLURM script on the Nibi cluster automatically adjusts its configuration based on the CPU vendor. For Intel CPUs (`GenuineIntel`), it sets `STAR_MPI=\"-mpi intel\"` and `STAR_FABRIC=\"-fabric tcp\"`. For AMD CPUs (`AuthenticAMD`), it sets `STAR_MPI=\"-mpi openmpi40\"`. The `FLEXIBLAS` variable is also configured differently, with `StarMKL` for Intel and `StarAOCL` for AMD. For STAR-CCM+ versions older than 20, `STAR_UCX=\"-xsystemucx\"` is applied for both CPU types, and AMD CPUs running newer versions also include `STAR_PRELOAD=\"-ldpreload /usr/lib64/libdrm_amdgpu.so.1\"`."
+      "question": "In a Slurm script for STAR-CCM+ on an Alliance cluster, how are job parameters adjusted for different CPU architectures, specifically Intel and AMD?",
+      "answer": "The Slurm script dynamically detects the CPU vendor. For Intel CPUs, it sets `STAR_MPI=\"-mpi intel\"`, `STAR_FABRIC=\"-fabric tcp\"`, and configures `FLEXIBLAS=StarMKL` or `STAR_FLEXIBLAS=\"-flexiblaslib MKL\"`. For AMD CPUs, it sets `STAR_MPI=\"-mpi openmpi40\"` and configures `FLEXIBLAS=StarAOCL` or `STAR_FLEXIBLAS=\"-flexiblaslib AOCL\"`, potentially including `STAR_PRELOAD=\"-ldpreload /usr/lib64/libdrm_amdgpu.so.1\"`."
+    },
+    {
+      "question": "To prevent STAR-CCM+ temporary output files from consuming valuable quota space during a job run on an Alliance cluster, where are these files redirected?",
+      "answer": "Temporary STAR-CCM+ output files are redirected from the default `~/.star-VERSION#` directories to the job's local scratch directory, `$SLURM_TMPDIR`, by setting the `STARCCM_TMP` environment variable using `export STARCCM_TMP=\"$SLURM_TMPDIR\"`."
     }
   ],
-  "generated_at": "2026-05-24T01:33:34.075037+00:00"
+  "generated_at": "2026-08-08T00:33:52.776296+00:00"
 }

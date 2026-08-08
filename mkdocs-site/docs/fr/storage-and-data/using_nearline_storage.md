@@ -4,9 +4,9 @@ slug: "using_nearline_storage"
 lang: "fr"
 
 source_wiki_title: "Using nearline storage/fr"
-source_hash: "181f3fadd05e042f636fc8da007f9536"
-last_synced: "2026-05-31T00:03:42.418098+00:00"
-last_processed: "2026-05-31T00:58:26.936181+00:00"
+source_hash: "7b1f55529c4d3fad57da1a676813e701"
+last_synced: "2026-08-07T19:46:17.777436+00:00"
+last_processed: "2026-08-07T23:06:07.413770+00:00"
 
 tags:
   []
@@ -23,54 +23,51 @@ status:
   qa_generated: false
 ---
 
-Le système de fichiers `/nearline` utilise de l'espace de stockage sur ruban et sert à conserver **les données inactives**, par exemple les ensembles de données que vous n'avez pas besoin d'utiliser pendant des mois.
+Le système de fichiers /nearline utilise de l'espace de stockage sur ruban et sert à conserver **les données inactives**, par exemple les ensembles de données que vous n'avez pas besoin d'utiliser pendant des mois.
 
-## Restrictions et pratiques exemplaires
+## Restrictions et meilleures pratiques
 
 ### Taille des fichiers
 
 S'il n'est pas efficace de récupérer des petits fichiers enregistrés sur ruban, récupérer de très gros fichiers pose d'autres problèmes. Nous vous demandons d'observer les règles suivantes :
 
-*   les fichiers de moins de ~10 Gio devraient être rassemblés dans des fichiers archive avec [tar](a_tutorial_on__tar.md) ou un [outil semblable](archiving_and_compressing_files.md);
-*   les fichiers de plus de 4 Tio devraient être divisés en parts de 1 Tio avec un outil comme [la commande `split`](a_tutorial_on__tar.md#fractionner-des-fichiers);
-
-!!! warning "Ne copiez pas de petits fichiers sur /nearline"
-    Ne copiez pas de petits fichiers sur `/nearline`, à l'exception des index (voir *Créer un index* ci-dessous).
+*   les fichiers de moins de ~10 Go devraient être rassemblés dans des fichiers d'archive (fichiers tar) avec [tar](a_tutorial_on__tar.md) ou un autre [outil semblable](archiving_and_compressing_files.md);
+*   les fichiers de plus de 4 To devraient être divisés en parts de 1 To avec un outil comme [la commande `split`](a_tutorial_on__tar.md#fractionner-des-fichiers);
+*   NE COPIEZ PAS DE PETITS FICHIERS SUR /NEARLINE, à l'exception des index (voir **Créer un index** ci-dessous). Sur Nibi, les fichiers d'index et les autres petits fichiers sur /nearline ne sont pas sauvegardés ni archivés sur ruban. Si vos fichiers d'index doivent être sauvegardés, utilisez un autre espace de stockage comme /project.
 
 ### Choisir entre tar et dar
 
-Utilisez [tar](a_tutorial_on__tar.md) ou [dar](dar.md) pour créer un fichier archive.
+Utilisez [tar](a_tutorial_on__tar.md) ou [dar](dar.md) pour créer un fichier d'archive.
 
-Gardez les fichiers sources dans leur système de fichiers d'origine. Ne copiez pas les fichiers sources sur `/nearline` avant de créer l'archive.
+Gardez les fichiers sources dans leur système de fichiers d'origine. Ne copiez pas les fichiers sources sur /nearline avant de créer l'archive.
 
-Créez l'archive directement sur `/nearline`. Ceci ne nécessite pas d'espace de stockage supplémentaire et est plus efficace que de créer l'archive sur `/scratch` ou `/project` et de la copier ensuite sur `/nearline`.
+Créez l'archive directement sur /nearline. Ceci ne nécessite pas d'espace de stockage supplémentaire et est plus efficace que de créer l'archive sur /scratch ou /project et de la copier ensuite sur /nearline.
 
-Si vous avez plusieurs centaines de Gio de données, les options `-M (--multi-volume)` et `-L (--tape-length)` de `tar` peuvent être utilisées pour produire des fichiers archive de taille convenable. Par contre avec `dar`, vous pouvez utiliser l'option `-s (--slice)`.
+Si vous avez plusieurs centaines de Go de données, les options `-M (--multi-volume)` et `-L (--tape-length)` de `tar` peuvent être utilisées pour produire des fichiers d'archive de taille convenable. Par contre avec `dar`, vous pouvez utiliser l'option `-s (--slice)`.
 
 #### Créer un index
 
-Quand des fichiers sont regroupés, avec `tar` par exemple, il devient difficile de repérer un fichier particulier. Plutôt que de récupérer une grande collection enregistrée sur ruban pour seulement quelques fichiers, vous pourriez construire un index au moment où la collection est créée. Avec `tar`, vous pouvez ajouter l'option *verbose* pour obtenir plus de détails.
+Quand des fichiers sont regroupés, avec tar par exemple, il devient difficile de repérer un fichier particulier. Plutôt que de récupérer une grande collection enregistrée sur ruban pour seulement quelques fichiers, vous pourriez construire un index au moment où la collection est créée. Avec tar, vous pouvez ajouter l'option `verbose` pour obtenir plus de détails.
 
 ```bash
 tar cvvf /nearline/def-sponsor/user/mycollection.tar /project/def-sponsor/user/something > /nearline/def-sponsor/user/mycollection.index
 ```
 
-Si l'archive vient d'être créée, la commande suivante (avec `tar` dans cet exemple) crée l'index :
+Si l'archive vient d'être créée, la commande suivante (avec tar dans cet exemple) crée l'index :
 
 ```bash
 tar tvvf /nearline/def-sponsor/user/mycollection.tar > /nearline/def-sponsor/user/mycollection.index
 ```
 
-Même s'il s'agit souvent de petits fichiers, les fichiers d'index peuvent être enregistrés sur `/nearline`.
+Même s'il s'agit souvent de petits fichiers, les fichiers d'index peuvent être enregistrés sur /nearline. Sur Nibi, les fichiers d'index et les autres petits fichiers sur /nearline ne sont pas sauvegardés ni archivés sur ruban. Si vos fichiers d'index doivent être sauvegardés, utilisez un autre espace de stockage.
 
-### Aucun accès depuis les nœuds de calcul
+### Pas d'accès à partir des nœuds de calcul
 
-!!! note
-    Puisque l'obtention de données sur `/nearline` peut prendre un certain temps (voir la section *Fonctionnement* ci-dessous), nous ne permettons pas que les tâches y lisent des données. `/nearline` n'est pas monté sur les nœuds de calcul.
+Puisque l'obtention de données sur /nearline peut prendre un certain temps (voir la section **Fonctionnement** ci-dessous), nous ne permettons pas que les tâches y lisent des données. /nearline n'est pas monté sur les nœuds de calcul.
 
 ### Utiliser un nœud de copie, si possible
 
-Comme la création de fichiers archive exige beaucoup des ressources, il est préférable d'utiliser un nœud de copie (DTN) plutôt qu'un nœud de connexion si vous pouvez vous connecter à la grappe par un nœud DTN. En l'absence d'un nœud de copie, utilisez un nœud de connexion.
+Comme la création de fichiers d'archive exige beaucoup de ressources, il est préférable d'utiliser un nœud de transfert de données (DTN) plutôt qu'un nœud de connexion si vous pouvez vous connecter à la grappe par un nœud DTN. En l'absence d'un nœud de transfert de données, utilisez un nœud de connexion.
 
 ### Utiliser un multiplexeur de terminal
 
@@ -88,22 +85,22 @@ Les avantages du stockage sur ruban par rapport aux disques et aux SSD (*solid-s
 *   la capacité de stockage peut être facilement augmentée par l'achat de rubans additionnels;
 *   la consommation énergétique par unité de données stockée est effectivement nulle.
 
-Par conséquent, nous pouvons offrir beaucoup plus de capacité de stockage sur `/nearline` que sur `/project`. De plus, le fait de ne pas stocker de données inactives sur `/project` allège la charge, réduit le besoin de sauvegarde et améliore la performance.
+Par conséquent, nous pouvons offrir beaucoup plus de capacité de stockage sur /nearline que sur /project. De plus, le fait de ne pas stocker de données inactives sur /project allège la charge, réduit le besoin de sauvegarde et améliore la performance.
 
 ## Fonctionnement
 
-1.  À sa création ou quand il est d'abord copié sur `/nearline`, le fichier existe uniquement sur disque et non sur ruban.
+1.  À sa création ou quand il est d'abord copié sur /nearline, le fichier existe uniquement sur disque et non sur ruban.
 2.  Après un certain temps (environ une journée) et si le fichier remplit certains critères, il est copié sur ruban et se trouve alors sur disque et sur ruban.
 3.  Un peu plus tard, la copie sur disque peut être supprimée et le fichier est sur ruban seulement.
 4.  Quand un tel fichier est rappelé, il est copié du ruban au disque et revient au deuxième état.
 
 Quand un fichier est entièrement copié sur ruban (ou *virtualisé*), il demeure visible dans la liste des fichiers du répertoire. Si une opération de lecture est faite sur le fichier virtuel, le ruban doit être trouvé dans la bibliothèque et la copie doit se faire sur le disque, ce qui prend du temps et bloque le processus qui tente de faire la lecture. Selon la taille du fichier et les demandes au système de stockage sur ruban, ceci peut nécessiter entre moins d'une minute et plus d'une heure.
 
-### Transférer des données depuis /nearline
+### Transférer des données à partir de /nearline
 
-Pendant le [transfert de vos données](../getting-started/transferring_data.md) avec [Globus](../getting-started/globus.md) ou tout autrement, les données exclusivement sur ruban seront automatiquement restaurées sur disque à leur simple lecture. Cependant, puisque l'accès aux données sur ruban est relativement lent, chaque restauration de fichier ralentira le transfert de quelques minutes à quelques heures. Par conséquent, il faut s'attendre à ce que les transferts depuis `/nearline` prennent plus de temps.
+Pendant le [transfert de vos données](../getting-started/transferring_data.md) avec [Globus](../getting-started/globus.md) ou tout autrement, les données exclusivement sur ruban seront automatiquement restaurées sur disque à leur simple lecture. Cependant, puisque l'accès aux données sur ruban est relativement lent, chaque restauration de fichier ralentira le transfert de quelques minutes à quelques heures. Par conséquent, il faut s'attendre à ce que les transferts à partir de /nearline prennent plus de temps.
 
-Pour avoir un aperçu de l'état des fichiers dans vos espaces `/nearline`, **certaines grappes** peuvent présenter un sommaire avec la commande
+Pour avoir un aperçu de l'état des fichiers dans vos espaces /nearline, **certaines grappes** peuvent présenter un sommaire avec la commande
 
 ```bash
 diskusage_report --nearline --per_user --all_users
@@ -116,62 +113,62 @@ Les différentes valeurs de `Location` sont :
 *   `Archiving in progress` : les données sont en train d'être copiées ou déplacées sur ruban.
 *   `On tape` : les données sont seulement sur ruban.
 
-Ensuite, la commande `lfs hsm_state` permet de savoir si un fichier est sur ruban ou encore sur disque (l'abréviation `hsm` signifie *hierarchical storage manager*).
+Ensuite, la commande `lfs hsm_state` permet de savoir si un fichier est sur ruban ou encore sur disque (l'abréviation hsm signifie *hierarchical storage manager*).
 
 ```bash
-#  <FILE> se trouve seulement sur disque.
-$ lfs hsm_state <FILE>
-<FILE>:  (0x00000000)
+# <FICHIER> se trouve seulement sur disque.
+$ lfs hsm_state <FICHIER>
+<FICHIER>:  (0x00000000)
 
-# <FILE> est présentement copié sur ruban.
-$ lfs hsm_state <FILE>
-<FILE>: [...]: exists, [...]
+# <FICHIER> est présentement copié sur ruban.
+$ lfs hsm_state <FICHIER>
+<FICHIER>: [...]: exists, [...]
 
-# <FILE> se trouve à la fois sur disque et sur ruban.
-$ lfs hsm_state <FILE>
-<FILE>: [...]: exists archived, [...]
+# <FICHIER> se trouve à la fois sur disque et sur ruban.
+$ lfs hsm_state <FICHIER>
+<FICHIER>: [...]: exists archived, [...]
 
-# <FILE> se trouve sur ruban et n'est plus sur disque; ouvrir ce fichier prendra plus de temps.
-$ lfs hsm_state <FILE>
-<FILE>: [...]: released exists archived, [...]
+# <FICHIER> se trouve sur ruban et n'est plus sur disque; ouvrir ce fichier prendra plus de temps.
+$ lfs hsm_state <FICHIER>
+<FICHIER>: [...]: released exists archived, [...]
 ```
 
-Vous pouvez forcer le rappel d'un fichier sur ruban sans le lire avec la commande `lfs hsm_restore <FILE>`.
+Vous pouvez forcer le rappel d'un fichier sur ruban sans le lire avec la commande `lfs hsm_restore <FICHIER>`.
 
 ### Spécificités de chaque grappe
 
-=== "Fir"
+#### Fir
 
-L'accès au répertoire `/nearline` se fait par les nœuds de connexion et les DTN (*nœuds de transfert de données*).
+L'accès au répertoire /nearline se fait par les nœuds de connexion et les nœuds de transfert de données (*Data Transfer Nodes*).
 
 Enregistrez vos fichiers dans votre répertoire `~/nearline/PROJECT`. Ils seront copiés sur ruban après un certain temps (24 heures). Si le fichier n’est pas modifié pendant un certain temps (24 heures), la copie sur disque sera supprimée, virtualisant ainsi le fichier sur ruban.
 
-Lorsque vous supprimez un fichier de `~/nearline` volontairement ou par accident, la copie sur ruban est conservée pour 60 jours. Pour restaurer ces fichiers, vous devez contacter le [soutien technique](../support/technical_support.md) en mentionnant le chemin complet et la version (avec la date), de la même manière que vous procéderiez pour restaurer une [copie de sauvegarde](storage_and_file_management.md#quotas-et-politiques). Il est donc important que vous conserviez une copie de la structure complète de votre espace `/nearline`. La commande `ls -R > ~/nearline_contents.txt` lancée du répertoire `~/nearline/PROJECT` vous permettra de voir où sont situés les fichiers dans votre espace `/nearline`.
+Lorsque vous supprimez un fichier de `~/nearline` volontairement ou par accident, la copie sur ruban est conservée pour 60 jours. Pour restaurer ces fichiers, vous devez contacter le [soutien technique](../support/technical_support.md) en mentionnant le chemin complet et la version (avec la date), de la même manière que vous procéderiez pour restaurer une [copie de sauvegarde](storage_and_file_management.md#quotas-et-politiques). Il est donc important que vous conserviez une copie de la structure complète de votre espace /nearline. La commande `ls -R > ~/nearline_contents.txt` lancée du répertoire `~/nearline/PROJECT` vous permettra de voir où sont situés les fichiers dans votre espace /nearline.
 
-=== "Narval"
+#### Narval
 
-Le service `/nearline` est semblable à celui de Fir, sauf que
-1.  les fichiers dans `/nearline` sont sauvegardés à chaque jour, mais ne sont pas nécessairement copiés sur ruban.
-2.  Seulement les plus gros fichiers et les plus anciens fichiers sont copiés sur ruban.
+Le service /nearline est semblable à celui de Fir, sauf que :
+1.  les fichiers dans /nearline sont sauvegardés à chaque jour, mais ne sont pas nécessairement copiés sur ruban.
+    *   Seulement les plus gros fichiers et les plus anciens fichiers sont copiés sur ruban.
 
-=== "Nibi"
+#### Nibi
 
-Le service `/nearline` est semblable à celui de Fir, sauf que
+Le service /nearline est semblable à celui de Fir, sauf que :
 1.  la création de la première copie sur ruban des données pourrait prendre plus que 24 heures,
 2.  la copie sur disque ne sera pas effacée (pour ne laisser que la copie sur ruban) avant 60 jours.
+3.  les fichiers d'index et les autres petits fichiers ne sont pas sauvegardés ni migrés sur ruban.
 
-=== "Rorqual"
+#### Rorqual
 
-Le service `/nearline` est semblable à celui de Fir, sauf que
-1.  les espaces `nearline` se trouvent dans `~/links/nearlines`,
-2.  depuis avril 2026, les fichiers dans `/nearline` sont sauvegardés à chaque jour, mais ne sont pas encore copiés sur ruban.
+Le service /nearline est semblable à celui de Fir, sauf que :
+1.  les espaces nearline se trouvent dans `~/links/nearlines`,
+2.  depuis avril 2026, les fichiers dans /nearline sont sauvegardés à chaque jour, mais ne sont pas encore copiés sur ruban.
 
-=== "Trillium"
+#### Trillium
 
-HPSS est le service `/nearline` pour Trillium.
-
+HPSS est le service /nearline pour Trillium.
 Les méthodes d'accès sont :
 
-1.  Dans une des partitions archive, soumettre une tâche à l’ordonnanceur Slurm avec les commandes HPSS `htar` ou `hsi`; pour des exemples, voyez la [documentation HPSS](https://docs.scinet.utoronto.ca/index.php/HPSS). Travailler avec des scripts offre l’avantage de pouvoir automatiser les transferts; il s’agit de la meilleure méthode si vous utilisez HPSS régulièrement. Vos fichiers HPSS se trouvent dans le répertoire `$ARCHIVE`, qui est semblable à `$PROJECT`, mais où *`/project`* est remplacé par *`/archive`*.
-2.  Utiliser le nœud VFS (*système de fichiers virtuel*) par la commande `salloc --time=1:00:00 -pvfsshort` quand vous avez peu de fichiers HPSS. Vos fichiers HPSS se trouvent dans le répertoire `$ARCHIVE`, qui est semblable à `$PROJECT`, mais où *`/project`* est remplacé par *`/archive`*.
+1.  Dans une des partitions d'archive, soumettre une tâche à l’ordonnanceur Slurm avec les commandes HPSS `htar` ou `hsi`; pour des exemples, voyez la [documentation HPSS](https://docs.scinet.utoronto.ca/index.php/HPSS). Travailler avec des scripts offre l’avantage de pouvoir automatiser les transferts; il s’agit de la meilleure méthode si vous utilisez HPSS régulièrement. Vos fichiers HPSS se trouvent dans le répertoire $ARCHIVE, qui est semblable à $PROJECT, mais où */project* est remplacé par */archive*.
+2.  Utiliser le nœud VFS (*virtual file system*) par la commande `salloc --time=1:00:00 -pvfsshort` quand vous avez peu de fichiers HPSS. Vos fichiers HPSS se trouvent dans le répertoire $ARCHIVE, qui est semblable à $PROJECT, mais où */project* est remplacé par */archive*.
 3.  Utilisez [Globus](../getting-started/globus.md) pour transférer vos fichiers HPSS avec le point de chute (*endpoint*) **alliancecan#hpss**. Cette méthode est utile pour un usage occasionnel ou pour les transferts entre HPSS et les autres sites.

@@ -2,6 +2,19 @@
   "doc_key": "base/alphafold3",
   "level": "chunk",
   "chunk_index": 5,
-  "qa_pairs": [],
-  "generated_at": "2026-05-10T00:14:25.495855+00:00"
+  "qa_pairs": [
+    {
+      "question": "When running AlphaFold3 model inference on the clusters, what are the key parameters and environment variables to configure in the job script?",
+      "answer": "The `alphafold3-inference.sh` job script is configured to run the AlphaFold3 model inference stage using `python run_alphafold.py`. Essential command-line parameters include `--model_dir` for specifying the downloaded model parameters, `--input_dir` for the intermediate output from the data pipeline, `--output_dir` for the final inference results, `--jax_compilation_cache_dir` for caching, and the `--norun_data_pipeline` flag to ensure only the inference stage runs. For GPU memory optimization, `export XLA_PYTHON_CLIENT_PREALLOCATE=true` and `export XLA_CLIENT_MEM_FRACTION=0.95` are set as environment variables."
+    },
+    {
+      "question": "How can a user submit the AlphaFold3 data pipeline and model inference jobs to the scheduler as dependent stages?",
+      "answer": "To submit AlphaFold3 jobs as dependent stages, first submit the data pipeline job and capture its job ID: `jid1=$(sbatch alphafold3-data.sh)`. Then, submit the model inference job, making it dependent on the successful completion of the first stage using this job ID: `jid2=$(sbatch --dependency=afterok:$jid1 alphafold3-inference.sh)`. If the first stage fails, you will need to manually cancel the second stage using `scancel -u $USER -n alphafold3-inference`."
+    },
+    {
+      "question": "What troubleshooting steps should be taken if an 'Out of memory (GPU)' error occurs when running AlphaFold3 inference, especially with larger inputs or GPUs with less memory?",
+      "answer": "If an 'Out of memory (GPU)' error occurs during AlphaFold3 inference, particularly for inputs larger than 5,120 tokens or on GPUs with less memory (such as an A100 with 40 GB), you can enable unified memory. To do this, add the following environment variables to your inference stage submission script: `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true`, and `export XLA_CLIENT_MEM_FRACTION=2.0`. Additionally, remember to adjust the amount of memory allocated to your job accordingly, for instance, by setting `#SBATCH --mem=80G`."
+    }
+  ],
+  "generated_at": "2026-08-07T23:29:52.238180+00:00"
 }

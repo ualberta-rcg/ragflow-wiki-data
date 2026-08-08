@@ -3,77 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary objective of the diverse storage options available on Alliance clusters?",
-      "answer": "The primary objective is to cover the varied needs of users by offering solutions ranging from high-speed temporary local storage to different kinds of long-term storage."
+      "question": "What is the main purpose of the various storage options provided on Alliance clusters?",
+      "answer": "Alliance clusters provide a wide range of storage options, from high-speed temporary local storage to different kinds of long-term storage, to cover the diverse needs and usage patterns of their users."
     },
     {
-      "question": "What is the recommended approach for storing many small files on Alliance cluster filesystems?",
-      "answer": "Users should avoid storing tens of thousands of small files (less than a few megabytes) in the same directory. Instead, it is better to use commands like `tar` or `zip` to convert them into a single large archive file."
+      "question": "What is the responsibility of users regarding file system usage on Alliance clusters?",
+      "answer": "Users are responsible for using filesystems responsibly as they are shared resources, and for managing the age of their stored data, moving unneeded files to more appropriate storage systems."
     },
     {
-      "question": "What tool should users employ for transferring significant amounts of data between their personal workstation and an Alliance cluster, or between two Alliance systems?",
-      "answer": "Moving significant amounts of data should generally be done using Globus."
+      "question": "What is the recommended approach for storing many small files on Alliance clusters?",
+      "answer": "Users should avoid storing tens of thousands of small files (less than a few megabytes) in the same directory. A better approach is to use commands like `tar` or `zip` to convert a directory containing many small files into a single large archive file."
     },
     {
-      "question": "What kind of data is permitted to be stored on Alliance storage systems?",
-      "answer": "Alliance storage systems are exclusively for research data and are not for personal use."
+      "question": "How should users transfer significant amounts of data between their workstation and Alliance systems, or between two Alliance systems?",
+      "answer": "Moving significant amounts of data between a workstation and an Alliance system, or between two Alliance systems, should generally be done using Globus."
     },
     {
-      "question": "How do users access their scratch and project spaces from their home directory on an Alliance cluster?",
-      "answer": "Users' home directories contain symbolic links, which are shortcuts that provide easy access to these other filesystems."
+      "question": "What command can Alliance users employ to check their current disk space and file count utilization for home, scratch, and project filesystems?",
+      "answer": "Users can use the command line utility `diskusage_report` on Alliance clusters to check available disk space and current disk utilization for home, scratch, and project filesystems."
     },
     {
-      "question": "Which command-line utility is used on Alliance clusters to check disk space and utilization for project, home, and scratch filesystems?",
-      "answer": "The `diskusage_report` command-line utility is available on the clusters to check disk space and utilization."
+      "question": "What are the key characteristics and recommended uses for the HOME filesystem on Alliance clusters?",
+      "answer": "The HOME filesystem has a relatively small quota and isn't ideal for large data operations. It is best used for source code, small parameter files, and job submission scripts."
     },
     {
-      "question": "What is the recommended use for the HOME directory on Alliance clusters, given its characteristics?",
-      "answer": "The HOME directory typically has a relatively small quota and isn't optimized for large data operations, making it best suited for source code, small parameter files, and job submission scripts."
+      "question": "What are the key characteristics and recommended uses for the PROJECT filesystem on Alliance clusters?",
+      "answer": "The PROJECT filesystem has a significantly larger quota, is well adapted for sharing data among research group members, and is suitable for fairly static data that isn't changed many times a month."
     },
     {
-      "question": "What is the primary purpose and a key characteristic of the PROJECT space on Alliance clusters?",
-      "answer": "The PROJECT space is well adapted for sharing data among members of a research group, as it is linked to a professor's account rather than an individual user."
+      "question": "What are the key characteristics and recommended uses for the SCRATCH filesystem on Alliance clusters?",
+      "answer": "SCRATCH is the best choice for intensive read/write operations on large files. It is for temporary files like checkpoint files and job outputs, as it is not backed up and older files are subject to purging after 60 days."
     },
     {
-      "question": "What is the intended use of the SCRATCH filesystem on Alliance clusters, and what important caution should users remember?",
-      "answer": "SCRATCH is designed for intensive read/write operations on large, temporary files (e.g., checkpoint files, job outputs). Users must remember that files on SCRATCH are not backed up and are subject to purging."
+      "question": "What is the purpose of the NEARLINE storage space on Alliance clusters?",
+      "answer": "NEARLINE is a tape-based filesystem intended for inactive data. Datasets that users do not expect to access for months are good candidates for storage in `/nearline`."
     },
     {
-      "question": "What type of data is most suitable for Nearline storage on Alliance clusters?",
-      "answer": "Nearline is a tape-based filesystem intended for inactive data, specifically datasets that users do not expect to access for months."
+      "question": "What is `SLURM_TMPDIR`, and how should it be used during job execution on Alliance clusters?",
+      "answer": "`$SLURM_TMPDIR` is an environment variable holding a unique path to a temporary folder on a fast, local filesystem on each compute node during a job. It should be used for temporary files only needed for the job's duration and is deleted when the job ends."
     },
     {
-      "question": "What is the benefit of using the `$SLURM_TMPDIR` environment variable for temporary files during a job on an Alliance compute node?",
-      "answer": "`$SLURM_TMPDIR` points to a temporary folder on a fast, local filesystem on each compute node, offering increased performance for files only needed for the duration of the job."
+      "question": "How can an individual user estimate their disk space and file count usage within a project space on Alliance clusters?",
+      "answer": "Users can obtain an estimate of their space and file count use on the entire project space by running the command `lfs quota -u $USER /project`."
     },
     {
-      "question": "How can users obtain an estimate of their space and file count use on the entire project space on Alliance clusters?",
-      "answer": "Users can run the command `lfs quota -u $USER /project` to get an estimate of their space and file count use on the entire project space."
+      "question": "What are the general best practices for managing data in scratch and project spaces on Alliance clusters?",
+      "answer": "Best practices include regularly cleaning up data, documenting files with READMEs, creating a temporary directory to move files for deletion before recursively deleting it, avoiding `*` and `/` in `rm` commands, and using scratch or local storage for temporary files."
     },
     {
-      "question": "What are the general default quotas for Home, Scratch, and Project spaces on most general-purpose Alliance clusters like Fir, Narval, and Rorqual?",
-      "answer": "Default quotas are 50 GB and 500K files for Home, 20 TB and 1M files for Scratch, and 1 TB and 500K files for Project (per group)."
+      "question": "What is the default quota for Home, Scratch, Project, and Nearline spaces on Alliance clusters like Fir, Narval, and Rorqual?",
+      "answer": "On Fir, Narval, and Rorqual clusters, the default quotas are: Home Space (50 GB and 500K files per user), Scratch Space (20 TB and 1M files per user), Project Space (1 TB and 500K files per group), and Nearline Space (1 TB and 5000 files per group)."
     },
     {
-      "question": "What is the policy for purging files from the Scratch space on Alliance clusters like Fir, Narval, and Rorqual?",
-      "answer": "Files older than 60 days in the Scratch space are purged."
+      "question": "What is the backup policy for home and project spaces on Alliance clusters, and how can a user request file recovery?",
+      "answer": "Home and project spaces have nightly backups retained for 30 days, with deleted files retained for an additional 60 days. To recover a previous version of a file or directory, users should contact technical support with the full path and desired version by date."
     },
     {
-      "question": "How can users request an increase in their project and scratch spaces on Alliance clusters?",
-      "answer": "Small increases are available through the Rapid Access Service (RAS), while larger increases, particularly for project spaces, require an application to the annual Resource Allocation Competition (RAC)."
+      "question": "What are the key differences in how home, scratch, and project spaces are allocated to users and groups on Alliance clusters?",
+      "answer": "Home and scratch spaces are unique to individual users, while project space is shared by a research group. Project space is linked to a professor's account or a RAC allocation, allowing multiple individuals access."
     },
     {
-      "question": "What is the backup policy for the home and project spaces on Alliance clusters?",
-      "answer": "Nightly backups are performed and retained for 30 days, and deleted files are retained for a further 60 days."
-    },
-    {
-      "question": "What is a recommended safe procedure for deleting files and directories on Alliance clusters?",
-      "answer": "Create a temporary directory `toDelete`, move the files into it, verify its contents, and then recursively delete `toDelete`. It is also advised to avoid using `*` and `/` characters directly in `rm` commands if possible."
-    },
-    {
-      "question": "If files are no longer actively used but must be retained, what is the recommended practice on Alliance clusters?",
-      "answer": "Users should archive and compress the files, and if possible, move them to an alternative location such as Nearline storage."
+      "question": "Are there any restrictions on the type of data that can be stored on Alliance clusters?",
+      "answer": "Yes, Alliance storage systems are not for personal use and should only be used to store research data."
     }
   ],
-  "generated_at": "2026-04-13T13:51:44.498723+00:00"
+  "generated_at": "2026-08-08T00:38:01.741145+00:00"
 }

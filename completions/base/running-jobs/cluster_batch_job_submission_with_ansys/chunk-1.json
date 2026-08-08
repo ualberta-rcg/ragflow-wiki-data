@@ -1,0 +1,20 @@
+{
+  "doc_key": "base/cluster_batch_job_submission_with_ansys",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "Why do Ansys parallel jobs require special instructions on computing clusters?",
+      "answer": "Ansys parallel jobs require special instructions on computing clusters because the MPI implementations included in the Ansys software suite do not support the Slurm scheduler used on these clusters."
+    },
+    {
+      "question": "What is the typical procedure for running an Ansys Fluent job on a cluster?",
+      "answer": "Typically, you prepare your Fluent job using Ansys Workbench on a desktop, export the case file (and data file if needed), transfer these files to the cluster's /project or /scratch filesystem, create a journal file to load the case/data, run the solver, and write results, then run the job. After the job runs, you can download and import the data file back into Fluent."
+    },
+    {
+      "question": "When should one consider modifying an Ansys Fluent Slurm script to requeue a job, and what important considerations should be taken into account?",
+      "answer": "You should consider modifying your Slurm script to requeue your job (up to 4 times) if jobs frequently fail to start due to license shortages and manual resubmission is inconvenient. However, it's strongly recommended to monitor and inspect each Slurm output file to confirm that each requeue attempt is license-related, as this modification will also requeue simulations that fail due to other issues like divergence, leading to wasted compute time. If a job is requeued due to a simulation issue, you must manually kill the job progression with `scancel jobid` and correct the problem."
+    }
+  ],
+  "generated_at": "2026-08-08T01:05:56.969337+00:00"
+}

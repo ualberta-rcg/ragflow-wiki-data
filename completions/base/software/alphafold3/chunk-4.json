@@ -2,6 +2,19 @@
   "doc_key": "base/alphafold3",
   "level": "chunk",
   "chunk_index": 4,
-  "qa_pairs": [],
-  "generated_at": "2026-05-10T00:14:18.356153+00:00"
+  "qa_pairs": [
+    {
+      "question": "What is the main purpose of the `alphafold3-data.sh` script when running AlphaFold3 in stages?",
+      "answer": "The `alphafold3-data.sh` script's main purpose is to execute the CPU-only data pipeline stage of AlphaFold3. It builds the necessary data and prepares it for subsequent steps, signalled by the `--norun_inference` flag in the `python run_alphafold.py` command. The output is written to a subdirectory within `$OUTPUT_DIR`, named according to the input file's `name` tag."
+    },
+    {
+      "question": "What are the specified resource requirements for the AlphaFold3 model inference stage, as detailed in the `alphafold3-inference.sh` script?",
+      "answer": "The `alphafold3-inference.sh` script specifies that the AlphaFold3 model inference stage requires one CPU core (`#SBATCH --cpus-per-task=1`), a single A100 (or more recent) GPU (`#SBATCH --gpus=a100:1`), and 20 GB of memory (`#SBATCH --mem=20G`). It also loads `cuda/12.2` and `cudnn/9.2` modules."
+    },
+    {
+      "question": "How is the execution of only the model inference stage ensured within the `alphafold3-inference.sh` script for AlphaFold3?",
+      "answer": "In the `alphafold3-inference.sh` script, the execution of only the model inference stage is ensured by including the `--norun_data_pipeline` argument in the `python run_alphafold.py` command. This flag prevents the data pipeline from running again."
+    }
+  ],
+  "generated_at": "2026-08-07T23:29:42.132343+00:00"
 }

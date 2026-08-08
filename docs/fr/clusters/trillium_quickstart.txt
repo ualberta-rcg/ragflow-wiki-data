@@ -515,9 +515,7 @@ $ sbatch hybrid_job.sh
 <span id="Partitions_and_limits"></span>
 === Partitions et limites ===
 
-<div class="mw-translate-fuzzy">
-Tout comme pour la sous-grappe de CPU, la taille et la durée des tâches, le nombre de tâches exécutables et le nombre de tâches mises en file d'attente sont limités, ainsi que l'appartenance ou non d'un utilisateur à un groupe disposant d'une allocation via concours. La sous-grappe de GPU comporte plus de partitions que la sous-grappe de CPU pour pouvoir prendre en charge la planification par GPU plutôt que par nœud (chaque nœud dispose de 4&nbsp;GPU).
-</div> 
+Tout comme pour la sous-grappe de CPU, il existe des limites à la taille et la durée des tâches; au nombre de tâches exécutables; au nombre de tâches mises en file d'attente; et à votre appartenance (ou non) à un groupe disposant d'une allocation via concours. La sous-grappe de GPU comporte plus de partitions que la sous-grappe de CPU pour pouvoir prendre en charge la planification par GPU plutôt que par nœud (chaque nœud dispose de 4&nbsp;GPU). 
 
 Sur Trillium, vous ne pouvez demander qu'un seul GPU ou un multiple de quatre GPU. Vous ne pouvez pas demander --gpus-per-node=2 ou 3, ni utiliser la technologie MIG de NVIDIA pour allouer une fraction d'un GPU. Dans une tâche, vous pouvez utiliser MPS (Multi-Process Service) de NVIDIA pour partager un GPU entre les processus exécutés dns la tâche.
 
@@ -561,29 +559,24 @@ module load python/3.11.5
 # Activate Python environment (if applicable)
 source ~/myenv/bin/activate
 
-<div class="mw-translate-fuzzy">
 # Check GPU allocation
-srun nvidia-smi
-</div>
+nvidia-smi
 
-<div class="mw-translate-fuzzy">
 # Run your workload
-srun python my_script.py
+python my_script.py
 </source>
-</div>
 
 <span id="Example:_Whole-Node_(4_GPUs)_Job"></span>
 ===  Exemple : Tâche avec un nœud entier (4 GPU)  ===
 
-<div class="mw-translate-fuzzy">
 <source lang="bash">
 #!/bin/bash
 #SBATCH --job-name=whole_node_gpu_job
 #SBATCH --output=whole_node_gpu_job_%j.out
 #SBATCH --nodes=1
 #SBATCH --gpus-per-node=4
+#SBATCH --ntasks-per-node=4
 #SBATCH --time=02:00:00
-</div>
 
 module load StdEnv/2023
 module load cuda/12.6
@@ -598,15 +591,14 @@ srun python my_distributed_script.py
 <span id="Example:_Multi-Node_GPU_Job"></span>
 === Exemple d'une tâche avec plusieurs nœuds GPU ===
 
-<div class="mw-translate-fuzzy">
 <source lang="bash">
 #!/bin/bash
 #SBATCH --job-name=multi_node_gpu_job
 #SBATCH --output=multi_node_gpu_job_%j.out
 #SBATCH --nodes=2                        # Request 2 full nodes
 #SBATCH --gpus-per-node=4                # 4 GPUs per node (full node)
+#SBATCH --ntasks-per-node=4
 #SBATCH --time=04:00:00
-</div>
 
 module load StdEnv/2023
 module load cuda/12.6

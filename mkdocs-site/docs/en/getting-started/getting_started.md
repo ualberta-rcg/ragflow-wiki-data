@@ -4,51 +4,27 @@ slug: "getting_started"
 lang: "en"
 
 source_wiki_title: "Getting started/en"
-source_hash: "674756343cd696cfa8af3978b14347a4"
-last_synced: "2026-04-12T15:59:52.668416+00:00"
-last_processed: "2026-04-12T18:10:06.582726+00:00"
+source_hash: "fa89e6fcd7d8a7ef12657dd55857f3da"
+last_synced: "2026-08-07T19:46:17.777436+00:00"
+last_processed: "2026-08-07T22:39:42.847273+00:00"
 
 tags:
   []
 
 keywords:
-  - "Regional partners"
-  - "Online training"
-  - "Cloud resources"
-  - "Job submission"
-  - "Training"
-  - "Linux operating system"
-  - "Research computing"
-  - "computing power"
-  - "Technical support"
-  - "Workshops"
-  - "appropriate resources"
-  - "CCDB account"
-  - "technical support"
-  - "job requirements"
-  - "HPC clusters"
-
-questions:
-  - "What credentials are required to log into the national HPC systems, and where can users find their username?"
-  - "What are the different types of computing systems available, such as cloud sites and general-purpose clusters, and what are their primary functions?"
-  - "What specific software and hardware requirements should users evaluate when deciding which system is best suited for their computational needs?"
-  - "What formats and levels of training are offered by the Alliance's regional partners?"
-  - "Which specific regional partners organize these workshops and provide dedicated training resources?"
-  - "Where can individuals find a complete, merged list of all upcoming training events?"
-  - "What specific technical specifications and resource estimates are needed to evaluate a typical job?"
-  - "What steps should you take if you do not know the answers to the technical questions regarding your job?"
-  - "How will the technical support team use your job requirements to assist you?"
+  []
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: true
+  keywords_generated: false
   ragflow_synced: true
   qa_generated: false
 ---
 
 ## What do you want to do?
+
 *   If you don't already have an account, see
     *   [Apply for a CCDB account](apply_for_a_ccdb_account.md)
     *   [Multifactor authentication](multifactor_authentication.md)
@@ -79,20 +55,21 @@ status:
 For any other questions, you might try the *Search* box in the upper right corner of this page, the main page for [our technical documentation](../general/technical_documentation.md) or [contact us by email](../support/technical_support.md).
 
 ## Username and password
+
 Your password to log in to all new national systems is [the same one you use to log into CCDB](https://ccdb.alliancecan.ca/). Your **username** will be displayed at the top of the page once you've logged in.
 
 ## What systems are available?
-You can [request access](https://ccdb.alliancecan.ca/me/access_systems) to any or all of our systems: [Arbutus](../cloud/cloud_resources.md), [Fir](../software/fir.md), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md), [Rorqual](../clusters/rorqual.md), and [Trillium](../clusters/trillium.md).
+
+You must [request access](https://ccdb.alliancecan.ca/me/access_systems) to one or more of our systems through the *Access Systems* page in CCDB, choosing those suitable for your work: [Arbutus](../cloud/cloud_resources.md), [Fir](../software/fir.md), Narval, [Nibi](../clusters/nibi.md), Rorqual, and [Trillium](../clusters/trillium.md).
 
 *   [Arbutus](../cloud/cloud_resources.md) is a cloud site, which allows users to launch and customize virtual machines. See [Cloud](../cloud/cloud.md) for how to obtain access to Arbutus.
-
-*   [Fir](../software/fir.md), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md), and [Rorqual](../clusters/rorqual.md) are **general-purpose clusters** (or supercomputers) composed of a variety of nodes including large memory nodes and nodes with accelerators such as GPUs. You can log into any of these using [SSH](ssh.md). A `/home` directory will be automatically created for you the first time you log in.
-
+*   [Fir](../software/fir.md), Narval, [Nibi](../clusters/nibi.md), and Rorqual are **general-purpose clusters** (or supercomputers) composed of a variety of nodes including large memory nodes and nodes with accelerators such as GPUs. You can log into any of these using [SSH](ssh.md). A `/home` directory will be automatically created for you the first time you log in.
 *   [Trillium](../clusters/trillium.md) is a homogeneous cluster (or supercomputer) designed for **large parallel** jobs (>1000 cores).
 
 In this documentation, we generally use the term “cluster” instead of “supercomputer” since it better reflects the architecture of our systems: A large number of individual computers, or “nodes”, linked together as a unit, or “cluster”.
 
 ## What system should I use?
+
 This question is hard to answer because of the range of needs we serve and the wide variety of resources we have available. If the descriptions above are insufficient, contact our [technical support](../support/technical_support.md).
 
 In order to identify the best resource to use, we may ask specific questions, such as:
@@ -106,6 +83,7 @@ In order to identify the best resource to use, we may ask specific questions, su
 You may know the answer to these questions or not. If you do not, our technical support team is there to help you find the answers. They will then be able to direct you to the most appropriate resources for your needs.
 
 ## What training is available?
+
 Most workshops are organized by the Alliance's regional partners; both online and in-person training opportunities exist on a wide variety of subjects and at different levels of sophistication. We invite you to consult the following regional training calendars and websites for more information,
 *   WestDRI (Western Canada Research Computing covering both BC and the Prairies regions)
     *   [Training Materials website](https://training.westdri.ca): click on *Upcoming sessions* or browse the menu at the top for recorded webinars

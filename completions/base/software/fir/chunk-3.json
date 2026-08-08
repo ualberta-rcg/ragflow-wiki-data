@@ -4,13 +4,13 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What are the key specifications for the GPU nodes available in the Fir cluster?",
-      "answer": "The Fir cluster includes 160 GPU nodes, each equipped with 48 cores, 1125 GB of available memory, a single AMD EPYC 9454 (Zen 4) @ 2.75 GHz CPU with 256MB L3 cache, 7.84 TB NVMe storage, and four NVIDIA H100 SXM5 GPUs, each with 80 GB of memory and connected via NVLink."
+      "question": "What are the key architectural specifications of the CPU nodes on the Fir cluster, and what are the recommended Slurm settings for optimizing performance on these nodes?",
+      "answer": "Each CPU node on the Fir cluster features two AMD EPYC 9655 (Zen 5) @ 2.7 GHz processors, providing a total of 192 physical cores. The system uses a chiplet-based NUMA architecture with 24 CCDs (chiplets) per node and 768 MiB of total L3 cache. For optimal performance, it is recommended to align tasks to CCDs using `#SBATCH --cpus-per-task=8` and distribute tasks across CCDs by launching 24 tasks per node using `#SBATCH --ntasks-per-node=24`."
     },
     {
-      "question": "Which CPU processors are utilized across the different node configurations in the Fir cluster, and what are their respective core counts and available memory?",
-      "answer": "The Fir cluster utilizes two primary CPU models across its various node configurations: 864 nodes feature two AMD EPYC 9655 (Zen 5) @ 2.7 GHz CPUs, offering 192 cores and 750 GB of memory per node. Additionally, 8 nodes are configured with two AMD EPYC 9654 (Zen 4) @ 2.4 GHz CPUs, also providing 192 cores, but with 6000 GB of memory per node. The 160 GPU nodes use one AMD EPYC 9454 (Zen 4) @ 2.75 GHz CPU, providing 48 cores and 1125 GB of memory per node."
+      "question": "What are the specifications of the GPU nodes on the Fir cluster, and how can a researcher request full or partial NVIDIA H100 GPUs for their compute jobs using Slurm?",
+      "answer": "Each GPU node on the Fir cluster is equipped with one AMD EPYC 9454 (Zen 4) @ 2.75 GHz processor with 48 physical cores, along with two NVIDIA H100 80GB accelerators interconnected by SXM5. To request full H100 GPUs, use Slurm options such as `--gpus=h100:1` for one, or `--gpus-per-node=h100:2` for multiple on a node. For partial GPU instances available on approximately half of the GPU nodes, you can request `1g.10gb`, `2g.20gb`, or `3g.40gb` using options like `--gpus=nvidia_h100_80gb_hbm3_1g.10gb:1`."
     }
   ],
-  "generated_at": "2026-04-13T05:21:04.673727+00:00"
+  "generated_at": "2026-08-07T23:55:37.982693+00:00"
 }

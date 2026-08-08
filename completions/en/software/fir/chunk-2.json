@@ -4,17 +4,13 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How can researchers optimize their job's performance on Fir CPU nodes, specifically regarding task alignment and distribution?",
-      "answer": "To optimize performance on Fir CPU nodes, researchers should align tasks to Core Complex Dies (CCDs) by using `#SBATCH --cpus-per-task=8` to keep threads within a single CCD. They should also distribute tasks across all 24 CCDs per node by launching 24 tasks per node using `#SBATCH --ntasks-per-node=24`. Combining these two Slurm options fully utilizes the 192-core node efficiently."
+      "question": "What are the available storage areas on the Fir cluster, and what are their key features regarding access, quotas, and backups?",
+      "answer": "The Fir cluster offers 51PB of high-performance DDN Lustre storage, distributed among three main areas. The HOME area, accessed via `$HOME`, has a small, fixed per-user quota and features daily automatic backups. For larger storage needs, the PROJECT area, found at `$HOME/project/${def-project-id}`, provides large, adjustable per-project quotas with daily backups, ideal for group data sharing. Lastly, the SCRATCH area, accessible via `$HOME/scratch`, has a large per-user quota but no backup, and old files are automatically purged, making it suitable for temporary files. All mounts share the total available storage."
     },
     {
-      "question": "What are the recommended performance tuning strategies for jobs running on Fir GPU nodes, considering the AMD EPYC 9454 CPU architecture?",
-      "answer": "For optimal performance on Fir GPU nodes, it is recommended to bind threads to CCDs using `#SBATCH --cpus-per-task=6` to keep threads within one CCD and reduce cross-CCD latency. Additionally, researchers should match tasks to NUMA nodes by launching 4 tasks per node (or a multiple thereof) with `#SBATCH --ntasks-per-node=4` and `#SBATCH --cpus-per-task=12`. This ensures local memory and GPU access for each task."
-    },
-    {
-      "question": "How can a researcher request specific fractional GPU instances on Fir nodes configured with MIG technology for their compute jobs?",
-      "answer": "Researchers can request specific fractional GPU instances on Fir nodes using Slurm options. For a 1g.10gb instance (1/8th of the computing power with 10GB GPU memory), use `--gpus=nvidia_h100_80gb_hbm3_1g.10gb:1`. For a 2g.20gb instance (2/8th of the computing power with 20GB GPU memory), use `--gpus=nvidia_h100_80gb_hbm3_2g.20gb:1`. For a 3g.40gb instance (3/8th of the computing power with 40GB GPU memory), use `--gpus=nvidia_h100_80gb_hbm3_3g.40gb:1`."
+      "question": "What are the general specifications for the different types of compute nodes available on the Fir cluster?",
+      "answer": "The Fir cluster includes various compute nodes. There are 864 CPU nodes, each equipped with 192 cores, 750GB of available memory, 2 x AMD EPYC 9655 (Zen 5) @ 2.7 GHz processors, and 7.84TB NVMe storage. An additional 8 nodes also have 192 cores but feature 6000GB of memory, 2 x AMD EPYC 9654 (Zen 4) @ 2.4 GHz processors, and 7.84TB NVMe storage. For GPU-accelerated computing, there are 160 nodes, each with 48 cores, 1125GB of memory, 1 x AMD EPYC 9454 (Zen 4) @ 2.75 GHz processor, 7.84TB NVMe storage, and 4 x NVidia H100 SXM5 (80 GB memory) GPUs connected via NVLink."
     }
   ],
-  "generated_at": "2026-04-13T05:21:59.603034+00:00"
+  "generated_at": "2026-08-07T23:56:13.980638+00:00"
 }

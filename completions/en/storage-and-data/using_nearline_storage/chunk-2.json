@@ -4,17 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "How does the /nearline filesystem manage the lifecycle of a file from its initial copy to being stored exclusively on tape?",
-      "answer": "When a file is first copied to or created on /nearline, it exists only on disk. After approximately one day, if it meets certain criteria, the system copies the file to tape, meaning it then exists on both disk and tape. Following a further period, the disk copy may be deleted, leaving the file solely on tape (known as 'virtualized'). If a virtualized file is subsequently recalled or read, it is copied back from tape to disk, returning it to the 'disk and tape' state."
+      "question": "What are the primary advantages of using /nearline for data storage?",
+      "answer": "The primary advantages of using /nearline, which is tape-based storage, include lower cost per unit of data, easy expansion of storage volume by acquiring more tapes, and effectively zero energy consumption per unit of data stored."
     },
     {
-      "question": "What command can users employ to determine the storage state of a file on /nearline, and what do the different states indicate?",
-      "answer": "Users can use the `lfs hsm_state <FILE>` command to determine the hierarchical storage manager (hsm) state of a file. Possible states include: `(0x00000000)` for a file only on disk; `exists` for a file in progress of being copied to tape; `exists archived` for a file that is on both disk and tape; and `released exists archived` for a file that is on tape but no longer on disk. Additionally, some clusters support `diskusage_report --nearline --per_user --all_users` for an overview, which may show states like 'On disk and tape', 'Modified, will be archived again', 'Archiving in progress', and 'On tape'."
+      "question": "Why is /nearline not accessible from compute nodes, and where should resource-intensive archiving tasks involving `tar` or `dar` be performed?",
+      "answer": "/nearline is not accessible from compute nodes and cannot be read from in a job context because data retrieval times are uncertain. Resource-intensive archiving tasks with `tar` or `dar` should be performed on a data-transfer node (DTN) if available, or on a login node if a DTN is not present."
     },
     {
-      "question": "What are the performance implications when a user attempts to read a file that has been fully virtualized and is only stored on tape in the /nearline system?",
-      "answer": "When a file that is fully virtualized (only on tape) is read, it must first be copied from tape back to disk. The process attempting to read the file will block during this operation. This recall can take anywhere from less than a minute to over an hour, depending on the file's size and the current demand on the tape system. Consequently, users should anticipate longer transfer times when moving data from /nearline."
+      "question": "How can an index file be created for an archive on /nearline using `tar`, and what is important to know about index file backups on Nibi nearline?",
+      "answer": "An index file can be created by running `tar tvvf /nearline/def-sponsor/user/mycollection.tar > /nearline/def-sponsor/user/mycollection.index`. While index files are generally permitted on /nearline despite being small, it is important to note that on Nibi nearline, index files and other small files are not archived to tape or backed up; they must be moved to another storage location like project for backup."
     }
   ],
-  "generated_at": "2026-05-31T02:04:45.434341+00:00"
+  "generated_at": "2026-08-08T00:54:57.078269+00:00"
 }

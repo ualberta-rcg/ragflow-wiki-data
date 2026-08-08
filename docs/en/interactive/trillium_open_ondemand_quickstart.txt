@@ -10,7 +10,7 @@ This page is specifically for the Open OnDemand service attached to Trillium.  G
  
 = Porting existing virtual environments to Open OnDemand =
 
-'''IMPORTANT: Because of the change of operating system and software stack, your existing virtual environment kernels for Python may not work right away in the OnDemand site. You should be able to activate your Python environments in a Trillium terminal (see [[Trillium Open OnDemand Quickstart#Terminal access|Terminal access]]) below, with all required Trillium modules loaded, and then issue the command <b><code>venv2jup</code></b> to get them working correctly.'''
+'''IMPORTANT: Because of the change of operating system and software stack, your existing virtual environment kernels for Python may not work right away in the OnDemand site. You should be able to activate your Python environments in a Trillium terminal (see [[Trillium Open OnDemand Quickstart#Terminal access|Terminal access]]) below, with all required Trillium modules loaded, and then issue the command <b><code>venv2jup</code></b> to get them working correctly. Please see [[Trillium Open OnDemand Quickstart#JupyterLab Configuration|JupyterLab Configuration]] for full instructions.'''
 
 =Introduction=
 
@@ -61,7 +61,7 @@ When you have chosen your job parameters click on the '''Launch''' button to sub
 
 If you would like terminal access to the node where the application is running, to monitor the performance for example you can click on the button beside '''Host''' starting with <code>>_</code>. This will open a terminal window in your browser where you can run commands on the node directly.
 
-If for whatever reason you would like to kill the job, you can do so by clicking on the red '''Delete''' button in the job panel in the '''My Interactive Sessions''' page.
+If for whatever reason you would like to kill the job, you can do so by clicking on the red '''Cancel''' button in the job panel in the '''My Interactive Sessions''' page.
 
 * [https://youtu.be/XRozBBKwA8c?si=9Fapd_d6jiNT6QqA&t=2118 Interactive Apps Video Tutorial]
 
@@ -104,9 +104,45 @@ If you would like an application installed please email us at [mailto:support@sc
 * [https://youtu.be/XRozBBKwA8c?si=Xxvu96XYVMNHocq8&t=2469 Jupyter Lab Video Tutorial]
 * [https://youtu.be/XRozBBKwA8c?si=qvh56f5fvJpp5jrg&t=3117 Trillium Desktop Video Tutorial]
 
+==JupyterLab Configuration==
+
+[[Image:ood-software-modules.png|thumb|right|600px|link=Special:FilePath/ood-software-modules.png|Figure 7: Software Modules.]]
+
+There are two ways to run JupyterLab:
+
+'''Option 1''': Working with the default Python 3 (ipykernel)
+
+The default kernel comes with the following Python packages pre-installed: numpy, redis, jwcrypto, jupyterlmod, matplotlib, h5py, cython, pandas, ipympl, jupyterlab_favorites and jupyter-resource-usage. You can start a JupyterLab session with the default kernel and use these packages without any additional configuration. If you need to use other packages that are not listed above, you can load the required modules prior to starting your kernel by using the Software Modules tab located at the far left of the interface, see Fig. 7. If your kernel is already running you will need to shut it down and start it again for the changes to take effect by clicking Kernel > Shut Down Kernel in the top menu.
+
+If you want to use a Python package that is not installed by default or included as a software module, you can create a Python virtual environment with the required packages installed and run it as a JupyterLab kernel (see '''Option 2''' below).
+
+'''Option 2''': Working with a [[Python#Creating_and_using_a_virtual_environment|custom Python virtual environment]].
+
+From a terminal (started either in JupyterLab or by clicking '''Cluster''' -> '''Trillium Shell Access''' from the OnDemand navigation bar) you can create your own Python virtual environment and install the packages you need. For example, to create a virtual environment called <code>myenv</code> and install the <code>numpy</code> package, you can run the following commands:
+
+{{Commands2
+|prompt=[username@tri-login01]$
+|module load python/3.14.2
+|virtualenv --no-download ~/.virtualenvs/myenv
+|source ~/.virtualenvs/myenv/bin/activate
+}}
+{{Commands2
+|prompt=(myenv)[username@tri-login01]$
+|pip install numpy
+}} 
+
+To turn this into a JupyterLab kernel, run the <code>venv2jup</code> command from within the activated virtual environment:
+
+{{Commands2
+|prompt=(myenv)[username@tri-login01]$
+|venv2jup
+}} 
+
+When you start a JupyterLab session, you should now see your virtual environment, <code>myenv</code>, as a kernel option.
+
 =Running an application GUI=
 
-If you would like to run software that has a graphical user interface (GUI) and is not yet installed as an interactive application, such as Octave or Blender, you can do so using the '''Trillium Desktop''' application. This app provides a remote desktop environment that you can access through your web browser. In the following example, we will run Octave's GUI:
+If you would like to run software that has a graphical user interface (GUI) and is not yet installed as an interactive application, such as Octave, you can do so using the '''Trillium Desktop''' application. This app provides a remote desktop environment that you can access through your web browser. In the following example, we will run Octave's GUI:
 
 # Navigate to the '''Interactive Apps''' tab and select '''Trillium Desktop''' from the drop-down.
 # You will be taken to the job submission page. Choose how many cores and amount of memory you would like to allocate for your session in addition to your job length in hours. Then click on the '''Launch''' button to submit your job to the queue.
@@ -119,7 +155,7 @@ You should now see Octave's GUI appear in the remote desktop environment. You ca
 
 * [https://youtu.be/XRozBBKwA8c?si=qvh56f5fvJpp5jrg&t=3117 Octave GUI Video Tutorial]
 
-[[Image:ood-desktop-octave.png|thumb|centre|600px|link=Special:FilePath/ood-desktop-octave.png|Figure 7: Octave GUI running in a Trillium Desktop.]]
+[[Image:ood-desktop-octave.png|thumb|centre|600px|link=Special:FilePath/ood-desktop-octave.png|Figure 8: Octave GUI running in a Trillium Desktop.]]
 
 =Job submission=
 
@@ -127,7 +163,7 @@ Open OnDemand also provides a job submission interface that allows you to submit
 
 The [https://github.com/RIKEN-RCCS/OpenComposer Open Composer] app provides a suite of Slurm job template scripts that can be submitted directly to the Trillium scheduler. It also provides an interface to monitor your submitted jobs, via the '''History''' tab. You can access Open Composer by navigating to the '''Jobs''' drop-down menu and selecting '''Open Composer''' or by clicking on one of the Slurm job templates e.g. '''MPI Slurm Job''', '''OpenMP Slurm Job''' and '''Hybrid MPI/OpenMP Slurm Job'''.
 
-[[Image:ood-oc-shortcuts.png|thumb|right|600px|link=Special:FilePath/ood-oc-shortcuts.png|Figure 8: Open Composer shortcuts.]]
+[[Image:ood-oc-shortcuts.png|thumb|right|600px|link=Special:FilePath/ood-oc-shortcuts.png|Figure 9: Open Composer shortcuts.]]
 
 Once you have selected a job template, you will be taken to the job submission page. This is split between the job parameters on the left and the job script itself on the right. The job parameters let you control how many resources your job will use, such as the number of nodes, number of tasks per node, wall clock time and output file name. The job script section displays the script that will be submitted to the scheduler. Any changes made to the job parameters will be reflected in the job script automatically. You may also edit the job script directly if you wish.
 
@@ -140,9 +176,11 @@ The extra fields at the top of the page allow you to change how your job is subm
 
 Once you are happy with your job script, click on the '''Submit''' button to submit the job to the scheduler and save your script to the '''Script Location'''. If your job was submitted successfully, you will see a confirmation message at the top of the page with your job ID: [[File:ood-oc-job-submit.png|400px|link=Special:FilePath/ood-oc-job-submit.png]].
 
-[[Image:ood-oc-job.png|thumb|center|600px|link=Special:FilePath/ood-oc-job.png|Figure 9: Open Composer job script editor.]]
+[[Image:ood-oc-job.png|thumb|center|600px|link=Special:FilePath/ood-oc-job.png|Figure 10: Open Composer job script editor.]]
 
 Note: The template scripts provided in Open Composer are basic examples to get you started. You will need to modify the job script further to suit your specific needs, such as loading your required modules and specifying input/output files. The job script still needs to conform to the limits set by the Trillium Slurm scheduler. Please refer to the Trillium [https://docs.alliancecan.ca/wiki/Trillium_Quickstart#Trillium_specific_restrictions documentation] for more information on how to write job scripts.
+
+For more detailed instructions on Open Composer please see the [https://riken-rccs.github.io/OpenComposer/docs/manual.html user manual].
 
 * [https://youtu.be/XRozBBKwA8c?si=r5vcEw-lgM7xSJ6_&t=4263 Open Composer Video Tutorial]
 
@@ -157,7 +195,7 @@ To monitor your submitted jobs in Open Composer, navigate to the '''History''' t
 
 To resubmit or modify a previously run job click on the job script under the '''Script Name''' column and click '''Load Parameters'''. This will take you back to the job submission page where further modifications can be made to the job.
 
-[[Image:ood-oc-history.png|thumb|center|600px|link=Special:FilePath/ood-oc-history.png|Figure 10: Open Composer job monitoring.]]
+[[Image:ood-oc-history.png|thumb|center|600px|link=Special:FilePath/ood-oc-history.png|Figure 11: Open Composer job monitoring.]]
 
 ==Supported applications==
 
@@ -176,11 +214,11 @@ To get an overview of all your jobs in the queue you can use the job monitoring 
 
 * [https://youtu.be/XRozBBKwA8c?si=rf_JMYBFz9ytpkR_&t=1818 Active Jobs Video Tutorial]
 
-[[Image:ood-active-jobs.png|thumb|center|600px|link=Special:FilePath/ood-active-jobs.png|Figure 11: Active Jobs.]]
+[[Image:ood-active-jobs.png|thumb|center|600px|link=Special:FilePath/ood-active-jobs.png|Figure 12: Active Jobs.]]
 
 =Terminal access=
 
-[[Image:ood-terminal.png|thumb|right|600px|link=Special:FilePath/ood-terminal.png|Figure 12: Terminal]]
+[[Image:ood-terminal.png|thumb|right|600px|link=Special:FilePath/ood-terminal.png|Figure 13: Terminal]]
 
 Sometimes you might prefer to use a terminal to interact with Trillium, Open OnDemand provides a web-based terminal that you can use to access the command-line interface. To access the terminal, navigate to the '''Clusters''' tab and select '''Trillium Shell Access'''. This will open a new tab in your browser with a terminal window where you can run commands as you would in a regular terminal session.
 
@@ -189,13 +227,30 @@ Sometimes you might prefer to use a terminal to interact with Trillium, Open OnD
 =Software modules=
 Trillium has a wide variety of software that can be accessed via modules. They can be loaded in your interactive sessions, terminal or job scripts in Open Composer. You can view the available modules and their versions using the '''Module Browser''' app, which can be accessed from the '''Clusters''' tab in the navigation bar. The module browser also provides a command that you can run in the terminal to load a particular module, which can be useful when writing job scripts for example.
 
-[[Image:ood-module-browser.png|thumb|right|600px|link=Special:FilePath/ood-module-browser.png|Figure 13: Searching for modules in the Module Browser app.]]
+[[Image:ood-module-browser.png|thumb|right|600px|link=Special:FilePath/ood-module-browser.png|Figure 14: Searching for modules in the Module Browser app.]]
 
 = Debugging errors =
 
-[[Image:ood-session-id.png|thumb|right|600px|link=Special:FilePath/ood-session-id.png|Figure 14: Accessing error logs via the session card]]
+[[Image:ood-session-id.png|thumb|right|600px|link=Special:FilePath/ood-session-id.png|Figure 15: Accessing error logs via the session card.]]
 
-If you encounter any errors while using an interactive Open OnDemand job, you can check the logs for more information. To access the logs, navigate to the '''My Interactive Sessions''' tab and find your active session. Click on the <code>output.log</code> link (see Figure. 14) to open a separate tab which displays the output of your job. This file contains the standard output and error messages generated by the job, which can help you identify any issues that may have occurred during the session. If you require further assistance, click on the [[File:ood-support-ticket.png|150px|link=Special:FilePath/ood-support-ticket.png]] button shown in your job's session card. Please include the <code>output.log</code> file and any other relevant information to help us assist you more effectively.
+If you encounter any errors while using an interactive Open OnDemand job, you can check the logs for more information. To access the logs, navigate to the '''My Interactive Sessions''' tab and find your active session. Click on the <code>output.log</code> link (see Figure. 15) to open a separate tab which displays the output of your job. This file contains the standard output and error messages generated by the job, which can help you identify any issues that may have occurred during the session. If you require further assistance, click on the [[File:ood-support-ticket.png|150px|link=Special:FilePath/ood-support-ticket.png]] button shown in your job's session card. Please include the <code>output.log</code> file and any other relevant information to help us assist you more effectively.
+
+= Troubleshooting =
+
+== Undetermined session error message ''Your session has entered a bad state.'' ==
+
+This happens when the underlying compute process has lost track of the Open OnDemand session. It most commonly occurs during system maintenance when compute nodes and the Slurm scheduler are rebooted.
+
+[[Image:ood-session-undetermined.png|thumb|right|600px|link=Special:FilePath/ood-session-undetermined.png|Figure 16: Undetermined session status.]]
+
+'''Solution'''
+
+This procedure may not work if the Slurm scheduler is down.
+# Click on the ''Cancel'' button.
+# Check the session's <i>output.log</i> file for any error messages or maintenance-related notifications.
+# Resubmit your session.
+
+If the issue persists, please click on the ''Submit Support Ticket'' button and attach your <i>output.log</i> file so we can investigate further.
 
 = Video tutorials =
 

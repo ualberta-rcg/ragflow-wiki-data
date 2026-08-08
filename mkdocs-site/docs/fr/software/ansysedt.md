@@ -31,7 +31,7 @@ AnsysEDT est hébergé sur nos grappes, mais nous n'avons pas de licence qui per
 
 ### Configurer votre propre fichier de licence
 
-Pour indiquer votre licence ansysedt, créez un fichier nommé `$HOME/.licenses/ansys.lic` qui contient deux lignes. Pour les détails, voir [Configurez votre propre fichier de licence](ansys.md#configurez-votre-propre-fichier-de-licence).
+Pour indiquer votre licence ansysedt, créez un fichier nommé `$HOME/.licenses/ansys.lic` qui contient deux lignes. Pour les détails, voir [Configurez votre propre fichier de licence](ansys.md).
 
 ## Soumettre des tâches par lots
 
@@ -44,7 +44,7 @@ Les tâches peuvent être soumises à la file d'attente d'une grappe avec la com
 !!! note "À noter"
     Veuillez noter que ces scripts sont génériques et doivent probablement être modifiés selon la grappe utilisée. Avant de les utiliser, spécifiez le temps de simulation, la mémoire, le nombre de cœurs et remplacez `YOUR_AEDT_FILE` par le nom de votre fichier d'entrée.
 
-Une liste complète des options de ligne de commande peut être obtenue en démarrant AnsysEDT [en mode graphique](ansys.md#mode-graphique) avec les commandes `ansysedt -help` ou `ansysedt -Batchoptionhelp` pour obtenir des fenêtres graphiques contextuelles déroulantes.
+Une liste complète des options de ligne de commande peut être obtenue en démarrant AnsysEDT [en mode graphique](ansys.md) avec les commandes `ansysedt -help` ou `ansysedt -Batchoptionhelp` pour obtenir des fenêtres graphiques contextuelles déroulantes.
 
 === "Nœud simple (ligne de commande)"
 

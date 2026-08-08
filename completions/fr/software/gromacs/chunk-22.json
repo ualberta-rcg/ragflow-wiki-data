@@ -4,17 +4,17 @@
   "chunk_index": 22,
   "qa_pairs": [
     {
-      "question": "Quand la décomposition des domaines atteint-elle ses limites en GROMACS, et comment le logiciel gère-t-il ces situations pour maintenir la performance?",
-      "answer": "En GROMACS, la décomposition des domaines devient moins efficace lorsque le temps de communication est trop grand par rapport à la taille des domaines (en termes de nombre de particules et de volume du domaine). Cela entraîne une baisse de la scalabilité parallèle et peut même diminuer la performance globale. Pour gérer ça, GROMACS inclut par défaut une fonctionnalité de répartition dynamique de la charge (« dynamic load balancing ») qui ajuste les frontières des domaines afin d'équilibrer le temps de résolution des processus. Il faut savoir qu'un domaine ne peut jamais être plus petit que le plus long rayon de coupure."
+      "question": "Est-ce que GROMACS permet de rediriger les interactions de sommation d'Ewald (PME) vers un GPU, et y a-t-il des limites à cette utilisation?",
+      "answer": "Oui, à partir de la version 2018 de GROMACS, les interactions PME peuvent être redirigées vers un GPU. Par contre, la version 2018.1 a des contraintes, notamment le fait qu'un seul rang GPU peut être dédié aux PME."
     },
     {
-      "question": "Comment GROMACS optimise-t-il le calcul des interactions à distance avec la sommation d'Ewald (PME) quand plusieurs processus MPI sont actifs, et comment gère-t-il le déséquilibre de charge entre les rangs PP et PME?",
-      "answer": "Pour éviter la dégradation de performance due à la communication globale requise par la sommation d'Ewald (PME), GROMACS peut attribuer des processus MPI spécifiques uniquement aux calculs PME. Au-delà de 12 processus MPI, `mdrun` utilise par défaut une méthode heuristique pour le faire, mais on peut aussi spécifier manuellement le nombre de rangs PME avec le paramètre `-npme`. En cas de déséquilibre de charge important entre les rangs PP (interactions rapprochées) et PME, le travail peut être redirigé des rangs PP vers les rangs PME en augmentant le rayon de coupure, ce que `mdrun` tente de faire automatiquement depuis la version 4.6 (sauf si `-notunepme` est utilisé). À partir de la version 2018, les interactions PME peuvent même être redirigées vers un GPU, bien que la version 2018.1 imposait qu'un seul rang GPU soit dédié aux PME."
+      "question": "Comment peut-on améliorer la performance des simulations GROMACS quand la décomposition des domaines atteint ses limites de scalabilité?",
+      "answer": "Quand la décomposition des domaines atteint la limite de scalabilité, la performance peut être améliorée en utilisant des fils OpenMP. Ces fils permettent de distribuer le travail d'un processus MPI sur plus d'un cœur CPU."
     },
     {
-      "question": "Comment l'utilisation des fils OpenMP peut-elle améliorer la performance de GROMACS lorsque la décomposition des domaines atteint ses limites, et quelles sont les recommandations pour les configurer?",
-      "answer": "Lorsque la décomposition des domaines atteint ses limites et que la scalabilité parallèle diminue, la performance de GROMACS peut encore être améliorée en utilisant des fils OpenMP. Ces fils permettent de distribuer le travail d'un processus MPI (rang) sur plusieurs cœurs CPU. Pour les configurer dans un script de soumission, il faut utiliser le paramètre `--cpus-per-task` (pour `sbatch` et `srun`), et définir la variable d'environnement `OMP_NUM_THREADS` avec `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"`, ou utiliser le paramètre `mdrun -ntomp`. Les développeurs de GROMACS suggèrent généralement un nombre optimal de fils OpenMP par processus MPI (CPU par tâche) entre 2 et 6, mais il peut être avantageux d'en augmenter le nombre pour des tâches exécutées sur un grand nombre de nœuds."
+      "question": "Comment configure-t-on les fils OpenMP pour une tâche GROMACS soumise avec Slurm, et quel est le nombre de CPU par tâche optimal?",
+      "answer": "Pour configurer les fils OpenMP, il faut utiliser le paramètre `--cpus-per-task` dans le script Slurm (pour `#SBATCH` et `srun`). Il faut aussi définir la variable d'environnement `OMP_NUM_THREADS` avec `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"` ou le paramètre `mdrun -ntomp ${SLURM_CPUS_PER_TASK:-1}`. Les programmeurs de GROMACS suggèrent que le nombre optimal de fils OpenMP par processus MPI (CPU par tâche) se situe généralement entre 2 et 6, mais il peut être avantageux d'en augmenter le nombre pour les tâches exécutées sur un grand nombre de nœuds."
     }
   ],
-  "generated_at": "2026-04-13T06:17:37.730213+00:00"
+  "generated_at": "2026-08-08T00:09:10.649186+00:00"
 }

@@ -4,17 +4,13 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "What is an example SLURM job script for running a GROMACS molecular dynamics simulation using one GPU and four OpenMP threads?",
-      "answer": "To run a GROMACS molecular dynamics simulation with one GPU and four OpenMP threads, you can use a SLURM job script like the following:\n```bash\n#!/bin/bash\n#SBATCH --gpus-per-node=1        # request 1 GPU per node\n#SBATCH --cpus-per-task=4        # number of OpenMP threads per MPI process\n#SBATCH --mem-per-cpu=2000M      # memory limit per CPU core (megabytes)\n#SBATCH --time=0:30:00           # time limit (D-HH:MM:ss)\nmodule purge  \nmodule load StdEnv/2023  gcc/12.3  openmpi/4.1.5  cuda/12.6  gromacs/2025.4\nexport OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"\ngmx mdrun -ntomp ${SLURM_CPUS_PER_TASK:-1} -deffnm md\n```"
+      "question": "How do you restart a GROMACS molecular dynamics simulation using a checkpoint file?",
+      "answer": "You can restart a GROMACS simulation by using the `mdrun` command and adding the `-cpi state.cpt` parameter, where `state.cpt` is the filename of the most recent checkpoint file. By default, `mdrun` will try to append to existing output files (like trajectories, energy, and log files) and will check their consistency, discarding any timesteps that are newer than the checkpoint file."
     },
     {
-      "question": "Are there any known bugs affecting GROMACS GPU simulations on Volta or newer generation GPUs?",
-      "answer": "Yes, GROMACS versions 2020.0 up to and including 2021.5 contain a bug when used on GPUs of Volta or newer generations (e.g., V100, T4, A100, and H100) with the `mdrun` option `-update gpu`. This bug could have perturbed the virial calculation and, in turn, led to incorrect pressure coupling. The GROMACS developers noted in the 2021.6 Release Notes that the error only appears if the `-update gpu` option was manually selected, and they haven't observed it in practice during their testing."
-    },
-    {
-      "question": "How can I improve GPU utilization for GROMACS simulations, especially with powerful modern GPUs like Nvidia A100 and H100?",
-      "answer": "Recent GPU models, such as the Nvidia A100 and H100, are often underutilized by typical GROMACS simulations unless the molecular system is very large. Two recommended solutions are:\n1.  **Run multiple similar simulations on a single GPU:** Use the `mdrun -multidir` option. This is the preferred method for tasks like repeating simulations, simulating protein variants, or ensemble-based simulations, provided the simulations are similar enough to ensure proper load balancing.\n2.  **Use a Multi-Instance GPU (MIG) instance:** This is preferred if you have a single simulation or if your simulations are dissimilar (e.g., different system sizes, shapes, or compositions), as it avoids idle resources that could result from load imbalance with `mdrun -multidir`."
+      "question": "What is the purpose of the `-maxh` parameter in a GROMACS `mdrun` command?",
+      "answer": "The `-maxh` parameter in a GROMACS `mdrun` command is used to specify the requested walltime for the simulation. It tells the program to gracefully finish the current timestep when it reaches 99% of this walltime. This ensures that a new checkpoint file is created, and all output files (trajectories, energy, and log files) are properly closed and in a consistent state when the time limit is reached."
     }
   ],
-  "generated_at": "2026-04-13T06:10:13.794967+00:00"
+  "generated_at": "2026-08-08T00:03:53.493059+00:00"
 }

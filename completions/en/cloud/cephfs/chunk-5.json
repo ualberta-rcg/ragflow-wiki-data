@@ -4,13 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How do you install the required CephFS client packages on Red Hat family Linux distributions such as RHEL, CentOS, Fedora, Rocky, or Alma?",
-      "answer": "For Red Hat family Linux distributions, you must first ensure the epel-release repository is in place by running `sudo dnf install epel-release`. Afterwards, you can install the CephFS client and its dependencies using the command: `sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
+      "question": "How do you permanently mount a CephFS device on a VM using `/etc/fstab` for both Arbutus and SD4H/Juno systems?",
+      "answer": "To permanently mount a CephFS device, you need to add an entry to the `/etc/fstab` file. For Arbutus, an example entry is `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,nofail 0 2`. For SD4H/Juno, a similar entry is used but includes additional options: `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw,nofail 0 2`. It's important to note the non-standard colon (`:`) before the device path, and the `nofail` option ensures the system will boot even if the CephFS service is down or unreachable."
     },
     {
-      "question": "What is the procedure for installing the CephFS client on Debian family Linux distributions, including Debian, Ubuntu, or Mint?",
-      "answer": "To install the CephFS client on Debian family Linux distributions, first determine your distro's codename with `lsb_release -sc`. Then, add the Ceph repository using `sudo apt-add-repository 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`. Once the repository is added, install the ceph lib, cephfs client, and other dependencies by running: `sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
+      "question": "How can a CephFS filesystem be mounted directly from the command line on Arbutus or SD4H/Juno?",
+      "answer": "A CephFS filesystem can be mounted directly from the command line. For Arbutus, the command is `sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW`. For SD4H/Juno, the command includes additional options: `sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw`."
+    },
+    {
+      "question": "What are the steps to mount CephFS in user space using `ceph-fuse`?",
+      "answer": "To mount CephFS in user space using `ceph-fuse`, you must first install the `ceph-fuse` library with `sudo dnf install ceph-fuse`. Next, uncomment the `user_allow_other` option in the `/etc/fuse.conf` file to allow the fuse mount to be accessible in user space. Finally, create a mount point directory (e.g., `mkdir ~/my_cephfs`) and then execute the mount command: `ceph-fuse my_cephfs/ --id=MyCephFS-RW --conf=~/ceph.conf --keyring=~/ceph.keyring --client-mountpoint=/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c`. The `ceph.conf` and `ceph.keyring` files used here are the same as those for the ceph kernel mount."
     }
   ],
-  "generated_at": "2026-04-26T00:52:36.619792+00:00"
+  "generated_at": "2026-08-07T23:49:56.563486+00:00"
 }

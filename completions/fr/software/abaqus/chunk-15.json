@@ -4,13 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "Comment est-ce qu'on peut lancer une analyse explicite avec MPI sur plusieurs nœuds en utilisant Abaqus/2026 ou une version plus récente sur les grappes d'Alliance?",
-      "answer": "Si vous avez la licence appropriée pour des tâches demandant beaucoup de mémoire et de calcul, vous pouvez utiliser le script \"scriptep1-mpi.txt\". Ce script est conçu pour effectuer le calcul avec MPI en distribuant la tâche sur un ensemble de nœuds, idéalement déterminés automatiquement par l'ordonnanceur. Il est spécifiquement compatible avec Abaqus/2026 et les versions plus récentes. À noter qu'un script de redémarrage pour les tâches sur nœuds multiples n'est pas fourni à cause de limitations additionnelles."
+      "question": "Comment peut-on obtenir une estimation de la mémoire totale requise pour une simulation Abaqus exécutée sur un seul nœud de calcul?",
+      "answer": "Une estimation de la mémoire totale, pour qu'une simulation s'exécute uniquement en mémoire vive sans être virtualisée sur le disque temporaire, peut être trouvée dans le fichier de sortie Abaqus nommé `test.dat`. Ce fichier affiche des détails comme le « MINIMUM MEMORY REQUIRED » (mémoire minimale requise) et le « MEMORY TO MINIMIZE I/O » (mémoire pour minimiser les entrées/sorties), tous deux exprimés en mégaoctets (MB)."
     },
     {
-      "question": "De quelle manière peut-on estimer la mémoire totale nécessaire pour une simulation Abaqus sur un nœud unique afin de s'assurer qu'elle tourne uniquement en mémoire vive et n'utilise pas le disque de scratch?",
-      "answer": "Pour estimer la mémoire totale (`--mem=`) requise par Slurm, vous pouvez consulter le fichier de sortie Abaqus `test.dat`. Ce fichier contient la section \"MEMORY TO OPERATIONS REQUIRED MINIMIZE I/O\" qui indique la quantité de mémoire nécessaire pour minimiser les entrées/sorties. Une autre méthode consiste à lancer la simulation de manière interactive sur un nœud de calcul, puis à surveiller la consommation de mémoire en temps réel avec les commandes `ps` ou `top` pour observer les valeurs maximales stables dans les colonnes VIRT et RES."
+      "question": "Quelle est la méthode pour surveiller l'utilisation de la mémoire d'une simulation Abaqus avec des processus à fils de manière interactive sur un nœud de calcul?",
+      "answer": "Pour surveiller la consommation de mémoire d'une simulation Abaqus en mode interactif, vous devez d'abord vous connecter à une grappe avec SSH et obtenir une allocation sur un nœud de calcul (par exemple, gra100) en utilisant `salloc`. Après avoir démarré votre simulation Abaqus, connectez-vous au nœud de calcul via SSH et lancez la commande `top -u $USER`. Vous devrez ensuite observer les colonnes VIRT (mémoire virtuelle) et RES (mémoire physique résidente) jusqu'à ce que des valeurs de mémoire maximales stables soient atteintes."
+    },
+    {
+      "question": "Pourquoi est-il important de légèrement surallouer la mémoire demandée avec l'option `--mem=` dans un script Slurm pour Abaqus, et quelles sont les implications si la mémoire physique (RES) descend en dessous du « MINIMUM MEMORY REQUIRED » (MMR)?",
+      "answer": "Il est crucial de surallouer légèrement la mémoire du nœud demandée via `--mem=` pour Abaqus, afin de s'assurer qu'au moins la quantité de mémoire physique non échangée (RES) recommandée par « MEMORY TO MINIMIZE I/O » (MRMIO) est disponible. Si la mémoire RES est inférieure au « MINIMUM MEMORY REQUIRED » (MMR), Abaqus s'arrêtera en raison d'une mémoire insuffisante (OOM). On peut ajuster la valeur `--mem=` pour trouver un équilibre acceptable entre la performance de la simulation et l'utilisation des ressources, en gardant à l'esprit que des valeurs de mémoire plus faibles entraîneront une utilisation accrue de l'espace /scratch pour les fichiers temporaires."
     }
   ],
-  "generated_at": "2026-05-31T01:11:33.184902+00:00"
+  "generated_at": "2026-08-07T23:27:52.413281+00:00"
 }

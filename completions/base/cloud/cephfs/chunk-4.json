@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How do users install the necessary CephFS client packages on Red Hat-based and Debian-based Linux distributions?",
-      "answer": "For Red Hat family distributions (e.g., RHEL, CentOS, Fedora, Rocky, Alma), users first need to install the `epel-release` package using `sudo dnf install epel-release`, then install the client and its dependencies with `sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`. For Debian family distributions (e.g., Debian, Ubuntu, Mint), users first add the Ceph repository for their specific distribution's codename, then install with `sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
+      "question": "After installing the Ceph client, which configuration files are required, and what essential information should they contain?",
+      "answer": "Two files are required: `ceph.conf` and `ceph.keyring`. The `ceph.conf` file contains global settings such as `admin socket`, `client reconnect stale`, `debug client`, `fuse big writes`, and critically, the `mon host` information specific to your cloud environment, along with `quota = true` under the `[client]` section. The `ceph.keyring` file must include your client name, typically formatted as `[client.MyCephFS-RW]`, and its corresponding `Access Key`."
     },
     {
-      "question": "What configuration files are essential for the CephFS client, and what specific information do they contain?",
-      "answer": "Once the client is installed, users need to create a `ceph.conf` file, typically located at `/etc/ceph/ceph.conf`. This file includes global settings, such as `admin socket`, `client reconnect stale`, `debug client`, `fuse big writes`, `mon host` (which varies by cloud, e.g., Arbutus versus SD4H/Juno), and `quota = true`. Additionally, a `ceph.keyring` file at `/etc/ceph/ceph.keyring` is required to store the client's access credentials, specifically the `client.MyCephFS-RW` name and its corresponding `<Access Key>`, both found under the access rules on the OpenStack project's share webpage."
+      "question": "How does one locate the client name and `Access Key` needed for the `ceph.keyring` file when configuring a CephFS client?",
+      "answer": "The client name and `Access Key` can be found under the access rules on your OpenStack project web page. To retrieve this information, navigate to `Project --> Share --> Shares`, and then click on the name of your specific share to view its details."
     },
     {
-      "question": "How can a CephFS share be mounted on a VM after the client is configured?",
-      "answer": "After client configuration, users must create a mount point directory on their host, such as `/cephfs`. To permanently mount the CephFS device, an entry can be added to the VM's `/etc/fstab` file, specifying the share's path (e.g., `:/volumes/_nogroup/...`), the mount point, `ceph` as the filesystem type, and options like `name=MyCephFS-RW,nofail`. For a temporary mount from the command line, users can use `sudo mount -t ceph :/volumes/_nogroup/... /cephfs/ -o name=MyCephFS-RW`. Note that the path starts with a non-standard colon, and specific mount options like `mds_namespace` may be required for certain systems like SD4H/Juno."
+      "question": "What are the distinct `mon host` configurations for the `ceph.conf` file when setting up a CephFS client on Arbutus versus SD4H/Juno cloud platforms?",
+      "answer": "For clients on the `Arbutus` cloud platform, the `mon host` entry in `ceph.conf` should be `[v2:134.87.15.61:3300/0,v1:134.87.15.61:6789/0] [v2:134.87.15.62:3300/0,v1:134.87.15.62:6789/0] [v2:134.87.15.63:3300/0,v1:134.87.15.63:6789/0]`. Conversely, for `SD4H/Juno` platforms, the `mon host` should be configured as `10.65.0.10:6789,10.65.0.12:6789,10.65.0.11:6789`."
     }
   ],
-  "generated_at": "2026-04-26T00:51:15.522307+00:00"
+  "generated_at": "2026-08-07T23:48:24.432839+00:00"
 }

@@ -4,13 +4,13 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "Why is it recommended to use the same GROMACS version for both `grompp` and `mdrun`?",
-      "answer": "It is recommended to always use the same GROMACS version for both `grompp` and `mdrun` because, although `mdrun` can use `tpr` files created with an older `grompp` version, doing so can lead to unexpected simulation results."
+      "question": "How can a GROMACS simulation be restarted on a cluster?",
+      "answer": "A GROMACS simulation can be restarted by using the `mdrun` command and specifying the most recent checkpoint file with the `-cpi state.cpt` parameter. To ensure a graceful shutdown and consistent checkpointing when nearing a job's time limit, it's recommended to also include the `-maxh` parameter (e.g., `-maxh 24.0`) which should correspond to the `--time` limit set in the Slurm job script (e.g., `--time=24:00:00`)."
     },
     {
-      "question": "What is a common challenge with molecular dynamics (MD) simulations regarding job walltime, and how can it be addressed?",
-      "answer": "MD simulations often take much longer than the maximum walltime for a job to complete, requiring restarts. To minimize the time a job needs to wait before it starts, you should maximize the number of nodes you have access to by choosing a shorter running time for your job."
+      "question": "What are the benefits of automating GROMACS simulation checkpointing using Slurm job arrays?",
+      "answer": "Automating GROMACS simulation checkpointing with Slurm job arrays offers significant benefits, primarily by splitting long simulations into multiple shorter jobs. This approach reduces waiting times in the queue because shorter jobs (e.g., those requesting 3 hours or less) are eligible for backfill scheduling. This is particularly useful for research groups with default resource allocations but also benefits those with competitive allocations. A job array script automates the submission and continuation process: as one short job completes and creates a checkpoint, the next job in the array starts and resumes the simulation, continuing until the simulation is finished or an error occurs."
     }
   ],
-  "generated_at": "2026-04-13T06:05:23.651068+00:00"
+  "generated_at": "2026-08-07T23:59:44.777746+00:00"
 }

@@ -2,6 +2,19 @@
   "doc_key": "en/arbutus_migration_guide",
   "level": "chunk",
   "chunk_index": 7,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:44:44.501065+00:00"
+  "qa_pairs": [
+    {
+      "question": "How can users transfer small data volumes between legacy and new cloud instances using rsync over SSH?",
+      "answer": "Users should first SSH into the legacy instance where the principal volume is attached and note the absolute path of the data to be copied. Then, assuming password-less login via SSH Keys is set up, they can execute the rsync command: `rsync -avzP -e 'ssh -i ~/.ssh/key.pem' /local/path/ remoteuser@remotehost:/path/to/files/`. After the transfer, it's recommended to verify the data on the new instance and then delete the old data from the legacy cloud."
+    },
+    {
+      "question": "What post-transfer configuration steps might be required after migrating data to a new cloud instance?",
+      "answer": "After data is transferred to a new instance, several post-transfer configurations may be required. These include updating firewall rules for new IP addresses, working with DNS providers to update entries for custom domains, updating IP addresses in various configuration files (e.g., /etc/hosts, /etc/resolv.conf), altering usernames in databases like MySQL, and renewing Let’s Encrypt TLS certificates if IP addresses were in their Subject Alternate Name."
+    },
+    {
+      "question": "What is the recommended procedure for migrating CephFS shared filesystem data from the legacy Arbutus Cloud to the new Arbutus Cloud?",
+      "answer": "To migrate CephFS shared filesystem data from the legacy Arbutus Cloud to the new Arbutus Cloud and ensure data integrity, the recommended procedure involves three steps: First, create an equivalent share in the new cloud for each share existing in the legacy cloud. Second, mount both the legacy share and the new share to separate locations on the same virtual machine within the new Arbutus Cloud. Finally, use a data copy tool, such as rsync, to transfer the data from the old share to the new share."
+    }
+  ],
+  "generated_at": "2026-08-07T23:38:11.659556+00:00"
 }

@@ -4,13 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What are the specific differences in how the /nearline service functions on the Narval, Nibi, and Rorqual clusters compared to the Fir cluster?",
-      "answer": "On Narval, files are backed up daily, but only the oldest and largest ones are migrated to tape. For Nibi, the first tape copy of data may take longer than 24 hours to create, and the disk copy is not erased until 60 days have passed. On Rorqual, nearline spaces are located in `~/links/nearlines`, and as of April 2026, files are backed up daily but not yet migrated to tape."
+      "question": "What is the primary purpose and nature of the /nearline filesystem?",
+      "answer": "The /nearline filesystem is a tape-based system designed for inactive data. It is intended for datasets that users do not anticipate accessing for several months."
     },
     {
-      "question": "What are the three primary methods for accessing the HPSS /nearline service on the Trillium cluster?",
-      "answer": "On Trillium, users can access the HPSS /nearline service by submitting HPSS-specific commands like `htar` or `hsi` as Slurm jobs in archive partitions, by using the VFS (Virtual File System) node accessed with `salloc --time=1:00:00 -pvfsshort` for managing a small number of files, or by utilizing Globus for transfers to and from HPSS using the `alliancecan#hpss` endpoint."
+      "question": "What are the recommended guidelines for file sizes when storing data in the /nearline filesystem?",
+      "answer": "Files smaller than approximately 10GB should be combined into archive files (tarballs). Conversely, files larger than 4TB should be split into 1TB chunks. It is important not to send small files to /nearline, with the exception of index files."
+    },
+    {
+      "question": "Explain the process by which files are stored and retrieved within the /nearline filesystem, highlighting how their location changes over time.",
+      "answer": "Initially, a file copied or created on /nearline resides only on disk. After about a day, if it meets specific criteria, the file is copied to tape, existing on both disk and tape. Subsequently, the disk copy may be deleted, leaving the file solely on tape (this state is called \"virtualized\"). When a virtualized file is recalled, it is copied back from tape to disk, a process that can vary in duration from less than a minute to over an hour, depending on file size and system demand."
     }
   ],
-  "generated_at": "2026-05-31T02:04:14.139382+00:00"
+  "generated_at": "2026-08-08T00:54:17.774998+00:00"
 }

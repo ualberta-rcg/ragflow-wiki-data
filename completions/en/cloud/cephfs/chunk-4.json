@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "What are the steps to install the CephFS client and its dependencies on a Debian-based VM?",
-      "answer": "First, determine your distro's codename using `lsb_release -sc`. Then, add the Ceph Tentacle repository with `sudo apt-add-repository 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`. If this command returns an error, revert it using `sudo add-apt-repository -r 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`. Finally, install the necessary packages by running `sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
+      "question": "What information is required to configure a CephFS client on a VM and where can it be found?",
+      "answer": "To configure a CephFS client, you need the monitor information (specifically the `mon host` details), the client name (e.g., `MyCephFS-RW`), and the corresponding 'Access Key'. The monitor information can be found in the share details' 'Path' field, which is used to mount the volume. The client name and 'Access Key' are located under the access rules on your OpenStack project's 'Shares' web page; you can find them by navigating to 'Project --> Share --> Shares' and then clicking on the name of the share."
     },
     {
-      "question": "After installing the CephFS client on a VM, how are the `ceph.conf` and `ceph.keyring` files configured to enable client access?",
-      "answer": "To configure client access, create a `/etc/ceph/ceph.conf` file, specifying the appropriate `mon host` entries based on whether your cloud is Arbutus or SD4H/Juno, and include `quota = true` under the `[client]` section. Additionally, create a `/etc/ceph/ceph.keyring` file with an entry for your client name (e.g., `[client.MyCephFS-RW]`) and its corresponding `key = <Access Key>`. Both the client name and access key are obtained from the access rules section on your OpenStack project's web page."
+      "question": "How do you configure the `ceph.conf` and `ceph.keyring` files for a CephFS client on a VM?",
+      "answer": "To configure the `ceph.conf` file, you need to create a `[global]` section for settings such as `admin socket`, `client reconnect stale`, `debug client`, and `fuse big writes`. Crucially, you must set the `mon host` value, which varies based on your cloud environment (e.g., Arbutus or SD4H/Juno) and can be derived from the share details' 'Path'. Within the `[client]` section, ensure `quota = true` is set. For the `ceph.keyring` file, create an entry like `[client.YOUR_CLIENT_NAME]` and set `key = <Access Key>`, using the specific client name and access key obtained from your OpenStack share details."
     },
     {
-      "question": "What is the procedure to permanently mount a CephFS share on a VM, specifically detailing the `fstab` entry and required information?",
-      "answer": "To permanently mount a CephFS share, first create a mount point directory on your host, for example, `/cephfs`. Then, add an entry to your VM's `/etc/fstab` file. The entry should start with the share's path (e.g., `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c`), followed by the mount point `/cephfs/`, the filesystem type `ceph`, and options such as `name=MyCephFS-RW,nofail`. For SD4H/Juno, `mds_namespace=cephfs_4_2` is also required, along with other performance tweaks. The share's path, client name, and access key are found in the share details on your project's OpenStack web page."
+      "question": "How can a CephFS device be permanently mounted on a VM using `/etc/fstab`?",
+      "answer": "To permanently mount a CephFS device on a VM, first create a mount point directory on your host, for example, `/cephfs`. Then, add an entry to the `/etc/fstab` file. This entry should include the share's path (which starts with `:`), the mount point, the filesystem type (`ceph`), the client name (e.g., `name=MyCephFS-RW`), and specific mount options. For Arbutus, `nofail` is an example option, while for SD4H/Juno, options like `mds_namespace=cephfs_4_2`, `x-systemd.device-timeout=30`, `x-systemd.mount-timeout=30`, `noatime`, `_netdev`, `rw`, and `nofail` are used. The `nofail` option ensures the system boots even if the CephFS service is unavailable."
     }
   ],
-  "generated_at": "2026-04-26T00:52:30.008080+00:00"
+  "generated_at": "2026-08-07T23:49:46.061765+00:00"
 }

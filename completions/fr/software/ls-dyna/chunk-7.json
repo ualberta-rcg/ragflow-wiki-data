@@ -4,13 +4,13 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "Comment devrait-on gérer l'allocation de mémoire pour le cœur principal du nœud maître dans le cadre de tâches LS-DYNA MPP (Message Passing Parallel) exécutées sur plusieurs nœuds?",
-      "answer": "Pour les tâches MPP, le premier cœur (processeur 0) du nœud maître doit disposer d'une quantité de mémoire suffisamment importante (appelée 'memory1') pour la décomposition et la simulation du modèle. Pour ce faire, il faut spécifier une valeur de mémoire par processeur qui est légèrement supérieure à la mémoire ('memory2') requise par cœur pour la simulation, puis s'assurer que la somme différentielle (mémoire par processeur moins 'memory2') est supérieure ou égale à 'memory1'."
+      "question": "Comment soumettre une tâche LS-DYNA MPP en spécifiant le nombre total de cœurs sur les grappes de l'Alliance, et quelles sont les directives Slurm principales?",
+      "answer": "Pour soumettre une tâche MPP LS-DYNA en précisant le nombre total de cœurs, il faut utiliser un script Slurm comme `script-mpp-bycore.sh`. Les directives Slurm importantes sont `#SBATCH --ntasks=<nombre_total_de_cœurs>` pour spécifier le nombre total de cœurs, et `#SBATCH --mem-per-cpu=<mémoire_par_cœur>` pour la mémoire par cœur. Après avoir chargé les modules nécessaires (comme `StdEnv/2023`, `intel/2023.2.1` et `ls-dyna-mpi/12.2.1`), la tâche est lancée avec une commande comme `srun ls-dyna_d i=airbag.deploy.k memory=200M`."
     },
     {
-      "question": "Quelle est la recommandation générale concernant la mémoire par nœud pour les tâches LS-DYNA MPP, et quel est un exemple concret pour un nœud de 128 Go?",
-      "answer": "Pour obtenir de meilleurs résultats, la somme de toute la mémoire attendue par nœud doit être maintenue dans les 75 % de la RAM réservée sur ce nœud. À titre d'exemple, pour un nœud de calcul doté de 128 Go de mémoire complète, la valeur 'memory1' peut atteindre un maximum de 6 000 Mo (ou 48 Go), tandis que 'memory2' peut être de 200 Mo (ce qui correspond à 48 Go divisé par 31 cœurs)."
+      "question": "Pourquoi est-ce important de faire des tests de scalabilité pour les simulations LS-DYNA, et comment peut-on vérifier la performance d'une tâche de test?",
+      "answer": "C'est important de faire des tests de scalabilité pour les simulations LS-DYNA parce que le logiciel pourrait ne pas bien utiliser un grand nombre de cœurs en parallèle. Ces tests aident à trouver le nombre maximal de cœurs avant que la performance ne diminue. Pour avoir les statistiques d'une tâche de test, comme le temps d'exécution total ou l'efficacité CPU et de la mémoire, on peut utiliser la commande `seff jobnumber` ou se connecter à un portail comme celui de NIBI."
     }
   ],
-  "generated_at": "2026-04-13T08:04:09.810722+00:00"
+  "generated_at": "2026-08-08T00:19:27.126352+00:00"
 }

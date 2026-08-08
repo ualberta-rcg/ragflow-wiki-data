@@ -4,17 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is a sample Slurm script for running a single-node LS-DYNA job on an Alliance cluster, and what are its key parameters?",
-      "answer": "A sample Slurm script for single-node LS-DYNA jobs, named `script-smp.sh`, includes directives such as `--account=def-account`, `--time=0-03:00`, `--cpus-per-task=8`, `--mem=16G`, and `--nodes=1`. It loads `StdEnv/2023`, `intel/2023.2.1`, and `ls-dyna/12.2.1` modules, and runs the `ls-dyna_d` (double precision) solver with parameters like `ncpu=$SLURM_CPUS_ON_NODE`, `i=airbag.deploy.k`, and `memory=1500M`."
+      "question": "How does one execute a single-node LS-DYNA job, and what are the specific module and command requirements?",
+      "answer": "To execute a single-node LS-DYNA job, users must load the `StdEnv/2023`, `intel/2023.2.1`, and `ls-dyna/12.2.1` modules. The job can then be run using a solver such as `ls-dyna_s` for single precision or `ls-dyna_d` for double precision, specifying parameters like `ncpu`, an input file (`i`), and memory. For instance, a double precision solver could be run with `ls-dyna_d ncpu=$SLURM_CPUS_ON_NODE i=airbag.deploy.k memory=1500M`."
     },
     {
-      "question": "When would a user choose to run a Multiple Message Passing Parallel (MPP) LS-DYNA job instead of a single-node Shared Memory Parallel (SMP) job on an Alliance cluster?",
-      "answer": "Users would choose to run a Multiple Message Passing Parallel (MPP) LS-DYNA job when their simulation requires scaling across multiple compute nodes, especially for problems that can efficiently utilize many cores (8 or more) via MPI. This is in contrast to single-node Shared Memory Parallel (SMP) jobs, which are confined to a single compute node."
-    },
-    {
-      "question": "How is memory configured for Multiple Message Passing Parallel (MPP) LS-DYNA jobs, particularly concerning the master node and overall memory usage per node?",
-      "answer": "For MPP LS-DYNA jobs, the first core (processor 0) on the master node needs sufficient memory (`memory1`) to decompose and simulate the model. This is managed by specifying a `mem-per-cpu` value in Slurm slightly larger than the per-core simulation memory (`memory2`). Enough cores must be allocated on the master node so their differential sum (`mem-per-cpu` minus `memory2`) meets or exceeds `memory1`. For best results, the total expected memory per node should not exceed 75% of the reserved RAM on that node."
+      "question": "What are the key considerations for running LS-DYNA jobs across multiple nodes, particularly concerning memory allocation?",
+      "answer": "Running LS-DYNA jobs across multiple nodes utilizes the MPP (Message Passing Parallel) version, which is MPI-based and requires `ls-dyna-mpi` modules. A crucial memory consideration is `memory1` for the first core (processor 0) on the master node, needed for model decomposition and simulation. This is satisfied by setting `mem-per-cpu` in Slurm slightly larger than `memory2` (memory required per core for simulation), and ensuring the differential sum of `mem-per-cpu` for cores on the master node is greater than or equal to `memory1`. For best results, the total expected memory per node should remain within 75% of the reserved RAM."
     }
   ],
-  "generated_at": "2026-04-13T07:59:58.742896+00:00"
+  "generated_at": "2026-08-08T00:16:45.309195+00:00"
 }

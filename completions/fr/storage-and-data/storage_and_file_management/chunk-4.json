@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Comment un utilisateur peut-il estimer son utilisation d'espace disque et d'inodes dans l'espace de stockage `project` sur les grappes de calcul, étant donné que l'outil `diskusage_report` affiche le quota total du groupe?",
-      "answer": "Pour estimer l'utilisation de l'espace et des inodes par un utilisateur dans l'espace `project` total, il faut utiliser la commande `lfs quota -u $USER /project`. Si l'on veut une estimation du nombre de fichiers dans un répertoire spécifique (incluant ses sous-répertoires), la commande `lfs find <chemin_vers_le_répertoire> -type f | wc -l` peut être utilisée."
+      "question": "Quelles sont les meilleures pratiques pour nettoyer efficacement les données dans les espaces de stockage `project` et `scratch` sur les grappes?",
+      "answer": "Pour nettoyer les espaces `project` et `scratch` régulièrement, il est recommandé de créer un répertoire temporaire, par exemple `toDelete`, d'y déplacer les fichiers à supprimer, de bien vérifier son contenu, puis de le supprimer récursivement. Il est aussi suggéré de documenter vos fichiers avec des fichiers README."
     },
     {
-      "question": "Quelles sont les meilleures pratiques pour gérer et supprimer des fichiers dans les espaces `project` et `scratch` afin d'éviter les problèmes et les suppressions accidentelles sur les grappes de calcul?",
-      "answer": "Il est important de nettoyer régulièrement ces espaces. Pour supprimer des fichiers, on devrait d'abord créer un répertoire temporaire, par exemple `toDelete`, y déplacer les fichiers à supprimer, en vérifier le contenu et ensuite seulement le supprimer récursivement. Il est aussi fortement conseillé d'éviter les caractères `*` et `/` dans les commandes `rm` et de toujours tester les commandes `rm` qui contiennent des variables d'environnement dans les scripts avant de les utiliser."
+      "question": "Comment doit-on utiliser la commande `rm` de façon sécuritaire, particulièrement dans les makefiles et les scripts?",
+      "answer": "Pour une utilisation sécuritaire de la commande `rm`, il faut éviter d'utiliser les caractères `*` et `/` directement. On devrait naviguer au répertoire parent contenant les éléments à effacer et s'assurer que c'est le bon répertoire. Si des commandes `rm` sont incluses dans un makefile ou des scripts avec des variables d'environnement, il est essentiel de les tester rigoureusement et de vérifier chaque variable pour prévenir des erreurs graves ou un usage malveillant."
     },
     {
-      "question": "Pourquoi des quotas et des politiques spécifiques sont-ils mis en place sur les systèmes de fichiers des grappes de calcul?",
-      "answer": "Les quotas et les politiques sont imposés pour s'assurer que tous les utilisateurs disposent de suffisamment d'espace de stockage. Ils régissent également les copies de sauvegarde et la purge automatique de certains systèmes de fichiers, comme l'espace `scratch`, afin de maintenir l'équilibre et la performance pour tous les utilisateurs."
+      "question": "Quel type de fichiers est-il préférable de stocker dans les espaces `scratch` et `SLURM_TMPDIR` et pourquoi?",
+      "answer": "Il est préférable de réserver les espaces `scratch` et `SLURM_TMPDIR` pour les fichiers temporaires. Le répertoire `$SLURM_TMPDIR` est particulièrement avantageux pour les fichiers temporaires pendant l'exécution d'une tâche, car il est créé localement sur les nœuds de calcul par l'ordonnanceur, offrant ainsi une meilleure performance."
     }
   ],
-  "generated_at": "2026-04-13T13:53:57.591450+00:00"
+  "generated_at": "2026-08-08T00:39:53.760136+00:00"
 }

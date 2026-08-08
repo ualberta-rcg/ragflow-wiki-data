@@ -4,17 +4,13 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "When performing an Abaqus explicit analysis job on a single node using a temporary directory restart script, what input file modifications are necessary to restart the analysis?",
-      "answer": "No input file modifications are required to restart an Abaqus explicit analysis when using a temporary directory restart script on a single node. The restart script automatically handles the recovery process by specifying the `recover` option in the Abaqus command."
+      "question": "How can an Abaqus explicit analysis job be restarted using a temporary directory on an Alliance cluster?",
+      "answer": "To restart an Abaqus explicit analysis job using a temporary directory, one would utilize a Slurm script like `scriptet2.txt`. This script is designed to copy existing `testet1*` files to `$SLURM_TMPDIR` and then execute the Abaqus `recover` command for the `testet2` job. No modifications to the input file are required to restart the analysis using this method."
     },
     {
-      "question": "Who should utilize multiple node computing for Abaqus explicit analysis, and what is the minimum required Abaqus version for this type of job?",
-      "answer": "Users with significant memory or compute demands, and corresponding access to sufficient licenses, should utilize multiple node computing for Abaqus explicit analysis. This functionality is exclusively available with Abaqus version 2026 or newer."
-    },
-    {
-      "question": "How can a user estimate the total Slurm node memory required for a single process Abaqus simulation to prevent virtualization to scratch disk, and what action should be taken if the memory efficiency is low?",
-      "answer": "An estimate for the total Slurm node memory (`--mem=`) required for a single process Abaqus simulation to run fully in RAM can be obtained by examining the 'MEMORY TO MINIMIZE I/O' value in the Abaqus `test.dat` output file. For completed jobs, if the `seff JobNumber` command shows a 'Memory Efficiency' of less than approximately 90%, the user should decrease the value of the `#SBATCH --mem=` setting in their Slurm script."
+      "question": "What are the guidelines for performing MPI-based explicit analysis on multiple nodes using Abaqus on Alliance clusters?",
+      "answer": "For MPI-based explicit analysis on multiple nodes, users with significant memory or compute requirements, and access to corresponding large licences, should employ a script such as `scriptep1-mpi.txt`. This method facilitates distributing computations across an arbitrary range of nodes, which the scheduler determines automatically. It is crucial to note that only Abaqus/2026 or newer versions are compatible with this script, and template scripts for restarting multi-node jobs are not currently provided due to additional limitations."
     }
   ],
-  "generated_at": "2026-05-31T01:07:54.540074+00:00"
+  "generated_at": "2026-08-07T23:24:21.352537+00:00"
 }

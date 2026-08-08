@@ -4,13 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "What problem arises when running typical GROMACS simulations on modern GPUs like Nvidia A100 or H100?",
-      "answer": "Running a typical GROMACS simulation on modern GPU models such as the Nvidia A100 and H100 can waste a significant fraction of the allocated computational resources, as these GPUs are often not fully utilized unless the molecular system is very large (millions of atoms)."
+      "question": "How do you restart a GROMACS simulation?",
+      "answer": "You can restart a GROMACS simulation by using the same `mdrun` command as the original simulation and adding the `-cpi state.cpt` parameter, where `state.cpt` is the filename of the most recent checkpoint file. By default, `mdrun` will append to existing files (like trajectories, energy, and log files) and check for consistency, discarding any timesteps newer than the checkpoint file if needed."
     },
     {
-      "question": "What is the recommended solution for efficiently running multiple similar GROMACS simulations on a single GPU?",
-      "answer": "The first recommended solution is to run multiple simulations on a single GPU using the `mdrun -multidir` command. This approach is preferred for multiple similar simulations, such as repeating the same simulation for more conformational space sampling, simulating various protein variants or small ligands, or performing ensemble-based simulations like replica exchange."
+      "question": "What is the purpose of the `-maxh` parameter in a GROMACS `mdrun` command when running long simulations?",
+      "answer": "The `-maxh` parameter in a GROMACS `mdrun` command informs the program of the requested walltime. This is important for long simulations, as it allows `mdrun` to gracefully finish the current timestep and create a new checkpoint file when it reaches 99% of the specified walltime. This ensures that all output files (trajectories, energy, and log files) are properly closed and in a consistent state before the job's time limit is reached."
+    },
+    {
+      "question": "What are the essential components of a basic SLURM job script for running a GROMACS MPI simulation?",
+      "answer": "A basic SLURM job script for running a GROMACS MPI simulation typically includes directives to request resources such as the number of nodes (`--nodes`), MPI processes per node (`--tasks-per-node`), memory per CPU (`--mem-per-cpu`), and the total time limit (`--time`). It also requires loading the appropriate environment modules (e.g., for `StdEnv`, `gcc`, `openmpi`, and `gromacs`) and setting the `OMP_NUM_THREADS` environment variable. The simulation is executed using `srun gmx_mpi mdrun -deffnm md -maxh <hours>`."
     }
   ],
-  "generated_at": "2026-04-13T06:05:18.741196+00:00"
+  "generated_at": "2026-08-07T23:59:37.128950+00:00"
 }

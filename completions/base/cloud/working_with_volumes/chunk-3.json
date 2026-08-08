@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How can one configure a virtual machine to automatically mount volumes when it boots up?",
-      "answer": "To automatically mount volumes when a virtual machine boots, one must edit the `/etc/fstab` file to include a new line with specific details on how the volume should be mounted."
+      "question": "What are the steps to create an image from an existing volume using the OpenStack dashboard?",
+      "answer": "To create an image from an existing volume using the OpenStack dashboard, first navigate to the 'Volumes' left-hand menu. Under the volume you wish to use, click on the 'Actions' drop-down menu and select 'Upload to Image'. You will then need to choose a name for your new image and select a disk format. QCOW2 is recommended for use within the OpenStack cloud, while VMDK or VDI formats might be better suited for VirtualBox. Finally, click 'Upload'."
     },
     {
-      "question": "What command should be used to view mounting information for volumes, such as the UUID, before configuring automatic mounting?",
-      "answer": "The `blkid` command should be used to view mounting information, which provides details like the UUID needed for adding an entry to `/etc/fstab`."
+      "question": "What are the necessary conditions a volume must meet before an image can be created from it?",
+      "answer": "To create an image of a volume, it must first be detached from a virtual machine (VM). If it is a boot (root) volume, it can only be detached from a VM if the VM is terminated or deleted. When creating the VM, it's crucial to ensure that the 'Delete Volume on Instance Delete' box was not checked, otherwise the volume would be deleted along with the instance."
     },
     {
-      "question": "Could you provide an example of a line to add to the `/etc/fstab` file for automatically mounting a volume based on its UUID?",
-      "answer": "An example of a line to add to `/etc/fstab` for automatically mounting a volume based on its UUID is: `/dev/disk/by-uuid/anananan-anan-anana-anan-ananananana /mnt auto defaults,nofail 0 3`. The placeholder `anananan-anan-anana-anan-ananananana` should be replaced with the actual UUID of the device."
+      "question": "What is the recommended method for copying volumes, and what important step should be taken before performing this operation?",
+      "answer": "Cloning is the recommended method for copying volumes, as it is much faster and requires less data movement behind the scenes compared to creating an image and then using it to create a new volume. Before creating a clone of a volume, it is highly recommended to shut down your virtual machine to prevent the newly created volume from being left in an inconsistent state due to ongoing writes to the source volume."
     }
   ],
-  "generated_at": "2026-04-13T16:26:33.739092+00:00"
+  "generated_at": "2026-08-08T01:01:25.179095+00:00"
 }

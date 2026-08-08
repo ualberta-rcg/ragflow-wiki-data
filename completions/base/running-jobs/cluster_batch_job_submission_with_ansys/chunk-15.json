@@ -1,0 +1,16 @@
+{
+  "doc_key": "base/cluster_batch_job_submission_with_ansys",
+  "level": "chunk",
+  "chunk_index": 15,
+  "qa_pairs": [
+    {
+      "question": "What is the process for using a compiled User-Defined Function (UDF) with Ansys Fluent on an Alliance cluster?",
+      "answer": "To use a compiled UDF, it must first be compiled on an Alliance cluster, which creates a `libudf` subdirectory containing the necessary `libudf.so` shared library. This `libudf` directory can then be transferred to other Alliance clusters if the same `StdEnv` environment module version is loaded. The UDF is subsequently loaded by uncommenting the `define/user-defined/compiled-functions load libudf` line in your journal file. It is important not to leave both the compile and load lines uncommented, as this will lead to inefficient recompilation for every job and potential build conflicts."
+    },
+    {
+      "question": "Why is it necessary to parallelize a User-Defined Function (UDF) for use with Ansys Fluent parallel jobs, and what are the potential consequences of not doing so?",
+      "answer": "A UDF must be parallelized before it can be used effectively with any Fluent parallel job, including single-node SMP and multinode MPI. This parallelization involves adding compiler directives, predicates, and reduction macros to the UDF's serial code to control which processes execute specific parts of the code. Failing to parallelize a UDF can result in Fluent running very slowly or, in the worst case, immediately crashing."
+    }
+  ],
+  "generated_at": "2026-08-08T01:07:54.032393+00:00"
+}

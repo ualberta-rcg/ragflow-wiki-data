@@ -4,17 +4,13 @@
   "chunk_index": 20,
   "qa_pairs": [
     {
-      "question": "Comment obtenir l'accès à la licence Abaqus de SHARCNET?",
-      "answer": "Pour utiliser la licence Abaqus de SHARCNET, vous devez contacter le soutien technique et demander l'accès. Dans votre courriel, il faut préciser que la demande est destinée à une utilisation sur les systèmes SHARCNET, puis copier-coller l'accord de licence fourni en indiquant vos nom et prénom ainsi que votre nom d'utilisateur aux emplacements prévus. Chaque utilisateur doit effectuer cette démarche individuellement."
+      "question": "Comment puis-je vérifier l'état des licences Abaqus sur le serveur SHARCNET pour voir les tâches en cours ou celles qui sont en file d'attente?",
+      "answer": "Pour vérifier l'état des licences Abaqus sur le serveur SHARCNET, vous devez d'abord vous connecter à Nibi et charger le module Abaqus. Ensuite, utilisez la commande `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"` pour voir les tâches lancées et celles en file d'attente. Si vous souhaitez inclure les réservations de produits par groupe, utilisez plutôt `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued|RESERVATION\"`."
     },
     {
-      "question": "Quelles sont les spécificités et les restrictions de la licence Abaqus gratuite offerte par SHARCNET?",
-      "answer": "La licence gratuite SHARCNET, renouvelée jusqu'au 17 janvier 2026, offre 2 jetons de calcul et 35 jetons d'exécution, avec des limites de 10 jetons par utilisateur et 15 jetons par groupe. Elle est attribuée selon le principe du premier arrivé, premier servi, et est principalement destinée aux tests et à une utilisation légère. Elle peut être utilisée avec un compte de l'Alliance, mais uniquement sur le matériel SHARCNET, comme le système SHARCNET OOD ou les grappes Nibi/Dusky."
-    },
-    {
-      "question": "Quelle est la bonne façon de configurer le fichier de licence Abaqus pour utiliser la licence SHARCNET?",
-      "answer": "Pour utiliser la licence SHARCNET, vous devez configurer votre fichier de licence uniquement sur les systèmes SHARCNET (comme les grappes Nibi et Dusky ou le système de bureau OOD de SHARCNET). Il faut mettre à jour votre fichier `~/.licenses/abaqus.lic` pour qu'il contienne la ligne `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27050@license1.computecanada.ca\")`, car le serveur `license3.sharcnet.ca` est fermé."
+      "question": "Qu'est-ce que ça implique quand une tâche Abaqus est affichée comme étant en « file d'attente » pour une licence sur le serveur SHARCNET, et quelles sont les conséquences pour les ressources de calcul et la priorité de mon compte?",
+      "answer": "Quand une tâche Abaqus est en « file d'attente » pour une licence, ça veut dire que même si elle est à l'état 'R (running)' (selon `squeue -j jobid` ou `sacct -j jobid`), elle est en fait inactive sur un nœud de calcul, en attendant qu'une licence soit disponible. Cette situation gaspille les ressources du cluster et réduit la juste part de votre compte (priority) comme si la tâche était en train d'exécuter des calculs et consommait du temps CPU. La tâche ne commencera à s'exécuter qu'une fois que les licences nécessaires seront libérées et disponibles."
     }
   ],
-  "generated_at": "2026-05-31T01:12:15.301991+00:00"
+  "generated_at": "2026-08-07T23:28:34.199785+00:00"
 }

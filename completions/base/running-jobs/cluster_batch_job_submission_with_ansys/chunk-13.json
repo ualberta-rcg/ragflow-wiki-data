@@ -1,0 +1,16 @@
+{
+  "doc_key": "base/cluster_batch_job_submission_with_ansys",
+  "level": "chunk",
+  "chunk_index": 13,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of Fluent journal files, and what functionalities do they offer for simulations?",
+      "answer": "Fluent journal files allow users to automate commands from Fluent's Text User Interface (TUI), enabling them to modify simulation parameters like temperature, pressure, and flow speed. This facilitates running multiple simulations under varying conditions using a single case file by adjusting parameters within the journal file. Additionally, these files can be configured to use either the legacy `.cas/.dat` file format (with `/file/cff-files no`) or the more efficient `.cas.h5/.dat.h5` format (with `/file/cff-files yes`). For a comprehensive list of commands, users can consult the Fluent User's Guide."
+    },
+    {
+      "question": "In Fluent's solution restart scripts, how are subsequent job segments managed, and how do they handle the case and data files for continuous simulations?",
+      "answer": "In Fluent's solution restart scripts, such as the `Multinode (by core + restart)` example, the `$SLURM_ARRAY_TASK_ID` variable differentiates between the initial run (task ID 1) and subsequent restarts. The initial run utilizes the main journal file (`$MYJOUFILE`), while subsequent restarts use a dedicated restart journal file (`$MYJOUFILERES`). Upon successful completion of a job segment, the script automatically creates symbolic links from the most recent `.cas` and `.dat` output files found in the `output/` subdirectory to the designated restart case (`$MYCASFILERES`) and data (`$MYDATFILERES`) files, allowing the next job segment to seamlessly continue from the latest saved state."
+    }
+  ],
+  "generated_at": "2026-08-08T01:07:37.827634+00:00"
+}

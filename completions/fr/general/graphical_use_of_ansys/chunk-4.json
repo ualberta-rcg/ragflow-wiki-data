@@ -1,0 +1,20 @@
+{
+  "doc_key": "fr/graphical_use_of_ansys",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "Comment est-ce qu'on lance Workbench sur un bureau OnDemand quand on n'a pas besoin de carte graphique accélérée?",
+      "answer": "Pour partir Workbench sans accélération graphique sur un bureau OnDemand, faut spécifier un 'GPU Node' qui n'a pas de GPU pour votre session OOD. Après ça, vous chargez le module avec `module load StdEnv/2023 ansys/2025R2.04` pis vous lancez l'application avec la commande `runwb2` dans le terminal. Ça va utiliser l'émulation logicielle Mesa pour les appels OpenGL."
+    },
+    {
+      "question": "Si je suis sur le cluster Nibi, comment je fais pour partir Workbench sur un bureau OnDemand avec une carte graphique accélérée?",
+      "answer": "Sur le cluster Nibi, si vous avez besoin d'une carte graphique accélérée pour Workbench sur un bureau OnDemand, vous devez choisir une t4 (15GB) dans la liste déroulante de sélection de GPU. Quand votre bureau apparaît, ouvrez un terminal, chargez le module `module load StdEnv/2023 ansys/2025R2.04` pis partez Workbench avec `runwb2`. Ça va configurer automatiquement les variables d'environnement pour VirtualGL."
+    },
+    {
+      "question": "Une fois que Workbench est parti sur un bureau OnDemand, comment on lance Fluent, peu importe si on a une carte graphique ou non?",
+      "answer": "Dans Workbench, cliquez sur 'Fluid Flow (Fluent)' ou 'Fluent with Fluent Meshing' dans le menu 'Analysis' à gauche, pis sur 'Setup' dans la fenêtre pop-up au centre. Quand le panneau 'Fluent Launcher' s'affiche, allez à l'onglet 'Environment'. Là, copiez les variables d'environnement nécessaires : `I_MPI_HYDRA_BOOTSTRAP=ssh` (obligatoire sur le cluster Nibi) et, pour les versions 2025R1 ou plus récentes, `HOOPS_PICTURE=opengl2-mesa` si vous êtes sans GPU, ou `HOOPS_PICTURE=opengl2` si vous avez un GPU. Après ça, cliquez sur 'Start'."
+    }
+  ],
+  "generated_at": "2026-08-08T01:11:57.384379+00:00"
+}

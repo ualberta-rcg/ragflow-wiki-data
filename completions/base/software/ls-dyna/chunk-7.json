@@ -4,17 +4,13 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "Which specific modules are loaded in the provided SLURM script snippet to prepare the environment for a multiple-node LS-DYNA job?",
-      "answer": "The provided SLURM script snippet loads the `intel/2023.2.1` and `ls-dyna-mpi/12.2.1` modules to prepare the environment for a multiple-node LS-DYNA job."
+      "question": "How can a user submit an LS-DYNA Message Passing Parallel (MPP) job by specifying the total number of cores on an Alliance cluster, according to the provided example script?",
+      "answer": "To submit an LS-DYNA MPP job specifying the total number of cores, a user can adapt the `script-mpp-bycore.sh` example. This involves setting `#SBATCH --ntasks` to the desired total number of cores (e.g., 64) and `#SBATCH --mem-per-cpu` (e.g., 2G) in the Slurm script. The script should load the `StdEnv/2023`, `intel/2023.2.1`, and `ls-dyna-mpi/12.2.1` modules. The job is then executed using `srun ls-dyna_d i=airbag.deploy.k memory=200M` for newer environments, or `mpirun` for older ones. This approach allows the scheduler to determine the optimal number of compute nodes to minimize job wait time in the queue."
     },
     {
-      "question": "How can an Ansys license server be specified for an LS-DYNA multiple-node job, according to the provided SLURM script snippet?",
-      "answer": "To specify an Ansys license server, one would uncomment and set the environment variables `LSTC_LICENSE=ansys` and `ANSYSLMD_LICENSE_FILE=<port>@<server>` in the SLURM script, replacing `<port>` with the appropriate port number and `<server>` with the hostname of the Ansys license server."
-    },
-    {
-      "question": "How is LS-DYNA executed for a multiple-node job when `EBVERSIONNIXPKGS` is 16.09, as shown in the provided SLURM script snippet?",
-      "answer": "When `EBVERSIONNIXPKGS` is equal to 16.09, LS-DYNA is executed using `mpirun -np $NCORES -hostfile /tmp/mpihostlist-$SLURM_JOB_ID ls-dyna_d i=airbag.deploy.k memory=200M`. The `ls-dyna_d` command specifies the double-precision MPP solver, uses `airbag.deploy.k` as the input file, and sets `memory=200M`."
+      "question": "Why are scaling test jobs important for LS-DYNA simulations on Alliance clusters, and what are the recommendations for conducting them effectively?",
+      "answer": "Running scaling test jobs is crucial because LS-DYNA simulations may not efficiently utilize a very large number of cores in parallel. These tests help determine the maximum number of cores that can be effectively used before performance starts to degrade. For reliable results, scaling tests should be conducted using the actual research simulation and on the specific cluster where the full production runs are intended to be executed. Job statistics, such as Job Wall-clock time, CPU Efficiency, and Memory Efficiency, can be extracted using either the `seff jobnumber` command or a cluster job portal."
     }
   ],
-  "generated_at": "2026-04-13T08:00:20.603012+00:00"
+  "generated_at": "2026-08-08T00:17:02.183836+00:00"
 }

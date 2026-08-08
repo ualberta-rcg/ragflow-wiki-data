@@ -7,73 +7,81 @@
       "answer": "Le système de fichiers /nearline utilise de l'espace de stockage sur ruban et sert à conserver les données inactives, par exemple les ensembles de données que vous n'avez pas besoin d'utiliser pendant des mois."
     },
     {
-      "question": "Quelles sont les recommandations pour stocker des petits fichiers (moins de ~10 Go) sur /nearline?",
-      "answer": "Les fichiers de moins de ~10 Go devraient être rassemblés dans des fichiers archive (tarballs) avec `tar` ou un autre outil semblable. Il ne faut pas copier de petits fichiers directement sur /nearline, à l'exception des fichiers d'index."
+      "question": "Quelle est la recommandation pour les petits fichiers (moins de ~10Go) lorsqu'on utilise /nearline?",
+      "answer": "Les fichiers de moins de ~10Go devraient être rassemblés dans des fichiers archive (tarballs) avec 'tar' ou un outil semblable. Il ne faut pas copier de petits fichiers, à l'exception des index, directement sur /nearline."
     },
     {
-      "question": "Comment devrait-on gérer les très gros fichiers (plus de 4 To) avant de les copier sur /nearline?",
-      "answer": "Les fichiers de plus de 4 To devraient être divisés en parts d'environ 1 To avec un outil comme la commande `split`."
+      "question": "Comment les très gros fichiers (plus de 4To) devraient-ils être gérés lorsqu'ils sont stockés sur /nearline?",
+      "answer": "Les fichiers de plus de 4To devraient être divisés en parts de 1To avec un outil comme la commande 'split'."
     },
     {
-      "question": "Où devrait-on créer un fichier archive (avec `tar` ou `dar`) destiné à /nearline pour une efficacité optimale?",
-      "answer": "Il est plus efficace de créer l'archive directement sur /nearline, sans copier au préalable les fichiers sources sur /nearline, ce qui évite d'utiliser de l'espace de stockage supplémentaire."
+      "question": "Quels outils sont recommandés pour créer des archives sur /nearline, et quelle est la meilleure pratique concernant l'emplacement de création?",
+      "answer": "Il est recommandé d'utiliser 'tar' ou 'dar' et de créer l'archive directement sur /nearline pour une meilleure efficacité, sans copier les fichiers sources au préalable."
     },
     {
-      "question": "Pourquoi est-il recommandé de créer un index pour les fichiers regroupés et archivés sur /nearline?",
-      "answer": "Créer un index permet de repérer un fichier particulier au sein d'une archive sans avoir à récupérer l'entière collection enregistrée sur ruban."
+      "question": "Pourquoi est-il recommandé de créer un index pour les collections de fichiers archivées sur /nearline, et où ces fichiers d'index peuvent-ils être enregistrés?",
+      "answer": "La création d'un index permet de repérer un fichier particulier sans récupérer toute la collection. Les fichiers d'index, même petits, peuvent être enregistrés sur /nearline, mais sur Nibi, ils ne sont pas sauvegardés ni archivés sur ruban."
     },
     {
-      "question": "Comment peut-on créer un fichier d'index pour une archive `tar` existante sur /nearline?",
-      "answer": "La commande `tar tvvf /nearline/def-sponsor/user/mycollection.tar > /nearline/def-sponsor/user/mycollection.index` peut être utilisée pour créer un index."
+      "question": "Les nœuds de calcul sur les grappes Alliance peuvent-ils accéder directement aux données stockées sur /nearline?",
+      "answer": "Non, /nearline n'est pas monté sur les nœuds de calcul et l'accès aux données à partir de ceux-ci n'est pas permis, car la récupération de données prend du temps."
     },
     {
-      "question": "Est-ce que les nœuds de calcul sur les grappes Alliance peuvent accéder aux données stockées sur /nearline?",
-      "answer": "Non, /nearline n'est pas monté sur les nœuds de calcul, car l'obtention de données de /nearline peut prendre un temps considérable, ce qui n'est pas compatible avec l'exécution de tâches."
+      "question": "Pourquoi est-il recommandé d'utiliser un nœud de copie (DTN) plutôt qu'un nœud de connexion pour les opérations d'archivage sur /nearline?",
+      "answer": "La création de fichiers archive exige beaucoup de ressources, il est donc préférable d'utiliser un nœud de copie si disponible, plutôt qu'un nœud de connexion."
     },
     {
-      "question": "Quel type de nœud est recommandé pour créer des fichiers archive volumineux sur /nearline, si disponible?",
-      "answer": "Il est préférable d'utiliser un nœud de copie (DTN) plutôt qu'un nœud de connexion, car la création d'archives volumineuses exige beaucoup de ressources."
+      "question": "Comment les utilisateurs peuvent-ils s'assurer que les longues opérations d'archivage (par exemple, avec 'tar' ou 'dar') sur /nearline ne sont pas interrompues par une déconnexion de session SSH?",
+      "answer": "Il est recommandé d'exécuter 'tar' ou 'dar' dans un multiplexeur de terminal tel que 'tmux' ou 'screen' pour que le programme puisse continuer de s'exécuter en arrière-plan."
     },
     {
-      "question": "Quelle est la meilleure pratique pour s'assurer qu'un processus d'archivage de longue durée sur /nearline ne soit pas interrompu par une déconnexion SSH?",
-      "answer": "Il est recommandé d'exécuter `tar` ou `dar` dans un multiplexeur de terminal tel que `tmux` ou `screen` pour éviter les interruptions et pouvoir y revenir plus tard."
+      "question": "Comment la commande 'dar' devrait-elle être utilisée pour éviter les invites interactives, surtout lors d'une exécution sans surveillance pour l'archivage sur /nearline?",
+      "answer": "Il est recommandé de désactiver explicitement l'interactivité avec l'option 'dar -Q', car sans terminal, 'dar' suppose une réponse négative à toutes les questions."
     },
     {
-      "question": "Quels sont les principaux avantages du stockage sur ruban (/nearline) par rapport aux disques ou aux SSD?",
-      "answer": "Les avantages incluent un coût par unité de données stockée moindre, une capacité de stockage facilement augmentable, et une consommation énergétique par unité de données stockée effectivement nulle."
+      "question": "Quels sont les principaux avantages de l'utilisation du stockage sur ruban de /nearline par rapport aux disques ou aux SSD sur les grappes Alliance?",
+      "answer": "Les avantages sont un coût par unité de données stockée moindre, une capacité de stockage facilement augmentable par l'achat de rubans additionnels et une consommation énergétique par unité de données stockée effectivement nulle."
     },
     {
-      "question": "Décrivez le cycle de vie typique d'un fichier après qu'il ait été créé ou copié sur /nearline.",
-      "answer": "Le fichier existe d'abord sur disque, puis est copié sur ruban (existant sur les deux), puis la copie sur disque peut être supprimée (existant seulement sur ruban). Quand il est rappelé, il est copié du ruban au disque."
+      "question": "Décrivez le processus de fonctionnement d'un fichier sur /nearline, de sa création à son rappel.",
+      "answer": "Un fichier existe d'abord sur disque, puis est copié sur ruban après environ une journée. La copie sur disque peut ensuite être supprimée, laissant le fichier uniquement sur ruban. Quand le fichier est rappelé, il est copié du ruban au disque."
     },
     {
-      "question": "Combien de temps peut prendre l'accès à un fichier qui est entièrement stocké sur ruban sur /nearline?",
-      "answer": "Selon la taille du fichier et les demandes au système de stockage sur ruban, l'accès à un fichier sur ruban peut nécessiter entre moins d'une minute et plus d'une heure."
+      "question": "Quel est l'impact sur le temps d'accès lorsqu'un fichier stocké uniquement sur ruban dans /nearline est rappelé?",
+      "answer": "Le rappel d'un fichier uniquement sur ruban peut prendre entre moins d'une minute et plus d'une heure, car le ruban doit être trouvé et la copie restaurée sur le disque, ce qui bloque le processus de lecture."
     },
     {
-      "question": "Comment peut-on vérifier si un fichier spécifique sur /nearline se trouve seulement sur disque, sur ruban, ou les deux?",
-      "answer": "La commande `lfs hsm_state <FILE>` permet de connaître l'état du fichier. Par exemple, `(0x00000000)` indique qu'il est seulement sur disque, tandis que `released exists archived` signifie qu'il est seulement sur ruban."
+      "question": "Comment les utilisateurs peuvent-ils vérifier l'état de leurs fichiers (par exemple, sur disque, sur ruban, archivage en cours) dans leur espace /nearline?",
+      "answer": "Certaines grappes permettent d'utiliser 'diskusage_report --nearline --per_user --all_users' pour un sommaire, et 'lfs hsm_state <FILE>' pour vérifier l'état d'un fichier spécifique."
     },
     {
-      "question": "Comment peut-on forcer le rappel d'un fichier de ruban sur disque sur /nearline sans avoir à le lire?",
-      "answer": "La commande `lfs hsm_restore <FILE>` permet de forcer le rappel d'un fichier de ruban vers le disque."
+      "question": "Comment un utilisateur peut-il forcer explicitement la restauration d'un fichier de ruban vers le disque sur /nearline sans le lire?",
+      "answer": "Un utilisateur peut forcer le rappel d'un fichier sur ruban sans le lire avec la commande 'lfs hsm_restore <FILE>'."
     },
     {
-      "question": "Sur la grappe Fir, que se passe-t-il si un fichier est supprimé du répertoire `~/nearline`?",
-      "answer": "La copie sur ruban est conservée pendant 60 jours. Pour la restaurer, il faut contacter le soutien technique en mentionnant le chemin complet et la date de la version du fichier."
+      "question": "Comment le transfert de données depuis /nearline affecte-t-il le temps total de transfert, en particulier pour les fichiers qui sont uniquement sur ruban?",
+      "answer": "Les transferts à partir de /nearline prendront plus de temps, car chaque restauration de fichier exclusivement sur ruban ralentira le transfert de quelques minutes à plusieurs heures."
     },
     {
-      "question": "Quelles sont les méthodes d'accès au service /nearline (HPSS) sur la grappe Trillium?",
-      "answer": "Les méthodes d'accès incluent la soumission de tâches Slurm avec les commandes HPSS `htar` ou `hsi`, l'utilisation du nœud VFS via `salloc --time=1:00:00 -pvfsshort`, ou le transfert de fichiers avec Globus en utilisant le point de chute `alliancecan#hpss`."
+      "question": "Quelles sont les spécificités de /nearline sur la grappe Nibi, notamment concernant le temps de migration sur ruban et la sauvegarde des petits fichiers?",
+      "answer": "Sur Nibi, la première copie sur ruban peut prendre plus de 24 heures, la copie sur disque n'est pas effacée avant 60 jours, et les fichiers d'index et autres petits fichiers ne sont ni sauvegardés ni migrés sur ruban."
     },
     {
-      "question": "Qu'est-ce qui est particulier au service /nearline sur la grappe Narval par rapport à Fir?",
-      "answer": "Sur Narval, les fichiers dans /nearline sont sauvegardés quotidiennement, mais seuls les plus gros et les plus anciens fichiers sont copiés sur ruban."
+      "question": "Comment l'accès à /nearline (HPSS) est-il géré spécifiquement sur la grappe Trillium?",
+      "answer": "Sur Trillium, on peut accéder à HPSS en soumettant une tâche Slurm avec 'htar' ou 'hsi', en utilisant le nœud VFS via 'salloc --time=1:00:00 -pvfsshort', ou en transférant des fichiers avec Globus et le point de chute 'alliancecan#hpss'."
     },
     {
-      "question": "Comment le service /nearline de Nibi diffère-t-il de celui de Fir?",
-      "answer": "Sur Nibi, la création de la première copie sur ruban peut prendre plus de 24 heures, et la copie sur disque ne sera pas effacée avant 60 jours."
+      "question": "Que se passe-t-il sur Fir lorsqu'un fichier est supprimé de ~/nearline, et comment peut-on restaurer une copie sur ruban?",
+      "answer": "La copie sur ruban est conservée pendant 60 jours. Pour la restaurer, il faut contacter le soutien technique en fournissant le chemin complet et la date de la version désirée du fichier."
+    },
+    {
+      "question": "Y a-t-il une différence dans la sauvegarde et la migration des fichiers vers le ruban pour /nearline sur la grappe Narval?",
+      "answer": "Sur Narval, les fichiers dans /nearline sont sauvegardés chaque jour, mais seulement les plus gros et les plus anciens fichiers sont nécessairement copiés sur ruban."
+    },
+    {
+      "question": "Sur quelle grappe les espaces /nearline se trouvent-ils dans '~/links/nearlines' et y a-t-il une particularité concernant la copie sur ruban?",
+      "answer": "Sur Rorqual, les espaces nearline se trouvent dans '~/links/nearlines'. Depuis avril 2026, les fichiers sont sauvegardés chaque jour, mais ne sont pas encore copiés sur ruban."
     }
   ],
-  "generated_at": "2026-05-31T02:05:26.163205+00:00"
+  "generated_at": "2026-08-08T00:55:35.290805+00:00"
 }

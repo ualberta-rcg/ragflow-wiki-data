@@ -4,17 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "What modules are required to run GROMACS version 2018 with GPU acceleration in the `StdEnv/2016.4` environment?",
-      "answer": "To run GROMACS version 2018 with GPU acceleration in the `StdEnv/2016.4` environment, you need to load the modules `StdEnv/2016.4`, `cuda/9.0.176`, and `gromacs/2018`."
+      "question": "For GROMACS versions 5.x, 2016.x, and newer, what do the suffixes of the `gmx` binaries indicate about their precision and parallelization capabilities?",
+      "answer": "For these GROMACS versions, the `gmx` binary signifies mixed (single) precision GROMACS with OpenMP threading but without MPI. `gmx_mpi` is mixed precision with OpenMP and MPI. `gmx_d` indicates double precision GROMACS with OpenMP but no MPI. Lastly, `gmx_mpi_d` represents double precision GROMACS with OpenMP and MPI."
     },
     {
-      "question": "Which GROMACS versions are affected by a known bug that can lead to incorrect pressure coupling when using GPUs of Volta or newer generations, and what option triggers this issue?",
-      "answer": "GROMACS versions 2020.0 up to and including 2021.5 contain a bug that could perturb the virial calculation and lead to incorrect pressure coupling when used on Volta or newer generation GPUs (i.e., V100, T4, A100, and H100) with the `mdrun` option `-update gpu`."
+      "question": "How do you submit a basic serial GROMACS job using a SLURM script?",
+      "answer": "A basic serial GROMACS job script for SLURM would typically include defining a time limit and memory per CPU, purging existing modules, loading the necessary GROMACS environment modules (e.g., `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2025.4`), exporting `OMP_NUM_THREADS`, and then executing the GROMACS `mdrun` command, for example, `gmx mdrun -nt 1 -deffnm em`."
     },
     {
-      "question": "How were older GROMACS versions, specifically those prior to version 2018.7, typically compiled on the system, based on the provided information for the `StdEnv/2016.4` environment?",
-      "answer": "Older GROMACS versions, prior to 2018.7, were generally compiled with either GCC compilers and FFTW, or Intel compilers using Intel MKL and Open MPI 2.1.1 libraries from the default environment."
+      "question": "When running GROMACS simulations on whole nodes, what configuration advice is given for `--ntasks-per-node` and `--cpus-per-task`, and how should one address issues with domain decomposition?",
+      "answer": "When running GROMACS simulations on whole nodes, the product of `--ntasks-per-node` and `--cpus-per-task` should generally match the total number of CPU cores on the compute nodes. If GROMACS encounters a domain decomposition error due to the system size and requested number of domains, it is recommended to halve `--ntasks-per-node` and double `--cpus-per-task` to resolve the issue."
     }
   ],
-  "generated_at": "2026-04-13T06:09:15.884053+00:00"
+  "generated_at": "2026-08-08T00:03:03.502298+00:00"
 }

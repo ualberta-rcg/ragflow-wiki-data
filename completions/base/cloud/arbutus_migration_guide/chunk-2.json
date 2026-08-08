@@ -2,6 +2,19 @@
   "doc_key": "base/arbutus_migration_guide",
   "level": "chunk",
   "chunk_index": 2,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:42:26.386483+00:00"
+  "qa_pairs": [
+    {
+      "question": "How can one confirm access to projects in both the legacy and new Arbutus Clouds after configuring OpenStack RC files?",
+      "answer": "To confirm access, activate an RC file in a shell session by sourcing it (e.g., `source opensrc.sh`). Then, test the configuration by running the command `openstack volume list`. It's important to remember that only one RC file can be active in a given shell session at a time."
+    },
+    {
+      "question": "What are the steps to migrate SSH key pairs from the legacy Arbutus Cloud to the new Arbutus Cloud using the Horizon dashboard?",
+      "answer": "First, from the legacy Arbutus Horizon dashboard, navigate to 'Compute -> Key Pairs', click on the name of the key pair you wish to migrate, and copy its public key value. Next, on the new Arbutus Horizon dashboard, go to 'Compute -> Key Pairs', click on 'Import Public Key', provide a name for your key pair, and paste the copied public key. Repeat these steps for all necessary keys. Alternatively, SSH key pairs can also be generated or imported using the OpenStack Command Line Interface (CLI) with the command `openstack keypair create --public-key <public-keyfile> <name>`."
+    },
+    {
+      "question": "How does one migrate security groups and their associated rules from the legacy Arbutus Cloud to the new Arbutus Cloud?",
+      "answer": "To migrate security groups, first go to 'Network -> Security Groups' on the legacy Arbutus Cloud and note all existing security groups and their rules. Then, on the new Arbutus Cloud, navigate to 'Network -> Security Groups' and re-create these security groups and their associated rules as needed. It is critical not to delete any default Egress security rules for IPv4 and IPv6, as removing them can lead to instances failing to retrieve configuration data. Security groups and rules can also be created via the CLI, for instance, using `openstack security group create <group-name>` and `openstack security group rule create --proto tcp --remote-ip 0.0.0.0/0 --dst-port 80 <group-name>`."
+    }
+  ],
+  "generated_at": "2026-08-07T23:35:55.597196+00:00"
 }

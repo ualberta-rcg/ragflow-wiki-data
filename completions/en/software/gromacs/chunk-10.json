@@ -4,13 +4,17 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "When running GROMACS simulations on whole nodes, what is the general recommendation for configuring `--ntasks-per-node` and `--cpus-per-task`?",
-      "answer": "Generally, when running GROMACS simulations on whole nodes, the product of `--ntasks-per-node` and `--cpus-per-task` should match the number of CPU cores on the cluster’s compute nodes."
+      "question": "What are the specific constraints for configuring GPU-enabled GROMACS runs, particularly concerning the number of MPI tasks and OpenMP threads?",
+      "answer": "For GROMACS 2018.2, the number of `--tasks-per-node` must always be the same as, or a multiple of, the number of requested GPUs (`--gpus-per-node`). GROMACS will not execute GPU runs with only one OpenMP thread unless explicitly forced by setting the `-ntomp` option, and the optimal number of `--cpus-per-task` is generally between 2 and 6. It's also important to avoid requesting a larger fraction of CPUs and memory than the fraction of GPUs allocated within a node."
     },
     {
-      "question": "If GROMACS reports an error regarding domain decomposition being impossible due to system size, what adjustment should be made to the job script parameters?",
-      "answer": "If GROMACS reports an error about domain decomposition being impossible given the system size and requested number of domains, you should halve the `--ntasks-per-node` value and double the `--cpus-per-task` value."
+      "question": "How can users effectively utilize modern GPUs, such as Nvidia A100 or H100, when GROMACS simulations don't fully use their capacity, and when is the `mdrun -multidir` option recommended?",
+      "answer": "Modern GPUs like Nvidia A100 and H100 are often underutilized by GROMACS unless the molecular system is very large. One recommended solution is to run multiple simulations on a single GPU using the `mdrun -multidir` option. This is the preferred method for running similar simulations, such as repeating the same simulation, simulating different protein variants or ligands, or performing ensemble-based simulations like replica exchange, to ensure proper load balancing across the GPU."
+    },
+    {
+      "question": "Under what circumstances is it preferable to use a Multi-Instance GPU (MIG) instance rather than the `mdrun -multidir` option for GROMACS simulations?",
+      "answer": "Using a Multi-Instance GPU (MIG) instance is the preferred solution for GROMACS simulations when you have a single simulation to run or when your simulations are dissimilar. This includes systems with significant differences in size (e.g., more than 10% atom count difference), shape, or composition (e.g., membrane-bound versus soluble proteins), as dissimilar simulations can lead to idle resources if run with `mdrun -multidir` due to uneven completion times."
     }
   ],
-  "generated_at": "2026-04-13T06:09:36.351706+00:00"
+  "generated_at": "2026-08-08T00:03:27.254638+00:00"
 }

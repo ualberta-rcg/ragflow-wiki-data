@@ -12,6 +12,7 @@ Auto-generated index for `base/running-jobs`.
 - [Advanced Mpi Scheduling](advanced_mpi_scheduling.md)
 - [Allocations And Compute Scheduling](allocations_and_compute_scheduling.md)
 - [Best Practices For Job Submission](best_practices_for_job_submission.md)
+- [Cluster Batch Job Submission With Ansys](cluster_batch_job_submission_with_ansys.md)
 - [Estimer Et Prévenir Le Gaspillage Des Ressources](estimer_et_prévenir_le_gaspillage_des_ressources.md)
 - [Glost](glost.md)
 - [Gnu Parallel](gnu_parallel.md)

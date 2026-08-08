@@ -2,6 +2,15 @@
   "doc_key": "en/arbutus_migration_guide",
   "level": "chunk",
   "chunk_index": 8,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:44:51.662097+00:00"
+  "qa_pairs": [
+    {
+      "question": "What is the recommended procedure for migrating data from a legacy CephFS shared filesystem to a new CephFS shared filesystem in the new Arbutus Cloud?",
+      "answer": "To ensure data integrity when migrating CephFS data, it is recommended to first create an equivalent share in the new cloud for each legacy share. Then, mount both the old and new shares to separate locations on the same virtual machine in the new Arbutus Cloud. Finally, use a data copy tool such as `rsync` to transfer the data from the old share to the new share."
+    },
+    {
+      "question": "What are the specific configuration changes required when creating and mounting a new CephFS share in the new Arbutus Cloud?",
+      "answer": "When creating a new CephFS share, you must use the new cloud web user interface for share and access key creation. A separate configuration file, such as `ceph-new.conf`, needs to be created, and its `mon_host` config value must be updated with the new cloud's specific IP addresses (e.g., `“[v2:134.87.15.61:3300/0,v1:134.87.15.61:6789/0]...”`). When mounting this new share, an extra parameter, `conf=/etc/ceph/ceph-new.conf`, must be added to the mount command after the `-o` option to specify the new configuration file."
+    }
+  ],
+  "generated_at": "2026-08-07T23:38:17.726919+00:00"
 }

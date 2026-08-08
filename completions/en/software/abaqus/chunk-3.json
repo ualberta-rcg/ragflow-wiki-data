@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What is the primary benefit of the newly installed abaqus/2026 module on Alliance clusters?",
-      "answer": "The primary benefit of the newly installed abaqus/2026 module is that it resolves the \"buffer overflow detected\" error previously encountered with abaqus/2021 on all recent clusters. Researchers should update their personal Slurm scripts to use this new version, which is the initial Abaqus 2026 Golden release."
+      "question": "How can users access and verify the Abaqus 2026 software on Alliance clusters?",
+      "answer": "Abaqus 2026 is available via the `abaqus/2026` module, which is installed in the default `StdEnv/2023` environment. To verify your setup, you should load `abaqus/2026` and `intel/2024` modules, then execute the command `abaqus verify -all`. All tests should succeed, with the exception of CAE (unless logged into a graphical desktop) and TOSCA (unless `export FED_DSFLEX_LICENSE_CONFIG=port@hostname` is set)."
     },
     {
-      "question": "What types of Slurm scripts are available for submitting Abaqus jobs on Alliance clusters, and when should each type be used?",
-      "answer": "Prototype Slurm scripts are available for submitting thread-based and MPI-based parallel Abaqus simulations. For single-node jobs, 'project directory scripts' are suitable for short runs (under one day). For longer single-node jobs or those terminated early, 'restart scripts' are recommended. When jobs generate large restart files, 'temporary directory scripts' should be used to write data to local disk via the `SLURM_TMPDIR` environment variable. For jobs requiring large memory or multiple compute nodes, 'MPI scripts' are provided."
+      "question": "Why is it recommended to discontinue the use of Abaqus 2021 on recent Alliance clusters?",
+      "answer": "It is recommended to discontinue the use of Abaqus 2021 because this legacy version generates a \"*** buffer overflow detected ***\" error on all recent clusters. While a workaround using `unshare` has been added to Slurm scripts, it only works for single-node jobs and does not guarantee accurate results."
     },
     {
-      "question": "What is recommended before running long Abaqus jobs that utilize multiple compute nodes?",
-      "answer": "Before running long Abaqus jobs that require large memory or multiple compute nodes, it is recommended to run short scaling test jobs. These tests help determine the optimal number of cores (e.g., 2, 4, 8) and associated wall-clock times and memory requirements for efficient performance."
+      "question": "What are the different types of Slurm scripts available for Abaqus job submission, and when should each type be used?",
+      "answer": "For Abaqus job submission, users can choose from several Slurm script types. 'Project directory scripts' are suitable for single-node jobs running less than one day. If single-node jobs run for more than a day or are terminated early, 'restart scripts' should be used. For jobs that produce large restart files, 'temporary directory scripts' are beneficial as they leverage the `SLURM_TMPDIR` environment variable to write to local disk."
     }
   ],
-  "generated_at": "2026-05-31T01:06:23.814170+00:00"
+  "generated_at": "2026-08-07T23:22:52.839970+00:00"
 }

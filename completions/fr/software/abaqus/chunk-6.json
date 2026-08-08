@@ -4,13 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Quelles sont les ressources informatiques de base spécifiées dans cet exemple de script Slurm?",
-      "answer": "Ce script Slurm demande qu'une tâche soit exécutée sur un seul nœud (`#SBATCH --nodes=1`), avec 4 cœurs de processeur par tâche (`#SBATCH --cpus-per-task=4`), 8 Go de mémoire totale (`#SBATCH --mem=8G`) et une durée maximale de 6 heures (`#SBATCH --time=00-06:00`)."
+      "question": "Comment relancer une simulation Abaqus sur les grappes de l'Alliance à l'aide d'un script Slurm (pour un répertoire de projet) ?",
+      "answer": "Pour relancer une simulation Abaqus, vous pouvez utiliser le script Slurm suivant dans votre répertoire de projet. Ce script utilise l'ancienne tâche 'testsp1' et un nouveau fichier d'entrée de redémarrage 'mystd-sim-restart.inp' pour lancer la nouvelle tâche 'testsp2' :\n```bash\n#!/bin/bash\n#SBATCH --account=def-group     # Spécifier le compte\n#SBATCH --time=00-06:00         # Spécifier la durée (jours-heures:minutes)\n#SBATCH --cpus-per-task=4       # Spécifier le nombre de cœurs\n#SBATCH --mem=8G                # Spécifier la mémoire totale > 5G\n#SBATCH --nodes=1               # Ne pas modifier !\n##SBATCH --constraint=granite   # Décommenter pour spécifier un type de nœud\n##SBATCH --gpus-per-node=h100:1 # Décommenter pour spécifier [type:]nombre\n\nmodule load abaqus/2026         # Dernière version\n#module load StdEnv/2020        # Version héritée\n#module load abaqus/2021        # Cesser l'utilisation\n\nunset SLURM_GTIDS\nexport MPI_IC_ORDER='tcp'\necho \"LM_LICENSE_FILE=$LM_LICENSE_FILE\"\necho \"ABAQUSLM_LICENSE_FILE=$ABAQUSLM_LICENSE_FILE\"\n\nrm -f testsp2* testsp1.lck\n\nif [[ $EBVERSIONABAQUS -eq 2021 ]]; then\n   /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare \\\n   --fork --pid --mount-proc --user --map-user $USER \\\n   abaqus job=testsp2 oldjob=testsp1 input=mystd-sim-restart.inp \\\n   scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \\\n   mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\" \\\n   #gpus=$SLURM_GPUS_ON_NODE  # décommenter cette ligne pour utiliser le GPU\nelif [[ $EBVERSIONABAQUS -ge 2026 ]]; then\n   abaqus job=testsp2 oldjob=testsp1 input=mystd-sim-restart.inp \\\n   scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \\\n   mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\" \\\n   #gpus=$SLURM_GPUS_ON_NODE  # décommenter cette ligne pour utiliser le GPU\nfi\n```\nLe fichier d'entrée pour le redémarrage (par exemple, `mystd-sim-restart.inp`) doit également contenir les lignes `*HEADING` et `*RESTART, READ`."
     },
     {
-      "question": "Est-ce que ce script Slurm est conçu pour un calcul distribué sur plusieurs nœuds?",
-      "answer": "Non, la directive Slurm `#SBATCH --nodes=1` indique clairement que ce script est configuré pour un calcul sur un seul nœud, et non pour une tâche distribuée sur plusieurs nœuds."
+      "question": "Qu'est-ce qui devrait être inclus dans le fichier d'entrée pour une simulation de redémarrage Abaqus sur les grappes de l'Alliance ?",
+      "answer": "Pour une simulation de redémarrage Abaqus sur les grappes de l'Alliance, le fichier d'entrée doit contenir au minimum les lignes `*HEADING` et `*RESTART, READ`."
+    },
+    {
+      "question": "Est-ce que la version Abaqus/2021 est recommandée pour les simulations sur les grappes de l'Alliance, et pourquoi ?",
+      "answer": "Non, il est recommandé de cesser l'utilisation de la version Abaqus/2021. Cette version héritée génère des erreurs de type 'buffer overflow detected' sur toutes les grappes récentes de l'Alliance, ce qui peut compromettre l'exactitude des résultats."
     }
   ],
-  "generated_at": "2026-05-31T01:10:20.309996+00:00"
+  "generated_at": "2026-08-07T23:26:33.348094+00:00"
 }

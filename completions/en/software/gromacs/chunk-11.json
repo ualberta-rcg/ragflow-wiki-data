@@ -4,17 +4,17 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "What is an example Slurm job script configuration for running a GROMACS simulation on a whole node of the Narval cluster?",
-      "answer": "To run a GROMACS simulation on a whole node of the Narval cluster, an example Slurm job script specifies `--nodes=1`, `--ntasks-per-node=32`, `--cpus-per-task=2` (for a total of 64 CPUs per node), `--mem-per-cpu=2000M`, and `--time=0-01:00`. It loads the `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `gromacs/2025.4` modules, and executes `gmx_mpi mdrun` with `OMP_NUM_THREADS` exported from `SLURM_CPUS_PER_TASK`."
+      "question": "How can multiple GROMACS simulations be run simultaneously on a single GPU using the `mdrun -multidir` option on a Narval cluster?",
+      "answer": "To run multiple similar GROMACS simulations on a single GPU on a Narval cluster, you can use the `mdrun -multidir` option within a SLURM job script. An example script would load modules such as `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `gromacs/2025.4`, set `OMP_NUM_THREADS` based on `--cpus-per-task`, and then execute `srun gmx_mpi mdrun -ntomp ${SLURM_CPUS_PER_TASK:-1} -deffnm md -multidir sim1 sim2 sim3` (where `sim1`, `sim2`, `sim3` are the directories for each simulation). This method is ideal for repeating the same simulation or simulating similar systems."
     },
     {
-      "question": "What is the general guideline for configuring the number of MPI tasks and OpenMP threads when running GROMACS on an entire compute node?",
-      "answer": "Generally, when running GROMACS on an entire compute node, the product of the `--ntasks-per-node` and `--cpus-per-task` parameters should be set to match the total number of CPU cores available on that specific cluster's compute node."
+      "question": "When is using a Multi-Instance GPU (MIG) instance recommended over running multiple GROMACS simulations with the `mdrun -multidir` option?",
+      "answer": "Using a Multi-Instance GPU (MIG) instance is the preferred solution when you have a single GROMACS simulation, or if your simulations are dissimilar. Dissimilar simulations include systems with more than a 10% difference in the number of atoms, or those with different shapes or compositions, such as a membrane-bound protein versus a soluble protein. In these scenarios, `mdrun -multidir` might lead to idle resources due to uneven simulation progress."
     },
     {
-      "question": "What troubleshooting step is recommended if GROMACS reports a domain decomposition error when running a whole-node simulation on clusters with numerous CPU cores?",
-      "answer": "If GROMACS reports an error indicating that domain decomposition is impossible given the system size and requested number of domains on clusters with a large number of CPU cores, it is recommended to halve the `--ntasks-per-node` value and double the `--cpus-per-task` value."
+      "question": "What is a `tpr` file in GROMACS, and what command and input files are necessary to create it for a simulation?",
+      "answer": "A `tpr` file in GROMACS is a portable binary run input file that contains the starting structure of the simulation, the molecular topology, and all the simulation parameters. To create a `tpr` file, you use the `gmx grompp` command (or `grompp` for versions older than 5.0). This command requires three main input files: a coordinate file (e.g., `.gro`, `.pdb`, or `.cpt`), a system topology (`.top`) file, and a run parameter (`.mdp`) file."
     }
   ],
-  "generated_at": "2026-04-13T06:09:44.217990+00:00"
+  "generated_at": "2026-08-08T00:03:34.809649+00:00"
 }

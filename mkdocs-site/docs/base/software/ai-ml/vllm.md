@@ -4,44 +4,21 @@ slug: "vllm"
 lang: "base"
 
 source_wiki_title: "VLLM"
-source_hash: "240daa845d08703cb9f62c5eef6bacd3"
-last_synced: "2026-05-02T23:50:34.269007+00:00"
-last_processed: "2026-05-03T00:52:12.411051+00:00"
+source_hash: "4e31e241ed20271317672417b167516e"
+last_synced: "2026-08-07T19:46:17.777436+00:00"
+last_processed: "2026-08-07T23:08:31.764143+00:00"
 
 tags:
   []
 
 keywords:
-  - "LLM"
-  - "Large Language Models"
-  - "Ray"
-  - "Multiple Nodes"
-  - "Hugging Face Hub"
-  - "Slurm"
-  - "generated text"
-  - "tensor_parallel_size"
-  - "Inference"
-  - "multi-node cluster"
-  - "vLLM"
-  - "GPUs"
-  - "Job submission"
-
-questions:
-  - "What are the recommended steps and dependencies for installing vLLM in a virtual environment?"
-  - "Why is it advised to download Hugging Face models on a login node before submitting an inference job?"
-  - "How do you configure a Python script to split vLLM model inference across multiple GPUs on a single node?"
-  - "What framework does vLLM rely on to manage the distribution of models across multiple nodes?"
-  - "How do the provided shell scripts coordinate the setup of the Ray head node and the connection of worker nodes within the Slurm environment?"
-  - "According to the Python script, how must the `tensor_parallel_size` parameter be configured when initializing the LLM?"
-  - "How is the tensor parallel size configured when initializing the LLM in the provided code?"
-  - "What steps are taken in the code loop to extract and print the prompt and its corresponding generated text?"
-  - "How does the multiple nodes example distribute the model across GPUs compared to the single node setup?"
+  []
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: true
+  keywords_generated: false
   ragflow_synced: true
   qa_generated: false
 ---
@@ -51,45 +28,59 @@ status:
 # Installation
 
 ## Latest available wheels
+
 To see the latest version of vLLM that we have built:
+
 ```bash
 avail_wheels "vllm"
 ```
+
 For more information, see [Available wheels](../python.md#available-wheels).
 
 ## Installing our wheel
+
+!!! note
+    Starting with vLLM 0.22.0, the prebuilt wheels are compiled using cuda/13.2.
+
 The preferred option is to install it using the Python [wheel](https://pythonwheels.com/) as follows:
 
-1.  Load dependencies, load a Python and OpenCV [modules](../../programming/utiliser_des_modules.md).
+1.  Load dependencies, load a Python and OpenCV [modules](../../programming/utiliser_des_modules.md),
+
     ```bash
     module load opencv/4.13 python/3.13
     ```
 
 2.  Create and start a temporary [virtual environment](../python.md#creating-and-using-a-virtual-environment).
+
     ```bash
     virtualenv --no-download ~/vllm_env
     source ~/vllm_env/bin/activate
     ```
 
 3.  Install vLLM in the virtual environment and its Python dependencies.
+
     ```bash
-    (vllm_env) [name@server ~]$ pip install --no-index --upgrade pip
-    (vllm_env) [name@server ~]$ pip install --no-index vllm==X.Y.Z
+    pip install --no-index --upgrade pip
+    pip install --no-index vllm==X.Y.Z
     ```
+
     where `X.Y.Z` is the exact desired version, for instance `0.8.4`.
     You can omit to specify the version in order to install the latest one available from the wheelhouse.
 
 4.  Freeze the environment and requirements set.
+
     ```bash
-    (vllm_env) [name@server ~]$ pip freeze > ~/vllm-requirements.txt
+    pip freeze > ~/vllm-requirements.txt
     ```
 
 5.  Deactivate the environment.
+
     ```bash
-    (vllm_env) [name@server ~]$ deactivate
+    deactivate
     ```
 
 6.  Clean up and remove the virtual environment.
+
     ```bash
     rm -r ~/vllm_env
     ```
@@ -100,7 +91,7 @@ The preferred option is to install it using the Python [wheel](https://pythonwhe
 
 Models loaded for inference on vLLM will typically come from the [Hugging Face Hub](https://huggingface.co/docs/hub/models-the-hub).
 
-The following is an example of how to use the command-line tool from Hugging Face to download a model. Note that models must be downloaded on a login node to avoid idle compute while waiting for resources to download. Also note that models will be cached by default at `$HOME/.cache/huggingface/hub`. For more information on how to change the default cache location, as well as other means of downloading models, please see our article on the [Hugging Face ecosystem](huggingface.md).
+The following is an example of how to use the command line tool from the Hugging Face to download a model. Note that models must be downloaded on a login node to avoid idle compute while waiting for resources to download. Also note that models will be cached by default at `$HOME/.cache/huggingface/hub`. For more information on how to change the default cache location, as well as other means of downloading models, please see our article on the [Hugging Face ecosystem](huggingface.md).
 
 ```bash
 module load python/3.13

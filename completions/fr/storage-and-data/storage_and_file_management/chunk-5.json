@@ -4,13 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Pour quelle raison est-ce qu'on utiliserait la variable d'environnement `$SLURM_TMPDIR` lors de l'exécution d'une tâche de calcul, et quelles sont les caractéristiques de cet espace de stockage temporaire?",
-      "answer": "La variable d'environnement `$SLURM_TMPDIR` donne le chemin unique vers un répertoire temporaire situé sur un système de fichiers local rapide sur chacun des nœuds de calcul réservés pour une tâche. Ce répertoire est supprimé avec son contenu quand la tâche se termine, et il est recommandé pour les fichiers temporaires utilisés durant l'exécution, surtout les grandes collections de petits fichiers (moins de 1 Mo), car il offre une meilleure performance grâce à sa localisation locale sur le nœud."
+      "question": "Comment est-ce qu'on fait pour vérifier l'utilisation de l'espace disque et les quotas des systèmes de fichiers (comme `home`, `scratch` et `project`) sur les grappes?",
+      "answer": "Pour vérifier votre utilisation des quotas pour les systèmes de fichiers sur nos grappes, vous devez utiliser l'utilitaire en ligne de commande `diskusage_report`. Il suffit de vous connecter à la grappe par SSH et d'entrer la commande `diskusage_report`."
     },
     {
-      "question": "Comment un utilisateur peut-il obtenir une estimation de sa consommation d'espace et du nombre d'inodes dans l'espace `/project` sur les grappes de calcul?",
-      "answer": "Puisque la commande `diskusage_report` indique le quota total du groupe pour l'espace `/project`, un utilisateur peut obtenir une estimation de son utilisation personnelle de l'espace et des inodes en utilisant la commande `lfs quota -u $USER /project`. Pour estimer la quantité de fichiers dans un répertoire (et ses sous-répertoires), on peut employer la commande `lfs find <chemin du répertoire> -type f | wc -l`."
+      "question": "Quels sont les quotas d'espace de stockage par défaut pour les systèmes de fichiers `home`, `scratch`, `project` et `nearline` pour un utilisateur ou un groupe sur la grappe Fir?",
+      "answer": "Sur la grappe Fir, les quotas d'espace par défaut sont les suivants : 50 Go et 500K fichiers par utilisateur pour `/home`, 20 To et 1M fichiers par utilisateur pour `/scratch`, 1 To et 500K fichiers par groupe pour `/project`, et 2 To et 5000 fichiers par groupe pour `/nearline`."
+    },
+    {
+      "question": "Si un groupe de recherche a besoin de plus d'espace de stockage que les quotas par défaut pour les systèmes de fichiers `project` ou `nearline` sur les grappes, comment peut-il augmenter cet espace?",
+      "answer": "Pour une légère augmentation des espaces `project` et `scratch`, un groupe de recherche peut utiliser le service d'accès rapide. Par contre, pour une augmentation importante de l'espace `project` ou `nearline`, il faut faire une demande dans le cadre du concours pour l'allocation de ressources."
     }
   ],
-  "generated_at": "2026-04-13T13:54:04.253943+00:00"
+  "generated_at": "2026-08-08T00:40:04.884909+00:00"
 }

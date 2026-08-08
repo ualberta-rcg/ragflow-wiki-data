@@ -4,13 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Comment soumettre une tâche LS-DYNA qui utilise un seul nœud de calcul, et quel est l'impact de l'option `LSTC_MEMORY=AUTO` sur la gestion de la mémoire pour ce type de tâche?",
-      "answer": "Pour soumettre une tâche LS-DYNA sur un nœud unique, vous devez utiliser la commande `sbatch script-smp.sh`. L'option `LSTC_MEMORY=AUTO` permet d'étendre dynamiquement la mémoire au-delà de la valeur spécifiée (par exemple, `memory=1500M`) lorsqu'il s'agit d'une analyse explicite (comme les simulations de formage de métal), mais elle n'est pas adaptée aux analyses de collision. Pour un solveur à double précision, le paramètre 1500M équivaut soit à une quantité maximale de 12 Go de mémoire avant que LS-DYNA ne s'arrête automatiquement pour un problème implicite, soit à une quantité de départ de 12 Go de mémoire qui peut être étendue jusqu'à 25% si nécessaire pour un problème explicite. Il est recommandé de maintenir la mémoire totale du solveur à environ 75 % de la RAM totale réservée pour la tâche."
+      "question": "Comment soumettre une tâche LS-DYNA sur un nœud unique avec le solveur SMP sur les grappes de l'Alliance?",
+      "answer": "Pour soumettre une tâche LS-DYNA sur un nœud unique avec le solveur SMP, il faut utiliser la commande `sbatch` avec un script tel que `script-smp.sh`. Ce script permet de spécifier des ressources comme le nombre de cœurs (`cpus-per-task`) et la mémoire totale (`mem`). Le solveur peut être `ls-dyna_s` pour la simple précision ou `ls-dyna_d` pour la double précision."
     },
     {
-      "question": "Quelles sont les méthodes pour soumettre des tâches LS-DYNA utilisant plusieurs nœuds de calcul avec la version MPP (Message Passing Parallel), et quelles sont les considérations importantes pour la gestion de la mémoire dans ce cas?",
-      "answer": "Pour soumettre des tâches LS-DYNA sur plusieurs nœuds avec la version MPP (Message Passing Parallel), vous pouvez utiliser soit `sbatch script-mpp-bynode.sh` pour spécifier un nombre de nœuds entiers, soit `sbatch script-mpp-bycore.sh` pour spécifier un nombre total de cœurs. La version MPP nécessite une quantité de mémoire suffisante (`memory1`) pour que le premier cœur du nœud maître puisse décomposer et simuler le modèle. De plus, il faut spécifier une valeur de mémoire par processeur (`memory2`) requise par cœur pour la simulation. Pour obtenir les meilleurs résultats, la somme de la mémoire attendue par nœud ne devrait pas dépasser 75 % de la RAM réservée sur ce nœud."
+      "question": "Quelle est la différence principale entre les tâches LS-DYNA à nœud unique (SMP) et celles à plusieurs nœuds (MPP) sur les grappes de l'Alliance?",
+      "answer": "La différence principale est que les tâches à nœud unique (SMP, pour Shared Memory Parallel) sont conçues pour s'exécuter sur un seul nœud de calcul en utilisant OpenMP. Par contre, les tâches à plusieurs nœuds (MPP, pour Message Passing Parallel) sont basées sur MPI et peuvent utiliser de très nombreux cœurs répartis sur plusieurs nœuds pour des simulations plus importantes."
+    },
+    {
+      "question": "Quelles sont les recommandations concernant la gestion de la mémoire pour les tâches LS-DYNA MPP (Message Passing Parallel) sur les grappes de l'Alliance?",
+      "answer": "Pour les tâches LS-DYNA MPP, il faut prévoir une quantité de mémoire suffisamment importante (nommée `memory1`) pour que le premier cœur (`processor 0`) du nœud maître puisse décomposer et simuler le modèle. La mémoire (nommée `memory2`) est ensuite requise par cœur pour la simulation. Il est conseillé de s'assurer que la valeur de mémoire par processeur est légèrement supérieure à `memory2`, et que la somme différentielle des mémoires (mémoire par processeur moins `memory2`) est supérieure ou égale à `memory1`. De plus, pour de meilleurs résultats, la somme de toute la mémoire attendue par nœud devrait rester dans les 75% de la RAM réservée sur ce nœud."
     }
   ],
-  "generated_at": "2026-04-13T08:03:49.004785+00:00"
+  "generated_at": "2026-08-08T00:19:09.527977+00:00"
 }

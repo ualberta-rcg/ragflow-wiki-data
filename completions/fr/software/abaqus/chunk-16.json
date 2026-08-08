@@ -4,9 +4,17 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "Comment peut-on estimer la quantité de mémoire totale nécessaire sur un nœud Slurm pour une simulation Abaqus à processus unique?",
-      "answer": "L'estimation de la mémoire totale pour un nœud Slurm, requise pour qu'une simulation Abaqus à processus unique s'exécute entièrement en mémoire vive (sans virtualisation sur le disque 'scratch'), se trouve dans le fichier de sortie Abaqus nommé 'test.dat'."
+      "question": "Comment on fait pour estimer la valeur du paramètre `mem-per-cpu` dans un script Slurm multinœuds pour minimiser les entrées/sorties quand `mp_host_split` n'est pas spécifié?",
+      "answer": "Pour déterminer la mémoire Slurm requise pour les scripts multinœuds, on se base sur les estimations de mémoire (par processus de calcul) nécessaires pour minimiser les entrées/sorties, qu'on trouve dans le fichier de sortie `.dat` des tâches complétées. Si `mp_host_split` n'est pas spécifié ou est égal à 1, le nombre total de processus de calcul sera le même que le nombre de nœuds. La valeur de `mem-per-cpu` peut ensuite être estimée en multipliant l'estimation de mémoire la plus élevée par le nombre de nœuds, puis en divisant le tout par le nombre de tâches (`ntasks`)."
+    },
+    {
+      "question": "Quelle est la méthode pour calculer la mémoire par cœur (`mem-per-cpu`) pour les scripts Slurm multinœuds si `mp_host_split` est spécifié et plus grand que 1, et quelle est la condition essentielle à respecter pour ce paramètre?",
+      "answer": "Si une valeur pour `mp_host_split` est spécifiée et qu'elle est supérieure à 1, la valeur de `mem-per-cpu` peut être estimée en multipliant l'estimation de mémoire la plus élevée par le nombre de nœuds, puis par la valeur de `mp_host_split`, et en divisant le résultat par le nombre de tâches (`ntasks`). Il est important de noter que `mp_host_split` doit être inférieur ou égal au nombre de cœurs par nœud attribués par Slurm durant l'exécution, sinon Abaqus fermera."
+    },
+    {
+      "question": "Quels sont les facteurs qui influencent l'utilisation réelle de la mémoire et de l'espace disque de travail (`/scratch`) pour Abaqus, et pourquoi est-il impossible d'évaluer précisément l'espace `/scratch`?",
+      "answer": "Le maximum de mémoire qu'Abaqus peut allouer dépend généralement de la valeur du paramètre `MÉMOIRE` et de la quantité de mémoire physique disponible sur la machine. L'utilisation réelle de la mémoire et de l'espace disque `/scratch` sera déterminée par cette limite supérieure ainsi que par la mémoire requise pour minimiser les entrées/sorties (`MEMORY TO MINIMIZE I/O`). Si la limite supérieure de mémoire est plus grande que la `MEMORY TO MINIMIZE I/O`, la mémoire réelle utilisée sera proche de la valeur estimée de `MEMORY TO MINIMIZE I/O` et l'utilisation du disque de travail sera presque nulle. Sinon, la mémoire réelle utilisée sera proche de la limite de mémoire mentionnée, et l'utilisation du disque `/scratch` sera à peu près proportionnelle à la différence entre la `MEMORY TO MINIMIZE I/O` estimée et la limite supérieure de la mémoire. Cependant, il est impossible d'évaluer avec précision l'espace `/scratch` du disque."
     }
   ],
-  "generated_at": "2026-05-31T01:11:41.343259+00:00"
+  "generated_at": "2026-08-07T23:28:01.904775+00:00"
 }

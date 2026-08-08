@@ -4,9 +4,9 @@ slug: "scheduling_policy_updates"
 lang: "fr"
 
 source_wiki_title: "Scheduling policy updates/fr"
-source_hash: "1959b0f310d301275cdd3de646225640"
-last_synced: "2026-06-07T00:07:37.701416+00:00"
-last_processed: "2026-06-07T00:22:42.080202+00:00"
+source_hash: "33ffec18cf1d571e261bc49319d29337"
+last_synced: "2026-08-07T19:46:17.777436+00:00"
+last_processed: "2026-08-07T22:52:08.612788+00:00"
 
 tags:
   []
@@ -23,40 +23,39 @@ status:
   qa_generated: false
 ---
 
-!!! note "EN PRÉPARATION"
-Cette page a pour but de noter les changements aux [politiques d'ordonnancement des tâches](job_scheduling_policies.md) qui pourraient modifier le comportement des commandes de soumission de tâches (comme `sbatch`, `salloc`, `srun`).
+Vous trouverez ici les changements apportés à [nos politiques en matière d'ordonnancement](job_scheduling_policies.md) qui sont susceptibles de modifier le comportement des commandes `sbatch`, `salloc` et `srun` dans les scripts de soumission des tâches.
 
 ## Comptes
 
-### Allocations RAC
+### Allocations de ressources
 
-*   Comptes RAC 2026 activés
-    *   Fir : 2026-04-06
-    *   Nibi : 2026-04-06
-    *   Narval : 2026-04-07
-    *   Rorqual : 2026-04-07
+* Activation des comptes pour le concours d'allocation des ressources de 2026
+  * Fir, 2026-04-06
+  * Nibi, 2026-04-06
+  * Narval, 2026-04-07
+  * Rorqual, 2026-04-07
 
-### Autres mises à jour de comptes
+### Autres changements
 
-*   Sous-allocations disponibles
-    *   Fir : 2026-04-06
-    *   Nibi : 2026-04-06
-    *   Narval : 2026-04-07
-    *   Rorqual : 2026-04-07
+* Disponibilité des sous-allocations
+  * Fir, 2026-04-06
+  * Nibi, 2026-04-06
+  * Narval, 2026-04-07
+  * Rorqual, 2026-04-07
 
-## Tâches CPU
+## Tâches avec CPU
 
-(aucune en date du 1er mai 2026)
+(aucune mise à jour depuis le 1er mai 2026)
 
-## Tâches GPU
+## Tâches avec GPU
 
-*   Toutes les requêtes GPU doivent [spécifier un modèle de GPU](using_gpus_with_slurm.md#introduction) ou un [modèle d'instance](../programming/multi-instance_gpu.md).
-    *   Fir : 2026-04-06
-    *   Nibi : 2026-04-06
-    *   Narval : (à venir bientôt)
-    *   Rorqual : 2026-04-17
-*   Seulement une [instance MIG](../programming/multi-instance_gpu.md) peut être demandée à la fois.
-    *   Fir : 2026-04-06
-    *   Nibi : 2026-04-06
-    *   Narval : (à venir bientôt)
-    *   Rorqual : 2026-04-17
+* Toutes les demandes doivent spécifier [un modèle de GPU](using_gpus_with_slurm.md) ou [un modèle d'instance](../programming/multi-instance_gpu.md).
+  * Fir, 2026-04-06
+  * Nibi, 2026-04-06
+  * Narval, (bientôt disponible)
+  * Rorqual, 2026-04-17
+* Il n'est pas possible de demander plus d'une [multi-instance](../programming/multi-instance_gpu.md) pour une même tâche.
+  * Fir, 2026-04-06
+  * Nibi, 2026-04-06
+  * Narval, (bientôt disponible)
+  * Rorqual, 2026-04-17

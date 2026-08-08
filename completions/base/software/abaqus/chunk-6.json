@@ -4,17 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "What is the primary benefit of utilizing a 'temporary directory script' for Abaqus standard analysis jobs on Alliance clusters?",
-      "answer": "Utilizing a 'temporary directory script' for Abaqus standard analysis jobs is beneficial for single-node jobs that generate large restart files. These scripts enable writing temporary data to the local disk through the `SLURM_TMPDIR` environment variable, which can improve performance and manage large output efficiently."
+      "question": "What is the purpose of the `scriptsp1.txt` Slurm script provided for Abaqus, and what are its key configurations for a single-node standard analysis?",
+      "answer": "The `scriptsp1.txt` Slurm script is designed to submit a single-node Abaqus Standard Analysis job. Key configurations within the script include specifying an account (`#SBATCH --account=def-group`), a time limit (e.g., `#SBATCH --time=00-06:00`), allocating 4 CPUs per task (`#SBATCH --cpus-per-task=4`), requesting 8GB of total memory (`#SBATCH --mem=8G`), and ensuring it runs on a single node (`#SBATCH --nodes=1`). It loads the `abaqus/2026` module and executes the Abaqus job command using thread-based parallelization and dynamic memory allocation."
     },
     {
-      "question": "How do Abaqus 'temporary directory scripts' for standard analysis handle data saving to prevent loss during long-running jobs on Alliance clusters?",
-      "answer": "These scripts include a background process that periodically (every 6 hours) copies all files from the job's temporary directory (`$SLURM_TMPDIR`) to the user's job submission directory (`$SLURM_SUBMIT_DIR`). This mechanism ensures that data is saved regularly, mitigating potential data loss if a job is terminated prematurely due to time limits or node failures."
+      "question": "How can a previously terminated single-node Abaqus Standard Analysis job be restarted using the `scriptsp2.txt` Slurm script?",
+      "answer": "To restart a single-node Abaqus Standard Analysis job using the `scriptsp2.txt` Slurm script, you must specify the `oldjob` parameter with the name of the previous job (e.g., `oldjob=testsp1`) and provide a restart input file (e.g., `input=mystd-sim-restart.inp`). This restart input file, `mystd-sim-restart.inp`, must contain the lines `*HEADING` and `*RESTART, READ`."
     },
     {
-      "question": "When using Abaqus standard analysis scripts, how does one specify in the input file the frequency or total number of increments for writing restart data?",
-      "answer": "To write restart data every N=12 time increments, you would include `*RESTART, WRITE, OVERLAY, FREQUENCY=12` in your Abaqus input file. Alternatively, to write restart data for a total of 12 time increments, you would specify `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
+      "question": "How do the provided Abaqus Slurm scripts differentiate execution commands for Abaqus version 2021 compared to 2026 or newer?",
+      "answer": "The scripts use an `if` condition based on the `$EBVERSIONABAQUS` environment variable to differentiate execution paths. For Abaqus version 2021 (`$EBVERSIONABAQUS -eq 2021`), the `abaqus` command is executed via `/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare` with specific flags (`--fork --pid --mount-proc --user --map-user $USER`). For Abaqus version 2026 or newer (`$EBVERSIONABAQUS -ge 2026`), the `abaqus` command is run directly without the `unshare` utility."
     }
   ],
-  "generated_at": "2026-05-31T01:03:08.256406+00:00"
+  "generated_at": "2026-08-07T23:19:52.675348+00:00"
 }

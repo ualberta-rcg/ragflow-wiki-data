@@ -2,6 +2,15 @@
   "doc_key": "fr/cephfs",
   "level": "chunk",
   "chunk_index": 4,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:56:22.656114+00:00"
+  "qa_pairs": [
+    {
+      "question": "Quelles sont les étapes à suivre pour installer les paquets requis pour un client CephFS sur une instance de la famille Red Hat Enterprise Linux (RHEL, CentOS, Fedora, Rocky, Alma)?",
+      "answer": "Pour installer les paquets requis, vous devez d'abord ajouter le répertoire de logiciels Ceph en créant le fichier `/etc/yum.repos.d/ceph.repo` avec la configuration appropriée (par exemple, `rpm-tentacle` pour el9 ou el10, et `rpm-quincy` pour certaines parties d'el10). Ensuite, installez le répertoire Extra Packages for Enterprise Linux (EPEL) en exécutant `sudo dnf install epel-release`. Pour les utilisateurs d'el10, il faut désactiver temporairement la politique de chiffrement par défaut. Importez ensuite la clé publique du projet Ceph avec `sudo rpm --import 'https://download.ceph.com/keys/release.asc'`. Finalement, installez les paquets Ceph nécessaires avec `sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`. Si la politique de chiffrement a été désactivée pour el10, n'oubliez pas de la rétablir avec `sudo update-crypto-policies --set DEFAULT`."
+    },
+    {
+      "question": "Comment procéder pour installer les paquets nécessaires au fonctionnement d'un client CephFS sur une instance utilisant une distribution de la famille Debian (comme Debian, Ubuntu ou Mint)?",
+      "answer": "Pour installer les paquets nécessaires sur une instance Debian, Ubuntu ou Mint, commencez par ajouter le dépôt de paquets Ceph. Utilisez la commande `sudo apt-add-repository 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`, en remplaçant `{codename}` par le nom de code de votre distribution (obtenu avec `lsb_release -sc`). Si cette commande génère une erreur, utilisez plutôt `sudo add-apt-repository -r 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`. Une fois le dépôt ajouté, vous pouvez installer les bibliothèques et clients Ceph en exécutant `sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
+    }
+  ],
+  "generated_at": "2026-08-07T23:50:54.237012+00:00"
 }

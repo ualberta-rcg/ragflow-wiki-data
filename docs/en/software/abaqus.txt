@@ -1,7 +1,8 @@
 <languages />
 [[Category:Software]]
 __FORCETOC__
-[https://www.3ds.com/products-services/simulia/products/abaqus/ Abaqus FEA] is a software suite for finite element analysis and computer-aided engineering.
+<b><u>TRANSLATOR'S NOTE FROM JUNE 2026: This page is currently being reviewed.</u></b>
+<br><br>[https://www.3ds.com/products-services/simulia/products/abaqus/ Abaqus FEA] is a software suite for finite element analysis and computer-aided engineering.
 
 = Licensing =
 
@@ -36,20 +37,31 @@ With both files setup, you may now check if the license server is reachable and 
 
 == New servers ==
 
-If your license server was never set up for use on an Alliance cluster, some additional configuration changes by the Alliance system administrator and your local system administrator will need to be done. Such changes are necessary to ensure the required TCP ports of your Abaqus server are reachable from all cluster compute nodes. For help, please write to [[Technical support|technical support]] and be sure to include the following:
-* flexlm port number & static vendor port number (FLEXnet server),
-* administrative port number & licensing client port number (DSLS server),
-* fully qualified domain name or IPV4 address of your new Abaqus server.
+If your license server was never set up for use on an Alliance cluster, some additional configuration changes by the Alliance system administrator and your local system administrator will need to be done. Such changes are necessary to ensure the required TCP ports (https protocol) of your Abaqus server are reachable from all cluster compute nodes through the client/server firewalls. For help, please write to [[Technical support|technical support]] and be sure to include the following:
+* FLEXnet SERVER: flex lmgrd port number (default 27000), static vendor port number (default 28000) 
+* DSLS SERVER: administrative port number (default 4084), licensing client port number (default 4085)
+* Fully qualified domain name or IPV4 address of your new Abaqus server
 You will be sent a list of cluster IP addresses (known as NAT nodes) so that your administrator can open the local server firewall to allow connections from the cluster on both ports. Please note that a special license agreement must generally be negotiated and signed by both SIMULIA and your institution before a campus license may be legally used on Alliance hardware located remotely at another institution.
 
 == License queuing ==
 The default setup for the license server is to queue jobs started on the cluster by Slurm if not enough tokens are available. There are two options to alter this behaviour ie) so jobs don't sit idle on a cluster compute node waiting for a license indefinitely wasting valuable resources. The first option is to terminate a job immediately if not enough licenses are available, therefore never entering a queue. To specify this setting, create a text file named abaqus_v6.env in either your /home OR working (submit) directory containing the line: <code>lmlicensequeuing=OFF</code>. The second option is to specify a finite wait time where the job can enter into a queued state on the license server such as 1 minute by adding the line: <code>lmhanglimit=1</code>. If within 1 minute sufficient licenses do not come available then the job will be dequeud by the license server and in turn be terminated by Slurm.  For each option, messages will be printed at the bottom of the Slurm output file as shown in [[Abaqus#Example|the Example below]].
 
-= Version compatibility = 
+= Version notes = 
 
-== Module change == 
+== 2026 ==
 
-<span style="color:red">A new module for abaqus/2026 is now installed into the default StdEnv/2023 environment.</span> This new version resolves the *** buffer overflow detected *** error with abaqus/2021 on all recent clusters. Note that each Slurm script on this wiki page has been updated to work with both abaqus/2026 and abaqus/2021 where possible therefore all personal Slurm scripts should likewise be updated by researchers.  The abaqus/2026 module contains the initial <i>Abaqus 2026 Golden</i> release. Another module named abaqus/2026.2606 containing <i>Abaqus 2026 FP.CFA.2606</i> level updates will be installed next.
+A new module <code>abaqus/2026</code> containing the initial <i>Abaqus 2026 Golden/GA</i> release has been installed into the default StdEnv/2023 environment.  Another module named abaqus/2026.2614 containing the latest SIMULIA Established Products 2026 Fix Packs currently at level FD02 (FP.2614) will be made available as soon as possible. To verify your setup run the following :
+
+ module load abaqus/2026
+ module load intel/2024
+ abaqus verify -all
+
+All tests should Succeed except for CAE (unless you log into an ondemand/juypter graphical desktop
+) and TOSCA (unless you set <code>export FED_DSFLEX_LICENSE_CONFIG=port@hostname</code>) before running the verification.
+
+== 2021 ==
+
+Its recommended to discontinue use of <code>abaqus/2021</code> installed under the previous StdEnv/2020 since this legacy version generates *** buffer overflow detected *** error on all recent clusters.  To workaround this problem an unshare workaround has been added into each slurm script found in this wiki.  This however only works on single node jobs and does not guarantee accurate results.
 
 = Cluster job submission =
 

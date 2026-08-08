@@ -4,17 +4,13 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "En général, quelle est la recommandation pour les simulations GROMACS concernant l'utilisation des nœuds de calcul ?",
-      "answer": "Étant donné que les systèmes simulés par GROMACS sont souvent très grands, il est recommandé d'utiliser plusieurs nœuds entiers pour l'exécution des tâches."
+      "question": "Quelle est la configuration typique d'un script Slurm pour une tâche GROMACS qui utilise un nœud entier sur les grappes Rorqual, Fir, Nibi ou Trillium avec l'environnement StdEnv/2023?",
+      "answer": "Pour une tâche GROMACS sur un nœud entier sur ces grappes, le script Slurm demande 1 nœud (`#SBATCH --nodes=1`), 96 tâches MPI par nœud (`#SBATCH --ntasks-per-node=96`), 2 fils OpenMP par tâche MPI (`#SBATCH --cpus-per-task=2`), alloue 2000 Mo de mémoire par cœur CPU (`#SBATCH --mem-per-cpu=2000M`) et définit une limite de temps d'une heure (`#SBATCH --time=0-01:00`). Les modules à charger sont `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2025.4`, et la commande d'exécution est `srun gmx_mpi mdrun -deffnm md`."
     },
     {
-      "question": "Comment devrait-on configurer les paramètres Slurm <code>--ntasks-per-node</code> et <code>--cpus-per-task</code> pour optimiser l'exécution de GROMACS sur les grappes de calcul ?",
-      "answer": "Pour optimiser l'exécution de GROMACS, le produit des paramètres Slurm <code>--ntasks-per-node</code> et <code>--cpus-per-task</code> devrait idéalement correspondre au nombre total de cœurs CPU disponibles sur les nœuds de calcul de la grappe."
-    },
-    {
-      "question": "Sur les nœuds de calcul possédant un grand nombre de cœurs CPU, quel problème peut survenir avec la décomposition des domaines de GROMACS et comment le résoudre ?",
-      "answer": "Sur les grappes avec un grand nombre de cœurs CPU par nœud, la décomposition des domaines peut devenir un facteur limitant. Si GROMACS signale une erreur d'impossibilité de décomposition des domaines en fonction de la taille du système et du nombre de domaines demandés, il faut réduire de moitié la valeur de <code>--ntasks-per-node</code> et doubler celle de <code>--cpus-per-task</code>."
+      "question": "Pour une simulation GROMACS utilisant un nœud entier sur la grappe Narval, comment sont réparties les ressources en termes de tâches MPI et de fils OpenMP, et quelle est la consommation totale de cœurs CPU?",
+      "answer": "Sur la grappe Narval, une simulation GROMACS sur un nœud entier demande 32 tâches MPI par nœud (`#SBATCH --ntasks-per-node=32`) et 2 fils OpenMP par tâche MPI (`#SBATCH --cpus-per-task=2`). Cela correspond à un total de 64 cœurs CPU utilisés par nœud (32 tâches * 2 fils OpenMP)."
     }
   ],
-  "generated_at": "2026-04-13T06:15:57.820406+00:00"
+  "generated_at": "2026-08-08T00:07:48.772837+00:00"
 }

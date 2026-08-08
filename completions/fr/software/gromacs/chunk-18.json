@@ -4,17 +4,13 @@
   "chunk_index": 18,
   "qa_pairs": [
     {
-      "question": "Comment faire pour redémarrer une simulation GROMACS qui a été interrompue?",
-      "answer": "Pour redémarrer une simulation GROMACS, il faut utiliser la même commande `mdrun` que pour la simulation originale et ajouter le paramètre `-cpi` suivi du nom du dernier fichier de point de contrôle (par exemple, `md.cpt`). Depuis la version 4.5, GROMACS tente d'utiliser les fichiers existants par défaut, et s'assure de la cohérence entre les fichiers de sortie et le point de contrôle."
+      "question": "Comment peut-on morceler et automatiser des simulations GROMACS à l'aide d'un vecteur de tâches?",
+      "answer": "En utilisant un seul appel à la commande `sbatch` avec un vecteur de tâches, on peut soumettre plusieurs tâches courtes. La première tâche démarre, et une fois terminée, la suivante est lancée pour reprendre la simulation à partir du point de contrôle précédent. Ce processus se répète jusqu'à ce que toutes les tâches soient terminées ou que la simulation soit complète, après quoi les tâches en attente sont automatiquement annulées."
     },
     {
-      "question": "Quels sont les avantages de diviser une longue simulation GROMACS en plusieurs tâches plus courtes?",
-      "answer": "Diviser une longue simulation GROMACS en plusieurs tâches plus courtes est avantageux, car ces tâches sont moins longues à exécuter. Celles qui durent trois heures ou moins sont éligibles à la planification de remplacement (backfill scheduling), ce qui permet de réduire les temps d'attente et d'optimiser l'utilisation des ressources, autant pour les allocations par défaut (ex. `def-sponsor`) que compétitives (ex. `rrg-sponsor`)."
-    },
-    {
-      "question": "Est-ce qu'il y a une façon d'automatiser les points de contrôle pour des simulations GROMACS sur la grappe?",
-      "answer": "Oui, il est possible d'automatiser les points de contrôle en utilisant un vecteur de tâches (`job array`) avec l'ordonnanceur Slurm. Avec cette méthode, un seul appel `sbatch` soumet plusieurs tâches courtes. La première tâche démarre, et dès qu'elle est terminée, la tâche suivante prend le relais pour reprendre la simulation. Ce processus continue jusqu'à ce que la simulation soit achevée ou que toutes les tâches soumises soient terminées, les tâches en attente étant alors automatiquement annulées."
+      "question": "Quel est l'avantage de morceler une simulation GROMACS en plusieurs tâches de courte durée?",
+      "answer": "Diviser une simulation en tâches plus courtes est bénéfique, surtout si elles durent trois heures ou moins, car ces dernières sont éligibles à la planification de remplacement. Cela permet de minimiser le temps d'attente avant le lancement d'une tâche, un avantage pour les groupes de recherche ayant des allocations de ressources par défaut ou compétitives."
     }
   ],
-  "generated_at": "2026-04-13T06:16:59.007074+00:00"
+  "generated_at": "2026-08-08T00:08:38.738830+00:00"
 }

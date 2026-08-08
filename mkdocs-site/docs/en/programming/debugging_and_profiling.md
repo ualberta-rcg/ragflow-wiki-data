@@ -4,46 +4,39 @@ slug: "debugging_and_profiling"
 lang: "en"
 
 source_wiki_title: "Debugging and profiling/en"
-source_hash: "5da60310fa9131677c373329ae786a92"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T06:50:31.898944+00:00"
+source_hash: "2a3b1d52ad7f02dfd4d570881351d93a"
+last_synced: "2026-08-07T19:46:17.777436+00:00"
+last_processed: "2026-08-07T22:29:54.175683+00:00"
 
 tags:
   []
 
 keywords:
-  - "debugger"
-  - "profiler"
-  - "profiling"
-  - "software development"
-  - "debugging"
-
-questions:
-  - "What is the difference in purpose between a debugger and a profiler in the software development process?"
-  - "What is the proper procedure for running debugging sessions on the national clusters?"
-  - "Which specific debugging and profiling tools are available on the clusters, and what are the requirements to load the Scalasca profiler?"
-  - "What is the difference in purpose between a debugger and a profiler in the software development process?"
-  - "What is the proper procedure for running debugging sessions on the national clusters?"
-  - "Which specific debugging and profiling tools are available on the clusters, and what are the requirements to load the Scalasca profiler?"
+  []
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: true
+  keywords_generated: false
   ragflow_synced: true
   qa_generated: false
 ---
 
-An important step in the software development process, particularly for compiled languages like Fortran and C/C++, concerns the use of a program called a debugger to detect and identify the origin of runtime errors (e.g. memory leaks, floating point exceptions and so forth) so that they can be eliminated. Once the program's correctness is assured, a further step is profiling the software. This involves the use of another software tool, a profiler, determine what percentage of the total execution time each section of the source code is responsible for when run with a representative test case. A profiler can give information like how many times a particular function is called, which other functions are calling it and how many milli-seconds of time each invocation of this function costs on average.
+An important step in the software development process, particularly for compiled languages like Fortran and C/C++, concerns the use of a program called a debugger to detect and identify the origin of runtime errors (e.g., memory leaks, floating point exceptions and so forth) so that they can be eliminated. Once the program's correctness is assured, a further step is profiling the software. This involves the use of another software tool, a profiler, to determine what percentage of the total execution time each section of the source code is responsible for when run with a representative test case. A profiler can give information like how many times a particular function is called, which other functions are calling it, and how many milliseconds of time each invocation of this function costs on average.
+
+## Debugging on a cluster
+
+!!! warning
+    Debugging sessions should be conducted using an interactive job **and not run on a login node**. You have multiple options:
+
+*   With the Slurm command `salloc ...`. See **[Interactive jobs](../running-jobs/running_jobs.md#interactive-jobs)** for all the details.
+*   With a [JupyterLab](../interactive/jupyterlab.md) session. See the [JupyterLab](../interactive/jupyterlab.md) page for the **[connection details](../interactive/jupyterlab.md#launching-jupyterlab)** and the **[prebuilt applications](../interactive/jupyterlab.md#prebuilt-applications)**.
+*   With a remote desktop session for visual profiling tools. See **[this section of JupyterLab](../interactive/jupyterlab.md#desktop)** or one of the two **[Quickstart guides for Open OnDemand](../interactive/open_ondemand.md#introduction)** for the instructions.
 
 ## Debugging and profiling tools
 
 Our national clusters offer a variety of debugging and profiling tools, both command line and those with a graphical user interface, whose use requires an X11 connection.
-
-!!! note
-
-    Debugging sessions should be conducted using an [interactive job](../running-jobs/running_jobs.md#interactive-jobs) and not run on a login node.
 
 ### GNU debugger (gdb)
 

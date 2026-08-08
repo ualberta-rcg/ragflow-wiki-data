@@ -1,0 +1,20 @@
+{
+  "doc_key": "base/cluster_batch_job_submission_with_ansys",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "What are the specific requirements for the `.fluentconf` directory and `.flrecent` file when running Fluent jobs on the Trillium cluster, and how are errors related to their configuration resolved?",
+      "answer": "On the Trillium cluster, the `.fluentconf` directory and `.flrecent` file in a user's home directory must be symbolic links pointing to writable locations within their `$SCRATCH` space. If these links are missing, an error will occur, and users are instructed to remove any existing directories or files with those names and then create the symbolic links using commands such as `ln -s $SCRATCH/.fluentconf ~/.fluentconf` and `ln -s $SCRATCH/.flrecent ~/.flrecent` before resubmitting their job."
+    },
+    {
+      "question": "What is the primary function of the \"License requeue\" scripts for Fluent jobs, and under what conditions should they be used?",
+      "answer": "The \"License requeue\" scripts for Fluent jobs are specifically designed to automatically resubmit simulations that frequently fail to start because of a temporary unavailability of licences. These scripts are appropriate for jobs that are known to complete normally without errors once they commence, but which typically require several submission attempts to acquire the necessary licences."
+    },
+    {
+      "question": "When should Fluent's \"License requeue\" scripts not be used, and what are the potential negative outcomes of using them in those situations?",
+      "answer": "Fluent's \"License requeue\" scripts are not recommended for jobs that might run for an extended period before crashing or for jobs that complete with unresolved warnings in their journal file. Misusing these scripts in such cases will lead to the simulation repeating from the beginning up to the maximum number of specified requeue attempts, ultimately resulting in wasted compute time."
+    }
+  ],
+  "generated_at": "2026-08-08T01:06:52.223815+00:00"
+}

@@ -4,17 +4,13 @@
   "chunk_index": 21,
   "qa_pairs": [
     {
-      "question": "Comment peut-on automatiser le morcellement des simulations GROMACS utilisant des GPU pour les rendre plus courtes et redémarrables, en tirant parti des vecteurs de tâches (job arrays) Slurm ?",
-      "answer": "Pour diviser et relancer des simulations GROMACS sur GPU en des tâches plus courtes, on peut automatiser le processus en utilisant les vecteurs de tâches Slurm (job arrays). Le script de soumission devrait inclure `#SBATCH --array=1-N%1` pour exécuter une seule tâche à la fois, et utiliser l'option `gmx mdrun -cpi \"$simname.cpt\" -maxh $nhours` pour que la simulation redémarre à partir du dernier point de contrôle et se termine proprement dans le temps alloué. Le script doit également vérifier si la simulation s'est terminée ou a rencontré une erreur, puis annuler les tâches en attente en conséquence."
+      "question": "Comment GROMACS répartit-il le calcul des interactions non liantes entre les particules sur plusieurs cœurs de processeur?",
+      "answer": "GROMACS utilise la méthode de décomposition des domaines. Pour ce faire, il découpe la boîte de simulation selon les axes X, Y ou Z, puis il assigne chaque domaine à un processus MPI. Cette approche fonctionne bien tant que le temps requis pour la communication ne devient pas excessif par rapport à la taille du domaine; au-delà de ce point, la scalabilité parallèle peut chuter et la performance diminuer."
     },
     {
-      "question": "Quelles sont les deux principales métriques pour évaluer la performance des simulations GROMACS et qu'est-ce qu'elles mesurent spécifiquement ?",
-      "answer": "La performance d'une simulation GROMACS se mesure typiquement par le nombre de nanosecondes de trajectoire pouvant être simulée en un jour (ns/jour). La scalabilité parallèle, quant à elle, indique l'efficacité de l'utilisation des ressources de calcul et se mesure par la formule S = pN / (N * p1), où pN représente la performance avec N cœurs CPU et p1 est la performance avec un seul cœur CPU. Idéalement, une scalabilité linéaire (S = 1) signifie que la performance augmente directement avec le nombre de cœurs CPU utilisés."
-    },
-    {
-      "question": "Qu'est-ce que la décomposition des domaines dans GROMACS et comment cette méthode distribue-t-elle les calculs des interactions non liantes sur plusieurs cœurs de processeur ?",
-      "answer": "La décomposition des domaines (DD) est une méthode employée par GROMACS pour distribuer le calcul des interactions non liantes entre particules (PP) sur plusieurs cœurs CPU. Elle s'effectue en découpant la boîte de simulation en domaines selon les axes X, Y et/ou Z, et en assignant chacun de ces domaines à un processus MPI distinct. Cette approche permet de répartir la charge de calcul, mais son efficacité diminue si le temps de communication entre les domaines devient trop grand par rapport à la taille ou au volume de chaque domaine."
+      "question": "Quelle est l'utilité de la sommation d'Ewald (PME) dans GROMACS, et comment le logiciel gère-t-il les défis de performance associés à cette méthode?",
+      "answer": "La sommation d'Ewald (PME) est fréquemment employée pour calculer les interactions non liantes à distance, soit celles qui dépassent le rayon de coupure. Pour contrer la dégradation de performance due à la communication globale que cette méthode exige, GROMACS peut dédier des processus MPI uniquement au traitement des interactions PME. Par défaut, pour 12 processus MPI ou plus, `mdrun` utilise une méthode heuristique pour attribuer ces processus, mais l'utilisateur peut ajuster ce nombre manuellement avec le paramètre `-npme`."
     }
   ],
-  "generated_at": "2026-04-13T06:17:26.741005+00:00"
+  "generated_at": "2026-08-08T00:09:04.074980+00:00"
 }

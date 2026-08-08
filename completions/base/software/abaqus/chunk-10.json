@@ -4,17 +4,13 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "What parallelization methods are supported by Abaqus solvers for explicit analysis jobs?",
-      "answer": "Abaqus solvers support both thread-based and MPI-based parallelization for explicit analysis jobs."
+      "question": "How do users submit a single-node, thread-based explicit analysis job using Abaqus 2026 on Alliance clusters?",
+      "answer": "To submit a single-node, thread-based explicit analysis job with Abaqus 2026, users should create a Slurm script. This script needs to specify resource requests such as the account (`#SBATCH --account=def-group`), runtime (`#SBATCH --time=00-06:00`), memory (`#SBATCH --mem=8000M`), CPUs per task (`#SBATCH --cpus-per-task=4`), and nodes (`#SBATCH --nodes=1`). Inside the script, users must load the `abaqus/2026` module, unset `SLURM_GTIDS`, and export `MPI_IC_ORDER='tcp'`. The Abaqus command is then executed as: `abaqus job=testep1 input=myexp-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`. This command specifies the job name, input file, scratch directory, number of CPUs, interactive mode, thread-based parallelization, and memory allocation."
     },
     {
-      "question": "Are template scripts available for restarting multi-node Abaqus explicit analysis jobs?",
-      "answer": "No, template scripts for performing multi-node job restarts for Abaqus explicit analysis are not currently provided, as they are pending further testing."
-    },
-    {
-      "question": "What type of script is `scriptep1.txt` used for in Abaqus explicit analysis?",
-      "answer": "The `scriptep1.txt` script is a project directory script provided for running single-node Abaqus explicit analysis type jobs."
+      "question": "How can users manage restart data for explicit analysis jobs in Abaqus on Alliance clusters, including configuring it and performing a job restart?",
+      "answer": "To manage restart data for explicit analysis jobs, users configure the input file to write restart data; for example, to write data for a total of 12 time increments, include `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO` in the input file. To check if restart information has been written, use `egrep -i \"step|restart\" testep*.com testep*.msg testep*.sta`. To restart a single-node explicit analysis job, a dedicated Slurm script is used. This script loads the Abaqus module (e.g., `abaqus/2026`) and executes the Abaqus command with the `recover` option: `abaqus job=testep2 input=myexp-sim.inp recover scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`. No modifications to the input file are necessary when using the `recover` option for an explicit analysis restart."
     }
   ],
-  "generated_at": "2026-05-31T01:03:43.410004+00:00"
+  "generated_at": "2026-08-07T23:20:28.989383+00:00"
 }

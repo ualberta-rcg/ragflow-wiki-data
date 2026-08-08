@@ -2,6 +2,15 @@
   "doc_key": "fr/arbutus_migration_guide",
   "level": "chunk",
   "chunk_index": 4,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:46:05.600917+00:00"
+  "qa_pairs": [
+    {
+      "question": "Comment migrer les groupes de sécurité et leurs règles vers le nouveau nuage Arbutus en utilisant l'interface de ligne de commande (CLI)?",
+      "answer": "Pour migrer les groupes de sécurité et leurs règles, il faut d'abord noter les groupes et règles existants dans le nuage Arbutus précédent via ''Network -> Security Groups''. Dans le nouveau nuage, ces groupes et règles peuvent être recréés via l'interface web ou l'interface de ligne de commande (CLI). Pour la CLI, on utilise `openstack security group create <nom-du-groupe>` et `openstack security group rule create --proto tcp --remote-ip 0.0.0.0/0 --dst-port 80 <nom-du-groupe>`, en adaptant le port si nécessaire. Il est important de ne pas supprimer les règles de sécurité par défaut d'Egress IPv4 et IPv6."
+    },
+    {
+      "question": "Quels sont les éléments à prendre en considération lors de la planification d'une interruption de service pendant la migration vers le nouveau nuage Arbutus?",
+      "answer": "Pour planifier une interruption de service lors de la migration, il est recommandé d'arrêter les services et de fermer les instances afin d'éviter la corruption ou l'incohérence des données. La durée de la copie de volumes varie : un petit volume de 10 Go prend moins de cinq minutes, tandis qu'un volume de 100 Go peut nécessiter de 30 à 40 minutes. De plus, comme les adresses IP flottantes seront différentes, il faut s'assurer que la durée de vie (TTL) des enregistrements DNS possède une valeur basse pour une propagation rapide des modifications."
+    }
+  ],
+  "generated_at": "2026-08-07T23:39:17.129192+00:00"
 }

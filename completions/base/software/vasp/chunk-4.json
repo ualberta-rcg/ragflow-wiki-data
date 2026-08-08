@@ -4,17 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How do users submit a VASP job on the clusters?",
-      "answer": "Users should prepare the four VASP input files, namely INCAR, KPOINTS, POSCAR, and POTCAR, in a separate directory for each job. To submit the job from that directory, use the command `sbatch vasp_job.sh`."
+      "question": "What are the essential components of a Slurm job script for running VASP in parallel using only CPUs?",
+      "answer": "A Slurm job script for CPU-only VASP calculations includes directives for the Slurm account (`#SBATCH --account`), the number of MPI processes (`#SBATCH --ntasks`), memory per CPU (`#SBATCH --mem-per-cpu`), and the time limit (`#SBATCH --time`). It also involves loading necessary modules like Intel compilers, Intel MPI, and the specified VASP version, followed by executing the VASP program using `mpirun <VASP>`."
     },
     {
-      "question": "What methods are available for estimating the memory requirements of a VASP job?",
-      "answer": "Users can estimate memory by preparing all input files and then running `makeparam` in an interactive job submission. For a more accurate estimate for future jobs, check the maximum stack size used by completed jobs and use this as the memory requirement per processor for the next job."
+      "question": "How do you configure a Slurm job script to run VASP with GPU support, specifically on a cluster like Cedar?",
+      "answer": "To run VASP with GPU support, a Slurm job script requires specifying the Slurm account (`#SBATCH --account`), the number of CPU processes per task (`#SBATCH --cpus-per-task`), and requesting GPU resources (e.g., `#SBATCH --gres=gpu:p100:1` for one P100 GPU, valid on Cedar). It also sets the total memory (`#SBATCH --mem`) and time limit (`#SBATCH --time`). Essential modules such as Intel, CUDA, OpenMPI, and the specific VASP version must be loaded before executing VASP with `mpirun <VASP>`."
     },
     {
-      "question": "How can licensed users install custom versions of VASP on the clusters themselves?",
-      "answer": "Licensed users with access to the VASP source code can install various versions in their `/home` directory on all clusters using EasyBuild commands. The general command is `eb -f [RECIPE NAME] --sourcepath=[SOURCEPATH]`, where `[SOURCEPATH]` is the directory containing the VASP source code and `[RECIPE NAME]` refers to an available EasyBuild recipe."
+      "question": "What are the main distinctions in resource requests between a CPU-only VASP job script and a GPU-enabled VASP job script using the Slurm scheduler?",
+      "answer": "For CPU-only VASP jobs, a Slurm script requests a specific number of MPI processes via `--ntasks` and defines memory per CPU using `--mem-per-cpu`. In contrast, a GPU-enabled VASP job script requests CPUs per task using `--cpus-per-task`, explicitly asks for GPU resources with `--gres` (e.g., `gpu:p100:1`), and sets a total job memory limit with `--mem`. Additionally, the GPU script loads CUDA and OpenMPI modules, whereas the CPU-only script typically loads Intel MPI."
     }
   ],
-  "generated_at": "2026-04-26T01:08:29.978487+00:00"
+  "generated_at": "2026-08-08T00:57:05.983369+00:00"
 }

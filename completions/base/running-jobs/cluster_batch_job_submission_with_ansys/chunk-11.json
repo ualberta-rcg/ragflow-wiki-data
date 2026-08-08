@@ -1,0 +1,20 @@
+{
+  "doc_key": "base/cluster_batch_job_submission_with_ansys",
+  "level": "chunk",
+  "chunk_index": 11,
+  "qa_pairs": [
+    {
+      "question": "How does the provided Slurm script for Fluent manage job restarts for multinode simulations?",
+      "answer": "The script utilizes Slurm array jobs to manage restarts. For the initial run (when `SLURM_ARRAY_TASK_ID` is 1), it uses the primary journal file (`$MYJOUFILE`). For subsequent restarts, it switches to a dedicated restart journal file (`$MYJOUFILERES`). Upon successful completion of a task, if it's not the final restart attempt, it updates symbolic links for the restart case and data files (`$MYCASFILERES` and `$MYDATFILERES`) to point to the most recent output files, ensuring the simulation resumes from the latest state."
+    },
+    {
+      "question": "How does the Fluent script in the provided context configure parallel communication methods for different clusters?",
+      "answer": "The script dynamically adjusts the Fluent parallel communication method based on the cluster environment. If the `CC_CLUSTER` environment variable indicates that the job is running on the \"nibi\" cluster, Fluent uses the Ethernet-based MPI (`-peth`). For other clusters, it defaults to the InfiniBand-based MPI (`-pib`)."
+    },
+    {
+      "question": "What happens if a Fluent job fails during a restart attempt when using this Slurm script?",
+      "answer": "If a Fluent job fails during an array task, the script will output a message indicating that the job attempt failed due to a license or simulation issue. If it was not the last attempt in the array (`SLURM_ARRAY_TASK_ID` is less than `SLURM_ARRAY_TASK_COUNT`), it will indicate that it is resubmitting the job. If all attempts have failed, it will state that all job attempts failed and exit."
+    }
+  ],
+  "generated_at": "2026-08-08T01:07:22.528226+00:00"
+}

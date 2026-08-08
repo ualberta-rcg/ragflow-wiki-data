@@ -1,0 +1,71 @@
+{
+  "doc_key": "fr/graphical_use_of_ansys",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Comment les utilisateurs peuvent-ils lancer des programmes Ansys en mode graphique sur les grappes de calcul Alliance?",
+      "answer": "Les utilisateurs peuvent lancer des programmes Ansys en mode graphique en cliquant sur un des liens d'accès via Open OnDemand (OOD) ou JupyterHub, disponibles pour des clusters comme Nibi, FIR, Rorqual, Narval ou Trillium."
+    },
+    {
+      "question": "Quelles sont les premières étapes pour démarrer une session de bureau interactif Ansys après avoir accédé à la page web de soumission de tâche?",
+      "answer": "Il faut configurer les ressources requises pour la session, cliquer sur « Launch » ou « Start », spécifier une ressource GPU si des graphiques ou calculs accélérés sont nécessaires, puis charger un module Ansys."
+    },
+    {
+      "question": "Comment charger un module Ansys après avoir démarré une session de bureau interactive, que ce soit JupyterLab ou OnDemand?",
+      "answer": "Si c'est un bureau JupyterLab, il faut cliquer dans le menu de gauche. Si c'est un bureau OnDemand démarré manuellement, il faut taper `module load ansys/version` sur la ligne de commande."
+    },
+    {
+      "question": "Quelles commandes spécifiques faut-il utiliser pour démarrer Ansys Fluent à partir d'un terminal sur un bureau OnDemand?",
+      "answer": "Il faut d'abord charger les modules `StdEnv/2023 ansys/2025R2.04` puis exécuter la commande `fluent`."
+    },
+    {
+      "question": "Quelles variables d'environnement doivent être configurées dans le lanceur Fluent si la session est sans GPU?",
+      "answer": "Dans l'onglet « Environment » du lanceur Fluent, il faut copier `I_MPI_HYDRA_BOOTSTRAP=ssh` (requis sur Nibi) et `HOOPS_PICTURE=opengl2-mesa` pour les versions 2025R1 ou plus récentes, ou `HOOPS_PICTURE=x11/lin` pour les versions 2024R2.04 ou plus anciennes."
+    },
+    {
+      "question": "Quelles variables d'environnement doivent être configurées dans le lanceur Fluent si la session est avec une GPU?",
+      "answer": "Dans l'onglet « Environment » du lanceur Fluent, il faut copier `I_MPI_HYDRA_BOOTSTRAP=ssh` (requis sur Nibi) et `HOOPS_PICTURE=opengl2` pour les versions 2025R1 ou plus récentes, ou `HOOPS_PICTURE=opengl` pour les versions 2024R2.04 ou plus anciennes."
+    },
+    {
+      "question": "Que doit faire un utilisateur si la fenêtre de la console graphique de Fluent est corrompue au démarrage de l'interface graphique?",
+      "answer": "Il faut redémarrer Fluent et définir la variable `HOOPS_PICTURE=null` pour désactiver la création du panneau graphique."
+    },
+    {
+      "question": "Comment doit-on démarrer CFX en spécifiant les options graphiques en fonction de la présence d'une GPU?",
+      "answer": "Il faut utiliser `cfx5 -graphics mesa` si aucune GPU n'a été demandée pour la session, et `cfx5 -graphics ogl` si une GPU a été demandée."
+    },
+    {
+      "question": "Comment démarrer l'interface graphique de Mechanical APDL (Mapdl) à partir de la ligne de commande?",
+      "answer": "Il faut charger les modules `StdEnv/2023 ansys/2022R2` (ou une version plus récente) et ensuite exécuter `mapdl -g`, ou lancer `launcher` et cliquer sur le bouton `RUN`."
+    },
+    {
+      "question": "Quelles sont les étapes pour démarrer Ansys Workbench sur un bureau OnDemand sans avoir demandé d'accélération graphique (sans GPU)?",
+      "answer": "Il faut sélectionner un nœud de calcul sans GPU pour la session OOD, puis charger les modules `StdEnv/2023 ansys/2025R2.04` et exécuter la commande `runwb2`."
+    },
+    {
+      "question": "Comment configurer Fluent à l'intérieur de Workbench sur un nœud de calcul sans GPU?",
+      "answer": "Dans l'onglet « Environment » du « Fluent Launcher », il faut copier `I_MPI_HYDRA_BOOTSTRAP=ssh` (requis sur Nibi) et `HOOPS_PICTURE=opengl2-mesa` (optionnel pour 2025R1 ou plus récent), puis cliquer sur « Start »."
+    },
+    {
+      "question": "Quelle est la configuration requise pour démarrer Workbench avec accélération graphique sur un nœud avec GPU sur la grappe Nibi?",
+      "answer": "Il faut choisir un 't4 (15GB)' dans la liste déroulante du sélecteur GPU lors de la session OnDemand, puis charger les modules `StdEnv/2023 ansys/2025R2.04` et exécuter `runwb2`."
+    },
+    {
+      "question": "Comment configurer Fluent à l'intérieur de Workbench sur un nœud de calcul avec GPU?",
+      "answer": "Dans l'onglet « Environment » du « Fluent Launcher », il faut copier `I_MPI_HYDRA_BOOTSTRAP=ssh` (requis sur Nibi) et `HOOPS_PICTURE=opengl2` (optionnel pour 2025R1 ou plus récent), puis cliquer sur « Start »."
+    },
+    {
+      "question": "Comment lancer Ensight sur la ligne de commande avec une interface graphique?",
+      "answer": "Il faut charger les modules `StdEnv/2023 ansys/2022R2`, exporter la variable `LD_LIBRARY_PATH` avec le chemin approprié (par exemple, `$EBROOTANSYS/v$A/CEI/apex$A/machines/linux_2.6_64/qt-$B/lib`), puis exécuter `ensight -X`."
+    },
+    {
+      "question": "Quelles sont les commandes principales pour utiliser le logiciel Rocky après avoir chargé ses modules?",
+      "answer": "Après avoir chargé les modules `StdEnv/2023 ansys/2025R2.04`, la commande `Rocky` démarre le logiciel en mode graphique, `RockySolver` lance directement le solveur, et `RockyScheduler` ouvre une interface graphique pour soumettre des tâches."
+    },
+    {
+      "question": "Pourquoi la variable d'environnement `I_MPI_HYDRA_BOOTSTRAP=ssh` est-elle importante sur le cluster Nibi lors de l'exécution de Fluent?",
+      "answer": "Cette variable doit être définie manuellement sur Nibi avec intelmpi, sinon Fluent plantera lors du démarrage des sessions de bureau OOD Compute, affichant des erreurs liées aux proxys de bootstrap."
+    }
+  ],
+  "generated_at": "2026-08-08T01:11:22.906833+00:00"
+}

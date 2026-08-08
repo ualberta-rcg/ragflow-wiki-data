@@ -4,17 +4,17 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "How can a researcher obtain access to the free SHARCNET Abaqus license?",
-      "answer": "To obtain access to the free SHARCNET Abaqus license, a registered Alliance researcher must contact technical support. In their email, they need to mention that it is for use on SHARCNET systems and include a copy/paste of the Academic License User Agreement statement with their full name and username filled in. This step is mandatory for every user, including Principal Investigators who have purchased their own dedicated tokens."
+      "question": "What is the default behaviour of an Abaqus job on Alliance clusters if there are not enough licenses available when it starts?",
+      "answer": "By default, an Abaqus job submitted to an Alliance cluster will enter a \"queued\" state on a compute node if insufficient licenses are available. It will wait indefinitely for a license, consuming allocated resources and potentially impacting the user's fair share."
     },
     {
-      "question": "What are the key terms of the Abaqus SHARCNET Academic License User Agreement?",
-      "answer": "The Abaqus SHARCNET Academic License User Agreement outlines four main purposes for using \"SIMULIA Academic Software\" with SHARCNET license server tokens: 1) on SHARCNET hardware where the software is installed; 2) in affiliation with a Canadian degree-granting academic institution; 3) for education, institutional, or instruction purposes, excluding commercial or contract-related work where results are not publishable; and 4) for experimental, theoretical, or digital research work primarily aimed at acquiring new knowledge, up to the point of proof-of-concept in a laboratory."
+      "question": "How can a user configure an Abaqus job to terminate immediately if an Abaqus license is unavailable on an Alliance cluster?",
+      "answer": "To make an Abaqus job terminate immediately rather than queue indefinitely for a license, create a file named `abaqus_v6.env` in the job's submit directory containing the line `lmlicensequeuing=OFF`."
     },
     {
-      "question": "How do you configure the Abaqus license file for the free SHARCNET license on SHARCNET systems?",
-      "answer": "To configure your Abaqus license file for the free SHARCNET license, you must update the `~/.licenses/abaqus.lic` file. This file should contain the line: `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27050@license1.computecanada.ca\")`. This setup is specifically for SHARCNET systems like the Nibi and Dusky clusters or the SHARCNET Open OnDemand desktop system, as the old `license3.sharcnet.ca` server is no longer operational."
+      "question": "Can an Abaqus job be set to wait for a specific duration for an unavailable license before terminating on an Alliance cluster?",
+      "answer": "Yes, users can specify a finite wait time in minutes for an Abaqus job to acquire a license. This is done by adding the line `lmhanglimit=X` (where `X` is the number of minutes) to an `abaqus_v6.env` file located in the job's submit directory. The job will terminate if licenses are not available within the specified time."
     }
   ],
-  "generated_at": "2026-05-31T01:05:04.323751+00:00"
+  "generated_at": "2026-08-07T23:21:43.013862+00:00"
 }

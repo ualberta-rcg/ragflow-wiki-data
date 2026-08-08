@@ -1,6 +1,79 @@
 {
   "doc_key": "fr/multifactor_authentication",
   "level": "page",
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:58:40.409066+00:00"
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce que l'authentification multifacteur (AMF) et pourquoi est-elle utilisée pour les services de l'Alliance?",
+      "answer": "L'authentification multifacteur (AMF) est une mesure de sécurité qui protège un compte avec un mot de passe et une deuxième action, offrant ainsi un niveau de sécurité plus élevé pour l'accès à la plupart des services de l'Alliance."
+    },
+    {
+      "question": "Quelles sont les options disponibles comme deuxième facteur d'authentification pour les services de l'Alliance?",
+      "answer": "Les options pour le deuxième facteur d'authentification incluent accepter une notification sur un appareil intelligent via l'application Duo Mobile, entrer un code généré sur demande, ou presser un bouton sur une clé matérielle YubiKey."
+    },
+    {
+      "question": "Que recommande-t-on lors de l'enregistrement des facteurs d'authentification multifacteur pour un compte de l'Alliance?",
+      "answer": "Il est fortement recommandé d'enregistrer au moins deux options pour le deuxième facteur d'authentification, comme un téléphone et des codes à usage unique, ou un téléphone et une clé YubiKey, afin d'avoir une méthode de secours pour accéder au compte."
+    },
+    {
+      "question": "Quelles applications sont compatibles ou incompatibles pour l'authentification multifacteur avec Duo Mobile sur les systèmes de l'Alliance?",
+      "answer": "Seule l'application Duo Mobile est compatible. Les applications TOTP comme Aegis, Google Authenticator et Microsoft Authenticator ne sont pas compatibles avec Duo et ne peuvent pas balayer le code QR."
+    },
+    {
+      "question": "Quelles sont les exigences pour une clé YubiKey afin qu'elle soit compatible avec les systèmes d'authentification multifacteur de l'Alliance?",
+      "answer": "Une clé YubiKey doit supporter la fonction YubiKey OTP pour être compatible avec nos systèmes. La série YubiKey 5 est recommandée, mais d'autres modèles moins récents peuvent aussi fonctionner s'ils offrent cette fonction."
+    },
+    {
+      "question": "Comment utilise-t-on une clé YubiKey pour s'authentifier après l'avoir enregistrée sur un compte de l'Alliance?",
+      "answer": "Une fois connectée à l'ordinateur, il suffit d'appuyer sur le bouton de la YubiKey lorsque l'invite pour un mot de passe à utilisation unique (OTP) ou un 'passcode' apparaît, et la clé entrera la chaîne de 32 caractères automatiquement."
+    },
+    {
+      "question": "Comment l'authentification multifacteur fonctionne-t-elle lors d'une connexion SSH à une grappe de l'Alliance?",
+      "answer": "Après avoir entré le mot de passe ou la clé SSH, l'invite demandera le deuxième facteur. L'utilisateur peut indiquer un téléphone pour une notification Duo Push, toucher sa YubiKey, ou entrer un code de contournement ou un code unique de Duo Mobile."
+    },
+    {
+      "question": "Comment peut-on réduire la fréquence des demandes d'authentification multifacteur lors de connexions SSH répétées sous Linux et MacOS?",
+      "answer": "En configurant le client OpenSSH avec ControlMaster dans le fichier `.ssh/config`, les connexions SSH suivantes à partir du même appareil utiliseront la connexion de la première session sans redemander le deuxième facteur."
+    },
+    {
+      "question": "L'authentification multifacteur est-elle optionnelle ou obligatoire pour les comptes de l'Alliance?",
+      "answer": "L'authentification multifacteur est désormais obligatoire et ne peut pas être désactivée, sauf pour des exceptions accordées dans le cas de processus automatisés."
+    },
+    {
+      "question": "Que doit faire un utilisateur s'il perd un appareil configuré comme deuxième facteur d'authentification pour son compte Alliance?",
+      "answer": "Si l'utilisateur a configuré plusieurs appareils ou des codes de contournement, il doit les utiliser pour accéder à son compte, puis enregistrer un nouvel appareil et supprimer l'appareil perdu. Sinon, il doit contacter support@tech.alliancecan.ca en fournissant des détails pour vérification d'identité."
+    },
+    {
+      "question": "Est-ce possible d'utiliser les services de l'Alliance si l'on n'a pas de téléphone intelligent ou de tablette et que l'on ne souhaite pas acheter une YubiKey?",
+      "answer": "Non, l'authentification multifacteur est une exigence des organismes de financement de l'Alliance. Une clé YubiKey est le moyen le plus économique si l'on ne dispose pas d'un appareil mobile compatible."
+    },
+    {
+      "question": "L'Alliance peut-elle envoyer des codes de passe à usage unique par SMS ou courriel pour l'authentification multifacteur?",
+      "answer": "Non, l'envoi de codes par SMS engendre des frais et n'est pas jugé suffisamment sécuritaire, et l'envoi par courriel n'est pas supporté par Duo."
+    },
+    {
+      "question": "Quels sont quelques-uns des clients SSH courants compatibles avec l'authentification multifacteur de l'Alliance?",
+      "answer": "La plupart des clients ligne de commande (Linux, macOS), ainsi que des clients spécifiques comme Cyberduck, FileZilla, MobaXTerm, PuTTY, PyCharm, Termius (iOS), VSCode et WinSCP, sont compatibles."
+    },
+    {
+      "question": "Comment configurer FileZilla pour limiter les demandes répétées d'authentification multifacteur lors des transferts de fichiers avec les grappes de l'Alliance?",
+      "answer": "Dans le 'Gestionnaire de Sites', il faut configurer le site avec le 'Protocole SFTP – SSH File Transfer Protocol', un 'Type d'authentification : Interactive', et limiter le 'Nombre maximum de connexions' à '1' sous l'onglet 'Paramètres de transfert'."
+    },
+    {
+      "question": "Que faut-il faire dans MobaXTerm pour éviter d'être invité une deuxième fois pour l'authentification multifacteur lors de la navigation de fichiers distants?",
+      "answer": "Dans les 'Advanced SSH settings' de la session, il faut configurer le 'SSH-browser type' à 'SCP (enhanced speed)' ou 'SCP (normal speed)'."
+    },
+    {
+      "question": "Est-ce que l'authentification multifacteur est compatible avec les processus automatisés qui se connectent aux grappes de l'Alliance?",
+      "answer": "L'Alliance est en train de préparer des nœuds de connexion qui seront réservés spécifiquement aux processus automatisés pour s'intégrer avec l'authentification multifacteur."
+    },
+    {
+      "question": "Pourquoi un message 'Access denied. Duo Security does not provide services in your current location' pourrait-il apparaître lors de l'authentification?",
+      "answer": "Duo bloque le processus d'authentification si l'adresse IP de l'utilisateur provient d'une région ou d'un pays soumis à des sanctions économiques et commerciales."
+    },
+    {
+      "question": "Comment utiliser PyCharm avec l'authentification multifacteur pour se connecter aux grappes de l'Alliance?",
+      "answer": "Après avoir configuré les clés SSH, lors de la connexion à l'hôte distant, l'utilisateur devra entrer son nom d'utilisateur, le nom de l'hôte, puis un mot de passe à usage unique (One-time password) généré par la YubiKey ou Duo Mobile."
+    }
+  ],
+  "generated_at": "2026-08-08T00:22:46.589623+00:00"
 }

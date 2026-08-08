@@ -4,17 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `scriptsp1-mpi.txt` Slurm script in Abaqus, and what Abaqus version does it use?",
-      "answer": "The `scriptsp1-mpi.txt` Slurm script is designed for Abaqus Standard Analysis, enabling MPI-based computing across multiple compute nodes. It specifically requires Abaqus version 2026 or newer."
+      "question": "How would one submit an Abaqus Standard Analysis job that utilizes MPI-based parallelization across multiple nodes on an Alliance cluster?",
+      "answer": "To submit an MPI-based Abaqus Standard Analysis job across multiple nodes, you would use a Slurm script, such as the provided `scriptsp1-mpi.txt`. This script defines the job's requirements like the account (`#SBATCH --account=def-group`), time limit (`#SBATCH --time=00-06:00`), total number of tasks (`#SBATCH --ntasks=8`), and memory per CPU (`#SBATCH --mem-per-cpu=4G`). It loads the `abaqus/2026` module, dynamically constructs an `mp_host_list` for multi-node execution, exports it, and then runs the Abaqus job with `mp_mode=mpi`."
     },
     {
-      "question": "What parallelization modes are supported by Abaqus solvers for both Standard and Explicit analyses, and which Abaqus versions are compatible with the provided single-node scripts?",
-      "answer": "Abaqus solvers support both thread-based and MPI-based parallelization for Standard and Explicit analysis types. The provided single-node scripts are compatible with Abaqus version 2026 (the latest version) and Abaqus version 2021 (a legacy version), although the use of Abaqus 2021 is recommended for discontinuation."
+      "question": "What types of parallelization are supported by Abaqus solvers for Explicit Analysis jobs?",
+      "answer": "Abaqus solvers support both thread-based and MPI-based parallelization methods for Explicit Analysis type jobs."
     },
     {
-      "question": "How do you configure an Abaqus Explicit analysis job in a Slurm script to write restart data, and how can you check for this information?",
-      "answer": "To configure an Abaqus Explicit analysis job to write restart data, you need to specify `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO` in the input file, which will write restart data for a total of 12 time increments. To check for completed restart information, you can use the command `egrep -i \"step|restart\" testep*.com testep*.msg testep*.sta` in the relevant output files."
+      "question": "What are the essential Slurm directives for configuring a single-node, thread-based Abaqus Explicit Analysis job?",
+      "answer": "For a single-node, thread-based Abaqus Explicit Analysis job, the essential Slurm directives include specifying the account (`#SBATCH --account=def-group`), the time limit (`#SBATCH --time=00-06:00`), the node memory (`#SBATCH --mem=8000M`), the number of cores per task (`#SBATCH --cpus-per-task=4`), and ensuring the job runs on a single node (`#SBATCH --nodes=1`). The script would also load an Abaqus module, such as `abaqus/2026`, and execute Abaqus with `mp_mode=threads`."
     }
   ],
-  "generated_at": "2026-05-31T01:07:19.335359+00:00"
+  "generated_at": "2026-08-07T23:23:47.436389+00:00"
 }

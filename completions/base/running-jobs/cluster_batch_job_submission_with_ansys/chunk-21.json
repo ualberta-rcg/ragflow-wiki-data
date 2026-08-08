@@ -1,0 +1,20 @@
+{
+  "doc_key": "base/cluster_batch_job_submission_with_ansys",
+  "level": "chunk",
+  "chunk_index": 21,
+  "qa_pairs": [
+    {
+      "question": "How do I run an Ansys Mechanical APDL job using Shared Memory Parallel (SMP) on a CPU cluster with a Slurm script?",
+      "answer": "To run an Ansys Mechanical APDL job with Shared Memory Parallel (SMP) on a CPU cluster, you can use a Slurm script such as `script-smp-2023-cpu.sh`. This script is typically configured for a single node (`#SBATCH --nodes=1`) and specifies the total number of cores (`#SBATCH --tasks=8`) and memory (`#SBATCH --mem=32G`). You'll need to load the appropriate `StdEnv` and `ansys` modules (e.g., `ansys/2024R1.03`), create an output directory, and then execute the job using the `mapdl -smp` command with your input file (e.g., `YOURAPDLFILE.inp`). For the Cedar cluster, an additional `LD_LIBRARY_PATH` export is required."
+    },
+    {
+      "question": "What is the procedure for submitting an Ansys Mechanical APDL job using Distributed Memory Parallel (DMP) on a CPU cluster with a Slurm script?",
+      "answer": "To submit an Ansys Mechanical APDL job using Distributed Memory Parallel (DMP) on a CPU cluster, you would use a Slurm script similar to `script-dmp-2023-cpu.sh`. This script allows specifying the total number of cores (`#SBATCH --ntasks=8`) and memory per CPU (`#SBATCH --mem-per-cpu=4G`), potentially across multiple nodes. After loading the required `StdEnv` and `ansys` modules (e.g., `ansys/2024R1.03`) and creating an output directory, the job is executed with the `mapdl -dis` command. The MPI implementation varies by cluster; Beluga uses Intel MPI, while other clusters use Open MPI. For Cedar, a `libstdc++.so.6.0.29` symbolic link and `LD_LIBRARY_PATH` export are also needed."
+    },
+    {
+      "question": "What are the recommended practices for optimizing and configuring Ansys Mechanical APDL jobs on a cluster, including memory and version compatibility?",
+      "answer": "For optimal performance, Ansys Mechanical APDL jobs allocate 1024 MB total memory and 1024 MB database memory by default. These values can be manually adjusted by adding `-m` and/or `-db` arguments to the `mapdl` command in your Slurm scripts. It's crucial to perform detailed scaling tests before running production jobs to determine the optimal number of cores and minimum memory required. The single node Shared Memory Parallel (SMP) scripts generally offer better performance than multinode Distributed Memory Parallel (DMP) scripts and should be utilized whenever feasible. Additionally, to avoid compatibility issues, the Ansys module version loaded in your Slurm script should ideally match the version used to generate the APDL input file."
+    }
+  ],
+  "generated_at": "2026-08-08T01:08:35.924717+00:00"
+}

@@ -4,13 +4,17 @@
   "chunk_index": 20,
   "qa_pairs": [
     {
-      "question": "What is the default behaviour when an Abaqus job on an Alliance cluster requires more licenses than are available?",
-      "answer": "By default, if an Abaqus job needs more licenses than are currently accessible, it will be placed in a 'queued' state on a compute node. From Slurm's perspective, this job will appear to be 'Running' (R) and will consume CPU time, potentially affecting the user's account priority, while it waits for licenses to become available."
+      "question": "What does the Abaqus error message \"Time limit of in queue has been exceeded. Exiting.\" indicate in a Slurm output file?",
+      "answer": "This Abaqus error message, often accompanied by queued license requests, signifies that a job's license request entered a waiting queue on the license server (e.g., license1.computecanada.ca) but did not acquire a license within a pre-defined time limit (e.g., 60 seconds via `lmhanglimit=1`). Consequently, the job was dequeued and terminated, typically due to insufficient licenses being available."
     },
     {
-      "question": "What are the two options for configuring an Abaqus job to avoid indefinitely waiting for licenses on an Alliance cluster?",
-      "answer": "There are two options to modify the default license queuing behaviour for an Abaqus job on an Alliance cluster: \n1.  **Terminate immediately:** Create an `abaqus_v6.env` file in the job's submit directory containing the line `lmlicensequeuing=OFF`. This will cause the job to terminate right away if there are not enough licenses, preventing it from entering a queued state.\n2.  **Specify a finite wait time:** Add the line `lmhanglimit=X` to the `abaqus_v6.env` file, where `X` is the number of minutes the job should wait for a license. If sufficient licenses do not become available within the specified time, the job will be dequeued by the license server and subsequently terminated by Slurm."
+      "question": "How can users optimize the memory allocation for a completed Abaqus simulation run on an Alliance cluster?",
+      "answer": "To optimize memory allocation for completed Abaqus jobs, users should employ the `seff JobNumber` command. If the reported 'Memory Efficiency' is below approximately 90%, the `--mem=` setting in their Slurm script should be reduced to better match the job's actual memory utilization."
+    },
+    {
+      "question": "What steps should be taken to optimize the CPU allocation for a completed Abaqus simulation on an Alliance cluster?",
+      "answer": "For completed Abaqus jobs, users can check the `CPU Efficiency` using `seff JobNumber`. If this efficiency is less than roughly 90%, it is recommended to conduct scaling tests to identify the optimal number of CPUs for the specific simulation, and then adjust the `#SBATCH --cpus-per-task=` value in the Slurm script accordingly."
     }
   ],
-  "generated_at": "2026-05-31T01:08:53.165521+00:00"
+  "generated_at": "2026-08-07T23:25:14.801608+00:00"
 }

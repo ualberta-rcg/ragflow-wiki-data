@@ -4,17 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "Quel type de script est-ce et quel est son objectif principal?",
-      "answer": "C'est un script Slurm Bash qui sert à configurer et lancer une tâche de calcul. Il est spécifiquement configuré pour charger le module Abaqus/2026."
+      "question": "À quoi sert le script `scriptep1-mpi.txt` pour l'analyse explicite sur plusieurs nœuds, et avec quelle version d'Abaqus est-il compatible?",
+      "answer": "Le script `scriptep1-mpi.txt` est conçu pour effectuer des calculs d'analyse explicite avec MPI en utilisant un ensemble de nœuds arbitraires sur une grappe. Il est compatible uniquement avec Abaqus/2026 et les versions plus récentes du logiciel."
     },
     {
-      "question": "Quelle est la version d'Abaqus chargée par défaut dans ce script?",
-      "answer": "La version `abaqus/2026` est chargée par défaut. Les versions `StdEnv/2020` et `abaqus/2021` sont commentées, indiquant qu'elles sont des versions plus anciennes ou dont l'utilisation est déconseillée."
+      "question": "Selon la documentation, comment est-il possible d'obtenir une estimation de la mémoire totale requise par Slurm pour qu'une simulation Abaqus à processus simple s'exécute entièrement en mémoire vive, sans être virtualisée sur le disque scratch?",
+      "answer": "Pour obtenir une estimation de la mémoire totale (--mem=) requise par Slurm pour une simulation Abaqus à processus simple effectuée uniquement en mémoire vive, sans virtualisation sur le disque scratch, il faut consulter le fichier de sortie Abaqus `test.dat`. Ce fichier fournit des estimations comme le « MINIMUM MEMORY REQUIRED » et la « MEMORY TO MINIMIZE I/O »."
     },
     {
-      "question": "Quelles ressources de calcul ce script Slurm demande-t-il pour une tâche?",
-      "answer": "Ce script demande l'utilisation du compte `def-group`, une durée maximale de 6 heures (`00-06:00`), 8000 Mo de mémoire, 4 cœurs par tâche (`cpus-per-task=4`) et 1 nœud de calcul (`nodes=1`)."
+      "question": "Quelles sont les étapes pour surveiller de manière interactive la consommation de mémoire d'une simulation Abaqus à processus simple sur un nœud de calcul d'une grappe?",
+      "answer": "Pour surveiller de manière interactive la consommation de mémoire, il faut d'abord se connecter à une grappe avec SSH et obtenir une allocation sur un nœud de calcul en utilisant `salloc`. Ensuite, on charge les modules nécessaires (ex: `StdEnv/2020`, `abaqus/2021`) et on démarre la simulation Abaqus en mode interactif. Enfin, en se connectant via SSH au nœud de calcul alloué (ex: `ssh c50`), on peut lancer la commande `top -u $USER` pour observer les colonnes VIRT et RES jusqu'à ce que des valeurs de mémoire maximales stables soient atteintes."
     }
   ],
-  "generated_at": "2026-05-31T01:11:25.929635+00:00"
+  "generated_at": "2026-08-07T23:27:41.718058+00:00"
 }

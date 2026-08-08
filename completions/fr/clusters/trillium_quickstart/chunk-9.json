@@ -2,6 +2,19 @@
   "doc_key": "fr/trillium_quickstart",
   "level": "chunk",
   "chunk_index": 9,
-  "qa_pairs": [],
-  "generated_at": "2026-05-10T00:41:41.026574+00:00"
+  "qa_pairs": [
+    {
+      "question": "Comment est-ce qu'on peut lancer une session interactive pour tester du code sur les grappes de calcul de Trillium, surtout si les limites de la commande `debugjob` sont dépassées?",
+      "answer": "Si votre tâche de test nécessite plus de ressources ou de temps que ce qui est permis par `debugjob`, vous pouvez demander une session interactive directement à partir de la file d'attente standard en utilisant la commande `salloc`. Par exemple, pour une tâche de test CPU, vous utiliseriez `$ salloc --export=NONE --nodes=N --time=M:00:00 [--ngpus-per-node=G] [--x11]`, où 'N' représente le nombre de nœuds, 'M' le nombre d'heures d'exécution, 'G' le nombre de GPU par nœud (si applicable), et `--x11` pour les applications graphiques."
+    },
+    {
+      "question": "Quelle commande doit-on utiliser pour soumettre des tâches de production à l'ordonnanceur sur la grappe Trillium après que le code a été compilé et testé?",
+      "answer": "Pour soumettre des tâches de production à l'ordonnanceur sur la grappe Trillium, il faut utiliser la commande `sbatch` sur un nœud de connexion, comme ceci : `$ sbatch jobscript.sh`. Les tâches destinées aux CPU doivent être soumises depuis les nœuds de connexion CPU, tandis que les tâches utilisant des GPU doivent être soumises depuis le nœud de connexion GPU."
+    },
+    {
+      "question": "Quel ordonnanceur de tâches est utilisé par la grappe Trillium pour gérer l'exécution des tâches sur les nœuds de calcul, et quel est son rôle principal?",
+      "answer": "La grappe Trillium utilise SLURM comme ordonnanceur de tâches. Son rôle principal est de gérer l'exécution des tâches sur les nœuds de calcul. Quand une tâche est soumise avec `sbatch`, SLURM la place dans la file d'attente et l'exécute sur les nœuds de calcul dès que les ressources spécifiées dans le script de tâche (par des lignes commençant par `#SBATCH`) sont disponibles."
+    }
+  ],
+  "generated_at": "2026-08-08T00:51:41.365426+00:00"
 }

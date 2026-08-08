@@ -4,13 +4,13 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "What directory and file configurations are necessary for running Fluent jobs on the Trillium cluster, and what steps should be taken if these configurations are missing?",
-      "answer": "For Fluent jobs on the Trillium cluster, users must ensure that a symbolic link to a writable `.ansys` directory, a symbolic link to a writable `.fluentconf` directory, and a writable `.flrecent` file exist in their `$HOME` folder. If any of these are missing, the job will abort and prompt the user to create the directories and file in `$SCRATCH` and then link them to their `$HOME` directory (e.g., `ln -s $SCRATCH/.ansys ~/.ansys`)."
+      "question": "How can a user check the resource utilization of an Ansys Additive job running on Alliance clusters?",
+      "answer": "Users can obtain a snapshot of their Ansys Additive job's resource utilization on compute nodes by using the `srun` command combined with `top`. An example command provided is: `srun --overlap --jobid=myjobid top -bn1 -u $USER | grep R | grep -v top`."
     },
     {
-      "question": "Under what circumstances should users utilize license requeue scripts for Fluent jobs on Alliance clusters, and what are the key warnings associated with their use?",
-      "answer": "License requeue scripts should only be used for Fluent jobs that are known to complete normally without errors but frequently fail to start due to license shortages. It is strongly recommended to avoid these scripts for jobs that might crash or contain unresolved journal file warnings, as this would cause simulations to be repeated from the beginning, leading to wasted compute time. Users should monitor Slurm output files to confirm that any requeues are indeed related to license availability."
+      "question": "How does one perform scaling tests for an Ansys Additive job on Alliance clusters, and what indicates good scaling?",
+      "answer": "To perform scaling tests for an Ansys Additive job, users should submit short test jobs with an increasing number of cores. After a job completes, its wall-clock time can be obtained using `seff myjobid`. If the wall-clock time decreases by approximately 50% when the number of cores is doubled, it indicates good scaling, suggesting that additional cores may be considered."
     }
   ],
-  "generated_at": "2026-05-31T01:21:41.416322+00:00"
+  "generated_at": "2026-08-07T23:35:16.513943+00:00"
 }

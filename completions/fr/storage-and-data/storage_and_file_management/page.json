@@ -3,85 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "Quel est le but principal de la page \"Gestion du stockage et des fichiers\" sur les grappes de calcul de l'Alliance?",
-      "answer": "Cette page présente les différentes options de stockage disponibles, les meilleures pratiques pour la gestion des fichiers, les quotas et les politiques, afin de répondre aux besoins variés des utilisateurs de l'Alliance."
+      "question": "Quel est l'objectif principal de la page sur la gestion du stockage et des fichiers sur les grappes de calcul Alliance?",
+      "answer": "La page explique les différentes options de stockage disponibles, comment les utiliser de manière responsable et les meilleures pratiques pour gérer les données de recherche sur les grappes de calcul de l'Alliance."
     },
     {
-      "question": "Quelles sont les recommandations générales concernant le stockage de petits fichiers sur les systèmes de fichiers partagés de l'Alliance?",
-      "answer": "Il faut éviter de stocker des milliers de petits fichiers (quelques mégaoctets) dans le même répertoire, car cela peut affecter la performance du système pour tous les utilisateurs. Il est préférable d'utiliser des commandes comme `tar` ou `zip` pour les archiver en un seul gros fichier."
+      "question": "Quelles sont les recommandations générales concernant le type de fichiers à stocker et la manière de les organiser sur les systèmes de fichiers partagés Alliance?",
+      "answer": "Il est recommandé de stocker un nombre limité de très gros fichiers (souvent binaires) et d'éviter des milliers de petits fichiers dans le même répertoire. Il est préférable d'utiliser des commandes comme `tar` ou `zip` pour archiver plusieurs petits fichiers en un seul gros."
     },
     {
-      "question": "Quelle est la responsabilité de l'utilisateur concernant ses données stockées sur les grappes de l'Alliance?",
-      "answer": "Il est de la responsabilité de l'utilisateur de vérifier la durée de stockage de ses données et de déplacer les fichiers et répertoires qui ne sont plus utilisés vers un autre emplacement, car la plupart des systèmes de fichiers ne sont pas conçus pour l'archivage à long terme."
+      "question": "Qui est responsable de la gestion à long terme des données stockées sur les grappes Alliance, et quelle est la distinction entre le stockage de recherche et le stockage personnel?",
+      "answer": "L'utilisateur est responsable de vérifier l'ancienneté de ses données et de déplacer celles qui ne sont plus utilisées. La plupart des systèmes de fichiers ne sont pas conçus pour l'archivage à long terme et ne doivent être utilisés que pour les données de recherche, pas pour les données personnelles."
     },
     {
-      "question": "Quel outil est généralement recommandé pour le transfert de grandes quantités de données vers ou depuis les grappes de l'Alliance?",
+      "question": "Comment les répertoires de stockage `home`, `project` et `scratch` sont-ils configurés après la création d'un compte sur une grappe Alliance?",
+      "answer": "Après la création d'un compte, le répertoire `home` contient des liens symboliques vers les espaces `project` et `scratch`. Les espaces `home` et `scratch` sont personnels, tandis que l'espace `project` est partagé par le groupe de recherche."
+    },
+    {
+      "question": "Comment un utilisateur peut-il vérifier l'espace disque utilisé et disponible pour ses répertoires `home`, `scratch` et `project` sur les grappes Alliance?",
+      "answer": "Il faut se connecter à la grappe par SSH et exécuter la commande `diskusage_report`. Pour un rapport plus détaillé, on peut utiliser le `Diskusage Explorer`."
+    },
+    {
+      "question": "À quoi sert principalement le répertoire `home` sur les grappes Alliance et quelles sont ses limites?",
+      "answer": "Le répertoire `home` est idéal pour le code source, les petits fichiers de paramètres et les scripts de soumission de tâches, mais son quota est relativement petit et ses performances sont limitées pour de grandes quantités de données."
+    },
+    {
+      "question": "Quelles sont les caractéristiques du répertoire `project` et à quels types de données est-il le mieux adapté sur les grappes Alliance?",
+      "answer": "L'espace `project` a un grand quota, est conçu pour le partage de données entre les membres d'un groupe et est relié à un compte de professeur. Il est approprié pour des données relativement statiques qui sont modifiées rarement."
+    },
+    {
+      "question": "Quelles sont les recommandations pour l'utilisation du stockage `scratch` sur les grappes Alliance, et quels sont les risques associés à ce type de stockage?",
+      "answer": "Le stockage `scratch` est idéal pour les opérations intensives de lecture/écriture de gros fichiers temporaires. Cependant, il n'y a pas de copie de sauvegarde, et les fichiers plus anciens sont purgés, donc il ne faut pas y stocker de données importantes."
+    },
+    {
+      "question": "Quand devrait-on utiliser le stockage `nearline` sur les grappes Alliance?",
+      "answer": "Le `nearline` est un système de fichiers sur bande conçu pour stocker des données inactives, c'est-à-dire des jeux de données auxquels on ne prévoit pas d'accéder avant plusieurs mois."
+    },
+    {
+      "question": "Quel est l'avantage du répertoire `$SLURM_TMPDIR` et comment doit-il être utilisé pendant l'exécution d'une tâche sur les grappes Alliance?",
+      "answer": "`$SLURM_TMPDIR` est un répertoire temporaire local rapide sur chaque nœud de calcul. Il offre de meilleures performances pour les fichiers temporaires de tâche et est automatiquement supprimé avec son contenu à la fin de la tâche."
+    },
+    {
+      "question": "Comment un utilisateur peut-il obtenir une estimation de sa consommation d'espace et du nombre d'inodes dans l'espace `project` sur les grappes Alliance?",
+      "answer": "L'utilisateur peut utiliser la commande `lfs quota -u $USER /project` pour une estimation de l'utilisation de l'espace et des inodes dans l'espace `project` total."
+    },
+    {
+      "question": "Quelles sont les meilleures pratiques pour supprimer des fichiers en toute sécurité des espaces `project` et `scratch` sur les grappes Alliance?",
+      "answer": "Il est conseillé de créer un répertoire temporaire (par exemple, `toDelete`), d'y déplacer les fichiers à supprimer, de vérifier son contenu, puis de supprimer ce répertoire récursivement. Il faut éviter d'utiliser les caractères `*` et `/` directement dans les commandes `rm`."
+    },
+    {
+      "question": "Comment peut-on demander une augmentation des quotas de stockage pour les espaces `project` et `scratch` sur les grappes Alliance?",
+      "answer": "Pour une légère augmentation des espaces `project` et `scratch`, on peut utiliser le Service d'accès rapide. Pour une augmentation importante de l'espace `project`, il faut faire une demande dans le cadre du Concours pour l'allocation de ressources."
+    },
+    {
+      "question": "Quelle est la politique de sauvegarde pour les espaces `home` et `project` sur les grappes Alliance, et comment récupérer des fichiers?",
+      "answer": "Les espaces `home` et `project` sont sauvegardés chaque soir. Les copies sont conservées pendant 30 jours, et les fichiers supprimés pendant 60 jours supplémentaires. Pour récupérer un fichier, il faut contacter le soutien technique en mentionnant le chemin complet et la date de la version désirée."
+    },
+    {
+      "question": "Y a-t-il une politique de purge automatique pour les fichiers stockés dans l'espace `scratch` sur les grappes Alliance?",
+      "answer": "Oui, les fichiers stockés dans l'espace `scratch` sont susceptibles d'être purgés après une certaine période, par exemple 60 jours sur certaines grappes, selon la politique de purge automatique de `scratch`."
+    },
+    {
+      "question": "Quel outil est généralement recommandé pour le transfert de grandes quantités de données vers ou depuis les grappes Alliance?",
       "answer": "Le transfert de grandes quantités de données se fait généralement avec Globus."
     },
     {
-      "question": "Est-il permis de stocker des données personnelles sur les ressources de stockage de l'Alliance?",
-      "answer": "Non, les ressources de stockage de l'Alliance sont uniquement destinées aux données de recherche, pas aux données personnelles."
-    },
-    {
-      "question": "Quels sont les principaux espaces de stockage auxquels un utilisateur a accès par défaut lors de la création de son compte sur une grappe de l'Alliance?",
-      "answer": "Un utilisateur a accès aux espaces `home`, `project` et `scratch`, accessibles via des liens symboliques depuis son répertoire `home`."
-    },
-    {
-      "question": "Quel espace de stockage est partagé entre les membres d'un groupe de recherche sur les grappes de l'Alliance?",
-      "answer": "L'espace `project` est partagé par le groupe de recherche, contrairement aux espaces `home` et `scratch` qui sont propres à chaque utilisateur."
-    },
-    {
-      "question": "Comment un utilisateur peut-il vérifier son utilisation de l'espace disque pour les systèmes de fichiers `home`, `project` et `scratch` sur les grappes de l'Alliance?",
-      "answer": "Les utilisateurs peuvent se connecter à la grappe par SSH et utiliser l'utilitaire en ligne de commande `diskusage_report`. Pour un rapport plus détaillé sur `project` ou si l'utilisateur a accès à plusieurs projets, `lfs quota -u $USER /project` est utile."
-    },
-    {
-      "question": "À quoi sert principalement le répertoire `HOME` sur les grappes de l'Alliance et quelles sont ses limitations?",
-      "answer": "Le répertoire `HOME` est approprié pour le code source, les petits fichiers de paramètres et les scripts de soumission de tâches. Son quota est relativement petit et sa performance est limitée pour les opérations intensives sur de grandes quantités de données."
-    },
-    {
-      "question": "Quelle est la fonction de l'espace `PROJECT` sur les grappes de l'Alliance et quelles données devraient y être stockées?",
-      "answer": "L'espace `PROJECT` est conçu pour le partage de données entre les membres d'un groupe de recherche, avec un quota plus important. Les données qui y sont stockées doivent être relativement statiques, c'est-à-dire modifiées rarement."
-    },
-    {
-      "question": "Quelles sont les caractéristiques et les risques associés à l'utilisation de l'espace de stockage `SCRATCH` sur les grappes de l'Alliance?",
-      "answer": "L'espace `SCRATCH` est idéal pour les opérations intensives de lecture/écriture de gros fichiers temporaires. Il n'est pas sauvegardé et les fichiers plus anciens sont susceptibles d'être purgés après 60 jours, donc les données importantes doivent être copiées ailleurs."
-    },
-    {
-      "question": "Qu'est-ce que le stockage `NEARLINE` et à quel type de données est-il destiné sur les grappes de l'Alliance?",
-      "answer": "Le stockage `NEARLINE` est un système de fichiers sur bande destiné à stocker les données inactives, telles que les jeux de données auxquels vous ne prévoyez pas d'accéder avant plusieurs mois."
-    },
-    {
-      "question": "Quel est le rôle de la variable d'environnement `$SLURM_TMPDIR` pendant l'exécution d'une tâche sur les nœuds de calcul de l'Alliance?",
-      "answer": "La variable `$SLURM_TMPDIR` pointe vers un répertoire temporaire local et rapide sur chaque nœud de calcul réservé pour la tâche. Il est idéal pour les fichiers temporaires utilisés pendant l'exécution de la tâche, car son contenu est supprimé à la fin de celle-ci."
-    },
-    {
-      "question": "Quelles sont les meilleures pratiques pour nettoyer régulièrement les données dans les espaces `project` et `scratch` sur les grappes de l'Alliance?",
-      "answer": "Il est recommandé de créer un répertoire temporaire (ex: `toDelete`), d'y déplacer les fichiers à supprimer, de vérifier son contenu, puis de le supprimer récursivement. Il faut aussi éviter les caractères `*` et `/` dans les commandes `rm` et tester les scripts de suppression."
-    },
-    {
-      "question": "Que faut-il faire avec les fichiers non utilisés qui doivent être conservés sur les systèmes de stockage de l'Alliance?",
-      "answer": "Il faut les archiver et les compresser, puis si possible, les copier ailleurs, par exemple dans le système de fichiers `nearline` ou sur un ordinateur personnel."
-    },
-    {
-      "question": "Quels sont les quotas par défaut pour les systèmes de fichiers `home`, `scratch` et `project` sur la grappe Fir de l'Alliance?",
-      "answer": "Sur Fir, le quota `home` est de 50Go et 500K fichiers par utilisateur, `scratch` est de 20To et 1M fichiers par utilisateur (purgé après 60 jours), et `project` est de 1To et 500K fichiers par groupe."
-    },
-    {
-      "question": "Comment un groupe de recherche peut-il demander une augmentation de l'espace de stockage `project` ou `scratch` sur les grappes de l'Alliance?",
-      "answer": "Pour une légère augmentation de `project` et `scratch`, le Service d'Accès Rapide peut être utilisé. Pour une augmentation importante de `project`, il faut faire une demande dans le cadre du Concours pour l'Allocation de Ressources."
-    },
-    {
-      "question": "Quels systèmes de fichiers sur les grappes de l'Alliance sont sauvegardés et pour combien de temps les copies sont-elles conservées?",
-      "answer": "Les espaces `home` et `project` sont sauvegardés chaque soir. Les copies sont conservées pendant 30 jours, et les fichiers supprimés pendant 60 jours supplémentaires. L'espace `scratch` n'est pas sauvegardé."
-    },
-    {
-      "question": "Comment un utilisateur peut-il récupérer une version antérieure d'un fichier ou d'un répertoire depuis les espaces sauvegardés de l'Alliance?",
-      "answer": "Pour récupérer une version antérieure, l'utilisateur doit contacter le soutien technique de l'Alliance en mentionnant le chemin complet du ou des fichiers et la date de la version souhaitée."
-    },
-    {
-      "question": "Quelle est l'approche recommandée si un programme doit effectuer des lectures parallèles intensives sur des fichiers dans les systèmes de fichiers partagés comme `home`, `scratch` ou `project` de l'Alliance?",
-      "answer": "Pour contrer les problèmes potentiels liés à l'accès parallèle en lecture, il est recommandé d'utiliser un outil spécialisé tel que MPI-IO."
+      "question": "Quels problèmes peuvent survenir avec l'accès parallèle en lecture aux fichiers dans les systèmes de fichiers `home`, `scratch` et `project`, et quelle solution est proposée?",
+      "answer": "Des problèmes peuvent survenir avec tout type d'accès parallèle en lecture. Pour y remédier, il est recommandé d'utiliser un outil spécialisé comme MPI-IO."
     }
   ],
-  "generated_at": "2026-04-13T13:53:24.353830+00:00"
+  "generated_at": "2026-08-08T00:39:23.775623+00:00"
 }

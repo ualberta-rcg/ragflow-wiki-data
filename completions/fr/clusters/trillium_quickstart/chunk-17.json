@@ -2,6 +2,15 @@
   "doc_key": "fr/trillium_quickstart",
   "level": "chunk",
   "chunk_index": 17,
-  "qa_pairs": [],
-  "generated_at": "2026-05-10T00:42:38.246794+00:00"
+  "qa_pairs": [
+    {
+      "question": "Lorsque l'ordonnanceur Slurm exécute un script pour une tâche hybride MPI/OpenMP sur Trillium, quelles sont les actions clés qu'il effectue, et quelles configurations sont importantes pour la distribution des processus et l'optimisation des E/S ?",
+      "answer": "Après avoir alloué les nœuds demandés, Slurm exécute le script en changeant le répertoire de soumission, charge les modules nécessaires comme StdEnv, gcc et OpenMPI, et configure les variables OpenMP. Pour optimiser les E/S MPI avec le système de fichiers VAST, il est crucial de précharger la bibliothèque VAST (<code>source /scinet/vast/etc/vastpreload-openmpi.bash</code>) et d'utiliser <code>mpirun</code>. La distribution efficace des processus et des fils sur les cœurs est gérée par l'option <code>--map-by</code> de <code>mpirun</code>, avec des ajustements pour <code>l3cache</code>, <code>numa</code> ou <code>socket</code> selon le nombre de fils par processus."
+    },
+    {
+      "question": "Quelles sont les règles spécifiques pour demander des GPU sur la sous-grappe de GPU de Trillium, et est-ce que la technologie NVIDIA MIG est prise en charge pour l'allocation partielle de GPU?",
+      "answer": "Sur la sous-grappe de GPU de Trillium, vous ne pouvez demander qu'un seul GPU ou un multiple de quatre GPU. Il n'est pas possible de demander 2 ou 3 GPU par nœud. La technologie NVIDIA MIG (Multi-Instance GPU) n'est pas prise en charge, ce qui signifie qu'on ne peut pas allouer une fraction d'un GPU. Cependant, il est possible d'utiliser NVIDIA MPS (Multi-Process Service) dans vos tâches pour partager un GPU entre différents processus."
+    }
+  ],
+  "generated_at": "2026-08-08T00:52:41.684285+00:00"
 }

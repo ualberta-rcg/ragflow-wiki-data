@@ -4,17 +4,13 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "How can users estimate the necessary Slurm node memory for a single-process Abaqus simulation to prevent excessive disk I/O on Alliance clusters?",
-      "answer": "Users can estimate the required Slurm node memory by checking the \"MEMORY TO MINIMIZE I/O\" (MRMIO) value in the Abaqus `test.dat` output file. Alternatively, they can monitor the \"VIRT\" (virtual memory) and \"RES\" (resident memory) columns using the `top` command during an interactive simulation. To fully meet the MRMIO, sufficient non-swapped physical memory (RES) must be available, often requiring a slight over-allocation (e.g., 3072MB) in the Slurm `--mem` setting. Reducing `--mem` below MRMIO will increase scratch disk usage but can lower queue wait times, provided the RES does not drop below the \"MINIMUM MEMORY REQUIRED\" (MMR) to avoid Out of Memory errors."
+      "question": "How can I determine the amount of Slurm node memory required for an Abaqus simulation?",
+      "answer": "An estimate for the total Slurm node memory (`--mem=`) needed to run a simulation fully in RAM can be obtained by examining the Abaqus output `test.dat` file, specifically the \"MEMORY TO MINIMIZE I/O\" value. Alternatively, for a single node threaded process, one can run the simulation interactively on a compute node and monitor memory use with the `top` or `ps` command, observing the VIRT and RES columns until steady peak memory values are observed."
     },
     {
-      "question": "How does a user determine the appropriate `mem-per-cpu` value for multi-node Abaqus Slurm scripts, considering memory estimates from completed jobs?",
-      "answer": "The `mem-per-cpu` value for multi-node Abaqus Slurm scripts can be roughly calculated based on memory estimates provided in the output `.dat` file of completed jobs. If `mp_host_split` is not specified or set to 1, multiply the largest per-process memory estimate by the number of nodes, then divide by the total `ntasks`. If `mp_host_split` is greater than 1, multiply the largest memory estimate by the number of nodes, then by `mp_host_split`, and finally divide by the total `ntasks`. It's crucial that `mp_host_split` does not exceed the number of cores per node assigned by Slurm at runtime to prevent Abaqus from terminating."
-    },
-    {
-      "question": "What are the recommended platforms for running Abaqus graphical applications on Alliance clusters, and how does one launch Abaqus CAE on OpenOnDemand?",
-      "answer": "For running Abaqus graphical applications on Alliance clusters, it is recommended to use OpenOnDemand or JupyterLab. To launch Abaqus CAE on OpenOnDemand, first start an OpenOnDemand desktop session, then open a new terminal, load the Abaqus module (e.g., `module load abaqus/2026`), and finally start the application using `abaqus cae`. If you are on a node without a GPU or without VirtualGL support, append the `-mesa` option: `abaqus cae -mesa`."
+      "question": "When configuring Slurm jobs for Abaqus, what do \"MEMORY TO MINIMIZE I/O\" (MRMIO) and \"MINIMUM MEMORY REQUIRED\" (MMR) indicate regarding memory allocation?",
+      "answer": "\"MEMORY TO MINIMIZE I/O\" (MRMIO) represents the memory required to minimize I/O operations by running the simulation fully in RAM. To fully satisfy MRMIO, at least the same amount of non-swapped physical memory (RES) must be available. \"MINIMUM MEMORY REQUIRED\" (MMR) is the absolute lowest RES memory that can be allocated; if RES drops below MMR, Abaqus will terminate due to an Out of Memory (OOM) error. It is generally necessary to slightly over-allocate the requested Slurm node memory (`--mem=`) because RES will typically be less than the virtual memory (VIRT)."
     }
   ],
-  "generated_at": "2026-05-31T01:08:06.484700+00:00"
+  "generated_at": "2026-08-07T23:24:30.403965+00:00"
 }

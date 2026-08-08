@@ -12,6 +12,7 @@ Auto-generated index for `en/general`.
 - [Authoring Guidelines](authoring_guidelines.md)
 - [Building A Software Carpentry Style Lesson On The Wiki](building_a_software_carpentry_style_lesson_on_the_wiki.md)
 - [Dbaas](dbaas.md)
+- [Graphical Use Of Ansys](graphical_use_of_ansys.md)
 - [Including A Command Within The Wiki](including_a_command_within_the_wiki.md)
 - [Including A Source Code File Within The Wiki](including_a_source_code_file_within_the_wiki.md)
 - [Including Source Code Within The Wiki](including_source_code_within_the_wiki.md)

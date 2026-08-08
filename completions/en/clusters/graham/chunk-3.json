@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What is the primary design objective for Graham's high-performance interconnect regarding parallel jobs?",
-      "answer": "The design of Graham's interconnect aims to support multiple simultaneous parallel jobs of up to 1024 cores in a fully non-blocking manner."
+      "question": "When running a job on Volta GPU nodes on the Graham cluster, what is the recommended ratio of CPUs to GPUs for 28-core nodes and the two newest 40-core nodes?",
+      "answer": "For 28-core Volta GPU nodes, it is recommended to keep the ratio of CPUs to GPUs at 3.5 or less (e.g., at most 14 CPU cores for 4 GPUs, or at most 3 CPU cores for 1 GPU). For the two newest 40-core Volta nodes, users can request 5 CPU cores per GPU."
     },
     {
-      "question": "How does Graham's interconnect perform for parallel jobs that require more than 1024 cores?",
-      "answer": "For larger jobs exceeding 1024 cores, the Graham interconnect has an 8:1 blocking factor, yet it still provides a high-performance connection, even when those jobs span multiple islands."
+      "question": "How can a user explicitly request one of the newest 40-core Volta nodes with NVLINK when submitting a job to the Graham cluster?",
+      "answer": "To request one of the newest 40-core Volta nodes with NVLINK, users should add the `--constraint=cascade,v100` parameter to their job submission script."
     },
     {
-      "question": "What is the uplink speed from Graham's cloud nodes' Ethernet network to the scratch storage?",
-      "answer": "The cloud nodes on Graham, which are configurable for cloud provisioning, have a 10Gb/s Ethernet network with 40Gb/s uplinks to scratch storage."
+      "question": "For jobs on Graham's Volta nodes that involve significant I/O, how should users utilize the fast local disk, and what happens to the files stored there after the job completes?",
+      "answer": "For I/O-intensive jobs on Graham's Volta nodes, users should use the fast local disk, whose location is specified by the environment variable `$SLURM_TMPDIR`. Input files can be copied there at the start of the job and output files copied out at the end. All files in `$SLURM_TMPDIR` are automatically removed once the job finishes."
     }
   ],
-  "generated_at": "2026-04-13T06:49:16.427054+00:00"
+  "generated_at": "2026-08-08T00:14:22.551055+00:00"
 }

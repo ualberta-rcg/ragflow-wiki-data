@@ -4,13 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What environment variable must be set for a Power-on-Demand (PoD) license when running STAR-CCM+ jobs on Alliance clusters via SLURM scripts, and how is it used in the `starccm+` command?",
-      "answer": "For Power-on-Demand (PoD) licenses, researchers must manually set the `LM_PROJECT` environment variable to their 22-digit PoD License Key. This variable is then used in the `starccm+` command with the `-podkey $LM_PROJECT` option, as seen in the sample SLURM scripts for clusters like Fir, Narval, and Rorqual."
+      "question": "How is the license server connection specifically configured for STAR-CCM+ jobs on the Trillium cluster?",
+      "answer": "For STAR-CCM+ jobs on the Trillium cluster, the `CDLMD_LICENSE_FILE` environment variable is exported as `\"$FLEXPORT@127.0.0.1\"`, and an SSH tunnel is established via `ssh tri-gw` to forward the flex and vendor ports from the specified `LICSERVER` to the local host."
     },
     {
-      "question": "What is the primary difference in how Power-on-Demand (PoD) licenses for STAR-CCM+ are configured and accessed on the Trillium cluster compared to Fir, Narval, or Rorqual clusters when using SLURM scripts?",
-      "answer": "On the Trillium cluster, PoD licenses for STAR-CCM+ are configured using explicit environment variables (`FLEXPORT`, `VENDPORT`, `LICSERVER`) and an `ssh` tunnel via `tri-gw` to forward these license ports. This setup is used instead of relying on the `~/.licenses/starccm.lic` file. Additionally, the Trillium script includes a retry loop to mitigate potential license failures. In contrast, Fir, Narval, and Rorqual clusters primarily rely on setting the `LM_PROJECT` environment variable and require a `~/.licenses/starccm.lic` file."
+      "question": "What mechanism is implemented in the Trillium Slurm script to handle potential STAR-CCM+ license failures during job startup?",
+      "answer": "The Trillium Slurm script includes a `while` loop that attempts to start STAR-CCM+ up to five times if the previous attempt returns a non-zero exit status, indicating a failure. A 5-second pause is included before the very first retry attempt."
+    },
+    {
+      "question": "How does the STAR-CCM+ job submission script on Trillium differentiate between Power-on-Demand (PoD) and institutional license servers?",
+      "answer": "The script differentiates by checking if the `LM_PROJECT` environment variable is set. If `LM_PROJECT` is defined, it assumes a Siemens PoD license and launches `starccm+` with the `-power -podkey $LM_PROJECT` options. Otherwise, it proceeds with options suitable for an institutional license server."
     }
   ],
-  "generated_at": "2026-05-24T01:32:10.815836+00:00"
+  "generated_at": "2026-08-08T00:33:01.282136+00:00"
 }

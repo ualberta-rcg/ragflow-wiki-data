@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Où est-ce que les bases de données requises pour AlphaFold3 devraient être stockées sur les grappes d'Alliance?",
-      "answer": "Les bases de données pour AlphaFold3 doivent être stockées dans le répertoire `$SCRATCH` sur les grappes d'Alliance pour assurer un fonctionnement optimal. Par exemple, vous pouvez les placer dans `$SCRATCH/alphafold/dbs`."
+      "question": "Comment AlphaFold3 est-il exécuté sur les grappes d'Alliance?",
+      "answer": "AlphaFold3 est exécuté en deux étapes distinctes pour optimiser l'utilisation des ressources et les coûts. La première étape est le pipeline de données, qui s'exécute sur le CPU, et la deuxième étape est l'inférence du modèle, qui demande un GPU. Cette approche permet de séparer la préparation des données, gourmande en CPU, de l'inférence, gourmande en GPU."
     },
     {
-      "question": "Comment faire pour télécharger les bases de données nécessaires à AlphaFold3?",
-      "answer": "Pour télécharger les bases de données d'AlphaFold3, il faut d'abord télécharger le script de téléchargement avec `wget https://raw.githubusercontent.com/google-deepmind/alphafold3/refs/heads/main/fetch_databases.sh`. Ensuite, créez un répertoire pour les bases de données, par exemple `$SCRATCH/alphafold/dbs`, et exécutez le script avec `bash fetch_databases.sh $SCRATCH/alphafold/dbs`."
+      "question": "Comment soumettre les tâches AlphaFold3 au planificateur SLURM pour s'assurer que l'étape d'inférence ne commence qu'après la fin de l'étape de données?",
+      "answer": "Pour garantir que l'étape d'inférence (alphafold3-inference.sh) ne débute qu'après que l'étape du pipeline de données (alphafold3-data.sh) se soit complétée avec succès, vous pouvez soumettre les tâches de manière dépendante. Il faut d'abord soumettre la première tâche avec `jid1=$(sbatch alphafold3-data.sh)`, puis la deuxième avec `jid2=$(sbatch --dependency=afterok:$jid1 alphafold3-inference.sh)`. Si la première tâche échoue, il est important d'annuler manuellement la seconde si elle n'est pas annulée automatiquement."
     },
     {
-      "question": "Pourquoi est-il suggéré d'exécuter AlphaFold3 en plusieurs étapes?",
-      "answer": "Il est suggéré d'exécuter AlphaFold3 en plusieurs étapes pour deux raisons principales : premièrement, ça permet de séparer le pipeline de données (qui roule sur un CPU) du modèle d'inférence (qui requiert un GPU) afin d'optimiser les coûts et l'utilisation des ressources; deuxièmement, ça permet de mettre en cache les résultats de la recherche MSA/modèle pour les réutiliser avec différentes inférences ou variations."
+      "question": "Que faire si AlphaFold3 rencontre des problèmes de mémoire insuffisante sur le GPU lors de l'exécution d'inférences avec un grand nombre de jetons ou sur une carte graphique avec moins de mémoire, comme un A100 de 40Go?",
+      "answer": "Si AlphaFold3 manque de mémoire GPU, surtout avec plus de 5120 jetons ou sur un GPU de 40Go (tel qu'un A100), vous pouvez activer la fonctionnalité de mémoire unifiée. Pour ce faire, il faut ajouter les variables d'environnement `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true` et `export XLA_CLIENT_MEM_FRACTION=2.0` au script de tâche d'inférence. Il faut aussi ajuster la quantité de mémoire allouée à la tâche dans le script, par exemple, `#SBATCH --mem=80G` si vous ciblez 80Go de mémoire unifiée avec un GPU de 40Go."
     }
   ],
-  "generated_at": "2026-05-24T01:00:46.264661+00:00"
+  "generated_at": "2026-08-07T23:31:38.069022+00:00"
 }

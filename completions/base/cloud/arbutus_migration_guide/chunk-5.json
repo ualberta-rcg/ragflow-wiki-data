@@ -2,6 +2,19 @@
   "doc_key": "base/arbutus_migration_guide",
   "level": "chunk",
   "chunk_index": 5,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:42:47.788367+00:00"
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the `dd` utility when migrating volume-backed instances in the Arbutus Cloud?",
+      "answer": "The `dd` utility is used to create an image from a disk or volume. This image can then be uploaded to the new Arbutus Cloud and used to launch new instances, effectively making an identical copy of a volume from the legacy cloud on the new cloud."
+    },
+    {
+      "question": "When is the `dd` command recommended for migrating large volumes to the new Arbutus Cloud?",
+      "answer": "The `dd` command is recommended for migrating large volumes when image-based methods are not suitable, and when copying data using tools like `rsync` is not possible (e.g., for bootable volumes). It creates an identical copy of the volume on the new cloud."
+    },
+    {
+      "question": "How do you create an image from an attached volume on a temporary migration host using the `dd` utility and OpenStack CLI for Arbutus Cloud migration?",
+      "answer": "To create an image, first, ensure the volume is attached to the temporary migration host (e.g., as `/dev/vdb`). Then, execute the command: `dd if=/dev/vdb | openstack image create --private --container-format bare --disk-format raw \"volumemigrate\"`. Replace `/dev/vdb` with the actual device and `\"volumemigrate\"` with your desired image name."
+    }
+  ],
+  "generated_at": "2026-08-07T23:36:20.722769+00:00"
 }

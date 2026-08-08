@@ -3,69 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is CephFS on Alliance clusters used for?",
-      "answer": "CephFS provides a common filesystem that can be shared amongst multiple OpenStack Virtual Machine (VM) hosts."
+      "question": "What is the main purpose of CephFS on Alliance OpenStack VM hosts?",
+      "answer": "CephFS provides a common filesystem that can be shared amongst multiple OpenStack VM hosts."
     },
     {
-      "question": "What basic Linux skills are assumed for users setting up CephFS on Alliance clusters?",
-      "answer": "Users are assumed to have basic Linux skills for creating/editing files, setting permissions, and creating mount points."
+      "question": "Who should users contact to request access to CephFS shares on Alliance clusters?",
+      "answer": "Users should contact cloud@tech.alliancecan.ca to request access to CephFS shares."
     },
     {
-      "question": "How does one request access and quota for CephFS shares on Alliance clusters?",
-      "answer": "Access and quota requests for CephFS shares should be sent via email to cloud@tech.alliancecan.ca, including the OpenStack project name, required quota in GB, and number of shares needed."
+      "question": "What are the basic Linux skill prerequisites for configuring CephFS on Alliance clusters?",
+      "answer": "Basic Linux skills for creating/editing files, setting permissions, and creating mount points are assumed."
     },
     {
-      "question": "What are the key steps to create a CephFS share using the OpenStack Horizon GUI?",
-      "answer": "Navigate to Project -> Share -> Shares, click '+Create Share', then enter a share name, select 'CephFS' protocol, specify size, choose 'cephfs' as Share Type (or 'cephfs-ec42' on SD4H/Juno), set 'Availability Zone' to 'nova', ensure 'Make visible for all' is unchecked, and click 'Create'."
+      "question": "What information is required when requesting a new CephFS quota or shares through cloud@tech.alliancecan.ca?",
+      "answer": "Users must provide their OpenStack project name, the amount of quota required (in GB), and the number of shares required."
     },
     {
-      "question": "How do you create an access rule and generate an access key for a CephFS share in OpenStack?",
-      "answer": "From Project -> Share -> Shares, select 'Manage Rules' for the share, then click '+Add Rule'. Set 'Access Type' to 'cephx', select 'read-write' or 'read-only' for 'Access Level', and provide a descriptive key name for 'Access To'."
+      "question": "How do users create a CephFS share within the OpenStack Horizon GUI?",
+      "answer": "Users navigate to 'Project --> Share --> Shares', click '+Create Share', then provide a share name, 'CephFS' as protocol, size, 'cephfs' as share type, 'nova' as availability zone, and ensure 'Make visible for all' is unchecked."
     },
     {
-      "question": "What essential share details should be noted from the OpenStack Share Overview for configuring a CephFS client on a VM?",
-      "answer": "Users should note the 'Path' for the mount command, the 'Access to' value (which is the client name), and the 'Access Key' for client connection."
+      "question": "What type of access rule is created for a CephFS share to generate an access key for VMs?",
+      "answer": "An access rule of 'cephx' type is created, with an 'Access Level' of 'read-write' or 'read-only' and a descriptive 'Access To' key name."
     },
     {
-      "question": "How is the CephFS network attached to a Virtual Machine (VM) on the SD4H/Juno platform?",
-      "answer": "On SD4H/Juno, you must explicitly attach the CephFS network to each VM by selecting 'Instance -> Action -> Attach interface' in the Web GUI and choosing 'CephFS-Network', or by using the OpenStack CLI command `openstack server add network <VM_ID> CephFS-Network`."
+      "question": "What three key details from the CephFS share overview are necessary for client configuration on a VM?",
+      "answer": "The three key details are the 'Path' (for the mount command), the 'Access to' (which will be the client name), and the 'Access Key'."
     },
     {
-      "question": "What packages are required for a Red Hat family Linux VM (e.g., RHEL, CentOS, Alma) to install the CephFS client?",
-      "answer": "First, configure a `ceph.repo` file with the appropriate `baseurl` (e.g., `http://download.ceph.com/rpm-tentacle/el9/$basearch`), install `epel-release`, and then run `sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
+      "question": "How does attaching the CephFS network to a VM differ between Arbutus and SD4H/Juno OpenStack clusters?",
+      "answer": "On Arbutus, the CephFS network is already exposed to the VM. On SD4H/Juno, users must explicitly attach the 'CephFS-Network' to each VM either via the Web GUI or the OpenStack command-line client."
     },
     {
-      "question": "How do you configure the `ceph.conf` file on an Arbutus VM to connect to a CephFS share?",
-      "answer": "The `ceph.conf` file should be created in `/etc/ceph/` and include global settings such as `mon host` (specifying Arbutus monitor IP addresses and ports), `admin socket`, `client reconnect stale`, `debug client`, and `fuse big writes`, along with `quota = true` under the `[client]` section."
+      "question": "What are the initial steps for configuring a CephFS client on a Red Hat Enterprise Linux family VM on Alliance clusters?",
+      "answer": "Initial steps include adding the Ceph software repository, installing the EPEL repository, potentially disabling the default cryptographic policy for el10, importing the Ceph project's public key, and then installing relevant Ceph client packages."
     },
     {
-      "question": "How do you configure the `ceph.conf` file on an SD4H/Juno VM to connect to a CephFS share?",
-      "answer": "The `ceph.conf` file should be created in `/etc/ceph/` and include global settings such as `mon host` (specifying SD4H/Juno monitor IP addresses and ports), `admin socket`, `client reconnect stale`, `debug client`, and `fuse big writes`, along with `quota = true` under the `[client]` section."
+      "question": "What is the process for installing CephFS client packages on a Debian family VM on Alliance clusters?",
+      "answer": "Users first add the Ceph repository for their distro's codename using `sudo apt-add-repository`, then install `libcephfs2 python3-cephfs ceph-common python3-ceph-argparse` using `sudo apt-get install`."
     },
     {
-      "question": "How do you set up the `ceph.keyring` file for a CephFS client on a VM?",
-      "answer": "Create `/etc/ceph/ceph.keyring` with a `[client.<ClientName>]` section, where `<ClientName>` is the 'Access to' value from the OpenStack share details, and set `key = <Access Key>` using the access key obtained from the share details."
+      "question": "What critical information is included in the `ceph.conf` file for CephFS clients, and how does the monitor host configuration vary between Arbutus and SD4H/Juno clouds?",
+      "answer": "The `ceph.conf` file includes global settings like `admin socket`, `client reconnect stale`, and `debug client`. Critically, it specifies different `mon host` IP addresses for Arbutus and SD4H/Juno, reflecting their respective network configurations."
     },
     {
-      "question": "How can you permanently mount a CephFS device on an Arbutus VM using `/etc/fstab`?",
-      "answer": "Create a mount point (e.g., `/cephfs`), then add an entry to `/etc/fstab` in the format `:path_to_volume /cephfs/ ceph name=MyCephFS-RW,nofail 0 2`, ensuring the `nofail` option is included."
+      "question": "Where are the CephFS client name and access key stored for client authentication on a VM?",
+      "answer": "The client name and access key are stored in the `/etc/ceph/ceph.keyring` file, under a section like `[client.MyCephFS-RW]` with the associated `key = <Access Key>`."
     },
     {
-      "question": "How can you permanently mount a CephFS device on an SD4H/Juno VM using `/etc/fstab`?",
-      "answer": "Create a mount point (e.g., `/cephfs`), then add an entry to `/etc/fstab` in the format `:path_to_volume /cephfs/ ceph name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw,nofail 0 2`."
+      "question": "How is a CephFS share permanently mounted on an Alliance VM using the kernel driver, and what specific option is required for SD4H/Juno?",
+      "answer": "A CephFS share is permanently mounted by adding an entry to `/etc/fstab`, specifying the share's path, mount point, 'ceph' filesystem type, and client name. For SD4H/Juno, the `mds_namespace=cephfs_4_2` option is specifically required."
     },
     {
-      "question": "What is an alternative method for mounting CephFS directly in user space, and what is required?",
-      "answer": "CephFS can be mounted in user space using `ceph-fuse`. This requires installing `ceph-fuse`, uncommenting `user_allow_other` in `/etc/fuse.conf`, and then using the `ceph-fuse` command with `--id`, `--conf`, `--keyring`, and `--client-mountpoint` options."
+      "question": "How can a user mount CephFS in user space on a VM using `ceph-fuse`?",
+      "answer": "After installing `ceph-fuse` and uncommenting `user_allow_other` in `/etc/fuse.conf`, a user can mount CephFS in their home directory using `ceph-fuse ~/my_cephfs --id=<ClientName> --conf=~/ceph.conf --keyring=~/ceph.keyring --client-mountpoint=<SharePath>`."
     },
     {
-      "question": "Can a CephFS share have multiple user keys, and what is the advantage of this feature?",
-      "answer": "Yes, a CephFS share can have more than one user key provisioned, allowing for more granular access to the filesystem, such as providing read-only access to specific hosts."
-    },
-    {
-      "question": "Is CephFS accessible from hosts located outside of the OpenStack cluster?",
-      "answer": "No, the CephFS service is not available to hosts outside of the OpenStack cluster."
+      "question": "What are the limitations regarding CephFS access for hosts located outside of the OpenStack cluster environment?",
+      "answer": "The CephFS service is not available to hosts located outside of the OpenStack cluster environment."
     }
   ],
-  "generated_at": "2026-04-26T00:51:55.958564+00:00"
+  "generated_at": "2026-08-07T23:49:13.445981+00:00"
 }

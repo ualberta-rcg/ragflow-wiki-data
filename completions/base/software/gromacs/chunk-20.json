@@ -4,17 +4,17 @@
   "chunk_index": 20,
   "qa_pairs": [
     {
-      "question": "What is the primary focus of this section regarding GROMACS?",
-      "answer": "This section of the document primarily focuses on GROMACS performance."
+      "question": "How does GROMACS manage Particle-Mesh-Ewald (PME) calculations and what configuration options are available for PME ranks?",
+      "answer": "GROMACS dedicates specific MPI processes, called PME ranks, to handle Particle-Mesh-Ewald (PME) calculations for long-range non-bonded interactions. By default, `mdrun` employs heuristics to assign PME ranks when the total number of MPI processes is 12 or more. Users can manually specify the number of PME ranks using the `mdrun` parameter `-npme`."
     },
     {
-      "question": "Is it straightforward to achieve optimal `mdrun` performance when using GROMACS?",
-      "answer": "No, getting the best `mdrun` performance with GROMACS is not a straightforward task."
+      "question": "How can OpenMP threads be leveraged to improve GROMACS simulation performance, especially when MPI domain decomposition approaches its scaling limit?",
+      "answer": "To further enhance performance once MPI domain decomposition reaches its scaling limit, OpenMP threads can be utilized to distribute the work of an MPI process across multiple CPU cores. This involves using Slurm's `--cpus-per-task` parameter in the job script and either setting the `OMP_NUM_THREADS` environment variable (which is recommended) or employing the `mdrun` parameter `-ntomp`. GROMACS developers typically suggest an optimal range of 2 to 6 OpenMP threads per MPI process, though a higher number might be suitable for jobs running on a very large number of nodes."
     },
     {
-      "question": "Where can GROMACS users find detailed guidance on optimizing `mdrun` performance?",
-      "answer": "The GROMACS developers maintain a long section in their user guide specifically dedicated to `mdrun`-performance, which explains relevant options, parameters, and strategies."
+      "question": "What are the capabilities and limitations of offloading Particle-Mesh-Ewald (PME) calculations to GPUs in GROMACS?",
+      "answer": "Since GROMACS version 2018, it has been possible to offload Particle-Mesh-Ewald (PME) calculations to GPUs. However, as of version 2018.1, this implementation had limitations, including the restriction that only a single GPU rank could be dedicated to PME."
     }
   ],
-  "generated_at": "2026-04-13T06:05:46.104241+00:00"
+  "generated_at": "2026-08-08T00:00:11.925532+00:00"
 }

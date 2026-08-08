@@ -4,13 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Quels paramètres l'exemple de script de tâche VASP configure-t-il pour l'ordonnanceur Slurm?",
-      "answer": "Le script configure le compte Slurm avec `--account=<ACCOUNT>`, quatre processus MPI avec `--ntasks=4`, 1024 Mo de mémoire par cœur CPU avec `--mem-per-cpu=1024M` et un temps d'exécution maximal de 5 minutes avec `--time=0-00:05`."
+      "question": "Quels sont les fichiers d'entrée requis pour exécuter une tâche avec le logiciel VASP?",
+      "answer": "Pour exécuter VASP, quatre fichiers d'entrée sont nécessaires : INCAR, KPOINTS, POSCAR et POTCAR. Il est conseillé de les préparer dans un répertoire distinct pour chaque tâche."
     },
     {
-      "question": "Selon le premier exemple de script de tâche VASP, quelle est la quantité totale de mémoire demandée pour la tâche?",
-      "answer": "La quantité totale de mémoire demandée est de 4096 Mo, ce qui correspond à quatre cœurs avec chacun 1024 Mo de mémoire."
+      "question": "Comment puis-je estimer la quantité de mémoire requise pour une tâche VASP sur les grappes d'Alliance?",
+      "answer": "Si vous ne connaissez pas la quantité de mémoire exacte, vous pouvez préparer vos fichiers d'entrée et lancer la commande `makeparam` dans une tâche interactive. Le résultat de cette commande vous donnera une estimation à utiliser pour les exécutions futures. Pour une estimation plus précise, vous pouvez aussi vérifier la taille maximale de la pile de mémoire des tâches complétées et utiliser cette valeur par processeur."
+    },
+    {
+      "question": "Comment soumettre un script de tâche VASP qui utilise des GPU sur les superordinateurs d'Alliance, tel que Cedar?",
+      "answer": "Pour soumettre une tâche VASP utilisant des GPU, vous devez créer un script, par exemple `vasp_gpu_job.sh`. Ce script doit spécifier les ressources via les directives `#SBATCH` pour le nombre de cœurs CPU, la mémoire (ex. `--mem=3GB`), et le type et le nombre de GPU (ex. `--gres=gpu:p100:1` pour un GPU de type p100 sur Cedar). Après avoir chargé les modules nécessaires (intel, cuda, openmpi et vasp), vous exécuterez VASP avec `mpirun <VASP>`, puis soumettrez la tâche avec la commande `sbatch vasp_gpu_job.sh`."
     }
   ],
-  "generated_at": "2026-05-03T01:51:34.151361+00:00"
+  "generated_at": "2026-08-08T00:59:30.336096+00:00"
 }

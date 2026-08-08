@@ -4,17 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What are the recommended performance tuning strategies for CPU nodes on the Fir cluster, and which Slurm commands should be used?",
-      "answer": "To optimize performance on Fir's CPU nodes, it is recommended to align tasks to CCDs (chiplets) by using `#SBATCH --cpus-per-task=8`, which ensures threads stay within an 8-core CCD and avoids inter-chiplet communication latency. Additionally, tasks should be distributed across CCDs by launching 24 tasks per node using `#SBATCH --ntasks-per-node=24` to fully utilize all 24 CCDs without overloading any single one, effectively filling a 192-core node."
+      "question": "What are the different storage areas available on the Fir cluster, and what are their respective characteristics concerning access paths, quotas, and backup policies?",
+      "answer": "The Fir cluster offers 51PB of high-performance DDN Lustre storage, divided into three main areas:\n*   **HOME**: This is the default `$HOME` directory, provided with a small per-user quota. It benefits from daily automatic backups, but its quota cannot be increased. For larger storage needs, users are advised to use the `/project` area.\n*   **SCRATCH**: Located at `$HOME/scratch`, this area has a large per-user quota. It is intended for temporary files and does not have backups; old files are automatically purged.\n*   **PROJECT**: Accessible via `$HOME/project/${def-project-id}`, this area features a large and adjustable per-project quota. It receives daily backups and is suitable for group data sharing and large datasets."
     },
     {
-      "question": "What are the performance tuning recommendations for GPU nodes on the Fir cluster to optimize CPU-GPU data locality?",
-      "answer": "For optimal CPU-GPU data locality on Fir's GPU nodes, it is recommended to bind threads to CCDs using `#SBATCH --cpus-per-task=6` to keep threads within a 6-core CCD, thereby reducing cross-CCD latency and improving cache usage. It's also advised to match tasks to NUMA nodes by launching 4 tasks per node (or a multiple thereof) using `#SBATCH --ntasks-per-node=4` combined with `#SBATCH --cpus-per-task=12` to ensure each task stays within a NUMA domain with local memory and GPU access."
+      "question": "What are the specific policies and restrictions for running jobs and using certain tools on the Fir cluster?",
+      "answer": "On the Fir cluster, the `crontab` tool is not supported, and Visual Studio Code is blocked on the login nodes. Regarding job duration, each job must have a minimum duration of one hour (or five minutes for test jobs), and the maximum allowable job duration is 7 days (168 hours). For data transfer, users should use the specified endpoint for Globus, while tools like `rsync` and `scp` should be used via the login node."
     },
     {
-      "question": "How can researchers request full NVIDIA H100 GPUs or specific MIG GPU instances for their compute jobs on the Fir cluster using Slurm options?",
-      "answer": "To request full NVIDIA H100-80gb GPUs, researchers can use `--gpus=h100:1` for one GPU, `--gpus-per-node=h100:2`, `--gpus-per-node=h100:3`, or `--gpus-per-node=h100:4` for multiple GPUs per node, or `--gpus=h100:n` (replacing 'n' with the desired number) for multiple GPUs spread anywhere. For specific MIG GPU instances, the options are `--gpus=nvidia_h100_80gb_hbm3_1g.10gb:1` for a 1g.10gb instance, `--gpus=nvidia_h100_80gb_hbm3_2g.20gb:1` for a 2g.20gb instance, or `--gpus=nvidia_h100_80gb_hbm3_3g.40gb:1` for a 3g.40gb instance."
+      "question": "Could you describe the types of compute nodes available on the Fir cluster, including their CPU, memory, and GPU configurations?",
+      "answer": "The Fir cluster offers a variety of compute nodes:\n*   **864 nodes**: Each features 192 cores, 750GB of available memory (or 768000M), 2 x AMD EPYC 9655 (Zen 5) @ 2.7 GHz CPUs with 384MB L3 cache, and 7.84TB NVMe storage.\n*   **8 nodes**: Each is equipped with 192 cores, 6000GB of available memory (or 6144000M), 2 x AMD EPYC 9654 (Zen 4) @ 2.4 GHz CPUs with 384MB L3 cache, and 7.84TB NVMe storage.\n*   **160 GPU nodes**: Each contains 48 cores, 1125GB of available memory (or 1152000M), 1 x AMD EPYC 9454 (Zen 4) @ 2.75 GHz CPU with 256MB L3 cache, 7.84TB NVMe storage, and includes 4 x NVidia H100 SXM5 GPUs (80 GB memory each), which are interconnected via NVLink."
     }
   ],
-  "generated_at": "2026-04-13T05:20:56.458579+00:00"
+  "generated_at": "2026-08-07T23:55:30.336682+00:00"
 }

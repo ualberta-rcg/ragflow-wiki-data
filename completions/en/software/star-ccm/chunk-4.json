@@ -4,13 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "In a Slurm batch script for STAR-CCM+, what common `#SBATCH` directives are used to specify job resources, as shown in this example?",
-      "answer": "This example Slurm script uses `#SBATCH --nodes=1` to request one node, `#SBATCH --cpus-per-task=16` to specify 16 CPU cores per task (with a maximum of 192), `#SBATCH --mem=64G` for 64 gigabytes of memory per node, and `#SBATCH --ntasks-per-node=1` to ensure one task runs per node."
+      "question": "How do users specify a Power-on-Demand (PoD) license key within a Slurm script for STAR-CCM+ on Fir, Narval, or Rorqual clusters?",
+      "answer": "Users must manually set the `LM_PROJECT` environment variable to their 22-digit PoD license key within the Slurm script. For example, the script includes a line like `LM_PROJECT='22digit-PoD-License-Key'` which should be uncommented and updated with the specific key."
     },
     {
-      "question": "What software modules are loaded in this Slurm script for setting up the environment to run STAR-CCM+?",
-      "answer": "The script first loads the `StdEnv/2023` module to establish a standard environment, and then loads `starccm-mixed/20.06.010` (or a similar version like `starccm/20.06.010-R8`) to make the STAR-CCM+ software available."
+      "question": "What modules are typically loaded in a Slurm script to prepare the environment for running STAR-CCM+ on Fir, Narval, or Rorqual clusters?",
+      "answer": "The Slurm script typically loads `StdEnv/2023` first, followed by a STAR-CCM+ module, such as `starccm-mixed/21.02.008` (or another appropriate version like `starccm/21.02.008-R8`)."
+    },
+    {
+      "question": "How is the total number of cores (`NCORE`) determined for a STAR-CCM+ job submitted via a Slurm script on Fir, Narval, or Rorqual clusters?",
+      "answer": "The `NCORE` variable, representing the total number of cores, is calculated within the Slurm script by multiplying the values of `SLURM_NNODES`, `SLURM_CPUS_PER_TASK`, and `SLURM_NTASKS_PER_NODE`. This calculated value is then passed to the `starccm+` command for the job execution."
     }
   ],
-  "generated_at": "2026-05-24T01:33:42.404173+00:00"
+  "generated_at": "2026-08-08T00:34:00.825243+00:00"
 }

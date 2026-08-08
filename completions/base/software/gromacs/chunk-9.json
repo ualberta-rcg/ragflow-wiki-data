@@ -4,13 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "Which standard software environment are GROMACS versions 2020.4 and newer compiled for?",
-      "answer": "GROMACS versions 2020.4 and newer are compiled for the `StdEnv/2020` Standard software environment."
+      "question": "How do you submit a serial GROMACS job using a SLURM script, and what are the typical module loads for a recent GROMACS version?",
+      "answer": "A serial GROMACS job can be submitted using a SLURM script like `serial_gromacs_job.sh`, which might specify a time limit (`#SBATCH --time=0-0:30`) and memory per CPU (`#SBATCH --mem-per-cpu=1000M`). It typically loads modules such as `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `gromacs/2025.4`, and then executes `gmx mdrun -nt 1 -deffnm em` to run a simulation from an `em.tpr` file."
     },
     {
-      "question": "What compilers and libraries are used for GROMACS versions 2018.7 and newer?",
-      "answer": "GROMACS versions 2018.7 and newer are compiled with GCC compilers and the MKL-library to achieve faster performance."
+      "question": "When running GROMACS simulations that require whole compute nodes, what SLURM parameters should be configured for `--ntasks-per-node` and `--cpus-per-task`?",
+      "answer": "For GROMACS simulations that utilize whole nodes, the product of the `--ntasks-per-node` and `--cpus-per-task` parameters in your SLURM script should generally match the total number of CPU cores on the cluster's compute nodes. For example, on a Narval node, you might request `--ntasks-per-node=32` and `--cpus-per-task=2`, resulting in a total of 64 CPUs per node."
+    },
+    {
+      "question": "What action should be taken if GROMACS reports an error related to domain decomposition being impossible during a whole-node simulation?",
+      "answer": "If GROMACS reports an error indicating that domain decomposition is impossible given the system size and the requested number of domains, you should halve the `--ntasks-per-node` value and, concurrently, double the `--cpus-per-task` value in your SLURM job script. This adjustment is particularly helpful on clusters with a large number of CPU cores per compute node."
     }
   ],
-  "generated_at": "2026-04-13T06:04:20.499846+00:00"
+  "generated_at": "2026-08-07T23:58:48.406331+00:00"
 }

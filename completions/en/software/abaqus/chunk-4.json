@@ -4,13 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "What are the key command-line arguments used when submitting an Abaqus Standard Analysis job via a Slurm script like this?",
-      "answer": "The key command-line arguments include `job` to specify the job name, `input` for the simulation's input file, `scratch` to define the temporary file directory, `cpus` to set the number of CPUs, `interactive` for interactive mode, `mp_mode=threads` for thread-based parallelization, and `memory` which is calculated by subtracting 3072MB from the total memory allocated by Slurm (`SLURM_MEM_PER_NODE`). Additionally, `gpus` can be specified for GPU usage, though it is commented out by default."
+      "question": "When should users opt for MPI scripts for Abaqus jobs on Alliance clusters?",
+      "answer": "Users should use MPI scripts for Abaqus jobs when their computational tasks require large amounts of memory or processing resources that exceed the capabilities of a single compute node."
     },
     {
-      "question": "How does the provided script snippet handle different versions of Abaqus, specifically versions 2021 and 2026 or newer?",
-      "answer": "The script uses a conditional statement to differentiate between Abaqus 2021 and newer versions (2026 or later) based on the `EBVERSIONABAQUS` variable. For Abaqus 2021, it prepends the `abaqus` command with `unshare --fork --pid --mount-proc --user --map-user $USER`. For Abaqus 2026 or newer, the `abaqus` command is executed directly without the `unshare` prefix."
+      "question": "What preparatory steps are recommended before running long Abaqus jobs that utilize multiple nodes?",
+      "answer": "Before running long Abaqus jobs, especially those utilizing multiple nodes, it is recommended to conduct short scaling test jobs. These tests help determine the optimal wall-clock times and memory requirements as a function of the number of cores (e.g., 2, 4, 8, etc.) to ensure efficient resource usage for the longer jobs."
+    },
+    {
+      "question": "What types of parallelization do Abaqus solvers support for Standard Analysis jobs on Alliance clusters?",
+      "answer": "Abaqus solvers support both thread-based and MPI-based parallelization for Standard Analysis jobs. Scripts for each type are provided to run these jobs on either single or multiple nodes."
     }
   ],
-  "generated_at": "2026-05-31T01:06:37.067488+00:00"
+  "generated_at": "2026-08-07T23:22:59.612181+00:00"
 }

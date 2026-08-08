@@ -4,17 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "C'est quoi la différence entre les fichiers d'entrée pour AMS et pour l'ancien ADF, pis où est-ce qu'on peut trouver des exemples pour le nouveau AMS?",
-      "answer": "Le fichier d'entrée pour AMS est différent de celui pour l'ancien ADF; les anciens fichiers d'entrée pour ADF ne fonctionneront pas avec le nouveau AMS. Tu peux trouver des exemples dans `/opt/software/ams/2025.102/examples/`."
+      "question": "Comment configure-t-on un script Slurm pour lancer une tâche AMS ADF, comme l'exemple H2O, sur les grappes de calcul de Calcul Canada?",
+      "answer": "Pour configurer un script Slurm pour une tâche AMS ADF, il faut d'abord décharger le module `openmpi`, puis charger le module AMS (par exemple, `ams/2025.102`). Ensuite, on définit la variable d'environnement `SCM_TMPDIR` pour utiliser le disque local temporaire (`$SLURM_TMPDIR`), et finalement, on lance le script d'entrée AMS (par exemple, `H2O_adf.run`)."
     },
     {
-      "question": "Où est-ce que les fichiers de sortie d'une tâche AMS sont sauvegardés, pis quel nom ils ont si AMS_JOBNAME n'est pas spécifié?",
-      "answer": "À l'exception du fichier en sortie .log, tous les autres fichiers sont sauvegardés dans le sous-répertoire `AMS_JOBNAME.results`. Si `AMS_JOBNAME` n'est pas défini dans le fichier en entrée `.run`, le nom par défaut sera `ams.results`."
+      "question": "Quels sont les éléments essentiels à définir dans un fichier d'entrée AMS, tel que `H2O_adf.run`, pour effectuer une optimisation de géométrie avec le moteur ADF?",
+      "answer": "Pour une optimisation de géométrie avec le moteur ADF dans un fichier d'entrée AMS comme `H2O_adf.run`, on doit définir le bloc `System` pour spécifier les `Atoms` avec leurs coordonnées. On précise aussi la `Task GeometryOptimization` et, dans le bloc `Engine ADF`, on configure le `Basis` (par exemple, `Type TZP`) et le fonctionnel `XC` (par exemple, `GGA PBE`)."
     },
     {
-      "question": "Quelles sont les étapes pour utiliser l'interface graphique d'AMS (AMS-GUI) sur Nibi via OnDemand?",
-      "answer": "Pour utiliser AMS-GUI sur Nibi via OnDemand, tu dois te connecter à `ondemand.sharcnet.ca`, sélectionner 'Nibi Desktop' dans 'Compute', choisir tes options (un cœur pour la visualisation, sans 'Enable VirtualGL') pis cliquer sur 'Launcher'. Une fois la tâche lancée, tu sélectionnes 'Launcher Nibi Desktop', tu fais un clic droit sur le bureau pour 'Open it Terminal', tu choisis 'MATE Terminal' et ensuite tu décharges 'openmpi' (`module unload openmpi`), tu charges 'ams' (`module load ams`), et tu lances `amsinput &` pour créer des fichiers ou `amsview &` pour visualiser les résultats."
+      "question": "Quel type de calcul est illustré dans le script d'entrée `SnO_EFG_band.run` pour le moteur BAND, et quelles sont les informations principales qu'il contient?",
+      "answer": "Le script `SnO_EFG_band.run` illustre un calcul de type `SinglePoint` pour obtenir le gradient de champ électrique (EFG) sur du SnO en utilisant le moteur BAND. Il contient les `FractionalCoords` des atomes et les paramètres de la `Lattice`. Dans le bloc `Engine Band`, il active l'option `EFG`, définit le `Basis` (par exemple, `Type DZ`) et la `NumericalQuality`."
     }
   ],
-  "generated_at": "2026-04-13T00:30:09.566453+00:00"
+  "generated_at": "2026-08-07T23:18:23.875792+00:00"
 }

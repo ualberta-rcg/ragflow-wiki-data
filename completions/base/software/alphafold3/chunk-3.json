@@ -2,6 +2,19 @@
   "doc_key": "base/alphafold3",
   "level": "chunk",
   "chunk_index": 3,
-  "qa_pairs": [],
-  "generated_at": "2026-05-10T00:14:11.215576+00:00"
+  "qa_pairs": [
+    {
+      "question": "How are AlphaFold3 databases set up on the clusters, including their required storage location and the commands to download them?",
+      "answer": "AlphaFold3 databases must be stored in your `$SCRATCH` directory. First, you download the fetch script using `wget https://raw.githubusercontent.com/google-deepmind/alphafold3/refs/heads/main/fetch_databases.sh`. Then, you create the target directory and download the databases with `mkdir -p $SCRATCH/alphafold/dbs` followed by `bash fetch_databases.sh $SCRATCH/alphafold/dbs`."
+    },
+    {
+      "question": "What are the recommended stages for running AlphaFold3, and what is the primary benefit of using this staged approach?",
+      "answer": "AlphaFold3 must be run in two stages: a CPU-only data pipeline and a GPU-required model inference. The primary benefit of this staged approach is to optimize cost and resource usage by splitting these parts, and to allow for caching of MSA/template search results for reuse across multiple inferences."
+    },
+    {
+      "question": "When running the AlphaFold3 data pipeline (CPU stage) on the clusters, what are the maximum recommended CPU cores, memory allocation, and required module dependencies?",
+      "answer": "For the AlphaFold3 data pipeline, it is recommended to allocate a maximum of 8 CPUs per task (`--cpus-per-task=8`) and 64GB of memory (`--mem=64G`). The required module dependencies are `StdEnv/2023`, `hmmer-alphafold3/3.4`, `rdkit/2025.09.4`, and `python/3.12`."
+    }
+  ],
+  "generated_at": "2026-08-07T23:29:31.951910+00:00"
 }

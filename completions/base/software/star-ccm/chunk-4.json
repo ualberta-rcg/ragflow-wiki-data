@@ -4,13 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Which Alliance clusters utilize the `starccm_job-fnr-nogpu.sh` Slurm script?",
-      "answer": "The `starccm_job-fnr-nogpu.sh` Slurm script is used for the Fir, Narval, and Rorqual Alliance clusters."
+      "question": "When submitting STAR-CCM+ batch jobs on the Trillium cluster using a Power-on-Demand (PoD) license, what specific licensing settings and commands are required in the Slurm script?",
+      "answer": "For STAR-CCM+ batch jobs on the Trillium cluster with a Power-on-Demand (PoD) license, users must manually set the `LM_PROJECT` environment variable to their 22-digit PoD License Key. Additionally, `FLEXPORT` (e.g., 1999), `VENDPORT` (e.g., 2099), and `LICSERVER` (e.g., flex.cd-adapco.com) variables need to be defined in the script. The `CDLMD_LICENSE_FILE` variable is then set to `$FLEXPORT@127.0.0.1`, and an `ssh` command (`ssh tri-gw -L $FLEXPORT:$LICSERVER:$FLEXPORT -L $VENDPORT:$LICSERVER:$VENDPORT -N -f`) is used for port forwarding. For Trillium, these settings are used directly, and the `~/.licenses/starccm.lic` file is not utilized."
     },
     {
-      "question": "What are some of the Slurm batch directives specified at the beginning of the `starccm_job-fnr-nogpu.sh` script for the Fir, Narval, or Rorqual clusters?",
-      "answer": "At the beginning of the `starccm_job-fnr-nogpu.sh` script for the Fir, Narval, or Rorqual clusters, Slurm batch directives include `#SBATCH --account=def-group` for specifying an account and `#SBATCH --time=00-01:00` to set a time limit of one hour."
+      "question": "In a STAR-CCM+ Slurm script for the Trillium cluster, what is the function of the `ssh tri-gw -L ...` command and why is it necessary for licensing?",
+      "answer": "The `ssh tri-gw -L $FLEXPORT:$LICSERVER:$FLEXPORT -L $VENDPORT:$LICSERVER:$VENDPORT -N -f` command in the Trillium STAR-CCM+ Slurm script establishes an SSH tunnel for port forwarding. It maps local ports (`$FLEXPORT`, `$VENDPORT`) on the Trillium gateway (`tri-gw`) to the corresponding ports on the remote license server (`$LICSERVER`). This is necessary to allow the STAR-CCM+ application running on the Trillium cluster to reach the remotely hosted license server through the specified flex and vendor ports, ensuring proper license validation."
+    },
+    {
+      "question": "How do STAR-CCM+ Slurm scripts on Alliance clusters like Nibi, Fir, Narval, and Rorqual differentiate between using a Power-on-Demand (PoD) license and an institutional license?",
+      "answer": "In STAR-CCM+ Slurm scripts for Nibi, Fir, Narval, and Rorqual clusters, the system checks if the `LM_PROJECT` environment variable is set. If `LM_PROJECT` is defined (typically with a 22-digit PoD license key), the script assumes a Siemens Power-on-Demand license is being used. If `LM_PROJECT` is not set, the script assumes an institutional license server and attempts to verify license availability using `lmutil lmstat -c ~/.licenses/starccm.lic -a` before launching STAR-CCM+."
     }
   ],
-  "generated_at": "2026-05-24T01:32:00.576155+00:00"
+  "generated_at": "2026-08-08T00:32:53.251579+00:00"
 }

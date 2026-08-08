@@ -1,0 +1,59 @@
+{
+  "doc_key": "en/graphical_use_of_ansys",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What are the web addresses for accessing Ansys programs in graphical mode on Alliance clusters like Nibi, FIR, RORQUAL, Narval, and Trillium?",
+      "answer": "Users can access Ansys programs via these links: NIBI: `https://ondemand.sharcnet.ca`, FIR: `https://jupyterhub.fir.alliancecan.ca`, RORQUAL: `https://jupyterhub.rorqual.alliancecan.ca`, Narval: `https://jupyterhub.narval.alliancecan.ca/`, and TRILLIUM: `https://ondemand.scinet.utoronto.ca`."
+    },
+    {
+      "question": "What resource should a user specify when configuring an interactive desktop session for Ansys programs if accelerated graphics or computations are required?",
+      "answer": "Users should be sure to specify a GPU resource if either accelerated graphics or computations will be conducted from within their desktop session."
+    },
+    {
+      "question": "How do users load an Ansys module on a JupyterLab-powered desktop compared to an OnDemand desktop?",
+      "answer": "On a JupyterLab-powered desktop, load the Ansys module by clicking in the menu on the left. For an OnDemand desktop, type `module load ansys/version` on the command line."
+    },
+    {
+      "question": "How do users start Ansys Fluent from the command line on an OnDemand desktop without a GPU, including necessary environment variables?",
+      "answer": "Load modules `StdEnv/2023 ansys/2025R2.04` and run `fluent`. In the Fluent Launcher's 'Environment tab', set `I_MPI_HYDRA_BOOTSTRAP=ssh` (if on Nibi with intelmpi) and `HOOPS_PICTURE=opengl2-mesa` (for 2025R1+) or `HOOPS_PICTURE=x11/lin` (for 2024R2.04 or older), then click 'Start'."
+    },
+    {
+      "question": "What environment variable must be manually set when running Fluent on the Nibi cluster using intelmpi, and why?",
+      "answer": "The environment variable `I_MPI_HYDRA_BOOTSTRAP=ssh` must be manually set on Nibi when using intelmpi; otherwise, Fluent will crash when started inside OOD Compute Desktop sessions."
+    },
+    {
+      "question": "How do users start Ansys Fluent from the command line on an OnDemand desktop with a GPU requested, including necessary environment variables?",
+      "answer": "On Nibi, choose a t4 (15GB) GPU. Load modules `StdEnv/2023 ansys/2025R2.04` and run `fluent`. In the Fluent Launcher's 'Environment tab', set `I_MPI_HYDRA_BOOTSTRAP=ssh` (if on Nibi) and `HOOPS_PICTURE=opengl2` (for 2025R1+) or `HOOPS_PICTURE=opengl` (for 2024R2.04 or older), then click 'Start'."
+    },
+    {
+      "question": "How do users start Ansys CFX from an OnDemand desktop, differentiating between sessions with and without a GPU?",
+      "answer": "Use `cfx5 -graphics mesa` if no GPU was requested, and `cfx5 -graphics ogl` if a GPU was requested when the desktop was started."
+    },
+    {
+      "question": "What are the steps to start the Mechanical APDL (Mapdl) GUI from the command line on an OnDemand desktop?",
+      "answer": "Load the module `StdEnv/2023 ansys/2022R2` (or newer), then run `mapdl -g` or use the `launcher` command and click the `RUN` button."
+    },
+    {
+      "question": "How do users start Ansys Workbench on an OnDemand desktop if accelerated graphics are not required?",
+      "answer": "Specify 'GPU Node' to select a compute node without a GPU for the OOD session, then load `StdEnv/2023 ansys/2025R2.04` and run `runwb2`."
+    },
+    {
+      "question": "When launching Fluent from within Workbench on an OnDemand desktop without a GPU, what are the recommended environment variables?",
+      "answer": "In the Fluent Launcher's 'Environment' tab, set `I_MPI_HYDRA_BOOTSTRAP=ssh` (for Nibi only when using intelmpi) and `HOOPS_PICTURE=opengl2-mesa` (optional for 2025R1 or newer), then click 'Start'."
+    },
+    {
+      "question": "What should a user do if the graphics of an application started within Workbench appear corrupted on a JupyterLab desktop without a GPU?",
+      "answer": "Users can create a custom `workbench-mesa.desktop` icon by copying the existing one and changing `runwb2` to use Mesa mode, or try setting `HOOPS_PICTURE=opengl2-mesa` in the Fluent Launcher window if using Fluent."
+    },
+    {
+      "question": "How do users start Ansys Ensight on an Alliance cluster?",
+      "answer": "Load modules `StdEnv/2023 ansys/2022R2`, then set the `LD_LIBRARY_PATH` environment variable as `export LD_LIBRARY_PATH=$EBROOTANSYS/v222/CEI/apex222/machines/linux_2.6_64/qt-5.12.6/lib` and run `ensight -X`."
+    },
+    {
+      "question": "What are the main commands available for running Ansys Rocky programs?",
+      "answer": "The `Rocky` command starts Rocky in graphical mode, `RockySolver` runs the solver directly from the command line, and `RockyScheduler` starts a GUI for submitting/running jobs on the current node."
+    }
+  ],
+  "generated_at": "2026-08-08T01:10:17.551253+00:00"
+}

@@ -4,17 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of using 'temporary directory scripts' for Abaqus standard analysis jobs on Alliance clusters?",
-      "answer": "Temporary directory scripts are primarily designed for single-node Abaqus jobs that run for longer than one day or generate substantial restart files. They improve efficiency by directing the writing of restart data to the local disk via the `SLURM_TMPDIR` environment variable."
+      "question": "What is the primary purpose of the `scriptst1.txt` Slurm script for Abaqus on Alliance clusters?",
+      "answer": "The `scriptst1.txt` Slurm script is designed for running single-node Abaqus Standard Analysis jobs. It is particularly useful for jobs that generate large restart files, as it leverages the `$SLURM_TMPDIR` for writing scratch data to the local disk, which can improve performance."
     },
     {
-      "question": "How can a user configure their Abaqus input file to write restart data at specific intervals when using a temporary directory script for standard analysis?",
-      "answer": "To write restart data every N=12 time increments, specify `*RESTART, WRITE, OVERLAY, FREQUENCY=12` in the input file. Alternatively, to write restart data for a total of 12 time increments, specify `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
+      "question": "How does the `scriptst1.txt` Slurm script manage data transfer between the temporary directory and the submission directory for Abaqus jobs?",
+      "answer": "The `scriptst1.txt` script performs several data management steps: it changes the working directory to `$SLURM_TMPDIR`, creates a scratch subdirectory within it, and directs Abaqus to use this scratch space. Additionally, a background process is started to periodically copy all files from `$SLURM_TMPDIR` back to `$SLURM_SUBMIT_DIR` every six hours. This ensures data persistence in case of job termination due to time limits. At the job's conclusion, all final output and generated files are copied back to the `$SLURM_SUBMIT_DIR`."
     },
     {
-      "question": "What are the key considerations and limitations for running multi-node Abaqus standard analysis jobs using MPI-based computing on Alliance clusters?",
-      "answer": "Multi-node Abaqus standard analysis jobs are suitable for users with significant memory or compute demands and access to large licenses. Only Abaqus version 2026 or newer can be used for these MPI-based scripts. It is important to note that companion template scripts for restarting multi-node jobs are not provided due to additional limitations."
+      "question": "Which versions of Abaqus are specifically supported by the `scriptst1.txt` Slurm script, and what is a key difference in how an older version is executed?",
+      "answer": "The `scriptst1.txt` Slurm script supports the latest Abaqus `2026` version (and newer), as well as the legacy `abaqus/2021` version. For Abaqus `2021`, the script includes an `unshare` command workaround (`/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare --fork --pid --mount-proc --user --map-user $USER`) when executing the Abaqus command, which is necessary to address a buffer overflow error experienced on recent clusters."
     }
   ],
-  "generated_at": "2026-05-31T01:06:59.408551+00:00"
+  "generated_at": "2026-08-07T23:23:16.974142+00:00"
 }

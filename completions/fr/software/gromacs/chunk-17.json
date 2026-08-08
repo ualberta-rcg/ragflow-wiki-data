@@ -4,17 +4,13 @@
   "chunk_index": 17,
   "qa_pairs": [
     {
-      "question": "Quels fichiers sont nécessaires pour créer un fichier `tpr` pour une simulation GROMACS, et quelle commande doit-on utiliser?",
-      "answer": "La commande `gmx grompp` (ou `grompp` pour les versions antérieures à 5.0) sert à créer les fichiers `tpr` (fichiers d'entrée binaires portables pour l'exécution). Pour ce faire, il faut un fichier de coordonnées avec la structure de départ (formats `.gro`, `.pdb` ou `.cpt`), un fichier de topologie du système au format `.top` et un fichier de paramètres d'exécution au format `.mdp`."
+      "question": "Comment faire pour redémarrer une simulation GROMACS à partir d'un point de contrôle?",
+      "answer": "Pour redémarrer une simulation GROMACS, vous utilisez la même commande `mdrun` que celle de la simulation originale, en ajoutant le paramètre `-cpi state.cpt`, où `state.cpt` est le nom du dernier fichier de point de contrôle. Depuis la version 4.5, `mdrun` utilise automatiquement les fichiers existants et vérifie leur cohérence, rejetant au besoin les étapes plus récentes que le point de contrôle. L'utilisation du paramètre `-maxh` assure aussi que les fichiers de contrôle et de sortie sont cohérents lorsque la simulation atteint sa durée limite."
     },
     {
-      "question": "Comment peut-on gérer les simulations de dynamique moléculaire GROMACS qui dépassent souvent la durée maximale permise en temps réel sur une grappe de calcul?",
-      "answer": "Pour gérer les simulations GROMACS de longue durée, on recommande de les redémarrer. Une bonne stratégie consiste à choisir une durée d'exécution plus courte (par exemple, 24 ou 72 heures) et d'utiliser le paramètre `-maxh` avec `mdrun`. Ce paramètre indique au programme de bien terminer l'étape en cours et de créer un fichier de point de contrôle lorsque 99 % du temps alloué est atteint, ce qui permet un redémarrage propre par la suite."
-    },
-    {
-      "question": "Quelle est la commande spécifique pour redémarrer une simulation GROMACS à partir d'un fichier de point de contrôle, et pourquoi cette méthode est-elle recommandée?",
-      "answer": "On peut redémarrer une simulation GROMACS en utilisant la même commande `mdrun` que pour la simulation originale, mais en y ajoutant le paramètre `-cpi state.cpt`, où `state.cpt` est le nom du dernier fichier de point de contrôle. Cette méthode est recommandée car GROMACS vérifie la cohérence entre les fichiers de sortie et s'assure qu'ils sont synchronisés au moment où la simulation atteint sa durée limite d'exécution, évitant ainsi des résultats inattendus."
+      "question": "Quels sont les avantages de morceler une simulation GROMACS en plusieurs tâches courtes?",
+      "answer": "Morceler une simulation GROMACS en plusieurs tâches courtes permet de les exécuter plus rapidement. C'est particulièrement avantageux parce que les tâches qui demandent trois heures ou moins sont éligibles à la planification de remplacement, ce qui peut réduire considérablement le temps d'attente, peu importe si votre groupe de recherche a une allocation de ressources par défaut ou compétitive sur la grappe."
     }
   ],
-  "generated_at": "2026-04-13T06:16:49.650737+00:00"
+  "generated_at": "2026-08-08T00:08:33.340565+00:00"
 }

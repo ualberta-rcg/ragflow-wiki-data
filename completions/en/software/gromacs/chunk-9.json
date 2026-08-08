@@ -4,13 +4,13 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What compilation configuration is used for GROMACS versions 2018.7 and newer?",
-      "answer": "GROMACS versions 2018.7 and newer are compiled with GCC compilers and the MKL-library, which provides faster performance."
+      "question": "How can a user submit a basic GROMACS job to run with GPU acceleration, using 4 OpenMP threads and one GPU?",
+      "answer": "To submit a basic GROMACS GPU job using 4 OpenMP threads and one GPU, you would typically use a Slurm job script. Key elements include requesting one GPU per node (`#SBATCH --gpus-per-node=1`), four CPUs per task (`#SBATCH --cpus-per-task=4`), and loading the necessary modules (e.g., `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, `gromacs/2025.4`). The `OMP_NUM_THREADS` environment variable should be set to match `SLURM_CPUS_PER_TASK`, and the `gmx mdrun` command should use `-ntomp` to specify the number of OpenMP threads, for example: `gmx mdrun -ntomp ${SLURM_CPUS_PER_TASK:-1} -deffnm md`."
     },
     {
-      "question": "Which compilation environments were used for older GROMACS versions?",
-      "answer": "Older GROMACS versions were compiled using either GCC compilers with FFTW or Intel compilers with Intel MKL and Open MPI 2.1.1 libraries, depending on the default environment."
+      "question": "Is there a known bug affecting GROMACS simulations when using specific versions on certain GPU generations?",
+      "answer": "Yes, GROMACS versions 2020.0 through 2021.5 contain a known bug when used on GPUs of Volta or newer generations (such as V100, T4, and A100) with the `mdrun` option `-update gpu`. This issue could have perturbed the virial calculation, potentially leading to incorrect pressure coupling. However, the GROMACS developers have stated that the GPU update is not enabled by default, and the error might be rare even if manually selected, as it has not been observed in their testing."
     }
   ],
-  "generated_at": "2026-04-13T06:09:30.307749+00:00"
+  "generated_at": "2026-08-08T00:03:18.586993+00:00"
 }

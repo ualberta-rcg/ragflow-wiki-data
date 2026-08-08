@@ -2,6 +2,19 @@
   "doc_key": "base/arbutus_migration_guide",
   "level": "chunk",
   "chunk_index": 7,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:43:02.082007+00:00"
+  "qa_pairs": [
+    {
+      "question": "When should Globus be used for transferring data between cloud instances?",
+      "answer": "Globus is recommended for transferring very large data volumes, specifically those greater than 5TB, between cloud instances."
+    },
+    {
+      "question": "What is the recommended method for transferring small data volumes between cloud instances, and how does it generally work?",
+      "answer": "For small data volumes, rsync over SSH is recommended due to its good transfer speeds and incremental capabilities. The process generally involves SSHing to the legacy instance, executing an rsync command (e.g., `rsync -avzP -e 'ssh -i ~/.ssh/key.pem' /local/path/ remoteuser@remotehost:/path/to/files/`), and then verifying the data. Utilizing the IPv6 GUA network in OpenStack is also suggested for potentially improved data transfer performance."
+    },
+    {
+      "question": "What post-transfer configurations might be necessary after migrating data to a new instance?",
+      "answer": "After data is transferred to a new instance, several post-transfer configurations might be necessary, including updating host-based firewall rules, modifying DNS entries for custom domains, updating IP addresses in various configuration files (e.g., `/etc/hosts`, `/etc/resolv.conf`), altering usernames in database systems like MySQL, and renewing TLS certificates. It is essential to test the configuration thoroughly before informing the research team and users about the completion of the migration."
+    }
+  ],
+  "generated_at": "2026-08-07T23:36:38.821991+00:00"
 }

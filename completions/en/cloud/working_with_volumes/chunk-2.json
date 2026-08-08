@@ -4,17 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Why is it safer to boot a virtual machine (VM) from a volume compared to booting from an image?",
-      "answer": "Booting a VM from a volume is safer because volume storage has redundancy, which protects the VM from hardware failure. In contrast, when you boot a VM from an image, the VM is stored on the local disk of the actual machine running the VM, making it vulnerable to data loss if that machine or its disk fails."
+      "question": "What is formatting a volume, and when is it necessary or should be avoided?",
+      "answer": "Formatting is the process of preparing a volume to store directories and files, which erases all existing information. A newly created and attached volume must be formatted before it can be used. However, if you are attaching an existing volume that has been previously used to store data, you should not format it, as this would erase its contents."
     },
     {
-      "question": "What are the steps to create an image from a volume using the OpenStack dashboard, and why would one do this?",
-      "answer": "To create an image from a volume using the dashboard, first ensure the volume is detached from any VM (if it's a boot volume, the VM must be terminated, but ensure 'Delete Volume on Instance Delete' was not checked). Then, go to the 'Volumes' left-hand menu, select 'Upload to Image' from the 'Actions' drop-down menu for the desired volume. You will then choose a name, a disk format (QCOW2 is recommended for OpenStack, VMDK or VDI for VirtualBox), and finally click 'Upload'. This process allows you to download the image for backup purposes or to spin up a VM on a different cloud, such as VirtualBox."
+      "question": "What is mounting a volume, and how can you configure a volume to mount automatically when a virtual machine boots?",
+      "answer": "Mounting is the process of mapping a volume's directory and file structure logically within the virtual machine's directory and file structure. To configure a volume to mount automatically upon boot, you need to edit the `/etc/fstab` file. First, use the `blkid` command to view mounting information and find the volume's UUID. Then, add a new line to `/etc/fstab` containing details about how the volume should be mounted, typically specifying the UUID, mount point (e.g., `/mnt`), filesystem type, and options like `defaults,nofail`."
     },
     {
-      "question": "When should one clone a volume instead of creating an image from it, and what is the command-line method for cloning?",
-      "answer": "Cloning is the recommended method for copying volumes within the same cloud because it is much faster and requires less data movement behind the scenes than creating an image. This method is particularly useful for testing something on a persistent VM before applying it to your production site. It is highly recommended to shut down your VM before creating a clone to prevent the new volume from being in an inconsistent state. To create a clone using the command-line client, use the command: `openstack volume create --source <source-volume-id> --size <size-of-new-volume> <name-of-new-volume>`."
+      "question": "Why is it recommended to boot a persistent virtual machine from a volume rather than directly from an image?",
+      "answer": "It is safest to boot a persistent virtual machine from a volume because volume storage offers redundancy, which protects the VM from hardware failure. In contrast, booting from an image creates a fast, ephemeral volume that is local to the hypervisor, is not backed up, and can be lost if the instance is deleted, the hypervisor's highly available disk array fails, or the instance needs to be evacuated."
     }
   ],
-  "generated_at": "2026-04-13T16:27:22.678015+00:00"
+  "generated_at": "2026-08-08T01:02:07.318721+00:00"
 }

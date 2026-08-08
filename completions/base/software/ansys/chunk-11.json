@@ -4,17 +4,17 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "What are the specific setup requirements for running an Ansys Fluent multinode job on the Trillium cluster, particularly concerning home directory configurations?",
-      "answer": "When running an Ansys Fluent multinode job on the Trillium cluster, users must utilize Ansys module version 2025R2 or newer. A critical setup involves ensuring that symbolic links to writable `.ansys`, `.fluentconf` directories and a `.flrecent` file exist in the user's `$HOME` directory, pointing to locations within their `$SCRATCH` directory. For example, if these don't exist, one would remove any old versions and then create symbolic links like `ln -s $SCRATCH/.ansys ~/.ansys` to prevent job abortion errors related to permissions."
+      "question": "How can one obtain a snapshot of resource utilization for an Ansys Additive Manufacturing job running on an Alliance cluster?",
+      "answer": "Once an Ansys Additive Manufacturing job has been running for a few minutes on an Alliance cluster, a snapshot of its resource utilization on the compute node(s) can be obtained using the `srun` command."
     },
     {
-      "question": "What is the primary purpose of the Fluent license requeue scripts, and in what situations should they be avoided?",
-      "answer": "Fluent license requeue scripts are designed to automatically resubmit jobs that are prone to failing on startup due to license shortages, allowing them to eventually acquire a license and complete normally. These scripts are not recommended for Fluent jobs that might crash after a long runtime or complete with unresolved journal file warnings, as they would repeatedly restart the problematic simulation from the beginning, leading to wasted compute time."
+      "question": "What command is used to execute a Workbench replay file for Ansys Additive Manufacturing?",
+      "answer": "To run a Workbench replay file for Ansys Additive Manufacturing, the command `runwb2 -R myreplay.wbjn` is used, typically after loading the appropriate Ansys module and removing any lock files."
     },
     {
-      "question": "When submitting a Fluent multinode job on the Narval cluster using the 'by core' script with OpenMPI, what are the key environment variables and `fluent` command options used for parallel execution?",
-      "answer": "For Fluent multinode jobs on the Narval cluster using the 'by core' script with OpenMPI, the `OPENMPI_ROOT` environment variable is exported. For parallel execution across multiple nodes, `FI_PROVIDER=verbs` is exported, and the `fluent` command uses options such as `-g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`. This configures Fluent to use OpenMPI with InfiniBand (pib) for inter-node communication, guided by a dynamically generated machinefile."
+      "question": "What kind of information is displayed in the sample output when checking the resource utilization of an Ansys Additive job using the `srun` command?",
+      "answer": "The sample output from the `srun` command, when checking resource utilization for an Ansys Additive job, provides details such as the Process ID (PID), user, CPU and memory percentage, and the command being executed (e.g., `ansys.e`). It also indicates how many compute nodes were selected by the scheduler for the job, for instance, showing two nodes for an eight-core submission script."
     }
   ],
-  "generated_at": "2026-05-31T01:15:01.125769+00:00"
+  "generated_at": "2026-08-07T23:33:29.965967+00:00"
 }

@@ -4,17 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "What is the Graham cluster, and what is its current operational status?",
-      "answer": "Graham is a heterogeneous cluster located at the University of Waterloo, designed to handle a variety of workloads. It has been in production since June 2017. As of January 2025, Graham's capacity has been reduced to approximately 25% as it is being retired and replaced by a new system named Nibi."
+      "question": "On Graham's Volta GPU nodes, what is the recommended practice for managing I/O and temporary files, and how can Python virtual environments be used more efficiently?",
+      "answer": "For jobs with significant I/O on Graham's Volta GPU nodes, it is recommended to use the fast local disk. The location of this temporary directory is specified by the `$SLURM_TMPDIR` environment variable. Users should copy input files to `$SLURM_TMPDIR` at the beginning of their job script and copy output files out at the end, as all files in this directory are automatically removed once the job finishes. Python virtual environments can also be created in this temporary space for greater efficiency."
     },
     {
-      "question": "What are the site-specific policies for running jobs and accessing network resources on the Graham cluster?",
-      "answer": "Site-specific policies for the Graham cluster include: compute nodes cannot access the internet by default (exceptions require technical support), Crontab is not offered, job durations must be at least one hour (five minutes for test jobs) and no more than 168 hours (seven days), and a user is limited to a maximum of 1000 running and queued jobs simultaneously, with array jobs counting as the number of tasks in the array."
+      "question": "How does one specify the use of Turing GPU nodes when submitting a job to the Graham cluster?",
+      "answer": "To request Turing GPU nodes on the Graham cluster, you should include the parameter `--gres=gpu:t4:2` in your job submission script. This parameter requests two T4 cards per node."
     },
     {
-      "question": "What types of storage are available on the Graham cluster, and what are their characteristics?",
-      "answer": "The Graham cluster offers three types of storage: Home space (133TB total) for home directories with small, fixed quotas and daily backups, but not allocated via RAS or RAC. Scratch space (3.2PB total), a parallel high-performance filesystem for active or temporary data, which is not allocated, has large fixed user quotas, and inactive data is purged. Project space (16PB total), an external persistent storage, allocated via RAS or RAC, not designed for parallel I/O, has large adjustable project quotas, and includes daily backups."
+      "question": "What are the parameters for requesting Ampere GPU nodes for a job on the Graham cluster?",
+      "answer": "To request Ampere GPU nodes for a job on the Graham cluster, you should specify either `--gres=gpu:a100:2` for A100 Ampere cards or `--gres=gpu:a5000:2` for A5000 Ampere cards in your job submission script. Both options request two Ampere cards per node."
     }
   ],
-  "generated_at": "2026-04-13T06:48:34.259013+00:00"
+  "generated_at": "2026-08-08T00:13:33.027503+00:00"
 }

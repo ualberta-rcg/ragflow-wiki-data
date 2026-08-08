@@ -4,17 +4,13 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "À quoi sert ce script de tâche Slurm pour GROMACS?",
-      "answer": "Ce script de tâche Slurm est utilisé pour lancer une simulation GROMACS en mode entier de nœud, en spécifiant les ressources de calcul nécessaires et les modules logiciels à charger."
+      "question": "Comment est-ce qu'on soumet une tâche GROMACS qui utilise un GPU avec l'ordonnanceur Slurm?",
+      "answer": "Pour soumettre une tâche GROMACS avec un GPU, il faut d'abord purger les modules existants, puis charger les modules d'environnement `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6` et `gromacs/2025.4`. Dans le script de soumission Slurm, il faut spécifier `#SBATCH --gpus-per-node=1` pour demander un GPU, `#SBATCH --cpus-per-task=4` pour quatre fils OpenMP par processus MPI, `#SBATCH --mem-per-cpu=2000M` pour la mémoire par cœur CPU et `#SBATCH --time` pour la limite de temps. La variable `OMP_NUM_THREADS` doit être exportée en fonction de `SLURM_CPUS_PER_TASK`, et la commande `gmx mdrun` doit être exécutée avec l'option `-ntomp` correspondant au nombre de cœurs par tâche."
     },
     {
-      "question": "Quelles ressources de calcul spécifiques sont demandées par ce script Slurm pour la simulation GROMACS?",
-      "answer": "Ce script demande 1 nœud, 96 tâches MPI par nœud, 2 fils OpenMP par tâche MPI (ce qui représente un total de 192 cœurs de CPU par nœud), 2000 Mo de mémoire par CPU, et une limite de temps d'une heure (0-01:00)."
-    },
-    {
-      "question": "Quels modules d'environnement sont chargés avant d'exécuter la simulation GROMACS dans ce script?",
-      "answer": "Avant l'exécution de GROMACS, le script nettoie les modules existants (`module purge`) puis charge les modules `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5` et `gromacs/2025.4`."
+      "question": "Existe-t-il un bogue connu lorsqu'on utilise certaines versions de GROMACS avec des GPU de nouvelle génération?",
+      "answer": "Oui, les versions de GROMACS allant de 2020.0 jusqu'à 2021.5 inclusivement contiennent un bogue lorsqu'elles sont utilisées avec des GPU de génération Volta ou plus récentes (comme les V100, T4 et A100) avec l'option `-update gpu` de `mdrun`. Ce bogue aurait pu perturber le calcul viriel et ainsi fausser le raccord de pression. L'erreur ne peut se produire que si l'option `-update gpu` a été explicitement sélectionnée, mais même dans ce cas, l'erreur est jugée rare par les développeurs. Plus d'information est disponible au sujet #4393 du projet GROMACS sur GitLab."
     }
   ],
-  "generated_at": "2026-04-13T06:16:06.512776+00:00"
+  "generated_at": "2026-08-08T00:07:58.855979+00:00"
 }

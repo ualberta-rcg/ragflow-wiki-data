@@ -20,7 +20,6 @@ Auto-generated index for `base/cloud`.
 - [Building A Web Portal](building_a_web_portal.md)
 - [Cephfs](cephfs.md)
 - [Cloud](cloud.md)
-- [Cloud Account Lifecycle Management](cloud_account_lifecycle_management.md)
 - [Cloud Quick Start](cloud_quick_start.md)
 - [Cloud Ras Allocations](cloud_ras_allocations.md)
 - [Cloud Resources](cloud_resources.md)

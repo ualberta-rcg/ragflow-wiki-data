@@ -2,6 +2,15 @@
   "doc_key": "fr/arbutus_migration_guide",
   "level": "chunk",
   "chunk_index": 9,
-  "qa_pairs": [],
-  "generated_at": "2026-05-17T00:46:41.309729+00:00"
+  "qa_pairs": [
+    {
+      "question": "Quelle est la commande à utiliser pour copier un grand volume du nuage Arbutus précédent vers le nouveau nuage à l'aide de 'dd' et 'ssh'?",
+      "answer": "Pour transférer un grand volume de données, vous devez exécuter la commande suivante sur l'instance temporaire du nuage précédent : `screen sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@xxx.xx.xx.xx \"sudo dd bs=16M of=/dev/vdb\"`. Il faut remplacer `/dev/vdb` par le chemin du volume source, `96G` par la taille du volume, `key.pem` par le chemin de votre clé SSH, et `xxx.xx.xx.xx` par l'adresse IP de l'instance temporaire sur le nouveau nuage."
+    },
+    {
+      "question": "Quelles sont les étapes de préparation essentielles avant de lancer la migration de grands volumes de données entre les nuages Arbutus en utilisant la méthode 'dd' via SSH?",
+      "answer": "Avant de lancer le transfert, il faut créer une instance temporaire sur le nuage précédent et une autre sur le nouveau nuage, puis leur attribuer des adresses IP flottantes. Sur l'instance temporaire du nuage précédent, installez les paquets `epel-release`, `pv` et `screen`. Sur la nouvelle instance temporaire, exécutez la commande `chmod u+s /bin/dd`. Il est aussi primordial de copier la clé privée SSH de l'utilisateur que vous utilisez pour vous connecter à la nouvelle instance temporaire vers l'instance temporaire du nuage précédent, et d'assurer que les règles de sécurité SSH autorisent la connexion entre les deux instances temporaires."
+    }
+  ],
+  "generated_at": "2026-08-07T23:40:00.314502+00:00"
 }

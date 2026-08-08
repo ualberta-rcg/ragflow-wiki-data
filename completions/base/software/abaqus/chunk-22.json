@@ -4,13 +4,17 @@
   "chunk_index": 22,
   "qa_pairs": [
     {
-      "question": "What messages are typically found in the Slurm output file when an Abaqus job immediately terminates due to insufficient licenses?",
-      "answer": "When an Abaqus job terminates immediately because it lacks sufficient licenses, the Slurm output file will contain messages such as \"Checkout exceeds MAX specified in options file,\" \"FlexNet Licensing error:-87,147,\" and an indication that there may be \"insufficient licenses.\" It will also detail the number of requested, total, in-use, and available licenses."
+      "question": "What are the eligibility criteria, usage limitations, and configuration steps for accessing the free SHARCNET Abaqus license on Alliance clusters?",
+      "answer": "The SHARCNET license is available to any registered Alliance researcher for use exclusively on SHARCNET hardware, such as the Nibi and Dusky clusters or the SHARCNET Open OnDemand (OOD) system. It offers a shared free pool of 3 CAE and 54 execute tokens, with current maximum usage limits set at 1 CAE per user, 10 tokens per user, and 15 tokens per group. These free tokens are intended for testing and light usage. To gain access, users must contact technical support, specify their intent to use the license on SHARCNET systems, and provide a signed copy of the Academic License User Agreement with their full name and username. Upon approval, users must configure their `~/.licenses/abaqus.lic` file to include the line `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27050@license1.computecanada.ca\")`."
     },
     {
-      "question": "What is indicated by the \"FlexNet Licensing error:-87,147\" message in an Abaqus Slurm output file?",
-      "answer": "The \"FlexNet Licensing error:-87,147\" message in an Abaqus Slurm output file indicates that the job immediately terminated because it attempted to check out licenses but there were not enough available, and it was configured not to wait in a queue for a license."
+      "question": "What options are available to manage Abaqus jobs that are waiting for licenses on Alliance clusters, preventing them from idling indefinitely?",
+      "answer": "To prevent Abaqus jobs from idling indefinitely on a compute node while waiting for an available license, users have two main options. The first option is to configure the job to terminate immediately if an insufficient number of licenses is available. This is achieved by creating an `abaqus_v6.env` file in the job's submit directory containing the line `lmlicensequeuing=OFF`. The second option allows a job to enter a queued state for a finite period, automatically terminating if a license does not become available within that time. This is set by adding `lmhanglimit=X` to the `abaqus_v6.env` file, where 'X' is the desired wait time in minutes (e.g., `lmhanglimit=1` for a one-minute wait). Both options help prevent the waste of compute resources and depreciation of the user's fair share level."
+    },
+    {
+      "question": "What is the current operational status of the Western Abaqus license for use on Alliance clusters?",
+      "answer": "The Western Abaqus license is currently non-operational. The `license4` machine, which previously hosted the server, has been shut down and retired. Consequently, all Abaqus license checkout requests originating from the Western/Robarts license server on the Dusky cluster are currently failing. While a replacement server is being worked on, users are advised to utilize the SHARCNET license by following the documented procedure to request access in the interim."
     }
   ],
-  "generated_at": "2026-05-31T01:05:21.574473+00:00"
+  "generated_at": "2026-08-07T23:22:10.976381+00:00"
 }

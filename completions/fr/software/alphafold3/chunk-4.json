@@ -4,17 +4,13 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Dans le script d'inférence d'AlphaFold3, quelles sont les principales variables de répertoire définies et à quoi servent-elles?",
-      "answer": "Dans le script d'inférence d'AlphaFold3, les variables de répertoire principales sont `DOWNLOAD_DIR` pour les bases de données téléchargées, `INPUT_DIR` pour les données d'entrée (qui proviennent de l'étape de pipeline de données), et `OUTPUT_DIR` pour les données de sortie. Elles sont toutes configurées par défaut dans le répertoire `$SCRATCH/alphafold/`."
+      "question": "Comment on fait pour régler les problèmes de mémoire insuffisante sur le GPU quand on utilise AlphaFold3, surtout si on dépasse 5120 jetons ou qu'on est sur une carte A100 avec 40Go de mémoire?",
+      "answer": "Pour gérer la mémoire insuffisante du GPU avec AlphaFold3, on peut activer la fonctionnalité de mémoire unifiée. Ça se fait en ajoutant certaines variables d'environnement dans le script de soumission pour l'étape d'inférence et en ajustant la mémoire allouée à la tâche, par exemple à `#SBATCH --mem=80G`."
     },
     {
-      "question": "Comment est-ce qu'on configure et active l'environnement virtuel pour AlphaFold3 durant l'étape d'inférence?",
-      "answer": "Pour configurer l'environnement virtuel pour AlphaFold3 durant l'étape d'inférence, on le crée sans téléchargement dans le répertoire temporaire de la tâche (`$SLURM_TMPDIR/env`) en utilisant `virtualenv --no-download $SLURM_TMPDIR/env`, puis on l'active avec la commande `source $SLURM_TMPDIR/env/bin/activate`."
-    },
-    {
-      "question": "Une fois l'environnement virtuel activé dans le script d'inférence d'AlphaFold3, quelles sont les étapes pour installer AlphaFold et ses dépendances?",
-      "answer": "Après avoir activé l'environnement virtuel, il faut d'abord mettre à jour l'outil `pip` sans utiliser d'index externe (`pip install --no-index --upgrade pip`). Ensuite, on installe AlphaFold et ses dépendances Python à partir du fichier des dépendances (`~/alphafold3-requirements.txt`) en utilisant `pip install --no-index --requirement ~/alphafold3-requirements.txt`."
+      "question": "Quelles sont les variables d'environnement à ajouter dans le script de soumission de la tâche d'inférence pour activer la mémoire unifiée et améliorer la performance de la mémoire GPU d'AlphaFold3?",
+      "answer": "Pour activer la mémoire unifiée, il faut ajouter ces variables d'environnement dans le script de soumission de la tâche d'inférence : `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true` et `export XLA_CLIENT_MEM_FRACTION=2.0` (où la valeur est ajustée selon la mémoire requise). Il faut aussi penser à ajuster en conséquence la quantité de mémoire allouée à la tâche, comme `80G`."
     }
   ],
-  "generated_at": "2026-05-24T01:00:52.937842+00:00"
+  "generated_at": "2026-08-07T23:31:43.625262+00:00"
 }

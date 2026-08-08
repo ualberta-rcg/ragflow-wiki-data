@@ -4,17 +4,13 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "When submitting LS-DYNA jobs on Alliance clusters, what is the advantage of specifying the total number of cores instead of the number of nodes, and which SLURM parameter is crucial for memory allocation in this approach?",
-      "answer": "Specifying the total number of cores allows the scheduler to determine the optimal number of compute nodes to minimize job wait time. The `mem-per-cpu` SLURM parameter is crucial, as it ensures the master processor has sufficient memory to decompose and handle its computations."
+      "question": "How can LS-DYNA jobs be submitted to a specified number of whole compute nodes, and what are the key Slurm parameters for this method?",
+      "answer": "LS-DYNA jobs can be submitted to a specified number of whole compute nodes using a Slurm script like `script-mpp-bynode.sh`. Key parameters include `--nodes` to specify the number of compute nodes (one or more), `--ntasks-per-node` to specify all cores per node (e.g., 192 for Narval, Nibi, Fir, or Trillium), and `--mem=0` to ensure all memory per compute node is utilized. The script also requires loading specific modules, such as `StdEnv/2023`, `intel/2023.2.1`, and `ls-dyna-mpi/12.2.1`, before running the `ls-dyna_d` solver."
     },
     {
-      "question": "Before submitting long LS-DYNA jobs on Alliance clusters, why is it important to perform scaling tests, and what tools can be used to extract job performance statistics?",
-      "answer": "Scaling tests are important because LS-DYNA's efficiency can vary significantly with the number of cores used in parallel. Running these tests helps determine the maximum number of cores that can be used effectively before performance degradation. Job statistics such as Job Wall-clock time, CPU Efficiency, and Memory Efficiency can be extracted using the `seff jobnumber` command or a cluster job portal."
-    },
-    {
-      "question": "What is LS-PrePost used for with LS-DYNA models, and what is the recommended graphical access method on Alliance clusters?",
-      "answer": "LS-PrePost is used for pre- and post-processing of LS-DYNA models and does not require a separate license. The recommended method for graphical access is through an OnDemand system, where users connect via a specific URL for their cluster (e.g., `https://ondemand.sharcnet.ca` for Nibi), open a terminal, load the `StdEnv/2020` and `ls-prepost/4.9` modules, and then run `lsprepost` or `lspp49`."
+      "question": "What is the advantage of submitting multi-node LS-DYNA jobs by specifying the total number of cores, and what are the important Slurm parameters for this approach?",
+      "answer": "Submitting multi-node LS-DYNA jobs by specifying the total number of cores (`--ntasks`) allows the scheduler to determine the optimal number of compute nodes, which helps minimize job wait time in the queue. For this approach, it is important to specify a sufficiently large value for `mem-per-cpu` to ensure the master processor has enough memory to decompose and handle its computations. A sample Slurm script for this method, `script-mpp-bycore.sh`, also requires loading modules such as `StdEnv/2023`, `intel/2023.2.1`, and `ls-dyna-mpi/12.2.1` before executing the `ls-dyna_d` solver."
     }
   ],
-  "generated_at": "2026-04-13T08:00:07.470486+00:00"
+  "generated_at": "2026-08-08T00:16:52.438837+00:00"
 }
