@@ -4,9 +4,9 @@ slug: "self-paced_courses"
 lang: "fr"
 
 source_wiki_title: "Self-paced courses/fr"
-source_hash: "3df3028fd2d47457297cd540b97be96f"
-last_synced: "2026-05-24T00:00:16.123503+00:00"
-last_processed: "2026-05-24T00:49:44.706472+00:00"
+source_hash: "48929f35e5ddf609d75c06ef028ad721"
+last_synced: "2026-08-15T23:22:43.108655+00:00"
+last_processed: "2026-08-15T23:34:01.539597+00:00"
 
 tags:
   []
@@ -28,18 +28,19 @@ status:
   converted: true
   tagged: false
   keywords_generated: true
-  ragflow_synced: true
+  ragflow_synced: false
   qa_generated: false
 ---
 
 Les tutoriels suivants ont été créés par notre personnel technique. D'autres formations s'y joindront au fur et à mesure qu'elles seront disponibles. Vous recevrez une attestation de participation à la fin de chacun des tutoriels.
 
-!!! note
-    À noter que dans certains cas, vous devez détenir un compte avec l'Alliance.
+!!! remarque "Remarque importante"
+    Dans certains cas, vous devez détenir un compte avec l'Alliance.
 
 | Cours | Langue | Durée (heures) | Compte Alliance requis | Attestation | Créé par |
 |---|---|---|---|---|---|
 | [Bioinformatics](https://training.sharcnet.ca/courses/course/view.php?id=12) | anglais | 2 | oui | oui | SHARCNET |
+| [GIT Version control](https://education.scinet.utoronto.ca/course/view.php?id=1382) | anglais | 3-4 | non (recommandé) | oui | SciNet |
 | [Introduction to GPU Programming](https://training.sharcnet.ca/courses/course/view.php?id=14) | anglais | 3-4 | oui | oui | SHARCNET |
 | [Introduction to Machine Learning](https://training.sharcnet.ca/courses/course/view.php?id=15) | anglais | 3-4 | oui | oui | SHARCNET |
 | [Introduction to Trillium](https://education.scinet.utoronto.ca/course/view.php?id=1389) | anglais | 4 | non (recommandé) | oui | SciNet |
@@ -51,3 +52,4 @@ Les tutoriels suivants ont été créés par notre personnel technique. D'autres
 | [Mastering GPU Efficiency](https://training.sharcnet.ca/courses/course/view.php?id=20) | anglais | 1 | oui | oui | SHARCNET |
 | [Mastering the Alliance job scheduler](https://training.sharcnet.ca/courses/course/view.php?id=21) | anglais | 1-4 | oui | oui | SHARCNET |
 | [New User Course](https://training.sharcnet.ca/courses/course/view.php?id=22) | anglais | 1 | oui | oui | SHARCNET |
+| [Research Data Management](https://training.computeontario.ca/courses/course/view.php?id=78) | anglais | | non | oui | OICR |

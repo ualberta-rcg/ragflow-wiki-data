@@ -83,14 +83,14 @@ title: Home
 | **Graham Cloud** | :material-check-circle:{ style="color: green" } Operational |
 | **Nibi** | :material-alert:{ style="color: orange" } Reduced throughput / power shedding |
 | **Fir** | :material-check-circle:{ style="color: green" } Operational |
-| **Rorqual** | :material-check-circle:{ style="color: green" } Operational |
-| **Arbutus** | :material-check-circle:{ style="color: green" } Operational |
+| **Rorqual** | :material-calendar:{ style="color: blue" } 2026-08-18 |
+| **Arbutus** | :material-alert:{ style="color: orange" } Arbutus Cloud External Network Maintenance |
 | **Juno** | :material-check-circle:{ style="color: green" } Operational |
 | **Killarney** | :material-check-circle:{ style="color: green" } Operational |
 | **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
 | **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-08-08 23:37 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-08-15 23:42 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -100,18 +100,18 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 
 | Date | Event | Link |
 |------|-------|------|
-| TBD | Untitled | [Details](https://engagedri-ca.zoom.us/meeting/register/9IzhEFYzSPSGh2-ZnvqZ9w) |
-| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4043881) |
-| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4043885) |
-| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4017152) |
-| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4043886) |
-| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4017153) |
-| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4023376) |
-| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4043888) |
-| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4043887) |
-| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4043889) |
+| TBD | Untitled | [Details](https://workrooms.ucalgary.ca/event/4029141) |
+| TBD | Untitled | [Details](https://workrooms.ucalgary.ca/event/4026868) |
+| TBD | Untitled | [Details](https://workrooms.ucalgary.ca/event/4028707) |
+| TBD | Untitled | [Details](https://workrooms.ucalgary.ca/event/4026869) |
+| TBD | Untitled | [Details](https://workrooms.ucalgary.ca/event/4028708) |
+| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4016262) |
+| TBD | Untitled | [Register](https://pbuq.libcal.com/event/4022828) |
+| TBD | Untitled | [Details](https://bioinformatics.ca/workshops-all/cbw-cs-dcc-microbiome-analysis/) |
+| TBD | Untitled | [Details](https://engagedri-ca.zoom.us/meeting/register/pKAK7FgzRBeZSz6Zpa-Hig) |
+| TBD | Untitled | [Details](https://engagedri-ca.zoom.us/meeting/register/YQN-4_-FSSevMY03KvTKug) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-08-08 23:37 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-08-15 23:42 UTC.*</small>
 
 ---
 

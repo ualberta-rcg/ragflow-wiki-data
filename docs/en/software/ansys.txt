@@ -1,17 +1,18 @@
 <languages />
 [[Category:Software]]
 
-
-<b><u>TRANSLATOR'S NOTE FROM JULY 2026: This page is currently being reviewed.</u></b>
-<br><br>
 [http://www.ansys.com/ Ansys] is a software suite for engineering simulation and 3-D design. It includes packages such as [https://www.ansys.com/products/fluids/ansys-fluent Ansys Fluent] and [http://www.ansys.com/products/fluids/ansys-cfx Ansys CFX].
+
+Please also refer to
+*[[Graphical use of Ansys]]
+*[[Cluster batch job submission with Ansys]]<br>
+<br>
 
 = Licensing =
 The Alliance is a hosting provider for Ansys. This means that we have the software installed on our clusters, but we do not provide a generic license accessible to everyone. However, many institutions, faculties, and departments already have licenses that can be used on our clusters.  Once the legal aspects are worked out for licensing, there will be remaining technical aspects. The license server on your end will need to be reachable by our compute nodes. This will require our technical team to get in touch with the technical people managing your license software. In some cases, this has already been done. You should then be able to load the Ansys module, and it should find its license automatically. If this is not the case, please contact our [[technical support]] to arrange this.
 
 == Configuring your license file ==
 Our module for Ansys is designed to look for license information in a few places. One of those places is your /home folder. You can specify your license server by creating a file named $HOME/.licenses/ansys.lic as shown below.  Customize the file by replacing FLEXPORT and LICSERVER with the appropriate values for your server. 
-
 {| class="wikitable" style="text-align:left; border:1px solid #BBB; background-color:#F9F9F9; width:50%;"
 |+ style="text-align:left; background-color:#F2F2F2; font-size:110%" | FILE: ansys.lic
 |-
@@ -37,19 +38,16 @@ The following table provides established values for the SHARCNET license server.
 
 === Local license servers  === 
 
-
-Before a local institutional Ansys license server can be used on our clusters, firewall changes will need to be done on both the server and the cluster sides.  For many Ansys servers, this work has already been done and they can be used by following the steps in the [[Ansys#Ready-to-use|Ready to use]] section below.  For Ansys servers that have never been used on our clusters, an additional step must be done as shown in the [[Ansys#Setup_required|Setup required]] section also below.
+Before a local institutional Ansys license server can be used on our clusters, firewall changes will need to be done on both the server and the cluster sides.  For many Ansys servers, this work has already been done and they can be used by following the steps in [[Ansys#Ready-to-use|Ready to use]] below.  For Ansys servers that have never been used on our clusters, an additional step must be done as shown under [[Ansys#Additional steps|Setup required]], also below.
 
 ==== Ready to use ==== 
-
 
 To use a local institutional Ansys license server with an Alliance cluster whose network/firewall connections have already been set up, contact your Ansys server administrator and get the following pieces of information for the license server 
  1) the Ansys flex port (FLEXPORT) number, commonly 1055
  2) the fully qualified hostname (LICSERVER) 
 Now, configure your ~/.licenses/ansys.lic file by plugging in the values, and you are done.
 
-==== Setup required ==== 
-
+==== Additional steps  ==== 
 
 To use a local Ansys license server with an Alliance cluster whose network/firewall connection have never been set up before, you will also need to get the following from your ANSYS server administrator:
   3) the statically configured Ansys vendor port (VENDPORT) number.
@@ -57,83 +55,61 @@ Send items 1 &#8594; 3 by email to [[technical support]] and mention which Allia
 
 == Checking out a license == 
 
-
 To test if your ansys.lic is configured and working properly with your license server, run the following sequence of commands on the cluster where you will be submitting jobs.
 
- 
-[login-node:~] cd /tmp
+  [login-node:~] cd /tmp
  [login-node:/tmp] salloc --time{{=}}1:0:0 --mem{{=}}1000M --account{{=}}def-YOURUSERID
  [compute-node/tmp] module load StdEnv/2023; module load ansys/2025R2.04
  [compute-node:/tmp] $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep "ansyslmd: UP" 1> /dev/null && echo Success {{!}}{{!}} echo Fail
 <code>Success</code> output indicates license checkouts should work when jobs are submitted to the queue.<br>
 <code>Fail</code> output indicates a problem with the licensing setup somewhere, and jobs will likely fail.<br>
 
-
 If there is an Ansys license server checkout problem, the following message will appear in Slurm output files when Fluent jobs are started by Slurm scripts in the queue *OR* when Fluent is started interactively, simply by doing the following:
 
- 
-[compute-node:/tmp] fluent -g 2d -n 2
+  [compute-node:/tmp] fluent -g 2d -n 2
  Connected License Server List:	<Shared_Web_License_Server>
  Hit return to exit.
 
 = Version compatibility = 
 
-
 Ansys simulations are typically forward compatible, but <span style="color:red">NOT</span> backward compatible.  This means that simulations created using an older version of Ansys can be expected to load and run fine with any newer version.  For example, a simulation created and saved with ansys/2022R2 should load and run smoothly with ansys/2023R2. but <span style="color:red">NOT</span> the other way around.  While it may be possible to start a simulation running with an older version, random error messages or crashing will likely occur.  Regarding Fluent simulations, if you cannot recall which version of Ansys was used to create your case file, try grepping it as follows to look for clues:
 
- 
 $ grep -ia fluent combustor.cas
    (0 "fluent15.0.7  build-id: 596")
 
- 
 $ grep -ia fluent cavity.cas.h5
    ANSYS_FLUENT 24.1 Build 1018
 
 == Platform support == 
 
-
 Ansys provides [https://www.ansys.com/it-solutions/platform-support/previous-releases detailed platform support information] describing software/hardware compatibility for the current and previous releases. This is of special interest since it shows which packages are supported under Windows, but not under Linux, and thus not on the Alliance clusters (e.g., SpaceClaim).
 
 == What's new == 
-
 
 Information for the latest Ansys release can be found [https://www.ansys.com/products/release-highlights here] (Ansys 2026 R1, as of May 2026).  Posts for previous releases can be found on the [https://www.ansys.com/blog Ansys blog] and then scrolling down to the FILTERS search bar. Inputting for example <i>What’s New Fluent 2024 GPU</i> should pull up a document containing the latest GPU support information for that release. The [https://www.ansys.com/news-center/press-releases Press Release] search bar is also a good way to find release-specific information.
 
 == Service packs == 
 
-
 Starting with Ansys 2024, a separate Ansys module will appear on the clusters with a decimal and two digits following the release number whenever a service pack is installed over the initial release.  For example, the initial 2024 release with no service pack applied may be loaded with  <code>module load ansys/2024R1</code> while a module with service pack 3 applied will be loaded with <code>module load ansys/2024R1.03</code>.  If a service pack is already available by the time a new release is to be installed, only a module for that service pack number will most likely be installed, unless a request to install the initial release is also received.
 
-
 Most users will likely want to load the latest module version equipped with the latest installed service pack, which can be achieved with <code>module load ansys</code>.  While it's not expected service packs will impact numerical results, the changes they make are extensive and so, if computations have already been done with the initial release or an earlier service pack, some groups may prefer to continue using it. Having separate modules for each service pack makes this possible.  Starting with Ansys 2024R1, a detailed description of what each service pack does can be found by searching this [https://storage.ansys.com/staticfiles/cp/Readme/release2024R1/info_combined.pdf link] for <I>Service Pack Details</I>. Future versions will presumably be similarly searchable by manually modifying the version number.
-
-
-= Cluster batch job submission =
-{{:Cluster batch job submission with Ansys}}
-
-= Graphical use = 
-{{:Graphical use of Ansys}}
 
 = Site-specific usage = 
 
 == SHARCNET license == 
 
-
 The SHARCNET Ansys license is free for academic use by <b>any</b> Alliance researcher on <b>any</b> Alliance system.   The installed software does not have any solver or geometry limits.  The SHARCNET license may be used for <b><i>Publishable Academic Research</i></b>, but not for any private/commercial purposes as this is strictly prohibited by the license terms.  The SHARCNET Ansys license is based on the Multiphysics Campus Solution and includes products such as: HF, EM, Electronics HPC, Mechanical, CFD, ROCKY and LS-DYNA as described [https://www.ansys.com/academic/educator-tools/academic-product-portfolio here]. Lumerical software is included in recent Ansys module versions, however it is NOT covered by the SHARCNET license.  SpaceClaim software is not installed with any Ansys module since there is no Linux version available; it is technically covered by the SHARCNET license however.  
-
 
 <div style="font-size:85%; background-color: #E0FFFF; color: #000000; padding: 10px;">
  <span style="font-size: 20px;">&#x2696;&#xFE0F;</span> Scaling tests should be run before launching long jobs to determine the optimal scalable job size so that the limited licenses and hardware is used as efficiently as possible, and total job run and startup times are minimized.  Parallel jobs that do not achieve at least 50% CPU utilization will probably be flagged by the system, resulting in a follow up by an Alliance team member.</div>
 
 ==== License limits ==== 
 
-
 The SHARCNET Ansys license is made available on a first come first serve basis.  It currently permits each researcher to run a maximum of simultaneous 16 jobs using a total of up to 512 HPC cores across all clusters, therefore any of the following maximum job size combinations can be run simultaneously: 1x512, 2x256, 4x128, 8x64, 16x32 or more commonly one of these full node combinations: 1x384, 2x192 or 1x192 cores.  Note however that the SHARCNET license is oversubscribed so there is potential for jobs to fail on startup if all (or nearly all) of the 1986 <code>anshpc</code> licenses in the SHARCNET license pool are in use.  Should this occur, you will need to manually resubmit your job to the queue.   As there have been an increasing number of license shortage (DENIED) instances where jobs fail on startup, the total <code>anshpc</code> core limit per researcher will be decreased from 512 to 384 on April 1, 2026.  If you need to use more than 384 HPC cores for your research, either use the local Ansys License server at your institution if one is available, OR open a ticket to request purchasing additional licenses for the SHARCNET license and these would be reserved for your own or your groups exclusive use.
 
 ==== License file ==== 
 
-
-As of February 2026, the license3.sharcnet.ca license server has been permanently shut down.  To use the SHARCNET Ansys license on any Alliance cluster, simply configure your <code>ansys.lic</code> file as follows
+As of February 2026, the license3.sharcnet.ca license server has been permanently shut down.  To use the SHARCNET Ansys license on any Alliance cluster, simply configure your ansys.lic file as follows
 <source lang="bash">
 [username@cluster:~] cat ~/.licenses/ansys.lic
 setenv("ANSYSLMD_LICENSE_FILE", "1055@license1.computecanada.ca")
@@ -141,9 +117,7 @@ setenv("ANSYSLMD_LICENSE_FILE", "1055@license1.computecanada.ca")
 
 ==== License query  ==== 
 
-
 To show the number of Ansys licenses in use by your username and the total in use by all users, run
-
 
 <source lang="bash">
 ssh nibi.alliancecan.ca
@@ -154,9 +128,7 @@ lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep "Users of\|$USER" | grep -v " Total o
 
 ==== Example  ==== 
 
-
 Consider the case where a user submits an 8-core Fluent job and 32-core Fluent job.  Once both jobs start running, the user runs the <code>lmutil</code> query command and the output shown below is generated.  Here, we see that a total of (8-4) + (32-4) = 32 anshpc licenses are used by the two jobs.  As a result the total number of licenses increases from 1568 to 1600 so that only (1986-1600) = 386 of them remain available for additional jobs submitted by all users.  Therefore, if a 400-core parallel job attempts to start at that moment, it will fail to start since (400-4) = 396 anshpc licenses would be required. The user has two options, either wait for a sufficient number of   licenses to come available OR reduce the job size to 390 cores or less and resubmit immediately.  This example focuses on the <code>anshpc</code> feature since it is most generously overcommitted to allow any user to submit the largest job possible, but it also shows that the actual number of licenses available per user may sometimes be far less than the 512 per user limit would suggest.  
-
 
 <div style="font-size:75%; line-height: 1.2em;">
  [l2(nibi):~] sq
@@ -187,46 +159,37 @@ Consider the case where a user submits an 8-core Fluent job and 32-core Fluent j
  Users of elec_solve_level2:  (Total of 275 licenses issued;  Total of 1 license in use)
 </div>
 
-
 <div style="font-size:85%; background-color: #E0FFFF; color: #000000; padding: 10px;">
  <span style="font-size: 20px;">&#x1f575;</span> A rare situation can occur where the output from the license query command reveals there are some Ansys licenses unexpectedly still in use by your username on some desktop or compute node. This would happen if for instance an Ansys GUI program run on a remote desktop node was not shut down cleanly, leaving some Ansys processes still running, or an Ansys program crashes on a cluster compute node inside an <code>salloc</code> session that was being run interactively from the command line, once again leaving some rogue Ansys processes still running.  To kill all potentially responsible Ansys rogue processes, either close the desktop, <code>scancel</code> the <code>salloc</code> session, or simply open a terminal window on the affected node and issue the <code>pkill -9 -e -u $USER -f "ansys"</code> command.  Any Ansys licenses that were being held open should immediately be returned to the SHARCNET license server and become available for use again by yourself or other researchers.
 </div>
 
 = Additive Manufacturing = 
 
-
 To get started, configure your ~/.licenses/ansys.lic file to point to a license server that has a valid Ansys Mechanical license.  This must be done on all systems where you plan to run the software.  
 
 == Enabling Additive == 
 
-
 This section describes how to make the Ansys Additive Manufacturing ACT extension available for use in your project. The steps must be performed on each cluster for each Ansys module version where the extension will be used. Any extensions needed by your project will also need to be installed on the cluster as described below.  If you get warnings about missing un-needed extensions (such as ANSYSMotion), uninstall them from your project.
-
 
 === Downloading extensions ===
 * download AdditiveWizard.wbex from https://catalog.ansys.com/,
 * upload AdditiveWizard.wbex to the cluster where it will be used.
 
-
 === Starting Workbench ===
-* follow the Workbench section in [[ANSYS#Graphical_use|Graphical use above]],
+* see the Workbench section in [[Graphical use of Ansys]],
 * ''File -> Open'' your project file (ending in .wbpj) into the Workbench GUI.
-
 
 ===  Opening the extensions manager ===
 * click on the ACT start page and the ACT home page tab will open,
 * click ''Manage Extensions'' and the extensions manager will open.
 
-
 === Installing extensions ===
 * click on the box with the large + sign under the search bar,
 * navigate to select and install your AdditiveWizard.wbex file.
 
-
 === Loading extensions ===
 * click to highlight the ''AdditiveWizard'' box (loads the AdditiveWizard extension for the current session only),
 * click on the lower right corner arrow in the ''AdditiveWizard'' box and select <i>Load extension</i> (loads the extension for current AND future sessions).
-
 
 === Unloading extensions ===
 * click to un-highlight the ''AdditiveWizard'' box (unloads extension for the current session only),
@@ -236,9 +199,7 @@ This section describes how to make the Ansys Additive Manufacturing ACT extensio
 
 === OnDemand === 
 
-
 You can run a single Ansys Additive Manufacturing job in a graphical OnDemand session by following these steps:
-
 
 * Start Workbench as described above in Enabling Additive;
 * click on ''File -> Open'', select <i>test.wbpj</i> and click on ''Open'';
@@ -246,33 +207,25 @@ You can run a single Ansys Additive Manufacturing job in a graphical OnDemand se
 * start Mechanical, clear generated data, tick ''Distributed'', specify cores;
 * click on ''File -> Save Project -> Solve''.
 
-
 '''Check utilization'''
 * open another terminal and run  <code>top -u $USER</code>   **OR**  <code>ps u -u $USER | grep ansys</code>,
 * kill rogue processes from previous runs with  <code>pkill -9 -e -u $USER -f "ansys|mwrpcss|mwfwrapper|ENGINE"</code>.
-
 
 Please note that rogue Ansys-related processes can persistently tie up valuable licenses inside a running OnDemand login node session if an Ansys GUI session (Fluent, Workbench, Mechanical, etc.) is not cleanly terminated or is terminated unexpectedly by a network outage or a hung filesystem.  If the latter is to blame, the processes may not by killable until normal disk access is restored.
 
 ===Cluster=== 
 
-
 '''Project preparation'''
-
 
 Before submitting a newly uploaded Additive project to a cluster queue (with <code>sbatch scriptname</code>), certain preparations must be done.  To begin, open your simulation with the Workbench GUI (as described in the Enabling Additive section above) in the same directory that your job will be submitted from and then save it again. Be sure to use the same Ansys module version that will be used for the job.  Next, create a Slurm script (as explained in the Cluster Batch Job Submission - WORKBENCH section above). To perform parametric studies, change <code>Update()</code> to <code>UpdateAllDesignPoints()</code> in the Slurm script.  Determine the optimal number of cores and memory by submitting several short test jobs.  To avoid needing to manually clear the solution <b>and</b> recreate all the design points in Workbench between each test run, either 1) change <code>Save(Overwrite=True)</code> to <code>Save(Overwrite=False)</code> or 2) save a copy of the original YOURPROJECT.wbpj file and corresponding YOURPROJECT_files directory.  Optionally, create and then manually run a replay file on the cluster in the respective test case directory between each run, noting that a single replay file can be used in different directories by opening it in a text editor and changing the internal <code>FilePath</code> setting.
 
-
- module load ansys/2019R3
+module load ansys/2019R3
  rm -f test_files/.lock
  runwb2 -R myreplay.wbjn
 
-
 '''Resource utilization'''
 
-
 Once your Additive job has been running for a few minutes, a snapshot of its resource utilization on the compute node(s) can be obtained with the <code>srun</code> command.  Sample output corresponding to an eight-core submission script is shown next.  We see that two nodes were selected by the scheduler:
-
 
  [gra-login1:~] srun --overlap --jobid=myjobid top -bn1 -u $USER | grep R | grep -v top
    PID USER   PR  NI    VIRT    RES    SHR S  %CPU %MEM    TIME+  COMMAND
@@ -286,16 +239,12 @@ Once your Additive job has been running for a few minutes, a snapshot of its res
   4305 demo   20   0 2729436 263204 100932 R 100.0  0.2  1:06.88  ansys.e
   4306 demo   20   0 2734720 431532  95180 R 100.0  0.3  1:06.57  ansys.e
 
-
-''Scaling tests'''
-
+'''Scaling tests'''
 
 After a job completes, its wall-clock time can be obtained with <code>seff myjobid</code>.  Using this value, scaling tests can be performed by submitting short test jobs with an increasing number of cores.  If the wall-clock time decreases by ~50% when the number of cores is doubled, additional cores may be considered.
 
 = Help resources = 
 
-
 The official full documentation for recent versions Ansys 202[4|5]R[1|2] is available [https://ansyshelp.ansys.com/public/account/secured?returnurl=/Views/Secured/main_page.html?lang=en here].  Documentation for older versions such as Ansys 2023R[1|2] however requires [https://ansyshelp.ansys.com/ login].  Developer documentation can be found in the [https://developer.ansys.com Ansys Developer Portal]. Additional learning resources include the [https://www.youtube.com/@AnsysHowTo/videos Ansys HowTo videos], the [https://innovationspace.ansys.com/educator-hub/ Ansys Educator Hub] and the [https://www.ansys.com/events/ansys-academic-webinar-series Ansys Webinar series].
 
-
-<b>XoverSSH Legacy Note</b>: Some programs can be run remotely on a cluster compute node by forwarding X over SSH to your local desktop.  Unlike VNC, this approach is not tested and not supported since it relies on a properly set up X display server for your particular operating system OR the selection, installation and configuration of a suitable X client emulator package such as MobaXterm.  Most users will find interactive response times unacceptably slow for basic menu tasks, let alone for more complex tasks such as those involving graphics rendering.  Startup times for GUI programs can also be very slow depending on your Internet connection. For example, in one test it took 40 minutes to fully start the GUI over SSH while starting it with vncviewer required only 34 seconds.  Despite the potential slowness, using this method to connect may still be of interest if your only goal is to open a simulation and perform some basic menu operations or run some calculations, and response delays can be tolerated. The basic steps are given here as a starting point: 1) ssh -Y username@alliancecan.ca 2) salloc --x11 --time=1:00:00 --mem=16G --cpus-per-task=4 [--gpus-per-node=1] --account=def-mygroup; 3) once connected onto a compute node, try running <code>xclock</code>.  If the clock appears on your desktop, proceed to load the desired Ansys module and try running the program.
+<b>XoverSSH Legacy Note</b>: Some programs can be run remotely on a cluster compute node by forwarding X over SSH to your local desktop.  Unlike VNC, this approach is not tested and not supported since it relies on a properly set up X display server for your particular operating system OR the selection, installation and configuration of a suitable X client emulator package such as MobaXterm.  Most users will find interactive response times unacceptably slow for basic menu tasks, let alone for more complex tasks such as those involving graphics rendering.  Startup times for GUI programs can also be very slow depending on your Internet connection. For example, in one test it took 40 minutes to fully start the GUI over SSH while starting it with vncviewer required only 34 seconds.  Despite the potential slowness, using this method to connect may still be of interest if your only goal is to open a simulation and perform some basic menu operations or run some calculations, and response delays can be tolerated. The basic steps are given here as a starting point: 1) ssh -Y username@alliancecan.ca 2) salloc --x11 --time=1:00:00 --mem=16G --cpus-per-task=4 [--gpus-per-node=1] --account=def-mygroup; 3) once connected onto a compute node, try running <code>xclock</code>.  If the clock appears on your desktop, proceed to load the desired Ansys

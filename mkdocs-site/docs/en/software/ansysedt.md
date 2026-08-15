@@ -39,7 +39,7 @@ AnsysEDT can be run interactively in batch (non-GUI) mode by first starting an `
 
 ### Slurm scripts
 
-Jobs may be submitted to a cluster queue with the `sbatch script-name.sh` command using either of the following single node scripts. Please note these scripts are generic and may require modifications on various clusters. Before using them, specify the simulation time, memory, number of cores and replace `YOUR_AEDT_FILE` with your input file name. A full listing of command line options can be obtained by starting AnsysEDT in [graphical mode](ansys.md#graphical-use) with commands `ansysedt -help` or `ansysedt -Batchoptionhelp` to obtain scrollable graphical popups.
+Jobs may be submitted to a cluster queue with the `sbatch script-name.sh` command using either of the following single node scripts. Please note these scripts are generic and may require modifications on various clusters. Before using them, specify the simulation time, memory, number of cores and replace `YOUR_AEDT_FILE` with your input file name. A full listing of command line options can be obtained by starting AnsysEDT in [graphical mode](ansys.md) with commands `ansysedt -help` or `ansysedt -Batchoptionhelp` to obtain scrollable graphical popups.
 
 /// tab | Single node (command line)
 

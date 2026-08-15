@@ -1,38 +1,34 @@
 <languages />
 
-<translate>
 
-<!--T:1-->
-The Ansys software suite comes with multiple implementations of MPI to support parallel computation. Unfortunately, none of them support our [[Running jobs|Slurm scheduler]]. For this reason, we need special instructions on how to start a parallel job for each Ansys package. In the sections below, we give examples of submission scripts for some of the packages.  While Slurm scripts should work on all clusters, Trillium users may need to make some additional [https://docs.scinet.utoronto.ca/index.php changes covered here].
+Plusieurs implémentations MPI incluses dans la suite Ansys permettent le calcul parallèle, mais aucune n'est compatible avec l'ordonnanceur Slurm (voir [[Running_jobs/fr|Exécuter des tâches]]). Pour cette raison, il faut utiliser des directives particulières à chaque paquet Ansys pour lancer une tâche parallèle. Vous trouverez ci-dessous quelques scripts de soumission pour ce faire. Ils fonctionneront sur toutes les grappes, mais sur Trillium, vous devrez peut-être [https://docs.scinet.utoronto.ca/index.php faire certains ajustements].
 
-<!--T:2-->
 == Fluent ==
-Typically, you would use the following procedure to run Fluent on one of our clusters:
+La procédure suivante est habituellement utilisée pour exécuter Fluent sur nos grappes&nbsp;:
 
-<!--T:3-->
-# Prepare your Fluent job using Fluent from the Ansys Workbench on your desktop machine, up to the point where you would run the calculation.
-# Export the case file with <i>File > Export > Case…</i> or find the folder where Fluent saves your project's files. The case file will often have a name like FFF-1.cas.gz.
-# If you already have data from a previous calculation, which you want to continue, export a data file as well (<i>File > Export > Data…</i>) or find it in the same project folder (FFF-1.dat.gz). 
-# [[Transferring_data|Transfer]] the case file (and if needed the data file) to a directory on the [[Project_layout|/project]] or [[Storage_and_file_management#Storage_types|/scratch]] filesystem on the cluster.  When exporting, you can save the file(s) under a more instructive name than FFF-1.*, or rename them when they are uploaded.
-# Now you need to create a journal file. Its purpose is to load the case file (and optionally the data file), run the solver, and finally write the results.  See examples below and remember to adjust the filenames and desired number of iterations.
-# If jobs frequently fail to start due to license shortages and manual resubmission of failed jobs is not convenient, consider modifying your script to requeue your job (up to 4 times) as shown under the <i>by node + requeue</i> tab further below.  Be aware that doing this will also requeue simulations that fail due to other related issues (such as divergence), resulting in wasted compute time.  Therefore, it is strongly recommended to monitor and inspect each Slurm output file to confirm that each requeue attempt is license-related.  When it is determined that a job is requeued due to a simulation issue, immediately kill the job progression manually with <code>scancel jobid</code> and correct the problem.
-# After [[Running_jobs|running the job]], you can download the data file and import it back into Fluent with <i>File > Import > Data…</i>.
+# Sur votre ordinateur, préparez votre tâche avec Fluent du Ansys Workbench jusqu'au point où les calculs seraient exécutés.
+# Exportez le fichier de cas avec ''File > Export > Case…'' ou localisez le répertoire dans lequel Fluent enregistre les fichiers pour votre projet. Le nom des fichiers de cas a souvent un format tel que FFF-1.cas.gz.
+# Si vous voulez poursuivre avec des données d'un calcul effectué précédemment, exportez aussi un fichier de données avec ''File > Export > Data…'' ou trouvez-le dans le même répertoire /project (FFF-1.dat.gz).
+# [[Transferring_data/fr|Transférez]] le fichier de cas (et le fichier de données s'il y a lieu) dans le système de fichiers [[Project_layout/fr|/project]] ou [[Storage_and_file_management/fr#Types_de_stockage|/scratch]]. Quand les fichiers sont exportés, sauvegardez-les avec des noms plus faciles à repérer que FFF-1.* ou renommez-les au téléversement.
+# Créez un fichier de journalisation dont le but est de charger les fichiers de cas (et le fichier de données s'il y a lieu), lancer le solveur et enregistrer les résultats. Voyez les exemples ci-dessous et n'oubliez pas d'ajuster les noms des fichiers et le nombre d'itérations.
+# S'il arrive fréquemment que les tâches ne démarrent pas en raison d'un manque de licence (et que de les soumettre de nouveau manuellement ne convient pas), vous pouvez modifier votre script pour que votre tâche soit remise en file d'attente (au plus 4 fois) comme c'est le cas pour le script sous l'onglet ''Plusieurs nœuds (par cœur + remise en attente)'' plus loin. Cependant, ceci remet aussi en attente les simulations qui ont échoué pour d'autres raisons que l'absence de licence (par exemple la divergence), gaspillant ainsi du temps de calcul. Il est donc fortement recommandé de vérifier les fichiers de sortie de l'ordonnanceur pour savoir si chaque tentative de remise en attente est ou non due à un problème de licence. Si vous découvrez que la remise en attente est due à un problème avec la simulation, annulez immédiatement la tâche avec <code>scancel jobid</code> et corrigez le problème.
+# Lorsque [[Running jobs/fr|la tâche est terminée]], vous pouvez télécharger le fichier de données et le retourner dans Fluent avec  <i>File > Import > Data…</i>.
 
-=== Slurm scripts === <!--T:4-->   
+<span id="Slurm_scripts"></span>
+=== Scripts pour l'ordonnanceur Slurm ===   
 
-==== General purpose ==== <!--T:5-->   
+<span id="General_purpose"></span>
+==== Utilisation générale ====   
 
-<!--T:6-->
-Most Fluent jobs should use the following <i>by node</i> script to minimize solution latency and maximize performance over as few nodes as possible. Very large jobs might wait less in the queue if they use a <i>by core</i> script; however, the startup time of a job using many nodes can be significantly longer, thus offsetting some of the benefits. In addition, be aware that running large jobs over an unspecified number of very many nodes will make them far more vulnerable to crashing if any of the compute nodes fail during the simulation. The scripts will ensure Fluent uses shared memory for communication when run on a single node, and distributed memory (utilizing MPI and the appropriate HPC interconnect) when run over multiple nodes.  The two Narval tabs may be useful to provide a more robust alternative if Fluent crashes during the initial automatic mesh partitioning phase when using the standard intel-based scripts with the parallel solver.  The other option would be to manually perform the mesh partitioning in the Fluent GUI, then try to run the job again on the cluster with the intel scripts.  Doing so will allow you to inspect the partition statistics and specify the partitioning method to obtain an optimal result.  The number of mesh partitions should be an integral multiple of the number of cores; for optimal efficiency, ensure at least 10000 cells per core.
+La plupart des tâches Fluent devraient utiliser le script ''par nœud'' ci-dessous pour minimiser le temps d'attente et maximiser la performance avec le moins de nœuds possible. Les tâches demandant beaucoup de cœurs CPU pourraient attendre moins longtemps dans la queue avec le script ''par cœur'', mais le démarrage d’une tâche utilisant plusieurs nœuds peut prendre beaucoup plus de temps, ce qui en diminue l'intérêt. Il faut aussi tenir compte du fait qu'exécuter des tâches intensives sur un nombre indéterminé de nœuds pouvant être très élevé fait en sorte que ces tâches seront beaucoup plus susceptibles de planter si un des nœuds de calcul fait défaut pendant la simulation. Les scripts suivants utilisent la mémoire partagée pour les tâches utilisant un seul nœud et la mémoire distribuée (avec MPI et l’interconnexion CHP appropriée) pour les tâches en utilisant plusieurs.
+
+Les deux onglets pour Narval peuvent ètre une alternative plus robuste si Fluent plante pendant la phase initiale de partitionnement automatique du maillage lors de l'utilisation des scripts Intel standards avec le solveur parallèle. L'autre option serait d'effectuer manuellement le partitionnement du maillage dans l'interface graphique de Fluent, puis d'essayer d'exécuter à nouveau la tâche sur la grappe avec les scripts Intel. Ainsi, vous pouvez inspecter les statistiques de partitionnement et spécifier la méthode pour obtenir un résultat optimal. Le nombre de partitions de maillage doit être un multiple entier du nombre de cœurs; pour une efficacité optimale, assurez-vous d'avoir au moins 10&nbsp;000 cellules par cœur.
 
 
-<!--T:7-->
 <tabs>
 
 
-<!--T:8-->
-<tab name="Multinode (by node)">
-</translate>
+<tab name="Plusieurs nœuds (par nœud)">
 {{File
 |name=script-flu-bynode-intel.sh
 |lang="bash"
@@ -77,15 +73,11 @@ else
  fi
 fi
 }}
-<translate>
 
-<!--T:9-->
 </tab>
 
 
-<!--T:10-->
-<tab name="Multinode (by core)">
-</translate>
+<tab name="Plusieurs nœuds (par cœur)">
 {{File
 |name=script-flu-bycore-intel.sh
 |lang="bash"
@@ -130,15 +122,11 @@ else
  fi
 fi
 }}
-<translate>
 
-<!--T:11-->
 </tab>
 
 
-<!--T:12-->
-<tab name="Multinode (by node, Narval)">
-</translate>
+<tab name="Plusieurs nœuds (par nœud, Narval)">
 {{File
 |name=script-flu-bynode-openmpi.sh
 |lang="bash"
@@ -171,14 +159,10 @@ else
  fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE
 fi
 }}
-<translate>
 
-<!--T:13-->
 </tab>
 
-<!--T:14-->
-<tab name="Multinode (by core, Narval)">
-</translate>
+<tab name="Plusieurs nœuds (par cœur, Narval)">
 {{File
 |name=script-flu-bycore-openmpi.sh
 |lang="bash"
@@ -211,15 +195,11 @@ else
  fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE
 fi
 }}
-<translate>
 
-<!--T:15-->
 </tab>
 
 
-<!--T:16-->
-<tab name="Multinode (by node, Trillium)">
-</translate>
+<tab name="Plusieurs nœuds (par nœud, Trillium)">
 {{File
 |name=script-flu-bynode-intel-tri.sh
 |lang="bash"
@@ -270,24 +250,19 @@ else
   fi
 fi
 }}
-<translate>
 
-<!--T:17-->
 </tab>
 
-<!--T:18-->
 </tabs>
 
-==== License requeue ==== <!--T:19-->   
+<span id="License_requeue"></span>
+==== Remise en file d'attente pour obtenir la licence ====   
 
-<!--T:20-->
-The scripts in this section should only be used with Fluent jobs that are known to complete normally without generating any errors in the output, but typically require multiple requeue attempts to check out licenses.  They are not recommended for Fluent jobs that may 1) run for a long time before crashing 2) run to completion but contain unresolved journal file warnings, since in both cases the simulations will be repeated from the beginning until the maximum number of requeue attempts specified by the <code>array</code> value is reached.  For these types of jobs, the general purpose scripts above should be used instead.
+Les scripts suivants ne doivent être utilisés qu'avec des tâches Fluent qui sont connues pour se terminer normalement sans générer d'erreurs en sortie, mais qui nécessitent généralement plusieurs tentatives de remise en file d'attente pour obtenir la licence. Ils ne sont pas recommandés pour les tâches Fluent qui peuvent 1) s'exécuter pendant une longue période avant de planter 2) s'exécuter jusqu'à la fin mais contenir des avertissements de journalisation; dans les deux cas, les simulations seront répétées depuis le début jusqu'à ce que le nombre maximal de tentatives de remise en file d'attente spécifié par la valeur array soit atteint. Pour ces types de tâches, les scripts à usage général (ci-dessus) doivent être utilisés.
 
 
-<!--T:21-->
 <tabs>
-<tab name="Multinode (by node + requeue)">
-</translate>
+<tab name="Plusieurs nœuds (par nœud + remise en attente)">
 {{File
 |name=script-flu-bynode+requeue.sh
 |lang="bash"
@@ -345,16 +320,12 @@ else
     fi
 fi
 }}
-<translate>
 
-<!--T:22-->
 </tab>
 
 
 
-<!--T:23-->
-<tab name="Multinode (by core + requeue)">
-</translate>
+<tab name="Plusieurs nœuds (par cœur + remise en attente)">
 {{File
 |name=script-flu-bycore+requeue.sh
 |lang="bash"
@@ -412,25 +383,21 @@ else
     fi
 fi
 }}
-<translate>
 
-<!--T:24-->
 </tab>
 </tabs>
 
-==== Solution restart ==== <!--T:25-->   
+<span id="Solution_restart"></span>
+==== Redémarrage ====   
 
 
 
-<!--T:26-->
-The following scripts are provided to automate restarting very large jobs that require more than the typical seven-day maximum runtime window available on most clusters. Jobs are restarted from the most recently saved timestep files. A fundamental requirement is that the first timestep can be completed within the requested job array time limit (specified at the top of your Slurm script) when starting a simulation from an initialized solution field. It is assumed that a standard fixed timestep size is being used. To begin, a working set of sample.cas, sample.dat and sample.jou files must be present. Next, edit your sample.jou file to contain <code>/solve/dual-time-iterate 1</code> and <code>/file/auto-save/data-frequency 1</code>. Then, create a restart journal file with <code>cp sample.jou sample-restart.jou</code> and edit the sample-restart.jou file to contain <code>/file/read-cas-data sample-restart</code> instead of <code>/file/read-cas-data sample</code>. Also comment out the initialization line with a semicolon, for example <code>;/solve/initialize/initialize-flow</code>. If your second and subsequent timesteps are known to run twice as fast as the initial timestep, edit the sample-restart.jou file to add <code>/solve/dual-time-iterate 2</code>. By adding this specification, the solution will only be restarted after two timesteps have been completed following the initial timestep. An output file for each timestep will still be saved in the output subdirectory. The value 2 is arbitrary but should be chosen so that the time for 2 steps fits within the job array time limit. Doing so minimizes the number of solution restarts which are computationally expensive. If the first timestep performed by sample.jou starts from a converged (previous) solution, choose 1 instead of 2, since likely all timesteps will require a similar amount of walltime to complete. Assuming 2 is chosen, the total time of simulation to be completed will be 1*Dt+2*Nrestart*Dt where Nrestart is the number of solution restarts specified in the script. The total number of timesteps (and hence the number of output files generated) will therefore be 1+2*Nrestart. The value for the time resource request should be chosen so that the initial timestep and subsequent timesteps will complete comfortably within the Slurm time window specifiable up to a maximum of <code>#SBATCH --time=07-00:00</code> days.
+Les deux scripts suivants automatisent le redémarrage de tâches intensives qui exigent plus que le maximum de sept jours d'exécution permis sur la plupart des grappes. Le redémarrage se fait à partir des fichiers de valeur de pas de temps les plus récemment sauvegardés. Une exigence de base est que le premier pas puisse être terminé avant la fin du temps demandé dans le vecteur de tâches (défini dans le haut du script) quand une simulation est lancée à partir d'un champ initialisé. Nous supposons que la valeur du pas est fixe. Pour commencer, sample.cas, sample.dat et sample.jou doivent être présents. Modifiez le fichier sample.jou pour qu'il contienne <code>/solve/dual-time-iterate 1</code> et <code>/file/auto-save/data-frequency 1</code>. Créez ensuite un fichier de journalisation avec <code>cp sample.jou sample-restart.jou</code> et modifiez le fichier sample-restart.jou pour qu'il contienne <code>/file/read-cas-data sample-restart</code> plutôt que <code>/file/read-cas-data sample</code> et mettez en commentaire la ligne pour l'initialisation en la précédant d’un point-virgule, par exemple <code>;/solve/initialize/initialize-flow</code>. Si votre deuxième pas et les pas qui suivent sont exécutés deux fois plus vite que le pas initial, modifiez sample-restart.jou en spécifiant <code>/solve/dual-time-iterate 2</code>. De cette façon, la solution ne sera redémarrée qu'après que les deux pas suivant le pas initial soient terminés. Un fichier de résultats pour chaque pas sera enregistré dans le sous-répertoire de sortie. La valeur 2 est arbitraire, mais elle devrait être utilisée pour que la durée de deux pas soit moindre que la durée allouée au vecteur de tâches. Ceci limitera le nombre de redémarrages qui consomme beaucoup de ressources. Si le premier pas de sample.jou est fait à partir d'une solution précédente, choisissez 1 plutôt que 2 puisque tous les pas auront probablement besoin du même temps d'exécution. En supposant que 2 est choisi, la durée totale de la simulation sera 1*Dt+2*Nrestart*Dt où Nrestart est le nombre de redémarrages défini dans le script Slurm. Le nombre total de pas (de même que le nombre de fichiers de résultats générés) sera ainsi 1+2*Nrestart. La valeur pour le temps demandé devrait être choisie afin que le pas initial et les pas suivants se terminent dans la fenêtre de temps de Slurm, qui peut aller jusqu'à <code>#SBATCH --time=07-00:00</code> jours.
 
 
 
-<!--T:27-->
 <tabs>
-<tab name="Multinode (by node + restart)">
-</translate>
+<tab name="Plusieurs nœuds (par nœud + redémarrage)">
 {{File
 |name=script-flu-bynode+restart.sh
 |lang="bash"
@@ -509,14 +476,10 @@ else
      echo "Simulation failed. Exiting …"
 fi
 }}
-<translate>
 
-<!--T:28-->
 </tab>
 
-<!--T:29-->
-<tab name="Multinode (by core + restart)">
-</translate>
+<tab name="Plusieurs nœuds (par cœur + redémarrage)">
 {{File
 |name=script-flu-bycore+restart.sh
 |lang="bash"
@@ -595,21 +558,17 @@ else
      echo "Simulation failed. Exiting now."
 fi
 }}
-<translate>
 
-<!--T:30-->
 </tab>
 </tabs>
 
-=== Journal files === <!--T:31-->   
+<span id="Journal_files"></span>
+=== Fichiers de journalisation ===   
 
-<!--T:32-->
-Fluent journal files can include basically any command from Fluent's Text User Interface (TUI); commands can be used to change simulation parameters like temperature, pressure, and flow speed. You can then run a series of simulations under different conditions with a single case file, by only changing the parameters in the journal file. Refer to the [https://ansyshelp.ansys.com/public/account/secured?returnurl=/Views/Secured/corp/v242/en/flu_ug/flu_ug.html Fluent User's Guide] for more information, and a list of all commands that can be used.  The following journal files are set up with <code>/file/cff-files no</code> to use the legacy .cas/.dat file format (the default in module versions 2019R3 or older).  Set this to <code>/file/cff-files yes</code> instead to use the more efficient .cas.h5/.dat.h5 file format (the default in module versions 2020R1 or newer).
+Les fichiers de journalisation peuvent contenir toutes les commandes de l'interface TUI (Text User Interface) de Fluent; elles peuvent être utilisées pour modifier des paramètres de simulation comme la température, la pression ou la vitesse du flux. Vous pouvez ainsi effectuer une série de simulations sous différentes conditions simplement en modifiant les paramètres du fichier de journalisation. Consultez le [https://ansyshelp.ansys.com/public/account/secured?returnurl=/Views/Secured/corp/v242/en/flu_ug/flu_ug.html guide d'utilisation de Fluent] pour plus d'information ainsi que pour connaître la liste des commandes. Les fichiers qui suivent sont configurés avec <code>/file/cff-file no</code> pour utiliser les formats de fichiers .cas/.dat qui sont les formats par défaut pour les modules jusqu'à 2019R3. Pour utiliser les formats .cas.h5/.dat.h5 plus efficaces des versions à partir de 2020R1, la configuration est <code>/file/cff-files yes</code>.
 
-<!--T:33-->
 <tabs>
-<tab name="Journal file (steady, case)">
-</translate>
+<tab name="Fichier de journalisation (stable, cas)">
 {{File
 |name=sample1.jou
 |contents=
@@ -641,14 +600,10 @@ Fluent journal files can include basically any command from Fluent's Text User I
 ; Cleanly shutdown fluent
 /exit
 }}
-<translate>
 
-<!--T:34-->
 </tab>
 
-<!--T:35-->
-<tab name="Journal file (steady, case + data)">
-</translate>
+<tab name="Fichier de journalisation (stable, cas + données)">
 {{File
 |name=sample2.jou
 |contents=
@@ -686,14 +641,10 @@ Fluent journal files can include basically any command from Fluent's Text User I
 ; Cleanly shutdown fluent
 /exit
 }}
-<translate>
 
-<!--T:36-->
 </tab>
 
-<!--T:37-->
-<tab name="Journal file (transient)">
-</translate>
+<tab name="Fichier de journalisation (temporaire)">
 {{File
 |name=sample3.jou
 |contents=
@@ -750,50 +701,43 @@ Fluent journal files can include basically any command from Fluent's Text User I
 ; Cleanly shutdown fluent
 /exit
 }}
-<translate>
 
-<!--T:38-->
 </tab>
 </tabs>
 
-=== UDFs === <!--T:39-->   
+<span id="UDFs"></span>
+=== Fonctions UDF ===   
 
-<!--T:40-->
-The first step is to transfer your user-defined function or UDF (namely the sampleudf.c source file and any additional dependency files) to the cluster.  When uploading from a Windows machine, be sure the text mode setting of your transfer client is used, otherwise Fluent won't be able to read the file properly on the Linux cluster.  The UDF should be placed in the directory where your journal, cas, and dat files reside.  Next, add one of the following commands into your journal file before the commands that read in your simulation cas/dat files.   Regardless of whether you use the interpreted or compiled UDF approach,  before uploading your cas file onto the cluster, please check that neither the ''Interpreted UDFs'' dialog box or the ''UDF Library Manager'' dialog box are configured to use any UDF; this will ensure that only the journal file commands are in control when jobs are submitted.
+La première étape est de transférer vers la grappe votre UDF (''User-Defined Function''), soit le fichier source sampleudf.c et tous les fichiers de dépendance supplémentaires. Lors du téléchargement à partir d'une machine Windows, assurez-vous que le mode texte de votre client de transfert est utilisé, sinon Fluent ne pourra pas lire correctement le fichier sur la grappe qui, elle, exécute Linux. L'UDF doit être placée dans le répertoire où résident vos fichiers de journalisation, cas et dat. Ajoutez ensuite l'une des commandes suivantes dans votre fichier de journalisation avant les commandes qui lisent vos fichiers de simulation cas/dat. Que vous utilisiez l'approche UDF interprétée ou compilée, avant de télécharger votre fichier de cas, vérifiez que les boîtes de dialogue ''Interpreted UDFs'' et ''UDF Library Manager'' ne sont pas configurées pour utiliser un UDF; ceci garantira que lorsque les tâches sont soumises, seules les commandes du fichier de journalisation auront le contrôle.
 
-==== Interpreted ==== <!--T:41-->   
+<span id="Interpreted"></span>
+==== Interprété ====   
 
-<!--T:42-->
-To tell Fluent to interpret your UDF at runtime, add the following command line into your journal file before the cas/dat files are read or initialized. The filename sampleudf.c should be replaced with the name of your source file.  The command remains the same whether the simulation is being run in serial or parallel.  To ensure the UDF can be found in the same directory as the journal file, open your cas file in the Fluent GUI, remove any managed definitions, and resave it.   Doing this ensures only the following command/method is in control when Fluent runs. To use an interpreted UDF with parallel jobs, it will need to be parallelized as described in the section below.
+Pour indiquer à Fluent d'interpréter votre UDF au moment de l'exécution, ajoutez la ligne de commande suivante dans votre fichier journal avant que les fichiers cas/dat soient lus ou initialisés. Remplacez le nom de fichier sampleudf.c par le nom de votre fichier source. La commande reste la même, que la simulation soit exécutée séquentiellement ou en parallèle. Pour vous assurer que l'UDF se trouve dans le même répertoire que le fichier de journalisation, ouvrez votre fichier cas dans l'interface graphique Fluent, supprimez toutes les définitions gérées et réenregistrez-le. Ceci garantira que seule la commande/méthode suivante est en contrôle lors de l'exécution de Fluent. Pour utiliser une UDF interprétée avec des tâches parallèles, elle devra être parallélisée comme décrit dans la section ci-dessous.
 
-<!--T:43-->
 define/user-defined/interpreted-functions "sampleudf.c" "cpp" 10000 no
 
-==== Compiled ==== <!--T:44-->   
+<span id="Compiled"></span>
+==== Compilé ====   
 
-<!--T:45-->
-To use this approach, your UDF must be compiled on an Alliance cluster at least once.  Doing so will create a libudf subdirectory structure containing the required libudf.so shared library.   The libudf directory cannot simply be copied from a remote system (such as your laptop) to the cluster since the library dependencies of the shared library will not be satisfied, resulting in Fluent crashing on startup.  That said, once you have compiled your UDF on an Alliance cluster, you can transfer the newly created libudf to any other Alliance cluster, providing your account loads the same StdEnv environment module version.  Once copied, the UDF can be used by uncommenting the second (load) libudf line below in your journal file when submitting jobs to the cluster.  Both (compile and load) libudf lines should not be left uncommented in your journal file when submitting jobs on the cluster, otherwise your UDF will automatically be (re)compiled for each and every job.  Not only is this highly inefficient, but it will also lead to racetime-like build conflicts if multiple jobs are run from the same directory. Besides configuring your journal file to build your UDF, the Fluent GUI may also be used.  To do this, navigate to the ''Compiled UDFs'' dialog box, add the UDF source file and click on ''Build''.   When using a compiled UDF with parallel jobs, your source file should be parallelized as discussed in the section below.
+Pour utiliser cette approche, votre UDF doit être compilée sur une de nos grappes au moins une fois. Ceci créera une structure de sous-répertoire libudf contenant la bibliothèque partagée libudf.so requise. Le répertoire libudf ne peut pas être simplement copié d'un système distant (comme votre ordinateur portable) vers l'Alliance car les dépendances de la bibliothèque partagée ne seront pas satisfaites, ce qui fera planter Fluent au démarrage. Cela dit, une fois que vous avez compilé votre UDF sur une de nos grappes, vous pouvez transférer la libudf nouvellement créée vers n'importe quelle autre de nos grappes, à condition que votre compte charge la même version du module d'environnement StdEnv. Une fois copiée, l'UDF peut être utilisée en supprimant le commentaire de la deuxième ligne (''load'') libudf ci-dessous dans votre fichier de journalisation quand une tâche est soumise. Les deux lignes libudf (''compile'' et ''load'') ne doivent pas être laissées sans commentaire lors de la soumission de tâches, sinon votre UDF sera automatiquement (re)compilée pour chaque tâche. Non seulement cette méthode est très inefficace, mais elle peut également entraîner des conflits de build de type ''racetime'' si plusieurs tâches sont exécutées à partir du même répertoire. Outre la configuration de votre fichier de journalisation pour construire votre UDF, l'interface graphique de Fluent peut également être utilisée. Pour ce faire, ajoutez le fichier source UDF dans la boîte de dialogue ''Compiled UDFs'', et cliquez sur ''Build''. Lorsque vous utilisez une UDF compilée avec des tâches parallèles, votre fichier source doit être parallélisé comme indiqué dans la section ci-dessous.
 
-<!--T:46-->
 define/user-defined/compiled-functions compile libudf yes sampleudf.c "" ""
 
-<!--T:47-->
-and/or
+et/ou
 
-<!--T:48-->
 define/user-defined/compiled-functions load libudf
 
-==== Parallel ==== <!--T:49-->   
+<span id="Parallel"></span>
+==== Parallèle ====   
 
-<!--T:50-->
-Before a UDF can be used with a Fluent parallel job (single node SMP and multinode MPI), it will need to be parallelized.  By doing this we control how/which processes (host and/or compute) run specific parts of the UDF code when Fluent is run in parallel on the cluster. The instrumenting procedure involves adding compiler directives, predicates, and reduction macros into your working serial UDF. Failure to do so will result in Fluent running slow at best, or immediately crashing at worst.  The end result will be a single UDF that runs efficiently when Fluent is used in both serial and parallel mode.  The topic is described in detail in [https://ansyshelp.ansys.com/public/account/secured?returnurl=//////Views/Secured/corp/v242/en/flu_udf/flu_udf_ChapParallelUDFUsage.html?q=parallel%20considerations Parallel Considerations]] .
+Avant qu'une UDF puisse être utilisée avec une tâche parallèle Fluent (SMP à nœud unique et MPI à nœuds multiples), elle doit être parallélisée. En procédant ainsi, nous contrôlons comment/quels processus (hôte et/ou calcul) exécutent des parties spécifiques du code UDF lorsque Fluent est exécuté en parallèle sur la grappe. La procédure d'instrumentation consiste à ajouter des directives de compilation, des prédicats et des macros de réduction dans votre UDF séquentielle. Si vous ne le faites pas, Fluent fonctionnera lentement, au mieux, ou plantera immédiatement, au pire. Le résultat final sera une UDF unique qui s'exécute efficacement lorsque Fluent est utilisé à la fois en mode séquentiel et en mode parallèle. Le sujet est décrit en détail dans [https://ansyshelp.ansys.com/public/account/secured?returnurl=//////Views/Secured/corp/v242/en/flu_udf/flu_udf_ChapParallelUDFUsage.html?q=parallel%20considerations Fluent Customization Manual, Part I: Chapter 7: Parallel Considerations]].
 
-<!--T:51-->
 ==== DPM ====
-UDFs can be used to customize Discrete Phase Models (DPM) as described in 
+Les UDF peuvent être utilisées pour personnaliser les modèles de phase discrète (DPM pour ''Discrete Phase Models'') comme décrit dans 
 * [https://ansyshelp.ansys.com/public/account/secured?returnurl=/Views/Secured/corp/v242/en/flu_ug/flu_ug.html 2024R2 Fluent Users Guide]: <I>Part III: Solution Mode | Chapter 24: Modeling Discrete Phase | 24.2 Steps for Using the Discrete Phase Models| 24.2.6 User-Defined Functions</I>, and
 * [https://ansyshelp.ansys.com/public/account/secured?returnurl=//////Views/Secured/corp/v242/en/flu_udf/flu_udf.html 2024R2 Fluent Customization Manual]: <I>Part I: Creating and Using User Defined Functions | Chapter 2: DEFINE Macros | 2.5 Discrete Phase Model (DPM) DEFINE Macros</I>.<br>
-Before a DMP-based UDF can be worked into a simulation, the injection of a set of particles must be defined by specifying ''Point Properties'' with variables such as source position, initial trajectory, mass flow rate, time duration, temperature, and so forth, depending on the injection type.  This can be done in the GUI by clicking on ''Physics panel --> Discrete Phase'' to open the <I>Discrete Phase Model</I> box and then clicking on the <I>Injections</I> button.  Doing so will open an <I>Injections</I> dialog box where one or more injections can be created by clicking on the <I>Create</I> button. The ''Set Injection Properties'' dialog which appears will contain an ''Injection Type'' pulldown where available types are single, group, surface, and flat-fan-atomizer. If you select any of these, you can then select the ''Point Properties'' tab to input the corresponding value fields.  Another way to specify the ''Point Properties'' would be to read an injection text file.  To do this, select ''File'' from the ''Injection Type'' pulldown, specify the ''Injection Name'' to be created, and click on the <I>File</I> button (located beside the <I>OK</I> button at the bottom of the dialog).  Here, either an ''Injection Sample File'' (with a .dpm extension) or a manually created injection text file can be selected. To select the file in the Select File dialog box that change the File of type pull down to All Files (*), then highlight the file which could have any arbitrary name but commonly has an .inj extension, click the OK button.   Assuming there are no problems with the file, no console error or warning message will appear.   As you will be returned to the ''Injections'' dialog box, you should see the same injection name that you specified in the ''Set Injection Properties'' dialog and be able to list its particles and properties in the console.  Next, open the ''Discrete Phase Model'' dialog box and select ''Interaction with Continuous Phase'' which will enable updating DPM source terms every flow iteration.  This setting can be saved in your cas file or added via the journal file as shown.  Once the injection is confirmed working in the GUI, the steps can be automated by adding commands to the journal file after the solution initialization, for example
+Avant qu'une UDF basée sur DMP puisse être utilisée dans une simulation, l'injection d'un ensemble de particules doit être définie en spécifiant des ''Point Properties'' avec des variables telles que la position de la source, la trajectoire initiale, le débit massique, la durée, la température, etc., en fonction du type d'injection. Ceci se fait dans l'interface graphique en cliquant sur le panneau ''Physics--> Discrete Phase'', puis en cliquant sur le bouton ''Injections''. Cela ouvrira la boîte de dialogue ''Injections'' dans laquelle une ou plusieurs injections peuvent être créées avec le bouton ''Create''. La boîte de dialogue ''Set Injection Properties'' contient le menu déroulant ''Injection Type'' avec les quatre premiers types disponibles (''single, group, surface, flat-fan-atomizer''). Si vous sélectionnez l'un de ces types, vous pouvez alors sélectionner l'onglet ''Point Properties'' pour saisir les champs de valeurs correspondants. Une autre façon de spécifier les ''Point Properties'' est de lire un fichier texte d'injection. Pour ce faire, sélectionnez ''File'' dans le menu déroulant ''Injection Type'', spécifiez le nom de l'injection à créer, puis cliquez sur le bouton ''File'' (situé à côté du bouton ''OK'' en bas de la boîte de dialogue ''Set Injection Properties''). Ici, vous pouvez sélectionner un fichier d'échantillon d'injection (avec l'extension .dpm) ou un fichier texte d'injection créé manuellement. Pour ce faire, dans la boîte de dialogue ''Select File'', sélectionnez ''All Files (*)'', puis mettez en surbrillance le fichier qui pourrait avoir n'importe quel nom arbitraire mais qui a généralement une extension .inj; cliquez sur ''OK''. En supposant qu'il n'y ait aucun problème avec le fichier, aucun message d'erreur ou d'avertissement de la console n'apparaîtra dans Fluent. En revenant à la boîte de dialogue ''Injection'', vous devriez voir le même nom d'injection que celui que vous avez spécifié dans la boîte de dialogue ''Set Injection Properties'' et pouvoir répertorier ses particules et propriétés dans la console. Ouvrez ensuite la boîte de dialogue ''Discrete Phase Model'' et sélectionnez ''Interaction with Continuous Phase'' qui permettra de mettre à jour les termes sources DPM à chaque itération de flux. Ce paramètre peut être enregistré dans votre fichier cas ou ajouté via le fichier de journalisation comme indiqué. Une fois que l'injection est confirmée comme fonctionnant dans l'interface graphique, les étapes peuvent être automatisées en ajoutant des commandes au fichier de journalisation après l'initialisation de la solution, par exemple
  /define/models/dpm/interaction/coupled-calculations yes
  /define/models/dpm/injections/delete-injection injection-0:1
  /define/models/dpm/injections/create injection-0:1 no yes file no zinjection01.inj no no no no
@@ -804,19 +748,17 @@ where a basic manually created injection steady file format might look like
   (z=4 12)
   ( x          y        z    u         v    w    diameter  t         mass-flow  mass  frequency  time name )
   (( 2.90e-02  5.00e-03 0.0 -1.00e-03  0.0  0.0  1.00e-04  2.93e+02  1.00e-06   0.0   0.0        0.0 ) injection-0:1 )
-Note that injection files for DPM simulations are generally set up for either steady or unsteady particle tracking where the format of the former is described in [https://ansyshelp.ansys.com/public/account/secured?returnurl=//////Views/Secured/corp/v242/en/flu_udf/flu_udf.html 2024R2 Fluent Customization Manual] <I>Part III: Solution Mode | Chapter 24: Modeling Discrete Phase | 24.3. Setting Initial Conditions for the Discrete Phase | 24.3.13 Point Properties for File Injections | 24.3.13.1 Steady File Format</I>.
+notant que les fichiers d'injection pour les simulations DPM sont généralement configurés pour un suivi stationnaire ou instable de particules, le format du premier étant décrit dans [https://ansyshelp.ansys.com/public/account/secured?returnurl=//////Views/Secured/corp/v242/en/flu_udf/flu_udf.html 2024R2 Fluent Customization Manual] <I>Part III: Solution Mode | Chapter 24: Modeling Discrete Phase | 24.3. Setting Initial Conditions for the Discrete Phase | 24.3.13 Point Properties for File Injections | 24.3.13.1 Steady File Format</I>.
 
-== CFX == <!--T:52-->   
+== CFX ==   
 
-=== Slurm scripts === <!--T:53-->   
+<span id="Slurm_scripts"></span>
+=== Scripts pour l'ordonnanceur Slurm ===   
 
-<!--T:54-->
-A summary of command-line options can be printed by running <code>cfx5solve -help</code> where the same module version loaded in your Slurm script should be first manually loaded.  By default <code>cfx5solve</code> will run in single precision (<code>-single</code>).  To run  in double precision add the <code>-double</code> option, noting that doing so will also double memory requirements.  By default <code>cfx5solve</code> can support meshes with up to 80 million elements (structured) or 200 million elements (unstructured).  For larger meshes with up to 2 billion elements, add the <code>-large</code> option.  Various combinations of these options can be specified for the Partitioner, Interpolator or Solver.  Consult the [https://ansyshelp.ansys.com/public/Views/Secured/corp/v251/en/pdf/Ansys_CFX-Solver_Manager_Users_Guide.pdf ANSYS CFX-Solver Manager User's Guide] for further details.
+Le résumé des options de ligne de commande peut être affiché avec <code>cfx5solve -help</code>. La version du module chargée dans votre script pour l'ordonnanceur doit d'abord être chargée manuellement. Par défaut, <code>cfx5solve</code> s'exécute en simple précision (<code>-single</code>). Pour exécuter <code>cfx5solve</code> en double précision, ajoutez l'option <code>-double</code>, sachant que cela doublera également les besoins en mémoire. Par défaut, <code>cfx5solve</code> prend en charge les maillages jusqu'à 80 millions d'éléments structurés ou 200 millions d'éléments non structurés. Pour les maillages plus grands (jusqu'à 2 milliards d'éléments), ajoutez l'option <code>-large</code>. Différentes combinaisons de ces options peuvent être uitilisées pour le partitionneur, l'interpolateur ou le solveur. Consultez [https://ansyshelp.ansys.com/public/Views/Secured/corp/v251/en/pdf/Ansys_CFX-Solver_Manager_Users_Guide.pdf Ansys CFX-Solver Manager User's Guide] pour plus de détails.
 
-<!--T:55-->
 <tabs>
-<tab name="Single node">
-</translate>
+<tab name="Nœud simple">
 {{File
 |name=script-cfx-local.sh
 |lang="bash"
@@ -843,14 +785,10 @@ else
   cfx5solve -def YOURFILE.def -start-method "Intel MPI Local Parallel" -part $SLURM_CPUS_ON_NODE
 fi
 }}
-<translate>
 
-<!--T:56-->
 </tab>
 
-<!--T:57-->
-<tab name="Multinode">
-</translate>
+<tab name="Plusieurs nœuds">
 {{File
 |name=script-cfx-multiple.sh
 |lang="bash"
@@ -882,38 +820,32 @@ else
 fi
 
 }}
-<translate>
 
-<!--T:58-->
 </tab>
 </tabs>
 
-== Workbench == <!--T:59-->   
+== Workbench ==   
 
-<!--T:60-->
-Before submitting a Workbench job to the queue with a Slurm script, you must initialize it once as described in the following steps.<br>
-# On the cluster where you will submit Workbench jobs, start an [[Open OnDemand#Logging_into_the_Open_OnDemand_portal|OnDemand desktop]].
-# Once the desktop appears, open a terminal window and cd into the directory containing your YOURPROJECT.wbpj file. 
-# Remove the old project cache directory by running <code>rm -rf _ProjectScratch</code> as this can be very large from previous runs.
-# Open a terminal window and load the module version that you will be using in your Slurm script for example <code>module load ansys/2025R2.04</code>.
-# Open the Workbench GUI with your project file.  This can be done by issuing <code>runwb2 -f YOURPROJECT.wbpj</code> directly from the command line.  If and when a popup appears asking ''Do you want to recover the project before opening ? (Any changes made since the last save will be lost.)'' answer <b>No</b>.
-# In the context menu popup that should appear in the centre ''Project Schematic'' window, right-click on <i>Model</i> and select <I>Reset</I>.  When Ansys Workbench pops up a warning that ''This operation will delete the operations local and generated data'' click on '''Ok''' to accept and proceed.
-# In the top menu bar pulldown, select <I>File -> Save</I> then <i>File -> Exit</i> to shut down Workbench.
-# In the Ansys Workbench popup, when asked <I>The current project has been modified. Do you want to save it?</I>, click on the <b>No</b> button.
-# Quit Workbench and submit your job using one of the Slurm scripts shown below.
+Avant de soumettre une tâche Workbench à la file d'attente avec un script Slurm, vous devez l'initialiser une fois, comme décrit dans les étapes suivantes.<br>
+# Sur la grappe où vous soumettrez les tâches Workbench, [[Open OnDemand#Logging_into_the_Open_OnDemand_portal|OnDemand | ouvrez un bureau OnDemand]].
+# Une fois le bureau affiché, ouvrez une fenêtre de terminal et accédez au répertoire contenant votre fichier YOURPROJECT.wbpj.
+# Supprimez l'ancien répertoire cache de /projet en exécutant <code>rm -rf _ProjectScratch</code>, car il peut être très volumineux suite à des exécutions précédentes.
+# Ouvrez une fenêtre de terminal et chargez la version du module que vous utiliserez dans votre script Slurm, par exemple <code>module load ansys/2025R2.04</code>.
+# Ouvrez l'interface graphique de Workbench avec votre fichier de /projet. Pour ce faire, exécutez directement la commande <code>runwb2 -f YOURPROJECT.wbpj</code> via la ligne de commande. Si une fenêtre contextuelle apparaît vous demandant ''Do you want to recover the project before opening ? (Any changes made since the last save will be lost.)'', répondez <b>No</b>.
+# Dans le menu contextuel qui devrait apparaître au centre de la fenêtre ''Project Schematic'', cliquez avec le bouton droit sur ''Model'' et sélectionnez ''Reset''. Lorsqu'Ansys Workbench affiche l'avertissement ''This operation will delete the operations local and generated data'', cliquez sur ''OK'' pour accepter et continuer.
+# Dans le menu déroulant de la barre de menu supérieure, sélectionnez '''File -> Save'' puis ''File -> Exit'' pour fermer Workbench.
+# Dans la fenêtre contextuelle Ansys Workbench qui affiche ''The current project has been modified. Do you want to save it?'' cliquez sur ''No''. 
+# Quittez Workbench et soumettez la tâche avec un des scripts ci-dessous.
 
-<!--T:61-->
-Since a compute node with up to 96cores, 768GB memory and 8hours runtime can now be reserved for an OnDemand desktop session, consider running your Workbench simulations directly from within the Workbench native GUI when possible. This is a more intuitive option compared to submitting the job to the queue with a Slurm script.
+Puisqu'il est désormais possible de réserver un nœud de calcul doté de jusqu'à 96 cœurs, 768Go de mémoire et 8 heures d'autonomie pour une session de bureau OnDemand, exécutez vos simulations Workbench directement de l'interface graphique native de Workbench lorsque cela est possible; il s'agit d'une option plus intuitive que de soumettre la tâche à la file d'attente via un script Slurm
 
-=== Slurm scripts === <!--T:62-->   
+<span id="Slurm_scripts"></span>
+=== Scripts pour l'ordonnanceur Slurm ===   
 
-<!--T:63-->
-A project file can be submitted to the queue by customizing one of the following scripts and then running the <code>sbatch script-wbpj-202X.sh</code> command.
+Pour soumettre un fichier de projet à la queue, personnalisez les scripts suivants et lancez la commande <code>sbatch script-wbpj-202X.sh</code>.
 
-<!--T:64-->
 <tabs>
-<tab name="Single node (StdEnv/2023)">
-</translate>
+<tab name="Nœud simple (StdEnv/2023)">
 {{File
 |name=script-wbpj-2023.sh
 |lang="bash"
@@ -949,12 +881,9 @@ export I_MPI_HYDRA_BOOTSTRAP=ssh
 
 runwb2 -B -E "Update();Save(Overwrite=True)" -F YOURPROJECT.wbpj
 }}
-<translate>
 
-<!--T:65-->
 </tab>
-<tab name="Single node (StdEnv/2020)">
-</translate>
+<tab name="Nœud simple (StdEnv/2020)">
 {{File
 |name=script-wbpj-2020.sh
 |lang="bash"
@@ -988,33 +917,27 @@ export I_MPI_HYDRA_BOOTSTRAP=ssh
 
 runwb2 -B -E "Update();Save(Overwrite=True)" -F YOURPROJECT.wbpj
 }}
-<translate>
 
-<!--T:66-->
 </tab> 
 
 
-<!--T:67-->
-To avoid writing the solution when a running job successfully completes, change <code>Save(Overwrite=True)</code> to <code>Save(Overwrite=False)</code> in the last line of the above Slurm script.  Doing this makes it easier to determine how well the simulation scales when <code>#SBATCH --ntasks</code> is increased, since the initialized solution will not be overwritten by each test job.
+Pour ne pas écrire la solution lorsqu'une tâche en cours se termine avec succès, remplacez <code>Save(Overwrite=True)</code> par <code>Save(Overwrite=False)</code> dans la dernière ligne du script Slurm ci-dessus. Cela facilitera l'évaluation de la mise à l'échelle de la simulation lorsque la valeur de <code>#SBATCH --ntasks</code> est augmentée, car la solution initialisée ne sera pas écrasée par chaque tâche de test.
 </tabs>
 
-== Mechanical == <!--T:68-->   
+== Mechanical ==   
 
 
-<!--T:69-->
-The input file can be generated from within your interactive Workbench Mechanical session by clicking on <i>Solution -> Tools -> Write Input Files</i> then specifying <i>File name:</i> YOURAPDLFILE.inp and <i>Save as type:</i> APDL Input Files (*.inp).  APDL jobs can then be submitted to the queue with the <code>sbatch script-name.sh</code> command.
+Le fichier d'entrée peut être généré dans votre session interactive Workbench Mechanical en cliquant sur ''Solution -> Tools -> Write Input Files'' et en spécifiant'' File name: pour YOURAPDLFILE.inp'' et <i>Save as type:</i> APDL Input Files (*.inp).. Les tâches APDL peuvent ensuite être soumises à la queue avec la commande <code>sbatch script-name.sh</code>.
 
-=== Slurm scripts === <!--T:70-->   
-
-
-<!--T:71-->
-In the following scripts, lines beginning with <code>##SBATCH</code> are commented.
+<span id="Slurm_scripts"></span>
+=== Scripts pour l'ordonnanceur Slurm ===   
 
 
-<!--T:72-->
+Les lignes qui commencent par <code>##SBATCH</code> sont des commentaires.
+
+
 <tabs>
-<tab name="Shared memory Parallel (CPU)">
-</translate>
+<tab name="Mémoire parallèle partagée (GPU) (CPU)">
 {{File
 |name=script-smp-2023-cpu.sh
 |lang="bash"
@@ -1036,12 +959,9 @@ mkdir outdir-$SLURM_JOBID
 
 mapdl -smp -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp
 }}
-<translate>
 
-<!--T:73-->
 </tab>
-<tab name="Distributed memory parallel (CPU)">
-</translate>
+<tab name="Mémoire parallèle distribuée (CPU)">
 {{File
 |name=script-dmp-2023-cpu.sh
 |lang="bash"
@@ -1072,12 +992,9 @@ else
   mapdl -dis -mpi openmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp
 fi
 }}
-<translate>
 
-<!--T:74-->
 </tab>
-<tab name="Shared memory parallel (GPU)">
-</translate>
+<tab name="Mémoire parallèle partagée (GPU) (GPU)">
 {{File
 |name=script-smp-2023-gpu.sh
 |lang="bash"
@@ -1103,12 +1020,9 @@ mkdir outdir-$SLURM_JOBID
 export ANSGPU_PRINTDEVICES=1
 mapdl -smp -acc nvidia -na $SLURM_GPUS_ON_NODE -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID  -i YOURAPDLFILE.inp
 }}
-<translate>
 
-<!--T:75-->
 </tab>
-<tab name="Distributed memory parallel (GPU)">
-</translate>
+<tab name="Mémoire parallèle distribuée (GPU)">
 {{File
 |name=script-dmp-2023-gpu.sh
 |lang="bash"
@@ -1142,31 +1056,25 @@ else
   mapdl -dis -acc nvidia -na $SLURM_GPUS_ON_NODE -mpi openmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp
 fi
 }}
-<translate>
 
-<!--T:76-->
 </tab>
 </tabs>
 
 
-<!--T:77-->
-Ansys allocates 1024 MB total memory and 1024 MB database memory by default for APDL jobs. These values can be manually specified (or changed) by adding arguments <code>-m 1024</code> and/or <code>-db 1024</code> to the mapdl command line in the above scripts. When using a remote institutional license server with multiple Ansys licenses, it may be necessary to add <code>-p aa_r</code> or <code>-ppf anshpc</code>, depending on which Ansys module you are using. As always, perform detailed scaling tests before running production jobs to ensure that the optimal number of cores and minimum amount memory is specified in your scripts. The single node (SMP shared memory parallel) scripts will typically perform better than the multinode (DIS distributed memory parallel) scripts and therefore should be used whenever possible. To help avoid compatibility issues, the Ansys module loaded in your script should ideally match the version used to generate the input file.
+Par défaut, Ansys alloue aux tâches APDL 1024Mo de mémoire totale et 1024Mo de mémoire pour les bases de données. Ces valeurs peuvent être définies manuellement (ou modifiées) avec l'ajout des arguments<code>-m 1024</code> et/ou <code>-db 1024</code> sur la dernière ligne de commande mapdl des scripts ci-dessus. Si vous utilisez à distance un serveur de licence de votre établissement qui a plusieurs licences Ansys, il pourrait être nécessaire d'ajouter des arguments comme <code>-p aa_r</code> ou <code>-ppf anshpc</code>, selon le module que vous utilisez. Comme d'habitude, effectuez des tests détaillés de mise à l'échelle avant de lancer des tâches en production pour vous assurer que vous utilisez le nombre optimal de cœurs et la bonne quantité minimale de mémoire. Les scripts pour nœud simple avec mémoire parallèle partagée (SMP pour ''Shared Memory Parallel'') offriront une meilleure performance que les scripts pour plusieurs nœuds avec mémoire parallèle distribuée (DMP pour ''Distributed Memory Parallel'') et devraient être utilisés autant que possible. Pour prévenir les problèmes de compatibilité, le module qui est chargé dans votre script devrait idéalement correspondre à la version employée pour générer le fichier en entrée.
 
-<!--T:78-->
 [gra-login2:~/testcase] cat YOURAPDLFILE.inp | grep version
  ! ANSYS input file written by Workbench version 2019 R3
 
-== Rocky == <!--T:79-->   
+== Rocky ==   
 
-<!--T:80-->
-This section provides sample Slurm scripts to solve standalone non-coupled Rocky simulations in a cluster queue. Both scripts are configured with <code>RESUME=0</code> so simulations are solved from the beginning by default.  To restart a partially completed simulation, set <code>RESUME=1</code> and resubmit the script to the queue.  To get a full listing of command line options, run <code>Rocky -h</code> on the command line after loading the Ansys module.  Since a lock file is generated every time a simulation is started, only one job should be submitted at a time from the same directory. Regarding which script to use, while all simulations should be tested independently, for a basic test case the GPU only script was found to outperform the CPU only script by a factor of 3.5x. Further increases in resources beyond 6cpus (for the CPU only script) or 2cpu + 1g (1/7 of a H100 GPU for the GPU based script) provided no further speedup based on scaling testing for either script.   Given these results, it appears likely that the GPU-based script will provide significantly faster solution times compared to just using CPUs for other standalone Rocky simulations.  As shown in on each cluster wiki page or as summarized under [[Allocations and compute scheduling#Ratios_in_bundles|Ratios in bundles]], all clusters but Narval have H100 GPUs.  Therefore, when using the GPU script on Narval, the <code>--gpus</code> Slurm option should be changed to request an a100 GPYU instead.  Note that as of May 2026, only Rocky with the <code>ansys/2025R2|2.04</code> modules have been tested but not the <code>ansys/2025R1|1.02</code> modules yet.
+Nous présentons ici des exemples de scripts Slurm pour résoudre des simulations Rocky autonomes et non couplées dans la file d'attente d'une grappe. Les deux scripts sont configurés avec <code>RESUME=0</code>, ce qui  par défaut permet de résoudre les simulations depuis le début. Pour redémarrer une simulation partiellement terminée, spécifiez <code>RESUME=1</code> et soumettez à nouveau le script à la file d'attente. Pour obtenir la liste complète des options de ligne de commande, exécutez <code>Rocky -h</code> après avoir chargé le module Ansys. Un fichier de verrouillage étant généré à chaque lancement de simulation, une seule tâche doit être soumise à la fois dans le même répertoire. Concernant le choix du script, bien que toutes les simulations doivent être testées indépendamment, pour un cas de test simple, le script utilisant uniquement le GPU s'est avéré 3,5 fois plus performant que le script utilisant uniquement le CPU. Des augmentations supplémentaires de ressources au-delà de 6 cœurs (pour le script utilisant uniquement le CPU) ou de 2 cœurs + 1Go (1/7 d'un GPU H100 pour le script utilisant le GPU) n'ont apporté aucun gain de vitesse supplémentaire, d'après les tests de passage à l'échelle pour l'un ou l'autre script. Au vu de ces résultats, il est probable que le script basé sur le GPU offre des temps de calcul nettement plus rapides que l'utilisation exclusive du CPU pour les autres simulations Rocky autonomes. Comme indiqué sur la page wiki de chaque grappe, ou résumé dans la section [[Allocations and compute scheduling/fr#Ratios_dans_les_bundles|Ratios dans les bundles]], toutes les grappes, à l'exception de Narval, sont équipées de GPU H100. Par conséquent, lors de l'utilisation du script GPU sur Narval, l'option Slurm <code>--gpus</code> doit être modifiée pour demander un GPU a100. Veuillez noter qu'en mai 2026, seuls les modules <code>ansys/2025R2|2.04</code> de Rocky ont été testés, et non les modules <code>ansys/2025R1|1.02</code>.
 
-=== Slurm scripts === <!--T:81-->   
+<span id="Slurm_scripts"></span>
+=== Scripts pour l'ordonnanceur Slurm ===   
 
-<!--T:82-->
 <tabs>
-<tab name="CPU only">
-</translate>
+<tab name="CPU seulement">
 {{File
 |name=script-rocky-cpu.sh
 |lang="bash"
@@ -1192,12 +1100,9 @@ else
   Rocky --headless --simulate --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=0 $INPUTFILE
 fi
 }}
-<translate>
 
-<!--T:83-->
 </tab>
-<tab name="GPU-based">
-</translate>
+<tab name="avec GPU">
 {{File
 |name=script-rocky-gpu.sh
 |lang="bash"
@@ -1224,14 +1129,10 @@ else
   Rocky --headless --simulate --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=1 $INPUTFILE
 fi
 }}
-<translate>
 
-<!--T:84-->
 </tab>
 </tabs>
 
-== Electronics == <!--T:85-->   
+== Electronics ==   
 
-<!--T:86-->
-Slurm scripts for using AnsysEDT are provided in [[AnsysEDT|this specific page]].
-</translate>
+Voir les exemples de scripts pour l'ordonnanceur dans [[AnsysEDT/fr|notre page wiki AnsysEDT]].

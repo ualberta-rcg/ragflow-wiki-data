@@ -4,9 +4,9 @@ slug: "graphical_use_of_ansys"
 lang: "en"
 
 source_wiki_title: "Graphical use of Ansys/en"
-source_hash: "3535ae17aa7a5079ea61784b65045d65"
-last_synced: "2026-08-08T23:31:39.762027+00:00"
-last_processed: "2026-08-08T23:36:37.374138+00:00"
+source_hash: "08fd8941e443a45cb6d2d6808138d546"
+last_synced: "2026-08-15T23:22:43.108655+00:00"
+last_processed: "2026-08-15T23:40:48.720800+00:00"
 
 tags:
   []
@@ -57,11 +57,11 @@ status:
   converted: true
   tagged: false
   keywords_generated: true
-  ragflow_synced: true
+  ragflow_synced: false
   qa_generated: false
 ---
 
-To run Ansys programs in graphical mode using an OnDemand or JupyterHub desktop, click on one of the following links:
+To run [Ansys](../software/ansys.md) programs in graphical mode using an OnDemand or JupyterHub desktop, click on one of the following links:
 
 *   [NIBI](../clusters/nibi.md#access-through-open-ondemand-ood): `https://ondemand.sharcnet.ca`
 *   [FIR](../software/fir.md): `https://jupyterhub.fir.alliancecan.ca`
@@ -80,30 +80,27 @@ module load StdEnv/2023 ansys/2025R2.04
 fluent
 ```
 
-When the Fluent Launcher popup selector panel appears, click on the **Environment** tab and copy/paste the environment variable settings from one of the following two subsections, depending on whether you started your OnDemand session with a GPU for graphical acceleration. Do not put `export` in front of any variable name. If the graphics console window becomes corrupted when starting the GUI, restart Fluent, setting `HOOPS_PICTURE=null` to disable the creation of the graphics panel.
+When the Fluent Launcher popup selector panel appears, click on the **Environment** tab and copy/paste the environment variable settings from one of the following two subsections, depending on whether you started your OnDemand session with a GPU for graphical acceleration. Do not include the text in parentheses as these are comments, and do not put `export` in front of any variable name. If the graphics console window becomes corrupted when starting the GUI, restart Fluent, setting `HOOPS_PICTURE=null` to disable the creation of the graphics panel.
 
 **Compute node (no GPU requested)**
 
-```bash
-I_MPI_HYDRA_BOOTSTRAP=ssh
-HOOPS_PICTURE=opengl2-mesa
-HOOPS_PICTURE=x11/lin
-```
-Click on the **Start** button.
+*   `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi w/ intelmpi)
+*   `HOOPS_PICTURE=opengl2-mesa` (version 2025R1 or newer)
+*   `HOOPS_PICTURE=x11/lin` (version 2024R2.04 or older)
+*   Click on the **Start** button.
 
 **Compute node (with GPU requested)**
 
 To use hardware accelerated graphics with Fluent on Nibi, choose a t4 (15GB) from the GPU selector pulldown list for your OnDemand desktop session. Doing this ensures that the environment variables used by VirtualGL to enable accelerated OpenGL graphics calls are automatically set up inside your desktop environment for the current session. Once your desktop appears, open a terminal window and start Workbench as follows:
 
-```bash
-I_MPI_HYDRA_BOOTSTRAP=ssh
-HOOPS_PICTURE=opengl2
-HOOPS_PICTURE=opengl
-```
-Click on the **Start** button.
+*   `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi)
+*   `HOOPS_PICTURE=opengl2` (version 2025R1 or newer)
+*   `HOOPS_PICTURE=opengl` (version 2024R2.04 or older)
+*   Click on the **Start** button.
 
 !!! note
     When running Fluent on Nibi, the environment variable `I_MPI_HYDRA_BOOTSTRAP=ssh` must be manually set; otherwise, Fluent will crash when started inside OOD Compute Desktop sessions when intelmpi is used. Error output such as the following will be created. Should this occur, completely exit Fluent, cleanly shut down Workbench and start over.
+
     ```
     [mpiexec@g4.nibi.sharcnet] Error: Unable to run bstrap_proxy on g4.nibi.sharcnet (pid 2251587, exit code 256)
     [mpiexec@g4.nibi.sharcnet] poll_for_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:157): check exit codes error
@@ -117,8 +114,8 @@ Click on the **Start** button.
 When starting CFX from an OnDemand desktop, the following arguments may be specified on the terminal window command line. Use `ogl` if you requested a GPU when the desktop was started and use `mesa` if you did not.
 
 ```bash
-cfx5 -graphics mesa
-cfx5 -graphics ogl
+cfx5 -graphics mesa   # no GPU requested
+cfx5 -graphics ogl    # with GPU requested
 ```
 
 ## Mapdl
@@ -126,17 +123,13 @@ cfx5 -graphics ogl
 The following steps for starting the Mechanical APDL GUI from the command line of a terminal window should work regardless of whether you have started your OnDemand desktop on a compute node with or without a GPU.
 
 ```bash
-module load StdEnv/2023 ansys/2022R2
+module load StdEnv/2023 ansys/2022R2 # or newer versions
 ```
-Then, either:
-```bash
-mapdl -g
-```
-or
-```bash
-launcher
-```
-and click on the **RUN** button.
+
+To start Mapdl:
+
+*   Run `mapdl -g`
+*   Alternatively, run `launcher` and then click on the `RUN` button within the GUI.
 
 ## Workbench
 
@@ -146,20 +139,18 @@ This section shows how to start Workbench (and optionally Fluent) on either an O
 
 **Compute node (no GPU requested) or basic desktop**
 
-If accelerated graphics are not required for your desktop session, specify "GPU Node" to select a compute node without a GPU for your OOD session. Doing this uses Mesa software emulation for opengl calls, instead of running on a more expensive and difficult to reserve GPU node.
+If accelerated graphics are not required for your desktop session, specify **GPU Node** to select a compute node without a GPU for your OOD session. Doing this uses Mesa software emulation for OpenGL calls, instead of running on a more expensive and difficult to reserve GPU node.
 
 ```bash
 module load StdEnv/2023 ansys/2025R2.04
 runwb2
 ```
 
-To start Fluent from within Workbench, click on "Fluid Flow (Fluent)" or "Fluent with Fluent Meshing" in the "Analysis" menu on the left, and click on "Setup" in the centre canvas "Fluid Flow (Fluent)" popup. Once the "Fluent Launcher" selector panel popup appears, click on the "Environment" tab and copy/paste the following environment variable settings:
+To start Fluent from within Workbench, click on **Fluid Flow (Fluent)** or **Fluent with Fluent Meshing** in the **Analysis** menu on the left, and click on **Setup** in the centre canvas **Fluid Flow (Fluent)** popup. Once the **Fluent Launcher** selector panel popup appears, click on the **Environment** tab and copy/paste the following environment variable settings:
 
-```bash
-I_MPI_HYDRA_BOOTSTRAP=ssh
-HOOPS_PICTURE=opengl2-mesa
-```
-Click on the **Start** button.
+*   `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on the Nibi cluster only when using intelmpi)
+*   `HOOPS_PICTURE=opengl2-mesa` (optional for 2025R1 or newer)
+*   Click on the **Start** button.
 
 **Compute node (with GPU requested)**
 
@@ -170,22 +161,20 @@ module load StdEnv/2023 ansys/2025R2.04
 runwb2
 ```
 
-To start Fluent from within Workbench, click on "Fluid Flow (Fluent)" or "Fluent with Fluent Meshing" in the left-hand "Analysis" menu, and click on "Setup" in the centre canvas "Fluid Flow Fluent" popup. Once the "Fluent Launcher" selector panel popup appears, click on the "Environment" tab and copy/paste the following environment variable settings.
+To start Fluent from within Workbench, click on **Fluid Flow (Fluent)** or **Fluent with Fluent Meshing** in the left-hand **Analysis** menu, and click on **Setup** in the centre canvas **Fluid Flow Fluent** popup. Once the **Fluent Launcher** selector panel popup appears, click on the **Environment** tab and copy/paste the following environment variable settings.
 
-```bash
-I_MPI_HYDRA_BOOTSTRAP=ssh
-HOOPS_PICTURE=opengl2
-```
-Click on the **Start** button.
+*   `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on the Nibi cluster only)
+*   `HOOPS_PICTURE=opengl2` (optional for 2025R1 or newer)
+*   Click on the **Start** button.
 
 ### JupyterHub desktop
 
 **Compute node (no GPU requested)**
 
 1.  Click to load ansys/2025R1 (or newer version) in the desktop menu on the left.
-2.  Click on the "Workbench (VNC)" icon located in the JupyterLab desktop centre window.
-    If the graphics of any application (such as Fluent) started within Workbench appear unusable because they seem corrupted, try carrying out the following steps. They will create a custom "runwb2" desktop icon so that Workbench can be started in Mesa mode. If one of the applications you will be starting in Workbench is Fluent, you may also try setting the `HOOPS_PICTURE=opengl2-mesa` variable in the "Fluent Launcher" window when the Fluent launcher starts.
-3.  To proceed, exit Workbench and open a terminal window. Copy/paste `cd ~/Desktop; cp -p $(realpath workbench.desktop) workbench-mesa.desktop` into the "Remote Clipboard" located at the top right corner of your Jupyter desktop.
+2.  Click on the **Workbench (VNC)** icon located in the JupyterLab desktop centre window.
+    If the graphics of any application (such as Fluent) started within Workbench appear unusable because they seem corrupted, try carrying out the following steps. They will create a custom `runwb2` desktop icon so that Workbench can be started in Mesa mode. If one of the applications you will be starting in Workbench is Fluent, you may also try setting the `HOOPS_PICTURE=opengl2-mesa` variable in the **Fluent Launcher** window when the Fluent launcher starts.
+3.  To proceed, exit Workbench and open a terminal window. Copy/paste `cd ~/Desktop; cp -p $(realpath workbench.desktop) workbench-mesa.desktop` into the **Remote Clipboard** located at the top right corner of your Jupyter desktop.
 4.  Open the newly created file in a text editor such as nano with:
     ```bash
     nano ~/Desktop/workbench-mesa.desktop
@@ -213,10 +202,8 @@ ensight -X
 
 Load the following modules:
 ```bash
-module load StdEnv/2023 ansys/2025R2.04
+module load StdEnv/2023 ansys/2025R2.04 # (or 2025R1, 2025R1.02, 2025R2)
 ```
-(or 2025R1, 2025R1.02, 2025R2)
-
 *   The `Rocky` command starts Rocky in graphical mode.
 *   The `RockySolver` command runs the solver directly from the command line.
 *   The `RockySchedular` GUI starts a GUI to submit/run jobs on the current node.
