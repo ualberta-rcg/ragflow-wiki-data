@@ -178,22 +178,22 @@ $ setfacl -m u:smithj:rx my_script.py
 Pour accorder un accès en lecture et écriture à un seul utilisateur dans un sous-répertoire, incluant les nouveaux fichiers qui y seront créés, utilisez les commandes suivantes :
 
 <source lang="console">
-$ setfacl -d -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data
-$ setfacl -R -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data
+$ setfacl -d -m u:smithj:rwX /project/def-<PI>/shared_data
+$ setfacl -R -m u:smithj:rwX /project/def-<PI>/shared_data
 </source>
-; Note: L'attribut X (majuscule) donne la permission <i>execute</i> seulement quand le répertoire ou le fichier possède déjà la permission d'exécution. Pour pouvoir être vu, un répertoire doit avoir la permission d'exécution.
+; Note: The X attribute above (compared to x) sets the <i>execute</i> permission only when the item is already executable (either a directory or a file with the execute permission). A directory needs the execute permission to allow it to be browsed.
 
-La première commande détermine les règles d'accès au répertoire <code>/home/<user>/projects/def-<PI>/shared_data</code>; tous les fichiers et répertoires qui y seront créés hériteront de la même règle ACL. Elle est nécessaire pour les  <b>nouvelles</b> données. La deuxième commande détermine les règles ACL pour le répertoire <code>/home/<user>/projects/def-<PI>/shared_data</code> et tout le contenu actuel. Elle ne s'applique qu'aux données <b>existantes</b>.
+La première commande détermine les règles d'accès au répertoire <code>/project/def-<PI>/shared_data</code>; tous les fichiers et répertoires qui y seront créés hériteront de la même règle ACL. Elle est nécessaire pour les  <b>nouvelles</b> données. La deuxième commande détermine les règles ACL pour le répertoire <code>/project/def-<PI>/shared_data</code> et tout le contenu actuel. Elle ne s'applique qu'aux données <b>existantes</b>.
 
 Pour que cette méthode fonctionne, il faut :
 * que vous soyez propriétaire du répertoire, <code>/home/smithj/projects/def-smithj/shared_data</code> dans notre exemple; 
-* que les répertoires parents (et parents des parents, etc.) de celui que vous voulez partager accordent la permission d'exécuter à l'utilisateur avec qui vous voulez le partager. Dans notre exemple, vous pourriez utiliser <code>setfacl -m u:smithj:X ...</code> ou encore accorder la permission à tous les utilisateurs avec <code>chmod o+x ...</code>.  Il n'est pas nécessaire d'accorder une permission de lecture publique. En particulier, vous devrez accorder une permission d'exécuter pour le répertoire (<code>/projects/def-<PI></code>) soit à tous les utilisateurs, soit à chaque utilisateur (un à la fois) avec qui vous voulez partager vos données.
+* que les répertoires parents (et parents des parents, etc.) de celui que vous voulez partager accordent la permission d'exécuter à l'utilisateur avec qui vous voulez le partager. Vous pouvez utiliser <code>setfacl -m u:smithj:X ...</code> comme dans l'exemple ci-dessus, ou encore accorder la permission à tous avec <code>chmod o+x ...</code>.  Il n'est pas nécessaire d'accorder une permission de lecture publique. En particulier, vous devrez accorder une permission d'exécuter pour le répertoire (<code>/projects/def-<PI></code>) soit à tous les utilisateurs, soit à chaque utilisateur (un à la fois) avec qui vous voulez partager vos données.
 * pour partager un répertoire du système de fichiers /project, donnez à vos collaborateurs un chemin qui commence par <code>/project</code> <b>et non</b> <code>/home/<user>/projects</code>. Ce dernier chemin contient des liens symboliques (simlinks ou raccourcis) vers les répertoires physiques de /project et le répertoire à trouver ne pourra pas être rejoint par d'autres qui n'auraient pas accès à votre répertoire /home. La commande <code>realpath</code> vous permet d'obtenir le chemin physique auquel pointe le simlink. Par exemple, <code>realpath /home/smithj/projects/def-smithj/shared_data</code> pourrait retourner <code>/project/9041430/shared_data</code>. Le chemin physique vers un répertoire /project n'est pas le même pour toutes nos grappes; si votre répertoire /project doit être partagé sur plus d'une grappe, vérifiez le chemin physique sur chacune avec <code>realpath</code>.
 
 ==== Supprimer les listes de contrôle d'accès ====
 Pour supprimer récursivement tous les attributs dans un répertoire, utilisez 
 <source lang="console">
-setfacl -bR /home/<user>/projects/def-<PI>/shared_data
+setfacl -bR /project/def-<PI>/shared_data
 </source>
 
 <span id="Data_sharing_groups"></span>
@@ -235,8 +235,8 @@ $ setfacl -m g:wg_datasharing:X /project/def-<PI>/
 Enfin, vous pouvez ajouter votre groupe à la liste de contrôle d'accès (ACL) pour le répertoire que vous voulez partager. Les commandes sont les mêmes que celles pour le partage avec un utilisateur :
 
 <source lang="console">
-$ setfacl -d -m g:wg-datasharing:rwx /home/<user>/projects/def-<PI>/shared_data
-$ setfacl -R -m g:wg-datasharing:rwx /home/<user>/projects/def-<PI>/shared_data
+$ setfacl -d -m g:wg-datasharing:rwx /project/def-<PI>/shared_data
+$ setfacl -R -m g:wg-datasharing:rwx /project/def-<PI>/shared_data
 </source>
 
 <span id="Troubleshooting"></span>

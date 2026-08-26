@@ -4,27 +4,24 @@ slug: "virsorter2"
 lang: "en"
 
 source_wiki_title: "VirSorter2/en"
-source_hash: "5b820d9eb40e055fccca425bc8197a69"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T12:41:03.202473+00:00"
+source_hash: "e179f1f67d2af1cd7cd69e817031d093"
+last_synced: "2026-08-26T10:16:11.334907+00:00"
+last_processed: "2026-08-26T11:22:42.765222+00:00"
 
 tags:
   - software
 
 keywords:
   - "Python virtual environment"
-  - "SLURM"
-  - "viral sequences"
-  - "installation"
+  - "pip install"
+  - "sbatch submission"
+  - "database setup"
   - "VirSorter2"
 
 questions:
-  - "What is the primary purpose of the VirSorter2 tool?"
-  - "What are the necessary steps to install VirSorter2 and its database within a Python virtual environment?"
-  - "How do you configure and run a SLURM submission script to test VirSorter2 on a dataset?"
-  - "What is the primary purpose of the VirSorter2 tool?"
-  - "What are the necessary steps to install VirSorter2 and its database within a Python virtual environment?"
-  - "How do you configure and run a SLURM submission script to test VirSorter2 on a dataset?"
+  - "How can VirSorter2 v2.2.4 be installed in a Python virtual environment on the Alliance system, including module loading and wheel installation?"
+  - "What are the required steps to test the VirSorter2 installation, from deactivating the environment to running the provided test dataset with a submission script?"
+  - "How should a SLURM job be configured and submitted to run VirSorter2 on your own dataset, including module loading, virtual environment creation, and database specification?"
 
 status:
   downloaded: true
@@ -57,7 +54,7 @@ These instructions install VirSorter2 in your `$HOME` directory using Alliance's
     ```
 3.  Install VirSorter2 v2.2.4 in the virtual environment.
     ```bash
-    pip install --no-index --upgrade pip
+    pip install --no-index --upgrade 'pip<25'
     pip install --no-index virsorter==2.2.4
     ```
 4.  Validate the installation.
@@ -68,22 +65,21 @@ These instructions install VirSorter2 in your `$HOME` directory using Alliance's
     ```bash
     pip freeze > ~/virsorter-2.2.4-requirements.txt
     ```
-6.  Download the database in `$SCRATCH` with the `--skip-deps-install` option to bypass conda installation and also because dependencies are already installed.
+6.  Download the database in `$SCRATCH` with the `--skip-deps-install` option to bypass Conda installation and also because dependencies are already installed.
     ```bash
     virsorter setup --db-dir $SCRATCH/db -j 4 --skip-deps-install
     ```
 
 ## Testing VirSorter2
-1.  Deactivate your virtual environment
+1.  Deactivate your virtual environment.
     ```bash
     deactivate
     ```
-
 2.  Download the test dataset in `$SCRATCH`.
     ```bash
     wget -O $SCRATCH/test.fa https://raw.githubusercontent.com/jiarong/VirSorter2/master/test/8seq.fa
     ```
-3.  Create a submission script
+3.  Create a submission script.
     ```bash title="test-virsorter.sh"
     #!/bin/bash
 
@@ -106,13 +102,15 @@ These instructions install VirSorter2 in your `$HOME` directory using Alliance's
     # The database must already exist and you must specify its location.
     virsorter run -w $SCRATCH/test.out -i $SCRATCH/test.fa --min-length 1500 -j $SLURM_CPUS_PER_TASK --verbose --use-conda-off --db-dir $SCRATCH/db all
     ```
-3.  Start an interactive job.
+4.  Start an interactive job.
     ```bash
     salloc --mem-per-cpu=2G --cpus-per-task=2 --account=<your-account>
-    # salloc: Granted job allocation 1234567
+    ```
+    ```text
+    salloc: Granted job allocation 1234567
     bash test-virsorter.sh             # Run the submission script
     exit                               # Terminate the allocation
-    # salloc: Relinquishing job allocation 1234567
+    salloc: Relinquishing job allocation 1234567
     ```
 
-Upon a successful test run, you can submit a non-interactive job with your own dataset using [`sbatch`](https://docs.alliancecan.ca/wiki/Running_jobs#use-sbatch-to-submit-jobs).
+Upon a successful test run, you can submit a non-interactive job with your own dataset using `[sbatch](https://docs.alliancecan.ca/wiki/Running_jobs#use-sbatch-to-submit-jobs)`.

@@ -49,6 +49,7 @@ Auto-generated index for `fr/software`.
 - [Dummy Wheel](dummy_wheel.md)
 - [Fenics](fenics.md)
 - [Fir](fir.md)
+- [Firedrake](firedrake.md)
 - [Fmriprep](fmriprep.md)
 - [Gamess Us](gamess-us.md)
 - [Gaussian](gaussian.md)

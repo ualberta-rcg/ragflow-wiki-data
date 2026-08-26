@@ -167,22 +167,22 @@ $ setfacl -m u:smithj:rx my_script.py
 To allow read and write access to a single user in a whole subdirectory, including new files created in it, you can run the following commands:
 
 <source lang="console">
-$ setfacl -d -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data
-$ setfacl -R -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data
+$ setfacl -d -m u:smithj:rwX /project/def-<PI>/shared_data
+$ setfacl -R -m u:smithj:rwX /project/def-<PI>/shared_data
 </source>
 ; Note: The X attribute above (compared to x) sets the <i>execute</i> permission only when the item is already executable (either a directory or a file with the execute permission). A directory needs the execute permission to allow it to be browsed.
 
-The first command sets default access rules to directory <code>/home/<user>/projects/def-<PI>/shared_data</code>, so any file or directory created within it will inherit the same ACL rule. It is required for <b>new</b> data. The second command sets ACL rules to directory <code>/home/<user>/projects/def-<PI>/shared_data</code> and all its content currently in it. So it is applicable only to <b>existing</b> data.
+The first command sets default access rules to directory <code>/project/def-<PI>/shared_data</code>, so any file or directory created within it will inherit the same ACL rule. It is required for <b>new</b> data. The second command sets ACL rules to directory <code>/project/def-<PI>/shared_data</code> and all its content currently in it. So it is applicable only to <b>existing</b> data.
 
 In order for this method to work the following things need to be in place:
-* The directory, <code>/home/smithj/projects/def-smithj/shared_data</code> in our example, must be owned by you. 
-* Parent directories (and parents of parents, etc.) of the one you are trying to share must allow execute permission to the user you are trying to share with. This can be supplied with <code>setfacl -m u:smithj:X ...</code> in this example, or it can be supplied by allowing everyone entry, i.e. <code>chmod o+x ...</code>. They do not need to have public read permission. In particular you will need to grant execute permission on the project directory (<code>/projects/def-<PI></code>) either for everyone, or one-by-one to all the people you are trying to share your data with.
+* The directory, <code>/project/def-smithj/shared_data</code> in our example, must be owned by you. 
+* Parent directories (and parents of parents, etc.) of the one you are trying to share must allow execute permission to the user you are trying to share with. This can be supplied with <code>setfacl -m u:smithj:X ...</code> in this example, or it can be supplied by allowing everyone entry, i.e. <code>chmod o+x ...</code>. They do not need to have public read permission. In particular you will need to grant execute permission on the project directory (<code>/project/def-<PI></code>) either for everyone, or one-by-one to all the people you are trying to share your data with.
 * When sharing a directory in the project filesystem, you must provide your collaborators with a path that starts with <code>/project</code>, <b>not</b> with <code>/home/<user>/projects</code>. The latter contains symbolic links (symlinks, or shortcuts) to the physical directories in <code>/project</code>, and these symlinks will not be reachable by your collaborators unless they also have access to your home directory. You can get the physical path a symlink points to using the <code>realpath</code> command. For example, <code>realpath /home/smithj/projects/def-smithj/shared_data</code> could return <code>/project/9041430/shared_data</code>. The physical path to a project directory is not the same on all clusters. If you wish to share a project directory on more than one cluster, check its physical path with <code>realpath</code> on each cluster.
 
 ==== Removing ACL ====
 To remove all extended ACL attributes from a directory recursively, use:
 <source lang="console">
-setfacl -bR /home/<user>/projects/def-<PI>/shared_data
+setfacl -bR /project/def-<PI>/shared_data
 </source>
 
 === Data sharing groups ===
@@ -220,8 +220,8 @@ $ setfacl -m g:wg_datasharing:X /project/def-<PI>/
 Finally, you can add your group to the ACL for the directory you are trying to share. The commands parallel those needed to share with an individual:
 
 <source lang="console">
-$ setfacl -d -m g:wg-datasharing:rwx /home/<user>/projects/def-<PI>/shared_data
-$ setfacl -R -m g:wg-datasharing:rwx /home/<user>/projects/def-<PI>/shared_data
+$ setfacl -d -m g:wg-datasharing:rwx /project/def-<PI>/shared_data
+$ setfacl -R -m g:wg-datasharing:rwx /project/def-<PI>/shared_data
 </source>
 
 ==Troubleshooting==

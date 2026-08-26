@@ -4,83 +4,80 @@ slug: "sharing_data"
 lang: "en"
 
 source_wiki_title: "Sharing data/en"
-source_hash: "6a4f56de2d747ab6231900bc97211a38"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T11:30:09.462500+00:00"
+source_hash: "551152ea9c5374bfa81c28a35aa8063e"
+last_synced: "2026-08-26T10:16:11.334907+00:00"
+last_processed: "2026-08-26T11:21:06.117616+00:00"
 
 tags:
   []
 
 keywords:
-  - "symlinks"
-  - "CCDB"
-  - "umask"
-  - "octal representation"
-  - "physical path"
-  - "parent directory"
-  - "filesystem permissions"
-  - "setGID bit"
-  - "Access Control Lists (ACLs)"
-  - "directories"
-  - "File management"
-  - "three bits"
-  - "chmod g+s"
-  - "chmod"
-  - "project directory"
-  - "file permissions"
-  - "sharing access"
-  - "clusters"
-  - "sticky bit"
-  - "newly created files"
-  - "User categories"
-  - "ACL"
-  - "octal notation"
+  - "directory permissions"
   - "realpath command"
-  - "setfacl"
-  - "file access"
-  - "data sharing group"
-  - "symbolic notation"
-  - "execute permission"
-  - "Data sharing"
-  - "setGID"
-  - "group ownership"
-  - "Unix filesystem permissions"
-  - "Filesystem permissions"
-  - "setGID permission"
-  - "group permissions"
+  - "data sharing"
   - "setUID"
+  - "filesystem permissions"
+  - "group permissions"
+  - "symlink"
+  - "realpath"
+  - "cluster differences"
+  - "ACL"
+  - "find ! -readable"
+  - "Access Control Lists (ACLs)"
+  - "execute permission"
+  - "read/write/execute bits"
+  - "sticky bit"
+  - "Unix filesystem permissions"
+  - "permission bits formula"
+  - "directory path"
+  - "644"
+  - "uppercase S"
+  - "default ACL rules"
+  - "umask"
+  - "data sharing group"
+  - "octal notation"
+  - "group ownership"
+  - "setfacl"
+  - "newly created files"
+  - "setGID"
+  - "security risk"
+  - "physical path"
+  - "chmod"
+  - "setGID bit"
+  - "home directory access"
+  - "file permissions"
+  - "setGID permission"
+  - "parent directory"
+  - "chmod g+s"
 
 questions:
-  - "Why is issuing a bulk `chmod -R 777` command on your folders considered a severe security risk on shared cluster facilities?"
-  - "What are the different mechanisms available for sharing data with colleagues based on their account status and research group affiliation?"
-  - "How do Linux filesystem permissions work, and how can a user modify them using symbolic or octal notation with the `chmod` command?"
-  - "What is octal notation in the context of Unix filesystem permissions?"
-  - "How are the numerical values for read, write, and execute permissions calculated using the three-bit system?"
-  - "What specific permissions does the octal representation \"644\" grant to the owner, group, and everyone else?"
-  - "How do directory permissions dictate a user's ability to interact with files, and what commands are used to modify these permissions?"
-  - "What is the function of the sticky bit in a shared directory, and how is it applied or removed?"
-  - "How does the Set Group ID (setGID) bit affect the group ownership of newly created files and directories within a parent directory?"
-  - "What is the purpose of enabling the setGID permission on a parent directory?"
-  - "Which command is used to apply the setGID permission to a folder?"
-  - "How does the directory's permission string change in the terminal output after setGID is enabled?"
-  - "How does the setGID bit affect the group ownership and permissions of newly created child directories, and what does an uppercase 'S' indicate in the directory's permission string?"
-  - "What is the function of the umask command, and how does it influence the default permissions of newly created files compared to existing ones?"
-  - "Aside from a file's individual permissions, what other directory-level access rights and group memberships are necessary for a user to successfully access that file?"
-  - "How can you use the `chmod` command to change the permissions of existing files and directories to match the new default settings?"
-  - "What is the purpose of Access Control Lists (ACLs), and how do the `getfacl` and `setfacl` commands allow for more fine-grained permission management?"
-  - "What are the necessary prerequisites, such as parent directory permissions and physical path usage, required to successfully share a subdirectory with collaborators?"
-  - "What role do parent directory execute permissions play in allowing a user to read or execute a specific file?"
-  - "What condition must be met for a user to access a file using its group permissions?"
-  - "Which command is used to explicitly change the permissions of a file or directory after it has been created?"
-  - "Why might collaborators be unable to access a symlink located in your home directory?"
-  - "What command can be used to determine the actual physical path that a symlink points to?"
-  - "Why is it necessary to check the physical path of a project directory on each individual cluster when sharing it?"
-  - "Under what circumstances is it recommended to use a data sharing group rather than standard individual sharing?"
-  - "What are the steps required to request, create, and add members to a data sharing group via technical support and the CCDB portal?"
-  - "How do you configure directory permissions for a data sharing group and subsequently test that you have recursive read access?"
-  - "Under what circumstances is it recommended to use a data sharing group rather than standard individual sharing?"
-  - "What are the steps required to request, create, and add members to a data sharing group via technical support and the CCDB portal?"
-  - "How do you configure directory permissions for a data sharing group and subsequently test that you have recursive read access?"
+  - "What are the three categories of users for a filesystem object and what types of permissions can each category have?"
+  - "How can you modify file or directory permissions using chmod, both with symbolic notation (e.g., u+r, g‑x) and with octal notation (e.g., 644)?"
+  - "Why must a colleague have execute permission on every directory in the path from /scratch or /project to the target file in order to access that file?"
+  - "What is the formula for converting the read, write, and execute bits into an octal digit for Unix file permissions?"
+  - "How does the octal code 644 translate to the symbolic permissions for the owner, group, and others in the given example?"
+  - "Why do many people find symbolic notation more intuitive than octal notation for describing Unix filesystem permissions?"
+  - "Why must a user have both read and execute permissions on a directory to exercise file permissions within it, and how can these permissions be set with `chmod`?"
+  - "What is the sticky bit, how does it restrict deletion or renaming of files in a shared directory, and how can it be set or unset using `chmod`?"
+  - "How does the setGID (set group ID) bit on a directory affect the group ownership of newly created files and directories, and how is this bit enabled with `chmod`?"
+  - "What effect does setting the setGID (g+s) permission on a directory have on newly created files?"
+  - "How do you enable the setGID permission on a directory using the chmod command?"
+  - "After applying the setGID bit, which group will new files inside that directory inherit?"
+  - "What effect does setting the setGID bit on a directory have on the group ownership and permissions of subdirectories created within it?"
+  - "How does an uppercase “S” differ from a lowercase “s” in directory permission listings, and what problems can arise from this distinction?"
+  - "In what way does the umask determine default permissions for newly created files and directories, and how can a user modify it?"
+  - "How can you modify the permissions of existing files or an entire directory to match the new default permissions using `chmod`?"
+  - "Which commands are used to view and set access control lists (ACLs) for individual users, and how would you grant user `smithj` read and execute rights on a file?"
+  - "What steps are required to share a subdirectory with a specific user, including setting default ACLs for new files, ensuring execute permission on parent directories, and using the correct physical path?"
+  - "Why must a file have execute permission on every directory in its path for a user to access it?"
+  - "How does a user's group membership affect their ability to use a file's group permissions?"
+  - "Which command can be used to modify the permissions of an existing file or directory?"
+  - "How can you retrieve the actual physical path that a symlink points to?"
+  - "Why might collaborators be unable to reach your project directory on another cluster?"
+  - "What step should you take before sharing a project directory across multiple clusters?"
+  - "How can you recursively remove all extended ACL attributes from a directory?"
+  - "What are the required steps to request, create, and manage a data sharing group?"
+  - "Which commands are used to grant a data sharing group execute and read/write permissions on a project directory and its sub‑directories?"
 
 status:
   downloaded: true
@@ -94,7 +91,7 @@ status:
 *Parent page: [Storage and file management](storage_and_file_management.md)*
 
 !!! warning
-    **Don't ever issue a bulk `chmod -R 777` on your home folder, in fact on any of your folders for that matter. This is a HUGE security risk, and is completely unacceptable on shared facilities such as our clusters. In addition, it's never necessary.**
+    Don't ever issue a bulk `chmod -R 777` on your home folder, in fact on any of your folders for that matter. This is a HUGE security risk, and is completely unacceptable on shared facilities such as our clusters. In addition, it's never necessary.
 
 Having to share some but not all of your data with a colleague or another research group is a common occurrence. Our systems provide a variety of mechanisms to facilitate this data sharing with colleagues. If the person you want to share the data with is a member of the same research group as you, then the best approach may be to make use of the [project space](project_layout.md) that each research group has in common; if your research requires the creation of a group on one of the national clusters, you can request this by contacting [technical support](../support/technical_support.md) since users cannot create their own groups. At the opposite extreme, if the person you need to share the data with doesn't even have an account on the cluster, you can use [Globus](../getting-started/globus.md) and in particular what is called a [shared endpoint](../getting-started/globus.md#globus-sharing) to share the data. To handle the scenario of sharing with a colleague who has an account on the cluster but doesn't belong to a common research group with you, the simplest approach is to use the permissions available in the filesystem to share the data, the principal topic of this page.
 
@@ -103,9 +100,9 @@ When sharing a file, it's important to realize that the individual you want to s
 ## Filesystem permissions
 
 Like most modern filesystems, those used on our clusters support the idea of permissions to read, write, and execute files and directories. When you attempt to read, modify or delete a file, or access a directory, e.g. with `cd`, the Linux kernel first verifies that you have the right to do this. If not, you'll see the error message *Permission denied*. For each filesystem object (file or directory) there are three categories of users:
-*   the object's owner --- normally the user who created the object,
-*   members of the object's group --- normally the same as the owner's default group, and
-*   everyone else.
+* the object's owner --- normally the user who created the object,
+* members of the object's group --- normally the same as the owner's default group, and
+* everyone else.
 Each of these categories of users may have the right to read, write, or execute the object. Three categories of users times three types of permission means there are nine permissions associated with each object.
 
 You can see what the current permissions are for a filesystem object with the command
@@ -216,8 +213,7 @@ drwxrS---  3 someuser   def-someuser       4096 Oct 13 19:39 dirTest
 
 ### Set User ID bit
 !!! warning
-    The `setUID` bit **will not work** on our clusters.
-    Its usual behaviour is completely disabled, for security reasons.
+    The `setUID` bit **will not work** on our clusters. Its usual behaviour is completely disabled, for security reasons.
 
 ## Default filesystem permissions
 
@@ -226,32 +222,33 @@ Default filesystem permissions are defined by something called the [`umask`](htt
 umask -S
 ```
 For example, on our clusters, you would get
-```bash
-umask -S
-# Expected output:
-# u=rwx,g=rx,o=
+```text
+u=rwx,g=rx,o=
 ```
-This means that, by default, new files that you create can be read, written and executed by yourself, they can be read and executed by members of the group of the file, and they cannot be accessed by other people. **The `umask` only applies to new files. Changing the `umask` does not change the access permissions of existing files.**
+This means that, by default, new files that you create can be read, written and executed by yourself, they can be read and executed by members of the group of the file, and they cannot be accessed by other people.
+
+!!! note
+    **The `umask` only applies to new files. Changing the `umask` does not change the access permissions of existing files.**
 
 There may be reasons to define default permissions more permissive (for example, to allow other people to read and execute files), or more restrictive (not allowing your group to read or execute files). Setting your own `umask` can be done either in a session, or in your `.bashrc` file, by calling the command
 ```bash
 umask <value>
 ```
-where the `<value>` can take a number of octal values. Below is a table of useful options, depending on your use case :
+where the `<value>` can take a number of octal values. Below is a table of useful options, depending on your use case:
 
-| `umask` value | `umask` meaning | Human-readable explanation |
-|---|---|---|
-| 077 | u=rwx,g=,o= | Files are readable, writable and executable by the owner only |
-| 027 | u=rwx,g=rx,o= | Files are readable and executable by the owner and the group, but writable only by the owner |
-| 007 | u=rwx,g=rwx,o= | Files are readable, writable and executable by the owner and the group |
-| 022 | u=rwx,g=rx,o=rx | Files are readable and executable by everyone, but writable only by the owner |
-| 002 | u=rwx,g=rwx,o=rx | Files are readable and executable by everyone, but writable only by the owner and the group |
+| `umask` value | `umask` meaning   | Human-readable explanation                                                |
+| :------------ | :---------------- | :------------------------------------------------------------------------ |
+| `077`         | `u=rwx,g=,o=`     | Files are readable, writable and executable by the owner only             |
+| `027`         | `u=rwx,g=rx,o=`   | Files are readable and executable by the owner and the group, but writable only by the owner |
+| `007`         | `u=rwx,g=rwx,o=`  | Files are readable, writable and executable by the owner and the group    |
+| `022`         | `u=rwx,g=rx,o=rx` | Files are readable and executable by everyone, but writable only by the owner |
+| `002`         | `u=rwx,g=rwx,o=rx`| Files are readable and executable by everyone, but writable only by the owner and the group |
 
 The umask is not the only thing that determines who can access a file.
-*   A user trying to access a file must have execute permission on all directories in the path to the file. For example, a file might have `o=rx` permissions but an arbitrary user could not read or execute it if the parent directory does not also have `o=x` permission.
-*   The user trying to access a file based on its group permissions must be a member of the file's group.
-*   You can explicitly change the permissions on a file or directory after it is created, using `chmod`.
-*   Access Control Lists (ACLs) also determine who can access a file.
+* A user trying to access a file must have execute permission on all directories in the path to the file. For example, a file might have `o=rx` permissions but an arbitrary user could not read or execute it if the parent directory does not also have `o=x` permission.
+* The user trying to access a file based on its group permissions must be a member of the file's group.
+* You can explicitly change the permissions on a file or directory after it is created, using `chmod`.
+* Access Control Lists (ACLs) also determine who can access a file.
 
 Note that this change does *not* mean that your files have been inappropriately exposed in the past. Restrictive access permissions have been set on your home, project, and scratch directories since the beginning. Unless the permissions were changed to give *execute* permission to other users on these folders, they still cannot be accessed by them.
 
@@ -268,10 +265,9 @@ chmod -R g-w,o-rx <directory>
 ## Access control lists (ACLs)
 
 ### Sharing access with an individual
-
 The file permissions discussed above have been available in Unix-like operating systems for decades now but they are very coarse-grained. The whole set of users is divided into just three categories: the owner, the group, and everyone else. What if you want to allow someone who isn't in a group to read a file - do you really need to make the file readable by everyone in that case? The answer, happily, is no. Our national systems offer *access control lists* (ACLs) to enable permissions to be set on a user-by-user basis if desired. The two commands needed to manipulate these extended permissions are
-*   `getfacl` to see the ACL permissions, and
-*   `setfacl` to alter them.
+* `getfacl` to see the ACL permissions, and
+* `setfacl` to alter them.
 
 #### Sharing a single file
 To allow a single person with username `smithj` to have read and execute permission on the file `my_script.py`, use:
@@ -280,67 +276,62 @@ $ setfacl -m u:smithj:rx my_script.py
 ```
 
 #### Sharing a subdirectory
-
 To allow read and write access to a single user in a whole subdirectory, including new files created in it, you can run the following commands:
 
 ```console
-$ setfacl -d -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data
-$ setfacl -R -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data
+$ setfacl -d -m u:smithj:rwX /project/def-<PI>/shared_data
+$ setfacl -R -m u:smithj:rwX /project/def-<PI>/shared_data
 ```
 !!! note
     The `X` attribute above (compared to `x`) sets the *execute* permission only when the item is already executable (either a directory or a file with the execute permission). A directory needs the execute permission to allow it to be browsed.
 
-The first command sets default access rules to directory `/home/<user>/projects/def-<PI>/shared_data`, so any file or directory created within it will inherit the same ACL rule. It is required for **new** data. The second command sets ACL rules to directory `/home/<user>/projects/def-<PI>/shared_data` and all its content currently in it. So it is applicable only to **existing** data.
+The first command sets default access rules to directory `/project/def-<PI>/shared_data`, so any file or directory created within it will inherit the same ACL rule. It is required for **new** data. The second command sets ACL rules to directory `/project/def-<PI>/shared_data` and all its content currently in it. So it is applicable only to **existing** data.
 
 In order for this method to work the following things need to be in place:
-*   The directory, `/home/smithj/projects/def-smithj/shared_data` in our example, must be owned by you.
-*   Parent directories (and parents of parents, etc.) of the one you are trying to share must allow execute permission to the user you are trying to share with. This can be supplied with `setfacl -m u:smithj:X ...` in this example, or it can be supplied by allowing everyone entry, i.e. `chmod o+x ...`. They do not need to have public read permission. In particular you will need to grant execute permission on the project directory (`/projects/def-<PI>`) either for everyone, or one-by-one to all the people you are trying to share your data with.
-*   When sharing a directory in the project filesystem, you must provide your collaborators with a path that starts with `/project`, **not** with `/home/<user>/projects`. The latter contains symbolic links (symlinks, or shortcuts) to the physical directories in `/project`, and these symlinks will not be reachable by your collaborators unless they also have access to your home directory. You can get the physical path a symlink points to using the `realpath` command. For example, `realpath /home/smithj/projects/def-smithj/shared_data` could return `/project/9041430/shared_data`. The physical path to a project directory is not the same on all clusters. If you wish to share a project directory on more than one cluster, check its physical path with `realpath` on each cluster.
+* The directory, `/project/def-smithj/shared_data` in our example, must be owned by you.
+* Parent directories (and parents of parents, etc.) of the one you are trying to share must allow execute permission to the user you are trying to share with. This can be supplied with `setfacl -m u:smithj:X ...` in this example, or it can be supplied by allowing everyone entry, i.e. `chmod o+x ...`. They do not need to have public read permission. In particular you will need to grant execute permission on the project directory (`/project/def-<PI>`) either for everyone, or one-by-one to all the people you are trying to share your data with.
+* When sharing a directory in the project filesystem, you must provide your collaborators with a path that starts with `/project`, **not** with `/home/<user>/projects`. The latter contains symbolic links (symlinks, or shortcuts) to the physical directories in `/project`, and these symlinks will not be reachable by your collaborators unless they also have access to your home directory. You can get the physical path a symlink points to using the `realpath` command. For example, `realpath /home/smithj/projects/def-smithj/shared_data` could return `/project/9041430/shared_data`. The physical path to a project directory is not the same on all clusters. If you wish to share a project directory on more than one cluster, check its physical path with `realpath` on each cluster.
 
 #### Removing ACL
 To remove all extended ACL attributes from a directory recursively, use:
 ```console
-setfacl -bR /home/<user>/projects/def-<PI>/shared_data
+setfacl -bR /project/def-<PI>/shared_data
 ```
 
 ### Data sharing groups
-
 For more complicated data sharing scenarios (those involving multiple people on multiple clusters), it is also possible to create a **data sharing group**. A data sharing group is a special group to which all people with whom certain data is to be shared are added. This group is then given access permissions through ACLs.
 
 You do not need a data sharing group except in specialized sharing circumstances.
 
 #### Creating a data sharing group
-
-The steps below describe how to create a data sharing group. In this example it is called `wg-datasharing`
+The steps below describe how to create a data sharing group. In this example it is called `wg-datasharing`.
 
 1.  Send email to our [technical support](../support/technical_support.md) requesting creation of data sharing group, indicate name of the group you would like to have and that you should be the owner.
-2.  When you receive confirmation from the technical support team that the group has been created, go to [ccdb.computecanada.ca/services/](https://ccdb.computecanada.ca/services/) and access it:
-3.  Click on the group's name and enter the group management screen:
-4.  Add member (Victor Van Doom with CCI vdv-888, for example) to the group as a member:
+2.  When you receive confirmation from the technical support team that the group has been created, go to [ccdb.computecanada.ca/services/](https://ccdb.computecanada.ca/services/) and access it. The services screen will display the groups you can manage.
+3.  Click on the group's name and enter the group management screen, where the group's owner is shown.
+4.  Add member (Victor Van Doom with CCI vdv-888, for example) to the group. The services screen will then show the members of the group.
 
 #### Using a data sharing group
-
 Just as with individual user sharing, the parent directories of the data you are trying to share must have execute permissions either for everyone or for the data sharing group. In your project directory, this implies that your PI must give consent as follows (unless you have permission to do this yourself):
 
 ```bash
-chmod  o+X /project/def-<PI>/
+$ chmod o+X /project/def-<PI>/
 ```
 or
 ```bash
-setfacl -m g:wg_datasharing:X /project/def-<PI>/
+$ setfacl -m g:wg-datasharing:X /project/def-<PI>/
 ```
 
 Finally, you can add your group to the ACL for the directory you are trying to share. The commands parallel those needed to share with an individual:
 
 ```console
-$ setfacl -d -m g:wg-datasharing:rwx /home/<user>/projects/def-<PI>/shared_data
-$ setfacl -R -m g:wg-datasharing:rwx /home/<user>/projects/def-<PI>/shared_data
+$ setfacl -d -m g:wg-datasharing:rwx /project/def-<PI>/shared_data
+$ setfacl -R -m g:wg-datasharing:rwx /project/def-<PI>/shared_data
 ```
 
 ## Troubleshooting
 
 ### Testing read access recursively
-
 To make sure you have the read access to everything in a specific directory, you can use the following command which lists all items not readable to you:
 
 ```bash

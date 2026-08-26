@@ -4,42 +4,39 @@ slug: "virsorter2"
 lang: "fr"
 
 source_wiki_title: "VirSorter2/fr"
-source_hash: "9f177cf2db0e8fecd29d8b9f8419f01b"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T12:41:36.468234+00:00"
+source_hash: "92ab2b4043dc07d4b17d6b1c6b502eea"
+last_synced: "2026-08-26T10:16:11.334907+00:00"
+last_processed: "2026-08-26T11:23:01.746627+00:00"
 
 tags:
   - software
 
 keywords:
-  - "séquences de virus"
-  - "salloc"
-  - "virsorter"
-  - "submission script"
-  - "allocation"
-  - "base de données"
-  - "tâche interactive"
-  - "job allocation"
-  - "soumettre une tâche"
-  - "sbatch"
   - "environnement virtuel Python"
+  - "--min-length 1500"
+  - "installation via pip"
+  - "test réussi"
+  - "sbatch"
+  - "base de données"
+  - "script d'ordonnancement"
+  - "salloc"
+  - "--mem-per-cpu 2G"
+  - "allocation"
+  - "submission script"
   - "ensemble de données"
-  - "installation"
+  - "virsorter"
   - "VirSorter2"
 
 questions:
-  - "À quoi sert l'outil VirSorter2 selon le texte ?"
-  - "Quelles sont les étapes requises pour installer VirSorter2 et sa base de données dans un environnement virtuel Python ?"
-  - "Comment doit-on procéder pour configurer et exécuter une tâche de test pour VirSorter2 via l'ordonnanceur ?"
-  - "Quelle commande permet de terminer une allocation de ressources en cours ?"
-  - "Quelle condition préalable est nécessaire avant de soumettre une tâche avec son propre ensemble de données ?"
-  - "À quoi sert la commande sbatch dans ce contexte ?"
-  - "Quels sont les paramètres et les chemins d'accès spécifiés pour configurer l'exécution de la commande `virsorter run` ?"
-  - "Quelle commande SLURM permet de demander les ressources nécessaires pour lancer une tâche interactive ?"
-  - "De quelle manière le script de soumission final (`test-virsorter.sh`) est-il exécuté une fois l'allocation obtenue ?"
-  - "Quelle commande permet de terminer une allocation de ressources en cours ?"
-  - "Quelle condition préalable est nécessaire avant de soumettre une tâche avec son propre ensemble de données ?"
-  - "À quoi sert la commande sbatch dans ce contexte ?"
+  - "Quelles sont les étapes détaillées pour installer VirSorter2 v2.2.4 dans un environnement virtuel Python sur le serveur ?"
+  - "Comment préparer le jeu de données de test, créer le script d’exécution et soumettre une tâche VirSorter2 avec le planificateur SLURM ?"
+  - "Pourquoi est‑il important de citer VirSorter2 dans vos travaux et comment le faire correctement ?"
+  - "Quel rôle joue la commande `exit` dans le contexte d’une allocation `salloc` ?"
+  - "Que signifie le message « salloc: Relinquishing job allocation 1234567 » affiché après l’exécution de la commande `exit` ?"
+  - "Comment utiliser la commande `sbatch` pour soumettre une tâche avec votre propre jeu de données une fois le test réussi ?"
+  - "Quelle rôle joue l’option `--min-length 1500` dans la commande `virsorter` ?"
+  - "Comment la commande `salloc` alloue‑t‑elle la mémoire et les CPU pour la tâche interactive ?"
+  - "Pourquoi la commande inclut‑elle `--use-conda-off` et quel est l’intérêt de spécifier `--db-dir $SCRATCH/db` ?"
 
 status:
   downloaded: true
@@ -50,7 +47,7 @@ status:
   qa_generated: false
 ---
 
-[VirSorter2](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-020-00990-y) permet d’identifier les nouvelles séquences de virus.
+L'outil [VirSorter2](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-020-00990-y) permet d’identifier les nouvelles séquences de virus.
 
 Nous abordons ici l’installation et l’utilisation de VirSorter2 v2.2.4.
 
@@ -65,24 +62,29 @@ Les étapes ci-dessous servent à installer VirSorter2 dans votre répertoire `$
     ```bash
     module load StdEnv/2020 python/3.8 hmmer/3.3.2 prodigal/2.6.3
     ```
+
 2.  Créez et activez un environnement virtuel Python.
     ```bash
     virtualenv --no-download ~/ENV_virsorter
     source ~/ENV_virsorter/bin/activate
     ```
+
 3.  Installez VirSorter2 v2.2.4 dans l’environnement virtuel.
     ```bash
-    pip install --no-index --upgrade pip
+    pip install --no-index --upgrade 'pip<25'
     pip install --no-index virsorter==2.2.4
     ```
+
 4.  Validez l'installation.
     ```bash
     virsorter -h
     ```
+
 5.  Gelez l’environnement et les éléments requis (*requirements.txt*).
     ```bash
     pip freeze > ~/virsorter-2.2.4-requirements.txt
     ```
+
 6.  Téléchargez la base de données dans votre répertoire `$SCRATCH` en utilisant l'option `--skip-deps-install` pour ne pas installer conda et aussi parce que les dépendances sont déjà installées.
     ```bash
     virsorter setup --db-dir $SCRATCH/db -j 4 --skip-deps-install
@@ -93,10 +95,12 @@ Les étapes ci-dessous servent à installer VirSorter2 dans votre répertoire `$
     ```bash
     deactivate
     ```
+
 2.  Téléchargez l’ensemble de données dans votre répertoire `$SCRATCH`.
     ```bash
     wget -O $SCRATCH/test.fa https://raw.githubusercontent.com/jiarong/VirSorter2/master/test/8seq.fa
     ```
+
 3.  Créez un script pour soumettre une tâche à l’ordonnanceur.
     ```bash title="test-virsorter.sh"
     #!/bin/bash
@@ -120,20 +124,15 @@ Les étapes ci-dessous servent à installer VirSorter2 dans votre répertoire `$
     # The database must already exist and you must specify its location.
     virsorter run -w $SCRATCH/test.out -i $SCRATCH/test.fa --min-length 1500 -j $SLURM_CPUS_PER_TASK --verbose --use-conda-off --db-dir $SCRATCH/db all
     ```
+
 4.  Lancez une tâche interactive.
     ```bash
     salloc --mem-per-cpu=2G --cpus-per-task=2 --account=<votre-compte>
     ```
-    ```
+    ```text
     salloc: Granted job allocation 1234567
-    ```
-    ```bash
-    bash test-virsorter.sh # Exécutez le script de soumission
-    ```
-    ```bash
-    exit                   # Terminez l'allocation
-    ```
-    ```
+    $ bash test-virsorter.sh             # Exécute le script de soumission
+    $ exit                               # Met fin à l'allocation
     salloc: Relinquishing job allocation 1234567
     ```
 
