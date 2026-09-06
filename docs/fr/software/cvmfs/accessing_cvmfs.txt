@@ -2,9 +2,9 @@
 <languages />
 
 = Introduction =
-Les répertoires de logiciels et de données que nous offrons sont accessibles via le [[CVMFS/fr|CVMFS (''CERN Virtual Machine File System'')]]. Puisque CVMFS est préconfiguré pour vous, vous pouvez utiliser ses répertoires directement.  Pour plus d’information sur notre environnement logiciel, consultez les pages wiki [[Available software/fr|Logiciels disponibles]], [[Utiliser des modules]], [[Python/fr|Python]], [[R/fr|R]] et [[Installing software in your home directory/fr|Installation de logiciels dans votre répertoire /home]].
+Les dépôts de logiciels et de données que nous offrons sont accessibles via le [[CVMFS/fr|CVMFS (''CERN Virtual Machine File System'')]]. Puisque CVMFS est préconfiguré pour vous, vous pouvez utiliser ses dépôts directement.  Pour plus d’information sur notre environnement logiciel, consultez les pages wiki [[Available software/fr|Logiciels disponibles]], [[Utiliser des modules]], [[Python/fr|Python]], [[R/fr|R]] et [[Installing software in your home directory/fr|Installation de logiciels dans votre répertoire /home]].
 
-Nous décrivons ici comment installer et configurer CVMFS sur <i>votre propre ordinateur ou grappe</i>; vous aurez ainsi accès aux mêmes répertoires et environnements logiciels que ceux de nos systèmes.
+Nous décrivons ici comment installer et configurer CVMFS sur <i>votre propre ordinateur ou grappe</i>; vous aurez ainsi accès aux mêmes dépôts et environnements logiciels que ceux de nos systèmes.
 
 Nous utilisons comme exemple [https://ssl.linklings.net/conferences/pearc/pearc19_program/views/includes/files/pap139s3-file1.pdf l'environnement logiciel présenté à la conférence PEARC 2019], <i>Practices and Experience in Advanced Research Computing</i>.
 
@@ -21,31 +21,31 @@ Nous utilisons comme exemple [https://ssl.linklings.net/conferences/pearc/pearc1
 Nous vous remercions de mentionner aussi [https://ssl.linklings.net/conferences/pearc/pearc19_program/views/includes/files/pap139s3-file1.pdf notre présentation]. 
 }}
 == S'abonner au service d'annonces ==
-Des modifications peuvent être apportées au CVMFS ou aux logiciels et autre contenu des répertoires que nous fournissions; ces modifications <i>touchent les utilisateurs ou nécessitent l’intervention de l’administrateur</i> pour assurer la continuité du service.
+Des modifications peuvent être apportées au CVMFS ou aux logiciels et autre contenu des dépôts que nous fournissons; ces modifications <i>touchent les utilisateurs ou nécessitent l’intervention de l’administrateur</i> pour assurer la continuité du service.
 
 Abonnez-vous à la liste de diffusion cvmfs-announce@gw.alliancecan.ca afin de recevoir les annonces importantes occasionnelles. Vous pouvez vous abonner en écrivant à [mailto:cvmfs-announce+subscribe@gw.alliancecan.ca cvmfs-announce+subscribe@gw.alliancecan.ca] et en répondant au courriel de confirmation qui vous sera envoyé.
 Les membres de nos équipes techniques peuvent aussi  [https://groups.google.com/u/0/a/gw.alliancecan.ca/g/cvmfs-announce/s'abonner ici].
 
 == Conditions d’utilisation et soutien technique ==
-Le logiciel client CVMFS est fourni par le CERN. Nos répertoires CVMFS sont offerts <b>sans aucune forme de garantie</b>. Votre accès aux répertoires et à l’environnement logiciel peut être limité ou bloqué si vous contrevenez aux [https://ccdb.alliancecan.ca/agreements/user_aup_2021/user_display conditions d’utilisation], ou à notre discrétion.
+Le logiciel client CVMFS est fourni par le CERN. Nos dépôts CVMFS sont offerts <b>sans aucune forme de garantie</b>. Votre accès aux dépôts et à l’environnement logiciel peut être limité ou bloqué si vous contrevenez aux [https://ccdb.alliancecan.ca/agreements/user_aup_2021/user_display conditions d’utilisation], ou à notre discrétion.
 
 == Exigences techniques ==
 === Pour un seul système ===
-Pour installer CVMFS sur un ordinateur personnel, les exigences sont :
+Pour installer CVMFS sur un ordinateur personnel, les exigences sont&nbsp;:
 * un système d’exploitation compatible (voir  [[Accessing_CVMFS/fr#Exigences_de_base|Exigences de base]] ci-dessous);
 * le [https://en.wikipedia.org/wiki/Filesystem_in_Userspace logiciel libre FUSE];
-* environ 50Go d’espace de stockage local pour la cache; une cache plus ou moins grande peut convenir, selon les circonstances. Pour une utilisation restreinte sur un ordinateur personnel, de 5 à 10Go peuvent suffire. Pour plus d'information, voyez le [https://cvmfs.readthedocs.io/en/stable/cpt-configure.html#sct-cache paragraphe <i>Cache Settings</i>].
+* environ 50Go d’espace de stockage local pour la cache; une cache plus ou moins grande peut convenir, selon les circonstances. Pour une utilisation restreinte sur un ordinateur personnel, de 5 à 10Go peuvent suffire. Pour plus d'information, voyez [https://cvmfs.readthedocs.io/en/stable/cpt-configure/#cache-settings <i>Cache Settings</i>].
 * l’accès HTTP vers l’internet,
 ** ou l’accès HTTP vers un ou plusieurs serveurs proxies locaux.
 
-Si ces conditions ne sont pas respectées ou que vous avez d’autres restrictions, considérez cette  [https://cvmfs.readthedocs.io/en/stable/cpt-hpc.html autre option].
+Si ces conditions ne sont pas respectées ou que vous avez d’autres restrictions, considérez cette  [https://cvmfs.readthedocs.io/en/stable/cpt-hpc/ autre option].
 
 === Pour plusieurs systèmes ===
 Pour déployer plusieurs clients CVMFS, par exemple sur une grappe, dans un laboratoire, sur un campus ou autre, chacun des systèmes doit satisfaire les exigences particulières énoncées ci-dessus. Tenez compte en plus des points suivants&nbsp;:
-* Pour améliorer la performance, nous vous recommandons de déployer sur votre site des serveurs proxies HTTP avec cache externe (<i>forward caching</i>), particulièrement si vous avez plusieurs clients (voir [https://cvmfs.readthedocs.io/en/stable/cpt-squid.html <i>Setting up a Local Squid Proxy</i>]).
-** Le fait de ne disposer que d’un seul serveur proxy est un point individuel de défaillance. Règle générale, vous devriez disposer d’au moins deux serveurs proxies locaux et préférablement un ou plusieurs autres serveurs proxies supplémentaires à proximité pour prendre la relève en cas de problème.
+* Pour améliorer la performance, nous vous recommandons de déployer sur votre site des serveurs proxies HTTP avec cache externe (<i>forward caching</i>), particulièrement si vous avez plusieurs clients (voir [https://cvmfs.readthedocs.io/en/stable/cpt-squid/  <i>Setting up a Local Squid Proxy</i>]).
+** Le fait de ne disposer que d’un seul serveur proxy est un point de défaillance unique. Règle générale, vous devriez disposer d’au moins deux serveurs proxies locaux et préférablement un ou plusieurs autres serveurs proxies supplémentaires à proximité pour prendre la relève en cas de problème.
 * Nous vous recommandons de synchroniser l’identité du compte de service <code>cvmfs</code> de tous les nœuds clients avec LDAP ou autrement.
-** Ceci facilitera l’utilisation d’une [https://cvmfs.readthedocs.io/en/stable/cpt-configure.html#alien-cache cache externe] et devrait être fait <b>avant que CVMFS ne soit installé</b>. Même si l’utilisation d’une cache externe n’est pas prévue, il est plus facile de synchroniser les comptes dès le départ que d’essayer de les changer plus tard.
+** Ceci facilitera l’utilisation d’une [https://cvmfs.readthedocs.io/en/stable/cpt-configure/#alien-cache cache externe] et devrait être fait <b>avant que CVMFS ne soit installé</b>. Même si l’utilisation d’une cache externe n’est pas prévue, il est plus facile de synchroniser les comptes dès le départ que d’essayer de les changer plus tard.
 
 == Exigences de l’environnement logiciel ==
 === Exigences de base ===
@@ -72,26 +72,26 @@ Nous recommandons que la cache locale CVMFS (située par défaut dans <code>/var
 
 == Installation et configuration ==
 
-Voir les directives pour l'installation dans [https://cvmfs.readthedocs.io/en/stable/cpt-quickstart.html#getting-the-software <i>Getting the Software</i>].
+Voir les directives pour l'installation dans [https://cvmfs.readthedocs.io/en/stable/cpt-quickstart/#getting-the-software <i>Getting the Software</i>].
 
-Pour configurer un client, voir [https://cvmfs.readthedocs.io/en/stable/cpt-quickstart.html#setting-up-the-software <i>Setting up the Software</i>] et [http://cvmfs.readthedocs.io/en/stable/apx-parameters.html#client-parameters <i>Client parameters</i>].
+Pour configurer un client, voir [https://cvmfs.readthedocs.io/en/stable/cpt-quickstart/#setting-up-the-software <i>Setting up the Software</i>] et [https://cvmfs.readthedocs.io/en/stable/apx-parameters/#client-parameters <i>Client parameters</i>].
 
-Le répertoire <code>soft.computecanada.ca</code> est fourni  avec la configuration et vous pouvez ainsi y accéder; vous pouvez l'inclure dans votre configuration client <code>CVMFS_REPOSITORIES</code>.
+Le dépôt <code>soft.computecanada.ca</code> est fourni  avec la configuration et vous pouvez ainsi y accéder; vous pouvez l'inclure dans votre configuration client <code>CVMFS_REPOSITORIES</code>.
 
-<span id="Testing"></span>
 == Test ==
+Puisque les dépôts CVMFS utilisent habituellement la fonctionnalité automount, ils ne seront pas montés s'ils ne sont pas actifs.
 
-* Assurez-vous d'abord que les répertoires à tester se trouvent dans <code>CVMFS_REPOSITORIES</code>.
-* Validez la configuration.
+* Assurez-vous d'abord que les dépôts à tester se trouvent dans <code>CVMFS_REPOSITORIES</code>.
+* Vérifiez les dépôts.
+{{Command|cvmfs_config probe}}
+* Validez la configuration et testez les connexions du proxy.
 {{Command|cvmfs_config chksetup}}
 * Assurez-vous de régler les avertissements ou erreurs qui pourraient survenir.
-* Vérifiez les répertoires.
-{{Command|cvmfs_config probe}}
 
-En cas de problème, ce [https://cvmfs.readthedocs.io/en/stable/cpt-quickstart.html#troubleshooting guide de débogage] pourrait vous être utile.
+En cas de problème, ce [https://cvmfs.readthedocs.io/en/stable/cpt-quickstart/#troubleshooting guide de débogage] pourrait vous être utile.
 
 = Activer notre environnement dans votre session =
-Une fois que le répertoire CVMFS est monté, notre environnement est activé dans votre session en utilisant le script <code>/cvmfs/soft.computecanada.ca/config/profile/bash.sh</code>. Celui-ci chargera des modules par défaut. Si vous désirez avoir les modules par défaut d'une grappe de calcul en particulier, définissez la variable <code>CC_CLUSTER</code> en choisissant l'une des valeurs suivantes <code>fir</code>, <code>nibi</code> ou <code>rorqual</code>, avant d'utiliser le script. Par exemple: 
+Une fois que le dépôt CVMFS est monté, notre environnement est activé dans votre session en utilisant le script <code>/cvmfs/soft.computecanada.ca/config/profile/bash.sh</code>. Celui-ci chargera des modules par défaut. Si vous désirez avoir les modules par défaut d'une grappe de calcul en particulier, définissez la variable <code>CC_CLUSTER</code> en choisissant l'une des valeurs suivantes <code>fir</code>, <code>nibi</code> ou <code>rorqual</code>, avant d'utiliser le script. Par exemple 
 {{Command|export CC_CLUSTER{{=}}rorqual}}
 {{Command|source /cvmfs/soft.computecanada.ca/config/profile/bash.sh}}
 
@@ -110,14 +110,14 @@ Par défaut, certaines fonctionnalités de votre système seront automatiquement
 Cette variable identifie la grappe. Elle achemine des renseignements au journal du système et définit le comportement à adopter selon la licence du logiciel. Sa valeur par défaut est <code>computecanada</code>. Vous pourriez définir sa valeur pour que les journaux soient identifiés par le nom de votre système.
 
 ==== <code>RSNT_ARCH</code> ====
-Cette variable identifie le jeu d’instructions CPU pour le système. Par défaut, elle est détectée automatiquement selon <code>/proc/cpuinfo</code>. Vous pouvez cependant utiliser un autre jeu d’instructions en définissant la variable avant d’activer l’environnement. Les jeux possibles sont :
+Cette variable identifie le jeu d’instructions CPU pour le système. Par défaut, elle est détectée automatiquement selon <code>/proc/cpuinfo</code>. Vous pouvez cependant utiliser un autre jeu d’instructions en définissant la variable avant d’activer l’environnement. Les jeux possibles sont
 * sse3
 * avx
 * avx2
 * avx512
 
 ==== <code>RSNT_INTERCONNECT</code> ====
-Cette variable identifie le type d’interconnexion réseau du système. Elle est détectée automatiquement selon la présence de  <code>/sys/module/opa_vnic</code> pour OmniPath ou de <code>/sys/module/ib_core</code> pour InfiniBand. La valeur de remplacement est <code>ethernet</code>. Les valeurs possibles sont :
+Cette variable identifie le type d’interconnexion réseau du système. Elle est détectée automatiquement selon la présence de  <code>/sys/module/opa_vnic</code> pour OmniPath ou de <code>/sys/module/ib_core</code> pour InfiniBand. La valeur de remplacement est <code>ethernet</code>. Les valeurs possibles sont
 * omnipath
 * infiniband
 * ethernet
@@ -182,7 +182,7 @@ Les logiciels seront installés localement selon notre hiérarchie de nomenclatu
 Si vous effectuez des opérations de système avec des privilèges ou des opérations en rapport avec CVMFS, [[Accessing_CVMFS/fr#Activer_notre_environnement_dans_votre_session|assurez-vous que votre session <i>ne dépend pas de l’environnement logiciel</i>]]. Par exemple, si vous faites la mise à jour de CVMFS avec YUM pendant que votre session utilise un module Python chargé à partir de CVMFS, YUM pourrait être exécuté en utilisant ce même module et en perdre l’accès par la mise à jour qui serait alors bloquée. De même, si votre environnement dépend de CVMFS et que vous reconfigurez CVMFS de façon à ce que l'accès à CVMFS soit temporairement interrompu, votre session pourrait nuire aux opérations de CVMFS ou être suspendue. Tenant compte de ceci, la mise à jour ou la reconfiguration de CVMFS peut se faire sans interruption de service dans la plupart des cas, car l'opération réussirait en raison de l'absence d'une dépendance circulaire.
 
 == Paquets logiciels non disponibles ==
-Nous mettons plusieurs logiciels du commerce à la disposition des utilisateurs, sous condition de la licence de ces produits. Ces logiciels ne sont pas disponibles ailleurs qu’avec nos ressources et vous n’y aurez pas droit d’accès même si vous suivez les directives pour installer et configurer CVMFS. Prenons l’exemple des compilateurs d’Intel et du Portland Group&nbsp;: si les modules pour ces compilateurs sont disponibles, vous n’avez accès qu’aux parties redistribuables, habituellement les objets partagés. Vous pourrez exécuter des applications compilées, mais il ne vous sera pas possible de compiler de nouvelles applications.
+Nous mettons plusieurs logiciels du commerce à votre disposition, sous condition de la licence de ces produits. Ces logiciels ne sont pas disponibles ailleurs qu’avec nos ressources et vous n’y aurez pas droit d’accès même si vous suivez les directives pour installer et configurer CVMFS. Prenons l’exemple des compilateurs d’Intel et du Portland Group&nbsp;: si les modules pour ces compilateurs sont disponibles, vous n’avez accès qu’aux parties redistribuables, habituellement les objets partagés. Vous pourrez exécuter des applications compilées, mais il ne vous sera pas possible de compiler de nouvelles applications.
 
 == Localisation de CUDA  ==
 Dans le cas des paquets CUDA, notre environnement logiciel utilise des bibliothèques de pilotes installées dans  <code>/usr/lib64/nvidia</code>. Cependant, avec certaines plateformes, les récents pilotes NVidia installent les bibliothèques  <code>/usr/lib64</code> dans <code>LD_LIBRARY_PATH</code> sans emprunter de toutes les bibliothèques du système, ce qui pourrait créer des incompatibilités avec notre environnement logiciel; nous vous recommandons donc de créer des liens symboliques dans <code>/usr/lib64/nvidia</code> pour rediriger vers les bibliothèques NVidia qui sont installées. Le script suivant sert à installer les pilotes et créer les liens symboliques (remplacez le numéro de version par celui que vous désirez). 
@@ -219,7 +219,7 @@ done
 }}
 
 == <code>LD_LIBRARY_PATH</code> ==
- is [https://gms.tf/ld_library_path-considered-harmful.html Il n'est pas recommandé d'utiliser <code>LD_LIBRARY_PATH</code>] ce qui pourrait nuire au fonctionnement de l'environnement. 
+[https://gms.tf/ld_library_path-considered-harmful.html Il n'est pas recommandé d'utiliser <code>LD_LIBRARY_PATH</code>] ce qui pourrait nuire au fonctionnement de l'environnement. 
 
 == Bibliothèques introuvables ==
 Puisque nous ne définissons pas <code>LD_LIBRARY_PATH</code> et que nos bibliothèques ne sont pas installées dans des localisations Linux par défaut, les paquets binaires comme Anaconda ont souvent de la difficulté à trouver les bibliothèques dont ils ont besoin. Consultez notre [[Installing_software_in_your_home_directory/fr#Installer_des_paquets_binaires|documentation sur l’installation de paquets binaires]].

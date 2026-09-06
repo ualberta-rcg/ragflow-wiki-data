@@ -49,6 +49,8 @@ The following versions have been installed:
 |-
 ! GROMACS version !! modules for running on CPUs !! modules for running on GPUs (CUDA) !! Notes
 |-
+| gromacs/2026.1 || <code>StdEnv/2023  gcc/12.3  openmpi/4.1.5  gromacs/2026.1</code>   || <code>StdEnv/2023 gcc/12.3  openmpi/4.1.5  cuda/12.6  gromacs/2026.1</code> || GCC, FlexiBLAS & FFTW
+|-
 | gromacs/2025.4 || <code>StdEnv/2023  gcc/12.3  openmpi/4.1.5  gromacs/2025.4</code>   || <code>StdEnv/2023 gcc/12.3  openmpi/4.1.5  cuda/12.6  gromacs/2025.4</code> || GCC, FlexiBLAS & FFTW
 |-
 | gromacs/2024.6 || <code>StdEnv/2023  gcc/12.3  openmpi/4.1.5  gromacs/2024.6</code>   || <code>StdEnv/2023 gcc/12.3  openmpi/4.1.5  cuda/12.6  gromacs/2024.6</code> || GCC, FlexiBLAS & FFTW
@@ -147,13 +149,13 @@ The following versions have been installed:
 These modules can be loaded by using a <code>module load</code> command with the modules as stated in the second column in the above table.
 For example:
 
- $ module load  StdEnv/2023  gcc/12.3   openmpi/4.1.5  gromacs/2025.4
+ $ module load  StdEnv/2023  gcc/12.3   openmpi/4.1.5  gromacs/2026.1
  or 
  $ module load  StdEnv/2020  gcc/9.3.0  openmpi/4.0.3  gromacs/2023.2
 
 These versions are also available with GPU support, albeit only with single precision. In order to load the GPU enabled version, the <code>cuda</code> module needs to be loaded first. The modules needed are listed in the third column of above table, e.g.:
 
- $ module load  StdEnv/2023  gcc/12.3  openmpi/4.1.5  cuda/12.6  gromacs/2025.4
+ $ module load  StdEnv/2023  gcc/12.3  openmpi/4.1.5  cuda/12.6  gromacs/2026.1
  or
  $ module load  StdEnv/2020  gcc/9.3.0  cuda/11.4  openmpi/4.0.3  gromacs/2023.2 
 
@@ -192,7 +194,7 @@ Here's a simple job script for serial mdrun:
 #SBATCH --time=0-0:30         # time limit (D-HH:MM)
 #SBATCH --mem-per-cpu=1000M   # memory per CPU (in MB)
 module purge  
-module load  StdEnv/2023  gcc/12.3  openmpi/4.1.5  gromacs/2025.4
+module load  StdEnv/2023  gcc/12.3  openmpi/4.1.5  gromacs/2026.1
 export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-1}"
 gmx mdrun -nt 1 -deffnm em
 }}
@@ -220,7 +222,7 @@ On clusters with a large number of CPU cores (e.g. 192) per compute node, domain
 #SBATCH --mem-per-cpu=2000M      # memory per CPU (in MB)
 #SBATCH --time=0-01:00           # time limit (D-HH:MM)
 module purge  
-module load  StdEnv/2023  gcc/12.3  openmpi/4.1.5  gromacs/2025.4
+module load  StdEnv/2023  gcc/12.3  openmpi/4.1.5  gromacs/2026.1
 export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-1}"
  
 srun --cpus-per-task=$OMP_NUM_THREADS gmx_mpi mdrun -deffnm md
@@ -237,7 +239,7 @@ srun --cpus-per-task=$OMP_NUM_THREADS gmx_mpi mdrun -deffnm md
 #SBATCH --mem-per-cpu=2000M      # memory per CPU (in MB)
 #SBATCH --time=0-01:00           # time limit (D-HH:MM)
 module purge  
-module load  StdEnv/2023  gcc/12.3  openmpi/4.1.5  gromacs/2025.4
+module load  StdEnv/2023  gcc/12.3  openmpi/4.1.5  gromacs/2026.1
 export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-1}"
 
 srun --cpus-per-task=$OMP_NUM_THREADS gmx_mpi mdrun -deffnm md
@@ -254,7 +256,7 @@ srun --cpus-per-task=$OMP_NUM_THREADS gmx_mpi mdrun -deffnm md
 #SBATCH --mem-per-cpu=2000M      # memory per CPU (in MB)
 #SBATCH --time=0-01:00           # time limit (D-HH:MM)
 module purge  
-module load  StdEnv/2023  gcc/12.3  openmpi/4.1.5  gromacs/2025.4
+module load  StdEnv/2023  gcc/12.3  openmpi/4.1.5  gromacs/2026.1
 export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-1}"
 
 srun --cpus-per-task=$OMP_NUM_THREADS gmx_mpi mdrun -deffnm md
@@ -271,7 +273,7 @@ srun --cpus-per-task=$OMP_NUM_THREADS gmx_mpi mdrun -deffnm md
 #SBATCH --mem-per-cpu=2000M      # memory per CPU (in MB)
 #SBATCH --time=0-01:00           # time limit (D-HH:MM)
 module purge  
-module load  StdEnv/2023  gcc/12.3  openmpi/4.1.5  gromacs/2025.4
+module load  StdEnv/2023  gcc/12.3  openmpi/4.1.5  gromacs/2026.1
 export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-1}"
 
 srun --cpus-per-task=$OMP_NUM_THREADS gmx_mpi mdrun -deffnm md
@@ -288,7 +290,7 @@ srun --cpus-per-task=$OMP_NUM_THREADS gmx_mpi mdrun -deffnm md
 #SBATCH --mem-per-cpu=2000M      # memory per CPU (in MB)
 #SBATCH --time=0-01:00           # time limit (D-HH:MM)
 module purge  
-module load  StdEnv/2023  gcc/12.3  openmpi/4.1.5  gromacs/2025.4
+module load  StdEnv/2023  gcc/12.3  openmpi/4.1.5  gromacs/2026.1
 export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-1}"
 
 srun --cpus-per-task=$OMP_NUM_THREADS gmx_mpi mdrun -deffnm md
@@ -310,7 +312,7 @@ This is a job script for mdrun using 4 OpenMP threads and one GPU:
 #SBATCH --mem-per-cpu=2000M      # memory limit per CPU core (megabytes)
 #SBATCH --time=0:30:00           # time limit (D-HH:MM:ss)
 module purge  
-module load StdEnv/2023  gcc/12.3  openmpi/4.1.5  cuda/12.6  gromacs/2025.4
+module load StdEnv/2023  gcc/12.3  openmpi/4.1.5  cuda/12.6  gromacs/2026.1
 export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-1}"
 
 gmx mdrun -ntomp ${SLURM_CPUS_PER_TASK:-1} -deffnm md
@@ -356,7 +358,7 @@ The following job script runs three similar simulations in separate directories 
 #SBATCH --mem-per-cpu=2000M      # memory limit per CPU core (megabytes)
 #SBATCH --time=0:30:00           # time limit (D-HH:MM:ss)
 
-module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 gromacs/2025.4
+module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 gromacs/2026.1
 
 export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-1}"
 
@@ -387,7 +389,7 @@ In order to run a simulation, one needs to create a ''tpr'' file (portable binar
 * The system topology (''.top'') file. It defines which force field is used and how the force field parameters are applied to the simulated system. Often the topologies for individual parts of the simulated system (e.g. molecules) are placed in separate ''.itp'' files and included in the ''.top'' file using a <code>#include</code> directive.
 *  The run parameter (''.mdp'') file.  See the GROMACS user guide for a detailed description of the options.
 
-''Tpr'' files are portable, that is they can be ''grompp'''ed on one machine, copied over to a different machine and used as an input file for ''mdrun''.  One should always use the same version for both ''grompp'' and ''mdrun''.  Although ''mdrun'' is able to use ''tpr'' files that have been created with an older version of ''grompp'', this can lead to unexpected simulation results.
+''Tpr'' files are portable, that is they can be ''grompp''&apos;ed on one machine, copied over to a different machine and used as an input file for ''mdrun''.  One should always use the same version for both ''grompp'' and ''mdrun''.  Although ''mdrun'' is able to use ''tpr'' files that have been created with an older version of ''grompp'', this can lead to unexpected simulation results.
 
 == Running simulations ==
 

@@ -4,9 +4,9 @@ slug: "user_roles_to_access_resources_and_services_of_the_alliance_federation"
 lang: "en"
 
 source_wiki_title: "User roles to access resources and services of the Alliance Federation/en"
-source_hash: "1a17204eb9c0b9629a3eb336e2c955bd"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T12:14:42.900633+00:00"
+source_hash: "3a6632ecb44ab32dddf47131f0b91104"
+last_synced: "2026-09-06T00:43:13.954271+00:00"
+last_processed: "2026-09-06T02:56:33.238848+00:00"
 
 tags:
   []
@@ -28,7 +28,7 @@ status:
   converted: true
   tagged: false
   keywords_generated: true
-  ragflow_synced: true
+  ragflow_synced: false
   qa_generated: false
 ---
 
@@ -41,19 +41,19 @@ Access to Federation resources and services is based on Roles. There are four ma
 
 Any Principal Investigator can identify and approve Sponsored Users to assist with their research. In certain circumstances, users are allowed to request more than one role.
 
-The table below shows the list of available roles that users can request on the [CCDB](http://ccdb.alliancecan.ca/) at any time:
+The table below lists the available roles that users can request on the [CCDB](http://ccdb.alliancecan.ca/) at any time:
 
-| Type | Role | Definition | Key characteristics |
-| :--- | :--- | :--- | :--- |
+| **Type** | **Role** | **Definition** | **Key characteristics** |
+|---|---|---|---|
 | **Academic Principal Investigator** | Faculty | You are a full-time or part-time faculty member at a Canadian university, college or research hospital that is eligible to hold CFI grants. | - Can access Federation resources and services free of charge.<br>- Is eligible to request resources via the Rapid Access Service (RAS).<br>- Is eligible to apply to the Resource Allocation Competitions (RAC).<br>- Can sponsor users. |
-| | Adjunct Faculty | You are a full-time or part-time Adjunct Faculty member at a Canadian university, college or research hospital that is eligible to hold CFI grants. | |
-| | Librarian | You must be a librarian working at a Canadian university or college that is eligible to hold CFI grants. | |
+| **Academic Principal Investigator** | Adjunct Faculty | You are a full-time or part-time Adjunct Faculty member at a Canadian university, college or research hospital that is eligible to hold CFI grants. | - Can access Federation resources and services free of charge.<br>- Is eligible to request resources via the Rapid Access Service (RAS).<br>- Is eligible to apply to the Resource Allocation Competitions (RAC).<br>- Can sponsor users. |
+| **Academic Principal Investigator** | Librarian | You must be a librarian working at a Canadian university or college that is eligible to hold CFI grants. | - Can access Federation resources and services free of charge.<br>- Is eligible to request resources via the Rapid Access Service (RAS).<br>- Is eligible to apply to the Resource Allocation Competitions (RAC).<br>- Can sponsor users. |
 | **Research Institute Principal Investigator** | Research Institute PI | You are a lead researcher at a Canadian research institute that is eligible to hold CFI grants. Please consult with a regional representative before requesting this role by writing to support@tech.alliancecan.ca | - Can access Federation resources and services free of charge.<br>- Is eligible to request resources via the Rapid Access Service (RAS).<br>- Can sponsor users. |
-| **Government, Industry, Non-for-profit Principal Investigator** | Non-academic PI | You are a lead researcher at a for-profit company, a non-for-profit organization or for the Government and want to apply for paid access to the Compute Canada Federation resources and services. Please consult with a regional representative before requesting this role by writing to support@tech.alliancecan.ca. | - In certain circumstances, may apply for paid access to Federation resources.<br>- Can sponsor users. |
+| **Government, Industry, Non-for-profit Principal Investigator** | Non-academic PI | You are a lead researcher at a for-profit company, a non-for-profit organization or for the Government and want to apply for paid access to Federation resources and services. Please consult with a regional representative before requesting this role by writing to support@tech.alliancecan.ca. | - In certain circumstances, may apply for paid access to Federation resources.<br>- Can sponsor users. |
 | **Sponsored User** | Undergraduate Student | You are an undergraduate student. | - Can access resources available to the PI, at the PI's discretion.<br>- Require a sponsor to create an account on CCDB. |
-| | Master's Student | You are a master's student. | |
-| | Doctoral Student | You are a doctoral student. | |
-| | Postdoctoral Fellow | You are a postdoctoral fellow. | |
-| | External Collaborator (or Visiting Faculty) | You are a collaborator based at an institution different from that of your sponsor. | |
-| | Researcher | You are a researcher employed by your sponsor's institution. | |
-| | Non-research Staff | You are a staff member providing support for a research group in a non-research capacity. | |
+| **Sponsored User** | Master's Student | You are a master's student. | - Can access resources available to the PI, at the PI's discretion.<br>- Require a sponsor to create an account on CCDB. |
+| **Sponsored User** | Doctoral Student | You are a doctoral student. | - Can access resources available to the PI, at the PI's discretion.<br>- Require a sponsor to create an account on CCDB. |
+| **Sponsored User** | Postdoctoral Fellow | You are a postdoctoral fellow. | - Can access resources available to the PI, at the PI's discretion.<br>- Require a sponsor to create an account on CCDB. |
+| **Sponsored User** | External Collaborator (or Visiting Faculty) | You are a collaborator based at an institution different from that of your sponsor. | - Can access resources available to the PI, at the PI's discretion.<br>- Require a sponsor to create an account on CCDB. |
+| **Sponsored User** | Researcher | You are a researcher employed by your sponsor's institution. | - Can access resources available to the PI, at the PI's discretion.<br>- Require a sponsor to create an account on CCDB. |
+| **Sponsored User** | Non-research Staff | You are a staff member providing support for a research group in a non-research capacity. | - Can access resources available to the PI, at the PI's discretion.<br>- Require a sponsor to create an account on CCDB. |

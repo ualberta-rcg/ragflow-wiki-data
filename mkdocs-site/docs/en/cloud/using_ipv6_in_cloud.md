@@ -4,41 +4,40 @@ slug: "using_ipv6_in_cloud"
 lang: "en"
 
 source_wiki_title: "Using ipv6 in cloud/en"
-source_hash: "26169da2b9b1f1a324247993214f7b76"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T12:24:23.196013+00:00"
+source_hash: "de50d415b0ad482c497e1367487e4f51"
+last_synced: "2026-09-06T00:43:13.954271+00:00"
+last_processed: "2026-09-06T03:01:15.772198+00:00"
 
 tags:
   - cloud
 
 keywords:
-  - "OpenStack"
-  - "Red Hat Enterprise Linux"
-  - "ping6"
-  - "network interface"
-  - "Global Unicast Addresses"
-  - "Network interface"
-  - "Arbutus Cloud"
-  - "IPv6"
-  - "kernel parameters"
-  - "eth1"
-  - "IPv6 configuration"
+  - "OpenStack attach network interface"
   - "sysctl.conf"
+  - "IPv6"
+  - "ssh_authorized_keys"
+  - "Security Groups IPv6"
+  - "ping6"
+  - "Debian instance SSH key workaround"
+  - "lock_passwd"
+  - "Allow icmp from any IPv6 GUA"
+  - "IPv6 GUA"
+  - "OpenStack network"
+  - "net.ipv6.conf.eth1.forwarding"
   - "ifcfg-eth1"
+  - "IPv6 enabled interface"
+  - "Stateless Address Auto Configuration (SLAAC)"
 
 questions:
-  - "How are IPv6 Global Unicast Addresses (GUA) automatically configured and managed by default security rules in the Arbutus cloud environment?"
-  - "What are the steps to attach a new IPv6 network interface to a virtual machine using the OpenStack CLI or the web dashboard?"
-  - "How can a user verify and configure IPv6 settings on a newly added network interface within a Linux operating system?"
-  - "What specific configuration parameters must be set to enable IPv6 autoconfiguration and default routing?"
-  - "What command should be used to verify that the IPv6 address has been successfully assigned to the network interface?"
-  - "How can a user test if their newly configured IPv6 connection is actively working and able to reach external domains?"
-  - "How can you verify if IPv6 is currently enabled or disabled on the system using the command line?"
-  - "What specific kernel parameters must be added to the /etc/sysctl.conf file to configure the eth1 interface?"
-  - "Which network script file needs to be modified to include the IPV6INIT=yes configuration?"
-  - "What specific configuration parameters must be set to enable IPv6 autoconfiguration and default routing?"
-  - "What command should be used to verify that the IPv6 address has been successfully assigned to the network interface?"
-  - "How can a user test if their newly configured IPv6 connection is actively working and able to reach external domains?"
+  - "How can a user attach an IPv6‑GUA network interface to an existing VM using the OpenStack CLI?"
+  - "What steps must be taken to enable SSH access to a Debian instance with an IPv6‑GUA network when the default key pair installation fails?"
+  - "How do security group rules control inbound and outbound IPv6 traffic for a VM in the Arbutus Cloud environment?"
+  - "How can you use `sysctl` to check whether IPv6 is disabled or enabled on the system?"
+  - "Which kernel parameters must be added to `/etc/sysctl.conf` and what values should they have to enable IPv6 on the `eth1` interface?"
+  - "What are the required configurations in `/etc/sysconfig/network-scripts/ifcfg-eth1` and the verification steps to ensure IPv6 is operational after reboot?"
+  - "What does the configuration snippet specify about password authentication and SSH authorized keys?"
+  - "Which network interface does the newly configured OpenStack IPv6 network correspond to in Linux, and what is the typical existing interface?"
+  - "Which command should be run to confirm that IPv6 is enabled before rebooting the system?"
 
 status:
   downloaded: true
@@ -50,15 +49,11 @@ status:
 ---
 
 ## IPv6 in Arbutus Cloud
+IPv6 Link-Local (LLA) and Global Unicast Addresses (GUA) are generally available within the Arbutus cloud environment.
+GUA can be set up via a separate interface, which in turn also handles only the IPv6 traffic.
+Addresses are being set up using *Stateless Address Auto Configuration* (SLAAC), which automatically sets up the IP on the VM interface. By default, the security group rules will allow all outbound traffic from the VM via the IPv6 GUA, but no traffic that originates from outside the VM will be allowed until specific security group rules have been defined. This is the same behaviour as IPv4.
 
-IPv6 Link-Local (LLA) and Global Unicast Addresses (GUA) are generally available within the Arbutus cloud environment. GUA can be set up via a separate interface, which in turn also handles only the IPv6 traffic.
-
-Addresses are being set up using *Stateless Address Auto Configuration* (SLAAC), which automatically sets up the IP on the VM interface.
-
-!!! note
-    By default, the security group rules will allow all outbound traffic from the VM via the IPv6 GUA, but no traffic that originates from outside the VM will be allowed until specific security group rules have been defined. This is the same behaviour as IPv4.
-
-### Example of an OpenStack CLI configuration
+### Example of an OpenStack CLI Configuration
 
 Get the ID of the VM to attach the network interface.
 
@@ -74,7 +69,7 @@ openstack server list
 +--------------------------------------+-----------------+---------+-----------------------------------------------+----------------------------------+----------+
 ```
 
-Assign a new network interface to the VM, using IPv6 as network.
+Assign a new network interface to the VM, using IPv6 as the network.
 
 ```bash
 openstack server add network 74be352d-19ca-46cc-9661-7088d2652e34  IPv6-GUA
@@ -94,37 +89,54 @@ openstack server list
 +--------------------------------------+-----------------+---------+------------------------------------------------------------------------------------------------+----------------------------------+----------+
 ```
 
-### Example of a Web Interface configuration
+### Example of a Web Interface Configuration
+Log in to the dashboard and go to the *Instances* menu, click on *Attach Interface*, which will open a dialogue.
+Use `IPv6-GUA (2607:f8f0:c11:7004::/64)` from the network menu and click on *Attach*.
 
-Log in to the dashboard and go to the *Instances* menu, click on *Attach Interface*, which will open a dialog. Use IPv6-GUA (2607:f8f0:c11:7004::/64) from the network menu and click on *Attach*.
-
-The shown IPv6 address is now available and can be used until the interface is detached.
-
-!!! note
-    Every time the interface is detached, the GUA is released and put back into the pool and thus, can be used by anyone else. Rebuilding or restarting the VM however, will not release the GUA.
+The IPv6 address is now available and can be used until the interface is detached. Every time the interface is detached, the GUA is released and put back into the pool and thus, can be used by anyone else. Rebuilding or restarting the VM, however, will not release the GUA.
 
 Access from any IPv6 GUA can be granted via *Security Groups* in OpenStack; the only difference is the CIDR which automatically detects the address type.
 
-## Example of a Linux configuration
+### Example of a Debian Instance
+!!! warning "Debian SSH Key Workaround"
+    When researchers launch an instance with the Debian operating system with the IPv6 network (i.e., IPv6-GUA), the selected SSH key pair will not install successfully. As a result, users cannot SSH into the instance and will receive a "Permission Denied" error message. To work around this problem, when launching a new instance, users can create an initial user account by completing the following steps:
 
-The OpenStack network you configured above will appear in Linux as an additional eth-type interface. In most cases, `/dev/eth0` will be your existing interface. In most cases, your new IPv6 enabled interface will be `/dev/eth1`. The easiest way to pick-up your new device is to reboot. But first, check to confirm that IPv6 is enabled with this command:
+1.  Go to the "Configuration" step.
+2.  Add the following script to the "Customization Script". Replace `[username]` with the researcher's preferred username and `[public key]` with the user's public key.
+3.  Select "Configuration Drive".
+
+```yaml
+users:
+  - name: [username]
+    gecos: [username]
+    groups: sudo 
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    lock_passwd: true
+    ssh_authorized_keys:
+      - [public key]
+
+ssh_pwauth: false
+```
+
+## Example of a Linux Configuration
+
+The OpenStack network you configured above will appear in Linux as an additional Ethernet-type interface. In most cases, `/dev/eth0` will be your existing interface. In most cases, your new IPv6 enabled interface will be `/dev/eth1`. The easiest way to pick up your new device is to reboot. But first, check to confirm that IPv6 is enabled with this command:
 
 ```bash
 sudo sysctl -a | grep ipv6.*disable
 ```
 
-!!! tip
-    The output should all end in zeros. IPv6 enabled is the default in all recent images. Any kernel parameters that need to be changed to zero should be added to `/etc/sysctl.conf`.
+The output should all end in zeros. IPv6 enabled is the default in all recent images. Any kernel parameters that need to be changed to zero should be added to `/etc/sysctl.conf`.
 
-Also, add the following kernel parameters in `/etc/sysctl.conf`.
+Also, add the following kernel parameters to `/etc/sysctl.conf`:
 
 ```ini
 net.ipv6.conf.eth1.forwarding=0
 net.ipv6.conf.eth1.accept_ra=1
 ```
 
-!!! tip
-    Reboot your system and confirm IPv6 is enabled and that `/dev/eth1` exists.
+Reboot your system and confirm IPv6 is enabled and that `/dev/eth1` exists.
 
 Next, add the following configurations to `/etc/sysconfig/network-scripts/ifcfg-eth1`:
 
@@ -135,8 +147,7 @@ IPV6_DEFROUTE=yes
 IPV6_FAILURE_FATAL=no
 ```
 
-!!! tip
-    Reboot your system again. The `/dev/eth1` interface should be configured and ready to be used.
+Reboot your system again. The `/dev/eth1` interface should be configured and ready to be used.
 
 You may then confirm the IPv6 configuration with:
 
@@ -152,8 +163,7 @@ ping6 -c 1 www.google.com
 
 That's all. Congratulations. Your system is now configured to use IPv6.
 
-## Further reading
-
+## Further Reading
 *   From RedHat, [What you need to know about IPv6](https://www.redhat.com/sysadmin/what-you-need-know-about-ipv6)
 *   From RedHat, [Configuring an IPv6 address in Red Hat Enterprise Linux 7 and 8](https://www.redhat.com/sysadmin/configuring-ipv6-rhel-7-8)
 *   From OpenStack, [IPv6](https://docs.openstack.org/neutron/pike/admin/config-ipv6.html)

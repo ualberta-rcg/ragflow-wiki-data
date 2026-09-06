@@ -48,7 +48,7 @@ Pour vous connecter avec MobaXTerm, voyez [Connexion à un serveur avec MobaXTer
 
 ### Nœuds interactifs
 
-Comme le temps d'exécution sur les nœuds de connexion est limité, vous devriez demander une [tâche interactive](../running-jobs/running_jobs.md#tâches-interactives) pour disposer d'assez de temps pour explorer et visualiser vos données. Le traitement sera aussi plus rapide puisque vous pourrez utiliser plus de cœurs.
+Comme le temps d'exécution sur les nœuds de connexion est limité, vous devriez demander une [tâche interactive](../running-jobs/running_jobs.md) pour disposer d'assez de temps pour explorer et visualiser vos données. Le traitement sera aussi plus rapide puisque vous pourrez utiliser plus de cœurs.
 
 Demandez une tâche interactive, soit :
 

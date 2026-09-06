@@ -180,7 +180,7 @@ En mode graphique, la collecte et l’analyse des données peuvent souvent se fa
 **Collecte de données**
 *   Lancez le profileur PGI.
     !!! note "Exécution de l'interface graphique"
-        Comme l’interface utilisateur de PGPROF est basée sur Java, elle devrait être exécutée sur le nœud de calcul dans la session interactive plutôt que sur le nœud de connexion puisque que dernier n’a pas suffisamment de mémoire (voir [Java](java.md#pièges) pour plus d’information). Pour activer la redirection X11, la session interactive peut être démarrée avec `salloc --x11 ...` (voir [Tâches interactives](../running-jobs/running_jobs.md#tâches-interactives) pour plus d'information).
+        Comme l’interface utilisateur de PGPROF est basée sur Java, elle devrait être exécutée sur le nœud de calcul dans la session interactive plutôt que sur le nœud de connexion puisque que dernier n’a pas suffisamment de mémoire (voir [Java](java.md#pièges) pour plus d’information). Pour activer la redirection X11, la session interactive peut être démarrée avec `salloc --x11 ...` (voir [Tâches interactives](../running-jobs/running_jobs.md) pour plus d'information).
 *   Démarrez une nouvelle session, avec *Fichier > Nouvelle session*.
 *   Sélectionnez le fichier exécutable à profiler et ajoutez les arguments de profilage, s’il y a lieu.
 *   Cliquez sur *Suivant*, puis *Terminer*.

@@ -50,6 +50,25 @@ release the GUA.
 
 Access from any IPv6 GUA can be granted via ''Security Groups'' in OpenStack; the only difference is the CIDR which automatically detects the address type.
 
+=== Example of a Debian Instance ===
+When researchers launch an instance with the Debian operating system with the IPv6 network (i.e., IPv6-GUA), the selected SSH key pair will not install successfully. As a result, the researchers cannot ssh into the instance and will receive the following a “Permission Denied” error message instead. To work around the problem, when researchers are launching a new instance, they can create an initial user account by completing the following steps:
+# Go to to the "Configuration" step
+# Add the following script to the "Customization Script". Replace [username] with the researcher's preferred username and [public key] with the user's public key.
+# Select “Configuration Drive” 
+<pre>
+users:
+  - name: [username]
+    gecos: [username]
+    groups: sudo 
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    lock_passwd: true
+    ssh_authorized_keys:
+      - [public key]
+
+ssh_pwauth: false
+</pre>
+
 [[File:secpol.png|thumb|left|Allow icmp from any IPv6 GUA]]
 <br />
 == Example of a Linux configuration ==

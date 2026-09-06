@@ -28,18 +28,18 @@ The CVMFS client software is provided by CERN. Our CVMFS repositories are provid
 To install CVMFS on an individual system, such as your laptop or desktop, you will need:
 * A supported operating system (see [[Accessing_CVMFS#Minimal_requirements|Minimal requirements below]]).
 * Support for [https://en.wikipedia.org/wiki/Filesystem_in_Userspace FUSE].
-* Approximately 50 GB of available local storage, for the cache. (It will only be filled based on usage, and a larger or smaller cache may be suitable in different situations. For light use on a personal computer, just ~ 5-10 GB may suffice. See [https://cvmfs.readthedocs.io/en/stable/cpt-configure.html#sct-cache cache settings] for more details.)
+* Approximately 50 GB of available local storage, for the cache. (It will only be filled based on usage, and a larger or smaller cache may be suitable in different situations. For light use on a personal computer, just ~ 5-10 GB may suffice. See [https://cvmfs.readthedocs.io/en/stable/cpt-configure/#cache-settings cache settings] for more details.)
 * Outbound HTTP access to the internet.
 ** Or at least outbound HTTP access to one or more local proxy servers.
 
-If your system lacks FUSE support or local storage, or has limited network connectivity or other restrictions, you may be able to use some [https://cvmfs.readthedocs.io/en/stable/cpt-hpc.html other option].
+If your system lacks FUSE support or local storage, or has limited network connectivity or other restrictions, you may be able to use some [https://cvmfs.readthedocs.io/en/stable/cpt-hpc/ other option].
 
 === For multiple systems ===
 If multiple CVMFS clients are deployed, for example on a cluster, in a laboratory, campus or other site, each system must meet the above requirements, and the following considerations apply as well:
-* We recommend that you deploy forward caching HTTP proxy servers at your site to improve performance and bandwidth usage, especially if you have a large number of clients. Refer to [https://cvmfs.readthedocs.io/en/stable/cpt-squid.html Setting up a Local Squid Proxy].
+* We recommend that you deploy forward caching HTTP proxy servers at your site to improve performance and bandwidth usage, especially if you have a large number of clients. Refer to [https://cvmfs.readthedocs.io/en/stable/cpt-squid/ Setting up a Local Squid Proxy].
 ** Note that if you have only one such proxy server it will be a single point of failure for your site. Generally, you should have at least two local proxies at your site, and potentially additional nearby or regional proxies as backups.
 * It is recommended to synchronize the identity of the <code>cvmfs</code> service account across all client nodes (e.g. using LDAP or other means).
-** This facilitates use of an [https://cvmfs.readthedocs.io/en/stable/cpt-configure.html#alien-cache alien cache] and should be done <b>before</b> CVMFS is installed. Even if you do not anticipate using an alien cache at this time, it is easier to synchronize the accounts initially than to try to potentially change them later.
+** This facilitates use of an [https://cvmfs.readthedocs.io/en/stable/cpt-configure/#alien-cache alien cache] and should be done <b>before</b> CVMFS is installed. Even if you do not anticipate using an alien cache at this time, it is easier to synchronize the accounts initially than to try to potentially change them later.
 
 == Software environment requirements ==
 === Minimal requirements ===
@@ -64,22 +64,23 @@ Otherwise, use the following instructions.
 It is recommended that the local CVMFS cache (located at <code>/var/lib/cvmfs</code> by default, configurable via the <code>CVMFS_CACHE_BASE</code> setting) be on a dedicated file system so that the storage usage of CVMFS is not shared with that of other applications. Accordingly, you should provision that file system <b>before</b> installing CVMFS.
 
 == Installation and configuration ==
-For installation instructions, refer to [https://cvmfs.readthedocs.io/en/stable/cpt-quickstart.html#getting-the-software Getting the Software].
+For installation instructions, refer to [https://cvmfs.readthedocs.io/en/stable/cpt-quickstart/#getting-the-software Getting the Software].
 
-For standard client configuration, see [https://cvmfs.readthedocs.io/en/stable/cpt-quickstart.html#setting-up-the-software Setting up the Software] and [http://cvmfs.readthedocs.io/en/stable/apx-parameters.html#client-parameters Client parameters].
+For standard client configuration, see [https://cvmfs.readthedocs.io/en/stable/cpt-quickstart/#setting-up-the-software Setting up the Software] and [https://cvmfs.readthedocs.io/en/stable/apx-parameters/ Client parameters].
 
 The <code>soft.computecanada.ca</code> repository is provided by the default configuration, so no additional steps are required to access it (though you may wish to include it in <code>CVMFS_REPOSITORIES</code> in your client configuration).
 
 == Testing ==
+Note that CVMFS repositories typically use automount, so if they aren't currently in use it's normal for them to be unmounted.
 
 * First ensure that the repositories you want to test are listed in <code>CVMFS_REPOSITORIES</code>.
-* Validate the configuration:
-{{Command|cvmfs_config chksetup}}
-* Make sure to address any warnings or errors that are reported.
 * Check that the repositories are OK:
 {{Command|cvmfs_config probe}}
+* Validate the configuration and test proxy-server connections:
+{{Command|cvmfs_config chksetup}}
+* Make sure to address any warnings or errors that are reported.
 
-If you encounter problems, [https://cvmfs.readthedocs.io/en/stable/cpt-quickstart.html#troubleshooting this debugging guide] may help.
+If you encounter problems, [https://cvmfs.readthedocs.io/en/stable/cpt-quickstart/#troubleshooting this debugging guide] may help.
 
 = Enabling our environment in your session =
 Once you have mounted the CVMFS repository, enabling our environment in your sessions is as simple as running the bash script <code>/cvmfs/soft.computecanada.ca/config/profile/bash.sh</code>. 

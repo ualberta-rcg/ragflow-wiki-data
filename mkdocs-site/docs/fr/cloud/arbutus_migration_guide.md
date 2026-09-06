@@ -4,28 +4,147 @@ slug: "arbutus_migration_guide"
 lang: "fr"
 
 source_wiki_title: "Arbutus Migration Guide/fr"
-source_hash: "69659db0365b5b385d287fad5f3d09c1"
-last_synced: "2026-08-07T19:46:17.777436+00:00"
-last_processed: "2026-08-07T22:22:02.601048+00:00"
+source_hash: "bf27c0188484bdd4c3e7c17fbc0c5afc"
+last_synced: "2026-09-06T00:43:13.954271+00:00"
+last_processed: "2026-09-06T02:28:47.088178+00:00"
 
 tags:
   - cloud
 
 keywords:
-  []
+  - "migration OpenStack"
+  - "migration manuelle ou orchestrée"
+  - "OpenStack image create"
+  - "meilleures performances"
+  - "migration du stockage objet"
+  - "export OS_AUTH_TYPE=v3websso"
+  - "migration"
+  - "groupes de sécurité"
+  - "volumes"
+  - "volume attaché"
+  - "adresse IP réelle"
+  - "copie identique du volume"
+  - "clés SSH"
+  - "conf=/etc/ceph/ceph-new.conf"
+  - "demande de migration"
+  - "nuage Arbutus"
+  - "Nouveau nuage Arbutus"
+  - "Ansible)"
+  - "option -o"
+  - "rsync"
+  - "système d’exploitation"
+  - "TTL"
+  - "instances associées à des volumes"
+  - "tableau de bord OpenStack"
+  - "paires de clés SSH"
+  - "volumes de moins de 150 Go"
+  - "fichiers RC"
+  - "hôte de migration temporaire"
+  - "volumes distincts"
+  - "Globus Connect Personal"
+  - "mise à jour des règles de pare‑feu"
+  - "nouveau point de partage"
+  - "Migration avec des images Glance"
+  - "date limite 30 septembre 2026"
+  - "migration d'instances éphémères"
+  - "migration d'instances virtuelles"
+  - "outil d'automatisation (Terraform"
+  - "migration de volume"
+  - "10.30.201.3:6789"
+  - "fichier RC OpenStack"
+  - "mise à jour des entrées DNS"
+  - "instance temporaire"
+  - "image du volume"
+  - "volumes de plus de 150 Go"
+  - "connexion SSH"
+  - "migration de volumes"
+  - "adresses IP flottantes"
+  - "rclone"
+  - "rsync -avp"
+  - "Neutron d'OpenStack"
+  - "ssh"
+  - "environnement virtuel OpenStack"
+  - "attacher le volume"
+  - "commande dd"
+  - "fichier RC Arbutus"
+  - "CephFS"
+  - "plan de migration"
+  - "commande screen"
+  - "openstack image create"
+  - "dd bs=16M"
+  - "tenant"
+  - "volumes de données >5 To"
+  - "fichier de configuration"
+  - "rsync + ssh"
+  - "API OpenStack"
+  - "openstack image list"
+  - "renouvellement des certificats Let’s Encrypt"
+  - "ACL"
+  - "corruption ou incohérence des données"
+  - "cloud@tech.alliancecan.ca"
+  - "images Glance"
+
+questions:
+  - "Quelles sont les ressources (instances, volumes, conteneurs, réseaux, clés, etc.) qui doivent être migrées avant la date limite du 30 septembre 2026 ?"
+  - "Quelle méthode de migration (interface web Horizon, CLI, Globus, outils d’automatisation tels que Terraform ou Ansible) est la plus adaptée à votre environnement et à la taille de vos volumes ?"
+  - "Comment prévoyez‑vous de gérer les interruptions de service et d’informer les parties concernées pendant le processus de migration ?"
+  - "À quelle adresse e‑mail faut‑il envoyer la demande de migration ?"
+  - "Quelles URL sont fournies pour accéder au tableau de bord OpenStack de la génération précédente ?"
+  - "Quel est le nom du nouveau cloud mentionné dans le texte ?"
+  - "1. Quelles étapes devez‑vous suivre pour préparer l’environnement de migration, notamment la sauvegarde des données et la configuration des fichiers RC des deux nuages ?"
+  - "2. Comment migrer correctement les paires de clés SSH et les groupes de sécurité (avec leurs règles) du nuage Arbutus précédent vers le nouveau nuage ?"
+  - "3. Quels sont les impacts à prévoir sur les services pendant la migration (interruption, durée de copie des volumes, changement d’adresses IP flottantes et mise à jour du TTL DNS) ?"
+  - "Quelles lignes faut‑il ajouter et quelles lignes faut‑il supprimer dans le fichier RC du nouveau nuage Arbutus ?"
+  - "Quels sont les différents scénarios de migration présentés pour passer du nuage Arbutus précédent au nouveau nuage ?"
+  - "Quelle méthode de migration est recommandée pour les instances associées à des volumes en fonction de la taille du volume (≤ 150 Go ou > 150 Go) ?"
+  - "Quelle méthode est recommandée pour prévenir la corruption ou l’incohérence des données après une migration ?"
+  - "Quel impact la taille d’un volume (par ex. 10 Go vs 100 Go) a‑t‑elle sur le temps de copie lors de la migration ?"
+  - "Pourquoi et comment faut‑il régler une faible valeur de TTL pour les enregistrements DNS lors du changement d’adresses IP flottantes ?"
+  - "Pourquoi la migration avec des images Glance est‑elle recommandée uniquement pour les volumes de moins de 150 Go ?"
+  - "Quelle bonne pratique consiste à créer des volumes distincts pour le système d’exploitation et les données lors d’une migration ?"
+  - "Quelle méthode alternative est préconisée pour les volumes supérieurs à 150 Go et où peut‑on consulter le guide correspondant ?"
+  - "Quelle est la procédure détaillée pour créer une image à partir d’un volume dans le nuage source avant de la transférer ?"
+  - "Comment transférer l’image créée du nuage source vers le nuage cible et créer un volume à partir de celle‑ci ?"
+  - "Quelle alternative utilisant l’outil Linux « dd » est proposée pour migrer une instance basée sur un volume, et quelles sont les précautions à respecter ?"
+  - "Quelle commande doit‑on exécuter pour vérifier la connexion à l’API OpenStack du nouveau nuage après avoir copié le fichier RC ?"
+  - "Que faut‑il faire avec l’instance à déplacer et le volume qui lui est attaché avant d’attacher ce volume à l’hôte de migration temporaire ?"
+  - "Pourquoi le volume ne doit‑il pas être supprimé lors de la suppression de l’instance à migrer ?"
+  - "Quelle est la procédure détaillée pour créer une image d’un volume attaché dans le cloud source en utilisant la commande dd et la CLI OpenStack ?"
+  - "Comment copier un volume volumineux d’un cloud source vers le nouveau cloud en s’appuyant sur des instances temporaires, les commandes dd, ssh et screen ?"
+  - "Quelles sont les vérifications et actions finales à effectuer après la migration (validation des instances/volumes, mise à jour DNS, suppression des ressources du cloud précédent) ?"
+  - "Quelle méthode est recommandée pour migrer des instances éphémères et quelles alternatives sont proposées dans le guide ?"
+  - "Quels sont les prérequis et les étapes essentielles pour configurer Globus Connect Personal Plus afin de transférer de très grands volumes de données (> 5 To) ?"
+  - "Comment procéder à un transfert de petits volumes de données avec rsync + ssh entre deux nuages OpenStack, et quels bénéfices apporte l’utilisation du réseau IPv6 GUA ?"
+  - "Pourquoi faut‑il remplacer « xxx.xx.xx.xx » par l’adresse IP réelle de l’instance Arbutus ?"
+  - "Quel est le rôle de la commande <code>screen</code> lors de la copie du volume via SSH ?"
+  - "Que permet d’obtenir la chaîne de commandes « sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@… » une fois exécutée dans le nouveau nuage ?"
+  - "Quel rôle joue le composant Neutron d’OpenStack et en quoi il peut offrir de meilleures performances ?"
+  - "Comment copier un répertoire ou un fichier d’une instance du nuage Arbutus vers une instance d’un nouveau nuage en utilisant rsync via SSH ?"
+  - "Quelles sont les conditions préalables, notamment la configuration de clés SSH sans mot de passe, nécessaires avant d’exécuter la commande rsync décrite ?"
+  - "Quels paramètres utilise la commande `rsync -avzP -e 'ssh -i ~/.ssh/key.pem'` pour transférer les données vers la nouvelle instance et comment assure‑t‑elle une connexion SSH sécurisée ?"
+  - "Quelles configurations post‑migration doivent être vérifiées ou mises à jour (pare‑feu, DNS, fichiers de configuration, certificats TLS, etc.) avant de déclarer la migration terminée ?"
+  - "Quelle procédure suivre pour migrer les partages CephFS du cloud précédent vers le nouveau cloud, incluant la création d’un partage équivalent, le montage simultané et la mise à jour du fichier `ceph‑new.conf` ?"
+  - "Quels sont les paramètres recommandés pour la commande rsync afin de transférer les données entre deux points de partage, et comment garantir que la session reste active pendant une opération longue ?"
+  - "Quels aspects spécifiques (ACL, UUID, tenants, conflits de noms) faut‑il surveiller lors de la migration du stockage objet du nuage Arbutus précédent vers le nouveau ?"
+  - "Comment configurer rclone (fichier rclone.conf, identifiants S3, endpoints) pour synchroniser les buckets entre les environnements legacy et new, et quelles sont les étapes à suivre avant d’exécuter la commande rclone sync ?"
+  - "Quelle est la nouvelle valeur de configuration des moniteurs Ceph indiquée dans le texte ?"
+  - "Pourquoi est‑il nécessaire d’ajouter l’option « conf=/etc/ceph/ceph‑new.conf » lors du montage du nouveau point de partage ?"
+  - "Comment les adresses IP et les ports des services v1 et v2 sont‑ils organisés dans la nouvelle configuration présentée ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
+  keywords_generated: true
   ragflow_synced: true
   qa_generated: false
 ---
 
+Voici la version convertie de votre document MediaWiki en Markdown pour MkDocs Material, rédigée entièrement en français québécois.
+
 Vous trouverez ici l'information sur la migration d'instances virtuelles (ou VM pour *virtual machines*) à partir du nuage Arbutus de la précédente génération vers le nouveau nuage Arbutus amélioré de la nouvelle génération. Puisque vous connaissez bien votre travail, nous vous recommandons de gérer vous-mêmes la migration vers le nouveau nuage selon les logiciels que vous utilisez et selon votre disponibilité.
 
-Il est important de migrer toutes vos ressources infonuagiques (instances, volumes de stockage, conteneurs de stockage objet, réseaux, clés, etc.) vers le nouveau nuage Arbutus puisque le système précédent sera mis hors service au cours de 2026. **La date limite pour migrer vos ressources est le 31 août 2026**. Ceci s'applique autant aux ressources allouées par concours qu'à celles qui ont été obtenues par le service d'accès rapide.
+Il est important de migrer toutes vos ressources infonuagiques (instances, volumes de stockage, conteneurs de stockage objet, réseaux, clés, etc.) vers le nouveau nuage Arbutus puisque le système précédent sera mis hors service au cours de 2026. **La date limite pour migrer vos ressources est maintenant fixée au 30 septembre 2026.**
 
 Nous décrivons ici quelques méthodes de migration. Avec votre équipe de recherche, vous devez identifier la ou les approches en fonction de votre projet.
 
@@ -37,7 +156,7 @@ Les questions suivantes sont en rapport avec les ressources qui se trouvent sur 
 
 *   Quelles sont les ressources qui doivent être migrées vers le nouveau nuage Arbutus? Il n'est pas obligatoire de migrer toutes les ressources; par exemple, des volumes ou des instances qui ne sont plus nécessaires peuvent être supprimés. **Créez une liste de toutes les ressources qui doivent être migrées.**
 *   Vos instances sont-elles éphémères ou sont-elles basées sur des volumes? Les instances basées sur des volumes démarrent à partir d'un volume (par exemple, `/dev/vda`) et peuvent également avoir d'autres volumes (par exemple, `/dev/vdb`). Les instances éphémères ne démarrent pas à partir d'un volume. **Listez les instances basées sur des volumes séparément des instances éphémères.**
-*   Vos volumes font-ils plus de 150Go? Si c'est le cas, ils doivent être migrés à l'aide de Globus. **Identifiez les volumes de plus de 150Go.**
+*   Vos volumes font-ils plus de 150 Go? Si c'est le cas, ils doivent être migrés à l'aide de Globus. **Identifiez les volumes de plus de 150 Go.**
 *   Avez-vous utilisé un système de déploiement automatisé (par exemple, Terraform ou Ansible) avec le nuage de la précédente génération? **Si c'est le cas, les mêmes outils d'automatisation doivent être utilisés pour la migration.**
 *   Utilisez-vous des entrées DNS personnalisées? Ces entrées devront être mises à jour, car le nouveau nuage Arbutus utilise des plages d’adresses IP flottantes différentes de celles du système précédent.
 *   Pour gérer vos ressources infonuagiques, utilisez-vous le tableau de bord OpenStack (interface web Horizon) ou l’interface en ligne de commande (CLI) OpenStack? **Les migrations simples peuvent être effectuées via l’interface web; par contre, les migrations plus complexes peuvent nécessiter un accès à l'interface en ligne de commande.**
@@ -48,24 +167,25 @@ Les questions suivantes sont en rapport avec les ressources qui se trouvent sur 
 Avec les réponses à ces questions, vous pourrez élaborer votre plan de migration.
 
 ## Information de base
+
 Utilisez les adresses URL suivantes pour obtenir le tableau de bord OpenStack :
 
 **Génération précédente** [https://arbutus.cloud.computecanada.ca](https://arbutus.cloud.computecanada.ca)
 
 **Nouveau nuage Arbutus**
-[https://arbutus.alliancecan.ca/](https://arbutus.alliancecan.ca/)
+[https://arbutus.alliancecan.ca](https://arbutus.alliancecan.ca/)
 
 Vous pouvez utiliser les navigateurs Firefox et Chrome; Safari et Edge pourraient fonctionner, mais ils n'ont pas été testés.
 
-Votre projet, votre réseau et votre routeur auront été créés à l'avance sur le nouveau nuage et vous aurez accès aux mêmes projets que sur le nuage de la précédente génération. Cependant, puisque le nouveau nuage utilise des plages d’adresses IP flottantes différentes de celles du système précédent, vous devrez peut-être créer de nouveaux groupes de sécurité, en particulier pour les règles de sécurité de OpenStack.
+Votre projet (*tenant*), votre réseau et votre routeur auront été créés à l'avance sur le nouveau nuage et vous aurez accès aux mêmes projets que sur le nuage de la précédente génération. Cependant, puisque le nouveau nuage utilise des plages d’adresses IP flottantes différentes de celles du système précédent, vous devrez peut-être créer de nouveaux groupes de sécurité, en particulier pour les règles de sécurité de OpenStack.
 
 ## Préparer l'environnement de migration
 
-!!! warning "IMPORTANT"
+!!! important "Important"
     Avant de commencer, faites une copie de sauvegarde des données importantes. Les nuages sont dotés de systèmes de stockage redondants, mais nous ne sauvegardons pas les instances. **La personne propriétaire du projet doit se charger de copier les données qui seront migrées.**
 
-1.  Connectez-vous aux deux nuages avec les informations d'identification pour votre compte avec l'Alliance et téléchargez les fichiers RC dans `Projet -> Accès à l'API -> Télécharger le fichier RC d'OpenStack`. Ces fichiers servent à configurer les variables d'environnement utilisées par les outils ligne de commande OpenStack.
-2.  Copiez les fichiers RC d'OpenStack sur l'hôte que vous utiliserez pour la migration et suivez les instructions de la section `Modifier le fichier RC du nouveau Arbutus` ci-dessous.
+1.  Connectez-vous aux deux nuages avec les informations d'identification pour votre compte avec l'Alliance et téléchargez les fichiers RC dans `Projet -> Accès API -> Télécharger le fichier RC OpenStack`. Ces fichiers servent à configurer les variables d'environnement utilisées par les outils ligne de commande OpenStack.
+2.  Copiez les fichiers RC d'OpenStack sur l'hôte que vous utiliserez pour la migration et suivez les instructions de la section [Modifier le fichier RC du nouveau Arbutus](#modifier-le-fichier-rc-du-nouveau-arbutus) ci-dessous.
 3.  Testez le ou les fichiers RC pour vérifier que vous avez accès à vos projets dans les deux nuages.
     *   Activez un fichier RC en l'exécutant (`source opensrc.sh`) dans une session shell. Un seul fichier RC à la fois peut être actif dans une session shell.
     *   Testez votre configuration en exécutant `openstack volume list`.
@@ -73,25 +193,23 @@ Votre projet, votre réseau et votre routeur auront été créés à l'avance su
     *   Depuis le tableau de bord Horizon du nuage Arbutus précédent, naviguez vers `Calcul -> Paires de clés`. Cliquez sur le nom de la paire de clés que vous voulez et copiez la valeur de la clé publique.
     *   Depuis le tableau de bord Horizon du nouveau nuage Arbutus, naviguez vers `Calcul -> Paires de clés`. Cliquez sur `Importer une clé publique`, nommez votre paire de clés et collez-la dans le champ pour la clé publique du nuage précédent.
     *   Votre paire de clés devrait maintenant être importée dans le nouveau nuage. Répétez les étapes ci-dessus pour chaque paire de clés nécessaire.
-    *   Vous pouvez également générer de nouvelles paires de clés ou les importer avec la commande :
-        ```bash
-        openstack keypair create --public-key <public-keyfile> <name>
-        ```
+    *   Vous pouvez également générer de nouvelles paires de clés ou les importer avec la commande `openstack keypair create --public-key <public-keyfile> <name>`.
 5.  Migrez les groupes de sécurité et les règles.
     *   Dans le nuage précédent, naviguez vers `Réseau -> Groupes de sécurité` et notez les groupes de sécurité existants ainsi que leurs règles associées.
     *   Dans le nouveau nuage, naviguez vers `Réseau -> Groupes de sécurité` et recréez les groupes de sécurité et leurs règles associées, au besoin.
-    *   Ne supprimez aucune des règles de sortie IPv4 et IPv6 créées par défaut. La suppression de ces règles peut empêcher vos instances de récupérer les données de configuration du service de métadonnées OpenStack en plus d’entraîner plusieurs autres problèmes.
-    *   Les règles et les groupes de sécurité peuvent également être créés via l'interface de ligne de commande (CLI). Notre exemple concerne uniquement le port HTTP 80. Modifiez-le selon vos besoins :
+    *   Ne supprimez aucune des règles de sécurité de Egress IPv4 et IPv6 créées par défaut. La suppression de ces règles peut empêcher vos instances de récupérer les données de configuration du service de métadonnées OpenStack en plus d’entraîner plusieurs autres problèmes.
+    *   Les règles et les groupes de sécurité peuvent également être créés via l'interface de ligne de commande (CLI). Notre exemple concerne uniquement le port HTTP 80. Modifiez-le selon vos besoins.
         ```bash
         openstack security group create <nom-du-groupe>
         openstack security group rule create --proto tcp --remote-ip 0.0.0.0/0 --dst-port 80 <nom-du-groupe>
         ```
-    *   Pour afficher les règles via l'interface de ligne de commande (CLI) :
+    *   Pour afficher les règles via l'interface de ligne de commande (CLI),
         *   exécutez `openstack security group list` pour lister les groupes de sécurité disponibles;
         *   exécutez `openstack security group rule list` pour afficher les règles du groupe.
-6.  Planifiez une interruption de service. En général, l'arrêt des services suivi de la fermeture de l'instance est la meilleure façon d'éviter la corruption ou l'incohérence des données après la migration. Les petits volumes peuvent être copiés assez rapidement; par exemple, un volume de 10Go sera copié en moins de cinq minutes, mais les volumes plus importants (par exemple, 100Go) peuvent prendre de 30 à 40 minutes. Tenez-en bien compte. De plus, les adresses IP flottantes seront différentes; assurez-vous donc que la durée de vie (TTL) de vos enregistrements DNS possède une valeur basse afin que les modifications se propagent le plus rapidement possible.
+6.  Planifiez une interruption de service. En général, l'arrêt des services suivi de la fermeture de l'instance est la meilleure façon d'éviter la corruption ou l'incohérence des données après la migration. Les petits volumes peuvent être copiés assez rapidement; par exemple, un volume de 10 Go sera copié en moins de cinq minutes, mais les volumes plus importants (par exemple, 100 Go) peuvent prendre de 30 à 40 minutes. Tenez-en bien compte. De plus, les adresses IP flottantes seront différentes; assurez-vous donc que la durée de vie (TTL) de vos enregistrements DNS possède une valeur basse afin que les modifications se propagent le plus rapidement possible.
 
 ## Modifier le fichier RC du nouveau Arbutus
+
 Après avoir téléchargé le fichier RC du nouveau nuage, modifiez-le en ajoutant les lignes suivantes :
 
 ```bash
@@ -101,53 +219,56 @@ export OS_PROTOCOL=openid
 export OS_PROJECT_DOMAIN_NAME=default
 ```
 
-Supprimez les lignes qui contiennent :
+Supprimez les lignes qui contiennent
 
-```text
-export OS_USER_DOMAIN_NAME="atmosphere"
+```bash
+export OS_USER_DOMAIN_NAME="atmosphere" 
 if [ -z "$OS_USER_DOMAIN_NAME" ]; then unset OS_USER_DOMAIN_NAME; fi
 ```
 
-Supprimez aussi :
+Supprimez aussi
 
-```text
-echo "Please enter your OpenStack Password for project $OS_PROJECT_NAME as user $OS_USERNAME: "
-read -sr OS_PASSWORD_INPUT
+```bash
+echo "Please enter your OpenStack Password for project $OS_PROJECT_NAME as user $OS_USERNAME: " 
+read -sr OS_PASSWORD_INPUT 
 export OS_PASSWORD=$OS_PASSWORD_INPUT
 ```
 
 Le fichier devrait maintenant contenir des lignes semblables à ceci :
-```text
-export OS_AUTH_URL=https://identity.arbutus.alliancecan.ca/
-export OS_PROJECT_ID=xIDx
-export OS_PROJECT_NAME=" xIDx "
-export OS_PROJECT_DOMAIN_ID=" xIDx "
-unset OS_TENANT_ID
-unset OS_TENANT_NAME
-export OS_USERNAME=" xIDx "
-export OS_REGION_NAME="RegionOne"
-export OS_INTERFACE=public
-export OS_IDENTITY_API_VERSION=3
-export OS_AUTH_TYPE=v3websso
-export OS_IDENTITY_PROVIDER=atmosphere
-export OS_PROTOCOL=openid
-export OS_PROJECT_DOMAIN_NAME=default
+
+```bash
+export OS_AUTH_URL=https://identity.arbutus.alliancecan.ca/ 
+export OS_PROJECT_ID=xIDx 
+export OS_PROJECT_NAME=" xIDx " 
+export OS_PROJECT_DOMAIN_ID=" xIDx " 
+unset OS_TENANT_ID 
+unset OS_TENANT_NAME 
+export OS_USERNAME=" xIDx " 
+export OS_REGION_NAME="RegionOne" 
+export OS_INTERFACE=public 
+export OS_IDENTITY_API_VERSION=3 
+export OS_AUTH_TYPE=v3websso  
+export OS_IDENTITY_PROVIDER=atmosphere  
+export OS_PROTOCOL=openid 
+export OS_PROJECT_DOMAIN_NAME=default 
 ```
 
 Créez ensuite un environnement virtuel pour installer le client OpenStack et les autres logiciels dont vous avez besoin.
+
 ```bash
-$ python3 -m venv openstack
-$ source openstack/bin/activate
-$ pip install python-openstackclient keystoneauth-websso python-manilaclient
+$ python3 -m venv openstack 
+$ source openstack/bin/activate 
+$ pip install python-openstackclient  keystoneauth-websso python-manilaclient 
 ```
 
 ## Scénarios
+
 Dépendant de votre configuration actuelle, vous pouvez utiliser un ou plusieurs des scénarios.
 *   [Migration manuelle ou orchestrée](#migration-manuelle-ou-orchestrée)
 *   [Migration d'instances associées à des volumes](#migration-dinstances-associées-à-des-volumes)
 *   [Migration d'instances éphémères](#migration-dinstances-éphémères)
 
-### Migration manuelle ou orchestrée
+## Migration manuelle ou orchestrée
 
 Ici, les nouvelles instances et les nouveaux volumes sont créés sur le nouveau nuage Arbutus, avec les mêmes caractéristiques que sur le nuage Arbutus précédent. Les fichiers et données qui sont nécessaires sont copiés. Règle générale, les grandes lignes de la procédure sont :
 
@@ -161,13 +282,13 @@ Ces étapes peuvent être effectuées manuellement ou être orchestrées avec
 [Ansible](https://docs.ansible.com/ansible/2.5/modules/list_of_cloud_modules.html), [Terraform](https://www.terraform.io/docs/providers/openstack/) ou [Heat](https://wiki.openstack.org/wiki/Heat).
 Le présent document ne traite pas de ces outils; cependant, si vous les utilisiez sur le nuage précédent, ils devraient fonctionner de la même manière sur le nouveau nuage.
 
-### Migration d'instances associées à des volumes
+## Migration d'instances associées à des volumes
 
 Comme leur nom l’indique, chacune de ces instances est associée à un volume persistant qui contient le système d’exploitation et les données nécessaires. Une bonne pratique est de créer des volumes distincts pour le système d’exploitation et pour les données.
 
-#### Migration avec des images Glance
+### Migration avec des images Glance
 
-Ce scénario est recommandé dans le cas de volumes de moins de 150Go. Pour les volumes plus grands, la [migration manuelle ou orchestrée](#migration-manuelle-ou-orchestrée) est préférable.
+Ce scénario est recommandé dans le cas de volumes de moins de 150 Go. Pour les volumes plus grands, la [migration manuelle ou orchestrée](#migration-manuelle-ou-orchestrée) est préférable.
 
 1.  Ouvrez deux sessions SSH pour l'instance que vous prévoyez migrer.
 2.  Dans une session, chargez le fichier RC d'OpenStack du nuage précédent. Dans l'autre session, chargez le fichier RC d'OpenStack du nouveau nuage. L'utilisation de la commande `screen` est recommandée en cas de déconnexion SSH. Pour installer le paquet screen, exécutez `dnf install screen`.
@@ -177,12 +298,12 @@ Ce scénario est recommandé dans le cas de volumes de moins de 150Go. Pour les 
     dnf install python-devel python-pip gcc
     pip install python-openstackclient
     ```
-4.  Dans l'interface web du nuage précédent, fermez l'instance et détachez le volume. Si le volume sert au démarrage d'une instance, supprimez l'instance, mais conservez le volume. Créez une image du volume (`Volumes -> Volumes` et `Télécharger vers l'image` du menu déroulant). Assurez-vous de sélectionner RAW comme format de disque.
-5.  Sur la ligne de commande, vous pouvez aussi entrer :
+4.  Dans l'interface web du nuage précédent, fermez l'instance et détachez le volume. Si le volume sert au démarrage d'une instance, supprimez l'instance, mais conservez le volume. Créez une image du volume (`Volumes -> Volumes` et `Télécharger vers image` du menu déroulant). Assurez-vous de sélectionner RAW comme format de disque.
+5.  Sur la ligne de commande, vous pouvez aussi entrer
     ```bash
     openstack image create --volume <nom/ID du volume> <newimagename> --private
     ```
-    Cette commande s'exécute en arrière-plan et peut prendre un certain temps. Une fois l'image créée, elle apparaît sous `Calcul -> Images` avec le nom que vous avez spécifié à l'étape précédente. Vous pouvez obtenir l'identifiant de l'image en cliquant sur son nom. L'état de la ligne de commande passera progressivement de `saving` à `active`; cela peut prendre une heure ou plus, selon la taille de votre volume.
+    Cette commande s'exécute en arrière-plan et peut prendre un certain temps. Une fois l'image créée, elle apparaît sous `Calcul -> Images` avec le nom que vous avez spécifié à l'étape précédente. Vous pouvez obtenir l'identifiant de l'image en cliquant sur son nom. L'état de la ligne de commande passera progressivement de *saving* à *active*; cela peut prendre une heure ou plus, selon la taille de votre volume.
     ```bash
     openstack image show <newimagename>
     ```
@@ -197,7 +318,7 @@ Ce scénario est recommandé dans le cas de volumes de moins de 150Go. Pour les 
 8.  Vous pouvez maintenant créer un volume à partir de l'image chargée. Dans l'interface web pour le nouveau nuage, naviguez vers `Calcul -> Images`. L'image chargée à l'étape précédente devrait s'y trouver. Dans le menu déroulant pour l'image, sélectionnez `Créer un volume`. Ce volume peut ensuite être attaché à des instances ou utilisé pour démarrer une nouvelle instance.
 9.  Une fois vos instances et volumes migrés et validés, et une fois que tous les enregistrements DNS associés sont à jour, veuillez supprimer vos instances et volumes du nuage précédent.
 
-#### Autre option avec Linux 'dd'
+### Autre option avec Linux 'dd'
 
 1.  Lancez une instance dans le nuage précédent avec la plus petite configuration possible (p1-1.5gb). Appelons-la *hôte de migration temporaire*. Les instructions ci-dessous supposent que vous utilisez AlmaLinux 9, mais toute distribution Linux disposant de Python et de Pip devrait convenir.
 2.  Connectez-vous à l'instance via SSH et installez l'interface de ligne de commande OpenStack (CLI) dans un shell racine (*root*).
@@ -210,14 +331,15 @@ Ce scénario est recommandé dans le cas de volumes de moins de 150Go. Pour les 
 4.  Copiez votre fichier RC OpenStack du nouveau nuage vers l'hôte de migration temporaire et exécutez-le. Vérifiez que vous pouvez vous connecter à l'API OpenStack sur le nouveau nuage avec la commande `openstack image list`.
 5.  Supprimez l'instance à déplacer, mais NE SUPPRIMEZ PAS le volume auquel elle est attachée. Ce volume peut désormais être attaché à l'hôte de migration temporaire que nous avons créé.
 6.  Dans l'interface web du nuage précédent, naviguez vers `Volumes -> Volumes`. Dans le menu déroulant, sélectionnez `Gérer les attachements` et attachez le volume à l'hôte de migration temporaire. Notez le périphérique auquel le volume est attaché (généralement `/dev/vdb` ou `/dev/vdc`).
-7.  À l'aide de l'utilitaire `dd`, créez une image à partir du disque identifié à l'étape précédente. Dans l'exemple suivant, nous l'avons nommée `volumemigrate`. Une fois la commande exécutée, vous recevrez un résultat affichant les détails de l'image créée.
+7.  À l'aide de l'utilitaire `dd`, créez une image à partir du disque identifié à l'étape précédente. Dans l'exemple suivant, nous l'avons nommée *volumemigrate*. Une fois la commande exécutée, vous recevrez un résultat affichant les détails de l'image créée.
     ```bash
     dd if=/dev/vdb | openstack image create --private --container-format bare --disk-format raw "volumemigrate"
     ```
 8.  Dans l’interface web du nouveau nuage, naviguez vers `Calcul -> Images`. L'image peut désormais être utilisée pour lancer des instances. Si vous souhaitez que les données soient persistantes, assurez-vous de créer un nouveau volume lors du lancement de l'instance.
 9.  Une fois vos instances et volumes migrés et validés, et les enregistrements DNS associés mis à jour, veuillez supprimer vos instances et volumes du nuage précédent.
 
-#### Migration de grands volumes avec Linux 'dd'
+### Migration de grands volumes avec Linux 'dd'
+
 Dans le cas de volumes, l'utilisation des images n'est pas recommandée. Copiez plutôt vos données dans de nouveaux volumes avec rsync ou un autre outil de copie, lorsque possible. Si ce n'est pas possible, par exemple dans le cas d'un volume amorçable (*bootable*), vous pouvez utiliser la commande `dd` pour produire une copie identique sur le nouveau nuage.
 
 Sauvegardez les données importantes avant d'exécuter cette procédure.
@@ -230,14 +352,14 @@ Sauvegardez les données importantes avant d'exécuter cette procédure.
     dnf install pv
     dnf install screen
     ```
-4.  Sur la nouvelle instance temporaire, exécutez : `chmod u+s /bin/dd`
+4.  Sur la nouvelle instance temporaire, exécutez : `chmod u+s /bin/dd`.
 5.  Copiez la clé privée SSH que vous utilisez pour vous connecter en tant qu'utilisateur sur la nouvelle instance temporaire vers l'instance temporaire du nuage précédent.
 6.  Assurez-vous que les règles de sécurité SSH autorisent l'instance temporaire du nuage précédent à se connecter avec SSH à la nouvelle instance temporaire.
-7.  Pour chaque volume que vous souhaitez déplacer du nuage précédent vers le nouveau nuage :
+7.  Pour chaque volume que vous souhaitez déplacer du nuage précédent vers le nouveau nuage,
     *   créez un volume vide de même taille sur le nouveau cloud et marquez-le comme amorçable s'il s'agit d'un volume d'amorçage;
     *   attachez le volume ci-dessus à l'instance temporaire sur le nouveau nuage;
     *   attachez le volume que vous souhaitez copier du nuage précédent à l'instance temporaire. Remarque : vous devrez peut-être supprimer l'instance à laquelle il est actuellement attaché. NE SUPPRIMEZ PAS le volume.
-8.  Sur l'instance temporaire, exécutez les commandes ci-dessous. Ceci suppose que le volume source sur le nuage précédent est attaché à l'instance temporaire sous le nom `/dev/vdb`, que sa taille est de 96Go, que la clé SSH utilisée pour se connecter à l'instance temporaire est `key.pem` et que le volume de destination sur Arbutus est attaché à l'instance temporaire sous le nom `/dev/vdb`. Remplacez également `xxx.xx.xx.xx` par l'adresse IP réelle de l'instance Arbutus à laquelle vous vous connecterez. La commande `screen` est utilisée en cas de déconnexion de votre session SSH.
+8.  Sur l'instance temporaire, exécutez les commandes ci-dessous. Ceci suppose que le volume source sur le nuage précédent est attaché à l'instance temporaire sous le nom `/dev/vdb`, que sa taille est de 96 Go, que la clé SSH utilisée pour se connecter à l'instance temporaire est `key.pem` et que le volume de destination sur Arbutus est attaché à l'instance temporaire sous le nom `/dev/vdb`. Remplacez également `xxx.xx.xx.xx` par l'adresse IP réelle de l'instance Arbutus à laquelle vous vous connecterez. La commande `screen` est utilisée en cas de déconnexion de votre session SSH.
     ```bash
     screen
     sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@xxx.xx.xx.xx "sudo dd bs=16M of=/dev/vdb"
@@ -245,15 +367,15 @@ Sauvegardez les données importantes avant d'exécuter cette procédure.
 
 Dans le nouveau nuage, vous disposez maintenant d'une copie identique du volume du nuage précédent et vous pouvez l'utiliser pour y lancer des instances.
 
-### Migration d'instances éphémères
+## Migration d'instances éphémères
 
 Une instance éphémère n'est associée à aucun volume.
 
-#### Avec images et instantanés de volume Glance
+### Avec images et instantanés de volume Glance
 
 Voir ci-dessus la section [Migration avec des images Glance](#migration-avec-des-images-glance).
 
-#### Autre option avec Linux 'dd'
+### Autre option avec Linux 'dd'
 
 Voir [Autre option avec Linux 'dd'](#autre-option-avec-linux-dd) ci-dessus.
 
@@ -261,8 +383,9 @@ Voir [Autre option avec Linux 'dd'](#autre-option-avec-linux-dd) ci-dessus.
 
 Vous pouvez utiliser une méthode de copie que vous connaissez, mais nous recommandons les deux suivantes, selon la taille des volumes pour votre projet.
 
-### Grands volumes de données : Globus
-Pour les très grands volumes (plus de 5To), nous recommandons Globus.
+## Grands volumes de données : Globus
+
+Pour les très grands volumes (plus de 5 To), nous recommandons Globus.
 
 La méthode la plus simple est d'utiliser le client Globus Connect Personal avec un abonnement Globus Plus.
 1.  **Abonnez-vous à Globus Connect Personal Plus.**
@@ -285,7 +408,8 @@ Pour plus d'information sur la configuration, consultez [https://computecanada.g
 
 En cas de difficulté, écrivez à [globus@tech.alliancecan.ca](mailto:globus@tech.alliancecan.ca). Il est fortement suggéré de soumettre aussi une demande d’assistance au service technique.
 
-### Petits volumes de données : rsync + ssh
+## Petits volumes de données : rsync + ssh
+
 Vous pouvez utiliser une autre méthode pour transférer vos données, mais pour les plus petits volumes, rsync+ssh offre de bonnes vitesses de transfert et, comme Globus, travaille de manière incrémentale. Lors du transfert de données avec rsync, vous pouvez utiliser le réseau IPv6 GUA dans OpenStack. Il s'agit d'un réseau VLAN qui contourne le composant Neutron d'OpenStack, offrant potentiellement de meilleures performances.
 
 Voici un exemple de cas type :
@@ -299,13 +423,13 @@ Voici un exemple de cas type :
 
 ## Configuration post-migration
 
-Après le transfert des données vers la nouvelle instance, certaines configurations seront peut-être requises, par exemple :
+Après le transfert des données vers la nouvelle instance, certaines configurations seront peut-être requises, par exemple
 
-1.  mise à jour des règles de pare-feu pour utiliser les nouvelles adresses IP et les nouveaux réseaux si un pare-feu hôte (par exemple, iptables, firewalld, etc.) est utilisé;
-2.  mise à jour des entrées DNS pour les domaines personnalisés (par exemple, www.myarbutusproject.ca) auprès de votre fournisseur DNS;
-3.  mise à jour des adresses IP dans les fichiers de configuration (par exemple, `/etc/hosts`, `/etc/resolv.conf`, `/etc/haproxy/haproxy.cfg`, `/var/www/`, `/var/lib/pgsql/data/pg_hba.conf`);
-4.  modification des noms d’utilisateur (par exemple, `root@192.168.65`) dans MySQL;
-5.  renouvellement des certificats Let’s Encrypt TLS (*Transport Layer Security*) à l’aide de certbot ou d’autres utilitaires si, par exemple, le nom alternatif du sujet (SAM) du certificat contient des adresses IP.
+*   mise à jour des règles de pare-feu pour utiliser les nouvelles adresses IP et les nouveaux réseaux si un pare-feu hôte (par exemple, iptables, firewalld, etc.) est utilisé;
+*   mise à jour des entrées DNS pour les domaines personnalisés (par exemple, `www.myarbutusproject.ca`) auprès de votre fournisseur DNS;
+*   mise à jour des adresses IP dans les fichiers de configuration (par exemple, `/etc/hosts`, `/etc/resolv.conf`, `/etc/haproxy/haproxy.cfg`, `/var/www/`, `/var/lib/pgsql/data/pg_hba.conf`);
+*   modification des noms d’utilisateur (par exemple, `root@192.168.65`) dans MySQL;
+*   renouvellement des certificats Let’s Encrypt TLS (*Transport Layer Security*) à l’aide de certbot ou d’autres utilitaires si, par exemple, le nom alternatif du sujet (SAM) du certificat contient des adresses IP.
 
 Assurez-vous de tester la configuration avant d'informer les membres de votre équipe que la migration est terminée.
 
@@ -313,7 +437,7 @@ Assurez-vous de tester la configuration avant d'informer les membres de votre é
 
 Le système de fichiers partagé CephFS sur le nouveau Arbutus est un service distinct; toutes les données souhaitées doivent y être migrées intentionnellement.
 
-La gestion des points de partage existants, y compris les opérations de création, de suppression et de gestion des clés, est contrôlée dans le nuage Arbutus précédent. Cependant, une fois qu'une clé et un point de partage existants sont créés, ces ressources sont accessibles depuis une machine virtuelle du nouveau nuage. De même, la création et la gestion des points de partage dans le nouveau nuage sont effectuées exclusivement dans ce dernier.
+La gestion des points de partage (*shares*) existants, y compris les opérations de création, de suppression et de gestion des clés, est contrôlée dans le nuage Arbutus précédent. Cependant, une fois qu'une clé et un point de partage existants sont créés, ces ressources sont accessibles depuis une machine virtuelle du nouveau nuage. De même, la création et la gestion des points de partage dans le nouveau nuage sont effectuées exclusivement dans ce dernier.
 
 Les points de partage existants et les nouveaux points de partage peuvent être montés sur des machines virtuelles du nouveau nuage. La procédure suivante est recommandée pour garantir l'intégrité des données lors de la migration entre les points de partage :
 1.  Pour chaque point de partage du nuage précédent, créez un point de partage équivalent dans le nouveau nuage.
@@ -342,7 +466,7 @@ Notez que, selon la taille du point de partage, cette opération peut prendre un
 
 Le stockage d'objets sur le nouveau nuage est un service distinct; toutes les données souhaitées doivent y être migrées intentionnellement.
 
-La gestion des conteneurs et des objets du nuage précédent, y compris les opérations de création, de suppression, de manipulation d'objets et de gestion des clés, est contrôlée dans le nuage précédent. De même, la création et la gestion des conteneurs et des objets dans le nouveau nuage sont effectuées exclusivement dans cet environnement.
+La gestion des conteneurs (*buckets*) et des objets du nuage précédent, y compris les opérations de création, de suppression, de manipulation d'objets et de gestion des clés, est contrôlée dans le nuage précédent. De même, la création et la gestion des buckets et des objets dans le nouveau nuage sont effectuées exclusivement dans cet environnement.
 
 La migration des données vers le stockage objet du nouveau nuage peut se faire par différentes méthodes et outils. Si vous connaissez les options, n'hésitez pas à utiliser la méthode la plus adaptée à vos données.
 
@@ -353,33 +477,32 @@ Nuage Arbutus précédent, [https://object-arbutus.cloud.computecanada.ca](https
 
 Si vous utilisez des listes de contrôle d'accès (ACL) pour les conteneurs, vérifiez que l'outil utilisé les copie correctement. Autrement, vous devrez les recréer dans le nouvel environnement. La plupart des outils ne conservent pas les ACL des conteneurs. Notez que si vous référencez des UUID d'utilisateur ou de projet, ceux-ci seront différents dans le nouveau nuage.
 
-De plus, le stockage objet dans le nouveau nuage utilise des **projets**; par conséquent, les conflits de noms de conteneur ne se produiront qu'au sein d'un même projet et non pour tous les projets. Lors de l'authentification avec l'API Swift ou S3, le projet est déduit de l'utilisateur et de la clé qui sont fournis. Toutefois, pour un accès public aux conteneurs sans authentification, le projet doit être spécifié. L'ID du projet est identique à l'ID du projet OpenStack. L'URL pour un accès Swift non authentifié se trouve via l'interface Horizon, tandis que l'URL pour un accès S3 non authentifié est au format suivant :
+De plus, le stockage objet dans le nouveau nuage utilise des *tenants*; par conséquent, les conflits de noms de conteneur ne se produiront qu'au sein d'un même projet et non pour tous les projets. Lors de l'authentification avec l'API Swift ou S3, le tenant est déduit de l'utilisateur et de la clé qui sont fournis. Toutefois, pour un accès public aux conteneurs sans authentification, le tenant doit être spécifié. L'ID du tenant est identique à l'ID du projet OpenStack. L'URL pour un accès Swift non authentifié se trouve via l'interface Horizon, tandis que l'URL pour un accès S3 non authentifié est au format suivant:
 
-`https://object-arbutus.alliancecan.ca/<id-projet>:<nom-conteneur>/<nom-objet>`
+```
+https://object-arbutus.alliancecan.ca/<tenant-id>:<bucket-name>/<object-name>
+```
 
-Nous recommandons rclone; les ACL du conteneur ne seront pas copiées et tous les accès copiés seront par défaut privés, comme dans cet exemple :
+Nous recommandons rclone; les ACL du bucket ne seront pas copiés et tous les accès copiés seront par défaut privés, comme dans cet exemple
 
 1.  Installez rclone avec [https://rclone.org/install/](https://rclone.org/install/).
 2.  Créez des identifiants S3 dans les deux nuages. Voir [notre page wiki sur le stockage objet Arbutus](arbutus_object_storage.md).
 3.  Créer un fichier de configuration pour rclone.
     *   Emplacement du fichier sous Linux/macOS, `~/.config/rclone/rclone.conf`
-    *   Contenu du fichier, en insérant vos valeurs pour l'accès et la confidentialité de chaque environnement :
-        ```ini
-        [new]
-        type = s3
-        access_key_id = <RENEWAL ACCESS KEY>
-        secret_access_key = <RENEWAL SECRET KEY>
-        endpoint = https://object-arbutus.alliancecan.ca
-        [legacy]
-        type = s3
-        access_key_id = <LEGACY ACCESS KEY>
-        secret_access_key = <LEGACY SECRET KEY>
-        endpoint= https://object-arbutus.cloud.computecanada.ca
-        ```
-4.  Synchronisez les conteneurs avec :
-    ```bash
-    rclone sync legacy: renewal:
+    *   Contenu du fichier, en insérant vos valeurs pour l'accès et la confidentialité de chaque environnement
+    ```ini
+    [new] 
+    type = s3 
+    access_key_id = <RENEWAL ACCESS KEY> 
+    secret_access_key = <RENEWAL SECRET KEY> 
+    endpoint = https://object-arbutus.alliancecan.ca 
+    [legacy] 
+    type = s3 
+    access_key_id = <LEGACY ACCESS KEY> 
+    secret_access_key = <LEGACY SECRET KEY>
+    endpoint= https://object-arbutus.cloud.computecanada.ca
     ```
+4.  Synchronisez les conteneurs avec `rclone sync legacy: renewal:`.
 
 ## Soutien technique
 

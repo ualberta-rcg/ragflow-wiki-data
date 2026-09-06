@@ -106,7 +106,7 @@ nvcc add.cu -o add
 ```
 
 ### Soumission de tâches
-Pour exécuter le programme, créez le script Slurm ci-dessous. Assurez-vous de remplacer `def-someuser` par votre nom de compte (voir [Comptes et projets](../running-jobs/running_jobs.md#comptes-et-projets)). Pour les détails sur l'ordonnancement, consultez [Ordonnancement Slurm des tâches avec GPU](../running-jobs/using_gpus_with_slurm.md).
+Pour exécuter le programme, créez le script Slurm ci-dessous. Assurez-vous de remplacer `def-someuser` par votre nom de compte (voir [Comptes et projets](../running-jobs/running_jobs.md)). Pour les détails sur l'ordonnancement, consultez [Ordonnancement Slurm des tâches avec GPU](../running-jobs/using_gpus_with_slurm.md).
 ```bash
 #!/bin/bash
 #SBATCH --account=def-someuser

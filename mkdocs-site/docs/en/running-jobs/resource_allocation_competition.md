@@ -4,24 +4,24 @@ slug: "resource_allocation_competition"
 lang: "en"
 
 source_wiki_title: "Resource Allocation Competition/en"
-source_hash: "a9605e63c9025bc9bf6501dad7b5b1e2"
-last_synced: "2026-08-26T10:16:11.334907+00:00"
-last_processed: "2026-08-26T11:17:36.551799+00:00"
+source_hash: "dd721a663d6af81ef8151066d4412cfe"
+last_synced: "2026-09-06T00:43:13.954271+00:00"
+last_processed: "2026-09-06T02:50:51.684064+00:00"
 
 tags:
   []
 
 keywords:
+  - "Fast Track applications"
   - "Rapid Access Service (RAS)"
-  - "RAC results and allocations"
-  - "Resource Allocation Competition (RAC)"
   - "RAC application guide"
-  - "GPU requests information session"
+  - "Resource Allocation Competition (RAC)"
+  - "RPP Annual Progress Report"
 
 questions:
-  - "What are the deadline dates for submitting RAC applications for Resources for Research Groups (RRG) and Research Platforms and Portals (RPP) in the 2025 competition?"
-  - "When are the informational sessions on GPU requests and Cloud requests held, and where can participants access the presentations and recordings?"
-  - "Which documentation and resources (e.g., application guides, FAQs, technical glossary, past competition reports) are available to help applicants prepare their RAC submissions?"
+  - "What are the deadline dates for submitting RAC applications for Resources for Research Groups (RRG) and Research Platforms and Portals (RPP) in the 2026 competition?"
+  - "When are the informational sessions on GPU requests and Cloud requests scheduled, and how can participants register for them?"
+  - "Where can applicants access the RAC application guides, Fast Track guide, progress report guidelines, and other supporting documentation?"
 
 status:
   downloaded: true
@@ -32,7 +32,7 @@ status:
   qa_generated: false
 ---
 
-The Resource Allocation Competition (RAC) enables faculty members and their research groups to access compute, storage, and cloud resources beyond what can be obtained via the [Rapid Access Service](../policies/rapid_access_service.md) (RAS).
+The Resource Allocation Competition (RAC) enables faculty members and their research groups to access compute, storage and cloud resources beyond what can be obtained via the [Rapid Access Service](../policies/rapid_access_service.md) (RAS).
 
 If you are not sure about which application process is best for your project, please email [allocations@tech.alliancecan.ca](mailto:allocations@tech.alliancecan.ca).
 
@@ -40,19 +40,16 @@ You may also wish to consult the RAC [Frequently Asked Questions](../policies/ra
 
 ## Key dates
 
-| **Event**                                                                                                                                                                                                                                                           | **Date**                                                                                                                                                                                                                                                                                    |
-| :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **[Resources for Research Groups](../policies/rac_application_guide.md)** (RRG) <br/> - Including Fast Track applications <br/> **[Research Platforms and Portals](../policies/rac_application_guide.md)** (RPP) <br/> - Including RPP Annual Progress Reports                                   | September 23 to November 4, 2025, until 11:59 PM (EST)                                                                                                                                                                                                                                      |
-| RAC general overview information session                                                                                                                                                                                                                            | September 24 (English) – [Presentation](https://docs.google.com/presentation/d/1DNKC_jDaMQnGyC8o0kXH_WyTia6xvZ8DkSofRuKlfo/edit?usp=drive_link), [Recording](https://drive.google.com/file/d/1Rcaw0wXyycnoTnOd9i6Dqzv7Bjyln9fB/view?usp=drive_link)                                     |
-| RAC general overview information session                                                                                                                                                                                                                            | September 29 (French) – [Presentation](https://docs.google.com/presentation/d/1xs5yEf5FunOa4omgb5NyCVxEwHlY72unzXJUYm0zM28/edit?usp=drive_link), [Recording](https://drive.google.com/file/d/1dFFUcQgt6nrjhYhsTXdMUc6zqXcG5-cI/view?usp=drive_link)                                     |
-| Information session about GPU requests                                                                                                                                                                                                                              | October 1 (English) - [Presentation](https://docs.google.com/presentation/d/151nG5ReL8tKQu--wumJ9235uy8tgDhjMoq0i3baWtjU/edit?slide=id.g27bcdee3b37_0_318#slide=id.g27bcdee3b37_0_318), [Recording](https://drive.google.com/file/d/1kPLQyHO30cFHDhZh6n80XGiLo9TqaxCJ/view?usp=drive_link) |
-| Information session about GPU requests                                                                                                                                                                                                                              | October 2 (French) - [Presentation](https://docs.google.com/presentation/d/1ba_0Hy40A9yTAYROnEOACc5vRHBSUyA6fv-KxNrq40/edit?slide=id.g302e07458c2_1_0#slide=id.g302e07458c2_1_0), [Recording](https://drive.google.com/file/d/1H8GocKaPQ0KSSxCCZR3jtIRXX8zt6KPq/view?usp=drive_link)       |
-| Information session about Cloud requests                                                                                                                                                                                                                            | October 3 (English) - [Presentation](https://docs.google.com/presentation/d/1QDc5SSjnjVWDPL_2g4Zlw3CQQWqtp0iO9JO6imMsr50/edit?slide=id.g11edde04bc5_0_0#slide=id.g11edde04bc5_0_0), [Recording](https://drive.google.com/file/d/19VUw5j-HeyNSkljyruKJFE2tKASMMQeR/view?usp=sharing)         |
-| Announcement of RAC results                                                                                                                                                                                                                                         | Late March 2026                                                                                                                                                                                                                                                             |
-| Start of allocations                                                                                                                                                                                                                                                | Early April 2026                                                                                                                                                                                                                                                            |
-
-!!! warning "Deadline Extension"
-    An extension of this deadline is not possible.
+| Event | Date |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **[Resources for Research Groups](../policies/rac_application_guide.md)** (RRG)<br/>* Including [Fast Track applications](../policies/rac_fast_track_application_guide.md)<br/>**[Research Platforms and Portals](../policies/rac_application_guide.md)** (RPP)<br/>* Including [RPP Annual Progress Reports](../policies/rpp_annual_progress_report_guidelines.md) | September 23 to November 3, 2026, until 11:59 PM (EST)<br/>*(extension of this deadline is not possible)* |
+| RAC general overview information session | September 22 (English) – [Register](https://events.teams.microsoft.com/event/004fb149-8fff-453c-86e2-2d63b2868746@803af3d1-db74-4e57-8bce-9effc0b5932f?source=copyLinkOneEventsShareDialog) |
+| RAC general overview information session | September 24 (French) – [Register](https://events.teams.microsoft.com/event/b8406eb7-9038-4d33-ab4a-af31ff271e0a@803af3d1-db74-4e57-8bce-9effc0b5932f?source=copyLinkOneEventsShareDialog) |
+| Information session about GPU requests | September 25 (French) - [Register](https://events.teams.microsoft.com/event/5449277b-9122-4845-a15f-b123c98c511a@803af3d1-db74-4e57-8bce-9effc0b5932f?source=copyLinkOneEventsShareDialog) |
+| Information session about GPU requests | September 28 (English) - [Register](https://events.teams.microsoft.com/event/fa173357-87e7-40bb-850f-889bbd5932f?source=copyLinkOneEventsShareDialog) |
+| Information session about Cloud requests | October 1 (English) - [Register](https://events.teams.microsoft.com/event/16119006-c235-4cf9-945e-0ed7514fc462@803af3d1-db74-4e57-8bce-9effc0b5932f?source=copyLinkOneEventsShareDialog) |
+| Announcement of RAC results | Late March 2027 |
+| Start of allocations | Early April 2027 |
 
 ## Useful RAC documentation
 
@@ -65,4 +62,4 @@ You may also wish to consult the RAC [Frequently Asked Questions](../policies/ra
 
 ## Past competitions
 
-To view the annual reports with the results of past RAC rounds, please visit this [page](../policies/rac_annual_reports.md).
+To view the annual reports with the results of past RAC rounds, including the list of awards, please visit this [page](../policies/rac_annual_reports.md).

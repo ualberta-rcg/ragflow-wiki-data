@@ -4,6 +4,7 @@ Les adresses LLA (Link-Local) et GUA (Global Unicast Addresses) sont généralem
 Les adresses GUA peuvent être configurées via une interface distincte, qui à son tour ne s'occupe que du trafic IPv6.
 Les adresses sont configurées par SLAAC (Stateless Address Auto Configuration), qui configure automatiquement l'IP sur l'interface de l'instance. Par défaut, les règles des groupes de sécurité permettent le trafic sortant de l'instance via le GUA de IPv6, mais rien en provenance de l'extérieur de l'instance ne sera permis jusqu'à ce que des règles spécifiques soient définies.  Ceci est le même comportement qu'avec IPv4.
 
+<span id="Example_of_an_openstack_cli_configuration"></span>
 === Exemple d'une configuration openstack cli ===
 
 Obtenez l'ID de l'instance pour attacher l'interface réseau. 
@@ -47,6 +48,25 @@ show_attached.png| 4. Sélectionner l'interface IPv6
 L'adresse IPv6 restera disponible jusqu'à ce qu'elle soit détachée. Chaque fois que l'interface est détachée, l'adresse GUA est libérée et elle retourne dans le ''pool''; elle peut ainsi être utilisée par les autres. Toutefois, le fait de reconstruire ou de redémarrer l'instance ne libère pas l'adresse GUA.
 
 L'accès à partir d'une adresse GUA peut être autorisé par la fonction ''Groupes de sécurité'' de OpenStack, à l'exception de  CIDR qui détecte autpomatiquement le type d'une adresse.
+
+=== Example of a Debian Instance ===
+When researchers launch an instance with the Debian operating system with the IPv6 network (i.e., IPv6-GUA), the selected SSH key pair will not install successfully. As a result, the researchers cannot ssh into the instance and will receive the following a “Permission Denied” error message instead. To work around the problem, when researchers are launching a new instance, they can create an initial user account by completing the following steps:
+# Go to to the "Configuration" step
+# Add the following script to the "Customization Script". Replace [username] with the researcher's preferred username and [public key] with the user's public key.
+# Select “Configuration Drive” 
+<pre>
+users:
+  - name: [username]
+    gecos: [username]
+    groups: sudo 
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    lock_passwd: true
+    ssh_authorized_keys:
+      - [public key]
+
+ssh_pwauth: false
+</pre>
 
 [[File:secpol.png|thumb|left|Allow icmp from any IPv6 GUA]]
 <br />

@@ -98,7 +98,7 @@ Il y a deux principaux types de RAP :
 
 Il est possible d'obtenir plus d'une allocation. Chaque allocation est identifiée par le nom de la ressource (par exemple `nibi-cpu`, `nibi-gpu` ou `nibi-storage`) et sa quantité; le format est `abc-123-aa-001`.
 
-Les RAPI, noms de groupe et allocations sont affichés dans [le portail CCDB](https://ccdb.alliancecan.ca). Pour plus de détails, voyez [Comptes et projets](running_jobs.md#comptes_et_projets).
+Les RAPI, noms de groupe et allocations sont affichés dans [le portail CCDB](https://ccdb.alliancecan.ca). Pour plus de détails, voyez [Comptes et projets](running_jobs.md).
 
 Pour les détails sur le RAP, consultez la [foire aux questions sur la CCDB](../getting-started/frequently_asked_questions_about_the_ccdb.md).
 
@@ -132,7 +132,7 @@ Les membres d'un RAP constituent un groupe pour LDAP. Il s'agit du groupe d'util
 
 En soumettant une tâche de calcul à l’ordonnanceur, l’utilisateur doit indiquer le nom de son groupe pour l’option `--account`. Dans le cas de tâches pour les projets présentés aux concours d’allocation de ressources, le nom de groupe est celui qui correspond à l’allocation, par exemple `--account=rrg-nom-ab`. Pour les autres projets, le nom de groupe par défaut doit être utilisé, soit `--account=def-nom`.
 
-Pour plus de détails, voyez [Comptes et projets](running_jobs.md#comptes_et_projets).
+Pour plus de détails, voyez [Comptes et projets](running_jobs.md).
 
 ### Utiliser une allocation de stockage
 
@@ -167,7 +167,7 @@ Les utilisateurs pour un RAP sont groupés sous LDAP (*Lightweight Directory Acc
 
 Les tâches soumises à l’ordonnanceur sont assignées à l’allocation du chercheur principal. Dans le cas où l’utilisateur collabore avec plusieurs chercheurs principaux (donc à des groupes différents), le nom du groupe particulier doit être employé pour l’option `--account`.
 
-Pour plus de détails, voyez [Comptes et projets](running_jobs.md#comptes_et_projets).
+Pour plus de détails, voyez [Comptes et projets](running_jobs.md).
 
 ### Utiliser une allocation de stockage
 

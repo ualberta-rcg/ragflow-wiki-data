@@ -5,32 +5,30 @@ lang: "en"
 
 source_wiki_title: "C/en"
 source_hash: "46d8b54c83430b1e8da81990ec6837c7"
-last_synced: "2026-08-30T01:09:18.871111+00:00"
-last_processed: "2026-08-30T01:33:23.459312+00:00"
+last_synced: "2026-09-06T00:43:13.954271+00:00"
+last_processed: "2026-09-06T02:29:19.430234+00:00"
 
 tags:
   []
 
 keywords:
-  - "C programming language"
-  - "concurrency and memory model"
-  - "ISO C standards (C90"
-  - "compiler optimization flags"
-  - "C99"
+  - "ISO C standards"
+  - "compiler optimizations"
   - "volatile keyword"
-  - "C11)"
+  - "C11 concurrency and memory model"
+  - "C programming language"
 
 questions:
-  - "What are the major differences introduced by the C99 and C11 ISO standards compared to the original C90 standard?"
-  - "Why is the volatile keyword in C often misunderstood, and how does its meaning differ from Java’s volatile?"
-  - "What compiler‑specific optimization concerns should developers be aware of when using GCC and Intel C/C++ compilers for concurrent or floating‑point code?"
+  - "What are the main ISO C standards (C90, C99, C11) and the significant language or library features each introduced?"
+  - "Why is compiling concurrent C code as C11 (or newer) preferred over earlier standards regarding memory and concurrency guarantees?"
+  - "What common pitfalls should developers watch for when using the volatile keyword and compiler optimization options such as GCC ‑O3 or Intel’s floating‑point models?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
   keywords_generated: true
-  ragflow_synced: false
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -46,30 +44,22 @@ Should you have a need to refer to the actual ISO standard document for C, you c
 
 ## Well-Defined Concurrency and Memory Models
 
-!!! important
-
-    Prior to 2011, the ISO C standard had no definitions of concurrency and memory models. Thus, in pre-C11 compiled code, there are no guarantees concerning the ordering of memory reads and writes under concurrency; such behaviour is likely undefined, and the compiler vendor may or may not have documented it. It is therefore preferable to compile concurrent C code as C11 code (or newer).
+Prior to 2011 the ISO C standard had no definitions of concurrency and memory models, thus, in pre-C11 compiled code there are no guarantees concerning the ordering of memory reads and writes under concurrency, i.e., such is likely undefined behaviour which the compiler vendor may or may not have documented. It is therefore preferable to compile concurrent C code as C11 code (or newer).
 
 ## Pitfalls
 
 ### The `volatile` Keyword
 
-!!! warning "Understanding `volatile` in C/C++"
+The reader should note that `volatile` in C and C++ has a very specific meaning, e.g., see [this page](http://en.cppreference.com/w/cpp/language/cv). Actually needing to use `volatile` in C/C++ code is a rare event and it is typically limited to certain kinds of low-level code.
 
-    The `volatile` keyword in C and C++ has a very specific meaning. For details, refer to [this page](http://en.cppreference.com/w/cpp/language/cv). Actually needing to use `volatile` in C/C++ code is a rare event and is typically limited to certain kinds of low-level code.
-
-    Misuse of `volatile` might arise because the Java programming language also uses the `volatile` keyword. Java's `volatile` has a totally different meaning from C's `volatile`. Specifically, Java's `volatile` keyword in C corresponds to using `atomic_*` (i.e., where `*` corresponds to a fundamental type name such as `int`).
+Misuse of `volatile` might arise because the Java programming language uses the `volatile` keyword as well. Java's `volatile` has a totally different meaning from C's `volatile`. Specifically, Java's `volatile` keyword in C corresponds to using `atomic_*` (i.e., where '*' corresponds to a fundamental type name such as `int`).
 
 ### Compilers
 
 #### GCC
 
-!!! tip "GCC Optimization Flags"
-
-    The GCC compiler's `-O3` option includes potentially unsafe optimizations for some types of code (e.g., code relying on aliasing). If unsure, compile and optimize code using the `-O2` option instead. If you have more time, read the man page (e.g., `man gcc`) and unset the appropriate options by searching for `"-O3"` to see which options are turned on, then turn off the settings that are not safe.
+The GCC compiler's -O3 option includes possibly unsafe optimizations for some types of code (e.g., code relying on aliasing). If unsure, compile and optimize code using the -O2 option instead. If you've more time, read the man page (e.g., `man gcc`) and unset the appropriate options by searching for "-O3" to see which options are turned on and turn off the settings that are not safe.
 
 #### Intel
 
-!!! warning "Intel Compiler Floating-Point Optimizations"
-
-    Intel C/C++ compilers may default to using potentially unsafe optimizations for floating-point operations. Users of Intel compilers should read the Intel man pages (e.g., `man icc`) and are recommended to use one of two options, `-fp-model precise` or `-fp-model source`, for ANSI/ISO/IEEE standards-compliant floating-point support. For more details, read this Intel slideshow called, [Floating-point control in the Intel compiler and libraries](https://software.intel.com/sites/default/files/article/326703/fp-control-2012-08.pdf).
+Intel C/C++ compilers may default to using possibly unsafe optimizations for floating-point operations. Users using the Intel compilers should read the Intel man pages (e.g., `man icc`) and are recommended to use one of two options, `-fp-model precise` or `-fp-model source`, for ANSI/ISO/IEEE standards-compliant floating-point support. For more details, read this Intel slideshow called, [Floating-point control in the Intel compiler and libraries](https://software.intel.com/sites/default/files/article/326703/fp-control-2012-08.pdf).

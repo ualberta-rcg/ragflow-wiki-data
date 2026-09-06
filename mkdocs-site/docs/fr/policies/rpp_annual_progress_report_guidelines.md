@@ -4,42 +4,40 @@ slug: "rpp_annual_progress_report_guidelines"
 lang: "fr"
 
 source_wiki_title: "RPP Annual Progress Report Guidelines/fr"
-source_hash: "fe8953bba2270a03e319bfd63d3562ff"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T10:59:36.143428+00:00"
+source_hash: "1a3d4dba70c6249b356115a72c2c2a17"
+last_synced: "2026-09-06T00:43:13.954271+00:00"
+last_processed: "2026-09-06T02:50:10.742188+00:00"
 
 tags:
   []
 
 keywords:
+  - "formulaire électronique CCDB"
+  - "date limite 8 août - 8 octobre 2025"
+  - "allocation de ressources"
+  - "rapport d’avancement"
   - "ressources de calcul"
   - "établissement situé au Canada"
-  - "ressources de stockage"
-  - "Rapport d'avancement"
-  - "Plateformes et portails de recherche"
-  - "Chercheurs principaux"
-  - "rapport d'avancement"
-  - "Allocation de ressources"
-  - "allocation de ressources"
-  - "collecte de données"
-  - "Formulaire électronique"
   - "utilisatrices et utilisateurs canadiens"
+  - "rapport d’avancement annuel"
+  - "rapport d'avancement"
+  - "période de collecte de données"
   - "période d'allocation"
   - "personnel hautement qualifié"
+  - "allocation pluriannuelle de ressources"
+  - "utilisation de la plateforme ou du portail"
+  - "ressources de stockage"
 
 questions:
-  - "Quelles sont les conséquences pour un chercheur principal s'il omet de soumettre son rapport d'avancement avant la date limite ?"
-  - "Comment la Fédération utilise-t-elle les informations de ce rapport pour gérer ses ressources et soutenir les projets rencontrant des obstacles ?"
-  - "Quels sont les cinq principaux éléments d'information qui doivent être détaillés dans le formulaire électronique du rapport d'avancement ?"
-  - "Quelles sont les catégories de personnel hautement qualifié qui doivent être déclarées dans le cadre des projets utilisant les ressources ?"
-  - "Quels sont les éléments et indicateurs spécifiques évalués par le personnel de la Fédération lors de la révision des rapports d'avancement ?"
-  - "Quelles modifications ou augmentations de ressources de calcul et de stockage sont autorisées sans nécessiter la présentation d'une nouvelle demande ?"
-  - "Comment sont définis les utilisatrices et utilisateurs canadiens dans le cadre de ce rapport ?"
-  - "Quelle est la période habituelle couverte par la collecte de données pour l'utilisation des ressources ?"
-  - "Quelle information spécifique doit être fournie s'il s'agit du tout premier rapport d'avancement ?"
-  - "Quelles sont les catégories de personnel hautement qualifié qui doivent être déclarées dans le cadre des projets utilisant les ressources ?"
-  - "Quels sont les éléments et indicateurs spécifiques évalués par le personnel de la Fédération lors de la révision des rapports d'avancement ?"
-  - "Quelles modifications ou augmentations de ressources de calcul et de stockage sont autorisées sans nécessiter la présentation d'une nouvelle demande ?"
+  - "Quelle est la date limite pour soumettre le rapport d’avancement annuel et quelles sont les conséquences d’un retard ?"
+  - "Quels éléments obligatoires doivent être inclus dans le rapport d’avancement (état du projet, problèmes, résultats de recherche, changements de besoins, utilisation) ?"
+  - "Comment les chercheurs principaux doivent-ils soumettre le rapport d’avancement et quels formats de documents sont acceptés ?"
+  - "Quels critères la Fédération examine‑t‑elle dans les rapports d’avancement pour ajuster les allocations de ressources ?"
+  - "Quelles augmentations de ressources (stockage, calcul, infonuagique) sont autorisées sans devoir déposer une nouvelle demande ?"
+  - "Quels groupes de personnel hautement qualifié doivent être répertoriés dans la section « Personnel hautement qualifié » du questionnaire ?"
+  - "Quelles sont les critères qui déterminent qui est considéré comme « utilisatrices et utilisateurs canadiens » ?"
+  - "Quelle période doit être utilisée pour la collecte des données d’utilisation dans le rapport d’avancement ?"
+  - "Que doit‑on indiquer concernant le nombre d’utilisatrices et utilisateurs si le rapport d’avancement est le premier depuis l’allocation des ressources ?"
 
 status:
   downloaded: true
@@ -50,18 +48,18 @@ status:
   qa_generated: false
 ---
 
-| Processus                                                               | Date de début | Date de fin                                     |
-| :---------------------------------------------------------------------- | :------------ | :---------------------------------------------- |
-| **Rapport annuel sur l’avancement des projets de plateformes et portails de recherche** | **2025-09-23** | **le 4 novembre 2025, 11h59 heure normale de l'Est** |
+| Processus                                                       | Date de début | Date de fin                                     |
+| :-------------------------------------------------------------- | :------------ | :---------------------------------------------- |
+| **Rapport annuel sur l’avancement des projets de plateformes et portails de recherche** | **2025-09-23** | **le 4 novembre 2025, 11h59, heure normale de l'Est** |
 
-*Aucune prolongation possible.*
+!!! warning "Date limite"
+    Aucune extension possible.
 
 Le processus de demande d'allocation de ressources aux plateformes et portails de recherche permet aux chercheuses principales et chercheurs principaux de demander une allocation pluriannuelle de ressources pour une période allant jusqu'à trois ans.
 
-Il n'est pas nécessaire de soumettre une nouvelle demande chaque année, mais vous devez obligatoirement présenter un rapport d'avancement annuel. Les directives pour soumettre le rapport d'avancement seront communiquées par courriel aux chercheuses principales et chercheurs principaux admissibles.
+Il n'est pas nécessaire de soumettre une nouvelle demande chaque année, mais vous devez obligatoirement présenter un rapport d'avancement annuel. Les lignes directrices pour soumettre le rapport d'avancement seront communiquées par courriel aux chercheuses principales et chercheurs principaux admissibles.
 
-!!! warning "Rappel important"
-
+!!! warning "Conséquences"
     Il est important de soumettre votre rapport d’avancement avant la date limite; autrement, votre allocation ne sera pas renouvelée pour la prochaine année.
 
 Ces rapports sont nécessaires pour assurer une bonne utilisation des ressources limitées dont dispose la Fédération.
@@ -72,7 +70,8 @@ Le rapport d'avancement est aussi l'occasion de faire connaître les obstacles r
 
 Les chercheurs principaux bénéficiant d'allocations pluriannuelles de ressources doivent remplir le formulaire qui se trouve dans [CCDB](https://ccdb.alliancecan.ca/security/login). Un document au format PDF peut être joint.
 
-**Veuillez présenter votre rapport d’avancement entre le 8 août et le 8 octobre 2025.**
+!!! tip "Période de soumission"
+    Veuillez présenter votre rapport d’avancement entre le 8 août et le 8 octobre 2025.
 
 **Q1. État du projet**
 
@@ -80,10 +79,10 @@ Décrivez l'état d'avancement du projet, par exemple son statut actuel par rapp
 
 *Options :*
 
-*   *En planification*
-*   *Prototype fonctionnel*
-*   *En production*
-*   *Autre (expliquez)*
+*   En planification
+*   Prototype fonctionnel
+*   En production
+*   Autre (expliquez)
 
 **Q2. Problèmes**
 
@@ -108,7 +107,7 @@ Indiquez le nombre d'utilisatrices et utilisateurs individuels et le nombre tota
 | au Canada                  |                                   |                |                                    |                             |
 | hors Canada                |                                   |                |                                    |                             |
 
-**Q6. Formation et rayonnement**
+**Q6. Formation et sensibilisation**
 
 Indiquez le nombre de personnes hautement qualifiées de tous les niveaux universitaires qui sont actives dans ou le ou les projets qui utilisent les ressources.
 
@@ -150,6 +149,6 @@ Le personnel de la Fédération prend connaissance des rapports d'avancement en 
 
 Il n’est pas nécessaire de présenter une nouvelle demande pour les modifications suivantes :
 
-*   une augmentation d'au plus 10 % d'espace pour le stockage `/project`, `/nearline` et/ou `dCache`, jusqu’à un maximum de 50 To d’espace de stockage additionnel selon la quantité spécifiée dans votre demande; *les ressources de stockage et leur utilisation peuvent empêcher l’allocation d’espace ou en limiter la quantité*;
+*   une augmentation d'au plus 10 % d'espace pour le stockage /project, /nearline et/ou dCache, jusqu’à un maximum de 50 To d’espace de stockage additionnel selon la quantité spécifiée dans votre demande; *les ressources de stockage et leur utilisation peuvent empêcher l’allocation d’espace ou en limiter la quantité*;
 *   une augmentation de 10 % pour les ressources de calcul et de stockage infonuagiques.
 *   nous encourageons les chercheuses principales et chercheurs principaux à nous informer si en cours d’année leurs projets ont besoin de moins de ressources que celles qui étaient initialement demandées; de cette façon, nous pourrons attribuer ces ressources à d’autres projets.

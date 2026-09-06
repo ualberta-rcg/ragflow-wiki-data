@@ -81,16 +81,16 @@ title: Home
 | **Narval** | :material-check-circle:{ style="color: green" } Operational |
 | **Cedar Cloud** | :material-check-circle:{ style="color: green" } Operational |
 | **Graham Cloud** | :material-check-circle:{ style="color: green" } Operational |
-| **Nibi** | :material-calendar:{ style="color: blue" } Planned Outage |
+| **Nibi** | :material-check-circle:{ style="color: green" } Operational |
 | **Fir** | :material-check-circle:{ style="color: green" } Operational |
 | **Rorqual** | :material-check-circle:{ style="color: green" } Operational |
 | **Arbutus** | :material-check-circle:{ style="color: green" } Operational |
 | **Juno** | :material-check-circle:{ style="color: green" } Operational |
-| **Killarney** | :material-check-circle:{ style="color: green" } Operational |
+| **Killarney** | :material-calendar:{ style="color: blue" } Software maintenance |
 | **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
-| **tamIA** | :material-calendar:{ style="color: blue" } Planned Outage |
+| **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-08-30 01:36 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-09-06 03:03 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -100,18 +100,18 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 
 | Date | Event | Link |
 |------|-------|------|
-| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4016262) |
+| TBD | Untitled | [Details](https://scinet.courses/1408) |
 | TBD | Untitled | [Register](https://pbuq.libcal.com/event/4022828) |
 | TBD | Untitled | [Details](https://training.computeontario.ca/courses/course/view.php?id=106) |
 | TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4055792) |
+| TBD | Untitled | [Details](https://scinet.courses/1408) |
 | TBD | Untitled | [Details](https://scinet.courses/1407) |
+| TBD | Untitled | [Details](https://www.ualberta.ca/en/information-services-and-technology/research-computing/training.html) |
 | TBD | Untitled | [Details](https://bioinformatics.ca/workshops-all/cbw-cs-dcc-microbiome-analysis/) |
-| TBD | Untitled | [Register](https://yorku.libcal.com/event/4054130) |
-| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4055795) |
-| TBD | Untitled | [Register](https://forms.gle/gwZxrVkskX4qYm75A) |
-| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4050442) |
+| TBD | Untitled | [Details](https://scinet.courses/1408) |
+| TBD | Untitled | [Details](https://www.ualberta.ca/en/information-services-and-technology/research-computing/training.html) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-08-30 01:36 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-09-06 03:03 UTC.*</small>
 
 ---
 

@@ -1,6 +1,7 @@
 <languages />
 <translate>
-== IPv6 in Arbutus Cloud == <!--T:2-->
+<!--T:2-->
+== IPv6 in Arbutus Cloud ==
 IPv6 Link-Local (LLA) and Global Unicast Addresses (GUA) are generally available within the Arbutus cloud environment.<br>
 GUA can be set up via a separate interface, which in turn also handles only the IPv6 traffic.
 Addresses are being set up using ''Stateless Address Auto Configuration'' (SLAAC), which automatically sets up the IP on the VM interface. By default, the security group rules will allow all outbound traffic from the VM via the IPv6 GUA, but no traffic that originates from outside the VM will be allowed until specific security group rules have been defined. This is the same behaviour as IPv4.
@@ -39,7 +40,8 @@ openstack server list
 +--------------------------------------+-----------------+---------+------------------------------------------------------------------------------------------------+----------------------------------+----------+
 </pre>
 
-=== Example of a Webinterface configuration  === <!--T:9-->
+<!--T:9-->
+=== Example of a Webinterface configuration  ===
 Log in to the dashboard and go to the ''Instances'' menu, click on ''Attach Interface'', which will open a dialog.
 Use IPv6-GUA (2607:f8f0:c11:7004::/64) from the network menu and click on ''Attach''.
 
@@ -59,9 +61,36 @@ release the GUA.
 <!--T:12-->
 Access from any IPv6 GUA can be granted via ''Security Groups'' in OpenStack; the only difference is the CIDR which automatically detects the address type.
 
+</translate>
+<translate>
+<!--T:23-->
+=== Example of a Debian Instance ===
+When researchers launch an instance with the Debian operating system with the IPv6 network (i.e., IPv6-GUA), the selected SSH key pair will not install successfully. As a result, the researchers cannot ssh into the instance and will receive the following a “Permission Denied” error message instead. To work around the problem, when researchers are launching a new instance, they can create an initial user account by completing the following steps:</translate>
+<translate>
+<!--T:24-->
+# Go to to the "Configuration" step
+# Add the following script to the "Customization Script". Replace [username] with the researcher's preferred username and [public key] with the user's public key.
+# Select “Configuration Drive” 
+</translate>
+<pre>
+users:
+  - name: [username]
+    gecos: [username]
+    groups: sudo 
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    lock_passwd: true
+    ssh_authorized_keys:
+      - [public key]
+
+ssh_pwauth: false
+</pre>
+
+<translate>
+<!--T:13-->
 [[File:secpol.png|thumb|left|Allow icmp from any IPv6 GUA]]
 <br />
-== Example of a Linux configuration == <!--T:13-->
+== Example of a Linux configuration ==
 
 <!--T:14-->
 The OpenStack network you configured above will appear in Linux as an additional eth-type interface.  In most cases, /dev/eth0 will be your existing interface.  In most cases, your new IPv6 enabled interface will be /dev/eth1.  The easiest way to pick-up your new device is to reboot.  But first, check to confirm that IPv6 is enabled with this command
@@ -108,7 +137,8 @@ $ ping6 -c 1 www.google.com
 <!--T:21-->
 That's all.  Congratulations.  Your system is now configured to use IPv6.
 
-==Further reading== <!--T:22-->
+<!--T:22-->
+==Further reading==
 * From RedHat, [https://www.redhat.com/sysadmin/what-you-need-know-about-ipv6 What you need to know about IPv6]
 * From RedHat, [https://www.redhat.com/sysadmin/configuring-ipv6-rhel-7-8 Configuring an IPv6 address in Red Hat Enterprise Linux 7 and 8]
 * From OpenStack, [https://docs.openstack.org/neutron/pike/admin/config-ipv6.html IPv6]

@@ -106,7 +106,7 @@ module load gcc/12.3 chapel-ucx/2.4.0
 salloc --time=0:30:0 --nodes=4 --cpus-per-task=3 --mem-per-cpu=3500 --account=def-someprof
 ```
 
-Une fois que la [tâche interactive](../running-jobs/running_jobs.md#tâches-interactives) est lancée, vous pouvez compiler et exécuter votre code à partir de l'invite sur le premier nœud de calcul alloué.
+Une fois que la [tâche interactive](../running-jobs/running_jobs.md) est lancée, vous pouvez compiler et exécuter votre code à partir de l'invite sur le premier nœud de calcul alloué.
 
 ```bash
 chpl --fast probeLocales.chpl -o probeLocales
@@ -150,7 +150,7 @@ module load gcc/12.3 cuda/12.2 chapel-ucx-cuda/2.4.0
 salloc --time=0:30:0 --mem-per-cpu=3500 --gpus-per-node=1 --account=def-someprof
 ```
 
-Une fois que la [tâche interactive](../running-jobs/running_jobs.md#tâches-interactives) est lancée, vous pouvez compiler et exécuter votre code à partir de l'invite sur le nœud de calcul alloué.
+Une fois que la [tâche interactive](../running-jobs/running_jobs.md) est lancée, vous pouvez compiler et exécuter votre code à partir de l'invite sur le nœud de calcul alloué.
 
 ```bash
 chpl --fast probeGPU.chpl

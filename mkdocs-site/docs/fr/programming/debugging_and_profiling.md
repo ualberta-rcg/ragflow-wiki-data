@@ -29,7 +29,7 @@ Une étape importante en développement logiciel, particulièrement en Fortran e
 
 **Puisque les sessions de débogage sur les nœuds de connexion sont à éviter, il faut plutôt passer par une tâche interactive.** Les options sont :
 
-*   utiliser la commande Slurm `salloc ...`; voir **[Tâches interactives](../running-jobs/running_jobs.md#tâches-interactives)**;
+*   utiliser la commande Slurm `salloc ...`; voir **[Tâches interactives](../running-jobs/running_jobs.md)**;
 *   ouvrir une session JupyterLab; voir **[Lancer JupyterLab](../interactive/jupyterlab.md#lancer-jupyterlab)** pour les instructions de connexion et pour connaître les [applications préconstruites](../interactive/jupyterlab.md#applications-préconstruites);
 *   démarrer une session de bureau distant pour faire du profilage visuel; voir **[cette partie de la page JupyterLab](../interactive/jupyterlab.md)** ou **[les références pour Trillium ou Nibi dans la page Open OnDemand](../interactive/open_ondemand.md#introduction)**.
 

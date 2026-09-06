@@ -1120,7 +1120,7 @@ Lancez le programme avec
 build/example
 ```
 
-Pour tester une application avec CUDA, demandez une [tâche interactive](../running-jobs/running_jobs.md#tâches-interactives) avec [GPU](../running-jobs/using_gpus_with_slurm.md).
+Pour tester une application avec CUDA, demandez une [tâche interactive](../running-jobs/running_jobs.md) avec [GPU](../running-jobs/using_gpus_with_slurm.md).
 
 ## rTorch
 
