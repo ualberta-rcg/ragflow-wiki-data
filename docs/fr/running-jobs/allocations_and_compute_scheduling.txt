@@ -35,7 +35,7 @@ La performance des GPU a considérablement augmenté ces dernières années et c
 
 Parce qu'environ la moitié des tâches utilisent principalement des opérations à virgule flottante simple précision ([https://en.wikipedia.org/wiki/Single-precision_floating-point_format FP32]), que les autres utilisent des opérations à virgule flottante demi-précision ([https://en.wikipedia.org/wiki/Half-precision_floating-point_format FP16]), et que la plupart des utilisateurs sont limités par la quantité de mémoire des GPU, nous classons les modèles de GPU selon les critères d'évaluation avec leur poids correspondant&nbsp;:
 
-{| class="wikitable" style="margin: auto;"
+{| class="wikitable"
 |-
 ! scope="col"| Critère d'évaluation
 ! scope="col"| Poids
@@ -52,57 +52,42 @@ Parce qu'environ la moitié des tâches utilisent principalement des opérations
 
 Nous utilisons le GPU <b>A100-40gb</b> de NVidia comme modèle de référence, auquel nous assignons la valeur UGR de 4 (pour des raisons historiques). Sa mémoire et ses performances FP32 et FP16 sont fixées à 1.0. En multipliant les pourcentages dans le tableau précédent par 4, nous obtenons les coefficients et les valeurs UGR pour les autres modèles.
 
-{| class="wikitable" style="margin: auto; text-align: center;"
+{| class="wikitable"
 |+ Scores UGR pour les GPU entiers, par modèle
 |-
 |
-! scope="col"| Score FP32 
-! scope="col"| Score FP16 
-! scope="col"| Score mémoire 
-! scope="col"| Score combiné 
-! colspan="2",scope="col"| Disponible
-! scope="col"| Alloué par concours 
+! scope="col"| score, FP32 
+! scope="col"| score, FP16
+! scope="col"| score, mémoire
+! scope="col"| score combiné
+! scope="col"| alloué par concours
 |-
 ! scope="col"| Coefficient
 ! scope="col"| 1.6
 ! scope="col"| 1.6
 ! scope="col"| 0.8
-! scope="col"| (UGR)
-! scope="col"| Présentement
-! scope="col"| Pour 2026
-! scope="col"| Concours de 2026
-|-
-! scope="row" | H100-80gb 
-| 3.44 || 3.17 || 2.0 || 12.2 || oui ||  oui || oui 
-|-
-! scope="row"| A100-80gb
-| 1.00 || 1.00 || 2.0 ||  4.8 ||  ?  ||    ? || non
+! scope="col"| (RGU)
+! scope="col"| RAC 2027
 |-
 ! scope="row"| A100-40gb
-| <b>1.00</b> || <b>1.00</b> || <b>1.0</b> || <b>4.0</b> || oui || oui || oui 
+| <b>1.00</b> || <b>1.00</b> || <b>1.0</b> || <b>4.0</b> || oui
 |-
-! scope="row"| V100-32gb
-| 0.81 || 0.40 || 0.8 || 2.6 || non|| non|| non
+! scope="row"| A100-80gb
+| 1.00 || 1.00 || 2.0 ||  4.8  || non
 |-
-! scope="row"| V100-16gb
-| 0.81 || 0.40 || 0.4 || 2.2 || non|| ? || non
+! scope="row" | H100-80gb 
+| 3.44 || 3.17 || 2.0 || 12.2  || oui
 |-
-! scope="row"| T4-16gb
-| 0.42 || 0.21 || 0.4 || 1.3 || non|| non|| non
-|-
-! scope="row"| P100-16gb
-| 0.48 || 0.03 || 0.4 || 1.1 || non|| non|| non
-|-
-! scope="row"| P100-12gb
-| 0.48 || 0.03 || 0.3 || 1.0 || non|| non|| non
+! scope="row"| B200-192gb
+| 6.16 || 11.28 || 3.84 || 21.28 || oui
 |}
 
-Le [[infrastructure renewal/fr|renouvellement de l'infrastructure ]] en 2025 permettra de planifier une fraction d'un GPU à l'aide de la [[Multi-Instance GPU/fr|technologie GPU multi-instances]]. Différents travaux, appartenant potentiellement à différents utilisateurs, pourront s'exécuter sur le même GPU en même temps. Selon la terminologie de NVidia, une fraction d'un GPU allouée à un seul travail est appelée une <i>instance GPU</i>, (parfois <i>instance MIG</i>).  
+Le [[infrastructure renewal/fr|renouvellement de l'infrastructure ]] en 2025 a permis de planifier une fraction d'un GPU à l'aide de la [[Multi-Instance GPU/fr|technologie GPU multi-instances]]. Différents travaux, appartenant potentiellement à différents utilisateurs, pourront s'exécuter sur le même GPU en même temps. Selon la terminologie de NVidia, une fraction d'un GPU allouée à un seul travail est appelée une <i>instance GPU</i>, (parfois <i>instance MIG</i>).  
 
-Le tableau suivant montre les modèles de GPU ou instances que vous pouvez sélectionner sur le formulaire dans CCDB pour votre demande d'allocation pour 2026. Les valeurs UGR des instances sont estimées à partir des valeurs de performance d'un GPU entier et de la fraction du GPU qu'occupe l'instance.
+Le tableau suivant montre les modèles de GPU ou instances que vous pouvez sélectionner sur le formulaire dans CCDB pour votre demande d'allocation pour 2027. Les valeurs UGR des instances sont estimées à partir des valeurs de performance d'un GPU entier et de la fraction du GPU qu'occupe l'instance.
 
-{| class="wikitable" style="margin: auto; text-align: center;
-|+  Modèles et instances disponibles pour la période d'allocations 2025-2026
+{| class="wikitable"
+|+  Modèles et instances disponibles pour le concours de 2027
 |-
 ! Modèle / Instance !! Fraction du GPU !! UGR
 |-
@@ -129,17 +114,12 @@ Le tableau suivant montre les modèles de GPU ou instances que vous pouvez séle
 |-
 ! scope="row"| H100-3g.40gb 
 | max(3g/7g, 40GB/80GB) ⇒ 50% || 6.1
+|-
+! scope="row"| B200-192gb 
+| Whole GPU ⇒ 100% || 21.3
 |}
 
-Remarque : Une instance GPU ayant le profil <b>1g</b> vaut un septième (1/7) d'un GPU A100 ou H100. Le profil <b>3g</b> tient compte de la quantité de mémoire additionnelle par <b>g</b>.  Par souci de simplicité, les profils <b>4g</b> be sont pas disponibles sur nos grappes.
-
-<span id="Choosing_GPU_models_for_your_project"></span>
-==Choisir les modèles de GPU pour votre projet==
-
-Les scores relatifs du précédent tableau devraient vous aider à sélectionner les modèles les plus convenables. Les exemples suivants présentent des cas extrêmes.
-
-* Si vos applications font surtout des opérations FP32, le modèle A100-40gb devrait être deux fois plus rapide que le P100-12gb, mais l'utilisation des ressources sera considérée comme étant quatre fois plus grande. En conséquence, pour le même nombre d'UGR, le modèle P100-12gb devrait vous permettre d'exécuter deux fois plus de calculs. 
-* Si vos applications font surtout des opérations FP16 (ce qui est le cas en intelligence artificielle et avec les opérations à précision mixte ou utilisant [https://en.wikipedia.org/wiki/Bfloat16_floating-point_format d'autres formats à virgule flottante]), l'utilisation d'un A100-40gb sera calculée comme utilisant quatre fois les ressources d'un P100-12gb, mais pourra faire ~30 fois plus de calculs dans la même période, ce qui vous permettrait d'exécuter ~7.5 fois plus de calculs.
+Remarque : Une instance GPU ayant le profil <b>1g</b> vaut un septième (1/7) d'un GPU A100 ou H100. Le profil <b>3g</b> tient compte de la quantité de mémoire additionnelle par <b>g</b>.  Les profils <b>4g</b> be sont pas disponibles sur nos grappes.
 
 <span id="RAC_awards_hold_RGU_values_constant"></span>
 ==Constance des allocations en UGR==
@@ -205,7 +185,7 @@ Le calcul de priorité se fait en fonction du nombre maximum de bundles UGR-coeu
 ===Ratios dans les bundles===
 Les différents bundles UGR-coeur-mémoire et GPU-coeur-mémoire des systèmes de l'Alliance ont les caractéristiques suivantes (un seul ratio par grappe)&nbsp;:
 
-{| class="wikitable" style="margin: auto; text-align: center;"
+{| class="wikitable"
 |-
 ! scope="col"| Grappe
 ! scope="col"| Cœurs par UGR
@@ -234,7 +214,7 @@ Les différents bundles UGR-coeur-mémoire et GPU-coeur-mémoire des systèmes d
 
 Caractéristiques des bundles
 
-{| class="wikitable" style="margin: auto; text-align: center;"
+{| class="wikitable"
 |-
 ! scope="col"| Grappe
 ! scope="col"| Modèle ou instance

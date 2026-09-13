@@ -44,7 +44,7 @@ The performance of GPUs has dramatically increased in the recent years and conti
 Because roughly half of our users primarily use single-precision floating-point operations ([https://en.wikipedia.org/wiki/Single-precision_floating-point_format FP32]), the other half use half-precision floating-point operations ([https://en.wikipedia.org/wiki/Half-precision_floating-point_format FP16]), and a significant portion of all users are constrained by the amount of memory on the GPU, we chose the following evaluation criteria and corresponding weights to rank the different GPU models:
 
 <!--T:48-->
-{| class="wikitable" style="margin: auto;"
+{| class="wikitable"
 |-
 ! scope="col"| Evaluation Criterion
 ! scope="col"| Weight 
@@ -63,7 +63,7 @@ Because roughly half of our users primarily use single-precision floating-point 
 We currently use the NVidia <b>A100-40gb</b> GPU as the reference model and assign it an RGU value of 4.0 for historical reasons.  We define its FP16 performance, FP32 performance, and memory size each as 1.0.  Multiplying the percentages in the above table by 4.0 yields the following coefficients and RGU values for other models:
 
 <!--T:50-->
-{| class="wikitable" style="margin: auto; text-align: center;"
+{| class="wikitable"
 |+ RGU scores for whole GPU models
 |-
 |
@@ -71,52 +71,37 @@ We currently use the NVidia <b>A100-40gb</b> GPU as the reference model and assi
 ! scope="col"| FP16 score
 ! scope="col"| Memory score
 ! scope="col"| Combined score
-! colspan="2",scope="col"| Available
-! scope="col"| Allocatable 
+! scope="col"| Allocatable
 |-
 ! scope="col"| Coefficient:
 ! scope="col"| 1.6
 ! scope="col"| 1.6
 ! scope="col"| 0.8
 ! scope="col"| (RGU)
-! scope="col"| Now
-! scope="col"| 2026
-! scope="col"| RAC 2026
-|-
-! scope="row" | H100-80gb 
-| 3.44 || 3.17 || 2.0 || 12.2 || Yes ||  Yes || Yes 
-|-
-! scope="row"| A100-80gb
-| 1.00 || 1.00 || 2.0 ||  4.8 ||  ?  ||    ? || No
+! scope="col"| RAC 2027
 |-
 ! scope="row"| A100-40gb
-| <b>1.00</b> || <b>1.00</b> || <b>1.0</b> || <b>4.0</b> || Yes || Yes || Yes
+| <b>1.00</b> || <b>1.00</b> || <b>1.0</b> || <b>4.0</b> || Yes
 |-
-! scope="row"| V100-32gb
-| 0.81 || 0.40 || 0.8 || 2.6 || No || No || No
+! scope="row"| A100-80gb
+| 1.00 || 1.00 || 2.0 ||  4.8  || No
 |-
-! scope="row"| V100-16gb
-| 0.81 || 0.40 || 0.4 || 2.2 || No ||  ? || No
+! scope="row" | H100-80gb 
+| 3.44 || 3.17 || 2.0 || 12.2  || Yes 
 |-
-! scope="row"| T4-16gb
-| 0.42 || 0.21 || 0.4 || 1.3 || No || No || No
-|-
-! scope="row"| P100-16gb
-| 0.48 || 0.03 || 0.4 || 1.1 || No || No || No
-|-
-! scope="row"| P100-12gb
-| 0.48 || 0.03 || 0.3 || 1.0 || No || No || No
+! scope="row"| B200-192gb
+| 6.16 || 11.28 || 3.84 || 21.28 || Yes
 |}
 
 <!--T:64-->
-With the 2025 [[infrastructure renewal]], it will become possible to schedule a fraction of a GPU using [[Multi-Instance GPU|multi-instance GPU]] technology.  Different jobs, potentially belonging to different users, can run on the same GPU at the same time.  Following [https://docs.nvidia.com/datacenter/tesla/mig-user-guide/#terminology NVidia's terminology], a fraction of a GPU allocated to a single job is called a <i>GPU instance</i>, also sometimes called a <i>MIG instance</i>.  
+With the 2025 [[infrastructure renewal]], it became possible to schedule a fraction of a GPU using [[Multi-Instance GPU|multi-instance GPU]] technology.  Different jobs, potentially belonging to different users, can run on the same GPU at the same time.  Following [https://docs.nvidia.com/datacenter/tesla/mig-user-guide/#terminology NVidia's terminology], a fraction of a GPU allocated to a single job is called a <i>GPU instance</i>, also sometimes called a <i>MIG instance</i>.  
 
 <!--T:65-->
-The following table lists the GPU models and instances that can be selected in the CCDB form for RAC 2026. RGU values for GPU instances have been estimated from whole-GPU performance numbers and the fraction of the GPU which comprises the instance.
+The following table lists the GPU models and instances that can be selected in the CCDB form for RAC 2027. RGU values for GPU instances have been estimated from whole-GPU performance numbers and the fraction of the GPU which comprises the instance.
 
 <!--T:66-->
-{| class="wikitable" style="margin: auto; text-align: center;
-|+ GPU models and instances available for RAC 2026
+{| class="wikitable"
+|+ GPU models and instances available for RAC 2027
 |-
 ! Model or instance !! Fraction of GPU !! RGU
 |-
@@ -143,19 +128,13 @@ The following table lists the GPU models and instances that can be selected in t
 |-
 ! scope="row"| H100-3g.40gb 
 | max(3g/7g, 40GB/80GB) ⇒ 50% || 6.1
+|-
+! scope="row"| B200-192gb 
+| Whole GPU ⇒ 100% || 21.3
 |}
 
 <!--T:67-->
-Note: a GPU instance of profile <b>1g</b> is worth 1/7 of an A100 or H100 GPU. The case of <b>3g</b> takes into consideration the extra amount of memory per <b>g</b>. To simplify things for users, the <b>4g</b> profiles are not available on the clusters.
-
-==Choosing GPU models for your project== <!--T:52-->
-
-<!--T:53-->
-The relative scores in the above table should give you a hint on the models to choose. Here is an example with the extremes:
-
-<!--T:54-->
-* If your applications are doing primarily FP32 operations, an A100-40gb GPU is expected to be twice as fast as a P100-12gb GPU, but the recorded usage will be 4 times the resources. Consequently, for an equal amount of RGUs, P100-12gb GPUs should allow you to run double the computations.
-* If your applications (typically AI-related) are doing primarily FP16 operations (including mixed precision operations or using other [https://en.wikipedia.org/wiki/Bfloat16_floating-point_format floating-point formats]), using an A100-40gb will result in getting evaluated as using 4x the resources of a P100-12gb, but it is capable of computing ~30x the calculations for the same amount of time, which would allow you to complete ~7.5x the computations.
+Note: a GPU instance of profile <b>1g</b> is worth 1/7 of an A100 or H100 GPU. The case of <b>3g</b> takes into consideration the extra amount of memory per <b>g</b>.  <b>4g</b> profiles are not available on the clusters.
 
 ==RAC awards hold RGU values constant== <!--T:55-->
 
@@ -229,7 +208,7 @@ Research groups are charged for the maximum number of RGU-core-memory bundles th
 Alliance systems have the following RGU-core-memory bundle characteristics (only one ratio per cluster):
 
 <!--T:84-->
-{| class="wikitable" style="margin: auto; text-align: center;"
+{| class="wikitable"
 |-
 ! scope="col"| Cluster
 ! scope="col"| Cores per RGU
@@ -260,7 +239,7 @@ Alliance systems have the following RGU-core-memory bundle characteristics (only
 And the following GPU-core-memory bundle characteristics:
 
 <!--T:58-->
-{| class="wikitable" style="margin: auto; text-align: center;"
+{| class="wikitable"
 |-
 ! scope="col"| Cluster
 ! scope="col"| Model or instance

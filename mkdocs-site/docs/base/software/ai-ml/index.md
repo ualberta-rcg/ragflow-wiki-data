@@ -9,6 +9,7 @@ Auto-generated index for `base/software/ai-ml`.
 ## Pages
 
 - [Ai And Machine Learning](ai_and_machine_learning.md)
+- [Aleph](aleph.md)
 - [Comet Ml](comet_ml.md)
 - [Deepspeed](deepspeed.md)
 - [Faiss](faiss.md)

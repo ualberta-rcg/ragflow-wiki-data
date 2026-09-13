@@ -30,7 +30,6 @@ Auto-generated index for `base/clusters`.
 - [Nibi](nibi.md)
 - [Rorqual](rorqual.md)
 - [Siku](siku.md)
-- [Systems Overview](systems_overview.md)
 - [Tamia](tamia.md)
 - [Transition From Niagara To Trillium](transition_from_niagara_to_trillium.md)
 - [Trillium](trillium.md)

@@ -58,6 +58,7 @@ Auto-generated index for `fr/software`.
 - [Git](git.md)
 - [Gpaw](gpaw.md)
 - [Gromacs](gromacs.md)
+- [Grrm](grrm.md)
 - [Gurobi](gurobi.md)
 - [Hdf5](hdf5.md)
 - [Hyper Q   Mps](hyper-q___mps.md)

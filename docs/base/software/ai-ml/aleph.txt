@@ -1,0 +1,231 @@
+'''Aleph''' is the AI inference gateway on the Vulcan cluster at the University of Alberta in Edmonton. It gives Alliance users API access to hosted models through OpenAI- and Anthropic-compatible endpoints, so most existing SDKs and tools work with nothing more than a change of base URL.
+
+Inference runs entirely on Vulcan hardware under Alliance operation. Nothing leaves the cluster, and there is no commercial API in the path.
+
+* '''Model list, documentation and examples:''' https://inference.vulcan.alliancecan.ca/
+* '''Web chat interface:''' https://llm.vulcan.alliancecan.ca/ — a ChatGPT-style interface, open to any Alliance user with no key required. If that is all you need, you can stop here.
+
+Aleph is a proof of concept with no service-level agreement (SLA). Capacity is shared and demand has been well beyond what we expected, so availability and performance vary.
+
+== Get your API key ==
+
+'''There is no key to request manually.''' Aleph generates your personal key automatically the first time you log into Vulcan.
+
+=== 1. Request Vulcan access ===
+
+You need an Alliance account with access to Vulcan. Go to [https://ccdb.alliancecan.ca/me/access_systems Access Systems in CCDB] and select '''Vulcan'''.
+
+=== 2. Log into Vulcan ===
+
+Once access is granted, SSH in with your Alliance username:
+
+<syntaxhighlight lang="bash">
+ssh YOUR_ALLIANCE_USERNAME@vulcan.alliancecan.ca
+</syntaxhighlight>
+
+'''That first login is what triggers key generation.''' Requesting access in CCDB is not enough on its own.
+
+=== 3. Find your key ===
+
+The key is written to a hidden file in your Vulcan home directory. It can take a few minutes to appear after your first login.
+
+<syntaxhighlight lang="bash">
+ls -la ~/.aleph_tyk.env
+cat ~/.aleph_tyk.env
+</syntaxhighlight>
+
+Note the leading dot: the file will not show up in a plain <code>ls</code> listing, which is why the example uses <code>ls -la</code>.
+
+'''One key covers every model on Aleph.''' There is no per-model key, and the same key works for both the OpenAI- and Anthropic-compatible endpoints.
+
+Treat it as a password. Keep it out of shared notebooks, Git repositories, screenshots and support requests.
+
+=== 4. Load the key into your shell ===
+
+<syntaxhighlight lang="bash">
+set -a
+source ~/.aleph_tyk.env
+set +a
+</syntaxhighlight>
+
+Your key is now in the environment as <code>TYK_KEY</code>, including for programs launched from that shell. Repeat this in each new shell.
+
+Check that it works by listing the models:
+
+<syntaxhighlight lang="bash">
+curl --silent --show-error --fail-with-body \
+  --max-time 120 \
+  -H "Authorization: Bearer $TYK_KEY" \
+  https://inference.vulcan.alliancecan.ca/v1/models
+</syntaxhighlight>
+
+A successful request returns JSON listing the available chat models. Add <code>?all=true</code> to include science, embedding, vision and other non-chat models.
+
+=== If the key file does not appear ===
+
+Automatic key generation is a recent addition. If the file has not turned up after a few minutes, email [mailto:support@tech.alliancecan.ca support@tech.alliancecan.ca], mentioning '''Aleph on Vulcan''', with your Alliance username and roughly when you first logged in. Reports genuinely help at this stage. '''Do not send your key.'''
+
+== Make a request ==
+
+These examples assume you have loaded <code>~/.aleph_tyk.env</code>. Calls run on Aleph's hosted compute — you do not need to start a model server, reserve a GPU or submit a Slurm job to use it. Use the exact model identifier shown in the model list.
+
+=== curl ===
+
+<syntaxhighlight lang="bash">
+curl --silent --show-error --fail-with-body \
+  --max-time 120 --retry 0 \
+  https://inference.vulcan.alliancecan.ca/v1/chat/completions \
+  -H "Authorization: Bearer $TYK_KEY" \
+  -H "Content-Type: application/json" \
+  --data-binary '{
+    "model": "gpt-oss-120b",
+    "messages": [{
+      "role": "user",
+      "content": "What is 17 times 19? Reply with only the integer."
+    }],
+    "reasoning_effort": "low",
+    "max_tokens": 1024
+  }'
+</syntaxhighlight>
+
+The answer is in <code>choices[0].message.content</code>.
+
+=== OpenAI Python SDK ===
+
+Use Aleph's base URL, including <code>/v1</code>, with your Aleph key in place of a commercial one:
+
+<syntaxhighlight lang="python">
+import os
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://inference.vulcan.alliancecan.ca/v1",
+    api_key=os.environ["TYK_KEY"],
+    timeout=120.0,
+    max_retries=0,
+)
+
+response = client.chat.completions.create(
+    model="gpt-oss-120b",
+    messages=[{
+        "role": "user",
+        "content": "What is 17 times 19? Reply with only the integer.",
+    }],
+    reasoning_effort="low",
+    max_tokens=1024,
+)
+
+print(response.choices[0].message.content)
+</syntaxhighlight>
+
+=== Anthropic Python SDK ===
+
+Same key, with the <code>/anthropic</code> base URL. The SDK appends <code>/v1/messages</code>.
+
+<syntaxhighlight lang="python">
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    base_url="https://inference.vulcan.alliancecan.ca/anthropic",
+    api_key=os.environ["TYK_KEY"],
+    timeout=120.0,
+    max_retries=0,
+)
+
+response = client.messages.create(
+    model="qwen38-27b",
+    max_tokens=1024,
+    messages=[{
+        "role": "user",
+        "content": "What is 17 times 19? Reply with only the integer.",
+    }],
+)
+
+for block in response.content:
+    if block.type == "text":
+        print(block.text)
+</syntaxhighlight>
+
+The OpenAI and Anthropic SDKs are just client libraries. Using one with Aleph does not require a commercial API key and does not give you access to that company's models.
+
+Thinking controls vary between models — some take reasoning effort levels, others switch thinking on or off — so check the model's entry in the catalogue rather than assuming they behave alike.
+
+== How models scale ==
+
+Aleph is compute-constrained. Some models stay always-up; the rest scale to zero when idle and start on demand. The model list marks which is which.
+
+If you call a model that is scaled to zero, the response tells you it is not ready and roughly when to come back, usually a few minutes, or that there is not enough free compute to start it right now. Hit the endpoint, read the response, come back when it says. Once a model is up it should stay up for you.
+
+Send one request at a time while a model is starting, and follow the retry guidance in the response rather than retrying in a tight loop.
+
+A model's context window and its maximum output are separate limits, and on reasoning models the output budget covers the thinking as well as the answer — a request can spend the whole budget reasoning and return nothing. A response with <code>finish_reason: "length"</code> (OpenAI format) or <code>stop_reason: "max_tokens"</code> (Anthropic format) is incomplete, even though the HTTP status is <code>200</code>.
+
+== Science models ==
+
+Aleph is not only for LLMs, and we would like it to be more science than chat. It is built to run as an AI tools server alongside your Slurm jobs — protein folding, genomics, weather, materials, forecasting and similar — callable directly from your code.
+
+Science models often use different input formats and endpoint paths, so follow the examples on their individual model cards.
+
+== Request a model ==
+
+'''If your work depends on a model we are not hosting, tell us and we will look at hosting it.''' Email [mailto:support@tech.alliancecan.ca support@tech.alliancecan.ca], mentioning '''Aleph on Vulcan''', with the model name or upstream link and a short description of what you want to do with it. Hosting depends on compatibility and available capacity.
+
+The same goes for anything you need switched to always-up, or kept running for a planned evaluation.
+
+== Support ==
+
+Contact [mailto:support@tech.alliancecan.ca support@tech.alliancecan.ca] and mention '''Aleph on Vulcan'''.
+
+{| class="wikitable"
+! Problem
+! First checks
+|-
+| Key file is missing
+| Confirm Vulcan access was granted and that you have completed an SSH login. Allow a few minutes.
+|-
+| HTTP <code>401</code> or <code>403</code>
+| Re-run the <code>source</code> step and check your client is sending the key to the right endpoint.
+|-
+| HTTP <code>429</code>
+| Reduce your request rate and concurrency, and follow the retry guidance in the response.
+|-
+| HTTP <code>503</code>
+| Normal for a model that is scaled to zero. Read the response and retry when it says.
+|-
+| HTTP <code>502</code>, <code>504</code> or a client timeout
+| Note the time, model, elapsed duration and response. Check availability before assuming the key is bad.
+|-
+| Empty or truncated answer
+| Check the finish reason, output budget and thinking settings.
+|}
+
+For a failed request, include your Alliance username, the date and time (UTC preferred), the model identifier and endpoint, the HTTP status and error message, and a minimal example with anything sensitive removed. '''Do not send your API key or authorization headers.'''
+
+Aleph records operational usage information — account identity, model, token counts, request duration and status — for accounting and troubleshooting.
+
+== Advanced: Claude Code ==
+
+Claude Code can run against Aleph through the Anthropic-compatible endpoint. Put your key in <code>~/.claude/settings.json</code>, merging with anything already there:
+
+<syntaxhighlight lang="json">
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "PutURKeyHere",
+    "ANTHROPIC_BASE_URL": "https://inference.vulcan.alliancecan.ca/anthropic",
+    "API_TIMEOUT_MS": "300000",
+    "CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS": "1",
+    "CLAUDE_CODE_ATTRIBUTION_HEADER": "0",
+    "CLAUDE_CODE_ALWAYS_ENABLE_EFFORT": "1",
+    "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "110000",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "qwen35-122b",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "qwen38-27b",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "gpt-oss-120b"
+  },
+  "model": "opus",
+  "effortLevel": "high"
+}
+</syntaxhighlight>
+
+<code>opus</code>, <code>sonnet</code> and <code>haiku</code> here are client-side aliases mapped to Aleph models. They do not select Anthropic's Claude models. Compatibility depends on your Claude Code version and on the capabilities of the model you map to.
+[[Category:AI and Machine Learning]]

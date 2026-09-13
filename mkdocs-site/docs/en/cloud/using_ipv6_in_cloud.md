@@ -4,40 +4,40 @@ slug: "using_ipv6_in_cloud"
 lang: "en"
 
 source_wiki_title: "Using ipv6 in cloud/en"
-source_hash: "de50d415b0ad482c497e1367487e4f51"
-last_synced: "2026-09-06T00:43:13.954271+00:00"
-last_processed: "2026-09-06T03:01:15.772198+00:00"
+source_hash: "e354088fe4dec89951d2af1a3665212c"
+last_synced: "2026-09-13T00:40:43.713374+00:00"
+last_processed: "2026-09-13T01:31:29.522858+00:00"
 
 tags:
   - cloud
 
 keywords:
-  - "OpenStack attach network interface"
+  - "OpenStack server add network"
+  - "IPv6 configuration"
+  - "shell: /bin/bash"
   - "sysctl.conf"
-  - "IPv6"
-  - "ssh_authorized_keys"
-  - "Security Groups IPv6"
+  - "Security Groups"
   - "ping6"
-  - "Debian instance SSH key workaround"
-  - "lock_passwd"
-  - "Allow icmp from any IPv6 GUA"
-  - "IPv6 GUA"
+  - "net.ipv6.conf.eth1"
   - "OpenStack network"
-  - "net.ipv6.conf.eth1.forwarding"
-  - "ifcfg-eth1"
+  - "IPv6 GUA"
+  - "ssh_authorized_keys"
   - "IPv6 enabled interface"
+  - "lock_passwd"
+  - "ifcfg-eth1"
   - "Stateless Address Auto Configuration (SLAAC)"
+  - "Debian instance SSH key issue"
 
 questions:
-  - "How can a user attach an IPv6‑GUA network interface to an existing VM using the OpenStack CLI?"
-  - "What steps must be taken to enable SSH access to a Debian instance with an IPv6‑GUA network when the default key pair installation fails?"
-  - "How do security group rules control inbound and outbound IPv6 traffic for a VM in the Arbutus Cloud environment?"
-  - "How can you use `sysctl` to check whether IPv6 is disabled or enabled on the system?"
-  - "Which kernel parameters must be added to `/etc/sysctl.conf` and what values should they have to enable IPv6 on the `eth1` interface?"
-  - "What are the required configurations in `/etc/sysconfig/network-scripts/ifcfg-eth1` and the verification steps to ensure IPv6 is operational after reboot?"
-  - "What does the configuration snippet specify about password authentication and SSH authorized keys?"
-  - "Which network interface does the newly configured OpenStack IPv6 network correspond to in Linux, and what is the typical existing interface?"
-  - "Which command should be run to confirm that IPv6 is enabled before rebooting the system?"
+  - "How can a user attach an IPv6‑GUA network interface to a VM using the OpenStack CLI in Arbutus Cloud?"
+  - "What steps are required to enable SSH access to a Debian instance with an IPv6‑GUA network when the default key pair installation fails?"
+  - "How do security group rules control inbound and outbound IPv6 traffic for VMs in the Arbutus Cloud environment?"
+  - "Which kernel parameters should be set to zero in /etc/sysctl.conf to ensure IPv6 is enabled?"
+  - "What specific settings must be added to /etc/sysconfig/network-scripts/ifcfg-eth1 to activate IPv6 on the eth1 interface?"
+  - "Which commands can you use to confirm that IPv6 is configured correctly and operational after rebooting?"
+  - "What does the `lock_passwd: true` setting do in the provided cloud‑init configuration, and why might `ssh_pwauth` be set to false?"
+  - "How does the screenshot labeled “Allow icmp from any IPv6 GUA” relate to the network security policy for IPv6 traffic?"
+  - "According to the example, which steps should be taken to verify that the newly added IPv6‑enabled interface (typically `/dev/eth1`) is correctly recognized after configuring OpenStack networking?"
 
 status:
   downloaded: true
@@ -59,9 +59,6 @@ Get the ID of the VM to attach the network interface.
 
 ```bash
 openstack server list
-```
-
-```text
 +--------------------------------------+-----------------+---------+-----------------------------------------------+----------------------------------+----------+
 | ID                                   | Name            | Status  | Networks                                      | Image                            | Flavor   |
 +--------------------------------------+-----------------+---------+-----------------------------------------------+----------------------------------+----------+
@@ -79,9 +76,6 @@ Check the status of the assignment.
 
 ```bash
 openstack server list
-```
-
-```text
 +--------------------------------------+-----------------+---------+------------------------------------------------------------------------------------------------+----------------------------------+----------+
 | ID                                   | Name            | Status  | Networks                                                                                       | Image                            | Flavor   |
 +--------------------------------------+-----------------+---------+------------------------------------------------------------------------------------------------+----------------------------------+----------+
@@ -91,25 +85,26 @@ openstack server list
 
 ### Example of a Web Interface Configuration
 Log in to the dashboard and go to the *Instances* menu, click on *Attach Interface*, which will open a dialogue.
-Use `IPv6-GUA (2607:f8f0:c11:7004::/64)` from the network menu and click on *Attach*.
+Use IPv6-GUA (2607:f8f0:c11:7004::/64) from the network menu and click on *Attach*.
 
-The IPv6 address is now available and can be used until the interface is detached. Every time the interface is detached, the GUA is released and put back into the pool and thus, can be used by anyone else. Rebuilding or restarting the VM, however, will not release the GUA.
+The IPv6 address for the attached interface is now available and can be used until the interface is detached. Every time the interface is detached, the GUA is released and put back into the pool and thus, can be used by anyone else. Rebuilding or restarting the VM, however, will not release the GUA.
 
 Access from any IPv6 GUA can be granted via *Security Groups* in OpenStack; the only difference is the CIDR which automatically detects the address type.
 
 ### Example of a Debian Instance
-!!! warning "Debian SSH Key Workaround"
-    When researchers launch an instance with the Debian operating system with the IPv6 network (i.e., IPv6-GUA), the selected SSH key pair will not install successfully. As a result, users cannot SSH into the instance and will receive a "Permission Denied" error message. To work around this problem, when launching a new instance, users can create an initial user account by completing the following steps:
+
+!!! warning "Debian Instance SSH Key Issue"
+    When researchers launch an instance with the Debian operating system with the IPv6 network (i.e., IPv6-GUA), the selected SSH key pair will not install successfully. As a result, users cannot SSH into the instance and will receive a "Permission Denied" error message. To work around this problem, when launching a new instance, create an initial user account by completing the following steps:
 
 1.  Go to the "Configuration" step.
-2.  Add the following script to the "Customization Script". Replace `[username]` with the researcher's preferred username and `[public key]` with the user's public key.
+2.  Add the following script to the "Customization Script". Replace `[username]` with your preferred username and `[public key]` with your public key.
 3.  Select "Configuration Drive".
 
 ```yaml
 users:
   - name: [username]
     gecos: [username]
-    groups: sudo 
+    groups: sudo
     sudo: ALL=(ALL) NOPASSWD:ALL
     shell: /bin/bash
     lock_passwd: true
@@ -121,7 +116,7 @@ ssh_pwauth: false
 
 ## Example of a Linux Configuration
 
-The OpenStack network you configured above will appear in Linux as an additional Ethernet-type interface. In most cases, `/dev/eth0` will be your existing interface. In most cases, your new IPv6 enabled interface will be `/dev/eth1`. The easiest way to pick up your new device is to reboot. But first, check to confirm that IPv6 is enabled with this command:
+The OpenStack network you configured above will appear in Linux as an additional eth-type interface. In most cases, `/dev/eth0` will be your existing interface. In most cases, your new IPv6 enabled interface will be `/dev/eth1`. The easiest way to pick up your new device is to reboot. But first, check to confirm that IPv6 is enabled with this command:
 
 ```bash
 sudo sysctl -a | grep ipv6.*disable
@@ -129,9 +124,9 @@ sudo sysctl -a | grep ipv6.*disable
 
 The output should all end in zeros. IPv6 enabled is the default in all recent images. Any kernel parameters that need to be changed to zero should be added to `/etc/sysctl.conf`.
 
-Also, add the following kernel parameters to `/etc/sysctl.conf`:
+Also, add the following kernel parameters in `/etc/sysctl.conf`:
 
-```ini
+```sysctl
 net.ipv6.conf.eth1.forwarding=0
 net.ipv6.conf.eth1.accept_ra=1
 ```

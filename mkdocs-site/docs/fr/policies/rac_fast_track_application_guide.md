@@ -4,40 +4,56 @@ slug: "rac_fast_track_application_guide"
 lang: "fr"
 
 source_wiki_title: "RAC Fast Track Application Guide/fr"
-source_hash: "e0e0449eb0768a99fe60ffab6bf1ad15"
-last_synced: "2026-09-06T00:43:13.954271+00:00"
-last_processed: "2026-09-06T02:42:45.753352+00:00"
+source_hash: "d4fd15c4dd246eaf3657e5b770c9da3a"
+last_synced: "2026-09-13T00:40:43.713374+00:00"
+last_processed: "2026-09-13T01:23:40.889938+00:00"
 
 tags:
   []
 
 keywords:
-  - "resource allocation"
-  - "underutilization of allocation"
+  - "allocations sur un nuage"
+  - "formulaire de demande accélérée"
+  - "modifier"
+  - "allocations sur une grappe"
   - "allocation de ressources"
-  - "resource constraints"
-  - "date limite"
-  - "processus accéléré"
+  - "justification de la sous-utilisation"
+  - "augmentation de 10 % des ressources"
+  - "Service d'accès rapide"
+  - "demande d’allocation de ressources"
+  - "ressources de calcul"
+  - "ressources de l’Alliance"
+  - "déléguer la demande"
+  - "CPU"
+  - "date limite 2026-11-03"
+  - "service d’accès rapide"
+  - "GPU"
+  - "allocation ajustée"
+  - "demande accélérée"
+  - "conditions d’accès"
+  - "article publié"
+  - "projet en cours"
+  - "procédure"
   - "invitation par courriel"
-  - "Fast Track form"
-  - "change request"
-  - "justification of underutilization"
-  - "terminating an allocation"
-  - "Rapid Access Service (RAS)"
-  - "critères d'admissibilité"
-  - "total resource demand"
-  - "progress over the last year"
+  - "Progrès réalisés"
+  - "modifications demandées"
 
 questions:
-  - "Quelles sont les dates clés du processus de demande accélérée, de l’envoi de l’invitation à la mise à disposition des ressources ?"
-  - "Quels sont les critères d’admissibilité et les limites d’utilisation du processus accéléré pour un même projet ?"
-  - "Comment les ressources sont‑elles allouées lors d’une demande accélérée et quels facteurs peuvent entraîner une réduction ou une augmentation par rapport à l’allocation précédente ?"
-  - "What types of allocation changes can be requested through the Fast Track application, and what are the limits or conditions for each change?"
-  - "What specific justification is required when an allocation’s utilization falls to 50 % or less, and how does this affect future allocation decisions?"
-  - "What information about progress made over the past year must be included in the Fast Track form, and how should it be presented?"
-  - "What criteria determine when an allocation should be terminated due to underutilization?"
-  - "How must organizations demonstrate effective and efficient usage of resources and justify any underutilization?"
-  - "When can the Rapid Access Service (RAS) offer a more favorable scaled allocation than the existing allocation?"
+  - "Quelles sont les dates importantes à retenir pour le processus de demande accélérée, de l’envoi de l’invitation à la mise à disposition des ressources ?"
+  - "Quelles conditions d’accès et critères d’éligibilité doivent être remplis pour pouvoir présenter une demande accélérée et quelles sont les limites concernant les modifications de l’équipe ou des ressources ?"
+  - "Quelle est la procédure détaillée à suivre dans le CCDB pour remplir, modifier et soumettre une demande accélérée ?"
+  - "Quels types de modifications de ressources pouvez‑vous demander dans le cadre d’une demande accélérée et quelles sont les limites associées ?"
+  - "Comment devez‑vous justifier une sous‑utilisation de 50 % ou moins des allocations obtenues via le concours ?"
+  - "Qui peut être désigné comme délégué pour préparer la demande et quelles conditions ce délégué doit‑il remplir ?"
+  - "Que doit‑on faire si aucune certification valable n’est fournie ou si l’allocation ajustée est inférieure à celle obtenue via le Service d’accès rapide ?"
+  - "Quelle est la page affichée par défaut dans le CCDB pour la chercheuse ou le chercheur principal admissible ?"
+  - "Quelles sont les étapes à suivre pour saisir et soumettre les informations dans le formulaire de demande accélérée ?"
+  - "Quelle est la signification des préfixes « m ou rpp‑nom », « crg‑nom » et « cpp‑nom » dans le cadre des allocations sur une grappe ou un nuage ?"
+  - "Que devez‑vous expliquer et quelles actions prévoyez‑vous si votre projet utilise plus de CPU ou de GPU que les ressources allouées par le concours ?"
+  - "Quelles autres ressources de calcul, au Canada ou à l’étranger, devez‑vous mentionner dans votre réponse ?"
+  - "Quels sont les principaux résultats ou réalisations que vous avez obtenus l’année dernière grâce aux ressources de l’Alliance ?"
+  - "En quoi le service d’accès rapide a-t-il contribué concrètement à ces réalisations ?"
+  - "Pouvez‑vous préciser les projets en cours ou les publications qui découlent de l’utilisation de ces ressources ?"
 
 status:
   downloaded: true
@@ -50,91 +66,95 @@ status:
 
 ## Dates à retenir
 
-| Date                 | Processus                                                                        |
-| :------------------- | :------------------------------------------------------------------------------- |
-| Mi-septembre 2025    | Envoi du courriel d’invitation aux chercheuses principales et chercheurs principaux admissibles |
-| 2025-09-23           | Début de la période d'enregistrement des demandes dans le CCDB                   |
-| 2025-11-04           | Date limite pour présenter une demande accélérée                                 |
-| Fin mars 2026        | Envoi des résultats aux chercheuses principales et chercheurs principaux         |
-| Début avril 2026     | Début de la période de disponibilité des ressources allouées                      |
+| Date               | Processus                                                                   |
+| :----------------- | :-------------------------------------------------------------------------- |
+| Mi-septembre 2026  | envoi du courriel d’invitation aux chercheuses principales et chercheurs principaux admissibles |
+| 2026-09-23         | début de la période d'enregistrement des demandes dans le CCDB              |
+| 2026-11-03         | date limite pour présenter une demande accélérée <br/> *(date ferme)*         |
+| Fin mars 2027      | envoi des résultats aux chercheuses principales et chercheurs principaux    |
+| Début avril 2027   | début de la période de disponibilité des ressources allouées                |
 
-!!! warning "Date limite ferme"
-    La date limite pour présenter une demande accélérée (4 novembre 2025) est **ferme**.
+## Processus de demande accélérée
 
-## Processus
+Les projets pour les groupes de recherche qui ont **au moins** une allocation active peuvent demander la continuation de ce projet en soumettant un simple rapport d'avancement.
 
-Si vous détenez présentement une allocation de ressources pour un groupe de recherche et que vous êtes admissible, vous pouvez présenter un rapport d’avancement pour renouveler votre demande de ressources de calcul.
+Les projets admissibles peuvent généralement obtenir le renouvellement de leurs allocations pendant deux années consécutives, après quoi une nouvelle demande complète doit être soumise au concours pour l’allocation de ressources. Les demandes accélérées ne font l'objet que d'un examen technique et non d'un nouvel examen scientifique. Il n'est pas possible d'ajouter de nouveaux co-chercheurs ou co-chercheuses pour une demande accélérée.
 
-*   En présentant une demande accélérée, IL N’EST PAS CERTAIN que vous recevrez les mêmes ressources que l'an dernier.
-*   La note de votre demande initiale sera utilisée et votre nouvelle demande fera l'objet du même barème d'évaluation que toutes les autres demandes. Selon l'ensemble des demandes reçues cette année et de la disponibilité des ressources, les allocations pourraient être attribuées selon un barème d’évaluation différent de celui de l’an dernier : il est donc possible que vous receviez plus ou moins de ressources que l’an dernier.
+Un courriel d'invitation sera envoyé aux chercheurs principaux et chercheuses principales des projets concernés, indiquant la **quantité maximale de ressources** que leur équipe est autorisée à demander. En plus de cette quantité, il est possible de demander certaines modifications tel que décrit ci-dessous dans *Modifications demandées*. Veuillez prendre en compte les points suivants au sujet de cette invitation :
 
-Les projets admissibles peuvent *généralement* utiliser le processus accéléré pour un maximum de deux années consécutives. Après cette période, une nouvelle demande RRG complète doit être soumise. Les demandes accélérées ne sont pas soumises à un nouvel examen scientifique, mais uniquement à un examen technique. Il est à noter que de nouveaux co-chercheurs principaux (co-CP) ne peuvent être ajoutés à une demande accélérée.
+*   Elle vise à confirmer l'admissibilité à faire une demande accélérée et à indiquer la quantité maximale de ressources pouvant être demandées; l'invitation **ne garantit pas** l'allocation de ces ressources.
+*   Elle offre la possibilité d'accepter l'invitation à faire une demande accélérée ou de la refuser et de présenter une nouvelle demande complète.
+*   Elle **ne confirme pas le renouvellement automatique** d'une allocation antérieure. Si un projet se poursuit, une nouvelle demande (accélérée ou complète) doit être soumise pour confirmer que les ressources sont toujours nécessaires, *à défaut de quoi l’allocation se terminera*.
 
-Un courriel d'invitation sera envoyé à ces CP, indiquant le montant *maximal* de ressources que leur groupe est autorisé à demander (en plus de toute modification acceptable telle que décrite dans la section *Demande de changement* de ce guide). Veuillez tenir compte des points suivants concernant **l'invitation** :
+!!! note "Des questions?"
+    Si vous avez des questions, écrivez à [allocations@tech.alliancecan.ca](mailto:allocations@tech.alliancecan.ca).
 
-*   Elle vise à confirmer l'admissibilité au processus accéléré et à indiquer le montant maximal de ressources qui peut être demandé – l'invitation n'est *pas* une garantie que ces ressources seront allouées;
-*   Elle offre la possibilité d'accepter l'invitation au processus accéléré, ou de la refuser et de soumettre une nouvelle demande complète;
-*   Elle n'est ***pas*** une confirmation qu'une allocation antérieure sera automatiquement renouvelée : si un projet se poursuit et que le besoin de nos ressources de calcul persiste, une nouvelle demande (soit une demande accélérée, soit une demande complète) doit être soumise pour confirmer que les ressources sont toujours nécessaires. *Le fait de ne pas le faire entraînera l'expiration de votre allocation.*
+## Conditions d’accès pour les demandes accélérées
 
-## Critères d'admissibilité
+En présentant une demande accélérée, vous comprenez que :
 
-La précédente allocation de ressources pour les groupes de recherche doit avoir obtenu une note supérieure à 2,0 sur 5 à l'examen scientifique. Le processus accéléré ne peut être utilisé plus de deux ans de suite pour le même projet.
+1.  Les [conditions d’accès du concours d’allocation de ressources](rac_application_guide.md) s’appliquent également aux demandes accélérées.
+2.  La note obtenue à l’examen par les pairs de votre demande initiale sera utilisée et que votre demande accélérée fera l'objet du même barème d'évaluation que toutes les autres demandes.
+    1.  En fonction de l'ensemble des demandes reçues cette année et de la disponibilité des ressources, les allocations pourraient se faire selon un barème d’évaluation différent de celui de l’an dernier. Il est donc possible que vous receviez plus ou moins de ressources que l’an dernier.
+    2.  Toutes les demandes de modification seront examinées. Les ressources supplémentaires demandées pourraient être allouées en totalité ou en partie ou rejetées, sur la base de facteurs tels que la note initiale par rapport à la moyenne de l'ensemble des demandes présentées au concours; la demande totale de ressources; les progrès constatés au cours de la dernière année; les contraintes de ressources; la preuve d'une utilisation efficace des ressources allouées; et la justification de la sous-utilisation des ressources allouées (s’il y a lieu).
 
-## Conditions d'accès pour les demandes accélérées
+!!! warning "Annulation d'allocation"
+    L'allocation pourrait être annulée si les ressources sont sous-utilisées et qu'aucune justification valable n'est fournie, ou si l'allocation ajustée est inférieure à ce qui peut être obtenu par une utilisation opportuniste via le Service d'accès rapide.
 
-En soumettant une demande accélérée, vous comprenez que :
+## Procédure
 
-1.  Les [Conditions d'accès générales des demandes de RAC](rac_application_guide.md) s'appliquent également aux demandes accélérées.
-2.  La note attribuée par l'évaluation par les pairs de la demande RRG originale sera réutilisée pour les décisions de mise à l'échelle et d'allocation — les demandes de ressources seront mises à l'échelle en utilisant la même fonction que pour toutes les autres demandes. Cela signifie que :
-    1.  Les demandes de ressources peuvent être mises à l'échelle par un facteur différent de celui de l'année précédente, ce qui pourrait entraîner une augmentation ou une diminution des ressources précédemment allouées;
-    2.  Toutes les demandes de changement seront examinées : les ressources supplémentaires demandées peuvent être allouées entièrement, partiellement ou pas du tout, en fonction de facteurs tels que la note individuelle de la demande par rapport à la moyenne de l'ensemble de la compétition, la demande totale de ressources, les progrès rapportés au cours de la dernière année, les contraintes de ressources, les preuves d'une utilisation efficace et efficiente, et la justification de la sous-utilisation d'une allocation (le cas échéant).
-    3.  La résiliation d'une allocation est une possibilité lorsque les ressources allouées sont sous-utilisées et qu'aucune justification raisonnable n'est fournie, ou lorsque l'allocation mise à l'échelle résultante est inférieure à ce qui peut être obtenu en calculant de manière opportuniste par le Service d'Accès Rapide (SAR).
+*   Par défaut, la page affichée dans le CCDB pour la chercheuse principale ou le chercheur principal admissible est le formulaire de demande accélérée. Pour entrer les informations, cliquez sur *Modifier*. Quand toutes les informations sont entrées, cliquez sur *Soumettre*.
 
-## Exigences en matière d'information
+*   Si vous ne voulez pas soumettre une demande accélérée mais plutôt présenter une demande complète d’allocation de ressources aux groupes de recherche, cliquez sur *Changer pour RGR*. Les informations sur votre demande accélérée seront conservées et vous pourrez y revenir en tout temps en cliquant sur *Changer pour une demande accélérée*.
 
-Le formulaire en ligne de demande accélérée dans le CCDB comprend les sections suivantes :
+*   Cliquez sur *Déléguer* pour désigner une autre personne qui préparera la demande en votre nom. Cette personne doit détenir un compte actif dans le portail CCDB.
 
-### Demande de changement
+## Informations nécessaires
 
-Décrivez les problèmes que votre groupe de recherche a pu rencontrer avec une allocation. Si ces problèmes ont entraîné une sous-utilisation d'une allocation, fournissez des détails dans la section *Justification de la sous-utilisation*.
+Le formulaire électronique dans le CCDB comprend les sections suivantes :
 
-Les changements suivants peuvent être demandés via le processus de demande accélérée :
+### Modifications demandées
 
-*   Augmenter jusqu'à 10 % du montant admissible de CPU, GPU, stockage ou infonuagique indiqué dans le courriel d'invitation (toutes les demandes d'augmentation sont soumises à examen et dépendent des contraintes de capacité, elles ne sont donc pas garanties);
-*   Déplacer une allocation d'un système à un autre;
-*   Partager une allocation existante sur un maximum de deux systèmes;
-*   Consolider les allocations sur plusieurs systèmes en un seul emplacement;
-*   Diminuer une allocation;
-*   Mettre fin à une allocation (si elle n'est plus nécessaire).
+*Décrivez tout problème auquel votre groupe de recherche a fait face avec vos allocations. Si un problème a mené à la sous-utilisation d’une allocation, donnez les détails dans la section Justification de la sous-utilisation ci-dessous.*
 
-Demandez-vous un changement admissible? (obligatoire)
+*Les modifications suivantes peuvent être demandées dans le cadre de votre demande accélérée :*
 
-Oui/Non
+*   *une augmentation d'au plus 10% des ressources indiquées dans le courriel d'invitation pour les CPU, GPU, l'espace de stockage ou les ressources infonuagiques; **toutes les demandes seront analysées et ne sont pas garanties parce qu'elles dépendront de la capacité disponible**;*
+*   *le déplacement d'une allocation d'un système à un autre;*
+*   *le déplacement d'une partie d'une allocation vers un deuxième système;*
+*   *la consolidation à un même emplacement d'allocations en provenance de plusieurs systèmes;*
+*   *la diminution d'une allocation;*
+*   *l'annulation d'une allocation qui n'est plus nécessaire.*
 
-Si *Oui* - Veuillez indiquer le type de changement demandé (obligatoire - sélection multiple possible) :
+Demandez-vous une ou des modifications? (obligatoire)
 
-*   Augmentation
-*   Déplacement
-*   Partage
-*   Consolidation
-*   Diminution
-*   Résiliation
+*Oui/Non*
+
+Si oui, indiquez les types de modifications demandées (obligatoire - sélection multiple possible) :
+
+*   Augmenter
+*   Déplacer
+*   Diviser
+*   Consolider
+*   Diminuer
+*   Mettre fin à
 *   Autre
 
-#### Justification de la demande de changement et autres commentaires
+#### Justification des demandes de modification et autres commentaires
 
-Tout changement demandé ***doit*** être suffisamment justifié : soyez précis concernant les systèmes, les quantités et autres aspects pertinents qui doivent être pris en compte pour traiter adéquatement votre demande. Veuillez noter que les ressources supplémentaires demandées peuvent être allouées entièrement, partiellement ou pas du tout, en fonction de facteurs tels que la note individuelle de la demande par rapport à la moyenne de l'ensemble de la compétition, la demande totale de ressources, les progrès rapportés au cours de la dernière année, les contraintes de ressources, les preuves d'une utilisation efficace et efficiente, et la justification de la sous-utilisation d'une allocation. Si vous ne demandez aucun changement, mais souhaitez ajouter d'autres commentaires relatifs à votre allocation, veuillez le faire ici.
+*Toute modification demandée doit être suffisamment justifiée : soyez spécifique quant aux systèmes, quantités de ressources et tout autre aspect que nous devrons considérer pour évaluer votre requête. Notez que les demandes de ressources supplémentaires pourraient être allouées en totalité ou en partie ou rejetées, sur la base de facteurs tels que la note initiale par rapport à la moyenne de l'ensemble des demandes présentées au concours; la demande totale de ressources; les progrès constatés au cours de la dernière année; les contraintes de ressources; la preuve d'une utilisation efficace des ressources allouées; et la justification de la sous-utilisation des ressources allouées (s’il y a lieu). Si vous ne demandez aucune modification mais souhaitez ajouter un commentaire à votre demande, faites-le ici.*
 
 ### Justification de la sous-utilisation
 
-Si l'utilisation projetée d'une allocation de RAC que vous détenez actuellement est de 50 % ou moins, vous devez expliquer les raisons de cette sous-utilisation et décrire les mesures d'atténuation mises en place.
+*Si l’utilisation projetée d’une de vos allocations est de 50% ou moins, vous devez expliquer cette sous-utilisation et les éventuelles solutions mises en place.*
 
-Nous voulons comprendre pourquoi les ressources allouées par le bassin de RAC à votre groupe de recherche n'ont peut-être pas été entièrement utilisées et ce que vous comptez faire à ce sujet. Bien que nous comprenions qu'il puisse y avoir des raisons légitimes de sous-utilisation, nous devons les connaître pour prendre des décisions d'allocation appropriées – le fait de ne pas fournir une justification raisonnable avec des détails suffisants pourrait avoir un impact négatif sur votre demande.
+*Nous voulons savoir pourquoi les ressources allouées à votre groupe via le concours n’ont pas été utilisées et ce que vous comptez faire pour y remédier. Nous comprenons qu’il existe des raisons légitimes pour sous-utiliser les ressources, mais nous devons comprendre quelles sont ces raisons afin d’allouer les ressources de manière appropriée. Ne pas fournir une justification valable et suffisamment de détails peut impacter négativement votre demande.*
 
-La justification n'est requise que pour les ressources allouées dans les [Projets d'Allocation de Ressources du RAC (PAR)](../getting-started/frequently_asked_questions_about_the_ccdb.md), qui sont étiquetés `rrg-name` ou `rpp-name` (pour les allocations HPC) et `crg-name` ou `cpp-name` (pour les allocations infonuagiques). Si l'utilisation des ressources CPU ou GPU dans votre projet par défaut est supérieure à l'utilisation dans votre projet RAC, vous devez expliquer pourquoi c'est le cas et ce que vous comptez faire à ce sujet.
+*Cette justification est requise uniquement pour les ressources allouées via le concours à votre [projet d’allocation de ressources (RAP)](../getting-started/frequently_asked_questions_about_the_ccdb.md#rap-resource-allocation-project). Elles portent les noms `rrg-nom` ou `rpp-nom` (pour les allocations sur une grappe) ou encore `crg-nom` ou `cpp-nom` (pour les allocations sur un nuage).*
+*Si votre projet par défaut utilise plus de CPU ou de GPU que les CPU et GPU alloués par concours à votre projet, expliquez-en la raison et dites ce que vous comptez faire pour y remédier.*
 
-Si vous avez accès à d'autres ressources de calcul au Canada (par exemple, matériel contribué, accès à un cluster local à votre institution, etc.) ou à l'étranger, veuillez également le mentionner ici.
+*Si vous avez accès à d'autres ressources de calcul au Canada (par exemple du matériel contribué, accès à une grappe locale à votre établissement, etc.) ou à l'étranger, veuillez également le mentionner ici.*
 
-### Progrès de la dernière année
+### Progrès réalisés l’année dernière (obligatoire)
 
-Décrivez les progrès réalisés au cours de la dernière année grâce à l'utilisation des ressources mises à disposition par l'Alliance, y compris celles utilisées via le Service d'Accès Rapide (SAR). Cela peut être lié à une publication ou à un travail en cours.
+*Décrivez vos réalisations de l’année écoulée pour lesquelles les ressources de l’Alliance ont été utilisées, incluant celles obtenues par le service d’accès rapide. Cela peut être un article publié ou un projet en cours.*
