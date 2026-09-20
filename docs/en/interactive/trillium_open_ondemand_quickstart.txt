@@ -140,6 +140,22 @@ To turn this into a JupyterLab kernel, run the <code>venv2jup</code> command fro
 
 When you start a JupyterLab session, you should now see your virtual environment, <code>myenv</code>, as a kernel option.
 
+==VS Code Extensions==
+
+VS Code comes with ~40 default extensions.  If you want to install your own extensions follow these steps:
+
+* From a terminal, create symbolic links to the centrally installed code-server extensions in your <code>HOME</code> directory:
+{{Commands2
+| prompt=
+| 1=module load code-server
+| 2=export CODESERVER_EXTENSIONS_DIR=$HOME/.local/share/code-server/extensions
+| 3=mkdir -p $CODESERVER_EXTENSIONS_DIR
+| 4=cp $MODULE_CODESERVER_EXTENSIONS_DIR/extensions.json $CODESERVER_EXTENSIONS_DIR
+| 5=for f in $MODULE_CODESERVER_EXTENSIONS_DIR/*-*; do ln -s $f $CODESERVER_EXTENSIONS_DIR; done
+}}
+* Add the following command to your <code>~/.bashrc</code> file: <code>export CODESERVER_EXTENSIONS_DIR=$HOME/.local/share/code-server/extensions</code> 
+* Start a new VS Code interactive session and you will be able to install your own extensions.
+
 =Running an application GUI=
 
 If you would like to run software that has a graphical user interface (GUI) and is not yet installed as an interactive application, such as Octave, you can do so using the '''Trillium Desktop''' application. This app provides a remote desktop environment that you can access through your web browser. In the following example, we will run Octave's GUI:

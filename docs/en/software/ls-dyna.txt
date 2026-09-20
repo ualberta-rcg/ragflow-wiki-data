@@ -114,26 +114,28 @@ Jobs can be submitted to a specified number of <b>whole</b> compute nodes with t
 #SBATCH --mem=0                  # Use all memory per compute node (do not change)
 ##SBATCH --constraint=cascade    # Uncomment to specify a cluster specific node type
 
-#module load StdEnv/2020         # Versions 12.0, 13.0, 13.1.1
-#export RSNT_ARCH=avx2
-#module load intel/2020.1.217
-#module load openmpi/4.0.3
-#module load ls-dyna-mpi/13.1.1 
+#module load StdEnv/2023          # Versions 12.2.1, 12.2.2
+#module load intel/2023.2.1       # Modules <=12.2.1 use non-shared libs
+#module load ls-dyna-mpi/12.2.2   # Modules >=12.2.2 use shared libraries
+# -----------------------------
+module load StdEnv/2023           # Versions 13.2.0, 14.2.0, 15.0.2, 16.2.0, 17.0.1
+module load intel/2025.2.0        # Modules >= 13.2.0 use avx512 binaries
+module load ls-dyna-mpp/17.0.1    # Modules >= 13.2.0 are named ls-dyna-mpp
 
-module load StdEnv/2023          # Version 12.2.1
-module load intel/2023.2.1
-module load ls-dyna-mpi/12.2.1
+# Uncomment next two lines to specify an ANSYS License Server
+#export LSTC_LICENSE=ansys                   # Do not change 
+#export ANSYSLMD_LICENSE_FILE=PORT@HOSTNAME  # Specify PORT number & HOSTNAME
 
-#export LSTC_LICENSE=ansys       # Specify an ANSYS License Server
-#export ANSYSLMD_LICENSE_FILE=<port>@<server>
+#export LSTC_MEMORY=AUTO          # Optional for explicit only
 
-#export LSTC_MEMORY=AUTO         # Optional for explicit only
+INPUTFILE="airbag.deploy.k"       # Specify an input filename
+MPPSOLVER="ls-dyna_d"             # Specify ls-dyna_s OR ls-dyna_d
 
 if [ "$EBVERSIONNIXPKGS" == 16.09 ]; then
  slurm_hl2hl.py --format MPIHOSTLIST > /tmp/mpihostlist-$SLURM_JOB_ID
- mpirun -np $NCORES -hostfile /tmp/mpihostlist-$SLURM_JOB_ID ls-dyna_d i=airbag.deploy.k memory=200M
+ mpirun -np $NCORES -hostfile /tmp/mpihostlist-$SLURM_JOB_ID $MPPSOLVER i=$INPUTFILE memory=200M
 else
- srun ls-dyna_d i=airbag.deploy.k memory=200M
+ srun $MPPSOLVER i=$INPUTFILE memory=200M
 fi
 }}
 where 

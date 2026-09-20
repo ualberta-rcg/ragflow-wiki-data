@@ -149,6 +149,23 @@ Pour convertir cela en noyau JupyterLab, exécutez la commande suivante à parti
 
 Au lancement d'une session JupyterLab, votre environnement virtuel ''myenv'' apparaîtra comme option du noyau.
 
+<span id="VS_Code_Extensions"></span>
+==Extensions de VS Code==
+
+Par défaut, VS Code offre environ 40 extensions. Pour installer vos propres extensions&nbsp;:
+
+* Dans un terminal, créez des liens symboliques vers les extensions code-serveur qui se trouvent dans votre répertoire <code>HOME</code>.
+{{Commands2
+| prompt=
+| 1=module load code-server
+| 2=export CODESERVER_EXTENSIONS_DIR=$HOME/.local/share/code-server/extensions
+| 3=mkdir -p $CODESERVER_EXTENSIONS_DIR
+| 4=cp $MODULE_CODESERVER_EXTENSIONS_DIR/extensions.json $CODESERVER_EXTENSIONS_DIR
+| 5=for f in $MODULE_CODESERVER_EXTENSIONS_DIR/*-*; do ln -s $f $CODESERVER_EXTENSIONS_DIR; done
+}}
+* Ajoutez la commande suivante à votre fichier&^nbsp;:  <code>~/.bashrc</code> CODESERVER_EXTENSIONS_DIR=$HOME/.local/share/code-server/extensions</code> 
+* Lancez une nouvelle session VS Code interactive et vous pourrez installer vos extensions.
+
 <span id="Running_an_application_GUI"></span>
 =Interfaces graphiques=
 

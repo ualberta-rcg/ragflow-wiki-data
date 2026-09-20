@@ -1,4 +1,4 @@
-<languages />
+<languages />fin to
 == IPv6 avec Arbutus ==
 Les adresses LLA (Link-Local) et GUA (Global Unicast Addresses) sont généralement disponibles dans l'environnement infonuagique d'Arbutus.<br>
 Les adresses GUA peuvent être configurées via une interface distincte, qui à son tour ne s'occupe que du trafic IPv6.
@@ -34,11 +34,9 @@ openstack server list
 +--------------------------------------+-----------------+---------+------------------------------------------------------------------------------------------------+----------------------------------+----------+
 </pre>
 
-<div class="mw-translate-fuzzy">
-=== Exemple d'une configuration Webinterface ===
+=== Exemple d'une configuration Web ===
 Connectez-vous au tableau de bord. Dans le menu ''Instances'', cliquez sur ''Attacher l'interface'' pour faire afficher la boîte de dialogue.
 Dans le champ ''Réseau'', sélectionnez ''IPv6-GUA (2607:f8f0:c11:7004::/64)'' et cliquez sur ''Attacher l'interface''.
-</div>
 
 <gallery widths=300px heights=200px>
 Instancemenu.png|1. Tableau de bord montrant les instances
@@ -51,11 +49,13 @@ L'adresse IPv6 restera disponible jusqu'à ce qu'elle soit détachée. Chaque fo
 
 L'accès à partir d'une adresse GUA peut être autorisé par la fonction ''Groupes de sécurité'' de OpenStack, à l'exception de  CIDR qui détecte autpomatiquement le type d'une adresse.
 
-=== Exemple d'une instance Debian ===
-La paire de clés SSH sélectionnée ne s'installe pas correctement quand une instance est lancée avec le système d'exploitation Debian et le réseau IPv6 (IPv6-GUA). Par conséquent, la connexion à l'instance via SSH ne se fait pas et le message d'erreur ''Permission Denied'' survient. Pour contourner ce problème au lancement d'une nouvelle instance, vous pouvez créer un compte utilisateur initial comme suit&nbsp:
-# Go to to the "Configuration" step
-# Add the following script to the "Customization Script". Replace [username] with the researcher's preferred username and [public key] with the user's public key.
-# Select “Configuration Drive” 
+=== Exemple d'une instance Debian ou Ubuntu 26.04 ===
+Avec le système d'exploitation Debian ou Ubuntu 26.04 et le réseau IPv6 (IPv6-GUA), la paire de clés SSH sélectionnée ne s'installe pas correctement quand une instance est lancée. Par conséquent, la connexion à l'instance via SSH ne se fait pas et le message d'erreur ''Permission Denied'' survient. Pour contourner ce problème au lancement d'une nouvelle instance, vous pouvez créer un compte utilisateur initial comme suit&nbsp:
+# Pour créer une machine virtuelle, sélectionnez ''Calcul->Instances'' dans le menu de gauche, puis cliquez sur le bouton ''Lancer une instance''. 
+# Référez-vous au [[Cloud Quick Start/fr|guide de démarrage]] pour faire afficher le formulaire de définition de votre machine virtuelle.
+# Dans le menu de gauche, sélectionnez ''Configuration''.
+# Ajoutez le script suivant au script de personnalisation en remplaçant [username] par votre nom d'utilisateur et [public key] par votre clé publique.
+# Sélectionnez ''Disque de configuration''.
 <pre>
 users:
   - name: [username]

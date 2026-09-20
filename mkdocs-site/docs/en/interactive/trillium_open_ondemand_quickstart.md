@@ -4,22 +4,106 @@ slug: "trillium_open_ondemand_quickstart"
 lang: "en"
 
 source_wiki_title: "Trillium Open OnDemand Quickstart/en"
-source_hash: "db9e8e96829ce08b1681adff2fab4291"
-last_synced: "2026-08-07T19:46:17.777436+00:00"
-last_processed: "2026-08-07T23:02:18.454553+00:00"
+source_hash: "450d82cc3b17270b773c37efe1d60a80"
+last_synced: "2026-09-20T00:48:35.777859+00:00"
+last_processed: "2026-09-20T01:54:12.236835+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "JupyterLab kernel"
+  - "My Interactive Sessions"
+  - "hardware"
+  - "Job Name"
+  - "Launch button"
+  - "number of nodes"
+  - "Jupyter Notebook"
+  - "job parameters"
+  - "output.log"
+  - "JupyterLab"
+  - "Python virtual environment"
+  - "Cluster"
+  - "Undetermined session error"
+  - "Length of job in hours"
+  - "Job Monitoring"
+  - "operating system"
+  - "h100_1.10 MIG profile"
+  - "Job Submission with Open Composer"
+  - "resources"
+  - "Job monitoring"
+  - "virtual environment"
+  - "myscinet portal"
+  - "Trillium"
+  - "Installed applications"
+  - "Trillium Desktop"
+  - "node list"
+  - "Open OnDemand"
+  - "GPU resources"
+  - "file management"
+  - "virtual environment myenv"
+  - "numpy package"
+  - "Script Location"
+  - "start/end time"
+  - "Module Browser"
+  - "scheduler"
+  - "Terminal Access"
+  - "job submission page"
+  - "Open Composer"
+  - "Cancel button"
+  - "interactive applications"
+  - "All Jobs"
+  - "Slurm job templates"
+  - "Open OnDemand authentication MFA"
+  - "Active Jobs"
+  - "Trillium Shell Access"
+  - "memory limit"
+  - "Number of cores"
+  - "core limit"
+  - "custom Python virtual environment"
+  - "wall clock time"
+
+questions:
+  - "How do you log into the Open OnDemand portal and what authentication steps are required?"
+  - "What file management features does Open OnDemand provide, and how should you upload files that exceed the 10 GB limit?"
+  - "How can you launch interactive applications (e.g., JupyterLab) on Open OnDemand, and which job resources (cores, memory, GPU) can you configure?"
+  - "How can you submit an interactive job, monitor its status, and cancel it using the OnDemand interface?"
+  - "Which interactive applications are currently supported, and how can you request the installation of a new application?"
+  - "What are the two options for configuring JupyterLab, and how do you switch from the default Python kernel to a custom virtual‑environment kernel?"
+  - "What job parameters can be configured on the job submission page?"
+  - "Which GPU resource profile is currently available, and what are its memory and compute specifications?"
+  - "Where can users find a tutorial on how to request a GPU?"
+  - "How do you open a terminal for creating a custom Python virtual environment in JupyterLab or via the OnDemand navigation bar?"
+  - "What commands are used to create a virtual environment called myenv and install the numpy package?"
+  - "What are the advantages of using a custom Python virtual environment in this setup?"
+  - "How can you convert an activated Python virtual environment into a JupyterLab kernel using the `venv2jup` command?"
+  - "What are the required steps to run a GUI application such as Octave through the Trillium Desktop remote desktop environment?"
+  - "How does the Open Composer application assist in creating, submitting, and monitoring Slurm batch jobs on the Trillium system?"
+  - "How can you set the script location, script name, job name, and choose the target cluster when creating a job in Open Composer?"
+  - "What features does the History and Jobs tabs provide for monitoring, filtering, and resubmitting jobs in Open Composer?"
+  - "Which application types does Open Composer support for Slurm jobs, and what additional changes might be necessary to adapt the template scripts for specific user needs?"
+  - "What job parameters can be adjusted to control the resources your job will use, such as nodes, tasks per node, wall clock time, and output file name?"
+  - "How are changes made to the job parameters reflected in the displayed job script, and can the script be edited directly?"
+  - "What is the purpose of the extra fields at the top of the page in the job submission interface?"
+  - "How can you view the start/end time, node list, and account charged for a specific job?"
+  - "What steps do you need to follow to display all jobs in the queue using the drop‑down menu?"
+  - "Where can you access a more detailed view of your jobs and find the related video tutorial?"
+  - "How do you open and use the web‑based terminal for Trillium through the Open OnDemand interface?"
+  - "What methods does Open OnDemand offer for browsing, loading, and managing software modules on the cluster?"
+  - "What steps should be taken to resolve the “Your session has entered a bad state” error and obtain further support?"
+  - "What functionalities are demonstrated in the linked videos for Trillium Desktop, Open Composer job submission, terminal access, and job monitoring?"
+  - "How does the authentication method differ between the decommissioned JupyterHub and Open OnDemand?"
+  - "What advantages does Open OnDemand offer compared to the former JupyterHub platform?"
+  - "What are the differences in core, memory, and time limits between the 2017 and 2025 versions?"
+  - "Which new features (such as command terminal, job monitoring, alerts, and error logs) were introduced in the 2025 version that were not available in the 2017 version?"
+  - "How does the hardware configuration change from the 2017 to the 2025 version, particularly regarding CPU count, RAM, and the addition of GPU resources?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: true
+  keywords_generated: true
+  ragflow_synced: false
   qa_generated: false
 ---
 
@@ -27,77 +111,76 @@ This page is specifically for the Open OnDemand service attached to Trillium. Ge
 
 ## Porting existing virtual environments to Open OnDemand
 
-!!! warning "Important"
-    Because of the change of operating system and software stack, your existing virtual environment kernels for Python may not work right away in the OnDemand site. You should be able to activate your Python environments in a Trillium terminal (see [Terminal access](#terminal-access)) below, with all required Trillium modules loaded, and then issue the command **`venv2jup`** to get them working correctly. Please see [JupyterLab Configuration](#jupyterlab-configuration) for full instructions.
+**IMPORTANT:** Because of the change of operating system and software stack, your existing virtual environment kernels for Python may not work right away in the OnDemand site. You should be able to activate your Python environments in a Trillium terminal (see [Terminal access](#terminal-access) below), with all required Trillium modules loaded, and then issue the command **`venv2jup`** to get them working correctly. Please see [JupyterLab Configuration](#jupyterlab-configuration) for full instructions.
 
 ## Introduction
 
-This guide will walk you through the basic steps to get started with the SciNet Open OnDemand portal. Open OnDemand (OOD) is a web-based platform that provides access to a wide range of scientific applications and computing resources, such as JupyterLab, R Studio, and Visual Studio Code. It allows you to interact with Trillium through a web browser instead of via a terminal, without the need to install any software on your local machine. You will be able to perform file management, submit/monitor jobs and run applications interactively. More information on this project can be found at [https://openondemand.org](https://openondemand.org).
+This guide will walk you through the basic steps to get started with the SciNet Open OnDemand portal. Open OnDemand (OOD) is a web-based platform that provides access to a wide range of scientific applications and computing resources, such as JupyterLab, RStudio, and Visual Studio Code. It allows you to interact with Trillium through a web browser instead of via a terminal, without the need to install any software on your local machine. You will be able to perform file management, submit/monitor jobs and run applications interactively. More information on this project can be found at [https://openondemand.org](https://openondemand.org).
 
 ## Logging into the Open OnDemand portal
 
-To access the Open OnDemand portal, open a web browser and navigate to the following page: https://ondemand.scinet.utoronto.ca. You will be prompted to enter your Alliance username and password, followed by a second factor authentication via Duo or Yubikey. Once you have logged in, you will be taken to the Open OnDemand dashboard. From here you can access the various tools and applications available on the platform.
+To access the Open OnDemand portal, open a web browser and navigate to the following page: [https://ondemand.scinet.utoronto.ca](https://ondemand.scinet.utoronto.ca). You will be prompted to enter your Alliance username and password, followed by a second factor authentication via Duo or Yubikey. Once you have logged in, you will be taken to the Open OnDemand dashboard. From here you can access the various tools and applications available on the platform.
 
-*   [Dashboard Video Tutorial](https://youtu.be/XRozBBKwA8c?si=fmks5--qaAf6Zat&t=1316)
+* [Dashboard Video Tutorial](https://youtu.be/XRozBBKwA8c?si=fmks5--qaAf6Zat&t=1316)
 
 ## File management
 
-The Open OnDemand platform provides a file browser that allows you to manage your files and directories on the filesystem. To access the file browser, click on the **Files** tab and select which directory you want to manage from the drop-down (`HOME`, `SCRATCH` or `PROJECT`). You will be taken to the file browser interface, where you can:
+The Open OnDemand platform provides a file browser that allows you to manage your files and directories on the filesystem. To access the file browser, click on the **Files** tab and select which directory you want to manage from the drop-down (``HOME``, ``SCRATCH`` or ``PROJECT``). You will be taken to the file browser interface, where you can:
 
-*   Navigate through your directories
-*   Upload/download files
-*   Create new files/directories
-*   Delete files/directories
-*   Edit existing files
+* Navigate through your directories
+* Upload/download files
+* Create new files/directories
+* Delete files/directories
+* Edit existing files
 
 Storage quotas can also be displayed by clicking on the **Storage Quotas** link in the **Files** tab.
 
 ### Uploading files
 
-The current file size upload limit is 10GB, if you need to upload a file larger than this or are facing upload issues due to a bad internet connection for example please try using [Globus](https://docs.scinet.utoronto.ca/index.php/Globus). There is a Globus button in the file browser at the top right, which will take you to the Globus web interface where you can log in with your Alliance username and password. The path navigated to in the Open OnDemand file browser will be the same path opened in Globus.
+The current file size upload limit is 10GB. If you need to upload a file larger than this or are facing upload issues due to a bad internet connection for example, please try using [Globus](https://docs.scinet.utoronto.ca/index.php/Globus). There is a Globus button in the file browser at the top right, which will take you to the Globus web interface where you can log in with your Alliance username and password. The path navigated to in the Open OnDemand file browser will be the same path opened in Globus.
 
-*   [File Browser Video Tutorial](https://youtu.be/XRozBBKwA8c?si=e6Z2PvHRsCVmTKAQ&t=1510)
+* [File Browser Video Tutorial](https://youtu.be/XRozBBKwA8c?si=e6Z2PvHRsCVmTKAQ&t=1510)
 
 ## Interactive applications
 
 Open OnDemand also features interactive applications that can be run directly from your web browser. To access the applications, navigate to the **Interactive Apps** tab and select the application you want to run from the drop-down. This will then bring you to the job submission page where you can choose job parameters such as:
 
-*   Length of job in hours
-*   Number of cores
-*   Amount of memory to allocate (GB)
-*   GPU resources (**Note**: only the **h100_1.10** [MIG](../programming/multi-instance_gpu.md) profile is currently available, which provides 10GB of memory and 1/8 of the compute power of a full NVIDIA H100 GPU. [Requesting a GPU Video Tutorial](https://youtu.be/XRozBBKwA8c?si=64jipPoV-5ZzQpky&t=3025))
-*   Notify me by email when the job starts
+* Length of job in hours
+* Number of cores
+* Amount of memory to allocate (GB)
+* GPU resources
+    !!! note
+        Only the **h100_1.10** [MIG](../programming/multi-instance_gpu.md) profile is currently available, which provides 10GB of memory and 1/8 of the compute power of a full NVIDIA H100 GPU. [Requesting a GPU Video Tutorial](https://youtu.be/XRozBBKwA8c?si=64jipPoV-5ZzQpky&t=3025)
+* Notify me by email when the job starts
 
-When you have chosen your job parameters click on the **Launch** button to submit your job to the queue. You will be taken to the **My Interactive Sessions** page where you can see the status of your job, i.e. queued, running or completed. Once the job has been assigned a node and is running, you can click on the **Connect to ...** button to launch the application. The application will open in a new tab in your browser, and you can interact with it as if it was running locally.
+When you have chosen your job parameters, click on the **Launch** button to submit your job to the queue. You will be taken to the **My Interactive Sessions** page where you can see the status of your job, i.e. queued, running or completed. Once the job has been assigned a node and is running, you can click on the **Connect to ...** button to launch the application. The application will open in a new tab in your browser, and you can interact with it as if it was running locally.
 
-If you would like terminal access to the node where the application is running, to monitor the performance for example you can click on the button beside **Host** starting with `>_`. This will open a terminal window in your browser where you can run commands on the node directly.
+If you would like terminal access to the node where the application is running, to monitor the performance for example, you can click on the button beside **Host** starting with ``>_``. This will open a terminal window in your browser where you can run commands on the node directly.
 
 If for whatever reason you would like to kill the job, you can do so by clicking on the red **Cancel** button in the job panel in the **My Interactive Sessions** page.
 
-*   [Interactive Apps Video Tutorial](https://youtu.be/XRozBBKwA8c?si=9Fapd_d6jiNT6QqA&t=2118)
-
-The submission form allows you to select parameters like job length, cores, memory, and GPU resources. Once launched, the interactive sessions page displays the job status and provides a 'Connect' button to access the application. An active session then opens the application in a new browser tab.
+* [Interactive Apps Video Tutorial](https://youtu.be/XRozBBKwA8c?si=9Fapd_d6jiNT6QqA&t=2118)
 
 ### Installed applications
 
 We currently support the following applications:
 
-*   [JupyterLab/Notebook](https://jupyter.org)
-*   [Rstudio](https://posit.co/products/open-source/rstudio/?sid=1)
-*   [VSCode](https://code.visualstudio.com)
-*   Trillium Desktop
-*   [ParaView](https://www.paraview.org)
-*   [Forge DDT/MAP](https://www.linaroforge.com)
-*   [MATLAB](https://www.mathworks.com/products/matlab.html)
-*   [Ovito](https://www.ovito.org)
-*   [SAS](https://www.sas.com/en_ca/home.html)<sup>4</sup>
-*   [Stata](https://www.stata.com)<sup>4</sup>
-*   [Open Composer](https://github.com/RIKEN-RCCS/OpenComposer)
+* [JupyterLab/Notebook](https://jupyter.org)
+* [RStudio](https://posit.co/products/open-source/rstudio/?sid=1)
+* [VSCode](https://code.visualstudio.com)
+* Trillium Desktop
+* [ParaView](https://www.paraview.org)
+* [Forge DDT/MAP](https://www.linaroforge.com)
+* [MATLAB](https://www.mathworks.com/products/matlab.html)
+* [Ovito](https://www.ovito.org)
+* [SAS](https://www.sas.com/en_ca/home.html)<sup>4</sup>
+* [Stata](https://www.stata.com)<sup>4</sup>
+* [Open Composer](https://github.com/RIKEN-RCCS/OpenComposer)
 
-If you would like an application installed please email us at [support@scinet.utoronto.ca](mailto:support@scinet.utoronto.ca).
+If you would like an application installed, please email us at [support@scinet.utoronto.ca](mailto:support@scinet.utoronto.ca).
 
-*   [Jupyter Lab Video Tutorial](https://youtu.be/XRozBBKwA8c?si=Xxvu96XYVMNHocq8&t=2469)
-*   [Trillium Desktop Video Tutorial](https://youtu.be/XRozBBKwA8c?si=qvh56f5fvJpp5jrg&t=3117)
+* [Jupyter Lab Video Tutorial](https://youtu.be/XRozBBKwA8c?si=Xxvu96XYVMNHocq8&t=2469)
+* [Trillium Desktop Video Tutorial](https://youtu.be/XRozBBKwA8c?si=qvh56f5fvJpp5jrg&t=3117)
 
 ### JupyterLab Configuration
 
@@ -111,99 +194,114 @@ If you want to use a Python package that is not installed by default or included
 
 **Option 2**: Working with a [custom Python virtual environment](../software/python.md#creating-and-using-a-virtual-environment).
 
-From a terminal (started either in JupyterLab or by clicking **Cluster** -> **Trillium Shell Access** from the OnDemand navigation bar) you can create your own Python virtual environment and install the packages you need. For example, to create a virtual environment called `myenv` and install the `numpy` package, you can run the following commands:
+From a terminal (started either in JupyterLab or by clicking **Cluster** -> **Trillium Shell Access** from the OnDemand navigation bar) you can create your own Python virtual environment and install the packages you need. For example, to create a virtual environment called ``myenv`` and install the ``numpy`` package, you can run the following commands:
 
 ```bash
-module load python/3.14.2
-virtualenv --no-download ~/.virtualenvs/myenv
-source ~/.virtualenvs/myenv/bin/activate
+[username@tri-login01]$ module load python/3.14.2
+[username@tri-login01]$ virtualenv --no-download ~/.virtualenvs/myenv
+[username@tri-login01]$ source ~/.virtualenvs/myenv/bin/activate
 ```
 
 ```bash
-pip install numpy
+(myenv)[username@tri-login01]$ pip install numpy
 ```
 
-To turn this into a JupyterLab kernel, run the `venv2jup` command from within the activated virtual environment:
+To turn this into a JupyterLab kernel, run the ``venv2jup`` command from within the activated virtual environment:
 
 ```bash
-venv2jup
+(myenv)[username@tri-login01]$ venv2jup
 ```
 
-When you start a JupyterLab session, you should now see your virtual environment, `myenv`, as a kernel option.
+When you start a JupyterLab session, you should now see your virtual environment, ``myenv``, as a kernel option.
+
+### VS Code Extensions
+
+VS Code comes with ~40 default extensions. If you want to install your own extensions follow these steps:
+
+* From a terminal, create symbolic links to the centrally installed code-server extensions in your ``HOME`` directory:
+```bash
+module load code-server
+export CODESERVER_EXTENSIONS_DIR=$HOME/.local/share/code-server/extensions
+mkdir -p $CODESERVER_EXTENSIONS_DIR
+cp $MODULE_CODESERVER_EXTENSIONS_DIR/extensions.json $CODESERVER_EXTENSIONS_DIR
+for f in $MODULE_CODESERVER_EXTENSIONS_DIR/*-*; do ln -s $f $CODESERVER_EXTENSIONS_DIR; done
+```
+* Add the following command to your ``~/.bashrc`` file: ``export CODESERVER_EXTENSIONS_DIR=$HOME/.local/share/code-server/extensions``
+* Start a new VS Code interactive session and you will be able to install your own extensions.
 
 ## Running an application GUI
 
 If you would like to run software that has a graphical user interface (GUI) and is not yet installed as an interactive application, such as Octave, you can do so using the **Trillium Desktop** application. This app provides a remote desktop environment that you can access through your web browser. In the following example, we will run Octave's GUI:
 
-1.  Navigate to the **Interactive Apps** tab and select **Trillium Desktop** from the drop-down.
-2.  You will be taken to the job submission page. Choose how many cores and amount of memory you would like to allocate for your session in addition to your job length in hours. Then click on the **Launch** button to submit your job to the queue.
-3.  This will take you to the **My Interactive Sessions** page. Once your job is running, you have the option to improve the **Image Quality** and **Image Compression** of the desktop session. Depending on the speed of your internet connection, you may want to set these lower to improve performance and responsiveness of the desktop. Click on the **Connect to Trillium Desktop** button to launch the remote desktop environment in a new tab.
-4.  Once the desktop environment has loaded, open a terminal window using the desktop shortcut and load the required modules for Octave:
-    ```bash
-    module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 octave/7.2.0
-    ```
-5.  Now launch Octave's GUI by typing `octave --gui` in the terminal window.
+1. Navigate to the **Interactive Apps** tab and select **Trillium Desktop** from the drop-down.
+2. You will be taken to the job submission page. Choose how many cores and amount of memory you would like to allocate for your session in addition to your job length in hours. Then click on the **Launch** button to submit your job to the queue.
+3. This will take you to the **My Interactive Sessions** page. Once your job is running, you have the option to improve the **Image Quality** and **Image Compression** of the desktop session. Depending on the speed of your internet connection, you may want to set these lower to improve performance and responsiveness of the desktop. Click on the **Connect to Trillium Desktop** button to launch the remote desktop environment in a new tab.
+4. Once the desktop environment has loaded, open a terminal window using the desktop shortcut and load the required modules for Octave:
+```bash
+$ module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 octave/7.2.0
+```
+5. Now launch Octave's GUI by typing ``octave --gui`` in the terminal window.
 
-You should now see Octave's GUI appear in the remote desktop environment. You can use this method to run other GUI applications as well, just make sure to load the appropriate modules before launching the application. Applications may have different ways to launch their GUI, so please refer to the application's documentation for more information. You can see the list of binaries installed for a given application by looking at its environment variable, e.g. run `ls $EBROOTOCTAVE/bin` to see the list of Octave binaries.
+You should now see Octave's GUI appear in the remote desktop environment. You can use this method to run other GUI applications as well, just make sure to load the appropriate modules before launching the application. Applications may have different ways to launch their GUI, so please refer to the application's documentation for more information. You can see the list of binaries installed for a given application by looking at its environment variable, e.g. run ``ls $EBROOTOCTAVE/bin`` to see the list of Octave binaries.
 
-*   [Octave GUI Video Tutorial](https://youtu.be/XRozBBKwA8c?si=qvh56f5fvJpp5jrg&t=3117)
+* [Octave GUI Video Tutorial](https://youtu.be/XRozBBKwA8c?si=qvh56f5fvJpp5jrg&t=3117)
 
 ## Job submission
 
 Open OnDemand also provides a job submission interface that allows you to submit batch jobs to Trillium. This can be useful when you need more resources than the interactive jobs provide, i.e. exclusive access to 192 cores and 755GB of memory on a Trillium compute node.
 
-The [Open Composer](https://github.com/RIKEN-RCCS/OpenComposer) app provides a suite of Slurm job template scripts that can be submitted directly to the Trillium scheduler. It also provides an interface to monitor your submitted jobs, via the **History** tab. You can access Open Composer by navigating to the **Jobs** drop-down menu and selecting **Open Composer** or by clicking on one of the Slurm job templates e.g. **MPI Slurm Job**, **OpenMP Slurm Job** and **Hybrid MPI/OpenMP Slurm Job**.
+The [Open Composer](https://github.com/RIKEN-RCCS/OpenComposer) app provides a suite of Slurm job template scripts that can be submitted directly to the Trillium scheduler. It also provides an interface to monitor your submitted jobs, via the **History** tab. You can access **Open Composer** by navigating to the **Jobs** drop-down menu and selecting **Open Composer** or by clicking on one of the Slurm job templates e.g. **MPI Slurm Job**, **OpenMP Slurm Job** and **Hybrid MPI/OpenMP Slurm Job**.
 
 Once you have selected a job template, you will be taken to the job submission page. This is split between the job parameters on the left and the job script itself on the right. The job parameters let you control how many resources your job will use, such as the number of nodes, number of tasks per node, wall clock time and output file name. The job script section displays the script that will be submitted to the scheduler. Any changes made to the job parameters will be reflected in the job script automatically. You may also edit the job script directly if you wish.
 
 The extra fields at the top of the page allow you to change how your job is submitted:
 
-*   **Script Location**: specifies the directory where the job script will be saved and where your job will be run from.
-*   **Script Name**: specifies the name of the job script file.
-*   **Job Name**: specifies the name of the job that will appear in the job queue.
-*   **Cluster**: allows you to change which cluster to submit your job to, e.g. Trillium (default) or Trillium-GPU. Selecting Trillium-GPU will provide an additional job parameter to request GPU resources.
+* **Script Location**: specifies the directory where the job script will be saved and where your job will be run from.
+* **Script Name**: specifies the name of the job script file.
+* **Job Name**: specifies the name of the job that will appear in the job queue.
+* **Cluster**: allows you to change which cluster to submit your job to, e.g. Trillium (default) or Trillium-GPU. Selecting Trillium-GPU will provide an additional job parameter to request GPU resources.
 
 Once you are happy with your job script, click on the **Submit** button to submit the job to the scheduler and save your script to the **Script Location**. If your job was submitted successfully, you will see a confirmation message at the top of the page with your job ID.
 
 Note: The template scripts provided in Open Composer are basic examples to get you started. You will need to modify the job script further to suit your specific needs, such as loading your required modules and specifying input/output files. The job script still needs to conform to the limits set by the Trillium Slurm scheduler. Please refer to the Trillium [documentation](https://docs.alliancecan.ca/wiki/Trillium_Quickstart#Trillium_specific_restrictions) for more information on how to write job scripts.
 
-For more detailed instructions on Open Composer please see the [user manual](https://riken-rccs.github.io/OpenComposer/docs/manual.html).
+For more detailed instructions on Open Composer, please see the [user manual](https://riken-rccs.github.io/OpenComposer/docs/manual.html).
 
-*   [Open Composer Video Tutorial](https://youtu.be/XRozBBKwA8c?si=r5vcEw-lgM7xSJ6_&t=4263)
+* [Open Composer Video Tutorial](https://youtu.be/XRozBBKwA8c?si=r5vcEw-lgM7xSJ6_&t=4263)
 
 ### Monitoring jobs in Open Composer
 
 To monitor your submitted jobs in Open Composer, navigate to the **History** tab. This will display a list of all your submitted jobs, along with their status: Queued, Running, Completed, Failed. You can filter the jobs by using the **Filter** text box at the top right or by using the checkboxes below. Clicking on different column fields will give different information about the job:
 
-*   **Job ID**: opens the job in [my.SciNet](https://my.scinet.utoronto.ca/), which displays performance statistics and more detailed Slurm information about the job. Note: my.SciNet may show *Not found or not permitted* if the job hasn't started yet or was cancelled.
-*   **Application**: opens the job script editor of the template you used.
-*   **Script Location**: opens an OOD file browser window at the location of the job script. Clicking on the small terminal icon will open a terminal in the job script location.
-*   **Script Name**: displays the job script that was submitted to the scheduler.
+* **Job ID**: opens the job in [my.SciNet](https://my.scinet.utoronto.ca/), which displays performance statistics and more detailed Slurm information about the job. Note: my.SciNet may show *Not found or not permitted* if the job hasn't started yet or was cancelled.
+* **Application**: opens the job script editor of the template you used.
+* **Script Location**: opens an OOD file browser window at the location of the job script. Clicking on the small terminal icon will open a terminal in the job script location.
+* **Script Name**: displays the job script that was submitted to the scheduler.
 
-To resubmit or modify a previously run job click on the job script under the **Script Name** column and click **Load Parameters**. This will take you back to the job submission page where further modifications can be made to the job.
+To resubmit or modify a previously run job, click on the job script under the **Script Name** column and click **Load Parameters**. This will take you back to the job submission page where further modifications can be made to the job.
 
 ### Supported applications
 
 Open Composer currently supports the following applications for Slurm jobs:
 
-*   [MPI](../software/mpi.md)
-*   [OpenMP](../programming/openmp.md)
-*   Hybrid MPI/OpenMP
-*   [Python](../software/python.md)
-*   [R](../software/r.md)
-*   [VASP](../software/vasp.md)
+* [MPI](../software/mpi.md)
+* [OpenMP](../programming/openmp.md)
+* Hybrid MPI/OpenMP
+* [Python](../software/python.md)
+* [R](../software/r.md)
+* [VASP](../software/vasp.md)
 
 ## Job monitoring
 
-To get an overview of all your jobs in the queue you can use the job monitoring interface. Navigate to the **Jobs** tab and select **Active Jobs**. You can filter the jobs by using the **Filter** text box at the top right. Columns can also be sorted by clicking on the column headers, for example you can sort by job status (running, completed, failed, etc.). Clicking on `>` to the left of a job will show you more details about the job, such as the start/end time, node list and account charged, etc. You might also want to show all jobs in the queue, you can do this by clicking on the drop-down menu at the top right and selecting **All Jobs**. A more detailed view of your jobs can still be found using the [myscinet portal](https://my.scinet.utoronto.ca).
+To get an overview of all your jobs in the queue you can use the job monitoring interface. Navigate to the **Jobs** tab and select **Active Jobs**. You can filter the jobs by using the **Filter** text box at the top right. Columns can also be sorted by clicking on the column headers, for example you can sort by job status (running, completed, failed, etc.). Clicking on ``>`` to the left of a job will show you more details about the job, such as the start/end time, node list and account charged, etc. You might also want to show all jobs in the queue, you can do this by clicking on the drop-down menu at the top right and selecting **All Jobs**. A more detailed view of your jobs can still be found using the [myscinet portal](https://my.scinet.utoronto.ca).
 
-*   [Active Jobs Video Tutorial](https://youtu.be/XRozBBKwA8c?si=rf_JMYBFz9ytpkR_&t=1818)
+* [Active Jobs Video Tutorial](https://youtu.be/XRozBBKwA8c?si=rf_JMYBFz9ytpkR_&t=1818)
 
 ## Terminal access
 
-Sometimes you might prefer to use a terminal to interact with Trillium, Open OnDemand provides a web-based terminal that you can use to access the command-line interface. To access the terminal, navigate to the **Clusters** tab and select **Trillium Shell Access**. This will open a new tab in your browser with a terminal window where you can run commands as you would in a regular terminal session.
+Sometimes you might prefer to use a terminal to interact with Trillium. Open OnDemand provides a web-based terminal that you can use to access the command-line interface. To access the terminal, navigate to the **Clusters** tab and select **Trillium Shell Access**. This will open a new tab in your browser with a terminal window where you can run commands as you would in a regular terminal session.
 
-*   [Terminal Access Video Tutorial](https://youtu.be/XRozBBKwA8c?si=REh17mvUn8q50iys&t=1904)
+* [Terminal Access Video Tutorial](https://youtu.be/XRozBBKwA8c?si=REh17mvUn8q50iys&t=1904)
 
 ## Software modules
 
@@ -211,55 +309,57 @@ Trillium has a wide variety of software that can be accessed via modules. They c
 
 ## Debugging errors
 
-If you encounter any errors while using an interactive Open OnDemand job, you can check the logs for more information. To access the logs, navigate to the **My Interactive Sessions** tab and find your active session. Click on the `output.log` link to open a separate tab which displays the output of your job. This file contains the standard output and error messages generated by the job, which can help you identify any issues that may have occurred during the session. If you require further assistance, click on the support ticket button shown in your job's session card. Please include the `output.log` file and any other relevant information to help us assist you more effectively.
+If you encounter any errors while using an interactive Open OnDemand job, you can check the logs for more information. To access the logs, navigate to the **My Interactive Sessions** tab and find your active session. Click on the ``output.log`` link to open a separate tab which displays the output of your job. This file contains the standard output and error messages generated by the job, which can help you identify any issues that may have occurred during the session. If you require further assistance, click on the support ticket button shown in your job's session card. Please include the ``output.log`` file and any other relevant information to help us assist you more effectively.
 
 ## Troubleshooting
 
-### Undetermined session error message 'Your session has entered a bad state.'
+### Undetermined session error message *Your session has entered a bad state.*
 
 This happens when the underlying compute process has lost track of the Open OnDemand session. It most commonly occurs during system maintenance when compute nodes and the Slurm scheduler are rebooted.
 
-!!! tip "Solution"
-    This procedure may not work if the Slurm scheduler is down.
-    1.  Click on the 'Cancel' button.
-    2.  Check the session's *output.log* file for any error messages or maintenance-related notifications.
-    3.  Resubmit your session.
+**Solution**
 
-    If the issue persists, please click on the 'Submit Support Ticket' button and attach your *output.log* file so we can investigate further.
+This procedure may not work if the Slurm scheduler is down.
+
+1. Click on the *Cancel* button.
+2. Check the session's *output.log* file for any error messages or maintenance-related notifications.
+3. Resubmit your session.
+
+If the issue persists, please click on the *Submit Support Ticket* button and attach your *output.log* file so we can investigate further.
 
 ## Video tutorials
 
-*   [Dashboard](https://youtu.be/XRozBBKwA8c?si=fmks5--qaAf6Zat&t=1316)
-*   [File Browser](https://youtu.be/XRozBBKwA8c?si=e6Z2PvHRsCVmTKAQ&t=1510)
-*   [Interactive Apps](https://youtu.be/XRozBBKwA8c?si=9Fapd_d6jiNT6QqA&t=2118)
-*   [Jupyter Lab](https://youtu.be/XRozBBKwA8c?si=Xxvu96XYVMNHocq8&t=2469)
-*   [Trillium Desktop](https://youtu.be/XRozBBKwA8c?si=qvh56f5fvJpp5jrg&t=3117)
-*   [Job Submission with Open Composer](https://youtu.be/XRozBBKwA8c?si=r5vcEw-lgM7xSJ6_&t=4263)
-*   [Terminal Access](https://youtu.be/XRozBBKwA8c?si=REh17mvUn8q50iys&t=1904)
-*   [Job Monitoring](https://youtu.be/XRozBBKwA8c?si=rf_JMYBFz9ytpkR_&t=1818)
+* [Dashboard](https://youtu.be/XRozBBKwA8c?si=fmks5--qaAf6Zat&t=1316)
+* [File Browser](https://youtu.be/XRozBBKwA8c?si=e6Z2PvHRsCVmTKAQ&t=1510)
+* [Interactive Apps](https://youtu.be/XRozBBKwA8c?si=9Fapd_d6jiNT6QqA&t=2118)
+* [Jupyter Lab](https://youtu.be/XRozBBKwA8c?si=Xxvu96XYVMNHocq8&t=2469)
+* [Trillium Desktop](https://youtu.be/XRozBBKwA8c?si=qvh56f5fvJpp5jrg&t=3117)
+* [Job Submission with Open Composer](https://youtu.be/XRozBBKwA8c?si=r5vcEw-lgM7xSJ6_&t=4263)
+* [Terminal Access](https://youtu.be/XRozBBKwA8c?si=REh17mvUn8q50iys&t=1904)
+* [Job Monitoring](https://youtu.be/XRozBBKwA8c?si=rf_JMYBFz9ytpkR_&t=1818)
 
 ## Differences compared to the JupyterHub
 
-| feature                      | JupyterHub (decommissioned)                         | Open OnDemand                                                                                                                                                                                                            |
-| :--------------------------- | :-------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| *authentication*             | password                                            | password + MFA                                                                                                                                                                                                           |
-| *first installed*            | 2017                                                | 2025                                                                                                                                                                                                                     |
-| *last update*                | 2021                                                | 2025                                                                                                                                                                                                                     |
-| *supports*                   | Jupyter Notebook, JupyterLab (R, Python, Julia)     | Jupyter Notebook, JupyterLab (R, Python), Rstudio, VSCode, Desktop, SAS<sup>4</sup>, Stata<sup>4</sup>, ParaView, Forge DDT/MAP, MATLAB                                                                                   |
-| *start and continue later*   | Yes                                                 | Yes<sup>1</sup>                                                                                                                                                                                                          |
-| *command terminal*           | No                                                  | Yes                                                                                                                                                                                                                      |
-| *file management*            | Yes (limited)                                       | Yes                                                                                                                                                                                                                      |
-| *monitor jobs*               | No                                                  | Yes                                                                                                                                                                                                                      |
-| *submit jobs*                | No                                                  | Yes                                                                                                                                                                                                                      |
-| *core limit*                 | 8 cores<sup>2</sup>                                 | 20 cores (8 for high memory)<sup>3</sup>                                                                                                                                                                                 |
-| *memory limit*               | 48 GB<sup>2</sup>                                   | 85 GB (500 GB for high memory)<sup>3</sup>                                                                                                                                                                               |
-| *time limits*                | 3 days<sup>2</sup>                                  | 3 days<sup>3</sup>                                                                                                                                                                                                       |
-| *operating system*           | CentOS 7                                            | RockyLinux 9                                                                                                                                                                                                             |
-| *software stack*             | NiaEnv, CCEnv                                       | CCEnv                                                                                                                                                                                                                    |
-| *system issue alerts*        | No                                                  | Yes                                                                                                                                                                                                                      |
-| *user quota alerts*          | No                                                  | Yes                                                                                                                                                                                                                      |
-| *error logs*                 | No                                                  | Yes                                                                                                                                                                                                                      |
-| *hardware*                   | 1 x CPU with 40 Intel "CascadeLake" cores at 2.5 GHz, 1TB RAM | 62 x CPU with 40 Intel "CascadeLake" cores at 2.5 GHz, 180GB RAM (default)<br>3 x CPU with 40 Intel "CascadeLake" cores at 2.5 GHz, 1TB RAM (high memory)<br> 4 x NVIDIA H100 80GB GPUs, with 96-core AMD EPYC 9654 CPU at 2.4 GHz, 810GB RAM |
+| Feature | JupyterHub (decommissioned) | Open OnDemand |
+| :------ | :-------------------------- | :------------ |
+| *Authentication* | password | password + MFA |
+| *First installed* | 2017 | 2025 |
+| *Last update* | 2021 | 2025 |
+| *Supports* | Jupyter Notebook, JupyterLab (R, Python, Julia) | Jupyter Notebook, JupyterLab (R, Python), RStudio, VSCode, Desktop, SAS<sup>4</sup>, Stata<sup>4</sup>, ParaView, Forge DDT/MAP, MATLAB |
+| *Start and continue later* | Yes | Yes<sup>1</sup> |
+| *Command terminal* | No | Yes |
+| *File management* | Yes (limited) | Yes |
+| *Monitor jobs* | No | Yes |
+| *Submit jobs* | No | Yes |
+| *Core limit* | 8 cores<sup>2</sup> | 20 cores (8 for high memory)<sup>3</sup> |
+| *Memory limit* | 48 GB<sup>2</sup> | 85 GB (500 GB for high memory)<sup>3</sup> |
+| *Time limits* | 3 days<sup>2</sup> | 3 days<sup>3</sup> |
+| *Operating system* | CentOS 7 | RockyLinux 9 |
+| *Software stack* | NiaEnv, CCEnv | CCEnv |
+| *System issue alerts* | No | Yes |
+| *User quota alerts* | No | Yes |
+| *Error logs* | No | Yes |
+| *Hardware* | 1 x CPU with 40 Intel "CascadeLake" cores at 2.5 GHz, 1TB RAM | 62 x CPU with 40 Intel "CascadeLake" cores at 2.5 GHz, 180GB RAM (default)<br>3 x CPU with 40 Intel "CascadeLake" cores at 2.5 GHz, 1TB RAM (high memory)<br> 4 x NVIDIA H100 80GB GPUs, with 96-core AMD EPYC 9654 CPU at 2.4 GHz, 810GB RAM |
 
 <sup>1</sup> Within the requested limits.
 
@@ -267,4 +367,4 @@ This happens when the underlying compute process has lost track of the Open OnDe
 
 <sup>3</sup> Limits need to be requested before starting an application.
 
-<sup>4</sup> Only for users with a license for these products.
+<sup>4</sup> Only for users with a [licence](mailto:support@scinet.utoronto.ca) for these products.

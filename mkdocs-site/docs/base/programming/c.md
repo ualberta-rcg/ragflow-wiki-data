@@ -5,38 +5,38 @@ lang: "base"
 
 source_wiki_title: "C++"
 source_hash: "c7b09b188074cbdf67fb8065e597ea0e"
-last_synced: "2026-09-13T00:40:43.713374+00:00"
-last_processed: "2026-09-13T01:18:31.471786+00:00"
+last_synced: "2026-09-20T00:48:35.777859+00:00"
+last_processed: "2026-09-20T01:41:03.792503+00:00"
 
 tags:
   []
 
 keywords:
-  - "volatile"
-  - "C++"
-  - "concurrency and memory model"
-  - "-D_GLIBCXX_USE_CXX11_ABI=0"
-  - "C++ ABI compatibility"
-  - "ISO C++ standards"
-  - "-fp-model precise"
   - "C11/C++11 atomic operations"
-  - "high-performance computing"
-  - "compiler optimization"
   - "volatile keyword"
-  - "GCC dual ABI"
-  - "-O3 unsafe optimizations"
+  - "compiler optimization"
   - "compiler support"
+  - "GCC -O3 unsafe optimizations"
+  - "high-performance computing"
+  - "volatile"
+  - "Dual ABI with -D_GLIBCXX_USE_CXX11_ABI=0"
+  - "Intel -fp-model precise/source"
+  - "ABI change from GCC 4.9 to 5.1"
+  - "C++11 concurrency"
   - "synchronization"
+  - "ISO C++ standards"
+  - "-fabi-version compiler option"
+  - "libstdc++"
 
 questions:
-  - "What are the major ISO C++ standard versions released since its creation, and how often are new standards expected to be published?"
-  - "Why is it recommended to compile concurrent C++ code using C++11 or newer standards, and what issues can arise when using pre‑C++11 standards?"
-  - "How do differences in compiler and standard library implementations, especially regarding libstdc++ on Linux, affect building and running C++ programs?"
-  - "What are the risks of using GCC’s -O3 optimization flag and how can they be mitigated?"
-  - "How can developers resolve ABI incompatibilities when linking code compiled with different GCC versions, especially after the GCC 4.9 → 5.1 transition?"
-  - "Which compiler options should be used with Intel C/C++ compilers to ensure standards‑compliant floating‑point behavior?"
+  - "What are the major ISO C++ standard versions released so far, and how frequently does the ISO committee plan new releases?"
+  - "Why is it recommended to compile concurrent C++ code with C++11 or later standards rather than older versions?"
+  - "What are the typical pitfalls of using the `volatile` keyword in C++, and what alternatives should be used for proper synchronization?"
+  - "What are the risks of using the GCC -O3 optimization flag and how can they be mitigated?"
+  - "How does the ABI change introduced in GCC 5.1 affect linking with older binaries, and which compiler flag restores compatibility with the legacy ABI?"
+  - "Which Intel compiler options should be used to ensure ANSI/ISO/IEEE‑compliant floating‑point behavior, and where can detailed guidance be found?"
   - "In what rare cases is `volatile` appropriate to declare a variable in high‑performance C/C++ code?"
-  - "Why must `volatile` never be used for synchronization, and which C11/C++11 features should be used instead?"
+  - "Why is `volatile` unsuitable for thread synchronization, and which constructs should be used instead?"
   - "How does the semantics of `volatile` in languages like Java differ from its use in C/C++?"
 
 status:
@@ -67,8 +67,8 @@ Various compilers implement various language features differently. Compiler rele
 ### Standard library implementation
 It is important to realize that many C++ compilers under Linux do not actually provide their own implementation of the C++ Standard Library under certain operating systems (especially Linux). Instead these compilers will use one that is normally installed on the system. Typically this implies that libstdc++, which is distributed with GCC, is used.
 
-!!! note "Important Note"
-    While you need not worry about this, this is a reason C++ compilers other than GCC on systems across the Alliance must be configured by administrators to use a specific version of libstdc++ as several versions of GCC (and therefore libstdc++) are typically installed on a system. If such is set improperly, then there may be issues. This is also a reason why users should **never** hard-code paths to administrator-installed libraries in order to compile software.
+!!! note
+    While you need not worry about this, this is a reason C++ compilers other than GCC on systems across Compute Canada must be configured by administrators to use a specific version of libstdc++ as several versions of GCC (and therefore libstdc++) are typically installed on a system. If such is set improperly, then there may be issues. This is also a reason why users should **never** hard-code paths to administrator-installed libraries in order to compile software.
 
 The GCC documentation has a section which details [Standard Library components are supported in libstdc++](https://gcc.gnu.org/onlinedocs/libstdc++/manual/status.html).
 
@@ -86,9 +86,9 @@ The reader should note that `volatile` in C and C++ have very specific meanings,
 The GCC compiler's -O3 option includes possibly unsafe optimizations for some types of code (e.g., code relying on aliasing). If unsure, compile and optimize code using the -O2 option instead. If you've more time, read the man page (e.g., `man g++`) and unset the appropriate options by searching for "-O3" to see which options are turned on and turn off the settings that are not safe.
 
 ##### Linking with older previously compiled binaries
-The transition from GCC version 4.9 to version 5.1 introduced a major change to its ABI. If all source code including all dependent libraries is recompiled using the same version of the compiler then there will be no issues. If different compilers are used, the ABI change may cause linking to fail. The latter is likely to occur if you are linking to precompiled libraries provided in a vendor's product. If this occurs, you can use GCC's Dual ABI feature to tell GCC to use the old ABI in order for your application to link properly with those legacy libraries, e.g., you would pass `-D_GLIBCXX_USE_CXX11_ABI=0` to GCC if using GCC v5.1 or higher to link to libraries built using the older ABI.
+The transition from GCC version 4.9 to version 5.1 introduced a major change to its ABI. If all source code including all dependent libraries is recompiled using the same version of the compiler then there will be no issues. If different compilers are used, the ABI change may cause linking to fail. The latter is likely to occur if you are linking to precompiled libraries provided in a vendor's product. If this occurs, you can use GCC's Dual ABI[^1] feature to tell GCC to use the old ABI in order for your application to link properly with those legacy libraries, e.g., you would pass `-D_GLIBCXX_USE_CXX11_ABI=0` to GCC if using GCC v5.1 or higher to link to libraries built using the older ABI.
 
-An example of how the ABI is affected by various GCC command-line options here: [GCC C++ Dual ABI](gcc_c___dual_abi.md).
+An example of how the ABI is affected by various GCC command-line options here: GCC C++ Dual ABI.
 
 Generally speaking, the C++ ABI is frequently updated. One should assume each major compiler release might break the C++ ABI enough that older binaries will have trouble linking C++ code. The solution is typically to keep using the same compiler, or, recompile the older binaries from source with the newer compiler. With GCC such options can be controlled, e.g., see [this page](https://gcc.gnu.org/onlinedocs/gcc/C_002b_002b-Dialect-Options.html) on `-fabi-version`.
 
@@ -96,4 +96,4 @@ Generally speaking, the C++ ABI is frequently updated. One should assume each ma
 Intel C/C++ compilers may default to using possibly unsafe optimizations for floating-point operations. Users using the Intel compilers should read the Intel man pages (e.g., `man icpc`) and are recommended to use one of two options, `-fp-model precise` or `-fp-model source`, for ANSI/ISO/IEEE standards-compliant floating-point support. For more details, read this Intel slideshow called, [Floating-point control in the Intel compiler and libraries](https://software.intel.com/sites/default/files/article/326703/fp-control-2012-08.pdf).
 
 ## References
-*   Free Software Foundation. The GNU C++ Library, Chapter 3. [https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html)
+[^1]: Free Software Foundation. The GNU C++ Library, Chapter 3. [https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html)

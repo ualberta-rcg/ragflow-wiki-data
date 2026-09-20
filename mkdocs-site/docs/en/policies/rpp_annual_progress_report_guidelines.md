@@ -4,39 +4,40 @@ slug: "rpp_annual_progress_report_guidelines"
 lang: "en"
 
 source_wiki_title: "RPP Annual Progress Report Guidelines/en"
-source_hash: "10ea61b6c52c55f05fee56b86283cb24"
-last_synced: "2026-09-06T00:43:13.954271+00:00"
-last_processed: "2026-09-06T02:49:48.037237+00:00"
+source_hash: "98c3debd8d9c529abfc2408d290d2a28"
+last_synced: "2026-09-20T00:48:35.777859+00:00"
+last_processed: "2026-09-20T01:51:38.470747+00:00"
 
 tags:
   []
 
 keywords:
-  - "science score"
-  - "resource allocation"
-  - "usage statistics"
-  - "original RPP application"
-  - "multi-year allocation"
-  - "acceptable changes"
-  - "Federation support"
-  - "progress report"
-  - "multi-year projects"
-  - "allocation process"
-  - "training and outreach"
-  - "mandatory annual progress report"
-  - "resource usage table"
+  - "compute resources"
   - "RPP Annual Progress Report"
+  - "research outcomes"
+  - "multi-year allocation"
+  - "user breakdown"
+  - "usage statistics"
+  - "progress report"
+  - "development team"
+  - "allocations consistent"
+  - "review process"
+  - "resource usage table"
+  - "mitigation plans"
+  - "resource allocation changes"
+  - "mandatory annual report"
+  - "Federation support justification"
 
 questions:
-  - "What is the deadline for submitting the RPP Annual Progress Report, and what are the consequences if the report is not received on time?"
-  - "Which specific data and sections are required in the online RPP progress report form for multi‑year projects?"
-  - "How does the review process incorporate the completed progress report to decide on the renewal or adjustment of a project's resource allocation?"
-  - "What factors can cause the compute resources awarded to a project to be scaled up or down during the competition period?"
-  - "Which specific items does the Federation staff evaluate in the annual RPP Progress Report to assess a project's continued eligibility and resource needs?"
-  - "What types of allocation adjustments are permitted without submitting a new application, and what limits or conditions apply to those changes?"
-  - "What steps should a respondent take to submit additional comments or attach a PDF file?"
-  - "How is the science score from the original RPP application incorporated into the allocation process after a progress report is completed and reviewed?"
-  - "What is the procedure for allocating new and continuing platforms and portals following the review of a multi‑year project’s progress report?"
+  - "What is the deadline for submitting the RPP Annual Progress Report, and what happens to the allocation if the report is not received on time?"
+  - "Which specific data and sections are required in the mandatory annual progress report for multi‑year RPP projects?"
+  - "How does the review team incorporate the progress report information and the original science score into the allocation decision for the next year?"
+  - "What metrics are recommended for demonstrating uptake and continuous usage of the platform (e.g., hits, users, downloads, storage utilization)?"
+  - "Which resource changes are permitted in the annual RPP Progress Report without submitting a new application, and what are the limits on those changes?"
+  - "How are PIs expected to communicate and manage reductions in their allocated resources to support optimal redistribution?"
+  - "How does the progress report affect the scaling of compute resources awarded?"
+  - "Which specific items does the Federation staff consider when reviewing a progress report?"
+  - "What steps are taken to mitigate identified issues and challenges, including revisions to the project plan and schedule?"
 
 status:
   downloaded: true
@@ -47,18 +48,19 @@ status:
   qa_generated: false
 ---
 
-|Application process|Start|Deadline
-|:------------------------|:----------|:---------
-|**RPP Annual Progress Report**|**September 23, 2026**|**November 3, 2026,** at **11:59 p.m. Eastern Standard Time**
+| Application process           | Start             | Deadline                                                              |
+|:------------------------------|:------------------|:----------------------------------------------------------------------|
+| RPP Annual Progress Report    | September 23, 2026 | November 3, 2026, at 11:59 p.m. Eastern Standard Time                 |
 
-*Extension of this deadline is not possible.*
+!!! warning "Deadline"
+    Extension of this deadline is not possible.
 
 The Research Platforms and Portals (RPP) application process allows Principal Investigators (PIs) to request multi-year allocations, up to 3 years.
 
 Awarded multi-year projects do not need to submit a new application every year but are required to complete a **mandatory** annual progress report. The lead PI will be notified by email with instructions for the information required and the submission process.
 
-!!! warning "Mandatory Annual Progress Report"
-    If the annual report for your project is not received by the deadline, then your RPP allocation for the current year will not be renewed.
+!!! warning "Allocation Renewal"
+    **If the annual report for your project is not received by the deadline, *then your RPP allocation for the current year will not be renewed*.**
 
 These reports are essential to ensure that the limited computational resources offered by the Federation are being used effectively and efficiently.
 
@@ -75,10 +77,10 @@ Please provide an update on the status of your platform or portal. Include an up
 
 *Options:*
 
-* *Planning*
-* *Prototyping*
-* *In production*
-* *Other (please explain)*
+*   *Planning*
+*   *Prototyping*
+*   *In production*
+*   *Other (please explain)*
 
 **Q2. Issues**
 
@@ -98,28 +100,12 @@ Provide usage details in the table below. Please explain in the textbox whether 
 
 Provide counts both of the unique users and the total number of platform or portal accesses since the previous year’s progress report (or since the start of the award) and identify growth over that period. “Canadian Users” refers to any user based at a Canadian institution. The data collection period will usually represent the usage since the last progress report or the previous year. If this is the first progress report for your project, it will represent the number of users since the award was made.
 
-|User|# of Unique Users|# of Accesses|Compute Usage (Core-Years)|Storage Allocated (TB)
-|:---|:----------------|:------------|:--------------------------|:----------------------
-|Canadian||||
-|International||||
+| User          | # of Unique Users | # of Accesses | Compute Usage (Core-Years) | Storage Allocated (TB) |
+|:--------------|:------------------|:--------------|:---------------------------|:-----------------------|
+| Canadian      |                   |               |                            |                        |
+| International |                   |               |                            |                        |
 
-**Q6. Training and outreach**
-
-Provide the total number of HQP directly engaged in projects utilizing the provided computational resources through the use of your platform and across academic levels.
-
-|HQP|# of Unique HQP
-|:------------------|:----------------
-|Undergraduate Student||
-|Master’s Student||
-|PhD||
-|PostDoc||
-|Research Associates||
-|Research Staff||
-|Visiting Scholars||
-|Alumni Faculty||
-|Other||
-
-**Q7. General comments**
+**Q6. General comments**
 
 *If you have any other comments that you would like to include, add them in the text box or attach a PDF file using the browser button.*
 
@@ -130,24 +116,24 @@ Although we strive to keep the allocations consistent from year-to-year, compute
 
 The progress report is reviewed by Federation staff. Particular items considered by the review team include:
 
-1. Creation of the development team.
-2. Development effort with prototypes in operation.
-3. Identification of issues and challenges that have been encountered, and plans for mitigation including revisions to the project plan and schedule.
-4. Evidence of uptake through preliminary usage statistics.
-5. Evidence of continuous usage. Number of hits, number of users, total downloads/uploads, storage utilization, etc.
-6. Evidence of marketing effort.
-7. User breakdown between Canadian and international users.
-8. Research outcomes associated with the platform (for example, number of papers acknowledging or citing the gateway).
-9. Expected changes in support levels from the Federation. In particular, requests for significant increases in Federation support need to be justified.
+1.  Creation of the development team.
+2.  Development effort with prototypes in operation.
+3.  Identification of issues and challenges that have been encountered, and plans for mitigation including revisions to the project plan and schedule.
+4.  Evidence of uptake through preliminary usage statistics.
+5.  Evidence of continuous usage. Number of hits, number of users, total downloads/uploads, storage utilization, etc.
+6.  Evidence of marketing effort.
+7.  User breakdown between Canadian and international users.
+8.  Research outcomes associated with the platform (for example, number of papers acknowledging or citing the gateway).
+9.  Expected changes in support levels from the Federation. In particular, requests for significant increases in Federation support need to be justified.
 
 ## Acceptable changes
 Some changes to projected resources are allowed in the annual RPP Progress Report without having to submit a new application. These changes include:
 
-* *increasing up to 10% of the amount of CPU, GPU, storage or cloud originally requested for the current competition period (all requests for an increase are subject to review and are dependent on capacity constraints, so they are not guaranteed);*
-* moving an allocation from one system to another;
-* splitting an existing allocation into up to two systems;
-* consolidating allocations on multiple systems into one location;
-* decreasing an allocation;
-* terminating an allocation (if no longer needed).
+*   *increasing up to 10% of the amount of CPU, GPU, storage or cloud originally requested for the current competition period (all requests for an increase are subject to review and are dependent on capacity constraints, so they are not guaranteed);*
+*   moving an allocation from one system to another;
+*   splitting an existing allocation into up to two systems;
+*   consolidating allocations on multiple systems into one location;
+*   decreasing an allocation;
+*   terminating an allocation (if no longer needed).
 
-* PIs are encouraged to inform us if their projects require fewer quantities than originally requested so that limited resources can be redistributed to ensure optimal utilization.
+*   PIs are encouraged to inform us if their projects require fewer quantities than originally requested so that limited resources can be redistributed to ensure optimal utilization.

@@ -177,6 +177,24 @@ To turn this into a JupyterLab kernel, run the <code>venv2jup</code> command fro
 <!--T:210-->
 When you start a JupyterLab session, you should now see your virtual environment, <code>myenv</code>, as a kernel option.
 
+==VS Code Extensions== <!--T:2XX-->
+
+<!--T:219-->
+VS Code comes with ~40 default extensions.  If you want to install your own extensions follow these steps:
+
+<!--T:220-->
+* From a terminal, create symbolic links to the centrally installed code-server extensions in your <code>HOME</code> directory:
+{{Commands2
+| prompt=
+| 1=module load code-server
+| 2=export CODESERVER_EXTENSIONS_DIR=$HOME/.local/share/code-server/extensions
+| 3=mkdir -p $CODESERVER_EXTENSIONS_DIR
+| 4=cp $MODULE_CODESERVER_EXTENSIONS_DIR/extensions.json $CODESERVER_EXTENSIONS_DIR
+| 5=for f in $MODULE_CODESERVER_EXTENSIONS_DIR/*-*; do ln -s $f $CODESERVER_EXTENSIONS_DIR; done
+}}
+* Add the following command to your <code>~/.bashrc</code> file: <code>export CODESERVER_EXTENSIONS_DIR=$HOME/.local/share/code-server/extensions</code> 
+* Start a new VS Code interactive session and you will be able to install your own extensions.
+
 =Running an application GUI= <!--T:168-->
 
 <!--T:169-->

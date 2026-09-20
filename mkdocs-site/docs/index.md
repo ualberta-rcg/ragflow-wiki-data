@@ -77,20 +77,20 @@ title: Home
 | Service | Status |
 |---------|--------|
 | **Vulcan** | :material-check-circle:{ style="color: green" } Operational |
-| **Trillium** | :material-check-circle:{ style="color: green" } Operational |
+| **Trillium** | :material-alert:{ style="color: orange" } Trillium GPU login node issues / Problèmes sur le nœud de connexion GPU Trillium |
 | **Narval** | :material-check-circle:{ style="color: green" } Operational |
 | **Cedar Cloud** | :material-check-circle:{ style="color: green" } Operational |
 | **Graham Cloud** | :material-check-circle:{ style="color: green" } Operational |
 | **Nibi** | :material-check-circle:{ style="color: green" } Operational |
 | **Fir** | :material-check-circle:{ style="color: green" } Operational |
-| **Rorqual** | :material-calendar:{ style="color: blue" } 2026-09-14 |
+| **Rorqual** | :material-calendar:{ style="color: blue" } 2026-09-21 |
 | **Arbutus** | :material-check-circle:{ style="color: green" } Operational |
 | **Juno** | :material-check-circle:{ style="color: green" } Operational |
 | **Killarney** | :material-check-circle:{ style="color: green" } Operational |
 | **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
 | **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-09-13 01:33 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-09-20 01:59 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -100,18 +100,18 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 
 | Date | Event | Link |
 |------|-------|------|
-| TBD | Untitled | [Details](https://scinet.courses/1407) |
-| TBD | Untitled | [Details](https://bioinformatics.ca/workshops-all/cbw-cs-dcc-microbiome-analysis/) |
+| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-deboguer-son-code-python-en-ligne-de-commande-1999385591125?aff=explora) |
 | TBD | Untitled | [Details](https://scinet.courses/1408) |
-| TBD | Untitled | [Details](https://www.eventbrite.com/e/hands-on-introduction-to-r-programming-tickets-1998273572046) |
-| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4058329) |
-| TBD | Untitled | [Register](https://yorku.libcal.com/event/4054130) |
-| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4055795) |
+| TBD | Untitled | [Details](https://engagedri-ca.zoom.us/meeting/register/pKAK7FgzRBeZSz6Zpa-Hig) |
+| TBD | Untitled | [Details](https://www.eventbrite.com/e/data-exploration-and-visualization-in-r-tickets-2000483717651) |
+| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-visualisation-de-donnees-2d-et-3d-avec-paraview-en-ligne-prv101-1998913775913?aff=explora) |
+| TBD | Untitled | [Details](https://training.computeontario.ca/courses/course/view.php?id=107) |
+| TBD | Untitled | [Details](https://sharcnet-ca.zoom.us/meeting/register/E7j5-rJ8T5W6446_uD16IQ) |
+| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4060623) |
+| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4055800) |
 | TBD | Untitled | [Details](https://scinet.courses/1408) |
-| TBD | Untitled | [Register](https://forms.gle/gwZxrVkskX4qYm75A) |
-| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4050442) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-09-13 01:33 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-09-20 01:59 UTC.*</small>
 
 ---
 
