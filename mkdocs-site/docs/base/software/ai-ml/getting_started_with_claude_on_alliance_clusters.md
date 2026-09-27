@@ -4,9 +4,9 @@ slug: "getting_started_with_claude_on_alliance_clusters"
 lang: "base"
 
 source_wiki_title: "Getting started with Claude on Alliance clusters"
-source_hash: "d2f33e10d8161fe06ecb51393dd937ef"
-last_synced: "2026-09-06T00:43:13.954271+00:00"
-last_processed: "2026-09-06T03:02:08.142274+00:00"
+source_hash: "cd6491322069f83031607e256afb2bdf"
+last_synced: "2026-09-27T01:10:57.242992+00:00"
+last_processed: "2026-09-27T01:54:52.815013+00:00"
 
 tags:
   - ai-and-machine-learning
@@ -14,48 +14,46 @@ tags:
   - running-jobs
 
 keywords:
-  - "Python program"
-  - "Claude"
-  - "current date"
-  - "SSH public key"
-  - "claude doctor"
-  - "multifactor authentication"
-  - "example prompt"
-  - "authentication"
-  - "native installation"
-  - "PATH"
-  - "Duo MFA"
-  - "SLURM directives"
-  - "resource allocation"
-  - "hostname"
-  - "Claude Code"
-  - "environment variables"
-  - "Python version"
-  - "network connectivity"
-  - "SLURM script"
-  - "authentication fails"
+  - "job monitoring with squeue"
   - "Claude Science"
-  - "squeue"
-  - "standard SSH"
+  - "Claude"
+  - "automation node"
+  - "salloc command"
+  - "Claude scientific workflow"
+  - "sbatch script"
+  - "connection issue"
+  - "installation"
+  - "authentication"
+  - "HPC best practices"
+  - "ssh -v"
+  - "embedded SSH client"
+  - "Slurm output error files"
   - "SLURM allocation"
-  - "sbatch"
+  - "standard SSH"
+  - "SLURM script"
+  - "diagnostic steps"
+  - "Claude Code"
+  - "Alliance clusters"
+  - "Duo MFA"
+  - "SLURM"
+  - "#SBATCH directive"
 
 questions:
-  - "What prerequisites and policy checks should be completed before installing and using Claude Code on an Alliance cluster?"
-  - "What are the recommended methods for installing Claude Code (native script vs. npm) and the associated best‑practice guidelines for path configuration and permission handling?"
-  - "How should Claude Code be authenticated and executed interactively within a SLURM allocation while maintaining security and human oversight?"
-  - "What #SBATCH directives should be reviewed and possibly adjusted when Claude generates a SLURM script for a specific job?"
-  - "Which commands and validation steps should users perform to monitor a submitted SLURM job and confirm its successful execution?"
-  - "What troubleshooting actions are recommended if Claude Science encounters SSH authentication problems, such as failing to present the Duo MFA challenge?"
-  - "What functionalities must the `hello_cluster.py` program implement according to the example prompt?"
-  - "How should the initial prompt be phrased to read the current project, explain its directory structure, and ensure no files are modified?"
-  - "What does the provided example Python code do, and which standard library modules does it import?"
-  - "How can I verify that the `~/.local/bin` directory is correctly added to my `PATH` so Claude commands are recognized?"
-  - "What steps should I follow to troubleshoot authentication failures reported by `claude doctor` while ensuring tokens remain private?"
-  - "Why does a standard SSH connection work but Claude Science fails, and how can I diagnose issues with interactive sessions, terminal handling, and MFA challenges?"
-  - "How can I modify the #SBATCH directives to reduce resource requests that exceed the cluster limits before submitting a job?"
-  - "What are the recommended steps to review a program, propose a complete SLURM script for the Alliance cluster, and validate its directives without actually submitting the job?"
-  - "Which security policies and best‑practice guidelines should I follow when using Claude (or other AI agents) on the Alliance cluster, particularly regarding GPU usage, sensitive data, and authentication methods?"
+  - "What preparatory checks and policies should be verified before installing and using Claude Code on an Alliance cluster?"
+  - "How can Claude Code be installed (natively or via npm) on a shared cluster, and which commands confirm a successful installation?"
+  - "Which authentication options are available for Claude Code, and what is the recommended login workflow for cluster environments?"
+  - "What are the required commands to request a SLURM allocation, open an interactive shell, and launch Claude within a project directory?"
+  - "How should a SLURM batch script be created, reviewed, and submitted to run a Python program such as hello_cluster.py, including resource specifications and log handling?"
+  - "What best‑practice guidelines are given for limiting Claude’s access to project files, monitoring job execution, and troubleshooting SSH connections with Duo MFA?"
+  - "What #SBATCH directives are required for the Alliance cluster script, and what does each directive do?"
+  - "What does the latest Slurm output and error indicate as the likely cause of failure, and which diagnostic steps should be taken before any modifications?"
+  - "Which elements of the workflow (CPU, memory, GPU, walltime, filesystem usage, Slurm directives) violate HPC best‑practice guidelines, and how should they be corrected?"
+  - "What diagnostic steps should be performed to investigate why the Duo MFA prompt is not displayed when Claude Science connects to the Alliance resource?"
+  - "How can you determine whether Claude Science is using an embedded SSH client versus the system ssh command during the connection attempt?"
+  - "Which specific details from the ssh ‑v output should be captured (while omitting any secret information) to help identify the cause of the connection behavior?"
+  - "Why does Claude fail to start when standard SSH works but the application integration does not present the Duo MFA challenge?"
+  - "What are the recommended methods for running Claude on the cluster, given that it cannot be installed on automation nodes?"
+  - "Which troubleshooting steps should be followed for common Claude issues such as “command not found,” authentication failures, or excessive resource requests?"
 
 status:
   downloaded: true
@@ -66,11 +64,11 @@ status:
   qa_generated: false
 ---
 
-**[Claude Code](https://claude.com/product/claude-code)** is a command-line coding agent developed by Anthropic. It can read and explain code, modify files, run shell commands, prepare SLURM scripts, analyze logs, and support debugging.
+**Claude Code** is a command-line coding agent developed by Anthropic. It can read and explain code, modify files, run shell commands, prepare SLURM scripts, analyse logs, and support debugging.
 
-This page describes the installation and use of Claude Code in the context of Alliance clusters. For general principles that apply to all AI agents, including execution location, SLURM, security, data, permissions, and MFA, see [Using AI Agents](using_ai_agents.md).
+This page describes the installation and use of Claude Code in the context of Alliance clusters. For general principles that apply to all AI agents including execution location, SLURM, security, data, permissions, and MFA (see [Using AI Agents](using_ai_agents.md)).
 
-**Terminology:** The term "Claude" on this page refers to Claude Code or an environment built on top of Claude Code. An interface such as "Claude Science" may wrap Claude Code, but its SSH connection or authentication mechanism may differ.
+**Terminology:** The term “Claude” on this page refers to Claude Code or an environment built on top of Claude Code. An interface such as “Claude Science” may wrap Claude Code, but its SSH connection or authentication mechanism may differ.
 
 ## Before you begin
 
@@ -96,7 +94,7 @@ claude --version
 
 ### Native installation
 
-Anthropic documentation recommends native installation on Linux. In an environment where external downloads are permitted:
+[Anthropic documentation recommends native installation on Linux](https://code.claude.com/docs/en/setup). In an environment where external downloads are permitted:
 
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
@@ -110,8 +108,8 @@ claude --version
 claude doctor
 ```
 
-!!! warning "Local Policies"
-    Outbound network and software installation policies may differ between systems. Do not use `sudo` to bypass permissions on a shared cluster.
+!!! note
+    **Check locally:** outbound network and software installation policies may differ between systems. Do not use `sudo` to bypass permissions on a shared cluster.
 
 ### Installation with npm
 
@@ -129,8 +127,7 @@ npm install -g @anthropic-ai/claude-code
 claude --version
 ```
 
-!!! warning
-    Do not use `sudo npm install -g` on a shared cluster.
+Do not use `sudo npm install -g` on a shared cluster.
 
 ### Verifying the installation
 
@@ -153,14 +150,62 @@ On first launch:
 claude
 ```
 
-the client normally opens the appropriate sign-in flow.
+Claude Code can be used with your Claude subscription or billed based on API usage through your Console account.
+
+**Select login method:**
+1.  **Claude account with subscription** · Pro, Max, Team, or Enterprise
+2.  **Anthropic Console account** · API usage billing
+3.  **3rd-party platform** · Amazon Bedrock, Microsoft Foundry, or Vertex AI
+
+The client normally opens the appropriate sign-in flow.
 
 Claude Code also requires network connectivity to the configured service. The executable may therefore work in one environment while the session fails in another if outbound network rules differ.
 
-!!! warning "Security Warning: Protect Secrets"
-    Never place an API key, password, private SSH key, or MFA code in a shared file, SLURM script, Git repository, or support ticket.
+!!! tip
+    **The easiest login method on clusters:** Select option 2, **Anthropic Console account**, and sign in with your Console account. This option uses usage-based API billing. After signing in through your browser, you may be prompted to copy a temporary authorization code and paste it into the terminal to complete authentication. Once authentication succeeds, Claude Code is ready to use. Start with a simple prompt about your current folder, such as: “Describe the files and subdirectories in this folder.”
 
-## Interactive execution with SLURM
+## Starter prompts
+
+The following examples can be used for controlled tests.
+
+### Understand the project
+
+```bash
+Read the project and explain:
+1. the directory structure;
+2. the main entry points;
+3. the dependencies;
+4. how the program is expected to run.
+Do not modify files.
+```
+
+### Create a SLURM script
+
+```bash
+Review this program and propose a Slurm script for an Alliance cluster.
+Explain every #SBATCH directive before creating the file.
+Do not submit the job.
+```
+
+### Analyse logs
+
+```bash
+Read the most recent Slurm output and error files.
+Identify the likely cause of failure.
+Propose diagnostic steps before proposing modifications.
+Do not modify files.
+```
+
+### HPC review
+
+```bash
+Review this workflow for HPC best practices.
+Check CPU, memory, GPU, walltime, filesystem usage and Slurm directives.
+Explain any issue you find.
+Do not change files and do not submit jobs.
+```
+
+## Run Claude in an interactive execution with SLURM (Optional)
 
 First request an allocation:
 
@@ -199,7 +244,7 @@ Exit Claude and the allocation when they are no longer needed. Check active jobs
 squeue -u "$USER"
 ```
 
-## Example test on Narval
+## Example test on a cluster
 
 The following example illustrates a controlled test. It can be adapted to another cluster.
 
@@ -221,7 +266,7 @@ claude_science_test/
 
 Example prompt:
 
-```markdown
+```bash
 Read the current project.
 Explain the directory structure.
 Do not modify any file.
@@ -231,7 +276,7 @@ Do not modify any file.
 
 Example prompt:
 
-```markdown
+```bash
 Create a Python program called hello_cluster.py.
 
 The program should:
@@ -244,7 +289,7 @@ Explain the code before creating it.
 
 Example program:
 
-```python
+```python title="hello_cluster.py"
 import platform
 import socket
 from datetime import datetime
@@ -258,7 +303,7 @@ print("Python:", platform.python_version())
 
 Example prompt:
 
-```markdown
+```bash
 Create a Slurm script to execute hello_cluster.py.
 
 Requirements:
@@ -272,7 +317,7 @@ Explain the script before creating it.
 
 Example script:
 
-```bash
+```bash title="run_hello.sh"
 #!/bin/bash
 #SBATCH --job-name=claude_hello
 #SBATCH --account=<account>
@@ -296,19 +341,19 @@ squeue -u "$USER"
 sacct -j <jobid> --format=JobID,JobName,State,Elapsed,AllocCPUS,ReqMem,MaxRSS,ExitCode
 ```
 
-### Analyze the results
+### Analyse the results
 
 Example prompt:
 
-```markdown
+```bash
 Read the newest Slurm output.
 Explain whether the execution succeeded.
 Identify errors, if any.
 Do not modify any files.
 ```
 
-!!! note "Important Principle"
-    Claude can accelerate development and analysis, but it does not replace scientific validation, code review, or understanding of the requested resources.
+!!! note
+    **Principle:** Claude can accelerate development and analysis, but it does not replace scientific validation, code review, or understanding of the requested resources.
 
 ## Claude and batch jobs
 
@@ -318,7 +363,7 @@ For a long, reproducible, or computationally expensive experiment, Claude's role
 2.  Have Claude generate a SLURM script and review every `#SBATCH` directive.
 3.  Submit the job with `sbatch` after human validation.
 4.  Use `squeue` and `sacct` to monitor execution.
-5.  Ask Claude to analyze logs and results, then independently validate the scientific conclusion.
+5.  Ask Claude to analyse logs and results, then independently validate the scientific conclusion.
 
 ## Restricting Claude's access to the project
 
@@ -359,11 +404,11 @@ If standard SSH works but the application integration does not present the Duo c
 
 An SSH public key and Duo MFA correspond to distinct authentication steps. Duo should not be bypassed.
 
-## Calcul Québec automation nodes
+## Automation nodes
 
-Calcul Québec has indicated that its automation nodes are intended for deterministic platforms fully controlled by the user. Claude, as an AI agent, does not meet this definition.
+Automation nodes are intended for deterministic platforms fully controlled by the user. Claude, as an AI agent, does not meet this definition.
 
-Claude should therefore not be requested as a persistent service on a Calcul Québec automation node.
+Claude should therefore not be requested as a persistent service on an automation node.
 
 Preferred options are:
 
@@ -373,54 +418,13 @@ Preferred options are:
 
 ## Troubleshooting
 
-| Symptom                                 | Check                                                                        | Action                                                                                                 |
-| :-------------------------------------- | :--------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
-| `claude: command not found`             | `which claude` and `echo $PATH`                                              | Check the user-space installation and the `~/.local/bin` directory.                                    |
-| Claude works in one environment but not another | `claude --version`, `claude doctor`, environment variables, and network connectivity | Compare `PATH`, authentication, and network access.                                                    |
-| Authentication fails                    | `claude doctor`                                                              | Check the authentication method; never publish tokens.                                                 |
-| Standard SSH works but Claude Science fails | `ssh -v` from the same environment                                     | Check how the application handles the interactive session, terminal, and MFA challenge.                |
-| A generated job requests too many resources | Review the `#SBATCH` directives                                        | Adjust resources before `sbatch` and validate the program's requirements.                              |
-
-## Starter prompts
-
-The following examples can be used for controlled tests.
-
-### Understand the project
-
-```markdown
-Read the project and explain:
-1. the directory structure;
-2. the main entry points;
-3. the dependencies;
-4. how the program is expected to run.
-Do not modify files.
-```
-
-### Create a SLURM script
-
-```markdown
-Review this program and propose a Slurm script for an Alliance cluster.
-Explain every #SBATCH directive before creating the file.
-Do not submit the job.
-```
-
-### Analyze logs
-
-```markdown
-Read the most recent Slurm output and error files.
-Identify the likely cause of failure.
-Propose diagnostic steps before proposing modifications.
-Do not modify files.
-```
-
-### HPC review
-
-```markdown
-Review this workflow for HPC best practices.
-Check CPU, memory, GPU, walltime, filesystem usage and Slurm directives.
-Explain any issue you find.
-Do not change files and do not submit jobs.
-```
+| Symptom | Check | Action |
+| :------ | :---- | :----- |
+| `claude: command not found` | `which claude` and `echo $PATH` | Check the user-space installation and the `~/.local/bin` directory. |
+| Claude works in one environment but not another | `claude --version`, `claude doctor`, environment variables, and network connectivity | Compare `PATH`, authentication, and network access. |
+| Authentication fails | `claude doctor` | Check the authentication method; never publish tokens. |
+| Standard SSH works but Claude Science fails | `ssh -v` from the same environment | Check how the application handles the interactive session, terminal, and MFA challenge. |
+| A generated job requests too many resources | Review the `#SBATCH` directives | Adjust resources before `sbatch` and validate the program's requirements. |
 
 ## Frequently asked questions
 

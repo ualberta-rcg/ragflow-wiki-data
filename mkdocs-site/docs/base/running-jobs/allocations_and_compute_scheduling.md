@@ -4,134 +4,135 @@ slug: "allocations_and_compute_scheduling"
 lang: "base"
 
 source_wiki_title: "Allocations and compute scheduling"
-source_hash: "8a002b5d58fb5e71f400cd5f72e6cbe1"
-last_synced: "2026-09-13T00:40:43.713374+00:00"
-last_processed: "2026-09-13T01:16:21.070496+00:00"
+source_hash: "a51e07f2764a5773d0d6348c7d807576"
+last_synced: "2026-09-27T01:10:57.242992+00:00"
+last_processed: "2026-09-27T01:36:39.353974+00:00"
 
 tags:
   - slurm
 
 keywords:
-  - "RAPIs"
-  - "RGU-core-memory ratios"
-  - "summed metric"
-  - "View Group Usage"
-  - "Queued jobs"
-  - "cluster bundle characteristics"
-  - "FP16 score"
-  - "allocation period"
-  - "End date (incl.)"
-  - "gpu-years"
-  - "single-precision floating-point (FP32)"
-  - "single-click toggle"
-  - "GPU-core-memory bundle"
-  - "GPU memory constraints"
-  - "projected usage"
-  - "Running total"
-  - "GPU instance"
-  - "allocation information"
-  - "Resource Allocation Project"
-  - "GPU per RGU"
-  - "resource allocation competition"
+  - "4GB per core"
+  - "half-precision floating-point operations (FP16)"
+  - "cluster bundle ratios"
   - "point system"
-  - "half-precision floating-point (FP16)"
-  - "FP32 score"
-  - "H100-80gb"
-  - "12 cores 288 GB"
-  - "SLURM portal"
-  - "core equivalent"
-  - "core-memory bundle"
-  - "Usage by submitter"
-  - "unique colors"
-  - "core year"
-  - "resource usage metrics"
-  - "Reference GPU Units (RGUs)"
-  - "total usage"
-  - "allocation target"
-  - "national clusters"
-  - "System pull-down menu"
-  - "RGU score"
-  - "profile 1g"
-  - "Slurm scheduler"
-  - "GPU instance fraction"
-  - "priority calculation"
-  - "SLURM Raw Usage"
-  - "Reference GPU unit (RGU)"
-  - "interactive Plotly options"
-  - "Plotly tools"
-  - "Metric selection"
-  - "Show submitter usage"
+  - "evaluation criteria"
+  - "projected usage"
   - "GPU-based allocation"
-  - "GPU usage"
-  - "GPU year"
-  - "RGU per GPU"
-  - "evaluation criteria and weights"
-  - "RGU equivalents"
-  - "core equivalents"
-  - "scheduler"
-  - "reference GPU unit (RGU)"
-  - "SLURM Raw Shares"
-  - "Projection period"
-  - "A100"
-  - "GPU node bundles"
+  - "GPU-core-memory bundle"
+  - "single-precision floating-point operations (FP32)"
+  - "GPU bundles"
+  - "End date (incl.)"
+  - "CPU days"
+  - "RGU score"
+  - "resource accounting"
+  - "System pull-down menu"
+  - "Show monthly usage"
+  - "core year"
   - "H100"
-  - "account selection"
-  - "multi-instance GPU technology"
-  - "Trillium"
-  - "Allocation target"
-  - "Multi-Instance GPU"
-  - "memory per g"
-  - "allocation"
-  - "monthly breakdown"
+  - "GPU instance fraction"
+  - "SLURM Raw Shares"
+  - "A100-40gb"
+  - "A100"
+  - "Queued jobs"
+  - "figure legend display options"
+  - "unique colors"
+  - "RGU-core-memory bundle"
+  - "GPU per RGU"
+  - "core-memory bundle"
+  - "Fir"
+  - "priority calculation"
+  - "12 cores"
   - "Start date (incl.)"
-  - "legend manipulation"
+  - "allocation"
+  - "multi-instance GPU technology"
+  - "RGU equivalents"
+  - "legend toggle"
+  - "Metric"
+  - "Summation"
+  - "GPU usage"
+  - "GPU"
+  - "core equivalents"
+  - "SLURM Raw Usage"
+  - "allocation information"
+  - "Running total"
+  - "monthly breakdown"
+  - "FP16 performance ratio"
+  - "Reference GPU Units (RGUs)"
+  - "memory per g"
+  - "Slurm portal"
+  - "Plotly tools"
+  - "Resource Allocation Project"
+  - "gpu-years"
+  - "profile 1g"
+  - "288 GB"
+  - "core equivalent"
+  - "Slurm scheduler"
+  - "Allocation target"
+  - "interactive Plotly navigation"
+  - "scheduler"
+  - "Usage by submitter"
+  - "H100-80gb"
+  - "total usage"
+  - "national clusters"
+  - "GPU instance"
+  - "resource usage"
+  - "Show submitter usage"
+  - "GPU year"
+  - "reference GPU unit (RGU)"
+  - "RAPIs"
+  - "280 GB"
+  - "summed metric"
+  - "Projection"
+  - "zoom and pan"
+  - "Multi-Instance GPU"
 
 questions:
-  - "What distinguishes storage allocations from core‑year or GPU‑year allocations in high‑performance computing?"
-  - "How does the scheduler determine job priority to help research groups stay within their allocation targets?"
-  - "Why were Reference GPU Units (RGUs) introduced, and what criteria are used to rank different GPU models for allocations?"
-  - "What are the two primary floating‑point precisions (FP32 and FP16) used by the user base, and how do they impact GPU selection?"
-  - "How does the amount of GPU memory available to users influence the evaluation criteria and ranking of GPU models?"
-  - "What is the significance of multi‑instance GPU technology in the criteria used to rank different GPU models?"
-  - "How are the RGU scores for whole‑GPU models derived from the FP32, FP16, and memory evaluation criteria?"
-  - "Which GPU instances can be selected for RAC 2027, and how is each instance’s RGU value estimated from its fraction of the GPU?"
-  - "Which GPU models are marked as allocatable for RAC 2027, and what are their combined scores and memory capacities?"
-  - "How are Reference GPU Units (RGUs) derived from the amount of GPU‑years requested in a RAC proposal?"
-  - "Why does the priority calculation for compute‑based jobs use the resources requested rather than the resources actually utilized?"
-  - "How does the scheduler compute the number of core equivalents for a job when the requested cores and memory deviate from the standard 1 core / 4 GB ratio?"
-  - "How is the utilization percentage determined for each GPU profile (e.g., 2g/7g, 3g/7g, Whole GPU)?"
-  - "What does a GPU instance of profile 1g represent in terms of an A100 or H100 GPU’s capacity?"
-  - "Why are 4g profiles not offered on the clusters?"
-  - "What is a reference GPU unit (RGU) and why is it added to the resource bundle alongside cores and memory?"
-  - "How does the accounting for GPU‑based allocation targets incorporate the RGU compared to core‑only allocation?"
-  - "In what way is the point system used to express RGU equivalence, similar to the core‑equivalence point system?"
-  - "How is the number of RGU equivalents calculated when a research group's request uses more RGUs than cores or memory in a bundle?"
-  - "What are the cores‑per‑RGU and memory‑per‑RGU ratios for each Alliance cluster listed in the “Ratios in bundles” table?"
-  - "How do the RGU‑equivalent values differ among GPU models such as the V100‑32 GB, A100‑40 GB, and H100‑80 GB based on their bundle specifications?"
+  - "What is the difference between storage allocations and core/GPU‑year allocations in terms of how usage is measured and allocated?"
+  - "How does the scheduler determine job priority to help research groups stay within their allocation targets, and what role does recent usage play?"
+  - "Why were Reference GPU Units (RGUs) introduced, and what criteria are used to rank different GPU models under this system?"
+  - "1. 哪些浮点精度（FP32 与 FP16）在用户中各占大约多少比例？"
+  - "2. 为什么 GPU 的显存容量对大量用户来说是一个重要的限制因素？"
+  - "3. 为了对不同 GPU 型号进行排名，作者选择了哪些评估标准以及它们各自的权重？"
+  - "How are the RGU scores for whole‑GPU models derived from the FP32 performance, FP16 performance, and memory size weightings?"
+  - "Which GPU models and MIG instance profiles can be selected for RAC 2027, and what RGU value is assigned to each?"
+  - "What does a “g” profile (e.g., 1g, 2g, 3g) represent in terms of GPU fraction and memory, and how does it influence the instance’s RGU score?"
+  - "How are Reference GPU Units (RGUs) calculated from a GPU request in the RAC allocation process?"
+  - "Why does the priority calculation for compute jobs consider the resources requested rather than the resources actually used?"
+  - "What is a core equivalent and how does the scheduler determine the number of core equivalents charged to a research group?"
+  - "What does a GPU instance of profile **1g** represent relative to an A100 or H100 GPU?"
+  - "How is the utilization percentage determined for the **H100‑3g.40gb** profile (e.g., “max(3g/7g, 40GB/80GB) ⇒ 50%”)?"
+  - "Why are **4g** profiles not offered on the clusters?"
+  - "What is a reference GPU unit (RGU) and how does the scheduler incorporate it into resource bundles?"
+  - "How does the point‑system used for core equivalence translate to measuring RGU equivalence for GPU allocations?"
+  - "Which resources are accounted for together with the RGU when determining GPU‑based allocation targets?"
+  - "How is the RGU‑equivalent count calculated when a job request uses more GPUs than the allocated cores or memory per bundle?"
+  - "What are the specific cores‑per‑RGU and memory‑per‑RGU ratios for each Alliance cluster listed in the “Ratios in bundles” table?"
+  - "How many RGU equivalents are assigned to the V100‑32 GB, A100‑40 GB, and H100‑80 GB GPU bundles on the fictive cluster, and what resources define those values?"
   - "What are the GPU‑core‑memory bundle specifications for the Fir cluster’s H100‑80 GB model?"
-  - "How many RGU are allocated per GPU for the H100‑80 GB in the Fir cluster?"
-  - "What is the recommended memory configuration per GPU for the H100‑80 GB in the Fir cluster?"
-  - "How does the scheduler calculate priority for multi‑GPU node requests, and what physical ratios must users consider?"
-  - "What are the steps to select and display usage metrics for a specific Slurm account in the Alliance Can portal?"
-  - "How do the core counts and memory allocations vary among the H100 and A100 GPU bundles across the Narval, Nibi, Rorqual, and Trillium clusters?"
-  - "How can users toggle individual metrics such as SLURM Raw Usage, SLURM Raw Shares, CCDB allocation, Queued jobs, and Total in the usage figure legend?"
-  - "What do the SLURM Raw Shares and SLURM Raw Usage lines represent, and how can they be used to assess an account’s allocation target and scheduling priority?"
-  - "How can a specific cluster and time interval be selected, and what job information is displayed for running and pending jobs within that interval?"
-  - "What does the gray portion of the stacked figure represent?"
-  - "How can you use Plotly tools to navigate (zoom, pan, etc.) the figure?"
-  - "What is the difference between single‑clicking and double‑clicking an item in the legend?"
+  - "How does the recommended memory per GPU differ from the bundled memory for the H100‑80 GB in the Fir cluster?"
+  - "What do the values “1.97” and “15.4” refer to in the Trillium node characteristics?"
+  - "How does the scheduler calculate priority for jobs that request multiple GPUs per node, and what physical‑ratio considerations must users keep in mind?"
+  - "What steps are required to display usage data for a specific Slurm account (including selecting system, dates, and parameters) on the Alliance Can Slurm portal?"
+  - "What are the core counts and memory allocations for each GPU bundle (e.g., H100‑1g.10gb, A100‑2g.10gb, H100‑80gb) across the Narval, Nibi, Rorqual, and Trillium clusters?"
+  - "How can you enable or disable specific metrics (such as SLURM Raw Usage, SLURM Raw Shares, CCDB allocation, Queued jobs, or Total) in the usage figure using the legend?"
+  - "What does the SLURM Raw Usage metric represent, and how does its value relative to SLURM Raw Shares indicate an account’s usage versus its target share?"
+  - "How do you select a particular cluster and define a custom time interval, and what effect does choosing an end date in the future have on the displayed data?"
+  - "What does each of the n unique colors represent in the stacked figure?"
+  - "How can you navigate and zoom the plot using the Plotly tools that appear when you hover over the figure?"
+  - "What actions do single‑clicking and double‑clicking items in the right‑hand legend perform?"
   - "What types of clusters are listed in the <i>System</i> pull‑down menu?"
   - "How do the “Start date (incl.)” and “End date (incl.)” fields determine which jobs are shown in the figure?"
   - "What is displayed when an end date set in the future is selected?"
   - "How does the “Projection” period behave when an end time after the present is selected, and what assumptions are made about pending and running jobs?"
-  - "What is the distinction between the “Total” and “Running total” summation modes, and how does the “Include Running jobs” option influence the displayed usage data?"
-  - "How can users access and interpret compute‑resource usage, allocation targets, and detailed monthly or submitter breakdowns within the CCDB?"
-  - "What details are shown in the “Usage by Resource Allocation Project” view, and how are RAPIs and allocation summaries presented?"
-  - "How does the system represent GPU usage for allocation projects, and what role do Reference GPU Units (RGUs) play in the breakdown?"
-  - "In what ways can usage be grouped and examined by individual submitters, and how can monthly usage be accessed for a specific user?"
-  - "What details do the usage tables provide about total usage to date and projected usage for the current allocation period?"
-  - "How can the “Show monthly usage” link be used to view a month‑by‑month breakdown for a specific compute resource?"
-  - "What does the “Show submitter usage” option display, and how does it break down usage by individual users?"
+  - "What is the difference between the “Total” and “Running total” summation options, and how does the “Include Running jobs” setting influence the displayed usage data?"
+  - "How can users view the running total of account usage against its allocation target, and why is a 30‑day interval recommended for evaluating the scheduler’s fair‑share performance?"
+  - "What information does the “Usage by Resource Allocation Project” tab show and how is it organized?"
+  - "How are GPU usage and Reference GPU Units (RGUs) displayed for projects that use GPUs?"
+  - "How can usage be viewed and broken down by individual submitters within the resource allocation projects?"
+  - "What information do the usage tables provide about total usage to date and projected usage for the current allocation period?"
+  - "How can a user display a monthly breakdown of usage for a specific compute resource using the “Show monthly usage” link?"
+  - "Which feature allows users to view a breakdown of usage by individual submitters on a cluster?"
 
 status:
   downloaded: true
@@ -172,48 +173,48 @@ The performance of GPUs has dramatically increased in recent years and continues
 
 Because roughly half of our users primarily use single-precision floating-point operations ([FP32](https://en.wikipedia.org/wiki/Single-precision_floating-point_format)), the other half use half-precision floating-point operations ([FP16](https://en.wikipedia.org/wiki/Half-precision_floating-point_format)), and a significant portion of all users are constrained by the amount of memory on the GPU, we chose the following evaluation criteria and corresponding weights to rank the different GPU models:
 
-| Evaluation Criterion                                  | Weight |
-| :---------------------------------------------------- | :----- |
-| FP32 score <small>(with dense matrices on regular GPU cores)</small> | 40%    |
-| FP16 score <small>(with dense matrices on [*Tensor cores*](https://www.techspot.com/article/2049-what-are-tensor-cores/))</small> | 40%    |
-| GPU memory score                                      | 20%    |
+| Evaluation Criterion | Weight |
+| :------------------- | :----- |
+| FP32 performance ratio (with dense matrices on regular GPU cores) | 40% |
+| FP16 performance ratio (with dense matrices on [*Tensor cores*](https://www.techspot.com/article/2049-what-are-tensor-cores/)) | 40% |
+| GPU memory size ratio | 20% |
 
-We currently use the NVidia **A100-40gb** GPU as the reference model and assign it an RGU value of 4.0 for historical reasons. We define its FP16 performance, FP32 performance, and memory size each as 1.0. Multiplying the percentages in the above table by 4.0 yields the following coefficients and RGU values for other models:
+We currently use the NVidia **A100-40gb** GPU as the reference model and assign it an RGU value of 4.0 for historical reasons. We define its FP16 performance, FP32 performance, and memory size each as 1.0. Multiplying the percentages in the above table by 4.0 yields the coefficients used to calculate the score of each component. RGU values of the available models are:
 
-RGU scores for whole GPU models
+**RGU scores for whole GPU models**
 
-|                          | FP32 score | FP16 score | Memory score | Combined score | Allocatable |
-| :----------------------- | :--------- | :--------- | :----------- | :------------- | :---------- |
-| **Coefficient:**         | 1.6        | 1.6        | 0.8          | (RGU)          | RAC 2027    |
-| **A100-40gb**            | **1.00**   | **1.00**   | **1.0**      | **4.0**        | Yes         |
-| A100-80gb                | 1.00       | 1.00       | 2.0          | 4.8            | No          |
-| H100-80gb                | 3.44       | 3.17       | 2.0          | 12.2           | Yes         |
-| B200-192gb               | 6.16       | 11.28      | 3.84         | 21.28          | Yes         |
+| | FP32 score | FP16 score | Memory score | Combined score | Allocatable |
+| :-------------- | :---------- | :---------- | :------------ | :------------- | :---------- |
+| **A100-40gb** | **1.60** | **1.60** | **0.80** | **4.0** | Yes |
+| A100-80gb | 1.60 | 1.60 | 1.60 | 4.8 | No |
+| H100-80gb | 5.48 | 5.08 | 1.60 | 12.2 | Yes |
+| B200-180gb | 6.16 | 11.28 | 3.60 | 21.0 | Yes |
 
-With the 2025 [infrastructure renewal](../clusters/infrastructure_renewal.md), it became possible to schedule a fraction of a GPU using [multi-instance GPU](../programming/multi-instance_gpu.md) technology. Different jobs, potentially belonging to different users, can run on the same GPU at the same time. Following [NVidia's terminology](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/#terminology), a fraction of a GPU allocated to a single job is called a *GPU instance*, also sometimes called a *MIG instance*.
+With the 2025 [infrastructure renewal](../clusters/infrastructure_renewal.md), it became possible to schedule a fraction of a GPU using [multi-instance GPU technology](../programming/multi-instance_gpu.md). Different jobs, potentially belonging to different users, can run on the same GPU at the same time. Following [NVidia's terminology](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/#terminology), a fraction of a GPU allocated to a single job is called a *GPU instance*, also sometimes called a *MIG instance*.
 
 The following table lists the GPU models and instances that can be selected in the CCDB form for RAC 2027. RGU values for GPU instances have been estimated from whole-GPU performance numbers and the fraction of the GPU which comprises the instance.
 
-GPU models and instances available for RAC 2027
+**GPU models and instances available for RAC 2027**
 
-| Model or instance | Fraction of GPU  | RGU  |
-| :---------------- | :--------------- | :--- |
-| **A100-40gb**     | Whole GPU ⇒ 100% | 4.0  |
-| A100-1g.5gb       | max(1g/7g, 5GB/40GB) ⇒ 14% | 0.6  |
-| A100-2g.10gb      | max(2g/7g, 10GB/40GB) ⇒ 28% | 1.1  |
-| A100-3g.20gb      | max(3g/7g, 20GB/40GB) ⇒ 50% | 2.0  |
-| **H100-80gb**     | Whole GPU ⇒ 100% | 12.2 |
-| H100-1g.10gb      | max(1g/7g, 40GB/80GB) ⇒ 14% | 1.7  |
-| H100-2g.20gb      | max(2g/7g, 40GB/80GB) ⇒ 28% | 3.5  |
-| H100-3g.40gb      | max(3g/7g, 40GB/80GB) ⇒ 50% | 6.1  |
-| **B200-192gb**    | Whole GPU ⇒ 100% | 21.3 |
+| Model or instance | Fraction of GPU | RGU |
+| :---------------- | :-------------- | :-- |
+| **A100-40gb** | Whole GPU ⇒ 100% | 4.0 |
+| A100-1g.5gb | max(1g/7g, 5GB/40GB) ⇒ 14% | 0.6 |
+| A100-2g.10gb | max(2g/7g, 10GB/40GB) ⇒ 28% | 1.1 |
+| A100-3g.20gb | max(3g/7g, 20GB/40GB) ⇒ 50% | 2.0 |
+| **H100-80gb** | Whole GPU ⇒ 100% | 12.2 |
+| H100-1g.10gb | max(1g/7g, 40GB/80GB) ⇒ 14% | 1.7 |
+| H100-2g.20gb | max(2g/7g, 40GB/80GB) ⇒ 28% | 3.5 |
+| H100-3g.40gb | max(3g/7g, 40GB/80GB) ⇒ 50% | 6.1 |
+| **B200-180gb** | Whole GPU ⇒ 100% | 21.0 |
 
-Note: a GPU instance of profile **1g** is worth 1/7 of an A100 or H100 GPU. The case of **3g** takes into consideration the extra amount of memory per **g**. **4g** profiles are not available on the clusters.
+!!! note
+    A GPU instance of profile **1g** is worth 1/7 of an A100 or H100 GPU. The case of **3g** takes into consideration the extra amount of memory per **g**. **4g** profiles are not available on the clusters.
 
 ## RAC awards hold RGU values constant
 
 *   During the Resource Allocation Competition (RAC), any proposal asking for GPUs must specify the preferred GPU model for the project. Then, in the CCDB form, the amount of reference GPU units (RGUs) will automatically be calculated from the requested amount of gpu-years per year of project.
-    *   For example, if you select the *narval-gpu* resource and request 13 gpu-years of the model A100-40gb, the corresponding amount of RGUs would be 13 \* 4.0 = 52. The RAC committee would then allocate up to 52 RGUs, depending on the proposal score. If your allocation must be moved to a different cluster, the committee will allocate gpu-years at that cluster so as to keep the amount of RGUs the same.
+    *   For example, if you select the *narval-gpu* resource and request 13 gpu-years of the model A100-40gb, the corresponding amount of RGUs would be 13 * 4.0 = 52. The RAC committee would then allocate up to 52 RGUs, depending on the proposal score. If your allocation must be moved to a different cluster, the committee will allocate gpu-years at that cluster so as to keep the amount of RGUs the same.
 
 # Detailed effect of resource usage on priority
 
@@ -255,36 +256,35 @@ Research groups are charged for the maximum number of RGU-core-memory bundles th
 
 Alliance systems have the following RGU-core-memory bundle characteristics (only one ratio per cluster):
 
-| Cluster                                | Cores per RGU | Memory per RGU (GB) |
-| :------------------------------------- | :------------ | :------------------ |
-| [Fir](../software/fir.md#node-characteristics)     | 0.98          | 23.6                |
-| [Narval](../clusters/narval.md#node-characteristics) | 3.00          | 31.1                |
-| [Nibi](../clusters/nibi.md#node-characteristics)   | 1.15          | 20.5                |
-| [Rorqual](../clusters/rorqual.md) | 1.31          | 10.2                |
-| [Trillium](../clusters/trillium.md#node-characteristics) | 1.97          | 15.4                |
+| Cluster | Cores per RGU | Memory per RGU (GB) |
+| :------ | :------------ | :------------------ |
+| [Fir](../software/fir.md#node-characteristics) | 0.98 | 23.6 |
+| [Narval](../clusters/narval.md#node-characteristics) | 3.00 | 31.1 |
+| [Nibi](../clusters/nibi.md#node-characteristics) | 1.15 | 20.5 |
+| [Rorqual](../clusters/rorqual.md) | 1.31 | 10.2 |
+| [Trillium](../clusters/trillium.md#node-characteristics) | 1.97 | 15.4 |
 
 And the following GPU-core-memory bundle characteristics:
 
-| Cluster                                | Model or instance | RGU per GPU | Bundle per GPU         | Recommended per GPU |
-| :------------------------------------- | :---------------- | :---------- | :--------------------- | :------------------ |
-| [Fir](../software/fir.md#node-characteristics)     | **H100-80gb**     | **12.2**    | **12 cores, 288 GB**   | **12 cores, 280 GB** |
-|                                        | H100-1g.10gb      | 1.74        | 1.7 cores, 41 GB       | 1 core, 35 GB       |
-|                                        | H100-2g.20gb      | 3.48        | 3.4 cores, 82 GB       | 3 cores, 70 GB      |
-|                                        | H100-3g.40gb      | 6.1         | 6 cores, 144 GB        | 6 cores, 140 GB     |
-| [Narval](../clusters/narval.md#node-characteristics) | **A100-40gb**     | **4.0**     | **12 cores, 124.5 GB** | **12 cores, 124 GB** |
-|                                        | A100-1g.5gb       | 0.57        | 1.7 cores, 17.7 GB     | 1 core, 15 GB       |
-|                                        | A100-2g.10gb      | 1.14        | 3.4 cores, 35.4 GB     | 3 cores, 31 GB      |
-|                                        | A100-3g.20gb      | 2.0         | 6.0 cores, 62.2 GB     | 6 cores, 62 GB      |
-|                                        | A100-4g.20gb      | 2.3         | 6.9 cores, 71.5 GB     | 6 cores, 62 GB      |
-| [Nibi](../clusters/nibi.md#node-characteristics)   | **H100-80gb**     | **12.2**    | **14 cores, 250 GB**   | **14 cores, 250 GB** |
-|                                        | H100-1g.10gb      | 1.74        | 2 cores, 35.7 GB       | 2 cores, 31 GB      |
-|                                        | H100-2g.20gb      | 3.48        | 4 cores, 71.4 GB       | 4 cores, 62 GB      |
-|                                        | H100-3g.40gb      | 6.1         | 7 cores, 125 GB        | 6 cores, 124 GB     |
-| [Rorqual](../clusters/rorqual.md) | **H100-80gb**     | **12.2**    | **16 cores, 124.5 GB** | **16 cores, 124 GB** |
-|                                        | H100-1g.10gb      | 1.74        | 2.3 cores, 17.7 GB     | 2 cores, 15 GB      |
-|                                        | H100-2g.20gb      | 3.48        | 4.5 cores, 35.4 GB     | 4 cores, 31 GB      |
-|                                        | H100-3g.40gb      | 6.1         | 8 cores, 62.2 GB       | 8 cores, 62 GB      |
-| [Trillium](../clusters/trillium.md#node-characteristics) | **H100-80gb**     | **12.2**    | **24 cores, 188 GB**   | **24 cores, 188 GB** |
+| Cluster | Model or instance | RGU per GPU | Bundle per GPU | Recommended per GPU |
+| :------ | :---------------- | :---------- | :------------- | :------------------ |
+| [Fir](../software/fir.md#node-characteristics) | **H100-80gb** | **12.2** | **12 cores, 288 GB** | **12 cores, 280 GB** |
+| [Fir](../software/fir.md#node-characteristics) | H100-1g.10gb | 1.74 | 1.7 cores, 41 GB | 1 core, 35 GB |
+| [Fir](../software/fir.md#node-characteristics) | H100-2g.20gb | 3.48 | 3.4 cores, 82 GB | 3 cores, 70 GB |
+| [Fir](../software/fir.md#node-characteristics) | H100-3g.40gb | 6.1 | 6 cores, 144 GB | 6 cores, 140 GB |
+| [Narval](../clusters/narval.md#node-characteristics) | **A100-40gb** | **4.0** | **12 cores, 124.5 GB** | **12 cores, 124 GB** |
+| [Narval](../clusters/narval.md#node-characteristics) | A100-1g.5gb | 0.57 | 1.7 cores, 17.7 GB | 1 core, 15 GB |
+| [Narval](../clusters/narval.md#node-characteristics) | A100-2g.10gb | 1.14 | 3.4 cores, 35.4 GB | 3 cores, 31 GB |
+| [Narval](../clusters/narval.md#node-characteristics) | A100-3g.20gb | 2.0 | 6.0 cores, 62.2 GB | 6 cores, 62 GB |
+| [Nibi](../clusters/nibi.md#node-characteristics) | **H100-80gb** | **12.2** | **14 cores, 250 GB** | **14 cores, 250 GB** |
+| [Nibi](../clusters/nibi.md#node-characteristics) | H100-1g.10gb | 1.74 | 2 cores, 35.7 GB | 2 cores, 31 GB |
+| [Nibi](../clusters/nibi.md#node-characteristics) | H100-2g.20gb | 3.48 | 4 cores, 71.4 GB | 4 cores, 62 GB |
+| [Nibi](../clusters/nibi.md#node-characteristics) | H100-3g.40gb | 6.1 | 7 cores, 125 GB | 6 cores, 124 GB |
+| [Rorqual](../clusters/rorqual.md) | **H100-80gb** | **12.2** | **16 cores, 124.5 GB** | **16 cores, 124 GB** |
+| [Rorqual](../clusters/rorqual.md) | H100-1g.10gb | 1.74 | 2.3 cores, 17.7 GB | 2 cores, 15 GB |
+| [Rorqual](../clusters/rorqual.md) | H100-2g.20gb | 3.48 | 4.5 cores, 35.4 GB | 4 cores, 31 GB |
+| [Rorqual](../clusters/rorqual.md) | H100-3g.40gb | 6.1 | 8 cores, 62.2 GB | 8 cores, 62 GB |
+| [Trillium](../clusters/trillium.md#node-characteristics) | **H100-80gb** | **12.2** | **24 cores, 188 GB** | **24 cores, 188 GB** |
 
 !!! note
     While the scheduler will compute the priority based on the usage calculated with the above bundles, users requesting multiple GPUs per node also have to take into account the physical ratios.
@@ -298,11 +298,11 @@ And the following GPU-core-memory bundle characteristics:
 
 ## Displaying a specified account
 
-If you have access to more than one [Slurm account](running_jobs.md#accounts-and-projects), the *Select user’s account* pull-down menu of the *SLURM account* panel lets you select which project account will be displayed in the figure window. If the *Select user’s account* is left empty the figure will display all of your usage across accounts on the specified cluster during the selected time period. The *Select user’s account* pull-down menu is populated by a list of all the accounts that have job records on the selected cluster during the selected time interval. Other accounts that you have access to but do not have usage on the selected cluster during the selected time interval will also appear in the pull-down menu but will be grayed out and not selectable as they would not generate a figure. When you select a single project account the figure is updated and the summary panel titled *Allocation Information* is populated with details of the project account. The height of each bar in the histogram figure corresponds to the metric for that day (e.g. CPU-equivalent days) across all users in the account on the system. The top seven users are displayed in unique colours stacked on top of the summed metric for all other users in gray. You can navigate the figure using [Plotly](https://plotly.com/graphing-libraries/) tools (zoom, pan, etc.) whose icons appear at the top-right when you hover your mouse over the figure window. You can also use the legend on the right-hand side to manipulate the figure. Single-clicking an item will toggle the item's presence in the figure, and double-clicking the item will toggle off or on all the other items in the figure.
+If you have access to more than one [Slurm account](running_jobs.md#accounts-and-projects), the *Select user’s account* pull-down menu of the *SLURM account* panel lets you select which project account will be displayed. If the *Select user’s account* is left empty, the figure will display all of your usage across accounts on the specified cluster during the selected time period. The *Select user’s account* pull-down menu is populated by a list of all the accounts that have job records on the selected cluster during the selected time interval. Other accounts that you have access to but do not have usage on the selected cluster during the selected time interval will also appear in the pull-down menu but will be greyed out and not selectable as they would not generate a figure. When you select a single project account the figure is updated and the summary panel titled *Allocation Information* is populated with details of the project account. The height of each bar in the histogram figure corresponds to the metric for that day (e.g. CPU-equivalent days) across all users in the account on the system. The top seven users are displayed in unique colours stacked on top of the summed metric for all other users in grey. You can navigate the figure using [Plotly](https://plotly.com/graphing-libraries/) tools (zoom, pan, etc.) whose icons appear at the top-right when you hover your mouse over the figure window. You can also use the legend on the right-hand side to manipulate the figure. Single-clicking an item will toggle the item's presence in the figure, and double-clicking the item will toggle off or on all the other items in the figure.
 
 ## Options in the figure legend
 
-The legend of the usage figure provides display options. Specifically, additional variables can be enabled or disabled from the figure legend. Beyond displaying the colour affiliation of each user displayed in the usage figure, the legend provides access to displaying *SLURM Raw Usage*, *SLURM Raw Shares*, *CCDB allocation*, the resources pending for *Queued jobs* and the daily *Total*. *SLURM Raw Usage* and *SLURM Raw Shares* is obtained from a poll of `sshare` for each account on the clusters. *CCDB allocation* is the account profile at CCDB representation of the *SLURM Raw Shares*. *Queued jobs* is a metric that represents the quantity of resources belonging to jobs that are pending in the job queue and is represented with narrow gray bars for each day in the figure window. *Total* adds text at the top of each bar indicating the daily total of the metric across users for the day. By single clicking any of the items in the legend the specific item is toggled in the figure window. By double clicking any of the items in the legend all other items in the figure are toggled on or off.
+The legend of the usage figure provides display options. Specifically, additional variables can be enabled or disabled from the figure legend. Beyond displaying the colour affiliation of each user displayed in the usage figure, the legend provides access to displaying *SLURM Raw Usage*, *SLURM Raw Shares*, *CCDB allocation*, the resources pending for *Queued jobs* and the daily *Total*. *SLURM Raw Usage* and *SLURM Raw Shares* are obtained from a poll of `sshare` for each account on the clusters. *CCDB allocation* is the account profile at CCDB representation of the *SLURM Raw Shares*. *Queued jobs* is a metric that represents the quantity of resources belonging to jobs that are pending in the job queue and is represented with narrow grey bars for each day in the figure window. *Total* adds text at the top of each bar indicating the daily total of the metric across users for the day. By single clicking any of the items in the legend the specific item is toggled in the figure window. By double clicking any of the items in the legend all other items in the figure are toggled on or off.
 
 ## Displaying the allocation target and queued resources
 
@@ -312,7 +312,7 @@ You can toggle the display of the *Queued jobs* metric, which presents a sum of 
 
 ## Mouse hover over the figure window
 
-Native Plotly interactive figure options are made available at the top right of the figure window when the mouse pointer hovers over the figure. Icons for 'Download plot as a png', 'Zoom', 'Pan', 'Box Select', 'Lasso Select', 'Zoom in', 'Zoom out', 'Autoscale' and 'Reset axes' allow for interactive navigation of the figure selection and scale. When hovering over bar items in the figure window, a hover text appears providing the *User Name*, *Day* and *Usage* quantity of the specific item under the pointer (note that this returns the usage quantity for the specific user not the sum across users for the day).
+Native Plotly interactive figure options are made available at the top right of the figure window when the mouse pointer hovers over the figure. Icons for *Download plot as a png*, *Zoom*, *Pan*, *Box Select*, *Lasso Select*, *Zoom in*, *Zoom out*, *Autoscale* and *Reset axes* allow for interactive navigation of the figure selection and scale. When hovering over bar items in the figure window, a hover text appears providing the *User Name*, *Day* and *Usage* quantity of the specific item under the pointer (note that this returns the usage quantity for the specific user not the sum across users for the day).
 
 ## Default SLURM Raw Shares and the SLURM Raw Usage
 
@@ -330,7 +330,7 @@ If you select an end time after the present time, the figure will have a transpa
 
 ## Metrics, summation, and running jobs
 
-Use the *Metric* pull-down control in the *Parameters* panel to select from the following metrics: CPU, CPU-equivalent, RGU, RGU-equivalent, Memory, Billing, GPU, and all specific GPU models available on the selected cluster.
+Use the *Metric* pull-down control in the *Parameters* panel to select from the following metrics: CPU, CPU-equivalent, RGU, RGU-equivalent, Memory, Billing, gpu, and all specific GPU models available on the selected cluster.
 
 The *Summation* pull-down allows you to switch between the daily *Total* and *Running total*. If you select *Total*, each bar of the histogram represents the total usage in that one day. If you select "Running total", each bar represents the sum of that day's usage and all previous days back to the beginning of the time interval. If the *Allocation Target* is displayed, it is similarly adjusted to show the running total of the target usage. See the next section for more.
 
@@ -347,16 +347,16 @@ Information on the usage of compute resources by your groups can be found by log
 CPU and GPU core year values are calculated based on the quantity of the resources allocated to jobs on the clusters. It is important to note that the values summarized in these pages do not represent core-equivalent measures such that, in the case of large memory jobs, the usage values will not match the cluster scheduler’s representation of the account usage.
 
 The first tab bar offers these options:
-*   **By Compute Resource**: cluster on which jobs are submitted;
-*   **By Resource Allocation Project**: projects to which jobs are submitted;
-*   **By Submitter**: user that submits the jobs;
-*   **Storage usage** is discussed in [Storage and file management](../storage-and-data/storage_and_file_management.md).
+: **By Compute Resource**: cluster on which jobs are submitted;
+: **By Resource Allocation Project**: projects to which jobs are submitted;
+: **By Submitter**: user that submits the jobs;
+: **Storage usage** is discussed in [Storage and file management](../storage-and-data/storage_and_file_management.md).
 
 ## Usage by compute resource
 
 This view shows the usage of compute resources per cluster used by groups owned by you or of which you are a member for the current allocation year starting April 1st. The tables contain the total usage to date as well as the projected usage to the end of the current allocation period.
 
-From the *Extra Info* column of the usage table *Show monthly usage* can be clicked to display a further breakdown of the usage by month for the specific cluster row in the table. By clicking *Show submitter usage*, a similar breakdown is displayed for the specific users submitting the jobs on the cluster.
+From the *Extra Info* column of the usage table, *Show monthly usage* can be clicked to display a further breakdown of the usage by month for the specific cluster row in the table. By clicking *Show submitter usage*, a similar breakdown is displayed for the specific users submitting the jobs on the cluster.
 
 ## Usage by resource allocation project
 
@@ -368,5 +368,4 @@ For resource allocation projects that have GPU usage, the table is broken down i
 
 ## Usage by submitter
 
-Usage can also be displayed grouped by the users that submitted jobs from within the resource allocation projects (group accounts). The view shows the usage for each user aggregated across systems.
-Selecting from the list of users will display that user’s usage broken down by cluster. Like the group summaries, these user summaries can then be broken down monthly by clicking the Show monthly usage link of the Extra Info column of the CPU/GPU Usage (in core/GPU years) table for the specific Resource row.
+Usage can also be displayed grouped by the users that submitted jobs from within the resource allocation projects (group accounts). The view shows the usage for each user aggregated across systems. Selecting from the list of users will display that user’s usage broken down by cluster. Like the group summaries, these user summaries can then be broken down monthly by clicking the Show monthly usage link of the Extra Info column of the CPU/GPU Usage (in core/GPU years) table for the specific Resource row.

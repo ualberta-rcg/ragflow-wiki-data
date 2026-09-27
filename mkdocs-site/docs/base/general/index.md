@@ -18,6 +18,7 @@ Auto-generated index for `base/general`.
 - [Meltdown And Spectre Bugs](meltdown_and_spectre_bugs.md)
 - [Metrix En Ca](metrix_en-ca.md)
 - [Page Translation](page_translation.md)
+- [Rocky](rocky.md)
 - [Technical Documentation](technical_documentation.md)
 - [Terminology](terminology.md)
 - [Test Moderation](test-moderation.md)

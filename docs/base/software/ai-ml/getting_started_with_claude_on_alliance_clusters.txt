@@ -34,7 +34,7 @@ claude --version
 
 === Native installation ===
 
-Anthropic documentation recommends native installation on Linux. In an environment where external downloads are permitted:
+[https://code.claude.com/docs/en/setup Anthropic documentation recommends native installation on Linux] . In an environment where external downloads are permitted:
 
 <pre>
 curl -fsSL https://claude.ai/install.sh | bash
@@ -89,13 +89,62 @@ On first launch:
 claude
 </pre>
 
+Claude Code can be used with your Claude subscription or billed based on API usage through your Console account.
+
+'''Select login method:'''
+# '''Claude account with subscription''' · Pro, Max, Team, or Enterprise
+# '''Anthropic Console account''' · API usage billing
+# '''3rd-party platform''' · Amazon Bedrock, Microsoft Foundry, or Vertex AI
 the client normally opens the appropriate sign-in flow.
 
 Claude Code also requires network connectivity to the configured service. The executable may therefore work in one environment while the session fails in another if outbound network rules differ.
 
-'''Secrets:''' never place an API key, password, private SSH key, or MFA code in a shared file, SLURM script, Git repository, or support ticket.
+'''The easiest login method on clusters:''' Select option 2, '''Anthropic Console account''', and sign in with your Console account. This option uses usage-based API billing.
+After signing in through your browser, you may be prompted to copy a temporary authorization code and paste it into the terminal to complete authentication. Once authentication succeeds, Claude Code is ready to use. Start with a simple prompt about your current folder, such as: “Describe the files and subdirectories in this folder.”
 
-== Interactive execution with SLURM ==
+== Starter prompts ==
+
+The following examples can be used for controlled tests.
+
+=== Understand the project ===
+
+<pre>
+Read the project and explain:
+1. the directory structure;
+2. the main entry points;
+3. the dependencies;
+4. how the program is expected to run.
+Do not modify files.
+</pre>
+
+=== Create a SLURM script ===
+
+<pre>
+Review this program and propose a Slurm script for an Alliance cluster.
+Explain every #SBATCH directive before creating the file.
+Do not submit the job.
+</pre>
+
+=== Analyze logs ===
+
+<pre>
+Read the most recent Slurm output and error files.
+Identify the likely cause of failure.
+Propose diagnostic steps before proposing modifications.
+Do not modify files.
+</pre>
+
+=== HPC review ===
+
+<pre>
+Review this workflow for HPC best practices.
+Check CPU, memory, GPU, walltime, filesystem usage and Slurm directives.
+Explain any issue you find.
+Do not change files and do not submit jobs.
+</pre>
+
+
+== Run Claude in an interactive execution with SLURM (Optional) ==
 
 First request an allocation:
 
@@ -134,7 +183,7 @@ Exit Claude and the allocation when they are no longer needed. Check active jobs
 squeue -u "$USER"
 </pre>
 
-== Example test on Narval ==
+== Example test on a cluster ==
 
 The following example illustrates a controlled test. It can be adapted to another cluster.
 
@@ -293,11 +342,11 @@ If standard SSH works but the application integration does not present the Duo c
 
 An SSH public key and Duo MFA correspond to distinct authentication steps. Duo should not be bypassed.
 
-== Calcul Québec automation nodes ==
+== Automation nodes ==
 
-Calcul Québec has indicated that its automation nodes are intended for deterministic platforms fully controlled by the user. Claude, as an AI agent, does not meet this definition.
+Automation nodes are intended for deterministic platforms fully controlled by the user. Claude, as an AI agent, does not meet this definition.
 
-Claude should therefore not be requested as a persistent service on a Calcul Québec automation node.
+Claude should therefore not be requested as a persistent service on an automation node.
 
 Preferred options are:
 
@@ -332,47 +381,6 @@ Preferred options are:
 | Review the <code>#SBATCH</code> directives
 | Adjust resources before <code>sbatch</code> and validate the program's requirements.
 |}
-
-== Starter prompts ==
-
-The following examples can be used for controlled tests.
-
-=== Understand the project ===
-
-<pre>
-Read the project and explain:
-1. the directory structure;
-2. the main entry points;
-3. the dependencies;
-4. how the program is expected to run.
-Do not modify files.
-</pre>
-
-=== Create a SLURM script ===
-
-<pre>
-Review this program and propose a Slurm script for an Alliance cluster.
-Explain every #SBATCH directive before creating the file.
-Do not submit the job.
-</pre>
-
-=== Analyze logs ===
-
-<pre>
-Read the most recent Slurm output and error files.
-Identify the likely cause of failure.
-Propose diagnostic steps before proposing modifications.
-Do not modify files.
-</pre>
-
-=== HPC review ===
-
-<pre>
-Review this workflow for HPC best practices.
-Check CPU, memory, GPU, walltime, filesystem usage and Slurm directives.
-Explain any issue you find.
-Do not change files and do not submit jobs.
-</pre>
 
 == Frequently asked questions ==
 

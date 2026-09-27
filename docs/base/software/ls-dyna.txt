@@ -91,26 +91,24 @@ Modules for running jobs on a single compute node can be listed with: <code>modu
 #SBATCH --mem=16G               # Specify total memory
 #SBATCH --nodes=1               # Do not change
 
-<!--T:39-->
-#module load StdEnv/2020        # Versions 12.0, 13.0, 13.1.1
-#export RSNT_ARCH=avx2
-#module load intel/2020.1.217
-#module load ls-dyna/13.1.1
-
 <!--T:38-->
-module load StdEnv/2023         # Version 12.2.1
-module load intel/2023.2.1
-module load ls-dyna/12.2.1
+module load StdEnv/2023         # Version 12.2.1 :
+module load intel/2023.2.1      # available on all clusters,
+module load ls-dyna/12.2.1      # uses ifort160_sse2 smp binary
 
 <!--T:170-->
-#export LSTC_LICENSE=ansys      # Specify an ANSYS License Server
-#export ANSYSLMD_LICENSE_FILE=<port>@<server>
+# Uncomment next two lines to use an ANSYS License Server
+#export LSTC_LICENSE=ansys                   # Do not change this setting
+#export ANSYSLMD_LICENSE_FILE=PORT@HOSTNAME  # Specify PORT and HOSTNAME
 
 <!--T:40-->
 #export LSTC_MEMORY=AUTO        # Optional for explicit only
 
 <!--T:41-->
-ls-dyna_d ncpu=$SLURM_CPUS_ON_NODE i=airbag.deploy.k memory=1500M
+INPUTFILE="airbag.deploy.k"     # Specify an input filename
+SMPSOLVER="ls-dyna_d"           # Specify ls-dyna_s OR ls-dyna_d
+
+$SMPSOLVER ncpu=$SLURM_CPUS_ON_NODE i=$INPUTFILE memory=1500M
 }}
 where 
 *ls-dyna_s = single precision smp solver
@@ -124,7 +122,7 @@ There are several modules installed for running jobs on multiple nodes using the
 === Specify node count === <!--T:25-->
 
 <!--T:26-->
-Jobs can be submitted to a specified number of <b>whole</b> compute nodes with the following script.
+Jobs can be submitted to a specified number of <b>whole</b> compute nodes with the following script.  Please note naming of the modules has changed from ls-dyna-mpi to ls-dyna-mpp for all versions >= 13.2.0 in the below script as well these modules use avx512 and sharelib binaries.
 {{File
 |name=script-mpp-bynode.sh
 |lang="bash"
@@ -132,24 +130,25 @@ Jobs can be submitted to a specified number of <b>whole</b> compute nodes with t
 #!/bin/bash
 #SBATCH --account=def-account    # Specify
 #SBATCH --time=0-03:00           # D-HH:MM
-#SBATCH --ntasks-per-node=192    # Specify all cores per node (narval/nibi/fir/trillium 192)
-#SBATCH --nodes=1                # Specify number compute nodes (1 or more)
-#SBATCH --mem=0                  # Use all memory per compute node (do not change)
-##SBATCH --constraint=cascade    # Uncomment to specify a cluster specific node type
+#SBATCH --ntasks-per-node=192    # Specify all cores per node (narval/nibi/fir/trillium 192, narval 64)
+#SBATCH --mem=0                  # Set to 0 to use all memory per compute node 
+#SBATCH --nodes=1                # Specify number of compute nodes (1 or more)
+##SBATCH --constraint=granite    # Uncomment to specify a cluster specific node type
 
 <!--T:44-->
-#module load StdEnv/2023          # Versions 12.2.1, 12.2.2
-#module load intel/2023.2.1       # Modules <=12.2.1 use non-shared libs
-#module load ls-dyna-mpi/12.2.2   # Modules >=12.2.2 use shared libraries
+#module load StdEnv/2023          # Versions 12.2.1, 12.2.2 :
+#module load intel/2023.2.1       # available on all clusters,
+#module load ls-dyna-mpi/12.2.1   # 12.2.1 uses ifort160_avx2_openmpi405 binary
+#module load ls-dyna-mpi/12.2.2   # 12.2.2 uses ifort160_avx2_openmpi405_sharelib
 # -----------------------------
-module load StdEnv/2023           # Versions 13.2.0, 14.2.0, 15.0.2, 16.2.0, 17.0.1
-module load intel/2025.2.0        # Modules >= 13.2.0 use avx512 binaries
-module load ls-dyna-mpp/17.0.1    # Modules >= 13.2.0 are named ls-dyna-mpp
+module load StdEnv/2023           # Versions 13.2.0, 14.2.0, 15.0.2, 16.2.0, 17.2.0 :
+module load intel/2025.2.0        # available on all clusters except narval,
+module load ls-dyna-mpp/17.2.0    # all versions ifort190_avx512_openmpi405_sharelib
 
 <!--T:175-->
-# Uncomment next two lines to specify an ANSYS License Server
-#export LSTC_LICENSE=ansys                   # Do not change 
-#export ANSYSLMD_LICENSE_FILE=PORT@HOSTNAME  # Specify PORT number & HOSTNAME
+# Uncomment next two lines to use an ANSYS License Server
+#export LSTC_LICENSE=ansys                   # Do not change this setting
+#export ANSYSLMD_LICENSE_FILE=PORT@HOSTNAME  # Specify PORT and HOSTNAME
 
 <!--T:45-->
 #export LSTC_MEMORY=AUTO          # Optional for explicit only
@@ -158,23 +157,18 @@ module load ls-dyna-mpp/17.0.1    # Modules >= 13.2.0 are named ls-dyna-mpp
 INPUTFILE="airbag.deploy.k"       # Specify an input filename
 MPPSOLVER="ls-dyna_d"             # Specify ls-dyna_s OR ls-dyna_d
 
-<!--T:46-->
-if [ "$EBVERSIONNIXPKGS" == 16.09 ]; then
- slurm_hl2hl.py --format MPIHOSTLIST > /tmp/mpihostlist-$SLURM_JOB_ID
- mpirun -np $NCORES -hostfile /tmp/mpihostlist-$SLURM_JOB_ID $MPPSOLVER i=$INPUTFILE memory=200M
-else
- srun $MPPSOLVER i=$INPUTFILE memory=200M
-fi
+srun $MPPSOLVER i=$INPUTFILE memory=200M
 }}
 where 
 *ls-dyna_s = single precision mpp solver
-*ls-dyna_d = double precision mpp solver
+*ls-dyna_d = double precision mpp solver\
+note
+To use version 12.2.1 or 12.2.2 on narval the above script will likely need to be modified to run jobs under $SLURM_TMPDIR otherwise performance may be ~100x slower than other clusters.  Narval only has lsdyna modules for 12.2.1 and 12.2.2 installed on it since all of its servers are legacy AVX2 based.  Newer versions have been installed using AVX512 binaries and are therefore only available on other clusters.
 
 === Specify core count === <!--T:27-->
 
-<!--T:28-->
-Jobs can be submitted to an arbitrary number of compute nodes by specifying the number of cores.  This approach allows the scheduler to determine the optimal number of compute nodes to minimize job wait time in the queue.  Memory limits are applied per core, therefore a sufficiently large value of <tt>mem-per-cpu</tt> must be specified so the master processor can successfully decompose and handle its computations as explained in more detail in the opening paragraph of this section.
-
+Jobs can be submitted to an arbitrary number of compute nodes by specifying the number of cores.  This approach allows the scheduler to determine the optimal number of compute nodes to minimize job wait time in the queue.  Memory limits are applied per core, therefore a sufficiently large value of <tt>mem-per-cpu</tt> must be specified so the master processor can successfully decompose and handle its computations as explained in more detail in the opening paragraph of this section.  Please note the naming of the modules has changed from ls-dyna-mpi to ls-dyna-mpp for all versions >= 13.2.0 in the below script as well these modules use avx512 and sharelib binaries.
+ 
 <!--T:288-->
 {{File
 |name=script-mpp-bycore.sh
@@ -185,38 +179,37 @@ Jobs can be submitted to an arbitrary number of compute nodes by specifying the 
 #SBATCH --time=0-03:00            # D-HH:MM
 #SBATCH --ntasks=64               # Specify any total number of cores
 #SBATCH --mem-per-cpu=2G          # Specify memory per core
-##SBATCH --constraint=cascade     # Uncomment to specify a cluster specific node type
-
-<!--T:48-->
-#module load StdEnv/2020          # Versions 12.0, 13.0, 13.1.1
-#export RSNT_ARCH=avx2            # Uncomment on beluga, nibi, rorqual
-#export load intel/2020.1.217
-#module load openmpi/4.0.3
-#module load ls-dyna-mpi/13.1.1
+##SBATCH --nodes=1                # Uncomment to specify number of compute nodes (1 or more)
+##SBATCH --constraint=granite     # Uncomment to specify a cluster specific node type
 
 <!--T:47-->
-module load StdEnv/2023           # Version 12.2.1 (more versions added on request)
-module load intel/2023.2.1
-module load ls-dyna-mpi/12.2.1
+#module load StdEnv/2023          # Versions 12.2.1, 12.2.2 :
+#module load intel/2023.2.1       # available on all clusters,
+#module load ls-dyna-mpi/12.2.1   # 12.2.1 uses ifort160_avx2_openmpi405 binary
+#module load ls-dyna-mpi/12.2.2   # 12.2.2 uses ifort160_avx2_openmpi405_sharelib
+# -----------------------------
+module load StdEnv/2023           # Versions 13.2.0, 14.2.0, 15.0.2, 16.2.0, 17.2.0 :
+module load intel/2025.2.0        # available on all clusters except narval,
+module load ls-dyna-mpp/17.2.0    # all versions ifort190_avx512_openmpi405_sharelib
 
 <!--T:180-->
-#export LSTC_LICENSE=ansys        # Specify an ANSYS License Server
-#export ANSYSLMD_LICENSE_FILE=<port>@<server>
+# Uncomment next two lines to use an ANSYS License Server
+#export LSTC_LICENSE=ansys                   # Do not change this setting
+#export ANSYSLMD_LICENSE_FILE=PORT@HOSTNAME  # Specify PORT and HOSTNAME
 
 <!--T:49-->
 #export LSTC_MEMORY=AUTO          # Optional for explicit only
 
 <!--T:50-->
-if [ "$EBVERSIONNIXPKGS" == 16.09 ]; then
- slurm_hl2hl.py --format MPIHOSTLIST > /tmp/mpihostlist-$SLURM_JOB_ID
- mpirun -np $SLURM_NTASKS -hostfile /tmp/mpihostlist-$SLURM_JOB_ID ls-dyna_d i=airbag.deploy.k memory=200M
-else
- srun ls-dyna_d i=airbag.deploy.k memory=200M
-fi
+INPUTFILE="airbag.deploy.k"       # Specify an input filename
+MPPSOLVER="ls-dyna_d"             # Specify ls-dyna_s OR ls-dyna_d
+
+srun $MPPSOLVER i=$INPUTFILE memory=200M
 }}
 where
 *ls-dyna_s = single precision mpp solver
 *ls-dyna_d = double precision mpp solver
+To use version 12.2.1 or 12.2.2 on narval the above script will likely need to be modified to run jobs under $SLURM_TMPDIR otherwise performance may be ~100x slower than other clusters.  Narval only has lsdyna modules for 12.2.1 and 12.2.2 installed on it since all of its servers are legacy AVX2 based.  Newer versions have been installed using AVX512 binaries and are therefore only available on other clusters.
 
 == Performance testing == <!--T:30-->
 

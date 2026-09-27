@@ -49,18 +49,18 @@ Because roughly half of our users primarily use single-precision floating-point 
 ! scope="col"| Evaluation Criterion
 ! scope="col"| Weight 
 |-
-! scope="row"| FP32 score <small>(with dense matrices on regular GPU cores)</small>
+! scope="row"| FP32 performance ratio <small>(with dense matrices on regular GPU cores)</small>
 | 40%
 |-
-! scope="row"| FP16 score <small>(with dense matrices on <em>[https://www.techspot.com/article/2049-what-are-tensor-cores/| Tensor cores]</em>)</small>
+! scope="row"| FP16 performance ratio <small>(with dense matrices on <em>[https://www.techspot.com/article/2049-what-are-tensor-cores/| Tensor cores]</em>)</small>
 | 40%
 |-
-! scope="row"| GPU memory score
+! scope="row"| GPU memory size ratio
 | 20%
 |}
 
 <!--T:49-->
-We currently use the NVidia <b>A100-40gb</b> GPU as the reference model and assign it an RGU value of 4.0 for historical reasons.  We define its FP16 performance, FP32 performance, and memory size each as 1.0.  Multiplying the percentages in the above table by 4.0 yields the following coefficients and RGU values for other models:
+We currently use the NVidia <b>A100-40gb</b> GPU as the reference model and assign it an RGU value of 4.0 for historical reasons. We define its FP16 performance, FP32 performance, and memory size each as 1.0. Multiplying the percentages in the above table by 4.0 yields the coefficients used to calculate the score of each component. RGU values of the available models are:
 
 <!--T:50-->
 {| class="wikitable"
@@ -73,24 +73,17 @@ We currently use the NVidia <b>A100-40gb</b> GPU as the reference model and assi
 ! scope="col"| Combined score
 ! scope="col"| Allocatable
 |-
-! scope="col"| Coefficient:
-! scope="col"| 1.6
-! scope="col"| 1.6
-! scope="col"| 0.8
-! scope="col"| (RGU)
-! scope="col"| RAC 2027
-|-
 ! scope="row"| A100-40gb
-| <b>1.00</b> || <b>1.00</b> || <b>1.0</b> || <b>4.0</b> || Yes
+| <b>1.60</b> || <b>1.60</b> || <b>0.80</b> || <b>4.0</b> || Yes
 |-
 ! scope="row"| A100-80gb
-| 1.00 || 1.00 || 2.0 ||  4.8  || No
+| 1.60 || 1.60 || 1.60 ||  4.8  || No
 |-
 ! scope="row" | H100-80gb 
-| 3.44 || 3.17 || 2.0 || 12.2  || Yes 
+| 5.48 || 5.08 || 1.60 || 12.2  || Yes 
 |-
-! scope="row"| B200-192gb
-| 6.16 || 11.28 || 3.84 || 21.28 || Yes
+! scope="row"| B200-180gb
+| 6.16 || 11.28 || 3.60 || 21.0 || Yes
 |}
 
 <!--T:64-->
@@ -129,8 +122,8 @@ The following table lists the GPU models and instances that can be selected in t
 ! scope="row"| H100-3g.40gb 
 | max(3g/7g, 40GB/80GB) ⇒ 50% || 6.1
 |-
-! scope="row"| B200-192gb 
-| Whole GPU ⇒ 100% || 21.3
+! scope="row"| B200-180gb 
+| Whole GPU ⇒ 100% || 21.0
 |}
 
 <!--T:67-->
@@ -268,7 +261,7 @@ And the following GPU-core-memory bundle characteristics:
 | 6 cores, 144 GB
 | 6 cores, 140 GB
 |-
-! rowspan="5"| [[Narval/en#Node_characteristics|Narval]]
+! rowspan="4"| [[Narval/en#Node_characteristics|Narval]]
 | <b>A100-40gb</b>
 | <b>4.0</b>
 | <b>12 cores, 124.5 GB</b>
@@ -287,11 +280,6 @@ And the following GPU-core-memory bundle characteristics:
 | A100-3g.20gb
 | 2.0
 | 6.0 cores, 62.2 GB
-| 6 cores, 62 GB
-|-
-| A100-4g.20gb
-| 2.3
-| 6.9 cores, 71.5 GB
 | 6 cores, 62 GB
 |-
 ! rowspan="4"| [[Nibi#Node_characteristics|Nibi]]
