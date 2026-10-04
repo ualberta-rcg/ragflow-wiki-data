@@ -194,12 +194,12 @@ A webinar was recorded on October 6th, 2021 describing the META package. You can
     *   [single_case.sh](#single-case.sh)
     *   [Example: Numbered input files](meta-farm__advanced_features_and_troubleshooting.md#example-numbered-input-files) (advanced)
     *   [Example: Input file must have the same name](meta-farm__advanced_features_and_troubleshooting.md#example-input-file-must-have-the-same-name) (advanced)
-    *   [Using all the columns in the cases table explicitly](meta-farm__advanced_features_and_troubleshooting.md#using-all-the-columns-in-the-cases-table-explicitly) (advanced)
+    *   [Using all the columns in the cases table explicitly](meta-farm__advanced_features_and_troubleshooting.md) (advanced)
 *   Modify the `single_case.sh` script if needed. In many cases you don't have to make any changes. For more information see one or more of
     *   [single_case.sh](#single-case.sh)
     *   [STATUS and handling errors](#status-and-handling-errors)
     *   [Example: Input file must have the same name](meta-farm__advanced_features_and_troubleshooting.md#example-input-file-must-have-the-same-name) (advanced)
-    *   [Using all the columns in the cases table explicitly](meta-farm__advanced_features_and_troubleshooting.md#using-all-the-columns-in-the-cases-table-explicitly) (advanced)
+    *   [Using all the columns in the cases table explicitly](meta-farm__advanced_features_and_troubleshooting.md) (advanced)
 *   Modify the `job_script.sh` file to suit your needs as described at [job_script.sh](#job-script.sh) below. In particular, use a correct account name, and set an appropriate job runtime. For more about runtimes, see [Estimating the runtime and number of metajobs](#estimating-the-runtime-and-number-of-metajobs).
 *   Inside the farm directory, execute
 

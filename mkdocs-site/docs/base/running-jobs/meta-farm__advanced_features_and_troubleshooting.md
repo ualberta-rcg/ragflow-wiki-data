@@ -4,95 +4,96 @@ slug: "meta-farm__advanced_features_and_troubleshooting"
 lang: "base"
 
 source_wiki_title: "META-Farm: Advanced features and troubleshooting"
-source_hash: "ada23c771613c23d6f488ef9707f3472"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T08:41:50.540714+00:00"
+source_hash: "203fd164ab7eb9cadb7d79b289b28b13"
+last_synced: "2026-10-04T02:27:33.201522+00:00"
+last_processed: "2026-10-04T03:08:26.973600+00:00"
 
 tags:
   []
 
 keywords:
-  - "dt_cutoff"
-  - "average run-time"
-  - "job_script.sh"
-  - "input file"
-  - "CPU waste"
-  - "META farm"
-  - "farm directory"
-  - "sbatch argument"
-  - "meta-jobs"
   - "shell loop"
-  - "CPU cycles"
-  - "error messages"
-  - "table.dat"
-  - "resubmit.run"
-  - "bash"
-  - "task.run"
-  - "run-time limit"
-  - "single_case.sh"
-  - "cases table"
+  - "META mode"
   - "META package"
-  - "auto-resubmission"
-  - "META-Farm"
-  - "serial farming jobs"
-  - "sbatch submission"
-  - "farm META directory"
-  - "sbatch arguments"
-  - "multi-threaded applications"
-  - "CPU-hours"
-  - "config.h"
-  - "meta-farm"
   - "Trillium"
-  - "job farming"
-  - "--ntasks"
   - "srun"
-  - "WHOLE_NODE mode"
-  - "Advanced MPI scheduling"
-  - "GPU applications"
-  - "submit.run"
-  - "command line arguments"
-  - "post-processing job"
-  - "NJOBS_MAX"
+  - "job_script.sh"
+  - "-auto switch"
+  - "#SBATCH argument"
+  - "run-time limit"
   - "--mem-per-cpu"
-  - "Environment variables"
+  - "not enough runtime left"
+  - "final.sh post‑processing"
+  - "CPU-hours waste"
+  - "meta-jobs"
+  - "CPU cores"
+  - "INPUT file"
+  - "resubmit.run job status"
+  - "table.dat"
+  - "cases table"
+  - "job runtime missing"
+  - "--ntasks"
+  - "--gres=gpu"
+  - "Advanced MPI scheduling"
+  - "memory per core"
+  - "resubmit.run"
+  - "sbatch submission error"
+  - "for ((i=1; i<=100; i++))"
+  - "fcode"
+  - "CPU cycles"
+  - "lockfile not in PATH"
+  - "Automatic job resubmission"
+  - "task.run"
+  - "single_case.sh"
+  - "whole node jobs"
+  - "farm META directory"
+  - "meta-farm"
+  - "lockfile"
+  - "submit.run"
+  - "times file"
+  - "WHOLE_NODE mode"
+  - "CPU waste"
+  - "average run-time"
+  - "dt_cutoff"
+  - "file system permissions quota"
+  - "NJOBS_MAX"
+  - "--export"
+  - "NWHOLE"
 
 questions:
-  - "How can you configure the META-Farm package to automatically resubmit failed jobs, and what adjustments must be made to the NJOBS_MAX parameter?"
-  - "What are the necessary steps and conditions for executing an automatic post-processing job once all farm cases have been successfully processed?"
-  - "How do you enable and configure the WHOLE_NODE mode to package individual serial farming jobs into whole node jobs?"
-  - "How does the behavior of the submit.run command change when the WHOLE_NODE mode is enabled, and what are its specific limitations?"
-  - "How can a user install and configure the META package from the git repository on a cluster where it is not already available as a module?"
-  - "What are the different methods for passing additional sbatch arguments to configure resources for multi-threaded or MPI applications?"
-  - "What is the primary function of the WHOLE_NODE mode introduced in meta-farm version 1.0.3?"
-  - "What specific steps must be taken in the config.h file to enable the WHOLE_NODE mode?"
-  - "What does the NWHOLE variable represent, and what is its specific value for Trillium?"
-  - "What do the variables N and M represent in the provided batch script directives?"
-  - "How can a user supply the task and memory parameters without modifying the job script directly?"
-  - "Where should one look for information regarding more complicated MPI scheduling scenarios?"
-  - "How can users configure their job scripts to detect and handle situations where a GPU is unavailable on a node?"
-  - "Why must users be careful when using the `--export` switch for environment variables in the META package?"
-  - "What is the recommended method for generating a `table.dat` file when running multiple cases with sequentially numbered input files?"
-  - "How can you configure the script to handle applications that require a fixed, unchangeable input file name?"
-  - "What modifications are needed to access and utilize individual columns from the cases table as specific command-line arguments?"
-  - "Why does running multiple cases per job potentially lead to wasted CPU cycles when meta-jobs hit their run-time limits?"
-  - "What is the format of the commands being written into the `table.dat` file within the farm META directory?"
-  - "How can a bash shell loop be used to automate the creation of the `table.dat` file?"
-  - "What is the significance of the requirement that the input file must have the same name in the provided example?"
-  - "Why does the automatic restarting of jobs lead to a waste of CPU cycles?"
-  - "How is the average amount of wasted CPU time calculated for these jobs?"
-  - "What specific mechanism is implemented in the provided scripts to mitigate this CPU waste?"
-  - "How does the script calculate and update the dt_cutoff value to prevent meta-jobs from aborting cases due to run-time limits?"
-  - "What is the purpose of the lockfile utility, and why is it critical for managing access among multiple meta-jobs?"
-  - "What are the required files and arguments needed to successfully execute submit.run without triggering the common troubleshooting errors?"
-  - "What directory must you be in when executing the `submit.run` command to avoid errors?"
-  - "Why must the run-time limit be specified directly inside the `job_script.sh` file rather than as an optional argument?"
-  - "What does the error message \"Wrong job runtime in job_script.sh\" indicate about the job submission?"
-  - "What are the primary causes and recommended solutions for file system errors and sbatch job submission failures mentioned in the text?"
-  - "Under what specific conditions will the resubmit.run command fail to execute or state that there is nothing to resubmit?"
-  - "What do the different exit messages during a running job, such as \"Not enough runtime left\" or \"Too many failed cases,\" indicate about the job's status and configuration?"
-  - "What are the primary causes and recommended solutions for file system errors and sbatch job submission failures mentioned in the text?"
-  - "Under what specific conditions will the resubmit.run command fail to execute or state that there is nothing to resubmit?"
-  - "What do the different exit messages during a running job, such as \"Not enough runtime left\" or \"Too many failed cases,\" indicate about the job's status and configuration?"
+  - "How does the `-auto` switch enable automatic resubmission of failed cases in META‑Farm, and what configuration adjustments (e.g., `NJOBS_MAX`, `resubmit_script.sh`) are required?"
+  - "What conditions must be satisfied for the automatic post‑processing job (`final.sh`) to execute, and how does it interact with the auto‑resubmit feature regarding job limits?"
+  - "How can whole‑node mode be activated in META‑Farm, and which parameters in `config.h` (such as `WHOLE_NODE` and `NWHOLE`) need to be set for a cluster like Trillium?"
+  - "How does the integer argument for `submit.run` behave differently in WHOLE_NODE mode compared to SIMPLE mode, and what does the `-1` argument specifically trigger?"
+  - "What prerequisites and restrictions apply to using WHOLE_NODE mode, and which configuration (e.g., `module load StdEnv`) is required for its advanced features on Trillium?"
+  - "How should additional SBATCH parameters or job‑script directives be added to support multi‑threaded/OpenMP or MPI applications when running jobs with META?"
+  - "What version of meta‑farm introduced the WHOLE_NODE mode?"
+  - "How do you enable WHOLE_NODE mode in the farm’s configuration?"
+  - "What should the NWHOLE variable be set to when running on Trillium?"
+  - "What do the SBATCH directives `--ntasks=N` and `--mem-per-cpu=M` specify in a job script?"
+  - "How can you supply the values for N and M when using the `(re)submit.run` command?"
+  - "Where can you find information about more complex MPI scheduling scenarios?"
+  - "How should you modify your job script to request GPUs and detect GPU failures before running tasks?"
+  - "What is the recommended method for passing custom environment variables to all META farm jobs without using the --export option?"
+  - "How can you generate a table.dat file that runs an application with numbered input files using a shell loop?"
+  - "How can you modify `single_case.sh` to copy the case‑specific input file (e.g., `data.$ID`) into each case’s subdirectory as `INPUT`?"
+  - "What technique is used in `single_case.sh` to convert the command line from the cases table into an array so that individual columns (including a standard input file and a variable number of arguments) can be accessed and passed to the user code?"
+  - "How does the `task.run` script (together with `resubmit.run`) reduce CPU waste when meta‑jobs exceed their allotted runtime limits?"
+  - "What is the purpose of creating the `table.dat` file in the farm META directory?"
+  - "How can a Bash loop be used to generate lines like `fcode < /home/user/IC/data.$i` for a range of files?"
+  - "According to the example, what naming requirement must the input files satisfy?"
+  - "What is the estimated amount of CPU time wasted when automatically restarting jobs that never ran?"
+  - "How is the waste of CPU cycles calculated according to the text?"
+  - "What built‑in feature in the provided scripts helps mitigate this CPU waste?"
+  - "How is the dt_cutoff value calculated and periodically recomputed while the farm is running?"
+  - "What criteria does each meta‑job use to decide whether to start a new case or exit early to avoid hitting its runtime limit?"
+  - "Which typical error messages are listed in the troubleshooting section, and what steps are recommended to resolve each one?"
+  - "What triggers the error message “Job runtime sbatch argument (-t or --time) is missing in job_script.sh”?"
+  - "How should the run‑time limit be correctly added to the job_script.sh file using an #SBATCH directive?"
+  - "Why can’t the run‑time be supplied as an optional argument to submit.run, and what format is required for the value?"
+  - "What should you check and do when you see the “Something wrong with sbatch farm submission; jobid=XXX; aborting” messages?"
+  - "Why might you encounter “Couldn't create subdirectories/temporary directory/file …; exiting” errors, and how can you fix them?"
+  - "When does resubmit.run fail (e.g., “Jobs are still running/queued; cannot resubmit” or “Only failed cases left; cannot auto‑resubmit; exiting”), and what steps should you take to resolve each situation?"
 
 status:
   downloaded: true
@@ -105,9 +106,9 @@ status:
 
 This page presents more advanced features of the [META-Farm](meta-farm.md) package.
 
-## Resubmitting failed cases automatically
+## Resubmitting Failed Cases Automatically
 
-If your farm is particularly large, that is, if it needs more resources than `NJOBS_MAX x job_run_time`, where `NJOBS_MAX` is the maximum number of jobs one is allowed to submit, you will have to run `resubmit.run` after the original farm finishes running-- perhaps more than once. You can do it by hand, but with META you can also automate this process. To enable this feature, add the `-auto` switch to your `submit.run` or `resubmit.run` command:
+If your farm is particularly large, that is, if it needs more resources than **NJOBS_MAX x job_run_time**, where **NJOBS_MAX** is the maximum number of jobs one is allowed to submit, you will have to run `resubmit.run` after the original farm finishes running—perhaps more than once. You can do it by hand, but with META you can also automate this process. To enable this feature, add the `-auto` switch to your `submit.run` or `resubmit.run` command:
 
 ```bash
 $ submit.run N -auto
@@ -117,37 +118,29 @@ This can be used in either SIMPLE or META mode. If your original `submit.run` co
 
 When you add `-auto`, `(re)submit.run` submits one more (serial) job, in addition to the farm jobs. The purpose of this job is to run the `resubmit.run` command automatically right after the current farm finishes running. The job script for this additional job is `resubmit_script.sh`, which should be present in the farm directory; a sample file is automatically copied there when you run `farm_init.run`. The only customization you need to do to this file is to correct the account name in the `#SBATCH -A` line.
 
-!!! warning "Adjusting `NJOBS_MAX` for auto-resubmission"
-    If you are using `-auto`, the value of the `NJOBS_MAX` parameter defined in the `config.h` file should be at least one smaller than the largest number of jobs you can submit on the cluster.
-    E.g., if the largest number of jobs one can submit on the cluster is 999 and you intend to use `-auto`, set `NJOBS_MAX` to 998. To find out the maximum number of submitted jobs limit (MaxSubmit) associated with your account on a specific cluster, run the following command:
+If you are using `-auto`, the value of the `NJOBS_MAX` parameter defined in the `config.h` file should be at least one smaller than the largest number of jobs you can submit on the cluster.
+E.g. if the largest number of jobs one can submit on the cluster is 999 and you intend to use `-auto`, set `NJOBS_MAX` to 998. To find out the maximum number of submitted jobs limit (MaxSubmit) associated with your account on a specific cluster, run the following command:
 
 ```bash
 $ sacctmgr list user $USER withassoc
 ```
 
-!!! warning "Auto-resubmission stops on persistent failures"
-    When using `-auto`, if at some point the only cases left to be processed are the ones which failed earlier, auto-resubmission will stop, and farm computations will end. This is to avoid an infinite loop on badly-formed cases which will always fail. If this happens, you will have to address the reasons for these cases failing before attempting to resubmit the farm. You can see the relevant messages in the file `farm.log` created in the farm directory.
+!!! warning
+    When using `-auto`, if at some point the only cases left to be processed are the ones which failed earlier, auto-resubmission will stop, and farm computations will end. This is to avoid an infinite loop on badly-formed cases which will always fail. If this happens, you need to address the reasons for these cases failing before attempting to resubmit the farm. You can see the relevant messages in the file `farm.log` created in the farm directory.
 
-## Running a post-processing job automatically
+## Running a Post-Processing Job Automatically
 
-Another advanced feature is the ability to run a post-processing job automatically once all the cases from `table.dat` have been **successfully** processed.
-
-!!! note
-    If any cases failed-- *i.e.* had a non-zero exit status-- the post-processing job will not run.
-
-To enable this feature, simply create a script for the post-processing job with the name `final.sh` inside the farm directory. This job can be of any kind-- serial, parallel, or an array job.
+Another advanced feature is the ability to run a post-processing job automatically once all the cases from `table.dat` have been **successfully** processed. If any cases failed—*i.e.* had a non-zero exit status—the post-processing job will not run. To enable this feature, simply create a script for the post-processing job with the name `final.sh` inside the farm directory. This job can be of any kind—serial, parallel, or an array job.
 
 This feature uses the same script, `resubmit_script.sh`, described for [`-auto`](#resubmitting-failed-cases-automatically) above. Make sure `resubmit_script.sh` has the correct account name in the `#SBATCH -A` line.
 
-!!! warning "Adjusting `NJOBS_MAX` for auto-post-processing"
-    The automatic post-processing feature also causes more serial jobs to be submitted, above the number you request. Adjust the parameter `NJOBS_MAX` in `config.h` accordingly (*e.g.*, if the cluster has a job limit of 999, set it to 998).
-    However, if you use both the auto-resubmit and the auto-post-processing features, they will together only submit *one* additional job. You do not need to subtract 2 from `NJOBS_MAX`.
+The automatic post-processing feature also causes more serial jobs to be submitted, above the number you request. Adjust the parameter `NJOBS_MAX` in `config.h` accordingly (*e.g.* if the cluster has a job limit of 999, set it to 998). However, if you use both the auto-resubmit and the auto-post-processing features, they will together only submit *one* additional job. You do not need to subtract 2 from `NJOBS_MAX`.
 
 System messages from the auto-resubmit feature are logged in `farm.log`, in the root farm directory.
 
-## WHOLE_NODE mode
+## WHOLE_NODE Mode
 
-Starting from the version 1.0.3, meta-farm supports packaging individual serial farming jobs into whole node jobs. This made it possible to use the package on Trillium. This mode is off by default. To enable it, edit the file `config.h` inside your farm directory. Specifically, you need to set `WHOLE_NODE=1`, and set the variable `NWHOLE` to the number of CPU cores per node (192 for Trillium).
+Starting from version 1.0.3, meta-farm supports packaging individual serial farming jobs into whole node jobs. This made it possible to use the package on Trillium. This mode is off by default. To enable it, edit the file `config.h` inside your farm directory. Specifically, you need to set `WHOLE_NODE=1`, and set the variable `NWHOLE` to the number of CPU cores per node (192 for Trillium).
 
 In the WHOLE_NODE mode, the positive integer argument for the `submit.run` command changes its meaning: instead of being the number of meta-jobs, now it is the number of whole nodes to be used in META mode. For example, consider this command:
 
@@ -157,21 +150,24 @@ $ submit.run 2
 
 If the WHOLE_NODE mode is enabled, the above command will allocate 2 whole nodes, which will be used to run up to 384 concurrent serial tasks (192 tasks on each node) using META mode (dynamic workload balancing). These tasks are executed as separate threads within whole-node jobs.
 
-The `-1` argument for `submit.run` preserves its original meaning: run the farm using the SIMPLE mode. The number of actual (whole node) jobs is computed as `Number_of_cases / NWHOLE`.
+The "-1" argument for `submit.run` preserves its original meaning: run the farm using the SIMPLE mode. The number of actual (whole node) jobs is computed as `Number_of_cases / NWHOLE`.
 
-!!! note "Important details for WHOLE_NODE mode"
-    *   The advanced features "Automatic job resubmission" and "Automatic post-processing job" will only work on Trillium if you place the following line at the end of your `~/.bashrc` file:
-        ```bash
-        module load StdEnv
-        ```
-    *   The WHOLE_NODE mode can only be used for serial farming. (That is, it cannot be used for multi-threaded, MPI, or GPU farming).
-    *   The WHOLE_NODE mode can also be used on other clusters (not just on Trillium). It may be advantageous in situations when the queue wait time for whole node jobs becomes shorter that the queue wait time for serial jobs.
+Important details:
 
-## Additional information
+*   !!! important
+    The advanced features "Automatic job resubmission" and "Automatic post-processing job" will only work on Trillium if you place the following line at the end of your `~/.bashrc` file:
+    ```bash
+    module load StdEnv
+    ```
+*   The WHOLE_NODE mode can only be used for serial farming. (That is, it cannot be used for multi-threaded, MPI, or GPU farming).
+*   !!! tip
+    The WHOLE_NODE mode can also be used on other clusters (not just on Trillium). It may be advantageous in situations when the queue wait time for whole node jobs becomes shorter than the queue wait time for serial jobs.
 
-### Using the git repository
+## Additional Information
 
-To use META on a cluster where it is not installed as a module you can clone the package from our git repository:
+### Using the Git Repository
+
+To use META on a cluster where it is not installed as a module, you can clone the package from our Git repository:
 
 ```bash
 $ git clone https://git.computecanada.ca/syam/meta-farm.git
@@ -185,7 +181,7 @@ $ export PATH=~/meta-farm/bin:$PATH
 
 Then proceed as shown in the META [Quick start](meta-farm.md#quick-start) from the `farm_init.run` step.
 
-### Passing additional sbatch arguments
+### Passing Additional SBATCH Arguments
 
 If you need to use additional `sbatch` arguments (like `--mem 4G`, `--gres=gpu:1` *etc.*), add them to `job_script.sh` as separate `#SBATCH` lines.
 
@@ -195,7 +191,7 @@ Or if you prefer, you can add them at the end of the `submit.run` or `resubmit.r
 $ submit.run -1 --mem 4G
 ```
 
-### Multi-threaded applications
+### Multi-threaded Applications
 
 For [multi-threaded](running_jobs.md#threaded-or-openmp-job) applications (such as those that use [OpenMP](../programming/openmp.md), for example), add the following lines to `job_script.sh`:
 
@@ -207,12 +203,12 @@ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
 ...where *N* is the number of CPU cores to use, and *M* is the total memory to reserve in megabytes. You may also supply `--cpus-per-task=N` and `--mem=M` as arguments to `(re)submit.run`.
 
-### MPI applications
+### MPI Applications
 
 For applications that use [MPI](../software/mpi.md), add the following lines to `job_script.sh`:
 
 ```bash
-#SBATCH --ntasks=N  
+#SBATCH --ntasks=N
 #SBATCH --mem-per-cpu=M
 ```
 
@@ -233,12 +229,12 @@ srun /path/to/mpi_code arg1 arg2
 srun /path/to/mpi_code arg1 arg2
 ```
 
-### GPU applications
+### GPU Applications
 
 For applications which use GPUs, modify `job_script.sh` following the guidance at [Using GPUs with Slurm](using_gpus_with_slurm.md):
 
 ```bash
-#SBATCH --gres=gpu[<type>:<number>]
+#SBATCH --gres=gpu[:type][:number]
 ```
 
 You may also wish to copy the utility `~syam/bin/gpu_test` to your `~/bin` directory (only on Nibi), and put the following lines in `job_script.sh` right before the `task.run` line:
@@ -252,11 +248,12 @@ if [ $retVal -ne 0 ]; then
 fi
 ```
 
-This will catch those rare situations when there is a problem with the node which renders the GPU unavailable. If that happens to one of your meta-jobs, and you don't detect the GPU failure somehow, then the job will try (and fail) to run all your cases from `table.dat`.
+!!! tip
+    This will catch those rare situations when there is a problem with the node which renders the GPU unavailable. If that happens to one of your meta-jobs, and you don't detect the GPU failure somehow, then the job will try (and fail) to run all your cases from `table.dat`.
 
-### Environment variables and --export
+### Environment Variables and `--export`
 
-All the jobs generated by META package inherit the environment present when you run `submit.run` or `resubmit.run`. This includes all the loaded modules and environment variables. META relies on this behaviour for its work, using some environment variables to pass information between scripts. You have to be careful not to break this default behaviour, such as can happen if you use the `--export` switch. If you need to use `--export` in your farm, make sure `ALL` is one of the arguments to this command, *e.g.* `--export=ALL,X=1,Y=2`.
+All the jobs generated by the META package inherit the environment present when you run `submit.run` or `resubmit.run`. This includes all the loaded modules and environment variables. META relies on this behaviour for its work, using some environment variables to pass information between scripts. You have to be careful not to break this default behaviour, such as can happen if you use the `--export` switch. If you need to use `--export` in your farm, make sure `ALL` is one of the arguments to this command, *e.g.* `--export=ALL,X=1,Y=2`.
 
 If you need to pass values of custom environment variables to all of your farm jobs (including auto-resubmitted jobs and the post-processing job if there is one), do not use `--export`. Instead, set the variables on the command line as in this example:
 
@@ -264,11 +261,11 @@ If you need to pass values of custom environment variables to all of your farm j
 $ VAR1=1 VAR2=5 VAR3=3.1416 submit.run ...
 ```
 
-Here `VAR1, VAR2, VAR3` are custom environment variables which will be passed to all farm jobs.
+Here `VAR1`, `VAR2`, `VAR3` are custom environment variables which will be passed to all farm jobs.
 
-### Example: Numbered input files
+### Example: Numbered Input Files
 
-Suppose you have an application called `fcode`, and each case needs to read a separate file from standard input-- say `data.X`, where *X* ranges from 1 to *N_cases*. The input files are all stored in a directory `/home/user/IC`. Ensure `fcode` is on your `$PATH` (*e.g.*, put `fcode` in `~/bin`, and ensure `/home/$USER/bin` is added to `$PATH` in `~/.bashrc`), or use a full path to `fcode` in `table.dat`. Create `table.dat` in the farm META directory like this:
+Suppose you have an application called `fcode`, and each case needs to read a separate file from standard input—say `data.X`, where *X* ranges from 1 to *N_cases*. The input files are all stored in a directory `/home/user/IC`. Ensure `fcode` is on your `$PATH` (*e.g.*, put `fcode` in `~/bin`, and ensure `/home/$USER/bin` is added to `$PATH` in `~/.bashrc`), or use a full path to `fcode` in `table.dat`. Create `table.dat` in the farm META directory like this:
 
 ```
 fcode < /home/user/IC/data.1
@@ -283,9 +280,9 @@ You might wish to use a shell loop to create `table.dat`, *e.g.*:
 $ for ((i=1; i<=100; i++)); do echo "fcode < /home/user/IC/data.$i"; done >table.dat
 ```
 
-### Example: Input file must have the same name
+### Example: Input File Must Have the Same Name
 
-Some applications expect to read input from a file with a prescribed and unchangeable name, like `INPUT` for example. To handle this situation each case must run in its own subdirectory, and you must create an input file with the prescribed name in each subdirectory. Suppose for this example that you have prepared the different input files for each case and stored them in `/path/to/data.X`, where *X* ranges from 1 to *N_cases*. Your `table.dat` can contain nothing but the application name, over and over again:
+Some applications expect to read input from a file with a prescribed and unchangeable name, like `INPUT` for example. To handle this situation, each case must run in its own subdirectory, and you must create an input file with the prescribed name in each subdirectory. Suppose for this example that you have prepared the different input files for each case and stored them in `/path/to/data.X`, where *X* ranges from 1 to *N_cases*. Your `table.dat` can contain nothing but the application name, over and over again:
 
 ```
 /path/to/code
@@ -293,7 +290,7 @@ Some applications expect to read input from a file with a prescribed and unchang
 ...
 ```
 
-Add a line to `single_case.sh` which copies the input file into the farm *sub*directory for each case-- the first line in the example below:
+Add a line to `single_case.sh` which copies the input file into the farm *sub*directory for each case—the first line in the example below:
 
 ```bash
 cp /path/to/data.$ID INPUT
@@ -301,9 +298,9 @@ $COMM
 STATUS=$?
 ```
 
-### Using all the columns in the cases table explicitly
+### Using All Columns in the Cases Table Explicitly
 
-The examples shown so far assume that each line in the cases table is an executable statement, starting with either the name of the executable file (when it is on your `$PATH`) or the full path to the executable file, and then listing the command line arguments particular to that case, or something like ` < input.$ID` if your code expects to read a standard input file.
+The examples shown so far assume that each line in the cases table is an executable statement, starting with either the name of the executable file (when it is on your `$PATH`) or the full path to the executable file, and then listing the command line arguments particular to that case, or something like `< input.$ID` if your code expects to read a standard input file.
 
 In the most general case, you may want to be able to access all the columns in the table individually. That can be done by modifying `single_case.sh`:
 
@@ -335,7 +332,7 @@ cd ..
 ...
 ```
 
-For example, you might need to provide to your code **both** a standard input file **and** a variable number of command line arguments. Your cases table will look like this:
+For example, you might need to provide to your code *both* a standard input file *and* a variable number of command line arguments. Your cases table will look like this:
 
 ```
 /path/to/IC.1 0.1
@@ -350,36 +347,35 @@ The way to implement this in `single_case.sh` is as follows:
 /path/to/code ${COMM[@]:1} < ${COMM[0]}
 ```
 
-### Reducing waste
+### Reducing Waste
 
-Here is one potential problem when one is running multiple cases per job: What if the number of running meta-jobs times the requested run-time per meta-job (say, 3 days) is not enough to process all your cases? E.g., you managed to start the maximum allowed 1000 meta-jobs, each of which has a 3-day run-time limit. That means that your farm can only process all the cases in a single run if the *average_case_run_time x N_cases < 1000 x 3d = 3000* CPU days. Once your meta-jobs start hitting the 3-day run-time limit, they will start dying in the middle of processing one of your cases. This will result in up to 1000 interrupted cases calculations. This is not a big deal in terms of completing the work--- `resubmit.run` will find all the cases which failed or never ran, and will restart them automatically. But this can become a waste of CPU cycles. On average, you will be wasting *0.5 x N_jobs x average_case_run_time*. E.g., if your cases have an average run-time of 1 hour, and you have 1000 meta-jobs running, you will waste about 500 CPU-hours or about 20 CPU-days, which is not acceptable.
+Here is one potential problem when one is running multiple cases per job: What if the number of running meta-jobs times the requested run-time per meta-job (say, 3 days) is not enough to process all your cases? E.g., you managed to start the maximum allowed 1000 meta-jobs, each of which has a 3-day run-time limit. That means that your farm can only process all the cases in a single run if the *average_case_run_time x N_cases < 1000 x 3d = 3000* CPU days. Once your meta-jobs start hitting the 3-day run-time limit, they will start dying in the middle of processing one of your cases. This will result in up to 1000 interrupted case calculations. This is not a big deal in terms of completing the work—`resubmit.run` will find all the cases which failed or never ran, and will restart them automatically. But this can become a waste of CPU cycles. On average, you will be wasting *0.5 x N_jobs x average_case_run_time*. E.g., if your cases have an average run-time of 1 hour, and you have 1000 meta-jobs running, you will waste about 500 CPU-hours or about 20 CPU-days, which is not acceptable.
 
 Fortunately, the scripts we are providing have some built-in intelligence to mitigate this problem. This is implemented in `task.run` as follows:
 
 *   The script measures the run-time of each case, and adds the value as one line in a scratch file `times` created in directory `/home/$USER/tmp/$NODE.$PID/`. (See Output files.) This is done by all running meta-jobs.
 *   Once the first 8 cases were computed, one of the meta-jobs will read the contents of the file `times` and compute the largest 12.5% quantile for the current distribution of case run-times. This will serve as a conservative estimate of the run-time for your individual cases, *dt_cutoff*. The current estimate is stored in file `dt_cutoff` in `/home/$USER/tmp/$NODE.$PID/`.
-*   From now on, each meta-job will estimate if it has the time to finish the case it is about to start computing, by ensuring that *t_finish - t_now > dt_cutoff*. Here, *t_finish* is the time when the job will die because of the job's run-time limit, and *t_now* is the current time. If it computes that it doesn't have the time, it will exit early, which will minimize the chance of a case aborting half-way due to the job's run-time limit.
+*   From now on, each meta-job will estimate if it has the time to finish the case it is about to start computing, by ensuring that *t_finish - t_now > dt_cutoff*. Here, *t_finish* is the time when the job will die because of the job's run-time limit, and *t_now* is the current time. If it computes that it doesn't have the time, it will exit early, which will minimize the chance of a case aborting halfway due to the job's run-time limit.
 *   At every subsequent power of two number of computed cases (8, then 16, then 32 and so on) *dt_cutoff* is recomputed using the above algorithm. This will make the *dt_cutoff* estimate more and more accurate. Power of two is used to minimize the overheads related to computing *dt_cutoff*; the algorithm will be equally efficient for both very small (tens) and very large (many thousands) number of cases.
 *   The above algorithm reduces the amount of CPU cycles wasted due to jobs hitting the run-time limit by a factor of 8, on average.
 
-!!! tip "Analyzing `times` file for fine-tuning"
-    As a useful side effect, every time you run a farm you get individual run-times for all of your cases stored in `/home/$USER/tmp/$NODE.$PID/times`. You can analyze that file to fine-tune your farm setup, for profiling your code, etc.
+As a useful side effect, every time you run a farm you get individual run-times for all of your cases stored in `/home/$USER/tmp/$NODE.$PID/times`. You can analyze that file to fine-tune your farm setup, for profiling your code, etc.
 
 ## Troubleshooting
 
 Here we explain typical error messages you might get when using this package.
 
-### Problems affecting multiple commands
+### Problems Affecting Multiple Commands
 
 #### "Non-farm directory, or no farm has been submitted; exiting"
 
 Either the current directory is not a farm directory, or you never ran `submit.run` for this farm.
 
-### Problems with submit.run
+### Problems with `submit.run`
 
-#### Wrong first argument: XXX (should be a positive integer or -1) ; exiting
+#### Wrong first argument: XXX (should be a positive integer or -1); exiting
 
-Use the correct first argument: `-1` for the SIMPLE mode, or a positive integer N (number of requested meta-jobs) for the META mode.
+Use the correct first argument: -1 for the SIMPLE mode, or a positive integer N (number of requested meta-jobs) for the META mode.
 
 #### "lockfile is not on path; exiting"
 
@@ -387,7 +383,7 @@ Make sure the utility `lockfile` is on your `$PATH`. This utility is critical fo
 
 #### "Non-farm directory (config.h, job_script.sh, single_case.sh, and/or table.dat are missing); exiting"
 
-Either the current directory is not a farm directory, or some important files are missing. Change to the correct (farm) directory, or create the missing files (`config.h`, `job_script.sh`, `single_case.sh`, `table.dat`).
+Either the current directory is not a farm directory, or some important files are missing. Change to the correct (farm) directory, or create the missing files.
 
 #### "-auto option requires resubmit_script.sh file in the root farm directory; exiting"
 
@@ -395,18 +391,18 @@ You used the `-auto` option, but you forgot to create the `resubmit_script.sh` f
 
 #### "File table.dat doesn't exist. Exiting"
 
-You forgot to create the `table.dat` file in the current directory, or perhaps you are running `submit.run` not inside one of your farm sub-directories.
+You forgot to create the `table.dat` file in the current directory, or perhaps you are running `submit.run` not inside one of your farm subdirectories.
 
 #### "Job runtime sbatch argument (-t or --time) is missing in job_script.sh. Exiting"
 
 Make sure you provide a run-time limit for all meta-jobs as an `#SBATCH` argument inside your `job_script.sh` file. The run-time is the only one which cannot be passed as an optional argument to `submit.run`.
 
-#### "Wrong job runtime in job_script.sh - nnn . Exiting"
+#### "Wrong job runtime in job_script.sh - nnn. Exiting"
 
 You didn't format properly the run-time argument inside your `job_script.sh` file.
 
 #### "Something wrong with sbatch farm submission; jobid=XXX; aborting"
-#### "Something wrong with a auto-resubmit job submission; jobid=XXX; aborting"
+#### "Something wrong with auto-resubmit job submission; jobid=XXX; aborting"
 
 With either of the two messages, there was an issue with submitting jobs with `sbatch`. The cluster's scheduler might be misbehaving, or simply too busy. Try again a bit later.
 
@@ -416,7 +412,7 @@ With either of the two messages, there was an issue with submitting jobs with `s
 
 With any of these three messages, something is wrong with a file system: Either permissions got messed up, or you have exhausted a quota. Fix the issue(s), then try again.
 
-### Problems with resubmit.run
+### Problems with `resubmit.run`
 
 #### "Jobs are still running/queued; cannot resubmit"
 
@@ -426,11 +422,11 @@ You cannot use `resubmit.run` until all meta-jobs from this farm have finished r
 
 Your farm was 100% processed. There are no more (failed or never-ran) cases to compute.
 
-### Problems with running jobs
+### Problems with Running Jobs
 
 #### "Too many failed (very short) cases - exiting"
 
-This happens if the first `$N_failed_max` cases are very short-- less than `$dt_failed` seconds in duration. See the discussion regarding settings in `config.h` for details. Determine what is causing the cases to fail and fix that, or else adjust the `$N_failed_max` and `$dt_failed` values in `config.h`.
+This happens if the first `$N_failed_max` cases are very short—less than `$dt_failed` seconds in duration. See the discussion regarding `job_script.sh` above. Determine what is causing the cases to fail and fix that, or else adjust the `$N_failed_max` and `$dt_failed` values in `config.h`.
 
 #### "lockfile is not on path on node XXX"
 

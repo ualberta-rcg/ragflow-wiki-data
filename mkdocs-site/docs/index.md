@@ -77,7 +77,7 @@ title: Home
 | Service | Status |
 |---------|--------|
 | **Vulcan** | :material-check-circle:{ style="color: green" } Operational |
-| **Trillium** | :material-alert:{ style="color: orange" } Trillium GPU login node issues / Problèmes sur le nœud de connexion GPU Trillium |
+| **Trillium** | :material-check-circle:{ style="color: green" } Operational |
 | **Narval** | :material-check-circle:{ style="color: green" } Operational |
 | **Cedar Cloud** | :material-check-circle:{ style="color: green" } Operational |
 | **Graham Cloud** | :material-check-circle:{ style="color: green" } Operational |
@@ -90,7 +90,7 @@ title: Home
 | **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
 | **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-09-27 01:55 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-10-04 03:19 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -100,18 +100,18 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 
 | Date | Event | Link |
 |------|-------|------|
-| TBD | Untitled | [Details](https://bioinformatics.ca/workshops-all/2026-foundational-spatial-omics-analysis-toronto-on/) |
-| TBD | Untitled | [Details](https://bioinformatics.ca/workshops-all/2026-foundational-spatial-omics-analysis-online/) |
-| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-demystifier-linformatique-quantique-1999390359387?aff=explora) |
-| TBD | Untitled | [Register](https://libcal.mcmaster.ca/event/4050428) |
+| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-demystifying-quantum-computing-1997855863669?aff=explora) |
+| TBD | Untitled | [Details](https://www.eventbrite.com/e/first-steps-on-supercomputers-online-cip101-registration-1998915143002?aff=explora) |
 | TBD | Untitled | [Details](https://scinet.courses/1408) |
-| TBD | Untitled | [Details](https://www.eventbrite.com/e/introduction-to-the-linux-command-line-online-lnx101-registration-1998914849123?aff=explora) |
-| TBD | Untitled | [Details](https://www.eventbrite.com/e/statistical-tests-and-models-in-r-tickets-2001617227008) |
-| TBD | Untitled | [Details](https://www.ace-net.ca/training-course/introductory-programming-unix-shell-git-and-python/) |
-| TBD | Untitled | [Details](https://training.sharcnet.ca/courses/course/view.php?id=43) |
-| TBD | Untitled | [Register](https://forms.gle/ADAeeH38oxeRYkKj8) |
+| TBD | Untitled | [Details](https://engagedri-ca.zoom.us/meeting/register/qyVNT5V6S12s-h1CwuaGZg) |
+| TBD | Untitled | [Details](https://training.sharcnet.ca/courses/course/view.php?id=44) |
+| TBD | Untitled | [Details](https://engagedri-ca.zoom.us/webinar/register/WN_ydxchzr4TKm3Xu1ke5mTuw) |
+| TBD | Untitled | [Details](https://scinet.courses/1409) |
+| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-introduction-a-la-ligne-de-commande-linux-en-ligne-lnx101-1998915288437?aff=explora) |
+| TBD | Untitled | [Details](https://www.ace-net.ca/training-course/introduction-to-computational-thinking-mun/) |
+| TBD | Untitled | [Details](https://training.computeontario.ca/courses/course/view.php?id=108) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-09-27 01:55 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-10-04 03:19 UTC.*</small>
 
 ---
 

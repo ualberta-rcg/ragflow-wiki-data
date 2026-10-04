@@ -8,6 +8,7 @@ Auto-generated index for `base/general`.
 
 ## Pages
 
+- [Accessing The Paice Clusters](accessing_the_paice_clusters.md)
 - [Alliance Ccv Submission Guide](alliance_ccv_submission_guide.md)
 - [Authoring Guidelines](authoring_guidelines.md)
 - [Building A Software Carpentry Style Lesson On The Wiki](building_a_software_carpentry_style_lesson_on_the_wiki.md)

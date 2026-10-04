@@ -4,112 +4,107 @@ slug: "vasp"
 lang: "en"
 
 source_wiki_title: "VASP/en"
-source_hash: "8b2f76984df4ecd16c3e6ab76c7ebd22"
-last_synced: "2026-08-15T23:22:43.108655+00:00"
-last_processed: "2026-08-15T23:36:38.919574+00:00"
+source_hash: "7b5fea782b75c7376b5e2af29069396b"
+last_synced: "2026-10-04T02:27:33.201522+00:00"
+last_processed: "2026-10-04T03:17:57.620740+00:00"
 
 tags:
   - software
   - computationalchemistry
 
 keywords:
-  - "pseudopotential files"
-  - "Slurm job script"
-  - "POTCAR"
-  - "module load intel/2020.1.217"
-  - "HDF5"
-  - "Wannier Function"
-  - "6.5.0"
-  - "vasp-gamma"
-  - "POSCAR"
-  - "memory per CPU"
-  - "whole-node scheduling"
-  - "VASP-4.6"
+  - "VASP executable"
   - "Fir Nibi Trillium clusters"
-  - "VTSTtools and vaspSOL extensions"
-  - "6.4.2"
-  - "GPU p100"
-  - "version 5.4.4"
-  - "py4vasp"
-  - "GPU benchmark"
-  - "INCAR"
-  - "makeparam"
-  - "VASP executable files"
-  - "prebuilt VASP modules"
-  - "pseudopotentials"
-  - "KPOINTS"
-  - "5.4.4"
-  - "$EBROOTVASP/pseudopotentials/"
-  - "SBATCH"
-  - "memory 3GB"
-  - "LibXC"
-  - "srun"
-  - "VASP licensing"
-  - "StdEnv/2023"
-  - "makeparam memory estimation"
-  - "EasyBuild VASP installation"
+  - "pseudopotential files"
   - "VASP"
+  - "Trillium GPU"
+  - "EasyBuild VASP recipes"
+  - "SLURM job script"
+  - "memory requirement estimation"
+  - "VASP input files"
+  - "module load"
+  - "vasp/6.4.2"
+  - "SBATCH directives"
+  - "5.4.4"
+  - "vasp/6.6.1"
+  - "version 6.5.0"
+  - "Slurm job script"
+  - "CPU"
+  - "Vasp‑GPU"
+  - "VASP license"
+  - "executable programs"
+  - "StdEnv/2023"
+  - "vasp_gpu_job.sh"
+  - "GPU type p100"
+  - "gpu:p100"
+  - "VASP version 5 and 6"
+  - "6.3.0"
+  - "prebuilt VASP modules"
+  - "module spider vasp"
+  - "py4vasp"
+  - "Wannier Function"
+  - "Included Libraries"
+  - "cuda/12.6"
+  - "module load commands"
 
 questions:
-  - "What steps must a research group follow to obtain a VASP license and request access to the prebuilt VASP binaries on Fir, Nibi, or Trillium?"
-  - "How does the VASP licensing policy determine which versions (e.g., 4, 5, 6) a licensed group is allowed to use?"
-  - "Which module load commands are required to run VASP 5.4.4 and VASP 6.4.2 on the Fir/Nibi and Trillium clusters?"
-  - "Where can the VASP pseudopotentials be found on the Fir and Nibi systems?"
-  - "Which executable should be used for standard NVT calculations that involve non‑gamma k‑points in VASP‑4.6?"
-  - "Which executable is intended for standard NVT calculations that use only the gamma point?"
-  - "What are the different VASP executable files provided for each version and calculation type (standard NVT, NPT, GPU‑enabled)?"
-  - "How does the benchmark described illustrate the performance scaling of VASP‑GPU with varying numbers of GPUs and CPUs?"
-  - "What are the main resource requests and module loads required in the example Slurm job scripts for running VASP with and without GPU support?"
-  - "What are the four VASP input files and how should they be arranged before submitting a job?"
-  - "How can you determine the appropriate memory allocation for a VASP run, especially when planning to use 32 or more cores?"
-  - "What steps and information are required to compile a custom VASP version with EasyBuild, and which recipes are available?"
-  - "What resources (CPU core, memory, GPU type) are requested by the job script?"
-  - "Which modules are loaded and how is VASP executed using `srun` in the script?"
-  - "Where can users find information about GPU types available on clusters other than Cedar?"
-  - "Which VASP version first includes both the Wannier Function and HDF5 libraries?"
-  - "Which VASP releases listed have all seven libraries (Wannier Function, Beef, HDF5, LibXC, ELPA, Libmbd, dft4) enabled?"
-  - "Where can users find a Python interface for extracting data from VASP calculations?"
-  - "Which VASP versions are listed and what are their corresponding module filenames?"
-  - "For which VASP versions is CPU support marked as “yes” and for which is it marked as “No”?"
-  - "What differences are shown in the two yes/no flag columns between VASP 6.5.0 and the other listed versions?"
+  - "What information must be provided to technical support when requesting access to prebuilt VASP binaries on Fir, Nibi, or Trillium?"
+  - "How do the licensing terms differ between VASP version 5 and version 6, and what are the implications for using multiple versions?"
+  - "Which module load commands are required to run specific VASP versions on Fir, Nibi, and Trillium, and how can users list the available versions?"
+  - "Welche Module müssen geladen werden, um VASP 6.4.2 auf dem Standard‑CPU‑Cluster zu verwenden?"
+  - "Welche zusätzlichen bzw. abweichenden Module sind für VASP 6.4.2‑gpu auf dem Trillium‑GPU‑Subcluster erforderlich?"
+  - "Wie wird das Verzeichnis /opt/software/commercial/modules eingebunden, bevor die jeweiligen VASP‑Module geladen werden?"
+  - "Where are the VASP pseudopotential files located on the Fir and Nibi systems, and how can they be accessed?"
+  - "Which executable programs are available for each VASP version (4.6, 5.4.1/5.4.4, 6.1.0) and what types of calculations (NVT, NPT, gamma/non‑gamma) do they support?"
+  - "What does the benchmark reveal about performance differences between using one GPU versus two GPUs, and what recommendation is given to users based on these results?"
+  - "How can you determine the appropriate memory requirement for a VASP job before submitting it with Slurm?"
+  - "What steps are required to build and install a custom version of VASP using EasyBuild on the clusters?"
+  - "Which GPU type is specified in the example job script, and on which cluster is it available?"
+  - "How can you list available VASP versions and learn how to switch to a specific one using the module system?"
+  - "What is the purpose of the `<VASP>` placeholder in the documentation, and where can you find the list of executable programs for each version?"
+  - "In the provided `vasp_gpu_job.sh` script, which SBATCH options specify the GPU resources and what constraints apply to the GPU type?"
+  - "Which VASP versions listed include support for the ELPA library?"
+  - "What are the main differences in included libraries between VASP 6.4.3‑iimpi‑2023a and VASP 6.5.0‑iimpi‑2023a?"
+  - "Where can users access the Python interface (py4vasp) for extracting data from VASP calculations?"
+  - "Which VASP versions are listed and what StdEnv module version is associated with each one?"
+  - "What archive file type is provided for each VASP version in the list?"
+  - "Are all the VASP builds indicated as CPU‑only and marked as available?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
   keywords_generated: true
-  ragflow_synced: false
+  ragflow_synced: true
   qa_generated: false
 ---
 
-The Vienna *ab initio* Simulation Package (VASP) is a computer program for atomic scale materials modelling, including electronic structure calculations and quantum mechanical molecular dynamics, from first principles.
+*The Vienna ab initio Simulation Package (VASP) is a computer program for atomic scale materials modelling, e.g. electronic structure calculations and quantum mechanical molecular dynamics, from first principles.*
 Reference: [VASP website](https://www.vasp.at/)
 
 ## Licensing
 
-VASP can only be used by research groups that have been licensed by the developers, VASP Software GmbH. Your PI (principal investigator, professor) must register at the [VASP website](https://www.vasp.at/) and obtain a license.
+VASP can only be used by research groups that have been licensed by the developers, VASP Software GmbH. Your PI (principal investigator, professor) must register at the [VASP website](https://www.vasp.at/) and obtain a **licence**.
 
-Once you have a license, if you wish to use the prebuilt VASP binaries on [Fir](fir.md), [Nibi](../clusters/nibi.md), or [Trillium](../clusters/trillium.md), contact [Technical support](../support/technical_support.md) requesting access to VASP with the following information:
-
-*   Include license holder (your PI) information:
+Once you have a **licence**, if you wish to use the prebuilt VASP binaries on [Fir](fir.md), [Nibi](../clusters/nibi.md), or [Trillium](../clusters/trillium.md), contact [Technical support](../support/technical_support.md) requesting access to VASP with the following information:
+*   Include **licence** holder (your PI) information:
     *   Name
     *   Email address
     *   Department and institution (university)
-*   Include license information:
-    *   Version of the VASP license (**VASP version 5 or version 6**)
-    *   **License number**
-    *   Provide an updated list of who is allowed to use your VASP license. For example, forward to us the most recent email from the VASP license administrator that contains the list of licensed users.
+*   Include **licence** information:
+    *   Version of the VASP **licence** (**VASP version 5 or version 6**)
+    *   **Licence number**
+    *   Provide an updated list of who is allowed to use your VASP **licence**. For example, forward to us the most recent email from the VASP **licence** administrator that contains the list of licensed users.
 
-!!! note
-    If you are licensed for version 6 you may also use version 5, but a version 5 license does not permit you to use version 6.
+If you are licensed for version 6 you may also use version 5, but a version 5 **licence** does not permit you to use version 6.
 
-You may also choose to install VASP yourself, according to the terms of your license. See [Building VASP yourself](#building-vasp-yourself) below.
+You may also choose to install VASP yourself, according to the terms of your **licence**. See [Building VASP yourself](#building-vasp-yourself) below.
 
 ### Why?
 
-VASP Software GmbH will only grant licenses to groups that are hired by a single legal entity, which is incompatible with the way we operate. We have tried to negotiate an agreement with the licensor which would let us install the software everywhere on our infrastructure, but without success. Please read the terms of your own license, as you are likely subject to the same restriction. This limits the support we can offer to users who need help installing the software.
+VASP Software GmbH will only grant **licences** to groups that are hired by a single legal entity, which is incompatible with the way we operate. We have tried to negotiate an agreement with the licensor which would let us install the software everywhere on our infrastructure, but without success. Please read the terms of your own **licence**, as you are likely subject to the same restriction. This limits the support we can offer to users who need help installing the software.
 
-Simon Fraser University, the University of Waterloo, and the University of Toronto own Fir, Nibi, and Trillium, respectively, and have licenses with VASP. Some of their employees are therefore allowed to install specific versions of VASP on those clusters and provide limited support.
+Simon Fraser University, the University of Waterloo, and the University of Toronto own Fir, Nibi, and Trillium, respectively, and have **licences** with VASP. Some of their employees are therefore allowed to install specific versions of VASP on those clusters and provide limited support.
 
 ## Using prebuilt VASP
 
@@ -152,6 +147,13 @@ module use /opt/software/commercial/modules
 module load vasp/6.4.2
 ```
 
+For **vasp/6.6.1**
+```bash
+module load StdEnv/2023 intel/2025.2.0 intelmpi/2021.16.0 hdf5/1.14.6
+module use /opt/software/commercial/modules
+module load vasp/6.6.1
+```
+
 For **vasp/6.4.2-gpu** on the **Trillium GPU** subcluster
 ```bash
 module load StdEnv/2023 nvhpc/25.1 cuda/12.6 nccl/2.26.2 imkl/2023.2.0 hdf5/1.14.5
@@ -168,18 +170,18 @@ All pseudopotentials have been downloaded from the official VASP website and unt
 ### Executable programs
 
 **For VASP-4.6**, executable files are:
-*   `vasp` for standard NVT calculations with non-gamma k-points
+*   `vasp` for standard NVT calculations with non gamma k points
 *   `vasp-gamma` for standard NVT calculations with only gamma points
 *   `makeparam` to estimate how much memory is required to run VASP for a particular cluster
 
 **For VASP-5.4.1, 5.4.4 and 6.1.0 (without CUDA support)**, executable files are:
-*   `vasp_std` for standard NVT calculations with non-gamma k-points
+*   `vasp_std` for standard NVT calculations with non gamma k points
 *   `vasp_gam` for standard NVT calculations with only gamma points
-*   `vasp_ncl` for NPT calculations with non-gamma k-points
+*   `vasp_ncl` for NPT calculations with non gamma k points
 
 **For VASP-5.4.4 and 6.1.0 (with CUDA support)**, executable files are:
-*   `vasp_gpu` for standard NVT calculations with gamma and non-gamma k-points
-*   `vasp_gpu_ncl` for NPT calculations with gamma and non-gamma k-points
+*   `vasp_gpu` for standard NVT calculations with gamma and non gamma k points
+*   `vasp_gpu_ncl` for NPT calculations with gamma and non gamma k points
 
 Two extensions have also been incorporated:
 *   [Transition State Tools](http://theory.cm.utexas.edu/vtsttools/)
@@ -189,40 +191,46 @@ If you need a version of VASP that does not appear here, you can either build it
 
 ## Vasp-GPU
 
-Vasp-GPU executable files run on both GPUs and CPUs of a node. Basically, calculation on a GPU is much more expensive than on a CPU, therefore we highly recommend performing a benchmark using one or two GPUs to make sure you are getting maximum performance from GPU use.
+Vasp-GPU executable files run on both GPUs and CPUs of a node. Calculation on a GPU is much more expensive than on a CPU, therefore we highly recommend performing a benchmark using one or two GPUs to ensure maximum performance from GPU usage.
 
-A benchmark of an Si crystal containing 256 Si-atoms in the simulation box showed that simulation time as a function of the number of CPUs was significantly reduced when GPUs were used. Specifically, performance for GPU=1,2 and CPU=1 was more than five times better compared to GPU=0 and CPU=1. However, a comparison of calculations with GPU=1 and GPU=2 indicated that there was not much performance gain from GPU=1 to GPU=2; monitoring showed GPU=2 utilization was around 50%. Therefore, users are recommended to first perform a benchmark for their own system to ensure they are not wasting computer resources.
+A benchmark of a Si crystal containing 256 Si-atoms in the simulation box showed the following:
+*   Performance for GPU=1,2 and CPU=1 was more than 5 times better compared to GPU=0 and CPU=1.
+*   A comparison of calculations with GPU=1 and GPU=2 indicated that there was not much performance gain from GPU=1 to GPU=2. In fact, GPU=2 utilization was around 50% in our monitoring system for this benchmark.
+
+Therefore, we recommend users to first perform a similar benchmark for their own system to ensure they are not wasting computer resources.
 
 ## Example of a VASP job script
 
 The following is a job script to run VASP in parallel using the Slurm job scheduler:
 
-```bash title="vasp_job.sh"
-#!/bin/bash
-#SBATCH --account=<ACCOUNT>
-#SBATCH --ntasks=4             # number of MPI processes
-#SBATCH --mem-per-cpu=1024M    # memory
-#SBATCH --time=0-00:05         # time (DD-HH:MM)
-module load intel/2020.1.217 intelmpi/2019.7.217 vasp/<VERSION>
-mpirun <VASP>
-```
+=== "vasp_job.sh"
+    ```bash
+    #!/bin/bash
+    #SBATCH --account=<ACCOUNT>
+    #SBATCH --ntasks=4             # number of MPI processes
+    #SBATCH --mem-per-cpu=1024M    # memory
+    #SBATCH --time=0-00:05         # time (DD-HH:MM)
+    module load intel/2020.1.217 intelmpi/2019.7.217 vasp/<VERSION>
+    mpirun <VASP>
+    ```
 
 *   The above job script requests four CPU cores and 4096MB memory (4x1024MB).
 *   `<ACCOUNT>` is a Slurm account name; see [Accounts and projects](../running-jobs/running_jobs.md#accounts-and-projects) to know what to enter there.
 *   `<VERSION>` is the number for the VASP version you want to use: 4.6, 5.4.1, 5.4.4 or 6.1.0.
 *   Use `module spider vasp/<VERSION>` to see how you can change this particular version.
-*   `<VASP>` is the name of the executable. Refer to the *Executable programs* section above for the executables you can select for each version.
+*   `<VASP>` is the name of the executable. Refer to section *Executable programs* above for the executables you can select for each version.
 
-```bash title="vasp_gpu_job.sh"
-#!/bin/bash
-#SBATCH --account=<ACCOUNT>
-#SBATCH --cpus-per-task=1      # number of CPU processes
-#SBATCH --gres=gpu:p100:1      # Number of GPU type:p100 (valid type only for cedar)
-#SBATCH --mem=3GB              # memory
-#SBATCH --time=0-00:05         # time (DD-HH:MM)
-module load intel/2020.1.217 cuda/11.0 openmpi/4.0.3 vasp/<VERSION>
-mpirun <VASP>
-```
+=== "vasp_gpu_job.sh"
+    ```bash
+    #!/bin/bash
+    #SBATCH --account=<ACCOUNT>
+    #SBATCH --cpus-per-task=1      # number of CPU processes
+    #SBATCH --gres=gpu:p100:1      # Number of GPU type:p100 (valid type only for cedar)
+    #SBATCH --mem=3GB              # memory
+    #SBATCH --time=0-00:05         # time (DD-HH:MM)
+    module load intel/2020.1.217 cuda/11.0 openmpi/4.0.3 vasp/<VERSION>
+    mpirun <VASP>
+    ```
 
 *   The above job script requests one CPU core and 1024MB memory.
 *   The above job script requests one GPU type p100 which is only available on Cedar. For other clusters, please see the [GPU types available](../running-jobs/using_gpus_with_slurm.md).
@@ -233,8 +241,7 @@ VASP uses four input files named as INCAR, KPOINTS, POSCAR, POTCAR. It is best t
 sbatch vasp_job.sh
 ```
 
-!!! tip
-    If you do not know how much memory you need for your job, prepare all your input files and then run `makeparam` in an [interactive job submission](../running-jobs/running_jobs.md#interactive-jobs). Then use the result as required memory for the next run. However, for a more accurate estimate for future jobs, check the maximum stack size used by [completed jobs](../running-jobs/running_jobs.md) and use this as the memory requirement per processor for the next job.
+If you do not know how much memory you need for your job, prepare all your input files and then run `makeparam` in an [interactive job submission](../running-jobs/running_jobs.md#interactive-jobs). Then use the result as required memory for the next run. However, for a more accurate estimate for future jobs, check the maximum stack size used by [completed jobs](../running-jobs/running_jobs.md) and use this as the memory requirement per processor for the next job.
 
 If you want to use 32 or more cores, please read about [whole-node scheduling](../running-jobs/job_scheduling_policies.md#whole-nodes-versus-cores).
 
@@ -242,13 +249,15 @@ If you want to use 32 or more cores, please read about [whole-node scheduling](.
 
 If you are licensed to use VASP and have access to VASP source code, you can install various versions of VASP in your `/home` directory on all our clusters using the following [EasyBuild](../programming/easybuild.md) commands.
 
-`eb -f [RECIPE NAME] --sourcepath=[SOURCEPATH]`
+```bash
+eb -f [RECIPE NAME] --sourcepath=[SOURCEPATH]
+```
 
-where `[SOURCEPATH]` is the directory containing the VASP source code and `[RECIPE NAME]` is the name of the recipe. The table below shows the list of available recipes along with the corresponding required source files. In this table, VTSTtools and vaspSOL are Transition State Tools and VASPsol extensions respectively. You may download the source code from the [VASP website](https://www.vasp.at/). Running the command will take some time, perhaps more than an hour. Once it is done, you will be able to load and run VASP using `module` commands just as explained above in [Using prebuilt VASP](#using-prebuilt-vasp).
+where `[SOURCEPATH]` is the directory containing the VASP source code and `[RECIPE NAME]` is the name of the recipe. The first tab of the table below shows the list of available recipes along with the corresponding required source files. In this table VTSTtools and vaspSOL are Transition State Tools and VASPsol extensions respectively. The second tab of this table shows the list of the libraries that are included with VASP. You may download the source code from the [VASP website](https://www.vasp.at/). Running the command will take some time, perhaps more than an hour. Once it is done, you will be able to load and run VASP using `module` commands just as explained above in [Using prebuilt VASP](#using-prebuilt-vasp).
 
-Alternatively, to build a custom version of VASP, please see [Installing software in your home directory](../getting-started/installing_software_in_your_home_directory.md) and [Installing VASP 5](https://www.vasp.at/wiki/index.php/Installing_VASP.5.X.X) or [Installing VASP 6](https://www.vasp.at/wiki/index.php/Installing_VASP.6.X.X).
+Alternatively to build a custom version of VASP, please see [Installing software in your home directory](../getting-started/installing_software_in_your_home_directory.md) and [Installing VASP 5](https://www.vasp.at/wiki/index.php/Installing_VASP.5.X.X) or [Installing VASP 6](https://www.vasp.at/wiki/index.php/Installing_VASP.6.X.X).
 
-### Recipe Specification and Implementation
+=== "Recipe specification and implementation"
 
 | Recipe Name               | Version | Environment | Source file          | CPU/GPU | VTSTtools | vaspSOL |
 | :------------------------ | :------ | :---------- | :------------------- | :------ | :-------- | :------ |
@@ -263,7 +272,7 @@ Alternatively, to build a custom version of VASP, please see [Installing softwar
 | VASP-6.5.0-iimpi-2023a.eb | 6.5.0   | StdEnv/2023 | vasp.6.5.0.tgz       | CPU     | No        | No      |
 | VASP-6.5.1-iimpi-2023a.eb | 6.5.1   | StdEnv/2023 | vasp.6.5.1.tgz       | CPU     | No        | No      |
 
-### Included Libraries
+=== "Included Libraries"
 
 | Recipe Name               | Wannier Function | Beef | HDF5 | LibXC | ELPA | Libmbd | dft4 |
 | :------------------------ | :--------------- | :--- | :--- | :---- | :--- | :----- | :--- |
