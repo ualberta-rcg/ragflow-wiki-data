@@ -85,32 +85,24 @@ Pour ce qui est de l’option AUTO de la variable d'environnement LSTC_MEMORY, c
 #SBATCH --mem=16G               # Specify total memory
 #SBATCH --nodes=1               # Do not change
 
-<div class="mw-translate-fuzzy">
-module load StdEnv/2023         # Version 12.2.1
-module load intel/2023.2.1
-module load ls-dyna/12.2.1
-</div>
+module load StdEnv/2023         # Version 12.2.1 :
+module load intel/2023.2.1      # available on all clusters,
+module load ls-dyna/12.2.1      # uses ifort160_sse2 smp binary
 
-<div class="mw-translate-fuzzy">
-#export LSTC_LICENSE=ansys      # Specify an ANSYS License Server
-#export ANSYSLMD_LICENSE_FILE=<port>@<server>
-</div>
+# Uncomment next two lines to use an ANSYS License Server
+#export LSTC_LICENSE=ansys                   # Do not change this setting
+#export ANSYSLMD_LICENSE_FILE=PORT@HOSTNAME  # Specify PORT and HOSTNAME
 
 #export LSTC_MEMORY=AUTO        # Optional for explicit only
 
-<div class="mw-translate-fuzzy">
-ls-dyna_d ncpu=$SLURM_CPUS_ON_NODE i=airbag.deploy.k memory=1500M
-}}
-où 
-*ls-dyna_s = solveur smp simple précision
-*ls-dyna_d = solveur smp double précision
-</div>
+INPUTFILE="airbag.deploy.k"     # Specify an input filename
+SMPSOLVER="ls-dyna_d"           # Specify ls-dyna_s OR ls-dyna_d
 
 $SMPSOLVER ncpu=$SLURM_CPUS_ON_NODE i=$INPUTFILE memory=1500M
 }}
-where 
-*ls-dyna_s = single precision smp solver
-*ls-dyna_d = double precision smp solver
+où 
+*ls-dyna_s = simple précision
+*ls-dyna_d = double précision
 
 <span id="Multiple_node_jobs"></span>
 == Tâches avec plusieurs nœuds ==
@@ -135,21 +127,18 @@ Le script suivant demande un nombre spécifique de '''nœuds de calcul entiers''
 ##SBATCH --constraint=cascade    # Uncomment to specify a cluster specific node type
 </div>
 
-<div class="mw-translate-fuzzy">
-#module load StdEnv/2023          # Versions 12.2.1, 12.2.2
-#module load intel/2023.2.1       # Modules <=12.2.1 use non-shared libs
-#module load ls-dyna-mpi/12.2.2   # Modules >=12.2.2 use shared libraries
+#module load StdEnv/2023          # Versions 12.2.1, 12.2.2 :
+#module load intel/2023.2.1       # available on all clusters,
+#module load ls-dyna-mpi/12.2.1   # 12.2.1 uses ifort160_avx2_openmpi405 binary
+#module load ls-dyna-mpi/12.2.2   # 12.2.2 uses ifort160_avx2_openmpi405_sharelib
 # -----------------------------
-module load StdEnv/2023           # Versions 13.2.0, 14.2.0, 15.0.2, 16.2.0, 17.0.1
-module load intel/2025.2.0        # Modules >= 13.2.0 use avx512 binaries
-module load ls-dyna-mpp/17.0.1    # Modules >= 13.2.0 are named ls-dyna-mpp
-</div>
+module load StdEnv/2023           # Versions 13.2.0, 14.2.0, 15.0.2, 16.2.0, 17.2.0 :
+module load intel/2025.2.0        # available on all clusters except narval,
+module load ls-dyna-mpp/17.2.0    # all versions ifort190_avx512_openmpi405_sharelib
 
-<div class="mw-translate-fuzzy">
-# Uncomment next two lines to specify an ANSYS License Server
-#export LSTC_LICENSE=ansys                   # Do not change 
-#export ANSYSLMD_LICENSE_FILE=PORT@HOSTNAME  # Specify PORT number & HOSTNAME
-</div>
+# Uncomment next two lines to use an ANSYS License Server
+#export LSTC_LICENSE=ansys                   # Do not change this setting
+#export ANSYSLMD_LICENSE_FILE=PORT@HOSTNAME  # Specify PORT and HOSTNAME
 
 #export LSTC_MEMORY=AUTO          # Optional for explicit only
 
@@ -180,31 +169,23 @@ To use version 12.2.1 or 12.2.2 on narval the above script will likely need to b
 ##SBATCH --constraint=cascade     # Uncomment to specify a cluster specific node type
 </div>
 
-<div class="mw-translate-fuzzy">
-module load StdEnv/2023           # Version 12.2.1 (more versions added on request)
-module load intel/2023.2.1
-module load ls-dyna-mpi/12.2.1
-</div>
+#module load StdEnv/2023          # Versions 12.2.1, 12.2.2 :
+#module load intel/2023.2.1       # available on all clusters,
+#module load ls-dyna-mpi/12.2.1   # 12.2.1 uses ifort160_avx2_openmpi405 binary
+#module load ls-dyna-mpi/12.2.2   # 12.2.2 uses ifort160_avx2_openmpi405_sharelib
+# -----------------------------
+module load StdEnv/2023           # Versions 13.2.0, 14.2.0, 15.0.2, 16.2.0, 17.2.0 :
+module load intel/2025.2.0        # available on all clusters except narval,
+module load ls-dyna-mpp/17.2.0    # all versions ifort190_avx512_openmpi405_sharelib
 
-<div class="mw-translate-fuzzy">
-#export LSTC_LICENSE=ansys        # Specify an ANSYS License Server
-#export ANSYSLMD_LICENSE_FILE=<port>@<server>
-</div>
+# Uncomment next two lines to use an ANSYS License Server
+#export LSTC_LICENSE=ansys                   # Do not change this setting
+#export ANSYSLMD_LICENSE_FILE=PORT@HOSTNAME  # Specify PORT and HOSTNAME
 
 #export LSTC_MEMORY=AUTO          # Optional for explicit only
 
-<div class="mw-translate-fuzzy">
-if [ "$EBVERSIONNIXPKGS" == 16.09 ]; then
- slurm_hl2hl.py --format MPIHOSTLIST > /tmp/mpihostlist-$SLURM_JOB_ID
- mpirun -np $SLURM_NTASKS -hostfile /tmp/mpihostlist-$SLURM_JOB_ID ls-dyna_d i=airbag.deploy.k memory=200M
-else
- srun ls-dyna_d i=airbag.deploy.k memory=200M
-fi
-}}
-où 
-*ls-dyna_s = solveur mpp simple précision
-*ls-dyna_d = solveur mpp double précision
-</div>
+INPUTFILE="airbag.deploy.k"       # Specify an input filename
+MPPSOLVER="ls-dyna_d"             # Specify ls-dyna_s OR ls-dyna_d
 
 srun $MPPSOLVER i=$INPUTFILE memory=200M
 }}

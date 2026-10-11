@@ -22,6 +22,9 @@ prepend_path("ABAQUSLM_LICENSE_FILE","port@server")
 }}
 </div>
 
+ [l2 (login node):~ ] cat abaqus_v6.env
+ license_server_type = FLEXNET
+
  [l2 (login node):~/.licenses] cat abaqus.lic
  prepend_path("ABAQUSLM_LICENSE_FILE","LMGRD-PORT-NUMBER@FLEXnet-SERVER-HOSTNAME")
 
@@ -36,6 +39,27 @@ rm -f testsp1* testsp2*
 }}
 </div>
 
+ [l2 (login node):~]$ module load abaqus
+ [l2 (login node):~]$ abaqus licensing ru | grep ABAQUSLM:
+   ABAQUSLM: UP v11.19.6.   <-- indicates success
+
+To check how many cae licenses in a pool are available for immediate use by anyone (the difference between "issued" and "in use") run the following command.  Note that reserved licenses will always appear to be "in use" regardless if they actually are or not by the group they are reserved for.  In the case of the SHARCNET license there are 4 cae licenses but only 1 is reserved therefore 3 are in the pool available to anyone for use.  The following example shows that at the time the following command was run non of the 3 cae licenses in the pool were available for use by any group to run abaqus in gui mode on the nibi cluster On-Demand graphical system.
+
+ [l2 (login node):~]$ abaqus licensing ru | grep cae
+ Users of cae:  (Total of 4 licenses issued;  Total of 1 license in use)
+ "cae" v62.7, vendor: ABAQUSLM, expiry: 17-jan-2027
+
+For a summary of ALL licenses provided by a license 
+
+ [l2 (login node):~]$ module load abaqus
+ [l2 (login node):~]$ abaqus licensing r
+ Feature                         Version     #licenses    Vendor        Expires
+ _______                         _________   _________    ______        ________
+ abaqus_extended                 62.7         4           ABAQUSLM      17-jan-2027
+ abaqus                          62.7         78          ABAQUSLM      17-jan-2027
+ ams                             62.7         1           ABAQUSLM      17-jan-2027
+ etc etc etc
+
 <span id="DSLS_servers"></span>
 == Serveurs DSLS == 
 
@@ -45,10 +69,9 @@ Comme c'était le cas avec les modules déjà installés, <code>abaqus/2026</cod
 
  [l2 (login node):~ ] cat abaqus_v6.env
  license_server_type=DSLS
- dsls_license_config="/home/<username>/DSLicSrv.txt" 
 
-  [l2 (login node):~ ] cat DSLicSrv.txt
-  DSLS-SERVER-HOSTNAME:LICENSING-CLIENT-PORT-NUMBER
+ [l2 (login node):~/.licenses] cat abaqus.lic
+ prepend_path("DSLS_LICENSE_FILE","LICENSING-CLIENT-PORT-NUMBER@DSLS-SERVER-HOSTNAME")
 
 [l2 (login node):~/mysimdir] cat abaqus_v6.env
  license_server_type=DSLS
@@ -66,7 +89,9 @@ Si votre licence n'est pas configurée pour une grappe en particulier, les admin
 En retour vous recevrez une liste d'adresses IP et votre administrateur de système pourra ouvrir les pare-feu de votre serveur local pour que la grappe puisse se connecter via les deux ports. Une entente spéciale doit habituellement être négociée et signée avec SIMULIA pour qu'une telle licence puisse être utilisée à distance avec notre matériel.
 </div>
 
+<div class="mw-translate-fuzzy">
 = Licence=
+</div>
 
 == License queuing ==
 The default setup for the license server is to queue jobs started on the cluster by Slurm if not enough tokens are available. There are two options to alter this behaviour so jobs don't sit idle on a cluster compute node waiting for a license indefinitely wasting valuable resources. The first option is to terminate a job immediately if not enough licenses are available, therefore never entering a queue. To specify this setting, create a text file named abaqus_v6.env in either your /home OR working (submit) directory containing the line: <code>lmlicensequeuing=OFF</code>. The second option is to specify a finite wait time where the job can enter into a queued state on the license server such as 1 minute by adding the line: <code>lmhanglimit=1</code>. If within 1 minute sufficient licenses do not come available then the job will be dequeud by the license server and in turn be terminated by Slurm.  For each option, messages will be printed at the bottom of the Slurm output file as shown in [[Abaqus#Example|the Example below]].
@@ -88,7 +113,7 @@ A new module <code>abaqus/2026</code> containing the initial <i>Abaqus 2026 Gold
 
 == 2021 ==
 
-Its recommended to discontinue use of <code>abaqus/2021</code> installed under the previous StdEnv/2020 since this legacy version generates *** buffer overflow detected *** error on all recent clusters.  To workaround this problem an unshare workaround has been added into each slurm script found in this wiki.  This however only works on single node jobs and does not guarantee accurate results.
+Its recommended to discontinue use of <code>abaqus/2021</code> installed under the previous StdEnv/2020 since this legacy version generates *** buffer overflow detected *** error on all recent clusters.  An unshare workaround previously included in the single node slurm scripts wof this wiki has now been removed.
 
 <span id="Cluster_job_submission"></span>
 = Soumettre des tâches en lots =
@@ -113,6 +138,7 @@ Les solveurs prennent en charge la parallélisation avec fils et avec MPI. Des s
 <span id="Single_node_computing"></span>
 === Scripts pour un nœud simple === 
 
+<div class="mw-translate-fuzzy">
 <tabs>
 <tab name="script pour le répertoire /project">
 {{File
@@ -127,18 +153,26 @@ Les solveurs prennent en charge la parallélisation avec fils et avec MPI. Des s
 #SBATCH --nodes=1               # Do not change !
 ##SBATCH --constraint=granite   # Uncomment to specify a node type
 ##SBATCH --gpus-per-node=h100:1 # Uncomment to specify [type:]number
+</div>
 
+<div class="mw-translate-fuzzy">
 module load abaqus/2026         # Latest version
 #module load StdEnv/2020        # Legacy version
 #module load abaqus/2021        # Discontinue use
+</div>
 
+<div class="mw-translate-fuzzy">
 unset SLURM_GTIDS
 export MPI_IC_ORDER='tcp'
 echo "LM_LICENSE_FILE=$LM_LICENSE_FILE"
 echo "ABAQUSLM_LICENSE_FILE=$ABAQUSLM_LICENSE_FILE"
+</div>
 
+<div class="mw-translate-fuzzy">
 rm -f testsp1* testsp2*
+</div>
 
+<div class="mw-translate-fuzzy">
 if [[ $EBVERSIONABAQUS -eq 2021 ]]; then
    /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare \
    --fork --pid --mount-proc --user --map-user $USER \
@@ -153,6 +187,7 @@ elif [[ $EBVERSIONABAQUS -ge 2026 ]]; then
    #gpus=$SLURM_GPUS_ON_NODE  # uncomment this line to use gpu
 fi
 }}
+</div>
 
 <div class="mw-translate-fuzzy">
 Pour écrire les données de redémarrage en incréments de N=12, le fichier en entrée doit contenir
@@ -165,6 +200,7 @@ Certaines simulations peuvent être améliorées en ajoutant au bas du script la
  order_parallel=OFF
 </div>
 
+<div class="mw-translate-fuzzy">
 </tab>
 <tab name="script de redémarrage pour le répertoire /project">
 {{File
@@ -179,18 +215,26 @@ Certaines simulations peuvent être améliorées en ajoutant au bas du script la
 #SBATCH --nodes=1               # Do not change !
 ##SBATCH --constraint=granite   # Uncomment to specify a node type
 ##SBATCH --gpus-per-node=h100:1 # Uncomment to specify [type:]number
+</div>
 
+<div class="mw-translate-fuzzy">
 module load abaqus/2026         # Latest version
 #module load StdEnv/2020        # Legacy version
 #module load abaqus/2021        # Discontinue use
+</div>
 
+<div class="mw-translate-fuzzy">
 unset SLURM_GTIDS
 export MPI_IC_ORDER='tcp'
 echo "LM_LICENSE_FILE=$LM_LICENSE_FILE"
 echo "ABAQUSLM_LICENSE_FILE=$ABAQUSLM_LICENSE_FILE"
+</div>
 
+<div class="mw-translate-fuzzy">
 rm -f testsp2* testsp1.lck
+</div>
 
+<div class="mw-translate-fuzzy">
 if [[ $EBVERSIONABAQUS -eq 2021 ]]; then
    /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare \
    --fork --pid --mount-proc --user --map-user $USER \
@@ -205,11 +249,13 @@ elif [[ $EBVERSIONABAQUS -ge 2026 ]]; then
    #gpus=$SLURM_GPUS_ON_NODE  # uncomment this line to use gpu
 fi
 }}
+</div>
 
 Le fichier en entrée pour le redémarrage doit contenir
  *HEADING
  *RESTART, READ
 
+<div class="mw-translate-fuzzy">
 </tab>
 <tab name="script pour répertoire temporaire">
 {{File
@@ -228,29 +274,29 @@ Le fichier en entrée pour le redémarrage doit contenir
 #SBATCH --nodes=1               # Do not change !
 ##SBATCH --constraint=granite   # Uncomment to specify a node type
 ##SBATCH --gpus-per-node=h100:1 # Uncomment to specify [type:]number
+</div>
 
 
+<div class="mw-translate-fuzzy">
 module load abaqus/2026         # Latest version
 #module load StdEnv/2020        # Legacy version
 #module load abaqus/2021        # Discontinue use
+</div>
 
+<div class="mw-translate-fuzzy">
 unset SLURM_GTIDS
 export MPI_IC_ORDER='tcp'
 echo "LM_LICENSE_FILE=$LM_LICENSE_FILE"
 echo "ABAQUSLM_LICENSE_FILE=$ABAQUSLM_LICENSE_FILE"
 echo "SLURM_SUBMIT_DIR =" $SLURM_SUBMIT_DIR
 echo "SLURM_TMPDIR = " $SLURM_TMPDIR
+</div>
 
+<div class="mw-translate-fuzzy">
 rm -f testst1* testst2*
+</div>
 
-mkdir $SLURM_TMPDIR/scratch
-cd $SLURM_TMPDIR
-while sleep 6h; do
-   echo "Saving data due to time limit ..."
-   cp -fv * $SLURM_SUBMIT_DIR 2>/dev/null
-done &
-WPID=$!
-
+<div class="mw-translate-fuzzy">
 if [[ $EBVERSIONABAQUS -eq 2021 ]]; then
    /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare \
    --fork --pid --mount-proc --user --map-user $USER \
@@ -264,10 +310,13 @@ elif [[ $EBVERSIONABAQUS -ge 2026 ]]; then
    mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB" \
    #gpus=$SLURM_GPUS_ON_NODE  # uncomment this line to use gpu
 fi
+</div>
 
+<div class="mw-translate-fuzzy">
 { kill $WPID && wait $WPID; } 2>/dev/null
 cp -fv * $SLURM_SUBMIT_DIR
 }}
+</div>
 
 Pour écrire les données de redémarrage en incréments de N=12, le fichier en entrée doit contenir
  *RESTART, WRITE, OVERLAY, FREQUENCY=12
@@ -276,6 +325,7 @@ Pour écrire les données de redémarrage pour un total de 12 incréments, entre
 Pour vérifier l'information complète sur le redémarrage
  egrep -i "step|start" testst*.com testst*.msg testst*.sta
 
+<div class="mw-translate-fuzzy">
 </tab>
 <tab name="script de redémarrage pour le répertoire temporaire">
 {{File
@@ -290,18 +340,24 @@ Pour vérifier l'information complète sur le redémarrage
 #SBATCH --nodes=1              # Do not change !
 ##SBATCH --constraint=granite   # Uncomment to specify a node type
 ##SBATCH --gpus-per-node=h100:1 # Uncomment to specify [type:]number
+</div>
 
+<div class="mw-translate-fuzzy">
 module load abaqus/2026         # Latest version
 #module load StdEnv/2020        # Legacy version
 #module load abaqus/2021        # Discontinue use
+</div>
 
+<div class="mw-translate-fuzzy">
 unset SLURM_GTIDS
 export MPI_IC_ORDER='tcp'
 echo "LM_LICENSE_FILE=$LM_LICENSE_FILE"
 echo "ABAQUSLM_LICENSE_FILE=$ABAQUSLM_LICENSE_FILE"
 echo "SLURM_SUBMIT_DIR =" $SLURM_SUBMIT_DIR
 echo "SLURM_TMPDIR = " $SLURM_TMPDIR
+</div>
 
+<div class="mw-translate-fuzzy">
 rm -f testst2* testst1.lck
 cp testst1* $SLURM_TMPDIR
 mkdir $SLURM_TMPDIR/scratch
@@ -311,7 +367,9 @@ while sleep 6h; do
    cp -fv testst2* $SLURM_SUBMIT_DIR 2>/dev/null
 done &
 WPID=$!
+</div>
 
+<div class="mw-translate-fuzzy">
 if [[ $EBVERSIONABAQUS -eq 2021 ]]; then
    /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare \
    --fork --pid --mount-proc --user --map-user $USER \
@@ -325,10 +383,13 @@ elif [[ $EBVERSIONABAQUS -ge 2026 ]]; then
    mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB" \
    #gpus=$SLURM_GPUS_ON_NODE  # uncomment this line to use gpu
 fi
+</div>
 
+<div class="mw-translate-fuzzy">
 { kill $WPID && wait $WPID; } 2>/dev/null
 cp -fv testst2* $SLURM_SUBMIT_DIR
 }}
+</div>
 
 Le fichier en entrée pour le redémarrage doit contenir
  *HEADING
@@ -389,6 +450,7 @@ Les solveurs prennent en charge la parallélisation avec fils et avec MPI. Des s
 <span id="Single_node_computing"></span>
 === Scripts pour un nœud simple === 
 
+<div class="mw-translate-fuzzy">
 <tabs>
 <tab name="script pour le répertoire /project">
 {{File
@@ -401,18 +463,26 @@ Les solveurs prennent en charge la parallélisation avec fils et avec MPI. Des s
 #SBATCH --mem=8000M            # indiquer la mémoire totale > 5M
 #SBATCH --cpus-per-task=4      # indiquer le nombre de cœurs > 1
 #SBATCH --nodes=1              # ne pas modifier
+</div>
 
+<div class="mw-translate-fuzzy">
 module load abaqus/2026         # Latest version
 #module load StdEnv/2020        # Legacy version
 #module load abaqus/2021        # Discontinue use
+</div>
 
+<div class="mw-translate-fuzzy">
 unset SLURM_GTIDS
 export MPI_IC_ORDER='tcp'
 echo "LM_LICENSE_FILE=$LM_LICENSE_FILE"
 echo "ABAQUSLM_LICENSE_FILE=$ABAQUSLM_LICENSE_FILE"
+</div>
 
+<div class="mw-translate-fuzzy">
 rm -f testep1* testep2*
+</div>
 
+<div class="mw-translate-fuzzy">
 if [[ $EBVERSIONABAQUS -eq 2021 ]]; then
    /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare \
    --fork --pid --mount-proc --user --map-user $USER \
@@ -425,12 +495,14 @@ elif [[ $EBVERSIONABAQUS -ge 2026 ]]; then
    mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB"
 fi
 }}
+</div>
 
 Pour écrire les données de redémarrage pour un total de 12 incréments, le fichier en entrée doit contenir
  *RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO
 Pour vérifier l'information complète sur le redémarrage
  egrep -i "step|restart" testep*.com testep*.msg testep*.sta
 
+<div class="mw-translate-fuzzy">
 </tab>
 <tab name="script de redémarrage pour le répertoire /project">
 {{File
@@ -443,19 +515,27 @@ Pour vérifier l'information complète sur le redémarrage
 #SBATCH --mem=8000M            # indiquer la mémoire totale > 5M
 #SBATCH --cpus-per-task=4      # indiquer le nombre de cœurs > 1
 #SBATCH --nodes=1              # ne pas modifier
+</div>
 
+<div class="mw-translate-fuzzy">
 module load abaqus/2026         # Latest version
 #module load StdEnv/2020        # Legacy version
 #module load abaqus/2021        # Discontinue use
+</div>
 
+<div class="mw-translate-fuzzy">
 unset SLURM_GTIDS
 export MPI_IC_ORDER='tcp'
 echo "LM_LICENSE_FILE=$LM_LICENSE_FILE"
 echo "ABAQUSLM_LICENSE_FILE=$ABAQUSLM_LICENSE_FILE"
+</div>
 
+<div class="mw-translate-fuzzy">
 rm -f testep2* testep1.lck
 for f in testep1*; do [[ -f ${f} ]] && cp -a "$f" "testep2${f#testep1}"; done
+</div>
 
+<div class="mw-translate-fuzzy">
 if [[ $EBVERSIONABAQUS -eq 2021 ]]; then
    /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare \
    --fork --pid --mount-proc --user --map-user $USER \
@@ -468,9 +548,11 @@ elif [[ $EBVERSIONABAQUS -ge 2026 ]]; then
    mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB"
 fi
 }}
+</div>
 
 Le fichier en entrée ne requiert aucune modification pour le redémarrage de l'analyse.
 
+<div class="mw-translate-fuzzy">
 </tab>
 <tab name="script pour le répertoire temporaire">
 {{File
@@ -483,25 +565,33 @@ Le fichier en entrée ne requiert aucune modification pour le redémarrage de l'
 #SBATCH --mem=8000M            # node memory > 5G
 #SBATCH --cpus-per-task=4      # number cores > 1
 #SBATCH --nodes=1              # do not change
+</div>
 
+<div class="mw-translate-fuzzy">
 module load abaqus/2026         # Latest version
 #module load StdEnv/2020        # Legacy version
 #module load abaqus/2021        # Discontinue use
+</div>
 
+<div class="mw-translate-fuzzy">
 unset SLURM_GTIDS
 export MPI_IC_ORDER='tcp'
 echo "LM_LICENSE_FILE=$LM_LICENSE_FILE"
 echo "ABAQUSLM_LICENSE_FILE=$ABAQUSLM_LICENSE_FILE"
 echo "SLURM_SUBMIT_DIR =" $SLURM_SUBMIT_DIR
 echo "SLURM_TMPDIR = " $SLURM_TMPDIR
+</div>
 
+<div class="mw-translate-fuzzy">
 rm -f testet1* testet2*
 cd $SLURM_TMPDIR
 while sleep 6h; do
    cp -f * $SLURM_SUBMIT_DIR 2>/dev/null
 done &
 WPID=$!
+</div>
 
+<div class="mw-translate-fuzzy">
 if [[ $EBVERSIONABAQUS -eq 2021 ]]; then
    /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare \
    --fork --pid --mount-proc --user --map-user $USER \
@@ -513,16 +603,20 @@ elif [[ $EBVERSIONABAQUS -ge 2026 ]]; then
    scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \
    mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB"
 fi
+</div>
 
+<div class="mw-translate-fuzzy">
 { kill $WPID && wait $WPID; } 2>/dev/null
 cp -f * $SLURM_SUBMIT_DIR
 }}
+</div>
 
 Pour écrire les données de redémarrage pour un total de 12 incréments, le fichier en entrée doit contenir
  *RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO
 Pour vérifier l'information complète sur le redémarrage
  egrep -i "step|restart" testet*.com testet*.msg testet*.sta
 
+<div class="mw-translate-fuzzy">
 </tab>
 <tab name="script de redémarrage pour le répertoire temporaire">
 {{File
@@ -535,18 +629,24 @@ Pour vérifier l'information complète sur le redémarrage
 #SBATCH --mem=8000M            # node memory > 5G
 #SBATCH --cpus-per-task=4      # number cores > 1
 #SBATCH --nodes=1              # do not change
+</div>
 
+<div class="mw-translate-fuzzy">
 module load abaqus/2026         # Latest version
 #module load StdEnv/2020        # Legacy version
 #module load abaqus/2021        # Discontinue use
+</div>
 
+<div class="mw-translate-fuzzy">
 unset SLURM_GTIDS
 export MPI_IC_ORDER='tcp'
 echo "LM_LICENSE_FILE=$LM_LICENSE_FILE"
 echo "ABAQUSLM_LICENSE_FILE=$ABAQUSLM_LICENSE_FILE"
 echo "SLURM_SUBMIT_DIR =" $SLURM_SUBMIT_DIR
 echo "SLURM_TMPDIR = " $SLURM_TMPDIR
+</div>
 
+<div class="mw-translate-fuzzy">
 rm -f testet2* testet1.lck
 for f in testet1*; do cp -a "$f" $SLURM_TMPDIR/"testet2${f#testet1}"; done
 cd $SLURM_TMPDIR
@@ -554,7 +654,9 @@ while sleep 3h; do
    cp -f * $SLURM_SUBMIT_DIR 2>/dev/null
 done &
 WPID=$!
+</div>
 
+<div class="mw-translate-fuzzy">
 if [[ $EBVERSIONABAQUS -eq 2021 ]]; then
    /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare \
    --fork --pid --mount-proc --user --map-user $USER \
@@ -566,10 +668,13 @@ elif [[ $EBVERSIONABAQUS -ge 2026 ]]; then
    scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \
    mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB"
 fi
+</div>
 
+<div class="mw-translate-fuzzy">
 { kill $WPID && wait $WPID; } 2>/dev/null
 cp -f  * $SLURM_SUBMIT_DIR
 }}
+</div>
 
 Le fichier en entrée ne requiert aucune modification pour le redémarrage de l'analyse.
 
@@ -875,21 +980,16 @@ Chaque GPU nécessite un jeton additionnel.
 == Licence de Western ==
 
 <div class="mw-translate-fuzzy">
-[[ <span style="color:red">Le fichier abaqus.lic ci-dessous ne fonctionne plus, car la machine license4 a été mise hors service définitivement. Par conséquent, toutes les demandes d'accès à une licence Abaqus sur la grappe Dusky à partir du serveur de licences Abaqus Western/Robarts échoueront. Un serveur de remplacement pour license4 est en préparation. Dès qu'il sera en fonction, le fichier abaqus.lic sera mis à jour avec le nouveau nom du serveur et ce message d'avertissement rouge sera supprimé. En attendant, la licence SHARCNET peut être utilisée en suivant la procédure de demande d'accès ci-dessus.</span> ]]
-</div> 
-
-<div class="mw-translate-fuzzy">
 La licence Western est réservée aux chercheurs et chercheuses de Western et ne peut être utilisée que sur du matériel situé sur le campus. Actuellement, seulement la grappe Dusky remplit cette condition. Les systèmes Nibi et SHARCNET OOD sont exclus, car ils se trouvent sur le campus de Waterloo. Pour toute question concernant l'utilisation de la licence Abaqus de Western, veuillez contacter l'administrateur du serveur de licences Abaqus de Western à l'adresse <jmilner@robarts.ca>. Vous devrez fournir votre nom d'utilisateur et éventuellement prévoir l'achat de jetons. Si votre demande d'accès est acceptée, vous pourrez configurer votre fichier abaqus.lic pour qu'il pointe vers le serveur de licences de Western.
 </div>
 
-<span id="Configure_license_file"></span>
-===Configurer le fichier de licences===
-
 <source lang="bash">
+[laptop:~] ssh dusky.alliancecan.ca
+
 [dus241:~] cat .licenses/abaqus.lic
-prepend_path("LM_LICENSE_FILE","27000@license4.sharcnet.ca")
-prepend_path("ABAQUSLM_LICENSE_FILE","27000@license4.sharcnet.ca")
+prepend_path("ABAQUSLM_LICENSE_FILE","27000@authorize.robarts.ca")
 </source>
+
 <div class="mw-translate-fuzzy">
 Par la suite, soumettez votre tâche tel que décrit à la section <i>Soumettre une tâche sur une grappe</i> ci-dessus. Si un problème survient, écrivez au [[Technical support/fr|soutien technique]] en indiquant que vous utilisez la licence du site Western sur Dusky. Ajoutez le numéro de la tâche qui pose problème et copiez le ou les messages d'erreur s'il y a lieu.
 </div>

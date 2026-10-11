@@ -10,23 +10,46 @@ Abaqus software modules are available on the Alliance clusters, however you must
 
 == FLEXnet servers ==
 
-To configure your account on a cluster to use a <b>FLEXnet-based</b> (aka FlexLM) Abaqus license server, a single file named ~/.licenses/abaqus.lic must be created, specifying its fully qualified hostname <code>FLEXnet-SERVER-HOSTNAME</code> and license manager daemon port number <code>LMGRD-PORT-NUMBER</code>. These two pieces of information are then assigned to the <code>ABAQUSLM_LICENSE_FILE</code> environment variable whenever an Abaqus module is loaded by reading
+To configure your account on a cluster to use a <b>FLEXnet-based</b> (aka FlexLM) Abaqus license server, a single file named <code>~/.licenses/abaqus.lic</code> must be first setup created containing the license manager daemon port number <code>LMGRD-PORT-NUMBER</code> and the fully qualified hostname <code>FLEXnet-SERVER-HOSTNAME</code>. These two pieces of information are then assigned to the <code>ABAQUSLM_LICENSE_FILE</code> environment variable whenever an Abaqus module is loaded.  Another file <code>abaqus_v6.env</code> may also need to exist in the home or job submission directory if its not assumed default:
+
+ [l2 (login node):~ ] cat abaqus_v6.env
+ license_server_type = FLEXNET
 
  [l2 (login node):~/.licenses] cat abaqus.lic
  prepend_path("ABAQUSLM_LICENSE_FILE","LMGRD-PORT-NUMBER@FLEXnet-SERVER-HOSTNAME")
 
-To use an old legacy version such as 6.14.1, change <code>ABAQUSLM_LICENSE_FILE</code> to <code>LM_LICENSE_FILE</code>.
+To check if your license server connection is working run the following command:
+
+ [l2 (login node):~]$ module load abaqus
+ [l2 (login node):~]$ abaqus licensing ru | grep ABAQUSLM:
+   ABAQUSLM: UP v11.19.6.   <-- indicates success
+
+To check how many cae licenses in a pool are available for immediate use by anyone (the difference between "issued" and "in use") run the following command.  Note that reserved licenses will always appear to be "in use" regardless if they actually are or not by the group they are reserved for.  In the case of the SHARCNET license there are 4 cae licenses but only 1 is reserved therefore 3 are in the pool available to anyone for use.  The following example shows that at the time the following command was run non of the 3 cae licenses in the pool were available for use by any group to run abaqus in gui mode on the nibi cluster On-Demand graphical system.
+
+ [l2 (login node):~]$ abaqus licensing ru | grep cae
+ Users of cae:  (Total of 4 licenses issued;  Total of 1 license in use)
+ "cae" v62.7, vendor: ABAQUSLM, expiry: 17-jan-2027
+
+For a summary of ALL licenses provided by a license 
+
+ [l2 (login node):~]$ module load abaqus
+ [l2 (login node):~]$ abaqus licensing r
+ Feature                         Version     #licenses    Vendor        Expires
+ _______                         _________   _________    ______        ________
+ abaqus_extended                 62.7         4           ABAQUSLM      17-jan-2027
+ abaqus                          62.7         78          ABAQUSLM      17-jan-2027
+ ams                             62.7         1           ABAQUSLM      17-jan-2027
+ etc etc etc
 
 == DSLS servers == 
 
-To use a <b>DSLS</b> based license server (Dassault Systèmes License Server), you must first configure two small text files named abaqus_v6.env and DSLicSrv.txt so Abaqus can find the DSLS license server. You may either put a copy of <code>abaqus_v6.env</code> file into each abaqus working directory **OR**  put a single copy into your home directory.  Note that the <code>abaqus_v6.env</code> file must contain the absolute path to your  <code>DSLicSrv.txt</code> file so that both the <code>dslsstat</code> command and <code>abaqus</code> command will run properly.  Otherwise you will need to set <code>export DSLS_CONFIG=/path/to/DSLicSrv.txt</code> for every job you submit.  For example, placing both files into your home directory, you would just need to replace <username> with the output from "echo $USER" and then substitute the server IP and PORT values into  DSLS-SERVER-HOSTNAME:LICENSING-CLIENT-PORT-NUMBER in the following :
+To use a <b>DSLS</b> based license server (Dassault Systèmes License Server), you must first configure two single line text files named <code>~/.licenses/abaqus.lic</code> and <code>abaqus_v6.env</code> as shown below. You may either put a copy of <code>abaqus_v6.env</code> file into each job submit directory **OR** a single copy into your home directory.  For example, placing both following abaqus_v6.env file in your home directory, you would just need to replace LICENSING-CLIENT-PORT-NUMBER:DSLS-SERVER-HOSTNAME in your <code>~/.licenses/abaqus.lic</code> file then DSLS_LICENSE_FILE will be configured accordingly whenever an Abaqus module is loaded:
 
  [l2 (login node):~ ] cat abaqus_v6.env
  license_server_type=DSLS
- dsls_license_config="/home/<username>/DSLicSrv.txt" 
 
-  [l2 (login node):~ ] cat DSLicSrv.txt
-  DSLS-SERVER-HOSTNAME:LICENSING-CLIENT-PORT-NUMBER
+ [l2 (login node):~/.licenses] cat abaqus.lic
+ prepend_path("DSLS_LICENSE_FILE","LICENSING-CLIENT-PORT-NUMBER@DSLS-SERVER-HOSTNAME")
 
 With both files setup, you may now check if the license server is reachable and responding by running:
 
@@ -38,10 +61,12 @@ With both files setup, you may now check if the license server is reachable and 
 == New servers ==
 
 If your license server was never set up for use on an Alliance cluster, some additional configuration changes by the Alliance system administrator and your local system administrator will need to be done. Such changes are necessary to ensure the required TCP ports (https protocol) of your Abaqus server are reachable from all cluster compute nodes through the client/server firewalls. For help, please write to [[Technical support|technical support]] and be sure to include the following:
-* FLEXnet SERVER: flex lmgrd port number (default 27000), static vendor port number (default 28000) 
-* DSLS SERVER: administrative port number (default 4084), licensing client port number (default 4085)
+* FLEXnet SERVER: flex lmgrd port number (default 27000), static vendor port number (default 28000) <br>
+  where both ports need to be opened on the Alliance cluster and license server firewalls
+* DSLS SERVER: administrative port number (default 4084), licensing client port number (default 4085) <br>
+  where only the licensing client port must be opened on the Alliance cluster and license server firewalls
 * Fully qualified domain name or IPV4 address of your new Abaqus server
-You will be sent a list of cluster IP addresses (known as NAT nodes) so that your administrator can open the local server firewall to allow connections from the cluster on both ports. Please note that a special license agreement must generally be negotiated and signed by both SIMULIA and your institution before a campus license may be legally used on Alliance hardware located remotely at another institution.
+You will be sent a list of cluster IP addresses (known as NAT nodes) so your administrator can open the local server firewall to allow connections from these nodes on the required port(s). Please note that a special license agreement must generally be negotiated and signed by both SIMULIA and your institution before a campus license may be used remotely on an Alliance cluster located on the campus of another institution.
 
 == License queuing ==
 The default setup for the license server is to queue jobs started on the cluster by Slurm if not enough tokens are available. There are two options to alter this behaviour so jobs don't sit idle on a cluster compute node waiting for a license indefinitely wasting valuable resources. The first option is to terminate a job immediately if not enough licenses are available, therefore never entering a queue. To specify this setting, create a text file named abaqus_v6.env in either your /home OR working (submit) directory containing the line: <code>lmlicensequeuing=OFF</code>. The second option is to specify a finite wait time where the job can enter into a queued state on the license server such as 1 minute by adding the line: <code>lmhanglimit=1</code>. If within 1 minute sufficient licenses do not come available then the job will be dequeud by the license server and in turn be terminated by Slurm.  For each option, messages will be printed at the bottom of the Slurm output file as shown in [[Abaqus#Example|the Example below]].
@@ -61,7 +86,7 @@ All tests should Succeed except for CAE (unless you log into an ondemand/juypter
 
 == 2021 ==
 
-Its recommended to discontinue use of <code>abaqus/2021</code> installed under the previous StdEnv/2020 since this legacy version generates *** buffer overflow detected *** error on all recent clusters.  To workaround this problem an unshare workaround has been added into each slurm script found in this wiki.  This however only works on single node jobs and does not guarantee accurate results.
+Its recommended to discontinue use of <code>abaqus/2021</code> installed under the previous StdEnv/2020 since this legacy version generates *** buffer overflow detected *** error on all recent clusters.  An unshare workaround previously included in the single node slurm scripts wof this wiki has now been removed.
 
 = Cluster job submission =
 
@@ -72,7 +97,7 @@ Single node jobs that run less than one day should find the <i>project directory
 Jobs that require large memory or larger compute resources (beyond that which a single compute node can provide) should use the mpi scripts in the <b>multiple node sections</b> below to distribute computing over arbitrary node ranges determined automatically by the scheduler.  Short scaling test jobs should be run to determine wall-clock times (and memory requirements) as a function of the number of cores (2, 4, 8, etc.) to determine the optimal number before running any long jobs. 
 
 == Standard analysis ==
-Abaqus solvers support thread-based and mpi-based parallelization. Scripts for each type are provided below for running Standard Analysis type jobs on Single or Multiple nodes respectively. Scripts to perform multiple node job restarts are not currently provided.
+Abaqus solvers support thread-based and mpi-based parallelization. Scripts for each type are provided below for running Standard Analysis type jobs on Single or Multiple nodes respectively. Lines that start with ##SBATCH are commented, to uncomment change to #SBATCH.  Most users will find it sufficient to use the first scriptsp1.txt script that requires simply changing def-group to your account and mystd-sim.inp to the name of your input file before submitting with the "sbatch scriptsp1.txt" command.
 
 === Single node computing === 
 
@@ -90,31 +115,24 @@ Abaqus solvers support thread-based and mpi-based parallelization. Scripts for e
 #SBATCH --nodes=1               # Do not change !
 ##SBATCH --constraint=granite   # Uncomment to specify a node type
 ##SBATCH --gpus-per-node=h100:1 # Uncomment to specify [type:]number
+##SBATCH --partition=specify    # Uncomment to specify contributor
 
-module load abaqus/2026         # Latest version
-#module load StdEnv/2020        # Legacy version
-#module load abaqus/2021        # Discontinue use
+module load StdEnv/2023
+module load abaqus/2026
 
 unset SLURM_GTIDS
 export MPI_IC_ORDER='tcp'
-echo "LM_LICENSE_FILE=$LM_LICENSE_FILE"
 echo "ABAQUSLM_LICENSE_FILE=$ABAQUSLM_LICENSE_FILE"
+echo "SLURM_SUBMIT_DIR =" $SLURM_SUBMIT_DIR
+echo "SLURM_TMPDIR = " $SLURM_TMPDIR
 
 rm -f testsp1* testsp2*
+mkdir -p $SLURM_TMPDIR/scratch
 
-if [[ $EBVERSIONABAQUS -eq 2021 ]]; then
-   /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare \
-   --fork --pid --mount-proc --user --map-user $USER \
-   abaqus job=testsp1 input=mystd-sim.inp \
-   scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \
-   mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB" \
-   #gpus=$SLURM_GPUS_ON_NODE  # uncomment this line to use gpu
-elif [[ $EBVERSIONABAQUS -ge 2026 ]]; then
-   abaqus job=testsp1 input=mystd-sim.inp \
-   scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \
-   mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB" \
-   #gpus=$SLURM_GPUS_ON_NODE  # uncomment this line to use gpu
-fi
+abaqus job=testsp1 input=$SLURM_SUBMIT_DIR/mystd-sim.inp \
+scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive \
+mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB" \
+#gpus=$SLURM_GPUS_ON_NODE  # uncomment this line to use gpu
 }}
 
 To write restart data every N=12 time increments specify in the input file:
@@ -140,31 +158,24 @@ Some simulations may benefit by adding the following to the Abaqus command at th
 #SBATCH --nodes=1               # Do not change !
 ##SBATCH --constraint=granite   # Uncomment to specify a node type
 ##SBATCH --gpus-per-node=h100:1 # Uncomment to specify [type:]number
+##SBATCH --partition=specify    # Uncomment to specify contributor
 
-module load abaqus/2026         # Latest version
-#module load StdEnv/2020        # Legacy version
-#module load abaqus/2021        # Discontinue use
+module load StdEnv/2023
+module load abaqus/2026
 
 unset SLURM_GTIDS
 export MPI_IC_ORDER='tcp'
-echo "LM_LICENSE_FILE=$LM_LICENSE_FILE"
 echo "ABAQUSLM_LICENSE_FILE=$ABAQUSLM_LICENSE_FILE"
+echo "SLURM_SUBMIT_DIR =" $SLURM_SUBMIT_DIR
+echo "SLURM_TMPDIR = " $SLURM_TMPDIR
 
-rm -f testsp2* testsp1.lck
+rm -f testsp1.lck testsp2*
+mkdir -p $SLURM_TMPDIR/scratch
 
-if [[ $EBVERSIONABAQUS -eq 2021 ]]; then
-   /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare \
-   --fork --pid --mount-proc --user --map-user $USER \
-   abaqus job=testsp2 oldjob=testsp1 input=mystd-sim-restart.inp \
-   scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \
-   mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB" \
-   #gpus=$SLURM_GPUS_ON_NODE  # uncomment this line to use gpu
-elif [[ $EBVERSIONABAQUS -ge 2026 ]]; then
-   abaqus job=testsp2 oldjob=testsp1 input=mystd-sim-restart.inp \
-   scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \
-   mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB" \
-   #gpus=$SLURM_GPUS_ON_NODE  # uncomment this line to use gpu
-fi
+abaqus job=testsp2 oldjob=testsp1 input=$SLURM_SUBMIT_DIR/mystd-sim-restart.inp \
+scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive \
+mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB" \
+#gpus=$SLURM_GPUS_ON_NODE  # uncomment this line to use gpu
 }}
 
 The restart input file should contain:
@@ -185,45 +196,31 @@ The restart input file should contain:
 #SBATCH --nodes=1               # Do not change !
 ##SBATCH --constraint=granite   # Uncomment to specify a node type
 ##SBATCH --gpus-per-node=h100:1 # Uncomment to specify [type:]number
+##SBATCH --partition=specify    # Uncomment to specify contributor
 
 
-module load abaqus/2026         # Latest version
-#module load StdEnv/2020        # Legacy version
-#module load abaqus/2021        # Discontinue use
+module load StdEnv/2023
+module load abaqus/2026
 
 unset SLURM_GTIDS
 export MPI_IC_ORDER='tcp'
-echo "LM_LICENSE_FILE=$LM_LICENSE_FILE"
 echo "ABAQUSLM_LICENSE_FILE=$ABAQUSLM_LICENSE_FILE"
 echo "SLURM_SUBMIT_DIR =" $SLURM_SUBMIT_DIR
 echo "SLURM_TMPDIR = " $SLURM_TMPDIR
 
 rm -f testst1* testst2*
+mkdir -p $SLURM_TMPDIR/scratch
+mkdir -p $SLURM_TMPDIR/project
+cp abaqus_v6.env $SLURM_TMPDIR/project
+cd $SLURM_TMPDIR/project
 
-mkdir $SLURM_TMPDIR/scratch
-cd $SLURM_TMPDIR
-while sleep 6h; do
-   echo "Saving data due to time limit ..."
-   cp -fv * $SLURM_SUBMIT_DIR 2>/dev/null
-done &
-WPID=$!
+abaqus job=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim.inp \
+scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive \
+mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB" \
+#gpus=$SLURM_GPUS_ON_NODE  # uncomment this line to use gpu
 
-if [[ $EBVERSIONABAQUS -eq 2021 ]]; then
-   /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare \
-   --fork --pid --mount-proc --user --map-user $USER \
-   abaqus job=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim.inp \
-   scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive \
-   mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB" \
-   #gpus=$SLURM_GPUS_ON_NODE  # uncomment this line to use gpu
-elif [[ $EBVERSIONABAQUS -ge 2026 ]]; then
-   abaqus job=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim.inp \
-   scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive \
-   mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB" \
-   #gpus=$SLURM_GPUS_ON_NODE  # uncomment this line to use gpu
-fi
-
-{ kill $WPID && wait $WPID; } 2>/dev/null
-cp -fv * $SLURM_SUBMIT_DIR
+cp -a * $SLURM_SUBMIT_DIR
+cd $SLURM_SUBMIT_DIR
 }}
 
 To write restart data every N=12 time increments specify in the input file:
@@ -247,44 +244,31 @@ To check the completed restart information do:
 #SBATCH --nodes=1               # Do not change !
 ##SBATCH --constraint=granite   # Uncomment to specify a node type
 ##SBATCH --gpus-per-node=h100:1 # Uncomment to specify [type:]number
+##SBATCH --partition=specify    # Uncomment to specify contributor
 
-module load abaqus/2026         # Latest version
-#module load StdEnv/2020        # Legacy version
-#module load abaqus/2021        # Discontinue use
+module load StdEnv/2023
+module load abaqus/2026
 
 unset SLURM_GTIDS
 export MPI_IC_ORDER='tcp'
-echo "LM_LICENSE_FILE=$LM_LICENSE_FILE"
 echo "ABAQUSLM_LICENSE_FILE=$ABAQUSLM_LICENSE_FILE"
 echo "SLURM_SUBMIT_DIR =" $SLURM_SUBMIT_DIR
 echo "SLURM_TMPDIR = " $SLURM_TMPDIR
 
-rm -f testst2* testst1.lck
-cp testst1* $SLURM_TMPDIR
-mkdir $SLURM_TMPDIR/scratch
-cd $SLURM_TMPDIR
-while sleep 6h; do
-   echo "Saving data due to time limit ..."
-   cp -fv testst2* $SLURM_SUBMIT_DIR 2>/dev/null
-done &
-WPID=$!
+rm -f testst1.lck testst2*
+mkdir -pv $SLURM_TMPDIR/scratch
+mkdir -pv $SLURM_TMPDIR/project
+cp abaqus_v6.env $SLURM_TMPDIR/project
+cp testst1* $SLURM_TMPDIR/project
+cd $SLURM_TMPDIR/project
 
-if [[ $EBVERSIONABAQUS -eq 2021 ]]; then
-   /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare \
-   --fork --pid --mount-proc --user --map-user $USER \
-   abaqus job=testst2 oldjob=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim-restart.inp \
-   scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive \
-   mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB" \
-   #gpus=$SLURM_GPUS_ON_NODE  # uncomment this line to use gpu
-elif [[ $EBVERSIONABAQUS -ge 2026 ]]; then
-   abaqus job=testst2 oldjob=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim-restart.inp \
-   scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive \
-   mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB" \
-   #gpus=$SLURM_GPUS_ON_NODE  # uncomment this line to use gpu
-fi
+abaqus job=testst2 oldjob=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim-restart.inp \
+scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive \
+mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB" \
+#gpus=$SLURM_GPUS_ON_NODE  # uncomment this line to use gpu
 
-{ kill $WPID && wait $WPID; } 2>/dev/null
-cp -fv testst2* $SLURM_SUBMIT_DIR
+cp -a * $SLURM_SUBMIT_DIR
+cd $SLURM_SUBMIT_DIR
 }}
 
 The restart input file should contain:
@@ -351,29 +335,23 @@ Abaqus solvers support thread-based and mpi-based parallelization. Scripts for e
 #SBATCH --mem=8000M            # node memory > 5G
 #SBATCH --cpus-per-task=4      # number cores > 1
 #SBATCH --nodes=1              # do not change
+##SBATCH --partition=specify   # optional
 
-module load abaqus/2026         # Latest version
-#module load StdEnv/2020        # Legacy version
-#module load abaqus/2021        # Discontinue use
+module load StdEnv/2023
+module load abaqus/2026
 
 unset SLURM_GTIDS
 export MPI_IC_ORDER='tcp'
-echo "LM_LICENSE_FILE=$LM_LICENSE_FILE"
 echo "ABAQUSLM_LICENSE_FILE=$ABAQUSLM_LICENSE_FILE"
+echo "SLURM_SUBMIT_DIR =" $SLURM_SUBMIT_DIR
+echo "SLURM_TMPDIR = " $SLURM_TMPDIR
 
 rm -f testep1* testep2*
+mkdir -p $SLURM_TMPDIR/scratch
 
-if [[ $EBVERSIONABAQUS -eq 2021 ]]; then
-   /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare \
-   --fork --pid --mount-proc --user --map-user $USER \
-   abaqus job=testep1 input=myexp-sim.inp \
-   scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \
-   mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB"
-elif [[ $EBVERSIONABAQUS -ge 2026 ]]; then
-   abaqus job=testep1 input=myexp-sim.inp \
-   scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \
-   mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB"
-fi
+abaqus job=testep1 input=myexp-sim.inp \
+scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive \
+mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB"
 }}
 
 To write restart data for a total of 12 time increments specify in the input file:
@@ -393,30 +371,23 @@ Check for completed restart information in relevant output files:
 #SBATCH --mem=8000M            # node memory > 5G
 #SBATCH --cpus-per-task=4      # number cores > 1
 #SBATCH --nodes=1              # do not change
+##SBATCH --partition=specify   # optional
 
-module load abaqus/2026         # Latest version
-#module load StdEnv/2020        # Legacy version
-#module load abaqus/2021        # Discontinue use
+module load StdEnv/2023
+module load abaqus/2026
 
 unset SLURM_GTIDS
 export MPI_IC_ORDER='tcp'
-echo "LM_LICENSE_FILE=$LM_LICENSE_FILE"
 echo "ABAQUSLM_LICENSE_FILE=$ABAQUSLM_LICENSE_FILE"
+echo "SLURM_SUBMIT_DIR =" $SLURM_SUBMIT_DIR
+echo "SLURM_TMPDIR = " $SLURM_TMPDIR
 
-rm -f testep2* testep1.lck
-for f in testep1*; do [[ -f ${f} ]] && cp -a "$f" "testep2${f#testep1}"; done
+rm -f testep1.lck testep2*
+for f in testep1*; do cp -av "$f" "testep2${f#testep1}"; done
 
-if [[ $EBVERSIONABAQUS -eq 2021 ]]; then
-   /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare \
-   --fork --pid --mount-proc --user --map-user $USER \
-   abaqus job=testep2 input=myexp-sim.inp recover \
-   scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \
-   mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB"
-elif [[ $EBVERSIONABAQUS -ge 2026 ]]; then
-   abaqus job=testep2 input=myexp-sim.inp recover \
-   scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \
-   mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB"
-fi
+abaqus job=testep2 input=$SLURM_SUBMIT_DIR/myexp-sim.inp recover \
+scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \
+mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB"
 }}
 
 No input file modifications are required to restart the analysis.
@@ -433,39 +404,29 @@ No input file modifications are required to restart the analysis.
 #SBATCH --mem=8000M            # node memory > 5G
 #SBATCH --cpus-per-task=4      # number cores > 1
 #SBATCH --nodes=1              # do not change
+##SBATCH --partition=specify   # optional
 
-module load abaqus/2026         # Latest version
-#module load StdEnv/2020        # Legacy version
-#module load abaqus/2021        # Discontinue use
+module load StdEnv/2023
+module load abaqus/2026
 
 unset SLURM_GTIDS
 export MPI_IC_ORDER='tcp'
-echo "LM_LICENSE_FILE=$LM_LICENSE_FILE"
 echo "ABAQUSLM_LICENSE_FILE=$ABAQUSLM_LICENSE_FILE"
 echo "SLURM_SUBMIT_DIR =" $SLURM_SUBMIT_DIR
 echo "SLURM_TMPDIR = " $SLURM_TMPDIR
 
 rm -f testet1* testet2*
-cd $SLURM_TMPDIR
-while sleep 6h; do
-   cp -f * $SLURM_SUBMIT_DIR 2>/dev/null
-done &
-WPID=$!
+mkdir -p $SLURM_TMPDIR/scratch
+mkdir -p $SLURM_TMPDIR/project
+cp abaqus_v6.env $SLURM_TMPDIR/project
+cd $SLURM_TMPDIR/project
 
-if [[ $EBVERSIONABAQUS -eq 2021 ]]; then
-   /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare \
-   --fork --pid --mount-proc --user --map-user $USER \
-   abaqus job=testet1 input=$SLURM_SUBMIT_DIR/myexp-sim.inp \
-   scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \
-   mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB"
-elif [[ $EBVERSIONABAQUS -ge 2026 ]]; then
-   abaqus job=testet1 input=$SLURM_SUBMIT_DIR/myexp-sim.inp \
-   scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \
-   mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB"
-fi
+abaqus job=testet1 input=$SLURM_SUBMIT_DIR/myexp-sim.inp \
+scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \
+mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB"
 
-{ kill $WPID && wait $WPID; } 2>/dev/null
-cp -f * $SLURM_SUBMIT_DIR
+cp -a * $SLURM_SUBMIT_DIR
+cd $SLURM_SUBMIT_DIR
 }}
 
 To write restart data for a total of 12 time increments specify in the input file:
@@ -485,40 +446,30 @@ Check for completed restart information in relevant output files:
 #SBATCH --mem=8000M            # node memory > 5G
 #SBATCH --cpus-per-task=4      # number cores > 1
 #SBATCH --nodes=1              # do not change
+##SBATCH --partition=specify   # optional
 
-module load abaqus/2026         # Latest version
-#module load StdEnv/2020        # Legacy version
-#module load abaqus/2021        # Discontinue use
+module load StdEnv/2023
+module load abaqus/2026
 
 unset SLURM_GTIDS
 export MPI_IC_ORDER='tcp'
-echo "LM_LICENSE_FILE=$LM_LICENSE_FILE"
 echo "ABAQUSLM_LICENSE_FILE=$ABAQUSLM_LICENSE_FILE"
 echo "SLURM_SUBMIT_DIR =" $SLURM_SUBMIT_DIR
 echo "SLURM_TMPDIR = " $SLURM_TMPDIR
 
-rm -f testet2* testet1.lck
-for f in testet1*; do cp -a "$f" $SLURM_TMPDIR/"testet2${f#testet1}"; done
-cd $SLURM_TMPDIR
-while sleep 3h; do
-   cp -f * $SLURM_SUBMIT_DIR 2>/dev/null
-done &
-WPID=$!
+rm -f testet1.lck testet2*
+mkdir -pv $SLURM_TMPDIR/scratch
+mkdir -pv $SLURM_TMPDIR/project
+cp abaqus_v6.env $SLURM_TMPDIR/project
+for f in testet1*; do cp -av "$f" $SLURM_TMPDIR/project/"testet2${f#testet1}"; done
+cd $SLURM_TMPDIR/project
 
-if [[ $EBVERSIONABAQUS -eq 2021 ]]; then
-   /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare \
-   --fork --pid --mount-proc --user --map-user $USER \
-   abaqus job=testet2 input=$SLURM_SUBMIT_DIR/myexp-sim.inp recover \
-   scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \
-   mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB"
-elif [[ $EBVERSIONABAQUS -ge 2026 ]]; then
-   abaqus job=testet2 input=$SLURM_SUBMIT_DIR/myexp-sim.inp recover \
-   scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \
-   mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB"
-fi
+abaqus job=testet2 input=$SLURM_SUBMIT_DIR/myexp-sim.inp recover \
+scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive \
+mp_mode=threads memory="$((${SLURM_MEM_PER_NODE}-3072))MB"
 
-{ kill $WPID && wait $WPID; } 2>/dev/null
-cp -f  * $SLURM_SUBMIT_DIR
+cp -a * $SLURM_SUBMIT_DIR
+cd $SLURM_SUBMIT_DIR
 }}
 
 No input file modifications are required to restart the analysis.
@@ -792,15 +743,13 @@ Each GPU used requires 1 additional TOKEN
 
 == Western license ==
 
-[[ <span style="color:red">The <code>abaqus.lic</code> file given below no longer works since the license4 machine has been shutdown and retired. Therefore all abaqus license checkout requests on dusky cluster from the Western/Robarts abaqus license server currently will fail. A replacement server for license4 is currently be worked on. Once it is ready for use <code>abaqus.lic</code> will be updated with the new server name and this red warning message removed. In the meantime, the SHARCNET License may be used instead by following the above procedure to request access.</span> ]] 
-
-The Western site license may only be used by Western researchers on hardware located at Western's campus. Currently, only the Dusky cluster satisfies this condition. Nibi and SHARCNET OOD system are excluded since they are located on Waterloo's campus. Contact the Western Abaqus license server administrator <jmilner@robarts.ca> to inquire about using the Western Abaqus license. You will need to provide your username and possibly make arrangements to purchase tokens. If you are granted access then you may proceed to configure your <code>abaqus.lic</code> file to point to the Western license server:
-
-=== Configure license file ===
+The Western abaqus site license may only be used by Western researchers on compute hardware located on Western's campus. Currently, only the Dusky cluster satisfies this condition. The Nibi and SHARCNET OOD systems may not be used since they are located on Waterloo's campus. Contact the Western Abaqus license server administrator <jmilner@robarts.ca> to inquire about being added to the Western Abaqus license. You will need to provide your alliance username and possibly make arrangements with your supervisor to purchase tokens. If you are granted access then you may proceed to login to Dusky and configure your <code>abaqus.lic</code> file using a text editor such as <code>nano</code> to contain the following single line:
 
 <source lang="bash">
+[laptop:~] ssh dusky.alliancecan.ca
+
 [dus241:~] cat .licenses/abaqus.lic
-prepend_path("LM_LICENSE_FILE","27000@license4.sharcnet.ca")
-prepend_path("ABAQUSLM_LICENSE_FILE","27000@license4.sharcnet.ca")
+prepend_path("ABAQUSLM_LICENSE_FILE","27000@authorize.robarts.ca")
 </source>
-Once configured, submit your job as described in the <i>Cluster job submission</i> section above. If there are any problems submit a problem ticket to [[Technical support|technical support]]. Specify that you are using the Abaqus Western license on dusky and provide the failed job number along with a paste of any error messages as applicable.
+
+Now you may submit your job using a slurm script and the sbatch command as described in the <i>Cluster job submission</i> section above. If there are any problems submit a problem ticket to [[Technical support|technical support]]. Specify that you are using the Abaqus Western license on dusky and provide the failed job number along with a paste of any error messages as applicable.

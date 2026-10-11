@@ -81,16 +81,16 @@ title: Home
 | **Narval** | :material-check-circle:{ style="color: green" } Operational |
 | **Cedar Cloud** | :material-check-circle:{ style="color: green" } Operational |
 | **Graham Cloud** | :material-check-circle:{ style="color: green" } Operational |
-| **Nibi** | :material-check-circle:{ style="color: green" } Operational |
+| **Nibi** | :material-alert:{ style="color: orange" } Partial power outage |
 | **Fir** | :material-check-circle:{ style="color: green" } Operational |
 | **Rorqual** | :material-check-circle:{ style="color: green" } Operational |
-| **Arbutus** | :material-check-circle:{ style="color: green" } Operational |
+| **Arbutus** | :material-alert:{ style="color: orange" } Volume Storage Slowness |
 | **Juno** | :material-check-circle:{ style="color: green" } Operational |
 | **Killarney** | :material-check-circle:{ style="color: green" } Operational |
 | **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
 | **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-10-04 03:19 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-10-11 02:42 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -100,18 +100,18 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 
 | Date | Event | Link |
 |------|-------|------|
-| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-demystifying-quantum-computing-1997855863669?aff=explora) |
-| TBD | Untitled | [Details](https://www.eventbrite.com/e/first-steps-on-supercomputers-online-cip101-registration-1998915143002?aff=explora) |
 | TBD | Untitled | [Details](https://scinet.courses/1408) |
-| TBD | Untitled | [Details](https://engagedri-ca.zoom.us/meeting/register/qyVNT5V6S12s-h1CwuaGZg) |
-| TBD | Untitled | [Details](https://training.sharcnet.ca/courses/course/view.php?id=44) |
-| TBD | Untitled | [Details](https://engagedri-ca.zoom.us/webinar/register/WN_ydxchzr4TKm3Xu1ke5mTuw) |
-| TBD | Untitled | [Details](https://scinet.courses/1409) |
-| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-introduction-a-la-ligne-de-commande-linux-en-ligne-lnx101-1998915288437?aff=explora) |
-| TBD | Untitled | [Details](https://www.ace-net.ca/training-course/introduction-to-computational-thinking-mun/) |
-| TBD | Untitled | [Details](https://training.computeontario.ca/courses/course/view.php?id=108) |
+| TBD | Untitled | [Details](https://engagedri-ca.zoom.us/webinar/register/WN_JcPrzBkxSTK-KpITfs1ntg) |
+| TBD | Untitled | [Details](https://www.eventbrite.com/e/from-sample-tracking-to-genomic-variant-analysis-with-stager-and-seqr-tickets-2002952890012) |
+| TBD | Untitled | [Details](https://engagedri-ca.zoom.us/webinar/register/WN_3b_mo1JCTUWU76uCiJ1FXg) |
+| TBD | Untitled | [Register](https://forms.gle/mNfAVjb8UUHVdfDh7) |
+| TBD | Untitled | [Register](https://libcal.mcmaster.ca/event/4050965) |
+| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-theorie-du-calcul-quantique-en-ligne-ciq101-1998915386731?aff=explora) |
+| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4058330) |
+| TBD | Untitled | [Details](https://bioinformatics.ca/workshops-all/2026-machine-learning-halifax-ns/) |
+| TBD | Untitled | [Details](https://www.ace-net.ca/training-course/machine-learning-foundations/) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-10-04 03:19 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-10-11 02:42 UTC.*</small>
 
 ---
 

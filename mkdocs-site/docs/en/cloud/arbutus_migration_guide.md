@@ -4,116 +4,113 @@ slug: "arbutus_migration_guide"
 lang: "en"
 
 source_wiki_title: "Arbutus Migration Guide/en"
-source_hash: "665c7e3af3620b7a9396f4cf650e1b1c"
-last_synced: "2026-09-20T00:48:35.777859+00:00"
-last_processed: "2026-09-20T01:39:48.660063+00:00"
+source_hash: "802ab0376a792e68aeae94239e971b08"
+last_synced: "2026-10-11T01:39:35.690021+00:00"
+last_processed: "2026-10-11T02:23:23.871564+00:00"
 
 tags:
   - cloud
 
 keywords:
-  - "OpenStack RC file"
-  - "install rclone"
-  - "volume-backed instances"
-  - "OpenStack CLI"
-  - "rclone.conf"
-  - "Migration using Glance images"
-  - "CephFS shared filesystem"
-  - "rsync data transfer"
-  - "security groups and rules"
-  - "dnf install"
-  - "configuration testing"
-  - "AlmaLinux 9"
-  - "unauthenticated S3 access"
-  - "source opensrc.sh"
-  - "rclone sync"
-  - "rclone"
-  - "legacy Arbutus Cloud"
-  - "new Arbutus cloud"
-  - "endpoint"
-  - "Python"
-  - "Linux dd"
-  - "environment variables"
-  - "MySQL username alteration"
-  - "migration scenarios"
-  - "dd utility"
-  - "python-openstackclient"
-  - "Let’s Encrypt TLS certificate renewal"
-  - "secret_access_key"
-  - "object storage migration"
-  - "rsync over SSH"
-  - "OpenStack CLI"
-  - "SSH key migration"
-  - "RC file modification"
+  - "OpenStack RC files"
   - "Migrating volume-backed instances"
-  - "bucket ACLs"
-  - "temporary migration host"
-  - "volume attachment"
-  - "migration deadline October 15 2026"
+  - "rclone"
+  - "AlmaLinux 9"
+  - "SSH key migration"
+  - "environment variables"
+  - "configuration files"
+  - "security groups and rules"
+  - "dd utility"
   - "Manual or orchestrated migration"
-  - "Globus Plus subscription"
-  - "access_key_id"
+  - "ssh dd copy"
+  - "DNS entries"
+  - "rsync -avp"
+  - "IP addresses"
+  - "Migration scenarios"
+  - "ephemeral instance"
   - "outage window planning"
-  - "Arbutus Cloud"
-  - "Glance images"
-  - "CephFS shared filesystem migration"
-  - "floating IP addresses"
-  - "new Arbutus Cloud"
+  - "OpenStack RC file"
+  - "OpenStack image create"
+  - "S3 API"
+  - "delete old instances"
+  - "alternative method: dd"
+  - "bucket ACLs"
+  - "backups"
+  - "OpenStack CLI"
+  - "migration"
+  - "unauthenticated access"
+  - "bucket name collisions"
   - "firewall rules"
-  - "command-line tools"
-  - "pg_hba.conf"
-  - "copying data"
-  - "Arbutus object storage"
-  - "rclone tool"
-  - "ephemral instance"
-  - "rsync"
-  - "Arbutus cloud"
+  - "python-openstackclient"
+  - "image upload/download"
+  - "large data volumes"
+  - "tenant"
   - "Globus Connect Personal"
+  - "Arbutus instance"
+  - "Object storage endpoint"
+  - "screen command"
+  - "RC file activation"
+  - "CephFS share migration"
+  - "Swift API"
+  - "Project owners"
+  - "S3 credentials"
+  - "ceph-new.conf"
+  - "sync command"
+  - "Arbutus object storage"
+  - "rsync + ssh"
+  - "migration deadline October 15 2026"
+  - "legacy Arbutus Cloud"
+  - "rsync for large volumes"
+  - "legacy cloud to new cloud"
+  - "migrating instances and volumes"
+  - "post-transfer configurations"
+  - "Glance images"
+  - "temporary migration host"
+  - "volume-backed instances"
+  - "new Arbutus Cloud"
+  - "OpenStack client installation"
   - "Migrating ephemeral instances"
-  - "volume snapshots"
-  - "legacy Arbutus cloud"
-  - "image upload"
 
 questions:
-  - "What resources (instances, volumes, storage containers, networks, keys, etc.) currently exist on the legacy Arbutus Cloud and need to be migrated versus those that can be deleted?"
-  - "Are your workloads using volume‑backed instances or volumes larger than 150 GB, and do you rely on automation tools (e.g., Terraform, Ansible) or custom DNS entries that will influence the migration method?"
-  - "How will you manage backups, ensure all users have active Alliance accounts, plan for potential outage communication, and submit any required rapid‑access migration requests?"
-  - "What is the purpose of downloading OpenStack RC files?"
-  - "How should the RC files be copied and modified for use in the new Arbutus cloud?"
-  - "How can you test and confirm that an RC file is correctly activated in a shell session?"
-  - "How do you migrate SSH key pairs from the legacy Arbutus Horizon dashboard to the new Arbutus Horizon dashboard?"
-  - "What steps are required to recreate security groups and rules in the new Arbutus Cloud while preserving the default egress rules?"
-  - "What modifications must be made to the downloaded RC file for the new Arbutus cloud, and how do you set up the OpenStack client environment?"
-  - "What are the main steps recommended for migrating instances from the legacy OpenStack cloud to the new cloud?"
-  - "How does the migration method differ for volume‑backed instances that are smaller than 150 GB compared to larger volumes?"
-  - "Which commands and actions are required to create, download, and upload a Glance image of a volume‑backed instance during the migration?"
-  - "What is the purpose of creating new instances and volumes with the same specifications during a manual or orchestrated migration?"
-  - "How are files and data transferred from the legacy Arbutus Cloud to the new environment in this migration scenario?"
-  - "When should you choose manual or orchestrated migration instead of migrating volume‑backed or ephemeral instances?"
-  - "Which Linux distribution is suggested for installing the OpenStack CLI in the guide?"
-  - "What are the exact commands required to install the OpenStack CLI on AlmaLinux 9?"
-  - "Where can you find further instructions for installing the OpenStack CLI on systems other than AlmaLinux?"
-  - "What are the step‑by‑step procedures for migrating a volume from the legacy OpenStack cloud to the new cloud using the `dd` utility?"
-  - "Why does the guide advise using rsync (or similar tools) for large volumes, and in which situations is the `dd`‑based method recommended instead?"
-  - "How must temporary instances, floating IPs, and SSH/security settings be configured to enable a successful `dd` transfer between the legacy and new clouds?"
-  - "What are the key steps for migrating an instance using Glance images?"
-  - "How does the alternative migration method using Linux ‘dd’ differ for ephemeral versus volume‑backed instances?"
-  - "What criteria determine the most suitable data‑copy approach when transferring data between instances across two clouds?"
-  - "What are the required steps to set up Globus Connect Personal Plus for transferring data volumes larger than 5 TB between cloud instances?"
-  - "How can rsync over SSH be used to transfer smaller data sets, and what network considerations (e.g., IPv6 GUA) should be taken into account?"
-  - "After moving data to a new cloud instance, which post‑transfer configuration tasks (firewall rules, DNS updates, IP address changes, TLS certificate renewal, CephFS migration, etc.) need to be performed to ensure services operate correctly?"
-  - "What steps are required to renew Let’s Encrypt TLS certificates when IP addresses appear in the certificate’s Subject Alternate Name (SAN)?"
-  - "How should configuration changes—such as modifying pg_hba.conf or MySQL usernames—be tested before informing the research team that migration is complete?"
-  - "What specific actions must be taken to intentionally migrate data to the separate CephFS shared filesystem on the new cloud?"
-  - "What are the required steps and configuration changes to migrate a CephFS share from the legacy Arbutus cloud to the new Arbutus cloud?"
-  - "Which tools are recommended for copying data between legacy and new object storage, and what limitations regarding bucket ACLs and tenant IDs should be considered?"
-  - "How should the rsync command be constructed when transferring data between mounted legacy and new shares, and what precautions can be taken to maintain session stability during large transfers?"
-  - "What is the correct URL format for unauthenticated S3 access in the Arbutus object storage system?"
-  - "Which tool does the text recommend for copying data between the legacy and new Arbutus clouds, and what limitation does it have regarding bucket ACLs?"
-  - "What are the required steps to set up and use rclone for migrating objects, including credential creation and installation?"
-  - "Where should the rclone configuration file be stored on Linux or macOS systems?"
-  - "What specific fields need to be filled in for the [new] and [legacy] sections of the rclone.conf file?"
-  - "Which rclone command is used to synchronize all buckets between the legacy and renewal environments?"
+  - "What is the final deadline for migrating all resources from the legacy Arbutus Cloud to the new Arbutus Cloud?"
+  - "Which resources and specific characteristics (e.g., volume‑backed vs. ephemeral instances, volumes over 150 GB) need to be identified before planning the migration?"
+  - "What preparatory steps (such as creating backups, downloading RC files, and updating DNS or security groups) are required to successfully perform the migration?"
+  - "1. 为什么项目所有者需要负责创建可能在迁移过程中需要的备份？"
+  - "2. 在两个云平台中，如何使用账户凭证下载 OpenStack RC 文件？"
+  - "3. 将下载的 OpenStack RC 文件复制到迁移主机后，需要执行哪些步骤来更改新 Arbutus 云中的 RC 文件？"
+  - "How can you verify that an RC file is correctly set up and active for accessing both the legacy and new Arbutus OpenStack clouds?"
+  - "What is the process for migrating SSH key pairs from the legacy Arbutus Horizon dashboard to the new Arbutus Horizon dashboard?"
+  - "Which security group egress rules must be retained during migration, and what outage‑planning steps are recommended to prevent data inconsistency?"
+  - "What are the main steps involved in a manual or orchestrated migration from the legacy Arbutus Cloud to the new Arbutus Cloud?"
+  - "How can volume‑backed instances be migrated using Glance images, and what size limitations apply to this method?"
+  - "What alternative method is suggested for migrating a volume‑backed instance, and what are the prerequisites for the temporary migration host?"
+  - "What commands are used to create and activate a Python virtual environment for installing OpenStack client tools?"
+  - "Which Python packages are installed in the virtual environment to work with OpenStack services?"
+  - "What are the three general migration scenarios described for moving instances in OpenStack?"
+  - "What steps must be taken after migrating and validating instances and volumes, including DNS updates, before deleting the old resources on the legacy cloud?"
+  - "How does the alternative migration method using Linux `dd` work for moving a volume‑backed instance?"
+  - "What are the recommended specifications and operating system for the temporary migration host used in this process?"
+  - "What commands are needed to install and verify the OpenStack CLI on an AlmaLinux system?"
+  - "How do you migrate a volume from a legacy OpenStack cloud to a new cloud using the `dd` utility, including the required preparation steps and commands?"
+  - "Why is `dd` discouraged for large‑volume migrations, and what alternative method is recommended for such cases?"
+  - "What is the role of the `screen` command in the provided migration procedure?"
+  - "How does the `dd` command combined with `ssh` and `pv` create an exact copy of a volume from the legacy cloud to the new cloud?"
+  - "What characterizes an “ephemeral instance” according to the text?"
+  - "What steps are required to request a Globus Connect Personal Plus subscription and configure Globus Connect Personal on each cloud instance for large‑volume data transfers?"
+  - "How can rsync over SSH be used to copy small data volumes between instances, and what network settings (e.g., IPv6 GUA) should be considered?"
+  - "What post‑transfer tasks—such as firewall rule updates, DNS changes, and configuration file edits—should be performed after moving data to the new cloud instance?"
+  - "What post‑transfer configurations are typically required after moving data to a new instance?"
+  - "How should firewall rules be updated to accommodate new IP addresses or networks after the migration?"
+  - "Which configuration files and DNS entries need to be revised to reflect the new IP addresses, and what steps are involved?"
+  - "What are the required steps to migrate a legacy CephFS share to the new Arbutus cloud while ensuring data integrity?"
+  - "How must the Ceph configuration file and mount command be adjusted for mounting a new share in the new cloud environment?"
+  - "What key considerations (e.g., ACL preservation, UUID differences, tenant handling) must be addressed when migrating object storage buckets and objects from the legacy to the new Arbutus cloud?"
+  - "How does the use of tenants in the new cloud change the scope of bucket name collisions?"
+  - "When authenticating with the Swift or S3 API, how is the tenant inferred, and what must be provided for public (unauthenticated) bucket access?"
+  - "Where can the URL for unauthenticated Swift access be found, and what is the required format for the unauthenticated S3 access URL?"
+  - "What steps are needed to set up rclone with the correct S3 credentials for both the legacy and new Arbutus object storage environments?"
+  - "How does rclone treat bucket ACLs during the migration, and what default access level will the objects have in the new location?"
+  - "Which rclone command should be used to synchronize all buckets from the legacy storage to the new Arbutus storage?"
 
 status:
   downloaded: true
@@ -143,18 +140,18 @@ To plan your migration, you should be able to answer the following questions abo
 *   Do you have custom DNS entries? **If so, they will need to be updated because the new Arbutus Cloud uses different floating IP address ranges.**
 *   Do you use the OpenStack dashboard or the OpenStack Command Line Interface (CLI) to manage your Arbutus Cloud resources? **Simple migrations can be done via the Web user interface, but complex migrations may require CLI access.**
 *   Do all users who need access have an active account with the Alliance? Remember that account sharing is strictly forbidden. **Any person who requires an account should [apply on CCDB](../getting-started/apply_for_a_ccdb_account.md).**
+*   If you have a large amount of data, migrating with [IPv6](using_ipv6_in_cloud.md) may be faster than migrating with IPv4. **Are you able to use IPv6 on both old and new instances?**
 *   Depending on the scope of the migration, an outage of a couple of hours to a couple of days may occur. **How will you manage this outage? Who needs to be informed?**
 *   **If your resources were obtained via the rapid access service, you must submit a migration request to [cloud@tech.alliancecan.ca](mailto:cloud@tech.alliancecan.ca).**
 
 Once you have answered these questions, you will be ready to plan your cloud migration.
 
 ## Basic information
-
 To access the OpenStack dashboard, URLs are
 
 **Legacy Arbutus Cloud:** [https://arbutus.cloud.computecanada.ca](https://arbutus.cloud.computecanada.ca)
 
-**New Arbutus Cloud:** [https://arbutus.alliancecan.ca](https://arbutus.alliancecan.ca/)
+**New Arbutus Cloud:** [https://arbutus.alliancecan.ca/](https://arbutus.alliancecan.ca/)
 
 Firefox and Chrome browsers are supported. Safari and Edge may work, but they have not been tested.
 
@@ -169,7 +166,7 @@ Your Arbutus Cloud project (tenant), network, and router will be pre-created for
 2.  Copy the OpenStack RC files to the host you will be using for the migration and follow the instructions in *Changing the RC file in the new Arbutus cloud* below.
 3.  Test the RC file(s) to confirm you can access your projects in both clouds:
     1.  Activate an RC file by sourcing it (`source opensrc.sh`) in a shell session. Only one RC file can be active in a given shell session at a time.
-    2.  Test your configuration by running `openstack volume list`.
+    2.  Test your configuration by running `openstack volume list`).
 4.  Migrate SSH keys:
     1.  From the legacy Arbutus Horizon dashboard, navigate to *Compute -> Key Pairs*. Click on the name of the key pair you want and copy the public key value.
     2.  From the new Arbutus Horizon dashboard, navigate to *Compute -> Key Pairs*. Click on *Import Public Key*, name your key pair and paste it in the public key for the legacy Arbutus Cloud.
@@ -185,12 +182,11 @@ Your Arbutus Cloud project (tenant), network, and router will be pre-created for
         openstack security group rule create --proto tcp --remote-ip 0.0.0.0/0 --dst-port 80 <group-name>
         ```
     5.  To view rules via the CLI,
-        *   Run `openstack security group list` to list the available security groups.
-        *   Run `openstack security group rule list` to view the rules for the group.
+        *   run `openstack security group list` to list the available security groups.
+        *   run `openstack security group rule list` to view the rules for the group.
 6.  Plan an outage window. Generally, shutting down services and then shutting down the instance is the best way to avoid corrupt or inconsistent data after the migration. Smaller volumes can be copied over fairly quickly; e.g., a 10GB volume will copy over in less than 5 minutes, but larger volumes (e.g., 100GB) can take 30 to 40 minutes. Plan for this. Additionally, floating IP addresses will change, so ensure the TTL of your DNS records is set to a small value so that the changes propagate as quickly as possible.
 
 ## Changing the RC file in the new Arbutus cloud
-
 After downloading a new RC file from the new Arbutus cloud, you have to modify the file by adding the following lines:
 
 ```bash
@@ -216,7 +212,6 @@ export OS_PASSWORD=$OS_PASSWORD_INPUT
 ```
 
 The final RC file should contain lines that look like these:
-
 ```bash
 export OS_AUTH_URL=https://identity.arbutus.alliancecan.ca/
 export OS_PROJECT_ID=xIDx
@@ -235,21 +230,17 @@ export OS_PROJECT_DOMAIN_NAME=default
 ```
 
 Now, create a virtual environment to install the OpenStack Client and other necessary packages.
-
 ```bash
-$ python3 -m venv openstack
-$ source openstack/bin/activate
-$ pip install python-openstackclient keystoneauth-websso python-manilaclient
+python3 -m venv openstack
+source openstack/bin/activate
+pip install python-openstackclient keystoneauth-websso python-manilaclient
 ```
 
 ## Migration scenarios
-
 There are three general migration scenarios to consider.
-
 *   [Manual or orchestrated migration](#manual-or-orchestrated-migration)
 *   [Migrating volume-backed instances](#migrating-volume-backed-instances)
 *   [Migrating ephemeral instances](#migrating-ephemeral-instances)
-
 Depending on your current setup, you may use any or all of these scenarios.
 
 ### Manual or orchestrated migration
@@ -262,7 +253,7 @@ In this scenario, new instances and volumes are created in the new Arbutus Cloud
 4.  Assign floating IP addresses to the new instances and update DNS.
 5.  Decommission the old instances and delete old volumes.
 
-These steps can be done manually or orchestrated via various configuration management tools such as [Ansible](https://docs.ansible.com/ansible/2.5/modules/list_of_cloud_modules.html), [Terraform](https://www.terraform.io/docs/providers/openstack/ Terraform), or [Heat](https://wiki.openstack.org/wiki/Heat). The use of such tools is beyond the scope of this document, but if you were already using orchestration tools on the legacy Arbutus cloud, they should work with the new cloud as well.
+These steps can be done manually or orchestrated via various configuration management tools such as [Ansible](https://docs.ansible.com/ansible/2.5/modules/list_of_cloud_modules.html), [Terraform](https://www.terraform.io/docs/providers/openstack/), or [Heat](https://wiki.openstack.org/wiki/Heat). The use of such tools is beyond the scope of this document, but if you were already using orchestration tools on the legacy Arbutus cloud, they should work with the new cloud as well.
 
 ### Migrating volume-backed instances
 
@@ -270,39 +261,35 @@ Volume-backed instances, as their name implies, have a persistent volume attache
 
 #### Migration using Glance images
 
-This method is recommended for volumes less than 150GB in size. For volumes larger than that, the approach described in [Manual or orchestrated migration](#manual-or-orchestrated-migration) above is preferred.
+This method is recommended for volumes less than 150GB in size. For volumes larger than that, the approach described in [*Manual or orchestrated migration*](#manual-or-orchestrated-migration) above is preferred.
 
 1.  Open two SSH sessions to the volume-backed instance you plan to migrate.
-2.  In one session, source the OpenStack RC file for the legacy cloud. In the other session, source the OpenStack RC file for the new cloud. Use of the `screen` command is recommended in case of SSH disconnections. To install the screen package, run `dnf install screen`.
+2.  In one session, source the OpenStack RC file for the legacy cloud. In the other session, source the OpenStack RC file for the new cloud.
+    Use of the `screen` command is recommended in case of SSH disconnections. To install the screen package, run `dnf install screen`.
 3.  On the legacy cloud instance, install the OpenStack CLI in a root shell:
     ```bash
     dnf install epel-release
     dnf install python-devel python-pip gcc
     pip install python-openstackclient
     ```
-4.  In the legacy cloud web user interface, shut down the instance and detach the volume. If the volume is for booting an instance, delete the instance, but keep the volume. Create an image of the desired volume (*Volumes -> Volumes* and *Upload to Image* from the drop-down menu). Make sure to select RAW as the disk format.
+4.  In the legacy cloud web user interface, shut down the instance and detach the volume.
+    If the volume is for booting an instance, delete the instance, but keep the volume.
+    Create an image of the desired volume (*Volumes -> Volumes* and *Upload to Image* from the drop-down menu).
+    Make sure to select RAW as the disk format.
 5.  The command line can also be used to do this:
-    ```bash
-    openstack image create --volume <volume name/id> <newimagename> --private
-    ```
+    `openstack image create --volume <volume name/id> <newimagename> --private`
     This command runs in the background and may take some time. Once the image is created, it will show up under *Compute -> Images* with the name you specified in the previous step. You can obtain the id of the image by clicking on its name. Eventually the command line will show the status go from *saving* to *active*; this may take an hour or longer, depending on the size of your volume.
-    ```bash
-    openstack image show <newimagename>
-    ```
+    `openstack image show <newimagename>`
 6.  In the legacy cloud session, download the image (replace the `<filename>` and `<image-id>` with real values).
-    ```bash
-    openstack image save --file <filename> <image-id>
-    ```
-7.  In the new cloud session on the migration host, upload the image (replace `<filename>` with the name from the previous step; `<image-name>` can be anything).
-    ```bash
-    openstack image create --private --file <file> <newImageName>
-    ```
+    `openstack image save --file <filename> <image-id>`
+7.  In the new cloud session on the migration host, upload the image (replace `<filename>` with the name from the previous step; `<image-name>` can be anything.)
+    `openstack image create --private --file <file> <newImageName>`
 8.  You can now create a volume from the uploaded image. In the new cloud web UI, navigate to *Compute -> Images*. The uploaded image from the previous step should be there. In the drop-down menu for the image, select the option *Create Volume* and the volume will be created from the image. The created volume can then be attached to instances or used to boot a new instance.
 9.  Once you have migrated and validated your instances and volumes, and once all associated DNS records are updated, please delete your old instances and volumes on the legacy cloud.
 
 #### Alternative method: Migrating a volume-backed instance using Linux 'dd'
 
-1.  Launch an instance on the legacy cloud with the smallest flavour possible (p1-1.5gb). Let’s call this the *temporary migration host*. The instructions below assume you choose AlmaLinux 9, but any Linux distribution with Python and Pip available should work.
+1.  Launch an instance on the legacy cloud with the smallest flavor possible (p1-1.5gb). Let’s call this the *temporary migration host*. The instructions below assume you choose AlmaLinux 9, but any Linux distribution with Python and Pip available should work.
 2.  Log into the instance via SSH and install the OpenStack CLI in a root shell.
     ```bash
     dnf install epel-release
@@ -312,7 +299,8 @@ This method is recommended for volumes less than 150GB in size. For volumes larg
 3.  To verify if it is installed, try executing OpenStack on the command line. For further instructions, including installing the OpenStack CLI on systems other than AlmaLinux, see [https://docs.openstack.org/newton/user-guide/common/cli-install-openstack-command-line-clients.html](https://docs.openstack.org/newton/user-guide/common/cli-install-openstack-command-line-clients.html).
 4.  Copy your OpenStack RC file from the new cloud to the temporary migration host and source it. Verify that you can connect to the OpenStack API on the new cloud by running `openstack image list`.
 5.  Delete the instance to be moved, but do NOT delete the volume it is attached to. The volume is now free to be attached to the temporary migration host we created.
-6.  In the legacy cloud web UI, go to *Volumes -> Volumes*. From the drop-down menu select *Manage Attachments* and attach the volume to the temporary migration host. Take note of the device to which the volume is attached (typically /dev/vdb or /dev/vdc).
+6.  In the legacy cloud web UI, go to *Volumes -> Volumes*. From the drop-down menu select *Manage Attachments* and attach the volume to the temporary migration host.
+    Take note of the device to which the volume is attached (typically /dev/vdb or /dev/vdc).
 7.  Using the `dd` utility, create an image from the disk identified in the previous step. In the following example, we've named it *volumemigrate*. When the command completes, you will receive output showing the details of the image that was created.
     ```bash
     dd if=/dev/vdb | openstack image create --private --container-format bare --disk-format raw "volumemigrate"
@@ -321,7 +309,6 @@ This method is recommended for volumes less than 150GB in size. For volumes larg
 9.  Once you have migrated and validated your volumes and instances, and once any associated DNS records are updated, please delete your old instances and volumes on the legacy cloud.
 
 #### Migrating large volumes using Linux 'dd'
-
 Image-based methods are not recommended for large volumes. Instead, we recommend copying over your data to new volumes on Arbutus using rsync or a similar file copy tool wherever possible. In cases where this is not possible (e.g., for a bootable volume), the `dd` command can be used to make an identical copy on the new cloud of a volume from the legacy cloud.
 
 As always, back up any important data prior to performing these steps.
@@ -354,11 +341,9 @@ Once the process is complete, you will have an exact copy of the volume from the
 An ephemeral instance is an instance without a backing volume.
 
 #### Migration using Glance images and volume snapshots
-
 See the [Migration using Glance images](#migration-using-glance-images) section above.
 
 #### Alternative method: Migrating an ephemeral instance using Linux 'dd'
-
 See the [Alternative method: Migrating a volume-backed instance using Linux 'dd'](#alternative-method-migrating-a-volume-backed-instance-using-linux-dd) section above.
 
 ## Copying data
@@ -366,7 +351,6 @@ See the [Alternative method: Migrating a volume-backed instance using Linux 'dd'
 Here are two recommended approaches for copying data between instances running in the two clouds. The most appropriate method depends on the size of the data volumes in your tenant.
 
 ### Large data volumes: Globus
-
 For very large volumes (e.g., greater than 5TB) Globus is recommended.
 
 There are several steps that need to be taken in order to make this work. The simplest method is to use the Globus Connect Personal client with a Globus Plus subscription. Following is a list of steps required:
@@ -375,7 +359,7 @@ There are several steps that need to be taken in order to make this work. The si
     *   Send an email to [globus@tech.alliancecan.ca](mailto:globus@tech.alliancecan.ca) with your information and ask to be added to the Globus Plus subscription.
     *   When you receive the Plus invitation, follow the included instructions.
 2.  **On each cloud instance involved in the data transfer, enable Globus Connect Personal:**
-    *   Read the relevant guides for Globus Connect Personal: [Personal Computers](../getting-started/globus.md#personal-computers) and [https://www.globus.org/globus-connect-personal](https://www.globus.org/globus-connect-personal).
+    *   Read the relevant guides for Globus Connect Personal: [Personal Computers](../getting-started/globus.md#personal-computers) and [https://www.globus.org/globus-connect-personal](https://www.globus.org/globus-connect-personal)
     *   Install Globus Connect Personal on each instance, using the proper guide. The guide for Linux is [https://docs.globus.org/how-to/globus-connect-personal-linux/](https://docs.globus.org/how-to/globus-connect-personal-linux/).
     *   Adjust instances’ configuration to enable communication with the Globus Service:
         *   Ensure each VM has an external IP address.
@@ -392,7 +376,6 @@ For more on configuration details, see: [https://computecanada.github.io/DHSI-cl
 Contact [globus@tech.alliancecan.ca](mailto:globus@tech.alliancecan.ca) if any issues arise during this whole process. We also recommend you submit a support ticket in advance if you have very large volumes to move.
 
 ### Small data volumes: rsync + ssh
-
 You may use any other method you are familiar with for transferring data; for small volumes however, rsync+ssh provides good transfer speeds and can (like Globus) work in an incremental way. When moving data with rsync, consider using the IPv6 GUA network in OpenStack. This network is a VLAN network that bypasses the OpenStack Neutron component, potentially offering improved data transfer performance.
 
 A typical use case would be:
@@ -411,7 +394,7 @@ Once your data is transferred to the new instance, there may be some post-transf
 *   updating firewall rules to use any new IP addresses and networks if a host-based firewall (e.g. iptables, firewalld, etc.) is used;
 *   working with your DNS provider to update DNS entries for any custom domains (e.g., www.myarbutusproject.ca);
 *   updating IP addresses in configuration files (e.g., /etc/hosts, /etc/resolv.conf, /etc/haproxy/haproxy.cfg, /var/www/ /var/lib/pgsql/data/pg_hba.conf);
-*   altering usernames (e.g., 'root'@'192.168.65.%') in MySQL;
+*   altering usernames (e.g., 'root'@'192.168.65.%) in MySQL;
 *   renewing Let’s Encrypt Transport Layer Security (TLS) certificates using certbot or other utilities if, for example, there are IP addresses in the certificate’s Subject Alternate Name (SAM).
 
 Make sure you test the configuration before informing your research team and users that the migration has been completed.
@@ -463,7 +446,9 @@ If you’re using bucket ACLs, check if the tool you use copies them correctly, 
 
 Additionally, object storage in the new cloud uses tenants; therefore, bucket name collisions will only happen within an individual project instead of across all projects. When authenticating with either the Swift or S3 API, the tenant is inferred from the user/key provided. However, for public access to buckets with no authentication, the tenant must be specified. The Tenant ID is identical to the OpenStack Project ID. The URL for unauthenticated Swift access can be found via the Horizon interface, while the URL for unauthenticated S3 access is of the following format:
 
-`https://object-arbutus.alliancecan.ca/<tenant-id>:<bucket-name>/<object-name>`
+```text
+https://object-arbutus.alliancecan.ca/<tenant-id>:<bucket-name>/<object-name>
+```
 
 If you are not sure which tool to use, we recommend rclone. Rclone will not copy the bucket ACLs, so all access will initially be defaulted as private in the new location. Here is an example:
 
@@ -472,7 +457,7 @@ If you are not sure which tool to use, we recommend rclone. Rclone will not copy
 3.  Create a config file for rclone:
     *   File location on linux/MacOS: `~/.config/rclone/rclone.conf`
     *   File contents, inserting your access and secret values for each environment:
-        ```text
+        ```ini
         [new]
         type = s3
         access_key_id = <RENEWAL ACCESS KEY>
@@ -488,4 +473,4 @@ If you are not sure which tool to use, we recommend rclone. Rclone will not copy
 
 ## Getting help
 
-Support requests can be sent to [cloud@computecanada.ca](mailto:cloud@tech.alliancecan.ca).
+Support requests can be sent to [cloud@tech.alliancecan.ca](mailto:cloud@tech.alliancecan.ca).
